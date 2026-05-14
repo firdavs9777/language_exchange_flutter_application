@@ -58,6 +58,14 @@ The §3 status table in `AI_STUDY_PROCESS.md` marks these as ❌ aspirational. T
 
 - [ ] **(30 min) Implement OpenAI provider abstraction for future model swap.** Today `services/aiProviderService.js` is OpenAI-only. If model pricing shifts or Claude / Gemini becomes more attractive for one of our use cases (e.g., Whisper alternatives, cheaper vision), swapping is a multi-file change touching every caller. A thin abstraction layer (`callLLM({provider, model, ...})` with provider implementations behind a switch) means future swaps are a config change. Not urgent — flagged as preparation so it doesn't surface as urgent later under cost pressure.
 
+### Step 16 follow-up — story interaction pushes
+
+Step 16 originally planned a "story comment" push (B4). On execution we discovered stories don't have comments — they have reactions (emoji) and replies (which route through DMs and already get the regular chat push). The plan was adjusted to skip B4.
+
+- [ ] **(45 min) Add story reaction push notifications.** When user A reacts ❤️ to user B's story, B gets a "A reacted to your story" push. Backend: new `sendStoryReaction(storyOwnerId, reactorId, storyId, emoji)` typed helper in `services/notificationService.js`. Fire from wherever `Story.reactions.push` happens (search controllers/story.js or wherever reactions are added). Gate by the existing `comment` preference field (added in Step 16 B1) OR add a new `storyReaction` field — bikeshed. Flutter: add a `story_reaction` case to `notification_router.dart` deep-linking to `/story/{storyId}`. Forward-compat type strings `story_comment` are already wired both sides — kept for the day stories get real comments.
+
+- [ ] **(30 min) Surface "X replied to your story" more specifically.** Today story replies go through the DM path and the recipient gets a generic chat push. Could detect the message's `replyToStory` field (if it exists on the Message schema) in the chat push builder and customize the title to "X replied to your story" instead of "X sent you a message." Minor UX polish.
+
 
 ### Legacy endpoint cleanup (downstream of the product decision above)
 
