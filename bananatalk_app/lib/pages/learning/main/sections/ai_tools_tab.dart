@@ -18,6 +18,8 @@ import 'package:bananatalk_app/pages/ai/tutor/scenario_picker_screen.dart';
 import 'package:bananatalk_app/pages/ai/tutor/story_setup_screen.dart';
 import 'package:bananatalk_app/pages/ai/tutor/image_vocab_screen.dart';
 import 'package:bananatalk_app/pages/ai/tutor/pronunciation_start_screen.dart';
+import 'package:bananatalk_app/pages/learning/vocabulary/vocabulary_review_screen.dart';
+import 'package:bananatalk_app/providers/provider_root/learning/vocabulary_providers.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
@@ -48,6 +50,12 @@ class AIToolsTab extends ConsumerWidget {
             // AI Tutor hero (replaces the old AI Chat banner)
             _AITutorHero(),
             const SizedBox(height: 12),
+
+            // Step 17 — memory loop: surface the SRS review queue when
+            // 3+ words are due. Pronunciation chip feeds this via the
+            // backend bridge (B1). Card hidden when fewer items are due
+            // so it doesn't compete with the chip grid for attention.
+            const _TutorTabReviewCard(),
 
             // 4 tutor-mode chips — direct entry to the Step 9 features
             const _TutorModeChips(),
@@ -553,6 +561,125 @@ class _MiniStatCard extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
         ],
+      ),
+    );
+  }
+}
+
+/// Step 17 — Review card on the tutor tab. Renders only when the user
+/// has 3+ words due for SRS review. Tapping pushes the existing
+/// VocabularyReviewScreen, which handles the flash-card flip + SM-2
+/// quality update on its own.
+///
+/// Threshold (3) intentionally hides the card for one-off due items so
+/// it doesn't compete with the chip grid for attention. Users with
+/// fewer items can still reach the SRS dashboard from /learning/vocabulary/.
+class _TutorTabReviewCard extends ConsumerWidget {
+  const _TutorTabReviewCard();
+
+  static const int _threshold = 3;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final dueAsync = ref.watch(dueReviewsProvider(null));
+    return dueAsync.when(
+      data: (response) {
+        final dueWords = response?.dueWords ?? const [];
+        if (dueWords.length < _threshold) return const SizedBox.shrink();
+        return Padding(
+          padding: const EdgeInsets.only(bottom: 12),
+          child: _ReviewCardBody(
+            dueCount: response?.totalDue ?? dueWords.length,
+            previewWords: dueWords
+                .take(3)
+                .map((v) => v.word)
+                .where((w) => w.isNotEmpty)
+                .toList(),
+          ),
+        );
+      },
+      loading: () => const SizedBox.shrink(),
+      error: (_, __) => const SizedBox.shrink(),
+    );
+  }
+}
+
+class _ReviewCardBody extends StatelessWidget {
+  final int dueCount;
+  final List<String> previewWords;
+  const _ReviewCardBody({required this.dueCount, required this.previewWords});
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: () {
+          Navigator.push(
+            context,
+            AppPageRoute(builder: (_) => const VocabularyReviewScreen()),
+          );
+        },
+        borderRadius: BorderRadius.circular(14),
+        child: Container(
+          padding: const EdgeInsets.all(14),
+          decoration: BoxDecoration(
+            color: Colors.orange.withValues(alpha: 0.08),
+            borderRadius: BorderRadius.circular(14),
+            border: Border.all(
+              color: Colors.orange.withValues(alpha: 0.35),
+              width: 1.5,
+            ),
+          ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: Colors.orange.withValues(alpha: 0.15),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: const Icon(
+                  Icons.refresh_rounded,
+                  color: Colors.orange,
+                  size: 22,
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '$dueCount words to review',
+                      style: context.titleSmall.copyWith(
+                        fontWeight: FontWeight.w700,
+                        color: Colors.orange.shade800,
+                      ),
+                    ),
+                    if (previewWords.isNotEmpty) ...[
+                      const SizedBox(height: 2),
+                      Text(
+                        previewWords.join(' · '),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: context.captionSmall.copyWith(
+                          color: context.textSecondary,
+                        ),
+                      ),
+                    ],
+                  ],
+                ),
+              ),
+              const SizedBox(width: 8),
+              Icon(
+                Icons.chevron_right_rounded,
+                color: Colors.orange.shade700,
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
