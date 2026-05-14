@@ -338,9 +338,16 @@ class ApiClient {
       case 500:
       case 502:
       case 503:
+        // Prefer the backend's actual error message when present — masking
+        // it as "Server error. Please try again later." hides real causes
+        // (mis-configured API key, missing env var, expired credentials)
+        // from anyone trying to debug a deploy.
+        final serverErr = body['error']?.toString();
         return build(
           success: false,
-          error: 'Server error. Please try again later.',
+          error: (serverErr != null && serverErr.isNotEmpty)
+              ? serverErr
+              : 'Server error. Please try again later.',
           statusCode: response.statusCode,
         );
 
