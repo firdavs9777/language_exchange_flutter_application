@@ -9,7 +9,9 @@ import 'package:bananatalk_app/services/api_client.dart';
 import 'package:bananatalk_app/services/ad_service.dart';
 import 'package:bananatalk_app/widgets/tutor/persona_upgrade_sheet.dart';
 import 'package:bananatalk_app/providers/call_provider.dart';
+import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/screens/incoming_call_screen.dart';
+import 'package:bananatalk_app/pages/authentication/account_suspended_screen.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -75,6 +77,33 @@ Future<void> main() async {
         builder: (_) => PersonaUpgradeSheet(triggerChip: qe.feature),
       );
       AnalyticsService.instance.quotaHit(chipName: qe.feature, tier: 'free');
+    };
+
+    // Step 14 (safety wave): banned-account 403 → clear token + push the
+    // AccountSuspendedScreen via the global overlay navigator (sits above
+    // GoRouter — same key used by the quota paywall above).
+    apiClient.onAccountSuspended = (reason) async {
+      // Best-effort logout — clears token + cached auth state. Even if it
+      // fails, the navigation below still terminates the user's session UX.
+      try {
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.remove('token');
+        await prefs.remove('userId');
+      } catch (e) {
+        debugPrint('[suspended] token cleanup failed: $e');
+      }
+      final overlayNav = callOverlayNavigatorKey.currentState;
+      if (overlayNav == null) return;
+      // Pop overlay/stack the user can't navigate back from. pushAndRemoveUntil
+      // with (_) => false clears the entire overlay route stack; the persistent
+      // GoRouter app underneath is unreachable until the suspended screen is
+      // dismissed (which only happens on app restart, by design).
+      overlayNav.pushAndRemoveUntil(
+        MaterialPageRoute(
+          builder: (_) => AccountSuspendedScreen(reason: reason),
+        ),
+        (_) => false,
+      );
     };
 
     if (token != null &&
