@@ -35,6 +35,9 @@ class Community {
     // VIP fields
     this.userMode = UserMode.regular,
     this.vipSubscriptionActive = false,
+    // Step 14 safety wave
+    this.role = 'user',
+    this.isBanned = false,
   });
 
   final String id;
@@ -70,6 +73,11 @@ class Community {
   // VIP fields
   final UserMode userMode;
   final bool vipSubscriptionActive;
+  // Step 14 safety wave — admin gating + banned-account detection.
+  final String role;
+  final bool isBanned;
+
+  bool get isAdmin => role == 'admin';
 
   /// Check if user is VIP (either userMode is vip OR vipSubscription.isActive is true)
   bool get isVip => userMode == UserMode.vip || vipSubscriptionActive;
@@ -173,6 +181,9 @@ class Community {
       // VIP fields
       userMode: UserMode.fromString(json['userMode'] ?? 'regular'),
       vipSubscriptionActive: json['vipSubscription']?['isActive'] == true,
+      // Step 14 safety wave
+      role: (json['role'] ?? 'user').toString(),
+      isBanned: json['isBanned'] == true,
     );
   }
 
@@ -270,6 +281,7 @@ class PrivacySettings {
     this.showGiftingLevel = true,
     this.birthdayNotification = true,
     this.personalizedAds = true,
+    this.anonymousProfileVisits = false,
   });
 
   final bool showCountryRegion;
@@ -280,6 +292,7 @@ class PrivacySettings {
   final bool showGiftingLevel;
   final bool birthdayNotification;
   final bool personalizedAds;
+  final bool anonymousProfileVisits;
 
   factory PrivacySettings.fromJson(Map<String, dynamic> json) {
     return PrivacySettings(
@@ -291,6 +304,7 @@ class PrivacySettings {
       showGiftingLevel: json['showGiftingLevel'] ?? true,
       birthdayNotification: json['birthdayNotification'] ?? true,
       personalizedAds: json['personalizedAds'] ?? true,
+      anonymousProfileVisits: json['anonymousProfileVisits'] ?? false,
     );
   }
 
@@ -304,6 +318,7 @@ class PrivacySettings {
       'showGiftingLevel': showGiftingLevel,
       'birthdayNotification': birthdayNotification,
       'personalizedAds': personalizedAds,
+      'anonymousProfileVisits': anonymousProfileVisits,
     };
   }
 
@@ -316,6 +331,7 @@ class PrivacySettings {
     bool? showGiftingLevel,
     bool? birthdayNotification,
     bool? personalizedAds,
+    bool? anonymousProfileVisits,
   }) {
     return PrivacySettings(
       showCountryRegion: showCountryRegion ?? this.showCountryRegion,
@@ -326,6 +342,7 @@ class PrivacySettings {
       showGiftingLevel: showGiftingLevel ?? this.showGiftingLevel,
       birthdayNotification: birthdayNotification ?? this.birthdayNotification,
       personalizedAds: personalizedAds ?? this.personalizedAds,
+      anonymousProfileVisits: anonymousProfileVisits ?? this.anonymousProfileVisits,
     );
   }
 }

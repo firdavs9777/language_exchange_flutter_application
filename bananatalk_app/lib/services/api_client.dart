@@ -40,6 +40,11 @@ class ApiClient {
   /// paywall, generic rate limit shows a toast. Step 13A.
   Function(QuotaError quotaError)? onQuotaExceeded;
 
+  /// Step 14: called when the server returns 403 with an error message
+  /// starting with "Your account has been suspended" — the banned-user
+  /// indicator from the protect middleware (Step 14 B1).
+  Function(String reason)? onAccountSuspended;
+
   // Callback for when token refresh completes (notify socket service)
   Function()? onTokenRefreshed;
 
@@ -281,6 +286,18 @@ class ApiClient {
         );
 
       case 403:
+        // Step 14: Banned-user 403 takes priority over generic auth error.
+        // Server prefix "Your account has been suspended" is set by the
+        // protect/optionalAuth middleware (Step 14 B1).
+        final raw403 = body['error']?.toString() ?? '';
+        if (raw403.startsWith('Your account has been suspended')) {
+          onAccountSuspended?.call(raw403);
+          return build(
+            success: false,
+            error: raw403,
+            statusCode: 403,
+          );
+        }
         // Authorization error - user doesn't have permission
         final errorMessage = body['error'] ?? 'You don\'t have permission to do this';
         onAuthorizationError?.call(_getReadableAuthError(errorMessage));

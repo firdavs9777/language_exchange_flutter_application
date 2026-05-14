@@ -34,6 +34,9 @@ class _ProfilePrivacyState extends ConsumerState<ProfilePrivacy> {
   bool _showGiftingLevel = true;
   bool _birthdayNotification = true;
   bool _personalizedAds = true;
+  // Step 14 safety wave — viewer-side toggle for anonymous profile visits.
+  // Default false to preserve existing behavior for users who never opt in.
+  bool _anonymousProfileVisits = false;
 
   // Track initial state to detect changes
   late Map<String, bool> _initialSettings;
@@ -57,6 +60,7 @@ class _ProfilePrivacyState extends ConsumerState<ProfilePrivacy> {
     'showGiftingLevel': _showGiftingLevel,
     'birthdayNotification': _birthdayNotification,
     'personalizedAds': _personalizedAds,
+    'anonymousProfileVisits': _anonymousProfileVisits,
   };
 
   bool get _hasChanges {
@@ -85,6 +89,7 @@ class _ProfilePrivacyState extends ConsumerState<ProfilePrivacy> {
             _showGiftingLevel = s.showGiftingLevel;
             _birthdayNotification = s.birthdayNotification;
             _personalizedAds = s.personalizedAds;
+            _anonymousProfileVisits = s.anonymousProfileVisits;
             _initialSettings = _captureSettings();
           });
         }
@@ -347,6 +352,30 @@ class _ProfilePrivacyState extends ConsumerState<ProfilePrivacy> {
                     subtitle: l10n.showOnlineStatusDesc,
                     value: _showOnlineStatus,
                     onChanged: (v) => _onToggle(() => _showOnlineStatus = v),
+                    isFirst: true,
+                    isLast: true,
+                  ),
+                ]),
+
+                const SizedBox(height: 24),
+
+                // Profile Visits (Step 14 safety wave)
+                _buildSectionTitle(
+                  'Profile Visits',
+                  Icons.remove_red_eye_outlined,
+                  const Color(0xFF607D8B),
+                ),
+                const SizedBox(height: 10),
+                _buildSectionContainer([
+                  _buildToggleTile(
+                    icon: Icons.visibility_off_rounded,
+                    iconColor: const Color(0xFF607D8B),
+                    title: 'Visit profiles anonymously',
+                    subtitle:
+                        "Your name won't appear in the visited user's recent visitors list.",
+                    value: _anonymousProfileVisits,
+                    onChanged: (v) =>
+                        _onToggle(() => _anonymousProfileVisits = v),
                     isFirst: true,
                     isLast: true,
                   ),

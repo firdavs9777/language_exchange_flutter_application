@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/providers/provider_root/report_provider.dart';
+import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
@@ -29,10 +30,24 @@ class _AdminReportsScreenState extends ConsumerState<AdminReportsScreen> {
   @override
   void initState() {
     super.initState();
-    _loadReports();
+    // Step 14 (safety wave): client-side defense-in-depth role gate.
+    // Backend authorize('admin') is still the actual security boundary;
+    // this just keeps the UI clean when a non-admin somehow navigates here.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      final user = ref.read(userProvider).valueOrNull;
+      if (user?.isAdmin != true) {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (_) => const _NotAuthorizedScreen()),
+        );
+        return;
+      }
+      _loadReports();
+    });
   }
 
   Future<void> _loadReports() async {
+    if (!mounted) return;
     setState(() {
       _isLoading = true;
       _error = null;
@@ -737,5 +752,36 @@ class _AdminReportsScreenState extends ConsumerState<AdminReportsScreen> {
     } catch (e) {
       return dateString; // Return original string if parsing fails
     }
+  }
+}
+
+/// Step 14 — landing screen for non-admins who somehow reach AdminReportsScreen
+/// (deep link, stale build, etc.). Backend authorize('admin') still enforces
+/// the actual gate; this just keeps the UI honest.
+class _NotAuthorizedScreen extends StatelessWidget {
+  const _NotAuthorizedScreen();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('')),
+      body: const Center(
+        child: Padding(
+          padding: EdgeInsets.all(24),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(Icons.lock_outline_rounded, size: 56, color: Colors.black45),
+              SizedBox(height: 16),
+              Text(
+                "This page isn't available.",
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

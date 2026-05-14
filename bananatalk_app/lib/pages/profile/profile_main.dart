@@ -1,5 +1,6 @@
 import 'package:bananatalk_app/services/chat_socket_service.dart';
 import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
+import 'package:bananatalk_app/pages/reports/admin_reports_screen.dart';
 import 'package:bananatalk_app/pages/profile/edit_main/edit_main.dart'
     show ProfileEdit;
 import 'package:bananatalk_app/pages/profile/drawer/profile_drawer.dart';
@@ -171,6 +172,12 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
                     const SizedBox(height: 16),
                     ProfileMomentsTab(user: user),
                     const SizedBox(height: 24),
+                    if (user.isAdmin)
+                      _buildAdminReportsEntry(context).animate().fadeIn(
+                            duration: 350.ms,
+                            delay: 350.ms,
+                          ),
+                    if (user.isAdmin) const SizedBox(height: 12),
                     _buildLogoutButton(context),
                     const SizedBox(height: 100),
                   ],
@@ -222,6 +229,51 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
           ),
         ),
       ],
+    );
+  }
+
+  // ========== ADMIN REPORTS ENTRY (Step 14) ==========
+  // Only rendered when user.isAdmin; backend authorize('admin') is the actual gate.
+  Widget _buildAdminReportsEntry(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: SizedBox(
+        width: double.infinity,
+        child: TextButton.icon(
+          onPressed: () {
+            HapticUtils.lightImpact();
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => const AdminReportsScreen(),
+              ),
+            );
+          },
+          icon: const Icon(
+            Icons.admin_panel_settings_outlined,
+            color: Color(0xFF455A64),
+            size: 20,
+          ),
+          label: const Text(
+            'Admin · Reports',
+            style: TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.w700,
+              color: Color(0xFF455A64),
+            ),
+          ),
+          style: TextButton.styleFrom(
+            padding: const EdgeInsets.symmetric(vertical: 14),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(14),
+              side: BorderSide(
+                color: const Color(0xFF455A64).withValues(alpha: 0.3),
+                width: 1.5,
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 
