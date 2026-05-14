@@ -32,7 +32,33 @@ class _RoleplayChatScreenState extends ConsumerState<RoleplayChatScreen> {
   bool _recording = false;
   bool _transcribing = false;
   bool _ending = false;
+  bool _starting = true;
   int _lastSpokenIndex = -1;
+
+  @override
+  void initState() {
+    super.initState();
+    // Start the session here (instead of in the picker) so the screen's
+    // own ref.watch keeps tutorChatControllerProvider alive — the picker
+    // doesn't watch it, so starting there raced against autoDispose and
+    // the new screen would mount with a fresh empty notifier.
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      try {
+        await ref
+            .read(tutorChatControllerProvider.notifier)
+            .startRoleplay(widget.scenario.id);
+        if (!mounted) return;
+        setState(() => _starting = false);
+        _scrollToBottom();
+      } catch (e) {
+        if (!mounted) return;
+        setState(() => _starting = false);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Could not start: $e')),
+        );
+      }
+    });
+  }
 
   void _scrollToBottom() {
     WidgetsBinding.instance.addPostFrameCallback((_) {

@@ -70,13 +70,13 @@ class _ScenarioCardState extends ConsumerState<_ScenarioCard> {
   Future<void> _start() async {
     setState(() => _starting = true);
     try {
-      // Use a fresh chat controller for the roleplay so it doesn't
-      // clobber any free-chat session in flight.
-      await ref
-          .read(tutorChatControllerProvider.notifier)
-          .startRoleplay(widget.scenario.id);
+      // Navigation only — RoleplayChatScreen owns the session lifecycle
+      // (starts in its own initState). Starting it here lost the state
+      // to autoDispose between the await and the new screen's first
+      // ref.watch (the picker doesn't watch the provider, so nothing
+      // kept the notifier alive across the navigation boundary).
       if (!mounted) return;
-      Navigator.push(
+      await Navigator.push(
         context,
         MaterialPageRoute(
           builder: (_) =>
