@@ -214,7 +214,10 @@ if (req.user?.isBanned === true) {
 }
 ```
 
-Do this in BOTH `protect` paths (the strict 401 path and the soft `optionalAuth` path if it exists).
+Apply this check to BOTH middleware functions in `middleware/auth.js`:
+
+- `exports.protect` (line 10) — fires after `req.user = await User.findById(decoded.id)` at line 29. Strict 401 on auth failure; needs the isBanned guard immediately after the user is loaded (before `next()`).
+- `exports.optionalAuth` (line 46) — fires after `req.user = await User.findById(decoded.id)` at line 65. Soft (sets `req.user = null` on failure); the isBanned guard here should also fire as 403 since a banned user shouldn't be able to access *anything*, even routes that allow unauthenticated access.
 
 - [ ] **Step 4: Verify syntax.**
 
@@ -539,15 +542,22 @@ ${reason ? `<p><strong>Reason:</strong> ${reason}</p>` : ''}
 
 - [ ] **Step 2: Add typed helpers in `services/emailService.js`.**
 
-After the existing helpers (`sendAdminDailyReport`, `sendNewUserNotification`):
+**Important — module pattern:** `services/emailService.js` does NOT use a `module.exports = { ... }` block. Every existing helper is defined as `exports.xxx = async (...) => {...}` and the file ends with `module.exports = exports;` (line 296). **Do NOT add a new `module.exports = { ... }` block** — it would wipe out every existing export (sendWelcomeEmail, sendAdminDailyReport, sendNewUserNotification, etc.) and break the daily admin digest + every login/password/follow email.
+
+**Correct pattern:** define the three new helpers as `exports.xxx = ...` and APPEND them after the existing helpers (after `sendNewUserNotification`, line 270; before the final `module.exports = exports;` line). The trailing `module.exports = exports;` re-export will pick them up automatically.
+
+Append (do not replace) after the existing helpers:
 
 ```js
-async function sendAdminReportAlert(report) {
-  if (!process.env.ADMIN_EMAIL && !'bananatalkmain@gmail.com') return;
+// Step 14 (safety wave) — per-report admin alerts + resolution emails.
+exports.sendAdminReportAlert = async (report) => {
+  const adminEmail = process.env.ADMIN_EMAIL || 'bananatalkmain@gmail.com';
+  if (!adminEmail) return;
+  if (process.env.ADMIN_REPORT_ALERTS_ENABLED === 'false') return;  // emergency kill switch
   try {
     const [reporter, reportedUser] = await Promise.all([
       User.findById(report.reportedBy).select('name').lean(),
-      User.findById(report.reportedUser).select('name').lean()
+      User.findById(report.reportedUser).select('name').lean(),
     ]);
     const tpl = templates.adminReportAlert(
       report,
@@ -555,17 +565,17 @@ async function sendAdminReportAlert(report) {
       reportedUser?.name || 'Unknown'
     );
     await sendEmail({
-      email: process.env.ADMIN_EMAIL || 'bananatalkmain@gmail.com',
+      email: adminEmail,
       subject: tpl.subject,
       message: tpl.text,
-      html: tpl.html
+      html: tpl.html,
     });
   } catch (err) {
     console.error('[email] sendAdminReportAlert failed:', err.message);
   }
-}
+};
 
-async function sendReportResolutionToReporter(report) {
+exports.sendReportResolutionToReporter = async (report) => {
   try {
     const reporter = await User.findById(report.reportedBy).select('name email').lean();
     if (!reporter?.email) return;
@@ -574,14 +584,14 @@ async function sendReportResolutionToReporter(report) {
       email: reporter.email,
       subject: tpl.subject,
       message: tpl.text,
-      html: tpl.html
+      html: tpl.html,
     });
   } catch (err) {
     console.error('[email] sendReportResolutionToReporter failed:', err.message);
   }
-}
+};
 
-async function sendBanNotification(userId, reason) {
+exports.sendBanNotification = async (userId, reason) => {
   try {
     const user = await User.findById(userId).select('name email').lean();
     if (!user?.email) return;
@@ -590,20 +600,15 @@ async function sendBanNotification(userId, reason) {
       email: user.email,
       subject: tpl.subject,
       message: tpl.text,
-      html: tpl.html
+      html: tpl.html,
     });
   } catch (err) {
     console.error('[email] sendBanNotification failed:', err.message);
   }
-}
-
-module.exports = {
-  // existing exports,
-  sendAdminReportAlert,
-  sendReportResolutionToReporter,
-  sendBanNotification,
 };
 ```
+
+**Verify before next step:** open `services/emailService.js`, confirm the final line is still `module.exports = exports;` and that the three new helpers sit between `sendNewUserNotification` (last existing helper, line ~270) and that final re-export. Confirm `User` is already required at the top of the file (it should be — existing helpers reference it). If not, add `const User = require('../models/User');`.
 
 - [ ] **Step 3: Fire admin alert on report creation.**
 
@@ -625,6 +630,17 @@ Add `const emailService = require('../services/emailService');` at top of file i
 
 Find the TODO block (lines 226-232). Replace with:
 
+**Important — eviction must match the canonical end-room flow** at `controllers/voiceRooms.js#endVoiceRoom` (line 397+): `room.end()` instance method + `livekitAdmin.endRoom(...)` + 2 socket emits (`voiceroom:ended` to both `voiceroom_<id>` and `voicerooms:lobby`). Just setting `status: 'ended'` via `updateMany` would leave participants connected to LiveKit audio until inactivity timeout.
+
+Top of file, add the requires (only if not already present):
+
+```js
+const VoiceRoom = require('../models/VoiceRoom');
+const livekitAdmin = require('../services/livekitAdminService');
+```
+
+Replace the TODO block with:
+
 ```js
 if (action === 'user_banned') {
   await User.findByIdAndUpdate(report.reportedUser, {
@@ -633,19 +649,41 @@ if (action === 'user_banned') {
     bannedAt: new Date()
   });
 
-  // Auto-end any active voice rooms hosted by the banned user
-  const VoiceRoom = require('../models/VoiceRoom');
-  await VoiceRoom.updateMany(
-    { host: report.reportedUser, status: { $in: ['waiting', 'active'] } },
-    { $set: { status: 'ended', endedAt: new Date() } }
-  );
+  // Auto-end the banned user's active voice rooms. Mirror the
+  // canonical flow in controllers/voiceRooms.js#endVoiceRoom (line 397+):
+  // room.end() → livekitAdmin.endRoom() → socket emits to room channel + lobby.
+  // This evicts participants from LiveKit audio AND notifies the lobby
+  // so the listing updates in real time.
+  const activeRooms = await VoiceRoom.find({
+    host: report.reportedUser,
+    status: { $in: ['waiting', 'active'] },
+  });
+  const io = req.app.get('io');
+  for (const room of activeRooms) {
+    try {
+      await room.end();                                 // sets status='ended', endedAt=now via instance method
+      await livekitAdmin.endRoom(String(room._id));     // terminates LiveKit room (fails open per livekitAdminService)
+      if (io) {
+        io.to(`voiceroom_${room._id}`).emit('voiceroom:ended', {
+          roomId: String(room._id),
+          endedBy: 'admin',
+        });
+        io.to('voicerooms:lobby').emit('voiceroom:ended', {
+          roomId: String(room._id),
+        });
+      }
+    } catch (err) {
+      console.error(`[ban] failed to end room ${room._id}:`, err.message);
+      // Don't abort the whole ban flow on a single room failure.
+    }
+  }
 
-  // Clear FCM tokens so banned user stops getting push
+  // Clear FCM tokens so banned user stops getting push.
   await User.findByIdAndUpdate(report.reportedUser, {
     $set: { fcmTokens: [] }
   });
 
-  // Send the banned user an email explaining the ban
+  // Send the banned user an email explaining the ban.
   emailService.sendBanNotification(report.reportedUser, notes).catch(err =>
     console.error('Ban notification failed:', err.message)
   );
@@ -880,15 +918,22 @@ class AccountSuspendedScreen extends StatelessWidget {
 
 - [ ] **Step 4: Detect 403 ban response in API client + route to suspended screen.**
 
-In `lib/services/api_client.dart` (in the 403 branch of `_handleResponse`), check if the body's `error` message starts with "Your account has been suspended" and call a new `onAccountSuspended` callback. Wire the callback in `main.dart` to push `AccountSuspendedScreen` and log the user out (clear stored token).
+Two changes — ApiClient detection, then main.dart wiring. Mirror the Step 13A F4 paywall pattern exactly: use the existing `callOverlayNavigatorKey` from `lib/router/app_router.dart` (purpose-built for overlays above GoRouter; same key used by `PersonaUpgradeSheet`).
 
-Sketch:
+**a) ApiClient detection.** In `lib/services/api_client.dart`:
+
+Add a new callback field alongside the existing ones (near `onAuthenticationError`, `onQuotaExceeded`):
 
 ```dart
-// api_client.dart fields:
-Function(String? reason)? onAccountSuspended;
+/// Step 14: called when the server returns 403 with body.error
+/// starting with "Your account has been suspended" — the banned-user
+/// indicator from the protect middleware after Step 14 B1.
+Function(String reason)? onAccountSuspended;
+```
 
-// In the 403 branch:
+In the 403 branch of `_handleResponse`, BEFORE the existing 403 logic:
+
+```dart
 final errorMessage = body['error']?.toString() ?? '';
 if (errorMessage.startsWith('Your account has been suspended')) {
   onAccountSuspended?.call(errorMessage);
@@ -898,10 +943,49 @@ if (errorMessage.startsWith('Your account has been suspended')) {
     statusCode: 403,
   );
 }
-// ... existing 403 path
+// existing 403 path follows
 ```
 
-In `main.dart`, wire `apiClient.onAccountSuspended = (reason) => { /* clear token, route to AccountSuspendedScreen */ }`.
+**b) main.dart wiring.** Right after the existing `onQuotaExceeded` wiring (the Step 13A F4 paywall hook), add:
+
+```dart
+apiClient.onAccountSuspended = (reason) async {
+  // 1) Clear the stored token using the existing logout method.
+  //    AuthService.logout() handles secureStorage + state cleanup.
+  try {
+    await ref.read(authServiceProvider).logout();
+  } catch (e) {
+    debugPrint('[suspended] logout failed: $e');
+  }
+
+  // 2) Invalidate user-related providers so any cached identity is dropped.
+  ref.invalidate(userProvider);
+
+  // 3) Push AccountSuspendedScreen via the global overlay navigator
+  //    (sits above GoRouter — same pattern as the persona paywall).
+  //    pushReplacement (not push) so user can't navigate back to the
+  //    authenticated app. AccountSuspendedScreen is terminal for v1.
+  final overlayNav = callOverlayNavigatorKey.currentState;
+  if (overlayNav != null) {
+    overlayNav.pushAndRemoveUntil(
+      MaterialPageRoute(
+        builder: (_) => AccountSuspendedScreen(reason: reason),
+      ),
+      (_) => false,  // clear the entire route stack
+    );
+  }
+};
+```
+
+Add the imports at top of `main.dart`:
+```dart
+import 'package:bananatalk_app/pages/auth/account_suspended_screen.dart';
+import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
+```
+
+(`callOverlayNavigatorKey` is already imported from Step 13A.)
+
+**Note on `ref` access:** `main.dart`'s callback closure needs access to `ref`. The Step 13A wiring already established a pattern — verify how `onQuotaExceeded` accesses providers there and mirror it (likely via a top-level `WidgetsBinding`-scoped ref or by reading from `ProviderContainer` directly).
 
 - [ ] **Step 5: Verify.**
 
@@ -992,6 +1076,13 @@ curl -s -H "Authorization: Bearer <banned_user_token>" http://localhost:5000/api
 4. **Banned user UX:** As admin, resolve a report with `user_banned`. Have the banned user attempt any action in the Flutter app. Confirm they see AccountSuspendedScreen with the ban reason. Confirm token is cleared (relaunching app → login screen, not auto-logged-in).
 
 5. **Voice room visibility:** User A blocks User B. User B hosts a voice room. User A opens Voice Rooms tab → confirm B's room is NOT in the list. User A attempts to deep-link to the room ID → 404.
+
+6. **Banned host mid-session UX:** With User A as host of an active voice room with at least one participant (User C, unrelated), admin bans User A via `resolveReport` action `user_banned`. Verify:
+   - Within ~1 second, User C is evicted from the LiveKit audio session (mic/audio drops, transport closes)
+   - User C's Flutter UI lands back on the Voice Rooms lobby tab
+   - The end-of-room message shown to User C is acceptable — NO misleading "host disconnected, will return in 30s" copy (which would imply graceful disconnect rather than ban). Existing `voiceroom:ended` event copy should just say "Room ended" or equivalent.
+   - The room no longer appears in the lobby listing
+   - User A, on their device, sees AccountSuspendedScreen on their next interaction
 
 - [ ] **Step 3: Push both branches.**
 
