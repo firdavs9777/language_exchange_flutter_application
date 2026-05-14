@@ -64,4 +64,16 @@ class AnalyticsService {
         'platform': platform,
         'error_code': errorCode,
       });
+
+  /// Step 15: fired when an admin takes a destructive action
+  /// (user_banned, user_unbanned, role_changed). Helps spot unusual
+  /// admin activity in Firebase Analytics.
+  Future<void> adminActionTaken({
+    required String action,
+    required String targetUserId,
+  }) =>
+      _log('admin_action_taken', {
+        'action': action,
+        'target_user_id': targetUserId,
+      });
 }
