@@ -4,6 +4,7 @@ import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/pages/reports/admin_reports_screen.dart';
 import 'package:bananatalk_app/pages/admin/admin_users_screen.dart';
 import 'package:bananatalk_app/pages/admin/admin_audit_log_screen.dart';
+import 'package:bananatalk_app/pages/admin/admin_analytics_screen.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 
@@ -83,6 +84,18 @@ class _AdminHomeScreenState extends ConsumerState<AdminHomeScreen> {
                   context,
                   MaterialPageRoute(
                     builder: (_) => const AdminAuditLogScreen(),
+                  ),
+                ),
+              ),
+              _AdminTile(
+                icon: Icons.insights_outlined,
+                label: 'Analytics',
+                subtitle: 'Counts · breakdowns',
+                color: const Color(0xFF009688),
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const AdminAnalyticsScreen(),
                   ),
                 ),
               ),

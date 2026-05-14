@@ -34,6 +34,7 @@ class _AdminUsersScreenState extends ConsumerState<AdminUsersScreen> {
   bool _isLoading = false;
   bool _hasMore = false;
   int _page = 1;
+  int _total = 0;
   String? _error;
   Timer? _debounce;
 
@@ -115,6 +116,7 @@ class _AdminUsersScreenState extends ConsumerState<AdminUsersScreen> {
         final pagination =
             (result['pagination'] as Map<String, dynamic>?) ?? const {};
         _hasMore = pagination['hasMore'] == true;
+        _total = (pagination['total'] as num?)?.toInt() ?? _total;
         _page += 1;
         _error = null;
       } else {
@@ -125,8 +127,31 @@ class _AdminUsersScreenState extends ConsumerState<AdminUsersScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final hasFilter =
+        _facet != _Facet.all || _query.isNotEmpty;
     return Scaffold(
-      appBar: AppBar(title: const Text('Users')),
+      appBar: AppBar(
+        title: const Text('Users'),
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(28),
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: 8, left: 16, right: 16),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                hasFilter
+                    ? '${_formatNum(_total)} matching · search filtered'
+                    : '${_formatNum(_total)} total users',
+                style: TextStyle(
+                  color: Colors.white.withValues(alpha: 0.85),
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
       body: SafeArea(
         child: Column(
           children: [
@@ -237,6 +262,17 @@ class _AdminUsersScreenState extends ConsumerState<AdminUsersScreen> {
       ),
     );
   }
+}
+
+String _formatNum(int n) {
+  if (n < 1000) return n.toString();
+  final s = n.toString();
+  final buffer = StringBuffer();
+  for (int i = 0; i < s.length; i++) {
+    if (i > 0 && (s.length - i) % 3 == 0) buffer.write(',');
+    buffer.write(s[i]);
+  }
+  return buffer.toString();
 }
 
 class _FacetChip extends StatelessWidget {
