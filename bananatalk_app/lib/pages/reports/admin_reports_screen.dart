@@ -431,7 +431,11 @@ class _AdminReportsScreenState extends ConsumerState<AdminReportsScreen> {
               style: context.bodySmall,
             ),
             Spacing.gapXS,
-            Row(
+            // Wrap, not Row — the ListTile subtitle is ~201px wide on
+            // narrow viewports and two Chips overflow horizontally.
+            Wrap(
+              spacing: 8,
+              runSpacing: 4,
               children: [
                 Chip(
                   label: Text(
@@ -442,7 +446,6 @@ class _AdminReportsScreenState extends ConsumerState<AdminReportsScreen> {
                   ),
                   backgroundColor: _getStatusColor(status).withOpacity(0.1),
                 ),
-                Spacing.hGapSM,
                 Chip(
                   label: Text(
                     priority.toUpperCase(),
