@@ -1,6 +1,6 @@
 import 'package:bananatalk_app/services/chat_socket_service.dart';
 import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
-import 'package:bananatalk_app/pages/reports/admin_reports_screen.dart';
+import 'package:bananatalk_app/pages/admin/admin_home_screen.dart';
 import 'package:bananatalk_app/pages/profile/edit_main/edit_main.dart'
     show ProfileEdit;
 import 'package:bananatalk_app/pages/profile/drawer/profile_drawer.dart';
@@ -173,7 +173,7 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
                     ProfileMomentsTab(user: user),
                     const SizedBox(height: 24),
                     if (user.isAdmin)
-                      _buildAdminReportsEntry(context).animate().fadeIn(
+                      _buildAdminToolsEntry(context).animate().fadeIn(
                             duration: 350.ms,
                             delay: 350.ms,
                           ),
@@ -232,9 +232,11 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
     );
   }
 
-  // ========== ADMIN REPORTS ENTRY (Step 14) ==========
-  // Only rendered when user.isAdmin; backend authorize('admin') is the actual gate.
-  Widget _buildAdminReportsEntry(BuildContext context) {
+  // ========== ADMIN TOOLS ENTRY (Step 15) ==========
+  // Only rendered when user.isAdmin; backend authorize('admin') is the
+  // actual gate. Routes to AdminHomeScreen, which is the grid of admin
+  // surfaces (Reports, Users, Audit Log).
+  Widget _buildAdminToolsEntry(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: SizedBox(
@@ -245,7 +247,7 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (_) => const AdminReportsScreen(),
+                builder: (_) => const AdminHomeScreen(),
               ),
             );
           },
@@ -255,7 +257,7 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
             size: 20,
           ),
           label: const Text(
-            'Admin · Reports',
+            'Admin Tools',
             style: TextStyle(
               fontSize: 15,
               fontWeight: FontWeight.w700,

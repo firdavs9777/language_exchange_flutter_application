@@ -13,7 +13,7 @@ import 'package:bananatalk_app/pages/settings/blocked_users_screen.dart';
 import 'package:bananatalk_app/pages/settings/language_settings_screen.dart';
 import 'package:bananatalk_app/pages/settings/data_storage_screen.dart';
 import 'package:bananatalk_app/pages/reports/my_reports_screen.dart';
-import 'package:bananatalk_app/pages/reports/admin_reports_screen.dart';
+import 'package:bananatalk_app/pages/admin/admin_home_screen.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
@@ -318,8 +318,8 @@ class LeftDrawer extends ConsumerWidget {
                         DrawerMenuItem(
                           icon: Icons.admin_panel_settings_rounded,
                           iconColor: const Color(0xFF9C27B0),
-                          title: l10n.reportsManagement,
-                          subtitle: l10n.manageAllReportsAdmin,
+                          title: 'Admin Tools',
+                          subtitle: 'Reports, users, audit log',
                           showAdminBadge: true,
                           isLast: true,
                           onTap: () {
@@ -327,8 +327,7 @@ class LeftDrawer extends ConsumerWidget {
                             Navigator.push(
                               context,
                               AppPageRoute(
-                                builder: (context) =>
-                                    const AdminReportsScreen(),
+                                builder: (context) => const AdminHomeScreen(),
                               ),
                             );
                           },
