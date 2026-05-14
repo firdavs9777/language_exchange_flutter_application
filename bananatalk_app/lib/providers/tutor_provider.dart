@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart' show MediaType;
+import 'package:mime/mime.dart' show lookupMimeType;
 
 import 'package:bananatalk_app/models/tutor/tutor_memory.dart';
 import 'package:bananatalk_app/models/tutor/tutor_session.dart';
@@ -234,9 +236,14 @@ class TutorService {
     required String audioFilePath,
     required String targetSentence,
   }) async {
-    // Match the existing tutor_voice_service pattern: don't override
-    // contentType — let http_parser infer from the file extension.
-    final multipart = await http.MultipartFile.fromPath('audio', audioFilePath);
+    // MultipartFile.fromPath defaults to application/octet-stream, which
+    // multer rejects. Sniff the real type from extension.
+    final mime = lookupMimeType(audioFilePath) ?? 'audio/aac';
+    final multipart = await http.MultipartFile.fromPath(
+      'audio',
+      audioFilePath,
+      contentType: MediaType.parse(mime),
+    );
     final res = await _api.postMultipart(
       'tutor/pronunciation/score',
       files: [multipart],

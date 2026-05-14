@@ -4,7 +4,9 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_sound/flutter_sound.dart';
 import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart' show MediaType;
 import 'package:just_audio/just_audio.dart';
+import 'package:mime/mime.dart' show lookupMimeType;
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -86,10 +88,15 @@ class TutorVoiceService {
     if (!await file.exists()) return null;
 
     try {
-      // http.MultipartFile.fromPath infers the content type from the
-      // .aac extension via the bundled mime list, so we don't need to
-      // depend on http_parser directly.
-      final multipart = await http.MultipartFile.fromPath('audio', filePath);
+      // MultipartFile.fromPath does NOT infer content type — the comment
+      // here was wrong and the file was being sent as octet-stream, which
+      // the backend multer filter rejects. Sniff explicitly.
+      final mime = lookupMimeType(filePath) ?? 'audio/aac';
+      final multipart = await http.MultipartFile.fromPath(
+        'audio',
+        filePath,
+        contentType: MediaType.parse(mime),
+      );
       final res = await ApiClient().postMultipart(
         'tutor/sessions/$sessionId/transcribe',
         fields: const {},

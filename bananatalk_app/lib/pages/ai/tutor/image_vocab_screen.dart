@@ -3,7 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart' show MediaType;
 import 'package:image_picker/image_picker.dart';
+import 'package:mime/mime.dart' show lookupMimeType;
 
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/tutor_provider.dart' show tutorMemoryAndQuotasProvider;
@@ -167,10 +169,16 @@ class _ImageVocabScreenState extends ConsumerState<ImageVocabScreen> {
     String endpoint, {
     Map<String, String> fields = const {},
   }) async {
+    // MultipartFile.fromPath does NOT infer contentType — it defaults to
+    // application/octet-stream, which the backend multer filter rejects
+    // with "Invalid image type". Sniff via mime/lookupMimeType (extension
+    // map) and pass it explicitly.
+    final mime = lookupMimeType(_image!.path) ?? 'image/jpeg';
     final file = await http.MultipartFile.fromPath(
       'image',
       _image!.path,
       filename: _image!.name,
+      contentType: MediaType.parse(mime),
     );
     final res = await ApiClient().postMultipart(
       endpoint,
