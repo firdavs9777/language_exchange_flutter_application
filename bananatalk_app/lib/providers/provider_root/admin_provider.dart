@@ -151,6 +151,28 @@ class AdminService {
     }
   }
 
+  /// Aggregate user stats for the analytics screen.
+  /// Returns total + byGender + byRole + byMode + counters + top languages.
+  Future<Map<String, dynamic>> getStats() async {
+    try {
+      final headers = await _getHeaders();
+      final response = await http.get(
+        Uri.parse('${Endpoints.baseURL}admin/stats'),
+        headers: headers,
+      );
+      final body = json.decode(response.body);
+      if (response.statusCode == 200) {
+        return {'success': true, 'data': body['data']};
+      }
+      return {
+        'success': false,
+        'error': body['error'] ?? 'Failed to load stats',
+      };
+    } catch (e) {
+      return {'success': false, 'error': 'Network error: ${e.toString()}'};
+    }
+  }
+
   /// Paginated audit log. All filter parameters are optional.
   Future<Map<String, dynamic>> getAuditLog({
     String? moderatorId,
