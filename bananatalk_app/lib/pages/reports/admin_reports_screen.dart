@@ -526,9 +526,9 @@ class _AdminReportsScreenState extends ConsumerState<AdminReportsScreen> {
               children: [
                 _buildInfoRow('Report ID', report['_id']?.toString() ?? 'N/A'),
                 Spacing.gapSM,
-                _buildInfoRow('Reported By', report['reportedBy']?['name'] ?? 'N/A'),
+                _buildUserCard('Reported By', report['reportedBy']),
                 Spacing.gapSM,
-                _buildInfoRow('Reported User', report['reportedUser']?['name'] ?? 'N/A'),
+                _buildUserCard('Reported User', report['reportedUser']),
                 Spacing.gapSM,
                 _buildInfoRow('Type', _getTypeLabel(report['type'])),
                 Spacing.gapSM,
@@ -582,6 +582,169 @@ class _AdminReportsScreenState extends ConsumerState<AdminReportsScreen> {
           child: Text(
             value,
             style: context.bodySmall,
+          ),
+        ),
+      ],
+    );
+  }
+
+  /// Rich user card used for "Reported By" and "Reported User" in the
+  /// admin report detail view. Renders avatar + name + email + language
+  /// pair + location + joined date + banned pill. Falls back to a
+  /// "(deleted account)" row when the populated ref is null (the user
+  /// was deleted between when the report was filed and now).
+  Widget _buildUserCard(String label, dynamic user) {
+    // Defensive: populate may yield null (deleted account) or a non-Map
+    // value (raw ObjectId from pre-populate writes).
+    if (user is! Map) {
+      return _buildInfoRow(label, '(deleted account)');
+    }
+
+    final name = user['name']?.toString() ?? '(unknown)';
+    final email = user['email']?.toString();
+    final native = user['native_language']?.toString();
+    final learning = user['language_to_learn']?.toString();
+    final loc = user['location'] is Map ? user['location'] as Map : null;
+    final city = loc?['city']?.toString();
+    final country = loc?['country']?.toString();
+    final createdAt = user['createdAt']?.toString();
+    final isBanned = user['isBanned'] == true;
+
+    // Prefer imageUrls (CDN absolute), fall back to images.
+    final List<String> imgList = [
+      ...((user['imageUrls'] is List)
+          ? List<String>.from(user['imageUrls']).whereType<String>()
+          : const <String>[]),
+      ...((user['images'] is List)
+          ? List<String>.from(user['images']).whereType<String>()
+          : const <String>[]),
+    ];
+    final avatarUrl = imgList.firstWhere(
+      (u) => u.isNotEmpty && u.startsWith('http'),
+      orElse: () => '',
+    );
+
+    final languagePair = (native != null && native.isNotEmpty)
+        ? (learning != null && learning.isNotEmpty
+            ? '$native → $learning'
+            : native)
+        : null;
+    final locationStr = [city, country]
+        .where((x) => x != null && x.isNotEmpty)
+        .join(', ');
+
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(
+          width: 120,
+          child: Text(
+            label,
+            style: context.labelSmall.copyWith(fontWeight: FontWeight.w600),
+          ),
+        ),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  CircleAvatar(
+                    radius: 18,
+                    backgroundColor: AppColors.primary.withOpacity(0.15),
+                    backgroundImage:
+                        avatarUrl.isNotEmpty ? NetworkImage(avatarUrl) : null,
+                    child: avatarUrl.isEmpty
+                        ? Text(
+                            name.isNotEmpty ? name[0].toUpperCase() : '?',
+                            style: TextStyle(
+                              color: AppColors.primary,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          )
+                        : null,
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Wrap(
+                          spacing: 6,
+                          runSpacing: 2,
+                          crossAxisAlignment: WrapCrossAlignment.center,
+                          children: [
+                            Text(
+                              name,
+                              style: context.bodyMedium.copyWith(
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                            if (isBanned)
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 6,
+                                  vertical: 2,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: AppColors.error.withOpacity(0.12),
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                                child: Text(
+                                  'BANNED',
+                                  style: context.captionSmall.copyWith(
+                                    color: AppColors.error,
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 10,
+                                  ),
+                                ),
+                              ),
+                          ],
+                        ),
+                        if (email != null && email.isNotEmpty)
+                          Text(
+                            email,
+                            style: context.captionSmall.copyWith(
+                              color: context.textMuted,
+                            ),
+                          ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              if (languagePair != null ||
+                  locationStr.isNotEmpty ||
+                  (createdAt != null && createdAt.isNotEmpty))
+                Padding(
+                  padding: const EdgeInsets.only(top: 6, left: 46),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      if (languagePair != null)
+                        Text(
+                          languagePair,
+                          style: context.captionSmall,
+                        ),
+                      if (locationStr.isNotEmpty)
+                        Text(
+                          locationStr,
+                          style: context.captionSmall.copyWith(
+                            color: context.textMuted,
+                          ),
+                        ),
+                      if (createdAt != null && createdAt.isNotEmpty)
+                        Text(
+                          'Joined ${_formatDate(createdAt)}',
+                          style: context.captionSmall.copyWith(
+                            color: context.textMuted,
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
+            ],
           ),
         ),
       ],
