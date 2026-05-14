@@ -12,7 +12,7 @@
 
 **Branches:** `feat/step14-safety-wave` on both repos.
 
-**Estimated commits:** 8 (B1-B5 backend, F1-F2 Flutter, G1 glue).
+**Estimated commits:** 9 (B1-B6 backend, F1-F2 Flutter, G1 glue).
 
 **Pacing:** Drive uninterrupted through tasks per the user's recorded preference. Surface only at G1 or on a genuine blocker.
 
@@ -63,8 +63,15 @@
 4. **Issue #14 listing filter: HOST + PARTICIPANTS (combined).**
    - `getVoiceRooms`: server-side `$nin` on host + post-fetch JS filter on participants
    - `getMyRoom`, `getVoiceRoom/:id`: return 404 if requesting user is in any block relationship with the host
-   - `rsvp`: reject 403 if user has blocked the host or vice versa
+   - `rsvp`: return 404 (not 403) if user has blocked the host or vice versa — consistent with the rest of the wave's "invisible block" pattern; don't reveal the room exists
    - **Rationale:** Most defensive; performance cost is negligible at current scale (10-500 rooms, post-fetch JS pass ~5ms worst case). Host-only filter (option A) misses peer-blocked cases. Participants-only filter (option B) requires `$elemMatch` and misses simple host blocks. Combined is the right floor.
+
+5. **Anonymous viewer visibility: FULLY HIDDEN — no "Someone viewed" signal.**
+   - When the only visitors are anonymous (or there are no visitors), the Visitor Recall Card returns an empty list. The existing `if (_visitors.isEmpty) return SizedBox.shrink()` collapses the card entirely.
+   - The visit count (`getVisitStats.total`) is also filtered to exclude anonymous visits (B6), so the visited user sees no number that could imply "someone is watching invisibly."
+   - **Rationale:** The product intent of anonymity is invisibility, not ambient signal. Surfacing "Someone viewed your profile" without identity creates an information channel that defeats the privacy purpose — visited users would speculate about the identity, and visitors would feel surveilled despite the toggle. Full invisibility matches user expectations from comparable apps (LinkedIn anonymous browsing hides count AND identity).
+   - **Rejected alternative:** "Someone visited" count surfaced separately. Considered but rejected — it leaks interest signal while pretending to protect identity. Either fully hide or fully reveal; the half-measure is worse than both.
+   - **Future enhancement:** If product wants the ambient signal back, it's a one-line change to `getVisitStats` (drop the `isAnonymous: false` filter) plus a copy update on the Visitor Recall Card. Not in this wave.
 
 ---
 
@@ -81,6 +88,7 @@
 - `controllers/report.js#createReport` — fire admin email per report
 - `services/emailService.js` — new helper `sendAdminReportAlert(report)` for per-report admin alerts; new helper `sendReportResolutionToReporter(report)`; new helper `sendBanNotification(user, reason)`
 - `utils/emailTemplates.js` — three new templates (admin alert, reporter confirmation, ban notice)
+- `models/ProfileVisit.js` — `getVisitStats` `$match` stage gains `isAnonymous: false` (B6) so stats and recall card surfaces agree on what counts
 
 **No new files on backend.**
 
@@ -393,17 +401,46 @@ if (hasBlockedParticipant) {
 
 Identical block — copy-paste from Step 1.
 
-- [ ] **Step 3: Verify.**
+- [ ] **Step 3: Add block check to `promoteParticipant` (around lines 493-534).**
+
+Defensive against the "host blocked someone *after* they joined" case. The host is about to promote a participant to co-host; if that participant is now in a block relationship with the host (or any current participant), reject the promotion.
+
+After the `if (!participant)` check at the top of `promoteParticipant` (and before the `room.coHosts.push(...)` write), insert:
+
+```js
+const blockedUserIds = await getBlockedUserIds(hostId);
+if (blockedUserIds.includes(targetUserId)) {
+  return next(new ErrorResponse('Cannot promote this user', 403));
+}
+// Also reject if the target is in a block relationship with any
+// other current participant (defense-in-depth: a co-host shouldn't
+// be promoted into a room where they're blocked by anyone present).
+const otherParticipantIds = (room.participants || [])
+  .map(p => p.user?.toString())
+  .filter(id => id && id !== targetUserId && id !== hostId);
+for (const pid of otherParticipantIds) {
+  const pidBlocks = await getBlockedUserIds(pid);
+  if (pidBlocks.includes(targetUserId)) {
+    return next(new ErrorResponse('Cannot promote this user', 403));
+  }
+}
+```
+
+The N+1 lookup is cached (TTL 120s per the helper); typical participant count is small (≤8 for non-VIP, ≤50 for VIP). Performance is fine.
+
+Error copy `"Cannot promote this user"` — generic, doesn't reveal which block relationship triggered the rejection.
+
+- [ ] **Step 4: Verify.**
 
 ```bash
 node -c controllers/voiceRooms.js
 ```
 
-- [ ] **Step 4: Commit.**
+- [ ] **Step 5: Commit.**
 
 ```bash
 git add controllers/voiceRooms.js
-git commit -m "fix(safety): bidirectional + participant block check on voice room join
+git commit -m "fix(safety): bidirectional + participant block check on voice room ops
 
 Audit issue #8. joinVoiceRoom + getVoiceRoomToken now use the
 canonical getBlockedUserIds helper (bidirectional, includes both
@@ -411,8 +448,14 @@ blockedUsers and blockedBy) instead of the host-only blockedUsers
 read. Additionally checks if any current participant is in the
 joiner's block relationship.
 
-Error copy unchanged ('You cannot join this room') so the rejection
-doesn't reveal who caused the block.
+promoteParticipant also gains a block check: defends against the
+'host blocked someone after they joined' case + the 'promoting
+someone blocked by another participant' case. Same getBlockedUserIds
+pattern; per-other-participant lookups are cached so the N+1 cost
+is negligible at typical room sizes.
+
+Error copy unchanged ('You cannot join this room' / 'Cannot promote
+this user') so the rejection doesn't reveal who caused the block.
 
 Note: in-room socket broadcasts (chat, hand-raise, user-joined)
 still don't filter blocked users in-room. That's CC-5 from the
@@ -751,6 +794,67 @@ Notifications:
 Three new email templates: adminReportAlert, reportResolutionToReporter,
 banNotification. Three new typed helpers in services/emailService.js.
 All fire-and-forget — admin alerts can't block report creation."
+```
+
+---
+
+## Task B6: `getVisitStats` honors anonymity flag
+
+**Files:**
+- Modify: `models/ProfileVisit.js`
+
+The recon caught a real inconsistency in the existing anonymity surfacing: `getRecentVisitors` (line 74) and `getUniqueVisitorCount` (line 131) both `$match: { isAnonymous: false }`, but `getVisitStats` (line 150-205) does NOT — it aggregates `total`, `unique`, `today`, `thisWeek` across ALL visits regardless of anonymity. Once B4 ships, anonymous visits will be silently counted in the visited user's stats while being hidden from the recent-visitors list — the two surfaces would disagree.
+
+This task fixes that with a one-line addition to the existing aggregation's match stage.
+
+Working dir: `/Users/davis/Desktop/Personal/language_exchange_backend_application`
+
+- [ ] **Step 1: Add `isAnonymous: false` to the `getVisitStats` match stage.**
+
+Find the static method at `models/ProfileVisit.js:150-205`. The opening `$match` stage currently filters only by `profileOwner`:
+
+```js
+{
+  $match: {
+    profileOwner: mongoose.Types.ObjectId(profileOwnerId)
+  }
+},
+```
+
+Replace with:
+
+```js
+{
+  $match: {
+    profileOwner: mongoose.Types.ObjectId(profileOwnerId),
+    isAnonymous: false
+  }
+},
+```
+
+That's it — the `$facet` sub-pipelines (total / unique / today / thisWeek) inherit from the parent match, so a single edit fixes all four counters.
+
+- [ ] **Step 2: Verify.**
+
+```bash
+node -c models/ProfileVisit.js
+```
+
+- [ ] **Step 3: Commit.**
+
+```bash
+git add models/ProfileVisit.js
+git commit -m "fix(safety): exclude anonymous visits from getVisitStats
+
+Audit issue (recon cross-check). getRecentVisitors and
+getUniqueVisitorCount already filter \$match: { isAnonymous: false },
+but getVisitStats did not — anonymous visits were silently inflating
+the visited user's total/unique/today/thisWeek counters while being
+hidden from the recent-visitors list. The two surfaces would have
+disagreed once anonymity shipped (B4).
+
+One-line fix in the parent \$match stage; \$facet sub-pipelines
+inherit, so all four counters are consistent."
 ```
 
 ---
@@ -1112,6 +1216,7 @@ Same on backend.
 - **B2 + B3 are tight pair** (voice room block enforcement). Can be authored in parallel but commit B2 (listing) first so the join path (B3) has the listing filter to reference.
 - **B4 is independent** of the voice room work; can land any time after B1.
 - **B5 is the heaviest** — email helpers + templates + resolveReport actions. Land after B1 (depends on `isBanned`).
+- **B6 pairs with B4** — both touch the anonymity surface. Land B6 right after B4 so the visit counters stay consistent with the recall-card filtering from the moment anonymity becomes active.
 - **F1 is independent** — toggle in privacy_edit.
 - **F2 depends on B1** (needs the suspended-account 403 response from middleware) but can be authored in parallel.
 - **G1 is the manual smoke + merge gate.**
@@ -1122,6 +1227,7 @@ Same on backend.
 - **Mid-risk: B1 `isBanned` middleware check.** A bug in the middleware (e.g., misread of `req.user`) could block all users from every protected route. Rollback: revert B1; defaults set false so no users are accidentally banned. Mitigation: the protect path returns 403 only when `req.user.isBanned === true` (strict equality, not truthy check) and `req.user` is loaded — if either is null/undefined, the check passes silently.
 - **Low risk: B2-B3 voice room filters.** Worst case: legitimate rooms get filtered out. Rollback: revert the two commits; behavior reverts to current (overly-permissive) state. Mitigation: the filter is opt-in (only fires when `blockedUserIds.length > 0`), so users with no blocks see no change.
 - **Low risk: B4 anonymity preference.** A bug means visits stay non-anonymous (matches current state). Rollback: revert; behavior reverts to current.
+- **Low risk: B6 stats filter.** One-line change to an existing `$match`. Worst case: stats counters inflated by anonymous visits (matches pre-B4 behavior). Rollback: revert.
 - **Low risk: F1 + F2.** Pure additive Flutter changes. Rollback: revert; UI reverts to current.
 
 **Emergency disable** (for B5): if admin email volume is too high, set `ADMIN_REPORT_ALERTS_ENABLED=false` in `.env` and the `sendAdminReportAlert` helper short-circuits. (Add this env-flag guard at the top of the helper.)
