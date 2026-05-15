@@ -20,6 +20,12 @@ class VocabCard extends ConsumerStatefulWidget {
 class _VocabCardState extends ConsumerState<VocabCard> {
   bool _adding = false;
   bool _added = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _added = (widget.payload['queued'] as bool?) ?? false;
+  }
   String? _error;
 
   Future<void> _addToVocab() async {
