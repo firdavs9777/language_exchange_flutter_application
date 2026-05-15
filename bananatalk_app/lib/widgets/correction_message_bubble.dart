@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/providers/provider_models/message_model.dart';
 import 'package:bananatalk_app/services/correction_service.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
@@ -7,22 +8,61 @@ import 'package:bananatalk_app/pages/chat/header/user_avatar.dart';
 
 /// A chat bubble that displays a correction as a standalone message
 /// in the chat flow (HelloTalk/Tandem style).
-class CorrectionMessageBubble extends StatelessWidget {
+class CorrectionMessageBubble extends ConsumerStatefulWidget {
   final Message message;
   final bool isMe; // whether the correction was made by the current user
   final String otherUserName;
   final String? otherUserPicture;
 
   const CorrectionMessageBubble({
-    Key? key,
+    super.key,
     required this.message,
     required this.isMe,
     required this.otherUserName,
     this.otherUserPicture,
-  }) : super(key: key);
+  });
+
+  @override
+  ConsumerState<CorrectionMessageBubble> createState() =>
+      _CorrectionMessageBubbleState();
+}
+
+class _CorrectionMessageBubbleState
+    extends ConsumerState<CorrectionMessageBubble> {
+  bool _accepting = false;
+  bool _accepted = false;
+
+  Future<void> _accept(String messageId, String correctionId) async {
+    setState(() => _accepting = true);
+    try {
+      final result = await CorrectionService.acceptCorrection(
+        messageId: messageId,
+        correctionId: correctionId,
+      );
+      if (!mounted) return;
+      if (result['success'] == true) {
+        setState(() => _accepted = true);
+      } else {
+        final error = result['error'] ?? 'Failed to accept correction';
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(error)),
+        );
+      }
+    } catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error: ${e.toString()}')),
+      );
+    } finally {
+      if (mounted) setState(() => _accepting = false);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    final message = widget.message;
+    final isMe = widget.isMe;
+
     final correction = message.corrections.isNotEmpty
         ? message.corrections.first
         : null;
@@ -44,13 +84,14 @@ class CorrectionMessageBubble extends StatelessWidget {
         bottom: 2,
       ),
       child: Row(
-        mainAxisAlignment: isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
+        mainAxisAlignment:
+            isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           if (!isMe) ...[
             UserAvatar(
-              userName: otherUserName,
-              profilePicture: otherUserPicture,
+              userName: widget.otherUserName,
+              profilePicture: widget.otherUserPicture,
               radius: 14,
             ),
             const SizedBox(width: 6),
@@ -101,7 +142,8 @@ class CorrectionMessageBubble extends StatelessWidget {
                       ),
                       if (correction.isAccepted) ...[
                         const SizedBox(width: 4),
-                        Icon(Icons.check_circle, size: 12, color: Colors.green[600]),
+                        Icon(Icons.check_circle,
+                            size: 12, color: Colors.green[600]),
                       ],
                     ],
                   ),
@@ -116,7 +158,9 @@ class CorrectionMessageBubble extends StatelessWidget {
                               text: '${diff.text} ',
                               style: TextStyle(
                                 fontSize: 14,
-                                color: isDark ? AppColors.gray300 : AppColors.gray700,
+                                color: isDark
+                                    ? AppColors.gray300
+                                    : AppColors.gray700,
                               ),
                             );
                           case DiffType.deleted:
@@ -150,9 +194,59 @@ class CorrectionMessageBubble extends StatelessWidget {
                       correction.explanation!,
                       style: TextStyle(
                         fontSize: 12,
-                        color: isDark ? AppColors.gray400 : AppColors.gray600,
+                        color:
+                            isDark ? AppColors.gray400 : AppColors.gray600,
                         fontStyle: FontStyle.italic,
                       ),
+                    ),
+                  ],
+                  // Accept button — shown to the receiver when not yet accepted
+                  if (!isMe && !correction.isAccepted && !_accepted) ...[
+                    const SizedBox(height: 10),
+                    SizedBox(
+                      width: double.infinity,
+                      child: FilledButton.icon(
+                        onPressed: _accepting
+                            ? null
+                            : () => _accept(message.id, correction.id),
+                        icon: _accepting
+                            ? const SizedBox(
+                                width: 14,
+                                height: 14,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                  color: Colors.white,
+                                ),
+                              )
+                            : const Icon(Icons.check_rounded, size: 16),
+                        label: Text(
+                            _accepting ? 'Accepting…' : 'Accept correction'),
+                        style: FilledButton.styleFrom(
+                          backgroundColor: Colors.green[600],
+                          padding:
+                              const EdgeInsets.symmetric(vertical: 8),
+                        ),
+                      ),
+                    ),
+                  ],
+                  // Accepted confirmation — shown to the receiver after accepting
+                  if (!isMe && (_accepted || correction.isAccepted)) ...[
+                    const SizedBox(height: 10),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(Icons.check_circle_outline_rounded,
+                            size: 14, color: Colors.green[600]),
+                        const SizedBox(width: 4),
+                        Text(
+                          'Correction accepted ✓',
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.green[600],
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ],
