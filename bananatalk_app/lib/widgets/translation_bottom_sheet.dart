@@ -43,6 +43,10 @@ class _TranslationBottomSheetState extends State<TranslationBottomSheet> {
   bool _isTtsLoading = false;
   bool _isTtsPlaying = false;
 
+  // Save phrase
+  bool _phraseSaving = false;
+  bool _phraseSaved = false;
+
   @override
   void initState() {
     super.initState();
@@ -75,6 +79,8 @@ class _TranslationBottomSheetState extends State<TranslationBottomSheet> {
     setState(() {
       _isLoading = true;
       _error = null;
+      _phraseSaved = false;
+      _phraseSaving = false;
     });
 
     final result = await TranslationService.translateMessage(
@@ -195,6 +201,41 @@ class _TranslationBottomSheetState extends State<TranslationBottomSheet> {
     }
 
     if (mounted) setState(() => _isTtsLoading = false);
+  }
+
+  Future<void> _savePhrase() async {
+    if (_translatedText.isEmpty || widget.originalText.isEmpty) return;
+    setState(() => _phraseSaving = true);
+    final result = await TranslationService.saveToVocabulary(
+      messageId: widget.messageId,
+      word: widget.originalText,
+      translation: _translatedText,
+      language: _targetLanguage,
+    );
+    if (!mounted) return;
+    setState(() {
+      _phraseSaving = false;
+      _phraseSaved = result['success'] == true;
+    });
+    if (_phraseSaved) {
+      try {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Phrase saved to study queue'),
+            duration: Duration(seconds: 1),
+          ),
+        );
+      } catch (_) {}
+    } else {
+      try {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Failed to save phrase'),
+            duration: Duration(seconds: 2),
+          ),
+        );
+      } catch (_) {}
+    }
   }
 
   void _showWordDetail(WordBreakdown word) {
@@ -441,11 +482,22 @@ class _TranslationBottomSheetState extends State<TranslationBottomSheet> {
                           isDark: isDark,
                           theme: theme,
                         ),
+                        const SizedBox(width: 8),
+                        _buildIconButton(
+                          icon: _phraseSaved
+                              ? Icons.bookmark_added
+                              : Icons.bookmark_add_outlined,
+                          label: _phraseSaved ? 'Saved' : 'Save phrase',
+                          isLoading: _phraseSaving,
+                          onTap: _phraseSaved ? () {} : _savePhrase,
+                          isDark: isDark,
+                          theme: theme,
+                        ),
                         if (_cached) ...[
                           const Spacer(),
-                          Icon(Icons.cached, size: 14, color: AppColors.gray500),
+                          const Icon(Icons.cached, size: 14, color: AppColors.gray500),
                           const SizedBox(width: 4),
-                          Text('Cached', style: TextStyle(fontSize: 12, color: AppColors.gray500)),
+                          const Text('Cached', style: TextStyle(fontSize: 12, color: AppColors.gray500)),
                         ],
                       ],
                     ),

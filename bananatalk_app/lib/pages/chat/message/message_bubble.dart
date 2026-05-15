@@ -1055,6 +1055,47 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
                             _handleReactionTap(emoji),
                       ),
                     ),
+
+                  // Visible "Correct" chip for partner text messages
+                  if (!widget.isMe &&
+                      !widget.message.isDeleted &&
+                      widget.message.type == 'text' &&
+                      widget.message.message != null &&
+                      widget.message.message!.isNotEmpty &&
+                      !widget.isSelectionMode)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 4, left: 52),
+                      child: GestureDetector(
+                        onTap: () => showCorrectionBottomSheet(
+                          context,
+                          messageId: widget.message.id,
+                          originalText: widget.message.message!,
+                          senderName: widget.otherUserName,
+                        ),
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8, vertical: 3),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                                color: Colors.orange.withValues(alpha: 0.4)),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: const Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(Icons.edit_outlined,
+                                  size: 12, color: Colors.orange),
+                              SizedBox(width: 4),
+                              Text(
+                                'Correct',
+                                style: TextStyle(
+                                    fontSize: 11, color: Colors.orange),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
                 ],
               ),
             ),
