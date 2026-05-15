@@ -79,6 +79,8 @@ class _TranslationBottomSheetState extends State<TranslationBottomSheet> {
     setState(() {
       _isLoading = true;
       _error = null;
+      _phraseSaved = false;
+      _phraseSaving = false;
     });
 
     final result = await TranslationService.translateMessage(
@@ -221,6 +223,15 @@ class _TranslationBottomSheetState extends State<TranslationBottomSheet> {
           const SnackBar(
             content: Text('Phrase saved to study queue'),
             duration: Duration(seconds: 1),
+          ),
+        );
+      } catch (_) {}
+    } else {
+      try {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Failed to save phrase'),
+            duration: Duration(seconds: 2),
           ),
         );
       } catch (_) {}
