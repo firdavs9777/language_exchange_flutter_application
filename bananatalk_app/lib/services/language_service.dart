@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class LanguageService {
   static const String _languageKey = 'app_language';
 
-  // Supported languages (all 18 languages matching ARB files)
+  // Supported languages (all 19 languages matching ARB files)
   static const List<String> supportedLanguages = [
     'en',    // English
     'ko',    // Korean
@@ -25,6 +25,7 @@ class LanguageService {
     'id',    // Indonesian
     'tl',    // Tagalog/Filipino
     'tr',    // Turkish
+    'tg',    // Tajik
   ];
 
   // Language names in their native language
@@ -47,6 +48,7 @@ class LanguageService {
     'id': 'Bahasa Indonesia',
     'tl': 'Filipino',
     'tr': 'Türkçe',
+    'tg': 'Тоҷикӣ',
   };
 
   // Language flags
@@ -69,6 +71,7 @@ class LanguageService {
     'id': '🇮🇩',
     'tl': '🇵🇭',
     'tr': '🇹🇷',
+    'tg': '🇹🇯',
   };
   
   /// Get device language and map to supported language
@@ -101,6 +104,10 @@ class LanguageService {
         'nb': 'en',  // Norwegian Bokmål -> English fallback
         'nn': 'en',  // Norwegian Nynorsk -> English fallback
         'ms': 'id',  // Malay -> Indonesian (similar)
+        'tajik': 'tg',
+        'taj': 'tg',
+        'tg-tj': 'tg',
+        'fa-tj': 'tg',
       };
 
       if (languageMapping.containsKey(languageCode)) {
@@ -178,6 +185,8 @@ class LanguageService {
         return const Locale('id', 'ID');
       case 'tl':
         return const Locale('tl', 'PH');
+      case 'tg':
+        return const Locale('tg', 'TJ');
       case 'tr':
         return const Locale('tr', 'TR');
       default:
