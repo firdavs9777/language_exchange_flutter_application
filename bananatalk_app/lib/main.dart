@@ -18,6 +18,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -290,6 +291,8 @@ class _MyAppState extends ConsumerState<MyApp> {
       ],
       localizationsDelegates: const [
         AppLocalizations.delegate,
+        _TgMaterialLocalizationsDelegate(),
+        _TgCupertinoLocalizationsDelegate(),
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
@@ -333,4 +336,40 @@ class _MyAppState extends ConsumerState<MyApp> {
       },
     );
   }
+}
+
+// Tajik (tg) is not in flutter_localizations' built-in MaterialLocalizations or
+// CupertinoLocalizations. Without these delegates, any Material/Cupertino widget
+// (AppBar, Scaffold, RefreshIndicator, etc.) throws "No MaterialLocalizations
+// found" when the app's locale is tg_TJ. We delegate to Russian — closest
+// available locale; Tajik users are Russian-literate as a second language.
+
+class _TgMaterialLocalizationsDelegate
+    extends LocalizationsDelegate<MaterialLocalizations> {
+  const _TgMaterialLocalizationsDelegate();
+
+  @override
+  bool isSupported(Locale locale) => locale.languageCode == 'tg';
+
+  @override
+  Future<MaterialLocalizations> load(Locale locale) =>
+      GlobalMaterialLocalizations.delegate.load(const Locale('ru', 'RU'));
+
+  @override
+  bool shouldReload(_TgMaterialLocalizationsDelegate old) => false;
+}
+
+class _TgCupertinoLocalizationsDelegate
+    extends LocalizationsDelegate<CupertinoLocalizations> {
+  const _TgCupertinoLocalizationsDelegate();
+
+  @override
+  bool isSupported(Locale locale) => locale.languageCode == 'tg';
+
+  @override
+  Future<CupertinoLocalizations> load(Locale locale) =>
+      GlobalCupertinoLocalizations.delegate.load(const Locale('ru', 'RU'));
+
+  @override
+  bool shouldReload(_TgCupertinoLocalizationsDelegate old) => false;
 }
