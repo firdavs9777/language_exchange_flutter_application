@@ -67,6 +67,7 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
     'nl': '🇳🇱',
     'th': '🇹🇭',
     'vi': '🇻🇳',
+    'tg': '🇹🇯',
   };
 
   String _getLanguageCode(String language) {
@@ -83,6 +84,7 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
     if (langLower.contains('russian') || langLower == 'ru') return 'RU';
     if (langLower.contains('arabic') || langLower == 'ar') return 'AR';
     if (langLower.contains('hindi') || langLower == 'hi') return 'HI';
+    if (langLower.contains('tajik') || langLower == 'tg') return 'TG';
     return language.toUpperCase().substring(
       0,
       language.length > 2 ? 2 : language.length,
@@ -103,6 +105,7 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
     if (langLower.contains('russian') || langLower == 'ru') return '🇷🇺';
     if (langLower.contains('arabic') || langLower == 'ar') return '🇸🇦';
     if (langLower.contains('hindi') || langLower == 'hi') return '🇮🇳';
+    if (langLower.contains('tajik') || langLower == 'tg') return '🇹🇯';
     return _languageFlags[langLower] ?? '🌍';
   }
 
