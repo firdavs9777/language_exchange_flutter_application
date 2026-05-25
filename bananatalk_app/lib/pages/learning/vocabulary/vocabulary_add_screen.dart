@@ -30,14 +30,14 @@ class _VocabularyAddScreenState extends ConsumerState<VocabularyAddScreen> {
   bool _aiFilling = false;
 
   final List<String> _languages = [
-    'en', 'ko', 'es', 'fr', 'de', 'ja', 'zh', 'ar', 'pt', 'ru', 'it', 'nl', 'hi', 'th', 'vi'
+    'en', 'ko', 'es', 'fr', 'de', 'ja', 'zh', 'ar', 'pt', 'ru', 'it', 'nl', 'hi', 'th', 'vi', 'tg'
   ];
 
   final Map<String, String> _languageNames = {
     'en': 'English', 'ko': 'Korean', 'es': 'Spanish', 'fr': 'French',
     'de': 'German', 'ja': 'Japanese', 'zh': 'Chinese', 'ar': 'Arabic',
     'pt': 'Portuguese', 'ru': 'Russian', 'it': 'Italian', 'nl': 'Dutch',
-    'hi': 'Hindi', 'th': 'Thai', 'vi': 'Vietnamese',
+    'hi': 'Hindi', 'th': 'Thai', 'vi': 'Vietnamese', 'tg': 'Tajik',
   };
 
   final List<String> _partsOfSpeech = [
