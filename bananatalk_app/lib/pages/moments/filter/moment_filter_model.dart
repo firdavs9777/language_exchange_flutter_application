@@ -119,6 +119,7 @@ class FilterOptions {
     {'code': 'pl', 'name': 'Polish'},
     {'code': 'ro', 'name': 'Romanian'},
     {'code': 'sv', 'name': 'Swedish'},
+    {'code': 'tg', 'name': 'Tajik'},
     {'code': 'th', 'name': 'Thai'},
     {'code': 'tr', 'name': 'Turkish'},
     {'code': 'uk', 'name': 'Ukrainian'},
