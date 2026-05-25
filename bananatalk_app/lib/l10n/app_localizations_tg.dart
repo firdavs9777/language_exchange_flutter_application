@@ -12,2344 +12,2345 @@ class AppLocalizationsTg extends AppLocalizations {
   String get appName => 'Bananatalk';
 
   @override
-  String get login => 'Login';
+  String get login => 'Ворид шавед';
 
   @override
-  String get signUp => 'Sign Up';
+  String get signUp => 'Сабти ном';
 
   @override
-  String get email => 'Email';
+  String get email => 'Почтаи электронӣ';
 
   @override
-  String get password => 'Password';
+  String get password => 'Парол';
 
   @override
-  String get forgotPassword => 'Forgot Password?';
+  String get forgotPassword => 'Паролро фаромӯш кардаед?';
 
   @override
-  String get or => 'OR';
+  String get or => 'Ё';
 
   @override
-  String get more => 'more';
+  String get more => 'бештар';
 
   @override
-  String get signInWithGoogle => 'Sign in with Google';
+  String get signInWithGoogle => 'Бо Google ворид шавед';
 
   @override
-  String get signInWithApple => 'Sign In with Apple';
+  String get signInWithApple => 'Бо Apple ворид шавед';
 
   @override
-  String get signInWithFacebook => 'Sign in with Facebook';
+  String get signInWithFacebook => 'Бо Facebook ворид шавед';
 
   @override
-  String get welcome => 'Welcome';
+  String get welcome => 'Хуш омадед';
 
   @override
-  String get home => 'Home';
+  String get home => 'Асосӣ';
 
   @override
-  String get messages => 'Messages';
+  String get messages => 'Паёмҳо';
 
   @override
-  String get moments => 'Moments';
+  String get moments => 'Лаҳзаҳо';
 
   @override
-  String get overview => 'Overview';
+  String get overview => 'Шарҳи умумӣ';
 
   @override
-  String get profile => 'Profile';
+  String get profile => 'Профил';
 
   @override
-  String get settings => 'Settings';
+  String get settings => 'Танзимот';
 
   @override
-  String get logout => 'Logout';
+  String get logout => 'Баромадан';
 
   @override
-  String get language => 'Language';
+  String get language => 'Забон';
 
   @override
-  String get selectLanguage => 'Select Language';
+  String get selectLanguage => 'Забонро интихоб кунед';
 
   @override
-  String get autoTranslate => 'Auto Translate';
+  String get autoTranslate => 'Тарҷумаи худкор';
 
   @override
-  String get autoTranslateMessages => 'Auto Translate Messages';
+  String get autoTranslateMessages => 'Тарҷумаи худкори паёмҳо';
 
   @override
-  String get autoTranslateMoments => 'Auto Translate Moments';
+  String get autoTranslateMoments => 'Тарҷумаи худкори лаҳзаҳо';
 
   @override
-  String get autoTranslateComments => 'Auto Translate Comments';
+  String get autoTranslateComments => 'Тарҷумаи худкори шарҳҳо';
 
   @override
-  String get translate => 'Translate';
+  String get translate => 'Тарҷума кардан';
 
   @override
-  String get translated => 'Translated';
+  String get translated => 'Тарҷумашуда';
 
   @override
-  String get showOriginal => 'Show Original';
+  String get showOriginal => 'Нишон додани матни аслӣ';
 
   @override
-  String get showTranslation => 'Show Translation';
+  String get showTranslation => 'Нишон додани тарҷума';
 
   @override
-  String get translating => 'Translating...';
+  String get translating => 'Тарҷума шуда истодааст...';
 
   @override
-  String get translationFailed => 'Translation failed';
+  String get translationFailed => 'Тарҷума ноком шуд';
 
   @override
-  String get noTranslationAvailable => 'No translation available';
+  String get noTranslationAvailable => 'Тарҷума дастрас нест';
 
   @override
   String translatedFrom(String language) {
-    return 'Translated from $language';
+    return 'Аз $language тарҷума шуд';
   }
 
   @override
-  String get save => 'Save';
+  String get save => 'Захира кунед';
 
   @override
-  String get cancel => 'Cancel';
+  String get cancel => 'Бекор кунед';
 
   @override
-  String get delete => 'Delete';
+  String get delete => 'Нест кунед';
 
   @override
-  String get edit => 'Edit';
+  String get edit => 'Таҳрир кунед';
 
   @override
-  String get share => 'Share';
+  String get share => 'Мубодила';
 
   @override
-  String get like => 'Like';
+  String get like => 'Маъқул';
 
   @override
-  String get comment => 'Comment';
+  String get comment => 'Шарҳ';
 
   @override
-  String get send => 'Send';
+  String get send => 'Фиристед';
 
   @override
-  String get search => 'Search';
+  String get search => 'Ҷустуҷӯ';
 
   @override
-  String get notifications => 'Notifications';
+  String get notifications => 'Огоҳномаҳо';
 
   @override
-  String get followers => 'Followers';
+  String get followers => 'Пайравон';
 
   @override
-  String get following => 'Following';
+  String get following => 'Пайравӣ';
 
   @override
-  String get posts => 'Posts';
+  String get posts => 'Постҳо';
 
   @override
-  String get visitors => 'Visitors';
+  String get visitors => 'Меҳмонон';
 
   @override
-  String get loading => 'Loading...';
+  String get loading => 'Боргирӣ шуда истодааст...';
 
   @override
-  String get error => 'Error';
+  String get error => 'Хато';
 
   @override
-  String get success => 'Success';
+  String get success => 'Муваффақият';
 
   @override
-  String get tryAgain => 'Try Again';
+  String get tryAgain => 'Бори дигар кӯшиш кунед';
 
   @override
-  String get networkError => 'Network error. Please check your connection.';
+  String get networkError => 'Хатои шабака. Лутфан пайвастагии худро санҷед.';
 
   @override
-  String get somethingWentWrong => 'Something went wrong';
+  String get somethingWentWrong => 'Хатое рух дод';
 
   @override
-  String get ok => 'OK';
+  String get ok => 'Хуб';
 
   @override
-  String get yes => 'Yes';
+  String get yes => 'Ҳа';
 
   @override
-  String get no => 'No';
+  String get no => 'Не';
 
   @override
-  String get languageSettings => 'Language Settings';
+  String get languageSettings => 'Танзимоти забон';
 
   @override
-  String get deviceLanguage => 'Device Language';
+  String get deviceLanguage => 'Забони дастгоҳ';
 
   @override
   String yourDeviceIsSetTo(String flag, String name) {
-    return 'Your device is set to: $flag $name';
+    return 'Дастгоҳи шумо ба ин танзим шудааст: $flag $name';
   }
 
   @override
-  String get youCanOverride => 'You can override the device language below.';
+  String get youCanOverride => 'Шумо метавонед забони дастгоҳро дар поён иваз кунед.';
 
   @override
   String languageChangedTo(String name) {
-    return 'Language changed to $name';
+    return 'Забон ба $name иваз шуд';
   }
 
   @override
-  String get errorChangingLanguage => 'Error changing language';
+  String get errorChangingLanguage => 'Хато ҳангоми ивази забон';
 
   @override
-  String get autoTranslateSettings => 'Auto-Translate Settings';
+  String get autoTranslateSettings => 'Танзимоти тарҷумаи худкор';
 
   @override
-  String get automaticallyTranslateIncomingMessages => 'Automatically translate incoming messages';
+  String get automaticallyTranslateIncomingMessages => 'Паёмҳои воридшавандаро ба таври худкор тарҷума кунед';
 
   @override
-  String get automaticallyTranslateMomentsInFeed => 'Automatically translate moments in feed';
+  String get automaticallyTranslateMomentsInFeed => 'Лаҳзаҳоро дар навор ба таври худкор тарҷума кунед';
 
   @override
-  String get automaticallyTranslateComments => 'Automatically translate comments';
+  String get automaticallyTranslateComments => 'Шарҳҳоро ба таври худкор тарҷума кунед';
 
   @override
-  String get translationServiceBeingConfigured => 'Translation service is being configured. Please try again later.';
+  String get translationServiceBeingConfigured => 'Хидмати тарҷума танзим шуда истодааст. Лутфан баъдтар кӯшиш кунед.';
 
   @override
-  String get translationUnavailable => 'Translation unavailable';
+  String get translationUnavailable => 'Тарҷума дастрас нест';
 
   @override
-  String get showLess => 'show less';
+  String get showLess => 'камтар нишон диҳед';
 
   @override
-  String get showMore => 'show more';
+  String get showMore => 'бештар нишон диҳед';
 
   @override
-  String get comments => 'Comments';
+  String get comments => 'Шарҳҳо';
 
   @override
-  String get beTheFirstToComment => 'Be the first to comment.';
+  String get beTheFirstToComment => 'Аввалин шуда шарҳ нависед.';
 
   @override
-  String get writeAComment => 'Write a comment...';
+  String get writeAComment => 'Шарҳ нависед...';
 
   @override
-  String get report => 'Report';
+  String get report => 'Шикоят';
 
   @override
-  String get reportMoment => 'Report Moment';
+  String get reportMoment => 'Шикоят аз лаҳза';
 
   @override
-  String get reportUser => 'Report User';
+  String get reportUser => 'Шикоят аз корбар';
 
   @override
-  String get deleteMoment => 'Delete Moment?';
+  String get deleteMoment => 'Лаҳзаро нест мекунед?';
 
   @override
-  String get thisActionCannotBeUndone => 'This action cannot be undone.';
+  String get thisActionCannotBeUndone => 'Ин амалро баргардонидан мумкин нест.';
 
   @override
-  String get momentDeleted => 'Moment deleted';
+  String get momentDeleted => 'Лаҳза нест карда шуд';
 
   @override
-  String get deleteComment => 'Delete Comment?';
+  String get deleteComment => 'Шарҳро нест мекунед?';
 
   @override
-  String get commentDeleted => 'Comment deleted';
+  String get commentDeleted => 'Шарҳ нест карда шуд';
 
   @override
-  String get editFeatureComingSoon => 'Edit feature coming soon';
+  String get editFeatureComingSoon => 'Имконияти таҳрир ба зудӣ дастрас мешавад';
 
   @override
-  String get userNotFound => 'User not found';
+  String get userNotFound => 'Корбар ёфт нашуд';
 
   @override
-  String get cannotReportYourOwnComment => 'Cannot report your own comment';
+  String get cannotReportYourOwnComment => 'Шикоят аз шарҳи худатон имконнопазир аст';
 
   @override
-  String get profileSettings => 'Profile Settings';
+  String get profileSettings => 'Танзимоти профил';
 
   @override
-  String get editYourProfileInformation => 'Edit your profile information';
+  String get editYourProfileInformation => 'Маълумоти профили худро таҳрир кунед';
 
   @override
-  String get blockedUsers => 'Blocked Users';
+  String get blockedUsers => 'Корбарони басташуда';
 
   @override
-  String get manageBlockedUsers => 'Manage blocked users';
+  String get manageBlockedUsers => 'Идоракунии корбарони басташуда';
 
   @override
-  String get manageNotificationSettings => 'Manage notification settings';
+  String get manageNotificationSettings => 'Идоракунии танзимоти огоҳномаҳо';
 
   @override
-  String get privacySecurity => 'Privacy & Security';
+  String get privacySecurity => 'Махфият ва амният';
 
   @override
-  String get controlYourPrivacy => 'Control your privacy';
+  String get controlYourPrivacy => 'Махфияти худро идора кунед';
 
   @override
-  String get changeAppLanguage => 'Change app language';
+  String get changeAppLanguage => 'Забони барномаро иваз кунед';
 
   @override
-  String get appearance => 'Appearance';
+  String get appearance => 'Намуди зоҳирӣ';
 
   @override
-  String get themeAndDisplaySettings => 'Theme and display settings';
+  String get themeAndDisplaySettings => 'Танзимоти мавзӯъ ва намоиш';
 
   @override
-  String get clearCache => 'Clear Cache';
+  String get clearCache => 'Поккунии ҳофиза';
 
   @override
-  String get clearCacheSubtitle => 'Free up storage space';
+  String get clearCacheSubtitle => 'Озод кардани ҷои нигоҳдорӣ';
 
   @override
-  String get clearCacheDescription => 'This will clear all cached images, videos, and audio files. The app may load content slower temporarily as it re-downloads media.';
+  String get clearCacheDescription => 'Ин ҳамаи тасвирҳо, видеоҳо ва файлҳои аудиоии нигоҳдошташударо пок мекунад. Барнома муваққатан мумкин аст мундариҷаро сусттар бор кунад, зеро онро аз нав боргирӣ мекунад.';
 
   @override
-  String get clearCacheHint => 'Use this if images or audio aren\'t loading properly.';
+  String get clearCacheHint => 'Агар тасвирҳо ё аудио дуруст бор нашаванд, инро истифода баред.';
 
   @override
-  String get clearingCache => 'Clearing cache...';
+  String get clearingCache => 'Ҳофиза пок шуда истодааст...';
 
   @override
-  String get cacheCleared => 'Cache cleared successfully! Images will reload fresh.';
+  String get cacheCleared => 'Ҳофиза бомуваффақият пок карда шуд! Тасвирҳо аз нав бор мешаванд.';
 
   @override
-  String get clearCacheFailed => 'Failed to clear cache';
+  String get clearCacheFailed => 'Поккунии ҳофиза ноком шуд';
 
   @override
-  String get myReports => 'My Reports';
+  String get myReports => 'Шикоятҳои ман';
 
   @override
-  String get viewYourSubmittedReports => 'View your submitted reports';
+  String get viewYourSubmittedReports => 'Шикоятҳои фиристодаатонро бубинед';
 
   @override
-  String get reportsManagement => 'Reports Management';
+  String get reportsManagement => 'Идоракунии шикоятҳо';
 
   @override
-  String get manageAllReportsAdmin => 'Manage all reports (Admin)';
+  String get manageAllReportsAdmin => 'Идоракунии ҳамаи шикоятҳо (Админ)';
 
   @override
-  String get legalPrivacy => 'Legal & Privacy';
+  String get legalPrivacy => 'Ҳуқуқӣ ва махфият';
 
   @override
-  String get termsPrivacySubscriptionInfo => 'Terms, Privacy & Subscription info';
+  String get termsPrivacySubscriptionInfo => 'Шартҳо, махфият ва маълумоти обуна';
 
   @override
-  String get helpCenter => 'Help Center';
+  String get helpCenter => 'Маркази кӯмак';
 
   @override
-  String get getHelpAndSupport => 'Get help and support';
+  String get getHelpAndSupport => 'Кӯмак ва дастгирӣ гиред';
 
   @override
-  String get aiTutorChangePersona => 'Change AI tutor';
+  String get aiTutorChangePersona => 'Иваз кардани муаллими AI';
 
   @override
-  String get aiTutorChangePersonaSubtitle => 'Switch to Nana, Sensei or Riko';
+  String get aiTutorChangePersonaSubtitle => 'Ба Nana, Sensei ё Riko гузаред';
 
   @override
   String aiTutorHeroTitleSet(String name) {
-    return 'Your AI Tutor · $name';
+    return 'Муаллими AI-и шумо · $name';
   }
 
   @override
-  String get aiTutorHeroTitleNew => 'Meet your AI Tutor';
+  String get aiTutorHeroTitleNew => 'Бо муаллими AI-и худ шинос шавед';
 
   @override
-  String get aiTutorHeroSubtitleSet => 'Tap to chat or see today\'s plan';
+  String get aiTutorHeroSubtitleSet => 'Барои сӯҳбат ё дидани нақшаи имрӯза зер кунед';
 
   @override
   String aiTutorHeroSubtitleLast(String summary) {
-    return 'Last time: $summary';
+    return 'Бори охирин: $summary';
   }
 
   @override
-  String get aiTutorHeroSubtitleNew => 'Pick a persona — Nana, Sensei, or Riko';
+  String get aiTutorHeroSubtitleNew => 'Як персонаро интихоб кунед — Nana, Sensei ё Riko';
 
   @override
-  String get aiTutorChipChat => 'Chat';
+  String get aiTutorChipChat => 'Чат';
 
   @override
-  String get aiTutorChipRoleplay => 'Roleplay';
+  String get aiTutorChipRoleplay => 'Нақшбозӣ';
 
   @override
-  String get aiTutorChipStory => 'Story';
+  String get aiTutorChipStory => 'Ҳикоя';
 
   @override
-  String get aiTutorChipPhoto => 'Photo';
+  String get aiTutorChipPhoto => 'Сурат';
 
   @override
-  String get aiToolsMoreSection => 'More AI tools';
+  String get aiToolsMoreSection => 'Боз абзорҳои AI';
 
   @override
-  String get aiConversationPartnerTile => 'AI Conversation';
+  String get aiConversationPartnerTile => 'Сӯҳбат бо AI';
 
   @override
-  String get aiConversationPartnerTileSubtitle => 'Practice with an AI partner';
+  String get aiConversationPartnerTileSubtitle => 'Бо шарики AI машқ кунед';
 
   @override
-  String get aiTutorPickerTitle => 'Pick your AI tutor';
+  String get aiTutorPickerTitle => 'Муаллими AI-и худро интихоб кунед';
 
   @override
-  String get aiTutorPickerHeader => 'Who do you want to learn with?';
+  String get aiTutorPickerHeader => 'Бо кӣ омӯзиш мехоҳед?';
 
   @override
-  String get aiTutorPickerSubtitle => 'You can change this anytime in settings.';
+  String get aiTutorPickerSubtitle => 'Шумо метавонед инро ҳар вақт дар танзимот иваз кунед.';
 
   @override
-  String get aiTutorPersonaNanaTagline => 'Warm + encouraging';
+  String get aiTutorPersonaNanaTagline => 'Гарм ва ҳавасмандкунанда';
 
   @override
-  String get aiTutorPersonaNanaSample => 'I\'ll cheer you on, no pressure.';
+  String get aiTutorPersonaNanaSample => 'Ман шуморо дастгирӣ мекунам, бидуни фишор.';
 
   @override
-  String get aiTutorPersonaSenseiTagline => 'Precise + exam-focused';
+  String get aiTutorPersonaSenseiTagline => 'Дақиқ ва ба имтиҳон нигаронидашуда';
 
   @override
-  String get aiTutorPersonaSenseiSample => 'We will master the rules.';
+  String get aiTutorPersonaSenseiSample => 'Мо қоидаҳоро аз худ мекунем.';
 
   @override
-  String get aiTutorPersonaRikoTagline => 'Playful + slangy';
+  String get aiTutorPersonaRikoTagline => 'Бозингарона ва ғайрирасмӣ';
 
   @override
-  String get aiTutorPersonaRikoSample => 'lol let\'s vibe and learn';
+  String get aiTutorPersonaRikoSample => 'биёед хушҳолона омӯзем';
 
   @override
   String aiTutorPickerSaveError(String error) {
-    return 'Could not save: $error';
+    return 'Захира карда нашуд: $error';
   }
 
   @override
-  String get aiTutorHomeTitle => 'AI Tutor';
+  String get aiTutorHomeTitle => 'Муаллими AI';
 
   @override
-  String get aiTutorHomeChangeTutor => 'Change tutor';
+  String get aiTutorHomeChangeTutor => 'Муаллимро иваз кунед';
 
   @override
-  String get aiTutorHomeGreetingDefault => 'Hey! Ready to learn together?';
+  String get aiTutorHomeGreetingDefault => 'Салом! Барои якҷоя омӯхтан тайёред?';
 
   @override
-  String get aiTutorHomeTodaysPlan => 'Today\'s plan';
+  String get aiTutorHomeTodaysPlan => 'Нақшаи имрӯза';
 
   @override
-  String get aiTutorHomePlanEmpty => 'No plan for today — start a chat to begin.';
+  String get aiTutorHomePlanEmpty => 'Барои имрӯз нақша нест — барои оғоз як чат кушоед.';
 
   @override
-  String get aiTutorHomeStartChat => 'Start chat';
+  String get aiTutorHomeStartChat => 'Чатро оғоз кунед';
 
   @override
-  String get aiTutorHomeRecent => 'Recent';
+  String get aiTutorHomeRecent => 'Охирин';
 
   @override
-  String get aiTutorHomePracticeScenarios => 'Practice scenarios';
+  String get aiTutorHomePracticeScenarios => 'Сенарияҳои машқӣ';
 
   @override
-  String get aiTutorHomePracticeScenariosSubtitle => 'Roleplay real-world conversations — restaurant, interview, hotel…';
+  String get aiTutorHomePracticeScenariosSubtitle => 'Сӯҳбатҳои воқеиро нақшбозӣ кунед — ресторан, мусоҳиба, меҳмонхона…';
 
   @override
-  String get aiTutorHomeReadStory => 'Read a story';
+  String get aiTutorHomeReadStory => 'Як ҳикоя хонед';
 
   @override
-  String get aiTutorHomeReadStorySubtitle => 'AI writes a short story using your vocab — with quick comprehension checks.';
+  String get aiTutorHomeReadStorySubtitle => 'AI бо истифода аз луғати шумо ҳикояи кӯтоҳ менависад — бо санҷишҳои фаҳмиш.';
 
   @override
-  String get aiTutorHomeDescribePhoto => 'Describe a photo';
+  String get aiTutorHomeDescribePhoto => 'Суратро тавсиф кунед';
 
   @override
-  String get aiTutorHomeDescribePhotoSubtitle => 'Snap a picture and describe it — AI grades your vocab + grammar.';
+  String get aiTutorHomeDescribePhotoSubtitle => 'Сурат гиред ва онро тавсиф кунед — AI луғат ва грамматикаи шуморо баҳо медиҳад.';
 
   @override
-  String get aiTutorChatTitle => 'Chat with tutor';
+  String get aiTutorChatTitle => 'Чат бо муаллим';
 
   @override
-  String get aiTutorChatVoiceOn => 'Voice on';
+  String get aiTutorChatVoiceOn => 'Овоз фаъол';
 
   @override
-  String get aiTutorChatVoiceOff => 'Voice off';
+  String get aiTutorChatVoiceOff => 'Овоз хомӯш';
 
   @override
-  String get aiTutorChatStopRecording => 'Stop recording';
+  String get aiTutorChatStopRecording => 'Сабтро бас кунед';
 
   @override
-  String get aiTutorChatHoldToTalk => 'Hold to talk';
+  String get aiTutorChatHoldToTalk => 'Барои гап задан нигоҳ доред';
 
   @override
-  String get aiTutorChatTranscribing => 'Transcribing…';
+  String get aiTutorChatTranscribing => 'Аз овоз ба матн табдил шуда истодааст…';
 
   @override
-  String get aiTutorChatListening => 'Listening…';
+  String get aiTutorChatListening => 'Гӯш мекунад…';
 
   @override
-  String get aiTutorChatInputHint => 'Type a message…';
+  String get aiTutorChatInputHint => 'Як паём нависед…';
 
   @override
-  String get aiTutorChatTypeReplyHint => 'Type your reply…';
+  String get aiTutorChatTypeReplyHint => 'Ҷавоби худро нависед…';
 
   @override
-  String get aiTutorChatMicPermissionDenied => 'Microphone permission needed for voice mode.';
+  String get aiTutorChatMicPermissionDenied => 'Барои реҷаи овозӣ иҷозати микрофон лозим аст.';
 
   @override
-  String get aiTutorChatTranscribeFailed => 'Didn\'t catch that — try again.';
+  String get aiTutorChatTranscribeFailed => 'Нашунидам — бори дигар кӯшиш кунед.';
 
   @override
   String aiTutorChatStartFailed(String error) {
-    return 'Failed to start: $error';
+    return 'Оғоз кардан ноком шуд: $error';
   }
 
   @override
-  String get aiTutorRoleplayEnd => 'End';
+  String get aiTutorRoleplayEnd => 'Анҷом';
 
   @override
   String aiTutorRoleplayEndFailed(String error) {
-    return 'End failed: $error';
+    return 'Анҷом додан ноком шуд: $error';
   }
 
   @override
-  String get aiTutorRoleplayDone => 'Done';
+  String get aiTutorRoleplayDone => 'Тайёр';
 
   @override
-  String get aiTutorStoryTitle => 'Read a story';
+  String get aiTutorStoryTitle => 'Як ҳикоя хонед';
 
   @override
-  String get aiTutorStoryLength => 'Length';
+  String get aiTutorStoryLength => 'Дарозӣ';
 
   @override
-  String get aiTutorStoryTheme => 'Theme';
+  String get aiTutorStoryTheme => 'Мавзӯъ';
 
   @override
   String aiTutorStoryWordCount(int count) {
-    return '$count words';
+    return '$count калима';
   }
 
   @override
-  String get aiTutorStoryWriting => 'Writing…';
+  String get aiTutorStoryWriting => 'Навишта шуда истодааст…';
 
   @override
-  String get aiTutorStoryGenerate => 'Generate story';
+  String get aiTutorStoryGenerate => 'Ҳикояро эҷод кунед';
 
   @override
   String aiTutorStoryGenerateFailed(String error) {
-    return 'Could not generate: $error';
+    return 'Эҷод карда нашуд: $error';
   }
 
   @override
   String aiTutorStoryWordCountHint(int n) {
-    return 'The AI will use up to $n words from your vocab list.';
+    return 'AI то $n калимаро аз рӯйхати луғати шумо истифода мебарад.';
   }
 
   @override
-  String get aiTutorStoryThemeFree => 'Free';
+  String get aiTutorStoryThemeFree => 'Озод';
 
   @override
-  String get aiTutorStoryThemeAdventure => 'Adventure';
+  String get aiTutorStoryThemeAdventure => 'Саргузашт';
 
   @override
-  String get aiTutorStoryThemeMystery => 'Mystery';
+  String get aiTutorStoryThemeMystery => 'Асрор';
 
   @override
-  String get aiTutorStoryThemeRomance => 'Romance';
+  String get aiTutorStoryThemeRomance => 'Ишқӣ';
 
   @override
-  String get aiTutorStoryThemeSciFi => 'Sci-fi';
+  String get aiTutorStoryThemeSciFi => 'Илмӣ-фантастикӣ';
 
   @override
-  String get aiTutorStoryThemeSliceOfLife => 'Slice of life';
+  String get aiTutorStoryThemeSliceOfLife => 'Аз ҳаёти ҳаррӯза';
 
   @override
-  String get aiTutorStoryReaderTitle => 'Story';
+  String get aiTutorStoryReaderTitle => 'Ҳикоя';
 
   @override
-  String get aiTutorStoryReaderVocab => 'Vocabulary';
+  String get aiTutorStoryReaderVocab => 'Луғат';
 
   @override
-  String get aiTutorStoryReaderVocabUsed => 'Vocabulary used';
+  String get aiTutorStoryReaderVocabUsed => 'Луғати истифодашуда';
 
   @override
   String aiTutorStoryReaderPart(int n) {
-    return 'Part $n';
+    return 'Қисми $n';
   }
 
   @override
-  String get aiTutorStoryReaderWrongHint => 'Not quite — moving on';
+  String get aiTutorStoryReaderWrongHint => 'На комилан дуруст — давом медиҳем';
 
   @override
-  String get aiTutorStoryReaderNiceWork => 'Nice work!';
+  String get aiTutorStoryReaderNiceWork => 'Кори хуб!';
 
   @override
   String aiTutorStoryReaderScore(int correct, int total) {
-    return 'You got $correct/$total comprehension questions right.';
+    return 'Шумо $correct/$total саволи фаҳмишро дуруст ҷавоб додед.';
   }
 
   @override
-  String get aiTutorStoryReaderDone => 'Done';
+  String get aiTutorStoryReaderDone => 'Тайёр';
 
   @override
-  String get aiTutorImageVocabTitle => 'Describe a photo';
+  String get aiTutorImageVocabTitle => 'Суратро тавсиф кунед';
 
   @override
-  String get aiTutorImagePickHeader => 'Pick a photo to describe';
+  String get aiTutorImagePickHeader => 'Барои тавсиф як сурат интихоб кунед';
 
   @override
-  String get aiTutorImagePickSubtitle => 'The AI will give you a prompt in your target language, then grade your description.';
+  String get aiTutorImagePickSubtitle => 'AI ба шумо дар забони ҳадафатон як супориш медиҳад ва баъд тавсифи шуморо баҳо медиҳад.';
 
   @override
-  String get aiTutorImagePickCamera => 'Camera';
+  String get aiTutorImagePickCamera => 'Камера';
 
   @override
-  String get aiTutorImagePickGallery => 'Gallery';
+  String get aiTutorImagePickGallery => 'Галерея';
 
   @override
   String aiTutorImagePickError(String error) {
-    return 'Could not open image: $error';
+    return 'Тасвирро кушодан мумкин нашуд: $error';
   }
 
   @override
-  String get aiTutorImageDescriptionHint => 'Type your description…';
+  String get aiTutorImageDescriptionHint => 'Тавсифи худро нависед…';
 
   @override
-  String get aiTutorImageDifferentPhoto => 'Different photo';
+  String get aiTutorImageDifferentPhoto => 'Сурати дигар';
 
   @override
-  String get aiTutorImageSubmit => 'Submit';
+  String get aiTutorImageSubmit => 'Фиристед';
 
   @override
-  String get aiTutorImageGrammarNotes => 'Grammar notes';
+  String get aiTutorImageGrammarNotes => 'Қайдҳои грамматикӣ';
 
   @override
-  String get aiTutorImageThingsYouMissed => 'Things you missed';
+  String get aiTutorImageThingsYouMissed => 'Чизҳое, ки аз даст додаед';
 
   @override
-  String get aiTutorImageTryAnother => 'Try another photo';
+  String get aiTutorImageTryAnother => 'Сурати дигарро санҷед';
 
   @override
-  String get aiTutorCardQuiz => 'Quiz';
+  String get aiTutorCardQuiz => 'Викторина';
 
   @override
-  String get aiTutorCardVocab => 'Vocab';
+  String get aiTutorCardVocab => 'Луғат';
 
   @override
-  String get aiTutorCardGrammar => 'Grammar';
+  String get aiTutorCardGrammar => 'Грамматика';
 
   @override
-  String get aiTutorCardReviewDue => 'Review due';
+  String get aiTutorCardReviewDue => 'Такрор лозим аст';
 
   @override
-  String get aiTutorCardMiniLesson => 'Mini-lesson';
+  String get aiTutorCardMiniLesson => 'Дарси хурд';
 
   @override
-  String get aiTutorCardAddToVocab => 'Add to vocab';
+  String get aiTutorCardAddToVocab => 'Ба луғат илова кунед';
 
   @override
-  String get aiTutorCardAddedToVocab => 'Added to vocab';
+  String get aiTutorCardAddedToVocab => 'Ба луғат илова шуд';
 
   @override
-  String get aiTutorCardAdding => 'Adding…';
+  String get aiTutorCardAdding => 'Илова шуда истодааст…';
 
   @override
   String aiTutorCardReviewCount(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count cards waiting for you',
-      one: '$count card waiting for you',
+      other: '$count корт мунтазири шумост',
+      one: '$count корт мунтазири шумост',
+      zero: 'ягон корт мунтазир нест',
     );
     return '$_temp0';
   }
 
   @override
-  String get aiTutorCardReviewNow => 'Review now';
+  String get aiTutorCardReviewNow => 'Ҳозир такрор кунед';
 
   @override
-  String get aiTutorCardReviewStarting => 'Starting…';
+  String get aiTutorCardReviewStarting => 'Оғоз шуда истодааст…';
 
   @override
-  String get aiTutorCardTryIt => 'Try it';
+  String get aiTutorCardTryIt => 'Озмоиш кунед';
 
   @override
-  String get aiTutorCardPracticing => 'Practicing…';
+  String get aiTutorCardPracticing => 'Машқ шуда истодааст…';
 
   @override
   String aiTutorPlanSrsReview(int count, int done) {
-    return 'Review $count SRS cards ($done done)';
+    return '$count корти SRS-ро такрор кунед ($done анҷом)';
   }
 
   @override
   String aiTutorPlanGrammar(String topic) {
-    return 'Practice: $topic';
+    return 'Машқ: $topic';
   }
 
   @override
   String aiTutorPlanChat(int min, int done) {
-    return 'Chat for $min min ($done so far)';
+    return '$min дақиқа чат кунед ($done то ҳол)';
   }
 
   @override
-  String get aboutBananatalk => 'About Bananatalk';
+  String get aboutBananatalk => 'Дар бораи Bananatalk';
 
   @override
-  String get deleteAccount => 'Delete Account';
+  String get deleteAccount => 'Ҳисобро нест кунед';
 
   @override
-  String get permanentlyDeleteYourAccount => 'Permanently delete your account';
+  String get permanentlyDeleteYourAccount => 'Ҳисоби худро доимӣ нест кунед';
 
   @override
-  String get loggedOutSuccessfully => 'Logged out successfully';
+  String get loggedOutSuccessfully => 'Бомуваффақият баромадед';
 
   @override
-  String get retry => 'Retry';
+  String get retry => 'Аз нав кӯшиш кунед';
 
   @override
-  String get giftsLikes => 'Gifts/Likes';
+  String get giftsLikes => 'Тӯҳфаҳо/Маъқулҳо';
 
   @override
-  String get details => 'Details';
+  String get details => 'Тафсилот';
 
   @override
-  String get to => 'to';
+  String get to => 'ба';
 
   @override
   String get banaTalk => 'Bananatalk';
 
   @override
-  String get chats => 'Chats';
+  String get chats => 'Чатҳо';
 
   @override
-  String get community => 'Community';
+  String get community => 'Ҷомеа';
 
   @override
-  String get editProfile => 'Edit Profile';
+  String get editProfile => 'Профилро таҳрир кунед';
 
   @override
   String yearsOld(String age) {
-    return '$age years old';
+    return '$age-сола';
   }
 
   @override
-  String get searchConversations => 'Search conversations...';
+  String get searchConversations => 'Ҷустуҷӯи сӯҳбатҳо...';
 
   @override
-  String get visitorTrackingNotAvailable => 'Visitor tracking feature is not available yet. Backend update required.';
+  String get visitorTrackingNotAvailable => 'Имконияти пайгирии меҳмонон ҳоло дастрас нест. Навсозии backend лозим аст.';
 
   @override
-  String get chatList => 'ChatList';
+  String get chatList => 'Рӯйхати чатҳо';
 
   @override
-  String get languageExchange => 'Language Exchange';
+  String get languageExchange => 'Мубодилаи забонҳо';
 
   @override
-  String get nativeLanguage => 'Native Language';
+  String get nativeLanguage => 'Забони модарӣ';
 
   @override
-  String get learning => 'Learning';
+  String get learning => 'Дар ҳоли омӯзиш';
 
   @override
-  String get notSet => 'Not set';
+  String get notSet => 'Танзим нашудааст';
 
   @override
-  String get about => 'About';
+  String get about => 'Дар бора';
 
   @override
-  String get aboutMe => 'About Me';
+  String get aboutMe => 'Дар бораи ман';
 
   @override
-  String get bloodType => 'Blood Type';
+  String get bloodType => 'Гурӯҳи хун';
 
   @override
-  String get photos => 'Photos';
+  String get photos => 'Суратҳо';
 
   @override
-  String get camera => 'Camera';
+  String get camera => 'Камера';
 
   @override
-  String get createMoment => 'Create Moment';
+  String get createMoment => 'Лаҳзаи нав созед';
 
   @override
-  String get addATitle => 'Add a title...';
+  String get addATitle => 'Сарлавҳа илова кунед...';
 
   @override
-  String get whatsOnYourMind => 'What\'s on your mind?';
+  String get whatsOnYourMind => 'Дар фикратон чӣ ҳаст?';
 
   @override
-  String get addTags => 'Add Tags';
+  String get addTags => 'Барчаспҳо илова кунед';
 
   @override
-  String get done => 'Done';
+  String get done => 'Тайёр';
 
   @override
-  String get add => 'Add';
+  String get add => 'Илова';
 
   @override
-  String get enterTag => 'Enter tag';
+  String get enterTag => 'Барчаспро ворид кунед';
 
   @override
-  String get post => 'Post';
+  String get post => 'Нашр';
 
   @override
-  String get commentAddedSuccessfully => 'Comment added successfully';
+  String get commentAddedSuccessfully => 'Шарҳ бомуваффақият илова шуд';
 
   @override
-  String get clearFilters => 'Clear Filters';
+  String get clearFilters => 'Филтрҳоро тоза кунед';
 
   @override
-  String get notificationSettings => 'Notification Settings';
+  String get notificationSettings => 'Танзимоти огоҳномаҳо';
 
   @override
-  String get enableNotifications => 'Enable Notifications';
+  String get enableNotifications => 'Огоҳномаҳоро фаъол кунед';
 
   @override
-  String get turnAllNotificationsOnOrOff => 'Turn all notifications on or off';
+  String get turnAllNotificationsOnOrOff => 'Ҳамаи огоҳномаҳоро фаъол ё хомӯш кунед';
 
   @override
-  String get notificationTypes => 'NOTIFICATION TYPES';
+  String get notificationTypes => 'НАВЪҲОИ ОГОҲНОМА';
 
   @override
-  String get chatMessages => 'Chat Messages';
+  String get chatMessages => 'Паёмҳои чат';
 
   @override
-  String get getNotifiedWhenYouReceiveMessages => 'Get notified when you receive messages';
+  String get getNotifiedWhenYouReceiveMessages => 'Ҳангоми гирифтани паём огоҳ шавед';
 
   @override
-  String get likesAndCommentsOnYourMoments => 'Likes and comments on your moments';
+  String get likesAndCommentsOnYourMoments => 'Маъқулҳо ва шарҳҳо ба лаҳзаҳои шумо';
 
   @override
-  String get whenPeopleYouFollowPostMoments => 'When people you follow post moments';
+  String get whenPeopleYouFollowPostMoments => 'Вақте ки одамоне, ки шумо пайравӣ мекунед, лаҳза нашр мекунанд';
 
   @override
-  String get friendRequests => 'Friend Requests';
+  String get friendRequests => 'Дархостҳои дӯстӣ';
 
   @override
-  String get whenSomeoneFollowsYou => 'When someone follows you';
+  String get whenSomeoneFollowsYou => 'Вақте касе ба шумо пайравӣ мекунад';
 
   @override
-  String get profileVisits => 'Profile Visits';
+  String get profileVisits => 'Боздидҳои профил';
 
   @override
-  String get whenSomeoneViewsYourProfileVIP => 'When someone views your profile (VIP)';
+  String get whenSomeoneViewsYourProfileVIP => 'Вақте касе профили шуморо мебинад (VIP)';
 
   @override
-  String get marketing => 'Marketing';
+  String get marketing => 'Маркетинг';
 
   @override
-  String get updatesAndPromotionalMessages => 'Updates and promotional messages';
+  String get updatesAndPromotionalMessages => 'Навсозиҳо ва паёмҳои таблиғотӣ';
 
   @override
-  String get notificationPreferences => 'Notification Preferences';
+  String get notificationPreferences => 'Афзалиятҳои огоҳномаҳо';
 
   @override
-  String get sound => 'Sound';
+  String get sound => 'Овоз';
 
   @override
-  String get playNotificationSounds => 'Play notification sounds';
+  String get playNotificationSounds => 'Овози огоҳномаҳоро пахш кунед';
 
   @override
-  String get vibration => 'Vibration';
+  String get vibration => 'Виброзанг';
 
   @override
-  String get vibrateOnNotifications => 'Vibrate on notifications';
+  String get vibrateOnNotifications => 'Ҳангоми огоҳномаҳо виброзанг кунад';
 
   @override
-  String get showPreview => 'Show Preview';
+  String get showPreview => 'Намоиши пешакӣ';
 
   @override
-  String get showMessagePreviewInNotifications => 'Show message preview in notifications';
+  String get showMessagePreviewInNotifications => 'Намоиши пешакии паём дар огоҳномаҳо';
 
   @override
-  String get mutedConversations => 'Muted Conversations';
+  String get mutedConversations => 'Сӯҳбатҳои бесадо';
 
   @override
-  String get conversation => 'Conversation';
+  String get conversation => 'Сӯҳбат';
 
   @override
-  String get unmute => 'Unmute';
+  String get unmute => 'Бо садо кардан';
 
   @override
-  String get systemNotificationSettings => 'System Notification Settings';
+  String get systemNotificationSettings => 'Танзимоти огоҳномаҳои система';
 
   @override
-  String get manageNotificationsInSystemSettings => 'Manage notifications in system settings';
+  String get manageNotificationsInSystemSettings => 'Огоҳномаҳоро дар танзимоти система идора кунед';
 
   @override
-  String get errorLoadingSettings => 'Error loading settings';
+  String get errorLoadingSettings => 'Хато ҳангоми боркунии танзимот';
 
   @override
-  String get unblockUser => 'Unblock User';
+  String get unblockUser => 'Корбарро кушоед';
 
   @override
-  String get unblock => 'Unblock';
+  String get unblock => 'Кушоед';
 
   @override
-  String get goBack => 'Go Back';
+  String get goBack => 'Бозгашт';
 
   @override
-  String get messageSendTimeout => 'Message send timeout. Please check your connection.';
+  String get messageSendTimeout => 'Вақти фиристодани паём гузашт. Лутфан пайвастагии худро санҷед.';
 
   @override
-  String get failedToSendMessage => 'Failed to send message';
+  String get failedToSendMessage => 'Паём фиристода нашуд';
 
   @override
-  String get dailyMessageLimitExceeded => 'Daily message limit exceeded. Upgrade to VIP for unlimited messages.';
+  String get dailyMessageLimitExceeded => 'Лимити ҳаррӯзаи паёмҳо гузашт. Барои паёмҳои бемаҳдуд ба VIP гузаред.';
 
   @override
-  String get cannotSendMessageUserMayBeBlocked => 'Cannot send message. User may be blocked.';
+  String get cannotSendMessageUserMayBeBlocked => 'Паём фиристода нашуд. Корбар шояд басташуда бошад.';
 
   @override
-  String get sessionExpired => 'Session expired. Please login again.';
+  String get sessionExpired => 'Сессия ба охир расид. Лутфан аз нав ворид шавед.';
 
   @override
-  String get sendThisSticker => 'Send this sticker?';
+  String get sendThisSticker => 'Ин стикерро фиристед?';
 
   @override
-  String get chooseHowYouWantToDeleteThisMessage => 'Choose how you want to delete this message:';
+  String get chooseHowYouWantToDeleteThisMessage => 'Чӣ тавр ин паёмро нест кардан мехоҳед, интихоб кунед:';
 
   @override
-  String get deleteForEveryone => 'Delete for everyone';
+  String get deleteForEveryone => 'Барои ҳама нест кунед';
 
   @override
-  String get removesTheMessageForBothYouAndTheRecipient => 'Removes the message for both you and the recipient';
+  String get removesTheMessageForBothYouAndTheRecipient => 'Паёмро ҳам барои шумо ва ҳам барои қабулкунанда нест мекунад';
 
   @override
-  String get deleteForMe => 'Delete for me';
+  String get deleteForMe => 'Барои ман нест кунед';
 
   @override
-  String get removesTheMessageOnlyFromYourChat => 'Removes the message only from your chat';
+  String get removesTheMessageOnlyFromYourChat => 'Паёмро танҳо аз чати шумо нест мекунад';
 
   @override
-  String get copy => 'Copy';
+  String get copy => 'Нусха гирифтан';
 
   @override
-  String get reply => 'Reply';
+  String get reply => 'Ҷавоб';
 
   @override
-  String get forward => 'Forward';
+  String get forward => 'Фиристодан';
 
   @override
-  String get moreOptions => 'More Options';
+  String get moreOptions => 'Имконоти бештар';
 
   @override
-  String get noUsersAvailableToForwardTo => 'No users available to forward to';
+  String get noUsersAvailableToForwardTo => 'Корбарон барои фиристодан дастрас нестанд';
 
   @override
-  String get searchMoments => 'Search moments...';
+  String get searchMoments => 'Ҷустуҷӯи лаҳзаҳо...';
 
   @override
   String searchInChatWith(String name) {
-    return 'Search in chat with $name';
+    return 'Ҷустуҷӯ дар чат бо $name';
   }
 
   @override
-  String get typeAMessage => 'Type a message...';
+  String get typeAMessage => 'Як паём нависед...';
 
   @override
-  String get enterYourMessage => 'Enter your message';
+  String get enterYourMessage => 'Паёми худро ворид кунед';
 
   @override
-  String get detectYourLocation => 'Detect your location';
+  String get detectYourLocation => 'Ҷойгиршавии худро муайян кунед';
 
   @override
-  String get tapToUpdateLocation => 'Tap to update location';
+  String get tapToUpdateLocation => 'Барои навсозии ҷойгиршавӣ зер кунед';
 
   @override
-  String get helpOthersFindYouNearby => 'Help others find you nearby';
+  String get helpOthersFindYouNearby => 'Ба дигарон кӯмак кунед, ки шуморо дар наздикӣ ёбанд';
 
   @override
-  String get selectYourNativeLanguage => 'Select your native language';
+  String get selectYourNativeLanguage => 'Забони модарии худро интихоб кунед';
 
   @override
-  String get whichLanguageDoYouWantToLearn => 'Which language do you want to learn?';
+  String get whichLanguageDoYouWantToLearn => 'Кадом забонро омӯхтан мехоҳед?';
 
   @override
-  String get selectYourGender => 'Select your gender';
+  String get selectYourGender => 'Ҷинси худро интихоб кунед';
 
   @override
-  String get addACaption => 'Add a caption...';
+  String get addACaption => 'Сарлавҳа илова кунед...';
 
   @override
-  String get typeSomething => 'Type something...';
+  String get typeSomething => 'Чизе нависед...';
 
   @override
-  String get gallery => 'Gallery';
+  String get gallery => 'Галерея';
 
   @override
-  String get video => 'Video';
+  String get video => 'Видео';
 
   @override
-  String get text => 'Text';
+  String get text => 'Матн';
 
   @override
-  String get provideMoreInformation => 'Provide more information...';
+  String get provideMoreInformation => 'Маълумоти бештар диҳед...';
 
   @override
-  String get searchByNameLanguageOrInterests => 'Search by name, language, or interests...';
+  String get searchByNameLanguageOrInterests => 'Бо ном, забон ё шавқмандиҳо ҷустуҷӯ кунед...';
 
   @override
-  String get addTagAndPressEnter => 'Add tag and press enter';
+  String get addTagAndPressEnter => 'Барчаспро илова кунед ва Enter-ро пахш кунед';
 
   @override
   String replyTo(String name) {
-    return 'Reply to $name...';
+    return 'Ба $name ҷавоб диҳед...';
   }
 
   @override
-  String get highlightName => 'Highlight name';
+  String get highlightName => 'Номро равшан кунед';
 
   @override
-  String get searchCloseFriends => 'Search close friends...';
+  String get searchCloseFriends => 'Дӯстони наздикро ҷустуҷӯ кунед...';
 
   @override
-  String get askAQuestion => 'Ask a question...';
+  String get askAQuestion => 'Як савол диҳед...';
 
   @override
   String option(String number) {
-    return 'Option $number';
+    return 'Вариант $number';
   }
 
   @override
   String whyAreYouReportingThis(String type) {
-    return 'Why are you reporting this $type?';
+    return 'Чаро аз ин $type шикоят мекунед?';
   }
 
   @override
-  String get additionalDetailsOptional => 'Additional details (optional)';
+  String get additionalDetailsOptional => 'Тафсилоти иловагӣ (ихтиёрӣ)';
 
   @override
-  String get warningThisActionIsPermanent => 'Warning: This action is permanent!';
+  String get warningThisActionIsPermanent => 'Огоҳӣ: Ин амал доимӣ аст!';
 
   @override
-  String get deletingYourAccountWillPermanentlyRemove => 'Deleting your account will permanently remove:\n\n• Your profile and all personal data\n• All your messages and conversations\n• All your moments and stories\n• Your VIP subscription (no refund)\n• All your connections and followers\n\nThis action cannot be undone.';
+  String get deletingYourAccountWillPermanentlyRemove => 'Несткунии ҳисоби шумо ба таври доимӣ инҳоро бармедорад:\n\n• Профили шумо ва ҳамаи маълумоти шахсӣ\n• Ҳамаи паёмҳо ва сӯҳбатҳои шумо\n• Ҳамаи лаҳзаҳо ва сториҳои шумо\n• Обунаи VIP-и шумо (баргардонии пул нест)\n• Ҳамаи робитаҳо ва пайравони шумо\n\nИн амалро баргардонидан мумкин нест.';
 
   @override
-  String get clearAllNotifications => 'Clear all notifications?';
+  String get clearAllNotifications => 'Ҳамаи огоҳномаҳоро тоза мекунед?';
 
   @override
-  String get clearAll => 'Clear All';
+  String get clearAll => 'Ҳамаро тоза кунед';
 
   @override
-  String get notificationDebug => 'Notification Debug';
+  String get notificationDebug => 'Дебаги огоҳнома';
 
   @override
-  String get markAllRead => 'Mark all read';
+  String get markAllRead => 'Ҳамаро хондашуда қайд кунед';
 
   @override
-  String get clearAll2 => 'Clear all';
+  String get clearAll2 => 'Ҳамаро тоза кунед';
 
   @override
-  String get emailAddress => 'Email address';
+  String get emailAddress => 'Суроғаи почтаи электронӣ';
 
   @override
-  String get username => 'Username';
+  String get username => 'Номи корбар';
 
   @override
-  String get alreadyHaveAnAccount => 'Already have an account?';
+  String get alreadyHaveAnAccount => 'Аллакай ҳисоб доред?';
 
   @override
-  String get login2 => 'Login';
+  String get login2 => 'Ворид шавед';
 
   @override
-  String get selectYourNativeLanguage2 => 'Select your native language';
+  String get selectYourNativeLanguage2 => 'Забони модарии худро интихоб кунед';
 
   @override
-  String get whichLanguageDoYouWantToLearn2 => 'Which language do you want to learn?';
+  String get whichLanguageDoYouWantToLearn2 => 'Кадом забонро омӯхтан мехоҳед?';
 
   @override
-  String get selectYourGender2 => 'Select your gender';
+  String get selectYourGender2 => 'Ҷинси худро интихоб кунед';
 
   @override
-  String get dateFormat => 'YYYY.MM.DD';
+  String get dateFormat => 'СССС.ММ.РР';
 
   @override
-  String get detectYourLocation2 => 'Detect your location';
+  String get detectYourLocation2 => 'Ҷойгиршавии худро муайян кунед';
 
   @override
-  String get tapToUpdateLocation2 => 'Tap to update location';
+  String get tapToUpdateLocation2 => 'Барои навсозии ҷойгиршавӣ зер кунед';
 
   @override
-  String get helpOthersFindYouNearby2 => 'Help others find you nearby';
+  String get helpOthersFindYouNearby2 => 'Ба дигарон кӯмак кунед, ки шуморо дар наздикӣ ёбанд';
 
   @override
-  String get couldNotOpenLink => 'Could not open link';
+  String get couldNotOpenLink => 'Пайвандро кушодан имконнопазир буд';
 
   @override
-  String get legalPrivacy2 => 'Legal & Privacy';
+  String get legalPrivacy2 => 'Ҳуқуқӣ ва махфият';
 
   @override
-  String get termsOfUseEULA => 'Terms of Use (EULA)';
+  String get termsOfUseEULA => 'Шартҳои истифода (EULA)';
 
   @override
-  String get viewOurTermsAndConditions => 'View our terms and conditions';
+  String get viewOurTermsAndConditions => 'Шартҳо ва қоидаҳои моро бубинед';
 
   @override
-  String get privacyPolicy => 'Privacy Policy';
+  String get privacyPolicy => 'Сиёсати махфият';
 
   @override
-  String get howWeHandleYourData => 'How we handle your data';
+  String get howWeHandleYourData => 'Чӣ тавр мо бо маълумоти шумо муносибат мекунем';
 
   @override
-  String get emailNotifications => 'Email Notifications';
+  String get emailNotifications => 'Огоҳномаҳои почтаи электронӣ';
 
   @override
-  String get receiveEmailNotificationsFromBananatalk => 'Receive email notifications from Bananatalk';
+  String get receiveEmailNotificationsFromBananatalk => 'Огоҳномаҳои почтаи электрониро аз Bananatalk қабул кунед';
 
   @override
-  String get weeklySummary => 'Weekly Summary';
+  String get weeklySummary => 'Ҷамъбасти ҳафтаина';
 
   @override
-  String get activityRecapEverySunday => 'Activity recap every Sunday';
+  String get activityRecapEverySunday => 'Ҷамъбасти фаъолият ҳар якшанбе';
 
   @override
-  String get newMessages => 'New Messages';
+  String get newMessages => 'Паёмҳои нав';
 
   @override
-  String get whenYoureAwayFor24PlusHours => 'When you\'re away for 24+ hours';
+  String get whenYoureAwayFor24PlusHours => 'Вақте ки шумо беш аз 24 соат набошед';
 
   @override
-  String get newFollowers => 'New Followers';
+  String get newFollowers => 'Пайравони нав';
 
   @override
-  String get whenSomeoneFollowsYou2 => 'When someone follows you';
+  String get whenSomeoneFollowsYou2 => 'Вақте касе ба шумо пайравӣ мекунад';
 
   @override
-  String get securityAlerts => 'Security Alerts';
+  String get securityAlerts => 'Огоҳиҳои амният';
 
   @override
-  String get passwordLoginAlerts => 'Password & login alerts';
+  String get passwordLoginAlerts => 'Огоҳиҳои парол ва воридшавӣ';
 
   @override
-  String get unblockUser2 => 'Unblock User';
+  String get unblockUser2 => 'Корбарро кушоед';
 
   @override
-  String get blockedUsers2 => 'Blocked Users';
+  String get blockedUsers2 => 'Корбарони басташуда';
 
   @override
-  String get finalWarning => '⚠️ Final Warning';
+  String get finalWarning => '⚠️ Огоҳии охирин';
 
   @override
-  String get deleteForever => 'Delete Forever';
+  String get deleteForever => 'Доимӣ нест кунед';
 
   @override
-  String get deleteAccount2 => 'Delete Account';
+  String get deleteAccount2 => 'Ҳисобро нест кунед';
 
   @override
-  String get enterYourPassword => 'Enter your password';
+  String get enterYourPassword => 'Паролатонро ворид кунед';
 
   @override
-  String get yourPassword => 'Your password';
+  String get yourPassword => 'Пароли шумо';
 
   @override
-  String get typeDELETEToConfirm => 'Type DELETE to confirm';
+  String get typeDELETEToConfirm => 'Барои тасдиқ DELETE нависед';
 
   @override
-  String get typeDELETEInCapitalLetters => 'Type DELETE in capital letters';
+  String get typeDELETEInCapitalLetters => 'DELETE-ро бо ҳарфҳои калон нависед';
 
   @override
   String sent(String emoji) {
-    return 'Sent!';
+    return 'Фиристода шуд!';
   }
 
   @override
-  String get replySent => 'Reply sent!';
+  String get replySent => 'Ҷавоб фиристода шуд!';
 
   @override
-  String get deleteStory => 'Delete story?';
+  String get deleteStory => 'Сториро нест мекунед?';
 
   @override
-  String get thisStoryWillBeRemovedPermanently => 'This story will be removed permanently.';
+  String get thisStoryWillBeRemovedPermanently => 'Ин стори доимӣ нест карда мешавад.';
 
   @override
-  String get noStories => 'No stories';
+  String get noStories => 'Стори нест';
 
   @override
   String views(String count) {
-    return '$count views';
+    return '$count тамошо';
   }
 
   @override
-  String get reportStory => 'Report Story';
+  String get reportStory => 'Шикоят аз стори';
 
   @override
-  String get reply2 => 'Reply...';
+  String get reply2 => 'Ҷавоб...';
 
   @override
-  String get failedToPickImage => 'Failed to pick image';
+  String get failedToPickImage => 'Тасвирро интихоб карда нашуд';
 
   @override
-  String get failedToTakePhoto => 'Failed to take photo';
+  String get failedToTakePhoto => 'Сурат гирифта нашуд';
 
   @override
-  String get failedToPickVideo => 'Failed to pick video';
+  String get failedToPickVideo => 'Видеоро интихоб карда нашуд';
 
   @override
-  String get pleaseEnterSomeText => 'Please enter some text';
+  String get pleaseEnterSomeText => 'Лутфан матнеро ворид кунед';
 
   @override
-  String get pleaseSelectMedia => 'Please select media';
+  String get pleaseSelectMedia => 'Лутфан медиаро интихоб кунед';
 
   @override
-  String get storyPosted => 'Story posted!';
+  String get storyPosted => 'Стори нашр шуд!';
 
   @override
-  String get textOnlyStoriesRequireAnImage => 'Text-only stories require an image';
+  String get textOnlyStoriesRequireAnImage => 'Сториҳои танҳо матнӣ ба тасвир ниёз доранд';
 
   @override
-  String get createStory => 'Create Story';
+  String get createStory => 'Стори созед';
 
   @override
-  String get change => 'Change';
+  String get change => 'Иваз кардан';
 
   @override
-  String get userIdNotFound => 'User ID not found. Please log in again.';
+  String get userIdNotFound => 'ID-и корбар ёфт нашуд. Лутфан аз нав ворид шавед.';
 
   @override
-  String get pleaseSelectAPaymentMethod => 'Please select a payment method';
+  String get pleaseSelectAPaymentMethod => 'Лутфан усули пардохтро интихоб кунед';
 
   @override
-  String get startExploring => 'Start Exploring';
+  String get startExploring => 'Кашфро оғоз кунед';
 
   @override
-  String get close => 'Close';
+  String get close => 'Пӯшидан';
 
   @override
-  String get payment => 'Payment';
+  String get payment => 'Пардохт';
 
   @override
-  String get upgradeToVIP => 'Upgrade to VIP';
+  String get upgradeToVIP => 'Ба VIP гузаред';
 
   @override
-  String get errorLoadingProducts => 'Error loading products';
+  String get errorLoadingProducts => 'Хато ҳангоми боркунии маҳсулот';
 
   @override
-  String get cancelVIPSubscription => 'Cancel VIP Subscription';
+  String get cancelVIPSubscription => 'Обунаи VIP-ро бекор кунед';
 
   @override
-  String get keepVIP => 'Keep VIP';
+  String get keepVIP => 'VIP-ро нигоҳ доред';
 
   @override
-  String get cancelSubscription => 'Cancel Subscription';
+  String get cancelSubscription => 'Обунаро бекор кунед';
 
   @override
-  String get vipSubscriptionCancelledSuccessfully => 'VIP subscription cancelled successfully';
+  String get vipSubscriptionCancelledSuccessfully => 'Обунаи VIP бомуваффақият бекор карда шуд';
 
   @override
-  String get vipStatus => 'VIP Status';
+  String get vipStatus => 'Ҳолати VIP';
 
   @override
-  String get noActiveVIPSubscription => 'No active VIP subscription';
+  String get noActiveVIPSubscription => 'Обунаи фаъоли VIP нест';
 
   @override
-  String get subscriptionExpired => 'Subscription Expired';
+  String get subscriptionExpired => 'Муҳлати обуна гузашт';
 
   @override
-  String get vipExpiredMessage => 'Your VIP subscription has expired. Renew now to continue enjoying unlimited features!';
+  String get vipExpiredMessage => 'Муҳлати обунаи VIP-и шумо гузашт. Барои идомаи истифодаи имкониятҳои бемаҳдуд ҳозир нав кунед!';
 
   @override
-  String get expiredOn => 'Expired on';
+  String get expiredOn => 'Муҳлат тамом шуд';
 
   @override
-  String get renewVIP => 'Renew VIP';
+  String get renewVIP => 'VIP-ро нав кунед';
 
   @override
-  String get whatYoureMissing => 'What you\'re missing';
+  String get whatYoureMissing => 'Шумо чиро аз даст медиҳед';
 
   @override
-  String get manageInAppStore => 'Manage in App Store';
+  String get manageInAppStore => 'Дар App Store идора кунед';
 
   @override
-  String get becomeVIP => 'Become VIP';
+  String get becomeVIP => 'VIP шавед';
 
   @override
-  String get unlimitedMessages => 'Unlimited Messages';
+  String get unlimitedMessages => 'Паёмҳои бемаҳдуд';
 
   @override
-  String get unlimitedProfileViews => 'Unlimited Profile Views';
+  String get unlimitedProfileViews => 'Тамошои бемаҳдуди профил';
 
   @override
-  String get prioritySupport => 'Priority Support';
+  String get prioritySupport => 'Дастгирии афзалиятнок';
 
   @override
-  String get advancedSearch => 'Advanced Search';
+  String get advancedSearch => 'Ҷустуҷӯи пешрафта';
 
   @override
-  String get profileBoost => 'Profile Boost';
+  String get profileBoost => 'Тақвияти профил';
 
   @override
-  String get adFreeExperience => 'Ad-Free Experience';
+  String get adFreeExperience => 'Таҷрибаи бидуни реклама';
 
   @override
-  String get upgradeYourAccount => 'Upgrade Your Account';
+  String get upgradeYourAccount => 'Ҳисоби худро навсозӣ кунед';
 
   @override
-  String get moreMessages => 'More Messages';
+  String get moreMessages => 'Паёмҳои бештар';
 
   @override
-  String get moreProfileViews => 'More Profile Views';
+  String get moreProfileViews => 'Тамошои бештари профил';
 
   @override
-  String get connectWithFriends => 'Connect with Friends';
+  String get connectWithFriends => 'Бо дӯстон робита кунед';
 
   @override
-  String get reviewStarted => 'Review started';
+  String get reviewStarted => 'Баррасӣ оғоз шуд';
 
   @override
-  String get reportResolved => 'Report resolved';
+  String get reportResolved => 'Шикоят ҳал шуд';
 
   @override
-  String get reportDismissed => 'Report dismissed';
+  String get reportDismissed => 'Шикоят рад карда шуд';
 
   @override
-  String get selectAction => 'Select Action';
+  String get selectAction => 'Амалро интихоб кунед';
 
   @override
-  String get noViolation => 'No Violation';
+  String get noViolation => 'Вайронкунӣ нест';
 
   @override
-  String get contentRemoved => 'Content Removed';
+  String get contentRemoved => 'Мундариҷа бардошта шуд';
 
   @override
-  String get userWarned => 'User Warned';
+  String get userWarned => 'Ба корбар огоҳӣ дода шуд';
 
   @override
-  String get userSuspended => 'User Suspended';
+  String get userSuspended => 'Корбар муваққатан баста шуд';
 
   @override
-  String get userBanned => 'User Banned';
+  String get userBanned => 'Корбар манъ карда шуд';
 
   @override
-  String get addNotesOptional => 'Add Notes (Optional)';
+  String get addNotesOptional => 'Қайдҳо илова кунед (ихтиёрӣ)';
 
   @override
-  String get enterModeratorNotes => 'Enter moderator notes...';
+  String get enterModeratorNotes => 'Қайдҳои модераторро ворид кунед...';
 
   @override
-  String get skip => 'Skip';
+  String get skip => 'Гузаронидан';
 
   @override
-  String get startReview => 'Start Review';
+  String get startReview => 'Баррасиро оғоз кунед';
 
   @override
-  String get resolve => 'Resolve';
+  String get resolve => 'Ҳал кардан';
 
   @override
-  String get dismiss => 'Dismiss';
+  String get dismiss => 'Рад кардан';
 
   @override
-  String get filterReports => 'Filter Reports';
+  String get filterReports => 'Шикоятҳоро филтр кунед';
 
   @override
-  String get all => 'All';
+  String get all => 'Ҳама';
 
   @override
-  String get clear => 'Clear';
+  String get clear => 'Тоза кардан';
 
   @override
-  String get apply => 'Apply';
+  String get apply => 'Татбиқ кардан';
 
   @override
-  String get myReports2 => 'My Reports';
+  String get myReports2 => 'Шикоятҳои ман';
 
   @override
-  String get blockUser => 'Block User';
+  String get blockUser => 'Корбарро бастан';
 
   @override
-  String get block => 'Block';
+  String get block => 'Бастан';
 
   @override
-  String get wouldYouAlsoLikeToBlockThisUser => 'Would you also like to block this user?';
+  String get wouldYouAlsoLikeToBlockThisUser => 'Оё инчунин мехоҳед ин корбарро бандед?';
 
   @override
-  String get noThanks => 'No, thanks';
+  String get noThanks => 'Не, ташаккур';
 
   @override
-  String get yesBlockThem => 'Yes, block them';
+  String get yesBlockThem => 'Ҳа, бандед';
 
   @override
-  String get reportUser2 => 'Report User';
+  String get reportUser2 => 'Шикоят аз корбар';
 
   @override
-  String get submitReport => 'Submit Report';
+  String get submitReport => 'Шикоятро фиристед';
 
   @override
-  String get addAQuestionAndAtLeast2Options => 'Add a question and at least 2 options';
+  String get addAQuestionAndAtLeast2Options => 'Як савол ва ҳадди ақал 2 вариант илова кунед';
 
   @override
-  String get addOption => 'Add option';
+  String get addOption => 'Вариант илова кунед';
 
   @override
-  String get anonymousVoting => 'Anonymous voting';
+  String get anonymousVoting => 'Овоздиҳии беном';
 
   @override
-  String get create => 'Create';
+  String get create => 'Эҷод кардан';
 
   @override
-  String get typeYourAnswer => 'Type your answer...';
+  String get typeYourAnswer => 'Ҷавоби худро нависед...';
 
   @override
-  String get send2 => 'Send';
+  String get send2 => 'Фиристед';
 
   @override
-  String get yourPrompt => 'Your prompt...';
+  String get yourPrompt => 'Дархости шумо...';
 
   @override
-  String get add2 => 'Add';
+  String get add2 => 'Илова';
 
   @override
-  String get contentNotAvailable => 'Content not available';
+  String get contentNotAvailable => 'Мундариҷа дастрас нест';
 
   @override
-  String get profileNotAvailable => 'Profile not available';
+  String get profileNotAvailable => 'Профил дастрас нест';
 
   @override
-  String get noMomentsToShow => 'No moments to show';
+  String get noMomentsToShow => 'Лаҳзае барои нишон додан нест';
 
   @override
-  String get storiesNotAvailable => 'Stories not available';
+  String get storiesNotAvailable => 'Сториҳо дастрас нестанд';
 
   @override
-  String get cantMessageThisUser => 'Can\'t message this user';
+  String get cantMessageThisUser => 'Ба ин корбар паём фиристодан мумкин нест';
 
   @override
-  String get pleaseSelectAReason => 'Please select a reason';
+  String get pleaseSelectAReason => 'Лутфан сабабро интихоб кунед';
 
   @override
-  String get reportSubmitted => 'Report submitted. Thank you for helping keep our community safe.';
+  String get reportSubmitted => 'Шикоят фиристода шуд. Барои нигоҳ доштани бехатарии ҷомеа ташаккур.';
 
   @override
-  String get youHaveAlreadyReportedThisMoment => 'You have already reported this moment';
+  String get youHaveAlreadyReportedThisMoment => 'Шумо аллакай аз ин лаҳза шикоят кардаед';
 
   @override
-  String get tellUsMoreAboutWhyYouAreReportingThis => 'Tell us more about why you are reporting this';
+  String get tellUsMoreAboutWhyYouAreReportingThis => 'Бештар нақл кунед, ки чаро аз ин шикоят мекунед';
 
   @override
-  String get errorSharing => 'Error sharing';
+  String get errorSharing => 'Хато ҳангоми мубодила';
 
   @override
-  String get deviceInfo => 'Device Info';
+  String get deviceInfo => 'Маълумот дар бораи дастгоҳ';
 
   @override
-  String get recommended => 'Recommended';
+  String get recommended => 'Тавсияшуда';
 
   @override
-  String get anyLanguage => 'Any Language';
+  String get anyLanguage => 'Ҳар забон';
 
   @override
-  String get noLanguagesFound => 'No languages found';
+  String get noLanguagesFound => 'Забон ёфт нашуд';
 
   @override
-  String get selectALanguage => 'Select a language';
+  String get selectALanguage => 'Як забонро интихоб кунед';
 
   @override
-  String get languagesAreStillLoading => 'Languages are still loading...';
+  String get languagesAreStillLoading => 'Забонҳо ҳоло бор шуда истодаанд...';
 
   @override
-  String get selectNativeLanguage => 'Please select your native language';
+  String get selectNativeLanguage => 'Лутфан забони модарии худро интихоб кунед';
 
   @override
-  String get subscriptionDetails => 'Subscription Details';
+  String get subscriptionDetails => 'Тафсилоти обуна';
 
   @override
-  String get activeFeatures => 'Active Features';
+  String get activeFeatures => 'Имкониятҳои фаъол';
 
   @override
-  String get legalInformation => 'Legal Information';
+  String get legalInformation => 'Маълумоти ҳуқуқӣ';
 
   @override
-  String get termsOfUse => 'Terms of Use';
+  String get termsOfUse => 'Шартҳои истифода';
 
   @override
-  String get manageSubscription => 'Manage Subscription';
+  String get manageSubscription => 'Идоракунии обуна';
 
   @override
-  String get manageSubscriptionInSettings => 'To cancel your subscription, go to Settings > [Your Name] > Subscriptions on your device.';
+  String get manageSubscriptionInSettings => 'Барои бекор кардани обуна, дар дастгоҳи худ ба Settings > [Номи шумо] > Subscriptions гузаред.';
 
   @override
-  String get contactSupportToCancel => 'To cancel your subscription, please contact our support team.';
+  String get contactSupportToCancel => 'Барои бекор кардани обуна, лутфан бо дастаи дастгирии мо тамос гиред.';
 
   @override
-  String get status => 'Status';
+  String get status => 'Ҳолат';
 
   @override
-  String get active => 'active';
+  String get active => 'фаъол';
 
   @override
-  String get plan => 'Plan';
+  String get plan => 'Нақша';
 
   @override
-  String get startDate => 'Start Date';
+  String get startDate => 'Санаи оғоз';
 
   @override
-  String get endDate => 'End Date';
+  String get endDate => 'Санаи анҷом';
 
   @override
-  String get nextBillingDate => 'Next Billing Date';
+  String get nextBillingDate => 'Санаи навбатии пардохт';
 
   @override
-  String get autoRenew => 'Auto Renew';
+  String get autoRenew => 'Навсозии худкор';
 
   @override
-  String get pleaseLogInToContinue => 'Please log in to continue';
+  String get pleaseLogInToContinue => 'Лутфан барои идома ворид шавед';
 
   @override
-  String get purchaseCanceledOrFailed => 'Purchase was canceled or failed. Please try again.';
+  String get purchaseCanceledOrFailed => 'Харид бекор шуд ё ноком гашт. Лутфан бори дигар кӯшиш кунед.';
 
   @override
-  String get maximumTagsAllowed => 'Maximum 5 tags allowed';
+  String get maximumTagsAllowed => 'Ҳадди аксар 5 барчасп иҷозат дода мешавад';
 
   @override
-  String get pleaseRemoveImagesFirstToAddVideo => 'Please remove images first to add a video';
+  String get pleaseRemoveImagesFirstToAddVideo => 'Лутфан аввал тасвирҳоро бардоред, то видео илова кунед';
 
   @override
-  String get unsupportedFormat => 'Unsupported format';
+  String get unsupportedFormat => 'Формати дастгиринашаванда';
 
   @override
-  String get errorProcessingVideo => 'Error processing video';
+  String get errorProcessingVideo => 'Хато ҳангоми коркарди видео';
 
   @override
-  String get pleaseRemoveImagesFirstToRecordVideo => 'Please remove images first to record a video';
+  String get pleaseRemoveImagesFirstToRecordVideo => 'Лутфан аввал тасвирҳоро бардоред, то видео сабт кунед';
 
   @override
-  String get locationAdded => 'Location added';
+  String get locationAdded => 'Ҷойгиршавӣ илова шуд';
 
   @override
-  String get failedToGetLocation => 'Failed to get location';
+  String get failedToGetLocation => 'Ҷойгиршавӣ гирифта нашуд';
 
   @override
-  String get notNow => 'Not Now';
+  String get notNow => 'Ҳозир не';
 
   @override
-  String get videoUploadFailed => 'Video Upload Failed';
+  String get videoUploadFailed => 'Боргузории видео ноком шуд';
 
   @override
-  String get skipVideo => 'Skip Video';
+  String get skipVideo => 'Видеоро гузаронед';
 
   @override
-  String get retryUpload => 'Retry Upload';
+  String get retryUpload => 'Боргузориро такрор кунед';
 
   @override
-  String get momentCreatedSuccessfully => 'Moment created successfully';
+  String get momentCreatedSuccessfully => 'Лаҳза бомуваффақият сохта шуд';
 
   @override
-  String get uploadingMomentInBackground => 'Uploading moment in background...';
+  String get uploadingMomentInBackground => 'Лаҳза дар замина бор шуда истодааст...';
 
   @override
-  String get failedToQueueUpload => 'Failed to queue upload';
+  String get failedToQueueUpload => 'Боргузорӣ ба навбат гузошта нашуд';
 
   @override
-  String get viewProfile => 'View Profile';
+  String get viewProfile => 'Профилро бубинед';
 
   @override
-  String get mediaLinksAndDocs => 'Media, links, and docs';
+  String get mediaLinksAndDocs => 'Медиа, пайвандҳо ва ҳуҷҷатҳо';
 
   @override
-  String get wallpaper => 'Wallpaper';
+  String get wallpaper => 'Заминапарда';
 
   @override
-  String get userIdNotAvailable => 'User ID not available';
+  String get userIdNotAvailable => 'ID-и корбар дастрас нест';
 
   @override
-  String get cannotBlockYourself => 'Cannot block yourself';
+  String get cannotBlockYourself => 'Худро бастан мумкин нест';
 
   @override
-  String get chatWallpaper => 'Chat Wallpaper';
+  String get chatWallpaper => 'Заминапардаи чат';
 
   @override
-  String get wallpaperSavedLocally => 'Wallpaper saved locally';
+  String get wallpaperSavedLocally => 'Заминапарда дар маҳал захира шуд';
 
   @override
-  String get messageCopied => 'Message copied';
+  String get messageCopied => 'Паём нусхабардорӣ шуд';
 
   @override
-  String get forwardFeatureComingSoon => 'Forward feature coming soon';
+  String get forwardFeatureComingSoon => 'Имконияти фиристодан ба зудӣ дастрас мешавад';
 
   @override
-  String get momentUnsaved => 'Removed from saved';
+  String get momentUnsaved => 'Аз захирашудаҳо бардошта шуд';
 
   @override
-  String get documentPickerComingSoon => 'Document picker coming soon';
+  String get documentPickerComingSoon => 'Интихобгари ҳуҷҷат ба зудӣ дастрас мешавад';
 
   @override
-  String get contactSharingComingSoon => 'Contact sharing coming soon';
+  String get contactSharingComingSoon => 'Мубодилаи тамос ба зудӣ дастрас мешавад';
 
   @override
-  String get featureComingSoon => 'Feature coming soon';
+  String get featureComingSoon => 'Имконият ба зудӣ дастрас мешавад';
 
   @override
-  String get answerSent => 'Answer sent!';
+  String get answerSent => 'Ҷавоб фиристода шуд!';
 
   @override
-  String get noImagesAvailable => 'No images available';
+  String get noImagesAvailable => 'Тасвир дастрас нест';
 
   @override
-  String get mentionPickerComingSoon => 'Mention picker coming soon';
+  String get mentionPickerComingSoon => 'Интихобгари ишора ба зудӣ дастрас мешавад';
 
   @override
-  String get musicPickerComingSoon => 'Music picker coming soon';
+  String get musicPickerComingSoon => 'Интихобгари мусиқӣ ба зудӣ дастрас мешавад';
 
   @override
-  String get repostFeatureComingSoon => 'Repost feature coming soon';
+  String get repostFeatureComingSoon => 'Имконияти такрор-нашр ба зудӣ дастрас мешавад';
 
   @override
-  String get addFriendsFromYourProfile => 'Add friends from your profile';
+  String get addFriendsFromYourProfile => 'Дӯстонро аз профили худ илова кунед';
 
   @override
-  String get quickReplyAdded => 'Quick reply added';
+  String get quickReplyAdded => 'Ҷавоби тез илова шуд';
 
   @override
-  String get quickReplyDeleted => 'Quick reply deleted';
+  String get quickReplyDeleted => 'Ҷавоби тез нест карда шуд';
 
   @override
-  String get linkCopied => 'Link copied!';
+  String get linkCopied => 'Пайванд нусхабардорӣ шуд!';
 
   @override
-  String get maximumOptionsAllowed => 'Maximum 10 options allowed';
+  String get maximumOptionsAllowed => 'Ҳадди аксар 10 вариант иҷозат дода мешавад';
 
   @override
-  String get minimumOptionsRequired => 'Minimum 2 options required';
+  String get minimumOptionsRequired => 'Ҳадди ақал 2 вариант лозим аст';
 
   @override
-  String get pleaseEnterAQuestion => 'Please enter a question';
+  String get pleaseEnterAQuestion => 'Лутфан як саволро ворид кунед';
 
   @override
-  String get pleaseAddAtLeast2Options => 'Please add at least 2 options';
+  String get pleaseAddAtLeast2Options => 'Лутфан ҳадди ақал 2 вариант илова кунед';
 
   @override
-  String get pleaseSelectCorrectAnswerForQuiz => 'Please select the correct answer for quiz';
+  String get pleaseSelectCorrectAnswerForQuiz => 'Лутфан ҷавоби дурусти викторинаро интихоб кунед';
 
   @override
-  String get correctionSent => 'Correction sent!';
+  String get correctionSent => 'Ислоҳ фиристода шуд!';
 
   @override
-  String get sort => 'Sort';
+  String get sort => 'Мураттабсозӣ';
 
   @override
-  String get savedMoments => 'Saved Moments';
+  String get savedMoments => 'Лаҳзаҳои захирашуда';
 
   @override
-  String get unsave => 'Unsave';
+  String get unsave => 'Аз захира бардоред';
 
   @override
-  String get playingAudio => 'Playing audio...';
+  String get playingAudio => 'Аудио пахш шуда истодааст...';
 
   @override
-  String get failedToGenerateQuiz => 'Failed to generate quiz';
+  String get failedToGenerateQuiz => 'Викторина сохта нашуд';
 
   @override
-  String get failedToAddComment => 'Failed to add comment';
+  String get failedToAddComment => 'Шарҳ илова нашуд';
 
   @override
-  String get hello => 'Hello!';
+  String get hello => 'Салом!';
 
   @override
-  String get howAreYou => 'How are you?';
+  String get howAreYou => 'Аҳволи шумо чӣ хел аст?';
 
   @override
-  String get cannotOpen => 'Cannot open';
+  String get cannotOpen => 'Кушодан мумкин нест';
 
   @override
-  String get errorOpeningLink => 'Error opening link';
+  String get errorOpeningLink => 'Хато ҳангоми кушодани пайванд';
 
   @override
-  String get saved => 'Saved';
+  String get saved => 'Захира шуд';
 
   @override
-  String get follow => 'Follow';
+  String get follow => 'Пайравӣ кардан';
 
   @override
-  String get unfollow => 'Unfollow';
+  String get unfollow => 'Пайравиро бас кардан';
 
   @override
-  String get mute => 'Mute';
+  String get mute => 'Бесадо кардан';
 
   @override
-  String get online => 'Online';
+  String get online => 'Дар хат';
 
   @override
-  String get offline => 'Offline';
+  String get offline => 'Берун аз хат';
 
   @override
-  String get lastSeen => 'Last seen';
+  String get lastSeen => 'Бори охирин дида шуд';
 
   @override
-  String get justNow => 'just now';
+  String get justNow => 'ҳозир';
 
   @override
   String minutesAgo(String count) {
-    return '$count minutes ago';
+    return '$count дақиқа пеш';
   }
 
   @override
   String hoursAgo(String count) {
-    return '$count hours ago';
+    return '$count соат пеш';
   }
 
   @override
-  String get yesterday => 'Yesterday';
+  String get yesterday => 'Дирӯз';
 
   @override
-  String get signInWithEmail => 'Sign in with Email';
+  String get signInWithEmail => 'Бо почтаи электронӣ ворид шавед';
 
   @override
-  String get partners => 'Partners';
+  String get partners => 'Шарикон';
 
   @override
-  String get nearby => 'Nearby';
+  String get nearby => 'Дар наздикӣ';
 
   @override
-  String get topics => 'Topics';
+  String get topics => 'Мавзӯъҳо';
 
   @override
-  String get waves => 'Waves';
+  String get waves => 'Мавҷҳо';
 
   @override
-  String get voiceRooms => 'Voice';
+  String get voiceRooms => 'Овоз';
 
   @override
-  String get filters => 'Filters';
+  String get filters => 'Филтрҳо';
 
   @override
-  String get searchCommunity => 'Search by name, language, or interests...';
+  String get searchCommunity => 'Бо ном, забон ё шавқмандиҳо ҷустуҷӯ кунед...';
 
   @override
-  String get bio => 'Bio';
+  String get bio => 'Тарҷумаи ҳол';
 
   @override
-  String get noBioYet => 'No bio available yet.';
+  String get noBioYet => 'Ҳоло тарҷумаи ҳол нест.';
 
   @override
-  String get languages => 'Languages';
+  String get languages => 'Забонҳо';
 
   @override
-  String get native => 'Native';
+  String get native => 'Модарӣ';
 
   @override
-  String get interests => 'Interests';
+  String get interests => 'Шавқмандиҳо';
 
   @override
-  String get noMomentsYet => 'No moments yet';
+  String get noMomentsYet => 'Ҳоло лаҳза нест';
 
   @override
-  String get unableToLoadMoments => 'Unable to load moments';
+  String get unableToLoadMoments => 'Лаҳзаҳоро бор кардан имконнопазир аст';
 
   @override
-  String get map => 'Map';
+  String get map => 'Харита';
 
   @override
-  String get mapUnavailable => 'Map unavailable';
+  String get mapUnavailable => 'Харита дастрас нест';
 
   @override
-  String get location => 'Location';
+  String get location => 'Ҷойгиршавӣ';
 
   @override
-  String get unknownLocation => 'Unknown location';
+  String get unknownLocation => 'Ҷойгиршавии номаълум';
 
   @override
-  String get noImagesAvailable2 => 'No images available';
+  String get noImagesAvailable2 => 'Тасвир дастрас нест';
 
   @override
-  String get permissionsRequired => 'Permissions Required';
+  String get permissionsRequired => 'Иҷозатҳо лозиманд';
 
   @override
-  String get openSettings => 'Open Settings';
+  String get openSettings => 'Танзимотро кушоед';
 
   @override
-  String get refresh => 'Refresh';
+  String get refresh => 'Навсозӣ';
 
   @override
-  String get videoCall => 'Video';
+  String get videoCall => 'Видео';
 
   @override
-  String get voiceCall => 'Call';
+  String get voiceCall => 'Занг';
 
   @override
-  String get message => 'Message';
+  String get message => 'Паём';
 
   @override
-  String get pleaseLoginToFollow => 'Please login to follow users';
+  String get pleaseLoginToFollow => 'Лутфан барои пайравӣ ба корбарон ворид шавед';
 
   @override
-  String get pleaseLoginToCall => 'Please login to make a call';
+  String get pleaseLoginToCall => 'Лутфан барои занг задан ворид шавед';
 
   @override
-  String get cannotCallYourself => 'You cannot call yourself';
+  String get cannotCallYourself => 'Ба худатон занг зада наметавонед';
 
   @override
-  String get failedToFollowUser => 'Failed to follow user';
+  String get failedToFollowUser => 'Пайравӣ ба корбар ноком шуд';
 
   @override
-  String get failedToUnfollowUser => 'Failed to unfollow user';
+  String get failedToUnfollowUser => 'Бас кардани пайравӣ ноком шуд';
 
   @override
-  String get areYouSureUnfollow => 'Are you sure you want to unfollow this user?';
+  String get areYouSureUnfollow => 'Шумо мутмаин ҳастед, ки мехоҳед пайравиро бас кунед?';
 
   @override
-  String get areYouSureUnblock => 'Are you sure you want to unblock this user?';
+  String get areYouSureUnblock => 'Шумо мутмаин ҳастед, ки мехоҳед ин корбарро кушоед?';
 
   @override
-  String get youFollowed => 'You followed';
+  String get youFollowed => 'Шумо пайравӣ кардед';
 
   @override
-  String get youUnfollowed => 'You unfollowed';
+  String get youUnfollowed => 'Шумо пайравиро бас кардед';
 
   @override
-  String get alreadyFollowing => 'You are already following';
+  String get alreadyFollowing => 'Шумо аллакай пайравӣ мекунед';
 
   @override
-  String get soon => 'Soon';
+  String get soon => 'Ба зудӣ';
 
   @override
   String comingSoon(String feature) {
-    return '$feature is coming soon!';
+    return '$feature ба зудӣ дастрас мешавад!';
   }
 
   @override
-  String get muteNotifications => 'Mute notifications';
+  String get muteNotifications => 'Огоҳномаҳоро бесадо кунед';
 
   @override
-  String get unmuteNotifications => 'Unmute notifications';
+  String get unmuteNotifications => 'Огоҳномаҳоро бо садо кунед';
 
   @override
-  String get operationCompleted => 'Operation completed';
+  String get operationCompleted => 'Амалиёт ба анҷом расид';
 
   @override
-  String get couldNotOpenMaps => 'Could not open maps';
+  String get couldNotOpenMaps => 'Харитаҳоро кушодан имконнопазир буд';
 
   @override
   String hasntSharedMoments(Object name) {
-    return '$name hasn\'t shared any moments';
+    return '$name ҳанӯз лаҳзае мубодила накардааст';
   }
 
   @override
   String messageUser(String name) {
-    return 'Message $name';
+    return 'Ба $name паём навиштан';
   }
 
   @override
   String notFollowingUser(String name) {
-    return 'You were not following $name';
+    return 'Шумо ба $name пайравӣ намекардед';
   }
 
   @override
   String youFollowedUser(String name) {
-    return 'You followed $name';
+    return 'Шумо ба $name пайравӣ кардед';
   }
 
   @override
   String youUnfollowedUser(String name) {
-    return 'You unfollowed $name';
+    return 'Шумо пайравиро аз $name бас кардед';
   }
 
   @override
   String unfollowUser(String name) {
-    return 'Unfollow $name';
+    return 'Пайравиро аз $name бас кардан';
   }
 
   @override
-  String get typing => 'typing';
+  String get typing => 'менависад';
 
   @override
-  String get connecting => 'Connecting...';
+  String get connecting => 'Пайвастшавӣ...';
 
   @override
   String daysAgo(int count) {
-    return '${count}d ago';
+    return '$count рӯз пеш';
   }
 
   @override
-  String get maxTagsAllowed => 'Maximum 5 tags allowed';
+  String get maxTagsAllowed => 'Ҳадди ниҳоӣ 5 барчасп иҷозат дода мешавад';
 
   @override
   String maxImagesAllowed(int count) {
-    return 'Maximum $count images allowed';
+    return 'Ҳадди ниҳоӣ $count тасвир иҷозат дода мешавад';
   }
 
   @override
-  String get pleaseRemoveImagesFirst => 'Please remove images first to add a video';
+  String get pleaseRemoveImagesFirst => 'Лутфан аввал тасвирҳоро тоза кунед, то видео илова кунед';
 
   @override
-  String get exchange3MessagesBeforeCall => 'Exchange 3+ messages before calling';
+  String get exchange3MessagesBeforeCall => 'Пеш аз занг 3+ паём мубодила кунед';
 
   @override
   String mediaWithUser(String name) {
-    return 'Media with $name';
+    return 'Медиа бо $name';
   }
 
   @override
-  String get errorLoadingMedia => 'Error loading media';
+  String get errorLoadingMedia => 'Хато ҳангоми боргирии медиа';
 
   @override
-  String get savedMomentsTitle => 'Saved Moments';
+  String get savedMomentsTitle => 'Лаҳзаҳои захирашуда';
 
   @override
-  String get removeBookmark => 'Remove bookmark?';
+  String get removeBookmark => 'Хатчӯбро тоза мекунед?';
 
   @override
-  String get thisWillRemoveBookmark => 'This will remove the message from your bookmarks.';
+  String get thisWillRemoveBookmark => 'Ин паёмро аз хатчӯбҳои шумо тоза мекунад.';
 
   @override
-  String get remove => 'Remove';
+  String get remove => 'Тоза кунед';
 
   @override
-  String get bookmarkRemoved => 'Bookmark removed';
+  String get bookmarkRemoved => 'Хатчӯб тоза карда шуд';
 
   @override
-  String get bookmarkedMessages => 'Bookmarked Messages';
+  String get bookmarkedMessages => 'Паёмҳои хатчӯбшуда';
 
   @override
-  String get wallpaperSaved => 'Wallpaper saved locally';
+  String get wallpaperSaved => 'Заминсурат маҳаллӣ захира карда шуд';
 
   @override
-  String get typeDeleteToConfirm => 'Type DELETE to confirm';
+  String get typeDeleteToConfirm => 'Барои тасдиқ DELETE нависед';
 
   @override
-  String get storyArchive => 'Story Archive';
+  String get storyArchive => 'Бойгонии сториҳо';
 
   @override
-  String get newHighlight => 'New Highlight';
+  String get newHighlight => 'Барҷастаи нав';
 
   @override
-  String get addToHighlight => 'Add to Highlight';
+  String get addToHighlight => 'Ба барҷаста илова кунед';
 
   @override
-  String get repost => 'Repost';
+  String get repost => 'Аз нав нашр';
 
   @override
-  String get repostFeatureSoon => 'Repost feature coming soon';
+  String get repostFeatureSoon => 'Имконияти аз нав нашр ба зудӣ дастрас мешавад';
 
   @override
-  String get closeFriends => 'Close Friends';
+  String get closeFriends => 'Дӯстони наздик';
 
   @override
-  String get addFriends => 'Add Friends';
+  String get addFriends => 'Дӯст илова кунед';
 
   @override
-  String get highlights => 'Highlights';
+  String get highlights => 'Барҷастаҳо';
 
   @override
-  String get createHighlight => 'Create Highlight';
+  String get createHighlight => 'Барҷаста созед';
 
   @override
-  String get deleteHighlight => 'Delete Highlight';
+  String get deleteHighlight => 'Барҷастаро нест кунед';
 
   @override
-  String get editHighlight => 'Edit Highlight';
+  String get editHighlight => 'Барҷастаро таҳрир кунед';
 
   @override
-  String get addMoreToStory => 'Add more to story';
+  String get addMoreToStory => 'Ба стори бештар илова кунед';
 
   @override
-  String get noViewersYet => 'No viewers yet';
+  String get noViewersYet => 'Ҳанӯз тамошобин нест';
 
   @override
-  String get noReactionsYet => 'No reactions yet';
+  String get noReactionsYet => 'Ҳанӯз вокуниш нест';
 
   @override
-  String get leaveRoom => 'Leave Room';
+  String get leaveRoom => 'Аз ҳуҷра баромадан';
 
   @override
-  String get areYouSureLeaveRoom => 'Are you sure you want to leave this voice room?';
+  String get areYouSureLeaveRoom => 'Шумо мутмаин ҳастед, ки мехоҳед аз ин ҳуҷраи овозӣ бароед?';
 
   @override
-  String get stay => 'Stay';
+  String get stay => 'Мондан';
 
   @override
-  String get leave => 'Leave';
+  String get leave => 'Баромадан';
 
   @override
-  String get enableGPS => 'Enable GPS';
+  String get enableGPS => 'GPS-ро фаъол кунед';
 
   @override
   String wavedToUser(String name) {
-    return 'Waved to $name!';
+    return 'Ба $name даст афшондед!';
   }
 
   @override
-  String get areYouSureFollow => 'Are you sure you want to follow';
+  String get areYouSureFollow => 'Шумо мутмаин ҳастед, ки мехоҳед пайравӣ кунед';
 
   @override
-  String get failedToLoadProfile => 'Failed to load profile';
+  String get failedToLoadProfile => 'Боргирии профил муяссар нашуд';
 
   @override
-  String get noFollowersYet => 'No followers yet';
+  String get noFollowersYet => 'Ҳанӯз пайраве нест';
 
   @override
-  String get noFollowingYet => 'Not following anyone yet';
+  String get noFollowingYet => 'Ҳанӯз ба касе пайравӣ намекунед';
 
   @override
-  String get searchUsers => 'Search users...';
+  String get searchUsers => 'Ҷустуҷӯи корбарон...';
 
   @override
-  String get noResultsFound => 'No results found';
+  String get noResultsFound => 'Натиҷае ёфт нашуд';
 
   @override
-  String get loadingFailed => 'Loading failed';
+  String get loadingFailed => 'Боргирӣ муяссар нашуд';
 
   @override
-  String get copyLink => 'Copy link';
+  String get copyLink => 'Истинодро нусхабардорӣ кунед';
 
   @override
-  String get shareStory => 'Share story';
+  String get shareStory => 'Сториро мубодила кунед';
 
   @override
-  String get thisWillDeleteStory => 'This will permanently delete this story.';
+  String get thisWillDeleteStory => 'Ин стори ба таври доимӣ нест карда мешавад.';
 
   @override
-  String get storyDeleted => 'Story deleted';
+  String get storyDeleted => 'Стори нест карда шуд';
 
   @override
-  String get addCaption => 'Add a caption...';
+  String get addCaption => 'Зернавис илова кунед...';
 
   @override
-  String get yourStory => 'Your Story';
+  String get yourStory => 'Стории шумо';
 
   @override
-  String get sendMessage => 'Send message';
+  String get sendMessage => 'Паём фиристед';
 
   @override
-  String get replyToStory => 'Reply to story...';
+  String get replyToStory => 'Ба стори ҷавоб...';
 
   @override
-  String get viewAllReplies => 'View all replies';
+  String get viewAllReplies => 'Ҳамаи ҷавобҳоро бинед';
 
   @override
-  String get preparingVideo => 'Preparing video...';
+  String get preparingVideo => 'Видео омода мешавад...';
 
   @override
   String videoOptimized(String size, String savings) {
-    return 'Video optimized: ${size}MB (saved $savings%)';
+    return 'Видео оптимизатсия шуд: $sizeМБ (захира $savings%)';
   }
 
   @override
-  String get failedToProcessVideo => 'Failed to process video';
+  String get failedToProcessVideo => 'Коркарди видео муяссар нашуд';
 
   @override
-  String get optimizingForBestExperience => 'Optimizing for the best story experience';
+  String get optimizingForBestExperience => 'Барои таҷрибаи беҳтарини стори оптимизатсия мешавад';
 
   @override
-  String get pleaseSelectImageOrVideo => 'Please select an image or video for your story';
+  String get pleaseSelectImageOrVideo => 'Лутфан барои стории худ тасвир ё видео интихоб кунед';
 
   @override
-  String get storyCreatedSuccessfully => 'Story created successfully!';
+  String get storyCreatedSuccessfully => 'Стори бомуваффақият сохта шуд!';
 
   @override
-  String get uploadingStoryInBackground => 'Uploading story in background...';
+  String get uploadingStoryInBackground => 'Стори дар замина бор шуда истодааст...';
 
   @override
-  String get storyCreationFailed => 'Story Creation Failed';
+  String get storyCreationFailed => 'Сохтани стори муяссар нашуд';
 
   @override
-  String get pleaseCheckConnection => 'Please check your connection and try again.';
+  String get pleaseCheckConnection => 'Лутфан пайвасти худро санҷида, аз нав кӯшиш кунед.';
 
   @override
-  String get uploadFailed => 'Upload Failed';
+  String get uploadFailed => 'Боркунӣ муяссар нашуд';
 
   @override
-  String get tryShorterVideo => 'Try using a shorter video or try again later.';
+  String get tryShorterVideo => 'Видеои кӯтоҳтарро санҷед ё баъдтар аз нав кӯшиш кунед.';
 
   @override
-  String get shareMomentsThatDisappear => 'Share moments that disappear in 24 hours';
+  String get shareMomentsThatDisappear => 'Лаҳзаҳоеро, ки дар 24 соат нопадид мешаванд, мубодила кунед';
 
   @override
-  String get photo => 'Photo';
+  String get photo => 'Сурат';
 
   @override
-  String get record => 'Record';
+  String get record => 'Сабт';
 
   @override
-  String get addSticker => 'Add Sticker';
+  String get addSticker => 'Стикер илова кунед';
 
   @override
-  String get poll => 'Poll';
+  String get poll => 'Пурсиш';
 
   @override
-  String get question => 'Question';
+  String get question => 'Савол';
 
   @override
-  String get mention => 'Mention';
+  String get mention => 'Зикр';
 
   @override
-  String get music => 'Music';
+  String get music => 'Мусиқӣ';
 
   @override
-  String get hashtag => 'Hashtag';
+  String get hashtag => 'Хештег';
 
   @override
-  String get whoCanSeeThis => 'Who can see this?';
+  String get whoCanSeeThis => 'Инро кӣ дида метавонад?';
 
   @override
-  String get everyone => 'Everyone';
+  String get everyone => 'Ҳама';
 
   @override
-  String get anyoneCanSeeStory => 'Anyone can see this story';
+  String get anyoneCanSeeStory => 'Ҳар касе метавонад ин сториро бинад';
 
   @override
-  String get friendsOnly => 'Friends Only';
+  String get friendsOnly => 'Танҳо дӯстон';
 
   @override
-  String get onlyFollowersCanSee => 'Only your followers can see';
+  String get onlyFollowersCanSee => 'Танҳо пайравони шумо дида метавонанд';
 
   @override
-  String get onlyCloseFriendsCanSee => 'Only your close friends can see';
+  String get onlyCloseFriendsCanSee => 'Танҳо дӯстони наздики шумо дида метавонанд';
 
   @override
-  String get backgroundColor => 'Background Color';
+  String get backgroundColor => 'Ранги замина';
 
   @override
-  String get fontStyle => 'Font Style';
+  String get fontStyle => 'Сабки шрифт';
 
   @override
-  String get normal => 'Normal';
+  String get normal => 'Муқаррарӣ';
 
   @override
-  String get bold => 'Bold';
+  String get bold => 'Ғафс';
 
   @override
-  String get italic => 'Italic';
+  String get italic => 'Хам';
 
   @override
-  String get handwriting => 'Handwriting';
+  String get handwriting => 'Дастнавис';
 
   @override
-  String get addLocation => 'Add Location';
+  String get addLocation => 'Ҷойгиршавӣ илова кунед';
 
   @override
-  String get enterLocationName => 'Enter location name';
+  String get enterLocationName => 'Номи ҷойгиршавиро ворид кунед';
 
   @override
-  String get addLink => 'Add Link';
+  String get addLink => 'Истинод илова кунед';
 
   @override
-  String get buttonText => 'Button text';
+  String get buttonText => 'Матни тугма';
 
   @override
-  String get learnMore => 'Learn More';
+  String get learnMore => 'Бештар омӯзед';
 
   @override
-  String get addHashtags => 'Add Hashtags';
+  String get addHashtags => 'Хештегҳо илова кунед';
 
   @override
-  String get addHashtag => 'Add hashtag';
+  String get addHashtag => 'Хештег илова кунед';
 
   @override
-  String get sendAsMessage => 'Send as Message';
+  String get sendAsMessage => 'Ҳамчун паём фиристед';
 
   @override
-  String get shareExternally => 'Share Externally';
+  String get shareExternally => 'Берунӣ мубодила кунед';
 
   @override
-  String get checkOutStory => 'Check out this story on Bananatalk!';
+  String get checkOutStory => 'Ин сториро дар Bananatalk бубинед!';
 
   @override
   String viewsTab(String count) {
-    return 'Views ($count)';
+    return 'Дидаҳо ($count)';
   }
 
   @override
   String reactionsTab(String count) {
-    return 'Reactions ($count)';
+    return 'Вокунишҳо ($count)';
   }
 
   @override
-  String get processingVideo => 'Processing video...';
+  String get processingVideo => 'Видео коркард мешавад...';
 
   @override
-  String get link => 'Link';
+  String get link => 'Истинод';
 
   @override
   String unmuteUser(String name) {
-    return 'Unmute $name?';
+    return 'Овози $name-ро барқарор мекунед?';
   }
 
   @override
-  String get willReceiveNotifications => 'You will receive notifications for new messages.';
+  String get willReceiveNotifications => 'Шумо барои паёмҳои нав огоҳнома мегиред.';
 
   @override
   String muteNotificationsFor(String name) {
-    return 'Mute notifications for $name';
+    return 'Огоҳномаҳоро барои $name бесадо кунед';
   }
 
   @override
   String notificationsUnmutedFor(String name) {
-    return 'Notifications unmuted for $name';
+    return 'Огоҳномаҳо барои $name бо садо карда шуданд';
   }
 
   @override
   String notificationsMutedFor(String name) {
-    return 'Notifications muted for $name';
+    return 'Огоҳномаҳо барои $name бесадо карда шуданд';
   }
 
   @override
-  String get failedToUpdateMuteSettings => 'Failed to update mute settings';
+  String get failedToUpdateMuteSettings => 'Навсозии танзимоти бесадокунӣ муяссар нашуд';
 
   @override
-  String get oneHour => '1 hour';
+  String get oneHour => '1 соат';
 
   @override
-  String get eightHours => '8 hours';
+  String get eightHours => '8 соат';
 
   @override
-  String get oneWeek => '1 week';
+  String get oneWeek => '1 ҳафта';
 
   @override
-  String get always => 'Always';
+  String get always => 'Ҳамеша';
 
   @override
-  String get failedToLoadBookmarks => 'Failed to load bookmarks';
+  String get failedToLoadBookmarks => 'Боргирии хатчӯбҳо муяссар нашуд';
 
   @override
-  String get noBookmarkedMessages => 'No bookmarked messages';
+  String get noBookmarkedMessages => 'Паёми хатчӯбшуда нест';
 
   @override
-  String get longPressToBookmark => 'Long press on a message to bookmark it';
+  String get longPressToBookmark => 'Барои хатчӯб задани паём онро тӯлонӣ зер кунед';
 
   @override
-  String get thisWillRemoveFromBookmarks => 'This will remove the message from your bookmarks.';
+  String get thisWillRemoveFromBookmarks => 'Ин паёмро аз хатчӯбҳои шумо тоза мекунад.';
 
   @override
   String navigateToMessage(String name) {
-    return 'Navigate to message in chat with $name';
+    return 'Ба паём дар чат бо $name гузаред';
   }
 
   @override
   String bookmarkedOn(String date) {
-    return 'Bookmarked $date';
+    return 'Дар $date хатчӯб шудааст';
   }
 
   @override
-  String get voiceMessage => 'Voice message';
+  String get voiceMessage => 'Паёми овозӣ';
 
   @override
-  String get document => 'Document';
+  String get document => 'Ҳуҷҷат';
 
   @override
-  String get attachment => 'Attachment';
+  String get attachment => 'Замима';
 
   @override
-  String get sendMeAMessage => 'Send me a message';
+  String get sendMeAMessage => 'Ба ман паём фиристед';
 
   @override
-  String get shareWithFriends => 'Share with friends';
+  String get shareWithFriends => 'Бо дӯстон мубодила кунед';
 
   @override
-  String get shareAnywhere => 'Share anywhere';
+  String get shareAnywhere => 'Дар ҳама ҷо мубодила кунед';
 
   @override
-  String get emailPreferences => 'Email Preferences';
+  String get emailPreferences => 'Танзимоти почтаи электронӣ';
 
   @override
-  String get receiveEmailNotifications => 'Receive email notifications from Bananatalk';
+  String get receiveEmailNotifications => 'Огоҳномаҳои почтаи электрониро аз Bananatalk гиред';
 
   @override
-  String get whenAwayFor24Hours => 'When you\'re away for 24+ hours';
+  String get whenAwayFor24Hours => 'Вақте ки шумо беш аз 24 соат набошед';
 
   @override
-  String get passwordAndLoginAlerts => 'Password & login alerts';
+  String get passwordAndLoginAlerts => 'Огоҳиҳои парол ва вуруд';
 
   @override
-  String get failedToLoadPreferences => 'Failed to load preferences';
+  String get failedToLoadPreferences => 'Боргирии танзимот муяссар нашуд';
 
   @override
-  String get failedToUpdateSetting => 'Failed to update setting';
+  String get failedToUpdateSetting => 'Навсозии танзимот муяссар нашуд';
 
   @override
-  String get securityAlertsRecommended => 'We recommend keeping Security Alerts enabled to stay informed about important account activity.';
+  String get securityAlertsRecommended => 'Тавсия медиҳем, ки огоҳиҳои амниятиро фаъол нигоҳ доред, то аз фаъолияти муҳими ҳисоб огоҳ бошед.';
 
   @override
   String chatWallpaperFor(String name) {
-    return 'Chat wallpaper for $name';
+    return 'Заминсурати чат барои $name';
   }
 
   @override
-  String get solidColors => 'Solid Colors';
+  String get solidColors => 'Рангҳои якранг';
 
   @override
-  String get gradients => 'Gradients';
+  String get gradients => 'Градиентҳо';
 
   @override
-  String get customImage => 'Custom Image';
+  String get customImage => 'Тасвири фармоишӣ';
 
   @override
-  String get chooseFromGallery => 'Choose from Gallery';
+  String get chooseFromGallery => 'Аз галерея интихоб кунед';
 
   @override
-  String get preview => 'Preview';
+  String get preview => 'Намоиши пешакӣ';
 
   @override
-  String get wallpaperUpdated => 'Wallpaper updated';
+  String get wallpaperUpdated => 'Заминсурат навсозӣ шуд';
 
   @override
-  String get category => 'Category';
+  String get category => 'Категория';
 
   @override
-  String get mood => 'Mood';
+  String get mood => 'Кайфият';
 
   @override
-  String get sortBy => 'Sort By';
+  String get sortBy => 'Тартиб аз рӯи';
 
   @override
-  String get timePeriod => 'Time Period';
+  String get timePeriod => 'Давраи вақт';
 
   @override
-  String get searchLanguages => 'Search languages...';
+  String get searchLanguages => 'Ҷустуҷӯи забонҳо...';
 
   @override
-  String get selected => 'Selected';
+  String get selected => 'Интихобшуда';
 
   @override
-  String get categories => 'Categories';
+  String get categories => 'Категорияҳо';
 
   @override
-  String get moods => 'Moods';
+  String get moods => 'Кайфиятҳо';
 
   @override
-  String get applyFilters => 'Apply Filters';
+  String get applyFilters => 'Филтрҳоро татбиқ кунед';
 
   @override
   String applyNFilters(int count) {
-    return 'Apply $count Filters';
+    return '$count филтрро татбиқ кунед';
   }
 
   @override
-  String get videoMustBeUnder1GB => 'Video must be under 1GB.';
+  String get videoMustBeUnder1GB => 'Видео бояд камтар аз 1ГБ бошад.';
 
   @override
-  String get failedToRecordVideo => 'Failed to record video';
+  String get failedToRecordVideo => 'Сабти видео муяссар нашуд';
 
   @override
-  String get errorSendingVideo => 'Error sending video';
+  String get errorSendingVideo => 'Хато ҳангоми фиристодани видео';
 
   @override
-  String get errorSendingVoiceMessage => 'Error sending voice message';
+  String get errorSendingVoiceMessage => 'Хато ҳангоми фиристодани паёми овозӣ';
 
   @override
-  String get errorSendingMedia => 'Error sending media';
+  String get errorSendingMedia => 'Хато ҳангоми фиристодани медиа';
 
   @override
-  String get cameraPermissionRequired => 'Camera and microphone permissions are required to record videos.';
+  String get cameraPermissionRequired => 'Барои сабти видео иҷозати камера ва микрофон лозим аст.';
 
   @override
-  String get locationPermissionRequired => 'Location permission is required to share your location.';
+  String get locationPermissionRequired => 'Барои мубодилаи ҷойгиршавӣ иҷозати ҷойгиршавӣ лозим аст.';
 
   @override
-  String get noInternetConnection => 'No internet connection';
+  String get noInternetConnection => 'Пайвасти интернет нест';
 
   @override
-  String get tryAgainLater => 'Try again later';
+  String get tryAgainLater => 'Баъдтар аз нав кӯшиш кунед';
 
   @override
-  String get messageSent => 'Message sent';
+  String get messageSent => 'Паём фиристода шуд';
 
   @override
-  String get messageDeleted => 'Message deleted';
+  String get messageDeleted => 'Паём нест карда шуд';
 
   @override
-  String get messageEdited => 'Message edited';
+  String get messageEdited => 'Паём таҳрир шуд';
 
   @override
-  String get edited => '(edited)';
+  String get edited => '(таҳриршуда)';
 
   @override
-  String get now => 'now';
+  String get now => 'ҳозир';
 
   @override
   String weeksAgo(int count) {
-    return '${count}w ago';
+    return '$count ҳафта пеш';
   }
 
   @override
@@ -2357,758 +2358,758 @@ class AppLocalizationsTg extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: 'replies',
-      one: 'reply',
+      other: 'ҷавобҳо',
+      one: 'ҷавоб',
     );
-    return '── View $count $_temp0';
+    return '── $count $_temp0-ро бинед';
   }
 
   @override
-  String get hideReplies => '── Hide replies';
+  String get hideReplies => '── Ҷавобҳоро пинҳон кунед';
 
   @override
-  String get saveMoment => 'Save Moment';
+  String get saveMoment => 'Лаҳзаро захира кунед';
 
   @override
-  String get removeFromSaved => 'Remove from Saved';
+  String get removeFromSaved => 'Аз захирашудаҳо тоза кунед';
 
   @override
-  String get momentSaved => 'Saved';
+  String get momentSaved => 'Захира шуд';
 
   @override
-  String get failedToSave => 'Failed to save';
+  String get failedToSave => 'Захира муяссар нашуд';
 
   @override
-  String get checkOutMoment => 'Check out this moment on Bananatalk!';
+  String get checkOutMoment => 'Ин лаҳзаро дар Bananatalk бубинед!';
 
   @override
-  String get failedToLoadMoments => 'Failed to load moments';
+  String get failedToLoadMoments => 'Боргирии лаҳзаҳо муяссар нашуд';
 
   @override
-  String get noMomentsMatchFilters => 'No moments match your filters';
+  String get noMomentsMatchFilters => 'Ҳеҷ лаҳзае ба филтрҳои шумо мувофиқ намеояд';
 
   @override
-  String get beFirstToShareMoment => 'Be the first to share a moment!';
+  String get beFirstToShareMoment => 'Аввалин шуда лаҳзае мубодила кунед!';
 
   @override
-  String get tryDifferentSearch => 'Try a different search term';
+  String get tryDifferentSearch => 'Истилоҳи ҷустуҷӯии дигарро санҷед';
 
   @override
-  String get tryAdjustingFilters => 'Try adjusting your filters to find language exchange partners.';
+  String get tryAdjustingFilters => 'Барои ёфтани шарикони мубодилаи забон филтрҳои худро танзим кунед.';
 
   @override
-  String get noSavedMoments => 'No saved moments';
+  String get noSavedMoments => 'Лаҳзаи захирашуда нест';
 
   @override
-  String get tapBookmarkToSave => 'Tap the bookmark icon on a moment to save it';
+  String get tapBookmarkToSave => 'Барои захира кардани лаҳза ишораи хатчӯбро зер кунед';
 
   @override
-  String get failedToLoadVideo => 'Failed to load video';
+  String get failedToLoadVideo => 'Боргирии видео муяссар нашуд';
 
   @override
-  String get titleRequired => 'Title is required';
+  String get titleRequired => 'Унвон лозим аст';
 
   @override
   String titleTooLong(int max) {
-    return 'Title must be $max characters or less';
+    return 'Унвон бояд $max аломат ё камтар бошад';
   }
 
   @override
-  String get descriptionRequired => 'Description is required';
+  String get descriptionRequired => 'Тавсиф лозим аст';
 
   @override
   String descriptionTooLong(int max) {
-    return 'Description must be $max characters or less';
+    return 'Тавсиф бояд $max аломат ё камтар бошад';
   }
 
   @override
-  String get scheduledDateMustBeFuture => 'Scheduled date must be in the future';
+  String get scheduledDateMustBeFuture => 'Санаи нақшавӣ бояд дар оянда бошад';
 
   @override
-  String get recent => 'Recent';
+  String get recent => 'Охирин';
 
   @override
-  String get popular => 'Popular';
+  String get popular => 'Маъмул';
 
   @override
-  String get trending => 'Trending';
+  String get trending => 'Дар авҷ';
 
   @override
-  String get mostRecent => 'Most Recent';
+  String get mostRecent => 'Аз ҳама охирин';
 
   @override
-  String get mostPopular => 'Most Popular';
+  String get mostPopular => 'Аз ҳама маъмул';
 
   @override
-  String get allTime => 'All Time';
+  String get allTime => 'Тамоми вақт';
 
   @override
-  String get today => 'Today';
+  String get today => 'Имрӯз';
 
   @override
-  String get thisWeek => 'This Week';
+  String get thisWeek => 'Ин ҳафта';
 
   @override
-  String get thisMonth => 'This Month';
+  String get thisMonth => 'Ин моҳ';
 
   @override
   String replyingTo(String userName) {
-    return 'Replying to $userName';
+    return 'Ба $userName ҷавоб дода истодаед';
   }
 
   @override
-  String get listView => 'List';
+  String get listView => 'Рӯйхат';
 
   @override
-  String get quickMatch => 'Quick Match';
+  String get quickMatch => 'Мутобиқати тез';
 
   @override
-  String get onlineNow => 'Online Now';
+  String get onlineNow => 'Ҳозир онлайн';
 
   @override
   String speaksLanguage(String language) {
-    return 'Speaks $language';
+    return 'Бо $language ҳарф мезанад';
   }
 
   @override
   String learningLanguage(String language) {
-    return 'Learning $language';
+    return '$language-ро меомӯзад';
   }
 
   @override
-  String get noPartnersFound => 'No partners found';
+  String get noPartnersFound => 'Шарике ёфт нашуд';
 
   @override
   String noUsersFoundForLanguages(String learning, String native) {
-    return 'No users found who speak $learning natively or want to learn $native.';
+    return 'Корбароне ёфт нашуданд, ки $learning-ро ҳамчун забони модарӣ гӯянд ё $native-ро омӯхтан хоҳанд.';
   }
 
   @override
-  String get removeAllFilters => 'Remove all filters';
+  String get removeAllFilters => 'Ҳамаи филтрҳоро тоза кунед';
 
   @override
-  String get browseAllUsers => 'Browse all users';
+  String get browseAllUsers => 'Ҳамаи корбаронро тамошо кунед';
 
   @override
-  String get allCaughtUp => 'All caught up!';
+  String get allCaughtUp => 'Ҳама чизро дидед!';
 
   @override
-  String get loadingMore => 'Loading more...';
+  String get loadingMore => 'Бештар бор мешавад...';
 
   @override
-  String get findingMorePartners => 'Finding more language partners for you...';
+  String get findingMorePartners => 'Барои шумо шарикони бештар ёфта мешаванд...';
 
   @override
-  String get seenAllPartners => 'You\'ve seen all available partners. Check back later for more!';
+  String get seenAllPartners => 'Шумо ҳамаи шарикони дастрасро дидед. Баъдтар боз санҷед!';
 
   @override
-  String get startOver => 'Start Over';
+  String get startOver => 'Аз нав сар кунед';
 
   @override
-  String get changeFilters => 'Change Filters';
+  String get changeFilters => 'Филтрҳоро иваз кунед';
 
   @override
-  String get findingPartners => 'Finding partners...';
+  String get findingPartners => 'Шарикон ёфта мешаванд...';
 
   @override
-  String get setLocationReminder => 'Set your location in your profile to see nearby users first.';
+  String get setLocationReminder => 'Дар профили худ ҷойгиршавиро муқаррар кунед, то корбарони наздикро аввал бинед.';
 
   @override
-  String get updateLocationReminder => 'Update your location in Profile > Edit to get accurate nearby results.';
+  String get updateLocationReminder => 'Барои натиҷаҳои дақиқи наздик ҷойгиршавии худро дар Профил > Таҳрир навсозӣ кунед.';
 
   @override
-  String get male => 'Male';
+  String get male => 'Мард';
 
   @override
-  String get female => 'Female';
+  String get female => 'Зан';
 
   @override
-  String get other => 'Other';
+  String get other => 'Дигар';
 
   @override
-  String get browseMen => 'Browse men';
+  String get browseMen => 'Мардонро тамошо кунед';
 
   @override
-  String get browseWomen => 'Browse women';
+  String get browseWomen => 'Занонро тамошо кунед';
 
   @override
-  String get noMaleUsersFound => 'No male users found';
+  String get noMaleUsersFound => 'Корбари мард ёфт нашуд';
 
   @override
-  String get noFemaleUsersFound => 'No female users found';
+  String get noFemaleUsersFound => 'Корбари зан ёфт нашуд';
 
   @override
   String get vip => 'VIP';
 
   @override
-  String get newUsersOnly => 'New Users Only';
+  String get newUsersOnly => 'Танҳо корбарони нав';
 
   @override
-  String get showNewUsers => 'Show users who joined in the last 6 days';
+  String get showNewUsers => 'Корбароне, ки дар 6 рӯзи охир ҳамроҳ шудаанд, нишон диҳед';
 
   @override
-  String get prioritizeNearby => 'Prioritize Nearby';
+  String get prioritizeNearby => 'Бартарӣ ба наздикон';
 
   @override
-  String get showNearbyFirst => 'Show nearby users first in results';
+  String get showNearbyFirst => 'Корбарони наздикро дар натиҷаҳо аввал нишон диҳед';
 
   @override
-  String get setLocationToEnable => 'Set your location to enable this feature';
+  String get setLocationToEnable => 'Барои фаъол кардани ин имконият ҷойгиршавиро муқаррар кунед';
 
   @override
-  String get radius => 'Radius';
+  String get radius => 'Радиус';
 
   @override
-  String get findingYourLocation => 'Finding your location...';
+  String get findingYourLocation => 'Ҷойгиршавии шумо ёфта мешавад...';
 
   @override
-  String get enableLocationForDistance => 'Enable Location for Distance';
+  String get enableLocationForDistance => 'Барои масофа ҷойгиршавиро фаъол кунед';
 
   @override
-  String get enableLocationDescription => 'Enable GPS to see exact distance to partners. You can still browse by city/country without GPS.';
+  String get enableLocationDescription => 'GPS-ро фаъол кунед, то масофаи дақиқро то шарикон бинед. Бе GPS низ метавонед аз рӯи шаҳр/кишвар тамошо кунед.';
 
   @override
-  String get enableGps => 'Enable GPS';
+  String get enableGps => 'GPS-ро фаъол кунед';
 
   @override
-  String get browseByCityCountry => 'Browse by City/Country';
+  String get browseByCityCountry => 'Аз рӯи шаҳр/кишвар тамошо кунед';
 
   @override
-  String get peopleNearby => 'People Nearby';
+  String get peopleNearby => 'Одамони наздик';
 
   @override
-  String get noNearbyUsersFound => 'No nearby users found';
+  String get noNearbyUsersFound => 'Корбари наздик ёфт нашуд';
 
   @override
-  String get tryExpandingSearch => 'Try expanding your search or check back later.';
+  String get tryExpandingSearch => 'Ҷустуҷӯи худро васеътар кунед ё баъдтар санҷед.';
 
   @override
-  String get exploreByCity => 'Explore by City';
+  String get exploreByCity => 'Аз рӯи шаҳр кашф кунед';
 
   @override
-  String get exploreByCurrentCity => 'Browse users on an interactive map, see who\'s in your city, and discover language partners worldwide.';
+  String get exploreByCurrentCity => 'Корбаронро дар харитаи интерактивӣ тамошо кунед, бубинед, ки кӣ дар шаҳри шумо аст ва шарикони забонро дар тамоми ҷаҳон кашф кунед.';
 
   @override
-  String get interactiveWorldMap => 'Interactive world map';
+  String get interactiveWorldMap => 'Харитаи интерактивии ҷаҳон';
 
   @override
-  String get searchByCityName => 'Search by city name';
+  String get searchByCityName => 'Ҷустуҷӯ аз рӯи номи шаҳр';
 
   @override
-  String get seeUserCountsPerCountry => 'See user counts per country';
+  String get seeUserCountsPerCountry => 'Шумораи корбаронро дар ҳар кишвар бинед';
 
   @override
-  String get upgradeToVip => 'Upgrade to VIP';
+  String get upgradeToVip => 'Ба VIP навсозӣ кунед';
 
   @override
-  String get searchByCity => 'Search by city...';
+  String get searchByCity => 'Ҷустуҷӯ аз рӯи шаҳр...';
 
   @override
   String usersWorldwide(String count) {
-    return '$count users worldwide';
+    return '$count корбар дар тамоми ҷаҳон';
   }
 
   @override
-  String get noUsersFound => 'No users found';
+  String get noUsersFound => 'Корбаре ёфт нашуд';
 
   @override
-  String get tryDifferentCity => 'Try a different city or country';
+  String get tryDifferentCity => 'Шаҳр ё кишвари дигарро санҷед';
 
   @override
   String usersCount(String count) {
-    return '$count users';
+    return '$count корбар';
   }
 
   @override
-  String get searchCountry => 'Search country...';
+  String get searchCountry => 'Ҷустуҷӯи кишвар...';
 
   @override
-  String get wave => 'Wave';
+  String get wave => 'Даст афшондан';
 
   @override
-  String get newUser => 'NEW';
+  String get newUser => 'НАВ';
 
   @override
-  String get warningPermanent => 'Warning: This action is permanent!';
+  String get warningPermanent => 'Огоҳӣ: Ин амал доимӣ аст!';
 
   @override
-  String get deleteAccountWarning => 'Deleting your account will permanently remove:\n\n• Your profile and all personal data\n• All your messages and conversations\n• All your moments and stories\n• Your VIP subscription (no refund)\n• All your connections and followers\n\nThis action cannot be undone.';
+  String get deleteAccountWarning => 'Несткунии ҳисоби шумо ба таври доимӣ инҳоро бармедорад:\n\n• Профили шумо ва ҳамаи маълумоти шахсӣ\n• Ҳамаи паёмҳо ва сӯҳбатҳои шумо\n• Ҳамаи лаҳзаҳо ва сториҳои шумо\n• Обунаи VIP-и шумо (баргардонии пул нест)\n• Ҳамаи робитаҳо ва пайравони шумо\n\nИн амалро баргардонидан мумкин нест.';
 
   @override
-  String get requiredForEmailOnly => 'Required for email accounts only';
+  String get requiredForEmailOnly => 'Танҳо барои ҳисобҳои почтаи электронӣ лозим аст';
 
   @override
-  String get pleaseEnterPassword => 'Please enter your password';
+  String get pleaseEnterPassword => 'Лутфан паролро ворид кунед';
 
   @override
-  String get typeDELETE => 'Type DELETE to confirm';
+  String get typeDELETE => 'Барои тасдиқ DELETE нависед';
 
   @override
-  String get mustTypeDELETE => 'You must type DELETE to confirm';
+  String get mustTypeDELETE => 'Барои тасдиқ шумо бояд DELETE нависед';
 
   @override
-  String get deletingAccount => 'Deleting Account...';
+  String get deletingAccount => 'Ҳисоб нест карда мешавад...';
 
   @override
-  String get deleteMyAccountPermanently => 'Delete My Account Permanently';
+  String get deleteMyAccountPermanently => 'Ҳисоби маро ба таври доимӣ нест кунед';
 
   @override
-  String get whatsYourNativeLanguage => 'What\'s your native language?';
+  String get whatsYourNativeLanguage => 'Забони модарии шумо чист?';
 
   @override
-  String get helpsMatchWithLearners => 'This helps us match you with learners';
+  String get helpsMatchWithLearners => 'Ин ба мо кӯмак мекунад, ки шуморо бо омӯзандагон мутобиқ созем';
 
   @override
-  String get whatAreYouLearning => 'What are you learning?';
+  String get whatAreYouLearning => 'Чиро меомӯзед?';
 
   @override
-  String get connectWithNativeSpeakers => 'We\'ll connect you with native speakers';
+  String get connectWithNativeSpeakers => 'Мо шуморо бо соҳибзабонон пайваст мекунем';
 
   @override
-  String get selectLearningLanguage => 'Please select the language you\'re learning';
+  String get selectLearningLanguage => 'Лутфан забонеро, ки меомӯзед, интихоб кунед';
 
   @override
-  String get selectCurrentLevel => 'Please select your current level';
+  String get selectCurrentLevel => 'Лутфан сатҳи кунунии худро интихоб кунед';
 
   @override
-  String get beginner => 'Beginner';
+  String get beginner => 'Сатҳи ибтидоӣ';
 
   @override
-  String get elementary => 'Elementary';
+  String get elementary => 'Сатҳи муқаддимотӣ';
 
   @override
-  String get intermediate => 'Intermediate';
+  String get intermediate => 'Сатҳи миёна';
 
   @override
-  String get upperIntermediate => 'Upper Intermediate';
+  String get upperIntermediate => 'Сатҳи болои миёна';
 
   @override
-  String get advanced => 'Advanced';
+  String get advanced => 'Сатҳи пешрафта';
 
   @override
-  String get proficient => 'Proficient';
+  String get proficient => 'Сатҳи моҳир';
 
   @override
-  String get showingPartnersByDistance => 'Showing partners sorted by distance';
+  String get showingPartnersByDistance => 'Шарикон аз рӯи масофа тартиб дода шудаанд';
 
   @override
-  String get enableLocationForResults => 'Enable location for distance-based results';
+  String get enableLocationForResults => 'Барои натиҷаҳои аз рӯи масофа ҷойгиршавиро фаъол кунед';
 
   @override
-  String get enable => 'Enable';
+  String get enable => 'Фаъол кунед';
 
   @override
-  String get locationNotSet => 'Location not set';
+  String get locationNotSet => 'Ҷойгиршавӣ муқаррар нашудааст';
 
   @override
-  String get tellUsAboutYourself => 'Tell us about yourself';
+  String get tellUsAboutYourself => 'Дар бораи худ ба мо нақл кунед';
 
   @override
-  String get justACoupleQuickThings => 'Just a couple of quick things';
+  String get justACoupleQuickThings => 'Танҳо чанд саволи кӯтоҳ';
 
   @override
-  String get gender => 'Gender';
+  String get gender => 'Ҷинс';
 
   @override
-  String get birthDate => 'Birth Date';
+  String get birthDate => 'Санаи таваллуд';
 
   @override
-  String get selectYourBirthDate => 'Select your birth date';
+  String get selectYourBirthDate => 'Санаи таваллуди худро интихоб кунед';
 
   @override
-  String get continueButton => 'Continue';
+  String get continueButton => 'Давом диҳед';
 
   @override
-  String get pleaseSelectGender => 'Please select your gender';
+  String get pleaseSelectGender => 'Лутфан ҷинси худро интихоб кунед';
 
   @override
-  String get pleaseSelectBirthDate => 'Please select your birth date';
+  String get pleaseSelectBirthDate => 'Лутфан санаи таваллуди худро интихоб кунед';
 
   @override
-  String get mustBe18 => 'You must be at least 18 years old';
+  String get mustBe18 => 'Шумо бояд ҳадди ақал 18-сола бошед';
 
   @override
-  String get invalidDate => 'Invalid date';
+  String get invalidDate => 'Санаи нодуруст';
 
   @override
-  String get almostDone => 'Almost done!';
+  String get almostDone => 'Қариб тайёр!';
 
   @override
-  String get addPhotoLocationForMatches => 'Add a photo and location to get more matches';
+  String get addPhotoLocationForMatches => 'Барои мутобиқатҳои бештар сурат ва ҷойгиршавӣ илова кунед';
 
   @override
-  String get addProfilePhoto => 'Add Profile Photo';
+  String get addProfilePhoto => 'Сурати профил илова кунед';
 
   @override
-  String get optionalUpTo6Photos => 'Optional — up to 6 photos';
+  String get optionalUpTo6Photos => 'Ихтиёрӣ — то 6 сурат';
 
   @override
-  String get requiredUpTo6Photos => 'Required — up to 6 photos';
+  String get requiredUpTo6Photos => 'Ҳатмӣ — то 6 сурат';
 
   @override
-  String get profilePhotoRequired => 'Please add at least one profile photo';
+  String get profilePhotoRequired => 'Лутфан ҳадди ақал як сурати профил илова кунед';
 
   @override
-  String get locationOptional => 'Location is optional — you can add it later';
+  String get locationOptional => 'Ҷойгиршавӣ ихтиёрист — баъдтар илова карда метавонед';
 
   @override
-  String get maximum6Photos => 'Maximum 6 photos';
+  String get maximum6Photos => 'Ҳадди ниҳоӣ 6 сурат';
 
   @override
-  String get tapToDetectLocation => 'Tap to detect location';
+  String get tapToDetectLocation => 'Барои муайян кардани ҷойгиршавӣ зер кунед';
 
   @override
-  String get optionalHelpsNearbyPartners => 'Optional — helps find nearby partners';
+  String get optionalHelpsNearbyPartners => 'Ихтиёрӣ — барои ёфтани шарикони наздик кӯмак мекунад';
 
   @override
-  String get startLearning => 'Start Learning!';
+  String get startLearning => 'Омӯзишро оғоз кунед!';
 
   @override
-  String get photoLocationOptional => 'Photo & location are optional — you can add them later';
+  String get photoLocationOptional => 'Сурат ва ҷойгиршавӣ ихтиёрианд — баъдтар илова карда метавонед';
 
   @override
-  String get pleaseAcceptTerms => 'Please accept the Terms of Service';
+  String get pleaseAcceptTerms => 'Лутфан Шартҳои хидматро қабул кунед';
 
   @override
-  String get iAgreeToThe => 'I agree to the ';
+  String get iAgreeToThe => 'Ман розӣ ҳастам бо ';
 
   @override
-  String get termsOfService => 'Terms of Service';
+  String get termsOfService => 'Шартҳои хидмат';
 
   @override
-  String get tapToSelectLanguage => 'Tap to select a language';
+  String get tapToSelectLanguage => 'Барои интихоби забон зер кунед';
 
   @override
   String yourLevelIn(String language) {
-    return 'Your level in $language (optional)';
+    return 'Сатҳи шумо дар $language (ихтиёрӣ)';
   }
 
   @override
-  String get yourCurrentLevel => 'Your current level';
+  String get yourCurrentLevel => 'Сатҳи кунунии шумо';
 
   @override
-  String get nativeCannotBeSameAsLearning => 'Native language cannot be the same as learning language';
+  String get nativeCannotBeSameAsLearning => 'Забони модарӣ наметавонад бо забони омӯзишӣ як хел бошад';
 
   @override
-  String get learningCannotBeSameAsNative => 'Learning language cannot be the same as native language';
+  String get learningCannotBeSameAsNative => 'Забони омӯзишӣ наметавонад бо забони модарӣ як хел бошад';
 
   @override
   String stepOf(String current, String total) {
-    return 'Step $current of $total';
+    return 'Қадами $current аз $total';
   }
 
   @override
-  String get continueWithGoogle => 'Continue with Google';
+  String get continueWithGoogle => 'Бо Google идома диҳед';
 
   @override
-  String get registerLink => 'Register';
+  String get registerLink => 'Сабти ном';
 
   @override
-  String get pleaseEnterBothEmailAndPassword => 'Please enter both email and password';
+  String get pleaseEnterBothEmailAndPassword => 'Лутфан ҳам почтаи электронӣ ва ҳам паролро ворид кунед';
 
   @override
-  String get pleaseEnterValidEmail => 'Please enter a valid email address';
+  String get pleaseEnterValidEmail => 'Лутфан суроғаи дурусти почтаи электрониро ворид кунед';
 
   @override
-  String get loginSuccessful => 'Login Successful!';
+  String get loginSuccessful => 'Ворид шудан бомуваффақият анҷом ёфт!';
 
   @override
-  String get stepOneOfTwo => 'Step 1 of 2';
+  String get stepOneOfTwo => 'Қадами 1 аз 2';
 
   @override
-  String get createYourAccount => 'Create Your Account';
+  String get createYourAccount => 'Ҳисоби худро эҷод кунед';
 
   @override
-  String get basicInfoToGetStarted => 'Basic info to get you started';
+  String get basicInfoToGetStarted => 'Маълумоти асосӣ барои оғоз';
 
   @override
-  String get emailVerifiedLabel => 'Email (Verified)';
+  String get emailVerifiedLabel => 'Почтаи электронӣ (тасдиқшуда)';
 
   @override
-  String get nameLabel => 'Name';
+  String get nameLabel => 'Ном';
 
   @override
-  String get yourDisplayName => 'Your display name';
+  String get yourDisplayName => 'Номи намоиширо';
 
   @override
-  String get atLeast8Characters => 'At least 8 characters';
+  String get atLeast8Characters => 'Ҳадди ақал 8 аломат';
 
   @override
-  String get confirmPasswordHint => 'Confirm password';
+  String get confirmPasswordHint => 'Паролро тасдиқ кунед';
 
   @override
-  String get nextButton => 'Next';
+  String get nextButton => 'Минбаъд';
 
   @override
-  String get pleaseEnterYourName => 'Please enter your name';
+  String get pleaseEnterYourName => 'Лутфан номи худро ворид кунед';
 
   @override
-  String get pleaseEnterAPassword => 'Please enter a password';
+  String get pleaseEnterAPassword => 'Лутфан паролро ворид кунед';
 
   @override
-  String get passwordsDoNotMatch => 'Passwords do not match';
+  String get passwordsDoNotMatch => 'Паролҳо мувофиқат намекунанд';
 
   @override
-  String get otherGender => 'Other';
+  String get otherGender => 'Дигар';
 
   @override
-  String get continueWithGoogleAccount => 'Continue with your Google account\nfor a seamless experience';
+  String get continueWithGoogleAccount => 'Барои таҷрибаи бефосила бо ҳисоби Google-и худ\nидома диҳед';
 
   @override
-  String get signingYouIn => 'Signing you in...';
+  String get signingYouIn => 'Шумо ворид мешавед...';
 
   @override
-  String get backToSignInMethods => 'Back to sign-in methods';
+  String get backToSignInMethods => 'Бозгашт ба усулҳои воридшавӣ';
 
   @override
-  String get securedByGoogle => 'Secured by Google';
+  String get securedByGoogle => 'Аз ҷониби Google ҳифз шудааст';
 
   @override
-  String get dataProtectedEncryption => 'Your data is protected with industry-standard encryption';
+  String get dataProtectedEncryption => 'Маълумоти шумо бо рамзгузории стандартии саноатӣ ҳифз шудааст';
 
   @override
-  String get welcomeCompleteProfile => 'Welcome! Please complete your profile';
+  String get welcomeCompleteProfile => 'Хуш омадед! Лутфан профили худро пурра кунед';
 
   @override
   String welcomeBackName(String name) {
-    return 'Welcome back, $name!';
+    return 'Бозгашти шумо муборак, $name!';
   }
 
   @override
-  String get continueWithAppleId => 'Continue with your Apple ID\nfor a secure experience';
+  String get continueWithAppleId => 'Барои таҷрибаи бехатар бо Apple ID-и худ\nидома диҳед';
 
   @override
-  String get continueWithApple => 'Continue with Apple';
+  String get continueWithApple => 'Бо Apple идома диҳед';
 
   @override
-  String get securedByApple => 'Secured by Apple';
+  String get securedByApple => 'Аз ҷониби Apple ҳифз шудааст';
 
   @override
-  String get privacyProtectedApple => 'Your privacy is protected with Apple Sign-In';
+  String get privacyProtectedApple => 'Махфияти шумо бо Apple Sign-In ҳифз шудааст';
 
   @override
-  String get createAccount => 'Create Account';
+  String get createAccount => 'Ҳисоб эҷод кунед';
 
   @override
-  String get enterEmailToGetStarted => 'Enter your email to get started';
+  String get enterEmailToGetStarted => 'Барои оғоз почтаи электронии худро ворид кунед';
 
   @override
-  String get continueText => 'Continue';
+  String get continueText => 'Идома диҳед';
 
   @override
-  String get pleaseEnterEmailAddress => 'Please enter your email address';
+  String get pleaseEnterEmailAddress => 'Лутфан суроғаи почтаи электронии худро ворид кунед';
 
   @override
-  String get verificationCodeSent => 'Verification code sent to your email!';
+  String get verificationCodeSent => 'Рамзи тасдиқ ба почтаи электронии шумо фиристода шуд!';
 
   @override
-  String get forgotPasswordTitle => 'Forgot Password';
+  String get forgotPasswordTitle => 'Паролро фаромӯш кардаед';
 
   @override
-  String get resetPasswordTitle => 'Reset Password';
+  String get resetPasswordTitle => 'Барқарорсозии парол';
 
   @override
-  String get enterEmailForResetCode => 'Enter your email address and we\'ll send you a code to reset your password';
+  String get enterEmailForResetCode => 'Суроғаи почтаи электронии худро ворид кунед ва мо ба шумо рамзи барқарорсозии паролро мефиристем';
 
   @override
-  String get sendResetCode => 'Send Reset Code';
+  String get sendResetCode => 'Рамзи барқарорсозиро фиристед';
 
   @override
-  String get resetCodeSent => 'Reset code sent to your email!';
+  String get resetCodeSent => 'Рамзи барқарорсозӣ ба почтаи электронии шумо фиристода шуд!';
 
   @override
-  String get rememberYourPassword => 'Remember your password?';
+  String get rememberYourPassword => 'Паролатонро ба ёд овардед?';
 
   @override
-  String get verifyCode => 'Verify Code';
+  String get verifyCode => 'Тасдиқи рамз';
 
   @override
-  String get enterResetCode => 'Enter Reset Code';
+  String get enterResetCode => 'Рамзи барқарорсозиро ворид кунед';
 
   @override
-  String get weSentCodeTo => 'We sent a 6-digit code to';
+  String get weSentCodeTo => 'Мо рамзи 6-рақамаро фиристодем ба';
 
   @override
-  String get pleaseEnterAll6Digits => 'Please enter all 6 digits';
+  String get pleaseEnterAll6Digits => 'Лутфан ҳамаи 6 рақамро ворид кунед';
 
   @override
-  String get codeVerifiedCreatePassword => 'Code verified! Create your new password';
+  String get codeVerifiedCreatePassword => 'Рамз тасдиқ шуд! Пароли нави худро эҷод кунед';
 
   @override
-  String get verify => 'Verify';
+  String get verify => 'Тасдиқ кунед';
 
   @override
-  String get didntReceiveCode => 'Didn\'t receive the code?';
+  String get didntReceiveCode => 'Рамзро нагирифтед?';
 
   @override
-  String get resend => 'Resend';
+  String get resend => 'Аз нав фиристед';
 
   @override
   String resendWithTimer(String timer) {
-    return 'Resend (${timer}s)';
+    return 'Аз нав фиристед ($timer с)';
   }
 
   @override
-  String get resetCodeResent => 'Reset code resent!';
+  String get resetCodeResent => 'Рамзи барқарорсозӣ аз нав фиристода шуд!';
 
   @override
-  String get verifyEmail => 'Verify Email';
+  String get verifyEmail => 'Почтаи электрониро тасдиқ кунед';
 
   @override
-  String get verifyYourEmail => 'Verify Your Email';
+  String get verifyYourEmail => 'Почтаи электронии худро тасдиқ кунед';
 
   @override
-  String get emailVerifiedSuccessfully => 'Email verified successfully!';
+  String get emailVerifiedSuccessfully => 'Почтаи электронӣ бомуваффақият тасдиқ шуд!';
 
   @override
-  String get verificationCodeResent => 'Verification code resent!';
+  String get verificationCodeResent => 'Рамзи тасдиқ аз нав фиристода шуд!';
 
   @override
-  String get createNewPassword => 'Create New Password';
+  String get createNewPassword => 'Пароли нав эҷод кунед';
 
   @override
-  String get enterNewPasswordBelow => 'Enter your new password below';
+  String get enterNewPasswordBelow => 'Пароли нави худро дар поён ворид кунед';
 
   @override
-  String get newPassword => 'New Password';
+  String get newPassword => 'Пароли нав';
 
   @override
-  String get confirmPasswordLabel => 'Confirm Password';
+  String get confirmPasswordLabel => 'Паролро тасдиқ кунед';
 
   @override
-  String get pleaseFillAllFields => 'Please fill in all fields';
+  String get pleaseFillAllFields => 'Лутфан ҳамаи майдонҳоро пур кунед';
 
   @override
-  String get passwordResetSuccessful => 'Password reset successful! Please login with your new password';
+  String get passwordResetSuccessful => 'Парол бомуваффақият барқарор шуд! Лутфан бо пароли нави худ ворид шавед';
 
   @override
-  String get privacyTitle => 'Privacy';
+  String get privacyTitle => 'Махфият';
 
   @override
-  String get profileVisibility => 'Profile Visibility';
+  String get profileVisibility => 'Намоёнии профил';
 
   @override
-  String get showCountryRegion => 'Show Country/Region';
+  String get showCountryRegion => 'Намоиши кишвар/минтақа';
 
   @override
-  String get showCountryRegionDesc => 'Display your country on your profile';
+  String get showCountryRegionDesc => 'Кишвари худро дар профил намоиш диҳед';
 
   @override
-  String get showCity => 'Show City';
+  String get showCity => 'Намоиши шаҳр';
 
   @override
-  String get showCityDesc => 'Display your city on your profile';
+  String get showCityDesc => 'Шаҳри худро дар профил намоиш диҳед';
 
   @override
-  String get showAge => 'Show Age';
+  String get showAge => 'Намоиши синну сол';
 
   @override
-  String get showAgeDesc => 'Display your age on your profile';
+  String get showAgeDesc => 'Синну соли худро дар профил намоиш диҳед';
 
   @override
-  String get showZodiacSign => 'Show Zodiac Sign';
+  String get showZodiacSign => 'Намоиши бурҷи зодиак';
 
   @override
-  String get showZodiacSignDesc => 'Display your zodiac sign on your profile';
+  String get showZodiacSignDesc => 'Бурҷи зодиаки худро дар профил намоиш диҳед';
 
   @override
-  String get onlineStatusSection => 'Online Status';
+  String get onlineStatusSection => 'Ҳолати онлайн';
 
   @override
-  String get showOnlineStatus => 'Show Online Status';
+  String get showOnlineStatus => 'Намоиши ҳолати онлайн';
 
   @override
-  String get showOnlineStatusDesc => 'Let others see when you are online';
+  String get showOnlineStatusDesc => 'Ба дигарон иҷозат диҳед, ки бубинанд, кай шумо онлайн ҳастед';
 
   @override
-  String get otherSettings => 'Other Settings';
+  String get otherSettings => 'Танзимоти дигар';
 
   @override
-  String get showGiftingLevel => 'Show Gifting Level';
+  String get showGiftingLevel => 'Намоиши сатҳи тӯҳфакунӣ';
 
   @override
-  String get showGiftingLevelDesc => 'Display your gifting level badge';
+  String get showGiftingLevelDesc => 'Нишони сатҳи тӯҳфакунии худро намоиш диҳед';
 
   @override
-  String get birthdayNotifications => 'Birthday Notifications';
+  String get birthdayNotifications => 'Огоҳномаҳои зодрӯз';
 
   @override
-  String get birthdayNotificationsDesc => 'Receive notifications on your birthday';
+  String get birthdayNotificationsDesc => 'Дар рӯзи зодрӯзи худ огоҳнома қабул кунед';
 
   @override
-  String get personalizedAds => 'Personalized Ads';
+  String get personalizedAds => 'Рекламаҳои шахсӣ';
 
   @override
-  String get personalizedAdsDesc => 'Allow personalized advertisements';
+  String get personalizedAdsDesc => 'Иҷозати рекламаҳои шахсиро диҳед';
 
   @override
-  String get saveChanges => 'Save Changes';
+  String get saveChanges => 'Тағйиротро захира кунед';
 
   @override
-  String get privacySettingsSaved => 'Privacy settings saved';
+  String get privacySettingsSaved => 'Танзимоти махфият захира шуд';
 
   @override
-  String get locationSection => 'Location';
+  String get locationSection => 'Ҷойгиршавӣ';
 
   @override
-  String get updateLocation => 'Update Location';
+  String get updateLocation => 'Навсозии ҷойгиршавӣ';
 
   @override
-  String get updateLocationDesc => 'Refresh your current location';
+  String get updateLocationDesc => 'Ҷойгиршавии кунунии худро аз нав санҷед';
 
   @override
-  String get currentLocation => 'Current location';
+  String get currentLocation => 'Ҷойгиршавии кунунӣ';
 
   @override
-  String get locationNotAvailable => 'Location not available';
+  String get locationNotAvailable => 'Ҷойгиршавӣ дастрас нест';
 
   @override
-  String get locationUpdated => 'Location updated successfully';
+  String get locationUpdated => 'Ҷойгиршавӣ бомуваффақият нав шуд';
 
   @override
-  String get locationPermissionDenied => 'Location permission denied. Please enable it in settings.';
+  String get locationPermissionDenied => 'Иҷозати ҷойгиршавӣ рад шуд. Лутфан онро дар танзимот фаъол кунед.';
 
   @override
-  String get locationServiceDisabled => 'Location services are disabled. Please enable them.';
+  String get locationServiceDisabled => 'Хидматҳои ҷойгиршавӣ хомӯшанд. Лутфан онҳоро фаъол кунед.';
 
   @override
-  String get updatingLocation => 'Updating location...';
+  String get updatingLocation => 'Ҷойгиршавӣ нав шуда истодааст...';
 
   @override
-  String get locationCouldNotBeUpdated => 'Location could not be updated';
+  String get locationCouldNotBeUpdated => 'Ҷойгиршавӣ нав карда нашуд';
 
   @override
-  String get incomingAudioCall => 'Incoming Audio Call';
+  String get incomingAudioCall => 'Занги овозии воридшаванда';
 
   @override
-  String get incomingVideoCall => 'Incoming Video Call';
+  String get incomingVideoCall => 'Занги видеоии воридшаванда';
 
   @override
-  String get outgoingCall => 'Calling...';
+  String get outgoingCall => 'Занг зада истодааст...';
 
   @override
-  String get callRinging => 'Ringing...';
+  String get callRinging => 'Занг мезанад...';
 
   @override
-  String get callConnecting => 'Connecting...';
+  String get callConnecting => 'Пайвастшавӣ...';
 
   @override
-  String get callConnected => 'Connected';
+  String get callConnected => 'Пайваст шуд';
 
   @override
-  String get callReconnecting => 'Reconnecting...';
+  String get callReconnecting => 'Аз нав пайваст шуда истодааст...';
 
   @override
-  String get callEnded => 'Call Ended';
+  String get callEnded => 'Занг анҷом ёфт';
 
   @override
-  String get callFailed => 'Call Failed';
+  String get callFailed => 'Занг ноком шуд';
 
   @override
-  String get callMissed => 'Missed Call';
+  String get callMissed => 'Занги аз даст рафта';
 
   @override
-  String get callDeclined => 'Call Declined';
+  String get callDeclined => 'Занг рад карда шуд';
 
   @override
   String callDuration(String duration) {
@@ -3116,1786 +3117,1786 @@ class AppLocalizationsTg extends AppLocalizations {
   }
 
   @override
-  String get acceptCall => 'Accept';
+  String get acceptCall => 'Қабул кунед';
 
   @override
-  String get declineCall => 'Decline';
+  String get declineCall => 'Рад кунед';
 
   @override
-  String get endCall => 'End';
+  String get endCall => 'Анҷом';
 
   @override
-  String get muteCall => 'Mute';
+  String get muteCall => 'Бесадо';
 
   @override
-  String get unmuteCall => 'Unmute';
+  String get unmuteCall => 'Бо садо';
 
   @override
-  String get speakerOn => 'Speaker';
+  String get speakerOn => 'Баландгӯяк';
 
   @override
-  String get speakerOff => 'Earpiece';
+  String get speakerOff => 'Гӯшак';
 
   @override
-  String get videoOn => 'Video On';
+  String get videoOn => 'Видео фаъол';
 
   @override
-  String get videoOff => 'Video Off';
+  String get videoOff => 'Видео хомӯш';
 
   @override
-  String get switchCamera => 'Switch Camera';
+  String get switchCamera => 'Камераро иваз кунед';
 
   @override
-  String get callPermissionDenied => 'Microphone permission is required for calls';
+  String get callPermissionDenied => 'Барои занг иҷозати микрофон лозим аст';
 
   @override
-  String get cameraPermissionDenied => 'Camera permission is required for video calls';
+  String get cameraPermissionDenied => 'Барои зангҳои видеоӣ иҷозати камера лозим аст';
 
   @override
-  String get callConnectionFailed => 'Could not connect. Please try again.';
+  String get callConnectionFailed => 'Пайваст шуда натавонист. Лутфан аз нав кӯшиш кунед.';
 
   @override
-  String get userBusy => 'User is busy';
+  String get userBusy => 'Корбар банд аст';
 
   @override
-  String get userOffline => 'User is offline';
+  String get userOffline => 'Корбар офлайн аст';
 
   @override
-  String get callHistory => 'Call History';
+  String get callHistory => 'Таърихи зангҳо';
 
   @override
-  String get noCallHistory => 'No call history';
+  String get noCallHistory => 'Таърихи зангҳо нест';
 
   @override
-  String get missedCalls => 'Missed Calls';
+  String get missedCalls => 'Зангҳои аз даст рафта';
 
   @override
-  String get allCalls => 'All Calls';
+  String get allCalls => 'Ҳамаи зангҳо';
 
   @override
-  String get callBack => 'Call Back';
+  String get callBack => 'Боззанг';
 
   @override
   String callAt(String time) {
-    return 'Call at $time';
+    return 'Занг дар $time';
   }
 
   @override
-  String get audioCall => 'Audio Call';
+  String get audioCall => 'Занги овозӣ';
 
   @override
-  String get voiceRoom => 'Voice Room';
+  String get voiceRoom => 'Ҳуҷраи овозӣ';
 
   @override
-  String get noVoiceRooms => 'No voice rooms active';
+  String get noVoiceRooms => 'Ҳуҷраҳои овозии фаъол нестанд';
 
   @override
-  String get createVoiceRoom => 'Create Voice Room';
+  String get createVoiceRoom => 'Ҳуҷраи овозӣ эҷод кунед';
 
   @override
-  String get joinRoom => 'Join Room';
+  String get joinRoom => 'Ба ҳуҷра ҳамроҳ шавед';
 
   @override
-  String get leaveRoomConfirm => 'Leave Room?';
+  String get leaveRoomConfirm => 'Аз ҳуҷра баромадан?';
 
   @override
-  String get leaveRoomMessage => 'Are you sure you want to leave this room?';
+  String get leaveRoomMessage => 'Шумо мутмаин ҳастед, ки мехоҳед аз ин ҳуҷра бароед?';
 
   @override
-  String get roomTitle => 'Room Title';
+  String get roomTitle => 'Унвони ҳуҷра';
 
   @override
-  String get roomTitleHint => 'Enter room title';
+  String get roomTitleHint => 'Унвони ҳуҷраро ворид кунед';
 
   @override
-  String get roomTopic => 'Topic';
+  String get roomTopic => 'Мавзӯъ';
 
   @override
-  String get roomLanguage => 'Language';
+  String get roomLanguage => 'Забон';
 
   @override
-  String get roomHost => 'Host';
+  String get roomHost => 'Мизбон';
 
   @override
   String roomParticipants(int count) {
-    return '$count participants';
+    return '$count иштирокчӣ';
   }
 
   @override
   String roomMaxParticipants(int count) {
-    return 'Max $count participants';
+    return 'Ҳадди ниҳоӣ $count иштирокчӣ';
   }
 
   @override
-  String get selectTopic => 'Select Topic';
+  String get selectTopic => 'Мавзӯъро интихоб кунед';
 
   @override
-  String get raiseHand => 'Raise Hand';
+  String get raiseHand => 'Дастро баланд кунед';
 
   @override
-  String get lowerHand => 'Lower Hand';
+  String get lowerHand => 'Дастро поён кунед';
 
   @override
-  String get handRaisedNotification => 'Hand raised! The host will see your request.';
+  String get handRaisedNotification => 'Даст баланд карда шуд! Мизбон дархости шуморо мебинад.';
 
   @override
-  String get handLoweredNotification => 'Hand lowered';
+  String get handLoweredNotification => 'Даст поён карда шуд';
 
   @override
-  String get muteParticipant => 'Mute Participant';
+  String get muteParticipant => 'Иштирокчиро бесадо кунед';
 
   @override
-  String get kickParticipant => 'Remove from Room';
+  String get kickParticipant => 'Аз ҳуҷра хориҷ кунед';
 
   @override
-  String get promoteToCoHost => 'Make Co-Host';
+  String get promoteToCoHost => 'Ҳаммизбон таъин кунед';
 
   @override
-  String get endRoomConfirm => 'End Room?';
+  String get endRoomConfirm => 'Ҳуҷраро анҷом медиҳед?';
 
   @override
-  String get endRoomMessage => 'This will end the room for all participants.';
+  String get endRoomMessage => 'Ин ҳуҷраро барои ҳамаи иштирокчиён анҷом медиҳад.';
 
   @override
-  String get roomEnded => 'Room ended by host';
+  String get roomEnded => 'Ҳуҷра аз ҷониби мизбон анҷом ёфт';
 
   @override
-  String get youWereRemoved => 'You were removed from the room';
+  String get youWereRemoved => 'Шумо аз ҳуҷра хориҷ карда шудед';
 
   @override
-  String get roomIsFull => 'Room is full';
+  String get roomIsFull => 'Ҳуҷра пур аст';
 
   @override
-  String get roomChat => 'Room Chat';
+  String get roomChat => 'Чати ҳуҷра';
 
   @override
-  String get noMessages => 'No messages yet';
+  String get noMessages => 'Ҳанӯз паём нест';
 
   @override
-  String get typeMessage => 'Type a message...';
+  String get typeMessage => 'Паём нависед...';
 
   @override
-  String get voiceRoomsDescription => 'Join live conversations and practice speaking';
+  String get voiceRoomsDescription => 'Ба сӯҳбатҳои зинда ҳамроҳ шавед ва машқи гуфтугӯ кунед';
 
   @override
   String liveRoomsCount(int count) {
-    return '$count Live';
+    return '$count зинда';
   }
 
   @override
-  String get noActiveRooms => 'No active rooms';
+  String get noActiveRooms => 'Ҳуҷраҳои фаъол нестанд';
 
   @override
-  String get noActiveRoomsDescription => 'Be the first to start a voice room and practice speaking with others!';
+  String get noActiveRoomsDescription => 'Аввалин шавед, ки ҳуҷраи овозиро оғоз мекунад ва бо дигарон машқи гуфтугӯ мекунад!';
 
   @override
-  String get startRoom => 'Start a Room';
+  String get startRoom => 'Ҳуҷраро оғоз кунед';
 
   @override
-  String get createRoom => 'Create Room';
+  String get createRoom => 'Ҳуҷра эҷод кунед';
 
   @override
-  String get roomCreated => 'Room created successfully!';
+  String get roomCreated => 'Ҳуҷра бомуваффақият эҷод шуд!';
 
   @override
-  String get failedToCreateRoom => 'Failed to create room';
+  String get failedToCreateRoom => 'Эҷоди ҳуҷра ноком шуд';
 
   @override
-  String get errorLoadingRooms => 'Error loading rooms';
+  String get errorLoadingRooms => 'Хато ҳангоми боргирии ҳуҷраҳо';
 
   @override
-  String get pleaseEnterRoomTitle => 'Please enter a room title';
+  String get pleaseEnterRoomTitle => 'Лутфан унвони ҳуҷраро ворид кунед';
 
   @override
-  String get startLiveConversation => 'Start a live conversation';
+  String get startLiveConversation => 'Сӯҳбати зиндаро оғоз кунед';
 
   @override
-  String get maxParticipants => 'Max Participants';
+  String get maxParticipants => 'Ҳадди ниҳоии иштирокчиён';
 
   @override
   String nPeople(int count) {
-    return '$count people';
+    return '$count нафар';
   }
 
   @override
   String hostedBy(String name) {
-    return 'Hosted by $name';
+    return 'Мизбон: $name';
   }
 
   @override
-  String get liveLabel => 'LIVE';
+  String get liveLabel => 'ЗИНДА';
 
   @override
-  String get joinLabel => 'Join';
+  String get joinLabel => 'Ҳамроҳ шавед';
 
   @override
-  String get fullLabel => 'Full';
+  String get fullLabel => 'Пур';
 
   @override
-  String get justStarted => 'Just started';
+  String get justStarted => 'Ҳозир оғоз шуд';
 
   @override
-  String get allLanguages => 'All Languages';
+  String get allLanguages => 'Ҳамаи забонҳо';
 
   @override
-  String get allTopics => 'All Topics';
+  String get allTopics => 'Ҳамаи мавзӯъҳо';
 
   @override
-  String get allCategories => 'All Categories';
+  String get allCategories => 'Ҳамаи категорияҳо';
 
   @override
-  String get leaderboard => 'Leaderboard';
+  String get leaderboard => 'Ҷадвали пешсафон';
 
   @override
-  String get competeWithLearners => 'Compete with other learners!';
+  String get competeWithLearners => 'Бо омӯзандагони дигар рақобат кунед!';
 
   @override
-  String get xpRankings => 'XP Rankings';
+  String get xpRankings => 'Рейтинги XP';
 
   @override
-  String get streaks => 'Streaks';
+  String get streaks => 'Силсилаҳо';
 
   @override
-  String get friends => 'Friends';
+  String get friends => 'Дӯстон';
 
   @override
-  String get myRanks => 'My Ranks';
+  String get myRanks => 'Ҷойҳои ман';
 
   @override
-  String get currentStreak => 'Current Streak';
+  String get currentStreak => 'Силсилаи кунунӣ';
 
   @override
-  String get longestStreak => 'Longest Streak';
+  String get longestStreak => 'Дарозтарин силсила';
 
   @override
-  String get weekly => 'Weekly';
+  String get weekly => 'Ҳафтаина';
 
   @override
-  String get monthly => 'Monthly';
+  String get monthly => 'Моҳона';
 
   @override
-  String get yourRank => 'Your Rank';
+  String get yourRank => 'Ҷои шумо';
 
   @override
   String outOf(int total) {
-    return 'out of $total';
+    return 'аз $total';
   }
 
   @override
   String topPercent(String percent) {
-    return 'Top $percent%';
+    return 'Беҳтарин $percent%';
   }
 
   @override
-  String get xpRank => 'XP Rank';
+  String get xpRank => 'Ҷои XP';
 
   @override
-  String get streakRank => 'Streak Rank';
+  String get streakRank => 'Ҷои силсила';
 
   @override
-  String get days => 'days';
+  String get days => 'рӯз';
 
   @override
-  String get learningStats => 'Learning Stats';
+  String get learningStats => 'Омори омӯзиш';
 
   @override
-  String get totalXp => 'Total XP';
+  String get totalXp => 'Ҳамагӣ XP';
 
   @override
-  String get lessonsCompleted => 'Lessons Completed';
+  String get lessonsCompleted => 'Дарсҳои анҷомёфта';
 
   @override
-  String get rankings => 'Rankings';
+  String get rankings => 'Рейтингҳо';
 
   @override
-  String get yourPosition => 'Your Position';
+  String get yourPosition => 'Мавқеи шумо';
 
   @override
-  String get keepLearning => 'Keep learning to climb!';
+  String get keepLearning => 'Барои боло баромадан омӯзишро давом диҳед!';
 
   @override
-  String get noRankingsYet => 'No rankings yet';
+  String get noRankingsYet => 'Ҳанӯз рейтинг нест';
 
   @override
-  String get startLearningToAppear => 'Start learning to appear on the leaderboard!';
+  String get startLearningToAppear => 'Барои дар ҷадвали пешсафон пайдо шудан омӯзишро оғоз кунед!';
 
   @override
-  String get noFriendsYet => 'No friends yet';
+  String get noFriendsYet => 'Ҳанӯз дӯст нест';
 
   @override
-  String get addFriendsToCompete => 'Add friends to compete with them!';
+  String get addFriendsToCompete => 'Барои рақобат бо онҳо дӯстон илова кунед!';
 
   @override
-  String get failedToLoadLeaderboard => 'Failed to load leaderboard';
+  String get failedToLoadLeaderboard => 'Боргирии ҷадвали пешсафон ноком шуд';
 
   @override
-  String get you => 'You';
+  String get you => 'Шумо';
 
   @override
-  String get findPartners => 'Find Partners';
+  String get findPartners => 'Шарик ёбед';
 
   @override
-  String get discoverLanguagePartners => 'Discover language partners';
+  String get discoverLanguagePartners => 'Шарикони забонро кашф кунед';
 
   @override
-  String get byLanguage => 'By Language';
+  String get byLanguage => 'Аз рӯи забон';
 
   @override
-  String get match => 'match';
+  String get match => 'мутобиқат';
 
   @override
-  String get matchScore => 'Match Score';
+  String get matchScore => 'Холи мутобиқат';
 
   @override
-  String get noMatchesFound => 'No matches found';
+  String get noMatchesFound => 'Мутобиқат ёфт нашуд';
 
   @override
-  String get noUsersOnline => 'No users online';
+  String get noUsersOnline => 'Корбарони онлайн нестанд';
 
   @override
-  String get checkBackLater => 'Check back later';
+  String get checkBackLater => 'Баъдтар санҷед';
 
   @override
-  String get selectLanguagePrompt => 'Select a language';
+  String get selectLanguagePrompt => 'Забонро интихоб кунед';
 
   @override
-  String get findPartnersByLanguage => 'Find partners who speak or learn this language';
+  String get findPartnersByLanguage => 'Шариконеро ёбед, ки бо ин забон гап мезананд ё онро меомӯзанд';
 
   @override
   String noPartnersForLanguage(String language) {
-    return 'No partners for $language';
+    return 'Барои $language шарик нест';
   }
 
   @override
-  String get tryAnotherLanguage => 'Try selecting another language';
+  String get tryAnotherLanguage => 'Забони дигарро интихоб кунед';
 
   @override
-  String get failedToLoadMatches => 'Failed to load matches';
+  String get failedToLoadMatches => 'Боргирии мутобиқатҳо ноком шуд';
 
   @override
-  String get dataAndStorage => 'Data & Storage';
+  String get dataAndStorage => 'Маълумот ва ҷои нигоҳдорӣ';
 
   @override
-  String get manageStorageAndDownloads => 'Manage storage and downloads';
+  String get manageStorageAndDownloads => 'Идоракунии ҷои нигоҳдорӣ ва боргириҳо';
 
   @override
-  String get storageUsage => 'Storage Usage';
+  String get storageUsage => 'Истифодаи ҷои нигоҳдорӣ';
 
   @override
-  String get totalCacheSize => 'Total Cache Size';
+  String get totalCacheSize => 'Ҳаҷми умумии ҳофиза';
 
   @override
-  String get imageCache => 'Image Cache';
+  String get imageCache => 'Ҳофизаи тасвирҳо';
 
   @override
-  String get voiceMessagesCache => 'Voice Messages';
+  String get voiceMessagesCache => 'Паёмҳои овозӣ';
 
   @override
-  String get videoCache => 'Video Cache';
+  String get videoCache => 'Ҳофизаи видео';
 
   @override
-  String get otherCache => 'Other Cache';
+  String get otherCache => 'Ҳофизаи дигар';
 
   @override
-  String get autoDownloadMedia => 'Auto-Download Media';
+  String get autoDownloadMedia => 'Боргирии худкори медиа';
 
   @override
-  String get currentNetwork => 'Current Network';
+  String get currentNetwork => 'Шабакаи кунунӣ';
 
   @override
-  String get images => 'Images';
+  String get images => 'Тасвирҳо';
 
   @override
-  String get videos => 'Videos';
+  String get videos => 'Видеоҳо';
 
   @override
-  String get voiceMessagesShort => 'Voice Messages';
+  String get voiceMessagesShort => 'Паёмҳои овозӣ';
 
   @override
-  String get documentsLabel => 'Documents';
+  String get documentsLabel => 'Ҳуҷҷатҳо';
 
   @override
-  String get wifiOnly => 'WiFi Only';
+  String get wifiOnly => 'Танҳо WiFi';
 
   @override
-  String get never => 'Never';
+  String get never => 'Ҳеҷ гоҳ';
 
   @override
-  String get clearAllCache => 'Clear All Cache';
+  String get clearAllCache => 'Ҳамаи ҳофизаро пок кунед';
 
   @override
-  String get allCache => 'All Cache';
+  String get allCache => 'Ҳамаи ҳофиза';
 
   @override
-  String get clearAllCacheConfirmation => 'This will clear all cached images, voice messages, videos, and other files. The app may load content slower temporarily.';
+  String get clearAllCacheConfirmation => 'Ин ҳамаи тасвирҳо, паёмҳои овозӣ, видеоҳо ва файлҳои дигари нигоҳдошташударо пок мекунад. Барнома мумкин аст муваққатан мундариҷаро сусттар бор кунад.';
 
   @override
   String clearCacheConfirmationFor(String category) {
-    return 'Clear $category?';
+    return '$category-ро пок мекунед?';
   }
 
   @override
   String storageToFree(String size) {
-    return '$size will be freed';
+    return '$size озод карда мешавад';
   }
 
   @override
-  String get calculating => 'Calculating...';
+  String get calculating => 'Ҳисоб карда мешавад...';
 
   @override
-  String get noDataToShow => 'No data to show';
+  String get noDataToShow => 'Маълумот барои намоиш нест';
 
   @override
-  String get profileCompletion => 'Profile Completion';
+  String get profileCompletion => 'Пуррагии профил';
 
   @override
-  String get justGettingStarted => 'Just getting started';
+  String get justGettingStarted => 'Ҳоло оғоз кардед';
 
   @override
-  String get lookingGood => 'Looking good!';
+  String get lookingGood => 'Хеле хуб!';
 
   @override
-  String get almostThere => 'Almost there!';
+  String get almostThere => 'Қариб расидед!';
 
   @override
   String addMissingFields(String fields, Object field) {
-    return 'Add: $fields';
+    return 'Илова кунед: $fields';
   }
 
   @override
-  String get profilePicture => 'Profile Picture';
+  String get profilePicture => 'Сурати профил';
 
   @override
-  String get nativeSpeaker => 'Native Speaker';
+  String get nativeSpeaker => 'Соҳибзабон';
 
   @override
   String peopleInterestedInTopic(Object count) {
-    return 'People interested in this topic';
+    return 'Одамоне, ки ба ин мавзӯъ шавқманданд';
   }
 
   @override
-  String get beFirstToAddTopic => 'Be the first to add this topic to your interests!';
+  String get beFirstToAddTopic => 'Аввалин шавед, ки ин мавзӯъро ба шавқмандиҳояш илова мекунад!';
 
   @override
-  String get recentMoments => 'Recent Moments';
+  String get recentMoments => 'Лаҳзаҳои охирин';
 
   @override
-  String get seeAll => 'See All';
+  String get seeAll => 'Ҳамаро бубинед';
 
   @override
-  String get study => 'AI Study';
+  String get study => 'Омӯзиши AI';
 
   @override
-  String get followerMoments => 'Follower Moments';
+  String get followerMoments => 'Лаҳзаҳои пайравон';
 
   @override
-  String get whenPeopleYouFollowPost => 'When people you follow post new moments';
+  String get whenPeopleYouFollowPost => 'Вақте одамоне, ки шумо пайравӣ мекунед, лаҳзаҳои нав мегузоранд';
 
   @override
-  String get noNotificationsYet => 'No notifications yet';
+  String get noNotificationsYet => 'Ҳанӯз огоҳнома нест';
 
   @override
-  String get whenYouGetNotifications => 'When you get notifications, they\'ll show up here';
+  String get whenYouGetNotifications => 'Вақте шумо огоҳнома мегиред, онҳо дар ин ҷо пайдо мешаванд';
 
   @override
-  String get failedToLoadNotifications => 'Failed to load notifications';
+  String get failedToLoadNotifications => 'Боргирии огоҳномаҳо ноком шуд';
 
   @override
-  String get clearAllNotificationsConfirm => 'Are you sure you want to clear all notifications? This cannot be undone.';
+  String get clearAllNotificationsConfirm => 'Шумо мутмаин ҳастед, ки мехоҳед ҳамаи огоҳномаҳоро тоза кунед? Ин бекор карда намешавад.';
 
   @override
-  String get tapToChange => 'Tap to change';
+  String get tapToChange => 'Барои тағйир зер кунед';
 
   @override
-  String get noPictureSet => 'No picture set';
+  String get noPictureSet => 'Сурат гузошта нашудааст';
 
   @override
-  String get nameAndGender => 'Name & Gender';
+  String get nameAndGender => 'Ном ва ҷинс';
 
   @override
-  String get languageLevel => 'Language Level';
+  String get languageLevel => 'Сатҳи забон';
 
   @override
-  String get personalInformation => 'Personal Information';
+  String get personalInformation => 'Маълумоти шахсӣ';
 
   @override
   String get mbti => 'MBTI';
 
   @override
-  String get topicsOfInterest => 'Topics of Interest';
+  String get topicsOfInterest => 'Мавзӯъҳои мавриди шавқ';
 
   @override
-  String get levelBeginner => 'Beginner';
+  String get levelBeginner => 'Сатҳи ибтидоӣ';
 
   @override
-  String get levelElementary => 'Elementary';
+  String get levelElementary => 'Сатҳи муқаддимотӣ';
 
   @override
-  String get levelIntermediate => 'Intermediate';
+  String get levelIntermediate => 'Сатҳи миёна';
 
   @override
-  String get levelUpperIntermediate => 'Upper Intermediate';
+  String get levelUpperIntermediate => 'Сатҳи болои миёна';
 
   @override
-  String get levelAdvanced => 'Advanced';
+  String get levelAdvanced => 'Сатҳи пешрафта';
 
   @override
-  String get levelProficient => 'Proficient';
+  String get levelProficient => 'Сатҳи моҳир';
 
   @override
-  String get selectYourLevel => 'Select Your Level';
+  String get selectYourLevel => 'Сатҳи худро интихоб кунед';
 
   @override
   String howWellDoYouSpeak(String language) {
-    return 'How well do you speak $language?';
+    return 'Шумо $language-ро чӣ қадар хуб гап мезанед?';
   }
 
   @override
-  String get theLanguage => 'the language';
+  String get theLanguage => 'забон';
 
   @override
   String languageLevelSetTo(String level) {
-    return 'Language level set to $level';
+    return 'Сатҳи забон ба $level танзим шуд';
   }
 
   @override
-  String get failedToUpdate => 'Failed to update';
+  String get failedToUpdate => 'Навсозӣ ноком шуд';
 
   @override
-  String get profileUpdatedSuccessfully => 'Profile updated successfully';
+  String get profileUpdatedSuccessfully => 'Профил бомуваффақият навсозӣ шуд';
 
   @override
-  String get genderRequired => 'Gender (Required)';
+  String get genderRequired => 'Ҷинс (Зарурӣ)';
 
   @override
-  String get editHometown => 'Edit Hometown';
+  String get editHometown => 'Зодгоҳро таҳрир кунед';
 
   @override
-  String get useCurrentLocation => 'Use Current Location';
+  String get useCurrentLocation => 'Ҷойгиршавии ҷориро истифода баред';
 
   @override
-  String get detecting => 'Detecting...';
+  String get detecting => 'Муайянкунӣ...';
 
   @override
-  String get getCurrentLocation => 'Get Current Location';
+  String get getCurrentLocation => 'Ҷойгиршавии ҷориро гиред';
 
   @override
-  String get country => 'Country';
+  String get country => 'Кишвар';
 
   @override
-  String get city => 'City';
+  String get city => 'Шаҳр';
 
   @override
-  String get coordinates => 'Coordinates';
+  String get coordinates => 'Координатҳо';
 
   @override
-  String get noLocationDetectedYet => 'No location detected yet.';
+  String get noLocationDetectedYet => 'Ҳанӯз ҷойгиршавӣ муайян нашудааст.';
 
   @override
-  String get detected => 'Detected';
+  String get detected => 'Муайяншуда';
 
   @override
-  String get savedHometown => 'Saved hometown';
+  String get savedHometown => 'Зодгоҳи захирашуда';
 
   @override
-  String get locationServicesDisabled => 'Location services are disabled. Please enable them.';
+  String get locationServicesDisabled => 'Хадамоти ҷойгиршавӣ ғайрифаъоланд. Лутфан, онҳоро фаъол кунед.';
 
   @override
-  String get locationPermissionPermanentlyDenied => 'Location permissions are permanently denied.';
+  String get locationPermissionPermanentlyDenied => 'Иҷозатҳои ҷойгиршавӣ доимӣ рад карда шудаанд.';
 
   @override
-  String get unknown => 'Unknown';
+  String get unknown => 'Номаълум';
 
   @override
-  String get editBio => 'Edit Bio';
+  String get editBio => 'Тарҷумаи ҳолро таҳрир кунед';
 
   @override
-  String get bioUpdatedSuccessfully => 'Bio updated successfully';
+  String get bioUpdatedSuccessfully => 'Тарҷумаи ҳол бомуваффақият навсозӣ шуд';
 
   @override
-  String get tellOthersAboutYourself => 'Tell others about yourself...';
+  String get tellOthersAboutYourself => 'Ба дигарон дар бораи худ нақл кунед...';
 
   @override
   String charactersCount(int count) {
-    return '$count/500 characters';
+    return '$count/500 аломат';
   }
 
   @override
-  String get selectYourMbti => 'Select Your MBTI';
+  String get selectYourMbti => 'MBTI-и худро интихоб кунед';
 
   @override
-  String get myBloodType => 'My Blood Type';
+  String get myBloodType => 'Гурӯҳи хуни ман';
 
   @override
-  String get pleaseSelectABloodType => 'Please select a blood type';
+  String get pleaseSelectABloodType => 'Лутфан, гурӯҳи хунро интихоб кунед';
 
   @override
-  String get bloodTypeSavedSuccessfully => 'Blood type saved successfully';
+  String get bloodTypeSavedSuccessfully => 'Гурӯҳи хун бомуваффақият захира шуд';
 
   @override
-  String get hometownSavedSuccessfully => 'Hometown saved successfully';
+  String get hometownSavedSuccessfully => 'Зодгоҳ бомуваффақият захира шуд';
 
   @override
-  String get nativeLanguageRequired => 'Native Language (Required)';
+  String get nativeLanguageRequired => 'Забони модарӣ (Зарурӣ)';
 
   @override
-  String get languageToLearnRequired => 'Language to Learn (Required)';
+  String get languageToLearnRequired => 'Забон барои омӯзиш (Зарурӣ)';
 
   @override
-  String get nativeLanguageCannotBeSame => 'Native language cannot be the same as the language you\'re learning';
+  String get nativeLanguageCannotBeSame => 'Забони модарӣ наметавонад ҳамон забоне бошад, ки шумо меомӯзед';
 
   @override
-  String get learningLanguageCannotBeSame => 'Learning language cannot be the same as your native language';
+  String get learningLanguageCannotBeSame => 'Забони омӯзишӣ наметавонад ҳамон забони модарии шумо бошад';
 
   @override
-  String get pleaseSelectALanguage => 'Please select a language';
+  String get pleaseSelectALanguage => 'Лутфан, забонро интихоб кунед';
 
   @override
-  String get editInterests => 'Edit Interests';
+  String get editInterests => 'Шавқмандиҳоро таҳрир кунед';
 
   @override
   String maxTopicsAllowed(int count) {
-    return 'Maximum $count topics allowed';
+    return 'Ҳадди аксар $count мавзӯъ иҷозат дода мешавад';
   }
 
   @override
-  String get topicsUpdatedSuccessfully => 'Topics updated successfully!';
+  String get topicsUpdatedSuccessfully => 'Мавзӯъҳо бомуваффақият навсозӣ шуданд!';
 
   @override
-  String get failedToUpdateTopics => 'Failed to update topics';
+  String get failedToUpdateTopics => 'Навсозии мавзӯъҳо ноком шуд';
 
   @override
   String selectedCount(int count, int max) {
-    return '$count/$max selected';
+    return '$count/$max интихобшуда';
   }
 
   @override
-  String get profilePictures => 'Profile Pictures';
+  String get profilePictures => 'Суратҳои профил';
 
   @override
-  String get addImages => 'Add Images';
+  String get addImages => 'Тасвирҳо илова кунед';
 
   @override
-  String get selectUpToImages => 'Select up to 5 images';
+  String get selectUpToImages => 'То 5 тасвир интихоб кунед';
 
   @override
-  String get takeAPhoto => 'Take a Photo';
+  String get takeAPhoto => 'Сурат гиред';
 
   @override
-  String get removeImage => 'Remove Image';
+  String get removeImage => 'Тасвирро тоза кунед';
 
   @override
-  String get removeImageConfirm => 'Are you sure you want to remove this image?';
+  String get removeImageConfirm => 'Шумо мутмаин ҳастед, ки мехоҳед ин тасвирро тоза кунед?';
 
   @override
-  String get removeAll => 'Remove All';
+  String get removeAll => 'Ҳамаро тоза кунед';
 
   @override
-  String get removeAllSelectedImages => 'Remove All Selected Images';
+  String get removeAllSelectedImages => 'Ҳамаи тасвирҳои интихобшударо тоза кунед';
 
   @override
-  String get removeAllSelectedImagesConfirm => 'Are you sure you want to remove all selected images?';
+  String get removeAllSelectedImagesConfirm => 'Шумо мутмаин ҳастед, ки мехоҳед ҳамаи тасвирҳои интихобшударо тоза кунед?';
 
   @override
-  String get yourProfilePictureWillBeKept => 'Your existing profile picture will be kept';
+  String get yourProfilePictureWillBeKept => 'Сурати профили мавҷудаи шумо нигоҳ дошта мешавад';
 
   @override
-  String get removeAllImages => 'Remove All Images';
+  String get removeAllImages => 'Ҳамаи тасвирҳоро тоза кунед';
 
   @override
-  String get removeAllImagesConfirm => 'Are you sure you want to remove all profile pictures?';
+  String get removeAllImagesConfirm => 'Шумо мутмаин ҳастед, ки мехоҳед ҳамаи суратҳои профилро тоза кунед?';
 
   @override
-  String get currentImages => 'Current Images';
+  String get currentImages => 'Тасвирҳои ҷорӣ';
 
   @override
-  String get newImages => 'New Images';
+  String get newImages => 'Тасвирҳои нав';
 
   @override
-  String get addMoreImages => 'Add More Images';
+  String get addMoreImages => 'Тасвирҳои бештар илова кунед';
 
   @override
   String uploadImages(int count) {
-    return 'Upload $count Image(s)';
+    return '$count тасвир бор кунед';
   }
 
   @override
-  String get imageRemovedSuccessfully => 'Image removed successfully';
+  String get imageRemovedSuccessfully => 'Тасвир бомуваффақият тоза карда шуд';
 
   @override
-  String get imagesUploadedSuccessfully => 'Images uploaded successfully';
+  String get imagesUploadedSuccessfully => 'Тасвирҳо бомуваффақият бор карда шуданд';
 
   @override
-  String get selectedImagesCleared => 'Selected images cleared';
+  String get selectedImagesCleared => 'Тасвирҳои интихобшуда тоза карда шуданд';
 
   @override
-  String get extraImagesRemovedSuccessfully => 'Extra images removed successfully';
+  String get extraImagesRemovedSuccessfully => 'Тасвирҳои иловагӣ бомуваффақият тоза карда шуданд';
 
   @override
-  String get mustKeepAtLeastOneProfilePicture => 'You must keep at least one profile picture';
+  String get mustKeepAtLeastOneProfilePicture => 'Шумо бояд ҳадди ақал як сурати профилро нигоҳ доред';
 
   @override
-  String get noProfilePicturesToRemove => 'No profile pictures to remove';
+  String get noProfilePicturesToRemove => 'Сурати профил барои тозакунӣ нест';
 
   @override
-  String get authenticationTokenNotFound => 'Authentication token not found';
+  String get authenticationTokenNotFound => 'Токени аутентификатсия ёфт нашуд';
 
   @override
-  String get saveChangesQuestion => 'Save Changes?';
+  String get saveChangesQuestion => 'Тағйиротро захира мекунед?';
 
   @override
   String youHaveUnuploadedImages(int count) {
-    return 'You have $count image(s) selected but not uploaded. Do you want to upload them now?';
+    return 'Шумо $count тасвир интихоб кардаед, аммо бор накардаед. Мехоҳед онҳоро ҳозир бор кунед?';
   }
 
   @override
-  String get discard => 'Discard';
+  String get discard => 'Партофтан';
 
   @override
-  String get upload => 'Upload';
+  String get upload => 'Бор кардан';
 
   @override
   String maxImagesInfo(int max, int current) {
-    return 'You can upload up to $max images. Currently: $current/$max\nMax 5 images per upload.';
+    return 'Шумо метавонед то $max тасвир бор кунед. Ҳозир: $current/$max\nҲадди аксар 5 тасвир дар як бор.';
   }
 
   @override
   String canOnlyAddMoreImages(int count, int max) {
-    return 'You can only add $count more image(s). Maximum is $max images total.';
+    return 'Шумо метавонед танҳо $count тасвири дигар илова кунед. Ҳадди аксар $max тасвир дар маҷмӯъ.';
   }
 
   @override
-  String get maxImagesPerUpload => 'You can upload maximum 5 images at once. Only first 5 will be added.';
+  String get maxImagesPerUpload => 'Шумо метавонед ҳадди аксар 5 тасвирро дар як бор бор кунед. Танҳо 5-уми аввал илова мешаванд.';
 
   @override
   String canOnlyHaveMaxImages(int max) {
-    return 'You can only have up to $max images';
+    return 'Шумо метавонед танҳо то $max тасвир дошта бошед';
   }
 
   @override
-  String get imageSizeExceedsLimit => 'Image size exceeds 10MB limit';
+  String get imageSizeExceedsLimit => 'Андозаи тасвир аз ҳадди 10МБ зиёд аст';
 
   @override
-  String get unsupportedImageFormat => 'Unsupported image format';
+  String get unsupportedImageFormat => 'Формати тасвири дастгиринашаванда';
 
   @override
-  String get pleaseSelectAtLeastOneImage => 'Please select at least one image to upload';
+  String get pleaseSelectAtLeastOneImage => 'Лутфан, ҳадди ақал як тасвир барои борҳосозӣ интихоб кунед';
 
   @override
-  String get basicInformation => 'Basic Information';
+  String get basicInformation => 'Маълумоти асосӣ';
 
   @override
-  String get languageToLearn => 'Language to Learn';
+  String get languageToLearn => 'Забон барои омӯзиш';
 
   @override
-  String get hometown => 'Hometown';
+  String get hometown => 'Зодгоҳ';
 
   @override
-  String get characters => 'characters';
+  String get characters => 'аломат';
 
   @override
-  String get failedToLoadLanguages => 'Failed to load languages';
+  String get failedToLoadLanguages => 'Боргирии забонҳо ноком шуд';
 
   @override
-  String get studyHub => 'Study Hub';
+  String get studyHub => 'Маркази омӯзиш';
 
   @override
-  String get dailyLearningJourney => 'Your daily learning journey';
+  String get dailyLearningJourney => 'Сафари ҳаррӯзаи омӯзиши шумо';
 
   @override
-  String get learnTab => 'Learn';
+  String get learnTab => 'Омӯзед';
 
   @override
-  String get aiTools => 'AI Tools';
+  String get aiTools => 'Абзорҳои AI';
 
   @override
-  String get streak => 'Streak';
+  String get streak => 'Силсила';
 
   @override
-  String get lessons => 'Lessons';
+  String get lessons => 'Дарсҳо';
 
   @override
-  String get words => 'Words';
+  String get words => 'Калимаҳо';
 
   @override
-  String get quickActions => 'Quick Actions';
+  String get quickActions => 'Амалҳои зуд';
 
   @override
-  String get review => 'Review';
+  String get review => 'Такрор';
 
   @override
   String wordsDue(int count) {
-    return '$count words due';
+    return '$count калима барои такрор';
   }
 
   @override
-  String get addWords => 'Add Words';
+  String get addWords => 'Калимаҳо илова кунед';
 
   @override
-  String get buildVocabulary => 'Build vocabulary';
+  String get buildVocabulary => 'Луғатро ғанӣ созед';
 
   @override
-  String get practiceWithAI => 'Practice with AI';
+  String get practiceWithAI => 'Бо AI машқ кунед';
 
   @override
-  String get aiPracticeDescription => 'Chat, quiz, grammar & pronunciation';
+  String get aiPracticeDescription => 'Чат, викторина, грамматика ва талаффуз';
 
   @override
-  String get dailyChallenges => 'Daily Challenges';
+  String get dailyChallenges => 'Душвориҳои ҳаррӯза';
 
   @override
-  String get allChallengesCompleted => 'All challenges completed!';
+  String get allChallengesCompleted => 'Ҳамаи душвориҳо иҷро шуданд!';
 
   @override
-  String get continueLearning => 'Continue Learning';
+  String get continueLearning => 'Омӯзишро идома диҳед';
 
   @override
-  String get structuredLearningPath => 'Structured learning path';
+  String get structuredLearningPath => 'Роҳи омӯзиши сохторӣ';
 
   @override
-  String get vocabulary => 'Vocabulary';
+  String get vocabulary => 'Луғат';
 
   @override
-  String get yourWordCollection => 'Your word collection';
+  String get yourWordCollection => 'Маҷмӯаи калимаҳои шумо';
 
   @override
-  String get achievements => 'Achievements';
+  String get achievements => 'Дастовардҳо';
 
   @override
-  String get badgesAndMilestones => 'Badges and milestones';
+  String get badgesAndMilestones => 'Нишонҳо ва марҳилаҳо';
 
   @override
-  String get failedToLoadLearningData => 'Failed to load learning data';
+  String get failedToLoadLearningData => 'Боргирии маълумоти омӯзишӣ ноком шуд';
 
   @override
-  String get startYourJourney => 'Start your journey!';
+  String get startYourJourney => 'Сафари худро оғоз кунед!';
 
   @override
-  String get startJourneyDescription => 'Complete lessons, build vocabulary, and\ntrack your progress';
+  String get startJourneyDescription => 'Дарсҳоро тамом кунед, луғат ғанӣ созед ва\nпешрафти худро пайгирӣ кунед';
 
   @override
   String levelN(int level) {
-    return 'Level $level';
+    return 'Сатҳи $level';
   }
 
   @override
   String xpEarned(int xp) {
-    return '$xp XP earned';
+    return '$xp XP ба даст оварда шуд';
   }
 
   @override
   String nextLevel(int level) {
-    return 'Next: Level $level';
+    return 'Навбатӣ: Сатҳи $level';
   }
 
   @override
   String xpToGo(int xp) {
-    return '$xp XP to go';
+    return '$xp XP мондааст';
   }
 
   @override
-  String get aiConversationPartner => 'AI Conversation Partner';
+  String get aiConversationPartner => 'Шарики сӯҳбати AI';
 
   @override
-  String get practiceWithAITutor => 'Practice speaking with your AI tutor';
+  String get practiceWithAITutor => 'Бо устоди AI-и худ ҳарф задан машқ кунед';
 
   @override
-  String get startConversation => 'Start Conversation';
+  String get startConversation => 'Сӯҳбатро оғоз кунед';
 
   @override
-  String get aiFeatures => 'AI Features';
+  String get aiFeatures => 'Хусусиятҳои AI';
 
   @override
-  String get aiLessons => 'AI Lessons';
+  String get aiLessons => 'Дарсҳои AI';
 
   @override
-  String get learnWithAI => 'Learn with AI';
+  String get learnWithAI => 'Бо AI омӯзед';
 
   @override
-  String get grammar => 'Grammar';
+  String get grammar => 'Грамматика';
 
   @override
-  String get checkWriting => 'Check writing';
+  String get checkWriting => 'Навиштаро санҷед';
 
   @override
-  String get pronunciation => 'Pronunciation';
+  String get pronunciation => 'Талаффуз';
 
   @override
-  String get improveSpeaking => 'Improve speaking';
+  String get improveSpeaking => 'Гуфторро беҳтар кунед';
 
   @override
-  String get translation => 'Translation';
+  String get translation => 'Тарҷума';
 
   @override
-  String get smartTranslate => 'Smart translate';
+  String get smartTranslate => 'Тарҷумаи зирак';
 
   @override
-  String get aiQuizzes => 'AI Quizzes';
+  String get aiQuizzes => 'Викторинаҳои AI';
 
   @override
-  String get testKnowledge => 'Test knowledge';
+  String get testKnowledge => 'Донишро санҷед';
 
   @override
-  String get lessonBuilder => 'Lesson Builder';
+  String get lessonBuilder => 'Созандаи дарс';
 
   @override
-  String get customLessons => 'Custom lessons';
+  String get customLessons => 'Дарсҳои фармоишӣ';
 
   @override
-  String get yourAIProgress => 'Your AI Progress';
+  String get yourAIProgress => 'Пешрафти AI-и шумо';
 
   @override
-  String get quizzes => 'Quizzes';
+  String get quizzes => 'Викторинаҳо';
 
   @override
-  String get avgScore => 'Avg Score';
+  String get avgScore => 'Хол. миёна';
 
   @override
-  String get focusAreas => 'Focus Areas';
+  String get focusAreas => 'Соҳаҳои таваҷҷӯҳ';
 
   @override
   String accuracyPercent(String accuracy) {
-    return '$accuracy% accuracy';
+    return '$accuracy% дақиқӣ';
   }
 
   @override
-  String get practice => 'Practice';
+  String get practice => 'Машқ';
 
   @override
-  String get browse => 'Browse';
+  String get browse => 'Тамошо кунед';
 
   @override
-  String get noRecommendedLessons => 'No recommended lessons available';
+  String get noRecommendedLessons => 'Дарсҳои тавсияшуда мавҷуд нестанд';
 
   @override
-  String get noLessonsFound => 'No lessons found';
+  String get noLessonsFound => 'Дарсҳо ёфт нашуданд';
 
   @override
-  String get createCustomLessonDescription => 'Create your own custom lesson with AI';
+  String get createCustomLessonDescription => 'Дарси фармоишии худро бо AI эҷод кунед';
 
   @override
-  String get createLessonWithAI => 'Create Lesson with AI';
+  String get createLessonWithAI => 'Дарсро бо AI эҷод кунед';
 
   @override
-  String get allLevels => 'All Levels';
+  String get allLevels => 'Ҳамаи сатҳҳо';
 
   @override
-  String get levelA1 => 'A1 Beginner';
+  String get levelA1 => 'A1 Ибтидоӣ';
 
   @override
-  String get levelA2 => 'A2 Elementary';
+  String get levelA2 => 'A2 Муқаддимотӣ';
 
   @override
-  String get levelB1 => 'B1 Intermediate';
+  String get levelB1 => 'B1 Миёна';
 
   @override
-  String get levelB2 => 'B2 Upper-Int';
+  String get levelB2 => 'B2 Болои миёна';
 
   @override
-  String get levelC1 => 'C1 Advanced';
+  String get levelC1 => 'C1 Пешрафта';
 
   @override
-  String get levelC2 => 'C2 Proficient';
+  String get levelC2 => 'C2 Моҳир';
 
   @override
-  String get failedToLoadLessons => 'Failed to load lessons';
+  String get failedToLoadLessons => 'Боргирии дарсҳо ноком шуд';
 
   @override
-  String get pin => 'Pin';
+  String get pin => 'Сангчин кардан';
 
   @override
-  String get unpin => 'Unpin';
+  String get unpin => 'Сангчинро бардоштан';
 
   @override
-  String get editMessage => 'Edit Message';
+  String get editMessage => 'Паёмро таҳрир кунед';
 
   @override
-  String get enterMessage => 'Enter message...';
+  String get enterMessage => 'Паёмро ворид кунед...';
 
   @override
-  String get deleteMessageTitle => 'Delete Message';
+  String get deleteMessageTitle => 'Паёмро нест кунед';
 
   @override
-  String get actionCannotBeUndone => 'This action cannot be undone.';
+  String get actionCannotBeUndone => 'Ин амал бекор карда намешавад.';
 
   @override
-  String get onlyRemovesFromDevice => 'Only removes from your device';
+  String get onlyRemovesFromDevice => 'Танҳо аз дастгоҳи шумо тоза мекунад';
 
   @override
-  String get availableWithinOneHour => 'Only available within 1 hour';
+  String get availableWithinOneHour => 'Танҳо дар давоми 1 соат дастрас аст';
 
   @override
-  String get available => 'Available';
+  String get available => 'Дастрас';
 
   @override
-  String get forwardMessage => 'Forward Message';
+  String get forwardMessage => 'Паёмро фиристед';
 
   @override
-  String get selectUsersToForward => 'Select users to forward to:';
+  String get selectUsersToForward => 'Корбаронро барои фиристодан интихоб кунед:';
 
   @override
   String forwardCount(int count) {
-    return 'Forward ($count)';
+    return 'Фиристодан ($count)';
   }
 
   @override
-  String get pinnedMessage => 'Pinned Message';
+  String get pinnedMessage => 'Паёми сангчиншуда';
 
   @override
-  String get photoMedia => 'Photo';
+  String get photoMedia => 'Сурат';
 
   @override
-  String get videoMedia => 'Video';
+  String get videoMedia => 'Видео';
 
   @override
-  String get voiceMessageMedia => 'Voice message';
+  String get voiceMessageMedia => 'Паёми овозӣ';
 
   @override
-  String get documentMedia => 'Document';
+  String get documentMedia => 'Ҳуҷҷат';
 
   @override
-  String get locationMedia => 'Location';
+  String get locationMedia => 'Ҷойгиршавӣ';
 
   @override
-  String get stickerMedia => 'Sticker';
+  String get stickerMedia => 'Стикер';
 
   @override
-  String get smileys => 'Smileys';
+  String get smileys => 'Табассумҳо';
 
   @override
-  String get emotions => 'Emotions';
+  String get emotions => 'Эҳсосот';
 
   @override
-  String get handGestures => 'Hand Gestures';
+  String get handGestures => 'Имоҳои даст';
 
   @override
-  String get hearts => 'Hearts';
+  String get hearts => 'Дилҳо';
 
   @override
-  String get tapToSayHi => 'Tap to say hi!';
+  String get tapToSayHi => 'Барои салом гуфтан зер кунед!';
 
   @override
-  String get sendWaveToStart => 'Send a wave to start chatting';
+  String get sendWaveToStart => 'Барои оғози сӯҳбат даст афшонед';
 
   @override
-  String get documentMustBeUnder50MB => 'Document must be under 50MB.';
+  String get documentMustBeUnder50MB => 'Ҳуҷҷат бояд камтар аз 50МБ бошад.';
 
   @override
-  String get editWithin15Minutes => 'Messages can only be edited within 15 minutes';
+  String get editWithin15Minutes => 'Паёмҳоро танҳо дар давоми 15 дақиқа таҳрир кардан мумкин аст';
 
   @override
   String messageForwardedTo(int count) {
-    return 'Message forwarded to $count user(s)';
+    return 'Паём ба $count корбар фиристода шуд';
   }
 
   @override
-  String get failedToLoadUsers => 'Failed to load users';
+  String get failedToLoadUsers => 'Боргирии корбарон ноком шуд';
 
   @override
-  String get voice => 'Voice';
+  String get voice => 'Овоз';
 
   @override
-  String get searchGifs => 'Search GIFs...';
+  String get searchGifs => 'GIF-ҳоро ҷустуҷӯ кунед...';
 
   @override
-  String get trendingGifs => 'Trending';
+  String get trendingGifs => 'Дар авҷ';
 
   @override
-  String get poweredByGiphy => 'Powered by GIPHY';
+  String get poweredByGiphy => 'Бо қувваи GIPHY';
 
   @override
   String get gif => 'GIF';
 
   @override
-  String get noGifsFound => 'No GIFs found';
+  String get noGifsFound => 'GIF ёфт нашуд';
 
   @override
-  String get failedToLoadGifs => 'Failed to load GIFs';
+  String get failedToLoadGifs => 'Боргирии GIF-ҳо ноком шуд';
 
   @override
   String get gifSent => 'GIF';
 
   @override
-  String get filterCommunities => 'Filter';
+  String get filterCommunities => 'Филтр';
 
   @override
-  String get reset => 'Reset';
+  String get reset => 'Танзими дубора';
 
   @override
-  String get findYourPerfect => 'Find Your Perfect';
+  String get findYourPerfect => 'Шарики комили худро ёбед';
 
   @override
-  String get languagePartner => 'Language Partner';
+  String get languagePartner => 'Шарики забонӣ';
 
   @override
-  String get learningLanguageLabel => 'Learning Language';
+  String get learningLanguageLabel => 'Забони омӯзишӣ';
 
   @override
-  String get ageRange => 'Age Range';
+  String get ageRange => 'Доираи синну сол';
 
   @override
-  String get genderPreference => 'Gender Preference';
+  String get genderPreference => 'Афзалияти ҷинс';
 
   @override
-  String get any => 'Any';
+  String get any => 'Ҳар';
 
   @override
-  String get showNewUsersSubtitle => 'Show users who joined in the last 6 days';
+  String get showNewUsersSubtitle => 'Корбароне, ки дар 6 рӯзи охир ҳамроҳ шудаанд, нишон диҳед';
 
   @override
-  String get autoDetectLocation => 'Auto-detect my location';
+  String get autoDetectLocation => 'Ҷойгиршавии маро худкор муайян кунед';
 
   @override
-  String get selectCountry => 'Select Country';
+  String get selectCountry => 'Кишварро интихоб кунед';
 
   @override
-  String get anyCountry => 'Any Country';
+  String get anyCountry => 'Ҳар кишвар';
 
   @override
-  String get loadingLanguages => 'Loading languages...';
+  String get loadingLanguages => 'Боргирии забонҳо...';
 
   @override
   String minAge(int age) {
-    return 'Min: $age';
+    return 'Мин: $age';
   }
 
   @override
   String maxAge(int age) {
-    return 'Max: $age';
+    return 'Макс: $age';
   }
 
   @override
-  String get captionRequired => 'Caption is required';
+  String get captionRequired => 'Шарҳ зарурӣ аст';
 
   @override
   String captionTooLong(int maxLength) {
-    return 'Caption must be $maxLength characters or less';
+    return 'Шарҳ бояд $maxLength аломат ё камтар бошад';
   }
 
   @override
-  String get maximumImagesReached => 'Maximum Images Reached';
+  String get maximumImagesReached => 'Ҳадди аксари тасвирҳо расид';
 
   @override
   String maximumImagesReachedDescription(int maxImages) {
-    return 'You can only upload up to $maxImages images per moment.';
+    return 'Шумо метавонед танҳо то $maxImages тасвирро дар як лаҳза бор кунед.';
   }
 
   @override
   String maximumImagesAddedPartial(int maxImages, int added) {
-    return 'Maximum $maxImages images allowed. Only $added images added.';
+    return 'Ҳадди аксар $maxImages тасвир иҷозат дода мешавад. Танҳо $added тасвир илова шуд.';
   }
 
   @override
-  String get locationAccessRestricted => 'Location Access Restricted';
+  String get locationAccessRestricted => 'Дастрасӣ ба ҷойгиршавӣ маҳдуд аст';
 
   @override
-  String get locationPermissionNeeded => 'Location Permission Needed';
+  String get locationPermissionNeeded => 'Иҷозати ҷойгиршавӣ лозим аст';
 
   @override
-  String get addToYourMoment => 'Add to your moment';
+  String get addToYourMoment => 'Ба лаҳзаи худ илова кунед';
 
   @override
-  String get categoryLabel => 'Category';
+  String get categoryLabel => 'Категория';
 
   @override
-  String get languageLabel => 'Language';
+  String get languageLabel => 'Забон';
 
   @override
-  String get scheduleOptional => 'Schedule (optional)';
+  String get scheduleOptional => 'Ҷадвал (ихтиёрӣ)';
 
   @override
-  String get scheduleForLater => 'Schedule for later';
+  String get scheduleForLater => 'Барои баъдтар ҷадвалбандӣ кунед';
 
   @override
-  String get addMore => 'Add More';
+  String get addMore => 'Бештар илова кунед';
 
   @override
-  String get howAreYouFeeling => 'How are you feeling?';
+  String get howAreYouFeeling => 'Худро чӣ гуна ҳис мекунед?';
 
   @override
-  String get pleaseWaitOptimizingVideo => 'Please wait while we optimize your video';
+  String get pleaseWaitOptimizingVideo => 'Лутфан, дар ҳоле ки мо видеои шуморо оптимизатсия мекунем, интизор шавед';
 
   @override
   String unsupportedVideoFormat(String formats) {
-    return 'Unsupported format. Use: $formats';
+    return 'Формати дастгиринашаванда. Истифода баред: $formats';
   }
 
   @override
-  String get chooseBackground => 'Choose a background';
+  String get chooseBackground => 'Заминаро интихоб кунед';
 
   @override
   String likedByXPeople(int count) {
-    return 'Liked by $count people';
+    return '$count нафар маъқул кардаанд';
   }
 
   @override
   String xComments(int count) {
-    return '$count comments';
+    return '$count шарҳ';
   }
 
   @override
-  String get oneComment => '1 comment';
+  String get oneComment => '1 шарҳ';
 
   @override
-  String get addAComment => 'Add a comment...';
+  String get addAComment => 'Шарҳ илова кунед...';
 
   @override
   String viewXReplies(int count) {
-    return 'View $count replies';
+    return '$count ҷавобро бубинед';
   }
 
   @override
   String seenByX(int count) {
-    return 'Seen by $count';
+    return 'Дида шуд аз тарафи $count';
   }
 
   @override
   String xHoursAgo(int count) {
-    return '${count}h ago';
+    return '$count соат пеш';
   }
 
   @override
   String xMinutesAgo(int count) {
-    return '${count}m ago';
+    return '$count дақ. пеш';
   }
 
   @override
-  String get repliedToYourStory => 'Replied to your story';
+  String get repliedToYourStory => 'Ба стории шумо ҷавоб дод';
 
   @override
   String mentionedYouInComment(String name) {
-    return '$name mentioned you in a comment';
+    return '$name шуморо дар шарҳ зикр кард';
   }
 
   @override
   String repliedToYourComment(String name) {
-    return '$name replied to your comment';
+    return '$name ба шарҳи шумо ҷавоб дод';
   }
 
   @override
   String reactedToYourComment(String name) {
-    return '$name reacted to your comment';
+    return '$name ба шарҳи шумо аксуламал нишон дод';
   }
 
   @override
-  String get addReaction => 'Add reaction';
+  String get addReaction => 'Аксуламал илова кунед';
 
   @override
-  String get attachImage => 'Attach image';
+  String get attachImage => 'Тасвирро замима кунед';
 
   @override
-  String get pickGif => 'Pick a GIF';
+  String get pickGif => 'GIF-ро интихоб кунед';
 
   @override
-  String get textStory => 'Text';
+  String get textStory => 'Матн';
 
   @override
-  String get typeYourStory => 'Type your story...';
+  String get typeYourStory => 'Стории худро нависед...';
 
   @override
-  String get selectBackground => 'Select background';
+  String get selectBackground => 'Заминаро интихоб кунед';
 
   @override
-  String get highlightsTitle => 'Highlights';
+  String get highlightsTitle => 'Барҷастаҳо';
 
   @override
-  String get highlightTitle => 'Highlight Title';
+  String get highlightTitle => 'Унвони барҷаста';
 
   @override
-  String get createNewHighlight => 'Create New';
+  String get createNewHighlight => 'Эҷоди нав';
 
   @override
-  String get selectStories => 'Select Stories';
+  String get selectStories => 'Сториҳоро интихоб кунед';
 
   @override
-  String get selectCover => 'Select Cover';
+  String get selectCover => 'Муқоваро интихоб кунед';
 
   @override
-  String get addText => 'Add Text';
+  String get addText => 'Матн илова кунед';
 
   @override
-  String get fontStyleLabel => 'Font Style';
+  String get fontStyleLabel => 'Услуби ҳарф';
 
   @override
-  String get textColorLabel => 'Text Color';
+  String get textColorLabel => 'Ранги матн';
 
   @override
-  String get dragToDelete => 'Drag here to delete';
+  String get dragToDelete => 'Барои нестсозӣ ин ҷо кашола кунед';
 
   @override
-  String get noBlockedUsers => 'No blocked users';
+  String get noBlockedUsers => 'Корбарони басташуда нестанд';
 
   @override
-  String get usersYouBlockWillAppearHere => 'Users you block will appear here';
+  String get usersYouBlockWillAppearHere => 'Корбароне, ки шумо мебандед, дар ин ҷо пайдо мешаванд';
 
   @override
   String unblockConfirm(String name) {
-    return 'Are you sure you want to unblock $name?';
+    return 'Шумо мутмаин ҳастед, ки мехоҳед $name-ро кушоед?';
   }
 
   @override
   String reasonLabel(String reason) {
-    return 'Reason: $reason';
+    return 'Сабаб: $reason';
   }
 
   @override
   String blockedAgo(String time) {
-    return 'Blocked $time';
+    return 'Баста шуд $time';
   }
 
   @override
   String errorLoadingBlockedUsers(String error) {
-    return 'Error loading blocked users: $error';
+    return 'Хато ҳангоми боргирии корбарони басташуда: $error';
   }
 
   @override
-  String get logoutConfirmMessage => 'Are you sure you want to logout from Bananatalk?';
+  String get logoutConfirmMessage => 'Шумо мутмаин ҳастед, ки мехоҳед аз Bananatalk бароед?';
 
   @override
-  String get loggingOut => 'Logging out...';
+  String get loggingOut => 'Баромадан...';
 
   @override
-  String get quietHours => 'Quiet Hours';
+  String get quietHours => 'Соатҳои оромӣ';
 
   @override
-  String get quietHoursEnable => 'Enable Quiet Hours';
+  String get quietHoursEnable => 'Соатҳои оромиро фаъол кунед';
 
   @override
-  String get quietHoursSubtitle => 'Pause non-urgent notifications during a time window';
+  String get quietHoursSubtitle => 'Огоҳномаҳои ғайриҷидиро дар як бозаи вақт қатъ кунед';
 
   @override
-  String get quietHoursStart => 'Start time';
+  String get quietHoursStart => 'Вақти оғоз';
 
   @override
-  String get quietHoursEnd => 'End time';
+  String get quietHoursEnd => 'Вақти анҷом';
 
   @override
-  String get quietHoursAllowUrgent => 'Allow urgent notifications';
+  String get quietHoursAllowUrgent => 'Огоҳномаҳои таъҷилиро иҷозат диҳед';
 
   @override
-  String get quietHoursAllowUrgentSubtitle => 'Calls and messages from VIP partners can still come through';
+  String get quietHoursAllowUrgentSubtitle => 'Зангҳо ва паёмҳо аз шарикони VIP метавонанд ҳамчунон бирасанд';
 
   @override
-  String get silencedByQuietHours => 'Silenced by Quiet Hours';
+  String get silencedByQuietHours => 'Бо соатҳои оромӣ хомӯш карда шуд';
 
   @override
-  String get silencedByCap => 'Silenced by daily limit';
+  String get silencedByCap => 'Бо ҳадди ҳаррӯза хомӯш карда шуд';
 
   @override
-  String get momentUpdatedSuccessfully => 'Moment updated successfully';
+  String get momentUpdatedSuccessfully => 'Лаҳза бомуваффақият навсозӣ шуд';
 
   @override
-  String get failedToDeleteMoment => 'Failed to delete moment';
+  String get failedToDeleteMoment => 'Нестсозии лаҳза ноком шуд';
 
   @override
-  String get failedToUpdateMoment => 'Failed to update moment';
+  String get failedToUpdateMoment => 'Навсозии лаҳза ноком шуд';
 
   @override
-  String get mbtiUpdatedSuccessfully => 'MBTI updated successfully';
+  String get mbtiUpdatedSuccessfully => 'MBTI бомуваффақият навсозӣ шуд';
 
   @override
-  String get pleaseSelectMbti => 'Please select an MBTI type';
+  String get pleaseSelectMbti => 'Лутфан, як навъи MBTI-ро интихоб кунед';
 
   @override
-  String get languageUpdatedSuccessfully => 'Language updated successfully';
+  String get languageUpdatedSuccessfully => 'Забон бомуваффақият навсозӣ шуд';
 
   @override
-  String get bioHintCard => 'A great bio helps others connect with you. Share your interests, languages, or what you\'re looking for.';
+  String get bioHintCard => 'Тарҷумаи ҳоли хуб ба дигарон кӯмак мекунад, ки бо шумо алоқа кунанд. Шавқмандиҳо, забонҳо ё он чизе ки ҷустуҷӯ мекунед, муаррифӣ кунед.';
 
   @override
-  String get bioCounterStartWriting => 'Start writing...';
+  String get bioCounterStartWriting => 'Навиштанро оғоз кунед...';
 
   @override
-  String get bioCounterABitMore => 'A bit more would be great';
+  String get bioCounterABitMore => 'Каме бештар хуб мебуд';
 
   @override
-  String get bioCounterAlmostAtLimit => 'Almost at the limit';
+  String get bioCounterAlmostAtLimit => 'Қариб ба ҳад расидед';
 
   @override
-  String get bioCounterTooLong => 'Too long';
+  String get bioCounterTooLong => 'Хеле дароз';
 
   @override
-  String get bioQuickStarters => 'Quick starters';
+  String get bioQuickStarters => 'Оғозкунандаҳои зуд';
 
   @override
-  String get rhPositive => 'Rh Positive';
+  String get rhPositive => 'Rh Мусбат';
 
   @override
-  String get rhNegative => 'Rh Negative';
+  String get rhNegative => 'Rh Манфӣ';
 
   @override
-  String get rhPositiveDesc => 'Most common';
+  String get rhPositiveDesc => 'Маъмултарин';
 
   @override
-  String get rhNegativeDesc => 'Universal donors / rare';
+  String get rhNegativeDesc => 'Донори умумӣ / нодир';
 
   @override
-  String get yourBloodType => 'Your blood type';
+  String get yourBloodType => 'Гурӯҳи хуни шумо';
 
   @override
-  String get noBloodTypeSelected => 'No blood type selected';
+  String get noBloodTypeSelected => 'Гурӯҳи хун интихоб нашудааст';
 
   @override
-  String get tapTypeBelow => 'Tap a type below';
+  String get tapTypeBelow => 'Як навъро дар поён зер кунед';
 
   @override
-  String get tapButtonToDetectLocation => 'Tap the button below to detect your current location';
+  String get tapButtonToDetectLocation => 'Барои муайян кардани ҷойгиршавии ҷории худ тугмаи поёнро зер кунед';
 
   @override
   String currentAddressLabel(String address) {
-    return 'Current: $address';
+    return 'Ҷорӣ: $address';
   }
 
   @override
-  String get onlyCityCountryShown => 'Only your city and country are shown to others. Exact coordinates remain private.';
+  String get onlyCityCountryShown => 'Танҳо шаҳр ва кишвари шумо ба дигарон нишон дода мешавад. Координатҳои дақиқ махфӣ боқӣ мемонанд.';
 
   @override
-  String get updateLocationCta => 'Update Location';
+  String get updateLocationCta => 'Ҷойгиршавиро навсозӣ кунед';
 
   @override
-  String get enterYourName => 'Enter your name';
+  String get enterYourName => 'Номи худро ворид кунед';
 
   @override
-  String get unsavedChanges => 'You have unsaved changes';
+  String get unsavedChanges => 'Шумо тағйироти захиранашуда доред';
 
   @override
   String tapBelowToBrowseLanguages(int count) {
-    return 'Tap below to browse from $count languages';
+    return 'Барои тамошои $count забон, поёнро зер кунед';
   }
 
   @override
-  String get changeLanguage => 'Change Language';
+  String get changeLanguage => 'Забонро тағйир диҳед';
 
   @override
-  String get browseLanguages => 'Browse Languages';
+  String get browseLanguages => 'Забонҳоро тамошо кунед';
 
   @override
-  String get yourLearningLanguageIsPrefix => 'Your learning language is ';
+  String get yourLearningLanguageIsPrefix => 'Забони омӯзишии шумо ин ';
 
   @override
-  String get yourNativeLanguageIsPrefix => 'Your native language is ';
+  String get yourNativeLanguageIsPrefix => 'Забони модарии шумо ин ';
 
   @override
-  String get profileCompleteProgress => 'complete';
+  String get profileCompleteProgress => 'пур';
 
   @override
-  String get drawerPreferences => 'Preferences';
+  String get drawerPreferences => 'Афзалиятҳо';
 
   @override
-  String get drawerStorage => 'Storage';
+  String get drawerStorage => 'Захира';
 
   @override
-  String get drawerReports => 'Reports';
+  String get drawerReports => 'Ҳисоботҳо';
 
   @override
-  String get drawerSupport => 'Support';
+  String get drawerSupport => 'Дастгирӣ';
 
   @override
-  String get drawerAccount => 'Account';
+  String get drawerAccount => 'Ҳисоб';
 
   @override
-  String get logoutConfirmBody => 'Are you sure you want to logout from Bananatalk?';
+  String get logoutConfirmBody => 'Шумо мутмаин ҳастед, ки мехоҳед аз Bananatalk бароед?';
 
   @override
-  String get helpEmailSupport => 'Email Support';
+  String get helpEmailSupport => 'Дастгирии почтаи электронӣ';
 
   @override
   String get helpEmailSupportSubtitle => 'support@bananatalk.com';
 
   @override
-  String get helpReportBug => 'Report a Bug';
+  String get helpReportBug => 'Дар бораи хато хабар диҳед';
 
   @override
-  String get helpReportBugSubtitle => 'Help us improve Bananatalk';
+  String get helpReportBugSubtitle => 'Ба мо дар беҳтар кардани Bananatalk кӯмак кунед';
 
   @override
-  String get helpFaqs => 'FAQs';
+  String get helpFaqs => 'Саволҳои маъмул';
 
   @override
-  String get helpFaqsSubtitle => 'Frequently asked questions';
+  String get helpFaqsSubtitle => 'Саволҳое, ки аксар дода мешаванд';
 
   @override
-  String get aboutDialogClose => 'Close';
+  String get aboutDialogClose => 'Пӯшидан';
 
   @override
-  String get aboutBananatalkTagline => 'Connect with language learners worldwide and improve your skills through real conversations.';
+  String get aboutBananatalkTagline => 'Бо омӯзандагони забон дар саросари ҷаҳон пайваст шавед ва маҳорати худро тавассути сӯҳбатҳои воқеӣ беҳтар созед.';
 
   @override
-  String get aboutCopyright => '© 2024 Bananatalk. All rights reserved.';
+  String get aboutCopyright => '© 2024 Bananatalk. Ҳамаи ҳуқуқҳо ҳифз шудаанд.';
 
   @override
-  String get logoutFailedPrefix => 'Logout failed';
+  String get logoutFailedPrefix => 'Баромад ноком шуд';
 
   @override
-  String get profileVisitorsTitle => 'Profile Visitors';
+  String get profileVisitorsTitle => 'Меҳмонони профил';
 
   @override
-  String get visitorStatistics => 'Visitor Statistics';
+  String get visitorStatistics => 'Омори меҳмонон';
 
   @override
-  String get visitorsTotalVisits => 'Total Visits';
+  String get visitorsTotalVisits => 'Ҳамагӣ ташрифҳо';
 
   @override
-  String get visitorsUniqueVisitors => 'Unique Visitors';
+  String get visitorsUniqueVisitors => 'Меҳмонони беназир';
 
   @override
-  String get visitorsToday => 'Today';
+  String get visitorsToday => 'Имрӯз';
 
   @override
-  String get visitorsThisWeek => 'This Week';
+  String get visitorsThisWeek => 'Ин ҳафта';
 
   @override
-  String get noVisitorsYet => 'No visitors yet';
+  String get noVisitorsYet => 'Ҳанӯз меҳмоне нест';
 
   @override
-  String get noVisitorsYetSubtitle => 'When people visit your profile,\nthey will appear here';
+  String get noVisitorsYetSubtitle => 'Вақте ки одамон ба профили шумо ташриф меоранд,\nдар ин ҷо пайдо мешаванд';
 
   @override
-  String get visitedViaSearch => 'via Search';
+  String get visitedViaSearch => 'тавассути Ҷустуҷӯ';
 
   @override
-  String get visitedViaMoments => 'via Moments';
+  String get visitedViaMoments => 'тавассути Лаҳзаҳо';
 
   @override
-  String get visitedViaChat => 'via Chat';
+  String get visitedViaChat => 'тавассути Чат';
 
   @override
-  String get visitedDirect => 'Direct visit';
+  String get visitedDirect => 'Ташрифи мустақим';
 
   @override
-  String get visitorTrackingUnavailable => 'Visitor tracking feature not available. Please update backend.';
+  String get visitorTrackingUnavailable => 'Хусусияти пайгирии меҳмонон дастрас нест. Лутфан backend-ро навсозӣ кунед.';
 
   @override
-  String get visitorTrackingNotAvailableYet => 'Visitor tracking not available yet';
+  String get visitorTrackingNotAvailableYet => 'Пайгирии меҳмонон ҳанӯз дастрас нест';
 
   @override
-  String get noFollowersYetSubtitle => 'Start connecting with others!';
+  String get noFollowersYetSubtitle => 'Пайвастшавӣ бо дигаронро оғоз кунед!';
 
   @override
-  String get partnerButton => 'Partner';
+  String get partnerButton => 'Шарик';
 
   @override
-  String get notFollowingAnyoneYetSubtitle => 'Start following people to see their updates!';
+  String get notFollowingAnyoneYetSubtitle => 'Барои дидани навсозиҳои онҳо ба одамон пайравӣ кунед!';
 
   @override
-  String get unfollowButton => 'Unfollow';
+  String get unfollowButton => 'Пайравиро бас кунед';
 
   @override
-  String get profileThemeTitle => 'Profile Theme';
+  String get profileThemeTitle => 'Мавзӯи профил';
 
   @override
-  String get themeAutoSwitch => 'Auto Switch (System Theme)';
+  String get themeAutoSwitch => 'Иваз кардани худкор (Мавзӯи система)';
 
   @override
-  String get themeSystemHint => 'When enabled, the app will follow your system theme settings';
+  String get themeSystemHint => 'Вақте ки фаъол аст, барнома танзимоти мавзӯи системаи шуморо пайравӣ мекунад';
 
   @override
-  String get themeLightMode => 'Light Mode';
+  String get themeLightMode => 'Реҷаи равшан';
 
   @override
-  String get themeDarkMode => 'Dark Mode';
+  String get themeDarkMode => 'Реҷаи торик';
 
   @override
-  String get myMoments => 'My Moments';
+  String get myMoments => 'Лаҳзаҳои ман';
 
   @override
-  String get momentListView => 'List View';
+  String get momentListView => 'Намуди рӯйхат';
 
   @override
-  String get momentGridView => 'Grid View';
+  String get momentGridView => 'Намуди тӯрӣ';
 
   @override
-  String get shareLanguageLearningJourney => 'Share your language learning journey!';
+  String get shareLanguageLearningJourney => 'Сафари омӯзиши забони худро мубодила кунед!';
 
   @override
-  String get deleteHighlightTitle => 'Delete Highlight';
+  String get deleteHighlightTitle => 'Барҷастаро нест кунед';
 
   @override
   String deleteHighlightConfirm(String title) {
-    return 'Delete \"$title\"? The stories inside won\'t be deleted.';
+    return '«$title»-ро нест мекунед? Сториҳои дохилӣ нест намешаванд.';
   }
 
   @override
-  String get highlightDeletedSuccess => 'Highlight deleted';
+  String get highlightDeletedSuccess => 'Барҷаста нест шуд';
 
   @override
-  String get highlightNewBadge => 'New';
+  String get highlightNewBadge => 'Нав';
 
   @override
-  String get editMoment => 'Edit Moment';
+  String get editMoment => 'Таҳрири лаҳза';
 
   @override
-  String get momentDescriptionLabel => 'Description';
+  String get momentDescriptionLabel => 'Тавсиф';
 
   @override
-  String get momentImagesLabel => 'Images';
+  String get momentImagesLabel => 'Тасвирҳо';
 
   @override
-  String get noImagesYet => 'No images yet';
+  String get noImagesYet => 'Ҳанӯз тасвире нест';
 
   @override
-  String get momentEnterDescription => 'Please enter a description';
+  String get momentEnterDescription => 'Лутфан тавсиф ворид кунед';
 
   @override
-  String get momentUpdatedImageFailed => 'Moment updated but image upload failed';
+  String get momentUpdatedImageFailed => 'Лаҳза навсозӣ шуд, аммо боргузории тасвир ноком гашт';
 
   @override
-  String get updateRequiredTitle => 'Update Required';
+  String get updateRequiredTitle => 'Навсозӣ зарур аст';
 
   @override
-  String get updateAvailableTitle => 'Update Available';
+  String get updateAvailableTitle => 'Навсозӣ дастрас аст';
 
   @override
-  String get updateRequiredBody => 'This version of Bananatalk is no longer supported. Please update to continue.';
+  String get updateRequiredBody => 'Ин версияи Bananatalk дигар пуштибонӣ намешавад. Лутфан барои идома навсозӣ кунед.';
 
   @override
-  String get updateAvailableBody => 'A new version of Bananatalk is available with improvements and bug fixes.';
+  String get updateAvailableBody => 'Версияи нави Bananatalk бо беҳбудиҳо ва ислоҳи хатоҳо дастрас аст.';
 
   @override
-  String get updateNow => 'Update Now';
+  String get updateNow => 'Ҳозир навсозӣ кунед';
 
   @override
-  String get updateLater => 'Later';
+  String get updateLater => 'Дертар';
 
   @override
-  String get updateOpenStoreFailed => 'Couldn\'t open the store. Please update from the App Store or Play Store.';
+  String get updateOpenStoreFailed => 'Кушодани мағоза имконнопазир буд. Лутфан аз App Store ё Play Store навсозӣ кунед.';
 
   @override
-  String get rememberMe => 'Remember me';
+  String get rememberMe => 'Маро дар хотир доред';
 
   @override
-  String get passwordWeak => 'Weak';
+  String get passwordWeak => 'Заиф';
 
   @override
-  String get passwordFair => 'Fair';
+  String get passwordFair => 'Миёна';
 
   @override
-  String get passwordStrong => 'Strong';
+  String get passwordStrong => 'Қавӣ';
 
   @override
-  String get passwordVeryStrong => 'Very strong';
+  String get passwordVeryStrong => 'Хеле қавӣ';
 
   @override
-  String get showPassword => 'Show password';
+  String get showPassword => 'Намоиши парол';
 
   @override
-  String get hidePassword => 'Hide password';
+  String get hidePassword => 'Пинҳон кардани парол';
 
   @override
   String stepProgress(int current, int total) {
-    return 'Step $current of $total';
+    return 'Қадами $current аз $total';
   }
 
   @override
-  String get usernameOptional => 'Username (optional)';
+  String get usernameOptional => 'Номи корбар (ихтиёрӣ)';
 
   @override
-  String get usernameAvailable => 'Available';
+  String get usernameAvailable => 'Дастрас';
 
   @override
-  String get usernameTaken => 'Already taken';
+  String get usernameTaken => 'Аллакай гирифта шудааст';
 
   @override
-  String get usernameNotAvailable => 'Not available';
+  String get usernameNotAvailable => 'Дастрас нест';
 
   @override
-  String get usernameInvalidFormat => '3–20 characters, letters, numbers, or underscore';
+  String get usernameInvalidFormat => '3–20 аломат, ҳарфҳо, рақамҳо ё хати поён';
 
   @override
-  String get usernameHint => '@username';
+  String get usernameHint => '@номикорбар';
 
   @override
-  String get enableBiometricTitle => 'Use Face ID to log in next time?';
+  String get enableBiometricTitle => 'Дафъаи оянда бо Face ID ворид шавед?';
 
   @override
-  String get enableBiometricBody => 'Skip typing your password by signing in with biometrics.';
+  String get enableBiometricBody => 'Тавассути воридшавӣ бо биометрия чопи паролро гузаронед.';
 
   @override
-  String get enableBiometricCta => 'Enable';
+  String get enableBiometricCta => 'Фаъол кардан';
 
   @override
-  String get biometricSignInPrompt => 'Authenticate to log in to Bananatalk';
+  String get biometricSignInPrompt => 'Барои воридшавӣ ба Bananatalk тасдиқ кунед';
 
   @override
   String continueAs(String name) {
-    return 'Continue as $name';
+    return 'Ҳамчун $name идома диҳед';
   }
 
   @override
-  String get addProfilePhotoTitle => 'Add a profile photo';
+  String get addProfilePhotoTitle => 'Сурати профил илова кунед';
 
   @override
-  String get addProfilePhotoSkip => 'Skip for now';
+  String get addProfilePhotoSkip => 'Ҳозир гузаред';
 
   @override
-  String get wavesTab => 'Waves';
+  String get wavesTab => 'Мавҷҳо';
 
   @override
-  String get sendWave => 'Send a wave';
+  String get sendWave => 'Даст афшонед';
 
   @override
   String sendWaveTo(String name) {
-    return 'Send a wave to $name';
+    return 'Ба $name даст афшонед';
   }
 
   @override
   String waveSent(String name) {
-    return 'Wave sent to $name';
+    return 'Ба $name даст афшонда шуд';
   }
 
   @override
   String waveCooldown(String name, String time) {
-    return 'You can wave $name again in $time';
+    return 'Шумо ба $name баъд аз $time боз даст афшонда метавонед';
   }
 
   @override
-  String get waveCouldntSend => 'Couldn\'t send wave';
+  String get waveCouldntSend => 'Афшондани даст имконнопазир буд';
 
   @override
-  String get itsAMatch => 'It\'s a match!';
+  String get itsAMatch => 'Мувофиқат шуд!';
 
   @override
   String itsAMatchSubtitle(String name) {
-    return 'You and $name both waved';
+    return 'Шумо ва $name ҳарду даст афшондед';
   }
 
   @override
-  String get sendAMessage => 'Send a message';
+  String get sendAMessage => 'Паём фиристед';
 
   @override
-  String get waveQuickReplyHi => 'Hi!';
+  String get waveQuickReplyHi => 'Салом!';
 
   @override
-  String get waveQuickReplyCool => 'You seem cool';
+  String get waveQuickReplyCool => 'Шумо ҷолиб менамоед';
 
   @override
-  String get waveQuickReplyHey => 'Hey there';
+  String get waveQuickReplyHey => 'Эй, салом';
 
   @override
-  String get waveQuickReplyChat => 'Let\'s chat';
+  String get waveQuickReplyChat => 'Биёед сӯҳбат кунем';
 
   @override
-  String get waveQuickReplyHello => 'Hello';
+  String get waveQuickReplyHello => 'Ассалом';
 
   @override
   String waveQuickReplyFromCountry(String country) {
-    return 'Hi from $country';
+    return 'Салом аз $country';
   }
 
   @override
-  String get waveCustomMessage => 'Or write your own…';
+  String get waveCustomMessage => 'Ё худатон бинависед…';
 
   @override
-  String get voiceRoomChat => 'Chat';
+  String get voiceRoomChat => 'Чат';
 
   @override
-  String get voiceRoomChatPlaceholder => 'Send a message…';
+  String get voiceRoomChatPlaceholder => 'Паём фиристед…';
 
   @override
-  String get voiceRoomChatEmpty => 'No messages yet — say hi';
+  String get voiceRoomChatEmpty => 'Ҳанӯз паёме нест — салом гӯед';
 
   @override
-  String get voiceRoomChatSend => 'Send';
+  String get voiceRoomChatSend => 'Фиристед';
 
   @override
   String voiceRoomChatNewBadge(int n) {
@@ -4903,522 +4904,522 @@ class AppLocalizationsTg extends AppLocalizations {
   }
 
   @override
-  String get voiceRoomEnd => 'End room';
+  String get voiceRoomEnd => 'Ҳуҷраро хотима диҳед';
 
   @override
-  String get voiceRoomEndConfirm => 'End this room?';
+  String get voiceRoomEndConfirm => 'Ин ҳуҷраро хотима медиҳед?';
 
   @override
-  String get voiceRoomEndConfirmBody => 'Everyone will be disconnected.';
+  String get voiceRoomEndConfirmBody => 'Ҳама қатъ карда мешаванд.';
 
   @override
-  String get voiceRoomKick => 'Remove from room';
+  String get voiceRoomKick => 'Аз ҳуҷра хориҷ кунед';
 
   @override
   String voiceRoomKickConfirm(String name) {
-    return 'Remove $name?';
+    return '$name-ро хориҷ мекунед?';
   }
 
   @override
-  String get voiceRoomKicked => 'Removed';
+  String get voiceRoomKicked => 'Хориҷ шуд';
 
   @override
-  String get voiceRoomYouAreHostNow => 'You\'re now the host';
+  String get voiceRoomYouAreHostNow => 'Акнун шумо мизбон ҳастед';
 
   @override
   String voiceRoomHostChanged(String name) {
-    return '$name is now the host';
+    return 'Акнун $name мизбон аст';
   }
 
   @override
-  String get voiceRoomHostMenuTitle => 'Room actions';
+  String get voiceRoomHostMenuTitle => 'Амалҳои ҳуҷра';
 
   @override
-  String get voiceRoomViewProfile => 'View profile';
+  String get voiceRoomViewProfile => 'Профилро дидан';
 
   @override
-  String get voiceRoomReconnecting => 'Reconnecting…';
+  String get voiceRoomReconnecting => 'Пайвастшавии дубора…';
 
   @override
-  String get voiceRoomReconnected => 'Reconnected';
+  String get voiceRoomReconnected => 'Дубора пайваст шуд';
 
   @override
-  String get voiceRoomEnded => 'Room ended';
+  String get voiceRoomEnded => 'Ҳуҷра хотима ёфт';
 
   @override
-  String get voiceRoomReconnectRetry => 'Retry';
+  String get voiceRoomReconnectRetry => 'Аз нав кӯшиш кунед';
 
   @override
-  String get mutualInterests => 'Mutual interests';
+  String get mutualInterests => 'Манфиатҳои муштарак';
 
   @override
   String interestsInCommon(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count interests in common',
-      one: '1 interest in common',
-      zero: 'No interests in common yet',
+      other: '$count манфиати муштарак',
+      one: '1 манфиати муштарак',
+      zero: 'Ҳанӯз манфиати муштарак нест',
     );
     return '$_temp0';
   }
 
   @override
-  String get interestsInCommonSeeAll => 'See all';
+  String get interestsInCommonSeeAll => 'Ҳамаро дидан';
 
   @override
-  String get interestsInCommonAddCta => 'Add topics';
+  String get interestsInCommonAddCta => 'Мавзӯъ илова кунед';
 
   @override
-  String get interestsInCommonAddSubtitle => 'Add topics to your profile to find common ground';
+  String get interestsInCommonAddSubtitle => 'Барои ёфтани заминаи муштарак ба профили худ мавзӯъ илова кунед';
 
   @override
   String activeAgo(String time) {
-    return 'Active $time ago';
+    return '$time пеш фаъол буд';
   }
 
   @override
-  String get filterOnlineNow => 'Online now';
+  String get filterOnlineNow => 'Ҳоло онлайн';
 
   @override
-  String get filterAge => 'Age';
+  String get filterAge => 'Синну сол';
 
   @override
-  String get filterGender => 'Gender';
+  String get filterGender => 'Ҷинс';
 
   @override
-  String get filterLanguages => 'Languages';
+  String get filterLanguages => 'Забонҳо';
 
   @override
-  String get filterCountry => 'Country';
+  String get filterCountry => 'Кишвар';
 
   @override
-  String get filterTopics => 'Topics';
+  String get filterTopics => 'Мавзӯъҳо';
 
   @override
-  String get filterLevel => 'Language level';
+  String get filterLevel => 'Сатҳи забон';
 
   @override
-  String get filterToggles => 'Other';
+  String get filterToggles => 'Дигар';
 
   @override
   String filterMatchCount(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count partners match',
-      one: '1 partner matches',
-      zero: 'No partners match',
+      other: '$count шарик мувофиқ аст',
+      one: '1 шарик мувофиқ аст',
+      zero: 'Шарики мувофиқ нест',
     );
     return '$_temp0';
   }
 
   @override
-  String get filterClearAll => 'Clear all';
+  String get filterClearAll => 'Ҳамаро тоза кардан';
 
   @override
-  String get filterReset => 'Reset';
+  String get filterReset => 'Танзими дубора';
 
   @override
-  String get filterApply => 'Apply';
+  String get filterApply => 'Татбиқ кардан';
 
   @override
-  String get filterNewUsers => 'New users only';
+  String get filterNewUsers => 'Танҳо корбарони нав';
 
   @override
-  String get filterPrioritizeNearby => 'Prioritize nearby';
+  String get filterPrioritizeNearby => 'Афзалият ба наздикон';
 
   @override
-  String get filterSheetTitle => 'Filters';
+  String get filterSheetTitle => 'Филтрҳо';
 
   @override
-  String get notificationPreferencesTitle => 'Notifications';
+  String get notificationPreferencesTitle => 'Огоҳномаҳо';
 
   @override
-  String get notificationPreferencesSubtitle => 'Choose which alerts you receive';
+  String get notificationPreferencesSubtitle => 'Интихоб кунед, ки кадом огоҳиҳоро қабул мекунед';
 
   @override
-  String get notifPrefChat => 'New messages';
+  String get notifPrefChat => 'Паёмҳои нав';
 
   @override
-  String get notifPrefWave => 'Waves';
+  String get notifPrefWave => 'Мавҷҳо';
 
   @override
-  String get notifPrefVoiceRoomStart => 'Voice room invites';
+  String get notifPrefVoiceRoomStart => 'Даъватномаҳои ҳуҷраи овозӣ';
 
   @override
-  String get notifPrefScheduledRoomReminder => 'Scheduled room reminders';
+  String get notifPrefScheduledRoomReminder => 'Ёдоварии ҳуҷраҳои банақшагирифташуда';
 
   @override
-  String get notifPrefFollowerMoment => 'New moments from people you follow';
+  String get notifPrefFollowerMoment => 'Лаҳзаҳои нав аз касоне, ки шумо пайравӣ мекунед';
 
   @override
-  String get notifPrefVisitorAlert => 'Profile visitors';
+  String get notifPrefVisitorAlert => 'Меҳмонони профил';
 
   @override
-  String get notifPrefMatchAlert => 'Mutual waves';
+  String get notifPrefMatchAlert => 'Мавҷҳои дуҷониба';
 
   @override
-  String get notifResetToDefaults => 'Reset to defaults';
+  String get notifResetToDefaults => 'Бозгашт ба пешфарзҳо';
 
   @override
-  String get themeMode => 'Theme';
+  String get themeMode => 'Мавзӯъ';
 
   @override
-  String get themeLight => 'Light';
+  String get themeLight => 'Равшан';
 
   @override
-  String get themeDark => 'Dark';
+  String get themeDark => 'Торик';
 
   @override
-  String get themeSystem => 'System';
+  String get themeSystem => 'Системавӣ';
 
   @override
-  String get languageSettingsRow => 'Language';
+  String get languageSettingsRow => 'Забон';
 
   @override
-  String get waveDailySummaryTitle => 'New waves waiting';
+  String get waveDailySummaryTitle => 'Мавҷҳои нав интизоранд';
 
   @override
   String waveDailySummaryBody(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count people waved at you',
-      one: '1 person waved at you',
+      other: '$count нафар ба шумо даст афшонданд',
+      one: '1 нафар ба шумо даст афшонд',
     );
     return '$_temp0';
   }
 
   @override
-  String get filterTopicsTitle => 'Topics';
+  String get filterTopicsTitle => 'Мавзӯъҳо';
 
   @override
-  String get filterTopicsEmpty => 'No topics selected';
+  String get filterTopicsEmpty => 'Ягон мавзӯъ интихоб нашудааст';
 
   @override
-  String get storiesEmpty => 'No stories yet';
+  String get storiesEmpty => 'Ҳанӯз стори нест';
 
   @override
-  String get storiesLoadError => 'Couldn\'t load stories';
+  String get storiesLoadError => 'Боргирии сториҳо имконнопазир буд';
 
   @override
-  String get storiesRetry => 'Try again';
+  String get storiesRetry => 'Аз нав кӯшиш кунед';
 
   @override
-  String get storiesNoMore => 'You\'re all caught up';
+  String get storiesNoMore => 'Ҳамаашро дидед';
 
   @override
-  String get createTextStoryTab => 'Text';
+  String get createTextStoryTab => 'Матн';
 
   @override
-  String get createImageStoryTab => 'Photo';
+  String get createImageStoryTab => 'Сурат';
 
   @override
-  String get createVideoStoryTab => 'Video';
+  String get createVideoStoryTab => 'Видео';
 
   @override
-  String get enterTextHint => 'Tap to type';
+  String get enterTextHint => 'Барои чоп пахш кунед';
 
   @override
-  String get pickBackground => 'Background';
+  String get pickBackground => 'Замина';
 
   @override
-  String get pickFontStyle => 'Font';
+  String get pickFontStyle => 'Шрифт';
 
   @override
-  String get pickTextColor => 'Color';
+  String get pickTextColor => 'Ранг';
 
   @override
-  String get addEmoji => 'Add emoji';
+  String get addEmoji => 'Эмодзи илова кунед';
 
   @override
-  String get chooseFont => 'Choose font';
+  String get chooseFont => 'Шрифт интихоб кунед';
 
   @override
-  String get chooseColor => 'Choose color';
+  String get chooseColor => 'Ранг интихоб кунед';
 
   @override
-  String get dragToMove => 'Drag to move';
+  String get dragToMove => 'Барои ҷойивазкунӣ кашед';
 
   @override
-  String get pinchToScale => 'Pinch to scale';
+  String get pinchToScale => 'Барои тағйири андоза фишор диҳед';
 
   @override
-  String get removeFromHighlight => 'Remove from highlight';
+  String get removeFromHighlight => 'Аз барҷаста хориҷ кунед';
 
   @override
-  String get highlightDeleted => 'Highlight deleted';
+  String get highlightDeleted => 'Барҷаста нест шуд';
 
   @override
-  String get storySaved => 'Saved to your story';
+  String get storySaved => 'Ба стории шумо нигоҳ дошта шуд';
 
   @override
-  String get storyTooLong => 'Text is too long';
+  String get storyTooLong => 'Матн хеле дароз аст';
 
   @override
-  String get storyPostFailed => 'Couldn\'t post story';
+  String get storyPostFailed => 'Нашри стори имконнопазир буд';
 
   @override
-  String get fontNormal => 'Normal';
+  String get fontNormal => 'Муқаррарӣ';
 
   @override
-  String get fontBold => 'Bold';
+  String get fontBold => 'Ғафс';
 
   @override
-  String get fontItalic => 'Italic';
+  String get fontItalic => 'Курсив';
 
   @override
-  String get fontHandwriting => 'Handwriting';
+  String get fontHandwriting => 'Дастнавис';
 
   @override
-  String get pickDate => 'Pick date';
+  String get pickDate => 'Сана интихоб кунед';
 
   @override
-  String get pickTime => 'Pick time';
+  String get pickTime => 'Вақт интихоб кунед';
 
   @override
-  String get upcomingRooms => 'Upcoming';
+  String get upcomingRooms => 'Дар пеш истода';
 
   @override
   String inHours(int h, int m) {
-    return 'in ${h}h ${m}m';
+    return 'баъд аз $hс $mд';
   }
 
   @override
   String inMinutes(int m) {
-    return 'in ${m}m';
+    return 'баъд аз $mд';
   }
 
   @override
-  String get startsNow => 'Starting now';
+  String get startsNow => 'Ҳоло сар мешавад';
 
   @override
-  String get iWillBeThere => 'I\'ll be there';
+  String get iWillBeThere => 'Меоям';
 
   @override
-  String get cantMakeIt => 'Can\'t make it';
+  String get cantMakeIt => 'Намерасам';
 
   @override
   String rsvpCount(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count RSVPs',
-      one: '1 RSVP',
-      zero: 'No RSVPs',
+      other: '$count тасдиқ',
+      one: '1 тасдиқ',
+      zero: 'Ягон тасдиқ нест',
     );
     return '$_temp0';
   }
 
   @override
   String roomStartsIn1h(String title) {
-    return '$title starts in 1 hour';
+    return '$title баъд аз 1 соат сар мешавад';
   }
 
   @override
   String roomStartsIn15min(String title) {
-    return '$title starts in 15 minutes';
+    return '$title баъд аз 15 дақиқа сар мешавад';
   }
 
   @override
   String roomStarted(String title) {
-    return '$title is starting now';
+    return '$title ҳоло сар мешавад';
   }
 
   @override
-  String get cancelRoom => 'Cancel room';
+  String get cancelRoom => 'Ҳуҷраро бекор кунед';
 
   @override
-  String get muteAll => 'Mute all';
+  String get muteAll => 'Ҳамаро бесадо кунед';
 
   @override
-  String get mutedByHost => 'Host muted everyone';
+  String get mutedByHost => 'Мизбон ҳамаро бесадо кард';
 
   @override
-  String get muteAllConfirm => 'Mute everyone in the room?';
+  String get muteAllConfirm => 'Ҳамаро дар ҳуҷра бесадо мекунед?';
 
   @override
-  String get categoryCasual => 'Casual';
+  String get categoryCasual => 'Озод';
 
   @override
-  String get categoryLanguagePractice => 'Language practice';
+  String get categoryLanguagePractice => 'Машқи забон';
 
   @override
-  String get categoryTopic => 'Topic';
+  String get categoryTopic => 'Мавзӯъ';
 
   @override
-  String get categoryQA => 'Q&A';
+  String get categoryQA => 'Савол ва ҷавоб';
 
   @override
-  String get pickCategory => 'Category';
+  String get pickCategory => 'Категория';
 
   @override
-  String get sortRecentlyActive => 'Recently active';
+  String get sortRecentlyActive => 'Ба наздикӣ фаъол';
 
   @override
   String visitedYourProfile(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count people visited your profile',
-      one: '1 person visited your profile',
+      other: '$count нафар ба профили шумо ташриф оварданд',
+      one: '1 нафар ба профили шумо ташриф овард',
     );
     return '$_temp0';
   }
 
   @override
-  String get noRecentVisitors => 'No recent visitors';
+  String get noRecentVisitors => 'Меҳмони наздик нест';
 
   @override
-  String get viewArchive => 'View archive';
+  String get viewArchive => 'Бойгониро дидан';
 
   @override
-  String get archivedWaves => 'Archived waves';
+  String get archivedWaves => 'Мавҷҳои бойгонишуда';
 
   @override
-  String get noArchivedWaves => 'No archived waves';
+  String get noArchivedWaves => 'Мавҷи бойгонишуда нест';
 
   @override
-  String get mutualInterestsMin => 'Mutual interests (min)';
+  String get mutualInterestsMin => 'Манфиатҳои муштарак (камаш)';
 
   @override
   String atLeastNTopics(int n) {
     String _temp0 = intl.Intl.pluralLogic(
       n,
       locale: localeName,
-      other: 'At least $n topics in common',
-      one: 'At least 1 topic in common',
-      zero: 'Any',
+      other: 'Камаш $n мавзӯи муштарак',
+      one: 'Камаш 1 мавзӯи муштарак',
+      zero: 'Ҳар кадом',
     );
     return '$_temp0';
   }
 
   @override
-  String get starterAskMoment => 'Ask about their last moment';
+  String get starterAskMoment => 'Дар бораи лаҳзаи охиринашон пурсед';
 
   @override
-  String get starterSayHi => 'Say hi in their language';
+  String get starterSayHi => 'Бо забонашон салом гӯед';
 
   @override
-  String get starterCurious => 'What are they curious about?';
+  String get starterCurious => 'Онҳо ба чӣ шавқ доранд?';
 
   @override
   String starterFromCountry(String country) {
-    return 'Hi from $country!';
+    return 'Салом аз $country!';
   }
 
   @override
   String starterPracticeLang(String language) {
-    return 'Help them practice $language!';
+    return 'Ба онҳо дар машқи $language кӯмак кунед!';
   }
 
   @override
-  String get momentsLoadError => 'Couldn\'t load moments';
+  String get momentsLoadError => 'Боргирии лаҳзаҳо имконнопазир буд';
 
   @override
-  String get momentsRetry => 'Try again';
+  String get momentsRetry => 'Аз нав кӯшиш кунед';
 
   @override
-  String get recentTags => 'Recent tags';
+  String get recentTags => 'Тегҳои наздик';
 
   @override
-  String get noRecentTags => 'No recent tags yet';
+  String get noRecentTags => 'Ҳанӯз теги наздик нест';
 
   @override
-  String get hideMomentsFromUser => 'Hide moments from this user';
+  String get hideMomentsFromUser => 'Лаҳзаҳои ин корбарро пинҳон кунед';
 
   @override
-  String get momentsHidden => 'Moments from this user will be hidden';
+  String get momentsHidden => 'Лаҳзаҳои ин корбар пинҳон карда мешаванд';
 
   @override
-  String get unhideMoments => 'Show moments from this user';
+  String get unhideMoments => 'Лаҳзаҳои ин корбарро нишон диҳед';
 
   @override
   String momentsHiddenCount(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count users hidden',
-      one: '1 user hidden',
-      zero: 'No hidden users',
+      other: '$count корбар пинҳон шудаанд',
+      one: '1 корбар пинҳон шудааст',
+      zero: 'Ягон корбари пинҳоншуда нест',
     );
     return '$_temp0';
   }
 
   @override
-  String get momentSaveFailed => 'Couldn\'t save moment';
+  String get momentSaveFailed => 'Нигоҳдории лаҳза имконнопазир буд';
 
   @override
-  String get tagAlreadyAdded => 'Tag already added';
+  String get tagAlreadyAdded => 'Тег аллакай илова шудааст';
 
   @override
-  String get tagLimitReached => 'Maximum tags reached';
+  String get tagLimitReached => 'Ҳадди ниҳоии тегҳо ба даст омад';
 
   @override
-  String get hideThisUser => 'Hide this user\'s posts';
+  String get hideThisUser => 'Постҳои ин корбарро пинҳон кунед';
 
   @override
-  String get transcribeMessage => 'Transcribe';
+  String get transcribeMessage => 'Транскрипт';
 
   @override
-  String get transcribing => 'Transcribing…';
+  String get transcribing => 'Транскриптгирӣ…';
 
   @override
-  String get transcriptionFailed => 'Couldn\'t transcribe message';
+  String get transcriptionFailed => 'Транскрипти паём имконнопазир буд';
 
   @override
   String saveToVocabulary(String word) {
-    return 'Save \'$word\' to vocabulary';
+    return '«$word»-ро ба луғат нигоҳ доред';
   }
 
   @override
-  String get addedToVocabulary => 'Added to your vocabulary';
+  String get addedToVocabulary => 'Ба луғати шумо илова шуд';
 
   @override
-  String get alreadyInVocabulary => 'Already in your vocabulary';
+  String get alreadyInVocabulary => 'Аллакай дар луғати шумо ҳаст';
 
   @override
-  String get tapWordToSave => 'Tap and hold a word to save it';
+  String get tapWordToSave => 'Барои нигоҳ доштани калима ангуштро бар он пахш карда нигоҳ доред';
 
   @override
-  String get autoTranslateChatHint => 'Incoming messages will be translated automatically';
+  String get autoTranslateChatHint => 'Паёмҳои воридшаванда худкор тарҷума мешаванд';
 
   @override
-  String get noConversationsYet => 'No conversations yet';
+  String get noConversationsYet => 'Ҳанӯз сӯҳбате нест';
 
   @override
-  String get chatRetry => 'Try again';
+  String get chatRetry => 'Аз нав кӯшиш кунед';
 
   @override
-  String get learningHubTitle => 'Learning';
+  String get learningHubTitle => 'Омӯзиш';
 
   @override
-  String get learningCommonRetry => 'Retry';
+  String get learningCommonRetry => 'Аз нав кӯшиш';
 
   @override
-  String get learningCommonContinue => 'Continue';
+  String get learningCommonContinue => 'Идома';
 
   @override
-  String get learningCommonAwesome => 'Awesome!';
+  String get learningCommonAwesome => 'Олӣ!';
 
   @override
-  String get learningErrorGeneric => 'Something went wrong';
+  String get learningErrorGeneric => 'Чизе хато рафт';
 
   @override
-  String get learningStreakCurrent => 'Current streak';
+  String get learningStreakCurrent => 'Силсилаи кунунӣ';
 
   @override
-  String get learningStreakLongest => 'Longest streak';
+  String get learningStreakLongest => 'Дарозтарин силсила';
 
   @override
   String learningStreakDaysCount(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count days',
-      one: '1 day',
-      zero: '0 days',
+      other: '$count рӯз',
+      one: '1 рӯз',
+      zero: '0 рӯз',
     );
     return '$_temp0';
   }
@@ -5428,40 +5429,40 @@ class AppLocalizationsTg extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count freezes available',
-      one: '1 freeze available',
-      zero: 'No freezes available',
+      other: '$count яхкунак дастрас аст',
+      one: '1 яхкунак дастрас аст',
+      zero: 'Яхкунаке дастрас нест',
     );
     return '$_temp0';
   }
 
   @override
-  String get learningStreakFreezeUse => 'Use freeze';
+  String get learningStreakFreezeUse => 'Яхкунакро истифода баред';
 
   @override
-  String get learningStreakFreezeDescription => 'Freezes protect your streak when you miss a day.';
+  String get learningStreakFreezeDescription => 'Яхкунакҳо силсилаи шуморо ҳангоми гум кардани рӯз муҳофизат мекунанд.';
 
   @override
-  String get learningStreakFreezeProtected => 'Streak protected!';
+  String get learningStreakFreezeProtected => 'Силсила муҳофизат шуд!';
 
   @override
-  String get learningStreakMilestone7 => '7-day streak!';
+  String get learningStreakMilestone7 => 'Силсилаи 7-рӯза!';
 
   @override
-  String get learningStreakMilestone30 => '30-day streak!';
+  String get learningStreakMilestone30 => 'Силсилаи 30-рӯза!';
 
   @override
-  String get learningStreakMilestone100 => '100-day streak!';
+  String get learningStreakMilestone100 => 'Силсилаи 100-рӯза!';
 
   @override
-  String get learningStreakMilestone365 => '365-day streak!';
+  String get learningStreakMilestone365 => 'Силсилаи 365-рӯза!';
 
   @override
-  String get learningWeeklyDigestTitle => 'This Week';
+  String get learningWeeklyDigestTitle => 'Ин ҳафта';
 
   @override
   String learningWeeklyDigestXp(int xp) {
-    return '$xp XP earned';
+    return '$xp XP ба даст оварда шуд';
   }
 
   @override
@@ -5469,8 +5470,8 @@ class AppLocalizationsTg extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count lessons',
-      one: '1 lesson',
+      other: '$count дарс',
+      one: '1 дарс',
     );
     return '$_temp0';
   }
@@ -5480,8 +5481,8 @@ class AppLocalizationsTg extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count words learned',
-      one: '1 word learned',
+      other: '$count калима омӯхта шуд',
+      one: '1 калима омӯхта шуд',
     );
     return '$_temp0';
   }
@@ -5491,100 +5492,100 @@ class AppLocalizationsTg extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count active days',
-      one: '1 active day',
+      other: '$count рӯзи фаъол',
+      one: '1 рӯзи фаъол',
     );
     return '$_temp0';
   }
 
   @override
-  String get learningWeeklyDigestTopAchievement => 'Top achievement';
+  String get learningWeeklyDigestTopAchievement => 'Дастоварди беҳтарин';
 
   @override
   String learningWeeklyDigestTrendUp(int pct) {
-    return 'Up $pct% from last week';
+    return '$pct% нисбат ба ҳафтаи гузашта боло';
   }
 
   @override
   String learningWeeklyDigestTrendDown(int pct) {
-    return 'Down $pct% from last week';
+    return '$pct% нисбат ба ҳафтаи гузашта поён';
   }
 
   @override
-  String get learningWeeklyDigestTrendFlat => 'Same as last week';
+  String get learningWeeklyDigestTrendFlat => 'Мисли ҳафтаи гузашта';
 
   @override
-  String get learningSrsDashboardTitle => 'Daily Review';
+  String get learningSrsDashboardTitle => 'Такрори ҳаррӯза';
 
   @override
   String learningSrsDueToday(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count cards due today',
-      one: '1 card due today',
-      zero: 'No cards due today',
+      other: '$count корти имрӯза',
+      one: '1 корти имрӯза',
+      zero: 'Барои имрӯз кортҳо нест',
     );
     return '$_temp0';
   }
 
   @override
   String learningSrsDueTomorrow(int count) {
-    return '$count due tomorrow';
+    return '$count-то фардо';
   }
 
   @override
   String learningSrsDueThisWeek(int count) {
-    return '$count due this week';
+    return '$count-то ин ҳафта';
   }
 
   @override
-  String get learningSrsStartReview => 'Start review';
+  String get learningSrsStartReview => 'Такрорро оғоз кунед';
 
   @override
-  String get learningSrsAllCaughtUp => 'You\'re all caught up!';
+  String get learningSrsAllCaughtUp => 'Ҳамаашро анҷом додед!';
 
   @override
-  String get learningSrsKeepGoing => 'Keep going';
+  String get learningSrsKeepGoing => 'Идома диҳед';
 
   @override
   String get learningLeaderboardXpTab => 'XP';
 
   @override
-  String get learningLeaderboardStreakTab => 'Streak';
+  String get learningLeaderboardStreakTab => 'Силсила';
 
   @override
-  String get learningLeaderboardLanguageTab => 'Language';
+  String get learningLeaderboardLanguageTab => 'Забон';
 
   @override
-  String get learningLeaderboardFriendsTab => 'Friends';
+  String get learningLeaderboardFriendsTab => 'Дӯстон';
 
   @override
-  String get learningLeaderboardEmpty => 'No rankings yet';
+  String get learningLeaderboardEmpty => 'Ҳанӯз рейтинге нест';
 
   @override
-  String get learningLeaderboardYouLabel => 'You';
+  String get learningLeaderboardYouLabel => 'Шумо';
 
   @override
-  String get learningLeaderboardFriendBadge => 'Friend';
+  String get learningLeaderboardFriendBadge => 'Дӯст';
 
   @override
-  String get learningEmptyVocab => 'Add words you want to remember';
+  String get learningEmptyVocab => 'Калимаҳоеро, ки мехоҳед дар ёд доред, илова кунед';
 
   @override
-  String get learningEmptyLessons => 'No lessons available yet';
+  String get learningEmptyLessons => 'Ҳанӯз дарсе дастрас нест';
 
   @override
-  String get learningEmptyQuizzes => 'No quizzes available';
+  String get learningEmptyQuizzes => 'Викторинае дастрас нест';
 
   @override
-  String get learningEmptyChallenges => 'Check back tomorrow';
+  String get learningEmptyChallenges => 'Фардо боз санҷед';
 
   @override
-  String get learningEmptyAchievements => 'Earn your first achievement';
+  String get learningEmptyAchievements => 'Аввалин дастоварди худро ба даст оред';
 
   @override
-  String get learningEmptySearchResults => 'No results found';
+  String get learningEmptySearchResults => 'Натиҷа ёфт нашуд';
 
   @override
   String learningXpGained(int xp) {
@@ -5592,158 +5593,158 @@ class AppLocalizationsTg extends AppLocalizations {
   }
 
   @override
-  String get learningLevelUp => 'Level up!';
+  String get learningLevelUp => 'Сатҳ боло шуд!';
 
   @override
   String learningLevelReached(String level) {
-    return 'You reached $level';
+    return 'Шумо ба $level расидед';
   }
 
   @override
-  String get learningAchievementUnlocked => 'Achievement unlocked';
+  String get learningAchievementUnlocked => 'Дастоварди нав кушода шуд';
 
   @override
-  String get learningVocabularySearchHint => 'Search vocabulary';
+  String get learningVocabularySearchHint => 'Дар луғат ҷустуҷӯ кунед';
 
   @override
-  String get learningVocabularyFilterAll => 'All';
+  String get learningVocabularyFilterAll => 'Ҳама';
 
   @override
-  String get learningVocabularyFilterNew => 'New';
+  String get learningVocabularyFilterNew => 'Нав';
 
   @override
-  String get learningVocabularyFilterLearning => 'Learning';
+  String get learningVocabularyFilterLearning => 'Дар ҳоли омӯзиш';
 
   @override
-  String get learningVocabularyFilterMastered => 'Mastered';
+  String get learningVocabularyFilterMastered => 'Аз худ кардашуда';
 
   @override
-  String get learningVocabularySortRecent => 'Recent';
+  String get learningVocabularySortRecent => 'Наздик';
 
   @override
-  String get learningVocabularySortAlphabetical => 'Alphabetical';
+  String get learningVocabularySortAlphabetical => 'Бо алифбо';
 
   @override
-  String get learningVocabularySortMastery => 'Mastery';
+  String get learningVocabularySortMastery => 'Сатҳи азхудкунӣ';
 
   @override
-  String get learningVocabularyMasteryNew => 'New';
+  String get learningVocabularyMasteryNew => 'Нав';
 
   @override
-  String get learningVocabularyMasteryLearning => 'Learning';
+  String get learningVocabularyMasteryLearning => 'Дар ҳоли омӯзиш';
 
   @override
-  String get learningVocabularyMasteryMastered => 'Mastered';
+  String get learningVocabularyMasteryMastered => 'Аз худ кардашуда';
 
   @override
-  String get learningProgressLevelLabel => 'Level';
+  String get learningProgressLevelLabel => 'Сатҳ';
 
   @override
   String learningProgressXpToNextLevel(int xp) {
-    return '$xp XP to next level';
+    return '$xp XP то сатҳи навбатӣ';
   }
 
   @override
-  String get learningProgressWeeklyChartTitle => 'Last 7 days';
+  String get learningProgressWeeklyChartTitle => '7 рӯзи охир';
 
   @override
-  String get aiTutorPronounceLoading => 'Picking a sentence for you…';
+  String get aiTutorPronounceLoading => 'Барои шумо ҷумла интихоб карда мешавад…';
 
   @override
-  String get aiTutorPronounceTapToRecord => 'Tap to record';
+  String get aiTutorPronounceTapToRecord => 'Барои сабт пахш кунед';
 
   @override
-  String get aiTutorPronounceTapToStop => 'Tap to stop';
+  String get aiTutorPronounceTapToStop => 'Барои тавқиф пахш кунед';
 
   @override
-  String get aiTutorPronounceTranscribing => 'Listening to you…';
+  String get aiTutorPronounceTranscribing => 'Гӯш карда мешавед…';
 
   @override
-  String get aiTutorPronounceTryAgain => 'Try Again';
+  String get aiTutorPronounceTryAgain => 'Аз нав кӯшиш кунед';
 
   @override
-  String get aiTutorPronounceNext => 'Next';
+  String get aiTutorPronounceNext => 'Минбаъд';
 
   @override
-  String get aiTutorPronounceUseYourOwn => 'Use my own ✏️';
+  String get aiTutorPronounceUseYourOwn => 'Аз ҷумлаи худам истифода кунам ✏️';
 
   @override
-  String get aiTutorPronounceCustomHint => 'Type a sentence you want to practice';
+  String get aiTutorPronounceCustomHint => 'Ҷумлаеро, ки мехоҳед машқ кунед, нависед';
 
   @override
-  String get aiTutorPronounceCustomCancel => 'Cancel';
+  String get aiTutorPronounceCustomCancel => 'Бекор кунед';
 
   @override
-  String get aiTutorPronounceCustomUse => 'Use';
+  String get aiTutorPronounceCustomUse => 'Истифода баред';
 
   @override
-  String get aiTutorPronounceQuitConfirm => 'Quit drill? Your progress won\'t be saved.';
+  String get aiTutorPronounceQuitConfirm => 'Машқро тарк мекунед? Пешрафти шумо нигоҳ дошта намешавад.';
 
   @override
-  String get aiTutorPronounceQuitYes => 'Yes';
+  String get aiTutorPronounceQuitYes => 'Ҳа';
 
   @override
-  String get aiTutorPronounceQuitNo => 'No';
+  String get aiTutorPronounceQuitNo => 'Не';
 
   @override
   String aiTutorPronounceSentenceOf(int current, int total) {
-    return 'Sentence $current of $total';
+    return 'Ҷумлаи $current аз $total';
   }
 
   @override
-  String get aiTutorPronounceSummaryTitle => 'Drill complete';
+  String get aiTutorPronounceSummaryTitle => 'Машқ анҷом ёфт';
 
   @override
-  String get aiTutorPronounceSummaryAvg => 'Average score';
+  String get aiTutorPronounceSummaryAvg => 'Хол ба ҳисоби миёна';
 
   @override
-  String get aiTutorPronounceSummaryWeak => 'Words to practice';
+  String get aiTutorPronounceSummaryWeak => 'Калимаҳо барои машқ';
 
   @override
-  String get aiTutorPronounceSaveClose => 'Save & Close';
+  String get aiTutorPronounceSaveClose => 'Нигоҳ дошта пӯшидан';
 
   @override
-  String get aiTutorPronounceSaving => 'Saving…';
+  String get aiTutorPronounceSaving => 'Нигоҳ дошта мешавад…';
 
   @override
-  String get aiTutorChipPronounce => 'Pronounce';
+  String get aiTutorChipPronounce => 'Талаффуз';
 
   @override
   String aiTutorPlanPronunciation(int count, int completed) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: 'Pronunciation drills ($completed/$count)',
-      one: 'Pronunciation drill ($completed/1)',
+      other: 'Машқҳои талаффуз ($completed/$count)',
+      one: 'Машқи талаффуз ($completed/1)',
     );
     return '$_temp0';
   }
 
   @override
-  String get aiTutorPronounceStartHeadline => 'How do you want to practice?';
+  String get aiTutorPronounceStartHeadline => 'Чӣ гуна машқ кардан мехоҳед?';
 
   @override
-  String get aiTutorPronounceStartSubhead => 'Pick one to begin a 5-sentence drill.';
+  String get aiTutorPronounceStartSubhead => 'Якеро интихоб кунед, то машқи 5-ҷумлаиро оғоз кунед.';
 
   @override
-  String get aiTutorPronounceStartAITitle => 'AI generates sentences';
+  String get aiTutorPronounceStartAITitle => 'AI ҷумлаҳо эҷод мекунад';
 
   @override
-  String get aiTutorPronounceStartAISubtitle => 'Level-tuned, biased toward your tricky words';
+  String get aiTutorPronounceStartAISubtitle => 'Мутобиқ ба сатҳ, бо таваҷҷӯҳ ба калимаҳои душвори шумо';
 
   @override
-  String get aiTutorPronounceStartCustomTitle => 'Use my own sentence';
+  String get aiTutorPronounceStartCustomTitle => 'Ҷумлаи худамро истифода кунам';
 
   @override
-  String get aiTutorPronounceStartCustomSubtitle => 'Type or paste a phrase you want to nail';
+  String get aiTutorPronounceStartCustomSubtitle => 'Ибораеро, ки мехоҳед омӯзед, нависед ё часпонед';
 
   @override
   String aiTutorQuotaRemaining(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count left today',
-      one: '1 left today',
+      other: '$count-то имрӯз боқӣ мондааст',
+      one: '1-то имрӯз боқӣ мондааст',
     );
     return '$_temp0';
   }
