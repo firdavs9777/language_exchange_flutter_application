@@ -107,6 +107,7 @@ class LanguageFlags {
     
     // Pacific Languages
     'tl': '🇵🇭', // Tagalog
+    'tajik': '🇹🇯', // Tajik (duplicate flag entry)
     'ceb': '🇵🇭', // Cebuano
     'haw': '🇺🇸', // Hawaiian
     'mi': '🇳🇿', // Maori
@@ -275,6 +276,8 @@ class LanguageFlags {
     'kazakh': 'kk',
     'kyrgyz': 'ky',
     'tajik': 'tg',
+    'tajiki': 'tg',
+    'тоҷикӣ': 'tg',
     'turkmen': 'tk',
     'mongolian': 'mn',
     'albanian': 'sq',
