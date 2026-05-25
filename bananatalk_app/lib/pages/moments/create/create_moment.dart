@@ -118,6 +118,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     'Russian': 'ru',
     'Arabic': 'ar',
     'Hindi': 'hi',
+    'Tajik': 'tg',
     'Thai': 'th',
     'Vietnamese': 'vi',
     'Dutch': 'nl',
