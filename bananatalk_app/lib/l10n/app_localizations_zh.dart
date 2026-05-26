@@ -303,7 +303,8 @@ class AppLocalizationsZh extends AppLocalizations {
   String get clearCacheSubtitle => '释放存储空间';
 
   @override
-  String get clearCacheDescription => '这将清除所有缓存的图片、视频和音频文件。在重新下载媒体内容期间，应用可能会暂时加载较慢。';
+  String get clearCacheDescription =>
+      '这将清除所有缓存的图片、视频和音频文件。在重新下载媒体内容期间，应用可能会暂时加载较慢。';
 
   @override
   String get clearCacheHint => '如果图片或音频无法正常加载，请使用此功能。';
@@ -394,7 +395,8 @@ class AppLocalizationsZh extends AppLocalizations {
   String get aiTutorPickerHeader => 'Who do you want to learn with?';
 
   @override
-  String get aiTutorPickerSubtitle => 'You can change this anytime in settings.';
+  String get aiTutorPickerSubtitle =>
+      'You can change this anytime in settings.';
 
   @override
   String get aiTutorPersonaNanaTagline => 'Warm + encouraging';
@@ -432,7 +434,8 @@ class AppLocalizationsZh extends AppLocalizations {
   String get aiTutorHomeTodaysPlan => 'Today\'s plan';
 
   @override
-  String get aiTutorHomePlanEmpty => 'No plan for today — start a chat to begin.';
+  String get aiTutorHomePlanEmpty =>
+      'No plan for today — start a chat to begin.';
 
   @override
   String get aiTutorHomeStartChat => 'Start chat';
@@ -444,19 +447,22 @@ class AppLocalizationsZh extends AppLocalizations {
   String get aiTutorHomePracticeScenarios => 'Practice scenarios';
 
   @override
-  String get aiTutorHomePracticeScenariosSubtitle => 'Roleplay real-world conversations — restaurant, interview, hotel…';
+  String get aiTutorHomePracticeScenariosSubtitle =>
+      'Roleplay real-world conversations — restaurant, interview, hotel…';
 
   @override
   String get aiTutorHomeReadStory => 'Read a story';
 
   @override
-  String get aiTutorHomeReadStorySubtitle => 'AI writes a short story using your vocab — with quick comprehension checks.';
+  String get aiTutorHomeReadStorySubtitle =>
+      'AI writes a short story using your vocab — with quick comprehension checks.';
 
   @override
   String get aiTutorHomeDescribePhoto => 'Describe a photo';
 
   @override
-  String get aiTutorHomeDescribePhotoSubtitle => 'Snap a picture and describe it — AI grades your vocab + grammar.';
+  String get aiTutorHomeDescribePhotoSubtitle =>
+      'Snap a picture and describe it — AI grades your vocab + grammar.';
 
   @override
   String get aiTutorChatTitle => 'Chat with tutor';
@@ -486,7 +492,8 @@ class AppLocalizationsZh extends AppLocalizations {
   String get aiTutorChatTypeReplyHint => 'Type your reply…';
 
   @override
-  String get aiTutorChatMicPermissionDenied => 'Microphone permission needed for voice mode.';
+  String get aiTutorChatMicPermissionDenied =>
+      'Microphone permission needed for voice mode.';
 
   @override
   String get aiTutorChatTranscribeFailed => 'Didn\'t catch that — try again.';
@@ -590,7 +597,8 @@ class AppLocalizationsZh extends AppLocalizations {
   String get aiTutorImagePickHeader => 'Pick a photo to describe';
 
   @override
-  String get aiTutorImagePickSubtitle => 'The AI will give you a prompt in your target language, then grade your description.';
+  String get aiTutorImagePickSubtitle =>
+      'The AI will give you a prompt in your target language, then grade your description.';
 
   @override
   String get aiTutorImagePickCamera => 'Camera';
@@ -1015,7 +1023,8 @@ class AppLocalizationsZh extends AppLocalizations {
   String get warningThisActionIsPermanent => '警告：此操作是永久性的！';
 
   @override
-  String get deletingYourAccountWillPermanentlyRemove => '删除您的账户将永久删除：\n\n• 您的个人资料和所有个人数据\n• 您的所有消息和对话\n• 您的所有动态和故事\n• 您的VIP订阅（不退款）\n• 您的所有联系人和关注者\n\n此操作无法撤销。';
+  String get deletingYourAccountWillPermanentlyRemove =>
+      '删除您的账户将永久删除：\n\n• 您的个人资料和所有个人数据\n• 您的所有消息和对话\n• 您的所有动态和故事\n• 您的VIP订阅（不退款）\n• 您的所有联系人和关注者\n\n此操作无法撤销。';
 
   @override
   String get clearAllNotifications => '清除所有通知？';
@@ -1087,7 +1096,8 @@ class AppLocalizationsZh extends AppLocalizations {
   String get emailNotifications => '邮件通知';
 
   @override
-  String get receiveEmailNotificationsFromBananatalk => '接收来自 Bananatalk 的电子邮件通知';
+  String get receiveEmailNotificationsFromBananatalk =>
+      '接收来自 Bananatalk 的电子邮件通知';
 
   @override
   String get weeklySummary => '每周摘要';
@@ -2248,7 +2258,8 @@ class AppLocalizationsZh extends AppLocalizations {
   String get failedToUpdateSetting => 'Failed to update setting';
 
   @override
-  String get securityAlertsRecommended => 'We recommend keeping Security Alerts enabled to stay informed about important account activity.';
+  String get securityAlertsRecommended =>
+      'We recommend keeping Security Alerts enabled to stay informed about important account activity.';
 
   @override
   String chatWallpaperFor(String name) {
@@ -2321,10 +2332,12 @@ class AppLocalizationsZh extends AppLocalizations {
   String get errorSendingMedia => 'Error sending media';
 
   @override
-  String get cameraPermissionRequired => 'Camera and microphone permissions are required to record videos.';
+  String get cameraPermissionRequired =>
+      'Camera and microphone permissions are required to record videos.';
 
   @override
-  String get locationPermissionRequired => 'Location permission is required to share your location.';
+  String get locationPermissionRequired =>
+      'Location permission is required to share your location.';
 
   @override
   String get noInternetConnection => 'No internet connection';
@@ -2626,7 +2639,8 @@ class AppLocalizationsZh extends AppLocalizations {
   String get warningPermanent => '警告：此操作不可撤销！';
 
   @override
-  String get deleteAccountWarning => '删除账号将永久删除：\n\n• 你的个人资料和所有个人数据\n• 所有消息和对话\n• 所有动态和故事\n• VIP订阅（不退款）\n• 所有关注和粉丝\n\n此操作不可撤销。';
+  String get deleteAccountWarning =>
+      '删除账号将永久删除：\n\n• 你的个人资料和所有个人数据\n• 所有消息和对话\n• 所有动态和故事\n• VIP订阅（不退款）\n• 所有关注和粉丝\n\n此操作不可撤销。';
 
   @override
   String get requiredForEmailOnly => '仅邮箱账号需要';
@@ -3411,7 +3425,8 @@ class AppLocalizationsZh extends AppLocalizations {
   String get noRankingsYet => 'No rankings yet';
 
   @override
-  String get startLearningToAppear => 'Start learning to appear on the leaderboard!';
+  String get startLearningToAppear =>
+      'Start learning to appear on the leaderboard!';
 
   @override
   String get noFriendsYet => 'No friends yet';
@@ -3453,7 +3468,8 @@ class AppLocalizationsZh extends AppLocalizations {
   String get selectLanguagePrompt => 'Select a language';
 
   @override
-  String get findPartnersByLanguage => 'Find partners who speak or learn this language';
+  String get findPartnersByLanguage =>
+      'Find partners who speak or learn this language';
 
   @override
   String noPartnersForLanguage(String language) {
@@ -3521,7 +3537,8 @@ class AppLocalizationsZh extends AppLocalizations {
   String get allCache => '所有缓存';
 
   @override
-  String get clearAllCacheConfirmation => '这将清除所有缓存的图片、语音消息、视频和其他文件。应用可能会暂时加载内容较慢。';
+  String get clearAllCacheConfirmation =>
+      '这将清除所有缓存的图片、语音消息、视频和其他文件。应用可能会暂时加载内容较慢。';
 
   @override
   String clearCacheConfirmationFor(String category) {
@@ -4443,7 +4460,8 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
-  String get logoutConfirmMessage => 'Are you sure you want to logout from Bananatalk?';
+  String get logoutConfirmMessage =>
+      'Are you sure you want to logout from Bananatalk?';
 
   @override
   String get loggingOut => 'Logging out...';
@@ -4455,7 +4473,8 @@ class AppLocalizationsZh extends AppLocalizations {
   String get quietHoursEnable => 'Enable Quiet Hours';
 
   @override
-  String get quietHoursSubtitle => 'Pause non-urgent notifications during a time window';
+  String get quietHoursSubtitle =>
+      'Pause non-urgent notifications during a time window';
 
   @override
   String get quietHoursStart => 'Start time';
@@ -4467,7 +4486,8 @@ class AppLocalizationsZh extends AppLocalizations {
   String get quietHoursAllowUrgent => 'Allow urgent notifications';
 
   @override
-  String get quietHoursAllowUrgentSubtitle => 'Calls and messages from VIP partners can still come through';
+  String get quietHoursAllowUrgentSubtitle =>
+      'Calls and messages from VIP partners can still come through';
 
   @override
   String get silencedByQuietHours => 'Silenced by Quiet Hours';
@@ -5655,7 +5675,8 @@ class AppLocalizationsZh extends AppLocalizations {
   String get aiTutorPronounceUseYourOwn => 'Use my own ✏️';
 
   @override
-  String get aiTutorPronounceCustomHint => 'Type a sentence you want to practice';
+  String get aiTutorPronounceCustomHint =>
+      'Type a sentence you want to practice';
 
   @override
   String get aiTutorPronounceCustomCancel => 'Cancel';
@@ -5664,7 +5685,8 @@ class AppLocalizationsZh extends AppLocalizations {
   String get aiTutorPronounceCustomUse => 'Use';
 
   @override
-  String get aiTutorPronounceQuitConfirm => 'Quit drill? Your progress won\'t be saved.';
+  String get aiTutorPronounceQuitConfirm =>
+      'Quit drill? Your progress won\'t be saved.';
 
   @override
   String get aiTutorPronounceQuitYes => 'Yes';
@@ -5710,19 +5732,22 @@ class AppLocalizationsZh extends AppLocalizations {
   String get aiTutorPronounceStartHeadline => 'How do you want to practice?';
 
   @override
-  String get aiTutorPronounceStartSubhead => 'Pick one to begin a 5-sentence drill.';
+  String get aiTutorPronounceStartSubhead =>
+      'Pick one to begin a 5-sentence drill.';
 
   @override
   String get aiTutorPronounceStartAITitle => 'AI generates sentences';
 
   @override
-  String get aiTutorPronounceStartAISubtitle => 'Level-tuned, biased toward your tricky words';
+  String get aiTutorPronounceStartAISubtitle =>
+      'Level-tuned, biased toward your tricky words';
 
   @override
   String get aiTutorPronounceStartCustomTitle => 'Use my own sentence';
 
   @override
-  String get aiTutorPronounceStartCustomSubtitle => 'Type or paste a phrase you want to nail';
+  String get aiTutorPronounceStartCustomSubtitle =>
+      'Type or paste a phrase you want to nail';
 
   @override
   String aiTutorQuotaRemaining(int count) {
@@ -5738,7 +5763,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
 class AppLocalizationsZhTw extends AppLocalizationsZh {
-  AppLocalizationsZhTw(): super('zh_TW');
+  AppLocalizationsZhTw() : super('zh_TW');
 
   @override
   String get appName => 'Bananatalk';
@@ -6029,7 +6054,8 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get clearCacheSubtitle => '釋放儲存空間';
 
   @override
-  String get clearCacheDescription => '這將清除所有快取的圖片、影片和音訊檔案。在重新下載媒體內容期間，應用程式可能會暫時載入較慢。';
+  String get clearCacheDescription =>
+      '這將清除所有快取的圖片、影片和音訊檔案。在重新下載媒體內容期間，應用程式可能會暫時載入較慢。';
 
   @override
   String get clearCacheHint => '如果圖片或音訊無法正常載入，請使用此功能。';
@@ -6399,7 +6425,8 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get warningThisActionIsPermanent => '警告：此操作為永久性！';
 
   @override
-  String get deletingYourAccountWillPermanentlyRemove => '刪除您的帳戶將永久移除：\n\n• 您的個人檔案和所有個人資料\n• 您的所有訊息和對話\n• 您的所有動態和限時動態\n• 您的 VIP 訂閱（不退款）\n• 您的所有連結和粉絲\n\n此操作無法復原。';
+  String get deletingYourAccountWillPermanentlyRemove =>
+      '刪除您的帳戶將永久移除：\n\n• 您的個人檔案和所有個人資料\n• 您的所有訊息和對話\n• 您的所有動態和限時動態\n• 您的 VIP 訂閱（不退款）\n• 您的所有連結和粉絲\n\n此操作無法復原。';
 
   @override
   String get clearAllNotifications => '清除所有通知？';
@@ -6471,7 +6498,8 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get emailNotifications => '電子郵件通知';
 
   @override
-  String get receiveEmailNotificationsFromBananatalk => '接收來自 Bananatalk 的電子郵件通知';
+  String get receiveEmailNotificationsFromBananatalk =>
+      '接收來自 Bananatalk 的電子郵件通知';
 
   @override
   String get weeklySummary => '每週摘要';
@@ -8007,7 +8035,8 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get warningPermanent => '警告：此操作不可撤銷！';
 
   @override
-  String get deleteAccountWarning => '刪除帳號將永久刪除：\n\n• 您的個人資料和所有個人數據\n• 所有訊息和對話\n• 所有動態和限時動態\n• VIP訂閱（不退款）\n• 所有關注和粉絲\n\n此操作不可撤銷。';
+  String get deleteAccountWarning =>
+      '刪除帳號將永久刪除：\n\n• 您的個人資料和所有個人數據\n• 所有訊息和對話\n• 所有動態和限時動態\n• VIP訂閱（不退款）\n• 所有關注和粉絲\n\n此操作不可撤銷。';
 
   @override
   String get requiredForEmailOnly => '僅電子郵件帳號需要';
@@ -8776,7 +8805,8 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get allCache => '所有快取';
 
   @override
-  String get clearAllCacheConfirmation => '這將清除所有快取的圖片、語音訊息、影片和其他檔案。應用程式可能會暫時載入內容較慢。';
+  String get clearAllCacheConfirmation =>
+      '這將清除所有快取的圖片、語音訊息、影片和其他檔案。應用程式可能會暫時載入內容較慢。';
 
   @override
   String clearCacheConfirmationFor(String category) {
@@ -10733,4 +10763,17 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get learningProgressWeeklyChartTitle => '最近7天';
+
+  @override
+  String get aiStudyPromoTitle => 'Practice real conversations';
+
+  @override
+  String get aiStudyPromoBody =>
+      'Roleplay 39 real-world scenarios — from ordering coffee to job interviews — with your AI tutor. Tuned to your level, free for everyone.';
+
+  @override
+  String get aiStudyPromoCTA => 'Try practice scenarios';
+
+  @override
+  String get aiStudyPromoDismiss => 'Maybe later';
 }

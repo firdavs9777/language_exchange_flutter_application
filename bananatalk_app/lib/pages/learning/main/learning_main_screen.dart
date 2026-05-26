@@ -189,9 +189,9 @@ class _LearningMainState extends ConsumerState<LearningMain>
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          const Icon(Icons.auto_awesome_rounded, size: 18),
+                          const Icon(Icons.psychology_rounded, size: 18),
                           const SizedBox(width: 6),
-                          Text(AppLocalizations.of(context)!.learnTab),
+                          Text(AppLocalizations.of(context)!.aiTools),
                         ],
                       ),
                     ),
@@ -199,9 +199,9 @@ class _LearningMainState extends ConsumerState<LearningMain>
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          const Icon(Icons.psychology_rounded, size: 18),
+                          const Icon(Icons.auto_awesome_rounded, size: 18),
                           const SizedBox(width: 6),
-                          Text(AppLocalizations.of(context)!.aiTools),
+                          Text(AppLocalizations.of(context)!.learnTab),
                         ],
                       ),
                     ),
@@ -214,8 +214,8 @@ class _LearningMainState extends ConsumerState<LearningMain>
         body: TabBarView(
           controller: _tabController,
           children: [
-            LearnTab(onSwitchToAI: () => _tabController.animateTo(1)),
             const AIToolsTab(),
+            LearnTab(onSwitchToAI: () => _tabController.animateTo(0)),
           ],
         ),
       ),

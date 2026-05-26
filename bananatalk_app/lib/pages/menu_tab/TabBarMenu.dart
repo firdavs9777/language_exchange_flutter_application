@@ -4,6 +4,7 @@ import 'package:bananatalk_app/pages/profile/profile_main.dart';
 import 'package:bananatalk_app/pages/community/main/community_main.dart';
 import 'package:bananatalk_app/pages/learning/main/learning_main_screen.dart';
 import 'package:bananatalk_app/providers/badge_count_provider.dart';
+import 'package:bananatalk_app/widgets/promo/ai_study_promo_modal.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
@@ -44,6 +45,11 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref.read(badgeCountProvider.notifier).fetchBadgeCount();
+      // Weekly promo for AI Study / practice scenarios. Self-throttles to
+      // once per 7 days via SharedPreferences.
+      if (mounted) {
+        AiStudyPromoModal.showIfDue(context);
+      }
     });
   }
 

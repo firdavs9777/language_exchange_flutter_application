@@ -204,16 +204,20 @@ class AppLocalizationsRu extends AppLocalizations {
   String get autoTranslateSettings => 'Настройки автоматического перевода';
 
   @override
-  String get automaticallyTranslateIncomingMessages => 'Автоматически переводить входящие сообщения';
+  String get automaticallyTranslateIncomingMessages =>
+      'Автоматически переводить входящие сообщения';
 
   @override
-  String get automaticallyTranslateMomentsInFeed => 'Автоматически переводить моменты в ленте';
+  String get automaticallyTranslateMomentsInFeed =>
+      'Автоматически переводить моменты в ленте';
 
   @override
-  String get automaticallyTranslateComments => 'Автоматически переводить комментарии';
+  String get automaticallyTranslateComments =>
+      'Автоматически переводить комментарии';
 
   @override
-  String get translationServiceBeingConfigured => 'Служба перевода настраивается. Пожалуйста, попробуйте позже.';
+  String get translationServiceBeingConfigured =>
+      'Служба перевода настраивается. Пожалуйста, попробуйте позже.';
 
   @override
   String get translationUnavailable => 'Перевод недоступен';
@@ -264,7 +268,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get userNotFound => 'Пользователь не найден';
 
   @override
-  String get cannotReportYourOwnComment => 'Нельзя пожаловаться на свой комментарий';
+  String get cannotReportYourOwnComment =>
+      'Нельзя пожаловаться на свой комментарий';
 
   @override
   String get profileSettings => 'Настройки профиля';
@@ -303,16 +308,19 @@ class AppLocalizationsRu extends AppLocalizations {
   String get clearCacheSubtitle => 'Освободить место в хранилище';
 
   @override
-  String get clearCacheDescription => 'Это удалит все кэшированные изображения, видео и аудиофайлы. Приложение может временно загружать контент медленнее, пока повторно загружает медиафайлы.';
+  String get clearCacheDescription =>
+      'Это удалит все кэшированные изображения, видео и аудиофайлы. Приложение может временно загружать контент медленнее, пока повторно загружает медиафайлы.';
 
   @override
-  String get clearCacheHint => 'Используйте это, если изображения или аудио не загружаются правильно.';
+  String get clearCacheHint =>
+      'Используйте это, если изображения или аудио не загружаются правильно.';
 
   @override
   String get clearingCache => 'Очистка кэша...';
 
   @override
-  String get cacheCleared => 'Кэш успешно очищен! Изображения будут загружены заново.';
+  String get cacheCleared =>
+      'Кэш успешно очищен! Изображения будут загружены заново.';
 
   @override
   String get clearCacheFailed => 'Не удалось очистить кэш';
@@ -327,13 +335,15 @@ class AppLocalizationsRu extends AppLocalizations {
   String get reportsManagement => 'Управление жалобами';
 
   @override
-  String get manageAllReportsAdmin => 'Управление всеми жалобами (Администратор)';
+  String get manageAllReportsAdmin =>
+      'Управление всеми жалобами (Администратор)';
 
   @override
   String get legalPrivacy => 'Юридическая информация и конфиденциальность';
 
   @override
-  String get termsPrivacySubscriptionInfo => 'Условия, конфиденциальность и информация о подписке';
+  String get termsPrivacySubscriptionInfo =>
+      'Условия, конфиденциальность и информация о подписке';
 
   @override
   String get helpCenter => 'Центр помощи';
@@ -394,7 +404,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get aiTutorPickerHeader => 'Who do you want to learn with?';
 
   @override
-  String get aiTutorPickerSubtitle => 'You can change this anytime in settings.';
+  String get aiTutorPickerSubtitle =>
+      'You can change this anytime in settings.';
 
   @override
   String get aiTutorPersonaNanaTagline => 'Warm + encouraging';
@@ -432,7 +443,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get aiTutorHomeTodaysPlan => 'Today\'s plan';
 
   @override
-  String get aiTutorHomePlanEmpty => 'No plan for today — start a chat to begin.';
+  String get aiTutorHomePlanEmpty =>
+      'No plan for today — start a chat to begin.';
 
   @override
   String get aiTutorHomeStartChat => 'Start chat';
@@ -444,19 +456,22 @@ class AppLocalizationsRu extends AppLocalizations {
   String get aiTutorHomePracticeScenarios => 'Practice scenarios';
 
   @override
-  String get aiTutorHomePracticeScenariosSubtitle => 'Roleplay real-world conversations — restaurant, interview, hotel…';
+  String get aiTutorHomePracticeScenariosSubtitle =>
+      'Roleplay real-world conversations — restaurant, interview, hotel…';
 
   @override
   String get aiTutorHomeReadStory => 'Read a story';
 
   @override
-  String get aiTutorHomeReadStorySubtitle => 'AI writes a short story using your vocab — with quick comprehension checks.';
+  String get aiTutorHomeReadStorySubtitle =>
+      'AI writes a short story using your vocab — with quick comprehension checks.';
 
   @override
   String get aiTutorHomeDescribePhoto => 'Describe a photo';
 
   @override
-  String get aiTutorHomeDescribePhotoSubtitle => 'Snap a picture and describe it — AI grades your vocab + grammar.';
+  String get aiTutorHomeDescribePhotoSubtitle =>
+      'Snap a picture and describe it — AI grades your vocab + grammar.';
 
   @override
   String get aiTutorChatTitle => 'Chat with tutor';
@@ -486,7 +501,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get aiTutorChatTypeReplyHint => 'Type your reply…';
 
   @override
-  String get aiTutorChatMicPermissionDenied => 'Microphone permission needed for voice mode.';
+  String get aiTutorChatMicPermissionDenied =>
+      'Microphone permission needed for voice mode.';
 
   @override
   String get aiTutorChatTranscribeFailed => 'Didn\'t catch that — try again.';
@@ -590,7 +606,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get aiTutorImagePickHeader => 'Pick a photo to describe';
 
   @override
-  String get aiTutorImagePickSubtitle => 'The AI will give you a prompt in your target language, then grade your description.';
+  String get aiTutorImagePickSubtitle =>
+      'The AI will give you a prompt in your target language, then grade your description.';
 
   @override
   String get aiTutorImagePickCamera => 'Camera';
@@ -728,7 +745,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get searchConversations => 'Поиск разговоров...';
 
   @override
-  String get visitorTrackingNotAvailable => 'Функция отслеживания посетителей пока недоступна. Требуется обновление сервера.';
+  String get visitorTrackingNotAvailable =>
+      'Функция отслеживания посетителей пока недоступна. Требуется обновление сервера.';
 
   @override
   String get chatList => 'Список чатов';
@@ -797,7 +815,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get enableNotifications => 'Включить уведомления';
 
   @override
-  String get turnAllNotificationsOnOrOff => 'Включить или выключить все уведомления';
+  String get turnAllNotificationsOnOrOff =>
+      'Включить или выключить все уведомления';
 
   @override
   String get notificationTypes => 'Типы уведомлений';
@@ -806,13 +825,16 @@ class AppLocalizationsRu extends AppLocalizations {
   String get chatMessages => 'Сообщения чата';
 
   @override
-  String get getNotifiedWhenYouReceiveMessages => 'Получать уведомления при получении сообщений';
+  String get getNotifiedWhenYouReceiveMessages =>
+      'Получать уведомления при получении сообщений';
 
   @override
-  String get likesAndCommentsOnYourMoments => 'Лайки и комментарии к вашим моментам';
+  String get likesAndCommentsOnYourMoments =>
+      'Лайки и комментарии к вашим моментам';
 
   @override
-  String get whenPeopleYouFollowPostMoments => 'Когда люди, на которых вы подписаны, публикуют моменты';
+  String get whenPeopleYouFollowPostMoments =>
+      'Когда люди, на которых вы подписаны, публикуют моменты';
 
   @override
   String get friendRequests => 'Запросы в друзья';
@@ -824,13 +846,15 @@ class AppLocalizationsRu extends AppLocalizations {
   String get profileVisits => 'Посещения профиля';
 
   @override
-  String get whenSomeoneViewsYourProfileVIP => 'Когда кто-то просматривает ваш профиль (VIP)';
+  String get whenSomeoneViewsYourProfileVIP =>
+      'Когда кто-то просматривает ваш профиль (VIP)';
 
   @override
   String get marketing => 'Маркетинг';
 
   @override
-  String get updatesAndPromotionalMessages => 'Обновления и рекламные сообщения';
+  String get updatesAndPromotionalMessages =>
+      'Обновления и рекламные сообщения';
 
   @override
   String get notificationPreferences => 'Настройки уведомлений';
@@ -851,7 +875,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get showPreview => 'Показать предпросмотр';
 
   @override
-  String get showMessagePreviewInNotifications => 'Показывать предпросмотр сообщений в уведомлениях';
+  String get showMessagePreviewInNotifications =>
+      'Показывать предпросмотр сообщений в уведомлениях';
 
   @override
   String get mutedConversations => 'Приглушенные разговоры';
@@ -866,7 +891,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get systemNotificationSettings => 'Настройки системных уведомлений';
 
   @override
-  String get manageNotificationsInSystemSettings => 'Управление уведомлениями в системных настройках';
+  String get manageNotificationsInSystemSettings =>
+      'Управление уведомлениями в системных настройках';
 
   @override
   String get errorLoadingSettings => 'Ошибка загрузки настроек';
@@ -881,16 +907,19 @@ class AppLocalizationsRu extends AppLocalizations {
   String get goBack => 'Назад';
 
   @override
-  String get messageSendTimeout => 'Тайм-аут отправки сообщения. Проверьте подключение.';
+  String get messageSendTimeout =>
+      'Тайм-аут отправки сообщения. Проверьте подключение.';
 
   @override
   String get failedToSendMessage => 'Не удалось отправить сообщение';
 
   @override
-  String get dailyMessageLimitExceeded => 'Превышен дневной лимит сообщений. Обновитесь до VIP для неограниченных сообщений.';
+  String get dailyMessageLimitExceeded =>
+      'Превышен дневной лимит сообщений. Обновитесь до VIP для неограниченных сообщений.';
 
   @override
-  String get cannotSendMessageUserMayBeBlocked => 'Не удалось отправить сообщение. Пользователь может быть заблокирован.';
+  String get cannotSendMessageUserMayBeBlocked =>
+      'Не удалось отправить сообщение. Пользователь может быть заблокирован.';
 
   @override
   String get sessionExpired => 'Сессия истекла. Войдите снова.';
@@ -899,19 +928,22 @@ class AppLocalizationsRu extends AppLocalizations {
   String get sendThisSticker => 'Отправить этот стикер?';
 
   @override
-  String get chooseHowYouWantToDeleteThisMessage => 'Выберите, как вы хотите удалить это сообщение:';
+  String get chooseHowYouWantToDeleteThisMessage =>
+      'Выберите, как вы хотите удалить это сообщение:';
 
   @override
   String get deleteForEveryone => 'Удалить для всех';
 
   @override
-  String get removesTheMessageForBothYouAndTheRecipient => 'Удаляет сообщение для вас и получателя';
+  String get removesTheMessageForBothYouAndTheRecipient =>
+      'Удаляет сообщение для вас и получателя';
 
   @override
   String get deleteForMe => 'Удалить для меня';
 
   @override
-  String get removesTheMessageOnlyFromYourChat => 'Удаляет сообщение только из вашего чата';
+  String get removesTheMessageOnlyFromYourChat =>
+      'Удаляет сообщение только из вашего чата';
 
   @override
   String get copy => 'Копировать';
@@ -976,10 +1008,12 @@ class AppLocalizationsRu extends AppLocalizations {
   String get text => 'Текст';
 
   @override
-  String get provideMoreInformation => 'Предоставить дополнительную информацию...';
+  String get provideMoreInformation =>
+      'Предоставить дополнительную информацию...';
 
   @override
-  String get searchByNameLanguageOrInterests => 'Поиск по имени, языку или интересам...';
+  String get searchByNameLanguageOrInterests =>
+      'Поиск по имени, языку или интересам...';
 
   @override
   String get addTagAndPressEnter => 'Добавьте тег и нажмите Enter';
@@ -1009,13 +1043,16 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
-  String get additionalDetailsOptional => 'Дополнительные детали (необязательно)';
+  String get additionalDetailsOptional =>
+      'Дополнительные детали (необязательно)';
 
   @override
-  String get warningThisActionIsPermanent => 'Предупреждение: это действие необратимо!';
+  String get warningThisActionIsPermanent =>
+      'Предупреждение: это действие необратимо!';
 
   @override
-  String get deletingYourAccountWillPermanentlyRemove => 'Удаление вашего аккаунта навсегда удалит:\n\n• Ваш профиль и все личные данные\n• Все ваши сообщения и разговоры\n• Все ваши моменты и истории\n• Вашу VIP подписку (без возврата средств)\n• Все ваши связи и подписчиков\n\nЭто действие нельзя отменить.';
+  String get deletingYourAccountWillPermanentlyRemove =>
+      'Удаление вашего аккаунта навсегда удалит:\n\n• Ваш профиль и все личные данные\n• Все ваши сообщения и разговоры\n• Все ваши моменты и истории\n• Вашу VIP подписку (без возврата средств)\n• Все ваши связи и подписчиков\n\nЭто действие нельзя отменить.';
 
   @override
   String get clearAllNotifications => 'Очистить все уведомления?';
@@ -1087,7 +1124,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get emailNotifications => 'Уведомления по электронной почте';
 
   @override
-  String get receiveEmailNotificationsFromBananatalk => 'Получать уведомления по электронной почте от Bananatalk';
+  String get receiveEmailNotificationsFromBananatalk =>
+      'Получать уведомления по электронной почте от Bananatalk';
 
   @override
   String get weeklySummary => 'Еженедельная сводка';
@@ -1152,7 +1190,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get deleteStory => 'Удалить историю?';
 
   @override
-  String get thisStoryWillBeRemovedPermanently => 'Эта история будет удалена навсегда.';
+  String get thisStoryWillBeRemovedPermanently =>
+      'Эта история будет удалена навсегда.';
 
   @override
   String get noStories => 'Нет историй';
@@ -1187,7 +1226,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get storyPosted => 'История опубликована!';
 
   @override
-  String get textOnlyStoriesRequireAnImage => 'Текстовые истории требуют изображения';
+  String get textOnlyStoriesRequireAnImage =>
+      'Текстовые истории требуют изображения';
 
   @override
   String get createStory => 'Создать историю';
@@ -1196,7 +1236,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get change => 'Изменить';
 
   @override
-  String get userIdNotFound => 'ID пользователя не найден. Пожалуйста, войдите снова.';
+  String get userIdNotFound =>
+      'ID пользователя не найден. Пожалуйста, войдите снова.';
 
   @override
   String get pleaseSelectAPaymentMethod => 'Пожалуйста, выберите способ оплаты';
@@ -1226,7 +1267,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get cancelSubscription => 'Отменить подписку';
 
   @override
-  String get vipSubscriptionCancelledSuccessfully => 'VIP подписка успешно отменена';
+  String get vipSubscriptionCancelledSuccessfully =>
+      'VIP подписка успешно отменена';
 
   @override
   String get vipStatus => 'Статус VIP';
@@ -1238,7 +1280,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get subscriptionExpired => 'Подписка истекла';
 
   @override
-  String get vipExpiredMessage => 'Ваша VIP подписка истекла. Продлите сейчас, чтобы продолжить пользоваться безлимитными функциями!';
+  String get vipExpiredMessage =>
+      'Ваша VIP подписка истекла. Продлите сейчас, чтобы продолжить пользоваться безлимитными функциями!';
 
   @override
   String get expiredOn => 'Истекла';
@@ -1352,7 +1395,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get block => 'Заблокировать';
 
   @override
-  String get wouldYouAlsoLikeToBlockThisUser => 'Вы также хотите заблокировать этого пользователя?';
+  String get wouldYouAlsoLikeToBlockThisUser =>
+      'Вы также хотите заблокировать этого пользователя?';
 
   @override
   String get noThanks => 'Нет, спасибо';
@@ -1367,7 +1411,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get submitReport => 'Отправить жалобу';
 
   @override
-  String get addAQuestionAndAtLeast2Options => 'Добавить вопрос и минимум 2 варианта';
+  String get addAQuestionAndAtLeast2Options =>
+      'Добавить вопрос и минимум 2 варианта';
 
   @override
   String get addOption => 'Добавить вариант';
@@ -1403,19 +1448,23 @@ class AppLocalizationsRu extends AppLocalizations {
   String get storiesNotAvailable => 'Истории недоступны';
 
   @override
-  String get cantMessageThisUser => 'Нельзя отправить сообщение этому пользователю';
+  String get cantMessageThisUser =>
+      'Нельзя отправить сообщение этому пользователю';
 
   @override
   String get pleaseSelectAReason => 'Пожалуйста, выберите причину';
 
   @override
-  String get reportSubmitted => 'Жалоба отправлена. Спасибо за помощь в поддержании безопасности нашего сообщества.';
+  String get reportSubmitted =>
+      'Жалоба отправлена. Спасибо за помощь в поддержании безопасности нашего сообщества.';
 
   @override
-  String get youHaveAlreadyReportedThisMoment => 'Вы уже пожаловались на этот момент';
+  String get youHaveAlreadyReportedThisMoment =>
+      'Вы уже пожаловались на этот момент';
 
   @override
-  String get tellUsMoreAboutWhyYouAreReportingThis => 'Расскажите нам больше о том, почему вы жалуетесь на это';
+  String get tellUsMoreAboutWhyYouAreReportingThis =>
+      'Расскажите нам больше о том, почему вы жалуетесь на это';
 
   @override
   String get errorSharing => 'Ошибка при обмене';
@@ -1457,10 +1506,12 @@ class AppLocalizationsRu extends AppLocalizations {
   String get manageSubscription => 'Управление подпиской';
 
   @override
-  String get manageSubscriptionInSettings => 'Чтобы отменить подписку, перейдите в Настройки > [Ваше имя] > Подписки на вашем устройстве.';
+  String get manageSubscriptionInSettings =>
+      'Чтобы отменить подписку, перейдите в Настройки > [Ваше имя] > Подписки на вашем устройстве.';
 
   @override
-  String get contactSupportToCancel => 'Чтобы отменить подписку, пожалуйста, свяжитесь с нашей службой поддержки.';
+  String get contactSupportToCancel =>
+      'Чтобы отменить подписку, пожалуйста, свяжитесь с нашей службой поддержки.';
 
   @override
   String get status => 'Статус';
@@ -1487,13 +1538,15 @@ class AppLocalizationsRu extends AppLocalizations {
   String get pleaseLogInToContinue => 'Пожалуйста, войдите, чтобы продолжить';
 
   @override
-  String get purchaseCanceledOrFailed => 'Покупка была отменена или не удалась. Пожалуйста, попробуйте снова.';
+  String get purchaseCanceledOrFailed =>
+      'Покупка была отменена или не удалась. Пожалуйста, попробуйте снова.';
 
   @override
   String get maximumTagsAllowed => 'Максимум 5 тегов разрешено';
 
   @override
-  String get pleaseRemoveImagesFirstToAddVideo => 'Сначала удалите изображения, чтобы добавить видео';
+  String get pleaseRemoveImagesFirstToAddVideo =>
+      'Сначала удалите изображения, чтобы добавить видео';
 
   @override
   String get unsupportedFormat => 'Неподдерживаемый формат';
@@ -1502,7 +1555,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get errorProcessingVideo => 'Ошибка обработки видео';
 
   @override
-  String get pleaseRemoveImagesFirstToRecordVideo => 'Сначала удалите изображения, чтобы записать видео';
+  String get pleaseRemoveImagesFirstToRecordVideo =>
+      'Сначала удалите изображения, чтобы записать видео';
 
   @override
   String get locationAdded => 'Местоположение добавлено';
@@ -1607,10 +1661,12 @@ class AppLocalizationsRu extends AppLocalizations {
   String get pleaseEnterAQuestion => 'Пожалуйста, введите вопрос';
 
   @override
-  String get pleaseAddAtLeast2Options => 'Пожалуйста, добавьте минимум 2 варианта';
+  String get pleaseAddAtLeast2Options =>
+      'Пожалуйста, добавьте минимум 2 варианта';
 
   @override
-  String get pleaseSelectCorrectAnswerForQuiz => 'Пожалуйста, выберите правильный ответ для викторины';
+  String get pleaseSelectCorrectAnswerForQuiz =>
+      'Пожалуйста, выберите правильный ответ для викторины';
 
   @override
   String get correctionSent => 'Исправление отправлено!';
@@ -1776,7 +1832,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get failedToUnfollowUser => 'Failed to unfollow user';
 
   @override
-  String get areYouSureUnfollow => 'Are you sure you want to unfollow this user?';
+  String get areYouSureUnfollow =>
+      'Are you sure you want to unfollow this user?';
 
   @override
   String get areYouSureUnblock => 'Are you sure you want to unblock this user?';
@@ -1863,7 +1920,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get pleaseRemoveImagesFirst => 'Сначала удалите изображения';
 
   @override
-  String get exchange3MessagesBeforeCall => 'Для звонка нужно обменяться минимум 3 сообщениями';
+  String get exchange3MessagesBeforeCall =>
+      'Для звонка нужно обменяться минимум 3 сообщениями';
 
   @override
   String mediaWithUser(String name) {
@@ -1943,7 +2001,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get leaveRoom => 'Покинуть комнату';
 
   @override
-  String get areYouSureLeaveRoom => 'Вы уверены, что хотите покинуть эту комнату?';
+  String get areYouSureLeaveRoom =>
+      'Вы уверены, что хотите покинуть эту комнату?';
 
   @override
   String get stay => 'Остаться';
@@ -2022,28 +2081,33 @@ class AppLocalizationsRu extends AppLocalizations {
   String get optimizingForBestExperience => 'Оптимизация для лучшего опыта';
 
   @override
-  String get pleaseSelectImageOrVideo => 'Пожалуйста, выберите изображение или видео для истории';
+  String get pleaseSelectImageOrVideo =>
+      'Пожалуйста, выберите изображение или видео для истории';
 
   @override
   String get storyCreatedSuccessfully => 'История успешно создана!';
 
   @override
-  String get uploadingStoryInBackground => 'Загрузка истории в фоновом режиме...';
+  String get uploadingStoryInBackground =>
+      'Загрузка истории в фоновом режиме...';
 
   @override
   String get storyCreationFailed => 'Не удалось создать историю';
 
   @override
-  String get pleaseCheckConnection => 'Проверьте подключение и попробуйте снова.';
+  String get pleaseCheckConnection =>
+      'Проверьте подключение и попробуйте снова.';
 
   @override
   String get uploadFailed => 'Ошибка загрузки';
 
   @override
-  String get tryShorterVideo => 'Попробуйте использовать более короткое видео или повторите позже.';
+  String get tryShorterVideo =>
+      'Попробуйте использовать более короткое видео или повторите позже.';
 
   @override
-  String get shareMomentsThatDisappear => 'Делитесь моментами, которые исчезают через 24 часа';
+  String get shareMomentsThatDisappear =>
+      'Делитесь моментами, которые исчезают через 24 часа';
 
   @override
   String get photo => 'Фото';
@@ -2157,7 +2221,8 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
-  String get willReceiveNotifications => 'Вы будете получать уведомления о новых сообщениях.';
+  String get willReceiveNotifications =>
+      'Вы будете получать уведомления о новых сообщениях.';
 
   @override
   String muteNotificationsFor(String name) {
@@ -2199,7 +2264,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get longPressToBookmark => 'Удерживайте сообщение, чтобы сохранить';
 
   @override
-  String get thisWillRemoveFromBookmarks => 'Сообщение будет удалено из сохраненных.';
+  String get thisWillRemoveFromBookmarks =>
+      'Сообщение будет удалено из сохраненных.';
 
   @override
   String navigateToMessage(String name) {
@@ -2233,7 +2299,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get emailPreferences => 'Настройки почты';
 
   @override
-  String get receiveEmailNotifications => 'Receive email notifications from Bananatalk';
+  String get receiveEmailNotifications =>
+      'Receive email notifications from Bananatalk';
 
   @override
   String get whenAwayFor24Hours => 'When you\'re away for 24+ hours';
@@ -2248,7 +2315,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get failedToUpdateSetting => 'Failed to update setting';
 
   @override
-  String get securityAlertsRecommended => 'We recommend keeping Security Alerts enabled to stay informed about important account activity.';
+  String get securityAlertsRecommended =>
+      'We recommend keeping Security Alerts enabled to stay informed about important account activity.';
 
   @override
   String chatWallpaperFor(String name) {
@@ -2321,10 +2389,12 @@ class AppLocalizationsRu extends AppLocalizations {
   String get errorSendingMedia => 'Error sending media';
 
   @override
-  String get cameraPermissionRequired => 'Camera and microphone permissions are required to record videos.';
+  String get cameraPermissionRequired =>
+      'Camera and microphone permissions are required to record videos.';
 
   @override
-  String get locationPermissionRequired => 'Location permission is required to share your location.';
+  String get locationPermissionRequired =>
+      'Location permission is required to share your location.';
 
   @override
   String get noInternetConnection => 'No internet connection';
@@ -2416,7 +2486,8 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
-  String get scheduledDateMustBeFuture => 'Запланированная дата должна быть в будущем';
+  String get scheduledDateMustBeFuture =>
+      'Запланированная дата должна быть в будущем';
 
   @override
   String get recent => 'Новые';
@@ -2505,10 +2576,12 @@ class AppLocalizationsRu extends AppLocalizations {
   String get findingPartners => 'Поиск партнёров...';
 
   @override
-  String get setLocationReminder => 'Укажите местоположение, чтобы найти партнёров поблизости';
+  String get setLocationReminder =>
+      'Укажите местоположение, чтобы найти партнёров поблизости';
 
   @override
-  String get updateLocationReminder => 'Обновите местоположение для лучших результатов';
+  String get updateLocationReminder =>
+      'Обновите местоположение для лучших результатов';
 
   @override
   String get male => 'Мужской';
@@ -2556,10 +2629,12 @@ class AppLocalizationsRu extends AppLocalizations {
   String get findingYourLocation => 'Определяем ваше местоположение...';
 
   @override
-  String get enableLocationForDistance => 'Включите геолокацию, чтобы видеть расстояния';
+  String get enableLocationForDistance =>
+      'Включите геолокацию, чтобы видеть расстояния';
 
   @override
-  String get enableLocationDescription => 'Разрешите доступ к местоположению, чтобы найти языковых партнёров рядом';
+  String get enableLocationDescription =>
+      'Разрешите доступ к местоположению, чтобы найти языковых партнёров рядом';
 
   @override
   String get enableGps => 'Включить GPS';
@@ -2589,7 +2664,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get searchByCityName => 'Поиск по названию города';
 
   @override
-  String get seeUserCountsPerCountry => 'Посмотреть количество пользователей по странам';
+  String get seeUserCountsPerCountry =>
+      'Посмотреть количество пользователей по странам';
 
   @override
   String get upgradeToVip => 'Перейти на VIP';
@@ -2626,10 +2702,12 @@ class AppLocalizationsRu extends AppLocalizations {
   String get warningPermanent => 'Внимание: это действие необратимо!';
 
   @override
-  String get deleteAccountWarning => 'Удаление аккаунта навсегда сотрёт все ваши данные, сообщения, моменты и связи. Это действие нельзя отменить.';
+  String get deleteAccountWarning =>
+      'Удаление аккаунта навсегда сотрёт все ваши данные, сообщения, моменты и связи. Это действие нельзя отменить.';
 
   @override
-  String get requiredForEmailOnly => 'Требуется только для аккаунтов с электронной почтой';
+  String get requiredForEmailOnly =>
+      'Требуется только для аккаунтов с электронной почтой';
 
   @override
   String get pleaseEnterPassword => 'Пожалуйста, введите пароль';
@@ -2728,7 +2806,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get almostDone => 'Почти готово!';
 
   @override
-  String get addPhotoLocationForMatches => 'Добавьте фото и местоположение для лучших совпадений';
+  String get addPhotoLocationForMatches =>
+      'Добавьте фото и местоположение для лучших совпадений';
 
   @override
   String get addProfilePhoto => 'Добавить фото профиля';
@@ -2743,7 +2822,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get profilePhotoRequired => 'Добавьте хотя бы одно фото профиля';
 
   @override
-  String get locationOptional => 'Местоположение необязательно — можно добавить позже';
+  String get locationOptional =>
+      'Местоположение необязательно — можно добавить позже';
 
   @override
   String get maximum6Photos => 'Максимум 6 фото';
@@ -2752,7 +2832,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get tapToDetectLocation => 'Нажмите для определения местоположения';
 
   @override
-  String get optionalHelpsNearbyPartners => 'Необязательно — помогает найти партнёров поблизости';
+  String get optionalHelpsNearbyPartners =>
+      'Необязательно — помогает найти партнёров поблизости';
 
   @override
   String get startLearning => 'Начать обучение';
@@ -2781,10 +2862,12 @@ class AppLocalizationsRu extends AppLocalizations {
   String get yourCurrentLevel => 'Ваш текущий уровень';
 
   @override
-  String get nativeCannotBeSameAsLearning => 'Родной язык не может совпадать с изучаемым';
+  String get nativeCannotBeSameAsLearning =>
+      'Родной язык не может совпадать с изучаемым';
 
   @override
-  String get learningCannotBeSameAsNative => 'Изучаемый язык не может совпадать с родным';
+  String get learningCannotBeSameAsNative =>
+      'Изучаемый язык не может совпадать с родным';
 
   @override
   String stepOf(String current, String total) {
@@ -2846,7 +2929,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get otherGender => 'Другой';
 
   @override
-  String get continueWithGoogleAccount => 'Продолжите через Google-аккаунт\nдля удобного входа';
+  String get continueWithGoogleAccount =>
+      'Продолжите через Google-аккаунт\nдля удобного входа';
 
   @override
   String get signingYouIn => 'Выполняется вход...';
@@ -2858,7 +2942,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get securedByGoogle => 'Защищено Google';
 
   @override
-  String get dataProtectedEncryption => 'Ваши данные защищены стандартным шифрованием';
+  String get dataProtectedEncryption =>
+      'Ваши данные защищены стандартным шифрованием';
 
   @override
   String get welcomeCompleteProfile => 'Добро пожаловать! Заполните профиль';
@@ -2869,7 +2954,8 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
-  String get continueWithAppleId => 'Продолжите через Apple ID\nдля безопасного входа';
+  String get continueWithAppleId =>
+      'Продолжите через Apple ID\nдля безопасного входа';
 
   @override
   String get continueWithApple => 'Продолжить через Apple';
@@ -2878,7 +2964,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get securedByApple => 'Защищено Apple';
 
   @override
-  String get privacyProtectedApple => 'Ваша конфиденциальность защищена Apple Sign-In';
+  String get privacyProtectedApple =>
+      'Ваша конфиденциальность защищена Apple Sign-In';
 
   @override
   String get createAccount => 'Создать аккаунт';
@@ -2902,7 +2989,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get resetPasswordTitle => 'Сброс пароля';
 
   @override
-  String get enterEmailForResetCode => 'Введите email и мы отправим код для сброса пароля';
+  String get enterEmailForResetCode =>
+      'Введите email и мы отправим код для сброса пароля';
 
   @override
   String get sendResetCode => 'Отправить код';
@@ -2926,7 +3014,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get pleaseEnterAll6Digits => 'Введите все 6 цифр';
 
   @override
-  String get codeVerifiedCreatePassword => 'Код подтверждён! Создайте новый пароль';
+  String get codeVerifiedCreatePassword =>
+      'Код подтверждён! Создайте новый пароль';
 
   @override
   String get verify => 'Подтвердить';
@@ -2973,7 +3062,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get pleaseFillAllFields => 'Заполните все поля';
 
   @override
-  String get passwordResetSuccessful => 'Пароль сброшен! Войдите с новым паролем';
+  String get passwordResetSuccessful =>
+      'Пароль сброшен! Войдите с новым паролем';
 
   @override
   String get privacyTitle => 'Конфиденциальность';
@@ -3027,7 +3117,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get birthdayNotifications => 'Уведомления о дне рождения';
 
   @override
-  String get birthdayNotificationsDesc => 'Получать уведомления в день рождения';
+  String get birthdayNotificationsDesc =>
+      'Получать уведомления в день рождения';
 
   @override
   String get personalizedAds => 'Персонализированная реклама';
@@ -3060,10 +3151,12 @@ class AppLocalizationsRu extends AppLocalizations {
   String get locationUpdated => 'Местоположение обновлено';
 
   @override
-  String get locationPermissionDenied => 'Разрешение на определение местоположения отклонено. Включите в настройках.';
+  String get locationPermissionDenied =>
+      'Разрешение на определение местоположения отклонено. Включите в настройках.';
 
   @override
-  String get locationServiceDisabled => 'Службы определения местоположения отключены. Пожалуйста, включите их.';
+  String get locationServiceDisabled =>
+      'Службы определения местоположения отключены. Пожалуйста, включите их.';
 
   @override
   String get updatingLocation => 'Обновление местоположения...';
@@ -3140,13 +3233,16 @@ class AppLocalizationsRu extends AppLocalizations {
   String get switchCamera => 'Переключить камеру';
 
   @override
-  String get callPermissionDenied => 'Для звонков требуется разрешение микрофона';
+  String get callPermissionDenied =>
+      'Для звонков требуется разрешение микрофона';
 
   @override
-  String get cameraPermissionDenied => 'Для видеозвонков требуется разрешение камеры';
+  String get cameraPermissionDenied =>
+      'Для видеозвонков требуется разрешение камеры';
 
   @override
-  String get callConnectionFailed => 'Не удалось подключиться. Попробуйте снова.';
+  String get callConnectionFailed =>
+      'Не удалось подключиться. Попробуйте снова.';
 
   @override
   String get userBusy => 'Пользователь занят';
@@ -3230,7 +3326,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get lowerHand => 'Опустить руку';
 
   @override
-  String get handRaisedNotification => 'Рука поднята! Ведущий увидит ваш запрос.';
+  String get handRaisedNotification =>
+      'Рука поднята! Ведущий увидит ваш запрос.';
 
   @override
   String get handLoweredNotification => 'Рука опущена';
@@ -3269,7 +3366,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get typeMessage => 'Введите сообщение...';
 
   @override
-  String get voiceRoomsDescription => 'Присоединяйтесь к живым разговорам и практикуйте речь';
+  String get voiceRoomsDescription =>
+      'Присоединяйтесь к живым разговорам и практикуйте речь';
 
   @override
   String liveRoomsCount(int count) {
@@ -3280,7 +3378,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get noActiveRooms => 'Нет активных комнат';
 
   @override
-  String get noActiveRoomsDescription => 'Будьте первым, кто создаст голосовую комнату и практикуйтесь с другими!';
+  String get noActiveRoomsDescription =>
+      'Будьте первым, кто создаст голосовую комнату и практикуйтесь с другими!';
 
   @override
   String get startRoom => 'Начать комнату';
@@ -3411,7 +3510,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get noRankingsYet => 'No rankings yet';
 
   @override
-  String get startLearningToAppear => 'Start learning to appear on the leaderboard!';
+  String get startLearningToAppear =>
+      'Start learning to appear on the leaderboard!';
 
   @override
   String get noFriendsYet => 'No friends yet';
@@ -3453,7 +3553,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get selectLanguagePrompt => 'Select a language';
 
   @override
-  String get findPartnersByLanguage => 'Find partners who speak or learn this language';
+  String get findPartnersByLanguage =>
+      'Find partners who speak or learn this language';
 
   @override
   String noPartnersForLanguage(String language) {
@@ -3521,7 +3622,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get allCache => 'Весь Кэш';
 
   @override
-  String get clearAllCacheConfirmation => 'Это удалит все кэшированные изображения, голосовые сообщения, видео и другие файлы. Приложение может временно загружать контент медленнее.';
+  String get clearAllCacheConfirmation =>
+      'Это удалит все кэшированные изображения, голосовые сообщения, видео и другие файлы. Приложение может временно загружать контент медленнее.';
 
   @override
   String clearCacheConfirmationFor(String category) {
@@ -3568,7 +3670,8 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
-  String get beFirstToAddTopic => 'Будьте первым, кто добавит эту тему в свои интересы!';
+  String get beFirstToAddTopic =>
+      'Будьте первым, кто добавит эту тему в свои интересы!';
 
   @override
   String get recentMoments => 'Недавние моменты';
@@ -3583,19 +3686,22 @@ class AppLocalizationsRu extends AppLocalizations {
   String get followerMoments => 'Моменты подписок';
 
   @override
-  String get whenPeopleYouFollowPost => 'Когда люди, на которых вы подписаны, публикуют новые моменты';
+  String get whenPeopleYouFollowPost =>
+      'Когда люди, на которых вы подписаны, публикуют новые моменты';
 
   @override
   String get noNotificationsYet => 'Пока нет уведомлений';
 
   @override
-  String get whenYouGetNotifications => 'Когда вы получите уведомления, они появятся здесь';
+  String get whenYouGetNotifications =>
+      'Когда вы получите уведомления, они появятся здесь';
 
   @override
   String get failedToLoadNotifications => 'Не удалось загрузить уведомления';
 
   @override
-  String get clearAllNotificationsConfirm => 'Вы уверены, что хотите удалить все уведомления? Это действие нельзя отменить.';
+  String get clearAllNotificationsConfirm =>
+      'Вы уверены, что хотите удалить все уведомления? Это действие нельзя отменить.';
 
   @override
   String get tapToChange => 'Нажмите для изменения';
@@ -3692,10 +3798,12 @@ class AppLocalizationsRu extends AppLocalizations {
   String get savedHometown => 'Родной город сохранен';
 
   @override
-  String get locationServicesDisabled => 'Службы геолокации отключены. Пожалуйста, включите их.';
+  String get locationServicesDisabled =>
+      'Службы геолокации отключены. Пожалуйста, включите их.';
 
   @override
-  String get locationPermissionPermanentlyDenied => 'Разрешения на геолокацию постоянно отклонены.';
+  String get locationPermissionPermanentlyDenied =>
+      'Разрешения на геолокацию постоянно отклонены.';
 
   @override
   String get unknown => 'Неизвестно';
@@ -3736,10 +3844,12 @@ class AppLocalizationsRu extends AppLocalizations {
   String get languageToLearnRequired => 'Изучаемый Язык (Обязательно)';
 
   @override
-  String get nativeLanguageCannotBeSame => 'Родной язык не может совпадать с изучаемым';
+  String get nativeLanguageCannotBeSame =>
+      'Родной язык не может совпадать с изучаемым';
 
   @override
-  String get learningLanguageCannotBeSame => 'Изучаемый язык не может совпадать с родным';
+  String get learningLanguageCannotBeSame =>
+      'Изучаемый язык не может совпадать с родным';
 
   @override
   String get pleaseSelectALanguage => 'Пожалуйста, выберите язык';
@@ -3788,10 +3898,12 @@ class AppLocalizationsRu extends AppLocalizations {
   String get removeAllSelectedImages => 'Удалить Все Выбранные';
 
   @override
-  String get removeAllSelectedImagesConfirm => 'Удалить все выбранные изображения?';
+  String get removeAllSelectedImagesConfirm =>
+      'Удалить все выбранные изображения?';
 
   @override
-  String get yourProfilePictureWillBeKept => 'Ваше фото профиля будет сохранено';
+  String get yourProfilePictureWillBeKept =>
+      'Ваше фото профиля будет сохранено';
 
   @override
   String get removeAllImages => 'Удалить Все Изображения';
@@ -3823,10 +3935,12 @@ class AppLocalizationsRu extends AppLocalizations {
   String get selectedImagesCleared => 'Выбранные изображения удалены';
 
   @override
-  String get extraImagesRemovedSuccessfully => 'Дополнительные изображения удалены';
+  String get extraImagesRemovedSuccessfully =>
+      'Дополнительные изображения удалены';
 
   @override
-  String get mustKeepAtLeastOneProfilePicture => 'Нужно хотя бы одно фото профиля';
+  String get mustKeepAtLeastOneProfilePicture =>
+      'Нужно хотя бы одно фото профиля';
 
   @override
   String get noProfilePicturesToRemove => 'Нет фото для удаления';
@@ -3959,13 +4073,15 @@ class AppLocalizationsRu extends AppLocalizations {
   String get badgesAndMilestones => 'Значки и вехи';
 
   @override
-  String get failedToLoadLearningData => 'Не удалось загрузить данные об обучении';
+  String get failedToLoadLearningData =>
+      'Не удалось загрузить данные об обучении';
 
   @override
   String get startYourJourney => 'Начните свой путь!';
 
   @override
-  String get startJourneyDescription => 'Проходите уроки, пополняйте словарь\nи отслеживайте прогресс';
+  String get startJourneyDescription =>
+      'Проходите уроки, пополняйте словарь\nи отслеживайте прогресс';
 
   @override
   String levelN(int level) {
@@ -4175,7 +4291,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get documentMustBeUnder50MB => 'Документ должен быть меньше 50 МБ.';
 
   @override
-  String get editWithin15Minutes => 'Сообщения можно редактировать только в течение 15 минут';
+  String get editWithin15Minutes =>
+      'Сообщения можно редактировать только в течение 15 минут';
 
   @override
   String messageForwardedTo(int count) {
@@ -4234,10 +4351,12 @@ class AppLocalizationsRu extends AppLocalizations {
   String get any => 'Любой';
 
   @override
-  String get showNewUsersSubtitle => 'Показывать пользователей, присоединившихся за последние 6 дней';
+  String get showNewUsersSubtitle =>
+      'Показывать пользователей, присоединившихся за последние 6 дней';
 
   @override
-  String get autoDetectLocation => 'Автоматически определить моё местоположение';
+  String get autoDetectLocation =>
+      'Автоматически определить моё местоположение';
 
   @override
   String get selectCountry => 'Выбрать страну';
@@ -4283,7 +4402,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get locationAccessRestricted => 'Доступ к местоположению ограничен';
 
   @override
-  String get locationPermissionNeeded => 'Требуется разрешение на определение местоположения';
+  String get locationPermissionNeeded =>
+      'Требуется разрешение на определение местоположения';
 
   @override
   String get addToYourMoment => 'Добавить к вашему моменту';
@@ -4307,7 +4427,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get howAreYouFeeling => 'Как вы себя чувствуете?';
 
   @override
-  String get pleaseWaitOptimizingVideo => 'Пожалуйста, подождите, пока мы оптимизируем ваше видео';
+  String get pleaseWaitOptimizingVideo =>
+      'Пожалуйста, подождите, пока мы оптимизируем ваше видео';
 
   @override
   String unsupportedVideoFormat(String formats) {
@@ -4443,7 +4564,8 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
-  String get logoutConfirmMessage => 'Are you sure you want to logout from Bananatalk?';
+  String get logoutConfirmMessage =>
+      'Are you sure you want to logout from Bananatalk?';
 
   @override
   String get loggingOut => 'Logging out...';
@@ -4455,7 +4577,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get quietHoursEnable => 'Enable Quiet Hours';
 
   @override
-  String get quietHoursSubtitle => 'Pause non-urgent notifications during a time window';
+  String get quietHoursSubtitle =>
+      'Pause non-urgent notifications during a time window';
 
   @override
   String get quietHoursStart => 'Start time';
@@ -4467,7 +4590,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get quietHoursAllowUrgent => 'Allow urgent notifications';
 
   @override
-  String get quietHoursAllowUrgentSubtitle => 'Calls and messages from VIP partners can still come through';
+  String get quietHoursAllowUrgentSubtitle =>
+      'Calls and messages from VIP partners can still come through';
 
   @override
   String get silencedByQuietHours => 'Silenced by Quiet Hours';
@@ -4494,7 +4618,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get languageUpdatedSuccessfully => 'Язык успешно обновлён';
 
   @override
-  String get bioHintCard => 'Хорошая анкета помогает другим узнать вас. Расскажите о своих интересах, языках или о том, что вы ищете.';
+  String get bioHintCard =>
+      'Хорошая анкета помогает другим узнать вас. Расскажите о своих интересах, языках или о том, что вы ищете.';
 
   @override
   String get bioCounterStartWriting => 'Начните писать...';
@@ -4533,7 +4658,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get tapTypeBelow => 'Выберите тип ниже';
 
   @override
-  String get tapButtonToDetectLocation => 'Нажмите кнопку ниже, чтобы определить ваше текущее местоположение';
+  String get tapButtonToDetectLocation =>
+      'Нажмите кнопку ниже, чтобы определить ваше текущее местоположение';
 
   @override
   String currentAddressLabel(String address) {
@@ -4541,7 +4667,8 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
-  String get onlyCityCountryShown => 'Другим пользователям видны только ваш город и страна. Точные координаты остаются конфиденциальными.';
+  String get onlyCityCountryShown =>
+      'Другим пользователям видны только ваш город и страна. Точные координаты остаются конфиденциальными.';
 
   @override
   String get updateLocationCta => 'Обновить местоположение';
@@ -4612,7 +4739,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get aboutDialogClose => 'Закрыть';
 
   @override
-  String get aboutBananatalkTagline => 'Общайтесь с изучающими языки по всему миру и улучшайте навыки через реальные разговоры.';
+  String get aboutBananatalkTagline =>
+      'Общайтесь с изучающими языки по всему миру и улучшайте навыки через реальные разговоры.';
 
   @override
   String get aboutCopyright => '© 2024 Bananatalk. Все права защищены.';
@@ -4642,7 +4770,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get noVisitorsYet => 'Посетителей пока нет';
 
   @override
-  String get noVisitorsYetSubtitle => 'Когда люди посетят ваш профиль,\nони появятся здесь';
+  String get noVisitorsYetSubtitle =>
+      'Когда люди посетят ваш профиль,\nони появятся здесь';
 
   @override
   String get visitedViaSearch => 'через Поиск';
@@ -4657,10 +4786,12 @@ class AppLocalizationsRu extends AppLocalizations {
   String get visitedDirect => 'Прямой визит';
 
   @override
-  String get visitorTrackingUnavailable => 'Отслеживание посетителей недоступно. Обновите бэкенд.';
+  String get visitorTrackingUnavailable =>
+      'Отслеживание посетителей недоступно. Обновите бэкенд.';
 
   @override
-  String get visitorTrackingNotAvailableYet => 'Отслеживание посетителей пока недоступно';
+  String get visitorTrackingNotAvailableYet =>
+      'Отслеживание посетителей пока недоступно';
 
   @override
   String get noFollowersYetSubtitle => 'Начните общаться с другими!';
@@ -4669,7 +4800,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get partnerButton => 'Партнёр';
 
   @override
-  String get notFollowingAnyoneYetSubtitle => 'Подпишитесь на людей, чтобы видеть их обновления!';
+  String get notFollowingAnyoneYetSubtitle =>
+      'Подпишитесь на людей, чтобы видеть их обновления!';
 
   @override
   String get unfollowButton => 'Отписаться';
@@ -4681,7 +4813,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get themeAutoSwitch => 'Авто (системная тема)';
 
   @override
-  String get themeSystemHint => 'При включении приложение будет следовать настройкам темы системы';
+  String get themeSystemHint =>
+      'При включении приложение будет следовать настройкам темы системы';
 
   @override
   String get themeLightMode => 'Светлая тема';
@@ -4699,7 +4832,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get momentGridView => 'Сетка';
 
   @override
-  String get shareLanguageLearningJourney => 'Поделитесь своим путём изучения языка!';
+  String get shareLanguageLearningJourney =>
+      'Поделитесь своим путём изучения языка!';
 
   @override
   String get deleteHighlightTitle => 'Удалить подборку';
@@ -4731,7 +4865,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get momentEnterDescription => 'Введите описание';
 
   @override
-  String get momentUpdatedImageFailed => 'Момент обновлён, но загрузка изображения не удалась';
+  String get momentUpdatedImageFailed =>
+      'Момент обновлён, но загрузка изображения не удалась';
 
   @override
   String get updateRequiredTitle => 'Требуется обновление';
@@ -4740,10 +4875,12 @@ class AppLocalizationsRu extends AppLocalizations {
   String get updateAvailableTitle => 'Доступно обновление';
 
   @override
-  String get updateRequiredBody => 'Эта версия Bananatalk больше не поддерживается. Пожалуйста, обновите приложение, чтобы продолжить.';
+  String get updateRequiredBody =>
+      'Эта версия Bananatalk больше не поддерживается. Пожалуйста, обновите приложение, чтобы продолжить.';
 
   @override
-  String get updateAvailableBody => 'Доступна новая версия Bananatalk с улучшениями и исправлениями ошибок.';
+  String get updateAvailableBody =>
+      'Доступна новая версия Bananatalk с улучшениями и исправлениями ошибок.';
 
   @override
   String get updateNow => 'Обновить сейчас';
@@ -4752,7 +4889,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get updateLater => 'Позже';
 
   @override
-  String get updateOpenStoreFailed => 'Не удалось открыть магазин. Пожалуйста, обновите приложение из App Store или Play Store.';
+  String get updateOpenStoreFailed =>
+      'Не удалось открыть магазин. Пожалуйста, обновите приложение из App Store или Play Store.';
 
   @override
   String get rememberMe => 'Запомнить меня';
@@ -4793,7 +4931,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get usernameNotAvailable => 'Недоступно';
 
   @override
-  String get usernameInvalidFormat => '3–20 символов: буквы, цифры или подчёркивание';
+  String get usernameInvalidFormat =>
+      '3–20 символов: буквы, цифры или подчёркивание';
 
   @override
   String get usernameHint => '@имяпользователя';
@@ -4802,13 +4941,15 @@ class AppLocalizationsRu extends AppLocalizations {
   String get enableBiometricTitle => 'Войти через Face ID в следующий раз?';
 
   @override
-  String get enableBiometricBody => 'Входите с помощью биометрии без ввода пароля.';
+  String get enableBiometricBody =>
+      'Входите с помощью биометрии без ввода пароля.';
 
   @override
   String get enableBiometricCta => 'Включить';
 
   @override
-  String get biometricSignInPrompt => 'Подтвердите личность для входа в Bananatalk';
+  String get biometricSignInPrompt =>
+      'Подтвердите личность для входа в Bananatalk';
 
   @override
   String continueAs(String name) {
@@ -4964,7 +5105,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get interestsInCommonAddCta => 'Добавить темы';
 
   @override
-  String get interestsInCommonAddSubtitle => 'Добавьте темы в профиль, чтобы найти точки соприкосновения';
+  String get interestsInCommonAddSubtitle =>
+      'Добавьте темы в профиль, чтобы найти точки соприкосновения';
 
   @override
   String activeAgo(String time) {
@@ -5029,7 +5171,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get notificationPreferencesTitle => 'Уведомления';
 
   @override
-  String get notificationPreferencesSubtitle => 'Выберите, какие оповещения вы получаете';
+  String get notificationPreferencesSubtitle =>
+      'Выберите, какие оповещения вы получаете';
 
   @override
   String get notifPrefChat => 'Новые сообщения';
@@ -5041,10 +5184,12 @@ class AppLocalizationsRu extends AppLocalizations {
   String get notifPrefVoiceRoomStart => 'Приглашения в голосовую комнату';
 
   @override
-  String get notifPrefScheduledRoomReminder => 'Напоминания о запланированных комнатах';
+  String get notifPrefScheduledRoomReminder =>
+      'Напоминания о запланированных комнатах';
 
   @override
-  String get notifPrefFollowerMoment => 'Новые моменты от тех, на кого вы подписаны';
+  String get notifPrefFollowerMoment =>
+      'Новые моменты от тех, на кого вы подписаны';
 
   @override
   String get notifPrefVisitorAlert => 'Посетители профиля';
@@ -5376,7 +5521,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get tapWordToSave => 'Нажмите и удерживайте слово, чтобы сохранить';
 
   @override
-  String get autoTranslateChatHint => 'Входящие сообщения будут переведены автоматически';
+  String get autoTranslateChatHint =>
+      'Входящие сообщения будут переведены автоматически';
 
   @override
   String get noConversationsYet => 'Пока нет разговоров';
@@ -5437,7 +5583,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get learningStreakFreezeUse => 'Использовать заморозку';
 
   @override
-  String get learningStreakFreezeDescription => 'Заморозки защищают вашу серию, когда вы пропускаете день.';
+  String get learningStreakFreezeDescription =>
+      'Заморозки защищают вашу серию, когда вы пропускаете день.';
 
   @override
   String get learningStreakFreezeProtected => 'Серия защищена!';
@@ -5674,7 +5821,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get aiTutorPronounceUseYourOwn => 'Use my own ✏️';
 
   @override
-  String get aiTutorPronounceCustomHint => 'Type a sentence you want to practice';
+  String get aiTutorPronounceCustomHint =>
+      'Type a sentence you want to practice';
 
   @override
   String get aiTutorPronounceCustomCancel => 'Cancel';
@@ -5683,7 +5831,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get aiTutorPronounceCustomUse => 'Use';
 
   @override
-  String get aiTutorPronounceQuitConfirm => 'Quit drill? Your progress won\'t be saved.';
+  String get aiTutorPronounceQuitConfirm =>
+      'Quit drill? Your progress won\'t be saved.';
 
   @override
   String get aiTutorPronounceQuitYes => 'Yes';
@@ -5729,19 +5878,22 @@ class AppLocalizationsRu extends AppLocalizations {
   String get aiTutorPronounceStartHeadline => 'How do you want to practice?';
 
   @override
-  String get aiTutorPronounceStartSubhead => 'Pick one to begin a 5-sentence drill.';
+  String get aiTutorPronounceStartSubhead =>
+      'Pick one to begin a 5-sentence drill.';
 
   @override
   String get aiTutorPronounceStartAITitle => 'AI generates sentences';
 
   @override
-  String get aiTutorPronounceStartAISubtitle => 'Level-tuned, biased toward your tricky words';
+  String get aiTutorPronounceStartAISubtitle =>
+      'Level-tuned, biased toward your tricky words';
 
   @override
   String get aiTutorPronounceStartCustomTitle => 'Use my own sentence';
 
   @override
-  String get aiTutorPronounceStartCustomSubtitle => 'Type or paste a phrase you want to nail';
+  String get aiTutorPronounceStartCustomSubtitle =>
+      'Type or paste a phrase you want to nail';
 
   @override
   String aiTutorQuotaRemaining(int count) {
@@ -5753,4 +5905,17 @@ class AppLocalizationsRu extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get aiStudyPromoTitle => 'Practice real conversations';
+
+  @override
+  String get aiStudyPromoBody =>
+      'Roleplay 39 real-world scenarios — from ordering coffee to job interviews — with your AI tutor. Tuned to your level, free for everyone.';
+
+  @override
+  String get aiStudyPromoCTA => 'Try practice scenarios';
+
+  @override
+  String get aiStudyPromoDismiss => 'Maybe later';
 }

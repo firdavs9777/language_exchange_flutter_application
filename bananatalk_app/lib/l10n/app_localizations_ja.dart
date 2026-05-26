@@ -303,7 +303,8 @@ class AppLocalizationsJa extends AppLocalizations {
   String get clearCacheSubtitle => 'ストレージ容量を解放';
 
   @override
-  String get clearCacheDescription => 'キャッシュされたすべての画像、動画、音声ファイルがクリアされます。メディアを再ダウンロードする間、一時的にコンテンツの読み込みが遅くなる場合があります。';
+  String get clearCacheDescription =>
+      'キャッシュされたすべての画像、動画、音声ファイルがクリアされます。メディアを再ダウンロードする間、一時的にコンテンツの読み込みが遅くなる場合があります。';
 
   @override
   String get clearCacheHint => '画像や音声が正しく読み込まれない場合に使用してください。';
@@ -394,7 +395,8 @@ class AppLocalizationsJa extends AppLocalizations {
   String get aiTutorPickerHeader => 'Who do you want to learn with?';
 
   @override
-  String get aiTutorPickerSubtitle => 'You can change this anytime in settings.';
+  String get aiTutorPickerSubtitle =>
+      'You can change this anytime in settings.';
 
   @override
   String get aiTutorPersonaNanaTagline => 'Warm + encouraging';
@@ -432,7 +434,8 @@ class AppLocalizationsJa extends AppLocalizations {
   String get aiTutorHomeTodaysPlan => 'Today\'s plan';
 
   @override
-  String get aiTutorHomePlanEmpty => 'No plan for today — start a chat to begin.';
+  String get aiTutorHomePlanEmpty =>
+      'No plan for today — start a chat to begin.';
 
   @override
   String get aiTutorHomeStartChat => 'Start chat';
@@ -444,19 +447,22 @@ class AppLocalizationsJa extends AppLocalizations {
   String get aiTutorHomePracticeScenarios => 'Practice scenarios';
 
   @override
-  String get aiTutorHomePracticeScenariosSubtitle => 'Roleplay real-world conversations — restaurant, interview, hotel…';
+  String get aiTutorHomePracticeScenariosSubtitle =>
+      'Roleplay real-world conversations — restaurant, interview, hotel…';
 
   @override
   String get aiTutorHomeReadStory => 'Read a story';
 
   @override
-  String get aiTutorHomeReadStorySubtitle => 'AI writes a short story using your vocab — with quick comprehension checks.';
+  String get aiTutorHomeReadStorySubtitle =>
+      'AI writes a short story using your vocab — with quick comprehension checks.';
 
   @override
   String get aiTutorHomeDescribePhoto => 'Describe a photo';
 
   @override
-  String get aiTutorHomeDescribePhotoSubtitle => 'Snap a picture and describe it — AI grades your vocab + grammar.';
+  String get aiTutorHomeDescribePhotoSubtitle =>
+      'Snap a picture and describe it — AI grades your vocab + grammar.';
 
   @override
   String get aiTutorChatTitle => 'Chat with tutor';
@@ -486,7 +492,8 @@ class AppLocalizationsJa extends AppLocalizations {
   String get aiTutorChatTypeReplyHint => 'Type your reply…';
 
   @override
-  String get aiTutorChatMicPermissionDenied => 'Microphone permission needed for voice mode.';
+  String get aiTutorChatMicPermissionDenied =>
+      'Microphone permission needed for voice mode.';
 
   @override
   String get aiTutorChatTranscribeFailed => 'Didn\'t catch that — try again.';
@@ -590,7 +597,8 @@ class AppLocalizationsJa extends AppLocalizations {
   String get aiTutorImagePickHeader => 'Pick a photo to describe';
 
   @override
-  String get aiTutorImagePickSubtitle => 'The AI will give you a prompt in your target language, then grade your description.';
+  String get aiTutorImagePickSubtitle =>
+      'The AI will give you a prompt in your target language, then grade your description.';
 
   @override
   String get aiTutorImagePickCamera => 'Camera';
@@ -887,10 +895,12 @@ class AppLocalizationsJa extends AppLocalizations {
   String get failedToSendMessage => 'メッセージの送信に失敗しました';
 
   @override
-  String get dailyMessageLimitExceeded => '1日のメッセージ上限を超えました。VIPにアップグレードして無制限のメッセージを。';
+  String get dailyMessageLimitExceeded =>
+      '1日のメッセージ上限を超えました。VIPにアップグレードして無制限のメッセージを。';
 
   @override
-  String get cannotSendMessageUserMayBeBlocked => 'メッセージを送信できません。ユーザーがブロックされている可能性があります。';
+  String get cannotSendMessageUserMayBeBlocked =>
+      'メッセージを送信できません。ユーザーがブロックされている可能性があります。';
 
   @override
   String get sessionExpired => 'セッションが期限切れです。再度ログインしてください。';
@@ -905,7 +915,8 @@ class AppLocalizationsJa extends AppLocalizations {
   String get deleteForEveryone => '全員から削除';
 
   @override
-  String get removesTheMessageForBothYouAndTheRecipient => 'あなたと受信者の両方からメッセージを削除します';
+  String get removesTheMessageForBothYouAndTheRecipient =>
+      'あなたと受信者の両方からメッセージを削除します';
 
   @override
   String get deleteForMe => '自分のみ削除';
@@ -1015,7 +1026,8 @@ class AppLocalizationsJa extends AppLocalizations {
   String get warningThisActionIsPermanent => '警告：この操作は永続的です！';
 
   @override
-  String get deletingYourAccountWillPermanentlyRemove => 'アカウントを削除すると、以下が完全に削除されます：\n\n• プロフィールとすべての個人データ\n• すべてのメッセージと会話\n• すべてのモーメントとストーリー\n• VIPサブスクリプション（返金なし）\n• すべての接続とフォロワー\n\nこの操作は取り消せません。';
+  String get deletingYourAccountWillPermanentlyRemove =>
+      'アカウントを削除すると、以下が完全に削除されます：\n\n• プロフィールとすべての個人データ\n• すべてのメッセージと会話\n• すべてのモーメントとストーリー\n• VIPサブスクリプション（返金なし）\n• すべての接続とフォロワー\n\nこの操作は取り消せません。';
 
   @override
   String get clearAllNotifications => 'すべての通知をクリアしますか？';
@@ -1087,7 +1099,8 @@ class AppLocalizationsJa extends AppLocalizations {
   String get emailNotifications => 'メール通知';
 
   @override
-  String get receiveEmailNotificationsFromBananatalk => 'Bananatalkからのメール通知を受け取る';
+  String get receiveEmailNotificationsFromBananatalk =>
+      'Bananatalkからのメール通知を受け取る';
 
   @override
   String get weeklySummary => '週間サマリー';
@@ -1226,7 +1239,8 @@ class AppLocalizationsJa extends AppLocalizations {
   String get cancelSubscription => 'サブスクリプションをキャンセル';
 
   @override
-  String get vipSubscriptionCancelledSuccessfully => 'VIPサブスクリプションが正常にキャンセルされました';
+  String get vipSubscriptionCancelledSuccessfully =>
+      'VIPサブスクリプションが正常にキャンセルされました';
 
   @override
   String get vipStatus => 'VIPステータス';
@@ -1238,7 +1252,8 @@ class AppLocalizationsJa extends AppLocalizations {
   String get subscriptionExpired => 'サブスクリプションの有効期限切れ';
 
   @override
-  String get vipExpiredMessage => 'VIPサブスクリプションの有効期限が切れました。今すぐ更新して無制限の機能を引き続きお楽しみください！';
+  String get vipExpiredMessage =>
+      'VIPサブスクリプションの有効期限が切れました。今すぐ更新して無制限の機能を引き続きお楽しみください！';
 
   @override
   String get expiredOn => '有効期限';
@@ -1457,10 +1472,12 @@ class AppLocalizationsJa extends AppLocalizations {
   String get manageSubscription => 'サブスクリプションを管理';
 
   @override
-  String get manageSubscriptionInSettings => 'サブスクリプションをキャンセルするには、設定 > [お名前] > サブスクリプションに移動してください。';
+  String get manageSubscriptionInSettings =>
+      'サブスクリプションをキャンセルするには、設定 > [お名前] > サブスクリプションに移動してください。';
 
   @override
-  String get contactSupportToCancel => 'サブスクリプションをキャンセルするには、サポートチームにお問い合わせください。';
+  String get contactSupportToCancel =>
+      'サブスクリプションをキャンセルするには、サポートチームにお問い合わせください。';
 
   @override
   String get status => 'ステータス';
@@ -2248,7 +2265,8 @@ class AppLocalizationsJa extends AppLocalizations {
   String get failedToUpdateSetting => 'Failed to update setting';
 
   @override
-  String get securityAlertsRecommended => 'We recommend keeping Security Alerts enabled to stay informed about important account activity.';
+  String get securityAlertsRecommended =>
+      'We recommend keeping Security Alerts enabled to stay informed about important account activity.';
 
   @override
   String chatWallpaperFor(String name) {
@@ -2321,10 +2339,12 @@ class AppLocalizationsJa extends AppLocalizations {
   String get errorSendingMedia => 'Error sending media';
 
   @override
-  String get cameraPermissionRequired => 'Camera and microphone permissions are required to record videos.';
+  String get cameraPermissionRequired =>
+      'Camera and microphone permissions are required to record videos.';
 
   @override
-  String get locationPermissionRequired => 'Location permission is required to share your location.';
+  String get locationPermissionRequired =>
+      'Location permission is required to share your location.';
 
   @override
   String get noInternetConnection => 'No internet connection';
@@ -2626,7 +2646,8 @@ class AppLocalizationsJa extends AppLocalizations {
   String get warningPermanent => '警告：この操作は元に戻せません！';
 
   @override
-  String get deleteAccountWarning => 'アカウントを削除すると完全に削除されます：\n\n• プロフィールとすべての個人データ\n• すべてのメッセージと会話\n• すべてのモーメントとストーリー\n• VIPサブスクリプション（返金なし）\n• すべてのフォロワーとフォロー\n\nこの操作は元に戻せません。';
+  String get deleteAccountWarning =>
+      'アカウントを削除すると完全に削除されます：\n\n• プロフィールとすべての個人データ\n• すべてのメッセージと会話\n• すべてのモーメントとストーリー\n• VIPサブスクリプション（返金なし）\n• すべてのフォロワーとフォロー\n\nこの操作は元に戻せません。';
 
   @override
   String get requiredForEmailOnly => 'メールアカウントのみ必要';
@@ -3411,7 +3432,8 @@ class AppLocalizationsJa extends AppLocalizations {
   String get noRankingsYet => 'No rankings yet';
 
   @override
-  String get startLearningToAppear => 'Start learning to appear on the leaderboard!';
+  String get startLearningToAppear =>
+      'Start learning to appear on the leaderboard!';
 
   @override
   String get noFriendsYet => 'No friends yet';
@@ -3453,7 +3475,8 @@ class AppLocalizationsJa extends AppLocalizations {
   String get selectLanguagePrompt => 'Select a language';
 
   @override
-  String get findPartnersByLanguage => 'Find partners who speak or learn this language';
+  String get findPartnersByLanguage =>
+      'Find partners who speak or learn this language';
 
   @override
   String noPartnersForLanguage(String language) {
@@ -3521,7 +3544,8 @@ class AppLocalizationsJa extends AppLocalizations {
   String get allCache => 'すべてのキャッシュ';
 
   @override
-  String get clearAllCacheConfirmation => 'すべてのキャッシュされた画像、音声メッセージ、動画、その他のファイルが削除されます。アプリは一時的にコンテンツの読み込みが遅くなる場合があります。';
+  String get clearAllCacheConfirmation =>
+      'すべてのキャッシュされた画像、音声メッセージ、動画、その他のファイルが削除されます。アプリは一時的にコンテンツの読み込みが遅くなる場合があります。';
 
   @override
   String clearCacheConfirmationFor(String category) {
@@ -4443,7 +4467,8 @@ class AppLocalizationsJa extends AppLocalizations {
   }
 
   @override
-  String get logoutConfirmMessage => 'Are you sure you want to logout from Bananatalk?';
+  String get logoutConfirmMessage =>
+      'Are you sure you want to logout from Bananatalk?';
 
   @override
   String get loggingOut => 'Logging out...';
@@ -4455,7 +4480,8 @@ class AppLocalizationsJa extends AppLocalizations {
   String get quietHoursEnable => 'Enable Quiet Hours';
 
   @override
-  String get quietHoursSubtitle => 'Pause non-urgent notifications during a time window';
+  String get quietHoursSubtitle =>
+      'Pause non-urgent notifications during a time window';
 
   @override
   String get quietHoursStart => 'Start time';
@@ -4467,7 +4493,8 @@ class AppLocalizationsJa extends AppLocalizations {
   String get quietHoursAllowUrgent => 'Allow urgent notifications';
 
   @override
-  String get quietHoursAllowUrgentSubtitle => 'Calls and messages from VIP partners can still come through';
+  String get quietHoursAllowUrgentSubtitle =>
+      'Calls and messages from VIP partners can still come through';
 
   @override
   String get silencedByQuietHours => 'Silenced by Quiet Hours';
@@ -4494,7 +4521,8 @@ class AppLocalizationsJa extends AppLocalizations {
   String get languageUpdatedSuccessfully => '言語が正常に更新されました';
 
   @override
-  String get bioHintCard => '充実した自己紹介は他のユーザーとの出会いを助けます。興味、使用言語、求めているものなどを共有しましょう。';
+  String get bioHintCard =>
+      '充実した自己紹介は他のユーザーとの出会いを助けます。興味、使用言語、求めているものなどを共有しましょう。';
 
   @override
   String get bioCounterStartWriting => '書き始めましょう...';
@@ -4740,7 +4768,8 @@ class AppLocalizationsJa extends AppLocalizations {
   String get updateAvailableTitle => 'アップデートが利用可能です';
 
   @override
-  String get updateRequiredBody => 'このバージョンのBananatalkはサポートが終了しました。続けるにはアップデートしてください。';
+  String get updateRequiredBody =>
+      'このバージョンのBananatalkはサポートが終了しました。続けるにはアップデートしてください。';
 
   @override
   String get updateAvailableBody => '改善とバグ修正を含むBananatalkの新しいバージョンが利用可能です。';
@@ -4752,7 +4781,8 @@ class AppLocalizationsJa extends AppLocalizations {
   String get updateLater => '後で';
 
   @override
-  String get updateOpenStoreFailed => 'ストアを開けませんでした。App StoreまたはPlay Storeからアップデートしてください。';
+  String get updateOpenStoreFailed =>
+      'ストアを開けませんでした。App StoreまたはPlay Storeからアップデートしてください。';
 
   @override
   String get rememberMe => 'ログイン情報を保存';
@@ -5655,7 +5685,8 @@ class AppLocalizationsJa extends AppLocalizations {
   String get aiTutorPronounceUseYourOwn => 'Use my own ✏️';
 
   @override
-  String get aiTutorPronounceCustomHint => 'Type a sentence you want to practice';
+  String get aiTutorPronounceCustomHint =>
+      'Type a sentence you want to practice';
 
   @override
   String get aiTutorPronounceCustomCancel => 'Cancel';
@@ -5664,7 +5695,8 @@ class AppLocalizationsJa extends AppLocalizations {
   String get aiTutorPronounceCustomUse => 'Use';
 
   @override
-  String get aiTutorPronounceQuitConfirm => 'Quit drill? Your progress won\'t be saved.';
+  String get aiTutorPronounceQuitConfirm =>
+      'Quit drill? Your progress won\'t be saved.';
 
   @override
   String get aiTutorPronounceQuitYes => 'Yes';
@@ -5710,19 +5742,22 @@ class AppLocalizationsJa extends AppLocalizations {
   String get aiTutorPronounceStartHeadline => 'How do you want to practice?';
 
   @override
-  String get aiTutorPronounceStartSubhead => 'Pick one to begin a 5-sentence drill.';
+  String get aiTutorPronounceStartSubhead =>
+      'Pick one to begin a 5-sentence drill.';
 
   @override
   String get aiTutorPronounceStartAITitle => 'AI generates sentences';
 
   @override
-  String get aiTutorPronounceStartAISubtitle => 'Level-tuned, biased toward your tricky words';
+  String get aiTutorPronounceStartAISubtitle =>
+      'Level-tuned, biased toward your tricky words';
 
   @override
   String get aiTutorPronounceStartCustomTitle => 'Use my own sentence';
 
   @override
-  String get aiTutorPronounceStartCustomSubtitle => 'Type or paste a phrase you want to nail';
+  String get aiTutorPronounceStartCustomSubtitle =>
+      'Type or paste a phrase you want to nail';
 
   @override
   String aiTutorQuotaRemaining(int count) {
@@ -5734,4 +5769,17 @@ class AppLocalizationsJa extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get aiStudyPromoTitle => 'Practice real conversations';
+
+  @override
+  String get aiStudyPromoBody =>
+      'Roleplay 39 real-world scenarios — from ordering coffee to job interviews — with your AI tutor. Tuned to your level, free for everyone.';
+
+  @override
+  String get aiStudyPromoCTA => 'Try practice scenarios';
+
+  @override
+  String get aiStudyPromoDismiss => 'Maybe later';
 }
