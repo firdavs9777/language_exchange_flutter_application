@@ -2191,5 +2191,258 @@
         "type": "String"
       }
     }
+  },
+  "aiTutorChangePersona": "تغيير المدرّس الذكي",
+  "aiTutorChangePersonaSubtitle": "التبديل إلى Nana أو Sensei أو Riko",
+  "aiTutorPickerTitle": "اختر مدرّسك الذكي",
+  "aiTutorPickerHeader": "مع من تريد التعلّم؟",
+  "aiTutorPickerSubtitle": "يمكنك تغيير ذلك في الإعدادات في أي وقت.",
+  "aiTutorPersonaNanaTagline": "دافئة + مشجّعة",
+  "aiTutorPersonaNanaSample": "سأشجّعك، بدون ضغط.",
+  "aiTutorPersonaSenseiTagline": "دقيق + موجّه نحو الاختبارات",
+  "aiTutorPersonaSenseiSample": "سنتقن القواعد.",
+  "aiTutorPersonaRikoTagline": "مرحة + عامّيّة",
+  "aiTutorPersonaRikoSample": "هيا نمرح ونتعلّم",
+  "aiTutorPickerSaveError": "تعذّر الحفظ: {error}",
+  "@aiTutorPickerSaveError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorHomeTitle": "المدرّس الذكي",
+  "aiTutorHomeChangeTutor": "تغيير المدرّس",
+  "aiTutorHomeGreetingDefault": "مرحبًا! جاهز للتعلّم معًا؟",
+  "aiTutorHomeTodaysPlan": "خطة اليوم",
+  "aiTutorHomePlanEmpty": "لا خطة اليوم — ابدأ محادثة للبدء.",
+  "aiTutorHomeStartChat": "بدء المحادثة",
+  "aiTutorHomeRecent": "حديث",
+  "aiTutorHomePracticeScenarios": "سيناريوهات التدريب",
+  "aiTutorHomePracticeScenariosSubtitle": "لعب أدوار في محادثات واقعية — مطعم، مقابلة، فندق…",
+  "aiTutorHomeReadStory": "اقرأ قصة",
+  "aiTutorHomeReadStorySubtitle": "يكتب الذكاء الاصطناعي قصة قصيرة باستخدام مفرداتك — مع أسئلة فهم سريعة.",
+  "aiTutorHomeDescribePhoto": "صف صورة",
+  "aiTutorHomeDescribePhotoSubtitle": "التقط صورة وصفها — يقيّم الذكاء الاصطناعي مفرداتك وقواعدك.",
+  "aiTutorChatTitle": "محادثة مع المدرّس",
+  "aiTutorChatVoiceOn": "الصوت مفعّل",
+  "aiTutorChatVoiceOff": "الصوت متوقف",
+  "aiTutorChatStopRecording": "إيقاف التسجيل",
+  "aiTutorChatHoldToTalk": "اضغط مطوّلاً للتحدث",
+  "aiTutorChatTranscribing": "جارٍ النسخ…",
+  "aiTutorChatListening": "جارٍ الاستماع…",
+  "aiTutorChatInputHint": "اكتب رسالة…",
+  "aiTutorChatTypeReplyHint": "اكتب ردّك…",
+  "aiTutorChatMicPermissionDenied": "إذن الميكروفون مطلوب لوضع الصوت.",
+  "aiTutorChatTranscribeFailed": "لم أفهم — حاول مرة أخرى.",
+  "aiTutorChatStartFailed": "فشل البدء: {error}",
+  "@aiTutorChatStartFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorRoleplayEnd": "إنهاء",
+  "aiTutorRoleplayEndFailed": "فشل الإنهاء: {error}",
+  "@aiTutorRoleplayEndFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorRoleplayDone": "تمّ",
+  "aiScenariosBannerPracticingIn": "التدريب على {language}",
+  "@aiScenariosBannerPracticingIn": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "aiScenariosBannerSubhead": "اختر سيناريو لمستواك، أو ارتقِ مستوى.",
+  "aiTutorStoryTitle": "اقرأ قصة",
+  "aiTutorStoryLength": "الطول",
+  "aiTutorStoryTheme": "الموضوع",
+  "aiTutorStoryWordCount": "{count} كلمة",
+  "@aiTutorStoryWordCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorStoryWriting": "جاري الكتابة…",
+  "aiTutorStoryGenerate": "إنشاء قصة",
+  "aiTutorStoryGenerateFailed": "تعذّر الإنشاء: {error}",
+  "@aiTutorStoryGenerateFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorStoryWordCountHint": "سيستخدم الذكاء الاصطناعي حتى {n} كلمة من قائمة مفرداتك.",
+  "@aiTutorStoryWordCountHint": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorStoryThemeFree": "حر",
+  "aiTutorStoryThemeAdventure": "مغامرة",
+  "aiTutorStoryThemeMystery": "غموض",
+  "aiTutorStoryThemeRomance": "رومانسية",
+  "aiTutorStoryThemeSciFi": "خيال علمي",
+  "aiTutorStoryThemeSliceOfLife": "حياة يومية",
+  "aiTutorStoryReaderTitle": "قصة",
+  "aiTutorStoryReaderVocab": "المفردات",
+  "aiTutorStoryReaderVocabUsed": "المفردات المستخدمة",
+  "aiTutorStoryReaderPart": "الجزء {n}",
+  "@aiTutorStoryReaderPart": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorStoryReaderWrongHint": "ليس تمامًا — تابع",
+  "aiTutorStoryReaderNiceWork": "عمل رائع!",
+  "aiTutorStoryReaderScore": "حصلت على {correct}/{total} من أسئلة الفهم بشكل صحيح.",
+  "@aiTutorStoryReaderScore": {
+    "placeholders": {
+      "correct": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorStoryReaderDone": "تمّ",
+  "aiTutorImageVocabTitle": "صف صورة",
+  "aiTutorImagePickHeader": "اختر صورة لوصفها",
+  "aiTutorImagePickSubtitle": "سيعطيك الذكاء الاصطناعي مطالبة بلغة هدفك، ثم يقيّم وصفك.",
+  "aiTutorImagePickCamera": "الكاميرا",
+  "aiTutorImagePickGallery": "المعرض",
+  "aiTutorImagePickError": "تعذّر فتح الصورة: {error}",
+  "@aiTutorImagePickError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorImageDescriptionHint": "اكتب وصفك…",
+  "aiTutorImageDifferentPhoto": "صورة مختلفة",
+  "aiTutorImageSubmit": "إرسال",
+  "aiTutorImageGrammarNotes": "ملاحظات نحوية",
+  "aiTutorImageThingsYouMissed": "ما فاتك",
+  "aiTutorImageTryAnother": "جرّب صورة أخرى",
+  "aiTutorCardQuiz": "اختبار",
+  "aiTutorCardVocab": "مفردات",
+  "aiTutorCardGrammar": "قواعد",
+  "aiTutorCardReviewDue": "مراجعة مستحقّة",
+  "aiTutorCardMiniLesson": "درس مصغّر",
+  "aiTutorCardAddToVocab": "أضف إلى المفردات",
+  "aiTutorCardAddedToVocab": "أُضيف للمفردات",
+  "aiTutorCardAdding": "جارٍ الإضافة…",
+  "aiTutorCardReviewCount": "{count, plural, one{بطاقة واحدة بانتظارك} other{{count} بطاقات بانتظارك}}",
+  "@aiTutorCardReviewCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorCardReviewNow": "راجع الآن",
+  "aiTutorCardReviewStarting": "جارٍ البدء…",
+  "aiTutorCardTryIt": "جرّب",
+  "aiTutorCardPracticing": "جارٍ التدرّب…",
+  "aiTutorPlanSrsReview": "راجع {count} بطاقة SRS ({done} مكتمل)",
+  "@aiTutorPlanSrsReview": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "done": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorPlanGrammar": "تدرّب: {topic}",
+  "@aiTutorPlanGrammar": {
+    "placeholders": {
+      "topic": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorPlanChat": "تحدّث {min} دقيقة ({done} حتى الآن)",
+  "@aiTutorPlanChat": {
+    "placeholders": {
+      "min": {
+        "type": "int"
+      },
+      "done": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorPronounceLoading": "اختيار جملة لك…",
+  "aiTutorPronounceTapToRecord": "اضغط للتسجيل",
+  "aiTutorPronounceTapToStop": "اضغط للإيقاف",
+  "aiTutorPronounceTranscribing": "الاستماع إليك…",
+  "aiTutorPronounceTryAgain": "حاول مجدداً",
+  "aiTutorPronounceNext": "التالي",
+  "aiTutorPronounceUseYourOwn": "استخدم خاصّتي ✏️",
+  "aiTutorPronounceCustomHint": "اكتب جملة تريد التدرّب عليها",
+  "aiTutorPronounceCustomCancel": "إلغاء",
+  "aiTutorPronounceCustomUse": "استخدم",
+  "aiTutorPronounceQuitConfirm": "إنهاء التمرين؟ لن يُحفظ تقدّمك.",
+  "aiTutorPronounceQuitYes": "نعم",
+  "aiTutorPronounceQuitNo": "لا",
+  "aiTutorPronounceSentenceOf": "جملة {current} من {total}",
+  "@aiTutorPronounceSentenceOf": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorPronounceSummaryTitle": "اكتمل التمرين",
+  "aiTutorPronounceSummaryAvg": "المتوسط",
+  "aiTutorPronounceSummaryWeak": "كلمات للتدرّب",
+  "aiTutorPronounceSaveClose": "حفظ وإغلاق",
+  "aiTutorPronounceSaving": "جارٍ الحفظ…",
+  "aiTutorPlanPronunciation": "{count, plural, =1{تمرين نطق ({completed}/1)} other{تمارين نطق ({completed}/{count})}}",
+  "@aiTutorPlanPronunciation": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "completed": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorPronounceStartHeadline": "كيف تريد التدرّب؟",
+  "aiTutorPronounceStartSubhead": "اختر واحدة لبدء تمرين من 5 جمل.",
+  "aiTutorPronounceStartAITitle": "الذكاء الاصطناعي يُنشئ الجمل",
+  "aiTutorPronounceStartAISubtitle": "مضبوط حسب مستواك، مع الميل لكلماتك الصعبة",
+  "aiTutorPronounceStartCustomTitle": "استخدم جملتي",
+  "aiTutorPronounceStartCustomSubtitle": "اكتب أو الصق عبارة تريد إتقانها",
+  "aiTutorQuotaRemaining": "{count, plural, =1{متبقّي اليوم: 1} other{متبقّي اليوم: {count}}}",
+  "@aiTutorQuotaRemaining": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   }
 }

@@ -165,56 +165,56 @@
   "aiTutorRoleplayEnd": "Анҷом",
   "aiTutorRoleplayEndFailed": "Анҷом додан ноком шуд: {error}",
   "aiTutorRoleplayDone": "Тайёр",
-  "aiTutorStoryTitle": "Як ҳикоя хонед",
+  "aiTutorStoryTitle": "Ҳикоя хонед",
   "aiTutorStoryLength": "Дарозӣ",
   "aiTutorStoryTheme": "Мавзӯъ",
   "aiTutorStoryWordCount": "{count} калима",
-  "aiTutorStoryWriting": "Навишта шуда истодааст…",
-  "aiTutorStoryGenerate": "Ҳикояро эҷод кунед",
-  "aiTutorStoryGenerateFailed": "Эҷод карда нашуд: {error}",
-  "aiTutorStoryWordCountHint": "AI то {n} калимаро аз рӯйхати луғати шумо истифода мебарад.",
+  "aiTutorStoryWriting": "Дар ҳоли навиштан…",
+  "aiTutorStoryGenerate": "Ҳикоя эҷод кунед",
+  "aiTutorStoryGenerateFailed": "Эҷод кардан натавонист: {error}",
+  "aiTutorStoryWordCountHint": "AI то {n} калима аз рӯйхати луғати шумо истифода мебарад.",
   "aiTutorStoryThemeFree": "Озод",
   "aiTutorStoryThemeAdventure": "Саргузашт",
-  "aiTutorStoryThemeMystery": "Асрор",
+  "aiTutorStoryThemeMystery": "Муаммо",
   "aiTutorStoryThemeRomance": "Ишқӣ",
   "aiTutorStoryThemeSciFi": "Илмӣ-фантастикӣ",
-  "aiTutorStoryThemeSliceOfLife": "Аз ҳаёти ҳаррӯза",
+  "aiTutorStoryThemeSliceOfLife": "Зиндагии ҳаррӯза",
   "aiTutorStoryReaderTitle": "Ҳикоя",
   "aiTutorStoryReaderVocab": "Луғат",
   "aiTutorStoryReaderVocabUsed": "Луғати истифодашуда",
   "aiTutorStoryReaderPart": "Қисми {n}",
-  "aiTutorStoryReaderWrongHint": "На комилан дуруст — давом медиҳем",
+  "aiTutorStoryReaderWrongHint": "На комилан — давом мекунем",
   "aiTutorStoryReaderNiceWork": "Кори хуб!",
-  "aiTutorStoryReaderScore": "Шумо {correct}/{total} саволи фаҳмишро дуруст ҷавоб додед.",
+  "aiTutorStoryReaderScore": "Шумо ба {correct}/{total} саволи фаҳмиш ҷавоби дуруст додед.",
   "aiTutorStoryReaderDone": "Тайёр",
-  "aiTutorImageVocabTitle": "Суратро тавсиф кунед",
-  "aiTutorImagePickHeader": "Барои тавсиф як сурат интихоб кунед",
-  "aiTutorImagePickSubtitle": "AI ба шумо дар забони ҳадафатон як супориш медиҳад ва баъд тавсифи шуморо баҳо медиҳад.",
+  "aiTutorImageVocabTitle": "Сурати тавсиф кунед",
+  "aiTutorImagePickHeader": "Суратеро барои тавсиф интихоб кунед",
+  "aiTutorImagePickSubtitle": "AI ба забони ҳадафи шумо изҳорот медиҳад, баъд тавсифи шуморо баҳо медиҳад.",
   "aiTutorImagePickCamera": "Камера",
   "aiTutorImagePickGallery": "Галерея",
-  "aiTutorImagePickError": "Тасвирро кушодан мумкин нашуд: {error}",
+  "aiTutorImagePickError": "Тасвирро кушодан натавонист: {error}",
   "aiTutorImageDescriptionHint": "Тавсифи худро нависед…",
   "aiTutorImageDifferentPhoto": "Сурати дигар",
-  "aiTutorImageSubmit": "Фиристед",
-  "aiTutorImageGrammarNotes": "Қайдҳои грамматикӣ",
-  "aiTutorImageThingsYouMissed": "Чизҳое, ки аз даст додаед",
+  "aiTutorImageSubmit": "Фиристодан",
+  "aiTutorImageGrammarNotes": "Эзоҳи грамматика",
+  "aiTutorImageThingsYouMissed": "Он чизе ки аз даст додаед",
   "aiTutorImageTryAnother": "Сурати дигарро санҷед",
   "aiTutorCardQuiz": "Викторина",
-  "aiTutorCardVocab": "Луғат",
+  "aiTutorCardVocab": "Калимаҳо",
   "aiTutorCardGrammar": "Грамматика",
-  "aiTutorCardReviewDue": "Такрор лозим аст",
-  "aiTutorCardMiniLesson": "Дарси хурд",
-  "aiTutorCardAddToVocab": "Ба луғат илова кунед",
-  "aiTutorCardAddedToVocab": "Ба луғат илова шуд",
-  "aiTutorCardAdding": "Илова шуда истодааст…",
-  "aiTutorCardReviewCount": "{count, plural, =0{ягон корт мунтазир нест} =1{{count} корт мунтазири шумост} other{{count} корт мунтазири шумост}}",
+  "aiTutorCardReviewDue": "Такрор лозим",
+  "aiTutorCardMiniLesson": "Дарси кӯтоҳ",
+  "aiTutorCardAddToVocab": "Ба луғат илова",
+  "aiTutorCardAddedToVocab": "Илова шуд",
+  "aiTutorCardAdding": "Илова мешавад…",
+  "aiTutorCardReviewCount": "{count, plural, one{{count} корт мунтазир аст} other{{count} корт мунтазир аст}}",
   "aiTutorCardReviewNow": "Ҳозир такрор кунед",
-  "aiTutorCardReviewStarting": "Оғоз шуда истодааст…",
-  "aiTutorCardTryIt": "Озмоиш кунед",
-  "aiTutorCardPracticing": "Машқ шуда истодааст…",
-  "aiTutorPlanSrsReview": "{count} корти SRS-ро такрор кунед ({done} анҷом)",
+  "aiTutorCardReviewStarting": "Шурӯъ…",
+  "aiTutorCardTryIt": "Кӯшиш кунед",
+  "aiTutorCardPracticing": "Машқ…",
+  "aiTutorPlanSrsReview": "{count} корти SRS такрор кунед ({done} тайёр)",
   "aiTutorPlanGrammar": "Машқ: {topic}",
-  "aiTutorPlanChat": "{min} дақиқа чат кунед ({done} то ҳол)",
+  "aiTutorPlanChat": "{min} дақ чат ({done} то ҳол)",
   "aboutBananatalk": "Дар бораи Bananatalk",
   "deleteAccount": "Ҳисобро нест кунед",
   "permanentlyDeleteYourAccount": "Ҳисоби худро доимӣ нест кунед",
@@ -1746,34 +1746,34 @@
   "learningProgressLevelLabel": "Сатҳ",
   "learningProgressXpToNextLevel": "{xp} XP то сатҳи навбатӣ",
   "learningProgressWeeklyChartTitle": "7 рӯзи охир",
-  "aiTutorPronounceLoading": "Барои шумо ҷумла интихоб карда мешавад…",
-  "aiTutorPronounceTapToRecord": "Барои сабт пахш кунед",
-  "aiTutorPronounceTapToStop": "Барои тавқиф пахш кунед",
-  "aiTutorPronounceTranscribing": "Гӯш карда мешавед…",
-  "aiTutorPronounceTryAgain": "Аз нав кӯшиш кунед",
-  "aiTutorPronounceNext": "Минбаъд",
-  "aiTutorPronounceUseYourOwn": "Аз ҷумлаи худам истифода кунам ✏️",
-  "aiTutorPronounceCustomHint": "Ҷумлаеро, ки мехоҳед машқ кунед, нависед",
-  "aiTutorPronounceCustomCancel": "Бекор кунед",
-  "aiTutorPronounceCustomUse": "Истифода баред",
-  "aiTutorPronounceQuitConfirm": "Машқро тарк мекунед? Пешрафти шумо нигоҳ дошта намешавад.",
+  "aiTutorPronounceLoading": "Ҷумлае барои шумо интихоб мекунем…",
+  "aiTutorPronounceTapToRecord": "Барои сабт зер кунед",
+  "aiTutorPronounceTapToStop": "Барои қатъ зер кунед",
+  "aiTutorPronounceTranscribing": "Шуморо мешунавам…",
+  "aiTutorPronounceTryAgain": "Боз кӯшиш кунед",
+  "aiTutorPronounceNext": "Баъдӣ",
+  "aiTutorPronounceUseYourOwn": "Худамро истифода ✏️",
+  "aiTutorPronounceCustomHint": "Ҷумлае, ки мехоҳед машқ кунед, нависед",
+  "aiTutorPronounceCustomCancel": "Бекор",
+  "aiTutorPronounceCustomUse": "Истифода",
+  "aiTutorPronounceQuitConfirm": "Баромад? Пешрафти шумо нигоҳ дошта намешавад.",
   "aiTutorPronounceQuitYes": "Ҳа",
   "aiTutorPronounceQuitNo": "Не",
   "aiTutorPronounceSentenceOf": "Ҷумлаи {current} аз {total}",
-  "aiTutorPronounceSummaryTitle": "Машқ анҷом ёфт",
-  "aiTutorPronounceSummaryAvg": "Хол ба ҳисоби миёна",
+  "aiTutorPronounceSummaryTitle": "Машқ ба анҷом расид",
+  "aiTutorPronounceSummaryAvg": "Холи миёна",
   "aiTutorPronounceSummaryWeak": "Калимаҳо барои машқ",
-  "aiTutorPronounceSaveClose": "Нигоҳ дошта пӯшидан",
-  "aiTutorPronounceSaving": "Нигоҳ дошта мешавад…",
+  "aiTutorPronounceSaveClose": "Сабт ва пӯшидан",
+  "aiTutorPronounceSaving": "Сабт мешавад…",
   "aiTutorChipPronounce": "Талаффуз",
   "aiTutorPlanPronunciation": "{count, plural, =1{Машқи талаффуз ({completed}/1)} other{Машқҳои талаффуз ({completed}/{count})}}",
-  "aiTutorPronounceStartHeadline": "Чӣ гуна машқ кардан мехоҳед?",
-  "aiTutorPronounceStartSubhead": "Якеро интихоб кунед, то машқи 5-ҷумлаиро оғоз кунед.",
-  "aiTutorPronounceStartAITitle": "AI ҷумлаҳо эҷод мекунад",
-  "aiTutorPronounceStartAISubtitle": "Мутобиқ ба сатҳ, бо таваҷҷӯҳ ба калимаҳои душвори шумо",
-  "aiTutorPronounceStartCustomTitle": "Ҷумлаи худамро истифода кунам",
-  "aiTutorPronounceStartCustomSubtitle": "Ибораеро, ки мехоҳед омӯзед, нависед ё часпонед",
-  "aiTutorQuotaRemaining": "{count, plural, =1{1-то имрӯз боқӣ мондааст} other{{count}-то имрӯз боқӣ мондааст}}",
+  "aiTutorPronounceStartHeadline": "Чӣ тавр машқ кардан мехоҳед?",
+  "aiTutorPronounceStartSubhead": "Якеро интихоб кунед, то машқи 5-ҷумла оғоз шавад.",
+  "aiTutorPronounceStartAITitle": "AI ҷумла эҷод мекунад",
+  "aiTutorPronounceStartAISubtitle": "Мувофиқи сатҳ, бо таваҷҷӯҳ ба калимаҳои душвор",
+  "aiTutorPronounceStartCustomTitle": "Ҷумлаи худамро истифода",
+  "aiTutorPronounceStartCustomSubtitle": "Ҷумлаеро, ки мехоҳед азхуд кунед, нависед ё часпонед",
+  "aiTutorQuotaRemaining": "{count, plural, =1{Имрӯз 1 боқӣ} other{Имрӯз {count} боқӣ}}",
   "submit": "Фиристодан",
   "exit": "Баромад",
   "previous": "Қаблӣ",
@@ -1896,6 +1896,121 @@
     "placeholders": {
       "feature": {
         "type": "String"
+      }
+    }
+  },
+  "aiScenariosBannerPracticingIn": "Машқ ба забони {language}",
+  "@aiScenariosBannerPracticingIn": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "aiScenariosBannerSubhead": "Сенарияеро мувофиқи сатҳи худ интихоб кунед ё як зина боло.",
+  "@aiTutorStoryWordCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@aiTutorStoryGenerateFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiTutorStoryWordCountHint": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "@aiTutorStoryReaderPart": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "@aiTutorStoryReaderScore": {
+    "placeholders": {
+      "correct": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "@aiTutorImagePickError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiTutorCardReviewCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@aiTutorPlanSrsReview": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "done": {
+        "type": "int"
+      }
+    }
+  },
+  "@aiTutorPlanGrammar": {
+    "placeholders": {
+      "topic": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiTutorPlanChat": {
+    "placeholders": {
+      "min": {
+        "type": "int"
+      },
+      "done": {
+        "type": "int"
+      }
+    }
+  },
+  "@aiTutorPronounceSentenceOf": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "@aiTutorPlanPronunciation": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "completed": {
+        "type": "int"
+      }
+    }
+  },
+  "@aiTutorQuotaRemaining": {
+    "placeholders": {
+      "count": {
+        "type": "int"
       }
     }
   }

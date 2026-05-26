@@ -354,10 +354,10 @@ class AppLocalizationsEs extends AppLocalizations {
   String get getHelpAndSupport => 'Obtener ayuda y soporte';
 
   @override
-  String get aiTutorChangePersona => 'Change AI tutor';
+  String get aiTutorChangePersona => 'Cambiar tutor IA';
 
   @override
-  String get aiTutorChangePersonaSubtitle => 'Switch to Nana, Sensei or Riko';
+  String get aiTutorChangePersonaSubtitle => 'Cambia a Nana, Sensei o Riko';
 
   @override
   String aiTutorHeroTitleSet(String name) {
@@ -400,262 +400,263 @@ class AppLocalizationsEs extends AppLocalizations {
   String get aiConversationPartnerTileSubtitle => 'Practica con un compañero IA';
 
   @override
-  String get aiTutorPickerTitle => 'Pick your AI tutor';
+  String get aiTutorPickerTitle => 'Elige tu tutor IA';
 
   @override
-  String get aiTutorPickerHeader => 'Who do you want to learn with?';
+  String get aiTutorPickerHeader => '¿Con quién quieres aprender?';
 
   @override
-  String get aiTutorPickerSubtitle => 'You can change this anytime in settings.';
+  String get aiTutorPickerSubtitle => 'Puedes cambiarlo en cualquier momento en ajustes.';
 
   @override
-  String get aiTutorPersonaNanaTagline => 'Warm + encouraging';
+  String get aiTutorPersonaNanaTagline => 'Cálida + alentadora';
 
   @override
-  String get aiTutorPersonaNanaSample => 'I\'ll cheer you on, no pressure.';
+  String get aiTutorPersonaNanaSample => 'Te animaré, sin presión.';
 
   @override
-  String get aiTutorPersonaSenseiTagline => 'Precise + exam-focused';
+  String get aiTutorPersonaSenseiTagline => 'Preciso + enfocado al examen';
 
   @override
-  String get aiTutorPersonaSenseiSample => 'We will master the rules.';
+  String get aiTutorPersonaSenseiSample => 'Vamos a dominar las reglas.';
 
   @override
-  String get aiTutorPersonaRikoTagline => 'Playful + slangy';
+  String get aiTutorPersonaRikoTagline => 'Juguetón + casual';
 
   @override
-  String get aiTutorPersonaRikoSample => 'lol let\'s vibe and learn';
+  String get aiTutorPersonaRikoSample => 'vale, vamos a vibrar y aprender';
 
   @override
   String aiTutorPickerSaveError(String error) {
-    return 'Could not save: $error';
+    return 'No se pudo guardar: $error';
   }
 
   @override
-  String get aiTutorHomeTitle => 'AI Tutor';
+  String get aiTutorHomeTitle => 'Tutor IA';
 
   @override
-  String get aiTutorHomeChangeTutor => 'Change tutor';
+  String get aiTutorHomeChangeTutor => 'Cambiar tutor';
 
   @override
-  String get aiTutorHomeGreetingDefault => 'Hey! Ready to learn together?';
+  String get aiTutorHomeGreetingDefault => '¡Hola! ¿Listo para aprender juntos?';
 
   @override
-  String get aiTutorHomeTodaysPlan => 'Today\'s plan';
+  String get aiTutorHomeTodaysPlan => 'Plan de hoy';
 
   @override
-  String get aiTutorHomePlanEmpty => 'No plan for today — start a chat to begin.';
+  String get aiTutorHomePlanEmpty => 'Sin plan para hoy — inicia un chat para empezar.';
 
   @override
-  String get aiTutorHomeStartChat => 'Start chat';
+  String get aiTutorHomeStartChat => 'Iniciar chat';
 
   @override
-  String get aiTutorHomeRecent => 'Recent';
+  String get aiTutorHomeRecent => 'Reciente';
 
   @override
-  String get aiTutorHomePracticeScenarios => 'Practice scenarios';
+  String get aiTutorHomePracticeScenarios => 'Escenarios de práctica';
 
   @override
-  String get aiTutorHomePracticeScenariosSubtitle => 'Roleplay real-world conversations — restaurant, interview, hotel…';
+  String get aiTutorHomePracticeScenariosSubtitle => 'Roleplay de conversaciones reales — restaurante, entrevista, hotel…';
 
   @override
-  String get aiTutorHomeReadStory => 'Read a story';
+  String get aiTutorHomeReadStory => 'Leer una historia';
 
   @override
-  String get aiTutorHomeReadStorySubtitle => 'AI writes a short story using your vocab — with quick comprehension checks.';
+  String get aiTutorHomeReadStorySubtitle => 'La IA escribe una historia corta con tu vocabulario — con preguntas rápidas de comprensión.';
 
   @override
-  String get aiTutorHomeDescribePhoto => 'Describe a photo';
+  String get aiTutorHomeDescribePhoto => 'Describe una foto';
 
   @override
-  String get aiTutorHomeDescribePhotoSubtitle => 'Snap a picture and describe it — AI grades your vocab + grammar.';
+  String get aiTutorHomeDescribePhotoSubtitle => 'Toma una foto y descríbela — la IA evalúa vocabulario + gramática.';
 
   @override
-  String get aiTutorChatTitle => 'Chat with tutor';
+  String get aiTutorChatTitle => 'Chat con el tutor';
 
   @override
-  String get aiTutorChatVoiceOn => 'Voice on';
+  String get aiTutorChatVoiceOn => 'Voz activada';
 
   @override
-  String get aiTutorChatVoiceOff => 'Voice off';
+  String get aiTutorChatVoiceOff => 'Voz desactivada';
 
   @override
-  String get aiTutorChatStopRecording => 'Stop recording';
+  String get aiTutorChatStopRecording => 'Detener grabación';
 
   @override
-  String get aiTutorChatHoldToTalk => 'Hold to talk';
+  String get aiTutorChatHoldToTalk => 'Mantén para hablar';
 
   @override
-  String get aiTutorChatTranscribing => 'Transcribing…';
+  String get aiTutorChatTranscribing => 'Transcribiendo…';
 
   @override
-  String get aiTutorChatListening => 'Listening…';
+  String get aiTutorChatListening => 'Escuchando…';
 
   @override
-  String get aiTutorChatInputHint => 'Type a message…';
+  String get aiTutorChatInputHint => 'Escribe un mensaje…';
 
   @override
-  String get aiTutorChatTypeReplyHint => 'Type your reply…';
+  String get aiTutorChatTypeReplyHint => 'Escribe tu respuesta…';
 
   @override
-  String get aiTutorChatMicPermissionDenied => 'Microphone permission needed for voice mode.';
+  String get aiTutorChatMicPermissionDenied => 'Permiso de micrófono necesario para modo voz.';
 
   @override
-  String get aiTutorChatTranscribeFailed => 'Didn\'t catch that — try again.';
+  String get aiTutorChatTranscribeFailed => 'No entendí — inténtalo de nuevo.';
 
   @override
   String aiTutorChatStartFailed(String error) {
-    return 'Failed to start: $error';
+    return 'No se pudo iniciar: $error';
   }
 
   @override
-  String get aiTutorRoleplayEnd => 'End';
+  String get aiTutorRoleplayEnd => 'Terminar';
 
   @override
   String aiTutorRoleplayEndFailed(String error) {
-    return 'End failed: $error';
+    return 'No se pudo terminar: $error';
   }
 
   @override
-  String get aiTutorRoleplayDone => 'Done';
+  String get aiTutorRoleplayDone => 'Listo';
 
   @override
-  String get aiTutorStoryTitle => 'Read a story';
+  String get aiTutorStoryTitle => 'Leer una historia';
 
   @override
-  String get aiTutorStoryLength => 'Length';
+  String get aiTutorStoryLength => 'Longitud';
 
   @override
-  String get aiTutorStoryTheme => 'Theme';
+  String get aiTutorStoryTheme => 'Tema';
 
   @override
   String aiTutorStoryWordCount(int count) {
-    return '$count words';
+    return '$count palabras';
   }
 
   @override
-  String get aiTutorStoryWriting => 'Writing…';
+  String get aiTutorStoryWriting => 'Escribiendo…';
 
   @override
-  String get aiTutorStoryGenerate => 'Generate story';
+  String get aiTutorStoryGenerate => 'Generar historia';
 
   @override
   String aiTutorStoryGenerateFailed(String error) {
-    return 'Could not generate: $error';
+    return 'No se pudo generar: $error';
   }
 
   @override
   String aiTutorStoryWordCountHint(int n) {
-    return 'The AI will use up to $n words from your vocab list.';
+    return 'La IA usará hasta $n palabras de tu lista de vocabulario.';
   }
 
   @override
-  String get aiTutorStoryThemeFree => 'Free';
+  String get aiTutorStoryThemeFree => 'Libre';
 
   @override
-  String get aiTutorStoryThemeAdventure => 'Adventure';
+  String get aiTutorStoryThemeAdventure => 'Aventura';
 
   @override
-  String get aiTutorStoryThemeMystery => 'Mystery';
+  String get aiTutorStoryThemeMystery => 'Misterio';
 
   @override
   String get aiTutorStoryThemeRomance => 'Romance';
 
   @override
-  String get aiTutorStoryThemeSciFi => 'Sci-fi';
+  String get aiTutorStoryThemeSciFi => 'Ciencia ficción';
 
   @override
-  String get aiTutorStoryThemeSliceOfLife => 'Slice of life';
+  String get aiTutorStoryThemeSliceOfLife => 'Vida cotidiana';
 
   @override
-  String get aiTutorStoryReaderTitle => 'Story';
+  String get aiTutorStoryReaderTitle => 'Historia';
 
   @override
-  String get aiTutorStoryReaderVocab => 'Vocabulary';
+  String get aiTutorStoryReaderVocab => 'Vocabulario';
 
   @override
-  String get aiTutorStoryReaderVocabUsed => 'Vocabulary used';
+  String get aiTutorStoryReaderVocabUsed => 'Vocabulario usado';
 
   @override
   String aiTutorStoryReaderPart(int n) {
-    return 'Part $n';
+    return 'Parte $n';
   }
 
   @override
-  String get aiTutorStoryReaderWrongHint => 'Not quite — moving on';
+  String get aiTutorStoryReaderWrongHint => 'No del todo — sigamos';
 
   @override
-  String get aiTutorStoryReaderNiceWork => 'Nice work!';
+  String get aiTutorStoryReaderNiceWork => '¡Buen trabajo!';
 
   @override
   String aiTutorStoryReaderScore(int correct, int total) {
-    return 'You got $correct/$total comprehension questions right.';
+    return 'Acertaste $correct/$total preguntas de comprensión.';
   }
 
   @override
-  String get aiTutorStoryReaderDone => 'Done';
+  String get aiTutorStoryReaderDone => 'Listo';
 
   @override
-  String get aiTutorImageVocabTitle => 'Describe a photo';
+  String get aiTutorImageVocabTitle => 'Describe una foto';
 
   @override
-  String get aiTutorImagePickHeader => 'Pick a photo to describe';
+  String get aiTutorImagePickHeader => 'Elige una foto para describir';
 
   @override
-  String get aiTutorImagePickSubtitle => 'The AI will give you a prompt in your target language, then grade your description.';
+  String get aiTutorImagePickSubtitle => 'La IA te dará una indicación en tu idioma objetivo y evaluará tu descripción.';
 
   @override
-  String get aiTutorImagePickCamera => 'Camera';
+  String get aiTutorImagePickCamera => 'Cámara';
 
   @override
-  String get aiTutorImagePickGallery => 'Gallery';
+  String get aiTutorImagePickGallery => 'Galería';
 
   @override
   String aiTutorImagePickError(String error) {
-    return 'Could not open image: $error';
+    return 'No se pudo abrir la imagen: $error';
+  
   }
 
   @override
-  String get aiTutorImageDescriptionHint => 'Type your description…';
+  String get aiTutorImageDescriptionHint => 'Escribe tu descripción…';
 
   @override
-  String get aiTutorImageDifferentPhoto => 'Different photo';
+  String get aiTutorImageDifferentPhoto => 'Otra foto';
 
   @override
-  String get aiTutorImageSubmit => 'Submit';
+  String get aiTutorImageSubmit => 'Enviar';
 
   @override
-  String get aiTutorImageGrammarNotes => 'Grammar notes';
+  String get aiTutorImageGrammarNotes => 'Notas de gramática';
 
   @override
-  String get aiTutorImageThingsYouMissed => 'Things you missed';
+  String get aiTutorImageThingsYouMissed => 'Lo que omitiste';
 
   @override
-  String get aiTutorImageTryAnother => 'Try another photo';
+  String get aiTutorImageTryAnother => 'Probar otra foto';
 
   @override
-  String get aiTutorCardQuiz => 'Quiz';
+  String get aiTutorCardQuiz => 'Cuestionario';
 
   @override
   String get aiTutorCardVocab => 'Vocab';
 
   @override
-  String get aiTutorCardGrammar => 'Grammar';
+  String get aiTutorCardGrammar => 'Gramática';
 
   @override
-  String get aiTutorCardReviewDue => 'Review due';
+  String get aiTutorCardReviewDue => 'Repaso pendiente';
 
   @override
-  String get aiTutorCardMiniLesson => 'Mini-lesson';
+  String get aiTutorCardMiniLesson => 'Mini-lección';
 
   @override
-  String get aiTutorCardAddToVocab => 'Add to vocab';
+  String get aiTutorCardAddToVocab => 'Añadir a vocab';
 
   @override
-  String get aiTutorCardAddedToVocab => 'Added to vocab';
+  String get aiTutorCardAddedToVocab => 'Añadido';
 
   @override
-  String get aiTutorCardAdding => 'Adding…';
+  String get aiTutorCardAdding => 'Añadiendo…';
 
   @override
   String aiTutorCardReviewCount(int count) {
@@ -669,30 +670,33 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
-  String get aiTutorCardReviewNow => 'Review now';
+  String get aiTutorCardReviewNow => 'Repasar ahora';
 
   @override
-  String get aiTutorCardReviewStarting => 'Starting…';
+  String get aiTutorCardReviewStarting => 'Iniciando…';
 
   @override
-  String get aiTutorCardTryIt => 'Try it';
+  String get aiTutorCardTryIt => 'Pruébalo';
 
   @override
-  String get aiTutorCardPracticing => 'Practicing…';
+  String get aiTutorCardPracticing => 'Practicando…';
 
   @override
   String aiTutorPlanSrsReview(int count, int done) {
-    return 'Review $count SRS cards ($done done)';
+    return 'Repasa $count tarjetas SRS ($done hechas)';
+  
   }
 
   @override
   String aiTutorPlanGrammar(String topic) {
-    return 'Practice: $topic';
+    return 'Practicar: $topic';
+  
   }
 
   @override
   String aiTutorPlanChat(int min, int done) {
-    return 'Chat for $min min ($done so far)';
+    return 'Chatea $min min ($done hasta ahora)';
+  
   }
 
   @override
@@ -5653,63 +5657,64 @@ class AppLocalizationsEs extends AppLocalizations {
   String get learningProgressWeeklyChartTitle => 'Últimos 7 días';
 
   @override
-  String get aiTutorPronounceLoading => 'Picking a sentence for you…';
+  String get aiTutorPronounceLoading => 'Eligiendo una oración para ti…';
 
   @override
-  String get aiTutorPronounceTapToRecord => 'Tap to record';
+  String get aiTutorPronounceTapToRecord => 'Toca para grabar';
 
   @override
-  String get aiTutorPronounceTapToStop => 'Tap to stop';
+  String get aiTutorPronounceTapToStop => 'Toca para detener';
 
   @override
-  String get aiTutorPronounceTranscribing => 'Listening to you…';
+  String get aiTutorPronounceTranscribing => 'Escuchándote…';
 
   @override
-  String get aiTutorPronounceTryAgain => 'Try Again';
+  String get aiTutorPronounceTryAgain => 'Reintentar';
 
   @override
-  String get aiTutorPronounceNext => 'Next';
+  String get aiTutorPronounceNext => 'Siguiente';
 
   @override
-  String get aiTutorPronounceUseYourOwn => 'Use my own ✏️';
+  String get aiTutorPronounceUseYourOwn => 'Usar la mía ✏️';
 
   @override
-  String get aiTutorPronounceCustomHint => 'Type a sentence you want to practice';
+  String get aiTutorPronounceCustomHint => 'Escribe una oración para practicar';
 
   @override
-  String get aiTutorPronounceCustomCancel => 'Cancel';
+  String get aiTutorPronounceCustomCancel => 'Cancelar';
 
   @override
-  String get aiTutorPronounceCustomUse => 'Use';
+  String get aiTutorPronounceCustomUse => 'Usar';
 
   @override
-  String get aiTutorPronounceQuitConfirm => 'Quit drill? Your progress won\'t be saved.';
+  String get aiTutorPronounceQuitConfirm => '¿Salir del ejercicio? Tu progreso no se guardará.';
 
   @override
-  String get aiTutorPronounceQuitYes => 'Yes';
+  String get aiTutorPronounceQuitYes => 'Sí';
 
   @override
   String get aiTutorPronounceQuitNo => 'No';
 
   @override
   String aiTutorPronounceSentenceOf(int current, int total) {
-    return 'Sentence $current of $total';
+    return 'Oración $current de $total';
+  
   }
 
   @override
-  String get aiTutorPronounceSummaryTitle => 'Drill complete';
+  String get aiTutorPronounceSummaryTitle => 'Ejercicio completo';
 
   @override
-  String get aiTutorPronounceSummaryAvg => 'Average score';
+  String get aiTutorPronounceSummaryAvg => 'Puntuación media';
 
   @override
-  String get aiTutorPronounceSummaryWeak => 'Words to practice';
+  String get aiTutorPronounceSummaryWeak => 'Palabras a practicar';
 
   @override
-  String get aiTutorPronounceSaveClose => 'Save & Close';
+  String get aiTutorPronounceSaveClose => 'Guardar y cerrar';
 
   @override
-  String get aiTutorPronounceSaving => 'Saving…';
+  String get aiTutorPronounceSaving => 'Guardando…';
 
   @override
   String get aiTutorChipPronounce => 'Pronunciación';
@@ -5726,22 +5731,22 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
-  String get aiTutorPronounceStartHeadline => 'How do you want to practice?';
+  String get aiTutorPronounceStartHeadline => '¿Cómo quieres practicar?';
 
   @override
-  String get aiTutorPronounceStartSubhead => 'Pick one to begin a 5-sentence drill.';
+  String get aiTutorPronounceStartSubhead => 'Elige una para comenzar un ejercicio de 5 oraciones.';
 
   @override
-  String get aiTutorPronounceStartAITitle => 'AI generates sentences';
+  String get aiTutorPronounceStartAITitle => 'La IA genera oraciones';
 
   @override
-  String get aiTutorPronounceStartAISubtitle => 'Level-tuned, biased toward your tricky words';
+  String get aiTutorPronounceStartAISubtitle => 'Ajustado a tu nivel, con foco en tus palabras difíciles';
 
   @override
-  String get aiTutorPronounceStartCustomTitle => 'Use my own sentence';
+  String get aiTutorPronounceStartCustomTitle => 'Usar mi propia oración';
 
   @override
-  String get aiTutorPronounceStartCustomSubtitle => 'Type or paste a phrase you want to nail';
+  String get aiTutorPronounceStartCustomSubtitle => 'Escribe o pega una frase que quieras dominar';
 
   @override
   String aiTutorQuotaRemaining(int count) {
@@ -5939,4 +5944,12 @@ class AppLocalizationsEs extends AppLocalizations {
   String aiToolsVipUpgradeDescription(String feature) {
     return '¡Mejora a VIP para desbloquear $feature!';
   }
+
+  @override
+  String aiScenariosBannerPracticingIn(String language) {
+    return 'Practicando en $language';
+  }
+
+  @override
+  String get aiScenariosBannerSubhead => 'Elige un escenario de tu nivel o uno más arriba.';
 }

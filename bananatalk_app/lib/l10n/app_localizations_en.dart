@@ -5945,4 +5945,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String aiToolsVipUpgradeDescription(String feature) {
     return 'Upgrade to VIP to unlock $feature!';
   }
+
+  @override
+  String aiScenariosBannerPracticingIn(String language) {
+    return 'Practicing in $language';
+  }
+
+  @override
+  String get aiScenariosBannerSubhead => 'Pick a scenario at your level, or stretch one up.';
 }

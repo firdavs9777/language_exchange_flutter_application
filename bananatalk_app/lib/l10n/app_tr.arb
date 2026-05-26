@@ -2389,5 +2389,258 @@
         "type": "String"
       }
     }
+  },
+  "aiTutorChangePersona": "AI öğretmenini değiştir",
+  "aiTutorChangePersonaSubtitle": "Nana, Sensei veya Riko'ya geç",
+  "aiTutorPickerTitle": "AI öğretmenini seç",
+  "aiTutorPickerHeader": "Kiminle öğrenmek istiyorsun?",
+  "aiTutorPickerSubtitle": "Bunu ayarlardan istediğin zaman değiştirebilirsin.",
+  "aiTutorPersonaNanaTagline": "Sıcak + cesaretlendirici",
+  "aiTutorPersonaNanaSample": "Baskısız, seni destekleyeceğim.",
+  "aiTutorPersonaSenseiTagline": "Hassas + sınav odaklı",
+  "aiTutorPersonaSenseiSample": "Kuralları ustalaşacağız.",
+  "aiTutorPersonaRikoTagline": "Eğlenceli + samimi",
+  "aiTutorPersonaRikoSample": "hadi eğlenelim ve öğrenelim",
+  "aiTutorPickerSaveError": "Kaydedilemedi: {error}",
+  "@aiTutorPickerSaveError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorHomeTitle": "AI Öğretmen",
+  "aiTutorHomeChangeTutor": "Öğretmeni değiştir",
+  "aiTutorHomeGreetingDefault": "Selam! Birlikte öğrenmeye hazır mısın?",
+  "aiTutorHomeTodaysPlan": "Bugünkü plan",
+  "aiTutorHomePlanEmpty": "Bugün için plan yok — başlamak için bir sohbet aç.",
+  "aiTutorHomeStartChat": "Sohbete başla",
+  "aiTutorHomeRecent": "Son",
+  "aiTutorHomePracticeScenarios": "Pratik senaryoları",
+  "aiTutorHomePracticeScenariosSubtitle": "Gerçek konuşmaları canlandır — restoran, mülakat, otel…",
+  "aiTutorHomeReadStory": "Hikaye oku",
+  "aiTutorHomeReadStorySubtitle": "AI senin kelimelerinle kısa bir hikaye yazar — hızlı anlama soruları ile.",
+  "aiTutorHomeDescribePhoto": "Bir fotoğrafı tanımla",
+  "aiTutorHomeDescribePhotoSubtitle": "Bir fotoğraf çek ve tanımla — AI kelime + dilbilgisini puanlar.",
+  "aiTutorChatTitle": "Öğretmenle sohbet",
+  "aiTutorChatVoiceOn": "Ses açık",
+  "aiTutorChatVoiceOff": "Ses kapalı",
+  "aiTutorChatStopRecording": "Kaydı durdur",
+  "aiTutorChatHoldToTalk": "Konuşmak için basılı tut",
+  "aiTutorChatTranscribing": "Yazıya dökülüyor…",
+  "aiTutorChatListening": "Dinleniyor…",
+  "aiTutorChatInputHint": "Mesaj yaz…",
+  "aiTutorChatTypeReplyHint": "Yanıtını yaz…",
+  "aiTutorChatMicPermissionDenied": "Ses modu için mikrofon izni gerekli.",
+  "aiTutorChatTranscribeFailed": "Anlayamadım — tekrar dene.",
+  "aiTutorChatStartFailed": "Başlatılamadı: {error}",
+  "@aiTutorChatStartFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorRoleplayEnd": "Bitir",
+  "aiTutorRoleplayEndFailed": "Bitirilemedi: {error}",
+  "@aiTutorRoleplayEndFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorRoleplayDone": "Tamam",
+  "aiScenariosBannerPracticingIn": "{language} pratiği",
+  "@aiScenariosBannerPracticingIn": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "aiScenariosBannerSubhead": "Seviyene uygun bir senaryo seç ya da bir üst seviye dene.",
+  "aiTutorStoryTitle": "Bir hikaye oku",
+  "aiTutorStoryLength": "Uzunluk",
+  "aiTutorStoryTheme": "Tema",
+  "aiTutorStoryWordCount": "{count} kelime",
+  "@aiTutorStoryWordCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorStoryWriting": "Yazılıyor…",
+  "aiTutorStoryGenerate": "Hikaye oluştur",
+  "aiTutorStoryGenerateFailed": "Oluşturulamadı: {error}",
+  "@aiTutorStoryGenerateFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorStoryWordCountHint": "AI, listende {n} kelimeye kadar kullanacak.",
+  "@aiTutorStoryWordCountHint": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorStoryThemeFree": "Serbest",
+  "aiTutorStoryThemeAdventure": "Macera",
+  "aiTutorStoryThemeMystery": "Gizem",
+  "aiTutorStoryThemeRomance": "Romantik",
+  "aiTutorStoryThemeSciFi": "Bilim kurgu",
+  "aiTutorStoryThemeSliceOfLife": "Günlük hayat",
+  "aiTutorStoryReaderTitle": "Hikaye",
+  "aiTutorStoryReaderVocab": "Kelime",
+  "aiTutorStoryReaderVocabUsed": "Kullanılan kelimeler",
+  "aiTutorStoryReaderPart": "{n}. bölüm",
+  "@aiTutorStoryReaderPart": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorStoryReaderWrongHint": "Tam olarak değil — devam",
+  "aiTutorStoryReaderNiceWork": "Harika!",
+  "aiTutorStoryReaderScore": "{correct}/{total} anlama sorusunu doğru cevapladın.",
+  "@aiTutorStoryReaderScore": {
+    "placeholders": {
+      "correct": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorStoryReaderDone": "Tamam",
+  "aiTutorImageVocabTitle": "Bir fotoğrafı tanımla",
+  "aiTutorImagePickHeader": "Tanımlayacak bir fotoğraf seç",
+  "aiTutorImagePickSubtitle": "AI hedef dilinde bir komut verir, sonra senin tanımını puanlar.",
+  "aiTutorImagePickCamera": "Kamera",
+  "aiTutorImagePickGallery": "Galeri",
+  "aiTutorImagePickError": "Resim açılamadı: {error}",
+  "@aiTutorImagePickError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorImageDescriptionHint": "Tanımını yaz…",
+  "aiTutorImageDifferentPhoto": "Başka fotoğraf",
+  "aiTutorImageSubmit": "Gönder",
+  "aiTutorImageGrammarNotes": "Dilbilgisi notları",
+  "aiTutorImageThingsYouMissed": "Kaçırdıkların",
+  "aiTutorImageTryAnother": "Başka fotoğraf dene",
+  "aiTutorCardQuiz": "Test",
+  "aiTutorCardVocab": "Kelime",
+  "aiTutorCardGrammar": "Dilbilgisi",
+  "aiTutorCardReviewDue": "Tekrar zamanı",
+  "aiTutorCardMiniLesson": "Mini ders",
+  "aiTutorCardAddToVocab": "Kelimeye ekle",
+  "aiTutorCardAddedToVocab": "Eklendi",
+  "aiTutorCardAdding": "Ekleniyor…",
+  "aiTutorCardReviewCount": "{count, plural, one{{count} kart seni bekliyor} other{{count} kart seni bekliyor}}",
+  "@aiTutorCardReviewCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorCardReviewNow": "Şimdi tekrarla",
+  "aiTutorCardReviewStarting": "Başlıyor…",
+  "aiTutorCardTryIt": "Dene",
+  "aiTutorCardPracticing": "Pratik yapılıyor…",
+  "aiTutorPlanSrsReview": "{count} SRS kart tekrarla ({done} bitti)",
+  "@aiTutorPlanSrsReview": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "done": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorPlanGrammar": "Pratik: {topic}",
+  "@aiTutorPlanGrammar": {
+    "placeholders": {
+      "topic": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorPlanChat": "{min} dk sohbet ({done} şimdiye dek)",
+  "@aiTutorPlanChat": {
+    "placeholders": {
+      "min": {
+        "type": "int"
+      },
+      "done": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorPronounceLoading": "Senin için bir cümle seçiliyor…",
+  "aiTutorPronounceTapToRecord": "Kaydetmek için dokun",
+  "aiTutorPronounceTapToStop": "Durdurmak için dokun",
+  "aiTutorPronounceTranscribing": "Seni dinliyorum…",
+  "aiTutorPronounceTryAgain": "Tekrar dene",
+  "aiTutorPronounceNext": "İleri",
+  "aiTutorPronounceUseYourOwn": "Kendi cümlem ✏️",
+  "aiTutorPronounceCustomHint": "Pratik yapmak istediğin bir cümle yaz",
+  "aiTutorPronounceCustomCancel": "İptal",
+  "aiTutorPronounceCustomUse": "Kullan",
+  "aiTutorPronounceQuitConfirm": "Alıştırmadan çık? İlerlemen kaydedilmez.",
+  "aiTutorPronounceQuitYes": "Evet",
+  "aiTutorPronounceQuitNo": "Hayır",
+  "aiTutorPronounceSentenceOf": "Cümle {current} / {total}",
+  "@aiTutorPronounceSentenceOf": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorPronounceSummaryTitle": "Alıştırma tamam",
+  "aiTutorPronounceSummaryAvg": "Ortalama skor",
+  "aiTutorPronounceSummaryWeak": "Çalışılacak kelimeler",
+  "aiTutorPronounceSaveClose": "Kaydet ve kapat",
+  "aiTutorPronounceSaving": "Kaydediliyor…",
+  "aiTutorPlanPronunciation": "{count, plural, =1{Telaffuz alıştırması ({completed}/1)} other{Telaffuz alıştırmaları ({completed}/{count})}}",
+  "@aiTutorPlanPronunciation": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "completed": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorPronounceStartHeadline": "Nasıl pratik yapmak istersin?",
+  "aiTutorPronounceStartSubhead": "5 cümlelik bir alıştırma başlatmak için birini seç.",
+  "aiTutorPronounceStartAITitle": "AI cümle üretir",
+  "aiTutorPronounceStartAISubtitle": "Seviyene göre, zor kelimelere ağırlık",
+  "aiTutorPronounceStartCustomTitle": "Kendi cümleni kullan",
+  "aiTutorPronounceStartCustomSubtitle": "Ustalaşmak istediğin bir cümle yaz ya da yapıştır",
+  "aiTutorQuotaRemaining": "{count, plural, =1{Bugün 1 kaldı} other{Bugün {count} kaldı}}",
+  "@aiTutorQuotaRemaining": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   }
 }

@@ -2113,5 +2113,258 @@
         "type": "String"
       }
     }
+  },
+  "aiTutorChangePersona": "Palitan ang AI tutor",
+  "aiTutorChangePersonaSubtitle": "Lumipat sa Nana, Sensei, o Riko",
+  "aiTutorPickerTitle": "Pumili ng AI tutor",
+  "aiTutorPickerHeader": "Kanino mo gustong matuto?",
+  "aiTutorPickerSubtitle": "Maaari mong baguhin ito anumang oras sa settings.",
+  "aiTutorPersonaNanaTagline": "Mainit + nagpapalakas-loob",
+  "aiTutorPersonaNanaSample": "Susuportahan kita, walang pressure.",
+  "aiTutorPersonaSenseiTagline": "Tumpak + para sa eksam",
+  "aiTutorPersonaSenseiSample": "Pakakahusayin natin ang mga tuntunin.",
+  "aiTutorPersonaRikoTagline": "Mapaglaro + slangy",
+  "aiTutorPersonaRikoSample": "sige magsaya tayo at mag-aral",
+  "aiTutorPickerSaveError": "Hindi na-save: {error}",
+  "@aiTutorPickerSaveError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorHomeTitle": "AI Tutor",
+  "aiTutorHomeChangeTutor": "Palitan ang tutor",
+  "aiTutorHomeGreetingDefault": "Hi! Handa nang matuto?",
+  "aiTutorHomeTodaysPlan": "Plano ngayong araw",
+  "aiTutorHomePlanEmpty": "Walang plano ngayon — magsimula ng chat para magsimula.",
+  "aiTutorHomeStartChat": "Simulan ang chat",
+  "aiTutorHomeRecent": "Pinakabago",
+  "aiTutorHomePracticeScenarios": "Mga scenario ng pagsasanay",
+  "aiTutorHomePracticeScenariosSubtitle": "Mag-roleplay ng totoong usapan — restawran, interview, hotel…",
+  "aiTutorHomeReadStory": "Magbasa ng kuwento",
+  "aiTutorHomeReadStorySubtitle": "Sumusulat ang AI ng maikling kuwento gamit ang iyong bokabularyo — may mabilis na pang-unawang tanong.",
+  "aiTutorHomeDescribePhoto": "Ilarawan ang larawan",
+  "aiTutorHomeDescribePhotoSubtitle": "Kumuha ng larawan at ilarawan — minamarkahan ng AI ang bokabularyo + gramatika.",
+  "aiTutorChatTitle": "Chat kasama ang tutor",
+  "aiTutorChatVoiceOn": "Boses naka-on",
+  "aiTutorChatVoiceOff": "Boses naka-off",
+  "aiTutorChatStopRecording": "Itigil ang pag-record",
+  "aiTutorChatHoldToTalk": "Pindutin nang matagal para magsalita",
+  "aiTutorChatTranscribing": "Tinatranskribe…",
+  "aiTutorChatListening": "Nakikinig…",
+  "aiTutorChatInputHint": "Mag-type ng mensahe…",
+  "aiTutorChatTypeReplyHint": "Mag-type ng sagot…",
+  "aiTutorChatMicPermissionDenied": "Kailangan ng pahintulot ng mikropono para sa voice mode.",
+  "aiTutorChatTranscribeFailed": "Hindi narinig — subukan ulit.",
+  "aiTutorChatStartFailed": "Bigong magsimula: {error}",
+  "@aiTutorChatStartFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorRoleplayEnd": "Tapusin",
+  "aiTutorRoleplayEndFailed": "Bigong tapusin: {error}",
+  "@aiTutorRoleplayEndFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorRoleplayDone": "Tapos",
+  "aiScenariosBannerPracticingIn": "Nagsasanay sa {language}",
+  "@aiScenariosBannerPracticingIn": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "aiScenariosBannerSubhead": "Pumili ng scenario sa antas mo, o subukan ang isang mas mataas.",
+  "aiTutorStoryTitle": "Magbasa ng kuwento",
+  "aiTutorStoryLength": "Haba",
+  "aiTutorStoryTheme": "Tema",
+  "aiTutorStoryWordCount": "{count} salita",
+  "@aiTutorStoryWordCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorStoryWriting": "Sumusulat…",
+  "aiTutorStoryGenerate": "Gumawa ng kuwento",
+  "aiTutorStoryGenerateFailed": "Hindi nagawa: {error}",
+  "@aiTutorStoryGenerateFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorStoryWordCountHint": "Gagamit ang AI ng hanggang {n} salita mula sa iyong listahan.",
+  "@aiTutorStoryWordCountHint": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorStoryThemeFree": "Malaya",
+  "aiTutorStoryThemeAdventure": "Pakikipagsapalaran",
+  "aiTutorStoryThemeMystery": "Misteryo",
+  "aiTutorStoryThemeRomance": "Romansa",
+  "aiTutorStoryThemeSciFi": "Sci-fi",
+  "aiTutorStoryThemeSliceOfLife": "Pang-araw-araw",
+  "aiTutorStoryReaderTitle": "Kuwento",
+  "aiTutorStoryReaderVocab": "Bokabularyo",
+  "aiTutorStoryReaderVocabUsed": "Ginamit na bokabularyo",
+  "aiTutorStoryReaderPart": "Bahagi {n}",
+  "@aiTutorStoryReaderPart": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorStoryReaderWrongHint": "Hindi tama — magpatuloy tayo",
+  "aiTutorStoryReaderNiceWork": "Magaling!",
+  "aiTutorStoryReaderScore": "Nakuha mo ang {correct}/{total} na tanong nang tama.",
+  "@aiTutorStoryReaderScore": {
+    "placeholders": {
+      "correct": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorStoryReaderDone": "Tapos",
+  "aiTutorImageVocabTitle": "Ilarawan ang larawan",
+  "aiTutorImagePickHeader": "Pumili ng larawang ilalarawan",
+  "aiTutorImagePickSubtitle": "Bibigyan ka ng AI ng prompt sa iyong target na wika, tapos imamarka ang iyong paglalarawan.",
+  "aiTutorImagePickCamera": "Kamera",
+  "aiTutorImagePickGallery": "Gallery",
+  "aiTutorImagePickError": "Hindi mabuksan ang larawan: {error}",
+  "@aiTutorImagePickError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorImageDescriptionHint": "I-type ang paglalarawan…",
+  "aiTutorImageDifferentPhoto": "Ibang larawan",
+  "aiTutorImageSubmit": "Ipasa",
+  "aiTutorImageGrammarNotes": "Mga grammar note",
+  "aiTutorImageThingsYouMissed": "Mga na-miss mo",
+  "aiTutorImageTryAnother": "Subukan ang ibang larawan",
+  "aiTutorCardQuiz": "Pagsusulit",
+  "aiTutorCardVocab": "Bokabularyo",
+  "aiTutorCardGrammar": "Gramatika",
+  "aiTutorCardReviewDue": "Oras na para mag-review",
+  "aiTutorCardMiniLesson": "Mini-aralin",
+  "aiTutorCardAddToVocab": "Idagdag sa bokabularyo",
+  "aiTutorCardAddedToVocab": "Naidagdag",
+  "aiTutorCardAdding": "Nagdadagdag…",
+  "aiTutorCardReviewCount": "{count, plural, one{{count} card ang naghihintay} other{{count} cards ang naghihintay}}",
+  "@aiTutorCardReviewCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorCardReviewNow": "Mag-review ngayon",
+  "aiTutorCardReviewStarting": "Sinisimulan…",
+  "aiTutorCardTryIt": "Subukan",
+  "aiTutorCardPracticing": "Nagsasanay…",
+  "aiTutorPlanSrsReview": "I-review ang {count} SRS cards ({done} tapos)",
+  "@aiTutorPlanSrsReview": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "done": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorPlanGrammar": "Magsanay: {topic}",
+  "@aiTutorPlanGrammar": {
+    "placeholders": {
+      "topic": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorPlanChat": "Mag-chat ng {min} min ({done} so far)",
+  "@aiTutorPlanChat": {
+    "placeholders": {
+      "min": {
+        "type": "int"
+      },
+      "done": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorPronounceLoading": "Pumipili ng pangungusap para sa iyo…",
+  "aiTutorPronounceTapToRecord": "I-tap para mag-record",
+  "aiTutorPronounceTapToStop": "I-tap para huminto",
+  "aiTutorPronounceTranscribing": "Nakikinig sa iyo…",
+  "aiTutorPronounceTryAgain": "Subukan ulit",
+  "aiTutorPronounceNext": "Susunod",
+  "aiTutorPronounceUseYourOwn": "Sariling pangungusap ✏️",
+  "aiTutorPronounceCustomHint": "I-type ang pangungusap na gusto mong sanayin",
+  "aiTutorPronounceCustomCancel": "Kanselahin",
+  "aiTutorPronounceCustomUse": "Gamitin",
+  "aiTutorPronounceQuitConfirm": "Aalis sa drill? Hindi ma-save ang progreso mo.",
+  "aiTutorPronounceQuitYes": "Oo",
+  "aiTutorPronounceQuitNo": "Hindi",
+  "aiTutorPronounceSentenceOf": "Pangungusap {current} sa {total}",
+  "@aiTutorPronounceSentenceOf": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorPronounceSummaryTitle": "Tapos na ang drill",
+  "aiTutorPronounceSummaryAvg": "Average na iskor",
+  "aiTutorPronounceSummaryWeak": "Mga salitang sasanayin",
+  "aiTutorPronounceSaveClose": "I-save at isara",
+  "aiTutorPronounceSaving": "Sini-save…",
+  "aiTutorPlanPronunciation": "{count, plural, =1{Pronunciation drill ({completed}/1)} other{Pronunciation drills ({completed}/{count})}}",
+  "@aiTutorPlanPronunciation": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "completed": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorPronounceStartHeadline": "Paano mo gustong magsanay?",
+  "aiTutorPronounceStartSubhead": "Pumili ng isa para simulan ang 5-na-pangungusap na drill.",
+  "aiTutorPronounceStartAITitle": "AI ang gagawa ng pangungusap",
+  "aiTutorPronounceStartAISubtitle": "Naka-tune sa antas mo, nakapokus sa mahihirap mong salita",
+  "aiTutorPronounceStartCustomTitle": "Sariling pangungusap",
+  "aiTutorPronounceStartCustomSubtitle": "I-type o i-paste ang parirala na gusto mong masanay",
+  "aiTutorQuotaRemaining": "{count, plural, =1{1 na lang sa araw na ito} other{{count} na lang sa araw na ito}}",
+  "@aiTutorQuotaRemaining": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   }
 }

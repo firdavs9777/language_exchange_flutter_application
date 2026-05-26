@@ -2176,5 +2176,258 @@
         "type": "String"
       }
     }
+  },
+  "aiTutorChangePersona": "AIチューターを変更",
+  "aiTutorChangePersonaSubtitle": "Nana、Sensei、Rikoに切り替え",
+  "aiTutorPickerTitle": "AIチューターを選ぼう",
+  "aiTutorPickerHeader": "誰と一緒に学びたい？",
+  "aiTutorPickerSubtitle": "設定からいつでも変更できます。",
+  "aiTutorPersonaNanaTagline": "温かい + 励まし",
+  "aiTutorPersonaNanaSample": "プレッシャーなしで応援するよ。",
+  "aiTutorPersonaSenseiTagline": "正確 + 試験対策",
+  "aiTutorPersonaSenseiSample": "ルールをマスターしよう。",
+  "aiTutorPersonaRikoTagline": "陽気 + カジュアル",
+  "aiTutorPersonaRikoSample": "楽しく学ぼうぜ",
+  "aiTutorPickerSaveError": "保存できませんでした: {error}",
+  "@aiTutorPickerSaveError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorHomeTitle": "AIチューター",
+  "aiTutorHomeChangeTutor": "チューターを変更",
+  "aiTutorHomeGreetingDefault": "やあ！一緒に学ぶ準備はいい？",
+  "aiTutorHomeTodaysPlan": "今日のプラン",
+  "aiTutorHomePlanEmpty": "今日はプランがありません — チャットを始めましょう。",
+  "aiTutorHomeStartChat": "チャット開始",
+  "aiTutorHomeRecent": "最近",
+  "aiTutorHomePracticeScenarios": "練習シナリオ",
+  "aiTutorHomePracticeScenariosSubtitle": "実際の会話をロールプレイ — レストラン、面接、ホテル…",
+  "aiTutorHomeReadStory": "ストーリーを読む",
+  "aiTutorHomeReadStorySubtitle": "AIがあなたの単語で短いストーリーを書き、簡単な理解問題を出します。",
+  "aiTutorHomeDescribePhoto": "写真を説明",
+  "aiTutorHomeDescribePhotoSubtitle": "写真を撮って説明 — AIが単語と文法を評価します。",
+  "aiTutorChatTitle": "チューターとチャット",
+  "aiTutorChatVoiceOn": "音声オン",
+  "aiTutorChatVoiceOff": "音声オフ",
+  "aiTutorChatStopRecording": "録音を停止",
+  "aiTutorChatHoldToTalk": "押しながら話す",
+  "aiTutorChatTranscribing": "文字起こし中…",
+  "aiTutorChatListening": "聴いています…",
+  "aiTutorChatInputHint": "メッセージを入力…",
+  "aiTutorChatTypeReplyHint": "返信を入力…",
+  "aiTutorChatMicPermissionDenied": "音声モードにはマイクの許可が必要です。",
+  "aiTutorChatTranscribeFailed": "聞き取れませんでした — もう一度試してください。",
+  "aiTutorChatStartFailed": "開始できませんでした: {error}",
+  "@aiTutorChatStartFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorRoleplayEnd": "終了",
+  "aiTutorRoleplayEndFailed": "終了に失敗: {error}",
+  "@aiTutorRoleplayEndFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorRoleplayDone": "完了",
+  "aiScenariosBannerPracticingIn": "{language}で練習中",
+  "@aiScenariosBannerPracticingIn": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "aiScenariosBannerSubhead": "自分のレベルのシナリオを選ぶか、一段上に挑戦しよう。",
+  "aiTutorStoryTitle": "ストーリーを読む",
+  "aiTutorStoryLength": "長さ",
+  "aiTutorStoryTheme": "テーマ",
+  "aiTutorStoryWordCount": "{count} 単語",
+  "@aiTutorStoryWordCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorStoryWriting": "執筆中…",
+  "aiTutorStoryGenerate": "ストーリーを生成",
+  "aiTutorStoryGenerateFailed": "生成できませんでした: {error}",
+  "@aiTutorStoryGenerateFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorStoryWordCountHint": "AIはあなたの単語リストから最大{n}語を使います。",
+  "@aiTutorStoryWordCountHint": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorStoryThemeFree": "自由",
+  "aiTutorStoryThemeAdventure": "冒険",
+  "aiTutorStoryThemeMystery": "ミステリー",
+  "aiTutorStoryThemeRomance": "ロマンス",
+  "aiTutorStoryThemeSciFi": "SF",
+  "aiTutorStoryThemeSliceOfLife": "日常",
+  "aiTutorStoryReaderTitle": "ストーリー",
+  "aiTutorStoryReaderVocab": "単語",
+  "aiTutorStoryReaderVocabUsed": "使用した単語",
+  "aiTutorStoryReaderPart": "第{n}部",
+  "@aiTutorStoryReaderPart": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorStoryReaderWrongHint": "惜しい — 次へ",
+  "aiTutorStoryReaderNiceWork": "いいね！",
+  "aiTutorStoryReaderScore": "理解度問題で {correct}/{total} 正解しました。",
+  "@aiTutorStoryReaderScore": {
+    "placeholders": {
+      "correct": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorStoryReaderDone": "完了",
+  "aiTutorImageVocabTitle": "写真を説明",
+  "aiTutorImagePickHeader": "説明する写真を選ぼう",
+  "aiTutorImagePickSubtitle": "AIがターゲット言語でプロンプトを出し、あなたの説明を採点します。",
+  "aiTutorImagePickCamera": "カメラ",
+  "aiTutorImagePickGallery": "ギャラリー",
+  "aiTutorImagePickError": "画像を開けませんでした: {error}",
+  "@aiTutorImagePickError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorImageDescriptionHint": "説明を入力…",
+  "aiTutorImageDifferentPhoto": "別の写真",
+  "aiTutorImageSubmit": "送信",
+  "aiTutorImageGrammarNotes": "文法メモ",
+  "aiTutorImageThingsYouMissed": "見逃したもの",
+  "aiTutorImageTryAnother": "別の写真で試す",
+  "aiTutorCardQuiz": "クイズ",
+  "aiTutorCardVocab": "単語",
+  "aiTutorCardGrammar": "文法",
+  "aiTutorCardReviewDue": "復習時間",
+  "aiTutorCardMiniLesson": "ミニレッスン",
+  "aiTutorCardAddToVocab": "単語に追加",
+  "aiTutorCardAddedToVocab": "追加済み",
+  "aiTutorCardAdding": "追加中…",
+  "aiTutorCardReviewCount": "{count, plural, one{{count}枚のカードが待っています} other{{count}枚のカードが待っています}}",
+  "@aiTutorCardReviewCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorCardReviewNow": "今すぐ復習",
+  "aiTutorCardReviewStarting": "開始中…",
+  "aiTutorCardTryIt": "やってみる",
+  "aiTutorCardPracticing": "練習中…",
+  "aiTutorPlanSrsReview": "{count}枚のSRSカードを復習 ({done}完了)",
+  "@aiTutorPlanSrsReview": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "done": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorPlanGrammar": "練習: {topic}",
+  "@aiTutorPlanGrammar": {
+    "placeholders": {
+      "topic": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorPlanChat": "{min}分チャット (これまで{done})",
+  "@aiTutorPlanChat": {
+    "placeholders": {
+      "min": {
+        "type": "int"
+      },
+      "done": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorPronounceLoading": "あなたのための文を選んでいます…",
+  "aiTutorPronounceTapToRecord": "タップで録音",
+  "aiTutorPronounceTapToStop": "タップで停止",
+  "aiTutorPronounceTranscribing": "聴いています…",
+  "aiTutorPronounceTryAgain": "もう一度",
+  "aiTutorPronounceNext": "次へ",
+  "aiTutorPronounceUseYourOwn": "自分の文 ✏️",
+  "aiTutorPronounceCustomHint": "練習したい文を入力",
+  "aiTutorPronounceCustomCancel": "キャンセル",
+  "aiTutorPronounceCustomUse": "使う",
+  "aiTutorPronounceQuitConfirm": "終了しますか？進行状況は保存されません。",
+  "aiTutorPronounceQuitYes": "はい",
+  "aiTutorPronounceQuitNo": "いいえ",
+  "aiTutorPronounceSentenceOf": "文 {current}/{total}",
+  "@aiTutorPronounceSentenceOf": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorPronounceSummaryTitle": "練習完了",
+  "aiTutorPronounceSummaryAvg": "平均スコア",
+  "aiTutorPronounceSummaryWeak": "練習すべき単語",
+  "aiTutorPronounceSaveClose": "保存して閉じる",
+  "aiTutorPronounceSaving": "保存中…",
+  "aiTutorPlanPronunciation": "{count, plural, =1{発音練習 ({completed}/1)} other{発音練習 ({completed}/{count})}}",
+  "@aiTutorPlanPronunciation": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "completed": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorPronounceStartHeadline": "どう練習しますか？",
+  "aiTutorPronounceStartSubhead": "5文の練習を始めるには1つ選んでください。",
+  "aiTutorPronounceStartAITitle": "AIが文を生成",
+  "aiTutorPronounceStartAISubtitle": "レベルに合わせて、苦手な単語を中心に",
+  "aiTutorPronounceStartCustomTitle": "自分の文を使う",
+  "aiTutorPronounceStartCustomSubtitle": "マスターしたい文を入力または貼り付け",
+  "aiTutorQuotaRemaining": "{count, plural, =1{今日あと1回} other{今日あと{count}回}}",
+  "@aiTutorQuotaRemaining": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   }
 }

@@ -2019,5 +2019,258 @@
         "type": "String"
       }
     }
+  },
+  "aiTutorChangePersona": "Đổi gia sư AI",
+  "aiTutorChangePersonaSubtitle": "Chuyển sang Nana, Sensei hoặc Riko",
+  "aiTutorPickerTitle": "Chọn gia sư AI",
+  "aiTutorPickerHeader": "Bạn muốn học cùng ai?",
+  "aiTutorPickerSubtitle": "Bạn có thể thay đổi bất kỳ lúc nào trong cài đặt.",
+  "aiTutorPersonaNanaTagline": "Ấm áp + khích lệ",
+  "aiTutorPersonaNanaSample": "Mình sẽ cổ vũ bạn, không áp lực.",
+  "aiTutorPersonaSenseiTagline": "Chính xác + tập trung thi cử",
+  "aiTutorPersonaSenseiSample": "Chúng ta sẽ làm chủ các quy tắc.",
+  "aiTutorPersonaRikoTagline": "Vui vẻ + thân mật",
+  "aiTutorPersonaRikoSample": "nào cùng vui vẻ và học thôi",
+  "aiTutorPickerSaveError": "Không lưu được: {error}",
+  "@aiTutorPickerSaveError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorHomeTitle": "Gia sư AI",
+  "aiTutorHomeChangeTutor": "Đổi gia sư",
+  "aiTutorHomeGreetingDefault": "Chào! Sẵn sàng học cùng nhau chưa?",
+  "aiTutorHomeTodaysPlan": "Kế hoạch hôm nay",
+  "aiTutorHomePlanEmpty": "Hôm nay chưa có kế hoạch — bắt đầu trò chuyện để bắt đầu.",
+  "aiTutorHomeStartChat": "Bắt đầu trò chuyện",
+  "aiTutorHomeRecent": "Gần đây",
+  "aiTutorHomePracticeScenarios": "Kịch bản luyện tập",
+  "aiTutorHomePracticeScenariosSubtitle": "Đóng vai các cuộc trò chuyện thực tế — nhà hàng, phỏng vấn, khách sạn…",
+  "aiTutorHomeReadStory": "Đọc truyện",
+  "aiTutorHomeReadStorySubtitle": "AI viết truyện ngắn dùng từ vựng của bạn — kèm câu hỏi hiểu nhanh.",
+  "aiTutorHomeDescribePhoto": "Mô tả ảnh",
+  "aiTutorHomeDescribePhotoSubtitle": "Chụp ảnh và mô tả — AI chấm từ vựng + ngữ pháp.",
+  "aiTutorChatTitle": "Trò chuyện với gia sư",
+  "aiTutorChatVoiceOn": "Bật tiếng",
+  "aiTutorChatVoiceOff": "Tắt tiếng",
+  "aiTutorChatStopRecording": "Dừng ghi âm",
+  "aiTutorChatHoldToTalk": "Giữ để nói",
+  "aiTutorChatTranscribing": "Đang chuyển ngữ…",
+  "aiTutorChatListening": "Đang nghe…",
+  "aiTutorChatInputHint": "Nhập tin nhắn…",
+  "aiTutorChatTypeReplyHint": "Nhập câu trả lời…",
+  "aiTutorChatMicPermissionDenied": "Cần quyền micro cho chế độ giọng nói.",
+  "aiTutorChatTranscribeFailed": "Không nghe rõ — thử lại.",
+  "aiTutorChatStartFailed": "Không khởi động được: {error}",
+  "@aiTutorChatStartFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorRoleplayEnd": "Kết thúc",
+  "aiTutorRoleplayEndFailed": "Không kết thúc được: {error}",
+  "@aiTutorRoleplayEndFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorRoleplayDone": "Xong",
+  "aiScenariosBannerPracticingIn": "Luyện tập bằng {language}",
+  "@aiScenariosBannerPracticingIn": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "aiScenariosBannerSubhead": "Chọn kịch bản theo trình độ của bạn, hoặc thử cao hơn một mức.",
+  "aiTutorStoryTitle": "Đọc truyện",
+  "aiTutorStoryLength": "Độ dài",
+  "aiTutorStoryTheme": "Chủ đề",
+  "aiTutorStoryWordCount": "{count} từ",
+  "@aiTutorStoryWordCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorStoryWriting": "Đang viết…",
+  "aiTutorStoryGenerate": "Tạo truyện",
+  "aiTutorStoryGenerateFailed": "Không tạo được: {error}",
+  "@aiTutorStoryGenerateFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorStoryWordCountHint": "AI sẽ sử dụng tối đa {n} từ trong danh sách của bạn.",
+  "@aiTutorStoryWordCountHint": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorStoryThemeFree": "Tự do",
+  "aiTutorStoryThemeAdventure": "Phiêu lưu",
+  "aiTutorStoryThemeMystery": "Bí ẩn",
+  "aiTutorStoryThemeRomance": "Lãng mạn",
+  "aiTutorStoryThemeSciFi": "Khoa học viễn tưởng",
+  "aiTutorStoryThemeSliceOfLife": "Đời thường",
+  "aiTutorStoryReaderTitle": "Truyện",
+  "aiTutorStoryReaderVocab": "Từ vựng",
+  "aiTutorStoryReaderVocabUsed": "Từ vựng đã dùng",
+  "aiTutorStoryReaderPart": "Phần {n}",
+  "@aiTutorStoryReaderPart": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorStoryReaderWrongHint": "Chưa đúng — đi tiếp",
+  "aiTutorStoryReaderNiceWork": "Làm tốt lắm!",
+  "aiTutorStoryReaderScore": "Bạn trả lời đúng {correct}/{total} câu hỏi hiểu.",
+  "@aiTutorStoryReaderScore": {
+    "placeholders": {
+      "correct": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorStoryReaderDone": "Xong",
+  "aiTutorImageVocabTitle": "Mô tả ảnh",
+  "aiTutorImagePickHeader": "Chọn ảnh để mô tả",
+  "aiTutorImagePickSubtitle": "AI sẽ đưa ra gợi ý bằng ngôn ngữ mục tiêu của bạn, rồi chấm điểm mô tả.",
+  "aiTutorImagePickCamera": "Máy ảnh",
+  "aiTutorImagePickGallery": "Thư viện",
+  "aiTutorImagePickError": "Không mở được ảnh: {error}",
+  "@aiTutorImagePickError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorImageDescriptionHint": "Nhập mô tả…",
+  "aiTutorImageDifferentPhoto": "Ảnh khác",
+  "aiTutorImageSubmit": "Gửi",
+  "aiTutorImageGrammarNotes": "Ghi chú ngữ pháp",
+  "aiTutorImageThingsYouMissed": "Điều bạn bỏ lỡ",
+  "aiTutorImageTryAnother": "Thử ảnh khác",
+  "aiTutorCardQuiz": "Câu đố",
+  "aiTutorCardVocab": "Từ vựng",
+  "aiTutorCardGrammar": "Ngữ pháp",
+  "aiTutorCardReviewDue": "Đến lúc ôn tập",
+  "aiTutorCardMiniLesson": "Bài học ngắn",
+  "aiTutorCardAddToVocab": "Thêm vào từ vựng",
+  "aiTutorCardAddedToVocab": "Đã thêm",
+  "aiTutorCardAdding": "Đang thêm…",
+  "aiTutorCardReviewCount": "{count, plural, one{{count} thẻ đang chờ bạn} other{{count} thẻ đang chờ bạn}}",
+  "@aiTutorCardReviewCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorCardReviewNow": "Ôn tập ngay",
+  "aiTutorCardReviewStarting": "Đang bắt đầu…",
+  "aiTutorCardTryIt": "Thử",
+  "aiTutorCardPracticing": "Đang luyện tập…",
+  "aiTutorPlanSrsReview": "Ôn {count} thẻ SRS ({done} xong)",
+  "@aiTutorPlanSrsReview": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "done": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorPlanGrammar": "Luyện: {topic}",
+  "@aiTutorPlanGrammar": {
+    "placeholders": {
+      "topic": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorPlanChat": "Chat {min} phút ({done} đến giờ)",
+  "@aiTutorPlanChat": {
+    "placeholders": {
+      "min": {
+        "type": "int"
+      },
+      "done": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorPronounceLoading": "Đang chọn câu cho bạn…",
+  "aiTutorPronounceTapToRecord": "Chạm để ghi âm",
+  "aiTutorPronounceTapToStop": "Chạm để dừng",
+  "aiTutorPronounceTranscribing": "Đang nghe bạn…",
+  "aiTutorPronounceTryAgain": "Thử lại",
+  "aiTutorPronounceNext": "Tiếp",
+  "aiTutorPronounceUseYourOwn": "Câu của tôi ✏️",
+  "aiTutorPronounceCustomHint": "Nhập câu bạn muốn luyện",
+  "aiTutorPronounceCustomCancel": "Huỷ",
+  "aiTutorPronounceCustomUse": "Dùng",
+  "aiTutorPronounceQuitConfirm": "Thoát bài tập? Tiến trình sẽ không được lưu.",
+  "aiTutorPronounceQuitYes": "Có",
+  "aiTutorPronounceQuitNo": "Không",
+  "aiTutorPronounceSentenceOf": "Câu {current} / {total}",
+  "@aiTutorPronounceSentenceOf": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorPronounceSummaryTitle": "Đã hoàn thành",
+  "aiTutorPronounceSummaryAvg": "Điểm trung bình",
+  "aiTutorPronounceSummaryWeak": "Từ cần luyện",
+  "aiTutorPronounceSaveClose": "Lưu & đóng",
+  "aiTutorPronounceSaving": "Đang lưu…",
+  "aiTutorPlanPronunciation": "{count, plural, =1{Bài luyện phát âm ({completed}/1)} other{Bài luyện phát âm ({completed}/{count})}}",
+  "@aiTutorPlanPronunciation": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "completed": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorPronounceStartHeadline": "Bạn muốn luyện thế nào?",
+  "aiTutorPronounceStartSubhead": "Chọn một để bắt đầu bài 5 câu.",
+  "aiTutorPronounceStartAITitle": "AI tạo câu",
+  "aiTutorPronounceStartAISubtitle": "Theo cấp độ, tập trung vào các từ khó của bạn",
+  "aiTutorPronounceStartCustomTitle": "Dùng câu của riêng tôi",
+  "aiTutorPronounceStartCustomSubtitle": "Nhập hoặc dán câu bạn muốn thành thạo",
+  "aiTutorQuotaRemaining": "{count, plural, =1{Hôm nay còn 1} other{Hôm nay còn {count}}}",
+  "@aiTutorQuotaRemaining": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   }
 }

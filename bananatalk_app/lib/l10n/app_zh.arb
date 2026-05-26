@@ -2190,5 +2190,258 @@
         "type": "String"
       }
     }
+  },
+  "aiTutorChangePersona": "更换 AI 导师",
+  "aiTutorChangePersonaSubtitle": "切换到 Nana、Sensei 或 Riko",
+  "aiTutorPickerTitle": "挑选你的 AI 导师",
+  "aiTutorPickerHeader": "你想和谁一起学习？",
+  "aiTutorPickerSubtitle": "你随时可以在设置中更改。",
+  "aiTutorPersonaNanaTagline": "温暖 + 鼓励",
+  "aiTutorPersonaNanaSample": "我会为你加油，没有压力。",
+  "aiTutorPersonaSenseiTagline": "精准 + 应试",
+  "aiTutorPersonaSenseiSample": "我们一起掌握规则。",
+  "aiTutorPersonaRikoTagline": "俏皮 + 口语化",
+  "aiTutorPersonaRikoSample": "哈哈一起放松学吧",
+  "aiTutorPickerSaveError": "无法保存: {error}",
+  "@aiTutorPickerSaveError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorHomeTitle": "AI 导师",
+  "aiTutorHomeChangeTutor": "更换导师",
+  "aiTutorHomeGreetingDefault": "嗨！准备好一起学习了吗？",
+  "aiTutorHomeTodaysPlan": "今日计划",
+  "aiTutorHomePlanEmpty": "今日还没有计划 — 开始聊天来启动吧。",
+  "aiTutorHomeStartChat": "开始聊天",
+  "aiTutorHomeRecent": "最近",
+  "aiTutorHomePracticeScenarios": "练习情境",
+  "aiTutorHomePracticeScenariosSubtitle": "角色扮演真实对话 — 餐厅、面试、酒店…",
+  "aiTutorHomeReadStory": "读一个故事",
+  "aiTutorHomeReadStorySubtitle": "AI 用你的词汇写一个短故事 — 附带快速理解问答。",
+  "aiTutorHomeDescribePhoto": "描述一张照片",
+  "aiTutorHomeDescribePhotoSubtitle": "拍张照片并描述 — AI 评估词汇和语法。",
+  "aiTutorChatTitle": "与导师聊天",
+  "aiTutorChatVoiceOn": "语音开",
+  "aiTutorChatVoiceOff": "语音关",
+  "aiTutorChatStopRecording": "停止录音",
+  "aiTutorChatHoldToTalk": "按住说话",
+  "aiTutorChatTranscribing": "正在转写…",
+  "aiTutorChatListening": "正在聆听…",
+  "aiTutorChatInputHint": "输入消息…",
+  "aiTutorChatTypeReplyHint": "输入你的回复…",
+  "aiTutorChatMicPermissionDenied": "语音模式需要麦克风权限。",
+  "aiTutorChatTranscribeFailed": "没听清 — 再试一次。",
+  "aiTutorChatStartFailed": "启动失败: {error}",
+  "@aiTutorChatStartFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorRoleplayEnd": "结束",
+  "aiTutorRoleplayEndFailed": "结束失败: {error}",
+  "@aiTutorRoleplayEndFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorRoleplayDone": "完成",
+  "aiScenariosBannerPracticingIn": "正在用{language}练习",
+  "@aiScenariosBannerPracticingIn": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "aiScenariosBannerSubhead": "选择符合你等级的情境，或挑战高一级。",
+  "aiTutorStoryTitle": "读一个故事",
+  "aiTutorStoryLength": "长度",
+  "aiTutorStoryTheme": "主题",
+  "aiTutorStoryWordCount": "{count} 个词",
+  "@aiTutorStoryWordCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorStoryWriting": "撰写中…",
+  "aiTutorStoryGenerate": "生成故事",
+  "aiTutorStoryGenerateFailed": "无法生成: {error}",
+  "@aiTutorStoryGenerateFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorStoryWordCountHint": "AI 会使用你词汇表中最多 {n} 个词。",
+  "@aiTutorStoryWordCountHint": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorStoryThemeFree": "自由",
+  "aiTutorStoryThemeAdventure": "冒险",
+  "aiTutorStoryThemeMystery": "悬疑",
+  "aiTutorStoryThemeRomance": "爱情",
+  "aiTutorStoryThemeSciFi": "科幻",
+  "aiTutorStoryThemeSliceOfLife": "日常",
+  "aiTutorStoryReaderTitle": "故事",
+  "aiTutorStoryReaderVocab": "词汇",
+  "aiTutorStoryReaderVocabUsed": "使用过的词",
+  "aiTutorStoryReaderPart": "第 {n} 部分",
+  "@aiTutorStoryReaderPart": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorStoryReaderWrongHint": "差一点 — 继续",
+  "aiTutorStoryReaderNiceWork": "做得好！",
+  "aiTutorStoryReaderScore": "你答对了 {correct}/{total} 道理解题。",
+  "@aiTutorStoryReaderScore": {
+    "placeholders": {
+      "correct": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorStoryReaderDone": "完成",
+  "aiTutorImageVocabTitle": "描述照片",
+  "aiTutorImagePickHeader": "选择要描述的照片",
+  "aiTutorImagePickSubtitle": "AI 会用你的目标语言给出提示，然后评估你的描述。",
+  "aiTutorImagePickCamera": "相机",
+  "aiTutorImagePickGallery": "相册",
+  "aiTutorImagePickError": "无法打开图片: {error}",
+  "@aiTutorImagePickError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorImageDescriptionHint": "输入描述…",
+  "aiTutorImageDifferentPhoto": "换一张",
+  "aiTutorImageSubmit": "提交",
+  "aiTutorImageGrammarNotes": "语法笔记",
+  "aiTutorImageThingsYouMissed": "漏掉的内容",
+  "aiTutorImageTryAnother": "试试另一张",
+  "aiTutorCardQuiz": "小测验",
+  "aiTutorCardVocab": "词汇",
+  "aiTutorCardGrammar": "语法",
+  "aiTutorCardReviewDue": "复习时间到",
+  "aiTutorCardMiniLesson": "迷你课",
+  "aiTutorCardAddToVocab": "添加到词汇",
+  "aiTutorCardAddedToVocab": "已添加",
+  "aiTutorCardAdding": "添加中…",
+  "aiTutorCardReviewCount": "{count, plural, one{{count} 张卡在等你} other{{count} 张卡在等你}}",
+  "@aiTutorCardReviewCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorCardReviewNow": "立即复习",
+  "aiTutorCardReviewStarting": "启动中…",
+  "aiTutorCardTryIt": "试试",
+  "aiTutorCardPracticing": "练习中…",
+  "aiTutorPlanSrsReview": "复习 {count} 张 SRS 卡 ({done} 完成)",
+  "@aiTutorPlanSrsReview": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "done": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorPlanGrammar": "练习: {topic}",
+  "@aiTutorPlanGrammar": {
+    "placeholders": {
+      "topic": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorPlanChat": "聊 {min} 分钟 (目前 {done})",
+  "@aiTutorPlanChat": {
+    "placeholders": {
+      "min": {
+        "type": "int"
+      },
+      "done": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorPronounceLoading": "为你挑选一个句子…",
+  "aiTutorPronounceTapToRecord": "点按录音",
+  "aiTutorPronounceTapToStop": "点按停止",
+  "aiTutorPronounceTranscribing": "正在听你…",
+  "aiTutorPronounceTryAgain": "再试一次",
+  "aiTutorPronounceNext": "下一个",
+  "aiTutorPronounceUseYourOwn": "用我自己的 ✏️",
+  "aiTutorPronounceCustomHint": "输入想练习的句子",
+  "aiTutorPronounceCustomCancel": "取消",
+  "aiTutorPronounceCustomUse": "使用",
+  "aiTutorPronounceQuitConfirm": "退出练习？进度不会保存。",
+  "aiTutorPronounceQuitYes": "是",
+  "aiTutorPronounceQuitNo": "否",
+  "aiTutorPronounceSentenceOf": "第 {current} 句 / 共 {total} 句",
+  "@aiTutorPronounceSentenceOf": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorPronounceSummaryTitle": "练习完成",
+  "aiTutorPronounceSummaryAvg": "平均分",
+  "aiTutorPronounceSummaryWeak": "需练习的词",
+  "aiTutorPronounceSaveClose": "保存并关闭",
+  "aiTutorPronounceSaving": "保存中…",
+  "aiTutorPlanPronunciation": "{count, plural, =1{发音练习 ({completed}/1)} other{发音练习 ({completed}/{count})}}",
+  "@aiTutorPlanPronunciation": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "completed": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorPronounceStartHeadline": "你想怎么练习？",
+  "aiTutorPronounceStartSubhead": "选一个开始 5 句练习。",
+  "aiTutorPronounceStartAITitle": "AI 生成句子",
+  "aiTutorPronounceStartAISubtitle": "按等级调整，针对你的难词",
+  "aiTutorPronounceStartCustomTitle": "用自己的句子",
+  "aiTutorPronounceStartCustomSubtitle": "输入或粘贴你想掌握的句子",
+  "aiTutorQuotaRemaining": "{count, plural, =1{今日还剩 1 次} other{今日还剩 {count} 次}}",
+  "@aiTutorQuotaRemaining": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   }
 }

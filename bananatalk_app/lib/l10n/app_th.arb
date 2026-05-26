@@ -2019,5 +2019,258 @@
         "type": "String"
       }
     }
+  },
+  "aiTutorChangePersona": "เปลี่ยนติวเตอร์ AI",
+  "aiTutorChangePersonaSubtitle": "เปลี่ยนเป็น Nana, Sensei หรือ Riko",
+  "aiTutorPickerTitle": "เลือกติวเตอร์ AI ของคุณ",
+  "aiTutorPickerHeader": "คุณอยากเรียนกับใคร?",
+  "aiTutorPickerSubtitle": "คุณสามารถเปลี่ยนได้ตลอดในการตั้งค่า",
+  "aiTutorPersonaNanaTagline": "อบอุ่น + ให้กำลังใจ",
+  "aiTutorPersonaNanaSample": "ฉันจะคอยเชียร์ ไม่กดดัน",
+  "aiTutorPersonaSenseiTagline": "แม่นยำ + เน้นสอบ",
+  "aiTutorPersonaSenseiSample": "เราจะเก่งกฎไวยากรณ์",
+  "aiTutorPersonaRikoTagline": "ขี้เล่น + กันเอง",
+  "aiTutorPersonaRikoSample": "มาสนุกและเรียนกัน",
+  "aiTutorPickerSaveError": "บันทึกไม่ได้: {error}",
+  "@aiTutorPickerSaveError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorHomeTitle": "ติวเตอร์ AI",
+  "aiTutorHomeChangeTutor": "เปลี่ยนติวเตอร์",
+  "aiTutorHomeGreetingDefault": "สวัสดี! พร้อมเรียนด้วยกันไหม?",
+  "aiTutorHomeTodaysPlan": "แผนวันนี้",
+  "aiTutorHomePlanEmpty": "วันนี้ไม่มีแผน — เริ่มแชทเพื่อเริ่มต้น",
+  "aiTutorHomeStartChat": "เริ่มแชท",
+  "aiTutorHomeRecent": "ล่าสุด",
+  "aiTutorHomePracticeScenarios": "สถานการณ์ฝึก",
+  "aiTutorHomePracticeScenariosSubtitle": "สวมบทบาทบทสนทนาจริง — ร้านอาหาร, สัมภาษณ์, โรงแรม…",
+  "aiTutorHomeReadStory": "อ่านเรื่อง",
+  "aiTutorHomeReadStorySubtitle": "AI เขียนเรื่องสั้นจากคำศัพท์ของคุณ — พร้อมคำถามทำความเข้าใจ",
+  "aiTutorHomeDescribePhoto": "อธิบายภาพ",
+  "aiTutorHomeDescribePhotoSubtitle": "ถ่ายภาพแล้วอธิบาย — AI ประเมินคำศัพท์ + ไวยากรณ์",
+  "aiTutorChatTitle": "แชทกับติวเตอร์",
+  "aiTutorChatVoiceOn": "เปิดเสียง",
+  "aiTutorChatVoiceOff": "ปิดเสียง",
+  "aiTutorChatStopRecording": "หยุดบันทึก",
+  "aiTutorChatHoldToTalk": "กดค้างเพื่อพูด",
+  "aiTutorChatTranscribing": "กำลังถอดเสียง…",
+  "aiTutorChatListening": "กำลังฟัง…",
+  "aiTutorChatInputHint": "พิมพ์ข้อความ…",
+  "aiTutorChatTypeReplyHint": "พิมพ์คำตอบ…",
+  "aiTutorChatMicPermissionDenied": "ต้องอนุญาตไมโครโฟนสำหรับโหมดเสียง",
+  "aiTutorChatTranscribeFailed": "ฟังไม่ทัน — ลองใหม่",
+  "aiTutorChatStartFailed": "เริ่มไม่ได้: {error}",
+  "@aiTutorChatStartFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorRoleplayEnd": "จบ",
+  "aiTutorRoleplayEndFailed": "จบไม่ได้: {error}",
+  "@aiTutorRoleplayEndFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorRoleplayDone": "เสร็จ",
+  "aiScenariosBannerPracticingIn": "ฝึก {language}",
+  "@aiScenariosBannerPracticingIn": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "aiScenariosBannerSubhead": "เลือกสถานการณ์ระดับของคุณ หรือลองสูงขึ้นหนึ่งระดับ",
+  "aiTutorStoryTitle": "อ่านเรื่อง",
+  "aiTutorStoryLength": "ความยาว",
+  "aiTutorStoryTheme": "ธีม",
+  "aiTutorStoryWordCount": "{count} คำ",
+  "@aiTutorStoryWordCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorStoryWriting": "กำลังเขียน…",
+  "aiTutorStoryGenerate": "สร้างเรื่อง",
+  "aiTutorStoryGenerateFailed": "สร้างไม่ได้: {error}",
+  "@aiTutorStoryGenerateFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorStoryWordCountHint": "AI จะใช้คำสูงสุด {n} คำจากรายการของคุณ",
+  "@aiTutorStoryWordCountHint": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorStoryThemeFree": "อิสระ",
+  "aiTutorStoryThemeAdventure": "ผจญภัย",
+  "aiTutorStoryThemeMystery": "ลึกลับ",
+  "aiTutorStoryThemeRomance": "โรแมนซ์",
+  "aiTutorStoryThemeSciFi": "ไซไฟ",
+  "aiTutorStoryThemeSliceOfLife": "ชีวิตประจำวัน",
+  "aiTutorStoryReaderTitle": "เรื่องราว",
+  "aiTutorStoryReaderVocab": "คำศัพท์",
+  "aiTutorStoryReaderVocabUsed": "คำศัพท์ที่ใช้",
+  "aiTutorStoryReaderPart": "ส่วนที่ {n}",
+  "@aiTutorStoryReaderPart": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorStoryReaderWrongHint": "ยังไม่ถูก — ไปต่อ",
+  "aiTutorStoryReaderNiceWork": "ทำได้ดี!",
+  "aiTutorStoryReaderScore": "คุณตอบถูก {correct}/{total} ข้อ",
+  "@aiTutorStoryReaderScore": {
+    "placeholders": {
+      "correct": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorStoryReaderDone": "เสร็จ",
+  "aiTutorImageVocabTitle": "อธิบายภาพ",
+  "aiTutorImagePickHeader": "เลือกภาพเพื่ออธิบาย",
+  "aiTutorImagePickSubtitle": "AI จะให้คำชี้แจงในภาษาเป้าหมาย แล้วประเมินคำอธิบายของคุณ",
+  "aiTutorImagePickCamera": "กล้อง",
+  "aiTutorImagePickGallery": "แกลเลอรี",
+  "aiTutorImagePickError": "เปิดรูปไม่ได้: {error}",
+  "@aiTutorImagePickError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorImageDescriptionHint": "พิมพ์คำอธิบาย…",
+  "aiTutorImageDifferentPhoto": "ภาพอื่น",
+  "aiTutorImageSubmit": "ส่ง",
+  "aiTutorImageGrammarNotes": "บันทึกไวยากรณ์",
+  "aiTutorImageThingsYouMissed": "สิ่งที่พลาดไป",
+  "aiTutorImageTryAnother": "ลองภาพอื่น",
+  "aiTutorCardQuiz": "แบบทดสอบ",
+  "aiTutorCardVocab": "คำศัพท์",
+  "aiTutorCardGrammar": "ไวยากรณ์",
+  "aiTutorCardReviewDue": "ถึงเวลาทบทวน",
+  "aiTutorCardMiniLesson": "บทเรียนสั้น",
+  "aiTutorCardAddToVocab": "เพิ่มคำศัพท์",
+  "aiTutorCardAddedToVocab": "เพิ่มแล้ว",
+  "aiTutorCardAdding": "กำลังเพิ่ม…",
+  "aiTutorCardReviewCount": "{count, plural, one{{count} การ์ดรอคุณ} other{{count} การ์ดรอคุณ}}",
+  "@aiTutorCardReviewCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorCardReviewNow": "ทบทวนตอนนี้",
+  "aiTutorCardReviewStarting": "กำลังเริ่ม…",
+  "aiTutorCardTryIt": "ลอง",
+  "aiTutorCardPracticing": "กำลังฝึก…",
+  "aiTutorPlanSrsReview": "ทบทวนการ์ด SRS {count} ใบ ({done} เสร็จ)",
+  "@aiTutorPlanSrsReview": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "done": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorPlanGrammar": "ฝึก: {topic}",
+  "@aiTutorPlanGrammar": {
+    "placeholders": {
+      "topic": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorPlanChat": "แชท {min} นาที (ทำไป {done})",
+  "@aiTutorPlanChat": {
+    "placeholders": {
+      "min": {
+        "type": "int"
+      },
+      "done": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorPronounceLoading": "กำลังเลือกประโยคให้คุณ…",
+  "aiTutorPronounceTapToRecord": "แตะเพื่อบันทึก",
+  "aiTutorPronounceTapToStop": "แตะเพื่อหยุด",
+  "aiTutorPronounceTranscribing": "กำลังฟังคุณ…",
+  "aiTutorPronounceTryAgain": "ลองอีกครั้ง",
+  "aiTutorPronounceNext": "ถัดไป",
+  "aiTutorPronounceUseYourOwn": "ใช้ของฉัน ✏️",
+  "aiTutorPronounceCustomHint": "พิมพ์ประโยคที่อยากฝึก",
+  "aiTutorPronounceCustomCancel": "ยกเลิก",
+  "aiTutorPronounceCustomUse": "ใช้",
+  "aiTutorPronounceQuitConfirm": "ออกจากการฝึก? ความคืบหน้าจะไม่ถูกบันทึก",
+  "aiTutorPronounceQuitYes": "ใช่",
+  "aiTutorPronounceQuitNo": "ไม่",
+  "aiTutorPronounceSentenceOf": "ประโยค {current} จาก {total}",
+  "@aiTutorPronounceSentenceOf": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorPronounceSummaryTitle": "ฝึกเสร็จแล้ว",
+  "aiTutorPronounceSummaryAvg": "คะแนนเฉลี่ย",
+  "aiTutorPronounceSummaryWeak": "คำที่ต้องฝึก",
+  "aiTutorPronounceSaveClose": "บันทึกและปิด",
+  "aiTutorPronounceSaving": "กำลังบันทึก…",
+  "aiTutorPlanPronunciation": "{count, plural, =1{ฝึกการออกเสียง ({completed}/1)} other{ฝึกการออกเสียง ({completed}/{count})}}",
+  "@aiTutorPlanPronunciation": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "completed": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorPronounceStartHeadline": "คุณอยากฝึกอย่างไร?",
+  "aiTutorPronounceStartSubhead": "เลือกหนึ่งเพื่อเริ่มฝึก 5 ประโยค",
+  "aiTutorPronounceStartAITitle": "AI สร้างประโยค",
+  "aiTutorPronounceStartAISubtitle": "ปรับตามระดับ เน้นคำที่คุณยากแล้ว",
+  "aiTutorPronounceStartCustomTitle": "ใช้ประโยคของตัวเอง",
+  "aiTutorPronounceStartCustomSubtitle": "พิมพ์หรือวางประโยคที่อยากฝึกให้คล่อง",
+  "aiTutorQuotaRemaining": "{count, plural, =1{เหลือ 1 ครั้งวันนี้} other{เหลือ {count} ครั้งวันนี้}}",
+  "@aiTutorQuotaRemaining": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   }
 }

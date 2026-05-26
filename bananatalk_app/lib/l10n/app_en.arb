@@ -3072,5 +3072,9 @@
 
   "aiToolsVipUpgradeDescription": "Upgrade to VIP to unlock {feature}!",
   "@aiToolsVipUpgradeDescription": { "placeholders": { "feature": { "type": "String" } } },
-  "aiToolsVipBadge": "VIP"
+  "aiToolsVipBadge": "VIP",
+
+  "aiScenariosBannerPracticingIn": "Practicing in {language}",
+  "@aiScenariosBannerPracticingIn": { "placeholders": { "language": { "type": "String" } } },
+  "aiScenariosBannerSubhead": "Pick a scenario at your level, or stretch one up."
 }

@@ -520,7 +520,7 @@ class AppLocalizationsTg extends AppLocalizations {
   String get aiTutorRoleplayDone => 'Тайёр';
 
   @override
-  String get aiTutorStoryTitle => 'Як ҳикоя хонед';
+  String get aiTutorStoryTitle => 'Ҳикоя хонед';
 
   @override
   String get aiTutorStoryLength => 'Дарозӣ';
@@ -534,19 +534,19 @@ class AppLocalizationsTg extends AppLocalizations {
   }
 
   @override
-  String get aiTutorStoryWriting => 'Навишта шуда истодааст…';
+  String get aiTutorStoryWriting => 'Дар ҳоли навиштан…';
 
   @override
-  String get aiTutorStoryGenerate => 'Ҳикояро эҷод кунед';
+  String get aiTutorStoryGenerate => 'Ҳикоя эҷод кунед';
 
   @override
   String aiTutorStoryGenerateFailed(String error) {
-    return 'Эҷод карда нашуд: $error';
+    return 'Эҷод кардан натавонист: $error';
   }
 
   @override
   String aiTutorStoryWordCountHint(int n) {
-    return 'AI то $n калимаро аз рӯйхати луғати шумо истифода мебарад.';
+    return 'AI то $n калима аз рӯйхати луғати шумо истифода мебарад.';
   }
 
   @override
@@ -556,7 +556,7 @@ class AppLocalizationsTg extends AppLocalizations {
   String get aiTutorStoryThemeAdventure => 'Саргузашт';
 
   @override
-  String get aiTutorStoryThemeMystery => 'Асрор';
+  String get aiTutorStoryThemeMystery => 'Муаммо';
 
   @override
   String get aiTutorStoryThemeRomance => 'Ишқӣ';
@@ -565,7 +565,7 @@ class AppLocalizationsTg extends AppLocalizations {
   String get aiTutorStoryThemeSciFi => 'Илмӣ-фантастикӣ';
 
   @override
-  String get aiTutorStoryThemeSliceOfLife => 'Аз ҳаёти ҳаррӯза';
+  String get aiTutorStoryThemeSliceOfLife => 'Зиндагии ҳаррӯза';
 
   @override
   String get aiTutorStoryReaderTitle => 'Ҳикоя';
@@ -582,27 +582,27 @@ class AppLocalizationsTg extends AppLocalizations {
   }
 
   @override
-  String get aiTutorStoryReaderWrongHint => 'На комилан дуруст — давом медиҳем';
+  String get aiTutorStoryReaderWrongHint => 'На комилан — давом мекунем';
 
   @override
   String get aiTutorStoryReaderNiceWork => 'Кори хуб!';
 
   @override
   String aiTutorStoryReaderScore(int correct, int total) {
-    return 'Шумо $correct/$total саволи фаҳмишро дуруст ҷавоб додед.';
+    return 'Шумо ба $correct/$total саволи фаҳмиш ҷавоби дуруст додед.';
   }
 
   @override
   String get aiTutorStoryReaderDone => 'Тайёр';
 
   @override
-  String get aiTutorImageVocabTitle => 'Суратро тавсиф кунед';
+  String get aiTutorImageVocabTitle => 'Сурати тавсиф кунед';
 
   @override
-  String get aiTutorImagePickHeader => 'Барои тавсиф як сурат интихоб кунед';
+  String get aiTutorImagePickHeader => 'Суратеро барои тавсиф интихоб кунед';
 
   @override
-  String get aiTutorImagePickSubtitle => 'AI ба шумо дар забони ҳадафатон як супориш медиҳад ва баъд тавсифи шуморо баҳо медиҳад.';
+  String get aiTutorImagePickSubtitle => 'AI ба забони ҳадафи шумо изҳорот медиҳад, баъд тавсифи шуморо баҳо медиҳад.';
 
   @override
   String get aiTutorImagePickCamera => 'Камера';
@@ -612,7 +612,8 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String aiTutorImagePickError(String error) {
-    return 'Тасвирро кушодан мумкин нашуд: $error';
+    return 'Тасвирро кушодан натавонист: $error';
+  
   }
 
   @override
@@ -622,13 +623,13 @@ class AppLocalizationsTg extends AppLocalizations {
   String get aiTutorImageDifferentPhoto => 'Сурати дигар';
 
   @override
-  String get aiTutorImageSubmit => 'Фиристед';
+  String get aiTutorImageSubmit => 'Фиристодан';
 
   @override
-  String get aiTutorImageGrammarNotes => 'Қайдҳои грамматикӣ';
+  String get aiTutorImageGrammarNotes => 'Эзоҳи грамматика';
 
   @override
-  String get aiTutorImageThingsYouMissed => 'Чизҳое, ки аз даст додаед';
+  String get aiTutorImageThingsYouMissed => 'Он чизе ки аз даст додаед';
 
   @override
   String get aiTutorImageTryAnother => 'Сурати дигарро санҷед';
@@ -637,25 +638,25 @@ class AppLocalizationsTg extends AppLocalizations {
   String get aiTutorCardQuiz => 'Викторина';
 
   @override
-  String get aiTutorCardVocab => 'Луғат';
+  String get aiTutorCardVocab => 'Калимаҳо';
 
   @override
   String get aiTutorCardGrammar => 'Грамматика';
 
   @override
-  String get aiTutorCardReviewDue => 'Такрор лозим аст';
+  String get aiTutorCardReviewDue => 'Такрор лозим';
 
   @override
-  String get aiTutorCardMiniLesson => 'Дарси хурд';
+  String get aiTutorCardMiniLesson => 'Дарси кӯтоҳ';
 
   @override
-  String get aiTutorCardAddToVocab => 'Ба луғат илова кунед';
+  String get aiTutorCardAddToVocab => 'Ба луғат илова';
 
   @override
-  String get aiTutorCardAddedToVocab => 'Ба луғат илова шуд';
+  String get aiTutorCardAddedToVocab => 'Илова шуд';
 
   @override
-  String get aiTutorCardAdding => 'Илова шуда истодааст…';
+  String get aiTutorCardAdding => 'Илова мешавад…';
 
   @override
   String aiTutorCardReviewCount(int count) {
@@ -673,27 +674,30 @@ class AppLocalizationsTg extends AppLocalizations {
   String get aiTutorCardReviewNow => 'Ҳозир такрор кунед';
 
   @override
-  String get aiTutorCardReviewStarting => 'Оғоз шуда истодааст…';
+  String get aiTutorCardReviewStarting => 'Шурӯъ…';
 
   @override
-  String get aiTutorCardTryIt => 'Озмоиш кунед';
+  String get aiTutorCardTryIt => 'Кӯшиш кунед';
 
   @override
-  String get aiTutorCardPracticing => 'Машқ шуда истодааст…';
+  String get aiTutorCardPracticing => 'Машқ…';
 
   @override
   String aiTutorPlanSrsReview(int count, int done) {
-    return '$count корти SRS-ро такрор кунед ($done анҷом)';
+    return '$count корти SRS такрор кунед ($done тайёр)';
+  
   }
 
   @override
   String aiTutorPlanGrammar(String topic) {
     return 'Машқ: $topic';
+  
   }
 
   @override
   String aiTutorPlanChat(int min, int done) {
-    return '$min дақиқа чат кунед ($done то ҳол)';
+    return '$min дақ чат ($done то ҳол)';
+  
   }
 
   @override
@@ -5660,37 +5664,37 @@ class AppLocalizationsTg extends AppLocalizations {
   String get learningProgressWeeklyChartTitle => '7 рӯзи охир';
 
   @override
-  String get aiTutorPronounceLoading => 'Барои шумо ҷумла интихоб карда мешавад…';
+  String get aiTutorPronounceLoading => 'Ҷумлае барои шумо интихоб мекунем…';
 
   @override
-  String get aiTutorPronounceTapToRecord => 'Барои сабт пахш кунед';
+  String get aiTutorPronounceTapToRecord => 'Барои сабт зер кунед';
 
   @override
-  String get aiTutorPronounceTapToStop => 'Барои тавқиф пахш кунед';
+  String get aiTutorPronounceTapToStop => 'Барои қатъ зер кунед';
 
   @override
-  String get aiTutorPronounceTranscribing => 'Гӯш карда мешавед…';
+  String get aiTutorPronounceTranscribing => 'Шуморо мешунавам…';
 
   @override
-  String get aiTutorPronounceTryAgain => 'Аз нав кӯшиш кунед';
+  String get aiTutorPronounceTryAgain => 'Боз кӯшиш кунед';
 
   @override
-  String get aiTutorPronounceNext => 'Минбаъд';
+  String get aiTutorPronounceNext => 'Баъдӣ';
 
   @override
-  String get aiTutorPronounceUseYourOwn => 'Аз ҷумлаи худам истифода кунам ✏️';
+  String get aiTutorPronounceUseYourOwn => 'Худамро истифода ✏️';
 
   @override
-  String get aiTutorPronounceCustomHint => 'Ҷумлаеро, ки мехоҳед машқ кунед, нависед';
+  String get aiTutorPronounceCustomHint => 'Ҷумлае, ки мехоҳед машқ кунед, нависед';
 
   @override
-  String get aiTutorPronounceCustomCancel => 'Бекор кунед';
+  String get aiTutorPronounceCustomCancel => 'Бекор';
 
   @override
-  String get aiTutorPronounceCustomUse => 'Истифода баред';
+  String get aiTutorPronounceCustomUse => 'Истифода';
 
   @override
-  String get aiTutorPronounceQuitConfirm => 'Машқро тарк мекунед? Пешрафти шумо нигоҳ дошта намешавад.';
+  String get aiTutorPronounceQuitConfirm => 'Баромад? Пешрафти шумо нигоҳ дошта намешавад.';
 
   @override
   String get aiTutorPronounceQuitYes => 'Ҳа';
@@ -5701,22 +5705,23 @@ class AppLocalizationsTg extends AppLocalizations {
   @override
   String aiTutorPronounceSentenceOf(int current, int total) {
     return 'Ҷумлаи $current аз $total';
+  
   }
 
   @override
-  String get aiTutorPronounceSummaryTitle => 'Машқ анҷом ёфт';
+  String get aiTutorPronounceSummaryTitle => 'Машқ ба анҷом расид';
 
   @override
-  String get aiTutorPronounceSummaryAvg => 'Хол ба ҳисоби миёна';
+  String get aiTutorPronounceSummaryAvg => 'Холи миёна';
 
   @override
   String get aiTutorPronounceSummaryWeak => 'Калимаҳо барои машқ';
 
   @override
-  String get aiTutorPronounceSaveClose => 'Нигоҳ дошта пӯшидан';
+  String get aiTutorPronounceSaveClose => 'Сабт ва пӯшидан';
 
   @override
-  String get aiTutorPronounceSaving => 'Нигоҳ дошта мешавад…';
+  String get aiTutorPronounceSaving => 'Сабт мешавад…';
 
   @override
   String get aiTutorChipPronounce => 'Талаффуз';
@@ -5733,22 +5738,22 @@ class AppLocalizationsTg extends AppLocalizations {
   }
 
   @override
-  String get aiTutorPronounceStartHeadline => 'Чӣ гуна машқ кардан мехоҳед?';
+  String get aiTutorPronounceStartHeadline => 'Чӣ тавр машқ кардан мехоҳед?';
 
   @override
-  String get aiTutorPronounceStartSubhead => 'Якеро интихоб кунед, то машқи 5-ҷумлаиро оғоз кунед.';
+  String get aiTutorPronounceStartSubhead => 'Якеро интихоб кунед, то машқи 5-ҷумла оғоз шавад.';
 
   @override
-  String get aiTutorPronounceStartAITitle => 'AI ҷумлаҳо эҷод мекунад';
+  String get aiTutorPronounceStartAITitle => 'AI ҷумла эҷод мекунад';
 
   @override
-  String get aiTutorPronounceStartAISubtitle => 'Мутобиқ ба сатҳ, бо таваҷҷӯҳ ба калимаҳои душвори шумо';
+  String get aiTutorPronounceStartAISubtitle => 'Мувофиқи сатҳ, бо таваҷҷӯҳ ба калимаҳои душвор';
 
   @override
-  String get aiTutorPronounceStartCustomTitle => 'Ҷумлаи худамро истифода кунам';
+  String get aiTutorPronounceStartCustomTitle => 'Ҷумлаи худамро истифода';
 
   @override
-  String get aiTutorPronounceStartCustomSubtitle => 'Ибораеро, ки мехоҳед омӯзед, нависед ё часпонед';
+  String get aiTutorPronounceStartCustomSubtitle => 'Ҷумлаеро, ки мехоҳед азхуд кунед, нависед ё часпонед';
 
   @override
   String aiTutorQuotaRemaining(int count) {
@@ -5946,4 +5951,12 @@ class AppLocalizationsTg extends AppLocalizations {
   String aiToolsVipUpgradeDescription(String feature) {
     return 'Барои кушодани $feature ба VIP гузаред!';
   }
+
+  @override
+  String aiScenariosBannerPracticingIn(String language) {
+    return 'Машқ ба забони $language';
+  }
+
+  @override
+  String get aiScenariosBannerSubhead => 'Сенарияеро мувофиқи сатҳи худ интихоб кунед ё як зина боло.';
 }

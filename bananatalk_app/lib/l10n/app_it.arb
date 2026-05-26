@@ -2446,5 +2446,258 @@
         "type": "String"
       }
     }
+  },
+  "aiTutorChangePersona": "Cambia tutor IA",
+  "aiTutorChangePersonaSubtitle": "Passa a Nana, Sensei o Riko",
+  "aiTutorPickerTitle": "Scegli il tuo tutor IA",
+  "aiTutorPickerHeader": "Con chi vuoi imparare?",
+  "aiTutorPickerSubtitle": "Puoi cambiarlo in qualsiasi momento nelle impostazioni.",
+  "aiTutorPersonaNanaTagline": "Calda + incoraggiante",
+  "aiTutorPersonaNanaSample": "Ti farò il tifo, nessuna pressione.",
+  "aiTutorPersonaSenseiTagline": "Preciso + focus esami",
+  "aiTutorPersonaSenseiSample": "Padroneggeremo le regole.",
+  "aiTutorPersonaRikoTagline": "Giocherellone + slang",
+  "aiTutorPersonaRikoSample": "dai, divertiamoci e impariamo",
+  "aiTutorPickerSaveError": "Impossibile salvare: {error}",
+  "@aiTutorPickerSaveError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorHomeTitle": "Tutor IA",
+  "aiTutorHomeChangeTutor": "Cambia tutor",
+  "aiTutorHomeGreetingDefault": "Ciao! Pronto a imparare insieme?",
+  "aiTutorHomeTodaysPlan": "Piano di oggi",
+  "aiTutorHomePlanEmpty": "Nessun piano per oggi — avvia una chat per iniziare.",
+  "aiTutorHomeStartChat": "Avvia chat",
+  "aiTutorHomeRecent": "Recente",
+  "aiTutorHomePracticeScenarios": "Scenari di pratica",
+  "aiTutorHomePracticeScenariosSubtitle": "Roleplay di conversazioni reali — ristorante, colloquio, hotel…",
+  "aiTutorHomeReadStory": "Leggi una storia",
+  "aiTutorHomeReadStorySubtitle": "L'IA scrive una breve storia con il tuo vocabolario — con domande di comprensione rapide.",
+  "aiTutorHomeDescribePhoto": "Descrivi una foto",
+  "aiTutorHomeDescribePhotoSubtitle": "Scatta una foto e descrivila — l'IA valuta vocabolario + grammatica.",
+  "aiTutorChatTitle": "Chat con il tutor",
+  "aiTutorChatVoiceOn": "Voce attiva",
+  "aiTutorChatVoiceOff": "Voce disattivata",
+  "aiTutorChatStopRecording": "Interrompi registrazione",
+  "aiTutorChatHoldToTalk": "Tieni premuto per parlare",
+  "aiTutorChatTranscribing": "Trascrizione in corso…",
+  "aiTutorChatListening": "In ascolto…",
+  "aiTutorChatInputHint": "Scrivi un messaggio…",
+  "aiTutorChatTypeReplyHint": "Scrivi la tua risposta…",
+  "aiTutorChatMicPermissionDenied": "Permesso microfono necessario per la modalità voce.",
+  "aiTutorChatTranscribeFailed": "Non ho capito — riprova.",
+  "aiTutorChatStartFailed": "Impossibile avviare: {error}",
+  "@aiTutorChatStartFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorRoleplayEnd": "Termina",
+  "aiTutorRoleplayEndFailed": "Termine fallito: {error}",
+  "@aiTutorRoleplayEndFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorRoleplayDone": "Fatto",
+  "aiScenariosBannerPracticingIn": "Pratica in {language}",
+  "@aiScenariosBannerPracticingIn": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "aiScenariosBannerSubhead": "Scegli uno scenario al tuo livello, o uno più difficile.",
+  "aiTutorStoryTitle": "Leggi una storia",
+  "aiTutorStoryLength": "Lunghezza",
+  "aiTutorStoryTheme": "Tema",
+  "aiTutorStoryWordCount": "{count} parole",
+  "@aiTutorStoryWordCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorStoryWriting": "Sto scrivendo…",
+  "aiTutorStoryGenerate": "Genera storia",
+  "aiTutorStoryGenerateFailed": "Impossibile generare: {error}",
+  "@aiTutorStoryGenerateFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorStoryWordCountHint": "L'IA userà fino a {n} parole dalla tua lista.",
+  "@aiTutorStoryWordCountHint": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorStoryThemeFree": "Libero",
+  "aiTutorStoryThemeAdventure": "Avventura",
+  "aiTutorStoryThemeMystery": "Mistero",
+  "aiTutorStoryThemeRomance": "Romanticismo",
+  "aiTutorStoryThemeSciFi": "Fantascienza",
+  "aiTutorStoryThemeSliceOfLife": "Vita quotidiana",
+  "aiTutorStoryReaderTitle": "Storia",
+  "aiTutorStoryReaderVocab": "Vocabolario",
+  "aiTutorStoryReaderVocabUsed": "Vocabolario usato",
+  "aiTutorStoryReaderPart": "Parte {n}",
+  "@aiTutorStoryReaderPart": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorStoryReaderWrongHint": "Non proprio — avanti",
+  "aiTutorStoryReaderNiceWork": "Ottimo lavoro!",
+  "aiTutorStoryReaderScore": "Hai risposto a {correct}/{total} domande di comprensione.",
+  "@aiTutorStoryReaderScore": {
+    "placeholders": {
+      "correct": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorStoryReaderDone": "Fatto",
+  "aiTutorImageVocabTitle": "Descrivi una foto",
+  "aiTutorImagePickHeader": "Scegli una foto da descrivere",
+  "aiTutorImagePickSubtitle": "L'IA ti darà un prompt nella tua lingua target e valuterà la tua descrizione.",
+  "aiTutorImagePickCamera": "Fotocamera",
+  "aiTutorImagePickGallery": "Galleria",
+  "aiTutorImagePickError": "Impossibile aprire l'immagine: {error}",
+  "@aiTutorImagePickError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorImageDescriptionHint": "Scrivi la tua descrizione…",
+  "aiTutorImageDifferentPhoto": "Altra foto",
+  "aiTutorImageSubmit": "Invia",
+  "aiTutorImageGrammarNotes": "Note di grammatica",
+  "aiTutorImageThingsYouMissed": "Cosa hai perso",
+  "aiTutorImageTryAnother": "Prova un'altra foto",
+  "aiTutorCardQuiz": "Quiz",
+  "aiTutorCardVocab": "Vocab",
+  "aiTutorCardGrammar": "Grammatica",
+  "aiTutorCardReviewDue": "Ripasso dovuto",
+  "aiTutorCardMiniLesson": "Mini-lezione",
+  "aiTutorCardAddToVocab": "Aggiungi al vocab",
+  "aiTutorCardAddedToVocab": "Aggiunto",
+  "aiTutorCardAdding": "Aggiungo…",
+  "aiTutorCardReviewCount": "{count, plural, one{{count} carta ti aspetta} other{{count} carte ti aspettano}}",
+  "@aiTutorCardReviewCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorCardReviewNow": "Ripassa ora",
+  "aiTutorCardReviewStarting": "Avvio…",
+  "aiTutorCardTryIt": "Prova",
+  "aiTutorCardPracticing": "Pratica…",
+  "aiTutorPlanSrsReview": "Ripassa {count} carte SRS ({done} fatte)",
+  "@aiTutorPlanSrsReview": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "done": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorPlanGrammar": "Pratica: {topic}",
+  "@aiTutorPlanGrammar": {
+    "placeholders": {
+      "topic": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorPlanChat": "Chatta {min} min ({done} finora)",
+  "@aiTutorPlanChat": {
+    "placeholders": {
+      "min": {
+        "type": "int"
+      },
+      "done": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorPronounceLoading": "Sto scegliendo una frase per te…",
+  "aiTutorPronounceTapToRecord": "Tocca per registrare",
+  "aiTutorPronounceTapToStop": "Tocca per fermare",
+  "aiTutorPronounceTranscribing": "Ti ascolto…",
+  "aiTutorPronounceTryAgain": "Riprova",
+  "aiTutorPronounceNext": "Avanti",
+  "aiTutorPronounceUseYourOwn": "La mia ✏️",
+  "aiTutorPronounceCustomHint": "Scrivi una frase da praticare",
+  "aiTutorPronounceCustomCancel": "Annulla",
+  "aiTutorPronounceCustomUse": "Usa",
+  "aiTutorPronounceQuitConfirm": "Uscire dall'esercizio? Il progresso non sarà salvato.",
+  "aiTutorPronounceQuitYes": "Sì",
+  "aiTutorPronounceQuitNo": "No",
+  "aiTutorPronounceSentenceOf": "Frase {current} di {total}",
+  "@aiTutorPronounceSentenceOf": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorPronounceSummaryTitle": "Esercizio completato",
+  "aiTutorPronounceSummaryAvg": "Punteggio medio",
+  "aiTutorPronounceSummaryWeak": "Parole da praticare",
+  "aiTutorPronounceSaveClose": "Salva e chiudi",
+  "aiTutorPronounceSaving": "Salvataggio…",
+  "aiTutorPlanPronunciation": "{count, plural, =1{Esercizio di pronuncia ({completed}/1)} other{Esercizi di pronuncia ({completed}/{count})}}",
+  "@aiTutorPlanPronunciation": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "completed": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorPronounceStartHeadline": "Come vuoi allenarti?",
+  "aiTutorPronounceStartSubhead": "Scegline uno per iniziare un esercizio di 5 frasi.",
+  "aiTutorPronounceStartAITitle": "L'IA genera frasi",
+  "aiTutorPronounceStartAISubtitle": "Tarato al tuo livello, mirato alle tue parole difficili",
+  "aiTutorPronounceStartCustomTitle": "La mia frase",
+  "aiTutorPronounceStartCustomSubtitle": "Scrivi o incolla una frase da padroneggiare",
+  "aiTutorQuotaRemaining": "{count, plural, =1{1 rimasto oggi} other{{count} rimasti oggi}}",
+  "@aiTutorQuotaRemaining": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   }
 }

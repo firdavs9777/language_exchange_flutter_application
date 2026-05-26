@@ -2191,5 +2191,258 @@
         "type": "String"
       }
     }
+  },
+  "aiTutorChangePersona": "Сменить ИИ-репетитора",
+  "aiTutorChangePersonaSubtitle": "Переключитесь на Nana, Sensei или Riko",
+  "aiTutorPickerTitle": "Выберите ИИ-репетитора",
+  "aiTutorPickerHeader": "С кем хотите учиться?",
+  "aiTutorPickerSubtitle": "Вы можете изменить это в настройках в любое время.",
+  "aiTutorPersonaNanaTagline": "Тёплая + поддерживающая",
+  "aiTutorPersonaNanaSample": "Буду тебя подбадривать, без давления.",
+  "aiTutorPersonaSenseiTagline": "Точный + экзаменационный",
+  "aiTutorPersonaSenseiSample": "Мы освоим правила.",
+  "aiTutorPersonaRikoTagline": "Игривый + сленговый",
+  "aiTutorPersonaRikoSample": "го веселиться и учиться",
+  "aiTutorPickerSaveError": "Не удалось сохранить: {error}",
+  "@aiTutorPickerSaveError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorHomeTitle": "ИИ-репетитор",
+  "aiTutorHomeChangeTutor": "Сменить репетитора",
+  "aiTutorHomeGreetingDefault": "Привет! Готов учиться вместе?",
+  "aiTutorHomeTodaysPlan": "План на сегодня",
+  "aiTutorHomePlanEmpty": "На сегодня плана нет — начните чат, чтобы начать.",
+  "aiTutorHomeStartChat": "Начать чат",
+  "aiTutorHomeRecent": "Недавнее",
+  "aiTutorHomePracticeScenarios": "Сценарии практики",
+  "aiTutorHomePracticeScenariosSubtitle": "Отыгрывайте реальные разговоры — ресторан, собеседование, отель…",
+  "aiTutorHomeReadStory": "Прочитать историю",
+  "aiTutorHomeReadStorySubtitle": "ИИ пишет короткую историю с вашими словами — с быстрыми вопросами на понимание.",
+  "aiTutorHomeDescribePhoto": "Описать фото",
+  "aiTutorHomeDescribePhotoSubtitle": "Сделайте фото и опишите его — ИИ оценит словарь и грамматику.",
+  "aiTutorChatTitle": "Чат с репетитором",
+  "aiTutorChatVoiceOn": "Голос вкл.",
+  "aiTutorChatVoiceOff": "Голос выкл.",
+  "aiTutorChatStopRecording": "Остановить запись",
+  "aiTutorChatHoldToTalk": "Удерживайте, чтобы говорить",
+  "aiTutorChatTranscribing": "Распознавание…",
+  "aiTutorChatListening": "Слушаю…",
+  "aiTutorChatInputHint": "Напишите сообщение…",
+  "aiTutorChatTypeReplyHint": "Напишите ответ…",
+  "aiTutorChatMicPermissionDenied": "Для голосового режима нужно разрешение микрофона.",
+  "aiTutorChatTranscribeFailed": "Не расслышал — попробуйте ещё раз.",
+  "aiTutorChatStartFailed": "Не удалось запустить: {error}",
+  "@aiTutorChatStartFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorRoleplayEnd": "Завершить",
+  "aiTutorRoleplayEndFailed": "Не удалось завершить: {error}",
+  "@aiTutorRoleplayEndFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorRoleplayDone": "Готово",
+  "aiScenariosBannerPracticingIn": "Практика в {language}",
+  "@aiScenariosBannerPracticingIn": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "aiScenariosBannerSubhead": "Выберите сценарий своего уровня или на ступеньку выше.",
+  "aiTutorStoryTitle": "Прочитать историю",
+  "aiTutorStoryLength": "Длина",
+  "aiTutorStoryTheme": "Тема",
+  "aiTutorStoryWordCount": "{count} слов",
+  "@aiTutorStoryWordCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorStoryWriting": "Пишу…",
+  "aiTutorStoryGenerate": "Создать историю",
+  "aiTutorStoryGenerateFailed": "Не удалось создать: {error}",
+  "@aiTutorStoryGenerateFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorStoryWordCountHint": "ИИ использует до {n} слов из вашего списка.",
+  "@aiTutorStoryWordCountHint": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorStoryThemeFree": "Свободно",
+  "aiTutorStoryThemeAdventure": "Приключения",
+  "aiTutorStoryThemeMystery": "Детектив",
+  "aiTutorStoryThemeRomance": "Романтика",
+  "aiTutorStoryThemeSciFi": "Фантастика",
+  "aiTutorStoryThemeSliceOfLife": "Бытовая",
+  "aiTutorStoryReaderTitle": "История",
+  "aiTutorStoryReaderVocab": "Словарь",
+  "aiTutorStoryReaderVocabUsed": "Использованные слова",
+  "aiTutorStoryReaderPart": "Часть {n}",
+  "@aiTutorStoryReaderPart": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorStoryReaderWrongHint": "Не совсем — идём дальше",
+  "aiTutorStoryReaderNiceWork": "Отлично!",
+  "aiTutorStoryReaderScore": "Вы ответили правильно на {correct}/{total} вопросов.",
+  "@aiTutorStoryReaderScore": {
+    "placeholders": {
+      "correct": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorStoryReaderDone": "Готово",
+  "aiTutorImageVocabTitle": "Описать фото",
+  "aiTutorImagePickHeader": "Выберите фото для описания",
+  "aiTutorImagePickSubtitle": "ИИ даст подсказку на целевом языке и оценит ваше описание.",
+  "aiTutorImagePickCamera": "Камера",
+  "aiTutorImagePickGallery": "Галерея",
+  "aiTutorImagePickError": "Не удалось открыть изображение: {error}",
+  "@aiTutorImagePickError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorImageDescriptionHint": "Напишите описание…",
+  "aiTutorImageDifferentPhoto": "Другое фото",
+  "aiTutorImageSubmit": "Отправить",
+  "aiTutorImageGrammarNotes": "Заметки по грамматике",
+  "aiTutorImageThingsYouMissed": "Что вы упустили",
+  "aiTutorImageTryAnother": "Попробуйте другое фото",
+  "aiTutorCardQuiz": "Викторина",
+  "aiTutorCardVocab": "Слова",
+  "aiTutorCardGrammar": "Грамматика",
+  "aiTutorCardReviewDue": "Время повторения",
+  "aiTutorCardMiniLesson": "Мини-урок",
+  "aiTutorCardAddToVocab": "Добавить в словарь",
+  "aiTutorCardAddedToVocab": "Добавлено",
+  "aiTutorCardAdding": "Добавление…",
+  "aiTutorCardReviewCount": "{count, plural, one{{count} карточка вас ждёт} other{{count} карточек вас ждут}}",
+  "@aiTutorCardReviewCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorCardReviewNow": "Повторить сейчас",
+  "aiTutorCardReviewStarting": "Запуск…",
+  "aiTutorCardTryIt": "Попробуйте",
+  "aiTutorCardPracticing": "Практика…",
+  "aiTutorPlanSrsReview": "Повторите {count} SRS-карточек ({done} сделано)",
+  "@aiTutorPlanSrsReview": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "done": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorPlanGrammar": "Практика: {topic}",
+  "@aiTutorPlanGrammar": {
+    "placeholders": {
+      "topic": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorPlanChat": "Чат {min} мин ({done} пока)",
+  "@aiTutorPlanChat": {
+    "placeholders": {
+      "min": {
+        "type": "int"
+      },
+      "done": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorPronounceLoading": "Подбираю предложение…",
+  "aiTutorPronounceTapToRecord": "Нажмите для записи",
+  "aiTutorPronounceTapToStop": "Нажмите для остановки",
+  "aiTutorPronounceTranscribing": "Слушаю вас…",
+  "aiTutorPronounceTryAgain": "Попробовать снова",
+  "aiTutorPronounceNext": "Далее",
+  "aiTutorPronounceUseYourOwn": "Моё предложение ✏️",
+  "aiTutorPronounceCustomHint": "Введите предложение для практики",
+  "aiTutorPronounceCustomCancel": "Отмена",
+  "aiTutorPronounceCustomUse": "Использовать",
+  "aiTutorPronounceQuitConfirm": "Выйти из тренировки? Прогресс не сохранится.",
+  "aiTutorPronounceQuitYes": "Да",
+  "aiTutorPronounceQuitNo": "Нет",
+  "aiTutorPronounceSentenceOf": "Предложение {current} из {total}",
+  "@aiTutorPronounceSentenceOf": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorPronounceSummaryTitle": "Тренировка завершена",
+  "aiTutorPronounceSummaryAvg": "Средний балл",
+  "aiTutorPronounceSummaryWeak": "Слова для практики",
+  "aiTutorPronounceSaveClose": "Сохранить и закрыть",
+  "aiTutorPronounceSaving": "Сохранение…",
+  "aiTutorPlanPronunciation": "{count, plural, =1{Тренировка произношения ({completed}/1)} other{Тренировки произношения ({completed}/{count})}}",
+  "@aiTutorPlanPronunciation": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "completed": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorPronounceStartHeadline": "Как вы хотите потренироваться?",
+  "aiTutorPronounceStartSubhead": "Выберите один вариант для тренировки из 5 предложений.",
+  "aiTutorPronounceStartAITitle": "ИИ создаёт предложения",
+  "aiTutorPronounceStartAISubtitle": "Под ваш уровень, с упором на трудные слова",
+  "aiTutorPronounceStartCustomTitle": "Моё предложение",
+  "aiTutorPronounceStartCustomSubtitle": "Введите или вставьте фразу, которую хотите освоить",
+  "aiTutorQuotaRemaining": "{count, plural, =1{Сегодня осталось 1} other{Сегодня осталось {count}}}",
+  "@aiTutorQuotaRemaining": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   }
 }

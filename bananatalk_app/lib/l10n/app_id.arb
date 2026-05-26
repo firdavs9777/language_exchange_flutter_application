@@ -2019,5 +2019,258 @@
         "type": "String"
       }
     }
+  },
+  "aiTutorChangePersona": "Ganti tutor AI",
+  "aiTutorChangePersonaSubtitle": "Beralih ke Nana, Sensei, atau Riko",
+  "aiTutorPickerTitle": "Pilih tutor AI kamu",
+  "aiTutorPickerHeader": "Dengan siapa kamu ingin belajar?",
+  "aiTutorPickerSubtitle": "Kamu bisa mengubahnya kapan saja di pengaturan.",
+  "aiTutorPersonaNanaTagline": "Hangat + menyemangati",
+  "aiTutorPersonaNanaSample": "Aku akan menyemangatimu, tanpa tekanan.",
+  "aiTutorPersonaSenseiTagline": "Presisi + fokus ujian",
+  "aiTutorPersonaSenseiSample": "Kita akan menguasai aturannya.",
+  "aiTutorPersonaRikoTagline": "Suka bercanda + santai",
+  "aiTutorPersonaRikoSample": "yuk santai dan belajar",
+  "aiTutorPickerSaveError": "Tidak bisa menyimpan: {error}",
+  "@aiTutorPickerSaveError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorHomeTitle": "Tutor AI",
+  "aiTutorHomeChangeTutor": "Ganti tutor",
+  "aiTutorHomeGreetingDefault": "Hai! Siap belajar bareng?",
+  "aiTutorHomeTodaysPlan": "Rencana hari ini",
+  "aiTutorHomePlanEmpty": "Tidak ada rencana hari ini — mulai chat untuk memulai.",
+  "aiTutorHomeStartChat": "Mulai chat",
+  "aiTutorHomeRecent": "Terbaru",
+  "aiTutorHomePracticeScenarios": "Skenario latihan",
+  "aiTutorHomePracticeScenariosSubtitle": "Berperan dalam percakapan nyata — restoran, wawancara, hotel…",
+  "aiTutorHomeReadStory": "Baca cerita",
+  "aiTutorHomeReadStorySubtitle": "AI menulis cerita pendek menggunakan kosakatamu — dengan pertanyaan pemahaman cepat.",
+  "aiTutorHomeDescribePhoto": "Deskripsikan foto",
+  "aiTutorHomeDescribePhotoSubtitle": "Ambil foto dan deskripsikan — AI menilai kosakata + tata bahasa.",
+  "aiTutorChatTitle": "Chat dengan tutor",
+  "aiTutorChatVoiceOn": "Suara aktif",
+  "aiTutorChatVoiceOff": "Suara nonaktif",
+  "aiTutorChatStopRecording": "Hentikan rekaman",
+  "aiTutorChatHoldToTalk": "Tahan untuk bicara",
+  "aiTutorChatTranscribing": "Mentranskripsi…",
+  "aiTutorChatListening": "Mendengarkan…",
+  "aiTutorChatInputHint": "Ketik pesan…",
+  "aiTutorChatTypeReplyHint": "Ketik balasanmu…",
+  "aiTutorChatMicPermissionDenied": "Izin mikrofon diperlukan untuk mode suara.",
+  "aiTutorChatTranscribeFailed": "Tidak mendengar — coba lagi.",
+  "aiTutorChatStartFailed": "Gagal memulai: {error}",
+  "@aiTutorChatStartFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorRoleplayEnd": "Akhiri",
+  "aiTutorRoleplayEndFailed": "Gagal mengakhiri: {error}",
+  "@aiTutorRoleplayEndFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorRoleplayDone": "Selesai",
+  "aiScenariosBannerPracticingIn": "Berlatih dalam {language}",
+  "@aiScenariosBannerPracticingIn": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "aiScenariosBannerSubhead": "Pilih skenario di levelmu, atau coba yang lebih tinggi.",
+  "aiTutorStoryTitle": "Baca cerita",
+  "aiTutorStoryLength": "Panjang",
+  "aiTutorStoryTheme": "Tema",
+  "aiTutorStoryWordCount": "{count} kata",
+  "@aiTutorStoryWordCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorStoryWriting": "Menulis…",
+  "aiTutorStoryGenerate": "Buat cerita",
+  "aiTutorStoryGenerateFailed": "Tidak bisa membuat: {error}",
+  "@aiTutorStoryGenerateFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorStoryWordCountHint": "AI akan menggunakan hingga {n} kata dari daftar kosakatamu.",
+  "@aiTutorStoryWordCountHint": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorStoryThemeFree": "Bebas",
+  "aiTutorStoryThemeAdventure": "Petualangan",
+  "aiTutorStoryThemeMystery": "Misteri",
+  "aiTutorStoryThemeRomance": "Romantis",
+  "aiTutorStoryThemeSciFi": "Fiksi ilmiah",
+  "aiTutorStoryThemeSliceOfLife": "Sehari-hari",
+  "aiTutorStoryReaderTitle": "Cerita",
+  "aiTutorStoryReaderVocab": "Kosakata",
+  "aiTutorStoryReaderVocabUsed": "Kosakata yang dipakai",
+  "aiTutorStoryReaderPart": "Bagian {n}",
+  "@aiTutorStoryReaderPart": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorStoryReaderWrongHint": "Belum tepat — lanjutkan",
+  "aiTutorStoryReaderNiceWork": "Bagus!",
+  "aiTutorStoryReaderScore": "Kamu mendapat {correct}/{total} pertanyaan pemahaman dengan benar.",
+  "@aiTutorStoryReaderScore": {
+    "placeholders": {
+      "correct": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorStoryReaderDone": "Selesai",
+  "aiTutorImageVocabTitle": "Deskripsikan foto",
+  "aiTutorImagePickHeader": "Pilih foto untuk dideskripsikan",
+  "aiTutorImagePickSubtitle": "AI akan memberikan petunjuk dalam bahasa targetmu, lalu menilai deskripsimu.",
+  "aiTutorImagePickCamera": "Kamera",
+  "aiTutorImagePickGallery": "Galeri",
+  "aiTutorImagePickError": "Tidak bisa membuka gambar: {error}",
+  "@aiTutorImagePickError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorImageDescriptionHint": "Ketik deskripsimu…",
+  "aiTutorImageDifferentPhoto": "Foto lain",
+  "aiTutorImageSubmit": "Kirim",
+  "aiTutorImageGrammarNotes": "Catatan tata bahasa",
+  "aiTutorImageThingsYouMissed": "Yang terlewat",
+  "aiTutorImageTryAnother": "Coba foto lain",
+  "aiTutorCardQuiz": "Kuis",
+  "aiTutorCardVocab": "Kosakata",
+  "aiTutorCardGrammar": "Tata bahasa",
+  "aiTutorCardReviewDue": "Tinjauan jatuh tempo",
+  "aiTutorCardMiniLesson": "Mini-pelajaran",
+  "aiTutorCardAddToVocab": "Tambah ke kosakata",
+  "aiTutorCardAddedToVocab": "Ditambahkan",
+  "aiTutorCardAdding": "Menambahkan…",
+  "aiTutorCardReviewCount": "{count, plural, one{{count} kartu menunggumu} other{{count} kartu menunggumu}}",
+  "@aiTutorCardReviewCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorCardReviewNow": "Tinjau sekarang",
+  "aiTutorCardReviewStarting": "Memulai…",
+  "aiTutorCardTryIt": "Coba",
+  "aiTutorCardPracticing": "Berlatih…",
+  "aiTutorPlanSrsReview": "Tinjau {count} kartu SRS ({done} selesai)",
+  "@aiTutorPlanSrsReview": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "done": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorPlanGrammar": "Latih: {topic}",
+  "@aiTutorPlanGrammar": {
+    "placeholders": {
+      "topic": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorPlanChat": "Chat {min} menit ({done} sejauh ini)",
+  "@aiTutorPlanChat": {
+    "placeholders": {
+      "min": {
+        "type": "int"
+      },
+      "done": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorPronounceLoading": "Memilih kalimat untukmu…",
+  "aiTutorPronounceTapToRecord": "Ketuk untuk merekam",
+  "aiTutorPronounceTapToStop": "Ketuk untuk berhenti",
+  "aiTutorPronounceTranscribing": "Mendengarkanmu…",
+  "aiTutorPronounceTryAgain": "Coba lagi",
+  "aiTutorPronounceNext": "Berikutnya",
+  "aiTutorPronounceUseYourOwn": "Pakai punyaku ✏️",
+  "aiTutorPronounceCustomHint": "Ketik kalimat yang ingin dilatih",
+  "aiTutorPronounceCustomCancel": "Batal",
+  "aiTutorPronounceCustomUse": "Pakai",
+  "aiTutorPronounceQuitConfirm": "Keluar latihan? Progresmu tidak akan tersimpan.",
+  "aiTutorPronounceQuitYes": "Ya",
+  "aiTutorPronounceQuitNo": "Tidak",
+  "aiTutorPronounceSentenceOf": "Kalimat {current} dari {total}",
+  "@aiTutorPronounceSentenceOf": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorPronounceSummaryTitle": "Latihan selesai",
+  "aiTutorPronounceSummaryAvg": "Skor rata-rata",
+  "aiTutorPronounceSummaryWeak": "Kata untuk dilatih",
+  "aiTutorPronounceSaveClose": "Simpan & tutup",
+  "aiTutorPronounceSaving": "Menyimpan…",
+  "aiTutorPlanPronunciation": "{count, plural, =1{Latihan pelafalan ({completed}/1)} other{Latihan pelafalan ({completed}/{count})}}",
+  "@aiTutorPlanPronunciation": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "completed": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorPronounceStartHeadline": "Bagaimana kamu ingin berlatih?",
+  "aiTutorPronounceStartSubhead": "Pilih satu untuk memulai latihan 5 kalimat.",
+  "aiTutorPronounceStartAITitle": "AI menghasilkan kalimat",
+  "aiTutorPronounceStartAISubtitle": "Disesuaikan dengan level, fokus ke kata-kata sulitmu",
+  "aiTutorPronounceStartCustomTitle": "Pakai kalimatku sendiri",
+  "aiTutorPronounceStartCustomSubtitle": "Ketik atau tempel frasa yang ingin kamu kuasai",
+  "aiTutorQuotaRemaining": "{count, plural, =1{1 tersisa hari ini} other{{count} tersisa hari ini}}",
+  "@aiTutorQuotaRemaining": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   }
 }

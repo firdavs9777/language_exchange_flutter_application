@@ -124,6 +124,7 @@ class _GuideHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final target = ctx.targetLanguage?.isNotEmpty == true
         ? ctx.targetLanguage!
         : 'your learning language';
@@ -162,7 +163,7 @@ class _GuideHeader extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Practicing in $target',
+                  l10n.aiScenariosBannerPracticingIn(target),
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 15,
@@ -171,7 +172,7 @@ class _GuideHeader extends StatelessWidget {
                 ),
                 const SizedBox(height: 2),
                 Text(
-                  'Pick a scenario at your level, or stretch one up.',
+                  l10n.aiScenariosBannerSubhead,
                   style: TextStyle(
                     color: Colors.white.withValues(alpha: 0.88),
                     fontSize: 12,

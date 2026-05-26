@@ -11042,6 +11042,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'VIP'**
   String get aiToolsVipBadge;
+  /// No description provided for @aiScenariosBannerPracticingIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Practicing in {language}'**
+  String aiScenariosBannerPracticingIn(String language);
+
+  /// No description provided for @aiScenariosBannerSubhead.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick a scenario at your level, or stretch one up.'**
+  String get aiScenariosBannerSubhead;
+
 
   /// No description provided for @aiGrammarSectionIssues.
   ///

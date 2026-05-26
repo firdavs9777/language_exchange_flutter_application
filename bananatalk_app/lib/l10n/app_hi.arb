@@ -2177,5 +2177,258 @@
         "type": "String"
       }
     }
+  },
+  "aiTutorChangePersona": "AI ट्यूटर बदलें",
+  "aiTutorChangePersonaSubtitle": "Nana, Sensei या Riko पर स्विच करें",
+  "aiTutorPickerTitle": "अपना AI ट्यूटर चुनें",
+  "aiTutorPickerHeader": "आप किसके साथ सीखना चाहते हैं?",
+  "aiTutorPickerSubtitle": "आप इसे कभी भी सेटिंग्स में बदल सकते हैं।",
+  "aiTutorPersonaNanaTagline": "गर्मजोश + प्रोत्साहक",
+  "aiTutorPersonaNanaSample": "मैं आपको चियर करूँगी, कोई दबाव नहीं।",
+  "aiTutorPersonaSenseiTagline": "सटीक + परीक्षा-केंद्रित",
+  "aiTutorPersonaSenseiSample": "हम नियमों में महारत हासिल करेंगे।",
+  "aiTutorPersonaRikoTagline": "मज़ाकिया + अनौपचारिक",
+  "aiTutorPersonaRikoSample": "चलो मज़े लें और सीखें",
+  "aiTutorPickerSaveError": "सहेज नहीं सका: {error}",
+  "@aiTutorPickerSaveError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorHomeTitle": "AI ट्यूटर",
+  "aiTutorHomeChangeTutor": "ट्यूटर बदलें",
+  "aiTutorHomeGreetingDefault": "हे! साथ सीखने के लिए तैयार?",
+  "aiTutorHomeTodaysPlan": "आज की योजना",
+  "aiTutorHomePlanEmpty": "आज कोई योजना नहीं — शुरू करने के लिए चैट शुरू करें।",
+  "aiTutorHomeStartChat": "चैट शुरू करें",
+  "aiTutorHomeRecent": "हाल का",
+  "aiTutorHomePracticeScenarios": "अभ्यास सीनैरियो",
+  "aiTutorHomePracticeScenariosSubtitle": "असली बातचीत का रोलप्ले — रेस्तरां, इंटरव्यू, होटल…",
+  "aiTutorHomeReadStory": "एक कहानी पढ़ें",
+  "aiTutorHomeReadStorySubtitle": "AI आपकी शब्दावली से एक छोटी कहानी लिखता है — त्वरित समझ प्रश्नों के साथ।",
+  "aiTutorHomeDescribePhoto": "एक फ़ोटो का वर्णन करें",
+  "aiTutorHomeDescribePhotoSubtitle": "एक फ़ोटो लें और उसका वर्णन करें — AI शब्दावली + व्याकरण को ग्रेड करता है।",
+  "aiTutorChatTitle": "ट्यूटर के साथ चैट",
+  "aiTutorChatVoiceOn": "आवाज़ चालू",
+  "aiTutorChatVoiceOff": "आवाज़ बंद",
+  "aiTutorChatStopRecording": "रिकॉर्डिंग रोकें",
+  "aiTutorChatHoldToTalk": "बोलने के लिए दबाए रखें",
+  "aiTutorChatTranscribing": "लिख रहा है…",
+  "aiTutorChatListening": "सुन रहा है…",
+  "aiTutorChatInputHint": "एक संदेश लिखें…",
+  "aiTutorChatTypeReplyHint": "अपना उत्तर लिखें…",
+  "aiTutorChatMicPermissionDenied": "वॉइस मोड के लिए माइक्रोफ़ोन अनुमति आवश्यक।",
+  "aiTutorChatTranscribeFailed": "समझ नहीं आया — फिर से प्रयास करें।",
+  "aiTutorChatStartFailed": "शुरू नहीं हो सका: {error}",
+  "@aiTutorChatStartFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorRoleplayEnd": "समाप्त",
+  "aiTutorRoleplayEndFailed": "समाप्त नहीं हुआ: {error}",
+  "@aiTutorRoleplayEndFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorRoleplayDone": "हो गया",
+  "aiScenariosBannerPracticingIn": "{language} में अभ्यास",
+  "@aiScenariosBannerPracticingIn": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "aiScenariosBannerSubhead": "अपने स्तर का सीनैरियो चुनें, या एक स्तर ऊपर।",
+  "aiTutorStoryTitle": "एक कहानी पढ़ें",
+  "aiTutorStoryLength": "लंबाई",
+  "aiTutorStoryTheme": "विषय",
+  "aiTutorStoryWordCount": "{count} शब्द",
+  "@aiTutorStoryWordCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorStoryWriting": "लिख रहा है…",
+  "aiTutorStoryGenerate": "कहानी बनाएँ",
+  "aiTutorStoryGenerateFailed": "नहीं बना सका: {error}",
+  "@aiTutorStoryGenerateFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorStoryWordCountHint": "AI आपकी सूची से {n} शब्दों तक का उपयोग करेगा।",
+  "@aiTutorStoryWordCountHint": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorStoryThemeFree": "मुक्त",
+  "aiTutorStoryThemeAdventure": "साहसिक",
+  "aiTutorStoryThemeMystery": "रहस्य",
+  "aiTutorStoryThemeRomance": "रोमांस",
+  "aiTutorStoryThemeSciFi": "साइ-फाई",
+  "aiTutorStoryThemeSliceOfLife": "रोज़मर्रा",
+  "aiTutorStoryReaderTitle": "कहानी",
+  "aiTutorStoryReaderVocab": "शब्दावली",
+  "aiTutorStoryReaderVocabUsed": "उपयोग की गई शब्दावली",
+  "aiTutorStoryReaderPart": "भाग {n}",
+  "@aiTutorStoryReaderPart": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorStoryReaderWrongHint": "बिल्कुल नहीं — आगे बढ़ते हैं",
+  "aiTutorStoryReaderNiceWork": "बढ़िया काम!",
+  "aiTutorStoryReaderScore": "आपको {correct}/{total} समझ प्रश्न सही मिले।",
+  "@aiTutorStoryReaderScore": {
+    "placeholders": {
+      "correct": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorStoryReaderDone": "हो गया",
+  "aiTutorImageVocabTitle": "फ़ोटो का वर्णन करें",
+  "aiTutorImagePickHeader": "वर्णन करने के लिए फ़ोटो चुनें",
+  "aiTutorImagePickSubtitle": "AI आपको आपकी लक्ष्य भाषा में संकेत देगा, फिर आपके वर्णन को ग्रेड करेगा।",
+  "aiTutorImagePickCamera": "कैमरा",
+  "aiTutorImagePickGallery": "गैलरी",
+  "aiTutorImagePickError": "छवि नहीं खोली जा सकी: {error}",
+  "@aiTutorImagePickError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorImageDescriptionHint": "अपना वर्णन लिखें…",
+  "aiTutorImageDifferentPhoto": "अलग फ़ोटो",
+  "aiTutorImageSubmit": "भेजें",
+  "aiTutorImageGrammarNotes": "व्याकरण नोट्स",
+  "aiTutorImageThingsYouMissed": "जो छूट गया",
+  "aiTutorImageTryAnother": "दूसरी फ़ोटो आज़माएँ",
+  "aiTutorCardQuiz": "क्विज़",
+  "aiTutorCardVocab": "शब्दावली",
+  "aiTutorCardGrammar": "व्याकरण",
+  "aiTutorCardReviewDue": "समीक्षा देय",
+  "aiTutorCardMiniLesson": "मिनी-पाठ",
+  "aiTutorCardAddToVocab": "शब्दावली में जोड़ें",
+  "aiTutorCardAddedToVocab": "जोड़ा गया",
+  "aiTutorCardAdding": "जोड़ रहा है…",
+  "aiTutorCardReviewCount": "{count, plural, one{{count} कार्ड आपकी प्रतीक्षा में} other{{count} कार्ड आपकी प्रतीक्षा में}}",
+  "@aiTutorCardReviewCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorCardReviewNow": "अभी समीक्षा करें",
+  "aiTutorCardReviewStarting": "शुरू हो रहा है…",
+  "aiTutorCardTryIt": "आज़माएँ",
+  "aiTutorCardPracticing": "अभ्यास हो रहा है…",
+  "aiTutorPlanSrsReview": "{count} SRS कार्ड समीक्षा करें ({done} पूर्ण)",
+  "@aiTutorPlanSrsReview": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "done": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorPlanGrammar": "अभ्यास: {topic}",
+  "@aiTutorPlanGrammar": {
+    "placeholders": {
+      "topic": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorPlanChat": "{min} मिनट चैट करें ({done} अब तक)",
+  "@aiTutorPlanChat": {
+    "placeholders": {
+      "min": {
+        "type": "int"
+      },
+      "done": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorPronounceLoading": "आपके लिए वाक्य चुन रहा है…",
+  "aiTutorPronounceTapToRecord": "रिकॉर्ड करने के लिए टैप करें",
+  "aiTutorPronounceTapToStop": "रोकने के लिए टैप करें",
+  "aiTutorPronounceTranscribing": "आपकी सुन रहा है…",
+  "aiTutorPronounceTryAgain": "फिर से प्रयास करें",
+  "aiTutorPronounceNext": "अगला",
+  "aiTutorPronounceUseYourOwn": "मेरा खुद का ✏️",
+  "aiTutorPronounceCustomHint": "अभ्यास करने के लिए एक वाक्य लिखें",
+  "aiTutorPronounceCustomCancel": "रद्द करें",
+  "aiTutorPronounceCustomUse": "उपयोग करें",
+  "aiTutorPronounceQuitConfirm": "ड्रिल छोड़ें? आपकी प्रगति सहेजी नहीं जाएगी।",
+  "aiTutorPronounceQuitYes": "हाँ",
+  "aiTutorPronounceQuitNo": "नहीं",
+  "aiTutorPronounceSentenceOf": "वाक्य {current} में से {total}",
+  "@aiTutorPronounceSentenceOf": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorPronounceSummaryTitle": "ड्रिल पूर्ण",
+  "aiTutorPronounceSummaryAvg": "औसत स्कोर",
+  "aiTutorPronounceSummaryWeak": "अभ्यास के लिए शब्द",
+  "aiTutorPronounceSaveClose": "सहेजें और बंद करें",
+  "aiTutorPronounceSaving": "सहेज रहा है…",
+  "aiTutorPlanPronunciation": "{count, plural, =1{उच्चारण ड्रिल ({completed}/1)} other{उच्चारण ड्रिल ({completed}/{count})}}",
+  "@aiTutorPlanPronunciation": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "completed": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorPronounceStartHeadline": "आप कैसे अभ्यास करना चाहते हैं?",
+  "aiTutorPronounceStartSubhead": "5-वाक्य ड्रिल शुरू करने के लिए एक चुनें।",
+  "aiTutorPronounceStartAITitle": "AI वाक्य बनाता है",
+  "aiTutorPronounceStartAISubtitle": "स्तर के अनुसार, आपके कठिन शब्दों पर केंद्रित",
+  "aiTutorPronounceStartCustomTitle": "मेरा अपना वाक्य",
+  "aiTutorPronounceStartCustomSubtitle": "वह वाक्य टाइप करें या पेस्ट करें जिसे आप सीखना चाहते हैं",
+  "aiTutorQuotaRemaining": "{count, plural, =1{आज 1 बचा है} other{आज {count} बचे हैं}}",
+  "@aiTutorQuotaRemaining": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   }
 }

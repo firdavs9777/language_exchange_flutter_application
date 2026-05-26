@@ -2198,5 +2198,258 @@
         "type": "String"
       }
     }
+  },
+  "aiTutorChangePersona": "AI 튜터 변경",
+  "aiTutorChangePersonaSubtitle": "Nana, Sensei 또는 Riko로 전환",
+  "aiTutorPickerTitle": "AI 튜터를 선택하세요",
+  "aiTutorPickerHeader": "누구와 함께 배우고 싶으세요?",
+  "aiTutorPickerSubtitle": "언제든 설정에서 변경할 수 있어요.",
+  "aiTutorPersonaNanaTagline": "따뜻함 + 격려",
+  "aiTutorPersonaNanaSample": "부담 없이 응원해 줄게요.",
+  "aiTutorPersonaSenseiTagline": "정확함 + 시험 중심",
+  "aiTutorPersonaSenseiSample": "규칙을 마스터해 봅시다.",
+  "aiTutorPersonaRikoTagline": "장난스러움 + 슬랭",
+  "aiTutorPersonaRikoSample": "ㅎㅎ 즐겁게 배워보자",
+  "aiTutorPickerSaveError": "저장할 수 없습니다: {error}",
+  "@aiTutorPickerSaveError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorHomeTitle": "AI 튜터",
+  "aiTutorHomeChangeTutor": "튜터 변경",
+  "aiTutorHomeGreetingDefault": "안녕! 함께 배울 준비됐어?",
+  "aiTutorHomeTodaysPlan": "오늘의 계획",
+  "aiTutorHomePlanEmpty": "오늘 계획이 없습니다 — 채팅을 시작해 보세요.",
+  "aiTutorHomeStartChat": "채팅 시작",
+  "aiTutorHomeRecent": "최근",
+  "aiTutorHomePracticeScenarios": "연습 시나리오",
+  "aiTutorHomePracticeScenariosSubtitle": "실제 대화를 롤플레이 — 식당, 면접, 호텔…",
+  "aiTutorHomeReadStory": "이야기 읽기",
+  "aiTutorHomeReadStorySubtitle": "AI가 당신의 단어로 짧은 이야기를 쓰고 — 빠른 이해 질문을 합니다.",
+  "aiTutorHomeDescribePhoto": "사진 묘사하기",
+  "aiTutorHomeDescribePhotoSubtitle": "사진을 찍고 묘사하세요 — AI가 단어와 문법을 평가합니다.",
+  "aiTutorChatTitle": "튜터와 채팅",
+  "aiTutorChatVoiceOn": "음성 켜기",
+  "aiTutorChatVoiceOff": "음성 끄기",
+  "aiTutorChatStopRecording": "녹음 중지",
+  "aiTutorChatHoldToTalk": "길게 눌러 말하기",
+  "aiTutorChatTranscribing": "전사 중…",
+  "aiTutorChatListening": "듣는 중…",
+  "aiTutorChatInputHint": "메시지 입력…",
+  "aiTutorChatTypeReplyHint": "답장 입력…",
+  "aiTutorChatMicPermissionDenied": "음성 모드에 마이크 권한이 필요합니다.",
+  "aiTutorChatTranscribeFailed": "잘 못 들었어요 — 다시 시도하세요.",
+  "aiTutorChatStartFailed": "시작할 수 없습니다: {error}",
+  "@aiTutorChatStartFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorRoleplayEnd": "종료",
+  "aiTutorRoleplayEndFailed": "종료 실패: {error}",
+  "@aiTutorRoleplayEndFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorRoleplayDone": "완료",
+  "aiScenariosBannerPracticingIn": "{language}로 연습 중",
+  "@aiScenariosBannerPracticingIn": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "aiScenariosBannerSubhead": "자기 레벨의 시나리오를 고르거나, 한 단계 위로 도전해 보세요.",
+  "aiTutorStoryTitle": "이야기 읽기",
+  "aiTutorStoryLength": "길이",
+  "aiTutorStoryTheme": "주제",
+  "aiTutorStoryWordCount": "{count}개 단어",
+  "@aiTutorStoryWordCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorStoryWriting": "작성 중…",
+  "aiTutorStoryGenerate": "이야기 생성",
+  "aiTutorStoryGenerateFailed": "생성할 수 없습니다: {error}",
+  "@aiTutorStoryGenerateFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorStoryWordCountHint": "AI는 당신의 단어장에서 최대 {n}개 단어를 사용합니다.",
+  "@aiTutorStoryWordCountHint": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorStoryThemeFree": "자유",
+  "aiTutorStoryThemeAdventure": "모험",
+  "aiTutorStoryThemeMystery": "미스터리",
+  "aiTutorStoryThemeRomance": "로맨스",
+  "aiTutorStoryThemeSciFi": "SF",
+  "aiTutorStoryThemeSliceOfLife": "일상",
+  "aiTutorStoryReaderTitle": "이야기",
+  "aiTutorStoryReaderVocab": "단어",
+  "aiTutorStoryReaderVocabUsed": "사용된 단어",
+  "aiTutorStoryReaderPart": "{n}부",
+  "@aiTutorStoryReaderPart": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorStoryReaderWrongHint": "아쉽네요 — 계속 진행",
+  "aiTutorStoryReaderNiceWork": "잘했어요!",
+  "aiTutorStoryReaderScore": "이해 문제 {correct}/{total}개를 맞혔어요.",
+  "@aiTutorStoryReaderScore": {
+    "placeholders": {
+      "correct": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorStoryReaderDone": "완료",
+  "aiTutorImageVocabTitle": "사진 묘사하기",
+  "aiTutorImagePickHeader": "묘사할 사진을 선택하세요",
+  "aiTutorImagePickSubtitle": "AI가 목표 언어로 프롬프트를 주고, 당신의 묘사를 평가합니다.",
+  "aiTutorImagePickCamera": "카메라",
+  "aiTutorImagePickGallery": "갤러리",
+  "aiTutorImagePickError": "이미지를 열 수 없습니다: {error}",
+  "@aiTutorImagePickError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorImageDescriptionHint": "묘사를 입력하세요…",
+  "aiTutorImageDifferentPhoto": "다른 사진",
+  "aiTutorImageSubmit": "제출",
+  "aiTutorImageGrammarNotes": "문법 노트",
+  "aiTutorImageThingsYouMissed": "놓친 부분",
+  "aiTutorImageTryAnother": "다른 사진 시도",
+  "aiTutorCardQuiz": "퀴즈",
+  "aiTutorCardVocab": "단어",
+  "aiTutorCardGrammar": "문법",
+  "aiTutorCardReviewDue": "복습 예정",
+  "aiTutorCardMiniLesson": "미니 레슨",
+  "aiTutorCardAddToVocab": "단어에 추가",
+  "aiTutorCardAddedToVocab": "추가됨",
+  "aiTutorCardAdding": "추가 중…",
+  "aiTutorCardReviewCount": "{count, plural, one{{count}장의 카드가 기다리고 있어요} other{{count}장의 카드가 기다리고 있어요}}",
+  "@aiTutorCardReviewCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorCardReviewNow": "지금 복습",
+  "aiTutorCardReviewStarting": "시작 중…",
+  "aiTutorCardTryIt": "해 보기",
+  "aiTutorCardPracticing": "연습 중…",
+  "aiTutorPlanSrsReview": "SRS 카드 {count}장 복습 ({done}장 완료)",
+  "@aiTutorPlanSrsReview": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "done": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorPlanGrammar": "연습: {topic}",
+  "@aiTutorPlanGrammar": {
+    "placeholders": {
+      "topic": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTutorPlanChat": "{min}분 채팅 (지금까지 {done}분)",
+  "@aiTutorPlanChat": {
+    "placeholders": {
+      "min": {
+        "type": "int"
+      },
+      "done": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorPronounceLoading": "문장을 고르고 있어요…",
+  "aiTutorPronounceTapToRecord": "녹음하려면 누르세요",
+  "aiTutorPronounceTapToStop": "중지하려면 누르세요",
+  "aiTutorPronounceTranscribing": "듣는 중…",
+  "aiTutorPronounceTryAgain": "다시 시도",
+  "aiTutorPronounceNext": "다음",
+  "aiTutorPronounceUseYourOwn": "내 문장 ✏️",
+  "aiTutorPronounceCustomHint": "연습하고 싶은 문장을 입력",
+  "aiTutorPronounceCustomCancel": "취소",
+  "aiTutorPronounceCustomUse": "사용",
+  "aiTutorPronounceQuitConfirm": "드릴을 종료할까요? 진행 상황이 저장되지 않습니다.",
+  "aiTutorPronounceQuitYes": "예",
+  "aiTutorPronounceQuitNo": "아니오",
+  "aiTutorPronounceSentenceOf": "{total}개 중 {current}번째 문장",
+  "@aiTutorPronounceSentenceOf": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorPronounceSummaryTitle": "드릴 완료",
+  "aiTutorPronounceSummaryAvg": "평균 점수",
+  "aiTutorPronounceSummaryWeak": "연습할 단어",
+  "aiTutorPronounceSaveClose": "저장 및 닫기",
+  "aiTutorPronounceSaving": "저장 중…",
+  "aiTutorPlanPronunciation": "{count, plural, =1{발음 드릴 ({completed}/1)} other{발음 드릴 ({completed}/{count})}}",
+  "@aiTutorPlanPronunciation": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "completed": {
+        "type": "int"
+      }
+    }
+  },
+  "aiTutorPronounceStartHeadline": "어떻게 연습할까요?",
+  "aiTutorPronounceStartSubhead": "5문장 드릴을 시작하려면 하나 선택하세요.",
+  "aiTutorPronounceStartAITitle": "AI가 문장 생성",
+  "aiTutorPronounceStartAISubtitle": "레벨에 맞춤, 어려운 단어 위주",
+  "aiTutorPronounceStartCustomTitle": "내 문장 사용",
+  "aiTutorPronounceStartCustomSubtitle": "마스터하고 싶은 문구를 입력하거나 붙여넣으세요",
+  "aiTutorQuotaRemaining": "{count, plural, =1{오늘 1회 남음} other{오늘 {count}회 남음}}",
+  "@aiTutorQuotaRemaining": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   }
 }
