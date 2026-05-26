@@ -152,17 +152,29 @@ class TutorService {
     }
   }
 
-  /// GET /tutor/scenarios — list available roleplay scenarios.
-  Future<List<TutorScenario>> listScenarios() async {
+  /// GET /tutor/scenarios — list scenarios + the user's level/language
+  /// context (used by the picker to group by difficulty and show a guide).
+  Future<ScenariosResponse> listScenarios() async {
     final res = await _api.get('tutor/scenarios');
-    if (!res.success || res.data == null) return [];
     final raw = res.data;
-    final list = raw is List
-        ? raw
-        : (raw is Map ? (raw['data'] as List? ?? const []) : const []);
-    return list
+    // The api client may hand back either the bare envelope or the inner
+    // `data` array depending on how the response wrapper unwraps. Accept
+    // both shapes and pull userContext when present.
+    List rawList = const [];
+    Map<String, dynamic>? rawCtx;
+    if (raw is List) {
+      rawList = raw;
+    } else if (raw is Map) {
+      rawList = (raw['data'] as List?) ?? const [];
+      rawCtx = (raw['userContext'] as Map?)?.cast<String, dynamic>();
+    }
+    final scenarios = rawList
         .map((e) => TutorScenario.fromJson(e as Map<String, dynamic>))
         .toList();
+    final ctx = rawCtx != null
+        ? ScenariosUserContext.fromJson(rawCtx)
+        : const ScenariosUserContext(level: 'A1');
+    return ScenariosResponse(scenarios: scenarios, userContext: ctx);
   }
 
   /// POST /tutor/stories/generate — returns the freshly generated story.
@@ -292,7 +304,7 @@ final tutorRecentSessionsProvider = FutureProvider<List<TutorSession>>((ref) {
   return ref.read(tutorServiceProvider).listSessions();
 });
 
-final tutorScenariosProvider = FutureProvider<List<TutorScenario>>((ref) {
+final tutorScenariosProvider = FutureProvider<ScenariosResponse>((ref) {
   return ref.read(tutorServiceProvider).listScenarios();
 });
 

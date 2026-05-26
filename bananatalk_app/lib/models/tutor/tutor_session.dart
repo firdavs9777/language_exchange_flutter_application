@@ -79,6 +79,7 @@ class TutorScenario {
   final String title;
   final String summary;
   final String goal;
+  final String level; // 'A1' | 'A2' | 'B1' | 'B2' | 'C1'
   final int minTurns;
 
   TutorScenario({
@@ -87,6 +88,7 @@ class TutorScenario {
     required this.title,
     required this.summary,
     required this.goal,
+    required this.level,
     required this.minTurns,
   });
 
@@ -96,8 +98,37 @@ class TutorScenario {
         title: j['title']?.toString() ?? '',
         summary: j['summary']?.toString() ?? '',
         goal: j['goal']?.toString() ?? '',
+        level: (j['level']?.toString() ?? 'A2').toUpperCase(),
         minTurns: (j['minTurns'] as num?)?.toInt() ?? 4,
       );
+}
+
+/// User context returned alongside the scenarios list so the picker can
+/// render a guide header (level + target language) and group by relative
+/// difficulty.
+class ScenariosUserContext {
+  final String level; // 'A1' | 'A2' | 'B1' | 'B2' | 'C1'
+  final String? targetLanguage;
+  final String? nativeLanguage;
+  const ScenariosUserContext({
+    required this.level,
+    this.targetLanguage,
+    this.nativeLanguage,
+  });
+  factory ScenariosUserContext.fromJson(Map<String, dynamic> j) =>
+      ScenariosUserContext(
+        level: (j['level']?.toString() ?? 'A1').toUpperCase(),
+        targetLanguage: j['targetLanguage']?.toString(),
+        nativeLanguage: j['nativeLanguage']?.toString(),
+      );
+}
+
+/// Bundle returned by `listScenarios()` so the picker has scenarios + the
+/// user's context in a single fetch.
+class ScenariosResponse {
+  final List<TutorScenario> scenarios;
+  final ScenariosUserContext userContext;
+  const ScenariosResponse({required this.scenarios, required this.userContext});
 }
 
 class ScenarioScore {
