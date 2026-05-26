@@ -2449,5 +2449,60 @@
         "type": "String"
       }
     }
-  }
+  },
+  "chatActiveJustNow": "Active ngayon",
+  "chatActiveMinAgo": "Active {min} min ang nakaraan",
+  "@chatActiveMinAgo": {
+    "placeholders": {
+      "min": {
+        "type": "int"
+      }
+    }
+  },
+  "chatActiveHourAgo": "Active 1 oras ang nakaraan",
+  "chatActiveHoursAgo": "Active {hours}h ang nakaraan",
+  "@chatActiveHoursAgo": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      }
+    }
+  },
+  "chatActiveYesterday": "Active kahapon",
+  "chatActiveDaysAgo": "Active {days}d ang nakaraan",
+  "@chatActiveDaysAgo": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "chatSayHiPrompt": "Bumati at magsimula ng usapan!",
+  "communityConversationStartersTitle": "Pampasimuno ng usapan",
+  "communityConversationStartersTopic": "Pareho kayong mahilig sa {topic} — itanong ang paborito niya!",
+  "@communityConversationStartersTopic": {
+    "placeholders": {
+      "topic": {
+        "type": "String"
+      }
+    }
+  },
+  "communityConversationStartersDefault": "Bumati at magpakilala!",
+  "communityConversationChatAction": "Chat",
+  "communityConversationMessageCopied": "Nakopya ang mensahe! I-paste para ipadala.",
+  "communityConversationCopiedToast": "Nakopya!",
+  "communityLanguageMatchTitle": "Tugma sa wika",
+  "communityLanguageMatchNative": "Sariling wika",
+  "communityLanguageMatchLearning": "Nag-aaral",
+  "communityLanguageMatchPerfect": "Perpektong language exchange!",
+  "communityLanguageMatchSameNative": "Pareho kayo ng sariling wika",
+  "momentsFilterApply": "I-apply",
+  "momentsCreateAddTo": "Idagdag sa moment mo",
+  "momentsCreateCategory": "Kategorya",
+  "momentsCreateLanguage": "Wika",
+  "momentsCreateSchedule": "I-schedule (opsyonal)",
+  "momentsCreateScheduleForLater": "I-schedule mamaya",
+  "momentsPrivacyPublic": "Pampubliko",
+  "momentsPrivacyFriends": "Mga kaibigan",
+  "momentsPrivacyPrivate": "Pribado"
 }

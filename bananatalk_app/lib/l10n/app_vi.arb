@@ -2355,5 +2355,60 @@
         "type": "String"
       }
     }
-  }
+  },
+  "chatActiveJustNow": "Hoạt động vừa xong",
+  "chatActiveMinAgo": "Hoạt động {min} phút trước",
+  "@chatActiveMinAgo": {
+    "placeholders": {
+      "min": {
+        "type": "int"
+      }
+    }
+  },
+  "chatActiveHourAgo": "Hoạt động 1 giờ trước",
+  "chatActiveHoursAgo": "Hoạt động {hours} giờ trước",
+  "@chatActiveHoursAgo": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      }
+    }
+  },
+  "chatActiveYesterday": "Hoạt động hôm qua",
+  "chatActiveDaysAgo": "Hoạt động {days} ngày trước",
+  "@chatActiveDaysAgo": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "chatSayHiPrompt": "Chào và bắt đầu trò chuyện!",
+  "communityConversationStartersTitle": "Gợi mở câu chuyện",
+  "communityConversationStartersTopic": "Cả hai đều thích {topic} — hỏi sở thích của họ!",
+  "@communityConversationStartersTopic": {
+    "placeholders": {
+      "topic": {
+        "type": "String"
+      }
+    }
+  },
+  "communityConversationStartersDefault": "Chào và giới thiệu bản thân!",
+  "communityConversationChatAction": "Chat",
+  "communityConversationMessageCopied": "Đã sao chép tin nhắn! Dán để gửi.",
+  "communityConversationCopiedToast": "Đã sao chép!",
+  "communityLanguageMatchTitle": "Tương hợp ngôn ngữ",
+  "communityLanguageMatchNative": "Bản ngữ",
+  "communityLanguageMatchLearning": "Đang học",
+  "communityLanguageMatchPerfect": "Trao đổi ngôn ngữ hoàn hảo!",
+  "communityLanguageMatchSameNative": "Bạn cùng tiếng mẹ đẻ",
+  "momentsFilterApply": "Áp dụng",
+  "momentsCreateAddTo": "Thêm vào khoảnh khắc",
+  "momentsCreateCategory": "Danh mục",
+  "momentsCreateLanguage": "Ngôn ngữ",
+  "momentsCreateSchedule": "Lên lịch (tuỳ chọn)",
+  "momentsCreateScheduleForLater": "Lên lịch sau",
+  "momentsPrivacyPublic": "Công khai",
+  "momentsPrivacyFriends": "Bạn bè",
+  "momentsPrivacyPrivate": "Riêng tư"
 }

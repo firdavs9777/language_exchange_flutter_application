@@ -2782,5 +2782,60 @@
         "type": "String"
       }
     }
-  }
+  },
+  "chatActiveJustNow": "Actif à l'instant",
+  "chatActiveMinAgo": "Actif il y a {min} min",
+  "@chatActiveMinAgo": {
+    "placeholders": {
+      "min": {
+        "type": "int"
+      }
+    }
+  },
+  "chatActiveHourAgo": "Actif il y a 1 heure",
+  "chatActiveHoursAgo": "Actif il y a {hours} h",
+  "@chatActiveHoursAgo": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      }
+    }
+  },
+  "chatActiveYesterday": "Actif hier",
+  "chatActiveDaysAgo": "Actif il y a {days}j",
+  "@chatActiveDaysAgo": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "chatSayHiPrompt": "Dis bonjour et lance une conversation !",
+  "communityConversationStartersTitle": "Brise-glace",
+  "communityConversationStartersTopic": "Vous aimez tous les deux {topic} — demande son favori !",
+  "@communityConversationStartersTopic": {
+    "placeholders": {
+      "topic": {
+        "type": "String"
+      }
+    }
+  },
+  "communityConversationStartersDefault": "Dis bonjour et présente-toi !",
+  "communityConversationChatAction": "Chat",
+  "communityConversationMessageCopied": "Message copié ! Colle pour envoyer.",
+  "communityConversationCopiedToast": "Copié !",
+  "communityLanguageMatchTitle": "Correspondance linguistique",
+  "communityLanguageMatchNative": "Maternelle",
+  "communityLanguageMatchLearning": "En apprentissage",
+  "communityLanguageMatchPerfect": "Échange linguistique parfait !",
+  "communityLanguageMatchSameNative": "Vous partagez la même langue maternelle",
+  "momentsFilterApply": "Appliquer",
+  "momentsCreateAddTo": "Ajouter à ton moment",
+  "momentsCreateCategory": "Catégorie",
+  "momentsCreateLanguage": "Langue",
+  "momentsCreateSchedule": "Planifier (optionnel)",
+  "momentsCreateScheduleForLater": "Planifier pour plus tard",
+  "momentsPrivacyPublic": "Public",
+  "momentsPrivacyFriends": "Amis",
+  "momentsPrivacyPrivate": "Privé"
 }

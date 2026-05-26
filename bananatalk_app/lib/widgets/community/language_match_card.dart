@@ -5,6 +5,7 @@ import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/utils/language_flags.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 enum MatchType { perfect, youLearnTheirs, theyLearnYours, sameNative, none }
 
@@ -52,7 +53,7 @@ class LanguageMatchCard extends ConsumerWidget {
                   ),
                   const SizedBox(width: 8),
                   Text(
-                    'Language Match',
+                    AppLocalizations.of(context)!.communityLanguageMatchTitle,
                     style: context.titleMedium,
                   ),
                 ],
@@ -98,7 +99,7 @@ class LanguageMatchCard extends ConsumerWidget {
           child: _buildLanguageCard(
             context,
             profile.native_language,
-            'Native',
+            AppLocalizations.of(context)!.communityLanguageMatchNative,
             true,
           ),
         ),
@@ -121,7 +122,7 @@ class LanguageMatchCard extends ConsumerWidget {
           child: _buildLanguageCard(
             context,
             profile.language_to_learn,
-            'Learning',
+            AppLocalizations.of(context)!.communityLanguageMatchLearning,
             false,
           ),
         ),
@@ -233,7 +234,7 @@ class LanguageMatchCard extends ConsumerWidget {
 
     switch (matchType) {
       case MatchType.perfect:
-        message = 'Perfect language exchange match!';
+        message = AppLocalizations.of(context)!.communityLanguageMatchPerfect;
         bgColor = AppColors.secondary;
         icon = Icons.auto_awesome;
         break;
@@ -248,7 +249,7 @@ class LanguageMatchCard extends ConsumerWidget {
         icon = Icons.record_voice_over_rounded;
         break;
       case MatchType.sameNative:
-        message = 'You share the same native language';
+        message = AppLocalizations.of(context)!.communityLanguageMatchSameNative;
         bgColor = AppColors.info;
         icon = Icons.handshake_rounded;
         break;

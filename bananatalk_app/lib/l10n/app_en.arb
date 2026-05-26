@@ -3460,5 +3460,60 @@
         "type": "String"
       }
     }
-  }
+  },
+  "chatActiveJustNow": "Active just now",
+  "chatActiveMinAgo": "Active {min} min ago",
+  "@chatActiveMinAgo": {
+    "placeholders": {
+      "min": {
+        "type": "int"
+      }
+    }
+  },
+  "chatActiveHourAgo": "Active 1 hour ago",
+  "chatActiveHoursAgo": "Active {hours}h ago",
+  "@chatActiveHoursAgo": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      }
+    }
+  },
+  "chatActiveYesterday": "Active yesterday",
+  "chatActiveDaysAgo": "Active {days}d ago",
+  "@chatActiveDaysAgo": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "chatSayHiPrompt": "Say hi and start a conversation!",
+  "communityConversationStartersTitle": "Conversation Starters",
+  "communityConversationStartersTopic": "You both love {topic} - ask about their favorite!",
+  "@communityConversationStartersTopic": {
+    "placeholders": {
+      "topic": {
+        "type": "String"
+      }
+    }
+  },
+  "communityConversationStartersDefault": "Say hi and introduce yourself!",
+  "communityConversationChatAction": "Chat",
+  "communityConversationMessageCopied": "Message copied! Paste to send.",
+  "communityConversationCopiedToast": "Copied to clipboard!",
+  "communityLanguageMatchTitle": "Language Match",
+  "communityLanguageMatchNative": "Native",
+  "communityLanguageMatchLearning": "Learning",
+  "communityLanguageMatchPerfect": "Perfect language exchange match!",
+  "communityLanguageMatchSameNative": "You share the same native language",
+  "momentsFilterApply": "Apply",
+  "momentsCreateAddTo": "Add to your moment",
+  "momentsCreateCategory": "Category",
+  "momentsCreateLanguage": "Language",
+  "momentsCreateSchedule": "Schedule (optional)",
+  "momentsCreateScheduleForLater": "Schedule for later",
+  "momentsPrivacyPublic": "Public",
+  "momentsPrivacyFriends": "Friends",
+  "momentsPrivacyPrivate": "Private"
 }

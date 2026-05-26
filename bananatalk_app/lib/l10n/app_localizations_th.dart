@@ -6081,4 +6081,93 @@ class AppLocalizationsTh extends AppLocalizations {
   String commonError(String error) {
     return 'ข้อผิดพลาด: $error';
   }
+
+  @override
+  String get chatActiveJustNow => 'ใช้งานเดี๋ยวนี้';
+
+  @override
+  String chatActiveMinAgo(int min) {
+    return 'ใช้งาน $min นาทีที่แล้ว';
+  }
+
+  @override
+  String get chatActiveHourAgo => 'ใช้งาน 1 ชม.ที่แล้ว';
+
+  @override
+  String chatActiveHoursAgo(int hours) {
+    return 'ใช้งาน $hours ชม.ที่แล้ว';
+  }
+
+  @override
+  String get chatActiveYesterday => 'ใช้งานเมื่อวานนี้';
+
+  @override
+  String chatActiveDaysAgo(int days) {
+    return 'ใช้งาน $days วันที่แล้ว';
+  }
+
+  @override
+  String get chatSayHiPrompt => 'ทักทายและเริ่มบทสนทนา!';
+
+  @override
+  String get communityConversationStartersTitle => 'คำเริ่มสนทนา';
+
+  @override
+  String communityConversationStartersTopic(String topic) {
+    return 'พวกคุณทั้งคู่ชอบ $topic — ลองถามอันโปรดของเขา!';
+  }
+
+  @override
+  String get communityConversationStartersDefault => 'ทักทายและแนะนำตัว!';
+
+  @override
+  String get communityConversationChatAction => 'แชท';
+
+  @override
+  String get communityConversationMessageCopied => 'คัดลอกข้อความแล้ว! วางเพื่อส่ง';
+
+  @override
+  String get communityConversationCopiedToast => 'คัดลอกแล้ว!';
+
+  @override
+  String get communityLanguageMatchTitle => 'ภาษาเข้ากัน';
+
+  @override
+  String get communityLanguageMatchNative => 'ภาษาแม่';
+
+  @override
+  String get communityLanguageMatchLearning => 'กำลังเรียน';
+
+  @override
+  String get communityLanguageMatchPerfect => 'แลกภาษากันได้สมบูรณ์แบบ!';
+
+  @override
+  String get communityLanguageMatchSameNative => 'คุณใช้ภาษาแม่เดียวกัน';
+
+  @override
+  String get momentsFilterApply => 'ใช้';
+
+  @override
+  String get momentsCreateAddTo => 'เพิ่มในโมเมนต์ของคุณ';
+
+  @override
+  String get momentsCreateCategory => 'หมวดหมู่';
+
+  @override
+  String get momentsCreateLanguage => 'ภาษา';
+
+  @override
+  String get momentsCreateSchedule => 'กำหนดเวลา (ไม่บังคับ)';
+
+  @override
+  String get momentsCreateScheduleForLater => 'กำหนดไว้ภายหลัง';
+
+  @override
+  String get momentsPrivacyPublic => 'สาธารณะ';
+
+  @override
+  String get momentsPrivacyFriends => 'เพื่อน';
+
+  @override
+  String get momentsPrivacyPrivate => 'ส่วนตัว';
 }

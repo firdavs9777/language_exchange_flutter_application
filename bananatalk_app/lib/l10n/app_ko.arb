@@ -2534,5 +2534,60 @@
         "type": "String"
       }
     }
-  }
+  },
+  "chatActiveJustNow": "방금 활동",
+  "chatActiveMinAgo": "{min}분 전 활동",
+  "@chatActiveMinAgo": {
+    "placeholders": {
+      "min": {
+        "type": "int"
+      }
+    }
+  },
+  "chatActiveHourAgo": "1시간 전 활동",
+  "chatActiveHoursAgo": "{hours}시간 전 활동",
+  "@chatActiveHoursAgo": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      }
+    }
+  },
+  "chatActiveYesterday": "어제 활동",
+  "chatActiveDaysAgo": "{days}일 전 활동",
+  "@chatActiveDaysAgo": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "chatSayHiPrompt": "인사하고 대화를 시작해 보세요!",
+  "communityConversationStartersTitle": "대화 시작 팁",
+  "communityConversationStartersTopic": "둘 다 {topic}을(를) 좋아해요 — 좋아하는 것을 물어보세요!",
+  "@communityConversationStartersTopic": {
+    "placeholders": {
+      "topic": {
+        "type": "String"
+      }
+    }
+  },
+  "communityConversationStartersDefault": "인사하고 자신을 소개해 보세요!",
+  "communityConversationChatAction": "채팅",
+  "communityConversationMessageCopied": "메시지가 복사되었습니다! 붙여넣어 보내세요.",
+  "communityConversationCopiedToast": "복사됨!",
+  "communityLanguageMatchTitle": "언어 매치",
+  "communityLanguageMatchNative": "모국어",
+  "communityLanguageMatchLearning": "학습 중",
+  "communityLanguageMatchPerfect": "완벽한 언어 교환 매치!",
+  "communityLanguageMatchSameNative": "같은 모국어를 사용해요",
+  "momentsFilterApply": "적용",
+  "momentsCreateAddTo": "내 모먼트에 추가",
+  "momentsCreateCategory": "카테고리",
+  "momentsCreateLanguage": "언어",
+  "momentsCreateSchedule": "예약 (선택)",
+  "momentsCreateScheduleForLater": "나중에 예약",
+  "momentsPrivacyPublic": "공개",
+  "momentsPrivacyFriends": "친구",
+  "momentsPrivacyPrivate": "비공개"
 }

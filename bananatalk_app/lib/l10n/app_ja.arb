@@ -2512,5 +2512,60 @@
         "type": "String"
       }
     }
-  }
+  },
+  "chatActiveJustNow": "今アクティブ",
+  "chatActiveMinAgo": "{min}分前アクティブ",
+  "@chatActiveMinAgo": {
+    "placeholders": {
+      "min": {
+        "type": "int"
+      }
+    }
+  },
+  "chatActiveHourAgo": "1時間前アクティブ",
+  "chatActiveHoursAgo": "{hours}時間前アクティブ",
+  "@chatActiveHoursAgo": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      }
+    }
+  },
+  "chatActiveYesterday": "昨日アクティブ",
+  "chatActiveDaysAgo": "{days}日前アクティブ",
+  "@chatActiveDaysAgo": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "chatSayHiPrompt": "挨拶して会話を始めよう！",
+  "communityConversationStartersTitle": "会話のきっかけ",
+  "communityConversationStartersTopic": "二人とも{topic}が好き — お気に入りを聞こう！",
+  "@communityConversationStartersTopic": {
+    "placeholders": {
+      "topic": {
+        "type": "String"
+      }
+    }
+  },
+  "communityConversationStartersDefault": "挨拶して自己紹介しよう！",
+  "communityConversationChatAction": "チャット",
+  "communityConversationMessageCopied": "メッセージをコピー！貼り付けて送信。",
+  "communityConversationCopiedToast": "コピーしました！",
+  "communityLanguageMatchTitle": "言語マッチ",
+  "communityLanguageMatchNative": "母語",
+  "communityLanguageMatchLearning": "学習中",
+  "communityLanguageMatchPerfect": "完璧な言語交換マッチ！",
+  "communityLanguageMatchSameNative": "母語が同じです",
+  "momentsFilterApply": "適用",
+  "momentsCreateAddTo": "モーメントに追加",
+  "momentsCreateCategory": "カテゴリ",
+  "momentsCreateLanguage": "言語",
+  "momentsCreateSchedule": "スケジュール（任意）",
+  "momentsCreateScheduleForLater": "後で投稿",
+  "momentsPrivacyPublic": "公開",
+  "momentsPrivacyFriends": "友達",
+  "momentsPrivacyPrivate": "非公開"
 }

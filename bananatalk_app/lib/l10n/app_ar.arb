@@ -2527,5 +2527,60 @@
         "type": "String"
       }
     }
-  }
+  },
+  "chatActiveJustNow": "نشط الآن",
+  "chatActiveMinAgo": "نشط منذ {min} دقيقة",
+  "@chatActiveMinAgo": {
+    "placeholders": {
+      "min": {
+        "type": "int"
+      }
+    }
+  },
+  "chatActiveHourAgo": "نشط منذ ساعة",
+  "chatActiveHoursAgo": "نشط منذ {hours} ساعة",
+  "@chatActiveHoursAgo": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      }
+    }
+  },
+  "chatActiveYesterday": "نشط أمس",
+  "chatActiveDaysAgo": "نشط منذ {days} يوم",
+  "@chatActiveDaysAgo": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "chatSayHiPrompt": "قل مرحبًا وابدأ محادثة!",
+  "communityConversationStartersTitle": "بدايات المحادثة",
+  "communityConversationStartersTopic": "كلاكما يحب {topic} — اسأل عن المفضّل لديه!",
+  "@communityConversationStartersTopic": {
+    "placeholders": {
+      "topic": {
+        "type": "String"
+      }
+    }
+  },
+  "communityConversationStartersDefault": "قل مرحبًا وقدّم نفسك!",
+  "communityConversationChatAction": "محادثة",
+  "communityConversationMessageCopied": "تم نسخ الرسالة! ألصقها للإرسال.",
+  "communityConversationCopiedToast": "تم النسخ!",
+  "communityLanguageMatchTitle": "تطابق اللغة",
+  "communityLanguageMatchNative": "الأم",
+  "communityLanguageMatchLearning": "التعلّم",
+  "communityLanguageMatchPerfect": "تطابق لغوي مثالي!",
+  "communityLanguageMatchSameNative": "تتشاركان نفس اللغة الأم",
+  "momentsFilterApply": "تطبيق",
+  "momentsCreateAddTo": "أضف إلى لحظتك",
+  "momentsCreateCategory": "الفئة",
+  "momentsCreateLanguage": "اللغة",
+  "momentsCreateSchedule": "جدولة (اختياري)",
+  "momentsCreateScheduleForLater": "جدولة لاحقًا",
+  "momentsPrivacyPublic": "عام",
+  "momentsPrivacyFriends": "الأصدقاء",
+  "momentsPrivacyPrivate": "خاص"
 }

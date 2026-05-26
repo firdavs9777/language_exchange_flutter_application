@@ -6088,4 +6088,93 @@ class AppLocalizationsId extends AppLocalizations {
   String commonError(String error) {
     return 'Galat: $error';
   }
+
+  @override
+  String get chatActiveJustNow => 'Aktif baru saja';
+
+  @override
+  String chatActiveMinAgo(int min) {
+    return 'Aktif $min mnt lalu';
+  }
+
+  @override
+  String get chatActiveHourAgo => 'Aktif 1 jam lalu';
+
+  @override
+  String chatActiveHoursAgo(int hours) {
+    return 'Aktif $hours jam lalu';
+  }
+
+  @override
+  String get chatActiveYesterday => 'Aktif kemarin';
+
+  @override
+  String chatActiveDaysAgo(int days) {
+    return 'Aktif $days hari lalu';
+  }
+
+  @override
+  String get chatSayHiPrompt => 'Sapa dan mulai percakapan!';
+
+  @override
+  String get communityConversationStartersTitle => 'Pembuka Percakapan';
+
+  @override
+  String communityConversationStartersTopic(String topic) {
+    return 'Kalian sama-sama suka $topic — tanya favoritnya!';
+  }
+
+  @override
+  String get communityConversationStartersDefault => 'Sapa dan perkenalkan diri!';
+
+  @override
+  String get communityConversationChatAction => 'Chat';
+
+  @override
+  String get communityConversationMessageCopied => 'Pesan disalin! Tempel untuk kirim.';
+
+  @override
+  String get communityConversationCopiedToast => 'Tersalin!';
+
+  @override
+  String get communityLanguageMatchTitle => 'Kecocokan Bahasa';
+
+  @override
+  String get communityLanguageMatchNative => 'Asli';
+
+  @override
+  String get communityLanguageMatchLearning => 'Belajar';
+
+  @override
+  String get communityLanguageMatchPerfect => 'Pertukaran bahasa sempurna!';
+
+  @override
+  String get communityLanguageMatchSameNative => 'Kalian punya bahasa asli yang sama';
+
+  @override
+  String get momentsFilterApply => 'Terapkan';
+
+  @override
+  String get momentsCreateAddTo => 'Tambahkan ke momenmu';
+
+  @override
+  String get momentsCreateCategory => 'Kategori';
+
+  @override
+  String get momentsCreateLanguage => 'Bahasa';
+
+  @override
+  String get momentsCreateSchedule => 'Jadwalkan (opsional)';
+
+  @override
+  String get momentsCreateScheduleForLater => 'Jadwalkan untuk nanti';
+
+  @override
+  String get momentsPrivacyPublic => 'Publik';
+
+  @override
+  String get momentsPrivacyFriends => 'Teman';
+
+  @override
+  String get momentsPrivacyPrivate => 'Pribadi';
 }

@@ -2526,5 +2526,60 @@
         "type": "String"
       }
     }
-  }
+  },
+  "chatActiveJustNow": "刚刚活跃",
+  "chatActiveMinAgo": "{min} 分钟前活跃",
+  "@chatActiveMinAgo": {
+    "placeholders": {
+      "min": {
+        "type": "int"
+      }
+    }
+  },
+  "chatActiveHourAgo": "1 小时前活跃",
+  "chatActiveHoursAgo": "{hours} 小时前活跃",
+  "@chatActiveHoursAgo": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      }
+    }
+  },
+  "chatActiveYesterday": "昨天活跃",
+  "chatActiveDaysAgo": "{days} 天前活跃",
+  "@chatActiveDaysAgo": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "chatSayHiPrompt": "打个招呼，开始聊吧！",
+  "communityConversationStartersTitle": "破冰话题",
+  "communityConversationStartersTopic": "你们都喜欢 {topic} — 问问他/她最喜欢的！",
+  "@communityConversationStartersTopic": {
+    "placeholders": {
+      "topic": {
+        "type": "String"
+      }
+    }
+  },
+  "communityConversationStartersDefault": "打个招呼，介绍一下自己！",
+  "communityConversationChatAction": "聊天",
+  "communityConversationMessageCopied": "消息已复制！粘贴即可发送。",
+  "communityConversationCopiedToast": "已复制！",
+  "communityLanguageMatchTitle": "语言匹配",
+  "communityLanguageMatchNative": "母语",
+  "communityLanguageMatchLearning": "在学",
+  "communityLanguageMatchPerfect": "完美的语言交换匹配！",
+  "communityLanguageMatchSameNative": "你们的母语相同",
+  "momentsFilterApply": "应用",
+  "momentsCreateAddTo": "添加到你的瞬间",
+  "momentsCreateCategory": "分类",
+  "momentsCreateLanguage": "语言",
+  "momentsCreateSchedule": "定时（可选）",
+  "momentsCreateScheduleForLater": "稍后发布",
+  "momentsPrivacyPublic": "公开",
+  "momentsPrivacyFriends": "朋友",
+  "momentsPrivacyPrivate": "私密"
 }

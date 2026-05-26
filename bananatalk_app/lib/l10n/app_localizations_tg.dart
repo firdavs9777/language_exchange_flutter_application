@@ -6095,4 +6095,93 @@ class AppLocalizationsTg extends AppLocalizations {
   String commonError(String error) {
     return 'Хато: $error';
   }
+
+  @override
+  String get chatActiveJustNow => 'Ҳозир фаъол';
+
+  @override
+  String chatActiveMinAgo(int min) {
+    return '$min дақ. пеш фаъол';
+  }
+
+  @override
+  String get chatActiveHourAgo => '1 соат пеш фаъол';
+
+  @override
+  String chatActiveHoursAgo(int hours) {
+    return '$hours соат пеш фаъол';
+  }
+
+  @override
+  String get chatActiveYesterday => 'Дирӯз фаъол';
+
+  @override
+  String chatActiveDaysAgo(int days) {
+    return '$days рӯз пеш фаъол';
+  }
+
+  @override
+  String get chatSayHiPrompt => 'Салом гӯед ва сӯҳбат оғоз кунед!';
+
+  @override
+  String get communityConversationStartersTitle => 'Сар кардани сӯҳбат';
+
+  @override
+  String communityConversationStartersTopic(String topic) {
+    return 'Шумо ҳарду $topic-ро дӯст медоред — дар бораи дӯстдоштаашон бипурсед!';
+  }
+
+  @override
+  String get communityConversationStartersDefault => 'Салом гӯед ва худро муаррифӣ кунед!';
+
+  @override
+  String get communityConversationChatAction => 'Чат';
+
+  @override
+  String get communityConversationMessageCopied => 'Паём нусхабардорӣ шуд! Барои фиристодан часпонед.';
+
+  @override
+  String get communityConversationCopiedToast => 'Нусха гирифта шуд!';
+
+  @override
+  String get communityLanguageMatchTitle => 'Мутобиқати забон';
+
+  @override
+  String get communityLanguageMatchNative => 'Модарӣ';
+
+  @override
+  String get communityLanguageMatchLearning => 'Меомӯзад';
+
+  @override
+  String get communityLanguageMatchPerfect => 'Мубодилаи забонии комил!';
+
+  @override
+  String get communityLanguageMatchSameNative => 'Забони модарии шумо якест';
+
+  @override
+  String get momentsFilterApply => 'Татбиқ';
+
+  @override
+  String get momentsCreateAddTo => 'Ба лаҳзаи худ илова кунед';
+
+  @override
+  String get momentsCreateCategory => 'Категория';
+
+  @override
+  String get momentsCreateLanguage => 'Забон';
+
+  @override
+  String get momentsCreateSchedule => 'Ҷадвал (ихтиёрӣ)';
+
+  @override
+  String get momentsCreateScheduleForLater => 'Барои баъдтар ҷадвалбандӣ';
+
+  @override
+  String get momentsPrivacyPublic => 'Ҷамъиятӣ';
+
+  @override
+  String get momentsPrivacyFriends => 'Дӯстон';
+
+  @override
+  String get momentsPrivacyPrivate => 'Хусусӣ';
 }

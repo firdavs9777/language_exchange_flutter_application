@@ -2355,5 +2355,60 @@
         "type": "String"
       }
     }
-  }
+  },
+  "chatActiveJustNow": "ใช้งานเดี๋ยวนี้",
+  "chatActiveMinAgo": "ใช้งาน {min} นาทีที่แล้ว",
+  "@chatActiveMinAgo": {
+    "placeholders": {
+      "min": {
+        "type": "int"
+      }
+    }
+  },
+  "chatActiveHourAgo": "ใช้งาน 1 ชม.ที่แล้ว",
+  "chatActiveHoursAgo": "ใช้งาน {hours} ชม.ที่แล้ว",
+  "@chatActiveHoursAgo": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      }
+    }
+  },
+  "chatActiveYesterday": "ใช้งานเมื่อวานนี้",
+  "chatActiveDaysAgo": "ใช้งาน {days} วันที่แล้ว",
+  "@chatActiveDaysAgo": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "chatSayHiPrompt": "ทักทายและเริ่มบทสนทนา!",
+  "communityConversationStartersTitle": "คำเริ่มสนทนา",
+  "communityConversationStartersTopic": "พวกคุณทั้งคู่ชอบ {topic} — ลองถามอันโปรดของเขา!",
+  "@communityConversationStartersTopic": {
+    "placeholders": {
+      "topic": {
+        "type": "String"
+      }
+    }
+  },
+  "communityConversationStartersDefault": "ทักทายและแนะนำตัว!",
+  "communityConversationChatAction": "แชท",
+  "communityConversationMessageCopied": "คัดลอกข้อความแล้ว! วางเพื่อส่ง",
+  "communityConversationCopiedToast": "คัดลอกแล้ว!",
+  "communityLanguageMatchTitle": "ภาษาเข้ากัน",
+  "communityLanguageMatchNative": "ภาษาแม่",
+  "communityLanguageMatchLearning": "กำลังเรียน",
+  "communityLanguageMatchPerfect": "แลกภาษากันได้สมบูรณ์แบบ!",
+  "communityLanguageMatchSameNative": "คุณใช้ภาษาแม่เดียวกัน",
+  "momentsFilterApply": "ใช้",
+  "momentsCreateAddTo": "เพิ่มในโมเมนต์ของคุณ",
+  "momentsCreateCategory": "หมวดหมู่",
+  "momentsCreateLanguage": "ภาษา",
+  "momentsCreateSchedule": "กำหนดเวลา (ไม่บังคับ)",
+  "momentsCreateScheduleForLater": "กำหนดไว้ภายหลัง",
+  "momentsPrivacyPublic": "สาธารณะ",
+  "momentsPrivacyFriends": "เพื่อน",
+  "momentsPrivacyPrivate": "ส่วนตัว"
 }

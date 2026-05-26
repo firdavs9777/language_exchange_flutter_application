@@ -2096,5 +2096,60 @@
         "type": "String"
       }
     }
-  }
+  },
+  "chatActiveJustNow": "Ҳозир фаъол",
+  "chatActiveMinAgo": "{min} дақ. пеш фаъол",
+  "@chatActiveMinAgo": {
+    "placeholders": {
+      "min": {
+        "type": "int"
+      }
+    }
+  },
+  "chatActiveHourAgo": "1 соат пеш фаъол",
+  "chatActiveHoursAgo": "{hours} соат пеш фаъол",
+  "@chatActiveHoursAgo": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      }
+    }
+  },
+  "chatActiveYesterday": "Дирӯз фаъол",
+  "chatActiveDaysAgo": "{days} рӯз пеш фаъол",
+  "@chatActiveDaysAgo": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "chatSayHiPrompt": "Салом гӯед ва сӯҳбат оғоз кунед!",
+  "communityConversationStartersTitle": "Сар кардани сӯҳбат",
+  "communityConversationStartersTopic": "Шумо ҳарду {topic}-ро дӯст медоред — дар бораи дӯстдоштаашон бипурсед!",
+  "@communityConversationStartersTopic": {
+    "placeholders": {
+      "topic": {
+        "type": "String"
+      }
+    }
+  },
+  "communityConversationStartersDefault": "Салом гӯед ва худро муаррифӣ кунед!",
+  "communityConversationChatAction": "Чат",
+  "communityConversationMessageCopied": "Паём нусхабардорӣ шуд! Барои фиристодан часпонед.",
+  "communityConversationCopiedToast": "Нусха гирифта шуд!",
+  "communityLanguageMatchTitle": "Мутобиқати забон",
+  "communityLanguageMatchNative": "Модарӣ",
+  "communityLanguageMatchLearning": "Меомӯзад",
+  "communityLanguageMatchPerfect": "Мубодилаи забонии комил!",
+  "communityLanguageMatchSameNative": "Забони модарии шумо якест",
+  "momentsFilterApply": "Татбиқ",
+  "momentsCreateAddTo": "Ба лаҳзаи худ илова кунед",
+  "momentsCreateCategory": "Категория",
+  "momentsCreateLanguage": "Забон",
+  "momentsCreateSchedule": "Ҷадвал (ихтиёрӣ)",
+  "momentsCreateScheduleForLater": "Барои баъдтар ҷадвалбандӣ",
+  "momentsPrivacyPublic": "Ҷамъиятӣ",
+  "momentsPrivacyFriends": "Дӯстон",
+  "momentsPrivacyPrivate": "Хусусӣ"
 }

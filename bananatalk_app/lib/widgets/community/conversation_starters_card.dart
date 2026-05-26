@@ -8,6 +8,7 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/utils/privacy_utils.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/pages/chat/conversation/chat_conversation_screen.dart' as chat;
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 enum StarterType { sharedTopic, recentMoment, language, location, mbti, generic }
 
@@ -36,7 +37,7 @@ class ConversationStartersCard extends ConsumerWidget {
 
     return currentUserAsync.when(
       data: (currentUser) {
-        final starters = _generateStarters(currentUser, profile);
+        final starters = _generateStarters(context, currentUser, profile);
 
         if (starters.isEmpty) return const SizedBox.shrink();
 
@@ -62,7 +63,7 @@ class ConversationStartersCard extends ConsumerWidget {
                   ),
                   const SizedBox(width: 8),
                   Text(
-                    'Conversation Starters',
+                    AppLocalizations.of(context)!.communityConversationStartersTitle,
                     style: context.titleMedium,
                   ),
                 ],
@@ -82,9 +83,11 @@ class ConversationStartersCard extends ConsumerWidget {
   }
 
   List<StarterSuggestion> _generateStarters(
+    BuildContext context,
     Community currentUser,
     Community profile,
   ) {
+    final l10n = AppLocalizations.of(context)!;
     final starters = <StarterSuggestion>[];
 
     // 1. Shared topics
@@ -104,7 +107,7 @@ class ConversationStartersCard extends ConsumerWidget {
       );
       starters.add(StarterSuggestion(
         icon: topic.icon,
-        text: 'You both love ${topic.name} - ask about their favorite!',
+        text: l10n.communityConversationStartersTopic(topic.name),
         actionText:
             "Hey! I saw you're into ${topic.name} too. What's your favorite?",
         type: StarterType.sharedTopic,
@@ -152,9 +155,9 @@ class ConversationStartersCard extends ConsumerWidget {
 
     // 5. Fallback
     if (starters.isEmpty) {
-      starters.add(const StarterSuggestion(
+      starters.add(StarterSuggestion(
         icon: '👋',
-        text: 'Say hi and introduce yourself!',
+        text: l10n.communityConversationStartersDefault,
         actionText:
             "Hi! I'd love to practice languages together. How are you?",
         type: StarterType.generic,
@@ -195,14 +198,14 @@ class ConversationStartersCard extends ConsumerWidget {
             children: [
               _ActionButton(
                 icon: Icons.copy_rounded,
-                label: 'Copy',
+                label: AppLocalizations.of(context)!.chatMessageCopy,
                 onTap: () => _copyToClipboard(context, starter.actionText),
                 isPrimary: false,
               ),
               const SizedBox(width: 8),
               _ActionButton(
                 icon: Icons.send_rounded,
-                label: 'Chat',
+                label: AppLocalizations.of(context)!.communityConversationChatAction,
                 onTap: () => _navigateToChat(context, starter.actionText),
                 isPrimary: true,
               ),
@@ -218,11 +221,11 @@ class ConversationStartersCard extends ConsumerWidget {
     Clipboard.setData(ClipboardData(text: text));
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: const Row(
+        content: Row(
           children: [
-            Icon(Icons.check_circle, color: Colors.white, size: 20),
-            SizedBox(width: 8),
-            Text('Copied to clipboard!'),
+            const Icon(Icons.check_circle, color: Colors.white, size: 20),
+            const SizedBox(width: 8),
+            Text(AppLocalizations.of(context)!.communityConversationCopiedToast),
           ],
         ),
         backgroundColor: AppColors.success,
@@ -259,11 +262,11 @@ class ConversationStartersCard extends ConsumerWidget {
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: const Row(
+              content: Row(
                 children: [
-                  Icon(Icons.content_paste, color: Colors.white, size: 18),
-                  SizedBox(width: 8),
-                  Expanded(child: Text('Message copied! Paste to send.')),
+                  const Icon(Icons.content_paste, color: Colors.white, size: 18),
+                  const SizedBox(width: 8),
+                  Expanded(child: Text(AppLocalizations.of(context)!.communityConversationMessageCopied)),
                 ],
               ),
               backgroundColor: AppColors.primary,

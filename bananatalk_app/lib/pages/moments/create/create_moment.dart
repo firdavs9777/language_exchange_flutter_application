@@ -1492,7 +1492,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
 
             // Add to your moment section
             Text(
-              'Add to your moment',
+              AppLocalizations.of(context)!.momentsCreateAddTo,
               style: context.titleMedium,
             ),
             Spacing.gapMD,
@@ -1887,7 +1887,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Category',
+                        AppLocalizations.of(context)!.momentsCreateCategory,
                         style: context.labelLarge,
                       ),
                       Spacing.gapSM,
@@ -1926,7 +1926,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Language',
+                        AppLocalizations.of(context)!.momentsCreateLanguage,
                         style: context.labelLarge,
                       ),
                       Spacing.gapSM,
@@ -1968,7 +1968,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Schedule (optional)',
+                  AppLocalizations.of(context)!.momentsCreateSchedule,
                   style: context.labelLarge,
                 ),
                 Spacing.gapSM,
@@ -1988,7 +1988,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                           child: Text(
                             _scheduledDate != null
                                 ? '${_scheduledDate!.day}/${_scheduledDate!.month}/${_scheduledDate!.year} at ${_scheduledDate!.hour}:${_scheduledDate!.minute.toString().padLeft(2, '0')}'
-                                : 'Schedule for later',
+                                : AppLocalizations.of(context)!.momentsCreateScheduleForLater,
                             style: context.bodyMedium.copyWith(
                               color: _scheduledDate != null
                                   ? context.textPrimary

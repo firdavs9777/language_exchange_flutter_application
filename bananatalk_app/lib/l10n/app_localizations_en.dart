@@ -6089,4 +6089,93 @@ class AppLocalizationsEn extends AppLocalizations {
   String commonError(String error) {
     return 'Error: $error';
   }
+
+  @override
+  String get chatActiveJustNow => 'Active just now';
+
+  @override
+  String chatActiveMinAgo(int min) {
+    return 'Active $min min ago';
+  }
+
+  @override
+  String get chatActiveHourAgo => 'Active 1 hour ago';
+
+  @override
+  String chatActiveHoursAgo(int hours) {
+    return 'Active ${hours}h ago';
+  }
+
+  @override
+  String get chatActiveYesterday => 'Active yesterday';
+
+  @override
+  String chatActiveDaysAgo(int days) {
+    return 'Active ${days}d ago';
+  }
+
+  @override
+  String get chatSayHiPrompt => 'Say hi and start a conversation!';
+
+  @override
+  String get communityConversationStartersTitle => 'Conversation Starters';
+
+  @override
+  String communityConversationStartersTopic(String topic) {
+    return 'You both love $topic - ask about their favorite!';
+  }
+
+  @override
+  String get communityConversationStartersDefault => 'Say hi and introduce yourself!';
+
+  @override
+  String get communityConversationChatAction => 'Chat';
+
+  @override
+  String get communityConversationMessageCopied => 'Message copied! Paste to send.';
+
+  @override
+  String get communityConversationCopiedToast => 'Copied to clipboard!';
+
+  @override
+  String get communityLanguageMatchTitle => 'Language Match';
+
+  @override
+  String get communityLanguageMatchNative => 'Native';
+
+  @override
+  String get communityLanguageMatchLearning => 'Learning';
+
+  @override
+  String get communityLanguageMatchPerfect => 'Perfect language exchange match!';
+
+  @override
+  String get communityLanguageMatchSameNative => 'You share the same native language';
+
+  @override
+  String get momentsFilterApply => 'Apply';
+
+  @override
+  String get momentsCreateAddTo => 'Add to your moment';
+
+  @override
+  String get momentsCreateCategory => 'Category';
+
+  @override
+  String get momentsCreateLanguage => 'Language';
+
+  @override
+  String get momentsCreateSchedule => 'Schedule (optional)';
+
+  @override
+  String get momentsCreateScheduleForLater => 'Schedule for later';
+
+  @override
+  String get momentsPrivacyPublic => 'Public';
+
+  @override
+  String get momentsPrivacyFriends => 'Friends';
+
+  @override
+  String get momentsPrivacyPrivate => 'Private';
 }

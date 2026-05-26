@@ -11238,6 +11238,87 @@ abstract class AppLocalizations {
 
   /// In en, 'Error: {error}'
   String commonError(String error);
+
+  /// In en, 'Active just now'
+  String get chatActiveJustNow;
+
+  /// In en, 'Active {min} min ago'
+  String chatActiveMinAgo(int min);
+
+  /// In en, 'Active 1 hour ago'
+  String get chatActiveHourAgo;
+
+  /// In en, 'Active {hours}h ago'
+  String chatActiveHoursAgo(int hours);
+
+  /// In en, 'Active yesterday'
+  String get chatActiveYesterday;
+
+  /// In en, 'Active {days}d ago'
+  String chatActiveDaysAgo(int days);
+
+  /// In en, 'Say hi and start a conversation!'
+  String get chatSayHiPrompt;
+
+  /// In en, 'Conversation Starters'
+  String get communityConversationStartersTitle;
+
+  /// In en, 'You both love {topic} - ask about their favorite!'
+  String communityConversationStartersTopic(String topic);
+
+  /// In en, 'Say hi and introduce yourself!'
+  String get communityConversationStartersDefault;
+
+  /// In en, 'Chat'
+  String get communityConversationChatAction;
+
+  /// In en, 'Message copied! Paste to send.'
+  String get communityConversationMessageCopied;
+
+  /// In en, 'Copied to clipboard!'
+  String get communityConversationCopiedToast;
+
+  /// In en, 'Language Match'
+  String get communityLanguageMatchTitle;
+
+  /// In en, 'Native'
+  String get communityLanguageMatchNative;
+
+  /// In en, 'Learning'
+  String get communityLanguageMatchLearning;
+
+  /// In en, 'Perfect language exchange match!'
+  String get communityLanguageMatchPerfect;
+
+  /// In en, 'You share the same native language'
+  String get communityLanguageMatchSameNative;
+
+  /// In en, 'Apply'
+  String get momentsFilterApply;
+
+  /// In en, 'Add to your moment'
+  String get momentsCreateAddTo;
+
+  /// In en, 'Category'
+  String get momentsCreateCategory;
+
+  /// In en, 'Language'
+  String get momentsCreateLanguage;
+
+  /// In en, 'Schedule (optional)'
+  String get momentsCreateSchedule;
+
+  /// In en, 'Schedule for later'
+  String get momentsCreateScheduleForLater;
+
+  /// In en, 'Public'
+  String get momentsPrivacyPublic;
+
+  /// In en, 'Friends'
+  String get momentsPrivacyFriends;
+
+  /// In en, 'Private'
+  String get momentsPrivacyPrivate;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

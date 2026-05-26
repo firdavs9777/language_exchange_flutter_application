@@ -6082,6 +6082,95 @@ class AppLocalizationsZh extends AppLocalizations {
   String commonError(String error) {
     return '错误: $error';
   }
+
+  @override
+  String get chatActiveJustNow => '刚刚活跃';
+
+  @override
+  String chatActiveMinAgo(int min) {
+    return '$min 分钟前活跃';
+  }
+
+  @override
+  String get chatActiveHourAgo => '1 小时前活跃';
+
+  @override
+  String chatActiveHoursAgo(int hours) {
+    return '$hours 小时前活跃';
+  }
+
+  @override
+  String get chatActiveYesterday => '昨天活跃';
+
+  @override
+  String chatActiveDaysAgo(int days) {
+    return '$days 天前活跃';
+  }
+
+  @override
+  String get chatSayHiPrompt => '打个招呼，开始聊吧！';
+
+  @override
+  String get communityConversationStartersTitle => '破冰话题';
+
+  @override
+  String communityConversationStartersTopic(String topic) {
+    return '你们都喜欢 $topic — 问问他/她最喜欢的！';
+  }
+
+  @override
+  String get communityConversationStartersDefault => '打个招呼，介绍一下自己！';
+
+  @override
+  String get communityConversationChatAction => '聊天';
+
+  @override
+  String get communityConversationMessageCopied => '消息已复制！粘贴即可发送。';
+
+  @override
+  String get communityConversationCopiedToast => '已复制！';
+
+  @override
+  String get communityLanguageMatchTitle => '语言匹配';
+
+  @override
+  String get communityLanguageMatchNative => '母语';
+
+  @override
+  String get communityLanguageMatchLearning => '在学';
+
+  @override
+  String get communityLanguageMatchPerfect => '完美的语言交换匹配！';
+
+  @override
+  String get communityLanguageMatchSameNative => '你们的母语相同';
+
+  @override
+  String get momentsFilterApply => '应用';
+
+  @override
+  String get momentsCreateAddTo => '添加到你的瞬间';
+
+  @override
+  String get momentsCreateCategory => '分类';
+
+  @override
+  String get momentsCreateLanguage => '语言';
+
+  @override
+  String get momentsCreateSchedule => '定时（可选）';
+
+  @override
+  String get momentsCreateScheduleForLater => '稍后发布';
+
+  @override
+  String get momentsPrivacyPublic => '公开';
+
+  @override
+  String get momentsPrivacyFriends => '朋友';
+
+  @override
+  String get momentsPrivacyPrivate => '私密';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).

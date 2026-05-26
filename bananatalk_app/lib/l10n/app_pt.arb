@@ -2513,5 +2513,60 @@
         "type": "String"
       }
     }
-  }
+  },
+  "chatActiveJustNow": "Ativo agora",
+  "chatActiveMinAgo": "Ativo há {min} min",
+  "@chatActiveMinAgo": {
+    "placeholders": {
+      "min": {
+        "type": "int"
+      }
+    }
+  },
+  "chatActiveHourAgo": "Ativo há 1 hora",
+  "chatActiveHoursAgo": "Ativo há {hours}h",
+  "@chatActiveHoursAgo": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      }
+    }
+  },
+  "chatActiveYesterday": "Ativo ontem",
+  "chatActiveDaysAgo": "Ativo há {days}d",
+  "@chatActiveDaysAgo": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "chatSayHiPrompt": "Diga oi e inicie uma conversa!",
+  "communityConversationStartersTitle": "Quebra-gelos",
+  "communityConversationStartersTopic": "Vocês dois amam {topic} — pergunte sobre o favorito!",
+  "@communityConversationStartersTopic": {
+    "placeholders": {
+      "topic": {
+        "type": "String"
+      }
+    }
+  },
+  "communityConversationStartersDefault": "Diga oi e se apresente!",
+  "communityConversationChatAction": "Chat",
+  "communityConversationMessageCopied": "Mensagem copiada! Cole para enviar.",
+  "communityConversationCopiedToast": "Copiado!",
+  "communityLanguageMatchTitle": "Combinação de idioma",
+  "communityLanguageMatchNative": "Nativo",
+  "communityLanguageMatchLearning": "Aprendendo",
+  "communityLanguageMatchPerfect": "Combinação perfeita de intercâmbio!",
+  "communityLanguageMatchSameNative": "Vocês compartilham o mesmo idioma nativo",
+  "momentsFilterApply": "Aplicar",
+  "momentsCreateAddTo": "Adicione ao seu momento",
+  "momentsCreateCategory": "Categoria",
+  "momentsCreateLanguage": "Idioma",
+  "momentsCreateSchedule": "Agendar (opcional)",
+  "momentsCreateScheduleForLater": "Agendar para depois",
+  "momentsPrivacyPublic": "Público",
+  "momentsPrivacyFriends": "Amigos",
+  "momentsPrivacyPrivate": "Privado"
 }

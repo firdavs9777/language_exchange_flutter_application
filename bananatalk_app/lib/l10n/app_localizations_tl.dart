@@ -6088,4 +6088,93 @@ class AppLocalizationsTl extends AppLocalizations {
   String commonError(String error) {
     return 'Error: $error';
   }
+
+  @override
+  String get chatActiveJustNow => 'Active ngayon';
+
+  @override
+  String chatActiveMinAgo(int min) {
+    return 'Active $min min ang nakaraan';
+  }
+
+  @override
+  String get chatActiveHourAgo => 'Active 1 oras ang nakaraan';
+
+  @override
+  String chatActiveHoursAgo(int hours) {
+    return 'Active ${hours}h ang nakaraan';
+  }
+
+  @override
+  String get chatActiveYesterday => 'Active kahapon';
+
+  @override
+  String chatActiveDaysAgo(int days) {
+    return 'Active ${days}d ang nakaraan';
+  }
+
+  @override
+  String get chatSayHiPrompt => 'Bumati at magsimula ng usapan!';
+
+  @override
+  String get communityConversationStartersTitle => 'Pampasimuno ng usapan';
+
+  @override
+  String communityConversationStartersTopic(String topic) {
+    return 'Pareho kayong mahilig sa $topic — itanong ang paborito niya!';
+  }
+
+  @override
+  String get communityConversationStartersDefault => 'Bumati at magpakilala!';
+
+  @override
+  String get communityConversationChatAction => 'Chat';
+
+  @override
+  String get communityConversationMessageCopied => 'Nakopya ang mensahe! I-paste para ipadala.';
+
+  @override
+  String get communityConversationCopiedToast => 'Nakopya!';
+
+  @override
+  String get communityLanguageMatchTitle => 'Tugma sa wika';
+
+  @override
+  String get communityLanguageMatchNative => 'Sariling wika';
+
+  @override
+  String get communityLanguageMatchLearning => 'Nag-aaral';
+
+  @override
+  String get communityLanguageMatchPerfect => 'Perpektong language exchange!';
+
+  @override
+  String get communityLanguageMatchSameNative => 'Pareho kayo ng sariling wika';
+
+  @override
+  String get momentsFilterApply => 'I-apply';
+
+  @override
+  String get momentsCreateAddTo => 'Idagdag sa moment mo';
+
+  @override
+  String get momentsCreateCategory => 'Kategorya';
+
+  @override
+  String get momentsCreateLanguage => 'Wika';
+
+  @override
+  String get momentsCreateSchedule => 'I-schedule (opsyonal)';
+
+  @override
+  String get momentsCreateScheduleForLater => 'I-schedule mamaya';
+
+  @override
+  String get momentsPrivacyPublic => 'Pampubliko';
+
+  @override
+  String get momentsPrivacyFriends => 'Mga kaibigan';
+
+  @override
+  String get momentsPrivacyPrivate => 'Pribado';
 }

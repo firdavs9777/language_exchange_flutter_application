@@ -6100,4 +6100,93 @@ class AppLocalizationsRu extends AppLocalizations {
   String commonError(String error) {
     return 'Ошибка: $error';
   }
+
+  @override
+  String get chatActiveJustNow => 'Только что онлайн';
+
+  @override
+  String chatActiveMinAgo(int min) {
+    return 'Был(а) $min мин назад';
+  }
+
+  @override
+  String get chatActiveHourAgo => 'Был(а) 1 час назад';
+
+  @override
+  String chatActiveHoursAgo(int hours) {
+    return 'Был(а) $hours ч назад';
+  }
+
+  @override
+  String get chatActiveYesterday => 'Был(а) вчера';
+
+  @override
+  String chatActiveDaysAgo(int days) {
+    return 'Был(а) $days дн назад';
+  }
+
+  @override
+  String get chatSayHiPrompt => 'Поздоровайтесь и начните разговор!';
+
+  @override
+  String get communityConversationStartersTitle => 'С чего начать';
+
+  @override
+  String communityConversationStartersTopic(String topic) {
+    return 'Вы оба любите $topic — спросите про любимое!';
+  }
+
+  @override
+  String get communityConversationStartersDefault => 'Поздоровайтесь и представьтесь!';
+
+  @override
+  String get communityConversationChatAction => 'Чат';
+
+  @override
+  String get communityConversationMessageCopied => 'Сообщение скопировано! Вставьте, чтобы отправить.';
+
+  @override
+  String get communityConversationCopiedToast => 'Скопировано!';
+
+  @override
+  String get communityLanguageMatchTitle => 'Совпадение языков';
+
+  @override
+  String get communityLanguageMatchNative => 'Родной';
+
+  @override
+  String get communityLanguageMatchLearning => 'Изучает';
+
+  @override
+  String get communityLanguageMatchPerfect => 'Идеальный языковой обмен!';
+
+  @override
+  String get communityLanguageMatchSameNative => 'У вас одинаковый родной язык';
+
+  @override
+  String get momentsFilterApply => 'Применить';
+
+  @override
+  String get momentsCreateAddTo => 'Добавить в момент';
+
+  @override
+  String get momentsCreateCategory => 'Категория';
+
+  @override
+  String get momentsCreateLanguage => 'Язык';
+
+  @override
+  String get momentsCreateSchedule => 'Запланировать (необязательно)';
+
+  @override
+  String get momentsCreateScheduleForLater => 'Запланировать';
+
+  @override
+  String get momentsPrivacyPublic => 'Публично';
+
+  @override
+  String get momentsPrivacyFriends => 'Друзья';
+
+  @override
+  String get momentsPrivacyPrivate => 'Лично';
 }

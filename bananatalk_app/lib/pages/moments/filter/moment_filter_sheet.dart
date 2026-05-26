@@ -240,7 +240,7 @@ class _MomentFilterSheetState extends State<MomentFilterSheet>
               Navigator.pop(context);
             },
             child: Text(
-              'Apply',
+              AppLocalizations.of(context)!.momentsFilterApply,
               style: TextStyle(
                 color: colorScheme.primary,
                 fontSize: 15,

@@ -6081,4 +6081,93 @@ class AppLocalizationsJa extends AppLocalizations {
   String commonError(String error) {
     return 'エラー: $error';
   }
+
+  @override
+  String get chatActiveJustNow => '今アクティブ';
+
+  @override
+  String chatActiveMinAgo(int min) {
+    return '$min分前アクティブ';
+  }
+
+  @override
+  String get chatActiveHourAgo => '1時間前アクティブ';
+
+  @override
+  String chatActiveHoursAgo(int hours) {
+    return '$hours時間前アクティブ';
+  }
+
+  @override
+  String get chatActiveYesterday => '昨日アクティブ';
+
+  @override
+  String chatActiveDaysAgo(int days) {
+    return '$days日前アクティブ';
+  }
+
+  @override
+  String get chatSayHiPrompt => '挨拶して会話を始めよう！';
+
+  @override
+  String get communityConversationStartersTitle => '会話のきっかけ';
+
+  @override
+  String communityConversationStartersTopic(String topic) {
+    return '二人とも$topicが好き — お気に入りを聞こう！';
+  }
+
+  @override
+  String get communityConversationStartersDefault => '挨拶して自己紹介しよう！';
+
+  @override
+  String get communityConversationChatAction => 'チャット';
+
+  @override
+  String get communityConversationMessageCopied => 'メッセージをコピー！貼り付けて送信。';
+
+  @override
+  String get communityConversationCopiedToast => 'コピーしました！';
+
+  @override
+  String get communityLanguageMatchTitle => '言語マッチ';
+
+  @override
+  String get communityLanguageMatchNative => '母語';
+
+  @override
+  String get communityLanguageMatchLearning => '学習中';
+
+  @override
+  String get communityLanguageMatchPerfect => '完璧な言語交換マッチ！';
+
+  @override
+  String get communityLanguageMatchSameNative => '母語が同じです';
+
+  @override
+  String get momentsFilterApply => '適用';
+
+  @override
+  String get momentsCreateAddTo => 'モーメントに追加';
+
+  @override
+  String get momentsCreateCategory => 'カテゴリ';
+
+  @override
+  String get momentsCreateLanguage => '言語';
+
+  @override
+  String get momentsCreateSchedule => 'スケジュール（任意）';
+
+  @override
+  String get momentsCreateScheduleForLater => '後で投稿';
+
+  @override
+  String get momentsPrivacyPublic => '公開';
+
+  @override
+  String get momentsPrivacyFriends => '友達';
+
+  @override
+  String get momentsPrivacyPrivate => '非公開';
 }

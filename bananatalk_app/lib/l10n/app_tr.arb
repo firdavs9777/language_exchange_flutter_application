@@ -2725,5 +2725,60 @@
         "type": "String"
       }
     }
-  }
+  },
+  "chatActiveJustNow": "Şimdi aktif",
+  "chatActiveMinAgo": "{min} dk önce aktif",
+  "@chatActiveMinAgo": {
+    "placeholders": {
+      "min": {
+        "type": "int"
+      }
+    }
+  },
+  "chatActiveHourAgo": "1 saat önce aktif",
+  "chatActiveHoursAgo": "{hours} saat önce aktif",
+  "@chatActiveHoursAgo": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      }
+    }
+  },
+  "chatActiveYesterday": "Dün aktif",
+  "chatActiveDaysAgo": "{days} gün önce aktif",
+  "@chatActiveDaysAgo": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "chatSayHiPrompt": "Selam ver ve sohbet başlat!",
+  "communityConversationStartersTitle": "Sohbet başlatıcıları",
+  "communityConversationStartersTopic": "İkiniz de {topic} seviyorsunuz — favorisini sor!",
+  "@communityConversationStartersTopic": {
+    "placeholders": {
+      "topic": {
+        "type": "String"
+      }
+    }
+  },
+  "communityConversationStartersDefault": "Selam ver ve kendini tanıt!",
+  "communityConversationChatAction": "Sohbet",
+  "communityConversationMessageCopied": "Mesaj kopyalandı! Göndermek için yapıştır.",
+  "communityConversationCopiedToast": "Kopyalandı!",
+  "communityLanguageMatchTitle": "Dil eşleşmesi",
+  "communityLanguageMatchNative": "Anadil",
+  "communityLanguageMatchLearning": "Öğrenilen",
+  "communityLanguageMatchPerfect": "Mükemmel dil değişimi eşleşmesi!",
+  "communityLanguageMatchSameNative": "Aynı anadili paylaşıyorsunuz",
+  "momentsFilterApply": "Uygula",
+  "momentsCreateAddTo": "Anına ekle",
+  "momentsCreateCategory": "Kategori",
+  "momentsCreateLanguage": "Dil",
+  "momentsCreateSchedule": "Zamanla (isteğe bağlı)",
+  "momentsCreateScheduleForLater": "Sonraya zamanla",
+  "momentsPrivacyPublic": "Herkese açık",
+  "momentsPrivacyFriends": "Arkadaşlar",
+  "momentsPrivacyPrivate": "Özel"
 }

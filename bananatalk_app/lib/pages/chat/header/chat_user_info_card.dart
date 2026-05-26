@@ -268,7 +268,7 @@ class ChatUserInfoCard extends StatelessWidget {
               ),
               const SizedBox(width: 6),
               Text(
-                'Say hi and start a conversation!',
+                AppLocalizations.of(context)!.chatSayHiPrompt,
                 style: context.bodySmall.copyWith(
                   color: context.textSecondary.withValues(alpha: 0.7),
                 ),

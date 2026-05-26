@@ -6081,4 +6081,93 @@ class AppLocalizationsVi extends AppLocalizations {
   String commonError(String error) {
     return 'Lỗi: $error';
   }
+
+  @override
+  String get chatActiveJustNow => 'Hoạt động vừa xong';
+
+  @override
+  String chatActiveMinAgo(int min) {
+    return 'Hoạt động $min phút trước';
+  }
+
+  @override
+  String get chatActiveHourAgo => 'Hoạt động 1 giờ trước';
+
+  @override
+  String chatActiveHoursAgo(int hours) {
+    return 'Hoạt động $hours giờ trước';
+  }
+
+  @override
+  String get chatActiveYesterday => 'Hoạt động hôm qua';
+
+  @override
+  String chatActiveDaysAgo(int days) {
+    return 'Hoạt động $days ngày trước';
+  }
+
+  @override
+  String get chatSayHiPrompt => 'Chào và bắt đầu trò chuyện!';
+
+  @override
+  String get communityConversationStartersTitle => 'Gợi mở câu chuyện';
+
+  @override
+  String communityConversationStartersTopic(String topic) {
+    return 'Cả hai đều thích $topic — hỏi sở thích của họ!';
+  }
+
+  @override
+  String get communityConversationStartersDefault => 'Chào và giới thiệu bản thân!';
+
+  @override
+  String get communityConversationChatAction => 'Chat';
+
+  @override
+  String get communityConversationMessageCopied => 'Đã sao chép tin nhắn! Dán để gửi.';
+
+  @override
+  String get communityConversationCopiedToast => 'Đã sao chép!';
+
+  @override
+  String get communityLanguageMatchTitle => 'Tương hợp ngôn ngữ';
+
+  @override
+  String get communityLanguageMatchNative => 'Bản ngữ';
+
+  @override
+  String get communityLanguageMatchLearning => 'Đang học';
+
+  @override
+  String get communityLanguageMatchPerfect => 'Trao đổi ngôn ngữ hoàn hảo!';
+
+  @override
+  String get communityLanguageMatchSameNative => 'Bạn cùng tiếng mẹ đẻ';
+
+  @override
+  String get momentsFilterApply => 'Áp dụng';
+
+  @override
+  String get momentsCreateAddTo => 'Thêm vào khoảnh khắc';
+
+  @override
+  String get momentsCreateCategory => 'Danh mục';
+
+  @override
+  String get momentsCreateLanguage => 'Ngôn ngữ';
+
+  @override
+  String get momentsCreateSchedule => 'Lên lịch (tuỳ chọn)';
+
+  @override
+  String get momentsCreateScheduleForLater => 'Lên lịch sau';
+
+  @override
+  String get momentsPrivacyPublic => 'Công khai';
+
+  @override
+  String get momentsPrivacyFriends => 'Bạn bè';
+
+  @override
+  String get momentsPrivacyPrivate => 'Riêng tư';
 }

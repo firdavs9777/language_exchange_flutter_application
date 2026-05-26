@@ -6088,4 +6088,93 @@ class AppLocalizationsHi extends AppLocalizations {
   String commonError(String error) {
     return 'त्रुटि: $error';
   }
+
+  @override
+  String get chatActiveJustNow => 'अभी सक्रिय';
+
+  @override
+  String chatActiveMinAgo(int min) {
+    return '$min मिनट पहले सक्रिय';
+  }
+
+  @override
+  String get chatActiveHourAgo => '1 घंटे पहले सक्रिय';
+
+  @override
+  String chatActiveHoursAgo(int hours) {
+    return '$hours घंटे पहले सक्रिय';
+  }
+
+  @override
+  String get chatActiveYesterday => 'कल सक्रिय';
+
+  @override
+  String chatActiveDaysAgo(int days) {
+    return '$days दिन पहले सक्रिय';
+  }
+
+  @override
+  String get chatSayHiPrompt => 'नमस्ते कहें और बातचीत शुरू करें!';
+
+  @override
+  String get communityConversationStartersTitle => 'बातचीत की शुरुआत';
+
+  @override
+  String communityConversationStartersTopic(String topic) {
+    return 'आप दोनों को $topic पसंद है — उनका पसंदीदा पूछें!';
+  }
+
+  @override
+  String get communityConversationStartersDefault => 'नमस्ते कहें और अपना परिचय दें!';
+
+  @override
+  String get communityConversationChatAction => 'चैट';
+
+  @override
+  String get communityConversationMessageCopied => 'संदेश कॉपी हो गया! भेजने के लिए पेस्ट करें।';
+
+  @override
+  String get communityConversationCopiedToast => 'कॉपी हो गया!';
+
+  @override
+  String get communityLanguageMatchTitle => 'भाषा मेल';
+
+  @override
+  String get communityLanguageMatchNative => 'मातृभाषा';
+
+  @override
+  String get communityLanguageMatchLearning => 'सीख रहे';
+
+  @override
+  String get communityLanguageMatchPerfect => 'बढ़िया भाषा एक्सचेंज मेल!';
+
+  @override
+  String get communityLanguageMatchSameNative => 'आप दोनों की मातृभाषा एक ही है';
+
+  @override
+  String get momentsFilterApply => 'लागू करें';
+
+  @override
+  String get momentsCreateAddTo => 'अपने मोमेंट में जोड़ें';
+
+  @override
+  String get momentsCreateCategory => 'श्रेणी';
+
+  @override
+  String get momentsCreateLanguage => 'भाषा';
+
+  @override
+  String get momentsCreateSchedule => 'शेड्यूल करें (वैकल्पिक)';
+
+  @override
+  String get momentsCreateScheduleForLater => 'बाद के लिए शेड्यूल';
+
+  @override
+  String get momentsPrivacyPublic => 'सार्वजनिक';
+
+  @override
+  String get momentsPrivacyFriends => 'मित्र';
+
+  @override
+  String get momentsPrivacyPrivate => 'निजी';
 }

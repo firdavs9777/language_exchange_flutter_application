@@ -2513,5 +2513,60 @@
         "type": "String"
       }
     }
-  }
+  },
+  "chatActiveJustNow": "अभी सक्रिय",
+  "chatActiveMinAgo": "{min} मिनट पहले सक्रिय",
+  "@chatActiveMinAgo": {
+    "placeholders": {
+      "min": {
+        "type": "int"
+      }
+    }
+  },
+  "chatActiveHourAgo": "1 घंटे पहले सक्रिय",
+  "chatActiveHoursAgo": "{hours} घंटे पहले सक्रिय",
+  "@chatActiveHoursAgo": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      }
+    }
+  },
+  "chatActiveYesterday": "कल सक्रिय",
+  "chatActiveDaysAgo": "{days} दिन पहले सक्रिय",
+  "@chatActiveDaysAgo": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "chatSayHiPrompt": "नमस्ते कहें और बातचीत शुरू करें!",
+  "communityConversationStartersTitle": "बातचीत की शुरुआत",
+  "communityConversationStartersTopic": "आप दोनों को {topic} पसंद है — उनका पसंदीदा पूछें!",
+  "@communityConversationStartersTopic": {
+    "placeholders": {
+      "topic": {
+        "type": "String"
+      }
+    }
+  },
+  "communityConversationStartersDefault": "नमस्ते कहें और अपना परिचय दें!",
+  "communityConversationChatAction": "चैट",
+  "communityConversationMessageCopied": "संदेश कॉपी हो गया! भेजने के लिए पेस्ट करें।",
+  "communityConversationCopiedToast": "कॉपी हो गया!",
+  "communityLanguageMatchTitle": "भाषा मेल",
+  "communityLanguageMatchNative": "मातृभाषा",
+  "communityLanguageMatchLearning": "सीख रहे",
+  "communityLanguageMatchPerfect": "बढ़िया भाषा एक्सचेंज मेल!",
+  "communityLanguageMatchSameNative": "आप दोनों की मातृभाषा एक ही है",
+  "momentsFilterApply": "लागू करें",
+  "momentsCreateAddTo": "अपने मोमेंट में जोड़ें",
+  "momentsCreateCategory": "श्रेणी",
+  "momentsCreateLanguage": "भाषा",
+  "momentsCreateSchedule": "शेड्यूल करें (वैकल्पिक)",
+  "momentsCreateScheduleForLater": "बाद के लिए शेड्यूल",
+  "momentsPrivacyPublic": "सार्वजनिक",
+  "momentsPrivacyFriends": "मित्र",
+  "momentsPrivacyPrivate": "निजी"
 }

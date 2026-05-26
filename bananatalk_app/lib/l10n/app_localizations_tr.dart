@@ -6088,4 +6088,93 @@ class AppLocalizationsTr extends AppLocalizations {
   String commonError(String error) {
     return 'Hata: $error';
   }
+
+  @override
+  String get chatActiveJustNow => 'Şimdi aktif';
+
+  @override
+  String chatActiveMinAgo(int min) {
+    return '$min dk önce aktif';
+  }
+
+  @override
+  String get chatActiveHourAgo => '1 saat önce aktif';
+
+  @override
+  String chatActiveHoursAgo(int hours) {
+    return '$hours saat önce aktif';
+  }
+
+  @override
+  String get chatActiveYesterday => 'Dün aktif';
+
+  @override
+  String chatActiveDaysAgo(int days) {
+    return '$days gün önce aktif';
+  }
+
+  @override
+  String get chatSayHiPrompt => 'Selam ver ve sohbet başlat!';
+
+  @override
+  String get communityConversationStartersTitle => 'Sohbet başlatıcıları';
+
+  @override
+  String communityConversationStartersTopic(String topic) {
+    return 'İkiniz de $topic seviyorsunuz — favorisini sor!';
+  }
+
+  @override
+  String get communityConversationStartersDefault => 'Selam ver ve kendini tanıt!';
+
+  @override
+  String get communityConversationChatAction => 'Sohbet';
+
+  @override
+  String get communityConversationMessageCopied => 'Mesaj kopyalandı! Göndermek için yapıştır.';
+
+  @override
+  String get communityConversationCopiedToast => 'Kopyalandı!';
+
+  @override
+  String get communityLanguageMatchTitle => 'Dil eşleşmesi';
+
+  @override
+  String get communityLanguageMatchNative => 'Anadil';
+
+  @override
+  String get communityLanguageMatchLearning => 'Öğrenilen';
+
+  @override
+  String get communityLanguageMatchPerfect => 'Mükemmel dil değişimi eşleşmesi!';
+
+  @override
+  String get communityLanguageMatchSameNative => 'Aynı anadili paylaşıyorsunuz';
+
+  @override
+  String get momentsFilterApply => 'Uygula';
+
+  @override
+  String get momentsCreateAddTo => 'Anına ekle';
+
+  @override
+  String get momentsCreateCategory => 'Kategori';
+
+  @override
+  String get momentsCreateLanguage => 'Dil';
+
+  @override
+  String get momentsCreateSchedule => 'Zamanla (isteğe bağlı)';
+
+  @override
+  String get momentsCreateScheduleForLater => 'Sonraya zamanla';
+
+  @override
+  String get momentsPrivacyPublic => 'Herkese açık';
+
+  @override
+  String get momentsPrivacyFriends => 'Arkadaşlar';
+
+  @override
+  String get momentsPrivacyPrivate => 'Özel';
 }

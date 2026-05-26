@@ -161,9 +161,10 @@ class ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
   }
   
   String _formatLastSeen(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     // If lastSeen is null or empty, user was recently online or we don't have data
     if (lastSeen == null || lastSeen!.isEmpty || lastSeen == 'null') {
-      return 'Last seen recently';
+      return l10n.chatActiveJustNow;
     }
 
     try {
@@ -173,25 +174,25 @@ class ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
 
       // Handle future dates (clock sync issues) - treat as just now
       if (difference.isNegative) {
-        return 'Active just now';
+        return l10n.chatActiveJustNow;
       }
 
       if (difference.inSeconds < 30) {
-        return 'Active just now';
+        return l10n.chatActiveJustNow;
       } else if (difference.inMinutes < 1) {
-        return 'Active just now';
+        return l10n.chatActiveJustNow;
       } else if (difference.inMinutes == 1) {
-        return 'Active 1 min ago';
+        return l10n.chatActiveMinAgo(1);
       } else if (difference.inMinutes < 60) {
-        return 'Active ${difference.inMinutes} min ago';
+        return l10n.chatActiveMinAgo(difference.inMinutes);
       } else if (difference.inHours == 1) {
-        return 'Active 1 hour ago';
+        return l10n.chatActiveHourAgo;
       } else if (difference.inHours < 24) {
-        return 'Active ${difference.inHours}h ago';
+        return l10n.chatActiveHoursAgo(difference.inHours);
       } else if (difference.inDays == 1) {
-        return 'Active yesterday';
+        return l10n.chatActiveYesterday;
       } else if (difference.inDays < 7) {
-        return 'Active ${difference.inDays}d ago';
+        return l10n.chatActiveDaysAgo(difference.inDays);
       } else {
         // Show actual date for 7+ days ago
         final months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',

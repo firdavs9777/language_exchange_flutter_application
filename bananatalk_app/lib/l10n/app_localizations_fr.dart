@@ -6088,4 +6088,93 @@ class AppLocalizationsFr extends AppLocalizations {
   String commonError(String error) {
     return 'Erreur : $error';
   }
+
+  @override
+  String get chatActiveJustNow => 'Actif à l\'instant';
+
+  @override
+  String chatActiveMinAgo(int min) {
+    return 'Actif il y a $min min';
+  }
+
+  @override
+  String get chatActiveHourAgo => 'Actif il y a 1 heure';
+
+  @override
+  String chatActiveHoursAgo(int hours) {
+    return 'Actif il y a $hours h';
+  }
+
+  @override
+  String get chatActiveYesterday => 'Actif hier';
+
+  @override
+  String chatActiveDaysAgo(int days) {
+    return 'Actif il y a ${days}j';
+  }
+
+  @override
+  String get chatSayHiPrompt => 'Dis bonjour et lance une conversation !';
+
+  @override
+  String get communityConversationStartersTitle => 'Brise-glace';
+
+  @override
+  String communityConversationStartersTopic(String topic) {
+    return 'Vous aimez tous les deux $topic — demande son favori !';
+  }
+
+  @override
+  String get communityConversationStartersDefault => 'Dis bonjour et présente-toi !';
+
+  @override
+  String get communityConversationChatAction => 'Chat';
+
+  @override
+  String get communityConversationMessageCopied => 'Message copié ! Colle pour envoyer.';
+
+  @override
+  String get communityConversationCopiedToast => 'Copié !';
+
+  @override
+  String get communityLanguageMatchTitle => 'Correspondance linguistique';
+
+  @override
+  String get communityLanguageMatchNative => 'Maternelle';
+
+  @override
+  String get communityLanguageMatchLearning => 'En apprentissage';
+
+  @override
+  String get communityLanguageMatchPerfect => 'Échange linguistique parfait !';
+
+  @override
+  String get communityLanguageMatchSameNative => 'Vous partagez la même langue maternelle';
+
+  @override
+  String get momentsFilterApply => 'Appliquer';
+
+  @override
+  String get momentsCreateAddTo => 'Ajouter à ton moment';
+
+  @override
+  String get momentsCreateCategory => 'Catégorie';
+
+  @override
+  String get momentsCreateLanguage => 'Langue';
+
+  @override
+  String get momentsCreateSchedule => 'Planifier (optionnel)';
+
+  @override
+  String get momentsCreateScheduleForLater => 'Planifier pour plus tard';
+
+  @override
+  String get momentsPrivacyPublic => 'Public';
+
+  @override
+  String get momentsPrivacyFriends => 'Amis';
+
+  @override
+  String get momentsPrivacyPrivate => 'Privé';
 }

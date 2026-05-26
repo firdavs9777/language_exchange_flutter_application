@@ -2355,5 +2355,60 @@
         "type": "String"
       }
     }
-  }
+  },
+  "chatActiveJustNow": "Aktif baru saja",
+  "chatActiveMinAgo": "Aktif {min} mnt lalu",
+  "@chatActiveMinAgo": {
+    "placeholders": {
+      "min": {
+        "type": "int"
+      }
+    }
+  },
+  "chatActiveHourAgo": "Aktif 1 jam lalu",
+  "chatActiveHoursAgo": "Aktif {hours} jam lalu",
+  "@chatActiveHoursAgo": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      }
+    }
+  },
+  "chatActiveYesterday": "Aktif kemarin",
+  "chatActiveDaysAgo": "Aktif {days} hari lalu",
+  "@chatActiveDaysAgo": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "chatSayHiPrompt": "Sapa dan mulai percakapan!",
+  "communityConversationStartersTitle": "Pembuka Percakapan",
+  "communityConversationStartersTopic": "Kalian sama-sama suka {topic} — tanya favoritnya!",
+  "@communityConversationStartersTopic": {
+    "placeholders": {
+      "topic": {
+        "type": "String"
+      }
+    }
+  },
+  "communityConversationStartersDefault": "Sapa dan perkenalkan diri!",
+  "communityConversationChatAction": "Chat",
+  "communityConversationMessageCopied": "Pesan disalin! Tempel untuk kirim.",
+  "communityConversationCopiedToast": "Tersalin!",
+  "communityLanguageMatchTitle": "Kecocokan Bahasa",
+  "communityLanguageMatchNative": "Asli",
+  "communityLanguageMatchLearning": "Belajar",
+  "communityLanguageMatchPerfect": "Pertukaran bahasa sempurna!",
+  "communityLanguageMatchSameNative": "Kalian punya bahasa asli yang sama",
+  "momentsFilterApply": "Terapkan",
+  "momentsCreateAddTo": "Tambahkan ke momenmu",
+  "momentsCreateCategory": "Kategori",
+  "momentsCreateLanguage": "Bahasa",
+  "momentsCreateSchedule": "Jadwalkan (opsional)",
+  "momentsCreateScheduleForLater": "Jadwalkan untuk nanti",
+  "momentsPrivacyPublic": "Publik",
+  "momentsPrivacyFriends": "Teman",
+  "momentsPrivacyPrivate": "Pribadi"
 }

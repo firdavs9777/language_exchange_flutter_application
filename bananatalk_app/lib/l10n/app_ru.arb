@@ -2527,5 +2527,60 @@
         "type": "String"
       }
     }
-  }
+  },
+  "chatActiveJustNow": "Только что онлайн",
+  "chatActiveMinAgo": "Был(а) {min} мин назад",
+  "@chatActiveMinAgo": {
+    "placeholders": {
+      "min": {
+        "type": "int"
+      }
+    }
+  },
+  "chatActiveHourAgo": "Был(а) 1 час назад",
+  "chatActiveHoursAgo": "Был(а) {hours} ч назад",
+  "@chatActiveHoursAgo": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      }
+    }
+  },
+  "chatActiveYesterday": "Был(а) вчера",
+  "chatActiveDaysAgo": "Был(а) {days} дн назад",
+  "@chatActiveDaysAgo": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "chatSayHiPrompt": "Поздоровайтесь и начните разговор!",
+  "communityConversationStartersTitle": "С чего начать",
+  "communityConversationStartersTopic": "Вы оба любите {topic} — спросите про любимое!",
+  "@communityConversationStartersTopic": {
+    "placeholders": {
+      "topic": {
+        "type": "String"
+      }
+    }
+  },
+  "communityConversationStartersDefault": "Поздоровайтесь и представьтесь!",
+  "communityConversationChatAction": "Чат",
+  "communityConversationMessageCopied": "Сообщение скопировано! Вставьте, чтобы отправить.",
+  "communityConversationCopiedToast": "Скопировано!",
+  "communityLanguageMatchTitle": "Совпадение языков",
+  "communityLanguageMatchNative": "Родной",
+  "communityLanguageMatchLearning": "Изучает",
+  "communityLanguageMatchPerfect": "Идеальный языковой обмен!",
+  "communityLanguageMatchSameNative": "У вас одинаковый родной язык",
+  "momentsFilterApply": "Применить",
+  "momentsCreateAddTo": "Добавить в момент",
+  "momentsCreateCategory": "Категория",
+  "momentsCreateLanguage": "Язык",
+  "momentsCreateSchedule": "Запланировать (необязательно)",
+  "momentsCreateScheduleForLater": "Запланировать",
+  "momentsPrivacyPublic": "Публично",
+  "momentsPrivacyFriends": "Друзья",
+  "momentsPrivacyPrivate": "Лично"
 }

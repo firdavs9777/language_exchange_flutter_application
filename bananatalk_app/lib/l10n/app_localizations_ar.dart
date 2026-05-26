@@ -6097,4 +6097,93 @@ class AppLocalizationsAr extends AppLocalizations {
   String commonError(String error) {
     return 'خطأ: $error';
   }
+
+  @override
+  String get chatActiveJustNow => 'نشط الآن';
+
+  @override
+  String chatActiveMinAgo(int min) {
+    return 'نشط منذ $min دقيقة';
+  }
+
+  @override
+  String get chatActiveHourAgo => 'نشط منذ ساعة';
+
+  @override
+  String chatActiveHoursAgo(int hours) {
+    return 'نشط منذ $hours ساعة';
+  }
+
+  @override
+  String get chatActiveYesterday => 'نشط أمس';
+
+  @override
+  String chatActiveDaysAgo(int days) {
+    return 'نشط منذ $days يوم';
+  }
+
+  @override
+  String get chatSayHiPrompt => 'قل مرحبًا وابدأ محادثة!';
+
+  @override
+  String get communityConversationStartersTitle => 'بدايات المحادثة';
+
+  @override
+  String communityConversationStartersTopic(String topic) {
+    return 'كلاكما يحب $topic — اسأل عن المفضّل لديه!';
+  }
+
+  @override
+  String get communityConversationStartersDefault => 'قل مرحبًا وقدّم نفسك!';
+
+  @override
+  String get communityConversationChatAction => 'محادثة';
+
+  @override
+  String get communityConversationMessageCopied => 'تم نسخ الرسالة! ألصقها للإرسال.';
+
+  @override
+  String get communityConversationCopiedToast => 'تم النسخ!';
+
+  @override
+  String get communityLanguageMatchTitle => 'تطابق اللغة';
+
+  @override
+  String get communityLanguageMatchNative => 'الأم';
+
+  @override
+  String get communityLanguageMatchLearning => 'التعلّم';
+
+  @override
+  String get communityLanguageMatchPerfect => 'تطابق لغوي مثالي!';
+
+  @override
+  String get communityLanguageMatchSameNative => 'تتشاركان نفس اللغة الأم';
+
+  @override
+  String get momentsFilterApply => 'تطبيق';
+
+  @override
+  String get momentsCreateAddTo => 'أضف إلى لحظتك';
+
+  @override
+  String get momentsCreateCategory => 'الفئة';
+
+  @override
+  String get momentsCreateLanguage => 'اللغة';
+
+  @override
+  String get momentsCreateSchedule => 'جدولة (اختياري)';
+
+  @override
+  String get momentsCreateScheduleForLater => 'جدولة لاحقًا';
+
+  @override
+  String get momentsPrivacyPublic => 'عام';
+
+  @override
+  String get momentsPrivacyFriends => 'الأصدقاء';
+
+  @override
+  String get momentsPrivacyPrivate => 'خاص';
 }

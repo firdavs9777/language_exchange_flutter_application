@@ -6088,4 +6088,93 @@ class AppLocalizationsDe extends AppLocalizations {
   String commonError(String error) {
     return 'Fehler: $error';
   }
+
+  @override
+  String get chatActiveJustNow => 'Gerade aktiv';
+
+  @override
+  String chatActiveMinAgo(int min) {
+    return 'Aktiv vor $min Min';
+  }
+
+  @override
+  String get chatActiveHourAgo => 'Aktiv vor 1 Stunde';
+
+  @override
+  String chatActiveHoursAgo(int hours) {
+    return 'Aktiv vor $hours Std';
+  }
+
+  @override
+  String get chatActiveYesterday => 'Gestern aktiv';
+
+  @override
+  String chatActiveDaysAgo(int days) {
+    return 'Aktiv vor ${days}d';
+  }
+
+  @override
+  String get chatSayHiPrompt => 'Sag Hallo und starte ein Gespräch!';
+
+  @override
+  String get communityConversationStartersTitle => 'Gesprächs-Starter';
+
+  @override
+  String communityConversationStartersTopic(String topic) {
+    return 'Ihr mögt beide $topic — frag nach dem Favoriten!';
+  }
+
+  @override
+  String get communityConversationStartersDefault => 'Sag Hallo und stell dich vor!';
+
+  @override
+  String get communityConversationChatAction => 'Chat';
+
+  @override
+  String get communityConversationMessageCopied => 'Nachricht kopiert! Einfügen zum Senden.';
+
+  @override
+  String get communityConversationCopiedToast => 'Kopiert!';
+
+  @override
+  String get communityLanguageMatchTitle => 'Sprach-Match';
+
+  @override
+  String get communityLanguageMatchNative => 'Muttersprache';
+
+  @override
+  String get communityLanguageMatchLearning => 'Lernen';
+
+  @override
+  String get communityLanguageMatchPerfect => 'Perfekter Sprachaustausch!';
+
+  @override
+  String get communityLanguageMatchSameNative => 'Ihr teilt dieselbe Muttersprache';
+
+  @override
+  String get momentsFilterApply => 'Anwenden';
+
+  @override
+  String get momentsCreateAddTo => 'Zu deinem Moment hinzufügen';
+
+  @override
+  String get momentsCreateCategory => 'Kategorie';
+
+  @override
+  String get momentsCreateLanguage => 'Sprache';
+
+  @override
+  String get momentsCreateSchedule => 'Planen (optional)';
+
+  @override
+  String get momentsCreateScheduleForLater => 'Für später planen';
+
+  @override
+  String get momentsPrivacyPublic => 'Öffentlich';
+
+  @override
+  String get momentsPrivacyFriends => 'Freunde';
+
+  @override
+  String get momentsPrivacyPrivate => 'Privat';
 }

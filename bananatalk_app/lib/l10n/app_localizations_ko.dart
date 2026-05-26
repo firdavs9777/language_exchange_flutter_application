@@ -6081,4 +6081,93 @@ class AppLocalizationsKo extends AppLocalizations {
   String commonError(String error) {
     return '오류: $error';
   }
+
+  @override
+  String get chatActiveJustNow => '방금 활동';
+
+  @override
+  String chatActiveMinAgo(int min) {
+    return '$min분 전 활동';
+  }
+
+  @override
+  String get chatActiveHourAgo => '1시간 전 활동';
+
+  @override
+  String chatActiveHoursAgo(int hours) {
+    return '$hours시간 전 활동';
+  }
+
+  @override
+  String get chatActiveYesterday => '어제 활동';
+
+  @override
+  String chatActiveDaysAgo(int days) {
+    return '$days일 전 활동';
+  }
+
+  @override
+  String get chatSayHiPrompt => '인사하고 대화를 시작해 보세요!';
+
+  @override
+  String get communityConversationStartersTitle => '대화 시작 팁';
+
+  @override
+  String communityConversationStartersTopic(String topic) {
+    return '둘 다 $topic을(를) 좋아해요 — 좋아하는 것을 물어보세요!';
+  }
+
+  @override
+  String get communityConversationStartersDefault => '인사하고 자신을 소개해 보세요!';
+
+  @override
+  String get communityConversationChatAction => '채팅';
+
+  @override
+  String get communityConversationMessageCopied => '메시지가 복사되었습니다! 붙여넣어 보내세요.';
+
+  @override
+  String get communityConversationCopiedToast => '복사됨!';
+
+  @override
+  String get communityLanguageMatchTitle => '언어 매치';
+
+  @override
+  String get communityLanguageMatchNative => '모국어';
+
+  @override
+  String get communityLanguageMatchLearning => '학습 중';
+
+  @override
+  String get communityLanguageMatchPerfect => '완벽한 언어 교환 매치!';
+
+  @override
+  String get communityLanguageMatchSameNative => '같은 모국어를 사용해요';
+
+  @override
+  String get momentsFilterApply => '적용';
+
+  @override
+  String get momentsCreateAddTo => '내 모먼트에 추가';
+
+  @override
+  String get momentsCreateCategory => '카테고리';
+
+  @override
+  String get momentsCreateLanguage => '언어';
+
+  @override
+  String get momentsCreateSchedule => '예약 (선택)';
+
+  @override
+  String get momentsCreateScheduleForLater => '나중에 예약';
+
+  @override
+  String get momentsPrivacyPublic => '공개';
+
+  @override
+  String get momentsPrivacyFriends => '친구';
+
+  @override
+  String get momentsPrivacyPrivate => '비공개';
 }
