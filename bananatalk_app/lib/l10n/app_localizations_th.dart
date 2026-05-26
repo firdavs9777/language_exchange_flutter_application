@@ -5746,4 +5746,190 @@ class AppLocalizationsTh extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get submit => 'ส่ง';
+
+  @override
+  String get exit => 'ออก';
+
+  @override
+  String get previous => 'ก่อนหน้า';
+
+
+  @override
+  String get aiDailyPracticeTitle => 'การฝึกประจำวัน';
+
+  @override
+  String get aiDailyPracticeTranslateThis => 'แปลข้อความนี้:';
+
+  @override
+  String get aiDailyPracticeSuggested => 'แนะนำ:';
+
+  @override
+  String get aiDailyPracticeHint => 'คำแปลของคุณ';
+
+  @override
+  String get aiLanguagesLoading => 'กำลังโหลดภาษา...';
+
+  @override
+  String get aiCopiedToClipboard => 'คัดลอกไปยังคลิปบอร์ดแล้ว';
+
+  @override
+  String get aiGrammarHint => 'ป้อนข้อความเพื่อวิเคราะห์...';
+
+  @override
+  String get aiGrammarSectionOriginal => 'ข้อความต้นฉบับ';
+
+  @override
+  String get aiGrammarSectionCorrected => 'ข้อความที่แก้แล้ว';
+
+  @override
+  String get aiGrammarSectionWell => 'สิ่งที่คุณทำได้ดี';
+
+  @override
+  String get aiGrammarSectionSuggestions => 'คำแนะนำ';
+
+  @override
+  String get aiGrammarSectionSummary => 'สรุป';
+
+  @override
+  String get aiLessonBuilderLabelLanguage => 'ภาษา';
+
+  @override
+  String get aiLessonBuilderLabelLevel => 'ระดับ';
+
+  @override
+  String get aiLessonBuilderTopicHint => 'ป้อนหัวข้อ (เช่น "อาหารและร้านอาหาร")';
+
+  @override
+  String get aiLessonBuilderBackToLessons => 'กลับไปบทเรียน';
+
+  @override
+  String get aiTranslationHint => 'ป้อนข้อความเพื่อแปล...';
+
+  @override
+  String get aiTranslationSavedToVocab => 'บันทึกในรายการคำศัพท์ของคุณแล้ว';
+
+  @override
+  String get aiQuizTitle => 'แบบทดสอบ';
+
+  @override
+  String get aiQuizFailedToGenerate => 'สร้างแบบทดสอบไม่สำเร็จ';
+
+  @override
+  String get aiQuizSubmitTitle => 'ส่งแบบทดสอบ?';
+
+  @override
+  String get aiQuizSubmitBody => 'แน่ใจว่าต้องการส่งคำตอบ?';
+
+  @override
+  String get aiQuizExitTitle => 'ออกจากแบบทดสอบ?';
+
+  @override
+  String get aiQuizExitBody => 'ความคืบหน้าของคุณจะหายไป';
+
+  @override
+  String get aiQuizAnswerHint => 'พิมพ์คำตอบของคุณ...';
+
+  @override
+  String get aiQuizTranslationHint => 'พิมพ์คำแปลของคุณ...';
+
+  @override
+  String get aiPronunciationPlayingAudio => 'กำลังเล่นเสียง...';
+
+  @override
+  String get aiPronunciationListenFirst => 'ฟังก่อน';
+
+  @override
+  String get aiPronunciationHint => 'ป้อนข้อความเพื่อฝึก...';
+
+  @override
+  String get aiTutorReplay => 'เล่นซ้ำ';
+
+  @override
+  String get aiScenariosTitle => 'สถานการณ์ฝึก';
+
+  @override
+  String get aiScenariosNoneAvailable => 'ยังไม่มีสถานการณ์';
+
+  @override
+  String get aiScenariosEasier => 'ง่ายขึ้น — วอร์มอัป';
+
+  @override
+  String get aiScenariosHarder => 'ยากขึ้น — ท้าทาย';
+
+  @override
+  String get aiRoleplayStillStarting => 'สถานการณ์กำลังเริ่ม — ลองอีกครั้งสักครู่';
+
+  @override
+  String get aiRoleplayCouldNotGrade => 'ประเมินไม่ได้ในครั้งนี้ — ลองครั้งหน้า';
+
+  @override
+  String get aiConversationHistoryCompleted => 'เสร็จสิ้น';
+
+  @override
+  String get aiConversationHistoryInProgress => 'กำลังดำเนินการ';
+
+  @override
+  String get aiConversationMessageHint => 'พิมพ์ข้อความ...';
+
+  @override
+  String get aiConversationTopicSpeak => 'ฉันพูด';
+
+  @override
+  String get aiConversationTopicPractice => 'ฝึก';
+
+  @override
+  String get aiToolsVipBadge => 'VIP';
+
+  @override
+  String aiGrammarSectionIssues(int count) {
+    return 'พบปัญหา ($count)';
+  }
+
+  @override
+  String aiLessonBuilderSaved(String title) {
+    return 'บันทึกบทเรียน "$title" แล้ว!';
+  }
+
+  @override
+  String aiTranslationCouldNotSave(String error) {
+    return 'บันทึกไม่ได้: $error';
+  }
+
+  @override
+  String aiTutorCouldNotLoad(String error) {
+    return 'โหลดติวเตอร์ไม่ได้: $error';
+  }
+
+  @override
+  String aiTutorPlanUnavailable(String error) {
+    return 'แผนไม่พร้อมใช้: $error';
+  }
+
+  @override
+  String aiScenariosCouldNotLoad(String error) {
+    return 'โหลดสถานการณ์ไม่ได้: $error';
+  }
+
+  @override
+  String aiScenariosCouldNotStart(String error) {
+    return 'เริ่มไม่ได้: $error';
+  }
+
+  @override
+  String aiScenariosForYourLevel(String level) {
+    return 'สำหรับระดับของคุณ ($level)';
+  }
+
+  @override
+  String aiRoleplaySendFailed(String error) {
+    return 'ส่งล้มเหลว: $error';
+  }
+
+  @override
+  String aiToolsVipUpgradeDescription(String feature) {
+    return 'อัพเกรดเป็น VIP เพื่อปลดล็อก $feature!';
+  }
 }

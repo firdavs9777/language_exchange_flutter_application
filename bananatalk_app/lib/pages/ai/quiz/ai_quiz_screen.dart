@@ -12,6 +12,7 @@ import 'package:bananatalk_app/widgets/language_selection/language_picker_screen
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 /// AI Quiz Hub Screen
 class AIQuizScreen extends ConsumerStatefulWidget {
@@ -151,7 +152,7 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Failed to generate quiz')),
+        SnackBar(content: Text(AppLocalizations.of(context)!.aiQuizFailedToGenerate)),
       );
     }
   }
@@ -838,7 +839,7 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
                           borderRadius: BorderRadius.circular(12),
                         ),
                       ),
-                      child: const Text('Close'),
+                      child: Text(AppLocalizations.of(context)!.close),
                     ),
                   ),
                 ],

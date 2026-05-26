@@ -12,6 +12,7 @@ import 'package:bananatalk_app/widgets/language_selection/language_picker_screen
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 /// Enhanced Translation Screen
 class TranslationScreen extends ConsumerStatefulWidget {
@@ -150,9 +151,9 @@ class _TranslationScreenState extends ConsumerState<TranslationScreen> {
   void _copyToClipboard(String text) {
     Clipboard.setData(ClipboardData(text: text));
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Copied to clipboard'),
-        duration: Duration(seconds: 1),
+      SnackBar(
+        content: Text(AppLocalizations.of(context)!.aiCopiedToClipboard),
+        duration: const Duration(seconds: 1),
       ),
     );
   }
@@ -160,7 +161,7 @@ class _TranslationScreenState extends ConsumerState<TranslationScreen> {
   Future<void> _openLanguagePicker({required bool isSource}) async {
     if (_languages.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Languages are still loading...')),
+        SnackBar(content: Text(AppLocalizations.of(context)!.aiLanguagesLoading)),
       );
       return;
     }
@@ -374,7 +375,7 @@ class _TranslationScreenState extends ConsumerState<TranslationScreen> {
             controller: _textController,
             maxLines: 4,
             decoration: InputDecoration(
-              hintText: 'Enter text to translate...',
+              hintText: AppLocalizations.of(context)!.aiTranslationHint,
               hintStyle: context.bodyMedium.copyWith(color: context.textHint),
               border: InputBorder.none,
             ),
@@ -434,7 +435,7 @@ class _TranslationScreenState extends ConsumerState<TranslationScreen> {
               IconButton(
                 icon: const Icon(Icons.copy_rounded, size: 20),
                 color: context.iconColor,
-                tooltip: 'Copy',
+                tooltip: AppLocalizations.of(context)!.copy,
                 onPressed: () => _copyToClipboard(_result!.translation),
               ),
               IconButton(
@@ -480,7 +481,7 @@ class _TranslationScreenState extends ConsumerState<TranslationScreen> {
           _saved = true;
         });
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Saved to your vocab list')),
+          SnackBar(content: Text(AppLocalizations.of(context)!.aiTranslationSavedToVocab)),
         );
       } else {
         setState(() => _saving = false);
@@ -492,7 +493,7 @@ class _TranslationScreenState extends ConsumerState<TranslationScreen> {
       if (!mounted) return;
       setState(() => _saving = false);
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Could not save: $e')),
+        SnackBar(content: Text(AppLocalizations.of(context)!.aiTranslationCouldNotSave(e.toString()))),
       );
     }
   }

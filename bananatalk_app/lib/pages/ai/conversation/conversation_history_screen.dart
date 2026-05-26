@@ -6,6 +6,7 @@ import 'package:bananatalk_app/services/ai_service.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:intl/intl.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 /// Screen showing conversation history
 class ConversationHistoryScreen extends ConsumerStatefulWidget {
@@ -53,9 +54,9 @@ class _ConversationHistoryScreenState
           labelColor: AppColors.accent,
           unselectedLabelColor: context.textSecondary,
           indicatorColor: AppColors.accent,
-          tabs: const [
-            Tab(text: 'Completed'),
-            Tab(text: 'In Progress'),
+          tabs: [
+            Tab(text: AppLocalizations.of(context)!.aiConversationHistoryCompleted),
+            Tab(text: AppLocalizations.of(context)!.aiConversationHistoryInProgress),
           ],
         ),
       ),
@@ -108,7 +109,7 @@ class _ConversationHistoryScreenState
               onPressed: () {
                 ref.invalidate(conversationHistoryProvider(status));
               },
-              child: const Text('Retry'),
+              child: Text(AppLocalizations.of(context)!.retry),
             ),
           ],
         ),

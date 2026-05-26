@@ -2052,5 +2052,130 @@
   },
   "@aiTutorChipPronounce": {
     "description": "Label for the 5th tutor mode chip — opens the Pronunciation Coach drill"
+  },
+  "submit": "Enviar",
+  "exit": "Sair",
+  "previous": "Anterior",
+  "aiDailyPracticeTitle": "Prática diária",
+  "aiDailyPracticeTranslateThis": "Traduza isto:",
+  "aiDailyPracticeSuggested": "Sugerido:",
+  "aiDailyPracticeHint": "Sua tradução",
+  "aiLanguagesLoading": "Idiomas ainda carregando...",
+  "aiCopiedToClipboard": "Copiado para a área de transferência",
+  "aiGrammarHint": "Digite o texto para analisar...",
+  "aiGrammarSectionOriginal": "Texto original",
+  "aiGrammarSectionCorrected": "Texto corrigido",
+  "aiGrammarSectionWell": "O que você fez bem",
+  "aiGrammarSectionSuggestions": "Sugestões",
+  "aiGrammarSectionSummary": "Resumo",
+  "aiLessonBuilderLabelLanguage": "Idioma",
+  "aiLessonBuilderLabelLevel": "Nível",
+  "aiLessonBuilderTopicHint": "Digite um tema (ex.: \"Comida e restaurantes\")",
+  "aiLessonBuilderBackToLessons": "Voltar às lições",
+  "aiTranslationHint": "Digite o texto para traduzir...",
+  "aiTranslationSavedToVocab": "Salvo no seu vocabulário",
+  "aiQuizTitle": "Questionário",
+  "aiQuizFailedToGenerate": "Falha ao gerar questionário",
+  "aiQuizSubmitTitle": "Enviar questionário?",
+  "aiQuizSubmitBody": "Tem certeza que deseja enviar suas respostas?",
+  "aiQuizExitTitle": "Sair do questionário?",
+  "aiQuizExitBody": "Seu progresso será perdido.",
+  "aiQuizAnswerHint": "Digite sua resposta...",
+  "aiQuizTranslationHint": "Digite sua tradução...",
+  "aiPronunciationPlayingAudio": "Reproduzindo áudio...",
+  "aiPronunciationListenFirst": "Ouça primeiro",
+  "aiPronunciationHint": "Digite o texto para praticar...",
+  "aiTutorReplay": "Repetir",
+  "aiScenariosTitle": "Cenários de prática",
+  "aiScenariosNoneAvailable": "Ainda sem cenários.",
+  "aiScenariosEasier": "Mais fácil — aquecimento",
+  "aiScenariosHarder": "Mais difícil — desafio",
+  "aiRoleplayStillStarting": "O cenário ainda está começando — tente novamente em um momento.",
+  "aiRoleplayCouldNotGrade": "Não foi possível avaliar dessa vez — tente da próxima.",
+  "aiConversationHistoryCompleted": "Concluída",
+  "aiConversationHistoryInProgress": "Em andamento",
+  "aiConversationMessageHint": "Digite uma mensagem...",
+  "aiConversationTopicSpeak": "Eu falo",
+  "aiConversationTopicPractice": "Praticar",
+  "aiToolsVipBadge": "VIP",
+  "aiGrammarSectionIssues": "Problemas encontrados ({count})",
+  "aiLessonBuilderSaved": "Lição \"{title}\" salva!",
+  "aiTranslationCouldNotSave": "Não foi possível salvar: {error}",
+  "aiTutorCouldNotLoad": "Não foi possível carregar o tutor: {error}",
+  "aiTutorPlanUnavailable": "Plano indisponível: {error}",
+  "aiScenariosCouldNotLoad": "Não foi possível carregar os cenários: {error}",
+  "aiScenariosCouldNotStart": "Não foi possível iniciar: {error}",
+  "aiScenariosForYourLevel": "Para seu nível ({level})",
+  "aiRoleplaySendFailed": "Falha ao enviar: {error}",
+  "aiToolsVipUpgradeDescription": "Faça upgrade para VIP para desbloquear {feature}!",
+  "@aiGrammarSectionIssues": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@aiLessonBuilderSaved": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiTranslationCouldNotSave": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiTutorCouldNotLoad": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiTutorPlanUnavailable": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiScenariosCouldNotLoad": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiScenariosCouldNotStart": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiScenariosForYourLevel": {
+    "placeholders": {
+      "level": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiRoleplaySendFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiToolsVipUpgradeDescription": {
+    "placeholders": {
+      "feature": {
+        "type": "String"
+      }
+    }
   }
 }

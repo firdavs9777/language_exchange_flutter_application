@@ -1773,5 +1773,130 @@
   "aiTutorPronounceStartAISubtitle": "Мутобиқ ба сатҳ, бо таваҷҷӯҳ ба калимаҳои душвори шумо",
   "aiTutorPronounceStartCustomTitle": "Ҷумлаи худамро истифода кунам",
   "aiTutorPronounceStartCustomSubtitle": "Ибораеро, ки мехоҳед омӯзед, нависед ё часпонед",
-  "aiTutorQuotaRemaining": "{count, plural, =1{1-то имрӯз боқӣ мондааст} other{{count}-то имрӯз боқӣ мондааст}}"
+  "aiTutorQuotaRemaining": "{count, plural, =1{1-то имрӯз боқӣ мондааст} other{{count}-то имрӯз боқӣ мондааст}}",
+  "submit": "Фиристодан",
+  "exit": "Баромад",
+  "previous": "Қаблӣ",
+  "aiDailyPracticeTitle": "Машқи ҳаррӯза",
+  "aiDailyPracticeTranslateThis": "Инро тарҷума кунед:",
+  "aiDailyPracticeSuggested": "Пешниҳод:",
+  "aiDailyPracticeHint": "Тарҷумаи шумо",
+  "aiLanguagesLoading": "Забонҳо ҳоло бор мешаванд...",
+  "aiCopiedToClipboard": "Ба клипборд нусхабардорӣ шуд",
+  "aiGrammarHint": "Матнро барои таҳлил ворид кунед...",
+  "aiGrammarSectionOriginal": "Матни аслӣ",
+  "aiGrammarSectionCorrected": "Матни ислоҳшуда",
+  "aiGrammarSectionWell": "Он чи хуб карданд",
+  "aiGrammarSectionSuggestions": "Пешниҳодҳо",
+  "aiGrammarSectionSummary": "Хулоса",
+  "aiLessonBuilderLabelLanguage": "Забон",
+  "aiLessonBuilderLabelLevel": "Сатҳ",
+  "aiLessonBuilderTopicHint": "Мавзӯъро ворид кунед (мисол \"Хӯрок ва тарабхона\")",
+  "aiLessonBuilderBackToLessons": "Бозгашт ба дарсҳо",
+  "aiTranslationHint": "Матнро барои тарҷума ворид кунед...",
+  "aiTranslationSavedToVocab": "Ба рӯйхати луғати шумо сабт шуд",
+  "aiQuizTitle": "Викторина",
+  "aiQuizFailedToGenerate": "Эҷоди викторина бо хато",
+  "aiQuizSubmitTitle": "Викторинаро фиристед?",
+  "aiQuizSubmitBody": "Мутмаин ҳастед, ки ҷавобҳоро мефиристед?",
+  "aiQuizExitTitle": "Аз викторина бароед?",
+  "aiQuizExitBody": "Пешрафти шумо гум мешавад.",
+  "aiQuizAnswerHint": "Ҷавоби худро нависед...",
+  "aiQuizTranslationHint": "Тарҷумаи худро нависед...",
+  "aiPronunciationPlayingAudio": "Аудио иҷро мешавад...",
+  "aiPronunciationListenFirst": "Аввал гӯш кунед",
+  "aiPronunciationHint": "Матнро барои машқ ворид кунед...",
+  "aiTutorReplay": "Такрор",
+  "aiScenariosTitle": "Сенарияҳои машқ",
+  "aiScenariosNoneAvailable": "Ҳанӯз сенария нест.",
+  "aiScenariosEasier": "Осонтар — гармкунӣ",
+  "aiScenariosHarder": "Душвортар — мушкилот",
+  "aiRoleplayStillStarting": "Сенария ҳоло оғоз меёбад — баъд аз як лаҳза боз кӯшиш кунед.",
+  "aiRoleplayCouldNotGrade": "Дар ин бор баҳогузорӣ нашуд — дафъаи дигар кӯшиш кунед.",
+  "aiConversationHistoryCompleted": "Анҷомёфта",
+  "aiConversationHistoryInProgress": "Дар ҷараён",
+  "aiConversationMessageHint": "Паём нависед...",
+  "aiConversationTopicSpeak": "Ман гап мезанам",
+  "aiConversationTopicPractice": "Машқ",
+  "aiToolsVipBadge": "VIP",
+  "aiGrammarSectionIssues": "Масоили ёфтшуда ({count})",
+  "aiLessonBuilderSaved": "Дарси \"{title}\" сабт шуд!",
+  "aiTranslationCouldNotSave": "Сабт нашуд: {error}",
+  "aiTutorCouldNotLoad": "Муаллимро бор кардан натавонист: {error}",
+  "aiTutorPlanUnavailable": "Нақша дастрас нест: {error}",
+  "aiScenariosCouldNotLoad": "Сенарияҳоро бор кардан натавонист: {error}",
+  "aiScenariosCouldNotStart": "Оғоз карда натавонист: {error}",
+  "aiScenariosForYourLevel": "Барои сатҳи шумо ({level})",
+  "aiRoleplaySendFailed": "Фиристодан нашуд: {error}",
+  "aiToolsVipUpgradeDescription": "Барои кушодани {feature} ба VIP гузаред!",
+  "@aiGrammarSectionIssues": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@aiLessonBuilderSaved": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiTranslationCouldNotSave": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiTutorCouldNotLoad": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiTutorPlanUnavailable": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiScenariosCouldNotLoad": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiScenariosCouldNotStart": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiScenariosForYourLevel": {
+    "placeholders": {
+      "level": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiRoleplaySendFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiToolsVipUpgradeDescription": {
+    "placeholders": {
+      "feature": {
+        "type": "String"
+      }
+    }
+  }
 }

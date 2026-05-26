@@ -7,6 +7,7 @@ import 'package:bananatalk_app/pages/ai/conversation/conversation_history_screen
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 /// AI Conversation Chat Screen
 class AIConversationScreen extends ConsumerStatefulWidget {
@@ -572,7 +573,7 @@ class _AIConversationScreenState extends ConsumerState<AIConversationScreen> {
                 _messageStartTime ??= DateTime.now();
               },
               decoration: InputDecoration(
-                hintText: 'Type a message...',
+                hintText: AppLocalizations.of(context)!.aiConversationMessageHint,
                 hintStyle: context.bodyMedium.copyWith(color: context.textHint),
                 filled: true,
                 fillColor: context.containerColor,

@@ -5753,4 +5753,190 @@ class AppLocalizationsTr extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get submit => 'Gönder';
+
+  @override
+  String get exit => 'Çık';
+
+  @override
+  String get previous => 'Önceki';
+
+
+  @override
+  String get aiDailyPracticeTitle => 'Günlük pratik';
+
+  @override
+  String get aiDailyPracticeTranslateThis => 'Bunu çevir:';
+
+  @override
+  String get aiDailyPracticeSuggested => 'Önerilen:';
+
+  @override
+  String get aiDailyPracticeHint => 'Çevirin';
+
+  @override
+  String get aiLanguagesLoading => 'Diller hâlâ yükleniyor...';
+
+  @override
+  String get aiCopiedToClipboard => 'Panoya kopyalandı';
+
+  @override
+  String get aiGrammarHint => 'Analiz için metin girin...';
+
+  @override
+  String get aiGrammarSectionOriginal => 'Orijinal metin';
+
+  @override
+  String get aiGrammarSectionCorrected => 'Düzeltilmiş metin';
+
+  @override
+  String get aiGrammarSectionWell => 'İyi yaptıkların';
+
+  @override
+  String get aiGrammarSectionSuggestions => 'Öneriler';
+
+  @override
+  String get aiGrammarSectionSummary => 'Özet';
+
+  @override
+  String get aiLessonBuilderLabelLanguage => 'Dil';
+
+  @override
+  String get aiLessonBuilderLabelLevel => 'Seviye';
+
+  @override
+  String get aiLessonBuilderTopicHint => 'Bir konu gir (örn. "Yemek ve Restoranlar")';
+
+  @override
+  String get aiLessonBuilderBackToLessons => 'Derslere dön';
+
+  @override
+  String get aiTranslationHint => 'Çevrilecek metin girin...';
+
+  @override
+  String get aiTranslationSavedToVocab => 'Kelime listene kaydedildi';
+
+  @override
+  String get aiQuizTitle => 'Test';
+
+  @override
+  String get aiQuizFailedToGenerate => 'Test oluşturulamadı';
+
+  @override
+  String get aiQuizSubmitTitle => 'Testi gönder?';
+
+  @override
+  String get aiQuizSubmitBody => 'Cevaplarını göndermek istediğine emin misin?';
+
+  @override
+  String get aiQuizExitTitle => 'Testten çık?';
+
+  @override
+  String get aiQuizExitBody => 'İlerlemen kaybolacak.';
+
+  @override
+  String get aiQuizAnswerHint => 'Cevabını yaz...';
+
+  @override
+  String get aiQuizTranslationHint => 'Çevirini yaz...';
+
+  @override
+  String get aiPronunciationPlayingAudio => 'Ses oynatılıyor...';
+
+  @override
+  String get aiPronunciationListenFirst => 'Önce dinle';
+
+  @override
+  String get aiPronunciationHint => 'Pratik için metin girin...';
+
+  @override
+  String get aiTutorReplay => 'Tekrar oynat';
+
+  @override
+  String get aiScenariosTitle => 'Pratik senaryoları';
+
+  @override
+  String get aiScenariosNoneAvailable => 'Henüz senaryo yok.';
+
+  @override
+  String get aiScenariosEasier => 'Daha kolay — ısınma';
+
+  @override
+  String get aiScenariosHarder => 'Daha zor — zorluk';
+
+  @override
+  String get aiRoleplayStillStarting => 'Senaryo hâlâ başlıyor — biraz sonra tekrar dene.';
+
+  @override
+  String get aiRoleplayCouldNotGrade => 'Bu kez puanlanamadı — bir dahaki sefere dene.';
+
+  @override
+  String get aiConversationHistoryCompleted => 'Tamamlandı';
+
+  @override
+  String get aiConversationHistoryInProgress => 'Devam ediyor';
+
+  @override
+  String get aiConversationMessageHint => 'Bir mesaj yaz...';
+
+  @override
+  String get aiConversationTopicSpeak => 'Konuştuğum dil';
+
+  @override
+  String get aiConversationTopicPractice => 'Pratik';
+
+  @override
+  String get aiToolsVipBadge => 'VIP';
+
+  @override
+  String aiGrammarSectionIssues(int count) {
+    return 'Bulunan sorunlar ($count)';
+  }
+
+  @override
+  String aiLessonBuilderSaved(String title) {
+    return '"$title" dersi kaydedildi!';
+  }
+
+  @override
+  String aiTranslationCouldNotSave(String error) {
+    return 'Kaydedilemedi: $error';
+  }
+
+  @override
+  String aiTutorCouldNotLoad(String error) {
+    return 'Öğretmen yüklenemedi: $error';
+  }
+
+  @override
+  String aiTutorPlanUnavailable(String error) {
+    return 'Plan kullanılamıyor: $error';
+  }
+
+  @override
+  String aiScenariosCouldNotLoad(String error) {
+    return 'Senaryolar yüklenemedi: $error';
+  }
+
+  @override
+  String aiScenariosCouldNotStart(String error) {
+    return 'Başlatılamadı: $error';
+  }
+
+  @override
+  String aiScenariosForYourLevel(String level) {
+    return 'Senin seviyen için ($level)';
+  }
+
+  @override
+  String aiRoleplaySendFailed(String error) {
+    return 'Gönderim başarısız: $error';
+  }
+
+  @override
+  String aiToolsVipUpgradeDescription(String feature) {
+    return '$feature açmak için VIP\'e geç!';
+  }
 }

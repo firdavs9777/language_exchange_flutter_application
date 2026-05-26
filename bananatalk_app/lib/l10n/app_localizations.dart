@@ -1802,11 +1802,6 @@ abstract class AppLocalizations {
   /// **'Unblock'**
   String get unblock;
 
-  /// No description provided for @goBack.
-  ///
-  /// In en, this message translates to:
-  /// **'Go Back'**
-  String get goBack;
 
   /// No description provided for @messageSendTimeout.
   ///
@@ -10771,6 +10766,342 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{count, plural, =1{1 left today} other{{count} left today}}'**
   String aiTutorQuotaRemaining(int count);
+
+  /// No description provided for @submit.
+  ///
+  /// In en, this message translates to:
+  /// **'Submit'**
+  String get submit;
+
+  /// No description provided for @exit.
+  ///
+  /// In en, this message translates to:
+  /// **'Exit'**
+  String get exit;
+
+  /// No description provided for @previous.
+  ///
+  /// In en, this message translates to:
+  /// **'Previous'**
+  String get previous;
+
+  /// No description provided for @goBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Go Back'**
+  String get goBack;
+
+  /// No description provided for @aiDailyPracticeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily Practice'**
+  String get aiDailyPracticeTitle;
+
+  /// No description provided for @aiDailyPracticeTranslateThis.
+  ///
+  /// In en, this message translates to:
+  /// **'Translate this:'**
+  String get aiDailyPracticeTranslateThis;
+
+  /// No description provided for @aiDailyPracticeSuggested.
+  ///
+  /// In en, this message translates to:
+  /// **'Suggested:'**
+  String get aiDailyPracticeSuggested;
+
+  /// No description provided for @aiDailyPracticeHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Your translation'**
+  String get aiDailyPracticeHint;
+
+  /// No description provided for @aiLanguagesLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Languages are still loading...'**
+  String get aiLanguagesLoading;
+
+  /// No description provided for @aiCopiedToClipboard.
+  ///
+  /// In en, this message translates to:
+  /// **'Copied to clipboard'**
+  String get aiCopiedToClipboard;
+
+  /// No description provided for @aiGrammarHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter text to analyze...'**
+  String get aiGrammarHint;
+
+  /// No description provided for @aiGrammarSectionOriginal.
+  ///
+  /// In en, this message translates to:
+  /// **'Original Text'**
+  String get aiGrammarSectionOriginal;
+
+  /// No description provided for @aiGrammarSectionCorrected.
+  ///
+  /// In en, this message translates to:
+  /// **'Corrected Text'**
+  String get aiGrammarSectionCorrected;
+
+  /// No description provided for @aiGrammarSectionWell.
+  ///
+  /// In en, this message translates to:
+  /// **'What You Did Well'**
+  String get aiGrammarSectionWell;
+
+  /// No description provided for @aiGrammarSectionSuggestions.
+  ///
+  /// In en, this message translates to:
+  /// **'Suggestions'**
+  String get aiGrammarSectionSuggestions;
+
+  /// No description provided for @aiGrammarSectionSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'Summary'**
+  String get aiGrammarSectionSummary;
+
+  /// No description provided for @aiLessonBuilderLabelLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get aiLessonBuilderLabelLanguage;
+
+  /// No description provided for @aiLessonBuilderLabelLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'Level'**
+  String get aiLessonBuilderLabelLevel;
+
+  /// No description provided for @aiLessonBuilderTopicHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a topic (e.g., "Food and Dining")'**
+  String get aiLessonBuilderTopicHint;
+
+  /// No description provided for @aiLessonBuilderBackToLessons.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to Lessons'**
+  String get aiLessonBuilderBackToLessons;
+
+  /// No description provided for @aiTranslationHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter text to translate...'**
+  String get aiTranslationHint;
+
+  /// No description provided for @aiTranslationSavedToVocab.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved to your vocab list'**
+  String get aiTranslationSavedToVocab;
+
+  /// No description provided for @aiQuizTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Quiz'**
+  String get aiQuizTitle;
+
+  /// No description provided for @aiQuizFailedToGenerate.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to generate quiz'**
+  String get aiQuizFailedToGenerate;
+
+  /// No description provided for @aiQuizSubmitTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Submit Quiz?'**
+  String get aiQuizSubmitTitle;
+
+  /// No description provided for @aiQuizSubmitBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to submit your answers?'**
+  String get aiQuizSubmitBody;
+
+  /// No description provided for @aiQuizExitTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Exit Quiz?'**
+  String get aiQuizExitTitle;
+
+  /// No description provided for @aiQuizExitBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your progress will be lost.'**
+  String get aiQuizExitBody;
+
+  /// No description provided for @aiQuizAnswerHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Type your answer...'**
+  String get aiQuizAnswerHint;
+
+  /// No description provided for @aiQuizTranslationHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Type your translation...'**
+  String get aiQuizTranslationHint;
+
+  /// No description provided for @aiPronunciationPlayingAudio.
+  ///
+  /// In en, this message translates to:
+  /// **'Playing audio...'**
+  String get aiPronunciationPlayingAudio;
+
+  /// No description provided for @aiPronunciationListenFirst.
+  ///
+  /// In en, this message translates to:
+  /// **'Listen First'**
+  String get aiPronunciationListenFirst;
+
+  /// No description provided for @aiPronunciationHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter text to practice...'**
+  String get aiPronunciationHint;
+
+  /// No description provided for @aiTutorReplay.
+  ///
+  /// In en, this message translates to:
+  /// **'Replay'**
+  String get aiTutorReplay;
+
+  /// No description provided for @aiScenariosTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Practice scenarios'**
+  String get aiScenariosTitle;
+
+  /// No description provided for @aiScenariosNoneAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'No scenarios available yet.'**
+  String get aiScenariosNoneAvailable;
+
+  /// No description provided for @aiScenariosEasier.
+  ///
+  /// In en, this message translates to:
+  /// **'Easier — warm up'**
+  String get aiScenariosEasier;
+
+  /// No description provided for @aiScenariosHarder.
+  ///
+  /// In en, this message translates to:
+  /// **'Harder — stretch'**
+  String get aiScenariosHarder;
+
+  /// No description provided for @aiRoleplayStillStarting.
+  ///
+  /// In en, this message translates to:
+  /// **'Still starting the scenario — try again in a moment.'**
+  String get aiRoleplayStillStarting;
+
+  /// No description provided for @aiRoleplayCouldNotGrade.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t grade this one — try again next time.'**
+  String get aiRoleplayCouldNotGrade;
+
+  /// No description provided for @aiConversationHistoryCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed'**
+  String get aiConversationHistoryCompleted;
+
+  /// No description provided for @aiConversationHistoryInProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'In Progress'**
+  String get aiConversationHistoryInProgress;
+
+  /// No description provided for @aiConversationMessageHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Type a message...'**
+  String get aiConversationMessageHint;
+
+  /// No description provided for @aiConversationTopicSpeak.
+  ///
+  /// In en, this message translates to:
+  /// **'I speak'**
+  String get aiConversationTopicSpeak;
+
+  /// No description provided for @aiConversationTopicPractice.
+  ///
+  /// In en, this message translates to:
+  /// **'Practice'**
+  String get aiConversationTopicPractice;
+
+  /// No description provided for @aiToolsVipBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'VIP'**
+  String get aiToolsVipBadge;
+
+  /// No description provided for @aiGrammarSectionIssues.
+  ///
+  /// In en, this message translates to:
+  /// **'Issues Found ({count})'**
+  String aiGrammarSectionIssues(int count);
+
+  /// No description provided for @aiLessonBuilderSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Lesson "{title}" saved!'**
+  String aiLessonBuilderSaved(String title);
+
+  /// No description provided for @aiTranslationCouldNotSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not save: {error}'**
+  String aiTranslationCouldNotSave(String error);
+
+  /// No description provided for @aiTutorCouldNotLoad.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load tutor: {error}'**
+  String aiTutorCouldNotLoad(String error);
+
+  /// No description provided for @aiTutorPlanUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Plan unavailable: {error}'**
+  String aiTutorPlanUnavailable(String error);
+
+  /// No description provided for @aiScenariosCouldNotLoad.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load scenarios: {error}'**
+  String aiScenariosCouldNotLoad(String error);
+
+  /// No description provided for @aiScenariosCouldNotStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not start: {error}'**
+  String aiScenariosCouldNotStart(String error);
+
+  /// No description provided for @aiScenariosForYourLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'For your level ({level})'**
+  String aiScenariosForYourLevel(String level);
+
+  /// No description provided for @aiRoleplaySendFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Send failed: {error}'**
+  String aiRoleplaySendFailed(String error);
+
+  /// No description provided for @aiToolsVipUpgradeDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Upgrade to VIP to unlock {feature}!'**
+  String aiToolsVipUpgradeDescription(String feature);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

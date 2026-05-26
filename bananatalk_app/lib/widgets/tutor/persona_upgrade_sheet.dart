@@ -5,6 +5,7 @@ import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
 import 'package:bananatalk_app/providers/tutor_provider.dart';
 import 'package:bananatalk_app/services/analytics_service.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 /// Persona-aware variant of VipUpgradeSheet. Copy matches the user's
 /// selected persona — falls back to generic if persona is unset.
@@ -96,7 +97,7 @@ class PersonaUpgradeSheet extends ConsumerWidget {
           const SizedBox(height: 8),
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Maybe later', style: TextStyle(color: Colors.white54)),
+            child: Text(AppLocalizations.of(context)!.aiStudyPromoDismiss, style: const TextStyle(color: Colors.white54)),
           ),
         ],
       ),

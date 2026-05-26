@@ -5753,4 +5753,190 @@ class AppLocalizationsDe extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get submit => 'Senden';
+
+  @override
+  String get exit => 'Beenden';
+
+  @override
+  String get previous => 'Zurück';
+
+
+  @override
+  String get aiDailyPracticeTitle => 'Tägliche Übung';
+
+  @override
+  String get aiDailyPracticeTranslateThis => 'Übersetze das:';
+
+  @override
+  String get aiDailyPracticeSuggested => 'Vorschlag:';
+
+  @override
+  String get aiDailyPracticeHint => 'Deine Übersetzung';
+
+  @override
+  String get aiLanguagesLoading => 'Sprachen werden noch geladen...';
+
+  @override
+  String get aiCopiedToClipboard => 'In die Zwischenablage kopiert';
+
+  @override
+  String get aiGrammarHint => 'Text zur Analyse eingeben...';
+
+  @override
+  String get aiGrammarSectionOriginal => 'Originaltext';
+
+  @override
+  String get aiGrammarSectionCorrected => 'Korrigierter Text';
+
+  @override
+  String get aiGrammarSectionWell => 'Was du gut gemacht hast';
+
+  @override
+  String get aiGrammarSectionSuggestions => 'Vorschläge';
+
+  @override
+  String get aiGrammarSectionSummary => 'Zusammenfassung';
+
+  @override
+  String get aiLessonBuilderLabelLanguage => 'Sprache';
+
+  @override
+  String get aiLessonBuilderLabelLevel => 'Niveau';
+
+  @override
+  String get aiLessonBuilderTopicHint => 'Thema eingeben (z. B. "Essen und Trinken")';
+
+  @override
+  String get aiLessonBuilderBackToLessons => 'Zurück zu den Lektionen';
+
+  @override
+  String get aiTranslationHint => 'Text zum Übersetzen eingeben...';
+
+  @override
+  String get aiTranslationSavedToVocab => 'In deinen Wortschatz gespeichert';
+
+  @override
+  String get aiQuizTitle => 'Quiz';
+
+  @override
+  String get aiQuizFailedToGenerate => 'Quiz konnte nicht erstellt werden';
+
+  @override
+  String get aiQuizSubmitTitle => 'Quiz abgeben?';
+
+  @override
+  String get aiQuizSubmitBody => 'Bist du sicher, dass du deine Antworten abgeben willst?';
+
+  @override
+  String get aiQuizExitTitle => 'Quiz verlassen?';
+
+  @override
+  String get aiQuizExitBody => 'Dein Fortschritt geht verloren.';
+
+  @override
+  String get aiQuizAnswerHint => 'Antwort eingeben...';
+
+  @override
+  String get aiQuizTranslationHint => 'Übersetzung eingeben...';
+
+  @override
+  String get aiPronunciationPlayingAudio => 'Audio wird abgespielt...';
+
+  @override
+  String get aiPronunciationListenFirst => 'Erst anhören';
+
+  @override
+  String get aiPronunciationHint => 'Text zum Üben eingeben...';
+
+  @override
+  String get aiTutorReplay => 'Wiederholen';
+
+  @override
+  String get aiScenariosTitle => 'Übungs-Szenarien';
+
+  @override
+  String get aiScenariosNoneAvailable => 'Noch keine Szenarien verfügbar.';
+
+  @override
+  String get aiScenariosEasier => 'Einfacher — Aufwärmen';
+
+  @override
+  String get aiScenariosHarder => 'Schwerer — Herausforderung';
+
+  @override
+  String get aiRoleplayStillStarting => 'Szenario startet noch — gleich erneut versuchen.';
+
+  @override
+  String get aiRoleplayCouldNotGrade => 'Konnte diesmal nicht bewerten — versuch\'s nächstes Mal.';
+
+  @override
+  String get aiConversationHistoryCompleted => 'Abgeschlossen';
+
+  @override
+  String get aiConversationHistoryInProgress => 'Läuft';
+
+  @override
+  String get aiConversationMessageHint => 'Nachricht eingeben...';
+
+  @override
+  String get aiConversationTopicSpeak => 'Ich spreche';
+
+  @override
+  String get aiConversationTopicPractice => 'Übe';
+
+  @override
+  String get aiToolsVipBadge => 'VIP';
+
+  @override
+  String aiGrammarSectionIssues(int count) {
+    return 'Gefundene Fehler ($count)';
+  }
+
+  @override
+  String aiLessonBuilderSaved(String title) {
+    return 'Lektion "$title" gespeichert!';
+  }
+
+  @override
+  String aiTranslationCouldNotSave(String error) {
+    return 'Konnte nicht speichern: $error';
+  }
+
+  @override
+  String aiTutorCouldNotLoad(String error) {
+    return 'Tutor konnte nicht geladen werden: $error';
+  }
+
+  @override
+  String aiTutorPlanUnavailable(String error) {
+    return 'Plan nicht verfügbar: $error';
+  }
+
+  @override
+  String aiScenariosCouldNotLoad(String error) {
+    return 'Szenarien konnten nicht geladen werden: $error';
+  }
+
+  @override
+  String aiScenariosCouldNotStart(String error) {
+    return 'Konnte nicht starten: $error';
+  }
+
+  @override
+  String aiScenariosForYourLevel(String level) {
+    return 'Für dein Niveau ($level)';
+  }
+
+  @override
+  String aiRoleplaySendFailed(String error) {
+    return 'Senden fehlgeschlagen: $error';
+  }
+
+  @override
+  String aiToolsVipUpgradeDescription(String feature) {
+    return 'Auf VIP upgraden, um $feature freizuschalten!';
+  }
 }

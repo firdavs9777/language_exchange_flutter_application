@@ -205,7 +205,7 @@
   "errorLoadingSettings": "Errore nel caricamento delle impostazioni",
   "unblockUser": "Sblocca utente",
   "unblock": "Sblocca",
-  "goBack": "Torna indietro",
+  "goBack": "Indietro",
   "messageSendTimeout": "Timeout invio messaggio. Controlla la connessione.",
   "failedToSendMessage": "Invio messaggio fallito",
   "dailyMessageLimitExceeded": "Limite giornaliero messaggi superato. Passa a VIP per messaggi illimitati.",
@@ -2321,5 +2321,130 @@
   },
   "@aiTutorChipPronounce": {
     "description": "Label for the 5th tutor mode chip — opens the Pronunciation Coach drill"
+  },
+  "submit": "Invia",
+  "exit": "Esci",
+  "previous": "Precedente",
+  "aiDailyPracticeTitle": "Pratica quotidiana",
+  "aiDailyPracticeTranslateThis": "Traduci questo:",
+  "aiDailyPracticeSuggested": "Suggerito:",
+  "aiDailyPracticeHint": "La tua traduzione",
+  "aiLanguagesLoading": "Lingue ancora in caricamento...",
+  "aiCopiedToClipboard": "Copiato negli appunti",
+  "aiGrammarHint": "Inserisci il testo da analizzare...",
+  "aiGrammarSectionOriginal": "Testo originale",
+  "aiGrammarSectionCorrected": "Testo corretto",
+  "aiGrammarSectionWell": "Cosa hai fatto bene",
+  "aiGrammarSectionSuggestions": "Suggerimenti",
+  "aiGrammarSectionSummary": "Riepilogo",
+  "aiLessonBuilderLabelLanguage": "Lingua",
+  "aiLessonBuilderLabelLevel": "Livello",
+  "aiLessonBuilderTopicHint": "Inserisci un argomento (es. \"Cibo e ristoranti\")",
+  "aiLessonBuilderBackToLessons": "Torna alle lezioni",
+  "aiTranslationHint": "Inserisci il testo da tradurre...",
+  "aiTranslationSavedToVocab": "Salvato nel tuo vocabolario",
+  "aiQuizTitle": "Quiz",
+  "aiQuizFailedToGenerate": "Impossibile generare il quiz",
+  "aiQuizSubmitTitle": "Invia il quiz?",
+  "aiQuizSubmitBody": "Sei sicuro di voler inviare le tue risposte?",
+  "aiQuizExitTitle": "Uscire dal quiz?",
+  "aiQuizExitBody": "I tuoi progressi andranno persi.",
+  "aiQuizAnswerHint": "Scrivi la tua risposta...",
+  "aiQuizTranslationHint": "Scrivi la tua traduzione...",
+  "aiPronunciationPlayingAudio": "Riproduzione audio...",
+  "aiPronunciationListenFirst": "Ascolta prima",
+  "aiPronunciationHint": "Inserisci il testo da praticare...",
+  "aiTutorReplay": "Riproduci",
+  "aiScenariosTitle": "Scenari di pratica",
+  "aiScenariosNoneAvailable": "Ancora nessuno scenario.",
+  "aiScenariosEasier": "Più facile — riscaldamento",
+  "aiScenariosHarder": "Più difficile — sfida",
+  "aiRoleplayStillStarting": "Lo scenario sta ancora partendo — riprova tra un momento.",
+  "aiRoleplayCouldNotGrade": "Non è stato possibile valutare stavolta — riprova la prossima.",
+  "aiConversationHistoryCompleted": "Completata",
+  "aiConversationHistoryInProgress": "In corso",
+  "aiConversationMessageHint": "Scrivi un messaggio...",
+  "aiConversationTopicSpeak": "Io parlo",
+  "aiConversationTopicPractice": "Pratica",
+  "aiToolsVipBadge": "VIP",
+  "aiGrammarSectionIssues": "Problemi trovati ({count})",
+  "aiLessonBuilderSaved": "Lezione \"{title}\" salvata!",
+  "aiTranslationCouldNotSave": "Impossibile salvare: {error}",
+  "aiTutorCouldNotLoad": "Impossibile caricare il tutor: {error}",
+  "aiTutorPlanUnavailable": "Piano non disponibile: {error}",
+  "aiScenariosCouldNotLoad": "Impossibile caricare gli scenari: {error}",
+  "aiScenariosCouldNotStart": "Impossibile avviare: {error}",
+  "aiScenariosForYourLevel": "Per il tuo livello ({level})",
+  "aiRoleplaySendFailed": "Invio fallito: {error}",
+  "aiToolsVipUpgradeDescription": "Passa a VIP per sbloccare {feature}!",
+  "@aiGrammarSectionIssues": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@aiLessonBuilderSaved": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiTranslationCouldNotSave": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiTutorCouldNotLoad": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiTutorPlanUnavailable": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiScenariosCouldNotLoad": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiScenariosCouldNotStart": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiScenariosForYourLevel": {
+    "placeholders": {
+      "level": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiRoleplaySendFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiToolsVipUpgradeDescription": {
+    "placeholders": {
+      "feature": {
+        "type": "String"
+      }
+    }
   }
 }

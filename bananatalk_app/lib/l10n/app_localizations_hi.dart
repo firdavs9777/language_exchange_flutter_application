@@ -5753,4 +5753,190 @@ class AppLocalizationsHi extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get submit => 'भेजें';
+
+  @override
+  String get exit => 'बाहर निकलें';
+
+  @override
+  String get previous => 'पिछला';
+
+
+  @override
+  String get aiDailyPracticeTitle => 'रोज़ का अभ्यास';
+
+  @override
+  String get aiDailyPracticeTranslateThis => 'इसका अनुवाद करें:';
+
+  @override
+  String get aiDailyPracticeSuggested => 'सुझाया गया:';
+
+  @override
+  String get aiDailyPracticeHint => 'आपका अनुवाद';
+
+  @override
+  String get aiLanguagesLoading => 'भाषाएँ अभी लोड हो रही हैं...';
+
+  @override
+  String get aiCopiedToClipboard => 'क्लिपबोर्ड पर कॉपी किया गया';
+
+  @override
+  String get aiGrammarHint => 'विश्लेषण के लिए टेक्स्ट दर्ज करें...';
+
+  @override
+  String get aiGrammarSectionOriginal => 'मूल टेक्स्ट';
+
+  @override
+  String get aiGrammarSectionCorrected => 'सुधारा गया टेक्स्ट';
+
+  @override
+  String get aiGrammarSectionWell => 'आपने अच्छा क्या किया';
+
+  @override
+  String get aiGrammarSectionSuggestions => 'सुझाव';
+
+  @override
+  String get aiGrammarSectionSummary => 'सारांश';
+
+  @override
+  String get aiLessonBuilderLabelLanguage => 'भाषा';
+
+  @override
+  String get aiLessonBuilderLabelLevel => 'स्तर';
+
+  @override
+  String get aiLessonBuilderTopicHint => 'विषय दर्ज करें (जैसे, "भोजन और रेस्तरां")';
+
+  @override
+  String get aiLessonBuilderBackToLessons => 'पाठों पर वापस जाएँ';
+
+  @override
+  String get aiTranslationHint => 'अनुवाद के लिए टेक्स्ट दर्ज करें...';
+
+  @override
+  String get aiTranslationSavedToVocab => 'आपकी शब्दावली सूची में सहेजा गया';
+
+  @override
+  String get aiQuizTitle => 'क्विज़';
+
+  @override
+  String get aiQuizFailedToGenerate => 'क्विज़ बनाने में विफल';
+
+  @override
+  String get aiQuizSubmitTitle => 'क्विज़ सबमिट करें?';
+
+  @override
+  String get aiQuizSubmitBody => 'क्या आप वाकई अपने उत्तर सबमिट करना चाहते हैं?';
+
+  @override
+  String get aiQuizExitTitle => 'क्विज़ छोड़ें?';
+
+  @override
+  String get aiQuizExitBody => 'आपकी प्रगति खो जाएगी।';
+
+  @override
+  String get aiQuizAnswerHint => 'अपना उत्तर लिखें...';
+
+  @override
+  String get aiQuizTranslationHint => 'अपना अनुवाद लिखें...';
+
+  @override
+  String get aiPronunciationPlayingAudio => 'ऑडियो चल रहा है...';
+
+  @override
+  String get aiPronunciationListenFirst => 'पहले सुनें';
+
+  @override
+  String get aiPronunciationHint => 'अभ्यास के लिए टेक्स्ट दर्ज करें...';
+
+  @override
+  String get aiTutorReplay => 'फिर से चलाएँ';
+
+  @override
+  String get aiScenariosTitle => 'अभ्यास सीनैरियो';
+
+  @override
+  String get aiScenariosNoneAvailable => 'अभी कोई सीनैरियो उपलब्ध नहीं।';
+
+  @override
+  String get aiScenariosEasier => 'आसान — वार्म-अप';
+
+  @override
+  String get aiScenariosHarder => 'कठिन — चुनौती';
+
+  @override
+  String get aiRoleplayStillStarting => 'सीनैरियो अभी शुरू हो रहा है — एक पल में पुनः प्रयास करें।';
+
+  @override
+  String get aiRoleplayCouldNotGrade => 'इस बार ग्रेड नहीं हो सका — अगली बार प्रयास करें।';
+
+  @override
+  String get aiConversationHistoryCompleted => 'पूरा';
+
+  @override
+  String get aiConversationHistoryInProgress => 'चल रहा';
+
+  @override
+  String get aiConversationMessageHint => 'एक संदेश लिखें...';
+
+  @override
+  String get aiConversationTopicSpeak => 'मैं बोलता हूँ';
+
+  @override
+  String get aiConversationTopicPractice => 'अभ्यास';
+
+  @override
+  String get aiToolsVipBadge => 'VIP';
+
+  @override
+  String aiGrammarSectionIssues(int count) {
+    return 'पाई गई समस्याएँ ($count)';
+  }
+
+  @override
+  String aiLessonBuilderSaved(String title) {
+    return 'पाठ "$title" सहेजा गया!';
+  }
+
+  @override
+  String aiTranslationCouldNotSave(String error) {
+    return 'सहेज नहीं सका: $error';
+  }
+
+  @override
+  String aiTutorCouldNotLoad(String error) {
+    return 'ट्यूटर लोड नहीं हो सका: $error';
+  }
+
+  @override
+  String aiTutorPlanUnavailable(String error) {
+    return 'प्लान उपलब्ध नहीं: $error';
+  }
+
+  @override
+  String aiScenariosCouldNotLoad(String error) {
+    return 'सीनैरियो लोड नहीं हो सके: $error';
+  }
+
+  @override
+  String aiScenariosCouldNotStart(String error) {
+    return 'शुरू नहीं हो सका: $error';
+  }
+
+  @override
+  String aiScenariosForYourLevel(String level) {
+    return 'आपके स्तर के लिए ($level)';
+  }
+
+  @override
+  String aiRoleplaySendFailed(String error) {
+    return 'भेजने में विफल: $error';
+  }
+
+  @override
+  String aiToolsVipUpgradeDescription(String feature) {
+    return '$feature अनलॉक करने के लिए VIP में अपग्रेड करें!';
+  }
 }

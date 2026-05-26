@@ -2066,5 +2066,130 @@
   },
   "@aiTutorChipPronounce": {
     "description": "Label for the 5th tutor mode chip — opens the Pronunciation Coach drill"
+  },
+  "submit": "إرسال",
+  "exit": "خروج",
+  "previous": "السابق",
+  "aiDailyPracticeTitle": "التدريب اليومي",
+  "aiDailyPracticeTranslateThis": "ترجم هذا:",
+  "aiDailyPracticeSuggested": "مقترح:",
+  "aiDailyPracticeHint": "ترجمتك",
+  "aiLanguagesLoading": "جاري تحميل اللغات...",
+  "aiCopiedToClipboard": "تم النسخ إلى الحافظة",
+  "aiGrammarHint": "أدخل نصاً للتحليل...",
+  "aiGrammarSectionOriginal": "النص الأصلي",
+  "aiGrammarSectionCorrected": "النص المصحح",
+  "aiGrammarSectionWell": "ما أحسنت فيه",
+  "aiGrammarSectionSuggestions": "اقتراحات",
+  "aiGrammarSectionSummary": "الخلاصة",
+  "aiLessonBuilderLabelLanguage": "اللغة",
+  "aiLessonBuilderLabelLevel": "المستوى",
+  "aiLessonBuilderTopicHint": "أدخل موضوعاً (مثلاً، \"الطعام والطعام\")",
+  "aiLessonBuilderBackToLessons": "العودة إلى الدروس",
+  "aiTranslationHint": "أدخل نصاً للترجمة...",
+  "aiTranslationSavedToVocab": "تم الحفظ في قائمة مفرداتك",
+  "aiQuizTitle": "اختبار",
+  "aiQuizFailedToGenerate": "فشل في إنشاء الاختبار",
+  "aiQuizSubmitTitle": "إرسال الاختبار؟",
+  "aiQuizSubmitBody": "هل أنت متأكد من إرسال إجاباتك؟",
+  "aiQuizExitTitle": "الخروج من الاختبار؟",
+  "aiQuizExitBody": "سيتم فقدان تقدمك.",
+  "aiQuizAnswerHint": "اكتب إجابتك...",
+  "aiQuizTranslationHint": "اكتب ترجمتك...",
+  "aiPronunciationPlayingAudio": "تشغيل الصوت...",
+  "aiPronunciationListenFirst": "استمع أولاً",
+  "aiPronunciationHint": "أدخل نصاً للتدرب...",
+  "aiTutorReplay": "إعادة",
+  "aiScenariosTitle": "سيناريوهات التدريب",
+  "aiScenariosNoneAvailable": "لا توجد سيناريوهات بعد.",
+  "aiScenariosEasier": "أسهل — إحماء",
+  "aiScenariosHarder": "أصعب — تحدٍّ",
+  "aiRoleplayStillStarting": "لا يزال السيناريو يبدأ — حاول مرة أخرى بعد لحظة.",
+  "aiRoleplayCouldNotGrade": "تعذّر التقييم هذه المرة — حاول لاحقاً.",
+  "aiConversationHistoryCompleted": "مكتمل",
+  "aiConversationHistoryInProgress": "جارٍ",
+  "aiConversationMessageHint": "اكتب رسالة...",
+  "aiConversationTopicSpeak": "أنا أتحدث",
+  "aiConversationTopicPractice": "التدريب",
+  "aiToolsVipBadge": "VIP",
+  "aiGrammarSectionIssues": "الأخطاء ({count})",
+  "aiLessonBuilderSaved": "تم حفظ الدرس \"{title}\"!",
+  "aiTranslationCouldNotSave": "تعذّر الحفظ: {error}",
+  "aiTutorCouldNotLoad": "تعذّر تحميل المدرّس: {error}",
+  "aiTutorPlanUnavailable": "الخطة غير متاحة: {error}",
+  "aiScenariosCouldNotLoad": "تعذّر تحميل السيناريوهات: {error}",
+  "aiScenariosCouldNotStart": "تعذّر البدء: {error}",
+  "aiScenariosForYourLevel": "لمستواك ({level})",
+  "aiRoleplaySendFailed": "فشل الإرسال: {error}",
+  "aiToolsVipUpgradeDescription": "ترقَّ إلى VIP لفتح {feature}!",
+  "@aiGrammarSectionIssues": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@aiLessonBuilderSaved": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiTranslationCouldNotSave": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiTutorCouldNotLoad": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiTutorPlanUnavailable": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiScenariosCouldNotLoad": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiScenariosCouldNotStart": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiScenariosForYourLevel": {
+    "placeholders": {
+      "level": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiRoleplaySendFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiToolsVipUpgradeDescription": {
+    "placeholders": {
+      "feature": {
+        "type": "String"
+      }
+    }
   }
 }

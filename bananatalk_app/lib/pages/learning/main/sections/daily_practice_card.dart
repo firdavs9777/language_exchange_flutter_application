@@ -130,7 +130,7 @@ class _DailyPracticeScreenState extends ConsumerState<DailyPracticeScreen> {
     final result = _result;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Daily Practice')),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.aiDailyPracticeTitle)),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -142,8 +142,8 @@ class _DailyPracticeScreenState extends ConsumerState<DailyPracticeScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('Translate this:',
-                        style: TextStyle(fontWeight: FontWeight.bold)),
+                    Text(AppLocalizations.of(context)!.aiDailyPracticeTranslateThis,
+                        style: const TextStyle(fontWeight: FontWeight.bold)),
                     const SizedBox(height: 8),
                     Text(
                       data['sentence']?.toString() ?? '',
@@ -168,9 +168,9 @@ class _DailyPracticeScreenState extends ConsumerState<DailyPracticeScreen> {
               controller: _controller,
               minLines: 2,
               maxLines: 4,
-              decoration: const InputDecoration(
-                hintText: 'Your translation',
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                hintText: AppLocalizations.of(context)!.aiDailyPracticeHint,
+                border: const OutlineInputBorder(),
               ),
               enabled: result == null,
             ),
@@ -184,7 +184,7 @@ class _DailyPracticeScreenState extends ConsumerState<DailyPracticeScreen> {
                         height: 16,
                         child: CircularProgressIndicator(strokeWidth: 2))
                     : const Icon(Icons.check),
-                label: const Text('Submit'),
+                label: Text(AppLocalizations.of(context)!.submit),
               )
             else
               _buildResult(theme, result),
@@ -233,8 +233,8 @@ class _DailyPracticeScreenState extends ConsumerState<DailyPracticeScreen> {
                 ],
                 if (suggested.isNotEmpty) ...[
                   const SizedBox(height: 12),
-                  const Text('Suggested:',
-                      style: TextStyle(fontWeight: FontWeight.bold)),
+                  Text(AppLocalizations.of(context)!.aiDailyPracticeSuggested,
+                      style: const TextStyle(fontWeight: FontWeight.bold)),
                   Text(suggested,
                       style: const TextStyle(
                           fontSize: 14, fontStyle: FontStyle.italic)),
@@ -246,7 +246,7 @@ class _DailyPracticeScreenState extends ConsumerState<DailyPracticeScreen> {
         const SizedBox(height: 12),
         OutlinedButton(
           onPressed: () => Navigator.pop(context),
-          child: const Text('Close'),
+          child: Text(AppLocalizations.of(context)!.close),
         ),
       ],
     );

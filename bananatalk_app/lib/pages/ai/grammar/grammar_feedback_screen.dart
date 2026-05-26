@@ -12,6 +12,7 @@ import 'package:bananatalk_app/providers/provider_root/ai_providers.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 /// Grammar Feedback Analysis Screen
 class GrammarFeedbackScreen extends ConsumerStatefulWidget {
@@ -85,7 +86,7 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
   Future<void> _openLanguagePicker() async {
     if (_languages.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Languages are still loading...')),
+        SnackBar(content: Text(AppLocalizations.of(context)!.aiLanguagesLoading)),
       );
       return;
     }
@@ -150,9 +151,9 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
   void _copyToClipboard(String text) {
     Clipboard.setData(ClipboardData(text: text));
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Copied to clipboard'),
-        duration: Duration(seconds: 1),
+      SnackBar(
+        content: Text(AppLocalizations.of(context)!.aiCopiedToClipboard),
+        duration: const Duration(seconds: 1),
       ),
     );
   }
@@ -279,7 +280,7 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
             controller: _textController,
             maxLines: 5,
             decoration: InputDecoration(
-              hintText: 'Enter text to analyze...',
+              hintText: AppLocalizations.of(context)!.aiGrammarHint,
               hintStyle: TextStyle(color: Colors.grey[400]),
               filled: true,
               fillColor: Colors.grey[50],
@@ -920,7 +921,7 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
               IconButton(
                 icon: Icon(Icons.copy_rounded, size: 20, color: Colors.grey[600]),
                 onPressed: () => _copyToClipboard(_feedback!.correctedText),
-                tooltip: 'Copy',
+                tooltip: AppLocalizations.of(context)!.copy,
                 padding: EdgeInsets.zero,
                 constraints: const BoxConstraints(),
               ),
@@ -1268,7 +1269,7 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
                       // Original Text
                       _buildDetailSection(
                         icon: Icons.text_fields,
-                        title: 'Original Text',
+                        title: AppLocalizations.of(context)!.aiGrammarSectionOriginal,
                         color: Colors.grey[700]!,
                         child: Container(
                           width: double.infinity,
@@ -1289,7 +1290,7 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
                       // Corrected Text
                       _buildDetailSection(
                         icon: Icons.check_circle_rounded,
-                        title: 'Corrected Text',
+                        title: AppLocalizations.of(context)!.aiGrammarSectionCorrected,
                         color: Colors.green[600]!,
                         child: Container(
                           width: double.infinity,
@@ -1325,7 +1326,7 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
                         const SizedBox(height: 20),
                         _buildDetailSection(
                           icon: Icons.edit_note_rounded,
-                          title: 'Issues Found (${feedback.errors.length})',
+                          title: AppLocalizations.of(context)!.aiGrammarSectionIssues(feedback.errors.length),
                           color: Colors.orange[700]!,
                           child: Column(
                             children: feedback.errors
@@ -1340,7 +1341,7 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
                         const SizedBox(height: 20),
                         _buildDetailSection(
                           icon: Icons.thumb_up_rounded,
-                          title: 'What You Did Well',
+                          title: AppLocalizations.of(context)!.aiGrammarSectionWell,
                           color: Colors.green[600]!,
                           child: Column(
                             children: feedback.positives
@@ -1377,7 +1378,7 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
                         const SizedBox(height: 20),
                         _buildDetailSection(
                           icon: Icons.auto_fix_high_rounded,
-                          title: 'Suggestions',
+                          title: AppLocalizations.of(context)!.aiGrammarSectionSuggestions,
                           color: Colors.purple[600]!,
                           child: Column(
                             children: feedback.suggestions
@@ -1425,7 +1426,7 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
                         const SizedBox(height: 20),
                         _buildDetailSection(
                           icon: Icons.summarize_rounded,
-                          title: 'Summary',
+                          title: AppLocalizations.of(context)!.aiGrammarSectionSummary,
                           color: Colors.teal[600]!,
                           child: Text(
                             feedback.summary,

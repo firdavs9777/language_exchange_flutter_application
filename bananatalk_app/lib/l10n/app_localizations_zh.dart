@@ -5746,6 +5746,192 @@ class AppLocalizationsZh extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get submit => '提交';
+
+  @override
+  String get exit => '退出';
+
+  @override
+  String get previous => '上一个';
+
+
+  @override
+  String get aiDailyPracticeTitle => '每日练习';
+
+  @override
+  String get aiDailyPracticeTranslateThis => '翻译以下内容:';
+
+  @override
+  String get aiDailyPracticeSuggested => '建议:';
+
+  @override
+  String get aiDailyPracticeHint => '你的翻译';
+
+  @override
+  String get aiLanguagesLoading => '语言仍在加载...';
+
+  @override
+  String get aiCopiedToClipboard => '已复制到剪贴板';
+
+  @override
+  String get aiGrammarHint => '输入要分析的文本...';
+
+  @override
+  String get aiGrammarSectionOriginal => '原文';
+
+  @override
+  String get aiGrammarSectionCorrected => '修正后的文本';
+
+  @override
+  String get aiGrammarSectionWell => '你做得好的';
+
+  @override
+  String get aiGrammarSectionSuggestions => '建议';
+
+  @override
+  String get aiGrammarSectionSummary => '摘要';
+
+  @override
+  String get aiLessonBuilderLabelLanguage => '语言';
+
+  @override
+  String get aiLessonBuilderLabelLevel => '等级';
+
+  @override
+  String get aiLessonBuilderTopicHint => '输入主题（例如 "美食与餐厅"）';
+
+  @override
+  String get aiLessonBuilderBackToLessons => '返回课程';
+
+  @override
+  String get aiTranslationHint => '输入要翻译的文本...';
+
+  @override
+  String get aiTranslationSavedToVocab => '已保存到你的词汇表';
+
+  @override
+  String get aiQuizTitle => '小测验';
+
+  @override
+  String get aiQuizFailedToGenerate => '生成测验失败';
+
+  @override
+  String get aiQuizSubmitTitle => '提交测验？';
+
+  @override
+  String get aiQuizSubmitBody => '确定要提交你的答案吗？';
+
+  @override
+  String get aiQuizExitTitle => '退出测验？';
+
+  @override
+  String get aiQuizExitBody => '你的进度将丢失。';
+
+  @override
+  String get aiQuizAnswerHint => '输入你的答案...';
+
+  @override
+  String get aiQuizTranslationHint => '输入你的翻译...';
+
+  @override
+  String get aiPronunciationPlayingAudio => '正在播放音频...';
+
+  @override
+  String get aiPronunciationListenFirst => '先听一遍';
+
+  @override
+  String get aiPronunciationHint => '输入要练习的文本...';
+
+  @override
+  String get aiTutorReplay => '重播';
+
+  @override
+  String get aiScenariosTitle => '练习情境';
+
+  @override
+  String get aiScenariosNoneAvailable => '暂无情境';
+
+  @override
+  String get aiScenariosEasier => '更简单 — 热身';
+
+  @override
+  String get aiScenariosHarder => '更难 — 挑战';
+
+  @override
+  String get aiRoleplayStillStarting => '情境仍在启动 — 稍后再试。';
+
+  @override
+  String get aiRoleplayCouldNotGrade => '这次无法评分 — 下次再试。';
+
+  @override
+  String get aiConversationHistoryCompleted => '已完成';
+
+  @override
+  String get aiConversationHistoryInProgress => '进行中';
+
+  @override
+  String get aiConversationMessageHint => '输入消息...';
+
+  @override
+  String get aiConversationTopicSpeak => '我说';
+
+  @override
+  String get aiConversationTopicPractice => '练习';
+
+  @override
+  String get aiToolsVipBadge => 'VIP';
+
+  @override
+  String aiGrammarSectionIssues(int count) {
+    return '发现的问题 ($count)';
+  }
+
+  @override
+  String aiLessonBuilderSaved(String title) {
+    return '课程 "$title" 已保存！';
+  }
+
+  @override
+  String aiTranslationCouldNotSave(String error) {
+    return '无法保存: $error';
+  }
+
+  @override
+  String aiTutorCouldNotLoad(String error) {
+    return '无法加载导师: $error';
+  }
+
+  @override
+  String aiTutorPlanUnavailable(String error) {
+    return '计划不可用: $error';
+  }
+
+  @override
+  String aiScenariosCouldNotLoad(String error) {
+    return '无法加载情境: $error';
+  }
+
+  @override
+  String aiScenariosCouldNotStart(String error) {
+    return '无法开始: $error';
+  }
+
+  @override
+  String aiScenariosForYourLevel(String level) {
+    return '适合你的等级 ($level)';
+  }
+
+  @override
+  String aiRoleplaySendFailed(String error) {
+    return '发送失败: $error';
+  }
+
+  @override
+  String aiToolsVipUpgradeDescription(String feature) {
+    return '升级到 VIP 解锁 $feature！';
+  }
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).

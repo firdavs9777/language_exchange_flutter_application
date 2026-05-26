@@ -171,7 +171,7 @@
   "errorLoadingSettings": "설정 로드 중 오류",
   "unblockUser": "차단 해제",
   "unblock": "차단 해제",
-  "goBack": "돌아가기",
+  "goBack": "뒤로",
   "messageSendTimeout": "메시지 전송 시간 초과. 연결을 확인하세요.",
   "failedToSendMessage": "메시지 전송 실패",
   "dailyMessageLimitExceeded": "일일 메시지 한도 초과. 무제한 메시지를 위해 VIP로 업그레이드하세요.",
@@ -2073,5 +2073,130 @@
   },
   "@aiTutorChipPronounce": {
     "description": "Label for the 5th tutor mode chip — opens the Pronunciation Coach drill"
+  },
+  "submit": "제출",
+  "exit": "종료",
+  "previous": "이전",
+  "aiDailyPracticeTitle": "매일 연습",
+  "aiDailyPracticeTranslateThis": "이것을 번역하세요:",
+  "aiDailyPracticeSuggested": "제안:",
+  "aiDailyPracticeHint": "당신의 번역",
+  "aiLanguagesLoading": "언어 로딩 중...",
+  "aiCopiedToClipboard": "클립보드에 복사됨",
+  "aiGrammarHint": "분석할 텍스트 입력...",
+  "aiGrammarSectionOriginal": "원문",
+  "aiGrammarSectionCorrected": "교정된 문장",
+  "aiGrammarSectionWell": "잘한 점",
+  "aiGrammarSectionSuggestions": "제안",
+  "aiGrammarSectionSummary": "요약",
+  "aiLessonBuilderLabelLanguage": "언어",
+  "aiLessonBuilderLabelLevel": "레벨",
+  "aiLessonBuilderTopicHint": "주제 입력 (예: \"음식과 식사\")",
+  "aiLessonBuilderBackToLessons": "레슨으로 돌아가기",
+  "aiTranslationHint": "번역할 텍스트 입력...",
+  "aiTranslationSavedToVocab": "단어장에 저장됨",
+  "aiQuizTitle": "퀴즈",
+  "aiQuizFailedToGenerate": "퀴즈 생성 실패",
+  "aiQuizSubmitTitle": "퀴즈를 제출하시겠어요?",
+  "aiQuizSubmitBody": "답안을 제출하시겠습니까?",
+  "aiQuizExitTitle": "퀴즈를 나가시겠어요?",
+  "aiQuizExitBody": "진행 상황이 사라집니다.",
+  "aiQuizAnswerHint": "답을 입력하세요...",
+  "aiQuizTranslationHint": "번역을 입력하세요...",
+  "aiPronunciationPlayingAudio": "오디오 재생 중...",
+  "aiPronunciationListenFirst": "먼저 듣기",
+  "aiPronunciationHint": "연습할 텍스트 입력...",
+  "aiTutorReplay": "다시 재생",
+  "aiScenariosTitle": "연습 시나리오",
+  "aiScenariosNoneAvailable": "아직 시나리오가 없습니다.",
+  "aiScenariosEasier": "쉬움 — 워밍업",
+  "aiScenariosHarder": "어려움 — 도전",
+  "aiRoleplayStillStarting": "시나리오를 시작 중입니다 — 잠시 후 다시 시도하세요.",
+  "aiRoleplayCouldNotGrade": "이번에는 채점할 수 없었어요 — 다음에 다시 시도하세요.",
+  "aiConversationHistoryCompleted": "완료",
+  "aiConversationHistoryInProgress": "진행 중",
+  "aiConversationMessageHint": "메시지 입력...",
+  "aiConversationTopicSpeak": "내 언어",
+  "aiConversationTopicPractice": "연습",
+  "aiToolsVipBadge": "VIP",
+  "aiGrammarSectionIssues": "발견된 문제 ({count})",
+  "aiLessonBuilderSaved": "레슨 \"{title}\"이(가) 저장되었습니다!",
+  "aiTranslationCouldNotSave": "저장할 수 없습니다: {error}",
+  "aiTutorCouldNotLoad": "튜터를 불러올 수 없습니다: {error}",
+  "aiTutorPlanUnavailable": "플랜을 사용할 수 없습니다: {error}",
+  "aiScenariosCouldNotLoad": "시나리오를 불러올 수 없습니다: {error}",
+  "aiScenariosCouldNotStart": "시작할 수 없습니다: {error}",
+  "aiScenariosForYourLevel": "내 레벨용 ({level})",
+  "aiRoleplaySendFailed": "전송 실패: {error}",
+  "aiToolsVipUpgradeDescription": "VIP로 업그레이드하여 {feature}을(를) 잠금 해제하세요!",
+  "@aiGrammarSectionIssues": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@aiLessonBuilderSaved": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiTranslationCouldNotSave": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiTutorCouldNotLoad": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiTutorPlanUnavailable": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiScenariosCouldNotLoad": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiScenariosCouldNotStart": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiScenariosForYourLevel": {
+    "placeholders": {
+      "level": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiRoleplaySendFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiToolsVipUpgradeDescription": {
+    "placeholders": {
+      "feature": {
+        "type": "String"
+      }
+    }
   }
 }

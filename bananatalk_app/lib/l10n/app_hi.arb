@@ -170,7 +170,7 @@
   "errorLoadingSettings": "सेटिंग्स लोड करने में त्रुटि",
   "unblockUser": "अनब्लॉक करें",
   "unblock": "अनब्लॉक",
-  "goBack": "वापस जाएं",
+  "goBack": "वापस जाएँ",
   "messageSendTimeout": "संदेश भेजने का समय समाप्त। कृपया कनेक्शन जांचें।",
   "failedToSendMessage": "संदेश भेजने में विफल",
   "dailyMessageLimitExceeded": "दैनिक संदेश सीमा पार। असीमित संदेशों के लिए VIP में अपग्रेड करें।",
@@ -2052,5 +2052,130 @@
   },
   "@aiTutorChipPronounce": {
     "description": "Label for the 5th tutor mode chip — opens the Pronunciation Coach drill"
+  },
+  "submit": "भेजें",
+  "exit": "बाहर निकलें",
+  "previous": "पिछला",
+  "aiDailyPracticeTitle": "रोज़ का अभ्यास",
+  "aiDailyPracticeTranslateThis": "इसका अनुवाद करें:",
+  "aiDailyPracticeSuggested": "सुझाया गया:",
+  "aiDailyPracticeHint": "आपका अनुवाद",
+  "aiLanguagesLoading": "भाषाएँ अभी लोड हो रही हैं...",
+  "aiCopiedToClipboard": "क्लिपबोर्ड पर कॉपी किया गया",
+  "aiGrammarHint": "विश्लेषण के लिए टेक्स्ट दर्ज करें...",
+  "aiGrammarSectionOriginal": "मूल टेक्स्ट",
+  "aiGrammarSectionCorrected": "सुधारा गया टेक्स्ट",
+  "aiGrammarSectionWell": "आपने अच्छा क्या किया",
+  "aiGrammarSectionSuggestions": "सुझाव",
+  "aiGrammarSectionSummary": "सारांश",
+  "aiLessonBuilderLabelLanguage": "भाषा",
+  "aiLessonBuilderLabelLevel": "स्तर",
+  "aiLessonBuilderTopicHint": "विषय दर्ज करें (जैसे, \"भोजन और रेस्तरां\")",
+  "aiLessonBuilderBackToLessons": "पाठों पर वापस जाएँ",
+  "aiTranslationHint": "अनुवाद के लिए टेक्स्ट दर्ज करें...",
+  "aiTranslationSavedToVocab": "आपकी शब्दावली सूची में सहेजा गया",
+  "aiQuizTitle": "क्विज़",
+  "aiQuizFailedToGenerate": "क्विज़ बनाने में विफल",
+  "aiQuizSubmitTitle": "क्विज़ सबमिट करें?",
+  "aiQuizSubmitBody": "क्या आप वाकई अपने उत्तर सबमिट करना चाहते हैं?",
+  "aiQuizExitTitle": "क्विज़ छोड़ें?",
+  "aiQuizExitBody": "आपकी प्रगति खो जाएगी।",
+  "aiQuizAnswerHint": "अपना उत्तर लिखें...",
+  "aiQuizTranslationHint": "अपना अनुवाद लिखें...",
+  "aiPronunciationPlayingAudio": "ऑडियो चल रहा है...",
+  "aiPronunciationListenFirst": "पहले सुनें",
+  "aiPronunciationHint": "अभ्यास के लिए टेक्स्ट दर्ज करें...",
+  "aiTutorReplay": "फिर से चलाएँ",
+  "aiScenariosTitle": "अभ्यास सीनैरियो",
+  "aiScenariosNoneAvailable": "अभी कोई सीनैरियो उपलब्ध नहीं।",
+  "aiScenariosEasier": "आसान — वार्म-अप",
+  "aiScenariosHarder": "कठिन — चुनौती",
+  "aiRoleplayStillStarting": "सीनैरियो अभी शुरू हो रहा है — एक पल में पुनः प्रयास करें।",
+  "aiRoleplayCouldNotGrade": "इस बार ग्रेड नहीं हो सका — अगली बार प्रयास करें।",
+  "aiConversationHistoryCompleted": "पूरा",
+  "aiConversationHistoryInProgress": "चल रहा",
+  "aiConversationMessageHint": "एक संदेश लिखें...",
+  "aiConversationTopicSpeak": "मैं बोलता हूँ",
+  "aiConversationTopicPractice": "अभ्यास",
+  "aiToolsVipBadge": "VIP",
+  "aiGrammarSectionIssues": "पाई गई समस्याएँ ({count})",
+  "aiLessonBuilderSaved": "पाठ \"{title}\" सहेजा गया!",
+  "aiTranslationCouldNotSave": "सहेज नहीं सका: {error}",
+  "aiTutorCouldNotLoad": "ट्यूटर लोड नहीं हो सका: {error}",
+  "aiTutorPlanUnavailable": "प्लान उपलब्ध नहीं: {error}",
+  "aiScenariosCouldNotLoad": "सीनैरियो लोड नहीं हो सके: {error}",
+  "aiScenariosCouldNotStart": "शुरू नहीं हो सका: {error}",
+  "aiScenariosForYourLevel": "आपके स्तर के लिए ({level})",
+  "aiRoleplaySendFailed": "भेजने में विफल: {error}",
+  "aiToolsVipUpgradeDescription": "{feature} अनलॉक करने के लिए VIP में अपग्रेड करें!",
+  "@aiGrammarSectionIssues": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@aiLessonBuilderSaved": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiTranslationCouldNotSave": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiTutorCouldNotLoad": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiTutorPlanUnavailable": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiScenariosCouldNotLoad": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiScenariosCouldNotStart": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiScenariosForYourLevel": {
+    "placeholders": {
+      "level": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiRoleplaySendFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiToolsVipUpgradeDescription": {
+    "placeholders": {
+      "feature": {
+        "type": "String"
+      }
+    }
   }
 }

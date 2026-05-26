@@ -5746,4 +5746,190 @@ class AppLocalizationsJa extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get submit => '送信';
+
+  @override
+  String get exit => '終了';
+
+  @override
+  String get previous => '前へ';
+
+
+  @override
+  String get aiDailyPracticeTitle => '毎日の練習';
+
+  @override
+  String get aiDailyPracticeTranslateThis => 'これを翻訳:';
+
+  @override
+  String get aiDailyPracticeSuggested => '提案:';
+
+  @override
+  String get aiDailyPracticeHint => 'あなたの翻訳';
+
+  @override
+  String get aiLanguagesLoading => '言語を読み込んでいます...';
+
+  @override
+  String get aiCopiedToClipboard => 'クリップボードにコピーしました';
+
+  @override
+  String get aiGrammarHint => '分析するテキストを入力...';
+
+  @override
+  String get aiGrammarSectionOriginal => '原文';
+
+  @override
+  String get aiGrammarSectionCorrected => '修正された文';
+
+  @override
+  String get aiGrammarSectionWell => 'うまくできたこと';
+
+  @override
+  String get aiGrammarSectionSuggestions => '提案';
+
+  @override
+  String get aiGrammarSectionSummary => 'まとめ';
+
+  @override
+  String get aiLessonBuilderLabelLanguage => '言語';
+
+  @override
+  String get aiLessonBuilderLabelLevel => 'レベル';
+
+  @override
+  String get aiLessonBuilderTopicHint => 'トピックを入力（例："食事とレストラン"）';
+
+  @override
+  String get aiLessonBuilderBackToLessons => 'レッスンに戻る';
+
+  @override
+  String get aiTranslationHint => '翻訳するテキストを入力...';
+
+  @override
+  String get aiTranslationSavedToVocab => '単語リストに保存しました';
+
+  @override
+  String get aiQuizTitle => 'クイズ';
+
+  @override
+  String get aiQuizFailedToGenerate => 'クイズの生成に失敗';
+
+  @override
+  String get aiQuizSubmitTitle => 'クイズを送信？';
+
+  @override
+  String get aiQuizSubmitBody => '回答を送信してよろしいですか？';
+
+  @override
+  String get aiQuizExitTitle => 'クイズを終了？';
+
+  @override
+  String get aiQuizExitBody => '進行状況は失われます。';
+
+  @override
+  String get aiQuizAnswerHint => '答えを入力...';
+
+  @override
+  String get aiQuizTranslationHint => '翻訳を入力...';
+
+  @override
+  String get aiPronunciationPlayingAudio => 'オーディオ再生中...';
+
+  @override
+  String get aiPronunciationListenFirst => 'まず聴く';
+
+  @override
+  String get aiPronunciationHint => '練習するテキストを入力...';
+
+  @override
+  String get aiTutorReplay => '再生';
+
+  @override
+  String get aiScenariosTitle => '練習シナリオ';
+
+  @override
+  String get aiScenariosNoneAvailable => 'まだシナリオはありません。';
+
+  @override
+  String get aiScenariosEasier => '易しい — ウォームアップ';
+
+  @override
+  String get aiScenariosHarder => '難しい — チャレンジ';
+
+  @override
+  String get aiRoleplayStillStarting => 'シナリオを準備中です — 少し待って再試行してください。';
+
+  @override
+  String get aiRoleplayCouldNotGrade => '今回は採点できませんでした — 次回再試行してください。';
+
+  @override
+  String get aiConversationHistoryCompleted => '完了';
+
+  @override
+  String get aiConversationHistoryInProgress => '進行中';
+
+  @override
+  String get aiConversationMessageHint => 'メッセージを入力...';
+
+  @override
+  String get aiConversationTopicSpeak => '話せる言語';
+
+  @override
+  String get aiConversationTopicPractice => '練習';
+
+  @override
+  String get aiToolsVipBadge => 'VIP';
+
+  @override
+  String aiGrammarSectionIssues(int count) {
+    return '見つかった問題 ($count)';
+  }
+
+  @override
+  String aiLessonBuilderSaved(String title) {
+    return 'レッスン "$title" を保存しました！';
+  }
+
+  @override
+  String aiTranslationCouldNotSave(String error) {
+    return '保存できませんでした: $error';
+  }
+
+  @override
+  String aiTutorCouldNotLoad(String error) {
+    return 'チューターを読み込めませんでした: $error';
+  }
+
+  @override
+  String aiTutorPlanUnavailable(String error) {
+    return 'プランが利用できません: $error';
+  }
+
+  @override
+  String aiScenariosCouldNotLoad(String error) {
+    return 'シナリオを読み込めませんでした: $error';
+  }
+
+  @override
+  String aiScenariosCouldNotStart(String error) {
+    return '開始できませんでした: $error';
+  }
+
+  @override
+  String aiScenariosForYourLevel(String level) {
+    return 'あなたのレベル向け ($level)';
+  }
+
+  @override
+  String aiRoleplaySendFailed(String error) {
+    return '送信に失敗: $error';
+  }
+
+  @override
+  String aiToolsVipUpgradeDescription(String feature) {
+    return 'VIPにアップグレードして $feature を解除！';
+  }
 }

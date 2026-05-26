@@ -2993,5 +2993,84 @@
   "@aiTutorQuotaRemaining": {
     "description": "Daily quota counter pill on tutor chip screens",
     "placeholders": { "count": {"type": "int"} }
-  }
+  },
+
+  "submit": "Submit",
+  "exit": "Exit",
+  "previous": "Previous",
+  "goBack": "Go Back",
+
+  "aiDailyPracticeTitle": "Daily Practice",
+  "aiDailyPracticeTranslateThis": "Translate this:",
+  "aiDailyPracticeSuggested": "Suggested:",
+  "aiDailyPracticeHint": "Your translation",
+
+  "aiLanguagesLoading": "Languages are still loading...",
+  "aiCopiedToClipboard": "Copied to clipboard",
+
+  "aiGrammarHint": "Enter text to analyze...",
+  "aiGrammarSectionOriginal": "Original Text",
+  "aiGrammarSectionCorrected": "Corrected Text",
+  "aiGrammarSectionIssues": "Issues Found ({count})",
+  "@aiGrammarSectionIssues": { "placeholders": { "count": { "type": "int" } } },
+  "aiGrammarSectionWell": "What You Did Well",
+  "aiGrammarSectionSuggestions": "Suggestions",
+  "aiGrammarSectionSummary": "Summary",
+
+  "aiLessonBuilderLabelLanguage": "Language",
+  "aiLessonBuilderLabelLevel": "Level",
+  "aiLessonBuilderTopicHint": "Enter a topic (e.g., \"Food and Dining\")",
+  "aiLessonBuilderSaved": "Lesson \"{title}\" saved!",
+  "@aiLessonBuilderSaved": { "placeholders": { "title": { "type": "String" } } },
+  "aiLessonBuilderBackToLessons": "Back to Lessons",
+
+  "aiTranslationHint": "Enter text to translate...",
+  "aiTranslationSavedToVocab": "Saved to your vocab list",
+  "aiTranslationCouldNotSave": "Could not save: {error}",
+  "@aiTranslationCouldNotSave": { "placeholders": { "error": { "type": "String" } } },
+
+  "aiQuizTitle": "Quiz",
+  "aiQuizFailedToGenerate": "Failed to generate quiz",
+  "aiQuizSubmitTitle": "Submit Quiz?",
+  "aiQuizSubmitBody": "Are you sure you want to submit your answers?",
+  "aiQuizExitTitle": "Exit Quiz?",
+  "aiQuizExitBody": "Your progress will be lost.",
+  "aiQuizAnswerHint": "Type your answer...",
+  "aiQuizTranslationHint": "Type your translation...",
+
+  "aiPronunciationPlayingAudio": "Playing audio...",
+  "aiPronunciationListenFirst": "Listen First",
+  "aiPronunciationHint": "Enter text to practice...",
+
+  "aiTutorCouldNotLoad": "Could not load tutor: {error}",
+  "@aiTutorCouldNotLoad": { "placeholders": { "error": { "type": "String" } } },
+  "aiTutorPlanUnavailable": "Plan unavailable: {error}",
+  "@aiTutorPlanUnavailable": { "placeholders": { "error": { "type": "String" } } },
+  "aiTutorReplay": "Replay",
+
+  "aiScenariosTitle": "Practice scenarios",
+  "aiScenariosCouldNotLoad": "Could not load scenarios: {error}",
+  "@aiScenariosCouldNotLoad": { "placeholders": { "error": { "type": "String" } } },
+  "aiScenariosNoneAvailable": "No scenarios available yet.",
+  "aiScenariosCouldNotStart": "Could not start: {error}",
+  "@aiScenariosCouldNotStart": { "placeholders": { "error": { "type": "String" } } },
+  "aiScenariosForYourLevel": "For your level ({level})",
+  "@aiScenariosForYourLevel": { "placeholders": { "level": { "type": "String" } } },
+  "aiScenariosEasier": "Easier — warm up",
+  "aiScenariosHarder": "Harder — stretch",
+
+  "aiRoleplayStillStarting": "Still starting the scenario — try again in a moment.",
+  "aiRoleplaySendFailed": "Send failed: {error}",
+  "@aiRoleplaySendFailed": { "placeholders": { "error": { "type": "String" } } },
+  "aiRoleplayCouldNotGrade": "Couldn't grade this one — try again next time.",
+
+  "aiConversationHistoryCompleted": "Completed",
+  "aiConversationHistoryInProgress": "In Progress",
+  "aiConversationMessageHint": "Type a message...",
+  "aiConversationTopicSpeak": "I speak",
+  "aiConversationTopicPractice": "Practice",
+
+  "aiToolsVipUpgradeDescription": "Upgrade to VIP to unlock {feature}!",
+  "@aiToolsVipUpgradeDescription": { "placeholders": { "feature": { "type": "String" } } },
+  "aiToolsVipBadge": "VIP"
 }

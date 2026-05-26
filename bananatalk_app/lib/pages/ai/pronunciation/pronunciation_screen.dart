@@ -11,6 +11,7 @@ import 'package:bananatalk_app/widgets/language_selection/language_picker_screen
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 /// Pronunciation Practice Screen
 class PronunciationScreen extends ConsumerStatefulWidget {
@@ -89,9 +90,9 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
   Future<void> _openLanguagePicker() async {
     if (_languages.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Languages are still loading...'),
-          backgroundColor: Color(0xFFF59E0B),
+        SnackBar(
+          content: Text(AppLocalizations.of(context)!.aiLanguagesLoading),
+          backgroundColor: const Color(0xFFF59E0B),
         ),
       );
       return;
@@ -267,7 +268,7 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
       // This would typically use audioplayers package
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Playing audio...')),
+          SnackBar(content: Text(AppLocalizations.of(context)!.aiPronunciationPlayingAudio)),
         );
       }
     } else {
@@ -439,7 +440,7 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
             controller: _textController,
             maxLines: 3,
             decoration: InputDecoration(
-              hintText: 'Enter text to practice...',
+              hintText: AppLocalizations.of(context)!.aiPronunciationHint,
               hintStyle: TextStyle(color: context.textMuted),
               filled: true,
               fillColor: context.containerColor,
@@ -502,7 +503,7 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
                           child: CircularProgressIndicator(strokeWidth: 2),
                         )
                       : const Icon(Icons.volume_up_rounded),
-                  label: const Text('Listen First'),
+                  label: Text(AppLocalizations.of(context)!.aiPronunciationListenFirst),
                   style: OutlinedButton.styleFrom(
                     foregroundColor: AppColors.warning,
                     side: const BorderSide(color: AppColors.warning),

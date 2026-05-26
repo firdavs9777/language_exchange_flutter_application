@@ -205,7 +205,7 @@
   "errorLoadingSettings": "Ayarlar yüklenirken hata",
   "unblockUser": "Kullanıcının Engelini Kaldır",
   "unblock": "Engeli Kaldır",
-  "goBack": "Geri Dön",
+  "goBack": "Geri",
   "messageSendTimeout": "Mesaj gönderme zaman aşımı. Lütfen bağlantınızı kontrol edin.",
   "failedToSendMessage": "Mesaj gönderilemedi",
   "dailyMessageLimitExceeded": "Günlük mesaj limiti aşıldı. Sınırsız mesaj için VIP'e yükseltin.",
@@ -2264,5 +2264,130 @@
   },
   "@aiTutorChipPronounce": {
     "description": "Label for the 5th tutor mode chip — opens the Pronunciation Coach drill"
+  },
+  "submit": "Gönder",
+  "exit": "Çık",
+  "previous": "Önceki",
+  "aiDailyPracticeTitle": "Günlük pratik",
+  "aiDailyPracticeTranslateThis": "Bunu çevir:",
+  "aiDailyPracticeSuggested": "Önerilen:",
+  "aiDailyPracticeHint": "Çevirin",
+  "aiLanguagesLoading": "Diller hâlâ yükleniyor...",
+  "aiCopiedToClipboard": "Panoya kopyalandı",
+  "aiGrammarHint": "Analiz için metin girin...",
+  "aiGrammarSectionOriginal": "Orijinal metin",
+  "aiGrammarSectionCorrected": "Düzeltilmiş metin",
+  "aiGrammarSectionWell": "İyi yaptıkların",
+  "aiGrammarSectionSuggestions": "Öneriler",
+  "aiGrammarSectionSummary": "Özet",
+  "aiLessonBuilderLabelLanguage": "Dil",
+  "aiLessonBuilderLabelLevel": "Seviye",
+  "aiLessonBuilderTopicHint": "Bir konu gir (örn. \"Yemek ve Restoranlar\")",
+  "aiLessonBuilderBackToLessons": "Derslere dön",
+  "aiTranslationHint": "Çevrilecek metin girin...",
+  "aiTranslationSavedToVocab": "Kelime listene kaydedildi",
+  "aiQuizTitle": "Test",
+  "aiQuizFailedToGenerate": "Test oluşturulamadı",
+  "aiQuizSubmitTitle": "Testi gönder?",
+  "aiQuizSubmitBody": "Cevaplarını göndermek istediğine emin misin?",
+  "aiQuizExitTitle": "Testten çık?",
+  "aiQuizExitBody": "İlerlemen kaybolacak.",
+  "aiQuizAnswerHint": "Cevabını yaz...",
+  "aiQuizTranslationHint": "Çevirini yaz...",
+  "aiPronunciationPlayingAudio": "Ses oynatılıyor...",
+  "aiPronunciationListenFirst": "Önce dinle",
+  "aiPronunciationHint": "Pratik için metin girin...",
+  "aiTutorReplay": "Tekrar oynat",
+  "aiScenariosTitle": "Pratik senaryoları",
+  "aiScenariosNoneAvailable": "Henüz senaryo yok.",
+  "aiScenariosEasier": "Daha kolay — ısınma",
+  "aiScenariosHarder": "Daha zor — zorluk",
+  "aiRoleplayStillStarting": "Senaryo hâlâ başlıyor — biraz sonra tekrar dene.",
+  "aiRoleplayCouldNotGrade": "Bu kez puanlanamadı — bir dahaki sefere dene.",
+  "aiConversationHistoryCompleted": "Tamamlandı",
+  "aiConversationHistoryInProgress": "Devam ediyor",
+  "aiConversationMessageHint": "Bir mesaj yaz...",
+  "aiConversationTopicSpeak": "Konuştuğum dil",
+  "aiConversationTopicPractice": "Pratik",
+  "aiToolsVipBadge": "VIP",
+  "aiGrammarSectionIssues": "Bulunan sorunlar ({count})",
+  "aiLessonBuilderSaved": "\"{title}\" dersi kaydedildi!",
+  "aiTranslationCouldNotSave": "Kaydedilemedi: {error}",
+  "aiTutorCouldNotLoad": "Öğretmen yüklenemedi: {error}",
+  "aiTutorPlanUnavailable": "Plan kullanılamıyor: {error}",
+  "aiScenariosCouldNotLoad": "Senaryolar yüklenemedi: {error}",
+  "aiScenariosCouldNotStart": "Başlatılamadı: {error}",
+  "aiScenariosForYourLevel": "Senin seviyen için ({level})",
+  "aiRoleplaySendFailed": "Gönderim başarısız: {error}",
+  "aiToolsVipUpgradeDescription": "{feature} açmak için VIP'e geç!",
+  "@aiGrammarSectionIssues": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@aiLessonBuilderSaved": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiTranslationCouldNotSave": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiTutorCouldNotLoad": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiTutorPlanUnavailable": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiScenariosCouldNotLoad": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiScenariosCouldNotStart": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiScenariosForYourLevel": {
+    "placeholders": {
+      "level": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiRoleplaySendFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiToolsVipUpgradeDescription": {
+    "placeholders": {
+      "feature": {
+        "type": "String"
+      }
+    }
   }
 }

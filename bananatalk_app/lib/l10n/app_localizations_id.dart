@@ -5753,4 +5753,190 @@ class AppLocalizationsId extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get submit => 'Kirim';
+
+  @override
+  String get exit => 'Keluar';
+
+  @override
+  String get previous => 'Sebelumnya';
+
+
+  @override
+  String get aiDailyPracticeTitle => 'Latihan harian';
+
+  @override
+  String get aiDailyPracticeTranslateThis => 'Terjemahkan ini:';
+
+  @override
+  String get aiDailyPracticeSuggested => 'Disarankan:';
+
+  @override
+  String get aiDailyPracticeHint => 'Terjemahanmu';
+
+  @override
+  String get aiLanguagesLoading => 'Bahasa masih dimuat...';
+
+  @override
+  String get aiCopiedToClipboard => 'Disalin ke papan klip';
+
+  @override
+  String get aiGrammarHint => 'Masukkan teks untuk dianalisis...';
+
+  @override
+  String get aiGrammarSectionOriginal => 'Teks asli';
+
+  @override
+  String get aiGrammarSectionCorrected => 'Teks yang dikoreksi';
+
+  @override
+  String get aiGrammarSectionWell => 'Yang sudah baik';
+
+  @override
+  String get aiGrammarSectionSuggestions => 'Saran';
+
+  @override
+  String get aiGrammarSectionSummary => 'Ringkasan';
+
+  @override
+  String get aiLessonBuilderLabelLanguage => 'Bahasa';
+
+  @override
+  String get aiLessonBuilderLabelLevel => 'Level';
+
+  @override
+  String get aiLessonBuilderTopicHint => 'Masukkan topik (misalnya "Makanan dan Restoran")';
+
+  @override
+  String get aiLessonBuilderBackToLessons => 'Kembali ke pelajaran';
+
+  @override
+  String get aiTranslationHint => 'Masukkan teks untuk diterjemahkan...';
+
+  @override
+  String get aiTranslationSavedToVocab => 'Disimpan ke daftar kosakatamu';
+
+  @override
+  String get aiQuizTitle => 'Kuis';
+
+  @override
+  String get aiQuizFailedToGenerate => 'Gagal membuat kuis';
+
+  @override
+  String get aiQuizSubmitTitle => 'Kirim kuis?';
+
+  @override
+  String get aiQuizSubmitBody => 'Yakin ingin mengirim jawabanmu?';
+
+  @override
+  String get aiQuizExitTitle => 'Keluar dari kuis?';
+
+  @override
+  String get aiQuizExitBody => 'Progresmu akan hilang.';
+
+  @override
+  String get aiQuizAnswerHint => 'Ketik jawabanmu...';
+
+  @override
+  String get aiQuizTranslationHint => 'Ketik terjemahanmu...';
+
+  @override
+  String get aiPronunciationPlayingAudio => 'Memutar audio...';
+
+  @override
+  String get aiPronunciationListenFirst => 'Dengarkan dulu';
+
+  @override
+  String get aiPronunciationHint => 'Masukkan teks untuk dilatih...';
+
+  @override
+  String get aiTutorReplay => 'Putar ulang';
+
+  @override
+  String get aiScenariosTitle => 'Skenario latihan';
+
+  @override
+  String get aiScenariosNoneAvailable => 'Belum ada skenario.';
+
+  @override
+  String get aiScenariosEasier => 'Lebih mudah — pemanasan';
+
+  @override
+  String get aiScenariosHarder => 'Lebih sulit — tantangan';
+
+  @override
+  String get aiRoleplayStillStarting => 'Skenario masih dimulai — coba lagi sebentar.';
+
+  @override
+  String get aiRoleplayCouldNotGrade => 'Tidak bisa menilai kali ini — coba lagi lain kali.';
+
+  @override
+  String get aiConversationHistoryCompleted => 'Selesai';
+
+  @override
+  String get aiConversationHistoryInProgress => 'Sedang berjalan';
+
+  @override
+  String get aiConversationMessageHint => 'Ketik pesan...';
+
+  @override
+  String get aiConversationTopicSpeak => 'Saya bicara';
+
+  @override
+  String get aiConversationTopicPractice => 'Latihan';
+
+  @override
+  String get aiToolsVipBadge => 'VIP';
+
+  @override
+  String aiGrammarSectionIssues(int count) {
+    return 'Masalah ditemukan ($count)';
+  }
+
+  @override
+  String aiLessonBuilderSaved(String title) {
+    return 'Pelajaran "$title" tersimpan!';
+  }
+
+  @override
+  String aiTranslationCouldNotSave(String error) {
+    return 'Tidak bisa menyimpan: $error';
+  }
+
+  @override
+  String aiTutorCouldNotLoad(String error) {
+    return 'Tidak bisa memuat tutor: $error';
+  }
+
+  @override
+  String aiTutorPlanUnavailable(String error) {
+    return 'Rencana tidak tersedia: $error';
+  }
+
+  @override
+  String aiScenariosCouldNotLoad(String error) {
+    return 'Tidak bisa memuat skenario: $error';
+  }
+
+  @override
+  String aiScenariosCouldNotStart(String error) {
+    return 'Tidak bisa memulai: $error';
+  }
+
+  @override
+  String aiScenariosForYourLevel(String level) {
+    return 'Untuk levelmu ($level)';
+  }
+
+  @override
+  String aiRoleplaySendFailed(String error) {
+    return 'Gagal mengirim: $error';
+  }
+
+  @override
+  String aiToolsVipUpgradeDescription(String feature) {
+    return 'Upgrade ke VIP untuk membuka $feature!';
+  }
 }

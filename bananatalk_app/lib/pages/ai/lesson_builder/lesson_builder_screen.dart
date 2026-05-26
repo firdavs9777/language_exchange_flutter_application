@@ -9,6 +9,7 @@ import 'package:bananatalk_app/pages/learning/lessons/lesson_player_screen.dart'
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 /// AI Lesson Builder Screen
 /// Generate custom lessons using AI
@@ -301,7 +302,7 @@ class _LessonBuilderScreenState extends ConsumerState<LessonBuilderScreen> {
           // Language Selection
           _buildDropdownRow(
             icon: Icons.language,
-            label: 'Language',
+            label: AppLocalizations.of(context)!.aiLessonBuilderLabelLanguage,
             value: _selectedLanguage,
             items: _languages.map((lang) => DropdownMenuItem(
               value: lang['code'],
@@ -316,7 +317,7 @@ class _LessonBuilderScreenState extends ConsumerState<LessonBuilderScreen> {
           // Level Selection
           _buildDropdownRow(
             icon: Icons.signal_cellular_alt,
-            label: 'Level',
+            label: AppLocalizations.of(context)!.aiLessonBuilderLabelLevel,
             value: _selectedLevel,
             items: _levels.map((level) => DropdownMenuItem(
               value: level,
@@ -484,7 +485,7 @@ class _LessonBuilderScreenState extends ConsumerState<LessonBuilderScreen> {
       child: TextFormField(
         controller: _topicController,
         decoration: InputDecoration(
-          hintText: 'Enter a topic (e.g., "Food and Dining")',
+          hintText: AppLocalizations.of(context)!.aiLessonBuilderTopicHint,
           hintStyle: TextStyle(color: context.textMuted),
           prefixIcon: Icon(Icons.topic, color: context.textMuted),
           border: OutlineInputBorder(
@@ -633,7 +634,7 @@ class _LessonBuilderScreenState extends ConsumerState<LessonBuilderScreen> {
           ),
           TextButton(
             onPressed: _generateLesson,
-            child: const Text('Retry'),
+            child: Text(AppLocalizations.of(context)!.retry),
           ),
         ],
       ),
@@ -787,7 +788,7 @@ class _LessonBuilderScreenState extends ConsumerState<LessonBuilderScreen> {
                         const Icon(Icons.check_circle, color: Colors.white, size: 20),
                         const SizedBox(width: 12),
                         Expanded(
-                          child: Text('Lesson "${lesson.title}" saved!'),
+                          child: Text(AppLocalizations.of(context)!.aiLessonBuilderSaved(lesson.title)),
                         ),
                       ],
                     ),
@@ -802,7 +803,7 @@ class _LessonBuilderScreenState extends ConsumerState<LessonBuilderScreen> {
                 Navigator.pop(context);
               },
               icon: const Icon(Icons.arrow_back, size: 18),
-              label: const Text('Back to Lessons'),
+              label: Text(AppLocalizations.of(context)!.aiLessonBuilderBackToLessons),
               style: TextButton.styleFrom(
                 foregroundColor: Colors.grey[700],
                 padding: const EdgeInsets.symmetric(vertical: 12),

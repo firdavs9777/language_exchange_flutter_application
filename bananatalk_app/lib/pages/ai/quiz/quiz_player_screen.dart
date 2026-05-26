@@ -4,6 +4,7 @@ import 'package:bananatalk_app/providers/provider_root/ai_providers.dart';
 import 'package:bananatalk_app/models/ai/ai_quiz_model.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 /// Quiz Player Screen - Interactive quiz taking experience
 class QuizPlayerScreen extends ConsumerStatefulWidget {
@@ -39,19 +40,19 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Submit Quiz?'),
-        content: const Text('Are you sure you want to submit your answers?'),
+        title: Text(AppLocalizations.of(context)!.aiQuizSubmitTitle),
+        content: Text(AppLocalizations.of(context)!.aiQuizSubmitBody),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const Text('Cancel'),
+            child: Text(AppLocalizations.of(context)!.cancel),
           ),
           ElevatedButton(
             onPressed: () => Navigator.pop(context, true),
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xFFEF4444),
             ),
-            child: const Text('Submit'),
+            child: Text(AppLocalizations.of(context)!.submit),
           ),
         ],
       ),
@@ -184,7 +185,7 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
                   borderRadius: BorderRadius.circular(12),
                 ),
               ),
-              child: const Text('Done'),
+              child: Text(AppLocalizations.of(context)!.done),
             ),
           ),
         ],
@@ -224,7 +225,7 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
     if (quiz == null) {
       return Scaffold(
         appBar: AppBar(
-          title: const Text('Quiz'),
+          title: Text(AppLocalizations.of(context)!.aiQuizTitle),
         ),
         body: const Center(
           child: CircularProgressIndicator(),
@@ -236,7 +237,7 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
     if (quiz.questions.isEmpty) {
       return Scaffold(
         appBar: AppBar(
-          title: const Text('Quiz'),
+          title: Text(AppLocalizations.of(context)!.aiQuizTitle),
           leading: IconButton(
             icon: const Icon(Icons.close),
             onPressed: () {
@@ -280,7 +281,7 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFFEF4444),
                 ),
-                child: const Text('Go Back'),
+                child: Text(AppLocalizations.of(context)!.goBack),
               ),
             ],
           ),
@@ -293,19 +294,19 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
         final confirmed = await showDialog<bool>(
           context: context,
           builder: (context) => AlertDialog(
-            title: const Text('Exit Quiz?'),
-            content: const Text('Your progress will be lost.'),
+            title: Text(AppLocalizations.of(context)!.aiQuizExitTitle),
+            content: Text(AppLocalizations.of(context)!.aiQuizExitBody),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context, false),
-                child: const Text('Cancel'),
+                child: Text(AppLocalizations.of(context)!.cancel),
               ),
               ElevatedButton(
                 onPressed: () => Navigator.pop(context, true),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.error,
                 ),
-                child: const Text('Exit'),
+                child: Text(AppLocalizations.of(context)!.exit),
               ),
             ],
           ),
@@ -326,19 +327,19 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
               final confirmed = await showDialog<bool>(
                 context: context,
                 builder: (context) => AlertDialog(
-                  title: const Text('Exit Quiz?'),
-                  content: const Text('Your progress will be lost.'),
+                  title: Text(AppLocalizations.of(context)!.aiQuizExitTitle),
+                  content: Text(AppLocalizations.of(context)!.aiQuizExitBody),
                   actions: [
                     TextButton(
                       onPressed: () => Navigator.pop(context, false),
-                      child: const Text('Cancel'),
+                      child: Text(AppLocalizations.of(context)!.cancel),
                     ),
                     ElevatedButton(
                       onPressed: () => Navigator.pop(context, true),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.error,
                       ),
-                      child: const Text('Exit'),
+                      child: Text(AppLocalizations.of(context)!.exit),
                     ),
                   ],
                 ),
@@ -577,7 +578,7 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
             );
           },
           decoration: InputDecoration(
-            hintText: 'Type your answer...',
+            hintText: AppLocalizations.of(context)!.aiQuizAnswerHint,
             hintStyle: TextStyle(color: context.textMuted),
             filled: true,
             fillColor: context.cardBackground,
@@ -668,7 +669,7 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
             );
           },
           decoration: InputDecoration(
-            hintText: 'Type your translation...',
+            hintText: AppLocalizations.of(context)!.aiQuizTranslationHint,
             hintStyle: TextStyle(color: context.textMuted),
             filled: true,
             fillColor: context.cardBackground,
@@ -720,7 +721,7 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
                     borderRadius: AppRadius.borderMD,
                   ),
                 ),
-                child: const Text('Previous'),
+                child: Text(AppLocalizations.of(context)!.previous),
               ),
             )
           else

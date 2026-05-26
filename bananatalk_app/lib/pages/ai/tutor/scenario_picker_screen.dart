@@ -9,6 +9,7 @@ import 'package:bananatalk_app/pages/ai/tutor/roleplay_chat_screen.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/services/analytics_service.dart';
 import 'package:bananatalk_app/widgets/tutor/tutor_quota_indicator.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 const _levelOrder = ['A1', 'A2', 'B1', 'B2', 'C1'];
 
@@ -31,7 +32,7 @@ class ScenarioPickerScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Practice scenarios'),
+        title: Text(AppLocalizations.of(context)!.aiScenariosTitle),
         actions: const [
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 12),
@@ -41,10 +42,10 @@ class ScenarioPickerScreen extends ConsumerWidget {
       ),
       body: scenariosAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (e, _) => Center(child: Text('Could not load scenarios: $e')),
+        error: (e, _) => Center(child: Text(AppLocalizations.of(context)!.aiScenariosCouldNotLoad(e.toString()))),
         data: (resp) {
           if (resp.scenarios.isEmpty) {
-            return const Center(child: Text('No scenarios available yet.'));
+            return Center(child: Text(AppLocalizations.of(context)!.aiScenariosNoneAvailable));
           }
           return _GroupedScenarioList(response: resp);
         },
@@ -85,11 +86,11 @@ class _GroupedScenarioList extends StatelessWidget {
 
     final sections = <_Section>[
       if (forYou.isNotEmpty)
-        _Section(title: 'For your level ($userLevel)', items: forYou),
+        _Section(title: AppLocalizations.of(context)!.aiScenariosForYourLevel(userLevel), items: forYou),
       if (easier.isNotEmpty)
-        _Section(title: 'Easier — warm up', items: easier),
+        _Section(title: AppLocalizations.of(context)!.aiScenariosEasier, items: easier),
       if (harder.isNotEmpty)
-        _Section(title: 'Harder — stretch', items: harder),
+        _Section(title: AppLocalizations.of(context)!.aiScenariosHarder, items: harder),
     ];
 
     return ListView(
@@ -230,7 +231,7 @@ class _ScenarioCardState extends ConsumerState<_ScenarioCard> {
     } catch (e) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Could not start: $e')),
+        SnackBar(content: Text(AppLocalizations.of(context)!.aiScenariosCouldNotStart(e.toString()))),
       );
     } finally {
       if (mounted) setState(() => _starting = false);

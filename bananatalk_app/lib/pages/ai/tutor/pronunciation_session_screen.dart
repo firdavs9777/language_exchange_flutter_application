@@ -94,7 +94,7 @@ class _PronunciationSessionScreenState
                 state.status == PronStatus.scored)
               IconButton(
                 icon: const Icon(Icons.volume_up_rounded),
-                tooltip: 'Replay',
+                tooltip: AppLocalizations.of(context)!.aiTutorReplay,
                 onPressed: ctrl.playReference,
               ),
           ],
@@ -134,7 +134,7 @@ class _PronunciationSessionScreenState
                 const SizedBox(height: 12),
                 OutlinedButton(
                   onPressed: ctrl.init,
-                  child: const Text('Retry'),
+                  child: Text(AppLocalizations.of(context)!.retry),
                 ),
               ],
             ],

@@ -44,7 +44,7 @@ class TutorHomeScreen extends ConsumerWidget {
       ),
       body: memoryAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (e, _) => Center(child: Text('Could not load tutor: $e')),
+        error: (e, _) => Center(child: Text(AppLocalizations.of(context)!.aiTutorCouldNotLoad(e.toString()))),
         data: (memory) {
           if (memory.persona == null) {
             // First-time user — bounce to picker.
@@ -153,7 +153,7 @@ class _PlanCard extends StatelessWidget {
           height: 80,
           child: Center(child: CircularProgressIndicator()),
         ),
-        error: (e, _) => Text('Plan unavailable: $e'),
+        error: (e, _) => Text(AppLocalizations.of(context)!.aiTutorPlanUnavailable(e.toString())),
         data: (plan) {
           if (plan == null || plan.tasks.isEmpty) {
             return Text(l10n.aiTutorHomePlanEmpty, style: context.bodyMedium);

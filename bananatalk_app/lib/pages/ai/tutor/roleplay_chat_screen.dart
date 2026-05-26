@@ -54,7 +54,7 @@ class _RoleplayChatScreenState extends ConsumerState<RoleplayChatScreen> {
         if (!mounted) return;
         setState(() => _starting = false);
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Could not start: $e')),
+          SnackBar(content: Text(AppLocalizations.of(context)!.aiScenariosCouldNotStart(e.toString()))),
         );
       }
     });
@@ -80,7 +80,7 @@ class _RoleplayChatScreenState extends ConsumerState<RoleplayChatScreen> {
       // Start hasn't finished yet — block send rather than silently
       // swallowing the user's text.
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Still starting the scenario — try again in a moment.')),
+        SnackBar(content: Text(AppLocalizations.of(context)!.aiRoleplayStillStarting)),
       );
       return;
     }
@@ -90,7 +90,7 @@ class _RoleplayChatScreenState extends ConsumerState<RoleplayChatScreen> {
     final err = ref.read(tutorChatControllerProvider).error;
     if (err != null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Send failed: $err')),
+        SnackBar(content: Text(AppLocalizations.of(context)!.aiRoleplaySendFailed(err.toString()))),
       );
     }
     _scrollToBottom();
@@ -399,7 +399,7 @@ class _ScoreSheet extends StatelessWidget {
             const SizedBox(height: 12),
             Text(score!.feedback, style: context.bodyMedium),
           ] else
-            Text("Couldn't grade this one — try again next time.",
+            Text(AppLocalizations.of(context)!.aiRoleplayCouldNotGrade,
                 style: context.bodyMedium),
           const SizedBox(height: 20),
           FilledButton(

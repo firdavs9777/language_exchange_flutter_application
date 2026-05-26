@@ -5746,4 +5746,190 @@ class AppLocalizationsKo extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get submit => '제출';
+
+  @override
+  String get exit => '종료';
+
+  @override
+  String get previous => '이전';
+
+
+  @override
+  String get aiDailyPracticeTitle => '매일 연습';
+
+  @override
+  String get aiDailyPracticeTranslateThis => '이것을 번역하세요:';
+
+  @override
+  String get aiDailyPracticeSuggested => '제안:';
+
+  @override
+  String get aiDailyPracticeHint => '당신의 번역';
+
+  @override
+  String get aiLanguagesLoading => '언어 로딩 중...';
+
+  @override
+  String get aiCopiedToClipboard => '클립보드에 복사됨';
+
+  @override
+  String get aiGrammarHint => '분석할 텍스트 입력...';
+
+  @override
+  String get aiGrammarSectionOriginal => '원문';
+
+  @override
+  String get aiGrammarSectionCorrected => '교정된 문장';
+
+  @override
+  String get aiGrammarSectionWell => '잘한 점';
+
+  @override
+  String get aiGrammarSectionSuggestions => '제안';
+
+  @override
+  String get aiGrammarSectionSummary => '요약';
+
+  @override
+  String get aiLessonBuilderLabelLanguage => '언어';
+
+  @override
+  String get aiLessonBuilderLabelLevel => '레벨';
+
+  @override
+  String get aiLessonBuilderTopicHint => '주제 입력 (예: "음식과 식사")';
+
+  @override
+  String get aiLessonBuilderBackToLessons => '레슨으로 돌아가기';
+
+  @override
+  String get aiTranslationHint => '번역할 텍스트 입력...';
+
+  @override
+  String get aiTranslationSavedToVocab => '단어장에 저장됨';
+
+  @override
+  String get aiQuizTitle => '퀴즈';
+
+  @override
+  String get aiQuizFailedToGenerate => '퀴즈 생성 실패';
+
+  @override
+  String get aiQuizSubmitTitle => '퀴즈를 제출하시겠어요?';
+
+  @override
+  String get aiQuizSubmitBody => '답안을 제출하시겠습니까?';
+
+  @override
+  String get aiQuizExitTitle => '퀴즈를 나가시겠어요?';
+
+  @override
+  String get aiQuizExitBody => '진행 상황이 사라집니다.';
+
+  @override
+  String get aiQuizAnswerHint => '답을 입력하세요...';
+
+  @override
+  String get aiQuizTranslationHint => '번역을 입력하세요...';
+
+  @override
+  String get aiPronunciationPlayingAudio => '오디오 재생 중...';
+
+  @override
+  String get aiPronunciationListenFirst => '먼저 듣기';
+
+  @override
+  String get aiPronunciationHint => '연습할 텍스트 입력...';
+
+  @override
+  String get aiTutorReplay => '다시 재생';
+
+  @override
+  String get aiScenariosTitle => '연습 시나리오';
+
+  @override
+  String get aiScenariosNoneAvailable => '아직 시나리오가 없습니다.';
+
+  @override
+  String get aiScenariosEasier => '쉬움 — 워밍업';
+
+  @override
+  String get aiScenariosHarder => '어려움 — 도전';
+
+  @override
+  String get aiRoleplayStillStarting => '시나리오를 시작 중입니다 — 잠시 후 다시 시도하세요.';
+
+  @override
+  String get aiRoleplayCouldNotGrade => '이번에는 채점할 수 없었어요 — 다음에 다시 시도하세요.';
+
+  @override
+  String get aiConversationHistoryCompleted => '완료';
+
+  @override
+  String get aiConversationHistoryInProgress => '진행 중';
+
+  @override
+  String get aiConversationMessageHint => '메시지 입력...';
+
+  @override
+  String get aiConversationTopicSpeak => '내 언어';
+
+  @override
+  String get aiConversationTopicPractice => '연습';
+
+  @override
+  String get aiToolsVipBadge => 'VIP';
+
+  @override
+  String aiGrammarSectionIssues(int count) {
+    return '발견된 문제 ($count)';
+  }
+
+  @override
+  String aiLessonBuilderSaved(String title) {
+    return '레슨 "$title"이(가) 저장되었습니다!';
+  }
+
+  @override
+  String aiTranslationCouldNotSave(String error) {
+    return '저장할 수 없습니다: $error';
+  }
+
+  @override
+  String aiTutorCouldNotLoad(String error) {
+    return '튜터를 불러올 수 없습니다: $error';
+  }
+
+  @override
+  String aiTutorPlanUnavailable(String error) {
+    return '플랜을 사용할 수 없습니다: $error';
+  }
+
+  @override
+  String aiScenariosCouldNotLoad(String error) {
+    return '시나리오를 불러올 수 없습니다: $error';
+  }
+
+  @override
+  String aiScenariosCouldNotStart(String error) {
+    return '시작할 수 없습니다: $error';
+  }
+
+  @override
+  String aiScenariosForYourLevel(String level) {
+    return '내 레벨용 ($level)';
+  }
+
+  @override
+  String aiRoleplaySendFailed(String error) {
+    return '전송 실패: $error';
+  }
+
+  @override
+  String aiToolsVipUpgradeDescription(String feature) {
+    return 'VIP로 업그레이드하여 $feature을(를) 잠금 해제하세요!';
+  }
 }

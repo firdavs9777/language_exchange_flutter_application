@@ -10,6 +10,7 @@ import 'package:bananatalk_app/widgets/language_selection/language_picker_screen
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 /// Bottom sheet for selecting conversation topic
 class TopicSelectionSheet extends ConsumerStatefulWidget {
@@ -366,7 +367,7 @@ class _TopicSelectionSheetState extends ConsumerState<TopicSelectionSheet> {
               // Native Language
               Expanded(
                 child: _buildLanguageButton(
-                  label: 'I speak',
+                  label: AppLocalizations.of(context)!.aiConversationTopicSpeak,
                   language: _nativeLanguage,
                   onTap: () => _openLanguagePicker(isTarget: false),
                 ),
@@ -378,7 +379,7 @@ class _TopicSelectionSheetState extends ConsumerState<TopicSelectionSheet> {
               // Target Language
               Expanded(
                 child: _buildLanguageButton(
-                  label: 'Practice',
+                  label: AppLocalizations.of(context)!.aiConversationTopicPractice,
                   language: _targetLanguage,
                   onTap: () => _openLanguagePicker(isTarget: true),
                   isPrimary: true,

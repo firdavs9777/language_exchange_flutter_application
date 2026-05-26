@@ -5760,4 +5760,190 @@ class AppLocalizationsTg extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get submit => 'Фиристодан';
+
+  @override
+  String get exit => 'Баромад';
+
+  @override
+  String get previous => 'Қаблӣ';
+
+
+  @override
+  String get aiDailyPracticeTitle => 'Машқи ҳаррӯза';
+
+  @override
+  String get aiDailyPracticeTranslateThis => 'Инро тарҷума кунед:';
+
+  @override
+  String get aiDailyPracticeSuggested => 'Пешниҳод:';
+
+  @override
+  String get aiDailyPracticeHint => 'Тарҷумаи шумо';
+
+  @override
+  String get aiLanguagesLoading => 'Забонҳо ҳоло бор мешаванд...';
+
+  @override
+  String get aiCopiedToClipboard => 'Ба клипборд нусхабардорӣ шуд';
+
+  @override
+  String get aiGrammarHint => 'Матнро барои таҳлил ворид кунед...';
+
+  @override
+  String get aiGrammarSectionOriginal => 'Матни аслӣ';
+
+  @override
+  String get aiGrammarSectionCorrected => 'Матни ислоҳшуда';
+
+  @override
+  String get aiGrammarSectionWell => 'Он чи хуб карданд';
+
+  @override
+  String get aiGrammarSectionSuggestions => 'Пешниҳодҳо';
+
+  @override
+  String get aiGrammarSectionSummary => 'Хулоса';
+
+  @override
+  String get aiLessonBuilderLabelLanguage => 'Забон';
+
+  @override
+  String get aiLessonBuilderLabelLevel => 'Сатҳ';
+
+  @override
+  String get aiLessonBuilderTopicHint => 'Мавзӯъро ворид кунед (мисол "Хӯрок ва тарабхона")';
+
+  @override
+  String get aiLessonBuilderBackToLessons => 'Бозгашт ба дарсҳо';
+
+  @override
+  String get aiTranslationHint => 'Матнро барои тарҷума ворид кунед...';
+
+  @override
+  String get aiTranslationSavedToVocab => 'Ба рӯйхати луғати шумо сабт шуд';
+
+  @override
+  String get aiQuizTitle => 'Викторина';
+
+  @override
+  String get aiQuizFailedToGenerate => 'Эҷоди викторина бо хато';
+
+  @override
+  String get aiQuizSubmitTitle => 'Викторинаро фиристед?';
+
+  @override
+  String get aiQuizSubmitBody => 'Мутмаин ҳастед, ки ҷавобҳоро мефиристед?';
+
+  @override
+  String get aiQuizExitTitle => 'Аз викторина бароед?';
+
+  @override
+  String get aiQuizExitBody => 'Пешрафти шумо гум мешавад.';
+
+  @override
+  String get aiQuizAnswerHint => 'Ҷавоби худро нависед...';
+
+  @override
+  String get aiQuizTranslationHint => 'Тарҷумаи худро нависед...';
+
+  @override
+  String get aiPronunciationPlayingAudio => 'Аудио иҷро мешавад...';
+
+  @override
+  String get aiPronunciationListenFirst => 'Аввал гӯш кунед';
+
+  @override
+  String get aiPronunciationHint => 'Матнро барои машқ ворид кунед...';
+
+  @override
+  String get aiTutorReplay => 'Такрор';
+
+  @override
+  String get aiScenariosTitle => 'Сенарияҳои машқ';
+
+  @override
+  String get aiScenariosNoneAvailable => 'Ҳанӯз сенария нест.';
+
+  @override
+  String get aiScenariosEasier => 'Осонтар — гармкунӣ';
+
+  @override
+  String get aiScenariosHarder => 'Душвортар — мушкилот';
+
+  @override
+  String get aiRoleplayStillStarting => 'Сенария ҳоло оғоз меёбад — баъд аз як лаҳза боз кӯшиш кунед.';
+
+  @override
+  String get aiRoleplayCouldNotGrade => 'Дар ин бор баҳогузорӣ нашуд — дафъаи дигар кӯшиш кунед.';
+
+  @override
+  String get aiConversationHistoryCompleted => 'Анҷомёфта';
+
+  @override
+  String get aiConversationHistoryInProgress => 'Дар ҷараён';
+
+  @override
+  String get aiConversationMessageHint => 'Паём нависед...';
+
+  @override
+  String get aiConversationTopicSpeak => 'Ман гап мезанам';
+
+  @override
+  String get aiConversationTopicPractice => 'Машқ';
+
+  @override
+  String get aiToolsVipBadge => 'VIP';
+
+  @override
+  String aiGrammarSectionIssues(int count) {
+    return 'Масоили ёфтшуда ($count)';
+  }
+
+  @override
+  String aiLessonBuilderSaved(String title) {
+    return 'Дарси "$title" сабт шуд!';
+  }
+
+  @override
+  String aiTranslationCouldNotSave(String error) {
+    return 'Сабт нашуд: $error';
+  }
+
+  @override
+  String aiTutorCouldNotLoad(String error) {
+    return 'Муаллимро бор кардан натавонист: $error';
+  }
+
+  @override
+  String aiTutorPlanUnavailable(String error) {
+    return 'Нақша дастрас нест: $error';
+  }
+
+  @override
+  String aiScenariosCouldNotLoad(String error) {
+    return 'Сенарияҳоро бор кардан натавонист: $error';
+  }
+
+  @override
+  String aiScenariosCouldNotStart(String error) {
+    return 'Оғоз карда натавонист: $error';
+  }
+
+  @override
+  String aiScenariosForYourLevel(String level) {
+    return 'Барои сатҳи шумо ($level)';
+  }
+
+  @override
+  String aiRoleplaySendFailed(String error) {
+    return 'Фиристодан нашуд: $error';
+  }
+
+  @override
+  String aiToolsVipUpgradeDescription(String feature) {
+    return 'Барои кушодани $feature ба VIP гузаред!';
+  }
 }

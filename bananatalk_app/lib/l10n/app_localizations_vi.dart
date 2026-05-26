@@ -5746,4 +5746,190 @@ class AppLocalizationsVi extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get submit => 'Gửi';
+
+  @override
+  String get exit => 'Thoát';
+
+  @override
+  String get previous => 'Trước';
+
+
+  @override
+  String get aiDailyPracticeTitle => 'Luyện tập hằng ngày';
+
+  @override
+  String get aiDailyPracticeTranslateThis => 'Dịch câu này:';
+
+  @override
+  String get aiDailyPracticeSuggested => 'Gợi ý:';
+
+  @override
+  String get aiDailyPracticeHint => 'Bản dịch của bạn';
+
+  @override
+  String get aiLanguagesLoading => 'Đang tải các ngôn ngữ...';
+
+  @override
+  String get aiCopiedToClipboard => 'Đã sao chép vào bộ nhớ tạm';
+
+  @override
+  String get aiGrammarHint => 'Nhập văn bản để phân tích...';
+
+  @override
+  String get aiGrammarSectionOriginal => 'Văn bản gốc';
+
+  @override
+  String get aiGrammarSectionCorrected => 'Văn bản đã sửa';
+
+  @override
+  String get aiGrammarSectionWell => 'Điều bạn làm tốt';
+
+  @override
+  String get aiGrammarSectionSuggestions => 'Gợi ý';
+
+  @override
+  String get aiGrammarSectionSummary => 'Tóm tắt';
+
+  @override
+  String get aiLessonBuilderLabelLanguage => 'Ngôn ngữ';
+
+  @override
+  String get aiLessonBuilderLabelLevel => 'Cấp độ';
+
+  @override
+  String get aiLessonBuilderTopicHint => 'Nhập chủ đề (ví dụ: "Đồ ăn và nhà hàng")';
+
+  @override
+  String get aiLessonBuilderBackToLessons => 'Quay lại bài học';
+
+  @override
+  String get aiTranslationHint => 'Nhập văn bản để dịch...';
+
+  @override
+  String get aiTranslationSavedToVocab => 'Đã lưu vào danh sách từ vựng';
+
+  @override
+  String get aiQuizTitle => 'Câu đố';
+
+  @override
+  String get aiQuizFailedToGenerate => 'Không tạo được câu đố';
+
+  @override
+  String get aiQuizSubmitTitle => 'Nộp bài?';
+
+  @override
+  String get aiQuizSubmitBody => 'Bạn có chắc muốn nộp đáp án?';
+
+  @override
+  String get aiQuizExitTitle => 'Thoát khỏi câu đố?';
+
+  @override
+  String get aiQuizExitBody => 'Tiến trình sẽ bị mất.';
+
+  @override
+  String get aiQuizAnswerHint => 'Nhập câu trả lời...';
+
+  @override
+  String get aiQuizTranslationHint => 'Nhập bản dịch...';
+
+  @override
+  String get aiPronunciationPlayingAudio => 'Đang phát âm thanh...';
+
+  @override
+  String get aiPronunciationListenFirst => 'Nghe trước';
+
+  @override
+  String get aiPronunciationHint => 'Nhập văn bản để luyện tập...';
+
+  @override
+  String get aiTutorReplay => 'Phát lại';
+
+  @override
+  String get aiScenariosTitle => 'Kịch bản luyện tập';
+
+  @override
+  String get aiScenariosNoneAvailable => 'Chưa có kịch bản nào.';
+
+  @override
+  String get aiScenariosEasier => 'Dễ hơn — khởi động';
+
+  @override
+  String get aiScenariosHarder => 'Khó hơn — thử thách';
+
+  @override
+  String get aiRoleplayStillStarting => 'Kịch bản vẫn đang khởi động — thử lại trong giây lát.';
+
+  @override
+  String get aiRoleplayCouldNotGrade => 'Không chấm điểm được lần này — thử lại lần sau.';
+
+  @override
+  String get aiConversationHistoryCompleted => 'Hoàn tất';
+
+  @override
+  String get aiConversationHistoryInProgress => 'Đang tiến hành';
+
+  @override
+  String get aiConversationMessageHint => 'Nhập tin nhắn...';
+
+  @override
+  String get aiConversationTopicSpeak => 'Tôi nói';
+
+  @override
+  String get aiConversationTopicPractice => 'Luyện tập';
+
+  @override
+  String get aiToolsVipBadge => 'VIP';
+
+  @override
+  String aiGrammarSectionIssues(int count) {
+    return 'Vấn đề tìm thấy ($count)';
+  }
+
+  @override
+  String aiLessonBuilderSaved(String title) {
+    return 'Đã lưu bài học "$title"!';
+  }
+
+  @override
+  String aiTranslationCouldNotSave(String error) {
+    return 'Không lưu được: $error';
+  }
+
+  @override
+  String aiTutorCouldNotLoad(String error) {
+    return 'Không tải được gia sư: $error';
+  }
+
+  @override
+  String aiTutorPlanUnavailable(String error) {
+    return 'Kế hoạch không khả dụng: $error';
+  }
+
+  @override
+  String aiScenariosCouldNotLoad(String error) {
+    return 'Không tải được kịch bản: $error';
+  }
+
+  @override
+  String aiScenariosCouldNotStart(String error) {
+    return 'Không bắt đầu được: $error';
+  }
+
+  @override
+  String aiScenariosForYourLevel(String level) {
+    return 'Cho cấp độ của bạn ($level)';
+  }
+
+  @override
+  String aiRoleplaySendFailed(String error) {
+    return 'Gửi thất bại: $error';
+  }
+
+  @override
+  String aiToolsVipUpgradeDescription(String feature) {
+    return 'Nâng cấp VIP để mở khóa $feature!';
+  }
 }

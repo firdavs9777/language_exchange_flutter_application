@@ -189,12 +189,12 @@ class AIToolsTab extends ConsumerWidget {
                           gradient: const LinearGradient(colors: [Color(0xFFFFD700), Color(0xFFFFA500)]),
                           borderRadius: BorderRadius.circular(6),
                         ),
-                        child: const Row(
+                        child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Icon(Icons.workspace_premium, size: 10, color: Colors.white),
-                            SizedBox(width: 2),
-                            Text('VIP', style: TextStyle(color: Colors.white, fontSize: 9, fontWeight: FontWeight.bold)),
+                            const Icon(Icons.workspace_premium, size: 10, color: Colors.white),
+                            const SizedBox(width: 2),
+                            Text(AppLocalizations.of(context)!.aiToolsVipBadge, style: const TextStyle(color: Colors.white, fontSize: 9, fontWeight: FontWeight.bold)),
                           ],
                         ),
                       ),
@@ -219,7 +219,7 @@ class AIToolsTab extends ConsumerWidget {
           return VipLockedFeature(
             isVip: isVip,
             featureName: f.title,
-            description: 'Upgrade to VIP to unlock ${f.title}!',
+            description: AppLocalizations.of(context)!.aiToolsVipUpgradeDescription(f.title),
             borderRadius: BorderRadius.circular(18),
             showLabel: false,
             child: card,

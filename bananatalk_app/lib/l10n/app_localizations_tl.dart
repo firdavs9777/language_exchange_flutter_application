@@ -5753,4 +5753,190 @@ class AppLocalizationsTl extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get submit => 'Ipasa';
+
+  @override
+  String get exit => 'Lumabas';
+
+  @override
+  String get previous => 'Nakaraan';
+
+
+  @override
+  String get aiDailyPracticeTitle => 'Araw-araw na pagsasanay';
+
+  @override
+  String get aiDailyPracticeTranslateThis => 'Isalin ito:';
+
+  @override
+  String get aiDailyPracticeSuggested => 'Iminumungkahi:';
+
+  @override
+  String get aiDailyPracticeHint => 'Iyong salin';
+
+  @override
+  String get aiLanguagesLoading => 'Naglo-load pa ang mga wika...';
+
+  @override
+  String get aiCopiedToClipboard => 'Nakopya sa clipboard';
+
+  @override
+  String get aiGrammarHint => 'Maglagay ng teksto para suriin...';
+
+  @override
+  String get aiGrammarSectionOriginal => 'Orihinal na teksto';
+
+  @override
+  String get aiGrammarSectionCorrected => 'Naitamang teksto';
+
+  @override
+  String get aiGrammarSectionWell => 'Ang ginawa mong tama';
+
+  @override
+  String get aiGrammarSectionSuggestions => 'Mga mungkahi';
+
+  @override
+  String get aiGrammarSectionSummary => 'Buod';
+
+  @override
+  String get aiLessonBuilderLabelLanguage => 'Wika';
+
+  @override
+  String get aiLessonBuilderLabelLevel => 'Antas';
+
+  @override
+  String get aiLessonBuilderTopicHint => 'Maglagay ng paksa (hal. "Pagkain at restawran")';
+
+  @override
+  String get aiLessonBuilderBackToLessons => 'Bumalik sa mga aralin';
+
+  @override
+  String get aiTranslationHint => 'Maglagay ng teksto para isalin...';
+
+  @override
+  String get aiTranslationSavedToVocab => 'Nai-save sa iyong listahan ng bokabularyo';
+
+  @override
+  String get aiQuizTitle => 'Pagsusulit';
+
+  @override
+  String get aiQuizFailedToGenerate => 'Hindi nagawa ang pagsusulit';
+
+  @override
+  String get aiQuizSubmitTitle => 'Ipasa ang pagsusulit?';
+
+  @override
+  String get aiQuizSubmitBody => 'Sigurado kang ipapasa ang iyong mga sagot?';
+
+  @override
+  String get aiQuizExitTitle => 'Lumabas sa pagsusulit?';
+
+  @override
+  String get aiQuizExitBody => 'Mawawala ang iyong progreso.';
+
+  @override
+  String get aiQuizAnswerHint => 'I-type ang iyong sagot...';
+
+  @override
+  String get aiQuizTranslationHint => 'I-type ang iyong salin...';
+
+  @override
+  String get aiPronunciationPlayingAudio => 'Nagpa-play ng audio...';
+
+  @override
+  String get aiPronunciationListenFirst => 'Makinig muna';
+
+  @override
+  String get aiPronunciationHint => 'Maglagay ng teksto para sanayin...';
+
+  @override
+  String get aiTutorReplay => 'I-replay';
+
+  @override
+  String get aiScenariosTitle => 'Mga scenario ng pagsasanay';
+
+  @override
+  String get aiScenariosNoneAvailable => 'Wala pang scenario.';
+
+  @override
+  String get aiScenariosEasier => 'Mas madali — pampainit';
+
+  @override
+  String get aiScenariosHarder => 'Mas mahirap — hamon';
+
+  @override
+  String get aiRoleplayStillStarting => 'Sinisimulan pa ang scenario — subukan ulit sa ilang sandali.';
+
+  @override
+  String get aiRoleplayCouldNotGrade => 'Hindi nagrate sa pagkakataong ito — subukan sa susunod.';
+
+  @override
+  String get aiConversationHistoryCompleted => 'Tapos na';
+
+  @override
+  String get aiConversationHistoryInProgress => 'Ginagawa';
+
+  @override
+  String get aiConversationMessageHint => 'Mag-type ng mensahe...';
+
+  @override
+  String get aiConversationTopicSpeak => 'Nagsasalita ako';
+
+  @override
+  String get aiConversationTopicPractice => 'Sanayin';
+
+  @override
+  String get aiToolsVipBadge => 'VIP';
+
+  @override
+  String aiGrammarSectionIssues(int count) {
+    return 'Mga isyung nakita ($count)';
+  }
+
+  @override
+  String aiLessonBuilderSaved(String title) {
+    return 'Na-save ang araling "$title"!';
+  }
+
+  @override
+  String aiTranslationCouldNotSave(String error) {
+    return 'Hindi na-save: $error';
+  }
+
+  @override
+  String aiTutorCouldNotLoad(String error) {
+    return 'Hindi nakuha ang tutor: $error';
+  }
+
+  @override
+  String aiTutorPlanUnavailable(String error) {
+    return 'Hindi available ang plan: $error';
+  }
+
+  @override
+  String aiScenariosCouldNotLoad(String error) {
+    return 'Hindi nakuha ang mga scenario: $error';
+  }
+
+  @override
+  String aiScenariosCouldNotStart(String error) {
+    return 'Hindi nagsimula: $error';
+  }
+
+  @override
+  String aiScenariosForYourLevel(String level) {
+    return 'Para sa antas mo ($level)';
+  }
+
+  @override
+  String aiRoleplaySendFailed(String error) {
+    return 'Bigong magpadala: $error';
+  }
+
+  @override
+  String aiToolsVipUpgradeDescription(String feature) {
+    return 'Mag-upgrade sa VIP para ma-unlock ang $feature!';
+  }
 }
