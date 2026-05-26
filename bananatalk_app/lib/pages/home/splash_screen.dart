@@ -209,36 +209,55 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
         child: SafeArea(
           child: Stack(
             children: [
-              // Centered logo + title + tagline
+              // Centered title + tagline (logo removed — typography-only)
               Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    // Subtle decorative accent: short colored bar above title
                     FadeTransition(
                       opacity: _logoFade,
                       child: ScaleTransition(
                         scale: _logoScale,
-                        child: _LogoBadge(isDark: isDark),
-                      ),
-                    ),
-                    const SizedBox(height: 28),
-                    SlideTransition(
-                      position: _titleSlide,
-                      child: FadeTransition(
-                        opacity: _titleFade,
-                        child: Text(
-                          l10n.appName,
-                          style: TextStyle(
-                            fontSize: 44,
-                            fontWeight: FontWeight.w800,
-                            color: titleColor,
-                            letterSpacing: -0.5,
-                            height: 1.0,
+                        alignment: Alignment.center,
+                        child: Container(
+                          width: 48,
+                          height: 4,
+                          decoration: BoxDecoration(
+                            gradient: const LinearGradient(
+                              colors: [Color(0xFF00BFA5), Color(0xFF00897B)],
+                            ),
+                            borderRadius: BorderRadius.circular(2),
                           ),
                         ),
                       ),
                     ),
-                    const SizedBox(height: 12),
+                    const SizedBox(height: 32),
+                    SlideTransition(
+                      position: _titleSlide,
+                      child: FadeTransition(
+                        opacity: _titleFade,
+                        child: ShaderMask(
+                          shaderCallback: (bounds) => const LinearGradient(
+                            colors: [Color(0xFF00BFA5), Color(0xFF00897B), Color(0xFF00695C)],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                          ).createShader(bounds),
+                          blendMode: BlendMode.srcIn,
+                          child: Text(
+                            l10n.appName,
+                            style: TextStyle(
+                              fontSize: 56,
+                              fontWeight: FontWeight.w900,
+                              color: titleColor, // overridden by ShaderMask but needed for ShaderMask source
+                              letterSpacing: -1.0,
+                              height: 1.0,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 14),
                     FadeTransition(
                       opacity: _taglineFade,
                       child: Text(
@@ -247,7 +266,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                           fontSize: 13,
                           fontWeight: FontWeight.w500,
                           color: taglineColor,
-                          letterSpacing: 1.4,
+                          letterSpacing: 1.6,
                         ),
                       ),
                     ),
@@ -268,37 +287,6 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-/// Circular logo badge with subtle outer glow.
-class _LogoBadge extends StatelessWidget {
-  final bool isDark;
-  const _LogoBadge({required this.isDark});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 132,
-      height: 132,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: isDark ? Colors.white.withValues(alpha: 0.08) : Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: const Color(0xFF00BFA5)
-                .withValues(alpha: isDark ? 0.35 : 0.25),
-            blurRadius: 40,
-            spreadRadius: 4,
-          ),
-        ],
-      ),
-      padding: const EdgeInsets.all(18),
-      child: Image.asset(
-        'assets/images/logo_no_background.png',
-        fit: BoxFit.contain,
       ),
     );
   }
