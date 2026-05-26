@@ -257,16 +257,16 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                         ),
                       ),
                     ),
-                    const SizedBox(height: 14),
+                    const SizedBox(height: 18),
                     FadeTransition(
                       opacity: _taglineFade,
                       child: Text(
                         l10n.splashTagline,
                         style: TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.w500,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
                           color: taglineColor,
-                          letterSpacing: 1.6,
+                          letterSpacing: 1.4,
                         ),
                       ),
                     ),
