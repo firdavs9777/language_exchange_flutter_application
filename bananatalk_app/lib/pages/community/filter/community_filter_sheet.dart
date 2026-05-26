@@ -163,8 +163,8 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
   }
 
   bool get _isVip {
-    final user = ref.read(userProvider).valueOrNull;
-    return user?.isVip ?? false;
+    // VIP gating disabled product-wide — filter restrictions removed.
+    return true;
   }
 
   void _showVipPrompt() {

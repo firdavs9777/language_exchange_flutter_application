@@ -1,8 +1,6 @@
 import 'package:bananatalk_app/pages/chat/conversation/chat_conversation_screen.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
-import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
-import 'package:bananatalk_app/providers/provider_root/vip_provider.dart';
 import 'package:bananatalk_app/services/daily_chat_limit_service.dart';
 import 'package:bananatalk_app/widgets/vip_locked_feature.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
@@ -40,26 +38,6 @@ class _ChatScreenWrapperState extends ConsumerState<ChatScreenWrapper> {
     try {
       final communityService = CommunityService();
       final userData = await communityService.getSingleCommunity(id: widget.userId);
-
-      // Check daily chat limit for non-VIP users
-      final authState = ref.read(authServiceProvider);
-      final currentUserId = authState.userId;
-      final isVip = ref.read(isVipProvider(currentUserId));
-      if (!isVip) {
-        final canChat = await DailyChatLimitService.canChat(widget.userId);
-        if (!canChat) {
-          if (mounted) {
-            setState(() {
-              _chatLimitReached = true;
-              _userData = userData;
-              _isLoading = false;
-            });
-          }
-          return;
-        }
-        // Record this chat partner
-        await DailyChatLimitService.recordChat(widget.userId);
-      }
 
       if (mounted) {
         setState(() {

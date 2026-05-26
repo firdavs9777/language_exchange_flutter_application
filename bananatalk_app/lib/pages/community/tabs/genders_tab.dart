@@ -250,7 +250,11 @@ class _GendersTabState extends ConsumerState<GendersTab> {
   @override
   Widget build(BuildContext context) {
     final currentUser = ref.watch(userProvider).valueOrNull;
-    final isVip = currentUser?.isVip ?? false;
+    // VIP gating disabled product-wide — current user always treated as unlocked here.
+    // currentUser still watched so other reads downstream stay reactive.
+    // ignore: unused_local_variable
+    final _ = currentUser;
+    const isVip = true;
 
     return Column(
       children: [
@@ -263,10 +267,12 @@ class _GendersTabState extends ConsumerState<GendersTab> {
               duration: 300.ms,
               curve: Curves.easeOutCubic,
             ),
-        // VIP promo banner for non-VIP users
+        // VIP promo banner for non-VIP users — disabled while VIP gating is off.
+        // ignore: dead_code
         if (!isVip) _buildVipPromoBanner(),
-        // Ad banner for non-VIP
+        // Ad banner for non-VIP — disabled while VIP gating is off.
         if (!isVip)
+          // ignore: dead_code
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
             child: SmallBannerAdWidget(),

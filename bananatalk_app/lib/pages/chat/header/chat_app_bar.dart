@@ -8,10 +8,6 @@ import 'package:bananatalk_app/models/call_model.dart';
 import 'package:bananatalk_app/screens/active_call_screen.dart';
 import 'package:bananatalk_app/router/app_router.dart' show callOverlayNavigatorKey;
 import 'package:bananatalk_app/pages/community/single/single_community_screen.dart';
-import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
-import 'package:bananatalk_app/providers/provider_root/vip_provider.dart';
-import 'package:bananatalk_app/services/daily_call_limit_service.dart';
-import 'package:bananatalk_app/widgets/vip_locked_feature.dart';
 import 'package:bananatalk_app/utils/time_utils.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
@@ -374,37 +370,11 @@ class ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
   ) async {
     if (userId == null) return;
 
-    // Check VIP status for call limits
-    final authState = ref.read(authServiceProvider);
-    final currentUserId = authState.userId;
-    final isCurrentUserVip = ref.read(isVipProvider(currentUserId));
-
-    if (!isCurrentUserVip) {
-      // Check daily call limit
-      final canMakeCall = await DailyCallLimitService.canCall();
-      if (!canMakeCall) {
-        if (context.mounted) {
-          showModalBottomSheet(
-            context: context,
-            backgroundColor: Colors.transparent,
-            isScrollControlled: true,
-            builder: (_) => VipUpgradeSheet(
-              featureName: 'Unlimited Calls',
-              description:
-                  'Free users can make up to ${DailyCallLimitService.maxDailyCalls} calls per day. '
-                  'Upgrade to VIP for unlimited calls!',
-            ),
-          );
-        }
-        return;
-      }
-    }
-
     try {
       final callNotifier = ref.read(callProvider.notifier);
 
-      // Set VIP status so CallManager knows about duration limit
-      callNotifier.setVipCall(isCurrentUserVip);
+      // VIP gating removed — all calls treated as unlimited.
+      callNotifier.setVipCall(true);
 
       // Setup error callback to handle permission errors
       callNotifier.setCallErrorCallback((error) {
@@ -420,13 +390,7 @@ class ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
         callType,
       );
 
-      // Record this call for daily limit tracking (non-VIP)
-      if (!isCurrentUserVip) {
-        final currentCall = callNotifier.currentCall;
-        if (currentCall != null && currentCall.callId.isNotEmpty) {
-          await DailyCallLimitService.recordCall(currentCall.callId);
-        }
-      }
+      // VIP gating removed — call recording for daily-limit tracking no longer needed.
 
       // Navigate to active call screen via overlay navigator
       if (context.mounted) {

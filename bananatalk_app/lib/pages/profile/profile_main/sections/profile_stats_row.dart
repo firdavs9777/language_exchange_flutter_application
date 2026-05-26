@@ -10,7 +10,6 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
-import 'package:bananatalk_app/widgets/vip_locked_feature.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -144,26 +143,13 @@ class ProfileStatsRow extends ConsumerWidget {
                   final visitorStatsAsync = ref.watch(myVisitorStatsProvider);
 
                   void openVisitors() {
-                    if (user.isVip) {
-                      Navigator.push(
-                        context,
-                        AppPageRoute(
-                          builder: (_) =>
-                              ProfileVisitorsScreen(userId: user.id),
-                        ),
-                      );
-                    } else {
-                      showModalBottomSheet(
-                        context: context,
-                        backgroundColor: Colors.transparent,
-                        isScrollControlled: true,
-                        builder: (_) => const VipUpgradeSheet(
-                          featureName: 'Profile Visitors',
-                          description:
-                              'See who visited your profile! Upgrade to VIP to unlock visitor tracking with detailed stats.',
-                        ),
-                      );
-                    }
+                    Navigator.push(
+                      context,
+                      AppPageRoute(
+                        builder: (_) =>
+                            ProfileVisitorsScreen(userId: user.id),
+                      ),
+                    );
                   }
 
                   return visitorStatsAsync.when(
@@ -173,7 +159,7 @@ class ProfileStatsRow extends ConsumerWidget {
                       icon: Icons.visibility_rounded,
                       color: const Color(0xFFFF9800),
                       onTap: () {},
-                      lockedForVip: !user.isVip,
+                      lockedForVip: false,
                     ),
                     error: (_, __) => _StatItem(
                       value: '0',
@@ -181,7 +167,7 @@ class ProfileStatsRow extends ConsumerWidget {
                       icon: Icons.visibility_rounded,
                       color: const Color(0xFFFF9800),
                       onTap: openVisitors,
-                      lockedForVip: !user.isVip,
+                      lockedForVip: false,
                     ),
                     data: (data) {
                       final stats = data['stats'];
@@ -194,7 +180,7 @@ class ProfileStatsRow extends ConsumerWidget {
                         icon: Icons.visibility_rounded,
                         color: const Color(0xFFFF9800),
                         onTap: openVisitors,
-                        lockedForVip: !user.isVip,
+                        lockedForVip: false,
                       );
                     },
                   );
