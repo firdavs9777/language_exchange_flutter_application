@@ -1655,20 +1655,45 @@
   },
   "addProfilePhotoTitle": "Добавить фото профиля",
   "addProfilePhotoSkip": "Пропустить",
-
   "wavesTab": "Приветствия",
-
   "sendWave": "Поздороваться",
   "sendWaveTo": "Поздороваться с {name}",
-  "@sendWaveTo": {"placeholders": {"name": {"type": "String"}}},
+  "@sendWaveTo": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "waveSent": "Приветствие отправлено {name}",
-  "@waveSent": {"placeholders": {"name": {"type": "String"}}},
+  "@waveSent": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "waveCooldown": "Вы сможете снова поздороваться с {name} через {time}",
-  "@waveCooldown": {"placeholders": {"name": {"type": "String"}, "time": {"type": "String"}}},
+  "@waveCooldown": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "waveCouldntSend": "Не удалось отправить приветствие",
   "itsAMatch": "Совпадение!",
   "itsAMatchSubtitle": "Вы и {name} поздоровались друг с другом",
-  "@itsAMatchSubtitle": {"placeholders": {"name": {"type": "String"}}},
+  "@itsAMatchSubtitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "sendAMessage": "Отправить сообщение",
   "waveQuickReplyHi": "Привет!",
   "waveQuickReplyCool": "Ты классный",
@@ -1676,45 +1701,75 @@
   "waveQuickReplyChat": "Давай поговорим",
   "waveQuickReplyHello": "Здравствуй",
   "waveQuickReplyFromCountry": "Привет из {country}",
-  "@waveQuickReplyFromCountry": {"placeholders": {"country": {"type": "String"}}},
+  "@waveQuickReplyFromCountry": {
+    "placeholders": {
+      "country": {
+        "type": "String"
+      }
+    }
+  },
   "waveCustomMessage": "Или напишите своё…",
-
   "voiceRoomChat": "Чат",
   "voiceRoomChatPlaceholder": "Отправить сообщение…",
   "voiceRoomChatEmpty": "Сообщений пока нет — скажите привет",
   "voiceRoomChatSend": "Отправить",
   "voiceRoomChatNewBadge": "{n}",
-  "@voiceRoomChatNewBadge": {"placeholders": {"n": {"type": "int"}}},
-
+  "@voiceRoomChatNewBadge": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "voiceRoomEnd": "Завершить комнату",
   "voiceRoomEndConfirm": "Завершить эту комнату?",
   "voiceRoomEndConfirmBody": "Все будут отключены.",
   "voiceRoomKick": "Удалить из комнаты",
   "voiceRoomKickConfirm": "Удалить {name}?",
-  "@voiceRoomKickConfirm": {"placeholders": {"name": {"type": "String"}}},
+  "@voiceRoomKickConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "voiceRoomKicked": "Удалён",
   "voiceRoomYouAreHostNow": "Теперь вы ведущий",
   "voiceRoomHostChanged": "{name} теперь ведущий",
-  "@voiceRoomHostChanged": {"placeholders": {"name": {"type": "String"}}},
+  "@voiceRoomHostChanged": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "voiceRoomHostMenuTitle": "Действия с комнатой",
   "voiceRoomViewProfile": "Смотреть профиль",
-
   "voiceRoomReconnecting": "Повторное подключение…",
   "voiceRoomReconnected": "Подключение восстановлено",
   "voiceRoomEnded": "Комната завершена",
   "voiceRoomReconnectRetry": "Повторить",
-
   "mutualInterests": "Общие интересы",
   "interestsInCommon": "{count, plural, =0{Пока нет общих интересов} =1{1 общий интерес} other{{count} общих интересов}}",
-  "@interestsInCommon": {"placeholders": {"count": {"type": "int"}}},
+  "@interestsInCommon": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "interestsInCommonSeeAll": "Смотреть все",
   "interestsInCommonAddCta": "Добавить темы",
   "interestsInCommonAddSubtitle": "Добавьте темы в профиль, чтобы найти точки соприкосновения",
-
   "activeAgo": "Активен {time} назад",
-  "@activeAgo": {"placeholders": {"time": {"type": "String"}}},
+  "@activeAgo": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "filterOnlineNow": "Сейчас онлайн",
-
   "filterAge": "Возраст",
   "filterGender": "Пол",
   "filterLanguages": "Языки",
@@ -1723,7 +1778,13 @@
   "filterLevel": "Уровень языка",
   "filterToggles": "Прочее",
   "filterMatchCount": "{count, plural, =0{Партнёры не найдены} =1{1 партнёр найден} other{{count} партнёров найдено}}",
-  "@filterMatchCount": {"placeholders": {"count": {"type": "int"}}},
+  "@filterMatchCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "filterClearAll": "Очистить всё",
   "filterReset": "Сбросить",
   "filterApply": "Применить",
@@ -1747,10 +1808,15 @@
   "languageSettingsRow": "Язык",
   "waveDailySummaryTitle": "Новые волны ожидают",
   "waveDailySummaryBody": "{count, plural, =1{1 человек отправил вам волну} other{{count} человек отправили вам волну}}",
-  "@waveDailySummaryBody": {"placeholders": {"count": {"type": "int"}}},
+  "@waveDailySummaryBody": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "filterTopicsTitle": "Темы",
   "filterTopicsEmpty": "Темы не выбраны",
-
   "storiesEmpty": "Историй пока нет",
   "storiesLoadError": "Не удалось загрузить истории",
   "storiesRetry": "Попробовать снова",
@@ -1905,7 +1971,6 @@
   "autoTranslateChatHint": "Входящие сообщения будут переведены автоматически",
   "noConversationsYet": "Пока нет разговоров",
   "chatRetry": "Повторить",
-
   "learningHubTitle": "Обучение",
   "learningCommonRetry": "Повторить",
   "learningCommonContinue": "Продолжить",
@@ -1972,5 +2037,34 @@
   "aiStudyPromoTitle": "Тренируйтесь с ИИ-сценариями",
   "aiStudyPromoBody": "Отыгрывайте реальные диалоги с ИИ-репетитором и развивайте уверенность в речи.",
   "aiStudyPromoCTA": "Попробовать сценарий",
-  "aiStudyPromoDismiss": "Позже"
+  "aiStudyPromoDismiss": "Позже",
+  "aiTutorHeroTitleSet": "Ваш ИИ-репетитор · {name}",
+  "aiTutorHeroTitleNew": "Познакомьтесь со своим ИИ-репетитором",
+  "aiTutorHeroSubtitleSet": "Нажмите, чтобы поговорить или посмотреть план на сегодня",
+  "aiTutorHeroSubtitleLast": "В прошлый раз: {summary}",
+  "aiTutorHeroSubtitleNew": "Выберите персонажа — Nana, Sensei или Riko",
+  "aiTutorChipChat": "Чат",
+  "aiTutorChipRoleplay": "Ролевая игра",
+  "aiTutorChipStory": "История",
+  "aiTutorChipPhoto": "Фото",
+  "aiTutorChipPronounce": "Произношение",
+  "aiConversationPartnerTile": "ИИ-разговор",
+  "aiConversationPartnerTileSubtitle": "Практикуйтесь с ИИ-партнёром",
+  "@aiTutorHeroTitleSet": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiTutorHeroSubtitleLast": {
+    "placeholders": {
+      "summary": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiTutorChipPronounce": {
+    "description": "Label for the 5th tutor mode chip — opens the Pronunciation Coach drill"
+  }
 }

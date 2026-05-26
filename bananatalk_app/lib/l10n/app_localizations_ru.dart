@@ -361,43 +361,43 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String aiTutorHeroTitleSet(String name) {
-    return 'Your AI Tutor · $name';
+    return 'Ваш ИИ-репетитор · $name';
   }
 
   @override
-  String get aiTutorHeroTitleNew => 'Meet your AI Tutor';
+  String get aiTutorHeroTitleNew => 'Познакомьтесь со своим ИИ-репетитором';
 
   @override
-  String get aiTutorHeroSubtitleSet => 'Tap to chat or see today\'s plan';
+  String get aiTutorHeroSubtitleSet => 'Нажмите, чтобы поговорить или посмотреть план на сегодня';
 
   @override
   String aiTutorHeroSubtitleLast(String summary) {
-    return 'Last time: $summary';
+    return 'В прошлый раз: $summary';
   }
 
   @override
-  String get aiTutorHeroSubtitleNew => 'Pick a persona — Nana, Sensei, or Riko';
+  String get aiTutorHeroSubtitleNew => 'Выберите персонажа — Nana, Sensei или Riko';
 
   @override
-  String get aiTutorChipChat => 'Chat';
+  String get aiTutorChipChat => 'Чат';
 
   @override
-  String get aiTutorChipRoleplay => 'Roleplay';
+  String get aiTutorChipRoleplay => 'Ролевая игра';
 
   @override
-  String get aiTutorChipStory => 'Story';
+  String get aiTutorChipStory => 'История';
 
   @override
-  String get aiTutorChipPhoto => 'Photo';
+  String get aiTutorChipPhoto => 'Фото';
 
   @override
   String get aiToolsMoreSection => 'More AI tools';
 
   @override
-  String get aiConversationPartnerTile => 'AI Conversation';
+  String get aiConversationPartnerTile => 'ИИ-разговор';
 
   @override
-  String get aiConversationPartnerTileSubtitle => 'Practice with an AI partner';
+  String get aiConversationPartnerTileSubtitle => 'Практикуйтесь с ИИ-партнёром';
 
   @override
   String get aiTutorPickerTitle => 'Pick your AI tutor';
@@ -5724,7 +5724,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get aiTutorPronounceSaving => 'Saving…';
 
   @override
-  String get aiTutorChipPronounce => 'Pronounce';
+  String get aiTutorChipPronounce => 'Произношение';
 
   @override
   String aiTutorPlanPronunciation(int count, int completed) {

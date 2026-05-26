@@ -1606,20 +1606,45 @@
   },
   "addProfilePhotoTitle": "新增大頭貼",
   "addProfilePhotoSkip": "暫時跳過",
-
   "wavesTab": "招手",
-
   "sendWave": "發送招手",
   "sendWaveTo": "向{name}發送招手",
-  "@sendWaveTo": {"placeholders": {"name": {"type": "String"}}},
+  "@sendWaveTo": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "waveSent": "已向{name}發送招手",
-  "@waveSent": {"placeholders": {"name": {"type": "String"}}},
+  "@waveSent": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "waveCooldown": "{time}後可以再次向{name}招手",
-  "@waveCooldown": {"placeholders": {"name": {"type": "String"}, "time": {"type": "String"}}},
+  "@waveCooldown": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "waveCouldntSend": "無法發送招手",
   "itsAMatch": "配對成功！",
   "itsAMatchSubtitle": "你和{name}互相招手了",
-  "@itsAMatchSubtitle": {"placeholders": {"name": {"type": "String"}}},
+  "@itsAMatchSubtitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "sendAMessage": "發送訊息",
   "waveQuickReplyHi": "嗨！",
   "waveQuickReplyCool": "你看起來很酷",
@@ -1627,45 +1652,75 @@
   "waveQuickReplyChat": "一起聊吧",
   "waveQuickReplyHello": "你好",
   "waveQuickReplyFromCountry": "來自{country}的問候！",
-  "@waveQuickReplyFromCountry": {"placeholders": {"country": {"type": "String"}}},
+  "@waveQuickReplyFromCountry": {
+    "placeholders": {
+      "country": {
+        "type": "String"
+      }
+    }
+  },
   "waveCustomMessage": "或者寫自己的訊息…",
-
   "voiceRoomChat": "聊天",
   "voiceRoomChatPlaceholder": "發送訊息…",
   "voiceRoomChatEmpty": "尚無訊息 — 打個招呼吧",
   "voiceRoomChatSend": "發送",
   "voiceRoomChatNewBadge": "{n}",
-  "@voiceRoomChatNewBadge": {"placeholders": {"n": {"type": "int"}}},
-
+  "@voiceRoomChatNewBadge": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "voiceRoomEnd": "結束房間",
   "voiceRoomEndConfirm": "確定結束此房間？",
   "voiceRoomEndConfirmBody": "所有人將斷開連線。",
   "voiceRoomKick": "移出房間",
   "voiceRoomKickConfirm": "移出{name}？",
-  "@voiceRoomKickConfirm": {"placeholders": {"name": {"type": "String"}}},
+  "@voiceRoomKickConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "voiceRoomKicked": "已移出",
   "voiceRoomYouAreHostNow": "您現在是主持人",
   "voiceRoomHostChanged": "{name}現在是主持人",
-  "@voiceRoomHostChanged": {"placeholders": {"name": {"type": "String"}}},
+  "@voiceRoomHostChanged": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "voiceRoomHostMenuTitle": "房間操作",
   "voiceRoomViewProfile": "查看個人資料",
-
   "voiceRoomReconnecting": "重新連線中…",
   "voiceRoomReconnected": "已重新連線",
   "voiceRoomEnded": "房間已結束",
   "voiceRoomReconnectRetry": "重試",
-
   "mutualInterests": "共同興趣",
   "interestsInCommon": "{count, plural, =0{尚無共同興趣} =1{1個共同興趣} other{{count}個共同興趣}}",
-  "@interestsInCommon": {"placeholders": {"count": {"type": "int"}}},
+  "@interestsInCommon": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "interestsInCommonSeeAll": "查看全部",
   "interestsInCommonAddCta": "新增話題",
   "interestsInCommonAddSubtitle": "在個人資料中新增話題，尋找共同點",
-
   "activeAgo": "{time}前活躍",
-  "@activeAgo": {"placeholders": {"time": {"type": "String"}}},
+  "@activeAgo": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "filterOnlineNow": "目前上線",
-
   "filterAge": "年齡",
   "filterGender": "性別",
   "filterLanguages": "語言",
@@ -1674,7 +1729,13 @@
   "filterLevel": "語言程度",
   "filterToggles": "其他",
   "filterMatchCount": "{count, plural, =0{無匹配夥伴} =1{1位夥伴匹配} other{{count}位夥伴匹配}}",
-  "@filterMatchCount": {"placeholders": {"count": {"type": "int"}}},
+  "@filterMatchCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "filterClearAll": "全部清除",
   "filterReset": "重置",
   "filterApply": "套用",
@@ -1698,10 +1759,15 @@
   "languageSettingsRow": "語言",
   "waveDailySummaryTitle": "有新的揮手等待",
   "waveDailySummaryBody": "{count, plural, =1{1人向您揮手} other{{count}人向您揮手}}",
-  "@waveDailySummaryBody": {"placeholders": {"count": {"type": "int"}}},
+  "@waveDailySummaryBody": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "filterTopicsTitle": "話題",
   "filterTopicsEmpty": "未選擇任何話題",
-
   "storiesEmpty": "尚無故事",
   "storiesLoadError": "無法載入故事",
   "storiesRetry": "重試",
@@ -1856,7 +1922,6 @@
   "autoTranslateChatHint": "傳入的訊息將自動翻譯",
   "noConversationsYet": "還沒有對話",
   "chatRetry": "重試",
-
   "learningHubTitle": "學習",
   "learningCommonRetry": "重試",
   "learningCommonContinue": "繼續",
@@ -1923,5 +1988,34 @@
   "aiStudyPromoTitle": "用 AI 情境練習",
   "aiStudyPromoBody": "與 AI 導師角色扮演真實對話，建立開口說話的信心。",
   "aiStudyPromoCTA": "試試一個情境",
-  "aiStudyPromoDismiss": "以後再說"
+  "aiStudyPromoDismiss": "以後再說",
+  "aiTutorHeroTitleSet": "AI 導師 · {name}",
+  "aiTutorHeroTitleNew": "認識你的 AI 導師",
+  "aiTutorHeroSubtitleSet": "點按聊天或查看今天的計畫",
+  "aiTutorHeroSubtitleLast": "上次：{summary}",
+  "aiTutorHeroSubtitleNew": "挑選角色 — Nana、Sensei 或 Riko",
+  "aiTutorChipChat": "聊天",
+  "aiTutorChipRoleplay": "角色扮演",
+  "aiTutorChipStory": "故事",
+  "aiTutorChipPhoto": "照片",
+  "aiTutorChipPronounce": "發音",
+  "aiConversationPartnerTile": "AI 對話",
+  "aiConversationPartnerTileSubtitle": "與 AI 夥伴練習",
+  "@aiTutorHeroTitleSet": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiTutorHeroSubtitleLast": {
+    "placeholders": {
+      "summary": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiTutorChipPronounce": {
+    "description": "Label for the 5th tutor mode chip — opens the Pronunciation Coach drill"
+  }
 }

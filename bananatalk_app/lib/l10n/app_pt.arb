@@ -1641,20 +1641,45 @@
   },
   "addProfilePhotoTitle": "Adicionar foto de perfil",
   "addProfilePhotoSkip": "Pular por enquanto",
-
   "wavesTab": "Acenos",
-
   "sendWave": "Enviar aceno",
   "sendWaveTo": "Enviar aceno para {name}",
-  "@sendWaveTo": {"placeholders": {"name": {"type": "String"}}},
+  "@sendWaveTo": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "waveSent": "Aceno enviado para {name}",
-  "@waveSent": {"placeholders": {"name": {"type": "String"}}},
+  "@waveSent": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "waveCooldown": "Você pode acenar para {name} novamente em {time}",
-  "@waveCooldown": {"placeholders": {"name": {"type": "String"}, "time": {"type": "String"}}},
+  "@waveCooldown": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "waveCouldntSend": "Não foi possível enviar o aceno",
   "itsAMatch": "É um match!",
   "itsAMatchSubtitle": "Você e {name} se acenaram mutuamente",
-  "@itsAMatchSubtitle": {"placeholders": {"name": {"type": "String"}}},
+  "@itsAMatchSubtitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "sendAMessage": "Enviar mensagem",
   "waveQuickReplyHi": "Oi!",
   "waveQuickReplyCool": "Você parece legal",
@@ -1662,45 +1687,75 @@
   "waveQuickReplyChat": "Vamos conversar",
   "waveQuickReplyHello": "Olá",
   "waveQuickReplyFromCountry": "Oi de {country}",
-  "@waveQuickReplyFromCountry": {"placeholders": {"country": {"type": "String"}}},
+  "@waveQuickReplyFromCountry": {
+    "placeholders": {
+      "country": {
+        "type": "String"
+      }
+    }
+  },
   "waveCustomMessage": "Ou escreva a sua própria…",
-
   "voiceRoomChat": "Chat",
   "voiceRoomChatPlaceholder": "Enviar mensagem…",
   "voiceRoomChatEmpty": "Sem mensagens ainda — diga oi",
   "voiceRoomChatSend": "Enviar",
   "voiceRoomChatNewBadge": "{n}",
-  "@voiceRoomChatNewBadge": {"placeholders": {"n": {"type": "int"}}},
-
+  "@voiceRoomChatNewBadge": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "voiceRoomEnd": "Encerrar sala",
   "voiceRoomEndConfirm": "Encerrar esta sala?",
   "voiceRoomEndConfirmBody": "Todos serão desconectados.",
   "voiceRoomKick": "Remover da sala",
   "voiceRoomKickConfirm": "Remover {name}?",
-  "@voiceRoomKickConfirm": {"placeholders": {"name": {"type": "String"}}},
+  "@voiceRoomKickConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "voiceRoomKicked": "Removido",
   "voiceRoomYouAreHostNow": "Você é agora o anfitrião",
   "voiceRoomHostChanged": "{name} é agora o anfitrião",
-  "@voiceRoomHostChanged": {"placeholders": {"name": {"type": "String"}}},
+  "@voiceRoomHostChanged": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "voiceRoomHostMenuTitle": "Ações da sala",
   "voiceRoomViewProfile": "Ver perfil",
-
   "voiceRoomReconnecting": "Reconectando…",
   "voiceRoomReconnected": "Reconectado",
   "voiceRoomEnded": "Sala encerrada",
   "voiceRoomReconnectRetry": "Tentar novamente",
-
   "mutualInterests": "Interesses em comum",
   "interestsInCommon": "{count, plural, =0{Sem interesses em comum ainda} =1{1 interesse em comum} other{{count} interesses em comum}}",
-  "@interestsInCommon": {"placeholders": {"count": {"type": "int"}}},
+  "@interestsInCommon": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "interestsInCommonSeeAll": "Ver tudo",
   "interestsInCommonAddCta": "Adicionar tópicos",
   "interestsInCommonAddSubtitle": "Adicione tópicos ao seu perfil para encontrar pontos em comum",
-
   "activeAgo": "Ativo há {time}",
-  "@activeAgo": {"placeholders": {"time": {"type": "String"}}},
+  "@activeAgo": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "filterOnlineNow": "Online agora",
-
   "filterAge": "Idade",
   "filterGender": "Gênero",
   "filterLanguages": "Idiomas",
@@ -1709,7 +1764,13 @@
   "filterLevel": "Nível de idioma",
   "filterToggles": "Outros",
   "filterMatchCount": "{count, plural, =0{Nenhum parceiro corresponde} =1{1 parceiro corresponde} other{{count} parceiros correspondem}}",
-  "@filterMatchCount": {"placeholders": {"count": {"type": "int"}}},
+  "@filterMatchCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "filterClearAll": "Limpar tudo",
   "filterReset": "Redefinir",
   "filterApply": "Aplicar",
@@ -1733,10 +1794,15 @@
   "languageSettingsRow": "Idioma",
   "waveDailySummaryTitle": "Novos acenos aguardando",
   "waveDailySummaryBody": "{count, plural, =1{1 pessoa acenou para você} other{{count} pessoas acenaram para você}}",
-  "@waveDailySummaryBody": {"placeholders": {"count": {"type": "int"}}},
+  "@waveDailySummaryBody": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "filterTopicsTitle": "Tópicos",
   "filterTopicsEmpty": "Nenhum tópico selecionado",
-
   "storiesEmpty": "Nenhuma história ainda",
   "storiesLoadError": "Não foi possível carregar as histórias",
   "storiesRetry": "Tentar novamente",
@@ -1891,7 +1957,6 @@
   "autoTranslateChatHint": "As mensagens recebidas serão traduzidas automaticamente",
   "noConversationsYet": "Ainda sem conversas",
   "chatRetry": "Tentar novamente",
-
   "learningHubTitle": "Aprender",
   "learningCommonRetry": "Tentar novamente",
   "learningCommonContinue": "Continuar",
@@ -1958,5 +2023,34 @@
   "aiStudyPromoTitle": "Pratique com cenários de IA",
   "aiStudyPromoBody": "Faça roleplay de conversas reais com seu tutor de IA e ganhe confiança para falar.",
   "aiStudyPromoCTA": "Tentar um cenário",
-  "aiStudyPromoDismiss": "Talvez depois"
+  "aiStudyPromoDismiss": "Talvez depois",
+  "aiTutorHeroTitleSet": "Seu tutor de IA · {name}",
+  "aiTutorHeroTitleNew": "Conheça seu tutor de IA",
+  "aiTutorHeroSubtitleSet": "Toque para conversar ou ver o plano de hoje",
+  "aiTutorHeroSubtitleLast": "Última vez: {summary}",
+  "aiTutorHeroSubtitleNew": "Escolha um personagem — Nana, Sensei ou Riko",
+  "aiTutorChipChat": "Chat",
+  "aiTutorChipRoleplay": "Roleplay",
+  "aiTutorChipStory": "História",
+  "aiTutorChipPhoto": "Foto",
+  "aiTutorChipPronounce": "Pronúncia",
+  "aiConversationPartnerTile": "Conversa com IA",
+  "aiConversationPartnerTileSubtitle": "Pratique com um parceiro de IA",
+  "@aiTutorHeroTitleSet": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiTutorHeroSubtitleLast": {
+    "placeholders": {
+      "summary": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiTutorChipPronounce": {
+    "description": "Label for the 5th tutor mode chip — opens the Pronunciation Coach drill"
+  }
 }

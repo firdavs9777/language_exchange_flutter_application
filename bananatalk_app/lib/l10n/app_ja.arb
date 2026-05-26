@@ -1640,20 +1640,45 @@
   },
   "addProfilePhotoTitle": "プロフィール写真を追加",
   "addProfilePhotoSkip": "後で",
-
   "wavesTab": "あいさつ",
-
   "sendWave": "あいさつを送る",
   "sendWaveTo": "{name}にあいさつを送る",
-  "@sendWaveTo": {"placeholders": {"name": {"type": "String"}}},
+  "@sendWaveTo": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "waveSent": "{name}にあいさつを送りました",
-  "@waveSent": {"placeholders": {"name": {"type": "String"}}},
+  "@waveSent": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "waveCooldown": "{time}後に{name}へ再度あいさつできます",
-  "@waveCooldown": {"placeholders": {"name": {"type": "String"}, "time": {"type": "String"}}},
+  "@waveCooldown": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "waveCouldntSend": "あいさつを送れませんでした",
   "itsAMatch": "マッチしました！",
   "itsAMatchSubtitle": "{name}さんとお互いにあいさつしました",
-  "@itsAMatchSubtitle": {"placeholders": {"name": {"type": "String"}}},
+  "@itsAMatchSubtitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "sendAMessage": "メッセージを送る",
   "waveQuickReplyHi": "こんにちは！",
   "waveQuickReplyCool": "素敵ですね",
@@ -1661,45 +1686,75 @@
   "waveQuickReplyChat": "話しましょう",
   "waveQuickReplyHello": "はじめまして",
   "waveQuickReplyFromCountry": "{country}からこんにちは！",
-  "@waveQuickReplyFromCountry": {"placeholders": {"country": {"type": "String"}}},
+  "@waveQuickReplyFromCountry": {
+    "placeholders": {
+      "country": {
+        "type": "String"
+      }
+    }
+  },
   "waveCustomMessage": "または自分でメッセージを書く…",
-
   "voiceRoomChat": "チャット",
   "voiceRoomChatPlaceholder": "メッセージを送る…",
   "voiceRoomChatEmpty": "まだメッセージがありません — 挨拶しましょう",
   "voiceRoomChatSend": "送信",
   "voiceRoomChatNewBadge": "{n}",
-  "@voiceRoomChatNewBadge": {"placeholders": {"n": {"type": "int"}}},
-
+  "@voiceRoomChatNewBadge": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "voiceRoomEnd": "ルームを終了",
   "voiceRoomEndConfirm": "このルームを終了しますか？",
   "voiceRoomEndConfirmBody": "全員が切断されます。",
   "voiceRoomKick": "ルームから退出させる",
   "voiceRoomKickConfirm": "{name}さんを退出させますか？",
-  "@voiceRoomKickConfirm": {"placeholders": {"name": {"type": "String"}}},
+  "@voiceRoomKickConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "voiceRoomKicked": "退出させました",
   "voiceRoomYouAreHostNow": "あなたがホストになりました",
   "voiceRoomHostChanged": "{name}さんがホストになりました",
-  "@voiceRoomHostChanged": {"placeholders": {"name": {"type": "String"}}},
+  "@voiceRoomHostChanged": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "voiceRoomHostMenuTitle": "ルーム操作",
   "voiceRoomViewProfile": "プロフィールを見る",
-
   "voiceRoomReconnecting": "再接続中…",
   "voiceRoomReconnected": "再接続しました",
   "voiceRoomEnded": "ルームが終了しました",
   "voiceRoomReconnectRetry": "再試行",
-
   "mutualInterests": "共通の趣味",
   "interestsInCommon": "{count, plural, =0{共通の趣味はまだありません} =1{共通の趣味が1つ} other{共通の趣味が{count}つ}}",
-  "@interestsInCommon": {"placeholders": {"count": {"type": "int"}}},
+  "@interestsInCommon": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "interestsInCommonSeeAll": "すべて見る",
   "interestsInCommonAddCta": "トピックを追加",
   "interestsInCommonAddSubtitle": "プロフィールにトピックを追加して共通点を見つけましょう",
-
   "activeAgo": "{time}前にアクティブ",
-  "@activeAgo": {"placeholders": {"time": {"type": "String"}}},
+  "@activeAgo": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "filterOnlineNow": "今オンライン",
-
   "filterAge": "年齢",
   "filterGender": "性別",
   "filterLanguages": "言語",
@@ -1708,7 +1763,13 @@
   "filterLevel": "語学レベル",
   "filterToggles": "その他",
   "filterMatchCount": "{count, plural, =0{一致するパートナーなし} =1{1人のパートナーが一致} other{{count}人のパートナーが一致}}",
-  "@filterMatchCount": {"placeholders": {"count": {"type": "int"}}},
+  "@filterMatchCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "filterClearAll": "すべてクリア",
   "filterReset": "リセット",
   "filterApply": "適用",
@@ -1732,10 +1793,15 @@
   "languageSettingsRow": "言語",
   "waveDailySummaryTitle": "新しいウェーブが届いています",
   "waveDailySummaryBody": "{count, plural, =1{1人があなたにウェーブしました} other{{count}人があなたにウェーブしました}}",
-  "@waveDailySummaryBody": {"placeholders": {"count": {"type": "int"}}},
+  "@waveDailySummaryBody": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "filterTopicsTitle": "トピック",
   "filterTopicsEmpty": "トピックが選択されていません",
-
   "storiesEmpty": "まだストーリーがありません",
   "storiesLoadError": "ストーリーを読み込めませんでした",
   "storiesRetry": "もう一度試す",
@@ -1890,7 +1956,6 @@
   "autoTranslateChatHint": "受信メッセージが自動的に翻訳されます",
   "noConversationsYet": "まだ会話がありません",
   "chatRetry": "再試行",
-
   "learningHubTitle": "学習",
   "learningCommonRetry": "再試行",
   "learningCommonContinue": "続ける",
@@ -1957,5 +2022,34 @@
   "aiStudyPromoTitle": "AIシナリオで練習しよう",
   "aiStudyPromoBody": "AIチューターと実際の会話をロールプレイして、話す自信をつけよう。",
   "aiStudyPromoCTA": "シナリオを試す",
-  "aiStudyPromoDismiss": "あとで"
+  "aiStudyPromoDismiss": "あとで",
+  "aiTutorHeroTitleSet": "AIチューター · {name}",
+  "aiTutorHeroTitleNew": "AIチューターに会おう",
+  "aiTutorHeroSubtitleSet": "タップしてチャットまたは今日のプランを確認",
+  "aiTutorHeroSubtitleLast": "前回: {summary}",
+  "aiTutorHeroSubtitleNew": "キャラクターを選ぼう — Nana、Sensei、Riko",
+  "aiTutorChipChat": "チャット",
+  "aiTutorChipRoleplay": "ロールプレイ",
+  "aiTutorChipStory": "ストーリー",
+  "aiTutorChipPhoto": "写真",
+  "aiTutorChipPronounce": "発音",
+  "aiConversationPartnerTile": "AI会話",
+  "aiConversationPartnerTileSubtitle": "AIパートナーと練習",
+  "@aiTutorHeroTitleSet": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiTutorHeroSubtitleLast": {
+    "placeholders": {
+      "summary": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiTutorChipPronounce": {
+    "description": "Label for the 5th tutor mode chip — opens the Pronunciation Coach drill"
+  }
 }

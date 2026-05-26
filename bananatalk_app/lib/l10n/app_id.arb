@@ -1483,20 +1483,45 @@
   },
   "addProfilePhotoTitle": "Tambahkan foto profil",
   "addProfilePhotoSkip": "Lewati dulu",
-
   "wavesTab": "Lambaian",
-
   "sendWave": "Kirim lambaian",
   "sendWaveTo": "Kirim lambaian ke {name}",
-  "@sendWaveTo": {"placeholders": {"name": {"type": "String"}}},
+  "@sendWaveTo": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "waveSent": "Lambaian terkirim ke {name}",
-  "@waveSent": {"placeholders": {"name": {"type": "String"}}},
+  "@waveSent": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "waveCooldown": "Kamu bisa melambaikan ke {name} lagi dalam {time}",
-  "@waveCooldown": {"placeholders": {"name": {"type": "String"}, "time": {"type": "String"}}},
+  "@waveCooldown": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "waveCouldntSend": "Lambaian tidak bisa dikirim",
   "itsAMatch": "Cocok!",
   "itsAMatchSubtitle": "Kamu dan {name} saling melambaikan tangan",
-  "@itsAMatchSubtitle": {"placeholders": {"name": {"type": "String"}}},
+  "@itsAMatchSubtitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "sendAMessage": "Kirim pesan",
   "waveQuickReplyHi": "Hei!",
   "waveQuickReplyCool": "Kamu terlihat keren",
@@ -1504,45 +1529,75 @@
   "waveQuickReplyChat": "Yuk ngobrol",
   "waveQuickReplyHello": "Halo",
   "waveQuickReplyFromCountry": "Halo dari {country}",
-  "@waveQuickReplyFromCountry": {"placeholders": {"country": {"type": "String"}}},
+  "@waveQuickReplyFromCountry": {
+    "placeholders": {
+      "country": {
+        "type": "String"
+      }
+    }
+  },
   "waveCustomMessage": "Atau tulis pesanmu sendiri…",
-
   "voiceRoomChat": "Obrolan",
   "voiceRoomChatPlaceholder": "Kirim pesan…",
   "voiceRoomChatEmpty": "Belum ada pesan — ucapkan halo",
   "voiceRoomChatSend": "Kirim",
   "voiceRoomChatNewBadge": "{n}",
-  "@voiceRoomChatNewBadge": {"placeholders": {"n": {"type": "int"}}},
-
+  "@voiceRoomChatNewBadge": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "voiceRoomEnd": "Akhiri ruangan",
   "voiceRoomEndConfirm": "Akhiri ruangan ini?",
   "voiceRoomEndConfirmBody": "Semua orang akan terputus.",
   "voiceRoomKick": "Keluarkan dari ruangan",
   "voiceRoomKickConfirm": "Keluarkan {name}?",
-  "@voiceRoomKickConfirm": {"placeholders": {"name": {"type": "String"}}},
+  "@voiceRoomKickConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "voiceRoomKicked": "Dikeluarkan",
   "voiceRoomYouAreHostNow": "Kamu sekarang jadi tuan rumah",
   "voiceRoomHostChanged": "{name} sekarang jadi tuan rumah",
-  "@voiceRoomHostChanged": {"placeholders": {"name": {"type": "String"}}},
+  "@voiceRoomHostChanged": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "voiceRoomHostMenuTitle": "Tindakan ruangan",
   "voiceRoomViewProfile": "Lihat profil",
-
   "voiceRoomReconnecting": "Menghubungkan kembali…",
   "voiceRoomReconnected": "Terhubung kembali",
   "voiceRoomEnded": "Ruangan berakhir",
   "voiceRoomReconnectRetry": "Coba lagi",
-
   "mutualInterests": "Minat bersama",
   "interestsInCommon": "{count, plural, =0{Belum ada minat bersama} =1{1 minat bersama} other{{count} minat bersama}}",
-  "@interestsInCommon": {"placeholders": {"count": {"type": "int"}}},
+  "@interestsInCommon": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "interestsInCommonSeeAll": "Lihat semua",
   "interestsInCommonAddCta": "Tambah topik",
   "interestsInCommonAddSubtitle": "Tambah topik ke profilmu untuk menemukan kesamaan",
-
   "activeAgo": "Aktif {time} lalu",
-  "@activeAgo": {"placeholders": {"time": {"type": "String"}}},
+  "@activeAgo": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "filterOnlineNow": "Online sekarang",
-
   "filterAge": "Usia",
   "filterGender": "Gender",
   "filterLanguages": "Bahasa",
@@ -1551,7 +1606,13 @@
   "filterLevel": "Tingkat bahasa",
   "filterToggles": "Lainnya",
   "filterMatchCount": "{count, plural, =0{Tidak ada mitra yang cocok} =1{1 mitra cocok} other{{count} mitra cocok}}",
-  "@filterMatchCount": {"placeholders": {"count": {"type": "int"}}},
+  "@filterMatchCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "filterClearAll": "Hapus semua",
   "filterReset": "Atur ulang",
   "filterApply": "Terapkan",
@@ -1575,10 +1636,15 @@
   "languageSettingsRow": "Bahasa",
   "waveDailySummaryTitle": "Sapa baru menunggu",
   "waveDailySummaryBody": "{count, plural, =1{1 orang menyapa Anda} other{{count} orang menyapa Anda}}",
-  "@waveDailySummaryBody": {"placeholders": {"count": {"type": "int"}}},
+  "@waveDailySummaryBody": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "filterTopicsTitle": "Topik",
   "filterTopicsEmpty": "Tidak ada topik yang dipilih",
-
   "storiesEmpty": "Belum ada cerita",
   "storiesLoadError": "Gagal memuat cerita",
   "storiesRetry": "Coba lagi",
@@ -1733,7 +1799,6 @@
   "autoTranslateChatHint": "Pesan masuk akan diterjemahkan secara otomatis",
   "noConversationsYet": "Belum ada percakapan",
   "chatRetry": "Coba lagi",
-
   "learningHubTitle": "Belajar",
   "learningCommonRetry": "Coba lagi",
   "learningCommonContinue": "Lanjutkan",
@@ -1800,5 +1865,34 @@
   "aiStudyPromoTitle": "Berlatih dengan skenario AI",
   "aiStudyPromoBody": "Berperan dalam percakapan nyata bersama tutor AI dan bangun rasa percaya diri saat berbicara.",
   "aiStudyPromoCTA": "Coba sebuah skenario",
-  "aiStudyPromoDismiss": "Mungkin nanti"
+  "aiStudyPromoDismiss": "Mungkin nanti",
+  "aiTutorHeroTitleSet": "Tutor AI kamu · {name}",
+  "aiTutorHeroTitleNew": "Kenalan dengan Tutor AI kamu",
+  "aiTutorHeroSubtitleSet": "Ketuk untuk mengobrol atau melihat rencana hari ini",
+  "aiTutorHeroSubtitleLast": "Terakhir kali: {summary}",
+  "aiTutorHeroSubtitleNew": "Pilih karakter — Nana, Sensei, atau Riko",
+  "aiTutorChipChat": "Obrolan",
+  "aiTutorChipRoleplay": "Roleplay",
+  "aiTutorChipStory": "Cerita",
+  "aiTutorChipPhoto": "Foto",
+  "aiTutorChipPronounce": "Pelafalan",
+  "aiConversationPartnerTile": "Percakapan AI",
+  "aiConversationPartnerTileSubtitle": "Berlatih dengan mitra AI",
+  "@aiTutorHeroTitleSet": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiTutorHeroSubtitleLast": {
+    "placeholders": {
+      "summary": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiTutorChipPronounce": {
+    "description": "Label for the 5th tutor mode chip — opens the Pronunciation Coach drill"
+  }
 }

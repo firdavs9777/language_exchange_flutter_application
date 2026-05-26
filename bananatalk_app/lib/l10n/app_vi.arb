@@ -1483,20 +1483,45 @@
   },
   "addProfilePhotoTitle": "Thêm ảnh đại diện",
   "addProfilePhotoSkip": "Bỏ qua ngay",
-
   "wavesTab": "Chào hỏi",
-
   "sendWave": "Gửi lời chào",
   "sendWaveTo": "Gửi lời chào đến {name}",
-  "@sendWaveTo": {"placeholders": {"name": {"type": "String"}}},
+  "@sendWaveTo": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "waveSent": "Đã gửi lời chào đến {name}",
-  "@waveSent": {"placeholders": {"name": {"type": "String"}}},
+  "@waveSent": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "waveCooldown": "Bạn có thể chào {name} lại sau {time}",
-  "@waveCooldown": {"placeholders": {"name": {"type": "String"}, "time": {"type": "String"}}},
+  "@waveCooldown": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "waveCouldntSend": "Không thể gửi lời chào",
   "itsAMatch": "Kết đôi thành công!",
   "itsAMatchSubtitle": "Bạn và {name} đã chào nhau",
-  "@itsAMatchSubtitle": {"placeholders": {"name": {"type": "String"}}},
+  "@itsAMatchSubtitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "sendAMessage": "Gửi tin nhắn",
   "waveQuickReplyHi": "Xin chào!",
   "waveQuickReplyCool": "Bạn có vẻ thú vị",
@@ -1504,45 +1529,75 @@
   "waveQuickReplyChat": "Cùng trò chuyện nhé",
   "waveQuickReplyHello": "Chào bạn",
   "waveQuickReplyFromCountry": "Xin chào từ {country}",
-  "@waveQuickReplyFromCountry": {"placeholders": {"country": {"type": "String"}}},
+  "@waveQuickReplyFromCountry": {
+    "placeholders": {
+      "country": {
+        "type": "String"
+      }
+    }
+  },
   "waveCustomMessage": "Hoặc tự viết tin nhắn của bạn…",
-
   "voiceRoomChat": "Trò chuyện",
   "voiceRoomChatPlaceholder": "Gửi tin nhắn…",
   "voiceRoomChatEmpty": "Chưa có tin nhắn — hãy chào hỏi",
   "voiceRoomChatSend": "Gửi",
   "voiceRoomChatNewBadge": "{n}",
-  "@voiceRoomChatNewBadge": {"placeholders": {"n": {"type": "int"}}},
-
+  "@voiceRoomChatNewBadge": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "voiceRoomEnd": "Kết thúc phòng",
   "voiceRoomEndConfirm": "Kết thúc phòng này?",
   "voiceRoomEndConfirmBody": "Tất cả mọi người sẽ bị ngắt kết nối.",
   "voiceRoomKick": "Xóa khỏi phòng",
   "voiceRoomKickConfirm": "Xóa {name}?",
-  "@voiceRoomKickConfirm": {"placeholders": {"name": {"type": "String"}}},
+  "@voiceRoomKickConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "voiceRoomKicked": "Đã xóa",
   "voiceRoomYouAreHostNow": "Bạn hiện là chủ phòng",
   "voiceRoomHostChanged": "{name} hiện là chủ phòng",
-  "@voiceRoomHostChanged": {"placeholders": {"name": {"type": "String"}}},
+  "@voiceRoomHostChanged": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "voiceRoomHostMenuTitle": "Quản lý phòng",
   "voiceRoomViewProfile": "Xem hồ sơ",
-
   "voiceRoomReconnecting": "Đang kết nối lại…",
   "voiceRoomReconnected": "Đã kết nối lại",
   "voiceRoomEnded": "Phòng đã kết thúc",
   "voiceRoomReconnectRetry": "Thử lại",
-
   "mutualInterests": "Sở thích chung",
   "interestsInCommon": "{count, plural, =0{Chưa có sở thích chung} =1{1 sở thích chung} other{{count} sở thích chung}}",
-  "@interestsInCommon": {"placeholders": {"count": {"type": "int"}}},
+  "@interestsInCommon": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "interestsInCommonSeeAll": "Xem tất cả",
   "interestsInCommonAddCta": "Thêm chủ đề",
   "interestsInCommonAddSubtitle": "Thêm chủ đề vào hồ sơ để tìm điểm chung",
-
   "activeAgo": "Hoạt động {time} trước",
-  "@activeAgo": {"placeholders": {"time": {"type": "String"}}},
+  "@activeAgo": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "filterOnlineNow": "Đang trực tuyến",
-
   "filterAge": "Tuổi",
   "filterGender": "Giới tính",
   "filterLanguages": "Ngôn ngữ",
@@ -1551,7 +1606,13 @@
   "filterLevel": "Trình độ ngôn ngữ",
   "filterToggles": "Khác",
   "filterMatchCount": "{count, plural, =0{Không có đối tác phù hợp} =1{1 đối tác phù hợp} other{{count} đối tác phù hợp}}",
-  "@filterMatchCount": {"placeholders": {"count": {"type": "int"}}},
+  "@filterMatchCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "filterClearAll": "Xóa tất cả",
   "filterReset": "Đặt lại",
   "filterApply": "Áp dụng",
@@ -1575,10 +1636,15 @@
   "languageSettingsRow": "Ngôn ngữ",
   "waveDailySummaryTitle": "Có vẫy tay mới đang chờ",
   "waveDailySummaryBody": "{count, plural, =1{1 người đã vẫy tay với bạn} other{{count} người đã vẫy tay với bạn}}",
-  "@waveDailySummaryBody": {"placeholders": {"count": {"type": "int"}}},
+  "@waveDailySummaryBody": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "filterTopicsTitle": "Chủ đề",
   "filterTopicsEmpty": "Chưa chọn chủ đề nào",
-
   "storiesEmpty": "Chưa có tin nào",
   "storiesLoadError": "Không thể tải tin",
   "storiesRetry": "Thử lại",
@@ -1733,7 +1799,6 @@
   "autoTranslateChatHint": "Tin nhắn đến sẽ được dịch tự động",
   "noConversationsYet": "Chưa có cuộc trò chuyện",
   "chatRetry": "Thử lại",
-
   "learningHubTitle": "Học tập",
   "learningCommonRetry": "Thử lại",
   "learningCommonContinue": "Tiếp tục",
@@ -1800,5 +1865,34 @@
   "aiStudyPromoTitle": "Luyện tập với kịch bản AI",
   "aiStudyPromoBody": "Đóng vai các cuộc trò chuyện đời thực cùng gia sư AI và xây dựng sự tự tin khi nói.",
   "aiStudyPromoCTA": "Thử một kịch bản",
-  "aiStudyPromoDismiss": "Để sau"
+  "aiStudyPromoDismiss": "Để sau",
+  "aiTutorHeroTitleSet": "Gia sư AI của bạn · {name}",
+  "aiTutorHeroTitleNew": "Gặp gia sư AI của bạn",
+  "aiTutorHeroSubtitleSet": "Chạm để trò chuyện hoặc xem kế hoạch hôm nay",
+  "aiTutorHeroSubtitleLast": "Lần trước: {summary}",
+  "aiTutorHeroSubtitleNew": "Chọn một nhân vật — Nana, Sensei hoặc Riko",
+  "aiTutorChipChat": "Trò chuyện",
+  "aiTutorChipRoleplay": "Đóng vai",
+  "aiTutorChipStory": "Câu chuyện",
+  "aiTutorChipPhoto": "Ảnh",
+  "aiTutorChipPronounce": "Phát âm",
+  "aiConversationPartnerTile": "Hội thoại AI",
+  "aiConversationPartnerTileSubtitle": "Luyện tập với đối tác AI",
+  "@aiTutorHeroTitleSet": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiTutorHeroSubtitleLast": {
+    "placeholders": {
+      "summary": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiTutorChipPronounce": {
+    "description": "Label for the 5th tutor mode chip — opens the Pronunciation Coach drill"
+  }
 }

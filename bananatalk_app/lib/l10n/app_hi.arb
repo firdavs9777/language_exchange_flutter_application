@@ -1641,20 +1641,45 @@
   },
   "addProfilePhotoTitle": "प्रोफ़ाइल फ़ोटो जोड़ें",
   "addProfilePhotoSkip": "अभी छोड़ें",
-
   "wavesTab": "वेव्स",
-
   "sendWave": "वेव भेजें",
   "sendWaveTo": "{name} को वेव भेजें",
-  "@sendWaveTo": {"placeholders": {"name": {"type": "String"}}},
+  "@sendWaveTo": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "waveSent": "{name} को वेव भेजा गया",
-  "@waveSent": {"placeholders": {"name": {"type": "String"}}},
+  "@waveSent": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "waveCooldown": "आप {time} में {name} को फिर से वेव कर सकते हैं",
-  "@waveCooldown": {"placeholders": {"name": {"type": "String"}, "time": {"type": "String"}}},
+  "@waveCooldown": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "waveCouldntSend": "वेव नहीं भेजा जा सका",
   "itsAMatch": "मैच हो गया!",
   "itsAMatchSubtitle": "आप और {name} दोनों ने वेव किया",
-  "@itsAMatchSubtitle": {"placeholders": {"name": {"type": "String"}}},
+  "@itsAMatchSubtitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "sendAMessage": "संदेश भेजें",
   "waveQuickReplyHi": "हाय!",
   "waveQuickReplyCool": "आप बहुत अच्छे लगते हैं",
@@ -1662,45 +1687,75 @@
   "waveQuickReplyChat": "बात करते हैं",
   "waveQuickReplyHello": "हेलो",
   "waveQuickReplyFromCountry": "{country} से नमस्ते",
-  "@waveQuickReplyFromCountry": {"placeholders": {"country": {"type": "String"}}},
+  "@waveQuickReplyFromCountry": {
+    "placeholders": {
+      "country": {
+        "type": "String"
+      }
+    }
+  },
   "waveCustomMessage": "या अपना संदेश लिखें…",
-
   "voiceRoomChat": "चैट",
   "voiceRoomChatPlaceholder": "संदेश भेजें…",
   "voiceRoomChatEmpty": "अभी कोई संदेश नहीं — हाय कहें",
   "voiceRoomChatSend": "भेजें",
   "voiceRoomChatNewBadge": "{n}",
-  "@voiceRoomChatNewBadge": {"placeholders": {"n": {"type": "int"}}},
-
+  "@voiceRoomChatNewBadge": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "voiceRoomEnd": "रूम समाप्त करें",
   "voiceRoomEndConfirm": "यह रूम समाप्त करें?",
   "voiceRoomEndConfirmBody": "सभी का कनेक्शन टूट जाएगा।",
   "voiceRoomKick": "रूम से हटाएं",
   "voiceRoomKickConfirm": "{name} को हटाएं?",
-  "@voiceRoomKickConfirm": {"placeholders": {"name": {"type": "String"}}},
+  "@voiceRoomKickConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "voiceRoomKicked": "हटा दिया गया",
   "voiceRoomYouAreHostNow": "अब आप होस्ट हैं",
   "voiceRoomHostChanged": "{name} अब होस्ट हैं",
-  "@voiceRoomHostChanged": {"placeholders": {"name": {"type": "String"}}},
+  "@voiceRoomHostChanged": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "voiceRoomHostMenuTitle": "रूम क्रियाएं",
   "voiceRoomViewProfile": "प्रोफ़ाइल देखें",
-
   "voiceRoomReconnecting": "पुनः कनेक्ट हो रहा है…",
   "voiceRoomReconnected": "पुनः कनेक्ट हो गया",
   "voiceRoomEnded": "रूम समाप्त हो गया",
   "voiceRoomReconnectRetry": "पुनः प्रयास करें",
-
   "mutualInterests": "साझा रुचियां",
   "interestsInCommon": "{count, plural, =0{अभी कोई साझा रुचि नहीं} =1{1 साझा रुचि} other{{count} साझा रुचियां}}",
-  "@interestsInCommon": {"placeholders": {"count": {"type": "int"}}},
+  "@interestsInCommon": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "interestsInCommonSeeAll": "सभी देखें",
   "interestsInCommonAddCta": "विषय जोड़ें",
   "interestsInCommonAddSubtitle": "समान आधार खोजने के लिए अपनी प्रोफ़ाइल में विषय जोड़ें",
-
   "activeAgo": "{time} पहले सक्रिय",
-  "@activeAgo": {"placeholders": {"time": {"type": "String"}}},
+  "@activeAgo": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "filterOnlineNow": "अभी ऑनलाइन",
-
   "filterAge": "आयु",
   "filterGender": "लिंग",
   "filterLanguages": "भाषाएं",
@@ -1709,7 +1764,13 @@
   "filterLevel": "भाषा स्तर",
   "filterToggles": "अन्य",
   "filterMatchCount": "{count, plural, =0{कोई साझेदार मेल नहीं खाता} =1{1 साझेदार मेल खाता है} other{{count} साझेदार मेल खाते हैं}}",
-  "@filterMatchCount": {"placeholders": {"count": {"type": "int"}}},
+  "@filterMatchCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "filterClearAll": "सब साफ़ करें",
   "filterReset": "रीसेट करें",
   "filterApply": "लागू करें",
@@ -1733,10 +1794,15 @@
   "languageSettingsRow": "भाषा",
   "waveDailySummaryTitle": "नई वेव्स प्रतीक्षारत",
   "waveDailySummaryBody": "{count, plural, =1{1 व्यक्ति ने आपको वेव किया} other{{count} लोगों ने आपको वेव किया}}",
-  "@waveDailySummaryBody": {"placeholders": {"count": {"type": "int"}}},
+  "@waveDailySummaryBody": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "filterTopicsTitle": "विषय",
   "filterTopicsEmpty": "कोई विषय नहीं चुना गया",
-
   "storiesEmpty": "अभी कोई स्टोरी नहीं",
   "storiesLoadError": "स्टोरी लोड नहीं हो सकी",
   "storiesRetry": "पुनः प्रयास करें",
@@ -1891,7 +1957,6 @@
   "autoTranslateChatHint": "आने वाले संदेश स्वचालित रूप से अनुवादित होंगे",
   "noConversationsYet": "अभी तक कोई बातचीत नहीं",
   "chatRetry": "पुनः प्रयास",
-
   "learningHubTitle": "सीखना",
   "learningCommonRetry": "पुनः प्रयास करें",
   "learningCommonContinue": "जारी रखें",
@@ -1958,5 +2023,34 @@
   "aiStudyPromoTitle": "AI सीनैरियो के साथ अभ्यास करें",
   "aiStudyPromoBody": "अपने AI ट्यूटर के साथ असली ज़िंदगी की बातचीत रोलप्ले करें और बोलने में आत्मविश्वास बढ़ाएँ।",
   "aiStudyPromoCTA": "एक सीनैरियो आज़माएँ",
-  "aiStudyPromoDismiss": "शायद बाद में"
+  "aiStudyPromoDismiss": "शायद बाद में",
+  "aiTutorHeroTitleSet": "आपका AI ट्यूटर · {name}",
+  "aiTutorHeroTitleNew": "अपने AI ट्यूटर से मिलें",
+  "aiTutorHeroSubtitleSet": "चैट करने या आज की योजना देखने के लिए टैप करें",
+  "aiTutorHeroSubtitleLast": "पिछली बार: {summary}",
+  "aiTutorHeroSubtitleNew": "एक कैरेक्टर चुनें — Nana, Sensei, या Riko",
+  "aiTutorChipChat": "चैट",
+  "aiTutorChipRoleplay": "रोलप्ले",
+  "aiTutorChipStory": "कहानी",
+  "aiTutorChipPhoto": "फ़ोटो",
+  "aiTutorChipPronounce": "उच्चारण",
+  "aiConversationPartnerTile": "AI बातचीत",
+  "aiConversationPartnerTileSubtitle": "AI साथी के साथ अभ्यास करें",
+  "@aiTutorHeroTitleSet": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiTutorHeroSubtitleLast": {
+    "placeholders": {
+      "summary": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiTutorChipPronounce": {
+    "description": "Label for the 5th tutor mode chip — opens the Pronunciation Coach drill"
+  }
 }

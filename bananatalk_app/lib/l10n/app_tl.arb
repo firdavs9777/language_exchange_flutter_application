@@ -1577,20 +1577,45 @@
   },
   "addProfilePhotoTitle": "Magdagdag ng profile photo",
   "addProfilePhotoSkip": "Laktawan muna",
-
   "wavesTab": "Mga Wave",
-
   "sendWave": "Magpadala ng wave",
   "sendWaveTo": "Magpadala ng wave kay {name}",
-  "@sendWaveTo": {"placeholders": {"name": {"type": "String"}}},
+  "@sendWaveTo": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "waveSent": "Naipadala ang wave kay {name}",
-  "@waveSent": {"placeholders": {"name": {"type": "String"}}},
+  "@waveSent": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "waveCooldown": "Maaari kang mag-wave kay {name} muli pagkatapos ng {time}",
-  "@waveCooldown": {"placeholders": {"name": {"type": "String"}, "time": {"type": "String"}}},
+  "@waveCooldown": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "waveCouldntSend": "Hindi maipadala ang wave",
   "itsAMatch": "Nag-match kayo!",
   "itsAMatchSubtitle": "Ikaw at si {name} ay magkasamang nag-wave",
-  "@itsAMatchSubtitle": {"placeholders": {"name": {"type": "String"}}},
+  "@itsAMatchSubtitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "sendAMessage": "Magpadala ng mensahe",
   "waveQuickReplyHi": "Hi!",
   "waveQuickReplyCool": "Mukhang cool ka",
@@ -1598,45 +1623,75 @@
   "waveQuickReplyChat": "Mag-usap tayo",
   "waveQuickReplyHello": "Kumusta",
   "waveQuickReplyFromCountry": "Hi mula sa {country}",
-  "@waveQuickReplyFromCountry": {"placeholders": {"country": {"type": "String"}}},
+  "@waveQuickReplyFromCountry": {
+    "placeholders": {
+      "country": {
+        "type": "String"
+      }
+    }
+  },
   "waveCustomMessage": "O sumulat ng sarili mong mensahe…",
-
   "voiceRoomChat": "Chat",
   "voiceRoomChatPlaceholder": "Magpadala ng mensahe…",
   "voiceRoomChatEmpty": "Wala pang mensahe — kumusta ka",
   "voiceRoomChatSend": "Ipadala",
   "voiceRoomChatNewBadge": "{n}",
-  "@voiceRoomChatNewBadge": {"placeholders": {"n": {"type": "int"}}},
-
+  "@voiceRoomChatNewBadge": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "voiceRoomEnd": "Tapusin ang kuwarto",
   "voiceRoomEndConfirm": "Tapusin ang kuwartong ito?",
   "voiceRoomEndConfirmBody": "Lahat ay ididiskonekta.",
   "voiceRoomKick": "Alisin sa kuwarto",
   "voiceRoomKickConfirm": "Alisin si {name}?",
-  "@voiceRoomKickConfirm": {"placeholders": {"name": {"type": "String"}}},
+  "@voiceRoomKickConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "voiceRoomKicked": "Naalis na",
   "voiceRoomYouAreHostNow": "Ikaw na ang host ngayon",
   "voiceRoomHostChanged": "Si {name} na ang host ngayon",
-  "@voiceRoomHostChanged": {"placeholders": {"name": {"type": "String"}}},
+  "@voiceRoomHostChanged": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "voiceRoomHostMenuTitle": "Mga aksyon sa kuwarto",
   "voiceRoomViewProfile": "Tingnan ang profile",
-
   "voiceRoomReconnecting": "Nagre-reconnect…",
   "voiceRoomReconnected": "Nakakonekta na ulit",
   "voiceRoomEnded": "Natapos na ang kuwarto",
   "voiceRoomReconnectRetry": "Subukang muli",
-
   "mutualInterests": "Magkaparehong interes",
   "interestsInCommon": "{count, plural, =0{Wala pang magkaparehong interes} =1{1 magkaparehong interes} other{{count} magkaparehong interes}}",
-  "@interestsInCommon": {"placeholders": {"count": {"type": "int"}}},
+  "@interestsInCommon": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "interestsInCommonSeeAll": "Tingnan lahat",
   "interestsInCommonAddCta": "Magdagdag ng paksa",
   "interestsInCommonAddSubtitle": "Magdagdag ng paksa sa iyong profile para mahanap ang pagkakatulad",
-
   "activeAgo": "Aktibo noong {time} nakalipas",
-  "@activeAgo": {"placeholders": {"time": {"type": "String"}}},
+  "@activeAgo": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "filterOnlineNow": "Online ngayon",
-
   "filterAge": "Edad",
   "filterGender": "Kasarian",
   "filterLanguages": "Mga wika",
@@ -1645,7 +1700,13 @@
   "filterLevel": "Antas ng wika",
   "filterToggles": "Iba pa",
   "filterMatchCount": "{count, plural, =0{Walang kasosyong tumutugma} =1{1 kasosyo ang tumutugma} other{{count} kasosyo ang tumutugma}}",
-  "@filterMatchCount": {"placeholders": {"count": {"type": "int"}}},
+  "@filterMatchCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "filterClearAll": "I-clear lahat",
   "filterReset": "I-reset",
   "filterApply": "Ilapat",
@@ -1669,10 +1730,15 @@
   "languageSettingsRow": "Wika",
   "waveDailySummaryTitle": "Mga bagong wave na naghihintay",
   "waveDailySummaryBody": "{count, plural, =1{1 tao ang nag-wave sa iyo} other{{count} tao ang nag-wave sa iyo}}",
-  "@waveDailySummaryBody": {"placeholders": {"count": {"type": "int"}}},
+  "@waveDailySummaryBody": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "filterTopicsTitle": "Mga paksa",
   "filterTopicsEmpty": "Walang paksang napili",
-
   "storiesEmpty": "Wala pang mga kwento",
   "storiesLoadError": "Hindi ma-load ang mga kwento",
   "storiesRetry": "Subukan muli",
@@ -1827,7 +1893,6 @@
   "autoTranslateChatHint": "Ang mga papasok na mensahe ay automatikong isasalin",
   "noConversationsYet": "Wala pang mga usapan",
   "chatRetry": "Subukan ulit",
-
   "learningHubTitle": "Pag-aaral",
   "learningCommonRetry": "Subukan ulit",
   "learningCommonContinue": "Magpatuloy",
@@ -1894,5 +1959,34 @@
   "aiStudyPromoTitle": "Magsanay gamit ang AI scenarios",
   "aiStudyPromoBody": "Mag-roleplay ng totoong-buhay na usapan kasama ang iyong AI tutor at palakasin ang tiwala sa pagsasalita.",
   "aiStudyPromoCTA": "Subukan ang isang scenario",
-  "aiStudyPromoDismiss": "Sa susunod na lang"
+  "aiStudyPromoDismiss": "Sa susunod na lang",
+  "aiTutorHeroTitleSet": "Ang iyong AI Tutor · {name}",
+  "aiTutorHeroTitleNew": "Kilalanin ang iyong AI Tutor",
+  "aiTutorHeroSubtitleSet": "I-tap para mag-chat o tingnan ang plano ngayong araw",
+  "aiTutorHeroSubtitleLast": "Noong huli: {summary}",
+  "aiTutorHeroSubtitleNew": "Pumili ng karakter — Nana, Sensei, o Riko",
+  "aiTutorChipChat": "Chat",
+  "aiTutorChipRoleplay": "Roleplay",
+  "aiTutorChipStory": "Kuwento",
+  "aiTutorChipPhoto": "Larawan",
+  "aiTutorChipPronounce": "Pagbigkas",
+  "aiConversationPartnerTile": "AI na Pag-uusap",
+  "aiConversationPartnerTileSubtitle": "Magsanay kasama ang AI partner",
+  "@aiTutorHeroTitleSet": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiTutorHeroSubtitleLast": {
+    "placeholders": {
+      "summary": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiTutorChipPronounce": {
+    "description": "Label for the 5th tutor mode chip — opens the Pronunciation Coach drill"
+  }
 }

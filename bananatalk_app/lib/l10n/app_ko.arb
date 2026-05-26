@@ -1662,20 +1662,45 @@
   },
   "addProfilePhotoTitle": "프로필 사진 추가",
   "addProfilePhotoSkip": "건너뛰기",
-
   "wavesTab": "웨이브",
-
   "sendWave": "웨이브 보내기",
   "sendWaveTo": "{name}에게 웨이브 보내기",
-  "@sendWaveTo": {"placeholders": {"name": {"type": "String"}}},
+  "@sendWaveTo": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "waveSent": "{name}에게 웨이브를 보냈어요",
-  "@waveSent": {"placeholders": {"name": {"type": "String"}}},
+  "@waveSent": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "waveCooldown": "{time} 후에 {name}에게 다시 웨이브를 보낼 수 있어요",
-  "@waveCooldown": {"placeholders": {"name": {"type": "String"}, "time": {"type": "String"}}},
+  "@waveCooldown": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "waveCouldntSend": "웨이브를 보낼 수 없어요",
   "itsAMatch": "매칭 성공!",
   "itsAMatchSubtitle": "{name}님과 서로 웨이브를 보냈어요",
-  "@itsAMatchSubtitle": {"placeholders": {"name": {"type": "String"}}},
+  "@itsAMatchSubtitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "sendAMessage": "메시지 보내기",
   "waveQuickReplyHi": "안녕!",
   "waveQuickReplyCool": "멋져 보여요",
@@ -1683,45 +1708,75 @@
   "waveQuickReplyChat": "대화해요",
   "waveQuickReplyHello": "반가워요",
   "waveQuickReplyFromCountry": "{country}에서 안녕!",
-  "@waveQuickReplyFromCountry": {"placeholders": {"country": {"type": "String"}}},
+  "@waveQuickReplyFromCountry": {
+    "placeholders": {
+      "country": {
+        "type": "String"
+      }
+    }
+  },
   "waveCustomMessage": "직접 메시지를 작성해 보세요…",
-
   "voiceRoomChat": "채팅",
   "voiceRoomChatPlaceholder": "메시지 보내기…",
   "voiceRoomChatEmpty": "아직 메시지가 없어요 — 인사해 보세요",
   "voiceRoomChatSend": "보내기",
   "voiceRoomChatNewBadge": "{n}",
-  "@voiceRoomChatNewBadge": {"placeholders": {"n": {"type": "int"}}},
-
+  "@voiceRoomChatNewBadge": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "voiceRoomEnd": "방 종료",
   "voiceRoomEndConfirm": "이 방을 종료할까요?",
   "voiceRoomEndConfirmBody": "모든 참가자가 연결이 끊깁니다.",
   "voiceRoomKick": "방에서 내보내기",
   "voiceRoomKickConfirm": "{name}님을 내보낼까요?",
-  "@voiceRoomKickConfirm": {"placeholders": {"name": {"type": "String"}}},
+  "@voiceRoomKickConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "voiceRoomKicked": "내보내졌습니다",
   "voiceRoomYouAreHostNow": "이제 호스트가 되었어요",
   "voiceRoomHostChanged": "{name}님이 호스트가 되었어요",
-  "@voiceRoomHostChanged": {"placeholders": {"name": {"type": "String"}}},
+  "@voiceRoomHostChanged": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "voiceRoomHostMenuTitle": "방 관리",
   "voiceRoomViewProfile": "프로필 보기",
-
   "voiceRoomReconnecting": "재연결 중…",
   "voiceRoomReconnected": "재연결되었습니다",
   "voiceRoomEnded": "방이 종료되었습니다",
   "voiceRoomReconnectRetry": "다시 시도",
-
   "mutualInterests": "공통 관심사",
   "interestsInCommon": "{count, plural, =0{아직 공통 관심사가 없어요} =1{공통 관심사 1개} other{공통 관심사 {count}개}}",
-  "@interestsInCommon": {"placeholders": {"count": {"type": "int"}}},
+  "@interestsInCommon": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "interestsInCommonSeeAll": "모두 보기",
   "interestsInCommonAddCta": "주제 추가",
   "interestsInCommonAddSubtitle": "프로필에 주제를 추가해 공통점을 찾아보세요",
-
   "activeAgo": "{time} 전에 활동",
-  "@activeAgo": {"placeholders": {"time": {"type": "String"}}},
+  "@activeAgo": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "filterOnlineNow": "지금 온라인",
-
   "filterAge": "나이",
   "filterGender": "성별",
   "filterLanguages": "언어",
@@ -1730,7 +1785,13 @@
   "filterLevel": "언어 수준",
   "filterToggles": "기타",
   "filterMatchCount": "{count, plural, =0{일치하는 파트너 없음} =1{파트너 1명 일치} other{파트너 {count}명 일치}}",
-  "@filterMatchCount": {"placeholders": {"count": {"type": "int"}}},
+  "@filterMatchCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "filterClearAll": "전체 지우기",
   "filterReset": "초기화",
   "filterApply": "적용",
@@ -1754,10 +1815,15 @@
   "languageSettingsRow": "언어",
   "waveDailySummaryTitle": "새로운 웨이브가 있습니다",
   "waveDailySummaryBody": "{count, plural, =1{1명이 웨이브를 보냈습니다} other{{count}명이 웨이브를 보냈습니다}}",
-  "@waveDailySummaryBody": {"placeholders": {"count": {"type": "int"}}},
+  "@waveDailySummaryBody": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "filterTopicsTitle": "주제",
   "filterTopicsEmpty": "선택된 주제가 없습니다",
-
   "storiesEmpty": "아직 스토리가 없습니다",
   "storiesLoadError": "스토리를 불러올 수 없습니다",
   "storiesRetry": "다시 시도",
@@ -1912,7 +1978,6 @@
   "autoTranslateChatHint": "수신 메시지가 자동으로 번역됩니다",
   "noConversationsYet": "아직 대화가 없습니다",
   "chatRetry": "다시 시도",
-
   "learningHubTitle": "학습",
   "learningCommonRetry": "다시 시도",
   "learningCommonContinue": "계속",
@@ -1979,5 +2044,34 @@
   "aiStudyPromoTitle": "AI 시나리오로 연습하세요",
   "aiStudyPromoBody": "AI 튜터와 실제 대화를 롤플레이하며 말하기 자신감을 키워보세요.",
   "aiStudyPromoCTA": "시나리오 체험하기",
-  "aiStudyPromoDismiss": "나중에"
+  "aiStudyPromoDismiss": "나중에",
+  "aiTutorHeroTitleSet": "AI 튜터 · {name}",
+  "aiTutorHeroTitleNew": "AI 튜터를 만나보세요",
+  "aiTutorHeroSubtitleSet": "탭하여 대화하거나 오늘의 학습 계획 보기",
+  "aiTutorHeroSubtitleLast": "지난번: {summary}",
+  "aiTutorHeroSubtitleNew": "캐릭터를 선택하세요 — Nana, Sensei, Riko",
+  "aiTutorChipChat": "채팅",
+  "aiTutorChipRoleplay": "역할극",
+  "aiTutorChipStory": "스토리",
+  "aiTutorChipPhoto": "사진",
+  "aiTutorChipPronounce": "발음",
+  "aiConversationPartnerTile": "AI 대화",
+  "aiConversationPartnerTileSubtitle": "AI 파트너와 연습하기",
+  "@aiTutorHeroTitleSet": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiTutorHeroSubtitleLast": {
+    "placeholders": {
+      "summary": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiTutorChipPronounce": {
+    "description": "Label for the 5th tutor mode chip — opens the Pronunciation Coach drill"
+  }
 }

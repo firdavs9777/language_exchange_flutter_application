@@ -1655,20 +1655,45 @@
   },
   "addProfilePhotoTitle": "أضف صورة شخصية",
   "addProfilePhotoSkip": "تخطّي الآن",
-
   "wavesTab": "التحيات",
-
   "sendWave": "أرسل تحية",
   "sendWaveTo": "أرسل تحية إلى {name}",
-  "@sendWaveTo": {"placeholders": {"name": {"type": "String"}}},
+  "@sendWaveTo": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "waveSent": "تم إرسال التحية إلى {name}",
-  "@waveSent": {"placeholders": {"name": {"type": "String"}}},
+  "@waveSent": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "waveCooldown": "يمكنك إرسال تحية إلى {name} مجدداً خلال {time}",
-  "@waveCooldown": {"placeholders": {"name": {"type": "String"}, "time": {"type": "String"}}},
+  "@waveCooldown": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "waveCouldntSend": "تعذّر إرسال التحية",
   "itsAMatch": "لقد تطابقتما!",
   "itsAMatchSubtitle": "أنت و{name} بعثتما تحيةً لبعضكما",
-  "@itsAMatchSubtitle": {"placeholders": {"name": {"type": "String"}}},
+  "@itsAMatchSubtitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "sendAMessage": "أرسل رسالة",
   "waveQuickReplyHi": "مرحباً!",
   "waveQuickReplyCool": "تبدو رائعاً",
@@ -1676,45 +1701,75 @@
   "waveQuickReplyChat": "لنتحدث",
   "waveQuickReplyHello": "مرحباً",
   "waveQuickReplyFromCountry": "تحيةً من {country}",
-  "@waveQuickReplyFromCountry": {"placeholders": {"country": {"type": "String"}}},
+  "@waveQuickReplyFromCountry": {
+    "placeholders": {
+      "country": {
+        "type": "String"
+      }
+    }
+  },
   "waveCustomMessage": "أو اكتب رسالتك الخاصة…",
-
   "voiceRoomChat": "المحادثة",
   "voiceRoomChatPlaceholder": "أرسل رسالة…",
   "voiceRoomChatEmpty": "لا رسائل بعد — قل مرحباً",
   "voiceRoomChatSend": "إرسال",
   "voiceRoomChatNewBadge": "{n}",
-  "@voiceRoomChatNewBadge": {"placeholders": {"n": {"type": "int"}}},
-
+  "@voiceRoomChatNewBadge": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "voiceRoomEnd": "إنهاء الغرفة",
   "voiceRoomEndConfirm": "إنهاء هذه الغرفة؟",
   "voiceRoomEndConfirmBody": "سيتم قطع الاتصال بالجميع.",
   "voiceRoomKick": "إزالة من الغرفة",
   "voiceRoomKickConfirm": "إزالة {name}؟",
-  "@voiceRoomKickConfirm": {"placeholders": {"name": {"type": "String"}}},
+  "@voiceRoomKickConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "voiceRoomKicked": "تمت الإزالة",
   "voiceRoomYouAreHostNow": "أنت الآن المضيف",
   "voiceRoomHostChanged": "{name} هو المضيف الآن",
-  "@voiceRoomHostChanged": {"placeholders": {"name": {"type": "String"}}},
+  "@voiceRoomHostChanged": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "voiceRoomHostMenuTitle": "إجراءات الغرفة",
   "voiceRoomViewProfile": "عرض الملف الشخصي",
-
   "voiceRoomReconnecting": "جارٍ إعادة الاتصال…",
   "voiceRoomReconnected": "تمت إعادة الاتصال",
   "voiceRoomEnded": "انتهت الغرفة",
   "voiceRoomReconnectRetry": "إعادة المحاولة",
-
   "mutualInterests": "الاهتمامات المشتركة",
   "interestsInCommon": "{count, plural, =0{لا اهتمامات مشتركة بعد} =1{اهتمام مشترك واحد} other{{count} اهتمامات مشتركة}}",
-  "@interestsInCommon": {"placeholders": {"count": {"type": "int"}}},
+  "@interestsInCommon": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "interestsInCommonSeeAll": "عرض الكل",
   "interestsInCommonAddCta": "إضافة مواضيع",
   "interestsInCommonAddSubtitle": "أضف مواضيع إلى ملفك الشخصي للعثور على أرضية مشتركة",
-
   "activeAgo": "نشط منذ {time}",
-  "@activeAgo": {"placeholders": {"time": {"type": "String"}}},
+  "@activeAgo": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "filterOnlineNow": "متصل الآن",
-
   "filterAge": "العمر",
   "filterGender": "الجنس",
   "filterLanguages": "اللغات",
@@ -1723,7 +1778,13 @@
   "filterLevel": "المستوى اللغوي",
   "filterToggles": "أخرى",
   "filterMatchCount": "{count, plural, =0{لا يوجد شركاء مطابقون} =1{شريك واحد مطابق} other{{count} شركاء مطابقون}}",
-  "@filterMatchCount": {"placeholders": {"count": {"type": "int"}}},
+  "@filterMatchCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "filterClearAll": "مسح الكل",
   "filterReset": "إعادة تعيين",
   "filterApply": "تطبيق",
@@ -1747,10 +1808,15 @@
   "languageSettingsRow": "اللغة",
   "waveDailySummaryTitle": "موجات جديدة في الانتظار",
   "waveDailySummaryBody": "{count, plural, =1{شخص واحد أرسل لك موجة} other{{count} أشخاص أرسلوا لك موجة}}",
-  "@waveDailySummaryBody": {"placeholders": {"count": {"type": "int"}}},
+  "@waveDailySummaryBody": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "filterTopicsTitle": "المواضيع",
   "filterTopicsEmpty": "لم يتم اختيار أي موضوع",
-
   "storiesEmpty": "لا توجد قصص بعد",
   "storiesLoadError": "تعذّر تحميل القصص",
   "storiesRetry": "حاول مجدداً",
@@ -1905,7 +1971,6 @@
   "autoTranslateChatHint": "ستتم ترجمة الرسائل الواردة تلقائياً",
   "noConversationsYet": "لا توجد محادثات بعد",
   "chatRetry": "إعادة المحاولة",
-
   "learningHubTitle": "التعلم",
   "learningCommonRetry": "إعادة المحاولة",
   "learningCommonContinue": "متابعة",
@@ -1972,5 +2037,34 @@
   "aiStudyPromoTitle": "تدرّب على سيناريوهات بالذكاء الاصطناعي",
   "aiStudyPromoBody": "تدرّب على محادثات الحياة الواقعية مع مدرّسك بالذكاء الاصطناعي وابنِ ثقتك بالتحدّث.",
   "aiStudyPromoCTA": "جرّب سيناريو",
-  "aiStudyPromoDismiss": "ربما لاحقًا"
+  "aiStudyPromoDismiss": "ربما لاحقًا",
+  "aiTutorHeroTitleSet": "مدرّسك الذكي · {name}",
+  "aiTutorHeroTitleNew": "تعرّف على مدرّسك بالذكاء الاصطناعي",
+  "aiTutorHeroSubtitleSet": "اضغط للدردشة أو لرؤية خطة اليوم",
+  "aiTutorHeroSubtitleLast": "آخر مرة: {summary}",
+  "aiTutorHeroSubtitleNew": "اختر شخصية — Nana أو Sensei أو Riko",
+  "aiTutorChipChat": "محادثة",
+  "aiTutorChipRoleplay": "لعب أدوار",
+  "aiTutorChipStory": "قصة",
+  "aiTutorChipPhoto": "صورة",
+  "aiTutorChipPronounce": "نطق",
+  "aiConversationPartnerTile": "محادثة بالذكاء الاصطناعي",
+  "aiConversationPartnerTileSubtitle": "تدرّب مع شريك بالذكاء الاصطناعي",
+  "@aiTutorHeroTitleSet": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiTutorHeroSubtitleLast": {
+    "placeholders": {
+      "summary": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiTutorChipPronounce": {
+    "description": "Label for the 5th tutor mode chip — opens the Pronunciation Coach drill"
+  }
 }

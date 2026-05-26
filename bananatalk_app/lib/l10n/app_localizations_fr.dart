@@ -361,22 +361,22 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String aiTutorHeroTitleSet(String name) {
-    return 'Your AI Tutor · $name';
+    return 'Ton tuteur IA · $name';
   }
 
   @override
-  String get aiTutorHeroTitleNew => 'Meet your AI Tutor';
+  String get aiTutorHeroTitleNew => 'Rencontre ton tuteur IA';
 
   @override
-  String get aiTutorHeroSubtitleSet => 'Tap to chat or see today\'s plan';
+  String get aiTutorHeroSubtitleSet => 'Tape pour discuter ou voir le plan du jour';
 
   @override
   String aiTutorHeroSubtitleLast(String summary) {
-    return 'Last time: $summary';
+    return 'Dernière fois : $summary';
   }
 
   @override
-  String get aiTutorHeroSubtitleNew => 'Pick a persona — Nana, Sensei, or Riko';
+  String get aiTutorHeroSubtitleNew => 'Choisis un personnage — Nana, Sensei ou Riko';
 
   @override
   String get aiTutorChipChat => 'Chat';
@@ -385,7 +385,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get aiTutorChipRoleplay => 'Roleplay';
 
   @override
-  String get aiTutorChipStory => 'Story';
+  String get aiTutorChipStory => 'Histoire';
 
   @override
   String get aiTutorChipPhoto => 'Photo';
@@ -394,10 +394,10 @@ class AppLocalizationsFr extends AppLocalizations {
   String get aiToolsMoreSection => 'More AI tools';
 
   @override
-  String get aiConversationPartnerTile => 'AI Conversation';
+  String get aiConversationPartnerTile => 'Conversation IA';
 
   @override
-  String get aiConversationPartnerTileSubtitle => 'Practice with an AI partner';
+  String get aiConversationPartnerTileSubtitle => 'Pratique avec un partenaire IA';
 
   @override
   String get aiTutorPickerTitle => 'Pick your AI tutor';
@@ -5712,7 +5712,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get aiTutorPronounceSaving => 'Saving…';
 
   @override
-  String get aiTutorChipPronounce => 'Pronounce';
+  String get aiTutorChipPronounce => 'Prononciation';
 
   @override
   String aiTutorPlanPronunciation(int count, int completed) {

@@ -1853,20 +1853,45 @@
   },
   "addProfilePhotoTitle": "Profil fotoğrafı ekle",
   "addProfilePhotoSkip": "Şimdilik atla",
-
   "wavesTab": "Dalgalar",
-
   "sendWave": "El salla",
   "sendWaveTo": "{name} kişisine el salla",
-  "@sendWaveTo": {"placeholders": {"name": {"type": "String"}}},
+  "@sendWaveTo": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "waveSent": "{name} kişisine el sallandı",
-  "@waveSent": {"placeholders": {"name": {"type": "String"}}},
+  "@waveSent": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "waveCooldown": "{name} kişisine {time} sonra tekrar el sallayabilirsin",
-  "@waveCooldown": {"placeholders": {"name": {"type": "String"}, "time": {"type": "String"}}},
+  "@waveCooldown": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "waveCouldntSend": "El sallama gönderilemedi",
   "itsAMatch": "Eşleşme!",
   "itsAMatchSubtitle": "Sen ve {name} birbirinize el salladınız",
-  "@itsAMatchSubtitle": {"placeholders": {"name": {"type": "String"}}},
+  "@itsAMatchSubtitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "sendAMessage": "Mesaj gönder",
   "waveQuickReplyHi": "Merhaba!",
   "waveQuickReplyCool": "Harika görünüyorsun",
@@ -1874,45 +1899,75 @@
   "waveQuickReplyChat": "Sohbet edelim",
   "waveQuickReplyHello": "Selam",
   "waveQuickReplyFromCountry": "{country}'dan merhaba",
-  "@waveQuickReplyFromCountry": {"placeholders": {"country": {"type": "String"}}},
+  "@waveQuickReplyFromCountry": {
+    "placeholders": {
+      "country": {
+        "type": "String"
+      }
+    }
+  },
   "waveCustomMessage": "Ya da kendine ait bir mesaj yaz…",
-
   "voiceRoomChat": "Sohbet",
   "voiceRoomChatPlaceholder": "Mesaj gönder…",
   "voiceRoomChatEmpty": "Henüz mesaj yok — merhaba de",
   "voiceRoomChatSend": "Gönder",
   "voiceRoomChatNewBadge": "{n}",
-  "@voiceRoomChatNewBadge": {"placeholders": {"n": {"type": "int"}}},
-
+  "@voiceRoomChatNewBadge": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "voiceRoomEnd": "Odayı bitir",
   "voiceRoomEndConfirm": "Bu odayı bitir?",
   "voiceRoomEndConfirmBody": "Herkesin bağlantısı kesilecek.",
   "voiceRoomKick": "Odadan çıkar",
   "voiceRoomKickConfirm": "{name} kişisini çıkar?",
-  "@voiceRoomKickConfirm": {"placeholders": {"name": {"type": "String"}}},
+  "@voiceRoomKickConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "voiceRoomKicked": "Çıkarıldı",
   "voiceRoomYouAreHostNow": "Artık ev sahibisin",
   "voiceRoomHostChanged": "{name} artık ev sahibi",
-  "@voiceRoomHostChanged": {"placeholders": {"name": {"type": "String"}}},
+  "@voiceRoomHostChanged": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "voiceRoomHostMenuTitle": "Oda işlemleri",
   "voiceRoomViewProfile": "Profili gör",
-
   "voiceRoomReconnecting": "Yeniden bağlanıyor…",
   "voiceRoomReconnected": "Yeniden bağlandı",
   "voiceRoomEnded": "Oda sona erdi",
   "voiceRoomReconnectRetry": "Tekrar dene",
-
   "mutualInterests": "Ortak ilgi alanları",
   "interestsInCommon": "{count, plural, =0{Henüz ortak ilgi yok} =1{1 ortak ilgi} other{{count} ortak ilgi}}",
-  "@interestsInCommon": {"placeholders": {"count": {"type": "int"}}},
+  "@interestsInCommon": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "interestsInCommonSeeAll": "Tümünü gör",
   "interestsInCommonAddCta": "Konu ekle",
   "interestsInCommonAddSubtitle": "Ortak nokta bulmak için profiline konu ekle",
-
   "activeAgo": "{time} önce aktifti",
-  "@activeAgo": {"placeholders": {"time": {"type": "String"}}},
+  "@activeAgo": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "filterOnlineNow": "Şu an çevrimiçi",
-
   "filterAge": "Yaş",
   "filterGender": "Cinsiyet",
   "filterLanguages": "Diller",
@@ -1921,7 +1976,13 @@
   "filterLevel": "Dil seviyesi",
   "filterToggles": "Diğer",
   "filterMatchCount": "{count, plural, =0{Eşleşen ortak yok} =1{1 ortak eşleşiyor} other{{count} ortak eşleşiyor}}",
-  "@filterMatchCount": {"placeholders": {"count": {"type": "int"}}},
+  "@filterMatchCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "filterClearAll": "Tümünü temizle",
   "filterReset": "Sıfırla",
   "filterApply": "Uygula",
@@ -1945,10 +2006,15 @@
   "languageSettingsRow": "Dil",
   "waveDailySummaryTitle": "Bekleyen yeni dalgalar",
   "waveDailySummaryBody": "{count, plural, =1{1 kişi size dalga gönderdi} other{{count} kişi size dalga gönderdi}}",
-  "@waveDailySummaryBody": {"placeholders": {"count": {"type": "int"}}},
+  "@waveDailySummaryBody": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "filterTopicsTitle": "Konular",
   "filterTopicsEmpty": "Konu seçilmedi",
-
   "storiesEmpty": "Henüz hikaye yok",
   "storiesLoadError": "Hikayeler yüklenemedi",
   "storiesRetry": "Tekrar dene",
@@ -2103,7 +2169,6 @@
   "autoTranslateChatHint": "Gelen mesajlar otomatik olarak çevrilecek",
   "noConversationsYet": "Henüz konuşma yok",
   "chatRetry": "Tekrar dene",
-
   "learningHubTitle": "Öğrenme",
   "learningCommonRetry": "Yeniden dene",
   "learningCommonContinue": "Devam et",
@@ -2170,5 +2235,34 @@
   "aiStudyPromoTitle": "AI senaryolarıyla pratik yap",
   "aiStudyPromoBody": "AI öğretmeninle gerçek hayat konuşmalarını canlandır ve konuşma özgüvenini geliştir.",
   "aiStudyPromoCTA": "Bir senaryo dene",
-  "aiStudyPromoDismiss": "Belki sonra"
+  "aiStudyPromoDismiss": "Belki sonra",
+  "aiTutorHeroTitleSet": "AI Öğretmenin · {name}",
+  "aiTutorHeroTitleNew": "AI Öğretmeninle tanış",
+  "aiTutorHeroSubtitleSet": "Sohbet etmek veya bugünkü planı görmek için dokun",
+  "aiTutorHeroSubtitleLast": "Geçen sefer: {summary}",
+  "aiTutorHeroSubtitleNew": "Bir karakter seç — Nana, Sensei veya Riko",
+  "aiTutorChipChat": "Sohbet",
+  "aiTutorChipRoleplay": "Rol oynama",
+  "aiTutorChipStory": "Hikaye",
+  "aiTutorChipPhoto": "Fotoğraf",
+  "aiTutorChipPronounce": "Telaffuz",
+  "aiConversationPartnerTile": "AI Sohbeti",
+  "aiConversationPartnerTileSubtitle": "AI partneriyle pratik yap",
+  "@aiTutorHeroTitleSet": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiTutorHeroSubtitleLast": {
+    "placeholders": {
+      "summary": {
+        "type": "String"
+      }
+    }
+  },
+  "@aiTutorChipPronounce": {
+    "description": "Label for the 5th tutor mode chip — opens the Pronunciation Coach drill"
+  }
 }
