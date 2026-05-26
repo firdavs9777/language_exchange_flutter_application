@@ -6170,4 +6170,10 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get momentsPrivacyPrivate => '비공개';
+
+  @override
+  String get splashTagline => '만나고 · 채팅하고 · 연결되세요';
+
+  @override
+  String get splashLoading => '로딩 중…';
 }

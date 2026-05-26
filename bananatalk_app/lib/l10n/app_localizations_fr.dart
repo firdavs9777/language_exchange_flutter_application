@@ -6177,4 +6177,10 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get momentsPrivacyPrivate => 'Privé';
+
+  @override
+  String get splashTagline => 'Rencontrer · Discuter · Connecter';
+
+  @override
+  String get splashLoading => 'Chargement…';
 }

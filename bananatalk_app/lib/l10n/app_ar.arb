@@ -2582,5 +2582,7 @@
   "momentsCreateScheduleForLater": "جدولة لاحقًا",
   "momentsPrivacyPublic": "عام",
   "momentsPrivacyFriends": "الأصدقاء",
-  "momentsPrivacyPrivate": "خاص"
+  "momentsPrivacyPrivate": "خاص",
+  "splashTagline": "تواصل · دردش · تعرّف",
+  "splashLoading": "جارٍ التحميل…"
 }

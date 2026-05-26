@@ -6178,4 +6178,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get momentsPrivacyPrivate => 'Private';
+
+  @override
+  String get splashTagline => 'Meet · Chat · Connect';
+
+  @override
+  String get splashLoading => 'Loading…';
 }

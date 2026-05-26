@@ -2410,5 +2410,7 @@
   "momentsCreateScheduleForLater": "Jadwalkan untuk nanti",
   "momentsPrivacyPublic": "Publik",
   "momentsPrivacyFriends": "Teman",
-  "momentsPrivacyPrivate": "Pribadi"
+  "momentsPrivacyPrivate": "Pribadi",
+  "splashTagline": "Bertemu · Chat · Terhubung",
+  "splashLoading": "Memuat…"
 }

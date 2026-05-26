@@ -2780,5 +2780,7 @@
   "momentsCreateScheduleForLater": "Sonraya zamanla",
   "momentsPrivacyPublic": "Herkese açık",
   "momentsPrivacyFriends": "Arkadaşlar",
-  "momentsPrivacyPrivate": "Özel"
+  "momentsPrivacyPrivate": "Özel",
+  "splashTagline": "Tanış · Sohbet et · Bağlan",
+  "splashLoading": "Yükleniyor…"
 }

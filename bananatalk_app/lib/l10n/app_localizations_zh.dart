@@ -6171,6 +6171,12 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get momentsPrivacyPrivate => '私密';
+
+  @override
+  String get splashTagline => '相识 · 聊天 · 连接';
+
+  @override
+  String get splashLoading => '加载中…';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).

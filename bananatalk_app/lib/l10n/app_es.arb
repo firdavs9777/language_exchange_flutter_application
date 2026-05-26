@@ -2583,5 +2583,7 @@
   "momentsCreateScheduleForLater": "Programar para luego",
   "momentsPrivacyPublic": "Público",
   "momentsPrivacyFriends": "Amigos",
-  "momentsPrivacyPrivate": "Privado"
+  "momentsPrivacyPrivate": "Privado",
+  "splashTagline": "Conocer · Chatear · Conectar",
+  "splashLoading": "Cargando…"
 }

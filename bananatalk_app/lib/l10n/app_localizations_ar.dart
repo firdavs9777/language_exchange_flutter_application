@@ -6186,4 +6186,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get momentsPrivacyPrivate => 'خاص';
+
+  @override
+  String get splashTagline => 'تواصل · دردش · تعرّف';
+
+  @override
+  String get splashLoading => 'جارٍ التحميل…';
 }

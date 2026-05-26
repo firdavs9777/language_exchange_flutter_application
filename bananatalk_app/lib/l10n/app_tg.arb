@@ -2151,5 +2151,7 @@
   "momentsCreateScheduleForLater": "Барои баъдтар ҷадвалбандӣ",
   "momentsPrivacyPublic": "Ҷамъиятӣ",
   "momentsPrivacyFriends": "Дӯстон",
-  "momentsPrivacyPrivate": "Хусусӣ"
+  "momentsPrivacyPrivate": "Хусусӣ",
+  "splashTagline": "Шинос шавед · Сӯҳбат · Пайваст",
+  "splashLoading": "Боргузорӣ…"
 }

@@ -6170,4 +6170,10 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get momentsPrivacyPrivate => 'Riêng tư';
+
+  @override
+  String get splashTagline => 'Gặp gỡ · Trò chuyện · Kết nối';
+
+  @override
+  String get splashLoading => 'Đang tải…';
 }

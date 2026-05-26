@@ -2410,5 +2410,7 @@
   "momentsCreateScheduleForLater": "Lên lịch sau",
   "momentsPrivacyPublic": "Công khai",
   "momentsPrivacyFriends": "Bạn bè",
-  "momentsPrivacyPrivate": "Riêng tư"
+  "momentsPrivacyPrivate": "Riêng tư",
+  "splashTagline": "Gặp gỡ · Trò chuyện · Kết nối",
+  "splashLoading": "Đang tải…"
 }

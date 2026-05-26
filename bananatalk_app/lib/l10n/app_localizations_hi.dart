@@ -6177,4 +6177,10 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get momentsPrivacyPrivate => 'निजी';
+
+  @override
+  String get splashTagline => 'मिलें · चैट करें · जुड़ें';
+
+  @override
+  String get splashLoading => 'लोड हो रहा है…';
 }

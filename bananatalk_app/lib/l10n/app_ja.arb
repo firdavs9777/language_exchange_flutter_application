@@ -2567,5 +2567,7 @@
   "momentsCreateScheduleForLater": "後で投稿",
   "momentsPrivacyPublic": "公開",
   "momentsPrivacyFriends": "友達",
-  "momentsPrivacyPrivate": "非公開"
+  "momentsPrivacyPrivate": "非公開",
+  "splashTagline": "出会う · 話す · つながる",
+  "splashLoading": "読み込み中…"
 }

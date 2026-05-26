@@ -6170,4 +6170,10 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get momentsPrivacyPrivate => '非公開';
+
+  @override
+  String get splashTagline => '出会う · 話す · つながる';
+
+  @override
+  String get splashLoading => '読み込み中…';
 }

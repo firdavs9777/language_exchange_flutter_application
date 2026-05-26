@@ -6184,4 +6184,10 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get momentsPrivacyPrivate => 'Хусусӣ';
+
+  @override
+  String get splashTagline => 'Шинос шавед · Сӯҳбат · Пайваст';
+
+  @override
+  String get splashLoading => 'Боргузорӣ…';
 }

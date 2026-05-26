@@ -2410,5 +2410,7 @@
   "momentsCreateScheduleForLater": "กำหนดไว้ภายหลัง",
   "momentsPrivacyPublic": "สาธารณะ",
   "momentsPrivacyFriends": "เพื่อน",
-  "momentsPrivacyPrivate": "ส่วนตัว"
+  "momentsPrivacyPrivate": "ส่วนตัว",
+  "splashTagline": "พบปะ · สนทนา · เชื่อมต่อ",
+  "splashLoading": "กำลังโหลด…"
 }

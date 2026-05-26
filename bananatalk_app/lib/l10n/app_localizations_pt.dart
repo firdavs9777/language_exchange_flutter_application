@@ -6177,4 +6177,10 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get momentsPrivacyPrivate => 'Privado';
+
+  @override
+  String get splashTagline => 'Conhecer · Chatear · Conectar';
+
+  @override
+  String get splashLoading => 'Carregando…';
 }

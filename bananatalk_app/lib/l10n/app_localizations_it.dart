@@ -6177,4 +6177,10 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get momentsPrivacyPrivate => 'Privato';
+
+  @override
+  String get splashTagline => 'Incontra · Chatta · Connetti';
+
+  @override
+  String get splashLoading => 'Caricamento…';
 }

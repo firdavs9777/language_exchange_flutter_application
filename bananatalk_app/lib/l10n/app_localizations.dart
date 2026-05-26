@@ -11319,6 +11319,12 @@ abstract class AppLocalizations {
 
   /// In en, 'Private'
   String get momentsPrivacyPrivate;
+
+  /// In en, 'Meet · Chat · Connect'
+  String get splashTagline;
+
+  /// In en, 'Loading…'
+  String get splashLoading;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

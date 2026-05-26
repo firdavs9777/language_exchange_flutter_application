@@ -2837,5 +2837,7 @@
   "momentsCreateScheduleForLater": "Planifier pour plus tard",
   "momentsPrivacyPublic": "Public",
   "momentsPrivacyFriends": "Amis",
-  "momentsPrivacyPrivate": "Privé"
+  "momentsPrivacyPrivate": "Privé",
+  "splashTagline": "Rencontrer · Discuter · Connecter",
+  "splashLoading": "Chargement…"
 }

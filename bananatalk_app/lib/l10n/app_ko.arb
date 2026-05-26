@@ -2589,5 +2589,7 @@
   "momentsCreateScheduleForLater": "나중에 예약",
   "momentsPrivacyPublic": "공개",
   "momentsPrivacyFriends": "친구",
-  "momentsPrivacyPrivate": "비공개"
+  "momentsPrivacyPrivate": "비공개",
+  "splashTagline": "만나고 · 채팅하고 · 연결되세요",
+  "splashLoading": "로딩 중…"
 }

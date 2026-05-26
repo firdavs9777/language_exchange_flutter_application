@@ -2568,5 +2568,7 @@
   "momentsCreateScheduleForLater": "बाद के लिए शेड्यूल",
   "momentsPrivacyPublic": "सार्वजनिक",
   "momentsPrivacyFriends": "मित्र",
-  "momentsPrivacyPrivate": "निजी"
+  "momentsPrivacyPrivate": "निजी",
+  "splashTagline": "मिलें · चैट करें · जुड़ें",
+  "splashLoading": "लोड हो रहा है…"
 }

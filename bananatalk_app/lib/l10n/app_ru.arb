@@ -2582,5 +2582,7 @@
   "momentsCreateScheduleForLater": "Запланировать",
   "momentsPrivacyPublic": "Публично",
   "momentsPrivacyFriends": "Друзья",
-  "momentsPrivacyPrivate": "Лично"
+  "momentsPrivacyPrivate": "Лично",
+  "splashTagline": "Знакомься · Общайся · Связывайся",
+  "splashLoading": "Загрузка…"
 }

@@ -2504,5 +2504,7 @@
   "momentsCreateScheduleForLater": "I-schedule mamaya",
   "momentsPrivacyPublic": "Pampubliko",
   "momentsPrivacyFriends": "Mga kaibigan",
-  "momentsPrivacyPrivate": "Pribado"
+  "momentsPrivacyPrivate": "Pribado",
+  "splashTagline": "Magkita · Mag-chat · Magkonek",
+  "splashLoading": "Naglo-load…"
 }

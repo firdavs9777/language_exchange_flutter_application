@@ -3,7 +3,7 @@ import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/services/notification_service.dart';
 import 'package:bananatalk_app/services/version_check_coordinator.dart';
 import 'package:bananatalk_app/router/app_router.dart';
-import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,53 +12,76 @@ import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends ConsumerStatefulWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+  const SplashScreen({super.key});
 
   @override
   ConsumerState<SplashScreen> createState() => _SplashScreenState();
 }
 
 class _SplashScreenState extends ConsumerState<SplashScreen>
-    with SingleTickerProviderStateMixin {
-  // Store initial notification to handle after auth completes
+    with TickerProviderStateMixin {
   RemoteMessage? _pendingNotification;
-  late AnimationController _animController;
-  late Animation<double> _fadeAnim;
-  late Animation<double> _scaleAnim;
-  late Animation<Offset> _slideAnim;
+  late final AnimationController _entranceController;
+  late final AnimationController _dotsController;
+  late final Animation<double> _logoFade;
+  late final Animation<double> _logoScale;
+  late final Animation<double> _titleFade;
+  late final Animation<Offset> _titleSlide;
+  late final Animation<double> _taglineFade;
 
   @override
   void initState() {
     super.initState();
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
 
-    _animController = AnimationController(
+    _entranceController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 800),
+      duration: const Duration(milliseconds: 1100),
     );
-    _fadeAnim = CurvedAnimation(parent: _animController, curve: Curves.easeOut);
-    _scaleAnim = Tween<double>(begin: 0.85, end: 1.0).animate(
-      CurvedAnimation(parent: _animController, curve: Curves.easeOutBack),
+    _dotsController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1400),
+    )..repeat();
+
+    // Logo: 0 - 600ms — fade + scale-from-small
+    _logoFade = CurvedAnimation(
+      parent: _entranceController,
+      curve: const Interval(0.0, 0.55, curve: Curves.easeOut),
     );
-    _slideAnim = Tween<Offset>(begin: const Offset(0, 0.08), end: Offset.zero)
+    _logoScale = Tween<double>(begin: 0.7, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _entranceController,
+        curve: const Interval(0.0, 0.55, curve: Curves.easeOutBack),
+      ),
+    );
+
+    // Title: 250 - 800ms — fade + slide up
+    _titleFade = CurvedAnimation(
+      parent: _entranceController,
+      curve: const Interval(0.22, 0.72, curve: Curves.easeOut),
+    );
+    _titleSlide = Tween<Offset>(begin: const Offset(0, 0.25), end: Offset.zero)
         .animate(
-          CurvedAnimation(parent: _animController, curve: Curves.easeOutCubic),
+          CurvedAnimation(
+            parent: _entranceController,
+            curve: const Interval(0.22, 0.72, curve: Curves.easeOutCubic),
+          ),
         );
 
-    _animController.forward();
+    // Tagline: 500 - 1100ms — fade
+    _taglineFade = CurvedAnimation(
+      parent: _entranceController,
+      curve: const Interval(0.45, 1.0, curve: Curves.easeOut),
+    );
+
+    _entranceController.forward();
     _initializeApp();
   }
 
   Future<void> _initializeApp() async {
-    // Initialize notification service
     try {
       await NotificationService().initialize(context: context);
-
-      // Clear app badge when app opens
       await NotificationService().clearBadge();
-
-      // Check if app was opened from a notification (cold start)
-      // Store it — we'll handle navigation AFTER auth completes
       final initialMessage = await FirebaseMessaging.instance
           .getInitialMessage();
       if (initialMessage != null) {
@@ -66,51 +89,32 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
       }
     } catch (e) {}
 
-    // Wait for auth initialization to complete
     final authService = ref.read(authServiceProvider);
     final isAuthenticated = await authService.initializeAuth();
 
-    // Add minimum splash screen duration for better UX
     await Future.delayed(const Duration(seconds: 2));
 
     if (!mounted) return;
-
-    // Version-update gate. For force-update this never returns (dialog is
-    // non-dismissible and pins the user on splash). For soft prompts it
-    // returns once the user dismisses, then navigation continues.
     await VersionCheckCoordinator().check(context);
-
     if (!mounted) return;
 
-    // Check if user has accepted terms of service
-    // Note: For new users, terms are shown during registration.
-    // This check is for existing users who haven't accepted yet.
     if (isAuthenticated) {
       final prefs = await SharedPreferences.getInstance();
       final termsAcceptedLocally =
           prefs.getBool('termsAcceptedLocally') ?? false;
-
-      // If terms already accepted locally, skip the network check entirely
-      // This prevents logging users out when they're offline
       if (!termsAcceptedLocally) {
         try {
           final user = await authService.getLoggedInUser();
           final termsAccepted = user.termsAccepted;
-
           if (termsAccepted) {
-            // Save locally so we don't need network next time
             await prefs.setBool('termsAcceptedLocally', true);
           } else {
-            // Show terms screen - user cannot proceed without accepting
             await Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) => const TermsOfServiceScreen(),
               ),
             );
-
             if (!mounted) return;
-
-            // Re-check local flag after terms screen
             final updatedLocalFlag =
                 prefs.getBool('termsAcceptedLocally') ?? false;
             if (!updatedLocalFlag) {
@@ -120,19 +124,12 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
               }
             }
           }
-        } catch (e) {
-          // Network error - don't log the user out, just skip terms check
-          // Terms will be checked again on next online launch
-        }
+        } catch (e) {}
       }
     }
 
-    // Navigate based on authentication status
     if (isAuthenticated) {
       context.go('/home');
-
-      // If app was opened from a notification, navigate to the target screen
-      // after a short delay to let /home settle first
       if (_pendingNotification != null) {
         await Future.delayed(const Duration(milliseconds: 500));
         if (mounted) {
@@ -140,47 +137,34 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
         }
       }
     } else {
-      // Navigate to login page if not authenticated
       context.go('/login');
     }
   }
 
-  /// Handle notification navigation without calling go('/home') again
-  /// since we're already on /home — just push the target screen
   void _handlePendingNotification(Map<String, dynamic> data) {
     final type = data['type']?.toString() ?? '';
-
     try {
       switch (type) {
         case 'chat_message':
           final senderId = data['senderId']?.toString();
-          if (senderId != null) {
-            goRouter.push('/chat/$senderId');
-          }
+          if (senderId != null) goRouter.push('/chat/$senderId');
           break;
         case 'moment_like':
         case 'moment_comment':
         case 'follower_moment':
           final momentId = data['momentId']?.toString();
-          if (momentId != null) {
-            goRouter.push('/moment/$momentId');
-          }
+          if (momentId != null) goRouter.push('/moment/$momentId');
           break;
         case 'friend_request':
         case 'profile_visit':
           final userId = data['userId']?.toString();
-          if (userId != null) {
-            goRouter.push('/profile/$userId');
-          }
+          if (userId != null) goRouter.push('/profile/$userId');
           break;
         case 'incoming_call':
-          // Socket listener handles showing the call screen
           break;
         case 'missed_call':
           final callerId = data['callerId']?.toString();
-          if (callerId != null) {
-            goRouter.push('/chat/$callerId');
-          }
+          if (callerId != null) goRouter.push('/chat/$callerId');
           break;
         default:
       }
@@ -189,7 +173,8 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
 
   @override
   void dispose() {
-    _animController.dispose();
+    _entranceController.dispose();
+    _dotsController.dispose();
     SystemChrome.setEnabledSystemUIMode(
       SystemUiMode.manual,
       overlays: SystemUiOverlay.values,
@@ -199,46 +184,161 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
+
+    // Brand gradient — soft teal in both modes (darker in dark mode).
+    final List<Color> bgGradient = isDark
+        ? const [Color(0xFF0B1F1C), Color(0xFF0F2E2A), Color(0xFF154A43)]
+        : const [Color(0xFFF6FFFD), Color(0xFFE6FBF5), Color(0xFFB8F0E0)];
+    final Color titleColor = isDark ? Colors.white : const Color(0xFF00695C);
+    final Color taglineColor = isDark
+        ? Colors.white.withValues(alpha: 0.72)
+        : const Color(0xFF00695C).withValues(alpha: 0.65);
+    final Color dotColor = isDark ? Colors.white : const Color(0xFF00897B);
+
     return Scaffold(
-      backgroundColor: context.surfaceColor,
-      body: Center(
-        child: FadeTransition(
-          opacity: _fadeAnim,
-          child: SlideTransition(
-            position: _slideAnim,
-            child: ScaleTransition(
-              scale: _scaleAnim,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    'Bananatalk',
-                    style: TextStyle(
-                      fontSize: 42,
-                      fontWeight: FontWeight.w800,
-                      color: Theme.of(context).primaryColor,
-                      letterSpacing: -0.5,
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: bgGradient,
+          ),
+        ),
+        child: SafeArea(
+          child: Stack(
+            children: [
+              // Centered logo + title + tagline
+              Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    FadeTransition(
+                      opacity: _logoFade,
+                      child: ScaleTransition(
+                        scale: _logoScale,
+                        child: _LogoBadge(isDark: isDark),
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'MEET · CHAT · CONNECT',
-                    style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w500,
-                      color: Theme.of(
-                        context,
-                      ).textTheme.bodySmall?.color?.withValues(alpha: 0.6),
-                      letterSpacing: 2.0,
+                    const SizedBox(height: 28),
+                    SlideTransition(
+                      position: _titleSlide,
+                      child: FadeTransition(
+                        opacity: _titleFade,
+                        child: Text(
+                          l10n.appName,
+                          style: TextStyle(
+                            fontSize: 44,
+                            fontWeight: FontWeight.w800,
+                            color: titleColor,
+                            letterSpacing: -0.5,
+                            height: 1.0,
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
-                  Spacing.gapXL,
-                ],
+                    const SizedBox(height: 12),
+                    FadeTransition(
+                      opacity: _taglineFade,
+                      child: Text(
+                        l10n.splashTagline,
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w500,
+                          color: taglineColor,
+                          letterSpacing: 1.4,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
+              // Bottom loader
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 56),
+                  child: FadeTransition(
+                    opacity: _taglineFade,
+                    child: _LoadingDots(controller: _dotsController, color: dotColor),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),
+    );
+  }
+}
+
+/// Circular logo badge with subtle outer glow.
+class _LogoBadge extends StatelessWidget {
+  final bool isDark;
+  const _LogoBadge({required this.isDark});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 132,
+      height: 132,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: isDark ? Colors.white.withValues(alpha: 0.08) : Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF00BFA5)
+                .withValues(alpha: isDark ? 0.35 : 0.25),
+            blurRadius: 40,
+            spreadRadius: 4,
+          ),
+        ],
+      ),
+      padding: const EdgeInsets.all(18),
+      child: Image.asset(
+        'assets/images/logo_no_background.png',
+        fit: BoxFit.contain,
+      ),
+    );
+  }
+}
+
+/// Three-dot indeterminate loader with staggered fade animation.
+class _LoadingDots extends StatelessWidget {
+  final AnimationController controller;
+  final Color color;
+  const _LoadingDots({required this.controller, required this.color});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: List.generate(3, (i) {
+        // Each dot animates between 0.25 and 1.0 opacity with a staggered offset.
+        final start = i * 0.2;
+        final end = start + 0.6;
+        final anim = Tween<double>(begin: 0.25, end: 1.0).animate(
+          CurvedAnimation(
+            parent: controller,
+            curve: Interval(start, end.clamp(0.0, 1.0), curve: Curves.easeInOut),
+          ),
+        );
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 5),
+          child: FadeTransition(
+            opacity: anim,
+            child: Container(
+              width: 9,
+              height: 9,
+              decoration: BoxDecoration(
+                color: color,
+                shape: BoxShape.circle,
+              ),
+            ),
+          ),
+        );
+      }),
     );
   }
 }

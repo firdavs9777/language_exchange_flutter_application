@@ -2581,5 +2581,7 @@
   "momentsCreateScheduleForLater": "稍后发布",
   "momentsPrivacyPublic": "公开",
   "momentsPrivacyFriends": "朋友",
-  "momentsPrivacyPrivate": "私密"
+  "momentsPrivacyPrivate": "私密",
+  "splashTagline": "相识 · 聊天 · 连接",
+  "splashLoading": "加载中…"
 }

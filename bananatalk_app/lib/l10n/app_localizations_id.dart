@@ -6177,4 +6177,10 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get momentsPrivacyPrivate => 'Pribadi';
+
+  @override
+  String get splashTagline => 'Bertemu · Chat · Terhubung';
+
+  @override
+  String get splashLoading => 'Memuat…';
 }

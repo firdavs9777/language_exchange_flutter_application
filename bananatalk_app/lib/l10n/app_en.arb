@@ -3515,5 +3515,7 @@
   "momentsCreateScheduleForLater": "Schedule for later",
   "momentsPrivacyPublic": "Public",
   "momentsPrivacyFriends": "Friends",
-  "momentsPrivacyPrivate": "Private"
+  "momentsPrivacyPrivate": "Private",
+  "splashTagline": "Meet · Chat · Connect",
+  "splashLoading": "Loading…"
 }

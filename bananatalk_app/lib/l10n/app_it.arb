@@ -2837,5 +2837,7 @@
   "momentsCreateScheduleForLater": "Pianifica per dopo",
   "momentsPrivacyPublic": "Pubblico",
   "momentsPrivacyFriends": "Amici",
-  "momentsPrivacyPrivate": "Privato"
+  "momentsPrivacyPrivate": "Privato",
+  "splashTagline": "Incontra · Chatta · Connetti",
+  "splashLoading": "Caricamento…"
 }
