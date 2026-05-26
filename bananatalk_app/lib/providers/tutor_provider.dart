@@ -154,19 +154,30 @@ class TutorService {
 
   /// GET /tutor/scenarios — list scenarios + the user's level/language
   /// context (used by the picker to group by difficulty and show a guide).
+  ///
+  /// Backend returns `data: { scenarios: [...], userContext: {...} }` so the
+  /// ApiClient's `body['data']` unwrap preserves userContext (top-level
+  /// userContext would be dropped). Older payload shapes (bare list or
+  /// `data: [...]`) are also accepted so a stale server doesn't crash the
+  /// picker.
   Future<ScenariosResponse> listScenarios() async {
     final res = await _api.get('tutor/scenarios');
     final raw = res.data;
-    // The api client may hand back either the bare envelope or the inner
-    // `data` array depending on how the response wrapper unwraps. Accept
-    // both shapes and pull userContext when present.
     List rawList = const [];
     Map<String, dynamic>? rawCtx;
     if (raw is List) {
+      // Legacy shape: bare list, no userContext.
       rawList = raw;
     } else if (raw is Map) {
-      rawList = (raw['data'] as List?) ?? const [];
-      rawCtx = (raw['userContext'] as Map?)?.cast<String, dynamic>();
+      // New shape: { scenarios: [...], userContext: {...} }
+      // Legacy shape: { data: [...], ... }
+      final scenariosField = raw['scenarios'];
+      if (scenariosField is List) {
+        rawList = scenariosField;
+        rawCtx = (raw['userContext'] as Map?)?.cast<String, dynamic>();
+      } else if (raw['data'] is List) {
+        rawList = raw['data'] as List;
+      }
     }
     final scenarios = rawList
         .map((e) => TutorScenario.fromJson(e as Map<String, dynamic>))
