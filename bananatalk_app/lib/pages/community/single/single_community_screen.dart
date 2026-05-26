@@ -317,7 +317,7 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
       context: context,
       builder: (context) => AlertDialog(
         title: Text(AppLocalizations.of(context)!.unblockUser),
-        content: Text('Are you sure you want to unblock ${_community.name}?'),
+        content: Text(AppLocalizations.of(context)!.communityUnblockConfirm(_community.name)),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
@@ -375,11 +375,11 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
     if (mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: const Row(
+          content: Row(
             children: [
-              Icon(Icons.check_circle, color: Colors.white, size: 18),
-              SizedBox(width: 8),
-              Text('Username copied!'),
+              const Icon(Icons.check_circle, color: Colors.white, size: 18),
+              const SizedBox(width: 8),
+              Text(AppLocalizations.of(context)!.communityUsernameCopied),
             ],
           ),
           backgroundColor: Colors.green,
@@ -583,7 +583,7 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
                         ? Theme.of(context).colorScheme.onSurfaceVariant
                         : Colors.white,
                   ),
-                  tooltip: 'Refresh',
+                  tooltip: AppLocalizations.of(context)!.communityRefresh,
                   onPressed: _refreshProfile,
                 ),
                 if (userId.isNotEmpty && userId != _community.id)

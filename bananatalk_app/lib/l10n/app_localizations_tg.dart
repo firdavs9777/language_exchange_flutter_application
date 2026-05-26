@@ -5959,4 +5959,140 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get aiScenariosBannerSubhead => 'Сенарияеро мувофиқи сатҳи худ интихоб кунед ё як зина боло.';
+
+  @override
+  String get chatListSearchHint => 'Ҷустуҷӯ ё @ном_корбар';
+
+  @override
+  String get chatListFilterAll => 'Ҳама';
+
+  @override
+  String get chatListFilterUnread => 'Нохонда';
+
+  @override
+  String get chatListFilterOnline => 'Онлайн';
+
+  @override
+  String get chatListNewChat => 'Чати нав';
+
+  @override
+  String get chatListNewChatByUsernameTooltip => 'Чати нав бо номи корбар';
+
+  @override
+  String get chatListFindUser => 'Корбарро ёфтан';
+
+  @override
+  String chatListFindUserSearchTerm(String term) {
+    return '@$term-ро ёфтан';
+  }
+
+  @override
+  String get chatListDeleteConversation => 'Сӯҳбатро нест кардан';
+
+  @override
+  String chatListMediaTitle(String name) {
+    return 'Медиа бо $name';
+  }
+
+  @override
+  String get chatListMediaError => 'Хатои боргузории медиа';
+
+  @override
+  String get chatDetailViewFullProfile => 'Профили пурра';
+
+  @override
+  String get chatMessageReply => 'Ҷавоб';
+
+  @override
+  String get chatMessageCopy => 'Нусха';
+
+  @override
+  String get chatMessageCorrect => 'Ислоҳ';
+
+  @override
+  String get chatMessageTranslate => 'Тарҷума';
+
+  @override
+  String get chatMessageSavePhrase => 'Ибораро сабт кардан';
+
+  @override
+  String get chatMessageEdit => 'Таҳрир';
+
+  @override
+  String get chatMessageDelete => 'Нест кардан';
+
+  @override
+  String get chatMessageRetrySubtitle => 'Ин паёмро дубора фиристед';
+
+  @override
+  String get chatMessageRemoveSubtitle => 'Ин паёмро тоза кунед';
+
+  @override
+  String get chatWallpaperPreviewHello => 'Салом! 👋';
+
+  @override
+  String get chatWallpaperPreviewHow => 'Чӣ хелед?';
+
+  @override
+  String get chatGifSearchHint => 'GIF-ро ҷустуҷӯ кунед...';
+
+  @override
+  String get communitySearchHint => 'Ҷустуҷӯ ё @ном_корбар';
+
+  @override
+  String communityUserNotFound(String name) {
+    return 'Корбари @$name ёфт нашуд';
+  }
+
+  @override
+  String get communityTabAll => 'Ҳама';
+
+  @override
+  String get communityTabGender => 'Ҷинс';
+
+  @override
+  String get communityTabCity => 'Шаҳр';
+
+  @override
+  String get communityRefresh => 'Нав кардан';
+
+  @override
+  String get communityNoUsersFound => 'Корбар ёфт нашуд';
+
+  @override
+  String communityUnblockConfirm(String name) {
+    return 'Шумо мутмаин ҳастед, ки манъи $name-ро бекор мекунед?';
+  }
+
+  @override
+  String get communityUsernameCopied => 'Номи корбар нусхабардорӣ шуд!';
+
+  @override
+  String communityLocationDetected(String country) {
+    return 'Маҳал: $country';
+  }
+
+  @override
+  String get communityWaveLater => 'Баъдтар';
+
+  @override
+  String get communityAboutMBTI => 'MBTI';
+
+  @override
+  String get voiceRoomReactTooltip => 'Аксуламал';
+
+
+  @override
+  String get momentsCancel => 'Бекор';
+
+  @override
+  String get momentsNotNow => 'Ҳозир не';
+
+  @override
+  String get commonOK => 'OK';
+
+  @override
+  String commonError(String error) {
+    return 'Хато: $error';
+  }
 }

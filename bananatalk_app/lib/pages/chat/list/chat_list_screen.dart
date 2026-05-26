@@ -776,7 +776,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
           children: [
             Icon(Icons.person_search, color: colors.primary),
             const SizedBox(width: 12),
-            const Text('New Chat'),
+            Text(AppLocalizations.of(context)!.chatListNewChat),
           ],
         ),
         content: Column(
@@ -817,7 +817,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: const Text('Cancel'),
+            child: Text(AppLocalizations.of(context)!.momentsCancel),
           ),
           ElevatedButton(
             onPressed: () {
@@ -836,7 +836,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
                 borderRadius: BorderRadius.circular(12),
               ),
             ),
-            child: const Text('Find User'),
+            child: Text(AppLocalizations.of(context)!.chatListFindUser),
           ),
         ],
       ),
@@ -985,7 +985,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Delete Conversation'),
+        title: Text(AppLocalizations.of(context)!.chatListDeleteConversation),
         content: Text(
           'Delete your conversation with ${partner.name}? This cannot be undone.',
         ),
@@ -997,7 +997,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
           TextButton(
             onPressed: () => Navigator.of(context).pop(true),
             style: TextButton.styleFrom(foregroundColor: Colors.red),
-            child: const Text('Delete'),
+            child: Text(AppLocalizations.of(context)!.chatMessageDelete),
           ),
         ],
       ),
@@ -1173,7 +1173,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
               color: colors.onBackground,
               size: 26,
             ),
-            tooltip: 'New chat by username',
+            tooltip: AppLocalizations.of(context)!.chatListNewChatByUsernameTooltip,
             onPressed: _showNewChatDialog,
           ),
           Consumer(

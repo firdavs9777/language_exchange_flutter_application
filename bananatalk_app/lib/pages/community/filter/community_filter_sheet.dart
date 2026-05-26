@@ -321,7 +321,7 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
                   children: [
                     const Icon(Icons.check_circle, color: Colors.white),
                     const SizedBox(width: 8),
-                    Text('Location detected: $_selectedCountry'),
+                    Text(AppLocalizations.of(context)!.communityLocationDetected(_selectedCountry ?? '')),
                   ],
                 ),
                 backgroundColor: const Color(0xFF00BFA5),

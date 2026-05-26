@@ -598,7 +598,7 @@ class _WallpaperPickerScreenState extends State<WallpaperPickerScreen> {
               color: otherBubbleColor,
               borderRadius: AppRadius.borderMD,
             ),
-            child: Text('Hello! 👋', style: TextStyle(color: otherTextColor)),
+            child: Text(AppLocalizations.of(context)!.chatWallpaperPreviewHello, style: TextStyle(color: otherTextColor)),
           ),
         ),
         Positioned(
@@ -625,7 +625,7 @@ class _WallpaperPickerScreenState extends State<WallpaperPickerScreen> {
               color: otherBubbleColor,
               borderRadius: AppRadius.borderMD,
             ),
-            child: Text('How are you?', style: TextStyle(color: otherTextColor)),
+            child: Text(AppLocalizations.of(context)!.chatWallpaperPreviewHow, style: TextStyle(color: otherTextColor)),
           ),
         ),
       ],

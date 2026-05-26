@@ -5945,4 +5945,140 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get aiScenariosBannerSubhead => 'เลือกสถานการณ์ระดับของคุณ หรือลองสูงขึ้นหนึ่งระดับ';
+
+  @override
+  String get chatListSearchHint => 'ค้นหาหรือพิมพ์ @ผู้ใช้';
+
+  @override
+  String get chatListFilterAll => 'ทั้งหมด';
+
+  @override
+  String get chatListFilterUnread => 'ยังไม่อ่าน';
+
+  @override
+  String get chatListFilterOnline => 'ออนไลน์';
+
+  @override
+  String get chatListNewChat => 'แชทใหม่';
+
+  @override
+  String get chatListNewChatByUsernameTooltip => 'แชทใหม่โดยใช้ชื่อผู้ใช้';
+
+  @override
+  String get chatListFindUser => 'ค้นหาผู้ใช้';
+
+  @override
+  String chatListFindUserSearchTerm(String term) {
+    return 'ค้นหา @$term';
+  }
+
+  @override
+  String get chatListDeleteConversation => 'ลบบทสนทนา';
+
+  @override
+  String chatListMediaTitle(String name) {
+    return 'สื่อกับ $name';
+  }
+
+  @override
+  String get chatListMediaError => 'โหลดสื่อไม่ได้';
+
+  @override
+  String get chatDetailViewFullProfile => 'ดูโปรไฟล์เต็ม';
+
+  @override
+  String get chatMessageReply => 'ตอบกลับ';
+
+  @override
+  String get chatMessageCopy => 'คัดลอก';
+
+  @override
+  String get chatMessageCorrect => 'แก้ไข';
+
+  @override
+  String get chatMessageTranslate => 'แปล';
+
+  @override
+  String get chatMessageSavePhrase => 'บันทึกประโยค';
+
+  @override
+  String get chatMessageEdit => 'แก้ไข';
+
+  @override
+  String get chatMessageDelete => 'ลบ';
+
+  @override
+  String get chatMessageRetrySubtitle => 'ลองส่งข้อความนี้อีกครั้ง';
+
+  @override
+  String get chatMessageRemoveSubtitle => 'ลบข้อความนี้';
+
+  @override
+  String get chatWallpaperPreviewHello => 'สวัสดี! 👋';
+
+  @override
+  String get chatWallpaperPreviewHow => 'เป็นไงบ้าง?';
+
+  @override
+  String get chatGifSearchHint => 'ค้นหา GIF...';
+
+  @override
+  String get communitySearchHint => 'ค้นหาหรือพิมพ์ @ผู้ใช้';
+
+  @override
+  String communityUserNotFound(String name) {
+    return 'ไม่พบผู้ใช้ @$name';
+  }
+
+  @override
+  String get communityTabAll => 'ทั้งหมด';
+
+  @override
+  String get communityTabGender => 'เพศ';
+
+  @override
+  String get communityTabCity => 'เมือง';
+
+  @override
+  String get communityRefresh => 'รีเฟรช';
+
+  @override
+  String get communityNoUsersFound => 'ไม่พบผู้ใช้';
+
+  @override
+  String communityUnblockConfirm(String name) {
+    return 'แน่ใจหรือว่าต้องการเลิกบล็อก $name?';
+  }
+
+  @override
+  String get communityUsernameCopied => 'คัดลอกชื่อผู้ใช้แล้ว!';
+
+  @override
+  String communityLocationDetected(String country) {
+    return 'ตำแหน่ง: $country';
+  }
+
+  @override
+  String get communityWaveLater => 'ทีหลัง';
+
+  @override
+  String get communityAboutMBTI => 'MBTI';
+
+  @override
+  String get voiceRoomReactTooltip => 'แสดงปฏิกิริยา';
+
+
+  @override
+  String get momentsCancel => 'ยกเลิก';
+
+  @override
+  String get momentsNotNow => 'ไม่ตอนนี้';
+
+  @override
+  String get commonOK => 'ตกลง';
+
+  @override
+  String commonError(String error) {
+    return 'ข้อผิดพลาด: $error';
+  }
 }

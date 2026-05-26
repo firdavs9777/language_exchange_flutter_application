@@ -14,6 +14,7 @@ import 'package:bananatalk_app/pages/chat/conversation/chat_conversation_screen.
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 /// Topics Tab - Topic-based discovery
 class TopicsTab extends ConsumerStatefulWidget {
@@ -263,7 +264,7 @@ class _TopicsTabState extends ConsumerState<TopicsTab> {
               // Show error if any
               if (topicUsersState.error != null &&
                   topicUsersState.users.isEmpty) {
-                return Center(child: Text('Error: ${topicUsersState.error}'));
+                return Center(child: Text(AppLocalizations.of(context)!.commonError(topicUsersState.error.toString())));
               }
 
               final users = topicUsersState.users;
@@ -355,7 +356,7 @@ class _TopicsTabState extends ConsumerState<TopicsTab> {
             Spacing.gapMD,
             Builder(
               builder: (context) =>
-                  Text('No users found', style: context.titleMedium),
+                  Text(AppLocalizations.of(context)!.communityNoUsersFound, style: context.titleMedium),
             ),
             Spacing.gapSM,
             Builder(

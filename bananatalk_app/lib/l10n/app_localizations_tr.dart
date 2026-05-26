@@ -5952,4 +5952,140 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get aiScenariosBannerSubhead => 'Seviyene uygun bir senaryo seç ya da bir üst seviye dene.';
+
+  @override
+  String get chatListSearchHint => 'Ara veya @kullanıcı_adı yaz';
+
+  @override
+  String get chatListFilterAll => 'Tümü';
+
+  @override
+  String get chatListFilterUnread => 'Okunmamış';
+
+  @override
+  String get chatListFilterOnline => 'Çevrimiçi';
+
+  @override
+  String get chatListNewChat => 'Yeni sohbet';
+
+  @override
+  String get chatListNewChatByUsernameTooltip => 'Kullanıcı adı ile yeni sohbet';
+
+  @override
+  String get chatListFindUser => 'Kullanıcı bul';
+
+  @override
+  String chatListFindUserSearchTerm(String term) {
+    return '@$term bul';
+  }
+
+  @override
+  String get chatListDeleteConversation => 'Sohbeti sil';
+
+  @override
+  String chatListMediaTitle(String name) {
+    return '$name ile medya';
+  }
+
+  @override
+  String get chatListMediaError => 'Medya yüklenirken hata';
+
+  @override
+  String get chatDetailViewFullProfile => 'Profili tam görüntüle';
+
+  @override
+  String get chatMessageReply => 'Yanıtla';
+
+  @override
+  String get chatMessageCopy => 'Kopyala';
+
+  @override
+  String get chatMessageCorrect => 'Düzelt';
+
+  @override
+  String get chatMessageTranslate => 'Çevir';
+
+  @override
+  String get chatMessageSavePhrase => 'İfadeyi kaydet';
+
+  @override
+  String get chatMessageEdit => 'Düzenle';
+
+  @override
+  String get chatMessageDelete => 'Sil';
+
+  @override
+  String get chatMessageRetrySubtitle => 'Bu mesajı tekrar göndermeyi dene';
+
+  @override
+  String get chatMessageRemoveSubtitle => 'Bu mesajı kaldır';
+
+  @override
+  String get chatWallpaperPreviewHello => 'Merhaba! 👋';
+
+  @override
+  String get chatWallpaperPreviewHow => 'Nasılsın?';
+
+  @override
+  String get chatGifSearchHint => 'GIF ara...';
+
+  @override
+  String get communitySearchHint => 'Ara veya @kullanıcı_adı yaz';
+
+  @override
+  String communityUserNotFound(String name) {
+    return '@$name bulunamadı';
+  }
+
+  @override
+  String get communityTabAll => 'Tümü';
+
+  @override
+  String get communityTabGender => 'Cinsiyet';
+
+  @override
+  String get communityTabCity => 'Şehir';
+
+  @override
+  String get communityRefresh => 'Yenile';
+
+  @override
+  String get communityNoUsersFound => 'Kullanıcı bulunamadı';
+
+  @override
+  String communityUnblockConfirm(String name) {
+    return '$name adlı kişinin engelini kaldırmak istediğine emin misin?';
+  }
+
+  @override
+  String get communityUsernameCopied => 'Kullanıcı adı kopyalandı!';
+
+  @override
+  String communityLocationDetected(String country) {
+    return 'Konum: $country';
+  }
+
+  @override
+  String get communityWaveLater => 'Daha sonra';
+
+  @override
+  String get communityAboutMBTI => 'MBTI';
+
+  @override
+  String get voiceRoomReactTooltip => 'Tepki ver';
+
+
+  @override
+  String get momentsCancel => 'İptal';
+
+  @override
+  String get momentsNotNow => 'Şimdi değil';
+
+  @override
+  String get commonOK => 'Tamam';
+
+  @override
+  String commonError(String error) {
+    return 'Hata: $error';
+  }
 }

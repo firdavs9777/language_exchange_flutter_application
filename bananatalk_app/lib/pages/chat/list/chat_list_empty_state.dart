@@ -46,7 +46,7 @@ class ChatListEmptyState extends StatelessWidget {
             ? ElevatedButton.icon(
                 onPressed: onFindUser,
                 icon: const Icon(Icons.person_search, size: 20),
-                label: Text('Find @$searchTerm'),
+                label: Text(AppLocalizations.of(context)!.chatListFindUserSearchTerm(searchTerm)),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: colors.primary,
                   foregroundColor: colors.onPrimary,

@@ -552,7 +552,7 @@ class SingleCommunityAbout extends ConsumerWidget {
                   child: _buildPersonalInfoChip(
                     context,
                     icon: '🧠',
-                    label: 'MBTI',
+                    label: AppLocalizations.of(context)!.communityAboutMBTI,
                     value: community.mbti.toUpperCase(),
                     color: Colors.indigo,
                     isDark: isDark,

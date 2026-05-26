@@ -481,7 +481,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
 
     menuItems.add(MessageContextMenuItem(
       icon: Icons.reply_rounded,
-      label: 'Reply',
+      label: AppLocalizations.of(context)!.chatMessageReply,
       onTap: () {
         _hideReactionPicker();
         widget.onReply?.call(widget.message);
@@ -491,7 +491,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
     if (hasText) {
       menuItems.add(MessageContextMenuItem(
         icon: Icons.copy_rounded,
-        label: 'Copy',
+        label: AppLocalizations.of(context)!.chatMessageCopy,
         onTap: () {
           _hideReactionPicker();
           Clipboard.setData(ClipboardData(text: widget.message.message!));
@@ -504,7 +504,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
     if (hasText && !widget.isMe) {
       menuItems.add(MessageContextMenuItem(
         icon: Icons.spellcheck_rounded,
-        label: 'Correct',
+        label: AppLocalizations.of(context)!.chatMessageCorrect,
         onTap: () {
           _hideReactionPicker();
           showCorrectionBottomSheet(
@@ -520,7 +520,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
     if (hasText) {
       menuItems.add(MessageContextMenuItem(
         icon: Icons.translate_rounded,
-        label: 'Translate',
+        label: AppLocalizations.of(context)!.chatMessageTranslate,
         onTap: () {
           _hideReactionPicker();
           _showTranslation(context);
@@ -531,7 +531,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
     if (hasText && widget.message.type == 'text') {
       menuItems.add(MessageContextMenuItem(
         icon: Icons.bookmark_add_outlined,
-        label: 'Save phrase',
+        label: AppLocalizations.of(context)!.chatMessageSavePhrase,
         onTap: () {
           _hideReactionPicker();
           _saveMessageToVocab(context);
@@ -557,7 +557,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
     if (canEdit) {
       menuItems.add(MessageContextMenuItem(
         icon: Icons.edit_rounded,
-        label: 'Edit',
+        label: AppLocalizations.of(context)!.chatMessageEdit,
         onTap: () {
           _hideReactionPicker();
           widget.onEdit?.call(widget.message);
@@ -568,7 +568,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
     if (widget.isMe && !widget.message.isDeleted) {
       menuItems.add(MessageContextMenuItem(
         icon: Icons.delete_rounded,
-        label: 'Delete',
+        label: AppLocalizations.of(context)!.chatMessageDelete,
         isDestructive: true,
         onTap: () {
           _hideReactionPicker();

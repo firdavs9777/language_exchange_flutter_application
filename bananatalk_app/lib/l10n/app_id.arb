@@ -2272,5 +2272,88 @@
         "type": "int"
       }
     }
+  },
+  "chatListSearchHint": "Cari atau ketik @username",
+  "chatListFilterAll": "Semua",
+  "chatListFilterUnread": "Belum dibaca",
+  "chatListFilterOnline": "Online",
+  "chatListNewChat": "Chat baru",
+  "chatListNewChatByUsernameTooltip": "Chat baru lewat username",
+  "chatListFindUser": "Cari pengguna",
+  "chatListFindUserSearchTerm": "Cari @{term}",
+  "@chatListFindUserSearchTerm": {
+    "placeholders": {
+      "term": {
+        "type": "String"
+      }
+    }
+  },
+  "chatListDeleteConversation": "Hapus percakapan",
+  "chatListMediaTitle": "Media dengan {name}",
+  "@chatListMediaTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "chatListMediaError": "Gagal memuat media",
+  "chatDetailViewFullProfile": "Lihat profil lengkap",
+  "chatMessageReply": "Balas",
+  "chatMessageCopy": "Salin",
+  "chatMessageCorrect": "Koreksi",
+  "chatMessageTranslate": "Terjemahkan",
+  "chatMessageSavePhrase": "Simpan frasa",
+  "chatMessageEdit": "Edit",
+  "chatMessageDelete": "Hapus",
+  "chatMessageRetrySubtitle": "Coba kirim ulang pesan ini",
+  "chatMessageRemoveSubtitle": "Hapus pesan ini",
+  "chatWallpaperPreviewHello": "Halo! 👋",
+  "chatWallpaperPreviewHow": "Apa kabar?",
+  "chatGifSearchHint": "Cari GIF...",
+  "communitySearchHint": "Cari atau ketik @username",
+  "communityUserNotFound": "Pengguna @{name} tidak ditemukan",
+  "@communityUserNotFound": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "communityTabAll": "Semua",
+  "communityTabGender": "Jenis kelamin",
+  "communityTabCity": "Kota",
+  "communityRefresh": "Segarkan",
+  "communityNoUsersFound": "Tidak ada pengguna",
+  "communityUnblockConfirm": "Yakin ingin membuka blokir {name}?",
+  "@communityUnblockConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "communityUsernameCopied": "Username disalin!",
+  "communityLocationDetected": "Lokasi: {country}",
+  "@communityLocationDetected": {
+    "placeholders": {
+      "country": {
+        "type": "String"
+      }
+    }
+  },
+  "communityWaveLater": "Nanti",
+  "communityAboutMBTI": "MBTI",
+  "voiceRoomReactTooltip": "Reaksi",
+  "momentsCancel": "Batal",
+  "momentsNotNow": "Tidak sekarang",
+  "commonOK": "OK",
+  "commonError": "Galat: {error}",
+  "@commonError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
   }
 }

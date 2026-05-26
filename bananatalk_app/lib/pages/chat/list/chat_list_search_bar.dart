@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 /// Top search bar for the chat list — text field + clear button.
 /// State (controller, focus node, query) is owned by the parent; this
@@ -41,7 +42,7 @@ class ChatListSearchBar extends StatelessWidget {
         controller: controller,
         focusNode: focusNode,
         decoration: InputDecoration(
-          hintText: 'Search or type @username',
+          hintText: AppLocalizations.of(context)!.chatListSearchHint,
           hintStyle: TextStyle(color: mutedText, fontSize: 16),
           prefixIcon: Icon(Icons.search, color: mutedText, size: 22),
           suffixIcon: searchQuery.isNotEmpty

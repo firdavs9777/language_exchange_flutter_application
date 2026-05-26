@@ -233,7 +233,7 @@ class _ChatSearchScreenState extends State<ChatSearchScreen> {
             Spacing.gapMD,
             ElevatedButton(
               onPressed: () => _performSearch(_searchQuery),
-              child: const Text('Retry'),
+              child: Text(AppLocalizations.of(context)!.momentsRetry),
             ),
           ],
         ),

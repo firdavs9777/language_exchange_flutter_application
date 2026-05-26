@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 /// Card showing user info at the start of a new chat
 class ChatUserInfoCard extends StatelessWidget {
@@ -248,7 +249,7 @@ class ChatUserInfoCard extends StatelessWidget {
             TextButton.icon(
               onPressed: onViewProfile,
               icon: const Icon(Icons.person_outline, size: 18),
-              label: const Text('View Full Profile'),
+              label: Text(AppLocalizations.of(context)!.chatDetailViewFullProfile),
               style: TextButton.styleFrom(
                 foregroundColor: AppColors.primary,
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),

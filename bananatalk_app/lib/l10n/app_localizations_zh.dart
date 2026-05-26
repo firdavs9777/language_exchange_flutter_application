@@ -5946,6 +5946,142 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get aiScenariosBannerSubhead => '选择符合你等级的情境，或挑战高一级。';
+
+  @override
+  String get chatListSearchHint => '搜索或输入 @用户名';
+
+  @override
+  String get chatListFilterAll => '全部';
+
+  @override
+  String get chatListFilterUnread => '未读';
+
+  @override
+  String get chatListFilterOnline => '在线';
+
+  @override
+  String get chatListNewChat => '新建聊天';
+
+  @override
+  String get chatListNewChatByUsernameTooltip => '通过用户名发起聊天';
+
+  @override
+  String get chatListFindUser => '查找用户';
+
+  @override
+  String chatListFindUserSearchTerm(String term) {
+    return '查找 @$term';
+  }
+
+  @override
+  String get chatListDeleteConversation => '删除会话';
+
+  @override
+  String chatListMediaTitle(String name) {
+    return '与 $name 的媒体';
+  }
+
+  @override
+  String get chatListMediaError => '媒体加载错误';
+
+  @override
+  String get chatDetailViewFullProfile => '查看完整资料';
+
+  @override
+  String get chatMessageReply => '回复';
+
+  @override
+  String get chatMessageCopy => '复制';
+
+  @override
+  String get chatMessageCorrect => '纠正';
+
+  @override
+  String get chatMessageTranslate => '翻译';
+
+  @override
+  String get chatMessageSavePhrase => '保存短语';
+
+  @override
+  String get chatMessageEdit => '编辑';
+
+  @override
+  String get chatMessageDelete => '删除';
+
+  @override
+  String get chatMessageRetrySubtitle => '再次尝试发送';
+
+  @override
+  String get chatMessageRemoveSubtitle => '移除该消息';
+
+  @override
+  String get chatWallpaperPreviewHello => '你好！👋';
+
+  @override
+  String get chatWallpaperPreviewHow => '最近怎样？';
+
+  @override
+  String get chatGifSearchHint => '搜索 GIF...';
+
+  @override
+  String get communitySearchHint => '搜索或输入 @用户名';
+
+  @override
+  String communityUserNotFound(String name) {
+    return '找不到用户 @$name';
+  }
+
+  @override
+  String get communityTabAll => '全部';
+
+  @override
+  String get communityTabGender => '性别';
+
+  @override
+  String get communityTabCity => '城市';
+
+  @override
+  String get communityRefresh => '刷新';
+
+  @override
+  String get communityNoUsersFound => '未找到用户';
+
+  @override
+  String communityUnblockConfirm(String name) {
+    return '确定要取消屏蔽 $name 吗？';
+  }
+
+  @override
+  String get communityUsernameCopied => '用户名已复制！';
+
+  @override
+  String communityLocationDetected(String country) {
+    return '位置: $country';
+  }
+
+  @override
+  String get communityWaveLater => '稍后';
+
+  @override
+  String get communityAboutMBTI => 'MBTI';
+
+  @override
+  String get voiceRoomReactTooltip => '反应';
+
+
+  @override
+  String get momentsCancel => '取消';
+
+  @override
+  String get momentsNotNow => '现在不';
+
+  @override
+  String get commonOK => '确定';
+
+  @override
+  String commonError(String error) {
+    return '错误: $error';
+  }
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -10623,8 +10759,6 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   @override
   String get momentsLoadError => '無法載入動態';
 
-  @override
-  String get momentsRetry => '重試';
 
   @override
   String get recentTags => '最近的標籤';

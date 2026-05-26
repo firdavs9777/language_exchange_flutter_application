@@ -5952,4 +5952,140 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get aiScenariosBannerSubhead => 'Pilih skenario di levelmu, atau coba yang lebih tinggi.';
+
+  @override
+  String get chatListSearchHint => 'Cari atau ketik @username';
+
+  @override
+  String get chatListFilterAll => 'Semua';
+
+  @override
+  String get chatListFilterUnread => 'Belum dibaca';
+
+  @override
+  String get chatListFilterOnline => 'Online';
+
+  @override
+  String get chatListNewChat => 'Chat baru';
+
+  @override
+  String get chatListNewChatByUsernameTooltip => 'Chat baru lewat username';
+
+  @override
+  String get chatListFindUser => 'Cari pengguna';
+
+  @override
+  String chatListFindUserSearchTerm(String term) {
+    return 'Cari @$term';
+  }
+
+  @override
+  String get chatListDeleteConversation => 'Hapus percakapan';
+
+  @override
+  String chatListMediaTitle(String name) {
+    return 'Media dengan $name';
+  }
+
+  @override
+  String get chatListMediaError => 'Gagal memuat media';
+
+  @override
+  String get chatDetailViewFullProfile => 'Lihat profil lengkap';
+
+  @override
+  String get chatMessageReply => 'Balas';
+
+  @override
+  String get chatMessageCopy => 'Salin';
+
+  @override
+  String get chatMessageCorrect => 'Koreksi';
+
+  @override
+  String get chatMessageTranslate => 'Terjemahkan';
+
+  @override
+  String get chatMessageSavePhrase => 'Simpan frasa';
+
+  @override
+  String get chatMessageEdit => 'Edit';
+
+  @override
+  String get chatMessageDelete => 'Hapus';
+
+  @override
+  String get chatMessageRetrySubtitle => 'Coba kirim ulang pesan ini';
+
+  @override
+  String get chatMessageRemoveSubtitle => 'Hapus pesan ini';
+
+  @override
+  String get chatWallpaperPreviewHello => 'Halo! 👋';
+
+  @override
+  String get chatWallpaperPreviewHow => 'Apa kabar?';
+
+  @override
+  String get chatGifSearchHint => 'Cari GIF...';
+
+  @override
+  String get communitySearchHint => 'Cari atau ketik @username';
+
+  @override
+  String communityUserNotFound(String name) {
+    return 'Pengguna @$name tidak ditemukan';
+  }
+
+  @override
+  String get communityTabAll => 'Semua';
+
+  @override
+  String get communityTabGender => 'Jenis kelamin';
+
+  @override
+  String get communityTabCity => 'Kota';
+
+  @override
+  String get communityRefresh => 'Segarkan';
+
+  @override
+  String get communityNoUsersFound => 'Tidak ada pengguna';
+
+  @override
+  String communityUnblockConfirm(String name) {
+    return 'Yakin ingin membuka blokir $name?';
+  }
+
+  @override
+  String get communityUsernameCopied => 'Username disalin!';
+
+  @override
+  String communityLocationDetected(String country) {
+    return 'Lokasi: $country';
+  }
+
+  @override
+  String get communityWaveLater => 'Nanti';
+
+  @override
+  String get communityAboutMBTI => 'MBTI';
+
+  @override
+  String get voiceRoomReactTooltip => 'Reaksi';
+
+
+  @override
+  String get momentsCancel => 'Batal';
+
+  @override
+  String get momentsNotNow => 'Tidak sekarang';
+
+  @override
+  String get commonOK => 'OK';
+
+  @override
+  String commonError(String error) {
+    return 'Galat: $error';
+  }
 }

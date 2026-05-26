@@ -155,11 +155,23 @@
   "aiTutorChangePersona": "Change AI tutor",
   "aiTutorChangePersonaSubtitle": "Switch to Nana, Sensei or Riko",
   "aiTutorHeroTitleSet": "Your AI Tutor · {name}",
-  "@aiTutorHeroTitleSet": { "placeholders": { "name": { "type": "String" } } },
+  "@aiTutorHeroTitleSet": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "aiTutorHeroTitleNew": "Meet your AI Tutor",
   "aiTutorHeroSubtitleSet": "Tap to chat or see today's plan",
   "aiTutorHeroSubtitleLast": "Last time: {summary}",
-  "@aiTutorHeroSubtitleLast": { "placeholders": { "summary": { "type": "String" } } },
+  "@aiTutorHeroSubtitleLast": {
+    "placeholders": {
+      "summary": {
+        "type": "String"
+      }
+    }
+  },
   "aiTutorHeroSubtitleNew": "Pick a persona — Nana, Sensei, or Riko",
   "aiTutorChipChat": "Chat",
   "aiTutorChipRoleplay": "Roleplay",
@@ -178,7 +190,13 @@
   "aiTutorPersonaRikoTagline": "Playful + slangy",
   "aiTutorPersonaRikoSample": "lol let's vibe and learn",
   "aiTutorPickerSaveError": "Could not save: {error}",
-  "@aiTutorPickerSaveError": { "placeholders": { "error": { "type": "String" } } },
+  "@aiTutorPickerSaveError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
   "aiTutorHomeTitle": "AI Tutor",
   "aiTutorHomeChangeTutor": "Change tutor",
   "aiTutorHomeGreetingDefault": "Hey! Ready to learn together?",
@@ -204,22 +222,52 @@
   "aiTutorChatMicPermissionDenied": "Microphone permission needed for voice mode.",
   "aiTutorChatTranscribeFailed": "Didn't catch that — try again.",
   "aiTutorChatStartFailed": "Failed to start: {error}",
-  "@aiTutorChatStartFailed": { "placeholders": { "error": { "type": "String" } } },
+  "@aiTutorChatStartFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
   "aiTutorRoleplayEnd": "End",
   "aiTutorRoleplayEndFailed": "End failed: {error}",
-  "@aiTutorRoleplayEndFailed": { "placeholders": { "error": { "type": "String" } } },
+  "@aiTutorRoleplayEndFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
   "aiTutorRoleplayDone": "Done",
   "aiTutorStoryTitle": "Read a story",
   "aiTutorStoryLength": "Length",
   "aiTutorStoryTheme": "Theme",
   "aiTutorStoryWordCount": "{count} words",
-  "@aiTutorStoryWordCount": { "placeholders": { "count": { "type": "int" } } },
+  "@aiTutorStoryWordCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "aiTutorStoryWriting": "Writing…",
   "aiTutorStoryGenerate": "Generate story",
   "aiTutorStoryGenerateFailed": "Could not generate: {error}",
-  "@aiTutorStoryGenerateFailed": { "placeholders": { "error": { "type": "String" } } },
+  "@aiTutorStoryGenerateFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
   "aiTutorStoryWordCountHint": "The AI will use up to {n} words from your vocab list.",
-  "@aiTutorStoryWordCountHint": { "placeholders": { "n": { "type": "int" } } },
+  "@aiTutorStoryWordCountHint": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "aiTutorStoryThemeFree": "Free",
   "aiTutorStoryThemeAdventure": "Adventure",
   "aiTutorStoryThemeMystery": "Mystery",
@@ -230,11 +278,26 @@
   "aiTutorStoryReaderVocab": "Vocabulary",
   "aiTutorStoryReaderVocabUsed": "Vocabulary used",
   "aiTutorStoryReaderPart": "Part {n}",
-  "@aiTutorStoryReaderPart": { "placeholders": { "n": { "type": "int" } } },
+  "@aiTutorStoryReaderPart": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "aiTutorStoryReaderWrongHint": "Not quite — moving on",
   "aiTutorStoryReaderNiceWork": "Nice work!",
   "aiTutorStoryReaderScore": "You got {correct}/{total} comprehension questions right.",
-  "@aiTutorStoryReaderScore": { "placeholders": { "correct": { "type": "int" }, "total": { "type": "int" } } },
+  "@aiTutorStoryReaderScore": {
+    "placeholders": {
+      "correct": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
   "aiTutorStoryReaderDone": "Done",
   "aiTutorImageVocabTitle": "Describe a photo",
   "aiTutorImagePickHeader": "Pick a photo to describe",
@@ -242,7 +305,13 @@
   "aiTutorImagePickCamera": "Camera",
   "aiTutorImagePickGallery": "Gallery",
   "aiTutorImagePickError": "Could not open image: {error}",
-  "@aiTutorImagePickError": { "placeholders": { "error": { "type": "String" } } },
+  "@aiTutorImagePickError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
   "aiTutorImageDescriptionHint": "Type your description…",
   "aiTutorImageDifferentPhoto": "Different photo",
   "aiTutorImageSubmit": "Submit",
@@ -258,17 +327,47 @@
   "aiTutorCardAddedToVocab": "Added to vocab",
   "aiTutorCardAdding": "Adding…",
   "aiTutorCardReviewCount": "{count, plural, one{{count} card waiting for you} other{{count} cards waiting for you}}",
-  "@aiTutorCardReviewCount": { "placeholders": { "count": { "type": "int" } } },
+  "@aiTutorCardReviewCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "aiTutorCardReviewNow": "Review now",
   "aiTutorCardReviewStarting": "Starting…",
   "aiTutorCardTryIt": "Try it",
   "aiTutorCardPracticing": "Practicing…",
   "aiTutorPlanSrsReview": "Review {count} SRS cards ({done} done)",
-  "@aiTutorPlanSrsReview": { "placeholders": { "count": { "type": "int" }, "done": { "type": "int" } } },
+  "@aiTutorPlanSrsReview": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "done": {
+        "type": "int"
+      }
+    }
+  },
   "aiTutorPlanGrammar": "Practice: {topic}",
-  "@aiTutorPlanGrammar": { "placeholders": { "topic": { "type": "String" } } },
+  "@aiTutorPlanGrammar": {
+    "placeholders": {
+      "topic": {
+        "type": "String"
+      }
+    }
+  },
   "aiTutorPlanChat": "Chat for {min} min ({done} so far)",
-  "@aiTutorPlanChat": { "placeholders": { "min": { "type": "int" }, "done": { "type": "int" } } },
+  "@aiTutorPlanChat": {
+    "placeholders": {
+      "min": {
+        "type": "int"
+      },
+      "done": {
+        "type": "int"
+      }
+    }
+  },
   "aboutBananatalk": "About Bananatalk",
   "deleteAccount": "Delete Account",
   "permanentlyDeleteYourAccount": "Permanently delete your account",
@@ -2592,443 +2691,604 @@
       }
     }
   },
-
   "momentsLoadError": "Couldn't load moments",
-  "@momentsLoadError": { "description": "Error state on moments feed" },
-
-  "momentsRetry": "Try again",
-  "@momentsRetry": { "description": "Retry button on moments error state" },
-
+  "@momentsLoadError": {
+    "description": "Error state on moments feed"
+  },
+  "momentsRetry": "Retry",
+  "@momentsRetry": {
+    "description": "Retry button on moments error state"
+  },
   "recentTags": "Recent tags",
-  "@recentTags": { "description": "Header in tag dialog showing tags this user has used recently" },
-
+  "@recentTags": {
+    "description": "Header in tag dialog showing tags this user has used recently"
+  },
   "noRecentTags": "No recent tags yet",
-  "@noRecentTags": { "description": "Shown when user has no tag history yet" },
-
+  "@noRecentTags": {
+    "description": "Shown when user has no tag history yet"
+  },
   "hideMomentsFromUser": "Hide moments from this user",
-  "@hideMomentsFromUser": { "description": "3-dot menu action on a moment card" },
-
+  "@hideMomentsFromUser": {
+    "description": "3-dot menu action on a moment card"
+  },
   "momentsHidden": "Moments from this user will be hidden",
-  "@momentsHidden": { "description": "Snackbar confirmation after hiding a user's moments" },
-
+  "@momentsHidden": {
+    "description": "Snackbar confirmation after hiding a user's moments"
+  },
   "unhideMoments": "Show moments from this user",
-  "@unhideMoments": { "description": "Reverse action — re-show a user's moments" },
-
+  "@unhideMoments": {
+    "description": "Reverse action — re-show a user's moments"
+  },
   "momentsHiddenCount": "{count, plural, =0{No hidden users} =1{1 user hidden} other{{count} users hidden}}",
   "@momentsHiddenCount": {
     "description": "Plural count of users whose moments are hidden",
-    "placeholders": { "count": { "type": "int" } }
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   },
-
   "momentSaveFailed": "Couldn't save moment",
-  "@momentSaveFailed": { "description": "Error snackbar when save toggle fails" },
-
+  "@momentSaveFailed": {
+    "description": "Error snackbar when save toggle fails"
+  },
   "tagAlreadyAdded": "Tag already added",
-  "@tagAlreadyAdded": { "description": "Snackbar when user tries to add a duplicate tag" },
-
+  "@tagAlreadyAdded": {
+    "description": "Snackbar when user tries to add a duplicate tag"
+  },
   "tagLimitReached": "Maximum tags reached",
-  "@tagLimitReached": { "description": "Snackbar when tag limit hit" },
-
+  "@tagLimitReached": {
+    "description": "Snackbar when tag limit hit"
+  },
   "hideThisUser": "Hide this user's posts",
-  "@hideThisUser": { "description": "Short label for the 3-dot menu" },
-
+  "@hideThisUser": {
+    "description": "Short label for the 3-dot menu"
+  },
   "transcribeMessage": "Transcribe",
-  "@transcribeMessage": { "description": "Button on a voice message to convert it to text" },
-
+  "@transcribeMessage": {
+    "description": "Button on a voice message to convert it to text"
+  },
   "transcribing": "Transcribing…",
-  "@transcribing": { "description": "Spinner label while voice transcription is in flight" },
-
+  "@transcribing": {
+    "description": "Spinner label while voice transcription is in flight"
+  },
   "transcriptionFailed": "Couldn't transcribe message",
-  "@transcriptionFailed": { "description": "Error toast when speech-to-text fails" },
-
+  "@transcriptionFailed": {
+    "description": "Error toast when speech-to-text fails"
+  },
   "saveToVocabulary": "Save '{word}' to vocabulary",
   "@saveToVocabulary": {
     "description": "Long-press popup confirming a vocabulary save",
-    "placeholders": { "word": { "type": "String" } }
+    "placeholders": {
+      "word": {
+        "type": "String"
+      }
+    }
   },
-
   "addedToVocabulary": "Added to your vocabulary",
-  "@addedToVocabulary": { "description": "Snackbar after successful vocab save" },
-
+  "@addedToVocabulary": {
+    "description": "Snackbar after successful vocab save"
+  },
   "alreadyInVocabulary": "Already in your vocabulary",
-  "@alreadyInVocabulary": { "description": "Snackbar when word is already saved" },
-
+  "@alreadyInVocabulary": {
+    "description": "Snackbar when word is already saved"
+  },
   "tapWordToSave": "Tap and hold a word to save it",
-  "@tapWordToSave": { "description": "Optional onboarding hint shown once" },
-
+  "@tapWordToSave": {
+    "description": "Optional onboarding hint shown once"
+  },
   "autoTranslateChatHint": "Incoming messages will be translated automatically",
-  "@autoTranslateChatHint": { "description": "Subtitle for the per-chat auto-translate toggle" },
-
+  "@autoTranslateChatHint": {
+    "description": "Subtitle for the per-chat auto-translate toggle"
+  },
   "noConversationsYet": "No conversations yet",
-  "@noConversationsYet": { "description": "Empty state for the chat list" },
-
+  "@noConversationsYet": {
+    "description": "Empty state for the chat list"
+  },
   "chatRetry": "Try again",
-  "@chatRetry": { "description": "Retry button on chat error states" },
-
+  "@chatRetry": {
+    "description": "Retry button on chat error states"
+  },
   "learningHubTitle": "Learning",
-  "@learningHubTitle": { "description": "Title for the learning hub screen" },
-
+  "@learningHubTitle": {
+    "description": "Title for the learning hub screen"
+  },
   "learningCommonRetry": "Retry",
-  "@learningCommonRetry": { "description": "Generic retry button label in learning surface" },
-
+  "@learningCommonRetry": {
+    "description": "Generic retry button label in learning surface"
+  },
   "learningCommonContinue": "Continue",
-  "@learningCommonContinue": { "description": "Generic continue button label in learning surface" },
-
+  "@learningCommonContinue": {
+    "description": "Generic continue button label in learning surface"
+  },
   "learningCommonAwesome": "Awesome!",
-  "@learningCommonAwesome": { "description": "Generic positive reinforcement label" },
-
+  "@learningCommonAwesome": {
+    "description": "Generic positive reinforcement label"
+  },
   "learningErrorGeneric": "Something went wrong",
-  "@learningErrorGeneric": { "description": "Generic error message in learning surface" },
-
+  "@learningErrorGeneric": {
+    "description": "Generic error message in learning surface"
+  },
   "learningStreakCurrent": "Current streak",
-  "@learningStreakCurrent": { "description": "Label for the current streak count" },
-
+  "@learningStreakCurrent": {
+    "description": "Label for the current streak count"
+  },
   "learningStreakLongest": "Longest streak",
-  "@learningStreakLongest": { "description": "Label for the longest streak count" },
-
+  "@learningStreakLongest": {
+    "description": "Label for the longest streak count"
+  },
   "learningStreakDaysCount": "{count, plural, =0{0 days} =1{1 day} other{{count} days}}",
   "@learningStreakDaysCount": {
     "description": "Plural days count for streak display",
-    "placeholders": {"count": {"type": "int"}}
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   },
-
   "learningStreakFreezeAvailable": "{count, plural, =0{No freezes available} =1{1 freeze available} other{{count} freezes available}}",
   "@learningStreakFreezeAvailable": {
     "description": "Plural freeze count for streak freeze display",
-    "placeholders": {"count": {"type": "int"}}
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   },
-
   "learningStreakFreezeUse": "Use freeze",
-  "@learningStreakFreezeUse": { "description": "Button label to use a streak freeze" },
-
+  "@learningStreakFreezeUse": {
+    "description": "Button label to use a streak freeze"
+  },
   "learningStreakFreezeDescription": "Freezes protect your streak when you miss a day.",
-  "@learningStreakFreezeDescription": { "description": "Explanatory text for streak freezes" },
-
+  "@learningStreakFreezeDescription": {
+    "description": "Explanatory text for streak freezes"
+  },
   "learningStreakFreezeProtected": "Streak protected!",
-  "@learningStreakFreezeProtected": { "description": "Snackbar when a streak freeze is applied" },
-
+  "@learningStreakFreezeProtected": {
+    "description": "Snackbar when a streak freeze is applied"
+  },
   "learningStreakMilestone7": "7-day streak!",
-  "@learningStreakMilestone7": { "description": "Celebration label for 7-day streak milestone" },
-
+  "@learningStreakMilestone7": {
+    "description": "Celebration label for 7-day streak milestone"
+  },
   "learningStreakMilestone30": "30-day streak!",
-  "@learningStreakMilestone30": { "description": "Celebration label for 30-day streak milestone" },
-
+  "@learningStreakMilestone30": {
+    "description": "Celebration label for 30-day streak milestone"
+  },
   "learningStreakMilestone100": "100-day streak!",
-  "@learningStreakMilestone100": { "description": "Celebration label for 100-day streak milestone" },
-
+  "@learningStreakMilestone100": {
+    "description": "Celebration label for 100-day streak milestone"
+  },
   "learningStreakMilestone365": "365-day streak!",
-  "@learningStreakMilestone365": { "description": "Celebration label for 365-day streak milestone" },
-
+  "@learningStreakMilestone365": {
+    "description": "Celebration label for 365-day streak milestone"
+  },
   "learningWeeklyDigestTitle": "This Week",
-  "@learningWeeklyDigestTitle": { "description": "Title for the weekly digest card" },
-
+  "@learningWeeklyDigestTitle": {
+    "description": "Title for the weekly digest card"
+  },
   "learningWeeklyDigestXp": "{xp} XP earned",
   "@learningWeeklyDigestXp": {
     "description": "XP earned this week in weekly digest",
-    "placeholders": {"xp": {"type": "int"}}
+    "placeholders": {
+      "xp": {
+        "type": "int"
+      }
+    }
   },
-
   "learningWeeklyDigestLessons": "{count, plural, =1{1 lesson} other{{count} lessons}}",
   "@learningWeeklyDigestLessons": {
     "description": "Plural lesson count in weekly digest",
-    "placeholders": {"count": {"type": "int"}}
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   },
-
   "learningWeeklyDigestVocab": "{count, plural, =1{1 word learned} other{{count} words learned}}",
   "@learningWeeklyDigestVocab": {
     "description": "Plural vocabulary words learned in weekly digest",
-    "placeholders": {"count": {"type": "int"}}
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   },
-
   "learningWeeklyDigestDaysActive": "{count, plural, =1{1 active day} other{{count} active days}}",
   "@learningWeeklyDigestDaysActive": {
     "description": "Plural active days count in weekly digest",
-    "placeholders": {"count": {"type": "int"}}
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   },
-
   "learningWeeklyDigestTopAchievement": "Top achievement",
-  "@learningWeeklyDigestTopAchievement": { "description": "Label for top achievement in weekly digest" },
-
+  "@learningWeeklyDigestTopAchievement": {
+    "description": "Label for top achievement in weekly digest"
+  },
   "learningWeeklyDigestTrendUp": "Up {pct}% from last week",
   "@learningWeeklyDigestTrendUp": {
     "description": "Positive trend indicator in weekly digest",
-    "placeholders": {"pct": {"type": "int"}}
+    "placeholders": {
+      "pct": {
+        "type": "int"
+      }
+    }
   },
-
   "learningWeeklyDigestTrendDown": "Down {pct}% from last week",
   "@learningWeeklyDigestTrendDown": {
     "description": "Negative trend indicator in weekly digest",
-    "placeholders": {"pct": {"type": "int"}}
+    "placeholders": {
+      "pct": {
+        "type": "int"
+      }
+    }
   },
-
   "learningWeeklyDigestTrendFlat": "Same as last week",
-  "@learningWeeklyDigestTrendFlat": { "description": "Flat trend indicator in weekly digest" },
-
+  "@learningWeeklyDigestTrendFlat": {
+    "description": "Flat trend indicator in weekly digest"
+  },
   "learningSrsDashboardTitle": "Daily Review",
-  "@learningSrsDashboardTitle": { "description": "Title for the SRS daily review dashboard" },
-
+  "@learningSrsDashboardTitle": {
+    "description": "Title for the SRS daily review dashboard"
+  },
   "learningSrsDueToday": "{count, plural, =0{No cards due today} =1{1 card due today} other{{count} cards due today}}",
   "@learningSrsDueToday": {
     "description": "Plural SRS cards due today",
-    "placeholders": {"count": {"type": "int"}}
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   },
-
   "learningSrsDueTomorrow": "{count} due tomorrow",
   "@learningSrsDueTomorrow": {
     "description": "SRS cards due tomorrow",
-    "placeholders": {"count": {"type": "int"}}
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   },
-
   "learningSrsDueThisWeek": "{count} due this week",
   "@learningSrsDueThisWeek": {
     "description": "SRS cards due this week",
-    "placeholders": {"count": {"type": "int"}}
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   },
-
   "learningSrsStartReview": "Start review",
-  "@learningSrsStartReview": { "description": "Button to start SRS review session" },
-
+  "@learningSrsStartReview": {
+    "description": "Button to start SRS review session"
+  },
   "learningSrsAllCaughtUp": "You're all caught up!",
-  "@learningSrsAllCaughtUp": { "description": "Empty state when no SRS cards are due" },
-
+  "@learningSrsAllCaughtUp": {
+    "description": "Empty state when no SRS cards are due"
+  },
   "learningSrsKeepGoing": "Keep going",
-  "@learningSrsKeepGoing": { "description": "Encouragement label in SRS session" },
-
+  "@learningSrsKeepGoing": {
+    "description": "Encouragement label in SRS session"
+  },
   "learningLeaderboardXpTab": "XP",
-  "@learningLeaderboardXpTab": { "description": "Leaderboard tab label for XP ranking" },
-
+  "@learningLeaderboardXpTab": {
+    "description": "Leaderboard tab label for XP ranking"
+  },
   "learningLeaderboardStreakTab": "Streak",
-  "@learningLeaderboardStreakTab": { "description": "Leaderboard tab label for streak ranking" },
-
+  "@learningLeaderboardStreakTab": {
+    "description": "Leaderboard tab label for streak ranking"
+  },
   "learningLeaderboardLanguageTab": "Language",
-  "@learningLeaderboardLanguageTab": { "description": "Leaderboard tab label for language ranking" },
-
+  "@learningLeaderboardLanguageTab": {
+    "description": "Leaderboard tab label for language ranking"
+  },
   "learningLeaderboardFriendsTab": "Friends",
-  "@learningLeaderboardFriendsTab": { "description": "Leaderboard tab label for friends ranking" },
-
+  "@learningLeaderboardFriendsTab": {
+    "description": "Leaderboard tab label for friends ranking"
+  },
   "learningLeaderboardEmpty": "No rankings yet",
-  "@learningLeaderboardEmpty": { "description": "Empty state for leaderboard" },
-
+  "@learningLeaderboardEmpty": {
+    "description": "Empty state for leaderboard"
+  },
   "learningLeaderboardYouLabel": "You",
-  "@learningLeaderboardYouLabel": { "description": "Label to mark the current user in leaderboard" },
-
+  "@learningLeaderboardYouLabel": {
+    "description": "Label to mark the current user in leaderboard"
+  },
   "learningLeaderboardFriendBadge": "Friend",
-  "@learningLeaderboardFriendBadge": { "description": "Badge label for friends in leaderboard" },
-
+  "@learningLeaderboardFriendBadge": {
+    "description": "Badge label for friends in leaderboard"
+  },
   "learningEmptyVocab": "Add words you want to remember",
-  "@learningEmptyVocab": { "description": "Empty state for vocabulary list" },
-
+  "@learningEmptyVocab": {
+    "description": "Empty state for vocabulary list"
+  },
   "learningEmptyLessons": "No lessons available yet",
-  "@learningEmptyLessons": { "description": "Empty state for lessons list" },
-
+  "@learningEmptyLessons": {
+    "description": "Empty state for lessons list"
+  },
   "learningEmptyQuizzes": "No quizzes available",
-  "@learningEmptyQuizzes": { "description": "Empty state for quizzes list" },
-
+  "@learningEmptyQuizzes": {
+    "description": "Empty state for quizzes list"
+  },
   "learningEmptyChallenges": "Check back tomorrow",
-  "@learningEmptyChallenges": { "description": "Empty state for daily challenges" },
-
+  "@learningEmptyChallenges": {
+    "description": "Empty state for daily challenges"
+  },
   "learningEmptyAchievements": "Earn your first achievement",
-  "@learningEmptyAchievements": { "description": "Empty state for achievements list" },
-
+  "@learningEmptyAchievements": {
+    "description": "Empty state for achievements list"
+  },
   "learningEmptySearchResults": "No results found",
-  "@learningEmptySearchResults": { "description": "Empty state for search results in learning surface" },
-
+  "@learningEmptySearchResults": {
+    "description": "Empty state for search results in learning surface"
+  },
   "learningXpGained": "+{xp} XP",
   "@learningXpGained": {
     "description": "XP gained notification label",
-    "placeholders": {"xp": {"type": "int"}}
+    "placeholders": {
+      "xp": {
+        "type": "int"
+      }
+    }
   },
-
   "learningLevelUp": "Level up!",
-  "@learningLevelUp": { "description": "Celebration label when user levels up" },
-
+  "@learningLevelUp": {
+    "description": "Celebration label when user levels up"
+  },
   "learningLevelReached": "You reached {level}",
   "@learningLevelReached": {
     "description": "Label showing the level reached on level up",
-    "placeholders": {"level": {"type": "String"}}
+    "placeholders": {
+      "level": {
+        "type": "String"
+      }
+    }
   },
-
   "learningAchievementUnlocked": "Achievement unlocked",
-  "@learningAchievementUnlocked": { "description": "Snackbar/toast when an achievement is unlocked" },
-
+  "@learningAchievementUnlocked": {
+    "description": "Snackbar/toast when an achievement is unlocked"
+  },
   "learningVocabularySearchHint": "Search vocabulary",
-  "@learningVocabularySearchHint": { "description": "Hint text for vocabulary search field" },
-
+  "@learningVocabularySearchHint": {
+    "description": "Hint text for vocabulary search field"
+  },
   "learningVocabularyFilterAll": "All",
-  "@learningVocabularyFilterAll": { "description": "Vocabulary filter chip label for all words" },
-
+  "@learningVocabularyFilterAll": {
+    "description": "Vocabulary filter chip label for all words"
+  },
   "learningVocabularyFilterNew": "New",
-  "@learningVocabularyFilterNew": { "description": "Vocabulary filter chip label for new words" },
-
+  "@learningVocabularyFilterNew": {
+    "description": "Vocabulary filter chip label for new words"
+  },
   "learningVocabularyFilterLearning": "Learning",
-  "@learningVocabularyFilterLearning": { "description": "Vocabulary filter chip label for words in learning" },
-
+  "@learningVocabularyFilterLearning": {
+    "description": "Vocabulary filter chip label for words in learning"
+  },
   "learningVocabularyFilterMastered": "Mastered",
-  "@learningVocabularyFilterMastered": { "description": "Vocabulary filter chip label for mastered words" },
-
+  "@learningVocabularyFilterMastered": {
+    "description": "Vocabulary filter chip label for mastered words"
+  },
   "learningVocabularySortRecent": "Recent",
-  "@learningVocabularySortRecent": { "description": "Vocabulary sort option by recency" },
-
+  "@learningVocabularySortRecent": {
+    "description": "Vocabulary sort option by recency"
+  },
   "learningVocabularySortAlphabetical": "Alphabetical",
-  "@learningVocabularySortAlphabetical": { "description": "Vocabulary sort option alphabetically" },
-
+  "@learningVocabularySortAlphabetical": {
+    "description": "Vocabulary sort option alphabetically"
+  },
   "learningVocabularySortMastery": "Mastery",
-  "@learningVocabularySortMastery": { "description": "Vocabulary sort option by mastery level" },
-
+  "@learningVocabularySortMastery": {
+    "description": "Vocabulary sort option by mastery level"
+  },
   "learningVocabularyMasteryNew": "New",
-  "@learningVocabularyMasteryNew": { "description": "Mastery status label for new vocabulary words" },
-
+  "@learningVocabularyMasteryNew": {
+    "description": "Mastery status label for new vocabulary words"
+  },
   "learningVocabularyMasteryLearning": "Learning",
-  "@learningVocabularyMasteryLearning": { "description": "Mastery status label for vocabulary words in learning" },
-
+  "@learningVocabularyMasteryLearning": {
+    "description": "Mastery status label for vocabulary words in learning"
+  },
   "learningVocabularyMasteryMastered": "Mastered",
-  "@learningVocabularyMasteryMastered": { "description": "Mastery status label for mastered vocabulary words" },
-
+  "@learningVocabularyMasteryMastered": {
+    "description": "Mastery status label for mastered vocabulary words"
+  },
   "learningProgressLevelLabel": "Level",
-  "@learningProgressLevelLabel": { "description": "Label for the level indicator in progress section" },
-
+  "@learningProgressLevelLabel": {
+    "description": "Label for the level indicator in progress section"
+  },
   "learningProgressXpToNextLevel": "{xp} XP to next level",
   "@learningProgressXpToNextLevel": {
     "description": "XP needed to reach the next level",
-    "placeholders": {"xp": {"type": "int"}}
+    "placeholders": {
+      "xp": {
+        "type": "int"
+      }
+    }
   },
-
   "learningProgressWeeklyChartTitle": "Last 7 days",
-  "@learningProgressWeeklyChartTitle": { "description": "Title for the weekly progress chart" },
-
+  "@learningProgressWeeklyChartTitle": {
+    "description": "Title for the weekly progress chart"
+  },
   "aiTutorPronounceLoading": "Picking a sentence for you…",
-  "@aiTutorPronounceLoading": { "description": "Loading indicator while fetching a new sentence in the Pronunciation Coach" },
-
+  "@aiTutorPronounceLoading": {
+    "description": "Loading indicator while fetching a new sentence in the Pronunciation Coach"
+  },
   "aiTutorPronounceTapToRecord": "Tap to record",
-  "@aiTutorPronounceTapToRecord": { "description": "Call-to-action below the record button" },
-
+  "@aiTutorPronounceTapToRecord": {
+    "description": "Call-to-action below the record button"
+  },
   "aiTutorPronounceTapToStop": "Tap to stop",
-  "@aiTutorPronounceTapToStop": { "description": "Call-to-action while a recording is active" },
-
+  "@aiTutorPronounceTapToStop": {
+    "description": "Call-to-action while a recording is active"
+  },
   "aiTutorPronounceTranscribing": "Listening to you…",
-  "@aiTutorPronounceTranscribing": { "description": "Progress label while audio is being transcribed and scored" },
-
+  "@aiTutorPronounceTranscribing": {
+    "description": "Progress label while audio is being transcribed and scored"
+  },
   "aiTutorPronounceTryAgain": "Try Again",
-  "@aiTutorPronounceTryAgain": { "description": "Retry the current sentence after seeing the score" },
-
+  "@aiTutorPronounceTryAgain": {
+    "description": "Retry the current sentence after seeing the score"
+  },
   "aiTutorPronounceNext": "Next",
-  "@aiTutorPronounceNext": { "description": "Advance to the next sentence after seeing the score" },
-
+  "@aiTutorPronounceNext": {
+    "description": "Advance to the next sentence after seeing the score"
+  },
   "aiTutorPronounceUseYourOwn": "Use my own ✏️",
-  "@aiTutorPronounceUseYourOwn": { "description": "Escape hatch — let the user type a custom sentence to practice" },
-
+  "@aiTutorPronounceUseYourOwn": {
+    "description": "Escape hatch — let the user type a custom sentence to practice"
+  },
   "aiTutorPronounceCustomHint": "Type a sentence you want to practice",
-  "@aiTutorPronounceCustomHint": { "description": "Placeholder for the custom-sentence text field" },
-
+  "@aiTutorPronounceCustomHint": {
+    "description": "Placeholder for the custom-sentence text field"
+  },
   "aiTutorPronounceCustomCancel": "Cancel",
-  "@aiTutorPronounceCustomCancel": { "description": "Cancel button on the custom-sentence form" },
-
+  "@aiTutorPronounceCustomCancel": {
+    "description": "Cancel button on the custom-sentence form"
+  },
   "aiTutorPronounceCustomUse": "Use",
-  "@aiTutorPronounceCustomUse": { "description": "Submit button on the custom-sentence form" },
-
+  "@aiTutorPronounceCustomUse": {
+    "description": "Submit button on the custom-sentence form"
+  },
   "aiTutorPronounceQuitConfirm": "Quit drill? Your progress won't be saved.",
-  "@aiTutorPronounceQuitConfirm": { "description": "Confirm dialog shown when user tries to leave mid-drill" },
-
+  "@aiTutorPronounceQuitConfirm": {
+    "description": "Confirm dialog shown when user tries to leave mid-drill"
+  },
   "aiTutorPronounceQuitYes": "Yes",
-  "@aiTutorPronounceQuitYes": { "description": "Confirm-quit button" },
-
+  "@aiTutorPronounceQuitYes": {
+    "description": "Confirm-quit button"
+  },
   "aiTutorPronounceQuitNo": "No",
-  "@aiTutorPronounceQuitNo": { "description": "Cancel-quit button" },
-
+  "@aiTutorPronounceQuitNo": {
+    "description": "Cancel-quit button"
+  },
   "aiTutorPronounceSentenceOf": "Sentence {current} of {total}",
   "@aiTutorPronounceSentenceOf": {
     "description": "Progress indicator at the top of the drill",
     "placeholders": {
-      "current": {"type": "int"},
-      "total":   {"type": "int"}
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
     }
   },
-
   "aiTutorPronounceSummaryTitle": "Drill complete",
-  "@aiTutorPronounceSummaryTitle": { "description": "Title on the end-of-drill summary sheet" },
-
+  "@aiTutorPronounceSummaryTitle": {
+    "description": "Title on the end-of-drill summary sheet"
+  },
   "aiTutorPronounceSummaryAvg": "Average score",
-  "@aiTutorPronounceSummaryAvg": { "description": "Label above the average-score number on the summary sheet" },
-
+  "@aiTutorPronounceSummaryAvg": {
+    "description": "Label above the average-score number on the summary sheet"
+  },
   "aiTutorPronounceSummaryWeak": "Words to practice",
-  "@aiTutorPronounceSummaryWeak": { "description": "Label above the list of weakest words on the summary sheet" },
-
+  "@aiTutorPronounceSummaryWeak": {
+    "description": "Label above the list of weakest words on the summary sheet"
+  },
   "aiTutorPronounceSaveClose": "Save & Close",
-  "@aiTutorPronounceSaveClose": { "description": "Primary action on the summary sheet — POSTs weak words and pops the drill" },
-
+  "@aiTutorPronounceSaveClose": {
+    "description": "Primary action on the summary sheet — POSTs weak words and pops the drill"
+  },
   "aiTutorPronounceSaving": "Saving…",
-  "@aiTutorPronounceSaving": { "description": "Button label while the summary is being submitted" },
-
+  "@aiTutorPronounceSaving": {
+    "description": "Button label while the summary is being submitted"
+  },
   "aiTutorChipPronounce": "Pronounce",
-  "@aiTutorChipPronounce": { "description": "Label for the 5th tutor mode chip — opens the Pronunciation Coach drill" },
-
+  "@aiTutorChipPronounce": {
+    "description": "Label for the 5th tutor mode chip — opens the Pronunciation Coach drill"
+  },
   "aiTutorPlanPronunciation": "{count, plural, =1{Pronunciation drill ({completed}/1)} other{Pronunciation drills ({completed}/{count})}}",
   "@aiTutorPlanPronunciation": {
     "description": "Daily-plan task label for pronunciation drills, shows progress like '0/1'",
     "placeholders": {
-      "count":     {"type": "int"},
-      "completed": {"type": "int"}
+      "count": {
+        "type": "int"
+      },
+      "completed": {
+        "type": "int"
+      }
     }
   },
-
   "aiTutorPronounceStartHeadline": "How do you want to practice?",
-  "@aiTutorPronounceStartHeadline": { "description": "Headline at the top of the Pronunciation Coach start screen" },
-
+  "@aiTutorPronounceStartHeadline": {
+    "description": "Headline at the top of the Pronunciation Coach start screen"
+  },
   "aiTutorPronounceStartSubhead": "Pick one to begin a 5-sentence drill.",
-  "@aiTutorPronounceStartSubhead": { "description": "Subheadline below the start-screen headline" },
-
+  "@aiTutorPronounceStartSubhead": {
+    "description": "Subheadline below the start-screen headline"
+  },
   "aiTutorPronounceStartAITitle": "AI generates sentences",
-  "@aiTutorPronounceStartAITitle": { "description": "Title of the AI-generated mode card on the start screen" },
-
+  "@aiTutorPronounceStartAITitle": {
+    "description": "Title of the AI-generated mode card on the start screen"
+  },
   "aiTutorPronounceStartAISubtitle": "Level-tuned, biased toward your tricky words",
-  "@aiTutorPronounceStartAISubtitle": { "description": "Subtitle of the AI mode card" },
-
+  "@aiTutorPronounceStartAISubtitle": {
+    "description": "Subtitle of the AI mode card"
+  },
   "aiTutorPronounceStartCustomTitle": "Use my own sentence",
-  "@aiTutorPronounceStartCustomTitle": { "description": "Title of the custom-sentence mode card on the start screen" },
-
+  "@aiTutorPronounceStartCustomTitle": {
+    "description": "Title of the custom-sentence mode card on the start screen"
+  },
   "aiTutorPronounceStartCustomSubtitle": "Type or paste a phrase you want to nail",
-  "@aiTutorPronounceStartCustomSubtitle": { "description": "Subtitle of the custom-sentence mode card" },
-
+  "@aiTutorPronounceStartCustomSubtitle": {
+    "description": "Subtitle of the custom-sentence mode card"
+  },
   "aiTutorQuotaRemaining": "{count, plural, =1{1 left today} other{{count} left today}}",
   "@aiTutorQuotaRemaining": {
     "description": "Daily quota counter pill on tutor chip screens",
-    "placeholders": { "count": {"type": "int"} }
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   },
-
   "submit": "Submit",
   "exit": "Exit",
   "previous": "Previous",
-  "goBack": "Go Back",
-
   "aiDailyPracticeTitle": "Daily Practice",
   "aiDailyPracticeTranslateThis": "Translate this:",
   "aiDailyPracticeSuggested": "Suggested:",
   "aiDailyPracticeHint": "Your translation",
-
   "aiLanguagesLoading": "Languages are still loading...",
   "aiCopiedToClipboard": "Copied to clipboard",
-
   "aiGrammarHint": "Enter text to analyze...",
   "aiGrammarSectionOriginal": "Original Text",
   "aiGrammarSectionCorrected": "Corrected Text",
   "aiGrammarSectionIssues": "Issues Found ({count})",
-  "@aiGrammarSectionIssues": { "placeholders": { "count": { "type": "int" } } },
+  "@aiGrammarSectionIssues": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "aiGrammarSectionWell": "What You Did Well",
   "aiGrammarSectionSuggestions": "Suggestions",
   "aiGrammarSectionSummary": "Summary",
-
   "aiLessonBuilderLabelLanguage": "Language",
   "aiLessonBuilderLabelLevel": "Level",
   "aiLessonBuilderTopicHint": "Enter a topic (e.g., \"Food and Dining\")",
   "aiLessonBuilderSaved": "Lesson \"{title}\" saved!",
-  "@aiLessonBuilderSaved": { "placeholders": { "title": { "type": "String" } } },
+  "@aiLessonBuilderSaved": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
   "aiLessonBuilderBackToLessons": "Back to Lessons",
-
   "aiTranslationHint": "Enter text to translate...",
   "aiTranslationSavedToVocab": "Saved to your vocab list",
   "aiTranslationCouldNotSave": "Could not save: {error}",
-  "@aiTranslationCouldNotSave": { "placeholders": { "error": { "type": "String" } } },
-
+  "@aiTranslationCouldNotSave": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
   "aiQuizTitle": "Quiz",
   "aiQuizFailedToGenerate": "Failed to generate quiz",
   "aiQuizSubmitTitle": "Submit Quiz?",
@@ -3037,44 +3297,168 @@
   "aiQuizExitBody": "Your progress will be lost.",
   "aiQuizAnswerHint": "Type your answer...",
   "aiQuizTranslationHint": "Type your translation...",
-
   "aiPronunciationPlayingAudio": "Playing audio...",
   "aiPronunciationListenFirst": "Listen First",
   "aiPronunciationHint": "Enter text to practice...",
-
   "aiTutorCouldNotLoad": "Could not load tutor: {error}",
-  "@aiTutorCouldNotLoad": { "placeholders": { "error": { "type": "String" } } },
+  "@aiTutorCouldNotLoad": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
   "aiTutorPlanUnavailable": "Plan unavailable: {error}",
-  "@aiTutorPlanUnavailable": { "placeholders": { "error": { "type": "String" } } },
+  "@aiTutorPlanUnavailable": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
   "aiTutorReplay": "Replay",
-
   "aiScenariosTitle": "Practice scenarios",
   "aiScenariosCouldNotLoad": "Could not load scenarios: {error}",
-  "@aiScenariosCouldNotLoad": { "placeholders": { "error": { "type": "String" } } },
+  "@aiScenariosCouldNotLoad": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
   "aiScenariosNoneAvailable": "No scenarios available yet.",
   "aiScenariosCouldNotStart": "Could not start: {error}",
-  "@aiScenariosCouldNotStart": { "placeholders": { "error": { "type": "String" } } },
+  "@aiScenariosCouldNotStart": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
   "aiScenariosForYourLevel": "For your level ({level})",
-  "@aiScenariosForYourLevel": { "placeholders": { "level": { "type": "String" } } },
+  "@aiScenariosForYourLevel": {
+    "placeholders": {
+      "level": {
+        "type": "String"
+      }
+    }
+  },
   "aiScenariosEasier": "Easier — warm up",
   "aiScenariosHarder": "Harder — stretch",
-
   "aiRoleplayStillStarting": "Still starting the scenario — try again in a moment.",
   "aiRoleplaySendFailed": "Send failed: {error}",
-  "@aiRoleplaySendFailed": { "placeholders": { "error": { "type": "String" } } },
+  "@aiRoleplaySendFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
   "aiRoleplayCouldNotGrade": "Couldn't grade this one — try again next time.",
-
   "aiConversationHistoryCompleted": "Completed",
   "aiConversationHistoryInProgress": "In Progress",
   "aiConversationMessageHint": "Type a message...",
   "aiConversationTopicSpeak": "I speak",
   "aiConversationTopicPractice": "Practice",
-
   "aiToolsVipUpgradeDescription": "Upgrade to VIP to unlock {feature}!",
-  "@aiToolsVipUpgradeDescription": { "placeholders": { "feature": { "type": "String" } } },
+  "@aiToolsVipUpgradeDescription": {
+    "placeholders": {
+      "feature": {
+        "type": "String"
+      }
+    }
+  },
   "aiToolsVipBadge": "VIP",
-
   "aiScenariosBannerPracticingIn": "Practicing in {language}",
-  "@aiScenariosBannerPracticingIn": { "placeholders": { "language": { "type": "String" } } },
-  "aiScenariosBannerSubhead": "Pick a scenario at your level, or stretch one up."
+  "@aiScenariosBannerPracticingIn": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "aiScenariosBannerSubhead": "Pick a scenario at your level, or stretch one up.",
+  "chatListSearchHint": "Search or type @username",
+  "chatListFilterAll": "All",
+  "chatListFilterUnread": "Unread",
+  "chatListFilterOnline": "Online",
+  "chatListNewChat": "New Chat",
+  "chatListNewChatByUsernameTooltip": "New chat by username",
+  "chatListFindUser": "Find User",
+  "chatListFindUserSearchTerm": "Find @{term}",
+  "@chatListFindUserSearchTerm": {
+    "placeholders": {
+      "term": {
+        "type": "String"
+      }
+    }
+  },
+  "chatListDeleteConversation": "Delete Conversation",
+  "chatListMediaTitle": "Media with {name}",
+  "@chatListMediaTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "chatListMediaError": "Error loading media",
+  "chatDetailViewFullProfile": "View Full Profile",
+  "chatMessageReply": "Reply",
+  "chatMessageCopy": "Copy",
+  "chatMessageCorrect": "Correct",
+  "chatMessageTranslate": "Translate",
+  "chatMessageSavePhrase": "Save phrase",
+  "chatMessageEdit": "Edit",
+  "chatMessageDelete": "Delete",
+  "chatMessageRetrySubtitle": "Try sending this message again",
+  "chatMessageRemoveSubtitle": "Remove this message",
+  "chatWallpaperPreviewHello": "Hello! 👋",
+  "chatWallpaperPreviewHow": "How are you?",
+  "chatGifSearchHint": "Search GIFs...",
+  "communitySearchHint": "Search or type @username",
+  "communityUserNotFound": "User @{name} not found",
+  "@communityUserNotFound": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "communityTabAll": "All",
+  "communityTabGender": "Gender",
+  "communityTabCity": "City",
+  "communityRefresh": "Refresh",
+  "communityNoUsersFound": "No users found",
+  "communityUnblockConfirm": "Are you sure you want to unblock {name}?",
+  "@communityUnblockConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "communityUsernameCopied": "Username copied!",
+  "communityLocationDetected": "Location detected: {country}",
+  "@communityLocationDetected": {
+    "placeholders": {
+      "country": {
+        "type": "String"
+      }
+    }
+  },
+  "communityWaveLater": "Later",
+  "communityAboutMBTI": "MBTI",
+  "voiceRoomReactTooltip": "React",
+  "momentsCancel": "Cancel",
+  "momentsNotNow": "Not Now",
+  "commonOK": "OK",
+  "commonError": "Error: {error}",
+  "@commonError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  }
 }

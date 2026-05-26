@@ -729,7 +729,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: Text('Cancel', style: TextStyle(color: context.textSecondary)),
+              child: Text(AppLocalizations.of(context)!.momentsCancel, style: TextStyle(color: context.textSecondary)),
             ),
             TextButton(
               onPressed: () async {
@@ -768,7 +768,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: Text('Not Now', style: TextStyle(color: context.textSecondary)),
+              child: Text(AppLocalizations.of(context)!.momentsNotNow, style: TextStyle(color: context.textSecondary)),
             ),
             TextButton(
               onPressed: () {

@@ -2642,5 +2642,88 @@
         "type": "int"
       }
     }
+  },
+  "chatListSearchHint": "Ara veya @kullanıcı_adı yaz",
+  "chatListFilterAll": "Tümü",
+  "chatListFilterUnread": "Okunmamış",
+  "chatListFilterOnline": "Çevrimiçi",
+  "chatListNewChat": "Yeni sohbet",
+  "chatListNewChatByUsernameTooltip": "Kullanıcı adı ile yeni sohbet",
+  "chatListFindUser": "Kullanıcı bul",
+  "chatListFindUserSearchTerm": "@{term} bul",
+  "@chatListFindUserSearchTerm": {
+    "placeholders": {
+      "term": {
+        "type": "String"
+      }
+    }
+  },
+  "chatListDeleteConversation": "Sohbeti sil",
+  "chatListMediaTitle": "{name} ile medya",
+  "@chatListMediaTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "chatListMediaError": "Medya yüklenirken hata",
+  "chatDetailViewFullProfile": "Profili tam görüntüle",
+  "chatMessageReply": "Yanıtla",
+  "chatMessageCopy": "Kopyala",
+  "chatMessageCorrect": "Düzelt",
+  "chatMessageTranslate": "Çevir",
+  "chatMessageSavePhrase": "İfadeyi kaydet",
+  "chatMessageEdit": "Düzenle",
+  "chatMessageDelete": "Sil",
+  "chatMessageRetrySubtitle": "Bu mesajı tekrar göndermeyi dene",
+  "chatMessageRemoveSubtitle": "Bu mesajı kaldır",
+  "chatWallpaperPreviewHello": "Merhaba! 👋",
+  "chatWallpaperPreviewHow": "Nasılsın?",
+  "chatGifSearchHint": "GIF ara...",
+  "communitySearchHint": "Ara veya @kullanıcı_adı yaz",
+  "communityUserNotFound": "@{name} bulunamadı",
+  "@communityUserNotFound": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "communityTabAll": "Tümü",
+  "communityTabGender": "Cinsiyet",
+  "communityTabCity": "Şehir",
+  "communityRefresh": "Yenile",
+  "communityNoUsersFound": "Kullanıcı bulunamadı",
+  "communityUnblockConfirm": "{name} adlı kişinin engelini kaldırmak istediğine emin misin?",
+  "@communityUnblockConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "communityUsernameCopied": "Kullanıcı adı kopyalandı!",
+  "communityLocationDetected": "Konum: {country}",
+  "@communityLocationDetected": {
+    "placeholders": {
+      "country": {
+        "type": "String"
+      }
+    }
+  },
+  "communityWaveLater": "Daha sonra",
+  "communityAboutMBTI": "MBTI",
+  "voiceRoomReactTooltip": "Tepki ver",
+  "momentsCancel": "İptal",
+  "momentsNotNow": "Şimdi değil",
+  "commonOK": "Tamam",
+  "commonError": "Hata: {error}",
+  "@commonError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
   }
 }

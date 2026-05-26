@@ -5945,4 +5945,140 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get aiScenariosBannerSubhead => '自分のレベルのシナリオを選ぶか、一段上に挑戦しよう。';
+
+  @override
+  String get chatListSearchHint => '検索または @ユーザー名 を入力';
+
+  @override
+  String get chatListFilterAll => 'すべて';
+
+  @override
+  String get chatListFilterUnread => '未読';
+
+  @override
+  String get chatListFilterOnline => 'オンライン';
+
+  @override
+  String get chatListNewChat => '新規チャット';
+
+  @override
+  String get chatListNewChatByUsernameTooltip => 'ユーザー名で新規チャット';
+
+  @override
+  String get chatListFindUser => 'ユーザー検索';
+
+  @override
+  String chatListFindUserSearchTerm(String term) {
+    return '@$term を探す';
+  }
+
+  @override
+  String get chatListDeleteConversation => '会話を削除';
+
+  @override
+  String chatListMediaTitle(String name) {
+    return '$name とのメディア';
+  }
+
+  @override
+  String get chatListMediaError => 'メディアの読み込みエラー';
+
+  @override
+  String get chatDetailViewFullProfile => 'プロフィール全体を表示';
+
+  @override
+  String get chatMessageReply => '返信';
+
+  @override
+  String get chatMessageCopy => 'コピー';
+
+  @override
+  String get chatMessageCorrect => '訂正';
+
+  @override
+  String get chatMessageTranslate => '翻訳';
+
+  @override
+  String get chatMessageSavePhrase => 'フレーズ保存';
+
+  @override
+  String get chatMessageEdit => '編集';
+
+  @override
+  String get chatMessageDelete => '削除';
+
+  @override
+  String get chatMessageRetrySubtitle => 'このメッセージを再送';
+
+  @override
+  String get chatMessageRemoveSubtitle => 'このメッセージを削除';
+
+  @override
+  String get chatWallpaperPreviewHello => 'こんにちは！👋';
+
+  @override
+  String get chatWallpaperPreviewHow => '元気？';
+
+  @override
+  String get chatGifSearchHint => 'GIFを検索...';
+
+  @override
+  String get communitySearchHint => '検索または @ユーザー名 を入力';
+
+  @override
+  String communityUserNotFound(String name) {
+    return 'ユーザー @$name が見つかりません';
+  }
+
+  @override
+  String get communityTabAll => 'すべて';
+
+  @override
+  String get communityTabGender => '性別';
+
+  @override
+  String get communityTabCity => '都市';
+
+  @override
+  String get communityRefresh => '更新';
+
+  @override
+  String get communityNoUsersFound => 'ユーザーが見つかりません';
+
+  @override
+  String communityUnblockConfirm(String name) {
+    return '$name のブロックを解除しますか？';
+  }
+
+  @override
+  String get communityUsernameCopied => 'ユーザー名をコピーしました！';
+
+  @override
+  String communityLocationDetected(String country) {
+    return '場所: $country';
+  }
+
+  @override
+  String get communityWaveLater => 'あとで';
+
+  @override
+  String get communityAboutMBTI => 'MBTI';
+
+  @override
+  String get voiceRoomReactTooltip => 'リアクション';
+
+
+  @override
+  String get momentsCancel => 'キャンセル';
+
+  @override
+  String get momentsNotNow => '今はしない';
+
+  @override
+  String get commonOK => 'OK';
+
+  @override
+  String commonError(String error) {
+    return 'エラー: $error';
+  }
 }

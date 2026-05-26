@@ -5953,4 +5953,140 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get aiScenariosBannerSubhead => 'Pick a scenario at your level, or stretch one up.';
+
+  @override
+  String get chatListSearchHint => 'Search or type @username';
+
+  @override
+  String get chatListFilterAll => 'All';
+
+  @override
+  String get chatListFilterUnread => 'Unread';
+
+  @override
+  String get chatListFilterOnline => 'Online';
+
+  @override
+  String get chatListNewChat => 'New Chat';
+
+  @override
+  String get chatListNewChatByUsernameTooltip => 'New chat by username';
+
+  @override
+  String get chatListFindUser => 'Find User';
+
+  @override
+  String chatListFindUserSearchTerm(String term) {
+    return 'Find @$term';
+  }
+
+  @override
+  String get chatListDeleteConversation => 'Delete Conversation';
+
+  @override
+  String chatListMediaTitle(String name) {
+    return 'Media with $name';
+  }
+
+  @override
+  String get chatListMediaError => 'Error loading media';
+
+  @override
+  String get chatDetailViewFullProfile => 'View Full Profile';
+
+  @override
+  String get chatMessageReply => 'Reply';
+
+  @override
+  String get chatMessageCopy => 'Copy';
+
+  @override
+  String get chatMessageCorrect => 'Correct';
+
+  @override
+  String get chatMessageTranslate => 'Translate';
+
+  @override
+  String get chatMessageSavePhrase => 'Save phrase';
+
+  @override
+  String get chatMessageEdit => 'Edit';
+
+  @override
+  String get chatMessageDelete => 'Delete';
+
+  @override
+  String get chatMessageRetrySubtitle => 'Try sending this message again';
+
+  @override
+  String get chatMessageRemoveSubtitle => 'Remove this message';
+
+  @override
+  String get chatWallpaperPreviewHello => 'Hello! 👋';
+
+  @override
+  String get chatWallpaperPreviewHow => 'How are you?';
+
+  @override
+  String get chatGifSearchHint => 'Search GIFs...';
+
+  @override
+  String get communitySearchHint => 'Search or type @username';
+
+  @override
+  String communityUserNotFound(String name) {
+    return 'User @$name not found';
+  }
+
+  @override
+  String get communityTabAll => 'All';
+
+  @override
+  String get communityTabGender => 'Gender';
+
+  @override
+  String get communityTabCity => 'City';
+
+  @override
+  String get communityRefresh => 'Refresh';
+
+  @override
+  String get communityNoUsersFound => 'No users found';
+
+  @override
+  String communityUnblockConfirm(String name) {
+    return 'Are you sure you want to unblock $name?';
+  }
+
+  @override
+  String get communityUsernameCopied => 'Username copied!';
+
+  @override
+  String communityLocationDetected(String country) {
+    return 'Location detected: $country';
+  }
+
+  @override
+  String get communityWaveLater => 'Later';
+
+  @override
+  String get communityAboutMBTI => 'MBTI';
+
+  @override
+  String get voiceRoomReactTooltip => 'React';
+
+
+  @override
+  String get momentsCancel => 'Cancel';
+
+  @override
+  String get momentsNotNow => 'Not Now';
+
+  @override
+  String get commonOK => 'OK';
+
+  @override
+  String commonError(String error) {
+    return 'Error: $error';
+  }
 }

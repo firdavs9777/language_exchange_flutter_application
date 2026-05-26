@@ -2451,5 +2451,88 @@
         "type": "int"
       }
     }
+  },
+  "chatListSearchHint": "검색 또는 @사용자명 입력",
+  "chatListFilterAll": "전체",
+  "chatListFilterUnread": "안 읽음",
+  "chatListFilterOnline": "온라인",
+  "chatListNewChat": "새 채팅",
+  "chatListNewChatByUsernameTooltip": "사용자명으로 새 채팅",
+  "chatListFindUser": "사용자 찾기",
+  "chatListFindUserSearchTerm": "@{term} 찾기",
+  "@chatListFindUserSearchTerm": {
+    "placeholders": {
+      "term": {
+        "type": "String"
+      }
+    }
+  },
+  "chatListDeleteConversation": "대화 삭제",
+  "chatListMediaTitle": "{name}와의 미디어",
+  "@chatListMediaTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "chatListMediaError": "미디어 로드 오류",
+  "chatDetailViewFullProfile": "전체 프로필 보기",
+  "chatMessageReply": "답장",
+  "chatMessageCopy": "복사",
+  "chatMessageCorrect": "교정",
+  "chatMessageTranslate": "번역",
+  "chatMessageSavePhrase": "문구 저장",
+  "chatMessageEdit": "편집",
+  "chatMessageDelete": "삭제",
+  "chatMessageRetrySubtitle": "이 메시지를 다시 보내세요",
+  "chatMessageRemoveSubtitle": "이 메시지를 제거",
+  "chatWallpaperPreviewHello": "안녕! 👋",
+  "chatWallpaperPreviewHow": "어떻게 지내?",
+  "chatGifSearchHint": "GIF 검색...",
+  "communitySearchHint": "검색 또는 @사용자명 입력",
+  "communityUserNotFound": "@{name} 사용자를 찾을 수 없습니다",
+  "@communityUserNotFound": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "communityTabAll": "전체",
+  "communityTabGender": "성별",
+  "communityTabCity": "도시",
+  "communityRefresh": "새로고침",
+  "communityNoUsersFound": "사용자가 없습니다",
+  "communityUnblockConfirm": "정말 {name}을(를) 차단 해제하시겠어요?",
+  "@communityUnblockConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "communityUsernameCopied": "사용자명이 복사되었습니다!",
+  "communityLocationDetected": "위치: {country}",
+  "@communityLocationDetected": {
+    "placeholders": {
+      "country": {
+        "type": "String"
+      }
+    }
+  },
+  "communityWaveLater": "나중에",
+  "communityAboutMBTI": "MBTI",
+  "voiceRoomReactTooltip": "리액션",
+  "momentsCancel": "취소",
+  "momentsNotNow": "나중에",
+  "commonOK": "확인",
+  "commonError": "오류: {error}",
+  "@commonError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
   }
 }

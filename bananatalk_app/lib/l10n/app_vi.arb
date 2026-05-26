@@ -2272,5 +2272,88 @@
         "type": "int"
       }
     }
+  },
+  "chatListSearchHint": "Tìm hoặc nhập @tên_dùng",
+  "chatListFilterAll": "Tất cả",
+  "chatListFilterUnread": "Chưa đọc",
+  "chatListFilterOnline": "Trực tuyến",
+  "chatListNewChat": "Chat mới",
+  "chatListNewChatByUsernameTooltip": "Chat mới qua tên người dùng",
+  "chatListFindUser": "Tìm người dùng",
+  "chatListFindUserSearchTerm": "Tìm @{term}",
+  "@chatListFindUserSearchTerm": {
+    "placeholders": {
+      "term": {
+        "type": "String"
+      }
+    }
+  },
+  "chatListDeleteConversation": "Xoá cuộc trò chuyện",
+  "chatListMediaTitle": "Phương tiện với {name}",
+  "@chatListMediaTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "chatListMediaError": "Lỗi tải phương tiện",
+  "chatDetailViewFullProfile": "Xem hồ sơ đầy đủ",
+  "chatMessageReply": "Trả lời",
+  "chatMessageCopy": "Sao chép",
+  "chatMessageCorrect": "Sửa",
+  "chatMessageTranslate": "Dịch",
+  "chatMessageSavePhrase": "Lưu cụm",
+  "chatMessageEdit": "Chỉnh sửa",
+  "chatMessageDelete": "Xoá",
+  "chatMessageRetrySubtitle": "Thử gửi lại tin nhắn này",
+  "chatMessageRemoveSubtitle": "Gỡ tin nhắn này",
+  "chatWallpaperPreviewHello": "Xin chào! 👋",
+  "chatWallpaperPreviewHow": "Bạn khoẻ không?",
+  "chatGifSearchHint": "Tìm GIF...",
+  "communitySearchHint": "Tìm hoặc nhập @tên_dùng",
+  "communityUserNotFound": "Không tìm thấy @{name}",
+  "@communityUserNotFound": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "communityTabAll": "Tất cả",
+  "communityTabGender": "Giới tính",
+  "communityTabCity": "Thành phố",
+  "communityRefresh": "Làm mới",
+  "communityNoUsersFound": "Không tìm thấy người dùng",
+  "communityUnblockConfirm": "Bạn chắc muốn bỏ chặn {name}?",
+  "@communityUnblockConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "communityUsernameCopied": "Đã sao chép tên người dùng!",
+  "communityLocationDetected": "Vị trí: {country}",
+  "@communityLocationDetected": {
+    "placeholders": {
+      "country": {
+        "type": "String"
+      }
+    }
+  },
+  "communityWaveLater": "Sau",
+  "communityAboutMBTI": "MBTI",
+  "voiceRoomReactTooltip": "Phản ứng",
+  "momentsCancel": "Huỷ",
+  "momentsNotNow": "Không phải bây giờ",
+  "commonOK": "OK",
+  "commonError": "Lỗi: {error}",
+  "@commonError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
   }
 }

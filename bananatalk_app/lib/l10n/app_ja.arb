@@ -2429,5 +2429,88 @@
         "type": "int"
       }
     }
+  },
+  "chatListSearchHint": "検索または @ユーザー名 を入力",
+  "chatListFilterAll": "すべて",
+  "chatListFilterUnread": "未読",
+  "chatListFilterOnline": "オンライン",
+  "chatListNewChat": "新規チャット",
+  "chatListNewChatByUsernameTooltip": "ユーザー名で新規チャット",
+  "chatListFindUser": "ユーザー検索",
+  "chatListFindUserSearchTerm": "@{term} を探す",
+  "@chatListFindUserSearchTerm": {
+    "placeholders": {
+      "term": {
+        "type": "String"
+      }
+    }
+  },
+  "chatListDeleteConversation": "会話を削除",
+  "chatListMediaTitle": "{name} とのメディア",
+  "@chatListMediaTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "chatListMediaError": "メディアの読み込みエラー",
+  "chatDetailViewFullProfile": "プロフィール全体を表示",
+  "chatMessageReply": "返信",
+  "chatMessageCopy": "コピー",
+  "chatMessageCorrect": "訂正",
+  "chatMessageTranslate": "翻訳",
+  "chatMessageSavePhrase": "フレーズ保存",
+  "chatMessageEdit": "編集",
+  "chatMessageDelete": "削除",
+  "chatMessageRetrySubtitle": "このメッセージを再送",
+  "chatMessageRemoveSubtitle": "このメッセージを削除",
+  "chatWallpaperPreviewHello": "こんにちは！👋",
+  "chatWallpaperPreviewHow": "元気？",
+  "chatGifSearchHint": "GIFを検索...",
+  "communitySearchHint": "検索または @ユーザー名 を入力",
+  "communityUserNotFound": "ユーザー @{name} が見つかりません",
+  "@communityUserNotFound": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "communityTabAll": "すべて",
+  "communityTabGender": "性別",
+  "communityTabCity": "都市",
+  "communityRefresh": "更新",
+  "communityNoUsersFound": "ユーザーが見つかりません",
+  "communityUnblockConfirm": "{name} のブロックを解除しますか？",
+  "@communityUnblockConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "communityUsernameCopied": "ユーザー名をコピーしました！",
+  "communityLocationDetected": "場所: {country}",
+  "@communityLocationDetected": {
+    "placeholders": {
+      "country": {
+        "type": "String"
+      }
+    }
+  },
+  "communityWaveLater": "あとで",
+  "communityAboutMBTI": "MBTI",
+  "voiceRoomReactTooltip": "リアクション",
+  "momentsCancel": "キャンセル",
+  "momentsNotNow": "今はしない",
+  "commonOK": "OK",
+  "commonError": "エラー: {error}",
+  "@commonError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
   }
 }

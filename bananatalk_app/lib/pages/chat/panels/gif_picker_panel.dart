@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/services/giphy_service.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 // ============================================================================
 // INTERNAL STATE
@@ -245,7 +246,7 @@ class _GifPickerPanelState extends ConsumerState<GifPickerPanel> {
           _searchGifs(value);
         },
         decoration: InputDecoration(
-          hintText: 'Search GIFs...',
+          hintText: AppLocalizations.of(context)!.chatGifSearchHint,
           prefixIcon: Icon(
             Icons.search_rounded,
             color: context.textSecondary,
@@ -421,7 +422,7 @@ class _GifPickerPanelState extends ConsumerState<GifPickerPanel> {
                   ? () => _searchGifs(_searchController.text)
                   : _loadTrending,
               icon: const Icon(Icons.refresh_rounded, size: 18),
-              label: const Text('Retry'),
+              label: Text(AppLocalizations.of(context)!.momentsRetry),
               style: TextButton.styleFrom(
                 foregroundColor: AppColors.primary,
               ),

@@ -5964,4 +5964,140 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get aiScenariosBannerSubhead => 'Выберите сценарий своего уровня или на ступеньку выше.';
+
+  @override
+  String get chatListSearchHint => 'Поиск или @имя_пользователя';
+
+  @override
+  String get chatListFilterAll => 'Все';
+
+  @override
+  String get chatListFilterUnread => 'Непрочитанные';
+
+  @override
+  String get chatListFilterOnline => 'Онлайн';
+
+  @override
+  String get chatListNewChat => 'Новый чат';
+
+  @override
+  String get chatListNewChatByUsernameTooltip => 'Новый чат по имени пользователя';
+
+  @override
+  String get chatListFindUser => 'Найти пользователя';
+
+  @override
+  String chatListFindUserSearchTerm(String term) {
+    return 'Найти @$term';
+  }
+
+  @override
+  String get chatListDeleteConversation => 'Удалить переписку';
+
+  @override
+  String chatListMediaTitle(String name) {
+    return 'Медиа с $name';
+  }
+
+  @override
+  String get chatListMediaError => 'Ошибка загрузки медиа';
+
+  @override
+  String get chatDetailViewFullProfile => 'Открыть профиль';
+
+  @override
+  String get chatMessageReply => 'Ответить';
+
+  @override
+  String get chatMessageCopy => 'Копировать';
+
+  @override
+  String get chatMessageCorrect => 'Исправить';
+
+  @override
+  String get chatMessageTranslate => 'Перевести';
+
+  @override
+  String get chatMessageSavePhrase => 'Сохранить фразу';
+
+  @override
+  String get chatMessageEdit => 'Изменить';
+
+  @override
+  String get chatMessageDelete => 'Удалить';
+
+  @override
+  String get chatMessageRetrySubtitle => 'Попробуйте отправить ещё раз';
+
+  @override
+  String get chatMessageRemoveSubtitle => 'Удалить это сообщение';
+
+  @override
+  String get chatWallpaperPreviewHello => 'Привет! 👋';
+
+  @override
+  String get chatWallpaperPreviewHow => 'Как дела?';
+
+  @override
+  String get chatGifSearchHint => 'Поиск GIF...';
+
+  @override
+  String get communitySearchHint => 'Поиск или @имя_пользователя';
+
+  @override
+  String communityUserNotFound(String name) {
+    return 'Пользователь @$name не найден';
+  }
+
+  @override
+  String get communityTabAll => 'Все';
+
+  @override
+  String get communityTabGender => 'Пол';
+
+  @override
+  String get communityTabCity => 'Город';
+
+  @override
+  String get communityRefresh => 'Обновить';
+
+  @override
+  String get communityNoUsersFound => 'Пользователи не найдены';
+
+  @override
+  String communityUnblockConfirm(String name) {
+    return 'Точно разблокировать $name?';
+  }
+
+  @override
+  String get communityUsernameCopied => 'Имя пользователя скопировано!';
+
+  @override
+  String communityLocationDetected(String country) {
+    return 'Местоположение: $country';
+  }
+
+  @override
+  String get communityWaveLater => 'Позже';
+
+  @override
+  String get communityAboutMBTI => 'MBTI';
+
+  @override
+  String get voiceRoomReactTooltip => 'Реакция';
+
+
+  @override
+  String get momentsCancel => 'Отмена';
+
+  @override
+  String get momentsNotNow => 'Не сейчас';
+
+  @override
+  String get commonOK => 'ОК';
+
+  @override
+  String commonError(String error) {
+    return 'Ошибка: $error';
+  }
 }

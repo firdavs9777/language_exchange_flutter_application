@@ -110,7 +110,7 @@ class _WavesTabState extends ConsumerState<WavesTab> {
             ElevatedButton.icon(
               onPressed: _loadWaves,
               icon: const Icon(Icons.refresh),
-              label: const Text('Retry'),
+              label: Text(AppLocalizations.of(context)!.momentsRetry),
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF00BFA5),
                 foregroundColor: Colors.white,

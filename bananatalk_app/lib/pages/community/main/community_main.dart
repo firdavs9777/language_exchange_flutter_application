@@ -20,6 +20,7 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/pages/community/widgets/visitor_recall_card.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 /// Main Community screen with HelloTalk-style tabs
 class CommunityMain extends ConsumerStatefulWidget {
@@ -265,7 +266,7 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
         controller: _searchController,
         autofocus: true,
         decoration: InputDecoration(
-          hintText: 'Search or type @username',
+          hintText: AppLocalizations.of(context)!.communitySearchHint,
           hintStyle: context.bodyMedium.copyWith(color: context.textSecondary),
           prefixIcon: Icon(Icons.search_rounded, color: context.primaryColor),
           suffixIcon: Row(
@@ -399,7 +400,7 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
       } else {
         messenger.showSnackBar(
           SnackBar(
-            content: Text('User @$username not found'),
+            content: Text(AppLocalizations.of(context)!.communityUserNotFound(username)),
             backgroundColor: colorScheme.error,
             behavior: SnackBarBehavior.floating,
           ),
@@ -415,7 +416,7 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
 
       messenger.showSnackBar(
         SnackBar(
-          content: Text('Error: $e'),
+          content: Text(AppLocalizations.of(context)!.commonError(e.toString())),
           backgroundColor: colorScheme.error,
           behavior: SnackBarBehavior.floating,
         ),

@@ -1936,7 +1936,7 @@
     }
   },
   "momentsLoadError": "मोमेंट्स लोड नहीं हो सके",
-  "momentsRetry": "फिर से कोशिश करें",
+  "momentsRetry": "पुनः प्रयास",
   "recentTags": "हाल के टैग",
   "noRecentTags": "अभी कोई हाल का टैग नहीं",
   "hideMomentsFromUser": "इस उपयोगकर्ता के मोमेंट्स छिपाएं",
@@ -2428,6 +2428,89 @@
     "placeholders": {
       "count": {
         "type": "int"
+      }
+    }
+  },
+  "chatListSearchHint": "खोजें या @उपयोगकर्ता टाइप करें",
+  "chatListFilterAll": "सभी",
+  "chatListFilterUnread": "अपठित",
+  "chatListFilterOnline": "ऑनलाइन",
+  "chatListNewChat": "नई चैट",
+  "chatListNewChatByUsernameTooltip": "उपयोगकर्ता नाम से नई चैट",
+  "chatListFindUser": "उपयोगकर्ता खोजें",
+  "chatListFindUserSearchTerm": "@{term} खोजें",
+  "@chatListFindUserSearchTerm": {
+    "placeholders": {
+      "term": {
+        "type": "String"
+      }
+    }
+  },
+  "chatListDeleteConversation": "वार्तालाप हटाएँ",
+  "chatListMediaTitle": "{name} के साथ मीडिया",
+  "@chatListMediaTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "chatListMediaError": "मीडिया लोड करने में त्रुटि",
+  "chatDetailViewFullProfile": "पूरा प्रोफ़ाइल देखें",
+  "chatMessageReply": "उत्तर",
+  "chatMessageCopy": "कॉपी",
+  "chatMessageCorrect": "सुधार",
+  "chatMessageTranslate": "अनुवाद",
+  "chatMessageSavePhrase": "वाक्यांश सहेजें",
+  "chatMessageEdit": "संपादित",
+  "chatMessageDelete": "हटाएँ",
+  "chatMessageRetrySubtitle": "यह संदेश फिर से भेजने का प्रयास करें",
+  "chatMessageRemoveSubtitle": "यह संदेश हटाएँ",
+  "chatWallpaperPreviewHello": "नमस्ते! 👋",
+  "chatWallpaperPreviewHow": "आप कैसे हैं?",
+  "chatGifSearchHint": "GIF खोजें...",
+  "communitySearchHint": "खोजें या @उपयोगकर्ता टाइप करें",
+  "communityUserNotFound": "उपयोगकर्ता @{name} नहीं मिला",
+  "@communityUserNotFound": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "communityTabAll": "सभी",
+  "communityTabGender": "लिंग",
+  "communityTabCity": "शहर",
+  "communityRefresh": "रिफ्रेश",
+  "communityNoUsersFound": "कोई उपयोगकर्ता नहीं मिला",
+  "communityUnblockConfirm": "क्या आप वाकई {name} को अनब्लॉक करना चाहते हैं?",
+  "@communityUnblockConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "communityUsernameCopied": "उपयोगकर्ता नाम कॉपी हो गया!",
+  "communityLocationDetected": "स्थान: {country}",
+  "@communityLocationDetected": {
+    "placeholders": {
+      "country": {
+        "type": "String"
+      }
+    }
+  },
+  "communityWaveLater": "बाद में",
+  "communityAboutMBTI": "MBTI",
+  "voiceRoomReactTooltip": "प्रतिक्रिया",
+  "momentsCancel": "रद्द",
+  "momentsNotNow": "अभी नहीं",
+  "commonOK": "ठीक है",
+  "commonError": "त्रुटि: {error}",
+  "@commonError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
       }
     }
   }

@@ -1950,7 +1950,7 @@
     }
   },
   "momentsLoadError": "تعذر تحميل اللحظات",
-  "momentsRetry": "إعادة المحاولة",
+  "momentsRetry": "حاول مجددًا",
   "recentTags": "العلامات الأخيرة",
   "noRecentTags": "لا توجد علامات حديثة بعد",
   "hideMomentsFromUser": "إخفاء لحظات هذا المستخدم",
@@ -2442,6 +2442,89 @@
     "placeholders": {
       "count": {
         "type": "int"
+      }
+    }
+  },
+  "chatListSearchHint": "ابحث أو اكتب @اسم_المستخدم",
+  "chatListFilterAll": "الكل",
+  "chatListFilterUnread": "غير مقروء",
+  "chatListFilterOnline": "متصل",
+  "chatListNewChat": "محادثة جديدة",
+  "chatListNewChatByUsernameTooltip": "محادثة جديدة عبر اسم المستخدم",
+  "chatListFindUser": "بحث مستخدم",
+  "chatListFindUserSearchTerm": "بحث @{term}",
+  "@chatListFindUserSearchTerm": {
+    "placeholders": {
+      "term": {
+        "type": "String"
+      }
+    }
+  },
+  "chatListDeleteConversation": "حذف المحادثة",
+  "chatListMediaTitle": "الوسائط مع {name}",
+  "@chatListMediaTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "chatListMediaError": "خطأ في تحميل الوسائط",
+  "chatDetailViewFullProfile": "عرض الملف الشخصي الكامل",
+  "chatMessageReply": "رد",
+  "chatMessageCopy": "نسخ",
+  "chatMessageCorrect": "تصحيح",
+  "chatMessageTranslate": "ترجمة",
+  "chatMessageSavePhrase": "حفظ العبارة",
+  "chatMessageEdit": "تعديل",
+  "chatMessageDelete": "حذف",
+  "chatMessageRetrySubtitle": "حاول إرسال هذه الرسالة مرة أخرى",
+  "chatMessageRemoveSubtitle": "إزالة هذه الرسالة",
+  "chatWallpaperPreviewHello": "مرحبًا! 👋",
+  "chatWallpaperPreviewHow": "كيف حالك؟",
+  "chatGifSearchHint": "ابحث عن GIF...",
+  "communitySearchHint": "ابحث أو اكتب @اسم_المستخدم",
+  "communityUserNotFound": "المستخدم @{name} غير موجود",
+  "@communityUserNotFound": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "communityTabAll": "الكل",
+  "communityTabGender": "الجنس",
+  "communityTabCity": "المدينة",
+  "communityRefresh": "تحديث",
+  "communityNoUsersFound": "لا يوجد مستخدمون",
+  "communityUnblockConfirm": "هل أنت متأكد أنك تريد إلغاء حظر {name}؟",
+  "@communityUnblockConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "communityUsernameCopied": "تم نسخ اسم المستخدم!",
+  "communityLocationDetected": "الموقع: {country}",
+  "@communityLocationDetected": {
+    "placeholders": {
+      "country": {
+        "type": "String"
+      }
+    }
+  },
+  "communityWaveLater": "لاحقًا",
+  "communityAboutMBTI": "MBTI",
+  "voiceRoomReactTooltip": "تفاعل",
+  "momentsCancel": "إلغاء",
+  "momentsNotNow": "ليس الآن",
+  "commonOK": "موافق",
+  "commonError": "خطأ: {error}",
+  "@commonError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
       }
     }
   }

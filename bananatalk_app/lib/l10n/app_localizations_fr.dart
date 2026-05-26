@@ -5952,4 +5952,140 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get aiScenariosBannerSubhead => 'Choisis un scénario à ton niveau, ou un cran au-dessus.';
+
+  @override
+  String get chatListSearchHint => 'Rechercher ou taper @utilisateur';
+
+  @override
+  String get chatListFilterAll => 'Tous';
+
+  @override
+  String get chatListFilterUnread => 'Non lus';
+
+  @override
+  String get chatListFilterOnline => 'En ligne';
+
+  @override
+  String get chatListNewChat => 'Nouveau chat';
+
+  @override
+  String get chatListNewChatByUsernameTooltip => 'Nouveau chat par nom d\'utilisateur';
+
+  @override
+  String get chatListFindUser => 'Trouver un utilisateur';
+
+  @override
+  String chatListFindUserSearchTerm(String term) {
+    return 'Chercher @$term';
+  }
+
+  @override
+  String get chatListDeleteConversation => 'Supprimer la conversation';
+
+  @override
+  String chatListMediaTitle(String name) {
+    return 'Médias avec $name';
+  }
+
+  @override
+  String get chatListMediaError => 'Erreur de chargement des médias';
+
+  @override
+  String get chatDetailViewFullProfile => 'Voir le profil complet';
+
+  @override
+  String get chatMessageReply => 'Répondre';
+
+  @override
+  String get chatMessageCopy => 'Copier';
+
+  @override
+  String get chatMessageCorrect => 'Corriger';
+
+  @override
+  String get chatMessageTranslate => 'Traduire';
+
+  @override
+  String get chatMessageSavePhrase => 'Enregistrer la phrase';
+
+  @override
+  String get chatMessageEdit => 'Modifier';
+
+  @override
+  String get chatMessageDelete => 'Supprimer';
+
+  @override
+  String get chatMessageRetrySubtitle => 'Réessaie d\'envoyer ce message';
+
+  @override
+  String get chatMessageRemoveSubtitle => 'Supprimer ce message';
+
+  @override
+  String get chatWallpaperPreviewHello => 'Salut ! 👋';
+
+  @override
+  String get chatWallpaperPreviewHow => 'Comment ça va ?';
+
+  @override
+  String get chatGifSearchHint => 'Rechercher des GIFs...';
+
+  @override
+  String get communitySearchHint => 'Rechercher ou taper @utilisateur';
+
+  @override
+  String communityUserNotFound(String name) {
+    return 'Utilisateur @$name introuvable';
+  }
+
+  @override
+  String get communityTabAll => 'Tous';
+
+  @override
+  String get communityTabGender => 'Genre';
+
+  @override
+  String get communityTabCity => 'Ville';
+
+  @override
+  String get communityRefresh => 'Actualiser';
+
+  @override
+  String get communityNoUsersFound => 'Aucun utilisateur trouvé';
+
+  @override
+  String communityUnblockConfirm(String name) {
+    return 'Es-tu sûr de vouloir débloquer $name ?';
+  }
+
+  @override
+  String get communityUsernameCopied => 'Nom d\'utilisateur copié !';
+
+  @override
+  String communityLocationDetected(String country) {
+    return 'Lieu : $country';
+  }
+
+  @override
+  String get communityWaveLater => 'Plus tard';
+
+  @override
+  String get communityAboutMBTI => 'MBTI';
+
+  @override
+  String get voiceRoomReactTooltip => 'Réagir';
+
+
+  @override
+  String get momentsCancel => 'Annuler';
+
+  @override
+  String get momentsNotNow => 'Pas maintenant';
+
+  @override
+  String get commonOK => 'OK';
+
+  @override
+  String commonError(String error) {
+    return 'Erreur : $error';
+  }
 }

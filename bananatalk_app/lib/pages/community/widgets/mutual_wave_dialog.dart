@@ -35,7 +35,7 @@ void showMutualWaveDialog(
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(dialogContext),
-          child: const Text('Later'),
+          child: Text(AppLocalizations.of(context)!.communityWaveLater),
         ),
         ElevatedButton(
           style: ElevatedButton.styleFrom(

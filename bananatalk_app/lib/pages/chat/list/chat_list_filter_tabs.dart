@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 /// Horizontal chip row: All / Unread / Online filter.
 /// Selection state lives in the parent; this widget is purely presentational.
@@ -17,10 +18,11 @@ class ChatListFilterTabs extends StatelessWidget {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
 
-    const filters = [
-      ('all', 'All', Icons.chat_bubble_outline_rounded),
-      ('unread', 'Unread', Icons.mark_email_unread_outlined),
-      ('online', 'Online', Icons.circle),
+    final l10n = AppLocalizations.of(context)!;
+    final filters = [
+      ('all', l10n.chatListFilterAll, Icons.chat_bubble_outline_rounded),
+      ('unread', l10n.chatListFilterUnread, Icons.mark_email_unread_outlined),
+      ('online', l10n.chatListFilterOnline, Icons.circle),
     ];
 
     return SizedBox(

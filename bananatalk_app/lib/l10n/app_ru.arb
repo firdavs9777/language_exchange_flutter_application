@@ -2444,5 +2444,88 @@
         "type": "int"
       }
     }
+  },
+  "chatListSearchHint": "Поиск или @имя_пользователя",
+  "chatListFilterAll": "Все",
+  "chatListFilterUnread": "Непрочитанные",
+  "chatListFilterOnline": "Онлайн",
+  "chatListNewChat": "Новый чат",
+  "chatListNewChatByUsernameTooltip": "Новый чат по имени пользователя",
+  "chatListFindUser": "Найти пользователя",
+  "chatListFindUserSearchTerm": "Найти @{term}",
+  "@chatListFindUserSearchTerm": {
+    "placeholders": {
+      "term": {
+        "type": "String"
+      }
+    }
+  },
+  "chatListDeleteConversation": "Удалить переписку",
+  "chatListMediaTitle": "Медиа с {name}",
+  "@chatListMediaTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "chatListMediaError": "Ошибка загрузки медиа",
+  "chatDetailViewFullProfile": "Открыть профиль",
+  "chatMessageReply": "Ответить",
+  "chatMessageCopy": "Копировать",
+  "chatMessageCorrect": "Исправить",
+  "chatMessageTranslate": "Перевести",
+  "chatMessageSavePhrase": "Сохранить фразу",
+  "chatMessageEdit": "Изменить",
+  "chatMessageDelete": "Удалить",
+  "chatMessageRetrySubtitle": "Попробуйте отправить ещё раз",
+  "chatMessageRemoveSubtitle": "Удалить это сообщение",
+  "chatWallpaperPreviewHello": "Привет! 👋",
+  "chatWallpaperPreviewHow": "Как дела?",
+  "chatGifSearchHint": "Поиск GIF...",
+  "communitySearchHint": "Поиск или @имя_пользователя",
+  "communityUserNotFound": "Пользователь @{name} не найден",
+  "@communityUserNotFound": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "communityTabAll": "Все",
+  "communityTabGender": "Пол",
+  "communityTabCity": "Город",
+  "communityRefresh": "Обновить",
+  "communityNoUsersFound": "Пользователи не найдены",
+  "communityUnblockConfirm": "Точно разблокировать {name}?",
+  "@communityUnblockConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "communityUsernameCopied": "Имя пользователя скопировано!",
+  "communityLocationDetected": "Местоположение: {country}",
+  "@communityLocationDetected": {
+    "placeholders": {
+      "country": {
+        "type": "String"
+      }
+    }
+  },
+  "communityWaveLater": "Позже",
+  "communityAboutMBTI": "MBTI",
+  "voiceRoomReactTooltip": "Реакция",
+  "momentsCancel": "Отмена",
+  "momentsNotNow": "Не сейчас",
+  "commonOK": "ОК",
+  "commonError": "Ошибка: {error}",
+  "@commonError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
   }
 }

@@ -5945,4 +5945,140 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get aiScenariosBannerSubhead => '자기 레벨의 시나리오를 고르거나, 한 단계 위로 도전해 보세요.';
+
+  @override
+  String get chatListSearchHint => '검색 또는 @사용자명 입력';
+
+  @override
+  String get chatListFilterAll => '전체';
+
+  @override
+  String get chatListFilterUnread => '안 읽음';
+
+  @override
+  String get chatListFilterOnline => '온라인';
+
+  @override
+  String get chatListNewChat => '새 채팅';
+
+  @override
+  String get chatListNewChatByUsernameTooltip => '사용자명으로 새 채팅';
+
+  @override
+  String get chatListFindUser => '사용자 찾기';
+
+  @override
+  String chatListFindUserSearchTerm(String term) {
+    return '@$term 찾기';
+  }
+
+  @override
+  String get chatListDeleteConversation => '대화 삭제';
+
+  @override
+  String chatListMediaTitle(String name) {
+    return '$name와의 미디어';
+  }
+
+  @override
+  String get chatListMediaError => '미디어 로드 오류';
+
+  @override
+  String get chatDetailViewFullProfile => '전체 프로필 보기';
+
+  @override
+  String get chatMessageReply => '답장';
+
+  @override
+  String get chatMessageCopy => '복사';
+
+  @override
+  String get chatMessageCorrect => '교정';
+
+  @override
+  String get chatMessageTranslate => '번역';
+
+  @override
+  String get chatMessageSavePhrase => '문구 저장';
+
+  @override
+  String get chatMessageEdit => '편집';
+
+  @override
+  String get chatMessageDelete => '삭제';
+
+  @override
+  String get chatMessageRetrySubtitle => '이 메시지를 다시 보내세요';
+
+  @override
+  String get chatMessageRemoveSubtitle => '이 메시지를 제거';
+
+  @override
+  String get chatWallpaperPreviewHello => '안녕! 👋';
+
+  @override
+  String get chatWallpaperPreviewHow => '어떻게 지내?';
+
+  @override
+  String get chatGifSearchHint => 'GIF 검색...';
+
+  @override
+  String get communitySearchHint => '검색 또는 @사용자명 입력';
+
+  @override
+  String communityUserNotFound(String name) {
+    return '@$name 사용자를 찾을 수 없습니다';
+  }
+
+  @override
+  String get communityTabAll => '전체';
+
+  @override
+  String get communityTabGender => '성별';
+
+  @override
+  String get communityTabCity => '도시';
+
+  @override
+  String get communityRefresh => '새로고침';
+
+  @override
+  String get communityNoUsersFound => '사용자가 없습니다';
+
+  @override
+  String communityUnblockConfirm(String name) {
+    return '정말 $name을(를) 차단 해제하시겠어요?';
+  }
+
+  @override
+  String get communityUsernameCopied => '사용자명이 복사되었습니다!';
+
+  @override
+  String communityLocationDetected(String country) {
+    return '위치: $country';
+  }
+
+  @override
+  String get communityWaveLater => '나중에';
+
+  @override
+  String get communityAboutMBTI => 'MBTI';
+
+  @override
+  String get voiceRoomReactTooltip => '리액션';
+
+
+  @override
+  String get momentsCancel => '취소';
+
+  @override
+  String get momentsNotNow => '나중에';
+
+  @override
+  String get commonOK => '확인';
+
+  @override
+  String commonError(String error) {
+    return '오류: $error';
+  }
 }

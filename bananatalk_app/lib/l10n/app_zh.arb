@@ -2443,5 +2443,88 @@
         "type": "int"
       }
     }
+  },
+  "chatListSearchHint": "搜索或输入 @用户名",
+  "chatListFilterAll": "全部",
+  "chatListFilterUnread": "未读",
+  "chatListFilterOnline": "在线",
+  "chatListNewChat": "新建聊天",
+  "chatListNewChatByUsernameTooltip": "通过用户名发起聊天",
+  "chatListFindUser": "查找用户",
+  "chatListFindUserSearchTerm": "查找 @{term}",
+  "@chatListFindUserSearchTerm": {
+    "placeholders": {
+      "term": {
+        "type": "String"
+      }
+    }
+  },
+  "chatListDeleteConversation": "删除会话",
+  "chatListMediaTitle": "与 {name} 的媒体",
+  "@chatListMediaTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "chatListMediaError": "媒体加载错误",
+  "chatDetailViewFullProfile": "查看完整资料",
+  "chatMessageReply": "回复",
+  "chatMessageCopy": "复制",
+  "chatMessageCorrect": "纠正",
+  "chatMessageTranslate": "翻译",
+  "chatMessageSavePhrase": "保存短语",
+  "chatMessageEdit": "编辑",
+  "chatMessageDelete": "删除",
+  "chatMessageRetrySubtitle": "再次尝试发送",
+  "chatMessageRemoveSubtitle": "移除该消息",
+  "chatWallpaperPreviewHello": "你好！👋",
+  "chatWallpaperPreviewHow": "最近怎样？",
+  "chatGifSearchHint": "搜索 GIF...",
+  "communitySearchHint": "搜索或输入 @用户名",
+  "communityUserNotFound": "找不到用户 @{name}",
+  "@communityUserNotFound": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "communityTabAll": "全部",
+  "communityTabGender": "性别",
+  "communityTabCity": "城市",
+  "communityRefresh": "刷新",
+  "communityNoUsersFound": "未找到用户",
+  "communityUnblockConfirm": "确定要取消屏蔽 {name} 吗？",
+  "@communityUnblockConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "communityUsernameCopied": "用户名已复制！",
+  "communityLocationDetected": "位置: {country}",
+  "@communityLocationDetected": {
+    "placeholders": {
+      "country": {
+        "type": "String"
+      }
+    }
+  },
+  "communityWaveLater": "稍后",
+  "communityAboutMBTI": "MBTI",
+  "voiceRoomReactTooltip": "反应",
+  "momentsCancel": "取消",
+  "momentsNotNow": "现在不",
+  "commonOK": "确定",
+  "commonError": "错误: {error}",
+  "@commonError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
   }
 }

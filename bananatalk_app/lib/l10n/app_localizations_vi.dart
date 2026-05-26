@@ -5945,4 +5945,140 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get aiScenariosBannerSubhead => 'Chọn kịch bản theo trình độ của bạn, hoặc thử cao hơn một mức.';
+
+  @override
+  String get chatListSearchHint => 'Tìm hoặc nhập @tên_dùng';
+
+  @override
+  String get chatListFilterAll => 'Tất cả';
+
+  @override
+  String get chatListFilterUnread => 'Chưa đọc';
+
+  @override
+  String get chatListFilterOnline => 'Trực tuyến';
+
+  @override
+  String get chatListNewChat => 'Chat mới';
+
+  @override
+  String get chatListNewChatByUsernameTooltip => 'Chat mới qua tên người dùng';
+
+  @override
+  String get chatListFindUser => 'Tìm người dùng';
+
+  @override
+  String chatListFindUserSearchTerm(String term) {
+    return 'Tìm @$term';
+  }
+
+  @override
+  String get chatListDeleteConversation => 'Xoá cuộc trò chuyện';
+
+  @override
+  String chatListMediaTitle(String name) {
+    return 'Phương tiện với $name';
+  }
+
+  @override
+  String get chatListMediaError => 'Lỗi tải phương tiện';
+
+  @override
+  String get chatDetailViewFullProfile => 'Xem hồ sơ đầy đủ';
+
+  @override
+  String get chatMessageReply => 'Trả lời';
+
+  @override
+  String get chatMessageCopy => 'Sao chép';
+
+  @override
+  String get chatMessageCorrect => 'Sửa';
+
+  @override
+  String get chatMessageTranslate => 'Dịch';
+
+  @override
+  String get chatMessageSavePhrase => 'Lưu cụm';
+
+  @override
+  String get chatMessageEdit => 'Chỉnh sửa';
+
+  @override
+  String get chatMessageDelete => 'Xoá';
+
+  @override
+  String get chatMessageRetrySubtitle => 'Thử gửi lại tin nhắn này';
+
+  @override
+  String get chatMessageRemoveSubtitle => 'Gỡ tin nhắn này';
+
+  @override
+  String get chatWallpaperPreviewHello => 'Xin chào! 👋';
+
+  @override
+  String get chatWallpaperPreviewHow => 'Bạn khoẻ không?';
+
+  @override
+  String get chatGifSearchHint => 'Tìm GIF...';
+
+  @override
+  String get communitySearchHint => 'Tìm hoặc nhập @tên_dùng';
+
+  @override
+  String communityUserNotFound(String name) {
+    return 'Không tìm thấy @$name';
+  }
+
+  @override
+  String get communityTabAll => 'Tất cả';
+
+  @override
+  String get communityTabGender => 'Giới tính';
+
+  @override
+  String get communityTabCity => 'Thành phố';
+
+  @override
+  String get communityRefresh => 'Làm mới';
+
+  @override
+  String get communityNoUsersFound => 'Không tìm thấy người dùng';
+
+  @override
+  String communityUnblockConfirm(String name) {
+    return 'Bạn chắc muốn bỏ chặn $name?';
+  }
+
+  @override
+  String get communityUsernameCopied => 'Đã sao chép tên người dùng!';
+
+  @override
+  String communityLocationDetected(String country) {
+    return 'Vị trí: $country';
+  }
+
+  @override
+  String get communityWaveLater => 'Sau';
+
+  @override
+  String get communityAboutMBTI => 'MBTI';
+
+  @override
+  String get voiceRoomReactTooltip => 'Phản ứng';
+
+
+  @override
+  String get momentsCancel => 'Huỷ';
+
+  @override
+  String get momentsNotNow => 'Không phải bây giờ';
+
+  @override
+  String get commonOK => 'OK';
+
+  @override
+  String commonError(String error) {
+    return 'Lỗi: $error';
+  }
 }

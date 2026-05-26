@@ -54,7 +54,7 @@ class CommunityTabBar extends ConsumerWidget {
                   children: [
                     const Icon(Icons.people_rounded, size: 20),
                     Spacing.hGapSM,
-                    const Text('All'),
+                    Text(AppLocalizations.of(context)!.communityTabAll),
                   ],
                 ),
               ),
@@ -64,7 +64,7 @@ class CommunityTabBar extends ConsumerWidget {
                   children: [
                     const Icon(Icons.wc_rounded, size: 20),
                     Spacing.hGapSM,
-                    const Text('Gender'),
+                    Text(AppLocalizations.of(context)!.communityTabGender),
                   ],
                 ),
               ),
@@ -84,7 +84,7 @@ class CommunityTabBar extends ConsumerWidget {
                   children: [
                     const Icon(Icons.location_city_rounded, size: 20),
                     Spacing.hGapSM,
-                    const Text('City'),
+                    Text(AppLocalizations.of(context)!.communityTabCity),
                   ],
                 ),
               ),

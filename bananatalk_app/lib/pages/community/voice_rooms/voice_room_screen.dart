@@ -343,7 +343,7 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
                   heroTag: 'voice_room_react_fab',
                   backgroundColor: const Color(0xFF00BFA5),
                   foregroundColor: Colors.white,
-                  tooltip: 'React',
+                  tooltip: AppLocalizations.of(context)!.voiceRoomReactTooltip,
                   onPressed: isReconnecting ? null : _sendReaction,
                   child: const Icon(Icons.add_reaction_outlined),
                 ),

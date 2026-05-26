@@ -2430,5 +2430,88 @@
         "type": "int"
       }
     }
+  },
+  "chatListSearchHint": "Buscar ou digitar @usuário",
+  "chatListFilterAll": "Todos",
+  "chatListFilterUnread": "Não lidos",
+  "chatListFilterOnline": "Online",
+  "chatListNewChat": "Novo chat",
+  "chatListNewChatByUsernameTooltip": "Novo chat por nome de usuário",
+  "chatListFindUser": "Procurar usuário",
+  "chatListFindUserSearchTerm": "Buscar @{term}",
+  "@chatListFindUserSearchTerm": {
+    "placeholders": {
+      "term": {
+        "type": "String"
+      }
+    }
+  },
+  "chatListDeleteConversation": "Excluir conversa",
+  "chatListMediaTitle": "Mídia com {name}",
+  "@chatListMediaTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "chatListMediaError": "Erro ao carregar mídia",
+  "chatDetailViewFullProfile": "Ver perfil completo",
+  "chatMessageReply": "Responder",
+  "chatMessageCopy": "Copiar",
+  "chatMessageCorrect": "Corrigir",
+  "chatMessageTranslate": "Traduzir",
+  "chatMessageSavePhrase": "Salvar frase",
+  "chatMessageEdit": "Editar",
+  "chatMessageDelete": "Excluir",
+  "chatMessageRetrySubtitle": "Tentar enviar esta mensagem novamente",
+  "chatMessageRemoveSubtitle": "Remover esta mensagem",
+  "chatWallpaperPreviewHello": "Oi! 👋",
+  "chatWallpaperPreviewHow": "Como vai?",
+  "chatGifSearchHint": "Buscar GIFs...",
+  "communitySearchHint": "Buscar ou digitar @usuário",
+  "communityUserNotFound": "Usuário @{name} não encontrado",
+  "@communityUserNotFound": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "communityTabAll": "Todos",
+  "communityTabGender": "Gênero",
+  "communityTabCity": "Cidade",
+  "communityRefresh": "Atualizar",
+  "communityNoUsersFound": "Nenhum usuário encontrado",
+  "communityUnblockConfirm": "Tem certeza que quer desbloquear {name}?",
+  "@communityUnblockConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "communityUsernameCopied": "Nome de usuário copiado!",
+  "communityLocationDetected": "Local: {country}",
+  "@communityLocationDetected": {
+    "placeholders": {
+      "country": {
+        "type": "String"
+      }
+    }
+  },
+  "communityWaveLater": "Mais tarde",
+  "communityAboutMBTI": "MBTI",
+  "voiceRoomReactTooltip": "Reagir",
+  "momentsCancel": "Cancelar",
+  "momentsNotNow": "Agora não",
+  "commonOK": "OK",
+  "commonError": "Erro: {error}",
+  "@commonError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
   }
 }

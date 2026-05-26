@@ -5961,4 +5961,140 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get aiScenariosBannerSubhead => 'اختر سيناريو لمستواك، أو ارتقِ مستوى.';
+
+  @override
+  String get chatListSearchHint => 'ابحث أو اكتب @اسم_المستخدم';
+
+  @override
+  String get chatListFilterAll => 'الكل';
+
+  @override
+  String get chatListFilterUnread => 'غير مقروء';
+
+  @override
+  String get chatListFilterOnline => 'متصل';
+
+  @override
+  String get chatListNewChat => 'محادثة جديدة';
+
+  @override
+  String get chatListNewChatByUsernameTooltip => 'محادثة جديدة عبر اسم المستخدم';
+
+  @override
+  String get chatListFindUser => 'بحث مستخدم';
+
+  @override
+  String chatListFindUserSearchTerm(String term) {
+    return 'بحث @$term';
+  }
+
+  @override
+  String get chatListDeleteConversation => 'حذف المحادثة';
+
+  @override
+  String chatListMediaTitle(String name) {
+    return 'الوسائط مع $name';
+  }
+
+  @override
+  String get chatListMediaError => 'خطأ في تحميل الوسائط';
+
+  @override
+  String get chatDetailViewFullProfile => 'عرض الملف الشخصي الكامل';
+
+  @override
+  String get chatMessageReply => 'رد';
+
+  @override
+  String get chatMessageCopy => 'نسخ';
+
+  @override
+  String get chatMessageCorrect => 'تصحيح';
+
+  @override
+  String get chatMessageTranslate => 'ترجمة';
+
+  @override
+  String get chatMessageSavePhrase => 'حفظ العبارة';
+
+  @override
+  String get chatMessageEdit => 'تعديل';
+
+  @override
+  String get chatMessageDelete => 'حذف';
+
+  @override
+  String get chatMessageRetrySubtitle => 'حاول إرسال هذه الرسالة مرة أخرى';
+
+  @override
+  String get chatMessageRemoveSubtitle => 'إزالة هذه الرسالة';
+
+  @override
+  String get chatWallpaperPreviewHello => 'مرحبًا! 👋';
+
+  @override
+  String get chatWallpaperPreviewHow => 'كيف حالك؟';
+
+  @override
+  String get chatGifSearchHint => 'ابحث عن GIF...';
+
+  @override
+  String get communitySearchHint => 'ابحث أو اكتب @اسم_المستخدم';
+
+  @override
+  String communityUserNotFound(String name) {
+    return 'المستخدم @$name غير موجود';
+  }
+
+  @override
+  String get communityTabAll => 'الكل';
+
+  @override
+  String get communityTabGender => 'الجنس';
+
+  @override
+  String get communityTabCity => 'المدينة';
+
+  @override
+  String get communityRefresh => 'تحديث';
+
+  @override
+  String get communityNoUsersFound => 'لا يوجد مستخدمون';
+
+  @override
+  String communityUnblockConfirm(String name) {
+    return 'هل أنت متأكد أنك تريد إلغاء حظر $name؟';
+  }
+
+  @override
+  String get communityUsernameCopied => 'تم نسخ اسم المستخدم!';
+
+  @override
+  String communityLocationDetected(String country) {
+    return 'الموقع: $country';
+  }
+
+  @override
+  String get communityWaveLater => 'لاحقًا';
+
+  @override
+  String get communityAboutMBTI => 'MBTI';
+
+  @override
+  String get voiceRoomReactTooltip => 'تفاعل';
+
+
+  @override
+  String get momentsCancel => 'إلغاء';
+
+  @override
+  String get momentsNotNow => 'ليس الآن';
+
+  @override
+  String get commonOK => 'موافق';
+
+  @override
+  String commonError(String error) {
+    return 'خطأ: $error';
+  }
 }

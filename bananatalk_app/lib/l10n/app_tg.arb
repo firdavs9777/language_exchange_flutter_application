@@ -1662,7 +1662,7 @@
   "starterFromCountry": "Салом аз {country}!",
   "starterPracticeLang": "Ба онҳо дар машқи {language} кӯмак кунед!",
   "momentsLoadError": "Боргирии лаҳзаҳо имконнопазир буд",
-  "momentsRetry": "Аз нав кӯшиш кунед",
+  "momentsRetry": "Боз кӯшиш кунед",
   "recentTags": "Тегҳои наздик",
   "noRecentTags": "Ҳанӯз теги наздик нест",
   "hideMomentsFromUser": "Лаҳзаҳои ин корбарро пинҳон кунед",
@@ -2011,6 +2011,89 @@
     "placeholders": {
       "count": {
         "type": "int"
+      }
+    }
+  },
+  "chatListSearchHint": "Ҷустуҷӯ ё @ном_корбар",
+  "chatListFilterAll": "Ҳама",
+  "chatListFilterUnread": "Нохонда",
+  "chatListFilterOnline": "Онлайн",
+  "chatListNewChat": "Чати нав",
+  "chatListNewChatByUsernameTooltip": "Чати нав бо номи корбар",
+  "chatListFindUser": "Корбарро ёфтан",
+  "chatListFindUserSearchTerm": "@{term}-ро ёфтан",
+  "@chatListFindUserSearchTerm": {
+    "placeholders": {
+      "term": {
+        "type": "String"
+      }
+    }
+  },
+  "chatListDeleteConversation": "Сӯҳбатро нест кардан",
+  "chatListMediaTitle": "Медиа бо {name}",
+  "@chatListMediaTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "chatListMediaError": "Хатои боргузории медиа",
+  "chatDetailViewFullProfile": "Профили пурра",
+  "chatMessageReply": "Ҷавоб",
+  "chatMessageCopy": "Нусха",
+  "chatMessageCorrect": "Ислоҳ",
+  "chatMessageTranslate": "Тарҷума",
+  "chatMessageSavePhrase": "Ибораро сабт кардан",
+  "chatMessageEdit": "Таҳрир",
+  "chatMessageDelete": "Нест кардан",
+  "chatMessageRetrySubtitle": "Ин паёмро дубора фиристед",
+  "chatMessageRemoveSubtitle": "Ин паёмро тоза кунед",
+  "chatWallpaperPreviewHello": "Салом! 👋",
+  "chatWallpaperPreviewHow": "Чӣ хелед?",
+  "chatGifSearchHint": "GIF-ро ҷустуҷӯ кунед...",
+  "communitySearchHint": "Ҷустуҷӯ ё @ном_корбар",
+  "communityUserNotFound": "Корбари @{name} ёфт нашуд",
+  "@communityUserNotFound": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "communityTabAll": "Ҳама",
+  "communityTabGender": "Ҷинс",
+  "communityTabCity": "Шаҳр",
+  "communityRefresh": "Нав кардан",
+  "communityNoUsersFound": "Корбар ёфт нашуд",
+  "communityUnblockConfirm": "Шумо мутмаин ҳастед, ки манъи {name}-ро бекор мекунед?",
+  "@communityUnblockConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "communityUsernameCopied": "Номи корбар нусхабардорӣ шуд!",
+  "communityLocationDetected": "Маҳал: {country}",
+  "@communityLocationDetected": {
+    "placeholders": {
+      "country": {
+        "type": "String"
+      }
+    }
+  },
+  "communityWaveLater": "Баъдтар",
+  "communityAboutMBTI": "MBTI",
+  "voiceRoomReactTooltip": "Аксуламал",
+  "momentsCancel": "Бекор",
+  "momentsNotNow": "Ҳозир не",
+  "commonOK": "OK",
+  "commonError": "Хато: {error}",
+  "@commonError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
       }
     }
   }

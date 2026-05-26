@@ -11,6 +11,7 @@ import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/pages/chat/widgets/chat_snackbar.dart';
 import 'package:bananatalk_app/pages/chat/widgets/chat_empty_state.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 /// Screen showing all media, links, and documents shared in a conversation
 class ChatMediaScreen extends ConsumerStatefulWidget {
@@ -113,7 +114,7 @@ class _ChatMediaScreenState extends ConsumerState<ChatMediaScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Media with ${widget.otherUserName}'),
+        title: Text(AppLocalizations.of(context)!.chatListMediaTitle(widget.otherUserName)),
         bottom: TabBar(
           controller: _tabController,
           tabs: [
@@ -141,11 +142,11 @@ class _ChatMediaScreenState extends ConsumerState<ChatMediaScreen>
                     children: [
                       Icon(Icons.error_outline, color: context.iconColor, size: 48),
                       const SizedBox(height: 16),
-                      Text('Error loading media', style: TextStyle(color: context.textSecondary)),
+                      Text(AppLocalizations.of(context)!.chatListMediaError, style: TextStyle(color: context.textSecondary)),
                       const SizedBox(height: 8),
                       TextButton(
                         onPressed: _loadMessages,
-                        child: const Text('Retry'),
+                        child: Text(AppLocalizations.of(context)!.momentsRetry),
                       ),
                     ],
                   ),

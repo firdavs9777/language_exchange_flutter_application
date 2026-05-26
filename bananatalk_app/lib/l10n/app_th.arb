@@ -2272,5 +2272,88 @@
         "type": "int"
       }
     }
+  },
+  "chatListSearchHint": "ค้นหาหรือพิมพ์ @ผู้ใช้",
+  "chatListFilterAll": "ทั้งหมด",
+  "chatListFilterUnread": "ยังไม่อ่าน",
+  "chatListFilterOnline": "ออนไลน์",
+  "chatListNewChat": "แชทใหม่",
+  "chatListNewChatByUsernameTooltip": "แชทใหม่โดยใช้ชื่อผู้ใช้",
+  "chatListFindUser": "ค้นหาผู้ใช้",
+  "chatListFindUserSearchTerm": "ค้นหา @{term}",
+  "@chatListFindUserSearchTerm": {
+    "placeholders": {
+      "term": {
+        "type": "String"
+      }
+    }
+  },
+  "chatListDeleteConversation": "ลบบทสนทนา",
+  "chatListMediaTitle": "สื่อกับ {name}",
+  "@chatListMediaTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "chatListMediaError": "โหลดสื่อไม่ได้",
+  "chatDetailViewFullProfile": "ดูโปรไฟล์เต็ม",
+  "chatMessageReply": "ตอบกลับ",
+  "chatMessageCopy": "คัดลอก",
+  "chatMessageCorrect": "แก้ไข",
+  "chatMessageTranslate": "แปล",
+  "chatMessageSavePhrase": "บันทึกประโยค",
+  "chatMessageEdit": "แก้ไข",
+  "chatMessageDelete": "ลบ",
+  "chatMessageRetrySubtitle": "ลองส่งข้อความนี้อีกครั้ง",
+  "chatMessageRemoveSubtitle": "ลบข้อความนี้",
+  "chatWallpaperPreviewHello": "สวัสดี! 👋",
+  "chatWallpaperPreviewHow": "เป็นไงบ้าง?",
+  "chatGifSearchHint": "ค้นหา GIF...",
+  "communitySearchHint": "ค้นหาหรือพิมพ์ @ผู้ใช้",
+  "communityUserNotFound": "ไม่พบผู้ใช้ @{name}",
+  "@communityUserNotFound": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "communityTabAll": "ทั้งหมด",
+  "communityTabGender": "เพศ",
+  "communityTabCity": "เมือง",
+  "communityRefresh": "รีเฟรช",
+  "communityNoUsersFound": "ไม่พบผู้ใช้",
+  "communityUnblockConfirm": "แน่ใจหรือว่าต้องการเลิกบล็อก {name}?",
+  "@communityUnblockConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "communityUsernameCopied": "คัดลอกชื่อผู้ใช้แล้ว!",
+  "communityLocationDetected": "ตำแหน่ง: {country}",
+  "@communityLocationDetected": {
+    "placeholders": {
+      "country": {
+        "type": "String"
+      }
+    }
+  },
+  "communityWaveLater": "ทีหลัง",
+  "communityAboutMBTI": "MBTI",
+  "voiceRoomReactTooltip": "แสดงปฏิกิริยา",
+  "momentsCancel": "ยกเลิก",
+  "momentsNotNow": "ไม่ตอนนี้",
+  "commonOK": "ตกลง",
+  "commonError": "ข้อผิดพลาด: {error}",
+  "@commonError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
   }
 }

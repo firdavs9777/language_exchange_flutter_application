@@ -11114,6 +11114,130 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Upgrade to VIP to unlock {feature}!'**
   String aiToolsVipUpgradeDescription(String feature);
+
+  /// In en, 'Search or type @username'
+  String get chatListSearchHint;
+
+  /// In en, 'All'
+  String get chatListFilterAll;
+
+  /// In en, 'Unread'
+  String get chatListFilterUnread;
+
+  /// In en, 'Online'
+  String get chatListFilterOnline;
+
+  /// In en, 'New Chat'
+  String get chatListNewChat;
+
+  /// In en, 'New chat by username'
+  String get chatListNewChatByUsernameTooltip;
+
+  /// In en, 'Find User'
+  String get chatListFindUser;
+
+  /// In en, 'Find @{term}'
+  String chatListFindUserSearchTerm(String term);
+
+  /// In en, 'Delete Conversation'
+  String get chatListDeleteConversation;
+
+  /// In en, 'Media with {name}'
+  String chatListMediaTitle(String name);
+
+  /// In en, 'Error loading media'
+  String get chatListMediaError;
+
+  /// In en, 'View Full Profile'
+  String get chatDetailViewFullProfile;
+
+  /// In en, 'Reply'
+  String get chatMessageReply;
+
+  /// In en, 'Copy'
+  String get chatMessageCopy;
+
+  /// In en, 'Correct'
+  String get chatMessageCorrect;
+
+  /// In en, 'Translate'
+  String get chatMessageTranslate;
+
+  /// In en, 'Save phrase'
+  String get chatMessageSavePhrase;
+
+  /// In en, 'Edit'
+  String get chatMessageEdit;
+
+  /// In en, 'Delete'
+  String get chatMessageDelete;
+
+  /// In en, 'Try sending this message again'
+  String get chatMessageRetrySubtitle;
+
+  /// In en, 'Remove this message'
+  String get chatMessageRemoveSubtitle;
+
+  /// In en, 'Hello! 👋'
+  String get chatWallpaperPreviewHello;
+
+  /// In en, 'How are you?'
+  String get chatWallpaperPreviewHow;
+
+  /// In en, 'Search GIFs...'
+  String get chatGifSearchHint;
+
+  /// In en, 'Search or type @username'
+  String get communitySearchHint;
+
+  /// In en, 'User @{name} not found'
+  String communityUserNotFound(String name);
+
+  /// In en, 'All'
+  String get communityTabAll;
+
+  /// In en, 'Gender'
+  String get communityTabGender;
+
+  /// In en, 'City'
+  String get communityTabCity;
+
+  /// In en, 'Refresh'
+  String get communityRefresh;
+
+  /// In en, 'No users found'
+  String get communityNoUsersFound;
+
+  /// In en, 'Are you sure you want to unblock {name}?'
+  String communityUnblockConfirm(String name);
+
+  /// In en, 'Username copied!'
+  String get communityUsernameCopied;
+
+  /// In en, 'Location detected: {country}'
+  String communityLocationDetected(String country);
+
+  /// In en, 'Later'
+  String get communityWaveLater;
+
+  /// In en, 'MBTI'
+  String get communityAboutMBTI;
+
+  /// In en, 'React'
+  String get voiceRoomReactTooltip;
+
+
+  /// In en, 'Cancel'
+  String get momentsCancel;
+
+  /// In en, 'Not Now'
+  String get momentsNotNow;
+
+  /// In en, 'OK'
+  String get commonOK;
+
+  /// In en, 'Error: {error}'
+  String commonError(String error);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

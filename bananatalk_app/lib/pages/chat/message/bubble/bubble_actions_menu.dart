@@ -53,7 +53,7 @@ Future<void> showFailedMessageOptions({
                 child: const Icon(Icons.refresh, color: AppColors.primary),
               ),
               title: Text(l10n?.retry ?? 'Retry'),
-              subtitle: const Text('Try sending this message again'),
+              subtitle: Text(AppLocalizations.of(context)!.chatMessageRetrySubtitle),
               onTap: () {
                 Navigator.pop(context);
                 onRetry();
@@ -72,7 +72,7 @@ Future<void> showFailedMessageOptions({
                 l10n?.delete ?? 'Delete',
                 style: const TextStyle(color: AppColors.error),
               ),
-              subtitle: const Text('Remove this message'),
+              subtitle: Text(AppLocalizations.of(context)!.chatMessageRemoveSubtitle),
               onTap: () {
                 Navigator.pop(context);
                 onDelete();

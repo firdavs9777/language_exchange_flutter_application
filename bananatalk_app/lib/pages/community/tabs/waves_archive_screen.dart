@@ -109,7 +109,7 @@ class _WavesArchiveScreenState extends ConsumerState<WavesArchiveScreen> {
                       ElevatedButton.icon(
                         onPressed: _load,
                         icon: const Icon(Icons.refresh),
-                        label: const Text('Retry'),
+                        label: Text(AppLocalizations.of(context)!.momentsRetry),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xFF00BFA5),
                           foregroundColor: Colors.white,

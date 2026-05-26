@@ -214,7 +214,7 @@ class SingleCommunityTopics extends ConsumerWidget {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: const Text('OK'),
+            child: Text(AppLocalizations.of(context)!.commonOK),
           ),
         ],
       ),

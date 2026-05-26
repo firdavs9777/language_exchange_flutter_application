@@ -2699,5 +2699,88 @@
         "type": "int"
       }
     }
+  },
+  "chatListSearchHint": "Rechercher ou taper @utilisateur",
+  "chatListFilterAll": "Tous",
+  "chatListFilterUnread": "Non lus",
+  "chatListFilterOnline": "En ligne",
+  "chatListNewChat": "Nouveau chat",
+  "chatListNewChatByUsernameTooltip": "Nouveau chat par nom d'utilisateur",
+  "chatListFindUser": "Trouver un utilisateur",
+  "chatListFindUserSearchTerm": "Chercher @{term}",
+  "@chatListFindUserSearchTerm": {
+    "placeholders": {
+      "term": {
+        "type": "String"
+      }
+    }
+  },
+  "chatListDeleteConversation": "Supprimer la conversation",
+  "chatListMediaTitle": "Médias avec {name}",
+  "@chatListMediaTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "chatListMediaError": "Erreur de chargement des médias",
+  "chatDetailViewFullProfile": "Voir le profil complet",
+  "chatMessageReply": "Répondre",
+  "chatMessageCopy": "Copier",
+  "chatMessageCorrect": "Corriger",
+  "chatMessageTranslate": "Traduire",
+  "chatMessageSavePhrase": "Enregistrer la phrase",
+  "chatMessageEdit": "Modifier",
+  "chatMessageDelete": "Supprimer",
+  "chatMessageRetrySubtitle": "Réessaie d'envoyer ce message",
+  "chatMessageRemoveSubtitle": "Supprimer ce message",
+  "chatWallpaperPreviewHello": "Salut ! 👋",
+  "chatWallpaperPreviewHow": "Comment ça va ?",
+  "chatGifSearchHint": "Rechercher des GIFs...",
+  "communitySearchHint": "Rechercher ou taper @utilisateur",
+  "communityUserNotFound": "Utilisateur @{name} introuvable",
+  "@communityUserNotFound": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "communityTabAll": "Tous",
+  "communityTabGender": "Genre",
+  "communityTabCity": "Ville",
+  "communityRefresh": "Actualiser",
+  "communityNoUsersFound": "Aucun utilisateur trouvé",
+  "communityUnblockConfirm": "Es-tu sûr de vouloir débloquer {name} ?",
+  "@communityUnblockConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "communityUsernameCopied": "Nom d'utilisateur copié !",
+  "communityLocationDetected": "Lieu : {country}",
+  "@communityLocationDetected": {
+    "placeholders": {
+      "country": {
+        "type": "String"
+      }
+    }
+  },
+  "communityWaveLater": "Plus tard",
+  "communityAboutMBTI": "MBTI",
+  "voiceRoomReactTooltip": "Réagir",
+  "momentsCancel": "Annuler",
+  "momentsNotNow": "Pas maintenant",
+  "commonOK": "OK",
+  "commonError": "Erreur : {error}",
+  "@commonError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
   }
 }

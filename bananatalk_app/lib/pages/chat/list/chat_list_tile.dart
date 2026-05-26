@@ -3,6 +3,7 @@ import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:bananatalk_app/widgets/vip_avatar_frame.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 /// Per-thread row in the chat list.
 ///
@@ -164,7 +165,7 @@ class ChatListTile extends StatelessWidget {
             backgroundColor: const Color(0xFFE53935),
             foregroundColor: Colors.white,
             icon: Icons.delete_outline,
-            label: 'Delete',
+            label: AppLocalizations.of(context)!.chatMessageDelete,
             borderRadius: const BorderRadius.only(
               topRight: Radius.circular(12),
               bottomRight: Radius.circular(12),

@@ -5,6 +5,7 @@ import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:bananatalk_app/utils/image_utils.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 /// Video player widget for moment cards
 class MomentVideoPlayer extends StatefulWidget {
@@ -208,7 +209,7 @@ class _MomentVideoPlayerState extends State<MomentVideoPlayer> {
                           });
                           _initializeVideo();
                         },
-                        child: const Text('Retry'),
+                        child: Text(AppLocalizations.of(context)!.momentsRetry),
                       ),
                     ],
                   ),

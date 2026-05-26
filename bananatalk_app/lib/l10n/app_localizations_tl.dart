@@ -5952,4 +5952,140 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get aiScenariosBannerSubhead => 'Pumili ng scenario sa antas mo, o subukan ang isang mas mataas.';
+
+  @override
+  String get chatListSearchHint => 'Maghanap o mag-type ng @username';
+
+  @override
+  String get chatListFilterAll => 'Lahat';
+
+  @override
+  String get chatListFilterUnread => 'Hindi pa nababasa';
+
+  @override
+  String get chatListFilterOnline => 'Online';
+
+  @override
+  String get chatListNewChat => 'Bagong chat';
+
+  @override
+  String get chatListNewChatByUsernameTooltip => 'Bagong chat sa pamamagitan ng username';
+
+  @override
+  String get chatListFindUser => 'Maghanap ng user';
+
+  @override
+  String chatListFindUserSearchTerm(String term) {
+    return 'Hanapin @$term';
+  }
+
+  @override
+  String get chatListDeleteConversation => 'Tanggalin ang usapan';
+
+  @override
+  String chatListMediaTitle(String name) {
+    return 'Media kasama si $name';
+  }
+
+  @override
+  String get chatListMediaError => 'Error sa pag-load ng media';
+
+  @override
+  String get chatDetailViewFullProfile => 'Tingnan ang buong profile';
+
+  @override
+  String get chatMessageReply => 'Sumagot';
+
+  @override
+  String get chatMessageCopy => 'Kopyahin';
+
+  @override
+  String get chatMessageCorrect => 'Itama';
+
+  @override
+  String get chatMessageTranslate => 'Isalin';
+
+  @override
+  String get chatMessageSavePhrase => 'I-save ang parirala';
+
+  @override
+  String get chatMessageEdit => 'I-edit';
+
+  @override
+  String get chatMessageDelete => 'Tanggalin';
+
+  @override
+  String get chatMessageRetrySubtitle => 'Subukan muling ipadala ang mensaheng ito';
+
+  @override
+  String get chatMessageRemoveSubtitle => 'Alisin ang mensaheng ito';
+
+  @override
+  String get chatWallpaperPreviewHello => 'Kumusta! 👋';
+
+  @override
+  String get chatWallpaperPreviewHow => 'Kumusta ka?';
+
+  @override
+  String get chatGifSearchHint => 'Maghanap ng GIF...';
+
+  @override
+  String get communitySearchHint => 'Maghanap o mag-type ng @username';
+
+  @override
+  String communityUserNotFound(String name) {
+    return 'Hindi nahanap si @$name';
+  }
+
+  @override
+  String get communityTabAll => 'Lahat';
+
+  @override
+  String get communityTabGender => 'Kasarian';
+
+  @override
+  String get communityTabCity => 'Lungsod';
+
+  @override
+  String get communityRefresh => 'I-refresh';
+
+  @override
+  String get communityNoUsersFound => 'Walang user na natagpuan';
+
+  @override
+  String communityUnblockConfirm(String name) {
+    return 'Sigurado ka bang i-unblock si $name?';
+  }
+
+  @override
+  String get communityUsernameCopied => 'Nakopya ang username!';
+
+  @override
+  String communityLocationDetected(String country) {
+    return 'Lokasyon: $country';
+  }
+
+  @override
+  String get communityWaveLater => 'Sa susunod';
+
+  @override
+  String get communityAboutMBTI => 'MBTI';
+
+  @override
+  String get voiceRoomReactTooltip => 'Mag-react';
+
+
+  @override
+  String get momentsCancel => 'Kanselahin';
+
+  @override
+  String get momentsNotNow => 'Hindi ngayon';
+
+  @override
+  String get commonOK => 'OK';
+
+  @override
+  String commonError(String error) {
+    return 'Error: $error';
+  }
 }

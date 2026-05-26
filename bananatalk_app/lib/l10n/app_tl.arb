@@ -2366,5 +2366,88 @@
         "type": "int"
       }
     }
+  },
+  "chatListSearchHint": "Maghanap o mag-type ng @username",
+  "chatListFilterAll": "Lahat",
+  "chatListFilterUnread": "Hindi pa nababasa",
+  "chatListFilterOnline": "Online",
+  "chatListNewChat": "Bagong chat",
+  "chatListNewChatByUsernameTooltip": "Bagong chat sa pamamagitan ng username",
+  "chatListFindUser": "Maghanap ng user",
+  "chatListFindUserSearchTerm": "Hanapin @{term}",
+  "@chatListFindUserSearchTerm": {
+    "placeholders": {
+      "term": {
+        "type": "String"
+      }
+    }
+  },
+  "chatListDeleteConversation": "Tanggalin ang usapan",
+  "chatListMediaTitle": "Media kasama si {name}",
+  "@chatListMediaTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "chatListMediaError": "Error sa pag-load ng media",
+  "chatDetailViewFullProfile": "Tingnan ang buong profile",
+  "chatMessageReply": "Sumagot",
+  "chatMessageCopy": "Kopyahin",
+  "chatMessageCorrect": "Itama",
+  "chatMessageTranslate": "Isalin",
+  "chatMessageSavePhrase": "I-save ang parirala",
+  "chatMessageEdit": "I-edit",
+  "chatMessageDelete": "Tanggalin",
+  "chatMessageRetrySubtitle": "Subukan muling ipadala ang mensaheng ito",
+  "chatMessageRemoveSubtitle": "Alisin ang mensaheng ito",
+  "chatWallpaperPreviewHello": "Kumusta! 👋",
+  "chatWallpaperPreviewHow": "Kumusta ka?",
+  "chatGifSearchHint": "Maghanap ng GIF...",
+  "communitySearchHint": "Maghanap o mag-type ng @username",
+  "communityUserNotFound": "Hindi nahanap si @{name}",
+  "@communityUserNotFound": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "communityTabAll": "Lahat",
+  "communityTabGender": "Kasarian",
+  "communityTabCity": "Lungsod",
+  "communityRefresh": "I-refresh",
+  "communityNoUsersFound": "Walang user na natagpuan",
+  "communityUnblockConfirm": "Sigurado ka bang i-unblock si {name}?",
+  "@communityUnblockConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "communityUsernameCopied": "Nakopya ang username!",
+  "communityLocationDetected": "Lokasyon: {country}",
+  "@communityLocationDetected": {
+    "placeholders": {
+      "country": {
+        "type": "String"
+      }
+    }
+  },
+  "communityWaveLater": "Sa susunod",
+  "communityAboutMBTI": "MBTI",
+  "voiceRoomReactTooltip": "Mag-react",
+  "momentsCancel": "Kanselahin",
+  "momentsNotNow": "Hindi ngayon",
+  "commonOK": "OK",
+  "commonError": "Error: {error}",
+  "@commonError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
   }
 }

@@ -608,7 +608,7 @@ class _GendersTabState extends ConsumerState<GendersTab> {
               TextButton.icon(
                 onPressed: _refresh,
                 icon: const Icon(Icons.refresh_rounded),
-                label: const Text('Refresh'),
+                label: Text(AppLocalizations.of(context)!.communityRefresh),
               ),
             ],
           ),
