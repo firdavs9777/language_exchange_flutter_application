@@ -6179,7 +6179,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get momentsPrivacyPrivate => 'Pribado';
 
   @override
-  String get splashTagline => 'Magkita · Mag-chat · Magkonek';
+  String get splashTagline => 'Matuto · Mag-chat · Magkita';
 
   @override
   String get splashLoading => 'Naglo-load…';

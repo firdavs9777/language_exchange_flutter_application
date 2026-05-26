@@ -6179,7 +6179,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get momentsPrivacyPrivate => 'निजी';
 
   @override
-  String get splashTagline => 'मिलें · चैट करें · जुड़ें';
+  String get splashTagline => 'सीखें · चैट करें · मिलें';
 
   @override
   String get splashLoading => 'लोड हो रहा है…';

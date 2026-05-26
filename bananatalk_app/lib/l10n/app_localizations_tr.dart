@@ -6179,7 +6179,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get momentsPrivacyPrivate => 'Özel';
 
   @override
-  String get splashTagline => 'Tanış · Sohbet et · Bağlan';
+  String get splashTagline => 'Öğren · Sohbet et · Tanış';
 
   @override
   String get splashLoading => 'Yükleniyor…';

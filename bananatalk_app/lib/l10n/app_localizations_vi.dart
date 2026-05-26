@@ -6172,7 +6172,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get momentsPrivacyPrivate => 'Riêng tư';
 
   @override
-  String get splashTagline => 'Gặp gỡ · Trò chuyện · Kết nối';
+  String get splashTagline => 'Học · Trò chuyện · Gặp gỡ';
 
   @override
   String get splashLoading => 'Đang tải…';

@@ -6191,7 +6191,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get momentsPrivacyPrivate => 'Лично';
 
   @override
-  String get splashTagline => 'Знакомься · Общайся · Связывайся';
+  String get splashTagline => 'Учись · Общайся · Знакомься';
 
   @override
   String get splashLoading => 'Загрузка…';

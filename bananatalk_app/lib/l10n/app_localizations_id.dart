@@ -6179,7 +6179,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get momentsPrivacyPrivate => 'Pribadi';
 
   @override
-  String get splashTagline => 'Bertemu · Chat · Terhubung';
+  String get splashTagline => 'Belajar · Chat · Bertemu';
 
   @override
   String get splashLoading => 'Memuat…';

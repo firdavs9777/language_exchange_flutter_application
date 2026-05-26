@@ -6172,7 +6172,7 @@ class AppLocalizationsTh extends AppLocalizations {
   String get momentsPrivacyPrivate => 'ส่วนตัว';
 
   @override
-  String get splashTagline => 'พบปะ · สนทนา · เชื่อมต่อ';
+  String get splashTagline => 'เรียนรู้ · สนทนา · พบปะ';
 
   @override
   String get splashLoading => 'กำลังโหลด…';

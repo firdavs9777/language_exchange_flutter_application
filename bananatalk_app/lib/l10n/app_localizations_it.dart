@@ -6179,7 +6179,7 @@ class AppLocalizationsIt extends AppLocalizations {
   String get momentsPrivacyPrivate => 'Privato';
 
   @override
-  String get splashTagline => 'Incontra · Chatta · Connetti';
+  String get splashTagline => 'Impara · Chatta · Incontra';
 
   @override
   String get splashLoading => 'Caricamento…';

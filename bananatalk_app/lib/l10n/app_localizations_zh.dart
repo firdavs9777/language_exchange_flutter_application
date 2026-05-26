@@ -6173,7 +6173,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get momentsPrivacyPrivate => '私密';
 
   @override
-  String get splashTagline => '相识 · 聊天 · 连接';
+  String get splashTagline => '学习 · 聊天 · 相识';
 
   @override
   String get splashLoading => '加载中…';

@@ -2017,5 +2017,6 @@
   },
   "@aiTutorChipPronounce": {
     "description": "Label for the 5th tutor mode chip — opens the Pronunciation Coach drill"
-  }
+  },
+  "splashTagline": "學習 · 聊天 · 相識"
 }
