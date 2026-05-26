@@ -1954,5 +1954,9 @@
   "learningVocabularyMasteryMastered": "महारत हासिल",
   "learningProgressLevelLabel": "स्तर",
   "learningProgressXpToNextLevel": "अगले स्तर के लिए {xp} XP",
-  "learningProgressWeeklyChartTitle": "पिछले 7 दिन"
+  "learningProgressWeeklyChartTitle": "पिछले 7 दिन",
+  "aiStudyPromoTitle": "AI सीनैरियो के साथ अभ्यास करें",
+  "aiStudyPromoBody": "अपने AI ट्यूटर के साथ असली ज़िंदगी की बातचीत रोलप्ले करें और बोलने में आत्मविश्वास बढ़ाएँ।",
+  "aiStudyPromoCTA": "एक सीनैरियो आज़माएँ",
+  "aiStudyPromoDismiss": "शायद बाद में"
 }

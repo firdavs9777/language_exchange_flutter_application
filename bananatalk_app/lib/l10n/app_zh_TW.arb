@@ -1919,5 +1919,9 @@
   "learningVocabularyMasteryMastered": "已掌握",
   "learningProgressLevelLabel": "等級",
   "learningProgressXpToNextLevel": "距下一等級還需 {xp} XP",
-  "learningProgressWeeklyChartTitle": "最近7天"
+  "learningProgressWeeklyChartTitle": "最近7天",
+  "aiStudyPromoTitle": "用 AI 情境練習",
+  "aiStudyPromoBody": "與 AI 導師角色扮演真實對話，建立開口說話的信心。",
+  "aiStudyPromoCTA": "試試一個情境",
+  "aiStudyPromoDismiss": "以後再說"
 }

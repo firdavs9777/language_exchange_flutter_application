@@ -1796,5 +1796,9 @@
   "learningVocabularyMasteryMastered": "Dikuasai",
   "learningProgressLevelLabel": "Level",
   "learningProgressXpToNextLevel": "{xp} XP ke level berikutnya",
-  "learningProgressWeeklyChartTitle": "7 hari terakhir"
+  "learningProgressWeeklyChartTitle": "7 hari terakhir",
+  "aiStudyPromoTitle": "Berlatih dengan skenario AI",
+  "aiStudyPromoBody": "Berperan dalam percakapan nyata bersama tutor AI dan bangun rasa percaya diri saat berbicara.",
+  "aiStudyPromoCTA": "Coba sebuah skenario",
+  "aiStudyPromoDismiss": "Mungkin nanti"
 }

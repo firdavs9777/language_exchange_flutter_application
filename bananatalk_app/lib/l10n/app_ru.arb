@@ -1968,5 +1968,9 @@
   "learningVocabularyMasteryMastered": "Освоено",
   "learningProgressLevelLabel": "Уровень",
   "learningProgressXpToNextLevel": "{xp} XP до следующего уровня",
-  "learningProgressWeeklyChartTitle": "Последние 7 дней"
+  "learningProgressWeeklyChartTitle": "Последние 7 дней",
+  "aiStudyPromoTitle": "Тренируйтесь с ИИ-сценариями",
+  "aiStudyPromoBody": "Отыгрывайте реальные диалоги с ИИ-репетитором и развивайте уверенность в речи.",
+  "aiStudyPromoCTA": "Попробовать сценарий",
+  "aiStudyPromoDismiss": "Позже"
 }

@@ -1967,5 +1967,9 @@
   "learningVocabularyMasteryMastered": "已掌握",
   "learningProgressLevelLabel": "等级",
   "learningProgressXpToNextLevel": "距下一等级还需 {xp} XP",
-  "learningProgressWeeklyChartTitle": "最近7天"
+  "learningProgressWeeklyChartTitle": "最近7天",
+  "aiStudyPromoTitle": "用 AI 情境练习",
+  "aiStudyPromoBody": "与 AI 导师角色扮演真实对话，建立开口说话的信心。",
+  "aiStudyPromoCTA": "试试一个情境",
+  "aiStudyPromoDismiss": "以后再说"
 }

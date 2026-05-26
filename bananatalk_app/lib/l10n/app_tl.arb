@@ -1890,5 +1890,9 @@
   "learningVocabularyMasteryMastered": "Naimaster",
   "learningProgressLevelLabel": "Antas",
   "learningProgressXpToNextLevel": "{xp} XP hanggang sa susunod na antas",
-  "learningProgressWeeklyChartTitle": "Nakaraang 7 araw"
+  "learningProgressWeeklyChartTitle": "Nakaraang 7 araw",
+  "aiStudyPromoTitle": "Magsanay gamit ang AI scenarios",
+  "aiStudyPromoBody": "Mag-roleplay ng totoong-buhay na usapan kasama ang iyong AI tutor at palakasin ang tiwala sa pagsasalita.",
+  "aiStudyPromoCTA": "Subukan ang isang scenario",
+  "aiStudyPromoDismiss": "Sa susunod na lang"
 }

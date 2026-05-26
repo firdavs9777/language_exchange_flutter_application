@@ -1954,5 +1954,9 @@
   "learningVocabularyMasteryMastered": "Dominado",
   "learningProgressLevelLabel": "Nível",
   "learningProgressXpToNextLevel": "{xp} XP para o próximo nível",
-  "learningProgressWeeklyChartTitle": "Últimos 7 dias"
+  "learningProgressWeeklyChartTitle": "Últimos 7 dias",
+  "aiStudyPromoTitle": "Pratique com cenários de IA",
+  "aiStudyPromoBody": "Faça roleplay de conversas reais com seu tutor de IA e ganhe confiança para falar.",
+  "aiStudyPromoCTA": "Tentar um cenário",
+  "aiStudyPromoDismiss": "Talvez depois"
 }

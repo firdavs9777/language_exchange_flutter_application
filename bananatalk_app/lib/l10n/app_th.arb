@@ -1796,5 +1796,9 @@
   "learningVocabularyMasteryMastered": "เชี่ยวชาญ",
   "learningProgressLevelLabel": "เลเวล",
   "learningProgressXpToNextLevel": "{xp} XP ถึงเลเวลถัดไป",
-  "learningProgressWeeklyChartTitle": "7 วันที่ผ่านมา"
+  "learningProgressWeeklyChartTitle": "7 วันที่ผ่านมา",
+  "aiStudyPromoTitle": "ฝึกฝนด้วยสถานการณ์ AI",
+  "aiStudyPromoBody": "สวมบทบาทบทสนทนาในชีวิตจริงกับติวเตอร์ AI และสร้างความมั่นใจในการพูด",
+  "aiStudyPromoCTA": "ลองสถานการณ์",
+  "aiStudyPromoDismiss": "ไว้ก่อน"
 }

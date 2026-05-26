@@ -1968,5 +1968,9 @@
   "learningVocabularyMasteryMastered": "متقن",
   "learningProgressLevelLabel": "المستوى",
   "learningProgressXpToNextLevel": "{xp} XP للمستوى التالي",
-  "learningProgressWeeklyChartTitle": "آخر 7 أيام"
+  "learningProgressWeeklyChartTitle": "آخر 7 أيام",
+  "aiStudyPromoTitle": "تدرّب على سيناريوهات بالذكاء الاصطناعي",
+  "aiStudyPromoBody": "تدرّب على محادثات الحياة الواقعية مع مدرّسك بالذكاء الاصطناعي وابنِ ثقتك بالتحدّث.",
+  "aiStudyPromoCTA": "جرّب سيناريو",
+  "aiStudyPromoDismiss": "ربما لاحقًا"
 }

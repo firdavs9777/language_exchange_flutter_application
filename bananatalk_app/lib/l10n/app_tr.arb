@@ -2166,5 +2166,9 @@
   "learningVocabularyMasteryMastered": "Hâkim",
   "learningProgressLevelLabel": "Seviye",
   "learningProgressXpToNextLevel": "Sonraki seviye için {xp} XP",
-  "learningProgressWeeklyChartTitle": "Son 7 gün"
+  "learningProgressWeeklyChartTitle": "Son 7 gün",
+  "aiStudyPromoTitle": "AI senaryolarıyla pratik yap",
+  "aiStudyPromoBody": "AI öğretmeninle gerçek hayat konuşmalarını canlandır ve konuşma özgüvenini geliştir.",
+  "aiStudyPromoCTA": "Bir senaryo dene",
+  "aiStudyPromoDismiss": "Belki sonra"
 }

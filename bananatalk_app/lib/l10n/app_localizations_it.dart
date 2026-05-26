@@ -12,16 +12,16 @@ class AppLocalizationsIt extends AppLocalizations {
   String get appName => 'Bananatalk';
 
   @override
-  String get aiStudyPromoTitle => 'Practice with AI scenarios';
+  String get aiStudyPromoTitle => 'Allenati con scenari AI';
 
   @override
-  String get aiStudyPromoBody => 'Roleplay real-life conversations with your AI tutor and build confidence speaking.';
+  String get aiStudyPromoBody => 'Interpreta conversazioni di vita reale con il tuo tutor AI e acquisisci sicurezza nel parlare.';
 
   @override
-  String get aiStudyPromoCTA => 'Try a scenario';
+  String get aiStudyPromoCTA => 'Prova uno scenario';
 
   @override
-  String get aiStudyPromoDismiss => 'Maybe later';
+  String get aiStudyPromoDismiss => 'Forse più tardi';
 
   @override
   String get login => 'Accedi';

@@ -2223,5 +2223,9 @@
   "learningVocabularyMasteryMastered": "Padroneggiato",
   "learningProgressLevelLabel": "Livello",
   "learningProgressXpToNextLevel": "{xp} XP al prossimo livello",
-  "learningProgressWeeklyChartTitle": "Ultimi 7 giorni"
+  "learningProgressWeeklyChartTitle": "Ultimi 7 giorni",
+  "aiStudyPromoTitle": "Allenati con scenari AI",
+  "aiStudyPromoBody": "Interpreta conversazioni di vita reale con il tuo tutor AI e acquisisci sicurezza nel parlare.",
+  "aiStudyPromoCTA": "Prova uno scenario",
+  "aiStudyPromoDismiss": "Forse più tardi"
 }

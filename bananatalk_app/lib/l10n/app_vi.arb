@@ -1796,5 +1796,9 @@
   "learningVocabularyMasteryMastered": "Đã thành thạo",
   "learningProgressLevelLabel": "Cấp độ",
   "learningProgressXpToNextLevel": "{xp} XP đến cấp tiếp theo",
-  "learningProgressWeeklyChartTitle": "7 ngày qua"
+  "learningProgressWeeklyChartTitle": "7 ngày qua",
+  "aiStudyPromoTitle": "Luyện tập với kịch bản AI",
+  "aiStudyPromoBody": "Đóng vai các cuộc trò chuyện đời thực cùng gia sư AI và xây dựng sự tự tin khi nói.",
+  "aiStudyPromoCTA": "Thử một kịch bản",
+  "aiStudyPromoDismiss": "Để sau"
 }

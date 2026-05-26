@@ -2223,5 +2223,9 @@
   "learningVocabularyMasteryMastered": "Gemeistert",
   "learningProgressLevelLabel": "Level",
   "learningProgressXpToNextLevel": "{xp} XP bis zum nächsten Level",
-  "learningProgressWeeklyChartTitle": "Letzte 7 Tage"
+  "learningProgressWeeklyChartTitle": "Letzte 7 Tage",
+  "aiStudyPromoTitle": "Übe mit KI-Szenarien",
+  "aiStudyPromoBody": "Spiele echte Gespräche mit deinem KI-Tutor durch und gewinne Selbstvertrauen beim Sprechen.",
+  "aiStudyPromoCTA": "Szenario ausprobieren",
+  "aiStudyPromoDismiss": "Vielleicht später"
 }

@@ -1975,5 +1975,9 @@
   "learningVocabularyMasteryMastered": "완숙",
   "learningProgressLevelLabel": "레벨",
   "learningProgressXpToNextLevel": "다음 레벨까지 {xp} XP",
-  "learningProgressWeeklyChartTitle": "최근 7일"
+  "learningProgressWeeklyChartTitle": "최근 7일",
+  "aiStudyPromoTitle": "AI 시나리오로 연습하세요",
+  "aiStudyPromoBody": "AI 튜터와 실제 대화를 롤플레이하며 말하기 자신감을 키워보세요.",
+  "aiStudyPromoCTA": "시나리오 체험하기",
+  "aiStudyPromoDismiss": "나중에"
 }
