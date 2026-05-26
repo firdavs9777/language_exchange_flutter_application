@@ -1,6 +1,10 @@
 {
   "@@locale": "tg",
   "appName": "Bananatalk",
+  "aiStudyPromoTitle": "Бо сенарияҳои AI машқ кунед",
+  "aiStudyPromoBody": "Бо устоди AI-и худ муколамаҳои воқеиро бозӣ кунед ва дар ҳарф задан эътимод пайдо кунед.",
+  "aiStudyPromoCTA": "Сенарияро санҷед",
+  "aiStudyPromoDismiss": "Шояд баъдтар",
   "login": "Ворид шавед",
   "signUp": "Сабти ном",
   "email": "Почтаи электронӣ",

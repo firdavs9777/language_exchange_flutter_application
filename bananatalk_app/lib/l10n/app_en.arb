@@ -4,6 +4,22 @@
   "@appName": {
     "description": "The application name"
   },
+  "aiStudyPromoTitle": "Practice with AI scenarios",
+  "@aiStudyPromoTitle": {
+    "description": "Title of the AI Study promo modal"
+  },
+  "aiStudyPromoBody": "Roleplay real-life conversations with your AI tutor and build confidence speaking.",
+  "@aiStudyPromoBody": {
+    "description": "Body of the AI Study promo modal"
+  },
+  "aiStudyPromoCTA": "Try a scenario",
+  "@aiStudyPromoCTA": {
+    "description": "Primary action button in the AI Study promo modal"
+  },
+  "aiStudyPromoDismiss": "Maybe later",
+  "@aiStudyPromoDismiss": {
+    "description": "Dismiss button in the AI Study promo modal"
+  },
   "login": "Login",
   "signUp": "Sign Up",
   "email": "Email",

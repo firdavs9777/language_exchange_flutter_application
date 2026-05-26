@@ -12,6 +12,18 @@ class AppLocalizationsKo extends AppLocalizations {
   String get appName => 'Bananatalk';
 
   @override
+  String get aiStudyPromoTitle => 'Practice with AI scenarios';
+
+  @override
+  String get aiStudyPromoBody => 'Roleplay real-life conversations with your AI tutor and build confidence speaking.';
+
+  @override
+  String get aiStudyPromoCTA => 'Try a scenario';
+
+  @override
+  String get aiStudyPromoDismiss => 'Maybe later';
+
+  @override
   String get login => '로그인';
 
   @override
@@ -213,8 +225,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get automaticallyTranslateComments => '댓글 자동 번역';
 
   @override
-  String get translationServiceBeingConfigured =>
-      '번역 서비스가 구성 중입니다. 나중에 다시 시도해 주세요.';
+  String get translationServiceBeingConfigured => '번역 서비스가 구성 중입니다. 나중에 다시 시도해 주세요.';
 
   @override
   String get translationUnavailable => '번역을 사용할 수 없습니다';
@@ -304,8 +315,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get clearCacheSubtitle => '저장 공간 확보';
 
   @override
-  String get clearCacheDescription =>
-      '모든 캐시된 이미지, 동영상 및 오디오 파일이 삭제됩니다. 미디어를 다시 다운로드하는 동안 일시적으로 콘텐츠 로딩이 느려질 수 있습니다.';
+  String get clearCacheDescription => '모든 캐시된 이미지, 동영상 및 오디오 파일이 삭제됩니다. 미디어를 다시 다운로드하는 동안 일시적으로 콘텐츠 로딩이 느려질 수 있습니다.';
 
   @override
   String get clearCacheHint => '이미지나 오디오가 제대로 로드되지 않을 때 사용하세요.';
@@ -396,8 +406,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get aiTutorPickerHeader => 'Who do you want to learn with?';
 
   @override
-  String get aiTutorPickerSubtitle =>
-      'You can change this anytime in settings.';
+  String get aiTutorPickerSubtitle => 'You can change this anytime in settings.';
 
   @override
   String get aiTutorPersonaNanaTagline => 'Warm + encouraging';
@@ -435,8 +444,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get aiTutorHomeTodaysPlan => 'Today\'s plan';
 
   @override
-  String get aiTutorHomePlanEmpty =>
-      'No plan for today — start a chat to begin.';
+  String get aiTutorHomePlanEmpty => 'No plan for today — start a chat to begin.';
 
   @override
   String get aiTutorHomeStartChat => 'Start chat';
@@ -448,22 +456,19 @@ class AppLocalizationsKo extends AppLocalizations {
   String get aiTutorHomePracticeScenarios => 'Practice scenarios';
 
   @override
-  String get aiTutorHomePracticeScenariosSubtitle =>
-      'Roleplay real-world conversations — restaurant, interview, hotel…';
+  String get aiTutorHomePracticeScenariosSubtitle => 'Roleplay real-world conversations — restaurant, interview, hotel…';
 
   @override
   String get aiTutorHomeReadStory => 'Read a story';
 
   @override
-  String get aiTutorHomeReadStorySubtitle =>
-      'AI writes a short story using your vocab — with quick comprehension checks.';
+  String get aiTutorHomeReadStorySubtitle => 'AI writes a short story using your vocab — with quick comprehension checks.';
 
   @override
   String get aiTutorHomeDescribePhoto => 'Describe a photo';
 
   @override
-  String get aiTutorHomeDescribePhotoSubtitle =>
-      'Snap a picture and describe it — AI grades your vocab + grammar.';
+  String get aiTutorHomeDescribePhotoSubtitle => 'Snap a picture and describe it — AI grades your vocab + grammar.';
 
   @override
   String get aiTutorChatTitle => 'Chat with tutor';
@@ -493,8 +498,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get aiTutorChatTypeReplyHint => 'Type your reply…';
 
   @override
-  String get aiTutorChatMicPermissionDenied =>
-      'Microphone permission needed for voice mode.';
+  String get aiTutorChatMicPermissionDenied => 'Microphone permission needed for voice mode.';
 
   @override
   String get aiTutorChatTranscribeFailed => 'Didn\'t catch that — try again.';
@@ -598,8 +602,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get aiTutorImagePickHeader => 'Pick a photo to describe';
 
   @override
-  String get aiTutorImagePickSubtitle =>
-      'The AI will give you a prompt in your target language, then grade your description.';
+  String get aiTutorImagePickSubtitle => 'The AI will give you a prompt in your target language, then grade your description.';
 
   @override
   String get aiTutorImagePickCamera => 'Camera';
@@ -737,8 +740,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get searchConversations => '대화 검색...';
 
   @override
-  String get visitorTrackingNotAvailable =>
-      '방문자 추적 기능이 아직 사용할 수 없습니다. 백엔드 업데이트가 필요합니다.';
+  String get visitorTrackingNotAvailable => '방문자 추적 기능이 아직 사용할 수 없습니다. 백엔드 업데이트가 필요합니다.';
 
   @override
   String get chatList => '채팅 목록';
@@ -897,12 +899,10 @@ class AppLocalizationsKo extends AppLocalizations {
   String get failedToSendMessage => '메시지 전송 실패';
 
   @override
-  String get dailyMessageLimitExceeded =>
-      '일일 메시지 한도 초과. 무제한 메시지를 위해 VIP로 업그레이드하세요.';
+  String get dailyMessageLimitExceeded => '일일 메시지 한도 초과. 무제한 메시지를 위해 VIP로 업그레이드하세요.';
 
   @override
-  String get cannotSendMessageUserMayBeBlocked =>
-      '메시지를 보낼 수 없습니다. 사용자가 차단되었을 수 있습니다.';
+  String get cannotSendMessageUserMayBeBlocked => '메시지를 보낼 수 없습니다. 사용자가 차단되었을 수 있습니다.';
 
   @override
   String get sessionExpired => '세션이 만료되었습니다. 다시 로그인하세요.';
@@ -917,8 +917,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get deleteForEveryone => '모두에게 삭제';
 
   @override
-  String get removesTheMessageForBothYouAndTheRecipient =>
-      '나와 상대방 모두에게서 메시지가 삭제됩니다';
+  String get removesTheMessageForBothYouAndTheRecipient => '나와 상대방 모두에게서 메시지가 삭제됩니다';
 
   @override
   String get deleteForMe => '나에게만 삭제';
@@ -1028,8 +1027,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get warningThisActionIsPermanent => '경고: 이 작업은 영구적입니다!';
 
   @override
-  String get deletingYourAccountWillPermanentlyRemove =>
-      '계정을 삭제하면 다음 항목이 영구적으로 삭제됩니다:\n\n• 프로필 및 모든 개인 정보\n• 모든 메시지와 대화\n• 모든 모멘트와 스토리\n• VIP 구독 (환불 불가)\n• 모든 팔로워와 팔로잉\n\n이 작업은 되돌릴 수 없습니다.';
+  String get deletingYourAccountWillPermanentlyRemove => '계정을 삭제하면 다음 항목이 영구적으로 삭제됩니다:\n\n• 프로필 및 모든 개인 정보\n• 모든 메시지와 대화\n• 모든 모멘트와 스토리\n• VIP 구독 (환불 불가)\n• 모든 팔로워와 팔로잉\n\n이 작업은 되돌릴 수 없습니다.';
 
   @override
   String get clearAllNotifications => '모든 알림을 지우시겠습니까?';
@@ -1101,8 +1099,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get emailNotifications => '이메일 알림';
 
   @override
-  String get receiveEmailNotificationsFromBananatalk =>
-      'Bananatalk에서 이메일 알림 받기';
+  String get receiveEmailNotificationsFromBananatalk => 'Bananatalk에서 이메일 알림 받기';
 
   @override
   String get weeklySummary => '주간 요약';
@@ -1430,8 +1427,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get youHaveAlreadyReportedThisMoment => '이미 이 모멘트를 신고하셨습니다';
 
   @override
-  String get tellUsMoreAboutWhyYouAreReportingThis =>
-      '이를 신고하는 이유에 대해 더 자세히 알려주세요';
+  String get tellUsMoreAboutWhyYouAreReportingThis => '이를 신고하는 이유에 대해 더 자세히 알려주세요';
 
   @override
   String get errorSharing => '공유 중 오류';
@@ -1473,8 +1469,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get manageSubscription => '구독 관리';
 
   @override
-  String get manageSubscriptionInSettings =>
-      '구독을 취소하려면 기기의 설정 > [사용자 이름] > 구독으로 이동하세요.';
+  String get manageSubscriptionInSettings => '구독을 취소하려면 기기의 설정 > [사용자 이름] > 구독으로 이동하세요.';
 
   @override
   String get contactSupportToCancel => '구독을 취소하려면 지원팀에 문의하세요.';
@@ -1880,8 +1875,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get pleaseRemoveImagesFirst => '비디오를 추가하려면 먼저 이미지를 제거하세요';
 
   @override
-  String get exchange3MessagesBeforeCall =>
-      '이 사용자에게 전화하려면 최소 3개의 메시지를 교환해야 합니다';
+  String get exchange3MessagesBeforeCall => '이 사용자에게 전화하려면 최소 3개의 메시지를 교환해야 합니다';
 
   @override
   String mediaWithUser(String name) {
@@ -2266,8 +2260,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get failedToUpdateSetting => 'Failed to update setting';
 
   @override
-  String get securityAlertsRecommended =>
-      'We recommend keeping Security Alerts enabled to stay informed about important account activity.';
+  String get securityAlertsRecommended => 'We recommend keeping Security Alerts enabled to stay informed about important account activity.';
 
   @override
   String chatWallpaperFor(String name) {
@@ -2340,12 +2333,10 @@ class AppLocalizationsKo extends AppLocalizations {
   String get errorSendingMedia => 'Error sending media';
 
   @override
-  String get cameraPermissionRequired =>
-      'Camera and microphone permissions are required to record videos.';
+  String get cameraPermissionRequired => 'Camera and microphone permissions are required to record videos.';
 
   @override
-  String get locationPermissionRequired =>
-      'Location permission is required to share your location.';
+  String get locationPermissionRequired => 'Location permission is required to share your location.';
 
   @override
   String get noInternetConnection => 'No internet connection';
@@ -2647,8 +2638,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get warningPermanent => '경고: 이 작업은 되돌릴 수 없습니다!';
 
   @override
-  String get deleteAccountWarning =>
-      '계정을 삭제하면 영구적으로 삭제됩니다:\n\n• 프로필 및 모든 개인 데이터\n• 모든 메시지 및 대화\n• 모든 모먼트 및 스토리\n• VIP 구독 (환불 불가)\n• 모든 연결 및 팔로워\n\n이 작업은 되돌릴 수 없습니다.';
+  String get deleteAccountWarning => '계정을 삭제하면 영구적으로 삭제됩니다:\n\n• 프로필 및 모든 개인 데이터\n• 모든 메시지 및 대화\n• 모든 모먼트 및 스토리\n• VIP 구독 (환불 불가)\n• 모든 연결 및 팔로워\n\n이 작업은 되돌릴 수 없습니다.';
 
   @override
   String get requiredForEmailOnly => '이메일 계정에만 필요합니다';
@@ -3302,8 +3292,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get noActiveRooms => '활성화된 방 없음';
 
   @override
-  String get noActiveRoomsDescription =>
-      '첫 번째로 음성 채팅방을 시작하고 다른 사람들과 말하기 연습하세요!';
+  String get noActiveRoomsDescription => '첫 번째로 음성 채팅방을 시작하고 다른 사람들과 말하기 연습하세요!';
 
   @override
   String get startRoom => '방 시작';
@@ -3434,8 +3423,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get noRankingsYet => 'No rankings yet';
 
   @override
-  String get startLearningToAppear =>
-      'Start learning to appear on the leaderboard!';
+  String get startLearningToAppear => 'Start learning to appear on the leaderboard!';
 
   @override
   String get noFriendsYet => 'No friends yet';
@@ -3477,8 +3465,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get selectLanguagePrompt => 'Select a language';
 
   @override
-  String get findPartnersByLanguage =>
-      'Find partners who speak or learn this language';
+  String get findPartnersByLanguage => 'Find partners who speak or learn this language';
 
   @override
   String noPartnersForLanguage(String language) {
@@ -3546,8 +3533,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get allCache => '모든 캐시';
 
   @override
-  String get clearAllCacheConfirmation =>
-      '모든 캐시된 이미지, 음성 메시지, 동영상 및 기타 파일이 삭제됩니다. 앱이 일시적으로 콘텐츠를 느리게 로드할 수 있습니다.';
+  String get clearAllCacheConfirmation => '모든 캐시된 이미지, 음성 메시지, 동영상 및 기타 파일이 삭제됩니다. 앱이 일시적으로 콘텐츠를 느리게 로드할 수 있습니다.';
 
   @override
   String clearCacheConfirmationFor(String category) {
@@ -3621,8 +3607,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get failedToLoadNotifications => '알림을 불러오지 못했습니다';
 
   @override
-  String get clearAllNotificationsConfirm =>
-      '모든 알림을 삭제하시겠습니까? 이 작업은 취소할 수 없습니다.';
+  String get clearAllNotificationsConfirm => '모든 알림을 삭제하시겠습니까? 이 작업은 취소할 수 없습니다.';
 
   @override
   String get tapToChange => '탭하여 변경';
@@ -4470,8 +4455,7 @@ class AppLocalizationsKo extends AppLocalizations {
   }
 
   @override
-  String get logoutConfirmMessage =>
-      'Are you sure you want to logout from Bananatalk?';
+  String get logoutConfirmMessage => 'Are you sure you want to logout from Bananatalk?';
 
   @override
   String get loggingOut => 'Logging out...';
@@ -4483,8 +4467,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get quietHoursEnable => 'Enable Quiet Hours';
 
   @override
-  String get quietHoursSubtitle =>
-      'Pause non-urgent notifications during a time window';
+  String get quietHoursSubtitle => 'Pause non-urgent notifications during a time window';
 
   @override
   String get quietHoursStart => 'Start time';
@@ -4496,8 +4479,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get quietHoursAllowUrgent => 'Allow urgent notifications';
 
   @override
-  String get quietHoursAllowUrgentSubtitle =>
-      'Calls and messages from VIP partners can still come through';
+  String get quietHoursAllowUrgentSubtitle => 'Calls and messages from VIP partners can still come through';
 
   @override
   String get silencedByQuietHours => 'Silenced by Quiet Hours';
@@ -4524,8 +4506,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get languageUpdatedSuccessfully => '언어가 성공적으로 업데이트되었습니다';
 
   @override
-  String get bioHintCard =>
-      '좋은 자기소개는 다른 사람들이 나와 연결하는 데 도움이 됩니다. 관심사, 사용 언어, 또는 찾고 있는 것을 공유해 보세요.';
+  String get bioHintCard => '좋은 자기소개는 다른 사람들이 나와 연결하는 데 도움이 됩니다. 관심사, 사용 언어, 또는 찾고 있는 것을 공유해 보세요.';
 
   @override
   String get bioCounterStartWriting => '작성을 시작하세요...';
@@ -4572,8 +4553,7 @@ class AppLocalizationsKo extends AppLocalizations {
   }
 
   @override
-  String get onlyCityCountryShown =>
-      '다른 사람들에게는 도시와 국가만 표시됩니다. 정확한 좌표는 비공개로 유지됩니다.';
+  String get onlyCityCountryShown => '다른 사람들에게는 도시와 국가만 표시됩니다. 정확한 좌표는 비공개로 유지됩니다.';
 
   @override
   String get updateLocationCta => '위치 업데이트';
@@ -4689,8 +4669,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get visitedDirect => '직접 방문';
 
   @override
-  String get visitorTrackingUnavailable =>
-      '방문자 추적 기능을 사용할 수 없습니다. 백엔드를 업데이트해 주세요.';
+  String get visitorTrackingUnavailable => '방문자 추적 기능을 사용할 수 없습니다. 백엔드를 업데이트해 주세요.';
 
   @override
   String get visitorTrackingNotAvailableYet => '방문자 추적은 아직 사용할 수 없습니다';
@@ -4773,12 +4752,10 @@ class AppLocalizationsKo extends AppLocalizations {
   String get updateAvailableTitle => '업데이트 가능';
 
   @override
-  String get updateRequiredBody =>
-      '이 버전의 Bananatalk는 더 이상 지원되지 않습니다. 계속하려면 업데이트하세요.';
+  String get updateRequiredBody => '이 버전의 Bananatalk는 더 이상 지원되지 않습니다. 계속하려면 업데이트하세요.';
 
   @override
-  String get updateAvailableBody =>
-      '개선 사항 및 버그 수정이 포함된 Bananatalk의 새 버전이 출시되었습니다.';
+  String get updateAvailableBody => '개선 사항 및 버그 수정이 포함된 Bananatalk의 새 버전이 출시되었습니다.';
 
   @override
   String get updateNow => '지금 업데이트';
@@ -4787,8 +4764,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get updateLater => '나중에';
 
   @override
-  String get updateOpenStoreFailed =>
-      '스토어를 열 수 없습니다. App Store 또는 Play Store에서 업데이트하세요.';
+  String get updateOpenStoreFailed => '스토어를 열 수 없습니다. App Store 또는 Play Store에서 업데이트하세요.';
 
   @override
   String get rememberMe => '자동 로그인';
@@ -5691,8 +5667,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get aiTutorPronounceUseYourOwn => 'Use my own ✏️';
 
   @override
-  String get aiTutorPronounceCustomHint =>
-      'Type a sentence you want to practice';
+  String get aiTutorPronounceCustomHint => 'Type a sentence you want to practice';
 
   @override
   String get aiTutorPronounceCustomCancel => 'Cancel';
@@ -5701,8 +5676,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get aiTutorPronounceCustomUse => 'Use';
 
   @override
-  String get aiTutorPronounceQuitConfirm =>
-      'Quit drill? Your progress won\'t be saved.';
+  String get aiTutorPronounceQuitConfirm => 'Quit drill? Your progress won\'t be saved.';
 
   @override
   String get aiTutorPronounceQuitYes => 'Yes';
@@ -5748,22 +5722,19 @@ class AppLocalizationsKo extends AppLocalizations {
   String get aiTutorPronounceStartHeadline => 'How do you want to practice?';
 
   @override
-  String get aiTutorPronounceStartSubhead =>
-      'Pick one to begin a 5-sentence drill.';
+  String get aiTutorPronounceStartSubhead => 'Pick one to begin a 5-sentence drill.';
 
   @override
   String get aiTutorPronounceStartAITitle => 'AI generates sentences';
 
   @override
-  String get aiTutorPronounceStartAISubtitle =>
-      'Level-tuned, biased toward your tricky words';
+  String get aiTutorPronounceStartAISubtitle => 'Level-tuned, biased toward your tricky words';
 
   @override
   String get aiTutorPronounceStartCustomTitle => 'Use my own sentence';
 
   @override
-  String get aiTutorPronounceStartCustomSubtitle =>
-      'Type or paste a phrase you want to nail';
+  String get aiTutorPronounceStartCustomSubtitle => 'Type or paste a phrase you want to nail';
 
   @override
   String aiTutorQuotaRemaining(int count) {
@@ -5775,17 +5746,4 @@ class AppLocalizationsKo extends AppLocalizations {
     );
     return '$_temp0';
   }
-
-  @override
-  String get aiStudyPromoTitle => 'Practice real conversations';
-
-  @override
-  String get aiStudyPromoBody =>
-      'Roleplay 39 real-world scenarios — from ordering coffee to job interviews — with your AI tutor. Tuned to your level, free for everyone.';
-
-  @override
-  String get aiStudyPromoCTA => 'Try practice scenarios';
-
-  @override
-  String get aiStudyPromoDismiss => 'Maybe later';
 }
