@@ -7,11 +7,11 @@ import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/services/profile_visitor_service.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 
-/// Horizontal scroller card shown on the Community main screen.
+/// Compact "people visited your profile" card shown on the Community screen.
 ///
-/// Loads up to 5 recent profile visitors for the current user and renders
-/// them as tappable circle-avatars. Tapping navigates to that user's profile
-/// via the registered `/profile/:userId` go_router route.
+/// Renders up to 5 recent visitors as an overlapping avatar stack in a single
+/// row alongside the count text. Each avatar is individually tappable and
+/// navigates to that user's profile via the `/profile/:userId` go_router route.
 ///
 /// Returns [SizedBox.shrink] when there are no visitors so the card is
 /// invisible until real data arrives.
@@ -26,6 +26,10 @@ class _VisitorRecallCardState extends ConsumerState<VisitorRecallCard> {
   List<Map<String, dynamic>> _visitors = [];
   int _totalCount = 0;
   bool _isLoaded = false;
+
+  // Avatar sizing for the overlapping stack.
+  static const double _avatarSize = 38;
+  static const double _avatarOverlap = 14; // how much each avatar overlaps
 
   @override
   void initState() {
@@ -70,14 +74,12 @@ class _VisitorRecallCardState extends ConsumerState<VisitorRecallCard> {
   // ---------------------------------------------------------------------------
 
   String? _avatarUrl(Map<String, dynamic> v) {
-    // Primary path: v['user']['imageUrls'][0]
     final user = v['user'];
     if (user is Map) {
       final imageUrls = user['imageUrls'];
       if (imageUrls is List && imageUrls.isNotEmpty) {
         return imageUrls[0]?.toString();
       }
-      // Fallback paths used by some older API responses
       final images = user['images'];
       if (images is List && images.isNotEmpty) {
         return images[0]?.toString();
@@ -85,20 +87,17 @@ class _VisitorRecallCardState extends ConsumerState<VisitorRecallCard> {
       final avatar = user['avatar'];
       if (avatar is String && avatar.isNotEmpty) return avatar;
     }
-    // Top-level fallback (e.g. denormalised responses)
     final topAvatar = v['avatar'];
     if (topAvatar is String && topAvatar.isNotEmpty) return topAvatar;
     return null;
   }
 
   String? _userId(Map<String, dynamic> v) {
-    // Primary: v['user']['_id']
     final user = v['user'];
     if (user is Map) {
       final id = user['_id'] ?? user['id'];
       if (id != null) return id.toString();
     }
-    // Fallback for alternative shapes
     final visitor = v['visitor'];
     if (visitor is Map) {
       final id = visitor['_id'] ?? visitor['id'];
@@ -109,13 +108,11 @@ class _VisitorRecallCardState extends ConsumerState<VisitorRecallCard> {
   }
 
   String _userName(Map<String, dynamic> v) {
-    // Primary: v['user']['name']
     final user = v['user'];
     if (user is Map) {
       final name = user['name'];
       if (name is String && name.isNotEmpty) return name;
     }
-    // Fallback
     final visitor = v['visitor'];
     if (visitor is Map) {
       final name = visitor['name'];
@@ -139,79 +136,97 @@ class _VisitorRecallCardState extends ConsumerState<VisitorRecallCard> {
     final l10n = AppLocalizations.of(context)!;
 
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      padding: const EdgeInsets.all(12),
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
       decoration: BoxDecoration(
         color: context.cardBackground,
         borderRadius: AppRadius.borderLG,
         border: Border.all(color: context.dividerColor),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Row(
         children: [
-          // Header row
-          Row(
-            children: [
-              const Icon(Icons.visibility_outlined, size: 18, color: AppColors.primary),
-              const SizedBox(width: 6),
-              Expanded(
-                child: Text(
-                  l10n.visitedYourProfile(_totalCount),
-                  style: context.titleSmall,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
+          _buildAvatarStack(context),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Row(
+              children: [
+                const Icon(
+                  Icons.visibility_outlined,
+                  size: 16,
+                  color: AppColors.primary,
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 10),
-          // Horizontal avatar scroller
-          SizedBox(
-            height: 64,
-            child: ListView.separated(
-              scrollDirection: Axis.horizontal,
-              itemCount: _visitors.length,
-              separatorBuilder: (_, __) => const SizedBox(width: 10),
-              itemBuilder: (_, i) {
-                final v = _visitors[i];
-                final id = _userId(v);
-                final avatar = _avatarUrl(v);
-                final name = _userName(v);
-                return GestureDetector(
-                  onTap: () {
-                    if (id != null && id.isNotEmpty) {
-                      context.push('/profile/$id');
-                    }
-                  },
-                  child: Column(
-                    children: [
-                      CircleAvatar(
-                        radius: 26,
-                        backgroundColor:
-                            AppColors.primary.withValues(alpha: 0.15),
-                        backgroundImage:
-                            (avatar != null && avatar.isNotEmpty)
-                                ? NetworkImage(avatar)
-                                : null,
-                        child: (avatar == null || avatar.isEmpty)
-                            ? Text(
-                                name.isNotEmpty
-                                    ? name[0].toUpperCase()
-                                    : '?',
-                                style: const TextStyle(
-                                  color: AppColors.primary,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              )
-                            : null,
-                      ),
-                    ],
+                const SizedBox(width: 6),
+                Expanded(
+                  child: Text(
+                    l10n.visitedYourProfile(_totalCount),
+                    style: context.titleSmall,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                   ),
-                );
-              },
+                ),
+              ],
             ),
           ),
+          const Icon(Icons.chevron_right, size: 20, color: AppColors.primary),
         ],
+      ),
+    );
+  }
+
+  Widget _buildAvatarStack(BuildContext context) {
+    final shown = _visitors.take(5).toList();
+    final step = _avatarSize - _avatarOverlap;
+    final stackWidth = _avatarSize + (shown.length - 1) * step;
+
+    return SizedBox(
+      width: stackWidth,
+      height: _avatarSize,
+      child: Stack(
+        children: [
+          for (int i = 0; i < shown.length; i++)
+            Positioned(left: i * step, child: _buildAvatar(context, shown[i])),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildAvatar(BuildContext context, Map<String, dynamic> v) {
+    final id = _userId(v);
+    final avatar = _avatarUrl(v);
+    final name = _userName(v);
+
+    return GestureDetector(
+      onTap: () {
+        if (id != null && id.isNotEmpty) {
+          context.push('/profile/$id');
+        }
+      },
+      child: Container(
+        width: _avatarSize,
+        height: _avatarSize,
+        padding: const EdgeInsets.all(
+          2,
+        ), // ring that separates overlapping avatars
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: context.cardBackground,
+        ),
+        child: CircleAvatar(
+          backgroundColor: AppColors.primary.withValues(alpha: 0.15),
+          backgroundImage: (avatar != null && avatar.isNotEmpty)
+              ? NetworkImage(avatar)
+              : null,
+          child: (avatar == null || avatar.isEmpty)
+              ? Text(
+                  name.isNotEmpty ? name[0].toUpperCase() : '?',
+                  style: const TextStyle(
+                    color: AppColors.primary,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 14,
+                  ),
+                )
+              : null,
+        ),
       ),
     );
   }

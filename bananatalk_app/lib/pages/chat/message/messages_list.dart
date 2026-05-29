@@ -191,12 +191,32 @@ class ChatMessagesList extends StatelessWidget {
 
               // Check if this is a correction message (shown as standalone bubble)
               if (message.type == 'correction') {
+                final correction = message.corrections.isNotEmpty
+                    ? message.corrections.first
+                    : null;
+                // Find the original message this correction belongs to.
+                // The correction bubble id is 'correction_<correctionId>' so
+                // the original message is the one carrying that correctionId.
+                final correctionId = correction?.id ?? '';
+                final originalMessage = correctionId.isNotEmpty
+                    ? messages.firstWhere(
+                        (m) =>
+                            m.type != 'correction' &&
+                            m.corrections.any((c) => c.id == correctionId),
+                        orElse: () => message, // fallback: shouldn't happen
+                      )
+                    : message;
+                // isCorrector: true when current user sent the correction
+                final isCorrector =
+                    correction?.corrector.id == currentUserId;
                 return CorrectionMessageBubble(
                   key: ValueKey(message.id),
                   message: message,
                   isMe: isMe,
                   otherUserName: otherUserName,
                   otherUserPicture: otherUserPicture,
+                  originalMessageId: originalMessage.id,
+                  isCorrector: isCorrector,
                 );
               }
 

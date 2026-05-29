@@ -228,7 +228,7 @@ class CorrectionService {
   }
 
   static int _findNext(String word, List<String> words, int start) {
-    for (int i = start; i < words.length && i < start + 5; i++) {
+    for (int i = start; i < words.length; i++) {
       if (words[i] == word) return i;
     }
     return -1;

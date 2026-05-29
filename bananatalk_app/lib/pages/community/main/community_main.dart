@@ -33,8 +33,12 @@ class CommunityMain extends ConsumerStatefulWidget {
 class _CommunityMainState extends ConsumerState<CommunityMain>
     with SingleTickerProviderStateMixin {
   static const String _filtersKey = 'community_filters';
+  static const int _tabCount = 7;
 
-  late TabController _tabController;
+  /// Tab index that should display the profile-visitor recall card.
+  static const int _partnersTabIndex = 0;
+
+  late final TabController _tabController;
   final TextEditingController _searchController = TextEditingController();
   bool _isSearching = false;
   String _searchQuery = '';
@@ -44,8 +48,15 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 7, vsync: this);
+    _tabController = TabController(length: _tabCount, vsync: this)
+      ..addListener(_onTabChanged);
     _loadSavedFilters();
+  }
+
+  /// Rebuild on tab switch so the visitor card only renders on the
+  /// Partners tab (and never wastes vertical space on the other tabs).
+  void _onTabChanged() {
+    if (mounted) setState(() {});
   }
 
   /// Load saved filters from SharedPreferences.
@@ -56,14 +67,12 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
     try {
       final prefs = await SharedPreferences.getInstance();
       final savedFilters = prefs.getString(_filtersKey);
-      if (savedFilters != null) {
-        final decoded = json.decode(savedFilters) as Map<String, dynamic>;
-        setState(() {
-          _filters = FilterState.fromJson(decoded);
-        });
-      }
-    } catch (e) {
-      // ignore: filter load failure is non-fatal
+      if (savedFilters == null) return;
+      final decoded = json.decode(savedFilters) as Map<String, dynamic>;
+      if (!mounted) return;
+      setState(() => _filters = FilterState.fromJson(decoded));
+    } catch (_) {
+      // Non-fatal: fall back to default filters.
     }
   }
 
@@ -72,17 +81,26 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
     try {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString(_filtersKey, json.encode(filters.toJson()));
-    } catch (e) {
-      // ignore: filter save failure is non-fatal
+    } catch (_) {
+      // Non-fatal.
     }
   }
 
   @override
   void dispose() {
-    _tabController.dispose();
+    _tabController
+      ..removeListener(_onTabChanged)
+      ..dispose();
     _searchController.dispose();
     super.dispose();
   }
+
+  void _applyFilters(FilterState updated) {
+    setState(() => _filters = updated);
+    _saveFilters(updated);
+  }
+
+  void _clearAllFilters() => _applyFilters(FilterState.defaults);
 
   void _openFilters() {
     showModalBottomSheet(
@@ -90,83 +108,75 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       builder: (context) => CommunityFilter(
-        onApplyFilters: (filtersMap) {
-          final updated = FilterState.fromJson(filtersMap);
-          setState(() {
-            _filters = updated;
-          });
-          _saveFilters(updated);
-        },
+        onApplyFilters: (filtersMap) =>
+            _applyFilters(FilterState.fromJson(filtersMap)),
         initialFilters: _filters.toJson(),
       ),
     );
   }
 
   void _removeFilter(String key) {
-    FilterState updated;
+    final FilterState updated;
     switch (key) {
       case 'age':
         updated = _filters.copyWith(minAge: 18, maxAge: 100);
-        break;
       case 'gender':
         updated = FilterState.fromJson({..._filters.toJson(), 'gender': null});
-        break;
       case 'nativeLanguage':
         updated = FilterState.fromJson({
           ..._filters.toJson(),
           'nativeLanguage': null,
         });
-        break;
       case 'learningLanguage':
         updated = FilterState.fromJson({
           ..._filters.toJson(),
           'learningLanguage': null,
         });
-        break;
       case 'country':
         updated = FilterState.fromJson({..._filters.toJson(), 'country': null});
-        break;
       case 'languageLevel':
         updated = FilterState.fromJson({
           ..._filters.toJson(),
           'languageLevel': null,
         });
-        break;
       case 'onlineOnly':
         updated = _filters.copyWith(onlineOnly: false);
-        break;
       case 'newUsersOnly':
         updated = _filters.copyWith(newUsersOnly: false);
-        break;
       case 'prioritizeNearby':
         updated = _filters.copyWith(prioritizeNearby: false);
-        break;
       default:
-        updated = _filters;
+        return;
     }
+    _applyFilters(updated);
+  }
+
+  void _toggleSearch() {
     setState(() {
-      _filters = updated;
+      _isSearching = !_isSearching;
+      if (!_isSearching) {
+        _searchController.clear();
+        _searchQuery = '';
+      }
     });
-    _saveFilters(_filters);
   }
 
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
 
+    // Compute filter-derived values once per build instead of allocating a
+    // fresh Map on every widget that needs them.
+    final filtersJson = _filters.toJson();
+    final filtersKey = _filters.hashCode;
+    final hasActiveFilters = CommunityFilterChips.hasActiveFilters(filtersJson);
+    final showVisitorCard = _tabController.index == _partnersTabIndex;
+
     return Scaffold(
       backgroundColor: colorScheme.surface,
       appBar: CommunityAppBar(
         isSearching: _isSearching,
-        onSearchToggle: () {
-          setState(() {
-            _isSearching = !_isSearching;
-            if (!_isSearching) {
-              _searchController.clear();
-              _searchQuery = '';
-            }
-          });
-        },
+        onSearchToggle: _toggleSearch,
         onFilterTap: _openFilters,
       ),
       body: Column(
@@ -185,21 +195,14 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
               child: _isSearching ? _buildSearchBar(colorScheme) : null,
             ),
           ),
-          // Profile-visitor recall card (hidden when no visitors)
-          const VisitorRecallCard(),
           // Tab bar
           CommunityTabBar(tabController: _tabController),
           // Active filter chips
-          if (CommunityFilterChips.hasActiveFilters(_filters.toJson()))
+          if (hasActiveFilters)
             CommunityFilterChips(
-              filters: _filters.toJson(),
+              filters: filtersJson,
               onRemove: _removeFilter,
-              onClearAll: () {
-                setState(() {
-                  _filters = FilterState.defaults;
-                });
-                _saveFilters(_filters);
-              },
+              onClearAll: _clearAllFilters,
             ),
           // Tab content
           Expanded(
@@ -207,34 +210,29 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
               controller: _tabController,
               children: [
                 PartnerDiscoveryTab(
-                  key: ValueKey('partners_${_filters.hashCode}'),
-                  filters: _filters.toJson(),
+                  key: ValueKey('partners_$filtersKey'),
+                  filters: filtersJson,
                   searchQuery: _searchQuery,
-                  onClearFilters: () {
-                    setState(() {
-                      _filters = FilterState.defaults;
-                    });
-                    _saveFilters(_filters);
-                  },
+                  onClearFilters: _clearAllFilters,
                 ),
                 GendersTab(
-                  key: ValueKey('genders_${_filters.hashCode}'),
-                  filters: _filters.toJson(),
+                  key: ValueKey('genders_$filtersKey'),
+                  filters: filtersJson,
                   searchQuery: _searchQuery,
                 ),
                 NearbyTab(
-                  key: ValueKey('nearby_${_filters.hashCode}'),
-                  filters: _filters.toJson(),
+                  key: ValueKey('nearby_$filtersKey'),
+                  filters: filtersJson,
                   searchQuery: _searchQuery,
                 ),
                 CityTab(
-                  key: ValueKey('city_${_filters.hashCode}'),
-                  filters: _filters.toJson(),
+                  key: ValueKey('city_$filtersKey'),
+                  filters: filtersJson,
                   searchQuery: _searchQuery,
                 ),
                 TopicsTab(
-                  key: ValueKey('topics_${_filters.hashCode}'),
-                  filters: _filters.toJson(),
+                  key: ValueKey('topics_$filtersKey'),
+                  filters: filtersJson,
                   searchQuery: _searchQuery,
                 ),
                 const VoiceRoomsTab(),
@@ -248,9 +246,10 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
   }
 
   Widget _buildSearchBar(ColorScheme colorScheme) {
-    final isUsernameSearch = _searchQuery.trim().startsWith('@');
-    final username = isUsernameSearch && _searchQuery.trim().length > 1
-        ? _searchQuery.trim().substring(1)
+    final trimmed = _searchQuery.trim();
+    final isUsernameSearch = trimmed.startsWith('@');
+    final username = isUsernameSearch && trimmed.length > 1
+        ? trimmed.substring(1)
         : '';
 
     return Container(
@@ -272,7 +271,6 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
           suffixIcon: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              // Find user button when searching with @
               if (isUsernameSearch && username.isNotEmpty)
                 TextButton(
                   onPressed: () => _findUserByUsername(username),
@@ -287,7 +285,6 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
                     style: TextStyle(fontWeight: FontWeight.w600),
                   ),
                 ),
-              // Clear button
               if (_searchQuery.isNotEmpty)
                 IconButton(
                   icon: Icon(
@@ -297,9 +294,7 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
                   ),
                   onPressed: () {
                     _searchController.clear();
-                    setState(() {
-                      _searchQuery = '';
-                    });
+                    setState(() => _searchQuery = '');
                   },
                 ),
             ],
@@ -312,27 +307,22 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
         ),
         style: context.bodyMedium,
         onChanged: (value) {
-          // Auto-strip leading @ when pasting a username
+          // Auto-strip leading @ when pasting a username.
           if (value.startsWith('@') &&
               value.length > 1 &&
               !value.contains(' ')) {
             final stripped = value.substring(1);
-            _searchController.text = stripped;
-            _searchController.selection = TextSelection.fromPosition(
-              TextPosition(offset: stripped.length),
+            _searchController.value = TextEditingValue(
+              text: stripped,
+              selection: TextSelection.collapsed(offset: stripped.length),
             );
-            setState(() {
-              _searchQuery = stripped;
-            });
-            // Auto-search the username
+            setState(() => _searchQuery = stripped);
             _findUserByUsername(stripped);
             return;
           }
-          setState(() {
-            _searchQuery = value;
-          });
+          setState(() => _searchQuery = value);
         },
-        onSubmitted: (value) {
+        onSubmitted: (_) {
           if (isUsernameSearch && username.isNotEmpty) {
             _findUserByUsername(username);
           }
@@ -341,15 +331,14 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
     );
   }
 
-  /// Find user by username and navigate to their profile
+  /// Find user by username and navigate to their profile.
   Future<void> _findUserByUsername(String username) async {
     final colorScheme = Theme.of(context).colorScheme;
     final messenger = ScaffoldMessenger.of(context);
-
-    // Use rootNavigator for dialog so it doesn't conflict with page navigation
+    final l10n = AppLocalizations.of(context)!;
+    // Use rootNavigator for the dialog so it doesn't conflict with page nav.
     final rootNavigator = Navigator.of(context, rootNavigator: true);
 
-    // Show loading dialog on root navigator
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -377,30 +366,23 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
     );
 
     try {
-      final userService = UserService();
-      final user = await userService.getUserByUsername(username);
-
+      final user = await UserService().getUserByUsername(username);
       if (!mounted) return;
-
-      // Close loading dialog on root navigator
-      rootNavigator.pop();
+      rootNavigator.pop(); // close loading dialog
 
       if (user != null) {
-        // Clear search
         _searchController.clear();
         setState(() {
           _searchQuery = '';
           _isSearching = false;
         });
-
-        // Navigate to user profile
         Navigator.of(
           context,
         ).push(AppPageRoute(builder: (_) => SingleCommunity(community: user)));
       } else {
         messenger.showSnackBar(
           SnackBar(
-            content: Text(AppLocalizations.of(context)!.communityUserNotFound(username)),
+            content: Text(l10n.communityUserNotFound(username)),
             backgroundColor: colorScheme.error,
             behavior: SnackBarBehavior.floating,
           ),
@@ -408,15 +390,12 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
       }
     } catch (e) {
       if (!mounted) return;
-
-      // Close loading dialog safely on root navigator
       try {
         rootNavigator.pop();
       } catch (_) {}
-
       messenger.showSnackBar(
         SnackBar(
-          content: Text(AppLocalizations.of(context)!.commonError(e.toString())),
+          content: Text(l10n.commonError(e.toString())),
           backgroundColor: colorScheme.error,
           behavior: SnackBarBehavior.floating,
         ),

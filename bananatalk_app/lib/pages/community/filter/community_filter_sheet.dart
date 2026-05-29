@@ -61,6 +61,16 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
 
   Timer? _matchCountDebounce;
 
+  /// The filter set the live match-count is computed for.
+  ///
+  /// IMPORTANT: this must be a STABLE instance between debounces. The match-count
+  /// provider is a `.family` keyed by this map; if we rebuilt the map on every
+  /// `build()` (Maps use identity equality), every rebuild would spin up a new
+  /// provider instance and fire a fresh network request. We only assign a new
+  /// instance when filters actually settle (after the debounce), so unrelated
+  /// rebuilds reuse the same family instance and don't refetch.
+  Map<String, dynamic> _draftFilters = const {};
+
   @override
   void initState() {
     super.initState();
@@ -82,10 +92,13 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
     _onlineOnly = widget.initialFilters['onlineOnly'] ?? false;
     _newUsersOnly = widget.initialFilters['newUsersOnly'] ?? false;
     _prioritizeNearby = widget.initialFilters['prioritizeNearby'] ?? false;
-    _topicsAtLeast = (widget.initialFilters['topicsAtLeast'] as num?)?.toInt() ?? 0;
+    _topicsAtLeast =
+        (widget.initialFilters['topicsAtLeast'] as num?)?.toInt() ?? 0;
     _selectedTopics =
         (widget.initialFilters['topics'] as List?)?.cast<String>() ?? [];
-    // _selectedLanguage will be set after languages are loaded in fetchLanguages()
+    // Seed the count with the initial state. Language selections are resolved
+    // asynchronously in fetchLanguages(), which refreshes the draft afterwards.
+    _draftFilters = _buildDraftFiltersMap();
   }
 
   Future<void> fetchLanguages() async {
@@ -93,10 +106,11 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
       final response = await http.get(
         Uri.parse('${Endpoints.baseURL}${Endpoints.languagesURL}'),
       );
+      if (!mounted) return;
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
-        List<dynamic> languagesList = data['data'] ?? [];
+        final List<dynamic> languagesList = data['data'] ?? [];
 
         setState(() {
           _languages = languagesList
@@ -105,60 +119,40 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
           _isLoadingLanguages = false;
         });
 
-        // Set selected native language from initial filters after languages are loaded
-        if (widget.initialFilters['nativeLanguage'] != null &&
-            _languages.isNotEmpty) {
-          final initialLangName = widget.initialFilters['nativeLanguage'];
-          try {
-            final matchingLanguage = _languages.firstWhere(
-              (lang) => lang.name == initialLangName,
-            );
-            if (mounted) {
-              setState(() {
-                _selectedLanguage = matchingLanguage;
-              });
-            }
-          } catch (e) {
-            // Language not found, leave as null (Any Language)
-            if (kDebugMode) {}
-          }
+        // Resolve native language from initial filters.
+        final initialNative = widget.initialFilters['nativeLanguage'];
+        if (initialNative != null && _languages.isNotEmpty) {
+          final match = _languages
+              .where((lang) => lang.name == initialNative)
+              .firstOrNull;
+          if (match != null) _selectedLanguage = match;
         }
 
-        // Set selected learning language from initial filters
-        if (widget.initialFilters['learningLanguage'] != null &&
-            _languages.isNotEmpty) {
-          final initialLearningLangName =
-              widget.initialFilters['learningLanguage'];
-          try {
-            final matchingLanguage = _languages.firstWhere(
-              (lang) => lang.name == initialLearningLangName,
-            );
-            if (mounted) {
-              setState(() {
-                _selectedLearningLanguage = matchingLanguage;
-              });
-            }
-          } catch (e) {
-            // Language not found
-          }
+        // Resolve learning language from initial filters.
+        final initialLearning = widget.initialFilters['learningLanguage'];
+        if (initialLearning != null && _languages.isNotEmpty) {
+          final match = _languages
+              .where((lang) => lang.name == initialLearning)
+              .firstOrNull;
+          if (match != null) _selectedLearningLanguage = match;
         }
 
-        // Set selected language level from initial filters
-        if (widget.initialFilters['languageLevel'] != null && mounted) {
-          setState(() {
-            _selectedLanguageLevel =
-                widget.initialFilters['languageLevel'] as String?;
-          });
-        }
+        // Resolve language level from initial filters.
+        _selectedLanguageLevel ??=
+            widget.initialFilters['languageLevel'] as String?;
+
+        // Refresh the count now that language selections are known.
+        _refreshDraftFilters();
       } else {
         throw Exception('Failed to load languages');
       }
     } catch (e) {
+      if (!mounted) return;
       setState(() {
         _isLoadingLanguages = false;
         _errorMessage = 'Failed to load languages. Please try again.';
       });
-      if (kDebugMode) {}
+      if (kDebugMode) debugPrint('fetchLanguages failed: $e');
     }
   }
 
@@ -175,15 +169,23 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
     );
   }
 
-  /// Called whenever any filter value changes. Triggers a debounced provider
-  /// invalidation so the match-count refreshes 300 ms after the last change.
+  /// Called whenever any filter value changes. Reflects the change in the UI
+  /// immediately, then refreshes the live match-count 300 ms after the last
+  /// change (debounced) by swapping in a new [_draftFilters] instance.
   void _onAnyFilterChanged() {
     setState(() {});
     _matchCountDebounce?.cancel();
-    _matchCountDebounce = Timer(const Duration(milliseconds: 300), () {
-      if (!mounted) return;
-      ref.invalidate(filterMatchCountProvider(_buildDraftFiltersMap()));
-    });
+    _matchCountDebounce = Timer(
+      const Duration(milliseconds: 300),
+      _refreshDraftFilters,
+    );
+  }
+
+  /// Assigns a fresh draft-filters map so the match-count family re-evaluates
+  /// exactly once. Safe to call from async callbacks (guards on mounted).
+  void _refreshDraftFilters() {
+    if (!mounted) return;
+    setState(() => _draftFilters = _buildDraftFiltersMap());
   }
 
   /// Serialises the current sheet state into a plain Map for the count endpoint.
@@ -225,13 +227,10 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
   }
 
   void _applyFilters() {
-    // Convert gender to lowercase to match backend format
-    String? genderValue = _selectedGender?.toLowerCase();
-
     final filters = {
       'minAge': _minAge.toInt(),
       'maxAge': _maxAge.toInt(),
-      'gender': genderValue,
+      'gender': _selectedGender?.toLowerCase(),
       'nativeLanguage': _selectedLanguage?.name,
       'learningLanguage': _selectedLearningLanguage?.name,
       'languageLevel': _selectedLanguageLevel,
@@ -255,9 +254,7 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
       builder: (context) => CountryPickerSheet(
         selectedCountry: _selectedCountry,
         onSelect: (country) {
-          setState(() {
-            _selectedCountry = country;
-          });
+          setState(() => _selectedCountry = country);
           Navigator.pop(context);
           _onAnyFilterChanged();
         },
@@ -266,9 +263,7 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
   }
 
   Future<void> _autoDetectLocation() async {
-    setState(() {
-      _isDetectingLocation = true;
-    });
+    setState(() => _isDetectingLocation = true);
 
     try {
       final permission = await Permission.location.request();
@@ -280,9 +275,7 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
             type: CommunitySnackBarType.info,
           );
         }
-        setState(() {
-          _isDetectingLocation = false;
-        });
+        if (mounted) setState(() => _isDetectingLocation = false);
         return;
       }
 
@@ -295,6 +288,7 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
         position.latitude,
         position.longitude,
       );
+      if (!mounted) return;
 
       if (placemarks.isNotEmpty) {
         final country = placemarks[0].country;
@@ -315,27 +309,19 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
           _onAnyFilterChanged();
 
           if (mounted) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Row(
-                  children: [
-                    const Icon(Icons.check_circle, color: Colors.white),
-                    const SizedBox(width: 8),
-                    Text(AppLocalizations.of(context)!.communityLocationDetected(_selectedCountry ?? '')),
-                  ],
-                ),
-                backgroundColor: const Color(0xFF00BFA5),
-              ),
+            showCommunitySnackBar(
+              context,
+              message: AppLocalizations.of(
+                context,
+              )!.communityLocationDetected(_selectedCountry ?? ''),
+              type: CommunitySnackBarType.success,
             );
           }
           return;
         }
       }
 
-      setState(() {
-        _isDetectingLocation = false;
-      });
-
+      setState(() => _isDetectingLocation = false);
       if (mounted) {
         showCommunitySnackBar(
           context,
@@ -344,17 +330,13 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
         );
       }
     } catch (e) {
-      setState(() {
-        _isDetectingLocation = false;
-      });
-
-      if (mounted) {
-        showCommunitySnackBar(
-          context,
-          message: 'Error: ${e.toString()}',
-          type: CommunitySnackBarType.error,
-        );
-      }
+      if (!mounted) return;
+      setState(() => _isDetectingLocation = false);
+      showCommunitySnackBar(
+        context,
+        message: 'Error: ${e.toString()}',
+        type: CommunitySnackBarType.error,
+      );
     }
   }
 
@@ -379,9 +361,7 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
     );
 
     if (result != null) {
-      setState(() {
-        _selectedLanguage = result;
-      });
+      setState(() => _selectedLanguage = result);
       _onAnyFilterChanged();
     }
   }
@@ -407,9 +387,7 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
     );
 
     if (result != null) {
-      setState(() {
-        _selectedLearningLanguage = result;
-      });
+      setState(() => _selectedLearningLanguage = result);
       _onAnyFilterChanged();
     }
   }
@@ -417,8 +395,8 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final draftFilters = _buildDraftFiltersMap();
-    final countAsync = ref.watch(filterMatchCountProvider(draftFilters));
+    // Watch the STABLE draft instance — only changes on debounce / settle.
+    final countAsync = ref.watch(filterMatchCountProvider(_draftFilters));
 
     return SafeArea(
       child: Container(
@@ -561,43 +539,17 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
                     ),
                     childrenPadding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
                     children: [
-                      _isLoadingLanguages
-                          ? const FilterLanguageLoadingCard()
-                          : _errorMessage.isNotEmpty
-                          ? FilterLanguageErrorCard(
-                              errorMessage: _errorMessage,
-                              onRetry: () {
-                                setState(() {
-                                  _isLoadingLanguages = true;
-                                  _errorMessage = '';
-                                });
-                                fetchLanguages();
-                              },
-                            )
-                          : FilterLanguageSelector(
-                              selectedLanguage: _selectedLanguage,
-                              onTap: _openLanguagePicker,
-                              placeholderIcon: Icons.public,
-                            ),
+                      _buildLanguageField(
+                        selected: _selectedLanguage,
+                        onTap: _openLanguagePicker,
+                        icon: Icons.public,
+                      ),
                       const SizedBox(height: 12),
-                      _isLoadingLanguages
-                          ? const FilterLanguageLoadingCard()
-                          : _errorMessage.isNotEmpty
-                          ? FilterLanguageErrorCard(
-                              errorMessage: _errorMessage,
-                              onRetry: () {
-                                setState(() {
-                                  _isLoadingLanguages = true;
-                                  _errorMessage = '';
-                                });
-                                fetchLanguages();
-                              },
-                            )
-                          : FilterLanguageSelector(
-                              selectedLanguage: _selectedLearningLanguage,
-                              onTap: _openLearningLanguagePicker,
-                              placeholderIcon: Icons.school,
-                            ),
+                      _buildLanguageField(
+                        selected: _selectedLearningLanguage,
+                        onTap: _openLearningLanguagePicker,
+                        icon: Icons.school,
+                      ),
                     ],
                   ),
                   ExpansionTile(
@@ -798,6 +750,33 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
           ],
         ),
       ),
+    );
+  }
+
+  /// Native/learning language field — collapses the loading / error / selector
+  /// ternary that was duplicated for both languages.
+  Widget _buildLanguageField({
+    required Language? selected,
+    required VoidCallback onTap,
+    required IconData icon,
+  }) {
+    if (_isLoadingLanguages) return const FilterLanguageLoadingCard();
+    if (_errorMessage.isNotEmpty) {
+      return FilterLanguageErrorCard(
+        errorMessage: _errorMessage,
+        onRetry: () {
+          setState(() {
+            _isLoadingLanguages = true;
+            _errorMessage = '';
+          });
+          fetchLanguages();
+        },
+      );
+    }
+    return FilterLanguageSelector(
+      selectedLanguage: selected,
+      onTap: onTap,
+      placeholderIcon: icon,
     );
   }
 

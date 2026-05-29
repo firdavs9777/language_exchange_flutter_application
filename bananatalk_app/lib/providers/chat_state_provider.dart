@@ -277,10 +277,18 @@ class ChatStateNotifier extends StateNotifier<ChatState> with WidgetsBindingObse
     _stateManager!.onCorrectionReceived = (messageId, correctionData) {
       try {
         final correction = MessageCorrection.fromJson(correctionData);
+        final bubbleId = 'correction_${correction.id}';
+
+        // Guard: skip if a correction bubble for this correction already exists
+        // (prevents duplicates on socket reconnect).
+        if (state.messages.any((m) => m.id == bubbleId)) return;
 
         // Also store correction on original message (for data consistency)
         final updatedMessages = state.messages.map((msg) {
           if (msg.id == messageId) {
+            // Avoid adding duplicate correction entries to the corrections list
+            final alreadyHas = msg.corrections.any((c) => c.id == correction.id);
+            if (alreadyHas) return msg;
             return msg.copyWith(
               corrections: [...msg.corrections, correction],
             );
@@ -296,7 +304,7 @@ class ChatStateNotifier extends StateNotifier<ChatState> with WidgetsBindingObse
         // Create a synthetic correction message that appears as a new message
         // in the chat flow from the corrector
         final correctionMessage = Message(
-          id: 'correction_${correction.id}',
+          id: bubbleId,
           sender: correction.corrector,
           receiver: originalMessage.sender, // correction is directed at the original sender
           message: correction.correctedText,
@@ -324,8 +332,54 @@ class ChatStateNotifier extends StateNotifier<ChatState> with WidgetsBindingObse
 
   }
 
+  /// Reconstruct synthetic correction bubbles deterministically from each
+  /// message's corrections list. Derived purely from [messages] (the freshly
+  /// loaded list, where corrections are embedded on each message), so the
+  /// result is identical on every reload. It must NOT depend on prior state:
+  /// doing so previously made bubbles alternate in/out when leaving and
+  /// re-entering the room, because the rebuilt list never carried the old
+  /// synthetic bubbles forward.
+  static List<Message> _withCorrectionBubbles(List<Message> messages) {
+    final result = List<Message>.from(messages);
+
+    // Walk in reverse so insertions at index+1 don't shift earlier indices.
+    for (int i = result.length - 1; i >= 0; i--) {
+      final msg = result[i];
+      if (msg.corrections.isEmpty) continue;
+
+      // For every correction attached to this message, insert a bubble after
+      // the message if one with that id doesn't already exist.
+      // Process in reverse order so that they end up in chronological order
+      // after the insertion (last correction inserted first → ends up last).
+      for (int ci = msg.corrections.length - 1; ci >= 0; ci--) {
+        final correction = msg.corrections[ci];
+        final bubbleId = 'correction_${correction.id}';
+        if (result.any((m) => m.id == bubbleId)) continue;
+
+        final correctionBubble = Message(
+          id: bubbleId,
+          sender: correction.corrector,
+          receiver: msg.sender,
+          message: correction.correctedText,
+          createdAt: correction.createdAt.isNotEmpty
+              ? correction.createdAt
+              : msg.createdAt,
+          version: 0,
+          read: true,
+          type: 'correction',
+          corrections: [correction],
+        );
+
+        result.insert(i + 1, correctionBubble);
+      }
+    }
+
+    return result;
+  }
+
   void setMessages(List<Message> messages) {
-    state = state.copyWith(messages: messages);
+    final withBubbles = _withCorrectionBubbles(messages);
+    state = state.copyWith(messages: withBubbles);
   }
 
   void setLoading(bool isLoading) {

@@ -94,9 +94,11 @@ class _CorrectionBottomSheetState extends State<CorrectionBottomSheet> {
             widget.originalText, _correctedController.text.trim())
         : <TextDiff>[];
 
+    final viewInsetsBottom = MediaQuery.of(context).viewInsets.bottom;
     return Container(
       constraints: BoxConstraints(
-        maxHeight: MediaQuery.of(context).size.height * 0.85,
+        maxHeight:
+            MediaQuery.of(context).size.height * 0.85 - viewInsetsBottom,
       ),
       decoration: BoxDecoration(
         color: isDark ? AppColors.surfaceDark : AppColors.white,

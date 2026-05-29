@@ -14,6 +14,10 @@ import 'package:bananatalk_app/pages/profile/widgets/profile_snackbar.dart';
 Future<File?> _cropToSquare(String path) async {
   final cropped = await ImageCropper().cropImage(
     sourcePath: path,
+    // Cap output dimensions so uCrop never holds a full-res bitmap — prevents
+    // native OOM crashes on low-RAM devices (e.g. Honor 7a / Android 8.1).
+    maxWidth: 1080,
+    maxHeight: 1080,
     compressQuality: 85,
     aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
     uiSettings: [
@@ -110,7 +114,13 @@ class _PhotoPickerSheet extends StatelessWidget {
 
   Future<void> _pickGallery(BuildContext context) async {
     final picker = ImagePicker();
-    final pickedFiles = await picker.pickMultiImage(imageQuality: 85);
+    // Downscale at decode time so a multi-MP photo never fully loads into
+    // memory — the key fix for OOM crashes on low-RAM devices.
+    final pickedFiles = await picker.pickMultiImage(
+      maxWidth: 1280,
+      maxHeight: 1280,
+      imageQuality: 85,
+    );
     if (pickedFiles.isEmpty) return;
 
     final totalImages = existingCount + pendingCount + pickedFiles.length;
@@ -151,6 +161,10 @@ class _PhotoPickerSheet extends StatelessWidget {
     final picker = ImagePicker();
     final pickedFile = await picker.pickImage(
       source: ImageSource.camera,
+      // Downscale at decode time so a full-res camera shot never fully loads
+      // into memory — prevents OOM crashes on low-RAM devices.
+      maxWidth: 1280,
+      maxHeight: 1280,
       imageQuality: 85,
     );
     if (pickedFile == null) return;

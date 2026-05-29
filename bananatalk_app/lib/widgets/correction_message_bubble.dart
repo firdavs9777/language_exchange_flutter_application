@@ -10,9 +10,16 @@ import 'package:bananatalk_app/pages/chat/header/user_avatar.dart';
 /// in the chat flow (HelloTalk/Tandem style).
 class CorrectionMessageBubble extends ConsumerStatefulWidget {
   final Message message;
-  final bool isMe; // whether the correction was made by the current user
+  final bool isMe; // whether the correction was made by the current user (for layout/alignment)
   final String otherUserName;
   final String? otherUserPicture;
+  /// The real `_id` of the original message being corrected (needed for the
+  /// accept API call and for deciding who sees the Accept button).
+  final String originalMessageId;
+  /// `true` when the current user is the one who sent the correction.
+  /// Used to guard the Accept button: only the owner of the original message
+  /// (not the corrector) should see it.
+  final bool isCorrector;
 
   const CorrectionMessageBubble({
     super.key,
@@ -20,6 +27,8 @@ class CorrectionMessageBubble extends ConsumerStatefulWidget {
     required this.isMe,
     required this.otherUserName,
     this.otherUserPicture,
+    required this.originalMessageId,
+    required this.isCorrector,
   });
 
   @override
@@ -32,11 +41,11 @@ class _CorrectionMessageBubbleState
   bool _accepting = false;
   bool _accepted = false;
 
-  Future<void> _accept(String messageId, String correctionId) async {
+  Future<void> _accept(String correctionId) async {
     setState(() => _accepting = true);
     try {
       final result = await CorrectionService.acceptCorrection(
-        messageId: messageId,
+        messageId: widget.originalMessageId,
         correctionId: correctionId,
       );
       if (!mounted) return;
@@ -74,7 +83,7 @@ class _CorrectionMessageBubbleState
       correction.correctedText,
     );
 
-    final correctorName = isMe ? 'You' : correction.corrector.name;
+    final correctorName = widget.isCorrector ? 'You' : correction.corrector.name;
 
     return Padding(
       padding: EdgeInsets.only(
@@ -200,15 +209,16 @@ class _CorrectionMessageBubbleState
                       ),
                     ),
                   ],
-                  // Accept button — shown to the receiver when not yet accepted
-                  if (!isMe && !correction.isAccepted && !_accepted) ...[
+                  // Accept button — shown to the original message owner (not the
+                  // corrector) when the correction has not yet been accepted.
+                  if (!widget.isCorrector && !correction.isAccepted && !_accepted) ...[
                     const SizedBox(height: 10),
                     SizedBox(
                       width: double.infinity,
                       child: FilledButton.icon(
                         onPressed: _accepting
                             ? null
-                            : () => _accept(message.id, correction.id),
+                            : () => _accept(correction.id),
                         icon: _accepting
                             ? const SizedBox(
                                 width: 14,
@@ -229,8 +239,8 @@ class _CorrectionMessageBubbleState
                       ),
                     ),
                   ],
-                  // Accepted confirmation — shown to the receiver after accepting
-                  if (!isMe && (_accepted || correction.isAccepted)) ...[
+                  // Accepted confirmation — shown to the original message owner
+                  if (!widget.isCorrector && (_accepted || correction.isAccepted)) ...[
                     const SizedBox(height: 10),
                     Row(
                       mainAxisSize: MainAxisSize.min,
