@@ -5,6 +5,7 @@ import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/services/analytics_service.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/pages/profile/profile_wrapper.dart';
 import 'package:intl/intl.dart';
 
 /// Step 15 F3 — admin user detail screen.
@@ -63,6 +64,17 @@ class _AdminUserDetailScreenState extends ConsumerState<AdminUserDetailScreen> {
       appBar: AppBar(
         title: Text(_user?['name']?.toString() ?? 'User'),
         actions: [
+          if (_user != null)
+            IconButton(
+              icon: const Icon(Icons.person_outlined),
+              tooltip: 'View public profile',
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => ProfileWrapper(userId: widget.userId),
+                ),
+              ),
+            ),
           IconButton(
             icon: const Icon(Icons.refresh),
             onPressed: _isLoading ? null : _load,
@@ -104,12 +116,17 @@ class _AdminUserDetailScreenState extends ConsumerState<AdminUserDetailScreen> {
     final isBanned = user['isBanned'] == true;
     final role = user['role']?.toString() ?? 'user';
     final recentActions = (user['recentActions'] as List?) ?? [];
+    final activity = user['activitySummary'] as Map?;
 
     return ListView(
       padding: Spacing.paddingLG,
       children: [
         _buildUserCard(user),
-        const SizedBox(height: 24),
+        const SizedBox(height: 16),
+        if (activity != null) ...[
+          _buildActivityCard(activity),
+          const SizedBox(height: 16),
+        ],
         _buildActionsSection(user, isSelf: isSelf, isBanned: isBanned, role: role),
         const SizedBox(height: 24),
         if (recentActions.isNotEmpty) ...[
@@ -272,6 +289,66 @@ class _AdminUserDetailScreenState extends ConsumerState<AdminUserDetailScreen> {
               ),
             ),
           ],
+        ],
+      ),
+    );
+  }
+
+  Widget _buildActivityCard(Map activity) {
+    final lastMsg = activity['lastMessageAt']?.toString();
+    final msgs30d = (activity['messagesLast30d'] as num?)?.toInt() ?? 0;
+    final lastMoment = activity['lastMomentAt']?.toString();
+    final moments30d = (activity['momentsLast30d'] as num?)?.toInt() ?? 0;
+
+    String rel(String? iso) {
+      if (iso == null) return 'never';
+      try {
+        final dt = DateTime.parse(iso).toLocal();
+        final diff = DateTime.now().difference(dt);
+        if (diff.inMinutes < 1) return 'just now';
+        if (diff.inMinutes < 60) return '${diff.inMinutes}m ago';
+        if (diff.inHours < 24) return '${diff.inHours}h ago';
+        if (diff.inDays < 30) return '${diff.inDays}d ago';
+        return DateFormat('MMM d, yyyy').format(dt);
+      } catch (_) {
+        return '—';
+      }
+    }
+
+    return Container(
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: context.surfaceColor,
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: Colors.black12),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            'Activity (last 30 days)',
+            style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700),
+          ),
+          const SizedBox(height: 10),
+          Row(
+            children: [
+              _ActivityStat(
+                icon: Icons.chat_bubble_outline_rounded,
+                color: AppColors.primary,
+                label: 'Messages',
+                value: msgs30d.toString(),
+                sub: 'last: ${rel(lastMsg)}',
+              ),
+              const SizedBox(width: 10),
+              _ActivityStat(
+                icon: Icons.photo_library_outlined,
+                color: const Color(0xFFFF6D00),
+                label: 'Moments',
+                value: moments30d.toString(),
+                sub: 'last: ${rel(lastMoment)}',
+              ),
+            ],
+          ),
         ],
       ),
     );
@@ -641,6 +718,70 @@ class _ActionRow extends StatelessWidget {
     } catch (_) {
       return iso;
     }
+  }
+}
+
+class _ActivityStat extends StatelessWidget {
+  final IconData icon;
+  final Color color;
+  final String label;
+  final String value;
+  final String sub;
+  const _ActivityStat({
+    required this.icon,
+    required this.color,
+    required this.label,
+    required this.value,
+    required this.sub,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+        decoration: BoxDecoration(
+          color: color.withValues(alpha: 0.07),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Row(
+          children: [
+            Icon(icon, color: color, size: 20),
+            const SizedBox(width: 8),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    value,
+                    style: TextStyle(
+                      color: color,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w800,
+                      height: 1.1,
+                    ),
+                  ),
+                  Text(
+                    label,
+                    style: TextStyle(
+                      color: color,
+                      fontSize: 11,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  Text(
+                    sub,
+                    style: TextStyle(color: color.withValues(alpha: 0.7), fontSize: 10),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
 
