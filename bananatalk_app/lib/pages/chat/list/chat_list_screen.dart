@@ -12,6 +12,7 @@ import 'package:bananatalk_app/providers/unread_count_provider.dart';
 import 'package:bananatalk_app/utils/haptic_utils.dart';
 import 'package:bananatalk_app/widgets/connection_status_indicator.dart';
 import 'package:bananatalk_app/widgets/shimmer_loading.dart';
+import 'package:bananatalk_app/widgets/qr_code_sheet.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -764,6 +765,38 @@ class _ChatMainState extends ConsumerState<ChatMain>
         });
   }
 
+  void _showQrSheet() {
+    final authService = ref.read(authServiceProvider);
+    final userId = authService.userId;
+    if (userId.isEmpty) return;
+
+    // Fetch the current user's name and avatar from the userProvider cache.
+    // Falls back to userId if the name is not yet available.
+    final userAsync = ref.read(userProvider);
+    final userName = userAsync.whenOrNull(data: (u) => u.name) ?? '';
+    final avatarUrl = userAsync.whenOrNull(data: (u) => u.profileImageUrl);
+
+    showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (_) => QrCodeSheet(
+        userId: userId,
+        userName: userName.isNotEmpty ? userName : userId,
+        avatarUrl: avatarUrl,
+        onUserScanned: (scannedUserId) {
+          // Navigate to the chat screen for the scanned user.
+          // We don't have the user's name here so we pass an empty extra map
+          // — the chat screen handles missing metadata gracefully.
+          context.push(
+            '/chat/$scannedUserId',
+            extra: <String, String>{},
+          ).then((_) => _silentRefresh());
+        },
+      ),
+    );
+  }
+
   void _showNewChatDialog() {
     final colors = Theme.of(context).colorScheme;
     final usernameController = TextEditingController();
@@ -1167,6 +1200,15 @@ class _ChatMainState extends ConsumerState<ChatMain>
           ),
         ),
         actions: [
+          IconButton(
+            icon: Icon(
+              Icons.qr_code_rounded,
+              color: colors.onBackground,
+              size: 26,
+            ),
+            tooltip: 'QR Code',
+            onPressed: _showQrSheet,
+          ),
           IconButton(
             icon: Icon(
               Icons.person_add_alt_1_outlined,

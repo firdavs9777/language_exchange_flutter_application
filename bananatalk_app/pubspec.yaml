@@ -75,6 +75,10 @@ dependencies:
   # Utilities
   uuid: ^4.3.3
 
+  # QR Code
+  qr_flutter: ^4.1.0
+  mobile_scanner: ^6.0.0
+
   # Audio/Voice Recording
   flutter_sound: ^9.2.13
   audio_session: ^0.1.18
