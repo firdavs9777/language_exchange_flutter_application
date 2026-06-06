@@ -3,10 +3,27 @@ import 'package:bananatalk_app/models/vip_subscription.dart';
 // Strips lone UTF-16 surrogates that make Flutter's text engine throw.
 String _s(dynamic v, [String fallback = '']) {
   if (v == null) return fallback;
-  return v.toString().replaceAll(
-    RegExp(r'[\uD800-\uDFFF]'),
-    '',
-  );
+  final s = v.toString();
+  bool hasSurrogate = false;
+  for (final u in s.codeUnits) {
+    if (u >= 0xD800 && u <= 0xDFFF) { hasSurrogate = true; break; }
+  }
+  if (!hasSurrogate) return s;
+  final clean = <int>[];
+  final units = s.codeUnits;
+  for (int i = 0; i < units.length; i++) {
+    final u = units[i];
+    if (u >= 0xD800 && u <= 0xDBFF) {
+      if (i + 1 < units.length && units[i + 1] >= 0xDC00 && units[i + 1] <= 0xDFFF) {
+        clean.add(u); clean.add(units[i + 1]); i++;
+      }
+    } else if (u >= 0xDC00 && u <= 0xDFFF) {
+      // lone low surrogate — drop
+    } else {
+      clean.add(u);
+    }
+  }
+  return String.fromCharCodes(clean);
 }
 
 class Community {
