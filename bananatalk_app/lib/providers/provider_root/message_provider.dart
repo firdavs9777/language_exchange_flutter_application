@@ -918,7 +918,7 @@ class LastMessageData {
 
   factory LastMessageData.fromJson(Map<String, dynamic> json) {
     return LastMessageData(
-      message: json['message']?.toString(),
+      message: json['message'] != null ? sanitize(json['message']) : null,
       createdAt: json['createdAt'] != null
           ? DateTime.tryParse(json['createdAt'].toString())
           : null,

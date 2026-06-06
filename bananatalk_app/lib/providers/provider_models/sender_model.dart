@@ -90,7 +90,7 @@ class RecentMessage {
   // Factory method to create a RecentMessage from JSON
   factory RecentMessage.fromJson(Map<String, dynamic> json) {
     return RecentMessage(
-      content: json['content'],
+      content: sanitize(json['content']),
       sentAt: DateTime.parse(json['sentAt']),
     );
   }

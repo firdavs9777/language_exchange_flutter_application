@@ -1,3 +1,5 @@
+import 'package:bananatalk_app/utils/string_sanitizer.dart';
+
 class ChatMessage {
   final String sender;
   final String message;
@@ -13,8 +15,8 @@ class ChatMessage {
 
   factory ChatMessage.fromJson(Map<String, dynamic> json) {
     return ChatMessage(
-      sender: json['sender'],
-      message: json['message'],
+      sender: sanitize(json['sender']),
+      message: sanitize(json['message']),
       timestamp: DateTime.parse(json['timestamp']),
       isSentByMe: json['isSentByMe'] ?? false,
     );

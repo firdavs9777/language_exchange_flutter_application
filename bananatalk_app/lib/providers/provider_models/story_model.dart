@@ -79,7 +79,7 @@ class StoryOverlay {
   factory StoryOverlay.fromJson(Map<String, dynamic> json) {
     return StoryOverlay(
       type: json['type']?.toString() ?? 'text',
-      content: json['content']?.toString() ?? '',
+      content: sanitize(json['content']),
       x: (json['x'] as num?)?.toDouble() ?? 0.5,
       y: (json['y'] as num?)?.toDouble() ?? 0.5,
       scale: (json['scale'] as num?)?.toDouble() ?? 1.0,
@@ -236,7 +236,7 @@ class Story {
       videoMetadata: json['videoMetadata'] != null
           ? StoryVideoMetadata.fromJson(json['videoMetadata'])
           : null,
-      text: json['text']?.toString(),
+      text: json['text'] != null ? sanitize(json['text']) : null,
       backgroundColor: json['backgroundColor']?.toString() ?? '#000000',
       textColor: json['textColor']?.toString() ?? '#FFFFFF',
       fontStyle: json['fontStyle']?.toString() ?? 'normal',
@@ -750,7 +750,7 @@ class StoryPollOption {
   factory StoryPollOption.fromJson(Map<String, dynamic> json, int index) {
     return StoryPollOption(
       index: json['index'] ?? index,
-      text: json['text']?.toString() ?? '',
+      text: sanitize(json['text']),
       voteCount: json['voteCount'] ?? json['votes']?.length ?? 0,
       percentage: (json['percentage'] ?? 0).toDouble(),
       voted: json['voted'] == true,
@@ -809,7 +809,7 @@ class StoryQuestionResponse {
     return StoryQuestionResponse(
       userId: json['user'] is Map ? json['user']['_id']?.toString() : json['user']?.toString(),
       user: json['user'] is Map ? Community.fromJson(json['user']) : null,
-      text: json['text']?.toString() ?? '',
+      text: sanitize(json['text']),
       respondedAt: json['respondedAt'] != null
           ? DateTime.tryParse(json['respondedAt'].toString()) ?? DateTime.now()
           : DateTime.now(),
@@ -894,7 +894,7 @@ class StoryHighlight {
     return StoryHighlight(
       id: json['_id']?.toString() ?? '',
       userId: json['user'] is Map ? json['user']['_id']?.toString() ?? '' : json['user']?.toString() ?? '',
-      title: json['title']?.toString() ?? '',
+      title: sanitize(json['title']),
       coverImage: json['coverImage']?.toString(),
       stories: json['stories'] != null
           ? (json['stories'] as List).map((s) {

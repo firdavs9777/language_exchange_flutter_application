@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:bananatalk_app/utils/string_sanitizer.dart';
 
 /// Quiet hours configuration — pauses non-urgent notifications during a window.
 class QuietHours {
@@ -76,8 +77,8 @@ class NotificationItem {
     return NotificationItem(
       id: json['_id'] ?? json['id'] ?? '',
       type: json['type'] ?? '',
-      title: json['title'] ?? '',
-      body: json['body'] ?? '',
+      title: sanitize(json['title']),
+      body: sanitize(json['body']),
       data: json['data'] != null
           ? Map<String, dynamic>.from(json['data'])
           : {},
