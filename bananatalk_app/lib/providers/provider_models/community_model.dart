@@ -1,5 +1,14 @@
 import 'package:bananatalk_app/models/vip_subscription.dart';
 
+// Strips lone UTF-16 surrogates that make Flutter's text engine throw.
+String _s(dynamic v, [String fallback = '']) {
+  if (v == null) return fallback;
+  return v.toString().replaceAll(
+    RegExp(r'[\uD800-\uDFFF]'),
+    '',
+  );
+}
+
 class Community {
   const Community({
     required this.id,
@@ -121,25 +130,25 @@ class Community {
     // debugPrint('  birth_year: ${json['birth_year']}');
 
     return Community(
-      id: json['_id'] ?? '',
-      googleId: json['googleId'],
-      appleId: json['appleId'],
-      name: json['name'] ?? '',
-      username: json['username'],
-      email: json['email'] ?? '',
-      bio: json['bio'] ?? '',
+      id: _s(json['_id']),
+      googleId: json['googleId'] != null ? _s(json['googleId']) : null,
+      appleId: json['appleId'] != null ? _s(json['appleId']) : null,
+      name: _s(json['name']),
+      username: json['username'] != null ? _s(json['username']) : null,
+      email: _s(json['email']),
+      bio: _s(json['bio']),
       images: (json['images'] != null
               ? List<String>.from(json['images'])
               : <String>[]) ??
           [],
-      birth_day: json['birth_day'] ?? '',
-      birth_month: json['birth_month'] ?? '',
-      gender: json['gender'] ?? '',
-      birth_year: json['birth_year'] ?? '',
-      native_language: json['native_language'] ?? '',
-      language_to_learn: json['language_to_learn'] ?? '',
-      mbti: json['mbti'] ?? '',
-      bloodType: json['bloodType'] ?? '',
+      birth_day: _s(json['birth_day']),
+      birth_month: _s(json['birth_month']),
+      gender: _s(json['gender']),
+      birth_year: _s(json['birth_year']),
+      native_language: _s(json['native_language']),
+      language_to_learn: _s(json['language_to_learn']),
+      mbti: _s(json['mbti']),
+      bloodType: _s(json['bloodType']),
       location: json['location'] != null
           ? Location.fromJson(json['location'])
           : Location.defaultLocation(),
@@ -169,10 +178,10 @@ class Community {
       termsAccepted: json['termsAccepted'] ?? false,
       // New HelloTalk-style fields
       topics: (json['topics'] as List<dynamic>?)
-              ?.map((e) => e.toString())
+              ?.map((e) => _s(e))
               .toList() ??
           [],
-      languageLevel: json['languageLevel']?.toString(),
+      languageLevel: json['languageLevel'] != null ? _s(json['languageLevel']) : null,
       responseRate: (json['responseRate'] as num?)?.toDouble(),
       lastActive: json['lastActive'] != null
           ? DateTime.tryParse(json['lastActive'].toString())
