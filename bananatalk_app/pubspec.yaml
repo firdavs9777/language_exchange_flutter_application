@@ -77,7 +77,7 @@ dependencies:
 
   # QR Code
   qr_flutter: ^4.1.0
-  mobile_scanner: ^6.0.0
+  mobile_scanner: ^5.2.3
 
   # Audio/Voice Recording
   flutter_sound: ^9.2.13
