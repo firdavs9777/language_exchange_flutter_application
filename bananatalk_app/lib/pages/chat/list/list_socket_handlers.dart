@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:bananatalk_app/pages/chat/models/chat_partner.dart';
+import 'package:bananatalk_app/utils/string_sanitizer.dart';
 import 'package:flutter/material.dart';
 
 /// Shared context passed to every socket-event free function.
@@ -87,7 +88,7 @@ void handleNewMessage(ListSocketContext ctx, dynamic data) {
         messageData['sender']?['_id']?.toString() ??
         messageData['sender']?.toString();
     final senderName =
-        messageData['sender']?['name']?.toString() ?? 'Unknown';
+        sanitize(messageData['sender']?['name'], 'Unknown');
     final senderUsername = messageData['sender']?['username']?.toString();
     final senderAvatar = messageData['sender']?['image']?.toString();
     final senderImageUrls =
@@ -150,7 +151,7 @@ void handleMessageSent(ListSocketContext ctx, dynamic data) {
         messageData['receiver']?['_id']?.toString() ??
         messageData['receiver']?.toString();
     final receiverName =
-        messageData['receiver']?['name']?.toString() ?? 'Unknown';
+        sanitize(messageData['receiver']?['name'], 'Unknown');
     final receiverUsername = messageData['receiver']?['username']?.toString();
     final receiverAvatar = messageData['receiver']?['image']?.toString();
     final receiverImageUrls =

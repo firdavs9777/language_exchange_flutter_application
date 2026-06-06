@@ -9,6 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:bananatalk_app/utils/app_page_route.dart';
+import 'package:bananatalk_app/utils/string_sanitizer.dart';
 
 class ProfileVisitorsScreen extends StatefulWidget {
   final String userId;
@@ -604,7 +605,7 @@ class _ProfileVisitorsScreenState extends State<ProfileVisitorsScreen> {
     final source = visitor['source'] ?? 'direct';
 
     final userId = user['_id'];
-    final userName = user['name'] ?? 'Unknown User';
+    final userName = sanitize(user['name'], 'Unknown User');
     final userPhoto = user['imageUrls'] != null && user['imageUrls'].isNotEmpty
         ? user['imageUrls'][0]
         : null;

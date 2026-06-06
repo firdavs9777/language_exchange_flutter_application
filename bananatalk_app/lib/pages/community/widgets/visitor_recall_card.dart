@@ -5,6 +5,7 @@ import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/services/profile_visitor_service.dart';
+import 'package:bananatalk_app/utils/string_sanitizer.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 
 /// Compact "people visited your profile" card shown on the Community screen.
@@ -111,15 +112,15 @@ class _VisitorRecallCardState extends ConsumerState<VisitorRecallCard> {
     final user = v['user'];
     if (user is Map) {
       final name = user['name'];
-      if (name is String && name.isNotEmpty) return name;
+      if (name is String && name.isNotEmpty) return sanitize(name);
     }
     final visitor = v['visitor'];
     if (visitor is Map) {
       final name = visitor['name'];
-      if (name is String && name.isNotEmpty) return name;
+      if (name is String && name.isNotEmpty) return sanitize(name);
     }
     final topName = v['name'];
-    if (topName is String && topName.isNotEmpty) return topName;
+    if (topName is String && topName.isNotEmpty) return sanitize(topName);
     return '';
   }
 
