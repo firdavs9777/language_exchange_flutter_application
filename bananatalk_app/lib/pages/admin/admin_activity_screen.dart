@@ -267,14 +267,19 @@ class _ActiveUserTile extends StatelessWidget {
   final Map<String, dynamic> user;
   const _ActiveUserTile({required this.user});
 
+  static String _safe(String? s, [String fallback = '']) {
+    final clean = (s ?? '').replaceAll(RegExp(r'[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]'), '');
+    return clean.isEmpty ? fallback : clean;
+  }
+
   @override
   Widget build(BuildContext context) {
-    final name = user['name']?.toString() ?? 'Unknown';
-    final email = user['email']?.toString() ?? '';
+    final name = _safe(user['name']?.toString(), 'Unknown');
+    final email = _safe(user['email']?.toString());
     final avatar = user['avatar']?.toString();
     final lastActive = user['lastActive']?.toString();
-    final native = user['nativeLanguage']?.toString() ?? '';
-    final learning = user['learningLanguage']?.toString() ?? '';
+    final native = _safe(user['nativeLanguage']?.toString());
+    final learning = _safe(user['learningLanguage']?.toString());
     final userId = user['id']?.toString();
 
     String timeStr = '';
