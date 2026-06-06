@@ -3,8 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/pages/profile/visitors_screen.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/services/profile_visitor_service.dart';
+import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/utils/string_sanitizer.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 
@@ -135,41 +137,52 @@ class _VisitorRecallCardState extends ConsumerState<VisitorRecallCard> {
     }
 
     final l10n = AppLocalizations.of(context)!;
+    final myId = ref.read(authServiceProvider).userId;
 
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-      decoration: BoxDecoration(
-        color: context.cardBackground,
-        borderRadius: AppRadius.borderLG,
-        border: Border.all(color: context.dividerColor),
-      ),
-      child: Row(
-        children: [
-          _buildAvatarStack(context),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Row(
-              children: [
-                const Icon(
-                  Icons.visibility_outlined,
-                  size: 16,
-                  color: AppColors.primary,
-                ),
-                const SizedBox(width: 6),
-                Expanded(
-                  child: Text(
-                    l10n.visitedYourProfile(_totalCount),
-                    style: context.titleSmall,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
+    void openVisitors() {
+      Navigator.push(
+        context,
+        AppPageRoute(builder: (_) => ProfileVisitorsScreen(userId: myId)),
+      );
+    }
+
+    return GestureDetector(
+      onTap: openVisitors,
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+        decoration: BoxDecoration(
+          color: context.cardBackground,
+          borderRadius: AppRadius.borderLG,
+          border: Border.all(color: context.dividerColor),
+        ),
+        child: Row(
+          children: [
+            _buildAvatarStack(context),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Row(
+                children: [
+                  const Icon(
+                    Icons.visibility_outlined,
+                    size: 16,
+                    color: AppColors.primary,
                   ),
-                ),
-              ],
+                  const SizedBox(width: 6),
+                  Expanded(
+                    child: Text(
+                      l10n.visitedYourProfile(_totalCount),
+                      style: context.titleSmall,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-          const Icon(Icons.chevron_right, size: 20, color: AppColors.primary),
-        ],
+            const Icon(Icons.chevron_right, size: 20, color: AppColors.primary),
+          ],
+        ),
       ),
     );
   }
