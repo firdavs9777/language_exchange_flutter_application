@@ -1,5 +1,6 @@
 /// Matching Models
 /// For smart partner matching and recommendations
+import 'package:bananatalk_app/utils/string_sanitizer.dart';
 
 /// Match location info
 class MatchLocation {
@@ -75,8 +76,8 @@ class MatchRecommendation {
   factory MatchRecommendation.fromJson(Map<String, dynamic> json) {
     return MatchRecommendation(
       odId: json['odId']?.toString() ?? json['_id']?.toString() ?? '',
-      name: json['name']?.toString() ?? 'Unknown',
-      username: json['username'] as String?,
+      name: sanitize(json['name'], 'Unknown'),
+      username: json['username'] != null ? sanitize(json['username']) : null,
       avatar: json['avatar'] as String?,
       images: (json['images'] as List?)?.cast<String>() ?? [],
       // Handle both camelCase and snake_case
@@ -85,7 +86,7 @@ class MatchRecommendation {
       languageToLearn: json['languageToLearn']?.toString() ??
                        json['language_to_learn']?.toString() ?? '',
       level: json['level'] as int?,
-      bio: json['bio'] as String?,
+      bio: json['bio'] != null ? sanitize(json['bio']) : null,
       location: json['location'] != null
           ? MatchLocation.fromJson(Map<String, dynamic>.from(json['location']))
           : null,

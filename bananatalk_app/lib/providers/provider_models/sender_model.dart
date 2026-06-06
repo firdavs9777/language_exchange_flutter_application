@@ -1,3 +1,5 @@
+import 'package:bananatalk_app/utils/string_sanitizer.dart';
+
 class Sender {
   final String id;
   final String name;
@@ -37,16 +39,16 @@ class Sender {
   factory Sender.fromJson(Map<String, dynamic> json) {
     return Sender(
       id: json['_id'],
-      name: json['name'],
-      gender: json['gender'],
-      email: json['email'],
-      bio: json['bio'],
+      name: sanitize(json['name']),
+      gender: sanitize(json['gender']),
+      email: sanitize(json['email']),
+      bio: sanitize(json['bio']),
       birthYear: json['birth_year'],
       birthMonth: json['birth_month'],
       birthDay: json['birth_day'],
       images: List<String>.from(json['images']),
-      nativeLanguage: json['native_language'],
-      languageToLearn: json['language_to_learn'],
+      nativeLanguage: sanitize(json['native_language']),
+      languageToLearn: sanitize(json['language_to_learn']),
       createdAt: DateTime.parse(json['createdAt']),
       v: (json['__v'] as num?)?.toInt() ?? 0,
       imageUrls: List<String>.from(json['imageUrls']),

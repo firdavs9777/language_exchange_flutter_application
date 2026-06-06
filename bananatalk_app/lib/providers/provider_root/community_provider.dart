@@ -6,6 +6,7 @@ import 'package:bananatalk_app/service/endpoints.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:bananatalk_app/utils/string_sanitizer.dart';
 
 /// Community service with authentication support for all endpoints
 class CommunityService {
@@ -565,7 +566,7 @@ class NearbyUser {
 
     return NearbyUser(
       id: json['_id'] ?? json['id'] ?? '',
-      name: json['name'] ?? '',
+      name: sanitize(json['name']),
       images: (json['images'] as List?)?.cast<String>() ?? [],
       city: (json['location'] as Map?)?['city'] as String?,
       country: (json['location'] as Map?)?['country'] as String?,

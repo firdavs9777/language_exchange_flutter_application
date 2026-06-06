@@ -8,6 +8,7 @@ import 'package:http_parser/http_parser.dart';
 import 'package:bananatalk_app/service/endpoints.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:bananatalk_app/utils/string_sanitizer.dart';
 
 class MessageService {
   static Future<String?> _getToken() async {
@@ -883,8 +884,8 @@ class ChatPartnerData {
   factory ChatPartnerData.fromJson(Map<String, dynamic> json) {
     return ChatPartnerData(
       id: json['_id']?.toString() ?? '',
-      name: json['name']?.toString() ?? 'Unknown',
-      username: json['username']?.toString(),
+      name: sanitize(json['name'], 'Unknown'),
+      username: json['username'] != null ? sanitize(json['username']) : null,
       images: (json['images'] as List?)?.map((e) => e.toString()).toList() ??
               (json['imageUrls'] as List?)?.map((e) => e.toString()).toList() ?? [],
       lastMessage: json['lastMessage'] != null

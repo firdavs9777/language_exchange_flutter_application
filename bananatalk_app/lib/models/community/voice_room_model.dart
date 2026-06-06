@@ -1,4 +1,5 @@
 /// Voice Room Model for live audio chat
+import 'package:bananatalk_app/utils/string_sanitizer.dart';
 class VoiceRoom {
   final String id;
   final String title;
@@ -40,7 +41,7 @@ class VoiceRoom {
     final host = json['host'];
     if (host is Map<String, dynamic>) {
       hostId = host['_id']?.toString() ?? host['id']?.toString() ?? '';
-      hostName = host['name']?.toString() ?? '';
+      hostName = sanitize(host['name']);
       final images = host['images'];
       if (images is List && images.isNotEmpty) {
         hostAvatar = images[0]?.toString() ?? '';
@@ -188,7 +189,7 @@ class RoomParticipant {
     // 1. GET list: {_id, name, images, role, isSpeaking} (flattened from user)
     // 2. Raw/create: {user: ObjectId or {_id, name, images}, joinedAt, isMuted, ...}
     String id = json['_id']?.toString() ?? json['id']?.toString() ?? '';
-    String name = json['name']?.toString() ?? '';
+    String name = sanitize(json['name']);
     String avatar = '';
     final role = json['role']?.toString() ?? '';
 
@@ -203,7 +204,7 @@ class RoomParticipant {
     final user = json['user'];
     if (user is Map<String, dynamic>) {
       if (id.isEmpty) id = user['_id']?.toString() ?? user['id']?.toString() ?? '';
-      if (name.isEmpty) name = user['name']?.toString() ?? '';
+      if (name.isEmpty) name = sanitize(user['name']);
       if (avatar.isEmpty) {
         final userImages = user['images'];
         if (userImages is List && userImages.isNotEmpty) {

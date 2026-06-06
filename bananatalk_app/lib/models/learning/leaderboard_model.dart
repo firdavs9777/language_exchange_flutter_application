@@ -1,5 +1,6 @@
 /// Leaderboard Model
 /// Represents leaderboard entries and rankings
+import 'package:bananatalk_app/utils/string_sanitizer.dart';
 
 class LeaderboardEntry {
   final int rank;
@@ -89,7 +90,7 @@ class LeaderboardUser {
   factory LeaderboardUser.fromJson(Map<String, dynamic> json) {
     return LeaderboardUser(
       id: json['_id']?.toString() ?? '',
-      name: json['name']?.toString() ?? json['username']?.toString() ?? 'Unknown',
+      name: sanitize(json['name'] ?? json['username'], 'Unknown'),
       profilePicture: json['profilePicture']?.toString() ?? json['avatar']?.toString(),
       learningStats: json['learningStats'] != null
           ? LeaderboardLearningStats.fromJson(json['learningStats'])
