@@ -3,7 +3,9 @@ import 'package:bananatalk_app/pages/moments/feed/moments_main.dart';
 import 'package:bananatalk_app/pages/profile/profile_main.dart';
 import 'package:bananatalk_app/pages/community/main/community_main.dart';
 import 'package:bananatalk_app/pages/learning/main/learning_main_screen.dart';
+import 'package:bananatalk_app/pages/admin/admin_home_screen.dart';
 import 'package:bananatalk_app/providers/badge_count_provider.dart';
+import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/widgets/promo/ai_study_promo_modal.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
@@ -27,15 +29,18 @@ class TabsScreen extends ConsumerStatefulWidget {
 class _TabsScreenState extends ConsumerState<TabsScreen> {
   late int _selectedPageIndex;
 
-  // Cache pages to preserve state across tab switches.
-  // Order must mirror the _buildNavItem block + _getTabColor switch below.
-  late final List<Widget> _pages;
+  // Base pages — always present. Admin page appended when isAdmin is true.
+  // Order must mirror _buildNavItem calls + _getTabColor switch.
+  late final List<Widget> _basePages;
+  final _adminPage = const AdminHomeScreen();
+
+  bool _wasAdmin = false;
 
   @override
   void initState() {
     super.initState();
     _selectedPageIndex = widget.initialIndex;
-    _pages = [
+    _basePages = [
       const LearningMain(),
       const CommunityMain(),
       ChatMain(tabRefreshNotifier: _tabRefreshNotifier),
@@ -79,6 +84,17 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
     final isDark = context.isDarkMode;
     final bottomPadding = MediaQuery.of(context).padding.bottom;
 
+    final isAdmin = ref.watch(userProvider).valueOrNull?.isAdmin == true;
+    final pages = isAdmin ? [..._basePages, _adminPage] : _basePages;
+
+    // If admin status was just revoked, clamp selection back to last base tab.
+    if (_wasAdmin && !isAdmin && _selectedPageIndex >= _basePages.length) {
+      WidgetsBinding.instance.addPostFrameCallback(
+        (_) => setState(() => _selectedPageIndex = _basePages.length - 1),
+      );
+    }
+    _wasAdmin = isAdmin;
+
     return PopScope(
       canPop: false,
       child: Scaffold(
@@ -87,7 +103,7 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
             // Page content — Stack with AnimatedOpacity preserves state for all
             // pages while crossfading smoothly on tab switch.
             Stack(
-              children: List.generate(_pages.length, (index) {
+              children: List.generate(pages.length, (index) {
                 final isSelected = index == _selectedPageIndex;
                 return AnimatedOpacity(
                   opacity: isSelected ? 1.0 : 0.0,
@@ -95,7 +111,7 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
                   curve: Curves.easeOut,
                   child: IgnorePointer(
                     ignoring: !isSelected,
-                    child: _pages[index],
+                    child: pages[index],
                   ),
                 );
               }),
@@ -171,6 +187,14 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
                           badgeCount: badgeCount.notifications,
                           isDark: isDark,
                         ),
+                        if (isAdmin)
+                          _buildNavItem(
+                            index: 5,
+                            icon: Icons.shield_outlined,
+                            activeIcon: Icons.shield_rounded,
+                            label: 'Admin',
+                            isDark: isDark,
+                          ),
                       ],
                     ),
                   ),
@@ -299,6 +323,7 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
       case 2: return const Color(0xFF667EEA); // Chat — indigo
       case 3: return const Color(0xFFFF6B6B); // Moments — coral
       case 4: return const Color(0xFFF59E0B); // Profile — amber
+      case 5: return const Color(0xFFEF4444); // Admin — red
       default: return AppColors.primary;
     }
   }
