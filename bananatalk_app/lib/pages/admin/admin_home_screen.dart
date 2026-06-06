@@ -5,6 +5,8 @@ import 'package:bananatalk_app/pages/reports/admin_reports_screen.dart';
 import 'package:bananatalk_app/pages/admin/admin_users_screen.dart';
 import 'package:bananatalk_app/pages/admin/admin_audit_log_screen.dart';
 import 'package:bananatalk_app/pages/admin/admin_analytics_screen.dart';
+import 'package:bananatalk_app/pages/admin/admin_ai_usage_screen.dart';
+import 'package:bananatalk_app/pages/admin/admin_activity_screen.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 
@@ -96,6 +98,30 @@ class _AdminHomeScreenState extends ConsumerState<AdminHomeScreen> {
                   context,
                   MaterialPageRoute(
                     builder: (_) => const AdminAnalyticsScreen(),
+                  ),
+                ),
+              ),
+              _AdminTile(
+                icon: Icons.auto_awesome_outlined,
+                label: 'AI Usage',
+                subtitle: 'Who used · when · what',
+                color: const Color(0xFFFF6D00),
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const AdminAIUsageScreen(),
+                  ),
+                ),
+              ),
+              _AdminTile(
+                icon: Icons.bolt_rounded,
+                label: 'Activity',
+                subtitle: 'DAU · WAU · MAU',
+                color: const Color(0xFF10B981),
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const AdminActivityScreen(),
                   ),
                 ),
               ),

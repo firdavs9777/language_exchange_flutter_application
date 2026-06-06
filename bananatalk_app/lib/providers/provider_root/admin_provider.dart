@@ -173,6 +173,82 @@ class AdminService {
     }
   }
 
+  /// User activity overview — active counts + recently active users list.
+  Future<Map<String, dynamic>> getActivity({int limit = 50}) async {
+    try {
+      final headers = await _getHeaders();
+      final uri = Uri.parse('${Endpoints.baseURL}admin/activity')
+          .replace(queryParameters: {'limit': limit.toString()});
+      final response = await http.get(uri, headers: headers);
+      final body = json.decode(response.body);
+      if (response.statusCode == 200) {
+        return {'success': true, 'data': body['data']};
+      }
+      return {'success': false, 'error': body['error'] ?? 'Failed to load activity'};
+    } catch (e) {
+      return {'success': false, 'error': 'Network error: ${e.toString()}'};
+    }
+  }
+
+  /// AI feature usage aggregation (total + byFeature + byDay).
+  Future<Map<String, dynamic>> getAIUsage({
+    String? feature,
+    DateTime? from,
+    DateTime? to,
+  }) async {
+    try {
+      final headers = await _getHeaders();
+      final params = <String, String>{};
+      if (feature != null) params['feature'] = feature;
+      if (from != null) params['from'] = from.toUtc().toIso8601String();
+      if (to != null) params['to'] = to.toUtc().toIso8601String();
+      final uri = Uri.parse('${Endpoints.baseURL}admin/ai-usage')
+          .replace(queryParameters: params.isEmpty ? null : params);
+      final response = await http.get(uri, headers: headers);
+      final body = json.decode(response.body);
+      if (response.statusCode == 200) {
+        return {'success': true, 'data': body['data']};
+      }
+      return {'success': false, 'error': body['error'] ?? 'Failed to load AI usage'};
+    } catch (e) {
+      return {'success': false, 'error': 'Network error: ${e.toString()}'};
+    }
+  }
+
+  /// Paginated raw AI usage log entries with populated user info.
+  Future<Map<String, dynamic>> getAIUsageLogs({
+    String? feature,
+    DateTime? from,
+    DateTime? to,
+    int page = 1,
+    int limit = 50,
+  }) async {
+    try {
+      final headers = await _getHeaders();
+      final params = <String, String>{
+        'page': page.toString(),
+        'limit': limit.toString(),
+      };
+      if (feature != null) params['feature'] = feature;
+      if (from != null) params['from'] = from.toUtc().toIso8601String();
+      if (to != null) params['to'] = to.toUtc().toIso8601String();
+      final uri = Uri.parse('${Endpoints.baseURL}admin/ai-usage/logs')
+          .replace(queryParameters: params);
+      final response = await http.get(uri, headers: headers);
+      final body = json.decode(response.body);
+      if (response.statusCode == 200) {
+        return {
+          'success': true,
+          'data': body['data'],
+          'pagination': body['pagination'],
+        };
+      }
+      return {'success': false, 'error': body['error'] ?? 'Failed to load logs'};
+    } catch (e) {
+      return {'success': false, 'error': 'Network error: ${e.toString()}'};
+    }
+  }
+
   /// Paginated audit log. All filter parameters are optional.
   Future<Map<String, dynamic>> getAuditLog({
     String? moderatorId,
