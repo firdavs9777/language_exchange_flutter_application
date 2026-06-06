@@ -1,4 +1,5 @@
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
+import 'package:bananatalk_app/utils/string_sanitizer.dart';
 
 /// Video metadata for video stories
 class StoryVideoMetadata {
@@ -606,7 +607,7 @@ class StoryMention {
     return StoryMention(
       userId: json['user'] is Map ? json['user']['_id']?.toString() ?? '' : json['user']?.toString() ?? '',
       user: json['user'] is Map ? Community.fromJson(json['user']) : null,
-      username: json['username']?.toString() ?? '',
+      username: sanitize(json['username']),
       x: (position?['x'] ?? json['x'] ?? 50).toDouble(),
       y: (position?['y'] ?? json['y'] ?? 50).toDouble(),
     );

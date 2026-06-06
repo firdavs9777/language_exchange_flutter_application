@@ -1,4 +1,5 @@
 import 'package:bananatalk_app/models/call_model.dart';
+import 'package:bananatalk_app/utils/string_sanitizer.dart';
 
 enum CallRecordStatus { answered, missed, rejected }
 
@@ -16,7 +17,7 @@ class CallParticipant {
   factory CallParticipant.fromJson(Map<String, dynamic> json) {
     return CallParticipant(
       id: json['_id']?.toString() ?? json['id']?.toString() ?? '',
-      name: json['name']?.toString() ?? 'Unknown',
+      name: sanitize(json['name'], 'Unknown'),
       profilePicture: json['profilePicture']?.toString() ?? json['image']?.toString(),
     );
   }
