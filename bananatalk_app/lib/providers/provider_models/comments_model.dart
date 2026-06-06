@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_models/message_model.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart' show CommentReaction, CommentMention;
+import 'package:bananatalk_app/utils/string_sanitizer.dart';
 
 class Comments {
   const Comments({
@@ -133,7 +134,7 @@ class Comments {
 
     return Comments(
         id: json['_id']?.toString() ?? '',
-        text: json['text']?.toString() ?? '',
+        text: sanitize(json['text']),
         user: user,
         createdAt: json['createdAt'] != null
             ? DateTime.tryParse(json['createdAt'].toString()) ?? DateTime.now()

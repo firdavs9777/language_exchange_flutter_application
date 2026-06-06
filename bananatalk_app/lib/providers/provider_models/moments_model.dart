@@ -1,5 +1,6 @@
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_models/message_model.dart';
+import 'package:bananatalk_app/utils/string_sanitizer.dart';
 
 /// Video data for moment
 class MomentVideo {
@@ -184,7 +185,7 @@ class Moments {
               followings: [''],
               location: Location.defaultLocation(),
             ),
-      description: json['description']?.toString() ?? '',
+      description: sanitize(json['description']),
       images: safeList(json['images']),
       imageUrls: safeList(json['imageUrls']),
 
@@ -408,7 +409,7 @@ class CommentMention {
   factory CommentMention.fromJson(Map<String, dynamic> json) {
     return CommentMention(
       userId: json['user']?.toString() ?? '',
-      username: json['username']?.toString() ?? '',
+      username: sanitize(json['username']),
       offset: json['offset'] is int ? json['offset'] : 0,
       length: json['length'] is int ? json['length'] : 0,
     );
@@ -450,7 +451,7 @@ class Comment {
   factory Comment.fromJson(Map<String, dynamic> json) {
     return Comment(
       id: json['_id']?.toString() ?? '',
-      text: json['text']?.toString() ?? '',
+      text: sanitize(json['text']),
       user: json['user'] is Map<String, dynamic>
           ? Community.fromJson(json['user'])
           : Community(

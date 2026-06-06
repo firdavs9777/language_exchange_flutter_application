@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
+import 'package:bananatalk_app/utils/string_sanitizer.dart';
 
 /// Message sending status for optimistic updates
 enum MessageSendingStatus {
@@ -151,7 +152,7 @@ class Message {
       id: json['_id'] ?? '',
       sender: _parseCommunity(json['sender']),
       receiver: _parseCommunity(json['receiver']),
-      message: json['message'], // Can be null for media-only messages
+      message: json['message'] != null ? sanitize(json['message']) : null,
       createdAt: json['createdAt'] ?? '',
       version: (json['__v'] as num?)?.toInt() ?? 0,
       read: json['read'] ?? false,
@@ -544,7 +545,7 @@ class MessageReply {
   factory MessageReply.fromJson(Map<String, dynamic> json) {
     return MessageReply(
       id: json['_id'] ?? '',
-      message: json['message'], // Can be null for media-only messages
+      message: json['message'] != null ? sanitize(json['message']) : null,
       sender: Message._parseCommunity(json['sender']),
     );
   }
@@ -677,7 +678,7 @@ class MessageMention {
   factory MessageMention.fromJson(Map<String, dynamic> json) {
     return MessageMention(
       user: Message._parseCommunity(json['user']),
-      username: json['username'] ?? '',
+      username: sanitize(json['username']),
       startIndex: (json['startIndex'] as num?)?.toInt() ?? 0,
       endIndex: (json['endIndex'] as num?)?.toInt() ?? 0,
     );
