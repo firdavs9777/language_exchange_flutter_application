@@ -135,7 +135,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                     MaterialPageRoute(builder: (_) => const AppleLogin()),
                   ),
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: 12),
               ],
               SocialLoginButton(
                 provider: SocialProvider.google,
@@ -143,7 +143,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                   MaterialPageRoute(builder: (_) => const GoogleLogin()),
                 ),
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 12),
               SocialLoginButton(
                 provider: SocialProvider.email,
                 onPressed: () => Navigator.of(context).push(
