@@ -2,6 +2,8 @@ import 'package:bananatalk_app/pages/authentication/terms_of_service_screen.dart
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/services/notification_service.dart';
 import 'package:bananatalk_app/services/version_check_coordinator.dart';
+import 'package:bananatalk_app/services/welcome_back_service.dart';
+import 'package:bananatalk_app/widgets/welcome_back_modal.dart';
 import 'package:bananatalk_app/router/app_router.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -97,6 +99,12 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
     if (!mounted) return;
     await VersionCheckCoordinator().check(context);
     if (!mounted) return;
+
+    final shouldShowWelcomeBack = await WelcomeBackService.checkAndMark();
+    if (shouldShowWelcomeBack && mounted && isAuthenticated) {
+      await showWelcomeBackModal(context);
+      if (!mounted) return;
+    }
 
     if (isAuthenticated) {
       final prefs = await SharedPreferences.getInstance();
