@@ -3,6 +3,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/models/app_config.dart';
 import 'package:bananatalk_app/services/app_config_service.dart';
+import 'package:bananatalk_app/widgets/promo/announcement_modal.dart';
 import 'package:bananatalk_app/widgets/update_dialog.dart';
 
 /// Decides whether and how to prompt the user to update.
@@ -48,17 +49,20 @@ class VersionCheckCoordinator {
       final prefs = await SharedPreferences.getInstance();
       final lastShown = prefs.getInt(_lastSoftPromptKey) ?? 0;
       final now = DateTime.now().millisecondsSinceEpoch;
-      if (now - lastShown < _softPromptCooldown.inMilliseconds) return;
-
-      if (!context.mounted) return;
-      await showUpdateDialog(
-        context: context,
-        force: false,
-        iosUrl: config.iosUrl,
-        androidUrl: config.androidUrl,
-        releaseNotes: config.releaseNotes,
-      );
-      await prefs.setInt(_lastSoftPromptKey, now);
+      if (now - lastShown >= _softPromptCooldown.inMilliseconds) {
+        if (!context.mounted) return;
+        await showUpdateDialog(
+          context: context,
+          force: false,
+          iosUrl: config.iosUrl,
+          androidUrl: config.androidUrl,
+          releaseNotes: config.releaseNotes,
+        );
+        await prefs.setInt(_lastSoftPromptKey, now);
+      }
     }
+
+    if (!context.mounted) return;
+    await AnnouncementModal.showIfNeeded(context, config.announcement);
   }
 }
