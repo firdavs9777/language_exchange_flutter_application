@@ -1,8 +1,10 @@
 import 'package:bananatalk_app/pages/chat/list/chat_list_screen.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:bananatalk_app/pages/moments/feed/moments_main.dart';
 import 'package:bananatalk_app/pages/profile/profile_main.dart';
 import 'package:bananatalk_app/pages/community/main/community_main.dart';
 import 'package:bananatalk_app/pages/learning/main/learning_main_screen.dart';
+import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/badge_count_provider.dart';
 import 'package:bananatalk_app/widgets/promo/ai_study_promo_modal.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
@@ -57,6 +59,13 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
   void _selectPage(int index) {
     HapticFeedback.selectionClick();
 
+    // Auto-heal: if userProvider is in error, invalidate it on any tab tap
+    // so the next provider read gets a fresh fetch from auth/me.
+    final userState = ref.read(userProvider);
+    if (userState.hasError) {
+      ref.invalidate(userProvider);
+    }
+
     // Refresh badge counts when entering Chats or Profile (badge-bearing tabs).
     if (index == 2 || index == 4) {
       ref.read(badgeCountProvider.notifier).fetchBadgeCount();
@@ -98,6 +107,13 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
                 );
               }),
             ),
+            // Buy me a coffee — floats above the tab bar on the right
+            Positioned(
+              right: 16,
+              bottom: bottomPadding > 0 ? bottomPadding + 76 : 88,
+              child: _CoffeeButton(),
+            ),
+
             // Floating tab bar overlay
             Positioned(
               left: 12,
@@ -292,12 +308,134 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
 
   Color _getTabColor(int index) {
     switch (index) {
-      case 0: return const Color(0xFF8B5CF6); // AI Study — purple
-      case 1: return const Color(0xFF00BFA5); // Community — teal
-      case 2: return const Color(0xFF667EEA); // Chat — indigo
-      case 3: return const Color(0xFFFF6B6B); // Moments — coral
-      case 4: return const Color(0xFFF59E0B); // Profile — amber
+      case 0: return const Color(0xFF8B5CF6);
+      case 1: return const Color(0xFF00BFA5);
+      case 2: return const Color(0xFF667EEA);
+      case 3: return const Color(0xFFFF6B6B);
+      case 4: return const Color(0xFFF59E0B);
       default: return AppColors.primary;
     }
+  }
+}
+
+// ─── Buy me a coffee button ───────────────────────────────────────────────────
+
+class _CoffeeButton extends StatefulWidget {
+  const _CoffeeButton();
+
+  @override
+  State<_CoffeeButton> createState() => _CoffeeButtonState();
+}
+
+class _CoffeeButtonState extends State<_CoffeeButton>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _ctrl;
+  late final Animation<double> _scale;
+  bool _expanded = true;
+
+  static const _url = 'https://buymeacoffee.com/bananatalk';
+
+  @override
+  void initState() {
+    super.initState();
+    _ctrl = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 120),
+      reverseDuration: const Duration(milliseconds: 200),
+      value: 1.0,
+    );
+    _scale = Tween<double>(begin: 0.93, end: 1.0).animate(
+      CurvedAnimation(parent: _ctrl, curve: Curves.easeOut),
+    );
+    // Auto-collapse label after 4 seconds to keep it unobtrusive
+    Future.delayed(const Duration(seconds: 4), () {
+      if (mounted) setState(() => _expanded = false);
+    });
+  }
+
+  @override
+  void dispose() {
+    _ctrl.dispose();
+    super.dispose();
+  }
+
+  Future<void> _open() async {
+    HapticFeedback.lightImpact();
+    final uri = Uri.parse(_url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTapDown: (_) => _ctrl.animateTo(0.0),
+      onTapUp: (_) { _ctrl.animateTo(1.0); _open(); },
+      onTapCancel: () => _ctrl.animateTo(1.0),
+      onTap: () {
+        // Expand label on tap if collapsed
+        if (!_expanded) setState(() => _expanded = true);
+      },
+      child: AnimatedBuilder(
+        animation: _scale,
+        builder: (context, child) => Transform.scale(scale: _scale.value, child: child),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 350),
+          curve: Curves.easeInOutCubic,
+          height: 38,
+          padding: EdgeInsets.symmetric(
+            horizontal: _expanded ? 14 : 10,
+          ),
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(
+              colors: [Color(0xFFFFDD57), Color(0xFFFFBB00)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: [
+              BoxShadow(
+                color: const Color(0xFFFFDD57).withValues(alpha: 0.50),
+                blurRadius: 14,
+                offset: const Offset(0, 4),
+              ),
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.10),
+                blurRadius: 4,
+                offset: const Offset(0, 1),
+              ),
+            ],
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text('☕', style: TextStyle(fontSize: 17)),
+              AnimatedSize(
+                duration: const Duration(milliseconds: 350),
+                curve: Curves.easeInOutCubic,
+                child: _expanded
+                    ? const Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          SizedBox(width: 6),
+                          Text(
+                            'Buy me a coffee',
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w700,
+                              color: Color(0xFF5C3D00),
+                              letterSpacing: 0.1,
+                            ),
+                          ),
+                        ],
+                      )
+                    : const SizedBox.shrink(),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

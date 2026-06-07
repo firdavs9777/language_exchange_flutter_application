@@ -212,12 +212,12 @@ class _FeatureCard extends StatelessWidget {
         ],
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 28),
+        padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 14),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(feature.emoji, style: const TextStyle(fontSize: 52)),
-            const SizedBox(height: 16),
+            Text(feature.emoji, style: const TextStyle(fontSize: 42)),
+            const SizedBox(height: 10),
             Text(
               feature.title,
               style: TextStyle(
