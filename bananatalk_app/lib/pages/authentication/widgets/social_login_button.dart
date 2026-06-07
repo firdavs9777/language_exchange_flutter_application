@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-enum SocialProvider { apple, google, facebook }
+enum SocialProvider { apple, google, email, facebook }
 
 /// Unified social-login button with press-scale feedback and polished visuals.
 class SocialLoginButton extends StatefulWidget {
@@ -81,6 +81,7 @@ class _SocialLoginButtonState extends State<SocialLoginButton>
     return switch (widget.provider) {
       SocialProvider.google => _GoogleButton(isLoading: widget.isLoading),
       SocialProvider.apple => _AppleButton(isLoading: widget.isLoading),
+      SocialProvider.email => _EmailButton(isLoading: widget.isLoading),
       SocialProvider.facebook => _FacebookButton(isLoading: widget.isLoading),
     };
   }
@@ -274,6 +275,67 @@ class _AppleButton extends StatelessWidget {
                 SizedBox(width: 10),
                 Text(
                   'Continue with Apple',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 16,
+                    letterSpacing: 0.1,
+                  ),
+                ),
+              ],
+            ),
+    );
+  }
+}
+
+// ─── Email ───────────────────────────────────────────────────────────────────
+
+class _EmailButton extends StatelessWidget {
+  final bool isLoading;
+  const _EmailButton({required this.isLoading});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 58,
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [Color(0xFF00BFA5), Color(0xFF00897B)],
+        ),
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF00BFA5).withValues(alpha: 0.38),
+            blurRadius: 20,
+            offset: const Offset(0, 6),
+          ),
+          BoxShadow(
+            color: const Color(0xFF00BFA5).withValues(alpha: 0.15),
+            blurRadius: 6,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: isLoading
+          ? const Center(
+              child: SizedBox(
+                width: 22,
+                height: 22,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2.5,
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                ),
+              ),
+            )
+          : const Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.email_rounded, color: Colors.white, size: 22),
+                SizedBox(width: 10),
+                Text(
+                  'Continue with Email',
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w600,
