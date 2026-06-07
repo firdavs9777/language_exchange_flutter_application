@@ -71,7 +71,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
           children: [
             // ── Top: title + tagline ────────────────────────────────────────
             Padding(
-              padding: const EdgeInsets.only(top: 40, bottom: 8),
+              padding: const EdgeInsets.only(top: 20, bottom: 4),
               child: Column(
                 children: [
                   const AnimatedBananaTitle(fontSize: 46),
