@@ -67,114 +67,91 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
     return Scaffold(
       backgroundColor: context.scaffoldBackground,
       body: SafeArea(
-        child: Column(
-          children: [
-            // ── Top: title + tagline ────────────────────────────────────────
-            Padding(
-              padding: const EdgeInsets.only(top: 10, bottom: 2),
-              child: Column(
-                children: [
-                  const AnimatedBananaTitle(fontSize: 40),
-                  const SizedBox(height: 3),
-                  Text(
-                    'MEET  ·  CHAT  ·  CONNECT',
-                    style: TextStyle(
-                      fontSize: 10,
-                      fontWeight: FontWeight.w600,
-                      color: context.textMuted,
-                      letterSpacing: 2.8,
-                    ),
-                  ),
-                ],
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // ── Title + tagline ─────────────────────────────────────────
+              const AnimatedBananaTitle(fontSize: 40),
+              const SizedBox(height: 3),
+              Text(
+                'MEET  ·  CHAT  ·  CONNECT',
+                style: TextStyle(
+                  fontSize: 10,
+                  fontWeight: FontWeight.w600,
+                  color: context.textMuted,
+                  letterSpacing: 2.8,
+                ),
               ),
-            ),
+              const SizedBox(height: 20),
 
-            // ── Middle: feature carousel ────────────────────────────────────
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    height: 140,
-                    child: PageView.builder(
-                      controller: _pageCtrl,
-                      itemCount: _features.length,
-                      onPageChanged: (i) => setState(() => _page = i),
-                      itemBuilder: (context, i) {
-                        final f = _features[i];
-                        final isActive = i == _page;
-                        return AnimatedScale(
-                          scale: isActive ? 1.0 : 0.92,
-                          duration: const Duration(milliseconds: 350),
-                          curve: Curves.easeOutCubic,
-                          child: _FeatureCard(feature: f, isDark: isDark),
-                        );
-                      },
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  _PageDots(count: _features.length, current: _page),
-                ],
+              // ── Feature carousel ────────────────────────────────────────
+              SizedBox(
+                height: 140,
+                child: PageView.builder(
+                  controller: _pageCtrl,
+                  itemCount: _features.length,
+                  onPageChanged: (i) => setState(() => _page = i),
+                  itemBuilder: (context, i) {
+                    final f = _features[i];
+                    final isActive = i == _page;
+                    return AnimatedScale(
+                      scale: isActive ? 1.0 : 0.92,
+                      duration: const Duration(milliseconds: 350),
+                      curve: Curves.easeOutCubic,
+                      child: _FeatureCard(feature: f, isDark: isDark),
+                    );
+                  },
+                ),
               ),
-            ),
+              const SizedBox(height: 10),
+              _PageDots(count: _features.length, current: _page),
+              const SizedBox(height: 20),
 
-            // ── Bottom: CTA + buttons ───────────────────────────────────────
-            Padding(
-              padding: const EdgeInsets.fromLTRB(24, 4, 24, 24),
-              child: Column(
-                children: [
-                  Text(
-                    'Make global friends on Bananatalk',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w700,
-                      color: context.textPrimary,
-                      height: 1.2,
-                    ),
-                  ),
-                  const SizedBox(height: 3),
-                  Text(
-                    'Join millions of language learners today',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 13,
-                      color: context.textSecondary,
-                    ),
-                  ),
-                  const SizedBox(height: 14),
-
-                  // Apple (iOS only)
-                  if (Platform.isIOS) ...[
-                    SocialLoginButton(
-                      provider: SocialProvider.apple,
-                      onPressed: () => Navigator.of(context).push(
-                        MaterialPageRoute(builder: (_) => const AppleLogin()),
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                  ],
-
-                  // Google
-                  SocialLoginButton(
-                    provider: SocialProvider.google,
-                    onPressed: () => Navigator.of(context).push(
-                      MaterialPageRoute(builder: (_) => const GoogleLogin()),
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-
-                  // Email
-                  SocialLoginButton(
-                    provider: SocialProvider.email,
-                    onPressed: () => Navigator.of(context).push(
-                      MaterialPageRoute(builder: (_) => const Login()),
-                    ),
-                  ),
-                ],
+              // ── CTA + buttons ───────────────────────────────────────────
+              Text(
+                'Make global friends on Bananatalk',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w700,
+                  color: context.textPrimary,
+                  height: 1.2,
+                ),
               ),
-            ),
-          ],
+              const SizedBox(height: 3),
+              Text(
+                'Join millions of language learners today',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 13, color: context.textSecondary),
+              ),
+              const SizedBox(height: 16),
+
+              if (Platform.isIOS) ...[
+                SocialLoginButton(
+                  provider: SocialProvider.apple,
+                  onPressed: () => Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_) => const AppleLogin()),
+                  ),
+                ),
+                const SizedBox(height: 8),
+              ],
+              SocialLoginButton(
+                provider: SocialProvider.google,
+                onPressed: () => Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => const GoogleLogin()),
+                ),
+              ),
+              const SizedBox(height: 8),
+              SocialLoginButton(
+                provider: SocialProvider.email,
+                onPressed: () => Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => const Login()),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
