@@ -14,6 +14,7 @@ import 'package:bananatalk_app/pages/authentication/widgets/auth_text_field.dart
 import 'package:bananatalk_app/pages/authentication/widgets/biometric_login_button.dart';
 import 'package:bananatalk_app/pages/authentication/widgets/password_field.dart';
 import 'package:bananatalk_app/pages/authentication/widgets/social_login_button.dart';
+import 'package:bananatalk_app/pages/authentication/widgets/animated_banana_title.dart';
 import 'package:go_router/go_router.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
@@ -316,7 +317,7 @@ class _LoginState extends ConsumerState<Login> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const SizedBox(height: 24),
-          const _AnimatedBananaTitle(),
+          const AnimatedBananaTitle(),
           const SizedBox(height: 6),
           Text(
             l10n.login,
@@ -489,97 +490,3 @@ class _LoginState extends ConsumerState<Login> {
   }
 }
 
-// ─── Animated title ───────────────────────────────────────────────────────────
-
-class _AnimatedBananaTitle extends StatefulWidget {
-  const _AnimatedBananaTitle();
-
-  @override
-  State<_AnimatedBananaTitle> createState() => _AnimatedBananaTitleState();
-}
-
-class _AnimatedBananaTitleState extends State<_AnimatedBananaTitle>
-    with TickerProviderStateMixin {
-  late final AnimationController _entryCtrl;
-  late final AnimationController _shimmerCtrl;
-
-  static const _text = 'Bananatalk';
-  static const _n = _text.length;
-
-  @override
-  void initState() {
-    super.initState();
-    _entryCtrl = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 1100),
-    );
-    _shimmerCtrl = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 1400),
-    );
-    _entryCtrl.forward().then((_) {
-      if (mounted) {
-        Future.delayed(const Duration(milliseconds: 600), () {
-          if (mounted) _shimmerCtrl.repeat(period: const Duration(milliseconds: 3600));
-        });
-      }
-    });
-  }
-
-  @override
-  void dispose() {
-    _entryCtrl.dispose();
-    _shimmerCtrl.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: Listenable.merge([_entryCtrl, _shimmerCtrl]),
-      builder: (context, _) {
-        return Row(
-          mainAxisSize: MainAxisSize.min,
-          children: List.generate(_n, (i) {
-            // Each letter gets a staggered entry window
-            const stagger = 0.60 / _n;
-            final start = i * stagger;
-            final end = (start + 0.42).clamp(0.0, 1.0);
-            final t = CurvedAnimation(
-              parent: _entryCtrl,
-              curve: Interval(start, end, curve: Curves.easeOutBack),
-            ).value.clamp(0.0, 1.0);
-
-            // Shimmer: a wave of brightness sweeps left → right
-            final shimmerPos = _shimmerCtrl.value * (_n + 2) - 1;
-            final dist = (i - shimmerPos).abs();
-            final glow = (1.0 - (dist / 2.5).clamp(0.0, 1.0)) *
-                (_entryCtrl.isCompleted ? 1.0 : 0.0);
-
-            final color = Color.lerp(
-              const Color(0xFF00BFA5), // base teal
-              const Color(0xFF80FFE8), // bright flash
-              glow,
-            )!;
-
-            return Opacity(
-              opacity: t,
-              child: Transform.translate(
-                offset: Offset(0, 22 * (1 - t)),
-                child: Text(
-                  _text[i],
-                  style: TextStyle(
-                    fontSize: 38,
-                    fontWeight: FontWeight.w800,
-                    color: color,
-                    letterSpacing: -0.5,
-                  ),
-                ),
-              ),
-            );
-          }),
-        );
-      },
-    );
-  }
-}

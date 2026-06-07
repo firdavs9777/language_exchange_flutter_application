@@ -1,4 +1,5 @@
 import 'package:bananatalk_app/pages/authentication/terms_of_service_screen.dart';
+import 'package:bananatalk_app/pages/authentication/widgets/animated_banana_title.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/services/notification_service.dart';
 import 'package:bananatalk_app/services/version_check_coordinator.dart';
@@ -27,8 +28,6 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
   late final AnimationController _dotsController;
   late final Animation<double> _logoFade;
   late final Animation<double> _logoScale;
-  late final Animation<double> _titleFade;
-  late final Animation<Offset> _titleSlide;
   late final Animation<double> _taglineFade;
 
   @override
@@ -56,19 +55,6 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
         curve: const Interval(0.0, 0.55, curve: Curves.easeOutBack),
       ),
     );
-
-    // Title: 250 - 800ms — fade + slide up
-    _titleFade = CurvedAnimation(
-      parent: _entranceController,
-      curve: const Interval(0.22, 0.72, curve: Curves.easeOut),
-    );
-    _titleSlide = Tween<Offset>(begin: const Offset(0, 0.25), end: Offset.zero)
-        .animate(
-          CurvedAnimation(
-            parent: _entranceController,
-            curve: const Interval(0.22, 0.72, curve: Curves.easeOutCubic),
-          ),
-        );
 
     // Tagline: 500 - 1100ms — fade
     _taglineFade = CurvedAnimation(
@@ -199,7 +185,6 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
     final List<Color> bgGradient = isDark
         ? const [Color(0xFF0B1F1C), Color(0xFF0F2E2A), Color(0xFF154A43)]
         : const [Color(0xFFF6FFFD), Color(0xFFE6FBF5), Color(0xFFB8F0E0)];
-    final Color titleColor = isDark ? Colors.white : const Color(0xFF00695C);
     final Color taglineColor = isDark
         ? Colors.white.withValues(alpha: 0.72)
         : const Color(0xFF00695C).withValues(alpha: 0.65);
@@ -241,30 +226,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                       ),
                     ),
                     const SizedBox(height: 32),
-                    SlideTransition(
-                      position: _titleSlide,
-                      child: FadeTransition(
-                        opacity: _titleFade,
-                        child: ShaderMask(
-                          shaderCallback: (bounds) => const LinearGradient(
-                            colors: [Color(0xFF00BFA5), Color(0xFF00897B), Color(0xFF00695C)],
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                          ).createShader(bounds),
-                          blendMode: BlendMode.srcIn,
-                          child: Text(
-                            l10n.appName,
-                            style: TextStyle(
-                              fontSize: 56,
-                              fontWeight: FontWeight.w900,
-                              color: titleColor, // overridden by ShaderMask but needed for ShaderMask source
-                              letterSpacing: -1.0,
-                              height: 1.0,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
+                    const AnimatedBananaTitle(fontSize: 54),
                     const SizedBox(height: 18),
                     FadeTransition(
                       opacity: _taglineFade,
