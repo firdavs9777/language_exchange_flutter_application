@@ -21,15 +21,15 @@ class LimitExceededDialog extends StatelessWidget {
     required this.userId,
   });
 
-  static Future<void> show({
+  static Future<dynamic> show({
     required BuildContext context,
     required String limitType,
     LimitInfo? limitInfo,
     DateTime? resetTime,
     String? errorMessage,
     required String userId,
-  }) async {
-    await showDialog(
+  }) {
+    return showDialog(
       context: context,
       barrierDismissible: false,
       builder: (context) => LimitExceededDialog(

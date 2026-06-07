@@ -69,6 +69,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
   bool _isSending = false;
   String? _currentUserId;
   bool _isTyping = false;
+  int _adBonusMessages = 0; // Extra sends granted after watching a rewarded ad
   Timer? _typingTimer;
   bool _showMediaPanel = false;
   bool _showStickerPanel = false;
@@ -674,27 +675,42 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       if (user != null && _currentUserId != null) {
         final limits = ref.read(currentUserLimitsProvider(_currentUserId!));
         if (!FeatureGate.canSendMessage(user, limits)) {
-          // Remove optimistic message and show limit dialog
-          final chatNotifier = ref.read(
-            chatStateProvider(
-              ChatProviderParams(
-                chatPartnerId: widget.userId,
-                currentUserId: _currentUserId!,
-              ),
-            ).notifier,
-          );
-          chatNotifier.updateOptimisticMessage(localId, failed: true);
-
-          if (mounted) {
-            await LimitExceededDialog.show(
-              context: context,
-              limitType: 'messages',
-              limitInfo: limits?.messages,
-              resetTime: limits?.resetTime,
-              userId: _currentUserId!,
+          if (_adBonusMessages > 0) {
+            // User has bonus messages from watching an ad — consume one and proceed
+            setState(() => _adBonusMessages--);
+          } else {
+            // No bonus left — remove optimistic message and show limit dialog
+            final chatNotifier = ref.read(
+              chatStateProvider(
+                ChatProviderParams(
+                  chatPartnerId: widget.userId,
+                  currentUserId: _currentUserId!,
+                ),
+              ).notifier,
             );
+            chatNotifier.updateOptimisticMessage(localId, failed: true);
+
+            if (mounted) {
+              final result = await LimitExceededDialog.show(
+                context: context,
+                limitType: 'messages',
+                limitInfo: limits?.messages,
+                resetTime: limits?.resetTime,
+                userId: _currentUserId!,
+              );
+              // 'rewarded' is returned when user watches the ad in the dialog
+              if (result == 'rewarded' && mounted) {
+                setState(() => _adBonusMessages = 3);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('You unlocked 3 bonus messages! Keep chatting.'),
+                    backgroundColor: Color(0xFF00BFA5),
+                  ),
+                );
+              }
+            }
+            return;
           }
-          return;
         }
       }
 
