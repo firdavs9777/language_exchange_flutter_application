@@ -95,7 +95,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
-                    height: 220,
+                    height: 160,
                     child: PageView.builder(
                       controller: _pageCtrl,
                       itemCount: _features.length,
@@ -212,29 +212,35 @@ class _FeatureCard extends StatelessWidget {
         ],
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 14),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+        child: Row(
           children: [
-            Text(feature.emoji, style: const TextStyle(fontSize: 42)),
-            const SizedBox(height: 10),
-            Text(
-              feature.title,
-              style: TextStyle(
-                fontSize: 26,
-                fontWeight: FontWeight.w800,
-                color: feature.accent,
-                letterSpacing: -0.5,
-              ),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              feature.subtitle,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 14,
-                color: context.textSecondary,
-                height: 1.5,
+            Text(feature.emoji, style: const TextStyle(fontSize: 36)),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    feature.title,
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w800,
+                      color: feature.accent,
+                      letterSpacing: -0.3,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    feature.subtitle,
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: context.textSecondary,
+                      height: 1.4,
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
