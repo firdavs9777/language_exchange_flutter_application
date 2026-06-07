@@ -14,6 +14,7 @@ class FinishStep extends StatelessWidget {
   final String? country;
   final bool isFetchingLocation;
   final VoidCallback onDetectLocation;
+  final bool showLocationError;
 
   // Terms
   final bool termsAccepted;
@@ -29,6 +30,7 @@ class FinishStep extends StatelessWidget {
     required this.country,
     required this.isFetchingLocation,
     required this.onDetectLocation,
+    this.showLocationError = false,
     required this.termsAccepted,
     required this.onTermsChanged,
     required this.isSubmitting,
@@ -64,7 +66,17 @@ class FinishStep extends StatelessWidget {
             country: country,
             isFetchingLocation: isFetchingLocation,
             onDetectLocation: onDetectLocation,
+            showError: showLocationError,
           ),
+
+          if (showLocationError)
+            Padding(
+              padding: const EdgeInsets.only(top: 6, left: 4),
+              child: Text(
+                l10n.locationOptional,
+                style: const TextStyle(fontSize: 12, color: Colors.red),
+              ),
+            ),
 
           const SizedBox(height: 24),
 
@@ -81,16 +93,6 @@ class FinishStep extends StatelessWidget {
             isLoading: isSubmitting,
           ),
 
-          const SizedBox(height: 12),
-
-          Center(
-            child: Text(
-              l10n.locationOptional,
-              style: TextStyle(fontSize: 12, color: context.textMuted),
-              textAlign: TextAlign.center,
-            ),
-          ),
-
           const SizedBox(height: 40),
         ],
       ),
@@ -105,12 +107,14 @@ class _LocationSection extends StatelessWidget {
   final String? country;
   final bool isFetchingLocation;
   final VoidCallback onDetectLocation;
+  final bool showError;
 
   const _LocationSection({
     required this.city,
     required this.country,
     required this.isFetchingLocation,
     required this.onDetectLocation,
+    this.showError = false,
   });
 
   @override
@@ -124,7 +128,10 @@ class _LocationSection extends StatelessWidget {
         decoration: BoxDecoration(
           color: context.cardBackground,
           borderRadius: AppRadius.borderLG,
-          border: Border.all(color: context.dividerColor),
+          border: Border.all(
+            color: showError ? Colors.red : context.dividerColor,
+            width: showError ? 1.5 : 1,
+          ),
         ),
         child: Row(
           children: [

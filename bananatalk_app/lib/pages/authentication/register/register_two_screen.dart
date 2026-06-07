@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:bananatalk_app/l10n/app_localizations.dart';
-import 'dart:io';
 
 import 'package:bananatalk_app/pages/authentication/register/register_two/finish_step.dart';
 import 'package:bananatalk_app/pages/authentication/register/register_two/native_language_step.dart';
@@ -97,6 +96,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
   double? _latitude;
   double? _longitude;
   bool _termsAccepted = false;
+  bool _showLocationError = false;
 
   // ─── Submission ──────────────────────────────────────────────────────────
   bool _isSubmitting = false;
@@ -273,6 +273,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
               place.subAdministrativeArea ??
               place.administrativeArea ??
               'Unknown';
+          _showLocationError = false;
         });
       }
     } catch (e) {
@@ -289,6 +290,12 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
 
     if (_pickedPhoto == null) {
       _showError(AppLocalizations.of(context)!.profilePhotoRequired);
+      return;
+    }
+
+    if (_city == null || _country == null) {
+      setState(() => _showLocationError = true);
+      _showError(AppLocalizations.of(context)!.locationOptional);
       return;
     }
 
@@ -619,6 +626,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                       country: _country,
                       isFetchingLocation: _isFetchingLocation,
                       onDetectLocation: _getCurrentLocation,
+                      showLocationError: _showLocationError,
                       termsAccepted: _termsAccepted,
                       onTermsChanged: (v) =>
                           setState(() => _termsAccepted = v),
