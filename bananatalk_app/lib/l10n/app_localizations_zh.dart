@@ -613,7 +613,6 @@ class AppLocalizationsZh extends AppLocalizations {
   @override
   String aiTutorImagePickError(String error) {
     return '无法打开图片: $error';
-  
   }
 
   @override
@@ -663,8 +662,8 @@ class AppLocalizationsZh extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count cards waiting for you',
-      one: '$count card waiting for you',
+      other: '$count 张卡在等你',
+      one: '$count 张卡在等你',
     );
     return '$_temp0';
   }
@@ -684,19 +683,16 @@ class AppLocalizationsZh extends AppLocalizations {
   @override
   String aiTutorPlanSrsReview(int count, int done) {
     return '复习 $count 张 SRS 卡 ($done 完成)';
-  
   }
 
   @override
   String aiTutorPlanGrammar(String topic) {
     return '练习: $topic';
-  
   }
 
   @override
   String aiTutorPlanChat(int min, int done) {
     return '聊 $min 分钟 (目前 $done)';
-  
   }
 
   @override
@@ -2759,7 +2755,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get profilePhotoRequired => '请至少添加一张个人头像';
 
   @override
-  String get locationOptional => '位置信息为选填 — 可以稍后添加';
+  String get locationOptional => '请设置您的位置以继续';
 
   @override
   String get maximum6Photos => '最多6张照片';
@@ -2768,7 +2764,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get tapToDetectLocation => '点击检测位置';
 
   @override
-  String get optionalHelpsNearbyPartners => '可选 — 帮助找到附近的语伴';
+  String get optionalHelpsNearbyPartners => '必填 — 帮助匹配附近的伙伴';
 
   @override
   String get startLearning => '开始学习！';
@@ -5691,7 +5687,6 @@ class AppLocalizationsZh extends AppLocalizations {
   @override
   String aiTutorPronounceSentenceOf(int current, int total) {
     return '第 $current 句 / 共 $total 句';
-  
   }
 
   @override
@@ -5717,8 +5712,8 @@ class AppLocalizationsZh extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: 'Pronunciation drills ($completed/$count)',
-      one: 'Pronunciation drill ($completed/1)',
+      other: '发音练习 ($completed/$count)',
+      one: '发音练习 ($completed/1)',
     );
     return '$_temp0';
   }
@@ -5746,8 +5741,8 @@ class AppLocalizationsZh extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count left today',
-      one: '1 left today',
+      other: '今日还剩 $count 次',
+      one: '今日还剩 1 次',
     );
     return '$_temp0';
   }
@@ -5760,7 +5755,6 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get previous => '上一个';
-
 
   @override
   String get aiDailyPracticeTitle => '每日练习';
@@ -5790,6 +5784,11 @@ class AppLocalizationsZh extends AppLocalizations {
   String get aiGrammarSectionCorrected => '修正后的文本';
 
   @override
+  String aiGrammarSectionIssues(int count) {
+    return '发现的问题 ($count)';
+  }
+
+  @override
   String get aiGrammarSectionWell => '你做得好的';
 
   @override
@@ -5805,7 +5804,12 @@ class AppLocalizationsZh extends AppLocalizations {
   String get aiLessonBuilderLabelLevel => '等级';
 
   @override
-  String get aiLessonBuilderTopicHint => '输入主题（例如 "美食与餐厅"）';
+  String get aiLessonBuilderTopicHint => '输入主题（例如 \"美食与餐厅\"）';
+
+  @override
+  String aiLessonBuilderSaved(String title) {
+    return '课程 \"$title\" 已保存！';
+  }
 
   @override
   String get aiLessonBuilderBackToLessons => '返回课程';
@@ -5815,6 +5819,11 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get aiTranslationSavedToVocab => '已保存到你的词汇表';
+
+  @override
+  String aiTranslationCouldNotSave(String error) {
+    return '无法保存: $error';
+  }
 
   @override
   String get aiQuizTitle => '小测验';
@@ -5850,13 +5859,38 @@ class AppLocalizationsZh extends AppLocalizations {
   String get aiPronunciationHint => '输入要练习的文本...';
 
   @override
+  String aiTutorCouldNotLoad(String error) {
+    return '无法加载导师: $error';
+  }
+
+  @override
+  String aiTutorPlanUnavailable(String error) {
+    return '计划不可用: $error';
+  }
+
+  @override
   String get aiTutorReplay => '重播';
 
   @override
   String get aiScenariosTitle => '练习情境';
 
   @override
+  String aiScenariosCouldNotLoad(String error) {
+    return '无法加载情境: $error';
+  }
+
+  @override
   String get aiScenariosNoneAvailable => '暂无情境';
+
+  @override
+  String aiScenariosCouldNotStart(String error) {
+    return '无法开始: $error';
+  }
+
+  @override
+  String aiScenariosForYourLevel(String level) {
+    return '适合你的等级 ($level)';
+  }
 
   @override
   String get aiScenariosEasier => '更简单 — 热身';
@@ -5866,6 +5900,11 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get aiRoleplayStillStarting => '情境仍在启动 — 稍后再试。';
+
+  @override
+  String aiRoleplaySendFailed(String error) {
+    return '发送失败: $error';
+  }
 
   @override
   String get aiRoleplayCouldNotGrade => '这次无法评分 — 下次再试。';
@@ -5886,58 +5925,12 @@ class AppLocalizationsZh extends AppLocalizations {
   String get aiConversationTopicPractice => '练习';
 
   @override
-  String get aiToolsVipBadge => 'VIP';
-
-  @override
-  String aiGrammarSectionIssues(int count) {
-    return '发现的问题 ($count)';
-  }
-
-  @override
-  String aiLessonBuilderSaved(String title) {
-    return '课程 "$title" 已保存！';
-  }
-
-  @override
-  String aiTranslationCouldNotSave(String error) {
-    return '无法保存: $error';
-  }
-
-  @override
-  String aiTutorCouldNotLoad(String error) {
-    return '无法加载导师: $error';
-  }
-
-  @override
-  String aiTutorPlanUnavailable(String error) {
-    return '计划不可用: $error';
-  }
-
-  @override
-  String aiScenariosCouldNotLoad(String error) {
-    return '无法加载情境: $error';
-  }
-
-  @override
-  String aiScenariosCouldNotStart(String error) {
-    return '无法开始: $error';
-  }
-
-  @override
-  String aiScenariosForYourLevel(String level) {
-    return '适合你的等级 ($level)';
-  }
-
-  @override
-  String aiRoleplaySendFailed(String error) {
-    return '发送失败: $error';
-  }
-
-  @override
   String aiToolsVipUpgradeDescription(String feature) {
     return '升级到 VIP 解锁 $feature！';
   }
 
+  @override
+  String get aiToolsVipBadge => 'VIP';
 
   @override
   String aiScenariosBannerPracticingIn(String language) {
@@ -6068,7 +6061,6 @@ class AppLocalizationsZh extends AppLocalizations {
   @override
   String get voiceRoomReactTooltip => '反应';
 
-
   @override
   String get momentsCancel => '取消';
 
@@ -6177,6 +6169,15 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get splashLoading => '加载中…';
+
+  @override
+  String get supportSheetGreeting => '你好，我是 Firdavs 👋';
+
+  @override
+  String get supportSheetStory => 'Bananatalk 完全由我一个人开发——每一个页面、每一个功能、每一个深夜的漏洞修复。我的目标是帮助全球语言学习者相互连接和成长，我也在不断添加新功能来实现这一目标。\n\n如果 Bananatalk 对你有所帮助，哪怕是一杯小小的咖啡，也能让我保持动力继续开发。对于一个独立开发者来说，每一份支持都意义重大。 🙏';
+
+  @override
+  String get supportSheetDonateButton => '通过 PayPal 捐款';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -6185,6 +6186,18 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get appName => 'Bananatalk';
+
+  @override
+  String get aiStudyPromoTitle => '用 AI 情境練習';
+
+  @override
+  String get aiStudyPromoBody => '與 AI 導師角色扮演真實對話，建立開口說話的信心。';
+
+  @override
+  String get aiStudyPromoCTA => '試試一個情境';
+
+  @override
+  String get aiStudyPromoDismiss => '以後再說';
 
   @override
   String get login => '登入';
@@ -6509,6 +6522,43 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get getHelpAndSupport => '獲取幫助和支援';
+
+  @override
+  String aiTutorHeroTitleSet(String name) {
+    return 'AI 導師 · $name';
+  }
+
+  @override
+  String get aiTutorHeroTitleNew => '認識你的 AI 導師';
+
+  @override
+  String get aiTutorHeroSubtitleSet => '點按聊天或查看今天的計畫';
+
+  @override
+  String aiTutorHeroSubtitleLast(String summary) {
+    return '上次：$summary';
+  }
+
+  @override
+  String get aiTutorHeroSubtitleNew => '挑選角色 — Nana、Sensei 或 Riko';
+
+  @override
+  String get aiTutorChipChat => '聊天';
+
+  @override
+  String get aiTutorChipRoleplay => '角色扮演';
+
+  @override
+  String get aiTutorChipStory => '故事';
+
+  @override
+  String get aiTutorChipPhoto => '照片';
+
+  @override
+  String get aiConversationPartnerTile => 'AI 對話';
+
+  @override
+  String get aiConversationPartnerTileSubtitle => '與 AI 夥伴練習';
 
   @override
   String get aboutBananatalk => '關於 Bananatalk';
@@ -8567,7 +8617,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get profilePhotoRequired => '請至少新增一張個人頭像';
 
   @override
-  String get locationOptional => '位置資訊為選填 — 可以稍後新增';
+  String get locationOptional => '請設定您的位置以繼續';
 
   @override
   String get maximum6Photos => '最多6張照片';
@@ -8576,7 +8626,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get tapToDetectLocation => '點擊偵測位置';
 
   @override
-  String get optionalHelpsNearbyPartners => '選填 — 幫助找到附近的語伴';
+  String get optionalHelpsNearbyPartners => '必填 — 有助於配對附近的夥伴';
 
   @override
   String get startLearning => '開始學習！';
@@ -10854,6 +10904,8 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   @override
   String get momentsLoadError => '無法載入動態';
 
+  @override
+  String get momentsRetry => '重試';
 
   @override
   String get recentTags => '最近的標籤';
@@ -11174,4 +11226,19 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get learningProgressWeeklyChartTitle => '最近7天';
+
+  @override
+  String get aiTutorChipPronounce => '發音';
+
+  @override
+  String get splashTagline => '學習 · 聊天 · 相識';
+
+  @override
+  String get supportSheetGreeting => '你好，我是 Firdavs 👋';
+
+  @override
+  String get supportSheetStory => 'Bananatalk 完全由我一個人開發——每一個頁面、每一個功能、每一個深夜的漏洞修復。我的目標是幫助全球語言學習者相互連結和成長，我也不斷地新增功能來實現這個目標。\n\n如果 Bananatalk 對你有所幫助，哪怕是一杯小小的咖啡，也能讓我保持動力繼續開發。對於一個獨立開發者來說，每一份支持都意義重大。 🙏';
+
+  @override
+  String get supportSheetDonateButton => '透過 PayPal 捐款';
 }

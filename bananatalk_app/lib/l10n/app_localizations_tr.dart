@@ -613,7 +613,6 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String aiTutorImagePickError(String error) {
     return 'Resim açılamadı: $error';
-  
   }
 
   @override
@@ -663,8 +662,8 @@ class AppLocalizationsTr extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count cards waiting for you',
-      one: '$count card waiting for you',
+      other: '$count kart seni bekliyor',
+      one: '$count kart seni bekliyor',
     );
     return '$_temp0';
   }
@@ -684,19 +683,16 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String aiTutorPlanSrsReview(int count, int done) {
     return '$count SRS kart tekrarla ($done bitti)';
-  
   }
 
   @override
   String aiTutorPlanGrammar(String topic) {
     return 'Pratik: $topic';
-  
   }
 
   @override
   String aiTutorPlanChat(int min, int done) {
     return '$min dk sohbet ($done şimdiye dek)';
-  
   }
 
   @override
@@ -894,7 +890,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get unblock => 'Engeli Kaldır';
 
   @override
-  String get goBack => 'Geri Dön';
+  String get goBack => 'Geri';
 
   @override
   String get messageSendTimeout => 'Mesaj gönderme zaman aşımı. Lütfen bağlantınızı kontrol edin.';
@@ -2759,7 +2755,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get profilePhotoRequired => 'Lütfen en az bir profil fotoğrafı ekleyin';
 
   @override
-  String get locationOptional => 'Konum isteğe bağlıdır — daha sonra ekleyebilirsiniz';
+  String get locationOptional => 'Devam etmek için lütfen konumunuzu ayarlayın';
 
   @override
   String get maximum6Photos => 'Maksimum 6 fotoğraf';
@@ -2768,7 +2764,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get tapToDetectLocation => 'Konumu algılamak için dokunun';
 
   @override
-  String get optionalHelpsNearbyPartners => 'İsteğe bağlı - yakındaki partnerleri bulmaya yardımcı olur';
+  String get optionalHelpsNearbyPartners => 'Gerekli — yakındaki ortakları bulmanıza yardımcı olur';
 
   @override
   String get startLearning => 'Öğrenmeye başla';
@@ -5698,7 +5694,6 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String aiTutorPronounceSentenceOf(int current, int total) {
     return 'Cümle $current / $total';
-  
   }
 
   @override
@@ -5724,8 +5719,8 @@ class AppLocalizationsTr extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: 'Pronunciation drills ($completed/$count)',
-      one: 'Pronunciation drill ($completed/1)',
+      other: 'Telaffuz alıştırmaları ($completed/$count)',
+      one: 'Telaffuz alıştırması ($completed/1)',
     );
     return '$_temp0';
   }
@@ -5753,8 +5748,8 @@ class AppLocalizationsTr extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count left today',
-      one: '1 left today',
+      other: 'Bugün $count kaldı',
+      one: 'Bugün 1 kaldı',
     );
     return '$_temp0';
   }
@@ -5767,7 +5762,6 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get previous => 'Önceki';
-
 
   @override
   String get aiDailyPracticeTitle => 'Günlük pratik';
@@ -5797,6 +5791,11 @@ class AppLocalizationsTr extends AppLocalizations {
   String get aiGrammarSectionCorrected => 'Düzeltilmiş metin';
 
   @override
+  String aiGrammarSectionIssues(int count) {
+    return 'Bulunan sorunlar ($count)';
+  }
+
+  @override
   String get aiGrammarSectionWell => 'İyi yaptıkların';
 
   @override
@@ -5812,7 +5811,12 @@ class AppLocalizationsTr extends AppLocalizations {
   String get aiLessonBuilderLabelLevel => 'Seviye';
 
   @override
-  String get aiLessonBuilderTopicHint => 'Bir konu gir (örn. "Yemek ve Restoranlar")';
+  String get aiLessonBuilderTopicHint => 'Bir konu gir (örn. \"Yemek ve Restoranlar\")';
+
+  @override
+  String aiLessonBuilderSaved(String title) {
+    return '\"$title\" dersi kaydedildi!';
+  }
 
   @override
   String get aiLessonBuilderBackToLessons => 'Derslere dön';
@@ -5822,6 +5826,11 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get aiTranslationSavedToVocab => 'Kelime listene kaydedildi';
+
+  @override
+  String aiTranslationCouldNotSave(String error) {
+    return 'Kaydedilemedi: $error';
+  }
 
   @override
   String get aiQuizTitle => 'Test';
@@ -5857,13 +5866,38 @@ class AppLocalizationsTr extends AppLocalizations {
   String get aiPronunciationHint => 'Pratik için metin girin...';
 
   @override
+  String aiTutorCouldNotLoad(String error) {
+    return 'Öğretmen yüklenemedi: $error';
+  }
+
+  @override
+  String aiTutorPlanUnavailable(String error) {
+    return 'Plan kullanılamıyor: $error';
+  }
+
+  @override
   String get aiTutorReplay => 'Tekrar oynat';
 
   @override
   String get aiScenariosTitle => 'Pratik senaryoları';
 
   @override
+  String aiScenariosCouldNotLoad(String error) {
+    return 'Senaryolar yüklenemedi: $error';
+  }
+
+  @override
   String get aiScenariosNoneAvailable => 'Henüz senaryo yok.';
+
+  @override
+  String aiScenariosCouldNotStart(String error) {
+    return 'Başlatılamadı: $error';
+  }
+
+  @override
+  String aiScenariosForYourLevel(String level) {
+    return 'Senin seviyen için ($level)';
+  }
 
   @override
   String get aiScenariosEasier => 'Daha kolay — ısınma';
@@ -5873,6 +5907,11 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get aiRoleplayStillStarting => 'Senaryo hâlâ başlıyor — biraz sonra tekrar dene.';
+
+  @override
+  String aiRoleplaySendFailed(String error) {
+    return 'Gönderim başarısız: $error';
+  }
 
   @override
   String get aiRoleplayCouldNotGrade => 'Bu kez puanlanamadı — bir dahaki sefere dene.';
@@ -5893,57 +5932,12 @@ class AppLocalizationsTr extends AppLocalizations {
   String get aiConversationTopicPractice => 'Pratik';
 
   @override
-  String get aiToolsVipBadge => 'VIP';
-
-  @override
-  String aiGrammarSectionIssues(int count) {
-    return 'Bulunan sorunlar ($count)';
-  }
-
-  @override
-  String aiLessonBuilderSaved(String title) {
-    return '"$title" dersi kaydedildi!';
-  }
-
-  @override
-  String aiTranslationCouldNotSave(String error) {
-    return 'Kaydedilemedi: $error';
-  }
-
-  @override
-  String aiTutorCouldNotLoad(String error) {
-    return 'Öğretmen yüklenemedi: $error';
-  }
-
-  @override
-  String aiTutorPlanUnavailable(String error) {
-    return 'Plan kullanılamıyor: $error';
-  }
-
-  @override
-  String aiScenariosCouldNotLoad(String error) {
-    return 'Senaryolar yüklenemedi: $error';
-  }
-
-  @override
-  String aiScenariosCouldNotStart(String error) {
-    return 'Başlatılamadı: $error';
-  }
-
-  @override
-  String aiScenariosForYourLevel(String level) {
-    return 'Senin seviyen için ($level)';
-  }
-
-  @override
-  String aiRoleplaySendFailed(String error) {
-    return 'Gönderim başarısız: $error';
-  }
-
-  @override
   String aiToolsVipUpgradeDescription(String feature) {
     return '$feature açmak için VIP\'e geç!';
   }
+
+  @override
+  String get aiToolsVipBadge => 'VIP';
 
   @override
   String aiScenariosBannerPracticingIn(String language) {
@@ -6074,7 +6068,6 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get voiceRoomReactTooltip => 'Tepki ver';
 
-
   @override
   String get momentsCancel => 'İptal';
 
@@ -6183,4 +6176,13 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get splashLoading => 'Yükleniyor…';
+
+  @override
+  String get supportSheetGreeting => 'Merhaba, ben Firdavs 👋';
+
+  @override
+  String get supportSheetStory => 'Bananatalk\'ı tamamen tek başıma inşa ettim — her ekran, her özellik, her gece geç saatlerde yapılan hata düzeltmesi. Amacım dünyanın dört bir yanındaki dil öğrenenlerinin bağlantı kurmasına ve gelişmesine yardımcı olmak ve bunu gerçekleştirmek için sürekli yeni özellikler ekliyorum.\n\nBananatalk sana herhangi bir şekilde yardımcı olduysa, küçük bir kahve bile beni inşa etmeye devam etmem için motive ediyor. Her katkı, tek başına çalışan bir geliştirici için çok şey ifade ediyor. 🙏';
+
+  @override
+  String get supportSheetDonateButton => 'PayPal ile bağış yapın';
 }

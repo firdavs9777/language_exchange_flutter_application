@@ -613,7 +613,6 @@ class AppLocalizationsKo extends AppLocalizations {
   @override
   String aiTutorImagePickError(String error) {
     return '이미지를 열 수 없습니다: $error';
-  
   }
 
   @override
@@ -663,8 +662,8 @@ class AppLocalizationsKo extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count cards waiting for you',
-      one: '$count card waiting for you',
+      other: '$count장의 카드가 기다리고 있어요',
+      one: '$count장의 카드가 기다리고 있어요',
     );
     return '$_temp0';
   }
@@ -684,19 +683,16 @@ class AppLocalizationsKo extends AppLocalizations {
   @override
   String aiTutorPlanSrsReview(int count, int done) {
     return 'SRS 카드 $count장 복습 ($done장 완료)';
-  
   }
 
   @override
   String aiTutorPlanGrammar(String topic) {
     return '연습: $topic';
-  
   }
 
   @override
   String aiTutorPlanChat(int min, int done) {
     return '$min분 채팅 (지금까지 $done분)';
-  
   }
 
   @override
@@ -894,7 +890,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get unblock => '차단 해제';
 
   @override
-  String get goBack => '돌아가기';
+  String get goBack => '뒤로';
 
   @override
   String get messageSendTimeout => '메시지 전송 시간 초과. 연결을 확인하세요.';
@@ -2759,7 +2755,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get profilePhotoRequired => '프로필 사진을 최소 1장 추가해 주세요';
 
   @override
-  String get locationOptional => '위치는 선택사항입니다 — 나중에 추가할 수 있어요';
+  String get locationOptional => '계속하려면 위치를 설정해 주세요';
 
   @override
   String get maximum6Photos => '최대 6장';
@@ -2768,7 +2764,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get tapToDetectLocation => '탭하여 위치 감지';
 
   @override
-  String get optionalHelpsNearbyPartners => '선택 사항 — 근처 파트너 찾기에 도움됩니다';
+  String get optionalHelpsNearbyPartners => '필수 — 근처 파트너 매칭에 도움됩니다';
 
   @override
   String get startLearning => '학습 시작!';
@@ -5691,7 +5687,6 @@ class AppLocalizationsKo extends AppLocalizations {
   @override
   String aiTutorPronounceSentenceOf(int current, int total) {
     return '$total개 중 $current번째 문장';
-  
   }
 
   @override
@@ -5717,8 +5712,8 @@ class AppLocalizationsKo extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: 'Pronunciation drills ($completed/$count)',
-      one: 'Pronunciation drill ($completed/1)',
+      other: '발음 드릴 ($completed/$count)',
+      one: '발음 드릴 ($completed/1)',
     );
     return '$_temp0';
   }
@@ -5746,8 +5741,8 @@ class AppLocalizationsKo extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count left today',
-      one: '1 left today',
+      other: '오늘 $count회 남음',
+      one: '오늘 1회 남음',
     );
     return '$_temp0';
   }
@@ -5760,7 +5755,6 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get previous => '이전';
-
 
   @override
   String get aiDailyPracticeTitle => '매일 연습';
@@ -5790,6 +5784,11 @@ class AppLocalizationsKo extends AppLocalizations {
   String get aiGrammarSectionCorrected => '교정된 문장';
 
   @override
+  String aiGrammarSectionIssues(int count) {
+    return '발견된 문제 ($count)';
+  }
+
+  @override
   String get aiGrammarSectionWell => '잘한 점';
 
   @override
@@ -5805,7 +5804,12 @@ class AppLocalizationsKo extends AppLocalizations {
   String get aiLessonBuilderLabelLevel => '레벨';
 
   @override
-  String get aiLessonBuilderTopicHint => '주제 입력 (예: "음식과 식사")';
+  String get aiLessonBuilderTopicHint => '주제 입력 (예: \"음식과 식사\")';
+
+  @override
+  String aiLessonBuilderSaved(String title) {
+    return '레슨 \"$title\"이(가) 저장되었습니다!';
+  }
 
   @override
   String get aiLessonBuilderBackToLessons => '레슨으로 돌아가기';
@@ -5815,6 +5819,11 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get aiTranslationSavedToVocab => '단어장에 저장됨';
+
+  @override
+  String aiTranslationCouldNotSave(String error) {
+    return '저장할 수 없습니다: $error';
+  }
 
   @override
   String get aiQuizTitle => '퀴즈';
@@ -5850,13 +5859,38 @@ class AppLocalizationsKo extends AppLocalizations {
   String get aiPronunciationHint => '연습할 텍스트 입력...';
 
   @override
+  String aiTutorCouldNotLoad(String error) {
+    return '튜터를 불러올 수 없습니다: $error';
+  }
+
+  @override
+  String aiTutorPlanUnavailable(String error) {
+    return '플랜을 사용할 수 없습니다: $error';
+  }
+
+  @override
   String get aiTutorReplay => '다시 재생';
 
   @override
   String get aiScenariosTitle => '연습 시나리오';
 
   @override
+  String aiScenariosCouldNotLoad(String error) {
+    return '시나리오를 불러올 수 없습니다: $error';
+  }
+
+  @override
   String get aiScenariosNoneAvailable => '아직 시나리오가 없습니다.';
+
+  @override
+  String aiScenariosCouldNotStart(String error) {
+    return '시작할 수 없습니다: $error';
+  }
+
+  @override
+  String aiScenariosForYourLevel(String level) {
+    return '내 레벨용 ($level)';
+  }
 
   @override
   String get aiScenariosEasier => '쉬움 — 워밍업';
@@ -5866,6 +5900,11 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get aiRoleplayStillStarting => '시나리오를 시작 중입니다 — 잠시 후 다시 시도하세요.';
+
+  @override
+  String aiRoleplaySendFailed(String error) {
+    return '전송 실패: $error';
+  }
 
   @override
   String get aiRoleplayCouldNotGrade => '이번에는 채점할 수 없었어요 — 다음에 다시 시도하세요.';
@@ -5886,57 +5925,12 @@ class AppLocalizationsKo extends AppLocalizations {
   String get aiConversationTopicPractice => '연습';
 
   @override
-  String get aiToolsVipBadge => 'VIP';
-
-  @override
-  String aiGrammarSectionIssues(int count) {
-    return '발견된 문제 ($count)';
-  }
-
-  @override
-  String aiLessonBuilderSaved(String title) {
-    return '레슨 "$title"이(가) 저장되었습니다!';
-  }
-
-  @override
-  String aiTranslationCouldNotSave(String error) {
-    return '저장할 수 없습니다: $error';
-  }
-
-  @override
-  String aiTutorCouldNotLoad(String error) {
-    return '튜터를 불러올 수 없습니다: $error';
-  }
-
-  @override
-  String aiTutorPlanUnavailable(String error) {
-    return '플랜을 사용할 수 없습니다: $error';
-  }
-
-  @override
-  String aiScenariosCouldNotLoad(String error) {
-    return '시나리오를 불러올 수 없습니다: $error';
-  }
-
-  @override
-  String aiScenariosCouldNotStart(String error) {
-    return '시작할 수 없습니다: $error';
-  }
-
-  @override
-  String aiScenariosForYourLevel(String level) {
-    return '내 레벨용 ($level)';
-  }
-
-  @override
-  String aiRoleplaySendFailed(String error) {
-    return '전송 실패: $error';
-  }
-
-  @override
   String aiToolsVipUpgradeDescription(String feature) {
     return 'VIP로 업그레이드하여 $feature을(를) 잠금 해제하세요!';
   }
+
+  @override
+  String get aiToolsVipBadge => 'VIP';
 
   @override
   String aiScenariosBannerPracticingIn(String language) {
@@ -6067,7 +6061,6 @@ class AppLocalizationsKo extends AppLocalizations {
   @override
   String get voiceRoomReactTooltip => '리액션';
 
-
   @override
   String get momentsCancel => '취소';
 
@@ -6176,4 +6169,13 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get splashLoading => '로딩 중…';
+
+  @override
+  String get supportSheetGreeting => '안녕하세요, 저는 피르다우스입니다 👋';
+
+  @override
+  String get supportSheetStory => 'Bananatalk는 제가 혼자서 만들었습니다 — 모든 화면, 모든 기능, 밤새 했던 모든 버그 수정까지요. 전 세계의 언어 학습자들이 서로 연결되고 성장할 수 있도록 돕는 것이 제 목표이며, 계속해서 새로운 기능을 추가하고 있습니다.\n\nBananatalk가 조금이라도 도움이 되었다면, 작은 커피 한 잔이 저를 계속 개발할 수 있게 해주는 큰 힘이 됩니다. 솔로 개발자에게 여러분의 기여는 정말 큰 의미가 있습니다. 🙏';
+
+  @override
+  String get supportSheetDonateButton => 'PayPal로 후원하기';
 }

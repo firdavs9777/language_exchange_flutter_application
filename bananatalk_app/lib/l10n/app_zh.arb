@@ -2583,5 +2583,8 @@
   "momentsPrivacyFriends": "朋友",
   "momentsPrivacyPrivate": "私密",
   "splashTagline": "学习 · 聊天 · 相识",
-  "splashLoading": "加载中…"
+  "splashLoading": "加载中…",
+  "supportSheetGreeting": "你好，我是 Firdavs 👋",
+  "supportSheetStory": "Bananatalk 完全由我一个人开发——每一个页面、每一个功能、每一个深夜的漏洞修复。我的目标是帮助全球语言学习者相互连接和成长，我也在不断添加新功能来实现这一目标。\n\n如果 Bananatalk 对你有所帮助，哪怕是一杯小小的咖啡，也能让我保持动力继续开发。对于一个独立开发者来说，每一份支持都意义重大。 🙏",
+  "supportSheetDonateButton": "通过 PayPal 捐款"
 }

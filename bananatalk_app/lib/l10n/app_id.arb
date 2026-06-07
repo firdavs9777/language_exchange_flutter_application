@@ -2412,5 +2412,8 @@
   "momentsPrivacyFriends": "Teman",
   "momentsPrivacyPrivate": "Pribadi",
   "splashTagline": "Belajar · Chat · Bertemu",
-  "splashLoading": "Memuat…"
+  "splashLoading": "Memuat…",
+  "supportSheetGreeting": "Hai, saya Firdavs 👋",
+  "supportSheetStory": "Saya membangun Bananatalk sepenuhnya sendiri — setiap layar, setiap fitur, setiap perbaikan bug di tengah malam. Tujuan saya adalah membantu para pelajar bahasa di seluruh dunia untuk terhubung dan berkembang, dan saya terus menambahkan fitur baru.\n\nJika Bananatalk telah membantu Anda dengan cara apa pun, bahkan secangkir kopi kecil membuat saya tetap termotivasi untuk terus membangun. Setiap kontribusi sangat berarti bagi seorang developer solo. 🙏",
+  "supportSheetDonateButton": "Donasi via PayPal"
 }

@@ -613,7 +613,6 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String aiTutorImagePickError(String error) {
     return 'छवि नहीं खोली जा सकी: $error';
-  
   }
 
   @override
@@ -663,8 +662,8 @@ class AppLocalizationsHi extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count cards waiting for you',
-      one: '$count card waiting for you',
+      other: '$count कार्ड आपकी प्रतीक्षा में',
+      one: '$count कार्ड आपकी प्रतीक्षा में',
     );
     return '$_temp0';
   }
@@ -684,19 +683,16 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String aiTutorPlanSrsReview(int count, int done) {
     return '$count SRS कार्ड समीक्षा करें ($done पूर्ण)';
-  
   }
 
   @override
   String aiTutorPlanGrammar(String topic) {
     return 'अभ्यास: $topic';
-  
   }
 
   @override
   String aiTutorPlanChat(int min, int done) {
     return '$min मिनट चैट करें ($done अब तक)';
-  
   }
 
   @override
@@ -894,7 +890,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get unblock => 'अनब्लॉक';
 
   @override
-  String get goBack => 'वापस जाएं';
+  String get goBack => 'वापस जाएँ';
 
   @override
   String get messageSendTimeout => 'संदेश भेजने का समय समाप्त। कृपया कनेक्शन जांचें।';
@@ -2759,7 +2755,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get profilePhotoRequired => 'कृपया कम से कम एक प्रोफ़ाइल फ़ोटो जोड़ें';
 
   @override
-  String get locationOptional => 'स्थान वैकल्पिक है — आप बाद में जोड़ सकते हैं';
+  String get locationOptional => 'जारी रखने के लिए कृपया अपना स्थान सेट करें';
 
   @override
   String get maximum6Photos => 'अधिकतम 6 फ़ोटो';
@@ -2768,7 +2764,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get tapToDetectLocation => 'स्थान पता करने के लिए टैप करें';
 
   @override
-  String get optionalHelpsNearbyPartners => 'वैकल्पिक - पास के साझेदार खोजने में मदद करता है';
+  String get optionalHelpsNearbyPartners => 'आवश्यक — पास के साझेदारों से मिलान में मदद करता है';
 
   @override
   String get startLearning => 'सीखना शुरू करें';
@@ -5327,7 +5323,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get momentsLoadError => 'मोमेंट्स लोड नहीं हो सके';
 
   @override
-  String get momentsRetry => 'फिर से कोशिश करें';
+  String get momentsRetry => 'पुनः प्रयास';
 
   @override
   String get recentTags => 'हाल के टैग';
@@ -5698,7 +5694,6 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String aiTutorPronounceSentenceOf(int current, int total) {
     return 'वाक्य $current में से $total';
-  
   }
 
   @override
@@ -5724,8 +5719,8 @@ class AppLocalizationsHi extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: 'Pronunciation drills ($completed/$count)',
-      one: 'Pronunciation drill ($completed/1)',
+      other: 'उच्चारण ड्रिल ($completed/$count)',
+      one: 'उच्चारण ड्रिल ($completed/1)',
     );
     return '$_temp0';
   }
@@ -5753,8 +5748,8 @@ class AppLocalizationsHi extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count left today',
-      one: '1 left today',
+      other: 'आज $count बचे हैं',
+      one: 'आज 1 बचा है',
     );
     return '$_temp0';
   }
@@ -5767,7 +5762,6 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get previous => 'पिछला';
-
 
   @override
   String get aiDailyPracticeTitle => 'रोज़ का अभ्यास';
@@ -5797,6 +5791,11 @@ class AppLocalizationsHi extends AppLocalizations {
   String get aiGrammarSectionCorrected => 'सुधारा गया टेक्स्ट';
 
   @override
+  String aiGrammarSectionIssues(int count) {
+    return 'पाई गई समस्याएँ ($count)';
+  }
+
+  @override
   String get aiGrammarSectionWell => 'आपने अच्छा क्या किया';
 
   @override
@@ -5812,7 +5811,12 @@ class AppLocalizationsHi extends AppLocalizations {
   String get aiLessonBuilderLabelLevel => 'स्तर';
 
   @override
-  String get aiLessonBuilderTopicHint => 'विषय दर्ज करें (जैसे, "भोजन और रेस्तरां")';
+  String get aiLessonBuilderTopicHint => 'विषय दर्ज करें (जैसे, \"भोजन और रेस्तरां\")';
+
+  @override
+  String aiLessonBuilderSaved(String title) {
+    return 'पाठ \"$title\" सहेजा गया!';
+  }
 
   @override
   String get aiLessonBuilderBackToLessons => 'पाठों पर वापस जाएँ';
@@ -5822,6 +5826,11 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get aiTranslationSavedToVocab => 'आपकी शब्दावली सूची में सहेजा गया';
+
+  @override
+  String aiTranslationCouldNotSave(String error) {
+    return 'सहेज नहीं सका: $error';
+  }
 
   @override
   String get aiQuizTitle => 'क्विज़';
@@ -5857,13 +5866,38 @@ class AppLocalizationsHi extends AppLocalizations {
   String get aiPronunciationHint => 'अभ्यास के लिए टेक्स्ट दर्ज करें...';
 
   @override
+  String aiTutorCouldNotLoad(String error) {
+    return 'ट्यूटर लोड नहीं हो सका: $error';
+  }
+
+  @override
+  String aiTutorPlanUnavailable(String error) {
+    return 'प्लान उपलब्ध नहीं: $error';
+  }
+
+  @override
   String get aiTutorReplay => 'फिर से चलाएँ';
 
   @override
   String get aiScenariosTitle => 'अभ्यास सीनैरियो';
 
   @override
+  String aiScenariosCouldNotLoad(String error) {
+    return 'सीनैरियो लोड नहीं हो सके: $error';
+  }
+
+  @override
   String get aiScenariosNoneAvailable => 'अभी कोई सीनैरियो उपलब्ध नहीं।';
+
+  @override
+  String aiScenariosCouldNotStart(String error) {
+    return 'शुरू नहीं हो सका: $error';
+  }
+
+  @override
+  String aiScenariosForYourLevel(String level) {
+    return 'आपके स्तर के लिए ($level)';
+  }
 
   @override
   String get aiScenariosEasier => 'आसान — वार्म-अप';
@@ -5873,6 +5907,11 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get aiRoleplayStillStarting => 'सीनैरियो अभी शुरू हो रहा है — एक पल में पुनः प्रयास करें।';
+
+  @override
+  String aiRoleplaySendFailed(String error) {
+    return 'भेजने में विफल: $error';
+  }
 
   @override
   String get aiRoleplayCouldNotGrade => 'इस बार ग्रेड नहीं हो सका — अगली बार प्रयास करें।';
@@ -5893,57 +5932,12 @@ class AppLocalizationsHi extends AppLocalizations {
   String get aiConversationTopicPractice => 'अभ्यास';
 
   @override
-  String get aiToolsVipBadge => 'VIP';
-
-  @override
-  String aiGrammarSectionIssues(int count) {
-    return 'पाई गई समस्याएँ ($count)';
-  }
-
-  @override
-  String aiLessonBuilderSaved(String title) {
-    return 'पाठ "$title" सहेजा गया!';
-  }
-
-  @override
-  String aiTranslationCouldNotSave(String error) {
-    return 'सहेज नहीं सका: $error';
-  }
-
-  @override
-  String aiTutorCouldNotLoad(String error) {
-    return 'ट्यूटर लोड नहीं हो सका: $error';
-  }
-
-  @override
-  String aiTutorPlanUnavailable(String error) {
-    return 'प्लान उपलब्ध नहीं: $error';
-  }
-
-  @override
-  String aiScenariosCouldNotLoad(String error) {
-    return 'सीनैरियो लोड नहीं हो सके: $error';
-  }
-
-  @override
-  String aiScenariosCouldNotStart(String error) {
-    return 'शुरू नहीं हो सका: $error';
-  }
-
-  @override
-  String aiScenariosForYourLevel(String level) {
-    return 'आपके स्तर के लिए ($level)';
-  }
-
-  @override
-  String aiRoleplaySendFailed(String error) {
-    return 'भेजने में विफल: $error';
-  }
-
-  @override
   String aiToolsVipUpgradeDescription(String feature) {
     return '$feature अनलॉक करने के लिए VIP में अपग्रेड करें!';
   }
+
+  @override
+  String get aiToolsVipBadge => 'VIP';
 
   @override
   String aiScenariosBannerPracticingIn(String language) {
@@ -6074,7 +6068,6 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get voiceRoomReactTooltip => 'प्रतिक्रिया';
 
-
   @override
   String get momentsCancel => 'रद्द';
 
@@ -6183,4 +6176,13 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get splashLoading => 'लोड हो रहा है…';
+
+  @override
+  String get supportSheetGreeting => 'नमस्ते, मैं फ़िर्दावस हूँ 👋';
+
+  @override
+  String get supportSheetStory => 'मैंने Bananatalk पूरी तरह अकेले बनाया है — हर स्क्रीन, हर फीचर, और रात के हर बग फिक्स। मेरा लक्ष्य दुनिया भर के भाषा सीखने वालों को जोड़ना और उन्हें आगे बढ़ने में मदद करना है, और मैं लगातार नए फीचर जोड़ता रहता हूँ।\n\nअगर Bananatalk ने किसी भी तरह से आपकी मदद की है, तो एक छोटी-सी कॉफी भी मुझे बनाते रहने की प्रेरणा देती है। एक अकेले डेवलपर के लिए हर योगदान बहुत मायने रखता है। 🙏';
+
+  @override
+  String get supportSheetDonateButton => 'PayPal से दान करें';
 }

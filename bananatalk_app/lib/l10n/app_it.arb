@@ -2839,5 +2839,8 @@
   "momentsPrivacyFriends": "Amici",
   "momentsPrivacyPrivate": "Privato",
   "splashTagline": "Impara · Chatta · Incontra",
-  "splashLoading": "Caricamento…"
+  "splashLoading": "Caricamento…",
+  "supportSheetGreeting": "Ciao, sono Firdavs 👋",
+  "supportSheetStory": "Ho costruito Bananatalk completamente da solo — ogni schermata, ogni funzione, ogni correzione di bug a tarda notte. Il mio obiettivo è aiutare gli studenti di lingue di tutto il mondo a connettersi e crescere, e sto costantemente aggiungendo nuove funzionalità.\n\nSe Bananatalk ti ha aiutato in qualche modo, anche un piccolo caffè mi mantiene motivato a continuare a costruire. Ogni contributo significa il mondo per uno sviluppatore solitario. 🙏",
+  "supportSheetDonateButton": "Dona tramite PayPal"
 }

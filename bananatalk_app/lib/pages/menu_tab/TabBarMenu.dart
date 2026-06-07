@@ -458,6 +458,7 @@ class _SupportSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
     final bg = isDark ? const Color(0xFF1C1C2E) : Colors.white;
     final textPrimary = isDark ? Colors.white : const Color(0xFF1A1A2E);
@@ -496,7 +497,7 @@ class _SupportSheet extends StatelessWidget {
           const Text('☕', style: TextStyle(fontSize: 44)),
           const SizedBox(height: 12),
           Text(
-            'Hi, I\'m Firdavs 👋',
+            l10n.supportSheetGreeting,
             style: TextStyle(
               fontSize: 22,
               fontWeight: FontWeight.w800,
@@ -517,10 +518,7 @@ class _SupportSheet extends StatelessWidget {
               ),
             ),
             child: Text(
-              'I built Bananatalk entirely on my own — every screen, every feature, every late-night bug fix. '
-              'My goal is to help language learners around the world connect and grow, and I\'m constantly adding new features to make that happen.\n\n'
-              'If Bananatalk has helped you in any way, even a small coffee keeps me motivated to keep building. '
-              'Every contribution means the world to a solo developer. 🙏',
+              l10n.supportSheetStory,
               style: TextStyle(
                 fontSize: 14,
                 color: textSecondary,
@@ -550,13 +548,13 @@ class _SupportSheet extends StatelessWidget {
                   ),
                 ],
               ),
-              child: const Row(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('💙', style: TextStyle(fontSize: 18)),
-                  SizedBox(width: 10),
+                  const Text('💙', style: TextStyle(fontSize: 18)),
+                  const SizedBox(width: 10),
                   Text(
-                    'Donate via PayPal',
+                    l10n.supportSheetDonateButton,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 16,

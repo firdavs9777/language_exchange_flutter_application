@@ -2018,5 +2018,8 @@
   "@aiTutorChipPronounce": {
     "description": "Label for the 5th tutor mode chip — opens the Pronunciation Coach drill"
   },
-  "splashTagline": "學習 · 聊天 · 相識"
+  "splashTagline": "學習 · 聊天 · 相識",
+  "supportSheetGreeting": "你好，我是 Firdavs 👋",
+  "supportSheetStory": "Bananatalk 完全由我一個人開發——每一個頁面、每一個功能、每一個深夜的漏洞修復。我的目標是幫助全球語言學習者相互連結和成長，我也不斷地新增功能來實現這個目標。\n\n如果 Bananatalk 對你有所幫助，哪怕是一杯小小的咖啡，也能讓我保持動力繼續開發。對於一個獨立開發者來說，每一份支持都意義重大。 🙏",
+  "supportSheetDonateButton": "透過 PayPal 捐款"
 }

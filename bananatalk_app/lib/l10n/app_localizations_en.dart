@@ -2761,7 +2761,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get profilePhotoRequired => 'Please add at least one profile photo';
 
   @override
-  String get locationOptional => 'Location is optional — you can add it later';
+  String get locationOptional => 'Please set your location to continue';
 
   @override
   String get maximum6Photos => 'Maximum 6 photos';
@@ -2770,7 +2770,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get tapToDetectLocation => 'Tap to detect location';
 
   @override
-  String get optionalHelpsNearbyPartners => 'Optional — helps find nearby partners';
+  String get optionalHelpsNearbyPartners => 'Required — helps match you with partners nearby';
 
   @override
   String get startLearning => 'Start Learning!';
@@ -5329,7 +5329,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get momentsLoadError => 'Couldn\'t load moments';
 
   @override
-  String get momentsRetry => 'Try again';
+  String get momentsRetry => 'Retry';
 
   @override
   String get recentTags => 'Recent tags';
@@ -5769,7 +5769,6 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get previous => 'Previous';
 
-
   @override
   String get aiDailyPracticeTitle => 'Daily Practice';
 
@@ -5798,6 +5797,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get aiGrammarSectionCorrected => 'Corrected Text';
 
   @override
+  String aiGrammarSectionIssues(int count) {
+    return 'Issues Found ($count)';
+  }
+
+  @override
   String get aiGrammarSectionWell => 'What You Did Well';
 
   @override
@@ -5813,7 +5817,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get aiLessonBuilderLabelLevel => 'Level';
 
   @override
-  String get aiLessonBuilderTopicHint => 'Enter a topic (e.g., "Food and Dining")';
+  String get aiLessonBuilderTopicHint => 'Enter a topic (e.g., \"Food and Dining\")';
+
+  @override
+  String aiLessonBuilderSaved(String title) {
+    return 'Lesson \"$title\" saved!';
+  }
 
   @override
   String get aiLessonBuilderBackToLessons => 'Back to Lessons';
@@ -5823,6 +5832,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get aiTranslationSavedToVocab => 'Saved to your vocab list';
+
+  @override
+  String aiTranslationCouldNotSave(String error) {
+    return 'Could not save: $error';
+  }
 
   @override
   String get aiQuizTitle => 'Quiz';
@@ -5858,13 +5872,38 @@ class AppLocalizationsEn extends AppLocalizations {
   String get aiPronunciationHint => 'Enter text to practice...';
 
   @override
+  String aiTutorCouldNotLoad(String error) {
+    return 'Could not load tutor: $error';
+  }
+
+  @override
+  String aiTutorPlanUnavailable(String error) {
+    return 'Plan unavailable: $error';
+  }
+
+  @override
   String get aiTutorReplay => 'Replay';
 
   @override
   String get aiScenariosTitle => 'Practice scenarios';
 
   @override
+  String aiScenariosCouldNotLoad(String error) {
+    return 'Could not load scenarios: $error';
+  }
+
+  @override
   String get aiScenariosNoneAvailable => 'No scenarios available yet.';
+
+  @override
+  String aiScenariosCouldNotStart(String error) {
+    return 'Could not start: $error';
+  }
+
+  @override
+  String aiScenariosForYourLevel(String level) {
+    return 'For your level ($level)';
+  }
 
   @override
   String get aiScenariosEasier => 'Easier — warm up';
@@ -5874,6 +5913,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get aiRoleplayStillStarting => 'Still starting the scenario — try again in a moment.';
+
+  @override
+  String aiRoleplaySendFailed(String error) {
+    return 'Send failed: $error';
+  }
 
   @override
   String get aiRoleplayCouldNotGrade => 'Couldn\'t grade this one — try again next time.';
@@ -5894,57 +5938,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get aiConversationTopicPractice => 'Practice';
 
   @override
-  String get aiToolsVipBadge => 'VIP';
-
-  @override
-  String aiGrammarSectionIssues(int count) {
-    return 'Issues Found ($count)';
-  }
-
-  @override
-  String aiLessonBuilderSaved(String title) {
-    return 'Lesson "$title" saved!';
-  }
-
-  @override
-  String aiTranslationCouldNotSave(String error) {
-    return 'Could not save: $error';
-  }
-
-  @override
-  String aiTutorCouldNotLoad(String error) {
-    return 'Could not load tutor: $error';
-  }
-
-  @override
-  String aiTutorPlanUnavailable(String error) {
-    return 'Plan unavailable: $error';
-  }
-
-  @override
-  String aiScenariosCouldNotLoad(String error) {
-    return 'Could not load scenarios: $error';
-  }
-
-  @override
-  String aiScenariosCouldNotStart(String error) {
-    return 'Could not start: $error';
-  }
-
-  @override
-  String aiScenariosForYourLevel(String level) {
-    return 'For your level ($level)';
-  }
-
-  @override
-  String aiRoleplaySendFailed(String error) {
-    return 'Send failed: $error';
-  }
-
-  @override
   String aiToolsVipUpgradeDescription(String feature) {
     return 'Upgrade to VIP to unlock $feature!';
   }
+
+  @override
+  String get aiToolsVipBadge => 'VIP';
 
   @override
   String aiScenariosBannerPracticingIn(String language) {
@@ -6075,7 +6074,6 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get voiceRoomReactTooltip => 'React';
 
-
   @override
   String get momentsCancel => 'Cancel';
 
@@ -6184,4 +6182,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get splashLoading => 'Loading…';
+
+  @override
+  String get supportSheetGreeting => 'Hi, I\'m Firdavs 👋';
+
+  @override
+  String get supportSheetStory => 'I built Bananatalk entirely on my own — every screen, every feature, every late-night bug fix. My goal is to help language learners around the world connect and grow, and I\'m constantly adding new features to make that happen.\n\nIf Bananatalk has helped you in any way, even a small coffee keeps me motivated to keep building. Every contribution means the world to a solo developer. 🙏';
+
+  @override
+  String get supportSheetDonateButton => 'Donate via PayPal';
 }

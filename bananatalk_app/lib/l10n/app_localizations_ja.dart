@@ -613,7 +613,6 @@ class AppLocalizationsJa extends AppLocalizations {
   @override
   String aiTutorImagePickError(String error) {
     return '画像を開けませんでした: $error';
-  
   }
 
   @override
@@ -663,8 +662,8 @@ class AppLocalizationsJa extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count cards waiting for you',
-      one: '$count card waiting for you',
+      other: '$count枚のカードが待っています',
+      one: '$count枚のカードが待っています',
     );
     return '$_temp0';
   }
@@ -684,19 +683,16 @@ class AppLocalizationsJa extends AppLocalizations {
   @override
   String aiTutorPlanSrsReview(int count, int done) {
     return '$count枚のSRSカードを復習 ($done完了)';
-  
   }
 
   @override
   String aiTutorPlanGrammar(String topic) {
     return '練習: $topic';
-  
   }
 
   @override
   String aiTutorPlanChat(int min, int done) {
     return '$min分チャット (これまで$done)';
-  
   }
 
   @override
@@ -2759,7 +2755,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get profilePhotoRequired => 'プロフィール写真を1枚以上追加してください';
 
   @override
-  String get locationOptional => '位置情報は任意です — 後で追加できます';
+  String get locationOptional => '続行するには位置情報を設定してください';
 
   @override
   String get maximum6Photos => '最大6枚まで';
@@ -2768,7 +2764,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get tapToDetectLocation => 'タップして位置を検出';
 
   @override
-  String get optionalHelpsNearbyPartners => '任意 — 近くのパートナーを見つけるのに役立ちます';
+  String get optionalHelpsNearbyPartners => '必須 — 近くのパートナーとのマッチングに役立ちます';
 
   @override
   String get startLearning => '学習を始めよう！';
@@ -5691,7 +5687,6 @@ class AppLocalizationsJa extends AppLocalizations {
   @override
   String aiTutorPronounceSentenceOf(int current, int total) {
     return '文 $current/$total';
-  
   }
 
   @override
@@ -5717,8 +5712,8 @@ class AppLocalizationsJa extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: 'Pronunciation drills ($completed/$count)',
-      one: 'Pronunciation drill ($completed/1)',
+      other: '発音練習 ($completed/$count)',
+      one: '発音練習 ($completed/1)',
     );
     return '$_temp0';
   }
@@ -5746,8 +5741,8 @@ class AppLocalizationsJa extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count left today',
-      one: '1 left today',
+      other: '今日あと$count回',
+      one: '今日あと1回',
     );
     return '$_temp0';
   }
@@ -5760,7 +5755,6 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get previous => '前へ';
-
 
   @override
   String get aiDailyPracticeTitle => '毎日の練習';
@@ -5790,6 +5784,11 @@ class AppLocalizationsJa extends AppLocalizations {
   String get aiGrammarSectionCorrected => '修正された文';
 
   @override
+  String aiGrammarSectionIssues(int count) {
+    return '見つかった問題 ($count)';
+  }
+
+  @override
   String get aiGrammarSectionWell => 'うまくできたこと';
 
   @override
@@ -5805,7 +5804,12 @@ class AppLocalizationsJa extends AppLocalizations {
   String get aiLessonBuilderLabelLevel => 'レベル';
 
   @override
-  String get aiLessonBuilderTopicHint => 'トピックを入力（例："食事とレストラン"）';
+  String get aiLessonBuilderTopicHint => 'トピックを入力（例：\"食事とレストラン\"）';
+
+  @override
+  String aiLessonBuilderSaved(String title) {
+    return 'レッスン \"$title\" を保存しました！';
+  }
 
   @override
   String get aiLessonBuilderBackToLessons => 'レッスンに戻る';
@@ -5815,6 +5819,11 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get aiTranslationSavedToVocab => '単語リストに保存しました';
+
+  @override
+  String aiTranslationCouldNotSave(String error) {
+    return '保存できませんでした: $error';
+  }
 
   @override
   String get aiQuizTitle => 'クイズ';
@@ -5850,13 +5859,38 @@ class AppLocalizationsJa extends AppLocalizations {
   String get aiPronunciationHint => '練習するテキストを入力...';
 
   @override
+  String aiTutorCouldNotLoad(String error) {
+    return 'チューターを読み込めませんでした: $error';
+  }
+
+  @override
+  String aiTutorPlanUnavailable(String error) {
+    return 'プランが利用できません: $error';
+  }
+
+  @override
   String get aiTutorReplay => '再生';
 
   @override
   String get aiScenariosTitle => '練習シナリオ';
 
   @override
+  String aiScenariosCouldNotLoad(String error) {
+    return 'シナリオを読み込めませんでした: $error';
+  }
+
+  @override
   String get aiScenariosNoneAvailable => 'まだシナリオはありません。';
+
+  @override
+  String aiScenariosCouldNotStart(String error) {
+    return '開始できませんでした: $error';
+  }
+
+  @override
+  String aiScenariosForYourLevel(String level) {
+    return 'あなたのレベル向け ($level)';
+  }
 
   @override
   String get aiScenariosEasier => '易しい — ウォームアップ';
@@ -5866,6 +5900,11 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get aiRoleplayStillStarting => 'シナリオを準備中です — 少し待って再試行してください。';
+
+  @override
+  String aiRoleplaySendFailed(String error) {
+    return '送信に失敗: $error';
+  }
 
   @override
   String get aiRoleplayCouldNotGrade => '今回は採点できませんでした — 次回再試行してください。';
@@ -5886,57 +5925,12 @@ class AppLocalizationsJa extends AppLocalizations {
   String get aiConversationTopicPractice => '練習';
 
   @override
-  String get aiToolsVipBadge => 'VIP';
-
-  @override
-  String aiGrammarSectionIssues(int count) {
-    return '見つかった問題 ($count)';
-  }
-
-  @override
-  String aiLessonBuilderSaved(String title) {
-    return 'レッスン "$title" を保存しました！';
-  }
-
-  @override
-  String aiTranslationCouldNotSave(String error) {
-    return '保存できませんでした: $error';
-  }
-
-  @override
-  String aiTutorCouldNotLoad(String error) {
-    return 'チューターを読み込めませんでした: $error';
-  }
-
-  @override
-  String aiTutorPlanUnavailable(String error) {
-    return 'プランが利用できません: $error';
-  }
-
-  @override
-  String aiScenariosCouldNotLoad(String error) {
-    return 'シナリオを読み込めませんでした: $error';
-  }
-
-  @override
-  String aiScenariosCouldNotStart(String error) {
-    return '開始できませんでした: $error';
-  }
-
-  @override
-  String aiScenariosForYourLevel(String level) {
-    return 'あなたのレベル向け ($level)';
-  }
-
-  @override
-  String aiRoleplaySendFailed(String error) {
-    return '送信に失敗: $error';
-  }
-
-  @override
   String aiToolsVipUpgradeDescription(String feature) {
     return 'VIPにアップグレードして $feature を解除！';
   }
+
+  @override
+  String get aiToolsVipBadge => 'VIP';
 
   @override
   String aiScenariosBannerPracticingIn(String language) {
@@ -6067,7 +6061,6 @@ class AppLocalizationsJa extends AppLocalizations {
   @override
   String get voiceRoomReactTooltip => 'リアクション';
 
-
   @override
   String get momentsCancel => 'キャンセル';
 
@@ -6176,4 +6169,13 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get splashLoading => '読み込み中…';
+
+  @override
+  String get supportSheetGreeting => 'こんにちは、フィルダウスです 👋';
+
+  @override
+  String get supportSheetStory => 'Bananatalkは一人で作りました — 画面、機能、深夜のバグ修正まで全て。世界中の語学学習者がつながり成長できるよう、常に新機能を追加しています。\n\nBananatalkが少しでもお役に立てたなら、コーヒー一杯分のサポートが開発継続の大きな励みになります。ソロ開発者にとって、あなたの応援は何より嬉しいです。 🙏';
+
+  @override
+  String get supportSheetDonateButton => 'PayPalで寄付する';
 }

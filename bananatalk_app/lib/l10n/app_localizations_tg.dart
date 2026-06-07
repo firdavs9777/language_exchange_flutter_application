@@ -613,7 +613,6 @@ class AppLocalizationsTg extends AppLocalizations {
   @override
   String aiTutorImagePickError(String error) {
     return 'Тасвирро кушодан натавонист: $error';
-  
   }
 
   @override
@@ -663,9 +662,8 @@ class AppLocalizationsTg extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count корт мунтазири шумост',
-      one: '$count корт мунтазири шумост',
-      zero: 'ягон корт мунтазир нест',
+      other: '$count корт мунтазир аст',
+      one: '$count корт мунтазир аст',
     );
     return '$_temp0';
   }
@@ -685,19 +683,16 @@ class AppLocalizationsTg extends AppLocalizations {
   @override
   String aiTutorPlanSrsReview(int count, int done) {
     return '$count корти SRS такрор кунед ($done тайёр)';
-  
   }
 
   @override
   String aiTutorPlanGrammar(String topic) {
     return 'Машқ: $topic';
-  
   }
 
   @override
   String aiTutorPlanChat(int min, int done) {
     return '$min дақ чат ($done то ҳол)';
-  
   }
 
   @override
@@ -2766,7 +2761,7 @@ class AppLocalizationsTg extends AppLocalizations {
   String get profilePhotoRequired => 'Лутфан ҳадди ақал як сурати профил илова кунед';
 
   @override
-  String get locationOptional => 'Ҷойгиршавӣ ихтиёрист — баъдтар илова карда метавонед';
+  String get locationOptional => 'Барои идома додан лутфан ҷойгиратонро муайян кунед';
 
   @override
   String get maximum6Photos => 'Ҳадди ниҳоӣ 6 сурат';
@@ -2775,7 +2770,7 @@ class AppLocalizationsTg extends AppLocalizations {
   String get tapToDetectLocation => 'Барои муайян кардани ҷойгиршавӣ зер кунед';
 
   @override
-  String get optionalHelpsNearbyPartners => 'Ихтиёрӣ — барои ёфтани шарикони наздик кӯмак мекунад';
+  String get optionalHelpsNearbyPartners => 'Ҳатмӣ — дар ёфтани шарикони наздик кӯмак мекунад';
 
   @override
   String get startLearning => 'Омӯзишро оғоз кунед!';
@@ -5334,7 +5329,7 @@ class AppLocalizationsTg extends AppLocalizations {
   String get momentsLoadError => 'Боргирии лаҳзаҳо имконнопазир буд';
 
   @override
-  String get momentsRetry => 'Аз нав кӯшиш кунед';
+  String get momentsRetry => 'Боз кӯшиш кунед';
 
   @override
   String get recentTags => 'Тегҳои наздик';
@@ -5705,7 +5700,6 @@ class AppLocalizationsTg extends AppLocalizations {
   @override
   String aiTutorPronounceSentenceOf(int current, int total) {
     return 'Ҷумлаи $current аз $total';
-  
   }
 
   @override
@@ -5760,8 +5754,8 @@ class AppLocalizationsTg extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count-то имрӯз боқӣ мондааст',
-      one: '1-то имрӯз боқӣ мондааст',
+      other: 'Имрӯз $count боқӣ',
+      one: 'Имрӯз 1 боқӣ',
     );
     return '$_temp0';
   }
@@ -5774,7 +5768,6 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get previous => 'Қаблӣ';
-
 
   @override
   String get aiDailyPracticeTitle => 'Машқи ҳаррӯза';
@@ -5804,6 +5797,11 @@ class AppLocalizationsTg extends AppLocalizations {
   String get aiGrammarSectionCorrected => 'Матни ислоҳшуда';
 
   @override
+  String aiGrammarSectionIssues(int count) {
+    return 'Масоили ёфтшуда ($count)';
+  }
+
+  @override
   String get aiGrammarSectionWell => 'Он чи хуб карданд';
 
   @override
@@ -5819,7 +5817,12 @@ class AppLocalizationsTg extends AppLocalizations {
   String get aiLessonBuilderLabelLevel => 'Сатҳ';
 
   @override
-  String get aiLessonBuilderTopicHint => 'Мавзӯъро ворид кунед (мисол "Хӯрок ва тарабхона")';
+  String get aiLessonBuilderTopicHint => 'Мавзӯъро ворид кунед (мисол \"Хӯрок ва тарабхона\")';
+
+  @override
+  String aiLessonBuilderSaved(String title) {
+    return 'Дарси \"$title\" сабт шуд!';
+  }
 
   @override
   String get aiLessonBuilderBackToLessons => 'Бозгашт ба дарсҳо';
@@ -5829,6 +5832,11 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get aiTranslationSavedToVocab => 'Ба рӯйхати луғати шумо сабт шуд';
+
+  @override
+  String aiTranslationCouldNotSave(String error) {
+    return 'Сабт нашуд: $error';
+  }
 
   @override
   String get aiQuizTitle => 'Викторина';
@@ -5864,13 +5872,38 @@ class AppLocalizationsTg extends AppLocalizations {
   String get aiPronunciationHint => 'Матнро барои машқ ворид кунед...';
 
   @override
+  String aiTutorCouldNotLoad(String error) {
+    return 'Муаллимро бор кардан натавонист: $error';
+  }
+
+  @override
+  String aiTutorPlanUnavailable(String error) {
+    return 'Нақша дастрас нест: $error';
+  }
+
+  @override
   String get aiTutorReplay => 'Такрор';
 
   @override
   String get aiScenariosTitle => 'Сенарияҳои машқ';
 
   @override
+  String aiScenariosCouldNotLoad(String error) {
+    return 'Сенарияҳоро бор кардан натавонист: $error';
+  }
+
+  @override
   String get aiScenariosNoneAvailable => 'Ҳанӯз сенария нест.';
+
+  @override
+  String aiScenariosCouldNotStart(String error) {
+    return 'Оғоз карда натавонист: $error';
+  }
+
+  @override
+  String aiScenariosForYourLevel(String level) {
+    return 'Барои сатҳи шумо ($level)';
+  }
 
   @override
   String get aiScenariosEasier => 'Осонтар — гармкунӣ';
@@ -5880,6 +5913,11 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get aiRoleplayStillStarting => 'Сенария ҳоло оғоз меёбад — баъд аз як лаҳза боз кӯшиш кунед.';
+
+  @override
+  String aiRoleplaySendFailed(String error) {
+    return 'Фиристодан нашуд: $error';
+  }
 
   @override
   String get aiRoleplayCouldNotGrade => 'Дар ин бор баҳогузорӣ нашуд — дафъаи дигар кӯшиш кунед.';
@@ -5900,57 +5938,12 @@ class AppLocalizationsTg extends AppLocalizations {
   String get aiConversationTopicPractice => 'Машқ';
 
   @override
-  String get aiToolsVipBadge => 'VIP';
-
-  @override
-  String aiGrammarSectionIssues(int count) {
-    return 'Масоили ёфтшуда ($count)';
-  }
-
-  @override
-  String aiLessonBuilderSaved(String title) {
-    return 'Дарси "$title" сабт шуд!';
-  }
-
-  @override
-  String aiTranslationCouldNotSave(String error) {
-    return 'Сабт нашуд: $error';
-  }
-
-  @override
-  String aiTutorCouldNotLoad(String error) {
-    return 'Муаллимро бор кардан натавонист: $error';
-  }
-
-  @override
-  String aiTutorPlanUnavailable(String error) {
-    return 'Нақша дастрас нест: $error';
-  }
-
-  @override
-  String aiScenariosCouldNotLoad(String error) {
-    return 'Сенарияҳоро бор кардан натавонист: $error';
-  }
-
-  @override
-  String aiScenariosCouldNotStart(String error) {
-    return 'Оғоз карда натавонист: $error';
-  }
-
-  @override
-  String aiScenariosForYourLevel(String level) {
-    return 'Барои сатҳи шумо ($level)';
-  }
-
-  @override
-  String aiRoleplaySendFailed(String error) {
-    return 'Фиристодан нашуд: $error';
-  }
-
-  @override
   String aiToolsVipUpgradeDescription(String feature) {
     return 'Барои кушодани $feature ба VIP гузаред!';
   }
+
+  @override
+  String get aiToolsVipBadge => 'VIP';
 
   @override
   String aiScenariosBannerPracticingIn(String language) {
@@ -6081,7 +6074,6 @@ class AppLocalizationsTg extends AppLocalizations {
   @override
   String get voiceRoomReactTooltip => 'Аксуламал';
 
-
   @override
   String get momentsCancel => 'Бекор';
 
@@ -6190,4 +6182,13 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get splashLoading => 'Боргузорӣ…';
+
+  @override
+  String get supportSheetGreeting => 'Салом, ман Фирдавс ҳастам 👋';
+
+  @override
+  String get supportSheetStory => 'Ман Bananatalk-ро пурра танҳо сохтам — ҳар экран, ҳар имконият, ҳар ислоҳи хато дар нисфишаб. Ҳадафи ман кӯмак ба омӯзандагони забон дар саросари ҷаҳон барои пайваст шудан ва рушд кардан аст ва ман пайваста имкониятҳои нав илова мекунам.\n\nАгар Bananatalk ба шумо бо ягон тарз кӯмак карда бошад, ҳатто як пиёла қаҳваи хурд маро барои идома додани кор мотивация медиҳад. Ҳар кӯмак барои як таҳиягари танҳо хеле муҳим аст. 🙏';
+
+  @override
+  String get supportSheetDonateButton => 'Тавассути PayPal хайрия кунед';
 }

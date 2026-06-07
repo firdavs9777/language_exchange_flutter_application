@@ -613,7 +613,6 @@ class AppLocalizationsIt extends AppLocalizations {
   @override
   String aiTutorImagePickError(String error) {
     return 'Impossibile aprire l\'immagine: $error';
-  
   }
 
   @override
@@ -663,8 +662,8 @@ class AppLocalizationsIt extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count cards waiting for you',
-      one: '$count card waiting for you',
+      other: '$count carte ti aspettano',
+      one: '$count carta ti aspetta',
     );
     return '$_temp0';
   }
@@ -684,19 +683,16 @@ class AppLocalizationsIt extends AppLocalizations {
   @override
   String aiTutorPlanSrsReview(int count, int done) {
     return 'Ripassa $count carte SRS ($done fatte)';
-  
   }
 
   @override
   String aiTutorPlanGrammar(String topic) {
     return 'Pratica: $topic';
-  
   }
 
   @override
   String aiTutorPlanChat(int min, int done) {
     return 'Chatta $min min ($done finora)';
-  
   }
 
   @override
@@ -894,7 +890,7 @@ class AppLocalizationsIt extends AppLocalizations {
   String get unblock => 'Sblocca';
 
   @override
-  String get goBack => 'Torna indietro';
+  String get goBack => 'Indietro';
 
   @override
   String get messageSendTimeout => 'Timeout invio messaggio. Controlla la connessione.';
@@ -2759,7 +2755,7 @@ class AppLocalizationsIt extends AppLocalizations {
   String get profilePhotoRequired => 'Aggiungi almeno una foto del profilo';
 
   @override
-  String get locationOptional => 'La posizione è facoltativa — puoi aggiungerla dopo';
+  String get locationOptional => 'Imposta la tua posizione per continuare';
 
   @override
   String get maximum6Photos => 'Massimo 6 foto';
@@ -2768,7 +2764,7 @@ class AppLocalizationsIt extends AppLocalizations {
   String get tapToDetectLocation => 'Tocca per rilevare la posizione';
 
   @override
-  String get optionalHelpsNearbyPartners => 'Facoltativo - aiuta a trovare partner nelle vicinanze';
+  String get optionalHelpsNearbyPartners => 'Obbligatorio — aiuta a trovare partner nelle vicinanze';
 
   @override
   String get startLearning => 'Inizia ad imparare';
@@ -5698,7 +5694,6 @@ class AppLocalizationsIt extends AppLocalizations {
   @override
   String aiTutorPronounceSentenceOf(int current, int total) {
     return 'Frase $current di $total';
-  
   }
 
   @override
@@ -5724,8 +5719,8 @@ class AppLocalizationsIt extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: 'Pronunciation drills ($completed/$count)',
-      one: 'Pronunciation drill ($completed/1)',
+      other: 'Esercizi di pronuncia ($completed/$count)',
+      one: 'Esercizio di pronuncia ($completed/1)',
     );
     return '$_temp0';
   }
@@ -5753,8 +5748,8 @@ class AppLocalizationsIt extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count left today',
-      one: '1 left today',
+      other: '$count rimasti oggi',
+      one: '1 rimasto oggi',
     );
     return '$_temp0';
   }
@@ -5767,7 +5762,6 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get previous => 'Precedente';
-
 
   @override
   String get aiDailyPracticeTitle => 'Pratica quotidiana';
@@ -5797,6 +5791,11 @@ class AppLocalizationsIt extends AppLocalizations {
   String get aiGrammarSectionCorrected => 'Testo corretto';
 
   @override
+  String aiGrammarSectionIssues(int count) {
+    return 'Problemi trovati ($count)';
+  }
+
+  @override
   String get aiGrammarSectionWell => 'Cosa hai fatto bene';
 
   @override
@@ -5812,7 +5811,12 @@ class AppLocalizationsIt extends AppLocalizations {
   String get aiLessonBuilderLabelLevel => 'Livello';
 
   @override
-  String get aiLessonBuilderTopicHint => 'Inserisci un argomento (es. "Cibo e ristoranti")';
+  String get aiLessonBuilderTopicHint => 'Inserisci un argomento (es. \"Cibo e ristoranti\")';
+
+  @override
+  String aiLessonBuilderSaved(String title) {
+    return 'Lezione \"$title\" salvata!';
+  }
 
   @override
   String get aiLessonBuilderBackToLessons => 'Torna alle lezioni';
@@ -5822,6 +5826,11 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get aiTranslationSavedToVocab => 'Salvato nel tuo vocabolario';
+
+  @override
+  String aiTranslationCouldNotSave(String error) {
+    return 'Impossibile salvare: $error';
+  }
 
   @override
   String get aiQuizTitle => 'Quiz';
@@ -5857,13 +5866,38 @@ class AppLocalizationsIt extends AppLocalizations {
   String get aiPronunciationHint => 'Inserisci il testo da praticare...';
 
   @override
+  String aiTutorCouldNotLoad(String error) {
+    return 'Impossibile caricare il tutor: $error';
+  }
+
+  @override
+  String aiTutorPlanUnavailable(String error) {
+    return 'Piano non disponibile: $error';
+  }
+
+  @override
   String get aiTutorReplay => 'Riproduci';
 
   @override
   String get aiScenariosTitle => 'Scenari di pratica';
 
   @override
+  String aiScenariosCouldNotLoad(String error) {
+    return 'Impossibile caricare gli scenari: $error';
+  }
+
+  @override
   String get aiScenariosNoneAvailable => 'Ancora nessuno scenario.';
+
+  @override
+  String aiScenariosCouldNotStart(String error) {
+    return 'Impossibile avviare: $error';
+  }
+
+  @override
+  String aiScenariosForYourLevel(String level) {
+    return 'Per il tuo livello ($level)';
+  }
 
   @override
   String get aiScenariosEasier => 'Più facile — riscaldamento';
@@ -5873,6 +5907,11 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get aiRoleplayStillStarting => 'Lo scenario sta ancora partendo — riprova tra un momento.';
+
+  @override
+  String aiRoleplaySendFailed(String error) {
+    return 'Invio fallito: $error';
+  }
 
   @override
   String get aiRoleplayCouldNotGrade => 'Non è stato possibile valutare stavolta — riprova la prossima.';
@@ -5893,57 +5932,12 @@ class AppLocalizationsIt extends AppLocalizations {
   String get aiConversationTopicPractice => 'Pratica';
 
   @override
-  String get aiToolsVipBadge => 'VIP';
-
-  @override
-  String aiGrammarSectionIssues(int count) {
-    return 'Problemi trovati ($count)';
-  }
-
-  @override
-  String aiLessonBuilderSaved(String title) {
-    return 'Lezione "$title" salvata!';
-  }
-
-  @override
-  String aiTranslationCouldNotSave(String error) {
-    return 'Impossibile salvare: $error';
-  }
-
-  @override
-  String aiTutorCouldNotLoad(String error) {
-    return 'Impossibile caricare il tutor: $error';
-  }
-
-  @override
-  String aiTutorPlanUnavailable(String error) {
-    return 'Piano non disponibile: $error';
-  }
-
-  @override
-  String aiScenariosCouldNotLoad(String error) {
-    return 'Impossibile caricare gli scenari: $error';
-  }
-
-  @override
-  String aiScenariosCouldNotStart(String error) {
-    return 'Impossibile avviare: $error';
-  }
-
-  @override
-  String aiScenariosForYourLevel(String level) {
-    return 'Per il tuo livello ($level)';
-  }
-
-  @override
-  String aiRoleplaySendFailed(String error) {
-    return 'Invio fallito: $error';
-  }
-
-  @override
   String aiToolsVipUpgradeDescription(String feature) {
     return 'Passa a VIP per sbloccare $feature!';
   }
+
+  @override
+  String get aiToolsVipBadge => 'VIP';
 
   @override
   String aiScenariosBannerPracticingIn(String language) {
@@ -6074,7 +6068,6 @@ class AppLocalizationsIt extends AppLocalizations {
   @override
   String get voiceRoomReactTooltip => 'Reagisci';
 
-
   @override
   String get momentsCancel => 'Annulla';
 
@@ -6183,4 +6176,13 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get splashLoading => 'Caricamento…';
+
+  @override
+  String get supportSheetGreeting => 'Ciao, sono Firdavs 👋';
+
+  @override
+  String get supportSheetStory => 'Ho costruito Bananatalk completamente da solo — ogni schermata, ogni funzione, ogni correzione di bug a tarda notte. Il mio obiettivo è aiutare gli studenti di lingue di tutto il mondo a connettersi e crescere, e sto costantemente aggiungendo nuove funzionalità.\n\nSe Bananatalk ti ha aiutato in qualche modo, anche un piccolo caffè mi mantiene motivato a continuare a costruire. Ogni contributo significa il mondo per uno sviluppatore solitario. 🙏';
+
+  @override
+  String get supportSheetDonateButton => 'Dona tramite PayPal';
 }

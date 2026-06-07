@@ -1802,6 +1802,11 @@ abstract class AppLocalizations {
   /// **'Unblock'**
   String get unblock;
 
+  /// No description provided for @goBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Go Back'**
+  String get goBack;
 
   /// No description provided for @messageSendTimeout.
   ///
@@ -5370,7 +5375,7 @@ abstract class AppLocalizations {
   /// No description provided for @locationOptional.
   ///
   /// In en, this message translates to:
-  /// **'Location is optional — you can add it later'**
+  /// **'Please set your location to continue'**
   String get locationOptional;
 
   /// No description provided for @maximum6Photos.
@@ -5388,7 +5393,7 @@ abstract class AppLocalizations {
   /// No description provided for @optionalHelpsNearbyPartners.
   ///
   /// In en, this message translates to:
-  /// **'Optional — helps find nearby partners'**
+  /// **'Required — helps match you with partners nearby'**
   String get optionalHelpsNearbyPartners;
 
   /// No description provided for @startLearning.
@@ -10098,7 +10103,7 @@ abstract class AppLocalizations {
   /// Retry button on moments error state
   ///
   /// In en, this message translates to:
-  /// **'Try again'**
+  /// **'Retry'**
   String get momentsRetry;
 
   /// Header in tag dialog showing tags this user has used recently
@@ -10785,12 +10790,6 @@ abstract class AppLocalizations {
   /// **'Previous'**
   String get previous;
 
-  /// No description provided for @goBack.
-  ///
-  /// In en, this message translates to:
-  /// **'Go Back'**
-  String get goBack;
-
   /// No description provided for @aiDailyPracticeTitle.
   ///
   /// In en, this message translates to:
@@ -10845,6 +10844,12 @@ abstract class AppLocalizations {
   /// **'Corrected Text'**
   String get aiGrammarSectionCorrected;
 
+  /// No description provided for @aiGrammarSectionIssues.
+  ///
+  /// In en, this message translates to:
+  /// **'Issues Found ({count})'**
+  String aiGrammarSectionIssues(int count);
+
   /// No description provided for @aiGrammarSectionWell.
   ///
   /// In en, this message translates to:
@@ -10878,8 +10883,14 @@ abstract class AppLocalizations {
   /// No description provided for @aiLessonBuilderTopicHint.
   ///
   /// In en, this message translates to:
-  /// **'Enter a topic (e.g., "Food and Dining")'**
+  /// **'Enter a topic (e.g., \"Food and Dining\")'**
   String get aiLessonBuilderTopicHint;
+
+  /// No description provided for @aiLessonBuilderSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Lesson \"{title}\" saved!'**
+  String aiLessonBuilderSaved(String title);
 
   /// No description provided for @aiLessonBuilderBackToLessons.
   ///
@@ -10898,6 +10909,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Saved to your vocab list'**
   String get aiTranslationSavedToVocab;
+
+  /// No description provided for @aiTranslationCouldNotSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not save: {error}'**
+  String aiTranslationCouldNotSave(String error);
 
   /// No description provided for @aiQuizTitle.
   ///
@@ -10965,6 +10982,18 @@ abstract class AppLocalizations {
   /// **'Enter text to practice...'**
   String get aiPronunciationHint;
 
+  /// No description provided for @aiTutorCouldNotLoad.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load tutor: {error}'**
+  String aiTutorCouldNotLoad(String error);
+
+  /// No description provided for @aiTutorPlanUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Plan unavailable: {error}'**
+  String aiTutorPlanUnavailable(String error);
+
   /// No description provided for @aiTutorReplay.
   ///
   /// In en, this message translates to:
@@ -10977,11 +11006,29 @@ abstract class AppLocalizations {
   /// **'Practice scenarios'**
   String get aiScenariosTitle;
 
+  /// No description provided for @aiScenariosCouldNotLoad.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load scenarios: {error}'**
+  String aiScenariosCouldNotLoad(String error);
+
   /// No description provided for @aiScenariosNoneAvailable.
   ///
   /// In en, this message translates to:
   /// **'No scenarios available yet.'**
   String get aiScenariosNoneAvailable;
+
+  /// No description provided for @aiScenariosCouldNotStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not start: {error}'**
+  String aiScenariosCouldNotStart(String error);
+
+  /// No description provided for @aiScenariosForYourLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'For your level ({level})'**
+  String aiScenariosForYourLevel(String level);
 
   /// No description provided for @aiScenariosEasier.
   ///
@@ -11000,6 +11047,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Still starting the scenario — try again in a moment.'**
   String get aiRoleplayStillStarting;
+
+  /// No description provided for @aiRoleplaySendFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Send failed: {error}'**
+  String aiRoleplaySendFailed(String error);
 
   /// No description provided for @aiRoleplayCouldNotGrade.
   ///
@@ -11037,11 +11090,18 @@ abstract class AppLocalizations {
   /// **'Practice'**
   String get aiConversationTopicPractice;
 
+  /// No description provided for @aiToolsVipUpgradeDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Upgrade to VIP to unlock {feature}!'**
+  String aiToolsVipUpgradeDescription(String feature);
+
   /// No description provided for @aiToolsVipBadge.
   ///
   /// In en, this message translates to:
   /// **'VIP'**
   String get aiToolsVipBadge;
+
   /// No description provided for @aiScenariosBannerPracticingIn.
   ///
   /// In en, this message translates to:
@@ -11054,277 +11114,443 @@ abstract class AppLocalizations {
   /// **'Pick a scenario at your level, or stretch one up.'**
   String get aiScenariosBannerSubhead;
 
-
-  /// No description provided for @aiGrammarSectionIssues.
+  /// No description provided for @chatListSearchHint.
   ///
   /// In en, this message translates to:
-  /// **'Issues Found ({count})'**
-  String aiGrammarSectionIssues(int count);
-
-  /// No description provided for @aiLessonBuilderSaved.
-  ///
-  /// In en, this message translates to:
-  /// **'Lesson "{title}" saved!'**
-  String aiLessonBuilderSaved(String title);
-
-  /// No description provided for @aiTranslationCouldNotSave.
-  ///
-  /// In en, this message translates to:
-  /// **'Could not save: {error}'**
-  String aiTranslationCouldNotSave(String error);
-
-  /// No description provided for @aiTutorCouldNotLoad.
-  ///
-  /// In en, this message translates to:
-  /// **'Could not load tutor: {error}'**
-  String aiTutorCouldNotLoad(String error);
-
-  /// No description provided for @aiTutorPlanUnavailable.
-  ///
-  /// In en, this message translates to:
-  /// **'Plan unavailable: {error}'**
-  String aiTutorPlanUnavailable(String error);
-
-  /// No description provided for @aiScenariosCouldNotLoad.
-  ///
-  /// In en, this message translates to:
-  /// **'Could not load scenarios: {error}'**
-  String aiScenariosCouldNotLoad(String error);
-
-  /// No description provided for @aiScenariosCouldNotStart.
-  ///
-  /// In en, this message translates to:
-  /// **'Could not start: {error}'**
-  String aiScenariosCouldNotStart(String error);
-
-  /// No description provided for @aiScenariosForYourLevel.
-  ///
-  /// In en, this message translates to:
-  /// **'For your level ({level})'**
-  String aiScenariosForYourLevel(String level);
-
-  /// No description provided for @aiRoleplaySendFailed.
-  ///
-  /// In en, this message translates to:
-  /// **'Send failed: {error}'**
-  String aiRoleplaySendFailed(String error);
-
-  /// No description provided for @aiToolsVipUpgradeDescription.
-  ///
-  /// In en, this message translates to:
-  /// **'Upgrade to VIP to unlock {feature}!'**
-  String aiToolsVipUpgradeDescription(String feature);
-
-  /// In en, 'Search or type @username'
+  /// **'Search or type @username'**
   String get chatListSearchHint;
 
-  /// In en, 'All'
+  /// No description provided for @chatListFilterAll.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
   String get chatListFilterAll;
 
-  /// In en, 'Unread'
+  /// No description provided for @chatListFilterUnread.
+  ///
+  /// In en, this message translates to:
+  /// **'Unread'**
   String get chatListFilterUnread;
 
-  /// In en, 'Online'
+  /// No description provided for @chatListFilterOnline.
+  ///
+  /// In en, this message translates to:
+  /// **'Online'**
   String get chatListFilterOnline;
 
-  /// In en, 'New Chat'
+  /// No description provided for @chatListNewChat.
+  ///
+  /// In en, this message translates to:
+  /// **'New Chat'**
   String get chatListNewChat;
 
-  /// In en, 'New chat by username'
+  /// No description provided for @chatListNewChatByUsernameTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'New chat by username'**
   String get chatListNewChatByUsernameTooltip;
 
-  /// In en, 'Find User'
+  /// No description provided for @chatListFindUser.
+  ///
+  /// In en, this message translates to:
+  /// **'Find User'**
   String get chatListFindUser;
 
-  /// In en, 'Find @{term}'
+  /// No description provided for @chatListFindUserSearchTerm.
+  ///
+  /// In en, this message translates to:
+  /// **'Find @{term}'**
   String chatListFindUserSearchTerm(String term);
 
-  /// In en, 'Delete Conversation'
+  /// No description provided for @chatListDeleteConversation.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Conversation'**
   String get chatListDeleteConversation;
 
-  /// In en, 'Media with {name}'
+  /// No description provided for @chatListMediaTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Media with {name}'**
   String chatListMediaTitle(String name);
 
-  /// In en, 'Error loading media'
+  /// No description provided for @chatListMediaError.
+  ///
+  /// In en, this message translates to:
+  /// **'Error loading media'**
   String get chatListMediaError;
 
-  /// In en, 'View Full Profile'
+  /// No description provided for @chatDetailViewFullProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'View Full Profile'**
   String get chatDetailViewFullProfile;
 
-  /// In en, 'Reply'
+  /// No description provided for @chatMessageReply.
+  ///
+  /// In en, this message translates to:
+  /// **'Reply'**
   String get chatMessageReply;
 
-  /// In en, 'Copy'
+  /// No description provided for @chatMessageCopy.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy'**
   String get chatMessageCopy;
 
-  /// In en, 'Correct'
+  /// No description provided for @chatMessageCorrect.
+  ///
+  /// In en, this message translates to:
+  /// **'Correct'**
   String get chatMessageCorrect;
 
-  /// In en, 'Translate'
+  /// No description provided for @chatMessageTranslate.
+  ///
+  /// In en, this message translates to:
+  /// **'Translate'**
   String get chatMessageTranslate;
 
-  /// In en, 'Save phrase'
+  /// No description provided for @chatMessageSavePhrase.
+  ///
+  /// In en, this message translates to:
+  /// **'Save phrase'**
   String get chatMessageSavePhrase;
 
-  /// In en, 'Edit'
+  /// No description provided for @chatMessageEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
   String get chatMessageEdit;
 
-  /// In en, 'Delete'
+  /// No description provided for @chatMessageDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
   String get chatMessageDelete;
 
-  /// In en, 'Try sending this message again'
+  /// No description provided for @chatMessageRetrySubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Try sending this message again'**
   String get chatMessageRetrySubtitle;
 
-  /// In en, 'Remove this message'
+  /// No description provided for @chatMessageRemoveSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove this message'**
   String get chatMessageRemoveSubtitle;
 
-  /// In en, 'Hello! 👋'
+  /// No description provided for @chatWallpaperPreviewHello.
+  ///
+  /// In en, this message translates to:
+  /// **'Hello! 👋'**
   String get chatWallpaperPreviewHello;
 
-  /// In en, 'How are you?'
+  /// No description provided for @chatWallpaperPreviewHow.
+  ///
+  /// In en, this message translates to:
+  /// **'How are you?'**
   String get chatWallpaperPreviewHow;
 
-  /// In en, 'Search GIFs...'
+  /// No description provided for @chatGifSearchHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search GIFs...'**
   String get chatGifSearchHint;
 
-  /// In en, 'Search or type @username'
+  /// No description provided for @communitySearchHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search or type @username'**
   String get communitySearchHint;
 
-  /// In en, 'User @{name} not found'
+  /// No description provided for @communityUserNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'User @{name} not found'**
   String communityUserNotFound(String name);
 
-  /// In en, 'All'
+  /// No description provided for @communityTabAll.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
   String get communityTabAll;
 
-  /// In en, 'Gender'
+  /// No description provided for @communityTabGender.
+  ///
+  /// In en, this message translates to:
+  /// **'Gender'**
   String get communityTabGender;
 
-  /// In en, 'City'
+  /// No description provided for @communityTabCity.
+  ///
+  /// In en, this message translates to:
+  /// **'City'**
   String get communityTabCity;
 
-  /// In en, 'Refresh'
+  /// No description provided for @communityRefresh.
+  ///
+  /// In en, this message translates to:
+  /// **'Refresh'**
   String get communityRefresh;
 
-  /// In en, 'No users found'
+  /// No description provided for @communityNoUsersFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No users found'**
   String get communityNoUsersFound;
 
-  /// In en, 'Are you sure you want to unblock {name}?'
+  /// No description provided for @communityUnblockConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to unblock {name}?'**
   String communityUnblockConfirm(String name);
 
-  /// In en, 'Username copied!'
+  /// No description provided for @communityUsernameCopied.
+  ///
+  /// In en, this message translates to:
+  /// **'Username copied!'**
   String get communityUsernameCopied;
 
-  /// In en, 'Location detected: {country}'
+  /// No description provided for @communityLocationDetected.
+  ///
+  /// In en, this message translates to:
+  /// **'Location detected: {country}'**
   String communityLocationDetected(String country);
 
-  /// In en, 'Later'
+  /// No description provided for @communityWaveLater.
+  ///
+  /// In en, this message translates to:
+  /// **'Later'**
   String get communityWaveLater;
 
-  /// In en, 'MBTI'
+  /// No description provided for @communityAboutMBTI.
+  ///
+  /// In en, this message translates to:
+  /// **'MBTI'**
   String get communityAboutMBTI;
 
-  /// In en, 'React'
+  /// No description provided for @voiceRoomReactTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'React'**
   String get voiceRoomReactTooltip;
 
-
-  /// In en, 'Cancel'
+  /// No description provided for @momentsCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
   String get momentsCancel;
 
-  /// In en, 'Not Now'
+  /// No description provided for @momentsNotNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Not Now'**
   String get momentsNotNow;
 
-  /// In en, 'OK'
+  /// No description provided for @commonOK.
+  ///
+  /// In en, this message translates to:
+  /// **'OK'**
   String get commonOK;
 
-  /// In en, 'Error: {error}'
+  /// No description provided for @commonError.
+  ///
+  /// In en, this message translates to:
+  /// **'Error: {error}'**
   String commonError(String error);
 
-  /// In en, 'Active just now'
+  /// No description provided for @chatActiveJustNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Active just now'**
   String get chatActiveJustNow;
 
-  /// In en, 'Active {min} min ago'
+  /// No description provided for @chatActiveMinAgo.
+  ///
+  /// In en, this message translates to:
+  /// **'Active {min} min ago'**
   String chatActiveMinAgo(int min);
 
-  /// In en, 'Active 1 hour ago'
+  /// No description provided for @chatActiveHourAgo.
+  ///
+  /// In en, this message translates to:
+  /// **'Active 1 hour ago'**
   String get chatActiveHourAgo;
 
-  /// In en, 'Active {hours}h ago'
+  /// No description provided for @chatActiveHoursAgo.
+  ///
+  /// In en, this message translates to:
+  /// **'Active {hours}h ago'**
   String chatActiveHoursAgo(int hours);
 
-  /// In en, 'Active yesterday'
+  /// No description provided for @chatActiveYesterday.
+  ///
+  /// In en, this message translates to:
+  /// **'Active yesterday'**
   String get chatActiveYesterday;
 
-  /// In en, 'Active {days}d ago'
+  /// No description provided for @chatActiveDaysAgo.
+  ///
+  /// In en, this message translates to:
+  /// **'Active {days}d ago'**
   String chatActiveDaysAgo(int days);
 
-  /// In en, 'Say hi and start a conversation!'
+  /// No description provided for @chatSayHiPrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'Say hi and start a conversation!'**
   String get chatSayHiPrompt;
 
-  /// In en, 'Conversation Starters'
+  /// No description provided for @communityConversationStartersTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Conversation Starters'**
   String get communityConversationStartersTitle;
 
-  /// In en, 'You both love {topic} - ask about their favorite!'
+  /// No description provided for @communityConversationStartersTopic.
+  ///
+  /// In en, this message translates to:
+  /// **'You both love {topic} - ask about their favorite!'**
   String communityConversationStartersTopic(String topic);
 
-  /// In en, 'Say hi and introduce yourself!'
+  /// No description provided for @communityConversationStartersDefault.
+  ///
+  /// In en, this message translates to:
+  /// **'Say hi and introduce yourself!'**
   String get communityConversationStartersDefault;
 
-  /// In en, 'Chat'
+  /// No description provided for @communityConversationChatAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Chat'**
   String get communityConversationChatAction;
 
-  /// In en, 'Message copied! Paste to send.'
+  /// No description provided for @communityConversationMessageCopied.
+  ///
+  /// In en, this message translates to:
+  /// **'Message copied! Paste to send.'**
   String get communityConversationMessageCopied;
 
-  /// In en, 'Copied to clipboard!'
+  /// No description provided for @communityConversationCopiedToast.
+  ///
+  /// In en, this message translates to:
+  /// **'Copied to clipboard!'**
   String get communityConversationCopiedToast;
 
-  /// In en, 'Language Match'
+  /// No description provided for @communityLanguageMatchTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Language Match'**
   String get communityLanguageMatchTitle;
 
-  /// In en, 'Native'
+  /// No description provided for @communityLanguageMatchNative.
+  ///
+  /// In en, this message translates to:
+  /// **'Native'**
   String get communityLanguageMatchNative;
 
-  /// In en, 'Learning'
+  /// No description provided for @communityLanguageMatchLearning.
+  ///
+  /// In en, this message translates to:
+  /// **'Learning'**
   String get communityLanguageMatchLearning;
 
-  /// In en, 'Perfect language exchange match!'
+  /// No description provided for @communityLanguageMatchPerfect.
+  ///
+  /// In en, this message translates to:
+  /// **'Perfect language exchange match!'**
   String get communityLanguageMatchPerfect;
 
-  /// In en, 'You share the same native language'
+  /// No description provided for @communityLanguageMatchSameNative.
+  ///
+  /// In en, this message translates to:
+  /// **'You share the same native language'**
   String get communityLanguageMatchSameNative;
 
-  /// In en, 'Apply'
+  /// No description provided for @momentsFilterApply.
+  ///
+  /// In en, this message translates to:
+  /// **'Apply'**
   String get momentsFilterApply;
 
-  /// In en, 'Add to your moment'
+  /// No description provided for @momentsCreateAddTo.
+  ///
+  /// In en, this message translates to:
+  /// **'Add to your moment'**
   String get momentsCreateAddTo;
 
-  /// In en, 'Category'
+  /// No description provided for @momentsCreateCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Category'**
   String get momentsCreateCategory;
 
-  /// In en, 'Language'
+  /// No description provided for @momentsCreateLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
   String get momentsCreateLanguage;
 
-  /// In en, 'Schedule (optional)'
+  /// No description provided for @momentsCreateSchedule.
+  ///
+  /// In en, this message translates to:
+  /// **'Schedule (optional)'**
   String get momentsCreateSchedule;
 
-  /// In en, 'Schedule for later'
+  /// No description provided for @momentsCreateScheduleForLater.
+  ///
+  /// In en, this message translates to:
+  /// **'Schedule for later'**
   String get momentsCreateScheduleForLater;
 
-  /// In en, 'Public'
+  /// No description provided for @momentsPrivacyPublic.
+  ///
+  /// In en, this message translates to:
+  /// **'Public'**
   String get momentsPrivacyPublic;
 
-  /// In en, 'Friends'
+  /// No description provided for @momentsPrivacyFriends.
+  ///
+  /// In en, this message translates to:
+  /// **'Friends'**
   String get momentsPrivacyFriends;
 
-  /// In en, 'Private'
+  /// No description provided for @momentsPrivacyPrivate.
+  ///
+  /// In en, this message translates to:
+  /// **'Private'**
   String get momentsPrivacyPrivate;
 
-  /// In en, 'Meet · Chat · Connect'
+  /// No description provided for @splashTagline.
+  ///
+  /// In en, this message translates to:
+  /// **'Learn · Chat · Meet'**
   String get splashTagline;
 
-  /// In en, 'Loading…'
+  /// No description provided for @splashLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading…'**
   String get splashLoading;
+
+  /// No description provided for @supportSheetGreeting.
+  ///
+  /// In en, this message translates to:
+  /// **'Hi, I\'m Firdavs 👋'**
+  String get supportSheetGreeting;
+
+  /// No description provided for @supportSheetStory.
+  ///
+  /// In en, this message translates to:
+  /// **'I built Bananatalk entirely on my own — every screen, every feature, every late-night bug fix. My goal is to help language learners around the world connect and grow, and I\'m constantly adding new features to make that happen.\n\nIf Bananatalk has helped you in any way, even a small coffee keeps me motivated to keep building. Every contribution means the world to a solo developer. 🙏'**
+  String get supportSheetStory;
+
+  /// No description provided for @supportSheetDonateButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Donate via PayPal'**
+  String get supportSheetDonateButton;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

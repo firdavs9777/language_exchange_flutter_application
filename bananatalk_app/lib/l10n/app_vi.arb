@@ -2412,5 +2412,8 @@
   "momentsPrivacyFriends": "Bạn bè",
   "momentsPrivacyPrivate": "Riêng tư",
   "splashTagline": "Học · Trò chuyện · Gặp gỡ",
-  "splashLoading": "Đang tải…"
+  "splashLoading": "Đang tải…",
+  "supportSheetGreeting": "Xin chào, tôi là Firdavs 👋",
+  "supportSheetStory": "Tôi đã xây dựng Bananatalk hoàn toàn một mình — từng màn hình, từng tính năng, từng lần sửa lỗi lúc nửa đêm. Mục tiêu của tôi là giúp người học ngôn ngữ trên toàn thế giới kết nối và phát triển, và tôi liên tục thêm các tính năng mới.\n\nNếu Bananatalk đã giúp bạn theo bất kỳ cách nào, dù chỉ một ly cà phê nhỏ cũng giúp tôi duy trì động lực để tiếp tục xây dựng. Mỗi đóng góp đều rất có ý nghĩa với một nhà phát triển đơn độc. 🙏",
+  "supportSheetDonateButton": "Quyên góp qua PayPal"
 }

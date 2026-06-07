@@ -613,7 +613,6 @@ class AppLocalizationsVi extends AppLocalizations {
   @override
   String aiTutorImagePickError(String error) {
     return 'Không mở được ảnh: $error';
-  
   }
 
   @override
@@ -663,8 +662,8 @@ class AppLocalizationsVi extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count cards waiting for you',
-      one: '$count card waiting for you',
+      other: '$count thẻ đang chờ bạn',
+      one: '$count thẻ đang chờ bạn',
     );
     return '$_temp0';
   }
@@ -684,19 +683,16 @@ class AppLocalizationsVi extends AppLocalizations {
   @override
   String aiTutorPlanSrsReview(int count, int done) {
     return 'Ôn $count thẻ SRS ($done xong)';
-  
   }
 
   @override
   String aiTutorPlanGrammar(String topic) {
     return 'Luyện: $topic';
-  
   }
 
   @override
   String aiTutorPlanChat(int min, int done) {
     return 'Chat $min phút ($done đến giờ)';
-  
   }
 
   @override
@@ -2759,7 +2755,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get profilePhotoRequired => 'Vui lòng thêm ít nhất một ảnh đại diện';
 
   @override
-  String get locationOptional => 'Vị trí là tùy chọn — bạn có thể thêm sau';
+  String get locationOptional => 'Vui lòng đặt vị trí của bạn để tiếp tục';
 
   @override
   String get maximum6Photos => 'Tối đa 6 ảnh';
@@ -2768,7 +2764,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get tapToDetectLocation => 'Nhấn để phát hiện vị trí';
 
   @override
-  String get optionalHelpsNearbyPartners => 'Tùy chọn - giúp tìm đối tác gần bạn';
+  String get optionalHelpsNearbyPartners => 'Bắt buộc — giúp kết nối với đối tác gần bạn';
 
   @override
   String get startLearning => 'Bắt đầu học';
@@ -5691,7 +5687,6 @@ class AppLocalizationsVi extends AppLocalizations {
   @override
   String aiTutorPronounceSentenceOf(int current, int total) {
     return 'Câu $current / $total';
-  
   }
 
   @override
@@ -5717,8 +5712,8 @@ class AppLocalizationsVi extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: 'Pronunciation drills ($completed/$count)',
-      one: 'Pronunciation drill ($completed/1)',
+      other: 'Bài luyện phát âm ($completed/$count)',
+      one: 'Bài luyện phát âm ($completed/1)',
     );
     return '$_temp0';
   }
@@ -5746,8 +5741,8 @@ class AppLocalizationsVi extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count left today',
-      one: '1 left today',
+      other: 'Hôm nay còn $count',
+      one: 'Hôm nay còn 1',
     );
     return '$_temp0';
   }
@@ -5760,7 +5755,6 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get previous => 'Trước';
-
 
   @override
   String get aiDailyPracticeTitle => 'Luyện tập hằng ngày';
@@ -5790,6 +5784,11 @@ class AppLocalizationsVi extends AppLocalizations {
   String get aiGrammarSectionCorrected => 'Văn bản đã sửa';
 
   @override
+  String aiGrammarSectionIssues(int count) {
+    return 'Vấn đề tìm thấy ($count)';
+  }
+
+  @override
   String get aiGrammarSectionWell => 'Điều bạn làm tốt';
 
   @override
@@ -5805,7 +5804,12 @@ class AppLocalizationsVi extends AppLocalizations {
   String get aiLessonBuilderLabelLevel => 'Cấp độ';
 
   @override
-  String get aiLessonBuilderTopicHint => 'Nhập chủ đề (ví dụ: "Đồ ăn và nhà hàng")';
+  String get aiLessonBuilderTopicHint => 'Nhập chủ đề (ví dụ: \"Đồ ăn và nhà hàng\")';
+
+  @override
+  String aiLessonBuilderSaved(String title) {
+    return 'Đã lưu bài học \"$title\"!';
+  }
 
   @override
   String get aiLessonBuilderBackToLessons => 'Quay lại bài học';
@@ -5815,6 +5819,11 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get aiTranslationSavedToVocab => 'Đã lưu vào danh sách từ vựng';
+
+  @override
+  String aiTranslationCouldNotSave(String error) {
+    return 'Không lưu được: $error';
+  }
 
   @override
   String get aiQuizTitle => 'Câu đố';
@@ -5850,13 +5859,38 @@ class AppLocalizationsVi extends AppLocalizations {
   String get aiPronunciationHint => 'Nhập văn bản để luyện tập...';
 
   @override
+  String aiTutorCouldNotLoad(String error) {
+    return 'Không tải được gia sư: $error';
+  }
+
+  @override
+  String aiTutorPlanUnavailable(String error) {
+    return 'Kế hoạch không khả dụng: $error';
+  }
+
+  @override
   String get aiTutorReplay => 'Phát lại';
 
   @override
   String get aiScenariosTitle => 'Kịch bản luyện tập';
 
   @override
+  String aiScenariosCouldNotLoad(String error) {
+    return 'Không tải được kịch bản: $error';
+  }
+
+  @override
   String get aiScenariosNoneAvailable => 'Chưa có kịch bản nào.';
+
+  @override
+  String aiScenariosCouldNotStart(String error) {
+    return 'Không bắt đầu được: $error';
+  }
+
+  @override
+  String aiScenariosForYourLevel(String level) {
+    return 'Cho cấp độ của bạn ($level)';
+  }
 
   @override
   String get aiScenariosEasier => 'Dễ hơn — khởi động';
@@ -5866,6 +5900,11 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get aiRoleplayStillStarting => 'Kịch bản vẫn đang khởi động — thử lại trong giây lát.';
+
+  @override
+  String aiRoleplaySendFailed(String error) {
+    return 'Gửi thất bại: $error';
+  }
 
   @override
   String get aiRoleplayCouldNotGrade => 'Không chấm điểm được lần này — thử lại lần sau.';
@@ -5886,57 +5925,12 @@ class AppLocalizationsVi extends AppLocalizations {
   String get aiConversationTopicPractice => 'Luyện tập';
 
   @override
-  String get aiToolsVipBadge => 'VIP';
-
-  @override
-  String aiGrammarSectionIssues(int count) {
-    return 'Vấn đề tìm thấy ($count)';
-  }
-
-  @override
-  String aiLessonBuilderSaved(String title) {
-    return 'Đã lưu bài học "$title"!';
-  }
-
-  @override
-  String aiTranslationCouldNotSave(String error) {
-    return 'Không lưu được: $error';
-  }
-
-  @override
-  String aiTutorCouldNotLoad(String error) {
-    return 'Không tải được gia sư: $error';
-  }
-
-  @override
-  String aiTutorPlanUnavailable(String error) {
-    return 'Kế hoạch không khả dụng: $error';
-  }
-
-  @override
-  String aiScenariosCouldNotLoad(String error) {
-    return 'Không tải được kịch bản: $error';
-  }
-
-  @override
-  String aiScenariosCouldNotStart(String error) {
-    return 'Không bắt đầu được: $error';
-  }
-
-  @override
-  String aiScenariosForYourLevel(String level) {
-    return 'Cho cấp độ của bạn ($level)';
-  }
-
-  @override
-  String aiRoleplaySendFailed(String error) {
-    return 'Gửi thất bại: $error';
-  }
-
-  @override
   String aiToolsVipUpgradeDescription(String feature) {
     return 'Nâng cấp VIP để mở khóa $feature!';
   }
+
+  @override
+  String get aiToolsVipBadge => 'VIP';
 
   @override
   String aiScenariosBannerPracticingIn(String language) {
@@ -6067,7 +6061,6 @@ class AppLocalizationsVi extends AppLocalizations {
   @override
   String get voiceRoomReactTooltip => 'Phản ứng';
 
-
   @override
   String get momentsCancel => 'Huỷ';
 
@@ -6176,4 +6169,13 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get splashLoading => 'Đang tải…';
+
+  @override
+  String get supportSheetGreeting => 'Xin chào, tôi là Firdavs 👋';
+
+  @override
+  String get supportSheetStory => 'Tôi đã xây dựng Bananatalk hoàn toàn một mình — từng màn hình, từng tính năng, từng lần sửa lỗi lúc nửa đêm. Mục tiêu của tôi là giúp người học ngôn ngữ trên toàn thế giới kết nối và phát triển, và tôi liên tục thêm các tính năng mới.\n\nNếu Bananatalk đã giúp bạn theo bất kỳ cách nào, dù chỉ một ly cà phê nhỏ cũng giúp tôi duy trì động lực để tiếp tục xây dựng. Mỗi đóng góp đều rất có ý nghĩa với một nhà phát triển đơn độc. 🙏';
+
+  @override
+  String get supportSheetDonateButton => 'Quyên góp qua PayPal';
 }

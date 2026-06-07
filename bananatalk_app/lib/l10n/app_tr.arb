@@ -2782,5 +2782,8 @@
   "momentsPrivacyFriends": "Arkadaşlar",
   "momentsPrivacyPrivate": "Özel",
   "splashTagline": "Öğren · Sohbet et · Tanış",
-  "splashLoading": "Yükleniyor…"
+  "splashLoading": "Yükleniyor…",
+  "supportSheetGreeting": "Merhaba, ben Firdavs 👋",
+  "supportSheetStory": "Bananatalk'ı tamamen tek başıma inşa ettim — her ekran, her özellik, her gece geç saatlerde yapılan hata düzeltmesi. Amacım dünyanın dört bir yanındaki dil öğrenenlerinin bağlantı kurmasına ve gelişmesine yardımcı olmak ve bunu gerçekleştirmek için sürekli yeni özellikler ekliyorum.\n\nBananatalk sana herhangi bir şekilde yardımcı olduysa, küçük bir kahve bile beni inşa etmeye devam etmem için motive ediyor. Her katkı, tek başına çalışan bir geliştirici için çok şey ifade ediyor. 🙏",
+  "supportSheetDonateButton": "PayPal ile bağış yapın"
 }

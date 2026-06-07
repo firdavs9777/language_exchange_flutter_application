@@ -613,7 +613,6 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String aiTutorImagePickError(String error) {
     return 'Não foi possível abrir a imagem: $error';
-  
   }
 
   @override
@@ -663,8 +662,8 @@ class AppLocalizationsPt extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count cards waiting for you',
-      one: '$count card waiting for you',
+      other: '$count cartões esperando por você',
+      one: '$count cartão esperando por você',
     );
     return '$_temp0';
   }
@@ -684,19 +683,16 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String aiTutorPlanSrsReview(int count, int done) {
     return 'Revise $count cartões SRS ($done feitos)';
-  
   }
 
   @override
   String aiTutorPlanGrammar(String topic) {
     return 'Praticar: $topic';
-  
   }
 
   @override
   String aiTutorPlanChat(int min, int done) {
     return 'Chat por $min min ($done até agora)';
-  
   }
 
   @override
@@ -2759,7 +2755,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get profilePhotoRequired => 'Adicione pelo menos uma foto de perfil';
 
   @override
-  String get locationOptional => 'A localização é opcional — você pode adicioná-la depois';
+  String get locationOptional => 'Por favor, defina sua localização para continuar';
 
   @override
   String get maximum6Photos => 'Máximo de 6 fotos';
@@ -2768,7 +2764,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get tapToDetectLocation => 'Toque para detectar localização';
 
   @override
-  String get optionalHelpsNearbyPartners => 'Opcional - ajuda a encontrar parceiros próximos';
+  String get optionalHelpsNearbyPartners => 'Obrigatório — ajuda a encontrar parceiros próximos';
 
   @override
   String get startLearning => 'Começar a aprender';
@@ -5698,7 +5694,6 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String aiTutorPronounceSentenceOf(int current, int total) {
     return 'Frase $current de $total';
-  
   }
 
   @override
@@ -5724,8 +5719,8 @@ class AppLocalizationsPt extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: 'Pronunciation drills ($completed/$count)',
-      one: 'Pronunciation drill ($completed/1)',
+      other: 'Exercícios de pronúncia ($completed/$count)',
+      one: 'Exercício de pronúncia ($completed/1)',
     );
     return '$_temp0';
   }
@@ -5753,8 +5748,8 @@ class AppLocalizationsPt extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count left today',
-      one: '1 left today',
+      other: 'Restam $count hoje',
+      one: 'Resta 1 hoje',
     );
     return '$_temp0';
   }
@@ -5767,7 +5762,6 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get previous => 'Anterior';
-
 
   @override
   String get aiDailyPracticeTitle => 'Prática diária';
@@ -5797,6 +5791,11 @@ class AppLocalizationsPt extends AppLocalizations {
   String get aiGrammarSectionCorrected => 'Texto corrigido';
 
   @override
+  String aiGrammarSectionIssues(int count) {
+    return 'Problemas encontrados ($count)';
+  }
+
+  @override
   String get aiGrammarSectionWell => 'O que você fez bem';
 
   @override
@@ -5812,7 +5811,12 @@ class AppLocalizationsPt extends AppLocalizations {
   String get aiLessonBuilderLabelLevel => 'Nível';
 
   @override
-  String get aiLessonBuilderTopicHint => 'Digite um tema (ex.: "Comida e restaurantes")';
+  String get aiLessonBuilderTopicHint => 'Digite um tema (ex.: \"Comida e restaurantes\")';
+
+  @override
+  String aiLessonBuilderSaved(String title) {
+    return 'Lição \"$title\" salva!';
+  }
 
   @override
   String get aiLessonBuilderBackToLessons => 'Voltar às lições';
@@ -5822,6 +5826,11 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get aiTranslationSavedToVocab => 'Salvo no seu vocabulário';
+
+  @override
+  String aiTranslationCouldNotSave(String error) {
+    return 'Não foi possível salvar: $error';
+  }
 
   @override
   String get aiQuizTitle => 'Questionário';
@@ -5857,13 +5866,38 @@ class AppLocalizationsPt extends AppLocalizations {
   String get aiPronunciationHint => 'Digite o texto para praticar...';
 
   @override
+  String aiTutorCouldNotLoad(String error) {
+    return 'Não foi possível carregar o tutor: $error';
+  }
+
+  @override
+  String aiTutorPlanUnavailable(String error) {
+    return 'Plano indisponível: $error';
+  }
+
+  @override
   String get aiTutorReplay => 'Repetir';
 
   @override
   String get aiScenariosTitle => 'Cenários de prática';
 
   @override
+  String aiScenariosCouldNotLoad(String error) {
+    return 'Não foi possível carregar os cenários: $error';
+  }
+
+  @override
   String get aiScenariosNoneAvailable => 'Ainda sem cenários.';
+
+  @override
+  String aiScenariosCouldNotStart(String error) {
+    return 'Não foi possível iniciar: $error';
+  }
+
+  @override
+  String aiScenariosForYourLevel(String level) {
+    return 'Para seu nível ($level)';
+  }
 
   @override
   String get aiScenariosEasier => 'Mais fácil — aquecimento';
@@ -5873,6 +5907,11 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get aiRoleplayStillStarting => 'O cenário ainda está começando — tente novamente em um momento.';
+
+  @override
+  String aiRoleplaySendFailed(String error) {
+    return 'Falha ao enviar: $error';
+  }
 
   @override
   String get aiRoleplayCouldNotGrade => 'Não foi possível avaliar dessa vez — tente da próxima.';
@@ -5893,57 +5932,12 @@ class AppLocalizationsPt extends AppLocalizations {
   String get aiConversationTopicPractice => 'Praticar';
 
   @override
-  String get aiToolsVipBadge => 'VIP';
-
-  @override
-  String aiGrammarSectionIssues(int count) {
-    return 'Problemas encontrados ($count)';
-  }
-
-  @override
-  String aiLessonBuilderSaved(String title) {
-    return 'Lição "$title" salva!';
-  }
-
-  @override
-  String aiTranslationCouldNotSave(String error) {
-    return 'Não foi possível salvar: $error';
-  }
-
-  @override
-  String aiTutorCouldNotLoad(String error) {
-    return 'Não foi possível carregar o tutor: $error';
-  }
-
-  @override
-  String aiTutorPlanUnavailable(String error) {
-    return 'Plano indisponível: $error';
-  }
-
-  @override
-  String aiScenariosCouldNotLoad(String error) {
-    return 'Não foi possível carregar os cenários: $error';
-  }
-
-  @override
-  String aiScenariosCouldNotStart(String error) {
-    return 'Não foi possível iniciar: $error';
-  }
-
-  @override
-  String aiScenariosForYourLevel(String level) {
-    return 'Para seu nível ($level)';
-  }
-
-  @override
-  String aiRoleplaySendFailed(String error) {
-    return 'Falha ao enviar: $error';
-  }
-
-  @override
   String aiToolsVipUpgradeDescription(String feature) {
     return 'Faça upgrade para VIP para desbloquear $feature!';
   }
+
+  @override
+  String get aiToolsVipBadge => 'VIP';
 
   @override
   String aiScenariosBannerPracticingIn(String language) {
@@ -6074,7 +6068,6 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get voiceRoomReactTooltip => 'Reagir';
 
-
   @override
   String get momentsCancel => 'Cancelar';
 
@@ -6183,4 +6176,13 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get splashLoading => 'Carregando…';
+
+  @override
+  String get supportSheetGreeting => 'Olá, sou Firdavs 👋';
+
+  @override
+  String get supportSheetStory => 'Eu construí o Bananatalk completamente sozinho — cada tela, cada funcionalidade, cada correção de bug na madrugada. Meu objetivo é ajudar os aprendizes de idiomas ao redor do mundo a se conectarem e crescerem, e estou constantemente adicionando novas funcionalidades.\n\nSe o Bananatalk te ajudou de alguma forma, mesmo um pequeno café me mantém motivado a continuar construindo. Cada contribuição significa muito para um desenvolvedor solo. 🙏';
+
+  @override
+  String get supportSheetDonateButton => 'Doar via PayPal';
 }

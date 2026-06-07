@@ -3517,5 +3517,8 @@
   "momentsPrivacyFriends": "Friends",
   "momentsPrivacyPrivate": "Private",
   "splashTagline": "Learn · Chat · Meet",
-  "splashLoading": "Loading…"
+  "splashLoading": "Loading…",
+  "supportSheetGreeting": "Hi, I'm Firdavs 👋",
+  "supportSheetStory": "I built Bananatalk entirely on my own — every screen, every feature, every late-night bug fix. My goal is to help language learners around the world connect and grow, and I'm constantly adding new features to make that happen.\n\nIf Bananatalk has helped you in any way, even a small coffee keeps me motivated to keep building. Every contribution means the world to a solo developer. 🙏",
+  "supportSheetDonateButton": "Donate via PayPal"
 }
