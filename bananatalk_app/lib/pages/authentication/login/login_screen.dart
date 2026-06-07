@@ -315,17 +315,9 @@ class _LoginState extends ConsumerState<Login> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const SizedBox(height: 16),
-          Text(
-            'Bananatalk',
-            style: TextStyle(
-              fontSize: 32,
-              fontWeight: FontWeight.w800,
-              color: Theme.of(context).primaryColor,
-              letterSpacing: -0.5,
-            ),
-          ),
-          const SizedBox(height: 4),
+          const SizedBox(height: 24),
+          const _AnimatedBananaTitle(),
+          const SizedBox(height: 6),
           Text(
             l10n.login,
             style: context.titleLarge.copyWith(fontWeight: FontWeight.w700),
@@ -429,20 +421,19 @@ class _LoginState extends ConsumerState<Login> {
           ),
           const SizedBox(height: 24),
           // Social Login Buttons
-          if (Platform.isIOS)
-            Padding(
-              padding: const EdgeInsets.only(bottom: 12.0),
-              child: SocialLoginButton(
-                provider: SocialProvider.apple,
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (ctx) => const AppleLogin(),
-                    ),
-                  );
-                },
-              ),
+          if (Platform.isIOS) ...[
+            SocialLoginButton(
+              provider: SocialProvider.apple,
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (ctx) => const AppleLogin(),
+                  ),
+                );
+              },
             ),
+            const SizedBox(height: 12),
+          ],
           SocialLoginButton(
             provider: SocialProvider.google,
             onPressed: () {
@@ -494,6 +485,101 @@ class _LoginState extends ConsumerState<Login> {
           const SizedBox(height: 16),
         ],
       ),
+    );
+  }
+}
+
+// ─── Animated title ───────────────────────────────────────────────────────────
+
+class _AnimatedBananaTitle extends StatefulWidget {
+  const _AnimatedBananaTitle();
+
+  @override
+  State<_AnimatedBananaTitle> createState() => _AnimatedBananaTitleState();
+}
+
+class _AnimatedBananaTitleState extends State<_AnimatedBananaTitle>
+    with TickerProviderStateMixin {
+  late final AnimationController _entryCtrl;
+  late final AnimationController _shimmerCtrl;
+
+  static const _text = 'Bananatalk';
+  static const _n = _text.length;
+
+  @override
+  void initState() {
+    super.initState();
+    _entryCtrl = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1100),
+    );
+    _shimmerCtrl = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1400),
+    );
+    _entryCtrl.forward().then((_) {
+      if (mounted) {
+        Future.delayed(const Duration(milliseconds: 600), () {
+          if (mounted) _shimmerCtrl.repeat(period: const Duration(milliseconds: 3600));
+        });
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _entryCtrl.dispose();
+    _shimmerCtrl.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: Listenable.merge([_entryCtrl, _shimmerCtrl]),
+      builder: (context, _) {
+        return Row(
+          mainAxisSize: MainAxisSize.min,
+          children: List.generate(_n, (i) {
+            // Each letter gets a staggered entry window
+            const stagger = 0.60 / _n;
+            final start = i * stagger;
+            final end = (start + 0.42).clamp(0.0, 1.0);
+            final t = CurvedAnimation(
+              parent: _entryCtrl,
+              curve: Interval(start, end, curve: Curves.easeOutBack),
+            ).value.clamp(0.0, 1.0);
+
+            // Shimmer: a wave of brightness sweeps left → right
+            final shimmerPos = _shimmerCtrl.value * (_n + 2) - 1;
+            final dist = (i - shimmerPos).abs();
+            final glow = (1.0 - (dist / 2.5).clamp(0.0, 1.0)) *
+                (_entryCtrl.isCompleted ? 1.0 : 0.0);
+
+            final color = Color.lerp(
+              const Color(0xFF00BFA5), // base teal
+              const Color(0xFF80FFE8), // bright flash
+              glow,
+            )!;
+
+            return Opacity(
+              opacity: t,
+              child: Transform.translate(
+                offset: Offset(0, 22 * (1 - t)),
+                child: Text(
+                  _text[i],
+                  style: TextStyle(
+                    fontSize: 38,
+                    fontWeight: FontWeight.w800,
+                    color: color,
+                    letterSpacing: -0.5,
+                  ),
+                ),
+              ),
+            );
+          }),
+        );
+      },
     );
   }
 }
