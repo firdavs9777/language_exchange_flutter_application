@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/services/ai_service.dart';
 import 'package:bananatalk_app/models/ai/lesson_assistant_model.dart';
+import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
 
 /// Bottom sheet to show AI-generated lesson summary
 class LessonSummarySheet extends StatefulWidget {
@@ -376,6 +377,18 @@ class _LessonSummarySheetState extends State<LessonSummarySheet> {
             ),
           ],
           const SizedBox(height: 32),
+
+          // Rewarded ad button
+          const SizedBox(height: 8),
+          RewardedAdButton(
+            label: 'Watch Ad for +10 Bonus XP',
+            onRewarded: () {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('+10 Bonus XP earned! 🎉')),
+              );
+            },
+          ),
+          const SizedBox(height: 8),
 
           // Done button
           SizedBox(

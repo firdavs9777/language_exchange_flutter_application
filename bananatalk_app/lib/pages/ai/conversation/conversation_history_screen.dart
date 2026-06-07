@@ -7,6 +7,7 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:intl/intl.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
 
 /// Screen showing conversation history
 class ConversationHistoryScreen extends ConsumerStatefulWidget {
@@ -60,11 +61,18 @@ class _ConversationHistoryScreenState
           ],
         ),
       ),
-      body: TabBarView(
-        controller: _tabController,
+      body: Column(
         children: [
-          _buildConversationList('completed'),
-          _buildConversationList('active'),
+          const SmallBannerAdWidget(),
+          Expanded(
+            child: TabBarView(
+              controller: _tabController,
+              children: [
+                _buildConversationList('completed'),
+                _buildConversationList('active'),
+              ],
+            ),
+          ),
         ],
       ),
     );

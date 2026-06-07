@@ -165,6 +165,8 @@ class _NativeAdWidgetState extends ConsumerState<NativeAdWidget> {
     _loadAd();
   }
 
+  bool _useBannerFallback = false;
+
   void _loadAd() {
     final adService = AdService();
     if (!adService.isInitialized || adService.isAdFree) return;
@@ -180,10 +182,11 @@ class _NativeAdWidgetState extends ConsumerState<NativeAdWidget> {
           debugPrint('NativeAd failed to load: ${error.message}');
           ad.dispose();
           _nativeAd = null;
+          if (mounted) setState(() => _useBannerFallback = true);
         },
       ),
       nativeTemplateStyle: NativeTemplateStyle(
-        templateType: TemplateType.medium,
+        templateType: TemplateType.small,
         cornerRadius: 16,
       ),
     )..load();
@@ -234,6 +237,11 @@ class _NativeAdWidgetState extends ConsumerState<NativeAdWidget> {
             SizedBox(
               height: 300,
               child: AdWidget(ad: _nativeAd!),
+            )
+          else if (_useBannerFallback)
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 8),
+              child: BannerAdWidget(),
             )
           else
             Shimmer.fromColors(

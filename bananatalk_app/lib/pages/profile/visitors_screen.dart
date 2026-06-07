@@ -10,6 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/utils/string_sanitizer.dart';
+import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
 
 class ProfileVisitorsScreen extends StatefulWidget {
   final String userId;
@@ -154,6 +155,7 @@ class _ProfileVisitorsScreenState extends State<ProfileVisitorsScreen> {
           parent: AlwaysScrollableScrollPhysics(),
         ),
         slivers: [
+          const SliverToBoxAdapter(child: BannerAdWidget()),
           if (_stats != null) SliverToBoxAdapter(child: _buildStatsHeader()),
           SliverToBoxAdapter(
             child: Padding(

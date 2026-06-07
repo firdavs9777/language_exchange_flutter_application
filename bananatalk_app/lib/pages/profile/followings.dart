@@ -13,6 +13,7 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
+import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
 
 class ProfileFollowings extends ConsumerStatefulWidget {
   const ProfileFollowings({
@@ -221,21 +222,28 @@ class _ProfileFollowingsState extends ConsumerState<ProfileFollowings> {
               );
             } else {
               final filteredFollowings = snapshot.data!;
-              return ListView.builder(
-                itemCount: filteredFollowings.length,
-                cacheExtent: 200,
-                itemBuilder: (context, index) {
-                  final community = filteredFollowings[index];
+              return Column(
+                children: [
+                  const BannerAdWidget(),
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: filteredFollowings.length,
+                      cacheExtent: 200,
+                      itemBuilder: (context, index) {
+                        final community = filteredFollowings[index];
 
-                  return _UserCard(
-                    key: ValueKey(community.id),
-                    community: community,
-                    onTap: () => redirect(community.id),
-                    onUnfollowTap: () {
-                      unFollowUser(widget.id, community.id, community.name);
-                    },
-                  );
-                },
+                        return _UserCard(
+                          key: ValueKey(community.id),
+                          community: community,
+                          onTap: () => redirect(community.id),
+                          onUnfollowTap: () {
+                            unFollowUser(widget.id, community.id, community.name);
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                ],
               );
             }
           },
