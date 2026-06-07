@@ -1,4 +1,5 @@
 import 'package:bananatalk_app/pages/authentication/login/login_screen.dart';
+import 'package:bananatalk_app/pages/authentication/widgets/animated_banana_title.dart';
 import 'package:bananatalk_app/pages/authentication/register/register_two_screen.dart';
 import 'package:bananatalk_app/pages/authentication/widgets/auth_gradient_button.dart';
 import 'package:bananatalk_app/pages/authentication/widgets/auth_screen_scaffold.dart';
@@ -263,9 +264,11 @@ class _RegisterState extends State<Register> {
             ],
           ),
 
-          const SizedBox(height: 24),
+          const SizedBox(height: 16),
 
           // Header
+          const AnimatedBananaTitle(fontSize: 32),
+          const SizedBox(height: 2),
           Text(
             l10n.createYourAccount,
             style: TextStyle(
