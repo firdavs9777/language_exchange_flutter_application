@@ -341,12 +341,15 @@ class _UserCard extends StatelessWidget {
                                     Icon(Icons.translate,
                                         size: 12, color: Colors.blue[700]),
                                     const SizedBox(width: 4),
-                                    Text(
-                                      community.native_language,
-                                      style: TextStyle(
-                                        fontSize: 11,
-                                        color: Colors.blue[700],
-                                        fontWeight: FontWeight.w600,
+                                    Flexible(
+                                      child: Text(
+                                        community.native_language,
+                                        style: TextStyle(
+                                          fontSize: 11,
+                                          color: Colors.blue[700],
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                        overflow: TextOverflow.ellipsis,
                                       ),
                                     ),
                                   ],
@@ -368,12 +371,15 @@ class _UserCard extends StatelessWidget {
                                     Icon(Icons.school,
                                         size: 12, color: Colors.orange[700]),
                                     const SizedBox(width: 4),
-                                    Text(
-                                      community.language_to_learn,
-                                      style: TextStyle(
-                                        fontSize: 11,
-                                        color: Colors.orange[700],
-                                        fontWeight: FontWeight.w600,
+                                    Flexible(
+                                      child: Text(
+                                        community.language_to_learn,
+                                        style: TextStyle(
+                                          fontSize: 11,
+                                          color: Colors.orange[700],
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                        overflow: TextOverflow.ellipsis,
                                       ),
                                     ),
                                   ],
