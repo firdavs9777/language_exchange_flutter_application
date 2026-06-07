@@ -71,15 +71,15 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
           children: [
             // ── Top: title + tagline ────────────────────────────────────────
             Padding(
-              padding: const EdgeInsets.only(top: 20, bottom: 4),
+              padding: const EdgeInsets.only(top: 10, bottom: 2),
               child: Column(
                 children: [
-                  const AnimatedBananaTitle(fontSize: 46),
-                  const SizedBox(height: 8),
+                  const AnimatedBananaTitle(fontSize: 40),
+                  const SizedBox(height: 3),
                   Text(
                     'MEET  ·  CHAT  ·  CONNECT',
                     style: TextStyle(
-                      fontSize: 11,
+                      fontSize: 10,
                       fontWeight: FontWeight.w600,
                       color: context.textMuted,
                       letterSpacing: 2.8,
@@ -95,7 +95,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
-                    height: 160,
+                    height: 140,
                     child: PageView.builder(
                       controller: _pageCtrl,
                       itemCount: _features.length,
@@ -112,7 +112,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                       },
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 10),
                   _PageDots(count: _features.length, current: _page),
                 ],
               ),
@@ -120,29 +120,29 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
 
             // ── Bottom: CTA + buttons ───────────────────────────────────────
             Padding(
-              padding: const EdgeInsets.fromLTRB(24, 8, 24, 32),
+              padding: const EdgeInsets.fromLTRB(24, 4, 24, 24),
               child: Column(
                 children: [
                   Text(
                     'Make global friends on Bananatalk',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 20,
+                      fontSize: 18,
                       fontWeight: FontWeight.w700,
                       color: context.textPrimary,
-                      height: 1.25,
+                      height: 1.2,
                     ),
                   ),
-                  const SizedBox(height: 6),
+                  const SizedBox(height: 3),
                   Text(
                     'Join millions of language learners today',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 13,
                       color: context.textSecondary,
                     ),
                   ),
-                  const SizedBox(height: 24),
+                  const SizedBox(height: 14),
 
                   // Apple (iOS only)
                   if (Platform.isIOS) ...[
@@ -152,7 +152,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                         MaterialPageRoute(builder: (_) => const AppleLogin()),
                       ),
                     ),
-                    const SizedBox(height: 12),
+                    const SizedBox(height: 8),
                   ],
 
                   // Google
@@ -162,7 +162,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                       MaterialPageRoute(builder: (_) => const GoogleLogin()),
                     ),
                   ),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 8),
 
                   // Email
                   SocialLoginButton(
@@ -212,7 +212,7 @@ class _FeatureCard extends StatelessWidget {
         ],
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         child: Row(
           children: [
             Text(feature.emoji, style: const TextStyle(fontSize: 36)),
