@@ -111,15 +111,12 @@ class CommunityService {
           );
         }
 
-        if (page == 1 && dataList.isNotEmpty) {}
-
-        final users = dataList
-            .where((item) => item != null && item is Map<String, dynamic>)
-            .map(
-              (postJson) =>
-                  Community.fromJson(postJson as Map<String, dynamic>),
-            )
-            .toList();
+        final users = <Community>[];
+        for (int i = 0; i < dataList.length; i++) {
+          final item = dataList[i];
+          if (item == null || item is! Map<String, dynamic>) continue;
+          users.add(Community.fromJson(item));
+        }
 
         return PaginatedCommunityResponse(
           users: users,
