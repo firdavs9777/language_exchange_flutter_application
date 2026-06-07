@@ -8,6 +8,7 @@ import 'package:bananatalk_app/pages/learning/main/learning_main_screen.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/badge_count_provider.dart';
 import 'package:bananatalk_app/widgets/promo/ai_study_promo_modal.dart';
+import 'package:bananatalk_app/widgets/promo/ads_notice_modal.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
@@ -50,6 +51,12 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
       // once per 7 days via SharedPreferences.
       if (mounted) {
         AiStudyPromoModal.showIfDue(context);
+      }
+      // One-time ads transparency notice — shown once per device after ads were added.
+      if (mounted) {
+        Future.delayed(const Duration(seconds: 1), () {
+          if (mounted) AdsNoticeModal.showIfNeeded(context);
+        });
       }
     });
   }
