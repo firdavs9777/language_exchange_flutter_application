@@ -1,4 +1,5 @@
 import 'package:bananatalk_app/pages/chat/list/chat_list_screen.dart';
+import 'package:bananatalk_app/services/ad_service.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:bananatalk_app/pages/moments/feed/moments_main.dart';
 import 'package:bananatalk_app/pages/profile/profile_main.dart';
@@ -443,10 +444,17 @@ class _CoffeeButtonState extends State<_CoffeeButton>
 
 // ─── Support / donation sheet ─────────────────────────────────────────────────
 
-class _SupportSheet extends StatelessWidget {
-  static const _paypalUrl = 'https://paypal.me/firdavsDev';
-
+class _SupportSheet extends StatefulWidget {
   const _SupportSheet();
+
+  @override
+  State<_SupportSheet> createState() => _SupportSheetState();
+}
+
+class _SupportSheetState extends State<_SupportSheet> {
+  static const _paypalUrl = 'https://paypal.me/firdavsDev';
+  bool _adWatched = false;
+  bool _adLoading = false;
 
   Future<void> _donate() async {
     HapticFeedback.lightImpact();
@@ -454,6 +462,37 @@ class _SupportSheet extends StatelessWidget {
     if (await canLaunchUrl(uri)) {
       await launchUrl(uri, mode: LaunchMode.externalApplication);
     }
+  }
+
+  Future<void> _watchAd() async {
+    if (_adLoading) return;
+    HapticFeedback.lightImpact();
+
+    final adService = AdService();
+    if (!adService.isRewardedAdReady) {
+      // Ad not loaded yet — try loading and show a brief wait state
+      setState(() => _adLoading = true);
+      adService.loadRewarded();
+      // Poll up to 8 seconds for the ad to load
+      for (int i = 0; i < 16; i++) {
+        await Future.delayed(const Duration(milliseconds: 500));
+        if (!mounted) return;
+        if (adService.isRewardedAdReady) break;
+      }
+      if (mounted) setState(() => _adLoading = false);
+      if (!adService.isRewardedAdReady) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Ad not ready yet — try again in a moment')),
+          );
+        }
+        return;
+      }
+    }
+
+    await adService.showRewarded(onRewarded: () {
+      if (mounted) setState(() => _adWatched = true);
+    });
   }
 
   @override
@@ -526,7 +565,80 @@ class _SupportSheet extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: 20),
+
+          // Watch an ad button
+          GestureDetector(
+            onTap: _adWatched ? null : _watchAd,
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 300),
+              height: 56,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: _adWatched
+                      ? [const Color(0xFF43A047), const Color(0xFF2E7D32)]
+                      : [const Color(0xFFFF6F00), const Color(0xFFE65100)],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+                borderRadius: BorderRadius.circular(16),
+                boxShadow: [
+                  BoxShadow(
+                    color: (_adWatched
+                        ? const Color(0xFF43A047)
+                        : const Color(0xFFFF6F00)).withValues(alpha: 0.35),
+                    blurRadius: 18,
+                    offset: const Offset(0, 6),
+                  ),
+                ],
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  if (_adLoading)
+                    const SizedBox(
+                      width: 20,
+                      height: 20,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2.5,
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                      ),
+                    )
+                  else
+                    Text(
+                      _adWatched ? '✅' : '▶️',
+                      style: const TextStyle(fontSize: 18),
+                    ),
+                  const SizedBox(width: 10),
+                  Text(
+                    _adWatched
+                        ? 'Thanks for watching! 🙏'
+                        : l10n.supportSheetWatchAd,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                      letterSpacing: 0.2,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(height: 12),
+
+          // Divider with "or"
+          Row(
+            children: [
+              Expanded(child: Divider(color: textSecondary.withValues(alpha: 0.3))),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12),
+                child: Text('or', style: TextStyle(color: textSecondary, fontSize: 13)),
+              ),
+              Expanded(child: Divider(color: textSecondary.withValues(alpha: 0.3))),
+            ],
+          ),
+          const SizedBox(height: 12),
 
           // PayPal donate button
           GestureDetector(
@@ -555,7 +667,7 @@ class _SupportSheet extends StatelessWidget {
                   const SizedBox(width: 10),
                   Text(
                     l10n.supportSheetDonateButton,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 16,
                       fontWeight: FontWeight.w700,

@@ -6185,4 +6185,7 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get supportSheetDonateButton => 'Mag-donate sa pamamagitan ng PayPal';
+
+  @override
+  String get supportSheetWatchAd => 'Manood ng ad para suportahan';
 }

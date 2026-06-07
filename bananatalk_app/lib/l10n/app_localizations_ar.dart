@@ -6194,4 +6194,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get supportSheetDonateButton => 'تبرع عبر PayPal';
+
+  @override
+  String get supportSheetWatchAd => 'شاهد إعلانًا للدعم';
 }

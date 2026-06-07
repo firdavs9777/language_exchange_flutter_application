@@ -6178,4 +6178,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get supportSheetDonateButton => 'PayPalで寄付する';
+
+  @override
+  String get supportSheetWatchAd => '広告を見てサポートする';
 }

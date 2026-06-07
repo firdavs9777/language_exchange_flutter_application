@@ -2572,5 +2572,6 @@
   "splashLoading": "読み込み中…",
   "supportSheetGreeting": "こんにちは、フィルダウスです 👋",
   "supportSheetStory": "Bananatalkは一人で作りました — 画面、機能、深夜のバグ修正まで全て。世界中の語学学習者がつながり成長できるよう、常に新機能を追加しています。\n\nBananatalkが少しでもお役に立てたなら、コーヒー一杯分のサポートが開発継続の大きな励みになります。ソロ開発者にとって、あなたの応援は何より嬉しいです。 🙏",
-  "supportSheetDonateButton": "PayPalで寄付する"
+  "supportSheetDonateButton": "PayPalで寄付する",
+  "supportSheetWatchAd": "広告を見てサポートする"
 }

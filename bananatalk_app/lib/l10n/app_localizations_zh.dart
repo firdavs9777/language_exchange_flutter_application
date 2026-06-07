@@ -6178,6 +6178,9 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get supportSheetDonateButton => '通过 PayPal 捐款';
+
+  @override
+  String get supportSheetWatchAd => '观看广告以支持';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -11241,4 +11244,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get supportSheetDonateButton => '透過 PayPal 捐款';
+
+  @override
+  String get supportSheetWatchAd => '觀看廣告以支持';
 }

@@ -6191,4 +6191,7 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get supportSheetDonateButton => 'Тавассути PayPal хайрия кунед';
+
+  @override
+  String get supportSheetWatchAd => 'Барои дастгирӣ реклама тамошо кунед';
 }

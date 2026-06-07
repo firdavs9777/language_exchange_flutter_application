@@ -11551,6 +11551,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Donate via PayPal'**
   String get supportSheetDonateButton;
+
+  /// No description provided for @supportSheetWatchAd.
+  ///
+  /// In en, this message translates to:
+  /// **'Watch an ad to support'**
+  String get supportSheetWatchAd;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

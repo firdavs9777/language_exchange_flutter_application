@@ -6185,4 +6185,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get supportSheetDonateButton => 'Faire un don via PayPal';
+
+  @override
+  String get supportSheetWatchAd => 'Regarder une pub pour soutenir';
 }

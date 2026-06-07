@@ -2588,5 +2588,6 @@
   "splashLoading": "Cargando…",
   "supportSheetGreeting": "Hola, soy Firdavs 👋",
   "supportSheetStory": "Construí Bananatalk completamente por mi cuenta — cada pantalla, cada función, cada corrección de errores a altas horas de la noche. Mi objetivo es ayudar a los estudiantes de idiomas de todo el mundo a conectarse y crecer, y constantemente estoy agregando nuevas funciones.\n\nSi Bananatalk te ha ayudado de alguna manera, incluso un pequeño café me mantiene motivado para seguir construyendo. Cada contribución significa el mundo para un desarrollador en solitario. 🙏",
-  "supportSheetDonateButton": "Donar via PayPal"
+  "supportSheetDonateButton": "Donar via PayPal",
+  "supportSheetWatchAd": "Ver un anuncio para apoyar"
 }

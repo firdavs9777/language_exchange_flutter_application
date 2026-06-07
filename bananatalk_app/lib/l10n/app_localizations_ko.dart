@@ -6178,4 +6178,7 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get supportSheetDonateButton => 'PayPal로 후원하기';
+
+  @override
+  String get supportSheetWatchAd => '광고 보고 응원하기';
 }

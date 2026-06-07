@@ -6197,4 +6197,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get supportSheetDonateButton => 'Пожертвовать через PayPal';
+
+  @override
+  String get supportSheetWatchAd => 'Посмотреть рекламу в поддержку';
 }

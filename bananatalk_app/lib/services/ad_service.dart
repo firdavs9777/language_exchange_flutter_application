@@ -15,20 +15,20 @@ class AdService {
 
   // Production ad unit IDs
   String get _bannerAdUnitId => Platform.isAndroid
-      ? 'ca-app-pub-1050509512947605/6444757529'
-      : 'ca-app-pub-1050509512947605/8220873620';
+      ? 'ca-app-pub-5669092242437690/6629245267'
+      : 'ca-app-pub-5669092242437690/7326563500';
 
   String get _interstitialAdUnitId => Platform.isAndroid
-      ? 'ca-app-pub-1050509512947605/8739748370'
-      : 'ca-app-pub-1050509512947605/9558006020';
+      ? 'ca-app-pub-5669092242437690/4724450892'
+      : 'ca-app-pub-5669092242437690/4700400166';
 
   String get _rewardedAdUnitId => Platform.isAndroid
-      ? 'ca-app-pub-1050509512947605/4940104168'
-      : 'ca-app-pub-1050509512947605/1637561082';
+      ? 'ca-app-pub-5669092242437690/9785205886'
+      : 'ca-app-pub-5669092242437690/3424497428';
 
   String get _nativeAdUnitId => Platform.isAndroid
-      ? 'ca-app-pub-1050509512947605/4455296114'
-      : 'ca-app-pub-1050509512947605/1655465274';
+      ? 'ca-app-pub-5669092242437690/6629245267'
+      : 'ca-app-pub-5669092242437690/7326563500';
 
   String get bannerAdUnitId => _bannerAdUnitId;
   String get nativeAdUnitId => _nativeAdUnitId;

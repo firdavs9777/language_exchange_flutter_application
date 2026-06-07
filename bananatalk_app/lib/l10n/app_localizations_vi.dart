@@ -6178,4 +6178,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get supportSheetDonateButton => 'Quyên góp qua PayPal';
+
+  @override
+  String get supportSheetWatchAd => 'Xem quảng cáo để ủng hộ';
 }

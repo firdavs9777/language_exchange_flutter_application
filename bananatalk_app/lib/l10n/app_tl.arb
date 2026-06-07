@@ -2509,5 +2509,6 @@
   "splashLoading": "Naglo-load…",
   "supportSheetGreeting": "Kumusta, ako si Firdavs 👋",
   "supportSheetStory": "Itinayo ko ang Bananatalk nang mag-isa — bawat screen, bawat feature, bawat pag-aayos ng bug sa hatinggabi. Ang aking layunin ay tulungan ang mga nag-aaral ng wika sa buong mundo na kumonekta at lumago, at patuloy akong nagdadagdag ng mga bagong feature.\n\nKung nakatulong sa iyo ang Bananatalk sa anumang paraan, kahit isang maliit na kape ay nagbibigay sa akin ng motibasyon na magpatuloy. Ang bawat kontribusyon ay napakahalaga para sa isang solo developer. 🙏",
-  "supportSheetDonateButton": "Mag-donate sa pamamagitan ng PayPal"
+  "supportSheetDonateButton": "Mag-donate sa pamamagitan ng PayPal",
+  "supportSheetWatchAd": "Manood ng ad para suportahan"
 }
