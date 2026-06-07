@@ -5,6 +5,7 @@ import 'package:bananatalk_app/widgets/learning/vocabulary_card.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/pages/learning/animations/xp_gain_overlay.dart';
+import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
 
 /// Vocabulary review screen with SRS flashcards
 class VocabularyReviewScreen extends ConsumerStatefulWidget {
@@ -340,6 +341,15 @@ class _VocabularyReviewScreenState
                 ],
               ),
               Spacing.gapXXL,
+              const SizedBox(height: 8),
+              RewardedAdButton(
+                label: 'Watch Ad for +10 Bonus XP',
+                onRewarded: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('+10 Bonus XP earned! 🎉')),
+                  );
+                },
+              ),
               ElevatedButton(
                 onPressed: () {
                   ref.read(vocabularyReviewProvider.notifier).reset();

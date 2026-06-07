@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/services/ai_service.dart';
+import 'package:bananatalk_app/services/ad_service.dart';
 import 'package:bananatalk_app/services/learning_service.dart';
 import 'package:bananatalk_app/models/ai/lesson_builder_model.dart';
 import 'package:bananatalk_app/models/learning/lesson_model.dart';
@@ -100,6 +101,8 @@ class _LessonBuilderScreenState extends ConsumerState<LessonBuilderScreen> {
       exerciseCount: _exerciseCount,
     );
 
+    // Show interstitial before AI generation begins
+    await AdService().showInterstitial();
     final result = await AIService.generateLesson(request);
 
     if (mounted) {

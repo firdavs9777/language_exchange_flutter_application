@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/models/community/voice_room_model.dart';
 import 'package:bananatalk_app/providers/voice_room_provider.dart';
 import 'package:bananatalk_app/providers/ad_providers.dart';
+import 'package:bananatalk_app/services/ad_service.dart';
 import 'package:bananatalk_app/pages/profile/profile_wrapper.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
@@ -206,7 +207,16 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
             onPressed: () async {
               ref.read(voiceRoomProvider).leaveRoom();
               Navigator.pop(dialogContext);
-              await ref.read(adServiceProvider).showInterstitial();
+              final adService = AdService();
+              if (adService.isRewardedAdReady && context.mounted) {
+                await adService.showRewarded(onRewarded: () {
+                  if (context.mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Thanks for participating! +10 XP 🎉')),
+                    );
+                  }
+                });
+              }
               if (context.mounted) Navigator.pop(context);
             },
             style: ElevatedButton.styleFrom(

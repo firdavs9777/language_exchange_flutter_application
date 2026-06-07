@@ -9,6 +9,7 @@ import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/ai/tutor/story_reader_screen.dart';
 import 'package:bananatalk_app/widgets/tutor/tutor_quota_indicator.dart';
+import 'package:bananatalk_app/services/ad_service.dart';
 
 class StorySetupScreen extends ConsumerStatefulWidget {
   const StorySetupScreen({super.key});
@@ -45,6 +46,8 @@ class _StorySetupScreenState extends ConsumerState<StorySetupScreen> {
   Future<void> _generate() async {
     setState(() => _generating = true);
     try {
+      // Show interstitial before AI generation begins
+      await AdService().showInterstitial();
       final story = await ref
           .read(tutorServiceProvider)
           .generateStory(wordCount: _wordCount, theme: _theme);

@@ -15,6 +15,7 @@ import 'package:bananatalk_app/widgets/tutor/vocab_card.dart';
 import 'package:bananatalk_app/widgets/tutor/grammar_card.dart';
 import 'package:bananatalk_app/widgets/tutor/srs_due_card.dart';
 import 'package:bananatalk_app/widgets/tutor/mini_lesson_card.dart';
+import 'package:bananatalk_app/services/ad_service.dart';
 
 class TutorChatScreen extends ConsumerStatefulWidget {
   const TutorChatScreen({super.key});
@@ -29,6 +30,7 @@ class _TutorChatScreenState extends ConsumerState<TutorChatScreen> {
   final _voice = TutorVoiceService();
   bool _started = false;
   bool _voiceMode = false;
+  bool _adShownAtMilestone = false;
   bool _recording = false;
   bool _transcribing = false;
   int _lastSpokenIndex = -1;
@@ -83,6 +85,26 @@ class _TutorChatScreenState extends ConsumerState<TutorChatScreen> {
     await ref.read(tutorChatControllerProvider.notifier).send(text);
     _scrollToBottom();
     _maybeSpeakLatestReply();
+    // Show rewarded ad every 5 user messages
+    final msgCount = ref.read(tutorChatControllerProvider).session?.messages
+        .where((m) => m.role == 'user').length ?? 0;
+    if (msgCount > 0 && msgCount % 5 == 0 && !_adShownAtMilestone) {
+      _adShownAtMilestone = true;
+      Future.delayed(const Duration(milliseconds: 800), () {
+        if (!mounted) return;
+        _adShownAtMilestone = false;
+        final adService = AdService();
+        if (adService.isRewardedAdReady) {
+          adService.showRewarded(onRewarded: () {
+            if (mounted) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('🎉 +10 Bonus XP for watching!')),
+              );
+            }
+          });
+        }
+      });
+    }
   }
 
   Future<void> _toggleRecord() async {

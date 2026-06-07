@@ -1,10 +1,16 @@
 import 'dart:convert';
+import 'dart:io';
+import 'package:audio_session/audio_session.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_sound/flutter_sound.dart';
 import 'package:http/http.dart' as http;
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:bananatalk_app/services/ai_service.dart';
 import 'package:bananatalk_app/models/ai/speech_model.dart';
 import 'package:bananatalk_app/providers/provider_root/ai_providers.dart';
+import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/service/endpoints.dart';
 import 'package:bananatalk_app/models/language_model.dart';
 import 'package:bananatalk_app/widgets/language_selection/language_picker_screen.dart';
@@ -12,6 +18,7 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
 
 /// Pronunciation Practice Screen
 class PronunciationScreen extends ConsumerStatefulWidget {
@@ -32,6 +39,9 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
   bool _isLoadingTTS = false;
   PronunciationResult? _result;
   String? _error;
+  FlutterSoundRecorder? _recorder;
+  bool _recorderReady = false;
+  String? _recordingPath;
 
   final List<String> _sampleTexts = [
     'Hello, how are you today?',
@@ -58,22 +68,32 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
         final data = json.decode(response.body);
         List<dynamic> languagesList = data['data'] ?? [];
 
+        String learningLang = '';
+        try {
+          final user = await ref.read(userProvider.future);
+          learningLang = user.language_to_learn;
+        } catch (_) {}
+
         setState(() {
           _languages = languagesList
               .map<Language>((json) => Language.fromJson(json))
               .toList();
           _isLoadingLanguages = false;
 
-          // Default to English if available
-          if (_languages.isNotEmpty) {
-            try {
-              _selectedLanguage = _languages.firstWhere(
-                (lang) => lang.code.toLowerCase() == 'en',
-              );
-            } catch (e) {
-              _selectedLanguage = _languages.first;
-            }
+          int defaultIdx = -1;
+          if (learningLang.isNotEmpty) {
+            defaultIdx = _languages.indexWhere(
+              (l) => l.code.toLowerCase() == learningLang.toLowerCase(),
+            );
           }
+          if (defaultIdx == -1) {
+            defaultIdx = _languages.indexWhere(
+              (l) => l.code.toLowerCase() == 'en' || l.name.toLowerCase() == 'english',
+            );
+          }
+          _selectedLanguage = defaultIdx != -1
+              ? _languages[defaultIdx]
+              : (_languages.isNotEmpty ? _languages.first : null);
         });
       } else {
         setState(() {
@@ -217,29 +237,102 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
   @override
   void dispose() {
     _textController.dispose();
+    _recorder?.closeRecorder();
     super.dispose();
   }
 
+  Future<void> _ensureRecorder() async {
+    if (_recorderReady) return;
+    _recorder = FlutterSoundRecorder();
+    await _recorder!.openRecorder();
+    final session = await AudioSession.instance;
+    await session.configure(AudioSessionConfiguration(
+      avAudioSessionCategory: AVAudioSessionCategory.playAndRecord,
+      avAudioSessionCategoryOptions:
+          AVAudioSessionCategoryOptions.allowBluetooth |
+          AVAudioSessionCategoryOptions.defaultToSpeaker,
+      avAudioSessionMode: AVAudioSessionMode.spokenAudio,
+      avAudioSessionRouteSharingPolicy:
+          AVAudioSessionRouteSharingPolicy.defaultPolicy,
+      avAudioSessionSetActiveOptions: AVAudioSessionSetActiveOptions.none,
+      androidAudioAttributes: const AndroidAudioAttributes(
+        contentType: AndroidAudioContentType.speech,
+        flags: AndroidAudioFlags.none,
+        usage: AndroidAudioUsage.voiceCommunication,
+      ),
+      androidAudioFocusGainType: AndroidAudioFocusGainType.gain,
+      androidWillPauseWhenDucked: true,
+    ));
+    _recorderReady = true;
+  }
+
   Future<void> _startRecording() async {
-    setState(() {
-      _isRecording = true;
-      _error = null;
-    });
-    // Recording will be implemented with platform-specific audio recording
+    final status = await Permission.microphone.request();
+    if (!mounted) return;
+    if (!status.isGranted) {
+      setState(() {
+        _error = 'Microphone permission denied. Please enable it in Settings.';
+      });
+      return;
+    }
+    try {
+      await _ensureRecorder();
+      final tmp = await getTemporaryDirectory();
+      final path =
+          '${tmp.path}/pron_${DateTime.now().millisecondsSinceEpoch}.m4a';
+      await _recorder!.startRecorder(toFile: path, codec: Codec.aacMP4);
+      if (!mounted) return;
+      setState(() {
+        _isRecording = true;
+        _recordingPath = path;
+        _error = null;
+      });
+    } catch (e) {
+      if (!mounted) return;
+      setState(() {
+        _error = e.toString();
+      });
+    }
   }
 
   Future<void> _stopRecording() async {
+    try {
+      if (_recorder?.isRecording ?? false) {
+        await _recorder!.stopRecorder();
+      }
+    } catch (_) {}
+
+    final path = _recordingPath;
+    if (!mounted) return;
     setState(() {
       _isRecording = false;
       _isAnalyzing = true;
+      _result = null;
+      _error = null;
     });
 
-    // Simulate analysis for demo purposes
-    await Future.delayed(const Duration(seconds: 2));
+    if (path == null) {
+      setState(() => _isAnalyzing = false);
+      return;
+    }
 
+    final text = _textController.text.trim();
+    final langCode = _selectedLanguage?.code ?? 'en';
+
+    final res = await AIService.evaluatePronunciation(
+      File(path),
+      text,
+      langCode,
+    );
+
+    if (!mounted) return;
     setState(() {
       _isAnalyzing = false;
-      _error = 'Recording feature requires native audio plugin configuration';
+      if (res['success'] == true) {
+        _result = res['data'] as PronunciationResult?;
+      } else {
+        _error = res['message']?.toString() ?? 'Failed to evaluate pronunciation';
+      }
     });
   }
 
@@ -786,6 +879,16 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
                   ),
                 )),
           ],
+          const SizedBox(height: 16),
+          RewardedAdButton(
+            label: 'Watch Ad for another free attempt',
+            onRewarded: () {
+              setState(() => _result = null);
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Free retry unlocked! 🎉')),
+              );
+            },
+          ),
         ],
       ),
     );
