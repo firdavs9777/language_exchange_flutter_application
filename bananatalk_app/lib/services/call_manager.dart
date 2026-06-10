@@ -389,10 +389,31 @@ class CallManager with WidgetsBindingObserver {
       onPeerReconnected?.call();
     };
 
-    _liveKit.onLocalDisconnected = () {
-      debugPrint('📞 LiveKit: local disconnected '
+    _liveKit.onLocalDisconnected = (reason) {
+      debugPrint('📞 LiveKit: local disconnected reason=$reason '
           '(localTeardown=$_localTeardownInFlight)');
-      if (!_localTeardownInFlight && currentCall != null) {
+      if (_localTeardownInFlight || currentCall == null) return;
+
+      // Classify the disconnect so the UI can distinguish a legitimate
+      // hang-up ("Call ended") from a network-class failure ("Connection
+      // lost"). Before this branch every non-local disconnect — including
+      // signalling drops — was reported as a remote hang-up, which
+      // confused users on flaky networks.
+      final isNetworkFailure = reason == lk.DisconnectReason.unknown ||
+          reason == lk.DisconnectReason.disconnected ||
+          reason == lk.DisconnectReason.signalingConnectionFailure ||
+          reason == lk.DisconnectReason.reconnectAttemptsExceeded ||
+          reason == lk.DisconnectReason.joinFailure ||
+          reason == lk.DisconnectReason.stateMismatch;
+
+      if (isNetworkFailure) {
+        onCallError?.call('Connection lost');
+        _cleanup();
+      } else {
+        // roomDeleted / participantRemoved / duplicateIdentity /
+        // serverShutdown / clientInitiated (the last shouldn't reach here
+        // because _localTeardownInFlight catches it) — all legitimate
+        // "the call ended" outcomes.
         currentCall = currentCall!.copyWith(
           status: CallStatus.ended,
           endTime: DateTime.now(),
@@ -425,12 +446,48 @@ class CallManager with WidgetsBindingObserver {
 
   // -- CallKit wiring --------------------------------------------------------
 
+  /// Builds a provisional [CallModel] from a CallKit `extra` payload —
+  /// used on the killed-state accept path where neither the socket nor the
+  /// notification-tap router has had a chance to populate `currentCall`.
+  /// Falls back to "Unknown" strings rather than null because the screen
+  /// header would otherwise read awkwardly.
+  CallModel _callFromExtra(String callId, Map<String, dynamic> extra) {
+    final typeStr = extra['callType']?.toString() ?? 'audio';
+    return CallModel(
+      callId: callId,
+      userId: extra['callerId']?.toString() ?? '',
+      userName: extra['callerName']?.toString() ?? 'Unknown',
+      userProfilePicture: extra['callerProfilePicture']?.toString() ??
+          extra['callerAvatar']?.toString(),
+      callType: typeStr == 'video' ? CallType.video : CallType.audio,
+      direction: CallDirection.incoming,
+      status: CallStatus.ringing,
+      startTime: DateTime.now(),
+      livekitToken: extra['livekitToken']?.toString(),
+      livekitUrl: extra['livekitUrl']?.toString(),
+      roomName: extra['roomName']?.toString(),
+    );
+  }
+
   void _initCallKit() {
     _callKitService.initialize();
 
-    _callKitService.onAccepted = (callId) {
-      debugPrint('📱 CallKit accepted: $callId');
-      if (currentCall == null) return;
+    _callKitService.onAccepted = (callId, extra) {
+      debugPrint('📱 CallKit accepted: $callId extra=$extra');
+      // Killed-state path: PushKit woke the app and CallKit fired Accept,
+      // but neither `_handleIncomingSocketEvent` (no socket yet) nor
+      // `NotificationRouter._handleIncomingCallNotification` (no tap)
+      // populated `currentCall`. Hydrate from CallKit's `extra` payload
+      // (set by AppDelegate.swift's PushKit handler) so acceptCall() has
+      // something to work with — otherwise it silently returns.
+      if (currentCall == null) {
+        if (extra == null) {
+          debugPrint('📱 onAccepted: currentCall null AND no extra payload — '
+              'cannot hydrate; aborting');
+          return;
+        }
+        currentCall = _callFromExtra(callId, extra);
+      }
       stopRingtone();
       acceptCall().then((_) {
         final navState = callOverlayNavigatorKey.currentState;

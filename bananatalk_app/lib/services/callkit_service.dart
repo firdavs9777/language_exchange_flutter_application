@@ -4,7 +4,10 @@ import 'dart:ui' as ui;
 import 'package:flutter/foundation.dart';
 import 'package:flutter_callkit_incoming/flutter_callkit_incoming.dart';
 import 'package:flutter_callkit_incoming/entities/entities.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
+
+import 'package:bananatalk_app/services/notification_api_client.dart';
 
 /// Wraps flutter_callkit_incoming to show native incoming call UI on both
 /// iOS (CallKit) and Android (full-screen activity). This replaces the
@@ -32,8 +35,13 @@ class CallKitService {
     return true;
   }
 
-  /// Callbacks for call actions from the native UI
-  Function(String callId)? onAccepted;
+  /// Callbacks for call actions from the native UI. The optional [extra]
+  /// payload on `onAccepted` carries pre-minted LiveKit fields that arrive
+  /// alongside the CallKit prompt (set in [showIncomingCall] for the
+  /// foreground path, and via PushKit's payload for killed-state). The
+  /// caller uses it to hydrate `CallManager.currentCall` when accept fires
+  /// before the FCM/socket path has run.
+  Function(String callId, Map<String, dynamic>? extra)? onAccepted;
   Function(String callId)? onDeclined;
   Function(String callId)? onEnded;
 
@@ -42,11 +50,28 @@ class CallKitService {
   /// Current active callkit UUID (used for ending/updating the call)
   String? _activeCallUuid;
 
+  /// Most-recent VoIP push token Apple handed us via PKPushRegistry. Cached
+  /// so we can re-upload after login or backend errors without waiting for
+  /// the next system-issued rotation.
+  String? _voipToken;
+  String? get voipToken => _voipToken;
+
+  final NotificationApiClient _api = NotificationApiClient();
+
   /// Initialize listeners for CallKit events.
   /// Call this once at app startup.
   void initialize() {
     if (_listenersRegistered) return;
     _listenersRegistered = true;
+
+    // If the previous run cached a VoIP token while no user was logged in,
+    // try uploading it now — the user may have signed in since then. This
+    // matters because Apple only re-fires `didUpdate` on token rotation
+    // (rare), so the token we have may be the only one we'll see for a
+    // while.
+    if (Platform.isIOS) {
+      unawaited(reuploadVoipTokenIfAvailable());
+    }
 
     FlutterCallkitIncoming.onEvent.listen((CallEvent? event) {
       if (event == null) return;
@@ -56,7 +81,16 @@ class CallKitService {
       switch (event.event) {
         case Event.actionCallAccept:
           final id = _extractId(event.body);
-          if (id != null) onAccepted?.call(id);
+          if (id != null) {
+            // The `extra` dict is where showIncomingCall and the PushKit
+            // payload stash pre-minted LiveKit fields. Forward it so
+            // CallManager can hydrate currentCall on killed-state accept.
+            final extra = event.body?['extra'];
+            onAccepted?.call(
+              id,
+              extra is Map ? Map<String, dynamic>.from(extra) : null,
+            );
+          }
           break;
         case Event.actionCallDecline:
           final id = _extractId(event.body);
@@ -72,10 +106,66 @@ class CallKitService {
           if (id != null) onDeclined?.call(id);
           _activeCallUuid = null;
           break;
+        case Event.actionDidUpdateDevicePushTokenVoip:
+          // iOS only — PKPushRegistry handed us a new VoIP token. Cache
+          // and upload it; backend uses it to send VoIP pushes when calls
+          // are initiated, bypassing the silent-FCM-push throttling that
+          // makes killed-state calls unreliable on iOS.
+          final token = _extractVoipToken(event.body);
+          if (token != null) {
+            _voipToken = token.isEmpty ? null : token;
+            debugPrint('📞 VoIP token from PushKit: '
+                '${token.isEmpty ? "(empty/invalidated)" : token}');
+            unawaited(_uploadVoipToken(token));
+          }
+          break;
         default:
           break;
       }
     });
+  }
+
+  String? _extractVoipToken(Map<String, dynamic>? body) {
+    return body?['deviceTokenVoIP']?.toString() ??
+        body?['deviceToken']?.toString() ??
+        body?['token']?.toString();
+  }
+
+  /// Persist the VoIP token locally + push to backend so subsequent
+  /// incoming-call sends target this device. No-op if the user isn't
+  /// logged in yet — the token will be re-uploaded on next login via
+  /// [reuploadVoipTokenIfAvailable].
+  Future<void> _uploadVoipToken(String token) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final userId = prefs.getString('userId');
+      if (userId == null || userId.isEmpty) {
+        // Defer — the token stays cached in _voipToken; we re-upload
+        // when the next login flow calls reuploadVoipTokenIfAvailable.
+        await prefs.setString('pending_voip_token', token);
+        return;
+      }
+      await _api.registerVoipToken(token, userId);
+      await prefs.remove('pending_voip_token');
+    } catch (e) {
+      debugPrint('📞 VoIP token upload failed: $e');
+    }
+  }
+
+  /// Called from the login flow once a user id is known — re-uploads any
+  /// VoIP token that arrived before the user was logged in.
+  Future<void> reuploadVoipTokenIfAvailable() async {
+    if (!Platform.isIOS) return;
+    final cached = _voipToken;
+    if (cached == null || cached.isEmpty) {
+      // Maybe a token came in pre-login and we only stashed it in prefs.
+      final prefs = await SharedPreferences.getInstance();
+      final pending = prefs.getString('pending_voip_token');
+      if (pending == null || pending.isEmpty) return;
+      await _uploadVoipToken(pending);
+      return;
+    }
+    await _uploadVoipToken(cached);
   }
 
   String? _extractId(Map<String, dynamic>? body) {

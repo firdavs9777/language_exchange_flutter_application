@@ -81,6 +81,43 @@ class NotificationApiClient {
     }
   }
 
+  /// POST /api/v1/notifications/register-voip-token
+  ///
+  /// iOS-only: PushKit hands us a separate device token for VoIP pushes
+  /// (distinct from the regular APNs/FCM token). This endpoint stores it
+  /// per-user so the backend can dispatch incoming-call pushes via the
+  /// `.voip` topic when the app is killed — see
+  /// backend/services/voipPushService.js.
+  Future<Map<String, dynamic>> registerVoipToken(
+    String voipToken,
+    String deviceId,
+  ) async {
+    try {
+      final url =
+          Uri.parse('${baseUrl}notifications/register-voip-token');
+      final headers = await _getHeaders();
+
+      final response = await http.post(
+        url,
+        headers: headers,
+        body: jsonEncode({
+          'voipToken': voipToken,
+          'deviceId': deviceId,
+        }),
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return {'success': true};
+      }
+      return {
+        'success': false,
+        'message': 'Failed to register VoIP token: ${response.statusCode}',
+      };
+    } catch (e) {
+      return {'success': false, 'message': 'Error: ${e.toString()}'};
+    }
+  }
+
   /// DELETE /api/v1/notifications/remove-token/:deviceId
   Future<Map<String, dynamic>> removeToken(String deviceId) async {
     try {

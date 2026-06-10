@@ -75,8 +75,11 @@ class CallLiveKitManager {
   void Function()? onReconnected;
 
   /// Local room transport has fully disconnected (terminal). Distinct
-  /// from [onPeerDisconnected].
-  void Function()? onLocalDisconnected;
+  /// from [onPeerDisconnected]. The optional [DisconnectReason] lets the
+  /// caller distinguish a legitimate hang-up (roomDeleted, participantRemoved,
+  /// etc.) from a network-class failure (signalingConnectionFailure,
+  /// reconnectAttemptsExceeded, disconnected) so the UX can differ.
+  void Function(DisconnectReason? reason)? onLocalDisconnected;
 
   // -- Getters --------------------------------------------------------------
 
@@ -251,7 +254,7 @@ class CallLiveKitManager {
     });
     l.on<RoomDisconnectedEvent>((event) {
       debugPrint('[Call] roomDisconnected reason=${event.reason}');
-      onLocalDisconnected?.call();
+      onLocalDisconnected?.call(event.reason);
     });
   }
 }
