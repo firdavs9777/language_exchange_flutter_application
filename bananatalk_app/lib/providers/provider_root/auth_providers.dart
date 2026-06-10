@@ -30,8 +30,19 @@ class AuthService extends ChangeNotifier {
     refreshToken = prefs.getString('refreshToken') ?? '';
     userId = prefs.getString('userId') ?? '';
 
-    // If we have tokens, validate them
-    if (token.isNotEmpty && userId.isNotEmpty) {
+    // Guard: sanitize a corrupt userId written by the old sanitizeResponse
+    // middleware, which serialised ObjectId references as '{}' instead of the
+    // 24-hex string.  An empty map literal is never a valid Mongo ObjectId, so
+    // treat it as missing and let getLoggedInUser() repopulate it from auth/me.
+    if (userId == '{}' || (userId.isNotEmpty && userId.startsWith('{') && userId.endsWith('}'))) {
+      userId = '';
+      await prefs.remove('userId');
+    }
+
+    // If we have a token, validate and restore the session.
+    // userId is not required for token validation — auth/me extracts the user
+    // from the JWT, and getLoggedInUser() will write the correct userId back.
+    if (token.isNotEmpty) {
       // Try to validate token by making a test API call
       final isValid = await _validateToken();
 
@@ -78,7 +89,7 @@ class AuthService extends ChangeNotifier {
 
   /// Validate token by making a test API call
   Future<bool> _validateToken() async {
-    if (token.isEmpty || userId.isEmpty) {
+    if (token.isEmpty) {
       return false;
     }
 
@@ -1433,6 +1444,64 @@ class AuthService extends ChangeNotifier {
     }
   }
 
+  /// Update the user's birthdate. Server caps this at ≤3 changes per
+  /// trailing 60-day window and enforces a min age of 13. On 429 the
+  /// server returns `nextAvailableAt` so the UI can show a precise
+  /// unlock date — we surface that via [BirthdateRateLimitException].
+  Future<Community> updateBirthDate({
+    required int year,
+    required int month,
+    required int day,
+  }) async {
+    final url = Uri.parse('${Endpoints.baseURL}${Endpoints.usersURL}/$userId');
+
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+    if (token == null) {
+      throw Exception('Authentication required. Please login again.');
+    }
+
+    final response = await http.put(
+      url,
+      body: json.encode({
+        'birth_year': year.toString(),
+        'birth_month': month.toString(),
+        'birth_day': day.toString(),
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      return Community.fromJson(data['user'] ?? data['data']);
+    }
+
+    Map<String, dynamic> body;
+    try {
+      body = json.decode(response.body) as Map<String, dynamic>;
+    } catch (_) {
+      body = const {};
+    }
+
+    if (response.statusCode == 429) {
+      throw BirthdateRateLimitException(
+        message: (body['error'] ?? body['message'] ??
+                'Birthdate can be changed at most 3 times per 60 days')
+            .toString(),
+        nextAvailableAt: body['nextAvailableAt'] != null
+            ? DateTime.tryParse(body['nextAvailableAt'].toString())
+            : null,
+      );
+    }
+
+    throw Exception(
+      body['error'] ?? body['message'] ?? 'Failed to update birthdate',
+    );
+  }
+
   Future<Community> updateUserBio({required String bio}) async {
     final url = Uri.parse('${Endpoints.baseURL}${Endpoints.usersURL}/$userId');
 
@@ -1461,6 +1530,120 @@ class AuthService extends ChangeNotifier {
         errorData['error'] ?? errorData['message'] ?? 'Failed to update bio',
       );
     }
+  }
+
+  /// Change the user's password. Hits `PUT /auth/updatepassword`. Backend
+  /// verifies [currentPassword] matches and that [newPassword] passes the
+  /// strong-password regex (≥8 chars, upper + lower + digit). Throws on
+  /// HTTP non-200 — caller decides whether the error is "wrong current
+  /// password" (401) or "weak new password" (400) via the message.
+  Future<void> changePassword({
+    required String currentPassword,
+    required String newPassword,
+  }) async {
+    final url = Uri.parse('${Endpoints.baseURL}auth/updatepassword');
+
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+    if (token == null) {
+      throw Exception('Authentication required. Please login again.');
+    }
+
+    final response = await http.put(
+      url,
+      body: json.encode({
+        'currentPassword': currentPassword,
+        'newPassword': newPassword,
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      // Backend rotates the JWT on password change (sendTokenResponse). Pick
+      // up the new token so subsequent requests don't 401.
+      try {
+        final data = json.decode(response.body);
+        final newToken = (data['token'] ?? data['data']?['token'])?.toString();
+        if (newToken != null && newToken.isNotEmpty) {
+          this.token = newToken; // keeps the in-memory service field fresh
+          await prefs.setString('token', newToken);
+        }
+      } catch (_) {
+        // Token rotation is best-effort — the next 401 will trigger refresh.
+      }
+      return;
+    }
+
+    Map<String, dynamic> body;
+    try {
+      body = json.decode(response.body) as Map<String, dynamic>;
+    } catch (_) {
+      body = const {};
+    }
+    throw Exception(
+      body['error'] ?? body['message'] ?? 'Failed to change password',
+    );
+  }
+
+  Future<Community> updateOccupation({required String occupation}) async {
+    final url = Uri.parse('${Endpoints.baseURL}${Endpoints.usersURL}/$userId');
+
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+    if (token == null) {
+      throw Exception('Authentication required. Please login again.');
+    }
+
+    final response = await http.put(
+      url,
+      body: json.encode({'occupation': occupation}),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      return Community.fromJson(data['user'] ?? data['data']);
+    }
+
+    final errorData = json.decode(response.body);
+    throw Exception(
+      errorData['error'] ?? errorData['message'] ?? 'Failed to update occupation',
+    );
+  }
+
+  Future<Community> updateSchool({required String school}) async {
+    final url = Uri.parse('${Endpoints.baseURL}${Endpoints.usersURL}/$userId');
+
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+    if (token == null) {
+      throw Exception('Authentication required. Please login again.');
+    }
+
+    final response = await http.put(
+      url,
+      body: json.encode({'school': school}),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      return Community.fromJson(data['user'] ?? data['data']);
+    }
+
+    final errorData = json.decode(response.body);
+    throw Exception(
+      errorData['error'] ?? errorData['message'] ?? 'Failed to update school',
+    );
   }
 
   Future<Community> updatePrivacySettings({
@@ -1836,6 +2019,23 @@ final userProvider = FutureProvider<Community>((ref) async {
 
     return user;
   } catch (e) {
-    throw Exception('Unable to fetch user');
+    // Preserve the original error so the UI can show a meaningful message
+    // and the retry button knows what actually went wrong.
+    throw Exception('Unable to fetch user: $e');
   }
 });
+
+/// Thrown by [AuthService.updateBirthDate] when the server returns HTTP 429
+/// because the user has already changed their birthdate 3 times in the last
+/// 60 days. [nextAvailableAt] is the moment the earliest in-window change
+/// rolls off and a new change becomes possible (null if the server didn't
+/// supply it).
+class BirthdateRateLimitException implements Exception {
+  BirthdateRateLimitException({required this.message, this.nextAvailableAt});
+
+  final String message;
+  final DateTime? nextAvailableAt;
+
+  @override
+  String toString() => message;
+}

@@ -4,10 +4,14 @@ import 'package:bananatalk_app/models/community/topic_model.dart';
 import 'package:bananatalk_app/pages/profile/edit/blood_type_edit.dart';
 import 'package:bananatalk_app/pages/profile/edit/hometown_edit.dart';
 import 'package:bananatalk_app/pages/profile/edit/mbti_edit.dart';
+import 'package:bananatalk_app/pages/profile/edit/occupation_edit.dart';
+import 'package:bananatalk_app/pages/profile/edit/school_edit.dart';
 import 'package:bananatalk_app/pages/profile/edit/topics_edit.dart';
+import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// Renders the "Personal Information" card (MBTI, blood type, hometown)
 /// and the "Interests" card (topics).
@@ -122,7 +126,6 @@ class PersonalSection extends StatelessWidget {
             iconColor: AppColors.success,
             title: l10n.hometown,
             subtitle: selectedAddress == 'Not Set' ? null : selectedAddress,
-            isLast: true,
             onTap: () async {
               final updated = await Navigator.push<String>(
                     context,
@@ -134,6 +137,60 @@ class PersonalSection extends StatelessWidget {
                   ) ??
                   selectedAddress;
               if (updated != selectedAddress) onAddressChanged(updated);
+            },
+          ),
+          _buildDivider(context),
+          // Occupation + School read directly from userProvider so we don't
+          // have to thread two more values through edit_main → PersonalSection.
+          // Both are server-side free-text capped at 80 chars (User.js).
+          Consumer(
+            builder: (context, ref, _) {
+              final user = ref.watch(userProvider).valueOrNull;
+              if (user == null) return const SizedBox.shrink();
+              return _buildModernEditTile(
+                context: context,
+                icon: Icons.work_outline_rounded,
+                iconColor: const Color(0xFF2196F3),
+                title: 'Occupation',
+                subtitle: user.occupation.isEmpty ? null : user.occupation,
+                onTap: () async {
+                  await Navigator.push<String>(
+                    context,
+                    AppPageRoute(
+                      builder: (context) => OccupationEdit(
+                        currentOccupation: user.occupation,
+                      ),
+                    ),
+                  );
+                  ref.invalidate(userProvider);
+                },
+              );
+            },
+          ),
+          _buildDivider(context),
+          Consumer(
+            builder: (context, ref, _) {
+              final user = ref.watch(userProvider).valueOrNull;
+              if (user == null) return const SizedBox.shrink();
+              return _buildModernEditTile(
+                context: context,
+                icon: Icons.school_rounded,
+                iconColor: const Color(0xFF7C4DFF),
+                title: 'School',
+                subtitle: user.school.isEmpty ? null : user.school,
+                isLast: true,
+                onTap: () async {
+                  await Navigator.push<String>(
+                    context,
+                    AppPageRoute(
+                      builder: (context) => SchoolEdit(
+                        currentSchool: user.school,
+                      ),
+                    ),
+                  );
+                  ref.invalidate(userProvider);
+                },
+              );
             },
           ),
         ]),

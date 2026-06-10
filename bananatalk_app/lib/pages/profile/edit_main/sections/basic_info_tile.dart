@@ -1,8 +1,10 @@
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/profile/edit/bio_edit.dart';
+import 'package:bananatalk_app/pages/profile/edit/birthdate_edit.dart';
 import 'package:bananatalk_app/pages/profile/edit/name_gender_edit.dart';
 import 'package:bananatalk_app/pages/profile/edit/picture_edit.dart';
+import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
@@ -105,7 +107,6 @@ class BasicInfoSection extends ConsumerWidget {
                 : (selectedBio.length > 60
                       ? '${selectedBio.substring(0, 60)}...'
                       : selectedBio),
-            isLast: true,
             onTap: () async {
               final updated = await Navigator.push<String>(
                     context,
@@ -120,10 +121,53 @@ class BasicInfoSection extends ConsumerWidget {
               if (updated != selectedBio) onBioChanged(updated);
             },
           ),
+          _buildDivider(context),
+          // Birthdate — server enforces ≤3 changes per 60-day window
+          // (users.js#updateUser), screen mirrors the quota for the user.
+          Consumer(
+            builder: (context, ref, _) {
+              final user = ref.watch(userProvider).valueOrNull;
+              if (user == null) return const SizedBox.shrink();
+              return _buildModernEditTile(
+                context: context,
+                icon: Icons.cake_rounded,
+                iconColor: const Color(0xFFE91E63),
+                title: 'Birthdate',
+                subtitle: _formatBirthdate(user),
+                isLast: true,
+                onTap: () async {
+                  await Navigator.push(
+                    context,
+                    AppPageRoute(
+                      builder: (context) => BirthdateEdit(user: user),
+                    ),
+                  );
+                  ref.invalidate(userProvider);
+                },
+              );
+            },
+          ),
         ]),
       ],
     );
   }
+}
+
+/// Returns a human-readable birthdate ("Mar 15, 1995") or null when no birth
+/// fields are populated. Falls back to year-only when month/day are missing.
+String? _formatBirthdate(Community user) {
+  final y = int.tryParse(user.birth_year);
+  if (y == null) return null;
+  final m = int.tryParse(user.birth_month);
+  final d = int.tryParse(user.birth_day);
+  if (m == null || d == null || m < 1 || m > 12 || d < 1 || d > 31) {
+    return '$y';
+  }
+  const months = [
+    'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
+  ];
+  return '${months[m - 1]} $d, $y';
 }
 
 // ─── Shared tile helpers (file-private) ──────────────────────────────────────

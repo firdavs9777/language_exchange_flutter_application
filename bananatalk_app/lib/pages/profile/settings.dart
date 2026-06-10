@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/pages/profile/edit/change_password_screen.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
@@ -611,7 +612,123 @@ class _ProfileSettingsState extends ConsumerState<ProfileSettings> {
               isLast: true,
             ),
           ]),
+
+          const SizedBox(height: 24),
+
+          // Account section — only shown for users who appear to have a
+          // password set (no linked OAuth provider). Backend endpoint
+          // requires currentPassword, so OAuth-only signups have nothing
+          // meaningful to verify against. False negative for email-signup
+          // users who later linked OAuth — acceptable until backend exposes
+          // an explicit `hasPassword` flag.
+          Consumer(
+            builder: (context, ref, _) {
+              final user = ref.watch(userProvider).valueOrNull;
+              if (user == null) return const SizedBox.shrink();
+              final hasOAuth =
+                  (user.googleId != null && user.googleId!.isNotEmpty) ||
+                      (user.appleId != null && user.appleId!.isNotEmpty);
+              if (hasOAuth) return const SizedBox.shrink();
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildSectionTitle(
+                    'Account',
+                    Icons.security_rounded,
+                    AppColors.error,
+                  ),
+                  const SizedBox(height: 10),
+                  _buildSectionContainer([
+                    _buildNavTile(
+                      icon: Icons.lock_outline_rounded,
+                      iconColor: AppColors.error,
+                      title: 'Change password',
+                      subtitle: 'Update your account password',
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const ChangePasswordScreen(),
+                        ),
+                      ),
+                      isFirst: true,
+                      isLast: true,
+                    ),
+                  ]),
+                ],
+              );
+            },
+          ),
         ],
+      ),
+    );
+  }
+
+  // ========== NAV TILE (tap-to-push, not a toggle) ==========
+  Widget _buildNavTile({
+    required IconData icon,
+    required Color iconColor,
+    required String title,
+    required String subtitle,
+    required VoidCallback onTap,
+    bool isFirst = false,
+    bool isLast = false,
+  }) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final radius = BorderRadius.only(
+      topLeft: Radius.circular(isFirst ? 18 : 0),
+      topRight: Radius.circular(isFirst ? 18 : 0),
+      bottomLeft: Radius.circular(isLast ? 18 : 0),
+      bottomRight: Radius.circular(isLast ? 18 : 0),
+    );
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: radius,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+          child: Row(
+            children: [
+              Container(
+                width: 36,
+                height: 36,
+                decoration: BoxDecoration(
+                  color: iconColor.withValues(alpha: isDark ? 0.2 : 0.12),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Icon(icon, color: iconColor, size: 18),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: context.titleSmall
+                          .copyWith(fontWeight: FontWeight.w600),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      subtitle,
+                      style: context.captionSmall.copyWith(
+                        color: context.textMuted,
+                        height: 1.3,
+                      ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
+                ),
+              ),
+              Icon(
+                Icons.chevron_right_rounded,
+                size: 20,
+                color: context.textMuted,
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

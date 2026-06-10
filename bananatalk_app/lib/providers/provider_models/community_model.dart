@@ -35,6 +35,8 @@ class Community {
     this.username,
     required this.email,
     required this.bio,
+    this.occupation = '',
+    this.school = '',
     required this.mbti,
     required this.bloodType,
     required this.images,
@@ -42,6 +44,7 @@ class Community {
     required this.birth_month,
     required this.gender,
     required this.birth_year,
+    this.birthDateChangesAt = const [],
     required this.native_language,
     required this.language_to_learn,
     required this.followers,
@@ -74,6 +77,8 @@ class Community {
   final String gender;
   final String email;
   final String bio;
+  final String occupation;
+  final String school;
   final String mbti;
   final String bloodType;
   final List<String> images;
@@ -85,6 +90,10 @@ class Community {
   final String birth_year;
   final String birth_month;
   final String birth_day;
+  /// Timestamps of every successful birthdate change. Server-managed; client
+  /// uses the trailing-60-day count to display "X of 3 remaining" on the
+  /// birthdate edit screen.
+  final List<DateTime> birthDateChangesAt;
   final String createdAt;
   final int version;
   final Location location;
@@ -154,14 +163,22 @@ class Community {
       username: json['username'] != null ? _s(json['username']) : null,
       email: _s(json['email']),
       bio: _s(json['bio']),
-      images: (json['images'] != null
-              ? List<String>.from(json['images'])
-              : <String>[]) ??
+      occupation: _s(json['occupation']),
+      school: _s(json['school']),
+      images: (json['images'] as List<dynamic>?)
+              ?.map((e) => e is Map ? _s(e['_id'] ?? e['id'] ?? e['url']) : _s(e))
+              .where((s) => s.isNotEmpty)
+              .toList() ??
           [],
       birth_day: _s(json['birth_day']),
       birth_month: _s(json['birth_month']),
       gender: _s(json['gender']),
       birth_year: _s(json['birth_year']),
+      birthDateChangesAt: (json['birthDateChangesAt'] as List<dynamic>?)
+              ?.map((e) => DateTime.tryParse(e.toString()))
+              .whereType<DateTime>()
+              .toList() ??
+          const [],
       native_language: _s(json['native_language']),
       language_to_learn: _s(json['language_to_learn']),
       mbti: _s(json['mbti']),
@@ -169,23 +186,23 @@ class Community {
       location: json['location'] != null
           ? Location.fromJson(json['location'])
           : Location.defaultLocation(),
-      imageUrls: (json['imageUrls'] != null
-              ? List<String>.from(json['imageUrls'])
-                  .map((url) => url.toString())
-                  .where((url) =>
-                      url.isNotEmpty &&
-                      !url.contains('placeholder') &&
-                      !url.startsWith('placeholder_'))
-                  .toList()
-              : <String>[]) ??
+      imageUrls: (json['imageUrls'] as List<dynamic>?)
+              ?.map((e) => e is Map ? _s(e['url'] ?? e['_id']) : _s(e))
+              .where((url) =>
+                  url.isNotEmpty &&
+                  !url.contains('placeholder') &&
+                  !url.startsWith('placeholder_'))
+              .toList() ??
           [],
-      followers: (json['followers'] != null
-              ? List<String>.from(json['followers'])
-              : <String>[]) ??
+      followers: (json['followers'] as List<dynamic>?)
+              ?.map((e) => e is Map ? _s(e['_id'] ?? e['id']) : _s(e))
+              .where((s) => s.isNotEmpty)
+              .toList() ??
           [],
-      followings: (json['following'] != null
-              ? List<String>.from(json['following'])
-              : <String>[]) ??
+      followings: (json['following'] as List<dynamic>?)
+              ?.map((e) => e is Map ? _s(e['_id'] ?? e['id']) : _s(e))
+              .where((s) => s.isNotEmpty)
+              .toList() ??
           [],
       createdAt: json['createdAt'] ?? '',
       version: (json['__v'] as num?)?.toInt() ?? 0,
@@ -221,6 +238,8 @@ class Community {
       if (username != null) 'username': username,
       'email': email,
       'bio': bio,
+      'occupation': occupation,
+      'school': school,
       'images': images,
       'birth_day': birth_day,
       'birth_month': birth_month,
