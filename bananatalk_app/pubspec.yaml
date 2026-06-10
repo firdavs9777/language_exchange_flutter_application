@@ -2,7 +2,7 @@ name: bananatalk_app
 description: Learn, Meet or Date, the best language exchange application.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-version: 1.4.4+10544
+version: 1.4.6+10548
 
 
 environment:
@@ -114,15 +114,17 @@ flutter:
     - assets/sounds/
     - .env
 flutter_launcher_icons:
-  # iOS — full icon with yellow background
+  # iOS — full icon with yellow background (unchanged)
   ios: true
   image_path_ios: "assets/images/logo_with_background.png"
   remove_alpha_ios: true
 
-  # Android — adaptive icon (separate foreground + background)
+  # Android — adaptive icon. Foreground is the mark only with ~17% transparent
+  # padding so it stays inside the inner-72/108-dp safe zone after the
+  # launcher applies its mask (circle / squircle / rounded square).
   android: true
-  image_path_android: "assets/images/logo_with_background.png"
-  adaptive_icon_foreground: "assets/images/logo_no_background.png"
+  image_path_android: "assets/images/logo_mark_ios.png"
+  adaptive_icon_foreground: "assets/images/logo_mark_adaptive.png"
   adaptive_icon_background: "#FFD93D"
 
   # Web favicon

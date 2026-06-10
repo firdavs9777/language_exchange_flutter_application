@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
@@ -116,11 +117,21 @@ class _PhotoPickerSheet extends StatelessWidget {
     final picker = ImagePicker();
     // Downscale at decode time so a multi-MP photo never fully loads into
     // memory — the key fix for OOM crashes on low-RAM devices.
-    final pickedFiles = await picker.pickMultiImage(
-      maxWidth: 1280,
-      maxHeight: 1280,
-      imageQuality: 85,
-    );
+    final List<XFile> pickedFiles;
+    try {
+      pickedFiles = await picker.pickMultiImage(
+        maxWidth: 1280,
+        maxHeight: 1280,
+        imageQuality: 85,
+      );
+    } on PlatformException catch (_) {
+      // iOS throws invalid_image (NSItemProviderErrorDomain) when a selected
+      // photo is HEIC and the picker cannot produce a public.png
+      // representation — common on iPhone 15+ where the camera saves HEIC by
+      // default.  Surface a clean error rather than an unhandled crash.
+      onError(l10n.failedToPickImage);
+      return;
+    }
     if (pickedFiles.isEmpty) return;
 
     final totalImages = existingCount + pendingCount + pickedFiles.length;
@@ -148,7 +159,15 @@ class _PhotoPickerSheet extends StatelessWidget {
     // Single-pick from gallery → run through cropper. Batch-picks skip
     // cropping to keep multi-upload fast.
     if (imagesToAdd.length == 1) {
-      final cropped = await _cropToSquare(imagesToAdd.first.path);
+      final File? cropped;
+      try {
+        cropped = await _cropToSquare(imagesToAdd.first.path);
+      } on PlatformException catch (_) {
+        // uCrop can fail on cache-write errors, native OOM, or unsupported
+        // content URIs — surface a clean error instead of an unhandled crash.
+        onError(l10n.failedToPickImage);
+        return;
+      }
       if (cropped == null) return; // user cancelled cropper
       onFilesReady([cropped]);
       return;
@@ -159,14 +178,20 @@ class _PhotoPickerSheet extends StatelessWidget {
 
   Future<void> _pickCamera() async {
     final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(
-      source: ImageSource.camera,
-      // Downscale at decode time so a full-res camera shot never fully loads
-      // into memory — prevents OOM crashes on low-RAM devices.
-      maxWidth: 1280,
-      maxHeight: 1280,
-      imageQuality: 85,
-    );
+    final XFile? pickedFile;
+    try {
+      pickedFile = await picker.pickImage(
+        source: ImageSource.camera,
+        // Downscale at decode time so a full-res camera shot never fully loads
+        // into memory — prevents OOM crashes on low-RAM devices.
+        maxWidth: 1280,
+        maxHeight: 1280,
+        imageQuality: 85,
+      );
+    } on PlatformException catch (_) {
+      onError(l10n.failedToPickImage);
+      return;
+    }
     if (pickedFile == null) return;
 
     final totalImages = existingCount + pendingCount + 1;
@@ -176,7 +201,13 @@ class _PhotoPickerSheet extends StatelessWidget {
     }
 
     // Camera shots always run through the cropper (single image).
-    final cropped = await _cropToSquare(pickedFile.path);
+    final File? cropped;
+    try {
+      cropped = await _cropToSquare(pickedFile.path);
+    } on PlatformException catch (_) {
+      onError(l10n.failedToPickImage);
+      return;
+    }
     if (cropped == null) return; // user cancelled cropper
     onFilesReady([cropped]);
   }
