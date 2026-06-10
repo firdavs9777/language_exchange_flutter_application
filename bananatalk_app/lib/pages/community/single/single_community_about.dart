@@ -488,8 +488,12 @@ class SingleCommunityAbout extends ConsumerWidget {
   Widget _buildPersonalInfoSection(BuildContext context, bool isDark) {
     final hasMbti = community.mbti.isNotEmpty;
     final hasBloodType = community.bloodType.isNotEmpty;
+    final hasOccupation = community.occupation.isNotEmpty;
+    final hasSchool = community.school.isNotEmpty;
 
-    if (!hasMbti && !hasBloodType) return const SizedBox.shrink();
+    if (!hasMbti && !hasBloodType && !hasOccupation && !hasSchool) {
+      return const SizedBox.shrink();
+    }
 
     return Container(
       margin: const EdgeInsets.only(top: 12),
@@ -545,33 +549,61 @@ class SingleCommunityAbout extends ConsumerWidget {
             ],
           ),
           const SizedBox(height: 16),
-          Row(
-            children: [
-              if (hasMbti)
-                Expanded(
-                  child: _buildPersonalInfoChip(
-                    context,
-                    icon: '🧠',
-                    label: AppLocalizations.of(context)!.communityAboutMBTI,
-                    value: community.mbti.toUpperCase(),
-                    color: Colors.indigo,
-                    isDark: isDark,
+          if (hasMbti || hasBloodType)
+            Row(
+              children: [
+                if (hasMbti)
+                  Expanded(
+                    child: _buildPersonalInfoChip(
+                      context,
+                      icon: '🧠',
+                      label: AppLocalizations.of(context)!.communityAboutMBTI,
+                      value: community.mbti.toUpperCase(),
+                      color: Colors.indigo,
+                      isDark: isDark,
+                    ),
                   ),
-                ),
-              if (hasMbti && hasBloodType) const SizedBox(width: 12),
-              if (hasBloodType)
-                Expanded(
-                  child: _buildPersonalInfoChip(
-                    context,
-                    icon: '🩸',
-                    label: AppLocalizations.of(context)!.bloodType,
-                    value: community.bloodType.toUpperCase(),
-                    color: Colors.red,
-                    isDark: isDark,
+                if (hasMbti && hasBloodType) const SizedBox(width: 12),
+                if (hasBloodType)
+                  Expanded(
+                    child: _buildPersonalInfoChip(
+                      context,
+                      icon: '🩸',
+                      label: AppLocalizations.of(context)!.bloodType,
+                      value: community.bloodType.toUpperCase(),
+                      color: Colors.red,
+                      isDark: isDark,
+                    ),
                   ),
-                ),
-            ],
-          ),
+              ],
+            ),
+          // Occupation + school are full-width rows because their values
+          // can be long strings (e.g. "High School Teacher", "Seoul National
+          // University") that don't fit cleanly in the half-width MBTI /
+          // Blood-Type chip layout.
+          if (hasOccupation) ...[
+            if (hasMbti || hasBloodType) const SizedBox(height: 12),
+            _buildPersonalInfoChip(
+              context,
+              icon: '💼',
+              label: AppLocalizations.of(context)!.occupation,
+              value: community.occupation,
+              color: const Color(0xFF2196F3),
+              isDark: isDark,
+            ),
+          ],
+          if (hasSchool) ...[
+            if (hasMbti || hasBloodType || hasOccupation)
+              const SizedBox(height: 12),
+            _buildPersonalInfoChip(
+              context,
+              icon: '🎓',
+              label: AppLocalizations.of(context)!.school,
+              value: community.school,
+              color: const Color(0xFF7C4DFF),
+              isDark: isDark,
+            ),
+          ],
         ],
       ),
     );
@@ -601,25 +633,34 @@ class SingleCommunityAbout extends ConsumerWidget {
         children: [
           Text(icon, style: const TextStyle(fontSize: 24)),
           const SizedBox(width: 12),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                label,
-                style: context.captionSmall.copyWith(
-                  color: context.textMuted,
-                  fontWeight: FontWeight.w500,
+          // Expanded so long values (occupation / school) ellipsis cleanly
+          // instead of overflowing horizontally. Short values like MBTI /
+          // BloodType still render at intrinsic width inside it.
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  label,
+                  style: context.captionSmall.copyWith(
+                    color: context.textMuted,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
-              ),
-              const SizedBox(height: 2),
-              Text(
-                value,
-                style: context.titleMedium.copyWith(
-                  color: color,
-                  fontWeight: FontWeight.bold,
+                const SizedBox(height: 2),
+                Text(
+                  value,
+                  style: context.titleMedium.copyWith(
+                    color: color,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ],
       ),

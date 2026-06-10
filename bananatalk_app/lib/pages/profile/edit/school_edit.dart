@@ -93,11 +93,12 @@ class _SchoolEditState extends ConsumerState<SchoolEdit> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final canSave = _hasChanges && !_isSaving;
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return EditScreenScaffold(
-      title: 'School',
+      title: l10n.school,
       canSave: canSave,
       isSaving: _isSaving,
       onSave: _save,
@@ -109,9 +110,9 @@ class _SchoolEditState extends ConsumerState<SchoolEdit> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SectionLabel(
+            SectionLabel(
               icon: Icons.school_rounded,
-              text: 'School',
+              text: l10n.school,
             ),
             const SizedBox(height: 10),
             AnimatedContainer(
@@ -139,7 +140,7 @@ class _SchoolEditState extends ConsumerState<SchoolEdit> {
                 style:
                     context.bodyLarge.copyWith(fontWeight: FontWeight.w500),
                 decoration: InputDecoration(
-                  hintText: 'e.g. Seoul National University, Lincoln High',
+                  hintText: l10n.schoolHint,
                   hintStyle: context.bodyMedium.copyWith(color: context.textHint),
                   border: InputBorder.none,
                   enabledBorder: InputBorder.none,

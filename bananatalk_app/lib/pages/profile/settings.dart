@@ -633,7 +633,7 @@ class _ProfileSettingsState extends ConsumerState<ProfileSettings> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _buildSectionTitle(
-                    'Account',
+                    AppLocalizations.of(context)!.settingsAccountSection,
                     Icons.security_rounded,
                     AppColors.error,
                   ),
@@ -642,8 +642,9 @@ class _ProfileSettingsState extends ConsumerState<ProfileSettings> {
                     _buildNavTile(
                       icon: Icons.lock_outline_rounded,
                       iconColor: AppColors.error,
-                      title: 'Change password',
-                      subtitle: 'Update your account password',
+                      title: AppLocalizations.of(context)!.changePassword,
+                      subtitle: AppLocalizations.of(context)!
+                          .changePasswordTileSubtitle,
                       onTap: () => Navigator.push(
                         context,
                         MaterialPageRoute(

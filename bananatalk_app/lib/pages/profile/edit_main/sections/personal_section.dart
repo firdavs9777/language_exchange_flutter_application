@@ -151,7 +151,7 @@ class PersonalSection extends StatelessWidget {
                 context: context,
                 icon: Icons.work_outline_rounded,
                 iconColor: const Color(0xFF2196F3),
-                title: 'Occupation',
+                title: l10n.occupation,
                 subtitle: user.occupation.isEmpty ? null : user.occupation,
                 onTap: () async {
                   await Navigator.push<String>(
@@ -176,7 +176,7 @@ class PersonalSection extends StatelessWidget {
                 context: context,
                 icon: Icons.school_rounded,
                 iconColor: const Color(0xFF7C4DFF),
-                title: 'School',
+                title: l10n.school,
                 subtitle: user.school.isEmpty ? null : user.school,
                 isLast: true,
                 onTap: () async {

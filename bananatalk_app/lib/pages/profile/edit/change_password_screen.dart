@@ -100,7 +100,7 @@ class _ChangePasswordScreenState extends ConsumerState<ChangePasswordScreen> {
       if (!mounted) return;
       showProfileSnackBar(
         context,
-        message: 'Password changed successfully',
+        message: l10n.passwordChangedSuccess,
         type: ProfileSnackBarType.success,
       );
       Navigator.pop(context);
@@ -118,8 +118,9 @@ class _ChangePasswordScreenState extends ConsumerState<ChangePasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return EditScreenScaffold(
-      title: 'Change Password',
+      title: l10n.changePassword,
       canSave: _canSave,
       isSaving: _isSaving,
       onSave: _save,
@@ -131,28 +132,28 @@ class _ChangePasswordScreenState extends ConsumerState<ChangePasswordScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SectionLabel(
+            SectionLabel(
               icon: Icons.lock_outline_rounded,
-              text: 'Current password',
+              text: l10n.currentPassword,
             ),
             const SizedBox(height: 10),
             _buildPasswordField(
               controller: _currentController,
-              hint: 'Enter your current password',
+              hint: l10n.currentPasswordHint,
               obscure: !_showCurrent,
               onToggle: () => setState(() => _showCurrent = !_showCurrent),
               textInputAction: TextInputAction.next,
             ),
 
             const SizedBox(height: 24),
-            const SectionLabel(
+            SectionLabel(
               icon: Icons.key_rounded,
-              text: 'New password',
+              text: l10n.newPasswordLabel,
             ),
             const SizedBox(height: 10),
             _buildPasswordField(
               controller: _newController,
-              hint: 'At least 8 chars, A-Z, a-z, 0-9',
+              hint: l10n.newPasswordHint,
               obscure: !_showNew,
               onToggle: () => setState(() => _showNew = !_showNew),
               textInputAction: TextInputAction.next,
@@ -161,14 +162,14 @@ class _ChangePasswordScreenState extends ConsumerState<ChangePasswordScreen> {
             _buildStrengthHints(),
 
             const SizedBox(height: 24),
-            const SectionLabel(
+            SectionLabel(
               icon: Icons.check_rounded,
-              text: 'Confirm new password',
+              text: l10n.confirmNewPassword,
             ),
             const SizedBox(height: 10),
             _buildPasswordField(
               controller: _confirmController,
-              hint: 'Re-enter the new password',
+              hint: l10n.confirmPasswordHint,
               obscure: !_showConfirm,
               onToggle: () => setState(() => _showConfirm = !_showConfirm),
               textInputAction: TextInputAction.done,
@@ -177,7 +178,7 @@ class _ChangePasswordScreenState extends ConsumerState<ChangePasswordScreen> {
             if (_confirmController.text.isNotEmpty && !_confirmMatches) ...[
               const SizedBox(height: 8),
               _buildInlineMessage(
-                'Passwords don\'t match.',
+                l10n.passwordsDontMatch,
                 color: AppColors.error,
                 icon: Icons.error_outline_rounded,
               ),
@@ -186,7 +187,7 @@ class _ChangePasswordScreenState extends ConsumerState<ChangePasswordScreen> {
                 _newController.text == _currentController.text) ...[
               const SizedBox(height: 8),
               _buildInlineMessage(
-                'New password must be different from current.',
+                l10n.newPasswordSameAsCurrent,
                 color: AppColors.error,
                 icon: Icons.error_outline_rounded,
               ),
@@ -267,6 +268,7 @@ class _ChangePasswordScreenState extends ConsumerState<ChangePasswordScreen> {
   }
 
   Widget _buildStrengthHints() {
+    final l10n = AppLocalizations.of(context)!;
     final pwd = _newController.text;
     final hasMinLen = pwd.length >= 8;
     final hasLower = RegExp(r'[a-z]').hasMatch(pwd);
@@ -276,10 +278,10 @@ class _ChangePasswordScreenState extends ConsumerState<ChangePasswordScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _strengthRow('At least 8 characters', hasMinLen),
-        _strengthRow('One lowercase letter', hasLower),
-        _strengthRow('One uppercase letter', hasUpper),
-        _strengthRow('One number', hasDigit),
+        _strengthRow(l10n.passwordRule8Chars, hasMinLen),
+        _strengthRow(l10n.passwordRuleLowercase, hasLower),
+        _strengthRow(l10n.passwordRuleUppercase, hasUpper),
+        _strengthRow(l10n.passwordRuleNumber, hasDigit),
       ],
     );
   }

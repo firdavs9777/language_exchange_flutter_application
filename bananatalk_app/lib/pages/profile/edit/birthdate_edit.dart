@@ -10,6 +10,7 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 
 /// Birthdate edit screen.
 ///
@@ -123,7 +124,7 @@ class _BirthdateEditState extends ConsumerState<BirthdateEdit> {
               : initial,
       firstDate: firstAllowed,
       lastDate: lastAllowed,
-      helpText: 'Select your birthdate',
+      helpText: AppLocalizations.of(context)!.birthdateSelectHelp,
     );
     if (picked != null && mounted) {
       setState(() => _selectedDate = picked);
@@ -157,8 +158,8 @@ class _BirthdateEditState extends ConsumerState<BirthdateEdit> {
       showProfileSnackBar(
         context,
         message: e.nextAvailableAt != null
-            ? '${e.message} (next change ${_formatDate(e.nextAvailableAt!)})'
-            : e.message,
+            ? l10n.birthdateRateLimitedUntil(_formatDate(e.nextAvailableAt!))
+            : l10n.birthdateRateLimited,
         type: ProfileSnackBarType.error,
       );
     } catch (e) {
@@ -173,12 +174,21 @@ class _BirthdateEditState extends ConsumerState<BirthdateEdit> {
     }
   }
 
+  /// Formats [d] in the user's current locale (e.g. "Mar 15, 1995" in en,
+  /// "15 мар. 1995 г." in ru). Falls back to a hard-coded English short
+  /// format if the active locale's date data hasn't been initialised — a
+  /// guard so a missing intl locale registration can't crash the screen.
   String _formatDate(DateTime d) {
-    const months = [
-      'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
-    ];
-    return '${months[d.month - 1]} ${d.day}, ${d.year}';
+    final locale = Localizations.localeOf(context).toString();
+    try {
+      return DateFormat.yMMMd(locale).format(d);
+    } catch (_) {
+      const months = [
+        'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
+      ];
+      return '${months[d.month - 1]} ${d.day}, ${d.year}';
+    }
   }
 
   @override
@@ -189,7 +199,7 @@ class _BirthdateEditState extends ConsumerState<BirthdateEdit> {
         _selectedDate != null && !_isValidAge(_selectedDate!);
 
     return EditScreenScaffold(
-      title: 'Birthdate',
+      title: l10n.birthdate,
       canSave: _canSave,
       isSaving: _isSaving,
       onSave: _save,
@@ -198,9 +208,9 @@ class _BirthdateEditState extends ConsumerState<BirthdateEdit> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SectionLabel(
+          SectionLabel(
             icon: Icons.cake_rounded,
-            text: 'Birthdate',
+            text: l10n.birthdate,
           ),
           const SizedBox(height: 10),
           _buildDateField(context),
@@ -212,7 +222,7 @@ class _BirthdateEditState extends ConsumerState<BirthdateEdit> {
             const SizedBox(height: 12),
             _buildInlineError(
               context,
-              'You must be at least $_minAge years old.',
+              l10n.birthdateMinAgeError(_minAge),
             ),
           ],
 
@@ -289,7 +299,10 @@ class _BirthdateEditState extends ConsumerState<BirthdateEdit> {
               ),
               Expanded(
                 child: Text(
-                  hasDate ? _formatDate(_selectedDate!) : 'Select a date',
+                  hasDate
+                      ? _formatDate(_selectedDate!)
+                      : AppLocalizations.of(context)!
+                          .birthdateSelectPlaceholder,
                   style: context.bodyLarge.copyWith(
                     fontWeight: FontWeight.w600,
                     color: hasDate
@@ -313,21 +326,19 @@ class _BirthdateEditState extends ConsumerState<BirthdateEdit> {
 
   // ─── Quota banner ───────────────────────────────────────────────────────
   Widget _buildQuotaBanner(BuildContext context, {required bool isLocked}) {
+    final l10n = AppLocalizations.of(context)!;
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final color = isLocked ? AppColors.warning : AppColors.info;
     final next = _nextAvailableAt;
 
     final String text;
     if (isLocked && next != null) {
-      text =
-          'You\'ve used all $_maxChanges birthdate changes for this 60-day window. '
-          'Next change available on ${_formatDate(next)}.';
+      text = '${l10n.birthdateQuotaLocked(_maxChanges)} '
+          '${l10n.birthdateNextChangeOn(_formatDate(next))}';
     } else if (isLocked) {
-      text =
-          'You\'ve used all $_maxChanges birthdate changes for this 60-day window.';
+      text = l10n.birthdateQuotaLocked(_maxChanges);
     } else {
-      text =
-          '$_remaining of $_maxChanges birthdate changes remaining in the next 60 days.';
+      text = l10n.birthdateQuotaRemaining(_remaining, _maxChanges);
     }
 
     return Container(
@@ -380,7 +391,7 @@ class _BirthdateEditState extends ConsumerState<BirthdateEdit> {
       ),
       child: Row(
         children: [
-          Icon(
+          const Icon(
             Icons.error_outline_rounded,
             size: 16,
             color: AppColors.error,
