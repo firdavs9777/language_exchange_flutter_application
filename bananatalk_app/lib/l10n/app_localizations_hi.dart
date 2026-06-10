@@ -2840,7 +2840,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get atLeast8Characters => 'कम से कम 8 अक्षर';
 
   @override
-  String get confirmPasswordHint => 'पासवर्ड की पुष्टि करें';
+  String get confirmPasswordHint => 'नया पासवर्ड फिर से दर्ज करें';
 
   @override
   String get nextButton => 'अगला';
@@ -6188,4 +6188,182 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get supportSheetWatchAd => 'समर्थन के लिए एक विज्ञापन देखें';
+
+  @override
+  String get occupation => 'व्यवसाय';
+
+  @override
+  String get school => 'स्कूल / विश्वविद्यालय';
+
+  @override
+  String get occupationSearchHint => 'व्यवसाय खोजें';
+
+  @override
+  String get occupationSelectedLabel => 'चयनित';
+
+  @override
+  String get occupationCustomLabel => 'अपना विकल्प';
+
+  @override
+  String get occupationNoMatches => 'सूची में कोई मेल नहीं';
+
+  @override
+  String get occupationCatTech => 'तकनीक और सॉफ़्टवेयर';
+
+  @override
+  String get occupationCatHealthcare => 'स्वास्थ्य सेवा और चिकित्सा';
+
+  @override
+  String get occupationCatEducation => 'शिक्षा और अकादमिक';
+
+  @override
+  String get occupationCatBusiness => 'व्यवसाय और वित्त';
+
+  @override
+  String get occupationCatCreative => 'रचनात्मक और डिज़ाइन';
+
+  @override
+  String get occupationCatMedia => 'मीडिया और संचार';
+
+  @override
+  String get occupationCatEngineering => 'इंजीनियरिंग';
+
+  @override
+  String get occupationCatScience => 'विज्ञान और अनुसंधान';
+
+  @override
+  String get occupationCatLegal => 'कानूनी';
+
+  @override
+  String get occupationCatHospitality => 'आतिथ्य और खाद्य सेवा';
+
+  @override
+  String get occupationCatTrades => 'कुशल कारीगर';
+
+  @override
+  String get occupationCatTransport => 'परिवहन और लॉजिस्टिक्स';
+
+  @override
+  String get occupationCatGovernment => 'सरकार और सार्वजनिक सेवा';
+
+  @override
+  String get occupationCatRetail => 'खुदरा और ग्राहक सेवा';
+
+  @override
+  String get occupationCatAgriculture => 'कृषि और पर्यावरण';
+
+  @override
+  String get occupationCatSports => 'खेल और फ़िटनेस';
+
+  @override
+  String get occupationCatBeauty => 'सौंदर्य और निजी देखभाल';
+
+  @override
+  String get occupationCatRealEstate => 'रियल एस्टेट और निर्माण';
+
+  @override
+  String get occupationCatReligion => 'धर्म और आध्यात्म';
+
+  @override
+  String get occupationCatStudent => 'छात्र';
+
+  @override
+  String get occupationCatOther => 'अन्य';
+
+  @override
+  String get schoolHint => 'जैसे दिल्ली विश्वविद्यालय, सरस्वती विद्या मंदिर';
+
+  @override
+  String get birthdate => 'जन्म तिथि';
+
+  @override
+  String get birthdateSelectHelp => 'अपनी जन्म तिथि चुनें';
+
+  @override
+  String get birthdateSelectPlaceholder => 'तारीख़ चुनें';
+
+  @override
+  String birthdateMinAgeError(int age) {
+    return 'आपकी उम्र कम से कम $age वर्ष होनी चाहिए।';
+  }
+
+  @override
+  String birthdateQuotaRemaining(int remaining, int max) {
+    return 'अगले 60 दिनों में जन्म तिथि बदलने के $max में से $remaining मौक़े बाक़ी हैं।';
+  }
+
+  @override
+  String birthdateQuotaLocked(int max) {
+    return 'आपने इस 60-दिन की अवधि में सभी $max जन्म तिथि परिवर्तन इस्तेमाल कर लिए हैं।';
+  }
+
+  @override
+  String birthdateNextChangeOn(String date) {
+    return 'अगला परिवर्तन उपलब्ध: $date';
+  }
+
+  @override
+  String get birthdateRateLimited => 'जन्म तिथि 60 दिनों में अधिकतम 3 बार ही बदली जा सकती है।';
+
+  @override
+  String birthdateRateLimitedUntil(String date) {
+    return 'जन्म तिथि 60 दिनों में अधिकतम 3 बार ही बदली जा सकती है। कृपया $date को फिर से प्रयास करें।';
+  }
+
+  @override
+  String get changePassword => 'पासवर्ड बदलें';
+
+  @override
+  String get currentPassword => 'मौजूदा पासवर्ड';
+
+  @override
+  String get newPasswordLabel => 'नया पासवर्ड';
+
+  @override
+  String get confirmNewPassword => 'नए पासवर्ड की पुष्टि करें';
+
+  @override
+  String get currentPasswordHint => 'अपना मौजूदा पासवर्ड दर्ज करें';
+
+  @override
+  String get newPasswordHint => 'कम से कम 8 अक्षर, A-Z, a-z, 0-9';
+
+  @override
+  String get passwordsDontMatch => 'पासवर्ड मेल नहीं खाते।';
+
+  @override
+  String get newPasswordSameAsCurrent => 'नया पासवर्ड मौजूदा से अलग होना चाहिए।';
+
+  @override
+  String get passwordChangedSuccess => 'पासवर्ड सफलतापूर्वक बदला गया';
+
+  @override
+  String get passwordRule8Chars => 'कम से कम 8 अक्षर';
+
+  @override
+  String get passwordRuleLowercase => 'एक लोअरकेस अक्षर';
+
+  @override
+  String get passwordRuleUppercase => 'एक अपरकेस अक्षर';
+
+  @override
+  String get passwordRuleNumber => 'एक अंक';
+
+  @override
+  String get settingsAccountSection => 'अकाउंट';
+
+  @override
+  String get changePasswordTileSubtitle => 'अपने अकाउंट का पासवर्ड अपडेट करें';
+
+  @override
+  String get occupationCustomTab => 'कस्टम';
+
+  @override
+  String get occupationCustomTabHint => 'अपना व्यवसाय नहीं मिला? यहाँ लिखें।';
+
+  @override
+  String get occupationCustomInputHint => 'जैसे समुद्री जीवविज्ञानी, वॉइस आर्टिस्ट';
+
+  @override
+  String get occupationCustomSaveCTA => 'इसे मेरे व्यवसाय के रूप में उपयोग करें';
 }

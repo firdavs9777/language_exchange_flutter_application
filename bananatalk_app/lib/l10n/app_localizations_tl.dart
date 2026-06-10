@@ -2840,7 +2840,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get atLeast8Characters => 'Hindi bababa sa 8 character';
 
   @override
-  String get confirmPasswordHint => 'Kumpirmahin ang password';
+  String get confirmPasswordHint => 'Ilagay muli ang bagong password';
 
   @override
   String get nextButton => 'Susunod';
@@ -6188,4 +6188,182 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get supportSheetWatchAd => 'Manood ng ad para suportahan';
+
+  @override
+  String get occupation => 'Trabaho';
+
+  @override
+  String get school => 'Paaralan';
+
+  @override
+  String get occupationSearchHint => 'Maghanap ng trabaho';
+
+  @override
+  String get occupationSelectedLabel => 'Napili';
+
+  @override
+  String get occupationCustomLabel => 'Sariling pagpipilian';
+
+  @override
+  String get occupationNoMatches => 'Walang nahanap sa listahan';
+
+  @override
+  String get occupationCatTech => 'Teknolohiya at software';
+
+  @override
+  String get occupationCatHealthcare => 'Kalusugan at medisina';
+
+  @override
+  String get occupationCatEducation => 'Edukasyon at akademiko';
+
+  @override
+  String get occupationCatBusiness => 'Negosyo at pananalapi';
+
+  @override
+  String get occupationCatCreative => 'Malikhaing trabaho at disenyo';
+
+  @override
+  String get occupationCatMedia => 'Media at komunikasyon';
+
+  @override
+  String get occupationCatEngineering => 'Engineering';
+
+  @override
+  String get occupationCatScience => 'Agham at pananaliksik';
+
+  @override
+  String get occupationCatLegal => 'Legal';
+
+  @override
+  String get occupationCatHospitality => 'Hospitality at pagkain';
+
+  @override
+  String get occupationCatTrades => 'Mga sanay na manggagawa';
+
+  @override
+  String get occupationCatTransport => 'Transportasyon at logistics';
+
+  @override
+  String get occupationCatGovernment => 'Gobyerno at serbisyo publiko';
+
+  @override
+  String get occupationCatRetail => 'Tingian at customer service';
+
+  @override
+  String get occupationCatAgriculture => 'Agrikultura at kapaligiran';
+
+  @override
+  String get occupationCatSports => 'Sports at fitness';
+
+  @override
+  String get occupationCatBeauty => 'Pagpapaganda at personal na pangangalaga';
+
+  @override
+  String get occupationCatRealEstate => 'Real estate at konstruksyon';
+
+  @override
+  String get occupationCatReligion => 'Relihiyon at espirituwalidad';
+
+  @override
+  String get occupationCatStudent => 'Estudyante';
+
+  @override
+  String get occupationCatOther => 'Iba pa';
+
+  @override
+  String get schoolHint => 'hal. UP Diliman, Manila Science High School';
+
+  @override
+  String get birthdate => 'Petsa ng kapanganakan';
+
+  @override
+  String get birthdateSelectHelp => 'Piliin ang iyong petsa ng kapanganakan';
+
+  @override
+  String get birthdateSelectPlaceholder => 'Pumili ng petsa';
+
+  @override
+  String birthdateMinAgeError(int age) {
+    return 'Dapat ay hindi bababa sa $age taong gulang ka.';
+  }
+
+  @override
+  String birthdateQuotaRemaining(int remaining, int max) {
+    return 'May natitira kang $remaining sa $max pagbabago ng petsa ng kapanganakan sa susunod na 60 araw.';
+  }
+
+  @override
+  String birthdateQuotaLocked(int max) {
+    return 'Nagamit mo na ang lahat ng $max pagbabago ng petsa ng kapanganakan para sa 60-araw na panahon na ito.';
+  }
+
+  @override
+  String birthdateNextChangeOn(String date) {
+    return 'Susunod na pagbabago ay magagamit sa $date.';
+  }
+
+  @override
+  String get birthdateRateLimited => 'Maaari lang baguhin ang petsa ng kapanganakan ng 3 beses kada 60 araw.';
+
+  @override
+  String birthdateRateLimitedUntil(String date) {
+    return 'Maaari lang baguhin ang petsa ng kapanganakan ng 3 beses kada 60 araw. Subukan muli sa $date.';
+  }
+
+  @override
+  String get changePassword => 'Baguhin ang password';
+
+  @override
+  String get currentPassword => 'Kasalukuyang password';
+
+  @override
+  String get newPasswordLabel => 'Bagong password';
+
+  @override
+  String get confirmNewPassword => 'Kumpirmahin ang bagong password';
+
+  @override
+  String get currentPasswordHint => 'Ilagay ang kasalukuyang password';
+
+  @override
+  String get newPasswordHint => 'Hindi bababa sa 8 character, A-Z, a-z, 0-9';
+
+  @override
+  String get passwordsDontMatch => 'Hindi tugma ang mga password.';
+
+  @override
+  String get newPasswordSameAsCurrent => 'Dapat iba ang bagong password sa kasalukuyan.';
+
+  @override
+  String get passwordChangedSuccess => 'Matagumpay na nabago ang password';
+
+  @override
+  String get passwordRule8Chars => 'Hindi bababa sa 8 character';
+
+  @override
+  String get passwordRuleLowercase => 'Isang maliit na titik';
+
+  @override
+  String get passwordRuleUppercase => 'Isang malaking titik';
+
+  @override
+  String get passwordRuleNumber => 'Isang numero';
+
+  @override
+  String get settingsAccountSection => 'Account';
+
+  @override
+  String get changePasswordTileSubtitle => 'I-update ang password ng iyong account';
+
+  @override
+  String get occupationCustomTab => 'Custom';
+
+  @override
+  String get occupationCustomTabHint => 'Hindi nahanap ang iyong trabaho? I-type dito.';
+
+  @override
+  String get occupationCustomInputHint => 'hal. Marine biologist, Voice actor';
+
+  @override
+  String get occupationCustomSaveCTA => 'Gamitin ito bilang trabaho ko';
 }

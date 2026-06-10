@@ -2840,7 +2840,7 @@ class AppLocalizationsTh extends AppLocalizations {
   String get atLeast8Characters => 'อย่างน้อย 8 ตัวอักษร';
 
   @override
-  String get confirmPasswordHint => 'ยืนยันรหัสผ่าน';
+  String get confirmPasswordHint => 'ป้อนรหัสผ่านใหม่อีกครั้ง';
 
   @override
   String get nextButton => 'ถัดไป';
@@ -6181,4 +6181,182 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get supportSheetWatchAd => 'ดูโฆษณาเพื่อสนับสนุน';
+
+  @override
+  String get occupation => 'อาชีพ';
+
+  @override
+  String get school => 'โรงเรียน / มหาวิทยาลัย';
+
+  @override
+  String get occupationSearchHint => 'ค้นหาอาชีพ';
+
+  @override
+  String get occupationSelectedLabel => 'เลือกแล้ว';
+
+  @override
+  String get occupationCustomLabel => 'กำหนดเอง';
+
+  @override
+  String get occupationNoMatches => 'ไม่พบในรายการ';
+
+  @override
+  String get occupationCatTech => 'เทคโนโลยีและซอฟต์แวร์';
+
+  @override
+  String get occupationCatHealthcare => 'การแพทย์และสาธารณสุข';
+
+  @override
+  String get occupationCatEducation => 'การศึกษาและวิชาการ';
+
+  @override
+  String get occupationCatBusiness => 'ธุรกิจและการเงิน';
+
+  @override
+  String get occupationCatCreative => 'งานสร้างสรรค์และดีไซน์';
+
+  @override
+  String get occupationCatMedia => 'สื่อและการสื่อสาร';
+
+  @override
+  String get occupationCatEngineering => 'วิศวกรรม';
+
+  @override
+  String get occupationCatScience => 'วิทยาศาสตร์และงานวิจัย';
+
+  @override
+  String get occupationCatLegal => 'กฎหมาย';
+
+  @override
+  String get occupationCatHospitality => 'โรงแรมและอาหาร';
+
+  @override
+  String get occupationCatTrades => 'งานช่างฝีมือ';
+
+  @override
+  String get occupationCatTransport => 'การขนส่งและโลจิสติกส์';
+
+  @override
+  String get occupationCatGovernment => 'ราชการและบริการสาธารณะ';
+
+  @override
+  String get occupationCatRetail => 'ค้าปลีกและบริการลูกค้า';
+
+  @override
+  String get occupationCatAgriculture => 'เกษตรกรรมและสิ่งแวดล้อม';
+
+  @override
+  String get occupationCatSports => 'กีฬาและฟิตเนส';
+
+  @override
+  String get occupationCatBeauty => 'ความงามและการดูแลตนเอง';
+
+  @override
+  String get occupationCatRealEstate => 'อสังหาริมทรัพย์และก่อสร้าง';
+
+  @override
+  String get occupationCatReligion => 'ศาสนาและจิตวิญญาณ';
+
+  @override
+  String get occupationCatStudent => 'นักเรียน / นักศึกษา';
+
+  @override
+  String get occupationCatOther => 'อื่น ๆ';
+
+  @override
+  String get schoolHint => 'เช่น จุฬาลงกรณ์มหาวิทยาลัย, โรงเรียนสาธิต';
+
+  @override
+  String get birthdate => 'วันเกิด';
+
+  @override
+  String get birthdateSelectHelp => 'เลือกวันเกิดของคุณ';
+
+  @override
+  String get birthdateSelectPlaceholder => 'เลือกวันที่';
+
+  @override
+  String birthdateMinAgeError(int age) {
+    return 'คุณต้องมีอายุอย่างน้อย $age ปี';
+  }
+
+  @override
+  String birthdateQuotaRemaining(int remaining, int max) {
+    return 'คุณสามารถเปลี่ยนวันเกิดได้อีก $remaining จาก $max ครั้งใน 60 วันข้างหน้า';
+  }
+
+  @override
+  String birthdateQuotaLocked(int max) {
+    return 'คุณได้ใช้สิทธิ์เปลี่ยนวันเกิด $max ครั้งครบในรอบ 60 วันนี้แล้ว';
+  }
+
+  @override
+  String birthdateNextChangeOn(String date) {
+    return 'เปลี่ยนแปลงครั้งถัดไปได้ในวันที่ $date';
+  }
+
+  @override
+  String get birthdateRateLimited => 'เปลี่ยนวันเกิดได้สูงสุด 3 ครั้งทุก 60 วัน';
+
+  @override
+  String birthdateRateLimitedUntil(String date) {
+    return 'เปลี่ยนวันเกิดได้สูงสุด 3 ครั้งทุก 60 วัน โปรดลองอีกครั้งในวันที่ $date';
+  }
+
+  @override
+  String get changePassword => 'เปลี่ยนรหัสผ่าน';
+
+  @override
+  String get currentPassword => 'รหัสผ่านปัจจุบัน';
+
+  @override
+  String get newPasswordLabel => 'รหัสผ่านใหม่';
+
+  @override
+  String get confirmNewPassword => 'ยืนยันรหัสผ่านใหม่';
+
+  @override
+  String get currentPasswordHint => 'ป้อนรหัสผ่านปัจจุบัน';
+
+  @override
+  String get newPasswordHint => 'อย่างน้อย 8 ตัวอักษร, A-Z, a-z, 0-9';
+
+  @override
+  String get passwordsDontMatch => 'รหัสผ่านไม่ตรงกัน';
+
+  @override
+  String get newPasswordSameAsCurrent => 'รหัสผ่านใหม่ต้องต่างจากรหัสผ่านปัจจุบัน';
+
+  @override
+  String get passwordChangedSuccess => 'เปลี่ยนรหัสผ่านสำเร็จ';
+
+  @override
+  String get passwordRule8Chars => 'อย่างน้อย 8 ตัวอักษร';
+
+  @override
+  String get passwordRuleLowercase => 'ตัวพิมพ์เล็ก 1 ตัว';
+
+  @override
+  String get passwordRuleUppercase => 'ตัวพิมพ์ใหญ่ 1 ตัว';
+
+  @override
+  String get passwordRuleNumber => 'ตัวเลข 1 ตัว';
+
+  @override
+  String get settingsAccountSection => 'บัญชี';
+
+  @override
+  String get changePasswordTileSubtitle => 'อัปเดตรหัสผ่านบัญชีของคุณ';
+
+  @override
+  String get occupationCustomTab => 'กำหนดเอง';
+
+  @override
+  String get occupationCustomTabHint => 'ไม่พบอาชีพของคุณใช่ไหม? พิมพ์ที่นี่';
+
+  @override
+  String get occupationCustomInputHint => 'เช่น นักชีววิทยาทางทะเล, นักพากย์';
+
+  @override
+  String get occupationCustomSaveCTA => 'ใช้สิ่งนี้เป็นอาชีพของฉัน';
 }

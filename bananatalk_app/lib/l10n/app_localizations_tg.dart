@@ -2846,7 +2846,7 @@ class AppLocalizationsTg extends AppLocalizations {
   String get atLeast8Characters => 'Ҳадди ақал 8 аломат';
 
   @override
-  String get confirmPasswordHint => 'Паролро тасдиқ кунед';
+  String get confirmPasswordHint => 'Пароли навро дубора ворид кунед';
 
   @override
   String get nextButton => 'Минбаъд';
@@ -6194,4 +6194,182 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get supportSheetWatchAd => 'Барои дастгирӣ реклама тамошо кунед';
+
+  @override
+  String get occupation => 'Касб';
+
+  @override
+  String get school => 'Мактаб / Донишгоҳ';
+
+  @override
+  String get occupationSearchHint => 'Ҷустуҷӯи касбҳо';
+
+  @override
+  String get occupationSelectedLabel => 'Интихобшуда';
+
+  @override
+  String get occupationCustomLabel => 'Касби шахсӣ';
+
+  @override
+  String get occupationNoMatches => 'Дар рӯйхат мувофиқат ёфт нашуд';
+
+  @override
+  String get occupationCatTech => 'Технология ва нармафзор';
+
+  @override
+  String get occupationCatHealthcare => 'Тиб ва тандурустӣ';
+
+  @override
+  String get occupationCatEducation => 'Маориф ва илм';
+
+  @override
+  String get occupationCatBusiness => 'Тиҷорат ва молия';
+
+  @override
+  String get occupationCatCreative => 'Эҷодиёт ва дизайн';
+
+  @override
+  String get occupationCatMedia => 'Воситаҳои ахбор ва коммуникатсия';
+
+  @override
+  String get occupationCatEngineering => 'Муҳандисӣ';
+
+  @override
+  String get occupationCatScience => 'Илм ва таҳқиқот';
+
+  @override
+  String get occupationCatLegal => 'Ҳуқуқ';
+
+  @override
+  String get occupationCatHospitality => 'Меҳмоннавозӣ ва хӯроки умумӣ';
+
+  @override
+  String get occupationCatTrades => 'Касбҳои техникӣ';
+
+  @override
+  String get occupationCatTransport => 'Нақлиёт ва логистика';
+
+  @override
+  String get occupationCatGovernment => 'Давлат ва хидмати ҷамъиятӣ';
+
+  @override
+  String get occupationCatRetail => 'Савдо ва хидматрасонӣ';
+
+  @override
+  String get occupationCatAgriculture => 'Кишоварзӣ ва муҳити зист';
+
+  @override
+  String get occupationCatSports => 'Варзиш ва саломатӣ';
+
+  @override
+  String get occupationCatBeauty => 'Зебоӣ ва нигоҳубини шахсӣ';
+
+  @override
+  String get occupationCatRealEstate => 'Амволи ғайриманқул ва сохтмон';
+
+  @override
+  String get occupationCatReligion => 'Дин ва маънавиёт';
+
+  @override
+  String get occupationCatStudent => 'Донишҷӯ / Хонанда';
+
+  @override
+  String get occupationCatOther => 'Дигар';
+
+  @override
+  String get schoolHint => 'масалан, Донишгоҳи миллии Тоҷикистон';
+
+  @override
+  String get birthdate => 'Санаи таваллуд';
+
+  @override
+  String get birthdateSelectHelp => 'Санаи таваллуди худро интихоб кунед';
+
+  @override
+  String get birthdateSelectPlaceholder => 'Сана интихоб кунед';
+
+  @override
+  String birthdateMinAgeError(int age) {
+    return 'Шумо бояд ҳадди ақал $age-сола бошед.';
+  }
+
+  @override
+  String birthdateQuotaRemaining(int remaining, int max) {
+    return '$remaining аз $max тағйироти санаи таваллуд дар 60 рӯзи оянда боқӣ мондааст.';
+  }
+
+  @override
+  String birthdateQuotaLocked(int max) {
+    return 'Шумо ҳар $max тағйироти санаи таваллудро дар ин давраи 60-рӯза истифода бурдед.';
+  }
+
+  @override
+  String birthdateNextChangeOn(String date) {
+    return 'Тағйироти навбатӣ дастрас мешавад $date.';
+  }
+
+  @override
+  String get birthdateRateLimited => 'Санаи таваллудро дар 60 рӯз танҳо 3 маротиба тағйир додан мумкин аст.';
+
+  @override
+  String birthdateRateLimitedUntil(String date) {
+    return 'Санаи таваллудро дар 60 рӯз танҳо 3 маротиба тағйир додан мумкин аст. Дубора $date кӯшиш кунед.';
+  }
+
+  @override
+  String get changePassword => 'Тағйири парол';
+
+  @override
+  String get currentPassword => 'Пароли ҷорӣ';
+
+  @override
+  String get newPasswordLabel => 'Пароли нав';
+
+  @override
+  String get confirmNewPassword => 'Пароли навро тасдиқ кунед';
+
+  @override
+  String get currentPasswordHint => 'Пароли ҷории худро ворид кунед';
+
+  @override
+  String get newPasswordHint => 'Ҳадди ақал 8 рамз, A-Z, a-z, 0-9';
+
+  @override
+  String get passwordsDontMatch => 'Паролҳо мувофиқ нестанд.';
+
+  @override
+  String get newPasswordSameAsCurrent => 'Пароли нав бояд аз пароли ҷорӣ фарқ кунад.';
+
+  @override
+  String get passwordChangedSuccess => 'Парол бомуваффақият тағйир дода шуд';
+
+  @override
+  String get passwordRule8Chars => 'Ҳадди ақал 8 рамз';
+
+  @override
+  String get passwordRuleLowercase => 'Як ҳарфи хурд';
+
+  @override
+  String get passwordRuleUppercase => 'Як ҳарфи калон';
+
+  @override
+  String get passwordRuleNumber => 'Як рақам';
+
+  @override
+  String get settingsAccountSection => 'Ҳисоб';
+
+  @override
+  String get changePasswordTileSubtitle => 'Пароли ҳисоби худро навсозӣ кунед';
+
+  @override
+  String get occupationCustomTab => 'Шахсӣ';
+
+  @override
+  String get occupationCustomTabHint => 'Касби худро дар рӯйхат ёфта наметавонед? Дар ин ҷо нависед.';
+
+  @override
+  String get occupationCustomInputHint => 'масалан, Биологи баҳрӣ, Овозхон';
+
+  @override
+  String get occupationCustomSaveCTA => 'Инро ҳамчун касби ман истифода кунед';
 }

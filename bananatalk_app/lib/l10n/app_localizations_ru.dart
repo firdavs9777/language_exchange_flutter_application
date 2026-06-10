@@ -2840,7 +2840,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get atLeast8Characters => 'Минимум 8 символов';
 
   @override
-  String get confirmPasswordHint => 'Подтвердите пароль';
+  String get confirmPasswordHint => 'Повторите новый пароль';
 
   @override
   String get nextButton => 'Далее';
@@ -6200,4 +6200,182 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get supportSheetWatchAd => 'Посмотреть рекламу в поддержку';
+
+  @override
+  String get occupation => 'Профессия';
+
+  @override
+  String get school => 'Учебное заведение';
+
+  @override
+  String get occupationSearchHint => 'Поиск профессий';
+
+  @override
+  String get occupationSelectedLabel => 'Выбрано';
+
+  @override
+  String get occupationCustomLabel => 'Своя профессия';
+
+  @override
+  String get occupationNoMatches => 'Совпадений в списке нет';
+
+  @override
+  String get occupationCatTech => 'Технологии и ПО';
+
+  @override
+  String get occupationCatHealthcare => 'Медицина и здравоохранение';
+
+  @override
+  String get occupationCatEducation => 'Образование и наука';
+
+  @override
+  String get occupationCatBusiness => 'Бизнес и финансы';
+
+  @override
+  String get occupationCatCreative => 'Творчество и дизайн';
+
+  @override
+  String get occupationCatMedia => 'Медиа и коммуникации';
+
+  @override
+  String get occupationCatEngineering => 'Инженерия';
+
+  @override
+  String get occupationCatScience => 'Наука и исследования';
+
+  @override
+  String get occupationCatLegal => 'Юриспруденция';
+
+  @override
+  String get occupationCatHospitality => 'Гостеприимство и общепит';
+
+  @override
+  String get occupationCatTrades => 'Рабочие специальности';
+
+  @override
+  String get occupationCatTransport => 'Транспорт и логистика';
+
+  @override
+  String get occupationCatGovernment => 'Госслужба';
+
+  @override
+  String get occupationCatRetail => 'Розница и обслуживание';
+
+  @override
+  String get occupationCatAgriculture => 'Сельское хозяйство и экология';
+
+  @override
+  String get occupationCatSports => 'Спорт и фитнес';
+
+  @override
+  String get occupationCatBeauty => 'Красота и уход';
+
+  @override
+  String get occupationCatRealEstate => 'Недвижимость и строительство';
+
+  @override
+  String get occupationCatReligion => 'Религия и духовность';
+
+  @override
+  String get occupationCatStudent => 'Студент / Школьник';
+
+  @override
+  String get occupationCatOther => 'Другое';
+
+  @override
+  String get schoolHint => 'напр. МГУ, средняя школа №1';
+
+  @override
+  String get birthdate => 'Дата рождения';
+
+  @override
+  String get birthdateSelectHelp => 'Выберите дату рождения';
+
+  @override
+  String get birthdateSelectPlaceholder => 'Выбрать дату';
+
+  @override
+  String birthdateMinAgeError(int age) {
+    return 'Вам должно быть не менее $age лет.';
+  }
+
+  @override
+  String birthdateQuotaRemaining(int remaining, int max) {
+    return 'Осталось $remaining из $max изменений даты рождения в ближайшие 60 дней.';
+  }
+
+  @override
+  String birthdateQuotaLocked(int max) {
+    return 'Вы использовали все $max изменения даты рождения за этот 60-дневный период.';
+  }
+
+  @override
+  String birthdateNextChangeOn(String date) {
+    return 'Следующее изменение будет доступно $date.';
+  }
+
+  @override
+  String get birthdateRateLimited => 'Дату рождения можно менять не более 3 раз за 60 дней.';
+
+  @override
+  String birthdateRateLimitedUntil(String date) {
+    return 'Дату рождения можно менять не более 3 раз за 60 дней. Повторите попытку $date.';
+  }
+
+  @override
+  String get changePassword => 'Сменить пароль';
+
+  @override
+  String get currentPassword => 'Текущий пароль';
+
+  @override
+  String get newPasswordLabel => 'Новый пароль';
+
+  @override
+  String get confirmNewPassword => 'Подтвердите новый пароль';
+
+  @override
+  String get currentPasswordHint => 'Введите текущий пароль';
+
+  @override
+  String get newPasswordHint => 'Минимум 8 символов, A-Z, a-z, 0-9';
+
+  @override
+  String get passwordsDontMatch => 'Пароли не совпадают.';
+
+  @override
+  String get newPasswordSameAsCurrent => 'Новый пароль должен отличаться от текущего.';
+
+  @override
+  String get passwordChangedSuccess => 'Пароль успешно изменён';
+
+  @override
+  String get passwordRule8Chars => 'Минимум 8 символов';
+
+  @override
+  String get passwordRuleLowercase => 'Одна строчная буква';
+
+  @override
+  String get passwordRuleUppercase => 'Одна заглавная буква';
+
+  @override
+  String get passwordRuleNumber => 'Одна цифра';
+
+  @override
+  String get settingsAccountSection => 'Аккаунт';
+
+  @override
+  String get changePasswordTileSubtitle => 'Обновить пароль вашего аккаунта';
+
+  @override
+  String get occupationCustomTab => 'Своя';
+
+  @override
+  String get occupationCustomTabHint => 'Не нашли свою профессию? Введите её здесь.';
+
+  @override
+  String get occupationCustomInputHint => 'напр. Морской биолог, Актёр озвучивания';
+
+  @override
+  String get occupationCustomSaveCTA => 'Использовать как мою профессию';
 }

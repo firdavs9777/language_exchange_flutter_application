@@ -2840,7 +2840,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get atLeast8Characters => '8 أحرف على الأقل';
 
   @override
-  String get confirmPasswordHint => 'تأكيد كلمة المرور';
+  String get confirmPasswordHint => 'أعد إدخال كلمة المرور الجديدة';
 
   @override
   String get nextButton => 'التالي';
@@ -6197,4 +6197,182 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get supportSheetWatchAd => 'شاهد إعلانًا للدعم';
+
+  @override
+  String get occupation => 'المهنة';
+
+  @override
+  String get school => 'المدرسة / الجامعة';
+
+  @override
+  String get occupationSearchHint => 'البحث عن المهن';
+
+  @override
+  String get occupationSelectedLabel => 'محدد';
+
+  @override
+  String get occupationCustomLabel => 'اختيار مخصص';
+
+  @override
+  String get occupationNoMatches => 'لا توجد نتائج في القائمة';
+
+  @override
+  String get occupationCatTech => 'التكنولوجيا والبرمجيات';
+
+  @override
+  String get occupationCatHealthcare => 'الرعاية الصحية والطب';
+
+  @override
+  String get occupationCatEducation => 'التعليم والأكاديميا';
+
+  @override
+  String get occupationCatBusiness => 'الأعمال والمالية';
+
+  @override
+  String get occupationCatCreative => 'الإبداع والتصميم';
+
+  @override
+  String get occupationCatMedia => 'الإعلام والاتصال';
+
+  @override
+  String get occupationCatEngineering => 'الهندسة';
+
+  @override
+  String get occupationCatScience => 'العلوم والبحث';
+
+  @override
+  String get occupationCatLegal => 'القانون';
+
+  @override
+  String get occupationCatHospitality => 'الضيافة والمطاعم';
+
+  @override
+  String get occupationCatTrades => 'الحرف المهنية';
+
+  @override
+  String get occupationCatTransport => 'النقل واللوجستيات';
+
+  @override
+  String get occupationCatGovernment => 'الحكومة والخدمة العامة';
+
+  @override
+  String get occupationCatRetail => 'التجزئة وخدمة العملاء';
+
+  @override
+  String get occupationCatAgriculture => 'الزراعة والبيئة';
+
+  @override
+  String get occupationCatSports => 'الرياضة واللياقة';
+
+  @override
+  String get occupationCatBeauty => 'الجمال والعناية الشخصية';
+
+  @override
+  String get occupationCatRealEstate => 'العقارات والبناء';
+
+  @override
+  String get occupationCatReligion => 'الدين والروحانية';
+
+  @override
+  String get occupationCatStudent => 'طالب';
+
+  @override
+  String get occupationCatOther => 'أخرى';
+
+  @override
+  String get schoolHint => 'مثل: جامعة القاهرة، ثانوية لينكولن';
+
+  @override
+  String get birthdate => 'تاريخ الميلاد';
+
+  @override
+  String get birthdateSelectHelp => 'حدد تاريخ ميلادك';
+
+  @override
+  String get birthdateSelectPlaceholder => 'اختر تاريخًا';
+
+  @override
+  String birthdateMinAgeError(int age) {
+    return 'يجب أن يكون عمرك $age عامًا على الأقل.';
+  }
+
+  @override
+  String birthdateQuotaRemaining(int remaining, int max) {
+    return 'تبقّى لديك $remaining من $max تغييرات لتاريخ الميلاد خلال الـ 60 يومًا القادمة.';
+  }
+
+  @override
+  String birthdateQuotaLocked(int max) {
+    return 'لقد استخدمت جميع $max تغييرات تاريخ الميلاد لهذه الفترة الـ 60 يومًا.';
+  }
+
+  @override
+  String birthdateNextChangeOn(String date) {
+    return 'التغيير التالي متاح في $date.';
+  }
+
+  @override
+  String get birthdateRateLimited => 'يمكن تغيير تاريخ الميلاد 3 مرات فقط كل 60 يومًا.';
+
+  @override
+  String birthdateRateLimitedUntil(String date) {
+    return 'يمكن تغيير تاريخ الميلاد 3 مرات فقط كل 60 يومًا. حاول مرة أخرى في $date.';
+  }
+
+  @override
+  String get changePassword => 'تغيير كلمة المرور';
+
+  @override
+  String get currentPassword => 'كلمة المرور الحالية';
+
+  @override
+  String get newPasswordLabel => 'كلمة المرور الجديدة';
+
+  @override
+  String get confirmNewPassword => 'تأكيد كلمة المرور الجديدة';
+
+  @override
+  String get currentPasswordHint => 'أدخل كلمة المرور الحالية';
+
+  @override
+  String get newPasswordHint => '8 أحرف على الأقل، A-Z، a-z، 0-9';
+
+  @override
+  String get passwordsDontMatch => 'كلمات المرور غير متطابقة.';
+
+  @override
+  String get newPasswordSameAsCurrent => 'يجب أن تكون كلمة المرور الجديدة مختلفة عن الحالية.';
+
+  @override
+  String get passwordChangedSuccess => 'تم تغيير كلمة المرور بنجاح';
+
+  @override
+  String get passwordRule8Chars => '8 أحرف على الأقل';
+
+  @override
+  String get passwordRuleLowercase => 'حرف صغير واحد';
+
+  @override
+  String get passwordRuleUppercase => 'حرف كبير واحد';
+
+  @override
+  String get passwordRuleNumber => 'رقم واحد';
+
+  @override
+  String get settingsAccountSection => 'الحساب';
+
+  @override
+  String get changePasswordTileSubtitle => 'حدّث كلمة مرور حسابك';
+
+  @override
+  String get occupationCustomTab => 'مخصص';
+
+  @override
+  String get occupationCustomTabHint => 'لم تجد مهنتك؟ اكتبها هنا.';
+
+  @override
+  String get occupationCustomInputHint => 'مثل: عالم أحياء بحرية، ممثل صوتي';
+
+  @override
+  String get occupationCustomSaveCTA => 'استخدم هذا كمهنتي';
 }

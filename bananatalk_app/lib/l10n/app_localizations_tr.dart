@@ -2840,7 +2840,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get atLeast8Characters => 'En az 8 karakter';
 
   @override
-  String get confirmPasswordHint => 'Şifreyi onayla';
+  String get confirmPasswordHint => 'Yeni şifreyi tekrar girin';
 
   @override
   String get nextButton => 'İleri';
@@ -6188,4 +6188,182 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get supportSheetWatchAd => 'Destek için reklam izle';
+
+  @override
+  String get occupation => 'Meslek';
+
+  @override
+  String get school => 'Okul / Üniversite';
+
+  @override
+  String get occupationSearchHint => 'Meslek ara';
+
+  @override
+  String get occupationSelectedLabel => 'Seçildi';
+
+  @override
+  String get occupationCustomLabel => 'Özel seçim';
+
+  @override
+  String get occupationNoMatches => 'Listede eşleşme yok';
+
+  @override
+  String get occupationCatTech => 'Teknoloji ve yazılım';
+
+  @override
+  String get occupationCatHealthcare => 'Sağlık ve tıp';
+
+  @override
+  String get occupationCatEducation => 'Eğitim ve akademi';
+
+  @override
+  String get occupationCatBusiness => 'İş ve finans';
+
+  @override
+  String get occupationCatCreative => 'Yaratıcı ve tasarım';
+
+  @override
+  String get occupationCatMedia => 'Medya ve iletişim';
+
+  @override
+  String get occupationCatEngineering => 'Mühendislik';
+
+  @override
+  String get occupationCatScience => 'Bilim ve araştırma';
+
+  @override
+  String get occupationCatLegal => 'Hukuk';
+
+  @override
+  String get occupationCatHospitality => 'Otelcilik ve yiyecek hizmeti';
+
+  @override
+  String get occupationCatTrades => 'Nitelikli zanaat';
+
+  @override
+  String get occupationCatTransport => 'Ulaşım ve lojistik';
+
+  @override
+  String get occupationCatGovernment => 'Kamu ve devlet hizmeti';
+
+  @override
+  String get occupationCatRetail => 'Perakende ve müşteri hizmetleri';
+
+  @override
+  String get occupationCatAgriculture => 'Tarım ve çevre';
+
+  @override
+  String get occupationCatSports => 'Spor ve fitness';
+
+  @override
+  String get occupationCatBeauty => 'Güzellik ve kişisel bakım';
+
+  @override
+  String get occupationCatRealEstate => 'Gayrimenkul ve inşaat';
+
+  @override
+  String get occupationCatReligion => 'Din ve maneviyat';
+
+  @override
+  String get occupationCatStudent => 'Öğrenci';
+
+  @override
+  String get occupationCatOther => 'Diğer';
+
+  @override
+  String get schoolHint => 'örn. Boğaziçi Üniversitesi, Galatasaray Lisesi';
+
+  @override
+  String get birthdate => 'Doğum tarihi';
+
+  @override
+  String get birthdateSelectHelp => 'Doğum tarihini seç';
+
+  @override
+  String get birthdateSelectPlaceholder => 'Tarih seç';
+
+  @override
+  String birthdateMinAgeError(int age) {
+    return 'En az $age yaşında olmalısın.';
+  }
+
+  @override
+  String birthdateQuotaRemaining(int remaining, int max) {
+    return 'Önümüzdeki 60 gün için $max doğum tarihi değişikliğinden $remaining tanesi kaldı.';
+  }
+
+  @override
+  String birthdateQuotaLocked(int max) {
+    return 'Bu 60 günlük dönemde $max doğum tarihi değişikliğinin tamamını kullandın.';
+  }
+
+  @override
+  String birthdateNextChangeOn(String date) {
+    return 'Sonraki değişiklik $date tarihinde kullanılabilir.';
+  }
+
+  @override
+  String get birthdateRateLimited => 'Doğum tarihi 60 günde en fazla 3 kez değiştirilebilir.';
+
+  @override
+  String birthdateRateLimitedUntil(String date) {
+    return 'Doğum tarihi 60 günde en fazla 3 kez değiştirilebilir. $date tarihinde tekrar dene.';
+  }
+
+  @override
+  String get changePassword => 'Şifreyi değiştir';
+
+  @override
+  String get currentPassword => 'Mevcut şifre';
+
+  @override
+  String get newPasswordLabel => 'Yeni şifre';
+
+  @override
+  String get confirmNewPassword => 'Yeni şifreyi onayla';
+
+  @override
+  String get currentPasswordHint => 'Mevcut şifrenizi girin';
+
+  @override
+  String get newPasswordHint => 'En az 8 karakter, A-Z, a-z, 0-9';
+
+  @override
+  String get passwordsDontMatch => 'Şifreler eşleşmiyor.';
+
+  @override
+  String get newPasswordSameAsCurrent => 'Yeni şifre mevcut şifreden farklı olmalı.';
+
+  @override
+  String get passwordChangedSuccess => 'Şifre başarıyla değiştirildi';
+
+  @override
+  String get passwordRule8Chars => 'En az 8 karakter';
+
+  @override
+  String get passwordRuleLowercase => 'Bir küçük harf';
+
+  @override
+  String get passwordRuleUppercase => 'Bir büyük harf';
+
+  @override
+  String get passwordRuleNumber => 'Bir rakam';
+
+  @override
+  String get settingsAccountSection => 'Hesap';
+
+  @override
+  String get changePasswordTileSubtitle => 'Hesabının şifresini güncelle';
+
+  @override
+  String get occupationCustomTab => 'Özel';
+
+  @override
+  String get occupationCustomTabHint => 'Mesleğini bulamadın mı? Buraya yaz.';
+
+  @override
+  String get occupationCustomInputHint => 'örn. Deniz biyoloğu, Seslendirme sanatçısı';
+
+  @override
+  String get occupationCustomSaveCTA => 'Bunu mesleğim olarak kullan';
 }

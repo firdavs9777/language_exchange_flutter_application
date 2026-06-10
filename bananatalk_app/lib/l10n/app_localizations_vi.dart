@@ -2840,7 +2840,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get atLeast8Characters => 'Ít nhất 8 ký tự';
 
   @override
-  String get confirmPasswordHint => 'Xác nhận mật khẩu';
+  String get confirmPasswordHint => 'Nhập lại mật khẩu mới';
 
   @override
   String get nextButton => 'Tiếp theo';
@@ -6181,4 +6181,182 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get supportSheetWatchAd => 'Xem quảng cáo để ủng hộ';
+
+  @override
+  String get occupation => 'Nghề nghiệp';
+
+  @override
+  String get school => 'Trường học';
+
+  @override
+  String get occupationSearchHint => 'Tìm kiếm nghề nghiệp';
+
+  @override
+  String get occupationSelectedLabel => 'Đã chọn';
+
+  @override
+  String get occupationCustomLabel => 'Tùy chỉnh';
+
+  @override
+  String get occupationNoMatches => 'Không có kết quả trong danh sách';
+
+  @override
+  String get occupationCatTech => 'Công nghệ và phần mềm';
+
+  @override
+  String get occupationCatHealthcare => 'Y tế và sức khỏe';
+
+  @override
+  String get occupationCatEducation => 'Giáo dục và học thuật';
+
+  @override
+  String get occupationCatBusiness => 'Kinh doanh và tài chính';
+
+  @override
+  String get occupationCatCreative => 'Sáng tạo và thiết kế';
+
+  @override
+  String get occupationCatMedia => 'Truyền thông';
+
+  @override
+  String get occupationCatEngineering => 'Kỹ thuật';
+
+  @override
+  String get occupationCatScience => 'Khoa học và nghiên cứu';
+
+  @override
+  String get occupationCatLegal => 'Pháp lý';
+
+  @override
+  String get occupationCatHospitality => 'Khách sạn và ẩm thực';
+
+  @override
+  String get occupationCatTrades => 'Nghề thủ công';
+
+  @override
+  String get occupationCatTransport => 'Vận tải và logistics';
+
+  @override
+  String get occupationCatGovernment => 'Chính phủ và dịch vụ công';
+
+  @override
+  String get occupationCatRetail => 'Bán lẻ và chăm sóc khách hàng';
+
+  @override
+  String get occupationCatAgriculture => 'Nông nghiệp và môi trường';
+
+  @override
+  String get occupationCatSports => 'Thể thao và thể hình';
+
+  @override
+  String get occupationCatBeauty => 'Làm đẹp và chăm sóc cá nhân';
+
+  @override
+  String get occupationCatRealEstate => 'Bất động sản và xây dựng';
+
+  @override
+  String get occupationCatReligion => 'Tôn giáo và tâm linh';
+
+  @override
+  String get occupationCatStudent => 'Học sinh / Sinh viên';
+
+  @override
+  String get occupationCatOther => 'Khác';
+
+  @override
+  String get schoolHint => 'ví dụ: Đại học Quốc gia Hà Nội, THPT Chuyên';
+
+  @override
+  String get birthdate => 'Ngày sinh';
+
+  @override
+  String get birthdateSelectHelp => 'Chọn ngày sinh của bạn';
+
+  @override
+  String get birthdateSelectPlaceholder => 'Chọn ngày';
+
+  @override
+  String birthdateMinAgeError(int age) {
+    return 'Bạn phải ít nhất $age tuổi.';
+  }
+
+  @override
+  String birthdateQuotaRemaining(int remaining, int max) {
+    return 'Bạn còn $remaining/$max lần thay đổi ngày sinh trong 60 ngày tới.';
+  }
+
+  @override
+  String birthdateQuotaLocked(int max) {
+    return 'Bạn đã dùng hết $max lần thay đổi ngày sinh trong chu kỳ 60 ngày này.';
+  }
+
+  @override
+  String birthdateNextChangeOn(String date) {
+    return 'Lần thay đổi tiếp theo khả dụng vào $date.';
+  }
+
+  @override
+  String get birthdateRateLimited => 'Ngày sinh chỉ có thể thay đổi tối đa 3 lần trong 60 ngày.';
+
+  @override
+  String birthdateRateLimitedUntil(String date) {
+    return 'Ngày sinh chỉ có thể thay đổi tối đa 3 lần trong 60 ngày. Hãy thử lại vào $date.';
+  }
+
+  @override
+  String get changePassword => 'Đổi mật khẩu';
+
+  @override
+  String get currentPassword => 'Mật khẩu hiện tại';
+
+  @override
+  String get newPasswordLabel => 'Mật khẩu mới';
+
+  @override
+  String get confirmNewPassword => 'Xác nhận mật khẩu mới';
+
+  @override
+  String get currentPasswordHint => 'Nhập mật khẩu hiện tại';
+
+  @override
+  String get newPasswordHint => 'Tối thiểu 8 ký tự, A-Z, a-z, 0-9';
+
+  @override
+  String get passwordsDontMatch => 'Mật khẩu không khớp.';
+
+  @override
+  String get newPasswordSameAsCurrent => 'Mật khẩu mới phải khác mật khẩu hiện tại.';
+
+  @override
+  String get passwordChangedSuccess => 'Đã đổi mật khẩu thành công';
+
+  @override
+  String get passwordRule8Chars => 'Tối thiểu 8 ký tự';
+
+  @override
+  String get passwordRuleLowercase => 'Một chữ thường';
+
+  @override
+  String get passwordRuleUppercase => 'Một chữ hoa';
+
+  @override
+  String get passwordRuleNumber => 'Một chữ số';
+
+  @override
+  String get settingsAccountSection => 'Tài khoản';
+
+  @override
+  String get changePasswordTileSubtitle => 'Cập nhật mật khẩu tài khoản';
+
+  @override
+  String get occupationCustomTab => 'Tùy chỉnh';
+
+  @override
+  String get occupationCustomTabHint => 'Không thấy nghề của bạn? Nhập vào đây.';
+
+  @override
+  String get occupationCustomInputHint => 'ví dụ: Nhà sinh vật biển, Diễn viên lồng tiếng';
+
+  @override
+  String get occupationCustomSaveCTA => 'Dùng làm nghề của tôi';
 }

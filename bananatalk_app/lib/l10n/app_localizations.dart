@@ -5534,10 +5534,10 @@ abstract class AppLocalizations {
   /// **'At least 8 characters'**
   String get atLeast8Characters;
 
-  /// No description provided for @confirmPasswordHint.
+  /// Placeholder for the confirm-new-password field
   ///
   /// In en, this message translates to:
-  /// **'Confirm password'**
+  /// **'Re-enter the new password'**
   String get confirmPasswordHint;
 
   /// No description provided for @nextButton.
@@ -11557,6 +11557,342 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Watch an ad to support'**
   String get supportSheetWatchAd;
+
+  /// Field label for the user's job / occupation
+  ///
+  /// In en, this message translates to:
+  /// **'Occupation'**
+  String get occupation;
+
+  /// Field label for the user's school / education
+  ///
+  /// In en, this message translates to:
+  /// **'School'**
+  String get school;
+
+  /// Hint inside the occupation picker search bar (filter-only — free-text input lives on the dedicated Custom tab)
+  ///
+  /// In en, this message translates to:
+  /// **'Search occupations'**
+  String get occupationSearchHint;
+
+  /// Label above the currently picked occupation when it's a predefined option
+  ///
+  /// In en, this message translates to:
+  /// **'Selected'**
+  String get occupationSelectedLabel;
+
+  /// Label above the currently picked occupation when the user typed their own
+  ///
+  /// In en, this message translates to:
+  /// **'Custom selection'**
+  String get occupationCustomLabel;
+
+  /// Empty state when search returns no predefined occupations; pairs with a button that jumps to the Custom tab
+  ///
+  /// In en, this message translates to:
+  /// **'No matches in the list'**
+  String get occupationNoMatches;
+
+  /// No description provided for @occupationCatTech.
+  ///
+  /// In en, this message translates to:
+  /// **'Technology & Software'**
+  String get occupationCatTech;
+
+  /// No description provided for @occupationCatHealthcare.
+  ///
+  /// In en, this message translates to:
+  /// **'Healthcare & Medicine'**
+  String get occupationCatHealthcare;
+
+  /// No description provided for @occupationCatEducation.
+  ///
+  /// In en, this message translates to:
+  /// **'Education & Academia'**
+  String get occupationCatEducation;
+
+  /// No description provided for @occupationCatBusiness.
+  ///
+  /// In en, this message translates to:
+  /// **'Business & Finance'**
+  String get occupationCatBusiness;
+
+  /// No description provided for @occupationCatCreative.
+  ///
+  /// In en, this message translates to:
+  /// **'Creative & Design'**
+  String get occupationCatCreative;
+
+  /// No description provided for @occupationCatMedia.
+  ///
+  /// In en, this message translates to:
+  /// **'Media & Communication'**
+  String get occupationCatMedia;
+
+  /// No description provided for @occupationCatEngineering.
+  ///
+  /// In en, this message translates to:
+  /// **'Engineering'**
+  String get occupationCatEngineering;
+
+  /// No description provided for @occupationCatScience.
+  ///
+  /// In en, this message translates to:
+  /// **'Science & Research'**
+  String get occupationCatScience;
+
+  /// No description provided for @occupationCatLegal.
+  ///
+  /// In en, this message translates to:
+  /// **'Legal'**
+  String get occupationCatLegal;
+
+  /// No description provided for @occupationCatHospitality.
+  ///
+  /// In en, this message translates to:
+  /// **'Hospitality & Food Service'**
+  String get occupationCatHospitality;
+
+  /// No description provided for @occupationCatTrades.
+  ///
+  /// In en, this message translates to:
+  /// **'Trades & Skilled Labor'**
+  String get occupationCatTrades;
+
+  /// No description provided for @occupationCatTransport.
+  ///
+  /// In en, this message translates to:
+  /// **'Transportation & Logistics'**
+  String get occupationCatTransport;
+
+  /// No description provided for @occupationCatGovernment.
+  ///
+  /// In en, this message translates to:
+  /// **'Government & Public Service'**
+  String get occupationCatGovernment;
+
+  /// No description provided for @occupationCatRetail.
+  ///
+  /// In en, this message translates to:
+  /// **'Retail & Customer Service'**
+  String get occupationCatRetail;
+
+  /// No description provided for @occupationCatAgriculture.
+  ///
+  /// In en, this message translates to:
+  /// **'Agriculture & Environment'**
+  String get occupationCatAgriculture;
+
+  /// No description provided for @occupationCatSports.
+  ///
+  /// In en, this message translates to:
+  /// **'Sports & Fitness'**
+  String get occupationCatSports;
+
+  /// No description provided for @occupationCatBeauty.
+  ///
+  /// In en, this message translates to:
+  /// **'Beauty & Personal Care'**
+  String get occupationCatBeauty;
+
+  /// No description provided for @occupationCatRealEstate.
+  ///
+  /// In en, this message translates to:
+  /// **'Real Estate & Construction'**
+  String get occupationCatRealEstate;
+
+  /// No description provided for @occupationCatReligion.
+  ///
+  /// In en, this message translates to:
+  /// **'Religion & Spirituality'**
+  String get occupationCatReligion;
+
+  /// No description provided for @occupationCatStudent.
+  ///
+  /// In en, this message translates to:
+  /// **'Student'**
+  String get occupationCatStudent;
+
+  /// No description provided for @occupationCatOther.
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get occupationCatOther;
+
+  /// Placeholder text inside the school text field showing example school names
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Seoul National University, Lincoln High'**
+  String get schoolHint;
+
+  /// Field label / screen title for the user's date of birth
+  ///
+  /// In en, this message translates to:
+  /// **'Birthdate'**
+  String get birthdate;
+
+  /// Help text shown at the top of the native date picker on the birthdate edit screen
+  ///
+  /// In en, this message translates to:
+  /// **'Select your birthdate'**
+  String get birthdateSelectHelp;
+
+  /// Placeholder shown inside the tappable date field when the user hasn't picked a birthdate yet
+  ///
+  /// In en, this message translates to:
+  /// **'Select a date'**
+  String get birthdateSelectPlaceholder;
+
+  /// Inline error when the picked birthdate would make the user younger than the COPPA floor
+  ///
+  /// In en, this message translates to:
+  /// **'You must be at least {age} years old.'**
+  String birthdateMinAgeError(int age);
+
+  /// Banner under the picker showing how many edits the user has left in the trailing 60-day window
+  ///
+  /// In en, this message translates to:
+  /// **'{remaining} of {max} birthdate changes remaining in the next 60 days.'**
+  String birthdateQuotaRemaining(int remaining, int max);
+
+  /// Banner under the picker when the user has hit the quota and cannot change birthdate further
+  ///
+  /// In en, this message translates to:
+  /// **'You\'ve used all {max} birthdate changes for this 60-day window.'**
+  String birthdateQuotaLocked(int max);
+
+  /// Suffix appended to the locked-quota banner telling the user when the earliest change will roll off
+  ///
+  /// In en, this message translates to:
+  /// **'Next change available on {date}.'**
+  String birthdateNextChangeOn(String date);
+
+  /// Snackbar error when the server returned 429 on a birthdate update
+  ///
+  /// In en, this message translates to:
+  /// **'Birthdate can only be changed 3 times in 60 days.'**
+  String get birthdateRateLimited;
+
+  /// Snackbar error when the server returned 429 on a birthdate update and supplied the next-available date
+  ///
+  /// In en, this message translates to:
+  /// **'Birthdate can only be changed 3 times in 60 days. Try again on {date}.'**
+  String birthdateRateLimitedUntil(String date);
+
+  /// Title of the change-password screen and the Settings tile that opens it
+  ///
+  /// In en, this message translates to:
+  /// **'Change password'**
+  String get changePassword;
+
+  /// Section label for the current-password field on the change-password screen
+  ///
+  /// In en, this message translates to:
+  /// **'Current password'**
+  String get currentPassword;
+
+  /// Section label for the new-password field on the change-password screen (lowercase variant; existing newPassword key uses title case for a different context)
+  ///
+  /// In en, this message translates to:
+  /// **'New password'**
+  String get newPasswordLabel;
+
+  /// Section label for the confirm-new-password field
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm new password'**
+  String get confirmNewPassword;
+
+  /// Placeholder for the current-password field
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your current password'**
+  String get currentPasswordHint;
+
+  /// Placeholder summarising the strong-password rules in the new-password field
+  ///
+  /// In en, this message translates to:
+  /// **'At least 8 chars, A-Z, a-z, 0-9'**
+  String get newPasswordHint;
+
+  /// Inline error shown when new and confirm passwords differ
+  ///
+  /// In en, this message translates to:
+  /// **'Passwords don\'t match.'**
+  String get passwordsDontMatch;
+
+  /// Inline error shown when the new password equals the current one
+  ///
+  /// In en, this message translates to:
+  /// **'New password must be different from current.'**
+  String get newPasswordSameAsCurrent;
+
+  /// Success snackbar shown after the change-password API returns 200
+  ///
+  /// In en, this message translates to:
+  /// **'Password changed successfully'**
+  String get passwordChangedSuccess;
+
+  /// Strong-password requirement: minimum length
+  ///
+  /// In en, this message translates to:
+  /// **'At least 8 characters'**
+  String get passwordRule8Chars;
+
+  /// Strong-password requirement: at least one lowercase letter
+  ///
+  /// In en, this message translates to:
+  /// **'One lowercase letter'**
+  String get passwordRuleLowercase;
+
+  /// Strong-password requirement: at least one uppercase letter
+  ///
+  /// In en, this message translates to:
+  /// **'One uppercase letter'**
+  String get passwordRuleUppercase;
+
+  /// Strong-password requirement: at least one digit
+  ///
+  /// In en, this message translates to:
+  /// **'One number'**
+  String get passwordRuleNumber;
+
+  /// Section header on Settings grouping account-management actions (e.g., Change password)
+  ///
+  /// In en, this message translates to:
+  /// **'Account'**
+  String get settingsAccountSection;
+
+  /// Subtitle on the Settings tile that opens the change-password screen
+  ///
+  /// In en, this message translates to:
+  /// **'Update your account password'**
+  String get changePasswordTileSubtitle;
+
+  /// Label of the dedicated tab in the occupation picker that lets the user type their own job title when it isn't in the predefined list
+  ///
+  /// In en, this message translates to:
+  /// **'Custom'**
+  String get occupationCustomTab;
+
+  /// Header copy on the Custom tab explaining the purpose of the free-text input
+  ///
+  /// In en, this message translates to:
+  /// **'Can\'t find your profession? Type it here.'**
+  String get occupationCustomTabHint;
+
+  /// Placeholder inside the text field on the Custom tab
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Marine Biologist, Voice Actor'**
+  String get occupationCustomInputHint;
+
+  /// Button on the Custom tab that commits the typed value as the user's occupation
+  ///
+  /// In en, this message translates to:
+  /// **'Use this as my occupation'**
+  String get occupationCustomSaveCTA;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -2,6 +2,21 @@
 /// Maps language codes to their corresponding country flag emojis
 class LanguageFlags {
   static const Map<String, String> flags = {
+    // Region-specific overrides. Backend uses hyphenated codes like
+    // 'zh-CN', 'zh-TW', 'pt-BR' that should map to distinct flags. Listed
+    // first so they win over the base-code fallback below.
+    'zh-cn': '🇨🇳', // Chinese (Simplified) — Mainland
+    'zh-tw': '🇹🇼', // Chinese (Traditional) — Taiwan
+    'zh-hk': '🇭🇰', // Chinese (Cantonese) — Hong Kong
+    'pt-br': '🇧🇷', // Portuguese (Brazil)
+    'pt-pt': '🇵🇹', // Portuguese (Portugal)
+    'en-us': '🇺🇸', // English (US)
+    'en-gb': '🇬🇧', // English (UK)
+    'es-mx': '🇲🇽', // Spanish (Mexico)
+    'es-es': '🇪🇸', // Spanish (Spain)
+    'fr-ca': '🇨🇦', // French (Canada)
+    'fa-tj': '🇹🇯', // Tajik written as Persian-Tajikistan variant
+
     // Major Languages
     'en': '🇬🇧', // English
     'es': '🇪🇸', // Spanish
@@ -200,11 +215,26 @@ class LanguageFlags {
     'za': '🇨🇳', // Zhuang
   };
   
-  /// Get flag emoji for a language code
-  /// Returns a globe emoji 🌐 if language code not found
+  /// Get flag emoji for a language code.
+  ///
+  /// Lookup order:
+  ///   1. Exact match on the full code (handles region overrides like
+  ///      'zh-tw' → 🇹🇼 differently from 'zh-cn' → 🇨🇳).
+  ///   2. Base-code fallback (strip the region suffix). Critical for the
+  ///      backend's hyphenated codes — e.g. 'fr-ca' falls through to 'fr'
+  ///      if no Canada-specific override exists.
+  ///   3. Globe emoji 🌐 if neither resolves.
   static String getFlag(String languageCode) {
     if (languageCode.isEmpty) return '🌐';
-    return flags[languageCode.toLowerCase()] ?? '🌐';
+    final lower = languageCode.toLowerCase();
+    final direct = flags[lower];
+    if (direct != null) return direct;
+    final hyphen = lower.indexOf('-');
+    if (hyphen > 0) {
+      final base = flags[lower.substring(0, hyphen)];
+      if (base != null) return base;
+    }
+    return '🌐';
   }
 
   /// Language name → code mapping for backend values like "Chinese (Simplified)", "Korean", etc.

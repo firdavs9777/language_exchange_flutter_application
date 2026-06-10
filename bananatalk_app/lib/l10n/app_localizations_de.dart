@@ -2840,7 +2840,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get atLeast8Characters => 'Mindestens 8 Zeichen';
 
   @override
-  String get confirmPasswordHint => 'Passwort bestätigen';
+  String get confirmPasswordHint => 'Neues Passwort erneut eingeben';
 
   @override
   String get nextButton => 'Weiter';
@@ -6188,4 +6188,182 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get supportSheetWatchAd => 'Werbung ansehen zur Unterstützung';
+
+  @override
+  String get occupation => 'Beruf';
+
+  @override
+  String get school => 'Schule / Universität';
+
+  @override
+  String get occupationSearchHint => 'Berufe suchen';
+
+  @override
+  String get occupationSelectedLabel => 'Ausgewählt';
+
+  @override
+  String get occupationCustomLabel => 'Eigene Eingabe';
+
+  @override
+  String get occupationNoMatches => 'Keine Treffer in der Liste';
+
+  @override
+  String get occupationCatTech => 'Technologie & Software';
+
+  @override
+  String get occupationCatHealthcare => 'Gesundheit & Medizin';
+
+  @override
+  String get occupationCatEducation => 'Bildung & Wissenschaft';
+
+  @override
+  String get occupationCatBusiness => 'Wirtschaft & Finanzen';
+
+  @override
+  String get occupationCatCreative => 'Kreativ & Design';
+
+  @override
+  String get occupationCatMedia => 'Medien & Kommunikation';
+
+  @override
+  String get occupationCatEngineering => 'Ingenieurwesen';
+
+  @override
+  String get occupationCatScience => 'Wissenschaft & Forschung';
+
+  @override
+  String get occupationCatLegal => 'Recht';
+
+  @override
+  String get occupationCatHospitality => 'Gastronomie & Hotellerie';
+
+  @override
+  String get occupationCatTrades => 'Handwerksberufe';
+
+  @override
+  String get occupationCatTransport => 'Transport & Logistik';
+
+  @override
+  String get occupationCatGovernment => 'Verwaltung & Öffentlicher Dienst';
+
+  @override
+  String get occupationCatRetail => 'Einzelhandel & Kundenservice';
+
+  @override
+  String get occupationCatAgriculture => 'Landwirtschaft & Umwelt';
+
+  @override
+  String get occupationCatSports => 'Sport & Fitness';
+
+  @override
+  String get occupationCatBeauty => 'Schönheit & Körperpflege';
+
+  @override
+  String get occupationCatRealEstate => 'Immobilien & Bau';
+
+  @override
+  String get occupationCatReligion => 'Religion & Spiritualität';
+
+  @override
+  String get occupationCatStudent => 'Student/in / Schüler/in';
+
+  @override
+  String get occupationCatOther => 'Sonstiges';
+
+  @override
+  String get schoolHint => 'z. B. LMU München, Gymnasium am Markt';
+
+  @override
+  String get birthdate => 'Geburtsdatum';
+
+  @override
+  String get birthdateSelectHelp => 'Wähle dein Geburtsdatum';
+
+  @override
+  String get birthdateSelectPlaceholder => 'Datum wählen';
+
+  @override
+  String birthdateMinAgeError(int age) {
+    return 'Du musst mindestens $age Jahre alt sein.';
+  }
+
+  @override
+  String birthdateQuotaRemaining(int remaining, int max) {
+    return 'Du hast in den nächsten 60 Tagen noch $remaining von $max Geburtsdatum-Änderungen übrig.';
+  }
+
+  @override
+  String birthdateQuotaLocked(int max) {
+    return 'Du hast alle $max Geburtsdatum-Änderungen für diesen 60-Tage-Zeitraum aufgebraucht.';
+  }
+
+  @override
+  String birthdateNextChangeOn(String date) {
+    return 'Nächste Änderung verfügbar am $date.';
+  }
+
+  @override
+  String get birthdateRateLimited => 'Das Geburtsdatum kann höchstens 3 Mal in 60 Tagen geändert werden.';
+
+  @override
+  String birthdateRateLimitedUntil(String date) {
+    return 'Das Geburtsdatum kann höchstens 3 Mal in 60 Tagen geändert werden. Versuche es am $date erneut.';
+  }
+
+  @override
+  String get changePassword => 'Passwort ändern';
+
+  @override
+  String get currentPassword => 'Aktuelles Passwort';
+
+  @override
+  String get newPasswordLabel => 'Neues Passwort';
+
+  @override
+  String get confirmNewPassword => 'Neues Passwort bestätigen';
+
+  @override
+  String get currentPasswordHint => 'Aktuelles Passwort eingeben';
+
+  @override
+  String get newPasswordHint => 'Mindestens 8 Zeichen, A-Z, a-z, 0-9';
+
+  @override
+  String get passwordsDontMatch => 'Passwörter stimmen nicht überein.';
+
+  @override
+  String get newPasswordSameAsCurrent => 'Das neue Passwort muss sich vom aktuellen unterscheiden.';
+
+  @override
+  String get passwordChangedSuccess => 'Passwort erfolgreich geändert';
+
+  @override
+  String get passwordRule8Chars => 'Mindestens 8 Zeichen';
+
+  @override
+  String get passwordRuleLowercase => 'Ein Kleinbuchstabe';
+
+  @override
+  String get passwordRuleUppercase => 'Ein Großbuchstabe';
+
+  @override
+  String get passwordRuleNumber => 'Eine Ziffer';
+
+  @override
+  String get settingsAccountSection => 'Konto';
+
+  @override
+  String get changePasswordTileSubtitle => 'Aktualisiere das Passwort deines Kontos';
+
+  @override
+  String get occupationCustomTab => 'Eigene Eingabe';
+
+  @override
+  String get occupationCustomTabHint => 'Beruf nicht gefunden? Hier eingeben.';
+
+  @override
+  String get occupationCustomInputHint => 'z. B. Meeresbiologe, Sprecher';
+
+  @override
+  String get occupationCustomSaveCTA => 'Als meinen Beruf verwenden';
 }

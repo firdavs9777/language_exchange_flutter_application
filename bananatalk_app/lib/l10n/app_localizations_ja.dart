@@ -2840,7 +2840,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get atLeast8Characters => '8文字以上';
 
   @override
-  String get confirmPasswordHint => 'パスワード確認';
+  String get confirmPasswordHint => '新しいパスワードを再入力';
 
   @override
   String get nextButton => '次へ';
@@ -6181,4 +6181,182 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get supportSheetWatchAd => '広告を見てサポートする';
+
+  @override
+  String get occupation => '職業';
+
+  @override
+  String get school => '学校';
+
+  @override
+  String get occupationSearchHint => '職業を検索';
+
+  @override
+  String get occupationSelectedLabel => '選択中';
+
+  @override
+  String get occupationCustomLabel => 'カスタム入力';
+
+  @override
+  String get occupationNoMatches => '一覧に一致するものがありません';
+
+  @override
+  String get occupationCatTech => 'テクノロジー・ソフトウェア';
+
+  @override
+  String get occupationCatHealthcare => '医療・ヘルスケア';
+
+  @override
+  String get occupationCatEducation => '教育・学術';
+
+  @override
+  String get occupationCatBusiness => 'ビジネス・金融';
+
+  @override
+  String get occupationCatCreative => 'クリエイティブ・デザイン';
+
+  @override
+  String get occupationCatMedia => 'メディア・コミュニケーション';
+
+  @override
+  String get occupationCatEngineering => 'エンジニアリング';
+
+  @override
+  String get occupationCatScience => '科学・研究';
+
+  @override
+  String get occupationCatLegal => '法務';
+
+  @override
+  String get occupationCatHospitality => 'ホスピタリティ・飲食';
+
+  @override
+  String get occupationCatTrades => '技能職';
+
+  @override
+  String get occupationCatTransport => '運輸・物流';
+
+  @override
+  String get occupationCatGovernment => '公務・行政';
+
+  @override
+  String get occupationCatRetail => '小売・接客';
+
+  @override
+  String get occupationCatAgriculture => '農業・環境';
+
+  @override
+  String get occupationCatSports => 'スポーツ・フィットネス';
+
+  @override
+  String get occupationCatBeauty => '美容・パーソナルケア';
+
+  @override
+  String get occupationCatRealEstate => '不動産・建設';
+
+  @override
+  String get occupationCatReligion => '宗教・スピリチュアル';
+
+  @override
+  String get occupationCatStudent => '学生';
+
+  @override
+  String get occupationCatOther => 'その他';
+
+  @override
+  String get schoolHint => '例：東京大学、リンカーン高校';
+
+  @override
+  String get birthdate => '生年月日';
+
+  @override
+  String get birthdateSelectHelp => '生年月日を選択してください';
+
+  @override
+  String get birthdateSelectPlaceholder => '日付を選択';
+
+  @override
+  String birthdateMinAgeError(int age) {
+    return '$age歳以上である必要があります。';
+  }
+
+  @override
+  String birthdateQuotaRemaining(int remaining, int max) {
+    return '今後60日間で生年月日の変更があと$max回中$remaining回残っています。';
+  }
+
+  @override
+  String birthdateQuotaLocked(int max) {
+    return 'この60日間で生年月日の変更を$max回すべて使用しました。';
+  }
+
+  @override
+  String birthdateNextChangeOn(String date) {
+    return '次回の変更可能日：$date';
+  }
+
+  @override
+  String get birthdateRateLimited => '生年月日は60日間に3回までしか変更できません。';
+
+  @override
+  String birthdateRateLimitedUntil(String date) {
+    return '生年月日は60日間に3回までしか変更できません。$dateに再度お試しください。';
+  }
+
+  @override
+  String get changePassword => 'パスワードを変更';
+
+  @override
+  String get currentPassword => '現在のパスワード';
+
+  @override
+  String get newPasswordLabel => '新しいパスワード';
+
+  @override
+  String get confirmNewPassword => '新しいパスワードを確認';
+
+  @override
+  String get currentPasswordHint => '現在のパスワードを入力';
+
+  @override
+  String get newPasswordHint => '8文字以上、A-Z、a-z、0-9';
+
+  @override
+  String get passwordsDontMatch => 'パスワードが一致しません。';
+
+  @override
+  String get newPasswordSameAsCurrent => '新しいパスワードは現在のものと異なる必要があります。';
+
+  @override
+  String get passwordChangedSuccess => 'パスワードが変更されました';
+
+  @override
+  String get passwordRule8Chars => '8文字以上';
+
+  @override
+  String get passwordRuleLowercase => '小文字を1つ';
+
+  @override
+  String get passwordRuleUppercase => '大文字を1つ';
+
+  @override
+  String get passwordRuleNumber => '数字を1つ';
+
+  @override
+  String get settingsAccountSection => 'アカウント';
+
+  @override
+  String get changePasswordTileSubtitle => 'アカウントのパスワードを更新';
+
+  @override
+  String get occupationCustomTab => 'カスタム';
+
+  @override
+  String get occupationCustomTabHint => '職業が見つかりませんか？こちらに入力してください。';
+
+  @override
+  String get occupationCustomInputHint => '例：海洋生物学者、声優';
+
+  @override
+  String get occupationCustomSaveCTA => 'これを職業として使用';
 }

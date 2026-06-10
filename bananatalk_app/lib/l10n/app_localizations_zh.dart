@@ -2840,7 +2840,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get atLeast8Characters => '至少8个字符';
 
   @override
-  String get confirmPasswordHint => '确认密码';
+  String get confirmPasswordHint => '再次输入新密码';
 
   @override
   String get nextButton => '下一步';
@@ -6181,6 +6181,184 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get supportSheetWatchAd => '观看广告以支持';
+
+  @override
+  String get occupation => '职业';
+
+  @override
+  String get school => '学校';
+
+  @override
+  String get occupationSearchHint => '搜索职业';
+
+  @override
+  String get occupationSelectedLabel => '已选择';
+
+  @override
+  String get occupationCustomLabel => '自定义';
+
+  @override
+  String get occupationNoMatches => '列表中没有匹配项';
+
+  @override
+  String get occupationCatTech => '科技与软件';
+
+  @override
+  String get occupationCatHealthcare => '医疗与健康';
+
+  @override
+  String get occupationCatEducation => '教育与学术';
+
+  @override
+  String get occupationCatBusiness => '商业与金融';
+
+  @override
+  String get occupationCatCreative => '创意与设计';
+
+  @override
+  String get occupationCatMedia => '媒体与传播';
+
+  @override
+  String get occupationCatEngineering => '工程';
+
+  @override
+  String get occupationCatScience => '科学与研究';
+
+  @override
+  String get occupationCatLegal => '法律';
+
+  @override
+  String get occupationCatHospitality => '酒店与餐饮';
+
+  @override
+  String get occupationCatTrades => '技术工种';
+
+  @override
+  String get occupationCatTransport => '运输与物流';
+
+  @override
+  String get occupationCatGovernment => '政府与公共服务';
+
+  @override
+  String get occupationCatRetail => '零售与客服';
+
+  @override
+  String get occupationCatAgriculture => '农业与环境';
+
+  @override
+  String get occupationCatSports => '体育与健身';
+
+  @override
+  String get occupationCatBeauty => '美容与个人护理';
+
+  @override
+  String get occupationCatRealEstate => '房地产与建筑';
+
+  @override
+  String get occupationCatReligion => '宗教与灵修';
+
+  @override
+  String get occupationCatStudent => '学生';
+
+  @override
+  String get occupationCatOther => '其他';
+
+  @override
+  String get schoolHint => '例：北京大学、林肯高中';
+
+  @override
+  String get birthdate => '生日';
+
+  @override
+  String get birthdateSelectHelp => '请选择您的生日';
+
+  @override
+  String get birthdateSelectPlaceholder => '选择日期';
+
+  @override
+  String birthdateMinAgeError(int age) {
+    return '您必须至少$age岁。';
+  }
+
+  @override
+  String birthdateQuotaRemaining(int remaining, int max) {
+    return '未来60天内还可以更改生日 $remaining/$max 次。';
+  }
+
+  @override
+  String birthdateQuotaLocked(int max) {
+    return '您已用完本60天周期内的全部$max次生日修改。';
+  }
+
+  @override
+  String birthdateNextChangeOn(String date) {
+    return '下次可修改时间：$date';
+  }
+
+  @override
+  String get birthdateRateLimited => '生日在60天内最多只能修改3次。';
+
+  @override
+  String birthdateRateLimitedUntil(String date) {
+    return '生日在60天内最多只能修改3次。请在$date重试。';
+  }
+
+  @override
+  String get changePassword => '修改密码';
+
+  @override
+  String get currentPassword => '当前密码';
+
+  @override
+  String get newPasswordLabel => '新密码';
+
+  @override
+  String get confirmNewPassword => '确认新密码';
+
+  @override
+  String get currentPasswordHint => '输入当前密码';
+
+  @override
+  String get newPasswordHint => '至少8位，A-Z、a-z、0-9';
+
+  @override
+  String get passwordsDontMatch => '两次密码不一致。';
+
+  @override
+  String get newPasswordSameAsCurrent => '新密码必须与当前密码不同。';
+
+  @override
+  String get passwordChangedSuccess => '密码修改成功';
+
+  @override
+  String get passwordRule8Chars => '至少8个字符';
+
+  @override
+  String get passwordRuleLowercase => '一个小写字母';
+
+  @override
+  String get passwordRuleUppercase => '一个大写字母';
+
+  @override
+  String get passwordRuleNumber => '一个数字';
+
+  @override
+  String get settingsAccountSection => '账户';
+
+  @override
+  String get changePasswordTileSubtitle => '更新您的账户密码';
+
+  @override
+  String get occupationCustomTab => '自定义';
+
+  @override
+  String get occupationCustomTabHint => '找不到您的职业？在这里输入。';
+
+  @override
+  String get occupationCustomInputHint => '例如：海洋生物学家、配音演员';
+
+  @override
+  String get occupationCustomSaveCTA => '将其用作我的职业';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -8705,7 +8883,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get atLeast8Characters => '至少8個字元';
 
   @override
-  String get confirmPasswordHint => '確認密碼';
+  String get confirmPasswordHint => '再次輸入新密碼';
 
   @override
   String get nextButton => '下一步';
@@ -11247,4 +11425,182 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get supportSheetWatchAd => '觀看廣告以支持';
+
+  @override
+  String get occupation => '職業';
+
+  @override
+  String get school => '學校';
+
+  @override
+  String get occupationSearchHint => '搜尋職業';
+
+  @override
+  String get occupationSelectedLabel => '已選擇';
+
+  @override
+  String get occupationCustomLabel => '自訂';
+
+  @override
+  String get occupationNoMatches => '清單中沒有符合項目';
+
+  @override
+  String get occupationCatTech => '科技與軟體';
+
+  @override
+  String get occupationCatHealthcare => '醫療與健康';
+
+  @override
+  String get occupationCatEducation => '教育與學術';
+
+  @override
+  String get occupationCatBusiness => '商業與金融';
+
+  @override
+  String get occupationCatCreative => '創意與設計';
+
+  @override
+  String get occupationCatMedia => '媒體與傳播';
+
+  @override
+  String get occupationCatEngineering => '工程';
+
+  @override
+  String get occupationCatScience => '科學與研究';
+
+  @override
+  String get occupationCatLegal => '法律';
+
+  @override
+  String get occupationCatHospitality => '飯店與餐飲';
+
+  @override
+  String get occupationCatTrades => '技術工種';
+
+  @override
+  String get occupationCatTransport => '運輸與物流';
+
+  @override
+  String get occupationCatGovernment => '政府與公共服務';
+
+  @override
+  String get occupationCatRetail => '零售與客服';
+
+  @override
+  String get occupationCatAgriculture => '農業與環境';
+
+  @override
+  String get occupationCatSports => '運動與健身';
+
+  @override
+  String get occupationCatBeauty => '美容與個人護理';
+
+  @override
+  String get occupationCatRealEstate => '房地產與建築';
+
+  @override
+  String get occupationCatReligion => '宗教與靈性';
+
+  @override
+  String get occupationCatStudent => '學生';
+
+  @override
+  String get occupationCatOther => '其他';
+
+  @override
+  String get schoolHint => '例：國立臺灣大學、林肯高中';
+
+  @override
+  String get birthdate => '生日';
+
+  @override
+  String get birthdateSelectHelp => '請選擇您的生日';
+
+  @override
+  String get birthdateSelectPlaceholder => '選擇日期';
+
+  @override
+  String birthdateMinAgeError(int age) {
+    return '您必須至少$age歲。';
+  }
+
+  @override
+  String birthdateQuotaRemaining(int remaining, int max) {
+    return '未來60天內還可以更改生日 $remaining/$max 次。';
+  }
+
+  @override
+  String birthdateQuotaLocked(int max) {
+    return '您已用完本60天週期內的全部$max次生日修改。';
+  }
+
+  @override
+  String birthdateNextChangeOn(String date) {
+    return '下次可修改時間：$date';
+  }
+
+  @override
+  String get birthdateRateLimited => '生日在60天內最多只能修改3次。';
+
+  @override
+  String birthdateRateLimitedUntil(String date) {
+    return '生日在60天內最多只能修改3次。請在$date重試。';
+  }
+
+  @override
+  String get changePassword => '修改密碼';
+
+  @override
+  String get currentPassword => '目前密碼';
+
+  @override
+  String get newPasswordLabel => '新密碼';
+
+  @override
+  String get confirmNewPassword => '確認新密碼';
+
+  @override
+  String get currentPasswordHint => '輸入目前密碼';
+
+  @override
+  String get newPasswordHint => '至少8位，A-Z、a-z、0-9';
+
+  @override
+  String get passwordsDontMatch => '兩次密碼不一致。';
+
+  @override
+  String get newPasswordSameAsCurrent => '新密碼必須與目前密碼不同。';
+
+  @override
+  String get passwordChangedSuccess => '密碼修改成功';
+
+  @override
+  String get passwordRule8Chars => '至少8個字元';
+
+  @override
+  String get passwordRuleLowercase => '一個小寫字母';
+
+  @override
+  String get passwordRuleUppercase => '一個大寫字母';
+
+  @override
+  String get passwordRuleNumber => '一個數字';
+
+  @override
+  String get settingsAccountSection => '帳戶';
+
+  @override
+  String get changePasswordTileSubtitle => '更新您的帳戶密碼';
+
+  @override
+  String get occupationCustomTab => '自訂';
+
+  @override
+  String get occupationCustomTabHint => '找不到您的職業？請在此輸入。';
+
+  @override
+  String get occupationCustomInputHint => '例如：海洋生物學家、配音員';
+
+  @override
+  String get occupationCustomSaveCTA => '將此用作我的職業';
 }

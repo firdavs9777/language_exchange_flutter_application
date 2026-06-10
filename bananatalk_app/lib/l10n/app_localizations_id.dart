@@ -2840,7 +2840,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get atLeast8Characters => 'Minimal 8 karakter';
 
   @override
-  String get confirmPasswordHint => 'Konfirmasi kata sandi';
+  String get confirmPasswordHint => 'Masukkan kembali kata sandi baru';
 
   @override
   String get nextButton => 'Berikutnya';
@@ -6188,4 +6188,182 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get supportSheetWatchAd => 'Tonton iklan untuk mendukung';
+
+  @override
+  String get occupation => 'Pekerjaan';
+
+  @override
+  String get school => 'Sekolah / Universitas';
+
+  @override
+  String get occupationSearchHint => 'Cari pekerjaan';
+
+  @override
+  String get occupationSelectedLabel => 'Terpilih';
+
+  @override
+  String get occupationCustomLabel => 'Kustom';
+
+  @override
+  String get occupationNoMatches => 'Tidak ada yang cocok dalam daftar';
+
+  @override
+  String get occupationCatTech => 'Teknologi dan perangkat lunak';
+
+  @override
+  String get occupationCatHealthcare => 'Kesehatan dan medis';
+
+  @override
+  String get occupationCatEducation => 'Pendidikan dan akademik';
+
+  @override
+  String get occupationCatBusiness => 'Bisnis dan keuangan';
+
+  @override
+  String get occupationCatCreative => 'Kreatif dan desain';
+
+  @override
+  String get occupationCatMedia => 'Media dan komunikasi';
+
+  @override
+  String get occupationCatEngineering => 'Teknik';
+
+  @override
+  String get occupationCatScience => 'Sains dan penelitian';
+
+  @override
+  String get occupationCatLegal => 'Hukum';
+
+  @override
+  String get occupationCatHospitality => 'Perhotelan dan kuliner';
+
+  @override
+  String get occupationCatTrades => 'Tukang terampil';
+
+  @override
+  String get occupationCatTransport => 'Transportasi dan logistik';
+
+  @override
+  String get occupationCatGovernment => 'Pemerintahan dan layanan publik';
+
+  @override
+  String get occupationCatRetail => 'Ritel dan layanan pelanggan';
+
+  @override
+  String get occupationCatAgriculture => 'Pertanian dan lingkungan';
+
+  @override
+  String get occupationCatSports => 'Olahraga dan kebugaran';
+
+  @override
+  String get occupationCatBeauty => 'Kecantikan dan perawatan pribadi';
+
+  @override
+  String get occupationCatRealEstate => 'Properti dan konstruksi';
+
+  @override
+  String get occupationCatReligion => 'Agama dan spiritualitas';
+
+  @override
+  String get occupationCatStudent => 'Pelajar / Mahasiswa';
+
+  @override
+  String get occupationCatOther => 'Lainnya';
+
+  @override
+  String get schoolHint => 'mis. Universitas Indonesia, SMA Negeri 1';
+
+  @override
+  String get birthdate => 'Tanggal lahir';
+
+  @override
+  String get birthdateSelectHelp => 'Pilih tanggal lahir Anda';
+
+  @override
+  String get birthdateSelectPlaceholder => 'Pilih tanggal';
+
+  @override
+  String birthdateMinAgeError(int age) {
+    return 'Anda harus berusia minimal $age tahun.';
+  }
+
+  @override
+  String birthdateQuotaRemaining(int remaining, int max) {
+    return 'Anda memiliki $remaining dari $max perubahan tanggal lahir tersisa untuk 60 hari ke depan.';
+  }
+
+  @override
+  String birthdateQuotaLocked(int max) {
+    return 'Anda telah menggunakan semua $max perubahan tanggal lahir untuk periode 60 hari ini.';
+  }
+
+  @override
+  String birthdateNextChangeOn(String date) {
+    return 'Perubahan berikutnya tersedia pada $date.';
+  }
+
+  @override
+  String get birthdateRateLimited => 'Tanggal lahir hanya dapat diubah 3 kali setiap 60 hari.';
+
+  @override
+  String birthdateRateLimitedUntil(String date) {
+    return 'Tanggal lahir hanya dapat diubah 3 kali setiap 60 hari. Coba lagi pada $date.';
+  }
+
+  @override
+  String get changePassword => 'Ubah kata sandi';
+
+  @override
+  String get currentPassword => 'Kata sandi saat ini';
+
+  @override
+  String get newPasswordLabel => 'Kata sandi baru';
+
+  @override
+  String get confirmNewPassword => 'Konfirmasi kata sandi baru';
+
+  @override
+  String get currentPasswordHint => 'Masukkan kata sandi saat ini';
+
+  @override
+  String get newPasswordHint => 'Minimal 8 karakter, A-Z, a-z, 0-9';
+
+  @override
+  String get passwordsDontMatch => 'Kata sandi tidak cocok.';
+
+  @override
+  String get newPasswordSameAsCurrent => 'Kata sandi baru harus berbeda dari yang sekarang.';
+
+  @override
+  String get passwordChangedSuccess => 'Kata sandi berhasil diubah';
+
+  @override
+  String get passwordRule8Chars => 'Minimal 8 karakter';
+
+  @override
+  String get passwordRuleLowercase => 'Satu huruf kecil';
+
+  @override
+  String get passwordRuleUppercase => 'Satu huruf besar';
+
+  @override
+  String get passwordRuleNumber => 'Satu angka';
+
+  @override
+  String get settingsAccountSection => 'Akun';
+
+  @override
+  String get changePasswordTileSubtitle => 'Perbarui kata sandi akun Anda';
+
+  @override
+  String get occupationCustomTab => 'Kustom';
+
+  @override
+  String get occupationCustomTabHint => 'Tidak menemukan profesi Anda? Tulis di sini.';
+
+  @override
+  String get occupationCustomInputHint => 'mis. Ahli biologi kelautan, Pengisi suara';
+
+  @override
+  String get occupationCustomSaveCTA => 'Gunakan sebagai pekerjaan saya';
 }
