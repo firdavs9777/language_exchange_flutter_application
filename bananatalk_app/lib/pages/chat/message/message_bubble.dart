@@ -4,6 +4,7 @@ import 'package:bananatalk_app/providers/provider_models/message_model.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/widgets/message_reaction_widget.dart';
 import 'package:bananatalk_app/providers/provider_root/message_provider.dart';
+import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/utils/time_utils.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
@@ -80,6 +81,11 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
   OverlayEntry? _reactionPickerOverlay;
   String? _currentUserId;
   final GlobalKey _bubbleKey = GlobalKey();
+
+  // Inline-translation state for the quick "Translate" chip — null = hidden.
+  // Set on demand; not persisted (deliberate — refreshing the chat clears it).
+  String? _inlineTranslation;
+  bool _inlineTranslating = false;
 
   // Slide-in animation flag: prevents replaying on every rebuild
   bool _hasAnimatedIn = false;
@@ -360,6 +366,73 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
       messageId: widget.message.id,
       originalText: text,
     );
+  }
+
+  // Quick inline translate: tap once to fetch + show under the bubble, tap
+  // again to hide. Resolves the target to the current user's native_language
+  // (authoritative path: Riverpod userProvider fed by /auth/me) before falling
+  // back to TranslationService.getAutoTranslateLanguage()'s pref/device locale.
+  Future<void> _toggleInlineTranslation() async {
+    if (_inlineTranslating) return;
+    if (_inlineTranslation != null) {
+      setState(() => _inlineTranslation = null);
+      return;
+    }
+    final text = widget.message.message;
+    if (text == null || text.isEmpty) return;
+
+    setState(() => _inlineTranslating = true);
+    try {
+      final target = await _resolveTranslationTarget();
+      final result = await TranslationService.translateMessage(
+        messageId: widget.message.id,
+        targetLanguage: target,
+      );
+      if (!mounted) return;
+      final translated = result['success'] == true
+          ? (result['data']?['translation'] as String?)?.trim()
+          : null;
+      setState(() {
+        _inlineTranslation =
+            (translated != null && translated.isNotEmpty) ? translated : null;
+        _inlineTranslating = false;
+      });
+    } catch (_) {
+      if (mounted) setState(() => _inlineTranslating = false);
+    }
+  }
+
+  // Pick the target language code for an inline translate, preferring the
+  // freshest source. The Riverpod userProvider (fed by /auth/me) is the
+  // authoritative answer; SharedPref caches and device locale are only
+  // fallbacks for cases where /auth/me hasn't resolved yet. Strips any
+  // regional suffix ("Chinese (Simplified)" → "Chinese") so users who picked
+  // one of the expanded 127-language variants at signup still resolve to a
+  // supported code instead of silently falling back to English.
+  Future<String> _resolveTranslationTarget() async {
+    final user = ref.read(userProvider).valueOrNull;
+    final native = user?.native_language;
+    if (native != null && native.trim().isNotEmpty) {
+      final code = _codeForLanguageName(native);
+      if (code != null) return code;
+    }
+    return TranslationService.getAutoTranslateLanguage();
+  }
+
+  String? _codeForLanguageName(String name) {
+    final cleaned = name.trim().toLowerCase();
+    final base = cleaned.contains('(')
+        ? cleaned.split('(').first.trim()
+        : cleaned;
+    for (final candidate in {cleaned, base}) {
+      for (final lang in TranslationService.supportedLanguages) {
+        if (lang['name']!.toLowerCase() == candidate ||
+            lang['code']!.toLowerCase() == candidate) {
+          return lang['code'];
+        }
+      }
+    }
+    return null;
   }
 
   // ---------- Profile navigation ----------
@@ -1056,46 +1129,132 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
                       ),
                     ),
 
-                  // Visible "Correct" chip for partner text messages
+                  // Visible "Correct" + "Translate" chips for partner text messages
                   if (!widget.isMe &&
                       !widget.message.isDeleted &&
                       widget.message.type == 'text' &&
                       widget.message.message != null &&
                       widget.message.message!.isNotEmpty &&
-                      !widget.isSelectionMode)
+                      !widget.isSelectionMode) ...[
                     Padding(
                       padding: const EdgeInsets.only(top: 4, left: 52),
-                      child: GestureDetector(
-                        onTap: () => showCorrectionBottomSheet(
-                          context,
-                          messageId: widget.message.id,
-                          originalText: widget.message.message!,
-                          senderName: widget.otherUserName,
-                        ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          // Correct chip
+                          GestureDetector(
+                            onTap: () => showCorrectionBottomSheet(
+                              context,
+                              messageId: widget.message.id,
+                              originalText: widget.message.message!,
+                              senderName: widget.otherUserName,
+                            ),
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 8, vertical: 3),
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                    color:
+                                        Colors.orange.withValues(alpha: 0.4)),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: const Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(Icons.edit_outlined,
+                                      size: 12, color: Colors.orange),
+                                  SizedBox(width: 4),
+                                  Text(
+                                    'Correct',
+                                    style: TextStyle(
+                                        fontSize: 11, color: Colors.orange),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 6),
+                          // Translate chip — toggles inline translation panel below
+                          GestureDetector(
+                            onTap: _inlineTranslating
+                                ? null
+                                : _toggleInlineTranslation,
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 8, vertical: 3),
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                    color: AppColors.primary
+                                        .withValues(alpha: 0.4)),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  if (_inlineTranslating)
+                                    const SizedBox(
+                                      width: 10,
+                                      height: 10,
+                                      child: CircularProgressIndicator(
+                                        strokeWidth: 1.5,
+                                        valueColor: AlwaysStoppedAnimation(
+                                            AppColors.primary),
+                                      ),
+                                    )
+                                  else
+                                    Icon(
+                                      _inlineTranslation == null
+                                          ? Icons.translate_rounded
+                                          : Icons.visibility_off_outlined,
+                                      size: 12,
+                                      color: AppColors.primary,
+                                    ),
+                                  const SizedBox(width: 4),
+                                  Text(
+                                    _inlineTranslation == null
+                                        ? 'Translate'
+                                        : 'Hide',
+                                    style: const TextStyle(
+                                        fontSize: 11,
+                                        color: AppColors.primary),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    // Inline translation panel — shown only after a successful fetch.
+                    if (_inlineTranslation != null)
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            top: 6, left: 52, right: 12),
                         child: Container(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 8, vertical: 3),
+                              horizontal: 10, vertical: 8),
                           decoration: BoxDecoration(
+                            color:
+                                AppColors.primary.withValues(alpha: 0.06),
                             border: Border.all(
-                                color: Colors.orange.withValues(alpha: 0.4)),
+                                color: AppColors.primary
+                                    .withValues(alpha: 0.18)),
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          child: const Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Icon(Icons.edit_outlined,
-                                  size: 12, color: Colors.orange),
-                              SizedBox(width: 4),
-                              Text(
-                                'Correct',
-                                style: TextStyle(
-                                    fontSize: 11, color: Colors.orange),
-                              ),
-                            ],
+                          child: Text(
+                            _inlineTranslation!,
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontStyle: FontStyle.italic,
+                              height: 1.35,
+                              color: context.isDarkMode
+                                  ? Colors.white70
+                                  : Colors.black87,
+                            ),
                           ),
                         ),
                       ),
-                    ),
+                  ],
                 ],
               ),
             ),
