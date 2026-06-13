@@ -124,7 +124,7 @@ import flutter_callkit_incoming
     if let avatar = dict["callerProfilePicture"] as? String { extra["callerAvatar"] = avatar }
     if let callerId = dict["callerId"] as? String { extra["callerId"] = callerId }
     if let callType = dict["callType"] as? String { extra["callType"] = callType }
-    data.extra = extra
+    data.extra = extra as NSDictionary
 
     SwiftFlutterCallkitIncomingPlugin.sharedInstance?
       .showCallkitIncoming(data, fromPushKit: true) {
