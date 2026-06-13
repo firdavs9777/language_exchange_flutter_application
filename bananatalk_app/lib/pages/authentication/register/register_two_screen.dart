@@ -374,6 +374,15 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
               if (authService.token.isNotEmpty || storedToken.isNotEmpty) {
                 await authService.acceptTerms();
               }
+
+              // Cache native_language now so the inline translate chip can
+              // resolve to it before /auth/me has run. This is the OAuth
+              // signup's first authoritative write of the field.
+              final pickedNative =
+                  _nativeLanguage?.name ?? widget.nativeLanguage;
+              if (pickedNative.isNotEmpty) {
+                await prefs.setString('user_native_language', pickedNative);
+              }
             } catch (e) {
               // Non-blocking
             }

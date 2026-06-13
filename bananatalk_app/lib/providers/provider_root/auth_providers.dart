@@ -975,6 +975,15 @@ class AuthService extends ChangeNotifier {
         await prefs.setString('token', token);
         await prefs.setString('refreshToken', refreshToken);
         await prefs.setString('userId', userId);
+
+        // Cache the signup-time native language so the inline translate chip
+        // can resolve the target without waiting for /auth/me to run. Login
+        // and /auth/me also write this key — we just close the gap for users
+        // who reach a chat before either of those paths has fired.
+        if (user.native_language.isNotEmpty) {
+          await prefs.setString('user_native_language', user.native_language);
+        }
+
         isLoggedIn = true;
 
         // Re-enable socket reconnection for new registration
