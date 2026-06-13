@@ -11,6 +11,8 @@ import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
 import 'package:bananatalk_app/widgets/report_dialog.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
+import 'package:bananatalk_app/widgets/language_selection/show_language_picker.dart';
+import 'package:bananatalk_app/widgets/moment_translate_chip.dart';
 import 'package:bananatalk_app/widgets/translated_moment_widget.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
@@ -40,6 +42,7 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
   bool isSaved = false;
   bool _likePending = false;
   bool _showTranslation = false;
+  String? _translationTargetCode;
   TextEditingController commentController = TextEditingController();
   bool showCommentField = false;
   final FocusNode commentFocusNode = FocusNode();
@@ -259,6 +262,22 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
     });
     Future.delayed(const Duration(milliseconds: 100), () {
       commentFocusNode.requestFocus();
+    });
+  }
+
+  // Picker-first translate flow — same UX as the moment card. Opens the
+  // full language picker on chip tap; only expands the panel once the user
+  // has chosen a target.
+  Future<void> _handleTranslateChipTap() async {
+    final picked = await showLanguagePickerSheet(context);
+    if (picked == null || !mounted) return;
+    debugPrint('🌐 [single-moment] user picked '
+        'code=${picked.code} name=${picked.name} '
+        'momentId=${widget.moment.id} '
+        'momentLanguage=${widget.moment.language}');
+    setState(() {
+      _translationTargetCode = picked.code;
+      _showTranslation = true;
     });
   }
 
@@ -612,14 +631,39 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                         ),
                       ),
                     )
-                  else if (widget.moment.backgroundColor.isEmpty)
+                  else if (widget.moment.backgroundColor.isEmpty) ...[
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                      padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
                       child: Text(
                         widget.moment.description,
                         style: context.bodyMedium,
                       ),
                     ),
+                    // Inline translate affordance — chip when collapsed, full
+                    // panel when expanded. Matches the moment-card pattern so
+                    // the same feature feels the same everywhere.
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
+                      child: !_showTranslation
+                          ? MomentTranslateChip(
+                              onTap: _handleTranslateChipTap,
+                            )
+                          : TranslatedMomentWidget(
+                              momentId: widget.moment.id,
+                              originalText: widget.moment.description,
+                              originalLanguage: widget.moment.language,
+                              existingTranslations:
+                                  widget.moment.translations.isNotEmpty
+                                      ? widget.moment.translations
+                                      : null,
+                              initialTargetCode: _translationTargetCode,
+                              onDismiss: () => setState(() {
+                                _showTranslation = false;
+                                _translationTargetCode = null;
+                              }),
+                            ),
+                    ),
+                  ],
                   if (widget.moment.imageUrls.isNotEmpty)
                     MomentImageGrid(imageUrls: widget.moment.imageUrls),
 
@@ -685,20 +729,8 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                           onTap: focusCommentField,
                         ),
                         const SizedBox(width: 4),
-                        IconButton(
-                          icon: Icon(
-                            Icons.translate,
-                            color: _showTranslation
-                                ? const Color(0xFF00BFA5)
-                                : context.iconColor,
-                            size: 20,
-                          ),
-                          padding: const EdgeInsets.all(8),
-                          constraints: const BoxConstraints(),
-                          onPressed: () {
-                            setState(() => _showTranslation = !_showTranslation);
-                          },
-                        ),
+                        // Translate moved to a labeled chip directly under
+                        // the caption — easier to spot than a lone icon.
                         IconButton(
                           icon: Icon(
                             Icons.card_giftcard_outlined,
@@ -728,18 +760,8 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     child: SmallBannerAdWidget(),
                   ),
-                  if (_showTranslation)
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
-                      child: TranslatedMomentWidget(
-                        momentId: widget.moment.id,
-                        originalText: widget.moment.description,
-                        originalLanguage: widget.moment.language,
-                        existingTranslations: widget.moment.translations.isNotEmpty
-                            ? widget.moment.translations
-                            : null,
-                      ),
-                    ),
+                  // Translate UI moved up next to the description so the
+                  // affordance sits with the text it acts on.
                   if (likeCount > 0)
                     Padding(
                       padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),

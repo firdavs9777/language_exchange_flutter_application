@@ -14,6 +14,8 @@ import 'package:bananatalk_app/providers/provider_root/comments_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
 import 'package:bananatalk_app/widgets/report_dialog.dart';
+import 'package:bananatalk_app/widgets/language_selection/show_language_picker.dart';
+import 'package:bananatalk_app/widgets/moment_translate_chip.dart';
 import 'package:bananatalk_app/widgets/translated_moment_widget.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
@@ -41,6 +43,9 @@ class _MomentCardState extends ConsumerState<MomentCard> {
   bool isExpanded = false;
   bool _likePending = false;
   bool _showTranslation = false;
+  // Target language picked when the user opened the translate chip — feeds
+  // into TranslatedMomentWidget so it skips auto-detect.
+  String? _translationTargetCode;
   String _cachedUserId = '';
   final GlobalKey _likeButtonKey = GlobalKey();
 
@@ -239,6 +244,23 @@ class _MomentCardState extends ConsumerState<MomentCard> {
     final momentText = AppLocalizations.of(context)!.checkOutMoment;
     final momentUrl = 'https://banatalk.com/moment/$id';
     Share.share('$momentText\n\n$momentUrl');
+  }
+
+  // Picker-first translate flow — opens the full language picker, and only
+  // expands the translation panel once the user has chosen a target. Avoids
+  // the surprise of seeing "Translation unavailable" when the auto-detected
+  // target happened to match the original language.
+  Future<void> _handleTranslateChipTap() async {
+    final picked = await showLanguagePickerSheet(context);
+    if (picked == null || !mounted) return;
+    debugPrint('🌐 [moment-card] user picked '
+        'code=${picked.code} name=${picked.name} '
+        'momentId=${widget.moments.id} '
+        'momentLanguage=${widget.moments.language}');
+    setState(() {
+      _translationTargetCode = picked.code;
+      _showTranslation = true;
+    });
   }
 
   void _showMoreOptions(BuildContext context) async {
@@ -496,30 +518,20 @@ class _MomentCardState extends ConsumerState<MomentCard> {
             ),
 
             // ── Caption (skipped for gradient posts) ────────────────────────
+            // The original text always shows; the translation panel
+            // expands directly underneath when the user opts in via the
+            // inline "Translate" chip (more discoverable than the action
+            // row's translate icon was).
             if (!isGradient)
               Padding(
                 padding: const EdgeInsets.fromLTRB(12, 0, 12, 8),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    if (_showTranslation)
-                      TranslatedMomentWidget(
-                        momentId: widget.moments.id,
-                        originalText: displayText,
-                        originalLanguage: widget.moments.language,
-                        existingTranslations:
-                            widget.moments.translations.isNotEmpty
-                                ? widget.moments.translations
-                                : null,
-                        onTranslationAdded: () {
-                          widget.onRefresh?.call();
-                        },
-                      )
-                    else
-                      Text(
-                        displayText,
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      ),
+                    Text(
+                      displayText,
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
                     if (shouldShowMore)
                       GestureDetector(
                         onTap: () {
@@ -534,6 +546,34 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                             style: context.labelMedium
                                 .copyWith(color: context.textSecondary),
                           ),
+                        ),
+                      ),
+                    if (!_showTranslation)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8),
+                        child: MomentTranslateChip(
+                          onTap: _handleTranslateChipTap,
+                        ),
+                      )
+                    else
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8),
+                        child: TranslatedMomentWidget(
+                          momentId: widget.moments.id,
+                          originalText: displayText,
+                          originalLanguage: widget.moments.language,
+                          existingTranslations:
+                              widget.moments.translations.isNotEmpty
+                                  ? widget.moments.translations
+                                  : null,
+                          initialTargetCode: _translationTargetCode,
+                          onTranslationAdded: () {
+                            widget.onRefresh?.call();
+                          },
+                          onDismiss: () => setState(() {
+                            _showTranslation = false;
+                            _translationTargetCode = null;
+                          }),
                         ),
                       ),
                   ],
@@ -636,20 +676,9 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                     },
                   ),
                   const SizedBox(width: 4),
-                  IconButton(
-                    icon: Icon(
-                      Icons.translate,
-                      color: _showTranslation
-                          ? AppColors.primary
-                          : context.iconColor,
-                      size: 22,
-                    ),
-                    padding: const EdgeInsets.all(8),
-                    constraints: const BoxConstraints(),
-                    onPressed: () {
-                      setState(() => _showTranslation = !_showTranslation);
-                    },
-                  ),
+                  // Translate moved to a labeled chip directly under the
+                  // caption — easier to spot and more obviously tappable
+                  // than a lone icon in the action row.
                   IconButton(
                     icon: Icon(
                       Icons.card_giftcard_outlined,
@@ -822,3 +851,4 @@ class _MomentCardState extends ConsumerState<MomentCard> {
     );
   }
 }
+

@@ -1,15 +1,30 @@
-import 'package:bananatalk_app/providers/provider_models/message_model.dart';
-import 'package:bananatalk_app/services/translation_service.dart';
-import 'package:bananatalk_app/services/language_service.dart';
-import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
+import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/models/language_model.dart';
+import 'package:bananatalk_app/providers/provider_models/message_model.dart';
+import 'package:bananatalk_app/services/translation_service.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/widgets/language_selection/show_language_picker.dart';
+
+/// Soft-tinted translation panel that lives BELOW a moment's original text.
+/// Caller still renders the original — this widget renders only the panel
+/// (loading shimmer, translation body, language switcher, dismiss button).
+/// Auto-translates to the user's preferred / device language on mount; user
+/// can tap the language pill to open the full LanguagePickerScreen and
+/// switch targets at any time.
 class TranslatedMomentWidget extends StatefulWidget {
   final String momentId;
   final String originalText;
   final String? originalLanguage;
   final List<MessageTranslation>? existingTranslations;
   final VoidCallback? onTranslationAdded;
+  final VoidCallback? onDismiss;
+  // When non-null, skip the auto-detect path and translate to this code
+  // straight away. Used when the caller already showed the picker before
+  // expanding the panel.
+  final String? initialTargetCode;
 
   const TranslatedMomentWidget({
     Key? key,
@@ -18,97 +33,93 @@ class TranslatedMomentWidget extends StatefulWidget {
     this.originalLanguage,
     this.existingTranslations,
     this.onTranslationAdded,
+    this.onDismiss,
+    this.initialTargetCode,
   }) : super(key: key);
 
   @override
   State<TranslatedMomentWidget> createState() => _TranslatedMomentWidgetState();
 }
 
-class _TranslatedMomentWidgetState extends State<TranslatedMomentWidget> {
+class _TranslatedMomentWidgetState extends State<TranslatedMomentWidget>
+    with SingleTickerProviderStateMixin {
   MessageTranslation? _activeTranslation;
   bool _isLoading = false;
-  bool _showOriginal = true;
   String? _error;
+
+  // Language object cache used to render the header's flag + name with the
+  // backend's display strings (LanguagePickerScreen returns the full Language
+  // when picked; we hold it so getLanguageFlag/Name fall back gracefully).
+  Language? _activeLanguage;
+
+  late final AnimationController _fade;
 
   @override
   void initState() {
     super.initState();
-    _checkExistingTranslations();
-    _tryAutoTranslate();
+    _fade = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 220),
+    )..forward();
+    _bootstrap();
   }
 
-  void _checkExistingTranslations() async {
-    if (widget.existingTranslations?.isNotEmpty == true) {
-      final preferredLang = await TranslationService.getPreferredLanguage();
-      final targetLang = preferredLang ?? await TranslationService.getAutoTranslateLanguage();
-      
-      final existing = widget.existingTranslations!.firstWhere(
-        (t) => t.language == targetLang,
-        orElse: () => widget.existingTranslations!.first,
-      );
-      
-      if (mounted) {
-        setState(() {
-          _activeTranslation = existing;
-          _showOriginal = existing.language != targetLang;
-        });
-      }
-    }
+  @override
+  void dispose() {
+    _fade.dispose();
+    super.dispose();
   }
 
-  Future<void> _tryAutoTranslate() async {
-    // Check if auto-translate is enabled for moments
-    final shouldAuto = await TranslationService.shouldAutoTranslate('moments');
-    if (!shouldAuto) return;
+  // Pick the initial target language. If the caller already opened the
+  // picker and passed an `initialTargetCode`, use that. Otherwise fall
+  // back to the user's preferred / auto-detected language.
+  Future<void> _bootstrap() async {
+    final target = widget.initialTargetCode ??
+        await TranslationService.getPreferredLanguage() ??
+        await TranslationService.getAutoTranslateLanguage();
 
-    // Check if original language is different from device language
-    final deviceLang = LanguageService.getDeviceLanguage();
-    if (widget.originalLanguage != null && 
-        widget.originalLanguage!.toLowerCase() == deviceLang.toLowerCase()) {
-      return; // Same language, no need to translate
+    if (!mounted) return;
+
+    debugPrint('🌐 [moment-translate] bootstrap '
+        'momentId=${widget.momentId} '
+        'originalLanguage=${widget.originalLanguage} '
+        'initialTargetCode=${widget.initialTargetCode} '
+        'resolvedTarget=$target '
+        'existingTranslationCount=${widget.existingTranslations?.length ?? 0}');
+
+    // Use a cached translation when available — instant, no API call.
+    final cached = _findExistingFor(target);
+    if (cached != null) {
+      debugPrint('🌐 [moment-translate] using cached translation for '
+          'target=$target lang=${cached.language} '
+          'preview="${cached.translatedText.substring(0, cached.translatedText.length.clamp(0, 60))}"');
+      setState(() => _activeTranslation = cached);
+      return;
     }
 
-    // Check if translation already exists
-    if (widget.existingTranslations?.isNotEmpty == true) {
-      final existing = widget.existingTranslations!.firstWhere(
-        (t) => t.language == deviceLang,
-        orElse: () => MessageTranslation(
-          language: '',
-          translatedText: '',
-          translatedAt: '',
-        ),
-      );
-      
-      if (existing.language == deviceLang) {
-        if (mounted) {
-          setState(() {
-            _activeTranslation = existing;
-            _showOriginal = false;
-          });
-        }
-        return;
+    await _translateTo(target);
+  }
+
+  MessageTranslation? _findExistingFor(String code) {
+    final list = widget.existingTranslations;
+    if (list == null) return null;
+    for (final t in list) {
+      if (t.language.toLowerCase() == code.toLowerCase() &&
+          t.translatedText.trim().isNotEmpty) {
+        return t;
       }
     }
-
-    // Auto-translate to device language
-    await _translateTo(deviceLang);
+    return null;
   }
 
   Future<void> _translateTo(String languageCode) async {
-    // Check if already translated
-    final existing = widget.existingTranslations?.firstWhere(
-      (t) => t.language == languageCode,
-      orElse: () => MessageTranslation(
-        language: '',
-        translatedText: '',
-        translatedAt: '',
-      ),
-    );
-
-    if (existing?.language == languageCode) {
+    final cached = _findExistingFor(languageCode);
+    if (cached != null) {
+      debugPrint('🌐 [moment-translate] cache hit on _translateTo '
+          'requested=$languageCode returned=${cached.language}');
       setState(() {
-        _activeTranslation = existing;
-        _showOriginal = false;
+        _activeTranslation = cached;
+        _error = null;
       });
       return;
     }
@@ -118,228 +129,214 @@ class _TranslatedMomentWidgetState extends State<TranslatedMomentWidget> {
       _error = null;
     });
 
+    debugPrint('🌐 [moment-translate] POST /moments/${widget.momentId}/translate '
+        'targetLanguage=$languageCode');
+
     try {
       final result = await TranslationService.translateMoment(
         momentId: widget.momentId,
         targetLanguage: languageCode,
       );
-
-      if (mounted) {
-        if (result['success'] == true) {
-          setState(() {
-            _activeTranslation = result['data'] as MessageTranslation;
-            _showOriginal = false;
-            _isLoading = false;
-          });
-          widget.onTranslationAdded?.call();
-        } else {
-          setState(() {
-            // Show user-friendly error message instead of technical API errors
-            final l10n = AppLocalizations.of(context)!;
-            final errorMsg = result['error']?.toString() ?? l10n.translationUnavailable;
-            if (errorMsg.contains('API key') || errorMsg.contains('libretranslate')) {
-              _error = l10n.translationServiceBeingConfigured;
-            } else {
-              _error = l10n.translationUnavailable;
-            }
-            _isLoading = false;
-          });
-        }
-      }
-    } catch (e) {
-      if (mounted) {
-        final l10n = AppLocalizations.of(context)!;
+      if (!mounted) return;
+      if (result['success'] == true) {
+        final tr = result['data'] as MessageTranslation;
+        debugPrint('🌐 [moment-translate] response '
+            'requested=$languageCode '
+            'returnedLang=${tr.language} '
+            'cached=${result['cached']} '
+            'textPreview="${tr.translatedText.substring(0, tr.translatedText.length.clamp(0, 80))}"');
         setState(() {
-          _error = l10n.translationUnavailable;
+          _activeTranslation = tr;
+          _isLoading = false;
+        });
+        widget.onTranslationAdded?.call();
+      } else {
+        debugPrint('🌐 [moment-translate] error response '
+            'requested=$languageCode error=${result['error']}');
+        final l10n = AppLocalizations.of(context)!;
+        final errorMsg =
+            result['error']?.toString() ?? l10n.translationUnavailable;
+        setState(() {
+          _error = (errorMsg.contains('API key') ||
+                  errorMsg.contains('libretranslate'))
+              ? l10n.translationServiceBeingConfigured
+              : l10n.translationUnavailable;
           _isLoading = false;
         });
       }
+    } catch (_) {
+      if (!mounted) return;
+      setState(() {
+        _error = AppLocalizations.of(context)!.translationUnavailable;
+        _isLoading = false;
+      });
     }
   }
 
-  void _showLanguageSelector() {
-    showModalBottomSheet(
-      context: context,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-      ),
-      builder: (context) => _LanguageSelectorSheet(
-        onLanguageSelected: (code) {
-          Navigator.pop(context);
-          _translateTo(code);
-        },
-      ),
+  Future<void> _openLanguagePicker() async {
+    final picked = await showLanguagePickerSheet(
+      context,
+      currentCode: _activeTranslation?.language,
     );
-  }
-
-  void _toggleView() {
-    setState(() {
-      _showOriginal = !_showOriginal;
-    });
+    if (picked == null || !mounted) return;
+    setState(() => _activeLanguage = picked);
+    await TranslationService.setPreferredLanguage(picked.code);
+    await _translateTo(picked.code);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        // Main text
-        Text(
-          _showOriginal || _activeTranslation == null
-              ? widget.originalText
-              : _activeTranslation!.translatedText,
-          style: const TextStyle(fontSize: 16),
-        ),
+    final isDark = context.isDarkMode;
+    const accent = AppColors.primary;
 
-        // Translation controls
-        if (_isLoading)
-          Padding(
-            padding: const EdgeInsets.only(top: 8),
+    return FadeTransition(
+      opacity: _fade,
+      child: Container(
+        padding: const EdgeInsets.fromLTRB(12, 10, 8, 10),
+        decoration: BoxDecoration(
+          color: isDark
+              ? accent.withValues(alpha: 0.10)
+              : accent.withValues(alpha: 0.06),
+          borderRadius: BorderRadius.circular(12),
+          border: const Border(
+            left: BorderSide(color: accent, width: 3),
+          ),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            _buildHeader(context, isDark),
+            const SizedBox(height: 6),
+            _buildBody(context, isDark),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildHeader(BuildContext context, bool isDark) {
+    // AppColors.primary inlined here (rather than passed as a parameter) so
+    // the nested `const TextStyle(color: ...)` / `const Icon(color: ...)` /
+    // `const AlwaysStoppedAnimation(...)` calls below are valid const exprs.
+    const accent = AppColors.primary;
+    // Pick the best label + flag for the current target language. Prefer
+    // the Language object the picker handed us (richest data); fall back
+    // to TranslationService's 44-entry static maps.
+    final code = _activeTranslation?.language ?? _activeLanguage?.code;
+    String flag = '🌐';
+    String name = AppLocalizations.of(context)!.translate;
+    if (code != null) {
+      flag = _activeLanguage?.flag ?? TranslationService.getLanguageFlag(code);
+      name = _activeLanguage?.name ?? TranslationService.getLanguageName(code);
+    }
+
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Text(flag, style: const TextStyle(fontSize: 16)),
+        const SizedBox(width: 8),
+        // Language pill — tap to open the full picker.
+        GestureDetector(
+          onTap: _openLanguagePicker,
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+            decoration: BoxDecoration(
+              color: accent.withValues(alpha: isDark ? 0.20 : 0.14),
+              borderRadius: BorderRadius.circular(10),
+            ),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const SizedBox(
-                  width: 12,
-                  height: 12,
-                  child: CircularProgressIndicator(strokeWidth: 2),
-                ),
-                const SizedBox(width: 8),
                 Text(
-                  AppLocalizations.of(context)!.translating,
-                  style: TextStyle(fontSize: 12, color: Colors.grey[600]),
+                  name,
+                  style: const TextStyle(
+                    fontSize: 11,
+                    fontWeight: FontWeight.w700,
+                    color: accent,
+                  ),
+                ),
+                const SizedBox(width: 2),
+                const Icon(
+                  Icons.unfold_more_rounded,
+                  size: 12,
+                  color: accent,
                 ),
               ],
             ),
-          )
-        else if (_error != null)
-          Padding(
-            padding: const EdgeInsets.only(top: 8),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(Icons.info_outline, size: 14, color: Colors.grey[600]),
-                const SizedBox(width: 4),
-                Flexible(
-                  child: Text(
-                    _error!,
-                    style: TextStyle(fontSize: 12, color: Colors.grey[600]),
-                  ),
-                ),
-              ],
+          ),
+        ),
+        if (_isLoading) ...[
+          const SizedBox(width: 8),
+          const SizedBox(
+            width: 12,
+            height: 12,
+            child: CircularProgressIndicator(
+              strokeWidth: 1.5,
+              valueColor: AlwaysStoppedAnimation(accent),
             ),
-          )
-        else if (_activeTranslation != null)
-          Padding(
-            padding: const EdgeInsets.only(top: 8),
-            child: GestureDetector(
-              onTap: _toggleView,
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(Icons.translate, size: 14, color: Colors.grey[600]),
-                  const SizedBox(width: 4),
-                  Text(
-                    _showOriginal
-                        ? '${AppLocalizations.of(context)!.showTranslation} ${TranslationService.getLanguageName(_activeTranslation!.language)}'
-                        : AppLocalizations.of(context)!.showOriginal,
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.grey[600],
-                      decoration: TextDecoration.underline,
-                    ),
-                  ),
-                ],
+          ),
+        ],
+        const Spacer(),
+        if (widget.onDismiss != null)
+          GestureDetector(
+            onTap: widget.onDismiss,
+            child: Container(
+              padding: const EdgeInsets.all(4),
+              decoration: BoxDecoration(
+                color: isDark
+                    ? Colors.white.withValues(alpha: 0.08)
+                    : Colors.black.withValues(alpha: 0.05),
+                shape: BoxShape.circle,
               ),
-            ),
-          )
-        else
-          // Translate button
-          Padding(
-            padding: const EdgeInsets.only(top: 8),
-            child: GestureDetector(
-              onTap: _showLanguageSelector,
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(Icons.translate, size: 14, color: Colors.grey[600]),
-                  const SizedBox(width: 4),
-                  Text(
-                    AppLocalizations.of(context)!.translate,
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.grey[600],
-                      decoration: TextDecoration.underline,
-                    ),
-                  ),
-                ],
+              child: Icon(
+                Icons.close_rounded,
+                size: 14,
+                color: context.textSecondary,
               ),
             ),
           ),
       ],
     );
   }
-}
 
-class _LanguageSelectorSheet extends StatelessWidget {
-  final Function(String) onLanguageSelected;
-
-  const _LanguageSelectorSheet({
-    required this.onLanguageSelected,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final languages = TranslationService.supportedLanguages;
-
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 16),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
+  Widget _buildBody(BuildContext context, bool isDark) {
+    if (_isLoading && _activeTranslation == null) {
+      return Text(
+        AppLocalizations.of(context)!.translating,
+        style: TextStyle(
+          fontSize: 13,
+          fontStyle: FontStyle.italic,
+          color: context.textHint,
+        ),
+      );
+    }
+    if (_error != null && _activeTranslation == null) {
+      return Row(
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Row(
-              children: [
-                const Icon(Icons.translate),
-                const SizedBox(width: 8),
-                Text(
-                  '${AppLocalizations.of(context)!.translate} ${AppLocalizations.of(context)!.to}',
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const Spacer(),
-                IconButton(
-                  onPressed: () => Navigator.pop(context),
-                  icon: const Icon(Icons.close),
-                ),
-              ],
-            ),
-          ),
-          const Divider(),
-          SizedBox(
-            height: 300,
-            child: ListView.builder(
-              itemCount: languages.length,
-              itemBuilder: (context, index) {
-                final lang = languages[index];
-                return ListTile(
-                  leading: Text(
-                    lang['flag']!,
-                    style: const TextStyle(fontSize: 24),
-                  ),
-                  title: Text(lang['name']!),
-                  subtitle: Text(lang['code']!.toUpperCase()),
-                  onTap: () => onLanguageSelected(lang['code']!),
-                );
-              },
+          Icon(Icons.info_outline, size: 14, color: context.textHint),
+          const SizedBox(width: 6),
+          Flexible(
+            child: Text(
+              _error!,
+              style: TextStyle(fontSize: 12, color: context.textHint),
             ),
           ),
         ],
-      ),
-    );
+      );
+    }
+    if (_activeTranslation != null) {
+      return Text(
+        _activeTranslation!.translatedText,
+        style: TextStyle(
+          fontSize: 14,
+          height: 1.4,
+          fontStyle: FontStyle.italic,
+          color: isDark ? Colors.white : Colors.black87,
+        ),
+      );
+    }
+    // Nothing yet (transient race during _bootstrap)
+    return const SizedBox.shrink();
   }
 }
-
