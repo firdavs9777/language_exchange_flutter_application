@@ -11,6 +11,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:bananatalk_app/service/endpoints.dart';
+import 'package:bananatalk_app/utils/client_info.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:io';
 import 'package:http_parser/http_parser.dart';
@@ -954,9 +955,10 @@ class AuthService extends ChangeNotifier {
     final url = Uri.parse('${Endpoints.baseURL}${Endpoints.registerURL}');
 
     try {
+      final body = user.toJson()..['clientInfo'] = await ClientInfo.collect();
       final response = await http.post(
         url,
-        body: jsonEncode(user),
+        body: jsonEncode(body),
         headers: {'Content-Type': 'application/json'},
       );
 

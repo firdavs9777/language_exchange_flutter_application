@@ -16,6 +16,7 @@ import 'package:bananatalk_app/providers/provider_models//users_model.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/models/language_model.dart';
 import 'package:bananatalk_app/widgets/language_selection/language_picker_screen.dart';
+import 'package:bananatalk_app/utils/client_info.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -337,6 +338,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
               _learningLanguage?.name ?? widget.learningLanguage,
           'profileCompleted': true,
           'images': [],
+          'clientInfo': await ClientInfo.collect(),
           if (_nativeLevel != null)
             'languageLevel': _learningLevel ?? _nativeLevel,
           if (_city != null && _country != null)
