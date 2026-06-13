@@ -342,6 +342,11 @@ class TranslationService {
 
   /// Translate a single word or short phrase using the enhanced translation endpoint.
   /// Returns the translated string, or null on failure.
+  ///
+  /// The backend's POST /translate/enhanced (controllers/aiTranslation.js)
+  /// requires both source and target — when no source is passed we default
+  /// to 'auto' (same convention used by advancedMessages.translateMessage)
+  /// so the AI auto-detects.
   static Future<String?> translateWord({
     required String word,
     required String targetLanguage,
@@ -357,7 +362,7 @@ class TranslationService {
         body: jsonEncode({
           'text': word,
           'targetLanguage': targetLanguage,
-          if (sourceLanguage != null) 'sourceLanguage': sourceLanguage,
+          'sourceLanguage': sourceLanguage ?? 'auto',
           'includeBreakdown': false,
           'includeGrammar': false,
           'includeIdioms': false,
@@ -388,6 +393,24 @@ class TranslationService {
       if (lang['code'] == normalized) {
         return lang['code'];
       }
+    }
+    return null;
+  }
+
+  /// Resolve a language name (or code) to a BCP-47 code against
+  /// [supportedLanguages]. Strips a regional parenthetical suffix
+  /// ("Chinese (Simplified)" → "Chinese") so users who picked a regional
+  /// variant in the 127-language signup picker still resolve to a code
+  /// the translator supports. Returns null if no match.
+  static String? codeForLanguageName(String name) {
+    final cleaned = name.trim().toLowerCase();
+    if (cleaned.isEmpty) return null;
+    final base = cleaned.contains('(')
+        ? cleaned.split('(').first.trim()
+        : cleaned;
+    for (final candidate in {cleaned, base}) {
+      final code = _languageNameToCode(candidate);
+      if (code != null) return code;
     }
     return null;
   }

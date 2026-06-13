@@ -82,8 +82,14 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
   String? _currentUserId;
   final GlobalKey _bubbleKey = GlobalKey();
 
+  // Session-scoped cache for the inline-translate chip, keyed by messageId.
+  // Survives leaving and re-entering a chat (bubble widget state is rebuilt,
+  // but this static map persists for the process lifetime). Cleared on app
+  // restart — at which point the backend's per-message translation cache
+  // returns the same answer instantly on the next tap.
+  static final Map<String, String> _inlineTranslationCache = {};
+
   // Inline-translation state for the quick "Translate" chip — null = hidden.
-  // Set on demand; not persisted (deliberate — refreshing the chat clears it).
   String? _inlineTranslation;
   bool _inlineTranslating = false;
 
@@ -176,6 +182,16 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
     super.initState();
     _loadCurrentUserId();
     _initSwipeAnimation();
+    // Rehydrate the inline translation. Session cache first (fastest, also
+    // covers the case where the user just translated). If empty, fall through
+    // to the message's persisted translations[] — the backend saves every
+    // translation to Mongo (Message.translations) and ships them down on the
+    // conversation fetch, so a previously-translated message stays translated
+    // across app restarts with no extra round-trip.
+    _inlineTranslation = _inlineTranslationCache[widget.message.id];
+    if (_inlineTranslation == null && widget.message.translations.isNotEmpty) {
+      _rehydrateFromPersistedTranslations();
+    }
     // Mark animation as done after first frame so subsequent rebuilds
     // (e.g. when a new message arrives) don't replay the slide-in.
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -368,6 +384,101 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
     );
   }
 
+  // Look in widget.message.translations[] for an entry matching the user's
+  // current target language and, if found, surface it without a network call.
+  // Best-effort — silent on failure since the chip stays available for a tap.
+  Future<void> _rehydrateFromPersistedTranslations() async {
+    try {
+      final target = (await _resolveTranslationTarget()).toLowerCase();
+      if (!mounted) return;
+      for (final t in widget.message.translations) {
+        if (t.language.toLowerCase() == target &&
+            t.translatedText.trim().isNotEmpty) {
+          _inlineTranslationCache[widget.message.id] = t.translatedText;
+          setState(() => _inlineTranslation = t.translatedText);
+          return;
+        }
+      }
+    } catch (_) {}
+  }
+
+  // Single tap-target under partner text messages. Opens a small action
+  // sheet with Correct / Translate (or Hide translation) / Save phrase —
+  // keeps the bubble visually clean while preserving discoverability.
+  void _showQuickActionsSheet(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final isDark = context.isDarkMode;
+    final hasInlineTranslation = _inlineTranslation != null;
+
+    showModalBottomSheet<void>(
+      context: context,
+      backgroundColor: isDark
+          ? const Color(0xFF1E1E1E)
+          : Theme.of(context).colorScheme.surface,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(18)),
+      ),
+      builder: (sheetCtx) => SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 6),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 36,
+                height: 4,
+                margin: const EdgeInsets.only(bottom: 6),
+                decoration: BoxDecoration(
+                  color: isDark ? Colors.white24 : Colors.black26,
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
+              ListTile(
+                leading: const Icon(Icons.edit_outlined, color: Colors.orange),
+                title: Text(l10n.chatMessageCorrect),
+                onTap: () {
+                  Navigator.pop(sheetCtx);
+                  showCorrectionBottomSheet(
+                    context,
+                    messageId: widget.message.id,
+                    originalText: widget.message.message!,
+                    senderName: widget.otherUserName,
+                  );
+                },
+              ),
+              ListTile(
+                leading: Icon(
+                  hasInlineTranslation
+                      ? Icons.visibility_off_outlined
+                      : Icons.translate_rounded,
+                  color: AppColors.primary,
+                ),
+                title: Text(
+                  hasInlineTranslation
+                      ? 'Hide translation'
+                      : l10n.chatMessageTranslate,
+                ),
+                onTap: () {
+                  Navigator.pop(sheetCtx);
+                  _toggleInlineTranslation();
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.bookmark_add_outlined,
+                    color: Colors.purple),
+                title: Text(l10n.chatMessageSavePhrase),
+                onTap: () {
+                  Navigator.pop(sheetCtx);
+                  _saveMessageToVocab(context);
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   // Quick inline translate: tap once to fetch + show under the bubble, tap
   // again to hide. Resolves the target to the current user's native_language
   // (authoritative path: Riverpod userProvider fed by /auth/me) before falling
@@ -375,6 +486,9 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
   Future<void> _toggleInlineTranslation() async {
     if (_inlineTranslating) return;
     if (_inlineTranslation != null) {
+      // User explicitly hid the translation — drop it from the session cache
+      // too so the next chat-room re-entry starts collapsed.
+      _inlineTranslationCache.remove(widget.message.id);
       setState(() => _inlineTranslation = null);
       return;
     }
@@ -389,12 +503,21 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
         targetLanguage: target,
       );
       if (!mounted) return;
+      // Backend's POST /messages/:id/translate (advancedMessages.translateMessage)
+      // returns data.translatedText for both fresh and cached responses; the
+      // older /translate/enhanced endpoint uses data.translation. Read both so
+      // either source works.
       final translated = result['success'] == true
-          ? (result['data']?['translation'] as String?)?.trim()
+          ? ((result['data']?['translatedText'] ??
+                  result['data']?['translation']) as String?)
+              ?.trim()
           : null;
+      final hasTranslation = translated != null && translated.isNotEmpty;
+      if (hasTranslation) {
+        _inlineTranslationCache[widget.message.id] = translated;
+      }
       setState(() {
-        _inlineTranslation =
-            (translated != null && translated.isNotEmpty) ? translated : null;
+        _inlineTranslation = hasTranslation ? translated : null;
         _inlineTranslating = false;
       });
     } catch (_) {
@@ -1129,7 +1252,9 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
                       ),
                     ),
 
-                  // Visible "Correct" + "Translate" chips for partner text messages
+                  // Single sparkle trigger under partner text messages — opens
+                  // the quick-actions sheet (Correct / Translate / Save phrase).
+                  // Active translation is signalled by a tiny dot on the icon.
                   if (!widget.isMe &&
                       !widget.message.isDeleted &&
                       widget.message.type == 'text' &&
@@ -1137,92 +1262,54 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
                       widget.message.message!.isNotEmpty &&
                       !widget.isSelectionMode) ...[
                     Padding(
-                      padding: const EdgeInsets.only(top: 4, left: 52),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          // Correct chip
-                          GestureDetector(
-                            onTap: () => showCorrectionBottomSheet(
-                              context,
-                              messageId: widget.message.id,
-                              originalText: widget.message.message!,
-                              senderName: widget.otherUserName,
-                            ),
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 8, vertical: 3),
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                    color:
-                                        Colors.orange.withValues(alpha: 0.4)),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: const Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Icon(Icons.edit_outlined,
-                                      size: 12, color: Colors.orange),
-                                  SizedBox(width: 4),
-                                  Text(
-                                    'Correct',
-                                    style: TextStyle(
-                                        fontSize: 11, color: Colors.orange),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          const SizedBox(width: 6),
-                          // Translate chip — toggles inline translation panel below
-                          GestureDetector(
-                            onTap: _inlineTranslating
-                                ? null
-                                : _toggleInlineTranslation,
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 8, vertical: 3),
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                    color: AppColors.primary
-                                        .withValues(alpha: 0.4)),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  if (_inlineTranslating)
-                                    const SizedBox(
-                                      width: 10,
-                                      height: 10,
-                                      child: CircularProgressIndicator(
-                                        strokeWidth: 1.5,
-                                        valueColor: AlwaysStoppedAnimation(
-                                            AppColors.primary),
-                                      ),
-                                    )
-                                  else
-                                    Icon(
-                                      _inlineTranslation == null
-                                          ? Icons.translate_rounded
-                                          : Icons.visibility_off_outlined,
-                                      size: 12,
-                                      color: AppColors.primary,
+                      padding: const EdgeInsets.only(top: 2, left: 48),
+                      child: Material(
+                        color: Colors.transparent,
+                        child: InkWell(
+                          borderRadius: BorderRadius.circular(14),
+                          onTap: () => _showQuickActionsSheet(context),
+                          child: Padding(
+                            padding: const EdgeInsets.all(4),
+                            child: Stack(
+                              clipBehavior: Clip.none,
+                              children: [
+                                if (_inlineTranslating)
+                                  const SizedBox(
+                                    width: 14,
+                                    height: 14,
+                                    child: CircularProgressIndicator(
+                                      strokeWidth: 1.5,
+                                      valueColor: AlwaysStoppedAnimation(
+                                          AppColors.primary),
                                     ),
-                                  const SizedBox(width: 4),
-                                  Text(
-                                    _inlineTranslation == null
-                                        ? 'Translate'
-                                        : 'Hide',
-                                    style: const TextStyle(
-                                        fontSize: 11,
-                                        color: AppColors.primary),
+                                  )
+                                else
+                                  Icon(
+                                    Icons.auto_awesome_outlined,
+                                    size: 14,
+                                    color: AppColors.primary.withValues(
+                                        alpha: _inlineTranslation != null
+                                            ? 1.0
+                                            : 0.65),
                                   ),
-                                ],
-                              ),
+                                if (_inlineTranslation != null &&
+                                    !_inlineTranslating)
+                                  Positioned(
+                                    right: -1,
+                                    top: -1,
+                                    child: Container(
+                                      width: 6,
+                                      height: 6,
+                                      decoration: const BoxDecoration(
+                                        color: AppColors.primary,
+                                        shape: BoxShape.circle,
+                                      ),
+                                    ),
+                                  ),
+                              ],
                             ),
                           ),
-                        ],
+                        ),
                       ),
                     ),
                     // Inline translation panel — shown only after a successful fetch.

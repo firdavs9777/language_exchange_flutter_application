@@ -1209,6 +1209,34 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
 
   Future<void> _shareLocation() async {
     if (_isSharingLocation) return;
+
+    // Confirm before doing ANYTHING — location is privacy-sensitive and we
+    // don't want a single tap on the input toolbar to broadcast the user's
+    // GPS. This prompt fires for both the media-panel option and the new
+    // toolbar shortcut, so the guarantee holds everywhere.
+    if (!mounted) return;
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('Share your location?'),
+        content: Text(
+          'Send your current location to ${widget.userName.isNotEmpty ? widget.userName : "this chat"}. '
+          'Only do this with people you trust.',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, false),
+            child: const Text('Cancel'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.pop(ctx, true),
+            child: const Text('Share'),
+          ),
+        ],
+      ),
+    );
+    if (confirmed != true || !mounted) return;
+
     _isSharingLocation = true;
 
     BuildContext? dialogContext;

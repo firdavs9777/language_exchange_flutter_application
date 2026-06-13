@@ -92,6 +92,7 @@ class ChatInputSection extends ConsumerWidget {
           onTyping: onTyping,
           onStopTyping: onStopTyping,
           onHidePanels: onHidePanels,
+          onMediaOption: onMediaOption,
           replyingToMessage: replyingToMessage,
           otherUserName: otherUserName,
           onCancelReply: onCancelReply,
