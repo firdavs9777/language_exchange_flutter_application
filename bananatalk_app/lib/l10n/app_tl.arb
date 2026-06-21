@@ -454,7 +454,7 @@
   "daysAgo": "{count}d ang nakalipas",
   "maxTagsAllowed": "Maximum na 5 tags ang pinapayagan",
   "maxImagesAllowed": "Maximum na {count} larawan ang pinapayagan",
-  "exchange3MessagesBeforeCall": "Kailangan mong magpalitan ng hindi bababa sa 3 mensahe bago ka makatawag sa user na ito",
+  "exchange3MessagesBeforeCall": "Kailangan mong magpalitan ng hindi bababa sa 5 mensahe bago tumawag",
   "mediaWithUser": "Media kasama si {name}",
   "errorLoadingMedia": "Error sa paglo-load ng media",
   "savedMomentsTitle": "Mga Nai-save na Sandali",

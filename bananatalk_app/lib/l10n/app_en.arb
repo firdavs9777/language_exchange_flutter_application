@@ -868,7 +868,7 @@
     }
   },
   "pleaseRemoveImagesFirst": "Please remove images first to add a video",
-  "exchange3MessagesBeforeCall": "Exchange 3+ messages before calling",
+  "exchange3MessagesBeforeCall": "Exchange 5+ messages before calling",
   "mediaWithUser": "Media with {name}",
   "@mediaWithUser": {
     "placeholders": {

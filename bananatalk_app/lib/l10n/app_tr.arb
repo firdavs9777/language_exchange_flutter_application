@@ -634,7 +634,7 @@
     }
   },
   "pleaseRemoveImagesFirst": "Video eklemek için lütfen önce resimleri kaldırın",
-  "exchange3MessagesBeforeCall": "Bu kullanıcıyı aramadan önce en az 3 mesaj alışverişi yapmanız gerekiyor",
+  "exchange3MessagesBeforeCall": "Aramadan önce en az 5 mesaj alışverişinde bulunun",
   "mediaWithUser": "{name} ile medya",
   "@mediaWithUser": {
     "placeholders": {

@@ -1875,7 +1875,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get pleaseRemoveImagesFirst => 'कृपया पहले छवियां हटाएं';
 
   @override
-  String get exchange3MessagesBeforeCall => 'कॉल करने से पहले कम से कम 3 संदेशों का आदान-प्रदान करें';
+  String get exchange3MessagesBeforeCall => 'कॉल करने से पहले कम से कम 5 संदेशों का आदान-प्रदान करें';
 
   @override
   String mediaWithUser(String name) {

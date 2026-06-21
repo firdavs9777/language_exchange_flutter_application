@@ -2543,5 +2543,6 @@
   "chatPhrasesDeleteTitle": "ลบประโยคนี้?",
   "filterVipPromoTitle": "เจอคู่ที่ใช่ได้เร็วขึ้น",
   "filterVipPromoSubtitle": "ปลดล็อกการค้นหาแบบเร่งด่วน ตัวกรองขั้นสูง และแชทไร้โฆษณาด้วย VIP",
-  "filterVipPromoCta": "สมัคร VIP"
+  "filterVipPromoCta": "สมัคร VIP",
+  "exchange3MessagesBeforeCall": "แลกเปลี่ยนข้อความอย่างน้อย 5 ข้อความก่อนโทร"
 }

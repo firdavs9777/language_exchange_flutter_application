@@ -502,7 +502,7 @@
   "maxTagsAllowed": "최대 5개의 태그만 허용됩니다",
   "maxImagesAllowed": "최대 {count}개의 이미지만 허용됩니다",
   "pleaseRemoveImagesFirst": "비디오를 추가하려면 먼저 이미지를 제거하세요",
-  "exchange3MessagesBeforeCall": "이 사용자에게 전화하려면 최소 3개의 메시지를 교환해야 합니다",
+  "exchange3MessagesBeforeCall": "이 사용자에게 전화하려면 최소 5개의 메시지를 교환해야 합니다",
   "mediaWithUser": "{name}과의 미디어",
   "errorLoadingMedia": "미디어 로드 오류",
   "savedMomentsTitle": "저장된 모멘트",

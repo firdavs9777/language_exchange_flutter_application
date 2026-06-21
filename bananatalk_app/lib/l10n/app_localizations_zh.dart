@@ -1875,7 +1875,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get pleaseRemoveImagesFirst => '请先删除图片再添加视频';
 
   @override
-  String get exchange3MessagesBeforeCall => '您需要至少交换3条消息才能拨打电话';
+  String get exchange3MessagesBeforeCall => '通话前请先互发 5 条以上消息';
 
   @override
   String mediaWithUser(String name) {
@@ -8148,7 +8148,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get pleaseRemoveImagesFirst => '請先移除圖片以新增影片';
 
   @override
-  String get exchange3MessagesBeforeCall => '您需要先交換至少 3 條訊息才能撥打電話給此用戶';
+  String get exchange3MessagesBeforeCall => '通話前請先互傳至少 5 則訊息';
 
   @override
   String mediaWithUser(String name) {

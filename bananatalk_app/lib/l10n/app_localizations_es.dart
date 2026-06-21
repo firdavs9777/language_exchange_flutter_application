@@ -1875,7 +1875,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get pleaseRemoveImagesFirst => 'Por favor elimina las imágenes primero';
 
   @override
-  String get exchange3MessagesBeforeCall => 'Necesitas intercambiar al menos 3 mensajes antes de llamar';
+  String get exchange3MessagesBeforeCall => 'Necesitas intercambiar al menos 5 mensajes antes de llamar';
 
   @override
   String mediaWithUser(String name) {

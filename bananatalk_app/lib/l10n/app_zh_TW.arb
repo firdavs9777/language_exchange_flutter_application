@@ -488,7 +488,7 @@
   "maxTagsAllowed": "最多允許 5 個標籤",
   "maxImagesAllowed": "最多允許 {count} 張圖片",
   "pleaseRemoveImagesFirst": "請先移除圖片以新增影片",
-  "exchange3MessagesBeforeCall": "您需要先交換至少 3 條訊息才能撥打電話給此用戶",
+  "exchange3MessagesBeforeCall": "通話前請先互傳至少 5 則訊息",
   "mediaWithUser": "與{name}的媒體",
   "errorLoadingMedia": "載入媒體時發生錯誤",
   "savedMomentsTitle": "已儲存的動態",

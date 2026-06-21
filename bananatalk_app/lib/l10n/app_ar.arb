@@ -502,7 +502,7 @@
   "maxTagsAllowed": "5 وسوم كحد أقصى",
   "maxImagesAllowed": "{count} صورة كحد أقصى",
   "pleaseRemoveImagesFirst": "يرجى إزالة الصور أولاً",
-  "exchange3MessagesBeforeCall": "تحتاج إلى تبادل 3 رسائل على الأقل قبل الاتصال",
+  "exchange3MessagesBeforeCall": "تبادل 5 رسائل على الأقل قبل إجراء المكالمة",
   "mediaWithUser": "الوسائط مع {name}",
   "errorLoadingMedia": "خطأ في تحميل الوسائط",
   "savedMomentsTitle": "اللحظات المحفوظة",

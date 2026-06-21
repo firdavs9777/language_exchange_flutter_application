@@ -487,7 +487,7 @@
   "maxTagsAllowed": "タグは最大5個まで",
   "maxImagesAllowed": "画像は最大{count}枚まで",
   "pleaseRemoveImagesFirst": "動画を追加するには先に画像を削除してください",
-  "exchange3MessagesBeforeCall": "通話するには最低3つのメッセージを交換する必要があります",
+  "exchange3MessagesBeforeCall": "電話をかけるには、まず5件以上のメッセージを交換してください",
   "mediaWithUser": "{name}とのメディア",
   "errorLoadingMedia": "メディアの読み込みエラー",
   "savedMomentsTitle": "保存したモーメント",

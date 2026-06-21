@@ -10,6 +10,7 @@ import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/user_limits_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/block_provider.dart';
+import 'package:bananatalk_app/providers/message_count_provider.dart';
 import 'package:bananatalk_app/providers/call_provider.dart';
 import 'package:bananatalk_app/models/call_model.dart';
 import 'package:bananatalk_app/screens/active_call_screen.dart';
@@ -59,6 +60,16 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
     _initializeUserState();
+    // Populate the message-count cache so the call-button gate has
+    // accurate data before the user opens the chat. Best-effort: the
+    // provider swallows network errors and the buttons stay disabled
+    // (fail-safe) if the fetch never completes.
+    Future.microtask(() {
+      if (!mounted) return;
+      ref
+          .read(messageCountProvider.notifier)
+          .refreshMessageCount(widget.community.id);
+    });
   }
 
   @override

@@ -634,7 +634,7 @@
     }
   },
   "pleaseRemoveImagesFirst": "Rimuovi prima le immagini per aggiungere un video",
-  "exchange3MessagesBeforeCall": "Devi scambiare almeno 3 messaggi prima di poter chiamare questo utente",
+  "exchange3MessagesBeforeCall": "Devi scambiare almeno 5 messaggi prima di chiamare",
   "mediaWithUser": "Media con {name}",
   "@mediaWithUser": {
     "placeholders": {

@@ -1875,7 +1875,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get pleaseRemoveImagesFirst => 'Video eklemek için lütfen önce resimleri kaldırın';
 
   @override
-  String get exchange3MessagesBeforeCall => 'Bu kullanıcıyı aramadan önce en az 3 mesaj alışverişi yapmanız gerekiyor';
+  String get exchange3MessagesBeforeCall => 'Aramadan önce en az 5 mesaj alışverişinde bulunun';
 
   @override
   String mediaWithUser(String name) {

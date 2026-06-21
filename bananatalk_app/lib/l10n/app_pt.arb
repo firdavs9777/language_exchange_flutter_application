@@ -488,7 +488,7 @@
   "maxTagsAllowed": "Máximo 5 tags permitidas",
   "maxImagesAllowed": "Máximo {count} imagens permitidas",
   "pleaseRemoveImagesFirst": "Por favor remova as imagens primeiro",
-  "exchange3MessagesBeforeCall": "Você precisa trocar pelo menos 3 mensagens antes de ligar",
+  "exchange3MessagesBeforeCall": "Você precisa trocar pelo menos 5 mensagens antes de ligar",
   "mediaWithUser": "Mídia com {name}",
   "errorLoadingMedia": "Erro ao carregar mídia",
   "savedMomentsTitle": "Momentos salvos",

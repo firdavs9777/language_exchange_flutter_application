@@ -502,7 +502,7 @@
   "maxTagsAllowed": "Максимум 5 тегов",
   "maxImagesAllowed": "Максимум {count} изображений",
   "pleaseRemoveImagesFirst": "Сначала удалите изображения",
-  "exchange3MessagesBeforeCall": "Для звонка нужно обменяться минимум 3 сообщениями",
+  "exchange3MessagesBeforeCall": "Прежде чем звонить, обменяйтесь хотя бы 5 сообщениями",
   "mediaWithUser": "Медиа с {name}",
   "errorLoadingMedia": "Ошибка загрузки медиа",
   "savedMomentsTitle": "Сохранённые моменты",

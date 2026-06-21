@@ -2543,5 +2543,6 @@
   "chatPhrasesDeleteTitle": "Hapus frasa ini?",
   "filterVipPromoTitle": "Temukan pasangan sempurnamu lebih cepat",
   "filterVipPromoSubtitle": "Buka penjelajahan prioritas, filter lanjutan, dan chat tanpa iklan dengan VIP.",
-  "filterVipPromoCta": "Jadi VIP"
+  "filterVipPromoCta": "Jadi VIP",
+  "exchange3MessagesBeforeCall": "Tukar setidaknya 5 pesan dulu sebelum menelepon"
 }

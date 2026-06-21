@@ -1875,7 +1875,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get pleaseRemoveImagesFirst => 'Please remove images first to add a video';
 
   @override
-  String get exchange3MessagesBeforeCall => 'Kailangan mong magpalitan ng hindi bababa sa 3 mensahe bago ka makatawag sa user na ito';
+  String get exchange3MessagesBeforeCall => 'Kailangan mong magpalitan ng hindi bababa sa 5 mensahe bago tumawag';
 
   @override
   String mediaWithUser(String name) {

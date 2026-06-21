@@ -1875,7 +1875,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get pleaseRemoveImagesFirst => '動画を追加するには先に画像を削除してください';
 
   @override
-  String get exchange3MessagesBeforeCall => '通話するには最低3つのメッセージを交換する必要があります';
+  String get exchange3MessagesBeforeCall => '電話をかけるには、まず5件以上のメッセージを交換してください';
 
   @override
   String mediaWithUser(String name) {

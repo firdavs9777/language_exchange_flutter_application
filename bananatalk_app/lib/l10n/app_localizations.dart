@@ -3707,7 +3707,7 @@ abstract class AppLocalizations {
   /// No description provided for @exchange3MessagesBeforeCall.
   ///
   /// In en, this message translates to:
-  /// **'Exchange 3+ messages before calling'**
+  /// **'Exchange 5+ messages before calling'**
   String get exchange3MessagesBeforeCall;
 
   /// No description provided for @mediaWithUser.

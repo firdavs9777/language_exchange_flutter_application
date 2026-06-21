@@ -634,7 +634,7 @@
     }
   },
   "pleaseRemoveImagesFirst": "Bitte entfernen Sie zuerst Bilder, um ein Video hinzuzufügen",
-  "exchange3MessagesBeforeCall": "Sie müssen mindestens 3 Nachrichten austauschen, bevor Sie diesen Benutzer anrufen können",
+  "exchange3MessagesBeforeCall": "Sie müssen mindestens 5 Nachrichten austauschen, bevor Sie anrufen können",
   "mediaWithUser": "Medien mit {name}",
   "@mediaWithUser": {
     "placeholders": {

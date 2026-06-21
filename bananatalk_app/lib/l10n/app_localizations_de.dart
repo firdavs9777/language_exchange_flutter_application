@@ -1875,7 +1875,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get pleaseRemoveImagesFirst => 'Bitte entfernen Sie zuerst Bilder, um ein Video hinzuzufügen';
 
   @override
-  String get exchange3MessagesBeforeCall => 'Sie müssen mindestens 3 Nachrichten austauschen, bevor Sie diesen Benutzer anrufen können';
+  String get exchange3MessagesBeforeCall => 'Sie müssen mindestens 5 Nachrichten austauschen, bevor Sie anrufen können';
 
   @override
   String mediaWithUser(String name) {

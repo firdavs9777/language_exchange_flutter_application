@@ -634,7 +634,7 @@
     }
   },
   "pleaseRemoveImagesFirst": "Veuillez d'abord supprimer les images pour ajouter une vidéo",
-  "exchange3MessagesBeforeCall": "Vous devez échanger au moins 3 messages avant de pouvoir appeler cet utilisateur",
+  "exchange3MessagesBeforeCall": "Vous devez échanger au moins 5 messages avant d'appeler",
   "mediaWithUser": "Médias avec {name}",
   "@mediaWithUser": {
     "placeholders": {

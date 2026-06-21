@@ -596,7 +596,7 @@
   "maxTagsAllowed": "Ҳадди ниҳоӣ 5 барчасп иҷозат дода мешавад",
   "maxImagesAllowed": "Ҳадди ниҳоӣ {count} тасвир иҷозат дода мешавад",
   "pleaseRemoveImagesFirst": "Лутфан аввал тасвирҳоро тоза кунед, то видео илова кунед",
-  "exchange3MessagesBeforeCall": "Пеш аз занг 3+ паём мубодила кунед",
+  "exchange3MessagesBeforeCall": "Пеш аз занг задан ҳадди ақал 5 паём бо ҳамдигар табодул кунед",
   "mediaWithUser": "Медиа бо {name}",
   "errorLoadingMedia": "Хато ҳангоми боргирии медиа",
   "savedMomentsTitle": "Лаҳзаҳои захирашуда",

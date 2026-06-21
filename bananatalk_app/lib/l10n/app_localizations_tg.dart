@@ -1875,7 +1875,7 @@ class AppLocalizationsTg extends AppLocalizations {
   String get pleaseRemoveImagesFirst => 'Лутфан аввал тасвирҳоро тоза кунед, то видео илова кунед';
 
   @override
-  String get exchange3MessagesBeforeCall => 'Пеш аз занг 3+ паём мубодила кунед';
+  String get exchange3MessagesBeforeCall => 'Пеш аз занг задан ҳадди ақал 5 паём бо ҳамдигар табодул кунед';
 
   @override
   String mediaWithUser(String name) {

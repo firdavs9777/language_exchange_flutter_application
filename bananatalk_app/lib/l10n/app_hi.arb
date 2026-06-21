@@ -488,7 +488,7 @@
   "maxTagsAllowed": "अधिकतम 5 टैग की अनुमति है",
   "maxImagesAllowed": "अधिकतम {count} छवियों की अनुमति है",
   "pleaseRemoveImagesFirst": "कृपया पहले छवियां हटाएं",
-  "exchange3MessagesBeforeCall": "कॉल करने से पहले कम से कम 3 संदेशों का आदान-प्रदान करें",
+  "exchange3MessagesBeforeCall": "कॉल करने से पहले कम से कम 5 संदेशों का आदान-प्रदान करें",
   "mediaWithUser": "{name} के साथ मीडिया",
   "errorLoadingMedia": "मीडिया लोड करने में त्रुटि",
   "savedMomentsTitle": "सहेजे गए पल",

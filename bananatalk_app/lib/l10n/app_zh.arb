@@ -501,7 +501,7 @@
   "maxTagsAllowed": "最多允许5个标签",
   "maxImagesAllowed": "最多允许{count}张图片",
   "pleaseRemoveImagesFirst": "请先删除图片再添加视频",
-  "exchange3MessagesBeforeCall": "您需要至少交换3条消息才能拨打电话",
+  "exchange3MessagesBeforeCall": "通话前请先互发 5 条以上消息",
   "mediaWithUser": "与{name}的媒体",
   "errorLoadingMedia": "加载媒体出错",
   "savedMomentsTitle": "已保存的动态",

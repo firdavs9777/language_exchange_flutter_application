@@ -3,8 +3,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/providers/provider_root/message_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+/// Minimum messages exchanged (in either direction, between the same pair
+/// of users) before a call button becomes active. Bumped from 3 → 5 as a
+/// soft anti-abuse gate — a few extra messages discourages cold-call
+/// spamming without meaningfully slowing down genuine first conversations.
+const int kMessagesRequiredBeforeCall = 5;
+
 /// Provider that tracks message counts per conversation
-/// Used to determine if users can initiate calls (requires 3+ messages)
+/// Used to determine if users can initiate calls (requires 5+ messages)
 class MessageCountNotifier extends StateNotifier<Map<String, int>> {
   MessageCountNotifier(this._ref) : super({});
 
@@ -64,10 +70,10 @@ class MessageCountNotifier extends StateNotifier<Map<String, int>> {
     }
   }
 
-  /// Check if user can call another user (requires 3+ messages)
+  /// Check if user can call another user (requires [kMessagesRequiredBeforeCall]+ messages)
   Future<bool> canCall(String otherUserId) async {
     final count = await getMessageCount(otherUserId);
-    return count >= 3;
+    return count >= kMessagesRequiredBeforeCall;
   }
 
   /// Get cache key for a conversation
@@ -116,7 +122,8 @@ final canCallProvider = Provider.family<bool, String>((ref, otherUserId) {
   final counts = ref.watch(messageCountProvider);
   // Check all keys that might match this user pair
   for (final entry in counts.entries) {
-    if (entry.key.contains(otherUserId) && entry.value >= 3) {
+    if (entry.key.contains(otherUserId) &&
+        entry.value >= kMessagesRequiredBeforeCall) {
       return true;
     }
   }

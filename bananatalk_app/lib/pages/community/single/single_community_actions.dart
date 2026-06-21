@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
+import 'package:bananatalk_app/providers/message_count_provider.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/pages/community/widgets/community_snackbar.dart';
@@ -60,6 +61,22 @@ class SingleCommunityActions extends ConsumerWidget {
     final currentUserId = ref.read(authServiceProvider).userId;
     final isOwnProfile =
         currentUserId.isNotEmpty && currentUserId == community.id;
+    // Anti-spam gate: only allow calls once both sides have exchanged
+    // [kMessagesRequiredBeforeCall] messages. Reactive on the cached count
+    // populated by the chat screen + the prefetch in single_community_screen.
+    final canCall = ref.watch(canCallProvider(community.id));
+
+    void guardedCall(VoidCallback action) {
+      if (canCall) {
+        action();
+        return;
+      }
+      showCommunitySnackBar(
+        context,
+        message: l10n.exchange3MessagesBeforeCall,
+        type: CommunitySnackBarType.info,
+      );
+    }
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -80,14 +97,16 @@ class SingleCommunityActions extends ConsumerWidget {
                 Icons.videocam_rounded,
                 l10n.videoCall,
                 Colors.blue[600]!,
-                onVideoCall,
+                () => guardedCall(onVideoCall),
+                enabled: canCall,
               ),
               _buildCompactActionButton(
                 context,
                 Icons.call_rounded,
                 l10n.voiceCall,
                 Colors.green[600]!,
-                onVoiceCall,
+                () => guardedCall(onVoiceCall),
+                enabled: canCall,
               ),
               _buildCompactActionButton(
                 context,
@@ -184,8 +203,13 @@ class SingleCommunityActions extends ConsumerWidget {
     IconData icon,
     String label,
     Color color,
-    VoidCallback onTap,
-  ) {
+    VoidCallback onTap, {
+    bool enabled = true,
+  }) {
+    // When disabled the button still receives taps so [onTap] can show the
+    // explanatory snackbar — only the visuals dim. This matches the pattern
+    // used by the disabled call buttons in the chat header.
+    final effectiveColor = enabled ? color : Colors.grey[400]!;
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(8),
@@ -197,17 +221,17 @@ class SingleCommunityActions extends ConsumerWidget {
             Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: color.withValues(alpha: 0.1),
+                color: effectiveColor.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: Icon(icon, color: color, size: 20),
+              child: Icon(icon, color: effectiveColor, size: 20),
             ),
             const SizedBox(height: 4),
             Text(
               label,
               style: TextStyle(
                 fontSize: 11,
-                color: color,
+                color: effectiveColor,
                 fontWeight: FontWeight.w500,
               ),
             ),

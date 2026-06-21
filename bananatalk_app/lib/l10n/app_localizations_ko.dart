@@ -1875,7 +1875,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get pleaseRemoveImagesFirst => '비디오를 추가하려면 먼저 이미지를 제거하세요';
 
   @override
-  String get exchange3MessagesBeforeCall => '이 사용자에게 전화하려면 최소 3개의 메시지를 교환해야 합니다';
+  String get exchange3MessagesBeforeCall => '이 사용자에게 전화하려면 최소 5개의 메시지를 교환해야 합니다';
 
   @override
   String mediaWithUser(String name) {

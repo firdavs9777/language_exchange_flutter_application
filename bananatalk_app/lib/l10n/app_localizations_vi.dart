@@ -1875,7 +1875,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get pleaseRemoveImagesFirst => 'Please remove images first to add a video';
 
   @override
-  String get exchange3MessagesBeforeCall => 'Exchange 3+ messages before calling';
+  String get exchange3MessagesBeforeCall => 'Hãy trao đổi ít nhất 5 tin nhắn trước khi gọi';
 
   @override
   String mediaWithUser(String name) {

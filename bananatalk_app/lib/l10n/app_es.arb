@@ -502,7 +502,7 @@
   "maxTagsAllowed": "Máximo 5 etiquetas permitidas",
   "maxImagesAllowed": "Máximo {count} imágenes permitidas",
   "pleaseRemoveImagesFirst": "Por favor elimina las imágenes primero",
-  "exchange3MessagesBeforeCall": "Necesitas intercambiar al menos 3 mensajes antes de llamar",
+  "exchange3MessagesBeforeCall": "Necesitas intercambiar al menos 5 mensajes antes de llamar",
   "mediaWithUser": "Media con {name}",
   "errorLoadingMedia": "Error al cargar media",
   "savedMomentsTitle": "Momentos guardados",
