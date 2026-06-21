@@ -1357,7 +1357,7 @@
   "nameLabel": "Name",
   "yourDisplayName": "Your display name",
   "atLeast8Characters": "At least 8 characters",
-  "confirmPasswordHint": "Confirm password",
+  "confirmPasswordHint": "Re-enter the new password",
   "nextButton": "Next",
   "pleaseEnterYourName": "Please enter your name",
   "pleaseEnterAPassword": "Please enter a password",
@@ -3523,17 +3523,29 @@
   "supportSheetDonateButton": "Donate via PayPal",
   "supportSheetWatchAd": "Watch an ad to support",
   "occupation": "Occupation",
-  "@occupation": { "description": "Field label for the user's job / occupation" },
+  "@occupation": {
+    "description": "Field label for the user's job / occupation"
+  },
   "school": "School",
-  "@school": { "description": "Field label for the user's school / education" },
+  "@school": {
+    "description": "Field label for the user's school / education"
+  },
   "occupationSearchHint": "Search occupations",
-  "@occupationSearchHint": { "description": "Hint inside the occupation picker search bar (filter-only — free-text input lives on the dedicated Custom tab)" },
+  "@occupationSearchHint": {
+    "description": "Hint inside the occupation picker search bar (filter-only — free-text input lives on the dedicated Custom tab)"
+  },
   "occupationSelectedLabel": "Selected",
-  "@occupationSelectedLabel": { "description": "Label above the currently picked occupation when it's a predefined option" },
+  "@occupationSelectedLabel": {
+    "description": "Label above the currently picked occupation when it's a predefined option"
+  },
   "occupationCustomLabel": "Custom selection",
-  "@occupationCustomLabel": { "description": "Label above the currently picked occupation when the user typed their own" },
+  "@occupationCustomLabel": {
+    "description": "Label above the currently picked occupation when the user typed their own"
+  },
   "occupationNoMatches": "No matches in the list",
-  "@occupationNoMatches": { "description": "Empty state when search returns no predefined occupations; pairs with a button that jumps to the Custom tab" },
+  "@occupationNoMatches": {
+    "description": "Empty state when search returns no predefined occupations; pairs with a button that jumps to the Custom tab"
+  },
   "occupationCatTech": "Technology & Software",
   "occupationCatHealthcare": "Healthcare & Medicine",
   "occupationCatEducation": "Education & Academia",
@@ -3556,83 +3568,273 @@
   "occupationCatStudent": "Student",
   "occupationCatOther": "Other",
   "schoolHint": "e.g. Seoul National University, Lincoln High",
-  "@schoolHint": { "description": "Placeholder text inside the school text field showing example school names" },
-
+  "@schoolHint": {
+    "description": "Placeholder text inside the school text field showing example school names"
+  },
   "birthdate": "Birthdate",
-  "@birthdate": { "description": "Field label / screen title for the user's date of birth" },
+  "@birthdate": {
+    "description": "Field label / screen title for the user's date of birth"
+  },
   "birthdateSelectHelp": "Select your birthdate",
-  "@birthdateSelectHelp": { "description": "Help text shown at the top of the native date picker on the birthdate edit screen" },
+  "@birthdateSelectHelp": {
+    "description": "Help text shown at the top of the native date picker on the birthdate edit screen"
+  },
   "birthdateSelectPlaceholder": "Select a date",
-  "@birthdateSelectPlaceholder": { "description": "Placeholder shown inside the tappable date field when the user hasn't picked a birthdate yet" },
+  "@birthdateSelectPlaceholder": {
+    "description": "Placeholder shown inside the tappable date field when the user hasn't picked a birthdate yet"
+  },
   "birthdateMinAgeError": "You must be at least {age} years old.",
   "@birthdateMinAgeError": {
     "description": "Inline error when the picked birthdate would make the user younger than the COPPA floor",
-    "placeholders": { "age": { "type": "int", "example": "13" } }
+    "placeholders": {
+      "age": {
+        "type": "int",
+        "example": "13"
+      }
+    }
   },
   "birthdateQuotaRemaining": "{remaining} of {max} birthdate changes remaining in the next 60 days.",
   "@birthdateQuotaRemaining": {
     "description": "Banner under the picker showing how many edits the user has left in the trailing 60-day window",
     "placeholders": {
-      "remaining": { "type": "int", "example": "2" },
-      "max": { "type": "int", "example": "3" }
+      "remaining": {
+        "type": "int",
+        "example": "2"
+      },
+      "max": {
+        "type": "int",
+        "example": "3"
+      }
     }
   },
   "birthdateQuotaLocked": "You've used all {max} birthdate changes for this 60-day window.",
   "@birthdateQuotaLocked": {
     "description": "Banner under the picker when the user has hit the quota and cannot change birthdate further",
-    "placeholders": { "max": { "type": "int", "example": "3" } }
+    "placeholders": {
+      "max": {
+        "type": "int",
+        "example": "3"
+      }
+    }
   },
   "birthdateNextChangeOn": "Next change available on {date}.",
   "@birthdateNextChangeOn": {
     "description": "Suffix appended to the locked-quota banner telling the user when the earliest change will roll off",
-    "placeholders": { "date": { "type": "String", "example": "Aug 7, 2026" } }
+    "placeholders": {
+      "date": {
+        "type": "String",
+        "example": "Aug 7, 2026"
+      }
+    }
   },
   "birthdateRateLimited": "Birthdate can only be changed 3 times in 60 days.",
-  "@birthdateRateLimited": { "description": "Snackbar error when the server returned 429 on a birthdate update" },
+  "@birthdateRateLimited": {
+    "description": "Snackbar error when the server returned 429 on a birthdate update"
+  },
   "birthdateRateLimitedUntil": "Birthdate can only be changed 3 times in 60 days. Try again on {date}.",
   "@birthdateRateLimitedUntil": {
     "description": "Snackbar error when the server returned 429 on a birthdate update and supplied the next-available date",
-    "placeholders": { "date": { "type": "String", "example": "Aug 7, 2026" } }
+    "placeholders": {
+      "date": {
+        "type": "String",
+        "example": "Aug 7, 2026"
+      }
+    }
   },
-
   "changePassword": "Change password",
-  "@changePassword": { "description": "Title of the change-password screen and the Settings tile that opens it" },
+  "@changePassword": {
+    "description": "Title of the change-password screen and the Settings tile that opens it"
+  },
   "currentPassword": "Current password",
-  "@currentPassword": { "description": "Section label for the current-password field on the change-password screen" },
+  "@currentPassword": {
+    "description": "Section label for the current-password field on the change-password screen"
+  },
   "newPasswordLabel": "New password",
-  "@newPasswordLabel": { "description": "Section label for the new-password field on the change-password screen (lowercase variant; existing newPassword key uses title case for a different context)" },
+  "@newPasswordLabel": {
+    "description": "Section label for the new-password field on the change-password screen (lowercase variant; existing newPassword key uses title case for a different context)"
+  },
   "confirmNewPassword": "Confirm new password",
-  "@confirmNewPassword": { "description": "Section label for the confirm-new-password field" },
+  "@confirmNewPassword": {
+    "description": "Section label for the confirm-new-password field"
+  },
   "currentPasswordHint": "Enter your current password",
-  "@currentPasswordHint": { "description": "Placeholder for the current-password field" },
+  "@currentPasswordHint": {
+    "description": "Placeholder for the current-password field"
+  },
   "newPasswordHint": "At least 8 chars, A-Z, a-z, 0-9",
-  "@newPasswordHint": { "description": "Placeholder summarising the strong-password rules in the new-password field" },
-  "confirmPasswordHint": "Re-enter the new password",
-  "@confirmPasswordHint": { "description": "Placeholder for the confirm-new-password field" },
+  "@newPasswordHint": {
+    "description": "Placeholder summarising the strong-password rules in the new-password field"
+  },
+  "@confirmPasswordHint": {
+    "description": "Placeholder for the confirm-new-password field"
+  },
   "passwordsDontMatch": "Passwords don't match.",
-  "@passwordsDontMatch": { "description": "Inline error shown when new and confirm passwords differ" },
+  "@passwordsDontMatch": {
+    "description": "Inline error shown when new and confirm passwords differ"
+  },
   "newPasswordSameAsCurrent": "New password must be different from current.",
-  "@newPasswordSameAsCurrent": { "description": "Inline error shown when the new password equals the current one" },
+  "@newPasswordSameAsCurrent": {
+    "description": "Inline error shown when the new password equals the current one"
+  },
   "passwordChangedSuccess": "Password changed successfully",
-  "@passwordChangedSuccess": { "description": "Success snackbar shown after the change-password API returns 200" },
+  "@passwordChangedSuccess": {
+    "description": "Success snackbar shown after the change-password API returns 200"
+  },
   "passwordRule8Chars": "At least 8 characters",
-  "@passwordRule8Chars": { "description": "Strong-password requirement: minimum length" },
+  "@passwordRule8Chars": {
+    "description": "Strong-password requirement: minimum length"
+  },
   "passwordRuleLowercase": "One lowercase letter",
-  "@passwordRuleLowercase": { "description": "Strong-password requirement: at least one lowercase letter" },
+  "@passwordRuleLowercase": {
+    "description": "Strong-password requirement: at least one lowercase letter"
+  },
   "passwordRuleUppercase": "One uppercase letter",
-  "@passwordRuleUppercase": { "description": "Strong-password requirement: at least one uppercase letter" },
+  "@passwordRuleUppercase": {
+    "description": "Strong-password requirement: at least one uppercase letter"
+  },
   "passwordRuleNumber": "One number",
-  "@passwordRuleNumber": { "description": "Strong-password requirement: at least one digit" },
+  "@passwordRuleNumber": {
+    "description": "Strong-password requirement: at least one digit"
+  },
   "settingsAccountSection": "Account",
-  "@settingsAccountSection": { "description": "Section header on Settings grouping account-management actions (e.g., Change password)" },
+  "@settingsAccountSection": {
+    "description": "Section header on Settings grouping account-management actions (e.g., Change password)"
+  },
   "changePasswordTileSubtitle": "Update your account password",
-  "@changePasswordTileSubtitle": { "description": "Subtitle on the Settings tile that opens the change-password screen" },
+  "@changePasswordTileSubtitle": {
+    "description": "Subtitle on the Settings tile that opens the change-password screen"
+  },
   "occupationCustomTab": "Custom",
-  "@occupationCustomTab": { "description": "Label of the dedicated tab in the occupation picker that lets the user type their own job title when it isn't in the predefined list" },
+  "@occupationCustomTab": {
+    "description": "Label of the dedicated tab in the occupation picker that lets the user type their own job title when it isn't in the predefined list"
+  },
   "occupationCustomTabHint": "Can't find your profession? Type it here.",
-  "@occupationCustomTabHint": { "description": "Header copy on the Custom tab explaining the purpose of the free-text input" },
+  "@occupationCustomTabHint": {
+    "description": "Header copy on the Custom tab explaining the purpose of the free-text input"
+  },
   "occupationCustomInputHint": "e.g. Marine Biologist, Voice Actor",
-  "@occupationCustomInputHint": { "description": "Placeholder inside the text field on the Custom tab" },
+  "@occupationCustomInputHint": {
+    "description": "Placeholder inside the text field on the Custom tab"
+  },
   "occupationCustomSaveCTA": "Use this as my occupation",
-  "@occupationCustomSaveCTA": { "description": "Button on the Custom tab that commits the typed value as the user's occupation" }
+  "@occupationCustomSaveCTA": {
+    "description": "Button on the Custom tab that commits the typed value as the user's occupation"
+  },
+  "vipSelectPlan": "Select Plan",
+  "vipBenefits": "Benefits",
+  "vipBestValue": "BEST VALUE",
+  "vipPlanMonth": "1 Month",
+  "vipPlanThreeMonths": "3 Months",
+  "vipPlanTwelveMonths": "12 Months",
+  "vipOneTime": "One-time",
+  "vipNonVip": "Non-VIP",
+  "vipBenefitDailyTranslations": "Daily translations",
+  "vipBenefitTranslationsLimit": "5 / day",
+  "vipBenefitUnlimited": "Unlimited",
+  "vipBenefitAdvancedFilters": "Advanced filters",
+  "vipBenefitAdFree": "Ad-free experience",
+  "vipBenefitVipBadge": "VIP badge on profile",
+  "vipBenefitPrioritySupport": "Priority support",
+  "vipBrandTitle": "BananaTalk VIP",
+  "vipTagline": "Your passport to global connections — authentic chats, lasting friends.",
+  "vipDisclosure": "Auto-renews unless canceled 24h before period end. Payment charged to your iTunes or Google Play account.",
+  "vipLoginRequired": "Please log in to continue",
+  "chatListMenu": "Menu",
+  "chatListNewMessageAlertsTitle": "New Message Alerts",
+  "chatListNewMessageAlertsBody": "Tap to turn on notifications and never miss a message",
+  "chatListFilterMyTurn": "My turn",
+  "partnerTagActiveNow": "Active now",
+  "partnerTagVeryResponsive": "Very Responsive",
+  "partnerTagQuickToReply": "Quick to Reply",
+  "vipSavePercent": "Save {pct}%",
+  "@vipSavePercent": {
+    "placeholders": {
+      "pct": {
+        "type": "int"
+      }
+    }
+  },
+  "vipPerMonth": "{price} / mo",
+  "@vipPerMonth": {
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "partnerTagBothLike": "Both like {topic}",
+  "@partnerTagBothLike": {
+    "placeholders": {
+      "topic": {
+        "type": "String"
+      }
+    }
+  },
+  "partnerTagSpeaks": "Speaks {language}",
+  "@partnerTagSpeaks": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "partnerTagLearning": "Learning {language}",
+  "@partnerTagLearning": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "partnerTagJoinedDaysAgo": "Joined {days}d ago",
+  "@partnerTagJoinedDaysAgo": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "vipPaymentPlanSummary": "Plan Summary",
+  "vipPaymentSelectMethod": "Select Payment Method",
+  "vipPaymentPurchaseAppStore": "Purchase via App Store",
+  "vipPaymentPurchaseGooglePlay": "Purchase via Google Play",
+  "vipPaymentSecureAppStore": "Your purchase will be processed securely through the App Store.",
+  "vipPaymentSecureGooglePlay": "Your purchase will be processed securely through Google Play.",
+  "vipPaymentSubscriptionInfo": "Subscription Information",
+  "vipPaymentInfoLabelTitle": "Title",
+  "vipPaymentInfoLabelLength": "Length",
+  "vipPaymentInfoLabelPrice": "Price",
+  "vipPaymentDisclosure": "By completing this purchase, you agree to our Terms of Use and Privacy Policy. Your subscription will automatically renew unless cancelled at least 24 hours before the end of the current period.",
+  "vipSuccessTitle": "Welcome to VIP!",
+  "vipSuccessBody": "Your VIP subscription is now active. Enjoy all premium features!",
+  "vipPendingTitle": "Almost there",
+  "vipPendingBody": "Your subscription is processing — please try refreshing in a minute.",
+  "vipErrorPaymentTitle": "Payment Error",
+  "vipErrorPurchaseTitle": "Purchase Error",
+  "vipErrorVerifyTitle": "Purchase Verification Failed",
+  "vipErrorPaymentFailed": "Payment Failed",
+  "vipErrorBodyPrefix": "An error occurred while processing your payment:",
+  "vipErrorPurchaseCanceled": "Purchase was canceled or failed. Please try again.",
+  "vipErrorVerifyServer": "Could not verify purchase with server. Please contact support.",
+  "vipPlanLengthOneMonth": "1 month",
+  "vipPlanLengthThreeMonths": "3 months",
+  "vipPlanLengthOneYear": "1 year",
+  "vipPaymentPayPrice": "Pay {price}",
+  "@vipPaymentPayPrice": {
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "vipExpired": "VIP Expired",
+  "vipMember": "VIP Member",
+  "chatPhrasesMostUsed": "Most Used",
+  "chatPhrasesTopics": "Topics",
+  "chatPhrasesAddPhrase": "Add a phrase",
+  "chatPhrasesChange": "Change",
+  "chatPhrasesAddTitle": "Add a phrase",
+  "chatPhrasesAddHint": "Type a phrase you use often",
+  "chatPhrasesEmptyMostUsed": "No saved phrases yet. Tap + to add one.",
+  "chatPhrasesDeleteTitle": "Delete this phrase?"
 }

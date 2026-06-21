@@ -6359,6 +6359,224 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get occupationCustomSaveCTA => '将其用作我的职业';
+
+  @override
+  String get vipSelectPlan => '选择套餐';
+
+  @override
+  String get vipBenefits => '特权';
+
+  @override
+  String get vipBestValue => '超值之选';
+
+  @override
+  String get vipPlanMonth => '1个月';
+
+  @override
+  String get vipPlanThreeMonths => '3个月';
+
+  @override
+  String get vipPlanTwelveMonths => '12个月';
+
+  @override
+  String get vipOneTime => '一次性';
+
+  @override
+  String get vipNonVip => '非VIP';
+
+  @override
+  String get vipBenefitDailyTranslations => '每日翻译次数';
+
+  @override
+  String get vipBenefitTranslationsLimit => '每天5次';
+
+  @override
+  String get vipBenefitUnlimited => '无限制';
+
+  @override
+  String get vipBenefitAdvancedFilters => '高级筛选';
+
+  @override
+  String get vipBenefitAdFree => '无广告体验';
+
+  @override
+  String get vipBenefitVipBadge => '个人主页VIP徽章';
+
+  @override
+  String get vipBenefitPrioritySupport => '优先客服';
+
+  @override
+  String get vipBrandTitle => 'BananaTalk VIP';
+
+  @override
+  String get vipTagline => '通往全球连接的护照 —— 真实的对话，长久的友谊。';
+
+  @override
+  String get vipDisclosure => '如未在订阅期结束前24小时取消，订阅将自动续费。费用将记入您的 iTunes 或 Google Play 账户。';
+
+  @override
+  String get vipLoginRequired => '请登录后继续';
+
+  @override
+  String get chatListMenu => 'Menu';
+
+  @override
+  String get chatListNewMessageAlertsTitle => 'New Message Alerts';
+
+  @override
+  String get chatListNewMessageAlertsBody => 'Tap to turn on notifications and never miss a message';
+
+  @override
+  String get chatListFilterMyTurn => 'My turn';
+
+  @override
+  String get partnerTagActiveNow => 'Active now';
+
+  @override
+  String get partnerTagVeryResponsive => 'Very Responsive';
+
+  @override
+  String get partnerTagQuickToReply => 'Quick to Reply';
+
+  @override
+  String vipSavePercent(int pct) {
+    return '省$pct%';
+  }
+
+  @override
+  String vipPerMonth(String price) {
+    return '$price/月';
+  }
+
+  @override
+  String partnerTagBothLike(String topic) {
+    return 'Both like $topic';
+  }
+
+  @override
+  String partnerTagSpeaks(String language) {
+    return 'Speaks $language';
+  }
+
+  @override
+  String partnerTagLearning(String language) {
+    return 'Learning $language';
+  }
+
+  @override
+  String partnerTagJoinedDaysAgo(int days) {
+    return 'Joined ${days}d ago';
+  }
+
+  @override
+  String get vipPaymentPlanSummary => '套餐概览';
+
+  @override
+  String get vipPaymentSelectMethod => '选择支付方式';
+
+  @override
+  String get vipPaymentPurchaseAppStore => '通过 App Store 购买';
+
+  @override
+  String get vipPaymentPurchaseGooglePlay => '通过 Google Play 购买';
+
+  @override
+  String get vipPaymentSecureAppStore => '您的购买将通过 App Store 安全处理。';
+
+  @override
+  String get vipPaymentSecureGooglePlay => '您的购买将通过 Google Play 安全处理。';
+
+  @override
+  String get vipPaymentSubscriptionInfo => '订阅信息';
+
+  @override
+  String get vipPaymentInfoLabelTitle => '标题';
+
+  @override
+  String get vipPaymentInfoLabelLength => '时长';
+
+  @override
+  String get vipPaymentInfoLabelPrice => '价格';
+
+  @override
+  String get vipPaymentDisclosure => '完成购买即表示您同意我们的使用条款和隐私政策。如未在当前订阅期结束前至少24小时取消，订阅将自动续费。';
+
+  @override
+  String get vipSuccessTitle => '欢迎成为VIP！';
+
+  @override
+  String get vipSuccessBody => '您的VIP订阅已生效，尽享所有高级功能！';
+
+  @override
+  String get vipPendingTitle => '马上就好';
+
+  @override
+  String get vipPendingBody => '您的订阅正在处理中 —— 请稍后刷新重试。';
+
+  @override
+  String get vipErrorPaymentTitle => '支付错误';
+
+  @override
+  String get vipErrorPurchaseTitle => '购买错误';
+
+  @override
+  String get vipErrorVerifyTitle => '购买验证失败';
+
+  @override
+  String get vipErrorPaymentFailed => '支付失败';
+
+  @override
+  String get vipErrorBodyPrefix => '处理您的支付时出现错误：';
+
+  @override
+  String get vipErrorPurchaseCanceled => '购买已取消或失败，请重试。';
+
+  @override
+  String get vipErrorVerifyServer => '无法在服务器上验证您的购买。请联系客服。';
+
+  @override
+  String get vipPlanLengthOneMonth => '1个月';
+
+  @override
+  String get vipPlanLengthThreeMonths => '3个月';
+
+  @override
+  String get vipPlanLengthOneYear => '1年';
+
+  @override
+  String vipPaymentPayPrice(String price) {
+    return '支付 $price';
+  }
+
+  @override
+  String get vipExpired => 'VIP已过期';
+
+  @override
+  String get vipMember => 'VIP会员';
+
+  @override
+  String get chatPhrasesMostUsed => '常用';
+
+  @override
+  String get chatPhrasesTopics => '话题';
+
+  @override
+  String get chatPhrasesAddPhrase => '添加短语';
+
+  @override
+  String get chatPhrasesChange => '换一批';
+
+  @override
+  String get chatPhrasesAddTitle => '添加短语';
+
+  @override
+  String get chatPhrasesAddHint => '输入你常用的短语';
+
+  @override
+  String get chatPhrasesEmptyMostUsed => '还没有保存的短语。点击 + 添加一条。';
+
+  @override
+  String get chatPhrasesDeleteTitle => '删除这条短语？';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -11603,4 +11821,222 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get occupationCustomSaveCTA => '將此用作我的職業';
+
+  @override
+  String get vipSelectPlan => '選擇方案';
+
+  @override
+  String get vipBenefits => '權益';
+
+  @override
+  String get vipBestValue => '最超值';
+
+  @override
+  String get vipPlanMonth => '1個月';
+
+  @override
+  String get vipPlanThreeMonths => '3個月';
+
+  @override
+  String get vipPlanTwelveMonths => '12個月';
+
+  @override
+  String get vipOneTime => '一次性';
+
+  @override
+  String get vipNonVip => '非VIP';
+
+  @override
+  String get vipBenefitDailyTranslations => '每日翻譯次數';
+
+  @override
+  String get vipBenefitTranslationsLimit => '每天5次';
+
+  @override
+  String get vipBenefitUnlimited => '無限制';
+
+  @override
+  String get vipBenefitAdvancedFilters => '進階篩選';
+
+  @override
+  String get vipBenefitAdFree => '無廣告體驗';
+
+  @override
+  String get vipBenefitVipBadge => '個人檔案VIP徽章';
+
+  @override
+  String get vipBenefitPrioritySupport => '優先客服';
+
+  @override
+  String get vipBrandTitle => 'BananaTalk VIP';
+
+  @override
+  String get vipTagline => '通往全球連結的護照 —— 真實的對話、長久的友誼。';
+
+  @override
+  String get vipDisclosure => '若未在訂閱期結束前24小時取消，訂閱將自動續訂。費用將記入您的 iTunes 或 Google Play 帳戶。';
+
+  @override
+  String get vipLoginRequired => '請登入後繼續';
+
+  @override
+  String get chatListMenu => 'Menu';
+
+  @override
+  String get chatListNewMessageAlertsTitle => 'New Message Alerts';
+
+  @override
+  String get chatListNewMessageAlertsBody => 'Tap to turn on notifications and never miss a message';
+
+  @override
+  String get chatListFilterMyTurn => 'My turn';
+
+  @override
+  String get partnerTagActiveNow => 'Active now';
+
+  @override
+  String get partnerTagVeryResponsive => 'Very Responsive';
+
+  @override
+  String get partnerTagQuickToReply => 'Quick to Reply';
+
+  @override
+  String vipSavePercent(int pct) {
+    return '省$pct%';
+  }
+
+  @override
+  String vipPerMonth(String price) {
+    return '$price/月';
+  }
+
+  @override
+  String partnerTagBothLike(String topic) {
+    return 'Both like $topic';
+  }
+
+  @override
+  String partnerTagSpeaks(String language) {
+    return 'Speaks $language';
+  }
+
+  @override
+  String partnerTagLearning(String language) {
+    return 'Learning $language';
+  }
+
+  @override
+  String partnerTagJoinedDaysAgo(int days) {
+    return 'Joined ${days}d ago';
+  }
+
+  @override
+  String get vipPaymentPlanSummary => '方案摘要';
+
+  @override
+  String get vipPaymentSelectMethod => '選擇付款方式';
+
+  @override
+  String get vipPaymentPurchaseAppStore => '透過 App Store 購買';
+
+  @override
+  String get vipPaymentPurchaseGooglePlay => '透過 Google Play 購買';
+
+  @override
+  String get vipPaymentSecureAppStore => '您的購買將透過 App Store 安全處理。';
+
+  @override
+  String get vipPaymentSecureGooglePlay => '您的購買將透過 Google Play 安全處理。';
+
+  @override
+  String get vipPaymentSubscriptionInfo => '訂閱資訊';
+
+  @override
+  String get vipPaymentInfoLabelTitle => '標題';
+
+  @override
+  String get vipPaymentInfoLabelLength => '期間';
+
+  @override
+  String get vipPaymentInfoLabelPrice => '價格';
+
+  @override
+  String get vipPaymentDisclosure => '完成購買即表示您同意我們的使用條款與隱私政策。若未在目前訂閱期結束前至少24小時取消，訂閱將自動續訂。';
+
+  @override
+  String get vipSuccessTitle => '歡迎成為VIP！';
+
+  @override
+  String get vipSuccessBody => '您的VIP訂閱已生效，盡享所有進階功能！';
+
+  @override
+  String get vipPendingTitle => '馬上就好';
+
+  @override
+  String get vipPendingBody => '您的訂閱正在處理中 —— 請稍候片刻再重新整理。';
+
+  @override
+  String get vipErrorPaymentTitle => '付款錯誤';
+
+  @override
+  String get vipErrorPurchaseTitle => '購買錯誤';
+
+  @override
+  String get vipErrorVerifyTitle => '購買驗證失敗';
+
+  @override
+  String get vipErrorPaymentFailed => '付款失敗';
+
+  @override
+  String get vipErrorBodyPrefix => '處理您的付款時發生錯誤：';
+
+  @override
+  String get vipErrorPurchaseCanceled => '購買已取消或失敗，請再試一次。';
+
+  @override
+  String get vipErrorVerifyServer => '無法在伺服器上驗證您的購買。請聯絡客服。';
+
+  @override
+  String get vipPlanLengthOneMonth => '1個月';
+
+  @override
+  String get vipPlanLengthThreeMonths => '3個月';
+
+  @override
+  String get vipPlanLengthOneYear => '1年';
+
+  @override
+  String vipPaymentPayPrice(String price) {
+    return '支付 $price';
+  }
+
+  @override
+  String get vipExpired => 'VIP已過期';
+
+  @override
+  String get vipMember => 'VIP會員';
+
+  @override
+  String get chatPhrasesMostUsed => '常用';
+
+  @override
+  String get chatPhrasesTopics => '話題';
+
+  @override
+  String get chatPhrasesAddPhrase => '新增短語';
+
+  @override
+  String get chatPhrasesChange => '換一批';
+
+  @override
+  String get chatPhrasesAddTitle => '新增短語';
+
+  @override
+  String get chatPhrasesAddHint => '輸入你常用的短語';
+
+  @override
+  String get chatPhrasesEmptyMostUsed => '尚未儲存任何短語。點一下 + 新增一則。';
+
+  @override
+  String get chatPhrasesDeleteTitle => '刪除這則短語？';
 }

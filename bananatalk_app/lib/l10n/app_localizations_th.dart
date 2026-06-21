@@ -6359,4 +6359,222 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get occupationCustomSaveCTA => 'ใช้สิ่งนี้เป็นอาชีพของฉัน';
+
+  @override
+  String get vipSelectPlan => 'เลือกแพ็กเกจ';
+
+  @override
+  String get vipBenefits => 'สิทธิประโยชน์';
+
+  @override
+  String get vipBestValue => 'คุ้มที่สุด';
+
+  @override
+  String get vipPlanMonth => '1 เดือน';
+
+  @override
+  String get vipPlanThreeMonths => '3 เดือน';
+
+  @override
+  String get vipPlanTwelveMonths => '12 เดือน';
+
+  @override
+  String get vipOneTime => 'ชำระครั้งเดียว';
+
+  @override
+  String get vipNonVip => 'ไม่ใช่ VIP';
+
+  @override
+  String get vipBenefitDailyTranslations => 'การแปลรายวัน';
+
+  @override
+  String get vipBenefitTranslationsLimit => '5 / วัน';
+
+  @override
+  String get vipBenefitUnlimited => 'ไม่จำกัด';
+
+  @override
+  String get vipBenefitAdvancedFilters => 'ตัวกรองขั้นสูง';
+
+  @override
+  String get vipBenefitAdFree => 'ไม่มีโฆษณา';
+
+  @override
+  String get vipBenefitVipBadge => 'เครื่องหมาย VIP บนโปรไฟล์';
+
+  @override
+  String get vipBenefitPrioritySupport => 'ฝ่ายสนับสนุนแบบเร่งด่วน';
+
+  @override
+  String get vipBrandTitle => 'BananaTalk VIP';
+
+  @override
+  String get vipTagline => 'พาสปอร์ตของคุณสู่การเชื่อมต่อทั่วโลก — บทสนทนาจริงใจ มิตรภาพยาวนาน';
+
+  @override
+  String get vipDisclosure => 'ต่ออายุอัตโนมัติ เว้นแต่จะยกเลิกก่อนสิ้นสุดรอบบิล 24 ชม. ระบบจะหักเงินจากบัญชี iTunes หรือ Google Play ของคุณ';
+
+  @override
+  String get vipLoginRequired => 'กรุณาเข้าสู่ระบบเพื่อดำเนินการต่อ';
+
+  @override
+  String get chatListMenu => 'Menu';
+
+  @override
+  String get chatListNewMessageAlertsTitle => 'New Message Alerts';
+
+  @override
+  String get chatListNewMessageAlertsBody => 'Tap to turn on notifications and never miss a message';
+
+  @override
+  String get chatListFilterMyTurn => 'My turn';
+
+  @override
+  String get partnerTagActiveNow => 'Active now';
+
+  @override
+  String get partnerTagVeryResponsive => 'Very Responsive';
+
+  @override
+  String get partnerTagQuickToReply => 'Quick to Reply';
+
+  @override
+  String vipSavePercent(int pct) {
+    return 'ประหยัด $pct%';
+  }
+
+  @override
+  String vipPerMonth(String price) {
+    return '$price / เดือน';
+  }
+
+  @override
+  String partnerTagBothLike(String topic) {
+    return 'Both like $topic';
+  }
+
+  @override
+  String partnerTagSpeaks(String language) {
+    return 'Speaks $language';
+  }
+
+  @override
+  String partnerTagLearning(String language) {
+    return 'Learning $language';
+  }
+
+  @override
+  String partnerTagJoinedDaysAgo(int days) {
+    return 'Joined ${days}d ago';
+  }
+
+  @override
+  String get vipPaymentPlanSummary => 'สรุปแพ็กเกจ';
+
+  @override
+  String get vipPaymentSelectMethod => 'เลือกวิธีชำระเงิน';
+
+  @override
+  String get vipPaymentPurchaseAppStore => 'ซื้อผ่าน App Store';
+
+  @override
+  String get vipPaymentPurchaseGooglePlay => 'ซื้อผ่าน Google Play';
+
+  @override
+  String get vipPaymentSecureAppStore => 'การซื้อของคุณจะดำเนินการอย่างปลอดภัยผ่าน App Store';
+
+  @override
+  String get vipPaymentSecureGooglePlay => 'การซื้อของคุณจะดำเนินการอย่างปลอดภัยผ่าน Google Play';
+
+  @override
+  String get vipPaymentSubscriptionInfo => 'ข้อมูลการสมัครสมาชิก';
+
+  @override
+  String get vipPaymentInfoLabelTitle => 'ชื่อ';
+
+  @override
+  String get vipPaymentInfoLabelLength => 'ระยะเวลา';
+
+  @override
+  String get vipPaymentInfoLabelPrice => 'ราคา';
+
+  @override
+  String get vipPaymentDisclosure => 'เมื่อทำการซื้อสำเร็จ ถือว่าคุณยอมรับข้อกำหนดการใช้งานและนโยบายความเป็นส่วนตัวของเรา การสมัครสมาชิกจะต่ออายุอัตโนมัติ เว้นแต่จะยกเลิกอย่างน้อย 24 ชั่วโมงก่อนสิ้นสุดรอบปัจจุบัน';
+
+  @override
+  String get vipSuccessTitle => 'ยินดีต้อนรับสู่ VIP!';
+
+  @override
+  String get vipSuccessBody => 'การสมัครสมาชิก VIP ของคุณเริ่มใช้งานแล้ว เพลิดเพลินกับฟีเจอร์พรีเมียมทั้งหมด!';
+
+  @override
+  String get vipPendingTitle => 'ใกล้เสร็จแล้ว';
+
+  @override
+  String get vipPendingBody => 'การสมัครสมาชิกของคุณกำลังดำเนินการ — โปรดลองรีเฟรชอีกครั้งในอีกสักครู่';
+
+  @override
+  String get vipErrorPaymentTitle => 'ข้อผิดพลาดในการชำระเงิน';
+
+  @override
+  String get vipErrorPurchaseTitle => 'ข้อผิดพลาดในการซื้อ';
+
+  @override
+  String get vipErrorVerifyTitle => 'ยืนยันการซื้อไม่สำเร็จ';
+
+  @override
+  String get vipErrorPaymentFailed => 'ชำระเงินไม่สำเร็จ';
+
+  @override
+  String get vipErrorBodyPrefix => 'เกิดข้อผิดพลาดขณะดำเนินการชำระเงิน:';
+
+  @override
+  String get vipErrorPurchaseCanceled => 'การซื้อถูกยกเลิกหรือไม่สำเร็จ โปรดลองอีกครั้ง';
+
+  @override
+  String get vipErrorVerifyServer => 'ไม่สามารถยืนยันการซื้อกับเซิร์ฟเวอร์ได้ โปรดติดต่อฝ่ายสนับสนุน';
+
+  @override
+  String get vipPlanLengthOneMonth => '1 เดือน';
+
+  @override
+  String get vipPlanLengthThreeMonths => '3 เดือน';
+
+  @override
+  String get vipPlanLengthOneYear => '1 ปี';
+
+  @override
+  String vipPaymentPayPrice(String price) {
+    return 'ชำระ $price';
+  }
+
+  @override
+  String get vipExpired => 'VIP หมดอายุ';
+
+  @override
+  String get vipMember => 'สมาชิก VIP';
+
+  @override
+  String get chatPhrasesMostUsed => 'ใช้บ่อย';
+
+  @override
+  String get chatPhrasesTopics => 'หัวข้อ';
+
+  @override
+  String get chatPhrasesAddPhrase => 'เพิ่มประโยค';
+
+  @override
+  String get chatPhrasesChange => 'เปลี่ยน';
+
+  @override
+  String get chatPhrasesAddTitle => 'เพิ่มประโยค';
+
+  @override
+  String get chatPhrasesAddHint => 'พิมพ์ประโยคที่คุณใช้บ่อย';
+
+  @override
+  String get chatPhrasesEmptyMostUsed => 'ยังไม่มีประโยคที่บันทึกไว้ แตะ + เพื่อเพิ่ม';
+
+  @override
+  String get chatPhrasesDeleteTitle => 'ลบประโยคนี้?';
 }

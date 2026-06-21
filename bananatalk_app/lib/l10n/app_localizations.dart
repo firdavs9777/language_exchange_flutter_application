@@ -11893,6 +11893,414 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Use this as my occupation'**
   String get occupationCustomSaveCTA;
+
+  /// No description provided for @vipSelectPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Plan'**
+  String get vipSelectPlan;
+
+  /// No description provided for @vipBenefits.
+  ///
+  /// In en, this message translates to:
+  /// **'Benefits'**
+  String get vipBenefits;
+
+  /// No description provided for @vipBestValue.
+  ///
+  /// In en, this message translates to:
+  /// **'BEST VALUE'**
+  String get vipBestValue;
+
+  /// No description provided for @vipPlanMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'1 Month'**
+  String get vipPlanMonth;
+
+  /// No description provided for @vipPlanThreeMonths.
+  ///
+  /// In en, this message translates to:
+  /// **'3 Months'**
+  String get vipPlanThreeMonths;
+
+  /// No description provided for @vipPlanTwelveMonths.
+  ///
+  /// In en, this message translates to:
+  /// **'12 Months'**
+  String get vipPlanTwelveMonths;
+
+  /// No description provided for @vipOneTime.
+  ///
+  /// In en, this message translates to:
+  /// **'One-time'**
+  String get vipOneTime;
+
+  /// No description provided for @vipNonVip.
+  ///
+  /// In en, this message translates to:
+  /// **'Non-VIP'**
+  String get vipNonVip;
+
+  /// No description provided for @vipBenefitDailyTranslations.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily translations'**
+  String get vipBenefitDailyTranslations;
+
+  /// No description provided for @vipBenefitTranslationsLimit.
+  ///
+  /// In en, this message translates to:
+  /// **'5 / day'**
+  String get vipBenefitTranslationsLimit;
+
+  /// No description provided for @vipBenefitUnlimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlimited'**
+  String get vipBenefitUnlimited;
+
+  /// No description provided for @vipBenefitAdvancedFilters.
+  ///
+  /// In en, this message translates to:
+  /// **'Advanced filters'**
+  String get vipBenefitAdvancedFilters;
+
+  /// No description provided for @vipBenefitAdFree.
+  ///
+  /// In en, this message translates to:
+  /// **'Ad-free experience'**
+  String get vipBenefitAdFree;
+
+  /// No description provided for @vipBenefitVipBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'VIP badge on profile'**
+  String get vipBenefitVipBadge;
+
+  /// No description provided for @vipBenefitPrioritySupport.
+  ///
+  /// In en, this message translates to:
+  /// **'Priority support'**
+  String get vipBenefitPrioritySupport;
+
+  /// No description provided for @vipBrandTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'BananaTalk VIP'**
+  String get vipBrandTitle;
+
+  /// No description provided for @vipTagline.
+  ///
+  /// In en, this message translates to:
+  /// **'Your passport to global connections — authentic chats, lasting friends.'**
+  String get vipTagline;
+
+  /// No description provided for @vipDisclosure.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto-renews unless canceled 24h before period end. Payment charged to your iTunes or Google Play account.'**
+  String get vipDisclosure;
+
+  /// No description provided for @vipLoginRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Please log in to continue'**
+  String get vipLoginRequired;
+
+  /// No description provided for @chatListMenu.
+  ///
+  /// In en, this message translates to:
+  /// **'Menu'**
+  String get chatListMenu;
+
+  /// No description provided for @chatListNewMessageAlertsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'New Message Alerts'**
+  String get chatListNewMessageAlertsTitle;
+
+  /// No description provided for @chatListNewMessageAlertsBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to turn on notifications and never miss a message'**
+  String get chatListNewMessageAlertsBody;
+
+  /// No description provided for @chatListFilterMyTurn.
+  ///
+  /// In en, this message translates to:
+  /// **'My turn'**
+  String get chatListFilterMyTurn;
+
+  /// No description provided for @partnerTagActiveNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Active now'**
+  String get partnerTagActiveNow;
+
+  /// No description provided for @partnerTagVeryResponsive.
+  ///
+  /// In en, this message translates to:
+  /// **'Very Responsive'**
+  String get partnerTagVeryResponsive;
+
+  /// No description provided for @partnerTagQuickToReply.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick to Reply'**
+  String get partnerTagQuickToReply;
+
+  /// No description provided for @vipSavePercent.
+  ///
+  /// In en, this message translates to:
+  /// **'Save {pct}%'**
+  String vipSavePercent(int pct);
+
+  /// No description provided for @vipPerMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'{price} / mo'**
+  String vipPerMonth(String price);
+
+  /// No description provided for @partnerTagBothLike.
+  ///
+  /// In en, this message translates to:
+  /// **'Both like {topic}'**
+  String partnerTagBothLike(String topic);
+
+  /// No description provided for @partnerTagSpeaks.
+  ///
+  /// In en, this message translates to:
+  /// **'Speaks {language}'**
+  String partnerTagSpeaks(String language);
+
+  /// No description provided for @partnerTagLearning.
+  ///
+  /// In en, this message translates to:
+  /// **'Learning {language}'**
+  String partnerTagLearning(String language);
+
+  /// No description provided for @partnerTagJoinedDaysAgo.
+  ///
+  /// In en, this message translates to:
+  /// **'Joined {days}d ago'**
+  String partnerTagJoinedDaysAgo(int days);
+
+  /// No description provided for @vipPaymentPlanSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'Plan Summary'**
+  String get vipPaymentPlanSummary;
+
+  /// No description provided for @vipPaymentSelectMethod.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Payment Method'**
+  String get vipPaymentSelectMethod;
+
+  /// No description provided for @vipPaymentPurchaseAppStore.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase via App Store'**
+  String get vipPaymentPurchaseAppStore;
+
+  /// No description provided for @vipPaymentPurchaseGooglePlay.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase via Google Play'**
+  String get vipPaymentPurchaseGooglePlay;
+
+  /// No description provided for @vipPaymentSecureAppStore.
+  ///
+  /// In en, this message translates to:
+  /// **'Your purchase will be processed securely through the App Store.'**
+  String get vipPaymentSecureAppStore;
+
+  /// No description provided for @vipPaymentSecureGooglePlay.
+  ///
+  /// In en, this message translates to:
+  /// **'Your purchase will be processed securely through Google Play.'**
+  String get vipPaymentSecureGooglePlay;
+
+  /// No description provided for @vipPaymentSubscriptionInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Subscription Information'**
+  String get vipPaymentSubscriptionInfo;
+
+  /// No description provided for @vipPaymentInfoLabelTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Title'**
+  String get vipPaymentInfoLabelTitle;
+
+  /// No description provided for @vipPaymentInfoLabelLength.
+  ///
+  /// In en, this message translates to:
+  /// **'Length'**
+  String get vipPaymentInfoLabelLength;
+
+  /// No description provided for @vipPaymentInfoLabelPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'Price'**
+  String get vipPaymentInfoLabelPrice;
+
+  /// No description provided for @vipPaymentDisclosure.
+  ///
+  /// In en, this message translates to:
+  /// **'By completing this purchase, you agree to our Terms of Use and Privacy Policy. Your subscription will automatically renew unless cancelled at least 24 hours before the end of the current period.'**
+  String get vipPaymentDisclosure;
+
+  /// No description provided for @vipSuccessTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome to VIP!'**
+  String get vipSuccessTitle;
+
+  /// No description provided for @vipSuccessBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your VIP subscription is now active. Enjoy all premium features!'**
+  String get vipSuccessBody;
+
+  /// No description provided for @vipPendingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Almost there'**
+  String get vipPendingTitle;
+
+  /// No description provided for @vipPendingBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your subscription is processing — please try refreshing in a minute.'**
+  String get vipPendingBody;
+
+  /// No description provided for @vipErrorPaymentTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Error'**
+  String get vipErrorPaymentTitle;
+
+  /// No description provided for @vipErrorPurchaseTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase Error'**
+  String get vipErrorPurchaseTitle;
+
+  /// No description provided for @vipErrorVerifyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase Verification Failed'**
+  String get vipErrorVerifyTitle;
+
+  /// No description provided for @vipErrorPaymentFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Failed'**
+  String get vipErrorPaymentFailed;
+
+  /// No description provided for @vipErrorBodyPrefix.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred while processing your payment:'**
+  String get vipErrorBodyPrefix;
+
+  /// No description provided for @vipErrorPurchaseCanceled.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase was canceled or failed. Please try again.'**
+  String get vipErrorPurchaseCanceled;
+
+  /// No description provided for @vipErrorVerifyServer.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not verify purchase with server. Please contact support.'**
+  String get vipErrorVerifyServer;
+
+  /// No description provided for @vipPlanLengthOneMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'1 month'**
+  String get vipPlanLengthOneMonth;
+
+  /// No description provided for @vipPlanLengthThreeMonths.
+  ///
+  /// In en, this message translates to:
+  /// **'3 months'**
+  String get vipPlanLengthThreeMonths;
+
+  /// No description provided for @vipPlanLengthOneYear.
+  ///
+  /// In en, this message translates to:
+  /// **'1 year'**
+  String get vipPlanLengthOneYear;
+
+  /// No description provided for @vipPaymentPayPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'Pay {price}'**
+  String vipPaymentPayPrice(String price);
+
+  /// No description provided for @vipExpired.
+  ///
+  /// In en, this message translates to:
+  /// **'VIP Expired'**
+  String get vipExpired;
+
+  /// No description provided for @vipMember.
+  ///
+  /// In en, this message translates to:
+  /// **'VIP Member'**
+  String get vipMember;
+
+  /// No description provided for @chatPhrasesMostUsed.
+  ///
+  /// In en, this message translates to:
+  /// **'Most Used'**
+  String get chatPhrasesMostUsed;
+
+  /// No description provided for @chatPhrasesTopics.
+  ///
+  /// In en, this message translates to:
+  /// **'Topics'**
+  String get chatPhrasesTopics;
+
+  /// No description provided for @chatPhrasesAddPhrase.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a phrase'**
+  String get chatPhrasesAddPhrase;
+
+  /// No description provided for @chatPhrasesChange.
+  ///
+  /// In en, this message translates to:
+  /// **'Change'**
+  String get chatPhrasesChange;
+
+  /// No description provided for @chatPhrasesAddTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a phrase'**
+  String get chatPhrasesAddTitle;
+
+  /// No description provided for @chatPhrasesAddHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Type a phrase you use often'**
+  String get chatPhrasesAddHint;
+
+  /// No description provided for @chatPhrasesEmptyMostUsed.
+  ///
+  /// In en, this message translates to:
+  /// **'No saved phrases yet. Tap + to add one.'**
+  String get chatPhrasesEmptyMostUsed;
+
+  /// No description provided for @chatPhrasesDeleteTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this phrase?'**
+  String get chatPhrasesDeleteTitle;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

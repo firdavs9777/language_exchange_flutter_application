@@ -6359,4 +6359,222 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get occupationCustomSaveCTA => 'Dùng làm nghề của tôi';
+
+  @override
+  String get vipSelectPlan => 'Chọn gói';
+
+  @override
+  String get vipBenefits => 'Quyền lợi';
+
+  @override
+  String get vipBestValue => 'TỐT NHẤT';
+
+  @override
+  String get vipPlanMonth => '1 tháng';
+
+  @override
+  String get vipPlanThreeMonths => '3 tháng';
+
+  @override
+  String get vipPlanTwelveMonths => '12 tháng';
+
+  @override
+  String get vipOneTime => 'Một lần';
+
+  @override
+  String get vipNonVip => 'Không VIP';
+
+  @override
+  String get vipBenefitDailyTranslations => 'Bản dịch hàng ngày';
+
+  @override
+  String get vipBenefitTranslationsLimit => '5 / ngày';
+
+  @override
+  String get vipBenefitUnlimited => 'Không giới hạn';
+
+  @override
+  String get vipBenefitAdvancedFilters => 'Bộ lọc nâng cao';
+
+  @override
+  String get vipBenefitAdFree => 'Không quảng cáo';
+
+  @override
+  String get vipBenefitVipBadge => 'Huy hiệu VIP trên hồ sơ';
+
+  @override
+  String get vipBenefitPrioritySupport => 'Hỗ trợ ưu tiên';
+
+  @override
+  String get vipBrandTitle => 'BananaTalk VIP';
+
+  @override
+  String get vipTagline => 'Tấm hộ chiếu đến kết nối toàn cầu — những cuộc trò chuyện chân thật, tình bạn lâu dài.';
+
+  @override
+  String get vipDisclosure => 'Tự động gia hạn trừ khi bạn huỷ trước 24 giờ kết thúc kỳ. Khoản thanh toán sẽ được tính vào tài khoản iTunes hoặc Google Play của bạn.';
+
+  @override
+  String get vipLoginRequired => 'Vui lòng đăng nhập để tiếp tục';
+
+  @override
+  String get chatListMenu => 'Menu';
+
+  @override
+  String get chatListNewMessageAlertsTitle => 'New Message Alerts';
+
+  @override
+  String get chatListNewMessageAlertsBody => 'Tap to turn on notifications and never miss a message';
+
+  @override
+  String get chatListFilterMyTurn => 'My turn';
+
+  @override
+  String get partnerTagActiveNow => 'Active now';
+
+  @override
+  String get partnerTagVeryResponsive => 'Very Responsive';
+
+  @override
+  String get partnerTagQuickToReply => 'Quick to Reply';
+
+  @override
+  String vipSavePercent(int pct) {
+    return 'Tiết kiệm $pct%';
+  }
+
+  @override
+  String vipPerMonth(String price) {
+    return '$price / tháng';
+  }
+
+  @override
+  String partnerTagBothLike(String topic) {
+    return 'Both like $topic';
+  }
+
+  @override
+  String partnerTagSpeaks(String language) {
+    return 'Speaks $language';
+  }
+
+  @override
+  String partnerTagLearning(String language) {
+    return 'Learning $language';
+  }
+
+  @override
+  String partnerTagJoinedDaysAgo(int days) {
+    return 'Joined ${days}d ago';
+  }
+
+  @override
+  String get vipPaymentPlanSummary => 'Tóm tắt gói';
+
+  @override
+  String get vipPaymentSelectMethod => 'Chọn phương thức thanh toán';
+
+  @override
+  String get vipPaymentPurchaseAppStore => 'Mua qua App Store';
+
+  @override
+  String get vipPaymentPurchaseGooglePlay => 'Mua qua Google Play';
+
+  @override
+  String get vipPaymentSecureAppStore => 'Giao dịch của bạn sẽ được xử lý an toàn qua App Store.';
+
+  @override
+  String get vipPaymentSecureGooglePlay => 'Giao dịch của bạn sẽ được xử lý an toàn qua Google Play.';
+
+  @override
+  String get vipPaymentSubscriptionInfo => 'Thông tin đăng ký';
+
+  @override
+  String get vipPaymentInfoLabelTitle => 'Tiêu đề';
+
+  @override
+  String get vipPaymentInfoLabelLength => 'Thời hạn';
+
+  @override
+  String get vipPaymentInfoLabelPrice => 'Giá';
+
+  @override
+  String get vipPaymentDisclosure => 'Bằng việc hoàn tất giao dịch, bạn đồng ý với Điều khoản sử dụng và Chính sách bảo mật của chúng tôi. Gói đăng ký sẽ tự động gia hạn trừ khi bạn huỷ ít nhất 24 giờ trước khi kỳ hiện tại kết thúc.';
+
+  @override
+  String get vipSuccessTitle => 'Chào mừng đến với VIP!';
+
+  @override
+  String get vipSuccessBody => 'Gói VIP của bạn đã được kích hoạt. Tận hưởng mọi tính năng cao cấp!';
+
+  @override
+  String get vipPendingTitle => 'Sắp xong';
+
+  @override
+  String get vipPendingBody => 'Đăng ký của bạn đang được xử lý — vui lòng làm mới lại sau một phút.';
+
+  @override
+  String get vipErrorPaymentTitle => 'Lỗi thanh toán';
+
+  @override
+  String get vipErrorPurchaseTitle => 'Lỗi giao dịch';
+
+  @override
+  String get vipErrorVerifyTitle => 'Xác minh giao dịch thất bại';
+
+  @override
+  String get vipErrorPaymentFailed => 'Thanh toán thất bại';
+
+  @override
+  String get vipErrorBodyPrefix => 'Đã xảy ra lỗi khi xử lý thanh toán của bạn:';
+
+  @override
+  String get vipErrorPurchaseCanceled => 'Giao dịch đã bị huỷ hoặc thất bại. Vui lòng thử lại.';
+
+  @override
+  String get vipErrorVerifyServer => 'Không thể xác minh giao dịch trên máy chủ. Vui lòng liên hệ hỗ trợ.';
+
+  @override
+  String get vipPlanLengthOneMonth => '1 tháng';
+
+  @override
+  String get vipPlanLengthThreeMonths => '3 tháng';
+
+  @override
+  String get vipPlanLengthOneYear => '1 năm';
+
+  @override
+  String vipPaymentPayPrice(String price) {
+    return 'Thanh toán $price';
+  }
+
+  @override
+  String get vipExpired => 'VIP đã hết hạn';
+
+  @override
+  String get vipMember => 'Thành viên VIP';
+
+  @override
+  String get chatPhrasesMostUsed => 'Hay dùng';
+
+  @override
+  String get chatPhrasesTopics => 'Chủ đề';
+
+  @override
+  String get chatPhrasesAddPhrase => 'Thêm cụm từ';
+
+  @override
+  String get chatPhrasesChange => 'Đổi';
+
+  @override
+  String get chatPhrasesAddTitle => 'Thêm cụm từ';
+
+  @override
+  String get chatPhrasesAddHint => 'Nhập cụm từ bạn hay dùng';
+
+  @override
+  String get chatPhrasesEmptyMostUsed => 'Chưa có cụm từ nào. Nhấn + để thêm.';
+
+  @override
+  String get chatPhrasesDeleteTitle => 'Xoá cụm từ này?';
 }

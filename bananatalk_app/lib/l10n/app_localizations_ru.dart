@@ -6378,4 +6378,222 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get occupationCustomSaveCTA => 'Использовать как мою профессию';
+
+  @override
+  String get vipSelectPlan => 'Выберите план';
+
+  @override
+  String get vipBenefits => 'Преимущества';
+
+  @override
+  String get vipBestValue => 'ЛУЧШАЯ ЦЕНА';
+
+  @override
+  String get vipPlanMonth => '1 месяц';
+
+  @override
+  String get vipPlanThreeMonths => '3 месяца';
+
+  @override
+  String get vipPlanTwelveMonths => '12 месяцев';
+
+  @override
+  String get vipOneTime => 'Разовая оплата';
+
+  @override
+  String get vipNonVip => 'Без VIP';
+
+  @override
+  String get vipBenefitDailyTranslations => 'Переводы в день';
+
+  @override
+  String get vipBenefitTranslationsLimit => '5 / день';
+
+  @override
+  String get vipBenefitUnlimited => 'Без ограничений';
+
+  @override
+  String get vipBenefitAdvancedFilters => 'Расширенные фильтры';
+
+  @override
+  String get vipBenefitAdFree => 'Без рекламы';
+
+  @override
+  String get vipBenefitVipBadge => 'VIP-значок в профиле';
+
+  @override
+  String get vipBenefitPrioritySupport => 'Приоритетная поддержка';
+
+  @override
+  String get vipBrandTitle => 'BananaTalk VIP';
+
+  @override
+  String get vipTagline => 'Ваш пропуск к мировым знакомствам — настоящие беседы и крепкие дружбы.';
+
+  @override
+  String get vipDisclosure => 'Подписка продлевается автоматически, если не отменить её за 24 ч до окончания периода. Оплата списывается с вашего аккаунта iTunes или Google Play.';
+
+  @override
+  String get vipLoginRequired => 'Войдите, чтобы продолжить';
+
+  @override
+  String get chatListMenu => 'Menu';
+
+  @override
+  String get chatListNewMessageAlertsTitle => 'New Message Alerts';
+
+  @override
+  String get chatListNewMessageAlertsBody => 'Tap to turn on notifications and never miss a message';
+
+  @override
+  String get chatListFilterMyTurn => 'My turn';
+
+  @override
+  String get partnerTagActiveNow => 'Active now';
+
+  @override
+  String get partnerTagVeryResponsive => 'Very Responsive';
+
+  @override
+  String get partnerTagQuickToReply => 'Quick to Reply';
+
+  @override
+  String vipSavePercent(int pct) {
+    return 'Экономия $pct%';
+  }
+
+  @override
+  String vipPerMonth(String price) {
+    return '$price / мес';
+  }
+
+  @override
+  String partnerTagBothLike(String topic) {
+    return 'Both like $topic';
+  }
+
+  @override
+  String partnerTagSpeaks(String language) {
+    return 'Speaks $language';
+  }
+
+  @override
+  String partnerTagLearning(String language) {
+    return 'Learning $language';
+  }
+
+  @override
+  String partnerTagJoinedDaysAgo(int days) {
+    return 'Joined ${days}d ago';
+  }
+
+  @override
+  String get vipPaymentPlanSummary => 'Описание плана';
+
+  @override
+  String get vipPaymentSelectMethod => 'Выберите способ оплаты';
+
+  @override
+  String get vipPaymentPurchaseAppStore => 'Купить через App Store';
+
+  @override
+  String get vipPaymentPurchaseGooglePlay => 'Купить через Google Play';
+
+  @override
+  String get vipPaymentSecureAppStore => 'Ваша покупка будет безопасно обработана через App Store.';
+
+  @override
+  String get vipPaymentSecureGooglePlay => 'Ваша покупка будет безопасно обработана через Google Play.';
+
+  @override
+  String get vipPaymentSubscriptionInfo => 'Информация о подписке';
+
+  @override
+  String get vipPaymentInfoLabelTitle => 'Название';
+
+  @override
+  String get vipPaymentInfoLabelLength => 'Срок';
+
+  @override
+  String get vipPaymentInfoLabelPrice => 'Цена';
+
+  @override
+  String get vipPaymentDisclosure => 'Завершая покупку, вы соглашаетесь с Условиями использования и Политикой конфиденциальности. Подписка будет продлеваться автоматически, если не отменить её не позднее чем за 24 часа до окончания текущего периода.';
+
+  @override
+  String get vipSuccessTitle => 'Добро пожаловать в VIP!';
+
+  @override
+  String get vipSuccessBody => 'Ваша VIP-подписка активна. Пользуйтесь всеми премиум-функциями!';
+
+  @override
+  String get vipPendingTitle => 'Почти готово';
+
+  @override
+  String get vipPendingBody => 'Подписка обрабатывается — попробуйте обновить через минуту.';
+
+  @override
+  String get vipErrorPaymentTitle => 'Ошибка оплаты';
+
+  @override
+  String get vipErrorPurchaseTitle => 'Ошибка покупки';
+
+  @override
+  String get vipErrorVerifyTitle => 'Не удалось подтвердить покупку';
+
+  @override
+  String get vipErrorPaymentFailed => 'Оплата не прошла';
+
+  @override
+  String get vipErrorBodyPrefix => 'Во время обработки платежа произошла ошибка:';
+
+  @override
+  String get vipErrorPurchaseCanceled => 'Покупка отменена или не удалась. Попробуйте ещё раз.';
+
+  @override
+  String get vipErrorVerifyServer => 'Не удалось подтвердить покупку на сервере. Обратитесь в поддержку.';
+
+  @override
+  String get vipPlanLengthOneMonth => '1 месяц';
+
+  @override
+  String get vipPlanLengthThreeMonths => '3 месяца';
+
+  @override
+  String get vipPlanLengthOneYear => '1 год';
+
+  @override
+  String vipPaymentPayPrice(String price) {
+    return 'Оплатить $price';
+  }
+
+  @override
+  String get vipExpired => 'VIP истёк';
+
+  @override
+  String get vipMember => 'VIP-пользователь';
+
+  @override
+  String get chatPhrasesMostUsed => 'Часто';
+
+  @override
+  String get chatPhrasesTopics => 'Темы';
+
+  @override
+  String get chatPhrasesAddPhrase => 'Добавить фразу';
+
+  @override
+  String get chatPhrasesChange => 'Сменить';
+
+  @override
+  String get chatPhrasesAddTitle => 'Добавить фразу';
+
+  @override
+  String get chatPhrasesAddHint => 'Введите фразу, которую часто используете';
+
+  @override
+  String get chatPhrasesEmptyMostUsed => 'Сохранённых фраз пока нет. Нажмите +, чтобы добавить.';
+
+  @override
+  String get chatPhrasesDeleteTitle => 'Удалить эту фразу?';
 }

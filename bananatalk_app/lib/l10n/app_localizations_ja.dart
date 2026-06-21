@@ -6359,4 +6359,222 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get occupationCustomSaveCTA => 'これを職業として使用';
+
+  @override
+  String get vipSelectPlan => 'プランを選択';
+
+  @override
+  String get vipBenefits => '特典';
+
+  @override
+  String get vipBestValue => 'おすすめ';
+
+  @override
+  String get vipPlanMonth => '1か月';
+
+  @override
+  String get vipPlanThreeMonths => '3か月';
+
+  @override
+  String get vipPlanTwelveMonths => '12か月';
+
+  @override
+  String get vipOneTime => '買い切り';
+
+  @override
+  String get vipNonVip => '一般';
+
+  @override
+  String get vipBenefitDailyTranslations => '1日の翻訳数';
+
+  @override
+  String get vipBenefitTranslationsLimit => '1日5回';
+
+  @override
+  String get vipBenefitUnlimited => '無制限';
+
+  @override
+  String get vipBenefitAdvancedFilters => '高度なフィルター';
+
+  @override
+  String get vipBenefitAdFree => '広告非表示';
+
+  @override
+  String get vipBenefitVipBadge => 'プロフィールにVIPバッジ';
+
+  @override
+  String get vipBenefitPrioritySupport => '優先サポート';
+
+  @override
+  String get vipBrandTitle => 'BananaTalk VIP';
+
+  @override
+  String get vipTagline => '世界とつながるパスポート — 本物の会話、長く続く友情を。';
+
+  @override
+  String get vipDisclosure => '期間終了の24時間前までに解約しない限り自動更新されます。お支払いはiTunesまたはGoogle Playアカウントに請求されます。';
+
+  @override
+  String get vipLoginRequired => '続行するにはログインしてください';
+
+  @override
+  String get chatListMenu => 'Menu';
+
+  @override
+  String get chatListNewMessageAlertsTitle => 'New Message Alerts';
+
+  @override
+  String get chatListNewMessageAlertsBody => 'Tap to turn on notifications and never miss a message';
+
+  @override
+  String get chatListFilterMyTurn => 'My turn';
+
+  @override
+  String get partnerTagActiveNow => 'Active now';
+
+  @override
+  String get partnerTagVeryResponsive => 'Very Responsive';
+
+  @override
+  String get partnerTagQuickToReply => 'Quick to Reply';
+
+  @override
+  String vipSavePercent(int pct) {
+    return '$pct%お得';
+  }
+
+  @override
+  String vipPerMonth(String price) {
+    return '月 $price';
+  }
+
+  @override
+  String partnerTagBothLike(String topic) {
+    return 'Both like $topic';
+  }
+
+  @override
+  String partnerTagSpeaks(String language) {
+    return 'Speaks $language';
+  }
+
+  @override
+  String partnerTagLearning(String language) {
+    return 'Learning $language';
+  }
+
+  @override
+  String partnerTagJoinedDaysAgo(int days) {
+    return 'Joined ${days}d ago';
+  }
+
+  @override
+  String get vipPaymentPlanSummary => 'プランの概要';
+
+  @override
+  String get vipPaymentSelectMethod => 'お支払い方法を選択';
+
+  @override
+  String get vipPaymentPurchaseAppStore => 'App Storeで購入';
+
+  @override
+  String get vipPaymentPurchaseGooglePlay => 'Google Playで購入';
+
+  @override
+  String get vipPaymentSecureAppStore => 'お支払いはApp Storeを通じて安全に処理されます。';
+
+  @override
+  String get vipPaymentSecureGooglePlay => 'お支払いはGoogle Playを通じて安全に処理されます。';
+
+  @override
+  String get vipPaymentSubscriptionInfo => 'サブスクリプション情報';
+
+  @override
+  String get vipPaymentInfoLabelTitle => 'タイトル';
+
+  @override
+  String get vipPaymentInfoLabelLength => '期間';
+
+  @override
+  String get vipPaymentInfoLabelPrice => '価格';
+
+  @override
+  String get vipPaymentDisclosure => '購入を完了すると、利用規約とプライバシーポリシーに同意したものとみなされます。現在の期間終了の24時間前までに解約しない限り、サブスクリプションは自動で更新されます。';
+
+  @override
+  String get vipSuccessTitle => 'VIPへようこそ！';
+
+  @override
+  String get vipSuccessBody => 'VIPサブスクリプションが有効になりました。すべてのプレミアム機能をお楽しみください！';
+
+  @override
+  String get vipPendingTitle => 'もう少しお待ちください';
+
+  @override
+  String get vipPendingBody => 'サブスクリプションを処理中です。少ししてから再読み込みしてください。';
+
+  @override
+  String get vipErrorPaymentTitle => 'お支払いエラー';
+
+  @override
+  String get vipErrorPurchaseTitle => '購入エラー';
+
+  @override
+  String get vipErrorVerifyTitle => '購入の確認に失敗しました';
+
+  @override
+  String get vipErrorPaymentFailed => 'お支払いに失敗しました';
+
+  @override
+  String get vipErrorBodyPrefix => 'お支払いの処理中にエラーが発生しました:';
+
+  @override
+  String get vipErrorPurchaseCanceled => '購入がキャンセルされたか失敗しました。もう一度お試しください。';
+
+  @override
+  String get vipErrorVerifyServer => 'サーバーで購入を確認できませんでした。サポートにお問い合わせください。';
+
+  @override
+  String get vipPlanLengthOneMonth => '1か月';
+
+  @override
+  String get vipPlanLengthThreeMonths => '3か月';
+
+  @override
+  String get vipPlanLengthOneYear => '1年';
+
+  @override
+  String vipPaymentPayPrice(String price) {
+    return '$priceを支払う';
+  }
+
+  @override
+  String get vipExpired => 'VIP期限切れ';
+
+  @override
+  String get vipMember => 'VIP会員';
+
+  @override
+  String get chatPhrasesMostUsed => 'よく使う';
+
+  @override
+  String get chatPhrasesTopics => 'トピック';
+
+  @override
+  String get chatPhrasesAddPhrase => 'フレーズを追加';
+
+  @override
+  String get chatPhrasesChange => '変更';
+
+  @override
+  String get chatPhrasesAddTitle => 'フレーズを追加';
+
+  @override
+  String get chatPhrasesAddHint => 'よく使うフレーズを入力してください';
+
+  @override
+  String get chatPhrasesEmptyMostUsed => '保存されたフレーズがありません。+ をタップして追加してください。';
+
+  @override
+  String get chatPhrasesDeleteTitle => 'このフレーズを削除しますか？';
 }

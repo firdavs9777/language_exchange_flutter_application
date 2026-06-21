@@ -6366,4 +6366,222 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get occupationCustomSaveCTA => 'Gunakan sebagai pekerjaan saya';
+
+  @override
+  String get vipSelectPlan => 'Pilih paket';
+
+  @override
+  String get vipBenefits => 'Manfaat';
+
+  @override
+  String get vipBestValue => 'PALING UNTUNG';
+
+  @override
+  String get vipPlanMonth => '1 bulan';
+
+  @override
+  String get vipPlanThreeMonths => '3 bulan';
+
+  @override
+  String get vipPlanTwelveMonths => '12 bulan';
+
+  @override
+  String get vipOneTime => 'Sekali bayar';
+
+  @override
+  String get vipNonVip => 'Non-VIP';
+
+  @override
+  String get vipBenefitDailyTranslations => 'Terjemahan harian';
+
+  @override
+  String get vipBenefitTranslationsLimit => '5 / hari';
+
+  @override
+  String get vipBenefitUnlimited => 'Tanpa batas';
+
+  @override
+  String get vipBenefitAdvancedFilters => 'Filter lanjutan';
+
+  @override
+  String get vipBenefitAdFree => 'Bebas iklan';
+
+  @override
+  String get vipBenefitVipBadge => 'Lencana VIP di profil';
+
+  @override
+  String get vipBenefitPrioritySupport => 'Dukungan prioritas';
+
+  @override
+  String get vipBrandTitle => 'BananaTalk VIP';
+
+  @override
+  String get vipTagline => 'Paspormu untuk koneksi global — obrolan yang tulus, persahabatan yang langgeng.';
+
+  @override
+  String get vipDisclosure => 'Diperpanjang otomatis kecuali dibatalkan 24 jam sebelum periode berakhir. Pembayaran akan dibebankan ke akun iTunes atau Google Play kamu.';
+
+  @override
+  String get vipLoginRequired => 'Masuk dulu untuk melanjutkan';
+
+  @override
+  String get chatListMenu => 'Menu';
+
+  @override
+  String get chatListNewMessageAlertsTitle => 'New Message Alerts';
+
+  @override
+  String get chatListNewMessageAlertsBody => 'Tap to turn on notifications and never miss a message';
+
+  @override
+  String get chatListFilterMyTurn => 'My turn';
+
+  @override
+  String get partnerTagActiveNow => 'Active now';
+
+  @override
+  String get partnerTagVeryResponsive => 'Very Responsive';
+
+  @override
+  String get partnerTagQuickToReply => 'Quick to Reply';
+
+  @override
+  String vipSavePercent(int pct) {
+    return 'Hemat $pct%';
+  }
+
+  @override
+  String vipPerMonth(String price) {
+    return '$price / bulan';
+  }
+
+  @override
+  String partnerTagBothLike(String topic) {
+    return 'Both like $topic';
+  }
+
+  @override
+  String partnerTagSpeaks(String language) {
+    return 'Speaks $language';
+  }
+
+  @override
+  String partnerTagLearning(String language) {
+    return 'Learning $language';
+  }
+
+  @override
+  String partnerTagJoinedDaysAgo(int days) {
+    return 'Joined ${days}d ago';
+  }
+
+  @override
+  String get vipPaymentPlanSummary => 'Ringkasan paket';
+
+  @override
+  String get vipPaymentSelectMethod => 'Pilih metode pembayaran';
+
+  @override
+  String get vipPaymentPurchaseAppStore => 'Beli lewat App Store';
+
+  @override
+  String get vipPaymentPurchaseGooglePlay => 'Beli lewat Google Play';
+
+  @override
+  String get vipPaymentSecureAppStore => 'Pembelianmu akan diproses dengan aman melalui App Store.';
+
+  @override
+  String get vipPaymentSecureGooglePlay => 'Pembelianmu akan diproses dengan aman melalui Google Play.';
+
+  @override
+  String get vipPaymentSubscriptionInfo => 'Informasi langganan';
+
+  @override
+  String get vipPaymentInfoLabelTitle => 'Judul';
+
+  @override
+  String get vipPaymentInfoLabelLength => 'Durasi';
+
+  @override
+  String get vipPaymentInfoLabelPrice => 'Harga';
+
+  @override
+  String get vipPaymentDisclosure => 'Dengan menyelesaikan pembelian ini, kamu menyetujui Ketentuan Penggunaan dan Kebijakan Privasi kami. Langganan akan diperpanjang otomatis kecuali dibatalkan setidaknya 24 jam sebelum periode saat ini berakhir.';
+
+  @override
+  String get vipSuccessTitle => 'Selamat datang di VIP!';
+
+  @override
+  String get vipSuccessBody => 'Langganan VIP-mu sudah aktif. Nikmati semua fitur premium!';
+
+  @override
+  String get vipPendingTitle => 'Hampir selesai';
+
+  @override
+  String get vipPendingBody => 'Langgananmu sedang diproses — coba muat ulang sebentar lagi.';
+
+  @override
+  String get vipErrorPaymentTitle => 'Galat pembayaran';
+
+  @override
+  String get vipErrorPurchaseTitle => 'Galat pembelian';
+
+  @override
+  String get vipErrorVerifyTitle => 'Verifikasi pembelian gagal';
+
+  @override
+  String get vipErrorPaymentFailed => 'Pembayaran gagal';
+
+  @override
+  String get vipErrorBodyPrefix => 'Terjadi galat saat memproses pembayaranmu:';
+
+  @override
+  String get vipErrorPurchaseCanceled => 'Pembelian dibatalkan atau gagal. Coba lagi.';
+
+  @override
+  String get vipErrorVerifyServer => 'Pembelian tidak dapat diverifikasi dengan server. Hubungi dukungan.';
+
+  @override
+  String get vipPlanLengthOneMonth => '1 bulan';
+
+  @override
+  String get vipPlanLengthThreeMonths => '3 bulan';
+
+  @override
+  String get vipPlanLengthOneYear => '1 tahun';
+
+  @override
+  String vipPaymentPayPrice(String price) {
+    return 'Bayar $price';
+  }
+
+  @override
+  String get vipExpired => 'VIP berakhir';
+
+  @override
+  String get vipMember => 'Anggota VIP';
+
+  @override
+  String get chatPhrasesMostUsed => 'Sering Dipakai';
+
+  @override
+  String get chatPhrasesTopics => 'Topik';
+
+  @override
+  String get chatPhrasesAddPhrase => 'Tambah frasa';
+
+  @override
+  String get chatPhrasesChange => 'Ganti';
+
+  @override
+  String get chatPhrasesAddTitle => 'Tambah sebuah frasa';
+
+  @override
+  String get chatPhrasesAddHint => 'Ketik frasa yang sering kamu pakai';
+
+  @override
+  String get chatPhrasesEmptyMostUsed => 'Belum ada frasa tersimpan. Ketuk + untuk menambah.';
+
+  @override
+  String get chatPhrasesDeleteTitle => 'Hapus frasa ini?';
 }

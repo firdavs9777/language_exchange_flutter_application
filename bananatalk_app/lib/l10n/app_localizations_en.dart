@@ -6372,4 +6372,222 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get occupationCustomSaveCTA => 'Use this as my occupation';
+
+  @override
+  String get vipSelectPlan => 'Select Plan';
+
+  @override
+  String get vipBenefits => 'Benefits';
+
+  @override
+  String get vipBestValue => 'BEST VALUE';
+
+  @override
+  String get vipPlanMonth => '1 Month';
+
+  @override
+  String get vipPlanThreeMonths => '3 Months';
+
+  @override
+  String get vipPlanTwelveMonths => '12 Months';
+
+  @override
+  String get vipOneTime => 'One-time';
+
+  @override
+  String get vipNonVip => 'Non-VIP';
+
+  @override
+  String get vipBenefitDailyTranslations => 'Daily translations';
+
+  @override
+  String get vipBenefitTranslationsLimit => '5 / day';
+
+  @override
+  String get vipBenefitUnlimited => 'Unlimited';
+
+  @override
+  String get vipBenefitAdvancedFilters => 'Advanced filters';
+
+  @override
+  String get vipBenefitAdFree => 'Ad-free experience';
+
+  @override
+  String get vipBenefitVipBadge => 'VIP badge on profile';
+
+  @override
+  String get vipBenefitPrioritySupport => 'Priority support';
+
+  @override
+  String get vipBrandTitle => 'BananaTalk VIP';
+
+  @override
+  String get vipTagline => 'Your passport to global connections — authentic chats, lasting friends.';
+
+  @override
+  String get vipDisclosure => 'Auto-renews unless canceled 24h before period end. Payment charged to your iTunes or Google Play account.';
+
+  @override
+  String get vipLoginRequired => 'Please log in to continue';
+
+  @override
+  String get chatListMenu => 'Menu';
+
+  @override
+  String get chatListNewMessageAlertsTitle => 'New Message Alerts';
+
+  @override
+  String get chatListNewMessageAlertsBody => 'Tap to turn on notifications and never miss a message';
+
+  @override
+  String get chatListFilterMyTurn => 'My turn';
+
+  @override
+  String get partnerTagActiveNow => 'Active now';
+
+  @override
+  String get partnerTagVeryResponsive => 'Very Responsive';
+
+  @override
+  String get partnerTagQuickToReply => 'Quick to Reply';
+
+  @override
+  String vipSavePercent(int pct) {
+    return 'Save $pct%';
+  }
+
+  @override
+  String vipPerMonth(String price) {
+    return '$price / mo';
+  }
+
+  @override
+  String partnerTagBothLike(String topic) {
+    return 'Both like $topic';
+  }
+
+  @override
+  String partnerTagSpeaks(String language) {
+    return 'Speaks $language';
+  }
+
+  @override
+  String partnerTagLearning(String language) {
+    return 'Learning $language';
+  }
+
+  @override
+  String partnerTagJoinedDaysAgo(int days) {
+    return 'Joined ${days}d ago';
+  }
+
+  @override
+  String get vipPaymentPlanSummary => 'Plan Summary';
+
+  @override
+  String get vipPaymentSelectMethod => 'Select Payment Method';
+
+  @override
+  String get vipPaymentPurchaseAppStore => 'Purchase via App Store';
+
+  @override
+  String get vipPaymentPurchaseGooglePlay => 'Purchase via Google Play';
+
+  @override
+  String get vipPaymentSecureAppStore => 'Your purchase will be processed securely through the App Store.';
+
+  @override
+  String get vipPaymentSecureGooglePlay => 'Your purchase will be processed securely through Google Play.';
+
+  @override
+  String get vipPaymentSubscriptionInfo => 'Subscription Information';
+
+  @override
+  String get vipPaymentInfoLabelTitle => 'Title';
+
+  @override
+  String get vipPaymentInfoLabelLength => 'Length';
+
+  @override
+  String get vipPaymentInfoLabelPrice => 'Price';
+
+  @override
+  String get vipPaymentDisclosure => 'By completing this purchase, you agree to our Terms of Use and Privacy Policy. Your subscription will automatically renew unless cancelled at least 24 hours before the end of the current period.';
+
+  @override
+  String get vipSuccessTitle => 'Welcome to VIP!';
+
+  @override
+  String get vipSuccessBody => 'Your VIP subscription is now active. Enjoy all premium features!';
+
+  @override
+  String get vipPendingTitle => 'Almost there';
+
+  @override
+  String get vipPendingBody => 'Your subscription is processing — please try refreshing in a minute.';
+
+  @override
+  String get vipErrorPaymentTitle => 'Payment Error';
+
+  @override
+  String get vipErrorPurchaseTitle => 'Purchase Error';
+
+  @override
+  String get vipErrorVerifyTitle => 'Purchase Verification Failed';
+
+  @override
+  String get vipErrorPaymentFailed => 'Payment Failed';
+
+  @override
+  String get vipErrorBodyPrefix => 'An error occurred while processing your payment:';
+
+  @override
+  String get vipErrorPurchaseCanceled => 'Purchase was canceled or failed. Please try again.';
+
+  @override
+  String get vipErrorVerifyServer => 'Could not verify purchase with server. Please contact support.';
+
+  @override
+  String get vipPlanLengthOneMonth => '1 month';
+
+  @override
+  String get vipPlanLengthThreeMonths => '3 months';
+
+  @override
+  String get vipPlanLengthOneYear => '1 year';
+
+  @override
+  String vipPaymentPayPrice(String price) {
+    return 'Pay $price';
+  }
+
+  @override
+  String get vipExpired => 'VIP Expired';
+
+  @override
+  String get vipMember => 'VIP Member';
+
+  @override
+  String get chatPhrasesMostUsed => 'Most Used';
+
+  @override
+  String get chatPhrasesTopics => 'Topics';
+
+  @override
+  String get chatPhrasesAddPhrase => 'Add a phrase';
+
+  @override
+  String get chatPhrasesChange => 'Change';
+
+  @override
+  String get chatPhrasesAddTitle => 'Add a phrase';
+
+  @override
+  String get chatPhrasesAddHint => 'Type a phrase you use often';
+
+  @override
+  String get chatPhrasesEmptyMostUsed => 'No saved phrases yet. Tap + to add one.';
+
+  @override
+  String get chatPhrasesDeleteTitle => 'Delete this phrase?';
 }

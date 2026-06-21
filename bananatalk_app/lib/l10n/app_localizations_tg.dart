@@ -6372,4 +6372,222 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get occupationCustomSaveCTA => 'Инро ҳамчун касби ман истифода кунед';
+
+  @override
+  String get vipSelectPlan => 'Нақшаро интихоб кунед';
+
+  @override
+  String get vipBenefits => 'Имтиёзҳо';
+
+  @override
+  String get vipBestValue => 'БЕҲТАРИН АРЗИШ';
+
+  @override
+  String get vipPlanMonth => '1 моҳ';
+
+  @override
+  String get vipPlanThreeMonths => '3 моҳ';
+
+  @override
+  String get vipPlanTwelveMonths => '12 моҳ';
+
+  @override
+  String get vipOneTime => 'Як маротиба';
+
+  @override
+  String get vipNonVip => 'Бе VIP';
+
+  @override
+  String get vipBenefitDailyTranslations => 'Тарҷумаҳои ҳаррӯза';
+
+  @override
+  String get vipBenefitTranslationsLimit => '5 / рӯз';
+
+  @override
+  String get vipBenefitUnlimited => 'Бемаҳдуд';
+
+  @override
+  String get vipBenefitAdvancedFilters => 'Филтрҳои васеъ';
+
+  @override
+  String get vipBenefitAdFree => 'Бе реклама';
+
+  @override
+  String get vipBenefitVipBadge => 'Нишони VIP дар профил';
+
+  @override
+  String get vipBenefitPrioritySupport => 'Дастгирии бартарӣ';
+
+  @override
+  String get vipBrandTitle => 'BananaTalk VIP';
+
+  @override
+  String get vipTagline => 'Пасспорти шумо ба пайвандҳои ҷаҳонӣ — сӯҳбатҳои воқеӣ, дӯстиҳои пойдор.';
+
+  @override
+  String get vipDisclosure => 'Агар 24 соат пеш аз итмоми давра бекор карда нашавад, обуна худкор тамдид мешавад. Пардохт аз ҳисоби iTunes ё Google Play гирифта мешавад.';
+
+  @override
+  String get vipLoginRequired => 'Барои идома ворид шавед';
+
+  @override
+  String get chatListMenu => 'Menu';
+
+  @override
+  String get chatListNewMessageAlertsTitle => 'New Message Alerts';
+
+  @override
+  String get chatListNewMessageAlertsBody => 'Tap to turn on notifications and never miss a message';
+
+  @override
+  String get chatListFilterMyTurn => 'My turn';
+
+  @override
+  String get partnerTagActiveNow => 'Active now';
+
+  @override
+  String get partnerTagVeryResponsive => 'Very Responsive';
+
+  @override
+  String get partnerTagQuickToReply => 'Quick to Reply';
+
+  @override
+  String vipSavePercent(int pct) {
+    return '$pct% сарфа кунед';
+  }
+
+  @override
+  String vipPerMonth(String price) {
+    return '$price / моҳ';
+  }
+
+  @override
+  String partnerTagBothLike(String topic) {
+    return 'Both like $topic';
+  }
+
+  @override
+  String partnerTagSpeaks(String language) {
+    return 'Speaks $language';
+  }
+
+  @override
+  String partnerTagLearning(String language) {
+    return 'Learning $language';
+  }
+
+  @override
+  String partnerTagJoinedDaysAgo(int days) {
+    return 'Joined ${days}d ago';
+  }
+
+  @override
+  String get vipPaymentPlanSummary => 'Хулосаи нақша';
+
+  @override
+  String get vipPaymentSelectMethod => 'Усули пардохтро интихоб кунед';
+
+  @override
+  String get vipPaymentPurchaseAppStore => 'Харид аз App Store';
+
+  @override
+  String get vipPaymentPurchaseGooglePlay => 'Харид аз Google Play';
+
+  @override
+  String get vipPaymentSecureAppStore => 'Хариди шумо тавассути App Store бо амният амалӣ мешавад.';
+
+  @override
+  String get vipPaymentSecureGooglePlay => 'Хариди шумо тавассути Google Play бо амният амалӣ мешавад.';
+
+  @override
+  String get vipPaymentSubscriptionInfo => 'Маълумоти обуна';
+
+  @override
+  String get vipPaymentInfoLabelTitle => 'Сарлавҳа';
+
+  @override
+  String get vipPaymentInfoLabelLength => 'Давра';
+
+  @override
+  String get vipPaymentInfoLabelPrice => 'Нарх';
+
+  @override
+  String get vipPaymentDisclosure => 'Бо анҷом додани харид, шумо ба Шартҳои истифода ва Сиёсати махфияти мо розӣ ҳастед. Обунаи шумо то даме ки ҳадди ақал 24 соат пеш аз итмоми давраи кунунӣ бекор карда нашавад, ба таври худкор тамдид карда мешавад.';
+
+  @override
+  String get vipSuccessTitle => 'Хуш омадед ба VIP!';
+
+  @override
+  String get vipSuccessBody => 'Обунаи VIP-и шумо акнун фаъол аст. Аз ҳамаи имкониятҳои премиум баҳра баред!';
+
+  @override
+  String get vipPendingTitle => 'Қариб тайёр';
+
+  @override
+  String get vipPendingBody => 'Обунаи шумо коркард шуда истодааст — баъд аз як дақиқа нав кунед.';
+
+  @override
+  String get vipErrorPaymentTitle => 'Хатои пардохт';
+
+  @override
+  String get vipErrorPurchaseTitle => 'Хатои харид';
+
+  @override
+  String get vipErrorVerifyTitle => 'Тасдиқи харид иҷро нашуд';
+
+  @override
+  String get vipErrorPaymentFailed => 'Пардохт қатъ шуд';
+
+  @override
+  String get vipErrorBodyPrefix => 'ҳангоми коркарди пардохти шумо хато рух дод:';
+
+  @override
+  String get vipErrorPurchaseCanceled => 'Харид бекор шуд ё қатъ шуд. Лутфан бори дигар кӯшиш кунед.';
+
+  @override
+  String get vipErrorVerifyServer => 'Хариди шумо дар сервер тасдиқ нашуд. Ба дастгирӣ муроҷиат кунед.';
+
+  @override
+  String get vipPlanLengthOneMonth => '1 моҳ';
+
+  @override
+  String get vipPlanLengthThreeMonths => '3 моҳ';
+
+  @override
+  String get vipPlanLengthOneYear => '1 сол';
+
+  @override
+  String vipPaymentPayPrice(String price) {
+    return 'Пардохт $price';
+  }
+
+  @override
+  String get vipExpired => 'VIP ба охир расид';
+
+  @override
+  String get vipMember => 'Узви VIP';
+
+  @override
+  String get chatPhrasesMostUsed => 'Зуд истифода';
+
+  @override
+  String get chatPhrasesTopics => 'Мавзӯъҳо';
+
+  @override
+  String get chatPhrasesAddPhrase => 'Илова кардани ҷумла';
+
+  @override
+  String get chatPhrasesChange => 'Иваз кардан';
+
+  @override
+  String get chatPhrasesAddTitle => 'Илова кардани ҷумла';
+
+  @override
+  String get chatPhrasesAddHint => 'Ҷумлаеро нависед, ки бештар истифода мебаред';
+
+  @override
+  String get chatPhrasesEmptyMostUsed => 'Ҳоло ҷумлаи захирашуда нест. + -ро пахш кунед, то илова кунед.';
+
+  @override
+  String get chatPhrasesDeleteTitle => 'Ин ҷумларо нест кунем?';
 }

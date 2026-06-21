@@ -6366,4 +6366,222 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get occupationCustomSaveCTA => 'Bunu mesleğim olarak kullan';
+
+  @override
+  String get vipSelectPlan => 'Plan seç';
+
+  @override
+  String get vipBenefits => 'Avantajlar';
+
+  @override
+  String get vipBestValue => 'EN AVANTAJLI';
+
+  @override
+  String get vipPlanMonth => '1 Ay';
+
+  @override
+  String get vipPlanThreeMonths => '3 Ay';
+
+  @override
+  String get vipPlanTwelveMonths => '12 Ay';
+
+  @override
+  String get vipOneTime => 'Tek seferlik';
+
+  @override
+  String get vipNonVip => 'VIP değil';
+
+  @override
+  String get vipBenefitDailyTranslations => 'Günlük çeviriler';
+
+  @override
+  String get vipBenefitTranslationsLimit => '5 / gün';
+
+  @override
+  String get vipBenefitUnlimited => 'Sınırsız';
+
+  @override
+  String get vipBenefitAdvancedFilters => 'Gelişmiş filtreler';
+
+  @override
+  String get vipBenefitAdFree => 'Reklamsız deneyim';
+
+  @override
+  String get vipBenefitVipBadge => 'Profilde VIP rozeti';
+
+  @override
+  String get vipBenefitPrioritySupport => 'Öncelikli destek';
+
+  @override
+  String get vipBrandTitle => 'BananaTalk VIP';
+
+  @override
+  String get vipTagline => 'Küresel bağlantıların pasaportu — gerçek sohbetler, kalıcı dostluklar.';
+
+  @override
+  String get vipDisclosure => 'Dönem sona ermeden 24 saat önce iptal edilmezse otomatik yenilenir. Ödeme, iTunes veya Google Play hesabınıza yansıtılır.';
+
+  @override
+  String get vipLoginRequired => 'Devam etmek için lütfen giriş yapın';
+
+  @override
+  String get chatListMenu => 'Menu';
+
+  @override
+  String get chatListNewMessageAlertsTitle => 'New Message Alerts';
+
+  @override
+  String get chatListNewMessageAlertsBody => 'Tap to turn on notifications and never miss a message';
+
+  @override
+  String get chatListFilterMyTurn => 'My turn';
+
+  @override
+  String get partnerTagActiveNow => 'Active now';
+
+  @override
+  String get partnerTagVeryResponsive => 'Very Responsive';
+
+  @override
+  String get partnerTagQuickToReply => 'Quick to Reply';
+
+  @override
+  String vipSavePercent(int pct) {
+    return '%$pct tasarruf';
+  }
+
+  @override
+  String vipPerMonth(String price) {
+    return '$price / ay';
+  }
+
+  @override
+  String partnerTagBothLike(String topic) {
+    return 'Both like $topic';
+  }
+
+  @override
+  String partnerTagSpeaks(String language) {
+    return 'Speaks $language';
+  }
+
+  @override
+  String partnerTagLearning(String language) {
+    return 'Learning $language';
+  }
+
+  @override
+  String partnerTagJoinedDaysAgo(int days) {
+    return 'Joined ${days}d ago';
+  }
+
+  @override
+  String get vipPaymentPlanSummary => 'Plan özeti';
+
+  @override
+  String get vipPaymentSelectMethod => 'Ödeme yöntemi seç';
+
+  @override
+  String get vipPaymentPurchaseAppStore => 'App Store üzerinden satın al';
+
+  @override
+  String get vipPaymentPurchaseGooglePlay => 'Google Play üzerinden satın al';
+
+  @override
+  String get vipPaymentSecureAppStore => 'Satın alma işleminiz App Store üzerinden güvenli şekilde yapılacaktır.';
+
+  @override
+  String get vipPaymentSecureGooglePlay => 'Satın alma işleminiz Google Play üzerinden güvenli şekilde yapılacaktır.';
+
+  @override
+  String get vipPaymentSubscriptionInfo => 'Abonelik bilgileri';
+
+  @override
+  String get vipPaymentInfoLabelTitle => 'Başlık';
+
+  @override
+  String get vipPaymentInfoLabelLength => 'Süre';
+
+  @override
+  String get vipPaymentInfoLabelPrice => 'Fiyat';
+
+  @override
+  String get vipPaymentDisclosure => 'Bu satın alma işlemini tamamlayarak Kullanım Koşullarımızı ve Gizlilik Politikamızı kabul etmiş olursunuz. Aboneliğiniz, mevcut dönem sona ermeden en az 24 saat önce iptal edilmediği sürece otomatik olarak yenilenir.';
+
+  @override
+  String get vipSuccessTitle => 'VIP’e hoş geldiniz!';
+
+  @override
+  String get vipSuccessBody => 'VIP aboneliğiniz artık aktif. Tüm premium özelliklerin tadını çıkarın!';
+
+  @override
+  String get vipPendingTitle => 'Az kaldı';
+
+  @override
+  String get vipPendingBody => 'Aboneliğiniz işleniyor — lütfen bir dakika sonra yenileyin.';
+
+  @override
+  String get vipErrorPaymentTitle => 'Ödeme hatası';
+
+  @override
+  String get vipErrorPurchaseTitle => 'Satın alma hatası';
+
+  @override
+  String get vipErrorVerifyTitle => 'Satın alma doğrulanamadı';
+
+  @override
+  String get vipErrorPaymentFailed => 'Ödeme başarısız';
+
+  @override
+  String get vipErrorBodyPrefix => 'Ödemeniz işlenirken bir hata oluştu:';
+
+  @override
+  String get vipErrorPurchaseCanceled => 'Satın alma iptal edildi veya başarısız oldu. Lütfen tekrar deneyin.';
+
+  @override
+  String get vipErrorVerifyServer => 'Satın alma sunucu tarafında doğrulanamadı. Lütfen destek ile iletişime geçin.';
+
+  @override
+  String get vipPlanLengthOneMonth => '1 ay';
+
+  @override
+  String get vipPlanLengthThreeMonths => '3 ay';
+
+  @override
+  String get vipPlanLengthOneYear => '1 yıl';
+
+  @override
+  String vipPaymentPayPrice(String price) {
+    return '$price öde';
+  }
+
+  @override
+  String get vipExpired => 'VIP süresi doldu';
+
+  @override
+  String get vipMember => 'VIP üye';
+
+  @override
+  String get chatPhrasesMostUsed => 'Sık Kullanılan';
+
+  @override
+  String get chatPhrasesTopics => 'Konular';
+
+  @override
+  String get chatPhrasesAddPhrase => 'Cümle ekle';
+
+  @override
+  String get chatPhrasesChange => 'Değiştir';
+
+  @override
+  String get chatPhrasesAddTitle => 'Cümle ekle';
+
+  @override
+  String get chatPhrasesAddHint => 'Sık kullandığın bir cümle yaz';
+
+  @override
+  String get chatPhrasesEmptyMostUsed => 'Henüz kayıtlı cümle yok. Eklemek için + simgesine dokun.';
+
+  @override
+  String get chatPhrasesDeleteTitle => 'Bu cümle silinsin mi?';
 }

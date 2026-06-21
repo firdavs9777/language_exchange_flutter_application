@@ -6366,4 +6366,222 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get occupationCustomSaveCTA => 'Gamitin ito bilang trabaho ko';
+
+  @override
+  String get vipSelectPlan => 'Pumili ng plano';
+
+  @override
+  String get vipBenefits => 'Mga benepisyo';
+
+  @override
+  String get vipBestValue => 'PINAKASULIT';
+
+  @override
+  String get vipPlanMonth => '1 buwan';
+
+  @override
+  String get vipPlanThreeMonths => '3 buwan';
+
+  @override
+  String get vipPlanTwelveMonths => '12 buwan';
+
+  @override
+  String get vipOneTime => 'Isang beses lang';
+
+  @override
+  String get vipNonVip => 'Hindi VIP';
+
+  @override
+  String get vipBenefitDailyTranslations => 'Pang-araw-araw na pagsasalin';
+
+  @override
+  String get vipBenefitTranslationsLimit => '5 / araw';
+
+  @override
+  String get vipBenefitUnlimited => 'Walang limitasyon';
+
+  @override
+  String get vipBenefitAdvancedFilters => 'Advanced na mga filter';
+
+  @override
+  String get vipBenefitAdFree => 'Walang patalastas';
+
+  @override
+  String get vipBenefitVipBadge => 'VIP badge sa profile';
+
+  @override
+  String get vipBenefitPrioritySupport => 'Prayoridad na suporta';
+
+  @override
+  String get vipBrandTitle => 'BananaTalk VIP';
+
+  @override
+  String get vipTagline => 'Ang pasaporte mo sa pandaigdigang koneksyon — tunay na usapan, tagal na pagkakaibigan.';
+
+  @override
+  String get vipDisclosure => 'Awtomatikong nare-renew maliban kung kanselahin 24 oras bago matapos ang panahon. Sisingilin ang bayad sa iyong iTunes o Google Play account.';
+
+  @override
+  String get vipLoginRequired => 'Mangyaring mag-log in para magpatuloy';
+
+  @override
+  String get chatListMenu => 'Menu';
+
+  @override
+  String get chatListNewMessageAlertsTitle => 'New Message Alerts';
+
+  @override
+  String get chatListNewMessageAlertsBody => 'Tap to turn on notifications and never miss a message';
+
+  @override
+  String get chatListFilterMyTurn => 'My turn';
+
+  @override
+  String get partnerTagActiveNow => 'Active now';
+
+  @override
+  String get partnerTagVeryResponsive => 'Very Responsive';
+
+  @override
+  String get partnerTagQuickToReply => 'Quick to Reply';
+
+  @override
+  String vipSavePercent(int pct) {
+    return 'Makatipid ng $pct%';
+  }
+
+  @override
+  String vipPerMonth(String price) {
+    return '$price / buwan';
+  }
+
+  @override
+  String partnerTagBothLike(String topic) {
+    return 'Both like $topic';
+  }
+
+  @override
+  String partnerTagSpeaks(String language) {
+    return 'Speaks $language';
+  }
+
+  @override
+  String partnerTagLearning(String language) {
+    return 'Learning $language';
+  }
+
+  @override
+  String partnerTagJoinedDaysAgo(int days) {
+    return 'Joined ${days}d ago';
+  }
+
+  @override
+  String get vipPaymentPlanSummary => 'Buod ng plano';
+
+  @override
+  String get vipPaymentSelectMethod => 'Pumili ng paraan ng bayad';
+
+  @override
+  String get vipPaymentPurchaseAppStore => 'Bilhin sa App Store';
+
+  @override
+  String get vipPaymentPurchaseGooglePlay => 'Bilhin sa Google Play';
+
+  @override
+  String get vipPaymentSecureAppStore => 'Ligtas na proseso ang pagbili sa pamamagitan ng App Store.';
+
+  @override
+  String get vipPaymentSecureGooglePlay => 'Ligtas na proseso ang pagbili sa pamamagitan ng Google Play.';
+
+  @override
+  String get vipPaymentSubscriptionInfo => 'Impormasyon ng subscription';
+
+  @override
+  String get vipPaymentInfoLabelTitle => 'Pamagat';
+
+  @override
+  String get vipPaymentInfoLabelLength => 'Tagal';
+
+  @override
+  String get vipPaymentInfoLabelPrice => 'Halaga';
+
+  @override
+  String get vipPaymentDisclosure => 'Sa pagkumpleto ng pagbili na ito, sumasang-ayon ka sa aming Mga Tuntunin ng Paggamit at Patakaran sa Privacy. Awtomatikong magre-renew ang iyong subscription maliban kung kanselahin nang hindi bababa sa 24 oras bago matapos ang kasalukuyang panahon.';
+
+  @override
+  String get vipSuccessTitle => 'Welcome sa VIP!';
+
+  @override
+  String get vipSuccessBody => 'Aktibo na ang iyong VIP subscription. Tamasahin ang lahat ng premium feature!';
+
+  @override
+  String get vipPendingTitle => 'Malapit na';
+
+  @override
+  String get vipPendingBody => 'Pinoproseso ang iyong subscription — subukang mag-refresh mamaya.';
+
+  @override
+  String get vipErrorPaymentTitle => 'Error sa pagbabayad';
+
+  @override
+  String get vipErrorPurchaseTitle => 'Error sa pagbili';
+
+  @override
+  String get vipErrorVerifyTitle => 'Bigo ang pag-verify ng pagbili';
+
+  @override
+  String get vipErrorPaymentFailed => 'Nabigo ang pagbabayad';
+
+  @override
+  String get vipErrorBodyPrefix => 'May naganap na error habang pinoproseso ang iyong bayad:';
+
+  @override
+  String get vipErrorPurchaseCanceled => 'Kinansela o nabigo ang pagbili. Pakisubukang muli.';
+
+  @override
+  String get vipErrorVerifyServer => 'Hindi ma-verify ang pagbili sa server. Mangyaring makipag-ugnayan sa suporta.';
+
+  @override
+  String get vipPlanLengthOneMonth => '1 buwan';
+
+  @override
+  String get vipPlanLengthThreeMonths => '3 buwan';
+
+  @override
+  String get vipPlanLengthOneYear => '1 taon';
+
+  @override
+  String vipPaymentPayPrice(String price) {
+    return 'Bayaran $price';
+  }
+
+  @override
+  String get vipExpired => 'Nag-expire na ang VIP';
+
+  @override
+  String get vipMember => 'Miyembrong VIP';
+
+  @override
+  String get chatPhrasesMostUsed => 'Madalas';
+
+  @override
+  String get chatPhrasesTopics => 'Mga paksa';
+
+  @override
+  String get chatPhrasesAddPhrase => 'Magdagdag ng parirala';
+
+  @override
+  String get chatPhrasesChange => 'Palitan';
+
+  @override
+  String get chatPhrasesAddTitle => 'Magdagdag ng parirala';
+
+  @override
+  String get chatPhrasesAddHint => 'I-type ang parirala na madalas mong ginagamit';
+
+  @override
+  String get chatPhrasesEmptyMostUsed => 'Wala pang nai-save na parirala. I-tap ang + para magdagdag.';
+
+  @override
+  String get chatPhrasesDeleteTitle => 'I-delete ang pariralang ito?';
 }
