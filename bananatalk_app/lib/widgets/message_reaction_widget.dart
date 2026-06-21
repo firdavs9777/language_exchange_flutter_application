@@ -149,30 +149,213 @@ class ReactionPicker extends StatelessWidget {
         physics: const BouncingScrollPhysics(),
         child: Row(
           mainAxisSize: MainAxisSize.min,
-          children: defaultEmojis.map((emoji) {
-            final isSelected = currentReactions?.contains(emoji) ?? false;
-            return GestureDetector(
-              onTap: () {
-                HapticUtils.onLike();
-                onEmojiSelected(emoji);
-              },
-              child: AnimatedContainer(
-                duration: const Duration(milliseconds: 150),
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 6, vertical: 6),
-                decoration: BoxDecoration(
-                  color: isSelected
-                      ? colorScheme.primary.withOpacity(0.15)
-                      : Colors.transparent,
-                  borderRadius: BorderRadius.circular(18),
+          children: [
+            ...defaultEmojis.map((emoji) {
+              final isSelected = currentReactions?.contains(emoji) ?? false;
+              return GestureDetector(
+                onTap: () {
+                  HapticUtils.onLike();
+                  onEmojiSelected(emoji);
+                },
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 150),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 6, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: isSelected
+                        ? colorScheme.primary.withOpacity(0.15)
+                        : Colors.transparent,
+                    borderRadius: BorderRadius.circular(18),
+                  ),
+                  child: Text(
+                    emoji,
+                    style: const TextStyle(fontSize: 24),
+                  ),
                 ),
-                child: Text(
-                  emoji,
-                  style: const TextStyle(fontSize: 24),
+              );
+            }),
+            // "More reactions" launcher — opens a categorized emoji grid.
+            GestureDetector(
+              onTap: () => _openMoreReactionsSheet(context),
+              child: Container(
+                margin: const EdgeInsets.symmetric(horizontal: 4),
+                padding: const EdgeInsets.all(7),
+                decoration: BoxDecoration(
+                  color: colorScheme.onSurface.withOpacity(0.08),
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(
+                  Icons.add_rounded,
+                  size: 22,
+                  color: colorScheme.onSurface,
                 ),
               ),
-            );
-          }).toList(),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Future<void> _openMoreReactionsSheet(BuildContext context) async {
+    HapticUtils.onLike();
+    final picked = await showModalBottomSheet<String>(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (_) => _MoreReactionsSheet(
+        currentReactions: currentReactions ?? const [],
+      ),
+    );
+    if (picked != null && picked.isNotEmpty) {
+      onEmojiSelected(picked);
+    }
+  }
+}
+
+/// Full categorized emoji grid for "more reactions". Returns the picked
+/// emoji on pop; null if dismissed.
+class _MoreReactionsSheet extends StatelessWidget {
+  final List<String> currentReactions;
+
+  const _MoreReactionsSheet({required this.currentReactions});
+
+  /// Reaction catalog — broad enough to cover most chat emotions. Each
+  /// category fits ~6 rows of 8 in the grid sheet.
+  static const Map<String, List<String>> _categories = {
+    'Smileys': [
+      '😀', '😃', '😄', '😁', '😆', '😅', '😂', '🤣',
+      '😊', '😇', '🙂', '🙃', '😉', '😌', '😍', '🥰',
+      '😘', '😗', '😙', '😚', '😋', '😛', '😝', '😜',
+      '🤪', '🤨', '🧐', '🤓', '😎', '🥸', '🤩', '🥳',
+      '😶', '😐', '😑', '😬', '🫡', '🤐', '🤫', '🤥',
+      '🫢', '🫣', '🙄', '😪', '🤤', '😴', '🥱', '😷',
+    ],
+    'Feels': [
+      '😏', '😒', '😞', '😔', '😟', '😕', '🙁', '☹️',
+      '😣', '😖', '😫', '😩', '🥺', '😢', '😭', '😤',
+      '😠', '😡', '🤬', '🤯', '😳', '🥵', '🥶', '😱',
+      '😨', '😰', '😥', '😓', '🫠', '🫥', '🫨', '🥹',
+      '🤒', '🤕', '🤢', '🤮', '🥴', '🤧', '😵', '😵‍💫',
+      '🤥', '😈', '👿', '👻', '💀', '☠️', '👽', '🤡',
+    ],
+    'Gestures': [
+      '👍', '👎', '👌', '🤌', '🤏', '✌️', '🤞', '🫰',
+      '🤟', '🤘', '🤙', '👈', '👉', '👆', '👇', '☝️',
+      '👋', '🤚', '🖐️', '✋', '🖖', '👏', '🙌', '👐',
+      '🤝', '🙏', '✍️', '💅', '🤳', '💪', '🦾', '🧠',
+      '🦵', '🦶', '👂', '🦻', '👃', '👀', '👁️', '👅',
+      '👄', '🫦', '💋', '🩷', '🫶', '🤲', '🫳', '🫴',
+    ],
+    'Hearts': [
+      '❤️', '🧡', '💛', '💚', '💙', '💜', '🖤', '🤍',
+      '🤎', '🩷', '🩵', '🩶', '❤️‍🔥', '❤️‍🩹', '💔', '❣️',
+      '💕', '💞', '💓', '💗', '💖', '💘', '💝', '💟',
+      '♥️', '💌', '💋', '💍', '💐', '🌷', '🌹', '🌺',
+    ],
+    'Hype': [
+      '🔥', '✨', '🎉', '🎊', '💯', '🏆', '🥇', '🎯',
+      '⭐', '🌟', '💫', '⚡', '💥', '💢', '💦', '💨',
+      '🚀', '🌈', '☀️', '🌙', '⛅', '🍀', '🌹', '🌸',
+      '🎂', '🥂', '🍻', '🎁', '🎀', '🎈', '🎵', '🎶',
+      '📣', '📢', '🔔', '👑', '💎', '💰', '🥳', '🪅',
+    ],
+    'Animals': [
+      '🐶', '🐱', '🐭', '🐹', '🐰', '🦊', '🐻', '🐼',
+      '🐨', '🐯', '🦁', '🐮', '🐷', '🐸', '🐵', '🙈',
+      '🙉', '🙊', '🐔', '🐧', '🐦', '🦆', '🦉', '🦄',
+      '🐝', '🐛', '🦋', '🐢', '🐬', '🐳', '🦈', '🐙',
+    ],
+    'Food': [
+      '🍎', '🍐', '🍊', '🍋', '🍌', '🍉', '🍇', '🍓',
+      '🍒', '🍑', '🍍', '🥭', '🥑', '🍅', '🌶️', '🌽',
+      '🥕', '🥯', '🍞', '🥐', '🥖', '🧀', '🥚', '🍳',
+      '🥞', '🧇', '🍗', '🍔', '🍟', '🍕', '🌭', '🌮',
+      '🍣', '🍜', '🍝', '🍰', '🎂', '🍩', '🍪', '🍫',
+      '🍿', '☕', '🍵', '🧋', '🥤', '🍷', '🍺', '🍾',
+    ],
+  };
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    return DefaultTabController(
+      length: _categories.length,
+      child: DraggableScrollableSheet(
+        initialChildSize: 0.55,
+        minChildSize: 0.4,
+        maxChildSize: 0.85,
+        expand: false,
+        builder: (ctx, scrollController) => Container(
+          decoration: BoxDecoration(
+            color: isDark ? const Color(0xFF1A1A2E) : Colors.white,
+            borderRadius:
+                const BorderRadius.vertical(top: Radius.circular(24)),
+          ),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 10, bottom: 4),
+                child: Container(
+                  width: 36,
+                  height: 4,
+                  decoration: BoxDecoration(
+                    color: colorScheme.onSurface.withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                ),
+              ),
+              TabBar(
+                isScrollable: true,
+                labelColor: colorScheme.primary,
+                unselectedLabelColor: colorScheme.onSurface.withOpacity(0.6),
+                indicatorColor: colorScheme.primary,
+                dividerColor: Colors.transparent,
+                tabs: _categories.keys
+                    .map((name) => Tab(text: name))
+                    .toList(),
+              ),
+              Expanded(
+                child: TabBarView(
+                  children: _categories.values.map((emojis) {
+                    return GridView.builder(
+                      controller: scrollController,
+                      padding: const EdgeInsets.all(12),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 8,
+                        crossAxisSpacing: 4,
+                        mainAxisSpacing: 4,
+                        childAspectRatio: 1,
+                      ),
+                      itemCount: emojis.length,
+                      itemBuilder: (_, i) {
+                        final emoji = emojis[i];
+                        final isSelected = currentReactions.contains(emoji);
+                        return InkWell(
+                          borderRadius: BorderRadius.circular(10),
+                          onTap: () => Navigator.of(ctx).pop(emoji),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: isSelected
+                                  ? colorScheme.primary.withOpacity(0.15)
+                                  : Colors.transparent,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Center(
+                              child: Text(emoji,
+                                  style: const TextStyle(fontSize: 26)),
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  }).toList(),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
