@@ -763,6 +763,18 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
       ));
     }
 
+    // Forward — works for any non-deleted message regardless of sender.
+    if (!widget.message.isDeleted) {
+      menuItems.add(MessageContextMenuItem(
+        icon: Icons.forward_rounded,
+        label: AppLocalizations.of(context)!.forward,
+        onTap: () {
+          _hideReactionPicker();
+          widget.onForward?.call(widget.message);
+        },
+      ));
+    }
+
     if (widget.isMe && !widget.message.isDeleted) {
       menuItems.add(MessageContextMenuItem(
         icon: Icons.delete_rounded,
@@ -775,12 +787,35 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
       ));
     }
 
-    const itemHeight = 44.0;
+    // KakaoTalk-style layout: dim the rest of the chat, float the reaction
+    // picker just above the bubble, and stack the action list just below.
+    // Both share one overlay so a single backdrop-tap dismisses everything.
+    const reactionPickerHeight = 56.0;
+    const reactionPickerWidth = 260.0;
+    const reactionGap = 10.0;
+    const itemHeight = 48.0;
     const menuPaddingV = 8.0;
+    const menuGap = 10.0;
     final menuHeight =
         (menuItems.length * itemHeight) + (menuPaddingV * 2);
-    const menuWidth = 160.0;
+    const menuWidth = 220.0;
 
+    // Reaction picker — horizontally aligned with the bubble side.
+    double reactionX;
+    if (widget.isMe) {
+      reactionX = (position.dx + size.width - reactionPickerWidth)
+          .clamp(8.0, screenSize.width - reactionPickerWidth - 8);
+    } else {
+      reactionX =
+          position.dx.clamp(8.0, screenSize.width - reactionPickerWidth - 8);
+    }
+    double reactionY = position.dy - reactionPickerHeight - reactionGap;
+    // Flip below when there's no room above.
+    if (reactionY < 60) {
+      reactionY = position.dy + size.height + reactionGap;
+    }
+
+    // Action menu — anchored to the bubble's edge on the sender side.
     double menuX;
     if (widget.isMe) {
       menuX = (position.dx + size.width - menuWidth)
@@ -788,20 +823,43 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
     } else {
       menuX = position.dx.clamp(8.0, screenSize.width - menuWidth - 8);
     }
-
-    final menuY = (position.dy + size.height + 6)
-        .clamp(40.0, screenSize.height - menuHeight - 40);
+    double menuY = position.dy + size.height + menuGap;
+    // If the menu would clip below the screen, place it above the bubble
+    // (and above the reaction picker if needed).
+    if (menuY + menuHeight > screenSize.height - 40) {
+      menuY = (position.dy - menuHeight - menuGap).clamp(40.0, screenSize.height - menuHeight - 40);
+    }
 
     _reactionPickerOverlay = OverlayEntry(
       builder: (ctx) => Stack(
         children: [
+          // Dimmed backdrop — tap anywhere dismisses the combined sheet.
           Positioned.fill(
             child: GestureDetector(
               onTap: _hideReactionPicker,
               child:
-                  Container(color: AppColors.black.withValues(alpha: 0.3)),
+                  Container(color: AppColors.black.withValues(alpha: 0.35)),
             ),
           ),
+          // Reaction picker — quick taps for ❤️ / 👍 / 😂 / 😮 / 😢 / 🙏.
+          Positioned(
+            left: reactionX,
+            top: reactionY,
+            child: Material(
+              color: Colors.transparent,
+              child: ReactionPicker(
+                onEmojiSelected: (emoji) {
+                  _handleReactionTap(emoji);
+                  _hideReactionPicker();
+                },
+                currentReactions: widget.message.reactions
+                    .where((r) => r.user.id == _currentUserId)
+                    .map((r) => r.emoji)
+                    .toList(),
+              ),
+            ),
+          ),
+          // Action list — KakaoTalk-style vertical menu of full actions.
           Positioned(
             left: menuX,
             top: menuY,
@@ -811,12 +869,12 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
                 width: menuWidth,
                 decoration: BoxDecoration(
                   color: isDark ? AppColors.cardDark : AppColors.white,
-                  borderRadius: BorderRadius.circular(14),
+                  borderRadius: BorderRadius.circular(16),
                   boxShadow: [
                     BoxShadow(
-                      color: AppColors.black.withValues(alpha: 0.15),
-                      blurRadius: 20,
-                      offset: const Offset(0, 4),
+                      color: AppColors.black.withValues(alpha: 0.18),
+                      blurRadius: 24,
+                      offset: const Offset(0, 6),
                     ),
                   ],
                 ),
@@ -835,21 +893,22 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
                         HapticFeedback.lightImpact();
                         item.onTap();
                       },
-                      borderRadius: BorderRadius.circular(8),
                       child: Container(
                         height: itemHeight,
                         padding:
-                            const EdgeInsets.symmetric(horizontal: 16),
+                            const EdgeInsets.symmetric(horizontal: 18),
                         child: Row(
                           children: [
                             Icon(item.icon, size: 20, color: color),
-                            const SizedBox(width: 12),
-                            Text(
-                              item.label,
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w500,
-                                color: color,
+                            const SizedBox(width: 14),
+                            Expanded(
+                              child: Text(
+                                item.label,
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w500,
+                                  color: color,
+                                ),
                               ),
                             ),
                           ],
