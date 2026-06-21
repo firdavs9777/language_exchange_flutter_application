@@ -2698,5 +2698,8 @@
   "chatPhrasesAddTitle": "एक वाक्य जोड़ें",
   "chatPhrasesAddHint": "एक ऐसा वाक्य लिखें जो आप अक्सर इस्तेमाल करते हैं",
   "chatPhrasesEmptyMostUsed": "अभी कोई सहेजे गए वाक्य नहीं हैं। जोड़ने के लिए + टैप करें।",
-  "chatPhrasesDeleteTitle": "इस वाक्य को हटाएँ?"
+  "chatPhrasesDeleteTitle": "इस वाक्य को हटाएँ?",
+  "filterVipPromoTitle": "अपना सही पार्टनर तेज़ी से ढूँढें",
+  "filterVipPromoSubtitle": "VIP के साथ प्राथमिकता खोज, एडवांस्ड फ़िल्टर और बिना विज्ञापन वाले चैट पाएँ।",
+  "filterVipPromoCta": "VIP बनें"
 }

@@ -6584,4 +6584,13 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get chatPhrasesDeleteTitle => 'Excluir esta frase?';
+
+  @override
+  String get filterVipPromoTitle => 'Encontre o par ideal mais rápido';
+
+  @override
+  String get filterVipPromoSubtitle => 'Descoberta prioritária, filtros avançados e chats sem anúncios com VIP.';
+
+  @override
+  String get filterVipPromoCta => 'Virar VIP';
 }

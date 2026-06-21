@@ -2540,5 +2540,8 @@
   "chatPhrasesAddTitle": "เพิ่มประโยค",
   "chatPhrasesAddHint": "พิมพ์ประโยคที่คุณใช้บ่อย",
   "chatPhrasesEmptyMostUsed": "ยังไม่มีประโยคที่บันทึกไว้ แตะ + เพื่อเพิ่ม",
-  "chatPhrasesDeleteTitle": "ลบประโยคนี้?"
+  "chatPhrasesDeleteTitle": "ลบประโยคนี้?",
+  "filterVipPromoTitle": "เจอคู่ที่ใช่ได้เร็วขึ้น",
+  "filterVipPromoSubtitle": "ปลดล็อกการค้นหาแบบเร่งด่วน ตัวกรองขั้นสูง และแชทไร้โฆษณาด้วย VIP",
+  "filterVipPromoCta": "สมัคร VIP"
 }

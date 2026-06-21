@@ -6577,4 +6577,13 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get chatPhrasesDeleteTitle => 'Xoá cụm từ này?';
+
+  @override
+  String get filterVipPromoTitle => 'Tìm người phù hợp nhanh hơn';
+
+  @override
+  String get filterVipPromoSubtitle => 'Mở khoá khám phá ưu tiên, bộ lọc nâng cao và trò chuyện không quảng cáo cùng VIP.';
+
+  @override
+  String get filterVipPromoCta => 'Lên VIP';
 }

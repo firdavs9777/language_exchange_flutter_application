@@ -6590,4 +6590,13 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get chatPhrasesDeleteTitle => 'Ин ҷумларо нест кунем?';
+
+  @override
+  String get filterVipPromoTitle => 'Шарики беҳтаринро тезтар ёбед';
+
+  @override
+  String get filterVipPromoSubtitle => 'Бо VIP — ҷустуҷӯи афзалиятнок, филтрҳои васеъ ва чатҳои бе реклама.';
+
+  @override
+  String get filterVipPromoCta => 'Ба VIP гузаред';
 }

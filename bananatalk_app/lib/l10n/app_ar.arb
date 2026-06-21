@@ -2712,5 +2712,8 @@
   "chatPhrasesAddTitle": "إضافة عبارة",
   "chatPhrasesAddHint": "اكتب عبارة تستخدمها كثيرًا",
   "chatPhrasesEmptyMostUsed": "لا توجد عبارات محفوظة بعد. اضغط + لإضافة واحدة.",
-  "chatPhrasesDeleteTitle": "حذف هذه العبارة؟"
+  "chatPhrasesDeleteTitle": "حذف هذه العبارة؟",
+  "filterVipPromoTitle": "اعثر على الشريك المناسب بشكل أسرع",
+  "filterVipPromoSubtitle": "افتح الاكتشاف ذا الأولوية والفلاتر المتقدمة والمحادثات بدون إعلانات مع VIP.",
+  "filterVipPromoCta": "انضم إلى VIP"
 }

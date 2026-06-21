@@ -3836,5 +3836,8 @@
   "chatPhrasesAddTitle": "Add a phrase",
   "chatPhrasesAddHint": "Type a phrase you use often",
   "chatPhrasesEmptyMostUsed": "No saved phrases yet. Tap + to add one.",
-  "chatPhrasesDeleteTitle": "Delete this phrase?"
+  "chatPhrasesDeleteTitle": "Delete this phrase?",
+  "filterVipPromoTitle": "Find your perfect match faster",
+  "filterVipPromoSubtitle": "Unlock priority discovery, advanced filters, and ad-free chats with VIP.",
+  "filterVipPromoCta": "Go VIP"
 }

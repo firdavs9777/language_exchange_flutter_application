@@ -2698,5 +2698,8 @@
   "chatPhrasesAddTitle": "Adicionar uma frase",
   "chatPhrasesAddHint": "Digite uma frase que você usa com frequência",
   "chatPhrasesEmptyMostUsed": "Nenhuma frase salva. Toque em + para adicionar uma.",
-  "chatPhrasesDeleteTitle": "Excluir esta frase?"
+  "chatPhrasesDeleteTitle": "Excluir esta frase?",
+  "filterVipPromoTitle": "Encontre o par ideal mais rápido",
+  "filterVipPromoSubtitle": "Descoberta prioritária, filtros avançados e chats sem anúncios com VIP.",
+  "filterVipPromoCta": "Virar VIP"
 }

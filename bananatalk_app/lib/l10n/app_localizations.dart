@@ -12301,6 +12301,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Delete this phrase?'**
   String get chatPhrasesDeleteTitle;
+
+  /// No description provided for @filterVipPromoTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Find your perfect match faster'**
+  String get filterVipPromoTitle;
+
+  /// No description provided for @filterVipPromoSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock priority discovery, advanced filters, and ad-free chats with VIP.'**
+  String get filterVipPromoSubtitle;
+
+  /// No description provided for @filterVipPromoCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Go VIP'**
+  String get filterVipPromoCta;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -2967,5 +2967,8 @@
   "chatPhrasesAddTitle": "Ajouter une phrase",
   "chatPhrasesAddHint": "Saisissez une phrase que vous utilisez souvent",
   "chatPhrasesEmptyMostUsed": "Aucune phrase enregistrée. Appuyez sur + pour en ajouter une.",
-  "chatPhrasesDeleteTitle": "Supprimer cette phrase ?"
+  "chatPhrasesDeleteTitle": "Supprimer cette phrase ?",
+  "filterVipPromoTitle": "Trouvez plus vite la personne idéale",
+  "filterVipPromoSubtitle": "Découverte prioritaire, filtres avancés et chats sans pub avec VIP.",
+  "filterVipPromoCta": "Devenir VIP"
 }

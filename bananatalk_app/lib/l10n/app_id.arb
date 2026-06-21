@@ -2540,5 +2540,8 @@
   "chatPhrasesAddTitle": "Tambah sebuah frasa",
   "chatPhrasesAddHint": "Ketik frasa yang sering kamu pakai",
   "chatPhrasesEmptyMostUsed": "Belum ada frasa tersimpan. Ketuk + untuk menambah.",
-  "chatPhrasesDeleteTitle": "Hapus frasa ini?"
+  "chatPhrasesDeleteTitle": "Hapus frasa ini?",
+  "filterVipPromoTitle": "Temukan pasangan sempurnamu lebih cepat",
+  "filterVipPromoSubtitle": "Buka penjelajahan prioritas, filter lanjutan, dan chat tanpa iklan dengan VIP.",
+  "filterVipPromoCta": "Jadi VIP"
 }

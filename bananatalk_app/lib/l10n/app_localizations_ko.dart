@@ -6577,4 +6577,13 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get chatPhrasesDeleteTitle => '이 문장을 삭제할까요?';
+
+  @override
+  String get filterVipPromoTitle => '더 빠르게 완벽한 상대 찾기';
+
+  @override
+  String get filterVipPromoSubtitle => 'VIP로 우선 탐색·고급 필터·광고 없는 채팅을 이용하세요.';
+
+  @override
+  String get filterVipPromoCta => 'VIP 시작';
 }

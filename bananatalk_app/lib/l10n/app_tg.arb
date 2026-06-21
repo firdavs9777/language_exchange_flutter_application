@@ -2281,5 +2281,8 @@
   "chatPhrasesAddTitle": "Илова кардани ҷумла",
   "chatPhrasesAddHint": "Ҷумлаеро нависед, ки бештар истифода мебаред",
   "chatPhrasesEmptyMostUsed": "Ҳоло ҷумлаи захирашуда нест. + -ро пахш кунед, то илова кунед.",
-  "chatPhrasesDeleteTitle": "Ин ҷумларо нест кунем?"
+  "chatPhrasesDeleteTitle": "Ин ҷумларо нест кунем?",
+  "filterVipPromoTitle": "Шарики беҳтаринро тезтар ёбед",
+  "filterVipPromoSubtitle": "Бо VIP — ҷустуҷӯи афзалиятнок, филтрҳои васеъ ва чатҳои бе реклама.",
+  "filterVipPromoCta": "Ба VIP гузаред"
 }

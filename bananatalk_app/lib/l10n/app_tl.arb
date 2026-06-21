@@ -2634,5 +2634,8 @@
   "chatPhrasesAddTitle": "Magdagdag ng parirala",
   "chatPhrasesAddHint": "I-type ang parirala na madalas mong ginagamit",
   "chatPhrasesEmptyMostUsed": "Wala pang nai-save na parirala. I-tap ang + para magdagdag.",
-  "chatPhrasesDeleteTitle": "I-delete ang pariralang ito?"
+  "chatPhrasesDeleteTitle": "I-delete ang pariralang ito?",
+  "filterVipPromoTitle": "Mahanap nang mas mabilis ang perfect match mo",
+  "filterVipPromoSubtitle": "I-unlock ang priority discovery, advanced filters, at walang ad na chats sa VIP.",
+  "filterVipPromoCta": "Maging VIP"
 }

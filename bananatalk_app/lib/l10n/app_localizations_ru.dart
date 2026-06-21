@@ -6596,4 +6596,13 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get chatPhrasesDeleteTitle => 'Удалить эту фразу?';
+
+  @override
+  String get filterVipPromoTitle => 'Найдите идеального собеседника быстрее';
+
+  @override
+  String get filterVipPromoSubtitle => 'С VIP — приоритетный поиск, расширенные фильтры и чаты без рекламы.';
+
+  @override
+  String get filterVipPromoCta => 'Стать VIP';
 }

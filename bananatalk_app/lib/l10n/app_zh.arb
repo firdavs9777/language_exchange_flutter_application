@@ -2711,5 +2711,8 @@
   "chatPhrasesAddTitle": "添加短语",
   "chatPhrasesAddHint": "输入你常用的短语",
   "chatPhrasesEmptyMostUsed": "还没有保存的短语。点击 + 添加一条。",
-  "chatPhrasesDeleteTitle": "删除这条短语？"
+  "chatPhrasesDeleteTitle": "删除这条短语？",
+  "filterVipPromoTitle": "更快找到合拍的伙伴",
+  "filterVipPromoSubtitle": "开通 VIP，享受优先匹配、高级筛选与无广告聊天。",
+  "filterVipPromoCta": "开通 VIP"
 }

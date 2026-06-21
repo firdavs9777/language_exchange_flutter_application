@@ -460,6 +460,9 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
               ),
             ),
             const Divider(height: 1),
+            // VIP upsell — shown only to non-VIP users; the filters
+            // themselves are free for everyone, this nudges paying conversions.
+            _buildVipPromoBanner(context),
             // Scrollable body — sections in ExpansionTiles
             Expanded(
               child: ListView(
@@ -777,6 +780,118 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
       selectedLanguage: selected,
       onTap: onTap,
       placeholderIcon: icon,
+    );
+  }
+
+  /// Slim VIP promo strip rendered above the filter list. Hidden for VIP
+  /// users so they don't get nagged about a subscription they already have.
+  /// Tapping anywhere on the strip opens the VIP plans screen.
+  Widget _buildVipPromoBanner(BuildContext context) {
+    final user = ref.watch(userProvider).valueOrNull;
+    if (user?.isVip == true) return const SizedBox.shrink();
+    final l10n = AppLocalizations.of(context)!;
+
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 10, 16, 4),
+      child: Material(
+        color: Colors.transparent,
+        borderRadius: BorderRadius.circular(14),
+        child: InkWell(
+          onTap: _showVipPrompt,
+          borderRadius: BorderRadius.circular(14),
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                colors: [Color(0xFFFFD700), Color(0xFFFFA500)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+              borderRadius: BorderRadius.circular(14),
+              boxShadow: [
+                BoxShadow(
+                  color: const Color(0xFFFFD700).withValues(alpha: 0.35),
+                  blurRadius: 10,
+                  offset: const Offset(0, 3),
+                ),
+              ],
+            ),
+            child: Row(
+              children: [
+                Container(
+                  width: 36,
+                  height: 36,
+                  decoration: BoxDecoration(
+                    color: Colors.white.withValues(alpha: 0.22),
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(
+                    Icons.workspace_premium_rounded,
+                    size: 20,
+                    color: Colors.white,
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        l10n.filterVipPromoTitle,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w800,
+                          color: Colors.white,
+                          letterSpacing: 0.1,
+                        ),
+                      ),
+                      const SizedBox(height: 2),
+                      Text(
+                        l10n.filterVipPromoSubtitle,
+                        style: TextStyle(
+                          fontSize: 11.5,
+                          color: Colors.white.withValues(alpha: 0.92),
+                          height: 1.25,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 6,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        l10n.filterVipPromoCta,
+                        style: const TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w800,
+                          color: Color(0xFFB8860B),
+                        ),
+                      ),
+                      const SizedBox(width: 3),
+                      const Icon(
+                        Icons.arrow_forward_rounded,
+                        size: 14,
+                        color: Color(0xFFB8860B),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 

@@ -2146,5 +2146,8 @@
   "chatPhrasesAddTitle": "新增短語",
   "chatPhrasesAddHint": "輸入你常用的短語",
   "chatPhrasesEmptyMostUsed": "尚未儲存任何短語。點一下 + 新增一則。",
-  "chatPhrasesDeleteTitle": "刪除這則短語？"
+  "chatPhrasesDeleteTitle": "刪除這則短語？",
+  "filterVipPromoTitle": "更快找到契合的對象",
+  "filterVipPromoSubtitle": "升級 VIP，享受優先探索、進階篩選與無廣告聊天。",
+  "filterVipPromoCta": "升級 VIP"
 }

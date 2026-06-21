@@ -6577,4 +6577,13 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get chatPhrasesDeleteTitle => 'このフレーズを削除しますか？';
+
+  @override
+  String get filterVipPromoTitle => '理想の相手をもっと早く見つけよう';
+
+  @override
+  String get filterVipPromoSubtitle => 'VIPで優先表示、高度なフィルター、広告非表示のチャットを開放。';
+
+  @override
+  String get filterVipPromoCta => 'VIPへ';
 }

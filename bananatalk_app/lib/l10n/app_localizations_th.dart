@@ -6577,4 +6577,13 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get chatPhrasesDeleteTitle => 'ลบประโยคนี้?';
+
+  @override
+  String get filterVipPromoTitle => 'เจอคู่ที่ใช่ได้เร็วขึ้น';
+
+  @override
+  String get filterVipPromoSubtitle => 'ปลดล็อกการค้นหาแบบเร่งด่วน ตัวกรองขั้นสูง และแชทไร้โฆษณาด้วย VIP';
+
+  @override
+  String get filterVipPromoCta => 'สมัคร VIP';
 }

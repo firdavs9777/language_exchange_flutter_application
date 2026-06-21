@@ -2697,5 +2697,8 @@
   "chatPhrasesAddTitle": "フレーズを追加",
   "chatPhrasesAddHint": "よく使うフレーズを入力してください",
   "chatPhrasesEmptyMostUsed": "保存されたフレーズがありません。+ をタップして追加してください。",
-  "chatPhrasesDeleteTitle": "このフレーズを削除しますか？"
+  "chatPhrasesDeleteTitle": "このフレーズを削除しますか？",
+  "filterVipPromoTitle": "理想の相手をもっと早く見つけよう",
+  "filterVipPromoSubtitle": "VIPで優先表示、高度なフィルター、広告非表示のチャットを開放。",
+  "filterVipPromoCta": "VIPへ"
 }

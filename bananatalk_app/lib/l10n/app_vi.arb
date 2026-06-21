@@ -2540,5 +2540,8 @@
   "chatPhrasesAddTitle": "Thêm cụm từ",
   "chatPhrasesAddHint": "Nhập cụm từ bạn hay dùng",
   "chatPhrasesEmptyMostUsed": "Chưa có cụm từ nào. Nhấn + để thêm.",
-  "chatPhrasesDeleteTitle": "Xoá cụm từ này?"
+  "chatPhrasesDeleteTitle": "Xoá cụm từ này?",
+  "filterVipPromoTitle": "Tìm người phù hợp nhanh hơn",
+  "filterVipPromoSubtitle": "Mở khoá khám phá ưu tiên, bộ lọc nâng cao và trò chuyện không quảng cáo cùng VIP.",
+  "filterVipPromoCta": "Lên VIP"
 }

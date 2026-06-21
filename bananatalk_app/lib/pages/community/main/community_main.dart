@@ -16,7 +16,7 @@ import 'package:bananatalk_app/pages/community/main/community_app_bar.dart';
 import 'package:bananatalk_app/pages/community/main/community_tab_bar.dart';
 import 'package:bananatalk_app/pages/community/main/community_filter_chips.dart';
 import 'package:bananatalk_app/services/user_service.dart';
-import 'package:bananatalk_app/services/ad_service.dart';
+import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
@@ -43,8 +43,6 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
   final TextEditingController _searchController = TextEditingController();
   bool _isSearching = false;
   String _searchQuery = '';
-  bool _filtersUnlocked = false; // Unlocked by watching a rewarded ad this session
-
   FilterState _filters = FilterState.defaults;
 
   @override
@@ -104,71 +102,11 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
 
   void _clearAllFilters() => _applyFilters(FilterState.defaults);
 
-  Future<void> _openFilters() async {
-    // Already unlocked this session — open directly
-    if (_filtersUnlocked) {
-      _showFilterSheet();
-      return;
-    }
-
-    final adService = AdService();
-
-    // Show gate dialog
-    final result = await showDialog<String>(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        title: const Row(
-          children: [
-            Text('🔍', style: TextStyle(fontSize: 24)),
-            SizedBox(width: 10),
-            Text(
-              'Unlock Filters',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
-            ),
-          ],
-        ),
-        content: const Text(
-          'Watch a short ad to unlock advanced community filters for this session.',
-          style: TextStyle(fontSize: 14, height: 1.5),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(ctx, 'cancel'),
-            child: const Text('Maybe Later'),
-          ),
-          ElevatedButton.icon(
-            onPressed: adService.isRewardedAdReady
-                ? () {
-                    adService.showRewarded(onRewarded: () {
-                      Navigator.pop(ctx, 'unlocked');
-                    });
-                  }
-                : null,
-            icon: const Icon(Icons.play_circle_outline, size: 18),
-            label: const Text('Watch Ad'),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF00BFA5),
-              foregroundColor: Colors.white,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-
-    if (result == 'unlocked' && mounted) {
-      setState(() => _filtersUnlocked = true);
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Filters unlocked for this session!'),
-          backgroundColor: Color(0xFF00BFA5),
-        ),
-      );
-      _showFilterSheet();
-    }
+  void _openFilters() {
+    // Filters are free for everyone — the previous rewarded-ad gate was
+    // dropped while AdMob serving is throttled. The filter sheet itself
+    // promotes VIP inline for non-VIP users.
+    _showFilterSheet();
   }
 
   void _showFilterSheet() {

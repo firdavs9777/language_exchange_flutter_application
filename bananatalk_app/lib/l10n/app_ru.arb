@@ -2712,5 +2712,8 @@
   "chatPhrasesAddTitle": "Добавить фразу",
   "chatPhrasesAddHint": "Введите фразу, которую часто используете",
   "chatPhrasesEmptyMostUsed": "Сохранённых фраз пока нет. Нажмите +, чтобы добавить.",
-  "chatPhrasesDeleteTitle": "Удалить эту фразу?"
+  "chatPhrasesDeleteTitle": "Удалить эту фразу?",
+  "filterVipPromoTitle": "Найдите идеального собеседника быстрее",
+  "filterVipPromoSubtitle": "С VIP — приоритетный поиск, расширенные фильтры и чаты без рекламы.",
+  "filterVipPromoCta": "Стать VIP"
 }

@@ -6577,6 +6577,15 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get chatPhrasesDeleteTitle => '删除这条短语？';
+
+  @override
+  String get filterVipPromoTitle => '更快找到合拍的伙伴';
+
+  @override
+  String get filterVipPromoSubtitle => '开通 VIP，享受优先匹配、高级筛选与无广告聊天。';
+
+  @override
+  String get filterVipPromoCta => '开通 VIP';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -12039,4 +12048,13 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get chatPhrasesDeleteTitle => '刪除這則短語？';
+
+  @override
+  String get filterVipPromoTitle => '更快找到契合的對象';
+
+  @override
+  String get filterVipPromoSubtitle => '升級 VIP，享受優先探索、進階篩選與無廣告聊天。';
+
+  @override
+  String get filterVipPromoCta => '升級 VIP';
 }

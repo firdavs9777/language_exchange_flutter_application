@@ -2967,5 +2967,8 @@
   "chatPhrasesAddTitle": "Satz hinzufügen",
   "chatPhrasesAddHint": "Schreibe einen Satz, den du oft verwendest",
   "chatPhrasesEmptyMostUsed": "Noch keine gespeicherten Sätze. Tippe auf +, um einen hinzuzufügen.",
-  "chatPhrasesDeleteTitle": "Diesen Satz löschen?"
+  "chatPhrasesDeleteTitle": "Diesen Satz löschen?",
+  "filterVipPromoTitle": "Schneller passende Sprachpartner finden",
+  "filterVipPromoSubtitle": "Mit VIP: priorisierte Vorschläge, erweiterte Filter und werbefreie Chats.",
+  "filterVipPromoCta": "VIP holen"
 }

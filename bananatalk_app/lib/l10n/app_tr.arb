@@ -2910,5 +2910,8 @@
   "chatPhrasesAddTitle": "Cümle ekle",
   "chatPhrasesAddHint": "Sık kullandığın bir cümle yaz",
   "chatPhrasesEmptyMostUsed": "Henüz kayıtlı cümle yok. Eklemek için + simgesine dokun.",
-  "chatPhrasesDeleteTitle": "Bu cümle silinsin mi?"
+  "chatPhrasesDeleteTitle": "Bu cümle silinsin mi?",
+  "filterVipPromoTitle": "Sana en uygun kişiyi daha hızlı bul",
+  "filterVipPromoSubtitle": "VIP ile öncelikli keşif, gelişmiş filtreler ve reklamsız sohbetler.",
+  "filterVipPromoCta": "VIP ol"
 }
