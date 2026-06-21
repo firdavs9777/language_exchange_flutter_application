@@ -18,6 +18,7 @@ class ChatMessagesList extends StatelessWidget {
   final String? currentUserId;
   final String otherUserName;
   final String? otherUserPicture;
+  final String? otherUserNativeLanguage;
   final bool otherUserTyping;
   final ScrollController scrollController;
   final VoidCallback onRetry;
@@ -47,6 +48,7 @@ class ChatMessagesList extends StatelessWidget {
     required this.currentUserId,
     required this.otherUserName,
     this.otherUserPicture,
+    this.otherUserNativeLanguage,
     required this.otherUserTyping,
     required this.scrollController,
     required this.onRetry,
@@ -215,6 +217,7 @@ class ChatMessagesList extends StatelessWidget {
                   isMe: isMe,
                   otherUserName: otherUserName,
                   otherUserPicture: otherUserPicture,
+                  otherUserNativeLanguage: otherUserNativeLanguage,
                   originalMessageId: originalMessage.id,
                   isCorrector: isCorrector,
                 );
@@ -277,6 +280,7 @@ class ChatMessagesList extends StatelessWidget {
                 isMe: isMe,
                 otherUserName: otherUserName,
                 otherUserPicture: otherUserPicture,
+                otherUserNativeLanguage: otherUserNativeLanguage,
                 isSelectionMode: isSelectionMode,
                 isSelected: selectedMessageIds.contains(message.id),
                 onSelectionChanged: onSelectionChanged,

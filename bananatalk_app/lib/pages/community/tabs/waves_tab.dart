@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
+import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:bananatalk_app/pages/community/single/single_community_screen.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -36,6 +37,12 @@ class _WavesTabState extends ConsumerState<WavesTab> {
       _isLoading = true;
       _hasError = false;
     });
+
+    final userState = ref.read(userProvider);
+    if (userState.hasError) {
+      ref.invalidate(userProvider);
+      try { await ref.read(userProvider.future); } catch (_) {}
+    }
 
     try {
       final service = ref.read(communityServiceProvider);

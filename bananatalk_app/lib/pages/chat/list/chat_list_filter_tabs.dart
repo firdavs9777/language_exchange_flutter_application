@@ -23,6 +23,7 @@ class ChatListFilterTabs extends StatelessWidget {
       ('all', l10n.chatListFilterAll, Icons.chat_bubble_outline_rounded),
       ('unread', l10n.chatListFilterUnread, Icons.mark_email_unread_outlined),
       ('online', l10n.chatListFilterOnline, Icons.circle),
+      ('myTurn', l10n.chatListFilterMyTurn, Icons.reply_rounded),
     ];
 
     return SizedBox(

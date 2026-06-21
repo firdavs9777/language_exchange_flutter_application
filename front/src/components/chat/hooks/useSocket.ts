@@ -1,7 +1,8 @@
 import React, { createContext, useContext, useEffect, useRef, useState, useCallback } from 'react';
 import { io, Socket } from 'socket.io-client';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../../store';
+import { logout } from '../../../store/slices/authSlice';
 import { BASE_URL } from '../../../constants';
 
 // ---- Types ----
@@ -82,6 +83,7 @@ export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   const [socket, setSocket] = useState<Socket | null>(null);
   const [isConnected, setIsConnected] = useState(false);
   const token = useSelector((state: RootState) => state.auth.userInfo?.token);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!token) return;
@@ -93,8 +95,31 @@ export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     const onConnect = () => setIsConnected(true);
     const onDisconnect = () => setIsConnected(false);
 
+    // Backend pushes these when the access token is on its way out / already
+    // invalid. We treat expired/authError as a definitive logout signal —
+    // the REST baseQueryWithReauth handles the silent-refresh case on its
+    // own, this branch covers the case where the server has already given up.
+    const onTokenExpired = (data?: { reason?: string }) => {
+      console.warn('[Socket] tokenExpired — forcing logout', data);
+      dispatch(logout());
+    };
+
+    const onAuthError = (data?: { error?: string }) => {
+      console.warn('[Socket] authError — forcing logout', data);
+      dispatch(logout());
+    };
+
+    // Heads-up only — log so we can correlate against refresh attempts. The
+    // next REST call's 401 path will rotate the token automatically.
+    const onTokenExpiring = (data?: { secondsRemaining?: number }) => {
+      console.info('[Socket] tokenExpiring', data);
+    };
+
     s.on('connect', onConnect);
     s.on('disconnect', onDisconnect);
+    s.on('tokenExpired', onTokenExpired);
+    s.on('tokenExpiring', onTokenExpiring);
+    s.on('authError', onAuthError);
 
     // If already connected (reusing existing socket), sync state
     if (s.connected) {
@@ -104,8 +129,11 @@ export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     return () => {
       s.off('connect', onConnect);
       s.off('disconnect', onDisconnect);
+      s.off('tokenExpired', onTokenExpired);
+      s.off('tokenExpiring', onTokenExpiring);
+      s.off('authError', onAuthError);
     };
-  }, [token]);
+  }, [token, dispatch]);
 
   const emit = useCallback((event: string, data?: any, callback?: (response: any) => void) => {
     if (globalSocket?.connected) {

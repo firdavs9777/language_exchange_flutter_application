@@ -30,7 +30,8 @@
     "features": {
       "realtime": "ส่งข้อความแบบเรียลไทม์",
       "exchange": "แลกเปลี่ยนภาษา",
-      "calls": "โทรเสียงและวิดีโอ"
+      "calls": "โทรเสียงและวิดีโอ",
+      "translation": "การแปลในตัว"
     },
     "online": "ออนไลน์",
     "offline": "ออฟไลน์",
@@ -42,7 +43,49 @@
     "justNow": "เมื่อกี้",
     "minutesAgo": "{{count}} นาทีที่แล้ว",
     "hoursAgo": "{{count}} ชั่วโมงที่แล้ว",
-    "unknownUser": "ผู้ใช้ที่ไม่รู้จัก"
+    "unknownUser": "ผู้ใช้ที่ไม่รู้จัก",
+    "backToConversations": "กลับไปที่การสนทนา",
+    "moreOptions": "ตัวเลือกเพิ่มเติม",
+    "retrySending": "ส่งอีกครั้ง",
+    "input": {
+      "attachFile": "แนบไฟล์",
+      "stickers": "สติกเกอร์",
+      "voiceMessage": "ข้อความเสียง",
+      "sendGif": "ส่ง GIF"
+    },
+    "list": {
+      "noMatchTitle": "ไม่พบการสนทนาที่ตรงกัน",
+      "noMatchSubtitle": "ลองปรับการค้นหา",
+      "emptyTitle": "ยังไม่มีการสนทนา",
+      "emptySubtitle": "เริ่มการสนทนาเพื่อให้ปรากฏที่นี่"
+    },
+    "deleteModal": {
+      "title": "ลบการสนทนา",
+      "bodyPrefix": "ลบการสนทนากับ:",
+      "warning": "การดำเนินการนี้ไม่สามารถย้อนกลับได้",
+      "cancel": "ยกเลิก",
+      "confirm": "ลบ",
+      "deleting": "กำลังลบ..."
+    },
+    "gif": {
+      "title": "GIF",
+      "close": "ปิดเครื่องมือเลือก GIF",
+      "searchPlaceholder": "ค้นหา GIF...",
+      "loading": "กำลังโหลด GIF...",
+      "noResults": "ไม่พบ GIF",
+      "poweredBy": "Powered by GIPHY",
+      "altText": "GIF"
+    },
+    "actions": {
+      "menuLabel": "ตัวเลือกการสนทนา",
+      "pin": "ปักหมุด",
+      "unpin": "เลิกปักหมุด",
+      "pinned": "ปักหมุดแล้ว",
+      "noConversationYet": "เริ่มการสนทนาก่อนเพื่อปักหมุด",
+      "pinFailed": "อัปเดตการปักหมุดไม่สำเร็จ",
+      "deleteFailed": "ลบการสนทนาไม่สำเร็จ",
+      "deleted": "ลบการสนทนาแล้ว"
+    }
   },
   "notifications": "การแจ้งเตือน",
   "moments": "โมเมนต์",
@@ -238,6 +281,28 @@
       "minutesAgo": "{{minutes}} นาทีที่แล้ว",
       "hoursAgo": "{{hours}} ชั่วโมงที่แล้ว",
       "daysAgo": "{{days}} วันที่แล้ว"
+    },
+    "lightbox": {
+      "open": "เปิดภาพแบบเต็มขนาด",
+      "close": "ปิดโปรแกรมดูภาพ",
+      "previous": "ภาพก่อนหน้า",
+      "next": "ภาพถัดไป"
+    },
+    "share": {
+      "fallbackTitle": "ดูช่วงเวลานี้สิ",
+      "success": "แชร์สำเร็จ!",
+      "copied": "คัดลอกลิงก์ไปยังคลิปบอร์ดแล้ว!",
+      "failed": "คัดลอกลิงก์ไม่สำเร็จ"
+    },
+    "create": {
+      "header": "สร้างช่วงเวลา",
+      "titlePlaceholder": "เพิ่มหัวข้อ...",
+      "addToMoment": "เพิ่มในช่วงเวลาของคุณ",
+      "addPhotos": "เพิ่มรูปภาพ",
+      "addMood": "เพิ่มอารมณ์",
+      "addLocation": "เพิ่มสถานที่",
+      "addTags": "เพิ่มแท็ก",
+      "tagPlaceholder": "เพิ่มแท็ก..."
     }
   },
   "createMoment": {
@@ -444,6 +509,51 @@
     },
     "buttons": {
       "clearFilters": "ล้างตัวกรองทั้งหมด"
+    },
+    "subnav": {
+      "allMembers": "สมาชิกทั้งหมด",
+      "nearby": "ใกล้เคียง",
+      "topics": "หัวข้อ",
+      "searchPlaceholder": "ค้นหาสมาชิกหรือหัวข้อ",
+      "filtersLabel": "ตัวกรอง",
+      "filtersWithCount": "ตัวกรอง (ใช้งานอยู่ {{count}})"
+    },
+    "filterSheet": {
+      "title": "ตัวกรอง",
+      "language": "ภาษา",
+      "any": "ทั้งหมด",
+      "gender": "เพศ",
+      "male": "ชาย",
+      "female": "หญิง",
+      "other": "อื่นๆ",
+      "ageRange": "ช่วงอายุ",
+      "min": "ต่ำสุด",
+      "max": "สูงสุด",
+      "experience": "ประสบการณ์สมาชิก",
+      "onlineNow": "ออนไลน์ตอนนี้",
+      "newMembersOnly": "เฉพาะสมาชิกใหม่ (7 วันล่าสุด)",
+      "reset": "รีเซ็ต",
+      "apply": "ใช้"
+    },
+    "highlighted": {
+      "title": "โปรไฟล์แนะนำ",
+      "proBadge": "Pro",
+      "tryPro": "ลองใช้ BananaTalk Pro",
+      "highlightSelfTopic": "เน้นโปรไฟล์ของคุณให้คนเห็นมากขึ้น"
+    },
+    "visitors": {
+      "justYou": "{{name}} เข้าชมโปรไฟล์ของคุณ!",
+      "andOthers": "{{name}} และอีก {{count}} คนเข้าชมโปรไฟล์ของคุณ!",
+      "seeAll": "ดูทั้งหมด"
+    },
+    "tandemCard": {
+      "newChip": "ใหม่",
+      "defaultTopic": "มาฝึกกัน!"
+    },
+    "languageChip": {
+      "fluent": "คล่อง",
+      "learns": "กำลังเรียน",
+      "native": "ภาษาแม่"
     }
   },
   "communityDetail": {
@@ -504,6 +614,10 @@
       "speaks": "พูด",
       "learning": "กำลังเรียน",
       "notSpecified": "ไม่ระบุ"
+    },
+    "suggested": {
+      "title": "สมาชิกอื่นๆ ที่คล้ายกับ {{name}}",
+      "seeAll": "ดูสมาชิกทั้งหมด"
     }
   },
   "communityDetailSection": {

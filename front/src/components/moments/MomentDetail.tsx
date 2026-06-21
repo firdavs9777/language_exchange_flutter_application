@@ -17,6 +17,7 @@ import { IoMdShare } from "react-icons/io";
 import { useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Bounce, toast } from "react-toastify";
+import ImageLightbox from "./ImageLightbox";
 
 // API hooks
 import {
@@ -215,6 +216,7 @@ const ImageCarousel = React.memo<{ images: string[]; title?: string }>(
   ({ images, title }) => {
     const { t } = useTranslation();
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [lightboxOpen, setLightboxOpen] = useState(false);
 
     const nextSlide = useCallback(() => {
       setCurrentIndex((prev) => (prev + 1) % images.length);
@@ -229,12 +231,21 @@ const ImageCarousel = React.memo<{ images: string[]; title?: string }>(
     return (
       <div className="relative bg-gray-900 overflow-hidden rounded-lg">
         <div className="relative aspect-video max-h-96">
-          <img
-            src={images[currentIndex]}
-            alt={`${title || t("moments_section.title")} - ${currentIndex + 1}`}
-            className="w-full h-full object-contain"
-            loading="lazy"
-          />
+          <button
+            type="button"
+            className="absolute inset-0 w-full h-full p-0 bg-transparent border-0 cursor-zoom-in"
+            onClick={() => setLightboxOpen(true)}
+            aria-label={
+              t("moments_section.lightbox.open") || "Open image at full size"
+            }
+          >
+            <img
+              src={images[currentIndex]}
+              alt={`${title || t("moments_section.title")} - ${currentIndex + 1}`}
+              className="w-full h-full object-contain"
+              loading="lazy"
+            />
+          </button>
 
           {/* Navigation buttons */}
           {images.length > 1 && (
@@ -272,6 +283,14 @@ const ImageCarousel = React.memo<{ images: string[]; title?: string }>(
             </div>
           )}
         </div>
+
+        <ImageLightbox
+          images={images}
+          initialIndex={currentIndex}
+          open={lightboxOpen}
+          onClose={() => setLightboxOpen(false)}
+          alt={title || t("moments_section.title")}
+        />
       </div>
     );
   }
@@ -364,7 +383,10 @@ const MomentDetail: React.FC = () => {
       if (!momentDetails) return;
 
       const shareData = {
-        title: momentDetails.title || "Check out this moment",
+        title:
+          momentDetails.title ||
+          t("moments_section.share.fallbackTitle") ||
+          "Check out this moment",
         text: momentDetails.description,
         url: `${window.location.origin}/moment/${momentId}`,
       };
@@ -372,10 +394,10 @@ const MomentDetail: React.FC = () => {
       if (navigator.share && navigator.canShare?.(shareData)) {
         try {
           await navigator.share(shareData);
-          toast.success("Shared successfully!", {
-            autoClose: 2000,
-            theme: "colored",
-          });
+          toast.success(
+            t("moments_section.share.success") || "Shared successfully!",
+            { autoClose: 2000, theme: "colored" }
+          );
         } catch (error) {
           // User cancelled sharing
           if ((error as Error).name !== "AbortError") {
@@ -386,13 +408,13 @@ const MomentDetail: React.FC = () => {
         // Fallback to clipboard
         try {
           await navigator.clipboard.writeText(shareData.url);
-          toast.success("Link copied to clipboard!", {
-            autoClose: 2000,
-            theme: "colored",
-          });
+          toast.success(
+            t("moments_section.share.copied") || "Link copied to clipboard!",
+            { autoClose: 2000, theme: "colored" }
+          );
         } catch (error) {
           console.error("Error copying to clipboard:", error);
-          toast.error("Failed to copy link", {
+          toast.error(t("moments_section.share.failed") || "Failed to copy link", {
             autoClose: 3000,
             theme: "colored",
           });

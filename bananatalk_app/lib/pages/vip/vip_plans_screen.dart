@@ -101,222 +101,338 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
   }
 
   Widget _buildContent() {
+    // Default to the best-value plan so the screen never lands on "nothing
+    // selected". User can override; we just want the CTA enabled on entry.
+    selectedPlan ??= VipPlan.yearly;
+    final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       backgroundColor: context.scaffoldBackground,
       appBar: AppBar(
-        title: Text('Upgrade to VIP', style: context.titleLarge),
         backgroundColor: context.surfaceColor,
         elevation: 0,
+        // Title intentionally omitted — the branded header below carries it.
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            // Header Section
-            Container(
-              width: double.infinity,
-              padding: AppSpacing.paddingXXL,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    context.primaryColor,
-                    context.primaryColor.withValues(alpha: 0.7),
-                  ],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.only(bottom: 24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildBrandedHeader(),
+              const SizedBox(height: 24),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Text(
+                  l10n.vipSelectPlan,
+                  style: context.titleLarge.copyWith(
+                    fontWeight: FontWeight.w800,
+                  ),
                 ),
               ),
-              child: Column(
-                children: [
-                  const Icon(
-                    Icons.workspace_premium,
-                    size: 64,
-                    color: AppColors.white,
+              const SizedBox(height: 12),
+              _buildPlanGrid(),
+              const SizedBox(height: 28),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Text(
+                  l10n.vipBenefits,
+                  style: context.titleLarge.copyWith(
+                    fontWeight: FontWeight.w800,
                   ),
-                  SizedBox(height: AppSpacing.lg),
-                  Text(
-                    'Unlock VIP Features',
-                    style: context.displayMedium.copyWith(color: AppColors.white),
-                  ),
-                  SizedBox(height: AppSpacing.sm),
-                  Text(
-                    'Get unlimited access to all premium features',
-                    style: context.bodyLarge.copyWith(
-                      color: AppColors.white.withValues(alpha: 0.8),
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
-            ),
-
-            // Features Section
-            Padding(
-              padding: AppSpacing.paddingXXL,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'VIP Features',
-                    style: context.titleLarge,
-                  ),
-                  SizedBox(height: AppSpacing.lg),
-                  _buildFeatureItem(
-                    icon: Icons.message,
-                    title: AppLocalizations.of(context)!.unlimitedMessages,
-                    description: 'Send unlimited messages to anyone',
-                  ),
-                  _buildFeatureItem(
-                    icon: Icons.visibility,
-                    title: AppLocalizations.of(context)!.unlimitedProfileViews,
-                    description: 'View as many profiles as you want',
-                  ),
-                  _buildFeatureItem(
-                    icon: Icons.support_agent,
-                    title: AppLocalizations.of(context)!.prioritySupport,
-                    description: 'Get faster responses from our team',
-                  ),
-                  _buildFeatureItem(
-                    icon: Icons.search,
-                    title: AppLocalizations.of(context)!.advancedSearch,
-                    description: 'Access advanced search filters',
-                  ),
-                  _buildFeatureItem(
-                    icon: Icons.trending_up,
-                    title: AppLocalizations.of(context)!.profileBoost,
-                    description: 'Get more visibility in search results',
-                  ),
-                  _buildFeatureItem(
-                    icon: Icons.block,
-                    title: AppLocalizations.of(context)!.adFreeExperience,
-                    description: 'Enjoy the app without advertisements',
-                  ),
-                ],
-              ),
-            ),
-
-            // Plans Section
-            Padding(
-              padding: AppSpacing.paddingXXL,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Choose Your Plan',
-                    style: context.titleLarge,
-                  ),
-                  SizedBox(height: AppSpacing.lg),
-                  _buildPlanCard(VipPlan.monthly),
-                  SizedBox(height: AppSpacing.md),
-                  _buildPlanCard(VipPlan.quarterly, popular: true),
-                  SizedBox(height: AppSpacing.md),
-                  _buildPlanCard(VipPlan.yearly),
-                ],
-              ),
-            ),
-
-            // Subscription Information (required for App Store)
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: AppSpacing.xxl),
-              child: Container(
-                padding: AppSpacing.paddingLG,
-                decoration: BoxDecoration(
-                  color: context.containerColor,
-                  borderRadius: AppRadius.borderMD,
-                  border: Border.all(color: context.dividerColor),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Subscription Information',
-                      style: context.titleMedium,
-                    ),
-                    SizedBox(height: AppSpacing.md),
-                    if (selectedPlan != null) ...[
-                      _buildSubscriptionInfoRow('Title', selectedPlan!.displayName),
-                      _buildSubscriptionInfoRow('Length', _getSubscriptionLength(selectedPlan!)),
-                      _buildSubscriptionInfoRow('Price', '\$${selectedPlan!.price}'),
-                      SizedBox(height: AppSpacing.md),
-                    ] else
-                      Text(
-                        'Please select a plan to see subscription details',
-                        style: context.bodySmall,
-                      ),
-                    SizedBox(height: AppSpacing.md),
-                    Divider(color: context.dividerColor),
-                    SizedBox(height: AppSpacing.md),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: TextButton.icon(
-                            onPressed: () => _launchURL('https://banatalk.com/terms-of-use'),
-                            icon: Icon(Icons.description_outlined, size: 18, color: context.primaryColor),
-                            label: Text(
-                              'Terms of Use',
-                              style: context.labelMedium.copyWith(color: context.primaryColor),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: TextButton.icon(
-                            onPressed: () => _launchURL('https://banatalk.com/privacy-policy'),
-                            icon: Icon(Icons.privacy_tip_outlined, size: 18, color: context.primaryColor),
-                            label: Text(
-                              'Privacy Policy',
-                              style: context.labelMedium.copyWith(color: context.primaryColor),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: AppSpacing.sm),
-                    Text(
-                      'Payment is charged to your iTunes Account or Google Play account. Subscription automatically renews unless canceled at least 24 hours before the end of the current period.',
-                      style: context.captionSmall,
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
                 ),
               ),
-            ),
+              const SizedBox(height: 12),
+              _buildComparisonTable(),
+              const SizedBox(height: 24),
+              _buildContinueButton(),
+              const SizedBox(height: 16),
+              _buildSubscriptionDisclosure(),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 
-            // Continue Button
-            Padding(
-              padding: AppSpacing.paddingXXL,
-              child: SizedBox(
-                width: double.infinity,
-                height: 50,
-                child: ElevatedButton(
-                  onPressed: selectedPlan != null
-                      ? () {
-                          // Get userId from widget or provider
-                          final userId = widget.userId ?? ref.read(userProvider).valueOrNull?.id ?? '';
-                          if (userId.isEmpty) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('Please log in to continue')),
-                            );
-                            return;
-                          }
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => VipPaymentScreen(
-                                userId: userId,
-                                plan: selectedPlan!,
-                              ),
-                            ),
-                          );
-                        }
-                      : null,
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: AppRadius.borderMD,
-                    ),
-                  ),
+  // ── Branded header ──────────────────────────────────────────────────────
+  Widget _buildBrandedHeader() {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.fromLTRB(20, 8, 20, 24),
+      child: Row(
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Gradient wordmark.
+                ShaderMask(
+                  shaderCallback: (bounds) => const LinearGradient(
+                    colors: [Color(0xFFFFB300), Color(0xFFFF6F00)],
+                  ).createShader(bounds),
                   child: Text(
-                    'Continue to Payment',
-                    style: context.titleMedium.copyWith(color: AppColors.white),
+                    AppLocalizations.of(context)!.vipBrandTitle,
+                    style: context.displayMedium.copyWith(
+                      fontWeight: FontWeight.w900,
+                      color: Colors.white,
+                      letterSpacing: -1,
+                    ),
                   ),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  AppLocalizations.of(context)!.vipTagline,
+                  style: context.bodyMedium.copyWith(
+                    color: context.textSecondary,
+                    height: 1.4,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          // Mascot-style flourish: stacked gold stars + premium badge so the
+          // header has visual weight on the right without requiring an asset.
+          Stack(
+            alignment: Alignment.center,
+            children: [
+              Container(
+                width: 84,
+                height: 84,
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    colors: [Color(0xFFFFD54F), Color(0xFFFFA000)],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
+                  borderRadius: BorderRadius.circular(28),
+                  boxShadow: [
+                    BoxShadow(
+                      color: const Color(0xFFFFA000).withValues(alpha: 0.35),
+                      blurRadius: 18,
+                      offset: const Offset(0, 8),
+                    ),
+                  ],
+                ),
+                child: const Icon(
+                  Icons.workspace_premium_rounded,
+                  color: Colors.white,
+                  size: 48,
+                ),
+              ),
+              Positioned(
+                top: -2,
+                right: -2,
+                child: Icon(
+                  Icons.star_rounded,
+                  color: Colors.amber.shade300,
+                  size: 22,
+                ),
+              ),
+              Positioned(
+                bottom: -2,
+                left: -4,
+                child: Icon(
+                  Icons.star_rounded,
+                  color: Colors.amber.shade200,
+                  size: 16,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  // ── 3-column plan grid ──────────────────────────────────────────────────
+  Widget _buildPlanGrid() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Expanded(child: _buildPlanColumn(VipPlan.monthly)),
+            const SizedBox(width: 8),
+            Expanded(child: _buildPlanColumn(VipPlan.quarterly)),
+            const SizedBox(width: 8),
+            Expanded(child: _buildPlanColumn(VipPlan.yearly)),
+          ],
+        ),
+      ),
+    );
+  }
+
+  /// Per-month equivalent. Returns a raw '$X.XX' string used inside the
+  /// localized "{price} / mo" template via [AppLocalizations.vipPerMonth].
+  String _formatPerMonth(double total, int months) {
+    final perMonth = total / months;
+    return '\$${perMonth.toStringAsFixed(2)}';
+  }
+
+  /// Computed savings vs monthly. Returns null when below threshold.
+  int? _savingsPercent(VipPlan plan) {
+    if (plan == VipPlan.monthly) return null;
+    final months = plan == VipPlan.quarterly ? 3 : 12;
+    final perMonth = plan.price / months;
+    final pct = (1 - perMonth / VipPlan.monthly.price) * 100;
+    if (pct < 5) return null;
+    return pct.round();
+  }
+
+  String _planTitle(BuildContext context, VipPlan plan) {
+    final l10n = AppLocalizations.of(context)!;
+    switch (plan) {
+      case VipPlan.monthly:
+        return l10n.vipPlanMonth;
+      case VipPlan.quarterly:
+        return l10n.vipPlanThreeMonths;
+      case VipPlan.yearly:
+        return l10n.vipPlanTwelveMonths;
+    }
+  }
+
+  Widget _buildPlanColumn(VipPlan plan) {
+    final isSelected = selectedPlan == plan;
+    final isYearly = plan == VipPlan.yearly;
+
+    // Use store price when available, otherwise fall back to the plan const.
+    String productId;
+    if (_isIOS) {
+      productId = switch (plan) {
+        VipPlan.monthly => 'com.bananatalk.bananatalkApp.vip.month',
+        VipPlan.quarterly => 'com.bananatalk.bananatalkApp.vip.quarter',
+        VipPlan.yearly => 'com.bananatalk.bananatalkApp.vip.year',
+      };
+    } else {
+      productId = switch (plan) {
+        VipPlan.monthly => 'com.bananatalk.app.vip.monthly',
+        VipPlan.quarterly => 'com.bananatalk.app.vip.quarterly',
+        VipPlan.yearly => 'com.bananatalk.app.vip.yearly',
+      };
+    }
+
+    ProductDetails? product;
+    if (_isIOS) {
+      ref.watch(iosProductsProvider).whenData((products) {
+        try {
+          product = products.firstWhere((p) => p.id == productId);
+        } catch (_) {}
+      });
+    } else if (_isAndroid) {
+      ref.watch(androidProductsProvider).whenData((products) {
+        try {
+          product = products.firstWhere((p) => p.id == productId);
+        } catch (_) {}
+      });
+    }
+    final priceText = product?.price ?? '\$${plan.price.toStringAsFixed(2)}';
+    final months = plan == VipPlan.monthly
+        ? 1
+        : plan == VipPlan.quarterly
+            ? 3
+            : 12;
+    final perMonthText = _formatPerMonth(plan.price, months);
+    final savingsPct = _savingsPercent(plan);
+    final l10n = AppLocalizations.of(context)!;
+
+    final accent = isYearly
+        ? const Color(0xFFFFA000) // gold for best-value
+        : context.primaryColor;
+
+    return GestureDetector(
+      onTap: () => setState(() => selectedPlan = plan),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 14),
+        decoration: BoxDecoration(
+          color: isSelected
+              ? accent.withValues(alpha: 0.08)
+              : context.surfaceColor,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(
+            color: isSelected ? accent : context.dividerColor,
+            width: isSelected ? 2 : 1,
+          ),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              children: [
+                if (isYearly) ...[
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 3,
+                    ),
+                    decoration: BoxDecoration(
+                      color: accent,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Text(
+                      l10n.vipBestValue,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 9,
+                        fontWeight: FontWeight.w800,
+                        letterSpacing: 0.5,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                ] else if (plan == VipPlan.quarterly) ...[
+                  Text(
+                    AppLocalizations.of(context)!.mostPopular.toUpperCase(),
+                    style: TextStyle(
+                      color: context.textSecondary,
+                      fontSize: 10,
+                      fontWeight: FontWeight.w700,
+                      letterSpacing: 0.5,
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+                ] else
+                  const SizedBox(height: 22),
+                Text(
+                  _planTitle(context, plan),
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                    color: context.textSecondary,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  priceText,
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w800,
+                    color: context.textPrimary,
+                  ),
+                ),
+                if (savingsPct != null) ...[
+                  const SizedBox(height: 6),
+                  Text(
+                    l10n.vipSavePercent(savingsPct),
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w800,
+                      color: accent,
+                    ),
+                  ),
+                ],
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 12),
+              child: Text(
+                isYearly ? l10n.vipOneTime : l10n.vipPerMonth(perMonthText),
+                style: TextStyle(
+                  fontSize: 11,
+                  color: context.textMuted,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ),
@@ -326,42 +442,99 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
     );
   }
 
-  Widget _buildFeatureItem({
-    required IconData icon,
-    required String title,
-    required String description,
-  }) {
+  // ── Benefit comparison table ────────────────────────────────────────────
+  // Rows here mirror what's actually gated in the codebase — see the
+  // VIP feature audit. Don't add a row unless the corresponding gate
+  // is enforced; misleading claims are a worse problem than thin lists.
+  Widget _buildComparisonTable() {
+    final l10n = AppLocalizations.of(context)!;
+    final rows = <_BenefitRow>[
+      _BenefitRow(
+        label: l10n.vipBenefitDailyTranslations,
+        nonVip: _BenefitValue.text(l10n.vipBenefitTranslationsLimit),
+        vip: _BenefitValue.text(l10n.vipBenefitUnlimited),
+      ),
+      _BenefitRow(
+        label: l10n.vipBenefitAdvancedFilters,
+        nonVip: const _BenefitValue.locked(),
+        vip: const _BenefitValue.check(),
+      ),
+      _BenefitRow(
+        label: l10n.vipBenefitAdFree,
+        nonVip: const _BenefitValue.locked(),
+        vip: const _BenefitValue.check(),
+      ),
+      _BenefitRow(
+        label: l10n.vipBenefitVipBadge,
+        nonVip: const _BenefitValue.dash(),
+        vip: const _BenefitValue.check(),
+      ),
+      _BenefitRow(
+        label: l10n.vipBenefitPrioritySupport,
+        nonVip: const _BenefitValue.dash(),
+        vip: const _BenefitValue.check(),
+      ),
+    ];
+
     return Padding(
-      padding: EdgeInsets.only(bottom: AppSpacing.lg),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Container(
+        decoration: BoxDecoration(
+          color: context.surfaceColor,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: context.dividerColor),
+        ),
+        child: Column(
+          children: [
+            _buildComparisonHeader(),
+            ...rows.asMap().entries.map((entry) {
+              final isLast = entry.key == rows.length - 1;
+              return _buildComparisonRow(entry.value, isLast: isLast);
+            }),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildComparisonHeader() {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
+      decoration: BoxDecoration(
+        color: const Color(0xFFFFA000).withValues(alpha: 0.06),
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+      ),
       child: Row(
         children: [
-          Container(
-            padding: AppSpacing.paddingMD,
-            decoration: BoxDecoration(
-              color: context.primaryColor.withValues(alpha: 0.1),
-              borderRadius: AppRadius.borderMD,
-            ),
-            child: Icon(
-              icon,
-              color: context.primaryColor,
-              size: 24,
+          const Expanded(flex: 3, child: SizedBox.shrink()),
+          Expanded(
+            flex: 2,
+            child: Text(
+              AppLocalizations.of(context)!.vipNonVip,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
+                color: context.textSecondary,
+              ),
             ),
           ),
-          SizedBox(width: AppSpacing.lg),
           Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: context.titleMedium,
+            flex: 2,
+            child: ShaderMask(
+              shaderCallback: (bounds) => const LinearGradient(
+                colors: [Color(0xFFFFB300), Color(0xFFFF6F00)],
+              ).createShader(bounds),
+              child: Text(
+                AppLocalizations.of(context)!.vip,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w900,
+                  color: Colors.white,
+                  letterSpacing: 0.5,
                 ),
-                SizedBox(height: AppSpacing.xs),
-                Text(
-                  description,
-                  style: context.bodySmall,
-                ),
-              ],
+              ),
             ),
           ),
         ],
@@ -369,178 +542,190 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
     );
   }
 
-  Widget _buildPlanCard(VipPlan plan, {bool popular = false}) {
-    final isSelected = selectedPlan == plan;
-
-    // Get product ID based on platform
-    String productId;
-    if (_isIOS) {
-      // iOS product IDs
-      switch (plan) {
-        case VipPlan.monthly:
-          productId = 'com.bananatalk.bananatalkApp.vip.month';
-          break;
-        case VipPlan.quarterly:
-          productId = 'com.bananatalk.bananatalkApp.vip.quarter';
-          break;
-        case VipPlan.yearly:
-          productId = 'com.bananatalk.bananatalkApp.vip.year';
-          break;
-      }
-    } else {
-      // Android product IDs
-      switch (plan) {
-        case VipPlan.monthly:
-          productId = 'com.bananatalk.app.vip.monthly';
-          break;
-        case VipPlan.quarterly:
-          productId = 'com.bananatalk.app.vip.quarterly';
-          break;
-        case VipPlan.yearly:
-          productId = 'com.bananatalk.app.vip.yearly';
-          break;
-      }
-    }
-
-    // Try to get product from store
-    ProductDetails? product;
-    if (_isIOS) {
-      final productsAsync = ref.watch(iosProductsProvider);
-      productsAsync.whenData((products) {
-        try {
-          product = products.firstWhere((p) => p.id == productId);
-        } catch (e) {
-          // Product not found, use default price
-        }
-      });
-    } else if (_isAndroid) {
-      final productsAsync = ref.watch(androidProductsProvider);
-      productsAsync.whenData((products) {
-        try {
-          product = products.firstWhere((p) => p.id == productId);
-        } catch (e) {
-          // Product not found, use default price
-        }
-      });
-    }
-
-    // Use store price if available, otherwise use default
-    final priceText = product?.price ?? '\$${plan.price}';
-
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          selectedPlan = plan;
-        });
-      },
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: isSelected
-                ? context.primaryColor
-                : context.dividerColor,
-            width: isSelected ? 2 : 1,
-          ),
-          borderRadius: AppRadius.borderLG,
-          color: isSelected
-              ? context.primaryColor.withValues(alpha: 0.05)
-              : context.surfaceColor,
-        ),
-        child: Stack(
-          children: [
-            Padding(
-              padding: AppSpacing.paddingXL,
-              child: Row(
-                children: [
-                  Radio<VipPlan>(
-                    value: plan,
-                    groupValue: selectedPlan,
-                    onChanged: (value) {
-                      setState(() {
-                        selectedPlan = value;
-                      });
-                    },
-                    activeColor: context.primaryColor,
-                  ),
-                  SizedBox(width: AppSpacing.md),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          plan.displayName,
-                          style: context.titleMedium,
-                        ),
-                        SizedBox(height: AppSpacing.xs),
-                        Text(
-                          product != null && product!.description.isNotEmpty
-                              ? product!.description
-                              : plan.description,
-                          style: context.bodySmall,
-                        ),
-                      ],
-                    ),
-                  ),
-                  Text(
-                    priceText,
-                    style: context.titleLarge,
-                  ),
-                ],
-              ),
-            ),
-            if (popular)
-              Positioned(
-                top: 0,
-                right: 0,
-                child: Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: AppSpacing.xs),
-                  decoration: BoxDecoration(
-                    color: context.primaryColor,
-                    borderRadius: const BorderRadius.only(
-                      topRight: Radius.circular(AppRadius.lg),
-                      bottomLeft: Radius.circular(AppRadius.lg),
-                    ),
-                  ),
-                  child: Text(
-                    'POPULAR',
-                    style: context.labelSmall.copyWith(
-                      color: AppColors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+  Widget _buildComparisonRow(_BenefitRow row, {required bool isLast}) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
+      decoration: BoxDecoration(
+        border: isLast
+            ? null
+            : Border(
+                bottom: BorderSide(
+                  color: context.dividerColor.withValues(alpha: 0.5),
                 ),
               ),
-          ],
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            flex: 3,
+            child: Text(
+              row.label,
+              style: context.bodyMedium.copyWith(
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 2,
+            child: Center(child: _renderBenefitValue(row.nonVip, isVip: false)),
+          ),
+          Expanded(
+            flex: 2,
+            child: Center(child: _renderBenefitValue(row.vip, isVip: true)),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _renderBenefitValue(_BenefitValue value, {required bool isVip}) {
+    switch (value.kind) {
+      case _BenefitKind.text:
+        return Text(
+          value.text!,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 13,
+            fontWeight: isVip ? FontWeight.w700 : FontWeight.w500,
+            color: isVip ? const Color(0xFFFFA000) : context.textSecondary,
+          ),
+        );
+      case _BenefitKind.check:
+        return Container(
+          width: 22,
+          height: 22,
+          decoration: BoxDecoration(
+            color: const Color(0xFFFFA000),
+            shape: BoxShape.circle,
+          ),
+          child: const Icon(Icons.check_rounded, color: Colors.white, size: 16),
+        );
+      case _BenefitKind.locked:
+        return Icon(
+          Icons.lock_outline_rounded,
+          size: 18,
+          color: context.textMuted,
+        );
+      case _BenefitKind.dash:
+        return Text(
+          '—',
+          style: TextStyle(
+            fontSize: 14,
+            color: context.textMuted,
+            fontWeight: FontWeight.w600,
+          ),
+        );
+    }
+  }
+
+  // ── Continue button (gradient) ──────────────────────────────────────────
+  Widget _buildContinueButton() {
+    final disabled = selectedPlan == null;
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: GestureDetector(
+        onTap: disabled
+            ? null
+            : () {
+                final userId = widget.userId ??
+                    ref.read(userProvider).valueOrNull?.id ??
+                    '';
+                if (userId.isEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        AppLocalizations.of(context)!.vipLoginRequired,
+                      ),
+                    ),
+                  );
+                  return;
+                }
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => VipPaymentScreen(
+                      userId: userId,
+                      plan: selectedPlan!,
+                    ),
+                  ),
+                );
+              },
+        child: Opacity(
+          opacity: disabled ? 0.55 : 1.0,
+          child: Container(
+            height: 54,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                colors: [Color(0xFFFFB300), Color(0xFFFF6F00)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+              borderRadius: BorderRadius.circular(27),
+              boxShadow: [
+                BoxShadow(
+                  color: const Color(0xFFFF6F00).withValues(alpha: 0.35),
+                  blurRadius: 16,
+                  offset: const Offset(0, 6),
+                ),
+              ],
+            ),
+            child: Text(
+              AppLocalizations.of(context)!.continueButton.toUpperCase(),
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.w800,
+                letterSpacing: 1.2,
+              ),
+            ),
+          ),
         ),
       ),
     );
   }
 
-  String _getSubscriptionLength(VipPlan plan) {
-    switch (plan) {
-      case VipPlan.monthly:
-        return '1 month';
-      case VipPlan.quarterly:
-        return '3 months';
-      case VipPlan.yearly:
-        return '1 year';
-    }
-  }
-
-  Widget _buildSubscriptionInfoRow(String label, String value) {
+  // ── Subscription disclosure / legal links ───────────────────────────────
+  Widget _buildSubscriptionDisclosure() {
     return Padding(
-      padding: EdgeInsets.only(bottom: AppSpacing.sm),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Column(
         children: [
           Text(
-            label,
-            style: context.bodySmall,
+            AppLocalizations.of(context)!.vipDisclosure,
+            textAlign: TextAlign.center,
+            style: context.captionSmall.copyWith(
+              color: context.textMuted,
+              height: 1.5,
+            ),
           ),
-          Text(
-            value,
-            style: context.labelLarge,
+          const SizedBox(height: 8),
+          Wrap(
+            alignment: WrapAlignment.center,
+            children: [
+              TextButton(
+                onPressed: () => _launchURL('https://banatalk.com/terms-of-use'),
+                child: Text(
+                  AppLocalizations.of(context)!.termsOfUse,
+                  style: TextStyle(
+                    color: context.primaryColor,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+              Text('·', style: TextStyle(color: context.textMuted)),
+              TextButton(
+                onPressed: () =>
+                    _launchURL('https://banatalk.com/privacy-policy'),
+                child: Text(
+                  AppLocalizations.of(context)!.privacyPolicy,
+                  style: TextStyle(
+                    color: context.primaryColor,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),
@@ -574,3 +759,31 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
     }
   }
 }
+
+/// A row in the VIP comparison table.
+class _BenefitRow {
+  final String label;
+  final _BenefitValue nonVip;
+  final _BenefitValue vip;
+
+  const _BenefitRow({
+    required this.label,
+    required this.nonVip,
+    required this.vip,
+  });
+}
+
+/// Cell content for a benefit row — either a text value, a check, a lock,
+/// or a dash. Kept as a small tagged union so the table is data-driven.
+class _BenefitValue {
+  final _BenefitKind kind;
+  final String? text;
+
+  const _BenefitValue._(this.kind, [this.text]);
+  const _BenefitValue.text(String t) : this._(_BenefitKind.text, t);
+  const _BenefitValue.check() : this._(_BenefitKind.check);
+  const _BenefitValue.locked() : this._(_BenefitKind.locked);
+  const _BenefitValue.dash() : this._(_BenefitKind.dash);
+}
+
+enum _BenefitKind { text, check, locked, dash }

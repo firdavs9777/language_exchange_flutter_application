@@ -374,3 +374,136 @@
     font-size: 0.75rem;
   }
 }
+
+/* ===== Per-conversation actions (kebab menu) ===== */
+.users-list-item {
+  position: relative;
+}
+
+/* Lift the row that currently owns the open dropdown above its siblings
+   so the menu can never tuck behind the next row's background. */
+.users-list-item:has(.users-list-action-menu) {
+  z-index: 50;
+}
+
+.users-list-actions {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.users-list-item:hover .users-list-actions,
+.users-list-actions:has(.users-list-action-menu) {
+  opacity: 1;
+}
+
+.users-list-action-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.9);
+  color: #4b5563;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.users-list-action-btn:hover {
+  background: #f3f4f6;
+  color: #111827;
+}
+
+.users-list-action-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  z-index: 100;
+  min-width: 160px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+  padding: 4px;
+  animation: users-list-menu-pop 0.12s ease-out;
+}
+
+/* Upward variant — used when the kebab sits in the lower half of the
+   viewport so a downward menu would clip / overlap the chat area. */
+.users-list-action-menu--up {
+  top: auto;
+  bottom: calc(100% + 6px);
+  animation: users-list-menu-pop-up 0.12s ease-out;
+}
+
+@keyframes users-list-menu-pop {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes users-list-menu-pop-up {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.users-list-action-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border: none;
+  background: transparent;
+  color: #1f2937;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: 8px;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.12s ease;
+}
+
+.users-list-action-item:hover {
+  background: #f3f4f6;
+}
+
+.users-list-action-item--danger {
+  color: #dc2626;
+}
+
+.users-list-action-item--danger:hover {
+  background: #fef2f2;
+}
+
+/* Pin icon next to the name */
+.users-list-pin-icon {
+  display: inline-block;
+  margin-right: 4px;
+  color: #f59e0b;
+  vertical-align: -2px;
+}
+
+/* Always reveal action button on touch devices (no hover) */
+@media (hover: none) and (pointer: coarse) {
+  .users-list-actions {
+    opacity: 1;
+  }
+}

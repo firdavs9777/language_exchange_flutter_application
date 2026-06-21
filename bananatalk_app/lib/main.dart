@@ -9,7 +9,6 @@ import 'package:bananatalk_app/services/api_client.dart';
 import 'package:bananatalk_app/services/ad_service.dart';
 import 'package:bananatalk_app/widgets/tutor/persona_upgrade_sheet.dart';
 import 'package:bananatalk_app/providers/call_provider.dart';
-import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/screens/incoming_call_screen.dart';
 import 'package:bananatalk_app/pages/authentication/account_suspended_screen.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
@@ -66,8 +65,6 @@ Future<void> main() async {
     };
 
     // Step 13A: route 429 quota_exceeded responses to the persona paywall
-    // sheet via the existing call-overlay navigator key (sits above
-    // GoRouter so the sheet appears on top of any route).
     apiClient.onQuotaExceeded = (qe) {
       final overlayCtx = callOverlayNavigatorKey.currentContext;
       if (overlayCtx == null) return;
@@ -81,11 +78,7 @@ Future<void> main() async {
     };
 
     // Step 14 (safety wave): banned-account 403 → clear token + push the
-    // AccountSuspendedScreen via the global overlay navigator (sits above
-    // GoRouter — same key used by the quota paywall above).
     apiClient.onAccountSuspended = (reason) async {
-      // Best-effort logout — clears token + cached auth state. Even if it
-      // fails, the navigation below still terminates the user's session UX.
       try {
         final prefs = await SharedPreferences.getInstance();
         await prefs.remove('token');
@@ -95,10 +88,6 @@ Future<void> main() async {
       }
       final overlayNav = callOverlayNavigatorKey.currentState;
       if (overlayNav == null) return;
-      // Pop overlay/stack the user can't navigate back from. pushAndRemoveUntil
-      // with (_) => false clears the entire overlay route stack; the persistent
-      // GoRouter app underneath is unreachable until the suspended screen is
-      // dismissed (which only happens on app restart, by design).
       overlayNav.pushAndRemoveUntil(
         MaterialPageRoute(
           builder: (_) => AccountSuspendedScreen(reason: reason),

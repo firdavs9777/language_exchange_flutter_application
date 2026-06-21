@@ -45,12 +45,15 @@ const VerifyCode: React.FC<VerifyCodeProps> = ({
         setCode("");
       }
     } catch (error: any) {
-      toast.error(`${error?.data?.error}`, {
-        autoClose: 3000,
-        hideProgressBar: false,
-        theme: "dark",
-        transition: Bounce,
-      });
+      toast.error(
+        error?.data?.error || error?.data?.message || "Invalid verification code",
+        {
+          autoClose: 4000,
+          hideProgressBar: false,
+          theme: "colored",
+          transition: Bounce,
+        }
+      );
     }
   };
 

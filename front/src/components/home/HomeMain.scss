@@ -602,6 +602,8 @@
   font-weight: 600;
   border-radius: 12px;
   text-decoration: none;
+  border: none;
+  cursor: pointer;
   transition: all 0.3s ease;
 
   &.primary {
@@ -853,4 +855,222 @@
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
     color: #00BFA5;
   }
+}
+
+/* === Cleaner hero variant === */
+.hero-section--clean {
+  background: linear-gradient(180deg, #ffffff 0%, #f9fafb 100%);
+  min-height: auto;
+  padding: 4rem 2rem 3rem;
+
+  @media (min-width: 1024px) {
+    padding: 6rem 4rem 4rem;
+  }
+}
+
+.hero-trust--rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 1.25rem;
+  color: #4b5563;
+  font-size: 0.875rem;
+
+  .trust-stars {
+    display: inline-flex;
+    gap: 2px;
+  }
+
+  .trust-text-line {
+    font-weight: 500;
+  }
+}
+
+/* === Mobile-only feature tag === */
+.feature-card__head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+.feature-mobile-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  background: #fef3c7;
+  color: #92400e;
+  border-radius: 999px;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+/* === Pricing fine print === */
+.pricing-fineprint {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 1.5rem;
+  font-size: 0.8125rem;
+  color: #6b7280;
+  width: 100%;
+  text-align: center;
+}
+
+/* === VIP App Redirect Modal === */
+.vip-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  animation: vip-fade-in 0.18s ease;
+}
+
+@keyframes vip-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.vip-modal {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 2rem 1.75rem 1.75rem;
+  max-width: 380px;
+  width: 100%;
+  position: relative;
+  text-align: center;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.22);
+  animation: vip-slide-up 0.22s ease;
+}
+
+@keyframes vip-slide-up {
+  from { transform: translateY(16px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+.vip-modal-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: #F3F4F6;
+  color: #6B7280;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.15s;
+
+  &:hover { background: #E5E7EB; }
+}
+
+.vip-modal-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #FCD34D, #F59E0B);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  color: #ffffff;
+}
+
+.vip-modal-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 0.5rem;
+}
+
+.vip-modal-desc {
+  font-size: 0.9375rem;
+  color: #6B7280;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+}
+
+.vip-modal-stores {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.vip-store-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 20px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: transform 0.15s, box-shadow 0.15s;
+
+  div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .store-sub {
+    font-size: 0.6875rem;
+    font-weight: 400;
+    opacity: 0.8;
+    line-height: 1;
+  }
+
+  .store-name {
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+  }
+
+  &.apple {
+    background: #111827;
+    color: #ffffff;
+  }
+
+  &.google {
+    background: #111827;
+    color: #ffffff;
+  }
+}
+
+.vip-modal-qr {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding-top: 1.25rem;
+  border-top: 1px solid #F3F4F6;
+
+  img {
+    border-radius: 8px;
+    border: 1px solid #E5E7EB;
+  }
+}
+
+.vip-modal-qr-label {
+  font-size: 0.8125rem;
+  color: #9CA3AF;
 }

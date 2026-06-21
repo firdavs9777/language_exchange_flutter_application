@@ -22,6 +22,48 @@
   "community": "Community",
   "chat": "Chat",
   "chatPage": {
+    "backToConversations": "Back to conversations",
+    "moreOptions": "More options",
+    "retrySending": "Retry sending",
+    "input": {
+      "attachFile": "Attach file",
+      "stickers": "Stickers",
+      "voiceMessage": "Voice message",
+      "sendGif": "Send a GIF"
+    },
+    "list": {
+      "noMatchTitle": "No matching conversations",
+      "noMatchSubtitle": "Try adjusting your search",
+      "emptyTitle": "No conversations yet",
+      "emptySubtitle": "Start a conversation to see it here"
+    },
+    "actions": {
+      "menuLabel": "Conversation actions",
+      "pin": "Pin",
+      "unpin": "Unpin",
+      "pinned": "Pinned",
+      "noConversationYet": "Start the conversation first to pin it",
+      "pinFailed": "Couldn't update pin",
+      "deleteFailed": "Couldn't delete the conversation",
+      "deleted": "Conversation deleted"
+    },
+    "deleteModal": {
+      "title": "Delete Conversation",
+      "bodyPrefix": "Delete your conversation with",
+      "warning": "This cannot be undone.",
+      "cancel": "Cancel",
+      "confirm": "Delete",
+      "deleting": "Deleting..."
+    },
+    "gif": {
+      "title": "GIFs",
+      "close": "Close GIF picker",
+      "searchPlaceholder": "Search GIFs...",
+      "loading": "Loading GIFs...",
+      "noResults": "No GIFs found",
+      "poweredBy": "Powered by GIPHY",
+      "altText": "GIF"
+    },
     "messages": "Messages",
     "searchPlaceholder": "Search conversations...",
     "startConversation": "Start a Conversation",
@@ -30,7 +72,8 @@
     "features": {
       "realtime": "Real-time messaging",
       "exchange": "Language exchange",
-      "calls": "Voice & video calls"
+      "calls": "Voice & video calls",
+      "translation": "Built-in translation"
     },
     "online": "Online",
     "offline": "Offline",
@@ -215,6 +258,28 @@
   },
   "moments_section": {
     "title": "Moments",
+    "lightbox": {
+      "open": "Open image at full size",
+      "close": "Close image viewer",
+      "previous": "Previous image",
+      "next": "Next image"
+    },
+    "share": {
+      "fallbackTitle": "Check out this moment",
+      "success": "Shared successfully!",
+      "copied": "Link copied to clipboard!",
+      "failed": "Failed to copy link"
+    },
+    "create": {
+      "header": "Create moment",
+      "titlePlaceholder": "Add a title...",
+      "addToMoment": "Add to your moment",
+      "addPhotos": "Add photos",
+      "addMood": "Add mood",
+      "addLocation": "Add location",
+      "addTags": "Add tags",
+      "tagPlaceholder": "Add a tag..."
+    },
     "question": "What's on your mind,",
     "loading": "Loading",
     "loading_moments": "Loading Moments...",
@@ -463,6 +528,51 @@
     },
     "buttons": {
       "clearFilters": "Clear all filters"
+    },
+    "subnav": {
+      "allMembers": "All members",
+      "nearby": "Nearby",
+      "topics": "Topics",
+      "searchPlaceholder": "Find members or topics",
+      "filtersLabel": "Filters",
+      "filtersWithCount": "Filters ({{count}} active)"
+    },
+    "filterSheet": {
+      "title": "Filters",
+      "language": "Language",
+      "any": "Any",
+      "gender": "Gender",
+      "male": "Male",
+      "female": "Female",
+      "other": "Other",
+      "ageRange": "Age range",
+      "min": "Min",
+      "max": "Max",
+      "experience": "Member experience",
+      "onlineNow": "Online now",
+      "newMembersOnly": "New members only (last 7 days)",
+      "reset": "Reset",
+      "apply": "Apply"
+    },
+    "highlighted": {
+      "title": "Highlighted Profiles",
+      "proBadge": "Pro",
+      "tryPro": "Try BananaTalk Pro",
+      "highlightSelfTopic": "Highlight your profile and let more people see you"
+    },
+    "visitors": {
+      "justYou": "{{name}} visited your profile!",
+      "andOthers": "{{name}} and {{count}} others visited your profile!",
+      "seeAll": "See all"
+    },
+    "tandemCard": {
+      "newChip": "NEW",
+      "defaultTopic": "Let's practice!"
+    },
+    "languageChip": {
+      "fluent": "FLUENT",
+      "learns": "LEARNS",
+      "native": "NATIVE"
     }
   },
   "communityDetail": {
@@ -543,6 +653,10 @@
     "buttons": {
       "tryAgain": "Try Again",
       "backToCommunity": "Back to Community"
+    },
+    "suggested": {
+      "title": "More members like {{name}}",
+      "seeAll": "See all members"
     },
     "stats": {
       "followers": "Followers",
@@ -775,133 +889,129 @@
   },
   "home": {
     "hero": {
-      "badge": "Language Exchange Made Simple",
-      "titlePart1": "Learn Languages by",
-      "titleHighlight": "Speaking",
-      "titlePart2": "with Native Speakers",
-      "description": "Connect with millions of language learners worldwide. Practice speaking, improve fluency, and make friends from every corner of the globe.",
-      "stats": {
-        "users": "Active Users",
-        "languages": "Languages",
-        "countries": "Countries"
-      },
-      "getStarted": "Get Started Free",
-      "browseCommunity": "Browse Community",
-      "lovedBy": "Loved by 5M+ learners",
+      "badge": "Language exchange, real people",
+      "titlePart1": "Practice",
+      "titleHighlight": "any language",
+      "titlePart2": "with someone who actually speaks it.",
+      "description": "BananaTalk pairs you with native speakers around the world. Chat, voice-message, translate, and get corrected — every conversation makes you better.",
+      "getStarted": "Get started — it's free",
+      "browseCommunity": "Browse the community",
+      "lovedBy": "Loved by language learners on iOS and Android",
       "chatPreview": {
-        "message1": "Hola! Como estas? 👋",
-        "message2": "Hey! I'm good, practicing my Spanish!",
-        "message3": "Muy bien! Let's practice together 🇪🇸"
+        "message1": "안녕하세요! How was your weekend?",
+        "message2": "주말에 친구들과 등산 갔어요 ⛰️",
+        "message3": "Nice! 산 → mountain. Saved to your study queue."
       }
     },
     "sections": {
-      "features": "Features",
-      "howItWorks": "How It Works",
+      "features": "What's inside",
+      "howItWorks": "How it works",
       "pricing": "Pricing"
     },
     "features": {
-      "title": "Everything You Need to Learn",
-      "subtitle": "Powerful tools designed to accelerate your language learning journey",
+      "title": "Everything you need to actually speak the language",
+      "subtitle": "Built on real conversations with real native speakers — not vocabulary drills.",
       "chat": {
-        "title": "Real-time Chat",
-        "description": "Practice conversations with native speakers through instant messaging"
+        "title": "Chat with corrections",
+        "description": "Send text, voice, photos, and stickers. Tap a partner's message to translate it or correct theirs in one tap."
       },
-      "video": {
-        "title": "Video Calls",
-        "description": "Face-to-face language practice with partners worldwide"
+      "translate": {
+        "title": "Built-in translation",
+        "description": "Translate any message into your native language. Save phrases straight into your study queue."
       },
-      "lessons": {
-        "title": "Interactive Lessons",
-        "description": "Learn with structured courses and daily exercises"
+      "tutor": {
+        "title": "AI Tutor",
+        "description": "Roleplay scenarios, image-based vocab, and pronunciation coaching — all powered by your own AI study partner."
       },
-      "voice": {
-        "title": "Voice Messages",
-        "description": "Perfect your pronunciation with audio exchanges"
+      "voice_rooms": {
+        "title": "Voice Rooms",
+        "description": "Hop into live audio rooms with native speakers and language learners around the world."
+      },
+      "calls": {
+        "title": "Voice & video calls",
+        "description": "One-tap audio and video calls with your language partners."
       },
       "community": {
-        "title": "Community",
-        "description": "Join millions of language learners globally"
-      },
-      "languages": {
-        "title": "50+ Languages",
-        "description": "From Spanish to Korean, find your learning path"
+        "title": "Real community",
+        "description": "Browse partners by native language, see who's online, and share moments with people learning the same language."
       }
     },
     "howItWorks": {
-      "title": "Start Learning in 3 Steps",
-      "subtitle": "Get started in minutes and begin your language journey today"
+      "title": "Three steps to your first conversation",
+      "subtitle": "No phone numbers, no spam — just real people who want to learn."
     },
     "steps": {
       "profile": {
-        "title": "Create Your Profile",
-        "description": "Tell us about your native language and what you want to learn"
+        "title": "Tell us your languages",
+        "description": "Pick what you speak fluently and what you're learning. Add a few topics you like."
       },
       "partners": {
-        "title": "Find Partners",
-        "description": "Browse through our community and find perfect language exchange partners"
+        "title": "Find your partner",
+        "description": "Browse the community by language, country, or topic. Wave or message someone interesting."
       },
       "learn": {
-        "title": "Start Learning",
-        "description": "Chat, call, and practice with native speakers every day"
+        "title": "Practice every day",
+        "description": "Chat, swap voice notes, get corrections, and turn new words into spaced-repetition cards."
       }
     },
     "pricing": {
-      "title": "Choose Your Plan",
-      "subtitle": "Start free and upgrade when you're ready",
-      "mostPopular": "Most Popular",
-      "getStarted": "Get Started",
+      "title": "Free to start. VIP when you're ready to learn faster.",
+      "subtitle": "BananaTalk is free for everyone. Upgrade to remove daily limits on translations, AI Tutor, and more.",
+      "fineprint": "Cancel anytime in your App Store or Google Play settings. Subscriptions auto-renew until cancelled.",
       "free": {
         "name": "Free",
         "period": "forever",
+        "cta": "Create a free account",
         "features": {
-          "messaging": "Basic messaging",
-          "connections": "5 new connections/day",
-          "community": "Community access",
-          "lessons": "Basic lessons"
+          "messaging": "Unlimited 1-on-1 chat with translation",
+          "community": "Browse and connect with the community",
+          "moments": "Post Moments and read Stories",
+          "tutor_trial": "Daily AI Tutor and translation quota"
         }
       },
-      "premium": {
-        "name": "Premium",
-        "period": "/month",
+      "monthly": {
+        "name": "VIP — Monthly",
+        "period": "per month",
+        "highlight": "Most flexible",
+        "cta": "Start monthly",
         "features": {
-          "messaging": "Unlimited messaging",
-          "connections": "Unlimited connections",
-          "video": "Video calls",
-          "lessons": "Advanced lessons",
-          "noAds": "No ads",
-          "translation": "Translation tools"
+          "unlimited_translation": "Unlimited translations and corrections",
+          "unlimited_tutor": "Unlimited AI Tutor sessions and roleplay",
+          "voice_rooms": "Host and pin Voice Rooms",
+          "priority": "Priority partner matching"
         }
       },
-      "lifetime": {
-        "name": "Lifetime",
-        "period": "one-time",
+      "yearly": {
+        "name": "VIP — Yearly",
+        "period": "per year",
+        "highlight": "Save 72%",
+        "cta": "Save with yearly",
         "features": {
-          "everything": "Everything in Premium",
-          "forever": "Forever access",
-          "support": "Priority support",
-          "early": "Early features",
-          "badges": "Exclusive badges"
+          "everything_in_monthly": "Everything in Monthly",
+          "equiv": "Just $4.16 / month equivalent",
+          "early_access": "Early access to new features",
+          "support": "Direct support from the BananaTalk team"
         }
       }
     },
     "download": {
       "badge": "Download the App",
-      "title": "Take BananaTalk Everywhere",
-      "description": "Learn on the go with our mobile app. Available on iOS and Android with all features, push notifications, and offline access.",
+      "title": "The full experience lives on mobile",
+      "description": "AI Tutor, Voice Rooms, calls, and live notifications are mobile-only. Get the app for the complete BananaTalk experience.",
       "downloadOn": "Download on the",
       "getItOn": "Get it on",
-      "scanQR": "Scan to download the app",
+      "scanQR": "Scan to download",
       "or": "or",
       "features": {
-        "offline": "Offline access",
+        "offline": "Offline-friendly chat",
         "push": "Push notifications",
-        "fast": "Fast & lightweight"
+        "fast": "Free to install"
       }
     },
     "cta": {
-      "title": "Ready to Start Your Language Journey?",
-      "description": "Join millions of learners and start speaking a new language today",
-      "button": "Create Free Account"
+      "title": "Ready to have a real conversation?",
+      "description": "Join the BananaTalk community and start practicing today. No credit card needed.",
+      "button": "Create your free account"
     }
   },
   "vip": {

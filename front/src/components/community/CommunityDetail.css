@@ -408,6 +408,12 @@
   background-color: #008E76;
 }
 
+/* Image gallery frame — responsive height controlled by class, not inline
+   style, so the breakpoints below can actually override it. */
+.cd-image-frame {
+  height: clamp(260px, 50vw, 420px);
+}
+
 /* Responsive layout */
 @media (max-width: 900px) {
   .profile-content {
@@ -448,5 +454,54 @@
   
   .main-image-container {
     height: 250px;
+  }
+}
+/* ===== Suggested members section ===== */
+.cd-suggested {
+  margin-top: 28px;
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.cd-suggested__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+
+.cd-suggested__header h2 {
+  margin: 0;
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.cd-suggested__see-all {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #2563eb;
+  text-decoration: none;
+}
+
+.cd-suggested__see-all:hover {
+  text-decoration: underline;
+}
+
+.cd-suggested__grid {
+  margin-top: 0;
+}
+
+@media (max-width: 600px) {
+  .cd-suggested {
+    padding: 16px;
+  }
+
+  .cd-suggested__header h2 {
+    font-size: 0.9375rem;
   }
 }

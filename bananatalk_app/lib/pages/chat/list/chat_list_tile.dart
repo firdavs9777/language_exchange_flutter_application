@@ -1,6 +1,7 @@
 import 'package:bananatalk_app/pages/chat/models/chat_partner.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:bananatalk_app/widgets/vip_avatar_frame.dart';
+import 'package:bananatalk_app/utils/language_flags.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
@@ -203,6 +204,34 @@ class ChatListTile extends StatelessWidget {
                       ),
                     ),
                   ),
+                  // Country/native-language flag overlay — bottom-left of avatar.
+                  if (partner.nativeLanguage != null &&
+                      partner.nativeLanguage!.isNotEmpty)
+                    Positioned(
+                      bottom: partner.isVip ? 4 : 2,
+                      left: partner.isVip ? 4 : 2,
+                      child: Container(
+                        width: 18,
+                        height: 18,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: colors.surface,
+                          shape: BoxShape.circle,
+                          border: Border.all(color: colors.surface, width: 1.5),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withValues(alpha: 0.15),
+                              blurRadius: 3,
+                              offset: const Offset(0, 1),
+                            ),
+                          ],
+                        ),
+                        child: Text(
+                          LanguageFlags.getFlagByName(partner.nativeLanguage!),
+                          style: const TextStyle(fontSize: 12, height: 1.0),
+                        ),
+                      ),
+                    ),
                   // Online status dot
                   Positioned(
                     bottom: partner.isVip ? 4 : 2,

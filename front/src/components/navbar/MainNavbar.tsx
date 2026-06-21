@@ -11,7 +11,6 @@ import {
   FaSignOutAlt,
   FaHeart,
   FaUserFriends,
-  FaBookOpen,
   FaChevronDown,
 } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
@@ -173,14 +172,6 @@ const MainNavbar = () => {
                   <FaGlobe />
                   <span>{t("moments")}</span>
                 </NavLink>
-
-                <NavLink
-                  to="/learn"
-                  className={({ isActive }) => `nav-item ${isActive ? "active" : ""}`}
-                >
-                  <FaBookOpen />
-                  <span>{t("learning.title") || "Learn"}</span>
-                </NavLink>
               </>
             )}
           </div>
@@ -324,9 +315,6 @@ const MainNavbar = () => {
                   </NavLink>
                   <NavLink to="/moments" className="mobile-nav-link" onClick={closeMobileMenu}>
                     <FaGlobe /> {t("moments")}
-                  </NavLink>
-                  <NavLink to="/learn" className="mobile-nav-link" onClick={closeMobileMenu}>
-                    <FaBookOpen /> {t("learning.title") || "Learn"}
                   </NavLink>
                 </>
               )}

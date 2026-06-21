@@ -137,7 +137,9 @@ class PronunciationController extends StateNotifier<PronunciationState> {
     final granted = await _voice.requestMicPermission();
     if (!mounted) return;
     if (!granted) {
-      _safeSet(state.copyWith(errorMessage: 'mic_denied'));
+      _safeSet(state.copyWith(
+        errorMessage: 'Microphone permission denied. Please enable it in Settings.',
+      ));
       return;
     }
     try {

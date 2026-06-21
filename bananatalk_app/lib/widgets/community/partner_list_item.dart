@@ -7,6 +7,7 @@ import 'package:bananatalk_app/utils/language_flags.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/utils/privacy_utils.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 /// List item for partner discovery (Tandem/HelloTalk style)
 class PartnerListItem extends StatelessWidget {
@@ -14,7 +15,6 @@ class PartnerListItem extends StatelessWidget {
   final Community? currentUser;
   final VoidCallback? onTap;
   final VoidCallback? onWave;
-  final VoidCallback? onMessage;
 
   const PartnerListItem({
     super.key,
@@ -22,7 +22,6 @@ class PartnerListItem extends StatelessWidget {
     this.currentUser,
     this.onTap,
     this.onWave,
-    this.onMessage,
   });
 
   @override
@@ -110,14 +109,43 @@ class PartnerListItem extends StatelessWidget {
               ),
             ),
           ),
+        // Native-language flag overlay — bottom-left of avatar, matches
+        // the chat-tile pattern. HelloTalk-style scan signal.
+        if (user.native_language.isNotEmpty)
+          Positioned(
+            left: 0,
+            bottom: 0,
+            child: Container(
+              width: 22,
+              height: 22,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: Theme.of(context).scaffoldBackgroundColor,
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: Theme.of(context).scaffoldBackgroundColor,
+                  width: 2,
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.15),
+                    blurRadius: 3,
+                    offset: const Offset(0, 1),
+                  ),
+                ],
+              ),
+              child: Text(
+                LanguageFlags.getFlagByName(user.native_language),
+                style: const TextStyle(fontSize: 14, height: 1.0),
+              ),
+            ),
+          ),
       ],
     );
   }
 
   Widget _buildUserInfo(BuildContext context) {
-    final matchReason = _getMatchReason();
     final showAge = PrivacyUtils.shouldShowAge(user);
-    final showOnline = PrivacyUtils.shouldShowOnlineStatus(user);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -157,7 +185,7 @@ class PartnerListItem extends StatelessWidget {
         // Language exchange row
         _buildLanguageRow(context),
         const SizedBox(height: 4),
-        // Location + last active row
+        // Location row
         _buildLocationRow(context),
         // Bio preview
         if (user.bio.isNotEmpty)
@@ -170,89 +198,128 @@ class PartnerListItem extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
             ),
           ),
-        // Match reason + last active
-        if (matchReason != null || (showOnline && !user.isOnline && user.lastActiveText.isNotEmpty))
-          Padding(
-            padding: const EdgeInsets.only(top: 4),
-            child: Row(
-              children: [
-                // Match reason badge
-                if (matchReason != null)
-                  Flexible(
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                      decoration: BoxDecoration(
-                        color: AppColors.primary.withValues(alpha: 0.1),
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                      child: Text(
-                        matchReason,
-                        style: const TextStyle(
-                          fontSize: 11,
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.primary,
-                        ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                  ),
-                if (matchReason != null && showOnline && !user.isOnline && user.lastActiveText.isNotEmpty)
-                  const SizedBox(width: 8),
-                // Last active time (only show if online status is visible)
-                if (showOnline && !user.isOnline && user.lastActiveText.isNotEmpty)
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(
-                        Icons.access_time_rounded,
-                        size: 12,
-                        color: context.textMuted,
-                      ),
-                      const SizedBox(width: 3),
-                      Text(
-                        user.lastActiveText,
-                        style: TextStyle(
-                          fontSize: 11,
-                          color: context.textMuted,
-                        ),
-                      ),
-                    ],
-                  ),
-              ],
-            ),
-          ),
+        // Contextual tag chips (active status, responsiveness, shared interest, mbti, recency)
+        _buildTagChips(context),
       ],
     );
   }
 
-  /// Get a match reason string based on language compatibility and shared topics
-  String? _getMatchReason() {
+  /// Build up to 3 contextual chips ranked by signal strength.
+  ///
+  /// Priority: Active status → Responsiveness → Shared topic/language →
+  /// MBTI → "Joined Xd ago" (only for the 7–30 day window; the NEW badge
+  /// in the name row covers ≤6 days).
+  Widget _buildTagChips(BuildContext context) {
+    final showOnline = PrivacyUtils.shouldShowOnlineStatus(user);
+    final l10n = AppLocalizations.of(context)!;
+    final chips = <Widget>[];
+
+    if (showOnline) {
+      if (user.isOnline) {
+        chips.add(_chip(context, l10n.partnerTagActiveNow, AppColors.success));
+      } else if (user.lastActiveText.isNotEmpty) {
+        chips.add(_chip(context, user.lastActiveText, context.textMuted));
+      }
+    }
+
+    if (user.responseRate != null) {
+      if (user.responseRate! >= 80) {
+        chips.add(
+          _chip(context, l10n.partnerTagVeryResponsive, AppColors.primary),
+        );
+      } else if (user.responseRate! >= 50) {
+        chips.add(
+          _chip(context, l10n.partnerTagQuickToReply, AppColors.primary),
+        );
+      }
+    }
+
+    final shared = _sharedSignal(context);
+    if (shared != null) chips.add(_chip(context, shared, AppColors.primary));
+
+    if (user.mbti.isNotEmpty) {
+      chips.add(_chip(context, user.mbti, context.textSecondary));
+    }
+
+    if (!user.isNewUser) {
+      final days = _daysSinceJoin();
+      if (days != null && days <= 30) {
+        chips.add(
+          _chip(
+            context,
+            l10n.partnerTagJoinedDaysAgo(days),
+            context.textSecondary,
+          ),
+        );
+      }
+    }
+
+    if (chips.isEmpty) return const SizedBox.shrink();
+
+    return Padding(
+      padding: const EdgeInsets.only(top: 6),
+      child: Wrap(
+        spacing: 6,
+        runSpacing: 4,
+        children: chips.take(3).toList(),
+      ),
+    );
+  }
+
+  Widget _chip(BuildContext context, String label, Color color) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.12),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Text(
+        label,
+        style: TextStyle(
+          fontSize: 11,
+          fontWeight: FontWeight.w600,
+          color: color,
+        ),
+      ),
+    );
+  }
+
+  /// Shared signal: first overlapping topic with currentUser, falling back
+  /// to a language-exchange match. Localized via [AppLocalizations].
+  String? _sharedSignal(BuildContext context) {
     if (currentUser == null) return null;
+    final l10n = AppLocalizations.of(context)!;
 
-    // Check language match
-    if (user.native_language.isNotEmpty &&
-        currentUser!.language_to_learn.isNotEmpty &&
-        user.native_language.toLowerCase() == currentUser!.language_to_learn.toLowerCase()) {
-      return 'Speaks ${_formatLang(user.native_language)}';
-    }
-
-    if (user.language_to_learn.isNotEmpty &&
-        currentUser!.native_language.isNotEmpty &&
-        user.language_to_learn.toLowerCase() == currentUser!.native_language.toLowerCase()) {
-      return 'Learning ${_formatLang(user.language_to_learn)}';
-    }
-
-    // Check shared topics
     if (user.topics.isNotEmpty && currentUser!.topics.isNotEmpty) {
       for (final topic in user.topics) {
         if (currentUser!.topics.contains(topic)) {
-          return 'Also likes $topic';
+          return l10n.partnerTagBothLike(topic);
         }
       }
     }
 
+    if (user.native_language.isNotEmpty &&
+        currentUser!.language_to_learn.isNotEmpty &&
+        user.native_language.toLowerCase() ==
+            currentUser!.language_to_learn.toLowerCase()) {
+      return l10n.partnerTagSpeaks(_formatLang(user.native_language));
+    }
+
+    if (user.language_to_learn.isNotEmpty &&
+        currentUser!.native_language.isNotEmpty &&
+        user.language_to_learn.toLowerCase() ==
+            currentUser!.native_language.toLowerCase()) {
+      return l10n.partnerTagLearning(_formatLang(user.language_to_learn));
+    }
+
     return null;
+  }
+
+  int? _daysSinceJoin() {
+    if (user.createdAt.isEmpty) return null;
+    final joined = DateTime.tryParse(user.createdAt);
+    if (joined == null) return null;
+    return DateTime.now().difference(joined).inDays;
   }
 
   String _formatLang(String lang) {
@@ -364,66 +431,58 @@ class PartnerListItem extends StatelessWidget {
   }
 
   Widget _buildActions(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        // Wave button
-        _ActionButton(
-          icon: Icons.waving_hand,
-          color: const Color(0xFFFFB74D),
-          onTap: () {
-            HapticFeedback.lightImpact();
-            onWave?.call();
-          },
-          tooltip: 'Wave',
-        ),
-        const SizedBox(width: 8),
-        // Message button
-        _ActionButton(
-          icon: Icons.chat_bubble_outline,
-          color: const Color(0xFF00BFA5),
-          onTap: () {
-            HapticFeedback.lightImpact();
-            onMessage?.call();
-          },
-          tooltip: 'Message',
-        ),
-      ],
+    return _WaveButton(
+      onTap: () {
+        HapticFeedback.lightImpact();
+        onWave?.call();
+      },
     );
   }
 }
 
-class _ActionButton extends StatelessWidget {
-  final IconData icon;
-  final Color color;
-  final VoidCallback? onTap;
-  final String tooltip;
+/// Primary CTA on the partner card. Teal gradient rounded-square with a
+/// soft brand-tinted shadow — visually anchors the row as the single
+/// most important action.
+class _WaveButton extends StatelessWidget {
+  const _WaveButton({this.onTap});
 
-  const _ActionButton({
-    required this.icon,
-    required this.color,
-    this.onTap,
-    required this.tooltip,
-  });
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Tooltip(
-      message: tooltip,
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(20),
-        child: Container(
-          width: 40,
-          height: 40,
-          decoration: BoxDecoration(
-            color: color.withValues(alpha: 0.1),
-            shape: BoxShape.circle,
+      message: 'Wave',
+      child: Container(
+        width: 44,
+        height: 44,
+        decoration: BoxDecoration(
+          gradient: const LinearGradient(
+            colors: [AppColors.primary, Color(0xFF00ACC1)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
           ),
-          child: Icon(
-            icon,
-            color: color,
-            size: 20,
+          borderRadius: BorderRadius.circular(14),
+          boxShadow: isDark
+              ? null
+              : [
+                  BoxShadow(
+                    color: AppColors.primary.withValues(alpha: 0.35),
+                    blurRadius: 10,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
+        ),
+        child: Material(
+          color: Colors.transparent,
+          child: InkWell(
+            borderRadius: BorderRadius.circular(14),
+            onTap: onTap,
+            child: const Icon(
+              Icons.waving_hand_rounded,
+              color: Colors.white,
+              size: 22,
+            ),
           ),
         ),
       ),

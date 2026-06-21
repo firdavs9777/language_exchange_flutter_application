@@ -180,7 +180,7 @@ class _VipStatusScreenState extends ConsumerState<VipStatusScreen> {
                   ),
                   SizedBox(height: AppSpacing.lg),
                   Text(
-                    'VIP Expired',
+                    AppLocalizations.of(context)!.vipExpired,
                     style: context.displayMedium.copyWith(color: AppColors.white),
                   ),
                   SizedBox(height: AppSpacing.sm),
@@ -375,7 +375,7 @@ class _VipStatusScreenState extends ConsumerState<VipStatusScreen> {
                   ),
                   SizedBox(height: AppSpacing.lg),
                   Text(
-                    'VIP Member',
+                    AppLocalizations.of(context)!.vipMember,
                     style: context.displayLarge.copyWith(color: AppColors.white),
                   ),
                   SizedBox(height: AppSpacing.sm),
@@ -526,7 +526,7 @@ class _VipStatusScreenState extends ConsumerState<VipStatusScreen> {
                   ),
                   SizedBox(height: AppSpacing.lg),
                   Text(
-                    'VIP Member',
+                    AppLocalizations.of(context)!.vipMember,
                     style: context.displayLarge.copyWith(color: AppColors.white),
                   ),
                   SizedBox(height: AppSpacing.sm),

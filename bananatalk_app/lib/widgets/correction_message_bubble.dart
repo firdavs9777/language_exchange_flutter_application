@@ -13,6 +13,7 @@ class CorrectionMessageBubble extends ConsumerStatefulWidget {
   final bool isMe; // whether the correction was made by the current user (for layout/alignment)
   final String otherUserName;
   final String? otherUserPicture;
+  final String? otherUserNativeLanguage;
   /// The real `_id` of the original message being corrected (needed for the
   /// accept API call and for deciding who sees the Accept button).
   final String originalMessageId;
@@ -27,6 +28,7 @@ class CorrectionMessageBubble extends ConsumerStatefulWidget {
     required this.isMe,
     required this.otherUserName,
     this.otherUserPicture,
+    this.otherUserNativeLanguage,
     required this.originalMessageId,
     required this.isCorrector,
   });
@@ -102,6 +104,7 @@ class _CorrectionMessageBubbleState
               userName: widget.otherUserName,
               profilePicture: widget.otherUserPicture,
               radius: 14,
+              nativeLanguage: widget.otherUserNativeLanguage,
             ),
             const SizedBox(width: 6),
           ],

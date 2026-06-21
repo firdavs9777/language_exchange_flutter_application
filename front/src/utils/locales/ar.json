@@ -30,7 +30,8 @@
     "features": {
       "realtime": "مراسلة فورية",
       "exchange": "تبادل لغوي",
-      "calls": "مكالمات صوتية ومرئية"
+      "calls": "مكالمات صوتية ومرئية",
+      "translation": "ترجمة مدمجة"
     },
     "online": "متصل",
     "offline": "غير متصل",
@@ -42,7 +43,49 @@
     "justNow": "الآن",
     "minutesAgo": "منذ {{count}} د",
     "hoursAgo": "منذ {{count}} س",
-    "unknownUser": "مستخدم غير معروف"
+    "unknownUser": "مستخدم غير معروف",
+    "backToConversations": "العودة إلى المحادثات",
+    "moreOptions": "خيارات إضافية",
+    "retrySending": "إعادة الإرسال",
+    "input": {
+      "attachFile": "إرفاق ملف",
+      "stickers": "ملصقات",
+      "voiceMessage": "رسالة صوتية",
+      "sendGif": "إرسال GIF"
+    },
+    "list": {
+      "noMatchTitle": "لا توجد محادثات مطابقة",
+      "noMatchSubtitle": "حاول تعديل البحث",
+      "emptyTitle": "لا توجد محادثات بعد",
+      "emptySubtitle": "ابدأ محادثة لتظهر هنا"
+    },
+    "deleteModal": {
+      "title": "حذف المحادثة",
+      "bodyPrefix": "هل تريد حذف محادثتك مع:",
+      "warning": "لا يمكن التراجع عن هذا الإجراء.",
+      "cancel": "إلغاء",
+      "confirm": "حذف",
+      "deleting": "جارٍ الحذف..."
+    },
+    "gif": {
+      "title": "GIF",
+      "close": "إغلاق منتقي GIF",
+      "searchPlaceholder": "ابحث عن GIF...",
+      "loading": "جارٍ تحميل GIF...",
+      "noResults": "لم يتم العثور على GIF",
+      "poweredBy": "مدعوم من GIPHY",
+      "altText": "GIF"
+    },
+    "actions": {
+      "menuLabel": "إجراءات المحادثة",
+      "pin": "تثبيت",
+      "unpin": "إلغاء التثبيت",
+      "pinned": "مثبت",
+      "noConversationYet": "ابدأ المحادثة أولًا لتثبيتها",
+      "pinFailed": "تعذر تحديث التثبيت",
+      "deleteFailed": "تعذر حذف المحادثة",
+      "deleted": "تم حذف المحادثة"
+    }
   },
   "notifications": "الإشعارات",
   "moments": "اللحظات",
@@ -238,6 +281,28 @@
       "minutesAgo": "منذ {{minutes}} د",
       "hoursAgo": "منذ {{hours}} س",
       "daysAgo": "منذ {{days}} ي"
+    },
+    "lightbox": {
+      "open": "فتح الصورة بالحجم الكامل",
+      "close": "إغلاق عارض الصور",
+      "previous": "الصورة السابقة",
+      "next": "الصورة التالية"
+    },
+    "share": {
+      "fallbackTitle": "تحقق من هذه اللحظة",
+      "success": "تمت المشاركة بنجاح!",
+      "copied": "تم نسخ الرابط إلى الحافظة!",
+      "failed": "فشل نسخ الرابط"
+    },
+    "create": {
+      "header": "إنشاء لحظة",
+      "titlePlaceholder": "أضف عنوانًا...",
+      "addToMoment": "أضف إلى لحظتك",
+      "addPhotos": "أضف الصور",
+      "addMood": "أضف المزاج",
+      "addLocation": "أضف الموقع",
+      "addTags": "أضف الوسوم",
+      "tagPlaceholder": "أضف وسمًا..."
     }
   },
   "createMoment": {
@@ -444,6 +509,51 @@
     },
     "buttons": {
       "clearFilters": "مسح جميع الفلاتر"
+    },
+    "subnav": {
+      "allMembers": "كل الأعضاء",
+      "nearby": "القريبون",
+      "topics": "المواضيع",
+      "searchPlaceholder": "ابحث عن أعضاء أو مواضيع",
+      "filtersLabel": "الفلاتر",
+      "filtersWithCount": "الفلاتر ({{count}} نشط)"
+    },
+    "filterSheet": {
+      "title": "الفلاتر",
+      "language": "اللغة",
+      "any": "الكل",
+      "gender": "الجنس",
+      "male": "ذكر",
+      "female": "أنثى",
+      "other": "آخر",
+      "ageRange": "الفئة العمرية",
+      "min": "الحد الأدنى",
+      "max": "الحد الأقصى",
+      "experience": "تجربة العضو",
+      "onlineNow": "متصل الآن",
+      "newMembersOnly": "الأعضاء الجدد فقط (آخر 7 أيام)",
+      "reset": "إعادة تعيين",
+      "apply": "تطبيق"
+    },
+    "highlighted": {
+      "title": "ملفات مميزة",
+      "proBadge": "Pro",
+      "tryPro": "جرب BananaTalk Pro",
+      "highlightSelfTopic": "اجعل ملفك الشخصي مميزًا ليراك المزيد من الأشخاص"
+    },
+    "visitors": {
+      "justYou": "زار {{name}} ملفك الشخصي!",
+      "andOthers": "زار {{name}} و {{count}} آخرون ملفك الشخصي!",
+      "seeAll": "عرض الكل"
+    },
+    "tandemCard": {
+      "newChip": "جديد",
+      "defaultTopic": "لنتدرب معًا!"
+    },
+    "languageChip": {
+      "fluent": "بطلاقة",
+      "learns": "يتعلم",
+      "native": "اللغة الأم"
     }
   },
   "communityDetail": {
@@ -504,6 +614,10 @@
       "speaks": "يتحدث",
       "learning": "يتعلم",
       "notSpecified": "غير محدد"
+    },
+    "suggested": {
+      "title": "أعضاء آخرون مثل {{name}}",
+      "seeAll": "عرض كل الأعضاء"
     }
   },
   "communityDetailSection": {

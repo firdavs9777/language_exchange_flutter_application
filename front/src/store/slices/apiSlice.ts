@@ -54,27 +54,44 @@ const baseQueryWithReauth: BaseQueryFn<
 > = async (args, api, extraOptions) => {
   let result = await loggedBaseQuery(args, api, extraOptions);
 
-  // If we get a 401 or 403, try to refresh the token
+  // If we get a 401 or 403, try to refresh the access token using the stored
+  // refresh token. Backend route is /auth/refresh-token and requires the
+  // refresh token in the body. If we don't have one stored (older session,
+  // OAuth flow that didn't return one), fall straight through to logout.
   if (result.error && (result.error.status === 401 || result.error.status === 403)) {
-    // Try to get a new token
-    const refreshResult = await baseQuery(
-      { url: "/api/v1/auth/refresh", method: "POST" },
-      api,
-      extraOptions
-    );
+    const userInfo = (api.getState() as RootState).auth.userInfo as any;
+    const refreshToken = userInfo?.refreshToken;
 
-    if (refreshResult.data) {
-      // Store the new token
-      const userInfo = (api.getState() as RootState).auth.userInfo;
-      api.dispatch(setCredentials({
-        ...userInfo,
-        token: (refreshResult.data as any).token,
-      }));
+    if (refreshToken) {
+      const refreshResult = await baseQuery(
+        {
+          url: "/api/v1/auth/refresh-token",
+          method: "POST",
+          body: { refreshToken },
+        },
+        api,
+        extraOptions
+      );
 
-      // Retry the original query
-      result = await baseQuery(args, api, extraOptions);
+      const refreshData = refreshResult.data as
+        | { token?: string; refreshToken?: string }
+        | undefined;
+
+      if (refreshData?.token) {
+        api.dispatch(
+          setCredentials({
+            ...userInfo,
+            token: refreshData.token,
+            // Backend may rotate the refresh token on refresh — keep the new
+            // one if present, otherwise fall back to the existing value.
+            refreshToken: refreshData.refreshToken || refreshToken,
+          })
+        );
+        result = await baseQuery(args, api, extraOptions);
+      } else {
+        api.dispatch(logout());
+      }
     } else {
-      // Refresh failed, logout user
       api.dispatch(logout());
     }
   }

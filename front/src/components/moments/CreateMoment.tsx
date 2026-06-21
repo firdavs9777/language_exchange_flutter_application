@@ -276,7 +276,9 @@ const CreateMoment: React.FC = () => {
               >
                 <FaArrowLeft className="w-5 h-5 text-gray-600" />
               </button>
-              <h1 className="text-xl font-semibold text-gray-900">Create moment</h1>
+              <h1 className="text-xl font-semibold text-gray-900">
+                {t("moments_section.create.header") || "Create moment"}
+              </h1>
             </div>
             <button
               onClick={handleSubmit}
@@ -345,7 +347,9 @@ const CreateMoment: React.FC = () => {
               {/* Title input */}
               <input
                 type="text"
-                placeholder="Add a title..."
+                placeholder={
+                  t("moments_section.create.titlePlaceholder") || "Add a title..."
+                }
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 className="w-full border-b border-gray-300 outline-none text-lg font-semibold placeholder-gray-500 pb-2"
@@ -441,13 +445,15 @@ const CreateMoment: React.FC = () => {
           {/* Action Bar */}
           <div className="border-t p-3">
             <div className="flex items-center justify-between">
-              <span className="text-sm text-gray-600">Add to your moment</span>
+              <span className="text-sm text-gray-600">
+                {t("moments_section.create.addToMoment") || "Add to your moment"}
+              </span>
               <div className="flex items-center gap-2 relative">
                 {/* Photo Button */}
                 <button
                   onClick={() => fileInputRef.current?.click()}
                   className="p-2 hover:bg-gray-100 rounded-full transition-colors"
-                  title="Add photos"
+                  title={t("moments_section.create.addPhotos") || "Add photos"}
                 >
                   <FaImage className="w-6 h-6 text-green-500" />
                 </button>
@@ -457,7 +463,7 @@ const CreateMoment: React.FC = () => {
                   <button
                     onClick={() => setShowMoodSelector(!showMoodSelector)}
                     className="p-2 hover:bg-gray-100 rounded-full transition-colors"
-                    title="Add mood"
+                    title={t("moments_section.create.addMood") || "Add mood"}
                   >
                     <FaSmile className="w-6 h-6 text-yellow-500" />
                   </button>
@@ -489,7 +495,7 @@ const CreateMoment: React.FC = () => {
                 <button
                   onClick={getCurrentLocation}
                   className="p-2 hover:bg-gray-100 rounded-full transition-colors"
-                  title="Add location"
+                  title={t("moments_section.create.addLocation") || "Add location"}
                 >
                   <FaMapMarkerAlt className="w-6 h-6 text-red-500" />
                 </button>
@@ -498,7 +504,7 @@ const CreateMoment: React.FC = () => {
                 <button
                   onClick={() => setShowTagInput(!showTagInput)}
                   className="p-2 hover:bg-gray-100 rounded-full transition-colors"
-                  title="Add tags"
+                  title={t("moments_section.create.addTags") || "Add tags"}
                 >
                   <FaTag className="w-6 h-6 text-blue-500" />
                 </button>
@@ -547,7 +553,9 @@ const CreateMoment: React.FC = () => {
               <div className="flex gap-2">
                 <input
                   type="text"
-                  placeholder="Add a tag..."
+                  placeholder={
+                    t("moments_section.create.tagPlaceholder") || "Add a tag..."
+                  }
                   value={currentTag}
                   onChange={(e) => setCurrentTag(e.target.value)}
                   onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), handleAddTag())}

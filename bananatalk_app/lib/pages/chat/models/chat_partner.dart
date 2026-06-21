@@ -17,6 +17,13 @@ class ChatPartner {
   final bool isPinned;
   final bool isMuted;
   final String? conversationId;
+  /// Partner's native language (e.g. "Korean"). Used to render the flag
+  /// overlay badge on the avatar. Optional — null hides the badge.
+  final String? nativeLanguage;
+  /// Sender of the most-recent message in this thread. Used by the
+  /// "My turn" filter (a thread is "your turn" when the last message came
+  /// from the partner). Null when unknown.
+  final String? lastMessageSenderId;
 
   ChatPartner({
     required this.id,
@@ -33,6 +40,8 @@ class ChatPartner {
     this.isPinned = false,
     this.isMuted = false,
     this.conversationId,
+    this.nativeLanguage,
+    this.lastMessageSenderId,
   });
 
   /// Get display username with @ prefix
@@ -53,6 +62,8 @@ class ChatPartner {
     bool? isPinned,
     bool? isMuted,
     String? conversationId,
+    String? nativeLanguage,
+    String? lastMessageSenderId,
   }) {
     return ChatPartner(
       id: id ?? this.id,
@@ -69,6 +80,8 @@ class ChatPartner {
       isPinned: isPinned ?? this.isPinned,
       isMuted: isMuted ?? this.isMuted,
       conversationId: conversationId ?? this.conversationId,
+      nativeLanguage: nativeLanguage ?? this.nativeLanguage,
+      lastMessageSenderId: lastMessageSenderId ?? this.lastMessageSenderId,
     );
   }
 }

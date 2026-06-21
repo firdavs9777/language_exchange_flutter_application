@@ -20,18 +20,25 @@ export interface Response {
   message: string;
 }
 
-// Helper to normalize userInfo structure (always use { user, token })
+// Helper to normalize userInfo structure (always use { user, token, refreshToken? })
 const normalizeUserInfo = (stored: any) => {
   if (!stored) return null;
 
-  // If it has 'user' key, it's already normalized
-  if (stored.user) return stored;
+  // If it has 'user' key, it's already normalized — but preserve refreshToken
+  // if it travels alongside (otherwise the apiSlice can't auto-refresh on 401).
+  if (stored.user) {
+    return {
+      ...stored,
+      refreshToken: stored.refreshToken,
+    };
+  }
 
   // If it has 'data' key (old format from API response), normalize it
   if (stored.data) {
     return {
       user: stored.data,
       token: stored.token,
+      refreshToken: stored.refreshToken,
     };
   }
 

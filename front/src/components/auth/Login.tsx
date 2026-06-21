@@ -36,6 +36,7 @@ const Login = () => {
       dispatch(setCredentials({
         user: response.data || response.user,
         token: response.token,
+        refreshToken: response.refreshToken,
         message: response.message || "Login successful",
       }));
       toast.success(t("authentication.login.successMessage"), {

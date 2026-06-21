@@ -218,15 +218,15 @@ export const learningApiSlice = apiSlice.injectEndpoints({
 
     // Corrections (for language exchange)
     sendCorrection: builder.mutation({
-      query: ({ messageId, originalText, correctedText, explanation }: {
+      query: ({ messageId, correctedText, explanation }: {
         messageId: string;
-        originalText: string;
+        originalText?: string;
         correctedText: string;
         explanation?: string;
       }) => ({
-        url: `/api/v1/messages/${messageId}/corrections`,
+        url: `/api/v1/messages/${messageId}/correct`,
         method: "POST",
-        body: { originalText, correctedText, explanation },
+        body: { correctedText, explanation },
       }),
     }),
     getCorrections: builder.query({
@@ -237,7 +237,7 @@ export const learningApiSlice = apiSlice.injectEndpoints({
     acceptCorrection: builder.mutation({
       query: ({ messageId, correctionId }: { messageId: string; correctionId: string }) => ({
         url: `/api/v1/messages/${messageId}/corrections/${correctionId}/accept`,
-        method: "POST",
+        method: "PUT",
       }),
     }),
   }),

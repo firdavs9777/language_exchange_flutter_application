@@ -11,7 +11,12 @@ import {
 import "./ChatContent.css";
 import StickerPanel from "./StickerPanel";
 import "./StickerPanel.css";
+import GifPickerPanel from "./GifPickerPanel";
 import { useSocket } from "./hooks/useSocket";
+import CorrectionCard, { MessageCorrection } from "./components/CorrectionCard";
+import CorrectionModal from "./components/CorrectionModal";
+import TranslationCard from "./components/TranslationCard";
+import { useSendCorrectionMutation } from "../../store/slices/learningSlice";
 import {
   ArrowLeft,
   Phone,
@@ -21,14 +26,15 @@ import {
   Smile,
   Send,
   Mic,
-  Check,
-  CheckCheck,
   AlertCircle,
   RefreshCw,
   X,
   Play,
   Pause,
   Image as ImageIcon,
+  Edit3,
+  Globe,
+  FileImage,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
@@ -95,6 +101,10 @@ interface Message {
   status?: "sending" | "sent" | "delivered" | "read" | "error";
   media?: MessageMedia;
   replyTo?: { _id: string; message: string; sender: { _id: string; name: string } };
+  corrections?: MessageCorrection[];
+  reactions?: Array<{ user: string; emoji: string; createdAt?: string }>;
+  isEdited?: boolean;
+  editedAt?: string;
 }
 
 const getReceiverId = (receiver: MessageReceiver | string): string => {
@@ -117,7 +127,7 @@ const ChatContent: React.FC<ChatContentProps> = ({
   initialIsOnline = false,
   initialLastSeen = "",
 }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const userId = useSelector(
     (state: RootState) => state.auth.userInfo?.user?._id
@@ -161,10 +171,31 @@ const ChatContent: React.FC<ChatContentProps> = ({
 
   // Voice playback state
   const [playingAudioId, setPlayingAudioId] = useState<string | null>(null);
+  const [audioProgress, setAudioProgress] = useState<number>(0); // 0-1
+  const [audioElapsed, setAudioElapsed] = useState<number>(0);
   const audioPlayerRef = useRef<HTMLAudioElement | null>(null);
 
   // Sticker panel state
   const [isStickerPanelOpen, setIsStickerPanelOpen] = useState(false);
+  const [isGifPanelOpen, setIsGifPanelOpen] = useState(false);
+
+  // Correction modal state
+  const [correctingMessage, setCorrectingMessage] = useState<Message | null>(null);
+  const [sendCorrection, { isLoading: isSendingCorrection }] = useSendCorrectionMutation();
+
+  // Open translation cards, keyed by message _id
+  const [openTranslations, setOpenTranslations] = useState<Set<string>>(new Set());
+  const toggleTranslation = useCallback((messageId: string) => {
+    setOpenTranslations((prev) => {
+      const next = new Set(prev);
+      if (next.has(messageId)) next.delete(messageId);
+      else next.add(messageId);
+      return next;
+    });
+  }, []);
+
+  // Translation target language — defaults to i18n locale, falls back to 'en'
+  const targetLanguage = (i18n.language || "en").split("-")[0].toLowerCase();
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
@@ -255,7 +286,12 @@ const ChatContent: React.FC<ChatContentProps> = ({
       const currentSelectedUser = selectedUserRef.current;
       if (data.receiverId === currentSelectedUser) {
         setMessages((prev) => {
-          if (prev.some((msg) => msg._id === data.message._id)) return prev;
+          // If already in state as our optimistic/sent message, upgrade to delivered
+          if (prev.some((msg) => msg._id === data.message._id)) {
+            return prev.map((msg) =>
+              msg._id === data.message._id ? { ...msg, status: "delivered" } : msg
+            );
+          }
           return [...prev, { ...data.message, status: "delivered" }];
         });
       }
@@ -307,6 +343,98 @@ const ChatContent: React.FC<ChatContentProps> = ({
       console.error("[Socket] Message error:", errorData);
     };
 
+    const handleMessageCorrection = (data: {
+      messageId: string;
+      correction: MessageCorrection;
+    }) => {
+      if (!data?.messageId || !data?.correction) return;
+      setMessages((prev) =>
+        prev.map((m) => {
+          if (m._id !== data.messageId) return m;
+          const existing = m.corrections || [];
+          if (existing.some((c) => c._id === data.correction._id)) return m;
+          return { ...m, corrections: [...existing, data.correction] };
+        })
+      );
+    };
+
+    const handleCorrectionAccepted = (data: {
+      messageId: string;
+      correctionId: string;
+      acceptedBy: string;
+    }) => {
+      if (!data?.messageId || !data?.correctionId) return;
+      setMessages((prev) =>
+        prev.map((m) => {
+          if (m._id !== data.messageId) return m;
+          const updated = (m.corrections || []).map((c) =>
+            c._id === data.correctionId ? { ...c, isAccepted: true } : c
+          );
+          return { ...m, corrections: updated };
+        })
+      );
+    };
+
+    const handleMessageEdited = (data: {
+      messageId: string;
+      message?: Message;
+      editedAt?: string;
+    }) => {
+      if (!data?.messageId) return;
+      setMessages((prev) =>
+        prev.map((m) => {
+          if (m._id !== data.messageId) return m;
+          if (data.message) {
+            return {
+              ...m,
+              ...data.message,
+              isEdited: true,
+              editedAt: data.editedAt || data.message?.editedAt,
+            };
+          }
+          return { ...m, isEdited: true, editedAt: data.editedAt };
+        })
+      );
+    };
+
+    const handleMessageReaction = (data: {
+      messageId: string;
+      reactions: Array<{ user: string; emoji: string; createdAt?: string }>;
+    }) => {
+      if (!data?.messageId) return;
+      setMessages((prev) =>
+        prev.map((m) =>
+          m._id === data.messageId ? { ...m, reactions: data.reactions || [] } : m
+        )
+      );
+    };
+
+    const handleMessageSendError = (errorData: { error?: string }) => {
+      console.error("[Socket] messageSendError:", errorData);
+    };
+
+    const handleQueuedMessages = (
+      batch: Array<{ message: Message; senderId?: string }>
+    ) => {
+      if (!Array.isArray(batch) || batch.length === 0) return;
+      const currentSelectedUser = selectedUserRef.current;
+      setMessages((prev) => {
+        const existingIds = new Set(prev.map((m) => m._id));
+        const incoming = batch
+          .map((entry) => entry?.message)
+          .filter((msg): msg is Message => {
+            if (!msg || !msg._id || existingIds.has(msg._id)) return false;
+            const receiverId = getReceiverId(msg.receiver);
+            return (
+              msg.sender._id === currentSelectedUser ||
+              receiverId === currentSelectedUser
+            );
+          })
+          .map((msg) => ({ ...msg, status: "delivered" as const }));
+        return incoming.length > 0 ? [...prev, ...incoming] : prev;
+      });
+    };
+
     socket.on("newMessage", handleNewMessage);
     socket.on("newVoiceMessage", handleMediaMessage);
     socket.on("newVideoMessage", handleMediaMessage);
@@ -317,6 +445,12 @@ const ChatContent: React.FC<ChatContentProps> = ({
     socket.on("userStoppedTyping", handleUserStoppedTyping);
     socket.on("userStatusUpdate", handleUserStatusUpdate);
     socket.on("messageError", handleMessageError);
+    socket.on("messageCorrection", handleMessageCorrection);
+    socket.on("correctionAccepted", handleCorrectionAccepted);
+    socket.on("messageEdited", handleMessageEdited);
+    socket.on("messageReaction", handleMessageReaction);
+    socket.on("messageSendError", handleMessageSendError);
+    socket.on("queuedMessages", handleQueuedMessages);
 
     return () => {
       socket.off("newMessage", handleNewMessage);
@@ -329,6 +463,12 @@ const ChatContent: React.FC<ChatContentProps> = ({
       socket.off("userStoppedTyping", handleUserStoppedTyping);
       socket.off("userStatusUpdate", handleUserStatusUpdate);
       socket.off("messageError", handleMessageError);
+      socket.off("messageCorrection", handleMessageCorrection);
+      socket.off("correctionAccepted", handleCorrectionAccepted);
+      socket.off("messageEdited", handleMessageEdited);
+      socket.off("messageReaction", handleMessageReaction);
+      socket.off("messageSendError", handleMessageSendError);
+      socket.off("queuedMessages", handleQueuedMessages);
     };
   }, [socket, userId]);
 
@@ -363,7 +503,7 @@ const ChatContent: React.FC<ChatContentProps> = ({
     if ((data as any)?.data) {
       const loadedMessages = (data as any).data.map((msg: Message) => ({
         ...msg,
-        status: msg.read ? "read" : "delivered",
+        status: msg.status || (msg.read ? "read" : "delivered"),
       }));
       setMessages(loadedMessages);
 
@@ -479,7 +619,7 @@ const ChatContent: React.FC<ChatContentProps> = ({
             setMessages((prev) =>
               prev.map((msg) =>
                 msg._id === tempId
-                  ? { ...response.message, status: "sent", isOptimistic: false }
+                  ? { ...response.message, status: "delivered", isOptimistic: false }
                   : msg
               )
             );
@@ -530,6 +670,91 @@ const ChatContent: React.FC<ChatContentProps> = ({
   };
 
   // ========== Send Sticker ==========
+  // GIFs reuse the sticker pipeline — same optimistic insert + socket-with-
+  // REST-fallback shape, just a different messageType. Backend treats the URL
+  // as the message body; the rendering branch below picks it up by type.
+  const handleSendGif = async (gifUrl: string) => {
+    setIsGifPanelOpen(false);
+    await sendInlineMessage(gifUrl, "gif");
+  };
+
+  const sendInlineMessage = async (text: string, messageType: string) => {
+    if (isSending) return;
+    const tempId = `temp-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+    const optimisticMessage: Message = {
+      _id: tempId,
+      message: text,
+      messageType,
+      sender: { _id: userId, name: currentUserName || "" },
+      receiver: selectedUser,
+      createdAt: new Date().toISOString(),
+      isOptimistic: true,
+      status: "sending",
+    };
+    setMessages((prev) => [...prev, optimisticMessage]);
+    isAtBottomRef.current = true;
+
+    let resolved = false;
+    if (socket?.connected) {
+      socket.emit(
+        "sendMessage",
+        { receiver: selectedUser, message: text, messageType },
+        (response: any) => {
+          if (resolved) return;
+          resolved = true;
+          if (response?.status === "success" && response?.message) {
+            setMessages((prev) =>
+              prev.map((msg) =>
+                msg._id === tempId
+                  ? { ...response.message, status: "delivered", isOptimistic: false }
+                  : msg
+              )
+            );
+          } else {
+            sendInlineMessageViaRest(tempId, text, messageType);
+          }
+        }
+      );
+      setTimeout(() => {
+        if (resolved) return;
+        resolved = true;
+        sendInlineMessageViaRest(tempId, text, messageType);
+      }, 5000);
+    } else {
+      resolved = true;
+      await sendInlineMessageViaRest(tempId, text, messageType);
+    }
+  };
+
+  const sendInlineMessageViaRest = async (
+    tempId: string,
+    text: string,
+    messageType: string
+  ) => {
+    try {
+      const result: any = await createMessage({
+        sender: userId,
+        receiver: selectedUser,
+        message: text,
+        type: messageType,
+      }).unwrap();
+      const msgData = result.data || result;
+      setMessages((prev) =>
+        prev.map((msg) =>
+          msg._id === tempId
+            ? { ...msgData, status: "delivered", isOptimistic: false }
+            : msg
+        )
+      );
+    } catch (err) {
+      setMessages((prev) =>
+        prev.map((msg) =>
+          msg._id === tempId ? { ...msg, status: "error" } : msg
+        )
+      );
+    }
+  };
+
   const handleSendSticker = async (sticker: string) => {
     if (isSending) return;
 
@@ -563,7 +788,7 @@ const ChatContent: React.FC<ChatContentProps> = ({
             setMessages((prev) =>
               prev.map((msg) =>
                 msg._id === tempId
-                  ? { ...response.message, status: "sent", isOptimistic: false }
+                  ? { ...response.message, status: "delivered", isOptimistic: false }
                   : msg
               )
             );
@@ -842,24 +1067,35 @@ const ChatContent: React.FC<ChatContentProps> = ({
   // ========== Voice Playback ==========
   const toggleAudioPlayback = (messageId: string, audioUrl: string) => {
     if (playingAudioId === messageId) {
-      // Pause
       audioPlayerRef.current?.pause();
       setPlayingAudioId(null);
       return;
     }
 
-    // Stop previous
     if (audioPlayerRef.current) {
       audioPlayerRef.current.pause();
     }
+
+    setAudioProgress(0);
+    setAudioElapsed(0);
 
     const audio = new Audio(audioUrl);
     audioPlayerRef.current = audio;
     setPlayingAudioId(messageId);
 
     audio.play().catch(console.error);
+
+    audio.addEventListener("timeupdate", () => {
+      if (audio.duration) {
+        setAudioProgress(audio.currentTime / audio.duration);
+        setAudioElapsed(audio.currentTime);
+      }
+    });
+
     audio.onended = () => {
       setPlayingAudioId(null);
+      setAudioProgress(0);
+      setAudioElapsed(0);
       audioPlayerRef.current = null;
     };
   };
@@ -893,7 +1129,7 @@ const ChatContent: React.FC<ChatContentProps> = ({
             setMessages((prev) =>
               prev.map((msg) =>
                 msg._id === tempId
-                  ? { ...response.message, status: "sent", isOptimistic: false }
+                  ? { ...response.message, status: "delivered", isOptimistic: false }
                   : msg
               )
             );
@@ -1026,17 +1262,15 @@ const ChatContent: React.FC<ChatContentProps> = ({
 
     switch (msg.status) {
       case "sending":
-        return <Check size={14} className="status-icon sending" />;
-      case "sent":
-        return <Check size={14} className="status-icon sent" />;
+        return <span className="status-text sending">Sending…</span>;
       case "delivered":
-        return <CheckCheck size={14} className="status-icon delivered" />;
+        return <span className="status-text delivered">Sent</span>;
       case "read":
-        return <CheckCheck size={14} className="status-icon read" />;
+        return <span className="status-text read">Read</span>;
       case "error":
-        return <AlertCircle size={14} className="status-icon error" />;
+        return <span className="status-text error">Failed</span>;
       default:
-        return <Check size={14} className="status-icon sent" />;
+        return <span className="status-text delivered">Sent</span>;
     }
   };
 
@@ -1044,6 +1278,8 @@ const ChatContent: React.FC<ChatContentProps> = ({
   const renderVoiceMessage = (msg: Message) => {
     const duration = msg.media?.duration || 0;
     const isPlaying = playingAudioId === msg._id;
+    const bars = (msg.media?.waveform || Array(20).fill(0.3)).slice(0, 30);
+    const playedCount = isPlaying ? Math.floor(audioProgress * bars.length) : 0;
 
     return (
       <div className="voice-message">
@@ -1058,16 +1294,18 @@ const ChatContent: React.FC<ChatContentProps> = ({
         </button>
         <div className="voice-waveform">
           <div className="voice-waveform-bars">
-            {(msg.media?.waveform || Array(20).fill(0.3)).slice(0, 30).map((v: number, i: number) => (
+            {bars.map((v: number, i: number) => (
               <div
                 key={i}
-                className="waveform-bar"
+                className={`waveform-bar${i < playedCount ? " waveform-bar--played" : ""}`}
                 style={{ height: `${Math.max(4, (v || 0.3) * 24)}px` }}
               />
             ))}
           </div>
         </div>
-        <span className="voice-duration">{formatDuration(duration)}</span>
+        <span className="voice-duration">
+          {isPlaying ? formatDuration(audioElapsed) : formatDuration(duration)}
+        </span>
       </div>
     );
   };
@@ -1157,7 +1395,9 @@ const ChatContent: React.FC<ChatContentProps> = ({
             <button
               className="back-btn"
               onClick={() => navigate("/chat")}
-              aria-label="Back to conversations"
+              aria-label={
+                t("chatPage.backToConversations") || "Back to conversations"
+              }
             >
               <ArrowLeft size={20} />
             </button>
@@ -1190,13 +1430,13 @@ const ChatContent: React.FC<ChatContentProps> = ({
           </div>
 
           <div className="header-actions">
-            <button className="action-btn" title="Voice call">
-              <Phone size={20} />
-            </button>
-            <button className="action-btn" title="Video call">
-              <Video size={20} />
-            </button>
-            <button className="action-btn" title="More options">
+            {/* Voice/Video call buttons removed — calling is mobile-only per
+                the documented web scope (Community/Chats/Moments/Profile). */}
+            <button
+              className="action-btn"
+              title={t("chatPage.moreOptions") || "More options"}
+              aria-label={t("chatPage.moreOptions") || "More options"}
+            >
               <MoreVertical size={20} />
             </button>
           </div>
@@ -1239,7 +1479,21 @@ const ChatContent: React.FC<ChatContentProps> = ({
 
               const isVoice = msg.messageType === "voice" || msg.media?.type === "voice";
               const isSticker = msg.messageType === "sticker";
+              const isGif =
+                msg.messageType === "gif" ||
+                (typeof msg.message === "string" &&
+                  /\.gif(\?|$)|giphy\.com\/media/i.test(msg.message));
               const hasMedia = !!msg.media?.type && !isVoice;
+
+              // System placeholder created by createConversationRoom — show as a
+              // centered notice instead of a chat bubble.
+              if (msg.message === "Conversation started") {
+                return (
+                  <div key={msg._id} className="system-notice">
+                    <span>{t("chatPage.conversationStarted") || "Conversation started"}</span>
+                  </div>
+                );
+              }
 
               return (
                 <div
@@ -1270,6 +1524,13 @@ const ChatContent: React.FC<ChatContentProps> = ({
                     >
                       {isSticker ? (
                         <div className="sticker-message">{msg.message}</div>
+                      ) : isGif ? (
+                        <img
+                          className="gif-message"
+                          src={msg.message}
+                          alt={t("chatPage.gif.altText") || "GIF"}
+                          loading="lazy"
+                        />
                       ) : (
                         <>
                           {renderMediaContent(msg)}
@@ -1284,6 +1545,16 @@ const ChatContent: React.FC<ChatContentProps> = ({
                           {msg.message && !isVoice && (
                             <p className="message-text">{msg.message}</p>
                           )}
+
+                          {openTranslations.has(msg._id) && msg.message && (
+                            <TranslationCard
+                              messageId={msg._id}
+                              originalText={msg.message}
+                              targetLanguage={targetLanguage}
+                              onClose={() => toggleTranslation(msg._id)}
+                            />
+                          )}
+
                         </>
                       )}
 
@@ -1299,11 +1570,71 @@ const ChatContent: React.FC<ChatContentProps> = ({
                       </div>
                     </div>
 
+                    {/* Correction card lives OUTSIDE the bubble so it always
+                        renders on a white background — readable for both
+                        sent (teal) and received (grey) bubbles. */}
+                    {msg.corrections && msg.corrections.length > 0 && (
+                      <CorrectionCard
+                        messageId={msg._id}
+                        correction={msg.corrections[0]}
+                        isMe={isSent}
+                        currentUserId={userId || ""}
+                        otherUserName={userName}
+                        onAccepted={(correctionId) => {
+                          setMessages((prev) =>
+                            prev.map((m) =>
+                              m._id === msg._id
+                                ? {
+                                    ...m,
+                                    corrections: (m.corrections || []).map(
+                                      (c) =>
+                                        c._id === correctionId
+                                          ? { ...c, isAccepted: true }
+                                          : c
+                                    ),
+                                  }
+                                : m
+                            )
+                          );
+                        }}
+                      />
+                    )}
+
+                    {!isSent && !isSticker && !isVoice && !hasMedia && msg.message && (
+                      <div className="message-chip-row">
+                        {/* Hide Correct chip once a correction already exists */}
+                        {!(msg.corrections && msg.corrections.length > 0) && (
+                          <button
+                            type="button"
+                            className="correct-chip"
+                            onClick={() => setCorrectingMessage(msg)}
+                            title="Suggest a correction"
+                          >
+                            <Edit3 size={12} />
+                            <span>{t("chatPage.correct") || "Correct"}</span>
+                          </button>
+                        )}
+                        <button
+                          type="button"
+                          className={`translate-chip ${openTranslations.has(msg._id) ? "active" : ""}`}
+                          onClick={() => toggleTranslation(msg._id)}
+                          title="Translate this message"
+                        >
+                          <Globe size={12} />
+                          <span>
+                            {openTranslations.has(msg._id)
+                              ? t("chatPage.hide_translation") || "Hide"
+                              : t("chatPage.translate") || "Translate"}
+                          </span>
+                        </button>
+                      </div>
+                    )}
+
                     {msg.status === "error" && (
                       <button
                         className="retry-btn"
                         onClick={() => handleRetryMessage(msg)}
-                        title="Retry sending"
+                        title={t("chatPage.retrySending") || "Retry sending"}
                       >
                         <RefreshCw size={14} />
                         <span>{t("chatPage.retry") || "Retry"}</span>
@@ -1387,12 +1718,21 @@ const ChatContent: React.FC<ChatContentProps> = ({
             />
           )}
 
+          {/* GIF Picker */}
+          {isGifPanelOpen && (
+            <GifPickerPanel
+              onSelectGif={handleSendGif}
+              onClose={() => setIsGifPanelOpen(false)}
+            />
+          )}
+
           <Form onSubmit={handleSendMessage} className="input-form">
             <div className="input-container">
               <button
                 type="button"
                 className="attachment-btn"
-                title="Attach file"
+                title={t("chatPage.input.attachFile") || "Attach file"}
+                aria-label={t("chatPage.input.attachFile") || "Attach file"}
                 onClick={handleAttachmentClick}
               >
                 {mediaPreview ? <ImageIcon size={20} /> : <Paperclip size={20} />}
@@ -1417,10 +1757,26 @@ const ChatContent: React.FC<ChatContentProps> = ({
                 <button
                   type="button"
                   className={`emoji-btn ${isStickerPanelOpen ? "active" : ""}`}
-                  title="Stickers"
-                  onClick={() => setIsStickerPanelOpen(!isStickerPanelOpen)}
+                  title={t("chatPage.input.stickers") || "Stickers"}
+                  aria-label={t("chatPage.input.stickers") || "Stickers"}
+                  onClick={() => {
+                    setIsStickerPanelOpen((v) => !v);
+                    setIsGifPanelOpen(false);
+                  }}
                 >
                   {isStickerPanelOpen ? <X size={20} /> : <Smile size={20} />}
+                </button>
+                <button
+                  type="button"
+                  className={`emoji-btn ${isGifPanelOpen ? "active" : ""}`}
+                  title={t("chatPage.input.sendGif") || "Send a GIF"}
+                  aria-label={t("chatPage.input.sendGif") || "Send a GIF"}
+                  onClick={() => {
+                    setIsGifPanelOpen((v) => !v);
+                    setIsStickerPanelOpen(false);
+                  }}
+                >
+                  <FileImage size={20} />
                 </button>
               </div>
 
@@ -1440,7 +1796,10 @@ const ChatContent: React.FC<ChatContentProps> = ({
                 <button
                   type="button"
                   className="send-btn mic-btn"
-                  title="Voice message"
+                  title={t("chatPage.input.voiceMessage") || "Voice message"}
+                  aria-label={
+                    t("chatPage.input.voiceMessage") || "Voice message"
+                  }
                   onClick={startRecording}
                 >
                   <Mic size={18} />
@@ -1449,6 +1808,59 @@ const ChatContent: React.FC<ChatContentProps> = ({
             </div>
           </Form>
         </div>
+      )}
+
+      {correctingMessage && (
+        <CorrectionModal
+          message={{
+            _id: correctingMessage._id,
+            content: correctingMessage.message,
+            message: correctingMessage.message,
+            sender: {
+              _id: correctingMessage.sender._id,
+              name: correctingMessage.sender.name,
+            },
+          }}
+          onClose={() => setCorrectingMessage(null)}
+          onSubmit={async ({ originalText, correctedText, explanation }) => {
+            if (isSendingCorrection) return;
+            const targetMsg = correctingMessage;
+            setCorrectingMessage(null);
+            try {
+              const result: any = await sendCorrection({
+                messageId: targetMsg._id,
+                correctedText,
+                explanation,
+              }).unwrap();
+              // Use API response corrections if available; socket event is the
+              // canonical update, but this covers the gap before it arrives.
+              const serverCorrections: MessageCorrection[] | undefined =
+                Array.isArray(result?.data) ? result.data : undefined;
+              setMessages((prev) =>
+                prev.map((m) => {
+                  if (m._id !== targetMsg._id) return m;
+                  if (serverCorrections) {
+                    return { ...m, corrections: serverCorrections };
+                  }
+                  // Fallback: add optimistic correction card
+                  const optimistic: MessageCorrection = {
+                    _id: `opt-${Date.now()}`,
+                    corrector: { _id: userId || "", name: currentUserName || "You" },
+                    originalText: originalText || targetMsg.message,
+                    correctedText,
+                    explanation,
+                    isAccepted: false,
+                  };
+                  const existing = m.corrections || [];
+                  return { ...m, corrections: [...existing, optimistic] };
+                })
+              );
+            } catch (e: any) {
+              console.error("[sendCorrection] failed:", e);
+              alert(e?.data?.message || "Failed to send correction");
+            }
+          }}
+        />
       )}
     </Container>
   );

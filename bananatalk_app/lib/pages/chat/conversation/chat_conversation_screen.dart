@@ -40,6 +40,7 @@ import 'package:bananatalk_app/pages/chat/conversation/handlers/message_action_h
 import 'package:bananatalk_app/pages/chat/conversation/sections/conversation_scroll_helpers.dart';
 import 'package:bananatalk_app/pages/chat/conversation/sections/conversation_setup.dart';
 import 'package:bananatalk_app/utils/haptic_utils.dart';
+import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 
 class ChatScreen extends ConsumerStatefulWidget {
   final String userId;
@@ -1666,6 +1667,12 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                     currentUserId: _currentUserId,
                     otherUserName: widget.userName,
                     otherUserPicture: widget.profilePicture,
+                    // Read native_language from the partner's profile so the
+                    // small flag overlay rides on each incoming-message avatar.
+                    otherUserNativeLanguage: ref.watch(
+                      singleCommunityProvider(widget.userId)
+                          .select((a) => a.valueOrNull?.native_language),
+                    ),
                     otherUserTyping: chatState.isOtherUserTyping,
                     scrollController: _scrollController,
                     isLoadingMore: _isLoadingMore,

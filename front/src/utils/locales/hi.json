@@ -30,7 +30,8 @@
     "features": {
       "realtime": "रियल-टाइम मैसेजिंग",
       "exchange": "भाषा विनिमय",
-      "calls": "वॉइस और वीडियो कॉल"
+      "calls": "वॉइस और वीडियो कॉल",
+      "translation": "अंतर्निर्मित अनुवाद"
     },
     "online": "ऑनलाइन",
     "offline": "ऑफ़लाइन",
@@ -42,7 +43,49 @@
     "justNow": "अभी",
     "minutesAgo": "{{count}} मिनट पहले",
     "hoursAgo": "{{count}} घंटे पहले",
-    "unknownUser": "अज्ञात उपयोगकर्ता"
+    "unknownUser": "अज्ञात उपयोगकर्ता",
+    "backToConversations": "बातचीत पर वापस",
+    "moreOptions": "अधिक विकल्प",
+    "retrySending": "फिर से भेजें",
+    "input": {
+      "attachFile": "फ़ाइल संलग्न करें",
+      "stickers": "स्टिकर",
+      "voiceMessage": "वॉइस संदेश",
+      "sendGif": "GIF भेजें"
+    },
+    "list": {
+      "noMatchTitle": "कोई मेल खाती बातचीत नहीं",
+      "noMatchSubtitle": "अपनी खोज बदलकर देखें",
+      "emptyTitle": "अभी कोई बातचीत नहीं",
+      "emptySubtitle": "बातचीत शुरू करें ताकि यहाँ दिखे"
+    },
+    "deleteModal": {
+      "title": "बातचीत हटाएँ",
+      "bodyPrefix": "इस उपयोगकर्ता के साथ बातचीत हटाएँ:",
+      "warning": "यह क्रिया वापस नहीं ली जा सकती।",
+      "cancel": "रद्द करें",
+      "confirm": "हटाएँ",
+      "deleting": "हटा रहा है..."
+    },
+    "gif": {
+      "title": "GIF",
+      "close": "GIF चयनकर्ता बंद करें",
+      "searchPlaceholder": "GIF खोजें...",
+      "loading": "GIF लोड हो रहे हैं...",
+      "noResults": "कोई GIF नहीं मिला",
+      "poweredBy": "GIPHY द्वारा संचालित",
+      "altText": "GIF"
+    },
+    "actions": {
+      "menuLabel": "बातचीत क्रियाएँ",
+      "pin": "पिन करें",
+      "unpin": "अनपिन करें",
+      "pinned": "पिन किया गया",
+      "noConversationYet": "पिन करने के लिए पहले बातचीत शुरू करें",
+      "pinFailed": "पिन अपडेट करने में विफल",
+      "deleteFailed": "बातचीत हटाने में विफल",
+      "deleted": "बातचीत हटा दी गई"
+    }
   },
   "notifications": "सूचनाएँ",
   "moments": "मोमेंट्स",
@@ -238,6 +281,28 @@
       "minutesAgo": "{{minutes}} मिनट पहले",
       "hoursAgo": "{{hours}} घंटे पहले",
       "daysAgo": "{{days}} दिन पहले"
+    },
+    "lightbox": {
+      "open": "छवि को पूर्ण आकार में खोलें",
+      "close": "छवि व्यूअर बंद करें",
+      "previous": "पिछली छवि",
+      "next": "अगली छवि"
+    },
+    "share": {
+      "fallbackTitle": "इस पल को देखें",
+      "success": "सफलतापूर्वक साझा किया गया!",
+      "copied": "लिंक क्लिपबोर्ड पर कॉपी हो गया!",
+      "failed": "लिंक कॉपी करने में विफल"
+    },
+    "create": {
+      "header": "पल बनाएँ",
+      "titlePlaceholder": "शीर्षक जोड़ें...",
+      "addToMoment": "अपने पल में जोड़ें",
+      "addPhotos": "फ़ोटो जोड़ें",
+      "addMood": "मूड जोड़ें",
+      "addLocation": "स्थान जोड़ें",
+      "addTags": "टैग जोड़ें",
+      "tagPlaceholder": "टैग जोड़ें..."
     }
   },
   "createMoment": {
@@ -444,6 +509,51 @@
     },
     "buttons": {
       "clearFilters": "सभी फ़िल्टर साफ़ करें"
+    },
+    "subnav": {
+      "allMembers": "सभी सदस्य",
+      "nearby": "नज़दीक",
+      "topics": "विषय",
+      "searchPlaceholder": "सदस्य या विषय खोजें",
+      "filtersLabel": "फ़िल्टर",
+      "filtersWithCount": "फ़िल्टर ({{count}} सक्रिय)"
+    },
+    "filterSheet": {
+      "title": "फ़िल्टर",
+      "language": "भाषा",
+      "any": "कोई भी",
+      "gender": "लिंग",
+      "male": "पुरुष",
+      "female": "महिला",
+      "other": "अन्य",
+      "ageRange": "उम्र सीमा",
+      "min": "न्यूनतम",
+      "max": "अधिकतम",
+      "experience": "सदस्य अनुभव",
+      "onlineNow": "अभी ऑनलाइन",
+      "newMembersOnly": "केवल नए सदस्य (पिछले 7 दिन)",
+      "reset": "रीसेट",
+      "apply": "लागू करें"
+    },
+    "highlighted": {
+      "title": "चुनिंदा प्रोफ़ाइल",
+      "proBadge": "Pro",
+      "tryPro": "BananaTalk Pro आज़माएँ",
+      "highlightSelfTopic": "अपनी प्रोफ़ाइल को हाइलाइट करें और ज़्यादा लोगों को दिखाएँ"
+    },
+    "visitors": {
+      "justYou": "{{name}} ने आपकी प्रोफ़ाइल देखी!",
+      "andOthers": "{{name}} और {{count}} अन्य लोगों ने आपकी प्रोफ़ाइल देखी!",
+      "seeAll": "सब देखें"
+    },
+    "tandemCard": {
+      "newChip": "नया",
+      "defaultTopic": "चलिए अभ्यास करते हैं!"
+    },
+    "languageChip": {
+      "fluent": "धाराप्रवाह",
+      "learns": "सीख रहे हैं",
+      "native": "मातृभाषा"
     }
   },
   "communityDetail": {
@@ -504,6 +614,10 @@
       "speaks": "बोलते हैं",
       "learning": "सीख रहे हैं",
       "notSpecified": "निर्दिष्ट नहीं"
+    },
+    "suggested": {
+      "title": "{{name}} जैसे और सदस्य",
+      "seeAll": "सभी सदस्य देखें"
     }
   },
   "communityDetailSection": {

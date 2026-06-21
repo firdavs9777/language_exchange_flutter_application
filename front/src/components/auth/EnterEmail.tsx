@@ -35,12 +35,15 @@ const EnterEmail: React.FC<EnterEmailProps> = ({ email, setEmail, onNext }) => {
       }
     } catch (error: any) {
       console.log(error);
-      toast.error(`${error?.data?.error}`, {
-        autoClose: 3000,
-        hideProgressBar: false,
-        theme: "dark",
-        transition: Bounce,
-      });
+      toast.error(
+        error?.data?.error || error?.data?.message || "Failed to send the code",
+        {
+          autoClose: 4000,
+          hideProgressBar: false,
+          theme: "colored",
+          transition: Bounce,
+        }
+      );
     }
   };
 

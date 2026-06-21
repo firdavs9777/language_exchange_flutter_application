@@ -882,7 +882,6 @@ class _CityTabState extends ConsumerState<CityTab> {
                           user: user,
                           onTap: () => _viewProfile(user),
                           onWave: () => _onWave(user),
-                          onMessage: () => _onMessage(user),
                         )
                         .animate()
                         .fadeIn(
@@ -938,19 +937,6 @@ class _CityTabState extends ConsumerState<CityTab> {
       final messageService = ref.read(messageServiceProvider);
       await messageService.sendMessage(receiver: user.id, message: '\u{1F44B}');
     } catch (_) {}
-  }
-
-  void _onMessage(Community user) {
-    Navigator.push(
-      context,
-      AppPageRoute(
-        builder: (_) => ChatScreen(
-          userId: user.id,
-          userName: user.name,
-          profilePicture: user.profileImageUrl,
-        ),
-      ),
-    );
   }
 }
 

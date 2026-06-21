@@ -286,6 +286,8 @@
 }
 
 /* =========== Responsive =========== */
+
+/* Tablet — narrower sidebar but keep the split-view layout. */
 @media (max-width: 992px) {
   .chat-sidebar {
     width: 300px;
@@ -293,25 +295,45 @@
   }
 }
 
+/* Phone — switch to single-pane stack. The sidebar takes the entire
+   viewport when no conversation is selected, and the chat area takes
+   the entire viewport once one is. No more awkward 50/50 split or
+   tiny empty-state strip. */
 @media (max-width: 768px) {
   .chat-layout {
     flex-direction: column;
     top: 60px;
+    /* Account for iOS safe-area at the bottom so the input bar doesn't
+       hide behind the home indicator. */
+    padding-bottom: env(safe-area-inset-bottom, 0);
   }
 
   .chat-sidebar {
     width: 100%;
     max-width: 100%;
-    height: auto;
-    max-height: 50%;
+    height: 100%;
+    max-height: 100%;
     border-right: none;
-    border-bottom: 1px solid #E4E6EB;
-    flex-shrink: 0;
+    border-bottom: none;
+    flex: 1 1 auto;
+    min-height: 0;
   }
 
+  /* No chat selected on phone: hide the chat area entirely so the list
+     fills the whole viewport. */
   .chat-area {
-    flex: 1;
-    min-height: 0;
+    display: none;
+  }
+
+  /* Chat selected on phone: hide sidebar, chat takes the full viewport. */
+  .chat-layout.chat-selected .chat-sidebar {
+    display: none;
+  }
+
+  .chat-layout.chat-selected .chat-area {
+    display: flex;
+    height: 100%;
+    flex: 1 1 auto;
   }
 
   .sidebar-header {
@@ -322,32 +344,29 @@
     font-size: 1.25rem;
   }
 
-  .empty-chat-content {
-    padding: 1.5rem;
-  }
-
-  .empty-title {
-    font-size: 1.25rem;
-  }
-
-  .empty-icon-bg {
-    width: 72px;
-    height: 72px;
-  }
-
-  .empty-icon {
-    width: 32px;
-    height: 32px;
+  /* Make the new-chat button a comfortable 44px tap target. */
+  .new-chat-btn {
+    width: 44px;
+    height: 44px;
   }
 }
 
-/* Hide sidebar when chat selected on mobile */
+/* Hide the global footer (and lock the body scroll) while the user is
+   inside chat. MainChat.tsx toggles body.chat-fullscreen on mount /
+   unmount. Without this, the footer peeks above the input on mobile
+   and double-scrolling becomes a problem on desktop too. */
+body.chat-fullscreen .footer-modern {
+  display: none;
+}
+
 @media (max-width: 768px) {
-  .chat-layout.chat-selected .chat-sidebar {
-    display: none;
+  body.chat-fullscreen {
+    overflow: hidden;
   }
 
-  .chat-layout.chat-selected .chat-area {
-    height: 100%;
+  /* App.tsx wraps the route Outlet in <Container fluid>, which adds 12px
+     of side padding on mobile. Strip it so chat goes edge-to-edge. */
+  body.chat-fullscreen .container-fluid {
+    padding: 0;
   }
 }

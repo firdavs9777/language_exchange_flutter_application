@@ -41,17 +41,6 @@ import LanguageSettings from "../components/settings/LanguageSettings";
 import BlockedUsers from "../components/settings/BlockedUsers";
 import CloseFriends from "../components/settings/CloseFriends";
 
-// Learning
-import LearningDashboard from "../components/learning/LearningDashboard";
-import Vocabulary from "../components/learning/Vocabulary";
-import VocabularyReview from "../components/learning/VocabularyReview";
-import Lessons from "../components/learning/Lessons";
-import LessonDetail from "../components/learning/LessonDetail";
-import Quizzes from "../components/learning/Quizzes";
-import Leaderboard from "../components/learning/Leaderboard";
-import Achievements from "../components/learning/Achievements";
-import Challenges from "../components/learning/Challenges";
-
 // Community
 import NearbyUsers from "../components/community/NearbyUsers";
 import Waves from "../components/community/Waves";
@@ -115,17 +104,6 @@ const AppRouter = createBrowserRouter(
       <Route path="settings/language" element={<LanguageSettings />} />
       <Route path="settings/blocked" element={<BlockedUsers />} />
       <Route path="settings/close-friends" element={<CloseFriends />} />
-
-      {/* Learning */}
-      <Route path="learn" element={<LearningDashboard />} />
-      <Route path="learn/vocabulary" element={<Vocabulary />} />
-      <Route path="learn/review" element={<VocabularyReview />} />
-      <Route path="learn/lessons" element={<Lessons />} />
-      <Route path="learn/lessons/:lessonId" element={<LessonDetail />} />
-      <Route path="learn/quizzes" element={<Quizzes />} />
-      <Route path="learn/leaderboard" element={<Leaderboard />} />
-      <Route path="learn/achievements" element={<Achievements />} />
-      <Route path="learn/challenges" element={<Challenges />} />
 
       {/* Community */}
       <Route path="community/nearby" element={<NearbyUsers />} />

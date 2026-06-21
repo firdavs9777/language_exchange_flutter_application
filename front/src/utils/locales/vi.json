@@ -30,7 +30,8 @@
     "features": {
       "realtime": "Nhắn tin thời gian thực",
       "exchange": "Trao đổi ngôn ngữ",
-      "calls": "Cuộc gọi thoại & video"
+      "calls": "Cuộc gọi thoại & video",
+      "translation": "Dịch tích hợp"
     },
     "online": "Trực tuyến",
     "offline": "Ngoại tuyến",
@@ -42,7 +43,49 @@
     "justNow": "Vừa xong",
     "minutesAgo": "{{count}} phút trước",
     "hoursAgo": "{{count}} giờ trước",
-    "unknownUser": "Người Dùng Không Xác Định"
+    "unknownUser": "Người Dùng Không Xác Định",
+    "backToConversations": "Quay lại danh sách trò chuyện",
+    "moreOptions": "Tùy chọn khác",
+    "retrySending": "Gửi lại",
+    "input": {
+      "attachFile": "Đính kèm tệp",
+      "stickers": "Sticker",
+      "voiceMessage": "Tin nhắn thoại",
+      "sendGif": "Gửi GIF"
+    },
+    "list": {
+      "noMatchTitle": "Không có cuộc trò chuyện phù hợp",
+      "noMatchSubtitle": "Hãy thử thay đổi tìm kiếm",
+      "emptyTitle": "Chưa có cuộc trò chuyện",
+      "emptySubtitle": "Bắt đầu một cuộc trò chuyện để xem ở đây"
+    },
+    "deleteModal": {
+      "title": "Xóa cuộc trò chuyện",
+      "bodyPrefix": "Xóa cuộc trò chuyện của bạn với:",
+      "warning": "Hành động này không thể hoàn tác.",
+      "cancel": "Hủy",
+      "confirm": "Xóa",
+      "deleting": "Đang xóa..."
+    },
+    "gif": {
+      "title": "GIF",
+      "close": "Đóng trình chọn GIF",
+      "searchPlaceholder": "Tìm GIF...",
+      "loading": "Đang tải GIF...",
+      "noResults": "Không tìm thấy GIF",
+      "poweredBy": "Powered by GIPHY",
+      "altText": "GIF"
+    },
+    "actions": {
+      "menuLabel": "Tùy chọn cuộc trò chuyện",
+      "pin": "Ghim",
+      "unpin": "Bỏ ghim",
+      "pinned": "Đã ghim",
+      "noConversationYet": "Hãy bắt đầu cuộc trò chuyện trước khi ghim",
+      "pinFailed": "Không thể cập nhật ghim",
+      "deleteFailed": "Không thể xóa cuộc trò chuyện",
+      "deleted": "Đã xóa cuộc trò chuyện"
+    }
   },
   "notifications": "Thông Báo",
   "moments": "Khoảnh Khắc",
@@ -238,6 +281,28 @@
       "minutesAgo": "{{minutes}} phút trước",
       "hoursAgo": "{{hours}} giờ trước",
       "daysAgo": "{{days}} ngày trước"
+    },
+    "lightbox": {
+      "open": "Mở ảnh kích thước đầy đủ",
+      "close": "Đóng trình xem ảnh",
+      "previous": "Ảnh trước",
+      "next": "Ảnh tiếp theo"
+    },
+    "share": {
+      "fallbackTitle": "Xem khoảnh khắc này",
+      "success": "Đã chia sẻ thành công!",
+      "copied": "Đã sao chép liên kết vào bộ nhớ tạm!",
+      "failed": "Không thể sao chép liên kết"
+    },
+    "create": {
+      "header": "Tạo khoảnh khắc",
+      "titlePlaceholder": "Thêm tiêu đề...",
+      "addToMoment": "Thêm vào khoảnh khắc",
+      "addPhotos": "Thêm ảnh",
+      "addMood": "Thêm tâm trạng",
+      "addLocation": "Thêm vị trí",
+      "addTags": "Thêm thẻ",
+      "tagPlaceholder": "Thêm thẻ..."
     }
   },
   "createMoment": {
@@ -444,6 +509,51 @@
     },
     "buttons": {
       "clearFilters": "Xóa tất cả bộ lọc"
+    },
+    "subnav": {
+      "allMembers": "Tất cả thành viên",
+      "nearby": "Gần đây",
+      "topics": "Chủ đề",
+      "searchPlaceholder": "Tìm thành viên hoặc chủ đề",
+      "filtersLabel": "Bộ lọc",
+      "filtersWithCount": "Bộ lọc ({{count}} đang dùng)"
+    },
+    "filterSheet": {
+      "title": "Bộ lọc",
+      "language": "Ngôn ngữ",
+      "any": "Bất kỳ",
+      "gender": "Giới tính",
+      "male": "Nam",
+      "female": "Nữ",
+      "other": "Khác",
+      "ageRange": "Độ tuổi",
+      "min": "Tối thiểu",
+      "max": "Tối đa",
+      "experience": "Kinh nghiệm thành viên",
+      "onlineNow": "Đang trực tuyến",
+      "newMembersOnly": "Chỉ thành viên mới (7 ngày qua)",
+      "reset": "Đặt lại",
+      "apply": "Áp dụng"
+    },
+    "highlighted": {
+      "title": "Hồ sơ nổi bật",
+      "proBadge": "Pro",
+      "tryPro": "Thử BananaTalk Pro",
+      "highlightSelfTopic": "Làm nổi bật hồ sơ của bạn để nhiều người thấy bạn hơn"
+    },
+    "visitors": {
+      "justYou": "{{name}} đã xem hồ sơ của bạn!",
+      "andOthers": "{{name}} và {{count}} người khác đã xem hồ sơ của bạn!",
+      "seeAll": "Xem tất cả"
+    },
+    "tandemCard": {
+      "newChip": "MỚI",
+      "defaultTopic": "Cùng luyện tập nào!"
+    },
+    "languageChip": {
+      "fluent": "THÀNH THẠO",
+      "learns": "ĐANG HỌC",
+      "native": "BẢN NGỮ"
     }
   },
   "communityDetail": {
@@ -504,6 +614,10 @@
       "speaks": "Nói",
       "learning": "Đang Học",
       "notSpecified": "Chưa xác định"
+    },
+    "suggested": {
+      "title": "Thành viên khác giống {{name}}",
+      "seeAll": "Xem tất cả thành viên"
     }
   },
   "communityDetailSection": {

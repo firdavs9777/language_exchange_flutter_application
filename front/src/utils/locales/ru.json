@@ -30,7 +30,8 @@
     "features": {
       "realtime": "Обмен сообщениями в реальном времени",
       "exchange": "Языковой обмен",
-      "calls": "Голосовые и видеозвонки"
+      "calls": "Голосовые и видеозвонки",
+      "translation": "Встроенный перевод"
     },
     "online": "Онлайн",
     "offline": "Офлайн",
@@ -42,7 +43,49 @@
     "justNow": "Только что",
     "minutesAgo": "{{count}}м назад",
     "hoursAgo": "{{count}}ч назад",
-    "unknownUser": "Неизвестный Пользователь"
+    "unknownUser": "Неизвестный Пользователь",
+    "backToConversations": "Назад к диалогам",
+    "moreOptions": "Ещё",
+    "retrySending": "Повторить отправку",
+    "input": {
+      "attachFile": "Прикрепить файл",
+      "stickers": "Стикеры",
+      "voiceMessage": "Голосовое сообщение",
+      "sendGif": "Отправить GIF"
+    },
+    "list": {
+      "noMatchTitle": "Нет подходящих диалогов",
+      "noMatchSubtitle": "Попробуйте изменить запрос",
+      "emptyTitle": "Диалогов пока нет",
+      "emptySubtitle": "Начните диалог, чтобы он появился здесь"
+    },
+    "deleteModal": {
+      "title": "Удалить диалог",
+      "bodyPrefix": "Удалить диалог с:",
+      "warning": "Это действие нельзя отменить.",
+      "cancel": "Отмена",
+      "confirm": "Удалить",
+      "deleting": "Удаление..."
+    },
+    "gif": {
+      "title": "GIF",
+      "close": "Закрыть выбор GIF",
+      "searchPlaceholder": "Поиск GIF...",
+      "loading": "Загрузка GIF...",
+      "noResults": "GIF не найдены",
+      "poweredBy": "Powered by GIPHY",
+      "altText": "GIF"
+    },
+    "actions": {
+      "menuLabel": "Действия с диалогом",
+      "pin": "Закрепить",
+      "unpin": "Открепить",
+      "pinned": "Закреплён",
+      "noConversationYet": "Сначала начните диалог, чтобы закрепить",
+      "pinFailed": "Не удалось обновить закрепление",
+      "deleteFailed": "Не удалось удалить диалог",
+      "deleted": "Диалог удалён"
+    }
   },
   "notifications": "Уведомления",
   "moments": "Моменты",
@@ -238,6 +281,28 @@
       "minutesAgo": "{{minutes}}м назад",
       "hoursAgo": "{{hours}}ч назад",
       "daysAgo": "{{days}}д назад"
+    },
+    "lightbox": {
+      "open": "Открыть изображение в полном размере",
+      "close": "Закрыть просмотр изображений",
+      "previous": "Предыдущее изображение",
+      "next": "Следующее изображение"
+    },
+    "share": {
+      "fallbackTitle": "Посмотрите этот момент",
+      "success": "Успешно опубликовано!",
+      "copied": "Ссылка скопирована в буфер обмена!",
+      "failed": "Не удалось скопировать ссылку"
+    },
+    "create": {
+      "header": "Создать момент",
+      "titlePlaceholder": "Добавить заголовок...",
+      "addToMoment": "Добавить к моменту",
+      "addPhotos": "Добавить фото",
+      "addMood": "Добавить настроение",
+      "addLocation": "Добавить место",
+      "addTags": "Добавить теги",
+      "tagPlaceholder": "Добавить тег..."
     }
   },
   "createMoment": {
@@ -444,6 +509,51 @@
     },
     "buttons": {
       "clearFilters": "Очистить все фильтры"
+    },
+    "subnav": {
+      "allMembers": "Все участники",
+      "nearby": "Рядом",
+      "topics": "Темы",
+      "searchPlaceholder": "Найти участников или темы",
+      "filtersLabel": "Фильтры",
+      "filtersWithCount": "Фильтры (активно: {{count}})"
+    },
+    "filterSheet": {
+      "title": "Фильтры",
+      "language": "Язык",
+      "any": "Любой",
+      "gender": "Пол",
+      "male": "Мужской",
+      "female": "Женский",
+      "other": "Другое",
+      "ageRange": "Возраст",
+      "min": "Мин",
+      "max": "Макс",
+      "experience": "Опыт участников",
+      "onlineNow": "Сейчас онлайн",
+      "newMembersOnly": "Только новые участники (последние 7 дней)",
+      "reset": "Сбросить",
+      "apply": "Применить"
+    },
+    "highlighted": {
+      "title": "Рекомендуемые профили",
+      "proBadge": "Pro",
+      "tryPro": "Попробовать BananaTalk Pro",
+      "highlightSelfTopic": "Выделите свой профиль, чтобы вас увидело больше людей"
+    },
+    "visitors": {
+      "justYou": "{{name}} посетил(а) ваш профиль!",
+      "andOthers": "{{name}} и ещё {{count}} посетили ваш профиль!",
+      "seeAll": "Посмотреть всех"
+    },
+    "tandemCard": {
+      "newChip": "НОВЫЙ",
+      "defaultTopic": "Давайте практиковаться!"
+    },
+    "languageChip": {
+      "fluent": "СВОБОДНО",
+      "learns": "ИЗУЧАЕТ",
+      "native": "РОДНОЙ"
     }
   },
   "communityDetail": {
@@ -504,6 +614,10 @@
       "speaks": "Говорит на",
       "learning": "Изучает",
       "notSpecified": "Не указано"
+    },
+    "suggested": {
+      "title": "Другие участники, похожие на {{name}}",
+      "seeAll": "Посмотреть всех"
     }
   },
   "communityDetailSection": {

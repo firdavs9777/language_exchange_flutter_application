@@ -62,7 +62,7 @@ class CommunityTabBar extends ConsumerWidget {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Icon(Icons.wc_rounded, size: 20),
+                    const Icon(Icons.diversity_3_rounded, size: 20),
                     Spacing.hGapSM,
                     Text(AppLocalizations.of(context)!.communityTabGender),
                   ],

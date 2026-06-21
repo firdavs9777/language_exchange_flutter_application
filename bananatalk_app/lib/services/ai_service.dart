@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/service/endpoints.dart';
 import 'package:bananatalk_app/models/ai/ai_conversation_model.dart';
@@ -524,7 +525,11 @@ class AIService {
         if (token != null) 'Authorization': 'Bearer $token',
       });
 
-      request.files.add(await http.MultipartFile.fromPath('audio', audioFile.path));
+      request.files.add(await http.MultipartFile.fromPath(
+        'audio',
+        audioFile.path,
+        contentType: MediaType.parse('audio/mp4'),
+      ));
       if (language != null) {
         request.fields['language'] = language;
       }
@@ -568,7 +573,11 @@ class AIService {
         if (token != null) 'Authorization': 'Bearer $token',
       });
 
-      request.files.add(await http.MultipartFile.fromPath('audio', audioFile.path));
+      request.files.add(await http.MultipartFile.fromPath(
+        'audio',
+        audioFile.path,
+        contentType: MediaType.parse('audio/mp4'),
+      ));
       request.fields['targetText'] = targetText;
       request.fields['language'] = language;
       request.fields['source'] = source;

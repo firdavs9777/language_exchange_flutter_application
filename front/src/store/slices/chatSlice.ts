@@ -1,5 +1,5 @@
 import { apiSlice } from "./apiSlice";
-import { MESSAGES_URL } from "../../constants";
+import { MESSAGES_URL, CONVERSATIONS_URL } from "../../constants";
 
 // Interfaces
 export interface MessageData {
@@ -14,8 +14,8 @@ export const chatApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder: any) => ({
     // Conversations
     getConversations: builder.query({
-      query: ({ page = 1, limit = 20 } = {}) => ({
-        url: `${MESSAGES_URL}/conversations?page=${page}&limit=${limit}`,
+      query: ({ page = 1, limit = 50 } = {}) => ({
+        url: `${CONVERSATIONS_URL}?page=${page}&limit=${limit}`,
       }),
       providesTags: ["Conversations"],
     }),
@@ -27,32 +27,49 @@ export const chatApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Conversations"],
     }),
+    // Conversation actions all live at /api/v1/conversations/:id/... — NOT
+    // /api/v1/messages/conversations/... The earlier URL was a typo that
+    // 404'd silently against the prod backend.
     deleteConversation: builder.mutation({
       query: (conversationId: string) => ({
-        url: `${MESSAGES_URL}/conversations/${conversationId}`,
+        url: `${CONVERSATIONS_URL}/${conversationId}`,
         method: "DELETE",
       }),
       invalidatesTags: ["Conversations"],
     }),
     markConversationRead: builder.mutation({
       query: (conversationId: string) => ({
-        url: `${MESSAGES_URL}/conversations/${conversationId}/read`,
+        url: `${CONVERSATIONS_URL}/${conversationId}/read`,
         method: "PUT",
       }),
       invalidatesTags: ["Conversations"],
     }),
     muteConversation: builder.mutation({
       query: ({ conversationId, duration }: { conversationId: string; duration?: number }) => ({
-        url: `${MESSAGES_URL}/conversations/${conversationId}/mute`,
-        method: "PUT",
+        url: `${CONVERSATIONS_URL}/${conversationId}/mute`,
+        method: "POST",
         body: { duration },
       }),
       invalidatesTags: ["Conversations"],
     }),
     unmuteConversation: builder.mutation({
       query: (conversationId: string) => ({
-        url: `${MESSAGES_URL}/conversations/${conversationId}/mute`,
-        method: "DELETE",
+        url: `${CONVERSATIONS_URL}/${conversationId}/unmute`,
+        method: "POST",
+      }),
+      invalidatesTags: ["Conversations"],
+    }),
+    pinConversation: builder.mutation({
+      query: (conversationId: string) => ({
+        url: `${CONVERSATIONS_URL}/${conversationId}/pin`,
+        method: "POST",
+      }),
+      invalidatesTags: ["Conversations"],
+    }),
+    unpinConversation: builder.mutation({
+      query: (conversationId: string) => ({
+        url: `${CONVERSATIONS_URL}/${conversationId}/unpin`,
+        method: "POST",
       }),
       invalidatesTags: ["Conversations"],
     }),
@@ -191,6 +208,29 @@ export const chatApiSlice = apiSlice.injectEndpoints({
       }),
     }),
 
+    // Save a translated phrase/word from a chat message to vocabulary (SRS queue)
+    saveMessageVocabulary: builder.mutation({
+      query: ({
+        messageId,
+        word,
+        translation,
+        language,
+        pronunciation,
+        partOfSpeech,
+      }: {
+        messageId: string;
+        word: string;
+        translation: string;
+        language: string;
+        pronunciation?: string;
+        partOfSpeech?: string;
+      }) => ({
+        url: `${MESSAGES_URL}/${messageId}/vocabulary`,
+        method: "POST",
+        body: { word, translation, language, pronunciation, partOfSpeech },
+      }),
+    }),
+
     // Unread Count
     getUnreadCount: builder.query({
       query: () => ({
@@ -209,6 +249,8 @@ export const {
   useMarkConversationReadMutation,
   useMuteConversationMutation,
   useUnmuteConversationMutation,
+  usePinConversationMutation,
+  useUnpinConversationMutation,
   // Messages
   useGetMessagesQuery,
   useGetUserMessagesQuery,
@@ -232,6 +274,7 @@ export const {
   useSearchMessagesQuery,
   // Translation
   useTranslateMessageMutation,
+  useSaveMessageVocabularyMutation,
   // Unread
   useGetUnreadCountQuery,
 } = chatApiSlice;

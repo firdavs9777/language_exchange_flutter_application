@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:bananatalk_app/providers/provider_root/ai_providers.dart';
+import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/models/ai/ai_quiz_model.dart';
 import 'package:bananatalk_app/models/language_model.dart';
 import 'package:bananatalk_app/pages/ai/quiz/quiz_player_screen.dart';
@@ -46,20 +47,32 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
         final List<dynamic> languageList = data['data'] ?? [];
+        String learningLang = '';
+        try {
+          final user = await ref.read(userProvider.future);
+          learningLang = user.language_to_learn;
+        } catch (_) {}
+
         setState(() {
           _languages = languageList
               .map((json) => Language.fromJson(json))
               .toList();
           _isLoadingLanguages = false;
-          // Set default to English if available
-          final englishIndex = _languages.indexWhere(
-            (l) => l.code.toLowerCase() == 'en' || l.name.toLowerCase() == 'english'
-          );
-          if (englishIndex != -1) {
-            _selectedLanguage = _languages[englishIndex];
-          } else if (_languages.isNotEmpty) {
-            _selectedLanguage = _languages.first;
+
+          int defaultIdx = -1;
+          if (learningLang.isNotEmpty) {
+            defaultIdx = _languages.indexWhere(
+              (l) => l.code.toLowerCase() == learningLang.toLowerCase(),
+            );
           }
+          if (defaultIdx == -1) {
+            defaultIdx = _languages.indexWhere(
+              (l) => l.code.toLowerCase() == 'en' || l.name.toLowerCase() == 'english',
+            );
+          }
+          _selectedLanguage = defaultIdx != -1
+              ? _languages[defaultIdx]
+              : (_languages.isNotEmpty ? _languages.first : null);
         });
       }
     } catch (e) {
@@ -157,75 +170,182 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
     }
   }
 
+  Future<void> _quickStart(String type, String difficulty, int count) async {
+    setState(() {
+      _selectedType = type;
+      _selectedDifficulty = difficulty;
+      _questionCount = count;
+    });
+    await _generateQuiz();
+  }
+
   @override
   Widget build(BuildContext context) {
     final quizzesAsync = ref.watch(aiQuizzesProvider);
     final statsAsync = ref.watch(aiQuizStatsProvider);
 
-    return Scaffold(
-      backgroundColor: context.scaffoldBackground,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: context.surfaceColor,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: context.textPrimary),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: Text(
-          'AI Quizzes',
-          style: context.titleMedium?.copyWith(fontWeight: FontWeight.bold),
-        ),
-      ),
-      body: SingleChildScrollView(
-        padding: Spacing.paddingLG,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Stats Card
-            statsAsync.when(
-              data: (stats) {
-                if (stats == null) return const SizedBox.shrink();
-                return _buildStatsCard(stats);
-              },
-              loading: () => const SizedBox.shrink(),
-              error: (_, __) => const SizedBox.shrink(),
+    return Stack(
+      children: [
+        Scaffold(
+          backgroundColor: context.scaffoldBackground,
+          appBar: AppBar(
+            elevation: 0,
+            backgroundColor: context.surfaceColor,
+            leading: IconButton(
+              icon: Icon(Icons.arrow_back, color: context.textPrimary),
+              onPressed: () => Navigator.pop(context),
             ),
-
-            // Generate New Quiz Section
-            Text(
-              'Generate New Quiz',
+            title: Text(
+              'AI Quizzes',
               style: context.titleMedium?.copyWith(fontWeight: FontWeight.bold),
             ),
-            Spacing.gapMD,
-            _buildGenerateSection(),
-            Spacing.gapXL,
+          ),
+          body: SingleChildScrollView(
+            padding: Spacing.paddingLG,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Stats Card
+                statsAsync.when(
+                  data: (stats) {
+                    if (stats == null) return const SizedBox.shrink();
+                    return _buildStatsCard(stats);
+                  },
+                  loading: () => const SizedBox.shrink(),
+                  error: (_, __) => const SizedBox.shrink(),
+                ),
 
-            // Previous Quizzes
-            Text(
-              'Previous Quizzes',
-              style: context.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                // Quick-start cards
+                _buildQuickStartRow(),
+                Spacing.gapXL,
+
+                // Generate New Quiz Section
+                Text(
+                  'Generate New Quiz',
+                  style: context.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                ),
+                Spacing.gapMD,
+                _buildGenerateSection(),
+                Spacing.gapXL,
+
+                // Previous Quizzes
+                Text(
+                  'Previous Quizzes',
+                  style: context.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                ),
+                Spacing.gapMD,
+                quizzesAsync.when(
+                  data: (quizzes) {
+                    if (quizzes.isEmpty) {
+                      return _buildEmptyQuizzes();
+                    }
+                    return Column(
+                      children: quizzes
+                          .take(5)
+                          .map((q) => _buildQuizCard(q))
+                          .toList(),
+                    );
+                  },
+                  loading: () => const Center(
+                    child: CircularProgressIndicator(color: AppColors.error),
+                  ),
+                  error: (_, __) => _buildEmptyQuizzes(),
+                ),
+              ],
             ),
-            Spacing.gapMD,
-            quizzesAsync.when(
-              data: (quizzes) {
-                if (quizzes.isEmpty) {
-                  return _buildEmptyQuizzes();
-                }
-                return Column(
-                  children: quizzes
-                      .take(5)
-                      .map((q) => _buildQuizCard(q))
-                      .toList(),
-                );
-              },
-              loading: () => const Center(
-                child: CircularProgressIndicator(color: AppColors.error),
+          ),
+        ),
+        if (_isGenerating)
+          Container(
+            color: Colors.black.withOpacity(0.6),
+            child: const Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  CircularProgressIndicator(color: Colors.white),
+                  SizedBox(height: 16),
+                  Text(
+                    'Generating your quiz…',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ],
               ),
-              error: (_, __) => _buildEmptyQuizzes(),
             ),
-          ],
-        ),
-      ),
+          ),
+      ],
+    );
+  }
+
+  Widget _buildQuickStartRow() {
+    final cards = [
+      {
+        'label': 'Weak Areas',
+        'icon': Icons.gps_fixed_rounded,
+        'type': 'weak_areas',
+        'difficulty': 'adaptive',
+        'count': 5,
+        'color': Colors.red,
+      },
+      {
+        'label': 'Vocab Blast',
+        'icon': Icons.flash_on_rounded,
+        'type': 'vocabulary',
+        'difficulty': 'medium',
+        'count': 10,
+        'color': Colors.purple,
+      },
+      {
+        'label': 'Daily Mix',
+        'icon': Icons.shuffle_rounded,
+        'type': 'mixed',
+        'difficulty': 'adaptive',
+        'count': 10,
+        'color': Colors.teal,
+      },
+    ];
+
+    return Row(
+      children: cards.map((card) {
+        final color = card['color'] as Color;
+        return Expanded(
+          child: GestureDetector(
+            onTap: () => _quickStart(
+              card['type'] as String,
+              card['difficulty'] as String,
+              card['count'] as int,
+            ),
+            child: Container(
+              margin: EdgeInsets.only(
+                right: card['label'] != 'Daily Mix' ? 8 : 0,
+              ),
+              padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 10),
+              decoration: BoxDecoration(
+                color: color.withOpacity(0.1),
+                borderRadius: AppRadius.borderMD,
+                border: Border.all(color: color.withOpacity(0.3)),
+              ),
+              child: Column(
+                children: [
+                  Icon(card['icon'] as IconData, color: color, size: 24),
+                  const SizedBox(height: 6),
+                  Text(
+                    card['label'] as String,
+                    textAlign: TextAlign.center,
+                    style: context.caption?.copyWith(
+                      color: color,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      }).toList(),
     );
   }
 
@@ -649,7 +769,7 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
                     ],
                   ),
                 ),
-                if (quiz.isCompleted && quiz.result != null)
+                if (quiz.isCompleted && quiz.result != null) ...[
                   Container(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 10,
@@ -667,8 +787,16 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
                         color: _getScoreColor(quiz.result!.percentage.toInt()),
                       ),
                     ),
-                  )
-                else
+                  ),
+                  const SizedBox(width: 4),
+                  IconButton(
+                    icon: Icon(Icons.replay_rounded, color: AppColors.error, size: 20),
+                    padding: EdgeInsets.zero,
+                    constraints: const BoxConstraints(),
+                    tooltip: 'Play Again',
+                    onPressed: () => _quickStart(quiz.type, quiz.difficulty, quiz.questionCount),
+                  ),
+                ] else
                   Icon(
                     Icons.play_arrow_rounded,
                     color: context.textMuted,

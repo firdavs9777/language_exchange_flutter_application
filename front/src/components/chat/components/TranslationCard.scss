@@ -1,0 +1,118 @@
+.translation-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 4px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: rgba(59, 130, 246, 0.06);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  max-width: 100%;
+
+  .translation-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #2563eb;
+    font-size: 11px;
+    font-weight: 600;
+
+    .translation-label {
+      flex: 1 1 auto;
+    }
+
+    .translation-close {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+      border: none;
+      background: transparent;
+      color: #6b7280;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.15s ease, color 0.15s ease;
+
+      &:hover {
+        background: rgba(59, 130, 246, 0.1);
+        color: #2563eb;
+      }
+    }
+  }
+
+  .translation-status {
+    font-size: 13px;
+    color: #6b7280;
+    font-style: italic;
+  }
+
+  .translation-text {
+    font-size: 14px;
+    line-height: 1.4;
+    color: #1f2937;
+    word-break: break-word;
+  }
+
+  .translation-error,
+  .translation-save-error {
+    font-size: 12px;
+    color: #dc2626;
+  }
+
+  .translation-save-btn {
+    display: inline-flex;
+    align-self: flex-start;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    border-radius: 10px;
+    background: transparent;
+    color: #2563eb;
+    border: 1px solid rgba(59, 130, 246, 0.35);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease;
+
+    &:hover:not(:disabled) {
+      background: rgba(59, 130, 246, 0.08);
+      border-color: rgba(59, 130, 246, 0.6);
+    }
+
+    &:disabled {
+      cursor: default;
+      opacity: 0.7;
+    }
+
+    &.saved {
+      color: #16a34a;
+      border-color: rgba(34, 197, 94, 0.4);
+      background: rgba(34, 197, 94, 0.06);
+    }
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .translation-card {
+    background: rgba(59, 130, 246, 0.12);
+    border-color: rgba(59, 130, 246, 0.3);
+
+    .translation-text {
+      color: #e5e7eb;
+    }
+
+    .translation-status {
+      color: #9ca3af;
+    }
+
+    .translation-header .translation-close {
+      color: #9ca3af;
+
+      &:hover {
+        background: rgba(59, 130, 246, 0.2);
+        color: #60a5fa;
+      }
+    }
+  }
+}

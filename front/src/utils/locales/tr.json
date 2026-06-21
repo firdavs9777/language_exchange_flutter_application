@@ -30,7 +30,8 @@
     "features": {
       "realtime": "Gerçek zamanlı mesajlaşma",
       "exchange": "Dil değişimi",
-      "calls": "Sesli ve görüntülü aramalar"
+      "calls": "Sesli ve görüntülü aramalar",
+      "translation": "Yerleşik çeviri"
     },
     "online": "Çevrimiçi",
     "offline": "Çevrimdışı",
@@ -42,7 +43,49 @@
     "justNow": "Az önce",
     "minutesAgo": "{{count}}dk önce",
     "hoursAgo": "{{count}}sa önce",
-    "unknownUser": "Bilinmeyen Kullanıcı"
+    "unknownUser": "Bilinmeyen Kullanıcı",
+    "backToConversations": "Sohbetlere dön",
+    "moreOptions": "Daha fazla seçenek",
+    "retrySending": "Yeniden gönder",
+    "input": {
+      "attachFile": "Dosya ekle",
+      "stickers": "Çıkartmalar",
+      "voiceMessage": "Sesli mesaj",
+      "sendGif": "GIF gönder"
+    },
+    "list": {
+      "noMatchTitle": "Eşleşen sohbet yok",
+      "noMatchSubtitle": "Aramanızı ayarlamayı deneyin",
+      "emptyTitle": "Henüz sohbet yok",
+      "emptySubtitle": "Bir sohbet başlatın ve burada görelim"
+    },
+    "deleteModal": {
+      "title": "Sohbeti sil",
+      "bodyPrefix": "Şu kullanıcıyla olan sohbetinizi silin:",
+      "warning": "Bu işlem geri alınamaz.",
+      "cancel": "İptal",
+      "confirm": "Sil",
+      "deleting": "Siliniyor..."
+    },
+    "gif": {
+      "title": "GIF",
+      "close": "GIF seçiciyi kapat",
+      "searchPlaceholder": "GIF ara...",
+      "loading": "GIF'ler yükleniyor...",
+      "noResults": "GIF bulunamadı",
+      "poweredBy": "GIPHY ile destekleniyor",
+      "altText": "GIF"
+    },
+    "actions": {
+      "menuLabel": "Sohbet işlemleri",
+      "pin": "Sabitle",
+      "unpin": "Sabitlemeyi kaldır",
+      "pinned": "Sabitlendi",
+      "noConversationYet": "Sabitlemek için önce sohbeti başlatın",
+      "pinFailed": "Sabitleme güncellenemedi",
+      "deleteFailed": "Sohbet silinemedi",
+      "deleted": "Sohbet silindi"
+    }
   },
   "notifications": "Bildirimler",
   "moments": "Anlar",
@@ -238,6 +281,28 @@
       "minutesAgo": "{{minutes}}dk önce",
       "hoursAgo": "{{hours}}sa önce",
       "daysAgo": "{{days}}g önce"
+    },
+    "lightbox": {
+      "open": "Görseli tam boyutunda aç",
+      "close": "Görsel görüntüleyiciyi kapat",
+      "previous": "Önceki görsel",
+      "next": "Sonraki görsel"
+    },
+    "share": {
+      "fallbackTitle": "Bu anı keşfedin",
+      "success": "Başarıyla paylaşıldı!",
+      "copied": "Bağlantı panoya kopyalandı!",
+      "failed": "Bağlantı kopyalanamadı"
+    },
+    "create": {
+      "header": "Moment oluştur",
+      "titlePlaceholder": "Başlık ekle...",
+      "addToMoment": "Moment'inize ekleyin",
+      "addPhotos": "Fotoğraf ekle",
+      "addMood": "Ruh hali ekle",
+      "addLocation": "Konum ekle",
+      "addTags": "Etiket ekle",
+      "tagPlaceholder": "Etiket ekle..."
     }
   },
   "createMoment": {
@@ -443,6 +508,51 @@
     },
     "buttons": {
       "clearFilters": "Tüm filtreleri temizle"
+    },
+    "subnav": {
+      "allMembers": "Tüm üyeler",
+      "nearby": "Yakındakiler",
+      "topics": "Konular",
+      "searchPlaceholder": "Üye veya konu bul",
+      "filtersLabel": "Filtreler",
+      "filtersWithCount": "Filtreler ({{count}} aktif)"
+    },
+    "filterSheet": {
+      "title": "Filtreler",
+      "language": "Dil",
+      "any": "Hepsi",
+      "gender": "Cinsiyet",
+      "male": "Erkek",
+      "female": "Kadın",
+      "other": "Diğer",
+      "ageRange": "Yaş aralığı",
+      "min": "Min",
+      "max": "Maks",
+      "experience": "Üye deneyimi",
+      "onlineNow": "Şimdi çevrimiçi",
+      "newMembersOnly": "Sadece yeni üyeler (son 7 gün)",
+      "reset": "Sıfırla",
+      "apply": "Uygula"
+    },
+    "highlighted": {
+      "title": "Öne çıkan profiller",
+      "proBadge": "Pro",
+      "tryPro": "BananaTalk Pro'yu deneyin",
+      "highlightSelfTopic": "Profilinizi öne çıkararak daha çok kişinin sizi görmesini sağlayın"
+    },
+    "visitors": {
+      "justYou": "{{name}} profilinizi ziyaret etti!",
+      "andOthers": "{{name}} ve {{count}} diğer kişi profilinizi ziyaret etti!",
+      "seeAll": "Tümünü gör"
+    },
+    "tandemCard": {
+      "newChip": "YENİ",
+      "defaultTopic": "Hadi pratik yapalım!"
+    },
+    "languageChip": {
+      "fluent": "AKICI",
+      "learns": "ÖĞRENİYOR",
+      "native": "ANA DİL"
     }
   },
   "communityDetail": {
@@ -503,6 +613,10 @@
       "speaks": "Konuşuyor",
       "learning": "Öğreniyor",
       "notSpecified": "Belirtilmedi"
+    },
+    "suggested": {
+      "title": "{{name}} gibi diğer üyeler",
+      "seeAll": "Tüm üyeleri gör"
     }
   },
   "communityDetailSection": {

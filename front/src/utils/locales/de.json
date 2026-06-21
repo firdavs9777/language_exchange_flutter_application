@@ -30,7 +30,8 @@
     "features": {
       "realtime": "Echtzeit-Nachrichten",
       "exchange": "Sprachaustausch",
-      "calls": "Sprach- & Videoanrufe"
+      "calls": "Sprach- & Videoanrufe",
+      "translation": "Eingebaute Übersetzung"
     },
     "online": "Online",
     "offline": "Offline",
@@ -42,7 +43,49 @@
     "justNow": "Gerade eben",
     "minutesAgo": "vor {{count}} Min.",
     "hoursAgo": "vor {{count}} Std.",
-    "unknownUser": "Unbekannter Benutzer"
+    "unknownUser": "Unbekannter Benutzer",
+    "backToConversations": "Zurück zu Konversationen",
+    "moreOptions": "Weitere Optionen",
+    "retrySending": "Erneut senden",
+    "input": {
+      "attachFile": "Datei anhängen",
+      "stickers": "Sticker",
+      "voiceMessage": "Sprachnachricht",
+      "sendGif": "GIF senden"
+    },
+    "list": {
+      "noMatchTitle": "Keine passenden Konversationen",
+      "noMatchSubtitle": "Versuche, deine Suche anzupassen",
+      "emptyTitle": "Noch keine Konversationen",
+      "emptySubtitle": "Beginne eine Konversation, um sie hier zu sehen"
+    },
+    "deleteModal": {
+      "title": "Konversation löschen",
+      "bodyPrefix": "Konversation mit folgender Person löschen:",
+      "warning": "Das kann nicht rückgängig gemacht werden.",
+      "cancel": "Abbrechen",
+      "confirm": "Löschen",
+      "deleting": "Löschen..."
+    },
+    "gif": {
+      "title": "GIFs",
+      "close": "GIF-Auswahl schließen",
+      "searchPlaceholder": "GIFs suchen...",
+      "loading": "GIFs werden geladen...",
+      "noResults": "Keine GIFs gefunden",
+      "poweredBy": "Powered by GIPHY",
+      "altText": "GIF"
+    },
+    "actions": {
+      "menuLabel": "Konversationsaktionen",
+      "pin": "Anheften",
+      "unpin": "Lösen",
+      "pinned": "Angeheftet",
+      "noConversationYet": "Starte zuerst die Konversation, um sie anzuheften",
+      "pinFailed": "Anheften konnte nicht aktualisiert werden",
+      "deleteFailed": "Konversation konnte nicht gelöscht werden",
+      "deleted": "Konversation gelöscht"
+    }
   },
   "notifications": "Benachrichtigungen",
   "moments": "Momente",
@@ -238,6 +281,28 @@
       "minutesAgo": "vor {{minutes}} Min.",
       "hoursAgo": "vor {{hours}} Std.",
       "daysAgo": "vor {{days}} T."
+    },
+    "lightbox": {
+      "open": "Bild in voller Größe öffnen",
+      "close": "Bildansicht schließen",
+      "previous": "Vorheriges Bild",
+      "next": "Nächstes Bild"
+    },
+    "share": {
+      "fallbackTitle": "Schau dir diesen Moment an",
+      "success": "Erfolgreich geteilt!",
+      "copied": "Link in die Zwischenablage kopiert!",
+      "failed": "Link konnte nicht kopiert werden"
+    },
+    "create": {
+      "header": "Moment erstellen",
+      "titlePlaceholder": "Titel hinzufügen...",
+      "addToMoment": "Zu deinem Moment hinzufügen",
+      "addPhotos": "Fotos hinzufügen",
+      "addMood": "Stimmung hinzufügen",
+      "addLocation": "Ort hinzufügen",
+      "addTags": "Tags hinzufügen",
+      "tagPlaceholder": "Tag hinzufügen..."
     }
   },
   "createMoment": {
@@ -444,6 +509,51 @@
     },
     "buttons": {
       "clearFilters": "Alle Filter löschen"
+    },
+    "subnav": {
+      "allMembers": "Alle Mitglieder",
+      "nearby": "In der Nähe",
+      "topics": "Themen",
+      "searchPlaceholder": "Mitglieder oder Themen finden",
+      "filtersLabel": "Filter",
+      "filtersWithCount": "Filter ({{count}} aktiv)"
+    },
+    "filterSheet": {
+      "title": "Filter",
+      "language": "Sprache",
+      "any": "Alle",
+      "gender": "Geschlecht",
+      "male": "Männlich",
+      "female": "Weiblich",
+      "other": "Andere",
+      "ageRange": "Altersbereich",
+      "min": "Min",
+      "max": "Max",
+      "experience": "Mitgliedererfahrung",
+      "onlineNow": "Jetzt online",
+      "newMembersOnly": "Nur neue Mitglieder (letzte 7 Tage)",
+      "reset": "Zurücksetzen",
+      "apply": "Anwenden"
+    },
+    "highlighted": {
+      "title": "Hervorgehobene Profile",
+      "proBadge": "Pro",
+      "tryPro": "BananaTalk Pro ausprobieren",
+      "highlightSelfTopic": "Hebe dein Profil hervor, damit mehr Leute dich sehen"
+    },
+    "visitors": {
+      "justYou": "{{name}} hat dein Profil besucht!",
+      "andOthers": "{{name}} und {{count}} weitere haben dein Profil besucht!",
+      "seeAll": "Alle anzeigen"
+    },
+    "tandemCard": {
+      "newChip": "NEU",
+      "defaultTopic": "Lass uns üben!"
+    },
+    "languageChip": {
+      "fluent": "FLIESSEND",
+      "learns": "LERNT",
+      "native": "MUTTERSPRACHE"
     }
   },
   "communityDetail": {
@@ -504,6 +614,10 @@
       "speaks": "Spricht",
       "learning": "Lernt",
       "notSpecified": "Nicht angegeben"
+    },
+    "suggested": {
+      "title": "Mehr Mitglieder wie {{name}}",
+      "seeAll": "Alle Mitglieder anzeigen"
     }
   },
   "communityDetailSection": {

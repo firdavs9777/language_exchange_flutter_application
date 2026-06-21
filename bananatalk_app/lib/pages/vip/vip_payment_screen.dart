@@ -104,7 +104,10 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
       setState(() {
         isProcessing = false;
       });
-      _showErrorDialog('Payment Error', 'An error occurred: ${e.toString()}');
+      _showErrorDialog(
+        AppLocalizations.of(context)!.vipErrorPaymentTitle,
+        'An error occurred: ${e.toString()}',
+      );
     }
   }
 
@@ -164,7 +167,9 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
         });
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: const Text('Purchase was canceled or failed. Please try again.'),
+            content: Text(
+              AppLocalizations.of(context)!.vipErrorPurchaseCanceled,
+            ),
             backgroundColor: AppColors.warning,
           ),
         );
@@ -237,7 +242,11 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
         );
         ref.read(purchaseStateProvider.notifier).state = PurchaseState.error;
         ref.read(purchaseErrorProvider.notifier).state = verifyResult['error'];
-        _showErrorDialog('Purchase Verification Failed', verifyResult['error'] ?? 'Could not verify purchase with server. Please contact support.');
+        _showErrorDialog(
+          AppLocalizations.of(context)!.vipErrorVerifyTitle,
+          verifyResult['error'] ??
+              AppLocalizations.of(context)!.vipErrorVerifyServer,
+        );
       }
     } catch (e) {
       ref.read(purchaseStateProvider.notifier).state = PurchaseState.error;
@@ -247,22 +256,31 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
       setState(() {
         isProcessing = false;
       });
-      _showErrorDialog('Purchase Error', e.toString().replaceAll('Exception: ', ''));
+      _showErrorDialog(
+        AppLocalizations.of(context)!.vipErrorPurchaseTitle,
+        e.toString().replaceAll('Exception: ', ''),
+      );
     }
   }
 
   void _showPendingDialog() {
     showDialog(
       context: context,
-      builder: (_) => AlertDialog(
-        title: const Text('Almost there'),
-        content: const Text(
-          "Your subscription is processing — please try refreshing in a minute.",
-        ),
+      builder: (dialogContext) => AlertDialog(
+        title: Text(AppLocalizations.of(dialogContext)!.vipPendingTitle),
+        content: Text(AppLocalizations.of(dialogContext)!.vipPendingBody),
         actions: [
           TextButton(
-            onPressed: () { Navigator.pop(context); Navigator.pop(context); },
-            child: const Text('OK'),
+            onPressed: () {
+              // Capture the navigator before the first pop. Reusing the
+              // dialog's `context` after pop() is what caused the dark
+              // screen on real devices — once the dialog route is gone,
+              // the context can't reliably look up the Navigator again.
+              final nav = Navigator.of(dialogContext, rootNavigator: true);
+              nav.pop(); // close dialog
+              if (nav.canPop()) nav.pop(); // close payment screen
+            },
+            child: Text(AppLocalizations.of(dialogContext)!.ok),
           ),
         ],
       ),
@@ -329,7 +347,9 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
         });
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: const Text('Purchase was canceled or failed. Please try again.'),
+            content: Text(
+              AppLocalizations.of(context)!.vipErrorPurchaseCanceled,
+            ),
             backgroundColor: AppColors.warning,
           ),
         );
@@ -397,8 +417,11 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
         );
         ref.read(purchaseStateProvider.notifier).state = PurchaseState.error;
         ref.read(purchaseErrorProvider.notifier).state = verifyResult['error'];
-        _showErrorDialog('Purchase Verification Failed',
-            verifyResult['error'] ?? 'Could not verify purchase with server. Please contact support.');
+        _showErrorDialog(
+          AppLocalizations.of(context)!.vipErrorVerifyTitle,
+          verifyResult['error'] ??
+              AppLocalizations.of(context)!.vipErrorVerifyServer,
+        );
       }
     } catch (e) {
       ref.read(purchaseStateProvider.notifier).state = PurchaseState.error;
@@ -409,7 +432,9 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
         isProcessing = false;
       });
       _showErrorDialog(
-          'Purchase Error', e.toString().replaceAll('Exception: ', ''));
+        AppLocalizations.of(context)!.vipErrorPurchaseTitle,
+        e.toString().replaceAll('Exception: ', ''),
+      );
     }
   }
 
@@ -435,7 +460,10 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
     if (result['success']) {
       _showSuccessDialog();
     } else {
-      _showErrorDialog('Payment Failed', result['error'] ?? 'Payment failed');
+      _showErrorDialog(
+        AppLocalizations.of(context)!.vipErrorPaymentFailed,
+        result['error'] ?? AppLocalizations.of(context)!.vipErrorPaymentFailed,
+      );
     }
   }
 
@@ -443,7 +471,7 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (context) => AlertDialog(
+      builder: (dialogContext) => AlertDialog(
         shape: RoundedRectangleBorder(
           borderRadius: AppRadius.borderLG,
         ),
@@ -457,14 +485,14 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
             ),
             Spacing.gapLG,
             Text(
-              'Welcome to VIP!',
-              style: context.displaySmall,
+              AppLocalizations.of(dialogContext)!.vipSuccessTitle,
+              style: dialogContext.displaySmall,
             ),
             Spacing.gapSM,
             Text(
-              'Your VIP subscription is now active. Enjoy all premium features!',
-              style: context.bodyMedium.copyWith(
-                color: context.textSecondary,
+              AppLocalizations.of(dialogContext)!.vipSuccessBody,
+              style: dialogContext.bodyMedium.copyWith(
+                color: dialogContext.textSecondary,
               ),
               textAlign: TextAlign.center,
             ),
@@ -473,13 +501,23 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
         actions: [
           TextButton(
             onPressed: () {
-              Navigator.of(context).pop();
-              Navigator.of(context).pop();
-              Navigator.of(context).pop();
+              // Capture navigator BEFORE the first pop so subsequent pops
+              // don't rely on a context whose route has already been
+              // disposed. canPop gates each step in case the caller's
+              // route stack is shallower than expected. This is the fix
+              // for the dark-screen-after-upgrade issue on real devices.
+              final nav = Navigator.of(
+                dialogContext,
+                rootNavigator: true,
+              );
+              nav.pop(); // close dialog
+              if (nav.canPop()) nav.pop(); // close payment screen
+              if (nav.canPop()) nav.pop(); // close plans screen
             },
             child: Text(
-              AppLocalizations.of(context)!.startExploring,
-              style: context.labelLarge.copyWith(color: AppColors.primary),
+              AppLocalizations.of(dialogContext)!.startExploring,
+              style: dialogContext.labelLarge
+                  .copyWith(color: AppColors.primary),
             ),
           ),
         ],
@@ -504,7 +542,7 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'An error occurred while processing your payment:',
+                AppLocalizations.of(context)!.vipErrorBodyPrefix,
                 style: context.labelLarge,
               ),
               Spacing.gapMD,
@@ -576,7 +614,7 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Plan Summary',
+                    AppLocalizations.of(context)!.vipPaymentPlanSummary,
                     style: context.titleLarge,
                   ),
                   Spacing.gapLG,
@@ -610,7 +648,7 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Select Payment Method',
+                      AppLocalizations.of(context)!.vipPaymentSelectMethod,
                       style: context.titleLarge,
                     ),
                     Spacing.gapLG,
@@ -647,12 +685,13 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
                       ),
                       Spacing.gapMD,
                       Text(
-                        'Purchase via App Store',
+                        AppLocalizations.of(context)!
+                            .vipPaymentPurchaseAppStore,
                         style: context.titleMedium,
                       ),
                       Spacing.gapSM,
                       Text(
-                        'Your purchase will be processed securely through the App Store.',
+                        AppLocalizations.of(context)!.vipPaymentSecureAppStore,
                         style: context.bodySmall,
                         textAlign: TextAlign.center,
                       ),
@@ -683,12 +722,14 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
                       ),
                       Spacing.gapMD,
                       Text(
-                        'Purchase via Google Play',
+                        AppLocalizations.of(context)!
+                            .vipPaymentPurchaseGooglePlay,
                         style: context.titleMedium,
                       ),
                       Spacing.gapSM,
                       Text(
-                        'Your purchase will be processed securely through Google Play.',
+                        AppLocalizations.of(context)!
+                            .vipPaymentSecureGooglePlay,
                         style: context.bodySmall,
                         textAlign: TextAlign.center,
                       ),
@@ -711,13 +752,22 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Subscription Information',
+                      AppLocalizations.of(context)!.vipPaymentSubscriptionInfo,
                       style: context.titleMedium,
                     ),
                     Spacing.gapMD,
-                    _buildSubscriptionInfoRow('Title', widget.plan.displayName),
-                    _buildSubscriptionInfoRow('Length', _getSubscriptionLength()),
-                    _buildSubscriptionInfoRow('Price', '\$${widget.plan.price}'),
+                    _buildSubscriptionInfoRow(
+                      AppLocalizations.of(context)!.vipPaymentInfoLabelTitle,
+                      widget.plan.displayName,
+                    ),
+                    _buildSubscriptionInfoRow(
+                      AppLocalizations.of(context)!.vipPaymentInfoLabelLength,
+                      _getSubscriptionLength(),
+                    ),
+                    _buildSubscriptionInfoRow(
+                      AppLocalizations.of(context)!.vipPaymentInfoLabelPrice,
+                      '\$${widget.plan.price}',
+                    ),
                     Spacing.gapLG,
                     Divider(color: context.dividerColor),
                     Spacing.gapMD,
@@ -728,7 +778,7 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
                             onPressed: () => _launchURL('https://banatalk.com/terms-of-use'),
                             icon: Icon(Icons.description_outlined, size: 18, color: AppColors.primary),
                             label: Text(
-                              'Terms of Use',
+                              AppLocalizations.of(context)!.termsOfUse,
                               style: context.labelSmall.copyWith(color: AppColors.primary),
                             ),
                           ),
@@ -738,7 +788,7 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
                             onPressed: () => _launchURL('https://banatalk.com/privacy-policy'),
                             icon: Icon(Icons.privacy_tip_outlined, size: 18, color: AppColors.primary),
                             label: Text(
-                              'Privacy Policy',
+                              AppLocalizations.of(context)!.privacyPolicy,
                               style: context.labelSmall.copyWith(color: AppColors.primary),
                             ),
                           ),
@@ -754,7 +804,7 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24),
               child: Text(
-                'By completing this purchase, you agree to our Terms of Use and Privacy Policy. Your subscription will automatically renew unless cancelled at least 24 hours before the end of the current period.',
+                AppLocalizations.of(context)!.vipPaymentDisclosure,
                 style: context.caption,
                 textAlign: TextAlign.center,
               ),
@@ -787,10 +837,15 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
                         )
                       : Text(
                           _isIOS
-                              ? 'Purchase via App Store'
+                              ? AppLocalizations.of(context)!
+                                  .vipPaymentPurchaseAppStore
                               : _isAndroid
-                                  ? 'Purchase via Google Play'
-                                  : 'Pay \$${widget.plan.price}',
+                                  ? AppLocalizations.of(context)!
+                                      .vipPaymentPurchaseGooglePlay
+                                  : AppLocalizations.of(context)!
+                                      .vipPaymentPayPrice(
+                                      '\$${widget.plan.price}',
+                                    ),
                           style: context.titleMedium.copyWith(
                             color: AppColors.white,
                           ),
@@ -865,13 +920,14 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
   }
 
   String _getSubscriptionLength() {
+    final l10n = AppLocalizations.of(context)!;
     switch (widget.plan) {
       case VipPlan.monthly:
-        return '1 month';
+        return l10n.vipPlanLengthOneMonth;
       case VipPlan.quarterly:
-        return '3 months';
+        return l10n.vipPlanLengthThreeMonths;
       case VipPlan.yearly:
-        return '1 year';
+        return l10n.vipPlanLengthOneYear;
     }
   }
 

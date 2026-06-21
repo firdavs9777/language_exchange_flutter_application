@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:bananatalk_app/utils/image_utils.dart';
+import 'package:bananatalk_app/widgets/language_flag_badge.dart';
 import 'package:bananatalk_app/widgets/vip_avatar_frame.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
@@ -11,12 +12,18 @@ class UserAvatar extends StatelessWidget {
   final double radius;
   final bool isVip;
 
+  /// When non-null, overlays a small flag badge at the bottom-left corner —
+  /// matches the chat list / community card pattern so the partner's native
+  /// language is visible at a glance next to every message bubble.
+  final String? nativeLanguage;
+
   const UserAvatar({
     Key? key,
     this.profilePicture,
     required this.userName,
     required this.radius,
     this.isVip = false,
+    this.nativeLanguage,
   }) : super(key: key);
 
   @override
@@ -43,15 +50,34 @@ class UserAvatar extends StatelessWidget {
           )
         : _buildFallbackAvatar(context);
 
+    Widget result = avatar;
     if (isVip) {
-      return VipAvatarFrameCompact(
+      result = VipAvatarFrameCompact(
         isVip: true,
         size: radius * 2,
-        child: avatar,
+        child: result,
       );
     }
 
-    return avatar;
+    if (nativeLanguage != null && nativeLanguage!.isNotEmpty) {
+      // Tiny badges read better with a slightly larger glyph than the
+      // proportional default — clamp the size to keep the overlay legible
+      // on the 18 px avatar used next to message bubbles.
+      final badgeSize = (radius * 0.85).clamp(14.0, 22.0);
+      result = Stack(
+        clipBehavior: Clip.none,
+        children: [
+          result,
+          LanguageFlagBadge(
+            nativeLanguage: nativeLanguage,
+            size: badgeSize,
+            offset: isVip ? 2 : 0,
+          ),
+        ],
+      );
+    }
+
+    return result;
   }
 
   Widget _buildFallbackAvatar(BuildContext context) {

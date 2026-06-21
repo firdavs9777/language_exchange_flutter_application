@@ -19,6 +19,7 @@ class ConversationMessagesView extends StatelessWidget {
   final String? currentUserId;
   final String otherUserName;
   final String? otherUserPicture;
+  final String? otherUserNativeLanguage;
   final bool otherUserTyping;
   final ScrollController scrollController;
   final bool isLoadingMore;
@@ -60,6 +61,7 @@ class ConversationMessagesView extends StatelessWidget {
     this.currentUserId,
     required this.otherUserName,
     this.otherUserPicture,
+    this.otherUserNativeLanguage,
     required this.otherUserTyping,
     required this.scrollController,
     required this.isLoadingMore,
@@ -111,6 +113,7 @@ class ConversationMessagesView extends StatelessWidget {
                   currentUserId: currentUserId,
                   otherUserName: otherUserName,
                   otherUserPicture: otherUserPicture,
+                  otherUserNativeLanguage: otherUserNativeLanguage,
                   otherUserTyping: otherUserTyping,
                   scrollController: scrollController,
                   onRetry: onRetry,

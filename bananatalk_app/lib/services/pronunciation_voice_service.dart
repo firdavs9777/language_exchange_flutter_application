@@ -1,3 +1,4 @@
+import 'package:audio_session/audio_session.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_sound/flutter_sound.dart';
 import 'package:just_audio/just_audio.dart';
@@ -20,9 +21,37 @@ class PronunciationVoiceService {
     if (_recorder != null) return;
     _recorder = FlutterSoundRecorder();
     await _recorder!.openRecorder();
+    // Configure AVAudioSession so iOS hands over the microphone hardware.
+    // Without this the recorder silently fails on real devices — the same
+    // configuration is used by the chat VoiceRecorderWidget.
+    final session = await AudioSession.instance;
+    await session.configure(AudioSessionConfiguration(
+      avAudioSessionCategory: AVAudioSessionCategory.playAndRecord,
+      avAudioSessionCategoryOptions:
+          AVAudioSessionCategoryOptions.allowBluetooth |
+          AVAudioSessionCategoryOptions.defaultToSpeaker,
+      avAudioSessionMode: AVAudioSessionMode.spokenAudio,
+      avAudioSessionRouteSharingPolicy:
+          AVAudioSessionRouteSharingPolicy.defaultPolicy,
+      avAudioSessionSetActiveOptions: AVAudioSessionSetActiveOptions.none,
+      androidAudioAttributes: AndroidAudioAttributes(
+        contentType: AndroidAudioContentType.speech,
+        flags: AndroidAudioFlags.none,
+        usage: AndroidAudioUsage.voiceCommunication,
+      ),
+      androidAudioFocusGainType: AndroidAudioFocusGainType.gain,
+      androidWillPauseWhenDucked: true,
+    ));
+    await _recorder!.setSubscriptionDuration(
+      const Duration(milliseconds: 100),
+    );
   }
 
   Future<String> startRecording() async {
+    // Stop any active TTS playback first — just_audio and flutter_sound
+    // both compete for AVAudioSession on iOS, and leaving the player active
+    // causes startRecorder to throw or silently fail.
+    await stopPlayback();
     await _ensureRecorder();
     final tmp = await getTemporaryDirectory();
     // Codec.aacMP4 → .m4a. Whisper rejects raw aacADTS (.aac) with
@@ -35,11 +64,23 @@ class PronunciationVoiceService {
   }
 
   Future<String?> stopRecording() async {
-    if (_recorder == null || !(_recorder!.isRecording)) {
-      return _currentRecordingPath;
+    if (_recorder == null) return _currentRecordingPath;
+    try {
+      if (_recorder!.isRecording) {
+        await _recorder!.stopRecorder();
+      }
+    } catch (e) {
+      debugPrint('[pron] stopRecording: $e');
     }
-    await _recorder!.stopRecorder();
     return _currentRecordingPath;
+  }
+
+  Future<void> stopPlayback() async {
+    try {
+      await _player?.stop();
+    } catch (e) {
+      debugPrint('[pron] stopPlayback: $e');
+    }
   }
 
   /// Plays a TTS reference clip from its remote URL.

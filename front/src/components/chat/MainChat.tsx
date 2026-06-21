@@ -5,7 +5,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useGetUserByIdQuery } from "../../store/slices/usersSlice";
 import { useTranslation } from "react-i18next";
 import { MessageCircle, Search, X, Plus, Sparkles } from "lucide-react";
-import { SocketProvider } from "./hooks/useSocket";
 import "./MainChat.css";
 
 const MainChat: React.FC = () => {
@@ -43,6 +42,16 @@ const MainChat: React.FC = () => {
     }
   }, [userId]);
 
+  // Mark the body as "in chat" so global chrome (footer) can hide and the
+  // layout can lock body scroll on mobile. Cleans up on unmount so the
+  // rest of the app behaves normally.
+  useEffect(() => {
+    document.body.classList.add("chat-fullscreen");
+    return () => {
+      document.body.classList.remove("chat-fullscreen");
+    };
+  }, []);
+
   const handleSelectUser = (
     selectedUserId: string,
     selectedUserName: string,
@@ -64,7 +73,6 @@ const MainChat: React.FC = () => {
   };
 
   return (
-    <SocketProvider>
     <div className={`chat-layout${userId ? " chat-selected" : ""}`}>
       {/* Sidebar */}
       <div className="chat-sidebar">
@@ -156,7 +164,10 @@ const MainChat: React.FC = () => {
                 </div>
                 <div className="feature-item">
                   <div className="feature-dot" />
-                  <span>{t("chatPage.features.calls")}</span>
+                  <span>
+                    {t("chatPage.features.translation") ||
+                      "Built-in translation"}
+                  </span>
                 </div>
               </div>
             </div>
@@ -164,7 +175,6 @@ const MainChat: React.FC = () => {
         )}
       </div>
     </div>
-    </SocketProvider>
   );
 };
 

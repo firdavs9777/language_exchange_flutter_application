@@ -30,7 +30,8 @@
     "features": {
       "realtime": "リアルタイムメッセージ",
       "exchange": "言語交換",
-      "calls": "音声・ビデオ通話"
+      "calls": "音声・ビデオ通話",
+      "translation": "翻訳機能内蔵"
     },
     "online": "オンライン",
     "offline": "オフライン",
@@ -42,7 +43,49 @@
     "justNow": "たった今",
     "minutesAgo": "{{count}}分前",
     "hoursAgo": "{{count}}時間前",
-    "unknownUser": "不明なユーザー"
+    "unknownUser": "不明なユーザー",
+    "backToConversations": "会話一覧に戻る",
+    "moreOptions": "その他のオプション",
+    "retrySending": "再送信",
+    "input": {
+      "attachFile": "ファイルを添付",
+      "stickers": "スタンプ",
+      "voiceMessage": "ボイスメッセージ",
+      "sendGif": "GIFを送信"
+    },
+    "list": {
+      "noMatchTitle": "一致する会話がありません",
+      "noMatchSubtitle": "検索条件を変えてみてください",
+      "emptyTitle": "まだ会話がありません",
+      "emptySubtitle": "会話を始めるとここに表示されます"
+    },
+    "deleteModal": {
+      "title": "会話を削除",
+      "bodyPrefix": "次のユーザーとの会話を削除しますか:",
+      "warning": "この操作は取り消せません。",
+      "cancel": "キャンセル",
+      "confirm": "削除",
+      "deleting": "削除中..."
+    },
+    "gif": {
+      "title": "GIF",
+      "close": "GIFピッカーを閉じる",
+      "searchPlaceholder": "GIFを検索...",
+      "loading": "GIFを読み込み中...",
+      "noResults": "GIFが見つかりません",
+      "poweredBy": "Powered by GIPHY",
+      "altText": "GIF"
+    },
+    "actions": {
+      "menuLabel": "会話のオプション",
+      "pin": "ピン留め",
+      "unpin": "ピン留め解除",
+      "pinned": "ピン留め済み",
+      "noConversationYet": "ピン留めするには先に会話を開始してください",
+      "pinFailed": "ピン留めの変更に失敗しました",
+      "deleteFailed": "会話の削除に失敗しました",
+      "deleted": "会話を削除しました"
+    }
   },
   "notifications": "通知",
   "moments": "モーメント",
@@ -238,6 +281,28 @@
       "minutesAgo": "{{minutes}}分前",
       "hoursAgo": "{{hours}}時間前",
       "daysAgo": "{{days}}日前"
+    },
+    "lightbox": {
+      "open": "画像をフルサイズで開く",
+      "close": "画像ビューアを閉じる",
+      "previous": "前の画像",
+      "next": "次の画像"
+    },
+    "share": {
+      "fallbackTitle": "このモーメントをチェック",
+      "success": "共有しました!",
+      "copied": "リンクをコピーしました!",
+      "failed": "リンクのコピーに失敗しました"
+    },
+    "create": {
+      "header": "モーメントを作成",
+      "titlePlaceholder": "タイトルを追加...",
+      "addToMoment": "モーメントに追加",
+      "addPhotos": "写真を追加",
+      "addMood": "気分を追加",
+      "addLocation": "場所を追加",
+      "addTags": "タグを追加",
+      "tagPlaceholder": "タグを追加..."
     }
   },
   "createMoment": {
@@ -444,6 +509,51 @@
     },
     "buttons": {
       "clearFilters": "すべてのフィルターをクリア"
+    },
+    "subnav": {
+      "allMembers": "すべてのメンバー",
+      "nearby": "近くの人",
+      "topics": "トピック",
+      "searchPlaceholder": "メンバーまたはトピックを検索",
+      "filtersLabel": "フィルター",
+      "filtersWithCount": "フィルター ({{count}}件適用中)"
+    },
+    "filterSheet": {
+      "title": "フィルター",
+      "language": "言語",
+      "any": "すべて",
+      "gender": "性別",
+      "male": "男性",
+      "female": "女性",
+      "other": "その他",
+      "ageRange": "年齢",
+      "min": "最低",
+      "max": "最高",
+      "experience": "メンバー経験",
+      "onlineNow": "オンライン中",
+      "newMembersOnly": "新規メンバーのみ (過去7日間)",
+      "reset": "リセット",
+      "apply": "適用"
+    },
+    "highlighted": {
+      "title": "注目プロフィール",
+      "proBadge": "Pro",
+      "tryPro": "BananaTalk Proを試す",
+      "highlightSelfTopic": "プロフィールを目立たせて、もっと多くの人に見てもらおう"
+    },
+    "visitors": {
+      "justYou": "{{name}}さんがあなたのプロフィールを訪問しました!",
+      "andOthers": "{{name}}さんと他{{count}}人があなたのプロフィールを訪問しました!",
+      "seeAll": "すべて見る"
+    },
+    "tandemCard": {
+      "newChip": "新規",
+      "defaultTopic": "一緒に練習しましょう!"
+    },
+    "languageChip": {
+      "fluent": "ネイティブ",
+      "learns": "学習中",
+      "native": "母語"
     }
   },
   "communityDetail": {
@@ -504,6 +614,10 @@
       "speaks": "話せる言語",
       "learning": "学習中",
       "notSpecified": "未設定"
+    },
+    "suggested": {
+      "title": "{{name}}さんと似たメンバー",
+      "seeAll": "すべてのメンバーを見る"
     }
   },
   "communityDetailSection": {

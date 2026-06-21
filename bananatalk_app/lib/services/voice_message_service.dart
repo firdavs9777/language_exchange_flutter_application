@@ -177,8 +177,11 @@ class VoiceMessageService {
   }) async {
     try {
       final token = await _getToken();
+      final url = '${Endpoints.baseURL}speech/transcribe-url';
+      debugPrint('[Transcribe] POST $url');
+      debugPrint('[Transcribe] audioUrl=$audioUrl');
       final response = await http.post(
-        Uri.parse('${Endpoints.baseURL}speech/transcribe-url'),
+        Uri.parse(url),
         headers: {
           'Content-Type': 'application/json',
           ..._getHeaders(token),
@@ -188,11 +191,15 @@ class VoiceMessageService {
           if (languageHint != null) 'language': languageHint,
         }),
       );
+      debugPrint('[Transcribe] status=${response.statusCode}');
+      debugPrint('[Transcribe] body=${response.body}');
       if (response.statusCode != 200) return null;
       final data = jsonDecode(response.body) as Map<String, dynamic>;
-      return (data['data'] as Map<String, dynamic>?)?['transcript'] as String?;
+      final transcript = (data['data'] as Map<String, dynamic>?)?['transcript'] as String?;
+      debugPrint('[Transcribe] result=$transcript');
+      return transcript;
     } catch (e) {
-      debugPrint('Transcribe error: $e');
+      debugPrint('[Transcribe] error: $e');
       return null;
     }
   }

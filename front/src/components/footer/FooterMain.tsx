@@ -95,7 +95,7 @@ const FooterMain: React.FC = () => {
           </p>
           <div className="footer-legal">
             <Link to="/privacy-policy">Privacy Policy</Link>
-            <Link to="/terms">Terms of Service</Link>
+            <Link to="/terms-of-use">Terms of Service</Link>
           </div>
         </div>
       </div>

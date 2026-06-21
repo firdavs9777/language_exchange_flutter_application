@@ -110,6 +110,9 @@ void handleNewMessage(ListSocketContext ctx, dynamic data) {
 
     final currentProviderCount = ctx.readProviderUnreadCount(senderId);
 
+    final senderNativeLanguage =
+        messageData['sender']?['native_language']?.toString();
+
     ctx.doSetState(() {
       int partnerIndex = ctx.chatPartners.indexWhere((p) => p.id == senderId);
 
@@ -119,6 +122,7 @@ void handleNewMessage(ListSocketContext ctx, dynamic data) {
           lastMessage: messageText,
           lastMessageTime: createdAt,
           unreadCount: currentProviderCount,
+          lastMessageSenderId: senderId,
         );
         ctx.chatPartners.removeAt(partnerIndex);
         ctx.chatPartners.insert(0, updatedPartner);
@@ -134,6 +138,8 @@ void handleNewMessage(ListSocketContext ctx, dynamic data) {
           imageUrls: senderImageUrls,
           status: 'online',
           isVip: senderIsVip,
+          nativeLanguage: senderNativeLanguage,
+          lastMessageSenderId: senderId,
         );
         ctx.chatPartners.insert(0, newPartner);
       }
@@ -170,6 +176,9 @@ void handleMessageSent(ListSocketContext ctx, dynamic data) {
 
     if (receiverId == null || receiverId.isEmpty) return;
 
+    final receiverNativeLanguage =
+        messageData['receiver']?['native_language']?.toString();
+
     ctx.doSetState(() {
       int partnerIndex =
           ctx.chatPartners.indexWhere((p) => p.id == receiverId);
@@ -179,6 +188,7 @@ void handleMessageSent(ListSocketContext ctx, dynamic data) {
         final updatedPartner = existingPartner.copyWith(
           lastMessage: messageText,
           lastMessageTime: createdAt,
+          lastMessageSenderId: ctx.currentUserId,
         );
         ctx.chatPartners.removeAt(partnerIndex);
         ctx.chatPartners.insert(0, updatedPartner);
@@ -194,6 +204,8 @@ void handleMessageSent(ListSocketContext ctx, dynamic data) {
           imageUrls: receiverImageUrls,
           status: 'online',
           isVip: receiverIsVip,
+          nativeLanguage: receiverNativeLanguage,
+          lastMessageSenderId: ctx.currentUserId,
         );
         ctx.chatPartners.insert(0, newPartner);
       }

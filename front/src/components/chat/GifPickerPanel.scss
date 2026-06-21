@@ -1,0 +1,160 @@
+.gif-picker {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  right: 0;
+  margin-bottom: 8px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+  max-height: 360px;
+  display: flex;
+  flex-direction: column;
+  z-index: 20;
+  overflow: hidden;
+  animation: gif-picker-slide-up 0.18s ease-out;
+}
+
+@keyframes gif-picker-slide-up {
+  from {
+    transform: translateY(8px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.gif-picker__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.gif-picker__title {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.gif-picker__close {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: none;
+  background: #f3f4f6;
+  color: #6b7280;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background: #e5e7eb;
+    color: #1f2937;
+  }
+}
+
+.gif-picker__search {
+  position: relative;
+  padding: 8px 12px;
+  border-bottom: 1px solid #f3f4f6;
+
+  .gif-picker__search-icon {
+    position: absolute;
+    left: 22px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #9ca3af;
+  }
+
+  input {
+    width: 100%;
+    border: 1px solid #e5e7eb;
+    border-radius: 999px;
+    padding: 8px 14px 8px 32px;
+    font-size: 0.875rem;
+    background: #f9fafb;
+
+    &:focus {
+      outline: none;
+      border-color: #1f2937;
+      background: #fff;
+    }
+
+    &::placeholder {
+      color: #9ca3af;
+    }
+  }
+}
+
+.gif-picker__body {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding: 8px;
+  scrollbar-width: thin;
+}
+
+.gif-picker__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+
+.gif-picker__tile {
+  border: none;
+  padding: 0;
+  background: #f3f4f6;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  aspect-ratio: 1 / 1;
+  position: relative;
+  transition: transform 0.12s ease;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  &:hover {
+    transform: scale(0.97);
+  }
+}
+
+.gif-picker__state {
+  padding: 24px 16px;
+  text-align: center;
+  color: #6b7280;
+  font-size: 0.875rem;
+
+  &--error {
+    color: #dc2626;
+  }
+}
+
+.gif-picker__footer {
+  padding: 8px 12px;
+  font-size: 0.6875rem;
+  text-align: center;
+  color: #9ca3af;
+  border-top: 1px solid #f3f4f6;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 480px) {
+  .gif-picker {
+    max-height: 320px;
+  }
+
+  .gif-picker__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

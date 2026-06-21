@@ -867,6 +867,7 @@ class ChatPartnerData {
   final bool isPinned;
   final bool isMuted;
   final String? conversationId;
+  final String? nativeLanguage;
 
   ChatPartnerData({
     required this.id,
@@ -879,6 +880,7 @@ class ChatPartnerData {
     this.isPinned = false,
     this.isMuted = false,
     this.conversationId,
+    this.nativeLanguage,
   });
 
   factory ChatPartnerData.fromJson(Map<String, dynamic> json) {
@@ -897,6 +899,8 @@ class ChatPartnerData {
       isPinned: json['isPinned'] == true,
       isMuted: json['isMuted'] == true,
       conversationId: json['conversationId']?.toString(),
+      nativeLanguage: json['native_language']?.toString() ??
+          json['nativeLanguage']?.toString(),
     );
   }
 
@@ -908,12 +912,17 @@ class LastMessageData {
   final DateTime? createdAt;
   final String? id;
   final String? mediaType;
+  /// User-id of whoever sent this last message. Used by the chat list's
+  /// "My turn" filter to identify threads where the partner sent the
+  /// most recent message.
+  final String? senderId;
 
   LastMessageData({
     this.message,
     this.createdAt,
     this.id,
     this.mediaType,
+    this.senderId,
   });
 
   factory LastMessageData.fromJson(Map<String, dynamic> json) {
@@ -924,6 +933,9 @@ class LastMessageData {
           : null,
       id: json['_id']?.toString(),
       mediaType: json['media']?['type']?.toString(),
+      senderId: json['sender'] is Map
+          ? (json['sender'] as Map)['_id']?.toString()
+          : json['sender']?.toString() ?? json['senderId']?.toString(),
     );
   }
 

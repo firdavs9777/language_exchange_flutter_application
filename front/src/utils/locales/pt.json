@@ -30,7 +30,8 @@
     "features": {
       "realtime": "Mensagens em tempo real",
       "exchange": "Intercâmbio de idiomas",
-      "calls": "Chamadas de voz e vídeo"
+      "calls": "Chamadas de voz e vídeo",
+      "translation": "Tradução integrada"
     },
     "online": "Online",
     "offline": "Offline",
@@ -42,7 +43,49 @@
     "justNow": "Agora mesmo",
     "minutesAgo": "{{count}}m atrás",
     "hoursAgo": "{{count}}h atrás",
-    "unknownUser": "Usuário Desconhecido"
+    "unknownUser": "Usuário Desconhecido",
+    "backToConversations": "Voltar para as conversas",
+    "moreOptions": "Mais opções",
+    "retrySending": "Tentar enviar de novo",
+    "input": {
+      "attachFile": "Anexar arquivo",
+      "stickers": "Adesivos",
+      "voiceMessage": "Mensagem de voz",
+      "sendGif": "Enviar um GIF"
+    },
+    "list": {
+      "noMatchTitle": "Nenhuma conversa correspondente",
+      "noMatchSubtitle": "Tente ajustar a busca",
+      "emptyTitle": "Sem conversas ainda",
+      "emptySubtitle": "Inicie uma conversa para vê-la aqui"
+    },
+    "deleteModal": {
+      "title": "Excluir conversa",
+      "bodyPrefix": "Excluir sua conversa com:",
+      "warning": "Esta ação não pode ser desfeita.",
+      "cancel": "Cancelar",
+      "confirm": "Excluir",
+      "deleting": "Excluindo..."
+    },
+    "gif": {
+      "title": "GIFs",
+      "close": "Fechar seletor de GIF",
+      "searchPlaceholder": "Buscar GIFs...",
+      "loading": "Carregando GIFs...",
+      "noResults": "Nenhum GIF encontrado",
+      "poweredBy": "Powered by GIPHY",
+      "altText": "GIF"
+    },
+    "actions": {
+      "menuLabel": "Ações da conversa",
+      "pin": "Fixar",
+      "unpin": "Desafixar",
+      "pinned": "Fixada",
+      "noConversationYet": "Inicie a conversa primeiro para fixá-la",
+      "pinFailed": "Não foi possível atualizar a fixação",
+      "deleteFailed": "Não foi possível excluir a conversa",
+      "deleted": "Conversa excluída"
+    }
   },
   "notifications": "Notificações",
   "moments": "Momentos",
@@ -238,6 +281,28 @@
       "minutesAgo": "{{minutes}}m atrás",
       "hoursAgo": "{{hours}}h atrás",
       "daysAgo": "{{days}}d atrás"
+    },
+    "lightbox": {
+      "open": "Abrir imagem em tamanho completo",
+      "close": "Fechar visualizador de imagens",
+      "previous": "Imagem anterior",
+      "next": "Próxima imagem"
+    },
+    "share": {
+      "fallbackTitle": "Veja este momento",
+      "success": "Compartilhado com sucesso!",
+      "copied": "Link copiado para a área de transferência!",
+      "failed": "Falha ao copiar o link"
+    },
+    "create": {
+      "header": "Criar momento",
+      "titlePlaceholder": "Adicionar um título...",
+      "addToMoment": "Adicionar ao seu momento",
+      "addPhotos": "Adicionar fotos",
+      "addMood": "Adicionar humor",
+      "addLocation": "Adicionar localização",
+      "addTags": "Adicionar tags",
+      "tagPlaceholder": "Adicionar uma tag..."
     }
   },
   "createMoment": {
@@ -444,6 +509,51 @@
     },
     "buttons": {
       "clearFilters": "Limpar todos os filtros"
+    },
+    "subnav": {
+      "allMembers": "Todos os membros",
+      "nearby": "Próximos",
+      "topics": "Tópicos",
+      "searchPlaceholder": "Buscar membros ou tópicos",
+      "filtersLabel": "Filtros",
+      "filtersWithCount": "Filtros ({{count}} ativos)"
+    },
+    "filterSheet": {
+      "title": "Filtros",
+      "language": "Idioma",
+      "any": "Todos",
+      "gender": "Gênero",
+      "male": "Masculino",
+      "female": "Feminino",
+      "other": "Outro",
+      "ageRange": "Faixa etária",
+      "min": "Mín",
+      "max": "Máx",
+      "experience": "Experiência do membro",
+      "onlineNow": "Online agora",
+      "newMembersOnly": "Apenas novos membros (últimos 7 dias)",
+      "reset": "Limpar",
+      "apply": "Aplicar"
+    },
+    "highlighted": {
+      "title": "Perfis em destaque",
+      "proBadge": "Pro",
+      "tryPro": "Experimente o BananaTalk Pro",
+      "highlightSelfTopic": "Destaque seu perfil e deixe mais pessoas verem você"
+    },
+    "visitors": {
+      "justYou": "{{name}} visitou seu perfil!",
+      "andOthers": "{{name}} e mais {{count}} visitaram seu perfil!",
+      "seeAll": "Ver tudo"
+    },
+    "tandemCard": {
+      "newChip": "NOVO",
+      "defaultTopic": "Vamos praticar!"
+    },
+    "languageChip": {
+      "fluent": "FLUENTE",
+      "learns": "APRENDE",
+      "native": "NATIVO"
     }
   },
   "communityDetail": {
@@ -504,6 +614,10 @@
       "speaks": "Fala",
       "learning": "Aprendendo",
       "notSpecified": "Não especificado"
+    },
+    "suggested": {
+      "title": "Mais membros como {{name}}",
+      "seeAll": "Ver todos os membros"
     }
   },
   "communityDetailSection": {

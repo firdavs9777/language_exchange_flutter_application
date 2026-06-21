@@ -190,6 +190,22 @@
   letter-spacing: 0.3px;
 }
 
+/* System notice (e.g. "Conversation started" placeholder) */
+.system-notice {
+  display: flex;
+  justify-content: center;
+  margin: 0.75rem 0;
+}
+
+.system-notice span {
+  background: #F0F2F5;
+  color: #65676B;
+  padding: 5px 14px;
+  border-radius: 14px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
 /* Message Styles */
 .modern-message {
   display: flex;
@@ -300,29 +316,26 @@
   align-items: center;
 }
 
-.status-icon {
-  width: 14px;
-  height: 14px;
+.status-text {
+  font-size: 0.6875rem;
+  font-weight: 500;
   flex-shrink: 0;
+  line-height: 1;
 }
 
-.status-icon.sending {
+.status-text.sending {
   color: rgba(255, 255, 255, 0.5);
 }
 
-.status-icon.sent {
-  color: rgba(255, 255, 255, 0.7);
+.status-text.delivered {
+  color: rgba(255, 255, 255, 0.8);
 }
 
-.status-icon.delivered {
-  color: #FFFFFF;
-}
-
-.status-icon.read {
+.status-text.read {
   color: #4FC3F7;
 }
 
-.status-icon.error {
+.status-text.error {
   color: #EF4444;
 }
 
@@ -345,6 +358,62 @@
 
 .retry-btn:hover {
   background: #FEE2E2;
+}
+
+/* Chip row below partner text messages */
+.message-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+/* Correct chip — partner text messages only */
+.correct-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border: 1px solid rgba(249, 115, 22, 0.4);
+  background: transparent;
+  color: #f97316;
+  border-radius: 10px;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.correct-chip:hover {
+  background: rgba(249, 115, 22, 0.08);
+  border-color: rgba(249, 115, 22, 0.6);
+}
+
+/* Translate chip — partner text messages only */
+.translate-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border: 1px solid rgba(59, 130, 246, 0.4);
+  background: transparent;
+  color: #2563eb;
+  border-radius: 10px;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.translate-chip:hover {
+  background: rgba(59, 130, 246, 0.08);
+  border-color: rgba(59, 130, 246, 0.6);
+}
+
+.translate-chip.active {
+  background: rgba(59, 130, 246, 0.12);
+  border-color: rgba(59, 130, 246, 0.6);
 }
 
 /* Reply preview inside bubble */
@@ -624,6 +693,12 @@
 @media (max-width: 768px) {
   .modern-chat-header {
     padding: 0.625rem 0.75rem;
+    /* Stick the header at the top while messages scroll below — mirrors
+       native messenger apps. */
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: #FFFFFF;
   }
 
   .profile-avatar {
@@ -640,13 +715,13 @@
   }
 
   .action-btn {
-    width: 34px;
-    height: 34px;
+    width: 40px;
+    height: 40px;
   }
 
   .action-btn svg {
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
   }
 
   .modern-chat-messages {
@@ -666,34 +741,40 @@
   }
 
   .modern-chat-input {
-    padding: 0.5rem 0.75rem 0.75rem;
+    padding: 0.5rem 0.75rem calc(0.75rem + env(safe-area-inset-bottom, 0));
+    position: sticky;
+    bottom: 0;
+    background: #FFFFFF;
+    z-index: 15;
+    border-top: 1px solid #E4E6EB;
   }
 
   .input-container {
     padding: 4px 6px;
-    gap: 4px;
+    gap: 6px;
   }
 
+  /* Bigger tap targets on phones (40px minimum). */
   .attachment-btn,
   .emoji-btn {
-    width: 32px;
-    height: 32px;
+    width: 40px;
+    height: 40px;
   }
 
   .attachment-btn svg,
   .emoji-btn svg {
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
   }
 
   .send-btn {
-    width: 32px;
-    height: 32px;
+    width: 40px;
+    height: 40px;
   }
 
   .send-btn svg {
-    width: 16px;
-    height: 16px;
+    width: 18px;
+    height: 18px;
   }
 }
 
@@ -883,6 +964,15 @@
 
 .modern-message.received .waveform-bar {
   background: #BCC0C4;
+}
+
+.waveform-bar--played {
+  background: rgba(255, 255, 255, 0.95);
+  transition: background 0.05s;
+}
+
+.modern-message.received .waveform-bar--played {
+  background: #00BFA5;
 }
 
 .voice-duration {
@@ -1093,4 +1183,29 @@
 
 .mic-btn:hover {
   background: rgba(0, 191, 165, 0.1);
+}
+
+/* GIF message bubble — image rendered inline, capped to a reasonable size */
+.gif-message {
+  display: block;
+  max-width: 240px;
+  max-height: 240px;
+  width: auto;
+  height: auto;
+  border-radius: 12px;
+  object-fit: contain;
+  background: transparent;
+}
+
+.modern-message.sent .message-bubble:has(.gif-message),
+.modern-message.received .message-bubble:has(.gif-message) {
+  background: transparent;
+  padding: 0;
+}
+
+@media (max-width: 480px) {
+  .gif-message {
+    max-width: 200px;
+    max-height: 200px;
+  }
 }

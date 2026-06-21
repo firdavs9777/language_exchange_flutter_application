@@ -9,6 +9,7 @@ import {
   CONFIRM_EMAIL_CODE,
   RESET_USER_PASSWORD,
   REGISTER_EMAIL_CODE,
+  VERIFY_REGISTRATION_CODE,
   BLOCK_USER_URL,
 } from "../../constants";
 import { apiSlice } from "./apiSlice";
@@ -53,9 +54,22 @@ export const usersApiSlice = apiSlice.injectEndpoints({
       }),
       keepUnusedDataFor: 5,
     }),
+    // Verify a password-reset code (hits /auth/verify-reset-code). Used by
+    // the forgot-password wizard, NOT by registration.
     verifyCodeEmail: builder.mutation({
       query: (data: any) => ({
         url: `${CONFIRM_EMAIL_CODE}`,
+        method: "POST",
+        body: data,
+      }),
+      keepUnusedDataFor: 5,
+    }),
+    // Verify the registration email code (hits /auth/verifyEmailCode). Kept
+    // separate from verifyCodeEmail so each flow stays wired to the right
+    // backend controller.
+    verifyRegistrationCode: builder.mutation({
+      query: (data: any) => ({
+        url: `${VERIFY_REGISTRATION_CODE}`,
         method: "POST",
         body: data,
       }),
@@ -272,6 +286,7 @@ export const {
   useSendCodeEmailMutation,
   useRegisterCodeEmailMutation,
   useVerifyCodeEmailMutation,
+  useVerifyRegistrationCodeMutation,
   useResetPasswordUserMutation,
   useLogoutUserMutation,
   useRegisterUserMutation,

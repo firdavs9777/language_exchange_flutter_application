@@ -4,10 +4,15 @@ import {
   useGetUserMessagesQuery,
   useGetConversationsQuery,
   useDeleteConversationMutation,
+  usePinConversationMutation,
+  useUnpinConversationMutation,
 } from "../../store/slices/chatSlice";
+import { Bounce, toast } from "react-toastify";
+import { MoreVertical, Pin, PinOff, Trash2 } from "lucide-react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/index";
 import { useSocket } from "./hooks/useSocket";
+import { useTranslation } from "react-i18next";
 import "./UsersList.css";
 
 // ---------- Types ----------
@@ -22,6 +27,10 @@ interface User {
   imageUrls: string[];
   status?: "online" | "offline" | "away" | "busy";
   lastSeen?: Date;
+  // Threaded through from the conversation record so per-conversation actions
+  // (pin/unpin/delete) can hit the right document instead of looking it up.
+  conversationId?: string;
+  isPinned?: boolean;
 }
 
 interface OnlineUser {
@@ -68,7 +77,9 @@ const getMessageText = (msg: Message): string => {
     if (msg.message || msg.content) return msg.message || msg.content || "";
     return "\ud83d\udcce Attachment";
   }
-  return msg.message || msg.content || "";
+  const text = msg.message || msg.content || "";
+  if (text === "Conversation started") return "";
+  return text;
 };
 
 const formatTime = (date: Date): string => {
@@ -103,6 +114,7 @@ const UsersList: React.FC<UsersListProps> = ({
   activeUserId,
   searchQuery = "",
 }) => {
+  const { t } = useTranslation();
   const currentUser = useSelector(
     (state: RootState) => state.auth.userInfo?.user
   );
@@ -117,6 +129,89 @@ const UsersList: React.FC<UsersListProps> = ({
     );
 
   const [deleteConversation] = useDeleteConversationMutation();
+  const [pinConversation] = usePinConversationMutation();
+  const [unpinConversation] = useUnpinConversationMutation();
+  const [openMenuFor, setOpenMenuFor] = useState<string | null>(null);
+  // Whether the action dropdown should open upward (when the kebab is near
+  // the bottom of the viewport and a downward menu would clip).
+  const [menuOpensUp, setMenuOpensUp] = useState(false);
+
+  const handleTogglePin = useCallback(
+    async (e: React.MouseEvent, partner: User) => {
+      e.stopPropagation();
+      setOpenMenuFor(null);
+
+      // The partner record may not have conversationId threaded onto it
+      // (e.g. if it came in through getUserMessages and the conversation
+      // hadn't been fetched yet). Fall back to scanning conversationsData
+      // for a matching participant before giving up.
+      const resolvedConversationId =
+        partner.conversationId ||
+        (conversationsData?.data || []).find((c: any) =>
+          (c.participants || []).some((p: any) => p._id === partner._id)
+        )?._id;
+
+      if (!resolvedConversationId) {
+        toast.error(
+          t("chatPage.actions.noConversationYet") ||
+            "Start the conversation first to pin it",
+          { autoClose: 3000, theme: "colored", transition: Bounce }
+        );
+        return;
+      }
+
+      const action = partner.isPinned ? "unpin" : "pin";
+      const endpoint = `/api/v1/conversations/${resolvedConversationId}/${action}`;
+      console.log(
+        `[UsersList:${action}] >> POST ${endpoint}`,
+        { partner: partner.name, conversationId: resolvedConversationId }
+      );
+
+      try {
+        const response = partner.isPinned
+          ? await unpinConversation(resolvedConversationId).unwrap()
+          : await pinConversation(resolvedConversationId).unwrap();
+        console.log(`[UsersList:${action}] << OK`, response);
+
+        toast.success(
+          partner.isPinned
+            ? t("chatPage.actions.unpinned") || "Conversation unpinned"
+            : t("chatPage.actions.pinned") || "Conversation pinned",
+          { autoClose: 1800, theme: "colored", transition: Bounce }
+        );
+        refetch();
+        refetchConversations();
+      } catch (err: any) {
+        console.error(`[UsersList:${action}] << FAIL`, {
+          status: err?.status,
+          data: err?.data,
+          raw: err,
+        });
+        const message =
+          err?.data?.error ||
+          err?.data?.message ||
+          t("chatPage.actions.pinFailed") ||
+          "Couldn't update pin";
+        toast.error(message, { autoClose: 3000, theme: "colored", transition: Bounce });
+      }
+    },
+    [
+      pinConversation,
+      unpinConversation,
+      refetch,
+      refetchConversations,
+      conversationsData,
+      t,
+    ]
+  );
+
+  // Close the action menu when clicking anywhere outside it.
+  useEffect(() => {
+    if (!openMenuFor) return;
+    const onDocClick = () => setOpenMenuFor(null);
+    document.addEventListener("click", onDocClick);
+    return () => document.removeEventListener("click", onDocClick);
+  }, [openMenuFor]);
 
   // Shared socket
   const { socket, isConnected } = useSocket();
@@ -251,9 +346,56 @@ const UsersList: React.FC<UsersListProps> = ({
       refetchConversations();
     };
 
+    // Backend's newer per-subscriber presence stream (presence:bulk on
+    // connect + presence:online / presence:offline as state changes). The
+    // older onlineUsers / userStatusUpdate events still fire but are
+    // global; these are scoped to "users you actually care about" and
+    // arrive even when the global broadcast is throttled.
+    const handlePresenceBulk = (data: { onlineUserIds?: string[] }) => {
+      const ids = Array.isArray(data?.onlineUserIds) ? data.onlineUserIds : [];
+      setOnlineUsers((prev) => {
+        const map = new Map(prev.map((u) => [u.userId, u]));
+        ids.forEach((id) => {
+          map.set(id, { userId: id, status: "online", lastSeen: null });
+        });
+        return Array.from(map.values());
+      });
+      setUserStatuses((prev) => {
+        const next = { ...prev };
+        ids.forEach((id) => {
+          next[id] = { status: "online", lastSeen: undefined };
+        });
+        return next;
+      });
+    };
+
+    const handlePresenceOnline = (data: { userId: string }) => {
+      if (!data?.userId) return;
+      handleUserStatusUpdate({
+        userId: data.userId,
+        status: "online",
+        lastSeen: null,
+      });
+    };
+
+    const handlePresenceOffline = (data: {
+      userId: string;
+      lastSeen?: string | null;
+    }) => {
+      if (!data?.userId) return;
+      handleUserStatusUpdate({
+        userId: data.userId,
+        status: "offline",
+        lastSeen: data.lastSeen ?? null,
+      });
+    };
+
     socket.on("disconnect", handleDisconnect);
     socket.on("onlineUsers", handleOnlineUsers);
     socket.on("userStatusUpdate", handleUserStatusUpdate);
+    socket.on("presence:bulk", handlePresenceBulk);
+    socket.on("presence:online", handlePresenceOnline);
+    socket.on("presence:offline", handlePresenceOffline);
     socket.on("newMessage", handleNewMessage);
     socket.on("newVoiceMessage", handleNewVoiceMessage);
     socket.on("newVideoMessage", handleNewVideoMessage);
@@ -267,6 +409,9 @@ const UsersList: React.FC<UsersListProps> = ({
       socket.off("disconnect", handleDisconnect);
       socket.off("onlineUsers", handleOnlineUsers);
       socket.off("userStatusUpdate", handleUserStatusUpdate);
+      socket.off("presence:bulk", handlePresenceBulk);
+      socket.off("presence:online", handlePresenceOnline);
+      socket.off("presence:offline", handlePresenceOffline);
       socket.off("newMessage", handleNewMessage);
       socket.off("newVoiceMessage", handleNewVoiceMessage);
       socket.off("newVideoMessage", handleNewVideoMessage);
@@ -388,21 +533,29 @@ const UsersList: React.FC<UsersListProps> = ({
         if (!existing) {
           partnersMap.set(otherUser._id, {
             ...otherUser,
-            imageUrls: otherUser.imageUrls || [],
+            imageUrls: otherUser.imageUrls || otherUser.images || [],
             lastMessage: messageText,
             unreadCount: convUnread,
             lastMessageTime: messageDate || undefined,
             status: getUserStatus(otherUser._id) as any,
             lastSeen: userStatuses[otherUser._id]?.lastSeen,
+            conversationId: conversation._id,
+            isPinned: Boolean(conversation.isPinned),
           });
-        } else if (
-          messageDate &&
-          (!existing.lastMessageTime || messageDate > existing.lastMessageTime)
-        ) {
-          existing.lastMessage = messageText;
-          existing.lastMessageTime = messageDate;
-          if (convUnread > existing.unreadCount) {
-            existing.unreadCount = convUnread;
+        } else {
+          // Keep the freshest conversation reference + pin state regardless
+          // of which lastMessage wins.
+          existing.conversationId = conversation._id;
+          existing.isPinned = existing.isPinned || Boolean(conversation.isPinned);
+          if (
+            messageDate &&
+            (!existing.lastMessageTime || messageDate > existing.lastMessageTime)
+          ) {
+            existing.lastMessage = messageText;
+            existing.lastMessageTime = messageDate;
+            if (convUnread > existing.unreadCount) {
+              existing.unreadCount = convUnread;
+            }
           }
         }
       });
@@ -418,8 +571,11 @@ const UsersList: React.FC<UsersListProps> = ({
       return partner;
     });
 
-    // Sort by last message time (most recent first)
+    // Sort: pinned conversations first (newest-pinned wins ties), then by
+    // last message time desc.
     return partners.sort((a, b) => {
+      if (a.isPinned && !b.isPinned) return -1;
+      if (!a.isPinned && b.isPinned) return 1;
       const aTime = a.lastMessageTime?.getTime() || 0;
       const bTime = b.lastMessageTime?.getTime() || 0;
       return bTime - aTime;
@@ -450,23 +606,58 @@ const UsersList: React.FC<UsersListProps> = ({
     if (!userToDelete || !currentUser?._id) return;
     setIsDeleting(true);
 
-    try {
-      // Find the conversation ID for this user pair
-      const conversation = conversationsData?.data?.find((c: any) => {
-        const participants = c.participants || [];
-        return participants.some((p: any) => p._id === userToDelete._id);
-      });
+    // Prefer the conversationId we already threaded through onto the
+    // partner record; fall back to the lookup for safety.
+    const conversationId =
+      userToDelete.conversationId ||
+      conversationsData?.data?.find((c: any) =>
+        (c.participants || []).some(
+          (p: any) => p._id === userToDelete._id
+        )
+      )?._id;
 
-      if (conversation?._id) {
-        await deleteConversation(conversation._id).unwrap();
+    const endpoint = conversationId
+      ? `/api/v1/conversations/${conversationId}`
+      : null;
+    console.log("[UsersList:delete] >> DELETE", endpoint || "(no conversationId found)", {
+      partner: userToDelete.name,
+      conversationId,
+    });
+
+    try {
+      if (conversationId) {
+        const response = await deleteConversation(conversationId).unwrap();
+        console.log("[UsersList:delete] << OK", response);
+        toast.success(
+          t("chatPage.actions.deleted") || "Conversation deleted",
+          { autoClose: 1800, theme: "colored", transition: Bounce }
+        );
+      } else {
+        console.warn(
+          "[UsersList:delete] no conversation document found for partner; skipping API call"
+        );
       }
 
       refetch();
       refetchConversations();
       setShowDeleteModal(false);
       setUserToDelete(null);
-    } catch (_err) {
-      // silently handle
+    } catch (err: any) {
+      console.error("[UsersList:delete] << FAIL", {
+        status: err?.status,
+        data: err?.data,
+        raw: err,
+      });
+      const message =
+        err?.data?.error ||
+        err?.data?.message ||
+        t("chatPage.actions.deleteFailed") ||
+        "Couldn't delete the conversation";
+      toast.error(message, {
+        autoClose: 3000,
+        theme: "colored",
+        transition: Bounce,
+      });
     } finally {
       setIsDeleting(false);
     }
@@ -551,8 +742,12 @@ const UsersList: React.FC<UsersListProps> = ({
               <line x1="21" y1="21" x2="16.65" y2="16.65" />
             </svg>
           </div>
-          <p className="users-list-empty-title">No matching conversations</p>
-          <p className="users-list-empty-subtitle">Try adjusting your search</p>
+          <p className="users-list-empty-title">
+            {t("chatPage.list.noMatchTitle") || "No matching conversations"}
+          </p>
+          <p className="users-list-empty-subtitle">
+            {t("chatPage.list.noMatchSubtitle") || "Try adjusting your search"}
+          </p>
         </div>
       </div>
     );
@@ -594,7 +789,10 @@ const UsersList: React.FC<UsersListProps> = ({
                       )}
                     </div>
                     {online && (
-                      <span className="users-list-online-dot" title="Online" />
+                      <span
+                        className="users-list-online-dot"
+                        title={t("chatPage.online") || "Online"}
+                      />
                     )}
                   </div>
 
@@ -602,6 +800,13 @@ const UsersList: React.FC<UsersListProps> = ({
                   <div className="users-list-content">
                     <div className="users-list-top-row">
                       <span className="users-list-name">
+                        {user.isPinned && (
+                          <Pin
+                            size={12}
+                            className="users-list-pin-icon"
+                            aria-label={t("chatPage.actions.pinned") || "Pinned"}
+                          />
+                        )}
                         {user.name}
                         {typing && (
                           <span className="users-list-typing-dots">
@@ -645,6 +850,73 @@ const UsersList: React.FC<UsersListProps> = ({
                       )}
                     </div>
                   </div>
+
+                  {/* Per-conversation actions: pin/unpin + delete. Menu opens
+                      on click and closes on outside click (handled by the
+                      document listener registered above). */}
+                  <div className="users-list-actions">
+                    <button
+                      type="button"
+                      className="users-list-action-btn"
+                      aria-label={
+                        t("chatPage.actions.menuLabel") || "Conversation actions"
+                      }
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        // Flip menu upward when the button is in the bottom
+                        // half of the viewport so it doesn't clip below.
+                        const rect = (e.currentTarget as HTMLButtonElement)
+                          .getBoundingClientRect();
+                        setMenuOpensUp(rect.top > window.innerHeight / 2);
+                        setOpenMenuFor((curr) =>
+                          curr === user._id ? null : user._id
+                        );
+                      }}
+                    >
+                      <MoreVertical size={16} />
+                    </button>
+                    {openMenuFor === user._id && (
+                      <div
+                        className={`users-list-action-menu ${
+                          menuOpensUp ? "users-list-action-menu--up" : ""
+                        }`}
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <button
+                          type="button"
+                          className="users-list-action-item"
+                          onClick={(e) => handleTogglePin(e, user)}
+                        >
+                          {user.isPinned ? (
+                            <>
+                              <PinOff size={14} />
+                              <span>{t("chatPage.actions.unpin") || "Unpin"}</span>
+                            </>
+                          ) : (
+                            <>
+                              <Pin size={14} />
+                              <span>{t("chatPage.actions.pin") || "Pin"}</span>
+                            </>
+                          )}
+                        </button>
+                        <button
+                          type="button"
+                          className="users-list-action-item users-list-action-item--danger"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setOpenMenuFor(null);
+                            setUserToDelete(user);
+                            setShowDeleteModal(true);
+                          }}
+                        >
+                          <Trash2 size={14} />
+                          <span>
+                            {t("chatPage.deleteModal.confirm") || "Delete"}
+                          </span>
+                        </button>
+                      </div>
+                    )}
+                  </div>
                 </li>
               );
             })}
@@ -656,9 +928,12 @@ const UsersList: React.FC<UsersListProps> = ({
                 <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
               </svg>
             </div>
-            <p className="users-list-empty-title">No conversations yet</p>
+            <p className="users-list-empty-title">
+              {t("chatPage.list.emptyTitle") || "No conversations yet"}
+            </p>
             <p className="users-list-empty-subtitle">
-              Start a conversation to see it here
+              {t("chatPage.list.emptySubtitle") ||
+                "Start a conversation to see it here"}
             </p>
           </div>
         )}
@@ -673,16 +948,17 @@ const UsersList: React.FC<UsersListProps> = ({
       >
         <Modal.Header closeButton className="border-0 pb-1">
           <Modal.Title className="fs-6 fw-semibold">
-            Delete Conversation
+            {t("chatPage.deleteModal.title") || "Delete Conversation"}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body className="pt-0">
           <p className="mb-1 text-secondary" style={{ fontSize: "0.9rem" }}>
-            Delete your conversation with{" "}
+            {t("chatPage.deleteModal.bodyPrefix") ||
+              "Delete your conversation with"}{" "}
             <strong>{userToDelete?.name}</strong>?
           </p>
           <p className="mb-0 text-muted" style={{ fontSize: "0.8rem" }}>
-            This cannot be undone.
+            {t("chatPage.deleteModal.warning") || "This cannot be undone."}
           </p>
         </Modal.Body>
         <Modal.Footer className="border-0 pt-0">
@@ -692,7 +968,7 @@ const UsersList: React.FC<UsersListProps> = ({
             onClick={handleDeleteCancel}
             disabled={isDeleting}
           >
-            Cancel
+            {t("chatPage.deleteModal.cancel") || "Cancel"}
           </Button>
           <Button
             variant="danger"
@@ -700,7 +976,9 @@ const UsersList: React.FC<UsersListProps> = ({
             onClick={handleDeleteConfirm}
             disabled={isDeleting}
           >
-            {isDeleting ? "Deleting..." : "Delete"}
+            {isDeleting
+              ? t("chatPage.deleteModal.deleting") || "Deleting..."
+              : t("chatPage.deleteModal.confirm") || "Delete"}
           </Button>
         </Modal.Footer>
       </Modal>

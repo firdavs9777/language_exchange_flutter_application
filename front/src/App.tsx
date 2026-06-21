@@ -9,6 +9,7 @@ import { Outlet, useLocation } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import FooterMain from "./components/footer/FooterMain";
+import { SocketProvider } from "./components/chat/hooks/useSocket";
 import { BASE_URL } from "./constants";
 
 const App = () => {
@@ -33,12 +34,14 @@ const App = () => {
 
   return (
     <I18nextProvider i18n={i18n}>
-      <MainNavbar />
-      <Container fluid>
-        <Outlet />
-      </Container>
-      <FooterMain />
-      <ToastContainer />
+      <SocketProvider>
+        <MainNavbar />
+        <Container fluid>
+          <Outlet />
+        </Container>
+        <FooterMain />
+        <ToastContainer />
+      </SocketProvider>
     </I18nextProvider>
   );
 };

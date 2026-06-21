@@ -30,7 +30,8 @@
     "features": {
       "realtime": "Real-time na pagmemensahe",
       "exchange": "Palitan ng wika",
-      "calls": "Tawag sa boses at video"
+      "calls": "Tawag sa boses at video",
+      "translation": "Built-in na pagsasalin"
     },
     "online": "Online",
     "offline": "Offline",
@@ -42,7 +43,49 @@
     "justNow": "Ngayon lang",
     "minutesAgo": "{{count}}m nakalipas",
     "hoursAgo": "{{count}}o nakalipas",
-    "unknownUser": "Hindi Kilalang User"
+    "unknownUser": "Hindi Kilalang User",
+    "backToConversations": "Bumalik sa mga usapan",
+    "moreOptions": "Higit pang opsyon",
+    "retrySending": "Subukan muli",
+    "input": {
+      "attachFile": "Mag-attach ng file",
+      "stickers": "Mga sticker",
+      "voiceMessage": "Voice message",
+      "sendGif": "Magpadala ng GIF"
+    },
+    "list": {
+      "noMatchTitle": "Walang tumutugmang usapan",
+      "noMatchSubtitle": "Subukang ayusin ang paghahanap",
+      "emptyTitle": "Wala pang usapan",
+      "emptySubtitle": "Magsimula ng usapan para makita rito"
+    },
+    "deleteModal": {
+      "title": "Burahin ang usapan",
+      "bodyPrefix": "Burahin ang iyong usapan kay:",
+      "warning": "Hindi na maibabalik ang pagkilos na ito.",
+      "cancel": "Kanselahin",
+      "confirm": "Burahin",
+      "deleting": "Binubura..."
+    },
+    "gif": {
+      "title": "GIF",
+      "close": "Isara ang GIF picker",
+      "searchPlaceholder": "Maghanap ng GIF...",
+      "loading": "Naglo-load ng GIF...",
+      "noResults": "Walang nahanap na GIF",
+      "poweredBy": "Powered by GIPHY",
+      "altText": "GIF"
+    },
+    "actions": {
+      "menuLabel": "Mga aksyon sa usapan",
+      "pin": "I-pin",
+      "unpin": "Tanggalin ang pin",
+      "pinned": "Naka-pin",
+      "noConversationYet": "Simulan muna ang usapan bago i-pin",
+      "pinFailed": "Hindi nai-update ang pin",
+      "deleteFailed": "Hindi nabura ang usapan",
+      "deleted": "Naburas ang usapan"
+    }
   },
   "notifications": "Mga Abiso",
   "moments": "Mga Sandali",
@@ -238,6 +281,28 @@
       "minutesAgo": "{{minutes}}m nakalipas",
       "hoursAgo": "{{hours}}o nakalipas",
       "daysAgo": "{{days}}a nakalipas"
+    },
+    "lightbox": {
+      "open": "Buksan ang larawan sa buong sukat",
+      "close": "Isara ang viewer ng larawan",
+      "previous": "Nakaraang larawan",
+      "next": "Susunod na larawan"
+    },
+    "share": {
+      "fallbackTitle": "Tingnan ang sandaling ito",
+      "success": "Naibahagi nang matagumpay!",
+      "copied": "Nakopya ang link sa clipboard!",
+      "failed": "Hindi makopya ang link"
+    },
+    "create": {
+      "header": "Gumawa ng moment",
+      "titlePlaceholder": "Magdagdag ng pamagat...",
+      "addToMoment": "Idagdag sa iyong moment",
+      "addPhotos": "Magdagdag ng mga larawan",
+      "addMood": "Magdagdag ng mood",
+      "addLocation": "Magdagdag ng lokasyon",
+      "addTags": "Magdagdag ng mga tag",
+      "tagPlaceholder": "Magdagdag ng tag..."
     }
   },
   "createMoment": {
@@ -443,6 +508,51 @@
     },
     "buttons": {
       "clearFilters": "I-clear ang lahat ng filter"
+    },
+    "subnav": {
+      "allMembers": "Lahat ng miyembro",
+      "nearby": "Malapit",
+      "topics": "Mga paksa",
+      "searchPlaceholder": "Maghanap ng miyembro o paksa",
+      "filtersLabel": "Mga filter",
+      "filtersWithCount": "Mga filter ({{count}} aktibo)"
+    },
+    "filterSheet": {
+      "title": "Mga filter",
+      "language": "Wika",
+      "any": "Lahat",
+      "gender": "Kasarian",
+      "male": "Lalaki",
+      "female": "Babae",
+      "other": "Iba pa",
+      "ageRange": "Saklaw ng edad",
+      "min": "Min",
+      "max": "Max",
+      "experience": "Karanasan ng miyembro",
+      "onlineNow": "Online ngayon",
+      "newMembersOnly": "Bagong miyembro lang (huling 7 araw)",
+      "reset": "I-reset",
+      "apply": "Ilapat"
+    },
+    "highlighted": {
+      "title": "Mga itinatampok na profile",
+      "proBadge": "Pro",
+      "tryPro": "Subukan ang BananaTalk Pro",
+      "highlightSelfTopic": "I-highlight ang iyong profile para makita ka ng mas maraming tao"
+    },
+    "visitors": {
+      "justYou": "Binisita ni {{name}} ang iyong profile!",
+      "andOthers": "Binisita ni {{name}} at {{count}} iba pa ang iyong profile!",
+      "seeAll": "Tingnan lahat"
+    },
+    "tandemCard": {
+      "newChip": "BAGO",
+      "defaultTopic": "Mag-ensayo tayo!"
+    },
+    "languageChip": {
+      "fluent": "MATATAS",
+      "learns": "NAG-AARAL",
+      "native": "KATUTUBO"
     }
   },
   "communityDetail": {
@@ -503,6 +613,10 @@
       "speaks": "Nagsasalita ng",
       "learning": "Nag-aaral ng",
       "notSpecified": "Hindi tinukoy"
+    },
+    "suggested": {
+      "title": "Mga miyembrong katulad ni {{name}}",
+      "seeAll": "Tingnan lahat ng miyembro"
     }
   },
   "communityDetailSection": {

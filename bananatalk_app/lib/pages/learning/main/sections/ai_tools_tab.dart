@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/providers/provider_root/ai_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/tutor_provider.dart';
@@ -25,26 +26,77 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 
 /// The "AI Tools" tab inside the Study Hub.
-class AIToolsTab extends ConsumerWidget {
+class AIToolsTab extends ConsumerStatefulWidget {
   const AIToolsTab({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<AIToolsTab> createState() => _AIToolsTabState();
+}
+
+class _AIToolsTabState extends ConsumerState<AIToolsTab>
+    with SingleTickerProviderStateMixin {
+  final ScrollController _scroll = ScrollController();
+  late AnimationController _bounce;
+  bool _showArrow = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _bounce = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 550),
+    )..repeat(reverse: true);
+
+    _scroll.addListener(() {
+      if (_scroll.offset > 60 && _showArrow) {
+        setState(() => _showArrow = false);
+        _bounce.stop();
+      }
+    });
+
+    _maybeShowArrow();
+  }
+
+  Future<void> _maybeShowArrow() async {
+    final prefs = await SharedPreferences.getInstance();
+    if (prefs.getBool('ai_tools_scroll_hint') ?? false) return;
+    await prefs.setBool('ai_tools_scroll_hint', true);
+    await Future.delayed(const Duration(milliseconds: 900));
+    if (!mounted) return;
+    setState(() => _showArrow = true);
+    await Future.delayed(const Duration(seconds: 4));
+    if (!mounted) return;
+    setState(() => _showArrow = false);
+    _bounce.stop();
+  }
+
+  @override
+  void dispose() {
+    _scroll.dispose();
+    _bounce.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final weakAreasAsync = ref.watch(weakAreasProvider);
     final quizStatsAsync = ref.watch(aiQuizStatsProvider);
     final userAsync = ref.watch(userProvider);
     final isVip = userAsync.valueOrNull?.isVip ?? false;
     final isDark = context.isDarkMode;
 
-    return RefreshIndicator(
-      onRefresh: () async {
-        ref.invalidate(weakAreasProvider);
-        ref.invalidate(aiQuizStatsProvider);
-      },
-      child: SingleChildScrollView(
-        physics: const AlwaysScrollableScrollPhysics(),
-        padding: const EdgeInsets.fromLTRB(16, 20, 16, 100),
-        child: Column(
+    return Stack(
+      children: [
+        RefreshIndicator(
+          onRefresh: () async {
+            ref.invalidate(weakAreasProvider);
+            ref.invalidate(aiQuizStatsProvider);
+          },
+          child: SingleChildScrollView(
+            controller: _scroll,
+            physics: const AlwaysScrollableScrollPhysics(),
+            padding: const EdgeInsets.fromLTRB(16, 20, 16, 100),
+            child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // AI Tutor hero (replaces the old AI Chat banner)
@@ -105,18 +157,74 @@ class AIToolsTab extends ConsumerWidget {
           ],
         ),
       ),
+        ),
+        // One-time scroll hint arrow
+        if (_showArrow)
+          Positioned(
+            right: 18,
+            bottom: 110,
+            child: AnimatedOpacity(
+              opacity: _showArrow ? 1.0 : 0.0,
+              duration: const Duration(milliseconds: 300),
+              child: AnimatedBuilder(
+                animation: _bounce,
+                builder: (context, child) => Transform.translate(
+                  offset: Offset(0, _bounce.value * 9),
+                  child: child,
+                ),
+                child: GestureDetector(
+                  onTap: () => setState(() => _showArrow = false),
+                  child: Container(
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF00BFA5),
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: const Color(0xFF00BFA5).withValues(alpha: 0.45),
+                          blurRadius: 14,
+                          offset: const Offset(0, 5),
+                        ),
+                      ],
+                    ),
+                    child: const Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(Icons.keyboard_arrow_down_rounded,
+                            color: Colors.white, size: 26),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+      ],
     );
   }
 
   Widget _buildSectionHeader(BuildContext context, String title) {
-    return Text(
-      title,
-      style: TextStyle(
-        fontSize: 18,
-        fontWeight: FontWeight.w800,
-        color: context.textPrimary,
-        letterSpacing: -0.3,
-      ),
+    return Row(
+      children: [
+        Container(
+          width: 4,
+          height: 20,
+          decoration: BoxDecoration(
+            color: const Color(0xFF00BFA5),
+            borderRadius: BorderRadius.circular(2),
+          ),
+        ),
+        const SizedBox(width: 8),
+        Text(
+          title,
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.w800,
+            color: context.textPrimary,
+            letterSpacing: -0.3,
+          ),
+        ),
+      ],
     );
   }
 
@@ -154,17 +262,18 @@ class AIToolsTab extends ConsumerWidget {
           child: Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: isDark ? context.cardBackground : Colors.white,
+              color: f.color.withValues(alpha: isDark ? 0.14 : 0.08),
               borderRadius: BorderRadius.circular(18),
               boxShadow: [
                 BoxShadow(
-                  color: f.color.withValues(alpha: isDark ? 0.1 : 0.06),
-                  blurRadius: 12,
-                  offset: const Offset(0, 4),
+                  color: f.color.withValues(alpha: isDark ? 0.18 : 0.14),
+                  blurRadius: 14,
+                  offset: const Offset(0, 5),
                 ),
               ],
               border: Border.all(
-                color: f.color.withValues(alpha: isDark ? 0.15 : 0.08),
+                color: f.color.withValues(alpha: isDark ? 0.35 : 0.25),
+                width: 1.3,
               ),
             ),
             child: Column(
@@ -177,7 +286,7 @@ class AIToolsTab extends ConsumerWidget {
                       width: 46,
                       height: 46,
                       decoration: BoxDecoration(
-                        color: f.color.withValues(alpha: isDark ? 0.2 : 0.1),
+                        color: f.color.withValues(alpha: isDark ? 0.35 : 0.18),
                         borderRadius: BorderRadius.circular(13),
                       ),
                       child: Icon(f.icon, color: f.color, size: 24),
@@ -203,7 +312,7 @@ class AIToolsTab extends ConsumerWidget {
                 const Spacer(),
                 Text(
                   f.title,
-                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 14, color: context.textPrimary),
+                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 14, color: f.color),
                 ),
                 const SizedBox(height: 2),
                 Text(

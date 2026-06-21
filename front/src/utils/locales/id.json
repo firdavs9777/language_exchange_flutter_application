@@ -30,7 +30,8 @@
     "features": {
       "realtime": "Pesan real-time",
       "exchange": "Pertukaran bahasa",
-      "calls": "Panggilan suara & video"
+      "calls": "Panggilan suara & video",
+      "translation": "Terjemahan bawaan"
     },
     "online": "Online",
     "offline": "Offline",
@@ -42,7 +43,49 @@
     "justNow": "Baru saja",
     "minutesAgo": "{{count}} menit lalu",
     "hoursAgo": "{{count}} jam lalu",
-    "unknownUser": "Pengguna Tidak Dikenal"
+    "unknownUser": "Pengguna Tidak Dikenal",
+    "backToConversations": "Kembali ke percakapan",
+    "moreOptions": "Opsi lainnya",
+    "retrySending": "Coba kirim lagi",
+    "input": {
+      "attachFile": "Lampirkan file",
+      "stickers": "Stiker",
+      "voiceMessage": "Pesan suara",
+      "sendGif": "Kirim GIF"
+    },
+    "list": {
+      "noMatchTitle": "Tidak ada percakapan yang cocok",
+      "noMatchSubtitle": "Coba ubah pencarian",
+      "emptyTitle": "Belum ada percakapan",
+      "emptySubtitle": "Mulai percakapan untuk melihatnya di sini"
+    },
+    "deleteModal": {
+      "title": "Hapus percakapan",
+      "bodyPrefix": "Hapus percakapan Anda dengan:",
+      "warning": "Tindakan ini tidak dapat dibatalkan.",
+      "cancel": "Batal",
+      "confirm": "Hapus",
+      "deleting": "Menghapus..."
+    },
+    "gif": {
+      "title": "GIF",
+      "close": "Tutup pemilih GIF",
+      "searchPlaceholder": "Cari GIF...",
+      "loading": "Memuat GIF...",
+      "noResults": "Tidak ada GIF",
+      "poweredBy": "Didukung oleh GIPHY",
+      "altText": "GIF"
+    },
+    "actions": {
+      "menuLabel": "Aksi percakapan",
+      "pin": "Sematkan",
+      "unpin": "Lepas sematan",
+      "pinned": "Disematkan",
+      "noConversationYet": "Mulai percakapan terlebih dahulu untuk menyematkannya",
+      "pinFailed": "Gagal memperbarui sematan",
+      "deleteFailed": "Gagal menghapus percakapan",
+      "deleted": "Percakapan dihapus"
+    }
   },
   "notifications": "Notifikasi",
   "moments": "Momen",
@@ -238,6 +281,28 @@
       "minutesAgo": "{{minutes}} menit lalu",
       "hoursAgo": "{{hours}} jam lalu",
       "daysAgo": "{{days}} hari lalu"
+    },
+    "lightbox": {
+      "open": "Buka gambar ukuran penuh",
+      "close": "Tutup penampil gambar",
+      "previous": "Gambar sebelumnya",
+      "next": "Gambar berikutnya"
+    },
+    "share": {
+      "fallbackTitle": "Lihat momen ini",
+      "success": "Berhasil dibagikan!",
+      "copied": "Tautan disalin ke clipboard!",
+      "failed": "Gagal menyalin tautan"
+    },
+    "create": {
+      "header": "Buat momen",
+      "titlePlaceholder": "Tambahkan judul...",
+      "addToMoment": "Tambahkan ke momen Anda",
+      "addPhotos": "Tambahkan foto",
+      "addMood": "Tambahkan suasana hati",
+      "addLocation": "Tambahkan lokasi",
+      "addTags": "Tambahkan tag",
+      "tagPlaceholder": "Tambahkan tag..."
     }
   },
   "createMoment": {
@@ -444,6 +509,51 @@
     },
     "buttons": {
       "clearFilters": "Hapus semua filter"
+    },
+    "subnav": {
+      "allMembers": "Semua anggota",
+      "nearby": "Terdekat",
+      "topics": "Topik",
+      "searchPlaceholder": "Cari anggota atau topik",
+      "filtersLabel": "Filter",
+      "filtersWithCount": "Filter ({{count}} aktif)"
+    },
+    "filterSheet": {
+      "title": "Filter",
+      "language": "Bahasa",
+      "any": "Semua",
+      "gender": "Jenis kelamin",
+      "male": "Pria",
+      "female": "Wanita",
+      "other": "Lainnya",
+      "ageRange": "Rentang usia",
+      "min": "Min",
+      "max": "Maks",
+      "experience": "Pengalaman anggota",
+      "onlineNow": "Online sekarang",
+      "newMembersOnly": "Hanya anggota baru (7 hari terakhir)",
+      "reset": "Reset",
+      "apply": "Terapkan"
+    },
+    "highlighted": {
+      "title": "Profil unggulan",
+      "proBadge": "Pro",
+      "tryPro": "Coba BananaTalk Pro",
+      "highlightSelfTopic": "Sorot profil Anda agar lebih banyak orang melihat Anda"
+    },
+    "visitors": {
+      "justYou": "{{name}} mengunjungi profil Anda!",
+      "andOthers": "{{name}} dan {{count}} lainnya mengunjungi profil Anda!",
+      "seeAll": "Lihat semua"
+    },
+    "tandemCard": {
+      "newChip": "BARU",
+      "defaultTopic": "Yuk berlatih!"
+    },
+    "languageChip": {
+      "fluent": "FASIH",
+      "learns": "BELAJAR",
+      "native": "ASLI"
     }
   },
   "communityDetail": {
@@ -504,6 +614,10 @@
       "speaks": "Berbicara",
       "learning": "Sedang Belajar",
       "notSpecified": "Tidak ditentukan"
+    },
+    "suggested": {
+      "title": "Lebih banyak anggota seperti {{name}}",
+      "seeAll": "Lihat semua anggota"
     }
   },
   "communityDetailSection": {
@@ -770,9 +884,9 @@
       "browseCommunity": "Jelajahi Komunitas",
       "lovedBy": "Dicintai 5 juta+ pelajar",
       "chatPreview": {
-        "message1": "Halo! Apa kabar? \ud83d\udc4b",
+        "message1": "Halo! Apa kabar? 👋",
         "message2": "Hey! I'm practicing Indonesian!",
-        "message3": "Bagus! Ayo berlatih bersama \ud83c\uddee\ud83c\udde9"
+        "message3": "Bagus! Ayo berlatih bersama 🇮🇩"
       }
     },
     "sections": {

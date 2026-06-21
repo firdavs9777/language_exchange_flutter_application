@@ -30,7 +30,8 @@
     "features": {
       "realtime": "即時訊息",
       "exchange": "語言交換",
-      "calls": "語音和視訊通話"
+      "calls": "語音和視訊通話",
+      "translation": "內建翻譯"
     },
     "online": "線上",
     "offline": "離線",
@@ -42,7 +43,49 @@
     "justNow": "剛剛",
     "minutesAgo": "{{count}}分鐘前",
     "hoursAgo": "{{count}}小時前",
-    "unknownUser": "未知使用者"
+    "unknownUser": "未知使用者",
+    "backToConversations": "返回對話列表",
+    "moreOptions": "更多選項",
+    "retrySending": "重新發送",
+    "input": {
+      "attachFile": "新增附件",
+      "stickers": "貼圖",
+      "voiceMessage": "語音訊息",
+      "sendGif": "傳送 GIF"
+    },
+    "list": {
+      "noMatchTitle": "沒有相符的對話",
+      "noMatchSubtitle": "嘗試調整搜尋詞",
+      "emptyTitle": "尚無對話",
+      "emptySubtitle": "開始對話後會顯示在這裡"
+    },
+    "deleteModal": {
+      "title": "刪除對話",
+      "bodyPrefix": "刪除與該使用者的對話:",
+      "warning": "此動作無法復原。",
+      "cancel": "取消",
+      "confirm": "刪除",
+      "deleting": "刪除中..."
+    },
+    "gif": {
+      "title": "GIF",
+      "close": "關閉 GIF 選擇器",
+      "searchPlaceholder": "搜尋 GIF...",
+      "loading": "正在載入 GIF...",
+      "noResults": "找不到 GIF",
+      "poweredBy": "Powered by GIPHY",
+      "altText": "GIF"
+    },
+    "actions": {
+      "menuLabel": "對話操作",
+      "pin": "置頂",
+      "unpin": "取消置頂",
+      "pinned": "已置頂",
+      "noConversationYet": "請先開始對話再置頂",
+      "pinFailed": "更新置頂失敗",
+      "deleteFailed": "刪除對話失敗",
+      "deleted": "對話已刪除"
+    }
   },
   "notifications": "通知",
   "moments": "動態",
@@ -238,6 +281,28 @@
       "minutesAgo": "{{minutes}}分鐘前",
       "hoursAgo": "{{hours}}小時前",
       "daysAgo": "{{days}}天前"
+    },
+    "lightbox": {
+      "open": "全螢幕檢視圖片",
+      "close": "關閉圖片檢視器",
+      "previous": "上一張",
+      "next": "下一張"
+    },
+    "share": {
+      "fallbackTitle": "看看這則動態",
+      "success": "分享成功!",
+      "copied": "連結已複製到剪貼簿!",
+      "failed": "複製連結失敗"
+    },
+    "create": {
+      "header": "建立動態",
+      "titlePlaceholder": "新增標題...",
+      "addToMoment": "新增至動態",
+      "addPhotos": "新增圖片",
+      "addMood": "新增心情",
+      "addLocation": "新增位置",
+      "addTags": "新增標籤",
+      "tagPlaceholder": "新增標籤..."
     }
   },
   "createMoment": {
@@ -444,6 +509,51 @@
     },
     "buttons": {
       "clearFilters": "清除所有篩選"
+    },
+    "subnav": {
+      "allMembers": "全部成員",
+      "nearby": "附近",
+      "topics": "話題",
+      "searchPlaceholder": "尋找成員或話題",
+      "filtersLabel": "篩選",
+      "filtersWithCount": "篩選 ({{count}}個已啟用)"
+    },
+    "filterSheet": {
+      "title": "篩選",
+      "language": "語言",
+      "any": "全部",
+      "gender": "性別",
+      "male": "男",
+      "female": "女",
+      "other": "其他",
+      "ageRange": "年齡範圍",
+      "min": "最小",
+      "max": "最大",
+      "experience": "成員體驗",
+      "onlineNow": "目前線上",
+      "newMembersOnly": "僅新成員 (最近7天)",
+      "reset": "重設",
+      "apply": "套用"
+    },
+    "highlighted": {
+      "title": "精選個人檔案",
+      "proBadge": "Pro",
+      "tryPro": "試用 BananaTalk Pro",
+      "highlightSelfTopic": "讓您的個人檔案被更多人看見"
+    },
+    "visitors": {
+      "justYou": "{{name}}造訪了您的個人檔案!",
+      "andOthers": "{{name}}和其他{{count}}位使用者造訪了您的個人檔案!",
+      "seeAll": "查看全部"
+    },
+    "tandemCard": {
+      "newChip": "新",
+      "defaultTopic": "一起練習吧!"
+    },
+    "languageChip": {
+      "fluent": "流利",
+      "learns": "學習中",
+      "native": "母語"
     }
   },
   "communityDetail": {
@@ -504,6 +614,10 @@
       "speaks": "會說",
       "learning": "正在學習",
       "notSpecified": "未指定"
+    },
+    "suggested": {
+      "title": "更多像 {{name}} 這樣的成員",
+      "seeAll": "查看全部成員"
     }
   },
   "communityDetailSection": {

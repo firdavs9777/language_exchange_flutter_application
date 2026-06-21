@@ -134,25 +134,63 @@ class PronunciationResult {
   });
 
   factory PronunciationResult.fromJson(Map<String, dynamic> json) {
+    // Backend returns score as a nested object { overall, accuracy, fluency,
+    // completeness, wordScores }; history records use flat fields.
+    final scoreObj = json['score'] is Map
+        ? json['score'] as Map<String, dynamic>
+        : null;
+
+    int _int(dynamic v) => (v as num?)?.toInt() ?? 0;
+
+    // Feedback may be a nested object { summary, improvements, strengths }
+    // or a plain string (older history records).
+    final feedbackRaw = json['feedback'];
+    final feedbackStr = feedbackRaw is Map
+        ? (feedbackRaw['summary']?.toString() ?? '')
+        : feedbackRaw?.toString() ?? '';
+
+    final improvementsRaw = feedbackRaw is Map
+        ? feedbackRaw['improvements']
+        : null;
+    final suggestionsRaw = json['suggestions'];
+
     return PronunciationResult(
-      id: json['_id']?.toString() ?? json['id']?.toString() ?? '',
+      id: json['attemptId']?.toString() ??
+          json['_id']?.toString() ??
+          json['id']?.toString() ??
+          '',
       targetText: json['targetText']?.toString() ?? '',
-      transcribedText: json['transcribedText']?.toString() ?? json['transcription']?.toString() ?? '',
+      transcribedText: json['transcribedText']?.toString() ??
+          json['transcription']?.toString() ??
+          '',
       language: json['language']?.toString() ?? '',
-      overallScore: json['overallScore'] ?? json['score'] ?? 0,
-      accuracyScore: json['accuracyScore'] ?? json['accuracy'] ?? 0,
-      fluencyScore: json['fluencyScore'] ?? json['fluency'] ?? 0,
-      completenessScore: json['completenessScore'] ?? json['completeness'] ?? 0,
-      words: (json['words'] as List<dynamic>?)
-              ?.map((e) => WordPronunciation.fromJson(e))
+      overallScore: scoreObj != null
+          ? _int(scoreObj['overall'])
+          : _int(json['overallScore'] ?? json['score']),
+      accuracyScore: scoreObj != null
+          ? _int(scoreObj['accuracy'])
+          : _int(json['accuracyScore'] ?? json['accuracy']),
+      fluencyScore: scoreObj != null
+          ? _int(scoreObj['fluency'])
+          : _int(json['fluencyScore'] ?? json['fluency']),
+      completenessScore: scoreObj != null
+          ? _int(scoreObj['completeness'])
+          : _int(json['completenessScore'] ?? json['completeness']),
+      words: ((scoreObj?['wordScores'] ?? json['words']) as List<dynamic>?)
+              ?.map((e) => WordPronunciation.fromJson(e as Map<String, dynamic>))
               .toList() ??
           [],
-      feedback: json['feedback']?.toString() ?? '',
-      suggestions: (json['suggestions'] as List<dynamic>?)
-              ?.map((e) => e.toString())
-              .toList() ??
+      feedback: feedbackStr,
+      suggestions: (improvementsRaw as List<dynamic>? ??
+              suggestionsRaw as List<dynamic>?)
+          ?.map((e) => e.toString())
+          .toList() ??
           [],
-      source: json['source']?.toString() ?? 'practice',
+      source: json['source']?.toString() ??
+          (json['context'] is Map
+              ? (json['context'] as Map)['source']?.toString()
+              : null) ??
+          'practice',
       vocabularyId: json['vocabularyId']?.toString(),
       createdAt: json['createdAt'] != null
           ? DateTime.tryParse(json['createdAt'].toString()) ?? DateTime.now()

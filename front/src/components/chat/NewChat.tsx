@@ -12,7 +12,6 @@ import {
   ArrowLeft,
   Search,
   MessageCircle,
-  Users,
   Clock,
   Loader2,
   UserPlus,
@@ -40,8 +39,6 @@ const NewChat: React.FC = () => {
   const navigate = useNavigate();
 
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedUsers, setSelectedUsers] = useState<User[]>([]);
-  const [isGroupChat, setIsGroupChat] = useState(false);
 
   const trimmedQuery = searchQuery.trim();
   const searchByUsername = isUsernameQuery(trimmedQuery);
@@ -84,51 +81,36 @@ const NewChat: React.FC = () => {
   const hasQuery = searchByName || searchByUsername || searchById;
 
   const handleSelectUser = (user: User) => {
-    if (isGroupChat) {
-      setSelectedUsers((prev) =>
-        prev.find((u) => u._id === user._id)
-          ? prev.filter((u) => u._id !== user._id)
-          : [...prev, user]
-      );
-    } else {
-      handleCreateChat([user]);
-    }
+    handleCreateChat(user);
   };
 
-  const handleCreateChat = async (users: User[]) => {
+  const handleCreateChat = async (user: User) => {
     try {
-      // Backend expects { userId: string } for 1-on-1 chat
-      const targetUserId = users[0]._id;
-      const result = await createChatRoom(targetUserId).unwrap();
+      // Backend expects { userId: string } for 1-on-1 chat. Group chat isn't
+      // implemented server-side (isGroupMessage:false everywhere) so we never
+      // try to bundle multiple users into one createChatRoom call.
+      const result = await createChatRoom(user._id).unwrap();
 
       const chatId = result?.data?._id;
       if (chatId) {
         navigate(`/chat/${chatId}`);
       } else {
-        // Navigate to chat with the user directly
-        navigate(`/chat/${targetUserId}`);
+        // Fall back to navigating with the user id; ChatContent fetches by id.
+        navigate(`/chat/${user._id}`);
       }
-    } catch (error) {
-      toast.error(t("newChat.createError") || "Failed to create chat", {
+    } catch (error: any) {
+      const message =
+        error?.data?.error ||
+        error?.data?.message ||
+        t("newChat.createError") ||
+        "Failed to create chat";
+      toast.error(message, {
         position: "top-right",
         autoClose: 3000,
-        theme: "dark",
+        theme: "colored",
         transition: Bounce,
       });
     }
-  };
-
-  const handleCreateGroupChat = () => {
-    if (selectedUsers.length < 2) {
-      toast.error(t("newChat.selectMoreUsers") || "Select at least 2 users for group chat", {
-        position: "top-right",
-        autoClose: 3000,
-        theme: "dark",
-        transition: Bounce,
-      });
-      return;
-    }
-    handleCreateChat(selectedUsers);
   };
 
   const formatLastSeen = (lastSeen?: string) => {
@@ -136,12 +118,20 @@ const NewChat: React.FC = () => {
     const date = new Date(lastSeen);
     const now = new Date();
     const diff = now.getTime() - date.getTime();
+    const minutes = Math.floor(diff / (1000 * 60));
     const hours = Math.floor(diff / (1000 * 60 * 60));
     const days = Math.floor(hours / 24);
 
-    if (days > 0) return `${days}d ago`;
-    if (hours > 0) return `${hours}h ago`;
-    return t("newChat.recently") || "Recently";
+    if (days > 0) {
+      return t("chatPage.daysAgo", { count: days }) || `${days}d ago`;
+    }
+    if (hours > 0) {
+      return t("chatPage.hoursAgo", { count: hours }) || `${hours}h ago`;
+    }
+    if (minutes > 0) {
+      return t("chatPage.minutesAgo", { count: minutes }) || `${minutes}m ago`;
+    }
+    return t("chatPage.justNow") || t("newChat.recently") || "Just now";
   };
 
   // Search mode indicator
@@ -174,34 +164,8 @@ const NewChat: React.FC = () => {
           </div>
         </div>
 
-        {/* Chat Type Toggle */}
-        <div className="flex gap-2 bg-white/20 p-1 rounded-xl mb-4">
-          <button
-            onClick={() => {
-              setIsGroupChat(false);
-              setSelectedUsers([]);
-            }}
-            className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg font-medium transition-colors ${
-              !isGroupChat
-                ? "bg-white text-teal-600"
-                : "text-white/70 hover:text-white"
-            }`}
-          >
-            <MessageCircle className="w-5 h-5" />
-            {t("newChat.directMessage") || "Direct"}
-          </button>
-          <button
-            onClick={() => setIsGroupChat(true)}
-            className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg font-medium transition-colors ${
-              isGroupChat
-                ? "bg-white text-teal-600"
-                : "text-white/70 hover:text-white"
-            }`}
-          >
-            <Users className="w-5 h-5" />
-            {t("newChat.groupChat") || "Group"}
-          </button>
-        </div>
+        {/* Group chat toggle removed — backend createConversationRoom only
+            supports 1-on-1 conversations (isGroupMessage:false). */}
 
         {/* Search */}
         <div className="relative">
@@ -223,37 +187,6 @@ const NewChat: React.FC = () => {
           </div>
         )}
       </div>
-
-      {/* Selected Users for Group Chat */}
-      {isGroupChat && selectedUsers.length > 0 && (
-        <div className="px-4 py-3 bg-white border-b">
-          <div className="flex items-center gap-2 overflow-x-auto pb-2">
-            {selectedUsers.map((user) => (
-              <button
-                key={user._id}
-                onClick={() => handleSelectUser(user)}
-                className="flex-shrink-0 flex items-center gap-2 pl-1 pr-3 py-1 bg-teal-100 text-teal-700 rounded-full"
-              >
-                <div className="w-6 h-6 rounded-full bg-teal-500 overflow-hidden">
-                  {user.imageUrls?.[0] ? (
-                    <img
-                      src={user.imageUrls[0]}
-                      alt={user.name}
-                      className="w-full h-full object-cover"
-                    />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center text-white text-xs">
-                      {user.name?.[0]}
-                    </div>
-                  )}
-                </div>
-                <span className="text-sm font-medium">{user.name}</span>
-                <span className="text-teal-500">×</span>
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
 
       {/* Content */}
       <div className="px-4 py-6 max-w-2xl mx-auto">
@@ -298,99 +231,59 @@ const NewChat: React.FC = () => {
           </div>
         ) : (
           <div className="space-y-2">
-            {searchResults.map((user) => {
-              const isSelected = selectedUsers.find((u) => u._id === user._id);
-
-              return (
-                <button
-                  key={user._id}
-                  onClick={() => handleSelectUser(user)}
-                  disabled={isCreating}
-                  className={`w-full flex items-center gap-4 p-4 rounded-xl border transition-all disabled:opacity-50 ${
-                    isSelected
-                      ? "bg-teal-50 border-teal-300"
-                      : "bg-white/60 backdrop-blur-sm border-white/30 hover:bg-white/80"
-                  }`}
-                >
-                  <div className="relative">
-                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-teal-400 to-blue-500 overflow-hidden">
-                      {user.imageUrls?.[0] ? (
-                        <img
-                          src={user.imageUrls[0]}
-                          alt={user.name}
-                          className="w-full h-full object-cover"
-                        />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center text-white text-lg font-bold">
-                          {user.name?.[0]}
-                        </div>
-                      )}
-                    </div>
-                    {user.isOnline && (
-                      <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white rounded-full" />
+            {searchResults.map((user) => (
+              <button
+                key={user._id}
+                onClick={() => handleSelectUser(user)}
+                disabled={isCreating}
+                className="w-full flex items-center gap-4 p-4 rounded-xl border bg-white/60 backdrop-blur-sm border-white/30 hover:bg-white/80 transition-all disabled:opacity-50"
+              >
+                <div className="relative">
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-teal-400 to-blue-500 overflow-hidden">
+                    {user.imageUrls?.[0] ? (
+                      <img
+                        src={user.imageUrls[0]}
+                        alt={user.name}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-white text-lg font-bold">
+                        {user.name?.[0]}
+                      </div>
                     )}
                   </div>
-
-                  <div className="flex-1 text-left">
-                    <h3 className="font-semibold text-gray-800">{user.name}</h3>
-                    {user.username && (
-                      <p className="text-xs text-teal-500 font-medium">@{user.username}</p>
-                    )}
-                    <p className="text-sm text-gray-500 flex items-center gap-1">
-                      {user.isOnline ? (
-                        <span className="text-green-500">{t("chatPage.online") || "Online"}</span>
-                      ) : user.lastSeen ? (
-                        <>
-                          <Clock className="w-3 h-3" />
-                          {formatLastSeen(user.lastSeen)}
-                        </>
-                      ) : null}
-                    </p>
-                  </div>
-
-                  {isGroupChat && (
-                    <div
-                      className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-colors ${
-                        isSelected
-                          ? "bg-teal-500 border-teal-500 text-white"
-                          : "border-gray-300"
-                      }`}
-                    >
-                      {isSelected && <span className="text-sm">✓</span>}
-                    </div>
+                  {user.isOnline && (
+                    <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white rounded-full" />
                   )}
+                </div>
 
-                  {!isGroupChat && (
-                    <MessageCircle className="w-5 h-5 text-teal-500" />
+                <div className="flex-1 text-left">
+                  <h3 className="font-semibold text-gray-800">{user.name}</h3>
+                  {user.username && (
+                    <p className="text-xs text-teal-500 font-medium">@{user.username}</p>
                   )}
-                </button>
-              );
-            })}
+                  <p className="text-sm text-gray-500 flex items-center gap-1">
+                    {user.isOnline ? (
+                      <span className="text-green-500">{t("chatPage.online") || "Online"}</span>
+                    ) : user.lastSeen ? (
+                      <>
+                        <Clock className="w-3 h-3" />
+                        {formatLastSeen(user.lastSeen)}
+                      </>
+                    ) : null}
+                  </p>
+                </div>
+
+                {isCreating ? (
+                  <Loader2 className="w-5 h-5 text-teal-500 animate-spin" />
+                ) : (
+                  <MessageCircle className="w-5 h-5 text-teal-500" />
+                )}
+              </button>
+            ))}
           </div>
         )}
       </div>
-
-      {/* Group Chat Create Button */}
-      {isGroupChat && selectedUsers.length > 0 && (
-        <div className="fixed bottom-0 left-0 right-0 p-4 bg-white border-t">
-          <div className="max-w-2xl mx-auto">
-            <button
-              onClick={handleCreateGroupChat}
-              disabled={isCreating || selectedUsers.length < 2}
-              className="w-full flex items-center justify-center gap-2 py-4 bg-gradient-to-r from-teal-500 to-blue-500 text-white rounded-xl font-semibold hover:shadow-lg transition-all disabled:opacity-50"
-            >
-              {isCreating ? (
-                <Loader2 className="w-5 h-5 animate-spin" />
-              ) : (
-                <>
-                  <Users className="w-5 h-5" />
-                  {t("newChat.createGroup") || "Create Group"} ({selectedUsers.length})
-                </>
-              )}
-            </button>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
