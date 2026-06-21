@@ -326,11 +326,13 @@ class _TextMessageViewState extends State<TextMessageView> {
     // gives inner detectors priority — the inner handler swallowed every
     // long-press and the KakaoTalk-style menu never appeared. Whole-message
     // save still reachable via the menu's Save Phrase action.
+    // NOTE: _textKey is owned by LinkifiedText below (for word hit-testing
+    // when per-word save was still enabled). Don't reuse it on the outer
+    // Container — Flutter throws "Multiple widgets used the same GlobalKey"
+    // since the same key would live in two places in the tree.
     return GestureDetector(
       onLongPress: widget.onLongPress,
-      child: Container(
-        key: _textKey,
-        child: Column(
+      child: Column(
           crossAxisAlignment:
               widget.isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
           children: [
@@ -447,7 +449,6 @@ class _TextMessageViewState extends State<TextMessageView> {
             ),
           ],
         ),
-      ),
     );
   }
 }
