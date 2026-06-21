@@ -22,6 +22,7 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/widgets/app_shell_drawer.dart';
 import 'package:bananatalk_app/pages/stories/create/create_story_screen.dart';
+import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
 
 const String _momentFilterKey = 'moment_filter';
 
@@ -216,10 +217,8 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
                     AppLocalizations.of(context)!.moments,
                     style: context.displaySmall,
                   ),
-                  if (isVip) ...[
-                    const SizedBox(width: 8),
-                    _buildVipBadge(),
-                  ],
+                  const SizedBox(width: 8),
+                  isVip ? _buildVipBadge() : _buildGoVipChip(context),
                 ],
               ),
         actions: [
@@ -389,6 +388,58 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
               ),
             );
           },
+        ),
+      ),
+    );
+  }
+
+  /// "Go VIP" chip shown to non-VIP users next to the Moments title.
+  /// Tappable → opens the VIP plans screen.
+  Widget _buildGoVipChip(BuildContext context) {
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: () => Navigator.of(context).push(
+          AppPageRoute(builder: (_) => const VipPlansScreen()),
+        ),
+        borderRadius: BorderRadius.circular(10),
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(
+              colors: [Color(0xFFFFD700), Color(0xFFFFA500)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: [
+              BoxShadow(
+                color: const Color(0xFFFFD700).withValues(alpha: 0.35),
+                blurRadius: 6,
+                offset: const Offset(0, 2),
+              ),
+            ],
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Icon(Icons.workspace_premium,
+                  size: 11, color: Colors.white),
+              const SizedBox(width: 3),
+              Text(
+                AppLocalizations.of(context)!.filterVipPromoCta,
+                style: const TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w800,
+                  color: Colors.white,
+                  letterSpacing: 0.3,
+                ),
+              ),
+              const SizedBox(width: 2),
+              const Icon(Icons.arrow_forward_rounded,
+                  size: 11, color: Colors.white),
+            ],
+          ),
         ),
       ),
     );
