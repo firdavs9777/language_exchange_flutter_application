@@ -7,11 +7,16 @@ class MessageContextMenuItem {
   final String label;
   final VoidCallback onTap;
   final bool isDestructive;
+  /// Optional override for the row's accent color. Used to make the
+  /// language-learning power actions (Correct / Translate / Save Phrase)
+  /// pop visually instead of all blending into the same default grey.
+  final Color? accentColor;
 
   const MessageContextMenuItem({
     required this.icon,
     required this.label,
     required this.onTap,
     this.isDestructive = false,
+    this.accentColor,
   });
 }

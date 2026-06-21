@@ -703,6 +703,9 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
       menuItems.add(MessageContextMenuItem(
         icon: Icons.spellcheck_rounded,
         label: AppLocalizations.of(context)!.chatMessageCorrect,
+        // Orange — flags this as the "language-learning correction" action,
+        // matches the quick-actions sheet styling.
+        accentColor: const Color(0xFFFB923C),
         onTap: () {
           _hideReactionPicker();
           showCorrectionBottomSheet(
@@ -719,6 +722,8 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
       menuItems.add(MessageContextMenuItem(
         icon: Icons.translate_rounded,
         label: AppLocalizations.of(context)!.chatMessageTranslate,
+        // Primary purple — the brand's translate accent.
+        accentColor: AppColors.primary,
         onTap: () {
           _hideReactionPicker();
           _showTranslation(context);
@@ -728,8 +733,12 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
 
     if (hasText && widget.message.type == 'text') {
       menuItems.add(MessageContextMenuItem(
-        icon: Icons.bookmark_add_outlined,
+        // Filled star → unambiguous "save / favorite" affordance vs the
+        // outlined bookmark icon (which read more like "page marker").
+        icon: Icons.star_rounded,
         label: AppLocalizations.of(context)!.chatMessageSavePhrase,
+        // Gold amber — matches the VIP / save-vocab visual identity.
+        accentColor: const Color(0xFFF59E0B),
         onTap: () {
           _hideReactionPicker();
           _saveMessageToVocab(context);
@@ -886,11 +895,18 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: menuItems.map((item) {
-                    final color = item.isDestructive
+                    // Default label color (greyscale). Accent items override
+                    // the icon + iconBg with their own color but keep the
+                    // label readable so the row still scans like a list.
+                    final labelColor = item.isDestructive
                         ? AppColors.error
                         : (isDark
                             ? AppColors.gray200
                             : AppColors.gray900);
+                    final iconColor = item.isDestructive
+                        ? AppColors.error
+                        : (item.accentColor ?? labelColor);
+                    final hasAccent = item.accentColor != null;
                     return InkWell(
                       onTap: () {
                         HapticFeedback.lightImpact();
@@ -899,18 +915,34 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
                       child: Container(
                         height: itemHeight,
                         padding:
-                            const EdgeInsets.symmetric(horizontal: 18),
+                            const EdgeInsets.symmetric(horizontal: 16),
                         child: Row(
                           children: [
-                            Icon(item.icon, size: 20, color: color),
-                            const SizedBox(width: 14),
+                            // Filled circular icon chip — makes the
+                            // language-learning actions pop without
+                            // crowding the row.
+                            Container(
+                              width: 30,
+                              height: 30,
+                              decoration: BoxDecoration(
+                                color: hasAccent
+                                    ? iconColor.withValues(alpha: 0.14)
+                                    : Colors.transparent,
+                                shape: BoxShape.circle,
+                              ),
+                              child: Icon(item.icon,
+                                  size: 18, color: iconColor),
+                            ),
+                            const SizedBox(width: 12),
                             Expanded(
                               child: Text(
                                 item.label,
                                 style: TextStyle(
                                   fontSize: 15,
-                                  fontWeight: FontWeight.w500,
-                                  color: color,
+                                  fontWeight: hasAccent
+                                      ? FontWeight.w600
+                                      : FontWeight.w500,
+                                  color: hasAccent ? iconColor : labelColor,
                                 ),
                               ),
                             ),
