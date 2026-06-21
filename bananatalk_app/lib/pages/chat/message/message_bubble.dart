@@ -33,6 +33,7 @@ class ChatMessageBubble extends ConsumerStatefulWidget {
   final bool isMe;
   final String otherUserName;
   final String? otherUserPicture;
+  final String? otherUserNativeLanguage;
   final Function(Message)? onDelete;
   final Function(Message)? onEdit;
   final Function(Message)? onReply;
@@ -55,6 +56,7 @@ class ChatMessageBubble extends ConsumerStatefulWidget {
     required this.isMe,
     required this.otherUserName,
     this.otherUserPicture,
+    this.otherUserNativeLanguage,
     this.onDelete,
     this.onEdit,
     this.onReply,
@@ -1030,14 +1032,25 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
                   ?.call(widget.message, !widget.isSelected);
             }
           : () => _showContextMenu(context),
-      onDoubleTap:
-          widget.isSelectionMode ? null : () => _showContextMenu(context),
+      // Double tap → quick ❤️ reaction (Telegram / iMessage pattern).
+      // Toggle: if the user already reacted with ❤️ it's removed, otherwise
+      // added. The full picker stays one long-press away.
+      onDoubleTap: widget.isSelectionMode
+          ? null
+          : () {
+              HapticFeedback.lightImpact();
+              _handleReactionTap('❤️');
+            },
+      // Single tap is intentionally a near no-op: dismisses the floating
+      // reaction picker if it's open, or toggles selection in select-mode.
+      // Reading a message shouldn't pop UI on every accidental thumb tap —
+      // reactions move to double-tap, full menu to long-press.
       onTap: widget.isSelectionMode
           ? () {
               widget.onSelectionChanged
                   ?.call(widget.message, !widget.isSelected);
             }
-          : () => _showReactionPicker(context),
+          : _hideReactionPicker,
       child: Stack(
         clipBehavior: Clip.none,
         children: [
@@ -1126,6 +1139,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
                               profilePicture: widget.otherUserPicture,
                               userName: widget.otherUserName,
                               radius: 18,
+                              nativeLanguage: widget.otherUserNativeLanguage,
                             ),
                           )
                         else
