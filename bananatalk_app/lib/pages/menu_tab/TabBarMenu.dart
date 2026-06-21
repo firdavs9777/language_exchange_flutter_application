@@ -17,6 +17,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+/// Global tab-selection state shared between [TabsScreen] and any surface
+/// (drawer, deep-link handler, modal) that needs to switch tabs without
+/// fighting go_router's page-reuse rules. Reading this provider rebuilds
+/// the consumer when the selected tab changes; writing it is what every
+/// "go to tab N" entry point should do.
+final selectedTabProvider = StateProvider<int>((ref) => 0);
+
 class TabsScreen extends ConsumerStatefulWidget {
   /// Default to AI Study tab (index 0).
   /// Tab order: AI Study (0) / Community (1) / Chats (2) / Moments (3) / Profile (4).
@@ -29,14 +36,18 @@ class TabsScreen extends ConsumerStatefulWidget {
 }
 
 class _TabsScreenState extends ConsumerState<TabsScreen> {
-  late int _selectedPageIndex;
-
   late final List<Widget> _pages;
 
   @override
   void initState() {
     super.initState();
-    _selectedPageIndex = widget.initialIndex;
+    // Seed the global provider so deep links into /tabs/:index still land
+    // on the right tab. Defer to a post-frame callback because writing to
+    // a StateProvider during build / initState would throw.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      ref.read(selectedTabProvider.notifier).state = widget.initialIndex;
+    });
     _pages = [
       const LearningMain(),
       const CommunityMain(),
@@ -64,16 +75,14 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
   @override
   void didUpdateWidget(TabsScreen oldWidget) {
     super.didUpdateWidget(oldWidget);
-    // The chat-list drawer (and any other surface that calls
-    // `context.go('/tabs/N')`) navigates to the same `/tabs/:index` route
-    // pattern with a different param. go_router reuses the existing Page
-    // for matching patterns, so initState doesn't fire — the only signal
-    // we get is widget.initialIndex changing. Sync selected tab manually
-    // so the cross-tab shortcuts actually switch tabs.
-    if (oldWidget.initialIndex != widget.initialIndex &&
-        widget.initialIndex != _selectedPageIndex) {
-      setState(() => _selectedPageIndex = widget.initialIndex);
-      _tabRefreshNotifier.value++;
+    // Deep links via go_router (`/tabs/:index`) reuse this page rather than
+    // create a fresh one, so initState doesn't re-run. Forward the new
+    // initialIndex to the provider so the tab actually switches.
+    if (oldWidget.initialIndex != widget.initialIndex) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!mounted) return;
+        ref.read(selectedTabProvider.notifier).state = widget.initialIndex;
+      });
     }
   }
 
@@ -95,9 +104,7 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
       ref.read(badgeCountProvider.notifier).fetchBadgeCount();
     }
 
-    setState(() {
-      _selectedPageIndex = index;
-    });
+    ref.read(selectedTabProvider.notifier).state = index;
 
     // Notify the selected tab to refresh
     _tabRefreshNotifier.value++;
@@ -107,6 +114,7 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
   Widget build(BuildContext context) {
     final badgeCount = ref.watch(badgeCountProvider);
     final messageCount = badgeCount.messages;
+    final selectedPageIndex = ref.watch(selectedTabProvider);
     final isDark = context.isDarkMode;
     final bottomPadding = MediaQuery.of(context).padding.bottom;
 
@@ -119,7 +127,7 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
             // pages while crossfading smoothly on tab switch.
             Stack(
               children: List.generate(_pages.length, (index) {
-                final isSelected = index == _selectedPageIndex;
+                final isSelected = index == selectedPageIndex;
                 return AnimatedOpacity(
                   opacity: isSelected ? 1.0 : 0.0,
                   duration: const Duration(milliseconds: 200),
@@ -229,7 +237,7 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
     required bool isDark,
     int badgeCount = 0,
   }) {
-    final isSelected = _selectedPageIndex == index;
+    final isSelected = ref.watch(selectedTabProvider) == index;
 
     // Each tab gets a unique accent color when active
     final Color activeColor = _getTabColor(index);

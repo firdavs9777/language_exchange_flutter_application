@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/pages/menu_tab/TabBarMenu.dart';
 import 'package:bananatalk_app/pages/profile/edit_main/edit_main.dart';
 import 'package:bananatalk_app/pages/settings/blocked_users_screen.dart';
 import 'package:bananatalk_app/pages/settings/language_settings_screen.dart';
@@ -100,7 +100,7 @@ class AppShellDrawer extends ConsumerWidget {
             AppShellDrawerItem(
               icon: Icons.person_outline_rounded,
               label: l10n.profile,
-              onTap: () => _switchTab(context, 4),
+              onTap: () => _switchTab(context,4),
             ),
             AppShellDrawerItem(
               icon: Icons.edit_outlined,
@@ -164,25 +164,25 @@ class AppShellDrawer extends ConsumerWidget {
               AppShellDrawerItem(
                 icon: Icons.school_rounded,
                 label: l10n.studyHub,
-                onTap: () => _switchTab(context, 0),
+                onTap: () => _switchTab(context,0),
               ),
             if (currentTabIndex != 1)
               AppShellDrawerItem(
                 icon: Icons.people_alt_rounded,
                 label: l10n.community,
-                onTap: () => _switchTab(context, 1),
+                onTap: () => _switchTab(context,1),
               ),
             if (currentTabIndex != 2)
               AppShellDrawerItem(
                 icon: Icons.chat_bubble_outline_rounded,
                 label: l10n.chats,
-                onTap: () => _switchTab(context, 2),
+                onTap: () => _switchTab(context,2),
               ),
             if (currentTabIndex != 3)
               AppShellDrawerItem(
                 icon: Icons.photo_library_outlined,
                 label: l10n.moments,
-                onTap: () => _switchTab(context, 3),
+                onTap: () => _switchTab(context,3),
               ),
 
             Divider(color: colors.outline.withValues(alpha: 0.2), height: 1),
@@ -230,16 +230,17 @@ class AppShellDrawer extends ConsumerWidget {
   }
 }
 
-/// Switch the bottom-nav tab from a drawer item.
-///
-/// Order matters: closing the drawer via `Navigator.pop` synchronously
-/// disposes the drawer's widget subtree, so any `context.go(...)` issued
-/// after the pop reads from a stale Element and silently no-ops. We cache
-/// the router first, then pop, then navigate.
+/// Switch the bottom-nav tab from a drawer item by writing to the global
+/// [selectedTabProvider]. Capturing the ProviderContainer first so the
+/// write survives the drawer's synchronous Navigator.pop tear-down.
 void _switchTab(BuildContext context, int index) {
-  final router = GoRouter.of(context);
+  // Capture the ProviderContainer before closing the drawer — after
+  // Navigator.pop the drawer's `ref` is disposed and any read against it
+  // throws "Cannot use ref after the widget was disposed". The container
+  // outlives the drawer.
+  final container = ProviderScope.containerOf(context);
   Navigator.pop(context);
-  router.go('/tabs/$index');
+  container.read(selectedTabProvider.notifier).state = index;
 }
 
 class AppShellDrawerItem extends StatelessWidget {
