@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:bananatalk_app/widgets/app_shell_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -181,6 +182,7 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
 
     return Scaffold(
       backgroundColor: colorScheme.surface,
+      drawer: const AppShellDrawer(currentTabIndex: 1),
       appBar: CommunityAppBar(
         isSearching: _isSearching,
         onSearchToggle: _toggleSearch,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/widgets/vip_up_pill.dart';
 import 'package:go_router/go_router.dart';
 
 /// AppBar for the Community screen.
@@ -28,10 +29,18 @@ class CommunityAppBar extends StatelessWidget implements PreferredSizeWidget {
     final colorScheme = Theme.of(context).colorScheme;
 
     return AppBar(
-      automaticallyImplyLeading: false,
       backgroundColor: colorScheme.surface,
       surfaceTintColor: Colors.transparent,
       elevation: 0,
+      // Hamburger opens the shared app-shell drawer (mounted on Scaffold by
+      // community_main.dart). Builder needed so the IconButton's context
+      // can find the Scaffold above it.
+      leading: Builder(
+        builder: (ctx) => IconButton(
+          icon: Icon(Icons.menu_rounded, color: context.textPrimary),
+          onPressed: () => Scaffold.of(ctx).openDrawer(),
+        ),
+      ),
       title: isSearching
           ? null
           : Text(
@@ -42,13 +51,25 @@ class CommunityAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
             ),
       actions: [
-        // Smart Match button
-        IconButton(
-          onPressed: () => context.push('/matching'),
-          icon: Icon(Icons.auto_awesome_rounded, color: AppColors.primary),
-          tooltip: AppLocalizations.of(context)!.findPartners,
+        // VIP upgrade entry — same gold pill used in the chat list.
+        const VipUpPill(),
+        // Smart Match — soft primary-tinted pill to signal the AI feature.
+        Container(
+          margin: const EdgeInsets.symmetric(vertical: 8),
+          decoration: BoxDecoration(
+            color: AppColors.primary.withValues(alpha: 0.12),
+            borderRadius: AppRadius.borderMD,
+          ),
+          child: IconButton(
+            onPressed: () => context.push('/matching'),
+            icon: const Icon(
+              Icons.auto_awesome_rounded,
+              color: AppColors.primary,
+            ),
+            tooltip: AppLocalizations.of(context)!.findPartners,
+          ),
         ),
-        // Search toggle button
+        // Search toggle — bare neutral, lowest weight.
         IconButton(
           onPressed: onSearchToggle,
           icon: Icon(
@@ -56,7 +77,7 @@ class CommunityAppBar extends StatelessWidget implements PreferredSizeWidget {
             color: context.textPrimary,
           ),
         ),
-        // Filter button
+        // Filter — filled-primary pill, highest weight (most-used action).
         Container(
           margin: const EdgeInsets.only(right: Spacing.sm),
           decoration: BoxDecoration(

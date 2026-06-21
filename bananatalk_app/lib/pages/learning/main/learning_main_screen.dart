@@ -5,6 +5,7 @@ import 'package:bananatalk_app/pages/learning/leaderboard/leaderboard_screen.dar
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
+import 'package:bananatalk_app/widgets/app_shell_drawer.dart';
 import 'package:bananatalk_app/pages/learning/main/sections/learn_tab.dart';
 import 'package:bananatalk_app/pages/learning/main/sections/ai_tools_tab.dart';
 import 'package:bananatalk_app/pages/learning/animations/streak_milestone_celebration.dart';
@@ -12,6 +13,7 @@ import 'package:bananatalk_app/pages/learning/animations/achievement_unlock_over
 import 'package:bananatalk_app/pages/learning/animations/level_up_sequence.dart';
 import 'package:bananatalk_app/providers/provider_root/learning/progress_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/learning/achievements_providers.dart';
+import 'package:bananatalk_app/widgets/vip_up_pill.dart';
 
 /// Unified Study Hub — composes the Learn tab and AI Tools tab.
 class LearningMain extends ConsumerStatefulWidget {
@@ -107,6 +109,7 @@ class _LearningMainState extends ConsumerState<LearningMain>
 
     return Scaffold(
       backgroundColor: context.scaffoldBackground,
+      drawer: const AppShellDrawer(currentTabIndex: 0),
       body: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) => [
           SliverAppBar(
@@ -130,9 +133,21 @@ class _LearningMainState extends ConsumerState<LearningMain>
                 child: SafeArea(
                   bottom: false,
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 4, 20, 48),
+                    padding: const EdgeInsets.fromLTRB(8, 4, 20, 48),
                     child: Row(
                       children: [
+                        // Hamburger opens the shared app-shell drawer
+                        // (mounted on Scaffold below). Builder needed so the
+                        // IconButton's context resolves to the Scaffold.
+                        Builder(
+                          builder: (ctx) => IconButton(
+                            icon: const Icon(
+                              Icons.menu_rounded,
+                              color: Colors.white,
+                            ),
+                            onPressed: () => Scaffold.of(ctx).openDrawer(),
+                          ),
+                        ),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -225,6 +240,11 @@ class _LearningMainState extends ConsumerState<LearningMain>
   Widget _buildHeaderActions(BuildContext context) {
     return Row(
       children: [
+        // VIP upgrade entry — passes onLight: false because the AI Study
+        // header sits on a purple gradient, so the "Up" badge needs a
+        // white border to read cleanly.
+        const VipUpPill(onLight: false),
+        const SizedBox(width: 4),
         _HeaderIconButton(
           icon: Icons.leaderboard_rounded,
           onTap: () => Navigator.push(
