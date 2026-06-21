@@ -1360,9 +1360,11 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
                       ),
                     ),
 
-                  // Single sparkle trigger under partner text messages — opens
-                  // the quick-actions sheet (Correct / Translate / Save phrase).
-                  // Active translation is signalled by a tiny dot on the icon.
+                  // Quick-actions trigger under partner text messages —
+                  // opens the Correct / Translate / Save Phrase sheet.
+                  // The previous 14 px sparkle at 0.65 alpha was too faint
+                  // to read against the chat wallpaper; now a tinted pill
+                  // with the sparkle + label so it scans as a real button.
                   if (!widget.isMe &&
                       !widget.message.isDeleted &&
                       widget.message.type == 'text' &&
@@ -1370,16 +1372,26 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
                       widget.message.message!.isNotEmpty &&
                       !widget.isSelectionMode) ...[
                     Padding(
-                      padding: const EdgeInsets.only(top: 2, left: 48),
+                      padding: const EdgeInsets.only(top: 4, left: 48),
                       child: Material(
                         color: Colors.transparent,
                         child: InkWell(
-                          borderRadius: BorderRadius.circular(14),
+                          borderRadius: BorderRadius.circular(20),
                           onTap: () => _showQuickActionsSheet(context),
-                          child: Padding(
-                            padding: const EdgeInsets.all(4),
-                            child: Stack(
-                              clipBehavior: Clip.none,
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 5),
+                            decoration: BoxDecoration(
+                              color: AppColors.primary.withValues(alpha: 0.12),
+                              borderRadius: BorderRadius.circular(20),
+                              border: Border.all(
+                                color:
+                                    AppColors.primary.withValues(alpha: 0.30),
+                                width: 0.8,
+                              ),
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
                               children: [
                                 if (_inlineTranslating)
                                   const SizedBox(
@@ -1392,28 +1404,40 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
                                     ),
                                   )
                                 else
-                                  Icon(
-                                    Icons.auto_awesome_outlined,
-                                    size: 14,
-                                    color: AppColors.primary.withValues(
-                                        alpha: _inlineTranslation != null
-                                            ? 1.0
-                                            : 0.65),
-                                  ),
-                                if (_inlineTranslation != null &&
-                                    !_inlineTranslating)
-                                  Positioned(
-                                    right: -1,
-                                    top: -1,
-                                    child: Container(
-                                      width: 6,
-                                      height: 6,
-                                      decoration: const BoxDecoration(
+                                  Stack(
+                                    clipBehavior: Clip.none,
+                                    children: [
+                                      const Icon(
+                                        Icons.auto_awesome_rounded,
+                                        size: 14,
                                         color: AppColors.primary,
-                                        shape: BoxShape.circle,
                                       ),
-                                    ),
+                                      if (_inlineTranslation != null)
+                                        Positioned(
+                                          right: -2,
+                                          top: -2,
+                                          child: Container(
+                                            width: 6,
+                                            height: 6,
+                                            decoration: const BoxDecoration(
+                                              color: AppColors.primary,
+                                              shape: BoxShape.circle,
+                                            ),
+                                          ),
+                                        ),
+                                    ],
                                   ),
+                                const SizedBox(width: 6),
+                                Text(
+                                  AppLocalizations.of(context)!
+                                      .chatMessageTranslate,
+                                  style: const TextStyle(
+                                    fontSize: 11,
+                                    fontWeight: FontWeight.w700,
+                                    color: AppColors.primary,
+                                    letterSpacing: 0.2,
+                                  ),
+                                ),
                               ],
                             ),
                           ),
