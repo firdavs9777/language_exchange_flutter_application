@@ -39,6 +39,7 @@ import 'package:bananatalk_app/pages/chat/conversation/conversation_input_area.d
 import 'package:bananatalk_app/pages/chat/conversation/handlers/message_action_handlers.dart';
 import 'package:bananatalk_app/pages/chat/conversation/sections/conversation_scroll_helpers.dart';
 import 'package:bananatalk_app/pages/chat/conversation/sections/conversation_setup.dart';
+import 'package:bananatalk_app/utils/haptic_utils.dart';
 
 class ChatScreen extends ConsumerStatefulWidget {
   final String userId;
@@ -73,6 +74,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
   Timer? _typingTimer;
   bool _showMediaPanel = false;
   bool _showStickerPanel = false;
+  bool _showPhrasesPanel = false;
   String? _chatWallpaper;
   bool _isSelectionMode = false;
   Set<String> _selectedMessageIds = {};
@@ -95,6 +97,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
 
   late AnimationController _mediaPanelController;
   late AnimationController _stickerPanelController;
+  late AnimationController _phrasesPanelController;
 
   // Store notifier references for safe access in dispose
   ChatPartnersNotifier? _chatPartnersNotifier;
@@ -238,6 +241,10 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       vsync: this,
     );
     _stickerPanelController = AnimationController(
+      duration: const Duration(milliseconds: 300),
+      vsync: this,
+    );
+    _phrasesPanelController = AnimationController(
       duration: const Duration(milliseconds: 300),
       vsync: this,
     );
@@ -519,6 +526,10 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         _showStickerPanel = false;
         _stickerPanelController.reverse();
       }
+      if (_showPhrasesPanel) {
+        _showPhrasesPanel = false;
+        _phrasesPanelController.reverse();
+      }
       _showMediaPanel = !_showMediaPanel;
       if (_showMediaPanel) {
         FocusScope.of(context).unfocus();
@@ -535,6 +546,10 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         _showMediaPanel = false;
         _mediaPanelController.reverse();
       }
+      if (_showPhrasesPanel) {
+        _showPhrasesPanel = false;
+        _phrasesPanelController.reverse();
+      }
       _showStickerPanel = !_showStickerPanel;
       if (_showStickerPanel) {
         FocusScope.of(context).unfocus();
@@ -543,6 +558,41 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         _stickerPanelController.reverse();
       }
     });
+  }
+
+  void _togglePhrasesPanel() {
+    setState(() {
+      if (_showMediaPanel) {
+        _showMediaPanel = false;
+        _mediaPanelController.reverse();
+      }
+      if (_showStickerPanel) {
+        _showStickerPanel = false;
+        _stickerPanelController.reverse();
+      }
+      _showPhrasesPanel = !_showPhrasesPanel;
+      if (_showPhrasesPanel) {
+        FocusScope.of(context).unfocus();
+        _phrasesPanelController.forward();
+      } else {
+        _phrasesPanelController.reverse();
+      }
+    });
+  }
+
+  void _insertPhrase(String phrase) {
+    final controller = _messageController;
+    final existing = controller.text;
+    final separator =
+        existing.isEmpty || existing.endsWith(' ') || existing.endsWith('\n')
+            ? ''
+            : ' ';
+    final next = existing + separator + phrase;
+    controller.text = next;
+    controller.selection = TextSelection.fromPosition(
+      TextPosition(offset: next.length),
+    );
+    HapticUtils.lightImpact();
   }
 
   void _hidePanels() {
@@ -554,6 +604,10 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     if (_showStickerPanel) {
       setState(() => _showStickerPanel = false);
       _stickerPanelController.reverse();
+    }
+    if (_showPhrasesPanel) {
+      setState(() => _showPhrasesPanel = false);
+      _phrasesPanelController.reverse();
     }
   }
 
@@ -1543,6 +1597,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     _scrollController.dispose();
     _mediaPanelController.dispose();
     _stickerPanelController.dispose();
+    _phrasesPanelController.dispose();
     super.dispose();
   }
 
@@ -1667,16 +1722,20 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                   isSending: _isSending,
                   showMediaPanel: _showMediaPanel,
                   showStickerPanel: _showStickerPanel,
+                  showPhrasesPanel: _showPhrasesPanel,
                   mediaPanelController: _mediaPanelController,
                   stickerPanelController: _stickerPanelController,
+                  phrasesPanelController: _phrasesPanelController,
                   onSendMessage: _sendMessage,
                   onSelectSticker: _selectSticker,
                   onSendGif: (gifUrl) {
                     _hidePanels();
                     _sendMessage(messageText: gifUrl, messageType: 'gif');
                   },
+                  onInsertPhrase: _insertPhrase,
                   onToggleMediaPanel: _toggleMediaPanel,
                   onToggleStickerPanel: _toggleStickerPanel,
+                  onTogglePhrasesPanel: _togglePhrasesPanel,
                   onTyping: _onTyping,
                   onStopTyping: _stopTyping,
                   onHidePanels: _hidePanels,

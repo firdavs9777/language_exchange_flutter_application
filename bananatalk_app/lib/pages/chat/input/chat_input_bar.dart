@@ -21,9 +21,11 @@ class ChatInputBar extends ConsumerStatefulWidget {
   final bool isSending;
   final bool showMediaPanel;
   final bool showStickerPanel;
+  final bool showPhrasesPanel;
   final Function({String? messageText, String? messageType}) onSendMessage;
   final VoidCallback onToggleMediaPanel;
   final VoidCallback onToggleStickerPanel;
+  final VoidCallback onTogglePhrasesPanel;
   final VoidCallback onTyping;
   final VoidCallback onStopTyping;
   final VoidCallback onHidePanels;
@@ -46,9 +48,11 @@ class ChatInputBar extends ConsumerStatefulWidget {
     required this.isSending,
     required this.showMediaPanel,
     required this.showStickerPanel,
+    this.showPhrasesPanel = false,
     required this.onSendMessage,
     required this.onToggleMediaPanel,
     required this.onToggleStickerPanel,
+    required this.onTogglePhrasesPanel,
     required this.onTyping,
     required this.onStopTyping,
     required this.onHidePanels,
@@ -224,6 +228,7 @@ class _ChatInputBarState extends ConsumerState<ChatInputBar>
                 ),
                 _buildEmojiButton(isDark),
                 _buildTranslateButton(isDark),
+                _buildPhrasesButton(isDark),
               ],
             ),
           ],
@@ -405,6 +410,28 @@ class _ChatInputBarState extends ConsumerState<ChatInputBar>
           isActive ? Icons.keyboard_rounded : Icons.emoji_emotions_rounded,
           color: tint,
           size: 24,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPhrasesButton(bool isDark) {
+    const tint = Color(0xFF8B5CF6); // HelloTalk-style purple speech bubble
+    final isActive = widget.showPhrasesPanel;
+    return GestureDetector(
+      onTap: widget.onTogglePhrasesPanel,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        width: 44,
+        height: 44,
+        decoration: BoxDecoration(
+          color: tint.withValues(alpha: isActive ? 0.22 : (isDark ? 0.14 : 0.08)),
+          borderRadius: BorderRadius.circular(14),
+        ),
+        child: Icon(
+          isActive ? Icons.keyboard_rounded : Icons.chat_bubble_rounded,
+          color: tint,
+          size: isActive ? 24 : 22,
         ),
       ),
     );

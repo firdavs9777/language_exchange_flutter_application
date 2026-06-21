@@ -20,13 +20,17 @@ class ConversationInputArea extends StatelessWidget {
   final bool isSending;
   final bool showMediaPanel;
   final bool showStickerPanel;
+  final bool showPhrasesPanel;
   final AnimationController mediaPanelController;
   final AnimationController stickerPanelController;
+  final AnimationController phrasesPanelController;
   final Function({String? messageText, String? messageType}) onSendMessage;
   final Function(String) onSelectSticker;
   final Function(String gifUrl)? onSendGif;
+  final Function(String phrase) onInsertPhrase;
   final VoidCallback onToggleMediaPanel;
   final VoidCallback onToggleStickerPanel;
+  final VoidCallback onTogglePhrasesPanel;
   final VoidCallback onTyping;
   final VoidCallback onStopTyping;
   final VoidCallback onHidePanels;
@@ -46,13 +50,17 @@ class ConversationInputArea extends StatelessWidget {
     required this.isSending,
     required this.showMediaPanel,
     required this.showStickerPanel,
+    this.showPhrasesPanel = false,
     required this.mediaPanelController,
     required this.stickerPanelController,
+    required this.phrasesPanelController,
     required this.onSendMessage,
     required this.onSelectSticker,
     this.onSendGif,
+    required this.onInsertPhrase,
     required this.onToggleMediaPanel,
     required this.onToggleStickerPanel,
+    required this.onTogglePhrasesPanel,
     required this.onTyping,
     required this.onStopTyping,
     required this.onHidePanels,
@@ -77,13 +85,17 @@ class ConversationInputArea extends StatelessWidget {
       isSending: isSending,
       showMediaPanel: showMediaPanel,
       showStickerPanel: showStickerPanel,
+      showPhrasesPanel: showPhrasesPanel,
       mediaPanelController: mediaPanelController,
       stickerPanelController: stickerPanelController,
+      phrasesPanelController: phrasesPanelController,
       onSendMessage: onSendMessage,
       onSelectSticker: onSelectSticker,
       onSendGif: onSendGif,
+      onInsertPhrase: onInsertPhrase,
       onToggleMediaPanel: onToggleMediaPanel,
       onToggleStickerPanel: onToggleStickerPanel,
+      onTogglePhrasesPanel: onTogglePhrasesPanel,
       onTyping: onTyping,
       onStopTyping: onStopTyping,
       onHidePanels: onHidePanels,

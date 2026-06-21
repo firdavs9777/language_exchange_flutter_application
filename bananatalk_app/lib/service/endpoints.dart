@@ -17,6 +17,7 @@ class Endpoints {
   static String usersURL = "auth/users";
   static String languagesURL = "languages";
   static String appConfigURL = "app-config";
+  static const String chatPhrasesURL = "users/chat-phrases";
   static String countriesURL = "https://restcountries.com/v3.1/all";
   static const String facebookMobileLoginURL =
       'auth/facebook-mobile'; // Add this line
