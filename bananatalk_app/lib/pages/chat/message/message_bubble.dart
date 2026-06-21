@@ -812,10 +812,10 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
         (menuItems.length * itemHeight) + (menuPaddingV * 2);
     const menuWidth = 220.0;
 
-    // Layout strategy — keep reaction picker and action menu on OPPOSITE
-    // sides of the bubble so they never overlap. Pick the side per pane
-    // based on available space; if both can't fit on their preferred side
-    // they swap (menu above, reactions below).
+    // Fixed stack: action menu on top, reaction picker directly below it,
+    // always. The pair anchors below the bubble; if there isn't enough
+    // vertical room, the whole pair flips above the bubble together, so
+    // the menu → reactions order never changes from the user's point of view.
     double reactionX;
     if (widget.isMe) {
       reactionX = (position.dx + size.width - reactionPickerWidth)
@@ -832,40 +832,19 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
       menuX = position.dx.clamp(8.0, screenSize.width - menuWidth - 8);
     }
 
-    final spaceAbove = position.dy - 60;
+    final pairHeight =
+        menuHeight + reactionGap + reactionPickerHeight + menuGap;
     final spaceBelow = screenSize.height - (position.dy + size.height) - 40;
-    final menuFitsBelow = menuHeight + menuGap <= spaceBelow;
-    final reactionFitsAbove =
-        reactionPickerHeight + reactionGap <= spaceAbove;
-
-    final double reactionY;
-    final double menuY;
-    if (menuFitsBelow && reactionFitsAbove) {
-      // Ideal: reactions above, menu below.
-      reactionY = position.dy - reactionPickerHeight - reactionGap;
+    double menuY;
+    if (pairHeight <= spaceBelow) {
+      // Default — pair sits right below the bubble.
       menuY = position.dy + size.height + menuGap;
-    } else if (!menuFitsBelow && reactionFitsAbove) {
-      // No room below — menu above, reactions even higher.
-      menuY = (position.dy - menuHeight - menuGap)
-          .clamp(40.0, screenSize.height - menuHeight - 40);
-      reactionY = (menuY - reactionPickerHeight - reactionGap)
-          .clamp(40.0, screenSize.height - reactionPickerHeight - 40);
-    } else if (menuFitsBelow && !reactionFitsAbove) {
-      // No room above — reactions below the menu.
-      menuY = position.dy + size.height + menuGap;
-      reactionY = (menuY + menuHeight + reactionGap)
-          .clamp(40.0, screenSize.height - reactionPickerHeight - 40);
     } else {
-      // Neither side fits comfortably — center the pair vertically and let
-      // the menu sit above the reactions (most-used items closest to thumb).
-      menuY = ((screenSize.height -
-                  menuHeight -
-                  reactionGap -
-                  reactionPickerHeight) /
-              2)
-          .clamp(40.0, screenSize.height - menuHeight - 40);
-      reactionY = menuY + menuHeight + reactionGap;
+      // Not enough room below — flip the whole pair above the bubble.
+      menuY = (position.dy - pairHeight)
+          .clamp(40.0, screenSize.height - pairHeight - 40);
     }
+    final reactionY = menuY + menuHeight + reactionGap;
 
     _reactionPickerOverlay = OverlayEntry(
       builder: (ctx) => Stack(
