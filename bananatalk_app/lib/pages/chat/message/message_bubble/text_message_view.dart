@@ -9,6 +9,7 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/widgets/linkified_text.dart';
 import 'package:bananatalk_app/pages/chat/widgets/chat_snackbar.dart';
+// ignore: unused_import
 import 'package:bananatalk_app/pages/chat/message/bubble/word_long_press_handler.dart';
 import 'package:any_link_preview/any_link_preview.dart';
 import 'package:bananatalk_app/pages/chat/message/message_bubble/reply_preview.dart';
@@ -318,15 +319,17 @@ class _TextMessageViewState extends State<TextMessageView> {
       );
     }
 
-    // Standard text bubble — wrap with WordLongPressHandler to enable
-    // per-word long-press → save to vocabulary.  The outer GestureDetector
-    // (onLongPress: widget.onLongPress) handles the message-level context
-    // menu; WordLongPressHandler intercepts long-press-start to detect words.
+    // Standard text bubble. Long-press routes straight to the bubble's
+    // message-level context menu (Reactions + Reply / Translate / Save
+    // Phrase / etc). The per-word "save to vocabulary" inner detector
+    // (WordLongPressHandler) was disabled because Flutter's gesture arena
+    // gives inner detectors priority — the inner handler swallowed every
+    // long-press and the KakaoTalk-style menu never appeared. Whole-message
+    // save still reachable via the menu's Save Phrase action.
     return GestureDetector(
       onLongPress: widget.onLongPress,
-      child: WordLongPressHandler(
-        text: text,
-        textKey: _textKey,
+      child: Container(
+        key: _textKey,
         child: Column(
           crossAxisAlignment:
               widget.isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
