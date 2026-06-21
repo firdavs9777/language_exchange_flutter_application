@@ -1042,6 +1042,68 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
     );
   }
 
+  // ---------- Quick-actions chip ----------
+
+  /// Small circular chip rendered to the right of partner text bubbles.
+  /// Tap opens the Correct / Translate / Save Phrase sheet. The sparkle
+  /// icon gets a dot overlay when an inline translation is cached.
+  Widget _buildQuickActionsChip(BuildContext context) {
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(14),
+        onTap: () => _showQuickActionsSheet(context),
+        child: Container(
+          width: 28,
+          height: 28,
+          decoration: BoxDecoration(
+            color: AppColors.primary.withValues(alpha: 0.12),
+            shape: BoxShape.circle,
+            border: Border.all(
+              color: AppColors.primary.withValues(alpha: 0.35),
+              width: 0.8,
+            ),
+          ),
+          alignment: Alignment.center,
+          child: _inlineTranslating
+              ? const SizedBox(
+                  width: 14,
+                  height: 14,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 1.5,
+                    valueColor:
+                        AlwaysStoppedAnimation(AppColors.primary),
+                  ),
+                )
+              : Stack(
+                  clipBehavior: Clip.none,
+                  alignment: Alignment.center,
+                  children: [
+                    const Icon(
+                      Icons.auto_awesome_rounded,
+                      size: 16,
+                      color: AppColors.primary,
+                    ),
+                    if (_inlineTranslation != null)
+                      Positioned(
+                        right: -2,
+                        top: -2,
+                        child: Container(
+                          width: 6,
+                          height: 6,
+                          decoration: const BoxDecoration(
+                            color: AppColors.primary,
+                            shape: BoxShape.circle,
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
+        ),
+      ),
+    );
+  }
+
   // ---------- Message content dispatcher ----------
 
   Widget _buildMessageContent(Message msg) {
@@ -1326,6 +1388,21 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
                         ),
                       ),
 
+                      // Quick-actions trigger — small circular chip attached
+                      // to the right side of partner text bubbles. Opens
+                      // Correct / Translate / Save Phrase. Position keeps it
+                      // close to the message instead of taking its own row.
+                      if (!widget.isMe &&
+                          !widget.message.isDeleted &&
+                          widget.message.type == 'text' &&
+                          widget.message.message != null &&
+                          widget.message.message!.isNotEmpty &&
+                          !widget.isSelectionMode)
+                        Padding(
+                          padding: const EdgeInsets.only(left: 6, bottom: 2),
+                          child: _buildQuickActionsChip(context),
+                        ),
+
                       // Timestamp (right of other user's messages)
                       if (!widget.isMe &&
                           !widget.isSelectionMode &&
@@ -1360,91 +1437,13 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
                       ),
                     ),
 
-                  // Quick-actions trigger under partner text messages —
-                  // opens the Correct / Translate / Save Phrase sheet.
-                  // The previous 14 px sparkle at 0.65 alpha was too faint
-                  // to read against the chat wallpaper; now a tinted pill
-                  // with the sparkle + label so it scans as a real button.
+                  // Inline translation panel — shown only after a successful fetch.
                   if (!widget.isMe &&
                       !widget.message.isDeleted &&
                       widget.message.type == 'text' &&
                       widget.message.message != null &&
                       widget.message.message!.isNotEmpty &&
                       !widget.isSelectionMode) ...[
-                    Padding(
-                      padding: const EdgeInsets.only(top: 4, left: 48),
-                      child: Material(
-                        color: Colors.transparent,
-                        child: InkWell(
-                          borderRadius: BorderRadius.circular(20),
-                          onTap: () => _showQuickActionsSheet(context),
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 5),
-                            decoration: BoxDecoration(
-                              color: AppColors.primary.withValues(alpha: 0.12),
-                              borderRadius: BorderRadius.circular(20),
-                              border: Border.all(
-                                color:
-                                    AppColors.primary.withValues(alpha: 0.30),
-                                width: 0.8,
-                              ),
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                if (_inlineTranslating)
-                                  const SizedBox(
-                                    width: 14,
-                                    height: 14,
-                                    child: CircularProgressIndicator(
-                                      strokeWidth: 1.5,
-                                      valueColor: AlwaysStoppedAnimation(
-                                          AppColors.primary),
-                                    ),
-                                  )
-                                else
-                                  Stack(
-                                    clipBehavior: Clip.none,
-                                    children: [
-                                      const Icon(
-                                        Icons.auto_awesome_rounded,
-                                        size: 14,
-                                        color: AppColors.primary,
-                                      ),
-                                      if (_inlineTranslation != null)
-                                        Positioned(
-                                          right: -2,
-                                          top: -2,
-                                          child: Container(
-                                            width: 6,
-                                            height: 6,
-                                            decoration: const BoxDecoration(
-                                              color: AppColors.primary,
-                                              shape: BoxShape.circle,
-                                            ),
-                                          ),
-                                        ),
-                                    ],
-                                  ),
-                                const SizedBox(width: 6),
-                                Text(
-                                  AppLocalizations.of(context)!
-                                      .chatMessageTranslate,
-                                  style: const TextStyle(
-                                    fontSize: 11,
-                                    fontWeight: FontWeight.w700,
-                                    color: AppColors.primary,
-                                    letterSpacing: 0.2,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    // Inline translation panel — shown only after a successful fetch.
                     if (_inlineTranslation != null)
                       Padding(
                         padding: const EdgeInsets.only(
