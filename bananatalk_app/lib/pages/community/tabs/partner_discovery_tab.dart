@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+// ignore: unused_import
 import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
@@ -717,15 +718,8 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
           // VisitorRecallCard collapses to zero height when there are no
           // visitors, so it scrolls away with the list and never pins the top.
           if (index == 0) {
-            return const Column(
-              children: [
-                VisitorRecallCard(),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  child: BannerAdWidget(),
-                ),
-              ],
-            );
+            // Ad banner temporarily hidden — re-enable once AdMob issues resolved.
+            return const VisitorRecallCard();
           }
 
           final realIndex = index - 1;
@@ -744,7 +738,6 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
             currentUser: currentUser is Community ? currentUser : null,
             onTap: () => _viewProfile(community),
             onWave: () => _onWaveFromButton(community),
-            onMessage: () => _onMessage(community),
           );
 
           // Animate each user in once, not on every rebuild.
@@ -1143,8 +1136,13 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
             ),
             Spacing.gapXXL,
             ElevatedButton.icon(
-              onPressed: () =>
-                  ref.read(partnerFilterProvider.notifier).refresh(),
+              onPressed: () {
+                // Invalidate userProvider so the FutureProvider re-fetches
+                // the current user (fixes retry when userProvider errored).
+                ref.invalidate(userProvider);
+                // Also reset the partner list state.
+                ref.read(partnerFilterProvider.notifier).refresh();
+              },
               icon: const Icon(Icons.refresh_rounded),
               label: Text(l10n.retry),
               style: ElevatedButton.styleFrom(

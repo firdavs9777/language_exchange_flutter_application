@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/models/community/topic_model.dart';
+// ignore: unused_import
 import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
@@ -89,11 +90,11 @@ class _TopicsTabState extends ConsumerState<TopicsTab> {
       children: [
         // Category tabs
         _buildCategoryTabs(),
-        // Ad banner
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          child: SmallBannerAdWidget(),
-        ),
+        // Ad banner temporarily hidden — re-enable once AdMob issues resolved.
+        // const Padding(
+        //   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        //   child: SmallBannerAdWidget(),
+        // ),
         // Topics grid or user list
         Expanded(
           child: _selectedTopicId != null

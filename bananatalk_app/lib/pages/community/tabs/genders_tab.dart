@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+// ignore: unused_import
 import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
@@ -230,6 +231,11 @@ class _GendersTabState extends ConsumerState<GendersTab> {
   }
 
   Future<void> _refresh() async {
+    final userState = ref.read(userProvider);
+    if (userState.hasError) {
+      ref.invalidate(userProvider);
+      try { await ref.read(userProvider.future); } catch (_) {}
+    }
     setState(() {
       _users = [];
       _currentPage = 1;
@@ -270,13 +276,12 @@ class _GendersTabState extends ConsumerState<GendersTab> {
         // VIP promo banner for non-VIP users — disabled while VIP gating is off.
         // ignore: dead_code
         if (!isVip) _buildVipPromoBanner(),
-        // Ad banner for non-VIP — disabled while VIP gating is off.
-        if (!isVip)
-          // ignore: dead_code
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-            child: SmallBannerAdWidget(),
-          ),
+        // Ad banner temporarily hidden — re-enable once AdMob issues resolved.
+        // if (!isVip)
+        //   const Padding(
+        //     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+        //     child: SmallBannerAdWidget(),
+        //   ),
         Expanded(
           child: RefreshIndicator(
             onRefresh: _refresh,

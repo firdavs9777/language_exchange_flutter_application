@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+// ignore: unused_import
 import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
@@ -267,13 +268,13 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
               delay: 80.ms,
             ),
           ),
-          // Ad banner
-          const SliverToBoxAdapter(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: SmallBannerAdWidget(),
-            ),
-          ),
+          // Ad banner temporarily hidden — re-enable once AdMob issues resolved.
+          // const SliverToBoxAdapter(
+          //   child: Padding(
+          //     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          //     child: SmallBannerAdWidget(),
+          //   ),
+          // ),
           // Skeleton during initial fetch (no users yet)
           if (_nearbyUsers.isEmpty && _isLoadingMore)
             const SliverToBoxAdapter(
