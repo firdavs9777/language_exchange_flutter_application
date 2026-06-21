@@ -101,55 +101,79 @@ class ReactionPicker extends StatelessWidget {
     this.currentReactions,
   }) : super(key: key);
 
+  /// Reaction set shown in the floating picker. Tuned to cover the common
+  /// chat emotions (positive / negative / surprise / agreement / language-
+  /// learning praise) without becoming a full keyboard — the row scrolls
+  /// horizontally on narrow screens so any count fits.
   static const List<String> defaultEmojis = [
-    '👍',
-    '❤️',
-    '😂',
-    '😮',
-    '😢',
-    '🙏',
+    '👍', // like
+    '❤️', // love
+    '😂', // laugh
+    '🤣', // rolling
+    '😮', // wow
+    '😢', // sad
+    '😡', // angry
+    '🙏', // thanks
+    '👏', // clap
+    '🔥', // fire
+    '🎉', // celebrate
+    '💯', // hundred
+    '😍', // heart eyes
+    '🤔', // thinking
+    '😎', // cool
+    '👎', // dislike
   ];
 
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    
+
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+      constraints: BoxConstraints(
+        maxWidth: MediaQuery.of(context).size.width - 24,
+      ),
       decoration: BoxDecoration(
         color: colorScheme.surface,
-        borderRadius: BorderRadius.circular(24),
+        borderRadius: BorderRadius.circular(28),
         boxShadow: [
           BoxShadow(
-            color: colorScheme.shadow.withOpacity(0.1),
-            blurRadius: 8,
+            color: colorScheme.shadow.withOpacity(0.12),
+            blurRadius: 10,
             offset: const Offset(0, 2),
           ),
         ],
       ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: defaultEmojis.map((emoji) {
-          final isSelected = currentReactions?.contains(emoji) ?? false;
-          return GestureDetector(
-            onTap: () {
-              HapticUtils.onLike();
-              onEmojiSelected(emoji);
-            },
-            child: Container(
-              padding: const EdgeInsets.all(8),
-              child: Text(
-                emoji,
-                style: TextStyle(
-                  fontSize: 24,
-                  color: isSelected 
-                      ? Colors.grey.withOpacity(0.5)
-                      : null,
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        physics: const BouncingScrollPhysics(),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: defaultEmojis.map((emoji) {
+            final isSelected = currentReactions?.contains(emoji) ?? false;
+            return GestureDetector(
+              onTap: () {
+                HapticUtils.onLike();
+                onEmojiSelected(emoji);
+              },
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 150),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 6, vertical: 6),
+                decoration: BoxDecoration(
+                  color: isSelected
+                      ? colorScheme.primary.withOpacity(0.15)
+                      : Colors.transparent,
+                  borderRadius: BorderRadius.circular(18),
+                ),
+                child: Text(
+                  emoji,
+                  style: const TextStyle(fontSize: 24),
                 ),
               ),
-            ),
-          );
-        }).toList(),
+            );
+          }).toList(),
+        ),
       ),
     );
   }

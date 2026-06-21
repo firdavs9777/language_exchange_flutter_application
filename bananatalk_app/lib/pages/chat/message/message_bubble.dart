@@ -791,7 +791,10 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
     // picker just above the bubble, and stack the action list just below.
     // Both share one overlay so a single backdrop-tap dismisses everything.
     const reactionPickerHeight = 56.0;
-    const reactionPickerWidth = 260.0;
+    // Picker spans most of the screen width — the internal Row scrolls
+    // horizontally past the first few emojis so the full 16-reaction set
+    // is reachable on any screen size.
+    final reactionPickerWidth = screenSize.width - 32;
     const reactionGap = 10.0;
     const itemHeight = 48.0;
     const menuPaddingV = 8.0;
