@@ -1,9 +1,7 @@
 import 'dart:async';
 import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
-import 'package:bananatalk_app/pages/chat/conversation/chat_conversation_screen.dart';
 import 'package:bananatalk_app/pages/notifications/notification_history_screen.dart';
 import 'package:bananatalk_app/providers/provider_root/message_provider.dart';
-import 'package:bananatalk_app/providers/provider_root/user_limits_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/badge_count_provider.dart';
 import 'package:bananatalk_app/services/chat_socket_service.dart';
@@ -19,7 +17,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/providers/provider_models/message_model.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/services/conversation_service.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
@@ -31,6 +28,10 @@ import 'package:bananatalk_app/pages/chat/list/chat_list_filter_tabs.dart';
 import 'package:bananatalk_app/pages/chat/list/chat_list_empty_state.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:bananatalk_app/pages/chat/list/list_socket_handlers.dart';
+import 'package:bananatalk_app/widgets/vip_up_pill.dart';
+import 'package:bananatalk_app/services/notification_service.dart';
+import 'package:bananatalk_app/widgets/app_shell_drawer.dart';
+import 'package:app_settings/app_settings.dart';
 
 class ChatMain extends ConsumerStatefulWidget {
   final ValueNotifier<int>? tabRefreshNotifier;
@@ -55,7 +56,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
   bool _isRefreshing = false;
   String _error = '';
   String _searchQuery = '';
-  String _chatFilter = 'all'; // 'all', 'unread', 'online'
+  String _chatFilter = 'all'; // 'all', 'unread', 'online', 'myTurn'
   List<ChatPartner> _chatPartners = [];
   String? _currentUserId;
   String? _activeUserId;
@@ -84,18 +85,31 @@ class _ChatMainState extends ConsumerState<ChatMain>
   // Track locally deleted conversations (workaround until backend filters)
   final Set<String> _deletedConversationIds = {};
 
+  /// True while we haven't yet confirmed notification permission status.
+  /// Default true so the banner doesn't flash in on first build before the
+  /// async check resolves.
+  bool _notifPermGranted = true;
+  bool _notifBannerDismissed = false;
+
   @override
   void initState() {
     super.initState();
     _initializeAnimations();
     _fetchMessages();
     _subscribeToSocketEvents();
+    _checkNotifPermission();
 
     // Add observer for app lifecycle
     WidgetsBinding.instance.addObserver(this);
 
     // Listen for tab switches to silently refresh
     widget.tabRefreshNotifier?.addListener(_onTabRefresh);
+  }
+
+  Future<void> _checkNotifPermission() async {
+    final granted = await NotificationService().hasPermission();
+    if (!mounted) return;
+    setState(() => _notifPermGranted = granted);
   }
 
   void _onTabRefresh() {
@@ -490,6 +504,8 @@ class _ChatMainState extends ConsumerState<ChatMain>
         isPinned: data.isPinned,
         isMuted: data.isMuted,
         conversationId: data.conversationId,
+        nativeLanguage: data.nativeLanguage,
+        lastMessageSenderId: data.lastMessage?.senderId,
       );
     }).toList();
 
@@ -567,6 +583,10 @@ class _ChatMainState extends ConsumerState<ChatMain>
             status: statusDisplay,
             lastSeen: lastSeen,
             isVip: otherUser.isVip,
+            nativeLanguage: otherUser.native_language.isNotEmpty
+                ? otherUser.native_language
+                : null,
+            lastMessageSenderId: message.sender.id,
           );
         } else {
           final shouldUpdateMessage =
@@ -585,6 +605,9 @@ class _ChatMainState extends ConsumerState<ChatMain>
                 : existingPartner.lastMessageTime,
             status: statusDisplay,
             lastSeen: lastSeen,
+            lastMessageSenderId: shouldUpdateMessage
+                ? message.sender.id
+                : existingPartner.lastMessageSenderId,
           );
         }
       } catch (e) {}
@@ -658,6 +681,16 @@ class _ChatMainState extends ConsumerState<ChatMain>
       result = result.where((p) => p.unreadCount > 0).toList();
     } else if (_chatFilter == 'online') {
       result = result.where((p) => _isUserOnline(p)).toList();
+    } else if (_chatFilter == 'myTurn') {
+      // "My turn" = the partner sent the last message, so the user owes a
+      // reply. Threads with unknown sender or where the user sent last are
+      // excluded.
+      result = result.where((p) {
+        final sender = p.lastMessageSenderId;
+        return sender != null &&
+            sender.isNotEmpty &&
+            sender != _currentUserId;
+      }).toList();
     }
 
     if (_searchQuery.trim().isNotEmpty) {
@@ -684,11 +717,19 @@ class _ChatMainState extends ConsumerState<ChatMain>
   }
 
   Future<void> _forceRefresh() async {
+    // Heal a broken userProvider first — this repopulates SharedPreferences
+    // with the correct userId via auth/me before we read it below.
+    final userState = ref.read(userProvider);
+    if (userState.hasError) {
+      ref.invalidate(userProvider);
+      try { await ref.read(userProvider.future); } catch (_) {}
+    }
+
     final prefs = await SharedPreferences.getInstance();
     final newUserId = prefs.getString('userId');
     final newToken = prefs.getString('token');
 
-    if (newUserId == null || newToken == null) {
+    if (newUserId == null || newToken == null || newUserId == '{}') {
       if (mounted) {
         setState(() {
           _error = 'Please login again';
@@ -1186,11 +1227,28 @@ class _ChatMainState extends ConsumerState<ChatMain>
 
     return Scaffold(
       backgroundColor: colors.background,
+      drawer: const AppShellDrawer(currentTabIndex: 2),
 
       // ─── App Bar ──────────────────────────────────────────────────────────
       appBar: AppBar(
         backgroundColor: colors.background,
         elevation: 0,
+        // Custom leading: hamburger + VIP-Up pill side by side, mirroring
+        // the HelloTalk layout (menu icon + VIP pill, then title).
+        leadingWidth: 110,
+        leading: Builder(
+          builder: (ctx) => Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              IconButton(
+                icon: Icon(Icons.menu_rounded, color: colors.onBackground),
+                tooltip: AppLocalizations.of(context)!.chatListMenu,
+                onPressed: () => Scaffold.of(ctx).openDrawer(),
+              ),
+              const VipUpPill(),
+            ],
+          ),
+        ),
         title: Text(
           AppLocalizations.of(context)!.chats,
           style: TextStyle(
@@ -1345,6 +1403,13 @@ class _ChatMainState extends ConsumerState<ChatMain>
                         color: colors.primary,
                         child: Column(
                           children: [
+                            if (!_notifPermGranted && !_notifBannerDismissed)
+                              _NotifPermissionBanner(
+                                onTap: () => AppSettings.openAppSettings(),
+                                onDismiss: () => setState(
+                                  () => _notifBannerDismissed = true,
+                                ),
+                              ),
                             ChatListSearchBar(
                               controller: _searchController,
                               focusNode: _searchFocusNode,
@@ -1386,3 +1451,82 @@ class _ChatMainState extends ConsumerState<ChatMain>
     );
   }
 }
+
+/// Lavender notifications-permission nudge. Renders above the chat list when
+/// push notifications aren't authorized. Tap → opens app settings; × → hides
+/// for this session.
+class _NotifPermissionBanner extends StatelessWidget {
+  const _NotifPermissionBanner({required this.onTap, required this.onDismiss});
+
+  final VoidCallback onTap;
+  final VoidCallback onDismiss;
+
+  @override
+  Widget build(BuildContext context) {
+    const purple = Color(0xFF7B61FF);
+    final bg = purple.withValues(alpha: 0.10);
+
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 8, 16, 4),
+      child: Material(
+        color: bg,
+        borderRadius: BorderRadius.circular(14),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(14),
+          onTap: onTap,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+            child: Row(
+              children: [
+                const Icon(
+                  Icons.notifications_active_rounded,
+                  color: purple,
+                  size: 24,
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        AppLocalizations.of(context)!
+                            .chatListNewMessageAlertsTitle,
+                        style: const TextStyle(
+                          color: purple,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      const SizedBox(height: 2),
+                      Text(
+                        AppLocalizations.of(context)!
+                            .chatListNewMessageAlertsBody,
+                        style: const TextStyle(
+                          color: purple,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                IconButton(
+                  visualDensity: VisualDensity.compact,
+                  padding: EdgeInsets.zero,
+                  constraints: const BoxConstraints(
+                    minWidth: 32,
+                    minHeight: 32,
+                  ),
+                  icon: const Icon(Icons.close_rounded, color: purple, size: 20),
+                  onPressed: onDismiss,
+                  tooltip: AppLocalizations.of(context)!.dismiss,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+

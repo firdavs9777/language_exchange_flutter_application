@@ -61,6 +61,22 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
     });
   }
 
+  @override
+  void didUpdateWidget(TabsScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // The chat-list drawer (and any other surface that calls
+    // `context.go('/tabs/N')`) navigates to the same `/tabs/:index` route
+    // pattern with a different param. go_router reuses the existing Page
+    // for matching patterns, so initState doesn't fire — the only signal
+    // we get is widget.initialIndex changing. Sync selected tab manually
+    // so the cross-tab shortcuts actually switch tabs.
+    if (oldWidget.initialIndex != widget.initialIndex &&
+        widget.initialIndex != _selectedPageIndex) {
+      setState(() => _selectedPageIndex = widget.initialIndex);
+      _tabRefreshNotifier.value++;
+    }
+  }
+
   // Notifiers for each tab to trigger silent refresh
   final ValueNotifier<int> _tabRefreshNotifier = ValueNotifier(0);
 

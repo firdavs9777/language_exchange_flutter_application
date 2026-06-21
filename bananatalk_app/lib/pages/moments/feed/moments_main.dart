@@ -20,6 +20,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
+import 'package:bananatalk_app/widgets/app_shell_drawer.dart';
+import 'package:bananatalk_app/pages/stories/create/create_story_screen.dart';
 
 const String _momentFilterKey = 'moment_filter';
 
@@ -136,6 +138,12 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
 
   Future<void> _refresh() async {
     HapticUtils.onRefresh();
+    // Heal userProvider if it errored (e.g. after a bad userId was stored)
+    final userState = ref.read(userProvider);
+    if (userState.hasError) {
+      ref.invalidate(userProvider);
+      try { await ref.read(userProvider.future); } catch (_) {}
+    }
     setState(() {
       _searchResults = [];
     });
@@ -154,12 +162,42 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
     final colorScheme = Theme.of(context).colorScheme;
     final textPrimary = context.textPrimary;
 
+    final isVip = ref.watch(userProvider).valueOrNull?.isVip ?? false;
     return Scaffold(
       backgroundColor: context.scaffoldBackground,
+      drawer: AppShellDrawer(
+        currentTabIndex: 3,
+        extraItems: [
+          AppShellDrawerItem(
+            icon: Icons.add_photo_alternate_outlined,
+            label: AppLocalizations.of(context)!.createMoment,
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.of(context)
+                  .push(AppPageRoute(builder: (_) => const CreateMoment()))
+                  .then((_) => _refresh());
+            },
+          ),
+          AppShellDrawerItem(
+            icon: Icons.auto_stories_outlined,
+            label: AppLocalizations.of(context)!.createStory,
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.of(context).push(
+                AppPageRoute(
+                  builder: (_) => CreateStoryScreen(
+                    onStoryCreated: () => _storiesRefreshNotifier.value++,
+                  ),
+                ),
+              );
+            },
+          ),
+        ],
+      ),
       appBar: AppBar(
         elevation: 0,
         backgroundColor: context.surfaceColor,
-        automaticallyImplyLeading: false,
+        // Hamburger uses the default Scaffold drawer button when drawer is set.
         title: _showSearch
             ? TextField(
                 controller: _searchController,
@@ -172,9 +210,17 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
                 style: context.bodyLarge,
                 onChanged: _performSearch,
               )
-            : Text(
-                AppLocalizations.of(context)!.moments,
-                style: context.displaySmall,
+            : Row(
+                children: [
+                  Text(
+                    AppLocalizations.of(context)!.moments,
+                    style: context.displaySmall,
+                  ),
+                  if (isVip) ...[
+                    const SizedBox(width: 8),
+                    _buildVipBadge(),
+                  ],
+                ],
               ),
         actions: [
           IconButton(
@@ -344,6 +390,38 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
             );
           },
         ),
+      ),
+    );
+  }
+
+  /// Small gold VIP pill rendered next to the Moments title in the AppBar
+  /// for VIP users — mirrors the badge in the chat header.
+  Widget _buildVipBadge() {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          colors: [Color(0xFFFFD700), Color(0xFFFFA500)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(6),
+      ),
+      child: const Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(Icons.workspace_premium, size: 10, color: Colors.white),
+          SizedBox(width: 2),
+          Text(
+            'VIP',
+            style: TextStyle(
+              fontSize: 10,
+              fontWeight: FontWeight.w800,
+              color: Colors.white,
+              letterSpacing: 0.3,
+            ),
+          ),
+        ],
       ),
     );
   }
