@@ -100,10 +100,7 @@ class AppShellDrawer extends ConsumerWidget {
             AppShellDrawerItem(
               icon: Icons.person_outline_rounded,
               label: l10n.profile,
-              onTap: () {
-                Navigator.pop(context);
-                context.go('/tabs/4');
-              },
+              onTap: () => _switchTab(context, 4),
             ),
             AppShellDrawerItem(
               icon: Icons.edit_outlined,
@@ -167,37 +164,25 @@ class AppShellDrawer extends ConsumerWidget {
               AppShellDrawerItem(
                 icon: Icons.school_rounded,
                 label: l10n.studyHub,
-                onTap: () {
-                  Navigator.pop(context);
-                  context.go('/tabs/0');
-                },
+                onTap: () => _switchTab(context, 0),
               ),
             if (currentTabIndex != 1)
               AppShellDrawerItem(
                 icon: Icons.people_alt_rounded,
                 label: l10n.community,
-                onTap: () {
-                  Navigator.pop(context);
-                  context.go('/tabs/1');
-                },
+                onTap: () => _switchTab(context, 1),
               ),
             if (currentTabIndex != 2)
               AppShellDrawerItem(
                 icon: Icons.chat_bubble_outline_rounded,
                 label: l10n.chats,
-                onTap: () {
-                  Navigator.pop(context);
-                  context.go('/tabs/2');
-                },
+                onTap: () => _switchTab(context, 2),
               ),
             if (currentTabIndex != 3)
               AppShellDrawerItem(
                 icon: Icons.photo_library_outlined,
                 label: l10n.moments,
-                onTap: () {
-                  Navigator.pop(context);
-                  context.go('/tabs/3');
-                },
+                onTap: () => _switchTab(context, 3),
               ),
 
             Divider(color: colors.outline.withValues(alpha: 0.2), height: 1),
@@ -243,6 +228,18 @@ class AppShellDrawer extends ConsumerWidget {
       ),
     );
   }
+}
+
+/// Switch the bottom-nav tab from a drawer item.
+///
+/// Order matters: closing the drawer via `Navigator.pop` synchronously
+/// disposes the drawer's widget subtree, so any `context.go(...)` issued
+/// after the pop reads from a stale Element and silently no-ops. We cache
+/// the router first, then pop, then navigate.
+void _switchTab(BuildContext context, int index) {
+  final router = GoRouter.of(context);
+  Navigator.pop(context);
+  router.go('/tabs/$index');
 }
 
 class AppShellDrawerItem extends StatelessWidget {
