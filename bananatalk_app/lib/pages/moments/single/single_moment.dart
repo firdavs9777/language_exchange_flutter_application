@@ -25,6 +25,7 @@ import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/services/moments_service.dart' as api;
 import 'package:bananatalk_app/utils/app_page_route.dart';
+import 'package:bananatalk_app/widgets/language_flag_badge.dart';
 
 class SingleMoment extends ConsumerStatefulWidget {
   final Moments moment;
@@ -498,17 +499,27 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                       padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
                       child: Row(
                         children: [
-                          CachedCircleAvatar(
-                            imageUrl: widget.moment.user.imageUrls.isNotEmpty
-                                ? widget.moment.user.imageUrls[0]
-                                : null,
-                            radius: 24,
-                            backgroundColor: context.containerColor,
-                            errorWidget: Icon(
-                              Icons.person,
-                              size: 24,
-                              color: context.textSecondary,
-                            ),
+                          Stack(
+                            clipBehavior: Clip.none,
+                            children: [
+                              CachedCircleAvatar(
+                                imageUrl: widget.moment.user.imageUrls.isNotEmpty
+                                    ? widget.moment.user.imageUrls[0]
+                                    : null,
+                                radius: 24,
+                                backgroundColor: context.containerColor,
+                                errorWidget: Icon(
+                                  Icons.person,
+                                  size: 24,
+                                  color: context.textSecondary,
+                                ),
+                              ),
+                              LanguageFlagBadge(
+                                nativeLanguage:
+                                    widget.moment.user.native_language,
+                                size: 18,
+                              ),
+                            ],
                           ),
                           Spacing.hGapMD,
                           Expanded(

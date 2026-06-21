@@ -7,6 +7,7 @@ import 'package:bananatalk_app/utils/privacy_utils.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/pages/community/single/single_community_screen.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
+import 'package:bananatalk_app/widgets/language_flag_badge.dart';
 
 /// AppBar section for the conversation screen.
 ///
@@ -126,38 +127,48 @@ class ConversationUserInfoHeader extends ConsumerWidget {
               // Avatar (100 px)
               GestureDetector(
                 onTap: () => _navigateToProfile(context, user),
-                child: Container(
-                  width: 100,
-                  height: 100,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: AppColors.primary.withValues(alpha: 0.3),
-                      width: 3,
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: AppColors.primary.withValues(alpha: 0.2),
-                        blurRadius: 16,
-                        offset: const Offset(0, 6),
-                      ),
-                    ],
-                  ),
-                  child: ClipOval(
-                    child: profilePicture != null && profilePicture!.isNotEmpty
-                        ? Image.network(
-                            profilePicture!,
-                            fit: BoxFit.cover,
-                            errorBuilder: (_, __, ___) => Container(
-                              color: AppColors.primary.withValues(alpha: 0.2),
-                              child: const Icon(Icons.person, size: 50, color: AppColors.primary),
-                            ),
-                          )
-                        : Container(
+                child: Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    Container(
+                      width: 100,
+                      height: 100,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: AppColors.primary.withValues(alpha: 0.3),
+                          width: 3,
+                        ),
+                        boxShadow: [
+                          BoxShadow(
                             color: AppColors.primary.withValues(alpha: 0.2),
-                            child: const Icon(Icons.person, size: 50, color: AppColors.primary),
+                            blurRadius: 16,
+                            offset: const Offset(0, 6),
                           ),
-                  ),
+                        ],
+                      ),
+                      child: ClipOval(
+                        child: profilePicture != null && profilePicture!.isNotEmpty
+                            ? Image.network(
+                                profilePicture!,
+                                fit: BoxFit.cover,
+                                errorBuilder: (_, __, ___) => Container(
+                                  color: AppColors.primary.withValues(alpha: 0.2),
+                                  child: const Icon(Icons.person, size: 50, color: AppColors.primary),
+                                ),
+                              )
+                            : Container(
+                                color: AppColors.primary.withValues(alpha: 0.2),
+                                child: const Icon(Icons.person, size: 50, color: AppColors.primary),
+                              ),
+                      ),
+                    ),
+                    LanguageFlagBadge(
+                      nativeLanguage: user?.native_language,
+                      size: 28,
+                      offset: 4,
+                    ),
+                  ],
                 ),
               ),
               const SizedBox(height: 12),

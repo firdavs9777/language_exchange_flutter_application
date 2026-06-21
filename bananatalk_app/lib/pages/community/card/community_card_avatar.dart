@@ -167,7 +167,7 @@ class CommunityCardAvatar extends StatelessWidget {
   Widget _buildFlagBadge(BuildContext context) {
     return Positioned(
       bottom: 0,
-      right: 0,
+      left: 0,
       child: Container(
         width: 26,
         height: 26,

@@ -2,6 +2,7 @@ import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
+import 'package:bananatalk_app/widgets/language_flag_badge.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
@@ -72,17 +73,26 @@ class MomentCardHeader extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: onAvatarTap,
-            child: CachedCircleAvatar(
-              imageUrl: moment.user.imageUrls.isNotEmpty
-                  ? moment.user.imageUrls[0]
-                  : null,
-              radius: 24,
-              backgroundColor: context.containerColor,
-              errorWidget: Icon(
-                Icons.person,
-                size: 22,
-                color: context.textSecondary,
-              ),
+            child: Stack(
+              clipBehavior: Clip.none,
+              children: [
+                CachedCircleAvatar(
+                  imageUrl: moment.user.imageUrls.isNotEmpty
+                      ? moment.user.imageUrls[0]
+                      : null,
+                  radius: 24,
+                  backgroundColor: context.containerColor,
+                  errorWidget: Icon(
+                    Icons.person,
+                    size: 22,
+                    color: context.textSecondary,
+                  ),
+                ),
+                LanguageFlagBadge(
+                  nativeLanguage: moment.user.native_language,
+                  size: 18,
+                ),
+              ],
             ),
           ),
           const SizedBox(width: 10),

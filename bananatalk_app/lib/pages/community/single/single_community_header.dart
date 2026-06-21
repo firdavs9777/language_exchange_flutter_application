@@ -13,6 +13,7 @@ import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/pages/moments/viewer/image_viewer.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:bananatalk_app/pages/community/widgets/community_snackbar.dart';
+import 'package:bananatalk_app/widgets/language_flag_badge.dart';
 
 /// Flexible-space background (map tiles or gradient) + avatar/name/location row
 /// rendered inside [FlexibleSpaceBar].
@@ -86,31 +87,41 @@ class SingleCommunityHeader extends ConsumerWidget {
                 },
                 child: Hero(
                   tag: 'profile_${community.id}',
-                  child: VipAvatarFrame(
-                    isVip: community.isVip,
-                    size: 80,
-                    frameWidth: 3,
-                    showGlow: true,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(color: Colors.white, width: 3),
+                  child: Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      VipAvatarFrame(
+                        isVip: community.isVip,
+                        size: 80,
+                        frameWidth: 3,
+                        showGlow: true,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(color: Colors.white, width: 3),
+                          ),
+                          child: CircleAvatar(
+                            radius: 37,
+                            backgroundColor: AppColors.accent,
+                            backgroundImage: profileImageUrl != null
+                                ? NetworkImage(profileImageUrl!)
+                                : null,
+                            child: profileImageUrl == null
+                                ? const Icon(
+                                    Icons.person,
+                                    size: 40,
+                                    color: Colors.white,
+                                  )
+                                : null,
+                          ),
+                        ),
                       ),
-                      child: CircleAvatar(
-                        radius: 37,
-                        backgroundColor: AppColors.accent,
-                        backgroundImage: profileImageUrl != null
-                            ? NetworkImage(profileImageUrl!)
-                            : null,
-                        child: profileImageUrl == null
-                            ? const Icon(
-                                Icons.person,
-                                size: 40,
-                                color: Colors.white,
-                              )
-                            : null,
+                      LanguageFlagBadge(
+                        nativeLanguage: community.native_language,
+                        size: 24,
+                        offset: 2,
                       ),
-                    ),
+                    ],
                   ),
                 ),
               ),
