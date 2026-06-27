@@ -7,6 +7,10 @@ import 'package:bananatalk_app/pages/moments/moment_detail_wrapper.dart';
 import 'package:bananatalk_app/pages/profile/profile_wrapper.dart';
 import 'package:bananatalk_app/pages/matching/smart_matching_screen.dart';
 import 'package:bananatalk_app/pages/learning/leaderboard/leaderboard_screen.dart';
+import 'package:bananatalk_app/pages/learning/exam_study/exam_picker_screen.dart';
+import 'package:bananatalk_app/pages/learning/exam_study/exam_dashboard_screen.dart';
+import 'package:bananatalk_app/providers/provider_models/exam/exam_language.dart';
+import 'package:bananatalk_app/providers/provider_models/exam/exam_type.dart';
 import 'package:bananatalk_app/screens/call_history_screen.dart';
 import 'package:go_router/go_router.dart';
 
@@ -225,6 +229,52 @@ final goRouter = GoRouter(
       path: '/call-history',
       pageBuilder: (context, state) =>
           _buildSlideTransition(state: state, child: const CallHistoryScreen()),
+    ),
+
+    // Exam Study — picker (pushed from the AI Study tab when a language
+    // card is tapped). The selected ExamLanguage is passed via `extra`
+    // so the screen has the full object without re-fetching by id.
+    GoRoute(
+      path: '/exam-study/language/:languageId',
+      pageBuilder: (context, state) {
+        final language = state.extra as ExamLanguage?;
+        if (language == null) {
+          // No extra passed — fall back to a benign empty screen rather
+          // than crash. Should only happen on a hand-typed deep link.
+          return _buildSlideTransition(
+            state: state,
+            child: const Scaffold(
+              body: Center(child: Text('Language not provided')),
+            ),
+          );
+        }
+        return _buildSlideTransition(
+          state: state,
+          child: ExamPickerScreen(language: language),
+        );
+      },
+    ),
+
+    // Exam Study — dashboard for a specific exam. Receives the full
+    // ExamType via `extra` so we render meta/description without an
+    // extra round-trip.
+    GoRoute(
+      path: '/exam-study/exam/:examId',
+      pageBuilder: (context, state) {
+        final exam = state.extra as ExamType?;
+        if (exam == null) {
+          return _buildSlideTransition(
+            state: state,
+            child: const Scaffold(
+              body: Center(child: Text('Exam not provided')),
+            ),
+          );
+        }
+        return _buildSlideTransition(
+          state: state,
+          child: ExamDashboardScreen(exam: exam),
+        );
+      },
     ),
   ],
 );

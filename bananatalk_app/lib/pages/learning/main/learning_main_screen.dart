@@ -13,6 +13,7 @@ import 'package:bananatalk_app/pages/learning/animations/level_up_sequence.dart'
 import 'package:bananatalk_app/providers/provider_root/learning/progress_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/learning/achievements_providers.dart';
 import 'package:bananatalk_app/widgets/vip_up_pill.dart';
+import 'package:bananatalk_app/pages/learning/exam_study/exam_study_tab.dart';
 
 /// Unified Study Hub — composes the Learn tab and AI Tools tab.
 class LearningMain extends ConsumerStatefulWidget {
@@ -36,7 +37,7 @@ class _LearningMainState extends ConsumerState<LearningMain>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 2, vsync: this);
+    _tabController = TabController(length: 3, vsync: this);
     _tabController.addListener(() {
       if (_tabController.indexIsChanging == false) {
         setState(() => _currentTab = _tabController.index);
@@ -187,23 +188,21 @@ class _LearningMainState extends ConsumerState<LearningMain>
                   dividerHeight: 0,
                   tabs: [
                     Tab(
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const Icon(Icons.psychology_rounded, size: 18),
-                          const SizedBox(width: 6),
-                          Text(AppLocalizations.of(context)!.aiTools),
-                        ],
+                      child: _TabLabel(
+                        icon: Icons.psychology_rounded,
+                        label: AppLocalizations.of(context)!.aiTools,
                       ),
                     ),
                     Tab(
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const Icon(Icons.auto_awesome_rounded, size: 18),
-                          const SizedBox(width: 6),
-                          Text(AppLocalizations.of(context)!.learnTab),
-                        ],
+                      child: _TabLabel(
+                        icon: Icons.auto_awesome_rounded,
+                        label: AppLocalizations.of(context)!.learnTab,
+                      ),
+                    ),
+                    Tab(
+                      child: _TabLabel(
+                        icon: Icons.assignment_rounded,
+                        label: AppLocalizations.of(context)!.examStudy,
                       ),
                     ),
                   ],
@@ -217,6 +216,7 @@ class _LearningMainState extends ConsumerState<LearningMain>
           children: [
             const AIToolsTab(),
             LearnTab(onSwitchToAI: () => _tabController.animateTo(0)),
+            const ExamStudyTab(),
           ],
         ),
       ),
@@ -270,6 +270,36 @@ class _HeaderIconButton extends StatelessWidget {
         ),
         child: Icon(icon, color: Colors.white, size: 20),
       ),
+    );
+  }
+}
+
+/// Shared tab-label widget. Used by all three top-level tabs in the
+/// AI Study header. Wraps the text in [Flexible] + ellipsis so longer
+/// localized strings (e.g. "Exam Study" pushing the third tab to ~99px)
+/// don't overflow the per-tab box on narrow devices.
+class _TabLabel extends StatelessWidget {
+  const _TabLabel({required this.icon, required this.label});
+
+  final IconData icon;
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Icon(icon, size: 18),
+        const SizedBox(width: 6),
+        Flexible(
+          child: Text(
+            label,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            softWrap: false,
+          ),
+        ),
+      ],
     );
   }
 }

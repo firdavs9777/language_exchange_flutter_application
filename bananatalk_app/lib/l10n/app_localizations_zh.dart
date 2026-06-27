@@ -6586,6 +6586,267 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get filterVipPromoCta => '开通 VIP';
+
+  @override
+  String get examStudy => 'Exam Study';
+
+  @override
+  String get examStudyChooseLanguage => 'Choose your study language';
+
+  @override
+  String get examStudyChooseLanguageSubtitle => 'Pick the language you want to prepare an exam in.';
+
+  @override
+  String get examStudyLoading => 'Loading…';
+
+  @override
+  String get examStudyEmptyLanguages => 'No study languages available yet.';
+
+  @override
+  String get examStudyError => 'Couldn\'t load — please try again.';
+
+  @override
+  String get examStudyRetry => 'Retry';
+
+  @override
+  String get examPickExam => 'Choose an exam';
+
+  @override
+  String get examPickExamSubtitle => 'Pick the exam you want to prepare for.';
+
+  @override
+  String get examPickEmpty => 'No exams available for this language yet.';
+
+  @override
+  String get examDashboardSections => 'Sections';
+
+  @override
+  String get examDashboardEmptySections => 'No sections to practice yet.';
+
+  @override
+  String get examDashboardContinue => 'Continue practice';
+
+  @override
+  String get examDashboardStartStudyPlan => 'Start study plan';
+
+  @override
+  String get examDashboardViewProgress => 'View progress';
+
+  @override
+  String examMetaDuration(int minutes) {
+    return '$minutes min';
+  }
+
+  @override
+  String examMetaMaxScore(String score) {
+    return 'Max $score';
+  }
+
+  @override
+  String examMetaSections(int count) {
+    return '$count sections';
+  }
+
+  @override
+  String get examSectionNotStarted => 'Not started';
+
+  @override
+  String examSectionProgress(int done, int total) {
+    return '$done/$total done';
+  }
+
+  @override
+  String get examQuestionSubmit => 'Submit answer';
+
+  @override
+  String get examQuestionNext => 'Next question';
+
+  @override
+  String get examQuestionCorrect => 'Correct!';
+
+  @override
+  String get examQuestionIncorrect => 'Incorrect';
+
+  @override
+  String get examQuestionExplanation => 'Explanation';
+
+  @override
+  String get examQuestionNoQuestions => 'No questions in this section yet.';
+
+  @override
+  String get examQuestionEssayComingSoon => 'Essay evaluation is coming soon. Try a reading section for now.';
+
+  @override
+  String get examQuestionUnsupported => 'This question type isn\'t supported yet.';
+
+  @override
+  String get examPracticeFinishedTitle => 'Section complete';
+
+  @override
+  String get examPracticeFinishedBody => 'Nice work — you\'ve completed every question in this section.';
+
+  @override
+  String get examPracticeBackToDashboard => 'Back to dashboard';
+
+  @override
+  String examPracticeProgress(int current, int total) {
+    return '$current of $total';
+  }
+
+  @override
+  String get examEssayPrompt => 'Write your essay';
+
+  @override
+  String examEssayMinChars(int min) {
+    return 'Essay must be at least $min characters';
+  }
+
+  @override
+  String examEssayMaxChars(int max) {
+    return 'Essay must not exceed $max characters';
+  }
+
+  @override
+  String examEssayWordCount(int count) {
+    return '$count words';
+  }
+
+  @override
+  String examEssayCharCount(int count) {
+    return '$count characters';
+  }
+
+  @override
+  String get examEssaySubmit => 'Submit essay';
+
+  @override
+  String get examEssayEvaluating => 'Evaluating your essay…';
+
+  @override
+  String get examEssayEvaluatingHint => 'This usually takes 10–30 seconds. You can leave this screen — we\'ll keep evaluating in the background.';
+
+  @override
+  String get examEssayResultTitle => 'Evaluation';
+
+  @override
+  String get examEssayResultStrengths => 'Strengths';
+
+  @override
+  String get examEssayResultImprovements => 'Suggestions';
+
+  @override
+  String get examEssayResultScore => 'Score';
+
+  @override
+  String get examEssayResultFailed => 'Couldn\'t evaluate this essay.';
+
+  @override
+  String get examEssayResultRetry => 'Try again';
+
+  @override
+  String get examEssayResultDone => 'Done';
+
+  @override
+  String get examEssayPollTimeout => 'Still evaluating — check back in a minute.';
+
+  @override
+  String get examEssayPollRefresh => 'Check again';
+
+  @override
+  String examEssayQuotaUsed(int used, int limit) {
+    return 'Daily essay evaluations: $used/$limit';
+  }
+
+  @override
+  String get examEssayQuotaExhausted => 'You\'ve used today\'s free essay evaluations. Upgrade to VIP for unlimited.';
+
+  @override
+  String get examEssayQuotaUpgrade => 'Upgrade to VIP';
+
+  @override
+  String get examEssayDraftRestored => 'Draft restored';
+
+  @override
+  String get examProgressTitle => 'Progress';
+
+  @override
+  String get examProgressOverall => 'Overall score';
+
+  @override
+  String get examProgressNotStartedTitle => 'No practice yet';
+
+  @override
+  String get examProgressNotStartedBody => 'Answer a few questions in any section to see your progress here.';
+
+  @override
+  String get examProgressFocusAreas => 'Focus areas';
+
+  @override
+  String examProgressSectionAttempts(int done, int total) {
+    return '$done of $total attempted';
+  }
+
+  @override
+  String get examProgressNoFocusAreas => 'You\'re doing well across every section — keep practicing!';
+
+  @override
+  String get examPlanSetupTitle => 'Start study plan';
+
+  @override
+  String get examPlanTargetScore => 'Target score';
+
+  @override
+  String get examPlanExamDate => 'Exam date';
+
+  @override
+  String get examPlanPickDate => 'Pick a date';
+
+  @override
+  String get examPlanGenerate => 'Generate plan';
+
+  @override
+  String get examPlanGenerating => 'Generating your plan…';
+
+  @override
+  String get examPlanInvalidDate => 'Please pick a future exam date.';
+
+  @override
+  String get examPlanInvalidScore => 'Please enter a valid target score.';
+
+  @override
+  String get examPlanTitle => 'Study plan';
+
+  @override
+  String get examPlanEmptyTitle => 'No active plan';
+
+  @override
+  String get examPlanEmptyBody => 'Generate a plan to get weekly milestones tailored to your weak areas.';
+
+  @override
+  String get examPlanRegenerate => 'Regenerate plan';
+
+  @override
+  String examPlanWeek(int n) {
+    return 'Week $n';
+  }
+
+  @override
+  String examPlanWeekEstimate(String hours) {
+    return '${hours}h';
+  }
+
+  @override
+  String examPlanTotalHours(int hours) {
+    return '$hours hours total';
+  }
+
+  @override
+  String get examPlanDailyHeading => 'Suggested daily lessons';
+
+  @override
+  String examPlanLessonMinutes(int minutes) {
+    return '$minutes min';
+  }
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -12057,4 +12318,265 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get filterVipPromoCta => '升級 VIP';
+
+  @override
+  String get examStudy => 'Exam Study';
+
+  @override
+  String get examStudyChooseLanguage => 'Choose your study language';
+
+  @override
+  String get examStudyChooseLanguageSubtitle => 'Pick the language you want to prepare an exam in.';
+
+  @override
+  String get examStudyLoading => 'Loading…';
+
+  @override
+  String get examStudyEmptyLanguages => 'No study languages available yet.';
+
+  @override
+  String get examStudyError => 'Couldn\'t load — please try again.';
+
+  @override
+  String get examStudyRetry => 'Retry';
+
+  @override
+  String get examPickExam => 'Choose an exam';
+
+  @override
+  String get examPickExamSubtitle => 'Pick the exam you want to prepare for.';
+
+  @override
+  String get examPickEmpty => 'No exams available for this language yet.';
+
+  @override
+  String get examDashboardSections => 'Sections';
+
+  @override
+  String get examDashboardEmptySections => 'No sections to practice yet.';
+
+  @override
+  String get examDashboardContinue => 'Continue practice';
+
+  @override
+  String get examDashboardStartStudyPlan => 'Start study plan';
+
+  @override
+  String get examDashboardViewProgress => 'View progress';
+
+  @override
+  String examMetaDuration(int minutes) {
+    return '$minutes min';
+  }
+
+  @override
+  String examMetaMaxScore(String score) {
+    return 'Max $score';
+  }
+
+  @override
+  String examMetaSections(int count) {
+    return '$count sections';
+  }
+
+  @override
+  String get examSectionNotStarted => 'Not started';
+
+  @override
+  String examSectionProgress(int done, int total) {
+    return '$done/$total done';
+  }
+
+  @override
+  String get examQuestionSubmit => 'Submit answer';
+
+  @override
+  String get examQuestionNext => 'Next question';
+
+  @override
+  String get examQuestionCorrect => 'Correct!';
+
+  @override
+  String get examQuestionIncorrect => 'Incorrect';
+
+  @override
+  String get examQuestionExplanation => 'Explanation';
+
+  @override
+  String get examQuestionNoQuestions => 'No questions in this section yet.';
+
+  @override
+  String get examQuestionEssayComingSoon => 'Essay evaluation is coming soon. Try a reading section for now.';
+
+  @override
+  String get examQuestionUnsupported => 'This question type isn\'t supported yet.';
+
+  @override
+  String get examPracticeFinishedTitle => 'Section complete';
+
+  @override
+  String get examPracticeFinishedBody => 'Nice work — you\'ve completed every question in this section.';
+
+  @override
+  String get examPracticeBackToDashboard => 'Back to dashboard';
+
+  @override
+  String examPracticeProgress(int current, int total) {
+    return '$current of $total';
+  }
+
+  @override
+  String get examEssayPrompt => 'Write your essay';
+
+  @override
+  String examEssayMinChars(int min) {
+    return 'Essay must be at least $min characters';
+  }
+
+  @override
+  String examEssayMaxChars(int max) {
+    return 'Essay must not exceed $max characters';
+  }
+
+  @override
+  String examEssayWordCount(int count) {
+    return '$count words';
+  }
+
+  @override
+  String examEssayCharCount(int count) {
+    return '$count characters';
+  }
+
+  @override
+  String get examEssaySubmit => 'Submit essay';
+
+  @override
+  String get examEssayEvaluating => 'Evaluating your essay…';
+
+  @override
+  String get examEssayEvaluatingHint => 'This usually takes 10–30 seconds. You can leave this screen — we\'ll keep evaluating in the background.';
+
+  @override
+  String get examEssayResultTitle => 'Evaluation';
+
+  @override
+  String get examEssayResultStrengths => 'Strengths';
+
+  @override
+  String get examEssayResultImprovements => 'Suggestions';
+
+  @override
+  String get examEssayResultScore => 'Score';
+
+  @override
+  String get examEssayResultFailed => 'Couldn\'t evaluate this essay.';
+
+  @override
+  String get examEssayResultRetry => 'Try again';
+
+  @override
+  String get examEssayResultDone => 'Done';
+
+  @override
+  String get examEssayPollTimeout => 'Still evaluating — check back in a minute.';
+
+  @override
+  String get examEssayPollRefresh => 'Check again';
+
+  @override
+  String examEssayQuotaUsed(int used, int limit) {
+    return 'Daily essay evaluations: $used/$limit';
+  }
+
+  @override
+  String get examEssayQuotaExhausted => 'You\'ve used today\'s free essay evaluations. Upgrade to VIP for unlimited.';
+
+  @override
+  String get examEssayQuotaUpgrade => 'Upgrade to VIP';
+
+  @override
+  String get examEssayDraftRestored => 'Draft restored';
+
+  @override
+  String get examProgressTitle => 'Progress';
+
+  @override
+  String get examProgressOverall => 'Overall score';
+
+  @override
+  String get examProgressNotStartedTitle => 'No practice yet';
+
+  @override
+  String get examProgressNotStartedBody => 'Answer a few questions in any section to see your progress here.';
+
+  @override
+  String get examProgressFocusAreas => 'Focus areas';
+
+  @override
+  String examProgressSectionAttempts(int done, int total) {
+    return '$done of $total attempted';
+  }
+
+  @override
+  String get examProgressNoFocusAreas => 'You\'re doing well across every section — keep practicing!';
+
+  @override
+  String get examPlanSetupTitle => 'Start study plan';
+
+  @override
+  String get examPlanTargetScore => 'Target score';
+
+  @override
+  String get examPlanExamDate => 'Exam date';
+
+  @override
+  String get examPlanPickDate => 'Pick a date';
+
+  @override
+  String get examPlanGenerate => 'Generate plan';
+
+  @override
+  String get examPlanGenerating => 'Generating your plan…';
+
+  @override
+  String get examPlanInvalidDate => 'Please pick a future exam date.';
+
+  @override
+  String get examPlanInvalidScore => 'Please enter a valid target score.';
+
+  @override
+  String get examPlanTitle => 'Study plan';
+
+  @override
+  String get examPlanEmptyTitle => 'No active plan';
+
+  @override
+  String get examPlanEmptyBody => 'Generate a plan to get weekly milestones tailored to your weak areas.';
+
+  @override
+  String get examPlanRegenerate => 'Regenerate plan';
+
+  @override
+  String examPlanWeek(int n) {
+    return 'Week $n';
+  }
+
+  @override
+  String examPlanWeekEstimate(String hours) {
+    return '${hours}h';
+  }
+
+  @override
+  String examPlanTotalHours(int hours) {
+    return '$hours hours total';
+  }
+
+  @override
+  String get examPlanDailyHeading => 'Suggested daily lessons';
+
+  @override
+  String examPlanLessonMinutes(int minutes) {
+    return '$minutes min';
+  }
 }

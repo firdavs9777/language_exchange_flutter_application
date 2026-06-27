@@ -12319,6 +12319,468 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Go VIP'**
   String get filterVipPromoCta;
+
+  /// No description provided for @examStudy.
+  ///
+  /// In en, this message translates to:
+  /// **'Exam Study'**
+  String get examStudy;
+
+  /// No description provided for @examStudyChooseLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose your study language'**
+  String get examStudyChooseLanguage;
+
+  /// No description provided for @examStudyChooseLanguageSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick the language you want to prepare an exam in.'**
+  String get examStudyChooseLanguageSubtitle;
+
+  /// No description provided for @examStudyLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading…'**
+  String get examStudyLoading;
+
+  /// No description provided for @examStudyEmptyLanguages.
+  ///
+  /// In en, this message translates to:
+  /// **'No study languages available yet.'**
+  String get examStudyEmptyLanguages;
+
+  /// No description provided for @examStudyError.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t load — please try again.'**
+  String get examStudyError;
+
+  /// No description provided for @examStudyRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get examStudyRetry;
+
+  /// No description provided for @examPickExam.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose an exam'**
+  String get examPickExam;
+
+  /// No description provided for @examPickExamSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick the exam you want to prepare for.'**
+  String get examPickExamSubtitle;
+
+  /// No description provided for @examPickEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No exams available for this language yet.'**
+  String get examPickEmpty;
+
+  /// No description provided for @examDashboardSections.
+  ///
+  /// In en, this message translates to:
+  /// **'Sections'**
+  String get examDashboardSections;
+
+  /// No description provided for @examDashboardEmptySections.
+  ///
+  /// In en, this message translates to:
+  /// **'No sections to practice yet.'**
+  String get examDashboardEmptySections;
+
+  /// No description provided for @examDashboardContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue practice'**
+  String get examDashboardContinue;
+
+  /// No description provided for @examDashboardStartStudyPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Start study plan'**
+  String get examDashboardStartStudyPlan;
+
+  /// No description provided for @examDashboardViewProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'View progress'**
+  String get examDashboardViewProgress;
+
+  /// No description provided for @examMetaDuration.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes} min'**
+  String examMetaDuration(int minutes);
+
+  /// No description provided for @examMetaMaxScore.
+  ///
+  /// In en, this message translates to:
+  /// **'Max {score}'**
+  String examMetaMaxScore(String score);
+
+  /// No description provided for @examMetaSections.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} sections'**
+  String examMetaSections(int count);
+
+  /// No description provided for @examSectionNotStarted.
+  ///
+  /// In en, this message translates to:
+  /// **'Not started'**
+  String get examSectionNotStarted;
+
+  /// No description provided for @examSectionProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'{done}/{total} done'**
+  String examSectionProgress(int done, int total);
+
+  /// No description provided for @examQuestionSubmit.
+  ///
+  /// In en, this message translates to:
+  /// **'Submit answer'**
+  String get examQuestionSubmit;
+
+  /// No description provided for @examQuestionNext.
+  ///
+  /// In en, this message translates to:
+  /// **'Next question'**
+  String get examQuestionNext;
+
+  /// No description provided for @examQuestionCorrect.
+  ///
+  /// In en, this message translates to:
+  /// **'Correct!'**
+  String get examQuestionCorrect;
+
+  /// No description provided for @examQuestionIncorrect.
+  ///
+  /// In en, this message translates to:
+  /// **'Incorrect'**
+  String get examQuestionIncorrect;
+
+  /// No description provided for @examQuestionExplanation.
+  ///
+  /// In en, this message translates to:
+  /// **'Explanation'**
+  String get examQuestionExplanation;
+
+  /// No description provided for @examQuestionNoQuestions.
+  ///
+  /// In en, this message translates to:
+  /// **'No questions in this section yet.'**
+  String get examQuestionNoQuestions;
+
+  /// No description provided for @examQuestionEssayComingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Essay evaluation is coming soon. Try a reading section for now.'**
+  String get examQuestionEssayComingSoon;
+
+  /// No description provided for @examQuestionUnsupported.
+  ///
+  /// In en, this message translates to:
+  /// **'This question type isn\'t supported yet.'**
+  String get examQuestionUnsupported;
+
+  /// No description provided for @examPracticeFinishedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Section complete'**
+  String get examPracticeFinishedTitle;
+
+  /// No description provided for @examPracticeFinishedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Nice work — you\'ve completed every question in this section.'**
+  String get examPracticeFinishedBody;
+
+  /// No description provided for @examPracticeBackToDashboard.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to dashboard'**
+  String get examPracticeBackToDashboard;
+
+  /// No description provided for @examPracticeProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'{current} of {total}'**
+  String examPracticeProgress(int current, int total);
+
+  /// No description provided for @examEssayPrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'Write your essay'**
+  String get examEssayPrompt;
+
+  /// No description provided for @examEssayMinChars.
+  ///
+  /// In en, this message translates to:
+  /// **'Essay must be at least {min} characters'**
+  String examEssayMinChars(int min);
+
+  /// No description provided for @examEssayMaxChars.
+  ///
+  /// In en, this message translates to:
+  /// **'Essay must not exceed {max} characters'**
+  String examEssayMaxChars(int max);
+
+  /// No description provided for @examEssayWordCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} words'**
+  String examEssayWordCount(int count);
+
+  /// No description provided for @examEssayCharCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} characters'**
+  String examEssayCharCount(int count);
+
+  /// No description provided for @examEssaySubmit.
+  ///
+  /// In en, this message translates to:
+  /// **'Submit essay'**
+  String get examEssaySubmit;
+
+  /// No description provided for @examEssayEvaluating.
+  ///
+  /// In en, this message translates to:
+  /// **'Evaluating your essay…'**
+  String get examEssayEvaluating;
+
+  /// No description provided for @examEssayEvaluatingHint.
+  ///
+  /// In en, this message translates to:
+  /// **'This usually takes 10–30 seconds. You can leave this screen — we\'ll keep evaluating in the background.'**
+  String get examEssayEvaluatingHint;
+
+  /// No description provided for @examEssayResultTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Evaluation'**
+  String get examEssayResultTitle;
+
+  /// No description provided for @examEssayResultStrengths.
+  ///
+  /// In en, this message translates to:
+  /// **'Strengths'**
+  String get examEssayResultStrengths;
+
+  /// No description provided for @examEssayResultImprovements.
+  ///
+  /// In en, this message translates to:
+  /// **'Suggestions'**
+  String get examEssayResultImprovements;
+
+  /// No description provided for @examEssayResultScore.
+  ///
+  /// In en, this message translates to:
+  /// **'Score'**
+  String get examEssayResultScore;
+
+  /// No description provided for @examEssayResultFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t evaluate this essay.'**
+  String get examEssayResultFailed;
+
+  /// No description provided for @examEssayResultRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get examEssayResultRetry;
+
+  /// No description provided for @examEssayResultDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get examEssayResultDone;
+
+  /// No description provided for @examEssayPollTimeout.
+  ///
+  /// In en, this message translates to:
+  /// **'Still evaluating — check back in a minute.'**
+  String get examEssayPollTimeout;
+
+  /// No description provided for @examEssayPollRefresh.
+  ///
+  /// In en, this message translates to:
+  /// **'Check again'**
+  String get examEssayPollRefresh;
+
+  /// No description provided for @examEssayQuotaUsed.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily essay evaluations: {used}/{limit}'**
+  String examEssayQuotaUsed(int used, int limit);
+
+  /// No description provided for @examEssayQuotaExhausted.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'ve used today\'s free essay evaluations. Upgrade to VIP for unlimited.'**
+  String get examEssayQuotaExhausted;
+
+  /// No description provided for @examEssayQuotaUpgrade.
+  ///
+  /// In en, this message translates to:
+  /// **'Upgrade to VIP'**
+  String get examEssayQuotaUpgrade;
+
+  /// No description provided for @examEssayDraftRestored.
+  ///
+  /// In en, this message translates to:
+  /// **'Draft restored'**
+  String get examEssayDraftRestored;
+
+  /// No description provided for @examProgressTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Progress'**
+  String get examProgressTitle;
+
+  /// No description provided for @examProgressOverall.
+  ///
+  /// In en, this message translates to:
+  /// **'Overall score'**
+  String get examProgressOverall;
+
+  /// No description provided for @examProgressNotStartedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No practice yet'**
+  String get examProgressNotStartedTitle;
+
+  /// No description provided for @examProgressNotStartedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Answer a few questions in any section to see your progress here.'**
+  String get examProgressNotStartedBody;
+
+  /// No description provided for @examProgressFocusAreas.
+  ///
+  /// In en, this message translates to:
+  /// **'Focus areas'**
+  String get examProgressFocusAreas;
+
+  /// No description provided for @examProgressSectionAttempts.
+  ///
+  /// In en, this message translates to:
+  /// **'{done} of {total} attempted'**
+  String examProgressSectionAttempts(int done, int total);
+
+  /// No description provided for @examProgressNoFocusAreas.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re doing well across every section — keep practicing!'**
+  String get examProgressNoFocusAreas;
+
+  /// No description provided for @examPlanSetupTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Start study plan'**
+  String get examPlanSetupTitle;
+
+  /// No description provided for @examPlanTargetScore.
+  ///
+  /// In en, this message translates to:
+  /// **'Target score'**
+  String get examPlanTargetScore;
+
+  /// No description provided for @examPlanExamDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Exam date'**
+  String get examPlanExamDate;
+
+  /// No description provided for @examPlanPickDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick a date'**
+  String get examPlanPickDate;
+
+  /// No description provided for @examPlanGenerate.
+  ///
+  /// In en, this message translates to:
+  /// **'Generate plan'**
+  String get examPlanGenerate;
+
+  /// No description provided for @examPlanGenerating.
+  ///
+  /// In en, this message translates to:
+  /// **'Generating your plan…'**
+  String get examPlanGenerating;
+
+  /// No description provided for @examPlanInvalidDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Please pick a future exam date.'**
+  String get examPlanInvalidDate;
+
+  /// No description provided for @examPlanInvalidScore.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid target score.'**
+  String get examPlanInvalidScore;
+
+  /// No description provided for @examPlanTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Study plan'**
+  String get examPlanTitle;
+
+  /// No description provided for @examPlanEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No active plan'**
+  String get examPlanEmptyTitle;
+
+  /// No description provided for @examPlanEmptyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Generate a plan to get weekly milestones tailored to your weak areas.'**
+  String get examPlanEmptyBody;
+
+  /// No description provided for @examPlanRegenerate.
+  ///
+  /// In en, this message translates to:
+  /// **'Regenerate plan'**
+  String get examPlanRegenerate;
+
+  /// No description provided for @examPlanWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'Week {n}'**
+  String examPlanWeek(int n);
+
+  /// No description provided for @examPlanWeekEstimate.
+  ///
+  /// In en, this message translates to:
+  /// **'{hours}h'**
+  String examPlanWeekEstimate(String hours);
+
+  /// No description provided for @examPlanTotalHours.
+  ///
+  /// In en, this message translates to:
+  /// **'{hours} hours total'**
+  String examPlanTotalHours(int hours);
+
+  /// No description provided for @examPlanDailyHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Suggested daily lessons'**
+  String get examPlanDailyHeading;
+
+  /// No description provided for @examPlanLessonMinutes.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes} min'**
+  String examPlanLessonMinutes(int minutes);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

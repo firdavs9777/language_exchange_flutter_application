@@ -339,4 +339,24 @@ class Endpoints {
 
   // Lesson completion - scores are now calculated server-side
   static String lessonCompleteURL(String id) => 'lessons/$id/complete';
+
+  // ==================== EXAM STUDY ENDPOINTS ====================
+
+  static const String examStudyLanguagesURL = 'exam-study/languages';
+  static String examStudyExamsForLanguageURL(String languageId) =>
+      'exam-study/languages/$languageId/exams';
+  static String examStudySectionsForExamURL(String examId) =>
+      'exam-study/exams/$examId/sections';
+  static String examStudyQuestionsForSectionURL(String sectionId) =>
+      'exam-study/sections/$sectionId/questions';
+  static String examStudySubmitAnswerURL(String questionId) =>
+      'exam-study/questions/$questionId/submit-answer';
+  static String examStudyEvaluationURL(String evaluationId) =>
+      'exam-study/evaluations/$evaluationId';
+  static String examStudyProgressURL(String userId, String examId) =>
+      'exam-study/users/$userId/exams/$examId/progress';
+  static String examStudyGenerateStudyPlanURL(String userId, String examId) =>
+      'exam-study/users/$userId/exams/$examId/generate-study-plan';
+  static String examStudyStudyPlanURL(String userId, String planId) =>
+      'exam-study/users/$userId/study-plans/$planId';
 }
