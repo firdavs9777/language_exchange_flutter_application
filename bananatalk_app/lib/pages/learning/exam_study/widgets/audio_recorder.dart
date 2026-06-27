@@ -70,10 +70,12 @@ class _AudioRecorderState extends State<AudioRecorder> {
 
   Future<void> _startRecording() async {
     final dir = await getTemporaryDirectory();
+    if (!mounted) return;
     final filename =
         'exam_speaking_${DateTime.now().millisecondsSinceEpoch}.m4a';
     final path = '${dir.path}/$filename';
     await _recorder.startRecorder(toFile: path, codec: Codec.aacMP4);
+    if (!mounted) return;
     _elapsed = Duration.zero;
     _ticker = Timer.periodic(const Duration(seconds: 1), (_) {
       if (!mounted) return;
@@ -115,7 +117,9 @@ class _AudioRecorderState extends State<AudioRecorder> {
     if (mounted) setState(() {});
   }
 
-  void _reset() {
+  Future<void> _reset() async {
+    if (_player.isPlaying) await _player.stopPlayer();
+    if (!mounted) return;
     setState(() {
       _state = _RecorderState.idle;
       _recordedFile = null;
