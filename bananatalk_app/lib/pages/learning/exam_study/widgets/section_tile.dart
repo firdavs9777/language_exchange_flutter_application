@@ -96,7 +96,12 @@ class SectionTile extends StatelessWidget {
   Widget _sectionIcon(BuildContext context, String sectionType) {
     final iconData = switch (sectionType) {
       'reading' => Icons.menu_book_rounded,
+      // Plain `writing` is the legacy single-section value; new content
+      // splits into writing-task-1 (short response / letter) and
+      // writing-task-2 (long-form essay).
       'writing' => Icons.edit_note_rounded,
+      'writing-task-1' => Icons.draw_rounded,
+      'writing-task-2' => Icons.article_rounded,
       'speaking' => Icons.mic_rounded,
       'listening' => Icons.headphones_rounded,
       'vocabulary' => Icons.spellcheck_rounded,
