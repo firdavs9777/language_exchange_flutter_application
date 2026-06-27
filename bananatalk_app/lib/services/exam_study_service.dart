@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:bananatalk_app/providers/provider_models/exam/exam_language.dart';
 import 'package:bananatalk_app/providers/provider_models/exam/exam_section.dart';
 import 'package:bananatalk_app/providers/provider_models/exam/evaluation_status.dart';
@@ -145,6 +146,48 @@ class ExamStudyService {
     throw Exception(
       'submit-answer failed (${resp.statusCode}): ${resp.body}',
     );
+  }
+
+  /// Submit a speaking-prompt audio answer via multipart upload.
+  /// Always returns an [AsyncResult] — the speaking flow is fully async
+  /// (backend always returns 202 with a poll URL).
+  Future<AsyncResult> submitSpeakingAnswer({
+    required String questionId,
+    required File audioFile,
+  }) async {
+    final token = await _getToken();
+    final uri = Uri.parse(
+      '${Endpoints.baseURL}exam-study/questions/$questionId/submit-audio',
+    );
+    final request = http.MultipartRequest('POST', uri);
+    if (token != null) {
+      request.headers['Authorization'] = 'Bearer $token';
+    }
+    request.files.add(
+      await http.MultipartFile.fromPath(
+        'audio',
+        audioFile.path,
+        // ContentType inferred from extension by http package; flutter_sound
+        // typically writes m4a / aac, both in the backend allowlist.
+      ),
+    );
+
+    final streamed = await request.send();
+    final resp = await http.Response.fromStream(streamed);
+    if (resp.statusCode == 401) {
+      throw Exception('Authentication required. Please log in again.');
+    }
+    if (resp.statusCode == 400) {
+      // Surface the server-side validation message so the UI can show
+      // "Recording too short" / "No audio attached" etc.
+      throw Exception(_decodeMessage(resp) ?? 'Bad request');
+    }
+    if (resp.statusCode != 202) {
+      throw Exception(
+        'submit-audio failed (${resp.statusCode}): ${resp.body}',
+      );
+    }
+    return AsyncResult.fromJson(_decodeMap(resp));
   }
 
   /// Poll an in-flight essay/speaking evaluation. The caller is

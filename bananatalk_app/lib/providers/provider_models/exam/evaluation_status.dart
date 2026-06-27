@@ -8,6 +8,8 @@ class EvaluationStatus {
     this.feedback,
     this.strengths = const [],
     this.improvements = const [],
+    this.transcript,
+    this.audioUrl,
     this.errorMessage,
     this.completedAt,
   });
@@ -18,6 +20,10 @@ class EvaluationStatus {
   final String? feedback;
   final List<String> strengths;
   final List<String> improvements;
+  /// Whisper-STT output for speaking submissions. Null for essay submissions.
+  final String? transcript;
+  /// Optional S3 URL for the user's recorded audio (when SPEECH_PERSIST_AUDIO is on).
+  final String? audioUrl;
   final String? errorMessage;
   final DateTime? completedAt;
 
@@ -39,6 +45,8 @@ class EvaluationStatus {
               ?.map((e) => e.toString())
               .toList() ??
           const [],
+      transcript: json['transcript']?.toString(),
+      audioUrl: json['audioUrl']?.toString(),
       errorMessage: json['errorMessage']?.toString(),
       completedAt: json['completedAt'] != null
           ? DateTime.tryParse(json['completedAt'].toString())
