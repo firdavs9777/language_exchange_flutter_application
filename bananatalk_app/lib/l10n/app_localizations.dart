@@ -12823,6 +12823,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'1 question'**
   String get examTopicOneQuestion;
+
+  /// No description provided for @examSpeakingPrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'Speak your answer'**
+  String get examSpeakingPrompt;
+
+  /// No description provided for @examSpeakingListenToPrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'Listen to prompt'**
+  String get examSpeakingListenToPrompt;
+
+  /// No description provided for @examSpeakingTapToRecord.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to record your answer'**
+  String get examSpeakingTapToRecord;
+
+  /// No description provided for @examSpeakingTranscriptHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'What we heard'**
+  String get examSpeakingTranscriptHeading;
+
+  /// No description provided for @examSpeakingPart1.
+  ///
+  /// In en, this message translates to:
+  /// **'Speaking — Part 1'**
+  String get examSpeakingPart1;
+
+  /// No description provided for @examSpeakingPart2.
+  ///
+  /// In en, this message translates to:
+  /// **'Speaking — Part 2'**
+  String get examSpeakingPart2;
+
+  /// No description provided for @examSpeakingPart3.
+  ///
+  /// In en, this message translates to:
+  /// **'Speaking — Part 3'**
+  String get examSpeakingPart3;
+
+  /// No description provided for @examSpeakingSubmit.
+  ///
+  /// In en, this message translates to:
+  /// **'Submit recording'**
+  String get examSpeakingSubmit;
+
+  /// No description provided for @examSpeakingUploading.
+  ///
+  /// In en, this message translates to:
+  /// **'Uploading…'**
+  String get examSpeakingUploading;
+
+  /// No description provided for @examSpeakingTooShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Recording is too short. Please speak for at least a few seconds.'**
+  String get examSpeakingTooShort;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

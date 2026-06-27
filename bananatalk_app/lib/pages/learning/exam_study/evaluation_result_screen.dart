@@ -269,6 +269,10 @@ class _EvaluationResultScreenState
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           _scoreCard(l10n, status),
+          if (status.transcript != null && status.transcript!.isNotEmpty) ...[
+            const SizedBox(height: 16),
+            _transcriptBlock(l10n, status.transcript!),
+          ],
           if (status.feedback != null && status.feedback!.isNotEmpty) ...[
             const SizedBox(height: 16),
             _feedbackBlock(l10n, status.feedback!),
@@ -367,6 +371,47 @@ class _EvaluationResultScreenState
             ),
           ),
           Icon(Icons.star_rounded, color: accent, size: 56),
+        ],
+      ),
+    );
+  }
+
+  Widget _transcriptBlock(AppLocalizations l10n, String transcript) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: context.containerColor,
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: context.dividerColor),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.mic_rounded, size: 16, color: context.textSecondary),
+              const SizedBox(width: 6),
+              Text(
+                l10n.examSpeakingTranscriptHeading,
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w800,
+                  color: context.textSecondary,
+                  letterSpacing: 0.3,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          Text(
+            transcript,
+            style: TextStyle(
+              fontSize: 14,
+              color: context.textPrimary,
+              height: 1.5,
+              fontStyle: FontStyle.italic,
+            ),
+          ),
         ],
       ),
     );

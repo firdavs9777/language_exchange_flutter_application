@@ -1,5 +1,6 @@
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/learning/exam_study/essay_editor_screen.dart';
+import 'package:bananatalk_app/pages/learning/exam_study/speaking_practice_screen.dart';
 import 'package:bananatalk_app/pages/learning/exam_study/widgets/question_mc_card.dart';
 import 'package:bananatalk_app/providers/provider_models/exam/exam_question.dart';
 import 'package:bananatalk_app/providers/provider_models/exam/exam_section.dart';
@@ -149,7 +150,12 @@ class _SectionPracticeScreenState
       // bottom bar opens it.
       return _essayPromptCard(question, l10n);
     }
-    // Speaking-prompt / fill-blank — still placeholder, lands later.
+    if (question.isSpeaking) {
+      // Speaking flow lives in its own full-screen recorder so the
+      // user has space to record + listen back before submitting.
+      return _speakingPromptCard(question, l10n);
+    }
+    // fill-blank — still placeholder, lands later.
     return _unsupportedQuestionCard(question, l10n);
   }
 
@@ -181,6 +187,48 @@ class _SectionPracticeScreenState
               Expanded(
                 child: Text(
                   l10n.examEssayPrompt,
+                  style: TextStyle(
+                    fontSize: 13,
+                    color: context.textSecondary,
+                    height: 1.4,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _speakingPromptCard(ExamQuestion question, AppLocalizations l10n) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: context.containerColor,
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: context.dividerColor),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            question.questionText,
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w700,
+              color: context.textPrimary,
+              height: 1.45,
+            ),
+          ),
+          const SizedBox(height: 14),
+          Row(
+            children: [
+              Icon(Icons.mic_rounded, size: 18, color: context.primaryColor),
+              const SizedBox(width: 6),
+              Expanded(
+                child: Text(
+                  l10n.examSpeakingTapToRecord,
                   style: TextStyle(
                     fontSize: 13,
                     color: context.textSecondary,
@@ -355,6 +403,9 @@ class _SectionPracticeScreenState
     } else if (question.isEssay) {
       label = l10n.examEssaySubmit;
       onPressed = () => _openEssayEditor(question, total);
+    } else if (question.isSpeaking) {
+      label = l10n.examSpeakingPrompt;
+      onPressed = () => _openSpeakingPractice(question, total);
     } else if (question.isMultipleChoice) {
       label = l10n.examQuestionSubmit;
       onPressed = mcCanSubmit ? () => _submit(question) : null;
@@ -420,6 +471,19 @@ class _SectionPracticeScreenState
     if (!mounted) return;
     // After the editor (and its result screen) pop, advance past this
     // essay so the user doesn't see the same prompt again on return.
+    _advance(total);
+  }
+
+  Future<void> _openSpeakingPractice(ExamQuestion question, int total) async {
+    await Navigator.of(context).push(
+      AppPageRoute(
+        builder: (_) => SpeakingPracticeScreen(
+          question: question,
+          examId: widget.examId,
+        ),
+      ),
+    );
+    if (!mounted) return;
     _advance(total);
   }
 

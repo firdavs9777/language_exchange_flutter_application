@@ -2628,5 +2628,15 @@
   "examTopicAllTopicsDescription": "Mix from every available topic",
   "examTopicEmpty": "No topical content yet. Tap All topics to start practicing.",
   "examTopicQuestionCount": "{count} questions",
-  "examTopicOneQuestion": "1 question"
+  "examTopicOneQuestion": "1 question",
+  "examSpeakingPrompt": "Speak your answer",
+  "examSpeakingListenToPrompt": "Listen to prompt",
+  "examSpeakingTapToRecord": "Tap to record your answer",
+  "examSpeakingTranscriptHeading": "What we heard",
+  "examSpeakingPart1": "Speaking — Part 1",
+  "examSpeakingPart2": "Speaking — Part 2",
+  "examSpeakingPart3": "Speaking — Part 3",
+  "examSpeakingSubmit": "Submit recording",
+  "examSpeakingUploading": "Uploading…",
+  "examSpeakingTooShort": "Recording is too short. Please speak for at least a few seconds."
 }

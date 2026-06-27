@@ -6870,6 +6870,36 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get examTopicOneQuestion => '1 question';
+
+  @override
+  String get examSpeakingPrompt => 'Speak your answer';
+
+  @override
+  String get examSpeakingListenToPrompt => 'Listen to prompt';
+
+  @override
+  String get examSpeakingTapToRecord => 'Tap to record your answer';
+
+  @override
+  String get examSpeakingTranscriptHeading => 'What we heard';
+
+  @override
+  String get examSpeakingPart1 => 'Speaking — Part 1';
+
+  @override
+  String get examSpeakingPart2 => 'Speaking — Part 2';
+
+  @override
+  String get examSpeakingPart3 => 'Speaking — Part 3';
+
+  @override
+  String get examSpeakingSubmit => 'Submit recording';
+
+  @override
+  String get examSpeakingUploading => 'Uploading…';
+
+  @override
+  String get examSpeakingTooShort => 'Recording is too short. Please speak for at least a few seconds.';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -12625,4 +12655,34 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get examTopicOneQuestion => '1 question';
+
+  @override
+  String get examSpeakingPrompt => 'Speak your answer';
+
+  @override
+  String get examSpeakingListenToPrompt => 'Listen to prompt';
+
+  @override
+  String get examSpeakingTapToRecord => 'Tap to record your answer';
+
+  @override
+  String get examSpeakingTranscriptHeading => 'What we heard';
+
+  @override
+  String get examSpeakingPart1 => 'Speaking — Part 1';
+
+  @override
+  String get examSpeakingPart2 => 'Speaking — Part 2';
+
+  @override
+  String get examSpeakingPart3 => 'Speaking — Part 3';
+
+  @override
+  String get examSpeakingSubmit => 'Submit recording';
+
+  @override
+  String get examSpeakingUploading => 'Uploading…';
+
+  @override
+  String get examSpeakingTooShort => 'Recording is too short. Please speak for at least a few seconds.';
 }
