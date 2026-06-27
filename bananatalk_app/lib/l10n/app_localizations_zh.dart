@@ -6847,6 +6847,29 @@ class AppLocalizationsZh extends AppLocalizations {
   String examPlanLessonMinutes(int minutes) {
     return '$minutes min';
   }
+
+  @override
+  String get examTopicPickerTitle => 'Pick a topic';
+
+  @override
+  String get examTopicPickerSubtitle => 'Practice questions on a specific subject, or jump into all questions.';
+
+  @override
+  String get examTopicAllTopics => 'All topics';
+
+  @override
+  String get examTopicAllTopicsDescription => 'Mix from every available topic';
+
+  @override
+  String get examTopicEmpty => 'No topical content yet. Tap All topics to start practicing.';
+
+  @override
+  String examTopicQuestionCount(int count) {
+    return '$count questions';
+  }
+
+  @override
+  String get examTopicOneQuestion => '1 question';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -12579,4 +12602,27 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String examPlanLessonMinutes(int minutes) {
     return '$minutes min';
   }
+
+  @override
+  String get examTopicPickerTitle => 'Pick a topic';
+
+  @override
+  String get examTopicPickerSubtitle => 'Practice questions on a specific subject, or jump into all questions.';
+
+  @override
+  String get examTopicAllTopics => 'All topics';
+
+  @override
+  String get examTopicAllTopicsDescription => 'Mix from every available topic';
+
+  @override
+  String get examTopicEmpty => 'No topical content yet. Tap All topics to start practicing.';
+
+  @override
+  String examTopicQuestionCount(int count) {
+    return '$count questions';
+  }
+
+  @override
+  String get examTopicOneQuestion => '1 question';
 }

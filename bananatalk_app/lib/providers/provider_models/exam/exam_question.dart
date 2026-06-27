@@ -15,6 +15,7 @@ class ExamQuestion {
     this.explanation,
     this.difficulty = 'medium',
     this.source = 'builtin',
+    this.topic,
   });
 
   final String id;
@@ -33,6 +34,9 @@ class ExamQuestion {
   final String difficulty;
   /// "builtin" | "ai-generated"
   final String source;
+  /// Free-form topic tag ("Climate", "Travel", …) used by the topic picker.
+  /// Null when the question hasn't been categorized yet.
+  final String? topic;
 
   bool get isMultipleChoice => questionType == 'multiple-choice';
   bool get isEssay => questionType == 'essay';
@@ -56,6 +60,7 @@ class ExamQuestion {
       explanation: json['explanation']?.toString(),
       difficulty: json['difficulty']?.toString() ?? 'medium',
       source: json['source']?.toString() ?? 'builtin',
+      topic: json['topic']?.toString(),
     );
   }
 }

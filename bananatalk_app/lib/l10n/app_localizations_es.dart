@@ -6854,4 +6854,27 @@ class AppLocalizationsEs extends AppLocalizations {
   String examPlanLessonMinutes(int minutes) {
     return '$minutes min';
   }
+
+  @override
+  String get examTopicPickerTitle => 'Pick a topic';
+
+  @override
+  String get examTopicPickerSubtitle => 'Practice questions on a specific subject, or jump into all questions.';
+
+  @override
+  String get examTopicAllTopics => 'All topics';
+
+  @override
+  String get examTopicAllTopicsDescription => 'Mix from every available topic';
+
+  @override
+  String get examTopicEmpty => 'No topical content yet. Tap All topics to start practicing.';
+
+  @override
+  String examTopicQuestionCount(int count) {
+    return '$count questions';
+  }
+
+  @override
+  String get examTopicOneQuestion => '1 question';
 }

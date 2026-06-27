@@ -12781,6 +12781,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{minutes} min'**
   String examPlanLessonMinutes(int minutes);
+
+  /// No description provided for @examTopicPickerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick a topic'**
+  String get examTopicPickerTitle;
+
+  /// No description provided for @examTopicPickerSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Practice questions on a specific subject, or jump into all questions.'**
+  String get examTopicPickerSubtitle;
+
+  /// No description provided for @examTopicAllTopics.
+  ///
+  /// In en, this message translates to:
+  /// **'All topics'**
+  String get examTopicAllTopics;
+
+  /// No description provided for @examTopicAllTopicsDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Mix from every available topic'**
+  String get examTopicAllTopicsDescription;
+
+  /// No description provided for @examTopicEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No topical content yet. Tap All topics to start practicing.'**
+  String get examTopicEmpty;
+
+  /// No description provided for @examTopicQuestionCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} questions'**
+  String examTopicQuestionCount(int count);
+
+  /// No description provided for @examTopicOneQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'1 question'**
+  String get examTopicOneQuestion;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

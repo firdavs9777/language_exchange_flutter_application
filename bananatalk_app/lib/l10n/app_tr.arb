@@ -2990,5 +2990,12 @@
   "examPlanWeekEstimate": "{hours}h",
   "examPlanTotalHours": "{hours} hours total",
   "examPlanDailyHeading": "Suggested daily lessons",
-  "examPlanLessonMinutes": "{minutes} min"
+  "examPlanLessonMinutes": "{minutes} min",
+  "examTopicPickerTitle": "Pick a topic",
+  "examTopicPickerSubtitle": "Practice questions on a specific subject, or jump into all questions.",
+  "examTopicAllTopics": "All topics",
+  "examTopicAllTopicsDescription": "Mix from every available topic",
+  "examTopicEmpty": "No topical content yet. Tap All topics to start practicing.",
+  "examTopicQuestionCount": "{count} questions",
+  "examTopicOneQuestion": "1 question"
 }

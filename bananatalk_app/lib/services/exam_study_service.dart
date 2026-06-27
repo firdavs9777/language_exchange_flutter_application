@@ -5,6 +5,7 @@ import 'package:bananatalk_app/providers/provider_models/exam/evaluation_status.
 import 'package:bananatalk_app/providers/provider_models/exam/exam_submission_result.dart';
 import 'package:bananatalk_app/providers/provider_models/exam/exam_type.dart';
 import 'package:bananatalk_app/providers/provider_models/exam/exam_question.dart';
+import 'package:bananatalk_app/providers/provider_models/exam/exam_topic.dart';
 import 'package:bananatalk_app/providers/provider_models/exam/user_exam_progress.dart';
 import 'package:bananatalk_app/providers/provider_models/exam/user_study_plan.dart';
 import 'package:bananatalk_app/service/endpoints.dart';
@@ -63,13 +64,14 @@ class ExamStudyService {
   }
 
   /// Practice questions for a section. Optional filters mirror the
-  /// backend `?limit=&difficulty=&source=` query params.
+  /// backend `?limit=&difficulty=&source=&topic=` query params.
   Future<List<ExamQuestion>> getQuestionsForSection(
     String sectionId, {
     int limit = 10,
     int skip = 0,
     String? difficulty, // "easy" | "medium" | "hard"
     String? source, // "builtin" | "ai-generated"
+    String? topic, // free-form, e.g. "Climate"
   }) async {
     final token = await _getToken();
     final qp = <String, String>{
@@ -77,12 +79,27 @@ class ExamStudyService {
       'skip': '$skip',
       if (difficulty != null) 'difficulty': difficulty,
       if (source != null) 'source': source,
+      if (topic != null) 'topic': topic,
     };
     final uri = Uri.parse(
       '${Endpoints.baseURL}${Endpoints.examStudyQuestionsForSectionURL(sectionId)}',
     ).replace(queryParameters: qp);
     final resp = await http.get(uri, headers: _headers(token));
     return _decodeList(resp, ExamQuestion.fromJson);
+  }
+
+  /// Distinct topics in a section + their question counts. Powers the
+  /// topic picker grid. Empty list = section hasn't been tagged yet, in
+  /// which case the UI falls back to "All topics" only.
+  Future<List<ExamTopic>> getTopicsForSection(String sectionId) async {
+    final token = await _getToken();
+    final resp = await http.get(
+      Uri.parse(
+        '${Endpoints.baseURL}exam-study/sections/$sectionId/topics',
+      ),
+      headers: _headers(token),
+    );
+    return _decodeList(resp, ExamTopic.fromJson);
   }
 
   /// Submit an answer to a question.

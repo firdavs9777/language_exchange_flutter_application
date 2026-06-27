@@ -2,6 +2,7 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/learning/exam_study/progress_screen.dart';
 import 'package:bananatalk_app/pages/learning/exam_study/section_practice_screen.dart';
 import 'package:bananatalk_app/pages/learning/exam_study/study_plan_screen.dart';
+import 'package:bananatalk_app/pages/learning/exam_study/topic_picker_screen.dart';
 import 'package:bananatalk_app/pages/learning/exam_study/widgets/section_tile.dart';
 import 'package:bananatalk_app/providers/provider_models/exam/exam_section.dart';
 import 'package:bananatalk_app/providers/provider_models/exam/exam_type.dart';
@@ -246,16 +247,17 @@ class ExamDashboardScreen extends ConsumerWidget {
     WidgetRef ref,
     ExamSection section,
   ) {
+    // Section tile now pushes the topic picker; the picker pushes the
+    // practice screen with the chosen topic filter. After the user
+    // returns to the dashboard we still want fresh progress numbers.
     Navigator.of(context).push(
       AppPageRoute(
-        builder: (_) => SectionPracticeScreen(
+        builder: (_) => TopicPickerScreen(
           section: section,
           examId: exam.id,
         ),
       ),
     ).then((_) {
-      // Pull fresh progress when the user returns so the tile progress
-      // bar reflects the questions they just answered.
       final userId = ref.read(authServiceProvider).userId;
       if (userId.isNotEmpty) {
         ref.invalidate(

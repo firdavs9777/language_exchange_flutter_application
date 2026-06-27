@@ -2,6 +2,7 @@ import 'package:bananatalk_app/providers/provider_models/exam/exam_language.dart
 import 'package:bananatalk_app/providers/provider_models/exam/exam_section.dart';
 import 'package:bananatalk_app/providers/provider_models/exam/exam_type.dart';
 import 'package:bananatalk_app/providers/provider_models/exam/exam_question.dart';
+import 'package:bananatalk_app/providers/provider_models/exam/exam_topic.dart';
 import 'package:bananatalk_app/providers/provider_models/exam/user_exam_progress.dart';
 import 'package:bananatalk_app/providers/provider_models/exam/user_study_plan.dart';
 import 'package:bananatalk_app/services/exam_study_service.dart';
@@ -40,6 +41,7 @@ class QuestionsQuery {
     this.skip = 0,
     this.difficulty,
     this.source,
+    this.topic,
   });
 
   final String sectionId;
@@ -47,6 +49,9 @@ class QuestionsQuery {
   final int skip;
   final String? difficulty;
   final String? source;
+  /// Filters the question pool to a specific topic. Null = all topics
+  /// (matches the "All topics" tile on the picker).
+  final String? topic;
 
   @override
   bool operator ==(Object other) =>
@@ -55,11 +60,12 @@ class QuestionsQuery {
       other.limit == limit &&
       other.skip == skip &&
       other.difficulty == difficulty &&
-      other.source == source;
+      other.source == source &&
+      other.topic == topic;
 
   @override
   int get hashCode =>
-      Object.hash(sectionId, limit, skip, difficulty, source);
+      Object.hash(sectionId, limit, skip, difficulty, source, topic);
 }
 
 /// Practice questions for a section (paginated + filtered).
@@ -71,7 +77,15 @@ final questionsForSectionProvider =
         skip: q.skip,
         difficulty: q.difficulty,
         source: q.source,
+        topic: q.topic,
       );
+});
+
+/// Distinct topics in a given section, with question counts. Powers the
+/// topic-picker grid.
+final topicsForSectionProvider =
+    FutureProvider.family<List<ExamTopic>, String>((ref, sectionId) {
+  return ref.watch(examStudyServiceProvider).getTopicsForSection(sectionId);
 });
 
 /// Compound key for `userExamProgressProvider` so the family has stable

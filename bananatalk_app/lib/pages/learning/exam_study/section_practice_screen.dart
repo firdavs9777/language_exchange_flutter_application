@@ -23,10 +23,15 @@ class SectionPracticeScreen extends ConsumerStatefulWidget {
     super.key,
     required this.section,
     required this.examId,
+    this.topic,
   });
 
   final ExamSection section;
   final String examId;
+
+  /// When non-null, the practice screen pulls only questions tagged with
+  /// this topic. Null = all topics (legacy behavior).
+  final String? topic;
 
   @override
   ConsumerState<SectionPracticeScreen> createState() =>
@@ -46,7 +51,11 @@ class _SectionPracticeScreenState
     final l10n = AppLocalizations.of(context)!;
     final questionsAsync = ref.watch(
       questionsForSectionProvider(
-        QuestionsQuery(sectionId: widget.section.id, limit: 20),
+        QuestionsQuery(
+          sectionId: widget.section.id,
+          limit: 20,
+          topic: widget.topic,
+        ),
       ),
     );
 
@@ -55,13 +64,28 @@ class _SectionPracticeScreenState
       appBar: AppBar(
         backgroundColor: context.surfaceColor,
         elevation: 0,
-        title: Text(
-          widget.section.sectionName,
-          style: TextStyle(
-            color: context.textPrimary,
-            fontWeight: FontWeight.w800,
-            fontSize: 18,
-          ),
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              widget.section.sectionName,
+              style: TextStyle(
+                color: context.textPrimary,
+                fontWeight: FontWeight.w800,
+                fontSize: 18,
+              ),
+            ),
+            if (widget.topic != null)
+              Text(
+                widget.topic!,
+                style: TextStyle(
+                  color: context.textSecondary,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 12,
+                ),
+              ),
+          ],
         ),
       ),
       body: questionsAsync.when(
