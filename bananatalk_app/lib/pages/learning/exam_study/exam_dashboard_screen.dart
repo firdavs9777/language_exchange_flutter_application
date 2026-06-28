@@ -1,8 +1,10 @@
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/learning/exam_study/progress_screen.dart';
+import 'package:bananatalk_app/pages/learning/exam_study/section_group_screen.dart';
 import 'package:bananatalk_app/pages/learning/exam_study/section_practice_screen.dart';
 import 'package:bananatalk_app/pages/learning/exam_study/study_plan_screen.dart';
 import 'package:bananatalk_app/pages/learning/exam_study/topic_picker_screen.dart';
+import 'package:bananatalk_app/pages/learning/exam_study/widgets/section_group_tile.dart';
 import 'package:bananatalk_app/pages/learning/exam_study/widgets/section_tile.dart';
 import 'package:bananatalk_app/providers/provider_models/exam/exam_section.dart';
 import 'package:bananatalk_app/providers/provider_models/exam/exam_type.dart';
@@ -216,10 +218,12 @@ class ExamDashboardScreen extends ConsumerWidget {
               )
             : const AsyncValue<UserExamProgress?>.data(null);
 
+        final entries = _groupSections(sections);
+        final progress = progressAsync.valueOrNull;
         return GridView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          itemCount: sections.length,
+          itemCount: entries.length,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             mainAxisSpacing: 12,
@@ -227,8 +231,27 @@ class ExamDashboardScreen extends ConsumerWidget {
             childAspectRatio: 1.05,
           ),
           itemBuilder: (context, index) {
-            final section = sections[index];
-            final progress = progressAsync.valueOrNull;
+            final entry = entries[index];
+            if (entry.isGroup) {
+              final done = entry.sections.fold<int>(
+                0,
+                (sum, s) =>
+                    sum + (progress?.forSection(s.sectionType).attempted ?? 0),
+              );
+              final total = entry.sections.fold<int>(
+                0,
+                (sum, s) => sum + s.questionCount,
+              );
+              return SectionGroupTile(
+                icon: entry.icon!,
+                title: entry.localizedTitle(l10n),
+                subtitle: entry.localizedSubtitle(l10n),
+                questionsDone: done,
+                questionsTotal: total,
+                onTap: () => _openGroup(context, ref, entry, l10n),
+              );
+            }
+            final section = entry.sections.first;
             final sectionScore = progress?.forSection(section.sectionType);
             return SectionTile(
               section: section,
@@ -269,6 +292,81 @@ class ExamDashboardScreen extends ConsumerWidget {
     });
   }
 
+  void _openGroup(
+    BuildContext context,
+    WidgetRef ref,
+    _DashboardEntry entry,
+    AppLocalizations l10n,
+  ) {
+    Navigator.of(context).push(
+      AppPageRoute(
+        builder: (_) => SectionGroupScreen(
+          examId: exam.id,
+          groupTitle: entry.localizedTitle(l10n),
+          subSections: entry.sections,
+        ),
+      ),
+    ).then((_) {
+      final userId = ref.read(authServiceProvider).userId;
+      if (userId.isNotEmpty) {
+        ref.invalidate(
+          userExamProgressProvider(
+            ProgressKey(userId: userId, examId: exam.id),
+          ),
+        );
+      }
+    });
+  }
+
+  /// Bucket the flat section list into either single tiles (Reading) or
+  /// grouped tiles (Writing → Task 1/2, Speaking → Part 1/2/3). Sort sub-
+  /// sections by their type suffix so Task 1 always renders before Task 2.
+  List<_DashboardEntry> _groupSections(List<ExamSection> sections) {
+    final byBucket = <String, List<ExamSection>>{};
+    final order = <String>[];
+    for (final s in sections) {
+      final bucket = _bucketFor(s.sectionType);
+      if (!byBucket.containsKey(bucket)) {
+        byBucket[bucket] = [];
+        order.add(bucket);
+      }
+      byBucket[bucket]!.add(s);
+    }
+    final entries = <_DashboardEntry>[];
+    for (final bucket in order) {
+      final list = byBucket[bucket]!
+        ..sort((a, b) => a.sectionType.compareTo(b.sectionType));
+      if (bucket == 'writing' && list.length > 1) {
+        entries.add(_DashboardEntry.group(
+          bucket: 'writing',
+          icon: Icons.edit_note_rounded,
+          sections: list,
+        ));
+      } else if (bucket == 'speaking' && list.length > 1) {
+        entries.add(_DashboardEntry.group(
+          bucket: 'speaking',
+          icon: Icons.mic_rounded,
+          sections: list,
+        ));
+      } else {
+        for (final s in list) {
+          entries.add(_DashboardEntry.single(s));
+        }
+      }
+    }
+    return entries;
+  }
+
+  String _bucketFor(String sectionType) {
+    if (sectionType == 'writing' || sectionType.startsWith('writing-')) {
+      return 'writing';
+    }
+    if (sectionType == 'speaking' || sectionType.startsWith('speaking-')) {
+      return 'speaking';
+    }
+    return sectionType;
+  }
+
   Widget _sectionsError(
     BuildContext context,
     WidgetRef ref,
@@ -295,4 +393,48 @@ class ExamDashboardScreen extends ConsumerWidget {
     );
   }
 
+}
+
+/// Dashboard list entry — either a single section tile or a grouped tile
+/// that drills into a sub-section picker (Writing → Task 1/2, Speaking →
+/// Part 1/2/3).
+class _DashboardEntry {
+  _DashboardEntry.single(ExamSection section)
+      : isGroup = false,
+        bucket = section.sectionType,
+        icon = null,
+        sections = [section];
+
+  _DashboardEntry.group({
+    required this.bucket,
+    required IconData this.icon,
+    required this.sections,
+  }) : isGroup = true;
+
+  final bool isGroup;
+  final String bucket;
+  final IconData? icon;
+  final List<ExamSection> sections;
+
+  String localizedTitle(AppLocalizations l10n) {
+    switch (bucket) {
+      case 'writing':
+        return l10n.examGroupWriting;
+      case 'speaking':
+        return l10n.examGroupSpeaking;
+      default:
+        return sections.first.sectionName;
+    }
+  }
+
+  String localizedSubtitle(AppLocalizations l10n) {
+    switch (bucket) {
+      case 'writing':
+        return l10n.examGroupWritingSubtitle(sections.length);
+      case 'speaking':
+        return l10n.examGroupSpeakingSubtitle(sections.length);
+      default:
+        return '';
+    }
+  }
 }

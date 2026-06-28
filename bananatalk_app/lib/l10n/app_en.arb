@@ -4057,5 +4057,31 @@
   "examSpeakingPart3": "Speaking — Part 3",
   "examSpeakingSubmit": "Submit recording",
   "examSpeakingUploading": "Uploading…",
-  "examSpeakingTooShort": "Recording is too short. Please speak for at least a few seconds."
+  "examSpeakingTooShort": "Recording is too short. Please speak for at least a few seconds.",
+  "examGroupWriting": "Writing",
+  "@examGroupWriting": {
+    "description": "Dashboard group title — Writing"
+  },
+  "examGroupSpeaking": "Speaking",
+  "@examGroupSpeaking": {
+    "description": "Dashboard group title — Speaking"
+  },
+  "examGroupWritingSubtitle": "{count, plural, =1{1 task} other{{count} tasks}}",
+  "@examGroupWritingSubtitle": {
+    "description": "Dashboard group subtitle — sub-section count for Writing",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "examGroupSpeakingSubtitle": "{count, plural, =1{1 part} other{{count} parts}}",
+  "@examGroupSpeakingSubtitle": {
+    "description": "Dashboard group subtitle — sub-section count for Speaking",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
 }

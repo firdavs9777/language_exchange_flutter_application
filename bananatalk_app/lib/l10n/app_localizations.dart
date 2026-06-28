@@ -12883,6 +12883,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Recording is too short. Please speak for at least a few seconds.'**
   String get examSpeakingTooShort;
+
+  /// Dashboard group title — Writing
+  ///
+  /// In en, this message translates to:
+  /// **'Writing'**
+  String get examGroupWriting;
+
+  /// Dashboard group title — Speaking
+  ///
+  /// In en, this message translates to:
+  /// **'Speaking'**
+  String get examGroupSpeaking;
+
+  /// Dashboard group subtitle — sub-section count for Writing
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 task} other{{count} tasks}}'**
+  String examGroupWritingSubtitle(int count);
+
+  /// Dashboard group subtitle — sub-section count for Speaking
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 part} other{{count} parts}}'**
+  String examGroupSpeakingSubtitle(int count);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

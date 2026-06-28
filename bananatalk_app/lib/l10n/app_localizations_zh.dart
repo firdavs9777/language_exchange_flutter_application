@@ -6900,6 +6900,34 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get examSpeakingTooShort => 'Recording is too short. Please speak for at least a few seconds.';
+
+  @override
+  String get examGroupWriting => 'Writing';
+
+  @override
+  String get examGroupSpeaking => 'Speaking';
+
+  @override
+  String examGroupWritingSubtitle(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count tasks',
+      one: '1 task',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String examGroupSpeakingSubtitle(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count parts',
+      one: '1 part',
+    );
+    return '$_temp0';
+  }
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -12685,4 +12713,32 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get examSpeakingTooShort => 'Recording is too short. Please speak for at least a few seconds.';
+
+  @override
+  String get examGroupWriting => 'Writing';
+
+  @override
+  String get examGroupSpeaking => 'Speaking';
+
+  @override
+  String examGroupWritingSubtitle(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count tasks',
+      one: '1 task',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String examGroupSpeakingSubtitle(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count parts',
+      one: '1 part',
+    );
+    return '$_temp0';
+  }
 }

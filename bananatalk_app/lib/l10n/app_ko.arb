@@ -2816,5 +2816,9 @@
   "examSpeakingPart3": "Speaking — Part 3",
   "examSpeakingSubmit": "Submit recording",
   "examSpeakingUploading": "Uploading…",
-  "examSpeakingTooShort": "Recording is too short. Please speak for at least a few seconds."
+  "examSpeakingTooShort": "Recording is too short. Please speak for at least a few seconds.",
+  "examGroupWriting": "Writing",
+  "examGroupSpeaking": "Speaking",
+  "examGroupWritingSubtitle": "{count, plural, =1{1 task} other{{count} tasks}}",
+  "examGroupSpeakingSubtitle": "{count, plural, =1{1 part} other{{count} parts}}"
 }
