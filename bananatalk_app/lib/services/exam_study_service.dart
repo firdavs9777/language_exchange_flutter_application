@@ -7,6 +7,7 @@ import 'package:bananatalk_app/providers/provider_models/exam/exam_submission_re
 import 'package:bananatalk_app/providers/provider_models/exam/exam_type.dart';
 import 'package:bananatalk_app/providers/provider_models/exam/exam_question.dart';
 import 'package:bananatalk_app/providers/provider_models/exam/exam_topic.dart';
+import 'package:bananatalk_app/providers/provider_models/exam/exam_study_tip.dart';
 import 'package:bananatalk_app/providers/provider_models/exam/user_exam_progress.dart';
 import 'package:bananatalk_app/providers/provider_models/exam/user_study_plan.dart';
 import 'package:bananatalk_app/providers/provider_models/exam/vocabulary_word.dart';
@@ -308,6 +309,28 @@ class ExamStudyService {
       );
     }
     return UserStudyPlan.fromJson(_decodeMap(resp));
+  }
+
+  // ===========================================================================
+  // Study tips
+  // ===========================================================================
+
+  /// Curated tips and teaching techniques for an exam, optionally
+  /// filtered to a section and/or category.
+  Future<List<ExamStudyTip>> getExamStudyTips({
+    required String examId,
+    String? sectionType,
+    String? category,
+  }) async {
+    final token = await _getToken();
+    final qp = <String, String>{};
+    if (sectionType != null) qp['sectionType'] = sectionType;
+    if (category != null) qp['category'] = category;
+    final uri = Uri.parse(
+      '${Endpoints.baseURL}exam-study/exams/$examId/tips',
+    ).replace(queryParameters: qp.isEmpty ? null : qp);
+    final resp = await http.get(uri, headers: _headers(token));
+    return _decodeList(resp, ExamStudyTip.fromJson);
   }
 
   // ===========================================================================

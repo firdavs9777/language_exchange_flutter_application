@@ -3,6 +3,7 @@ import 'package:bananatalk_app/providers/provider_models/exam/exam_section.dart'
 import 'package:bananatalk_app/providers/provider_models/exam/exam_type.dart';
 import 'package:bananatalk_app/providers/provider_models/exam/exam_question.dart';
 import 'package:bananatalk_app/providers/provider_models/exam/exam_topic.dart';
+import 'package:bananatalk_app/providers/provider_models/exam/exam_study_tip.dart';
 import 'package:bananatalk_app/providers/provider_models/exam/user_exam_progress.dart';
 import 'package:bananatalk_app/providers/provider_models/exam/user_study_plan.dart';
 import 'package:bananatalk_app/providers/provider_models/exam/vocabulary_word.dart';
@@ -200,4 +201,17 @@ final vocabularyWordsProvider = FutureProvider.family<List<VocabularyWord>,
         limit: q.limit,
         skip: q.skip,
       );
+});
+
+// ===========================================================================
+// Study tips
+// ===========================================================================
+
+/// All study tips for an exam (no section / category filtering at the
+/// provider layer — the screen groups them client-side).
+final examStudyTipsProvider =
+    FutureProvider.family<List<ExamStudyTip>, String>((ref, examId) {
+  return ref
+      .watch(examStudyServiceProvider)
+      .getExamStudyTips(examId: examId);
 });

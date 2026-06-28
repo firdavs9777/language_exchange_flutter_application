@@ -2842,5 +2842,18 @@
   "examVocabQuizExpiredTitle": "Quiz expired",
   "examVocabQuizExpiredBody": "This quiz has been idle too long. Restart to get a fresh one.",
   "examVocabTranslate": "Translate",
-  "examVocabTranslateFailed": "Translation unavailable. Try again later."
+  "examVocabTranslateFailed": "Translation unavailable. Try again later.",
+  "examDashboardTips": "Tips",
+  "examTipsTitle": "Tips & Techniques",
+  "examTipsSubtitle": "Curated strategy notes for {examName}.",
+  "examTipsEmpty": "No tips have been published for this exam yet.",
+  "examTipsCategoryStrategy": "Strategy",
+  "examTipsCategoryGrammar": "Grammar",
+  "examTipsCategoryVocabulary": "Vocabulary",
+  "examTipsCategoryTimeManagement": "Time Management",
+  "examTipsCategoryCommonMistakes": "Common Mistakes",
+  "examTipsCategoryBandBooster": "Band Boosters",
+  "examTipsCategoryCulturalNotes": "Cultural Notes",
+  "examTipsCategoryPronunciation": "Pronunciation",
+  "examTipsCategoryFluency": "Fluency"
 }

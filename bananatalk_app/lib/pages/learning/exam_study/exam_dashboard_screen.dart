@@ -3,6 +3,7 @@ import 'package:bananatalk_app/pages/learning/exam_study/progress_screen.dart';
 import 'package:bananatalk_app/pages/learning/exam_study/section_group_screen.dart';
 import 'package:bananatalk_app/pages/learning/exam_study/section_practice_screen.dart';
 import 'package:bananatalk_app/pages/learning/exam_study/study_plan_screen.dart';
+import 'package:bananatalk_app/pages/learning/exam_study/study_tips_screen.dart';
 import 'package:bananatalk_app/pages/learning/exam_study/topic_picker_screen.dart';
 import 'package:bananatalk_app/pages/learning/exam_study/vocabulary_level_picker_screen.dart';
 import 'package:bananatalk_app/pages/learning/exam_study/widgets/section_group_tile.dart';
@@ -118,7 +119,22 @@ class ExamDashboardScreen extends ConsumerWidget {
             onTap: () => _openProgress(context),
           ),
         ),
+        const SizedBox(width: 8),
+        Expanded(
+          child: _actionPill(
+            context,
+            icon: Icons.tips_and_updates_outlined,
+            label: l10n.examDashboardTips,
+            onTap: () => _openTips(context),
+          ),
+        ),
       ],
+    );
+  }
+
+  void _openTips(BuildContext context) {
+    Navigator.of(context).push(
+      AppPageRoute(builder: (_) => StudyTipsScreen(exam: exam)),
     );
   }
 

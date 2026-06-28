@@ -6996,6 +6996,47 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get examVocabTranslateFailed => 'Translation unavailable. Try again later.';
+
+  @override
+  String get examDashboardTips => 'Tips';
+
+  @override
+  String get examTipsTitle => 'Tips & Techniques';
+
+  @override
+  String examTipsSubtitle(String examName) {
+    return 'Curated strategy notes for $examName.';
+  }
+
+  @override
+  String get examTipsEmpty => 'No tips have been published for this exam yet.';
+
+  @override
+  String get examTipsCategoryStrategy => 'Strategy';
+
+  @override
+  String get examTipsCategoryGrammar => 'Grammar';
+
+  @override
+  String get examTipsCategoryVocabulary => 'Vocabulary';
+
+  @override
+  String get examTipsCategoryTimeManagement => 'Time Management';
+
+  @override
+  String get examTipsCategoryCommonMistakes => 'Common Mistakes';
+
+  @override
+  String get examTipsCategoryBandBooster => 'Band Boosters';
+
+  @override
+  String get examTipsCategoryCulturalNotes => 'Cultural Notes';
+
+  @override
+  String get examTipsCategoryPronunciation => 'Pronunciation';
+
+  @override
+  String get examTipsCategoryFluency => 'Fluency';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -12877,4 +12918,45 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get examVocabTranslateFailed => 'Translation unavailable. Try again later.';
+
+  @override
+  String get examDashboardTips => 'Tips';
+
+  @override
+  String get examTipsTitle => 'Tips & Techniques';
+
+  @override
+  String examTipsSubtitle(String examName) {
+    return 'Curated strategy notes for $examName.';
+  }
+
+  @override
+  String get examTipsEmpty => 'No tips have been published for this exam yet.';
+
+  @override
+  String get examTipsCategoryStrategy => 'Strategy';
+
+  @override
+  String get examTipsCategoryGrammar => 'Grammar';
+
+  @override
+  String get examTipsCategoryVocabulary => 'Vocabulary';
+
+  @override
+  String get examTipsCategoryTimeManagement => 'Time Management';
+
+  @override
+  String get examTipsCategoryCommonMistakes => 'Common Mistakes';
+
+  @override
+  String get examTipsCategoryBandBooster => 'Band Boosters';
+
+  @override
+  String get examTipsCategoryCulturalNotes => 'Cultural Notes';
+
+  @override
+  String get examTipsCategoryPronunciation => 'Pronunciation';
+
+  @override
+  String get examTipsCategoryFluency => 'Fluency';
 }

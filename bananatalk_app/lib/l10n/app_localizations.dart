@@ -13039,6 +13039,84 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Translation unavailable. Try again later.'**
   String get examVocabTranslateFailed;
+
+  /// Quick action — open the tips screen
+  ///
+  /// In en, this message translates to:
+  /// **'Tips'**
+  String get examDashboardTips;
+
+  /// AppBar of the study tips screen
+  ///
+  /// In en, this message translates to:
+  /// **'Tips & Techniques'**
+  String get examTipsTitle;
+
+  /// Subtitle under the tips title; takes the exam name
+  ///
+  /// In en, this message translates to:
+  /// **'Curated strategy notes for {examName}.'**
+  String examTipsSubtitle(String examName);
+
+  /// Shown when no tips exist for the exam
+  ///
+  /// In en, this message translates to:
+  /// **'No tips have been published for this exam yet.'**
+  String get examTipsEmpty;
+
+  /// Tip group label
+  ///
+  /// In en, this message translates to:
+  /// **'Strategy'**
+  String get examTipsCategoryStrategy;
+
+  /// Tip group label
+  ///
+  /// In en, this message translates to:
+  /// **'Grammar'**
+  String get examTipsCategoryGrammar;
+
+  /// Tip group label
+  ///
+  /// In en, this message translates to:
+  /// **'Vocabulary'**
+  String get examTipsCategoryVocabulary;
+
+  /// Tip group label
+  ///
+  /// In en, this message translates to:
+  /// **'Time Management'**
+  String get examTipsCategoryTimeManagement;
+
+  /// Tip group label
+  ///
+  /// In en, this message translates to:
+  /// **'Common Mistakes'**
+  String get examTipsCategoryCommonMistakes;
+
+  /// Tip group label
+  ///
+  /// In en, this message translates to:
+  /// **'Band Boosters'**
+  String get examTipsCategoryBandBooster;
+
+  /// Tip group label
+  ///
+  /// In en, this message translates to:
+  /// **'Cultural Notes'**
+  String get examTipsCategoryCulturalNotes;
+
+  /// Tip group label
+  ///
+  /// In en, this message translates to:
+  /// **'Pronunciation'**
+  String get examTipsCategoryPronunciation;
+
+  /// Tip group label
+  ///
+  /// In en, this message translates to:
+  /// **'Fluency'**
+  String get examTipsCategoryFluency;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

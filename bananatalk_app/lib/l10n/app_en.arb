@@ -4179,5 +4179,62 @@
   "examVocabTranslateFailed": "Translation unavailable. Try again later.",
   "@examVocabTranslateFailed": {
     "description": "Inline error when translation returns empty"
+  },
+  "examDashboardTips": "Tips",
+  "@examDashboardTips": {
+    "description": "Quick action — open the tips screen"
+  },
+  "examTipsTitle": "Tips & Techniques",
+  "@examTipsTitle": {
+    "description": "AppBar of the study tips screen"
+  },
+  "examTipsSubtitle": "Curated strategy notes for {examName}.",
+  "@examTipsSubtitle": {
+    "description": "Subtitle under the tips title; takes the exam name",
+    "placeholders": {
+      "examName": {
+        "type": "String"
+      }
+    }
+  },
+  "examTipsEmpty": "No tips have been published for this exam yet.",
+  "@examTipsEmpty": {
+    "description": "Shown when no tips exist for the exam"
+  },
+  "examTipsCategoryStrategy": "Strategy",
+  "@examTipsCategoryStrategy": {
+    "description": "Tip group label"
+  },
+  "examTipsCategoryGrammar": "Grammar",
+  "@examTipsCategoryGrammar": {
+    "description": "Tip group label"
+  },
+  "examTipsCategoryVocabulary": "Vocabulary",
+  "@examTipsCategoryVocabulary": {
+    "description": "Tip group label"
+  },
+  "examTipsCategoryTimeManagement": "Time Management",
+  "@examTipsCategoryTimeManagement": {
+    "description": "Tip group label"
+  },
+  "examTipsCategoryCommonMistakes": "Common Mistakes",
+  "@examTipsCategoryCommonMistakes": {
+    "description": "Tip group label"
+  },
+  "examTipsCategoryBandBooster": "Band Boosters",
+  "@examTipsCategoryBandBooster": {
+    "description": "Tip group label"
+  },
+  "examTipsCategoryCulturalNotes": "Cultural Notes",
+  "@examTipsCategoryCulturalNotes": {
+    "description": "Tip group label"
+  },
+  "examTipsCategoryPronunciation": "Pronunciation",
+  "@examTipsCategoryPronunciation": {
+    "description": "Tip group label"
+  },
+  "examTipsCategoryFluency": "Fluency",
+  "@examTipsCategoryFluency": {
+    "description": "Tip group label"
   }
 }
