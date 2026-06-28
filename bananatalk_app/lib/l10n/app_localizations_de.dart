@@ -6935,4 +6935,66 @@ class AppLocalizationsDe extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get examVocabLevelPickerTitle => 'Pick a level';
+
+  @override
+  String get examVocabLevelPickerSubtitle => 'Browse words and practice quizzes by CEFR level.';
+
+  @override
+  String get examVocabTopicPickerTitle => 'Pick a topic';
+
+  @override
+  String get examVocabAllTopics => 'All topics';
+
+  @override
+  String get examVocabBrowse => 'Browse';
+
+  @override
+  String get examVocabPractice => 'Practice';
+
+  @override
+  String get examVocabEmptyList => 'No words yet for this level and topic.';
+
+  @override
+  String get examVocabQuizComplete => 'Quiz complete';
+
+  @override
+  String examVocabQuizScore(int correct, int total) {
+    return 'You answered $correct of $total correctly';
+  }
+
+  @override
+  String get examVocabQuizYourAnswer => 'Your answer';
+
+  @override
+  String get examVocabQuizCorrectAnswer => 'Correct answer';
+
+  @override
+  String get examVocabQuizSubmit => 'Submit';
+
+  @override
+  String get examVocabQuizSubmitting => 'Submitting…';
+
+  @override
+  String get examVocabQuizNext => 'Next';
+
+  @override
+  String get examVocabQuizPrev => 'Back';
+
+  @override
+  String get examVocabQuizRestart => 'Restart';
+
+  @override
+  String get examVocabQuizEmpty => 'No questions could be generated. Try another topic or level.';
+
+  @override
+  String get examVocabQuizNotEnough => 'Not enough words at this level and topic to build a quiz.';
+
+  @override
+  String get examVocabQuizExpiredTitle => 'Quiz expired';
+
+  @override
+  String get examVocabQuizExpiredBody => 'This quiz has been idle too long. Restart to get a fresh one.';
 }

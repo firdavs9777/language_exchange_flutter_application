@@ -5,6 +5,7 @@ import 'package:bananatalk_app/providers/provider_models/exam/exam_question.dart
 import 'package:bananatalk_app/providers/provider_models/exam/exam_topic.dart';
 import 'package:bananatalk_app/providers/provider_models/exam/user_exam_progress.dart';
 import 'package:bananatalk_app/providers/provider_models/exam/user_study_plan.dart';
+import 'package:bananatalk_app/providers/provider_models/exam/vocabulary_word.dart';
 import 'package:bananatalk_app/services/exam_study_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -125,5 +126,78 @@ final userStudyPlanProvider =
   return ref.watch(examStudyServiceProvider).getActiveStudyPlan(
         userId: key.userId,
         examId: key.examId,
+      );
+});
+
+// ===========================================================================
+// Vocabulary
+// ===========================================================================
+
+/// CEFR levels with seeded words for an exam — used by the level picker
+/// to grey out empty tiles.
+final vocabularyLevelsProvider =
+    FutureProvider.family<List<String>, String>((ref, examId) {
+  return ref.watch(examStudyServiceProvider).getVocabularyLevels(examId);
+});
+
+class VocabularyTopicsKey {
+  const VocabularyTopicsKey({required this.examId, this.level});
+  final String examId;
+  final String? level;
+
+  @override
+  bool operator ==(Object other) =>
+      other is VocabularyTopicsKey &&
+      other.examId == examId &&
+      other.level == level;
+
+  @override
+  int get hashCode => Object.hash(examId, level);
+}
+
+/// Topics that have words for a given (exam, level).
+final vocabularyTopicsProvider =
+    FutureProvider.family<List<String>, VocabularyTopicsKey>((ref, key) {
+  return ref
+      .watch(examStudyServiceProvider)
+      .getVocabularyTopics(key.examId, level: key.level);
+});
+
+class VocabularyWordsQuery {
+  const VocabularyWordsQuery({
+    required this.examId,
+    required this.level,
+    this.topic,
+    this.limit = 50,
+    this.skip = 0,
+  });
+  final String examId;
+  final String level;
+  final String? topic;
+  final int limit;
+  final int skip;
+
+  @override
+  bool operator ==(Object other) =>
+      other is VocabularyWordsQuery &&
+      other.examId == examId &&
+      other.level == level &&
+      other.topic == topic &&
+      other.limit == limit &&
+      other.skip == skip;
+
+  @override
+  int get hashCode => Object.hash(examId, level, topic, limit, skip);
+}
+
+/// Paginated browse list. Returns up to [limit] words per call.
+final vocabularyWordsProvider = FutureProvider.family<List<VocabularyWord>,
+    VocabularyWordsQuery>((ref, q) {
+  return ref.watch(examStudyServiceProvider).getVocabularyWords(
+        examId: q.examId,
+        level: q.level,
+        topic: q.topic,
+        limit: q.limit,
+        skip: q.skip,
       );
 });

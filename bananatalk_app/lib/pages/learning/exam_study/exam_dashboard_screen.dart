@@ -4,6 +4,7 @@ import 'package:bananatalk_app/pages/learning/exam_study/section_group_screen.da
 import 'package:bananatalk_app/pages/learning/exam_study/section_practice_screen.dart';
 import 'package:bananatalk_app/pages/learning/exam_study/study_plan_screen.dart';
 import 'package:bananatalk_app/pages/learning/exam_study/topic_picker_screen.dart';
+import 'package:bananatalk_app/pages/learning/exam_study/vocabulary_level_picker_screen.dart';
 import 'package:bananatalk_app/pages/learning/exam_study/widgets/section_group_tile.dart';
 import 'package:bananatalk_app/pages/learning/exam_study/widgets/section_tile.dart';
 import 'package:bananatalk_app/providers/provider_models/exam/exam_section.dart';
@@ -270,17 +271,13 @@ class ExamDashboardScreen extends ConsumerWidget {
     WidgetRef ref,
     ExamSection section,
   ) {
-    // Section tile now pushes the topic picker; the picker pushes the
-    // practice screen with the chosen topic filter. After the user
-    // returns to the dashboard we still want fresh progress numbers.
-    Navigator.of(context).push(
-      AppPageRoute(
-        builder: (_) => TopicPickerScreen(
-          section: section,
-          examId: exam.id,
-        ),
-      ),
-    ).then((_) {
+    // Vocabulary diverges from the other sections — it has its own
+    // level → topic → browse/practice flow rather than topic → question.
+    final Widget next = section.sectionType == 'vocabulary'
+        ? VocabularyLevelPickerScreen(examId: exam.id, examName: exam.name)
+        : TopicPickerScreen(section: section, examId: exam.id);
+
+    Navigator.of(context).push(AppPageRoute(builder: (_) => next)).then((_) {
       final userId = ref.read(authServiceProvider).userId;
       if (userId.isNotEmpty) {
         ref.invalidate(

@@ -12907,6 +12907,126 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{count, plural, =1{1 part} other{{count} parts}}'**
   String examGroupSpeakingSubtitle(int count);
+
+  /// AppBar — Vocabulary level picker
+  ///
+  /// In en, this message translates to:
+  /// **'Pick a level'**
+  String get examVocabLevelPickerTitle;
+
+  /// Subtitle above the CEFR level grid
+  ///
+  /// In en, this message translates to:
+  /// **'Browse words and practice quizzes by CEFR level.'**
+  String get examVocabLevelPickerSubtitle;
+
+  /// Heading — Vocabulary topic picker
+  ///
+  /// In en, this message translates to:
+  /// **'Pick a topic'**
+  String get examVocabTopicPickerTitle;
+
+  /// Tile label — no topic filter
+  ///
+  /// In en, this message translates to:
+  /// **'All topics'**
+  String get examVocabAllTopics;
+
+  /// Mode toggle — browse word cards
+  ///
+  /// In en, this message translates to:
+  /// **'Browse'**
+  String get examVocabBrowse;
+
+  /// Mode toggle — practice quiz
+  ///
+  /// In en, this message translates to:
+  /// **'Practice'**
+  String get examVocabPractice;
+
+  /// Shown when the word list is empty
+  ///
+  /// In en, this message translates to:
+  /// **'No words yet for this level and topic.'**
+  String get examVocabEmptyList;
+
+  /// AppBar after quiz submit
+  ///
+  /// In en, this message translates to:
+  /// **'Quiz complete'**
+  String get examVocabQuizComplete;
+
+  /// Score line on the quiz result screen
+  ///
+  /// In en, this message translates to:
+  /// **'You answered {correct} of {total} correctly'**
+  String examVocabQuizScore(int correct, int total);
+
+  /// Result row — user's answer
+  ///
+  /// In en, this message translates to:
+  /// **'Your answer'**
+  String get examVocabQuizYourAnswer;
+
+  /// Result row — correct answer
+  ///
+  /// In en, this message translates to:
+  /// **'Correct answer'**
+  String get examVocabQuizCorrectAnswer;
+
+  /// Submit button on final quiz question
+  ///
+  /// In en, this message translates to:
+  /// **'Submit'**
+  String get examVocabQuizSubmit;
+
+  /// Submit button label while in-flight
+  ///
+  /// In en, this message translates to:
+  /// **'Submitting…'**
+  String get examVocabQuizSubmitting;
+
+  /// Next-question button
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get examVocabQuizNext;
+
+  /// Previous-question button
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get examVocabQuizPrev;
+
+  /// Restart-quiz button on result + on expiry
+  ///
+  /// In en, this message translates to:
+  /// **'Restart'**
+  String get examVocabQuizRestart;
+
+  /// Empty state when the quiz can't be built
+  ///
+  /// In en, this message translates to:
+  /// **'No questions could be generated. Try another topic or level.'**
+  String get examVocabQuizEmpty;
+
+  /// Pool-too-small error from the backend
+  ///
+  /// In en, this message translates to:
+  /// **'Not enough words at this level and topic to build a quiz.'**
+  String get examVocabQuizNotEnough;
+
+  /// Title for the quiz-expired dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Quiz expired'**
+  String get examVocabQuizExpiredTitle;
+
+  /// Body for the quiz-expired dialog
+  ///
+  /// In en, this message translates to:
+  /// **'This quiz has been idle too long. Restart to get a fresh one.'**
+  String get examVocabQuizExpiredBody;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

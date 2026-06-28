@@ -9,6 +9,7 @@ import 'package:bananatalk_app/providers/provider_models/exam/exam_question.dart
 import 'package:bananatalk_app/providers/provider_models/exam/exam_topic.dart';
 import 'package:bananatalk_app/providers/provider_models/exam/user_exam_progress.dart';
 import 'package:bananatalk_app/providers/provider_models/exam/user_study_plan.dart';
+import 'package:bananatalk_app/providers/provider_models/exam/vocabulary_word.dart';
 import 'package:bananatalk_app/service/endpoints.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -293,6 +294,142 @@ class ExamStudyService {
       );
     }
     return UserStudyPlan.fromJson(_decodeMap(resp));
+  }
+
+  // ===========================================================================
+  // Vocabulary
+  // ===========================================================================
+
+  /// CEFR levels with ≥1 seeded word for this exam.
+  Future<List<String>> getVocabularyLevels(String examId) async {
+    final token = await _getToken();
+    final resp = await http.get(
+      Uri.parse('${Endpoints.baseURL}exam-study/vocabulary/levels?examId=$examId'),
+      headers: _headers(token),
+    );
+    if (resp.statusCode == 401) {
+      throw Exception('Authentication required. Please log in again.');
+    }
+    if (resp.statusCode < 200 || resp.statusCode >= 300) {
+      throw Exception('vocab/levels failed (${resp.statusCode}): ${resp.body}');
+    }
+    final body = json.decode(resp.body);
+    final list = body is Map<String, dynamic> ? (body['data'] as List? ?? const []) : const [];
+    return list.map((e) => e.toString()).toList();
+  }
+
+  /// Topics with ≥1 word at the given level for this exam.
+  Future<List<String>> getVocabularyTopics(String examId, {String? level}) async {
+    final token = await _getToken();
+    final qp = <String, String>{'examId': examId};
+    if (level != null) qp['level'] = level;
+    final uri = Uri.parse('${Endpoints.baseURL}exam-study/vocabulary/topics')
+        .replace(queryParameters: qp);
+    final resp = await http.get(uri, headers: _headers(token));
+    if (resp.statusCode == 401) {
+      throw Exception('Authentication required. Please log in again.');
+    }
+    if (resp.statusCode < 200 || resp.statusCode >= 300) {
+      throw Exception('vocab/topics failed (${resp.statusCode}): ${resp.body}');
+    }
+    final body = json.decode(resp.body);
+    final list = body is Map<String, dynamic> ? (body['data'] as List? ?? const []) : const [];
+    return list.map((e) => e.toString()).toList();
+  }
+
+  /// Paginated word list filtered by (examId, level, topic?).
+  Future<List<VocabularyWord>> getVocabularyWords({
+    required String examId,
+    String? level,
+    String? topic,
+    int limit = 50,
+    int skip = 0,
+  }) async {
+    final token = await _getToken();
+    final qp = <String, String>{
+      'examId': examId,
+      'limit': '$limit',
+      'skip': '$skip',
+      if (level != null) 'level': level,
+      if (topic != null) 'topic': topic,
+    };
+    final uri = Uri.parse('${Endpoints.baseURL}exam-study/vocabulary')
+        .replace(queryParameters: qp);
+    final resp = await http.get(uri, headers: _headers(token));
+    if (resp.statusCode == 401) {
+      throw Exception('Authentication required. Please log in again.');
+    }
+    if (resp.statusCode < 200 || resp.statusCode >= 300) {
+      throw Exception('vocab fetch failed (${resp.statusCode}): ${resp.body}');
+    }
+    final data = _decodeMap(resp);
+    final words = (data['words'] as List?) ?? const [];
+    return words
+        .whereType<Map>()
+        .map((m) => VocabularyWord.fromJson(Map<String, dynamic>.from(m)))
+        .toList();
+  }
+
+  /// Trigger lazy TTS generation for a word and return the resulting URL.
+  Future<String?> getVocabularyAudioUrl(String wordId) async {
+    final token = await _getToken();
+    final resp = await http.get(
+      Uri.parse('${Endpoints.baseURL}exam-study/vocabulary/$wordId/audio'),
+      headers: _headers(token),
+    );
+    if (resp.statusCode < 200 || resp.statusCode >= 300) return null;
+    final data = _decodeMap(resp);
+    return data['audioUrl']?.toString();
+  }
+
+  /// Start a vocab quiz session. Server caches the answer key by quizId.
+  Future<VocabularyQuizStart> startVocabularyQuiz({
+    required String examId,
+    required String level,
+    String? topic,
+    int size = 10,
+  }) async {
+    final token = await _getToken();
+    final resp = await http.post(
+      Uri.parse('${Endpoints.baseURL}exam-study/vocabulary/quiz/start'),
+      headers: _headers(token),
+      body: json.encode({
+        'examId': examId,
+        'level': level,
+        if (topic != null) 'topic': topic,
+        'size': size,
+      }),
+    );
+    if (resp.statusCode == 401) {
+      throw Exception('Authentication required. Please log in again.');
+    }
+    if (resp.statusCode < 200 || resp.statusCode >= 300) {
+      throw Exception('quiz/start failed (${resp.statusCode}): ${resp.body}');
+    }
+    return VocabularyQuizStart.fromJson(_decodeMap(resp));
+  }
+
+  /// Submit answers and get scored results.
+  Future<VocabularyQuizScore> submitVocabularyQuiz({
+    required String quizId,
+    required List<Map<String, dynamic>> answers,
+  }) async {
+    final token = await _getToken();
+    final resp = await http.post(
+      Uri.parse('${Endpoints.baseURL}exam-study/vocabulary/quiz/$quizId/submit'),
+      headers: _headers(token),
+      body: json.encode({'answers': answers}),
+    );
+    if (resp.statusCode == 410) {
+      throw const VocabularyQuizExpiredException();
+    }
+    if (resp.statusCode == 401) {
+      throw Exception('Authentication required. Please log in again.');
+    }
+    if (resp.statusCode < 200 || resp.statusCode >= 300) {
+      throw Exception('quiz/submit failed (${resp.statusCode}): ${resp.body}');
+    }
+    return VocabularyQuizScore.fromJson(_decodeMap(resp));
   }
 
   Map<String, dynamic> _decodeMap(http.Response resp) {

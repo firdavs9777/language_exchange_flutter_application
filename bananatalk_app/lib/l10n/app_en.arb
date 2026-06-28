@@ -4083,5 +4083,93 @@
         "type": "int"
       }
     }
+  },
+  "examVocabLevelPickerTitle": "Pick a level",
+  "@examVocabLevelPickerTitle": {
+    "description": "AppBar — Vocabulary level picker"
+  },
+  "examVocabLevelPickerSubtitle": "Browse words and practice quizzes by CEFR level.",
+  "@examVocabLevelPickerSubtitle": {
+    "description": "Subtitle above the CEFR level grid"
+  },
+  "examVocabTopicPickerTitle": "Pick a topic",
+  "@examVocabTopicPickerTitle": {
+    "description": "Heading — Vocabulary topic picker"
+  },
+  "examVocabAllTopics": "All topics",
+  "@examVocabAllTopics": {
+    "description": "Tile label — no topic filter"
+  },
+  "examVocabBrowse": "Browse",
+  "@examVocabBrowse": {
+    "description": "Mode toggle — browse word cards"
+  },
+  "examVocabPractice": "Practice",
+  "@examVocabPractice": {
+    "description": "Mode toggle — practice quiz"
+  },
+  "examVocabEmptyList": "No words yet for this level and topic.",
+  "@examVocabEmptyList": {
+    "description": "Shown when the word list is empty"
+  },
+  "examVocabQuizComplete": "Quiz complete",
+  "@examVocabQuizComplete": {
+    "description": "AppBar after quiz submit"
+  },
+  "examVocabQuizScore": "You answered {correct} of {total} correctly",
+  "@examVocabQuizScore": {
+    "description": "Score line on the quiz result screen",
+    "placeholders": {
+      "correct": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "examVocabQuizYourAnswer": "Your answer",
+  "@examVocabQuizYourAnswer": {
+    "description": "Result row — user's answer"
+  },
+  "examVocabQuizCorrectAnswer": "Correct answer",
+  "@examVocabQuizCorrectAnswer": {
+    "description": "Result row — correct answer"
+  },
+  "examVocabQuizSubmit": "Submit",
+  "@examVocabQuizSubmit": {
+    "description": "Submit button on final quiz question"
+  },
+  "examVocabQuizSubmitting": "Submitting…",
+  "@examVocabQuizSubmitting": {
+    "description": "Submit button label while in-flight"
+  },
+  "examVocabQuizNext": "Next",
+  "@examVocabQuizNext": {
+    "description": "Next-question button"
+  },
+  "examVocabQuizPrev": "Back",
+  "@examVocabQuizPrev": {
+    "description": "Previous-question button"
+  },
+  "examVocabQuizRestart": "Restart",
+  "@examVocabQuizRestart": {
+    "description": "Restart-quiz button on result + on expiry"
+  },
+  "examVocabQuizEmpty": "No questions could be generated. Try another topic or level.",
+  "@examVocabQuizEmpty": {
+    "description": "Empty state when the quiz can't be built"
+  },
+  "examVocabQuizNotEnough": "Not enough words at this level and topic to build a quiz.",
+  "@examVocabQuizNotEnough": {
+    "description": "Pool-too-small error from the backend"
+  },
+  "examVocabQuizExpiredTitle": "Quiz expired",
+  "@examVocabQuizExpiredTitle": {
+    "description": "Title for the quiz-expired dialog"
+  },
+  "examVocabQuizExpiredBody": "This quiz has been idle too long. Restart to get a fresh one.",
+  "@examVocabQuizExpiredBody": {
+    "description": "Body for the quiz-expired dialog"
   }
 }
