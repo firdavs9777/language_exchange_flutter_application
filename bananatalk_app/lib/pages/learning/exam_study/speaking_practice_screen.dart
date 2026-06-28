@@ -52,9 +52,11 @@ class _SpeakingPracticeScreenState
         ),
       );
       if (!mounted) return;
-      // Pop the practice screen so the user lands back on the section
-      // practice list / topic picker.
-      Navigator.of(context).pop();
+      // Pop with `true` so the caller (section_practice) knows the user
+      // actually submitted and can auto-advance to the next question.
+      // Backing out via system-back or AppBar back returns null/false,
+      // which keeps the user on the same question for a retry.
+      Navigator.of(context).pop(true);
     } catch (e) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(

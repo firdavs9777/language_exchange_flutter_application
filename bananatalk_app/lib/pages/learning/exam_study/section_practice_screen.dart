@@ -475,7 +475,7 @@ class _SectionPracticeScreenState
   }
 
   Future<void> _openSpeakingPractice(ExamQuestion question, int total) async {
-    await Navigator.of(context).push(
+    final submitted = await Navigator.of(context).push<bool>(
       AppPageRoute(
         builder: (_) => SpeakingPracticeScreen(
           question: question,
@@ -484,7 +484,33 @@ class _SectionPracticeScreenState
       ),
     );
     if (!mounted) return;
+    // If the user backed out without submitting, leave the index alone
+    // so they can retry the same question.
+    if (submitted != true) return;
     _advance(total);
+    // After advance, if the new current question is also a speaking
+    // prompt, immediately re-open SpeakingPracticeScreen so the user
+    // flows from one speaking question to the next without having to
+    // hunt for the "Speak your answer" button each time.
+    final questions = ref
+        .read(questionsForSectionProvider(
+          QuestionsQuery(
+            sectionId: widget.section.id,
+            limit: 20,
+            topic: widget.topic,
+          ),
+        ))
+        .valueOrNull;
+    if (questions == null) return;
+    if (_index >= questions.length) return; // Done — completed state.
+    final next = questions[_index];
+    if (next.isSpeaking) {
+      // Defer one frame so the rebuild settles before the next push.
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!mounted) return;
+        _openSpeakingPractice(next, total);
+      });
+    }
   }
 
   Future<void> _submit(ExamQuestion question) async {
