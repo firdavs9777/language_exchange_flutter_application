@@ -7006,4 +7006,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get examVocabQuizExpiredBody => 'This quiz has been idle too long. Restart to get a fresh one.';
+
+  @override
+  String get examVocabTranslate => 'Translate';
+
+  @override
+  String get examVocabTranslateFailed => 'Translation unavailable. Try again later.';
 }

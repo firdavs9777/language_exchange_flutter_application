@@ -2662,5 +2662,7 @@
   "examVocabQuizEmpty": "No questions could be generated. Try another topic or level.",
   "examVocabQuizNotEnough": "Not enough words at this level and topic to build a quiz.",
   "examVocabQuizExpiredTitle": "Quiz expired",
-  "examVocabQuizExpiredBody": "This quiz has been idle too long. Restart to get a fresh one."
+  "examVocabQuizExpiredBody": "This quiz has been idle too long. Restart to get a fresh one.",
+  "examVocabTranslate": "Translate",
+  "examVocabTranslateFailed": "Translation unavailable. Try again later."
 }

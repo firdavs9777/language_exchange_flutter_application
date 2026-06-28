@@ -13027,6 +13027,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'This quiz has been idle too long. Restart to get a fresh one.'**
   String get examVocabQuizExpiredBody;
+
+  /// Tooltip on the word-card translate icon
+  ///
+  /// In en, this message translates to:
+  /// **'Translate'**
+  String get examVocabTranslate;
+
+  /// Inline error when translation returns empty
+  ///
+  /// In en, this message translates to:
+  /// **'Translation unavailable. Try again later.'**
+  String get examVocabTranslateFailed;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

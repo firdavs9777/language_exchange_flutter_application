@@ -4171,5 +4171,13 @@
   "examVocabQuizExpiredBody": "This quiz has been idle too long. Restart to get a fresh one.",
   "@examVocabQuizExpiredBody": {
     "description": "Body for the quiz-expired dialog"
+  },
+  "examVocabTranslate": "Translate",
+  "@examVocabTranslate": {
+    "description": "Tooltip on the word-card translate icon"
+  },
+  "examVocabTranslateFailed": "Translation unavailable. Try again later.",
+  "@examVocabTranslateFailed": {
+    "description": "Inline error when translation returns empty"
   }
 }
