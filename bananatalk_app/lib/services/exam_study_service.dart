@@ -12,6 +12,7 @@ import 'package:bananatalk_app/providers/provider_models/exam/user_study_plan.da
 import 'package:bananatalk_app/providers/provider_models/exam/vocabulary_word.dart';
 import 'package:bananatalk_app/service/endpoints.dart';
 import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart' show MediaType;
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// HTTP client for the backend `/exam-study/*` endpoints.
@@ -164,12 +165,25 @@ class ExamStudyService {
     if (token != null) {
       request.headers['Authorization'] = 'Bearer $token';
     }
+    // Pin the content type explicitly. `MultipartFile.fromPath` falls back
+    // to application/octet-stream when the local mime DB doesn't resolve
+    // the extension, which the backend's multer allowlist rejects with a
+    // 500. flutter_sound's `Codec.aacMP4` always writes an MP4-AAC file.
+    final ext = audioFile.path.split('.').last.toLowerCase();
+    final mediaType = switch (ext) {
+      'm4a' => MediaType('audio', 'mp4'),
+      'mp3' => MediaType('audio', 'mpeg'),
+      'wav' => MediaType('audio', 'wav'),
+      'aac' => MediaType('audio', 'aac'),
+      'ogg' => MediaType('audio', 'ogg'),
+      'webm' => MediaType('audio', 'webm'),
+      _ => MediaType('audio', 'mp4'),
+    };
     request.files.add(
       await http.MultipartFile.fromPath(
         'audio',
         audioFile.path,
-        // ContentType inferred from extension by http package; flutter_sound
-        // typically writes m4a / aac, both in the backend allowlist.
+        contentType: mediaType,
       ),
     );
 
