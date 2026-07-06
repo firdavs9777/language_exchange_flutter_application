@@ -2,7 +2,7 @@ name: bananatalk_app
 description: Learn, Meet or Date, the best language exchange application.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-version: 1.5.1+10554
+version: 1.5.2+10555
 
 
 environment:
@@ -82,6 +82,7 @@ dependencies:
 
   # Audio/Voice Recording
   flutter_sound: ^9.2.13
+  logger: ^2.6.2 # transitive via flutter_sound; declared so we can set its Level directly
   audio_session: ^0.1.18
   path_provider: ^2.1.2
   just_audio: ^0.9.36
@@ -95,6 +96,7 @@ dependencies:
   latlong2: ^0.9.1
   confetti: ^0.8.0
   livekit_client: ^2.7.0
+  fl_chart: ^1.2.0
 
 #  flutter_facebook_auth: ^7.0.1
 

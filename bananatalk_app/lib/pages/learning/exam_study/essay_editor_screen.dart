@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/learning/exam_study/evaluation_result_screen.dart';
+import 'package:bananatalk_app/pages/learning/exam_study/widgets/exam_figure.dart';
 import 'package:bananatalk_app/pages/learning/exam_study/widgets/quota_banner.dart';
 import 'package:bananatalk_app/providers/provider_models/exam/exam_question.dart';
 import 'package:bananatalk_app/providers/provider_models/exam/exam_submission_result.dart';
@@ -151,14 +152,29 @@ class _EssayEditorScreenState extends ConsumerState<EssayEditorScreen> {
                       borderRadius: BorderRadius.circular(12),
                       border: Border.all(color: context.dividerColor),
                     ),
-                    child: Text(
-                      widget.question.questionText,
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w700,
-                        color: context.textPrimary,
-                        height: 1.45,
-                      ),
+                    child: Builder(
+                      builder: (context) {
+                        final prompt =
+                            ExamPrompt.parse(widget.question.questionText);
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            if (prompt.figure != null) ...[
+                              ExamFigureView(spec: prompt.figure!),
+                              const SizedBox(height: 14),
+                            ],
+                            Text(
+                              prompt.prose,
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w700,
+                                color: context.textPrimary,
+                                height: 1.45,
+                              ),
+                            ),
+                          ],
+                        );
+                      },
                     ),
                   ),
                   const SizedBox(height: 16),

@@ -19,6 +19,10 @@ class ChatListTile extends StatelessWidget {
   final bool isActive;
   final bool isTyping;
   final String realtimeStatus;
+
+  /// Unsent draft for this conversation, shown in place of the last-message
+  /// preview. Null/blank when there is no draft.
+  final String? draft;
   final VoidCallback onTap;
   final ValueChanged<ChatPartner> onPin;
   final ValueChanged<ChatPartner> onMute;
@@ -30,6 +34,7 @@ class ChatListTile extends StatelessWidget {
     required this.isActive,
     required this.isTyping,
     required this.realtimeStatus,
+    this.draft,
     required this.onTap,
     required this.onPin,
     required this.onMute,
@@ -102,6 +107,41 @@ class ChatListTile extends StatelessWidget {
           );
         }),
       ),
+    );
+  }
+
+  /// "Draft: …" preview shown in place of the last message when the user has
+  /// unsent text in this conversation.
+  Widget _buildDraftPreview(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    const accent = Color(0xFF00BFA5);
+    return Row(
+      children: [
+        const Icon(Icons.edit_note_rounded, size: 16, color: accent),
+        const SizedBox(width: 3),
+        const Text(
+          'Draft: ',
+          style: TextStyle(
+            color: accent,
+            fontSize: 13,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        Expanded(
+          child: Text(
+            draft!.replaceAll('\n', ' ').trim(),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: textTheme.bodySmall?.copyWith(
+              color: Theme.of(context)
+                  .colorScheme
+                  .onSurface
+                  .withValues(alpha: 0.5),
+              fontSize: 13,
+            ),
+          ),
+        ),
+      ],
     );
   }
 
@@ -370,7 +410,9 @@ class ChatListTile extends StatelessWidget {
                         Expanded(
                           child: isTyping
                               ? _buildTypingIndicator()
-                              : Row(
+                              : (draft != null && draft!.trim().isNotEmpty)
+                                  ? _buildDraftPreview(context)
+                                  : Row(
                                   children: [
                                     if (_isOnline) ...[
                                       Container(

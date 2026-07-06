@@ -4,6 +4,9 @@ import 'dart:io';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sound/flutter_sound.dart';
+// flutter_sound re-exports neither Level nor Logger, so pull Level in directly
+// (it ships as a transitive dependency of flutter_sound).
+import 'package:logger/logger.dart' show Level;
 import 'package:path_provider/path_provider.dart';
 
 /// Stateful audio-record widget for the Speaking practice screen.
@@ -38,8 +41,10 @@ class AudioRecorder extends StatefulWidget {
 enum _RecorderState { idle, recording, recorded }
 
 class _AudioRecorderState extends State<AudioRecorder> {
-  final FlutterSoundRecorder _recorder = FlutterSoundRecorder();
-  final FlutterSoundPlayer _player = FlutterSoundPlayer();
+  final FlutterSoundRecorder _recorder =
+      FlutterSoundRecorder(logLevel: Level.error);
+  final FlutterSoundPlayer _player =
+      FlutterSoundPlayer(logLevel: Level.error);
 
   _RecorderState _state = _RecorderState.idle;
   Duration _elapsed = Duration.zero;

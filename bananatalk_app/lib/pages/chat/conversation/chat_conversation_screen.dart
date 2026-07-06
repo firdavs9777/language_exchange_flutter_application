@@ -30,6 +30,7 @@ import 'package:bananatalk_app/services/video_compression_service.dart';
 import 'package:bananatalk_app/pages/video_editor/video_editor_screen.dart';
 import 'package:bananatalk_app/services/chat_socket_service.dart';
 import 'package:bananatalk_app/services/block_service.dart';
+import 'package:bananatalk_app/pages/chat/drafts/chat_draft_service.dart';
 import 'package:bananatalk_app/pages/chat/panels/gif_picker_panel.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/pages/chat/widgets/chat_snackbar.dart';
@@ -117,22 +118,44 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     _setupCallListeners();
     _setupScrollListener();
     _setupThemeChangeListener();
+    // Restore any saved draft (and apply a prefill prompt if there is no
+    // draft). Runs async because it reads from disk.
+    _restoreDraft();
+    // Persist the draft live as the user types, so the chat list reflects it
+    // immediately on back-navigation (saving only in dispose() races the
+    // list's refresh, which reads the draft the moment the route pops).
+    _messageController.addListener(_onDraftChanged);
     // Set this as the active chat so global listener doesn't increment unread
     // Use post-frame callback to avoid modifying provider during build
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) {
         _chatPartnersNotifier = ref.read(chatPartnersProvider.notifier);
         _chatPartnersNotifier?.setActiveChat(widget.userId);
-        // Pre-fill the message input if a prompt was passed (e.g. from
-        // the conversation-starter ribbon). Only set when the field is
-        // still empty so an existing draft is never overwritten.
-        if (widget.prefillMessage != null &&
-            widget.prefillMessage!.isNotEmpty &&
-            _messageController.text.isEmpty) {
-          _messageController.text = widget.prefillMessage!;
-        }
       }
     });
+  }
+
+  /// Persists the composer text (cache + disk) on every change so the chat
+  /// list's "Draft" indicator is up to date the instant the user navigates
+  /// back. Blank text clears the draft.
+  void _onDraftChanged() {
+    ChatDraftService.save(widget.userId, _messageController.text);
+  }
+
+  /// Restores the unsent draft for this conversation. A saved draft takes
+  /// precedence over [widget.prefillMessage]; the prefill is only applied
+  /// when there is no draft. Never clobbers text the user has already typed.
+  Future<void> _restoreDraft() async {
+    final draft = await ChatDraftService.load(widget.userId);
+    if (!mounted || _messageController.text.isNotEmpty) return;
+    final restored = draft ??
+        ((widget.prefillMessage?.isNotEmpty ?? false)
+            ? widget.prefillMessage
+            : null);
+    if (restored == null) return;
+    _messageController.text = restored;
+    _messageController.selection =
+        TextSelection.collapsed(offset: restored.length);
   }
 
   // Track keyboard height to detect open/close
@@ -147,6 +170,11 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       if (!socketService.isConnected) {
         socketService.connect(forceReset: true);
       }
+    } else if (state == AppLifecycleState.paused ||
+        state == AppLifecycleState.inactive) {
+      // Backgrounding may precede the app being killed, so persist the draft
+      // here as well as in dispose().
+      ChatDraftService.save(widget.userId, _messageController.text);
     }
   }
 
@@ -620,7 +648,11 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     if (text.isEmpty || _isSending) return;
 
     // Clear input and hide panels IMMEDIATELY for responsive feel
-    if (messageText == null) _messageController.clear();
+    if (messageText == null) {
+      _messageController.clear();
+      // The composed text is now sent — drop its saved draft.
+      ChatDraftService.clear(widget.userId);
+    }
     _stopTyping();
     _hidePanels();
 
@@ -1592,6 +1624,9 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
 
     _typingTimer?.cancel();
     _themeChangeSubscription?.cancel();
+    // Stop live-saving and flush once more before the controller is disposed.
+    _messageController.removeListener(_onDraftChanged);
+    ChatDraftService.save(widget.userId, _messageController.text);
     // Note: Don't send typing=false here since we can't safely access providers in dispose
     // The backend handles typing timeout automatically (5 seconds)
     _messageController.dispose();

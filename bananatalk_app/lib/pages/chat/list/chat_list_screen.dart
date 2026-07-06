@@ -22,6 +22,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/pages/chat/widgets/chat_snackbar.dart';
 import 'package:bananatalk_app/pages/chat/models/chat_partner.dart';
+import 'package:bananatalk_app/pages/chat/drafts/chat_draft_service.dart';
 import 'package:bananatalk_app/pages/chat/list/chat_list_tile.dart';
 import 'package:bananatalk_app/pages/chat/list/chat_list_search_bar.dart';
 import 'package:bananatalk_app/pages/chat/list/chat_list_filter_tabs.dart';
@@ -64,6 +65,8 @@ class _ChatMainState extends ConsumerState<ChatMain>
   final _chatSocketService = ChatSocketService();
   Map<String, Map<String, dynamic>> _userStatuses = {};
   Map<String, bool> _typingUsers = {};
+  // conversationId (partner id) -> unsent draft text, for the "Draft" preview.
+  Map<String, String> _drafts = {};
   Timer? _typingTimer;
   Timer? _sendTypingTimer;
 
@@ -96,6 +99,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
     super.initState();
     _initializeAnimations();
     _fetchMessages();
+    _loadDrafts();
     _subscribeToSocketEvents();
     _checkNotifPermission();
 
@@ -347,6 +351,14 @@ class _ChatMainState extends ConsumerState<ChatMain>
     setState(() {
       _chatPartners = updatedPartners;
     });
+  }
+
+  /// Loads all per-conversation drafts so the list can show a "Draft"
+  /// indicator. Cheap (single SharedPreferences read); refreshed whenever the
+  /// user returns from a conversation.
+  Future<void> _loadDrafts() async {
+    final drafts = await ChatDraftService.loadAll();
+    if (mounted) setState(() => _drafts = drafts);
   }
 
   Future<void> _silentRefresh() async {
@@ -800,6 +812,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
         )
         .then((_) {
           _silentRefresh();
+          _loadDrafts();
           setState(() {
             _activeUserId = null;
           });
@@ -1195,6 +1208,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
               isActive: _activeUserId == partner.id,
               isTyping: _typingUsers[partner.id] == true,
               realtimeStatus: _getRealtimeStatus(partner),
+              draft: _drafts[partner.id],
               onTap: () =>
                   _onSelectUser(partner.id, partner.name, partner.avatar),
               onPin: _handlePinConversation,

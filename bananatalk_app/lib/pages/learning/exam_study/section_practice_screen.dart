@@ -1,6 +1,7 @@
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/learning/exam_study/essay_editor_screen.dart';
 import 'package:bananatalk_app/pages/learning/exam_study/speaking_practice_screen.dart';
+import 'package:bananatalk_app/pages/learning/exam_study/widgets/exam_figure.dart';
 import 'package:bananatalk_app/pages/learning/exam_study/widgets/question_mc_card.dart';
 import 'package:bananatalk_app/providers/provider_models/exam/exam_question.dart';
 import 'package:bananatalk_app/providers/provider_models/exam/exam_section.dart';
@@ -159,6 +160,27 @@ class _SectionPracticeScreenState
     return _unsupportedQuestionCard(question, l10n);
   }
 
+  /// Renders the essay prompt: an optional Task-1 figure (chart/table)
+  /// parsed out of the question text, followed by the prose prompt.
+  List<Widget> _essayPromptBody(ExamQuestion question) {
+    final prompt = ExamPrompt.parse(question.questionText);
+    return [
+      if (prompt.figure != null) ...[
+        ExamFigureView(spec: prompt.figure!),
+        const SizedBox(height: 12),
+      ],
+      Text(
+        prompt.prose,
+        style: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w700,
+          color: context.textPrimary,
+          height: 1.45,
+        ),
+      ),
+    ];
+  }
+
   Widget _essayPromptCard(ExamQuestion question, AppLocalizations l10n) {
     return Container(
       padding: const EdgeInsets.all(16),
@@ -170,15 +192,7 @@ class _SectionPracticeScreenState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            question.questionText,
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w700,
-              color: context.textPrimary,
-              height: 1.45,
-            ),
-          ),
+          ..._essayPromptBody(question),
           const SizedBox(height: 14),
           Row(
             children: [

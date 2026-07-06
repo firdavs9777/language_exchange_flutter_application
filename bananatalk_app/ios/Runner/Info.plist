@@ -143,5 +143,14 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<!-- Allow plain-HTTP requests to private/local network IPs (e.g.
+	     http://localhost:5003 or http://192.168.x.y:5003) when developing
+	     against a local backend. This does NOT relax ATS for arbitrary
+	     remote hosts — production HTTPS hosts are unaffected. -->
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsLocalNetworking</key>
+		<true/>
+	</dict>
 </dict>
 </plist>

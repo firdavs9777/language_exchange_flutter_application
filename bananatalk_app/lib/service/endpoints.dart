@@ -1,7 +1,7 @@
 class Endpoints {
   // Use localhost for development (emulator/simulator)
   // For real device, use your computer's local IP (e.g., http://192.168.1.100:5003/api/v1/)
-  // static String baseURL = "http://localhost:5003/api/v1/";
+  // static String baseURL = "http://192.168.0.16:5003/api/v1/"; // DEV: local backend on Mac LAN
   static String baseURL = "https://api.banatalk.com/api/v1/"; // Production URL
   static String loginURL = "auth/login";
   static String sendCode = "auth/sendCodeEmail";

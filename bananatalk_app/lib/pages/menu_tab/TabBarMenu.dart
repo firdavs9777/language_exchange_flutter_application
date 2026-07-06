@@ -198,6 +198,7 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
                           index: 2,
                           icon: Icons.chat_bubble_outline_rounded,
                           activeIcon: Icons.chat_bubble_rounded,
+                          imageAsset: 'assets/images/logo_mark_ios.png',
                           label: AppLocalizations.of(context)!.chats,
                           badgeCount: messageCount,
                           isDark: isDark,
@@ -235,6 +236,7 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
     required IconData activeIcon,
     required String label,
     required bool isDark,
+    String? imageAsset,
     int badgeCount = 0,
   }) {
     final isSelected = ref.watch(selectedTabProvider) == index;
@@ -272,11 +274,28 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
                   scale: isSelected ? 1.15 : 1.0,
                   duration: const Duration(milliseconds: 250),
                   curve: Curves.easeOutBack,
-                  child: Icon(
-                    isSelected ? activeIcon : icon,
-                    size: 24,
-                    color: isSelected ? activeColor : inactiveColor,
-                  ),
+                  child: imageAsset != null
+                      // Branded tab: the app icon itself. It's full-colour so
+                      // it can't tint with selection — dim it when inactive so
+                      // the active state still reads clearly.
+                      ? AnimatedOpacity(
+                          duration: const Duration(milliseconds: 250),
+                          opacity: isSelected ? 1.0 : 0.45,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(6),
+                            child: Image.asset(
+                              imageAsset,
+                              width: 24,
+                              height: 24,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        )
+                      : Icon(
+                          isSelected ? activeIcon : icon,
+                          size: 24,
+                          color: isSelected ? activeColor : inactiveColor,
+                        ),
                 ),
                 if (badgeCount > 0)
                   Positioned(
