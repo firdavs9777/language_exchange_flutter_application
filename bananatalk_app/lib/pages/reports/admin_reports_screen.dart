@@ -5,6 +5,8 @@ import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/widgets/report_evidence_section.dart';
+import 'package:bananatalk_app/models/report_model.dart';
 import 'package:intl/intl.dart';
 
 class AdminReportsScreen extends ConsumerStatefulWidget {
@@ -556,6 +558,14 @@ class _AdminReportsScreenState extends ConsumerState<AdminReportsScreen> {
                     report['moderatorNotes'].toString().isNotEmpty) ...[
                   Spacing.gapSM,
                   _buildInfoRow('Moderator Notes', report['moderatorNotes'].toString()),
+                ],
+                if ((report['evidence'] as List?)?.isNotEmpty ?? false) ...[
+                  Spacing.gapSM,
+                  ReportEvidenceSection(
+                    evidence: (report['evidence'] as List)
+                        .map((e) => EvidenceFile.fromJson(e as Map<String, dynamic>))
+                        .toList(),
+                  ),
                 ],
               ],
             ),

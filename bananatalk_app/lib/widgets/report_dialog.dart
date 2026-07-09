@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:bananatalk_app/providers/provider_root/report_provider.dart';
+import 'package:bananatalk_app/widgets/evidence_tile.dart';
 
 class ReportDialog extends StatefulWidget {
   final String type; // 'user', 'moment', 'comment', 'message', 'story'
@@ -22,6 +24,14 @@ class _ReportDialogState extends State<ReportDialog> {
   String? _selectedReason;
   final TextEditingController _descriptionController = TextEditingController();
   bool _isSubmitting = false;
+
+  final List<PlatformFile> _selectedFiles = [];
+  int _totalFileSize = 0; // in bytes
+
+  static const int maxFileSize = 5 * 1024 * 1024; // 5 MB
+  static const int maxFiles = 5;
+  static const int maxTotalSize = 25 * 1024 * 1024; // 25 MB
+  static const List<String> allowedExtensions = ['jpg', 'jpeg', 'png', 'txt'];
 
   final List<Map<String, String>> _reasons = [
     {'value': 'spam', 'label': 'Spam'},
@@ -57,9 +67,93 @@ class _ReportDialogState extends State<ReportDialog> {
     super.dispose();
   }
 
+  Future<void> _pickFiles() async {
+    final result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: allowedExtensions,
+      allowMultiple: true,
+    );
+
+    if (result == null || result.files.isEmpty) {
+      return; // User cancelled
+    }
+
+    // Validate and add files
+    for (final file in result.files) {
+      // Check if already at max files
+      if (_selectedFiles.length >= maxFiles) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Max $maxFiles files per report'),
+              backgroundColor: Colors.orange,
+            ),
+          );
+        }
+        break;
+      }
+
+      // Check file size
+      if (file.size > maxFileSize) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('${file.name} is too large (max 5 MB)'),
+              backgroundColor: Colors.orange,
+            ),
+          );
+        }
+        continue;
+      }
+
+      // Check total size
+      if (_totalFileSize + file.size > maxTotalSize) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Total size would exceed 25 MB'),
+              backgroundColor: Colors.orange,
+            ),
+          );
+        }
+        break;
+      }
+
+      // Add file
+      setState(() {
+        _selectedFiles.add(file);
+        _totalFileSize += file.size;
+      });
+    }
+  }
+
+  void _removeFile(int index) {
+    setState(() {
+      _totalFileSize -= _selectedFiles[index].size;
+      _selectedFiles.removeAt(index);
+    });
+  }
+
+  String _formatFileSize(int bytes) {
+    if (bytes < 1024) return '$bytes B';
+    if (bytes < 1024 * 1024) return '${(bytes / 1024).toStringAsFixed(1)} KB';
+    return '${(bytes / (1024 * 1024)).toStringAsFixed(1)} MB';
+  }
+
   Future<void> _submitReport() async {
     // Prevent multiple submissions
     if (_isSubmitting) {
+      return;
+    }
+
+    // Validate evidence is attached
+    if (_selectedFiles.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please attach at least one file as evidence'),
+          backgroundColor: Colors.orange,
+        ),
+      );
       return;
     }
 
@@ -121,12 +215,35 @@ class _ReportDialogState extends State<ReportDialog> {
 
       if (mounted) {
         if (result['success'] == true) {
-          // Close dialog first to prevent multiple submissions
-          Navigator.of(context).pop(true);
-          // Reset state after closing
-          setState(() {
-            _isSubmitting = false;
-          });
+          final reportId = result['data']['_id'];
+
+          // Upload evidence files
+          try {
+            for (final file in _selectedFiles) {
+              await _reportService.uploadEvidence(
+                reportId: reportId,
+                file: file,
+              );
+            }
+          } catch (e) {
+            if (mounted) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: const Text('Report submitted, but some evidence failed to upload'),
+                  backgroundColor: Colors.orange,
+                ),
+              );
+            }
+          }
+
+          // Close dialog after evidence is uploaded
+          if (mounted) {
+            setState(() {
+              _isSubmitting = false;
+            });
+            Navigator.of(context).pop(true);
+          }
+
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(result['message'] ?? 'Report submitted successfully'),
@@ -274,6 +391,57 @@ class _ReportDialogState extends State<ReportDialog> {
                         fillColor: Colors.grey[100],
                       ),
                     ),
+
+                    const SizedBox(height: 24),
+
+                    // Evidence section
+                    Text(
+                      'Add Evidence (Required)',
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      'Upload screenshots or text files to support your report',
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                    const SizedBox(height: 12),
+
+                    // File picker button
+                    ElevatedButton.icon(
+                      onPressed: _selectedFiles.length >= maxFiles ? null : _pickFiles,
+                      icon: const Icon(Icons.attach_file),
+                      label: Text(
+                        'Add Files (${_selectedFiles.length}/$maxFiles)',
+                      ),
+                    ),
+
+                    const SizedBox(height: 12),
+
+                    // Display selected files
+                    if (_selectedFiles.isNotEmpty) ...[
+                      Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey[300]!),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Column(
+                          children: List.generate(
+                            _selectedFiles.length,
+                            (index) => EvidenceTile(
+                              file: _selectedFiles[index],
+                              onRemove: () => _removeFile(index),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                    ],
+
+                    // File size progress
+                    Text(
+                      'Total: ${_formatFileSize(_totalFileSize)} / ${_formatFileSize(maxTotalSize)}',
+                      style: Theme.of(context).textTheme.labelSmall,
+                    ),
                   ],
                 ),
               ),
@@ -304,11 +472,11 @@ class _ReportDialogState extends State<ReportDialog> {
                   Expanded(
                     flex: 2,
                     child: AbsorbPointer(
-                      absorbing: _isSubmitting,
+                      absorbing: _isSubmitting || _selectedFiles.isEmpty,
                       child: Opacity(
-                        opacity: _isSubmitting ? 0.6 : 1.0,
+                        opacity: _isSubmitting || _selectedFiles.isEmpty ? 0.6 : 1.0,
                         child: ElevatedButton(
-                          onPressed: _isSubmitting ? null : _submitReport,
+                          onPressed: (_isSubmitting || _selectedFiles.isEmpty) ? null : _submitReport,
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.red[600],
                             foregroundColor: Colors.white,
