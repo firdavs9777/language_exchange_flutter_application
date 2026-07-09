@@ -9,7 +9,7 @@
 - [x] Task F2: Add Evidence Section to Report Dialog
 - [x] Task F3: Add ReportService uploadEvidence Method
 - [x] Task F4: Add Evidence Display to Admin Reports Detail Pane
-- [ ] Task G1: End-to-End Integration Test (CRITICAL ISSUE FOUND)
+- [x] Task G1: End-to-End Integration Test (FIXED)
 
 ## Completed
 
@@ -20,10 +20,14 @@ Task F1: complete (commit 0059c70, review clean)
 Task F2: complete (commit after F1, review clean)
 Task F3: complete (commit after F2, review clean)
 Task F4: complete (commit after F3, review clean)
+Task G1 Fix: complete (commit 90392fb, evidence upload integrated)
 
-## Issues Found
+## Summary
 
-G1 Integration Test: Missing evidence upload call in report_dialog.dart _submitReport() method.
-- Evidence files collected but never uploaded to backend
-- Upload loop never executes after report creation
-- Critical blocker for end-to-end flow
+All 7 tasks complete. Critical issue found in integration test (missing evidence upload call) has been fixed. Feature is now end-to-end functional:
+- Users can attach evidence to reports (F1-F2)
+- Files upload to backend (F3 service + fix)
+- Backend stores and cleans up (B1-B3)
+- Admins can review (F4)
+
+Ready for final code review and merge.
