@@ -14,17 +14,32 @@ class AuthStepProgress extends StatelessWidget {
   final int totalSteps;
   final List<String>? labels;
 
+  /// Optional labels for named *segments* (e.g. "About you" / "Languages" /
+  /// "Photo") shown centered under the whole bar, distinct from [labels]
+  /// which annotate each individual step node. When provided, the label
+  /// matching the segment containing [currentStep] is shown, bolded, below
+  /// the bar. Purely additive — existing call sites that only pass
+  /// [currentStep]/[totalSteps]/[labels] are unaffected.
+  final List<String>? segmentLabels;
+
+  /// Duration of the fill/segment animation when [currentStep] changes.
+  /// Defaults to a quick, unobtrusive 300ms.
+  final Duration animationDuration;
+
   const AuthStepProgress({
     super.key,
     required this.currentStep,
     required this.totalSteps,
     this.labels,
+    this.segmentLabels,
+    this.animationDuration = const Duration(milliseconds: 300),
   })  : assert(totalSteps > 0),
         assert(currentStep >= 0);
 
   @override
   Widget build(BuildContext context) {
     final hasLabels = labels != null && labels!.length == totalSteps;
+    final hasSegmentLabels = segmentLabels != null && segmentLabels!.isNotEmpty;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 4),
@@ -36,8 +51,14 @@ class AuthStepProgress extends StatelessWidget {
               return Expanded(
                 child: Row(
                   children: [
-                    if (!isFirst) Expanded(child: _Segment(filled: i <= currentStep)),
-                    _Node(state: _stateFor(i)),
+                    if (!isFirst)
+                      Expanded(
+                        child: _Segment(
+                          filled: i <= currentStep,
+                          duration: animationDuration,
+                        ),
+                      ),
+                    _Node(state: _stateFor(i), duration: animationDuration),
                   ],
                 ),
               );
@@ -66,10 +87,36 @@ class AuthStepProgress extends StatelessWidget {
                 );
               }),
             ),
+          ] else if (hasSegmentLabels) ...[
+            const SizedBox(height: 10),
+            AnimatedSwitcher(
+              duration: animationDuration,
+              child: Text(
+                _currentSegmentLabel(),
+                key: ValueKey(_currentSegmentLabel()),
+                textAlign: TextAlign.center,
+                style: context.captionSmall.copyWith(
+                  color: AppColors.primary,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 12,
+                ),
+              ),
+            ),
           ],
         ],
       ),
     );
+  }
+
+  /// Maps the current 0-indexed step to one of [segmentLabels] proportionally
+  /// across [totalSteps], so callers don't need to keep a label-per-step list
+  /// in sync with a dynamically computed step count.
+  String _currentSegmentLabel() {
+    final segments = segmentLabels!;
+    if (totalSteps <= 0) return segments.first;
+    final ratio = currentStep / totalSteps;
+    final index = (ratio * segments.length).floor().clamp(0, segments.length - 1);
+    return segments[index];
   }
 
   _NodeState _stateFor(int i) {
@@ -83,14 +130,17 @@ enum _NodeState { completed, current, future }
 
 class _Node extends StatelessWidget {
   final _NodeState state;
-  const _Node({required this.state});
+  final Duration duration;
+  const _Node({required this.state, required this.duration});
 
   @override
   Widget build(BuildContext context) {
     final size = state == _NodeState.current ? 14.0 : 10.0;
     final mutedColor = context.dividerColor.withValues(alpha: 0.6);
 
-    return Container(
+    return AnimatedContainer(
+      duration: duration,
+      curve: Curves.easeOutCubic,
       width: size,
       height: size,
       decoration: BoxDecoration(
@@ -124,11 +174,14 @@ class _Node extends StatelessWidget {
 
 class _Segment extends StatelessWidget {
   final bool filled;
-  const _Segment({required this.filled});
+  final Duration duration;
+  const _Segment({required this.filled, required this.duration});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return AnimatedContainer(
+      duration: duration,
+      curve: Curves.easeOutCubic,
       height: 3,
       margin: const EdgeInsets.symmetric(horizontal: 2),
       decoration: BoxDecoration(

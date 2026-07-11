@@ -61,9 +61,11 @@ class ProfilePhotoStep extends StatelessWidget {
               child: Stack(
                 clipBehavior: Clip.none,
                 children: [
-                  Container(
-                    width: 160,
-                    height: 160,
+                  AnimatedContainer(
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.easeOutCubic,
+                    width: 140,
+                    height: 140,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: hasPhoto
@@ -73,24 +75,27 @@ class ProfilePhotoStep extends StatelessWidget {
                         color: AppColors.primary.withValues(alpha: 0.3),
                         width: 2,
                       ),
-                      image: hasPhoto
-                          ? DecorationImage(
-                              image: FileImage(pickedPhoto!),
-                              fit: BoxFit.cover,
-                            )
-                          : null,
                     ),
+                    // ClipOval + CircleAvatar gives an explicit center-crop
+                    // preview inside the circle (BoxFit.cover already
+                    // center-crops, this just makes the crop boundary exact
+                    // for a perfect circle rather than a rounded box).
                     child: hasPhoto
-                        ? null
+                        ? ClipOval(
+                            child: CircleAvatar(
+                              radius: 70,
+                              backgroundImage: FileImage(pickedPhoto!),
+                            ),
+                          )
                         : Icon(
                             Icons.person_rounded,
-                            size: 80,
+                            size: 72,
                             color: context.textMuted,
                           ),
                   ),
                   Positioned(
-                    right: 4,
-                    bottom: 4,
+                    right: 2,
+                    bottom: 2,
                     child: Container(
                       padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
@@ -100,6 +105,10 @@ class ProfilePhotoStep extends StatelessWidget {
                           colors: [Color(0xFF00BFA5), Color(0xFF00897B)],
                         ),
                         shape: BoxShape.circle,
+                        border: Border.all(
+                          color: context.scaffoldBackground,
+                          width: 3,
+                        ),
                         boxShadow: [
                           BoxShadow(
                             color: AppColors.primary.withValues(alpha: 0.35),
@@ -111,7 +120,7 @@ class ProfilePhotoStep extends StatelessWidget {
                       child: Icon(
                         hasPhoto ? Icons.edit_rounded : Icons.add_rounded,
                         color: Colors.white,
-                        size: 22,
+                        size: 20,
                       ),
                     ),
                   ),

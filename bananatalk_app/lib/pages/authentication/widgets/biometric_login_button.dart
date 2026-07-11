@@ -11,17 +11,66 @@ class BiometricLoginButton extends StatelessWidget {
   final VoidCallback? onPressed;
   final bool isAuthenticating;
 
+  /// When true, renders as a square icon-only chip (matches the social
+  /// login buttons' compact size) instead of the full-width "Continue as"
+  /// pill — used to sit inline with the social-provider row.
+  final bool compact;
+
   const BiometricLoginButton({
     super.key,
     required this.userName,
     required this.onPressed,
     this.isAuthenticating = false,
+    this.compact = false,
   });
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final enabled = !isAuthenticating && onPressed != null;
+
+    if (compact) {
+      return Tooltip(
+        message: l10n.continueAs(userName),
+        child: Material(
+          color: Colors.transparent,
+          child: InkWell(
+            onTap: enabled ? onPressed : null,
+            borderRadius: BorderRadius.circular(16),
+            child: Container(
+              width: 56,
+              height: 56,
+              decoration: BoxDecoration(
+                color: AppColors.primary.withValues(alpha: 0.08),
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(
+                  color: AppColors.primary.withValues(alpha: 0.3),
+                  width: 1.5,
+                ),
+              ),
+              child: Center(
+                child: isAuthenticating
+                    ? const SizedBox(
+                        width: 20,
+                        height: 20,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2.5,
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            AppColors.primary,
+                          ),
+                        ),
+                      )
+                    : const Icon(
+                        Icons.fingerprint_rounded,
+                        color: AppColors.primary,
+                        size: 26,
+                      ),
+              ),
+            ),
+          ),
+        ),
+      );
+    }
 
     return SizedBox(
       width: double.infinity,

@@ -4,6 +4,7 @@ import 'package:bananatalk_app/pages/authentication/widgets/auth_gradient_button
 import 'package:bananatalk_app/pages/authentication/widgets/auth_screen_scaffold.dart';
 import 'package:bananatalk_app/pages/authentication/widgets/auth_snackbar.dart';
 import 'package:bananatalk_app/pages/authentication/widgets/auth_text_field.dart';
+import 'package:bananatalk_app/pages/authentication/widgets/animated_auth_background.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
@@ -53,8 +54,9 @@ class _EmailInputState extends ConsumerState<EmailInput> {
 
     setState(() => _isLoading = true);
 
-    final result =
-        await ref.read(authServiceProvider).sendVerificationCode(email);
+    final result = await ref
+        .read(authServiceProvider)
+        .sendVerificationCode(email);
 
     setState(() => _isLoading = false);
 
@@ -68,9 +70,7 @@ class _EmailInputState extends ConsumerState<EmailInput> {
       );
 
       Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (ctx) => EmailVerification(email: email),
-        ),
+        MaterialPageRoute(builder: (ctx) => EmailVerification(email: email)),
       );
     } else {
       // Handle error — check if it's a registration validation error (wrong endpoint)
@@ -98,76 +98,88 @@ class _EmailInputState extends ConsumerState<EmailInput> {
     return AuthScreenScaffold(
       title: l10n.signUp,
       showBackButton: true,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+      body: Stack(
         children: [
-          const SizedBox(height: 24),
-          Text(
-            'Bananatalk',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 32,
-              fontWeight: FontWeight.w800,
-              color: AppColors.primary,
-              letterSpacing: -0.5,
-            ),
+          // Positioned.fill inside a loose Stack sizes to the non-positioned
+          // content column below, so this stays safe even though the parent
+          // scroll view gives unbounded height (AnimatedAuthBackground's own
+          // Stack uses fit: expand, which would throw under Infinity height
+          // if it were the outermost widget here).
+          const Positioned.fill(
+            child: AnimatedAuthBackground(child: SizedBox.shrink()),
           ),
-          const SizedBox(height: 40),
-          Text(
-            l10n.createAccount,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.w800,
-              color: context.textPrimary,
-            ),
-          ),
-          const SizedBox(height: 12),
-          Text(
-            l10n.enterEmailToGetStarted,
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 16, color: context.textSecondary),
-          ),
-          const SizedBox(height: 40),
-          AuthTextField(
-            controller: _emailController,
-            label: l10n.emailAddress,
-            prefixIcon: Icons.email_outlined,
-            keyboardType: TextInputType.emailAddress,
-            textInputAction: TextInputAction.done,
-          ),
-          const SizedBox(height: 32),
-          AuthGradientButton(
-            label: l10n.continueText,
-            onPressed: _isLoading ? null : _sendVerificationCode,
-            isLoading: _isLoading,
-          ),
-          const SizedBox(height: 24),
-          Row(
+          Column(
             mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              const SizedBox(height: 24),
               Text(
-                l10n.alreadyHaveAnAccount,
-                style: TextStyle(color: context.textSecondary),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(builder: (ctx) => Login()),
-                  );
-                },
-                child: Text(
-                  l10n.login,
-                  style: TextStyle(
-                    color: AppColors.primary,
-                    fontWeight: FontWeight.bold,
-                  ),
+                'Bananatalk',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 32,
+                  fontWeight: FontWeight.w800,
+                  color: AppColors.primary,
+                  letterSpacing: -0.5,
                 ),
               ),
+              const SizedBox(height: 40),
+              Text(
+                l10n.createAccount,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.w800,
+                  color: context.textPrimary,
+                ),
+              ),
+              const SizedBox(height: 12),
+              Text(
+                l10n.enterEmailToGetStarted,
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 16, color: context.textSecondary),
+              ),
+              const SizedBox(height: 40),
+              AuthTextField(
+                controller: _emailController,
+                label: l10n.emailAddress,
+                prefixIcon: Icons.email_outlined,
+                keyboardType: TextInputType.emailAddress,
+                textInputAction: TextInputAction.done,
+              ),
+              const SizedBox(height: 32),
+              AuthGradientButton(
+                label: l10n.continueText,
+                onPressed: _isLoading ? null : _sendVerificationCode,
+                isLoading: _isLoading,
+              ),
+              const SizedBox(height: 24),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    l10n.alreadyHaveAnAccount,
+                    style: TextStyle(color: context.textSecondary),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(
+                        context,
+                      ).push(MaterialPageRoute(builder: (ctx) => Login()));
+                    },
+                    child: Text(
+                      l10n.login,
+                      style: TextStyle(
+                        color: AppColors.primary,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 32),
             ],
           ),
-          const SizedBox(height: 32),
         ],
       ),
     );

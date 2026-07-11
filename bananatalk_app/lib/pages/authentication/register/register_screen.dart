@@ -1,14 +1,21 @@
+import 'dart:async';
+
 import 'package:bananatalk_app/pages/authentication/login/login_screen.dart';
 import 'package:bananatalk_app/pages/authentication/widgets/animated_banana_title.dart';
 import 'package:bananatalk_app/pages/authentication/register/register_two_screen.dart';
+import 'package:bananatalk_app/pages/authentication/register/registration_progress_service.dart';
+import 'package:bananatalk_app/pages/authentication/widgets/animated_auth_background.dart';
 import 'package:bananatalk_app/pages/authentication/widgets/auth_gradient_button.dart';
 import 'package:bananatalk_app/pages/authentication/widgets/auth_screen_scaffold.dart';
+import 'package:bananatalk_app/pages/authentication/widgets/auth_step_progress.dart';
 import 'package:bananatalk_app/pages/authentication/widgets/auth_text_field.dart';
 import 'package:bananatalk_app/pages/authentication/widgets/password_field.dart';
+import 'package:bananatalk_app/pages/authentication/widgets/password_strength_meter.dart';
 import 'package:bananatalk_app/pages/authentication/widgets/username_availability_field.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
@@ -70,6 +77,13 @@ class _RegisterState extends State<Register> {
   String? _genderError;
   String? _birthDateError;
 
+  // ─── Progress persistence (resume-after-close) ───────────────────────────
+  final RegistrationProgressService _progressService =
+      RegistrationProgressService();
+  Timer? _saveDebounce;
+  bool _resumeBannerVisible = false;
+  RegistrationProgress? _pendingResume;
+
   @override
   void initState() {
     super.initState();
@@ -77,13 +91,20 @@ class _RegisterState extends State<Register> {
     _usernameController = TextEditingController();
     _passwordController = TextEditingController(text: widget.userPassword);
     _emailController = TextEditingController(text: widget.userEmail);
-    _passwordConfirmController =
-        TextEditingController(text: widget.userPassword);
+    _passwordConfirmController = TextEditingController(
+      text: widget.userPassword,
+    );
     _birthDateController = TextEditingController();
+
+    _nameController.addListener(_scheduleProgressSave);
+    _birthDateController.addListener(_scheduleProgressSave);
+
+    _loadSavedProgress();
   }
 
   @override
   void dispose() {
+    _saveDebounce?.cancel();
     _nameController.dispose();
     _usernameController.dispose();
     _emailController.dispose();
@@ -91,6 +112,66 @@ class _RegisterState extends State<Register> {
     _passwordConfirmController.dispose();
     _birthDateController.dispose();
     super.dispose();
+  }
+
+  Future<void> _loadSavedProgress() async {
+    final saved = await _progressService.load();
+    if (saved == null || !mounted) return;
+    setState(() {
+      _pendingResume = saved;
+      _resumeBannerVisible = true;
+    });
+  }
+
+  // Debounced save of step-0 fields. Password is intentionally never
+  // included in persisted progress.
+  void _scheduleProgressSave() {
+    _saveDebounce?.cancel();
+    _saveDebounce = Timer(const Duration(milliseconds: 500), () {
+      _progressService.save(
+        RegistrationProgress(step: 0, fields: _currentStepZeroFields()),
+      );
+    });
+  }
+
+  Map<String, String> _currentStepZeroFields() => {
+    'email': _emailController.text,
+    'name': _nameController.text,
+    'gender': _selectedGender ?? '',
+    'birthDate': _birthDateController.text,
+  };
+
+  void _continueResume() {
+    final saved = _pendingResume;
+    if (saved == null) return;
+    setState(() {
+      _nameController.text = saved.fields['name'] ?? _nameController.text;
+      _birthDateController.text =
+          saved.fields['birthDate'] ?? _birthDateController.text;
+      final savedGender = saved.fields['gender'];
+      if (savedGender != null && savedGender.isNotEmpty) {
+        // Progress may have been saved by register_two_screen.dart with a
+        // backend-cased value (e.g. 'male') rather than this screen's
+        // display-cased chips ('Male'/'Female'/'Other') — normalize so the
+        // chip re-selects instead of silently matching nothing.
+        _selectedGender = _genders.firstWhere(
+          (g) => g.toLowerCase() == savedGender.toLowerCase(),
+          orElse: () => savedGender,
+        );
+      }
+      _resumeBannerVisible = false;
+      _pendingResume = null;
+    });
+  }
+
+  void _startOver() {
+    // Fire-and-forget: clearing persisted progress must not block the UI
+    // from immediately hiding the resume banner.
+    unawaited(_progressService.clear());
+    setState(() {
+      _resumeBannerVisible = false;
+      _pendingResume = null;
+    });
   }
 
   bool _validate() {
@@ -118,8 +199,9 @@ class _RegisterState extends State<Register> {
       setState(() => _passwordError = l10n.pleaseEnterAPassword);
       isValid = false;
     } else {
-      final passwordValidation =
-          AuthService.validatePassword(_passwordController.text);
+      final passwordValidation = AuthService.validatePassword(
+        _passwordController.text,
+      );
       if (!passwordValidation['valid']) {
         setState(() => _passwordError = passwordValidation['message']);
         isValid = false;
@@ -164,6 +246,15 @@ class _RegisterState extends State<Register> {
 
     final genderMap = {'Male': 'male', 'Female': 'female', 'Other': 'other'};
 
+    _saveDebounce?.cancel();
+    // Fire-and-forget: persisting step-1 progress must not delay navigation
+    // to the next screen.
+    unawaited(
+      _progressService.save(
+        RegistrationProgress(step: 1, fields: _currentStepZeroFields()),
+      ),
+    );
+
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (ctx) => RegisterTwo(
@@ -179,39 +270,92 @@ class _RegisterState extends State<Register> {
   }
 
   Future<void> _pickBirthDate() async {
-    DateTime initialDate =
-        DateTime.now().subtract(const Duration(days: 365 * 20));
+    DateTime initialDate = DateTime.now().subtract(
+      const Duration(days: 365 * 20),
+    );
 
     if (_birthDateController.text.isNotEmpty) {
       try {
-        initialDate =
-            DateFormat('yyyy.MM.dd').parse(_birthDateController.text);
+        initialDate = DateFormat('yyyy.MM.dd').parse(_birthDateController.text);
       } catch (e) {
         // use default
       }
     }
 
-    final pickedDate = await showDatePicker(
+    final l10n = AppLocalizations.of(context)!;
+    DateTime wheelDate = initialDate;
+
+    final pickedDate = await showModalBottomSheet<DateTime>(
       context: context,
-      initialDate: initialDate,
-      firstDate: DateTime(1900),
-      lastDate: DateTime.now(),
-      builder: (context, child) {
-        return Theme(
-          data: Theme.of(context).copyWith(
-            colorScheme: ColorScheme.light(primary: AppColors.primary),
+      backgroundColor: context.surfaceColor,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (sheetContext) {
+        return SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.only(top: 12),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    TextButton(
+                      onPressed: () => Navigator.of(sheetContext).pop(),
+                      child: Text(l10n.cancel),
+                    ),
+                    Text(
+                      l10n.birthDate,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        color: context.textPrimary,
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () =>
+                          Navigator.of(sheetContext).pop(wheelDate),
+                      child: Text(l10n.done),
+                    ),
+                  ],
+                ),
+                const Divider(height: 1),
+                SizedBox(
+                  height: 220,
+                  child: CupertinoTheme(
+                    data: CupertinoThemeData(
+                      brightness: Theme.of(context).brightness,
+                      primaryColor: AppColors.primary,
+                      textTheme: CupertinoTextThemeData(
+                        dateTimePickerTextStyle: TextStyle(
+                          fontSize: 20,
+                          color: context.textPrimary,
+                        ),
+                      ),
+                    ),
+                    child: CupertinoDatePicker(
+                      mode: CupertinoDatePickerMode.date,
+                      initialDateTime: initialDate,
+                      minimumDate: DateTime(1900),
+                      maximumDate: DateTime.now(),
+                      onDateTimeChanged: (value) => wheelDate = value,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
-          child: child!,
         );
       },
     );
 
     if (pickedDate != null) {
       setState(() {
-        _birthDateController.text =
-            DateFormat('yyyy.MM.dd').format(pickedDate);
+        _birthDateController.text = DateFormat('yyyy.MM.dd').format(pickedDate);
         _birthDateError = null;
       });
+      // _birthDateController already has a _scheduleProgressSave listener
+      // (wired in initState), which fires from the setState above.
     }
   }
 
@@ -220,270 +364,324 @@ class _RegisterState extends State<Register> {
     final l10n = AppLocalizations.of(context)!;
     return AuthScreenScaffold(
       showBackButton: true,
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      body: Stack(
         children: [
-          // Step indicator
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+          // Positioned.fill inside a loose Stack sizes to the non-positioned
+          // content column below, so this stays safe even though the parent
+          // scroll view gives unbounded height (AnimatedAuthBackground's own
+          // Stack uses fit: expand, which would throw under Infinity height
+          // if it were the outermost widget here).
+          const Positioned.fill(
+            child: AnimatedAuthBackground(child: SizedBox.shrink()),
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                l10n.stepOneOfTwo,
-                style: TextStyle(
-                  color: context.textSecondary,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              Spacing.hGapLG,
-            ],
-          ),
+              if (_resumeBannerVisible) _buildResumeBanner(l10n),
+              if (_resumeBannerVisible) const SizedBox(height: 16),
 
-          // Progress bar
-          Row(
-            children: [
-              Expanded(
-                child: Container(
-                  height: 4,
-                  decoration: BoxDecoration(
-                    color: AppColors.primary,
-                    borderRadius: BorderRadius.circular(2),
-                  ),
-                ),
-              ),
-              Spacing.hGapSM,
-              Expanded(
-                child: Container(
-                  height: 4,
-                  decoration: BoxDecoration(
-                    color: context.dividerColor,
-                    borderRadius: BorderRadius.circular(2),
-                  ),
-                ),
-              ),
-            ],
-          ),
-
-          const SizedBox(height: 16),
-
-          // Header
-          const AnimatedBananaTitle(fontSize: 32),
-          const SizedBox(height: 2),
-          Text(
-            l10n.createYourAccount,
-            style: TextStyle(
-              fontSize: 28,
-              fontWeight: FontWeight.w800,
-              color: context.textPrimary,
-              letterSpacing: -0.5,
-            ),
-          ),
-          const SizedBox(height: 6),
-          Text(
-            l10n.basicInfoToGetStarted,
-            style: TextStyle(
-              fontSize: 15,
-              color: context.textSecondary,
-            ),
-          ),
-
-          const SizedBox(height: 28),
-
-          // Email (read-only, verified)
-          _buildLabel(l10n.emailVerifiedLabel),
-          const SizedBox(height: 8),
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: context.containerColor,
-              borderRadius: AppRadius.borderLG,
-              border: Border.all(color: context.dividerColor),
-            ),
-            child: Row(
-              children: [
-                Icon(Icons.email_outlined,
-                    color: context.textSecondary, size: 20),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Text(
-                    widget.userEmail,
+              // Step indicator
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text(
+                    l10n.stepOneOfTwo,
                     style: TextStyle(
-                      fontSize: 15,
                       color: context.textSecondary,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
-                ),
-                Icon(Icons.verified,
-                    color: AppColors.success, size: 20),
-              ],
-            ),
-          ),
+                  Spacing.hGapLG,
+                ],
+              ),
 
-          const SizedBox(height: 20),
+              // Progress bar
+              const AuthStepProgress(currentStep: 0, totalSteps: 2),
 
-          // Name
-          _buildLabel(l10n.nameLabel),
-          const SizedBox(height: 8),
-          AuthTextField(
-            controller: _nameController,
-            label: l10n.yourDisplayName,
-            prefixIcon: Icons.person_outline,
-            validator: (_) => _nameError,
-            onChanged: (_) => setState(() => _nameError = null),
-          ),
-          if (_nameError != null)
-            Padding(
-              padding: const EdgeInsets.only(left: 4, top: 6),
-              child: Text(_nameError!,
-                  style: TextStyle(color: AppColors.error, fontSize: 12)),
-            ),
+              const SizedBox(height: 16),
 
-          const SizedBox(height: 20),
-
-          // Username (optional, with live availability check)
-          _buildLabel(l10n.usernameOptional),
-          const SizedBox(height: 8),
-          UsernameAvailabilityField(
-            controller: _usernameController,
-            onAvailabilityChanged: (ok) {
-              if (_usernameAvailable != ok) {
-                setState(() => _usernameAvailable = ok);
-              }
-            },
-          ),
-
-          const SizedBox(height: 20),
-
-          // Password
-          _buildLabel(l10n.password),
-          const SizedBox(height: 8),
-          PasswordField(
-            controller: _passwordController,
-            label: l10n.atLeast8Characters,
-            showStrengthMeter: true,
-            onChanged: (_) => setState(() => _passwordError = null),
-          ),
-          if (_passwordError != null)
-            Padding(
-              padding: const EdgeInsets.only(left: 4, top: 6),
-              child: Text(_passwordError!,
-                  style: TextStyle(color: AppColors.error, fontSize: 12)),
-            ),
-          const SizedBox(height: 12),
-          PasswordField(
-            controller: _passwordConfirmController,
-            label: l10n.confirmPasswordHint,
-            textInputAction: TextInputAction.done,
-          ),
-
-          const SizedBox(height: 24),
-
-          // Gender
-          _buildLabel(l10n.gender),
-          if (_genderError != null)
-            Padding(
-              padding: const EdgeInsets.only(top: 4),
-              child: Text(_genderError!,
-                  style: TextStyle(
-                      color: AppColors.error, fontSize: 12)),
-            ),
-          const SizedBox(height: 8),
-          Row(
-            children: _genders
-                .map((g) => _buildGenderChip(g))
-                .toList(),
-          ),
-
-          const SizedBox(height: 24),
-
-          // Birth date
-          _buildLabel(l10n.birthDate),
-          const SizedBox(height: 8),
-          GestureDetector(
-            onTap: _pickBirthDate,
-            child: Container(
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: context.cardBackground,
-                borderRadius: AppRadius.borderLG,
-                border: Border.all(
-                  color: _birthDateError != null
-                      ? AppColors.error
-                      : context.dividerColor,
+              // Header
+              const AnimatedBananaTitle(fontSize: 32),
+              const SizedBox(height: 2),
+              Text(
+                l10n.createYourAccount,
+                style: TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.w800,
+                  color: context.textPrimary,
+                  letterSpacing: -0.5,
                 ),
               ),
-              child: Row(
-                children: [
-                  Icon(Icons.cake_outlined,
-                      color: AppColors.primary, size: 20),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: Text(
-                      _birthDateController.text.isNotEmpty
-                          ? _formatDisplayDate(
-                              _birthDateController.text)
-                          : l10n.selectYourBirthDate,
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w500,
-                        color:
-                            _birthDateController.text.isNotEmpty
+              const SizedBox(height: 6),
+              Text(
+                l10n.basicInfoToGetStarted,
+                style: TextStyle(fontSize: 15, color: context.textSecondary),
+              ),
+
+              const SizedBox(height: 28),
+
+              // Email (read-only, verified)
+              _buildLabel(l10n.emailVerifiedLabel),
+              const SizedBox(height: 8),
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: context.containerColor,
+                  borderRadius: AppRadius.borderLG,
+                  border: Border.all(color: context.dividerColor),
+                ),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.email_outlined,
+                      color: context.textSecondary,
+                      size: 20,
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Text(
+                        widget.userEmail,
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: context.textSecondary,
+                        ),
+                      ),
+                    ),
+                    Icon(Icons.verified, color: AppColors.success, size: 20),
+                  ],
+                ),
+              ),
+
+              const SizedBox(height: 20),
+
+              // Name
+              _buildLabel(l10n.nameLabel),
+              const SizedBox(height: 8),
+              AuthTextField(
+                controller: _nameController,
+                label: l10n.yourDisplayName,
+                prefixIcon: Icons.person_outline,
+                validator: (_) => _nameError,
+                onChanged: (_) => setState(() => _nameError = null),
+              ),
+              if (_nameError != null)
+                Padding(
+                  padding: const EdgeInsets.only(left: 4, top: 6),
+                  child: Text(
+                    _nameError!,
+                    style: TextStyle(color: AppColors.error, fontSize: 12),
+                  ),
+                ),
+
+              const SizedBox(height: 20),
+
+              // Username (optional, with live availability check)
+              _buildLabel(l10n.usernameOptional),
+              const SizedBox(height: 8),
+              UsernameAvailabilityField(
+                controller: _usernameController,
+                onAvailabilityChanged: (ok) {
+                  if (_usernameAvailable != ok) {
+                    setState(() => _usernameAvailable = ok);
+                  }
+                },
+              ),
+
+              const SizedBox(height: 20),
+
+              // Password
+              _buildLabel(l10n.password),
+              const SizedBox(height: 8),
+              PasswordField(
+                controller: _passwordController,
+                label: l10n.atLeast8Characters,
+                onChanged: (_) => setState(() => _passwordError = null),
+              ),
+              const SizedBox(height: 8),
+              PasswordStrengthMeter(password: _passwordController.text),
+              if (_passwordError != null)
+                Padding(
+                  padding: const EdgeInsets.only(left: 4, top: 6),
+                  child: Text(
+                    _passwordError!,
+                    style: TextStyle(color: AppColors.error, fontSize: 12),
+                  ),
+                ),
+              const SizedBox(height: 12),
+              PasswordField(
+                controller: _passwordConfirmController,
+                label: l10n.confirmPasswordHint,
+                textInputAction: TextInputAction.done,
+              ),
+
+              const SizedBox(height: 24),
+
+              // Gender
+              _buildLabel(l10n.gender),
+              if (_genderError != null)
+                Padding(
+                  padding: const EdgeInsets.only(top: 4),
+                  child: Text(
+                    _genderError!,
+                    style: TextStyle(color: AppColors.error, fontSize: 12),
+                  ),
+                ),
+              const SizedBox(height: 8),
+              Row(children: _genders.map((g) => _buildGenderChip(g)).toList()),
+
+              const SizedBox(height: 24),
+
+              // Birth date
+              _buildLabel(l10n.birthDate),
+              const SizedBox(height: 8),
+              GestureDetector(
+                onTap: _pickBirthDate,
+                child: Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: context.cardBackground,
+                    borderRadius: AppRadius.borderLG,
+                    border: Border.all(
+                      color: _birthDateError != null
+                          ? AppColors.error
+                          : context.dividerColor,
+                    ),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.cake_outlined,
+                        color: AppColors.primary,
+                        size: 20,
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Text(
+                          _birthDateController.text.isNotEmpty
+                              ? _formatDisplayDate(_birthDateController.text)
+                              : l10n.selectYourBirthDate,
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w500,
+                            color: _birthDateController.text.isNotEmpty
                                 ? context.textPrimary
                                 : context.textHint,
+                          ),
+                        ),
+                      ),
+                      Icon(
+                        Icons.calendar_today_outlined,
+                        size: 18,
+                        color: context.iconColor,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              if (_birthDateError != null)
+                Padding(
+                  padding: const EdgeInsets.only(left: 4, top: 6),
+                  child: Text(
+                    _birthDateError!,
+                    style: TextStyle(color: AppColors.error, fontSize: 12),
+                  ),
+                ),
+
+              const SizedBox(height: 32),
+
+              // Next button
+              AuthGradientButton(label: l10n.nextButton, onPressed: submit),
+
+              const SizedBox(height: 16),
+
+              // Login link
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    l10n.alreadyHaveAnAccount,
+                    style: TextStyle(color: context.textSecondary),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(
+                        context,
+                      ).push(MaterialPageRoute(builder: (ctx) => Login()));
+                    },
+                    child: Text(
+                      l10n.login2,
+                      style: TextStyle(
+                        color: AppColors.primary,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                   ),
-                  Icon(Icons.calendar_today_outlined,
-                      size: 18, color: context.iconColor),
                 ],
               ),
-            ),
+
+              const SizedBox(height: 32),
+            ],
           ),
-          if (_birthDateError != null)
-            Padding(
-              padding: const EdgeInsets.only(left: 4, top: 6),
-              child: Text(_birthDateError!,
-                  style: TextStyle(
-                      color: AppColors.error, fontSize: 12)),
-            ),
+        ],
+      ),
+    );
+  }
 
-          const SizedBox(height: 32),
-
-          // Next button
-          AuthGradientButton(
-            label: l10n.nextButton,
-            onPressed: submit,
-          ),
-
-          const SizedBox(height: 16),
-
-          // Login link
+  Widget _buildResumeBanner(AppLocalizations l10n) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: AppColors.infoLight,
+        borderRadius: AppRadius.borderLG,
+        border: Border.all(color: AppColors.info.withValues(alpha: 0.3)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                l10n.alreadyHaveAnAccount,
-                style: TextStyle(color: context.textSecondary),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                        builder: (ctx) => Login()),
-                  );
-                },
+              Icon(Icons.history_rounded, color: AppColors.info, size: 20),
+              const SizedBox(width: 12),
+              Expanded(
                 child: Text(
-                  l10n.login2,
+                  'Continue where you left off?',
                   style: TextStyle(
-                    color: AppColors.primary,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: context.textPrimary,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              TextButton(
+                onPressed: _startOver,
+                child: Text(
+                  l10n.startOver,
+                  style: TextStyle(
+                    color: context.textSecondary,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
               ),
+              const SizedBox(width: 8),
+              TextButton(
+                onPressed: _continueResume,
+                child: Text(
+                  l10n.continueButton,
+                  style: const TextStyle(
+                    color: AppColors.primary,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
             ],
           ),
-
-          const SizedBox(height: 32),
         ],
       ),
     );
@@ -510,6 +708,7 @@ class _RegisterState extends State<Register> {
             _selectedGender = gender;
             _genderError = null;
           });
+          _scheduleProgressSave();
         },
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 4),

@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/pages/authentication/register/register_two_screen.dart';
 import 'package:bananatalk_app/pages/authentication/terms_of_service_screen.dart';
 import 'package:bananatalk_app/pages/authentication/widgets/animated_banana_title.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
@@ -120,6 +121,30 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
           }
         } catch (e) {}
       }
+    }
+
+    // Profile-completion gate: rescues accounts stuck at
+    // profileCompleted=false on the auto-login/session-restore path (the
+    // majority of incomplete profiles never see the login screen since a
+    // live session skips it entirely). Mirrors the login_screen.dart gate.
+    if (isAuthenticated) {
+      try {
+        final user = await authService.getLoggedInUser();
+        if (!user.profileCompleted) {
+          await Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => const RegisterTwo(completionMode: true),
+            ),
+          );
+          if (!mounted) return;
+          final updatedUser = await authService.getLoggedInUser();
+          if (!mounted) return;
+          if (!updatedUser.profileCompleted) {
+            context.go('/login');
+            return;
+          }
+        }
+      } catch (e) {}
     }
 
     if (isAuthenticated) {
@@ -250,7 +275,10 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                   padding: const EdgeInsets.only(bottom: 56),
                   child: FadeTransition(
                     opacity: _taglineFade,
-                    child: _LoadingDots(controller: _dotsController, color: dotColor),
+                    child: _LoadingDots(
+                      controller: _dotsController,
+                      color: dotColor,
+                    ),
                   ),
                 ),
               ),
@@ -279,7 +307,11 @@ class _LoadingDots extends StatelessWidget {
         final anim = Tween<double>(begin: 0.25, end: 1.0).animate(
           CurvedAnimation(
             parent: controller,
-            curve: Interval(start, end.clamp(0.0, 1.0), curve: Curves.easeInOut),
+            curve: Interval(
+              start,
+              end.clamp(0.0, 1.0),
+              curve: Curves.easeInOut,
+            ),
           ),
         );
         return Padding(
@@ -289,10 +321,7 @@ class _LoadingDots extends StatelessWidget {
             child: Container(
               width: 9,
               height: 9,
-              decoration: BoxDecoration(
-                color: color,
-                shape: BoxShape.circle,
-              ),
+              decoration: BoxDecoration(color: color, shape: BoxShape.circle),
             ),
           ),
         );

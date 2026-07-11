@@ -1,7 +1,9 @@
+import 'package:bananatalk_app/pages/authentication/auth_error_codes.dart';
 import 'package:bananatalk_app/pages/authentication/register/register_screen.dart';
 import 'package:bananatalk_app/pages/authentication/widgets/auth_gradient_button.dart';
 import 'package:bananatalk_app/pages/authentication/widgets/auth_screen_scaffold.dart';
 import 'package:bananatalk_app/pages/authentication/widgets/auth_snackbar.dart';
+import 'package:bananatalk_app/pages/authentication/widgets/otp_code_field.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
@@ -19,38 +21,56 @@ class EmailVerification extends ConsumerStatefulWidget {
   ConsumerState<EmailVerification> createState() => _EmailVerificationState();
 }
 
-class _EmailVerificationState extends ConsumerState<EmailVerification> {
-  final List<TextEditingController> _controllers = List.generate(
-    6,
-    (index) => TextEditingController(),
-  );
-  final List<FocusNode> _focusNodes = List.generate(6, (index) => FocusNode());
+class _EmailVerificationState extends ConsumerState<EmailVerification>
+    with TickerProviderStateMixin {
+  final GlobalKey<OtpCodeFieldState> _otpKey = GlobalKey<OtpCodeFieldState>();
 
   bool _isLoading = false;
   bool _isResending = false;
+  bool _isSuccess = false;
   int _resendTimer = 60;
   Timer? _timer;
+
+  late final AnimationController _successController;
+  late final Animation<double> _successScale;
+
+  late final AnimationController _pulseController;
+  late final Animation<double> _pulseScale;
 
   @override
   void initState() {
     super.initState();
     _startResendTimer();
+
+    _successController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 200),
+    );
+    _successScale = CurvedAnimation(
+      parent: _successController,
+      curve: Curves.easeOutBack,
+    );
+
+    _pulseController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 500),
+    );
+    _pulseScale = Tween<double>(begin: 1.0, end: 1.08).animate(
+      CurvedAnimation(parent: _pulseController, curve: Curves.easeInOut),
+    );
   }
 
   @override
   void dispose() {
-    for (var controller in _controllers) {
-      controller.dispose();
-    }
-    for (var node in _focusNodes) {
-      node.dispose();
-    }
     _timer?.cancel();
+    _successController.dispose();
+    _pulseController.dispose();
     super.dispose();
   }
 
   void _startResendTimer() {
     _resendTimer = 60;
+    _timer?.cancel();
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (_resendTimer > 0) {
         setState(() => _resendTimer--);
@@ -60,8 +80,18 @@ class _EmailVerificationState extends ConsumerState<EmailVerification> {
     });
   }
 
-  Future<void> _verifyCode() async {
-    final String code = _controllers.map((c) => c.text).join();
+  void _pulseResendButton() {
+    if (MediaQuery.of(context).disableAnimations) return;
+    _pulseController.forward(from: 0).then((_) {
+      if (!mounted) return;
+      _pulseController.reverse();
+    });
+  }
+
+  Future<void> _verifyCode([String? completedCode]) async {
+    if (_isLoading) return;
+
+    final String code = completedCode ?? '';
     final l10n = AppLocalizations.of(context)!;
 
     if (code.length != 6) {
@@ -75,16 +105,20 @@ class _EmailVerificationState extends ConsumerState<EmailVerification> {
 
     setState(() => _isLoading = true);
 
-    final result = await ref.read(authServiceProvider).verifyEmailCode(
-          email: widget.email,
-          code: code,
-        );
+    final result = await ref
+        .read(authServiceProvider)
+        .verifyEmailCode(email: widget.email, code: code);
 
     setState(() => _isLoading = false);
 
     if (!mounted) return;
 
     if (result['success']) {
+      setState(() => _isSuccess = true);
+      await _successController.forward(from: 0);
+
+      if (!mounted) return;
+
       showAuthSnackBar(
         context,
         message: l10n.emailVerifiedSuccessfully,
@@ -92,16 +126,45 @@ class _EmailVerificationState extends ConsumerState<EmailVerification> {
       );
 
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (ctx) => Register(userEmail: widget.email),
-        ),
+        MaterialPageRoute(builder: (ctx) => Register(userEmail: widget.email)),
       );
     } else {
-      showAuthSnackBar(
-        context,
-        message: result['message'] ?? 'Verification failed',
-        type: AuthSnackBarType.error,
+      final AuthErrorCode errorCode = parseAuthErrorCode(
+        result['code']?.toString(),
       );
+
+      switch (errorCode) {
+        case AuthErrorCode.codeExpired:
+          showAuthSnackBar(
+            context,
+            message:
+                result['message'] ??
+                'This code has expired. Please '
+                    'request a new one.',
+            type: AuthSnackBarType.error,
+          );
+          // Surface the resend affordance immediately instead of making the
+          // user wait out the countdown for a code we already know is dead,
+          // and draw the eye to it with a brief pulse.
+          setState(() => _resendTimer = 0);
+          _timer?.cancel();
+          _pulseResendButton();
+          break;
+        case AuthErrorCode.codeInvalid:
+          _otpKey.currentState?.shakeAndClear();
+          showAuthSnackBar(
+            context,
+            message: result['message'] ?? 'Incorrect code. Please try again.',
+            type: AuthSnackBarType.error,
+          );
+          break;
+        default:
+          showAuthSnackBar(
+            context,
+            message: result['message'] ?? 'Verification failed',
+            type: AuthSnackBarType.error,
+          );
+      }
     }
   }
 
@@ -111,8 +174,9 @@ class _EmailVerificationState extends ConsumerState<EmailVerification> {
 
     setState(() => _isResending = true);
 
-    final result =
-        await ref.read(authServiceProvider).sendVerificationCode(widget.email);
+    final result = await ref
+        .read(authServiceProvider)
+        .sendVerificationCode(widget.email);
 
     setState(() => _isResending = false);
 
@@ -145,11 +209,17 @@ class _EmailVerificationState extends ConsumerState<EmailVerification> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           const SizedBox(height: 32),
-          Icon(
-            Icons.email_outlined,
-            size: 80,
-            color: AppColors.primary,
-          ),
+          if (_isSuccess)
+            ScaleTransition(
+              scale: _successScale,
+              child: Icon(
+                Icons.check_circle,
+                size: 80,
+                color: AppColors.success,
+              ),
+            )
+          else
+            Icon(Icons.email_outlined, size: 80, color: AppColors.primary),
           const SizedBox(height: 24),
           Text(
             l10n.verifyYourEmail,
@@ -177,64 +247,20 @@ class _EmailVerificationState extends ConsumerState<EmailVerification> {
             ),
           ),
           const SizedBox(height: 40),
-          // 6-digit code input
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: List.generate(6, (index) {
-              return Container(
-                width: 45,
-                height: 55,
-                margin: const EdgeInsets.symmetric(horizontal: 4),
-                child: TextField(
-                  controller: _controllers[index],
-                  focusNode: _focusNodes[index],
-                  textAlign: TextAlign.center,
-                  keyboardType: TextInputType.number,
-                  maxLength: 1,
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                    color: context.textPrimary,
-                  ),
-                  decoration: InputDecoration(
-                    counterText: '',
-                    filled: true,
-                    fillColor: context.containerColor,
-                    contentPadding:
-                        const EdgeInsets.symmetric(vertical: 12),
-                    border: OutlineInputBorder(
-                      borderRadius: AppRadius.borderMD,
-                      borderSide: BorderSide(color: context.dividerColor),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: AppRadius.borderMD,
-                      borderSide: BorderSide(color: context.dividerColor),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: AppRadius.borderMD,
-                      borderSide:
-                          const BorderSide(color: AppColors.primary, width: 2),
-                    ),
-                  ),
-                  onChanged: (value) {
-                    if (value.isNotEmpty && index < 5) {
-                      _focusNodes[index + 1].requestFocus();
-                    } else if (value.isEmpty && index > 0) {
-                      _focusNodes[index - 1].requestFocus();
-                    }
-                    // Auto-submit when all 6 digits are entered
-                    if (index == 5 && value.isNotEmpty) {
-                      _verifyCode();
-                    }
-                  },
-                ),
-              );
-            }),
+          // 6-digit OTP input
+          Center(
+            child: OtpCodeField(
+              key: _otpKey,
+              length: 6,
+              onCompleted: _verifyCode,
+            ),
           ),
           const SizedBox(height: 40),
           AuthGradientButton(
             label: l10n.verify,
-            onPressed: _isLoading ? null : _verifyCode,
+            onPressed: _isLoading
+                ? null
+                : () => _verifyCode(_otpKey.currentState?.value),
             isLoading: _isLoading,
           ),
           const SizedBox(height: 24),
@@ -245,26 +271,30 @@ class _EmailVerificationState extends ConsumerState<EmailVerification> {
                 l10n.didntReceiveCode,
                 style: TextStyle(color: context.textSecondary),
               ),
-              TextButton(
-                onPressed:
-                    _isResending || _resendTimer > 0 ? null : _resendCode,
-                child: _isResending
-                    ? const SizedBox(
-                        width: 16,
-                        height: 16,
-                        child: CircularProgressIndicator(strokeWidth: 2),
-                      )
-                    : Text(
-                        _resendTimer > 0
-                            ? l10n.resendWithTimer(_resendTimer.toString())
-                            : l10n.resend,
-                        style: TextStyle(
-                          color: _resendTimer > 0
-                              ? context.textMuted
-                              : AppColors.primary,
-                          fontWeight: FontWeight.bold,
+              ScaleTransition(
+                scale: _pulseScale,
+                child: TextButton(
+                  onPressed: _isResending || _resendTimer > 0
+                      ? null
+                      : _resendCode,
+                  child: _isResending
+                      ? const SizedBox(
+                          width: 16,
+                          height: 16,
+                          child: CircularProgressIndicator(strokeWidth: 2),
+                        )
+                      : Text(
+                          _resendTimer > 0
+                              ? l10n.resendWithTimer(_resendTimer.toString())
+                              : l10n.resend,
+                          style: TextStyle(
+                            color: _resendTimer > 0
+                                ? context.textMuted
+                                : AppColors.primary,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
+                ),
               ),
             ],
           ),

@@ -55,6 +55,7 @@ class Community {
     required this.location,
     this.privacySettings,
     this.termsAccepted = false,
+    this.profileCompleted = false,
     // New HelloTalk-style fields
     this.topics = const [],
     this.languageLevel,
@@ -99,6 +100,7 @@ class Community {
   final Location location;
   final PrivacySettings? privacySettings;
   final bool termsAccepted;
+  final bool profileCompleted;
   // New HelloTalk-style fields
   final List<String> topics;
   final String? languageLevel; // A1, A2, B1, B2, C1, C2
@@ -210,6 +212,7 @@ class Community {
           ? PrivacySettings.fromJson(json['privacySettings'])
           : null,
       termsAccepted: json['termsAccepted'] ?? false,
+      profileCompleted: json['profileCompleted'] ?? false,
       // New HelloTalk-style fields
       topics: (json['topics'] as List<dynamic>?)
               ?.map((e) => _s(e))
@@ -256,6 +259,8 @@ class Community {
       'createdAt': createdAt,
       '__v': version,
       'privacySettings': privacySettings?.toJson(),
+      'termsAccepted': termsAccepted,
+      'profileCompleted': profileCompleted,
       // New HelloTalk-style fields
       'topics': topics,
       if (languageLevel != null) 'languageLevel': languageLevel,

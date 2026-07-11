@@ -1,7 +1,10 @@
+import 'package:bananatalk_app/pages/authentication/auth_error_codes.dart';
 import 'package:bananatalk_app/pages/authentication/password_reset/reset_password_screen.dart';
-import 'package:bananatalk_app/pages/authentication/widgets/auth_gradient_button.dart';
+import 'package:bananatalk_app/pages/authentication/widgets/animated_auth_background.dart';
+import 'package:bananatalk_app/pages/authentication/widgets/auth_error_state.dart';
 import 'package:bananatalk_app/pages/authentication/widgets/auth_screen_scaffold.dart';
 import 'package:bananatalk_app/pages/authentication/widgets/auth_snackbar.dart';
+import 'package:bananatalk_app/pages/authentication/widgets/otp_code_field.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
@@ -22,16 +25,17 @@ class ForgotPasswordVerification extends ConsumerStatefulWidget {
 
 class _ForgotPasswordVerificationState
     extends ConsumerState<ForgotPasswordVerification> {
-  final List<TextEditingController> _controllers = List.generate(
-    6,
-    (index) => TextEditingController(),
-  );
-  final List<FocusNode> _focusNodes = List.generate(6, (index) => FocusNode());
+  final GlobalKey<OtpCodeFieldState> _otpKey = GlobalKey<OtpCodeFieldState>();
 
   bool _isLoading = false;
   bool _isResending = false;
   int _resendTimer = 60;
   Timer? _timer;
+
+  // Non-null when the last attempt failed with a network/lockout/rate-limit
+  // error — renders AuthErrorState in-body instead of the raw OTP form.
+  AuthErrorKind? _errorKind;
+  Duration? _errorRetryAfter;
 
   @override
   void initState() {
@@ -41,12 +45,6 @@ class _ForgotPasswordVerificationState
 
   @override
   void dispose() {
-    for (var controller in _controllers) {
-      controller.dispose();
-    }
-    for (var node in _focusNodes) {
-      node.dispose();
-    }
     _timer?.cancel();
     super.dispose();
   }
@@ -62,25 +60,30 @@ class _ForgotPasswordVerificationState
     });
   }
 
-  Future<void> _verifyCode() async {
-    final String code = _controllers.map((c) => c.text).join();
+  Future<void> _verifyCode(String completedCode) async {
     final l10n = AppLocalizations.of(context)!;
 
-    if (code.length != 6) {
-      showAuthSnackBar(
-        context,
-        message: l10n.pleaseEnterAll6Digits,
-        type: AuthSnackBarType.error,
-      );
+    if (_isLoading) return;
+
+    setState(() {
+      _isLoading = true;
+      _errorKind = null;
+      _errorRetryAfter = null;
+    });
+
+    Map<String, dynamic> result;
+    try {
+      result = await ref
+          .read(authServiceProvider)
+          .verifyPasswordResetCode(email: widget.email, code: completedCode);
+    } catch (_) {
+      if (!mounted) return;
+      setState(() {
+        _isLoading = false;
+        _errorKind = AuthErrorKind.network;
+      });
       return;
     }
-
-    setState(() => _isLoading = true);
-
-    final result = await ref.read(authServiceProvider).verifyPasswordResetCode(
-          email: widget.email,
-          code: code,
-        );
 
     setState(() => _isLoading = false);
 
@@ -95,18 +98,55 @@ class _ForgotPasswordVerificationState
 
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-          builder: (ctx) => ResetPassword(
-            email: widget.email,
-            code: code,
-          ),
+          builder: (ctx) =>
+              ResetPassword(email: widget.email, code: completedCode),
         ),
       );
     } else {
-      showAuthSnackBar(
-        context,
-        message: result['message'] ?? 'Verification failed',
-        type: AuthSnackBarType.error,
-      );
+      final AuthErrorCode code = parseAuthErrorCode(result['code']?.toString());
+
+      switch (code) {
+        case AuthErrorCode.codeExpired:
+          showAuthSnackBar(
+            context,
+            message:
+                result['message'] ??
+                'This code has expired. Please '
+                    'request a new one.',
+            type: AuthSnackBarType.error,
+          );
+          // Surface the resend affordance immediately instead of making the
+          // user wait out the countdown for a code we already know is dead.
+          setState(() => _resendTimer = 0);
+          _timer?.cancel();
+          break;
+        case AuthErrorCode.codeInvalid:
+          _otpKey.currentState?.shakeAndClear();
+          showAuthSnackBar(
+            context,
+            message: result['message'] ?? 'Incorrect code. Please try again.',
+            type: AuthSnackBarType.error,
+          );
+          break;
+        case AuthErrorCode.accountLocked:
+          setState(() {
+            _errorKind = AuthErrorKind.locked;
+            _errorRetryAfter = parseAuthErrorRetryAfter(result);
+          });
+          break;
+        case AuthErrorCode.rateLimited:
+          setState(() {
+            _errorKind = AuthErrorKind.rateLimited;
+            _errorRetryAfter = parseAuthErrorRetryAfter(result);
+          });
+          break;
+        default:
+          showAuthSnackBar(
+            context,
+            message: result['message'] ?? 'Verification failed',
+            type: AuthSnackBarType.error,
+          );
+      }
     }
   }
 
@@ -116,9 +156,19 @@ class _ForgotPasswordVerificationState
 
     setState(() => _isResending = true);
 
-    final result = await ref.read(authServiceProvider).sendPasswordResetCode(
-          email: widget.email,
-        );
+    Map<String, dynamic> result;
+    try {
+      result = await ref
+          .read(authServiceProvider)
+          .sendPasswordResetCode(email: widget.email);
+    } catch (_) {
+      if (!mounted) return;
+      setState(() {
+        _isResending = false;
+        _errorKind = AuthErrorKind.network;
+      });
+      return;
+    }
 
     setState(() => _isResending = false);
 
@@ -132,11 +182,27 @@ class _ForgotPasswordVerificationState
       );
       _startResendTimer();
     } else {
-      showAuthSnackBar(
-        context,
-        message: result['message'] ?? 'Failed to resend code',
-        type: AuthSnackBarType.error,
-      );
+      final errorCode = parseAuthErrorCode(result['code']?.toString());
+      switch (errorCode) {
+        case AuthErrorCode.accountLocked:
+          setState(() {
+            _errorKind = AuthErrorKind.locked;
+            _errorRetryAfter = parseAuthErrorRetryAfter(result);
+          });
+          break;
+        case AuthErrorCode.rateLimited:
+          setState(() {
+            _errorKind = AuthErrorKind.rateLimited;
+            _errorRetryAfter = parseAuthErrorRetryAfter(result);
+          });
+          break;
+        default:
+          showAuthSnackBar(
+            context,
+            message: result['message'] ?? 'Failed to resend code',
+            type: AuthSnackBarType.error,
+          );
+      }
     }
   }
 
@@ -146,133 +212,127 @@ class _ForgotPasswordVerificationState
     return AuthScreenScaffold(
       title: l10n.verifyCode,
       showBackButton: true,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          const SizedBox(height: 32),
-          Icon(
-            Icons.password,
-            size: 80,
-            color: AppColors.error,
-          ),
-          const SizedBox(height: 24),
-          Text(
-            l10n.enterResetCode,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.w800,
-              color: context.textPrimary,
-            ),
-          ),
-          const SizedBox(height: 16),
-          Text(
-            l10n.weSentCodeTo,
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 16, color: context.textSecondary),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            widget.email,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: AppColors.error,
-            ),
-          ),
-          const SizedBox(height: 40),
-          // 6-digit code input
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: List.generate(6, (index) {
-              return SizedBox(
-                width: 50,
-                height: 60,
-                child: TextField(
-                  controller: _controllers[index],
-                  focusNode: _focusNodes[index],
-                  textAlign: TextAlign.center,
-                  keyboardType: TextInputType.number,
-                  maxLength: 1,
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: context.textPrimary,
-                  ),
-                  decoration: InputDecoration(
-                    counterText: '',
-                    filled: true,
-                    fillColor: context.containerColor,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide(color: context.dividerColor),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide(color: context.dividerColor),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                      borderSide:
-                          const BorderSide(color: AppColors.primary, width: 2),
-                    ),
-                  ),
-                  onChanged: (value) {
-                    if (value.isNotEmpty && index < 5) {
-                      _focusNodes[index + 1].requestFocus();
-                    } else if (value.isEmpty && index > 0) {
-                      _focusNodes[index - 1].requestFocus();
-                    }
-                    // Auto-submit when all 6 digits are entered
-                    if (index == 5 && value.isNotEmpty) {
-                      _verifyCode();
-                    }
-                  },
-                ),
-              );
-            }),
-          ),
-          const SizedBox(height: 40),
-          AuthGradientButton(
-            label: l10n.verify,
-            onPressed: _isLoading ? null : _verifyCode,
-            isLoading: _isLoading,
-          ),
-          const SizedBox(height: 24),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                l10n.didntReceiveCode,
-                style: TextStyle(color: context.textSecondary),
-              ),
-              TextButton(
-                onPressed:
-                    _isResending || _resendTimer > 0 ? null : _resendCode,
-                child: _isResending
-                    ? const SizedBox(
-                        width: 16,
-                        height: 16,
-                        child: CircularProgressIndicator(strokeWidth: 2),
-                      )
-                    : Text(
-                        _resendTimer > 0
-                            ? l10n.resendWithTimer(_resendTimer.toString())
-                            : l10n.resend,
+      // AnimatedAuthBackground is a Stack(fit: StackFit.expand) so it needs a
+      // bounded height — give it at least the viewport height, then let the
+      // outer SingleChildScrollView (from AuthScreenScaffold) handle any
+      // overflow instead of the Stack itself. See login_screen.dart for the
+      // same pattern.
+      body: Builder(
+        builder: (context) {
+          final viewportHeight = MediaQuery.sizeOf(context).height;
+          return SizedBox(
+            height: viewportHeight,
+            width: double.infinity,
+            child: AnimatedAuthBackground(
+              child: Padding(
+                padding: const EdgeInsets.all(8),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    const SizedBox(height: 32),
+                    if (_errorKind != null) ...[
+                      AuthErrorState(
+                        kind: _errorKind!,
+                        retryAfter: _errorRetryAfter,
+                        onRetry: (_isLoading || _isResending)
+                            ? null
+                            : () {
+                                setState(() => _errorKind = null);
+                              },
+                      ),
+                    ] else ...[
+                      Icon(Icons.password, size: 80, color: AppColors.error),
+                      const SizedBox(height: 24),
+                      Text(
+                        l10n.enterResetCode,
+                        textAlign: TextAlign.center,
                         style: TextStyle(
-                          color: _resendTimer > 0
-                              ? context.textMuted
-                              : AppColors.primary,
-                          fontWeight: FontWeight.bold,
+                          fontSize: 24,
+                          fontWeight: FontWeight.w800,
+                          color: context.textPrimary,
                         ),
                       ),
+                      const SizedBox(height: 16),
+                      Text(
+                        l10n.weSentCodeTo,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: context.textSecondary,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        widget.email,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.error,
+                        ),
+                      ),
+                      const SizedBox(height: 40),
+                      Center(
+                        child: OtpCodeField(
+                          key: _otpKey,
+                          length: 6,
+                          onCompleted: _verifyCode,
+                        ),
+                      ),
+                      const SizedBox(height: 24),
+                      if (_isLoading)
+                        const Center(
+                          child: SizedBox(
+                            width: 24,
+                            height: 24,
+                            child: CircularProgressIndicator(strokeWidth: 2),
+                          ),
+                        ),
+                      const SizedBox(height: 16),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            l10n.didntReceiveCode,
+                            style: TextStyle(color: context.textSecondary),
+                          ),
+                          TextButton(
+                            onPressed: _isResending || _resendTimer > 0
+                                ? null
+                                : _resendCode,
+                            child: _isResending
+                                ? const SizedBox(
+                                    width: 16,
+                                    height: 16,
+                                    child: CircularProgressIndicator(
+                                      strokeWidth: 2,
+                                    ),
+                                  )
+                                : Text(
+                                    _resendTimer > 0
+                                        ? l10n.resendWithTimer(
+                                            _resendTimer.toString(),
+                                          )
+                                        : l10n.resend,
+                                    style: TextStyle(
+                                      color: _resendTimer > 0
+                                          ? context.textMuted
+                                          : AppColors.primary,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                          ),
+                        ],
+                      ),
+                    ],
+                    const SizedBox(height: 32),
+                  ],
+                ),
               ),
-            ],
-          ),
-          const SizedBox(height: 32),
-        ],
+            ),
+          );
+        },
       ),
     );
   }

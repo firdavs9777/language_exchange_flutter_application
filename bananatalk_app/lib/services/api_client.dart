@@ -117,11 +117,13 @@ class ApiClient {
 
 
       final url = Uri.parse('$baseUrl${Endpoints.refreshTokenURL}');
-      final response = await http.post(
-        url,
-        body: jsonEncode({'refreshToken': _cachedRefreshToken}),
-        headers: {'Content-Type': 'application/json'},
-      );
+      final response = await http
+          .post(
+            url,
+            body: jsonEncode({'refreshToken': _cachedRefreshToken}),
+            headers: {'Content-Type': 'application/json'},
+          )
+          .timeout(const Duration(seconds: 30));
 
       if (response.statusCode == 200) {
         final responseData = jsonDecode(response.body);
@@ -180,6 +182,25 @@ class ApiClient {
     } finally {
       _isRefreshing = false;
     }
+  }
+
+  /// Test-only forwarder for `_refreshAccessToken`. Public API for app code
+  /// is unchanged; this exists solely so tests can drive the refresh queue
+  /// behavior directly. Step 5 (auth workstream).
+  @visibleForTesting
+  Future<String?> refreshAccessTokenForTest() => _refreshAccessToken();
+
+  /// Test-only reset of refresh-in-progress state. `ApiClient` is a
+  /// singleton, so stale `_isRefreshing`/`_refreshQueue` state from a
+  /// previous test can leak in and make every call take the queued branch
+  /// instead of the direct one. Call from `setUp` before each test.
+  @visibleForTesting
+  void resetRefreshStateForTest() {
+    _isRefreshing = false;
+    for (final completer in _refreshQueue) {
+      if (!completer.isCompleted) completer.complete(null);
+    }
+    _refreshQueue.clear();
   }
 
   /// Get default headers with auth token
