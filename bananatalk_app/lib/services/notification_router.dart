@@ -74,10 +74,11 @@ class NotificationRouter {
           if (userId != null) targetPath = '/profile/$userId';
           break;
 
-        // Step 16 — wave deep-link to the waver's profile.
+        // Step 16 — wave deep-link to the conversation.
         case 'wave':
+        case 'wave_received':
           final waverId = data['userId']?.toString();
-          if (waverId != null) targetPath = '/profile/$waverId';
+          if (waverId != null && waverId.isNotEmpty) targetPath = '/chat/$waverId';
           break;
 
         // Step 16 — three previously-silent comment notification types

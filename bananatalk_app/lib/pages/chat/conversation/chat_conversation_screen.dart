@@ -125,6 +125,10 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     // immediately on back-navigation (saving only in dispose() races the
     // list's refresh, which reads the draft the moment the route pops).
     _messageController.addListener(_onDraftChanged);
+    // Best-effort: clear any pending intro/wave cards from this sender so
+    // the chat-list strip doesn't keep showing a stale card once the user
+    // has actually opened the conversation.
+    _clearPendingIntrosForThisChat();
     // Set this as the active chat so global listener doesn't increment unread
     // Use post-frame callback to avoid modifying provider during build
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -156,6 +160,37 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     _messageController.text = restored;
     _messageController.selection =
         TextSelection.collapsed(offset: restored.length);
+  }
+
+  /// If pending intros (waves) are already loaded and include waves from
+  /// this chat partner, marks them read and refreshes the relevant
+  /// providers so the chat-list strip / badge don't show a stale card for
+  /// a sender the user has already opened a conversation with.
+  ///
+  /// Deliberately narrow: only acts on the already-loaded value (no forced
+  /// fetch), is entirely best-effort, and must never affect conversation
+  /// load — hence the try/catch swallowing everything.
+  Future<void> _clearPendingIntrosForThisChat() async {
+    try {
+      final intros = ref.read(pendingIntrosProvider).valueOrNull;
+      if (intros == null || intros.isEmpty) return;
+
+      final matchingIds = intros
+          .where((wave) => wave.fromUserId == widget.userId)
+          .map((wave) => wave.id)
+          .toList();
+      if (matchingIds.isEmpty) return;
+
+      await ref
+          .read(communityServiceProvider)
+          .markWavesAsRead(waveIds: matchingIds);
+
+      if (!mounted) return;
+      ref.invalidate(pendingIntrosProvider);
+      ref.invalidate(wavesUnreadProvider);
+    } catch (_) {
+      // Best-effort only — never let this affect conversation load.
+    }
   }
 
   // Track keyboard height to detect open/close

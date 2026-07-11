@@ -58,6 +58,7 @@ class _WavesTabState extends ConsumerState<WavesTab> {
       if (_unreadCount > 0) {
         await service.markWavesAsRead();
         ref.invalidate(wavesUnreadProvider);
+        ref.invalidate(pendingIntrosProvider);
       }
     } catch (e) {
       setState(() {

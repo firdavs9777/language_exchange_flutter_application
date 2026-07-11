@@ -27,6 +27,7 @@ import 'package:bananatalk_app/pages/chat/list/chat_list_tile.dart';
 import 'package:bananatalk_app/pages/chat/list/chat_list_search_bar.dart';
 import 'package:bananatalk_app/pages/chat/list/chat_list_filter_tabs.dart';
 import 'package:bananatalk_app/pages/chat/list/chat_list_empty_state.dart';
+import 'package:bananatalk_app/pages/chat/list/intro_requests_strip.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:bananatalk_app/pages/chat/list/list_socket_handlers.dart';
 import 'package:bananatalk_app/widgets/vip_up_pill.dart';
@@ -1448,6 +1449,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
                                 });
                               },
                             ),
+                            const IntroRequestsStrip(),
                             Expanded(child: _buildUsersList()),
                           ],
                         ),

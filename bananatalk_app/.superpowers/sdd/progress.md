@@ -60,3 +60,10 @@ I1 DECISION (defaulted, user deferred): accept Apple revocation as inert-known-l
 Task 14: complete. Batched fixer closed all 13 must-fix items (revert-tested the C1 regression guard). Controller independent gate: analyze 0 err/0 warn, all auth+services tests pass, backend node --check OK. Scratch test files removed.
 == WORKSTREAM A CODE-COMPLETE (uncommitted, both repos, branch workstream-a-auth) ==
 Remaining: user device smoke checklist -> then commit on user go-ahead.
+
+# ===== WORKSTREAM B: INTROS =====
+Plan: docs/superpowers/plans/2026-07-12-workstream-b-intros.md
+Branches: workstream-b-intros (app 0b8e8f8+plan, backend 911306a). Commits allowed per task.
+Scout finding: wave->chat mirror + push ALREADY exist; B = last-mile fixes (parse bug, push route, strip, badge, icebreakers). No accept endpoint, no kill switch (documented deviation).
+Wave 1 dispatch: T1(backend) + T2 + T3 + T6 parallel (disjoint); T4 after T2; T5 after T4.
+USER INSTRUCTION mid-wave-1: NO per-task commits for B — single commit after ALL tasks complete. All 4 running agents redirected via message. Verify no stray commits at gate (branch tips must stay app=d78f15a, backend=911306a until final commit).

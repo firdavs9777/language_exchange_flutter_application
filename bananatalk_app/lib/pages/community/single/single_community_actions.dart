@@ -15,7 +15,9 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 /// Video Call / Voice Call / Message / Wave / Follow (or Unfollow).
 ///
 /// The Wave button is hidden when the profile belongs to the current user.
-/// When the 24 h client-side cooldown is active the button is greyed out.
+/// The button is permanently greyed out once the current user has ever
+/// waved at this person — one wave per user pair, ever (backend-enforced
+/// via ALREADY_WAVED/400; this is just the local mirror).
 class SingleCommunityActions extends ConsumerWidget {
   final Community community;
   final bool isFollower;
@@ -34,25 +36,14 @@ class SingleCommunityActions extends ConsumerWidget {
     required this.onFollowToggle,
   });
 
-  // Returns true when the 24 h wave cooldown is still active for [userId].
-  static Future<bool> _inCooldown(String userId) async {
+  // Returns true if the current user has ever waved at [userId]. One wave
+  // per user pair, ever — presence of the key (regardless of its stored
+  // timestamp) now means "already waved," permanently. Older builds wrote
+  // this same key as a 24h cooldown marker; this read is compatible with
+  // those pre-existing entries too (they just never expire anymore).
+  static Future<bool> _alreadyWaved(String userId) async {
     final prefs = await SharedPreferences.getInstance();
-    final ts = prefs.getInt('$waveCooldownPrefsPrefix$userId');
-    if (ts == null) return false;
-    final elapsed = DateTime.now().millisecondsSinceEpoch - ts;
-    return elapsed < const Duration(hours: 24).inMilliseconds;
-  }
-
-  /// Human-readable "Xh Ym" left until the cooldown expires.
-  static Future<String> _cooldownRemaining(String userId) async {
-    final prefs = await SharedPreferences.getInstance();
-    final ts = prefs.getInt('$waveCooldownPrefsPrefix$userId') ?? 0;
-    final remainMs = const Duration(hours: 24).inMilliseconds -
-        (DateTime.now().millisecondsSinceEpoch - ts);
-    if (remainMs <= 0) return '0m';
-    final d = Duration(milliseconds: remainMs);
-    if (d.inHours >= 1) return '${d.inHours}h ${d.inMinutes.remainder(60)}m';
-    return '${d.inMinutes}m';
+    return prefs.containsKey('$waveCooldownPrefsPrefix$userId');
   }
 
   @override
@@ -118,15 +109,17 @@ class SingleCommunityActions extends ConsumerWidget {
               // Wave button — hidden for own profile
               if (!isOwnProfile)
                 FutureBuilder<bool>(
-                  future: _inCooldown(community.id),
+                  future: _alreadyWaved(community.id),
                   builder: (context, snapshot) {
-                    final cooldownActive = snapshot.data ?? false;
-                    return _buildWaveActionButton(context, l10n, cooldownActive);
+                    final alreadyWaved = snapshot.data ?? false;
+                    return _buildWaveActionButton(context, l10n, alreadyWaved);
                   },
                 ),
               _buildCompactActionButton(
                 context,
-                isFollower ? Icons.check_circle_rounded : Icons.person_add_rounded,
+                isFollower
+                    ? Icons.check_circle_rounded
+                    : Icons.person_add_rounded,
                 isFollower ? l10n.following : l10n.follow,
                 isFollower ? Colors.green[600]! : Colors.blue[600]!,
                 onFollowToggle,
@@ -145,54 +138,58 @@ class SingleCommunityActions extends ConsumerWidget {
   Widget _buildWaveActionButton(
     BuildContext context,
     AppLocalizations l10n,
-    bool cooldownActive,
+    bool alreadyWaved,
   ) {
-    final color = cooldownActive ? Colors.grey[400]! : AppColors.primary;
-    return InkWell(
-      onTap: () async {
-        if (cooldownActive) {
-          final remaining = await _cooldownRemaining(community.id);
-          if (!context.mounted) return;
-          showCommunitySnackBar(
+    final color = alreadyWaved ? Colors.grey[400]! : AppColors.primary;
+    return Tooltip(
+      message: alreadyWaved
+          ? 'Already waved — send a message instead'
+          : 'Send a wave',
+      child: InkWell(
+        onTap: () {
+          if (alreadyWaved) {
+            showCommunitySnackBar(
+              context,
+              message:
+                  "You've already waved at ${community.name} — send them a message instead.",
+              type: CommunitySnackBarType.info,
+            );
+            return;
+          }
+          showSendWaveSheet(
             context,
-            message: 'You can wave at ${community.name} again in $remaining',
-            type: CommunitySnackBarType.info,
+            targetUserId: community.id,
+            targetUserName: community.name,
+            targetUserCountry: community.location.country.isNotEmpty
+                ? community.location.country
+                : null,
           );
-          return;
-        }
-        showSendWaveSheet(
-          context,
-          targetUserId: community.id,
-          targetUserName: community.name,
-          targetUserCountry: community.location.country.isNotEmpty
-              ? community.location.country
-              : null,
-        );
-      },
-      borderRadius: BorderRadius.circular(8),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: color.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(10),
+        },
+        borderRadius: BorderRadius.circular(8),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: color.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Icon(Icons.waving_hand_rounded, color: color, size: 20),
               ),
-              child: Icon(Icons.waving_hand_rounded, color: color, size: 20),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              l10n.sendWave,
-              style: TextStyle(
-                fontSize: 11,
-                color: color,
-                fontWeight: FontWeight.w500,
+              const SizedBox(height: 4),
+              Text(
+                l10n.sendWave,
+                style: TextStyle(
+                  fontSize: 11,
+                  color: color,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

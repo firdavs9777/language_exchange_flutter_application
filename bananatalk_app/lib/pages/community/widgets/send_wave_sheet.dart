@@ -9,7 +9,26 @@ import 'package:bananatalk_app/pages/community/widgets/mutual_wave_dialog.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 
+// Key prefix kept from the original 24h-cooldown design — the name is now a
+// misnomer since "one wave per user pair, ever" replaced the 24h cooldown,
+// but reusing it means existing SharedPreferences entries on upgraded
+// installs still read as "already sent" rather than resetting everyone's
+// wave history to unsent. Readers (community_card_actions.dart,
+// single_community_actions.dart) now treat *presence* of the key as a
+// permanent flag rather than checking elapsed time against it.
 const waveCooldownPrefsPrefix = 'wave_cooldown_';
+
+/// Permanently marks [targetUserId] as already-waved-at by the current user.
+/// Shared by the send flow (on success) and the 400/ALREADY_WAVED error path
+/// (to self-heal local state when the backend says it happened previously,
+/// e.g. after a reinstall or a second device).
+Future<void> _markAlreadyWaved(String targetUserId) async {
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.setInt(
+    '$waveCooldownPrefsPrefix$targetUserId',
+    DateTime.now().millisecondsSinceEpoch,
+  );
+}
 
 Future<void> showSendWaveSheet(
   BuildContext context, {
@@ -48,6 +67,20 @@ class _SendWaveSheet extends ConsumerStatefulWidget {
   ConsumerState<_SendWaveSheet> createState() => _SendWaveSheetState();
 }
 
+// Icebreaker prompts shown above the message field to help start a
+// conversation. No l10n keys exist yet for these strings (checked
+// app_en.arb — only waveQuickReply* short replies are localized), and the
+// sheet only receives targetUserName/targetUserCountry (no language info),
+// so these stay generic/English for now.
+// TODO: l10n batch — add icebreaker strings to app_en.arb + translations.
+const List<String> _icebreakerPrompts = [
+  'What made you start learning a new language?',
+  'Hi! I can help you practice 😊',
+  "What's your favorite word in your language?",
+  'Coffee-break chat sometime?',
+  "How's your week going?",
+];
+
 class _SendWaveSheetState extends ConsumerState<_SendWaveSheet> {
   final TextEditingController _customController = TextEditingController();
   String? _selectedQuickReply;
@@ -57,6 +90,16 @@ class _SendWaveSheetState extends ConsumerState<_SendWaveSheet> {
   void dispose() {
     _customController.dispose();
     super.dispose();
+  }
+
+  void _applyIcebreaker(String prompt) {
+    setState(() {
+      _selectedQuickReply = null;
+      _customController.text = prompt;
+      _customController.selection = TextSelection.fromPosition(
+        TextPosition(offset: _customController.text.length),
+      );
+    });
   }
 
   List<String> _quickReplies(AppLocalizations l10n) => [
@@ -81,12 +124,11 @@ class _SendWaveSheetState extends ConsumerState<_SendWaveSheet> {
       final response = await ref
           .read(communityServiceProvider)
           .sendWave(targetUserId: widget.targetUserId, message: message);
-      // Cache cooldown locally (24h client-side; backend authoritative)
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setInt(
-        '$waveCooldownPrefsPrefix${widget.targetUserId}',
-        DateTime.now().millisecondsSinceEpoch,
-      );
+      // Permanently mark this user as already-waved locally (one wave per
+      // user pair, ever — backend is authoritative via ALREADY_WAVED/400).
+      // The stored value itself (a timestamp) is no longer used for expiry;
+      // readers now treat *presence* of the key as a permanent flag.
+      await _markAlreadyWaved(widget.targetUserId);
       if (!mounted) return;
       Navigator.pop(context);
       widget.onSent?.call();
@@ -108,12 +150,23 @@ class _SendWaveSheetState extends ConsumerState<_SendWaveSheet> {
       Navigator.pop(context);
       final raw = e.toString();
       final lower = raw.toLowerCase();
-      final isRateLimited = lower.contains('too many waves') ||
-          lower.contains('already waved');
+      // "Too many waves" is the legacy 429 rate-limit text (unrelated to the
+      // one-wave-per-pair rule; kept for safety in case that path is ever
+      // reintroduced upstream). "Already waved" now comes from the
+      // permanent ALREADY_WAVED/400 — one wave per user pair, ever. Once we
+      // see it, self-heal local state so the button greys out immediately
+      // even if the local flag was missing (e.g. reinstall, second device).
+      final isRateLimited = lower.contains('too many waves');
+      final isAlreadyWaved = lower.contains('already waved');
+      if (isAlreadyWaved) {
+        await _markAlreadyWaved(widget.targetUserId);
+        if (!mounted) return;
+      }
       // Surface the backend's actual error string when available so the
       // user knows *why* it failed (e.g. "Cannot wave at yourself",
-      // "Cannot wave to this user", "User not found"). Fall back to the
-      // localized generic only if the exception message is empty/useless.
+      // "Cannot wave to this user", "User not found", or the permanent
+      // ALREADY_WAVED message). Fall back to the localized generic only if
+      // the exception message is empty/useless.
       final backendMessage = raw.replaceFirst('Exception: ', '').trim();
       final fallback = l10n.waveCouldntSend;
       showCommunitySnackBar(
@@ -121,8 +174,8 @@ class _SendWaveSheetState extends ConsumerState<_SendWaveSheet> {
         message: isRateLimited
             ? l10n.waveCooldown(widget.targetUserName, '24h')
             : (backendMessage.isEmpty || backendMessage == 'Failed to send wave'
-                ? fallback
-                : backendMessage),
+                  ? fallback
+                  : backendMessage),
         type: CommunitySnackBarType.error,
       );
     }
@@ -197,10 +250,34 @@ class _SendWaveSheetState extends ConsumerState<_SendWaveSheet> {
                 }).toList(),
               ),
               const SizedBox(height: 12),
+              SizedBox(
+                height: 36,
+                child: ListView.separated(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: _icebreakerPrompts.length,
+                  separatorBuilder: (_, __) => const SizedBox(width: 8),
+                  itemBuilder: (context, index) {
+                    final prompt = _icebreakerPrompts[index];
+                    return ActionChip(
+                      label: Text(prompt),
+                      labelStyle: TextStyle(
+                        color: Theme.of(context).colorScheme.primary,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 12,
+                      ),
+                      backgroundColor: Colors.transparent,
+                      side: BorderSide(
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                      onPressed: () => _applyIcebreaker(prompt),
+                    );
+                  },
+                ),
+              ),
+              const SizedBox(height: 12),
               TextField(
                 controller: _customController,
-                onChanged: (_) =>
-                    setState(() => _selectedQuickReply = null),
+                onChanged: (_) => setState(() => _selectedQuickReply = null),
                 textInputAction: TextInputAction.send,
                 onSubmitted: (_) {
                   if (canSend) _send();
