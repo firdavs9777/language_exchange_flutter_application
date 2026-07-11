@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/pages/authentication/auth_error_codes.dart';
 import 'package:bananatalk_app/providers/provider_models//users_model.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/user_limits_provider.dart';
@@ -35,7 +36,8 @@ class AuthService extends ChangeNotifier {
     // middleware, which serialised ObjectId references as '{}' instead of the
     // 24-hex string.  An empty map literal is never a valid Mongo ObjectId, so
     // treat it as missing and let getLoggedInUser() repopulate it from auth/me.
-    if (userId == '{}' || (userId.isNotEmpty && userId.startsWith('{') && userId.endsWith('}'))) {
+    if (userId == '{}' ||
+        (userId.isNotEmpty && userId.startsWith('{') && userId.endsWith('}'))) {
       userId = '';
       await prefs.remove('userId');
     }
@@ -130,6 +132,7 @@ class AuthService extends ChangeNotifier {
         'success': false,
         'message': data['message'] ?? data['error'] ?? 'An error occurred',
         'error': data['error'],
+        'code': data['code'],
         'statusCode': response.statusCode,
         'lockUntil': data['lockUntil'],
         'remainingAttempts': data['remainingAttempts'],
@@ -145,14 +148,26 @@ class AuthService extends ChangeNotifier {
   }
 
   /// Check if account is locked
+  /// Prefers the typed backend `code` (ACCOUNT_LOCKED) over string-matching;
+  /// falls back to the legacy heuristics for responses that predate codes.
   bool _isAccountLocked(Map<String, dynamic> errorData) {
+    if (parseAuthErrorCode(errorData['code']?.toString()) ==
+        AuthErrorCode.accountLocked) {
+      return true;
+    }
     return errorData['lockUntil'] != null ||
         errorData['message']?.toString().toLowerCase().contains('locked') ==
             true;
   }
 
   /// Check if rate limited
+  /// Prefers the typed backend `code` (RATE_LIMITED) over string-matching;
+  /// falls back to the legacy heuristics for responses that predate codes.
   bool _isRateLimited(Map<String, dynamic> errorData) {
+    if (parseAuthErrorCode(errorData['code']?.toString()) ==
+        AuthErrorCode.rateLimited) {
+      return true;
+    }
     return errorData['retryAfter'] != null ||
         errorData['statusCode'] == 429 ||
         errorData['message']?.toString().toLowerCase().contains(
@@ -254,6 +269,7 @@ class AuthService extends ChangeNotifier {
             'message': message,
             'isLocked': true,
             'lockUntil': lockUntil,
+            'code': errorData['code'],
           };
         }
 
@@ -270,12 +286,14 @@ class AuthService extends ChangeNotifier {
             'message': message,
             'isRateLimited': true,
             'retryAfter': retryAfter,
+            'code': errorData['code'],
           };
         }
 
         return {
           'success': false,
           'message': errorData['message'] ?? 'Invalid email or password',
+          'code': errorData['code'],
         };
       }
     } catch (e) {
@@ -862,12 +880,14 @@ class AuthService extends ChangeNotifier {
             'message': message,
             'isRateLimited': true,
             'retryAfter': retryAfter,
+            'code': errorData['code'],
           };
         }
 
         return {
           'success': false,
           'message': errorData['message'] ?? 'Failed to send verification code',
+          'code': errorData['code'],
         };
       }
     } catch (e) {
@@ -899,6 +919,7 @@ class AuthService extends ChangeNotifier {
         return {
           'success': false,
           'message': data['error'] ?? 'Invalid or expired verification code',
+          'code': data['code'],
         };
       }
     } catch (e) {
@@ -1169,6 +1190,9 @@ class AuthService extends ChangeNotifier {
         return {
           'success': false,
           'message': data['error'] ?? 'Failed to send reset code',
+          'code': data['code'],
+          'lockUntil': data['lockUntil'],
+          'retryAfter': data['retryAfter'],
         };
       }
     } catch (e) {
@@ -1202,6 +1226,9 @@ class AuthService extends ChangeNotifier {
         return {
           'success': false,
           'message': data['error'] ?? 'Invalid reset code',
+          'code': data['code'],
+          'lockUntil': data['lockUntil'],
+          'retryAfter': data['retryAfter'],
         };
       }
     } catch (e) {
@@ -1274,10 +1301,18 @@ class AuthService extends ChangeNotifier {
           'user': data['user'] ?? data['data']?['user'],
         };
       } else {
+        // Note: the backend resetPassword endpoint does not return a typed
+        // `code` (unlike verifyPasswordResetCode) — this path stays
+        // message-based. We still surface whatever `code` (if any) the
+        // backend sends for forward-compatibility, but callers should not
+        // rely on it being populated here.
         final errorData = _parseErrorResponse(response);
         return {
           'success': false,
           'message': errorData['message'] ?? 'Failed to reset password',
+          'code': errorData['code'],
+          'lockUntil': errorData['lockUntil'],
+          'retryAfter': errorData['retryAfter'],
         };
       }
     } catch (e) {
@@ -1499,9 +1534,11 @@ class AuthService extends ChangeNotifier {
 
     if (response.statusCode == 429) {
       throw BirthdateRateLimitException(
-        message: (body['error'] ?? body['message'] ??
-                'Birthdate can be changed at most 3 times per 60 days')
-            .toString(),
+        message:
+            (body['error'] ??
+                    body['message'] ??
+                    'Birthdate can be changed at most 3 times per 60 days')
+                .toString(),
         nextAvailableAt: body['nextAvailableAt'] != null
             ? DateTime.tryParse(body['nextAvailableAt'].toString())
             : null,
@@ -1624,7 +1661,9 @@ class AuthService extends ChangeNotifier {
 
     final errorData = json.decode(response.body);
     throw Exception(
-      errorData['error'] ?? errorData['message'] ?? 'Failed to update occupation',
+      errorData['error'] ??
+          errorData['message'] ??
+          'Failed to update occupation',
     );
   }
 

@@ -7,6 +7,7 @@ import 'package:bananatalk_app/pages/authentication/register/register_two/finish
 import 'package:bananatalk_app/pages/authentication/register/register_two/native_language_step.dart';
 import 'package:bananatalk_app/pages/authentication/register/register_two/personal_info_step.dart';
 import 'package:bananatalk_app/pages/authentication/register/register_two/profile_photo_step.dart';
+import 'package:bananatalk_app/pages/authentication/register/registration_progress_service.dart';
 import 'package:bananatalk_app/pages/authentication/widgets/auth_step_progress.dart';
 import 'package:bananatalk_app/pages/authentication/widgets/auth_snackbar.dart';
 import 'package:go_router/go_router.dart';
@@ -15,7 +16,6 @@ import 'package:bananatalk_app/services/chat_socket_service.dart';
 import 'package:bananatalk_app/providers/provider_models//users_model.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/models/language_model.dart';
-import 'package:bananatalk_app/widgets/language_selection/language_picker_screen.dart';
 import 'package:bananatalk_app/utils/client_info.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:flutter/material.dart';
@@ -44,16 +44,23 @@ class RegisterTwo extends ConsumerStatefulWidget {
   final String nativeLanguage;
   final String learningLanguage;
 
+  /// True when this screen is reopened post-login (not right after OAuth
+  /// sign-up) to finish a stalled profile. In this mode the constructor
+  /// fields above may all be empty — [initState] fetches the current user
+  /// via `getLoggedInUser()` and prefills from that instead.
+  final bool completionMode;
+
   const RegisterTwo({
     super.key,
-    required this.name,
-    required this.email,
-    required this.password,
+    this.name = '',
+    this.email = '',
+    this.password = '',
     this.username = '',
     this.gender = '',
     this.birthDate = '',
     this.nativeLanguage = '',
     this.learningLanguage = '',
+    this.completionMode = false,
   });
 
   @override
@@ -70,8 +77,20 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
   File? _pickedPhoto;
 
   // Whether we need the personal-info step (OAuth users missing gender/DOB)
-  late final bool _needsPersonalInfo;
-  late final int _totalSteps;
+  bool _needsPersonalInfo = false;
+  int _totalSteps = 1;
+
+  // ─── Completion mode (resume-after-login) ────────────────────────────────
+  // When widget.completionMode is true, the constructor fields are mostly
+  // empty — these hold the values actually used to prefill/compute steps,
+  // populated from getLoggedInUser() before the wizard renders its pages.
+  bool _isPrefilling = false;
+  String _effectiveName = '';
+  String _effectiveEmail = '';
+  String _effectiveGender = '';
+  String _effectiveBirthDate = '';
+  String _effectiveNativeLanguage = '';
+  String _effectiveLearningLanguage = '';
 
   // ─── Personal info ───────────────────────────────────────────────────────
   String? _selectedGender;
@@ -88,7 +107,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
   bool _isLoadingLanguages = true;
 
   // Whether languages are already set (returning OAuth user)
-  late final bool _hasExistingLanguages;
+  bool _hasExistingLanguages = false;
 
   // ─── Finish step ─────────────────────────────────────────────────────────
   bool _isFetchingLocation = false;
@@ -102,26 +121,111 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
   // ─── Submission ──────────────────────────────────────────────────────────
   bool _isSubmitting = false;
 
+  // ─── Progress persistence (resume-after-close) ───────────────────────────
+  // Never saved while widget.completionMode is true — that flow prefills
+  // from the logged-in user, not from persisted wizard progress, and the
+  // two must not fight over which fields are authoritative.
+  final RegistrationProgressService _progressService =
+      RegistrationProgressService();
+
   // ─── Lifecycle ───────────────────────────────────────────────────────────
 
   @override
   void initState() {
     super.initState();
-    _needsPersonalInfo = widget.gender.isEmpty || widget.birthDate.isEmpty;
-    _hasExistingLanguages =
-        widget.nativeLanguage.isNotEmpty && widget.learningLanguage.isNotEmpty;
 
-    _totalSteps = (_needsPersonalInfo ? 1 : 0) +
+    if (widget.completionMode) {
+      _isPrefilling = true;
+      _prefillFromLoggedInUser();
+    } else {
+      _effectiveName = widget.name;
+      _effectiveEmail = widget.email;
+      _effectiveGender = widget.gender;
+      _effectiveBirthDate = widget.birthDate;
+      _effectiveNativeLanguage = widget.nativeLanguage;
+      _effectiveLearningLanguage = widget.learningLanguage;
+      _computeSteps();
+    }
+
+    _fetchLanguages();
+  }
+
+  /// Derives [_needsPersonalInfo], [_hasExistingLanguages] and [_totalSteps]
+  /// from the effective (possibly prefilled) fields, and seeds the personal
+  /// info controllers so an already-known gender/birth date isn't re-asked.
+  void _computeSteps() {
+    _needsPersonalInfo =
+        _effectiveGender.isEmpty || _effectiveBirthDate.isEmpty;
+    _hasExistingLanguages =
+        _effectiveNativeLanguage.isNotEmpty &&
+        _effectiveLearningLanguage.isNotEmpty &&
+        _effectiveNativeLanguage != _effectiveLearningLanguage;
+
+    _totalSteps =
+        (_needsPersonalInfo ? 1 : 0) +
         1 + // profile photo step (required)
         (_hasExistingLanguages ? 0 : 2) +
         1; // finish step always shown
 
-    if (widget.gender.isNotEmpty) _selectedGender = widget.gender;
-    if (widget.birthDate.isNotEmpty) {
-      _birthDateController.text = widget.birthDate;
+    if (_effectiveGender.isNotEmpty) _selectedGender = _effectiveGender;
+    if (_effectiveBirthDate.isNotEmpty) {
+      _birthDateController.text = _effectiveBirthDate;
     }
+  }
 
-    _fetchLanguages();
+  // ─── Sub-step index lookups (for FinishStep's summary edit shortcuts) ────
+  // Mirrors the fixed PageView child order built in `build()`:
+  // [PersonalInfo?] -> ProfilePhoto -> [NativeLanguage, LearningLanguage]? -> Finish
+  // Each getter returns null when that step isn't part of this run (so the
+  // summary card can hide its edit affordance instead of jumping nowhere).
+
+  int? get _personalInfoStepIndex => _needsPersonalInfo ? 0 : null;
+
+  int get _photoStepIndex => _needsPersonalInfo ? 1 : 0;
+
+  int? get _languageStepIndex =>
+      _hasExistingLanguages ? null : _photoStepIndex + 1;
+
+  /// Per-step progress-bar labels built from the same step order used by the
+  /// PageView's `children` in `build()`:
+  /// [PersonalInfo?] -> ProfilePhoto -> [NativeLanguage, LearningLanguage]? -> Finish
+  /// Kept in lockstep with `_computeSteps()`/`_totalSteps` so the label shown
+  /// under the progress bar always matches the page actually on screen,
+  /// instead of a fixed 4-label list that assumed a step order that doesn't
+  /// hold once language steps are skipped (existing languages) or personal
+  /// info is skipped (prefilled OAuth users).
+  List<String> get _stepLabels => [
+    if (_needsPersonalInfo) 'About you',
+    'Photo',
+    if (!_hasExistingLanguages) ...['Native language', 'Learning language'],
+    'Finish',
+  ];
+
+  /// Completion-mode only: fetch the current user (already logged in — this
+  /// screen was opened from the login gate, not straight after OAuth) and
+  /// use it to prefill name/email/gender/birth date/languages so the wizard
+  /// starts at the first genuinely missing step instead of step 0.
+  Future<void> _prefillFromLoggedInUser() async {
+    try {
+      final user = await ref.read(authServiceProvider).getLoggedInUser();
+      _effectiveName = user.name;
+      _effectiveEmail = user.email;
+      _effectiveGender = user.gender;
+      _effectiveNativeLanguage = user.native_language;
+      _effectiveLearningLanguage = user.language_to_learn;
+      if (user.birth_year.isNotEmpty &&
+          user.birth_month.isNotEmpty &&
+          user.birth_day.isNotEmpty) {
+        _effectiveBirthDate =
+            '${user.birth_year}.${user.birth_month.padLeft(2, '0')}.${user.birth_day.padLeft(2, '0')}';
+      }
+    } catch (e) {
+      // Fall back to whatever constructor values were passed (likely empty);
+      // the wizard will just ask for everything again.
+    } finally {
+      _computeSteps();
+      if (mounted) setState(() => _isPrefilling = false);
+    }
   }
 
   @override
@@ -165,67 +269,102 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
 
   // ─── Navigation ──────────────────────────────────────────────────────────
 
+  // Wizard page transitions: 300ms / easeOutCubic slide+fade everywhere a
+  // step change is driven programmatically (Next/Back buttons, edit
+  // shortcuts, PROFILE_INCOMPLETE recovery jump). The fade+slide visuals
+  // themselves live in [_FadeSlidePageView] wrapping the PageView below;
+  // this duration/curve pair is what actually drives the scroll physics.
+  static const Duration _pageTransitionDuration = Duration(milliseconds: 300);
+  static const Curve _pageTransitionCurve = Curves.easeOutCubic;
+
   void _goToNext() {
     if (_currentStep < _totalSteps - 1) {
+      _saveStepProgress();
       _pageController.nextPage(
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeInOut,
+        duration: _pageTransitionDuration,
+        curve: _pageTransitionCurve,
       );
     }
+  }
+
+  // Persists progress for resume-after-close. This screen owns sub-steps
+  // 0.._totalSteps-1; the overall registration flow numbers step 0 as the
+  // *first* wizard screen (register_screen.dart, owned by another task), so
+  // this screen's steps are offset by one. `completedSubStep` is the sub-step
+  // just finished (i.e. the one the user is leaving), one ahead of
+  // `_currentStep` because progress is saved right before advancing.
+  // Never saved in completionMode — that flow prefills from the logged-in
+  // user instead of resuming from local storage.
+  void _saveStepProgress() {
+    if (widget.completionMode) return;
+    final completedSubStep = _currentStep + 1;
+    _progressService.save(
+      RegistrationProgress(
+        step: 1 + completedSubStep,
+        fields: {
+          'email': _effectiveEmail,
+          'name': _effectiveName,
+          'gender': _selectedGender ?? _effectiveGender,
+          'birthDate': _birthDateController.text.isNotEmpty
+              ? _birthDateController.text
+              : _effectiveBirthDate,
+        },
+      ),
+    );
   }
 
   void _goBack() {
     if (_currentStep > 0) {
       _pageController.previousPage(
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeInOut,
+        duration: _pageTransitionDuration,
+        curve: _pageTransitionCurve,
       );
     } else {
       Navigator.of(context).pop();
     }
   }
 
-  // ─── Language picker ─────────────────────────────────────────────────────
+  /// Jump directly to a given sub-step (0-indexed within this screen's
+  /// PageView) — used by [FinishStep]'s summary-card edit shortcuts. Uses
+  /// the same animated transition as Next/Back rather than [jumpToPage] so
+  /// it doesn't feel jarring compared to normal navigation.
+  void _goToStep(int index) {
+    if (index < 0 || index >= _totalSteps || index == _currentStep) return;
+    _pageController.animateToPage(
+      index,
+      duration: _pageTransitionDuration,
+      curve: _pageTransitionCurve,
+    );
+  }
 
-  Future<void> _openLanguagePicker({required bool isNative}) async {
-    if (_languages.isEmpty) {
-      _showError(AppLocalizations.of(context)!.languagesAreStillLoading);
+  // ─── Language picker ─────────────────────────────────────────────────────
+  //
+  // The searchable bottom-sheet picker now lives inside
+  // NativeLanguageStep/LearningLanguageStep themselves (see
+  // register_two/native_language_step.dart), which are handed the opposite
+  // selection via `excludeLanguage` and filter it out of the sheet's list
+  // *before* it's ever shown. That's the structural fix for the prod bug
+  // class where 23 users picked the same language for native and learning
+  // and the backend silently refused: it's no longer possible to select the
+  // excluded language in the first place, vs. the old flow which let you
+  // pick it and then showed an error after the fact. The redundant
+  // post-hoc-equality check is kept below only as a defense-in-depth guard
+  // (e.g. against stale `_languages` lists mid-fetch).
+
+  void _onNativeLanguageSelected(Language language) {
+    if (_learningLanguage != null && language.code == _learningLanguage!.code) {
+      _showError(AppLocalizations.of(context)!.nativeCannotBeSameAsLearning);
       return;
     }
+    setState(() => _nativeLanguage = language);
+  }
 
-    final result = await Navigator.push<Language>(
-      context,
-      MaterialPageRoute(
-        builder: (context) => LanguagePickerScreen(
-          languages: _languages,
-          selectedLanguage: isNative ? _nativeLanguage : _learningLanguage,
-        ),
-      ),
-    );
-
-    if (result != null) {
-      if (isNative &&
-          _learningLanguage != null &&
-          result.code == _learningLanguage!.code) {
-        _showError(AppLocalizations.of(context)!.nativeCannotBeSameAsLearning);
-        return;
-      }
-      if (!isNative &&
-          _nativeLanguage != null &&
-          result.code == _nativeLanguage!.code) {
-        _showError(
-            AppLocalizations.of(context)!.learningCannotBeSameAsNative);
-        return;
-      }
-
-      setState(() {
-        if (isNative) {
-          _nativeLanguage = result;
-        } else {
-          _learningLanguage = result;
-        }
-      });
+  void _onLearningLanguageSelected(Language language) {
+    if (_nativeLanguage != null && language.code == _nativeLanguage!.code) {
+      _showError(AppLocalizations.of(context)!.learningCannotBeSameAsNative);
+      return;
     }
+    setState(() => _learningLanguage = language);
   }
 
   // ─── Location ────────────────────────────────────────────────────────────
@@ -263,14 +402,17 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
       _longitude = position.longitude;
 
       await setLocaleIdentifier('en_US');
-      final placemarks =
-          await placemarkFromCoordinates(_latitude!, _longitude!);
+      final placemarks = await placemarkFromCoordinates(
+        _latitude!,
+        _longitude!,
+      );
 
       if (placemarks.isNotEmpty) {
         final place = placemarks.first;
         setState(() {
           _country = place.country ?? 'Unknown';
-          _city = place.locality ??
+          _city =
+              place.locality ??
               place.subAdministrativeArea ??
               place.administrativeArea ??
               'Unknown';
@@ -309,12 +451,12 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
 
     final birthDate = _birthDateController.text.isNotEmpty
         ? _birthDateController.text
-        : widget.birthDate;
+        : _effectiveBirthDate;
     final dateParts = birthDate.split('.');
     final year = dateParts.isNotEmpty ? dateParts[0] : '';
     final month = dateParts.length > 1 ? dateParts[1] : '';
     final day = dateParts.length > 2 ? dateParts[2] : '';
-    final gender = _selectedGender ?? widget.gender;
+    final gender = _selectedGender ?? _effectiveGender;
 
     final authService = ref.read(authServiceProvider);
     final bool isOAuthUser = widget.password.isEmpty;
@@ -322,20 +464,20 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
     if (isOAuthUser) {
       // OAuth user → profile update
       try {
-        final url =
-            Uri.parse('${Endpoints.baseURL}${Endpoints.updateDetailsURL}');
+        final url = Uri.parse(
+          '${Endpoints.baseURL}${Endpoints.updateDetailsURL}',
+        );
         final token = authService.token;
 
         final requestBody = {
-          'name': widget.name,
+          'name': _effectiveName,
           'gender': gender,
           'birth_year': year,
           'birth_month': month,
           'birth_day': day,
-          'native_language':
-              _nativeLanguage?.name ?? widget.nativeLanguage,
+          'native_language': _nativeLanguage?.name ?? _effectiveNativeLanguage,
           'language_to_learn':
-              _learningLanguage?.name ?? widget.learningLanguage,
+              _learningLanguage?.name ?? _effectiveLearningLanguage,
           'profileCompleted': true,
           'images': [],
           'clientInfo': await ClientInfo.collect(),
@@ -379,7 +521,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
               // resolve to it before /auth/me has run. This is the OAuth
               // signup's first authoritative write of the field.
               final pickedNative =
-                  _nativeLanguage?.name ?? widget.nativeLanguage;
+                  _nativeLanguage?.name ?? _effectiveNativeLanguage;
               if (pickedNative.isNotEmpty) {
                 await prefs.setString('user_native_language', pickedNative);
               }
@@ -402,13 +544,36 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
               await chatSocketService.connect();
             } catch (e) {}
 
+            await _progressService.clear();
             ref.invalidate(userProvider);
             if (mounted) context.go('/home');
           }
         } else {
           setState(() => _isSubmitting = false);
           final errorData = jsonDecode(response.body);
-          _showError(errorData['message'] ?? 'Failed to update profile');
+          // TODO(task8): switch to AuthErrorCode once the service layer
+          // threads a structured `code` through instead of a raw map.
+          final String? errorCode = errorData is Map
+              ? errorData['code']?.toString()
+              : null;
+          final String errorMessage =
+              (errorData is Map ? errorData['message']?.toString() : null) ??
+              'Failed to update profile';
+          final bool isProfileIncomplete =
+              errorCode == 'PROFILE_INCOMPLETE' ||
+              errorMessage.toLowerCase().contains('profile') &&
+                  errorMessage.toLowerCase().contains('incomplete');
+          if (isProfileIncomplete) {
+            // Backend refused the completion (missing/duplicate core
+            // fields) — jump back to the first step that still needs input
+            // instead of leaving the user stuck on the finish screen.
+            _computeSteps();
+            if (mounted) {
+              setState(() {});
+              _pageController.jumpToPage(0);
+            }
+          }
+          _showError(errorMessage);
         }
       } catch (e) {
         setState(() => _isSubmitting = false);
@@ -417,19 +582,19 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
     } else {
       // Email/Password registration
       final user = User(
-        name: widget.name,
+        name: _effectiveName,
         username: widget.username.isNotEmpty ? widget.username : null,
         password: widget.password,
-        email: widget.email,
+        email: _effectiveEmail,
         bio: '',
         gender: gender,
         images: [],
         birth_day: day,
         birth_month: month,
         birth_year: year,
-        native_language: _nativeLanguage?.name ?? widget.nativeLanguage,
+        native_language: _nativeLanguage?.name ?? _effectiveNativeLanguage,
         language_to_learn:
-            _learningLanguage?.name ?? widget.learningLanguage,
+            _learningLanguage?.name ?? _effectiveLearningLanguage,
         topics: [],
         termsAccepted: true,
         location: LocationModal(
@@ -438,8 +603,9 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
             (_longitude ?? 0.0).toDouble(),
             (_latitude ?? 0.0).toDouble(),
           ],
-          formattedAddress:
-              _city != null && _country != null ? '$_city, $_country' : '',
+          formattedAddress: _city != null && _country != null
+              ? '$_city, $_country'
+              : '',
           city: _city ?? '',
           country: _country ?? '',
         ),
@@ -477,6 +643,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
               await chatSocketService.connect();
             } catch (e) {}
 
+            await _progressService.clear();
             ref.invalidate(userProvider);
             if (mounted) context.go('/home');
           }
@@ -508,11 +675,11 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
     bool valid = true;
     final l10n = AppLocalizations.of(context)!;
 
-    if (widget.gender.isEmpty && _selectedGender == null) {
+    if (_effectiveGender.isEmpty && _selectedGender == null) {
       setState(() => _genderError = l10n.pleaseSelectGender);
       valid = false;
     }
-    if (widget.birthDate.isEmpty && _birthDateController.text.isEmpty) {
+    if (_effectiveBirthDate.isEmpty && _birthDateController.text.isEmpty) {
       setState(() => _birthDateError = l10n.pleaseSelectBirthDate);
       valid = false;
     }
@@ -549,6 +716,13 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
 
   @override
   Widget build(BuildContext context) {
+    if (_isPrefilling) {
+      return Scaffold(
+        backgroundColor: context.scaffoldBackground,
+        body: const Center(child: CircularProgressIndicator()),
+      );
+    }
+
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -562,20 +736,20 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                 child: AuthStepProgress(
                   currentStep: _currentStep,
                   totalSteps: _totalSteps,
+                  labels: _stepLabels,
                 ),
               ),
               Expanded(
-                child: PageView(
+                child: _FadeSlidePageView(
                   controller: _pageController,
-                  physics: const NeverScrollableScrollPhysics(),
                   onPageChanged: (index) {
                     setState(() => _currentStep = index);
                   },
                   children: [
                     if (_needsPersonalInfo)
                       PersonalInfoStep(
-                        showGenderField: widget.gender.isEmpty,
-                        showBirthDateField: widget.birthDate.isEmpty,
+                        showGenderField: _effectiveGender.isEmpty,
+                        showBirthDateField: _effectiveBirthDate.isEmpty,
                         selectedGender: _selectedGender,
                         birthDateController: _birthDateController,
                         genderError: _genderError,
@@ -597,14 +771,18 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                         selectedLanguage: _nativeLanguage,
                         selectedLevel: _nativeLevel,
                         isLoadingLanguages: _isLoadingLanguages,
-                        onOpenPicker: () =>
-                            _openLanguagePicker(isNative: true),
+                        allLanguages: _languages,
+                        excludeLanguage: _learningLanguage,
+                        onLanguageSelected: _onNativeLanguageSelected,
                         onLevelChanged: (level) =>
                             setState(() => _nativeLevel = level),
                         onNext: () {
                           if (_nativeLanguage == null) {
-                            _showError(AppLocalizations.of(context)!
-                                .selectNativeLanguage);
+                            _showError(
+                              AppLocalizations.of(
+                                context,
+                              )!.selectNativeLanguage,
+                            );
                             return;
                           }
                           _goToNext();
@@ -615,8 +793,9 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                         selectedLanguage: _learningLanguage,
                         selectedLevel: _learningLevel,
                         isLoadingLanguages: _isLoadingLanguages,
-                        onOpenPicker: () =>
-                            _openLanguagePicker(isNative: false),
+                        allLanguages: _languages,
+                        excludeLanguage: _nativeLanguage,
+                        onLanguageSelected: _onLearningLanguageSelected,
                         onLevelChanged: (level) =>
                             setState(() => _learningLevel = level),
                         onNext: () {
@@ -639,10 +818,31 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                       onDetectLocation: _getCurrentLocation,
                       showLocationError: _showLocationError,
                       termsAccepted: _termsAccepted,
-                      onTermsChanged: (v) =>
-                          setState(() => _termsAccepted = v),
+                      onTermsChanged: (v) => setState(() => _termsAccepted = v),
                       isSubmitting: _isSubmitting,
                       onSubmit: _submit,
+                      summaryName: _effectiveName.isNotEmpty
+                          ? _effectiveName
+                          : null,
+                      summaryGender: _selectedGender ?? _effectiveGender,
+                      summaryBirthDate: _birthDateController.text.isNotEmpty
+                          ? _birthDateController.text
+                          : _effectiveBirthDate,
+                      summaryNativeLanguage:
+                          _nativeLanguage?.name ??
+                          (_effectiveNativeLanguage.isNotEmpty
+                              ? _effectiveNativeLanguage
+                              : null),
+                      summaryLearningLanguage:
+                          _learningLanguage?.name ??
+                          (_effectiveLearningLanguage.isNotEmpty
+                              ? _effectiveLearningLanguage
+                              : null),
+                      summaryPhoto: _pickedPhoto,
+                      onEditStep: _goToStep,
+                      personalInfoStepIndex: _personalInfoStepIndex,
+                      photoStepIndex: _photoStepIndex,
+                      languageStepIndex: _languageStepIndex,
                     ),
                   ],
                 ),
@@ -660,14 +860,18 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
       child: Row(
         children: [
           IconButton(
-            icon:
-                Icon(Icons.arrow_back_ios, color: context.textPrimary, size: 22),
+            icon: Icon(
+              Icons.arrow_back_ios,
+              color: context.textPrimary,
+              size: 22,
+            ),
             onPressed: _goBack,
           ),
           const Spacer(),
           Text(
-            AppLocalizations.of(context)!
-                .stepProgress(_currentStep + 1, _totalSteps),
+            AppLocalizations.of(
+              context,
+            )!.stepProgress(_currentStep + 1, _totalSteps),
             style: context.captionSmall.copyWith(
               color: context.textMuted,
               fontWeight: FontWeight.w600,
@@ -676,6 +880,60 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
           Spacing.hGapLG,
         ],
       ),
+    );
+  }
+}
+
+/// Wraps a [PageView] so that programmatic page changes (Next/Back/edit
+/// shortcuts — navigation is always button-driven here, never a user swipe)
+/// read as a 300ms easeOutCubic slide+fade instead of the default abrupt
+/// page-to-page cut. Built on top of [AnimatedBuilder] listening to the
+/// existing [controller] so it doesn't interfere with `_computeSteps`,
+/// completion-mode prefill, or the PROFILE_INCOMPLETE `jumpToPage(0)`
+/// recovery — those all just call the same controller methods as before.
+class _FadeSlidePageView extends StatelessWidget {
+  final PageController controller;
+  final ValueChanged<int> onPageChanged;
+  final List<Widget> children;
+
+  const _FadeSlidePageView({
+    required this.controller,
+    required this.onPageChanged,
+    required this.children,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return PageView(
+      controller: controller,
+      physics: const NeverScrollableScrollPhysics(),
+      onPageChanged: onPageChanged,
+      children: [
+        for (var i = 0; i < children.length; i++)
+          AnimatedBuilder(
+            animation: controller,
+            builder: (context, child) {
+              double page;
+              try {
+                page = controller.page ?? controller.initialPage.toDouble();
+              } catch (_) {
+                // `.page` throws if accessed before the controller is
+                // attached to a PageView (e.g. very first frame).
+                page = i.toDouble();
+              }
+              final delta = (page - i).clamp(-1.0, 1.0);
+              final opacity = (1 - delta.abs()).clamp(0.0, 1.0);
+              return Opacity(
+                opacity: opacity,
+                child: Transform.translate(
+                  offset: Offset(delta * 40, 0),
+                  child: child,
+                ),
+              );
+            },
+            child: children[i],
+          ),
+      ],
     );
   }
 }

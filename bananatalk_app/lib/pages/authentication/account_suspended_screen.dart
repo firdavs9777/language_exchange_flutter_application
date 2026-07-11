@@ -11,6 +11,8 @@ class AccountSuspendedScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -19,24 +21,38 @@ class AccountSuspendedScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const Icon(Icons.block_rounded, size: 72, color: Colors.redAccent),
+              const Icon(
+                Icons.block_rounded,
+                size: 72,
+                color: Colors.redAccent,
+              ),
               const SizedBox(height: 16),
-              const Text(
+              Text(
                 'Your account has been suspended',
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
+                style: theme.textTheme.titleLarge?.copyWith(
+                  fontSize: 22,
+                  fontWeight: FontWeight.w700,
+                  color: colorScheme.onSurface,
+                ),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 12),
               Text(
                 _displayReason(reason),
                 textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 15, color: Colors.black87),
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  fontSize: 15,
+                  color: colorScheme.onSurface.withValues(alpha: 0.87),
+                ),
               ),
               const SizedBox(height: 28),
-              const Text(
+              Text(
                 "If you believe this was made in error, contact appeal@banatalk.com with your username.",
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 14, color: Colors.black54),
+                style: theme.textTheme.bodySmall?.copyWith(
+                  fontSize: 14,
+                  color: colorScheme.onSurfaceVariant,
+                ),
               ),
             ],
           ),

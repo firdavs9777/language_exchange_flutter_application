@@ -4,6 +4,7 @@ import 'package:bananatalk_app/pages/authentication/login/apple_login_screen.dar
 import 'package:bananatalk_app/pages/authentication/email_verification/email_input_screen.dart';
 import 'package:bananatalk_app/pages/authentication/password_reset/forgot_password_email_screen.dart';
 import 'package:bananatalk_app/pages/authentication/login/google_login_screen.dart';
+import 'package:bananatalk_app/pages/authentication/register/register_two_screen.dart';
 import 'package:bananatalk_app/pages/authentication/terms_of_service_screen.dart';
 import 'package:bananatalk_app/pages/authentication/biometric/biometric_service.dart';
 import 'package:bananatalk_app/pages/authentication/biometric/enable_biometric_prompt.dart';
@@ -15,6 +16,7 @@ import 'package:bananatalk_app/pages/authentication/widgets/biometric_login_butt
 import 'package:bananatalk_app/pages/authentication/widgets/password_field.dart';
 import 'package:bananatalk_app/pages/authentication/widgets/social_login_button.dart';
 import 'package:bananatalk_app/pages/authentication/widgets/animated_banana_title.dart';
+import 'package:bananatalk_app/pages/authentication/widgets/animated_auth_background.dart';
 import 'package:go_router/go_router.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
@@ -37,6 +39,12 @@ class _LoginState extends ConsumerState<Login> {
   bool _isLoading = false;
   bool _rememberMe = true;
 
+  // Inline email validation — shown as errorText under the field on
+  // focus-loss (not a snackbar). Password keeps just the show/hide toggle
+  // (no strength meter on login; that's registration-only).
+  final _emailFieldKey = GlobalKey<FormState>();
+  final FocusNode _emailFocusNode = FocusNode();
+
   // Biometric — only populated when device supports + user opted in.
   bool _biometricVisible = false;
   bool _biometricAuthing = false;
@@ -50,6 +58,22 @@ class _LoginState extends ConsumerState<Login> {
     _passwordController = TextEditingController();
     _loadRememberedEmail();
     _checkBiometricButton();
+    _emailFocusNode.addListener(_onEmailFocusChange);
+  }
+
+  void _onEmailFocusChange() {
+    if (_emailFocusNode.hasFocus) return;
+    // Validate on focus-loss only; leave the field alone while still typing.
+    _emailFieldKey.currentState?.validate();
+  }
+
+  String? _validateEmail(String? value) {
+    final email = value?.trim() ?? '';
+    if (email.isEmpty) return null;
+    if (!AuthService.validateEmail(email)) {
+      return AppLocalizations.of(context)!.pleaseEnterValidEmail;
+    }
+    return null;
   }
 
   Future<void> _checkBiometricButton() async {
@@ -139,7 +163,9 @@ class _LoginState extends ConsumerState<Login> {
     if (!accepted || !mounted) return;
 
     final l10n = AppLocalizations.of(context)!;
-    final ok = await _biometric.authenticate(reason: l10n.biometricSignInPrompt);
+    final ok = await _biometric.authenticate(
+      reason: l10n.biometricSignInPrompt,
+    );
     if (!ok) return;
 
     final prefs = await SharedPreferences.getInstance();
@@ -179,6 +205,8 @@ class _LoginState extends ConsumerState<Login> {
 
   @override
   void dispose() {
+    _emailFocusNode.removeListener(_onEmailFocusChange);
+    _emailFocusNode.dispose();
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
@@ -194,8 +222,7 @@ class _LoginState extends ConsumerState<Login> {
     if (email.isEmpty || password.isEmpty) {
       showAuthSnackBar(
         context,
-        message:
-            AppLocalizations.of(context)!.pleaseEnterBothEmailAndPassword,
+        message: AppLocalizations.of(context)!.pleaseEnterBothEmailAndPassword,
         type: AuthSnackBarType.error,
       );
       return;
@@ -255,6 +282,41 @@ class _LoginState extends ConsumerState<Login> {
               return;
             }
           }
+
+          // Profile-completion gate: rescues accounts stuck at
+          // profileCompleted=false (abandoned wizard, or backend refused an
+          // earlier completion attempt because languages matched).
+          // `profileCompleted` now lives on Community (populated from
+          // /auth/me), so both the initial gate and the post-wizard recheck
+          // read the same field for symmetry.
+          final bool hasCoreFields =
+              user.gender.isNotEmpty &&
+              user.birth_year.isNotEmpty &&
+              user.native_language.isNotEmpty &&
+              user.language_to_learn.isNotEmpty;
+
+          if (!user.profileCompleted || !hasCoreFields) {
+            if (!mounted) return;
+            await Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const RegisterTwo(completionMode: true),
+              ),
+            );
+
+            if (!mounted) return;
+            final recheck = await ref
+                .read(authServiceProvider)
+                .getLoggedInUser();
+            final bool recheckHasCoreFields =
+                recheck.gender.isNotEmpty &&
+                recheck.birth_year.isNotEmpty &&
+                recheck.native_language.isNotEmpty &&
+                recheck.language_to_learn.isNotEmpty;
+            if (!recheck.profileCompleted || !recheckHasCoreFields) {
+              // Still incomplete — stay on login screen.
+              return;
+            }
+          }
         } catch (e) {
           // If we can't fetch user data, log out and redirect to home
           // This handles cases where token is invalid or network issues
@@ -284,7 +346,9 @@ class _LoginState extends ConsumerState<Login> {
           type: AuthSnackBarType.success,
         );
       } else {
-        // Handle different error types
+        // `accountLocked` / `rateLimited` keep their existing countdown
+        // flows — auth_providers.dart already folds lockUntil/retryAfter
+        // into `message`, so the snackbar path here just surfaces it as-is.
         final String errorMessage =
             response['message'] ?? 'Login failed. Please try again.';
 
@@ -313,180 +377,205 @@ class _LoginState extends ConsumerState<Login> {
 
     return AuthScreenScaffold(
       showBackButton: false,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const SizedBox(height: 24),
-          const AnimatedBananaTitle(),
-          const SizedBox(height: 6),
-          Text(
-            l10n.login,
-            style: context.titleLarge.copyWith(fontWeight: FontWeight.w700),
-          ),
-          const SizedBox(height: 24),
-          if (_biometricVisible) ...[
-            BiometricLoginButton(
-              userName: _biometricUserName ?? '',
-              isAuthenticating: _biometricAuthing,
-              onPressed: _biometricLogin,
-            ),
-            const SizedBox(height: 20),
-            Row(
-              children: [
-                Expanded(
-                  child: Divider(
-                    color: context.dividerColor.withValues(alpha: 0.5),
-                  ),
+      resizeToAvoidBottomInset: true,
+      bodyPadding: EdgeInsets.zero,
+      // Full-bleed animated backdrop behind the form. AnimatedAuthBackground
+      // is a Stack(fit: StackFit.expand) so it needs a bounded height — give
+      // it at least the viewport height, then let an inner scroll view
+      // handle any overflow (small screens / keyboard open) instead of the
+      // Stack itself.
+      body: Builder(
+        builder: (context) {
+          final viewportHeight = MediaQuery.sizeOf(context).height;
+          return SizedBox(
+            height: viewportHeight,
+            width: double.infinity,
+            child: AnimatedAuthBackground(
+              child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                keyboardDismissBehavior:
+                    ScrollViewKeyboardDismissBehavior.onDrag,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 24,
+                  vertical: 16,
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
-                  child: Text(
-                    'or',
-                    style: context.captionSmall.copyWith(
-                      color: context.textMuted,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const SizedBox(height: 24),
+                    const AnimatedBananaTitle(fontSize: 46),
+                    const SizedBox(height: 10),
+                    Text(
+                      l10n.login,
+                      style: context.titleLarge.copyWith(
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
-                  ),
-                ),
-                Expanded(
-                  child: Divider(
-                    color: context.dividerColor.withValues(alpha: 0.5),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
-          ],
-          AuthTextField(
-            controller: _emailController,
-            label: l10n.email,
-            prefixIcon: Icons.email_outlined,
-            keyboardType: TextInputType.emailAddress,
-            textInputAction: TextInputAction.next,
-          ),
-          const SizedBox(height: 16),
-          PasswordField(
-            controller: _passwordController,
-            label: l10n.password,
-            showStrengthMeter: false,
-            textInputAction: TextInputAction.done,
-          ),
-          const SizedBox(height: 8),
-          // Remember Me
-          Row(
-            children: [
-              Checkbox(
-                value: _rememberMe,
-                onChanged: (v) => setState(() => _rememberMe = v ?? true),
-                activeColor: AppColors.primary,
-              ),
-              const SizedBox(width: 4),
-              GestureDetector(
-                onTap: () => setState(() => _rememberMe = !_rememberMe),
-                child: Text(
-                  l10n.rememberMe,
-                  style: context.bodyMedium,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 16),
-          AuthGradientButton(
-            label: l10n.login,
-            onPressed: _isLoading ? null : submit,
-            isLoading: _isLoading,
-          ),
-          const SizedBox(height: 24),
-          // OR Divider
-          Row(
-            children: [
-              Expanded(
-                child: Divider(
-                  color: context.dividerColor,
-                  thickness: 1,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Text(
-                  l10n.or,
-                  style: context.bodyMedium,
-                ),
-              ),
-              Expanded(
-                child: Divider(
-                  color: context.dividerColor,
-                  thickness: 1,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 24),
-          // Social Login Buttons
-          if (Platform.isIOS) ...[
-            SocialLoginButton(
-              provider: SocialProvider.apple,
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (ctx) => const AppleLogin(),
-                  ),
-                );
-              },
-            ),
-            const SizedBox(height: 12),
-          ],
-          SocialLoginButton(
-            provider: SocialProvider.google,
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (ctx) => const GoogleLogin(),
-                ),
-              );
-            },
-          ),
-          const SizedBox(height: 8),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (ctx) => const ForgotPasswordEmail(),
+                    const SizedBox(height: 28),
+                    // Note: biometric sign-in (when available) is offered as
+                    // an inline icon chip alongside the social providers
+                    // below, not as a separate bolt-on block up here.
+                    Form(
+                      key: _emailFieldKey,
+                      child: AuthTextField(
+                        controller: _emailController,
+                        label: l10n.email,
+                        prefixIcon: Icons.email_outlined,
+                        keyboardType: TextInputType.emailAddress,
+                        textInputAction: TextInputAction.next,
+                        focusNode: _emailFocusNode,
+                        validator: _validateEmail,
+                      ),
                     ),
-                  );
-                },
-                child: Text(
-                  l10n.forgotPassword,
-                  style: context.bodyMedium.copyWith(
-                    color: AppColors.primary,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (ctx) => const EmailInput(),
+                    const SizedBox(height: 16),
+                    PasswordField(
+                      controller: _passwordController,
+                      label: l10n.password,
+                      showStrengthMeter: false,
+                      textInputAction: TextInputAction.done,
                     ),
-                  );
-                },
-                child: Text(
-                  l10n.registerLink,
-                  style: context.bodyMedium.copyWith(
-                    color: AppColors.primary,
-                    fontWeight: FontWeight.w600,
-                  ),
+                    const SizedBox(height: 12),
+                    // Remember Me + Forgot Password
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        GestureDetector(
+                          onTap: () =>
+                              setState(() => _rememberMe = !_rememberMe),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Checkbox(
+                                value: _rememberMe,
+                                onChanged: (v) =>
+                                    setState(() => _rememberMe = v ?? true),
+                                activeColor: AppColors.primary,
+                              ),
+                              const SizedBox(width: 4),
+                              Text(l10n.rememberMe, style: context.bodyMedium),
+                            ],
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (ctx) => const ForgotPasswordEmail(),
+                              ),
+                            );
+                          },
+                          child: Text(
+                            l10n.forgotPassword,
+                            style: context.bodyMedium.copyWith(
+                              color: AppColors.primary,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 12),
+                    AuthGradientButton(
+                      label: l10n.login,
+                      onPressed: _isLoading ? null : submit,
+                      isLoading: _isLoading,
+                    ),
+                    const SizedBox(height: 24),
+                    // "or continue with" divider
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Divider(
+                            color: context.dividerColor,
+                            thickness: 1,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          child: Text(l10n.or, style: context.bodyMedium),
+                        ),
+                        Expanded(
+                          child: Divider(
+                            color: context.dividerColor,
+                            thickness: 1,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    // Social providers (Apple + Google side-by-side per
+                    // platform guidelines) with the biometric option as an
+                    // inline icon chip when available.
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        if (Platform.isIOS) ...[
+                          SocialLoginButton(
+                            compact: true,
+                            provider: SocialProvider.apple,
+                            onPressed: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (ctx) => const AppleLogin(),
+                                ),
+                              );
+                            },
+                          ),
+                          const SizedBox(width: 16),
+                        ],
+                        SocialLoginButton(
+                          compact: true,
+                          provider: SocialProvider.google,
+                          onPressed: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (ctx) => const GoogleLogin(),
+                              ),
+                            );
+                          },
+                        ),
+                        if (_biometricVisible) ...[
+                          const SizedBox(width: 16),
+                          BiometricLoginButton(
+                            compact: true,
+                            userName: _biometricUserName ?? '',
+                            isAuthenticating: _biometricAuthing,
+                            onPressed: _biometricLogin,
+                          ),
+                        ],
+                      ],
+                    ),
+                    const SizedBox(height: 28),
+                    // Register link footer
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (ctx) => const EmailInput(),
+                              ),
+                            );
+                          },
+                          child: Text(
+                            l10n.registerLink,
+                            style: context.bodyMedium.copyWith(
+                              color: AppColors.primary,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 16),
+                  ],
                 ),
               ),
-            ],
-          ),
-          const SizedBox(height: 16),
-        ],
+            ),
+          );
+        },
       ),
     );
   }
 }
-

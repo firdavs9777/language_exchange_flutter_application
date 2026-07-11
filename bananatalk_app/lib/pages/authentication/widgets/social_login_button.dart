@@ -4,16 +4,23 @@ import 'package:flutter/services.dart';
 enum SocialProvider { apple, google, email, facebook }
 
 /// Unified social-login button with press-scale feedback and polished visuals.
+///
+/// By default renders full-width with a "Continue with X" label. Pass
+/// [compact] to render a square icon-only chip instead, for side-by-side
+/// placement (e.g. Apple + Google next to each other per platform
+/// guidelines on the login screen).
 class SocialLoginButton extends StatefulWidget {
   final SocialProvider provider;
   final VoidCallback? onPressed;
   final bool isLoading;
+  final bool compact;
 
   const SocialLoginButton({
     super.key,
     required this.provider,
     required this.onPressed,
     this.isLoading = false,
+    this.compact = false,
   });
 
   @override
@@ -78,12 +85,177 @@ class _SocialLoginButtonState extends State<SocialLoginButton>
   }
 
   Widget _buildButton(BuildContext context) {
+    if (widget.compact) {
+      return switch (widget.provider) {
+        SocialProvider.google => _CompactGoogleButton(isLoading: widget.isLoading),
+        SocialProvider.apple => _CompactAppleButton(isLoading: widget.isLoading),
+        SocialProvider.email => _CompactEmailButton(isLoading: widget.isLoading),
+        SocialProvider.facebook =>
+          _CompactFacebookButton(isLoading: widget.isLoading),
+      };
+    }
     return switch (widget.provider) {
       SocialProvider.google => _GoogleButton(isLoading: widget.isLoading),
       SocialProvider.apple => _AppleButton(isLoading: widget.isLoading),
       SocialProvider.email => _EmailButton(isLoading: widget.isLoading),
       SocialProvider.facebook => _FacebookButton(isLoading: widget.isLoading),
     };
+  }
+}
+
+// ─── Compact (icon-only, side-by-side) ──────────────────────────────────────
+
+/// Shared square chip shell for the compact variants — 56x56, rounded,
+/// centers either a spinner or the provider's icon/logo.
+class _CompactButtonShell extends StatelessWidget {
+  final bool isLoading;
+  final BoxDecoration decoration;
+  final Color spinnerColor;
+  final Widget icon;
+
+  const _CompactButtonShell({
+    required this.isLoading,
+    required this.decoration,
+    required this.spinnerColor,
+    required this.icon,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 56,
+      height: 56,
+      decoration: decoration,
+      child: Center(
+        child: isLoading
+            ? SizedBox(
+                width: 20,
+                height: 20,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2.5,
+                  valueColor: AlwaysStoppedAnimation<Color>(spinnerColor),
+                ),
+              )
+            : icon,
+      ),
+    );
+  }
+}
+
+class _CompactGoogleButton extends StatelessWidget {
+  final bool isLoading;
+  const _CompactGoogleButton({required this.isLoading});
+
+  @override
+  Widget build(BuildContext context) {
+    return _CompactButtonShell(
+      isLoading: isLoading,
+      spinnerColor: const Color(0xFF4285F4),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: const Color(0xFFDADCE0), width: 1),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.06),
+            blurRadius: 10,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      icon: SizedBox(
+        width: 24,
+        height: 24,
+        child: CustomPaint(painter: _GoogleLogoPainter()),
+      ),
+    );
+  }
+}
+
+class _CompactAppleButton extends StatelessWidget {
+  final bool isLoading;
+  const _CompactAppleButton({required this.isLoading});
+
+  @override
+  Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    // Apple HIG: black button on light backgrounds, white on dark.
+    final bg = isDark ? Colors.white : Colors.black;
+    final fg = isDark ? Colors.black : Colors.white;
+    return _CompactButtonShell(
+      isLoading: isLoading,
+      spinnerColor: fg,
+      decoration: BoxDecoration(
+        color: bg,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: isDark ? 0.12 : 0.28),
+            blurRadius: 10,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      icon: Icon(Icons.apple, color: fg, size: 26),
+    );
+  }
+}
+
+class _CompactEmailButton extends StatelessWidget {
+  final bool isLoading;
+  const _CompactEmailButton({required this.isLoading});
+
+  @override
+  Widget build(BuildContext context) {
+    return _CompactButtonShell(
+      isLoading: isLoading,
+      spinnerColor: Colors.white,
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [Color(0xFF00BFA5), Color(0xFF00897B)],
+        ),
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF00BFA5).withValues(alpha: 0.30),
+            blurRadius: 10,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      icon: const Icon(Icons.email_rounded, color: Colors.white, size: 22),
+    );
+  }
+}
+
+class _CompactFacebookButton extends StatelessWidget {
+  final bool isLoading;
+  const _CompactFacebookButton({required this.isLoading});
+
+  @override
+  Widget build(BuildContext context) {
+    return _CompactButtonShell(
+      isLoading: isLoading,
+      spinnerColor: Colors.white,
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [Color(0xFF1877F2), Color(0xFF0C5FD6)],
+        ),
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF1877F2).withValues(alpha: 0.30),
+            blurRadius: 10,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      icon: const Icon(Icons.facebook_rounded, color: Colors.white, size: 24),
+    );
   }
 }
 

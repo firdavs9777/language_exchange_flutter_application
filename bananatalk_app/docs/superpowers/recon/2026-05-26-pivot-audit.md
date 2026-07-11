@@ -8,31 +8,31 @@
 
 All last-commit dates fall in the 2026-05-19 → 2026-05-26 window because the Tajik-locale wave touched almost every page. Where that was the only recent commit, "last meaningful" is the prior content commit and is noted.
 
-| Feature | Frontend dir | Files / ~LOC | Backend route prefix | Controller | Last meaningful commit | Analytics? |
-|---|---|---|---|---|---|---|
-| **Stories** | `lib/pages/stories/` | 12 | `/api/v1/stories` | `controllers/stories.js` | Pre-Tajik (no Step-19 work) | No |
-| **Moments** | `lib/pages/moments/` | 30 | `/api/v1/moments` | `controllers/moments.js` | 2026-05-26 | No |
-| **Community (browse/filter)** | `lib/pages/community/` | 55 | `/api/v1/community/*`, `/api/v1/users/*` | `community.js`, `users.js` | 2026-05-26 | No |
-| **Chat (1:1)** | `lib/pages/chat/` | 58 | `/api/v1/messages` | `messages.js`, `advancedMessages.js`, `messageSearch.js` | 2026-05-22 (1d7456f Step-19 wave) | No |
-| **Voice Room** | `lib/pages/community/voice_rooms/` | 14 | `/api/v1/voice-rooms` | `voiceRooms.js` (+ LiveKit) | 2026-05 | No |
-| **Waves** | `lib/pages/community/tabs/waves_tab.dart` (+ archive) | 2 | `/api/v1/community/wave(s)` AND `/api/v1/interactions/*` | `community.js` + `interactions.js` (**two impls — see §5**) | 2026-05 | No |
-| **Lessons** (Duolingo) | `lib/pages/learning/lessons/` | ~9 (part of 39 in learning/) | `/api/v1/learning/lessons/*` | `learning.js` | 2026-05 | No |
+| Feature                                                                 | Frontend dir | Files / ~LOC | Backend route prefix | Controller | Last meaningful commit | Analytics? |
+|-------------------------------------------------------------------------|---|---|---|---|---|---|
+| **Stories**                                                             | `lib/pages/stories/` | 12 | `/api/v1/stories` | `controllers/stories.js` | Pre-Tajik (no Step-19 work) | No |
+| **Moments**                                                             | `lib/pages/moments/` | 30 | `/api/v1/moments` | `controllers/moments.js` | 2026-05-26 | No |
+| **Community (browse/filter)**                                           | `lib/pages/community/` | 55 | `/api/v1/community/*`, `/api/v1/users/*` | `community.js`, `users.js` | 2026-05-26 | No |
+| **Chat (1:1)**                                                          | `lib/pages/chat/` | 58 | `/api/v1/messages` | `messages.js`, `advancedMessages.js`, `messageSearch.js` | 2026-05-22 (1d7456f Step-19 wave) | No |
+| **Voice Room**                                                          | `lib/pages/community/voice_rooms/` | 14 | `/api/v1/voice-rooms` | `voiceRooms.js` (+ LiveKit) | 2026-05 | No |
+| **Waves**                                                               | `lib/pages/community/tabs/waves_tab.dart` (+ archive) | 2 | `/api/v1/community/wave(s)` AND `/api/v1/interactions/*` | `community.js` + `interactions.js` (**two impls — see §5**) | 2026-05 | No |
+| **Lessons** (Duolingo)                                                  | `lib/pages/learning/lessons/` | ~9 (part of 39 in learning/) | `/api/v1/learning/lessons/*` | `learning.js` | 2026-05 | No |
 | **Gamification** (XP / achievements / leaderboard / daily goals / streaks) | `lib/pages/learning/{achievements,leaderboard,streak,challenges}/` | ~14 | `/api/v1/learning/{progress,achievements,challenges}` | `learning.js` + `services/learningTrackingService.js` | 2026-05 | No |
-| **AI Tutor** | `lib/pages/ai/tutor/` (+ `lib/pages/learning/main/sections/ai_tools_tab.dart`) | 12 | `/api/v1/tutor/*` | `tutor.js` (+ `tutorService.js`, `tutorImageVocabService.js`, `tutorStoryService.js`) | 2026-05 (Step-13A shipped per memory) | **Yes** — `tutor_chip_used`, `tutor_chip_completed`, `quota_*`, `paywall_*` |
-| **AI Conversation** | `lib/pages/ai/conversation/` | 3 | `/api/v1/ai/conversation/*` | `aiConversation.js` | 2026-05 | No (Tutor analytics only) |
-| **AI Lesson** (Assistant) | (under tutor / lesson_builder) | — | `/api/v1/lesson-builder/generate`, `/:id/enhance` | `lessonBuilder.js` + `aiLessonAssistantService.js` | 2026-05 | No |
-| **AI Grammar** | `lib/pages/ai/grammar/` | 1 | `/api/v1/grammar-feedback/*` | `grammarFeedback.js` | 2026-05 | No |
-| **AI Pronunciation** | `lib/pages/ai/pronunciation/` | 1 | `/api/v1/tutor/pronunciation/*`, `/api/v1/speech/*` | `tutor.js`, `speech.js` | 2026-05 | Via tutor chip events |
-| **AI Translation** | `lib/pages/ai/translation/` | 1 | `/api/v1/ai/translation/{enhanced,contextual,alternatives}` | `aiTranslation.js` | 2026-05-22 (Step-19 Save-phrase) | No |
-| **AI Quiz** | `lib/pages/ai/quiz/` | 2 | `/api/v1/learning/quizzes/*` | `learning.js` + `aiQuizService.js` | 2026-05 | No |
-| **AI Lesson Builder** | `lib/pages/ai/lesson_builder/` | 1 | `/api/v1/lesson-builder/generate/{exercises,curriculum}` | `lessonBuilder.js` | 2026-05 | No |
-| **AI Chat** | == AI Conversation (no separate model) | — | (same) | (same) | (same) | No |
-| **AI Story** | `lib/pages/ai/tutor/story_setup_screen.dart`, `story_reader_screen.dart` | (in tutor 12) | `/api/v1/tutor/stories/generate` | `tutor.js` + `tutorStoryService.js` | 2026-05 | Via tutor chip events |
-| **AI Photo** | `lib/pages/ai/tutor/image_vocab_screen.dart` | (in tutor 12) | `/api/v1/tutor/image-vocab/{describe,grade}` | `tutor.js` + `tutorImageVocabService.js` | 2026-05 | Via tutor chip events |
-| **Vocabulary / Save-to-vocab** | `lib/pages/learning/vocabulary/` | 6 | `/api/v1/learning/vocabulary/*` | `learning.js` | 2026-05-22 (Step-19 Save phrase) | **No** |
-| **VIP / Subscription** | `lib/pages/vip/` | 4 | `/api/v1/purchases/*` | `purchases.js`, `iosPurchase.js`, `androidPurchase.js` | 2026-05 | **Yes** — `subscription_purchased`, `subscription_purchase_failed` |
-| **"See who visited" paywall** | `lib/pages/profile/visitors_screen.dart`, `lib/pages/community/widgets/visitor_recall_card.dart` | 2 + card | `/api/v1/users/me/{visitors,visitor-stats,visited-profiles}`, `/api/v1/users/:id/profile-visit` | `profileVisits.js` (+ `services/profileVisitorService`) | 2026-05 | No |
-| **MBTI / Blood Type / personality** | `lib/pages/profile/edit_main/sections/personal_section.dart`, `lib/pages/profile/edit/blood_type_edit.dart` | 2 | None — fields on User model only, no dedicated endpoint | (`User.js` lines 212-219, surfaces via `users.js`) | Old | No |
+| **AI Tutor**                                                            | `lib/pages/ai/tutor/` (+ `lib/pages/learning/main/sections/ai_tools_tab.dart`) | 12 | `/api/v1/tutor/*` | `tutor.js` (+ `tutorService.js`, `tutorImageVocabService.js`, `tutorStoryService.js`) | 2026-05 (Step-13A shipped per memory) | **Yes** — `tutor_chip_used`, `tutor_chip_completed`, `quota_*`, `paywall_*` |
+| **AI Conversation**                                                     | `lib/pages/ai/conversation/` | 3 | `/api/v1/ai/conversation/*` | `aiConversation.js` | 2026-05 | No (Tutor analytics only) |
+| **AI Lesson** (Assistant)                                               | (under tutor / lesson_builder) | — | `/api/v1/lesson-builder/generate`, `/:id/enhance` | `lessonBuilder.js` + `aiLessonAssistantService.js` | 2026-05 | No |
+| **AI Grammar**                                                          | `lib/pages/ai/grammar/` | 1 | `/api/v1/grammar-feedback/*` | `grammarFeedback.js` | 2026-05 | No |
+| **AI Pronunciation**                                                    | `lib/pages/ai/pronunciation/` | 1 | `/api/v1/tutor/pronunciation/*`, `/api/v1/speech/*` | `tutor.js`, `speech.js` | 2026-05 | Via tutor chip events |
+| **AI Translation**                                                      | `lib/pages/ai/translation/` | 1 | `/api/v1/ai/translation/{enhanced,contextual,alternatives}` | `aiTranslation.js` | 2026-05-22 (Step-19 Save-phrase) | No |
+| **AI Quiz**                                                             | `lib/pages/ai/quiz/` | 2 | `/api/v1/learning/quizzes/*` | `learning.js` + `aiQuizService.js` | 2026-05 | No |
+| **AI Lesson Builder**                                                   | `lib/pages/ai/lesson_builder/` | 1 | `/api/v1/lesson-builder/generate/{exercises,curriculum}` | `lessonBuilder.js` | 2026-05 | No |
+| **AI Chat**                                                             | == AI Conversation (no separate model) | — | (same) | (same) | (same) | No |
+| **AI Story**                                                            | `lib/pages/ai/tutor/story_setup_screen.dart`, `story_reader_screen.dart` | (in tutor 12) | `/api/v1/tutor/stories/generate` | `tutor.js` + `tutorStoryService.js` | 2026-05 | Via tutor chip events |
+| **AI Photo**                                                            | `lib/pages/ai/tutor/image_vocab_screen.dart` | (in tutor 12) | `/api/v1/tutor/image-vocab/{describe,grade}` | `tutor.js` + `tutorImageVocabService.js` | 2026-05 | Via tutor chip events |
+| **Vocabulary / Save-to-vocab**                                          | `lib/pages/learning/vocabulary/` | 6 | `/api/v1/learning/vocabulary/*` | `learning.js` | 2026-05-22 (Step-19 Save phrase) | **No** |
+| **VIP / Subscription**                                                  | `lib/pages/vip/` | 4 | `/api/v1/purchases/*` | `purchases.js`, `iosPurchase.js`, `androidPurchase.js` | 2026-05 | **Yes** — `subscription_purchased`, `subscription_purchase_failed` |
+| **"See who visited" paywall**                                           | `lib/pages/profile/visitors_screen.dart`, `lib/pages/community/widgets/visitor_recall_card.dart` | 2 + card | `/api/v1/users/me/{visitors,visitor-stats,visited-profiles}`, `/api/v1/users/:id/profile-visit` | `profileVisits.js` (+ `services/profileVisitorService`) | 2026-05 | No |
+| **MBTI / Blood Type / personality**                                     | `lib/pages/profile/edit_main/sections/personal_section.dart`, `lib/pages/profile/edit/blood_type_edit.dart` | 2 | None — fields on User model only, no dedicated endpoint | (`User.js` lines 212-219, surfaces via `users.js`) | Old | No |
 
 ## 2. Analytics Instrumentation State
 
