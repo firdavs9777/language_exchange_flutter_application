@@ -6,6 +6,7 @@ import 'package:bananatalk_app/pages/profile/profile_main.dart';
 import 'package:bananatalk_app/pages/community/main/community_main.dart';
 import 'package:bananatalk_app/pages/learning/main/learning_main_screen.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
+import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/providers/badge_count_provider.dart';
 import 'package:bananatalk_app/widgets/promo/ai_study_promo_modal.dart';
 import 'package:bananatalk_app/widgets/promo/ads_notice_modal.dart';
@@ -113,7 +114,13 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
   @override
   Widget build(BuildContext context) {
     final badgeCount = ref.watch(badgeCountProvider);
-    final messageCount = badgeCount.messages;
+    // Pending (unread) intros/waves surface on the Chats tab badge so a
+    // received wave is visible from anywhere in the app, not just when the
+    // Community > Waves sub-tab happens to be open.
+    final pendingIntrosCount = ref
+        .watch(wavesUnreadProvider)
+        .maybeWhen(data: (n) => n, orElse: () => 0);
+    final messageCount = badgeCount.messages + pendingIntrosCount;
     final selectedPageIndex = ref.watch(selectedTabProvider);
     final isDark = context.isDarkMode;
     final bottomPadding = MediaQuery.of(context).padding.bottom;

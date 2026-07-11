@@ -649,11 +649,16 @@ class Wave {
   });
 
   factory Wave.fromJson(Map<String, dynamic> json) {
+    final from = json['from'];
+    final fromMap = from is Map<String, dynamic> ? from : null;
+    final images = fromMap?['images'];
     return Wave(
-      id: json['_id'] ?? json['id'] ?? '',
-      fromUserId: json['fromUserId'] ?? '',
-      fromUserName: json['fromUserName'] ?? '',
-      fromUserImage: json['fromUserImage'] as String?,
+      id: json['waveId'] ?? json['_id'] ?? json['id'] ?? '',
+      fromUserId: fromMap?['_id'] ?? json['fromUserId'] ?? '',
+      fromUserName: fromMap?['name'] ?? json['fromUserName'] ?? '',
+      fromUserImage: (images is List && images.isNotEmpty)
+          ? images.first as String?
+          : json['fromUserImage'] as String?,
       message: json['message'] as String?,
       isRead: json['isRead'] as bool? ?? false,
       createdAt:
@@ -941,6 +946,14 @@ final wavesUnreadProvider = FutureProvider<int>((ref) async {
   } catch (e) {
     return 0;
   }
+});
+
+/// Pending (unread) intros/waves for the current user, consumed by the
+/// intros strip and the waves badge.
+final pendingIntrosProvider = FutureProvider<List<Wave>>((ref) {
+  return ref
+      .read(communityServiceProvider)
+      .getWavesReceived(unreadOnly: true, limit: 20);
 });
 
 // ==================== TOPIC USERS PAGINATED ====================
