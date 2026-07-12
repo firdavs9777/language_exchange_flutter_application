@@ -13,6 +13,13 @@ class Room {
   final String description;
   final bool isMember;
 
+  /// True when the caller owns or admins this hub. Parsed defensively from
+  /// whichever shape the backend's room-detail response uses once the
+  /// moderation endpoints land (Workstream D backend phase); defaults to
+  /// `false` so the member-list moderation UI (Task 11) stays hidden for
+  /// everyone until the backend actually confirms the role.
+  final bool isOwnerOrAdmin;
+
   const Room({
     required this.id,
     required this.title,
@@ -22,6 +29,7 @@ class Room {
     required this.onlineCount,
     required this.description,
     required this.isMember,
+    this.isOwnerOrAdmin = false,
   });
 
   factory Room.fromJson(Map<String, dynamic> json) {
@@ -34,6 +42,9 @@ class Room {
       onlineCount: _asInt(json['onlineCount']),
       description: json['description']?.toString() ?? '',
       isMember: json['isMember'] == true,
+      isOwnerOrAdmin: json['isOwnerOrAdmin'] == true ||
+          json['isOwner'] == true ||
+          json['isAdmin'] == true,
     );
   }
 
@@ -46,6 +57,7 @@ class Room {
     int? onlineCount,
     String? description,
     bool? isMember,
+    bool? isOwnerOrAdmin,
   }) {
     return Room(
       id: id ?? this.id,
@@ -56,6 +68,7 @@ class Room {
       onlineCount: onlineCount ?? this.onlineCount,
       description: description ?? this.description,
       isMember: isMember ?? this.isMember,
+      isOwnerOrAdmin: isOwnerOrAdmin ?? this.isOwnerOrAdmin,
     );
   }
 

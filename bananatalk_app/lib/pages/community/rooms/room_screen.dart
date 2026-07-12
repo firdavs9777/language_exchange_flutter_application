@@ -9,10 +9,13 @@ import 'package:bananatalk_app/providers/provider_models/message_model.dart';
 import 'package:bananatalk_app/providers/rooms_provider.dart';
 import 'package:bananatalk_app/pages/chat/input/chat_input_bar.dart';
 import 'package:bananatalk_app/pages/chat/message/messages_list.dart';
+import 'package:bananatalk_app/pages/community/rooms/room_members_screen.dart';
 import 'package:bananatalk_app/services/chat_socket_service.dart';
+import 'package:bananatalk_app/services/report_service.dart';
+import 'package:bananatalk_app/utils/haptic_utils.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 
-/// Hub chat screen — Workstream D (Task 10).
+/// Hub chat screen — Workstream D (Task 10 + Task 11).
 ///
 /// On open: REST-joins the hub if the caller isn't already a member, joins
 /// the socket room, and loads message history (paginated). Renders the
@@ -23,8 +26,10 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 /// persists across app sessions until the user explicitly leaves the hub
 /// from the overflow menu.
 ///
-/// Per-message report and the owner/admin member-list moderation UI are
-/// added on top of this in Task 11.
+/// Task 11 adds: per-message report (reusing the existing lightweight
+/// `ReportService.reportMessage` path, `type:'message'`) and an
+/// owner/admin-only "view members" entry that opens `RoomMembersScreen`
+/// for remove/mute moderation.
 class RoomScreen extends ConsumerStatefulWidget {
   const RoomScreen({super.key, required this.room});
 
@@ -103,11 +108,10 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
       }
     }
 
-    // Refresh room detail — picks up the latest member/online counts,
-    // which the directory list card may not carry (fetched fresh each time
-    // the directory refetches, but this screen can be opened from a stale
-    // card). Best-effort: keep the value passed in from the directory on
-    // failure.
+    // Refresh room detail — picks up `isOwnerOrAdmin` (gates the member-list
+    // moderation entry, Task 11) and the latest member/online counts, which
+    // the directory list card may not carry. Best-effort: keep the value
+    // passed in from the directory on failure.
     try {
       final detail = await ref.read(roomApiClientProvider).getRoom(_room.id);
       if (detail != null && mounted) {
@@ -309,6 +313,85 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
     _chatSocket.sendRoomTyping(_room.id, false);
   }
 
+  /// Per-message report (Task 11) — long-press → Report in the shared
+  /// bubble's context menu invokes this. Reuses the existing lightweight
+  /// `ReportService.reportMessage` path (`type:'message'`, reason + optional
+  /// details) rather than the full `ReportDialog`, which requires mandatory
+  /// evidence uploads that are unnecessary friction for a quick hub report.
+  Future<void> _reportMessage(Message message) async {
+    HapticUtils.lightImpact();
+    final reason = await showModalBottomSheet<String>(
+      context: context,
+      backgroundColor: context.isDarkMode ? AppColors.cardDark : AppColors.white,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(18)),
+      ),
+      builder: (sheetCtx) => SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 12),
+              child: Text(
+                'Report message',
+                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
+              ),
+            ),
+            for (final reason in const [
+              'spam',
+              'harassment',
+              'hate_speech',
+              'violence',
+              'nudity',
+              'false_information',
+              'other',
+            ])
+              ListTile(
+                title: Text(_reasonLabel(reason)),
+                onTap: () => Navigator.pop(sheetCtx, reason),
+              ),
+          ],
+        ),
+      ),
+    );
+    if (reason == null || !mounted) return;
+
+    final result = await ReportService.reportMessage(
+      messageId: message.id,
+      reason: reason,
+    );
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          result['success'] == true
+              ? 'Report submitted'
+              : (result['message'] ?? 'Failed to submit report'),
+        ),
+        backgroundColor: result['success'] == true ? AppColors.success : AppColors.error,
+      ),
+    );
+  }
+
+  String _reasonLabel(String value) {
+    switch (value) {
+      case 'spam':
+        return 'Spam';
+      case 'harassment':
+        return 'Harassment or Bullying';
+      case 'hate_speech':
+        return 'Hate Speech';
+      case 'violence':
+        return 'Violence or Threats';
+      case 'nudity':
+        return 'Nudity or Sexual Content';
+      case 'false_information':
+        return 'False Information';
+      default:
+        return 'Other';
+    }
+  }
+
   Future<void> _leaveHub() async {
     final confirmed = await showDialog<bool>(
       context: context,
@@ -340,6 +423,16 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
         const SnackBar(content: Text('Failed to leave hub')),
       );
     }
+  }
+
+  /// Owner/admin-only member list (Task 11) — visibility gated on
+  /// `_room.isOwnerOrAdmin`, refreshed from `getRoom` in `_init`.
+  void _openMembers() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) => RoomMembersScreen(room: _room),
+      ),
+    );
   }
 
   @override
@@ -377,13 +470,20 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
           PopupMenuButton<String>(
             onSelected: (value) {
               switch (value) {
+                case 'members':
+                  _openMembers();
+                  break;
                 case 'leave':
                   _leaveHub();
                   break;
               }
             },
-            itemBuilder: (ctx) => const [
-              PopupMenuItem(value: 'leave', child: Text('Leave hub')),
+            itemBuilder: (ctx) => [
+              // Only shown to the hub's owner/admin — everyone else can
+              // still leave, but member-list moderation stays hidden.
+              if (_room.isOwnerOrAdmin)
+                const PopupMenuItem(value: 'members', child: Text('View members')),
+              const PopupMenuItem(value: 'leave', child: Text('Leave hub')),
             ],
           ),
         ],
@@ -404,6 +504,7 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
               isLoadingMore: _isLoadingMore,
               hasMoreMessages: _hasMoreMessages,
               isGroup: true,
+              onReport: _reportMessage,
             ),
           ),
           ChatInputBar(

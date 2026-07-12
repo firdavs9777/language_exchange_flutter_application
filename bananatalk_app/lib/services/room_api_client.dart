@@ -94,6 +94,26 @@ class RoomApiClient {
     }
   }
 
+  /// GET /rooms/:id/members — hub member list (Task 11 moderation UI).
+  /// Returns raw decoded member maps (expected shape: user fields plus a
+  /// `role` of 'owner'/'admin'/'member') — the members screen parses just
+  /// what it needs defensively, since the exact backend shape isn't final
+  /// yet (backend phase of Workstream D hasn't landed these routes).
+  Future<List<Map<String, dynamic>>> getMembers(String id) async {
+    try {
+      final response = await _apiClient.get('rooms/$id/members');
+      if (!response.success) {
+        debugPrint('[RoomApiClient] getMembers failed: ${response.error}');
+        return [];
+      }
+      final data = _extractList(response.data);
+      return data.map((m) => Map<String, dynamic>.from(m as Map)).toList();
+    } catch (e) {
+      debugPrint('[RoomApiClient] getMembers error: $e');
+      return [];
+    }
+  }
+
   // ---- Admin (Task 10/11) — stubbed now, wired up to real UI later. ----
 
   /// DELETE /rooms/:id/members/:userId — owner/admin removes a member.
