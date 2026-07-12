@@ -140,10 +140,17 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
     commentCount = widget.moment.commentCount;
     _initLikeAndSaveStatus();
 
-    // Silent polling for new comments every 15 seconds
+    // Silent polling for new comments every 15 seconds. Comments here render
+    // via CommentsMain(paginated: true), which is backed by
+    // paginatedCommentsProvider — only refresh that (and only while the user
+    // is still on page 1) so we don't wipe out comments the user already
+    // loaded via "Load more comments".
     _pollTimer = Timer.periodic(const Duration(seconds: 15), (_) {
       if (mounted) {
-        ref.invalidate(commentsProvider(widget.moment.id));
+        final current = ref.read(paginatedCommentsProvider(widget.moment.id)).valueOrNull;
+        if (current == null || current.page <= 1) {
+          ref.read(paginatedCommentsProvider(widget.moment.id).notifier).refresh();
+        }
       }
     });
   }
@@ -803,6 +810,7 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                   ),
                   CommentsMain(
                     id: widget.moment.id,
+                    paginated: true,
                     onReply: (commentId, userName) {
                       setState(() {
                         _replyToCommentId = commentId;

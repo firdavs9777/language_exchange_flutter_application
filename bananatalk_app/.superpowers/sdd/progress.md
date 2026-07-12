@@ -67,3 +67,11 @@ Branches: workstream-b-intros (app 0b8e8f8+plan, backend 911306a). Commits allow
 Scout finding: wave->chat mirror + push ALREADY exist; B = last-mile fixes (parse bug, push route, strip, badge, icebreakers). No accept endpoint, no kill switch (documented deviation).
 Wave 1 dispatch: T1(backend) + T2 + T3 + T6 parallel (disjoint); T4 after T2; T5 after T4.
 USER INSTRUCTION mid-wave-1: NO per-task commits for B — single commit after ALL tasks complete. All 4 running agents redirected via message. Verify no stray commits at gate (branch tips must stay app=d78f15a, backend=911306a until final commit).
+== WORKSTREAM B SHIPPED: merged+pushed main (backend 39692bb, app 357a5e6). Known-accepted: strip not live-updating mid-session; l10n batch grew (Intro requests header, icebreakers). Re-measure funnel ~1wk: baseline 1.1% read, 2/1091 mutual. ==
+
+# ===== WORKSTREAM C: MOMENTS 2.0 + STORIES =====
+Plan: docs/superpowers/plans/2026-07-12-workstream-c-moments.md (committed 070923e)
+Branches: workstream-c-moments (app 070923e, backend 39692bb). NO commits until gate (standing instruction).
+Two parallel tracks: moments (T1->T2+T3->T4 backend; T5->T6/T7/T8->T9 app) and stories (T10->T11->T12->T13 serial, story_viewer shared). T14 gate.
+C progress: T1,T2,T3,T4,T10,T11 done. T5 running (feed tabs). T11 found+fixed service-side sticker bug; backend createStory never persisted poll/questionBox -> patch agent dispatched. T12 (highlights) running. Remaining: T6,T7,T8,T9 (after T5), T13 (after T12), sticker-backend-patch, T14 gate.
+C completions since last entry: T5 (tabs+providers), T6 (prompt card+prefill), T7 (corrections UI, TDD diff engine), T8 (audio UI, MomentAudio model), T9 (crash-recovered: polish/edit/pagination/empty-states; fixed edit-voice-note bug + wrong provider invalidation), T12 (highlights both profiles, legacy impl retired), T13 (link pill, save/share, reduce-motion ring, hashtags), backend patches: story poll/questionBox persistence + hashtags read (both silent-drop bugs). ALL 15 IMPLEMENTATION ITEMS DONE. T14 gate starting.

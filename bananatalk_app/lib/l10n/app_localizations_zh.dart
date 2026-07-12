@@ -243,6 +243,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get beTheFirstToComment => '成为第一个评论的人。';
 
   @override
+  String get loadMoreComments => 'Load more comments';
+
+  @override
   String get writeAComment => '写评论...';
 
   @override
@@ -1735,6 +1738,21 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get noMomentsYet => '暂无动态';
+
+  @override
+  String get noForYouMomentsTitle => 'No moments yet';
+
+  @override
+  String get noForYouMomentsBody => 'Answer today\'s prompt to get the conversation started.';
+
+  @override
+  String get noFollowingMomentsTitle => 'Nothing here yet';
+
+  @override
+  String get noFollowingMomentsBody => 'Follow people from Community to see their moments here.';
+
+  @override
+  String get goToCommunity => 'Go to Community';
 
   @override
   String get unableToLoadMoments => '无法加载动态';

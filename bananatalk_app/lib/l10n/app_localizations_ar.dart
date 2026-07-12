@@ -243,6 +243,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get beTheFirstToComment => 'كن أول من يعلق.';
 
   @override
+  String get loadMoreComments => 'Load more comments';
+
+  @override
   String get writeAComment => 'اكتب تعليقاً...';
 
   @override
@@ -1735,6 +1738,21 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get noMomentsYet => 'لا توجد لحظات بعد';
+
+  @override
+  String get noForYouMomentsTitle => 'No moments yet';
+
+  @override
+  String get noForYouMomentsBody => 'Answer today\'s prompt to get the conversation started.';
+
+  @override
+  String get noFollowingMomentsTitle => 'Nothing here yet';
+
+  @override
+  String get noFollowingMomentsBody => 'Follow people from Community to see their moments here.';
+
+  @override
+  String get goToCommunity => 'Go to Community';
 
   @override
   String get unableToLoadMoments => 'تعذر تحميل اللحظات';

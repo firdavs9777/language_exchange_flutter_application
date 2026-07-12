@@ -7,11 +7,18 @@ class StoryPollWidget extends StatefulWidget {
   final bool isOwner;
   final Function(int)? onVote;
 
+  /// Called with `true` right as a vote tap is registered (story playback
+  /// should pause briefly for tap feedback) and `false` shortly after
+  /// (playback should resume). Purely a UX pause around the tap — voting
+  /// itself is instantaneous and doesn't otherwise block playback.
+  final ValueChanged<bool>? onInteracting;
+
   const StoryPollWidget({
     Key? key,
     required this.poll,
     this.isOwner = false,
     this.onVote,
+    this.onInteracting,
   }) : super(key: key);
 
   @override
@@ -45,11 +52,15 @@ class _StoryPollWidgetState extends State<StoryPollWidget> with SingleTickerProv
 
   bool get _hasVoted => _selectedIndex != null || widget.poll.hasUserVoted;
 
-  void _vote(int index) {
+  void _vote(int index) async {
     if (_hasVoted) return;
+    widget.onInteracting?.call(true);
     setState(() => _selectedIndex = index);
     _animationController.forward();
     widget.onVote?.call(index);
+    // Brief tap-feedback pause window, then resume playback.
+    await Future.delayed(const Duration(milliseconds: 500));
+    if (mounted) widget.onInteracting?.call(false);
   }
 
   @override

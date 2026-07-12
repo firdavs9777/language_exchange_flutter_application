@@ -4,7 +4,7 @@ import 'package:bananatalk_app/pages/admin/admin_home_screen.dart';
 import 'package:bananatalk_app/pages/profile/edit_main/edit_main.dart'
     show ProfileEdit;
 import 'package:bananatalk_app/pages/profile/drawer/profile_drawer.dart';
-import 'package:bananatalk_app/pages/profile/highlights.dart';
+import 'package:bananatalk_app/pages/stories/highlights/highlights_row.dart';
 import 'package:bananatalk_app/pages/profile/edit/picture_edit.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
@@ -160,7 +160,7 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
                       child: SmallBannerAdWidget(),
                     ),
                     const SizedBox(height: 20),
-                    ProfileHighlights(
+                    HighlightsRow(
                       userId: user.id,
                       isOwnProfile: true,
                       user: user,

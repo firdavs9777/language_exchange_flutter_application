@@ -7,11 +7,24 @@ class StoryQuestionBoxWidget extends StatefulWidget {
   final bool isOwner;
   final Function(String, bool)? onSubmitAnswer;
 
+  /// Called when the owner taps "View responses". When provided, this
+  /// overrides the default behavior of showing [widget.questionBox.responses]
+  /// directly — useful for fetching live responses (e.g. via
+  /// `StoriesService.getQuestionResponses`) instead of relying on whatever
+  /// snapshot was embedded in the story payload.
+  final VoidCallback? onViewResponses;
+
+  /// Called with `true` when the answer input gains focus (story playback
+  /// should pause) and `false` when it loses focus (playback should resume).
+  final ValueChanged<bool>? onFocusChanged;
+
   const StoryQuestionBoxWidget({
     Key? key,
     required this.questionBox,
     this.isOwner = false,
     this.onSubmitAnswer,
+    this.onViewResponses,
+    this.onFocusChanged,
   }) : super(key: key);
 
   @override
@@ -20,12 +33,25 @@ class StoryQuestionBoxWidget extends StatefulWidget {
 
 class _StoryQuestionBoxWidgetState extends State<StoryQuestionBoxWidget> {
   final _answerController = TextEditingController();
+  final _answerFocusNode = FocusNode();
   bool _isAnonymous = false;
   bool _isSubmitting = false;
   bool _hasSubmitted = false;
 
   @override
+  void initState() {
+    super.initState();
+    _answerFocusNode.addListener(_handleFocusChange);
+  }
+
+  void _handleFocusChange() {
+    widget.onFocusChanged?.call(_answerFocusNode.hasFocus);
+  }
+
+  @override
   void dispose() {
+    _answerFocusNode.removeListener(_handleFocusChange);
+    _answerFocusNode.dispose();
     _answerController.dispose();
     super.dispose();
   }
@@ -36,14 +62,17 @@ class _StoryQuestionBoxWidgetState extends State<StoryQuestionBoxWidget> {
     setState(() => _isSubmitting = true);
     
     widget.onSubmitAnswer?.call(_answerController.text.trim(), _isAnonymous);
-    
+
     await Future.delayed(const Duration(milliseconds: 500));
-    
+
     if (mounted) {
       setState(() {
         _isSubmitting = false;
         _hasSubmitted = true;
       });
+      // Submission complete — release the playback pause even if the field
+      // technically still has focus (e.g. keyboard hasn't dismissed yet).
+      widget.onFocusChanged?.call(false);
     }
   }
 
@@ -86,6 +115,7 @@ class _StoryQuestionBoxWidgetState extends State<StoryQuestionBoxWidget> {
           if (!widget.isOwner && !_hasSubmitted) ...[
             TextField(
               controller: _answerController,
+              focusNode: _answerFocusNode,
               style: const TextStyle(color: Colors.white),
               maxLines: 3,
               decoration: InputDecoration(
@@ -150,16 +180,17 @@ class _StoryQuestionBoxWidgetState extends State<StoryQuestionBoxWidget> {
             ),
             const SizedBox(height: 8),
             TextButton(
-              onPressed: () {
-                showModalBottomSheet(
-                  context: context,
-                  backgroundColor: Colors.grey[900],
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-                  ),
-                  builder: (context) => _ResponsesList(responses: widget.questionBox.responses),
-                );
-              },
+              onPressed: widget.onViewResponses ??
+                  () {
+                    showModalBottomSheet(
+                      context: context,
+                      backgroundColor: Colors.grey[900],
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                      ),
+                      builder: (context) => StoryQuestionResponsesList(responses: widget.questionBox.responses),
+                    );
+                  },
               child: const Text(
                 'View responses',
                 style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
@@ -172,10 +203,19 @@ class _StoryQuestionBoxWidgetState extends State<StoryQuestionBoxWidget> {
   }
 }
 
-class _ResponsesList extends StatelessWidget {
+/// Sheet content listing question responses. Reusable both for the widget's
+/// own default "View responses" action and for callers (e.g. the story
+/// viewer) that fetch live responses via `StoriesService.getQuestionResponses`
+/// and want to show a loading indicator while the request is in flight.
+class StoryQuestionResponsesList extends StatelessWidget {
   final List<StoryQuestionResponse> responses;
+  final bool isLoading;
 
-  const _ResponsesList({required this.responses});
+  const StoryQuestionResponsesList({
+    super.key,
+    required this.responses,
+    this.isLoading = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -202,7 +242,11 @@ class _ResponsesList extends StatelessWidget {
           ),
         ),
         Expanded(
-          child: responses.isEmpty
+          child: isLoading
+              ? const Center(
+                  child: CircularProgressIndicator(color: Colors.white),
+                )
+              : responses.isEmpty
               ? const Center(
                   child: Text(
                     'No responses yet',
@@ -239,7 +283,7 @@ class _ResponsesList extends StatelessWidget {
                                       ? NetworkImage(response.user!.imageUrls.first)
                                       : null,
                                   child: response.user!.imageUrls.isEmpty
-                                      ? Text(response.user!.name[0])
+                                      ? Text(response.user!.name.isNotEmpty ? response.user!.name[0] : '?')
                                       : null,
                                 ),
                               const SizedBox(width: 8),

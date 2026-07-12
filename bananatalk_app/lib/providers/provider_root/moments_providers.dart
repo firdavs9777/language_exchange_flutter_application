@@ -17,7 +17,7 @@ class MomentsService {
 
   // Updated getMoments with pagination support
   Future<Map<String, dynamic>> getMoments(
-      {int page = 1, int limit = 10}) async {
+      {int page = 1, int limit = 10, String? feed}) async {
     // Enforce max limit of 50 per page
     if (limit > 50) {
       limit = 50;
@@ -27,8 +27,13 @@ class MomentsService {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('token');
 
+    var url = '${Endpoints.baseURL}${Endpoints.momentsURL}?page=$page&limit=$limit';
+    if (feed != null) {
+      url += '&feed=$feed';
+    }
+
     final response = await http.get(
-      Uri.parse('${Endpoints.baseURL}${Endpoints.momentsURL}?page=$page&limit=$limit'),
+      Uri.parse(url),
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
@@ -45,16 +50,52 @@ class MomentsService {
         'moments':
             momentsList.map((postJson) => Moments.fromJson(postJson)).toList(),
         'pagination': pagination,
+        'feedMode': data['feedMode'],
       };
     } else {
       final errorData = json.decode(response.body);
-      final errorMessage = errorData['error'] ?? 
-                          errorData['message'] ?? 
+      final errorMessage = errorData['error'] ??
+                          errorData['message'] ??
                           'Failed to load moments';
-      
+
       // Log the actual backend error for debugging
-      
+
       throw Exception(errorMessage);
+    }
+  }
+
+  /// Fetch the deterministic prompt-of-the-day. Language is derived
+  /// server-side from the authenticated user's `language_to_learn` when
+  /// omitted, so no param is required from the client.
+  Future<Map<String, dynamic>> getPromptOfDay({String? language}) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
+
+    var url = '${Endpoints.baseURL}${Endpoints.momentsURL}/prompt-of-day';
+    if (language != null && language.isNotEmpty) {
+      url += '?language=$language';
+    }
+
+    final response = await http.get(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        if (token != null) 'Authorization': 'Bearer $token',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      if (data['success'] == true && data['data'] != null) {
+        return Map<String, dynamic>.from(data['data']);
+      }
+      throw Exception(data['error'] ?? 'Failed to load prompt of the day');
+    } else {
+      final errorData = json.decode(response.body);
+      throw Exception(errorData['error'] ??
+          errorData['message'] ??
+          'Failed to load prompt of the day');
     }
   }
 
@@ -98,6 +139,7 @@ class MomentsService {
     String? scheduledFor,
     Map<String, dynamic>? location,
     String? backgroundColor,
+    String? promptId,
   }) async {
     final url = Uri.parse('${Endpoints.baseURL}${Endpoints.momentsURL}');
 
@@ -133,6 +175,9 @@ class MomentsService {
     if (backgroundColor != null && backgroundColor.isNotEmpty) {
       body['backgroundColor'] = backgroundColor;
     }
+    if (promptId != null && promptId.isNotEmpty) {
+      body['promptId'] = promptId;
+    }
 
     final response = await http.post(
       url,
@@ -152,8 +197,8 @@ class MomentsService {
       }
     } else {
       final errorData = json.decode(response.body);
-      final errorMessage = errorData['error'] ?? 
-                          errorData['message'] ?? 
+      final errorMessage = errorData['error'] ??
+                          errorData['message'] ??
                           'Failed to create moment';
       throw Exception(errorMessage);
     }
@@ -188,6 +233,8 @@ class MomentsService {
     List<String>? tags,
     List<String>? images,
     String? backgroundColor,
+    String? language,
+    String? privacy,
   }) async {
     final url = Uri.parse('${Endpoints.baseURL}${Endpoints.momentsURL}/$id');
 
@@ -220,6 +267,12 @@ class MomentsService {
     }
     if (backgroundColor != null) {
       body['backgroundColor'] = backgroundColor;
+    }
+    if (language != null && language.isNotEmpty) {
+      body['language'] = language;
+    }
+    if (privacy != null && privacy.isNotEmpty) {
+      body['privacy'] = privacy;
     }
 
     final response = await http.put(
@@ -489,6 +542,103 @@ class MomentsService {
     }
   }
 
+  /// Upload audio (voice note) to a moment (max 60 seconds, max 10MB).
+  /// Mirrors `uploadMomentVideo`; hits the Task 4 backend contract at
+  /// PUT /moments/:id/audio (multipart field name `audio`, plus
+  /// `duration` and optional `waveform` fields).
+  /// Returns the updated moment's audio data (`{_id, audio, mediaType}`).
+  Future<Map<String, dynamic>> uploadMomentAudio(
+    String momentId,
+    File audioFile,
+    int durationSeconds, {
+    List<double>? waveform,
+  }) async {
+    // Validate duration (backend also enforces <=60s)
+    if (durationSeconds > 60) {
+      throw Exception('Audio duration cannot exceed 60 seconds');
+    }
+
+    // Validate file size (10MB max)
+    final fileSize = await audioFile.length();
+    if (fileSize > 10 * 1024 * 1024) {
+      throw Exception('Audio size exceeds 10MB limit');
+    }
+
+    // Determine content type from file extension
+    final extension = audioFile.path.split('.').last.toLowerCase();
+    String mimeType;
+    switch (extension) {
+      case 'm4a':
+        mimeType = 'audio/m4a';
+        break;
+      case 'mp3':
+        mimeType = 'audio/mpeg';
+        break;
+      case 'wav':
+        mimeType = 'audio/wav';
+        break;
+      case 'aac':
+        mimeType = 'audio/aac';
+        break;
+      case 'ogg':
+        mimeType = 'audio/ogg';
+        break;
+      default:
+        mimeType = 'audio/mpeg';
+    }
+
+    final url = Uri.parse(
+        '${Endpoints.baseURL}${Endpoints.momentsURL}/$momentId/audio');
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
+
+    if (token == null) {
+      throw Exception('Authentication required. Please login again.');
+    }
+
+    final request = http.MultipartRequest('PUT', url);
+    request.headers['Authorization'] = 'Bearer $token';
+
+    request.fields['duration'] = durationSeconds.toString();
+    if (waveform != null && waveform.isNotEmpty) {
+      request.fields['waveform'] = jsonEncode(waveform);
+    }
+
+    request.files.add(
+      await http.MultipartFile.fromPath(
+        'audio',
+        audioFile.path,
+        contentType: MediaType.parse(mimeType),
+      ),
+    );
+
+    try {
+      final streamedResponse = await request.send();
+      final response = await http.Response.fromStream(streamedResponse);
+
+      final responseData = json.decode(response.body);
+
+      if (response.statusCode == 200 && responseData['success'] == true) {
+        return responseData['data'] ?? {};
+      } else {
+        final errorMessage = responseData['error'] ??
+            responseData['message'] ??
+            'Failed to upload audio';
+        throw Exception(errorMessage);
+      }
+    } on http.ClientException catch (e) {
+      throw Exception('Network error uploading audio: ${e.message}');
+    } on FormatException catch (e) {
+      throw Exception('Invalid response from server: ${e.message}');
+    } catch (e) {
+      if (e is Exception) {
+        rethrow;
+      }
+      throw Exception('Error uploading audio: $e');
+    }
+  }
+
   /// Delete video from moment
   Future<void> deleteMomentVideo(String momentId) async {
     final url = Uri.parse(
@@ -630,6 +780,51 @@ final momentsFeedProvider = FutureProvider<List<Moments>>((ref) async {
   }
 
   return <Moments>[];
+});
+
+/// "For You" feed tab — personalized feed filtered/sorted server-side by
+/// the user's native/learning languages when eligible; falls back to the
+/// default feed otherwise (see backend `feed=forYou` contract).
+final forYouMomentsProvider = FutureProvider<List<Moments>>((ref) async {
+  final service = ref.watch(momentsServiceProvider);
+  final response = await service.getMoments(page: 1, limit: 50, feed: 'forYou');
+  final moments = response['moments'];
+
+  if (moments is List<Moments>) {
+    return moments;
+  }
+
+  if (moments is List) {
+    return moments.cast<Moments>();
+  }
+
+  return <Moments>[];
+});
+
+/// "Following" feed tab — moments authored by users the current user
+/// follows; falls back to the default feed server-side when the user
+/// follows no one (see backend `feed=following` contract).
+final followingMomentsProvider = FutureProvider<List<Moments>>((ref) async {
+  final service = ref.watch(momentsServiceProvider);
+  final response =
+      await service.getMoments(page: 1, limit: 50, feed: 'following');
+  final moments = response['moments'];
+
+  if (moments is List<Moments>) {
+    return moments;
+  }
+
+  if (moments is List) {
+    return moments.cast<Moments>();
+  }
+
+  return <Moments>[];
+});
+
+/// Deterministic prompt-of-the-day shown above the feed tabs.
+final promptOfDayProvider = FutureProvider<Map<String, dynamic>>((ref) async {
+  final service = ref.watch(momentsServiceProvider);
+  return service.getPromptOfDay();
 });
 
 // Provider for user moments with family support

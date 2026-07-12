@@ -243,6 +243,9 @@ class AppLocalizationsKo extends AppLocalizations {
   String get beTheFirstToComment => '첫 번째 댓글을 작성하세요.';
 
   @override
+  String get loadMoreComments => 'Load more comments';
+
+  @override
   String get writeAComment => '댓글 작성...';
 
   @override
@@ -1735,6 +1738,21 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get noMomentsYet => '아직 모멘트가 없습니다';
+
+  @override
+  String get noForYouMomentsTitle => 'No moments yet';
+
+  @override
+  String get noForYouMomentsBody => 'Answer today\'s prompt to get the conversation started.';
+
+  @override
+  String get noFollowingMomentsTitle => 'Nothing here yet';
+
+  @override
+  String get noFollowingMomentsBody => 'Follow people from Community to see their moments here.';
+
+  @override
+  String get goToCommunity => 'Go to Community';
 
   @override
   String get unableToLoadMoments => '모멘트를 불러올 수 없습니다';

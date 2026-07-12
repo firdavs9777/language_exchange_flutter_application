@@ -4,6 +4,7 @@ import 'package:bananatalk_app/pages/moments/filter/moment_filter_bar.dart';
 import 'package:bananatalk_app/pages/moments/filter/moment_filter_model.dart';
 import 'package:bananatalk_app/pages/moments/filter/moment_filter_utility.dart';
 import 'package:bananatalk_app/pages/moments/feed/moments_feed_widget.dart';
+import 'package:bananatalk_app/pages/moments/feed/prompt_of_day_card.dart';
 import 'package:bananatalk_app/pages/stories/feed/stories_feed_widget.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
@@ -91,6 +92,88 @@ final filteredMomentsProvider = Provider<AsyncValue<List<Moments>>>((ref) {
   });
 });
 
+/// Feed tabs shown above the moment filter bar.
+enum MomentsFeedTab { forYou, following, trending }
+
+const String _momentsFeedTabKey = 'moments_feed_tab';
+
+MomentsFeedTab _momentsFeedTabFromPrefs(String? value) {
+  return MomentsFeedTab.values.firstWhere(
+    (tab) => tab.name == value,
+    orElse: () => MomentsFeedTab.forYou,
+  );
+}
+
+/// Persisted "last selected feed tab" — mirrors [MomentFilterNotifier]'s
+/// SharedPreferences persistence pattern.
+class MomentsFeedTabNotifier extends StateNotifier<MomentsFeedTab> {
+  MomentsFeedTabNotifier() : super(MomentsFeedTab.forYou) {
+    _loadSavedTab();
+  }
+
+  Future<void> _loadSavedTab() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final saved = prefs.getString(_momentsFeedTabKey);
+      if (saved != null) {
+        state = _momentsFeedTabFromPrefs(saved);
+      }
+    } catch (e) {
+      debugPrint('Error loading saved moments feed tab: $e');
+    }
+  }
+
+  Future<void> setTab(MomentsFeedTab tab) async {
+    state = tab;
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString(_momentsFeedTabKey, tab.name);
+    } catch (e) {
+      debugPrint('Error saving moments feed tab: $e');
+    }
+  }
+}
+
+final momentsFeedTabProvider =
+    StateNotifierProvider<MomentsFeedTabNotifier, MomentsFeedTab>(
+  (ref) => MomentsFeedTabNotifier(),
+);
+
+/// Base (unfiltered) moments provider for a given feed tab.
+ProviderListenable<AsyncValue<List<Moments>>> _baseProviderFor(
+    MomentsFeedTab tab) {
+  switch (tab) {
+    case MomentsFeedTab.forYou:
+      return forYouMomentsProvider;
+    case MomentsFeedTab.following:
+      return followingMomentsProvider;
+    case MomentsFeedTab.trending:
+      return trendingMomentsProvider;
+  }
+}
+
+/// Client-side filtered/blocked/muted moments for a given feed tab. Mirrors
+/// [filteredMomentsProvider] but is parameterized by tab so each tab keeps
+/// its own cached data and can be invalidated independently.
+final filteredMomentsForTabProvider =
+    Provider.family<AsyncValue<List<Moments>>, MomentsFeedTab>((ref, tab) {
+  final momentsAsync = ref.watch(_baseProviderFor(tab));
+  final filter = ref.watch(momentFilterProvider);
+  final blockedUserIdsAsync = ref.watch(blockedUserIdsProvider);
+  final mutedUserIds = ref.watch(mutedMomentsProvider);
+
+  return momentsAsync.whenData((moments) {
+    final blockedUserIds = blockedUserIdsAsync.value ?? <String>{};
+
+    final filteredByBlockAndMute = moments.where((moment) {
+      return !blockedUserIds.contains(moment.user.id) &&
+          !mutedUserIds.contains(moment.user.id);
+    }).toList();
+
+    return MomentFilterUtility.filterMoments(filteredByBlockAndMute, filter);
+  });
+});
+
 class MomentsMain extends ConsumerStatefulWidget {
   const MomentsMain({super.key});
 
@@ -123,6 +206,8 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
   }
 
   void _performSearch(String query) {
+    // Search always operates over the default (unfiltered) feed regardless
+    // of the active tab, matching prior search behavior.
     final momentsAsync = ref.read(momentsFeedProvider);
     if (query.isEmpty) {
       setState(() => _searchResults = []);
@@ -150,13 +235,23 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
     });
     // Refresh both moments and stories
     _storiesRefreshNotifier.value++;
-    await ref.refresh(momentsFeedProvider.future);
+    // Only invalidate the active tab's provider, so switching tabs doesn't
+    // force a redundant re-fetch of tabs the user hasn't looked at.
+    final activeTab = ref.read(momentsFeedTabProvider);
+    final Future<List<Moments>> activeTabFuture = switch (activeTab) {
+      MomentsFeedTab.forYou => ref.refresh(forYouMomentsProvider.future),
+      MomentsFeedTab.following => ref.refresh(followingMomentsProvider.future),
+      MomentsFeedTab.trending => ref.refresh(trendingMomentsProvider.future),
+    };
+    await activeTabFuture;
   }
 
   @override
   Widget build(BuildContext context) {
     final currentFilter = ref.watch(momentFilterProvider);
-    final filteredMomentsAsync = ref.watch(filteredMomentsProvider);
+    final activeTab = ref.watch(momentsFeedTabProvider);
+    final filteredMomentsAsync =
+        ref.watch(filteredMomentsForTabProvider(activeTab));
     final displayedList = _showSearch && _searchController.text.isNotEmpty
         ? AsyncValue.data(_searchResults)
         : filteredMomentsAsync;
@@ -253,11 +348,21 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
               child: StoriesFeedWidget(height: 130, avatarSize: 64, refreshNotifier: _storiesRefreshNotifier),
             ),
           if (!_showSearch)
+            _MomentsFeedTabBar(
+              activeTab: activeTab,
+              onTabChanged: (tab) {
+                if (tab == activeTab) return;
+                ref.read(momentsFeedTabProvider.notifier).setTab(tab);
+              },
+            ),
+          if (!_showSearch)
             MomentFilterBar(
               currentFilter: currentFilter,
               onFilterChanged: (filter) =>
                   ref.read(momentFilterProvider.notifier).setFilter(filter),
             ),
+          if (!_showSearch && activeTab == MomentsFeedTab.forYou)
+            const PromptOfDayCard(),
           Expanded(
             child: RefreshIndicator(
               onRefresh: _refresh,
@@ -267,6 +372,7 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
                 scrollController: _scrollController,
                 isSearching: _showSearch && _searchController.text.isNotEmpty,
                 onRefresh: _refresh,
+                activeTab: activeTab,
               ),
             ),
           ),
@@ -473,6 +579,72 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+/// Segmented tab control for switching between the For You / Following /
+/// Trending moments feeds. Purely presentational — selection state and data
+/// loading live in [momentsFeedTabProvider] and the per-tab feed providers.
+class _MomentsFeedTabBar extends StatelessWidget {
+  final MomentsFeedTab activeTab;
+  final ValueChanged<MomentsFeedTab> onTabChanged;
+
+  const _MomentsFeedTabBar({
+    required this.activeTab,
+    required this.onTabChanged,
+  });
+
+  static const Color _tealIndicator = Color(0xFF00BFA5);
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final tabs = <MomentsFeedTab, String>{
+      MomentsFeedTab.forYou: 'For You',
+      MomentsFeedTab.following: l10n.following,
+      MomentsFeedTab.trending: l10n.trending,
+    };
+
+    return Container(
+      decoration: BoxDecoration(
+        color: context.surfaceColor,
+        border: Border(
+          bottom: BorderSide(color: context.dividerColor, width: 0.5),
+        ),
+      ),
+      child: Row(
+        children: tabs.entries.map((entry) {
+          final tab = entry.key;
+          final label = entry.value;
+          final isActive = tab == activeTab;
+          return Expanded(
+            child: InkWell(
+              onTap: () => onTabChanged(tab),
+              child: Container(
+                padding: const EdgeInsets.symmetric(vertical: 12),
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                      color: isActive ? _tealIndicator : Colors.transparent,
+                      width: 2,
+                    ),
+                  ),
+                ),
+                child: Text(
+                  label,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: isActive ? FontWeight.w700 : FontWeight.w500,
+                    color: isActive ? _tealIndicator : context.textSecondary,
+                  ),
+                ),
+              ),
+            ),
+          );
+        }).toList(),
       ),
     );
   }

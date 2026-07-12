@@ -1,4 +1,5 @@
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/pages/moments/filter/moment_filter_model.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
@@ -44,6 +45,18 @@ class MomentCardHeader extends StatelessWidget {
       0,
       language.length > 2 ? 2 : language.length,
     );
+  }
+
+  /// Display name for the moment's own language (the language the post is
+  /// written in), resolved from the shared [FilterOptions.allLanguages] list
+  /// so it always matches what the filter bar shows. Falls back to the raw
+  /// (upper-cased) code for anything not in the list.
+  String _momentLanguageDisplayName(String code) {
+    final normalized = code.toLowerCase();
+    for (final lang in FilterOptions.allLanguages) {
+      if (lang['code'] == normalized) return lang['name']!;
+    }
+    return code.toUpperCase();
   }
 
   String _getRelativeTime(BuildContext context, DateTime dateTime) {
@@ -102,14 +115,20 @@ class MomentCardHeader extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Text(
-                      moment.user.name.toUpperCase(),
-                      style: context.labelLarge,
+                    Flexible(
+                      child: Text(
+                        moment.user.name.toUpperCase(),
+                        style: context.labelLarge,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
-                    const SizedBox(width: 4),
+                    const SizedBox(width: 6),
+                    _LanguageBadgeChip(
+                      label: _momentLanguageDisplayName(moment.language),
+                    ),
                   ],
                 ),
-                const SizedBox(height: 2),
+                const SizedBox(height: 3),
                 Row(
                   children: [
                     // Native language with underline
@@ -190,6 +209,34 @@ class MomentCardHeader extends StatelessWidget {
             ],
           ),
         ],
+      ),
+    );
+  }
+}
+
+/// Small pill chip showing the language a moment was posted in (e.g.
+/// "Japanese"), resolved via [FilterOptions.allLanguages] so it always
+/// matches the language filter bar's naming. Purely presentational.
+class _LanguageBadgeChip extends StatelessWidget {
+  final String label;
+
+  const _LanguageBadgeChip({required this.label});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+      decoration: BoxDecoration(
+        color: AppColors.primary.withValues(alpha: 0.1),
+        borderRadius: AppRadius.borderRound,
+      ),
+      child: Text(
+        label,
+        style: context.captionSmall.copyWith(
+          color: AppColors.primary,
+          fontWeight: FontWeight.w700,
+        ),
+        overflow: TextOverflow.ellipsis,
       ),
     );
   }

@@ -51,6 +51,11 @@ class _StoryGradientRingState extends State<StoryGradientRing>
     Color(0xFF00C853),
   ];
 
+  /// Whether the system/OS "reduce motion" accessibility setting is active.
+  /// Read fresh (not cached) since it can change while this widget is
+  /// mounted; consulted before starting/continuing the rotation animation.
+  bool get _reduceMotion => MediaQuery.maybeOf(context)?.disableAnimations ?? false;
+
   @override
   void initState() {
     super.initState();
@@ -59,15 +64,30 @@ class _StoryGradientRingState extends State<StoryGradientRing>
       vsync: this,
     );
 
-    if (widget.animate && !widget.isViewed && widget.hasStory && !widget.isOwnStory) {
-      _controller.repeat();
-    }
+    // Defer the disableAnimations check to didChangeDependencies (context/
+    // MediaQuery isn't ready during initState), so no _controller.repeat()
+    // call is made here for the animated case.
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _syncAnimation();
   }
 
   @override
   void didUpdateWidget(StoryGradientRing oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (widget.animate && !widget.isViewed && widget.hasStory && !widget.isOwnStory) {
+    _syncAnimation();
+  }
+
+  void _syncAnimation() {
+    final shouldAnimate = widget.animate &&
+        !widget.isViewed &&
+        widget.hasStory &&
+        !widget.isOwnStory &&
+        !_reduceMotion;
+    if (shouldAnimate) {
       if (!_controller.isAnimating) {
         _controller.repeat();
       }
@@ -103,7 +123,7 @@ class _StoryGradientRingState extends State<StoryGradientRing>
       return _buildViewedRing(context);
     }
 
-    // Unviewed - animated gradient ring
+    // Unviewed - animated gradient ring (static when reduce-motion is on)
     return AnimatedBuilder(
       animation: _controller,
       builder: (context, child) {
@@ -111,7 +131,7 @@ class _StoryGradientRingState extends State<StoryGradientRing>
           painter: _GradientRingPainter(
             colors: widget.isCloseFriend ? _closeFriendColors : _gradientColors,
             strokeWidth: widget.strokeWidth,
-            rotation: widget.animate ? _controller.value * 2 * math.pi : 0,
+            rotation: (widget.animate && !_reduceMotion) ? _controller.value * 2 * math.pi : 0,
           ),
           child: SizedBox(
             width: widget.size,
