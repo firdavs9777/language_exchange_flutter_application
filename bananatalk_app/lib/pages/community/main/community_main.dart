@@ -10,6 +10,7 @@ import 'package:bananatalk_app/pages/community/tabs/genders_tab.dart';
 import 'package:bananatalk_app/pages/community/tabs/topics_tab.dart';
 import 'package:bananatalk_app/pages/community/voice_rooms/voice_rooms_tab.dart';
 import 'package:bananatalk_app/pages/community/tabs/waves_tab.dart';
+import 'package:bananatalk_app/pages/community/rooms/rooms_directory_screen.dart';
 import 'package:bananatalk_app/pages/community/single/single_community_screen.dart';
 import 'package:bananatalk_app/pages/community/filter/community_filter_sheet.dart';
 import 'package:bananatalk_app/pages/community/filter/filter_state.dart';
@@ -18,6 +19,7 @@ import 'package:bananatalk_app/pages/community/main/community_tab_bar.dart';
 import 'package:bananatalk_app/pages/community/main/community_filter_chips.dart';
 import 'package:bananatalk_app/services/user_service.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
+import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
@@ -33,25 +35,52 @@ class CommunityMain extends ConsumerStatefulWidget {
 }
 
 class _CommunityMainState extends ConsumerState<CommunityMain>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   static const String _filtersKey = 'community_filters';
-  static const int _tabCount = 7;
+  static const int _baseTabCount = 7;
 
   /// Tab index that should display the profile-visitor recall card.
   static const int _partnersTabIndex = 0;
 
-  late final TabController _tabController;
+  late TabController _tabController;
   final TextEditingController _searchController = TextEditingController();
   bool _isSearching = false;
   String _searchQuery = '';
   FilterState _filters = FilterState.defaults;
 
+  /// Whether the 8th "Rooms" tab is currently built into `_tabController`.
+  /// Tracked so we only recreate the controller when this actually flips
+  /// (`appConfigProvider` re-resolving to the same value shouldn't churn
+  /// the controller and reset the user's current tab).
+  bool? _roomsTabBuilt;
+
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: _tabCount, vsync: this)
+    _tabController = TabController(length: _baseTabCount, vsync: this)
       ..addListener(_onTabChanged);
     _loadSavedFilters();
+  }
+
+  /// Rebuilds `_tabController` with 8 tabs once `roomsEnabled` resolves to
+  /// true, or shrinks back to 7 if it's false. Keeps the currently selected
+  /// tab index stable when it's still in range.
+  void _syncTabCountWithRoomsFlag(bool roomsEnabled) {
+    if (_roomsTabBuilt == roomsEnabled) return;
+    final newCount = roomsEnabled ? _baseTabCount + 1 : _baseTabCount;
+    if (_tabController.length == newCount) {
+      _roomsTabBuilt = roomsEnabled;
+      return;
+    }
+    final previousIndex = _tabController.index;
+    _tabController.removeListener(_onTabChanged);
+    _tabController.dispose();
+    _tabController = TabController(
+      length: newCount,
+      initialIndex: previousIndex < newCount ? previousIndex : 0,
+      vsync: this,
+    )..addListener(_onTabChanged);
+    _roomsTabBuilt = roomsEnabled;
   }
 
   /// Rebuild on tab switch so the visitor card only renders on the
@@ -173,6 +202,15 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
 
+    // Workstream D: hide the Rooms tab entirely while the server-side kill
+    // switch is off. Defaults to enabled while the config request is still
+    // in flight (matches `AppConfig.roomsEnabled`'s default), then syncs
+    // the controller's tab count once the real value resolves.
+    final roomsEnabled = ref
+        .watch(appConfigProvider)
+        .maybeWhen(data: (config) => config?.roomsEnabled ?? true, orElse: () => true);
+    _syncTabCountWithRoomsFlag(roomsEnabled);
+
     // Compute filter-derived values once per build instead of allocating a
     // fresh Map on every widget that needs them.
     final filtersJson = _filters.toJson();
@@ -205,7 +243,10 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
             ),
           ),
           // Tab bar
-          CommunityTabBar(tabController: _tabController),
+          CommunityTabBar(
+            tabController: _tabController,
+            showRoomsTab: roomsEnabled,
+          ),
           // Active filter chips
           if (hasActiveFilters)
             CommunityFilterChips(
@@ -246,6 +287,7 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
                 ),
                 const VoiceRoomsTab(),
                 const WavesTab(),
+                if (roomsEnabled) const RoomsDirectoryScreen(),
               ],
             ),
           ),
