@@ -11,6 +11,7 @@ import 'package:bananatalk_app/pages/moments/feed/muted_users_provider.dart';
 import 'package:bananatalk_app/pages/moments/widgets/moments_snackbar.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:bananatalk_app/services/moments_service.dart' as api;
+import 'package:bananatalk_app/services/ad_service.dart';
 import 'package:bananatalk_app/providers/provider_root/comments_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
@@ -515,11 +516,18 @@ class _MomentCardState extends ConsumerState<MomentCard> {
 
         ref.refresh(commentsProvider(singleMoment.id));
 
-        Navigator.push(
+        await Navigator.push(
           context,
           AppPageRoute(
             builder: (context) => SingleMoment(moment: singleMoment),
           ),
+        );
+
+        // Throttled interstitial when returning from a moment (every 3rd
+        // open, min 90s apart) — see AdService.maybeShowInterstitial.
+        AdService().maybeShowInterstitial(
+          everyN: 3,
+          minGap: const Duration(seconds: 90),
         );
       },
       child: Container(

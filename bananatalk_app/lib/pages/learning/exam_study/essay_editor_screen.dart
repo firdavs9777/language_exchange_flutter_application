@@ -9,6 +9,8 @@ import 'package:bananatalk_app/providers/provider_models/exam/exam_submission_re
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/exam_study_provider.dart';
 import 'package:bananatalk_app/services/exam_essay_quota.dart';
+import 'package:bananatalk_app/services/ad_service.dart';
+import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:flutter/material.dart';
@@ -271,7 +273,12 @@ class _EssayEditorScreenState extends ConsumerState<EssayEditorScreen> {
                 color: context.surfaceColor,
                 border: Border(top: BorderSide(color: context.dividerColor)),
               ),
-              child: SizedBox(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const BannerAdWidget(),
+                  const SizedBox(height: 8),
+                  SizedBox(
                 width: double.infinity,
                 height: 48,
                 child: ElevatedButton(
@@ -305,6 +312,8 @@ class _EssayEditorScreenState extends ConsumerState<EssayEditorScreen> {
                         ),
                 ),
               ),
+                ],
+              ),
             ),
           ),
         ],
@@ -330,6 +339,12 @@ class _EssayEditorScreenState extends ConsumerState<EssayEditorScreen> {
         final prefs = await SharedPreferences.getInstance();
         await prefs.remove(_draftKey);
 
+        if (!mounted) return;
+        // Interstitial after finishing a session (throttled + skipped for VIP).
+        await AdService().maybeShowInterstitial(
+          everyN: 1,
+          minGap: const Duration(seconds: 60),
+        );
         if (!mounted) return;
         await Navigator.of(context).push(
           AppPageRoute(

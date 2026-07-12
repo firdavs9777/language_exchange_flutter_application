@@ -98,6 +98,33 @@ class AdService {
     await _interstitialAd!.show();
   }
 
+  DateTime? _lastInterstitialAt;
+  int _interstitialTriggerCount = 0;
+
+  /// Shows an interstitial only on every [everyN]-th call AND when at least
+  /// [minGap] has elapsed since the last one. Keeps full-screen ads from
+  /// spamming users on repeated actions (moment opens, session completions)
+  /// and stays within AdMob's frequency guidance. Returns true if shown.
+  Future<bool> maybeShowInterstitial({
+    int everyN = 3,
+    Duration minGap = const Duration(minutes: 2),
+  }) async {
+    if (_isAdFree || _interstitialAd == null) return false;
+
+    _interstitialTriggerCount++;
+    if (everyN > 1 && _interstitialTriggerCount % everyN != 0) return false;
+
+    final now = DateTime.now();
+    if (_lastInterstitialAt != null &&
+        now.difference(_lastInterstitialAt!) < minGap) {
+      return false;
+    }
+
+    _lastInterstitialAt = now;
+    await showInterstitial();
+    return true;
+  }
+
   void loadRewarded() {
     if (_isAdFree || !_initialized) return;
     RewardedAd.load(

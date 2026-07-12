@@ -50,8 +50,8 @@ class MomentsFeedWidget extends ConsumerWidget {
           return _buildEmptyState(context, ref);
         }
 
-        // Insert native ads every 4th item (after each 3 moments)
-        const adInterval = 4;
+        // Insert native ads every 3rd item (denser than the previous every-4).
+        const adInterval = 3;
         final totalAds = moments.length ~/ (adInterval - 1);
         final totalItems = moments.length + totalAds;
 

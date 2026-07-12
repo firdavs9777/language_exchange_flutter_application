@@ -9,6 +9,8 @@ import 'package:bananatalk_app/providers/provider_models/exam/exam_submission_re
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/exam_study_provider.dart';
 import 'package:bananatalk_app/services/exam_study_service.dart';
+import 'package:bananatalk_app/services/ad_service.dart';
+import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:flutter/material.dart';
@@ -121,6 +123,7 @@ class _SectionPracticeScreenState
             child: _renderQuestion(question, l10n),
           ),
         ),
+        const BannerAdWidget(),
         _bottomBar(question, total, l10n),
       ],
     );
@@ -576,6 +579,13 @@ class _SectionPracticeScreenState
       _lastResult = null;
       _serverConfirmedCorrectOption = null;
     });
+    // Session finished — throttled interstitial (skipped for VIP/ad-free).
+    if (_index >= total) {
+      AdService().maybeShowInterstitial(
+        everyN: 1,
+        minGap: const Duration(seconds: 60),
+      );
+    }
     // Invalidate progress when we leave a question so the dashboard
     // picks up the new tally even if the user backs out mid-session.
     final userId = ref.read(authServiceProvider).userId;

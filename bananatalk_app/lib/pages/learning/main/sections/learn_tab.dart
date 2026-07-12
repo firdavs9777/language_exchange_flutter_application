@@ -79,6 +79,10 @@ class LearnTab extends ConsumerWidget {
                 _buildAIBanner(context, onSwitchToAI, isDark),
                 const SizedBox(height: 28),
 
+                // Native ad between sections
+                const NativeAdWidget(),
+                const SizedBox(height: 28),
+
                 // Daily Challenges
                 _buildSectionHeader(
                   context,
@@ -122,6 +126,10 @@ class LearnTab extends ConsumerWidget {
                 _buildSectionHeader(context, AppLocalizations.of(context)!.continueLearning),
                 const SizedBox(height: 12),
                 _buildLearningSections(context, isDark),
+                const SizedBox(height: 28),
+
+                // Native ad after the last section
+                const NativeAdWidget(),
                 const SizedBox(height: 32),
               ],
             ),
