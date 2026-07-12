@@ -50,6 +50,11 @@ class ChatMessageBubble extends ConsumerStatefulWidget {
   final bool isFirstInGroup;
   final bool isLastInGroup;
 
+  /// Workstream D (Task 11) — reports a message (long-press menu). `null`
+  /// (the default used everywhere in 1-on-1 chat) hides the menu item, so
+  /// the existing DM context menu is unchanged.
+  final Function(Message)? onReport;
+
   const ChatMessageBubble({
     super.key,
     required this.message,
@@ -72,6 +77,7 @@ class ChatMessageBubble extends ConsumerStatefulWidget {
     this.onDeleteFailed,
     this.isFirstInGroup = true,
     this.isLastInGroup = true,
+    this.onReport,
   });
 
   @override
@@ -792,6 +798,21 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
         onTap: () {
           _hideReactionPicker();
           widget.onDelete?.call(widget.message);
+        },
+      ));
+    }
+
+    // Report — Workstream D (Task 11): only offered for someone else's
+    // message when the caller wires onReport (room/hub chat). Absent in
+    // 1-on-1 chat, where onReport stays null.
+    if (widget.onReport != null && !widget.isMe && !widget.message.isDeleted) {
+      menuItems.add(MessageContextMenuItem(
+        icon: Icons.flag_rounded,
+        label: 'Report',
+        isDestructive: true,
+        onTap: () {
+          _hideReactionPicker();
+          widget.onReport?.call(widget.message);
         },
       ));
     }

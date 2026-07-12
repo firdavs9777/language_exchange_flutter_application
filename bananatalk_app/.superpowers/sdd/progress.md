@@ -75,3 +75,34 @@ Branches: workstream-c-moments (app 070923e, backend 39692bb). NO commits until 
 Two parallel tracks: moments (T1->T2+T3->T4 backend; T5->T6/T7/T8->T9 app) and stories (T10->T11->T12->T13 serial, story_viewer shared). T14 gate.
 C progress: T1,T2,T3,T4,T10,T11 done. T5 running (feed tabs). T11 found+fixed service-side sticker bug; backend createStory never persisted poll/questionBox -> patch agent dispatched. T12 (highlights) running. Remaining: T6,T7,T8,T9 (after T5), T13 (after T12), sticker-backend-patch, T14 gate.
 C completions since last entry: T5 (tabs+providers), T6 (prompt card+prefill), T7 (corrections UI, TDD diff engine), T8 (audio UI, MomentAudio model), T9 (crash-recovered: polish/edit/pagination/empty-states; fixed edit-voice-note bug + wrong provider invalidation), T12 (highlights both profiles, legacy impl retired), T13 (link pill, save/share, reduce-motion ring, hashtags), backend patches: story poll/questionBox persistence + hashtags read (both silent-drop bugs). ALL 15 IMPLEMENTATION ITEMS DONE. T14 gate starting.
+== WORKSTREAM C SHIPPED: gate passed (analyze 0 err, 24/1 tests, stock-only failure), final review 3 Criticals + 3 Importants + 6 Minors all fixed in one batch, merged+pushed main both repos. Server step pending: node migrations/seedPrompts.js (+ REFRESH_TOKEN_SECRET still unset from A). ==
+
+# ===== WORKSTREAM D: LANGUAGE ROOMS =====
+Plan: docs/superpowers/plans/2026-07-12-workstream-d-language-rooms.md (committed 824a329)
+Spec: docs/superpowers/specs/2026-07-12-workstream-d-language-rooms-design.md
+Branches: workstream-d-rooms (app base 824a329, backend base 0581d6f). Per-task commits (subagent-driven-dev needs commit ranges).
+Backend test runner: node:test (`npm test` globs services/*.test.js test/*.test.js). Place helper tests in test/*.test.js.
+Phase 1 (backend, repo language_exchange_backend_application): T1 normalizeLanguage -> T2 Conversation hub fields+leftHubs+DM-exclusion -> T3 seedRooms -> T4 REST -> T5 sockets -> T6 daily prompt -> T7 kill switch/app-config/mention push.
+Phase 2 (app): T8 socket client -> T9 Rooms tab+directory -> T10 room screen -> T11 moderation UI. T12 gate.
+== PARALLEL MODE (user request): backend track || app track. Streamlined (per Workstream A precedent): no per-task reviewer, implementers self-verify (npm test / flutter analyze), single whole-branch review + batched fixer at gate. ==
+Task 1: complete (backend commit e8cba56, normalizeLanguage 4/4 tests; 2 pre-existing unrelated failures remain). App-Batch-1 (T8+T9) dispatched in parallel.
+Task 2+3: complete (backend 7d604dd hub fields+leftHubs+DM-exclusion +6 tests; 75b6c56 seedRooms). seedRooms only dry-run verified — real staging idempotency check pending at gate.
+Backend T4+T5 (REST + sockets, coupled via online-count accessor) dispatched. App-Batch-1 still running.
+App-Batch-1 (T8+T9): complete (851e641 socket client room methods+streams; 5a59473 Rooms tab+directory). analyze clean. Left _RoomScreenPlaceholder + unused RoomApiClient.removeMember/muteMember/updateRoom for T10/T11. Rooms tab label uses plain-string l10n fallback (follow-up).
+App-Batch-2 (T10 room screen + T11 moderation UI) dispatched. Backend T4+T5 still running.
+Task 4+5: complete (backend 0f23155 REST routes; d897d05 socket events+presence+broadcast; +27 unit tests). DEVIATION FOR FINAL REVIEW: agent added Message.conversationId (indexed) AND relaxed Message.receiver required validator — scrutinize impact on existing DM creation/validation at gate.
+Backend T6+T7 (daily prompt job + ROOMS_ENABLED kill switch + app-config roomsEnabled + mention-only push) dispatched. App-Batch-2 still running.
+App-Batch-2 (T10+T11): complete (6fe5893 room screen+multi-sender list; 42a91a9 per-message report+admin remove/mute). analyze clean. No hub-level report (Report.type has no room value — per-message report used, correct). APP TRACK DONE (T8-T11).
+Waiting on backend T6+T7 to finish → then gate (whole-branch review + smoke).
+Task 6+7: complete (backend 530cf20 daily prompt job; 13366d3 ROOMS_ENABLED+app-config+mention push; +32 tests, 107/109 pass, only 2 pre-existing failures). BACKEND PHASE DONE (T1-T7). ALL 11 IMPL TASKS DONE. Gate (T12) starting: whole-branch review + smoke.
+== GATE (T12): whole-branch review done BY CONTROLLER (reviewer subagents hit session limit). Result: NO Critical/Important issues. ==
+Automated gate GREEN: backend npm test 107/109 (only 2 pre-existing failures notificationCaps+profileVisitCleanup, zero new); app flutter analyze exit 0 (1500 issues all pre-existing repo-wide info lints, 0 errors/warnings in rooms files).
+Reviewed high-risk items — all clean:
+- Message.receiver relaxation is CONDITIONAL (required only when !isGroupMessage) — DMs still require receiver. Message.conversationId sparse-indexed. GOOD, minimal blast radius.
+- ROOMS_ENABLED: roomsEnabledGuard wraps all room routes; protect after; appConfig emits roomsEnabled; socket gated. Route mounted /api/v1/rooms.
+- Admin endpoints: shared owner/admin gate, 403 if neither owner nor admins[]. Correct (room admin != global admin).
+- room_screen dispose: leaveRoom + all 3 stream subs .cancel(); mounted guards throughout. No use-after-dispose.
+- ChatMessagesList: isGroup defaults false, 1-on-1 path unchanged (confirmed by code+comment).
+Backend base 0581d6f..13366d3 (7 commits). App base 824a329..42a91a9 (4 commits). CODE-COMPLETE, uncommitted-to-main (branch workstream-d-rooms both repos).
+REMAINING (manual, user): device smoke gate; prod deploy steps (node migrations/seedRooms.js, seedPrompts.js, set ROOMS_ENABLED + REFRESH_TOKEN_SECRET); then merge to main on user go-ahead.
+Minor follow-ups (non-blocking): Rooms tab l10n plain-string fallback; no hub-level report (Report.type has no 'room' value — per-message report only).

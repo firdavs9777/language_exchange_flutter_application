@@ -8,12 +8,23 @@ import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 
 /// Scrollable tab bar for the Community screen.
 ///
-/// Renders the seven community tabs (All, Gender, Nearby, City, Topics,
-/// Voice Rooms, Waves) and applies the shared slide-in entrance animation.
+/// Renders the community tabs (All, Gender, Nearby, City, Topics,
+/// Voice Rooms, Waves, and — when enabled — Rooms) and applies the shared
+/// slide-in entrance animation.
 class CommunityTabBar extends ConsumerWidget {
-  const CommunityTabBar({super.key, required this.tabController});
+  const CommunityTabBar({
+    super.key,
+    required this.tabController,
+    this.showRoomsTab = true,
+  });
 
   final TabController tabController;
+
+  /// Workstream D: hides the 8th "Rooms" tab when the server-side
+  /// `roomsEnabled` kill switch is off. Must stay in sync with
+  /// `CommunityMain`'s `TabBarView` children count — see
+  /// `_syncTabCountWithRoomsFlag`.
+  final bool showRoomsTab;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -143,6 +154,22 @@ class CommunityTabBar extends ConsumerWidget {
                   ],
                 ),
               ),
+              if (showRoomsTab)
+                Tab(
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: const [
+                      Icon(Icons.forum_rounded, size: 20),
+                      Spacing.hGapSM,
+                      // TODO(l10n): no `communityTabRooms` key exists yet in
+                      // the arb files. Adding one across every locale is
+                      // heavy for this batch — following the established
+                      // fallback pattern (see plan Task 9) with a plain
+                      // string until a follow-up localizes it.
+                      Text('Rooms'),
+                    ],
+                  ),
+                ),
             ],
           ),
         )

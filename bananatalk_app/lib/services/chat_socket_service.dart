@@ -56,6 +56,17 @@ class ChatSocketService {
       StreamController<Map<String, dynamic>>.broadcast();
   final _presenceBulkController = StreamController<List<String>>.broadcast();
 
+  // Room (Workstream D — Language Rooms) stream controllers
+  final _roomMessageController = StreamController<dynamic>.broadcast();
+  final _roomTypingController = StreamController<dynamic>.broadcast();
+  final _roomPresenceController =
+      StreamController<Map<String, dynamic>>.broadcast();
+
+  /// Currently-open room screen, if any. Tracked so a socket reconnect can
+  /// re-emit `room:join` (the server scopes room membership/presence to the
+  /// live socket connection, so a fresh connection needs to rejoin).
+  String? _activeRoomId;
+
   // Voice room stream controllers
   final _voiceRoomParticipantJoinedController =
       StreamController<dynamic>.broadcast();
@@ -92,6 +103,12 @@ class ChatSocketService {
   Stream<Map<String, dynamic>> get onPresenceOffline =>
       _presenceOfflineController.stream;
   Stream<List<String>> get onPresenceBulk => _presenceBulkController.stream;
+
+  // Room (Workstream D) stream getters
+  Stream<dynamic> get onRoomMessage => _roomMessageController.stream;
+  Stream<dynamic> get onRoomTyping => _roomTypingController.stream;
+  Stream<Map<String, dynamic>> get onRoomPresence =>
+      _roomPresenceController.stream;
 
   // Voice room stream getters
   Stream<dynamic> get onVoiceRoomParticipantJoined =>
@@ -285,6 +302,14 @@ class ChatSocketService {
       _lastConnectedAt = DateTime.now();
       _safeAdd(_connectionStateController, true);
       _startHeartbeat();
+
+      // Room membership is scoped to the live socket connection on the
+      // server (socket.join), so a fresh connection must re-announce
+      // itself to the room it was in before the drop.
+      final roomId = _activeRoomId;
+      if (roomId != null) {
+        emit('room:join', {'roomId': roomId});
+      }
     });
 
     // Listen for connection verification from backend
@@ -501,6 +526,26 @@ class ChatSocketService {
     // Host transferred to a new participant
     _socket?.on('voiceroom:host-changed', (data) {
       _safeAdd(_voiceRoomHostChangedController, data);
+    });
+
+    // ============ Room Events (Workstream D — Language Rooms) ============
+
+    // New message broadcast to a room (hub group chat).
+    _socket?.on('room:message', (data) {
+      _safeAdd(_roomMessageController, data);
+    });
+
+    // Ephemeral typing indicator scoped to a room.
+    _socket?.on('room:typing', (data) {
+      _safeAdd(_roomTypingController, data);
+    });
+
+    // Live online-count updates for a room, derived server-side from the
+    // socket.io adapter's room size (never a stored counter).
+    _socket?.on('room:presence', (data) {
+      if (data is Map) {
+        _safeAdd(_roomPresenceController, Map<String, dynamic>.from(data));
+      }
     });
 
     // ============ Presence Events ============
@@ -760,6 +805,37 @@ class ChatSocketService {
     }
   }
 
+  // ============ Room Methods (Workstream D — Language Rooms) ============
+
+  /// Join a room's socket channel. Tracks [roomId] as the active room so a
+  /// reconnect re-emits `room:join` automatically (see `_setupListeners`).
+  /// This is socket-only presence — REST membership (`POST /rooms/:id/join`)
+  /// is separate and persists across sessions.
+  void joinRoom(String roomId) {
+    _activeRoomId = roomId;
+    emit('room:join', {'roomId': roomId});
+  }
+
+  /// Leave a room's socket channel. Does not affect REST membership.
+  void leaveRoom(String roomId) {
+    if (_activeRoomId == roomId) {
+      _activeRoomId = null;
+    }
+    emit('room:leave', {'roomId': roomId});
+  }
+
+  /// Send a chat message broadcast to everyone in the room.
+  /// [payload] carries message content (text/image/sticker) merged with
+  /// `roomId` — mirrors the shape the existing chat send path uses.
+  void sendRoomMessage(String roomId, Map<String, dynamic> payload) {
+    emit('room:message', {'roomId': roomId, ...payload});
+  }
+
+  /// Send/clear the typing indicator for a room.
+  void sendRoomTyping(String roomId, bool isTyping) {
+    emit('room:typing', {'roomId': roomId, 'isTyping': isTyping});
+  }
+
   void disableReconnection() {
     _shouldAllowReconnection = false;
     _isPermanentlyDisconnected = true;
@@ -841,6 +917,9 @@ class ChatSocketService {
     _presenceOnlineController.close();
     _presenceOfflineController.close();
     _presenceBulkController.close();
+    _roomMessageController.close();
+    _roomTypingController.close();
+    _roomPresenceController.close();
     _voiceRoomHostChangedController.close();
     disconnect();
   }
