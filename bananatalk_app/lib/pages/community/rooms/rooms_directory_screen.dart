@@ -3,6 +3,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/models/room.dart';
 import 'package:bananatalk_app/pages/community/rooms/room_card.dart';
+import 'package:bananatalk_app/pages/community/rooms/room_screen.dart';
 import 'package:bananatalk_app/pages/community/widgets/community_empty_state.dart';
 import 'package:bananatalk_app/pages/community/widgets/community_error_state.dart';
 import 'package:bananatalk_app/providers/rooms_provider.dart';
@@ -13,9 +14,9 @@ import 'package:bananatalk_app/widgets/community/user_skeleton.dart';
 ///
 /// Lists every hub with member/online counts; the caller's auto-joined hub
 /// is pinned first (backend already orders it that way; the provider
-/// defensively re-pins client-side too). Tapping a hub opens the room chat
-/// screen — Task 10 builds the real `RoomScreen`; for now this navigates to
-/// a minimal placeholder so the directory is fully clickable end to end.
+/// defensively re-pins client-side too). Tapping a hub opens the real
+/// `RoomScreen` (Task 10) — hub chat with history, composer, live presence,
+/// and the pinned daily-prompt card.
 class RoomsDirectoryScreen extends ConsumerWidget {
   const RoomsDirectoryScreen({super.key});
 
@@ -56,7 +57,7 @@ class _RoomsList extends ConsumerWidget {
 
   void _openRoom(BuildContext context, Room room) {
     Navigator.of(context).push(
-      MaterialPageRoute(builder: (_) => _RoomScreenPlaceholder(room: room)),
+      MaterialPageRoute(builder: (_) => RoomScreen(room: room)),
     );
   }
 
@@ -88,48 +89,6 @@ class _RoomsList extends ConsumerWidget {
                 curve: Curves.easeOutCubic,
               );
         },
-      ),
-    );
-  }
-}
-
-/// TODO(Task 10): replace with the real `RoomScreen` — hub chat with
-/// history, composer, live presence, and the pinned daily-prompt card. This
-/// stub exists only so the directory is navigable in this batch; it does
-/// not join the socket room or send/receive messages.
-class _RoomScreenPlaceholder extends StatelessWidget {
-  const _RoomScreenPlaceholder({required this.room});
-
-  final Room room;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('${room.emojiFlag} ${room.title}'.trim()),
-      ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(Spacing.lg),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Icon(Icons.forum_rounded, size: 48),
-              const SizedBox(height: 12),
-              Text(
-                'Room chat is coming soon',
-                style: Theme.of(context).textTheme.titleMedium,
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 4),
-              Text(
-                '${room.memberCount} members · ${room.onlineCount} online',
-                style: Theme.of(context).textTheme.bodySmall,
-                textAlign: TextAlign.center,
-              ),
-            ],
-          ),
-        ),
       ),
     );
   }

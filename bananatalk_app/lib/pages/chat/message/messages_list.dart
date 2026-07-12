@@ -40,6 +40,18 @@ class ChatMessagesList extends StatelessWidget {
   final VoidCallback? onSendWave; // Send wave emoji to start chatting
   final Function(CallRecord)? onCallTap; // Initiate call from call history bubble
 
+  /// Workstream D — Language Rooms: multi-sender group mode. When true, each
+  /// non-mine message renders with its own sender name + avatar (taken from
+  /// `message.sender`) instead of the single fixed `otherUserName`/
+  /// `otherUserPicture` used by 1-on-1 chats. Defaults to `false` so the
+  /// existing DM path is completely unaffected.
+  final bool isGroup;
+
+  /// Long-press "Report" action for a message — used by hub/room chat
+  /// (Task 11 moderation). `null` (the default) hides the option, which is
+  /// how the existing 1-on-1 path stays unchanged.
+  final Function(Message)? onReport;
+
   const ChatMessagesList({
     Key? key,
     required this.isLoading,
@@ -69,6 +81,8 @@ class ChatMessagesList extends StatelessWidget {
     this.headerWidget,
     this.onSendWave,
     this.onCallTap,
+    this.isGroup = false,
+    this.onReport,
   }) : super(key: key);
 
   @override
@@ -274,13 +288,28 @@ class ChatMessagesList extends StatelessWidget {
                 }
               }
 
-              return ChatMessageBubble(
+              // Group (hub/room) mode: each non-mine message uses its own
+              // sender's name/avatar instead of the single fixed
+              // otherUserName/otherUserPicture the 1-on-1 path relies on.
+              // The 1-on-1 path (isGroup == false, the default) is entirely
+              // unaffected — it keeps passing the widget-level values below.
+              final bubbleUserName =
+                  isGroup && !isMe ? message.sender.name : otherUserName;
+              final senderImages = message.sender.effectiveImageUrls;
+              final bubblePicture = isGroup && !isMe
+                  ? (senderImages.isNotEmpty ? senderImages.first : null)
+                  : otherUserPicture;
+              final bubbleNativeLanguage = isGroup && !isMe
+                  ? message.sender.native_language
+                  : otherUserNativeLanguage;
+
+              final bubble = ChatMessageBubble(
                 key: ValueKey(message.id), // Key for scrolling to message
                 message: message,
                 isMe: isMe,
-                otherUserName: otherUserName,
-                otherUserPicture: otherUserPicture,
-                otherUserNativeLanguage: otherUserNativeLanguage,
+                otherUserName: bubbleUserName,
+                otherUserPicture: bubblePicture,
+                otherUserNativeLanguage: bubbleNativeLanguage,
                 isSelectionMode: isSelectionMode,
                 isSelected: selectedMessageIds.contains(message.id),
                 onSelectionChanged: onSelectionChanged,
@@ -295,7 +324,36 @@ class ChatMessagesList extends StatelessWidget {
                 onDeleteFailed: onDeleteFailedMessage,
                 isFirstInGroup: isFirstInGroup,
                 isLastInGroup: isLastInGroup,
+                // Per-message report (Task 11) — only wired for non-mine
+                // messages; `null` (the DM default) hides the menu item
+                // entirely, so the existing 1-on-1 context menu is unchanged.
+                onReport: !isMe ? onReport : null,
               );
+
+              if (isGroup && !isMe && isFirstInGroup) {
+                return Padding(
+                  padding: const EdgeInsets.only(left: 52, right: 16, top: 4),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 2),
+                        child: Text(
+                          message.sender.name,
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                            color: context.textSecondary,
+                          ),
+                        ),
+                      ),
+                      bubble,
+                    ],
+                  ),
+                );
+              }
+
+              return bubble;
             },
           ),
         ),
