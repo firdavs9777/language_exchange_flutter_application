@@ -10,6 +10,8 @@ import 'package:bananatalk_app/pages/stories/widgets/stories_snackbar.dart';
 import 'package:bananatalk_app/pages/stories/create/gradient_picker.dart';
 import 'package:bananatalk_app/pages/stories/models/story_gradient.dart';
 import 'package:bananatalk_app/pages/stories/widgets/overlay_editor.dart';
+import 'package:bananatalk_app/pages/stories/create/poll_sticker_editor.dart';
+import 'package:bananatalk_app/pages/stories/create/question_sticker_editor.dart';
 
 class CreateStoryScreen extends StatefulWidget {
   final VoidCallback? onStoryCreated;
@@ -37,6 +39,15 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
   // Overlay elements added via the overlay editor
   List<OverlayElement> _overlays = [];
 
+  // Interactive stickers — a story carries at most one of these (matches backend).
+  StoryPoll? _poll;
+  StoryQuestionBox? _questionBox;
+
+  // Hashtags — chips-style input, capped at 10 (matches backend limit).
+  final List<String> _hashtags = [];
+  final TextEditingController _hashtagController = TextEditingController();
+  static const int _maxHashtags = 10;
+
   // Video support
   final VideoCompressionService _videoCompressionService = VideoCompressionService();
   VideoPlayerController? _videoController;
@@ -61,9 +72,31 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
   void dispose() {
     _captionController.dispose();
     _textOverlayController.dispose();
+    _hashtagController.dispose();
     _videoController?.dispose();
     _videoCompressionService.deleteAllCache();
     super.dispose();
+  }
+
+  /// Adds the current hashtag field text as a chip (deduped, max [_maxHashtags]).
+  void _addHashtag(String raw) {
+    final cleaned = raw.trim().replaceAll(RegExp(r'^#+'), '').toLowerCase();
+    _hashtagController.clear();
+    if (cleaned.isEmpty) return;
+    if (_hashtags.contains(cleaned)) return;
+    if (_hashtags.length >= _maxHashtags) {
+      showStoriesSnackBar(
+        context,
+        message: 'You can add up to $_maxHashtags hashtags',
+        type: StoriesSnackBarType.info,
+      );
+      return;
+    }
+    setState(() => _hashtags.add(cleaned));
+  }
+
+  void _removeHashtag(String tag) {
+    setState(() => _hashtags.remove(tag));
   }
 
   Future<void> _pickImage() async {
@@ -318,6 +351,7 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
           textColor: '#FFFFFF',
           fontStyle: 'normal',
           privacy: _privacy,
+          hashtags: _hashtags,
         );
 
         if (mounted) {
@@ -348,6 +382,9 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
           backgroundColor: _selectedColor,
           privacy: _privacy,
           overlays: _overlays.map((e) => e.toJson()).toList(),
+          poll: _poll,
+          questionBox: _questionBox,
+          hashtags: _hashtags,
         );
 
         if (mounted) {
@@ -573,7 +610,7 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
                 ),
               ),
               const SizedBox(height: 12),
-              
+
               // Caption input
               TextField(
                 controller: _captionController,
@@ -594,6 +631,8 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
                 ),
                 maxLines: 2,
               ),
+              const SizedBox(height: 12),
+              _buildHashtagInput(),
             ],
           ),
         ),
@@ -608,6 +647,8 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
                 _mediaFile = null;
                 _isTextStory = false;
                 _overlays = [];
+                _poll = null;
+                _questionBox = null;
               });
             },
             child: Container(
@@ -627,33 +668,235 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
           ),
         ),
 
-        // Add overlays button (top-right)
+        // Add overlays / sticker buttons (top-right)
         Positioned(
           top: 16,
           right: 16,
-          child: GestureDetector(
-            onTap: _openOverlayEditor,
-            child: Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: Colors.black54,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Row(
-                children: [
-                  const Icon(Icons.text_fields, color: Colors.white, size: 20),
-                  const SizedBox(width: 4),
-                  Text(
-                    _overlays.isEmpty ? 'Add Text' : 'Edit (${_overlays.length})',
-                    style: const TextStyle(color: Colors.white),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              GestureDetector(
+                onTap: _openOverlayEditor,
+                child: Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: Colors.black54,
+                    borderRadius: BorderRadius.circular(20),
                   ),
-                ],
+                  child: Row(
+                    children: [
+                      const Icon(Icons.text_fields, color: Colors.white, size: 20),
+                      const SizedBox(width: 4),
+                      Text(
+                        _overlays.isEmpty ? 'Add Text' : 'Edit (${_overlays.length})',
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                    ],
+                  ),
+                ),
               ),
-            ),
+              const SizedBox(height: 8),
+              GestureDetector(
+                onTap: _openStickerMenu,
+                child: Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: Colors.black54,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: const Row(
+                    children: [
+                      Icon(Icons.auto_awesome, color: Colors.white, size: 20),
+                      SizedBox(width: 4),
+                      Text('Sticker', style: TextStyle(color: Colors.white)),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
+
+        // Attached sticker chip (poll or question), with quick remove
+        if (_poll != null || _questionBox != null)
+          Positioned(
+            top: 16,
+            left: 16,
+            right: 140,
+            child: _buildAttachedStickerChip(),
+          ),
       ],
     );
+  }
+
+  Widget _buildAttachedStickerChip() {
+    final isPoll = _poll != null;
+    final label = isPoll ? 'Poll: ${_poll!.question}' : 'Question: ${_questionBox!.prompt}';
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      decoration: BoxDecoration(
+        color: const Color(0xFF00BFA5).withValues(alpha: 0.85),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(isPoll ? Icons.poll : Icons.chat_bubble_outline, color: Colors.white, size: 16),
+          const SizedBox(width: 6),
+          Flexible(
+            child: Text(
+              label,
+              style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w600),
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+            ),
+          ),
+          const SizedBox(width: 6),
+          GestureDetector(
+            onTap: () => setState(() {
+              _poll = null;
+              _questionBox = null;
+            }),
+            child: const Icon(Icons.close, color: Colors.white, size: 16),
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// Chips-style hashtag input: type a tag and press enter/done to add a
+  /// chip; tap the chip's close icon to remove. Capped at [_maxHashtags].
+  Widget _buildHashtagInput() {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      decoration: BoxDecoration(
+        color: Colors.black54,
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (_hashtags.isNotEmpty) ...[
+            Wrap(
+              spacing: 6,
+              runSpacing: 6,
+              children: _hashtags.map((tag) {
+                return Chip(
+                  label: Text(
+                    '#$tag',
+                    style: const TextStyle(color: Colors.white, fontSize: 12),
+                  ),
+                  backgroundColor: Colors.white.withValues(alpha: 0.15),
+                  deleteIcon: const Icon(Icons.close, size: 14, color: Colors.white70),
+                  onDeleted: () => _removeHashtag(tag),
+                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  visualDensity: VisualDensity.compact,
+                  padding: const EdgeInsets.symmetric(horizontal: 4),
+                );
+              }).toList(),
+            ),
+            const SizedBox(height: 6),
+          ],
+          if (_hashtags.length < _maxHashtags)
+            TextField(
+              controller: _hashtagController,
+              style: const TextStyle(color: Colors.white, fontSize: 14),
+              decoration: const InputDecoration(
+                hintText: 'Add hashtags...',
+                hintStyle: TextStyle(color: Colors.white54, fontSize: 14),
+                border: InputBorder.none,
+                isDense: true,
+                prefixIcon: Icon(Icons.tag, color: Colors.white54, size: 18),
+                prefixIconConstraints: BoxConstraints(minWidth: 26, minHeight: 20),
+              ),
+              textInputAction: TextInputAction.done,
+              onSubmitted: _addHashtag,
+              onChanged: (value) {
+                // Also split on comma/space so quick typing "abc, def" works.
+                if (value.endsWith(' ') || value.endsWith(',')) {
+                  _addHashtag(value);
+                }
+              },
+            ),
+        ],
+      ),
+    );
+  }
+
+  void _openStickerMenu() {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.grey[900],
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (ctx) => SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              margin: const EdgeInsets.only(top: 12, bottom: 8),
+              width: 40,
+              height: 4,
+              decoration: BoxDecoration(
+                color: Colors.grey[700],
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+            ListTile(
+              leading: const Icon(Icons.poll, color: Color(0xFF00BFA5)),
+              title: const Text('Poll', style: TextStyle(color: Colors.white)),
+              subtitle: const Text('Ask a question with options', style: TextStyle(color: Colors.white54)),
+              onTap: () {
+                Navigator.pop(ctx);
+                _openPollEditor();
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.chat_bubble_outline, color: Color(0xFF00BFA5)),
+              title: const Text('Question', style: TextStyle(color: Colors.white)),
+              subtitle: const Text('Let viewers send you answers', style: TextStyle(color: Colors.white54)),
+              onTap: () {
+                Navigator.pop(ctx);
+                _openQuestionEditor();
+              },
+            ),
+            const SizedBox(height: 8),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Future<void> _openPollEditor() async {
+    final result = await Navigator.push<StoryPoll>(
+      context,
+      MaterialPageRoute(
+        builder: (_) => PollStickerEditor(initial: _poll),
+      ),
+    );
+    if (result != null) {
+      setState(() {
+        _poll = result;
+        _questionBox = null; // Mutually exclusive with backend schema
+      });
+    }
+  }
+
+  Future<void> _openQuestionEditor() async {
+    final result = await Navigator.push<StoryQuestionBox>(
+      context,
+      MaterialPageRoute(
+        builder: (_) => QuestionStickerEditor(initial: _questionBox),
+      ),
+    );
+    if (result != null) {
+      setState(() {
+        _questionBox = result;
+        _poll = null; // Mutually exclusive with backend schema
+      });
+    }
   }
 
   Future<void> _openOverlayEditor() async {
@@ -732,6 +975,13 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
               selectedId: _gradientId,
               onChanged: (id) => setState(() => _gradientId = id),
             ),
+
+            // Hashtag chips input
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: _buildHashtagInput(),
+            ),
+            const SizedBox(height: 8),
 
             // Privacy selector
             Padding(

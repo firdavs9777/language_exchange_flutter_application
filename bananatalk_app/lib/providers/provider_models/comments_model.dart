@@ -4,6 +4,37 @@ import 'package:bananatalk_app/providers/provider_models/message_model.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart' show CommentReaction, CommentMention;
 import 'package:bananatalk_app/utils/string_sanitizer.dart';
 
+/// A correction attached to a comment (e.g. a language-exchange partner
+/// correcting the moment's original text). Mirrors the backend's
+/// `Comment.correction` embedded schema: `{originalText, correctedText, explanation}`.
+class CommentCorrection {
+  const CommentCorrection({
+    required this.originalText,
+    required this.correctedText,
+    this.explanation,
+  });
+
+  final String originalText;
+  final String correctedText;
+  final String? explanation;
+
+  factory CommentCorrection.fromJson(Map<String, dynamic> json) {
+    return CommentCorrection(
+      originalText: sanitize(json['originalText']),
+      correctedText: sanitize(json['correctedText']),
+      explanation: json['explanation'] != null && json['explanation'].toString().isNotEmpty
+          ? sanitize(json['explanation'])
+          : null,
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        'originalText': originalText,
+        'correctedText': correctedText,
+        if (explanation != null && explanation!.isNotEmpty) 'explanation': explanation,
+      };
+}
+
 class Comments {
   const Comments({
     required this.id,
@@ -21,6 +52,7 @@ class Comments {
     this.reactions = const [],
     this.reactionCount = 0,
     this.mentions = const [],
+    this.correction,
   });
 
   final String id;
@@ -38,6 +70,7 @@ class Comments {
   final List<CommentReaction> reactions;
   final int reactionCount;
   final List<CommentMention> mentions;
+  final CommentCorrection? correction;
 
   factory Comments.fromJson(Map<String, dynamic> json) {
     // Handle null, incomplete, or string ID user data gracefully
@@ -169,6 +202,9 @@ class Comments {
                 .map((m) => CommentMention.fromJson(m))
                 .toList()
             : [],
+        correction: json['correction'] != null && json['correction'] is Map<String, dynamic>
+            ? CommentCorrection.fromJson(json['correction'] as Map<String, dynamic>)
+            : null,
     );
   }
 }

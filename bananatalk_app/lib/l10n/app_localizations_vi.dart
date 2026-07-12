@@ -243,6 +243,9 @@ class AppLocalizationsVi extends AppLocalizations {
   String get beTheFirstToComment => 'Hãy là người đầu tiên bình luận.';
 
   @override
+  String get loadMoreComments => 'Load more comments';
+
+  @override
   String get writeAComment => 'Viết bình luận...';
 
   @override
@@ -1735,6 +1738,21 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get noMomentsYet => 'Chưa có khoảnh khắc';
+
+  @override
+  String get noForYouMomentsTitle => 'No moments yet';
+
+  @override
+  String get noForYouMomentsBody => 'Answer today\'s prompt to get the conversation started.';
+
+  @override
+  String get noFollowingMomentsTitle => 'Nothing here yet';
+
+  @override
+  String get noFollowingMomentsBody => 'Follow people from Community to see their moments here.';
+
+  @override
+  String get goToCommunity => 'Go to Community';
 
   @override
   String get unableToLoadMoments => 'Unable to load moments';

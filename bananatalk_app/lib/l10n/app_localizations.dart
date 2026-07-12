@@ -584,6 +584,12 @@ abstract class AppLocalizations {
   /// **'Be the first to comment.'**
   String get beTheFirstToComment;
 
+  /// No description provided for @loadMoreComments.
+  ///
+  /// In en, this message translates to:
+  /// **'Load more comments'**
+  String get loadMoreComments;
+
   /// No description provided for @writeAComment.
   ///
   /// In en, this message translates to:
@@ -3463,6 +3469,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No moments yet'**
   String get noMomentsYet;
+
+  /// No description provided for @noForYouMomentsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No moments yet'**
+  String get noForYouMomentsTitle;
+
+  /// No description provided for @noForYouMomentsBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Answer today\'s prompt to get the conversation started.'**
+  String get noForYouMomentsBody;
+
+  /// No description provided for @noFollowingMomentsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing here yet'**
+  String get noFollowingMomentsTitle;
+
+  /// No description provided for @noFollowingMomentsBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Follow people from Community to see their moments here.'**
+  String get noFollowingMomentsBody;
+
+  /// No description provided for @goToCommunity.
+  ///
+  /// In en, this message translates to:
+  /// **'Go to Community'**
+  String get goToCommunity;
 
   /// No description provided for @unableToLoadMoments.
   ///

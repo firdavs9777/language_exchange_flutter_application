@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:bananatalk_app/providers/provider_models/story_model.dart';
+import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/services/stories_service.dart';
+import 'package:bananatalk_app/pages/stories/highlights/highlight_editor_sheet.dart';
 import 'package:bananatalk_app/widgets/blocked_content_widget.dart';
 import 'package:bananatalk_app/widgets/report_dialog.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
@@ -9,15 +11,18 @@ import 'package:bananatalk_app/widgets/story/story_progress_bar.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/image_utils.dart';
 import 'package:bananatalk_app/pages/stories/create/create_story_screen.dart';
-import 'package:bananatalk_app/pages/community/single/single_community_screen.dart';
-import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:video_player/video_player.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'dart:async';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/pages/stories/widgets/stories_snackbar.dart';
 import 'package:bananatalk_app/pages/stories/viewer/viewer_text_story_layer.dart';
 import 'package:bananatalk_app/pages/stories/viewer/viewer_overlay_layer.dart' as overlay_layer;
+import 'package:bananatalk_app/pages/stories/viewer/story_viewers_sheet.dart';
+import 'package:bananatalk_app/widgets/story/story_poll_widget.dart';
+import 'package:bananatalk_app/widgets/story/story_question_box_widget.dart';
 
 class StoryViewerScreen extends StatefulWidget {
   final List<UserStories> userStories;
@@ -25,13 +30,31 @@ class StoryViewerScreen extends StatefulWidget {
   final bool isOwnStory;
   final VoidCallback? onStoriesUpdated;
 
+  /// Optional alternate list-source: a plain, flat list of stories to play
+  /// (e.g. a single highlight's stories) instead of the grouped
+  /// [userStories]. When provided, it takes precedence and is wrapped into
+  /// a single synthetic [UserStories] internally — callers never need to
+  /// construct a [UserStories] wrapper themselves. Kept as a plain
+  /// `List<Story>` (no bespoke wrapper type) so it composes cleanly with
+  /// any future ad-injection pass over the story list.
+  final List<Story>? stories;
+
+  /// The user to attribute [stories] to when using the alternate source.
+  /// Falls back to the first story's own `.user` if omitted.
+  final Community? storiesUser;
+
   const StoryViewerScreen({
     super.key,
-    required this.userStories,
+    this.userStories = const [],
     this.initialUserIndex = 0,
     this.isOwnStory = false,
     this.onStoriesUpdated,
-  });
+    this.stories,
+    this.storiesUser,
+  }) : assert(
+         stories != null || userStories.length > 0,
+         'Provide either userStories or a non-empty stories list',
+       );
 
   @override
   State<StoryViewerScreen> createState() => _StoryViewerScreenState();
@@ -64,6 +87,26 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
 
   // Cube transition
   double _cubeOffset = 0;
+
+  // Poll voting — track optimistic per-story vote state locally so the UI
+  // reflects the vote immediately, then reconcile with server results.
+  final Map<String, StoryPoll> _pollOverrides = {};
+
+  /// The grouped story list actually driving the viewer. When [StoryViewerScreen.stories]
+  /// is provided (e.g. a single highlight's stories), it is wrapped into one
+  /// synthetic [UserStories] here; otherwise the grouped [StoryViewerScreen.userStories]
+  /// is used as-is.
+  late final List<UserStories> _userStories = widget.stories != null
+      ? [
+          UserStories(
+            user: widget.storiesUser ??
+                (widget.stories!.isNotEmpty
+                    ? widget.stories!.first.user
+                    : throw StateError('stories list must not be empty')),
+            stories: widget.stories!,
+          ),
+        ]
+      : widget.userStories;
 
   @override
   void initState() {
@@ -165,15 +208,22 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
     super.dispose();
   }
 
-  List<Story> get _currentStories =>
-      widget.userStories[_currentUserIndex].activeStories;
+  // When an explicit `widget.stories` list-source is supplied (e.g.
+  // highlights playback), play that raw list as-is — highlight stories are
+  // expected to be viewable long after the normal 24h expiry, so the
+  // isStillActive filter on `UserStories.activeStories` must not apply.
+  // Otherwise (normal grouped story-tray viewing) keep filtering to only
+  // still-active stories.
+  List<Story> get _currentStories => widget.stories != null
+      ? _userStories[_currentUserIndex].stories
+      : _userStories[_currentUserIndex].activeStories;
 
   Story? get _currentStory =>
       _currentStories.isNotEmpty && _currentStoryIndex < _currentStories.length
           ? _currentStories[_currentStoryIndex]
           : null;
 
-  UserStories get _currentUser => widget.userStories[_currentUserIndex];
+  UserStories get _currentUser => _userStories[_currentUserIndex];
 
   void _startStoryTimer() {
     _progressController.reset();
@@ -228,7 +278,7 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
   }
 
   void _nextUser() {
-    if (_currentUserIndex < widget.userStories.length - 1) {
+    if (_currentUserIndex < _userStories.length - 1) {
       // Reset story index for next user
       setState(() {
         _currentStoryIndex = 0;
@@ -321,6 +371,112 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
     }
   }
 
+  /// Vote on the current story's poll. Optimistically updates the local
+  /// override so the widget re-renders with the user's choice highlighted
+  /// while the request is in flight, then reconciles with the server's
+  /// authoritative counts/percentages.
+  Future<void> _votePoll(Story story, int optionIndex) async {
+    final currentPoll = _pollOverrides[story.id] ?? story.poll;
+    if (currentPoll == null || currentPoll.hasUserVoted) return;
+
+    // Optimistic local update: mark the chosen option as voted so the
+    // widget flips into its "voted" state immediately.
+    final optimisticOptions = currentPoll.options.map((o) {
+      if (o.index == optionIndex) {
+        return StoryPollOption(
+          index: o.index,
+          text: o.text,
+          voteCount: o.voteCount + 1,
+          percentage: o.percentage,
+          voted: true,
+        );
+      }
+      return o;
+    }).toList();
+    setState(() {
+      _pollOverrides[story.id] = StoryPoll(
+        question: currentPoll.question,
+        options: optimisticOptions,
+        isAnonymous: currentPoll.isAnonymous,
+        expiresAt: currentPoll.expiresAt,
+        userVoteIndex: optionIndex,
+      );
+    });
+
+    final result = await StoriesService.votePoll(storyId: story.id, optionIndex: optionIndex);
+    if (!mounted) return;
+
+    if (result['success'] == true && result['poll'] != null) {
+      setState(() {
+        _pollOverrides[story.id] = result['poll'] as StoryPoll;
+      });
+    } else {
+      showStoriesSnackBar(
+        context,
+        message: 'Failed to submit vote',
+        type: StoriesSnackBarType.error,
+      );
+    }
+  }
+
+  Future<void> _answerQuestion(Story story, String text, bool isAnonymous) async {
+    final result = await StoriesService.answerQuestion(
+      storyId: story.id,
+      text: text,
+      isAnonymous: isAnonymous,
+    );
+
+    if (!mounted) return;
+    if (result['success'] == true) {
+      showStoriesSnackBar(
+        context,
+        message: 'Answer sent!',
+        type: StoriesSnackBarType.success,
+      );
+    } else {
+      showStoriesSnackBar(
+        context,
+        message: 'Failed to send answer',
+        type: StoriesSnackBarType.error,
+      );
+    }
+  }
+
+  /// Shows a sheet with live question responses for the owner, fetched via
+  /// `getQuestionResponses`. Shows a loading state while the request is in
+  /// flight and falls back to the embedded responses on failure.
+  void _showQuestionResponses(Story story) {
+    _pauseStory();
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.grey[900],
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (ctx) {
+        return FractionallySizedBox(
+          heightFactor: 0.7,
+          child: FutureBuilder<Map<String, dynamic>>(
+            future: StoriesService.getQuestionResponses(storyId: story.id),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState != ConnectionState.done) {
+                return const StoryQuestionResponsesList(responses: [], isLoading: true);
+              }
+              final data = snapshot.data;
+              final responses = (data != null && data['success'] == true)
+                  ? (data['responses'] as List<StoryQuestionResponse>?) ?? const []
+                  : (story.questionBox?.responses ?? const []);
+              return StoryQuestionResponsesList(responses: responses);
+            },
+          ),
+        );
+      },
+    ).then((_) {
+      if (mounted) _resumeStory();
+    });
+  }
+
   Future<void> _deleteStory() async {
     final story = _currentStory;
     if (story == null) return;
@@ -389,6 +545,61 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
     final shareText = 'Check out $userName\'s story on Bananatalk!$storyText\n\nhttps://bananatalk.com/story/${story.id}';
 
     Share.share(shareText);
+  }
+
+  /// Opens the story's attached link sticker in an external browser.
+  /// Falls back to copying the URL to the clipboard if it can't be launched.
+  Future<void> _openLink(String url) async {
+    final uri = Uri.tryParse(url);
+    if (uri != null && await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    } else {
+      await _copyLinkToClipboard(url);
+    }
+  }
+
+  Future<void> _copyLinkToClipboard(String url) async {
+    await Clipboard.setData(ClipboardData(text: url));
+    if (mounted) {
+      showStoriesSnackBar(
+        context,
+        message: 'Link copied to clipboard',
+        type: StoriesSnackBarType.success,
+      );
+    }
+  }
+
+  /// Saves the current own-story media to the device.
+  ///
+  /// No gallery-save package (image_gallery_saver / gal) is present in
+  /// pubspec.yaml, so this downloads the media to a local cache file (via
+  /// flutter_cache_manager, already a dependency) and hands it to the native
+  /// share sheet as a file — on iOS/Android that sheet offers "Save Image"/
+  /// "Save Video" to the photo library, which achieves the same outcome
+  /// without adding a new dependency.
+  Future<void> _saveStoryToDevice() async {
+    final story = _currentStory;
+    if (story == null) return;
+
+    if (story.mediaType == 'text' || story.mediaUrl.isEmpty) {
+      showStoriesSnackBar(
+        context,
+        message: "This story doesn't have media to save",
+        type: StoriesSnackBarType.info,
+      );
+      return;
+    }
+
+    try {
+      final url = ImageUtils.normalizeImageUrl(story.mediaUrl);
+      final file = await DefaultCacheManager().getSingleFile(url);
+      await SharePlus.instance.share(
+        ShareParams(files: [XFile(file.path)], text: 'Save this to your device'),
+      );
+    } catch (e) {
+      // Fall back to a plain link share if the file can't be fetched/shared directly.
+      Share.share(ImageUtils.normalizeImageUrl(story.mediaUrl));
+    }
   }
 
   void _addMoreToStory() async {
@@ -480,36 +691,29 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
           ),
         ),
       ),
-          // Seen-by bar for own stories — outside GestureDetector so taps work
+          // Viewer count chip for own stories — outside GestureDetector so taps work
           if (widget.isOwnStory && _currentStory != null)
             Positioned(
               bottom: MediaQuery.of(context).padding.bottom + 16,
-              left: 0,
-              right: 0,
-              child: Center(
-                child: GestureDetector(
-                  onTap: () {
-                                    _showViewersList(_currentStory!);
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                    decoration: BoxDecoration(
-                      color: Colors.black54,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const Icon(Icons.visibility_outlined, color: Colors.white, size: 18),
-                        const SizedBox(width: 8),
-                        Text(
-                          'Seen by ${_currentStory!.viewCount}',
-                          style: const TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w500),
-                        ),
-                        const SizedBox(width: 4),
-                        const Icon(Icons.keyboard_arrow_up, color: Colors.white, size: 18),
-                      ],
-                    ),
+              left: 16,
+              child: GestureDetector(
+                onTap: () => _showViewersSheet(_currentStory!),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                  decoration: BoxDecoration(
+                    color: Colors.black54,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Text('👁', style: TextStyle(fontSize: 14)),
+                      const SizedBox(width: 6),
+                      Text(
+                        '${_currentStory!.viewCount}',
+                        style: const TextStyle(color: Colors.white, fontSize: 13, fontWeight: FontWeight.w600),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -532,7 +736,7 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
       child: PageView.builder(
         controller: _userPageController,
         onPageChanged: _onUserPageChanged,
-        itemCount: widget.userStories.length,
+        itemCount: _userStories.length,
         physics: const BouncingScrollPhysics(),
         itemBuilder: (context, userIndex) {
           // Calculate cube rotation
@@ -807,7 +1011,10 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
                             ListTile(
                               leading: Icon(Icons.visibility, color: Theme.of(context).iconTheme.color),
                               title: Text(AppLocalizations.of(context)!.views('${story.viewCount}'), style: TextStyle(color: Theme.of(context).textTheme.bodyLarge?.color)),
-                              onTap: () => Navigator.pop(context),
+                              onTap: () {
+                                Navigator.pop(context);
+                                _showViewersSheet(story);
+                              },
                             ),
                             ListTile(
                               leading: Icon(Icons.share, color: Theme.of(context).iconTheme.color),
@@ -817,6 +1024,15 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
                                 _shareStory();
                               },
                             ),
+                            if (story.mediaType != 'text')
+                              ListTile(
+                                leading: Icon(Icons.download_outlined, color: Theme.of(context).iconTheme.color),
+                                title: Text('Share/Save', style: TextStyle(color: Theme.of(context).textTheme.bodyLarge?.color)),
+                                onTap: () {
+                                  Navigator.pop(context);
+                                  _saveStoryToDevice();
+                                },
+                              ),
                             ListTile(
                               leading: Icon(Icons.add_circle_outline, color: Theme.of(context).iconTheme.color),
                               title: Text('Add more to story', style: TextStyle(color: Theme.of(context).textTheme.bodyLarge?.color)),
@@ -827,10 +1043,10 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
                             ),
                             ListTile(
                               leading: Icon(Icons.bookmark_add_outlined, color: Theme.of(context).iconTheme.color),
-                              title: Text('Save to Highlight', style: TextStyle(color: Theme.of(context).textTheme.bodyLarge?.color)),
+                              title: Text(AppLocalizations.of(context)!.addToHighlight, style: TextStyle(color: Theme.of(context).textTheme.bodyLarge?.color)),
                               onTap: () {
                                 Navigator.pop(context);
-                                _saveToHighlight(story);
+                                _addToHighlight(story);
                               },
                             ),
                             const Divider(color: Colors.grey, height: 1),
@@ -894,6 +1110,56 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
             ),
           ),
 
+        // Poll sticker
+        if (story.poll != null)
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: MediaQuery.of(context).padding.bottom + (widget.isOwnStory ? 100 : 180),
+            child: StoryPollWidget(
+              key: ValueKey('poll_${story.id}'),
+              poll: _pollOverrides[story.id] ?? story.poll!,
+              isOwner: widget.isOwnStory,
+              onVote: widget.isOwnStory ? null : (index) => _votePoll(story, index),
+              onInteracting: widget.isOwnStory
+                  ? null
+                  : (interacting) =>
+                      interacting ? _pauseStory() : _resumeStory(),
+            ),
+          ),
+
+        // Question box sticker
+        if (story.questionBox != null)
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: MediaQuery.of(context).padding.bottom + (widget.isOwnStory ? 100 : 180),
+            child: StoryQuestionBoxWidget(
+              key: ValueKey('question_${story.id}'),
+              questionBox: story.questionBox!,
+              isOwner: widget.isOwnStory,
+              onSubmitAnswer: widget.isOwnStory
+                  ? null
+                  : (text, isAnonymous) => _answerQuestion(story, text, isAnonymous),
+              onViewResponses: widget.isOwnStory ? () => _showQuestionResponses(story) : null,
+              onFocusChanged: widget.isOwnStory
+                  ? null
+                  : (focused) => focused ? _pauseStory() : _resumeStory(),
+            ),
+          ),
+
+        // Link sticker pill — sits above the poll/question sticker (if any)
+        // to avoid overlapping it, since a story can carry both.
+        if (story.link != null && story.link!.url.isNotEmpty)
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: MediaQuery.of(context).padding.bottom +
+                (widget.isOwnStory ? 100 : 180) +
+                ((story.poll != null || story.questionBox != null) ? 90 : 0),
+            child: Center(child: _buildLinkPill(story.link!)),
+          ),
+
         // Reply / Reactions
         if (!widget.isOwnStory)
           Positioned(
@@ -910,10 +1176,12 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
     );
   }
 
-  void _saveToHighlight(Story story) async {
+  /// Own-story "Add to highlight" action: opens a picker with existing
+  /// highlights (tap to add) plus a "New highlight" row.
+  Future<void> _addToHighlight(Story story) async {
     _pauseStory();
 
-    // Check if story is already in a highlight
+    // Already in a highlight — nothing to do.
     if (story.highlightId != null && story.highlightId!.isNotEmpty) {
       if (mounted) {
         showStoriesSnackBar(
@@ -926,268 +1194,87 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
       return;
     }
 
-    // Fetch existing highlights to show options
     final highlightsResponse = await StoriesService.getMyHighlights();
-    final existingHighlights = highlightsResponse.success ? highlightsResponse.data : <StoryHighlight>[];
+    final existingHighlights =
+        highlightsResponse.success ? highlightsResponse.data : <StoryHighlight>[];
 
     if (!mounted) return;
 
-    showModalBottomSheet(
-      context: context,
-      backgroundColor: Theme.of(context).colorScheme.surface,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (ctx) {
-        return SafeArea(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                margin: const EdgeInsets.only(top: 12, bottom: 8),
-                width: 40, height: 4,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).dividerColor,
-                  borderRadius: BorderRadius.circular(2),
-                ),
-              ),
-              const Padding(
-                padding: EdgeInsets.all(16),
-                child: Text('Save to Highlight', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
-              ),
-              // Existing highlights
-              if (existingHighlights.isNotEmpty) ...[
-                ...existingHighlights.map((h) {
-                  // Check if story already in this highlight
-                  final alreadyIn = h.stories.any((s) => s.id == story.id);
-                  return ListTile(
-                    leading: CircleAvatar(
-                      radius: 24,
-                      backgroundImage: h.coverImage != null && h.coverImage!.isNotEmpty
-                          ? NetworkImage(h.coverImage!)
-                          : null,
-                      child: h.coverImage == null || h.coverImage!.isEmpty
-                          ? const Icon(Icons.auto_stories, size: 20)
-                          : null,
-                    ),
-                    title: Text(h.title),
-                    subtitle: Text('${h.storyCount} stories'),
-                    trailing: alreadyIn
-                        ? const Icon(Icons.check_circle, color: Color(0xFF00BFA5))
-                        : null,
-                    onTap: alreadyIn ? null : () async {
-                      Navigator.pop(ctx);
-                      try {
-                        await StoriesService.addToHighlight(highlightId: h.id, storyId: story.id);
-                        if (mounted) {
-                          showStoriesSnackBar(
-                            context,
-                            message: 'Added to "${h.title}"',
-                            type: StoriesSnackBarType.success,
-                          );
-                        }
-                      } catch (e) {
-                        if (mounted) {
-                          showStoriesSnackBar(
-                            context,
-                            message: 'Failed: ${e.toString().replaceFirst("Exception: ", "")}',
-                            type: StoriesSnackBarType.error,
-                          );
-                        }
-                      }
-                    },
-                  );
-                }),
-                const Divider(height: 1),
-              ],
-              // Create new highlight
-              ListTile(
-                leading: const CircleAvatar(
-                  radius: 24,
-                  backgroundColor: Color(0xFF00BFA5),
-                  child: Icon(Icons.add, color: Colors.white),
-                ),
-                title: const Text('Create New Highlight'),
-                onTap: () async {
-                  Navigator.pop(ctx);
-                  _createNewHighlight(story);
-                },
-              ),
-              const SizedBox(height: 8),
-            ],
-          ),
-        );
-      },
-    ).then((_) {
-      if (mounted) _resumeStory();
-    });
-  }
-
-  void _createNewHighlight(Story story) async {
-    final result = await showDialog<String>(
-      context: context,
-      builder: (ctx) {
-        final controller = TextEditingController();
-        return AlertDialog(
-          title: const Text('New Highlight'),
-          content: TextField(
-            controller: controller,
-            autofocus: true,
-            decoration: InputDecoration(
-              hintText: 'Highlight name...',
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-              contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(ctx),
-              child: const Text('Cancel'),
-            ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF00BFA5),
-                foregroundColor: Colors.white,
-              ),
-              onPressed: () {
-                final title = controller.text.trim();
-                if (title.isNotEmpty) Navigator.pop(ctx, title);
-              },
-              child: const Text('Create'),
-            ),
-          ],
-        );
-      },
+    final added = await HighlightEditorSheet.showPicker(
+      context,
+      storyId: story.id,
+      existingHighlights: existingHighlights,
     );
 
-    if (result != null && result.isNotEmpty) {
-      try {
-        await StoriesService.createHighlight(title: result, storyId: story.id);
-        if (mounted) {
-          showStoriesSnackBar(
-            context,
-            message: 'Created highlight "$result"',
-            type: StoriesSnackBarType.success,
-          );
-        }
-      } catch (e) {
-        if (mounted) {
-          showStoriesSnackBar(
-            context,
-            message: 'Failed: ${e.toString().replaceFirst("Exception: ", "")}',
-            type: StoriesSnackBarType.error,
-          );
-        }
+    if (mounted) {
+      if (added) {
+        showStoriesSnackBar(
+          context,
+          message: 'Added to highlight',
+          type: StoriesSnackBarType.success,
+        );
       }
+      _resumeStory();
     }
   }
 
-  void _showViewersList(Story story) {
+  /// Shows the viewers/reactions bottom sheet for an own story.
+  /// Pauses playback while the sheet is open and resumes on close.
+  void _showViewersSheet(Story story) {
     _pauseStory();
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Theme.of(context).colorScheme.surface,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (context) {
-        return Container(
-          constraints: BoxConstraints(
-            maxHeight: MediaQuery.of(context).size.height * 0.5,
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(16),
-                child: Row(
-                  children: [
-                    const Icon(Icons.visibility_outlined, size: 20),
-                    const SizedBox(width: 8),
-                    Text(
-                      'Seen by ${story.viewCount}',
-                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-                    ),
-                  ],
-                ),
-              ),
-              const Divider(height: 1),
-              Expanded(
-                child: FutureBuilder<Map<String, dynamic>>(
-                  future: StoriesService.getStoryViewers(storyId: story.id),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Center(child: CircularProgressIndicator());
-                    }
-                    if (snapshot.hasError) {
-                      return Center(child: Text('Error: ${snapshot.error}'));
-                    }
-                    if (snapshot.data == null || snapshot.data!['success'] != true) {
-                      debugPrint('👁️ Viewers response: ${snapshot.data}');
-                      return const Center(child: Text('Failed to load viewers'));
-                    }
-                    // Service returns 'views' key with List<StoryView>
-                    final viewsList = snapshot.data!['views'] as List? ?? [];
-                    if (viewsList.isEmpty) {
-                      return const Center(child: Text('No views yet'));
-                    }
-                    return ListView.builder(
-                      itemCount: viewsList.length,
-                      itemBuilder: (context, index) {
-                        final view = viewsList[index];
-                        // view is a StoryView object
-                        String userName = 'User';
-                        String? userImage;
-                        DateTime viewedAt = DateTime.now();
-                        Community? userCommunity;
-                        if (view is StoryView) {
-                          userName = view.user?.name ?? 'User';
-                          userImage = view.user?.imageUrls.isNotEmpty == true
-                              ? view.user!.imageUrls.first
-                              : (view.user?.images.isNotEmpty == true ? view.user!.images.first : null);
-                          viewedAt = view.viewedAt;
-                          userCommunity = view.user;
-                        }
-                        return ListTile(
-                          onTap: () {
-                            Navigator.pop(context);
-                            if (userCommunity != null) {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (_) => SingleCommunity(community: userCommunity!),
-                                ),
-                              );
-                            }
-                          },
-                          leading: CircleAvatar(
-                            radius: 20,
-                            backgroundImage: userImage != null && userImage.isNotEmpty
-                                ? NetworkImage(userImage)
-                                : null,
-                            child: userImage == null || userImage.isEmpty
-                                ? Text(userName.isNotEmpty ? userName[0].toUpperCase() : '?')
-                                : null,
-                          ),
-                          title: Text(userName),
-                          trailing: Text(
-                            _formatTime(viewedAt),
-                            style: TextStyle(color: Theme.of(context).textTheme.bodySmall?.color, fontSize: 12),
-                          ),
-                        );
-                      },
-                    );
-                  },
-                ),
-              ),
-            ],
-          ),
-        );
-      },
+    StoryViewersSheet.show(
+      context,
+      storyId: story.id,
+      initialViewCount: story.viewCount,
     ).then((_) {
       if (mounted) _resumeStory();
     });
+  }
+
+  /// Tappable link-sticker pill. Opens the URL externally via url_launcher;
+  /// if the link can't be launched, falls back to copying it to the
+  /// clipboard so the viewer can still use it.
+  Widget _buildLinkPill(StoryLink link) {
+    return GestureDetector(
+      onTap: () {
+        HapticFeedback.selectionClick();
+        _openLink(link.url);
+      },
+      onLongPress: () => _copyLinkToClipboard(link.url),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(24),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.25),
+              blurRadius: 8,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Icon(Icons.link, color: Colors.black87, size: 18),
+            const SizedBox(width: 8),
+            Flexible(
+              child: Text(
+                link.displayText,
+                style: const TextStyle(
+                  color: Colors.black87,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                ),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   Widget _buildReactionBar() {

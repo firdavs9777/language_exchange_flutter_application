@@ -55,6 +55,49 @@ class MomentVideo {
   }
 }
 
+/// Audio (voice-note) data for a moment
+class MomentAudio {
+  final String url;
+  final int duration; // in seconds
+  final List<double> waveform;
+  final String? mimeType;
+  final int? fileSize;
+
+  const MomentAudio({
+    required this.url,
+    required this.duration,
+    this.waveform = const [],
+    this.mimeType,
+    this.fileSize,
+  });
+
+  factory MomentAudio.fromJson(Map<String, dynamic> json) {
+    return MomentAudio(
+      url: json['url']?.toString() ?? '',
+      duration: json['duration'] is int
+          ? json['duration']
+          : (json['duration'] is double ? (json['duration'] as double).round() : 0),
+      waveform: json['waveform'] != null && json['waveform'] is List
+          ? (json['waveform'] as List)
+              .map((v) => v is num ? v.toDouble() : 0.0)
+              .toList()
+          : const [],
+      mimeType: json['mimeType']?.toString(),
+      fileSize: json['fileSize'] is int ? json['fileSize'] : null,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'url': url,
+      'duration': duration,
+      'waveform': waveform,
+      if (mimeType != null) 'mimeType': mimeType,
+      if (fileSize != null) 'fileSize': fileSize,
+    };
+  }
+}
+
 class Moments {
   const Moments({
     required this.id,
@@ -86,6 +129,8 @@ class Moments {
     this.translations = const [],
     // Video fields
     this.video,
+    // Audio fields
+    this.audio,
     this.mediaType = 'image',
     this.backgroundColor = '',
     // Reactions
@@ -127,7 +172,11 @@ class Moments {
 
   // Video fields
   final MomentVideo? video;
-  final String mediaType; // 'image', 'video', 'text'
+
+  // Audio fields
+  final MomentAudio? audio;
+
+  final String mediaType; // 'image', 'video', 'audio', 'text'
   final String backgroundColor;
 
   // Reactions
@@ -136,6 +185,9 @@ class Moments {
 
   /// Check if this moment has a video
   bool get hasVideo => video != null && video!.url.isNotEmpty;
+
+  /// Check if this moment has audio
+  bool get hasAudio => audio != null && audio!.url.isNotEmpty;
 
   /// Check if this moment has images
   bool get hasImages => imageUrls.isNotEmpty;
@@ -237,6 +289,11 @@ class Moments {
       video: json['video'] != null && json['video'] is Map<String, dynamic>
           ? MomentVideo.fromJson(json['video'])
           : null,
+
+      // Audio fields
+      audio: json['audio'] != null && json['audio'] is Map<String, dynamic>
+          ? MomentAudio.fromJson(json['audio'])
+          : null,
       mediaType: safeString(json['mediaType'], 'image'),
       backgroundColor: safeString(json['backgroundColor'], ''),
       reactions: json['reactions'] != null && json['reactions'] is List
@@ -273,6 +330,7 @@ class Moments {
       'isDeleted': isDeleted,
       if (deletedAt != null) 'deletedAt': deletedAt!.toIso8601String(),
       if (video != null) 'video': video!.toJson(),
+      if (audio != null) 'audio': audio!.toJson(),
       'mediaType': mediaType,
       'backgroundColor': backgroundColor,
       'reactionCount': reactionCount,
@@ -305,6 +363,7 @@ class Moments {
     DateTime? deletedAt,
     List<MessageTranslation>? translations,
     MomentVideo? video,
+    MomentAudio? audio,
     String? mediaType,
     String? backgroundColor,
     List<CommentReaction>? reactions,
@@ -335,6 +394,7 @@ class Moments {
       deletedAt: deletedAt ?? this.deletedAt,
       translations: translations ?? this.translations,
       video: video ?? this.video,
+      audio: audio ?? this.audio,
       mediaType: mediaType ?? this.mediaType,
       backgroundColor: backgroundColor ?? this.backgroundColor,
       reactions: reactions ?? this.reactions,

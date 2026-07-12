@@ -32,6 +32,7 @@ import 'package:bananatalk_app/pages/community/single/single_community_actions.d
 import 'package:bananatalk_app/pages/community/single/single_community_overview.dart';
 import 'package:bananatalk_app/pages/community/single/single_community_about.dart';
 import 'package:bananatalk_app/pages/community/single/single_community_moments.dart';
+import 'package:bananatalk_app/pages/stories/highlights/highlights_row.dart';
 
 // ---------------------------------------------------------------------------
 // Public entry point – name preserved for existing navigation call sites.
@@ -633,6 +634,15 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
                 onVoiceCall: _makeVoiceCall,
                 onMessage: _navigateToChat,
                 onFollowToggle: isFollower ? _unfollowUser : _followUser,
+              ),
+            ),
+
+            // Story highlights row (directly under the header/actions)
+            SliverToBoxAdapter(
+              child: HighlightsRow(
+                userId: _community.id,
+                isOwnProfile: false,
+                user: _community,
               ),
             ),
 

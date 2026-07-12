@@ -3,6 +3,7 @@ import 'package:bananatalk_app/pages/moments/card/moment_card_double_tap.dart';
 import 'package:bananatalk_app/pages/moments/card/moment_card_gradient.dart';
 import 'package:bananatalk_app/pages/moments/card/moment_card_header.dart';
 import 'package:bananatalk_app/pages/moments/card/moment_card_media.dart';
+import 'package:bananatalk_app/pages/moments/corrections/correction_sheet.dart';
 import 'package:bananatalk_app/pages/moments/create/create_moment.dart';
 import 'package:bananatalk_app/pages/moments/single/single_moment.dart';
 import 'package:bananatalk_app/pages/moments/viewer/video_player_widget.dart';
@@ -144,6 +145,8 @@ class _MomentCardState extends ConsumerState<MomentCard> {
           likeCount = result['likeCount'] ?? previousCount;
         });
         ref.invalidate(momentsFeedProvider);
+        ref.invalidate(forYouMomentsProvider);
+        ref.invalidate(followingMomentsProvider);
       }
     } catch (e) {
       if (mounted) {
@@ -223,6 +226,8 @@ class _MomentCardState extends ConsumerState<MomentCard> {
         emoji: emoji,
       );
       ref.invalidate(momentsFeedProvider);
+      ref.invalidate(forYouMomentsProvider);
+      ref.invalidate(followingMomentsProvider);
     } catch (e) {
       debugPrint('React to moment error: $e');
     }
@@ -244,6 +249,35 @@ class _MomentCardState extends ConsumerState<MomentCard> {
     final momentText = AppLocalizations.of(context)!.checkOutMoment;
     final momentUrl = 'https://banatalk.com/moment/$id';
     Share.share('$momentText\n\n$momentUrl');
+  }
+
+  Future<void> _suggestCorrection(BuildContext context) async {
+    await showCorrectionSheet(
+      context,
+      momentText: widget.moments.description,
+      onSubmit: (original, corrected, explanation) async {
+        await ref.read(commentsServiceProvider).createComment(
+              title: ' ',
+              id: widget.moments.id,
+              correction: {
+                'originalText': original,
+                'correctedText': corrected,
+                if (explanation != null) 'explanation': explanation,
+              },
+            );
+        ref.invalidate(commentsProvider(widget.moments.id));
+        ref.invalidate(momentsFeedProvider);
+        ref.invalidate(forYouMomentsProvider);
+        ref.invalidate(followingMomentsProvider);
+        if (mounted) {
+          showMomentsSnackBar(
+            this.context,
+            message: AppLocalizations.of(this.context)!.commentAddedSuccessfully,
+            type: MomentsSnackBarType.success,
+          );
+        }
+      },
+    );
   }
 
   // Picker-first translate flow — opens the full language picker, and only
@@ -326,6 +360,15 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                       message: AppLocalizations.of(context)!.momentsHidden,
                       type: MomentsSnackBarType.success,
                     );
+                  },
+                ),
+              if (!isOwnMoment)
+                ListTile(
+                  leading: const Icon(Icons.spellcheck_rounded, color: Color(0xFF00BFA5)),
+                  title: const Text('Suggest a correction'),
+                  onTap: () {
+                    Navigator.pop(context);
+                    _suggestCorrection(context);
                   },
                 ),
               if (!isOwnMoment)
@@ -613,6 +656,17 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                   ),
                 ),
               )
+            else if (widget.moments.hasAudio)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8),
+                child: MomentCardDoubleTap(
+                  onDoubleTap: toggleLike,
+                  child: MomentCardMedia(
+                    imageUrls: widget.moments.imageUrls,
+                    audio: widget.moments.audio,
+                  ),
+                ),
+              )
             else if (widget.moments.imageUrls.isNotEmpty)
               Padding(
                 padding: const EdgeInsets.only(bottom: 8),
@@ -716,6 +770,14 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                 ],
               ),
             ),
+
+            // NOTE on the correction-count chip: MomentCard does not load
+            // this moment's comments (only commentCount, a plain int, comes
+            // back on the feed payload), so a client-side "N corrections"
+            // chip can't be computed here without an extra fetch per card.
+            // Per the Task 7 brief, we skip the chip on the card and only
+            // surface the count in the single_moment view, where comments
+            // are already loaded via commentsProvider.
 
             // ── Engagement counts ────────────────────────────────────────────
             if (likeCount > 0 || widget.moments.commentCount > 0)

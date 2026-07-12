@@ -24,11 +24,28 @@ import 'package:bananatalk_app/pages/moments/widgets/moments_snackbar.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/pages/moments/create/create_action_helpers.dart';
 import 'package:bananatalk_app/pages/moments/create/create_tag_dialog.dart';
+import 'package:bananatalk_app/widgets/voice_recorder/voice_recorder_mobile.dart';
+import 'package:bananatalk_app/services/voice_message_service.dart';
+import 'package:just_audio/just_audio.dart';
 
 class CreateMoment extends ConsumerStatefulWidget {
   final Moments? momentToEdit; // If provided, we're editing an existing moment
 
-  const CreateMoment({Key? key, this.momentToEdit}) : super(key: key);
+  /// Optional prompt-of-the-day text to prefill into the composer (see
+  /// `PromptOfDayCard`). Shown as a dismissible chip above the text field
+  /// and, if present, prefills the description field itself.
+  final String? prefillPrompt;
+
+  /// Id of the prompt being answered, sent alongside the moment creation
+  /// request so the backend can attribute the moment to the prompt.
+  final String? prefillPromptId;
+
+  const CreateMoment({
+    Key? key,
+    this.momentToEdit,
+    this.prefillPrompt,
+    this.prefillPromptId,
+  }) : super(key: key);
 
   @override
   _CreateMomentState createState() => _CreateMomentState();
@@ -40,6 +57,13 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
 
   List<File> _selectedImages = [];
   File? _selectedVideo; // Video file for upload
+
+  // Audio (voice-note) state
+  File? _recordedAudio;
+  int _recordedAudioDuration = 0; // seconds
+  List<double> _recordedAudioWaveform = [];
+  bool _isRecordingAudio = false;
+
   Position? _currentPosition;
   String? _formattedAddress;
   bool _isLoading = false;
@@ -61,6 +85,10 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
   List<String> _tags = [];
   DateTime? _scheduledDate;
   String _selectedBackgroundColor = '';
+
+  // Prompt-of-the-day prefill state
+  bool _showPromptChip = false;
+  String? _promptId;
 
   static const int maxImages = 10;
   static const int maxDescriptionLength = 2000;
@@ -163,11 +191,43 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
           )
           .key;
 
-      _selectedMood = moment.mood;
+      // _selectedMood holds the emoji key (see _moods map: emoji -> word),
+      // but moment.mood is the backend word (e.g. "happy") — reverse-lookup
+      // the emoji so the mood picker shows the right selection and the
+      // update payload (_moods[_selectedMood]) round-trips correctly.
+      if (moment.mood.isNotEmpty) {
+        final moodEntry = _moods.entries.firstWhere(
+          (e) => e.value == moment.mood,
+          orElse: () => const MapEntry('', ''),
+        );
+        _selectedMood = moodEntry.key.isNotEmpty ? moodEntry.key : null;
+      }
       _selectedBackgroundColor = moment.backgroundColor;
+
+      // Prefill language + privacy so edit mode reflects the moment as-is.
+      final languageEntry = _languages.entries.firstWhere(
+        (e) => e.value == moment.language,
+        orElse: () => const MapEntry('English', 'en'),
+      );
+      _selectedLanguage = languageEntry.key;
+      _selectedPrivacy = moment.privacy.isNotEmpty
+          ? moment.privacy[0].toUpperCase() + moment.privacy.substring(1)
+          : 'Public';
+      if (!_privacyOptions.contains(_selectedPrivacy)) {
+        _selectedPrivacy = 'Public';
+      }
+
+      // Button should be enabled immediately since description is prefilled.
+      _updateButtonState();
 
       // Note: Images can't be easily pre-loaded as File objects since they're URLs
       // User can add new images but can't edit existing ones in this implementation
+    } else if (widget.prefillPrompt != null && widget.prefillPrompt!.isNotEmpty) {
+      // Prefill from prompt-of-the-day (see PromptOfDayCard)
+      descriptionController.text = widget.prefillPrompt!;
+      _promptId = widget.prefillPromptId;
+      _showPromptChip = true;
+      _updateButtonState();
     }
   }
 
@@ -240,6 +300,13 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
   }
 
   Future<void> _pickImages() async {
+    if (_recordedAudio != null) {
+      showMomentsSnackBar(
+        context,
+        message: 'Please remove the voice note first to add images',
+      );
+      return;
+    }
     if (_selectedImages.length >= maxImages) {
       _showMaxImagesDialog();
       return;
@@ -534,6 +601,144 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     });
     // Clean up video cache
     _videoCompressionService.deleteAllCache();
+  }
+
+  /// Open the inline voice recorder (mic mode). Mutually exclusive with
+  /// images/video, mirroring the existing image/video exclusivity rules.
+  void _startRecordingAudio() {
+    if (_selectedImages.isNotEmpty || _selectedVideo != null) {
+      showMomentsSnackBar(
+        context,
+        message: 'Please remove images/video first to record audio',
+      );
+      return;
+    }
+    setState(() {
+      _isRecordingAudio = true;
+    });
+
+    showModalBottomSheet(
+      context: context,
+      isDismissible: false,
+      enableDrag: false,
+      backgroundColor: Colors.transparent,
+      builder: (context) => VoiceRecorderWidget(
+        onRecordingComplete: (file, durationSeconds, waveform) {
+          Navigator.pop(context);
+          // 60s cap enforced in UI (backend also enforces this).
+          final cappedDuration = durationSeconds > 60 ? 60 : durationSeconds;
+          setState(() {
+            _isRecordingAudio = false;
+            _recordedAudio = file;
+            _recordedAudioDuration = cappedDuration;
+            _recordedAudioWaveform = waveform;
+          });
+          if (durationSeconds > 60) {
+            showMomentsSnackBar(
+              context,
+              message: 'Recording capped at 60 seconds',
+            );
+          }
+          _updateButtonState();
+        },
+        onCancel: () {
+          Navigator.pop(context);
+          setState(() {
+            _isRecordingAudio = false;
+          });
+        },
+      ),
+    ).whenComplete(() {
+      // Defensive reset: covers dismissal paths that bypass both
+      // onRecordingComplete and onCancel (e.g. Android system back button),
+      // which would otherwise leave _isRecordingAudio stuck at true.
+      if (mounted && _isRecordingAudio) {
+        setState(() {
+          _isRecordingAudio = false;
+        });
+      }
+    });
+  }
+
+  void _removeRecordedAudio() {
+    setState(() {
+      _recordedAudio = null;
+      _recordedAudioDuration = 0;
+      _recordedAudioWaveform = [];
+    });
+    _updateButtonState();
+  }
+
+  /// Show error dialog for audio upload failures with retry option.
+  /// The moment already exists at this point (created without audio) —
+  /// tell the user so they don't think the whole post failed.
+  Future<void> _showAudioUploadErrorDialog(String momentId, String message) async {
+    final result = await showDialog<bool>(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        title: Row(
+          children: [
+            const Icon(Icons.warning_amber_rounded, color: Colors.orange, size: 28),
+            const SizedBox(width: 12),
+            const Expanded(child: Text('Audio upload failed')),
+          ],
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(message),
+            const SizedBox(height: 12),
+            Text(
+              'Your moment was posted without the voice note.',
+              style: TextStyle(fontSize: 13, color: context.textSecondary),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: const Text('Dismiss'),
+          ),
+          ElevatedButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFF00BFA5),
+            ),
+            child: const Text('Retry'),
+          ),
+        ],
+      ),
+    );
+
+    if (result == true && _recordedAudio != null) {
+      try {
+        await ref.read(momentsServiceProvider).uploadMomentAudio(
+              momentId,
+              _recordedAudio!,
+              _recordedAudioDuration,
+              waveform: _recordedAudioWaveform,
+            );
+        ref.invalidate(momentsProvider(1));
+        ref.invalidate(momentsFeedProvider);
+        if (mounted) {
+          showMomentsSnackBar(
+            context,
+            message: 'Voice note uploaded',
+            type: MomentsSnackBarType.success,
+          );
+        }
+      } catch (e) {
+        if (mounted) {
+          await _showAudioUploadErrorDialog(
+            momentId,
+            'Upload failed again: ${e.toString().replaceFirst('Exception: ', '')}',
+          );
+        }
+      }
+    }
   }
 
   void _removeImage(int index) {
@@ -1083,6 +1288,8 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
               mood: _selectedMood != null ? _moods[_selectedMood] : null,
               tags: _tags.isNotEmpty ? _tags : null,
               backgroundColor: _selectedBackgroundColor.isNotEmpty ? _selectedBackgroundColor : null,
+              language: _languages[_selectedLanguage] ?? 'en',
+              privacy: _selectedPrivacy.toLowerCase(),
             );
 
         // Upload new images if any were added
@@ -1121,6 +1328,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
               scheduledFor: _scheduledDate?.toIso8601String(),
               location: locationData,
               backgroundColor: _selectedBackgroundColor.isNotEmpty ? _selectedBackgroundColor : null,
+              promptId: _showPromptChip ? _promptId : null,
             );
 
         // Upload images if any
@@ -1131,9 +1339,31 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
               );
         }
 
-        // Refresh moments list
+        // Upload recorded audio (voice note) if any. The moment already
+        // exists at this point, so a failure here should not block the
+        // user from seeing their post — surface a retry snackbar instead.
+        bool audioUploadFailed = false;
+        String? audioUploadError;
+        if (_recordedAudio != null) {
+          try {
+            await ref.read(momentsServiceProvider).uploadMomentAudio(
+                  moment.id,
+                  _recordedAudio!,
+                  _recordedAudioDuration,
+                  waveform: _recordedAudioWaveform,
+                );
+          } catch (e) {
+            audioUploadFailed = true;
+            audioUploadError = e.toString().replaceFirst('Exception: ', '');
+          }
+        }
+
+        // Refresh moments list (legacy feed plus the For You / Following
+        // feeds so every entry point reflects the new moment).
         ref.invalidate(momentsProvider(1));
         ref.invalidate(momentsFeedProvider);
+        ref.invalidate(forYouMomentsProvider);
+        ref.invalidate(followingMomentsProvider);
 
         // Refresh limits after successful creation
         try {
@@ -1147,12 +1377,26 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
         }
 
         if (mounted) {
-          Navigator.of(context).pop();
-          showMomentsSnackBar(
-            context,
-            message: AppLocalizations.of(context)!.momentCreatedSuccessfully,
-            type: MomentsSnackBarType.success,
-          );
+          // Show the audio-upload-failure retry dialog *before* popping —
+          // it needs a live State (uses `context`/`ref`/`setState` for its
+          // own retry-upload flow), so it must run while this screen is
+          // still mounted. A snackbar action fired after pop would be
+          // calling back into an already-disposed State.
+          if (audioUploadFailed) {
+            await _showAudioUploadErrorDialog(
+              moment.id,
+              audioUploadError ?? 'Failed to upload audio',
+            );
+          }
+
+          if (mounted) {
+            Navigator.of(context).pop();
+            showMomentsSnackBar(
+              context,
+              message: AppLocalizations.of(context)!.momentCreatedSuccessfully,
+              type: MomentsSnackBarType.success,
+            );
+          }
         }
       }
     } catch (e) {
@@ -1297,6 +1541,51 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Prompt-of-the-day chip (dismissible)
+            if (_showPromptChip) ...[
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFFFD54F).withValues(alpha: 0.18),
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(
+                      color: const Color(0xFFFFD54F).withValues(alpha: 0.5),
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(Icons.wb_sunny_outlined, size: 16, color: Color(0xFFC9A415)),
+                      const SizedBox(width: 6),
+                      const Flexible(
+                        child: Text(
+                          'Answering the prompt of the day',
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                            color: Color(0xFFC9A415),
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      const SizedBox(width: 4),
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _showPromptChip = false;
+                            _promptId = null;
+                          });
+                        },
+                        child: const Icon(Icons.close, size: 16, color: Color(0xFFC9A415)),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Spacing.gapMD,
+            ],
             // Privacy Selector
             Container(
               decoration: BoxDecoration(
@@ -1535,9 +1824,48 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                   },
                   badge: _tags.isNotEmpty ? '${_tags.length}' : null,
                 ),
+                // Voice notes aren't supported when editing an existing
+                // moment yet (the update submit path doesn't upload audio),
+                // so hide the control rather than silently drop a recording.
+                if (!isEditMode)
+                  createActionIcon(
+                    context: context,
+                    icon: Icons.mic,
+                    color: const Color(0xFF9C27B0),
+                    onTap: _isRecordingAudio ? () {} : _startRecordingAudio,
+                    isActive: _recordedAudio != null,
+                  ),
               ],
             ),
             Spacing.gapXL,
+
+            // Recorded audio preview (voice note)
+            if (!isEditMode && _recordedAudio != null) ...[
+              Container(
+                decoration: BoxDecoration(
+                  color: context.cardBackground,
+                  borderRadius: AppRadius.borderMD,
+                  boxShadow: AppShadows.sm,
+                ),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: _LocalAudioPreviewPlayer(
+                        file: _recordedAudio!,
+                        durationSeconds: _recordedAudioDuration,
+                      ),
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.delete_outline, color: Colors.red),
+                      onPressed: _removeRecordedAudio,
+                      tooltip: 'Remove voice note',
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 20),
+            ],
 
             // Images Section
             if (_selectedImages.isNotEmpty) ...[
@@ -2055,4 +2383,112 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     );
   }
 
+}
+
+/// Minimal local-file audio preview player for the composer's recorded
+/// voice note, shown before posting. [VoiceMessagePlayer] (used on posted
+/// moments and in chat) only supports remote URLs, so this widget plays
+/// directly from the local recording file via `just_audio`.
+class _LocalAudioPreviewPlayer extends StatefulWidget {
+  final File file;
+  final int durationSeconds;
+
+  const _LocalAudioPreviewPlayer({
+    required this.file,
+    required this.durationSeconds,
+  });
+
+  @override
+  State<_LocalAudioPreviewPlayer> createState() => _LocalAudioPreviewPlayerState();
+}
+
+class _LocalAudioPreviewPlayerState extends State<_LocalAudioPreviewPlayer> {
+  late final AudioPlayer _player;
+  bool _isPlaying = false;
+  bool _isLoading = false;
+  Duration _position = Duration.zero;
+
+  @override
+  void initState() {
+    super.initState();
+    _player = AudioPlayer();
+    _player.positionStream.listen((position) {
+      if (mounted) setState(() => _position = position);
+    });
+    _player.playerStateStream.listen((state) {
+      if (!mounted) return;
+      setState(() {
+        _isPlaying = state.playing;
+        _isLoading = state.processingState == ProcessingState.loading ||
+            state.processingState == ProcessingState.buffering;
+      });
+      if (state.processingState == ProcessingState.completed) {
+        _player.seek(Duration.zero);
+        _player.pause();
+      }
+    });
+  }
+
+  Future<void> _togglePlayback() async {
+    try {
+      if (_player.audioSource == null) {
+        setState(() => _isLoading = true);
+        await _player.setFilePath(widget.file.path);
+      }
+      if (_isPlaying) {
+        await _player.pause();
+      } else {
+        await _player.play();
+      }
+    } catch (e) {
+      setState(() => _isLoading = false);
+    }
+  }
+
+  @override
+  void dispose() {
+    _player.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: _togglePlayback,
+      behavior: HitTestBehavior.opaque,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            width: 36,
+            height: 36,
+            decoration: const BoxDecoration(
+              color: Color(0xFF9C27B0),
+              shape: BoxShape.circle,
+            ),
+            child: _isLoading
+                ? const Padding(
+                    padding: EdgeInsets.all(8),
+                    child: CircularProgressIndicator(
+                      strokeWidth: 2,
+                      valueColor: AlwaysStoppedAnimation(Colors.white),
+                    ),
+                  )
+                : Icon(
+                    _isPlaying ? Icons.pause : Icons.play_arrow,
+                    color: Colors.white,
+                    size: 22,
+                  ),
+          ),
+          const SizedBox(width: 12),
+          Text(
+            _isPlaying || _position.inSeconds > 0
+                ? '${VoiceMessageService.formatDuration(_position.inSeconds)} / ${VoiceMessageService.formatDuration(widget.durationSeconds)}'
+                : VoiceMessageService.formatDuration(widget.durationSeconds),
+            style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
+          ),
+        ],
+      ),
+    );
+  }
 }

@@ -243,6 +243,9 @@ class AppLocalizationsHi extends AppLocalizations {
   String get beTheFirstToComment => 'पहली टिप्पणी करें।';
 
   @override
+  String get loadMoreComments => 'Load more comments';
+
+  @override
   String get writeAComment => 'टिप्पणी लिखें...';
 
   @override
@@ -1735,6 +1738,21 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get noMomentsYet => 'अभी कोई पल नहीं';
+
+  @override
+  String get noForYouMomentsTitle => 'No moments yet';
+
+  @override
+  String get noForYouMomentsBody => 'Answer today\'s prompt to get the conversation started.';
+
+  @override
+  String get noFollowingMomentsTitle => 'Nothing here yet';
+
+  @override
+  String get noFollowingMomentsBody => 'Follow people from Community to see their moments here.';
+
+  @override
+  String get goToCommunity => 'Go to Community';
 
   @override
   String get unableToLoadMoments => 'पल लोड नहीं हो सके';

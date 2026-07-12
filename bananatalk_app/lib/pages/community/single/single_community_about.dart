@@ -7,7 +7,6 @@ import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/utils/language_flags.dart';
 import 'package:bananatalk_app/models/community/topic_model.dart';
-import 'package:bananatalk_app/pages/profile/highlights.dart';
 
 /// About tab body: bio, story highlights, languages, interests, personal info.
 class SingleCommunityAbout extends ConsumerWidget {
@@ -25,15 +24,6 @@ class SingleCommunityAbout extends ConsumerWidget {
       children: [
         // Bio Section
         _buildBioSection(context, isDark),
-
-        const SizedBox(height: 12),
-
-        // Story Highlights
-        ProfileHighlights(
-          userId: community.id,
-          isOwnProfile: false,
-          user: community,
-        ),
 
         const SizedBox(height: 12),
 

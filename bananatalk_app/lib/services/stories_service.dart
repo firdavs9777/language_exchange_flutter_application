@@ -262,6 +262,15 @@ class StoriesService {
         if (overlays != null && overlays.isNotEmpty) {
           request.fields['overlays'] = jsonEncode(overlays);
         }
+        if (poll != null) {
+          request.fields['poll'] = jsonEncode(poll.toJson());
+        }
+        if (questionBox != null) {
+          request.fields['questionBox'] = jsonEncode(questionBox.toJson());
+        }
+        if (hashtags != null && hashtags.isNotEmpty) {
+          request.fields['hashtags'] = jsonEncode(hashtags);
+        }
       } else {
         // For image stories, multiple images allowed
         for (final file in mediaFiles) {
@@ -272,6 +281,15 @@ class StoriesService {
         }
         if (overlays != null && overlays.isNotEmpty) {
           request.fields['overlays'] = jsonEncode(overlays);
+        }
+        if (poll != null) {
+          request.fields['poll'] = jsonEncode(poll.toJson());
+        }
+        if (questionBox != null) {
+          request.fields['questionBox'] = jsonEncode(questionBox.toJson());
+        }
+        if (hashtags != null && hashtags.isNotEmpty) {
+          request.fields['hashtags'] = jsonEncode(hashtags);
         }
       }
 
@@ -322,6 +340,7 @@ class StoriesService {
     bool allowReplies = true,
     bool allowSharing = true,
     List<Map<String, dynamic>>? overlays,
+    List<String>? hashtags,
   }) async {
     try {
       final token = await _getToken();
@@ -346,6 +365,7 @@ class StoriesService {
         'allowReplies': allowReplies,
         'allowSharing': allowSharing,
         if (overlays != null && overlays.isNotEmpty) 'overlays': overlays,
+        if (hashtags != null && hashtags.isNotEmpty) 'hashtags': hashtags,
       };
 
       final response = await http.post(

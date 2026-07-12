@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
+import 'package:bananatalk_app/providers/provider_models/comments_model.dart' show CommentCorrection;
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart' show CommentMention;
+import 'package:bananatalk_app/pages/moments/corrections/correction_sheet.dart' show CorrectionPanel;
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/pages/community/single/single_community_screen.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
@@ -19,10 +21,22 @@ import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/utils/string_sanitizer.dart';
 
 class CommentsMain extends ConsumerStatefulWidget {
-  const CommentsMain({Key? key, required this.id, this.onReply}) : super(key: key);
+  const CommentsMain({
+    Key? key,
+    required this.id,
+    this.onReply,
+    this.paginated = false,
+  }) : super(key: key);
 
   final String id;
   final Function(String commentId, String userName)? onReply;
+
+  /// When true, comments are loaded page-by-page via
+  /// [paginatedCommentsProvider] with a trailing "Load more comments" button
+  /// instead of fetching the entire thread via [commentsProvider]. Opt-in so
+  /// the other call site (`lib/pages/profile/moments/moment_card.dart`) keeps
+  /// its existing "load everything" behavior.
+  final bool paginated;
 
   @override
   ConsumerState<CommentsMain> createState() => _CommentsMainState();
@@ -31,25 +45,17 @@ class CommentsMain extends ConsumerStatefulWidget {
 class _CommentsMainState extends ConsumerState<CommentsMain> {
   @override
   Widget build(BuildContext context) {
+    if (widget.paginated) {
+      return _buildPaginated(context);
+    }
+
     final commentsAsyncValue = ref.watch(commentsProvider(widget.id));
     final currentUserId = ref.read(authServiceProvider).userId;
 
     return commentsAsyncValue.when(
       data: (comments) {
         if (comments.isEmpty) {
-          final l10n = AppLocalizations.of(context)!;
-          return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 40),
-            child: Center(
-              child: Column(
-                children: [
-                  Icon(Icons.chat_bubble_outline, size: 48, color: context.textHint),
-                  const SizedBox(height: 12),
-                  Text(l10n.beTheFirstToComment, style: context.bodyMedium.copyWith(color: context.textSecondary)),
-                ],
-              ),
-            ),
-          );
+          return _buildEmptyState(context);
         }
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -66,6 +72,91 @@ class _CommentsMainState extends ConsumerState<CommentsMain> {
                 onReply: widget.onReply,
               ),
             ),
+          ],
+        );
+      },
+      loading: () => const Padding(
+        padding: EdgeInsets.symmetric(vertical: 32),
+        child: Center(child: CircularProgressIndicator()),
+      ),
+      error: (error, stack) => Padding(
+        padding: const EdgeInsets.all(16),
+        child: Center(
+          child: Text(
+            'Error: $error',
+            style: context.bodySmall.copyWith(color: AppColors.error),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildEmptyState(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 40),
+      child: Center(
+        child: Column(
+          children: [
+            Icon(Icons.chat_bubble_outline, size: 48, color: context.textHint),
+            const SizedBox(height: 12),
+            Text(l10n.beTheFirstToComment, style: context.bodyMedium.copyWith(color: context.textSecondary)),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPaginated(BuildContext context) {
+    final pageAsyncValue = ref.watch(paginatedCommentsProvider(widget.id));
+    final currentUserId = ref.read(authServiceProvider).userId;
+
+    return pageAsyncValue.when(
+      data: (page) {
+        if (page.comments.isEmpty) {
+          return _buildEmptyState(context);
+        }
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ...page.comments.map(
+              (comment) => _CommentItem(
+                comment: comment,
+                momentId: widget.id,
+                currentUserId: currentUserId,
+                onRefresh: () {
+                  ref.read(paginatedCommentsProvider(widget.id).notifier).refresh();
+                  ref.invalidate(momentsFeedProvider);
+                },
+                onReply: widget.onReply,
+              ),
+            ),
+            if (page.hasMore)
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 12),
+                child: Center(
+                  child: page.isLoadingMore
+                      ? const SizedBox(
+                          width: 20,
+                          height: 20,
+                          child: CircularProgressIndicator(strokeWidth: 2),
+                        )
+                      : TextButton(
+                          onPressed: () => ref
+                              .read(paginatedCommentsProvider(widget.id).notifier)
+                              .loadMore(),
+                          child: Text(
+                            page.remaining > 0
+                                ? '${AppLocalizations.of(context)!.loadMoreComments} (${page.remaining})'
+                                : AppLocalizations.of(context)!.loadMoreComments,
+                            style: context.labelMedium.copyWith(
+                              color: AppColors.primary,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                ),
+              ),
           ],
         );
       },
@@ -171,6 +262,14 @@ class _CommentItemState extends State<_CommentItem> with SingleTickerProviderSta
       return comment.isEdited == true;
     } catch (_) {
       return false;
+    }
+  }
+
+  CommentCorrection? get _correction {
+    try {
+      return widget.comment.correction as CommentCorrection?;
+    } catch (_) {
+      return null;
     }
   }
 
@@ -506,6 +605,16 @@ class _CommentItemState extends State<_CommentItem> with SingleTickerProviderSta
                           ],
                           // Comment text
                           _buildCommentText(),
+                          // Correction panel, when this comment carries a
+                          // suggested correction for the moment.
+                          if (_correction case final correction?) ...[
+                            const SizedBox(height: 8),
+                            CorrectionPanel(
+                              originalText: correction.originalText,
+                              correctedText: correction.correctedText,
+                              explanation: correction.explanation,
+                            ),
+                          ],
                         ],
                       ),
                     ),
