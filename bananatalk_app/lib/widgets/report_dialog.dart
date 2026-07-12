@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:bananatalk_app/providers/provider_root/report_provider.dart';
 import 'package:bananatalk_app/widgets/evidence_tile.dart';
 
@@ -21,6 +22,7 @@ class ReportDialog extends StatefulWidget {
 
 class _ReportDialogState extends State<ReportDialog> {
   final ReportService _reportService = ReportService();
+  final ImagePicker _imagePicker = ImagePicker();
   String? _selectedReason;
   final TextEditingController _descriptionController = TextEditingController();
   bool _isSubmitting = false;
@@ -67,6 +69,68 @@ class _ReportDialogState extends State<ReportDialog> {
     super.dispose();
   }
 
+  /// Lets the user choose where evidence comes from. On iOS the plain file
+  /// picker (Files app) can't reach the Photos library, so screenshots/photos
+  /// were unpickable — the "Photo Library" option uses image_picker, which can.
+  Future<void> _addEvidence() async {
+    final source = await showModalBottomSheet<String>(
+      context: context,
+      builder: (ctx) => SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              leading: const Icon(Icons.photo_library_outlined),
+              title: const Text('Photo Library'),
+              subtitle: const Text('Add screenshots or photos'),
+              onTap: () => Navigator.pop(ctx, 'photos'),
+            ),
+            ListTile(
+              leading: const Icon(Icons.insert_drive_file_outlined),
+              title: const Text('Browse Files'),
+              subtitle: const Text('Attach an image or .txt file'),
+              onTap: () => Navigator.pop(ctx, 'files'),
+            ),
+          ],
+        ),
+      ),
+    );
+
+    if (source == 'photos') {
+      await _pickImages();
+    } else if (source == 'files') {
+      await _pickFiles();
+    }
+  }
+
+  /// Picks images from the Photos library. `imageQuality` re-encodes to JPEG
+  /// (keeping large screenshots under the size cap and normalizing HEIC).
+  Future<void> _pickImages() async {
+    try {
+      final images = await _imagePicker.pickMultiImage(
+        imageQuality: 85,
+        maxWidth: 2000,
+      );
+      if (images.isEmpty) return;
+
+      for (final image in images) {
+        final bytes = await image.readAsBytes();
+        var name = image.name;
+        // Ensure the filename carries an allowed extension so the upload picks
+        // the correct MIME type (image_picker may hand back .heic names).
+        if (!RegExp(r'\.(jpe?g|png)$', caseSensitive: false).hasMatch(name)) {
+          name = 'evidence_${DateTime.now().millisecondsSinceEpoch}.jpg';
+        }
+        final added = _tryAddFile(
+          PlatformFile(name: name, size: bytes.length, bytes: bytes),
+        );
+        if (!added) break;
+      }
+    } catch (e) {
+      _showEvidenceNotice('Could not add photos: $e');
+    }
+  }
+
   Future<void> _pickFiles() async {
     final result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
@@ -78,53 +142,41 @@ class _ReportDialogState extends State<ReportDialog> {
       return; // User cancelled
     }
 
-    // Validate and add files
     for (final file in result.files) {
-      // Check if already at max files
-      if (_selectedFiles.length >= maxFiles) {
-        if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('Max $maxFiles files per report'),
-              backgroundColor: Colors.orange,
-            ),
-          );
-        }
-        break;
-      }
-
-      // Check file size
-      if (file.size > maxFileSize) {
-        if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('${file.name} is too large (max 5 MB)'),
-              backgroundColor: Colors.orange,
-            ),
-          );
-        }
-        continue;
-      }
-
-      // Check total size
-      if (_totalFileSize + file.size > maxTotalSize) {
-        if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('Total size would exceed 25 MB'),
-              backgroundColor: Colors.orange,
-            ),
-          );
-        }
-        break;
-      }
-
-      // Add file
-      setState(() {
-        _selectedFiles.add(file);
-        _totalFileSize += file.size;
-      });
+      final added = _tryAddFile(file);
+      if (!added) break;
     }
+  }
+
+  /// Validates a picked file against the count / per-file / total-size limits
+  /// and adds it. Returns false when no further files should be processed
+  /// (max count reached or total-size ceiling hit); true means "keep going"
+  /// (added, or skipped because this one file was too large).
+  bool _tryAddFile(PlatformFile file) {
+    if (_selectedFiles.length >= maxFiles) {
+      _showEvidenceNotice('Max $maxFiles files per report');
+      return false;
+    }
+    if (file.size > maxFileSize) {
+      _showEvidenceNotice('${file.name} is too large (max 5 MB)');
+      return true; // skip this one, allow the rest
+    }
+    if (_totalFileSize + file.size > maxTotalSize) {
+      _showEvidenceNotice('Total size would exceed 25 MB');
+      return false;
+    }
+    setState(() {
+      _selectedFiles.add(file);
+      _totalFileSize += file.size;
+    });
+    return true;
+  }
+
+  void _showEvidenceNotice(String message) {
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(message), backgroundColor: Colors.orange),
+    );
   }
 
   void _removeFile(int index) {
@@ -406,12 +458,12 @@ class _ReportDialogState extends State<ReportDialog> {
                     ),
                     const SizedBox(height: 12),
 
-                    // File picker button
+                    // Evidence picker (photos or files)
                     ElevatedButton.icon(
-                      onPressed: _selectedFiles.length >= maxFiles ? null : _pickFiles,
-                      icon: const Icon(Icons.attach_file),
+                      onPressed: _selectedFiles.length >= maxFiles ? null : _addEvidence,
+                      icon: const Icon(Icons.add_photo_alternate_outlined),
                       label: Text(
-                        'Add Files (${_selectedFiles.length}/$maxFiles)',
+                        'Add Evidence (${_selectedFiles.length}/$maxFiles)',
                       ),
                     ),
 

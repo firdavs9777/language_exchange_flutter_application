@@ -32,68 +32,69 @@ class PromptOfDayCard extends ConsumerWidget {
 
         return Container(
           margin: const EdgeInsets.fromLTRB(16, 12, 16, 4),
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
             color: _accent.withValues(alpha: 0.16),
             borderRadius: BorderRadius.circular(16),
             border: Border.all(color: _accent.withValues(alpha: 0.4)),
           ),
           child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(emoji, style: const TextStyle(fontSize: 28)),
-              const SizedBox(width: 12),
+              Text(emoji, style: const TextStyle(fontSize: 22)),
+              const SizedBox(width: 10),
               Expanded(
                 child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       'Prompt of the day',
-                      style: context.labelMedium.copyWith(
+                      style: context.labelSmall.copyWith(
                         color: context.textSecondary,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
-                    const SizedBox(height: 4),
+                    const SizedBox(height: 2),
                     Text(
                       prompt,
-                      style: context.bodyLarge.copyWith(
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: context.bodyMedium.copyWith(
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    const SizedBox(height: 12),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.of(context).push(
-                            AppPageRoute(
-                              builder: (_) => CreateMoment(
-                                prefillPrompt: prompt,
-                                prefillPromptId: promptId,
-                              ),
-                            ),
-                          ).then((_) => ref.invalidate(forYouMomentsProvider));
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFFC9A415),
-                          foregroundColor: Colors.white,
-                          elevation: 0,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 16,
-                            vertical: 8,
-                          ),
-                        ),
-                        child: const Text(
-                          'Answer',
-                          style: TextStyle(fontWeight: FontWeight.w700),
-                        ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 8),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    AppPageRoute(
+                      builder: (_) => CreateMoment(
+                        prefillPrompt: prompt,
+                        prefillPromptId: promptId,
                       ),
                     ),
-                  ],
+                  ).then((_) => ref.invalidate(forYouMomentsProvider));
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFFC9A415),
+                  foregroundColor: Colors.white,
+                  elevation: 0,
+                  visualDensity: VisualDensity.compact,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 14,
+                    vertical: 6,
+                  ),
+                ),
+                child: const Text(
+                  'Answer',
+                  style: TextStyle(fontWeight: FontWeight.w700),
                 ),
               ),
             ],
