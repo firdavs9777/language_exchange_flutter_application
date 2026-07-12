@@ -39,6 +39,11 @@ class AppConfig {
   final String releaseNotes;
   final AppAnnouncement? announcement;
 
+  /// Workstream D: server-side kill switch for the public Language Rooms
+  /// feature. Defaults to `true` so older/dev config payloads that predate
+  /// this flag don't accidentally hide the tab.
+  final bool roomsEnabled;
+
   const AppConfig({
     required this.minVersion,
     required this.latestVersion,
@@ -47,6 +52,7 @@ class AppConfig {
     required this.androidUrl,
     required this.releaseNotes,
     this.announcement,
+    this.roomsEnabled = true,
   });
 
   factory AppConfig.fromJson(Map<String, dynamic> json) {
@@ -62,6 +68,7 @@ class AppConfig {
           announcementJson != null
               ? AppAnnouncement.fromJson(announcementJson)
               : null,
+      roomsEnabled: (json['roomsEnabled'] as bool?) ?? true,
     );
   }
 }
