@@ -27,8 +27,8 @@ Ship the leanest coin system that answers "will anyone buy a coin?": buy coin pa
 
 ### 1. Data model
 - **`User.coinBalance`** — Number, default 0.
-- **`CoinTransaction`** collection: `{ userId(ix), type: 'purchase'|'spend'|'refund', amount(signed), balanceAfter, reason, relatedId, metadata(Mixed), createdAt(ix) }`. **Unique sparse index on `metadata.iapTransactionId`** → purchase idempotency. Serves history + audit.
-- **Bonus quota (unlocks):** the existing quota engine (`models/User.js` `consumeQuota`, `config/limitations.js` tier caps, `regularUserLimitations`/`visitorLimitations` daily counters) caps free users (e.g. 5/day). Add a per-feature **`bonusQuota`** map that resets daily like the other counters. `consumeQuota` allows a use when `used < tierCap + bonusQuota[featureKey]`. **VIP unlimited fast-path is untouched.**
+- **`CoinTransaction`** collection: `{ userId(ix), type: 'purchase'|'spend'|'refund', amount(signed), balanceAfter, reason, relatedId, metadata(Mixed), createdAt(ix) }`. **Unique sparse index on `metadata.iapTransactionId`** → purchase idempotency. Serves history + audit. **Idempotency id is pinned per platform:** iOS = StoreKit `transactionId` of the consumable (not `originalTransactionId`); Android = `purchaseToken`. Credit is **transactional** (ledger insert + balance `$inc` in one Mongo session — prod is a replica set) so a crash can't leave a purchase row without its balance increment.
+- **Paid bonus is a persistent consumable pool, NOT extra daily quota.** New `User.coinBonus` (Map String→Number). An unlock `$inc`s `coinBonus[featureKey]`. Enforcement everywhere: use the free daily cap first; once exhausted, if `coinBonus[featureKey] > 0` allow and atomically decrement. The pool **does not reset daily** (paid uses never evaporate at midnight). **Critical:** the quota engine is NOT unified — `consumeQuota` (`models/User.js:1821`) governs only the 5 tutor chips; **translations** go through `canTranslate()`/`incrementTranslationCount`, **moments** through `canCreateMoment()`/`incrementMomentCount`. The bonus pool must be honored in **all three** paths (a single `consumeQuota` edit would silently deliver nothing for translation/moment unlocks). featureKeys are the real ones: `chat`/`roleplay`/`story`/`photo`/`pronunciation` (tutor, each independent), `translation`, `moment`. **VIP unlimited fast-path is untouched.**
 
 ### 2. Backend API (new `routes/coins.js` → `/api/v1/coins`, gated by `COINS_ENABLED`)
 - `GET /coins/balance` → `{ balance }`.
@@ -45,13 +45,15 @@ Ship the leanest coin system that answers "will anyone buy a coin?": buy coin pa
 
 Extend `IOSPurchaseService`/`AndroidPurchaseService` for **consumables** (`purchaseConsumable` + `consumePurchase` after server verify so users can rebuy). ⚠️ **Store dependency:** these 3 products must be created as consumables in App Store Connect + Play Console before the flow works live (user task, mirrors the VIP setup).
 
-### 4. Unlock catalog (tunable constants, backend `config`)
-| featureKey | pack | cost (coins) | grants |
-|---|---|---|---|
-| `translation` | +10 | 50 | +10 translations today |
-| `tutorChat` (and other tutor chips) | +3 | 80 | +3 sessions today |
-| `moment` | +3 | 40 | +3 moments today |
-Costs live server-side; the app reads them (or a `/coins/unlock-catalog`) so they never drift.
+### 4. Unlock catalog (tunable constants, backend `config/coinCatalog.js`)
+| featureKey | grant | cost (coins) |
+|---|---|---|
+| `translation` | +10 | 50 |
+| `moment` | +3 | 40 |
+| `chat` / `roleplay` / `story` / `photo` / `pronunciation` (each tutor chip) | +3 | 80 |
+Grants add to the persistent `coinBonus` pool (not daily). Costs live server-side; the app reads them via `GET /coins/unlock-catalog` so they never drift. The tutor 429 response identifies which chip is exhausted, and the unlock grants that specific chip.
+
+**Refund on verify-fail:** if `verify-purchase` can't verify a receipt after the store charged, it credits nothing and returns a retryable error; the client leaves the IAP un-consumed so the store can refund/retry (no coins granted without a valid receipt).
 
 ### 5. App UI
 - **Coin balance pill** (`💎 247`) in chat/community/AI-study app bars → tap opens the shop. `userProvider` extended with `coinBalance`.

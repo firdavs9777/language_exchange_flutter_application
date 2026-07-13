@@ -26,7 +26,7 @@
 ## File Structure
 
 **Backend — create:** `models/CoinTransaction.js`, `lib/coinLedger.js` (atomic credit/debit + idempotency helper — pure, unit-testable), `controllers/coins.js`, `routes/coins.js`, `config/coinCatalog.js` (pack + unlock cost constants), tests under `test/`.
-**Backend — modify:** `models/User.js` (`coinBalance` + `bonusQuota`), `models/User.js consumeQuota` (honor bonusQuota), `controllers/iosPurchase.js` + `controllers/androidPurchase.js` (export a reusable consumable-receipt verify), `config/limitations.js` (`COINS_ENABLED`), `controllers/appConfig.js` (`coinsEnabled`), `server.js` (mount `/api/v1/coins`).
+**Backend — modify:** `models/User.js` (`coinBalance` + `coinBonus` Map + bonus honored in `consumeQuota` [tutor], `canTranslate`/`incrementTranslationCount` [translation], `canCreateMoment`/`incrementMomentCount` [moment]), `controllers/iosPurchase.js` + `controllers/androidPurchase.js` (extract a shared consumable-receipt verifier, VIP path unchanged), `config/limitations.js` (`COINS_ENABLED`), `controllers/appConfig.js` (`coinsEnabled`), `server.js` (mount `/api/v1/coins`).
 **App — create:** `lib/models/coin_pack.dart`, `lib/models/coin_transaction.dart`, `lib/services/coin_api_client.dart`, `lib/providers/coins_provider.dart`, `lib/pages/coins/coin_shop_screen.dart`, `lib/widgets/coins/coin_balance_pill.dart`, `lib/widgets/coins/unlock_cta.dart`.
 **App — modify:** `lib/services/ios_purchase_service.dart` + `android_purchase_service.dart` (consumable flow), `lib/models/app_config.dart` (`coinsEnabled`), the 3 limit modals (`translation_bottom_sheet.dart`, `persona_upgrade_sheet.dart`, `limit_exceeded_dialog.dart`), the app bars carrying the pill, `userProvider` (`coinBalance`).
 
@@ -40,62 +40,88 @@
 
 - [ ] **Step 1: Add `coinBalance` to User.** `coinBalance: { type: Number, default: 0, min: 0 }`.
 - [ ] **Step 2: Create `CoinTransaction` model** per spec (`userId` ix, `type` enum `['purchase','spend','refund']`, `amount`, `balanceAfter`, `reason`, `relatedId`, `metadata` Mixed, `createdAt` ix). Add `CoinTransactionSchema.index({ 'metadata.iapTransactionId': 1 }, { unique: true, sparse: true })`.
-- [ ] **Step 3: Write failing tests** for `lib/coinLedger.js` (mock the Model layer or use dependency-injected collection so it stays a pure unit — check how existing `lib/*.js` are tested):
-  - `credit(userId, amount, {reason, metadata})` increments balance and writes a `purchase` txn with correct `balanceAfter`.
-  - `credit` is **idempotent** on `metadata.iapTransactionId`: a second call with the same id does NOT double-credit (duplicate-key caught → returns existing).
-  - `debit(userId, cost, {reason})` uses a balance-guarded atomic update; returns `{ok:false}` when balance < cost (no mutation).
-- [ ] **Step 4: Run tests, verify fail** (`~/.nvm/versions/node/v24.18.0/bin/node --experimental-test-module-mocks --test test/coinLedger.test.js`).
-- [ ] **Step 5: Implement `lib/coinLedger.js`.**
-  - `debit`: `User.findOneAndUpdate({_id, coinBalance:{$gte:cost}}, {$inc:{coinBalance:-cost}}, {new:true})`; if null → insufficient; else write `spend` txn with `balanceAfter`.
-  - `credit`: try to insert the `purchase` txn first (unique iapTransactionId) to claim idempotency, then `$inc` balance; on duplicate-key, return the existing txn without incrementing.
-- [ ] **Step 6: Run tests green. Commit** `feat(coins): CoinTransaction model + atomic idempotent coinLedger`.
+  - **Idempotency identifier (reviewer C3 — pin it exactly):** `metadata.iapTransactionId` MUST be the per-purchase store identifier, and the client MUST send the identical value on every retry: **iOS** = the StoreKit `transactionId` of the *consumable* purchase (NOT `originalTransactionId`); **Android** = the `purchaseToken`. Document this in the model file. Task 5's verify must read the platform-appropriate field into this key.
+- [ ] **Step 3: Confirm prod is a replica set (it is — Atlas `replicaSet=atlas-bnfxlc-shard-0`), so Mongo multi-document transactions are available.** `credit` will use a session/transaction so the ledger insert + balance `$inc` commit atomically (reviewer C2).
+- [ ] **Step 4: Write failing tests** for `lib/coinLedger.js`. Pure decision logic (insufficient-balance branch, signed amounts, balanceAfter math) as node:test units; the two DB-level guarantees (balance-guarded debit, dup-key credit idempotency) get an **integration test** (Task 1b) since they cannot be exercised as pure units (reviewer M2). Unit tests here:
+  - `debit` returns `{ok:false}` (no mutation) when balance < cost; returns correct `balanceAfter` when sufficient.
+  - `credit` computes correct `balanceAfter` and marks the txn `purchase`.
+- [ ] **Step 5: Run tests, verify fail** (`~/.nvm/versions/node/v24.18.0/bin/node --experimental-test-module-mocks --test test/coinLedger.test.js`).
+- [ ] **Step 6: Implement `lib/coinLedger.js` (crash-safe).**
+  - `debit(userId, cost, {reason, relatedId})`: `User.findOneAndUpdate({_id, coinBalance:{$gte:cost}}, {$inc:{coinBalance:-cost}}, {new:true})`; if null → `{ok:false}` (insufficient); else write a `spend` txn with `balanceAfter = doc.coinBalance`.
+  - `credit(userId, amount, {reason, metadata})` — **transactional, reconcile-safe (reviewer C2):** open a session; within `withTransaction`: insert the `purchase` txn (unique `metadata.iapTransactionId`) AND `$inc` the balance together, so a crash rolls back both. On duplicate-key (already credited), abort and **return the existing txn** — the prior transaction guarantees the balance was applied, so there is no "txn written but balance never incremented" window.
+- [ ] **Step 7: Run unit tests green. Commit** `feat(coins): CoinTransaction model + crash-safe idempotent coinLedger`.
+
+### Task 1b: Ledger integration test (DB-level money guarantees)
+
+**Files:** Test `test/coinLedger.integration.test.js` (uses `mongodb-memory-server` if present, else the MCP Atlas-local deployment; check `package.json` devDeps first — if no ephemeral Mongo is available, add `mongodb-memory-server` as a devDependency).
+
+- [ ] **Step 1: Write failing integration tests** against a real Mongo:
+  - concurrent `debit` calls racing the same balance never drive it negative (fire N parallel debits > balance; exactly `floor(balance/cost)` succeed).
+  - `credit` called twice with the same `iapTransactionId` increments the balance exactly once (idempotency) — including a simulated retry.
+  - a `credit` transaction that throws mid-way leaves balance AND ledger unchanged (rollback).
+- [ ] **Step 2: Run fail → confirm green → Commit** `test(coins): integration tests for debit-guard + credit idempotency`.
 
 ### Task 2: Coin catalog + COINS_ENABLED + app-config flag
 
 **Files:** Create `config/coinCatalog.js`; Modify `config/limitations.js`, `controllers/appConfig.js`; Test `test/coinCatalog.test.js`.
 
-- [ ] **Step 1:** `config/coinCatalog.js` — export `PACKS` (id → coins, per spec table) and `UNLOCKS` (`{ translation:{cost:50,grant:10}, tutorChat:{cost:80,grant:3}, moment:{cost:40,grant:3} }`), plus a `getUnlock(featureKey)` helper. Test: `getUnlock('translation')` returns the right cost/grant; unknown key → null.
+- [ ] **Step 1:** `config/coinCatalog.js` — export `PACKS` (id → coins, per spec table) and `UNLOCKS` keyed by the **real featureKeys** (reviewer I2): `translation:{cost:50,grant:10}`, `moment:{cost:40,grant:3}`, and each tutor chip `chat`/`roleplay`/`story`/`photo`/`pronunciation`:`{cost:80,grant:3}`. Plus `getUnlock(featureKey)` → cost/grant or null for unknown. Test: `getUnlock('translation')` + `getUnlock('roleplay')` return correct values; unknown key → null.
 - [ ] **Step 2:** `config/limitations.js` — add `const COINS_ENABLED = String(process.env.COINS_ENABLED || 'true').toLowerCase()==='true';` + export.
 - [ ] **Step 3:** `controllers/appConfig.js` — add `coinsEnabled: COINS_ENABLED` to the response.
 - [ ] **Step 4:** Run tests green. **Commit** `feat(coins): coin catalog constants + COINS_ENABLED flag + app-config`.
 
-### Task 3: bonusQuota honored by consumeQuota
+### Task 3: Persistent bonus-credit pool honored at ALL THREE enforcement sites
 
-**Files:** Modify `models/User.js` (`bonusQuota` field + `consumeQuota`); Test `test/consumeQuota.bonus.test.js`.
+> **Reviewer C1 (the load-bearing fix):** `consumeQuota` governs ONLY the 5 tutor chips (`models/User.js:1821`, keyed off `TUTOR_QUOTA_FIELDS` at `:8-14`, enforced via an atomic `$expr` filter ~`:1876-1881`, wired at `middleware/checkTutorQuota.js:39`). **Translations** are gated separately by `user.canTranslate()` (`models/User.js:1178`) + `incrementTranslationCount` (called in `controllers/advancedMessages.js:185`). **Moments** by `user.canCreateMoment()` (`:1471`) + `incrementMomentCount` (`middleware/checkLimitations.js:55`, `routes/moments.js:59`). Editing only `consumeQuota` would debit coins for translation/moment unlocks and deliver NOTHING → coins lost without value. The bonus must be honored in all three paths.
 
-- [ ] **Step 1: READ `consumeQuota` (models/User.js ~1821)** and the tier-limit resolution + daily-reset logic. Note exactly where `used` is compared to the tier cap, and where the daily reset zeroes counters.
-- [ ] **Step 2: Add `bonusQuota`** — a per-feature daily counter alongside `regularUserLimitations` (e.g. `regularUserLimitations.bonus: { <featureKey>: Number }`), reset on the same daily boundary as the existing counters.
-- [ ] **Step 3: Write failing tests** (pure helper — extract the allow-decision if needed to test without a live DB):
-  - free user at cap (used == 5, bonus 0) → blocked.
-  - free user at cap with `bonus[feature] = 3` → allowed until used == 8, then blocked.
-  - VIP fast-path unchanged (still unlimited, bonus irrelevant).
-  - daily reset zeroes `bonus` too.
-- [ ] **Step 4: Run, verify fail.**
-- [ ] **Step 5: Implement:** change the cap comparison to `used < tierCap + (bonus[featureKey] || 0)`; include `bonus` in the daily reset. Do NOT alter the VIP fast-path.
-- [ ] **Step 6: Run green. Commit** `feat(coins): consumeQuota honors per-feature bonusQuota`.
+> **Design change (reviewer I4 + M3a):** the paid bonus is a **persistent consumable pool**, NOT a daily-reset counter. A paid unlock adds to `User.coinBonus[featureKey]` (a real, declared schema field). Enforcement everywhere is: *if the free daily cap is still available, use it (free); otherwise if `coinBonus[featureKey] > 0`, allow and atomically decrement the pool.* This (a) means paid unlocks never evaporate at midnight (removes the top complaint/refund vector), and (b) keeps the free daily counters untouched.
 
-### Task 4: Consumable IAP verify (reuse existing receipt verification)
+**Files:** Modify `models/User.js` — declare `coinBonus` (Map of String→Number, default `{}`); update `consumeQuota` (tutor), `canTranslate`+`incrementTranslationCount` (translation), `canCreateMoment`+`incrementMomentCount` (moment) to consult+decrement the pool. Test `test/coinBonus.enforcement.test.js`.
 
-**Files:** Modify `controllers/iosPurchase.js`, `controllers/androidPurchase.js` (export a reusable verify fn); Test `test/coinPurchaseVerify.test.js`.
+- [ ] **Step 1: READ** all three enforcement paths named above and note the exact allow-decision + increment sites. Confirm `coinBonus` must be an explicitly-declared field (the `regularUserLimitations` subschema at `:440-499` is strict → an undeclared nested `$inc` would be dropped by Mongoose).
+- [ ] **Step 2: Declare `coinBonus`** on the User schema: `coinBonus: { type: Map, of: Number, default: {} }`.
+- [ ] **Step 3: Define the shared helper** `consumeBonusIfAvailable(user, featureKey)` → atomic `findOneAndUpdate({_id, [`coinBonus.${featureKey}`]:{$gte:1}}, {$inc:{[`coinBonus.${featureKey}`]:-1}})`; returns true if a bonus unit was consumed. **featureKeys are the REAL keys (reviewer I2):** tutor chips `chat`/`roleplay`/`story`/`photo`/`pronunciation` (each independent), `translation`, `moment`. The unlock catalog (Task 2) must use these exact keys.
+- [ ] **Step 4: Write failing tests** (pure decision logic + a small integration slice for the atomic decrement):
+  - free cap available → free path used, pool untouched.
+  - free cap exhausted + `coinBonus[feature] = 3` → allowed, pool decrements to 2; at 0 → blocked.
+  - pool does NOT reset on the daily boundary (persists).
+  - VIP fast-path unchanged (unlimited; pool irrelevant).
+  - each of the three paths (tutor `chat`, `translation`, `moment`) honors the pool independently.
+- [ ] **Step 5: Run fail → implement all three sites** to fall back to `consumeBonusIfAvailable` when the free cap is exhausted (do NOT alter the VIP fast-path; do NOT touch the daily reset) → run green.
+- [ ] **Step 6: Commit** `feat(coins): persistent coinBonus pool honored by tutor/translation/moment gates`.
 
-- [ ] **Step 1: READ** the existing `verifyIOSPurchase` / `verifyAndroidPurchase` to find the receipt-verification core (Apple JWS / Google Play API call) and factor out a reusable `verifyConsumableReceipt({platform, productId, receipt, transactionId})` that returns `{valid, productId, transactionId}` WITHOUT the subscription-specific `activateVIP` side effects.
-- [ ] **Step 2: Write failing tests** mocking the platform verifier: valid receipt → `{valid:true, productId}`; invalid → `{valid:false}`; the coin-pack productId maps to the right coin amount via `coinCatalog.PACKS`.
-- [ ] **Step 3: Run fail → implement → run green.**
-- [ ] **Step 4: Commit** `feat(coins): reusable consumable receipt verification`.
+> **Tutor granularity (reviewer I2):** `persona_upgrade_sheet.dart` fires on a generic tutor 429, but the 5 chips cap independently. The 429 response already identifies the exhausted `featureKey` — the unlock grants that specific chip. Task 9 passes the featureKey from the 429 to the unlock call.
+
+### Task 4: Carve out a reusable consumable receipt verifier
+
+> **Reviewer I1 — scope up:** this is NOT a one-line export. `verifyIOSPurchase` (`controllers/iosPurchase.js:312`, a 913-line controller) verifies the receipt (StoreKit2 ~`:202`, legacy ~`:257`) then INLINE derives the plan and calls `user.activateVIP(...)` ~`:498`. Android (`androidPurchase.js`, ~472 lines) mirrors this. There is no pure verify function to import — it must be carefully extracted, leaving the VIP path behaviorally identical.
+
+**Files:** Modify `controllers/iosPurchase.js`, `controllers/androidPurchase.js`; Test `test/coinPurchaseVerify.test.js`, `test/vipActivation.regression.test.js`.
+
+- [ ] **Step 1: READ** both verify controllers fully; identify the exact receipt-verification core vs. the subscription/`activateVIP` side effects.
+- [ ] **Step 2: Extract** `verifyConsumableReceipt({platform, productId, receipt, purchaseIdentifier})` returning `{valid, productId, transactionId}` — where `transactionId` is the pinned per-platform idempotency id (iOS StoreKit `transactionId`; Android `purchaseToken`, reviewer C3). NO `activateVIP` side effects. Refactor the existing VIP verify to call the shared core so its behavior is unchanged.
+- [ ] **Step 3: Write failing tests** (mock the platform verifier): valid → `{valid:true, productId, transactionId}`; invalid → `{valid:false}`; coin-pack productId maps to coins via `coinCatalog.PACKS`. **Plus a VIP-activation regression test** asserting the existing subscription verify still activates VIP after the extraction (reviewer I1).
+- [ ] **Step 4: Run fail → implement → run green (including the VIP regression).**
+- [ ] **Step 5: Commit** `refactor(iap): extract shared consumable receipt verifier (VIP path unchanged)`.
 
 ### Task 5: Coins routes + controllers
 
 **Files:** Create `controllers/coins.js`, `routes/coins.js`; Modify `server.js`; Test `test/coins.controller.test.js`.
 
-- [ ] **Step 1: Write failing tests** for the controller decisions (extract pure helpers where DB blocks direct testing):
-  - `verify-purchase`: valid receipt credits coins once; **replay with same transactionId does not double-credit** (via ledger idempotency).
-  - `unlock`: sufficient balance → debit `UNLOCKS[featureKey].cost`, grant `.grant` bonus quota, return newBalance; **insufficient → 402, no debit, no grant**.
+- [ ] **Step 1: Write failing tests** for the controller decisions (extract pure helpers where DB blocks direct testing; DB-level guarantees are covered by Task 1b):
+  - `verify-purchase`: valid receipt credits coins once; **replay with same idempotency id does not double-credit** (via ledger).
+  - `verify-purchase` with a receipt that **fails verification after a store charge** → returns a `try again` error and writes NO credit (refund path, reviewer M3b).
+  - `unlock`: sufficient balance → debit `UNLOCKS[featureKey].cost`, `$inc coinBonus[featureKey]` by `.grant`, return newBalance; **insufficient → 402, no debit, no grant** (debit and grant must not half-apply — grant only if debit `ok`).
   - unknown `featureKey` → 400.
   - `COINS_ENABLED=false` → all routes 404.
-  - visitor userMode → 403 on purchase/unlock.
+  - **visitor userMode → 403 on purchase AND unlock, enforced server-side** (reviewer M3c — not just client-hidden).
 - [ ] **Step 2: Run fail.**
-- [ ] **Step 3: Implement `controllers/coins.js`:** `getBalance`, `getTransactions` (cursor pagination), `verifyPurchase` (verifyConsumableReceipt → `coinLedger.credit` with `metadata.iapTransactionId`), `unlock` (`coinLedger.debit` cost → on ok `$inc regularUserLimitations.bonus[featureKey]` by grant). `routes/coins.js` wrapped by a `coinsEnabledGuard` + `protect`; mount `/api/v1/coins` in `server.js`.
-- [ ] **Step 4: Run green. Commit** `feat(coins): coins REST — balance, transactions, verify-purchase, unlock`.
+- [ ] **Step 3: Implement `controllers/coins.js`:**
+  - `getBalance`, `getTransactions` (cursor pagination), `getUnlockCatalog` (so the app reads live cost/grant — see Task 9).
+  - `verifyPurchase`: `verifyConsumableReceipt` → if `!valid` return 400 "purchase could not be verified, try again" (client's IAP stays un-consumed so the store can refund/retry) → if valid `coinLedger.credit` keyed on the pinned idempotency id.
+  - `unlock`: reject if `userMode === 'visitor'` (403); look up `getUnlock(featureKey)` (400 if unknown); `coinLedger.debit(cost)` → if `!ok` 402; on ok atomically `$inc coinBonus[featureKey]` by `grant` and return `{newBalance, granted}`.
+  - `routes/coins.js` wrapped by `coinsEnabledGuard` + `protect`; mount `/api/v1/coins` in `server.js`.
+- [ ] **Step 4: Run green. Commit** `feat(coins): coins REST — balance, transactions, catalog, verify-purchase, unlock`.
 
 **== BACKEND PHASE DONE (T1–T5) ==**
 
@@ -127,15 +153,15 @@
 
 - [ ] **Step 1:** `coin_balance_pill.dart` — `💎 <balance>`; tap → push coin shop. Hidden when `!coinsEnabled`.
 - [ ] **Step 2:** `coin_shop_screen.dart` — 3 pack cards (mirror `vip_plans_screen` grid + gradient CTA); tap → `purchaseCoinPack` → on success `coinsProvider.refresh()` + "Coins added!" confirmation.
-- [ ] **Step 3:** Add the pill to the app bars beside/replacing the VIP pill (VIP + coins can coexist; follow the existing pill layout).
+- [ ] **Step 3:** Place the pill in the high-traffic app bars. **Note (reviewer I3):** there is NO single shared "VIP pill" widget — VIP entry points are scattered (e.g. `chat_list_screen.dart`, `learning_main_screen.dart`, `community_app_bar.dart`). So this means editing each of those app bars individually to add `CoinBalancePill`; budget for ~3 separate edits, not one shared host. VIP + coins coexist.
 - [ ] **Step 4:** `flutter analyze` clean. **Commit** `feat(coins): balance pill + coin shop screen`.
 
 ### Task 9: Unlock CTA in the limit modals
 
 **Files:** Create `lib/widgets/coins/unlock_cta.dart`; Modify `lib/.../translation_bottom_sheet.dart`, `persona_upgrade_sheet.dart`, `limit_exceeded_dialog.dart` (confirm exact paths from the 2026-07-13 paywall audit).
 
-- [ ] **Step 1:** `unlock_cta.dart` — a button "Unlock {grant} for 💎{cost}" that calls `coinApi.unlock(featureKey, packSize)`; on 402 → route to coin shop ("Get more coins"); on success → callback so the caller retries the gated action inline. Reads cost/grant from backend (unlock catalog) so values don't drift.
-- [ ] **Step 2:** Wire it into each of the 3 modals as a **second** action beside the existing "Go VIP" (do not remove the VIP CTA). Map each modal to its `featureKey` (translation / tutorChat / moment). Hidden when `!coinsEnabled`.
+- [ ] **Step 1:** `unlock_cta.dart` — a button "Unlock {grant} for 💎{cost}" that calls `coinApi.unlock(featureKey)`; reads cost/grant from the backend catalog (`getUnlockCatalog`) so values never drift; on 402 → route to coin shop ("Get more coins"); on success → callback so the caller retries the gated action inline.
+- [ ] **Step 2:** Wire it into each of the 3 modals as a **second** action beside the existing "Go VIP" (do not remove the VIP CTA). Map each modal to its real `featureKey`: `translation_bottom_sheet.dart` → `translation`; `limit_exceeded_dialog.dart` → `moment`; `persona_upgrade_sheet.dart` → **the specific tutor chip from the 429 response** (`chat`/`roleplay`/`story`/`photo`/`pronunciation`), not a generic "tutor" key (reviewer I2). Hidden when `!coinsEnabled`.
 - [ ] **Step 3:** `flutter analyze` clean. **Commit** `feat(coins): 'unlock for coins' CTA in translation/tutor/creation limit modals`.
 
 **== APP PHASE DONE (T6–T9) ==**
