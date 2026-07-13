@@ -2,7 +2,7 @@ name: bananatalk_app
 description: Learn, Meet or Date, the best language exchange application.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-version: 1.5.2+10555
+version: 1.6.0+10556
 
 
 environment:
