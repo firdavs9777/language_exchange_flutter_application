@@ -80,15 +80,15 @@
 
 - [ ] **Step 1: READ** all three enforcement paths named above and note the exact allow-decision + increment sites. Confirm `coinBonus` must be an explicitly-declared field (the `regularUserLimitations` subschema at `:440-499` is strict → an undeclared nested `$inc` would be dropped by Mongoose).
 - [ ] **Step 2: Declare `coinBonus`** on the User schema: `coinBonus: { type: Map, of: Number, default: {} }`.
-- [ ] **Step 3: Define the shared helper** `consumeBonusIfAvailable(user, featureKey)` → atomic `findOneAndUpdate({_id, [`coinBonus.${featureKey}`]:{$gte:1}}, {$inc:{[`coinBonus.${featureKey}`]:-1}})`; returns true if a bonus unit was consumed. **featureKeys are the REAL keys (reviewer I2):** tutor chips `chat`/`roleplay`/`story`/`photo`/`pronunciation` (each independent), `translation`, `moment`. The unlock catalog (Task 2) must use these exact keys.
-- [ ] **Step 4: Write failing tests** (pure decision logic + a small integration slice for the atomic decrement):
-  - free cap available → free path used, pool untouched.
-  - free cap exhausted + `coinBonus[feature] = 3` → allowed, pool decrements to 2; at 0 → blocked.
-  - pool does NOT reset on the daily boundary (persists).
-  - VIP fast-path unchanged (unlimited; pool irrelevant).
-  - each of the three paths (tutor `chat`, `translation`, `moment`) honors the pool independently.
-- [ ] **Step 5: Run fail → implement all three sites** to fall back to `consumeBonusIfAvailable` when the free cap is exhausted (do NOT alter the VIP fast-path; do NOT touch the daily reset) → run green.
-- [ ] **Step 6: Commit** `feat(coins): persistent coinBonus pool honored by tutor/translation/moment gates`.
+- [ ] **Step 3: Define atomic consume — NEVER compose `$inc` with `this.save()` (reviewer NEW-C1).** The pool decrement and the free-counter increment must each be a single atomic `findOneAndUpdate`, and the request must NOT afterwards `save()` a stale in-memory copy of these fields (a trailing `save()` would overwrite the atomic decrement with the pre-decrement value → unlimited free bonus). Pattern per feature (`consume(featureKey)`):
+  1. **Free path (atomic):** `findOneAndUpdate({_id, <freeCounter> < cap}, {$inc:{<freeCounter>:+1}})`. If it returns a doc → allowed via free quota, done.
+  2. **Pool path (atomic), only if free returned null:** `findOneAndUpdate({_id, ['coinBonus.'+featureKey]:{$gte:1}}, {$inc:{['coinBonus.'+featureKey]:-1}})`. If doc → allowed via paid pool. If null → blocked.
+  Exactly one bucket is consumed per request; both ops are atomic so concurrent requests can't double-spend or lost-update. **featureKeys are the REAL keys (reviewer I2):** `chat`/`roleplay`/`story`/`photo`/`pronunciation` (each independent), `translation`, `moment`.
+  - **Tutor** (`consumeQuota`, already a pure atomic `findOneAndUpdate` with no `save()`): add the pool path as the second atomic op in its cap-hit branch — composes cleanly.
+  - **Translation** (`canTranslate`+`incrementTranslationCount`) and **Moment** (`canCreateMoment`+`incrementMomentCount`): these currently do read-modify-`this.save()` (`models/User.js` ~`:1207` / ~`:1493`, saved by controllers at `advancedMessages.js:245` / `moments.js:461`). **Rewrite them into the atomic two-step above** and **remove the read-modify-`save()` of these counters** so nothing overwrites the pool. Mirror the `consumeQuota` shape.
+- [ ] **Step 4: Write failing tests** — pure decision logic for the bucket choice, PLUS **concurrency integration tests (reviewer NEW-C1)** for BOTH the translation and moment paths against a real Mongo: "free cap exhausted, `coinBonus[key]=1`, two concurrent consume calls → pool ends at exactly 0 and exactly one call is allowed" (proves no `save()`-overwrite and no double-spend). Also: free-cap-available uses free path (pool untouched); pool persists across the daily reset; VIP fast-path unchanged.
+- [ ] **Step 5: Run fail → implement all three sites atomically (no trailing `save()` of these counters; VIP fast-path and daily reset untouched) → run green.**
+- [ ] **Step 6: Commit** `feat(coins): atomic free-then-pool consume for tutor/translation/moment (no save() overwrite)`.
 
 > **Tutor granularity (reviewer I2):** `persona_upgrade_sheet.dart` fires on a generic tutor 429, but the 5 chips cap independently. The 429 response already identifies the exhausted `featureKey` — the unlock grants that specific chip. Task 9 passes the featureKey from the 429 to the unlock call.
 

@@ -68,7 +68,7 @@ Grants add to the persistent `coinBonus` pool (not daily). Costs live server-sid
 - **IAP idempotency** via unique `metadata.iapTransactionId`; replays return the existing credit, no double-credit.
 - **Verify-fail after charge** → refund path + surfaced "try again".
 - **Visitor accounts** cannot purchase/unlock (regular+ only); show the VIP-style upgrade nudge.
-- **Bonus quota resets daily** with the existing counters (no permanent quota inflation).
+- **Paid `coinBonus` pool is persistent** — it does NOT reset daily (paid uses never evaporate at midnight). Free daily counters reset as before; the pool only drains when consumed. Consume is atomic (free-counter increment OR pool decrement, each a single `findOneAndUpdate`, never composed with a stale `save()`).
 - **`COINS_ENABLED=false`** → routes 404, app hides all coin UI.
 - **Node caveat:** local Node v25 breaks backend scripts/tests (`SlowBuffer`); use nvm **Node v24.18.0** for `npm test`.
 
