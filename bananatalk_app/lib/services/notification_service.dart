@@ -78,6 +78,18 @@ class NotificationService {
 
     _context = context;
 
+    // Task 7 Step 2 (Workstream E-core): seed _currentUserId from the stored
+    // session up front, so onTokenRefresh can re-register even if a token
+    // rotation fires before any explicit registerToken() call.
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final storedUserId = prefs.getString('userId');
+      if (storedUserId != null && storedUserId.isNotEmpty) {
+        _currentUserId = storedUserId;
+      }
+    } catch (e) {
+      debugPrint('[NotificationService] failed to read stored userId: $e');
+    }
 
     try {
       // Initialize Firebase Messaging
@@ -125,14 +137,19 @@ class NotificationService {
 
   /// Request notification permissions
   Future<NotificationSettings> _requestPermission() async {
-
+    // Task 7 Step 3 (Workstream E-core): request with provisional: true so
+    // iOS users who haven't answered (or previously denied) the full prompt
+    // still get a token and can receive quiet/silent notifications. This
+    // does not change the visible prompt behavior — iOS only shows its own
+    // "provisional" quiet-delivery UI, never a blocking dialog — and users
+    // who already granted full authorization are unaffected.
     final settings = await _fcm!.requestPermission(
       alert: true,
       announcement: false,
       badge: true,
       carPlay: false,
       criticalAlert: false,
-      provisional: false,
+      provisional: true,
       sound: true,
     );
 
@@ -533,9 +550,18 @@ class NotificationService {
       );
 
       if (result['success'] == true) {
+        debugPrint('[NotificationService] FCM token registered for user $userIdToUse');
       } else {
+        // Task 7 Step 5 (Workstream E-core): log instead of silently
+        // swallowing — every app launch retries via Step 1, so this is
+        // diagnostic only, not a "mark done forever" flag.
+        debugPrint(
+          '[NotificationService] FCM token registration failed: '
+          '${result['message']}',
+        );
       }
     } catch (e) {
+      debugPrint('[NotificationService] FCM token registration error: $e');
     }
   }
 

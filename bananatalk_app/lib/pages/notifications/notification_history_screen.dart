@@ -62,6 +62,28 @@ class _NotificationHistoryScreenState
         return Icons.info_rounded;
       case 'chat_message':
         return Icons.chat_bubble_rounded;
+      // Workstream E-core Task 13 — new types unlocked by Task 5's enum fix
+      // (previously fired the push but the record was silently dropped, so
+      // they'd never have reached this switch before).
+      case 'wave':
+      case 'wave_received':
+        return Icons.waving_hand_rounded;
+      case 'comment_reply':
+        return Icons.reply_rounded;
+      case 'comment_reaction':
+        return Icons.emoji_emotions_rounded;
+      case 'comment_mention':
+        return Icons.alternate_email_rounded;
+      case 'room_mention':
+        return Icons.tag_rounded;
+      case 'new_follower':
+        return Icons.person_add_alt_1_rounded;
+      case 'srs_review':
+        return Icons.style_rounded;
+      case 'streak_reminder':
+        return Icons.local_fire_department_rounded;
+      case 'vip_renewal_warning':
+        return Icons.workspace_premium_rounded;
       default:
         return Icons.notifications_rounded;
     }
@@ -83,6 +105,26 @@ class _NotificationHistoryScreenState
         return const Color(0xFF607D8B); // gray
       case 'chat_message':
         return AppColors.primary; // teal
+      // Workstream E-core Task 13 — new types unlocked by Task 5's enum fix.
+      case 'wave':
+      case 'wave_received':
+        return const Color(0xFFFFB300); // amber
+      case 'comment_reply':
+        return const Color(0xFF4CAF50); // green (matches moment_comment)
+      case 'comment_reaction':
+        return const Color(0xFFE91E63); // pink (matches moment_like)
+      case 'comment_mention':
+        return const Color(0xFF3F51B5); // indigo
+      case 'room_mention':
+        return const Color(0xFF009688); // teal-green
+      case 'new_follower':
+        return const Color(0xFF00BCD4); // cyan (matches friend_request)
+      case 'srs_review':
+        return const Color(0xFF8BC34A); // light green
+      case 'streak_reminder':
+        return const Color(0xFFFF5722); // deep orange
+      case 'vip_renewal_warning':
+        return const Color(0xFFFFC107); // gold
       default:
         return const Color(0xFF607D8B);
     }

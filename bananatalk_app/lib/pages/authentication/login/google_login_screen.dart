@@ -131,6 +131,21 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
           _isLoading = false;
         });
 
+        // Task 7 Step 4 (Workstream E-core): register the FCM token right
+        // after auth succeeds, before the profile-completion/terms gates,
+        // so incomplete-profile users are reachable immediately rather than
+        // only on their next session-restore launch.
+        try {
+          final notificationService = NotificationService();
+          final earlyUserId = ref.read(authServiceProvider).userId;
+          if (earlyUserId.isNotEmpty) {
+            await notificationService.registerToken(earlyUserId);
+          }
+        } catch (e) {
+          // Non-fatal: splash re-registers on next launch (E-core T7).
+          debugPrint('[google-login] FCM registerToken failed: $e');
+        }
+
         if (mounted) {
           if (needsProfileCompletion) {
             // Profile NOT completed - redirect to RegisterTwo
@@ -216,14 +231,8 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
               await ChatSocketService().forceReconnect();
             } catch (e) {}
 
-            // Register FCM token for push notifications
-            try {
-              final notificationService = NotificationService();
-              final userId = ref.read(authServiceProvider).userId;
-              if (userId.isNotEmpty) {
-                await notificationService.registerToken(userId);
-              }
-            } catch (e) {}
+            // FCM token already registered right after auth succeeded
+            // (Task 7 Step 4, above) — no need to repeat here.
 
             // Invalidate userProvider to force fresh fetch
             ref.invalidate(userProvider);

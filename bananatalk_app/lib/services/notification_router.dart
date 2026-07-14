@@ -91,6 +91,34 @@ class NotificationRouter {
           if (momentId != null) targetPath = '/moment/$momentId';
           break;
 
+        // Workstream E-core Task 12 Step 1 — room_mention had no router
+        // case at all (tap fell through to home). Payload is
+        // { type: 'room_mention', userId: senderId, roomId }. There is no
+        // GoRoute for a room-by-id today (RoomScreen/VoiceRoomScreen both
+        // require a full room object and are reached via Navigator.push
+        // from within Community), so the best available deep link is the
+        // Community tab (index 1) — same "closest available surface"
+        // approach as story_comment/vip_renewal_warning below.
+        case 'room_mention':
+          targetPath = '/tabs/1';
+          break;
+
+        // Workstream E-core Task 12 Step 3 — new follower deep-links to
+        // the follower's profile (mirrors friend_request/profile_visit).
+        case 'new_follower':
+          final followerId = data['userId']?.toString();
+          if (followerId != null) targetPath = '/profile/$followerId';
+          break;
+
+        // Workstream E-core Task 12 Step 3 — SRS/streak reminders have no
+        // per-item id to deep-link to; route to the AI Study tab (index 0,
+        // the app's tutor/vocab-review home) so the user lands somewhere
+        // actionable instead of the generic home screen.
+        case 'srs_review':
+        case 'streak_reminder':
+          targetPath = '/tabs/0';
+          break;
+
         // Step 16 — forward-compat. No /story route in GoRouter today
         // (stories use Navigator.push). Fall back to the commenter's
         // profile so the tap goes somewhere meaningful.
@@ -116,6 +144,18 @@ class NotificationRouter {
           final callerId = data['callerId']?.toString();
           if (callerId != null) targetPath = '/chat/$callerId';
           break;
+
+        default:
+          // Workstream E-core Task 12 Step 2 — generic fallback: any type
+          // without an explicit case above falls through here. If the
+          // payload carries a `route`, resolve it to a route that actually
+          // exists — pushing an unknown path renders go_router's built-in
+          // "page not found" screen (the GoRouter has no errorBuilder), so
+          // never push raw backend routes blindly (gate review I1).
+          final route = data['route']?.toString();
+          if (route != null && route.isNotEmpty) {
+            targetPath = _resolveKnownRoute(route);
+          }
       }
 
       // Navigate to home first, then push the target screen after
@@ -133,6 +173,27 @@ class NotificationRouter {
       } catch (navError) {
       }
     }
+  }
+
+  /// Map a backend-supplied `data.route` onto a route the GoRouter actually
+  /// defines. Backend payloads reference paths with no GoRoute (e.g.
+  /// `/voicerooms/:id`, `/community?tab=waves`) — map those to their nearest
+  /// real destination; pass through paths that match a known route prefix;
+  /// return null (stay on home) for anything unrecognized.
+  static String? _resolveKnownRoute(String route) {
+    // Known backend routes with no matching GoRoute → nearest real tab.
+    if (route.startsWith('/voicerooms')) return '/tabs/1'; // Community tab
+    if (route.startsWith('/community')) return '/tabs/1';
+    // Prefixes that exist in app_router.dart — safe to push as-is.
+    const knownPrefixes = [
+      '/chat/', '/moment/', '/profile/', '/tabs/', '/matching',
+      '/leaderboard', '/call-history', '/exam-study', '/home',
+    ];
+    for (final prefix in knownPrefixes) {
+      if (route == prefix || route.startsWith(prefix)) return route;
+    }
+    debugPrint('🔔 Unknown notification route "$route" — staying on home');
+    return null;
   }
 
   /// Handle incoming call notification tap.

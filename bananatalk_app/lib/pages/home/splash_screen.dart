@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bananatalk_app/pages/authentication/register/register_two_screen.dart';
 import 'package:bananatalk_app/pages/authentication/terms_of_service_screen.dart';
 import 'package:bananatalk_app/pages/authentication/widgets/animated_banana_title.dart';
@@ -80,6 +82,22 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
 
     final authService = ref.read(authServiceProvider);
     final isAuthenticated = await authService.initializeAuth();
+
+    // Task 7 Step 1 (Workstream E-core): register the FCM token on every
+    // session restore, not just fresh logins. Most app opens are session
+    // restores (fresh-login paths already call registerToken), so this
+    // closes the gap responsible for ~83% of unreachable tokens. Backend
+    // upserts by deviceId, so repeat calls are idempotent — fire-and-forget,
+    // don't block navigation on it.
+    if (isAuthenticated && authService.userId.isNotEmpty) {
+      unawaited(
+        NotificationService().registerToken(authService.userId).catchError((
+          e,
+        ) {
+          debugPrint('[splash] FCM registerToken failed on restore: $e');
+        }),
+      );
+    }
 
     await Future.delayed(const Duration(seconds: 2));
 
