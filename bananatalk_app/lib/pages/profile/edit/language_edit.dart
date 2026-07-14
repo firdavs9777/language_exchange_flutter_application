@@ -3,6 +3,7 @@ import 'package:bananatalk_app/pages/profile/widgets/edit_screen_scaffold.dart';
 import 'package:bananatalk_app/pages/profile/widgets/gradient_save_button.dart';
 import 'package:bananatalk_app/pages/profile/widgets/profile_snackbar.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
+import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -186,6 +187,10 @@ class _ProfileLanguageEditState extends ConsumerState<ProfileLanguageEdit> {
         await ref
             .read(authServiceProvider)
             .updateUserLanguageToLearn(langToLearn: languageName);
+        // The prompt-of-the-day is derived server-side from
+        // language_to_learn; drop the session-cached prompt so the feed
+        // card refreshes in the new language without an app restart.
+        ref.invalidate(promptOfDayProvider);
       }
 
       if (!mounted) return;
