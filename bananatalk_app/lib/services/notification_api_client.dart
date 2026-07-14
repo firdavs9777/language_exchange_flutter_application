@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ui' show PlatformDispatcher;
 import 'package:bananatalk_app/models/notification_models.dart';
 import 'package:bananatalk_app/service/endpoints.dart';
 import 'package:http/http.dart' as http;
@@ -57,7 +58,6 @@ class NotificationApiClient {
       final url = Uri.parse('${baseUrl}notifications/register-token');
       final headers = await _getHeaders();
 
-
       final response = await http.post(
         url,
         headers: headers,
@@ -65,6 +65,12 @@ class NotificationApiClient {
           'token': token,
           'platform': platform,
           'deviceId': deviceId,
+          // Raw device locale (e.g. "ko_KR", "zh-Hans-CN"); the backend
+          // normalizes it to a supported template locale and stores it as
+          // user.preferredLocale so pushes render in the user's language.
+          // Sent on every launch (E-core), so locale changes self-heal.
+          'deviceLocale':
+              PlatformDispatcher.instance.locale.toLanguageTag(),
         }),
       );
 
