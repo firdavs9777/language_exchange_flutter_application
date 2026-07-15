@@ -31,6 +31,9 @@ const List<String> kAllBackendLanguageNames = [
   'Japanese Sign Language', 'Korean Sign Language',
   // Seeded but not yet in prod (pending seeder re-run):
   'Spanish (Mexico)', 'French (Canada)', 'Portuguese (Portugal)',
+  'English (Australia)', 'English (Canada)', 'Spanish (Argentina)',
+  'Arabic (Egyptian)', 'Arabic (Levantine)', 'Arabic (Gulf)',
+  'Arabic (Moroccan Darija)', 'Sesotho', 'Shona',
 ];
 
 void main() {
@@ -59,6 +62,18 @@ void main() {
       expect(LanguageFlags.getFlagByName('Cantonese'), '🇭🇰');
       expect(LanguageFlags.getFlagByName('Spanish (Mexico)'), '🇲🇽');
       expect(LanguageFlags.getFlagByName('French (Canada)'), '🇨🇦');
+      expect(LanguageFlags.getFlagByName('English (Australia)'), '🇦🇺');
+      expect(LanguageFlags.getFlagByName('English (Canada)'), '🇨🇦');
+      expect(LanguageFlags.getFlagByName('Spanish (Argentina)'), '🇦🇷');
+    });
+
+    test('Arabic varieties render their region flag; plain Arabic (=MSA) keeps 🇸🇦', () {
+      expect(LanguageFlags.getFlagByName('Arabic'), '🇸🇦');
+      expect(LanguageFlags.getFlagByName('Arabic (MSA)'), '🇸🇦');
+      expect(LanguageFlags.getFlagByName('Arabic (Egyptian)'), '🇪🇬');
+      expect(LanguageFlags.getFlagByName('Arabic (Levantine)'), '🇱🇧');
+      expect(LanguageFlags.getFlagByName('Arabic (Gulf)'), '🇸🇦');
+      expect(LanguageFlags.getFlagByName('Arabic (Moroccan Darija)'), '🇲🇦');
     });
 
     test('base language names keep their existing convention flags', () {

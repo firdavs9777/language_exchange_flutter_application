@@ -12,10 +12,22 @@ class LanguageFlags {
     'pt-pt': '🇵🇹', // Portuguese (Portugal)
     'en-us': '🇺🇸', // English (US)
     'en-gb': '🇬🇧', // English (UK)
+    'en-au': '🇦🇺', // English (Australia)
+    'en-ca': '🇨🇦', // English (Canada)
     'es-mx': '🇲🇽', // Spanish (Mexico)
     'es-es': '🇪🇸', // Spanish (Spain)
+    'es-ar': '🇦🇷', // Spanish (Argentina)
     'fr-ca': '🇨🇦', // French (Canada)
     'fa-tj': '🇹🇯', // Tajik written as Persian-Tajikistan variant
+    // Arabic varieties (catalog codes ar-EG/ar-LV/ar-GU/ar-MA — pragmatic
+    // region-style tags, see backend seeds/languages.js). Explicit entries
+    // required: the hyphen fallback would otherwise collapse them all to
+    // 'ar' → 🇸🇦. Levantine → 🇱🇧 (recognized media standard for a
+    // dialect spanning LB/SY/JO/PS); Gulf → 🇸🇦 (largest Gulf state).
+    'ar-eg': '🇪🇬', // Arabic (Egyptian)
+    'ar-lv': '🇱🇧', // Arabic (Levantine)
+    'ar-gu': '🇸🇦', // Arabic (Gulf)
+    'ar-ma': '🇲🇦', // Arabic (Moroccan Darija)
 
     // Major Languages
     'en': '🇬🇧', // English
@@ -260,6 +272,8 @@ class LanguageFlags {
     'english': 'en',
     'english (us)': 'en-us',
     'english (uk)': 'en-gb',
+    'english (australia)': 'en-au',
+    'english (canada)': 'en-ca',
     'korean': 'ko',
     'japanese': 'ja',
     'japan': 'ja',
@@ -272,6 +286,7 @@ class LanguageFlags {
     'spanish': 'es',
     'spanish (mexico)': 'es-mx',
     'spanish (spain)': 'es-es',
+    'spanish (argentina)': 'es-ar',
     'french': 'fr',
     'french (canada)': 'fr-ca',
     'german': 'de',
@@ -280,7 +295,13 @@ class LanguageFlags {
     'portuguese (brazil)': 'pt-br',
     'portuguese (portugal)': 'pt-pt',
     'russian': 'ru',
-    'arabic': 'ar',
+    'arabic': 'ar', // plain Arabic doubles as MSA
+    'arabic (msa)': 'ar',
+    'arabic (egyptian)': 'ar-eg',
+    'arabic (levantine)': 'ar-lv',
+    'arabic (gulf)': 'ar-gu',
+    'arabic (moroccan darija)': 'ar-ma',
+    'darija': 'ar-ma',
     'hindi': 'hi',
     'thai': 'th',
     'vietnamese': 'vi',
@@ -392,6 +413,8 @@ class LanguageFlags {
     'oromo': 'om',
     'setswana': 'tn',
     'tswana': 'tn',
+    'sesotho': 'st',
+    'shona': 'sn',
     'kinyarwanda': 'rw',
     'luganda': 'lg',
     'chichewa': 'ny',

@@ -17,7 +17,17 @@ void main() {
       expect(LanguageCodes.toBaseIso6391('zh-TW'), 'zh');
       expect(LanguageCodes.toBaseIso6391('zh-HK'), 'zh'); // Cantonese → zh
       expect(LanguageCodes.toBaseIso6391('es-MX'), 'es');
+      expect(LanguageCodes.toBaseIso6391('es-AR'), 'es');
       expect(LanguageCodes.toBaseIso6391('fr-CA'), 'fr');
+      expect(LanguageCodes.toBaseIso6391('en-AU'), 'en');
+      expect(LanguageCodes.toBaseIso6391('en-CA'), 'en');
+      // Arabic varieties: nonstandard region-style subtags (EG/LV/GU/MA)
+      // — the prefix rule groups them to base 'ar' regardless of subtag
+      // validity, so moment tags/feeds never fragment Arabic.
+      expect(LanguageCodes.toBaseIso6391('ar-EG'), 'ar');
+      expect(LanguageCodes.toBaseIso6391('ar-LV'), 'ar');
+      expect(LanguageCodes.toBaseIso6391('ar-GU'), 'ar');
+      expect(LanguageCodes.toBaseIso6391('ar-MA'), 'ar');
     });
 
     test('plain 639-1 codes pass through (case/whitespace-insensitive)', () {
