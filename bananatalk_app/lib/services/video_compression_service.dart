@@ -52,15 +52,18 @@ class VideoCompressionService {
     return false;
   }
 
-  /// Validate video duration (max 3 minutes)
-  Future<bool> isValidDuration(File videoFile) async {
+  /// Validate video duration. Defaults to [maxDurationSeconds] (10 minutes
+  /// / 600s — NOT 3 minutes, despite what an earlier version of this
+  /// comment stale-claimed); pass [maxSeconds] to enforce a tighter cap,
+  /// e.g. Reels' 180s (3-minute) limit.
+  Future<bool> isValidDuration(File videoFile, {int? maxSeconds}) async {
     final info = await getVideoInfo(videoFile);
     if (info == null) return true; // Allow if we can't get info
 
     final durationMs = info.duration ?? 0;
     final durationSeconds = durationMs / 1000;
 
-    return durationSeconds <= maxDurationSeconds;
+    return durationSeconds <= (maxSeconds ?? maxDurationSeconds);
   }
 
   /// Get video duration in seconds
@@ -170,11 +173,16 @@ class VideoCompressionService {
   }
 
   /// Process video for upload (validate, compress if needed)
-  /// Returns processed file and status info
+  /// Returns processed file and status info.
+  ///
+  /// [maxDurationSecondsOverride] tightens the duration check below the
+  /// default 600s cap — Reels passes 180 here (see `create_moment.dart`'s
+  /// `isReel` mode).
   Future<VideoProcessResult> processVideoForUpload(
     File videoFile, {
     Function(double)? onProgress,
     Function(String)? onStatus,
+    int? maxDurationSecondsOverride,
   }) async {
     try {
       // Check file exists
@@ -193,12 +201,17 @@ class VideoCompressionService {
 
       // Check duration
       onStatus?.call('Checking video duration...');
-      final isValid = await isValidDuration(videoFile);
+      final effectiveMaxSeconds =
+          maxDurationSecondsOverride ?? maxDurationSeconds;
+      final isValid =
+          await isValidDuration(videoFile, maxSeconds: effectiveMaxSeconds);
       if (!isValid) {
         final duration = await getVideoDuration(videoFile);
+        final maxMinutes = (effectiveMaxSeconds / 60).round();
         return VideoProcessResult(
           success: false,
-          error: 'Video is too long (${duration.toStringAsFixed(0)}s). Maximum is ${maxDurationSeconds}s (10 minutes).',
+          error: 'Video is too long (${duration.toStringAsFixed(0)}s). '
+              'Maximum is ${effectiveMaxSeconds}s ($maxMinutes minutes).',
         );
       }
 

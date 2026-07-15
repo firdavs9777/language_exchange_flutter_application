@@ -56,6 +56,8 @@ class Community {
     this.privacySettings,
     this.termsAccepted = false,
     this.profileCompleted = false,
+    // Workstream G: Apple 1.2 content-policy acceptance for Reels.
+    this.reelsPolicyAccepted = false,
     // New HelloTalk-style fields
     this.topics = const [],
     this.languageLevel,
@@ -101,6 +103,11 @@ class Community {
   final PrivacySettings? privacySettings;
   final bool termsAccepted;
   final bool profileCompleted;
+  /// Workstream G: one-time Reels content-policy acceptance (Apple 1.2),
+  /// persisted server-side via the existing profile-update endpoint so it
+  /// follows the user across devices/reinstalls. See
+  /// `lib/pages/moments/reels/reel_policy_dialog.dart`.
+  final bool reelsPolicyAccepted;
   // New HelloTalk-style fields
   final List<String> topics;
   final String? languageLevel; // A1, A2, B1, B2, C1, C2
@@ -213,6 +220,7 @@ class Community {
           : null,
       termsAccepted: json['termsAccepted'] ?? false,
       profileCompleted: json['profileCompleted'] ?? false,
+      reelsPolicyAccepted: json['reelsPolicyAccepted'] ?? false,
       // New HelloTalk-style fields
       topics: (json['topics'] as List<dynamic>?)
               ?.map((e) => _s(e))
@@ -261,6 +269,7 @@ class Community {
       'privacySettings': privacySettings?.toJson(),
       'termsAccepted': termsAccepted,
       'profileCompleted': profileCompleted,
+      'reelsPolicyAccepted': reelsPolicyAccepted,
       // New HelloTalk-style fields
       'topics': topics,
       if (languageLevel != null) 'languageLevel': languageLevel,

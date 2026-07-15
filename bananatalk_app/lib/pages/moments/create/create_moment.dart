@@ -7,6 +7,8 @@ import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/user_limits_provider.dart';
 import 'package:bananatalk_app/providers/upload_manager_provider.dart';
+import 'package:bananatalk_app/providers/reels_provider.dart';
+import 'package:bananatalk_app/models/upload_task.dart';
 import 'package:bananatalk_app/utils/feature_gate.dart';
 import 'package:bananatalk_app/widgets/limit_exceeded_dialog.dart';
 import 'package:bananatalk_app/utils/api_error_handler.dart';
@@ -33,18 +35,34 @@ class CreateMoment extends ConsumerStatefulWidget {
 
   /// Optional prompt-of-the-day text to prefill into the composer (see
   /// `PromptOfDayCard`). Shown as a dismissible chip above the text field
-  /// and, if present, prefills the description field itself.
+  /// and, if present, prefills the description field itself (skipped in
+  /// [isReel] mode — see [prefillPrompt]'s use there).
   final String? prefillPrompt;
 
   /// Id of the prompt being answered, sent alongside the moment creation
   /// request so the backend can attribute the moment to the prompt.
   final String? prefillPromptId;
 
+  /// Workstream G: when true, this composer is running the reel-creation
+  /// flow (`CreateReelFlow`) rather than a plain moment. A reel requires
+  /// video, so entering this mode immediately prompts for a video source
+  /// (record/gallery), caps the trim/compression duration at 180s instead
+  /// of 600s, hides the photo/camera-photo pickers, and sends
+  /// `isReel: true` (+ `promptId` when prompt-launched) on create.
+  final bool isReel;
+
+  /// Reel-mode language default: the prompt's language when prompt-
+  /// launched, otherwise the poster's `language_to_learn` (resolved by the
+  /// caller — see `CreateReelFlow`). ISO 639-1 code, e.g. `'ko'`.
+  final String? prefillLanguage;
+
   const CreateMoment({
     Key? key,
     this.momentToEdit,
     this.prefillPrompt,
     this.prefillPromptId,
+    this.isReel = false,
+    this.prefillLanguage,
   }) : super(key: key);
 
   @override
@@ -222,6 +240,31 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
 
       // Note: Images can't be easily pre-loaded as File objects since they're URLs
       // User can add new images but can't edit existing ones in this implementation
+    } else if (widget.isReel) {
+      // Reel mode: caption stays blank (it's the user's own words over
+      // their video, not the prompt text itself) — the prompt is shown as
+      // context via the same dismissible chip used by the text-answer flow.
+      if (widget.prefillPromptId != null &&
+          widget.prefillPromptId!.isNotEmpty) {
+        _promptId = widget.prefillPromptId;
+        _showPromptChip = true;
+      }
+      final langCode = widget.prefillLanguage?.trim();
+      if (langCode != null && langCode.isNotEmpty) {
+        _applyLanguageCode(langCode);
+      } else {
+        final cachedUser = ref.read(userProvider).valueOrNull;
+        final userLangCode = cachedUser?.language_to_learn;
+        if (userLangCode != null && userLangCode.isNotEmpty) {
+          _applyLanguageCode(userLangCode);
+        }
+      }
+      // A reel requires video — prompt for record/gallery immediately
+      // rather than making the user find the (also re-enabled) video
+      // button in the bottom bar themselves.
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted && _selectedVideo == null) _showVideoSourceSheet();
+      });
     } else if (widget.prefillPrompt != null && widget.prefillPrompt!.isNotEmpty) {
       // Prefill from prompt-of-the-day (see PromptOfDayCard)
       descriptionController.text = widget.prefillPrompt!;
@@ -229,6 +272,17 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
       _showPromptChip = true;
       _updateButtonState();
     }
+  }
+
+  /// Reverse-looks-up an ISO 639-1 code (e.g. `'ko'`) into `_languages`'
+  /// display name (e.g. `'Korean'`), used to default the language dropdown
+  /// in reel mode. Falls back to English if the code isn't in the list.
+  void _applyLanguageCode(String code) {
+    final entry = _languages.entries.firstWhere(
+      (e) => e.value == code,
+      orElse: () => const MapEntry('English', 'en'),
+    );
+    _selectedLanguage = entry.key;
   }
 
   @override
@@ -351,6 +405,51 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     }
   }
 
+  /// Bottom-sheet chooser between recording a new video and picking one
+  /// from the gallery — wires the bottom bar's video button (re-enabled
+  /// here) to both `_recordVideo` (previously defined but never called
+  /// from anywhere in the UI) and the existing `_pickVideo`.
+  Future<void> _showVideoSourceSheet() async {
+    if (_selectedImages.isNotEmpty) {
+      showMomentsSnackBar(
+        context,
+        message: AppLocalizations.of(context)!.pleaseRemoveImagesFirst,
+      );
+      return;
+    }
+    final l10n = AppLocalizations.of(context)!;
+    await showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (sheetContext) => SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              leading: const Icon(Icons.videocam, color: Color(0xFF9C27B0)),
+              title: Text(l10n.record),
+              onTap: () {
+                Navigator.pop(sheetContext);
+                _recordVideo();
+              },
+            ),
+            ListTile(
+              leading:
+                  const Icon(Icons.video_library_outlined, color: Color(0xFF9C27B0)),
+              title: Text(l10n.chooseFromGallery),
+              onTap: () {
+                Navigator.pop(sheetContext);
+                _pickVideo();
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   /// Pick video from gallery (max 10 minutes, max 1GB)
   /// Automatically compresses video like Instagram for faster uploads
   Future<void> _pickVideo() async {
@@ -394,13 +493,19 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
   /// Process video (compress if needed) and set it as selected
   /// Opens video editor for trimming and filters
   Future<void> _processAndSetVideo(File videoFile) async {
+    // Reels cap at 180s (3 minutes); plain video moments keep the existing
+    // 600s (10 minute) cap. The trimmer itself won't let the user select a
+    // window longer than this, so it's enforced here rather than needing a
+    // separate check post-trim.
+    final maxDurationSeconds = widget.isReel ? 180 : 600;
+
     // First, open the video editor for trimming and filters
     final editorResult = await Navigator.push<VideoEditorResult>(
       context,
       AppPageRoute(
         builder: (context) => VideoEditorScreen(
           videoFile: videoFile,
-          maxDurationSeconds: 600, // 10 minutes max
+          maxDurationSeconds: maxDurationSeconds,
         ),
       ),
     );
@@ -440,6 +545,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
             });
           }
         },
+        maxDurationSecondsOverride: widget.isReel ? 180 : null,
       );
 
       // Close processing dialog
@@ -1329,6 +1435,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
               location: locationData,
               backgroundColor: _selectedBackgroundColor.isNotEmpty ? _selectedBackgroundColor : null,
               promptId: _showPromptChip ? _promptId : null,
+              isReel: widget.isReel,
             );
 
         // Upload images if any
@@ -1439,9 +1546,15 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     // Format location data if available
     final locationData = _formatLocationData();
 
+    // Grabbed up front (while this State is still mounted) so the
+    // post-completion listener below can invalidate `reelsFeedProvider`
+    // even after this screen pops and its own `ref` goes away — the
+    // ProviderContainer outlives the widget.
+    final container = ProviderScope.containerOf(context, listen: false);
+
     try {
       // Queue the upload for background processing
-      await ref.read(uploadManagerProvider.notifier).queueMomentUpload(
+      final taskId = await ref.read(uploadManagerProvider.notifier).queueMomentUpload(
         description: descriptionController.text.trim(),
         privacy: _selectedPrivacy.toLowerCase(),
         category: _categoryToBackend[_selectedCategory] ?? 'general',
@@ -1452,7 +1565,35 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
         imagePaths: _selectedImages.map((f) => f.path).toList(),
         videoPath: _selectedVideo?.path,
         backgroundColor: _selectedBackgroundColor.isNotEmpty ? _selectedBackgroundColor : null,
+        promptId: widget.isReel && _showPromptChip ? _promptId : null,
+        isReel: widget.isReel,
       );
+
+      // Reels upload/create in the background (same pipeline as any other
+      // video moment), so "post success" isn't visible at this call site.
+      // Invalidate optimistically now and again on this specific task's
+      // actual completion, so the grid picks up the finished reel without
+      // the user needing to manually pull-to-refresh — the promptOfDay
+      // stale-cache lesson (see project memory) is exactly this class of
+      // bug.
+      if (widget.isReel) {
+        container.invalidate(reelsFeedProvider);
+        late final ProviderSubscription<AsyncValue<UploadProgress>> sub;
+        sub = container.listen<AsyncValue<UploadProgress>>(
+          uploadProgressStreamProvider,
+          (previous, next) {
+            next.whenData((progress) {
+              if (progress.taskId != taskId) return;
+              if (progress.status == UploadStatus.completed) {
+                container.invalidate(reelsFeedProvider);
+                sub.close();
+              } else if (progress.status == UploadStatus.failed) {
+                sub.close();
+              }
+            });
+          },
+        );
+      }
 
       // Navigate back immediately - upload continues in background
       if (mounted) {
@@ -1955,206 +2096,188 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
               const SizedBox(height: 20),
             ],
 
-            // TODO: Re-enable video preview section when needed (commented out to reduce app size)
             // Video Preview Section
-            // if (_selectedVideo != null) ...[
-            //   Container(
-            //     decoration: BoxDecoration(
-            //       color: Colors.white,
-            //       borderRadius: BorderRadius.circular(12),
-            //       boxShadow: [
-            //         BoxShadow(
-            //           color: Colors.black.withOpacity(0.04),
-            //           blurRadius: 8,
-            //           offset: const Offset(0, 2),
-            //         ),
-            //       ],
-            //     ),
-            //     padding: const EdgeInsets.all(12),
-            //     child: Column(
-            //       crossAxisAlignment: CrossAxisAlignment.start,
-            //       children: [
-            //         Row(
-            //           children: [
-            //             Container(
-            //               padding: const EdgeInsets.all(8),
-            //               decoration: BoxDecoration(
-            //                 color: const Color(0xFF00BFA5).withOpacity(0.1),
-            //                 borderRadius: BorderRadius.circular(8),
-            //               ),
-            //               child: const Icon(Icons.videocam, color: Color(0xFF00BFA5), size: 24),
-            //             ),
-            //             const SizedBox(width: 12),
-            //             Expanded(
-            //               child: Column(
-            //                 crossAxisAlignment: CrossAxisAlignment.start,
-            //                 children: [
-            //                   const Text(
-            //                     'Video Ready',
-            //                     style: TextStyle(
-            //                       fontWeight: FontWeight.w600,
-            //                       fontSize: 15,
-            //                     ),
-            //                   ),
-            //                   const SizedBox(height: 4),
-            //                   Row(
-            //                     children: [
-            //                       if (_videoProcessResult != null) ...[
-            //                         Text(
-            //                           '${_videoProcessResult!.fileSizeMB}MB',
-            //                           style: TextStyle(
-            //                             fontSize: 12,
-            //                             color: Colors.grey[600],
-            //                           ),
-            //                         ),
-            //                         if (_videoProcessResult!.duration != null) ...[
-            //                           Text(
-            //                             ' | ${_videoProcessResult!.durationFormatted}',
-            //                             style: TextStyle(
-            //                               fontSize: 12,
-            //                               color: Colors.grey[600],
-            //                             ),
-            //                           ),
-            //                         ],
-            //                         if (_videoProcessResult!.wasCompressed) ...[
-            //                           const SizedBox(width: 8),
-            //                           Container(
-            //                             padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-            //                             decoration: BoxDecoration(
-            //                               color: const Color(0xFF00BFA5).withOpacity(0.1),
-            //                               borderRadius: BorderRadius.circular(4),
-            //                             ),
-            //                             child: Text(
-            //                               'Compressed',
-            //                               style: TextStyle(
-            //                                 fontSize: 10,
-            //                                 color: const Color(0xFF00BFA5),
-            //                                 fontWeight: FontWeight.w600,
-            //                               ),
-            //                             ),
-            //                           ),
-            //                         ],
-            //                       ] else
-            //                         Text(
-            //                           'Ready to upload',
-            //                           style: TextStyle(
-            //                             fontSize: 12,
-            //                             color: Colors.grey[600],
-            //                           ),
-            //                         ),
-            //                     ],
-            //                   ),
-            //                 ],
-            //               ),
-            //             ),
-            //             IconButton(
-            //               icon: const Icon(Icons.close, size: 20),
-            //               onPressed: _removeVideo,
-            //               color: Colors.grey[600],
-            //             ),
-            //           ],
-            //         ),
-            //         const SizedBox(height: 12),
-            //         Container(
-            //           height: 160,
-            //           width: double.infinity,
-            //           decoration: BoxDecoration(
-            //             color: Colors.grey[900],
-            //             borderRadius: BorderRadius.circular(12),
-            //           ),
-            //           child: Stack(
-            //             alignment: Alignment.center,
-            //             children: [
-            //               Container(
-            //                 padding: const EdgeInsets.all(20),
-            //                 decoration: BoxDecoration(
-            //                   color: Colors.white.withOpacity(0.1),
-            //                   shape: BoxShape.circle,
-            //                 ),
-            //                 child: const Icon(
-            //                   Icons.play_arrow_rounded,
-            //                   size: 48,
-            //                   color: Colors.white,
-            //                 ),
-            //               ),
-            //               // Duration badge
-            //               Positioned(
-            //                 bottom: 12,
-            //                 left: 12,
-            //                 child: Container(
-            //                   padding: const EdgeInsets.symmetric(
-            //                     horizontal: 10,
-            //                     vertical: 5,
-            //                   ),
-            //                   decoration: BoxDecoration(
-            //                     color: Colors.black.withOpacity(0.7),
-            //                     borderRadius: BorderRadius.circular(6),
-            //                   ),
-            //                   child: Row(
-            //                     mainAxisSize: MainAxisSize.min,
-            //                     children: [
-            //                       const Icon(
-            //                         Icons.access_time,
-            //                         size: 14,
-            //                         color: Colors.white,
-            //                       ),
-            //                       const SizedBox(width: 4),
-            //                       Text(
-            //                         _videoProcessResult?.durationFormatted ?? 'Max 10:00',
-            //                         style: const TextStyle(
-            //                           color: Colors.white,
-            //                           fontSize: 12,
-            //                           fontWeight: FontWeight.w500,
-            //                         ),
-            //                       ),
-            //                     ],
-            //                   ),
-            //                 ),
-            //               ),
-            //               // File size badge
-            //               Positioned(
-            //                 bottom: 12,
-            //                 right: 12,
-            //                 child: Container(
-            //                   padding: const EdgeInsets.symmetric(
-            //                     horizontal: 10,
-            //                     vertical: 5,
-            //                   ),
-            //                   decoration: BoxDecoration(
-            //                     color: Colors.black.withOpacity(0.7),
-            //                     borderRadius: BorderRadius.circular(6),
-            //                   ),
-            //                   child: Row(
-            //                     mainAxisSize: MainAxisSize.min,
-            //                     children: [
-            //                       const Icon(
-            //                         Icons.storage,
-            //                         size: 14,
-            //                         color: Colors.white,
-            //                       ),
-            //                       const SizedBox(width: 4),
-            //                       Text(
-            //                         _videoProcessResult != null
-            //                             ? '${_videoProcessResult!.fileSizeMB}MB'
-            //                             : 'Processing...',
-            //                         style: const TextStyle(
-            //                           color: Colors.white,
-            //                           fontSize: 12,
-            //                           fontWeight: FontWeight.w500,
-            //                         ),
-            //                       ),
-            //                     ],
-            //                   ),
-            //                 ),
-            //               ),
-            //             ],
-            //           ),
-            //         ),
-            //       ],
-            //     ),
-            //   ),
-            //   const SizedBox(height: 20),
-            // ],
+            if (_selectedVideo != null) ...[
+              Container(
+                decoration: BoxDecoration(
+                  color: context.cardBackground,
+                  borderRadius: BorderRadius.circular(12),
+                  boxShadow: AppShadows.sm,
+                ),
+                padding: const EdgeInsets.all(12),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            color: const Color(0xFF00BFA5).withValues(alpha: 0.1),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: const Icon(Icons.videocam, color: Color(0xFF00BFA5), size: 24),
+                        ),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Video Ready',
+                                style: context.bodyMedium.copyWith(fontWeight: FontWeight.w600),
+                              ),
+                              const SizedBox(height: 4),
+                              Row(
+                                children: [
+                                  if (_videoProcessResult != null) ...[
+                                    Text(
+                                      '${_videoProcessResult!.fileSizeMB}MB',
+                                      style: context.captionSmall.copyWith(color: context.textSecondary),
+                                    ),
+                                    if (_videoProcessResult!.duration != null) ...[
+                                      Text(
+                                        ' | ${_videoProcessResult!.durationFormatted}',
+                                        style: context.captionSmall.copyWith(color: context.textSecondary),
+                                      ),
+                                    ],
+                                    if (_videoProcessResult!.wasCompressed) ...[
+                                      const SizedBox(width: 8),
+                                      Container(
+                                        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                                        decoration: BoxDecoration(
+                                          color: const Color(0xFF00BFA5).withValues(alpha: 0.1),
+                                          borderRadius: BorderRadius.circular(4),
+                                        ),
+                                        child: const Text(
+                                          'Compressed',
+                                          style: TextStyle(
+                                            fontSize: 10,
+                                            color: Color(0xFF00BFA5),
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ] else
+                                    Text(
+                                      'Ready to upload',
+                                      style: context.captionSmall.copyWith(color: context.textSecondary),
+                                    ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.close, size: 20),
+                          onPressed: _removeVideo,
+                          color: context.textSecondary,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 12),
+                    Container(
+                      height: 160,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: Colors.grey[900],
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(20),
+                            decoration: BoxDecoration(
+                              color: Colors.white.withValues(alpha: 0.1),
+                              shape: BoxShape.circle,
+                            ),
+                            child: const Icon(
+                              Icons.play_arrow_rounded,
+                              size: 48,
+                              color: Colors.white,
+                            ),
+                          ),
+                          // Duration badge
+                          Positioned(
+                            bottom: 12,
+                            left: 12,
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 10,
+                                vertical: 5,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.black.withValues(alpha: 0.7),
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  const Icon(
+                                    Icons.access_time,
+                                    size: 14,
+                                    color: Colors.white,
+                                  ),
+                                  const SizedBox(width: 4),
+                                  Text(
+                                    _videoProcessResult?.durationFormatted ??
+                                        (widget.isReel ? 'Max 3:00' : 'Max 10:00'),
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          // File size badge
+                          Positioned(
+                            bottom: 12,
+                            right: 12,
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 10,
+                                vertical: 5,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.black.withValues(alpha: 0.7),
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  const Icon(
+                                    Icons.storage,
+                                    size: 14,
+                                    color: Colors.white,
+                                  ),
+                                  const SizedBox(width: 4),
+                                  Text(
+                                    _videoProcessResult != null
+                                        ? '${_videoProcessResult!.fileSizeMB}MB'
+                                        : 'Processing...',
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 20),
+            ],
 
             // Tags Display
             if (_tags.isNotEmpty) ...[
@@ -2352,30 +2475,35 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
+              // A reel requires video, so the photo/camera-photo pickers
+              // (which are mutually exclusive with video, see
+              // `_pickImages`/`_pickVideo`) are hidden entirely in reel
+              // mode rather than left present-but-conflicting.
+              if (!widget.isReel)
+                createBottomButton(
+                  context: context,
+                  icon: Icons.photo_library_outlined,
+                  label: AppLocalizations.of(context)!.photos,
+                  onTap: _pickImages,
+                  color: AppColors.primary,
+                ),
               createBottomButton(
                 context: context,
-                icon: Icons.photo_library_outlined,
-                label: AppLocalizations.of(context)!.photos,
-                onTap: _pickImages,
-                color: AppColors.primary,
+                icon: Icons.videocam_outlined,
+                label: AppLocalizations.of(context)!.video,
+                onTap: _showVideoSourceSheet,
+                color: _selectedImages.isEmpty
+                    ? const Color(0xFF9C27B0)
+                    : Colors.grey,
               ),
-              // TODO: Re-enable video upload when needed (commented out to reduce app size)
-              // createBottomButton(
-              //   context: context,
-              //   icon: Icons.videocam_outlined,
-              //   label: 'Video',
-              //   onTap: _pickVideo,
-              //   color: _selectedImages.isEmpty
-              //       ? const Color(0xFF9C27B0)
-              //       : Colors.grey,
-              // ),
-              createBottomButton(
-                context: context,
-                icon: Icons.camera_alt_outlined,
-                label: AppLocalizations.of(context)!.camera,
-                onTap: _takePhoto,
-                color: AppColors.primary,
-              ),
+              if (!widget.isReel)
+                createBottomButton(
+                  context: context,
+                  icon: Icons.camera_alt_outlined,
+                  label: AppLocalizations.of(context)!.camera,
+                  onTap: _takePhoto,
+                  color: AppColors.primary,
+                ),
             ],
           ),
         ),

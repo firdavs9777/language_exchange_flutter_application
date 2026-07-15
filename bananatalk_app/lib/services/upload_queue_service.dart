@@ -82,6 +82,9 @@ class UploadQueueService {
     List<String>? imagePaths,
     String? videoPath,
     String? backgroundColor,
+    // Workstream G: Reels ride on the same moment-creation pipeline.
+    String? promptId,
+    bool isReel = false,
   }) async {
     final hasVideo = videoPath != null && videoPath.isNotEmpty;
     final task = UploadTask(
@@ -98,6 +101,8 @@ class UploadQueueService {
         'imagePaths': imagePaths,
         'videoPath': videoPath,
         'backgroundColor': backgroundColor,
+        'promptId': promptId,
+        'isReel': isReel,
       },
     );
 
@@ -264,6 +269,8 @@ class UploadQueueService {
       tags: metadata['tags'] != null ? List<String>.from(metadata['tags']) : null,
       location: metadata['location'],
       backgroundColor: metadata['backgroundColor'],
+      promptId: metadata['promptId'],
+      isReel: metadata['isReel'] == true,
     );
 
     // Update progress
@@ -297,6 +304,8 @@ class UploadQueueService {
       tags: metadata['tags'] != null ? List<String>.from(metadata['tags']) : null,
       location: metadata['location'],
       backgroundColor: metadata['backgroundColor'],
+      promptId: metadata['promptId'],
+      isReel: metadata['isReel'] == true,
     );
 
     // Update progress
