@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:bananatalk_app/providers/reels_provider.dart';
 import 'package:bananatalk_app/pages/moments/reels/reel_policy_dialog.dart';
+import 'package:bananatalk_app/pages/moments/reels/reels_feed_screen.dart';
+import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 
@@ -67,8 +69,9 @@ class _ReelsGridScreenState extends ConsumerState<ReelsGridScreen> {
   Future<void> _onRefresh() => ref.read(reelsFeedProvider.notifier).refresh();
 
   void _openReel(int index) {
-    // TODO(Task 5): push the full-screen vertical swipe feed
-    // (reels_feed_screen.dart) opened at `index`.
+    Navigator.of(context).push(
+      AppPageRoute(builder: (_) => ReelsFeedScreen(initialIndex: index)),
+    );
   }
 
   void _openCreateFlow() {

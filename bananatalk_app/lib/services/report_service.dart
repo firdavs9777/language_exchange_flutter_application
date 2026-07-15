@@ -240,6 +240,70 @@ class ReportService {
     }
   }
 
+  /// Creates a `Report`-collection record (Workstream G, Task 5).
+  ///
+  /// POST /api/v1/reports — body `{type, reportId, reportedUser, reason}`.
+  ///
+  /// ⚠️ Distinct from [reportMoment] above, which posts to the legacy
+  /// per-moment `reports[]` array (`POST /moments/:id/report`). That path
+  /// never touches the `Report` collection the admin panel actually reads,
+  /// so it can never trigger the backend's 2-report auto-hide rule. The
+  /// Reels action rail (and any future caller needing the auto-hide /
+  /// admin-restore flow) MUST report through this method instead — see
+  /// `docs/superpowers/plans/2026-07-14-reels.md` Task 3 Step 2 / Task 5
+  /// Step 3 for the full cross-track contract.
+  static Future<Map<String, dynamic>> createReportRecord({
+    required String type,
+    required String reportId,
+    required String reportedUser,
+    required String reason,
+    String? description,
+  }) async {
+    try {
+      final token = await _getToken();
+      if (token == null) {
+        return {
+          'success': false,
+          'message': 'Authentication token not found',
+        };
+      }
+
+      final url = Uri.parse('${Endpoints.baseURL}reports');
+      final response = await http.post(
+        url,
+        headers: _getHeaders(token),
+        body: jsonEncode({
+          'type': type,
+          'reportId': reportId,
+          'reportedUser': reportedUser,
+          'reason': reason,
+          if (description != null && description.isNotEmpty)
+            'description': description,
+        }),
+      );
+
+      final data = jsonDecode(response.body);
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return {
+          'success': true,
+          'message': data['message'] ?? 'Report submitted successfully',
+          'data': data['data'],
+        };
+      } else {
+        return {
+          'success': false,
+          'message': data['error'] ?? data['message'] ?? 'Failed to submit report',
+        };
+      }
+    } catch (e) {
+      return {
+        'success': false,
+        'message': 'Error: ${e.toString()}',
+      };
+    }
+  }
+
   /// Detect MIME type from file extension
   static String _getMimeType(String filename) {
     final extension = filename.split('.').last.toLowerCase();
