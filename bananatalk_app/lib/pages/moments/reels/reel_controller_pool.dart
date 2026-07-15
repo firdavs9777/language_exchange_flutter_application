@@ -32,6 +32,15 @@ class ReelControllerPool {
         await controller.initialize();
       } catch (e) {
         debugPrint('ReelControllerPool: failed to init reel $index: $e');
+        // Evict the failed controller so a later swipe-back retries instead
+        // of finding a permanently-uninitialized cached instance (gate
+        // review minor: otherwise this reel shows a spinner forever).
+        if (_controllers[index] == controller) {
+          _controllers.remove(index);
+        }
+        try {
+          await controller.dispose();
+        } catch (_) {}
         return controller;
       }
     }
@@ -63,6 +72,13 @@ class ReelControllerPool {
       await controller.setLooping(true);
     } catch (e) {
       debugPrint('ReelControllerPool: failed to preload reel $index: $e');
+      // Same eviction-on-failure as activate(): let a later attempt retry.
+      if (_controllers[index] == controller) {
+        _controllers.remove(index);
+      }
+      try {
+        await controller.dispose();
+      } catch (_) {}
     }
   }
 
