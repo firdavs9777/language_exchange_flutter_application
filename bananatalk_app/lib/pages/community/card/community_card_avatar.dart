@@ -2,7 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/providers/presence_provider.dart';
-import 'package:bananatalk_app/utils/language_flags.dart';
+import 'package:bananatalk_app/utils/country_flags.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
@@ -21,6 +21,7 @@ class CommunityCardAvatar extends StatelessWidget {
     this.imageUrl,
     required this.name,
     required this.nativeLanguage,
+    this.country,
     this.isVip = false,
     this.isOnline = false,
     this.userId,
@@ -30,6 +31,13 @@ class CommunityCardAvatar extends StatelessWidget {
   final String? imageUrl;
   final String name;
   final String nativeLanguage;
+
+  /// The user's country display name (from `location.country`). When it
+  /// resolves to a flag, the badge shows the COUNTRY flag (a Brazilian
+  /// shows 🇧🇷, not Portuguese's 🇵🇹); otherwise it falls back to the
+  /// native-language flag. Callers must pass null when the user's
+  /// privacy settings hide the country (showCountryRegion == false).
+  final String? country;
 
   /// Whether to render a VIP frame around the avatar.
   final bool isVip;
@@ -191,7 +199,10 @@ class CommunityCardAvatar extends StatelessWidget {
               color: context.surfaceColor.withValues(alpha: 0.9),
               child: Center(
                 child: Text(
-                  LanguageFlags.getFlagByName(nativeLanguage),
+                  CountryFlags.userBadgeFlag(
+                    country: country,
+                    nativeLanguage: nativeLanguage,
+                  ),
                   style: const TextStyle(fontSize: 14),
                 ),
               ),

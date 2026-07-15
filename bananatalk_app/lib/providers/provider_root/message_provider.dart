@@ -868,6 +868,10 @@ class ChatPartnerData {
   final bool isMuted;
   final String? conversationId;
   final String? nativeLanguage;
+  /// Partner's country display name, privacy-filtered server-side (null
+  /// when the partner hides their country). Drives the country-first
+  /// avatar flag badge in the chat list.
+  final String? country;
 
   ChatPartnerData({
     required this.id,
@@ -881,6 +885,7 @@ class ChatPartnerData {
     this.isMuted = false,
     this.conversationId,
     this.nativeLanguage,
+    this.country,
   });
 
   factory ChatPartnerData.fromJson(Map<String, dynamic> json) {
@@ -901,6 +906,9 @@ class ChatPartnerData {
       conversationId: json['conversationId']?.toString(),
       nativeLanguage: json['native_language']?.toString() ??
           json['nativeLanguage']?.toString(),
+      country: (json['country']?.toString().isNotEmpty ?? false)
+          ? json['country'].toString()
+          : null,
     );
   }
 

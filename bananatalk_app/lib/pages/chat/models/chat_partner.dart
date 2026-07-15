@@ -20,6 +20,11 @@ class ChatPartner {
   /// Partner's native language (e.g. "Korean"). Used to render the flag
   /// overlay badge on the avatar. Optional — null hides the badge.
   final String? nativeLanguage;
+  /// Partner's country display name (e.g. "Brazil"), already
+  /// privacy-filtered server-side (null when the partner hides their
+  /// country). When present, the avatar badge shows the COUNTRY flag;
+  /// otherwise it falls back to the native-language flag.
+  final String? country;
   /// Sender of the most-recent message in this thread. Used by the
   /// "My turn" filter (a thread is "your turn" when the last message came
   /// from the partner). Null when unknown.
@@ -41,6 +46,7 @@ class ChatPartner {
     this.isMuted = false,
     this.conversationId,
     this.nativeLanguage,
+    this.country,
     this.lastMessageSenderId,
   });
 
@@ -63,6 +69,7 @@ class ChatPartner {
     bool? isMuted,
     String? conversationId,
     String? nativeLanguage,
+    String? country,
     String? lastMessageSenderId,
   }) {
     return ChatPartner(
@@ -81,6 +88,7 @@ class ChatPartner {
       isMuted: isMuted ?? this.isMuted,
       conversationId: conversationId ?? this.conversationId,
       nativeLanguage: nativeLanguage ?? this.nativeLanguage,
+      country: country ?? this.country,
       lastMessageSenderId: lastMessageSenderId ?? this.lastMessageSenderId,
     );
   }

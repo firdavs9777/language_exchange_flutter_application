@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:bananatalk_app/widgets/community/language_level_badge.dart';
+import 'package:bananatalk_app/utils/country_flags.dart';
 import 'package:bananatalk_app/utils/language_flags.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/utils/privacy_utils.dart';
@@ -109,8 +110,10 @@ class PartnerListItem extends StatelessWidget {
               ),
             ),
           ),
-        // Native-language flag overlay — bottom-left of avatar, matches
-        // the chat-tile pattern. HelloTalk-style scan signal.
+        // Identity flag overlay — bottom-left of avatar, matches the
+        // chat-tile pattern. Country flag when known (a Brazilian shows
+        // 🇧🇷, not Portuguese's 🇵🇹); falls back to the native-language
+        // flag. Privacy: country suppressed when showCountryRegion is off.
         if (user.native_language.isNotEmpty)
           Positioned(
             left: 0,
@@ -135,7 +138,12 @@ class PartnerListItem extends StatelessWidget {
                 ],
               ),
               child: Text(
-                LanguageFlags.getFlagByName(user.native_language),
+                CountryFlags.userBadgeFlag(
+                  country: (user.privacySettings?.showCountryRegion ?? true)
+                      ? user.location.country
+                      : null,
+                  nativeLanguage: user.native_language,
+                ),
                 style: const TextStyle(fontSize: 14, height: 1.0),
               ),
             ),
