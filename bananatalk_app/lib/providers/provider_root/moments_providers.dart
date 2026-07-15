@@ -140,6 +140,7 @@ class MomentsService {
     Map<String, dynamic>? location,
     String? backgroundColor,
     String? promptId,
+    bool isReel = false,
   }) async {
     final url = Uri.parse('${Endpoints.baseURL}${Endpoints.momentsURL}');
 
@@ -177,6 +178,12 @@ class MomentsService {
     }
     if (promptId != null && promptId.isNotEmpty) {
       body['promptId'] = promptId;
+    }
+    // Workstream G: flags the moment as a Reel (thumbnail-grid + swipe-feed
+    // surface) instead of a regular card-feed post. Backend contract:
+    // `docs/superpowers/plans/2026-07-14-reels.md` Task 1.
+    if (isReel) {
+      body['isReel'] = true;
     }
 
     final response = await http.post(

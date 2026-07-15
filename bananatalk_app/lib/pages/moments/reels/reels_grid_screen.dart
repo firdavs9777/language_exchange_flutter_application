@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:bananatalk_app/providers/reels_provider.dart';
+import 'package:bananatalk_app/pages/moments/reels/create_reel_flow.dart';
 import 'package:bananatalk_app/pages/moments/reels/reel_policy_dialog.dart';
 import 'package:bananatalk_app/pages/moments/reels/reels_feed_screen.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
@@ -75,7 +76,9 @@ class _ReelsGridScreenState extends ConsumerState<ReelsGridScreen> {
   }
 
   void _openCreateFlow() {
-    // TODO(Task 6): push the reel creation flow (create_reel_flow.dart).
+    Navigator.of(context)
+        .push(AppPageRoute(builder: (_) => const CreateReelFlow()))
+        .then((_) => ref.read(reelsFeedProvider.notifier).refresh());
   }
 
   @override

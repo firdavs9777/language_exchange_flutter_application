@@ -105,6 +105,8 @@ class UploadManagerNotifier extends StateNotifier<UploadManagerState> {
     List<String>? imagePaths,
     String? videoPath,
     String? backgroundColor,
+    String? promptId,
+    bool isReel = false,
   }) async {
     return _uploadService.queueMomentUpload(
       description: description,
@@ -117,6 +119,8 @@ class UploadManagerNotifier extends StateNotifier<UploadManagerState> {
       imagePaths: imagePaths,
       videoPath: videoPath,
       backgroundColor: backgroundColor,
+      promptId: promptId,
+      isReel: isReel,
     );
   }
 

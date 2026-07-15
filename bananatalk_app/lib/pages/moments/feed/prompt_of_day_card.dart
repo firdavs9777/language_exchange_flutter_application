@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/pages/moments/create/create_moment.dart';
+import 'package:bananatalk_app/pages/moments/reels/create_reel_flow.dart';
+import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
 import 'package:bananatalk_app/services/translation_service.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
@@ -145,34 +147,70 @@ class _PromptOfDayCardState extends ConsumerState<PromptOfDayCard> {
                 ),
               ),
               const SizedBox(width: 8),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).push(
-                    AppPageRoute(
-                      builder: (_) => CreateMoment(
-                        prefillPrompt: prompt,
-                        prefillPromptId: promptId,
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        AppPageRoute(
+                          builder: (_) => CreateMoment(
+                            prefillPrompt: prompt,
+                            prefillPromptId: promptId,
+                          ),
+                        ),
+                      ).then((_) => ref.invalidate(forYouMomentsProvider));
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: _accentDark,
+                      foregroundColor: Colors.white,
+                      elevation: 0,
+                      visualDensity: VisualDensity.compact,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 14,
+                        vertical: 6,
                       ),
                     ),
-                  ).then((_) => ref.invalidate(forYouMomentsProvider));
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: _accentDark,
-                  foregroundColor: Colors.white,
-                  elevation: 0,
-                  visualDensity: VisualDensity.compact,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
+                    child: const Text(
+                      'Answer',
+                      style: TextStyle(fontWeight: FontWeight.w700),
+                    ),
                   ),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 14,
-                    vertical: 6,
-                  ),
-                ),
-                child: const Text(
-                  'Answer',
-                  style: TextStyle(fontWeight: FontWeight.w700),
-                ),
+                  // Workstream G: camera-answer entry point into the reel
+                  // creation flow, pre-tagged with this prompt. Hidden
+                  // while the server-side Reels kill switch is off.
+                  if (ref.watch(appConfigProvider).maybeWhen(
+                        data: (config) => config?.reelsEnabled ?? false,
+                        orElse: () => false,
+                      )) ...[
+                    const SizedBox(height: 4),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          AppPageRoute(
+                            builder: (_) => CreateReelFlow(
+                              prefillPrompt: prompt,
+                              prefillPromptId: promptId,
+                              prefillLanguage:
+                                  langCode.isEmpty ? null : langCode,
+                            ),
+                          ),
+                        ).then((_) => ref.invalidate(forYouMomentsProvider));
+                      },
+                      child: Text(
+                        '🎥 Answer on camera',
+                        style: context.labelSmall.copyWith(
+                          color: _accentDark,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                  ],
+                ],
               ),
             ],
           ),
