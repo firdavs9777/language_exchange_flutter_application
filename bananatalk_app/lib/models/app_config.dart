@@ -44,6 +44,14 @@ class AppConfig {
   /// this flag don't accidentally hide the tab.
   final bool roomsEnabled;
 
+  /// Workstream G: server-side kill switch for the Reels tab (mirrors
+  /// [roomsEnabled]). Unlike rooms, Reels is a brand-new surface rolling
+  /// out behind this flag, so it defaults to `false` — older/dev config
+  /// payloads that predate this flag stay hidden until the backend
+  /// explicitly turns it on, rather than a half-finished feature flashing
+  /// into view.
+  final bool reelsEnabled;
+
   const AppConfig({
     required this.minVersion,
     required this.latestVersion,
@@ -53,6 +61,7 @@ class AppConfig {
     required this.releaseNotes,
     this.announcement,
     this.roomsEnabled = true,
+    this.reelsEnabled = false,
   });
 
   factory AppConfig.fromJson(Map<String, dynamic> json) {
@@ -69,6 +78,7 @@ class AppConfig {
               ? AppAnnouncement.fromJson(announcementJson)
               : null,
       roomsEnabled: (json['roomsEnabled'] as bool?) ?? true,
+      reelsEnabled: (json['reelsEnabled'] as bool?) ?? false,
     );
   }
 }

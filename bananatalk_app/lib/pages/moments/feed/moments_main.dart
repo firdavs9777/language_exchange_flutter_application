@@ -8,10 +8,13 @@ import 'package:bananatalk_app/pages/moments/feed/prompt_of_day_card.dart';
 import 'package:bananatalk_app/pages/stories/feed/stories_feed_widget.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
+import 'package:bananatalk_app/providers/reels_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/user_limits_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/block_provider.dart';
 import 'package:bananatalk_app/pages/moments/feed/muted_users_provider.dart';
+import 'package:bananatalk_app/pages/moments/reels/reels_grid_screen.dart';
+import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
 import 'package:bananatalk_app/utils/feature_gate.dart';
 import 'package:bananatalk_app/utils/haptic_utils.dart';
 import 'package:bananatalk_app/widgets/limit_exceeded_dialog.dart';
@@ -93,7 +96,14 @@ final filteredMomentsProvider = Provider<AsyncValue<List<Moments>>>((ref) {
 });
 
 /// Feed tabs shown above the moment filter bar.
-enum MomentsFeedTab { forYou, following, trending }
+///
+/// Workstream G: [reels] is conditionally shown (hidden when
+/// `appConfig.reelsEnabled == false`, see `_MomentsFeedTabBar`) and,
+/// unlike the other three, does not share the card-feed body — the
+/// Reels case branches to `ReelsGridScreen` entirely (see
+/// `_MomentsMainState.build`), since it's a thumbnail grid landing, not a
+/// scrollable list of `MomentCard`s.
+enum MomentsFeedTab { forYou, following, trending, reels }
 
 const String _momentsFeedTabKey = 'moments_feed_tab';
 
@@ -140,6 +150,13 @@ final momentsFeedTabProvider =
 );
 
 /// Base (unfiltered) moments provider for a given feed tab.
+///
+/// Reels intentionally has no case here — it's backed by the dedicated
+/// paginated `reelsFeedProvider` (see `providers/reels_provider.dart`), not
+/// this shared card-feed shape, and `MomentsMain.build` branches to
+/// `ReelsGridScreen` before this function would ever be reached for that
+/// tab. The `.reels` arm below only exists to satisfy switch exhaustiveness
+/// and is unreachable in practice.
 ProviderListenable<AsyncValue<List<Moments>>> _baseProviderFor(
     MomentsFeedTab tab) {
   switch (tab) {
@@ -149,6 +166,8 @@ ProviderListenable<AsyncValue<List<Moments>>> _baseProviderFor(
       return followingMomentsProvider;
     case MomentsFeedTab.trending:
       return trendingMomentsProvider;
+    case MomentsFeedTab.reels:
+      return forYouMomentsProvider;
   }
 }
 
@@ -235,13 +254,23 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
     });
     // Refresh both moments and stories
     _storiesRefreshNotifier.value++;
+
+    // Reels has its own paginated provider/refresh, not the shared
+    // FutureProvider<List<Moments>> shape the other three tabs use.
+    final activeTab = ref.read(momentsFeedTabProvider);
+    if (activeTab == MomentsFeedTab.reels) {
+      await ref.read(reelsFeedProvider.notifier).refresh();
+      return;
+    }
+
     // Only invalidate the active tab's provider, so switching tabs doesn't
     // force a redundant re-fetch of tabs the user hasn't looked at.
-    final activeTab = ref.read(momentsFeedTabProvider);
     final Future<List<Moments>> activeTabFuture = switch (activeTab) {
       MomentsFeedTab.forYou => ref.refresh(forYouMomentsProvider.future),
       MomentsFeedTab.following => ref.refresh(followingMomentsProvider.future),
       MomentsFeedTab.trending => ref.refresh(trendingMomentsProvider.future),
+      // Unreachable — handled above.
+      MomentsFeedTab.reels => Future.value(const <Moments>[]),
     };
     await activeTabFuture;
   }
@@ -250,8 +279,25 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
   Widget build(BuildContext context) {
     final currentFilter = ref.watch(momentFilterProvider);
     final activeTab = ref.watch(momentsFeedTabProvider);
-    final filteredMomentsAsync =
-        ref.watch(filteredMomentsForTabProvider(activeTab));
+    final reelsEnabled = ref.watch(appConfigProvider).maybeWhen(
+          data: (config) => config?.reelsEnabled ?? false,
+          orElse: () => false,
+        );
+    // If the kill switch flips off mid-session while the user happens to be
+    // on the Reels tab, fall back to For You for rendering purposes rather
+    // than showing a grid the tab bar no longer exposes a segment for.
+    final effectiveTab =
+        activeTab == MomentsFeedTab.reels && !reelsEnabled
+            ? MomentsFeedTab.forYou
+            : activeTab;
+    final isReelsTab = effectiveTab == MomentsFeedTab.reels;
+
+    // Reels is backed by its own paginated provider (see
+    // `_baseProviderFor`'s doc comment) — don't call the shared card-feed
+    // family provider for it.
+    final filteredMomentsAsync = isReelsTab
+        ? const AsyncValue<List<Moments>>.data(<Moments>[])
+        : ref.watch(filteredMomentsForTabProvider(effectiveTab));
     final displayedList = _showSearch && _searchController.text.isNotEmpty
         ? AsyncValue.data(_searchResults)
         : filteredMomentsAsync;
@@ -336,8 +382,9 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
       ),
       body: Column(
         children: [
-          // Stories + Highlights combined section
-          if (!_showSearch)
+          // Stories + Highlights combined section — not shown on the Reels
+          // grid, which is a distinct full-bleed thumbnail landing.
+          if (!_showSearch && !isReelsTab)
             Container(
               decoration: BoxDecoration(
                 color: context.surfaceColor,
@@ -349,36 +396,48 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
             ),
           if (!_showSearch)
             _MomentsFeedTabBar(
-              activeTab: activeTab,
+              activeTab: effectiveTab,
               onTabChanged: (tab) {
                 if (tab == activeTab) return;
                 ref.read(momentsFeedTabProvider.notifier).setTab(tab);
               },
             ),
-          if (!_showSearch)
+          // The mood/tag/language filter bar only applies to the shared
+          // card-feed query — Reels has its own ranking, not a client-side
+          // filter.
+          if (!_showSearch && !isReelsTab)
             MomentFilterBar(
               currentFilter: currentFilter,
               onFilterChanged: (filter) =>
                   ref.read(momentFilterProvider.notifier).setFilter(filter),
             ),
-          if (!_showSearch && activeTab == MomentsFeedTab.forYou)
+          if (!_showSearch && effectiveTab == MomentsFeedTab.forYou)
             const PromptOfDayCard(),
           Expanded(
-            child: RefreshIndicator(
-              onRefresh: _refresh,
-              color: const Color(0xFF00BFA5),
-              child: MomentsFeedWidget(
-                momentsAsync: displayedList,
-                scrollController: _scrollController,
-                isSearching: _showSearch && _searchController.text.isNotEmpty,
-                onRefresh: _refresh,
-                activeTab: activeTab,
-              ),
-            ),
+            child: isReelsTab
+                ? ReelsGridScreen(
+                    onPolicyDeclined: () => ref
+                        .read(momentsFeedTabProvider.notifier)
+                        .setTab(MomentsFeedTab.forYou),
+                  )
+                : RefreshIndicator(
+                    onRefresh: _refresh,
+                    color: const Color(0xFF00BFA5),
+                    child: MomentsFeedWidget(
+                      momentsAsync: displayedList,
+                      scrollController: _scrollController,
+                      isSearching:
+                          _showSearch && _searchController.text.isNotEmpty,
+                      onRefresh: _refresh,
+                      activeTab: effectiveTab,
+                    ),
+                  ),
           ),
         ],
       ),
-      floatingActionButton: Padding(
+      floatingActionButton: isReelsTab
+          ? null
+          : Padding(
         padding: const EdgeInsets.only(bottom: 72),
         child: FutureBuilder<String?>(
           future: SharedPreferences.getInstance().then(
@@ -585,9 +644,11 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
 }
 
 /// Segmented tab control for switching between the For You / Following /
-/// Trending moments feeds. Purely presentational — selection state and data
-/// loading live in [momentsFeedTabProvider] and the per-tab feed providers.
-class _MomentsFeedTabBar extends StatelessWidget {
+/// Trending / Reels moments feeds. Mostly presentational — selection state
+/// and data loading live in [momentsFeedTabProvider] and the per-tab feed
+/// providers — but it's a [ConsumerWidget] so it can hide the Reels segment
+/// entirely while the server-side `reelsEnabled` kill switch is off.
+class _MomentsFeedTabBar extends ConsumerWidget {
   final MomentsFeedTab activeTab;
   final ValueChanged<MomentsFeedTab> onTabChanged;
 
@@ -599,12 +660,20 @@ class _MomentsFeedTabBar extends StatelessWidget {
   static const Color _tealIndicator = Color(0xFF00BFA5);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
+    final reelsEnabled = ref.watch(appConfigProvider).maybeWhen(
+          data: (config) => config?.reelsEnabled ?? false,
+          orElse: () => false,
+        );
     final tabs = <MomentsFeedTab, String>{
       MomentsFeedTab.forYou: 'For You',
       MomentsFeedTab.following: l10n.following,
       MomentsFeedTab.trending: l10n.trending,
+      // TODO(l10n): no `momentsTabReels` key exists yet in the arb files —
+      // plain-string fallback, following the established pattern (see
+      // `CommunityTabBar`'s "Rooms" tab) until a follow-up localizes it.
+      if (reelsEnabled) MomentsFeedTab.reels: 'Reels',
     };
 
     return Container(
