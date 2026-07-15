@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/models/community/topic_model.dart';
+import 'package:bananatalk_app/providers/voice_room_languages_provider.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/community/widgets/community_snackbar.dart';
 
 /// Create Room Bottom Sheet
-class CreateRoomSheet extends StatefulWidget {
+class CreateRoomSheet extends ConsumerStatefulWidget {
   final Future<void> Function(
     String title,
     String topic,
@@ -19,10 +21,10 @@ class CreateRoomSheet extends StatefulWidget {
   const CreateRoomSheet({super.key, required this.onCreateRoom});
 
   @override
-  State<CreateRoomSheet> createState() => _CreateRoomSheetState();
+  ConsumerState<CreateRoomSheet> createState() => _CreateRoomSheetState();
 }
 
-class _CreateRoomSheetState extends State<CreateRoomSheet> {
+class _CreateRoomSheetState extends ConsumerState<CreateRoomSheet> {
   final _titleController = TextEditingController();
   String _selectedTopicId = 'language_exchange';
   String _selectedLanguage = 'English';
@@ -35,21 +37,8 @@ class _CreateRoomSheetState extends State<CreateRoomSheet> {
   String? _titleError;
   String? _categoryError;
 
-  final List<String> _languages = [
-    'English',
-    'Korean',
-    'Japanese',
-    'Chinese',
-    'Spanish',
-    'French',
-    'German',
-    'Italian',
-    'Portuguese',
-    'Russian',
-    'Arabic',
-    'Hindi',
-    'Uzbek',
-  ];
+  // Room languages come from the shared catalog (same source as the
+  // browse filter's voiceRoomLanguagesProvider) — see _buildLanguageSelector.
 
   @override
   void dispose() {
@@ -526,6 +515,17 @@ class _CreateRoomSheetState extends State<CreateRoomSheet> {
   }
 
   Widget _buildLanguageSelector() {
+    // Full shared catalog (fetch-once, cached); fallback while loading.
+    // The current selection is kept in the item list even if the catalog
+    // doesn't contain it (DropdownButton requires value ∈ items).
+    final catalogNames = ref.watch(voiceRoomLanguagesProvider).maybeWhen(
+          data: (names) => names,
+          orElse: () => kVoiceRoomLanguagesFallback,
+        );
+    final languages = catalogNames.contains(_selectedLanguage)
+        ? catalogNames
+        : [_selectedLanguage, ...catalogNames];
+
     return Builder(
       builder: (context) => Container(
         padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -539,7 +539,7 @@ class _CreateRoomSheetState extends State<CreateRoomSheet> {
             isExpanded: true,
             icon: const Icon(Icons.keyboard_arrow_down_rounded),
             borderRadius: AppRadius.borderMD,
-            items: _languages.map((language) {
+            items: languages.map((language) {
               return DropdownMenuItem(value: language, child: Text(language));
             }).toList(),
             onChanged: (value) {

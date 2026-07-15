@@ -8,8 +8,10 @@ import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/user_limits_provider.dart';
 import 'package:bananatalk_app/providers/upload_manager_provider.dart';
 import 'package:bananatalk_app/providers/reels_provider.dart';
+import 'package:bananatalk_app/providers/languages_provider.dart';
 import 'package:bananatalk_app/models/upload_task.dart';
 import 'package:bananatalk_app/utils/feature_gate.dart';
+import 'package:bananatalk_app/utils/language_codes.dart';
 import 'package:bananatalk_app/widgets/limit_exceeded_dialog.dart';
 import 'package:bananatalk_app/utils/api_error_handler.dart';
 import 'package:bananatalk_app/services/video_compression_service.dart';
@@ -150,25 +152,18 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     'Hobbies': 'hobbies',
     'Question': 'question',
   };
-  // Language display name to ISO 639-1 code mapping (matching filter options)
-  final Map<String, String> _languages = {
-    'English': 'en',
-    'Korean': 'ko',
-    'Japanese': 'ja',
-    'Chinese': 'zh',
-    'Spanish': 'es',
-    'French': 'fr',
-    'German': 'de',
-    'Italian': 'it',
-    'Portuguese': 'pt',
-    'Russian': 'ru',
-    'Arabic': 'ar',
-    'Hindi': 'hi',
-    'Tajik': 'tg',
-    'Thai': 'th',
-    'Vietnamese': 'vi',
-    'Dutch': 'nl',
-    'Swedish': 'sv',
+  // Language display name → ISO 639-1 code for the moment tag. Starts as
+  // the offline fallback and is replaced with the FULL shared catalog
+  // (taggableLanguagesProvider — 110+ languages, variants collapsed to
+  // their base code so the backend validator always accepts the tag) as
+  // soon as it loads; refreshed at the top of build(). The fallback names
+  // are a subset of the catalog's, so a made-before-load selection stays
+  // valid after the swap.
+  Map<String, String> _languages = {
+    for (final entry in LanguageCodes.buildTaggableLanguages(
+      kLanguageCatalogFallback,
+    ))
+      entry['name']!: entry['code']!,
   };
   // Moods matching filter options
   final Map<String, String> _moods = {
@@ -1633,6 +1628,23 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
 
   @override
   Widget build(BuildContext context) {
+    // Swap the fallback tag list for the full shared catalog once loaded
+    // (session-cached; also triggers the fetch on first composer open).
+    // Same-name keys keep any existing _selectedLanguage valid.
+    ref.watch(languagesProvider).whenData((catalog) {
+      final taggable = LanguageCodes.buildTaggableLanguages(catalog);
+      if (taggable.isNotEmpty) {
+        _languages = {
+          for (final entry in taggable) entry['name']!: entry['code']!,
+        };
+        if (!_languages.containsKey(_selectedLanguage)) {
+          // Defensive: never let the dropdown hold a value that isn't in
+          // its item list (catalog renames would otherwise crash it).
+          _applyLanguageCode('en');
+        }
+      }
+    });
+
     return Scaffold(
       backgroundColor: context.scaffoldBackground,
       appBar: AppBar(

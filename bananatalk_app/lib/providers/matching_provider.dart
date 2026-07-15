@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/models/matching/matching_model.dart';
+import 'package:bananatalk_app/providers/languages_provider.dart';
 import 'package:bananatalk_app/services/matching_service.dart';
 
 // ==================== MATCHING PROVIDERS ====================
@@ -61,24 +62,10 @@ final matchingTabProvider = StateProvider<int>((ref) => 0);
 /// Selected language for language filter
 final matchingLanguageFilterProvider = StateProvider<String?>((ref) => null);
 
-/// Available languages for matching
+/// Available languages for matching — the FULL shared catalog names
+/// (variants like "Portuguese (Brazil)" included, since users' stored
+/// native_language can literally be the variant string), falling back to
+/// the catalog's minimal offline list while loading/offline.
 final matchingLanguagesProvider = Provider<List<String>>((ref) {
-  return [
-    'English',
-    'Spanish',
-    'French',
-    'German',
-    'Italian',
-    'Portuguese',
-    'Russian',
-    'Japanese',
-    'Korean',
-    'Chinese',
-    'Arabic',
-    'Hindi',
-    'Turkish',
-    'Vietnamese',
-    'Thai',
-    'Indonesian',
-  ];
+  return ref.watch(languageNamesProvider);
 });

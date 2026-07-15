@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:bananatalk_app/pages/moments/filter/moment_filter_model.dart';
+import 'package:bananatalk_app/providers/languages_provider.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 
-class FilterLanguageSection extends StatefulWidget {
+class FilterLanguageSection extends ConsumerStatefulWidget {
   final MomentFilter tempFilter;
   final ValueChanged<MomentFilter> onChanged;
 
@@ -15,10 +17,12 @@ class FilterLanguageSection extends StatefulWidget {
   });
 
   @override
-  State<FilterLanguageSection> createState() => _FilterLanguageSectionState();
+  ConsumerState<FilterLanguageSection> createState() =>
+      _FilterLanguageSectionState();
 }
 
-class _FilterLanguageSectionState extends State<FilterLanguageSection> {
+class _FilterLanguageSectionState
+    extends ConsumerState<FilterLanguageSection> {
   final TextEditingController _searchController = TextEditingController();
   String _query = '';
 
@@ -49,6 +53,11 @@ class _FilterLanguageSectionState extends State<FilterLanguageSection> {
 
   @override
   Widget build(BuildContext context) {
+    // Trigger the shared-catalog fetch on first open and rebuild when it
+    // lands — FilterOptions.languages then serves the full 110+ list
+    // instead of its static fallback.
+    ref.watch(languagesProvider);
+
     final colorScheme = Theme.of(context).colorScheme;
     final filteredLangs = _filteredLanguages;
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:bananatalk_app/providers/languages_provider.dart';
 import 'package:bananatalk_app/services/ai_service.dart';
 import 'package:bananatalk_app/services/ad_service.dart';
 import 'package:bananatalk_app/services/learning_service.dart';
@@ -33,24 +34,9 @@ class _LessonBuilderScreenState extends ConsumerState<LessonBuilderScreen> {
   GeneratedLessonResponse? _generatedLesson;
   String? _error;
 
-  final List<Map<String, String>> _languages = [
-    {'code': 'en', 'name': 'English'},
-    {'code': 'es', 'name': 'Spanish'},
-    {'code': 'fr', 'name': 'French'},
-    {'code': 'de', 'name': 'German'},
-    {'code': 'it', 'name': 'Italian'},
-    {'code': 'pt', 'name': 'Portuguese'},
-    {'code': 'ru', 'name': 'Russian'},
-    {'code': 'ja', 'name': 'Japanese'},
-    {'code': 'ko', 'name': 'Korean'},
-    {'code': 'zh', 'name': 'Chinese'},
-    {'code': 'ar', 'name': 'Arabic'},
-    {'code': 'hi', 'name': 'Hindi'},
-    {'code': 'tr', 'name': 'Turkish'},
-    {'code': 'nl', 'name': 'Dutch'},
-    {'code': 'pl', 'name': 'Polish'},
-    {'code': 'uz', 'name': 'Uzbek'},
-  ];
+  // Lesson languages come from the shared catalog (taggableLanguagesProvider:
+  // full 110+ base-639-1 list, fallback while loading) — see the language
+  // dropdown in the config card.
 
   final List<String> _levels = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
 
@@ -307,10 +293,13 @@ class _LessonBuilderScreenState extends ConsumerState<LessonBuilderScreen> {
             icon: Icons.language,
             label: AppLocalizations.of(context)!.aiLessonBuilderLabelLanguage,
             value: _selectedLanguage,
-            items: _languages.map((lang) => DropdownMenuItem(
-              value: lang['code'],
-              child: Text(lang['name']!),
-            )).toList(),
+            items: ref
+                .watch(taggableLanguagesProvider)
+                .map((lang) => DropdownMenuItem(
+                      value: lang['code'],
+                      child: Text('${lang['flag']} ${lang['name']}'),
+                    ))
+                .toList(),
             onChanged: (value) {
               if (value != null) setState(() => _selectedLanguage = value);
             },

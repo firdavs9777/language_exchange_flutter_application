@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:bananatalk_app/providers/languages_provider.dart';
 import 'package:bananatalk_app/services/learning_service.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
@@ -29,16 +30,9 @@ class _VocabularyAddScreenState extends ConsumerState<VocabularyAddScreen> {
   bool _isLoading = false;
   bool _aiFilling = false;
 
-  final List<String> _languages = [
-    'en', 'ko', 'es', 'fr', 'de', 'ja', 'zh', 'ar', 'pt', 'ru', 'it', 'nl', 'hi', 'th', 'vi', 'tg'
-  ];
-
-  final Map<String, String> _languageNames = {
-    'en': 'English', 'ko': 'Korean', 'es': 'Spanish', 'fr': 'French',
-    'de': 'German', 'ja': 'Japanese', 'zh': 'Chinese', 'ar': 'Arabic',
-    'pt': 'Portuguese', 'ru': 'Russian', 'it': 'Italian', 'nl': 'Dutch',
-    'hi': 'Hindi', 'th': 'Thai', 'vi': 'Vietnamese', 'tg': 'Tajik',
-  };
+  // Word languages come from the shared catalog (taggableLanguagesProvider:
+  // full 110+ base-639-1 list, fallback while loading) — see the language
+  // dropdown in build().
 
   final List<String> _partsOfSpeech = [
     'noun', 'verb', 'adjective', 'adverb', 'pronoun',
@@ -211,10 +205,12 @@ class _VocabularyAddScreenState extends ConsumerState<VocabularyAddScreen> {
                   child: DropdownButton<String>(
                     value: _selectedLanguage,
                     isExpanded: true,
-                    items: _languages.map((code) {
+                    items: ref
+                        .watch(taggableLanguagesProvider)
+                        .map((lang) {
                       return DropdownMenuItem(
-                        value: code,
-                        child: Text(_languageNames[code] ?? code),
+                        value: lang['code'],
+                        child: Text('${lang['flag']} ${lang['name']}'),
                       );
                     }).toList(),
                     onChanged: (value) {

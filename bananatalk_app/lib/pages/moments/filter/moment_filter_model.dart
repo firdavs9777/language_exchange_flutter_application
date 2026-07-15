@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/utils/language_codes.dart';
 import 'package:bananatalk_app/utils/language_flags.dart';
 
 /// Defines the supported date filter options.
@@ -130,8 +131,15 @@ class FilterOptions {
   // Get flag for a language code using LanguageFlags utility
   static String getFlag(String code) => LanguageFlags.getFlag(code);
 
-  // Legacy getter for backward compatibility
-  static List<Map<String, String>> get languages => allLanguages.map((lang) {
+  // The filterable language list. Prefers the FULL shared catalog
+  // (GET /languages via languagesProvider — 110+ base-639-1 entries,
+  // variants collapsed) once it has loaded this session; the hardcoded
+  // [allLanguages] above is only the pre-load/offline fallback. Shape:
+  // {'code','name','flag'} — unchanged for all existing consumers
+  // (filter section/bar/utility, moment-card language label).
+  static List<Map<String, String>> get languages =>
+      LanguageCatalog.taggable ??
+      allLanguages.map((lang) {
         return {
           'code': lang['code']!,
           'name': lang['name']!,

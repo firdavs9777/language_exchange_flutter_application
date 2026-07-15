@@ -48,12 +48,13 @@ class MomentCardHeader extends StatelessWidget {
   }
 
   /// Display name for the moment's own language (the language the post is
-  /// written in), resolved from the shared [FilterOptions.allLanguages] list
-  /// so it always matches what the filter bar shows. Falls back to the raw
+  /// written in), resolved from [FilterOptions.languages] — the full shared
+  /// catalog once loaded, its static fallback before that — so it always
+  /// matches what the filter bar shows. Falls back to the raw
   /// (upper-cased) code for anything not in the list.
   String _momentLanguageDisplayName(String code) {
     final normalized = code.toLowerCase();
-    for (final lang in FilterOptions.allLanguages) {
+    for (final lang in FilterOptions.languages) {
       if (lang['code'] == normalized) return lang['name']!;
     }
     return code.toUpperCase();
@@ -215,7 +216,7 @@ class MomentCardHeader extends StatelessWidget {
 }
 
 /// Small pill chip showing the language a moment was posted in (e.g.
-/// "Japanese"), resolved via [FilterOptions.allLanguages] so it always
+/// "Japanese"), resolved via [FilterOptions.languages] so it always
 /// matches the language filter bar's naming. Purely presentational.
 class _LanguageBadgeChip extends StatelessWidget {
   final String label;
