@@ -28,12 +28,12 @@ const List<String> kAllBackendLanguageNames = [
   'Scottish Gaelic', 'Breton', 'Maltese', 'Albanian', 'Maori', 'Samoan',
   'Tongan', 'Fijian', 'Hawaiian', 'Haitian Creole', 'Quechua', 'Guarani',
   'Esperanto', 'Latin', 'American Sign Language', 'British Sign Language',
-  'Japanese Sign Language', 'Korean Sign Language',
+  'Japanese Sign Language', 'Korean Sign Language', 'Sesotho', 'Shona',
   // Seeded but not yet in prod (pending seeder re-run):
   'Spanish (Mexico)', 'French (Canada)', 'Portuguese (Portugal)',
   'English (Australia)', 'English (Canada)', 'Spanish (Argentina)',
   'Arabic (Egyptian)', 'Arabic (Levantine)', 'Arabic (Gulf)',
-  'Arabic (Moroccan Darija)', 'Sesotho', 'Shona',
+  'Arabic (Moroccan Darija)',
 ];
 
 void main() {
