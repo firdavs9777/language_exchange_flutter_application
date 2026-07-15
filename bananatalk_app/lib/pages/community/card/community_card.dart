@@ -161,6 +161,11 @@ class _CommunityCardState extends State<CommunityCard>
           imageUrl: widget.community.profileImageUrl,
           name: widget.community.name,
           nativeLanguage: widget.community.native_language,
+          // Country flag for identity (🇧🇷 for a Brazilian, not pt's 🇵🇹);
+          // suppressed when the user hides their country/region.
+          country: (widget.community.privacySettings?.showCountryRegion ?? true)
+              ? widget.community.location.country
+              : null,
           isVip: widget.community.isVip,
           userId: PrivacyUtils.shouldShowOnlineStatus(widget.community)
               ? widget.community.id

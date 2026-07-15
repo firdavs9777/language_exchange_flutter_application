@@ -518,6 +518,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
         isMuted: data.isMuted,
         conversationId: data.conversationId,
         nativeLanguage: data.nativeLanguage,
+        country: data.country,
         lastMessageSenderId: data.lastMessage?.senderId,
       );
     }).toList();
@@ -598,6 +599,10 @@ class _ChatMainState extends ConsumerState<ChatMain>
             isVip: otherUser.isVip,
             nativeLanguage: otherUser.native_language.isNotEmpty
                 ? otherUser.native_language
+                : null,
+            country: ((otherUser.privacySettings?.showCountryRegion ?? true) &&
+                    otherUser.location.country.isNotEmpty)
+                ? otherUser.location.country
                 : null,
             lastMessageSenderId: message.sender.id,
           );

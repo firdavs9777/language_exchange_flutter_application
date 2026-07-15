@@ -1,7 +1,7 @@
 import 'package:bananatalk_app/pages/chat/models/chat_partner.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:bananatalk_app/widgets/vip_avatar_frame.dart';
-import 'package:bananatalk_app/utils/language_flags.dart';
+import 'package:bananatalk_app/utils/country_flags.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
@@ -244,9 +244,13 @@ class ChatListTile extends StatelessWidget {
                       ),
                     ),
                   ),
-                  // Country/native-language flag overlay — bottom-left of avatar.
-                  if (partner.nativeLanguage != null &&
-                      partner.nativeLanguage!.isNotEmpty)
+                  // Identity flag overlay — bottom-left of avatar.
+                  // Country flag when known (privacy-filtered upstream);
+                  // falls back to the native-language flag.
+                  if ((partner.country != null &&
+                          partner.country!.isNotEmpty) ||
+                      (partner.nativeLanguage != null &&
+                          partner.nativeLanguage!.isNotEmpty))
                     Positioned(
                       bottom: partner.isVip ? 4 : 2,
                       left: partner.isVip ? 4 : 2,
@@ -267,7 +271,10 @@ class ChatListTile extends StatelessWidget {
                           ],
                         ),
                         child: Text(
-                          LanguageFlags.getFlagByName(partner.nativeLanguage!),
+                          CountryFlags.userBadgeFlag(
+                            country: partner.country,
+                            nativeLanguage: partner.nativeLanguage,
+                          ),
                           style: const TextStyle(fontSize: 12, height: 1.0),
                         ),
                       ),
