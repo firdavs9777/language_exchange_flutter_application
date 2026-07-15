@@ -135,6 +135,16 @@ class LanguageFlags {
     'yi': '🇮🇱', // Yiddish
     'sd': '🇵🇰', // Sindhi
     'ug': '🇨🇳', // Uyghur
+    'ks': '🇮🇳', // Kashmiri
+    'prs': '🇦🇫', // Dari
+
+    // Sign languages (backend `languages` collection; flag matches
+    // seeds/languages.js — the sign-language hand, not a country flag)
+    'fil': '🇵🇭', // Filipino (backend code variant of Tagalog)
+    'ase': '🤟', // American Sign Language
+    'bfi': '🤟', // British Sign Language
+    'jsl': '🤟', // Japanese Sign Language
+    'kvk': '🤟', // Korean Sign Language
     
     // Latin American Languages
     'qu': '🇵🇪', // Quechua
@@ -239,24 +249,36 @@ class LanguageFlags {
 
   /// Language name → code mapping for backend values like "Chinese (Simplified)", "Korean", etc.
   static const Map<String, String> _nameToCode = {
-    // Exact names with variants
+    // Exact names with variants.
+    //
+    // Regional variants map to region-specific flag codes (the `flags` map
+    // has zh-tw/pt-br/en-us/... overrides): a user who picks
+    // "Portuguese (Brazil)" as their language gets 🇧🇷, not 🇵🇹. These
+    // variant names exist in the backend `languages` collection today —
+    // this mapping previously collapsed them to the base country's flag,
+    // defeating the point of picking a variant.
     'english': 'en',
+    'english (us)': 'en-us',
+    'english (uk)': 'en-gb',
     'korean': 'ko',
     'japanese': 'ja',
     'japan': 'ja',
     'chinese': 'zh',
     'chinese (simplified)': 'zh',
-    'chinese (traditional)': 'zh',
+    'chinese (traditional)': 'zh-tw',
     'mandarin': 'zh',
     'mandarin chinese': 'zh',
-    'cantonese': 'zh',
+    'cantonese': 'zh-hk',
     'spanish': 'es',
+    'spanish (mexico)': 'es-mx',
+    'spanish (spain)': 'es-es',
     'french': 'fr',
+    'french (canada)': 'fr-ca',
     'german': 'de',
     'italian': 'it',
     'portuguese': 'pt',
-    'portuguese (brazil)': 'pt',
-    'portuguese (portugal)': 'pt',
+    'portuguese (brazil)': 'pt-br',
+    'portuguese (portugal)': 'pt-pt',
     'russian': 'ru',
     'arabic': 'ar',
     'hindi': 'hi',
@@ -356,6 +378,41 @@ class LanguageFlags {
     'sanskrit': 'sa',
     'javanese': 'jv',
     'sundanese': 'su',
+
+    // Backend `languages` collection completeness (127 names, enforced by
+    // test/utils/language_flags_test.dart — every pickable language must
+    // resolve; never rely on the fuzzy partial-match fallback).
+    'odia': 'or',
+    'assamese': 'as',
+    'sindhi': 'sd',
+    'kashmiri': 'ks',
+    'dhivehi': 'dv',
+    'dari': 'prs',
+    'tigrinya': 'ti',
+    'oromo': 'om',
+    'setswana': 'tn',
+    'tswana': 'tn',
+    'kinyarwanda': 'rw',
+    'luganda': 'lg',
+    'chichewa': 'ny',
+    'wolof': 'wo',
+    'fula': 'ff',
+    'fulah': 'ff',
+    'fulfulde': 'ff',
+    'occitan': 'oc',
+    'frisian': 'fy',
+    'western frisian': 'fy',
+    'faroese': 'fo',
+    'scottish gaelic': 'gd',
+    'breton': 'br',
+    'quechua': 'qu',
+    'guarani': 'gn',
+    'american sign language': 'ase',
+    'asl': 'ase',
+    'british sign language': 'bfi',
+    'bsl': 'bfi',
+    'japanese sign language': 'jsl',
+    'korean sign language': 'kvk',
   };
 
   /// Get flag emoji for a language name (e.g., "Chinese (Simplified)", "Korean", "Tagalog")

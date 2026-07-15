@@ -1,7 +1,26 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:bananatalk_app/utils/country_flags.dart';
+import 'package:bananatalk_app/pages/community/filter/filter_country_section.dart'
+    show kAllCountries;
 
 void main() {
+  group('CountryFlags — international completeness', () {
+    test('every country in the app-wide picker list (kAllCountries) resolves to its flag', () {
+      final missing = <String>[];
+      for (final entry in kAllCountries) {
+        final name = entry['name']!;
+        final expectedFlag = entry['flag']!;
+        final resolved = CountryFlags.getFlag(name);
+        if (resolved != expectedFlag) {
+          missing.add("$name (expected $expectedFlag, got ${resolved ?? 'null'})");
+        }
+      }
+      expect(missing, isEmpty,
+          reason: 'CountryFlags must cover the full country picker list:\n'
+              '${missing.join('\n')}');
+    });
+  });
+
   group('CountryFlags.getFlag', () {
     test('resolves the exact user-reported mismatch cases', () {
       // Brazilian Portuguese speaker: country wins over pt's 🇵🇹.
