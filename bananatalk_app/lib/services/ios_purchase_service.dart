@@ -25,10 +25,28 @@ class IOSPurchaseService {
   static Completer<PurchaseDetails?>? _purchaseCompleter;
 
   // Product IDs for VIP subscriptions (must match App Store Connect)
-  static const Set<String> _productIds = {
+  static const Set<String> _vipProductIds = {
     'com.bananatalk.bananatalkApp.vip.month',
     'com.bananatalk.bananatalkApp.vip.quarter',
     'com.bananatalk.bananatalkApp.vip.year',
+  };
+
+  /// Coins v1 (Workstream F) — consumable coin-pack product IDs (must
+  /// match App Store Connect). See `lib/models/coin_pack.dart` for the
+  /// coins/price each maps to. Kept separate from [_vipProductIds] so
+  /// [_onPurchaseUpdate] can tell a consumable purchase from a
+  /// subscription and skip the auto-complete for the former (Task 7
+  /// contract — only complete a coin pack after the backend has verified
+  /// the receipt and credited coins).
+  static const Set<String> _coinProductIds = {
+    'com.bananatalk.bananatalkApp.coins.100',
+    'com.bananatalk.bananatalkApp.coins.500',
+    'com.bananatalk.bananatalkApp.coins.1500',
+  };
+
+  static const Set<String> _productIds = {
+    ..._vipProductIds,
+    ..._coinProductIds,
   };
 
   static final List<ProductDetails> _products = [];
@@ -214,6 +232,88 @@ class IOSPurchaseService {
     return result != null;
   }
 
+  /// Coins v1 (Task 7) — purchase a consumable coin pack and wait for the
+  /// store to report the result. Uses `buyConsumable(autoConsume: false)`:
+  /// the transaction is NOT finished here. Call [completeCoinPurchase]
+  /// only after the backend's `/coins/verify-purchase` call succeeds — a
+  /// failed verify must leave the purchase un-finished so StoreKit
+  /// redelivers it (via `purchaseStream`/`restorePurchases`) for retry,
+  /// and so Apple can refund it if verification never succeeds.
+  static Future<PurchaseDetails?> purchaseCoinPack(String productId) async {
+    if (!_isAvailable) {
+      final initialized = await initializeStore();
+      if (!initialized || !_isAvailable) {
+        return null;
+      }
+    }
+
+    if (_products.isEmpty) {
+      await loadProducts();
+      if (_products.isEmpty) {
+        return null;
+      }
+    }
+
+    final ProductDetails? productDetails = getProduct(productId);
+    if (productDetails == null) {
+      return null;
+    }
+
+    if (_purchasePending) {
+      return null;
+    }
+
+    _purchasePending = true;
+    _purchaseCompleter = Completer<PurchaseDetails?>();
+
+    final PurchaseParam purchaseParam = PurchaseParam(
+      productDetails: productDetails,
+    );
+
+    try {
+      final bool initiated = await _inAppPurchase.buyConsumable(
+        purchaseParam: purchaseParam,
+        autoConsume: false,
+      );
+
+      if (!initiated) {
+        _purchasePending = false;
+        _purchaseCompleter = null;
+        return null;
+      }
+
+      final result = await _purchaseCompleter!.future.timeout(
+        const Duration(minutes: 5),
+        onTimeout: () {
+          return null;
+        },
+      );
+
+      _purchaseCompleter = null;
+      return result;
+    } catch (e) {
+      _purchasePending = false;
+      _purchaseCompleter = null;
+      return null;
+    }
+  }
+
+  /// Finishes a coin-pack purchase whose receipt the backend has already
+  /// verified and credited. Call ONLY after a successful
+  /// `/coins/verify-purchase` response — this is the point at which the
+  /// pack becomes repurchasable.
+  static Future<void> completeCoinPurchase(PurchaseDetails purchase) async {
+    try {
+      await _inAppPurchase.completePurchase(purchase);
+    } catch (e) {
+      // Best-effort: a failure here just means StoreKit keeps the
+      // transaction in the pending queue and redelivers it later. Coins
+      // were already credited server-side, so this does not affect the
+      // user's balance — the next completion attempt (e.g. on next
+      // launch) will clear it.
+    }
+  }
+
   /// Set callback for purchase updates
   static void setPurchaseCallback(PurchaseCallback callback) {
     _purchaseCallback = callback;
@@ -268,8 +368,13 @@ class IOSPurchaseService {
           _purchaseCallback?.call(purchaseDetails, false, 'Purchase was canceled');
         }
 
-        // Complete the purchase (acknowledge to App Store)
-        if (purchaseDetails.pendingCompletePurchase) {
+        // Complete the purchase (acknowledge to App Store).
+        // Coins v1 (Task 7): consumable coin-pack purchases are
+        // deliberately excluded — the coin shop flow finishes them via
+        // [completeCoinPurchase] only after the backend verify succeeds,
+        // so a failed verify leaves the transaction retryable/refundable.
+        if (purchaseDetails.pendingCompletePurchase &&
+            !_coinProductIds.contains(purchaseDetails.productID)) {
           _inAppPurchase.completePurchase(purchaseDetails);
         }
       }

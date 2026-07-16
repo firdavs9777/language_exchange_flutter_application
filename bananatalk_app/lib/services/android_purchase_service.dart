@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:in_app_purchase_android/in_app_purchase_android.dart';
 
 /// Callback for purchase completion
 typedef PurchaseCallback = void Function(
@@ -31,10 +32,28 @@ class AndroidPurchaseService {
   static Completer<PurchaseDetails?>? _purchaseCompleter;
 
   // Product IDs for VIP subscriptions (must match Google Play Console)
-  static const Set<String> _productIds = {
+  static const Set<String> _vipProductIds = {
     'com.bananatalk.app.vip.monthly',
     'com.bananatalk.app.vip.quarterly',
     'com.bananatalk.app.vip.yearly',
+  };
+
+  /// Coins v1 (Workstream F) — consumable coin-pack product IDs (must
+  /// match Google Play Console). See `lib/models/coin_pack.dart` for the
+  /// coins/price each maps to. Kept separate from [_vipProductIds] so
+  /// [_onPurchaseUpdate] can tell a consumable purchase from a
+  /// subscription and skip the auto-acknowledge for the former (Task 7
+  /// contract — only consume a coin pack after the backend has verified
+  /// the receipt and credited coins).
+  static const Set<String> _coinProductIds = {
+    'com.bananatalk.app.coins.100',
+    'com.bananatalk.app.coins.500',
+    'com.bananatalk.app.coins.1500',
+  };
+
+  static const Set<String> _productIds = {
+    ..._vipProductIds,
+    ..._coinProductIds,
   };
 
   static final List<ProductDetails> _products = [];
@@ -221,6 +240,90 @@ class AndroidPurchaseService {
     return result != null;
   }
 
+  /// Coins v1 (Task 7) — purchase a consumable coin pack and wait for the
+  /// store to report the result. Uses `buyConsumable(autoConsume: false)`:
+  /// the purchase is NOT consumed here (Google Play would otherwise
+  /// consume it immediately, before the backend has verified it). Call
+  /// [completeCoinPurchase] only after the backend's
+  /// `/coins/verify-purchase` call succeeds — a failed verify must leave
+  /// the purchase un-consumed so it can be retried or refunded.
+  static Future<PurchaseDetails?> purchaseCoinPack(String productId) async {
+    if (!_isAvailable) {
+      final initialized = await initializeStore();
+      if (!initialized || !_isAvailable) {
+        return null;
+      }
+    }
+
+    if (_products.isEmpty) {
+      await loadProducts();
+      if (_products.isEmpty) {
+        return null;
+      }
+    }
+
+    final ProductDetails? productDetails = getProduct(productId);
+    if (productDetails == null) {
+      return null;
+    }
+
+    if (_purchasePending) {
+      return null;
+    }
+
+    _purchasePending = true;
+    _purchaseCompleter = Completer<PurchaseDetails?>();
+
+    final PurchaseParam purchaseParam = PurchaseParam(
+      productDetails: productDetails,
+    );
+
+    try {
+      final bool initiated = await _inAppPurchase.buyConsumable(
+        purchaseParam: purchaseParam,
+        autoConsume: false,
+      );
+
+      if (!initiated) {
+        _purchasePending = false;
+        _purchaseCompleter = null;
+        return null;
+      }
+
+      final result = await _purchaseCompleter!.future.timeout(
+        const Duration(minutes: 5),
+        onTimeout: () {
+          return null;
+        },
+      );
+
+      _purchaseCompleter = null;
+      return result;
+    } catch (e) {
+      _purchasePending = false;
+      _purchaseCompleter = null;
+      return null;
+    }
+  }
+
+  /// Consumes a coin-pack purchase whose receipt the backend has already
+  /// verified and credited. Call ONLY after a successful
+  /// `/coins/verify-purchase` response. Unlike [completePurchase] (which
+  /// only acknowledges), Google Play requires an explicit *consume* call
+  /// for a consumable product before it can be bought again.
+  static Future<void> completeCoinPurchase(PurchaseDetails purchase) async {
+    try {
+      final addition = _inAppPurchase
+          .getPlatformAddition<InAppPurchaseAndroidPlatformAddition>();
+      await addition.consumePurchase(purchase);
+    } catch (e) {
+      // Best-effort: a failure here just means Google Play still
+      // considers the item "owned" until the next consume attempt.
+      // Coins were already credited server-side, so this does not
+      // affect the user's balance.
+    }
+  }
+
   /// Set callback for purchase updates
   static void setPurchaseCallback(PurchaseCallback callback) {
     _purchaseCallback = callback;
@@ -276,8 +379,13 @@ class AndroidPurchaseService {
               purchaseDetails, false, 'Purchase was canceled');
         }
 
-        // Complete/acknowledge the purchase (required for Google Play)
-        if (purchaseDetails.pendingCompletePurchase) {
+        // Complete/acknowledge the purchase (required for Google Play).
+        // Coins v1 (Task 7): consumable coin-pack purchases are
+        // deliberately excluded — the coin shop flow consumes them via
+        // [completeCoinPurchase] only after the backend verify succeeds,
+        // so a failed verify leaves the purchase retryable/refundable.
+        if (purchaseDetails.pendingCompletePurchase &&
+            !_coinProductIds.contains(purchaseDetails.productID)) {
           _inAppPurchase.completePurchase(purchaseDetails);
         }
       }
