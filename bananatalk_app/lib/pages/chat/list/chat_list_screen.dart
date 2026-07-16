@@ -31,6 +31,7 @@ import 'package:bananatalk_app/pages/chat/list/intro_requests_strip.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:bananatalk_app/pages/chat/list/list_socket_handlers.dart';
 import 'package:bananatalk_app/widgets/vip_up_pill.dart';
+import 'package:bananatalk_app/widgets/coins/coin_balance_pill.dart';
 import 'package:bananatalk_app/services/notification_service.dart';
 import 'package:bananatalk_app/widgets/app_shell_drawer.dart';
 import 'package:app_settings/app_settings.dart';
@@ -1278,6 +1279,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
           ),
         ),
         actions: [
+          const CoinBalancePill(),
           IconButton(
             icon: Icon(
               Icons.qr_code_rounded,

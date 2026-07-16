@@ -3,6 +3,7 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/widgets/vip_up_pill.dart';
+import 'package:bananatalk_app/widgets/coins/coin_balance_pill.dart';
 import 'package:go_router/go_router.dart';
 
 /// AppBar for the Community screen.
@@ -53,6 +54,8 @@ class CommunityAppBar extends StatelessWidget implements PreferredSizeWidget {
       actions: [
         // VIP upgrade entry — same gold pill used in the chat list.
         const VipUpPill(),
+        // Coin balance — Coins v1 entry point, hidden when coinsEnabled is off.
+        const CoinBalancePill(),
         // Smart Match — soft primary-tinted pill to signal the AI feature.
         Container(
           margin: const EdgeInsets.symmetric(vertical: 8),
