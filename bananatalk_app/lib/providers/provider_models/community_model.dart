@@ -67,6 +67,8 @@ class Community {
     // VIP fields
     this.userMode = UserMode.regular,
     this.vipSubscriptionActive = false,
+    // Coins v1 (Workstream F)
+    this.coinBalance = 0,
     // Step 14 safety wave
     this.role = 'user',
     this.isBanned = false,
@@ -117,6 +119,12 @@ class Community {
   // VIP fields
   final UserMode userMode;
   final bool vipSubscriptionActive;
+  /// Coins v1: snapshot of the user's coin balance as of the last
+  /// `/auth/me` fetch. The coin balance pill reads the live value from
+  /// `coinBalanceProvider` (refreshed after purchase/unlock) — this field
+  /// exists so a freshly-loaded profile has a sane initial value without
+  /// waiting on a second round-trip.
+  final int coinBalance;
   // Step 14 safety wave — admin gating + banned-account detection.
   final String role;
   final bool isBanned;
@@ -235,6 +243,8 @@ class Community {
       // VIP fields
       userMode: UserMode.fromString(json['userMode'] ?? 'regular'),
       vipSubscriptionActive: json['vipSubscription']?['isActive'] == true,
+      // Coins v1 (Workstream F)
+      coinBalance: (json['coinBalance'] as num?)?.toInt() ?? 0,
       // Step 14 safety wave
       role: (json['role'] ?? 'user').toString(),
       isBanned: json['isBanned'] == true,
@@ -278,6 +288,7 @@ class Community {
       'isOnline': isOnline,
       'userMode': userMode.toJson(),
       'vipSubscription': {'isActive': vipSubscriptionActive},
+      'coinBalance': coinBalance,
     };
   }
 
