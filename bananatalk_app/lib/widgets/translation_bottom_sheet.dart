@@ -5,6 +5,7 @@ import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/models/ai/translation_model.dart';
 import 'package:bananatalk_app/services/translation_service.dart';
 import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
+import 'package:bananatalk_app/widgets/coins/unlock_cta.dart';
 
 /// HelloTalk-style translation bottom sheet with word breakdown, TTS, and vocabulary saving.
 class TranslationBottomSheet extends StatefulWidget {
@@ -375,6 +376,18 @@ class _TranslationBottomSheetState extends State<TranslationBottomSheet> {
                           ),
                         ],
                       ),
+                    ),
+                  ),
+                  // Coins v1: à-la-carte alternative to VIP — hidden when
+                  // coinsEnabled is off, renders nothing while the live
+                  // catalog loads.
+                  const SizedBox(height: 12),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 48,
+                    child: UnlockCta(
+                      featureKey: 'translation',
+                      onUnlocked: _translate,
                     ),
                   ),
                 ],

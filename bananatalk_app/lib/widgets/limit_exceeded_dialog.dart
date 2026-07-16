@@ -3,6 +3,7 @@ import 'package:bananatalk_app/models/user_limits.dart';
 import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
 import 'package:bananatalk_app/services/ad_service.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/widgets/coins/unlock_cta.dart';
 import 'package:intl/intl.dart';
 
 class LimitExceededDialog extends StatelessWidget {
@@ -85,6 +86,20 @@ class LimitExceededDialog extends StatelessWidget {
         return 'You have reached your daily profile view limit. Upgrade to VIP for unlimited profile views!';
       default:
         return 'You have reached your daily limit. Upgrade to VIP for unlimited access!';
+    }
+  }
+
+  /// Coins v1: this dialog is shared across several daily-limit surfaces
+  /// (messages, moments, stories, comments, profile views), but the v1
+  /// unlock catalog only covers `moment` — the others have no coin
+  /// unlock yet. Returns null (no CTA shown) for anything else.
+  String? _featureKeyForUnlock() {
+    switch (limitType.toLowerCase()) {
+      case 'moment':
+      case 'moments':
+        return 'moment';
+      default:
+        return null;
     }
   }
 
@@ -299,6 +314,15 @@ class LimitExceededDialog extends StatelessWidget {
             ),
           ),
         ),
+        if (_featureKeyForUnlock() != null)
+          UnlockCta(
+            featureKey: _featureKeyForUnlock()!,
+            // The caller (e.g. create_moment.dart) awaits this dialog and
+            // discards the result today, so there's no inline retry
+            // handle yet — popping with a distinguishable result lets a
+            // future caller opt into auto-retry without another edit here.
+            onUnlocked: () => Navigator.pop(context, 'unlocked'),
+          ),
         if (AdService().isRewardedAdReady)
           OutlinedButton.icon(
             onPressed: () {
