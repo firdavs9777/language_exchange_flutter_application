@@ -10,6 +10,8 @@ import 'package:bananatalk_app/pages/chat/message/message_bubble.dart';
 import 'package:bananatalk_app/pages/chat/message/typing_indicator.dart';
 import 'package:bananatalk_app/pages/chat/message/conversation_empty_state.dart';
 import 'package:bananatalk_app/pages/chat/error/chat_error_widget.dart';
+import 'package:bananatalk_app/pages/chat/message/chat_row.dart';
+import 'package:bananatalk_app/pages/chat/message/date_separator_chip.dart';
 
 class ChatMessagesList extends StatelessWidget {
   final bool isLoading;
@@ -164,9 +166,11 @@ class ChatMessagesList extends StatelessWidget {
     }
 
     // Build list with header at top, then messages chronologically (oldest to newest)
-    // Calculate indices: header at 0, then messages, then loading indicator at end
+    // Calculate indices: header at 0, then rows (date separators + messages),
+    // then loading indicator at end
+    final rows = buildChatRows(messages);
     final headerOffset = hasHeader ? 1 : 0;
-    final totalItems = headerOffset + messages.length + (isLoadingMore ? 1 : 0);
+    final totalItems = headerOffset + rows.length + (isLoadingMore ? 1 : 0);
 
     return Column(
       children: [
@@ -197,13 +201,20 @@ class ChatMessagesList extends StatelessWidget {
                 );
               }
 
-              // Get message - adjust index for header offset
-              final messageIndex = index - headerOffset;
-              if (messageIndex < 0 || messageIndex >= messages.length) {
+              // Resolve row - adjust index for header offset
+              final rowIndex = index - headerOffset;
+              if (rowIndex < 0 || rowIndex >= rows.length) {
                 return const SizedBox.shrink(); // Safety check
               }
-              final message = messages[messageIndex];
+              final row = rows[rowIndex];
+              if (row is DateSeparatorRow) {
+                return DateSeparatorChip(day: row.day);
+              }
+              final messageRow = row as MessageRow;
+              final message = messageRow.message;
               final isMe = message.sender.id == currentUserId;
+              final isFirstInGroup = messageRow.isFirstInGroup;
+              final isLastInGroup = messageRow.isLastInGroup;
 
               // Check if this is a correction message (shown as standalone bubble)
               if (message.type == 'correction') {
@@ -251,41 +262,6 @@ class ChatMessagesList extends StatelessWidget {
                       ? () => onCallTap!(callRecord)
                       : null,
                 );
-              }
-
-              // Compute message grouping
-              final prevIndex = messageIndex - 1;
-              final nextIndex = messageIndex + 1;
-
-              bool isFirstInGroup = true;
-              bool isLastInGroup = true;
-
-              if (prevIndex >= 0 && prevIndex < messages.length) {
-                final prevMsg = messages[prevIndex];
-                final sameAuthor = prevMsg.sender.id == message.sender.id;
-                bool withinTimeWindow = false;
-                try {
-                  final currTime = DateTime.parse(message.createdAt);
-                  final prevTime = DateTime.parse(prevMsg.createdAt);
-                  withinTimeWindow = currTime.difference(prevTime).inMinutes.abs() < 3;
-                } catch (_) {}
-                if (sameAuthor && withinTimeWindow && prevMsg.type != 'correction' && prevMsg.type != 'call') {
-                  isFirstInGroup = false;
-                }
-              }
-
-              if (nextIndex < messages.length) {
-                final nextMsg = messages[nextIndex];
-                final sameAuthor = nextMsg.sender.id == message.sender.id;
-                bool withinTimeWindow = false;
-                try {
-                  final currTime = DateTime.parse(message.createdAt);
-                  final nextTime = DateTime.parse(nextMsg.createdAt);
-                  withinTimeWindow = nextTime.difference(currTime).inMinutes.abs() < 3;
-                } catch (_) {}
-                if (sameAuthor && withinTimeWindow && nextMsg.type != 'correction' && nextMsg.type != 'call') {
-                  isLastInGroup = false;
-                }
               }
 
               // Group (hub/room) mode: each non-mine message uses its own
