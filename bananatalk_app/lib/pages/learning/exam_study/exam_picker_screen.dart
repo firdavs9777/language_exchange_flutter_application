@@ -1,5 +1,6 @@
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/learning/exam_study/widgets/exam_card.dart';
+import 'package:bananatalk_app/pages/learning/vocabulary/vocab_packs_screen.dart';
 import 'package:bananatalk_app/providers/provider_models/exam/exam_language.dart';
 import 'package:bananatalk_app/providers/provider_models/exam/exam_type.dart';
 import 'package:bananatalk_app/providers/provider_root/exam_study_provider.dart';
@@ -66,6 +67,13 @@ class ExamPickerScreen extends ConsumerWidget {
               ),
             ),
             const SizedBox(height: 20),
+            // Vocabulary Packs live under the English section — surfaced here
+            // (rather than buried in the AI Tools grid) so English learners
+            // find them while choosing an exam. Packs are English content.
+            if (language.code.toLowerCase() == 'en') ...[
+              _buildVocabPacksCard(context),
+              const SizedBox(height: 20),
+            ],
             examsAsync.when(
               data: (exams) => _buildExamsList(context, exams, l10n),
               loading: () => const Padding(
@@ -74,6 +82,65 @@ class ExamPickerScreen extends ConsumerWidget {
               ),
               error: (_, __) => _examsError(context, ref, l10n),
             ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  /// Featured entry into the curated Vocabulary Packs, shown at the top of
+  /// the English exam list.
+  Widget _buildVocabPacksCard(BuildContext context) {
+    const accent = Color(0xFF14B8A6);
+    return InkWell(
+      borderRadius: BorderRadius.circular(16),
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(builder: (_) => const VocabPacksScreen()),
+      ),
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: accent.withValues(alpha: 0.10),
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: accent.withValues(alpha: 0.35)),
+        ),
+        child: Row(
+          children: [
+            Container(
+              width: 44,
+              height: 44,
+              decoration: BoxDecoration(
+                color: accent.withValues(alpha: 0.18),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: const Icon(Icons.style_rounded, color: accent),
+            ),
+            const SizedBox(width: 14),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Vocabulary Packs',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w800,
+                      color: context.textPrimary,
+                    ),
+                  ),
+                  const SizedBox(height: 2),
+                  Text(
+                    'Themed word sets to build your vocabulary',
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: context.textSecondary,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Icon(Icons.chevron_right_rounded, color: context.textMuted),
           ],
         ),
       ),
