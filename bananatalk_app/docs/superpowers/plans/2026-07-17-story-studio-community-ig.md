@@ -1223,12 +1223,14 @@ git commit -m "feat(story-studio): @mentions — picker, capped at 5, tappable v
 
 ---
 
-### Task 11: hasActiveStory flag + community story rings
+### Task 11: hasActiveStory flag + story rings in Community AND Chat
 
 **Files:**
 - Modify: `../backend/controllers/community.js` (list endpoint(s) returning user collections)
+- Modify: `../backend` chat-partners endpoint — the same handler that got the privacy-filtered `country` field in commit `a3ef753` ("chat-partners payload for identity flags"); locate via `grep -rn "chat-partners\|chatPartners" ../backend/controllers/` and stamp `hasActiveStory` there with the same helper
 - Test: `../backend/test/hasActiveStory.test.js`
 - Modify (app): `lib/widgets/community/compact_user_tile.dart`, `lib/widgets/community/partner_list_item.dart`, `lib/widgets/community/partner_card.dart` (avatar wrap + tap)
+- Modify (app): `lib/pages/chat/list/chat_list_tile.dart` — wrap the partner avatar in `StoryGradientRing` when `partner.hasActiveStory`; **avatar tap → story viewer**, tile tap → conversation (unchanged); add `hasActiveStory` to the `ChatPartner` model (`lib/pages/chat/models/chat_partner.dart`) parsed as `json['hasActiveStory'] == true`
 
 **Interfaces:**
 - Produces (backend): every user object in community list/detail payloads gains `hasActiveStory: Boolean`. Helper in new file `../backend/lib/activeStoryFlags.js`:
@@ -1285,7 +1287,7 @@ module.exports = { usersWithVisibleActiveStory };
 - Consumes: `userMomentsProvider(userId)` (exists), highlights row widget from profile (locate `highlights_row.dart` usage in `profile_main.dart` and reuse with this user's id), `hasActiveStory` + ring (Task 11).
 - Produces: shared widget `TextMomentTile({required String text, required String backgroundColor})` in `lib/widgets/moments/text_moment_tile.dart` (move the existing private `_TextMomentTile` implementation verbatim, made public; update `profile_moments_tab.dart` import).
 
-Layout contract (top→bottom): SliverAppBar (name only) → header row [ringed avatar 84px | three stat Columns: Posts (`moments.length`), Followers, Following — **display-only**] → name+flags line → collapsed bio (3 lines, "more" expands) → action row [Follow(filled teal) | Message(outlined) | 👋(outlined square)] → highlights row → TabBar [grid icon | info icon] → TabBarView [3-col moments grid | existing about+topics content].
+Layout contract (top→bottom): SliverAppBar (name only) → header row [ringed avatar 84px — **tap opens this user's active story in the viewer when `hasActiveStory`, else opens the profile-photo view** | three stat Columns: Posts (`moments.length`), Followers, Following — **display-only**] → name+flags line → collapsed bio (3 lines, "more" expands) → action row [Follow(filled teal) | Message(outlined) | 👋(outlined square)] → highlights row → TabBar [grid icon | info icon] → TabBarView [3-col moments grid | existing about+topics content].
 
 - [ ] **Step 1:** Extract `TextMomentTile` to the shared path; update profile import; `flutter analyze` both → 0 issues; commit `refactor(moments): share TextMomentTile`.
 - [ ] **Step 2:** Restyle header/actions/tabs per the layout contract (keep all existing follow/unfollow/message/wave handlers — restyle only, logic untouched).
