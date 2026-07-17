@@ -13,6 +13,7 @@ import 'package:bananatalk_app/pages/learning/animations/level_up_sequence.dart'
 import 'package:bananatalk_app/providers/provider_root/learning/progress_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/learning/achievements_providers.dart';
 import 'package:bananatalk_app/widgets/vip_up_pill.dart';
+import 'package:bananatalk_app/widgets/coins/coin_balance_pill.dart';
 import 'package:bananatalk_app/pages/learning/exam_study/exam_study_tab.dart';
 
 /// Unified Study Hub — composes the Learn tab and AI Tools tab.
@@ -209,6 +210,8 @@ class _LearningMainState extends ConsumerState<LearningMain>
         // header sits on a purple gradient, so the "Up" badge needs a
         // white border to read cleanly.
         const VipUpPill(onLight: false),
+        const SizedBox(width: 4),
+        const CoinBalancePill(onLight: false),
         const SizedBox(width: 4),
         _HeaderIconButton(
           icon: Icons.leaderboard_rounded,

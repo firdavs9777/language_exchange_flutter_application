@@ -52,6 +52,14 @@ class AppConfig {
   /// into view.
   final bool reelsEnabled;
 
+  /// Coins v1: server-side kill switch for the coin balance pill, coin
+  /// shop, and "Unlock for coins" CTAs (mirrors [reelsEnabled]). Coins is
+  /// a brand-new surface, so this defaults to `false` — older/dev config
+  /// payloads that predate this flag stay hidden until the backend
+  /// explicitly turns it on, rather than a half-finished feature flashing
+  /// into view. See `docs/superpowers/specs/2026-07-13-coins-v1-design.md`.
+  final bool coinsEnabled;
+
   const AppConfig({
     required this.minVersion,
     required this.latestVersion,
@@ -62,6 +70,7 @@ class AppConfig {
     this.announcement,
     this.roomsEnabled = true,
     this.reelsEnabled = false,
+    this.coinsEnabled = false,
   });
 
   factory AppConfig.fromJson(Map<String, dynamic> json) {
@@ -79,6 +88,7 @@ class AppConfig {
               : null,
       roomsEnabled: (json['roomsEnabled'] as bool?) ?? true,
       reelsEnabled: (json['reelsEnabled'] as bool?) ?? false,
+      coinsEnabled: (json['coinsEnabled'] as bool?) ?? false,
     );
   }
 }

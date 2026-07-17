@@ -364,4 +364,14 @@ class Endpoints {
       'exam-study/users/$userId/exams/$examId/generate-study-plan';
   static String examStudyStudyPlanURL(String userId, String planId) =>
       'exam-study/users/$userId/study-plans/$planId';
+
+  // ==================== COINS ENDPOINTS (Coins v1 — Foundation) ====================
+  // Gated server-side by COINS_ENABLED; app hides UI when
+  // AppConfig.coinsEnabled == false. See docs/superpowers/specs/
+  // 2026-07-13-coins-v1-design.md.
+  static const String coinsBalanceURL = 'coins/balance';
+  static const String coinsTransactionsURL = 'coins/transactions';
+  static const String coinsUnlockCatalogURL = 'coins/unlock-catalog';
+  static const String coinsVerifyPurchaseURL = 'coins/verify-purchase';
+  static const String coinsUnlockURL = 'coins/unlock';
 }

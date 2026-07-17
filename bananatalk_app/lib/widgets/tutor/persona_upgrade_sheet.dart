@@ -6,6 +6,7 @@ import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
 import 'package:bananatalk_app/providers/tutor_provider.dart';
 import 'package:bananatalk_app/services/analytics_service.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/widgets/coins/unlock_cta.dart';
 
 /// Persona-aware variant of VipUpgradeSheet. Copy matches the user's
 /// selected persona — falls back to generic if persona is unset.
@@ -92,6 +93,23 @@ class PersonaUpgradeSheet extends ConsumerWidget {
                 'Upgrade to VIP',
                 style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
               ),
+            ),
+          ),
+          // Coins v1: à-la-carte alternative to VIP for this specific
+          // tutor chip — hidden when coinsEnabled is off. `triggerChip` is
+          // already the exact backend featureKey (the 429's `feature`
+          // field), not a generic "tutor" key, so the unlock grants the
+          // chip that actually hit its cap.
+          const SizedBox(height: 12),
+          SizedBox(
+            width: double.infinity,
+            child: UnlockCta(
+              featureKey: triggerChip,
+              // This sheet is shown from a global 429 interceptor
+              // (main.dart) with no handle back to the chat screen that
+              // triggered it, so there's no gated action to retry inline
+              // here — closing the sheet lets the user tap the chip again.
+              onUnlocked: () => Navigator.pop(context),
             ),
           ),
           const SizedBox(height: 8),
