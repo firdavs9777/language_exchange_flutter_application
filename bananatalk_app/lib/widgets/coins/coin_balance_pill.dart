@@ -53,7 +53,9 @@ class CoinBalancePill extends ConsumerWidget {
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
             decoration: BoxDecoration(
               gradient: const LinearGradient(
-                colors: [Color(0xFF42A5F5), Color(0xFF1E88E5)],
+                // Deeper blue so the white balance number keeps strong
+                // contrast (the lighter blue washed the digits out).
+                colors: [Color(0xFF1E88E5), Color(0xFF1565C0)],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
@@ -75,15 +77,22 @@ class CoinBalancePill extends ConsumerWidget {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Text('💎', style: TextStyle(fontSize: 12)),
+                const Text('💎', style: TextStyle(fontSize: 13)),
                 const SizedBox(width: 4),
                 Text(
                   balanceText,
                   style: const TextStyle(
                     color: Colors.white,
-                    fontSize: 12,
+                    fontSize: 14,
                     fontWeight: FontWeight.w800,
                     letterSpacing: 0.3,
+                    shadows: [
+                      Shadow(
+                        color: Color(0x66000000),
+                        blurRadius: 2,
+                        offset: Offset(0, 1),
+                      ),
+                    ],
                   ),
                 ),
               ],

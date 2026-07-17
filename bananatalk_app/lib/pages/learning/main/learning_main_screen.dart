@@ -138,6 +138,8 @@ class _LearningMainState extends ConsumerState<LearningMain>
                             children: [
                               Text(
                                 AppLocalizations.of(context)!.studyHub,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
                                 style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 24,
@@ -148,6 +150,8 @@ class _LearningMainState extends ConsumerState<LearningMain>
                               const SizedBox(height: 2),
                               Text(
                                 AppLocalizations.of(context)!.dailyLearningJourney,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
                                   color: Colors.white.withValues(alpha: 0.8),
                                   fontSize: 13,
