@@ -7,6 +7,7 @@ import 'package:bananatalk_app/pages/matching/match_card_widget.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/widgets/navigation/app_back_button.dart';
 
 /// Smart Matching Screen for finding language partners
 class SmartMatchingScreen extends ConsumerStatefulWidget {
@@ -53,10 +54,7 @@ class _SmartMatchingScreenState extends ConsumerState<SmartMatchingScreen>
               floating: true,
               pinned: true,
               expandedHeight: 180,
-              leading: IconButton(
-                icon: Icon(Icons.arrow_back, color: context.textPrimary),
-                onPressed: () => Navigator.pop(context),
-              ),
+              leading: const AppBackButton(),
               flexibleSpace: FlexibleSpaceBar(
                 background: Container(
                   decoration: BoxDecoration(

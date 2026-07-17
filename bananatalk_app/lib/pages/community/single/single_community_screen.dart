@@ -30,6 +30,7 @@ import 'package:bananatalk_app/pages/community/single/single_community_actions.d
 import 'package:bananatalk_app/pages/community/single/single_community_about.dart';
 import 'package:bananatalk_app/pages/community/single/single_community_moments.dart';
 import 'package:bananatalk_app/pages/stories/highlights/highlights_row.dart';
+import 'package:bananatalk_app/widgets/navigation/app_back_button.dart';
 
 // ---------------------------------------------------------------------------
 // Public entry point – name preserved for existing navigation call sites.
@@ -485,6 +486,7 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
               foregroundColor: context.textPrimary,
               elevation: 0,
               scrolledUnderElevation: 0.5,
+              leading: const AppBackButton(),
               title: Text(
                 _community.name,
                 style: context.titleLarge.copyWith(fontWeight: FontWeight.w700),

@@ -10,6 +10,7 @@ import 'package:bananatalk_app/providers/provider_root/vip_provider.dart';
 import 'package:bananatalk_app/services/daily_call_limit_service.dart';
 import 'package:bananatalk_app/widgets/vip_locked_feature.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/widgets/navigation/app_back_button.dart';
 import 'package:intl/intl.dart';
 
 class CallHistoryScreen extends ConsumerStatefulWidget {
@@ -79,6 +80,7 @@ class _CallHistoryScreenState extends ConsumerState<CallHistoryScreen>
 
     return Scaffold(
       appBar: AppBar(
+        leading: const AppBackButton(),
         title: Text(l10n.callHistory),
         bottom: TabBar(
           controller: _tabController,

@@ -5,6 +5,7 @@ import 'package:bananatalk_app/providers/provider_models/exam/exam_language.dart
 import 'package:bananatalk_app/providers/provider_models/exam/exam_type.dart';
 import 'package:bananatalk_app/providers/provider_root/exam_study_provider.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/widgets/navigation/app_back_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -26,6 +27,7 @@ class ExamPickerScreen extends ConsumerWidget {
       appBar: AppBar(
         backgroundColor: context.surfaceColor,
         elevation: 0,
+        leading: const AppBackButton(),
         title: Row(
           children: [
             Text(language.icon ?? '🏳️', style: const TextStyle(fontSize: 22)),

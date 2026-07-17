@@ -7,6 +7,7 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/widgets/navigation/app_back_button.dart';
 
 class ChatScreenWrapper extends ConsumerStatefulWidget {
   final String userId;
@@ -62,6 +63,7 @@ class _ChatScreenWrapperState extends ConsumerState<ChatScreenWrapper> {
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
+          leading: const AppBackButton(),
         ),
         body: const Center(
           child: CircularProgressIndicator(
@@ -76,6 +78,7 @@ class _ChatScreenWrapperState extends ConsumerState<ChatScreenWrapper> {
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
+          leading: const AppBackButton(),
         ),
         body: Center(
           child: Padding(
@@ -173,6 +176,7 @@ class _ChatScreenWrapperState extends ConsumerState<ChatScreenWrapper> {
     if (_error != null || _userData == null) {
       return Scaffold(
         appBar: AppBar(
+          leading: const AppBackButton(),
           title: Text(AppLocalizations.of(context)!.error),
         ),
         body: Center(

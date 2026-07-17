@@ -27,6 +27,7 @@ import 'package:bananatalk_app/services/link_constants.dart';
 import 'package:bananatalk_app/services/moments_service.dart' as api;
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/widgets/language_flag_badge.dart';
+import 'package:bananatalk_app/widgets/navigation/app_back_button.dart';
 
 class SingleMoment extends ConsumerStatefulWidget {
   final Moments moment;
@@ -460,10 +461,7 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: context.surfaceColor,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: context.textPrimary),
-          onPressed: () => Navigator.pop(context),
-        ),
+        leading: const AppBackButton(),
         title: Text(
           AppLocalizations.of(context)!.details,
           style: context.titleMedium,

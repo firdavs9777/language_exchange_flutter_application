@@ -2,6 +2,7 @@ import 'package:bananatalk_app/pages/community/single/single_community_screen.da
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/widgets/navigation/app_back_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -57,6 +58,7 @@ class _ProfileWrapperState extends ConsumerState<ProfileWrapper> {
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
+          leading: const AppBackButton(),
         ),
         body: const Center(
           child: CircularProgressIndicator(
@@ -69,6 +71,7 @@ class _ProfileWrapperState extends ConsumerState<ProfileWrapper> {
     if (_error != null || _userData == null) {
       return Scaffold(
         appBar: AppBar(
+          leading: const AppBackButton(),
           title: Text(AppLocalizations.of(context)!.error),
         ),
         body: Center(

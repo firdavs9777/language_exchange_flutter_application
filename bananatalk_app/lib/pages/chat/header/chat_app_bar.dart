@@ -17,6 +17,7 @@ import 'package:bananatalk_app/pages/chat/header/user_avatar.dart';
 import 'package:bananatalk_app/pages/chat/dialogs/chat_options_menu.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/pages/chat/widgets/chat_snackbar.dart';
+import 'package:bananatalk_app/widgets/navigation/app_back_button.dart';
 
 class ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
   final String userName;
@@ -268,6 +269,7 @@ class ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
       elevation: 0,
       scrolledUnderElevation: 1,
       surfaceTintColor: Colors.transparent,
+      leading: const AppBackButton(),
       title: InkWell(
         onTap: () => _navigateToProfile(context, ref),
         borderRadius: AppRadius.borderMD,

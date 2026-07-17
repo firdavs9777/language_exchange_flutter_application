@@ -8,6 +8,7 @@ import 'package:bananatalk_app/pages/learning/leaderboard/tabs/xp_tab.dart';
 import 'package:bananatalk_app/pages/learning/leaderboard/tabs/streak_tab.dart';
 import 'package:bananatalk_app/pages/learning/leaderboard/tabs/friends_tab.dart';
 import 'package:bananatalk_app/pages/learning/leaderboard/tabs/my_ranks_tab.dart';
+import 'package:bananatalk_app/widgets/navigation/app_back_button.dart';
 
 /// Leaderboard screen with rankings
 class LeaderboardScreen extends ConsumerStatefulWidget {
@@ -53,10 +54,7 @@ class _LeaderboardScreenState extends ConsumerState<LeaderboardScreen>
               floating: true,
               pinned: true,
               expandedHeight: 200,
-              leading: IconButton(
-                icon: Icon(Icons.arrow_back, color: context.textPrimary),
-                onPressed: () => Navigator.pop(context),
-              ),
+              leading: const AppBackButton(),
               flexibleSpace: FlexibleSpaceBar(
                 background: Container(
                   decoration: BoxDecoration(
