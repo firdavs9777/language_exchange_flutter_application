@@ -95,6 +95,10 @@ class VocabPacksScreen extends ConsumerWidget {
   }
 }
 
+/// Capitalizes the first letter; safe on empty strings.
+String _capitalize(String s) =>
+    s.isEmpty ? s : '${s[0].toUpperCase()}${s.substring(1)}';
+
 class _LevelChip extends StatelessWidget {
   final String label;
   final bool selected;
@@ -104,10 +108,36 @@ class _LevelChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChoiceChip(
-      label: Text(label),
-      selected: selected,
-      onSelected: (_) => onTap(),
+    final theme = Theme.of(context);
+    final accent = theme.colorScheme.primary;
+    // Filled accent when selected, outlined otherwise — clear contrast in
+    // both light and dark themes (the default ChoiceChip washed out).
+    return GestureDetector(
+      onTap: onTap,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 180),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        decoration: BoxDecoration(
+          color: selected ? accent : Colors.transparent,
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(
+            color: selected
+                ? accent
+                : theme.dividerColor.withValues(alpha: 0.6),
+            width: 1.4,
+          ),
+        ),
+        child: Text(
+          label,
+          style: TextStyle(
+            fontSize: 13,
+            fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
+            color: selected
+                ? theme.colorScheme.onPrimary
+                : theme.textTheme.bodyMedium?.color,
+          ),
+        ),
+      ),
     );
   }
 }
@@ -155,12 +185,35 @@ class _PackCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(pack.topic,
-                      style: theme.textTheme.titleMedium
-                          ?.copyWith(fontWeight: FontWeight.w600)),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(pack.topic,
+                            style: theme.textTheme.titleMedium
+                                ?.copyWith(fontWeight: FontWeight.w600)),
+                      ),
+                      const SizedBox(width: 8),
+                      // Prominent level badge so the pack's level is obvious.
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8, vertical: 3),
+                        decoration: BoxDecoration(
+                          color: accent.withValues(alpha: 0.18),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Text(
+                          _capitalize(pack.level),
+                          style: TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.w700,
+                            color: accent,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                   const SizedBox(height: 4),
                   Text(
-                    '${pack.level[0].toUpperCase()}${pack.level.substring(1)} · '
                     '${pack.wordCount} words · ${pack.exerciseCount} exercises',
                     style: theme.textTheme.bodySmall,
                   ),
