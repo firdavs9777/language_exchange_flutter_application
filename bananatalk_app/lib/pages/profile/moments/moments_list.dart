@@ -4,6 +4,7 @@ import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
 import 'package:bananatalk_app/utils/image_utils.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:bananatalk_app/widgets/community/user_skeleton.dart';
+import 'package:bananatalk_app/widgets/moments/text_moment_tile.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
@@ -69,6 +70,10 @@ class _ProfileMomentsState extends ConsumerState<ProfileMoments> {
         onRefresh: _refreshMoments,
         color: AppColors.primary,
         child: momentsAsync.when(
+          // Keep the current list on screen during a silent refresh (after
+          // edit/delete) instead of flashing the loading skeleton.
+          skipLoadingOnReload: true,
+          skipLoadingOnRefresh: true,
           data: (moments) {
             if (moments.isEmpty) {
               return _buildEmptyState();
@@ -450,10 +455,14 @@ class _ProfileMomentsState extends ConsumerState<ProfileMoments> {
                       errorWidget: _imagePlaceholder(),
                     )
                   else
-                    _imagePlaceholder(),
+                    TextMomentTile(
+                      text: moment.description,
+                      backgroundColor: moment.backgroundColor,
+                    ),
 
                   // Subtle gradient overlay at bottom for content visibility
-                  if (hasMultiple || (moment.description.isNotEmpty))
+                  // (image posts only — text tiles carry their own text).
+                  if (imageUrl != null && (hasMultiple || moment.description.isNotEmpty))
                     Positioned.fill(
                       child: IgnorePointer(
                         child: Container(
@@ -513,8 +522,8 @@ class _ProfileMomentsState extends ConsumerState<ProfileMoments> {
                       ),
                     ),
 
-                  // Caption indicator (bottom-left) if text exists
-                  if (moment.description.isNotEmpty)
+                  // Caption indicator (bottom-left) — only on image posts.
+                  if (imageUrl != null && moment.description.isNotEmpty)
                     Positioned(
                       bottom: 6,
                       left: 6,

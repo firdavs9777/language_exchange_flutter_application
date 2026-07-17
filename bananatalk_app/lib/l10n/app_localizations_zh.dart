@@ -2406,6 +2406,12 @@ class AppLocalizationsZh extends AppLocalizations {
   String get checkOutMoment => '在Bananatalk上看看这条动态!';
 
   @override
+  String get checkOutProfile => 'Check out this profile on Bananatalk!';
+
+  @override
+  String get checkOutCommunity => 'Check out this member on Bananatalk!';
+
+  @override
   String get failedToLoadMoments => '加载动态失败';
 
   @override

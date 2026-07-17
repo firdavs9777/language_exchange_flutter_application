@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
-import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
-import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/utils/language_flags.dart';
-import 'package:bananatalk_app/models/community/topic_model.dart';
+import 'package:bananatalk_app/pages/community/single/single_community_topics.dart';
 
 /// About tab body: bio, story highlights, languages, interests, personal info.
 class SingleCommunityAbout extends ConsumerWidget {
@@ -32,8 +30,12 @@ class SingleCommunityAbout extends ConsumerWidget {
 
         const SizedBox(height: 12),
 
-        // Interests
-        _buildInterestsSection(context, ref, isDark),
+        // Interests (Mutual Interests card — folded in from the removed
+        // Overview tab; reuses the same modular widget as before rather
+        // than duplicating a second hand-rolled topics section here).
+        SingleCommunityTopics(community: community),
+
+        const SizedBox(height: 12),
 
         // Personal Info (MBTI, Blood Type)
         _buildPersonalInfoSection(context, isDark),
@@ -276,195 +278,6 @@ class SingleCommunityAbout extends ConsumerWidget {
             ),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-          ),
-        ],
-      ),
-    );
-  }
-
-  // ---------------------------------------------------------------------------
-  // Interests
-  // ---------------------------------------------------------------------------
-
-  Widget _buildInterestsSection(
-    BuildContext context,
-    WidgetRef ref,
-    bool isDark,
-  ) {
-    if (community.topics.isEmpty) return const SizedBox.shrink();
-
-    final currentUserAsync = ref.watch(userProvider);
-    final currentUser = currentUserAsync.valueOrNull;
-    final myTopics = currentUser?.topics.toSet() ?? <String>{};
-    final theirTopics = community.topics.toSet();
-    final sharedTopics = myTopics.intersection(theirTopics);
-
-    final sortedTopics = [
-      ...sharedTopics,
-      ...theirTopics.difference(sharedTopics),
-    ].toList();
-
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: context.surfaceColor,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-          color: isDark
-              ? Colors.white.withValues(alpha: 0.1)
-              : context.dividerColor,
-          width: 0.5,
-        ),
-        boxShadow: isDark
-            ? null
-            : [
-                BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.04),
-                  blurRadius: 8,
-                  offset: const Offset(0, 2),
-                ),
-              ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: isDark
-                        ? [Colors.pink[700]!, Colors.orange[800]!]
-                        : [Colors.pink[400]!, Colors.orange[400]!],
-                  ),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: const Icon(
-                  Icons.favorite_rounded,
-                  color: Colors.white,
-                  size: 20,
-                ),
-              ),
-              const SizedBox(width: 12),
-              Text(
-                AppLocalizations.of(context)!.interests,
-                style: context.titleMedium.copyWith(
-                  fontWeight: FontWeight.w600,
-                  color: context.textPrimary,
-                ),
-              ),
-              const Spacer(),
-              if (sharedTopics.isNotEmpty)
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 5,
-                  ),
-                  decoration: BoxDecoration(
-                    color: isDark
-                        ? AppColors.primary.withValues(alpha: 0.2)
-                        : AppColors.primary.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(
-                        Icons.handshake_rounded,
-                        size: 14,
-                        color: AppColors.primary,
-                      ),
-                      const SizedBox(width: 4),
-                      Text(
-                        '${sharedTopics.length} shared',
-                        style: context.captionSmall.copyWith(
-                          color: AppColors.primary,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-            ],
-          ),
-          const SizedBox(height: 16),
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            children: sortedTopics.map((topicId) {
-              final isShared = sharedTopics.contains(topicId);
-              final topic = Topic.defaultTopics.firstWhere(
-                (t) => t.id == topicId,
-                orElse: () => Topic(
-                  id: topicId,
-                  name: topicId
-                      .replaceAll('_', ' ')
-                      .split(' ')
-                      .map(
-                        (word) => word.isNotEmpty
-                            ? '${word[0].toUpperCase()}${word.substring(1)}'
-                            : '',
-                      )
-                      .join(' '),
-                  icon: '🏷️',
-                  category: 'other',
-                ),
-              );
-
-              return Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 8,
-                ),
-                decoration: BoxDecoration(
-                  color: isShared
-                      ? (isDark
-                            ? AppColors.primary.withValues(alpha: 0.2)
-                            : AppColors.primary.withValues(alpha: 0.1))
-                      : (isDark
-                            ? Colors.white.withValues(alpha: 0.08)
-                            : context.containerColor),
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(
-                    color: isShared
-                        ? AppColors.primary.withValues(
-                            alpha: isDark ? 0.5 : 0.3,
-                          )
-                        : (isDark
-                              ? Colors.white.withValues(alpha: 0.15)
-                              : context.dividerColor),
-                    width: isShared ? 1.5 : 1,
-                  ),
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(topic.icon, style: const TextStyle(fontSize: 16)),
-                    const SizedBox(width: 6),
-                    Text(
-                      topic.name,
-                      style: context.labelMedium.copyWith(
-                        color: isShared
-                            ? AppColors.primary
-                            : context.textPrimary,
-                        fontWeight: isShared
-                            ? FontWeight.w600
-                            : FontWeight.w500,
-                      ),
-                    ),
-                    if (isShared) ...[
-                      const SizedBox(width: 4),
-                      Icon(
-                        Icons.check_circle_rounded,
-                        size: 14,
-                        color: AppColors.primary,
-                      ),
-                    ],
-                  ],
-                ),
-              );
-            }).toList(),
           ),
         ],
       ),

@@ -253,7 +253,19 @@ class ApiClient {
   }
 
   /// Handle response and extract data/error
-  ApiResponse _handleResponse(http.Response response, String endpoint) {
+  ///
+  /// [suppressRateLimitToast] skips the global `onRateLimitError` callback
+  /// (wired to an app-wide SnackBar in `api_provider.dart`) for the standard
+  /// 429 branch only — callers that show their own dedicated, friendlier
+  /// message for a specific rate limit (e.g. the daily ad-reward cap) pass
+  /// this so the user doesn't see two snackbars for one event. Does not
+  /// affect the 429 `quota_exceeded` branch, which never used this callback.
+  /// Default `false` leaves every existing caller's behavior unchanged.
+  ApiResponse _handleResponse(
+    http.Response response,
+    String endpoint, {
+    bool suppressRateLimitToast = false,
+  }) {
     _parseRateLimitHeaders(response, endpoint);
 
     final body = response.body.isNotEmpty
@@ -341,7 +353,9 @@ class ApiClient {
           );
         }
         final errorMessage = body['error'] ?? 'Too many requests. Please slow down.';
-        onRateLimitError?.call(_getReadableRateLimitError(errorMessage));
+        if (!suppressRateLimitToast) {
+          onRateLimitError?.call(_getReadableRateLimitError(errorMessage));
+        }
         return build(
           success: false,
           error: _getReadableRateLimitError(errorMessage),
@@ -505,10 +519,16 @@ class ApiClient {
   }
 
   /// POST request with automatic 401 token refresh
+  ///
+  /// [suppressRateLimitToast]: see `_handleResponse` — default `false` means
+  /// every existing caller keeps showing the global rate-limit SnackBar on
+  /// 429 exactly as before; only callers that opt in (e.g.
+  /// `CoinApiClient.claimAdReward`) skip it in favor of their own message.
   Future<ApiResponse> post(
     String endpoint, {
     Map<String, dynamic>? body,
     bool requiresAuth = true,
+    bool suppressRateLimitToast = false,
   }) async {
     try {
       final uri = Uri.parse('$baseUrl$endpoint');
@@ -522,7 +542,8 @@ class ApiClient {
         body: body != null ? jsonEncode(body) : null,
       );
       stopwatch.stop();
-      final result = _handleResponse(response, endpoint);
+      final result = _handleResponse(response, endpoint,
+          suppressRateLimitToast: suppressRateLimitToast);
       _logResponse('POST', endpoint, response.statusCode, stopwatch.elapsedMilliseconds,
           body: result.success ? result.data : null, error: result.error);
 
@@ -538,7 +559,8 @@ class ApiClient {
             headers: retryHeaders,
             body: body != null ? jsonEncode(body) : null,
           );
-          return _handleResponse(retryResponse, endpoint);
+          return _handleResponse(retryResponse, endpoint,
+              suppressRateLimitToast: suppressRateLimitToast);
         } else {
           // Token refresh failed - trigger auth error callback
           onAuthenticationError?.call();

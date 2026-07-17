@@ -1,5 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:video_player/video_player.dart';
 import 'package:bananatalk_app/providers/provider_models/story_model.dart';
@@ -9,11 +11,17 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/stories/widgets/stories_snackbar.dart';
 import 'package:bananatalk_app/pages/stories/create/gradient_picker.dart';
 import 'package:bananatalk_app/pages/stories/models/story_gradient.dart';
-import 'package:bananatalk_app/pages/stories/widgets/overlay_editor.dart';
 import 'package:bananatalk_app/pages/stories/create/poll_sticker_editor.dart';
 import 'package:bananatalk_app/pages/stories/create/question_sticker_editor.dart';
+import 'package:bananatalk_app/pages/stories/create/studio/draw_layer.dart';
+import 'package:bananatalk_app/pages/stories/create/studio/filter_bar.dart';
+import 'package:bananatalk_app/pages/stories/create/studio/location_picker_sheet.dart';
+import 'package:bananatalk_app/pages/stories/create/studio/mention_picker_sheet.dart';
+import 'package:bananatalk_app/pages/stories/create/studio/overlay_draft.dart';
+import 'package:bananatalk_app/pages/stories/create/studio/story_canvas.dart';
+import 'package:bananatalk_app/pages/stories/create/studio/text_overlay_editor.dart';
 
-class CreateStoryScreen extends StatefulWidget {
+class CreateStoryScreen extends ConsumerStatefulWidget {
   final VoidCallback? onStoryCreated;
 
   const CreateStoryScreen({
@@ -22,10 +30,10 @@ class CreateStoryScreen extends StatefulWidget {
   });
 
   @override
-  State<CreateStoryScreen> createState() => _CreateStoryScreenState();
+  ConsumerState<CreateStoryScreen> createState() => _CreateStoryScreenState();
 }
 
-class _CreateStoryScreenState extends State<CreateStoryScreen> {
+class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
   File? _mediaFile;
   String _mediaType = 'image';
   final TextEditingController _captionController = TextEditingController();
@@ -34,14 +42,50 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
   String? _selectedColor;
   bool _isTextStory = false;
   String _gradientId = StoryGradient.presets.first.id;
-  final TextEditingController _textOverlayController = TextEditingController();
 
-  // Overlay elements added via the overlay editor
-  List<OverlayElement> _overlays = [];
+  // Overlay drafts added via the story studio canvas (tap-to-add, drag/pinch, trash-delete).
+  final List<OverlayDraft> _overlays = [];
+
+  // Image filters (Task 5): selected preset index into kStoryFilters, and the
+  // key of the RepaintBoundary wrapping just the (filtered) image preview —
+  // used by bakeImage() to flatten the filter into the uploaded file. It sits
+  // inside StoryCanvas's `background` so overlays stay outside it and are
+  // never baked in; they travel structurally via `_overlays`.
+  int _filterIndex = 0;
+  final GlobalKey _bakeKey = GlobalKey();
+
+  // Width/height of the currently selected image, used to size the bake
+  // RepaintBoundary to the image's actual displayed rect (see
+  // _updateMediaAspect below) instead of inheriting StoryCanvas's
+  // full-screen Stack.expand constraint, which would bake in letterbox
+  // margins. Null while unknown (video, or decode failure) — falls back to
+  // today's full-screen boundary behavior.
+  double? _mediaAspect;
+
+  // Freehand drawing (Task 6): strokes live in canvas coordinates and are
+  // painted by DrawLayer inside the same RepaintBoundary as the filtered
+  // image, so bakeImage() flattens them into the uploaded file exactly like
+  // filters. Scoped to image stories only — video has no bake step wired up
+  // for drawing, and text stories upload no media file at all (nothing to
+  // bake into), so the brush toggle is hidden for both (see `_isVideo` gate
+  // on the toolbar button below).
+  final List<DrawStroke> _strokes = [];
+  bool _drawMode = false;
+  Color _drawColor = Colors.white;
+  double _drawWidth = 5;
+  bool _drawHighlighter = false;
 
   // Interactive stickers — a story carries at most one of these (matches backend).
   StoryPoll? _poll;
   StoryQuestionBox? _questionBox;
+
+  // Location tag (Task 7) — independent of poll/questionBox, may be combined
+  // with either.
+  StoryLocation? _pickedLocation;
+
+  // Mentions (Task 9) — up to 5, independent of poll/questionBox/location.
+  final List<StoryMention> _mentions = [];
+  static const int _maxMentions = 5;
 
   // Hashtags — chips-style input, capped at 10 (matches backend limit).
   final List<String> _hashtags = [];
@@ -71,7 +115,6 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
   @override
   void dispose() {
     _captionController.dispose();
-    _textOverlayController.dispose();
     _hashtagController.dispose();
     _videoController?.dispose();
     _videoCompressionService.deleteAllCache();
@@ -99,6 +142,36 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
     setState(() => _hashtags.remove(tag));
   }
 
+  /// True when the currently selected media file is a video, by the same
+  /// type/extension check `_buildPreview` uses. Hoisted out so the top bar's
+  /// draw-mode brush button (which must hide for video, per the scope note
+  /// on `_strokes` above) can check it without duplicating the preview's
+  /// local logic.
+  bool get _isVideo =>
+      _mediaFile != null &&
+      (_mediaType == 'video' ||
+          _mediaFile!.path.toLowerCase().endsWith('.mp4') ||
+          _mediaFile!.path.toLowerCase().endsWith('.mov') ||
+          _mediaFile!.path.toLowerCase().endsWith('.avi') ||
+          _mediaFile!.path.toLowerCase().endsWith('.mkv'));
+
+  /// Decodes [file] to learn its width/height ratio and stores it in
+  /// [_mediaAspect], so the bake RepaintBoundary can be sized to exactly the
+  /// image's displayed rect (see field doc above). Falls back to null
+  /// (today's full-screen boundary behavior) on decode failure.
+  Future<void> _updateMediaAspect(File file) async {
+    try {
+      final bytes = await file.readAsBytes();
+      final decoded = await decodeImageFromList(bytes);
+      if (mounted) {
+        setState(() => _mediaAspect = decoded.width / decoded.height);
+      }
+      decoded.dispose();
+    } catch (_) {
+      if (mounted) setState(() => _mediaAspect = null);
+    }
+  }
+
   Future<void> _pickImage() async {
     try {
       final picker = ImagePicker();
@@ -108,11 +181,16 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
       );
 
       if (pickedFile != null) {
+        final file = File(pickedFile.path);
         setState(() {
-          _mediaFile = File(pickedFile.path);
+          _mediaFile = file;
           _mediaType = 'image';
           _isTextStory = false;
+          _filterIndex = 0;
+          _strokes.clear();
+          _drawMode = false;
         });
+        _updateMediaAspect(file);
       }
     } catch (e) {
       if (mounted) {
@@ -134,17 +212,54 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
       );
 
       if (pickedFile != null) {
+        final file = File(pickedFile.path);
         setState(() {
-          _mediaFile = File(pickedFile.path);
+          _mediaFile = file;
           _mediaType = 'image';
           _isTextStory = false;
+          _filterIndex = 0;
+          _strokes.clear();
+          _drawMode = false;
         });
+        _updateMediaAspect(file);
       }
     } catch (e) {
       if (mounted) {
         showStoriesSnackBar(
           context,
           message: '${AppLocalizations.of(context)!.failedToTakePhoto}: $e',
+          type: StoriesSnackBarType.error,
+        );
+      }
+    }
+  }
+
+  /// Runs the current image through the already-shipped image_cropper and
+  /// replaces the selected file on success. No-op if the user cancels.
+  Future<void> _cropImage() async {
+    if (_mediaFile == null) return;
+    try {
+      final cropped = await ImageCropper().cropImage(
+        sourcePath: _mediaFile!.path,
+      );
+      if (cropped != null && mounted) {
+        final file = File(cropped.path);
+        setState(() {
+          _mediaFile = file;
+          _mediaType = 'image';
+          _isTextStory = false;
+          _filterIndex = 0;
+          _strokes.clear();
+          _drawMode = false;
+          _mediaAspect = null;
+        });
+        _updateMediaAspect(file);
+      }
+    } catch (e) {
+      if (mounted) {
+        showStoriesSnackBar(
+          context,
+          message: 'Failed to crop image: $e',
           type: StoriesSnackBarType.error,
         );
       }
@@ -316,14 +431,30 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
     setState(() {
       _isTextStory = true;
       _mediaFile = null;
+      _mediaAspect = null;
       _selectedColor = _backgroundColors.first;
       _gradientId = StoryGradient.presets.first.id;
+      _overlays.clear();
+      _strokes.clear();
+      _drawMode = false;
     });
+  }
+
+  /// Opens the studio's text overlay editor for [draft]. Shared by the media
+  /// preview canvas and the text-story background canvas.
+  void _editOverlay(OverlayDraft draft) {
+    showTextOverlayEditor(
+      context,
+      draft,
+      onDone: () => setState(() {}),
+      onDeleteEmpty: () => setState(() => _overlays.remove(draft)),
+    );
   }
 
   Future<void> _uploadStory() async {
     if (_isTextStory) {
-      if (_textOverlayController.text.trim().isEmpty) {
+      final hasVisibleOverlay = _overlays.any((o) => o.content.trim().isNotEmpty);
+      if (!hasVisibleOverlay) {
         showStoriesSnackBar(
           context,
           message: AppLocalizations.of(context)!.pleaseEnterSomeText,
@@ -344,14 +475,27 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
 
     try {
       if (_isTextStory) {
-        // Create text-only story
+        // Text-only stories must still send real `text` so older client
+        // versions (which render only `story.text`, not `overlays[]`) show
+        // the actual content instead of a blank story. Compose it from the
+        // text-type overlay drafts; if there are none (e.g. the story is
+        // emoji-only), fall back to a single space to satisfy the backend's
+        // "media or text required" check — the viewer now suppresses the
+        // duplicate centered-text render when overlays are present (see
+        // story_viewer_screen.dart's `_buildStoryView`).
+        final composedText = _overlays
+            .where((o) => o.type == 'text')
+            .map((o) => o.content)
+            .join('\n');
         final result = await StoriesService.createTextStory(
-          text: _textOverlayController.text.trim(),
+          text: composedText.trim().isEmpty ? ' ' : composedText,
           backgroundColor: _gradientId,
-          textColor: '#FFFFFF',
           fontStyle: 'normal',
           privacy: _privacy,
           hashtags: _hashtags,
+          overlays: _overlays.map((o) => o.toJson()).toList(),
+          location: _pickedLocation,
+          mentions: _mentions,
         );
 
         if (mounted) {
@@ -373,18 +517,28 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
           }
         }
       } else if (_mediaFile != null) {
+        // Flatten the selected filter into the uploaded file. The
+        // RepaintBoundary (_bakeKey) wraps only the image preview inside
+        // StoryCanvas's background, so overlays are never baked — they
+        // upload structurally via `overlays` below.
+        File uploadFile = _mediaFile!;
+        if (_mediaType == 'image' &&
+            (_filterIndex != 0 || _strokes.isNotEmpty)) {
+          uploadFile = await bakeImage(_bakeKey, _mediaFile!);
+        }
+
         // Create media story (image or video)
         final result = await StoriesService.createStory(
-          mediaFiles: [_mediaFile!],
-          text: _captionController.text.trim().isEmpty
-              ? _textOverlayController.text.trim()
-              : _captionController.text.trim(),
+          mediaFiles: [uploadFile],
+          text: _captionController.text.trim(),
           backgroundColor: _selectedColor,
           privacy: _privacy,
-          overlays: _overlays.map((e) => e.toJson()).toList(),
+          overlays: _overlays.map((o) => o.toJson()).toList(),
           poll: _poll,
           questionBox: _questionBox,
           hashtags: _hashtags,
+          location: _pickedLocation,
+          mentions: _mentions,
         );
 
         if (mounted) {
@@ -427,6 +581,17 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
         elevation: 0,
         title: Text(AppLocalizations.of(context)!.createStory),
         actions: [
+          // Drawing (Task 6) is scoped to image stories only — see the
+          // `_strokes` field doc for why video/text are excluded.
+          if (_mediaFile != null && !_isVideo)
+            IconButton(
+              tooltip: 'Draw',
+              onPressed: () => setState(() => _drawMode = !_drawMode),
+              icon: Icon(
+                Icons.brush_rounded,
+                color: _drawMode ? const Color(0xFF00BFA5) : Colors.white,
+              ),
+            ),
           if (_mediaFile != null || _isTextStory)
             TextButton(
               onPressed: _isUploading ? null : _uploadStory,
@@ -543,26 +708,100 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
   }
 
   Widget _buildPreview() {
-    final isVideo = _mediaType == 'video' || 
-                    _mediaFile!.path.toLowerCase().endsWith('.mp4') ||
-                    _mediaFile!.path.toLowerCase().endsWith('.mov') ||
-                    _mediaFile!.path.toLowerCase().endsWith('.avi') ||
-                    _mediaFile!.path.toLowerCase().endsWith('.mkv');
-    
+    final isVideo = _isVideo;
+
     return Stack(
       fit: StackFit.expand,
       children: [
-        // Media preview
-        isVideo
-            ? _buildVideoPreview()
-            : Image.file(
-                _mediaFile!,
-                fit: BoxFit.contain,
-                errorBuilder: (context, error, stackTrace) {
-                  // If image fails, it might be a video
-                  return _buildVideoPreview();
-                },
-              ),
+        // Media preview + tap-to-add / drag / pinch / trash-delete overlays.
+        // The RepaintBoundary wraps only the image itself (not the whole
+        // canvas stack with its hint text / trash icon) so bakeImage() below
+        // flattens just the filter; overlays sit outside it in StoryCanvas's
+        // Stack and always travel structurally via `_overlays`.
+        //
+        // StoryCanvas gives `background` a full-screen Stack.expand
+        // constraint, so a bare RepaintBoundary here would capture the
+        // whole screen — including the letterbox margins BoxFit.contain
+        // leaves around the image. When _mediaAspect is known, an
+        // AspectRatio sized to it constrains the boundary to exactly the
+        // image's displayed rect; BoxFit.cover then fills that
+        // already-matching-aspect box identically to how contain would,
+        // so the picture looks the same but bakeImage() captures no
+        // margins. Falls back to the old full-screen boundary if the
+        // aspect ratio isn't known yet (decode in flight/failed).
+        StoryCanvas(
+          overlays: _overlays,
+          // While drawing, the background's own tap-to-add-overlay and the
+          // overlays' drag/pinch must step aside so pan gestures reach the
+          // DrawLayer painted inside the boundary below instead of getting
+          // contested in the same gesture arena (see `interactive` doc on
+          // StoryCanvas).
+          interactive: !_drawMode,
+          background: isVideo
+              ? _buildVideoPreview()
+              : Center(
+                  child: _mediaAspect == null
+                      ? RepaintBoundary(
+                          key: _bakeKey,
+                          child: Stack(
+                            fit: StackFit.expand,
+                            children: [
+                              applyStoryFilter(
+                                _filterIndex,
+                                Image.file(
+                                  _mediaFile!,
+                                  fit: BoxFit.contain,
+                                  errorBuilder: (context, error, stackTrace) {
+                                    // If image fails, it might be a video
+                                    return _buildVideoPreview();
+                                  },
+                                ),
+                              ),
+                              DrawLayer(
+                                strokes: _strokes,
+                                enabled: _drawMode,
+                                color: _drawColor,
+                                width: _drawWidth,
+                                highlighter: _drawHighlighter,
+                                onChanged: () => setState(() {}),
+                              ),
+                            ],
+                          ),
+                        )
+                      : AspectRatio(
+                          aspectRatio: _mediaAspect!,
+                          child: RepaintBoundary(
+                            key: _bakeKey,
+                            child: Stack(
+                              fit: StackFit.expand,
+                              children: [
+                                applyStoryFilter(
+                                  _filterIndex,
+                                  Image.file(
+                                    _mediaFile!,
+                                    fit: BoxFit.cover,
+                                    errorBuilder: (context, error, stackTrace) {
+                                      // If image fails, it might be a video
+                                      return _buildVideoPreview();
+                                    },
+                                  ),
+                                ),
+                                DrawLayer(
+                                  strokes: _strokes,
+                                  enabled: _drawMode,
+                                  color: _drawColor,
+                                  width: _drawWidth,
+                                  highlighter: _drawHighlighter,
+                                  onChanged: () => setState(() {}),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                ),
+          onChanged: () => setState(() {}),
+          onEditText: _editOverlay,
+        ),
 
         // Caption input at bottom
         Positioned(
@@ -571,6 +810,30 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
           right: 16,
           child: Column(
             children: [
+              // Filter presets (image stories only) — swapped for the draw
+              // toolbar while _drawMode is on.
+              if (!isVideo) ...[
+                if (_drawMode)
+                  DrawToolbar(
+                    color: _drawColor,
+                    width: _drawWidth,
+                    highlighter: _drawHighlighter,
+                    onColor: (c) => setState(() => _drawColor = c),
+                    onWidth: (w) => setState(() => _drawWidth = w),
+                    onHighlighter: (h) => setState(() => _drawHighlighter = h),
+                    onUndo: () => setState(() {
+                      if (_strokes.isNotEmpty) _strokes.removeLast();
+                    }),
+                  )
+                else
+                  FilterBar(
+                    selected: _filterIndex,
+                    onSelect: (i) => setState(() => _filterIndex = i),
+                    preview: FileImage(_mediaFile!),
+                  ),
+                const SizedBox(height: 8),
+              ],
+
               // Privacy selector
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
@@ -645,10 +908,16 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
             onTap: () {
               setState(() {
                 _mediaFile = null;
+                _mediaAspect = null;
                 _isTextStory = false;
-                _overlays = [];
+                _overlays.clear();
                 _poll = null;
                 _questionBox = null;
+                _pickedLocation = null;
+                _mentions.clear();
+                _filterIndex = 0;
+                _strokes.clear();
+                _drawMode = false;
               });
             },
             child: Container(
@@ -668,34 +937,34 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
           ),
         ),
 
-        // Add overlays / sticker buttons (top-right)
+        // Crop + sticker buttons (top-right). Crop is image-only. Text/emoji
+        // overlays are now added by tapping directly on the canvas above
+        // (studio tap-to-add).
         Positioned(
           top: 16,
           right: 16,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              GestureDetector(
-                onTap: _openOverlayEditor,
-                child: Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: Colors.black54,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Row(
-                    children: [
-                      const Icon(Icons.text_fields, color: Colors.white, size: 20),
-                      const SizedBox(width: 4),
-                      Text(
-                        _overlays.isEmpty ? 'Add Text' : 'Edit (${_overlays.length})',
-                        style: const TextStyle(color: Colors.white),
+              if (!isVideo)
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child: GestureDetector(
+                    onTap: _cropImage,
+                    child: Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: Colors.black54,
+                        borderRadius: BorderRadius.circular(20),
                       ),
-                    ],
+                      child: const Icon(
+                        Icons.crop_rounded,
+                        color: Colors.white,
+                        size: 20,
+                      ),
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 8),
               GestureDetector(
                 onTap: _openStickerMenu,
                 child: Container(
@@ -717,13 +986,33 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
           ),
         ),
 
-        // Attached sticker chip (poll or question), with quick remove
-        if (_poll != null || _questionBox != null)
+        // Attached sticker chips (poll/question, location, mentions), with
+        // quick remove. Independent attachments — several may be present at
+        // once — so they stack in a column rather than overwriting the same
+        // Positioned slot.
+        if (_poll != null ||
+            _questionBox != null ||
+            _pickedLocation != null ||
+            _mentions.isNotEmpty)
           Positioned(
             top: 16,
             left: 16,
             right: 140,
-            child: _buildAttachedStickerChip(),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                if (_poll != null || _questionBox != null) ...[
+                  _buildAttachedStickerChip(),
+                  const SizedBox(height: 8),
+                ],
+                if (_pickedLocation != null) ...[
+                  _buildLocationChip(),
+                  const SizedBox(height: 8),
+                ],
+                if (_mentions.isNotEmpty) _buildMentionChips(),
+              ],
+            ),
           ),
       ],
     );
@@ -761,6 +1050,75 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildLocationChip() {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      decoration: BoxDecoration(
+        color: Colors.black54,
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Icon(Icons.place, color: Colors.white, size: 16),
+          const SizedBox(width: 6),
+          Flexible(
+            child: Text(
+              _pickedLocation!.name,
+              style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w600),
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+            ),
+          ),
+          const SizedBox(width: 6),
+          GestureDetector(
+            onTap: () => setState(() => _pickedLocation = null),
+            child: const Icon(Icons.close, color: Colors.white, size: 16),
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// Removable chips for tagged mentions — capped at [_maxMentions] in
+  /// [_pickMention], so this only ever renders up to that many.
+  Widget _buildMentionChips() {
+    return Wrap(
+      spacing: 8,
+      runSpacing: 8,
+      children: _mentions.map((m) {
+        return Container(
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          decoration: BoxDecoration(
+            color: const Color(0xFF00BFA5).withValues(alpha: 0.85),
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Icon(Icons.alternate_email, color: Colors.white, size: 16),
+              const SizedBox(width: 4),
+              Flexible(
+                child: Text(
+                  m.username,
+                  style: const TextStyle(
+                      color: Colors.white, fontSize: 12, fontWeight: FontWeight.w600),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ),
+              ),
+              const SizedBox(width: 6),
+              GestureDetector(
+                onTap: () => setState(() => _mentions.remove(m)),
+                child: const Icon(Icons.close, color: Colors.white, size: 16),
+              ),
+            ],
+          ),
+        );
+      }).toList(),
     );
   }
 
@@ -862,6 +1220,24 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
                 _openQuestionEditor();
               },
             ),
+            ListTile(
+              leading: const Icon(Icons.place_outlined, color: Color(0xFF00BFA5)),
+              title: const Text('Location', style: TextStyle(color: Colors.white)),
+              subtitle: const Text('Tag where this story was taken', style: TextStyle(color: Colors.white54)),
+              onTap: () {
+                Navigator.pop(ctx);
+                _pickLocation();
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.alternate_email, color: Color(0xFF00BFA5)),
+              title: const Text('Mention', style: TextStyle(color: Colors.white)),
+              subtitle: const Text('Tag someone you follow', style: TextStyle(color: Colors.white54)),
+              onTap: () {
+                Navigator.pop(ctx);
+                _pickMention();
+              },
+            ),
             const SizedBox(height: 8),
           ],
         ),
@@ -899,19 +1275,26 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
     }
   }
 
-  Future<void> _openOverlayEditor() async {
-    if (_mediaFile == null) return;
-    final result = await Navigator.push<List<OverlayElement>>(
-      context,
-      MaterialPageRoute(
-        builder: (_) => _OverlayEditorScreen(
-          backgroundImage: _mediaFile!,
-          initial: List<OverlayElement>.from(_overlays),
-        ),
-      ),
-    );
-    if (result != null) {
-      setState(() => _overlays = result);
+  Future<void> _pickLocation() async {
+    final result = await showLocationPickerSheet(context);
+    if (result != null && mounted) {
+      setState(() => _pickedLocation = result);
+    }
+  }
+
+  Future<void> _pickMention() async {
+    if (_mentions.length >= _maxMentions) {
+      showStoriesSnackBar(
+        context,
+        message: 'You can mention up to $_maxMentions people',
+        type: StoriesSnackBarType.info,
+      );
+      return;
+    }
+    final result = await showMentionPickerSheet(context, ref);
+    if (result != null && mounted) {
+      if (_mentions.any((m) => m.userId == result.userId)) return;
+      setState(() => _mentions.add(result));
     }
   }
 
@@ -933,6 +1316,7 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
                     setState(() {
                       _isTextStory = false;
                       _selectedColor = null;
+                      _overlays.clear();
                     });
                   },
                   child: Container(
@@ -947,26 +1331,14 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
               ),
             ),
 
-            // Text input — fills available space
+            // Tap anywhere to add a text/emoji overlay on the gradient
+            // background; drag/pinch/trash-delete handled by StoryCanvas.
             Expanded(
-              child: Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(24),
-                  child: TextField(
-                    controller: _textOverlayController,
-                    autofocus: true,
-                    maxLength: 5000,
-                    textAlign: TextAlign.center,
-                    maxLines: null,
-                    style: const TextStyle(color: Colors.white, fontSize: 28),
-                    decoration: InputDecoration(
-                      hintText: AppLocalizations.of(context)!.enterTextHint,
-                      hintStyle: const TextStyle(color: Colors.white70),
-                      border: InputBorder.none,
-                      counterText: '',
-                    ),
-                  ),
-                ),
+              child: StoryCanvas(
+                overlays: _overlays,
+                background: const SizedBox.expand(),
+                onChanged: () => setState(() {}),
+                onEditText: _editOverlay,
               ),
             ),
 
@@ -1038,121 +1410,130 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
   }
 
   Widget _buildVideoPreview() {
-    return GestureDetector(
-      onTap: _toggleVideoPlayback,
-      child: Container(
-        color: Colors.black,
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            // Video player or placeholder
-            if (_videoController != null && _videoController!.value.isInitialized)
-              Center(
-                child: AspectRatio(
-                  aspectRatio: _videoController!.value.aspectRatio,
-                  child: VideoPlayer(_videoController!),
+    // No full-area tap here: this widget is the `background` handed to
+    // StoryCanvas, whose own GestureDetector needs taps to reach it in
+    // order to add text/emoji overlays (see StoryCanvas's tap-to-add). A
+    // full-area tap on top of it would win the gesture arena and swallow
+    // every tap before StoryCanvas ever saw it. Playback is toggled instead
+    // via the small button below, which only covers its own 48px circle.
+    return Container(
+      color: Colors.black,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          // Video player or placeholder
+          if (_videoController != null && _videoController!.value.isInitialized)
+            Center(
+              child: AspectRatio(
+                aspectRatio: _videoController!.value.aspectRatio,
+                child: VideoPlayer(_videoController!),
+              ),
+            )
+          else
+            Container(
+              width: double.infinity,
+              height: double.infinity,
+              color: Colors.grey[900],
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(Icons.videocam, color: Colors.white70, size: 80),
+                  const SizedBox(height: 16),
+                  const Text(
+                    'Video Selected',
+                    style: TextStyle(color: Colors.white70, fontSize: 20, fontWeight: FontWeight.w500),
+                  ),
+                  const SizedBox(height: 8),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 32),
+                    child: Text(
+                      _mediaFile!.path.split('/').last,
+                      style: const TextStyle(color: Colors.white54, fontSize: 14),
+                      textAlign: TextAlign.center,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+          // Play/pause button — small and centered so it doesn't shadow the
+          // canvas's tap-to-add gesture the way the old full-area tap did.
+          if (_videoController != null && _videoController!.value.isInitialized)
+            GestureDetector(
+              onTap: _toggleVideoPlayback,
+              child: Container(
+                width: 48,
+                height: 48,
+                decoration: BoxDecoration(
+                  color: Colors.black.withValues(alpha: 0.45),
+                  shape: BoxShape.circle,
                 ),
-              )
-            else
-              Container(
-                width: double.infinity,
-                height: double.infinity,
-                color: Colors.grey[900],
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                child: Icon(
+                  _videoController!.value.isPlaying ? Icons.pause : Icons.play_arrow,
+                  color: Colors.white,
+                  size: 28,
+                ),
+              ),
+            ),
+
+          // Video info badge
+          if (_videoProcessResult != null)
+            Positioned(
+              bottom: 120,
+              left: 16,
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                decoration: BoxDecoration(
+                  color: Colors.black.withValues(alpha: 0.7),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Icon(Icons.videocam, color: Colors.white70, size: 80),
-                    const SizedBox(height: 16),
-                    const Text(
-                      'Video Selected',
-                      style: TextStyle(color: Colors.white70, fontSize: 20, fontWeight: FontWeight.w500),
+                    const Icon(Icons.videocam, color: Colors.white, size: 16),
+                    const SizedBox(width: 6),
+                    Text(
+                      '${_videoProcessResult!.durationFormatted} | ${_videoProcessResult!.fileSizeMB}MB',
+                      style: const TextStyle(color: Colors.white, fontSize: 12),
                     ),
-                    const SizedBox(height: 8),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 32),
-                      child: Text(
-                        _mediaFile!.path.split('/').last,
-                        style: const TextStyle(color: Colors.white54, fontSize: 14),
-                        textAlign: TextAlign.center,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
+                    if (_videoProcessResult!.wasCompressed) ...[
+                      const SizedBox(width: 8),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF00BFA5),
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: const Text(
+                          'HD',
+                          style: TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold),
+                        ),
                       ),
-                    ),
+                    ],
                   ],
                 ),
               ),
+            ),
 
-            // Play/Pause overlay
-            if (_videoController != null &&
-                _videoController!.value.isInitialized &&
-                !_videoController!.value.isPlaying)
-              Container(
-                width: 80,
-                height: 80,
-                decoration: BoxDecoration(
-                  color: Colors.black.withValues(alpha: 0.6),
-                  shape: BoxShape.circle,
-                ),
-                child: const Icon(Icons.play_arrow, color: Colors.white, size: 50),
-              ),
-
-            // Video info badge
-            if (_videoProcessResult != null)
-              Positioned(
-                bottom: 120,
-                left: 16,
-                child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                  decoration: BoxDecoration(
-                    color: Colors.black.withValues(alpha: 0.7),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const Icon(Icons.videocam, color: Colors.white, size: 16),
-                      const SizedBox(width: 6),
-                      Text(
-                        '${_videoProcessResult!.durationFormatted} | ${_videoProcessResult!.fileSizeMB}MB',
-                        style: const TextStyle(color: Colors.white, fontSize: 12),
-                      ),
-                      if (_videoProcessResult!.wasCompressed) ...[
-                        const SizedBox(width: 8),
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                          decoration: BoxDecoration(
-                            color: const Color(0xFF00BFA5),
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                          child: const Text(
-                            'HD',
-                            style: TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ],
-                    ],
-                  ),
+          // Video progress bar
+          if (_videoController != null && _videoController!.value.isInitialized)
+            Positioned(
+              bottom: 100,
+              left: 16,
+              right: 16,
+              child: VideoProgressIndicator(
+                _videoController!,
+                allowScrubbing: true,
+                colors: const VideoProgressColors(
+                  playedColor: Color(0xFF00BFA5),
+                  bufferedColor: Colors.white30,
+                  backgroundColor: Colors.white10,
                 ),
               ),
-
-            // Video progress bar
-            if (_videoController != null && _videoController!.value.isInitialized)
-              Positioned(
-                bottom: 100,
-                left: 16,
-                right: 16,
-                child: VideoProgressIndicator(
-                  _videoController!,
-                  allowScrubbing: true,
-                  colors: const VideoProgressColors(
-                    playedColor: Color(0xFF00BFA5),
-                    bufferedColor: Colors.white30,
-                    backgroundColor: Colors.white10,
-                  ),
-                ),
-              ),
-          ],
-        ),
+            ),
+        ],
       ),
     );
   }
@@ -1169,220 +1550,3 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
     });
   }
 }
-
-// ---------------------------------------------------------------------------
-// Full-screen overlay editor screen
-// ---------------------------------------------------------------------------
-
-/// A full-screen screen that lets the user place, drag, scale, and rotate
-/// [OverlayElement] objects on top of a background image preview.
-/// Returns the final [List<OverlayElement>] when the user taps "Done".
-class _OverlayEditorScreen extends StatefulWidget {
-  final File backgroundImage;
-  final List<OverlayElement> initial;
-
-  const _OverlayEditorScreen({
-    required this.backgroundImage,
-    required this.initial,
-  });
-
-  @override
-  State<_OverlayEditorScreen> createState() => _OverlayEditorScreenState();
-}
-
-class _OverlayEditorScreenState extends State<_OverlayEditorScreen> {
-  late List<OverlayElement> _elements;
-  int? _selectedIndex;
-
-  @override
-  void initState() {
-    super.initState();
-    _elements = List<OverlayElement>.from(widget.initial);
-  }
-
-  void _addText() async {
-    final controller = TextEditingController();
-    final text = await showDialog<String>(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        backgroundColor: Colors.grey[900],
-        title: const Text('Add Text', style: TextStyle(color: Colors.white)),
-        content: TextField(
-          controller: controller,
-          autofocus: true,
-          style: const TextStyle(color: Colors.white),
-          decoration: const InputDecoration(
-            hintText: 'Enter text...',
-            hintStyle: TextStyle(color: Colors.white54),
-            enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: Colors.white38),
-            ),
-            focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: Colors.white),
-            ),
-          ),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(ctx),
-            child: const Text('Cancel', style: TextStyle(color: Colors.white60)),
-          ),
-          TextButton(
-            onPressed: () => Navigator.pop(ctx, controller.text),
-            child: const Text('Add', style: TextStyle(color: Colors.white)),
-          ),
-        ],
-      ),
-    );
-    if (text != null && text.trim().isNotEmpty) {
-      setState(() {
-        _elements.add(OverlayElement(
-          type: 'text',
-          content: text.trim(),
-        ));
-        _selectedIndex = _elements.length - 1;
-      });
-    }
-  }
-
-  void _addSticker() async {
-    const stickers = ['😀', '😂', '❤️', '🔥', '👍', '✨', '🎉', '💯',
-                       '😎', '🌈', '⭐', '🏆', '💪', '🙌', '🤩', '🥳'];
-    final emoji = await showDialog<String>(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        backgroundColor: Colors.grey[900],
-        title: const Text('Pick an Emoji', style: TextStyle(color: Colors.white)),
-        content: Wrap(
-          spacing: 8,
-          runSpacing: 8,
-          children: stickers
-              .map((e) => GestureDetector(
-                    onTap: () => Navigator.pop(ctx, e),
-                    child: Text(e, style: const TextStyle(fontSize: 36)),
-                  ))
-              .toList(),
-        ),
-      ),
-    );
-    if (emoji != null) {
-      setState(() {
-        _elements.add(OverlayElement(
-          type: 'sticker',
-          content: emoji,
-        ));
-        _selectedIndex = _elements.length - 1;
-      });
-    }
-  }
-
-  void _deleteSelected() {
-    if (_selectedIndex == null) return;
-    setState(() {
-      _elements.removeAt(_selectedIndex!);
-      _selectedIndex = null;
-    });
-  }
-
-  void _changeColor(Color color) {
-    if (_selectedIndex == null) return;
-    setState(() => _elements[_selectedIndex!].color = color);
-  }
-
-  void _changeFont(String font) {
-    if (_selectedIndex == null) return;
-    setState(() => _elements[_selectedIndex!].fontStyle = font);
-  }
-
-  void _changeBgMode(String mode) {
-    if (_selectedIndex == null) return;
-    setState(() => _elements[_selectedIndex!].bgMode = mode);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final selectedElement =
-        _selectedIndex != null ? _elements[_selectedIndex!] : null;
-
-    return Scaffold(
-      backgroundColor: Colors.black,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: TextButton(
-          onPressed: () => Navigator.pop(context),
-          child: const Text('Cancel', style: TextStyle(color: Colors.white70)),
-        ),
-        leadingWidth: 80,
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context, _elements),
-            child: const Text(
-              'Done',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
-              ),
-            ),
-          ),
-        ],
-      ),
-      body: Column(
-        children: [
-          // Canvas
-          Expanded(
-            child: LayoutBuilder(
-              builder: (_, constraints) {
-                final size = Size(constraints.maxWidth, constraints.maxHeight);
-                return GestureDetector(
-                  onTap: () => setState(() => _selectedIndex = null),
-                  child: Stack(
-                    fit: StackFit.expand,
-                    children: [
-                      // Background image
-                      Image.file(
-                        widget.backgroundImage,
-                        fit: BoxFit.contain,
-                      ),
-                      // Draggable overlays
-                      ..._elements.asMap().entries.map((entry) {
-                        final i = entry.key;
-                        final el = entry.value;
-                        return DraggableOverlay(
-                          key: ValueKey(i),
-                          element: el,
-                          containerSize: size,
-                          isSelected: _selectedIndex == i,
-                          onTap: () => setState(() => _selectedIndex = i),
-                          onDelete: () {
-                            setState(() {
-                              _elements.removeAt(i);
-                              _selectedIndex = null;
-                            });
-                          },
-                        );
-                      }),
-                    ],
-                  ),
-                );
-              },
-            ),
-          ),
-          // Toolbar
-          OverlayToolbar(
-            selectedElement: selectedElement,
-            onAddText: _addText,
-            onAddSticker: _addSticker,
-            onColorChanged: _changeColor,
-            onFontChanged: _changeFont,
-            onBgModeChanged: _changeBgMode,
-            onDelete: _deleteSelected,
-          ),
-          SizedBox(height: MediaQuery.of(context).padding.bottom),
-        ],
-      ),
-    );
-  }
-}
-

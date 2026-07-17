@@ -18,6 +18,7 @@ import 'package:bananatalk_app/widgets/community/partner_list_item.dart';
 import 'package:bananatalk_app/widgets/community/user_skeleton.dart';
 import 'package:bananatalk_app/pages/community/single/single_community_screen.dart';
 import 'package:bananatalk_app/pages/chat/conversation/chat_conversation_screen.dart';
+import 'package:bananatalk_app/pages/stories/viewer/story_viewer_launcher.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
@@ -738,6 +739,11 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
             currentUser: currentUser is Community ? currentUser : null,
             onTap: () => _viewProfile(community),
             onWave: () => _onWaveFromButton(community),
+            onAvatarTap: () => StoryViewerLauncher.open(
+              context,
+              userId: community.id,
+              fallback: () => _viewProfile(community),
+            ),
           );
 
           // Animate each user in once, not on every rebuild.
@@ -840,6 +846,11 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
                 },
                 onWave: () => _onWaveFromButton(currentCommunity),
                 onMessage: () => _onMessage(currentCommunity),
+                onAvatarTap: () => StoryViewerLauncher.open(
+                  context,
+                  userId: currentCommunity.id,
+                  fallback: () => _viewProfile(currentCommunity),
+                ),
               ),
             ),
           ),

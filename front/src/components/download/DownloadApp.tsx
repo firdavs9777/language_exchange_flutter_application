@@ -1,18 +1,16 @@
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { detectPlatform, APP_STORE_URL, PLAY_STORE_URL } from "../../utils/platform";
 import "./DownloadApp.scss";
-
-const APP_STORE_URL = "https://apps.apple.com/us/app/bananatalk-learn-meet-or-date/id6755862146";
-const PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.bananatalk.app";
 
 const DownloadApp: React.FC = () => {
   const { t } = useTranslation();
 
   useEffect(() => {
-    const ua = navigator.userAgent.toLowerCase();
-    if (/iphone|ipad|ipod/.test(ua)) {
+    const platform = detectPlatform(navigator.userAgent);
+    if (platform === "ios") {
       window.location.href = APP_STORE_URL;
-    } else if (/android/.test(ua)) {
+    } else if (platform === "android") {
       window.location.href = PLAY_STORE_URL;
     }
   }, []);

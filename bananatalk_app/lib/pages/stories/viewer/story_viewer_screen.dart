@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/providers/provider_models/story_model.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
+import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
+import 'package:bananatalk_app/pages/community/single/single_community_screen.dart';
 import 'package:bananatalk_app/services/stories_service.dart';
 import 'package:bananatalk_app/pages/stories/highlights/highlight_editor_sheet.dart';
 import 'package:bananatalk_app/widgets/blocked_content_widget.dart';
@@ -21,10 +24,11 @@ import 'package:bananatalk_app/pages/stories/widgets/stories_snackbar.dart';
 import 'package:bananatalk_app/pages/stories/viewer/viewer_text_story_layer.dart';
 import 'package:bananatalk_app/pages/stories/viewer/viewer_overlay_layer.dart' as overlay_layer;
 import 'package:bananatalk_app/pages/stories/viewer/story_viewers_sheet.dart';
+import 'package:bananatalk_app/pages/stories/viewer/story_share_sheet.dart';
 import 'package:bananatalk_app/widgets/story/story_poll_widget.dart';
 import 'package:bananatalk_app/widgets/story/story_question_box_widget.dart';
 
-class StoryViewerScreen extends StatefulWidget {
+class StoryViewerScreen extends ConsumerStatefulWidget {
   final List<UserStories> userStories;
   final int initialUserIndex;
   final bool isOwnStory;
@@ -57,10 +61,10 @@ class StoryViewerScreen extends StatefulWidget {
        );
 
   @override
-  State<StoryViewerScreen> createState() => _StoryViewerScreenState();
+  ConsumerState<StoryViewerScreen> createState() => _StoryViewerScreenState();
 }
 
-class _StoryViewerScreenState extends State<StoryViewerScreen>
+class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
     with SingleTickerProviderStateMixin {
   late PageController _userPageController;
   late int _currentUserIndex;
@@ -244,6 +248,69 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
       _progressController.forward();
       _videoController?.play();
     }
+  }
+
+  /// Tapping an @mention pill pauses playback (same mechanism as the
+  /// question-responses/menu sheets above), fetches the mentioned user's
+  /// full profile, and pushes it — resuming on return whether or not the
+  /// fetch succeeded.
+  Future<void> _openMentionProfile(StoryMention mention) async {
+    _pauseStory();
+    try {
+      final community = await ref
+          .read(communityServiceProvider)
+          .getSingleCommunity(id: mention.userId);
+      if (!mounted) return;
+      if (community == null) {
+        showStoriesSnackBar(
+          context,
+          message: 'User not found',
+          type: StoriesSnackBarType.info,
+        );
+        return;
+      }
+      await Navigator.push(
+        context,
+        AppPageRoute(builder: (context) => SingleCommunity(community: community)),
+      );
+    } catch (_) {
+      if (mounted) {
+        showStoriesSnackBar(
+          context,
+          message: 'Failed to load profile',
+          type: StoriesSnackBarType.error,
+        );
+      }
+    } finally {
+      if (mounted) _resumeStory();
+    }
+  }
+
+  /// Positioned `@username` pills for [story.mentions], tappable to open the
+  /// mentioned user's profile. Percent-based (x/y are 0-100), matching how
+  /// [StoryMention] stores sticker placement.
+  List<Widget> _buildMentionPills(Story story) {
+    final size = MediaQuery.of(context).size;
+    return [
+      for (final m in story.mentions)
+        Positioned(
+          left: (m.x / 100) * size.width - 40,
+          top: (m.y / 100) * size.height - 14,
+          child: GestureDetector(
+            onTap: () => _openMentionProfile(m),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              decoration: BoxDecoration(
+                color: Colors.black.withValues(alpha: 0.55),
+                borderRadius: BorderRadius.circular(14),
+              ),
+              child: Text('@${m.username}',
+                  style: const TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.w700, fontSize: 13)),
+            ),
+          ),
+        ),
+    ];
   }
 
   Future<void> _markAsViewed() async {
@@ -790,8 +857,16 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
       return Stack(
         fit: StackFit.expand,
         children: [
+          // Old text stories (created before overlays existed) still carry
+          // their content in `story.text` and have no overlays — render it
+          // as before. Newer text stories carry their content entirely in
+          // `overlays[]` (rendered below); `story.text` on those is either
+          // real (for old-client compatibility) or a placeholder space, and
+          // rendering it here too would duplicate the same words as a second
+          // centered block. So: suppress this block whenever overlays exist,
+          // and let ViewerTextStoryLayer contribute only its background.
           ViewerTextStoryLayer(
-            text: story.text ?? '',
+            text: parsedOverlays.isNotEmpty ? '' : (story.text ?? ''),
             backgroundColorHint: story.backgroundColor,
             textColor: story.textColor,
             fontStyle: story.fontStyle,
@@ -802,6 +877,9 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
             Positioned.fill(
               child: overlay_layer.ViewerOverlayLayer(overlays: parsedOverlays),
             ),
+
+          // @mention pills
+          ..._buildMentionPills(story),
 
           // Gradient overlay (top fade for progress bar legibility)
           Container(
@@ -861,6 +939,9 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
           Positioned.fill(
             child: overlay_layer.ViewerOverlayLayer(overlays: parsedOverlays),
           ),
+
+        // @mention pills
+        ..._buildMentionPills(story),
 
         // Gradient overlay
         Container(
@@ -1014,6 +1095,14 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
                               onTap: () {
                                 Navigator.pop(context);
                                 _showViewersSheet(story);
+                              },
+                            ),
+                            ListTile(
+                              leading: Icon(Icons.send_rounded, color: Theme.of(context).iconTheme.color),
+                              title: Text('Send to friends', style: TextStyle(color: Theme.of(context).textTheme.bodyLarge?.color)),
+                              onTap: () {
+                                Navigator.pop(context);
+                                showStoryShareSheet(context, ref, story);
                               },
                             ),
                             ListTile(

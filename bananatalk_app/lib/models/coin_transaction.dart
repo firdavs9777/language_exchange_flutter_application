@@ -3,7 +3,11 @@
 /// Mirrors the backend `CoinTransaction` ledger model: `{ userId, type,
 /// amount(signed), balanceAfter, reason, relatedId, metadata, createdAt }`.
 /// See `docs/superpowers/specs/2026-07-13-coins-v1-design.md` § Data model.
-enum CoinTransactionType { purchase, spend, refund, unknown }
+///
+/// `reward` covers the Coins v2 (Task 17) earn loop — `reason` is
+/// `daily_reward` or `ad_reward` for these; see `CoinApiClient.
+/// claimDailyReward`/`claimAdReward`.
+enum CoinTransactionType { purchase, spend, refund, reward, unknown }
 
 CoinTransactionType _parseType(dynamic raw) {
   switch (raw?.toString()) {
@@ -13,6 +17,8 @@ CoinTransactionType _parseType(dynamic raw) {
       return CoinTransactionType.spend;
     case 'refund':
       return CoinTransactionType.refund;
+    case 'reward':
+      return CoinTransactionType.reward;
     default:
       return CoinTransactionType.unknown;
   }

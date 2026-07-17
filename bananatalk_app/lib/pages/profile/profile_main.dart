@@ -1,6 +1,7 @@
 import 'package:bananatalk_app/services/chat_socket_service.dart';
 import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
 import 'package:bananatalk_app/widgets/notifications/notification_bell.dart';
+import 'package:bananatalk_app/widgets/coins/coin_balance_pill.dart';
 import 'package:bananatalk_app/pages/admin/admin_home_screen.dart';
 import 'package:bananatalk_app/pages/profile/edit_main/edit_main.dart'
     show ProfileEdit;
@@ -8,10 +9,13 @@ import 'package:bananatalk_app/pages/profile/drawer/profile_drawer.dart';
 import 'package:bananatalk_app/pages/stories/highlights/highlights_row.dart';
 import 'package:bananatalk_app/pages/profile/edit/picture_edit.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
+import 'package:bananatalk_app/providers/provider_models/story_model.dart';
 import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
 import 'package:bananatalk_app/providers/badge_count_provider.dart';
 import 'package:bananatalk_app/providers/unread_count_provider.dart';
 import 'package:bananatalk_app/services/global_chat_listener.dart';
+import 'package:bananatalk_app/services/stories_service.dart';
+import 'package:bananatalk_app/pages/stories/viewer/story_viewer_screen.dart';
 import 'package:bananatalk_app/providers/provider_root/profile_visitor_provider.dart';
 import 'package:bananatalk_app/widgets/profile/profile_main_skeleton.dart';
 import 'package:bananatalk_app/utils/haptic_utils.dart';
@@ -20,7 +24,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
+import 'package:bananatalk_app/services/link_constants.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
@@ -40,10 +46,94 @@ class ProfileMain extends ConsumerStatefulWidget {
 }
 
 class _ProfileMainState extends ConsumerState<ProfileMain> {
+  // Own-story ring state (Task 15). Fetched separately from [userProvider]
+  // because `auth/me` (backing userProvider) doesn't stamp `hasActiveStory`
+  // the way the community list / chat partner endpoints do — this reuses
+  // the same `StoriesService.getMyStories()` call the stories feed's "Your
+  // Story" tile already uses to decide whether to ring the avatar.
+  UserStories? _myStories;
+  bool get _hasActiveStory => _myStories?.activeStories.isNotEmpty == true;
+
   @override
   void initState() {
     super.initState();
     Future.microtask(() => ref.invalidate(userProvider));
+    _loadOwnStories();
+  }
+
+  Future<void> _loadOwnStories() async {
+    try {
+      final response = await StoriesService.getMyStories();
+      if (!mounted) return;
+      setState(() {
+        _myStories = response.success && response.data.isNotEmpty
+            ? response.data.first
+            : null;
+      });
+    } catch (_) {
+      // Silent — the avatar just renders without a ring; tap still falls
+      // back to the normal ProfilePictureEdit behavior.
+    }
+  }
+
+  // Avatar tap: mirrors StoryViewerLauncher's race-safety (Task 11) without
+  // reusing the launcher itself — it fetches for an arbitrary userId with
+  // `isOwnStory` defaulted to false, which would hide the viewers-list sheet
+  // and mark the story as "viewed" for its owner. Re-fetching fresh here
+  // (rather than trusting the cached [_myStories]) covers the case where the
+  // story expired between page load and the tap.
+  void _onAvatarTap(Community user) {
+    if (_hasActiveStory) {
+      _openOwnStoryViewer(fallback: () => _openPictureEdit(user));
+    } else {
+      _openPictureEdit(user);
+    }
+  }
+
+  Future<void> _openPictureEdit(Community user) async {
+    await Navigator.push(
+      context,
+      AppPageRoute(builder: (context) => ProfilePictureEdit(user: user)),
+    );
+    if (mounted) ref.invalidate(userProvider);
+  }
+
+  Future<void> _openOwnStoryViewer({required VoidCallback fallback}) async {
+    try {
+      final response = await StoriesService.getMyStories();
+      if (!mounted) return;
+      final myStories = response.success && response.data.isNotEmpty
+          ? response.data.first
+          : null;
+      if (myStories != null && myStories.activeStories.isNotEmpty) {
+        await Navigator.push(
+          context,
+          PageRouteBuilder(
+            opaque: false,
+            pageBuilder: (context, animation, secondaryAnimation) {
+              return StoryViewerScreen(
+                userStories: [myStories],
+                initialUserIndex: 0,
+                isOwnStory: true,
+                onStoriesUpdated: _loadOwnStories,
+              );
+            },
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) {
+                  return FadeTransition(opacity: animation, child: child);
+                },
+          ),
+        );
+        if (mounted) _loadOwnStories();
+      } else {
+        // Expired/blocked race — fall back instead of dead-ending the tap.
+        setState(() => _myStories = null);
+        fallback();
+      }
+    } catch (_) {
+      if (!mounted) return;
+      fallback();
+    }
   }
 
   int? _calculateAge(String birthYear) {
@@ -51,6 +141,13 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
     final year = int.tryParse(birthYear);
     if (year == null) return null;
     return DateTime.now().year - year;
+  }
+
+  void _shareProfile(Community user) {
+    final l10n = AppLocalizations.of(context)!;
+    final profileText = l10n.checkOutProfile;
+    final profileUrl = shareUrl('profile', user.id.toString());
+    Share.share('$profileText\n\n$profileUrl');
   }
 
   @override
@@ -85,6 +182,7 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
             ref.invalidate(userMomentsProvider(currentUser.id));
           }
           await ref.read(userProvider.future);
+          await _loadOwnStories();
         },
         child: userAsync.when(
           skipLoadingOnRefresh: true,
@@ -99,19 +197,11 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
                   children: [
                     const SizedBox(height: 8),
                     ProfileTabBar(
-                      user: user,
-                      calculatedAge: _calculateAge(user.birth_year),
-                      onAvatarTap: () async {
-                        await Navigator.push(
-                          context,
-                          AppPageRoute(
-                            builder: (context) =>
-                                ProfilePictureEdit(user: user),
-                          ),
-                        );
-                        if (mounted) ref.invalidate(userProvider);
-                      },
-                    )
+                          user: user,
+                          calculatedAge: _calculateAge(user.birth_year),
+                          hasActiveStory: _hasActiveStory,
+                          onAvatarTap: () => _onAvatarTap(user),
+                        )
                         .animate()
                         .fadeIn(duration: 400.ms)
                         .slideY(
@@ -120,7 +210,7 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
                           duration: 400.ms,
                           curve: Curves.easeOutCubic,
                         ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: 20),
                     ProfileActionButtons(
                       user: user,
                       onEditTap: () async {
@@ -147,14 +237,14 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
                         }
                       },
                     ).animate().fadeIn(duration: 350.ms, delay: 100.ms),
-                    const SizedBox(height: 16),
-                    ProfileStatsRow(user: user)
-                        .animate()
-                        .fadeIn(duration: 350.ms, delay: 150.ms),
                     const SizedBox(height: 20),
-                    ProfileHighlightsTab(user: user)
-                        .animate()
-                        .fadeIn(duration: 350.ms, delay: 200.ms),
+                    ProfileStatsRow(
+                      user: user,
+                    ).animate().fadeIn(duration: 350.ms, delay: 150.ms),
+                    const SizedBox(height: 20),
+                    ProfileHighlightsTab(
+                      user: user,
+                    ).animate().fadeIn(duration: 350.ms, delay: 200.ms),
                     const SizedBox(height: 20),
                     const Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20),
@@ -167,18 +257,17 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
                       user: user,
                     ).animate().fadeIn(duration: 350.ms, delay: 275.ms),
                     const SizedBox(height: 20),
-                    ProfileAboutTab(user: user)
-                        .animate()
-                        .fadeIn(duration: 350.ms, delay: 300.ms),
-                    const SizedBox(height: 16),
+                    ProfileAboutTab(
+                      user: user,
+                    ).animate().fadeIn(duration: 350.ms, delay: 300.ms),
+                    const SizedBox(height: 20),
                     ProfileMomentsTab(user: user),
-                    const SizedBox(height: 24),
+                    const SizedBox(height: 20),
                     if (user.isAdmin)
-                      _buildAdminToolsEntry(context).animate().fadeIn(
-                            duration: 350.ms,
-                            delay: 350.ms,
-                          ),
-                    if (user.isAdmin) const SizedBox(height: 12),
+                      _buildAdminToolsEntry(
+                        context,
+                      ).animate().fadeIn(duration: 350.ms, delay: 350.ms),
+                    if (user.isAdmin) const SizedBox(height: 20),
                     _buildLogoutButton(context),
                     const SizedBox(height: 100),
                   ],
@@ -208,8 +297,15 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
         style: context.titleLarge.copyWith(fontWeight: FontWeight.w800),
       ),
       actions: [
+        // Coin balance — consistent wallet entry across the top-level tabs.
+        const CoinBalancePill(),
         // Notification inbox — reachable from every tab, not just chat.
         NotificationBell(color: context.textPrimary),
+        IconButton(
+          icon: Icon(Icons.share_outlined, color: context.textPrimary),
+          tooltip: AppLocalizations.of(context)!.checkOutProfile,
+          onPressed: () => _shareProfile(user),
+        ),
         Builder(
           builder: (ctx) => Padding(
             padding: const EdgeInsets.only(right: 8),
@@ -249,32 +345,27 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
             HapticUtils.lightImpact();
             Navigator.push(
               context,
-              MaterialPageRoute(
-                builder: (_) => const AdminHomeScreen(),
-              ),
+              MaterialPageRoute(builder: (_) => const AdminHomeScreen()),
             );
           },
-          icon: const Icon(
+          icon: Icon(
             Icons.admin_panel_settings_outlined,
-            color: Color(0xFF455A64),
+            color: context.textSecondary,
             size: 20,
           ),
-          label: const Text(
+          label: Text(
             'Admin Tools',
             style: TextStyle(
               fontSize: 15,
               fontWeight: FontWeight.w700,
-              color: Color(0xFF455A64),
+              color: context.textSecondary,
             ),
           ),
           style: TextButton.styleFrom(
             padding: const EdgeInsets.symmetric(vertical: 14),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(14),
-              side: BorderSide(
-                color: const Color(0xFF455A64).withValues(alpha: 0.3),
-                width: 1.5,
-              ),
+              side: BorderSide(color: context.dividerColor, width: 1.5),
             ),
           ),
         ),
@@ -290,10 +381,14 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
         width: double.infinity,
         child: TextButton.icon(
           onPressed: () => _showLogoutConfirmation(context),
-          icon: Icon(Icons.logout_rounded, color: AppColors.error, size: 20),
+          icon: const Icon(
+            Icons.logout_rounded,
+            color: AppColors.error,
+            size: 20,
+          ),
           label: Text(
             AppLocalizations.of(context)!.logout,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 15,
               fontWeight: FontWeight.w700,
               color: AppColors.error,
@@ -329,7 +424,7 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
                 color: AppColors.error.withValues(alpha: 0.1),
                 shape: BoxShape.circle,
               ),
-              child: Icon(
+              child: const Icon(
                 Icons.error_outline_rounded,
                 size: 48,
                 color: AppColors.error,
@@ -370,10 +465,7 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
       context: context,
       barrierDismissible: false,
       barrierColor: Colors.black.withValues(alpha: 0.5),
-      builder: (dialogContext) => _LogoutDialog(
-        rootContext: context,
-        ref: ref,
-      ),
+      builder: (dialogContext) => _LogoutDialog(rootContext: context, ref: ref),
     );
   }
 }
@@ -413,11 +505,13 @@ class _LogoutDialogState extends State<_LogoutDialog> {
         widget.rootContext.go('/login');
         ScaffoldMessenger.of(widget.rootContext).showSnackBar(
           SnackBar(
-            content: Row(children: [
-              const Icon(Icons.check_circle_rounded, color: Colors.white),
-              const SizedBox(width: 12),
-              Expanded(child: Text(l10n.loggedOutSuccessfully)),
-            ]),
+            content: Row(
+              children: [
+                const Icon(Icons.check_circle_rounded, color: Colors.white),
+                const SizedBox(width: 12),
+                Expanded(child: Text(l10n.loggedOutSuccessfully)),
+              ],
+            ),
             backgroundColor: AppColors.success,
             behavior: SnackBarBehavior.floating,
             margin: const EdgeInsets.all(16),
@@ -464,16 +558,24 @@ class _LogoutDialogState extends State<_LogoutDialog> {
                 color: AppColors.error.withValues(alpha: 0.12),
                 shape: BoxShape.circle,
               ),
-              child: Icon(Icons.logout_rounded, color: AppColors.error, size: 28),
+              child: const Icon(
+                Icons.logout_rounded,
+                color: AppColors.error,
+                size: 28,
+              ),
             ),
             const SizedBox(height: 16),
-            Text(l10n.logout,
-                style: context.titleMedium.copyWith(fontWeight: FontWeight.w700)),
+            Text(
+              l10n.logout,
+              style: context.titleMedium.copyWith(fontWeight: FontWeight.w700),
+            ),
             const SizedBox(height: 8),
             Text(
               l10n.logoutConfirmMessage,
               style: context.bodySmall.copyWith(
-                  color: context.textSecondary, height: 1.4),
+                color: context.textSecondary,
+                height: 1.4,
+              ),
               textAlign: TextAlign.center,
             ),
             if (_isLoggingOut) ...[
@@ -481,13 +583,14 @@ class _LogoutDialogState extends State<_LogoutDialog> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     width: 18,
                     height: 18,
                     child: CircularProgressIndicator(
                       strokeWidth: 2.5,
-                      valueColor:
-                          AlwaysStoppedAnimation<Color>(AppColors.primary),
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                        AppColors.primary,
+                      ),
                     ),
                   ),
                   const SizedBox(width: 12),
@@ -505,13 +608,17 @@ class _LogoutDialogState extends State<_LogoutDialog> {
                       style: TextButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 14),
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12)),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
                         backgroundColor: context.containerColor,
                       ),
-                      child: Text(l10n.cancel,
-                          style: TextStyle(
-                              color: context.textPrimary,
-                              fontWeight: FontWeight.w600)),
+                      child: Text(
+                        l10n.cancel,
+                        style: TextStyle(
+                          color: context.textPrimary,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
                     ),
                   ),
                   const SizedBox(width: 12),
@@ -521,13 +628,17 @@ class _LogoutDialogState extends State<_LogoutDialog> {
                       style: TextButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 14),
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12)),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
                         backgroundColor: AppColors.error,
                       ),
-                      child: Text(l10n.logout,
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w700)),
+                      child: Text(
+                        l10n.logout,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
                     ),
                   ),
                 ],

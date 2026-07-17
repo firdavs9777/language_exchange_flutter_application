@@ -115,11 +115,16 @@ const AuthCallback = () => {
 
           const normalizedGender = userInfo?.gender?.toLowerCase() || "other";
 
+          // OAuth users already have email + name — send them into the SAME
+          // signup wizard in completion mode, starting at the languages step
+          // (languages → photo → finish). The wizard's finish handler will
+          // patch the profile via updatedetails + record terms, NOT re-register.
           navigate("/register", {
             state: {
-              step: 2,
               oauth: true,
+              startStep: "languages",
               userData: {
+                _id: userInfo?._id || "",
                 name: userInfo?.name || "",
                 email: userInfo?.email || "",
                 bio: userInfo?.bio || "Hello! I joined using Google.",

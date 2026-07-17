@@ -351,6 +351,7 @@
   "authentication": {
     "enterEmail": {
       "title": "이메일을 입력하세요",
+      "subtitle": "We'll send a verification code to your email",
       "emailLabel": "이메일 주소",
       "emailPlaceholder": "이메일 입력",
       "sendButton": "코드 보내기",
@@ -359,7 +360,33 @@
       "errorPrefix": "오류: "
     },
     "passwordReset": {
-      "successMessage": "비밀번호가 성공적으로 재설정되었습니다. 로그인해 주세요!"
+      "successMessage": "비밀번호가 성공적으로 재설정되었습니다. 로그인해 주세요!",
+      "backToLogin": "Back to login",
+      "verifyTitle": "Enter verification code",
+      "verifySubtitle": "We've sent a 6-digit code to your email",
+      "codeLabel": "Verification Code",
+      "codePlaceholder": "Enter code",
+      "previousButton": "Previous",
+      "verifyButton": "Verify",
+      "verifyingButton": "Verifying...",
+      "resendButton": "Resend code",
+      "resendingButton": "Resending...",
+      "verifySuccessMessage": "Verification code successfully verified!",
+      "resendSuccessMessage": "A new verification code has been sent!",
+      "verifyErrorDefault": "Invalid verification code",
+      "resendErrorDefault": "Failed to resend the code",
+      "setPasswordTitle": "Set new password",
+      "setPasswordSubtitle": "Choose a strong password for your account",
+      "newPasswordLabel": "New Password",
+      "newPasswordPlaceholder": "New Password",
+      "confirmPasswordLabel": "Confirm Password",
+      "confirmPasswordPlaceholder": "Confirm Password",
+      "showPassword": "Show password",
+      "hidePassword": "Hide password",
+      "submitButton": "Reset Password",
+      "submittingButton": "Resetting...",
+      "strengthErrorMessage": "Password does not meet the strength requirements",
+      "mismatchErrorMessage": "Passwords do not match"
     },
     "login": {
       "title": "로그인",

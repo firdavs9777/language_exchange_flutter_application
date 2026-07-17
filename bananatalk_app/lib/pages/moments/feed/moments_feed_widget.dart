@@ -45,6 +45,11 @@ class MomentsFeedWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return momentsAsync.when(
+      // Stale-while-revalidate refreshes (`refreshMomentsIfStale`) invalidate
+      // the feed providers silently on tab-return/60s — don't flash the full
+      // spinner over the still-valid previous list while that refetch runs.
+      skipLoadingOnRefresh: true,
+      skipLoadingOnReload: true,
       data: (moments) {
         if (moments.isEmpty) {
           return _buildEmptyState(context, ref);
@@ -74,7 +79,12 @@ class MomentsFeedWidget extends ConsumerWidget {
             }
 
             return MomentCard(moments: moments[momentIndex], onRefresh: onRefresh)
-                .animate()
+                .animate(
+                  // Stable key (mirrors the comments list's per-item keys)
+                  // so a card's local like/save state doesn't bind to the
+                  // wrong moment if the list reorders/refreshes.
+                  key: ValueKey(moments[momentIndex].id),
+                )
                 .fadeIn(
                   duration: 300.ms,
                   delay: Duration(milliseconds: (index * 60).clamp(0, 600)),

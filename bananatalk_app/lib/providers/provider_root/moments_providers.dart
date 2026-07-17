@@ -771,12 +771,47 @@ final momentsProvider =
   return service.getMoments(page: page, limit: 10);
 });
 
+/// Stale-while-revalidate freshness marker for the moments feed — set to the
+/// timestamp of the most recent successful fetch by any of the feed
+/// providers below (`momentsFeedProvider`, `forYouMomentsProvider`,
+/// `followingMomentsProvider`, `trendingMomentsProvider`). Read by
+/// [refreshMomentsIfStale] to decide whether a silent revalidation is due.
+final momentsFeedFreshnessProvider = StateProvider<DateTime?>((ref) => null);
+
+/// Invalidates the moments feed providers when the last successful fetch is
+/// older than [maxAge] (default 60s), so returning to the Moments tab (or a
+/// periodic focus check) picks up new moments without a manual pull-to-
+/// refresh. No polling loop — callers invoke this only on tab-return/focus.
+///
+/// Invisible to the user: the feed's `.when(...)` passes
+/// `skipLoadingOnRefresh`/`skipLoadingOnReload` (see `moments_feed_widget.dart`)
+/// so the invalidated providers refetch in place, keeping the previous data
+/// on screen instead of flashing a loading spinner.
+void refreshMomentsIfStale(WidgetRef ref,
+    {Duration maxAge = const Duration(seconds: 60)}) {
+  final last = ref.read(momentsFeedFreshnessProvider);
+  if (last != null && DateTime.now().difference(last) < maxAge) return;
+  ref.invalidate(forYouMomentsProvider);
+  ref.invalidate(followingMomentsProvider);
+  ref.invalidate(trendingMomentsProvider);
+  ref.invalidate(momentsFeedProvider);
+}
+
 /// Provider that returns a single, denormalized list of moments that can be
 /// further filtered on the client (used by the new HelloTalk-style feed).
 final momentsFeedProvider = FutureProvider<List<Moments>>((ref) async {
   final service = ref.watch(momentsServiceProvider);
   final response = await service.getMoments(page: 1, limit: 50);
   final moments = response['moments'];
+
+  // Stamp freshness after the fetch succeeds. Deferred to a microtask so we
+  // never write to another provider synchronously from inside this
+  // provider's build (the analyzer flags that as a
+  // modifying-provider-during-build hazard even though this call happens
+  // post-await).
+  Future.microtask(() {
+    ref.read(momentsFeedFreshnessProvider.notifier).state = DateTime.now();
+  });
 
   if (moments is List<Moments>) {
     return moments;
@@ -797,6 +832,10 @@ final forYouMomentsProvider = FutureProvider<List<Moments>>((ref) async {
   final response = await service.getMoments(page: 1, limit: 50, feed: 'forYou');
   final moments = response['moments'];
 
+  Future.microtask(() {
+    ref.read(momentsFeedFreshnessProvider.notifier).state = DateTime.now();
+  });
+
   if (moments is List<Moments>) {
     return moments;
   }
@@ -816,6 +855,10 @@ final followingMomentsProvider = FutureProvider<List<Moments>>((ref) async {
   final response =
       await service.getMoments(page: 1, limit: 50, feed: 'following');
   final moments = response['moments'];
+
+  Future.microtask(() {
+    ref.read(momentsFeedFreshnessProvider.notifier).state = DateTime.now();
+  });
 
   if (moments is List<Moments>) {
     return moments;
@@ -854,6 +897,11 @@ final exploreMomentsProvider = FutureProvider<List<Moments>>((ref) async {
 /// Provider for trending moments (backend trending endpoint)
 final trendingMomentsProvider = FutureProvider<List<Moments>>((ref) async {
   final response = await MomentsServiceAPI.getTrendingMoments();
+
+  Future.microtask(() {
+    ref.read(momentsFeedFreshnessProvider.notifier).state = DateTime.now();
+  });
+
   if (response.success) {
     return response.data;
   }

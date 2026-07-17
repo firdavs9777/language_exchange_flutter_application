@@ -370,6 +370,7 @@
   "authentication": {
     "enterEmail": {
       "title": "Enter your email",
+      "subtitle": "We'll send a verification code to your email",
       "emailLabel": "Email Address",
       "emailPlaceholder": "Enter email",
       "sendButton": "Send Code",
@@ -378,7 +379,33 @@
       "errorPrefix": "Error: "
     },
     "passwordReset": {
-      "successMessage": "Password reset successfully, please login!"
+      "successMessage": "Password reset successfully, please login!",
+      "backToLogin": "Back to login",
+      "verifyTitle": "Enter verification code",
+      "verifySubtitle": "We've sent a 6-digit code to your email",
+      "codeLabel": "Verification Code",
+      "codePlaceholder": "Enter code",
+      "previousButton": "Previous",
+      "verifyButton": "Verify",
+      "verifyingButton": "Verifying...",
+      "resendButton": "Resend code",
+      "resendingButton": "Resending...",
+      "verifySuccessMessage": "Verification code successfully verified!",
+      "resendSuccessMessage": "A new verification code has been sent!",
+      "verifyErrorDefault": "Invalid verification code",
+      "resendErrorDefault": "Failed to resend the code",
+      "setPasswordTitle": "Set new password",
+      "setPasswordSubtitle": "Choose a strong password for your account",
+      "newPasswordLabel": "New Password",
+      "newPasswordPlaceholder": "New Password",
+      "confirmPasswordLabel": "Confirm Password",
+      "confirmPasswordPlaceholder": "Confirm Password",
+      "showPassword": "Show password",
+      "hidePassword": "Hide password",
+      "submitButton": "Reset Password",
+      "submittingButton": "Resetting...",
+      "strengthErrorMessage": "Password does not meet the strength requirements",
+      "mismatchErrorMessage": "Passwords do not match"
     },
     "login": {
       "signInWithGoogle": "Sign In with Google",
@@ -1048,6 +1075,19 @@
       "prioritySupport": "Priority support",
       "exclusiveBadge": "Exclusive VIP badge",
       "translationFeature": "Message translation"
+    }
+  },
+  "linking": {
+    "share": {
+      "label": "Share",
+      "copied": "Link copied to clipboard!",
+      "copyFailed": "Failed to copy link"
+    },
+    "openInApp": {
+      "label": "Open in app"
+    },
+    "appBanner": {
+      "text": "Open this in the BananaTalk app"
     }
   }
 }

@@ -61,6 +61,14 @@
 				<string>fb1556850925349743</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>com.bananatalk.deeplink</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>bananatalk</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>

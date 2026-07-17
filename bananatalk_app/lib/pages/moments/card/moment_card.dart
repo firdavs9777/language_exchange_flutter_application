@@ -148,6 +148,7 @@ class _MomentCardState extends ConsumerState<MomentCard> {
         ref.invalidate(momentsFeedProvider);
         ref.invalidate(forYouMomentsProvider);
         ref.invalidate(followingMomentsProvider);
+        ref.invalidate(trendingMomentsProvider);
       }
     } catch (e) {
       if (mounted) {
@@ -229,6 +230,7 @@ class _MomentCardState extends ConsumerState<MomentCard> {
       ref.invalidate(momentsFeedProvider);
       ref.invalidate(forYouMomentsProvider);
       ref.invalidate(followingMomentsProvider);
+      ref.invalidate(trendingMomentsProvider);
     } catch (e) {
       debugPrint('React to moment error: $e');
     }
@@ -245,6 +247,55 @@ class _MomentCardState extends ConsumerState<MomentCard> {
   }
 
   String _getCurrentUserId() => _cachedUserId;
+
+  /// Opens the full detail screen for this moment. Fetches a fresh copy of
+  /// the moment (so the like/comment counts shown in the detail screen
+  /// reflect the latest server state even if this card is stale) and
+  /// refreshes its comments before pushing. Shared by all three tap
+  /// targets that open the detail screen (card body, comment-icon button,
+  /// "N comments" text) so they behave identically instead of two of them
+  /// pushing the stale `widget.moments` snapshot directly.
+  Future<void> _openMomentDetail() async {
+    final singleMoment = await ref
+        .read(momentsServiceProvider)
+        .getSingleMoment(id: widget.moments.id);
+
+    ref.refresh(commentsProvider(singleMoment.id));
+
+    // SingleMoment actually renders comments via CommentsMain(paginated:
+    // true) (paginatedCommentsProvider), not the plain commentsProvider
+    // above (that one only serves the non-paginated profile moments path).
+    // Refresh it too so reopening a moment after e.g. liking/replying
+    // elsewhere shows current comments — guarded to page <= 1 (mirrors
+    // create_comment.dart / single_moment.dart's poll timer) so we don't
+    // blow away pages the user already loaded via "Load more comments".
+    // Gated on `ref.exists` so a first-ever open doesn't lazily spin up a
+    // provider we're about to immediately navigate away from watching.
+    if (ref.exists(paginatedCommentsProvider(singleMoment.id))) {
+      final paginatedState =
+          ref.read(paginatedCommentsProvider(singleMoment.id)).valueOrNull;
+      if (paginatedState == null || paginatedState.page <= 1) {
+        ref
+            .read(paginatedCommentsProvider(singleMoment.id).notifier)
+            .refresh();
+      }
+    }
+
+    if (!mounted) return;
+    await Navigator.push(
+      context,
+      AppPageRoute(
+        builder: (context) => SingleMoment(moment: singleMoment),
+      ),
+    );
+
+    // Throttled interstitial when returning from a moment (every 3rd
+    // open, min 90s apart) — see AdService.maybeShowInterstitial.
+    AdService().maybeShowInterstitial(
+      everyN: 3,
+      minGap: const Duration(seconds: 90),
+    );
+  }
 
   void _shareMoment(BuildContext context, String id) {
     final momentText = AppLocalizations.of(context)!.checkOutMoment;
@@ -270,6 +321,7 @@ class _MomentCardState extends ConsumerState<MomentCard> {
         ref.invalidate(momentsFeedProvider);
         ref.invalidate(forYouMomentsProvider);
         ref.invalidate(followingMomentsProvider);
+        ref.invalidate(trendingMomentsProvider);
         if (mounted) {
           showMomentsSnackBar(
             this.context,
@@ -509,27 +561,7 @@ class _MomentCardState extends ConsumerState<MomentCard> {
         !widget.moments.hasVideo;
 
     return GestureDetector(
-      onTap: () async {
-        final singleMoment = await ref
-            .watch(momentsServiceProvider)
-            .getSingleMoment(id: widget.moments.id);
-
-        ref.refresh(commentsProvider(singleMoment.id));
-
-        await Navigator.push(
-          context,
-          AppPageRoute(
-            builder: (context) => SingleMoment(moment: singleMoment),
-          ),
-        );
-
-        // Throttled interstitial when returning from a moment (every 3rd
-        // open, min 90s apart) — see AdService.maybeShowInterstitial.
-        AdService().maybeShowInterstitial(
-          everyN: 3,
-          minGap: const Duration(seconds: 90),
-        );
-      },
+      onTap: _openMomentDetail,
       child: Container(
         margin: const EdgeInsets.only(left: 12, right: 12, bottom: 8),
         decoration: BoxDecoration(
@@ -633,9 +665,40 @@ class _MomentCardState extends ConsumerState<MomentCard> {
 
             // ── Media area ──────────────────────────────────────────────────
             if (isGradient)
-              MomentCardDoubleTap(
-                onDoubleTap: toggleLike,
-                child: MomentCardGradient(moment: widget.moments),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  MomentCardDoubleTap(
+                    onDoubleTap: toggleLike,
+                    child: MomentCardGradient(moment: widget.moments),
+                  ),
+                  // Translate chip for text/gradient moments too (e.g. a
+                  // prompt answer written in the target language) — these
+                  // previously had no translate affordance.
+                  if (widget.moments.description.trim().isNotEmpty)
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(12, 8, 12, 4),
+                      child: !_showTranslation
+                          ? MomentTranslateChip(onTap: _handleTranslateChipTap)
+                          : TranslatedMomentWidget(
+                              momentId: widget.moments.id,
+                              originalText: widget.moments.description,
+                              originalLanguage: widget.moments.language,
+                              existingTranslations:
+                                  widget.moments.translations.isNotEmpty
+                                      ? widget.moments.translations
+                                      : null,
+                              initialTargetCode: _translationTargetCode,
+                              onTranslationAdded: () {
+                                widget.onRefresh?.call();
+                              },
+                              onDismiss: () => setState(() {
+                                _showTranslation = false;
+                                _translationTargetCode = null;
+                              }),
+                            ),
+                    ),
+                ],
               )
             else if (widget.moments.hasVideo && widget.moments.video != null)
               Padding(
@@ -727,15 +790,7 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                     icon: Icons.chat_bubble_outline,
                     count: widget.moments.commentCount,
                     color: context.iconColor,
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        AppPageRoute(
-                          builder: (context) =>
-                              SingleMoment(moment: widget.moments),
-                        ),
-                      );
-                    },
+                    onTap: _openMomentDetail,
                   ),
                   const SizedBox(width: 4),
                   // Translate moved to a labeled chip directly under the
@@ -805,15 +860,7 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                       ),
                     if (widget.moments.commentCount > 0)
                       GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            AppPageRoute(
-                              builder: (context) =>
-                                  SingleMoment(moment: widget.moments),
-                            ),
-                          );
-                        },
+                        onTap: _openMomentDetail,
                         child: Text(
                           widget.moments.commentCount == 1
                               ? '1 comment'

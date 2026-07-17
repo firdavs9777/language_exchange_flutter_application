@@ -208,6 +208,22 @@ final goRouter = GoRouter(
       },
     ),
 
+    // Slide from right + fade — standard navigation push feel.
+    // `SingleCommunity` (rendered via `ProfileWrapper`) is the same detail
+    // screen used for `/profile/:userId` — a community member IS a
+    // `Community` record, loaded by id, so we reuse the existing
+    // fetch-by-id wrapper rather than introducing a near-duplicate one.
+    GoRoute(
+      path: '/community/:communityId',
+      pageBuilder: (context, state) {
+        final communityId = state.pathParameters['communityId']!;
+        return _buildSlideTransition(
+          state: state,
+          child: ProfileWrapper(userId: communityId),
+        );
+      },
+    ),
+
     // Slide up from bottom + fade — modal feel.
     GoRoute(
       path: '/matching',

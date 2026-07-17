@@ -11,6 +11,10 @@ import {
   REGISTER_EMAIL_CODE,
   VERIFY_REGISTRATION_CODE,
   BLOCK_USER_URL,
+  ACCEPT_TERMS_URL,
+  CHECK_USERNAME_URL,
+  GEOCODE_REVERSE_URL,
+  GEOCODE_FORWARD_URL,
 } from "../../constants";
 import { apiSlice } from "./apiSlice";
 
@@ -113,6 +117,17 @@ export const usersApiSlice = apiSlice.injectEndpoints({
       keepUnusedDataFor: 5,
       providesTags: ["User"],
     }),
+    // Update a user by id (hits /auth/users/:id). Unlike updateUserInfo
+    // (/auth/updatedetails), this endpoint accepts `languageLevel` — used to
+    // persist the signup wizard's CEFR selection right after registration.
+    updateUserById: builder.mutation({
+      query: ({ id, body }: { id: string; body: any }) => ({
+        url: `/api/v1/auth/users/${id}`,
+        method: "PUT",
+        body,
+      }),
+      invalidatesTags: ["User"],
+    }),
     deleteUserPhoto: builder.mutation({
       query: ({ userId, index }: { userId: string; index: number }) => ({
         url: `${COMMUNITY_URL}/${userId}/photo/${index}`,
@@ -127,6 +142,16 @@ export const usersApiSlice = apiSlice.injectEndpoints({
         method: "POST",
       }),
       keepUnusedDataFor: 5,
+    }),
+    // Record that the (already-authenticated) user accepted the Terms of
+    // Service / Privacy Policy. Protected endpoint — relies on the token in
+    // the store. Used by the OAuth profile-completion flow.
+    acceptTerms: builder.mutation({
+      query: () => ({
+        url: `${ACCEPT_TERMS_URL}`,
+        method: "POST",
+      }),
+      invalidatesTags: ["User"],
     }),
     followUser: builder.mutation({
       query: ({
@@ -278,6 +303,19 @@ export const usersApiSlice = apiSlice.injectEndpoints({
         url: `/api/v1/users/search/username?q=${query.replace('@', '')}&limit=${limit}`,
       }),
     }),
+
+    // Check username availability
+    checkUsername: builder.query({
+      query: (value: string) => ({ url: `${CHECK_USERNAME_URL}?value=${encodeURIComponent(value)}` }),
+    }),
+    // Reverse geocode (lat/lng -> location)
+    reverseGeocode: builder.query({
+      query: ({ lat, lng }: { lat: number; lng: number }) => ({ url: `${GEOCODE_REVERSE_URL}?lat=${lat}&lng=${lng}` }),
+    }),
+    // Forward geocode (city/country -> coordinates)
+    forwardGeocode: builder.query({
+      query: ({ city, country }: { city: string; country: string }) => ({ url: `${GEOCODE_FORWARD_URL}?city=${encodeURIComponent(city)}&country=${encodeURIComponent(country)}` }),
+    }),
   }),
 });
 
@@ -289,6 +327,7 @@ export const {
   useVerifyRegistrationCodeMutation,
   useResetPasswordUserMutation,
   useLogoutUserMutation,
+  useAcceptTermsMutation,
   useRegisterUserMutation,
   useGetUserProfileQuery,
   useGetFollowersQuery,
@@ -297,6 +336,7 @@ export const {
   useUnFollowUserMutation,
   useUploadUserPhotoMutation,
   useUpdateUserInfoMutation,
+  useUpdateUserByIdMutation,
   useDeleteUserPhotoMutation,
   // New hooks
   useRecordProfileVisitMutation,
@@ -315,4 +355,8 @@ export const {
   // Username endpoints
   useGetUserByUsernameQuery,
   useSearchUsersByUsernameQuery,
+  // Username & Geocode endpoints
+  useLazyCheckUsernameQuery,
+  useLazyReverseGeocodeQuery,
+  useLazyForwardGeocodeQuery,
 } = usersApiSlice;

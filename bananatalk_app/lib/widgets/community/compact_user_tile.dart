@@ -4,6 +4,7 @@ import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:bananatalk_app/widgets/community/language_level_badge.dart';
 import 'package:bananatalk_app/widgets/community/quick_action_buttons.dart';
 import 'package:bananatalk_app/widgets/vip_avatar_frame.dart';
+import 'package:bananatalk_app/widgets/story/story_gradient_ring.dart';
 import 'package:bananatalk_app/utils/language_flags.dart';
 import 'package:bananatalk_app/utils/privacy_utils.dart';
 
@@ -14,6 +15,10 @@ class CompactUserTile extends StatelessWidget {
   final VoidCallback? onWave;
   final bool showDistance;
   final double? distance; // in km
+  /// Called when the avatar itself is tapped while [user.hasActiveStory] is
+  /// true (opens the story viewer); other taps keep opening the profile via
+  /// [onTap].
+  final VoidCallback? onAvatarTap;
 
   const CompactUserTile({
     super.key,
@@ -22,6 +27,7 @@ class CompactUserTile extends StatelessWidget {
     this.onWave,
     this.showDistance = false,
     this.distance,
+    this.onAvatarTap,
   });
 
   @override
@@ -263,7 +269,7 @@ class CompactUserTile extends StatelessWidget {
       ),
     );
 
-    return Stack(
+    final avatarStack = Stack(
       children: [
         // Avatar with optional VIP frame
         VipAvatarFrameCompact(
@@ -294,6 +300,22 @@ class CompactUserTile extends StatelessWidget {
           ),
       ],
     );
+
+    // Wrap only the avatar in the story ring + its own tap target — the
+    // rest of the tile still opens the profile via the outer InkWell.
+    if (user.hasActiveStory) {
+      return GestureDetector(
+        onTap: onAvatarTap,
+        child: StoryGradientRing(
+          size: 64,
+          strokeWidth: 2.5,
+          hasStory: true,
+          animate: false,
+          child: avatarStack,
+        ),
+      );
+    }
+    return avatarStack;
   }
 
   Widget _buildFallbackAvatar() {

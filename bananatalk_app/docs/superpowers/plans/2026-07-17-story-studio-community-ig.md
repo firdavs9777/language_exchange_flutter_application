@@ -1330,3 +1330,41 @@ Each feed provider sets `ref.read(momentsFeedFreshnessProvider.notifier).state =
 - [ ] Backend: `node --check` on every touched file; `node --test test/storyMentions.test.js test/hasActiveStory.test.js` → PASS; full `npm test` → no new failures.
 - [ ] Manual QA checklist (device/simulator, light + dark): multi-text story with colors/fonts moved+resized; delete-by-trash; filter+drawing baked; location + mention pills render in viewer; mention push received; in-app share card in chat (+ expired state); community rings show only privacy-visible stories; community detail matches layout contract; moments feed silently refreshes on tab return.
 - [ ] Commit any fixes; report per-feature status honestly (works / not verified).
+
+---
+
+### Task 15: Own story on the Profile page
+
+**Files:**
+- Modify: `lib/pages/profile/profile_main/sections/profile_tab_bar.dart` (or wherever ProfileMain's avatar renders — locate via ProfileTabBar usage in profile_main.dart)
+- Consume: own active stories from the same provider the stories feed uses for "my story" (locate the my-stories/user-stories provider in the stories feed; do NOT add endpoints)
+
+Behavior: when the logged-in user has ≥1 active story, wrap the profile avatar in `StoryGradientRing`; tap → open the story viewer on OWN stories (which already supports the viewers-list sheet); when no active story, keep the existing tap→ProfilePictureEdit behavior. Ring must render in light + dark. `flutter analyze` 0 new issues.
+
+### Task 16: Profile page optimization pass
+
+**Files:** `lib/pages/profile/profile_main.dart` + its `profile_main/sections/*` widgets (visual/perf polish ONLY — no feature changes)
+
+Scope: consistent section spacing (20px rhythm), const-ify what the analyzer suggests in touched files, ensure every section renders correctly in dark mode (no hardcoded whites/greys — use theme extensions), soften the stats row + action buttons styling to match the app's teal/banana tokens, and make the SliverAppBar title show the avatar thumbnail when scrolled past the header (small IG-style polish; skip if it requires restructuring the scroll view). No layout rewrites. `flutter analyze` 0 new issues on touched files.
+
+### Task 17: Coins v2 — earn loop + history (make coins worth engaging with)
+
+**17a Backend:**
+- `POST /api/v1/coins/daily-reward` — +10 coins once per UTC day, enforced server-side via coinLedger idempotency (`iapTransactionId`-style key `daily-<userId>-<YYYY-MM-DD>` in metadata, reason `daily_reward`); response `{success, balance, credited, alreadyClaimed}`.
+- `GET /api/v1/coins/daily-reward/status` → `{claimedToday: bool}` (query today's ledger row).
+- `POST /api/v1/coins/ad-reward` — +5 coins per rewarded-ad watch, hard cap 5/day server-side (count today's `ad_reward` ledger rows), idempotency key `ad-<userId>-<date>-<n>`. KNOWN LIMIT (flag in code comment + report): no SSV ad verification; the daily cap bounds abuse.
+- Routes behind existing auth + coinsEnabledGuard. Tests: `test/coinDailyReward.test.js` — once-per-day idempotency + ad cap logic (pure parts).
+**17b App:**
+- Coin shop: new "Earn free coins" section above the packs — Daily Reward card (claim button, disabled+countdown label when claimed; refreshes balance) and Watch-Ad card reusing the existing `RewardedAdButton`/AdService rewarded flow → on reward callback call ad-reward endpoint → refresh balance; hide when ads unavailable.
+- Transactions history: new `coin_history_screen.dart` (list from the existing `CoinApiClient` transactions endpoint — verify name; rows: reason icon, +/- amount, date), linked from the shop's balance row (chevron).
+- All new UI dark/light correct, teal/banana tokens. `flutter analyze` 0 new issues; reuse coinBalanceProvider/refreshCoinBalance.
+
+### Task 14 (gate) — ADDITIONS
+- Dedicated light+dark sweep, story surfaces in BOTH themes: create canvas/toolbars/sheets, viewer incl. pills/location, share sheet, rings (community list, community detail, chat list, profile), highlights.
+- Story delete E2E: delete story with media → 200 even if Spaces slow; deleted story pulled from highlight; delete from viewer + from highlights editor.
+- Coins v2: daily reward double-claim rejected; ad reward capped; history renders.
+
+### Task 18: Moments main + detail audit & fixes (comments/replies focus)
+
+**Phase A — audit (read-only, produce findings list):** sweep `lib/pages/moments/feed/*` (moments_main, moments_feed_widget, prompt_of_day_card), `lib/pages/moments/single/single_moment.dart`, `lib/pages/comments/comments_main.dart`, and the comments providers. Hunt specifically for: reply threading correctness (parentComment wiring, reply-to-reply, reply counts), comment edit/delete/react flows (silent refresh — no spinner flash; optimistic updates reverting correctly on failure), pagination (load-more duplicates/ordering), keyboard handling in the comment composer (inset overlap, dismiss), translation flows in comments, stale counts after actions (like/comment counts on the card vs detail), dark-mode issues (hardcoded colors), obvious jank (missing const, rebuild storms via ref.watch scope, ListView without keys), and dead/duplicated code between feed card and detail card.
+**Phase B — fix:** apply Critical/Important findings + cheap UI polish (Minor) in the same pass; anything structural gets reported, not rewritten. `flutter analyze` 0 new issues on touched files; `flutter test test/moments/ test/stories/` green. Both phases in one subagent report with a findings table (found → fixed/deferred).

@@ -271,6 +271,12 @@ class StoriesService {
         if (hashtags != null && hashtags.isNotEmpty) {
           request.fields['hashtags'] = jsonEncode(hashtags);
         }
+        if (location != null) {
+          request.fields['location'] = jsonEncode(location.toJson());
+        }
+        if (mentions != null && mentions.isNotEmpty) {
+          request.fields['mentions'] = jsonEncode(_mentionsToBackendJson(mentions));
+        }
       } else {
         // For image stories, multiple images allowed
         for (final file in mediaFiles) {
@@ -290,6 +296,12 @@ class StoriesService {
         }
         if (hashtags != null && hashtags.isNotEmpty) {
           request.fields['hashtags'] = jsonEncode(hashtags);
+        }
+        if (location != null) {
+          request.fields['location'] = jsonEncode(location.toJson());
+        }
+        if (mentions != null && mentions.isNotEmpty) {
+          request.fields['mentions'] = jsonEncode(_mentionsToBackendJson(mentions));
         }
       }
 
@@ -318,6 +330,17 @@ class StoriesService {
     }
   }
 
+  /// Backend's `parseMentions` expects the client-declared, flat shape
+  /// `[{ user, x, y }]` (it looks up each user server-side and stamps in
+  /// `username` itself) — NOT [StoryMention.toJson]'s persisted shape
+  /// (`{ user, username, position: { x, y } }`), which is what a story
+  /// looks like *after* the server has already processed it.
+  static List<Map<String, dynamic>> _mentionsToBackendJson(List<StoryMention> mentions) {
+    return mentions
+        .map((m) => {'user': m.userId, 'x': m.x, 'y': m.y})
+        .toList();
+  }
+
   /// Map StoryPrivacy enum to backend expected values
   static String _mapPrivacyToBackend(StoryPrivacy privacy) {
     switch (privacy) {
@@ -341,6 +364,8 @@ class StoriesService {
     bool allowSharing = true,
     List<Map<String, dynamic>>? overlays,
     List<String>? hashtags,
+    StoryLocation? location,
+    List<StoryMention>? mentions,
   }) async {
     try {
       final token = await _getToken();
@@ -366,6 +391,9 @@ class StoriesService {
         'allowSharing': allowSharing,
         if (overlays != null && overlays.isNotEmpty) 'overlays': overlays,
         if (hashtags != null && hashtags.isNotEmpty) 'hashtags': hashtags,
+        if (location != null) 'location': location.toJson(),
+        if (mentions != null && mentions.isNotEmpty)
+          'mentions': _mentionsToBackendJson(mentions),
       };
 
       final response = await http.post(

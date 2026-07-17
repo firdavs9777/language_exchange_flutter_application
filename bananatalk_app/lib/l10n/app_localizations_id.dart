@@ -2406,6 +2406,12 @@ class AppLocalizationsId extends AppLocalizations {
   String get checkOutMoment => 'Lihat momen ini di Bananatalk!';
 
   @override
+  String get checkOutProfile => 'Check out this profile on Bananatalk!';
+
+  @override
+  String get checkOutCommunity => 'Check out this member on Bananatalk!';
+
+  @override
   String get failedToLoadMoments => 'Gagal memuat momen';
 
   @override

@@ -28,9 +28,27 @@ final coinUnlockCatalogProvider =
   return client.getUnlockCatalog();
 });
 
+/// Whether today's (UTC) daily coin reward has already been claimed
+/// (Coins v2 — Task 17). Backs the "Earn free coins" section's initial
+/// claim-button state so it renders disabled up front rather than only
+/// after a failed claim reveals it was already claimed.
+final dailyRewardStatusProvider = FutureProvider<bool>((ref) async {
+  final client = ref.watch(coinApiClientProvider);
+  return client.getDailyRewardStatus();
+});
+
 /// Refreshes the coin balance after a purchase or unlock succeeds, so the
 /// balance pill and coin shop reflect the new value immediately rather
 /// than waiting for their next natural rebuild.
 void refreshCoinBalance(WidgetRef ref) {
   ref.invalidate(coinBalanceProvider);
+}
+
+/// Refreshes the daily-reward claimed status after a successful claim, so
+/// reopening/remounting the coin shop re-fetches `claimedToday: true`
+/// instead of serving the stale pre-claim cached value forever (this
+/// provider is not `autoDispose`, so without an explicit invalidate here
+/// it stays cached for the whole session).
+void refreshDailyRewardStatus(WidgetRef ref) {
+  ref.invalidate(dailyRewardStatusProvider);
 }

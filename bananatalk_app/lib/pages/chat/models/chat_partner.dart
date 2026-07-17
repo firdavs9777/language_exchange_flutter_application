@@ -29,6 +29,10 @@ class ChatPartner {
   /// "My turn" filter (a thread is "your turn" when the last message came
   /// from the partner). Null when unknown.
   final String? lastMessageSenderId;
+  /// Whether the partner currently has >=1 active story visible to the
+  /// viewer (privacy-filtered server-side). Drives the gradient story ring
+  /// on the chat-list avatar.
+  final bool hasActiveStory;
 
   ChatPartner({
     required this.id,
@@ -48,6 +52,7 @@ class ChatPartner {
     this.nativeLanguage,
     this.country,
     this.lastMessageSenderId,
+    this.hasActiveStory = false,
   });
 
   /// Get display username with @ prefix
@@ -71,6 +76,7 @@ class ChatPartner {
     String? nativeLanguage,
     String? country,
     String? lastMessageSenderId,
+    bool? hasActiveStory,
   }) {
     return ChatPartner(
       id: id ?? this.id,
@@ -90,6 +96,7 @@ class ChatPartner {
       nativeLanguage: nativeLanguage ?? this.nativeLanguage,
       country: country ?? this.country,
       lastMessageSenderId: lastMessageSenderId ?? this.lastMessageSenderId,
+      hasActiveStory: hasActiveStory ?? this.hasActiveStory,
     );
   }
 }

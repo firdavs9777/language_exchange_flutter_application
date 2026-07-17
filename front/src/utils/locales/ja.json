@@ -351,6 +351,7 @@
   "authentication": {
     "enterEmail": {
       "title": "メールアドレスを入力",
+      "subtitle": "We'll send a verification code to your email",
       "emailLabel": "メールアドレス",
       "emailPlaceholder": "メールアドレスを入力",
       "sendButton": "コードを送信",
@@ -359,7 +360,33 @@
       "errorPrefix": "エラー: "
     },
     "passwordReset": {
-      "successMessage": "パスワードをリセットしました。ログインしてください！"
+      "successMessage": "パスワードをリセットしました。ログインしてください！",
+      "backToLogin": "Back to login",
+      "verifyTitle": "Enter verification code",
+      "verifySubtitle": "We've sent a 6-digit code to your email",
+      "codeLabel": "Verification Code",
+      "codePlaceholder": "Enter code",
+      "previousButton": "Previous",
+      "verifyButton": "Verify",
+      "verifyingButton": "Verifying...",
+      "resendButton": "Resend code",
+      "resendingButton": "Resending...",
+      "verifySuccessMessage": "Verification code successfully verified!",
+      "resendSuccessMessage": "A new verification code has been sent!",
+      "verifyErrorDefault": "Invalid verification code",
+      "resendErrorDefault": "Failed to resend the code",
+      "setPasswordTitle": "Set new password",
+      "setPasswordSubtitle": "Choose a strong password for your account",
+      "newPasswordLabel": "New Password",
+      "newPasswordPlaceholder": "New Password",
+      "confirmPasswordLabel": "Confirm Password",
+      "confirmPasswordPlaceholder": "Confirm Password",
+      "showPassword": "Show password",
+      "hidePassword": "Hide password",
+      "submitButton": "Reset Password",
+      "submittingButton": "Resetting...",
+      "strengthErrorMessage": "Password does not meet the strength requirements",
+      "mismatchErrorMessage": "Passwords do not match"
     },
     "login": {
       "signInWithGoogle": "Googleでログイン",

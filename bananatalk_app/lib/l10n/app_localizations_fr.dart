@@ -2406,6 +2406,12 @@ class AppLocalizationsFr extends AppLocalizations {
   String get checkOutMoment => 'Découvrez ce moment sur Bananatalk !';
 
   @override
+  String get checkOutProfile => 'Check out this profile on Bananatalk!';
+
+  @override
+  String get checkOutCommunity => 'Check out this member on Bananatalk!';
+
+  @override
   String get failedToLoadMoments => 'Échec du chargement des moments';
 
   @override

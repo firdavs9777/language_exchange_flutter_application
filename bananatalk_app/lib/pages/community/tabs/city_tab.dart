@@ -9,6 +9,7 @@ import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/message_provider.dart';
 import 'package:bananatalk_app/widgets/community/partner_list_item.dart';
+import 'package:bananatalk_app/pages/stories/viewer/story_viewer_launcher.dart';
 import 'package:bananatalk_app/widgets/community/user_skeleton.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:bananatalk_app/pages/community/single/single_community_screen.dart';
@@ -882,6 +883,11 @@ class _CityTabState extends ConsumerState<CityTab> {
                           user: user,
                           onTap: () => _viewProfile(user),
                           onWave: () => _onWave(user),
+                          onAvatarTap: () => StoryViewerLauncher.open(
+                            context,
+                            userId: user.id,
+                            fallback: () => _viewProfile(user),
+                          ),
                         )
                         .animate()
                         .fadeIn(

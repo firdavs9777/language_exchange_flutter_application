@@ -14,6 +14,7 @@ import Register from "../components/auth/Register";
 import MomentDetail from "../components/moments/MomentDetail";
 import CreateMoment from "../components/moments/CreateMoment";
 import ProfileScreen from "../components/profile/Profile";
+import PublicProfile from "../components/profile/PublicProfile";
 import CoursesMain from "../components/courses/CoursesMain";
 import CommunityDetail from "../components/community/CommunityDetail";
 import UserFollowersList from "../components/profile/UserFollowers";
@@ -81,6 +82,12 @@ const AppRouter = createBrowserRouter(
       <Route path="my-moments" element={<MyMoments />} />
       <Route path="profile" element={<ProfileScreen />} />
       <Route path="profile/edit" element={<EditProfile />} />
+      {/* Public, read-only profile route for shared links. Must stay public
+          (no auth guard) so logged-out visitors can view it; react-router v6
+          ranks the static "profile/edit" segment above this dynamic
+          "profile/:userId" segment regardless of declaration order, so
+          there's no conflict between the two. */}
+      <Route path="profile/:userId" element={<PublicProfile />} />
       <Route path="followersList" element={<UserFollowersList />} />
       <Route path="followingsList" element={<UserFollowingList />} />
       <Route path="visitors" element={<UserVisitorsList />} />

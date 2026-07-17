@@ -1,6 +1,7 @@
 import 'package:bananatalk_app/pages/chat/models/chat_partner.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:bananatalk_app/widgets/vip_avatar_frame.dart';
+import 'package:bananatalk_app/widgets/story/story_gradient_ring.dart';
 import 'package:bananatalk_app/utils/country_flags.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -27,6 +28,10 @@ class ChatListTile extends StatelessWidget {
   final ValueChanged<ChatPartner> onPin;
   final ValueChanged<ChatPartner> onMute;
   final ValueChanged<ChatPartner> onDelete;
+  /// Called when the avatar itself is tapped while
+  /// [partner.hasActiveStory] is true (opens the story viewer); other taps
+  /// keep opening the conversation via [onTap].
+  final VoidCallback? onAvatarTap;
 
   const ChatListTile({
     super.key,
@@ -39,6 +44,7 @@ class ChatListTile extends StatelessWidget {
     required this.onPin,
     required this.onMute,
     required this.onDelete,
+    this.onAvatarTap,
   });
 
   // ─── Status helpers ───────────────────────────────────────────────────────
@@ -163,6 +169,109 @@ class ChatListTile extends StatelessWidget {
     );
   }
 
+  // ─── Avatar ─────────────────────────────────────────────────────────────
+
+  Widget _buildAvatar(ColorScheme colors, TextTheme textTheme) {
+    final avatarStack = Stack(
+      children: [
+        VipAvatarFrameCompact(
+          isVip: partner.isVip,
+          size: 56,
+          child: CachedCircleAvatar(
+            imageUrl: partner.avatar != null && partner.avatar!.isNotEmpty
+                ? partner.avatar
+                : null,
+            radius: 28,
+            backgroundColor: colors.surfaceVariant,
+            errorWidget: Text(
+              partner.name.isNotEmpty ? partner.name[0].toUpperCase() : '?',
+              style: textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+        ),
+        // Identity flag overlay — bottom-left of avatar.
+        // Country flag when known (privacy-filtered upstream);
+        // falls back to the native-language flag.
+        if ((partner.country != null && partner.country!.isNotEmpty) ||
+            (partner.nativeLanguage != null &&
+                partner.nativeLanguage!.isNotEmpty))
+          Positioned(
+            bottom: partner.isVip ? 4 : 2,
+            left: partner.isVip ? 4 : 2,
+            child: Container(
+              width: 18,
+              height: 18,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: colors.surface,
+                shape: BoxShape.circle,
+                border: Border.all(color: colors.surface, width: 1.5),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.15),
+                    blurRadius: 3,
+                    offset: const Offset(0, 1),
+                  ),
+                ],
+              ),
+              child: Text(
+                CountryFlags.userBadgeFlag(
+                  country: partner.country,
+                  nativeLanguage: partner.nativeLanguage,
+                ),
+                style: const TextStyle(fontSize: 12, height: 1.0),
+              ),
+            ),
+          ),
+        // Online status dot
+        Positioned(
+          bottom: partner.isVip ? 4 : 2,
+          right: partner.isVip ? 4 : 2,
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 300),
+            width: _isOnline ? 16 : 12,
+            height: _isOnline ? 16 : 12,
+            decoration: BoxDecoration(
+              color: getStatusColor(realtimeStatus),
+              shape: BoxShape.circle,
+              border: Border.all(
+                color: colors.surface,
+                width: 2.5,
+              ),
+              boxShadow: _isOnline
+                  ? [
+                      BoxShadow(
+                        color: const Color(0xFF4ADE80).withValues(alpha: 0.5),
+                        blurRadius: 8,
+                        spreadRadius: 2,
+                      ),
+                    ]
+                  : null,
+            ),
+          ),
+        ),
+      ],
+    );
+
+    // Wrap only the avatar in the story ring + its own tap target — the
+    // rest of the tile still opens the conversation via the outer InkWell.
+    if (partner.hasActiveStory) {
+      return GestureDetector(
+        onTap: onAvatarTap,
+        child: StoryGradientRing(
+          size: 64,
+          strokeWidth: 2.5,
+          hasStory: true,
+          animate: false,
+          child: avatarStack,
+        ),
+      );
+    }
+    return avatarStack;
+  }
+
   // ─── Build ────────────────────────────────────────────────────────────────
 
   @override
@@ -222,92 +331,7 @@ class ChatListTile extends StatelessWidget {
           child: Row(
             children: [
               // ─── Avatar ───────────────────────────────────────────────────
-              Stack(
-                children: [
-                  VipAvatarFrameCompact(
-                    isVip: partner.isVip,
-                    size: 56,
-                    child: CachedCircleAvatar(
-                      imageUrl: partner.avatar != null &&
-                              partner.avatar!.isNotEmpty
-                          ? partner.avatar
-                          : null,
-                      radius: 28,
-                      backgroundColor: colors.surfaceVariant,
-                      errorWidget: Text(
-                        partner.name.isNotEmpty
-                            ? partner.name[0].toUpperCase()
-                            : '?',
-                        style: textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                  ),
-                  // Identity flag overlay — bottom-left of avatar.
-                  // Country flag when known (privacy-filtered upstream);
-                  // falls back to the native-language flag.
-                  if ((partner.country != null &&
-                          partner.country!.isNotEmpty) ||
-                      (partner.nativeLanguage != null &&
-                          partner.nativeLanguage!.isNotEmpty))
-                    Positioned(
-                      bottom: partner.isVip ? 4 : 2,
-                      left: partner.isVip ? 4 : 2,
-                      child: Container(
-                        width: 18,
-                        height: 18,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: colors.surface,
-                          shape: BoxShape.circle,
-                          border: Border.all(color: colors.surface, width: 1.5),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withValues(alpha: 0.15),
-                              blurRadius: 3,
-                              offset: const Offset(0, 1),
-                            ),
-                          ],
-                        ),
-                        child: Text(
-                          CountryFlags.userBadgeFlag(
-                            country: partner.country,
-                            nativeLanguage: partner.nativeLanguage,
-                          ),
-                          style: const TextStyle(fontSize: 12, height: 1.0),
-                        ),
-                      ),
-                    ),
-                  // Online status dot
-                  Positioned(
-                    bottom: partner.isVip ? 4 : 2,
-                    right: partner.isVip ? 4 : 2,
-                    child: AnimatedContainer(
-                      duration: const Duration(milliseconds: 300),
-                      width: _isOnline ? 16 : 12,
-                      height: _isOnline ? 16 : 12,
-                      decoration: BoxDecoration(
-                        color: getStatusColor(realtimeStatus),
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                          color: colors.surface,
-                          width: 2.5,
-                        ),
-                        boxShadow: _isOnline
-                            ? [
-                                BoxShadow(
-                                  color: const Color(0xFF4ADE80).withValues(alpha: 0.5),
-                                  blurRadius: 8,
-                                  spreadRadius: 2,
-                                ),
-                              ]
-                            : null,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+              _buildAvatar(colors, textTheme),
 
               const SizedBox(width: 12),
 

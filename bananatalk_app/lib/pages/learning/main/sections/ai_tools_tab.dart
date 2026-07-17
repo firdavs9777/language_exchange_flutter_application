@@ -313,7 +313,11 @@ class _AIToolsTabState extends ConsumerState<AIToolsTab>
                 const Spacer(),
                 Text(
                   f.title,
-                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 14, color: f.color),
+                  style: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 14,
+                    color: context.textPrimary,
+                  ),
                 ),
                 const SizedBox(height: 2),
                 Text(

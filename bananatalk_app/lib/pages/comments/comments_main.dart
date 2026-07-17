@@ -53,6 +53,11 @@ class _CommentsMainState extends ConsumerState<CommentsMain> {
     final currentUserId = ref.read(authServiceProvider).userId;
 
     return commentsAsyncValue.when(
+      // Don't flash the full spinner on refresh (after posting/editing/
+      // deleting a comment, or reopening the moment) — keep the thread
+      // visible and update silently.
+      skipLoadingOnRefresh: true,
+      skipLoadingOnReload: true,
       data: (comments) {
         if (comments.isEmpty) {
           return _buildEmptyState(context);
@@ -62,12 +67,23 @@ class _CommentsMainState extends ConsumerState<CommentsMain> {
           children: [
             ...comments.map(
               (comment) => _CommentItem(
+                // Stable key so per-comment local state (like state, reply
+                // panel expansion) stays bound to the right comment across
+                // refreshes instead of matching by list position.
+                key: ValueKey(comment.id),
                 comment: comment,
                 momentId: widget.id,
                 currentUserId: currentUserId,
                 onRefresh: () {
                   ref.invalidate(commentsProvider(widget.id));
+                  // Comment add/edit/delete/like changes commentCount on the
+                  // moment, so every feed tab that surfaces it must go
+                  // stale too, not just the legacy combined feed — mirrors
+                  // the 4-provider invalidation MomentCard's toggleLike uses.
                   ref.invalidate(momentsFeedProvider);
+                  ref.invalidate(forYouMomentsProvider);
+                  ref.invalidate(followingMomentsProvider);
+                  ref.invalidate(trendingMomentsProvider);
                 },
                 onReply: widget.onReply,
               ),
@@ -112,6 +128,8 @@ class _CommentsMainState extends ConsumerState<CommentsMain> {
     final currentUserId = ref.read(authServiceProvider).userId;
 
     return pageAsyncValue.when(
+      skipLoadingOnRefresh: true,
+      skipLoadingOnReload: true,
       data: (page) {
         if (page.comments.isEmpty) {
           return _buildEmptyState(context);
@@ -121,12 +139,23 @@ class _CommentsMainState extends ConsumerState<CommentsMain> {
           children: [
             ...page.comments.map(
               (comment) => _CommentItem(
+                // Stable key so per-comment local state (like state, reply
+                // panel expansion) stays bound to the right comment across
+                // refreshes instead of matching by list position.
+                key: ValueKey(comment.id),
                 comment: comment,
                 momentId: widget.id,
                 currentUserId: currentUserId,
                 onRefresh: () {
                   ref.read(paginatedCommentsProvider(widget.id).notifier).refresh();
+                  // Comment add/edit/delete/like changes commentCount on the
+                  // moment, so every feed tab that surfaces it must go
+                  // stale too, not just the legacy combined feed — mirrors
+                  // the 4-provider invalidation MomentCard's toggleLike uses.
                   ref.invalidate(momentsFeedProvider);
+                  ref.invalidate(forYouMomentsProvider);
+                  ref.invalidate(followingMomentsProvider);
+                  ref.invalidate(trendingMomentsProvider);
                 },
                 onReply: widget.onReply,
               ),
@@ -186,6 +215,7 @@ class _CommentItem extends StatefulWidget {
   final Function(String commentId, String userName)? onReply;
 
   const _CommentItem({
+    super.key,
     required this.comment,
     required this.momentId,
     required this.currentUserId,
@@ -243,9 +273,24 @@ class _CommentItemState extends State<_CommentItem> with SingleTickerProviderSta
       _likeCount = widget.comment.likeCount;
     } catch (_) {}
 
-    // Reload replies if they were showing
+    // Reload replies only when replyCount actually changed (a reply was
+    // added/removed elsewhere) rather than on every provider refresh while
+    // expanded — e.g. a like on this comment also rebuilds this widget via
+    // `widget.onRefresh()`, which shouldn't trigger a redundant replies
+    // refetch. Defensive try/catch mirrors the `comment.replyCount` access
+    // pattern already used in build() above, since `comment` is dynamic.
     if (_showReplies) {
-      _loadReplies();
+      int oldReplyCount = 0;
+      int newReplyCount = 0;
+      try {
+        oldReplyCount = oldWidget.comment.replyCount;
+      } catch (_) {}
+      try {
+        newReplyCount = widget.comment.replyCount;
+      } catch (_) {}
+      if (oldReplyCount != newReplyCount) {
+        _loadReplies();
+      }
     }
   }
 
@@ -308,6 +353,12 @@ class _CommentItemState extends State<_CommentItem> with SingleTickerProviderSta
           _isLiked = previousLiked;
           _likeCount = previousCount;
         });
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(result['error'] ?? AppLocalizations.of(context)!.failedToSave),
+            backgroundColor: AppColors.error,
+          ),
+        );
       }
     }
   }
@@ -752,6 +803,11 @@ class _CommentItemState extends State<_CommentItem> with SingleTickerProviderSta
                                 ),
                                 // Reply items with thread line
                                 ..._replies.map((reply) => _ReplyItem(
+                                  // Stable key (same reasoning as
+                                  // `_CommentItem` above) so a reply's
+                                  // like state doesn't bind to the wrong
+                                  // reply after `_loadReplies()` refetches.
+                                  key: ValueKey(_ReplyItem.idOf(reply)),
                                   reply: reply,
                                   momentId: widget.momentId,
                                   currentUserId: widget.currentUserId,
@@ -869,6 +925,7 @@ class _ReplyItem extends StatefulWidget {
   final String parentCommentUserName;
 
   const _ReplyItem({
+    super.key,
     required this.reply,
     required this.momentId,
     required this.currentUserId,
@@ -876,6 +933,18 @@ class _ReplyItem extends StatefulWidget {
     this.onReply,
     required this.parentCommentUserName,
   });
+
+  /// Extracts a stable reply id from the loosely-typed `reply` payload
+  /// (may be a raw `Map` from `getReplies` or a typed model) — used both as
+  /// this widget's list key and internally by [_ReplyItemState._replyId].
+  static String idOf(dynamic reply) {
+    if (reply is Map) return reply['_id']?.toString() ?? '';
+    try {
+      return reply.id?.toString() ?? '';
+    } catch (_) {
+      return '';
+    }
+  }
 
   @override
   State<_ReplyItem> createState() => _ReplyItemState();
@@ -913,14 +982,7 @@ class _ReplyItemState extends State<_ReplyItem> {
     }
   }
 
-  String get _replyId {
-    if (widget.reply is Map) return widget.reply['_id']?.toString() ?? '';
-    try {
-      return widget.reply.id?.toString() ?? '';
-    } catch (_) {
-      return '';
-    }
-  }
+  String get _replyId => _ReplyItem.idOf(widget.reply);
 
   String get _replyText {
     if (widget.reply is Map) return widget.reply['text']?.toString() ?? '';
@@ -1044,6 +1106,12 @@ class _ReplyItemState extends State<_ReplyItem> {
           _isLiked = previousLiked;
           _likeCount = previousCount;
         });
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(result['error'] ?? AppLocalizations.of(context)!.failedToSave),
+            backgroundColor: AppColors.error,
+          ),
+        );
       }
     }
   }

@@ -7,6 +7,7 @@ import 'package:bananatalk_app/services/global_chat_listener.dart';
 import 'package:bananatalk_app/services/analytics_service.dart';
 import 'package:bananatalk_app/services/api_client.dart';
 import 'package:bananatalk_app/services/ad_service.dart';
+import 'package:bananatalk_app/services/deep_link_service.dart';
 import 'package:bananatalk_app/widgets/tutor/persona_upgrade_sheet.dart';
 import 'package:bananatalk_app/providers/call_provider.dart';
 import 'package:bananatalk_app/screens/incoming_call_screen.dart';
@@ -112,6 +113,11 @@ Future<void> main() async {
   }
 
   runApp(const ProviderScope(child: MyApp()));
+
+  // Capture incoming deep links (universal links + custom scheme) and
+  // route them through the existing GoRouter. Fire-and-forget: runs after
+  // the router/app are initialized above.
+  DeepLinkService(goRouter).start();
 }
 
 // Theme provider with persistence

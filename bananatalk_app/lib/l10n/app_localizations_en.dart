@@ -2412,6 +2412,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get checkOutMoment => 'Check out this moment on Bananatalk!';
 
   @override
+  String get checkOutProfile => 'Check out this profile on Bananatalk!';
+
+  @override
+  String get checkOutCommunity => 'Check out this member on Bananatalk!';
+
+  @override
   String get failedToLoadMoments => 'Failed to load moments';
 
   @override

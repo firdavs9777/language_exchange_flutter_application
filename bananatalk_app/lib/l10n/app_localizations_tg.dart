@@ -2412,6 +2412,12 @@ class AppLocalizationsTg extends AppLocalizations {
   String get checkOutMoment => 'Ин лаҳзаро дар Bananatalk бубинед!';
 
   @override
+  String get checkOutProfile => 'Check out this profile on Bananatalk!';
+
+  @override
+  String get checkOutCommunity => 'Check out this member on Bananatalk!';
+
+  @override
   String get failedToLoadMoments => 'Боргирии лаҳзаҳо муяссар нашуд';
 
   @override

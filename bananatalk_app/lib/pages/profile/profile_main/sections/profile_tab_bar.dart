@@ -4,6 +4,7 @@ import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/utils/privacy_utils.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:bananatalk_app/widgets/vip_avatar_frame.dart';
+import 'package:bananatalk_app/widgets/story/story_gradient_ring.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
@@ -14,19 +15,30 @@ import 'package:flutter/material.dart';
 /// "top section" of the profile — analogous to a tab header area. No actual
 /// [TabBar] widget is rendered; that may be added in a future iteration.
 ///
-/// [onAvatarTap] should push [ProfilePictureEdit] and invalidate userProvider
-/// on return. The callback pattern keeps navigation logic in the parent.
+/// [onAvatarTap] behavior is decided by the parent: when [hasActiveStory] is
+/// true it opens the story viewer on the user's own stories (falling back to
+/// [ProfilePictureEdit] if the story turns out to be gone by tap-time);
+/// otherwise it pushes [ProfilePictureEdit] directly and invalidates
+/// userProvider on return. The callback pattern keeps navigation logic in the
+/// parent — this widget only decides whether to paint the ring.
 class ProfileTabBar extends StatelessWidget {
   const ProfileTabBar({
     super.key,
     required this.user,
     required this.calculatedAge,
     required this.onAvatarTap,
+    this.hasActiveStory = false,
   });
 
   final Community user;
   final int? calculatedAge;
   final VoidCallback onAvatarTap;
+
+  /// When true, the avatar is wrapped in the animated gradient story ring
+  /// (Instagram-style) instead of the VIP frame / plain gradient border —
+  /// mirrors the priority order used in SingleCommunityHeader: story ring
+  /// beats VIP framing so there's a single ringed-avatar convention app-wide.
+  final bool hasActiveStory;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +55,16 @@ class ProfileTabBar extends StatelessWidget {
             child: Stack(
               alignment: Alignment.center,
               children: [
-                user.isVip
+                hasActiveStory
+                    ? StoryGradientRing(
+                        size: 124,
+                        strokeWidth: 3,
+                        hasStory: true,
+                        isOwnStory: true,
+                        animate: false,
+                        child: _AvatarInner(user: user, radius: 60),
+                      )
+                    : user.isVip
                     ? VipAvatarFrame(
                         isVip: true,
                         size: 124,

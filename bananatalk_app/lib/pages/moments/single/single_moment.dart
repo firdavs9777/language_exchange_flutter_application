@@ -23,6 +23,7 @@ import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:bananatalk_app/services/link_constants.dart';
 import 'package:bananatalk_app/services/moments_service.dart' as api;
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/widgets/language_flag_badge.dart';
@@ -45,7 +46,6 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
   bool _showTranslation = false;
   String? _translationTargetCode;
   TextEditingController commentController = TextEditingController();
-  bool showCommentField = false;
   final FocusNode commentFocusNode = FocusNode();
   String? _replyToCommentId;
   String? _replyToUserName;
@@ -240,6 +240,14 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
           isLiked = result['isLiked'] ?? !previousLiked;
           likeCount = result['likeCount'] ?? previousCount;
         });
+        // Keep the feed card's like count in sync (mirrors
+        // `MomentCard.toggleLike`'s invalidation) so returning to the list
+        // doesn't show a stale count until the next stale-while-revalidate
+        // refresh.
+        ref.invalidate(momentsFeedProvider);
+        ref.invalidate(forYouMomentsProvider);
+        ref.invalidate(followingMomentsProvider);
+        ref.invalidate(trendingMomentsProvider);
       }
     } catch (e) {
       if (mounted) {
@@ -265,9 +273,6 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
   }
 
   void focusCommentField() {
-    setState(() {
-      showCommentField = true;
-    });
     Future.delayed(const Duration(milliseconds: 100), () {
       commentFocusNode.requestFocus();
     });
@@ -295,7 +300,7 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
         ? '${widget.moment.description.substring(0, 100)}...'
         : widget.moment.description;
     final momentText = l10n.checkOutMoment;
-    final momentUrl = 'https://banatalk.com/moment/${widget.moment.id}';
+    final momentUrl = shareUrl('moment', widget.moment.id.toString());
     Share.share('$momentText\n\n$momentUrl');
   }
 

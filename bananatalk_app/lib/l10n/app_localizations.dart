@@ -4706,6 +4706,18 @@ abstract class AppLocalizations {
   /// **'Check out this moment on Bananatalk!'**
   String get checkOutMoment;
 
+  /// No description provided for @checkOutProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Check out this profile on Bananatalk!'**
+  String get checkOutProfile;
+
+  /// No description provided for @checkOutCommunity.
+  ///
+  /// In en, this message translates to:
+  /// **'Check out this member on Bananatalk!'**
+  String get checkOutCommunity;
+
   /// No description provided for @failedToLoadMoments.
   ///
   /// In en, this message translates to:

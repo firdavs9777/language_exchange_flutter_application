@@ -1,29 +1,40 @@
-import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/presence_provider.dart';
+import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
+import 'package:bananatalk_app/widgets/vip_avatar_frame.dart';
+import 'package:bananatalk_app/widgets/story/story_gradient_ring.dart';
+import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:bananatalk_app/widgets/report_dialog.dart';
 import 'package:bananatalk_app/widgets/block_user_dialog.dart';
-import 'package:bananatalk_app/widgets/vip_avatar_frame.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
-import 'package:bananatalk_app/utils/app_page_route.dart';
-import 'package:bananatalk_app/pages/moments/viewer/image_viewer.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:bananatalk_app/pages/community/widgets/community_snackbar.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/utils/language_flags.dart';
 import 'package:bananatalk_app/widgets/language_flag_badge.dart';
 
-/// Flexible-space background (map tiles or gradient) + avatar/name/location row
-/// rendered inside [FlexibleSpaceBar].
-class SingleCommunityHeader extends ConsumerWidget {
+/// Instagram-style header for the community/profile detail screen:
+/// ringed avatar + display-only stat counters (Posts/Followers/Following),
+/// name + language line, and a collapsed/expandable bio.
+///
+/// Rendered as a plain [SliverToBoxAdapter] child below a name-only
+/// [SliverAppBar] (see [single_community_screen.dart]) — it no longer draws
+/// its own hero background; the visual "hero" is the ringed avatar itself.
+class SingleCommunityHeader extends ConsumerStatefulWidget {
   final Community community;
   final int? age;
   final String locationText;
   final VoidCallback onCopyUsername;
-  final List<String> imageUrls;
   final String? profileImageUrl;
+
+  /// Tap target for the avatar. The caller decides whether to open the
+  /// story viewer (via [StoryViewerLauncher], only when
+  /// `community.hasActiveStory`) or fall back to the profile-photo view —
+  /// keeping that navigation/service-call logic in the screen rather than
+  /// this presentational widget.
+  final VoidCallback onAvatarTap;
 
   const SingleCommunityHeader({
     super.key,
@@ -31,380 +42,317 @@ class SingleCommunityHeader extends ConsumerWidget {
     required this.age,
     required this.locationText,
     required this.onCopyUsername,
-    required this.imageUrls,
     required this.profileImageUrl,
+    required this.onAvatarTap,
   });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<SingleCommunityHeader> createState() =>
+      _SingleCommunityHeaderState();
+}
+
+class _SingleCommunityHeaderState extends ConsumerState<SingleCommunityHeader> {
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final community = widget.community;
     final presenceState = ref.watch(presenceProvider);
-    return Stack(
-      children: [
-        // Map or gradient background
-        Positioned.fill(
-          child: _hasValidCoordinates()
-              ? _buildMapTileGrid()
-              : _buildGradientBackground(),
-        ),
-        // Gradient overlay at bottom
-        Positioned(
-          bottom: 0,
-          left: 0,
-          right: 0,
-          height: 150,
-          child: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Colors.transparent,
-                  Colors.black.withValues(alpha: 0.7),
-                ],
-              ),
-            ),
-          ),
-        ),
-        // Profile info row at bottom
-        Positioned(
-          bottom: 16,
-          left: 16,
-          right: 16,
-          child: Row(
+
+    return Container(
+      color: context.surfaceColor,
+      padding: const EdgeInsets.fromLTRB(16, 16, 16, 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Avatar + display-only stat counters
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // Avatar
-              InkWell(
-                onTap: () {
-                  if (imageUrls.isNotEmpty) {
-                    Navigator.push(
-                      context,
-                      AppPageRoute(
-                        builder: (context) =>
-                            ImageGallery(imageUrls: imageUrls),
-                      ),
-                    );
-                  }
-                },
-                child: Hero(
-                  tag: 'profile_${community.id}',
-                  child: Stack(
-                    clipBehavior: Clip.none,
-                    children: [
-                      VipAvatarFrame(
-                        isVip: community.isVip,
-                        size: 80,
-                        frameWidth: 3,
-                        showGlow: true,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(color: Colors.white, width: 3),
-                          ),
-                          child: CircleAvatar(
-                            radius: 37,
-                            backgroundColor: AppColors.accent,
-                            backgroundImage: profileImageUrl != null
-                                ? NetworkImage(profileImageUrl!)
-                                : null,
-                            child: profileImageUrl == null
-                                ? const Icon(
-                                    Icons.person,
-                                    size: 40,
-                                    color: Colors.white,
-                                  )
-                                : null,
-                          ),
-                        ),
-                      ),
-                      LanguageFlagBadge(
-                        nativeLanguage: community.native_language,
-                        size: 24,
-                        offset: 2,
-                      ),
-                    ],
+              _buildAvatar(context),
+              const SizedBox(width: 20),
+              Expanded(child: _buildStatsRow(context, l10n)),
+            ],
+          ),
+          const SizedBox(height: 16),
+
+          // Name + VIP badge
+          Row(
+            children: [
+              Flexible(
+                child: Text(
+                  community.name,
+                  style: context.titleLarge.copyWith(
+                    fontWeight: FontWeight.w800,
+                    fontSize: 20,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+              if (community.isVip) ...[
+                const SizedBox(width: 8),
+                _buildVipBadge(),
+              ],
+            ],
+          ),
+
+          // Username + copy
+          if (community.displayUsername != null) ...[
+            const SizedBox(height: 2),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  community.displayUsername!,
+                  style: context.bodySmall.copyWith(
+                    color: context.textSecondary,
                   ),
                 ),
-              ),
-              const SizedBox(width: 16),
-              // Name and info column
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Row(
-                      children: [
-                        Flexible(
-                          child: Text(
-                            community.name,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold,
-                              shadows: [
-                                Shadow(
-                                  offset: Offset(0, 1),
-                                  blurRadius: 3,
-                                  color: Colors.black45,
-                                ),
-                              ],
-                            ),
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                        if (community.isVip) ...[
-                          const SizedBox(width: 8),
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 8,
-                              vertical: 3,
-                            ),
-                            decoration: BoxDecoration(
-                              gradient: const LinearGradient(
-                                colors: [Color(0xFFFFD700), Color(0xFFFFA500)],
-                              ),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: const Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Icon(
-                                  Icons.workspace_premium,
-                                  size: 12,
-                                  color: Colors.white,
-                                ),
-                                SizedBox(width: 2),
-                                Text(
-                                  'VIP',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ],
-                    ),
-                    if (community.displayUsername != null) ...[
-                      const SizedBox(height: 2),
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            community.displayUsername!,
-                            style: TextStyle(
-                              color: Colors.white.withValues(alpha: 0.8),
-                              fontSize: 13,
-                            ),
-                          ),
-                          const SizedBox(width: 6),
-                          GestureDetector(
-                            onTap: onCopyUsername,
-                            child: Container(
-                              padding: const EdgeInsets.all(4),
-                              decoration: BoxDecoration(
-                                color: Colors.white.withValues(alpha: 0.2),
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: const Icon(
-                                Icons.copy_rounded,
-                                color: Colors.white,
-                                size: 14,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                    const SizedBox(height: 4),
-                    Row(
-                      children: [
-                        if (age != null) ...[
-                          Text(
-                            '$age yrs',
-                            style: TextStyle(
-                              color: Colors.white.withValues(alpha: 0.9),
-                              fontSize: 13,
-                            ),
-                          ),
-                          if (locationText.isNotEmpty) ...[
-                            Text(
-                              ' • ',
-                              style: TextStyle(
-                                color: Colors.white.withValues(alpha: 0.6),
-                              ),
-                            ),
-                          ],
-                        ],
-                        if (locationText.isNotEmpty) ...[
-                          const Icon(
-                            Icons.location_on,
-                            size: 12,
-                            color: Colors.white70,
-                          ),
-                          const SizedBox(width: 2),
-                          Flexible(
-                            child: Text(
-                              locationText,
-                              style: TextStyle(
-                                color: Colors.white.withValues(alpha: 0.9),
-                                fontSize: 13,
-                              ),
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                        ],
-                      ],
-                    ),
-                    const SizedBox(height: 6),
-                    _buildPresencePill(context, presenceState),
-                  ],
+                const SizedBox(width: 6),
+                GestureDetector(
+                  onTap: widget.onCopyUsername,
+                  child: Icon(
+                    Icons.copy_rounded,
+                    color: context.textMuted,
+                    size: 14,
+                  ),
+                ),
+              ],
+            ),
+          ],
+
+          const SizedBox(height: 8),
+
+          // Native → learning language line with flags
+          _buildLanguageLine(context, l10n),
+
+          // Age / location chips
+          if (widget.age != null || widget.locationText.isNotEmpty) ...[
+            const SizedBox(height: 8),
+            Wrap(
+              spacing: 8,
+              runSpacing: 6,
+              children: [
+                if (widget.age != null)
+                  _buildInfoChip(
+                    context,
+                    Icons.cake_rounded,
+                    l10n.yearsOld(widget.age.toString()),
+                  ),
+                if (widget.locationText.isNotEmpty)
+                  _buildInfoChip(
+                    context,
+                    Icons.location_on_rounded,
+                    widget.locationText,
+                  ),
+              ],
+            ),
+          ],
+
+          const SizedBox(height: 8),
+          _buildPresencePill(context, l10n, presenceState),
+
+          // Collapsed / expandable bio
+          if (community.bio.isNotEmpty) ...[
+            const SizedBox(height: 12),
+            _ExpandableBio(bio: community.bio),
+          ],
+        ],
+      ),
+    );
+  }
+
+  // ---------------------------------------------------------------------------
+  // Avatar (84px, story-ringed when hasActiveStory, VIP-framed otherwise)
+  // ---------------------------------------------------------------------------
+
+  Widget _buildAvatar(BuildContext context) {
+    const size = 84.0;
+    final community = widget.community;
+
+    Widget inner = ClipOval(
+      child: SizedBox(
+        width: size,
+        height: size,
+        child: widget.profileImageUrl != null
+            ? CachedImageWidget(
+                imageUrl: widget.profileImageUrl!,
+                fit: BoxFit.cover,
+              )
+            : Container(
+                color: AppColors.accent.withValues(alpha: 0.15),
+                child: const Icon(
+                  Icons.person_rounded,
+                  size: size * 0.5,
+                  color: AppColors.accent,
                 ),
               ),
-            ],
+      ),
+    );
+
+    // Story ring takes visual priority when the user has an active story;
+    // otherwise fall back to the VIP frame/glow treatment.
+    Widget avatar;
+    if (community.hasActiveStory) {
+      avatar = StoryGradientRing(
+        size: size,
+        strokeWidth: 3,
+        hasStory: true,
+        animate: false,
+        child: inner,
+      );
+    } else if (community.isVip) {
+      avatar = VipAvatarFrame(
+        isVip: true,
+        size: size,
+        frameWidth: 3,
+        showGlow: true,
+        child: inner,
+      );
+    } else {
+      avatar = Container(
+        width: size,
+        height: size,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          border: Border.all(color: context.dividerColor, width: 1),
+        ),
+        child: inner,
+      );
+    }
+
+    return GestureDetector(
+      onTap: widget.onAvatarTap,
+      child: Hero(
+        tag: 'profile_${community.id}',
+        child: Stack(
+          clipBehavior: Clip.none,
+          children: [
+            avatar,
+            LanguageFlagBadge(
+              nativeLanguage: community.native_language,
+              size: 22,
+              offset: 0,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // ---------------------------------------------------------------------------
+  // Stat counters — display only, no tap navigation (Option B)
+  // ---------------------------------------------------------------------------
+
+  Widget _buildStatsRow(BuildContext context, AppLocalizations l10n) {
+    final momentsAsync = ref.watch(userMomentsProvider(widget.community.id));
+    final postsCount = momentsAsync.valueOrNull?.length;
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        _StatColumn(
+          value: postsCount?.toString() ?? '-',
+          label: l10n.moments,
+        ),
+        _StatColumn(
+          value: widget.community.followers.length.toString(),
+          label: l10n.followers,
+        ),
+        _StatColumn(
+          value: widget.community.followings.length.toString(),
+          label: l10n.following,
+        ),
+      ],
+    );
+  }
+
+  // ---------------------------------------------------------------------------
+  // Language line
+  // ---------------------------------------------------------------------------
+
+  Widget _buildLanguageLine(BuildContext context, AppLocalizations l10n) {
+    final community = widget.community;
+    final nativeFlag = LanguageFlags.getFlagByName(community.native_language);
+    final learningFlag = LanguageFlags.getFlagByName(
+      community.language_to_learn,
+    );
+
+    return Row(
+      children: [
+        Text(nativeFlag, style: const TextStyle(fontSize: 16)),
+        const SizedBox(width: 4),
+        Flexible(
+          child: Text(
+            community.native_language,
+            style: context.bodySmall.copyWith(
+              color: context.textPrimary,
+              fontWeight: FontWeight.w600,
+            ),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
+        const SizedBox(width: 6),
+        Icon(Icons.arrow_forward_rounded, size: 14, color: context.textMuted),
+        const SizedBox(width: 6),
+        Text(learningFlag, style: const TextStyle(fontSize: 16)),
+        const SizedBox(width: 4),
+        Flexible(
+          child: Text(
+            community.language_to_learn,
+            style: context.bodySmall.copyWith(
+              color: context.textPrimary,
+              fontWeight: FontWeight.w600,
+            ),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
           ),
         ),
       ],
     );
   }
 
-  Widget _buildPresencePill(BuildContext context, PresenceState presenceState) {
-    final l10n = AppLocalizations.of(context)!;
-    if (presenceState.isOnline(community.id)) {
-      return Container(
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-        decoration: BoxDecoration(
-          color: Colors.green.withValues(alpha: 0.20),
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: Colors.green.withValues(alpha: 0.35)),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              width: 6,
-              height: 6,
-              decoration: const BoxDecoration(
-                color: Colors.green,
-                shape: BoxShape.circle,
-              ),
-            ),
-            const SizedBox(width: 5),
-            Text(
-              l10n.onlineNow,
-              style: const TextStyle(
-                fontSize: 11,
-                color: Colors.green,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ],
-        ),
-      );
-    }
-    final lastSeen = presenceState.lastSeen[community.id];
-    if (lastSeen != null) {
-      return Text(
-        l10n.activeAgo(timeago.format(lastSeen)),
-        style: TextStyle(
-          fontSize: 11,
-          color: Colors.white.withValues(alpha: 0.7),
-        ),
-      );
-    }
-    return const SizedBox.shrink();
-  }
-
-  bool _hasValidCoordinates() {
-    final location = community.location;
-    final coords = location.coordinates;
-    if (coords.length < 2) return false;
-    final lon = coords[0];
-    final lat = coords[1];
-    final hasValidCoords =
-        lat != 0 &&
-        lon != 0 &&
-        lat >= -90 &&
-        lat <= 90 &&
-        lon >= -180 &&
-        lon <= 180;
-    final hasLocationInfo =
-        location.city.isNotEmpty ||
-        location.country.isNotEmpty ||
-        location.formattedAddress.isNotEmpty;
-    return hasValidCoords && hasLocationInfo;
-  }
-
-  double _roundCoordinate(double coord, {int decimals = 2}) {
-    final factor = math.pow(10, decimals);
-    return (coord * factor).round() / factor;
-  }
-
-  Widget _buildMapTileGrid() {
-    final coords = community.location.coordinates;
-    final lon = _roundCoordinate(coords[0]);
-    final lat = _roundCoordinate(coords[1]);
-    final zoom = 10;
-    final n = 1 << zoom;
-    final centerX = ((lon + 180) / 360 * n).floor();
-    final latRad = lat * math.pi / 180;
-    final centerY =
-        ((1 - math.log(math.tan(latRad) + 1 / math.cos(latRad)) / math.pi) /
-                2 *
-                n)
-            .floor();
-
-    return ClipRect(
-      child: Stack(
-        fit: StackFit.expand,
+  Widget _buildInfoChip(BuildContext context, IconData icon, String label) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+      decoration: BoxDecoration(
+        color: context.containerColor,
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          Container(color: AppColors.gray300),
-          Positioned.fill(
-            child: Row(
-              children: [
-                for (int dx = -1; dx <= 1; dx++)
-                  Expanded(
-                    child: Column(
-                      children: [
-                        for (int dy = 0; dy <= 1; dy++)
-                          Expanded(
-                            child: Image.network(
-                              'https://tile.openstreetmap.org/$zoom/${centerX + dx}/${centerY + dy}.png',
-                              fit: BoxFit.cover,
-                              headers: const {'User-Agent': 'Bananatalk App'},
-                              errorBuilder: (context, error, stackTrace) {
-                                return Container(color: AppColors.gray300);
-                              },
-                            ),
-                          ),
-                      ],
-                    ),
-                  ),
-              ],
-            ),
+          Icon(icon, size: 13, color: context.textSecondary),
+          const SizedBox(width: 4),
+          Text(
+            label,
+            style: context.captionSmall.copyWith(color: context.textSecondary),
           ),
-          Center(
-            child: Container(
-              width: 60,
-              height: 60,
-              decoration: BoxDecoration(
-                color: const Color(0xFF00BFA5).withValues(alpha: 0.2),
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: const Color(0xFF00BFA5).withValues(alpha: 0.6),
-                  width: 2,
-                ),
-              ),
-              child: const Center(
-                child: Icon(
-                  Icons.location_city_rounded,
-                  color: Color(0xFF00BFA5),
-                  size: 24,
-                ),
-              ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildVipBadge() {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          colors: [Color(0xFFFFD700), Color(0xFFFFA500)],
+        ),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: const Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(Icons.workspace_premium, size: 12, color: Colors.white),
+          SizedBox(width: 2),
+          Text(
+            'VIP',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 10,
+              fontWeight: FontWeight.bold,
             ),
           ),
         ],
@@ -412,22 +360,139 @@ class SingleCommunityHeader extends ConsumerWidget {
     );
   }
 
-  Widget _buildGradientBackground() {
-    return Container(
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [Color(0xFF00BFA5), Color(0xFF00ACC1), Color(0xFF26C6DA)],
+  Widget _buildPresencePill(
+    BuildContext context,
+    AppLocalizations l10n,
+    PresenceState presenceState,
+  ) {
+    final community = widget.community;
+    if (presenceState.isOnline(community.id)) {
+      return Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            width: 8,
+            height: 8,
+            decoration: const BoxDecoration(
+              color: Colors.green,
+              shape: BoxShape.circle,
+            ),
+          ),
+          const SizedBox(width: 5),
+          Text(
+            l10n.onlineNow,
+            style: context.captionSmall.copyWith(
+              color: Colors.green,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ],
+      );
+    }
+    final lastSeen = presenceState.lastSeen[community.id];
+    if (lastSeen != null) {
+      return Text(
+        l10n.activeAgo(timeago.format(lastSeen)),
+        style: context.captionSmall.copyWith(color: context.textMuted),
+      );
+    }
+    return const SizedBox.shrink();
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Stat column (display only)
+// ---------------------------------------------------------------------------
+
+class _StatColumn extends StatelessWidget {
+  final String value;
+  final String label;
+
+  const _StatColumn({required this.value, required this.label});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          value,
+          style: context.titleMedium.copyWith(
+            fontWeight: FontWeight.w800,
+            fontSize: 18,
+          ),
         ),
-      ),
-      child: Center(
-        child: Icon(
-          Icons.location_off_rounded,
-          size: 48,
-          color: Colors.white.withValues(alpha: 0.3),
+        const SizedBox(height: 2),
+        Text(
+          label,
+          style: context.captionSmall.copyWith(color: context.textSecondary),
         ),
-      ),
+      ],
+    );
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Expandable bio (3-line collapse + "show more"/"show less")
+// ---------------------------------------------------------------------------
+
+class _ExpandableBio extends StatefulWidget {
+  final String bio;
+  const _ExpandableBio({required this.bio});
+
+  @override
+  State<_ExpandableBio> createState() => _ExpandableBioState();
+}
+
+class _ExpandableBioState extends State<_ExpandableBio> {
+  bool _expanded = false;
+  bool _isTruncated = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final style = context.bodySmall.copyWith(
+      color: context.textPrimary,
+      height: 1.4,
+    );
+
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        if (!_expanded) {
+          final painter = TextPainter(
+            text: TextSpan(text: widget.bio, style: style),
+            maxLines: 3,
+            textDirection: TextDirection.ltr,
+          )..layout(maxWidth: constraints.maxWidth);
+          _isTruncated = painter.didExceedMaxLines;
+        }
+
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              widget.bio,
+              style: style,
+              maxLines: _expanded ? null : 3,
+              overflow: _expanded ? TextOverflow.visible : TextOverflow.ellipsis,
+            ),
+            if (_isTruncated || _expanded)
+              GestureDetector(
+                onTap: () => setState(() => _expanded = !_expanded),
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 2),
+                  child: Text(
+                    _expanded ? l10n.showLess : l10n.showMore,
+                    style: context.captionSmall.copyWith(
+                      color: context.textSecondary,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ),
+          ],
+        );
+      },
     );
   }
 }
@@ -458,12 +523,7 @@ class SingleCommunityMoreMenu extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
     return PopupMenuButton<String>(
-      icon: Icon(
-        Icons.more_vert,
-        color: isScrolled
-            ? Theme.of(context).colorScheme.onSurface
-            : Colors.white,
-      ),
+      icon: Icon(Icons.more_vert, color: context.textPrimary),
       onSelected: (value) async {
         if (value == 'report') {
           showDialog(
@@ -531,37 +591,5 @@ class SingleCommunityMoreMenu extends ConsumerWidget {
           ),
       ],
     );
-  }
-}
-
-/// Opens the community's location in an external maps app (city-level, privacy-safe).
-Future<void> openLocationInMaps(
-  BuildContext context,
-  Community community, {
-  required String couldNotOpenMapsLabel,
-}) async {
-  final coords = community.location.coordinates;
-  if (coords.length < 2) return;
-  const decimals = 2;
-  final factor = math.pow(10, decimals);
-  final lon = (coords[0] * factor).round() / factor;
-  final lat = (coords[1] * factor).round() / factor;
-  final location = community.location;
-
-  final Uri mapsUrl = Uri.parse(
-    'https://www.openstreetmap.org/?mlat=$lat&mlon=$lon&zoom=10',
-  );
-
-  try {
-    await launchUrl(mapsUrl, mode: LaunchMode.externalApplication);
-  } catch (e) {
-    if (context.mounted) {
-      showCommunitySnackBar(
-        context,
-        message:
-            '$couldNotOpenMapsLabel: ${location.city}, ${location.country}',
-        type: CommunitySnackBarType.info,
-      );
-    }
   }
 }

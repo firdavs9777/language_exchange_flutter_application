@@ -7,6 +7,7 @@ import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
 import 'package:bananatalk_app/services/translation_service.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// Banana-accent card shown atop the "For You" feed tab that surfaces the
 /// deterministic prompt-of-the-day (see `promptOfDayProvider`, Task 5) and
@@ -35,10 +36,40 @@ class _PromptOfDayCardState extends ConsumerState<PromptOfDayCard> {
   static const Color _accent = Color(0xFFFFD54F);
   static const Color _accentDark = Color(0xFFC9A415);
 
+  static const String _dismissKey = 'prompt_of_day_dismissed_date';
+
   String? _translation; // fetched once, then toggled from memory
   bool _showTranslation = false;
   bool _translating = false;
   bool _translationFailed = false;
+  // When the user closes the card it stays hidden for the rest of the day so
+  // it doesn't push the actual moments feed down.
+  bool _dismissedToday = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadDismissed();
+  }
+
+  /// Today as a stable YYYY-M-D key (local time).
+  String get _todayKey {
+    final now = DateTime.now();
+    return '${now.year}-${now.month}-${now.day}';
+  }
+
+  Future<void> _loadDismissed() async {
+    final prefs = await SharedPreferences.getInstance();
+    if (prefs.getString(_dismissKey) == _todayKey && mounted) {
+      setState(() => _dismissedToday = true);
+    }
+  }
+
+  Future<void> _dismissForToday() async {
+    setState(() => _dismissedToday = true);
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_dismissKey, _todayKey);
+  }
 
   Future<void> _toggleTranslation(String prompt, String? sourceLanguage) async {
     if (_showTranslation) {
@@ -79,6 +110,9 @@ class _PromptOfDayCardState extends ConsumerState<PromptOfDayCard> {
 
   @override
   Widget build(BuildContext context) {
+    // Dismissed for today → don't render (keeps the moments feed uncluttered).
+    if (_dismissedToday) return const SizedBox.shrink();
+
     final promptAsync = ref.watch(promptOfDayProvider);
 
     return promptAsync.when(
@@ -95,9 +129,11 @@ class _PromptOfDayCardState extends ConsumerState<PromptOfDayCard> {
             ? ''
             : TranslationService.getLanguageName(langCode);
 
-        return Container(
+        return Stack(
+          children: [
+            Container(
           margin: const EdgeInsets.fromLTRB(16, 12, 16, 4),
-          padding: const EdgeInsets.all(12),
+          padding: const EdgeInsets.fromLTRB(12, 12, 28, 12),
           decoration: BoxDecoration(
             color: _accent.withValues(alpha: 0.16),
             borderRadius: BorderRadius.circular(16),
@@ -214,6 +250,28 @@ class _PromptOfDayCardState extends ConsumerState<PromptOfDayCard> {
               ),
             ],
           ),
+        ),
+            // Dismiss (X) — hides the card for the rest of the day.
+            Positioned(
+              top: 16,
+              right: 20,
+              child: Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  onTap: _dismissForToday,
+                  borderRadius: BorderRadius.circular(20),
+                  child: Padding(
+                    padding: const EdgeInsets.all(4),
+                    child: Icon(
+                      Icons.close_rounded,
+                      size: 16,
+                      color: context.textSecondary,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
         );
       },
       loading: () => const SizedBox.shrink(),

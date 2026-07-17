@@ -105,13 +105,13 @@ class ChatSocketStateManager {
             }
           } else {
             final messageData = data['message'] ?? data;
-            
+
             if (messageData is Map) {
               try {
-              final message = Message.fromJson(
-                Map<String, dynamic>.from(messageData),
-              );
-                
+              final normalized = Map<String, dynamic>.from(messageData);
+              _mergeSharedStoryReference(normalized, data);
+              final message = Message.fromJson(normalized);
+
               if (_isRelevantMessage(message)) {
                 onNewMessage?.call(message);
                 } else {
@@ -239,6 +239,30 @@ class ChatSocketStateManager {
             message.receiver.id == currentUserId) ||
         (message.sender.id == currentUserId &&
             message.receiver.id == chatPartnerId);
+  }
+
+  /// The backend's shareStory socket emit (controllers/stories.js
+  /// exports.shareStory) sends `{ message: <Message>, senderId, sharedStory:
+  /// {_id, mediaUrl, user} }` — `sharedStory` sits alongside the message,
+  /// not inside it. The controller now also persists `storyReference` and
+  /// `messageType: 'story_share'` directly on the Message document, so this
+  /// merge is a defensive fallback (guarded by the `storyReference != null`
+  /// early-return below) for messages created before that backend change —
+  /// see StoryShareMessageView's LEGACY NOTE for the counterpart case.
+  static void _mergeSharedStoryReference(
+    Map<String, dynamic> messageJson,
+    dynamic rawEvent,
+  ) {
+    if (messageJson['storyReference'] != null) return;
+    if (rawEvent is! Map) return;
+    final shared = rawEvent['sharedStory'];
+    if (shared is! Map) return;
+    final storyId = shared['_id']?.toString();
+    if (storyId == null || storyId.isEmpty) return;
+    messageJson['storyReference'] = {
+      'storyId': storyId,
+      'thumbnail': shared['mediaUrl'],
+    };
   }
 
   void requestUserStatus() {

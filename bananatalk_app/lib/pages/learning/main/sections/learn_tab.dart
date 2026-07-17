@@ -51,23 +51,18 @@ class LearnTab extends ConsumerWidget {
                 const ProgressHero(),
                 const SizedBox(height: 16),
 
-                // Weekly Digest Card
-                const WeeklyDigestCard(),
-
-                // AI Daily Practice Card
-                const DailyPracticeCard(),
-
-                // Ad Banner
-                const BannerAdWidget(),
-                const SizedBox(height: 16),
-
-                // Quick Stats
+                // ── Snapshot zone: stats + daily goals, grouped under hero ──
                 _buildQuickStats(context, progress, isDark),
+                const SizedBox(height: 20),
+                DailyGoalWidget(progress: progress),
                 const SizedBox(height: 24),
 
-                // Daily Goals
-                DailyGoalWidget(progress: progress),
-                const SizedBox(height: 28),
+                // ── Today zone: weekly digest + AI daily practice ──
+                const WeeklyDigestCard(),
+                const DailyPracticeCard(),
+                const SizedBox(height: 8),
+                const BannerAdWidget(),
+                const SizedBox(height: 20),
 
                 // Quick Actions — prominent, 2-column
                 _buildSectionHeader(context, AppLocalizations.of(context)!.quickActions),
@@ -87,6 +82,7 @@ class LearnTab extends ConsumerWidget {
                 _buildSectionHeader(
                   context,
                   AppLocalizations.of(context)!.dailyChallenges,
+                  accent: const Color(0xFFF59E0B),
                   onSeeAll: () => Navigator.push(
                     context,
                     AppPageRoute(builder: (_) => const ChallengesScreen()),
@@ -123,7 +119,11 @@ class LearnTab extends ConsumerWidget {
                 const SizedBox(height: 28),
 
                 // Continue Learning
-                _buildSectionHeader(context, AppLocalizations.of(context)!.continueLearning),
+                _buildSectionHeader(
+                  context,
+                  AppLocalizations.of(context)!.continueLearning,
+                  accent: const Color(0xFF00BFA5),
+                ),
                 const SizedBox(height: 12),
                 _buildLearningSections(context, isDark),
                 const SizedBox(height: 28),
@@ -249,10 +249,24 @@ class LearnTab extends ConsumerWidget {
     );
   }
 
-  Widget _buildSectionHeader(BuildContext context, String title, {VoidCallback? onSeeAll}) {
+  Widget _buildSectionHeader(
+    BuildContext context,
+    String title, {
+    VoidCallback? onSeeAll,
+    Color accent = const Color(0xFF667EEA),
+  }) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
+        // Accent bar — consistent, "designed" section headers across tabs.
+        Container(
+          width: 4,
+          height: 20,
+          decoration: BoxDecoration(
+            color: accent,
+            borderRadius: BorderRadius.circular(2),
+          ),
+        ),
+        const SizedBox(width: 8),
         Text(
           title,
           style: TextStyle(
@@ -262,18 +276,20 @@ class LearnTab extends ConsumerWidget {
             letterSpacing: -0.3,
           ),
         ),
-        if (onSeeAll != null)
+        if (onSeeAll != null) ...[
+          const Spacer(),
           GestureDetector(
             onTap: onSeeAll,
             child: Text(
               AppLocalizations.of(context)!.seeAll,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
-                color: Color(0xFF667EEA),
+                color: accent,
               ),
             ),
           ),
+        ],
       ],
     );
   }

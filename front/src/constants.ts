@@ -7,6 +7,7 @@ export const CONVERSATIONS_URL = "/api/v1/conversations";
 export const LOGIN_URL = "/api/v1/auth/login";
 export const REGISTER_URL = "/api/v1/auth/register";
 export const LOGOUT_URL = "/api/v1/auth/logout";
+export const ACCEPT_TERMS_URL = "/api/v1/auth/accept-terms";
 
 // router.post('/forgot-password', forgotPassword);
 // router.post('/verify-reset-code', verifyResetCode);
@@ -29,9 +30,14 @@ export const USER_STORIES = "/api/v1/stories/user/";
 
 // Community & Discovery
 export const COMMUNITY_NEARBY = "/api/v1/community/nearby";
+// NOTE: singular "wave" — real backend route for POST (send a wave).
 export const COMMUNITY_WAVES = "/api/v1/community/wave";
+// Plural "waves" — real backend routes for GET (list) / PUT (mark read).
+// Distinct from COMMUNITY_WAVES on purpose; do not conflate the two.
+export const COMMUNITY_WAVES_LIST = "/api/v1/community/waves";
 export const COMMUNITY_TOPICS = "/api/v1/community/topics";
 export const LANGUAGES_URL = "/api/v1/languages";
+export const COMMUNITY_COUNT_URL = "/api/v1/auth/users/count";
 
 // Profile Visitors
 export const PROFILE_VISITORS = "/api/v1/auth/users";
@@ -44,3 +50,8 @@ export const VIP_URL = "/api/v1/vip";
 
 // Block & Report
 export const BLOCK_USER_URL = "/api/v1/users";
+
+// Username & Geocode
+export const CHECK_USERNAME_URL = "/api/v1/auth/users/check-username";
+export const GEOCODE_REVERSE_URL = "/api/v1/geocode/reverse";
+export const GEOCODE_FORWARD_URL = "/api/v1/geocode/forward";

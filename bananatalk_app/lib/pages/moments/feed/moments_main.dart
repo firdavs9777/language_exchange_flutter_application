@@ -13,6 +13,7 @@ import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/user_limits_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/block_provider.dart';
 import 'package:bananatalk_app/pages/moments/feed/muted_users_provider.dart';
+import 'package:bananatalk_app/pages/menu_tab/TabBarMenu.dart' show selectedTabProvider;
 import 'package:bananatalk_app/pages/moments/reels/reels_grid_screen.dart';
 import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
 import 'package:bananatalk_app/utils/feature_gate.dart';
@@ -29,6 +30,12 @@ import 'package:bananatalk_app/pages/stories/create/create_story_screen.dart';
 import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
 
 const String _momentFilterKey = 'moment_filter';
+
+/// Index of the Moments tab in `TabsScreen`'s page list (see
+/// `lib/pages/menu_tab/TabBarMenu.dart`'s "Tab order" comment) — used to
+/// trigger a stale-while-revalidate refresh when the user switches back
+/// into this tab.
+const int _momentsTabIndex = 3;
 
 /// Persisted moment filter provider - loads from SharedPreferences on init
 class MomentFilterNotifier extends StateNotifier<MomentFilter> {
@@ -208,6 +215,20 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
   final ValueNotifier<int> _storiesRefreshNotifier = ValueNotifier(0);
 
   @override
+  void initState() {
+    super.initState();
+    // Stale-while-revalidate: pick up new moments on first mount if the
+    // feed hasn't been fetched in the last 60s, without a spinner flash
+    // (see `refreshMomentsIfStale` / the `skipLoadingOn*` flags on
+    // `MomentsFeedWidget`'s `.when(...)`). Deferred to a post-frame
+    // callback since invalidating providers during initState throws.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      refreshMomentsIfStale(ref);
+    });
+  }
+
+  @override
   void dispose() {
     _scrollController.dispose();
     _searchController.dispose();
@@ -277,6 +298,14 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
 
   @override
   Widget build(BuildContext context) {
+    // Stale-while-revalidate: silently refresh the feed whenever the user
+    // navigates back into the Moments tab (e.g. from Chats/Profile), so a
+    // moment posted elsewhere shows up without a manual pull-to-refresh.
+    ref.listen<int>(selectedTabProvider, (previous, next) {
+      if (next == _momentsTabIndex) {
+        refreshMomentsIfStale(ref);
+      }
+    });
     final currentFilter = ref.watch(momentFilterProvider);
     final activeTab = ref.watch(momentsFeedTabProvider);
     final reelsEnabled = ref.watch(appConfigProvider).maybeWhen(

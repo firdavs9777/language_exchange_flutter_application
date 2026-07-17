@@ -2,7 +2,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:app_settings/app_settings.dart';
+import 'package:share_plus/share_plus.dart';
 
 import 'package:bananatalk_app/pages/chat/conversation/chat_conversation_screen.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
@@ -11,12 +11,8 @@ import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/user_limits_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/block_provider.dart';
 import 'package:bananatalk_app/providers/message_count_provider.dart';
-import 'package:bananatalk_app/providers/call_provider.dart';
-import 'package:bananatalk_app/models/call_model.dart';
-import 'package:bananatalk_app/screens/active_call_screen.dart';
-import 'package:bananatalk_app/router/app_router.dart'
-    show callOverlayNavigatorKey;
 import 'package:bananatalk_app/services/block_service.dart';
+import 'package:bananatalk_app/services/link_constants.dart';
 import 'package:bananatalk_app/services/profile_visitor_service.dart';
 import 'package:bananatalk_app/utils/feature_gate.dart';
 import 'package:bananatalk_app/widgets/limit_exceeded_dialog.dart';
@@ -26,10 +22,11 @@ import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/pages/community/widgets/community_snackbar.dart';
+import 'package:bananatalk_app/pages/moments/viewer/image_viewer.dart';
+import 'package:bananatalk_app/pages/stories/viewer/story_viewer_launcher.dart';
 
 import 'package:bananatalk_app/pages/community/single/single_community_header.dart';
 import 'package:bananatalk_app/pages/community/single/single_community_actions.dart';
-import 'package:bananatalk_app/pages/community/single/single_community_overview.dart';
 import 'package:bananatalk_app/pages/community/single/single_community_about.dart';
 import 'package:bananatalk_app/pages/community/single/single_community_moments.dart';
 import 'package:bananatalk_app/pages/stories/highlights/highlights_row.dart';
@@ -59,7 +56,7 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 2, vsync: this);
     _initializeUserState();
     // Populate the message-count cache so the call-button gate has
     // accurate data before the user opens the chat. Best-effort: the
@@ -382,6 +379,13 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
   // Navigation helpers
   // ---------------------------------------------------------------------------
 
+  void _shareCommunity() {
+    final l10n = AppLocalizations.of(context)!;
+    final communityText = l10n.checkOutCommunity;
+    final communityUrl = shareUrl('community', _community.id.toString());
+    Share.share('$communityText\n\n$communityUrl');
+  }
+
   void _copyUsername(String username) {
     Clipboard.setData(ClipboardData(text: username));
     if (mounted) {
@@ -429,133 +433,31 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
     );
   }
 
-  Future<void> _makeVideoCall() async {
-    final l10n = AppLocalizations.of(context)!;
-    if (userId.isEmpty) {
-      showCommunitySnackBar(
+  // Opens the existing profile-photo gallery view — the fallback used both
+  // when the avatar has no active story and when [StoryViewerLauncher]
+  // finds nothing to show (e.g. the story expired between load and tap).
+  void _openProfilePhotoView() {
+    final urls = _getImageUrls();
+    if (urls.isNotEmpty) {
+      Navigator.push(
         context,
-        message: l10n.pleaseLoginToCall,
-        type: CommunitySnackBarType.error,
+        AppPageRoute(builder: (context) => ImageGallery(imageUrls: urls)),
       );
-      return;
     }
-    if (userId == _community.id) {
-      showCommunitySnackBar(
-        context,
-        message: l10n.cannotCallYourself,
-        type: CommunitySnackBarType.info,
-      );
-      return;
-    }
-
-    try {
-      final callNotifier = ref.read(callProvider.notifier);
-      callNotifier.setCallErrorCallback((error) {
-        if (mounted) _handleCallError(context, error);
-      });
-      await callNotifier.initiateCall(
-        _community.id,
-        _community.name,
-        _getProfileImageUrl(),
-        CallType.video,
-      );
-      if (mounted) {
-        final currentCall = callNotifier.currentCall;
-        if (currentCall != null) {
-          callOverlayNavigatorKey.currentState?.push(
-            AppPageRoute(
-              builder: (_) => ActiveCallScreen(call: currentCall),
-              fullscreenDialog: true,
-            ),
-          );
-        }
-      }
-    } catch (_) {}
   }
 
-  Future<void> _makeVoiceCall() async {
-    final l10n = AppLocalizations.of(context)!;
-    if (userId.isEmpty) {
-      showCommunitySnackBar(
+  // Avatar tap: open the active story via the same launcher Task 11 wired
+  // up elsewhere (chat list, community discovery cards) when this user has
+  // one; otherwise go straight to the profile-photo view.
+  void _onAvatarTap() {
+    if (_community.hasActiveStory) {
+      StoryViewerLauncher.open(
         context,
-        message: l10n.pleaseLoginToCall,
-        type: CommunitySnackBarType.error,
-      );
-      return;
-    }
-    if (userId == _community.id) {
-      showCommunitySnackBar(
-        context,
-        message: l10n.cannotCallYourself,
-        type: CommunitySnackBarType.info,
-      );
-      return;
-    }
-
-    try {
-      final callNotifier = ref.read(callProvider.notifier);
-      callNotifier.setCallErrorCallback((error) {
-        if (mounted) _handleCallError(context, error);
-      });
-      await callNotifier.initiateCall(
-        _community.id,
-        _community.name,
-        _getProfileImageUrl(),
-        CallType.audio,
-      );
-      if (mounted) {
-        final currentCall = callNotifier.currentCall;
-        if (currentCall != null) {
-          callOverlayNavigatorKey.currentState?.push(
-            AppPageRoute(
-              builder: (_) => ActiveCallScreen(call: currentCall),
-              fullscreenDialog: true,
-            ),
-          );
-        }
-      }
-    } catch (_) {}
-  }
-
-  void _handleCallError(BuildContext context, String error) {
-    final l10n = AppLocalizations.of(context)!;
-    if (error.startsWith('PERMANENTLY_DENIED:')) {
-      final message = error.substring('PERMANENTLY_DENIED:'.length);
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: Text(l10n.permissionsRequired),
-          content: Text(message),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: Text(l10n.cancel),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-                AppSettings.openAppSettings();
-              },
-              child: Text(l10n.openSettings),
-            ),
-          ],
-        ),
-      );
-    } else if (error.startsWith('DENIED:')) {
-      final message = error.substring('DENIED:'.length);
-      showCommunitySnackBar(
-        context,
-        message: message,
-        type: CommunitySnackBarType.info,
-        duration: const Duration(seconds: 3),
+        userId: _community.id,
+        fallback: _openProfilePhotoView,
       );
     } else {
-      showCommunitySnackBar(
-        context,
-        message: error,
-        type: CommunitySnackBarType.error,
-        duration: const Duration(seconds: 3),
-      );
+      _openProfilePhotoView();
     }
   }
 
@@ -571,32 +473,32 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
     final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
+      backgroundColor: context.scaffoldBackground,
       body: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) {
           return [
-            // Hero header sliver
+            // Name-only app bar — the visual "hero" is now the ringed
+            // avatar inside SingleCommunityHeader, not a background image.
             SliverAppBar(
-              expandedHeight: 280,
               pinned: true,
-              backgroundColor: Theme.of(context).colorScheme.surface,
-              foregroundColor: Theme.of(context).colorScheme.onSurface,
-              title: innerBoxIsScrolled
-                  ? Text(
-                      age != null
-                          ? '${_community.name}, $age'
-                          : _community.name,
-                    )
-                  : null,
+              backgroundColor: context.surfaceColor,
+              foregroundColor: context.textPrimary,
+              elevation: 0,
+              scrolledUnderElevation: 0.5,
+              title: Text(
+                _community.name,
+                style: context.titleLarge.copyWith(fontWeight: FontWeight.w700),
+              ),
               actions: [
                 IconButton(
-                  icon: Icon(
-                    Icons.refresh_rounded,
-                    color: innerBoxIsScrolled
-                        ? Theme.of(context).colorScheme.onSurfaceVariant
-                        : Colors.white,
-                  ),
+                  icon: const Icon(Icons.refresh_rounded),
                   tooltip: AppLocalizations.of(context)!.communityRefresh,
                   onPressed: _refreshProfile,
+                ),
+                IconButton(
+                  icon: const Icon(Icons.share_outlined),
+                  tooltip: l10n.checkOutCommunity,
+                  onPressed: _shareCommunity,
                 ),
                 if (userId.isNotEmpty && userId != _community.id)
                   SingleCommunityMoreMenu(
@@ -609,29 +511,30 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
                     onUnblock: _handleUnblock,
                   ),
               ],
-              flexibleSpace: FlexibleSpaceBar(
-                background: SingleCommunityHeader(
-                  community: _community,
-                  age: age,
-                  locationText: locationText,
-                  onCopyUsername: () {
-                    if (_community.displayUsername != null) {
-                      _copyUsername(_community.displayUsername!);
-                    }
-                  },
-                  imageUrls: _getImageUrls(),
-                  profileImageUrl: _getProfileImageUrl(),
-                ),
+            ),
+
+            // Header: ringed avatar + display-only stats, name/language
+            // line, collapsed bio.
+            SliverToBoxAdapter(
+              child: SingleCommunityHeader(
+                community: _community,
+                age: age,
+                locationText: locationText,
+                onCopyUsername: () {
+                  if (_community.displayUsername != null) {
+                    _copyUsername(_community.displayUsername!);
+                  }
+                },
+                profileImageUrl: _getProfileImageUrl(),
+                onAvatarTap: _onAvatarTap,
               ),
             ),
 
-            // Action buttons row (pinned below header)
+            // Action buttons row (Follow / Message / Wave)
             SliverToBoxAdapter(
               child: SingleCommunityActions(
                 community: _community,
                 isFollower: isFollower,
-                onVideoCall: _makeVideoCall,
-                onVoiceCall: _makeVoiceCall,
                 onMessage: _navigateToChat,
                 onFollowToggle: isFollower ? _unfollowUser : _followUser,
               ),
@@ -646,7 +549,7 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
               ),
             ),
 
-            // Tab bar (pinned)
+            // Tab bar (pinned) — grid (Moments) / info (About)
             SliverPersistentHeader(
               pinned: true,
               delegate: _SliverTabBarDelegate(
@@ -656,14 +559,19 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
                   unselectedLabelColor: context.textSecondary,
                   indicatorColor: AppColors.primary,
                   indicatorWeight: 3,
-                  labelStyle: const TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 14,
-                  ),
                   tabs: [
-                    Tab(text: l10n.overview),
-                    Tab(text: l10n.about),
-                    Tab(text: l10n.moments),
+                    Tab(
+                      icon: Icon(
+                        Icons.grid_on_rounded,
+                        semanticLabel: l10n.moments,
+                      ),
+                    ),
+                    Tab(
+                      icon: Icon(
+                        Icons.info_outline_rounded,
+                        semanticLabel: l10n.about,
+                      ),
+                    ),
                   ],
                 ),
                 context.surfaceColor,
@@ -674,15 +582,11 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
         body: TabBarView(
           controller: _tabController,
           children: [
-            SingleCommunityOverview(
-              community: _community,
-              onMessage: _navigateToChat,
-            ),
-            SingleCommunityAbout(community: _community),
             SingleCommunityMoments(
               community: _community,
               profileImageUrl: _getProfileImageUrl(),
             ),
+            SingleCommunityAbout(community: _community),
           ],
         ),
       ),

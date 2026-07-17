@@ -1,2 +1,9 @@
 # https://www.robotstxt.org/robotstxt.html
+
+# Allow all crawlers full access to the public site.
 User-agent: *
+Allow: /
+
+# Point crawlers at the sitemap so they discover pages reliably
+# instead of relying on link-following alone.
+Sitemap: https://banatalk.com/sitemap.xml

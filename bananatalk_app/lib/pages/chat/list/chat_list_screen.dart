@@ -18,6 +18,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/services/conversation_service.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:bananatalk_app/pages/chat/widgets/chat_snackbar.dart';
+import 'package:bananatalk_app/pages/stories/viewer/story_viewer_launcher.dart';
 import 'package:bananatalk_app/pages/chat/models/chat_partner.dart';
 import 'package:bananatalk_app/pages/chat/drafts/chat_draft_service.dart';
 import 'package:bananatalk_app/pages/chat/list/chat_list_tile.dart';
@@ -519,6 +520,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
         nativeLanguage: data.nativeLanguage,
         country: data.country,
         lastMessageSenderId: data.lastMessage?.senderId,
+        hasActiveStory: data.hasActiveStory,
       );
     }).toList();
 
@@ -1219,6 +1221,12 @@ class _ChatMainState extends ConsumerState<ChatMain>
               onPin: _handlePinConversation,
               onMute: _handleMuteConversation,
               onDelete: _handleDeleteConversation,
+              onAvatarTap: () => StoryViewerLauncher.open(
+                context,
+                userId: partner.id,
+                fallback: () =>
+                    _onSelectUser(partner.id, partner.name, partner.avatar),
+              ),
             )
                 .animate()
                 .fadeIn(duration: 300.ms, delay: delay)
@@ -1278,26 +1286,47 @@ class _ChatMainState extends ConsumerState<ChatMain>
         ),
         actions: [
           const CoinBalancePill(),
-          IconButton(
-            icon: Icon(
-              Icons.qr_code_rounded,
-              color: colors.onBackground,
-              size: 26,
-            ),
-            tooltip: 'QR Code',
-            onPressed: _showQrSheet,
-          ),
-          IconButton(
-            icon: Icon(
-              Icons.person_add_alt_1_outlined,
-              color: colors.onBackground,
-              size: 26,
-            ),
-            tooltip: AppLocalizations.of(context)!.chatListNewChatByUsernameTooltip,
-            onPressed: _showNewChatDialog,
-          ),
           NotificationBell(color: colors.onBackground),
-          const SizedBox(width: 8),
+          // Secondary actions (QR, new chat) tucked into an overflow menu to
+          // keep the app bar uncluttered.
+          PopupMenuButton<String>(
+            icon: Icon(Icons.more_vert_rounded, color: colors.onBackground),
+            tooltip: AppLocalizations.of(context)!.more,
+            onSelected: (value) {
+              switch (value) {
+                case 'qr':
+                  _showQrSheet();
+                  break;
+                case 'new_chat':
+                  _showNewChatDialog();
+                  break;
+              }
+            },
+            itemBuilder: (context) => [
+              const PopupMenuItem(
+                value: 'qr',
+                child: Row(
+                  children: [
+                    Icon(Icons.qr_code_rounded, size: 20),
+                    SizedBox(width: 12),
+                    Text('QR Code'),
+                  ],
+                ),
+              ),
+              PopupMenuItem(
+                value: 'new_chat',
+                child: Row(
+                  children: [
+                    const Icon(Icons.person_add_alt_1_outlined, size: 20),
+                    const SizedBox(width: 12),
+                    Text(AppLocalizations.of(context)!
+                        .chatListNewChatByUsernameTooltip),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(width: 4),
         ],
       ),
 

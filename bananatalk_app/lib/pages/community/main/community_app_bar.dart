@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
-import 'package:bananatalk_app/widgets/vip_up_pill.dart';
 import 'package:bananatalk_app/widgets/coins/coin_balance_pill.dart';
 import 'package:bananatalk_app/widgets/notifications/notification_bell.dart';
+import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
+import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:go_router/go_router.dart';
 
 /// AppBar for the Community screen.
@@ -43,38 +44,11 @@ class CommunityAppBar extends StatelessWidget implements PreferredSizeWidget {
           onPressed: () => Scaffold.of(ctx).openDrawer(),
         ),
       ),
-      title: isSearching
-          ? null
-          : Text(
-              AppLocalizations.of(context)!.community,
-              style: context.displayMedium.copyWith(
-                fontWeight: FontWeight.w800,
-                letterSpacing: -0.5,
-              ),
-            ),
       actions: [
-        // Notification inbox — reachable from every tab, not just chat.
-        NotificationBell(color: context.textPrimary),
-        // VIP upgrade entry — same gold pill used in the chat list.
-        const VipUpPill(),
         // Coin balance — Coins v1 entry point, hidden when coinsEnabled is off.
         const CoinBalancePill(),
-        // Smart Match — soft primary-tinted pill to signal the AI feature.
-        Container(
-          margin: const EdgeInsets.symmetric(vertical: 8),
-          decoration: BoxDecoration(
-            color: AppColors.primary.withValues(alpha: 0.12),
-            borderRadius: AppRadius.borderMD,
-          ),
-          child: IconButton(
-            onPressed: () => context.push('/matching'),
-            icon: const Icon(
-              Icons.auto_awesome_rounded,
-              color: AppColors.primary,
-            ),
-            tooltip: AppLocalizations.of(context)!.findPartners,
-          ),
-        ),
+        // Notification inbox — reachable from every tab, not just chat.
+        NotificationBell(color: context.textPrimary),
         // Search toggle — bare neutral, lowest weight.
         IconButton(
           onPressed: onSearchToggle,
@@ -95,6 +69,48 @@ class CommunityAppBar extends StatelessWidget implements PreferredSizeWidget {
             icon: Icon(Icons.tune_rounded, color: colorScheme.onPrimary),
             tooltip: AppLocalizations.of(context)!.filters,
           ),
+        ),
+        // Overflow — Smart Match + VIP upgrade moved here to declutter the bar.
+        PopupMenuButton<String>(
+          icon: Icon(Icons.more_vert_rounded, color: context.textPrimary),
+          tooltip: AppLocalizations.of(context)!.more,
+          onSelected: (value) {
+            switch (value) {
+              case 'smart_match':
+                context.push('/matching');
+                break;
+              case 'vip':
+                Navigator.push(
+                  context,
+                  AppPageRoute(builder: (_) => const VipPlansScreen()),
+                );
+                break;
+            }
+          },
+          itemBuilder: (context) => [
+            PopupMenuItem(
+              value: 'smart_match',
+              child: Row(
+                children: [
+                  const Icon(Icons.auto_awesome_rounded,
+                      size: 20, color: AppColors.primary),
+                  const SizedBox(width: 12),
+                  Text(AppLocalizations.of(context)!.findPartners),
+                ],
+              ),
+            ),
+            const PopupMenuItem(
+              value: 'vip',
+              child: Row(
+                children: [
+                  Icon(Icons.workspace_premium_rounded,
+                      size: 20, color: Color(0xFFFFA000)),
+                  SizedBox(width: 12),
+                  Text('Go VIP'),
+                ],
+              ),
+            ),
+          ],
         ),
       ],
     );

@@ -148,16 +148,6 @@ class _LearningMainState extends ConsumerState<LearningMain>
                                   letterSpacing: -0.5,
                                 ),
                               ),
-                              const SizedBox(height: 2),
-                              Text(
-                                AppLocalizations.of(context)!.dailyLearningJourney,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  color: Colors.white.withValues(alpha: 0.8),
-                                  fontSize: 13,
-                                ),
-                              ),
                             ],
                           ),
                         ),
@@ -220,46 +210,51 @@ class _LearningMainState extends ConsumerState<LearningMain>
         const SizedBox(width: 4),
         // Notification inbox — white icon to read on the purple gradient.
         const NotificationBell(color: Colors.white),
-        const SizedBox(width: 8),
-        _HeaderIconButton(
-          icon: Icons.leaderboard_rounded,
-          onTap: () => Navigator.push(
-            context,
-            AppPageRoute(builder: (_) => const LeaderboardScreen()),
-          ),
-        ),
-        const SizedBox(width: 8),
-        _HeaderIconButton(
-          icon: Icons.emoji_events_rounded,
-          onTap: () => Navigator.push(
-            context,
-            AppPageRoute(builder: (_) => const AchievementsScreen()),
-          ),
+        const SizedBox(width: 4),
+        // Leaderboard + Achievements tucked into an overflow menu.
+        PopupMenuButton<String>(
+          icon: const Icon(Icons.more_vert_rounded, color: Colors.white),
+          tooltip: AppLocalizations.of(context)!.more,
+          onSelected: (value) {
+            switch (value) {
+              case 'leaderboard':
+                Navigator.push(
+                  context,
+                  AppPageRoute(builder: (_) => const LeaderboardScreen()),
+                );
+                break;
+              case 'achievements':
+                Navigator.push(
+                  context,
+                  AppPageRoute(builder: (_) => const AchievementsScreen()),
+                );
+                break;
+            }
+          },
+          itemBuilder: (context) => const [
+            PopupMenuItem(
+              value: 'leaderboard',
+              child: Row(
+                children: [
+                  Icon(Icons.leaderboard_rounded, size: 20),
+                  SizedBox(width: 12),
+                  Text('Leaderboard'),
+                ],
+              ),
+            ),
+            PopupMenuItem(
+              value: 'achievements',
+              child: Row(
+                children: [
+                  Icon(Icons.emoji_events_rounded, size: 20),
+                  SizedBox(width: 12),
+                  Text('Achievements'),
+                ],
+              ),
+            ),
+          ],
         ),
       ],
-    );
-  }
-}
-
-class _HeaderIconButton extends StatelessWidget {
-  final IconData icon;
-  final VoidCallback onTap;
-
-  const _HeaderIconButton({required this.icon, required this.onTap});
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        width: 40,
-        height: 40,
-        decoration: BoxDecoration(
-          color: Colors.white.withValues(alpha: 0.2),
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Icon(icon, color: Colors.white, size: 20),
-      ),
     );
   }
 }

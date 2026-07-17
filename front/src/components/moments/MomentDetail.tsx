@@ -13,11 +13,11 @@ import {
   FaRegComments,
   FaTag,
 } from "react-icons/fa";
-import { IoMdShare } from "react-icons/io";
 import { useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Bounce, toast } from "react-toastify";
 import ImageLightbox from "./ImageLightbox";
+import ShareButton from "../linking/ShareButton";
 
 // API hooks
 import {
@@ -375,54 +375,8 @@ const MomentDetail: React.FC = () => {
     navigate('/moments');
   }, [navigate]);
 
-  // Share handler with native sharing support
-  const handleShare = useCallback(
-    async (e: React.MouseEvent) => {
-      e.preventDefault();
-
-      if (!momentDetails) return;
-
-      const shareData = {
-        title:
-          momentDetails.title ||
-          t("moments_section.share.fallbackTitle") ||
-          "Check out this moment",
-        text: momentDetails.description,
-        url: `${window.location.origin}/moment/${momentId}`,
-      };
-
-      if (navigator.share && navigator.canShare?.(shareData)) {
-        try {
-          await navigator.share(shareData);
-          toast.success(
-            t("moments_section.share.success") || "Shared successfully!",
-            { autoClose: 2000, theme: "colored" }
-          );
-        } catch (error) {
-          // User cancelled sharing
-          if ((error as Error).name !== "AbortError") {
-            console.error("Error sharing:", error);
-          }
-        }
-      } else {
-        // Fallback to clipboard
-        try {
-          await navigator.clipboard.writeText(shareData.url);
-          toast.success(
-            t("moments_section.share.copied") || "Link copied to clipboard!",
-            { autoClose: 2000, theme: "colored" }
-          );
-        } catch (error) {
-          console.error("Error copying to clipboard:", error);
-          toast.error(t("moments_section.share.failed") || "Failed to copy link", {
-            autoClose: 3000,
-            theme: "colored",
-          });
-        }
-      }
-    },
-    [momentDetails, momentId]
-  );
+  // Share handled by the shared <ShareButton> component (uses shareUrl +
+  // shareContent), rendered in the action bar below.
 
   // OPTIMIZED: Like toggle with optimistic updates and no double refetch
   const handleLikeToggle = useCallback(
@@ -745,15 +699,13 @@ const MomentDetail: React.FC = () => {
               </span>
             </button>
 
-            <button
-              onClick={handleShare}
+            <ShareButton
+              type="moment"
+              id={momentId || ""}
+              title={momentDetails.title}
+              text={momentDetails.description}
               className="flex-1 flex items-center justify-center gap-1.5 sm:gap-2 py-3 sm:py-4 text-gray-600 hover:text-blue-600 hover:bg-blue-50 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-400/50"
-            >
-              <IoMdShare className="w-4 h-4 sm:w-5 sm:h-5" />
-              <span className="font-medium text-xs sm:text-sm hidden sm:inline">
-                {t("moments_section.shareButton")}
-              </span>
-            </button>
+            />
           </div>
 
           {/* Comments Section */}

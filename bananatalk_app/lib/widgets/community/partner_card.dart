@@ -7,6 +7,7 @@ import 'package:bananatalk_app/widgets/community/topic_chip.dart';
 import 'package:bananatalk_app/utils/language_flags.dart';
 import 'package:bananatalk_app/utils/image_utils.dart';
 import 'package:bananatalk_app/utils/privacy_utils.dart';
+import 'package:bananatalk_app/widgets/story/story_gradient_ring.dart';
 
 /// Swipeable partner card for discovery
 class PartnerCard extends StatelessWidget {
@@ -15,6 +16,12 @@ class PartnerCard extends StatelessWidget {
   final VoidCallback? onSkip;
   final VoidCallback? onWave;
   final VoidCallback? onMessage;
+  /// Called when the mini avatar badge (shown only when
+  /// [user.hasActiveStory]) is tapped — opens the story viewer. The card
+  /// itself has no discrete circular avatar (it's a full-bleed photo), so
+  /// this small badge is the tap target for "avatar tap"; the rest of the
+  /// card keeps its existing tap/swipe behavior via [onTap].
+  final VoidCallback? onAvatarTap;
 
   const PartnerCard({
     super.key,
@@ -23,6 +30,7 @@ class PartnerCard extends StatelessWidget {
     this.onSkip,
     this.onWave,
     this.onMessage,
+    this.onAvatarTap,
   });
 
   @override
@@ -82,6 +90,40 @@ class PartnerCard extends StatelessWidget {
     return _buildFallbackContent();
   }
 
+  /// Small circular avatar badge shown (only when [user.hasActiveStory])
+  /// in the top-left of the card, wrapped in the gradient story ring —
+  /// tapping it opens the story viewer via [onAvatarTap].
+  Widget _buildMiniAvatarBadge() {
+    final profileImage = user.profileImageUrl;
+    final avatar = ClipOval(
+      child: Container(
+        width: 32,
+        height: 32,
+        color: Colors.white.withValues(alpha: 0.2),
+        child: profileImage != null
+            ? CachedImageWidget(
+                imageUrl: profileImage,
+                width: 32,
+                height: 32,
+                fit: BoxFit.cover,
+                errorWidget: const Icon(Icons.person, color: Colors.white, size: 18),
+              )
+            : const Icon(Icons.person, color: Colors.white, size: 18),
+      ),
+    );
+
+    return GestureDetector(
+      onTap: onAvatarTap,
+      child: StoryGradientRing(
+        size: 40,
+        strokeWidth: 2,
+        hasStory: true,
+        animate: false,
+        child: avatar,
+      ),
+    );
+  }
+
   Widget _buildFallbackContent() {
     return Container(
       decoration: const BoxDecoration(
@@ -135,6 +177,13 @@ class PartnerCard extends StatelessWidget {
           padding: const EdgeInsets.all(14),
           child: Row(
               children: [
+                // Mini avatar badge — the card has no other discrete
+                // circular avatar (it's a full-bleed photo), so this is the
+                // tap target that lights up with the story ring.
+                if (user.hasActiveStory) ...[
+                  _buildMiniAvatarBadge(),
+                  const SizedBox(width: 8),
+                ],
                 if (PrivacyUtils.shouldShowOnlineStatus(user) && user.isOnline)
                   Container(
                     padding: const EdgeInsets.symmetric(

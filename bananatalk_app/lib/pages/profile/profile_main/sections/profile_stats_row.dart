@@ -65,9 +65,7 @@ class ProfileStatsRow extends ConsumerWidget {
                         followerIds: user.followers,
                       ),
                     ),
-                  ).then(
-                    (_) => ref.invalidate(userProvider),
-                  );
+                  ).then((_) => ref.invalidate(userProvider));
                 },
               ),
             ),
@@ -78,7 +76,7 @@ class ProfileStatsRow extends ConsumerWidget {
                 value: user.followings.length.toString(),
                 label: l10n.following,
                 icon: Icons.person_add_rounded,
-                color: const Color(0xFF2196F3),
+                color: AppColors.secondaryDark,
                 onTap: () {
                   Navigator.push(
                     context,
@@ -88,9 +86,7 @@ class ProfileStatsRow extends ConsumerWidget {
                         followingIds: user.followings,
                       ),
                     ),
-                  ).then(
-                    (_) => ref.invalidate(userProvider),
-                  );
+                  ).then((_) => ref.invalidate(userProvider));
                 },
               ),
             ),
@@ -105,7 +101,7 @@ class ProfileStatsRow extends ConsumerWidget {
                       value: moments.length.toString(),
                       label: l10n.moments,
                       icon: Icons.photo_library_rounded,
-                      color: const Color(0xFF9C27B0),
+                      color: AppColors.accent,
                       onTap: () {
                         Navigator.push(
                           context,
@@ -121,14 +117,14 @@ class ProfileStatsRow extends ConsumerWidget {
                       value: '...',
                       label: l10n.moments,
                       icon: Icons.photo_library_rounded,
-                      color: const Color(0xFF9C27B0),
+                      color: AppColors.accent,
                       onTap: () {},
                     ),
                     error: (_, __) => _StatItem(
                       value: '0',
                       label: l10n.moments,
                       icon: Icons.photo_library_rounded,
-                      color: const Color(0xFF9C27B0),
+                      color: AppColors.accent,
                       onTap: () {},
                     ),
                   );
@@ -146,8 +142,7 @@ class ProfileStatsRow extends ConsumerWidget {
                     Navigator.push(
                       context,
                       AppPageRoute(
-                        builder: (_) =>
-                            ProfileVisitorsScreen(userId: user.id),
+                        builder: (_) => ProfileVisitorsScreen(userId: user.id),
                       ),
                     );
                   }
@@ -157,7 +152,7 @@ class ProfileStatsRow extends ConsumerWidget {
                       value: '...',
                       label: l10n.visitors,
                       icon: Icons.visibility_rounded,
-                      color: const Color(0xFFFF9800),
+                      color: AppColors.warning,
                       onTap: () {},
                       lockedForVip: false,
                     ),
@@ -165,7 +160,7 @@ class ProfileStatsRow extends ConsumerWidget {
                       value: '0',
                       label: l10n.visitors,
                       icon: Icons.visibility_rounded,
-                      color: const Color(0xFFFF9800),
+                      color: AppColors.warning,
                       onTap: openVisitors,
                       lockedForVip: false,
                     ),
@@ -178,7 +173,7 @@ class ProfileStatsRow extends ConsumerWidget {
                             : '0',
                         label: l10n.visitors,
                         icon: Icons.visibility_rounded,
-                        color: const Color(0xFFFF9800),
+                        color: AppColors.warning,
                         onTap: openVisitors,
                         lockedForVip: false,
                       );

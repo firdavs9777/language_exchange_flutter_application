@@ -872,6 +872,10 @@ class ChatPartnerData {
   /// when the partner hides their country). Drives the country-first
   /// avatar flag badge in the chat list.
   final String? country;
+  /// Whether the partner currently has >=1 active story visible to the
+  /// viewer (privacy-filtered server-side). Drives the gradient story ring
+  /// on the chat-list avatar.
+  final bool hasActiveStory;
 
   ChatPartnerData({
     required this.id,
@@ -886,6 +890,7 @@ class ChatPartnerData {
     this.conversationId,
     this.nativeLanguage,
     this.country,
+    this.hasActiveStory = false,
   });
 
   factory ChatPartnerData.fromJson(Map<String, dynamic> json) {
@@ -909,6 +914,7 @@ class ChatPartnerData {
       country: (json['country']?.toString().isNotEmpty ?? false)
           ? json['country'].toString()
           : null,
+      hasActiveStory: json['hasActiveStory'] == true,
     );
   }
 

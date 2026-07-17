@@ -173,8 +173,31 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
       // Refresh comments list to show the confirmed comment
       ref.invalidate(commentsProvider(widget.id));
 
-      // Refresh the moment to update comment count
+      // Also refresh the paginated comments list (used by SingleMoment's
+      // `CommentsMain(paginated: true)`) so a newly posted top-level
+      // comment or reply shows up immediately instead of waiting for the
+      // next 15s poll tick. Only refresh while the user hasn't loaded
+      // additional pages via "Load more comments" (page <= 1) — mirrors
+      // the same guard `single_moment.dart`'s poll timer uses, so we don't
+      // wipe out comments the user already paged through. Gated on
+      // `ref.exists` so call sites that never use the paginated provider
+      // don't lazily spin one up here.
+      if (ref.exists(paginatedCommentsProvider(widget.id))) {
+        final paginatedState =
+            ref.read(paginatedCommentsProvider(widget.id)).valueOrNull;
+        if (paginatedState == null || paginatedState.page <= 1) {
+          ref.read(paginatedCommentsProvider(widget.id).notifier).refresh();
+        }
+      }
+
+      // Refresh the moment feeds to update comment counts shown on the
+      // feed card, across all three tabs (not just the legacy combined
+      // feed) — mirrors the invalidation `MomentCard`'s like/react actions
+      // already perform.
       ref.invalidate(momentsFeedProvider);
+      ref.invalidate(forYouMomentsProvider);
+      ref.invalidate(followingMomentsProvider);
+      ref.invalidate(trendingMomentsProvider);
 
       // Refresh limits after successful creation
       try {

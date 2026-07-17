@@ -263,10 +263,17 @@ class RewardedAdButton extends ConsumerWidget {
   final VoidCallback onRewarded;
   final String label;
 
+  /// Extra caller-side gate on top of ad readiness — e.g. Coins v2's
+  /// watch-ad card disables this while a previous reward call is still
+  /// in flight, or once the server-side daily ad-reward cap is hit.
+  /// Defaults to true so existing call sites are unaffected.
+  final bool enabled;
+
   const RewardedAdButton({
     super.key,
     required this.onRewarded,
     this.label = 'Watch Ad for Bonus',
+    this.enabled = true,
   });
 
   @override
@@ -275,7 +282,7 @@ class RewardedAdButton extends ConsumerWidget {
     if (!showAds) return const SizedBox.shrink();
 
     final adService = ref.watch(adServiceProvider);
-    final isReady = adService.isRewardedAdReady;
+    final isReady = enabled && adService.isRewardedAdReady;
 
     return OutlinedButton.icon(
       onPressed: isReady

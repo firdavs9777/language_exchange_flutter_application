@@ -6,6 +6,7 @@ import { useResetPasswordUserMutation } from "../../store/slices/usersSlice";
 import { Bounce, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { buildResetPayload } from "./register/buildResetPayload";
 
 interface SendCodeEmailResponse {
   success: boolean;
@@ -18,7 +19,7 @@ const ForgetPassword: React.FC = () => {
   const [code, setCode] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [resetPassword] = useResetPasswordUserMutation(
+  const [resetPassword, { isLoading: isResetting }] = useResetPasswordUserMutation(
     {}
   );
   const {t} = useTranslation()
@@ -28,10 +29,9 @@ const ForgetPassword: React.FC = () => {
 
   const handlePasswordReset = async () => {
     try {
-      const response = await resetPassword({
-        email,
-        newPassword,
-      }).unwrap();
+      const response = await resetPassword(
+        buildResetPayload({ email, code, newPassword })
+      ).unwrap();
       const typedResponse = response as SendCodeEmailResponse;
       if (typedResponse.success) {
         toast.success(t("authentication.passwordReset.successMessage"), {
@@ -78,6 +78,7 @@ const ForgetPassword: React.FC = () => {
           setNewPassword={setNewPassword}
           setConfirmPassword={setConfirmPassword}
           onSubmit={handlePasswordReset}
+          isLoading={isResetting}
         />
       )}
     </div>

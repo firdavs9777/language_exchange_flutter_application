@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
-import 'package:bananatalk_app/providers/message_count_provider.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/pages/community/widgets/community_snackbar.dart';
@@ -11,18 +10,20 @@ import 'package:bananatalk_app/pages/community/widgets/send_wave_sheet.dart';
 import 'package:bananatalk_app/pages/community/widgets/conversation_starter_ribbon.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 
-/// Row of compact action buttons below the hero header:
-/// Video Call / Voice Call / Message / Wave / Follow (or Unfollow).
+/// Instagram-style full-width action row below the profile header:
+/// Follow (filled teal) | Message (outlined) | Wave (outlined square icon).
 ///
 /// The Wave button is hidden when the profile belongs to the current user.
 /// The button is permanently greyed out once the current user has ever
 /// waved at this person — one wave per user pair, ever (backend-enforced
 /// via ALREADY_WAVED/400; this is just the local mirror).
+///
+/// Video/voice call entry points were removed from this row as part of the
+/// Instagram-style redesign — they remain reachable from the chat header
+/// (see chat_app_bar.dart) once a conversation is open.
 class SingleCommunityActions extends ConsumerWidget {
   final Community community;
   final bool isFollower;
-  final VoidCallback onVideoCall;
-  final VoidCallback onVoiceCall;
   final VoidCallback onMessage;
   final VoidCallback onFollowToggle;
 
@@ -30,8 +31,6 @@ class SingleCommunityActions extends ConsumerWidget {
     super.key,
     required this.community,
     required this.isFollower,
-    required this.onVideoCall,
-    required this.onVoiceCall,
     required this.onMessage,
     required this.onFollowToggle,
   });
@@ -52,22 +51,6 @@ class SingleCommunityActions extends ConsumerWidget {
     final currentUserId = ref.read(authServiceProvider).userId;
     final isOwnProfile =
         currentUserId.isNotEmpty && currentUserId == community.id;
-    // Anti-spam gate: only allow calls once both sides have exchanged
-    // [kMessagesRequiredBeforeCall] messages. Reactive on the cached count
-    // populated by the chat screen + the prefetch in single_community_screen.
-    final canCall = ref.watch(canCallProvider(community.id));
-
-    void guardedCall(VoidCallback action) {
-      if (canCall) {
-        action();
-        return;
-      }
-      showCommunitySnackBar(
-        context,
-        message: l10n.exchange3MessagesBeforeCall,
-        type: CommunitySnackBarType.info,
-      );
-    }
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -80,51 +63,30 @@ class SingleCommunityActions extends ConsumerWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              _buildCompactActionButton(
-                context,
-                Icons.videocam_rounded,
-                l10n.videoCall,
-                Colors.blue[600]!,
-                () => guardedCall(onVideoCall),
-                enabled: canCall,
-              ),
-              _buildCompactActionButton(
-                context,
-                Icons.call_rounded,
-                l10n.voiceCall,
-                Colors.green[600]!,
-                () => guardedCall(onVoiceCall),
-                enabled: canCall,
-              ),
-              _buildCompactActionButton(
-                context,
-                Icons.chat_bubble_rounded,
-                l10n.message,
-                AppColors.accent,
-                onMessage,
-              ),
-              // Wave button — hidden for own profile
-              if (!isOwnProfile)
-                FutureBuilder<bool>(
-                  future: _alreadyWaved(community.id),
-                  builder: (context, snapshot) {
-                    final alreadyWaved = snapshot.data ?? false;
-                    return _buildWaveActionButton(context, l10n, alreadyWaved);
-                  },
-                ),
-              _buildCompactActionButton(
-                context,
-                isFollower
-                    ? Icons.check_circle_rounded
-                    : Icons.person_add_rounded,
-                isFollower ? l10n.following : l10n.follow,
-                isFollower ? Colors.green[600]! : Colors.blue[600]!,
-                onFollowToggle,
-              ),
-            ],
+          // IntrinsicHeight lets the three buttons share a common height
+          // (driven by the tallest, the 46px Wave square) without using
+          // CrossAxisAlignment.stretch — stretch on a horizontal Row demands
+          // a bounded Row height, which this sliver-hosted Column can't give,
+          // and would crash with a BoxConstraints-forces-infinite-height error.
+          IntrinsicHeight(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Expanded(child: _buildFollowButton(context, l10n)),
+                const SizedBox(width: 10),
+                Expanded(child: _buildMessageButton(context, l10n)),
+                if (!isOwnProfile) ...[
+                  const SizedBox(width: 10),
+                  FutureBuilder<bool>(
+                    future: _alreadyWaved(community.id),
+                    builder: (context, snapshot) {
+                      final alreadyWaved = snapshot.data ?? false;
+                      return _buildWaveButton(context, alreadyWaved);
+                    },
+                  ),
+                ],
+              ],
+            ),
           ),
           if (!isOwnProfile) ...[
             const SizedBox(height: 8),
@@ -135,104 +97,104 @@ class SingleCommunityActions extends ConsumerWidget {
     );
   }
 
-  Widget _buildWaveActionButton(
-    BuildContext context,
-    AppLocalizations l10n,
-    bool alreadyWaved,
-  ) {
-    final color = alreadyWaved ? Colors.grey[400]! : AppColors.primary;
-    return Tooltip(
-      message: alreadyWaved
-          ? 'Already waved — send a message instead'
-          : 'Send a wave',
-      child: InkWell(
-        onTap: () {
-          if (alreadyWaved) {
-            showCommunitySnackBar(
-              context,
-              message:
-                  "You've already waved at ${community.name} — send them a message instead.",
-              type: CommunitySnackBarType.info,
-            );
-            return;
-          }
-          showSendWaveSheet(
-            context,
-            targetUserId: community.id,
-            targetUserName: community.name,
-            targetUserCountry: community.location.country.isNotEmpty
-                ? community.location.country
-                : null,
-          );
-        },
-        borderRadius: BorderRadius.circular(8),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: color.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Icon(Icons.waving_hand_rounded, color: color, size: 20),
-              ),
-              const SizedBox(height: 4),
-              Text(
-                l10n.sendWave,
-                style: TextStyle(
-                  fontSize: 11,
-                  color: color,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ],
+  // ---------------------------------------------------------------------------
+  // Follow — filled teal when not following, outlined "Following" once followed
+  // ---------------------------------------------------------------------------
+
+  Widget _buildFollowButton(BuildContext context, AppLocalizations l10n) {
+    if (isFollower) {
+      return OutlinedButton.icon(
+        onPressed: onFollowToggle,
+        icon: const Icon(Icons.check_circle_rounded, size: 18),
+        label: Text(l10n.following),
+        style: OutlinedButton.styleFrom(
+          foregroundColor: context.textPrimary,
+          side: BorderSide(color: context.dividerColor),
+          padding: const EdgeInsets.symmetric(vertical: 12),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
           ),
+        ),
+      );
+    }
+    return ElevatedButton.icon(
+      onPressed: onFollowToggle,
+      icon: const Icon(Icons.person_add_rounded, size: 18),
+      label: Text(l10n.follow),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: AppColors.primary,
+        foregroundColor: Colors.white,
+        elevation: 0,
+        padding: const EdgeInsets.symmetric(vertical: 12),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
         ),
       ),
     );
   }
 
-  Widget _buildCompactActionButton(
-    BuildContext context,
-    IconData icon,
-    String label,
-    Color color,
-    VoidCallback onTap, {
-    bool enabled = true,
-  }) {
-    // When disabled the button still receives taps so [onTap] can show the
-    // explanatory snackbar — only the visuals dim. This matches the pattern
-    // used by the disabled call buttons in the chat header.
-    final effectiveColor = enabled ? color : Colors.grey[400]!;
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(8),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: effectiveColor.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Icon(icon, color: effectiveColor, size: 20),
+  // ---------------------------------------------------------------------------
+  // Message — outlined
+  // ---------------------------------------------------------------------------
+
+  Widget _buildMessageButton(BuildContext context, AppLocalizations l10n) {
+    return OutlinedButton.icon(
+      onPressed: onMessage,
+      icon: const Icon(Icons.chat_bubble_outline_rounded, size: 18),
+      label: Text(l10n.message),
+      style: OutlinedButton.styleFrom(
+        foregroundColor: context.textPrimary,
+        side: BorderSide(color: context.dividerColor),
+        padding: const EdgeInsets.symmetric(vertical: 12),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+      ),
+    );
+  }
+
+  // ---------------------------------------------------------------------------
+  // Wave — outlined square icon button
+  // ---------------------------------------------------------------------------
+
+  Widget _buildWaveButton(BuildContext context, bool alreadyWaved) {
+    final color = alreadyWaved ? context.textMuted : AppColors.primary;
+    return Tooltip(
+      message: alreadyWaved
+          ? 'Already waved — send a message instead'
+          : 'Send a wave',
+      child: SizedBox(
+        width: 46,
+        height: 46,
+        child: OutlinedButton(
+          onPressed: () {
+            if (alreadyWaved) {
+              showCommunitySnackBar(
+                context,
+                message:
+                    "You've already waved at ${community.name} — send them a message instead.",
+                type: CommunitySnackBarType.info,
+              );
+              return;
+            }
+            showSendWaveSheet(
+              context,
+              targetUserId: community.id,
+              targetUserName: community.name,
+              targetUserCountry: community.location.country.isNotEmpty
+                  ? community.location.country
+                  : null,
+            );
+          },
+          style: OutlinedButton.styleFrom(
+            foregroundColor: color,
+            side: BorderSide(color: context.dividerColor),
+            padding: EdgeInsets.zero,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
             ),
-            const SizedBox(height: 4),
-            Text(
-              label,
-              style: TextStyle(
-                fontSize: 11,
-                color: effectiveColor,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ],
+          ),
+          child: Icon(Icons.waving_hand_rounded, color: color, size: 20),
         ),
       ),
     );

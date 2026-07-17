@@ -1,0 +1,15 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appIDs": ["TODO_APPLE_TEAM_ID.com.bananatalk.bananatalkApp"],
+        "components": [
+          { "/": "/moment/*" },
+          { "/": "/profile/*" },
+          { "/": "/community/*" }
+        ]
+      }
+    ]
+  }
+}

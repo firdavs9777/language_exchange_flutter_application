@@ -12,6 +12,7 @@ import 'package:bananatalk_app/widgets/community/compact_user_tile.dart';
 import 'package:bananatalk_app/widgets/community/user_skeleton.dart';
 import 'package:bananatalk_app/pages/community/single/single_community_screen.dart';
 import 'package:bananatalk_app/pages/chat/conversation/chat_conversation_screen.dart';
+import 'package:bananatalk_app/pages/stories/viewer/story_viewer_launcher.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
@@ -313,6 +314,11 @@ class _TopicsTabState extends ConsumerState<TopicsTab> {
                               user: user,
                               onTap: () => _viewProfile(user),
                               onWave: () => _onWave(user),
+                              onAvatarTap: () => StoryViewerLauncher.open(
+                                context,
+                                userId: user.id,
+                                fallback: () => _viewProfile(user),
+                              ),
                             ),
                           )
                           .animate()

@@ -11,6 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 import FooterMain from "./components/footer/FooterMain";
 import { SocketProvider } from "./components/chat/hooks/useSocket";
 import { BASE_URL } from "./constants";
+import AppBanner from "./components/linking/AppBanner";
 
 const App = () => {
   const location = useLocation();
@@ -36,6 +37,7 @@ const App = () => {
     <I18nextProvider i18n={i18n}>
       <SocketProvider>
         <MainNavbar />
+        <AppBanner />
         <Container fluid>
           <Outlet />
         </Container>

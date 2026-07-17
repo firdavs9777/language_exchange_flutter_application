@@ -2406,6 +2406,12 @@ class AppLocalizationsKo extends AppLocalizations {
   String get checkOutMoment => 'Bananatalk에서 이 모멘트를 확인해보세요!';
 
   @override
+  String get checkOutProfile => 'Check out this profile on Bananatalk!';
+
+  @override
+  String get checkOutCommunity => 'Check out this member on Bananatalk!';
+
+  @override
   String get failedToLoadMoments => '모멘트를 불러오지 못했습니다';
 
   @override

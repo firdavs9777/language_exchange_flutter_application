@@ -27,6 +27,7 @@ import 'package:bananatalk_app/pages/chat/message/message_bubble/text_message_vi
 import 'package:bananatalk_app/pages/chat/message/message_bubble/image_message_view.dart';
 import 'package:bananatalk_app/pages/chat/message/message_bubble/voice_message_view.dart';
 import 'package:bananatalk_app/pages/chat/message/message_bubble/gif_message_view.dart';
+import 'package:bananatalk_app/pages/chat/message/message_bubble/story_share_message_view.dart';
 
 class ChatMessageBubble extends ConsumerStatefulWidget {
   final Message message;
@@ -1165,6 +1166,19 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
         timestampColor: _timestampColor(context),
         bubbleRadius: _bubbleRadius(),
         onReplyTap: widget.onReplyTap,
+        onLongPress: () => _showContextMenu(context),
+      );
+    }
+
+    // Story share card: DM created by the backend's shareStory endpoint
+    // (POST /stories/:id/share, sharedTo:'dm'). Must come before the default
+    // text branch below. Detection is signal-based (messageType:
+    // 'story_share' and/or a persisted storyReference) — see
+    // StoryShareMessageView.matches for why this isn't a text match.
+    if (StoryShareMessageView.matches(msg)) {
+      return StoryShareMessageView(
+        message: msg,
+        isMe: widget.isMe,
         onLongPress: () => _showContextMenu(context),
       );
     }

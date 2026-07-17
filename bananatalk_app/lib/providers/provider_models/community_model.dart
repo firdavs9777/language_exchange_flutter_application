@@ -72,6 +72,8 @@ class Community {
     // Step 14 safety wave
     this.role = 'user',
     this.isBanned = false,
+    // Story rings (Task 11): privacy-aware, stamped server-side.
+    this.hasActiveStory = false,
   });
 
   final String id;
@@ -128,6 +130,10 @@ class Community {
   // Step 14 safety wave — admin gating + banned-account detection.
   final String role;
   final bool isBanned;
+  /// Whether this user currently has >=1 active story visible to the
+  /// viewer (privacy-filtered server-side — see backend
+  /// lib/activeStoryFlags.js). Drives the gradient story ring on avatars.
+  final bool hasActiveStory;
 
   bool get isAdmin => role == 'admin';
 
@@ -248,6 +254,7 @@ class Community {
       // Step 14 safety wave
       role: (json['role'] ?? 'user').toString(),
       isBanned: json['isBanned'] == true,
+      hasActiveStory: json['hasActiveStory'] == true,
     );
   }
 

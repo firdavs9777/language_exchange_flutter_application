@@ -9,6 +9,7 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/utils/privacy_utils.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/widgets/story/story_gradient_ring.dart';
 
 /// List item for partner discovery (Tandem/HelloTalk style)
 class PartnerListItem extends StatelessWidget {
@@ -16,6 +17,10 @@ class PartnerListItem extends StatelessWidget {
   final Community? currentUser;
   final VoidCallback? onTap;
   final VoidCallback? onWave;
+  /// Called when the avatar itself is tapped while [user.hasActiveStory] is
+  /// true (opens the story viewer); other taps keep opening the profile via
+  /// [onTap].
+  final VoidCallback? onAvatarTap;
 
   const PartnerListItem({
     super.key,
@@ -23,6 +28,7 @@ class PartnerListItem extends StatelessWidget {
     this.currentUser,
     this.onTap,
     this.onWave,
+    this.onAvatarTap,
   });
 
   @override
@@ -55,7 +61,7 @@ class PartnerListItem extends StatelessWidget {
 
   Widget _buildAvatar(BuildContext context) {
     final showOnline = PrivacyUtils.shouldShowOnlineStatus(user) && user.isOnline;
-    return Stack(
+    final avatarStack = Stack(
       children: [
         // Avatar
         Container(
@@ -150,6 +156,22 @@ class PartnerListItem extends StatelessWidget {
           ),
       ],
     );
+
+    // Wrap only the avatar in the story ring + its own tap target — the
+    // rest of the tile still opens the profile via the outer InkWell.
+    if (user.hasActiveStory) {
+      return GestureDetector(
+        onTap: onAvatarTap,
+        child: StoryGradientRing(
+          size: 80,
+          strokeWidth: 2.5,
+          hasStory: true,
+          animate: false,
+          child: avatarStack,
+        ),
+      );
+    }
+    return avatarStack;
   }
 
   Widget _buildUserInfo(BuildContext context) {

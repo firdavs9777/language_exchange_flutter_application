@@ -6,6 +6,7 @@ import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/utils/image_utils.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
+import 'package:bananatalk_app/widgets/moments/text_moment_tile.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -96,7 +97,7 @@ class ProfileMomentsTab extends ConsumerWidget {
                     ),
                     child: Text(
                       AppLocalizations.of(context)!.seeAll,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontWeight: FontWeight.w700,
                         color: AppColors.primary,
                         fontSize: 13,
@@ -136,12 +137,12 @@ class ProfileMomentsTab extends ConsumerWidget {
                               ),
                             ),
                           )
-                        : Container(
-                            color: context.containerColor,
-                            child: Icon(
-                              Icons.image_rounded,
-                              color: context.iconColor,
-                            ),
+                        // Text / prompt moments have no image — show a colored
+                        // text preview (using the moment's background colour)
+                        // instead of a blank placeholder tile.
+                        : TextMomentTile(
+                            text: moment.description,
+                            backgroundColor: moment.backgroundColor,
                           ),
                   );
                 },

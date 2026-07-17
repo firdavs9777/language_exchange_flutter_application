@@ -126,6 +126,59 @@ class CoinApiClient {
     );
   }
 
+  /// Claims the once-per-UTC-day free coin reward (Coins v2 — Task 17).
+  /// Returns the raw [ApiResponse] rather than throwing — the backend call
+  /// is idempotent (a double-tap/retry is a no-op), so callers branch on
+  /// `response.data`'s `{balance, credited, alreadyClaimed}` rather than an
+  /// exception: `alreadyClaimed: true` is a normal "come back tomorrow"
+  /// state, not an error.
+  Future<ApiResponse> claimDailyReward() {
+    return _client.post(Endpoints.coinsDailyRewardURL);
+  }
+
+  /// Whether today's (UTC) daily reward has already been claimed, so the
+  /// shop can render the claim button as disabled up front instead of
+  /// waiting for a failed claim to find out.
+  Future<bool> getDailyRewardStatus() async {
+    final res = await _client.get(Endpoints.coinsDailyRewardStatusURL);
+    if (!res.success) {
+      throw CoinApiException(
+        res.error ?? 'Failed to load daily reward status',
+        statusCode: res.statusCode,
+      );
+    }
+    final data = res.data;
+    if (data is Map && data['claimedToday'] is bool) {
+      return data['claimedToday'] as bool;
+    }
+    return false;
+  }
+
+  /// Claims the reward for watching one rewarded ad. Hard-capped
+  /// server-side at 5/day per user — callers must branch on status code:
+  /// 429 = daily ad-reward cap reached (`response.data` may include a
+  /// stale `balance`; re-fetch [getBalance] rather than trusting it), 200 =
+  /// success with `{balance, credited, alreadyClaimed}` in `response.data`.
+  ///
+  /// KNOWN LIMIT (Task 17a, carried into the app): there is no
+  /// server-side (SSV) verification that a rewarded ad actually played —
+  /// this is called after the ad SDK's local reward callback fires, so a
+  /// modified client could call it without showing an ad. The per-day cap
+  /// bounds the damage; it does not eliminate it.
+  ///
+  /// `suppressRateLimitToast: true` — hitting the ad cap is an expected,
+  /// frequent 429 (not a generic "slow down"), and the coin shop already
+  /// shows its own friendly "come back tomorrow" message + disables the
+  /// card. Without this, the global rate-limit SnackBar (wired in
+  /// `api_provider.dart`) would ALSO fire for the same response, so the
+  /// user sees two overlapping toasts for one event.
+  Future<ApiResponse> claimAdReward() {
+    return _client.post(
+      Endpoints.coinsAdRewardURL,
+      suppressRateLimitToast: true,
+    );
+  }
+
   int _extractBalance(dynamic data) {
     if (data is Map) {
       final direct = data['balance'];
