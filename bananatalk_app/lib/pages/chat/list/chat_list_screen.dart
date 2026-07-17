@@ -1,9 +1,7 @@
 import 'dart:async';
 import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
-import 'package:bananatalk_app/pages/notifications/notification_history_screen.dart';
 import 'package:bananatalk_app/providers/provider_root/message_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
-import 'package:bananatalk_app/providers/badge_count_provider.dart';
 import 'package:bananatalk_app/services/chat_socket_service.dart';
 import 'package:bananatalk_app/services/user_service.dart';
 import 'package:bananatalk_app/providers/unread_count_provider.dart';
@@ -19,7 +17,6 @@ import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/services/conversation_service.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/pages/chat/widgets/chat_snackbar.dart';
 import 'package:bananatalk_app/pages/chat/models/chat_partner.dart';
 import 'package:bananatalk_app/pages/chat/drafts/chat_draft_service.dart';
@@ -32,6 +29,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:bananatalk_app/pages/chat/list/list_socket_handlers.dart';
 import 'package:bananatalk_app/widgets/vip_up_pill.dart';
 import 'package:bananatalk_app/widgets/coins/coin_balance_pill.dart';
+import 'package:bananatalk_app/widgets/notifications/notification_bell.dart';
 import 'package:bananatalk_app/services/notification_service.dart';
 import 'package:bananatalk_app/widgets/app_shell_drawer.dart';
 import 'package:app_settings/app_settings.dart';
@@ -1298,64 +1296,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
             tooltip: AppLocalizations.of(context)!.chatListNewChatByUsernameTooltip,
             onPressed: _showNewChatDialog,
           ),
-          Consumer(
-            builder: (context, ref, child) {
-              final badgeCount = ref.watch(badgeCountProvider);
-              final notificationCount = badgeCount.notifications;
-
-              return IconButton(
-                icon: Stack(
-                  clipBehavior: Clip.none,
-                  children: [
-                    Icon(
-                      Icons.notifications_outlined,
-                      color: colors.onBackground,
-                      size: 26,
-                    ),
-                    if (notificationCount > 0)
-                      Positioned(
-                        right: -6,
-                        top: -4,
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 5,
-                            vertical: 2,
-                          ),
-                          decoration: BoxDecoration(
-                            color: Colors.red,
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(
-                              color: colors.background,
-                              width: 1.5,
-                            ),
-                          ),
-                          constraints: const BoxConstraints(minWidth: 18),
-                          child: Text(
-                            notificationCount > 99
-                                ? '99+'
-                                : notificationCount.toString(),
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 10,
-                              fontWeight: FontWeight.w600,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      ),
-                  ],
-                ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    AppPageRoute(
-                      builder: (context) => const NotificationHistoryScreen(),
-                    ),
-                  );
-                },
-              );
-            },
-          ),
+          NotificationBell(color: colors.onBackground),
           const SizedBox(width: 8),
         ],
       ),

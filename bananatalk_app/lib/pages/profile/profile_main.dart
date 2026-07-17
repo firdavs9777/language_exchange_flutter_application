@@ -1,5 +1,6 @@
 import 'package:bananatalk_app/services/chat_socket_service.dart';
 import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
+import 'package:bananatalk_app/widgets/notifications/notification_bell.dart';
 import 'package:bananatalk_app/pages/admin/admin_home_screen.dart';
 import 'package:bananatalk_app/pages/profile/edit_main/edit_main.dart'
     show ProfileEdit;
@@ -207,6 +208,8 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
         style: context.titleLarge.copyWith(fontWeight: FontWeight.w800),
       ),
       actions: [
+        // Notification inbox — reachable from every tab, not just chat.
+        NotificationBell(color: context.textPrimary),
         Builder(
           builder: (ctx) => Padding(
             padding: const EdgeInsets.only(right: 8),
