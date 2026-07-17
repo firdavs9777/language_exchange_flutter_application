@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/foundation.dart';
 import 'package:bananatalk_app/service/endpoints.dart';
 import 'package:bananatalk_app/models/learning/vocabulary_model.dart';
+import 'package:bananatalk_app/models/learning/vocab_pack_model.dart';
 import 'package:bananatalk_app/models/learning/lesson_model.dart';
 import 'package:bananatalk_app/models/learning/quiz_model.dart';
 import 'package:bananatalk_app/pages/learning/models/weekly_digest.dart';
@@ -1415,5 +1416,51 @@ class LearningService {
     }
 
     return Map<String, dynamic>.from(data!['data'] as Map);
+  }
+
+  // ==================== VOCAB PACKS ====================
+
+  /// List curated vocab packs, optionally filtered by [level].
+  static Future<List<VocabPackSummary>> getVocabPacks({String? level}) async {
+    final token = await _getToken();
+    var url = Uri.parse('${Endpoints.baseURL}${Endpoints.vocabPacksURL}');
+    if (level != null && level.isNotEmpty) {
+      url = url.replace(queryParameters: {'level': level});
+    }
+    final response = await http.get(url, headers: _getHeaders(token));
+    final data = _safeJsonDecode(response.body);
+    if (response.statusCode == 200 && data != null && data['data'] is List) {
+      return (data['data'] as List)
+          .map((e) => VocabPackSummary.fromJson(e as Map<String, dynamic>))
+          .toList();
+    }
+    throw Exception(_getErrorMessage(data, 'Failed to load vocab packs'));
+  }
+
+  /// Fetch a single pack with full words + exercises.
+  static Future<VocabPack> getVocabPack(String id) async {
+    final token = await _getToken();
+    final url = Uri.parse('${Endpoints.baseURL}${Endpoints.vocabPackURL(id)}');
+    final response = await http.get(url, headers: _getHeaders(token));
+    final data = _safeJsonDecode(response.body);
+    if (response.statusCode == 200 && data != null && data['data'] != null) {
+      return VocabPack.fromJson(data['data'] as Map<String, dynamic>);
+    }
+    throw Exception(_getErrorMessage(data, 'Failed to load vocab pack'));
+  }
+
+  /// Bulk-add a pack's words into the user's personal vocabulary.
+  /// Returns {totalWords, added, alreadyHad}.
+  static Future<Map<String, dynamic>> addVocabPack(String id) async {
+    final token = await _getToken();
+    final url = Uri.parse('${Endpoints.baseURL}${Endpoints.vocabPackAddURL(id)}');
+    final response = await http.post(url, headers: _getHeaders(token));
+    final data = _safeJsonDecode(response.body);
+    if ((response.statusCode == 200 || response.statusCode == 201) &&
+        data != null &&
+        data['data'] != null) {
+      return Map<String, dynamic>.from(data['data'] as Map);
+    }
+    throw Exception(_getErrorMessage(data, 'Failed to add pack'));
   }
 }

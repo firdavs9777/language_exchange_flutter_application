@@ -76,3 +76,6 @@ lib/**/build/
 # Firebase API keys which are safe to commit (they're meant to be public).
 # If you want to keep them private, you can add them back to .gitignore and
 # require developers to download them from Firebase Console.
+
+# Copyrighted reference textbooks — used only as headword blueprint, never shipped
+*.pdf

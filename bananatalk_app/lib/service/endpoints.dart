@@ -288,6 +288,11 @@ class Endpoints {
   static String vocabularyItemURL(String id) => 'learning/vocabulary/$id';
   static String vocabularyItemReviewURL(String id) => 'learning/vocabulary/$id/review';
 
+  // Vocab Packs (curated, level-tagged packs with words + exercises)
+  static const String vocabPacksURL = 'learning/vocab-packs';
+  static String vocabPackURL(String id) => 'learning/vocab-packs/$id';
+  static String vocabPackAddURL(String id) => 'learning/vocab-packs/$id/add';
+
   // Lessons
   static const String lessonsURL = 'learning/lessons';
   static const String lessonsRecommendedURL = 'learning/lessons/recommended';

@@ -20,6 +20,7 @@ import 'package:bananatalk_app/pages/ai/tutor/story_setup_screen.dart';
 import 'package:bananatalk_app/pages/ai/tutor/image_vocab_screen.dart';
 import 'package:bananatalk_app/pages/ai/tutor/pronunciation_start_screen.dart';
 import 'package:bananatalk_app/pages/learning/vocabulary/vocabulary_review_screen.dart';
+import 'package:bananatalk_app/pages/learning/vocabulary/vocab_packs_screen.dart';
 import 'package:bananatalk_app/providers/provider_root/learning/vocabulary_providers.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
@@ -247,6 +248,8 @@ class _AIToolsTabState extends ConsumerState<AIToolsTab>
           () => Navigator.push(context, AppPageRoute(builder: (_) => const AIQuizScreen()))),
       _AIFeature(Icons.auto_awesome_rounded, l10n.lessonBuilder, l10n.customLessons, const Color(0xFFEC4899), false,
           () => Navigator.push(context, AppPageRoute(builder: (_) => const LessonBuilderScreen()))),
+      _AIFeature(Icons.style_rounded, 'Vocab Packs', 'Themed word sets', const Color(0xFF14B8A6), false,
+          () => Navigator.push(context, AppPageRoute(builder: (_) => const VocabPacksScreen()))),
     ];
 
     return GridView.count(
