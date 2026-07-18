@@ -103,11 +103,11 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
 
     // Join membership (REST) if we're not already a member. Safe to call
     // even if already a member — the backend join is idempotent. Topic
-    // rooms are moderated (Task 16): a non-member never auto-joins here —
-    // they see a "Request to join" prompt instead (see `build`) and only
-    // become a member once the owner/admin approves. Hubs stay open, as
-    // before.
-    if (!_room.isMember && !_room.isTopicRoom) {
+    // rooms are OPEN like hubs: any non-banned user auto-joins on open. Only
+    // a BANNED user (kicked by the owner) is blocked — they never auto-join
+    // and instead see a "Request to join" prompt (see `build`), becoming a
+    // member only once the owner/admin approves their request (Task 16).
+    if (!_room.isMember && !_room.isBanned) {
       final joined = await ref.read(roomsProvider.notifier).join(_room.id);
       if (joined && mounted) {
         setState(() => _room = _room.copyWith(isMember: true));
@@ -128,7 +128,10 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
     }
 
     // Socket-side join — presence/broadcast is scoped to the live socket.
-    _chatSocket.joinRoom(_room.id);
+    // A banned user only views the request-to-join prompt; don't join live.
+    if (_room.isMember) {
+      _chatSocket.joinRoom(_room.id);
+    }
     _listenToSocket();
 
     await _loadMessages();
@@ -501,11 +504,10 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
   }
 
   /// True when the caller can neither join instantly nor message — either
-  /// banned (any room type) or a non-member of a moderated topic room
-  /// (Task 16). Gates the composer off and swaps in the request-to-join
-  /// bar instead of a normal `ChatInputBar`.
-  bool get _needsJoinRequest =>
-      _room.isBanned || (_room.isTopicRoom && !_room.isMember);
+  /// Only a BANNED user needs to request to join — topic rooms are otherwise
+  /// open (non-banned users auto-join on open, see initState). Gates the
+  /// composer off and swaps in the request-to-join bar for banned users.
+  bool get _needsJoinRequest => _room.isBanned;
 
   /// A banned user must never be able to send messages, even if some stale
   /// `isMember:true` slipped through — membership AND not-banned are both
