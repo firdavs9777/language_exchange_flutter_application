@@ -13,8 +13,9 @@ import 'package:bananatalk_app/utils/app_page_route.dart';
 /// hardcoded — so they can be tuned server-side without an app release.
 ///
 /// [featureKey] must be one of the real backend keys: `translation`,
-/// `moment`, or one of the 5 independent tutor chips (`chat`/`roleplay`/
-/// `story`/`photo`/`pronunciation`). For the tutor surface this MUST be
+/// `moment`, `dm` (extra direct messages today — the daily message cap; NOT
+/// the tutor `chat` key), or one of the 5 independent tutor chips
+/// (`chat`/`roleplay`/`story`/`photo`/`pronunciation`). For the tutor surface this MUST be
 /// the specific chip that hit its cap (from the 429's `feature` field),
 /// not a generic "tutor" key.
 ///

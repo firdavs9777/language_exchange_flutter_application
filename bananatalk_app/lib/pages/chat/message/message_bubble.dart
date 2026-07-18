@@ -566,8 +566,11 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
   // (which string-matches "limit exceeded"/"daily limit" on a thrown error)
   // doesn't fit this shape. Detect it directly from the result Map instead.
   bool _isTranslationLimitError(Map<String, dynamic> result) {
+    // Match ONLY the explicit backend code — a bare `limit` field also rides
+    // along on non-limit responses (e.g. the remaining-count on a successful
+    // translate), so keying on its presence would false-positive.
     final error = result['error']?.toString().toUpperCase();
-    return error == 'TRANSLATION_LIMIT_REACHED' || result['limit'] != null;
+    return error == 'TRANSLATION_LIMIT_REACHED';
   }
 
   // Pick the target language code for an inline translate, preferring the
