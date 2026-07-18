@@ -5,6 +5,8 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/utils/language_flags.dart';
 import 'package:bananatalk_app/pages/community/single/single_community_topics.dart';
+import 'package:bananatalk_app/pages/community/single/single_community_location_card.dart';
+import 'package:bananatalk_app/utils/privacy_utils.dart';
 
 /// About tab body: bio, story highlights, languages, interests, personal info.
 class SingleCommunityAbout extends ConsumerWidget {
@@ -39,6 +41,12 @@ class SingleCommunityAbout extends ConsumerWidget {
 
         // Personal Info (MBTI, Blood Type)
         _buildPersonalInfoSection(context, isDark),
+
+        const SizedBox(height: 12),
+
+        // Location (city-level map preview; text-only fallback / hidden
+        // entirely if no location data or privacy settings hide it)
+        _buildLocationSection(context, isDark),
       ],
     );
   }
@@ -407,6 +415,81 @@ class SingleCommunityAbout extends ConsumerWidget {
               isDark: isDark,
             ),
           ],
+        ],
+      ),
+    );
+  }
+
+  // ---------------------------------------------------------------------------
+  // Location
+  // ---------------------------------------------------------------------------
+
+  Widget _buildLocationSection(BuildContext context, bool isDark) {
+    final coordinates = community.location.coordinates;
+    final hasCoords = coordinates.length >= 2 &&
+        (coordinates[0] != 0.0 || coordinates[1] != 0.0);
+    final canShowMap = hasCoords && PrivacyUtils.shouldShowLocation(community);
+    final locationText = PrivacyUtils.getLocationText(community);
+
+    // Nothing to show at all — no coords and no city/country text.
+    if (!canShowMap && locationText.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: context.surfaceColor,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(
+          color: isDark
+              ? Colors.white.withValues(alpha: 0.1)
+              : context.dividerColor,
+          width: 0.5,
+        ),
+        boxShadow: isDark
+            ? null
+            : [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.04),
+                  blurRadius: 8,
+                  offset: const Offset(0, 2),
+                ),
+              ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: isDark
+                        ? [Colors.teal[700]!, Colors.cyan[900]!]
+                        : [Colors.teal[400]!, Colors.cyan[600]!],
+                  ),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: const Icon(
+                  Icons.location_on_rounded,
+                  color: Colors.white,
+                  size: 20,
+                ),
+              ),
+              const SizedBox(width: 12),
+              Text(
+                AppLocalizations.of(context)!.location,
+                style: context.titleMedium.copyWith(
+                  fontWeight: FontWeight.w600,
+                  color: context.textPrimary,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          SingleCommunityLocationCard(community: community),
         ],
       ),
     );
