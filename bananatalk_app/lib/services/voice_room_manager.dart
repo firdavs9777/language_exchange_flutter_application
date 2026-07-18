@@ -60,6 +60,11 @@ class VoiceRoomManager {
   // Timers
   Timer? _heartbeatTimer;
 
+  /// Fallback grace timers for `onParticipantLeft` (LiveKit-only signal),
+  /// keyed by participant id (== LiveKit `participant.identity` == socket
+  /// `userId`). See `_setupLiveKitCallbacks` for why these exist.
+  final Map<String, Timer> _participantLeftGraceTimers = {};
+
   // Stream subscriptions (socket.io business events only)
   StreamSubscription? _participantJoinedSub;
   StreamSubscription? _participantLeftSub;
@@ -71,9 +76,16 @@ class VoiceRoomManager {
   StreamSubscription? _hostChangedSub;
   StreamSubscription<bool>? _connectionSub;
 
-  // Reconnect state
-  bool _isReconnecting = false;
-  bool get isReconnecting => _isReconnecting;
+  // Reconnect state — tracked as two independent signals (socket business
+  // channel vs. LiveKit transport) and OR'd together for the UI-facing flag.
+  // Each side owns its own bit and only clears its own bit; the reconnect
+  // banner / `IgnorePointer` in `VoiceRoomScreen` only clears once BOTH are
+  // settled, closing the race where LiveKit reconnects first but the socket
+  // `voiceroom:rejoin` ACK (which can carry a host change or "room ended"
+  // signal) hasn't landed yet.
+  bool _socketReconnecting = false;
+  bool _liveKitReconnecting = false;
+  bool get isReconnecting => _socketReconnecting || _liveKitReconnecting;
 
   // Callbacks
   Function(String newHostId, String? previousHostId)? onHostChanged;
@@ -128,7 +140,7 @@ class VoiceRoomManager {
       if (_currentRoom == null) return;
 
       if (!connected) {
-        _isReconnecting = true;
+        _socketReconnecting = true;
         onConnectionChanged?.call();
         onStateChanged?.call();
         return;
@@ -146,7 +158,7 @@ class VoiceRoomManager {
         'voiceroom:rejoin',
         payload,
         ack: (ackData) {
-          _isReconnecting = false;
+          _socketReconnecting = false;
           if (ackData is Map) {
             final m = Map<String, dynamic>.from(ackData);
             if (m['ended'] == true || m['ok'] == false) {
@@ -192,9 +204,12 @@ class VoiceRoomManager {
       onStateChanged?.call();
     });
 
-    // Participant left
+    // Participant left — authoritative. Cancel any pending LiveKit-driven
+    // grace-timer fallback for this participant (see `_setupLiveKitCallbacks`)
+    // since the real event just arrived.
     _participantLeftSub = _chatSocketService!.onVoiceRoomParticipantLeft.listen((data) {
       final userId = data['userId']?.toString() ?? '';
+      _participantLeftGraceTimers.remove(userId)?.cancel();
       _participants.removeWhere((p) => p.id == userId);
       onParticipantLeft?.call(userId);
       onStateChanged?.call();
@@ -307,6 +322,26 @@ class VoiceRoomManager {
         _participants[i] = _participants[i].copyWith(isSpeaking: false);
         onStateChanged?.call();
       }
+
+      // Fallback grace timer: if the socket `voiceroom:left` never arrives
+      // (dropped packet, or the other client's socket disconnects mid-leave),
+      // the tile would otherwise stay in the grid forever. Give the socket
+      // event a short window to land first (it's cancelled below in
+      // `_setupSocketListeners` if it does); if it doesn't, remove the
+      // participant anyway.
+      _participantLeftGraceTimers[participantId]?.cancel();
+      _participantLeftGraceTimers[participantId] =
+          Timer(const Duration(seconds: 6), () {
+        _participantLeftGraceTimers.remove(participantId);
+        final stillPresent = _participants.any((p) => p.id == participantId);
+        if (stillPresent) {
+          debugPrint(
+              '[VR] participant $participantId removed via grace-timer fallback (no voiceroom:left)');
+          _participants.removeWhere((p) => p.id == participantId);
+          onParticipantLeft?.call(participantId);
+          onStateChanged?.call();
+        }
+      });
     };
 
     _liveKit.onParticipantSpeakingChanged = (participantId, isSpeaking) {
@@ -333,13 +368,13 @@ class VoiceRoomManager {
     };
 
     _liveKit.onRoomReconnecting = () {
-      _isReconnecting = true;
+      _liveKitReconnecting = true;
       onConnectionChanged?.call();
       onStateChanged?.call();
     };
 
     _liveKit.onRoomReconnected = () {
-      _isReconnecting = false;
+      _liveKitReconnecting = false;
       onConnectionChanged?.call();
       onStateChanged?.call();
     };
@@ -348,7 +383,7 @@ class VoiceRoomManager {
       // Transport disconnect doesn't itself end the room — the socket
       // `voiceroom:ended` does. Just surface the reconnecting flag.
       if (_currentRoom != null) {
-        _isReconnecting = true;
+        _liveKitReconnecting = true;
         onConnectionChanged?.call();
         onStateChanged?.call();
       }
@@ -539,6 +574,13 @@ class VoiceRoomManager {
   void _cleanup() {
     _heartbeatTimer?.cancel();
     _heartbeatTimer = null;
+    // Cancel any pending participant-left grace timers — the room (and its
+    // participant list) is going away, so a stale timer firing later must
+    // not reach into whatever room this singleton is reused for next.
+    for (final timer in _participantLeftGraceTimers.values) {
+      timer.cancel();
+    }
+    _participantLeftGraceTimers.clear();
     _currentRoom = null;
     _participants = [];
     _chatMessages = [];

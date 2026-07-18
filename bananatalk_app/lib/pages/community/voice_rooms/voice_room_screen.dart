@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:app_settings/app_settings.dart';
 import 'package:bananatalk_app/models/community/voice_room_model.dart';
 import 'package:bananatalk_app/providers/voice_room_provider.dart';
 import 'package:bananatalk_app/providers/ad_providers.dart';
@@ -61,10 +62,13 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
       CurvedAnimation(parent: _pulseController, curve: Curves.easeInOut),
     );
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(voiceRoomProvider).joinRoom(widget.room);
-    });
-
+    // All manager callback wiring happens in this SAME post-frame callback,
+    // BEFORE `joinRoom()` is called below. Previously these were split
+    // across two independently-scheduled `addPostFrameCallback`s — since
+    // `joinRoom()` is an async REST+LiveKit connect, it could complete (and
+    // fire host-change/forced-mute/reaction events) before the second
+    // callback ever attached its listeners, silently dropping them. Wiring
+    // everything first closes that window.
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final manager = ref.read(voiceRoomProvider).manager;
       manager.onHostChanged = (newHostId, _) {
@@ -108,6 +112,23 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
       manager.onReactionReceived = (participantId, emoji) {
         _showReactionFor(participantId, emoji);
       };
+
+      manager.onMicPermissionDenied = () {
+        if (!mounted) return;
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: const Text('Microphone permission needed'),
+            action: SnackBarAction(
+              label: AppLocalizations.of(context)!.openSettings,
+              onPressed: () => AppSettings.openAppSettings(),
+            ),
+            duration: const Duration(seconds: 5),
+          ),
+        );
+      };
+
+      // Callbacks are attached — now safe to kick off the join.
+      ref.read(voiceRoomProvider).joinRoom(widget.room);
     });
   }
 
@@ -250,11 +271,17 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
     final isHost = currentUserId == widget.room.hostId;
     final isReconnecting = voiceRoom.isReconnecting;
 
-    // Auto-pop when room ends (including during reconnect gap)
+    // Auto-pop when room ends (including during reconnect gap), OR when the
+    // initial join itself fails/times out — `VoiceRoomNotifier.joinRoom`
+    // (~15s timeout) sets `isLoading: false` + `error` in that case without
+    // ever having set `currentRoom`, so `wasInRoom` alone wouldn't catch it.
     ref.listen<VoiceRoomNotifier>(voiceRoomProvider, (previous, next) {
       final wasInRoom = previous?.currentRoom != null;
+      final wasJoining = previous?.isLoading ?? false;
       final nowOutOfRoom = next.currentRoom == null;
-      if (wasInRoom && nowOutOfRoom && context.mounted) {
+      final joinFailed =
+          wasJoining && !next.isLoading && nowOutOfRoom && next.state.error != null;
+      if ((wasInRoom || joinFailed) && nowOutOfRoom && context.mounted) {
         final reason = next.state.error;
         if (reason != null && reason.isNotEmpty) {
           showCommunitySnackBar(

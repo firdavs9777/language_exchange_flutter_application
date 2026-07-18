@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/models/community/voice_room_model.dart';
@@ -167,17 +169,37 @@ class VoiceRoomNotifier extends ChangeNotifier {
     await _manager.initialize(chatSocketService);
   }
 
-  /// Join an existing voice room
+  /// Join an existing voice room.
+  ///
+  /// Wrapped in a ~15s timeout: the underlying REST+LiveKit connect
+  /// (`VoiceRoomManager.joinRoom`) has no timeout of its own, so a hung
+  /// network would otherwise leave `isLoading: true` forever with no way
+  /// out for the user. On timeout we also actively tear down whatever the
+  /// manager managed to set up so far (`leaveRoom()`), so a retry starts
+  /// from a clean slate instead of racing a straggling connect that might
+  /// complete after the user has already backed out.
   Future<void> joinRoom(VoiceRoom room) async {
     _state = _state.copyWith(isLoading: true, error: null);
     notifyListeners();
 
     try {
       await _ensureInitialized();
-      await _manager.joinRoom(room);
+      await _manager.joinRoom(room).timeout(
+        const Duration(seconds: 15),
+        onTimeout: () =>
+            throw TimeoutException('Timed out joining voice room'),
+      );
       _updateState();
       _state = _state.copyWith(isLoading: false);
       notifyListeners();
+    } on TimeoutException {
+      unawaited(_manager.leaveRoom());
+      _state = _state.copyWith(
+        isLoading: false,
+        error: 'Connection timed out. Please check your network and try again.',
+      );
+      notifyListeners();
+      rethrow;
     } catch (e) {
       _state = _state.copyWith(
         isLoading: false,
