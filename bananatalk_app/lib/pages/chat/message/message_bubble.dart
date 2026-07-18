@@ -18,6 +18,7 @@ import 'package:bananatalk_app/pages/community/single/single_community_screen.da
 import 'package:bananatalk_app/pages/chat/header/user_avatar.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/pages/chat/message/message_context_menu_item.dart';
+import 'package:bananatalk_app/pages/chat/message/tick_status.dart';
 import 'package:bananatalk_app/services/learning_service.dart';
 import 'package:bananatalk_app/services/translation_service.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
@@ -1369,15 +1370,20 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
                                   if (widget.message.sendingStatus ==
                                       MessageSendingStatus.none) ...[
                                     Spacing.hGapXXS,
-                                    Icon(
-                                      widget.message.read
-                                          ? Icons.done_all
-                                          : Icons.done,
-                                      size: 14,
-                                      color: widget.message.read
-                                          ? _myMessageColor(context)
-                                          : _timestampColor(context),
-                                    ),
+                                    Builder(builder: (_) {
+                                      final role =
+                                          tickRoleFor(widget.message);
+                                      final isRead = role == TickRole.read;
+                                      return Icon(
+                                        role == TickRole.sent
+                                            ? Icons.done
+                                            : Icons.done_all,
+                                        size: 14,
+                                        color: isRead
+                                            ? _myMessageColor(context)
+                                            : _timestampColor(context),
+                                      );
+                                    }),
                                   ],
                                 ],
                               ),
