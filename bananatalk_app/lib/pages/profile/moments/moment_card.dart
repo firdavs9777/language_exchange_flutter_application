@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 
 class ProfileSingleMoment extends ConsumerStatefulWidget {
@@ -59,8 +60,18 @@ class _ProfileSingleMomentState extends ConsumerState<ProfileSingleMoment> {
     moment = widget.moment;
     likeCount = widget.moment.likeCount;
     commentCount = widget.moment.commentCount;
-    isLiked =
-        widget.moment.likedUsers?.contains(widget.moment.user.id) ?? false;
+    isLiked = false;
+    _initLikeStatus();
+  }
+
+  Future<void> _initLikeStatus() async {
+    final prefs = await SharedPreferences.getInstance();
+    final currentUserId = prefs.getString('userId');
+    if (mounted && currentUserId != null) {
+      setState(() {
+        isLiked = widget.moment.likedUsers?.contains(currentUserId) ?? false;
+      });
+    }
   }
 
   @override

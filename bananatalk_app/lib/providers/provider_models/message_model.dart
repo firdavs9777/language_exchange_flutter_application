@@ -19,6 +19,7 @@ class Message {
     required this.createdAt,
     required this.version,
     required this.read,
+    this.delivered = false,
     this.media,
     this.replyTo,
     this.isEdited = false,
@@ -51,6 +52,7 @@ class Message {
   final String createdAt;
   final int version;
   final bool read;
+  final bool delivered;
   final MessageMedia? media;
   final MessageReply? replyTo;
   final bool isEdited;
@@ -91,6 +93,7 @@ class Message {
       createdAt: createdAt,
       version: version,
       read: read,
+      delivered: delivered,
       media: media,
       replyTo: replyTo,
       isEdited: isEdited,
@@ -156,6 +159,7 @@ class Message {
       createdAt: json['createdAt'] ?? '',
       version: (json['__v'] as num?)?.toInt() ?? 0,
       read: json['read'] ?? false,
+      delivered: json['delivered'] ?? false,
       media: _parseMedia(json),
       replyTo: json['replyTo'] != null && json['replyTo'] is Map<String, dynamic>
           ? MessageReply.fromJson(json['replyTo'])
@@ -324,6 +328,7 @@ class Message {
       'createdAt': createdAt,
       '__v': version,
       'read': read,
+      'delivered': delivered,
       'media': media?.toJson(),
       'replyTo': replyTo?.toJson(),
       'isEdited': isEdited,
@@ -356,6 +361,7 @@ class Message {
     String? createdAt,
     int? version,
     bool? read,
+    bool? delivered,
     MessageMedia? media,
     MessageReply? replyTo,
     bool? isEdited,
@@ -385,6 +391,7 @@ class Message {
       createdAt: createdAt ?? this.createdAt,
       version: version ?? this.version,
       read: read ?? this.read,
+      delivered: delivered ?? this.delivered,
       media: media ?? this.media,
       replyTo: replyTo ?? this.replyTo,
       isEdited: isEdited ?? this.isEdited,
