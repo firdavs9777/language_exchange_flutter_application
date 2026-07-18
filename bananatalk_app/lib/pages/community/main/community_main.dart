@@ -282,6 +282,8 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
         isSearching: _isSearching,
         onSearchToggle: _toggleSearch,
         onFilterTap: _openFilters,
+        // Voice Rooms is at index 2 (after All, Gender) post-reorder.
+        onLiveRoomsTap: () => _tabController.animateTo(2),
       ),
       body: Column(
         children: [
