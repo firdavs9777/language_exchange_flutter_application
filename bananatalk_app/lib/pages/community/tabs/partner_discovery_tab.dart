@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-// ignore: unused_import
 import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
@@ -48,6 +47,10 @@ class PartnerDiscoveryTab extends ConsumerStatefulWidget {
 }
 
 class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
+  // Sparse in-feed native ad cadence for the partner list — one ad after
+  // every 8th member (never as the very first/last row; see _buildListView).
+  static const _adEveryNMembers = 8;
+
   String _userId = '';
   final Set<String> _sessionSkippedUsers = {}; // Local session cache
   final Set<String> _sessionWavedUsers = {}; // Local session cache
@@ -691,12 +694,29 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
   }
 
   /// Build list view of partners.
+  ///
+  /// Body layout (everything after the header, before the trailing loading
+  /// indicator) interleaves a [NativeAdWidget] after every
+  /// [_adEveryNMembers]th member. Ads are placed in fixed-size "blocks" of
+  /// (_adEveryNMembers members + 1 ad); the number of ads is derived from the
+  /// member count so an ad never lands as the very last row of the list —
+  /// e.g. with exactly 8 members there are 0 ads (it would trail the list),
+  /// with 9 members there is 1 ad (after member 8, followed by member 9).
   Widget _buildListView(
     List<Community> communities,
     bool isLoadingMore,
     bool hasMore, [
     dynamic currentUser,
   ]) {
+    final memberCount = communities.length;
+    // Only count an ad slot if at least one more member follows it, so an ad
+    // never appears as the first or last row of the body.
+    final adsCount = memberCount > 0
+        ? (memberCount - 1) ~/ _adEveryNMembers
+        : 0;
+    final bodyLength = memberCount + adsCount;
+    const blockSize = _adEveryNMembers + 1; // N members + 1 ad per block
+
     return RefreshIndicator(
       onRefresh: () async {
         ref.read(partnerFilterProvider.notifier).refresh();
@@ -710,7 +730,7 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
       child: ListView.separated(
         controller: _scrollController,
         padding: const EdgeInsets.only(bottom: 100),
-        itemCount: communities.length + 1 + (isLoadingMore || hasMore ? 1 : 0),
+        itemCount: 1 + bodyLength + (isLoadingMore || hasMore ? 1 : 0),
         separatorBuilder: (context, index) => index == 0
             ? const SizedBox.shrink()
             : Divider(height: 1, color: context.dividerColor),
@@ -723,16 +743,25 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
             return const VisitorRecallCard();
           }
 
-          final realIndex = index - 1;
+          final bodyIndex = index - 1;
 
           // Loading indicator at the end.
-          if (realIndex == communities.length) {
+          if (bodyIndex == bodyLength) {
             return const Padding(
               padding: EdgeInsets.all(16),
               child: Center(child: CircularProgressIndicator()),
             );
           }
 
+          // Map the body index onto either an ad slot or a member, per the
+          // block layout described above.
+          final block = bodyIndex ~/ blockSize;
+          final posInBlock = bodyIndex % blockSize;
+          if (posInBlock == _adEveryNMembers) {
+            return const NativeAdWidget();
+          }
+
+          final realIndex = block * _adEveryNMembers + posInBlock;
           final community = communities[realIndex];
           final item = PartnerListItem(
             user: community,

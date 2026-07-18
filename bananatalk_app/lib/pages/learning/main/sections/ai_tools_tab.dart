@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/providers/provider_root/ai_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/tutor_provider.dart';
+import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
 import 'package:bananatalk_app/widgets/vip_locked_feature.dart';
 import 'package:bananatalk_app/pages/learning/lessons/lessons_screen.dart';
 import 'package:bananatalk_app/pages/ai/conversation/ai_conversation_screen.dart';
@@ -117,7 +118,12 @@ class _AIToolsTabState extends ConsumerState<AIToolsTab>
             _buildSectionHeader(context, AppLocalizations.of(context)!.aiToolsMoreSection),
             const SizedBox(height: 12),
             _buildFeaturesGrid(context, isVip, isDark),
-            const SizedBox(height: 24),
+            const SizedBox(height: 20),
+
+            // Sparse native ad between the tools grid and progress sections.
+            // Self-hides for VIP/ad-free users via showAdsProvider.
+            const NativeAdWidget(),
+            const SizedBox(height: 8),
 
             // Quick Stats
             quizStatsAsync.when(
