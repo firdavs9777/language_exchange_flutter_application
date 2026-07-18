@@ -92,6 +92,11 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
   final List<String> _hashtags = [];
   final TextEditingController _hashtagController = TextEditingController();
   static const int _maxHashtags = 10;
+  // Whether the hashtag TextField is expanded. Starts collapsed so the
+  // bottom toolbar (filter/draw bar + privacy pill + caption + hashtags)
+  // doesn't stack a 5th always-visible pill; tapping the compact "Add tags"
+  // affordance (or the add-more control once tags exist) reveals it.
+  bool _showHashtagInput = false;
 
   // Video support
   final VideoCompressionService _videoCompressionService = VideoCompressionService();
@@ -1145,7 +1150,48 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
 
   /// Chips-style hashtag input: type a tag and press enter/done to add a
   /// chip; tap the chip's close icon to remove. Capped at [_maxHashtags].
+  /// Compact "Add tags" affordance shown instead of the always-visible
+  /// hashtag input, so the bottom toolbar isn't stacking a 5th pill when
+  /// there's nothing to show yet. Tapping it expands `_buildHashtagInput`'s
+  /// full editor via `_showHashtagInput`.
+  Widget _buildHashtagAffordance() {
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: GestureDetector(
+        onTap: () => setState(() => _showHashtagInput = true),
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+          decoration: BoxDecoration(
+            color: Colors.black54,
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: const Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(Icons.tag, color: Colors.white54, size: 16),
+              SizedBox(width: 4),
+              Text(
+                'Add tags',
+                style: TextStyle(color: Colors.white70, fontSize: 13),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   Widget _buildHashtagInput() {
+    final hasTags = _hashtags.isNotEmpty;
+    final atCap = _hashtags.length >= _maxHashtags;
+    final showField = _showHashtagInput && !atCap;
+
+    // Collapsed + no tags yet: don't render a pill at all, just the small
+    // tap-to-expand affordance (see _buildHashtagAffordance).
+    if (!hasTags && !showField) {
+      return _buildHashtagAffordance();
+    }
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
@@ -1156,30 +1202,48 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          if (_hashtags.isNotEmpty) ...[
+          if (hasTags) ...[
             Wrap(
               spacing: 6,
               runSpacing: 6,
-              children: _hashtags.map((tag) {
-                return Chip(
-                  label: Text(
-                    '#$tag',
-                    style: const TextStyle(color: Colors.white, fontSize: 12),
+              crossAxisAlignment: WrapCrossAlignment.center,
+              children: [
+                ..._hashtags.map((tag) {
+                  return Chip(
+                    label: Text(
+                      '#$tag',
+                      style: const TextStyle(color: Colors.white, fontSize: 12),
+                    ),
+                    backgroundColor: Colors.white.withValues(alpha: 0.15),
+                    deleteIcon: const Icon(Icons.close, size: 14, color: Colors.white70),
+                    onDeleted: () => _removeHashtag(tag),
+                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    visualDensity: VisualDensity.compact,
+                    padding: const EdgeInsets.symmetric(horizontal: 4),
+                  );
+                }),
+                // Collapsed-but-has-tags: small add-more control instead of
+                // always rendering the TextField below.
+                if (!showField && !atCap)
+                  GestureDetector(
+                    onTap: () => setState(() => _showHashtagInput = true),
+                    child: Container(
+                      padding: const EdgeInsets.all(4),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withValues(alpha: 0.12),
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(Icons.add, color: Colors.white70, size: 14),
+                    ),
                   ),
-                  backgroundColor: Colors.white.withValues(alpha: 0.15),
-                  deleteIcon: const Icon(Icons.close, size: 14, color: Colors.white70),
-                  onDeleted: () => _removeHashtag(tag),
-                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  visualDensity: VisualDensity.compact,
-                  padding: const EdgeInsets.symmetric(horizontal: 4),
-                );
-              }).toList(),
+              ],
             ),
-            const SizedBox(height: 6),
+            if (showField) const SizedBox(height: 6),
           ],
-          if (_hashtags.length < _maxHashtags)
+          if (showField)
             TextField(
               controller: _hashtagController,
+              autofocus: true,
               style: const TextStyle(color: Colors.white, fontSize: 14),
               decoration: const InputDecoration(
                 hintText: 'Add hashtags...',
@@ -1197,7 +1261,13 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
                 prefixIconConstraints: BoxConstraints(minWidth: 26, minHeight: 20),
               ),
               textInputAction: TextInputAction.done,
-              onSubmitted: _addHashtag,
+              onSubmitted: (value) {
+                _addHashtag(value);
+                // "Done" on the keyboard closes the editor back down to the
+                // compact chips + add-more view (matches the collapsed
+                // steady state once tags exist).
+                setState(() => _showHashtagInput = false);
+              },
               onChanged: (value) {
                 // Also split on comma/space so quick typing "abc, def" works.
                 if (value.endsWith(' ') || value.endsWith(',')) {
