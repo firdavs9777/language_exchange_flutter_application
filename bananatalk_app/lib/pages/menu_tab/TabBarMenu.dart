@@ -118,14 +118,10 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
 
   /// Deep-link for the feature spotlight's "Try it" CTA.
   ///
-  /// Coins has a real, precise destination (`CoinShopScreen`). Rooms and
-  /// voice rooms both live as sub-tabs inside `CommunityMain`'s own
-  /// internal `TabController`, which isn't exposed via any external
-  /// provider — so the simplest correct deep-link for those is switching
-  /// to the Community tab itself (matching how `AppShellDrawer` already
-  /// jumps between top-level tabs) rather than pushing `RoomsDirectoryScreen`
-  /// / `VoiceRoomsTab` standalone, which have no back button of their own
-  /// since they're designed to live inside `CommunityMain`'s app bar.
+  /// Coins pushes `CoinShopScreen` directly. Rooms/voice live as sub-tabs
+  /// inside `CommunityMain`'s internal `TabController`: request the precise
+  /// sub-tab via `communityPendingSubTabProvider` (CommunityMain animates to
+  /// it), then switch to the Community top-level tab.
   void _openPromoDestination(PromoType promo) {
     switch (promo) {
       case PromoType.coins:
@@ -134,7 +130,12 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
           AppPageRoute(builder: (_) => const CoinShopScreen()),
         );
       case PromoType.rooms:
+        ref.read(communityPendingSubTabProvider.notifier).state =
+            communityRoomsSubTab;
+        ref.read(selectedTabProvider.notifier).state = 1;
       case PromoType.voice:
+        ref.read(communityPendingSubTabProvider.notifier).state =
+            communityVoiceRoomsSubTab;
         ref.read(selectedTabProvider.notifier).state = 1;
     }
   }

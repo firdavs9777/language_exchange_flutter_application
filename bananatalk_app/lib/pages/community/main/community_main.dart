@@ -64,6 +64,17 @@ int remapTabIndexForRoomsFlag({
   return index;
 }
 
+/// Community sub-tab indices (post-reorder: All=0, Gender=1, Voice Rooms=2,
+/// Rooms=3, ...). Used by deep links (e.g. the feature-spotlight promo) that
+/// want to open a specific Community sub-tab.
+const int communityVoiceRoomsSubTab = 2;
+const int communityRoomsSubTab = 3;
+
+/// Set by a deep link to request that Community open on a specific sub-tab
+/// index once it builds. `CommunityMain` consumes it (animating its
+/// TabController) then resets it to null. null = no pending request.
+final communityPendingSubTabProvider = StateProvider<int?>((ref) => null);
+
 /// Main Community screen with HelloTalk-style tabs
 class CommunityMain extends ConsumerStatefulWidget {
   const CommunityMain({super.key});
@@ -267,6 +278,23 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
         .watch(appConfigProvider)
         .maybeWhen(data: (config) => config?.roomsEnabled ?? true, orElse: () => true);
     _syncTabCountWithRoomsFlag(roomsEnabled);
+
+    // Deep-link: a caller (e.g. the feature-spotlight promo) can request a
+    // specific sub-tab. Animate to it once, clamped, then clear the request.
+    // Rooms (index 3) only exists when enabled — fall back to Voice Rooms.
+    ref.listen<int?>(communityPendingSubTabProvider, (_, next) {
+      if (next == null) return;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!mounted) return;
+        var target = next;
+        if (target == communityRoomsSubTab && !roomsEnabled) {
+          target = communityVoiceRoomsSubTab;
+        }
+        target = target.clamp(0, _tabController.length - 1);
+        _tabController.animateTo(target);
+        ref.read(communityPendingSubTabProvider.notifier).state = null;
+      });
+    });
 
     // Compute filter-derived values once per build instead of allocating a
     // fresh Map on every widget that needs them.
