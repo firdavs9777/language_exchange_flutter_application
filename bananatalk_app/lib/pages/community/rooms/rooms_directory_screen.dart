@@ -57,11 +57,16 @@ class RoomsDirectoryScreen extends ConsumerWidget {
 
     return Scaffold(
       backgroundColor: Colors.transparent,
-      floatingActionButton: FloatingActionButton.extended(
-        heroTag: 'rooms-directory-fab',
-        onPressed: () => _createTopicRoom(context, ref),
-        icon: const Icon(Icons.add_rounded),
-        label: const Text('New room'),
+      // Lift the FAB above the floating "swimming" tab pill (see TabBarMenu),
+      // which sits ~60px tall at the bottom — a default-position FAB overlaps it.
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 72),
+        child: FloatingActionButton.extended(
+          heroTag: 'rooms-directory-fab',
+          onPressed: () => _createTopicRoom(context, ref),
+          icon: const Icon(Icons.add_rounded),
+          label: const Text('New room'),
+        ),
       ),
       body: roomsAsync.when(
         loading: () => const UserListSkeleton(count: 6),
