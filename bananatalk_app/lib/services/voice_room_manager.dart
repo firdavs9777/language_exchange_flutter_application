@@ -57,6 +57,25 @@ class VoiceRoomManager {
   bool _isMuted = true; // Start muted by default
   bool _isHandRaised = false;
 
+  // --- Rebuild-scoping caches ---------------------------------------------
+  // `participants`/`chatMessages` used to allocate a fresh
+  // `List.unmodifiable(...)` on every access, which meant every consumer
+  // watching `voiceRoomProvider.select((n) => n.participants)` (or
+  // `.chatMessages`) saw "a new list" on every single event — including
+  // ones that didn't touch that particular list at all — defeating
+  // `select`'s whole purpose of skipping rebuilds for unrelated churn.
+  // These revision counters let the getters below return the SAME cached
+  // instance when the underlying data genuinely hasn't changed, and only
+  // a fresh unmodifiable snapshot when it has. Bumped at every mutation
+  // site of `_participants`/`_chatMessages` respectively.
+  int _participantsRevision = 0;
+  List<RoomParticipant>? _participantsSnapshot;
+  int _participantsSnapshotRevision = -1;
+
+  int _chatMessagesRevision = 0;
+  List<VoiceRoomChatMessage>? _chatMessagesSnapshot;
+  int _chatMessagesSnapshotRevision = -1;
+
   // Timers
   Timer? _heartbeatTimer;
 
@@ -115,8 +134,25 @@ class VoiceRoomManager {
 
   // Getters
   VoiceRoom? get currentRoom => _currentRoom;
-  List<RoomParticipant> get participants => List.unmodifiable(_participants);
-  List<VoiceRoomChatMessage> get chatMessages => List.unmodifiable(_chatMessages);
+
+  List<RoomParticipant> get participants {
+    if (_participantsSnapshot == null ||
+        _participantsSnapshotRevision != _participantsRevision) {
+      _participantsSnapshot = List.unmodifiable(_participants);
+      _participantsSnapshotRevision = _participantsRevision;
+    }
+    return _participantsSnapshot!;
+  }
+
+  List<VoiceRoomChatMessage> get chatMessages {
+    if (_chatMessagesSnapshot == null ||
+        _chatMessagesSnapshotRevision != _chatMessagesRevision) {
+      _chatMessagesSnapshot = List.unmodifiable(_chatMessages);
+      _chatMessagesSnapshotRevision = _chatMessagesRevision;
+    }
+    return _chatMessagesSnapshot!;
+  }
+
   bool get isMuted => _isMuted;
   bool get isHandRaised => _isHandRaised;
   bool get isInRoom => _currentRoom != null;
@@ -200,6 +236,7 @@ class VoiceRoomManager {
       } else {
         _participants.add(participant);
       }
+      _participantsRevision++;
       onParticipantJoined?.call(participant);
       onStateChanged?.call();
     });
@@ -211,6 +248,7 @@ class VoiceRoomManager {
       final userId = data['userId']?.toString() ?? '';
       _participantLeftGraceTimers.remove(userId)?.cancel();
       _participants.removeWhere((p) => p.id == userId);
+      _participantsRevision++;
       onParticipantLeft?.call(userId);
       onStateChanged?.call();
     });
@@ -225,6 +263,7 @@ class VoiceRoomManager {
       final index = _participants.indexWhere((p) => p.id == participantId);
       if (index != -1) {
         _participants[index] = _participants[index].copyWith(isMuted: isMuted);
+        _participantsRevision++;
       }
 
       // If this is a forced mute aimed at the local user, mute the mic too
@@ -248,6 +287,7 @@ class VoiceRoomManager {
       final i = _participants.indexWhere((p) => p.id == participantId);
       if (i != -1) {
         _participants[i] = _participants[i].copyWith(isHandRaised: isRaised);
+        _participantsRevision++;
         onStateChanged?.call();
       }
     });
@@ -256,6 +296,7 @@ class VoiceRoomManager {
     _chatSub = _chatSocketService!.onVoiceRoomChat.listen((data) {
       final message = VoiceRoomChatMessage.fromJson(Map<String, dynamic>.from(data));
       _chatMessages.add(message);
+      _chatMessagesRevision++;
       onChatMessage?.call(message);
       onStateChanged?.call();
     });
@@ -293,6 +334,7 @@ class VoiceRoomManager {
           _participants[i] = p.copyWith(isHost: false);
         }
       }
+      _participantsRevision++;
 
       onHostChanged?.call(newHostId, previousHostId);
       onStateChanged?.call();
@@ -308,6 +350,7 @@ class VoiceRoomManager {
       final existing = _participants.indexWhere((p) => p.id == participant.id);
       if (existing == -1) {
         _participants.add(participant);
+        _participantsRevision++;
         onStateChanged?.call();
       }
     };
@@ -320,6 +363,7 @@ class VoiceRoomManager {
       final i = _participants.indexWhere((p) => p.id == participantId);
       if (i != -1 && _participants[i].isSpeaking) {
         _participants[i] = _participants[i].copyWith(isSpeaking: false);
+        _participantsRevision++;
         onStateChanged?.call();
       }
 
@@ -338,6 +382,7 @@ class VoiceRoomManager {
           debugPrint(
               '[VR] participant $participantId removed via grace-timer fallback (no voiceroom:left)');
           _participants.removeWhere((p) => p.id == participantId);
+          _participantsRevision++;
           onParticipantLeft?.call(participantId);
           onStateChanged?.call();
         }
@@ -353,6 +398,7 @@ class VoiceRoomManager {
       final effective = isSpeaking && !p.isMuted;
       if (p.isSpeaking != effective) {
         _participants[i] = p.copyWith(isSpeaking: effective);
+        _participantsRevision++;
         onStateChanged?.call();
       }
     };
@@ -363,6 +409,7 @@ class VoiceRoomManager {
       final p = _participants[i];
       if (p.isMuted != isMuted) {
         _participants[i] = p.copyWith(isMuted: isMuted);
+        _participantsRevision++;
         onStateChanged?.call();
       }
     };
@@ -411,7 +458,9 @@ class VoiceRoomManager {
     // Seed local state from the room snapshot the caller already holds.
     _currentRoom = room;
     _participants = List.from(room.participants);
+    _participantsRevision++;
     _chatMessages = [];
+    _chatMessagesRevision++;
     _isMuted = true;
     _isHandRaised = false;
 
@@ -438,6 +487,7 @@ class VoiceRoomManager {
           final updated = VoiceRoom.fromJson(roomJson);
           _currentRoom = updated;
           _participants = List.from(updated.participants);
+          _participantsRevision++;
         } catch (e) {
           debugPrint('VoiceRoomManager: failed to parse join response: $e');
         }
@@ -583,7 +633,9 @@ class VoiceRoomManager {
     _participantLeftGraceTimers.clear();
     _currentRoom = null;
     _participants = [];
+    _participantsRevision++;
     _chatMessages = [];
+    _chatMessagesRevision++;
     _isMuted = true;
     _isHandRaised = false;
     onStateChanged?.call();

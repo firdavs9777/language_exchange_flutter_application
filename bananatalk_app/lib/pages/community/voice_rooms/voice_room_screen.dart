@@ -266,15 +266,29 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final voiceRoom = ref.watch(voiceRoomProvider);
+    // Perf note (rooms perf refactor): this used to be a single unscoped
+    // `ref.watch(voiceRoomProvider)`, which meant EVERY event the notifier
+    // fires — participant join/left, chat, mute, hand-raise, host-change,
+    // and critically every active-speaker transition (which can fire
+    // multiple times a second) — rebuilt this entire screen: info bar,
+    // grid, controls, all of it. Now the screen itself only watches the
+    // two flags it truly needs at this level (`isReconnecting` gates the
+    // `IgnorePointer`/reconnect banner/react-FAB), and each section below
+    // (participants grid, controls) reads its own slice independently via
+    // `voiceRoomProvider.select` inside its own `Consumer`, so unrelated
+    // churn no longer cascades up here.
+    final isReconnecting =
+        ref.watch(voiceRoomProvider.select((n) => n.isReconnecting));
     final currentUserId = ref.read(authServiceProvider).userId;
     final isHost = currentUserId == widget.room.hostId;
-    final isReconnecting = voiceRoom.isReconnecting;
 
     // Auto-pop when room ends (including during reconnect gap), OR when the
     // initial join itself fails/times out — `VoiceRoomNotifier.joinRoom`
     // (~15s timeout) sets `isLoading: false` + `error` in that case without
     // ever having set `currentRoom`, so `wasInRoom` alone wouldn't catch it.
+    // `ref.listen` fires on every notifier change independent of whether
+    // this widget rebuilds via `ref.watch`, so narrowing the watch above
+    // doesn't affect this listener's ability to see every transition.
     ref.listen<VoiceRoomNotifier>(voiceRoomProvider, (previous, next) {
       final wasInRoom = previous?.currentRoom != null;
       final wasJoining = previous?.isLoading ?? false;
@@ -294,14 +308,6 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
       }
     });
 
-    final rawParticipants = voiceRoom.participants.isNotEmpty
-        ? voiceRoom.participants
-        : widget.room.participants;
-    final participants = _sortedParticipants(rawParticipants);
-
-    final messages = voiceRoom.chatMessages;
-    final unread = (messages.length - _lastSeenChatCount).clamp(0, 999);
-
     return Scaffold(
       backgroundColor: const Color(0xFF1A1A2E),
       appBar: VoiceRoomHeader(
@@ -315,56 +321,103 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
             children: [
               VoiceRoomInfoBar(room: widget.room),
               Expanded(
-                child: VoiceRoomParticipantsGrid(
-                  room: widget.room,
-                  participants: participants,
-                  hostLabel: l10n.roomHost,
-                  onTileTap: (participant) {
-                    if (participant.id.isNotEmpty) {
-                      Navigator.push(
-                        context,
-                        AppPageRoute(
-                          builder: (_) =>
-                              ProfileWrapper(userId: participant.id),
-                        ),
-                      );
-                    }
-                  },
-                  onTileLongPress: isHost
-                      ? (participant) {
-                          final participantIsHost =
-                              participant.isHost ||
-                              participant.id == widget.room.hostId;
-                          if (!participantIsHost) {
-                            showParticipantActions(context, ref, participant);
-                          }
+                child: Consumer(
+                  builder: (context, ref, _) {
+                    // `select` returns a comma-joined String of the sorted
+                    // (host-first) participant ids -- a value type with
+                    // proper `==`, unlike a raw `List<RoomParticipant>`
+                    // which compares by identity and would "change" (and
+                    // force a rebuild) on every single event. Because of
+                    // that, this Consumer -- and the sort inside the
+                    // selector -- only re-runs when membership or host
+                    // order actually changes, NOT when a single
+                    // participant's isSpeaking/isMuted/isHandRaised flips,
+                    // which is the high-frequency case this refactor
+                    // targets. Mongo ids never contain a comma, so
+                    // splitting the key reconstructs the id list exactly,
+                    // with no second sort/read needed to stay in sync.
+                    final orderedIdsKey =
+                        ref.watch(voiceRoomProvider.select((n) {
+                      final raw = n.participants.isNotEmpty
+                          ? n.participants
+                          : widget.room.participants;
+                      return _sortedParticipants(raw)
+                          .map((p) => p.id)
+                          .join(',');
+                    }));
+                    final orderedIds = orderedIdsKey.isEmpty
+                        ? const <String>[]
+                        : orderedIdsKey.split(',');
+
+                    return VoiceRoomParticipantsGrid(
+                      room: widget.room,
+                      participantIds: orderedIds,
+                      hostLabel: l10n.roomHost,
+                      onTileTap: (participant) {
+                        if (participant.id.isNotEmpty) {
+                          Navigator.push(
+                            context,
+                            AppPageRoute(
+                              builder: (_) =>
+                                  ProfileWrapper(userId: participant.id),
+                            ),
+                          );
                         }
-                      : null,
-                  keyForParticipant: (participant) =>
-                      participant.id.isNotEmpty
-                          ? _keyForParticipant(participant.id)
+                      },
+                      onTileLongPress: isHost
+                          ? (participant) {
+                              final participantIsHost =
+                                  participant.isHost ||
+                                  participant.id == widget.room.hostId;
+                              if (!participantIsHost) {
+                                showParticipantActions(
+                                    context, ref, participant);
+                              }
+                            }
                           : null,
+                      keyForParticipant: (participant) =>
+                          participant.id.isNotEmpty
+                              ? _keyForParticipant(participant.id)
+                              : null,
+                    );
+                  },
                 ),
               ),
               IgnorePointer(
                 ignoring: isReconnecting,
-                child: VoiceRoomControls(
-                  isMuted: voiceRoom.isMuted,
-                  isHandRaised: voiceRoom.isHandRaised,
-                  onRaiseHand: _toggleHandRaise,
-                  onMute: _toggleMute,
-                  onLeave: _leaveRoom,
-                  isHost: isHost,
-                  onEnd: () => showHostMenu(context, ref),
-                  unreadChatCount: _chatVisible ? 0 : unread,
-                  onChatToggle: _toggleChat,
-                  raiseHandLabel: l10n.raiseHand,
-                  lowerHandLabel: l10n.lowerHand,
-                  muteLabel: l10n.mute,
-                  unmuteLabel: l10n.unmute,
-                  leaveLabel: l10n.leave,
-                  endRoomLabel: l10n.voiceRoomEnd,
-                  chatLabel: l10n.voiceRoomChat,
+                child: Consumer(
+                  builder: (context, ref, _) {
+                    // Local control state — isMuted/isHandRaised are
+                    // primitives, so `select` already dedupes correctly
+                    // without needing the manager-level list caching that
+                    // `participants`/`chatMessages` required.
+                    final isMuted =
+                        ref.watch(voiceRoomProvider.select((n) => n.isMuted));
+                    final isHandRaised = ref
+                        .watch(voiceRoomProvider.select((n) => n.isHandRaised));
+                    final chatCount = ref.watch(
+                        voiceRoomProvider.select((n) => n.chatMessages.length));
+                    final unread =
+                        (chatCount - _lastSeenChatCount).clamp(0, 999);
+                    return VoiceRoomControls(
+                      isMuted: isMuted,
+                      isHandRaised: isHandRaised,
+                      onRaiseHand: _toggleHandRaise,
+                      onMute: _toggleMute,
+                      onLeave: _leaveRoom,
+                      isHost: isHost,
+                      onEnd: () => showHostMenu(context, ref),
+                      unreadChatCount: _chatVisible ? 0 : unread,
+                      onChatToggle: _toggleChat,
+                      raiseHandLabel: l10n.raiseHand,
+                      lowerHandLabel: l10n.lowerHand,
+                      muteLabel: l10n.mute,
+                      unmuteLabel: l10n.unmute,
+                      leaveLabel: l10n.leave,
+                      endRoomLabel: l10n.voiceRoomEnd,
+                      chatLabel: l10n.voiceRoomChat,
+                    );
+                  },
                 ),
               ),
             ],

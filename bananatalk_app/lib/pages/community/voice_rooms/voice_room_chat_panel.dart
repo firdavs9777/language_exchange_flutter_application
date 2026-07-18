@@ -43,7 +43,14 @@ class _VoiceRoomChatPanelState extends ConsumerState<VoiceRoomChatPanel> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     // The voice room screen is on a fixed dark theme; mirror it here.
-    final messages = ref.watch(voiceRoomProvider).chatMessages;
+    // `select` (rather than watching the whole notifier) means this panel
+    // only rebuilds when the chat message list itself changes — not on
+    // every mute/speaking/hand-raise event elsewhere in the room, which
+    // `VoiceRoomManager.chatMessages` now returns a stable cached instance
+    // for (see `voice_room_manager.dart`) so unrelated churn doesn't look
+    // like "a new list" to `select`.
+    final messages =
+        ref.watch(voiceRoomProvider.select((n) => n.chatMessages));
     return Container(
       decoration: const BoxDecoration(
         color: Color(0xFF22223A),
