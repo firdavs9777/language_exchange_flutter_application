@@ -77,13 +77,10 @@ class _CommentsMainState extends ConsumerState<CommentsMain> {
                 onRefresh: () {
                   ref.invalidate(commentsProvider(widget.id));
                   // Comment add/edit/delete/like changes commentCount on the
-                  // moment, so every feed tab that surfaces it must go
+                  // moment, so the active feed tab that surfaces it must go
                   // stale too, not just the legacy combined feed — mirrors
-                  // the 4-provider invalidation MomentCard's toggleLike uses.
-                  ref.invalidate(momentsFeedProvider);
-                  ref.invalidate(forYouMomentsProvider);
-                  ref.invalidate(followingMomentsProvider);
-                  ref.invalidate(trendingMomentsProvider);
+                  // the invalidation MomentCard's toggleLike uses.
+                  invalidateMomentFeeds(ref);
                 },
                 onReply: widget.onReply,
               ),
@@ -149,13 +146,10 @@ class _CommentsMainState extends ConsumerState<CommentsMain> {
                 onRefresh: () {
                   ref.read(paginatedCommentsProvider(widget.id).notifier).refresh();
                   // Comment add/edit/delete/like changes commentCount on the
-                  // moment, so every feed tab that surfaces it must go
+                  // moment, so the active feed tab that surfaces it must go
                   // stale too, not just the legacy combined feed — mirrors
-                  // the 4-provider invalidation MomentCard's toggleLike uses.
-                  ref.invalidate(momentsFeedProvider);
-                  ref.invalidate(forYouMomentsProvider);
-                  ref.invalidate(followingMomentsProvider);
-                  ref.invalidate(trendingMomentsProvider);
+                  // the invalidation MomentCard's toggleLike uses.
+                  invalidateMomentFeeds(ref);
                 },
                 onReply: widget.onReply,
               ),
@@ -230,6 +224,7 @@ class _CommentItem extends StatefulWidget {
 class _CommentItemState extends State<_CommentItem> with SingleTickerProviderStateMixin {
   bool _isLiked = false;
   int _likeCount = 0;
+  bool _likePending = false;
   bool _showReplies = false;
   List<dynamic> _replies = [];
   bool _loadingReplies = false;
@@ -319,6 +314,11 @@ class _CommentItemState extends State<_CommentItem> with SingleTickerProviderSta
   }
 
   Future<void> _toggleLike() async {
+    // Guard against rapid double-taps firing two overlapping like requests
+    // (mirrors `MomentCard.toggleLike`'s `_likePending` guard).
+    if (_likePending) return;
+    _likePending = true;
+
     final previousLiked = _isLiked;
     final previousCount = _likeCount;
 
@@ -329,37 +329,41 @@ class _CommentItemState extends State<_CommentItem> with SingleTickerProviderSta
       _likeCount += _isLiked ? 1 : -1;
     });
 
-    final result = await api.MomentsService.likeComment(
-      momentId: widget.momentId,
-      commentId: widget.comment.id,
-    );
+    try {
+      final result = await api.MomentsService.likeComment(
+        momentId: widget.momentId,
+        commentId: widget.comment.id,
+      );
 
-    debugPrint('💬❤️ Comment like result: $result');
+      debugPrint('💬❤️ Comment like result: $result');
 
-    if (result['success'] == true) {
-      if (mounted) {
-        setState(() {
-          _isLiked = result['isLiked'] ?? !previousLiked;
-          _likeCount = result['likeCount'] ?? previousCount;
-        });
-        debugPrint('💬❤️ Comment updated: isLiked=$_isLiked, likeCount=$_likeCount');
-        // Refresh comments so likedUsers list is updated from backend
-        widget.onRefresh();
+      if (result['success'] == true) {
+        if (mounted) {
+          setState(() {
+            _isLiked = result['isLiked'] ?? !previousLiked;
+            _likeCount = result['likeCount'] ?? previousCount;
+          });
+          debugPrint('💬❤️ Comment updated: isLiked=$_isLiked, likeCount=$_likeCount');
+          // Refresh comments so likedUsers list is updated from backend
+          widget.onRefresh();
+        }
+      } else {
+        debugPrint('💬❤️ Comment like FAILED: ${result['error']}');
+        if (mounted) {
+          setState(() {
+            _isLiked = previousLiked;
+            _likeCount = previousCount;
+          });
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(result['error'] ?? AppLocalizations.of(context)!.failedToSave),
+              backgroundColor: AppColors.error,
+            ),
+          );
+        }
       }
-    } else {
-      debugPrint('💬❤️ Comment like FAILED: ${result['error']}');
-      if (mounted) {
-        setState(() {
-          _isLiked = previousLiked;
-          _likeCount = previousCount;
-        });
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(result['error'] ?? AppLocalizations.of(context)!.failedToSave),
-            backgroundColor: AppColors.error,
-          ),
-        );
-      }
+    } finally {
+      _likePending = false;
     }
   }
 
@@ -953,6 +957,7 @@ class _ReplyItem extends StatefulWidget {
 class _ReplyItemState extends State<_ReplyItem> {
   bool _isLiked = false;
   int _likeCount = 0;
+  bool _likePending = false;
 
   @override
   void initState() {
@@ -1071,6 +1076,10 @@ class _ReplyItemState extends State<_ReplyItem> {
 
   Future<void> _toggleLike() async {
     if (_replyId.isEmpty) return;
+    // Guard against rapid double-taps firing two overlapping like requests
+    // (mirrors `MomentCard.toggleLike`'s `_likePending` guard).
+    if (_likePending) return;
+    _likePending = true;
 
     final previousLiked = _isLiked;
     final previousCount = _likeCount;
@@ -1082,37 +1091,41 @@ class _ReplyItemState extends State<_ReplyItem> {
       _likeCount += _isLiked ? 1 : -1;
     });
 
-    final result = await api.MomentsService.likeComment(
-      momentId: widget.momentId,
-      commentId: _replyId,
-    );
+    try {
+      final result = await api.MomentsService.likeComment(
+        momentId: widget.momentId,
+        commentId: _replyId,
+      );
 
-    debugPrint('💬❤️ Reply like result: $result');
+      debugPrint('💬❤️ Reply like result: $result');
 
-    if (result['success'] == true) {
-      if (mounted) {
-        setState(() {
-          _isLiked = result['isLiked'] ?? !previousLiked;
-          _likeCount = result['likeCount'] ?? previousCount;
-        });
-        debugPrint('💬❤️ Reply updated: isLiked=$_isLiked, likeCount=$_likeCount');
-        // Refresh comments so likedUsers list is updated from backend
-        widget.onRefresh();
+      if (result['success'] == true) {
+        if (mounted) {
+          setState(() {
+            _isLiked = result['isLiked'] ?? !previousLiked;
+            _likeCount = result['likeCount'] ?? previousCount;
+          });
+          debugPrint('💬❤️ Reply updated: isLiked=$_isLiked, likeCount=$_likeCount');
+          // Refresh comments so likedUsers list is updated from backend
+          widget.onRefresh();
+        }
+      } else {
+        debugPrint('💬❤️ Reply like FAILED: ${result['error']}');
+        if (mounted) {
+          setState(() {
+            _isLiked = previousLiked;
+            _likeCount = previousCount;
+          });
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(result['error'] ?? AppLocalizations.of(context)!.failedToSave),
+              backgroundColor: AppColors.error,
+            ),
+          );
+        }
       }
-    } else {
-      debugPrint('💬❤️ Reply like FAILED: ${result['error']}');
-      if (mounted) {
-        setState(() {
-          _isLiked = previousLiked;
-          _likeCount = previousCount;
-        });
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(result['error'] ?? AppLocalizations.of(context)!.failedToSave),
-            backgroundColor: AppColors.error,
-          ),
-        );
-      }
+    } finally {
+      _likePending = false;
     }
   }
 

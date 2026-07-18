@@ -191,13 +191,10 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
       }
 
       // Refresh the moment feeds to update comment counts shown on the
-      // feed card, across all three tabs (not just the legacy combined
+      // feed card, on the active feed tab (not just the legacy combined
       // feed) — mirrors the invalidation `MomentCard`'s like/react actions
       // already perform.
-      ref.invalidate(momentsFeedProvider);
-      ref.invalidate(forYouMomentsProvider);
-      ref.invalidate(followingMomentsProvider);
-      ref.invalidate(trendingMomentsProvider);
+      invalidateMomentFeeds(ref);
 
       // Refresh limits after successful creation
       try {

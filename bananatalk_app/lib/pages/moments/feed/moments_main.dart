@@ -164,7 +164,15 @@ final momentsFeedTabProvider =
 /// `ReelsGridScreen` before this function would ever be reached for that
 /// tab. The `.reels` arm below only exists to satisfy switch exhaustiveness
 /// and is unreachable in practice.
-ProviderListenable<AsyncValue<List<Moments>>> _baseProviderFor(
+///
+/// Public (not `_`-prefixed) so `invalidateMomentFeeds` in
+/// `moments_providers.dart` can reuse this exact tab→provider mapping
+/// instead of duplicating the switch (see moments audit I2/P1). Typed as
+/// `FutureProvider<List<Moments>>` (not the broader `ProviderListenable`)
+/// so callers can both `ref.watch(...)` it (as before) and
+/// `ref.invalidate(...)` it — `invalidate` requires a `ProviderOrFamily`,
+/// which `ProviderListenable` alone doesn't satisfy.
+FutureProvider<List<Moments>> baseProviderFor(
     MomentsFeedTab tab) {
   switch (tab) {
     case MomentsFeedTab.forYou:
@@ -183,7 +191,7 @@ ProviderListenable<AsyncValue<List<Moments>>> _baseProviderFor(
 /// its own cached data and can be invalidated independently.
 final filteredMomentsForTabProvider =
     Provider.family<AsyncValue<List<Moments>>, MomentsFeedTab>((ref, tab) {
-  final momentsAsync = ref.watch(_baseProviderFor(tab));
+  final momentsAsync = ref.watch(baseProviderFor(tab));
   final filter = ref.watch(momentFilterProvider);
   final blockedUserIdsAsync = ref.watch(blockedUserIdsProvider);
   final mutedUserIds = ref.watch(mutedMomentsProvider);
@@ -322,7 +330,7 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
     final isReelsTab = effectiveTab == MomentsFeedTab.reels;
 
     // Reels is backed by its own paginated provider (see
-    // `_baseProviderFor`'s doc comment) — don't call the shared card-feed
+    // `baseProviderFor`'s doc comment) — don't call the shared card-feed
     // family provider for it.
     final filteredMomentsAsync = isReelsTab
         ? const AsyncValue<List<Moments>>.data(<Moments>[])

@@ -46,6 +46,7 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
   bool _likePending = false;
   bool _showTranslation = false;
   String? _translationTargetCode;
+  String _cachedUserId = '';
   TextEditingController commentController = TextEditingController();
   final FocusNode commentFocusNode = FocusNode();
   String? _replyToCommentId;
@@ -164,6 +165,29 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
     super.dispose();
   }
 
+  @override
+  void didUpdateWidget(covariant SingleMoment oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // Resync local like/save state when the underlying moment object
+    // changes (e.g. after invalidateMomentFeeds/commentsProvider refetch)
+    // instead of leaving `initState`'s snapshot to silently go stale.
+    // Mirrors `_CommentItemState.didUpdateWidget` in comments_main.dart.
+    // Only fires for the same moment id, and skips the like/count resync
+    // while a like request is in flight so we don't clobber the
+    // optimistic update with a stale server snapshot.
+    if (oldWidget.moment.id != widget.moment.id ||
+        identical(oldWidget.moment, widget.moment)) {
+      return;
+    }
+    if (_cachedUserId.isNotEmpty) {
+      if (!_likePending) {
+        likeCount = widget.moment.likeCount;
+        isLiked = widget.moment.likedUsers?.contains(_cachedUserId) ?? false;
+      }
+      isSaved = widget.moment.savedBy.contains(_cachedUserId);
+    }
+  }
+
   Future<void> _initLikeAndSaveStatus() async {
     final prefs = await SharedPreferences.getInstance();
     final currentUserId = prefs.getString('userId');
@@ -171,6 +195,7 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
       setState(() {
         isLiked = widget.moment.likedUsers?.contains(currentUserId) ?? false;
         isSaved = widget.moment.savedBy.contains(currentUserId);
+        _cachedUserId = currentUserId;
       });
     }
   }
@@ -245,10 +270,7 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
         // `MomentCard.toggleLike`'s invalidation) so returning to the list
         // doesn't show a stale count until the next stale-while-revalidate
         // refresh.
-        ref.invalidate(momentsFeedProvider);
-        ref.invalidate(forYouMomentsProvider);
-        ref.invalidate(followingMomentsProvider);
-        ref.invalidate(trendingMomentsProvider);
+        invalidateMomentFeeds(ref);
       }
     } catch (e) {
       if (mounted) {

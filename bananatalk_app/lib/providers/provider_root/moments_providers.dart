@@ -9,6 +9,15 @@ import 'dart:io';
 import 'package:http_parser/http_parser.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/services/moments_service.dart' as api;
+// Only imported for the active-tab → provider mapping reused by
+// `invalidateMomentFeeds` below (`MomentsFeedTab`/`momentsFeedTabProvider`/
+// `baseProviderFor` live there since they're intrinsic to the feed screen's
+// tab state). This does create an import edge back to a page-level file,
+// which Dart's compiler handles fine (no `part`-style restriction on
+// import cycles) — see the moments audit I2/P1 fix report for why reusing
+// the existing mapping was preferred over duplicating/moving it.
+import 'package:bananatalk_app/pages/moments/feed/moments_main.dart'
+    show momentsFeedTabProvider, baseProviderFor;
 
 typedef MomentsServiceAPI = api.MomentsService;
 
@@ -795,6 +804,31 @@ void refreshMomentsIfStale(WidgetRef ref,
   ref.invalidate(followingMomentsProvider);
   ref.invalidate(trendingMomentsProvider);
   ref.invalidate(momentsFeedProvider);
+}
+
+/// Shared invalidation for the moment feed providers, called after a
+/// like/react/comment/correction changes a moment's `likeCount`/
+/// `commentCount` (see moments audit P1: this exact 4-line
+/// `ref.invalidate(...)` block used to be copy-pasted at 7 call sites
+/// across `moment_card.dart`, `single_moment.dart`, `comments_main.dart`,
+/// and `create_comment.dart`).
+///
+/// Scoped to just the base `momentsFeedProvider` (the legacy combined feed)
+/// plus whichever of the three tab feeds is *currently visible*
+/// (`momentsFeedTabProvider` + `baseProviderFor`, both from
+/// `moments_main.dart`), instead of unconditionally invalidating all four
+/// feed providers (see moments audit I2). A single like tap previously
+/// forced up to 4 full network refetches of up to 50 moments each,
+/// regardless of which tab the user was even looking at; this cuts it to
+/// (usually) 2, while still guaranteeing the tab the user can actually see
+/// goes stale and refetches. The other, currently-hidden tabs are left
+/// stale until the user switches to them (`refreshMomentsIfStale` then
+/// covers that case on tab focus/return) or the 60s freshness window
+/// elapses — an intentional tradeoff per the audit's suggested fix.
+void invalidateMomentFeeds(WidgetRef ref) {
+  ref.invalidate(momentsFeedProvider);
+  final activeTab = ref.read(momentsFeedTabProvider);
+  ref.invalidate(baseProviderFor(activeTab));
 }
 
 /// Provider that returns a single, denormalized list of moments that can be

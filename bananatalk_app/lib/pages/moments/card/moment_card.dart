@@ -59,6 +59,32 @@ class _MomentCardState extends ConsumerState<MomentCard> {
     _loadSavedStatus();
   }
 
+  @override
+  void didUpdateWidget(covariant MomentCard oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // MomentsFeedWidget keys each card with a stable ValueKey(id), so this
+    // State survives feed refetches (e.g. invalidateMomentFeeds landing
+    // after another user's like/comment) — resync the local like/save
+    // snapshot from the fresh `widget.moments` instead of silently going
+    // stale until the widget is destroyed/recreated. Mirrors
+    // `_CommentItemState.didUpdateWidget` in comments_main.dart. Only
+    // fires when the same moment's underlying object actually changed
+    // (not on every rebuild), and skips the like/count resync while a
+    // like request is in flight so we don't clobber the optimistic update
+    // with a stale server snapshot.
+    if (oldWidget.moments.id != widget.moments.id ||
+        identical(oldWidget.moments, widget.moments)) {
+      return;
+    }
+    if (_cachedUserId.isNotEmpty) {
+      if (!_likePending) {
+        likeCount = widget.moments.likeCount;
+        isLiked = widget.moments.likedUsers?.contains(_cachedUserId) ?? false;
+      }
+      isSaved = widget.moments.savedBy.contains(_cachedUserId);
+    }
+  }
+
   Future<void> _initLikeStatus() async {
     final prefs = await SharedPreferences.getInstance();
     final currentUserId = prefs.getString('userId');
@@ -145,10 +171,7 @@ class _MomentCardState extends ConsumerState<MomentCard> {
           isLiked = result['isLiked'] ?? !previousLiked;
           likeCount = result['likeCount'] ?? previousCount;
         });
-        ref.invalidate(momentsFeedProvider);
-        ref.invalidate(forYouMomentsProvider);
-        ref.invalidate(followingMomentsProvider);
-        ref.invalidate(trendingMomentsProvider);
+        invalidateMomentFeeds(ref);
       }
     } catch (e) {
       if (mounted) {
@@ -236,10 +259,7 @@ class _MomentCardState extends ConsumerState<MomentCard> {
         momentId: widget.moments.id,
         emoji: emoji,
       );
-      ref.invalidate(momentsFeedProvider);
-      ref.invalidate(forYouMomentsProvider);
-      ref.invalidate(followingMomentsProvider);
-      ref.invalidate(trendingMomentsProvider);
+      invalidateMomentFeeds(ref);
     } catch (e) {
       debugPrint('React to moment error: $e');
     }
@@ -327,10 +347,7 @@ class _MomentCardState extends ConsumerState<MomentCard> {
               },
             );
         ref.invalidate(commentsProvider(widget.moments.id));
-        ref.invalidate(momentsFeedProvider);
-        ref.invalidate(forYouMomentsProvider);
-        ref.invalidate(followingMomentsProvider);
-        ref.invalidate(trendingMomentsProvider);
+        invalidateMomentFeeds(ref);
         if (mounted) {
           showMomentsSnackBar(
             this.context,
