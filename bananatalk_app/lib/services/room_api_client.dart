@@ -79,6 +79,7 @@ class RoomApiClient {
     required String title,
     required String targetLanguage,
     String? description,
+    String? emojiFlag,
   }) async {
     try {
       final response = await _apiClient.post(
@@ -87,6 +88,7 @@ class RoomApiClient {
           'title': title,
           'targetLanguage': targetLanguage,
           if (description != null) 'description': description,
+          if (emojiFlag != null && emojiFlag.isNotEmpty) 'emojiFlag': emojiFlag,
         },
       );
       if (!response.success) {

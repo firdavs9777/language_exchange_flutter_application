@@ -56,6 +56,13 @@ class _CreateTopicRoomSheetState extends ConsumerState<CreateTopicRoomSheet> {
   String? _titleError;
   bool _isSubmitting = false;
 
+  /// "English" is ambiguous (UK vs US). When the selected language is English,
+  /// the creator picks the flag variant; default to 🇺🇸 so English rooms aren't
+  /// locked to the British flag. Only used when [_isEnglish].
+  String _englishFlag = '🇺🇸';
+
+  bool get _isEnglish => _selectedLanguage.toLowerCase().contains('english');
+
   @override
   void dispose() {
     _titleController.dispose();
@@ -80,6 +87,9 @@ class _CreateTopicRoomSheetState extends ConsumerState<CreateTopicRoomSheet> {
           title: title,
           targetLanguage: _selectedLanguage,
           description: description.isEmpty ? null : description,
+          // Store the chosen UK/US flag for English; other languages derive
+          // their flag from the language name client-side.
+          emojiFlag: _isEnglish ? _englishFlag : null,
         );
 
     if (!mounted) return;
@@ -324,31 +334,105 @@ class _CreateTopicRoomSheetState extends ConsumerState<CreateTopicRoomSheet> {
         ? catalogNames
         : [_selectedLanguage, ...catalogNames];
 
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      decoration: BoxDecoration(
-        color: context.containerColor,
-        borderRadius: AppRadius.borderMD,
-      ),
-      child: DropdownButtonHideUnderline(
-        child: DropdownButton<String>(
-          value: _selectedLanguage,
-          isExpanded: true,
-          icon: const Icon(Icons.keyboard_arrow_down_rounded),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          decoration: BoxDecoration(
+            color: context.containerColor,
+            borderRadius: AppRadius.borderMD,
+          ),
+          child: DropdownButtonHideUnderline(
+            child: DropdownButton<String>(
+              value: _selectedLanguage,
+              isExpanded: true,
+              icon: const Icon(Icons.keyboard_arrow_down_rounded),
+              borderRadius: AppRadius.borderMD,
+              items: languages
+                  .map(
+                    (language) => DropdownMenuItem(
+                        value: language, child: Text(language)),
+                  )
+                  .toList(),
+              onChanged: _isSubmitting
+                  ? null
+                  : (value) {
+                      if (value != null) {
+                        setState(() => _selectedLanguage = value);
+                      }
+                    },
+            ),
+          ),
+        ),
+        // English is UK/US ambiguous — let the creator choose which flag.
+        if (_isEnglish) ...[
+          const SizedBox(height: 8),
+          Row(
+            children: [
+              Expanded(
+                child: _EnglishFlagChoice(
+                  label: '🇺🇸 US English',
+                  selected: _englishFlag == '🇺🇸',
+                  onTap: _isSubmitting
+                      ? null
+                      : () => setState(() => _englishFlag = '🇺🇸'),
+                ),
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: _EnglishFlagChoice(
+                  label: '🇬🇧 UK English',
+                  selected: _englishFlag == '🇬🇧',
+                  onTap: _isSubmitting
+                      ? null
+                      : () => setState(() => _englishFlag = '🇬🇧'),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ],
+    );
+  }
+}
+
+/// A small selectable pill for the US/UK English flag choice.
+class _EnglishFlagChoice extends StatelessWidget {
+  const _EnglishFlagChoice({
+    required this.label,
+    required this.selected,
+    required this.onTap,
+  });
+
+  final String label;
+  final bool selected;
+  final VoidCallback? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: AppRadius.borderMD,
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 10),
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: selected
+              ? AppColors.primary.withValues(alpha: 0.12)
+              : context.containerColor,
           borderRadius: AppRadius.borderMD,
-          items: languages
-              .map(
-                (language) =>
-                    DropdownMenuItem(value: language, child: Text(language)),
-              )
-              .toList(),
-          onChanged: _isSubmitting
-              ? null
-              : (value) {
-                  if (value != null) {
-                    setState(() => _selectedLanguage = value);
-                  }
-                },
+          border: Border.all(
+            color: selected ? AppColors.primary : context.dividerColor,
+            width: selected ? 1.5 : 1,
+          ),
+        ),
+        child: Text(
+          label,
+          style: context.bodyMedium.copyWith(
+            fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
+            color: selected ? AppColors.primary : context.textPrimary,
+          ),
         ),
       ),
     );
