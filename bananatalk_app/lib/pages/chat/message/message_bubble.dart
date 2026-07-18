@@ -5,6 +5,7 @@ import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/widgets/message_reaction_widget.dart';
 import 'package:bananatalk_app/providers/provider_root/message_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
+import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
 import 'package:bananatalk_app/utils/time_utils.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
@@ -21,6 +22,7 @@ import 'package:bananatalk_app/pages/chat/message/message_context_menu_item.dart
 import 'package:bananatalk_app/pages/chat/message/tick_status.dart';
 import 'package:bananatalk_app/services/learning_service.dart';
 import 'package:bananatalk_app/services/translation_service.dart';
+import 'package:bananatalk_app/pages/chat/dialogs/translate_unlock_sheet.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/chat/message/bubble/bubble_actions_menu.dart';
 import 'package:bananatalk_app/pages/chat/message/bubble/system_bubble.dart';
@@ -508,11 +510,33 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
     setState(() => _inlineTranslating = true);
     try {
       final target = await _resolveTranslationTarget();
-      final result = await TranslationService.translateMessage(
+      var result = await TranslationService.translateMessage(
         messageId: widget.message.id,
         targetLanguage: target,
       );
       if (!mounted) return;
+
+      // Daily translation cap hit — offer the coin unlock and retry once
+      // if the user unlocks. Gated on coins being enabled server-side;
+      // otherwise fall through to the existing silent-failure behavior.
+      if (result['success'] != true && _isTranslationLimitError(result)) {
+        final coinsEnabled = ref.read(appConfigProvider).maybeWhen(
+              data: (config) => config?.coinsEnabled ?? false,
+              orElse: () => false,
+            );
+        if (coinsEnabled) {
+          final unlocked = await showTranslateUnlockSheet(context);
+          if (!mounted) return;
+          if (unlocked) {
+            result = await TranslationService.translateMessage(
+              messageId: widget.message.id,
+              targetLanguage: target,
+            );
+            if (!mounted) return;
+          }
+        }
+      }
+
       // Backend's POST /messages/:id/translate (advancedMessages.translateMessage)
       // returns data.translatedText for both fresh and cached responses; the
       // older /translate/enhanced endpoint uses data.translation. Read both so
@@ -533,6 +557,17 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
     } catch (_) {
       if (mounted) setState(() => _inlineTranslating = false);
     }
+  }
+
+  // Backend signals the daily translation cap with HTTP 403 and
+  // error: 'TRANSLATION_LIMIT_REACHED' (advancedMessages.translateMessage),
+  // surfaced by TranslationService.translateMessage as a Map result (not a
+  // thrown exception), so the generic ApiErrorHandler.isLimitExceededError
+  // (which string-matches "limit exceeded"/"daily limit" on a thrown error)
+  // doesn't fit this shape. Detect it directly from the result Map instead.
+  bool _isTranslationLimitError(Map<String, dynamic> result) {
+    final error = result['error']?.toString().toUpperCase();
+    return error == 'TRANSLATION_LIMIT_REACHED' || result['limit'] != null;
   }
 
   // Pick the target language code for an inline translate, preferring the
