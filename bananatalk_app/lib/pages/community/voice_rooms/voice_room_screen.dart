@@ -255,6 +255,14 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
       final wasInRoom = previous?.currentRoom != null;
       final nowOutOfRoom = next.currentRoom == null;
       if (wasInRoom && nowOutOfRoom && context.mounted) {
+        final reason = next.state.error;
+        if (reason != null && reason.isNotEmpty) {
+          showCommunitySnackBar(
+            context,
+            message: reason,
+            type: CommunitySnackBarType.error,
+          );
+        }
         Navigator.of(context).maybePop();
       }
     });
@@ -329,6 +337,7 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
                   unmuteLabel: l10n.unmute,
                   leaveLabel: l10n.leave,
                   endRoomLabel: l10n.voiceRoomEnd,
+                  chatLabel: l10n.voiceRoomChat,
                 ),
               ),
             ],

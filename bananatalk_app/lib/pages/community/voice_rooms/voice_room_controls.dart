@@ -26,6 +26,7 @@ class VoiceRoomControls extends StatelessWidget {
   final String unmuteLabel;
   final String leaveLabel;
   final String endRoomLabel;
+  final String chatLabel;
 
   const VoiceRoomControls({
     super.key,
@@ -44,6 +45,7 @@ class VoiceRoomControls extends StatelessWidget {
     required this.unmuteLabel,
     required this.leaveLabel,
     required this.endRoomLabel,
+    required this.chatLabel,
   });
 
   @override
@@ -64,7 +66,7 @@ class VoiceRoomControls extends StatelessWidget {
               children: [
                 _ControlButton(
                   icon: Icons.chat_bubble_outline_rounded,
-                  label: '',
+                  label: chatLabel,
                   color: Colors.white,
                   backgroundColor: const Color(0x1AFFFFFF),
                   onTap: onChatToggle,

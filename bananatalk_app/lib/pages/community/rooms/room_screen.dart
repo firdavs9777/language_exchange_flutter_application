@@ -459,7 +459,11 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text('${_room.emojiFlag} ${_room.title}'.trim()),
+            Text(
+              '${_room.emojiFlag} ${_room.title}'.trim(),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
             Text(
               '${_room.memberCount} members · ${_room.onlineCount} online',
               style: const TextStyle(fontSize: 12, fontWeight: FontWeight.normal),

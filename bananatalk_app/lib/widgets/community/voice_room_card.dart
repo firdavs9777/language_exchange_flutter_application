@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/models/community/voice_room_model.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
 
 /// Voice room card for room listings
 class VoiceRoomCard extends StatelessWidget {
@@ -26,7 +27,7 @@ class VoiceRoomCard extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: context.containerColor,
             borderRadius: BorderRadius.circular(20),
             boxShadow: [
               BoxShadow(
