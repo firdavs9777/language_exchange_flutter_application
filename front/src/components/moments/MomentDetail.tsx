@@ -13,11 +13,16 @@ import {
   FaRegComments,
   FaTag,
 } from "react-icons/fa";
+import { Bookmark, Heart } from "lucide-react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Bounce, toast } from "react-toastify";
 import ImageLightbox from "./ImageLightbox";
 import ShareButton from "../linking/ShareButton";
+import MomentReactionRow from "./actions/MomentReactionRow";
+import MomentVideoPlayer from "./media/MomentVideoPlayer";
+import VoiceNotePlayer from "./media/VoiceNotePlayer";
+import GradientMomentCard from "./media/GradientMomentCard";
 
 // API hooks
 import {
@@ -28,6 +33,11 @@ import {
   useDislikeMomentMutation,
   useGetMomentDetailsQuery,
   useLikeMomentMutation,
+  useReactToMomentMutation,
+  useUnreactToMomentMutation,
+  useShareMomentMutation,
+  useSaveMomentMutation,
+  useUnsaveMomentMutation,
 } from "../../store/slices/momentsSlice";
 
 // Types (updated to match the new MomentType interface)
@@ -63,6 +73,21 @@ interface MomentDetails {
     formattedAddress: string;
   };
   privacy?: string;
+  // Package 3 engagement
+  reactions?: Array<{ user: string | { _id: string }; emoji: string }>;
+  shareCount?: number;
+  isSaved?: boolean;
+  // Package 3 media variants
+  mediaType?: "image" | "video" | "audio" | "text";
+  video?: {
+    url: string;
+    thumbnail?: string;
+    duration?: number;
+    width?: number;
+    height?: number;
+  };
+  audio?: { url: string; duration: number; waveform: number[] };
+  backgroundColor?: string;
 }
 
 interface Comment {
@@ -318,6 +343,9 @@ const MomentDetail: React.FC = () => {
   // State
   const [newComment, setNewComment] = useState("");
   const [isSubmittingComment, setIsSubmittingComment] = useState(false);
+  const [saved, setSaved] = useState(false);
+  const [localShareCount, setLocalShareCount] = useState(0);
+  const [showHeartBurst, setShowHeartBurst] = useState(false);
 
   // API hooks with optimized polling/refetching
   const {
@@ -332,6 +360,11 @@ const MomentDetail: React.FC = () => {
   const [likeMoment, { isLoading: isLiking }] = useLikeMomentMutation();
   const [dislikeMoment, { isLoading: isDisliking }] =
     useDislikeMomentMutation();
+  const [reactToMoment] = useReactToMomentMutation();
+  const [unreactToMoment] = useUnreactToMomentMutation();
+  const [shareMoment] = useShareMomentMutation();
+  const [saveMoment] = useSaveMomentMutation();
+  const [unsaveMoment] = useUnsaveMomentMutation();
   const [addComment] = useAddCommentMutation();
 
   const {
@@ -369,6 +402,63 @@ const MomentDetail: React.FC = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [momentId]);
+
+  // Sync engagement state from the fetched moment
+  useEffect(() => {
+    setSaved(!!momentDetails?.isSaved);
+    setLocalShareCount(momentDetails?.shareCount ?? 0);
+  }, [momentDetails?.isSaved, momentDetails?.shareCount]);
+
+  // Emoji reactions — "mine" = a reaction on this emoji whose user matches me
+  // (user may be a string id or a populated { _id } object).
+  const handleToggleReaction = useCallback(
+    (emoji: string) => {
+      if (!momentId || !userId) return;
+      const mine =
+        Array.isArray(momentDetails?.reactions) &&
+        momentDetails!.reactions!.some(
+          (r) =>
+            r?.emoji === emoji &&
+            (typeof r.user === "string" ? r.user : r.user?._id) === userId
+        );
+      if (mine) {
+        unreactToMoment(momentId).unwrap().catch(console.error);
+      } else {
+        reactToMoment({ momentId, emoji }).unwrap().catch(console.error);
+      }
+    },
+    [momentId, userId, momentDetails?.reactions, reactToMoment, unreactToMoment]
+  );
+
+  const handleSaveToggle = useCallback(() => {
+    if (!momentId || !userId) return;
+    const next = !saved;
+    setSaved(next);
+    (next ? saveMoment(momentId) : unsaveMoment(momentId))
+      .unwrap()
+      .catch((err) => {
+        setSaved(!next);
+        console.error(err);
+      });
+  }, [momentId, userId, saved, saveMoment, unsaveMoment]);
+
+  const handleShareTrack = useCallback(() => {
+    if (!momentId) return;
+    setLocalShareCount((prev) => prev + 1);
+    shareMoment(momentId).unwrap().catch(console.error);
+  }, [momentId, shareMoment]);
+
+  // Double-tap the image to like (like only — never unlike), with a brief
+  // heart-burst affordance.
+  const handleDoubleTapLike = useCallback(() => {
+    if (!momentId || !userId) return;
+    setShowHeartBurst(true);
+    window.setTimeout(() => setShowHeartBurst(false), 700);
+    likeMoment({ momentId, userId })
+      .unwrap()
+      .then(() => refetchMomentDetails())
+      .catch(console.error);
+  }, [momentId, userId, likeMoment, refetchMomentDetails]);
 
   // Optimized handlers with better state management
   const handleGoBack = useCallback(() => {
@@ -629,15 +719,46 @@ const MomentDetail: React.FC = () => {
             <LocationInfo location={momentDetails.location} />
           </div>
 
-          {/* Images */}
-          {momentDetails.imageUrls.length > 0 && (
+          {/* Media — precedence: video → audio → text/gradient → images */}
+          {momentDetails.video?.url ? (
             <div className="px-4 sm:px-6 pb-4">
-              <ImageCarousel
-                images={momentDetails.imageUrls}
-                title={momentDetails.title}
+              <div className="relative" onDoubleClick={handleDoubleTapLike}>
+                <MomentVideoPlayer video={momentDetails.video} />
+                {showHeartBurst && (
+                  <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+                    <Heart className="w-24 h-24 text-white fill-white drop-shadow-lg animate-ping" />
+                  </div>
+                )}
+              </div>
+            </div>
+          ) : momentDetails.audio?.url ? (
+            <div className="px-4 sm:px-6 pb-4">
+              <VoiceNotePlayer audio={momentDetails.audio} />
+            </div>
+          ) : momentDetails.mediaType === "text" ||
+            (momentDetails.backgroundColor &&
+              !(momentDetails.imageUrls && momentDetails.imageUrls.length > 0)) ? (
+            <div className="px-4 sm:px-6 pb-4">
+              <GradientMomentCard
+                text={momentDetails.description}
+                backgroundColor={momentDetails.backgroundColor}
               />
             </div>
-          )}
+          ) : momentDetails.imageUrls && momentDetails.imageUrls.length > 0 ? (
+            <div className="px-4 sm:px-6 pb-4">
+              <div className="relative" onDoubleClick={handleDoubleTapLike}>
+                <ImageCarousel
+                  images={momentDetails.imageUrls}
+                  title={momentDetails.title}
+                />
+                {showHeartBurst && (
+                  <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+                    <Heart className="w-24 h-24 text-white fill-white drop-shadow-lg animate-ping" />
+                  </div>
+                )}
+              </div>
+            </div>
+          ) : null}
 
           {/* Stats */}
           <div className="flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4 bg-gray-50/80 border-y border-gray-100/80">
@@ -699,14 +820,54 @@ const MomentDetail: React.FC = () => {
               </span>
             </button>
 
-            <ShareButton
-              type="moment"
-              id={momentId || ""}
-              title={momentDetails.title}
-              text={momentDetails.description}
-              className="flex-1 flex items-center justify-center gap-1.5 sm:gap-2 py-3 sm:py-4 text-gray-600 hover:text-blue-600 hover:bg-blue-50 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-400/50"
-            />
+            <button
+              onClick={handleSaveToggle}
+              aria-pressed={saved}
+              aria-label={saved ? "Remove bookmark" : "Bookmark"}
+              className={`flex-1 flex items-center justify-center gap-1.5 sm:gap-2 py-3 sm:py-4 transition-all duration-300 hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-400/50 ${
+                saved ? "text-blue-600 bg-blue-50" : "text-gray-600"
+              }`}
+            >
+              <Bookmark
+                className={`w-4 h-4 sm:w-5 sm:h-5 ${saved ? "fill-current" : ""}`}
+              />
+              <span className="font-medium text-xs sm:text-sm hidden sm:inline">
+                {saved ? "Saved" : "Save"}
+              </span>
+            </button>
+
+            {/* ShareButton does the OS/clipboard share; the wrapper click also
+                records a share (shareCount). */}
+            <span
+              onClick={handleShareTrack}
+              className="flex-1 flex items-center justify-center gap-1.5 sm:gap-2 py-3 sm:py-4 text-gray-600 hover:text-blue-600 hover:bg-blue-50 transition-all duration-300 cursor-pointer"
+            >
+              <ShareButton
+                type="moment"
+                id={momentId || ""}
+                title={momentDetails.title}
+                text={momentDetails.description}
+                className="flex items-center gap-1.5 font-medium text-xs sm:text-sm"
+              />
+              {localShareCount > 0 && (
+                <span className="text-xs sm:text-sm font-medium">
+                  {localShareCount}
+                </span>
+              )}
+            </span>
           </div>
+
+          {/* Emoji reactions */}
+          {userId && (
+            <div className="px-4 sm:px-6 py-3 border-b border-gray-100/80">
+              <MomentReactionRow
+                reactions={momentDetails.reactions}
+                myUserId={userId}
+                onToggle={handleToggleReaction}
+                showQuickPick
+              />
+            </div>
+          )}
 
           {/* Comments Section */}
           <div className="p-4 sm:p-6">

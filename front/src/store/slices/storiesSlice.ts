@@ -23,6 +23,23 @@ export const storiesApiSlice = apiSlice.injectEndpoints({
       keepUnusedDataFor: 5,
       providesTags: ["Stories"],
     }),
+    // Get archived stories
+    getArchivedStories: builder.query({
+      query: ({ page, limit }: { page?: number; limit?: number } = {}) => ({
+        url: `${MAIN_STORIES}/archive`,
+        params: { page, limit },
+      }),
+      keepUnusedDataFor: 5,
+      providesTags: ["Stories"],
+    }),
+    // Archive a story
+    archiveStory: builder.mutation({
+      query: (storyId: string) => ({
+        url: `${MAIN_STORIES}/${storyId}/archive`,
+        method: "POST",
+      }),
+      invalidatesTags: ["Stories"],
+    }),
     // Create new story
     createStory: builder.mutation({
       query: (data: any) => ({
@@ -183,6 +200,8 @@ export const storiesApiSlice = apiSlice.injectEndpoints({
 export const {
   useGetStoryFeedsQuery,
   useGetMyStoriesQuery,
+  useGetArchivedStoriesQuery,
+  useArchiveStoryMutation,
   useCreateStoryMutation,
   useCreateVideoStoryMutation,
   useGetIndividualStoryMutation,

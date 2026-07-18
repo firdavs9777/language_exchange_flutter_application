@@ -5,7 +5,6 @@ import {
   useGetUserStoriesQuery,
   useMarkIndividualStoryViewedMutation,
   useReactToStoryMutation,
-  useRemoveStoryReactionMutation,
   useReplyToStoryMutation,
   useVoteOnPollMutation,
   useDeleteIndividualStoryMutation,
@@ -74,7 +73,6 @@ const StoryViewer: React.FC = () => {
 
   const [markViewed] = useMarkIndividualStoryViewedMutation();
   const [reactToStory] = useReactToStoryMutation();
-  const [removeReaction] = useRemoveStoryReactionMutation();
   const [replyToStory] = useReplyToStoryMutation();
   const [voteOnPoll] = useVoteOnPollMutation();
   const [deleteStory] = useDeleteIndividualStoryMutation();
@@ -121,17 +119,14 @@ const StoryViewer: React.FC = () => {
   // Mark story as viewed
   useEffect(() => {
     if (currentStory && !isOwner) {
-      markViewed({
-        storyId: currentStory._id,
-        viewDuration: 5,
-      });
+      markViewed(currentStory._id);
     }
   }, [currentStory?._id, isOwner]);
 
   // Check user's reaction
   useEffect(() => {
     if (currentStory && currentUserId) {
-      const reaction = currentStory.reactions.find(
+      const reaction = (currentStory.reactions || []).find(
         (r) => r.user._id === currentUserId
       );
       setUserReaction(reaction?.emoji || null);
@@ -164,9 +159,9 @@ const StoryViewer: React.FC = () => {
     if (!currentStory) return;
 
     if (userReaction === emoji) {
-      // Remove reaction
+      // Remove reaction (the /react endpoint toggles the same emoji off)
       try {
-        await removeReaction(currentStory._id).unwrap();
+        await reactToStory({ storyId: currentStory._id, emoji }).unwrap();
         setUserReaction(null);
       } catch (error) {
         console.error("Failed to remove reaction:", error);
@@ -337,9 +332,19 @@ const StoryViewer: React.FC = () => {
           >
             <p>{currentStory.text}</p>
           </div>
+        ) : currentStory.mediaType === "video" ||
+          /\.(mp4|webm|mov|m4v|ogg)$/i.test(
+            currentStory.mediaUrls?.[0] || currentStory.mediaUrl || ""
+          ) ? (
+          <video
+            src={currentStory.mediaUrls?.[0] || currentStory.mediaUrl}
+            className="story-media"
+            controls
+            playsInline
+          />
         ) : (
           <img
-            src={currentStory.mediaUrls[0] || currentStory.mediaUrl}
+            src={currentStory.mediaUrls?.[0] || currentStory.mediaUrl}
             alt="Story"
             className="story-media"
           />
@@ -361,7 +366,7 @@ const StoryViewer: React.FC = () => {
                     )) *
                   100
                 : 0;
-              const hasVoted = option.votes.includes(currentUserId || "");
+              const hasVoted = (option.votes || []).includes(currentUserId || "");
 
               return (
                 <button

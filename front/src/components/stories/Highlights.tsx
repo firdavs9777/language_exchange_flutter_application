@@ -22,7 +22,7 @@ interface Highlight {
   _id: string;
   title: string;
   coverImage?: string;
-  storiesCount: number;
+  storyCount: number;
   createdAt: string;
 }
 
@@ -185,7 +185,7 @@ const Highlights: React.FC = () => {
                 <div className="absolute bottom-0 left-0 right-0 p-3">
                   <h3 className="font-semibold text-white truncate">{highlight.title}</h3>
                   <p className="text-white/80 text-sm">
-                    {highlight.storiesCount} {t("stories.highlights.stories") || "stories"}
+                    {highlight.storyCount} {t("stories.highlights.stories") || "stories"}
                   </p>
                 </div>
 

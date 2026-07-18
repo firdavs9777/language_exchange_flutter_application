@@ -54,6 +54,8 @@ import MediaGallery from "../components/chat/MediaGallery";
 
 // Stories
 import Highlights from "../components/stories/Highlights";
+import CreateStory from "../components/stories/CreateStory";
+import StoryViewer from "../components/stories/StoryViewer";
 
 // Moments
 import SavedMoments from "../components/moments/SavedMoments";
@@ -98,6 +100,8 @@ const AppRouter = createBrowserRouter(
       <Route path="courses" element={<CoursesMain />} />
       <Route path="support/" element={<SupportPage />} />
       <Route path="stories/" element={<MainStories />} />
+      <Route path="create-story" element={<CreateStory />} />
+      <Route path="stories/:userId" element={<StoryViewer />} />
       <Route path="highlights" element={<Highlights />} />
       <Route path="privacy-policy/" element={<PrivacyPolicy />} />
       <Route path="terms-of-use/" element={<TermsOfUse />} />

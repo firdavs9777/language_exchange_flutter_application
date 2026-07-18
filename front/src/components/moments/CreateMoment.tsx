@@ -8,12 +8,26 @@ import React, {
 } from "react";
 import { useTranslation } from 'react-i18next';
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Bounce, toast } from "react-toastify";
 import {
   useCreateMomentMutation,
   useUploadMomentPhotosMutation,
+  useUploadMomentVideoMutation,
+  useUploadMomentAudioMutation,
 } from "../../store/slices/momentsSlice";
+import {
+  Image as ImageIcon,
+  Video as VideoIcon,
+  Mic as MicIcon,
+  Type as TypeIcon,
+} from "lucide-react";
+import {
+  BACKEND_VALID_GRADIENTS,
+  gradientFor,
+} from "./media/momentGradients";
+import GradientMomentCard from "./media/GradientMomentCard";
+import VoiceNoteRecorder from "./media/VoiceNoteRecorder";
 
 import {
   FaArrowLeft,
@@ -52,10 +66,22 @@ interface LocationData {
   coordinates: [number, number]; // [lng, lat]
 }
 
+// Media types are mutually exclusive: image XOR video XOR audio XOR text/gradient.
+type MediaMode = "photo" | "video" | "voice" | "text";
+
+interface AudioNote {
+  blob: Blob;
+  dur: number;
+  wf: number[];
+}
+
 const CreateMoment: React.FC = () => {
   const navigate = useNavigate();
+  const routerLocation = useLocation();
   const [createMoment] = useCreateMomentMutation();
   const [uploadMomentPhotos] = useUploadMomentPhotosMutation();
+  const [uploadMomentVideo] = useUploadMomentVideoMutation();
+  const [uploadMomentAudio] = useUploadMomentAudioMutation();
   const { t } = useTranslation();
 
   // Basic form state
@@ -64,6 +90,14 @@ const CreateMoment: React.FC = () => {
   const [selectedImages, setSelectedImages] = useState<File[]>([]);
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const [isButtonEnabled, setIsButtonEnabled] = useState<boolean>(false);
+
+  // Media mode (mutually exclusive: photo / video / voice / text-gradient)
+  const [mediaMode, setMediaMode] = useState<MediaMode>("photo");
+  const [selectedVideo, setSelectedVideo] = useState<File | null>(null);
+  const [videoPreview, setVideoPreview] = useState<string>("");
+  const [audioNote, setAudioNote] = useState<AudioNote | null>(null);
+  const [showRecorder, setShowRecorder] = useState<boolean>(false);
+  const [backgroundColor, setBackgroundColor] = useState<string>(""); // "" = None (plain text)
 
   // Enhanced features state
   const [location, setLocation] = useState<LocationData | null>(null);
@@ -83,8 +117,15 @@ const CreateMoment: React.FC = () => {
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const videoInputRef = useRef<HTMLInputElement>(null);
   const userInfo = useSelector((state: any) => state.auth.userInfo?.user);
   const user = userInfo?._id;
+
+  // Prompt-of-the-day handoff: MainMoments navigates here with router state
+  // ({ promptText, promptId }) when the user taps "Answer" on a prompt.
+  const promptIdRef = useRef<string | undefined>(
+    (routerLocation.state as { promptId?: string } | null)?.promptId
+  );
 
   // Generate language options using ISO6391
   const languageOptions = ISO6391.getAllCodes().map((code) => ({
@@ -116,6 +157,23 @@ const CreateMoment: React.FC = () => {
   useEffect(() => {
     setIsButtonEnabled(description.trim() !== "");
   }, [description]);
+
+  // Prefill the composer when arriving from "Prompt of the Day → Answer".
+  // Only prefill if the description is still empty so we never clobber
+  // anything the user has already typed.
+  useEffect(() => {
+    const state = routerLocation.state as
+      | { promptText?: string; promptId?: string }
+      | null
+      | undefined;
+    if (state?.promptId) {
+      promptIdRef.current = state.promptId;
+    }
+    if (state?.promptText && description.trim() === "") {
+      setDescription(state.promptText);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [routerLocation.state]);
 
   useEffect(() => {
     if (textareaRef.current) {
@@ -149,14 +207,52 @@ const CreateMoment: React.FC = () => {
     URL.revokeObjectURL(imagePreviews[index]);
   };
 
+  // Clear every kind of media so a mode switch enforces mutual exclusivity.
+  const clearAllMedia = () => {
+    imagePreviews.forEach((preview) => URL.revokeObjectURL(preview));
+    setSelectedImages([]);
+    setImagePreviews([]);
+    if (videoPreview) URL.revokeObjectURL(videoPreview);
+    setSelectedVideo(null);
+    setVideoPreview("");
+    setAudioNote(null);
+    setShowRecorder(false);
+    setBackgroundColor("");
+  };
+
+  const handleSelectMode = (mode: MediaMode) => {
+    if (mode === mediaMode) return;
+    clearAllMedia();
+    setMediaMode(mode);
+  };
+
+  const handleVideoUpload = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    if (videoPreview) URL.revokeObjectURL(videoPreview);
+    setSelectedVideo(file);
+    setVideoPreview(URL.createObjectURL(file));
+    event.target.value = ""; // allow re-selecting the same file
+  };
+
+  const handleRemoveVideo = () => {
+    if (videoPreview) URL.revokeObjectURL(videoPreview);
+    setSelectedVideo(null);
+    setVideoPreview("");
+  };
+
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
     if (!isButtonEnabled || isSubmitting) return;
 
     setIsSubmitting(true);
 
+    // Track whether the moment itself was created so a failed media upload
+    // never re-creates it on retry (surfaces a "posted, edit to add media" toast).
+    let momentCreated = false;
+
     try {
-      const response = await createMoment({
+      const payload: any = {
         title,
         description,
         user,
@@ -167,20 +263,50 @@ const CreateMoment: React.FC = () => {
         language,
         category,
         scheduledDate,
-      }).unwrap();
+      };
+      if (mediaMode === "text") {
+        payload.mediaType = "text";
+        if (backgroundColor) payload.backgroundColor = backgroundColor;
+      }
+      if (promptIdRef.current) payload.promptId = promptIdRef.current;
 
+      const response = await createMoment(payload).unwrap();
       const newMoment = response as Moment;
+      const momentId = newMoment.data._id;
+      momentCreated = true;
 
-      if (selectedImages.length > 0 && newMoment.data._id) {
-        const formData = new FormData();
-        selectedImages.forEach((file) => {
-          formData.append("file", file);
+      // Step 2: upload the attached media for the active mode. If this throws,
+      // the moment already exists — warn instead of erroring and do NOT re-create.
+      try {
+        if (mediaMode === "photo" && selectedImages.length > 0 && momentId) {
+          const formData = new FormData();
+          selectedImages.forEach((file) => {
+            formData.append("file", file);
+          });
+          await uploadMomentPhotos({
+            momentId,
+            imageFiles: formData,
+          }).unwrap();
+        } else if (mediaMode === "video" && selectedVideo && momentId) {
+          const formData = new FormData();
+          formData.append("video", selectedVideo);
+          await uploadMomentVideo({ momentId, formData }).unwrap();
+        } else if (mediaMode === "voice" && audioNote && momentId) {
+          const formData = new FormData();
+          formData.append("audio", audioNote.blob, "voice-note.webm");
+          formData.append("duration", String(audioNote.dur));
+          formData.append("waveform", JSON.stringify(audioNote.wf));
+          await uploadMomentAudio({ momentId, formData }).unwrap();
+        }
+      } catch (uploadError) {
+        toast.warn("Posted, but media upload failed — try editing the moment to add it.", {
+          autoClose: 4000,
+          hideProgressBar: false,
+          theme: "dark",
+          transition: Bounce,
         });
-
-        await uploadMomentPhotos({
-          momentId: newMoment.data._id,
-          imageFiles: formData,
-        }).unwrap();
+        navigate("/moments");
+        return;
       }
 
       toast.success(t("createMoment.toast.createSuccess"), {
@@ -191,12 +317,15 @@ const CreateMoment: React.FC = () => {
       });
       navigate("/moments");
     } catch (error) {
-      toast.error(t("createMoment.toast.createError"), {
-        autoClose: 3000,
-        hideProgressBar: false,
-        theme: "dark",
-        transition: Bounce,
-      });
+      // Only the create step can reach here (upload failures are handled above).
+      if (!momentCreated) {
+        toast.error(t("createMoment.toast.createError"), {
+          autoClose: 3000,
+          hideProgressBar: false,
+          theme: "dark",
+          transition: Bounce,
+        });
+      }
     } finally {
       setIsSubmitting(false);
     }
@@ -262,6 +391,12 @@ const CreateMoment: React.FC = () => {
       imagePreviews.forEach((preview) => URL.revokeObjectURL(preview));
     };
   }, [imagePreviews]);
+
+  useEffect(() => {
+    return () => {
+      if (videoPreview) URL.revokeObjectURL(videoPreview);
+    };
+  }, [videoPreview]);
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -342,6 +477,30 @@ const CreateMoment: React.FC = () => {
               </div>
             )}
 
+            {/* Media mode selector — image XOR video XOR voice XOR text/gradient */}
+            <div className="mb-4 grid grid-cols-4 gap-2">
+              {[
+                { mode: "photo" as MediaMode, icon: <ImageIcon className="w-5 h-5" />, label: "Photo" },
+                { mode: "video" as MediaMode, icon: <VideoIcon className="w-5 h-5" />, label: "Video" },
+                { mode: "voice" as MediaMode, icon: <MicIcon className="w-5 h-5" />, label: "Voice" },
+                { mode: "text" as MediaMode, icon: <TypeIcon className="w-5 h-5" />, label: "Text" },
+              ].map((option) => (
+                <button
+                  key={option.mode}
+                  type="button"
+                  onClick={() => handleSelectMode(option.mode)}
+                  className={`flex flex-col items-center gap-1 rounded-lg border py-2 text-xs font-medium transition-colors ${
+                    mediaMode === option.mode
+                      ? "border-blue-500 bg-blue-50 text-blue-600 dark:bg-blue-900/30"
+                      : "border-gray-200 text-gray-600 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800"
+                  }`}
+                >
+                  {option.icon}
+                  {option.label}
+                </button>
+              ))}
+            </div>
+
             {/* Content Input */}
             <div className="w-full bg-white border border-gray-300 rounded-lg p-4 space-y-3">
               {/* Title input */}
@@ -398,6 +557,120 @@ const CreateMoment: React.FC = () => {
               </div>
             )}
 
+            {/* Video mode */}
+            {mediaMode === "video" && (
+              <div className="mt-4">
+                {selectedVideo ? (
+                  <div className="relative">
+                    <video
+                      src={videoPreview}
+                      controls
+                      className="w-full max-h-96 rounded-lg bg-black"
+                    />
+                    <button
+                      type="button"
+                      onClick={handleRemoveVideo}
+                      className="absolute top-2 right-2 w-8 h-8 bg-black bg-opacity-50 text-white rounded-full flex items-center justify-center"
+                    >
+                      <FaTimes className="w-4 h-4" />
+                    </button>
+                    <div className="mt-1 text-xs text-gray-500 truncate">
+                      {selectedVideo.name}
+                    </div>
+                  </div>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => videoInputRef.current?.click()}
+                    className="flex w-full items-center justify-center gap-2 rounded-lg border-2 border-dashed border-gray-300 py-8 text-sm text-gray-600 transition-colors hover:bg-gray-50 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800"
+                  >
+                    <VideoIcon className="w-5 h-5" />
+                    Attach a video
+                  </button>
+                )}
+              </div>
+            )}
+
+            {/* Voice mode */}
+            {mediaMode === "voice" && (
+              <div className="mt-4">
+                {showRecorder ? (
+                  <VoiceNoteRecorder
+                    onComplete={(blob, dur, wf) => {
+                      setAudioNote({ blob, dur, wf });
+                      setShowRecorder(false);
+                    }}
+                    onCancel={() => setShowRecorder(false)}
+                  />
+                ) : audioNote ? (
+                  <div className="flex items-center justify-between rounded-lg bg-gray-100 px-4 py-3 text-sm text-gray-700 dark:bg-gray-800 dark:text-gray-200">
+                    <span className="flex items-center gap-2">
+                      <MicIcon className="w-4 h-4" />
+                      Voice note · {Math.round(audioNote.dur)}s
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => setAudioNote(null)}
+                      className="text-red-500 hover:text-red-600"
+                    >
+                      Remove
+                    </button>
+                  </div>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => setShowRecorder(true)}
+                    className="flex w-full items-center justify-center gap-2 rounded-lg border-2 border-dashed border-gray-300 py-8 text-sm text-gray-600 transition-colors hover:bg-gray-50 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800"
+                  >
+                    <MicIcon className="w-5 h-5" />
+                    Record a voice note
+                  </button>
+                )}
+              </div>
+            )}
+
+            {/* Text / gradient mode */}
+            {mediaMode === "text" && (
+              <div className="mt-4">
+                <div className="flex gap-2 overflow-x-auto pb-2">
+                  <button
+                    type="button"
+                    onClick={() => setBackgroundColor("")}
+                    className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-lg border text-xs font-medium ${
+                      backgroundColor === ""
+                        ? "border-blue-500 ring-2 ring-blue-500 text-blue-600"
+                        : "border-gray-300 text-gray-600 dark:border-gray-700 dark:text-gray-300"
+                    }`}
+                    title="No background"
+                  >
+                    None
+                  </button>
+                  {BACKEND_VALID_GRADIENTS.map((key) => (
+                    <button
+                      key={key}
+                      type="button"
+                      onClick={() => setBackgroundColor(key)}
+                      className={`h-12 w-12 shrink-0 rounded-lg border transition-transform ${
+                        backgroundColor === key
+                          ? "ring-2 ring-offset-2 ring-blue-500 scale-105"
+                          : "border-gray-200 dark:border-gray-700"
+                      }`}
+                      style={{ background: gradientFor(key) }}
+                      aria-label={key}
+                    />
+                  ))}
+                </div>
+                {backgroundColor && (
+                  <div className="mt-3">
+                    <GradientMomentCard
+                      text={description || "Your text moment"}
+                      backgroundColor={backgroundColor}
+                    />
+                  </div>
+                )}
+              </div>
+            )}
+
             {/* Selected enhancements */}
             {(selectedMood || location || tags.length > 0 || selectedCategory?.value !== 'general' || selectedLanguage?.value !== 'en') && (
               <div className="mt-4 flex flex-wrap gap-2">
@@ -449,14 +722,16 @@ const CreateMoment: React.FC = () => {
                 {t("moments_section.create.addToMoment") || "Add to your moment"}
               </span>
               <div className="flex items-center gap-2 relative">
-                {/* Photo Button */}
-                <button
-                  onClick={() => fileInputRef.current?.click()}
-                  className="p-2 hover:bg-gray-100 rounded-full transition-colors"
-                  title={t("moments_section.create.addPhotos") || "Add photos"}
-                >
-                  <FaImage className="w-6 h-6 text-green-500" />
-                </button>
+                {/* Photo Button (photo mode only) */}
+                {mediaMode === "photo" && (
+                  <button
+                    onClick={() => fileInputRef.current?.click()}
+                    className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                    title={t("moments_section.create.addPhotos") || "Add photos"}
+                  >
+                    <FaImage className="w-6 h-6 text-green-500" />
+                  </button>
+                )}
 
                 {/* Mood Button */}
                 <div className="relative">
@@ -595,6 +870,14 @@ const CreateMoment: React.FC = () => {
           multiple
           accept="image/*"
           onChange={handleImageUpload}
+          className="hidden"
+        />
+
+        <input
+          ref={videoInputRef}
+          type="file"
+          accept="video/*"
+          onChange={handleVideoUpload}
           className="hidden"
         />
       </div>

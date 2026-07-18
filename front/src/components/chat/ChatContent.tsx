@@ -7,8 +7,23 @@ import {
   useGetConversationQuery,
   useSendVoiceMessageMutation,
   useSendMediaMessageMutation,
+  useEditMessageMutation,
+  useDeleteMessageMutation,
+  useAddReactionMutation,
+  useRemoveReactionMutation,
+  usePinMessageMutation,
+  useBookmarkMessageMutation,
+  useForwardMessageMutation,
+  useReplyToMessageMutation,
+  useTtsMessageMutation,
 } from "../../store/slices/chatSlice";
 import "./ChatContent.css";
+import MessageActionMenu from "./actions/MessageActionMenu";
+import ForwardDialog from "./actions/ForwardDialog";
+import ReactionRow from "./actions/ReactionRow";
+import PinnedBar from "./actions/PinnedBar";
+import ReplyComposerBar from "./actions/ReplyComposerBar";
+import { canDeleteForEveryone } from "./lib/messageActions";
 import StickerPanel from "./StickerPanel";
 import "./StickerPanel.css";
 import GifPickerPanel from "./GifPickerPanel";
@@ -105,6 +120,7 @@ interface Message {
   reactions?: Array<{ user: string; emoji: string; createdAt?: string }>;
   isEdited?: boolean;
   editedAt?: string;
+  pinned?: boolean;
 }
 
 const getReceiverId = (receiver: MessageReceiver | string): string => {
@@ -149,6 +165,22 @@ const ChatContent: React.FC<ChatContentProps> = ({
   const [createMessage] = useCreateMessageMutation();
   const [sendVoiceMessage] = useSendVoiceMessageMutation();
   const [sendMediaMessage] = useSendMediaMessageMutation();
+
+  // ===== Message actions (Task 6 wiring) =====
+  const [editMessage] = useEditMessageMutation();
+  const [deleteMessageApi] = useDeleteMessageMutation();
+  const [addReaction] = useAddReactionMutation();
+  const [removeReaction] = useRemoveReactionMutation();
+  const [pinMessage] = usePinMessageMutation();
+  const [bookmarkMessage] = useBookmarkMessageMutation();
+  const [forwardMessage] = useForwardMessageMutation();
+  const [replyToMessage] = useReplyToMessageMutation();
+  const [ttsMessage] = useTtsMessageMutation();
+
+  // Message-action UI state
+  const [activeActionMsg, setActiveActionMsg] = useState<Message | null>(null);
+  const [replyingTo, setReplyingTo] = useState<Message | null>(null);
+  const [forwardMsg, setForwardMsg] = useState<Message | null>(null);
 
   const [newMessage, setNewMessage] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
@@ -565,6 +597,34 @@ const ChatContent: React.FC<ChatContentProps> = ({
     }, 2000);
   }, [selectedUser, socket, emit]);
 
+  // ========== Optimistic-message helpers (shared by send paths) ==========
+  const makeOptimisticMessage = (text: string, extra?: Partial<Message>): Message => ({
+    _id: `temp-${Date.now()}-${Math.random().toString(36).slice(2)}`,
+    message: text,
+    sender: { _id: userId, name: currentUserName || "" },
+    receiver: selectedUser,
+    createdAt: new Date().toISOString(),
+    isOptimistic: true,
+    status: "sending",
+    ...extra,
+  });
+
+  const finalizeOptimistic = (tempId: string, msgData: any) => {
+    setMessages((prev) =>
+      prev.map((m) =>
+        m._id === tempId ? { ...msgData, status: "delivered", isOptimistic: false } : m
+      )
+    );
+  };
+
+  const markOptimisticError = (tempId: string) => {
+    setMessages((prev) =>
+      prev.map((m) =>
+        m._id === tempId ? { ...m, status: "error", isOptimistic: false } : m
+      )
+    );
+  };
+
   // ========== Send Text Message ==========
   const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -575,20 +635,46 @@ const ChatContent: React.FC<ChatContentProps> = ({
       return;
     }
 
+    // Reply flow — link the outgoing message to the message being replied to.
+    if (replyingTo && newMessage.trim() && !isSending) {
+      const messageToSend = newMessage.trim();
+      const replyTarget = replyingTo;
+      const optimisticMessage = makeOptimisticMessage(messageToSend, {
+        replyTo: {
+          _id: replyTarget._id,
+          message: replyTarget.message,
+          sender: { _id: replyTarget.sender._id, name: replyTarget.sender.name },
+        },
+      });
+      const tempId = optimisticMessage._id;
+      setMessages((prev) => [...prev, optimisticMessage]);
+      setNewMessage("");
+      setReplyingTo(null);
+      setIsSending(true);
+      isAtBottomRef.current = true;
+      try {
+        const result: any = await replyToMessage({
+          messageId: replyTarget._id,
+          message: messageToSend,
+          receiver: selectedUser,
+        }).unwrap();
+        const msgData = result.data || result;
+        finalizeOptimistic(tempId, msgData);
+      } catch (err) {
+        console.error("Reply send failed:", err);
+        markOptimisticError(tempId);
+      } finally {
+        setIsSending(false);
+      }
+      return;
+    }
+
     if (!newMessage.trim() || isSending) return;
 
     const messageToSend = newMessage.trim();
 
-    const tempId = `temp-${Date.now()}-${Math.random().toString(36).slice(2)}`;
-    const optimisticMessage: Message = {
-      _id: tempId,
-      message: messageToSend,
-      sender: { _id: userId, name: currentUserName || "" },
-      receiver: selectedUser,
-      createdAt: new Date().toISOString(),
-      isOptimistic: true,
-      status: "sending",
-    };
+    const optimisticMessage = makeOptimisticMessage(messageToSend);
+    const tempId = optimisticMessage._id;
 
     setMessages((prev) => [...prev, optimisticMessage]);
     setNewMessage("");
@@ -1150,15 +1236,77 @@ const ChatContent: React.FC<ChatContentProps> = ({
     }
   };
 
-  const handleDeleteMessage = useCallback((messageId: string) => {
-    if (!socket?.connected) return;
+  // ===== Message-action handlers (Task 6) =====
+  const handleToggleReaction = useCallback(
+    (msg: Message, emoji: string) => {
+      const mine = (msg.reactions || []).some((r) => {
+        const uid = typeof r.user === "string" ? r.user : (r.user as any)?._id;
+        return uid === userId && r.emoji === emoji;
+      });
+      if (mine)
+        removeReaction({ messageId: msg._id, emoji })
+          .unwrap()
+          .catch((e) => console.error("Remove reaction failed:", e));
+      else
+        addReaction({ messageId: msg._id, emoji })
+          .unwrap()
+          .catch((e) => console.error("Add reaction failed:", e));
+    },
+    [userId, addReaction, removeReaction]
+  );
 
-    socket.emit("deleteMessage", { messageId }, (response: any) => {
-      if (response?.status === "success") {
-        setMessages((prev) => prev.filter((msg) => msg._id !== messageId));
+  const handleEditMessageAction = useCallback(
+    (msg: Message) => {
+      const next = window.prompt(t("chatPage.edit") || "Edit message", msg.message || "");
+      if (next == null) return;
+      const content = next.trim();
+      if (!content || content === msg.message) return;
+      editMessage({ messageId: msg._id, content })
+        .unwrap()
+        .then(() => {
+          setMessages((prev) =>
+            prev.map((m) =>
+              m._id === msg._id ? { ...m, message: content, isEdited: true } : m
+            )
+          );
+        })
+        .catch((err) => console.error("Edit failed:", err));
+    },
+    [editMessage, t]
+  );
+
+  const handleDeleteMessageAction = useCallback(
+    (msg: Message) => {
+      const forEveryone = canDeleteForEveryone(msg, userId || "");
+      const confirmed = window.confirm(
+        forEveryone ? "Delete this message for everyone?" : "Delete this message?"
+      );
+      if (!confirmed) return;
+      deleteMessageApi({ messageId: msg._id, forEveryone })
+        .unwrap()
+        .then(() => setMessages((prev) => prev.filter((m) => m._id !== msg._id)))
+        .catch((err) => console.error("Delete failed:", err));
+    },
+    [deleteMessageApi, userId]
+  );
+
+  const handleTtsMessage = useCallback(
+    async (msg: Message) => {
+      try {
+        const res: any = await ttsMessage({ messageId: msg._id }).unwrap();
+        const url = res?.data?.audioUrl;
+        if (url) new Audio(url).play().catch((e) => console.error("TTS play failed:", e));
+      } catch (err) {
+        console.error("TTS failed:", err);
       }
-    });
-  }, [socket]);
+    },
+    [ttsMessage]
+  );
+
+  const handleJumpToMessage = useCallback((messageId: string) => {
+    const el = chatContainerRef.current?.querySelector(`[data-msg-id="${messageId}"]`);
+    el?.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, []);
 
   const formatTime = (dateString: string) => {
     const date = new Date(dateString);
@@ -1200,6 +1348,12 @@ const ChatContent: React.FC<ChatContentProps> = ({
       (a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
     );
   }, [messages]);
+
+  // Pinned messages for the PinnedBar (empty -> bar renders null)
+  const pinnedMessages = useMemo(
+    () => sortedMessages.filter((m) => m.pinned),
+    [sortedMessages]
+  );
 
   // Group messages by date
   const messagesByDate = useMemo(() => {
@@ -1443,6 +1597,15 @@ const ChatContent: React.FC<ChatContentProps> = ({
         </div>
       </div>
 
+      {/* Pinned messages bar (renders null when there are none) */}
+      <PinnedBar
+        pinned={pinnedMessages}
+        onJump={handleJumpToMessage}
+        onUnpin={(id) =>
+          pinMessage(id).unwrap().catch((e) => console.error("Unpin failed:", e))
+        }
+      />
+
       {/* Chat Messages */}
       <div
         className="modern-chat-messages"
@@ -1498,10 +1661,19 @@ const ChatContent: React.FC<ChatContentProps> = ({
               return (
                 <div
                   key={msg._id}
+                  data-msg-id={msg._id}
                   className={`modern-message ${isSent ? "sent" : "received"} ${
                     msg.status === "error" ? "error" : ""
                   }`}
                   style={{ marginTop: index === 0 ? "0" : gap }}
+                  onContextMenu={
+                    msg.isOptimistic
+                      ? undefined
+                      : (e) => {
+                          e.preventDefault();
+                          setActiveActionMsg(msg);
+                        }
+                  }
                 >
                   {!isSent && (
                     <div
@@ -1520,7 +1692,6 @@ const ChatContent: React.FC<ChatContentProps> = ({
                       style={{
                         borderRadius: getBubbleRadius(isSent, position),
                       }}
-                      onDoubleClick={isSent && !msg.isOptimistic ? () => handleDeleteMessage(msg._id) : undefined}
                     >
                       {isSticker ? (
                         <div className="sticker-message">{msg.message}</div>
@@ -1569,6 +1740,25 @@ const ChatContent: React.FC<ChatContentProps> = ({
                         )}
                       </div>
                     </div>
+
+                    {/* Message-actions trigger (opens MessageActionMenu) */}
+                    {!msg.isOptimistic && (
+                      <button
+                        type="button"
+                        className="msg-action-trigger"
+                        aria-label={t("chatPage.moreOptions") || "More options"}
+                        onClick={() => setActiveActionMsg(msg)}
+                      >
+                        <MoreVertical size={14} />
+                      </button>
+                    )}
+
+                    {/* Reactions row (renders null when there are none) */}
+                    <ReactionRow
+                      reactions={msg.reactions}
+                      myUserId={userId || ""}
+                      onToggle={(emoji) => handleToggleReaction(msg, emoji)}
+                    />
 
                     {/* Correction card lives OUTSIDE the bubble so it always
                         renders on a white background — readable for both
@@ -1726,6 +1916,9 @@ const ChatContent: React.FC<ChatContentProps> = ({
             />
           )}
 
+          {/* Reply band (renders null when not replying) */}
+          <ReplyComposerBar replyingTo={replyingTo} onCancel={() => setReplyingTo(null)} />
+
           <Form onSubmit={handleSendMessage} className="input-form">
             <div className="input-container">
               <button
@@ -1809,6 +2002,54 @@ const ChatContent: React.FC<ChatContentProps> = ({
           </Form>
         </div>
       )}
+
+      {/* Message action menu (opened via hover trigger / right-click) */}
+      {activeActionMsg && (
+        <div
+          className="msg-action-overlay"
+          onClick={() => setActiveActionMsg(null)}
+        >
+          <div onClick={(e) => e.stopPropagation()}>
+            <MessageActionMenu
+              message={activeActionMsg}
+              meId={userId || ""}
+              onReply={() => setReplyingTo(activeActionMsg)}
+              onForward={() => setForwardMsg(activeActionMsg)}
+              onCopy={() =>
+                navigator.clipboard?.writeText(activeActionMsg.message || "")
+              }
+              onPin={() =>
+                pinMessage(activeActionMsg._id)
+                  .unwrap()
+                  .catch((e) => console.error("Pin failed:", e))
+              }
+              onBookmark={() =>
+                bookmarkMessage(activeActionMsg._id)
+                  .unwrap()
+                  .catch((e) => console.error("Bookmark failed:", e))
+              }
+              onTts={() => handleTtsMessage(activeActionMsg)}
+              onEdit={() => handleEditMessageAction(activeActionMsg)}
+              onDelete={() => handleDeleteMessageAction(activeActionMsg)}
+              onReact={(emoji) => handleToggleReaction(activeActionMsg, emoji)}
+              onClose={() => setActiveActionMsg(null)}
+            />
+          </div>
+        </div>
+      )}
+
+      {/* Forward dialog */}
+      <ForwardDialog
+        open={!!forwardMsg}
+        onForward={(ids) => {
+          if (forwardMsg)
+            forwardMessage({ messageId: forwardMsg._id, receivers: ids })
+              .unwrap()
+              .catch((e) => console.error("Forward failed:", e));
+          setForwardMsg(null);
+        }}
+        onClose={() => setForwardMsg(null)}
+      />
 
       {correctingMessage && (
         <CorrectionModal

@@ -5,16 +5,26 @@ import {
   AiFillLike,
   AiOutlineComment,
   AiOutlineLike,
-  AiOutlineShareAlt,
 } from "react-icons/ai";
 import { HiDotsHorizontal } from "react-icons/hi";
+import { Bookmark, Heart, Smile } from "lucide-react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { Bounce, toast } from "react-toastify";
 import {
   useDislikeMomentMutation,
   useLikeMomentMutation,
+  useReactToMomentMutation,
+  useUnreactToMomentMutation,
+  useShareMomentMutation,
+  useSaveMomentMutation,
+  useUnsaveMomentMutation,
 } from "../../store/slices/momentsSlice";
+import MomentReactionRow from "./actions/MomentReactionRow";
+import ShareButton from "../linking/ShareButton";
+import MomentVideoPlayer from "./media/MomentVideoPlayer";
+import VoiceNotePlayer from "./media/VoiceNotePlayer";
+import GradientMomentCard from "./media/GradientMomentCard";
 
 // TypeScript interfaces
 interface User {
@@ -34,6 +44,23 @@ interface MomentProps {
   user: User;
   imageUrls?: string[];
   refetch?: () => void;
+  // Package 3 engagement (optional — feed card renders gracefully without them)
+  reactions?: Array<{ user: string | { _id: string }; emoji: string }>;
+  reactionCount?: number;
+  shareCount?: number;
+  isSaved?: boolean;
+  saveCount?: number;
+  // Package 3 media variants (optional — falls back to images when absent)
+  mediaType?: "image" | "video" | "audio" | "text";
+  video?: {
+    url: string;
+    thumbnail?: string;
+    duration?: number;
+    width?: number;
+    height?: number;
+  };
+  audio?: { url: string; duration: number; waveform: number[] };
+  backgroundColor?: string;
 }
 
 interface AuthState {
@@ -59,6 +86,13 @@ const SingleMoment: React.FC<MomentProps> = ({
   commentCount,
   imageUrls,
   refetch,
+  reactions,
+  shareCount = 0,
+  isSaved = false,
+  mediaType,
+  video,
+  audio,
+  backgroundColor,
 }) => {
   const userId = useSelector(
     (state: RootState) => state.auth.userInfo?.user?._id
@@ -67,6 +101,11 @@ const SingleMoment: React.FC<MomentProps> = ({
   // Mock mutation hooks - replace with your actual hooks
   const [likeMoment] = useLikeMomentMutation();
   const [dislikeMoment] = useDislikeMomentMutation();
+  const [reactToMoment] = useReactToMomentMutation();
+  const [unreactToMoment] = useUnreactToMomentMutation();
+  const [shareMoment] = useShareMomentMutation();
+  const [saveMoment] = useSaveMomentMutation();
+  const [unsaveMoment] = useUnsaveMomentMutation();
   const isLiking = false;
   const isDisliking = false;
 
@@ -75,6 +114,10 @@ const SingleMoment: React.FC<MomentProps> = ({
   const [currentLikeCount, setCurrentLikeCount] = useState<number>(likeCount);
   const [showFullDescription, setShowFullDescription] =
     useState<boolean>(false);
+  const [showReactions, setShowReactions] = useState<boolean>(false);
+  const [saved, setSaved] = useState<boolean>(isSaved);
+  const [localShareCount, setLocalShareCount] = useState<number>(shareCount);
+  const [showHeartBurst, setShowHeartBurst] = useState<boolean>(false);
 
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -96,6 +139,84 @@ const SingleMoment: React.FC<MomentProps> = ({
     setLiked(userId ? likedUsers.includes(userId) : false);
     setCurrentLikeCount(likeCount);
   }, [likedUsers, userId, likeCount]);
+
+  useEffect(() => {
+    setSaved(isSaved);
+  }, [isSaved]);
+
+  useEffect(() => {
+    setLocalShareCount(shareCount);
+  }, [shareCount]);
+
+  // Stop the surrounding card <Link> from navigating when interacting with
+  // an inner control.
+  const stopLink = useCallback((e: React.SyntheticEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+  }, []);
+
+  // Emoji reactions — "mine" = a reaction on this emoji whose user matches me
+  // (user may be a string id or a populated { _id } object).
+  const handleToggleReaction = useCallback(
+    (emoji: string) => {
+      if (!userId) return;
+      const mine =
+        Array.isArray(reactions) &&
+        reactions.some(
+          (r) =>
+            r?.emoji === emoji &&
+            (typeof r.user === "string" ? r.user : r.user?._id) === userId
+        );
+      if (mine) {
+        unreactToMoment(_id).unwrap().catch(console.error);
+      } else {
+        reactToMoment({ momentId: _id, emoji }).unwrap().catch(console.error);
+      }
+    },
+    [userId, reactions, _id, reactToMoment, unreactToMoment]
+  );
+
+  const handleSaveToggle = useCallback(
+    (e: React.MouseEvent) => {
+      stopLink(e);
+      if (!userId) return;
+      const next = !saved;
+      setSaved(next);
+      (next ? saveMoment(_id) : unsaveMoment(_id))
+        .unwrap()
+        .catch((err) => {
+          setSaved(!next);
+          console.error(err);
+        });
+    },
+    [stopLink, userId, saved, _id, saveMoment, unsaveMoment]
+  );
+
+  const handleShareTrack = useCallback(
+    (e: React.MouseEvent) => {
+      stopLink(e);
+      setLocalShareCount((prev) => prev + 1);
+      shareMoment(_id).unwrap().catch(console.error);
+    },
+    [stopLink, _id, shareMoment]
+  );
+
+  // Double-tap the media to like (like only — never unlike), with a brief
+  // heart-burst affordance.
+  const handleDoubleTapLike = useCallback(
+    (e: React.MouseEvent) => {
+      stopLink(e);
+      if (!userId) return;
+      setShowHeartBurst(true);
+      window.setTimeout(() => setShowHeartBurst(false), 700);
+      if (!liked) {
+        setLiked(true);
+        setCurrentLikeCount((prev) => prev + 1);
+      }
+      likeMoment({ momentId: _id, userId }).unwrap().catch(console.error);
+    },
+    [stopLink, userId, liked, _id, likeMoment]
+  );
 
   const handleLikeToggle = useCallback(
     async (e: React.MouseEvent) => {
@@ -143,29 +264,6 @@ const SingleMoment: React.FC<MomentProps> = ({
     [userId, _id, currentLikeCount, isLoadingLike, navigate, refetch]
   );
 
-  const handleShare = useCallback(
-    (e: React.MouseEvent) => {
-      e.preventDefault();
-      e.stopPropagation();
-      if (navigator.share) {
-        navigator.share({
-          title: title,
-          text: description,
-          url: `${window.location.origin}/moment/${_id}`,
-        });
-      } else {
-        navigator.clipboard.writeText(
-          `${window.location.origin}/moment/${_id}`
-        );
-        toast.success("Link copied to clipboard!", {
-          autoClose: 2000,
-          hideProgressBar: true,
-          theme: "colored",
-        });
-      }
-    },
-    [title, description, _id]
-  );
   const formatDate = (dateString: string): string => {
     return moment(dateString).fromNow();
   };
@@ -282,16 +380,48 @@ const SingleMoment: React.FC<MomentProps> = ({
           )}
         </div>
 
-        {/* Images */}
-        {imageUrls && imageUrls.length > 0 && (
+        {/* Media — precedence: video → audio → text/gradient → images */}
+        {video?.url ? (
+          <div className="mt-2 xs:mt-3 px-2 xs:px-3 sm:px-4 md:px-5">
+            <div className="relative" onDoubleClick={handleDoubleTapLike}>
+              <MomentVideoPlayer video={video} />
+              {showHeartBurst && (
+                <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+                  <Heart className="w-20 h-20 text-white fill-white drop-shadow-lg animate-ping" />
+                </div>
+              )}
+            </div>
+          </div>
+        ) : audio?.url ? (
+          <div className="mt-2 xs:mt-3 px-2 xs:px-3 sm:px-4 md:px-5">
+            <VoiceNotePlayer audio={audio} />
+          </div>
+        ) : mediaType === "text" ||
+          (backgroundColor && !(imageUrls && imageUrls.length > 0)) ? (
+          <div className="mt-2 xs:mt-3 px-2 xs:px-3 sm:px-4 md:px-5">
+            <GradientMomentCard
+              text={description}
+              backgroundColor={backgroundColor}
+            />
+          </div>
+        ) : imageUrls && imageUrls.length > 0 ? (
           <div className="mt-2 xs:mt-3">
-            <div className="relative overflow-hidden bg-gray-100">
+            <div
+              className="relative overflow-hidden bg-gray-100"
+              onDoubleClick={handleDoubleTapLike}
+            >
               <img
                 src={imageUrls[0]}
                 alt={title || "Post image"}
                 className="w-full h-auto max-h-64 xs:max-h-80 sm:max-h-96 md:max-h-[450px] lg:max-h-[500px] xl:max-h-[600px] object-cover transition-transform duration-300 group-hover:scale-[1.01]"
                 loading="lazy"
               />
+
+              {showHeartBurst && (
+                <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+                  <Heart className="w-20 h-20 text-white fill-white drop-shadow-lg animate-ping" />
+                </div>
+              )}
 
               {imageUrls.length > 1 && (
                 <div className="absolute top-2 xs:top-3 right-2 xs:right-3">
@@ -302,7 +432,7 @@ const SingleMoment: React.FC<MomentProps> = ({
               )}
             </div>
           </div>
-        )}
+        ) : null}
 
         {/* Engagement Stats */}
         {(currentLikeCount > 0 || commentCountNumber > 0) && (
@@ -332,6 +462,49 @@ const SingleMoment: React.FC<MomentProps> = ({
             </div>
           </div>
         )}
+
+        {/* Reactions + Save bar */}
+        <div
+          className="flex items-center justify-between gap-2 px-2 xs:px-3 sm:px-4 md:px-5 py-1.5 border-t border-gray-100"
+          onClick={stopLink}
+        >
+          <div className="flex items-center gap-1 min-w-0">
+            <button
+              type="button"
+              onClick={(e) => {
+                stopLink(e);
+                setShowReactions((v) => !v);
+              }}
+              aria-label="React"
+              aria-expanded={showReactions}
+              className="flex-shrink-0 rounded-full p-1 text-gray-500 hover:bg-gray-100 hover:text-blue-600 dark:hover:bg-gray-700 transition-colors"
+            >
+              <Smile className="w-4 h-4 xs:w-5 xs:h-5" />
+            </button>
+            {userId && (
+              <MomentReactionRow
+                reactions={reactions}
+                myUserId={userId}
+                onToggle={handleToggleReaction}
+                showQuickPick={showReactions}
+              />
+            )}
+          </div>
+
+          <button
+            type="button"
+            onClick={handleSaveToggle}
+            aria-pressed={saved}
+            aria-label={saved ? "Remove bookmark" : "Bookmark"}
+            className={`flex-shrink-0 rounded-full p-1 transition-colors hover:bg-gray-100 dark:hover:bg-gray-700 ${
+              saved ? "text-blue-600" : "text-gray-500 hover:text-blue-600"
+            }`}
+          >
+            <Bookmark
+              className={`w-4 h-4 xs:w-5 xs:h-5 ${saved ? "fill-current" : ""}`}
+            />
+          </button>
+        </div>
 
         {/* Action Buttons */}
         <div className="grid grid-cols-3 border-t border-gray-100">
@@ -373,19 +546,23 @@ const SingleMoment: React.FC<MomentProps> = ({
             </div>
           </div>
 
-          {/* Share Button */}
-          <button
-            onClick={handleShare}
-            className="flex items-center justify-center py-2 xs:py-2.5 sm:py-3 text-gray-600 hover:text-blue-600 hover:bg-gray-50 transition-all duration-200 focus:outline-none focus:bg-gray-50"
-            aria-label="Share"
+          {/* Share Button — ShareButton does the OS/clipboard share; the
+              wrapper click also records a share (shareCount). */}
+          <span
+            onClick={handleShareTrack}
+            className="flex items-center justify-center gap-1 py-2 xs:py-2.5 sm:py-3 text-gray-600 hover:text-blue-600 hover:bg-gray-50 transition-all duration-200 cursor-pointer"
           >
-            <div className="flex items-center gap-1 xs:gap-2">
-              <AiOutlineShareAlt className="w-4 h-4 xs:w-5 xs:h-5 transition-transform hover:scale-110" />
-              <span className="font-medium text-xs xs:text-sm hidden sm:inline">
-                Share
-              </span>
-            </div>
-          </button>
+            <ShareButton
+              type="moment"
+              id={_id}
+              title={title}
+              text={description}
+              className="flex items-center gap-1 xs:gap-2 font-medium text-xs xs:text-sm"
+            />
+            {localShareCount > 0 && (
+              <span className="text-xs font-medium">{localShareCount}</span>
+            )}
+          </span>
         </div>
       </article>
     </Link>

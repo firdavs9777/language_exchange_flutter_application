@@ -1,4 +1,4 @@
-export interface MomentType {
+export interface Moment {
   _id: string;
   title: string;
   description: string;
@@ -40,7 +40,38 @@ export interface MomentType {
   createdAt: string;
   __v: number;
   refetch?: () => void;
+  // Video attachment (Package 3 parity)
+  video?: {
+    url: string;
+    thumbnail?: string;
+    duration?: number;
+    width?: number;
+    height?: number;
+    mimeType?: string;
+    fileSize?: number;
+  };
+  // Audio attachment (Package 3 parity)
+  audio?: {
+    url: string;
+    duration: number;
+    waveform: number[];
+    mimeType?: string;
+    fileSize?: number;
+  };
+  mediaType?: 'image' | 'video' | 'audio' | 'text';
+  backgroundColor?: string;
+  reactions?: Array<{ user: string; emoji: string; createdAt?: string }>;
+  reactionCount?: number;
+  shareCount?: number;
+  saveCount?: number;
+  savedBy?: string[];
+  isSaved?: boolean;
+  promptId?: string;
+  isReel?: boolean;
 }
+
+// Back-compat alias — keep existing imports of `MomentType` compiling.
+export type MomentType = Moment;
 export interface User {
   _id: string;
   name: string;

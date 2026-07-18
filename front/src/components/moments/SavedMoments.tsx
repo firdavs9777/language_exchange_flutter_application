@@ -20,11 +20,11 @@ import {
 
 interface SavedMoment {
   _id: string;
-  content?: string;
+  description?: string;
   imageUrls?: string[];
-  videoUrls?: string[];
-  likesCount: number;
-  commentsCount: number;
+  video?: { url: string };
+  likeCount: number;
+  commentCount: number;
   createdAt: string;
   user: {
     _id: string;
@@ -89,15 +89,15 @@ const SavedMoments: React.FC = () => {
               alt=""
               className="w-full h-full object-cover"
             />
-          ) : moment.videoUrls?.[0] ? (
+          ) : moment.video?.url ? (
             <video
-              src={moment.videoUrls[0]}
+              src={moment.video.url}
               className="w-full h-full object-cover"
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-teal-100 to-blue-100 p-2">
               <p className="text-gray-600 text-xs line-clamp-4 text-center">
-                {moment.content}
+                {moment.description}
               </p>
             </div>
           )}
@@ -106,11 +106,11 @@ const SavedMoments: React.FC = () => {
           <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4">
             <span className="flex items-center gap-1 text-white text-sm">
               <Heart className="w-4 h-4" fill="white" />
-              {moment.likesCount}
+              {moment.likeCount}
             </span>
             <span className="flex items-center gap-1 text-white text-sm">
               <MessageCircle className="w-4 h-4" fill="white" />
-              {moment.commentsCount}
+              {moment.commentCount}
             </span>
           </div>
 
@@ -183,8 +183,8 @@ const SavedMoments: React.FC = () => {
             onClick={() => navigate(`/moments/${moment._id}`)}
             className="w-full text-left"
           >
-            {moment.content && (
-              <p className="px-4 pb-3 text-gray-700">{moment.content}</p>
+            {moment.description && (
+              <p className="px-4 pb-3 text-gray-700">{moment.description}</p>
             )}
 
             {moment.imageUrls?.[0] && (
@@ -195,9 +195,9 @@ const SavedMoments: React.FC = () => {
               />
             )}
 
-            {moment.videoUrls?.[0] && (
+            {moment.video?.url && (
               <video
-                src={moment.videoUrls[0]}
+                src={moment.video.url}
                 className="w-full max-h-96 object-cover"
                 controls
               />
@@ -208,11 +208,11 @@ const SavedMoments: React.FC = () => {
           <div className="flex items-center gap-6 p-4 border-t">
             <span className="flex items-center gap-1 text-gray-500 text-sm">
               <Heart className="w-4 h-4" />
-              {moment.likesCount}
+              {moment.likeCount}
             </span>
             <span className="flex items-center gap-1 text-gray-500 text-sm">
               <MessageCircle className="w-4 h-4" />
-              {moment.commentsCount}
+              {moment.commentCount}
             </span>
           </div>
         </div>

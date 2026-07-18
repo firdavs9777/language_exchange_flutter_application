@@ -9,20 +9,43 @@ import {
   FaSearch,
   FaTimes,
 } from "react-icons/fa";
+import { Compass, PenLine, Sparkles, TrendingUp, X } from "lucide-react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Pagination from "../../composables/Pagination";
-import { useGetMomentsQuery } from "../../store/slices/momentsSlice";
+import {
+  useGetExploreMomentsQuery,
+  useGetMomentsQuery,
+  useGetPromptOfDayQuery,
+  useGetTrendingMomentsQuery,
+} from "../../store/slices/momentsSlice";
 import EmptyState from "./EmptyState";
 import SingleMoment from "./SingleMoment";
 import { MomentType } from "./types";
+import StoriesFeed from "../stories/StoriesFeed";
 
 interface User {
   _id: string;
   name: string;
   images?: string[];
   imageUrls?: string[];
+  language_to_learn?: string;
 }
+
+type FeedTab = "forYou" | "trending" | "explore";
+
+interface PromptOfDay {
+  text?: string;
+  emoji?: string;
+  promptId?: string;
+  language?: string;
+}
+
+const FEED_TABS: { key: FeedTab; label: string; Icon: typeof Sparkles }[] = [
+  { key: "forYou", label: "For You", Icon: Sparkles },
+  { key: "trending", label: "Trending", Icon: TrendingUp },
+  { key: "explore", label: "Explore", Icon: Compass },
+];
 
 interface UserInfo {
   user: User;
@@ -505,10 +528,32 @@ const MainMoments: React.FC = () => {
   });
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
-  const { data, isLoading, error, refetch } = useGetMomentsQuery({
-    page: currentPage,
-    limit: limit,
-  });
+  // Feed tab state (For You / Trending / Explore)
+  const [activeTab, setActiveTab] = useState<FeedTab>("forYou");
+  const [promptDismissed, setPromptDismissed] = useState(false);
+
+  // Fetch only the active tab's feed; other tabs are skipped (lazy).
+  const forYouFeed = useGetMomentsQuery(
+    { page: currentPage, limit },
+    { skip: activeTab !== "forYou" }
+  );
+  const trendingFeed = useGetTrendingMomentsQuery(
+    { page: currentPage, limit },
+    { skip: activeTab !== "trending" }
+  );
+  const exploreFeed = useGetExploreMomentsQuery(
+    { page: currentPage, limit },
+    { skip: activeTab !== "explore" }
+  );
+
+  // Select the active tab's query result to drive the feed pipeline.
+  const activeFeed =
+    activeTab === "trending"
+      ? trendingFeed
+      : activeTab === "explore"
+      ? exploreFeed
+      : forYouFeed;
+  const { data, isLoading, error, refetch } = activeFeed;
 
   const userId = useSelector(
     (state: RootState) => state.auth.userInfo?.user?._id
@@ -527,6 +572,39 @@ const MainMoments: React.FC = () => {
     }),
     [userInfo]
   );
+
+  // Prompt of the day (For You tab only). Degrades gracefully on 404/error.
+  const promptLanguage = userInfo?.user?.language_to_learn || undefined;
+  const { data: promptRaw, error: promptError } = useGetPromptOfDayQuery(
+    { language: promptLanguage },
+    { skip: activeTab !== "forYou" }
+  );
+  const promptOfDay = useMemo<PromptOfDay | null>(() => {
+    if (!promptRaw) return null;
+    // Tolerate both {..} and {data: {..}} shapes.
+    const p = (promptRaw.data ?? promptRaw) as PromptOfDay;
+    if (!p || !p.text) return null;
+    return p;
+  }, [promptRaw]);
+
+  const showPrompt =
+    activeTab === "forYou" && !promptDismissed && !promptError && !!promptOfDay;
+
+  // Switch feed tabs, resetting pagination.
+  const handleTabChange = useCallback((tab: FeedTab) => {
+    setActiveTab(tab);
+    setCurrentPage(1);
+  }, []);
+
+  // Navigate to create-moment prefilled from the prompt of the day.
+  const handleAnswerPrompt = useCallback(() => {
+    navigate("/add-moment", {
+      state: {
+        promptText: promptOfDay?.text,
+        promptId: promptOfDay?.promptId,
+      },
+    });
+  }, [navigate, promptOfDay]);
 
   // Extract moments and pagination from response
   const { allMoments } = useMemo(() => {
@@ -683,6 +761,11 @@ const MainMoments: React.FC = () => {
           <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent"></div>
 
           <div className="relative">
+            {/* Stories ring strip */}
+            <div className="px-3 sm:px-4 lg:px-6 pt-3 sm:pt-4">
+              <StoriesFeed />
+            </div>
+
             {/* Create post area */}
             <div className="p-3 sm:p-4 lg:p-6">
               <CreatePostCard
@@ -694,6 +777,71 @@ const MainMoments: React.FC = () => {
             </div>
 
             <div className="px-3 sm:px-4 lg:px-6">
+              {/* Feed tabs: For You / Trending / Explore */}
+              <div
+                role="tablist"
+                aria-label="Feed"
+                className="mb-4 flex gap-1 rounded-full bg-white/60 dark:bg-gray-800/50 backdrop-blur-sm border border-white/30 dark:border-gray-700/50 p-1 shadow-lg"
+              >
+                {FEED_TABS.map(({ key, label, Icon }) => {
+                  const isActive = activeTab === key;
+                  return (
+                    <button
+                      key={key}
+                      role="tab"
+                      aria-selected={isActive}
+                      onClick={() => handleTabChange(key)}
+                      className={`flex flex-1 items-center justify-center gap-1.5 rounded-full px-3 py-2 text-xs sm:text-sm font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-teal-400/50 ${
+                        isActive
+                          ? "bg-gradient-to-r from-teal-500 to-indigo-500 text-white shadow"
+                          : "text-gray-600 dark:text-gray-300 hover:bg-white/70 dark:hover:bg-gray-700/50"
+                      }`}
+                    >
+                      <Icon className="h-4 w-4" />
+                      <span>{label}</span>
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Prompt of the Day (For You tab only) */}
+              {showPrompt && promptOfDay && (
+                <div className="mb-4 relative overflow-hidden rounded-xl sm:rounded-2xl bg-gradient-to-br from-teal-50/80 to-indigo-50/60 dark:from-teal-900/30 dark:to-indigo-900/20 backdrop-blur-xl border border-teal-200/40 dark:border-teal-700/40 shadow-lg">
+                  <div className="relative p-4 sm:p-5">
+                    <button
+                      onClick={() => setPromptDismissed(true)}
+                      aria-label="Dismiss prompt of the day"
+                      className="absolute top-2 right-2 p-1.5 rounded-full text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 hover:bg-white/60 dark:hover:bg-gray-700/50 transition-colors"
+                    >
+                      <X className="h-4 w-4" />
+                    </button>
+                    <div className="flex items-start gap-3 pr-6">
+                      <div className="text-2xl sm:text-3xl leading-none">
+                        {promptOfDay.emoji || "✨"}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-[11px] font-semibold uppercase tracking-wide text-teal-600 dark:text-teal-400">
+                          Prompt of the day
+                        </p>
+                        <p className="mt-0.5 text-sm sm:text-base font-medium text-gray-800 dark:text-gray-100">
+                          {promptOfDay.text}
+                        </p>
+                        <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                          Practice writing
+                        </p>
+                        <button
+                          onClick={handleAnswerPrompt}
+                          className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-teal-500 to-indigo-500 px-4 py-2 text-xs sm:text-sm font-semibold text-white shadow-lg transition-all duration-200 hover:from-teal-600 hover:to-indigo-600 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-teal-400/50"
+                        >
+                          <PenLine className="h-4 w-4" />
+                          <span>Answer</span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
               <div className="flex items-center justify-between mb-3 sm:mb-4">
                 <h1 className="text-xl sm:text-2xl font-bold text-gray-800">
                   Stories list
@@ -746,6 +894,15 @@ const MainMoments: React.FC = () => {
                           imageUrls={moment.imageUrls}
                           createdAt={moment.createdAt}
                           refetch={refetch}
+                          reactions={moment.reactions}
+                          reactionCount={moment.reactionCount}
+                          shareCount={moment.shareCount}
+                          isSaved={moment.isSaved}
+                          saveCount={moment.saveCount}
+                          mediaType={moment.mediaType}
+                          video={moment.video}
+                          audio={moment.audio}
+                          backgroundColor={moment.backgroundColor}
                         />
                       </div>
                     </div>

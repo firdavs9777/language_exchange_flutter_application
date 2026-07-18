@@ -23,6 +23,7 @@ import {
 } from "react-icons/fa";
 import {
   useCreateStoryMutation,
+  useCreateVideoStoryMutation,
 } from "../../store/slices/storiesSlice";
 import { toast } from "react-toastify";
 import "./CreateStory.scss";
@@ -123,6 +124,7 @@ const CreateStory: React.FC = () => {
   const [hashtagInput, setHashtagInput] = useState("");
 
   const [createStory, { isLoading: isCreating }] = useCreateStoryMutation();
+  const [createVideoStory, { isLoading: isCreatingVideo }] = useCreateVideoStoryMutation();
 
   const handleFileSelect = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
@@ -211,7 +213,11 @@ const CreateStory: React.FC = () => {
       const formData = new FormData();
 
       // Add media files
-      if (mediaType !== "text") {
+      if (mediaType === "video") {
+        if (mediaFiles[0]) {
+          formData.append("video", mediaFiles[0]);
+        }
+      } else if (mediaType !== "text") {
         mediaFiles.forEach((file) => {
           formData.append("media", file);
         });
@@ -257,7 +263,11 @@ const CreateStory: React.FC = () => {
         formData.append("hashtags", JSON.stringify(hashtags));
       }
 
-      await createStory(formData).unwrap();
+      if (mediaType === "video") {
+        await createVideoStory(formData).unwrap();
+      } else {
+        await createStory(formData).unwrap();
+      }
       toast.success(t("stories.create_first_story") || "Story created successfully!");
       navigate("/moments");
     } catch (error: any) {
@@ -277,6 +287,7 @@ const CreateStory: React.FC = () => {
     link,
     hashtags,
     createStory,
+    createVideoStory,
     navigate,
     t,
   ]);
@@ -311,9 +322,9 @@ const CreateStory: React.FC = () => {
             <button
               className="share-btn"
               onClick={handleSubmit}
-              disabled={isCreating}
+              disabled={isCreating || isCreatingVideo}
             >
-              {isCreating ? (
+              {isCreating || isCreatingVideo ? (
                 <span>{t("stories.sharing.share_to_story") || "Sharing..."}</span>
               ) : (
                 <>

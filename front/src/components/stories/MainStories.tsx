@@ -1,9 +1,10 @@
 import React from "react";
+import StoriesFeed from "./StoriesFeed";
 
 const MainStories = () => {
   return (
     <div>
-      <h1>Main Stories</h1>
+      <StoriesFeed />
     </div>
   );
 };

@@ -11,9 +11,9 @@ export const commentsApiSlice = apiSlice.injectEndpoints({
     getComments: builder.query({
       query: (momentId: string) => ({
         url: `${MOMENTS_URL}/${momentId}/${COMMENTS}`,
-        keepUnusedDataFor: 5,
-        providesTags: ["Comments"],
       }),
+      keepUnusedDataFor: 5,
+      providesTags: ["Comments"],
     }),
     addComment: builder.mutation({
       query: ({
@@ -33,7 +33,7 @@ export const commentsApiSlice = apiSlice.injectEndpoints({
           text: newComment,
         },
       }),
-      invalidatesTags: ["Comment"], // Fixed invalidatesTags for correct tag name
+      invalidatesTags: ["Comments"],
     }),
   }),
 });

@@ -156,6 +156,77 @@ export const momentsApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Moments"],
     }),
+    // Emoji reactions (distinct from like/dislike)
+    reactToMoment: builder.mutation({
+      query: ({ momentId, emoji }: { momentId: string; emoji: string }) => ({
+        url: `${MOMENTS_URL}/${momentId}/react`,
+        method: "POST",
+        body: { emoji },
+      }),
+      invalidatesTags: ["Moments"],
+    }),
+    unreactToMoment: builder.mutation({
+      query: (momentId: string) => ({
+        url: `${MOMENTS_URL}/${momentId}/react`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Moments"],
+    }),
+    // Share — POST /api/v1/moments/:momentId/share, no body. Returns {shareCount}.
+    shareMoment: builder.mutation({
+      query: (momentId: string) => ({
+        url: `${MOMENTS_URL}/${momentId}/share`,
+        method: "POST",
+      }),
+      invalidatesTags: ["Moments"],
+    }),
+    // Video attachment — PUT /api/v1/moments/:momentId/video with FormData (field: video)
+    uploadMomentVideo: builder.mutation({
+      query: ({ momentId, formData }: { momentId: string; formData: FormData }) => ({
+        url: `${MOMENTS_URL}/${momentId}/video`,
+        method: "PUT",
+        body: formData,
+      }),
+      invalidatesTags: ["Moments"],
+    }),
+    deleteMomentVideo: builder.mutation({
+      query: (momentId: string) => ({
+        url: `${MOMENTS_URL}/${momentId}/video`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Moments"],
+    }),
+    // Audio attachment — PUT /api/v1/moments/:momentId/audio with FormData
+    // (fields: audio (blob), duration, waveform (JSON.stringify of number[]))
+    uploadMomentAudio: builder.mutation({
+      query: ({ momentId, formData }: { momentId: string; formData: FormData }) => ({
+        url: `${MOMENTS_URL}/${momentId}/audio`,
+        method: "PUT",
+        body: formData,
+      }),
+      invalidatesTags: ["Moments"],
+    }),
+    // Prompt of the day — GET /api/v1/moments/prompt-of-day?language=
+    // Returns {text, emoji, promptId, language}
+    getPromptOfDay: builder.query({
+      query: ({ language }: { language?: string } = {}) => ({
+        url: `${MOMENTS_URL}/prompt-of-day${language ? `?language=${language}` : ''}`,
+      }),
+    }),
+    // Reels feed — GET /api/v1/moments/reels?before=&limit=
+    // Returns {success, data, nextCursor}. NOTE: 404s when backend
+    // REELS_ENABLED is off — callers feature-detect this.
+    getReelsFeed: builder.query({
+      query: ({ before, limit }: { before?: string; limit?: number } = {}) => {
+        const params = new URLSearchParams();
+        if (before) params.append('before', before);
+        if (limit !== undefined) params.append('limit', String(limit));
+        const qs = params.toString();
+        return {
+          url: `${MOMENTS_URL}/reels${qs ? `?${qs}` : ''}`,
+        };
+      },
+    }),
   }),
 });
 
@@ -181,6 +252,15 @@ export const {
   useGetMomentCommentsQuery,
   useAddMomentCommentMutation,
   useDeleteMomentCommentMutation,
+  // Reactions / share / video / audio / prompt / reels
+  useReactToMomentMutation,
+  useUnreactToMomentMutation,
+  useShareMomentMutation,
+  useUploadMomentVideoMutation,
+  useDeleteMomentVideoMutation,
+  useUploadMomentAudioMutation,
+  useGetPromptOfDayQuery,
+  useGetReelsFeedQuery,
 } = momentsApiSlice;
 
 export default momentsApiSlice.reducer;

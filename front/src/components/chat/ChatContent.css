@@ -1209,3 +1209,37 @@
     max-height: 200px;
   }
 }
+
+/* Message-action trigger — hover-revealed "more options" button */
+.msg-action-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  color: #94A3B8;
+  cursor: pointer;
+  padding: 2px;
+  margin-top: 2px;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.modern-message:hover .msg-action-trigger {
+  opacity: 0.6;
+}
+
+.msg-action-trigger:focus-visible {
+  opacity: 0.6;
+}
+
+/* Full-screen overlay behind the MessageActionMenu */
+.msg-action-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.3);
+}

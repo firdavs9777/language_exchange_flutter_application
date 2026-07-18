@@ -107,6 +107,7 @@ export const apiSlice = createApi({
     "Chat",
     "User",
     "Stories",
+    "Comments",
     "Messages",
     "Conversations",
     "UserMessages",
