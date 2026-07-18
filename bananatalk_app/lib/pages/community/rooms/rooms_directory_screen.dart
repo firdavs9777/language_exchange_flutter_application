@@ -9,6 +9,7 @@ import 'package:bananatalk_app/pages/community/widgets/community_empty_state.dar
 import 'package:bananatalk_app/pages/community/widgets/community_error_state.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/rooms_provider.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/utils/language_flags.dart';
 import 'package:bananatalk_app/widgets/community/user_skeleton.dart';
@@ -225,7 +226,7 @@ class _RoomsListState extends ConsumerState<_RoomsList> {
                 left: 4,
               ),
               child: Text(
-                item,
+                LanguageFlags.displayName(item),
                 style: context.titleSmall.copyWith(
                   fontWeight: FontWeight.w700,
                   color: context.textSecondary,
@@ -285,7 +286,8 @@ class _LanguageFilterBar extends StatelessWidget {
           for (final lang in languages)
             _chip(
               context,
-              label: '${LanguageFlags.getFlagByName(lang)} $lang',
+              label:
+                  '${LanguageFlags.getFlagByName(lang)} ${LanguageFlags.displayName(lang)}',
               value: lang,
             ),
         ],
@@ -305,6 +307,16 @@ class _LanguageFilterBar extends StatelessWidget {
         label: Text(label),
         selected: isSelected,
         onSelected: (_) => onSelected(value),
+        showCheckmark: false,
+        backgroundColor: context.containerColor,
+        selectedColor: AppColors.primary,
+        side: BorderSide(
+          color: isSelected ? AppColors.primary : context.dividerColor,
+        ),
+        labelStyle: context.bodyMedium.copyWith(
+          color: isSelected ? Colors.white : context.textPrimary,
+          fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
+        ),
       ),
     );
   }

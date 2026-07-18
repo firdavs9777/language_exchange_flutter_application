@@ -465,6 +465,31 @@ class LanguageFlags {
     return '🌐';
   }
 
+  /// Human-readable language name for a value that may be a display name
+  /// ("German"), a lowercase name ("german"), or a code ("de"). Returns the
+  /// input unchanged if it can't be resolved (e.g. "🔥 Popular"). Use for
+  /// display only — never for grouping/matching keys.
+  static String displayName(String language) {
+    if (language.isEmpty) return language;
+    final lower = language.toLowerCase().trim();
+
+    // Already a known language name → title-case it.
+    if (_nameToCode.containsKey(lower)) return _titleCase(lower);
+
+    // A code (e.g. "de", "en-gb") → reverse-lookup the first matching name.
+    for (final entry in _nameToCode.entries) {
+      if (entry.value == lower) return _titleCase(entry.key);
+    }
+
+    // Unknown → return as-is (already title-cased names, "🔥 Popular", etc.).
+    return language;
+  }
+
+  static String _titleCase(String s) => s
+      .split(' ')
+      .map((w) => w.isEmpty ? w : '${w[0].toUpperCase()}${w.substring(1)}')
+      .join(' ');
+
   /// Get recommended languages (most commonly learned - top 10 popular languages)
   static List<String> getRecommendedCodes() {
     return ['en', 'ko', 'ja', 'zh', 'es', 'fr', 'de', 'it', 'pt', 'ru'];
