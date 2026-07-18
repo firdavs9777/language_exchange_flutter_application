@@ -1377,6 +1377,42 @@
   "securedByGoogle": "Secured by Google",
   "dataProtectedEncryption": "Your data is protected with industry-standard encryption",
   "welcomeCompleteProfile": "Welcome! Please complete your profile",
+  "authWelcomeTagline": "MEET  ·  CHAT  ·  CONNECT",
+  "@authWelcomeTagline": {
+    "description": "Short uppercase tagline under the app title on the pre-login welcome screen"
+  },
+  "authWelcomeCtaTitle": "Make global friends on Bananatalk",
+  "@authWelcomeCtaTitle": {
+    "description": "Headline above the sign-in buttons on the pre-login welcome screen"
+  },
+  "authWelcomeCtaSubtitle": "Join millions of language learners today",
+  "@authWelcomeCtaSubtitle": {
+    "description": "Subheadline above the sign-in buttons on the pre-login welcome screen"
+  },
+  "authWelcomeFeatureConnectTitle": "Connect",
+  "@authWelcomeFeatureConnectTitle": {
+    "description": "Title of the 'Connect' feature card in the welcome screen carousel"
+  },
+  "authWelcomeFeatureConnectSubtitle": "Meet language partners from 150+ countries around the world",
+  "@authWelcomeFeatureConnectSubtitle": {
+    "description": "Subtitle of the 'Connect' feature card in the welcome screen carousel"
+  },
+  "authWelcomeFeatureLearnTitle": "Learn",
+  "@authWelcomeFeatureLearnTitle": {
+    "description": "Title of the 'Learn' feature card in the welcome screen carousel"
+  },
+  "authWelcomeFeatureLearnSubtitle": "AI tutor, quizzes & pronunciation training — all in one app",
+  "@authWelcomeFeatureLearnSubtitle": {
+    "description": "Subtitle of the 'Learn' feature card in the welcome screen carousel"
+  },
+  "authWelcomeFeatureGrowTitle": "Grow",
+  "@authWelcomeFeatureGrowTitle": {
+    "description": "Title of the 'Grow' feature card in the welcome screen carousel"
+  },
+  "authWelcomeFeatureGrowSubtitle": "Build real fluency through daily conversations and community",
+  "@authWelcomeFeatureGrowSubtitle": {
+    "description": "Subtitle of the 'Grow' feature card in the welcome screen carousel"
+  },
   "welcomeBackName": "Welcome back, {name}!",
   "@welcomeBackName": {
     "placeholders": {

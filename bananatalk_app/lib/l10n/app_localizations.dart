@@ -5654,6 +5654,60 @@ abstract class AppLocalizations {
   /// **'Welcome! Please complete your profile'**
   String get welcomeCompleteProfile;
 
+  /// Short uppercase tagline under the app title on the pre-login welcome screen
+  ///
+  /// In en, this message translates to:
+  /// **'MEET  ·  CHAT  ·  CONNECT'**
+  String get authWelcomeTagline;
+
+  /// Headline above the sign-in buttons on the pre-login welcome screen
+  ///
+  /// In en, this message translates to:
+  /// **'Make global friends on Bananatalk'**
+  String get authWelcomeCtaTitle;
+
+  /// Subheadline above the sign-in buttons on the pre-login welcome screen
+  ///
+  /// In en, this message translates to:
+  /// **'Join millions of language learners today'**
+  String get authWelcomeCtaSubtitle;
+
+  /// Title of the 'Connect' feature card in the welcome screen carousel
+  ///
+  /// In en, this message translates to:
+  /// **'Connect'**
+  String get authWelcomeFeatureConnectTitle;
+
+  /// Subtitle of the 'Connect' feature card in the welcome screen carousel
+  ///
+  /// In en, this message translates to:
+  /// **'Meet language partners from 150+ countries around the world'**
+  String get authWelcomeFeatureConnectSubtitle;
+
+  /// Title of the 'Learn' feature card in the welcome screen carousel
+  ///
+  /// In en, this message translates to:
+  /// **'Learn'**
+  String get authWelcomeFeatureLearnTitle;
+
+  /// Subtitle of the 'Learn' feature card in the welcome screen carousel
+  ///
+  /// In en, this message translates to:
+  /// **'AI tutor, quizzes & pronunciation training — all in one app'**
+  String get authWelcomeFeatureLearnSubtitle;
+
+  /// Title of the 'Grow' feature card in the welcome screen carousel
+  ///
+  /// In en, this message translates to:
+  /// **'Grow'**
+  String get authWelcomeFeatureGrowTitle;
+
+  /// Subtitle of the 'Grow' feature card in the welcome screen carousel
+  ///
+  /// In en, this message translates to:
+  /// **'Build real fluency through daily conversations and community'**
+  String get authWelcomeFeatureGrowSubtitle;
+
   /// No description provided for @welcomeBackName.
   ///
   /// In en, this message translates to:

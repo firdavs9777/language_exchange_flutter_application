@@ -2900,6 +2900,33 @@ class AppLocalizationsKo extends AppLocalizations {
   String get welcomeCompleteProfile => '환영합니다! 프로필을 완성해 주세요';
 
   @override
+  String get authWelcomeTagline => 'MEET  ·  CHAT  ·  CONNECT';
+
+  @override
+  String get authWelcomeCtaTitle => 'Make global friends on Bananatalk';
+
+  @override
+  String get authWelcomeCtaSubtitle => 'Join millions of language learners today';
+
+  @override
+  String get authWelcomeFeatureConnectTitle => 'Connect';
+
+  @override
+  String get authWelcomeFeatureConnectSubtitle => 'Meet language partners from 150+ countries around the world';
+
+  @override
+  String get authWelcomeFeatureLearnTitle => 'Learn';
+
+  @override
+  String get authWelcomeFeatureLearnSubtitle => 'AI tutor, quizzes & pronunciation training — all in one app';
+
+  @override
+  String get authWelcomeFeatureGrowTitle => 'Grow';
+
+  @override
+  String get authWelcomeFeatureGrowSubtitle => 'Build real fluency through daily conversations and community';
+
+  @override
   String welcomeBackName(String name) {
     return '다시 오신 것을 환영합니다, $name!';
   }

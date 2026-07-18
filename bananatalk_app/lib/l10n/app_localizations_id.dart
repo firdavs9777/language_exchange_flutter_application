@@ -2900,6 +2900,33 @@ class AppLocalizationsId extends AppLocalizations {
   String get welcomeCompleteProfile => 'Selamat datang! Lengkapi profilmu';
 
   @override
+  String get authWelcomeTagline => 'MEET  ·  CHAT  ·  CONNECT';
+
+  @override
+  String get authWelcomeCtaTitle => 'Make global friends on Bananatalk';
+
+  @override
+  String get authWelcomeCtaSubtitle => 'Join millions of language learners today';
+
+  @override
+  String get authWelcomeFeatureConnectTitle => 'Connect';
+
+  @override
+  String get authWelcomeFeatureConnectSubtitle => 'Meet language partners from 150+ countries around the world';
+
+  @override
+  String get authWelcomeFeatureLearnTitle => 'Learn';
+
+  @override
+  String get authWelcomeFeatureLearnSubtitle => 'AI tutor, quizzes & pronunciation training — all in one app';
+
+  @override
+  String get authWelcomeFeatureGrowTitle => 'Grow';
+
+  @override
+  String get authWelcomeFeatureGrowSubtitle => 'Build real fluency through daily conversations and community';
+
+  @override
   String welcomeBackName(String name) {
     return 'Selamat datang kembali, $name!';
   }

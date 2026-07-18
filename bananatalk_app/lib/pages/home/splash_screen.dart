@@ -91,9 +91,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
     // don't block navigation on it.
     if (isAuthenticated && authService.userId.isNotEmpty) {
       unawaited(
-        NotificationService().registerToken(authService.userId).catchError((
-          e,
-        ) {
+        NotificationService().registerToken(authService.userId).catchError((e) {
           debugPrint('[splash] FCM registerToken failed on restore: $e');
         }),
       );
@@ -245,11 +243,43 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
         child: SafeArea(
           child: Stack(
             children: [
-              // Centered title + tagline (logo removed — typography-only)
+              // Centered brand mark + title + tagline
               Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    // Brand logo mark
+                    FadeTransition(
+                      opacity: _logoFade,
+                      child: ScaleTransition(
+                        scale: _logoScale,
+                        alignment: Alignment.center,
+                        child: Container(
+                          width: 84,
+                          height: 84,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(22),
+                            boxShadow: [
+                              BoxShadow(
+                                color: const Color(
+                                  0xFF00BFA5,
+                                ).withValues(alpha: isDark ? 0.28 : 0.22),
+                                blurRadius: 28,
+                                offset: const Offset(0, 10),
+                              ),
+                            ],
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(22),
+                            child: Image.asset(
+                              'assets/images/logo_mark_ios.png',
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
                     // Subtle decorative accent: short colored bar above title
                     FadeTransition(
                       opacity: _logoFade,
