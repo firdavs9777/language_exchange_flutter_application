@@ -749,19 +749,6 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                           color: context.iconColor,
                           onTap: focusCommentField,
                         ),
-                        const SizedBox(width: 4),
-                        // Translate moved to a labeled chip directly under
-                        // the caption — easier to spot than a lone icon.
-                        IconButton(
-                          icon: Icon(
-                            Icons.card_giftcard_outlined,
-                            color: context.iconColor,
-                            size: 20,
-                          ),
-                          padding: const EdgeInsets.all(8),
-                          constraints: const BoxConstraints(),
-                          onPressed: () {},
-                        ),
                         const Spacer(),
                         IconButton(
                           icon: Icon(
@@ -776,34 +763,15 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                       ],
                     ),
                   ),
-                  // Ad banner
+                  Container(height: 8, color: context.containerColor),
+                  // Ad banner — relocated below the divider that precedes
+                  // the comment thread, out of the mid-content sandwich
+                  // between the action row and (the now-removed duplicate)
+                  // like-count row.
                   const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     child: SmallBannerAdWidget(),
                   ),
-                  // Translate UI moved up next to the description so the
-                  // affordance sits with the text it acts on.
-                  if (likeCount > 0)
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-                      child: Row(
-                        children: [
-                          Text(
-                            '$likeCount ${AppLocalizations.of(context)!.giftsLikes}',
-                            style: context.labelMedium.copyWith(
-                              color: context.textSecondary,
-                            ),
-                          ),
-                          Spacing.hGapSM,
-                          Icon(
-                            Icons.arrow_forward_ios,
-                            size: 12,
-                            color: context.textMuted,
-                          ),
-                        ],
-                      ),
-                    ),
-                  Container(height: 8, color: context.containerColor),
                   Padding(
                     padding: const EdgeInsets.all(16),
                     child: Text(

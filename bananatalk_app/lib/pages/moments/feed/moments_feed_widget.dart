@@ -16,6 +16,35 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 /// to jump straight to Community so the user can follow people.
 const int _communityTabIndex = 1;
 
+/// Ad cadence: 1 native ad per this many organic moments.
+const int _adEveryNPosts = 4;
+
+/// Sentinel used in the interleaved feed item list to mark an ad slot.
+/// Kept distinct from `Moments` so `itemBuilder` can tell items apart with
+/// a simple type check.
+class _AdSlot {
+  const _AdSlot();
+}
+
+const _adSlot = _AdSlot();
+
+/// Builds the single, explicit list of feed items (moments interspersed
+/// with ad slots) that both drives `itemCount` and `itemBuilder` — so the
+/// ad placement and the total item count can never drift apart (see I3 in
+/// the moments audit: the previous index-math derived these separately and
+/// both overshot/degraded to a much denser ad cadence than intended).
+List<Object> _buildFeedItems(List<Moments> moments) {
+  final items = <Object>[];
+  for (var i = 0; i < moments.length; i++) {
+    items.add(moments[i]);
+    final isLastMoment = i == moments.length - 1;
+    if (!isLastMoment && (i + 1) % _adEveryNPosts == 0) {
+      items.add(_adSlot);
+    }
+  }
+  return items;
+}
+
 /// Renders the scrollable moments feed (with ad-every-4 insertion) and the
 /// matching empty-state / error-state views.  All data is supplied by the
 /// orchestrator (`MomentsMain`) so this widget has no direct provider
@@ -55,35 +84,29 @@ class MomentsFeedWidget extends ConsumerWidget {
           return _buildEmptyState(context, ref);
         }
 
-        // Insert native ads every 3rd item (denser than the previous every-4).
-        const adInterval = 3;
-        final totalAds = moments.length ~/ (adInterval - 1);
-        final totalItems = moments.length + totalAds;
+        // Interleave 1 native ad per _adEveryNPosts organic moments. The
+        // item list is built explicitly (rather than derived from index
+        // math) so placement and itemCount can never drift apart, and
+        // there's no phantom trailing item.
+        final items = _buildFeedItems(moments);
 
         return ListView.builder(
           controller: scrollController,
           physics: const AlwaysScrollableScrollPhysics(),
           padding: const EdgeInsets.only(bottom: 100),
-          itemCount: totalItems,
+          itemCount: items.length,
           itemBuilder: (context, index) {
-            // Every adInterval-th position is an ad
-            if (index > 0 && index % adInterval == 0) {
+            final item = items[index];
+            if (item is! Moments) {
               return const NativeAdWidget();
             }
 
-            // Calculate real moment index by subtracting ad count
-            final adsBefore = index ~/ adInterval;
-            final momentIndex = index - adsBefore;
-            if (momentIndex >= moments.length) {
-              return const SizedBox.shrink();
-            }
-
-            return MomentCard(moments: moments[momentIndex], onRefresh: onRefresh)
+            return MomentCard(moments: item, onRefresh: onRefresh)
                 .animate(
                   // Stable key (mirrors the comments list's per-item keys)
                   // so a card's local like/save state doesn't bind to the
                   // wrong moment if the list reorders/refreshes.
-                  key: ValueKey(moments[momentIndex].id),
+                  key: ValueKey(item.id),
                 )
                 .fadeIn(
                   duration: 300.ms,

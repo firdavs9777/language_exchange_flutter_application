@@ -801,22 +801,6 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                     color: context.iconColor,
                     onTap: _openMomentDetail,
                   ),
-                  const SizedBox(width: 4),
-                  // Translate moved to a labeled chip directly under the
-                  // caption — easier to spot and more obviously tappable
-                  // than a lone icon in the action row.
-                  IconButton(
-                    icon: Icon(
-                      Icons.card_giftcard_outlined,
-                      color: context.iconColor,
-                      size: 22,
-                    ),
-                    padding: const EdgeInsets.all(8),
-                    constraints: const BoxConstraints(),
-                    onPressed: () {
-                      // Gift functionality
-                    },
-                  ),
                   const Spacer(),
                   IconButton(
                     icon: Icon(

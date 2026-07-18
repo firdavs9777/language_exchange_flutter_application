@@ -69,15 +69,12 @@ class MomentFilterBar extends StatelessWidget {
                         onTap: () =>
                             onFilterChanged(currentFilter.copyWith(sortBy: 'popular')),
                       ),
-                      const SizedBox(width: 8),
-                      _buildQuickTab(
-                        context: context,
-                        label: AppLocalizations.of(context)!.trending,
-                        icon: Icons.local_fire_department,
-                        isActive: currentFilter.sortBy == 'trending',
-                        onTap: () =>
-                            onFilterChanged(currentFilter.copyWith(sortBy: 'trending')),
-                      ),
+                      // "Trending" quick-sort chip removed: it duplicated the
+                      // top feed-tab bar's "Trending" tab and the filter
+                      // sheet's "Sort by" section (see moments audit, Top Tab
+                      // Bar section) — same label rendered 3x on one screen.
+                      // Trending remains selectable as a feed tab and in the
+                      // filter sheet; sortBy state/logic is unchanged.
                     ],
                   ),
                 ),
