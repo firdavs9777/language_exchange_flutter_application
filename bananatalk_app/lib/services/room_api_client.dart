@@ -72,6 +72,92 @@ class RoomApiClient {
     }
   }
 
+  /// POST /rooms — create a user-created topic room, nested under
+  /// [targetLanguage]. Returns the created room (parsed via `Room.fromJson`,
+  /// same shape as `getRoom`/`getRooms`), or `null` on failure.
+  Future<Room?> createRoom({
+    required String title,
+    required String targetLanguage,
+    String? description,
+  }) async {
+    try {
+      final response = await _apiClient.post(
+        'rooms',
+        body: {
+          'title': title,
+          'targetLanguage': targetLanguage,
+          if (description != null) 'description': description,
+        },
+      );
+      if (!response.success) {
+        debugPrint('[RoomApiClient] createRoom failed: ${response.error}');
+        return null;
+      }
+      final data = response.data is Map && response.data['data'] is Map
+          ? response.data['data']
+          : response.data;
+      if (data is! Map) return null;
+      return Room.fromJson(Map<String, dynamic>.from(data));
+    } catch (e) {
+      debugPrint('[RoomApiClient] createRoom error: $e');
+      return null;
+    }
+  }
+
+  /// POST /rooms/:id/request-join — ask to join a topic room the caller
+  /// isn't a member of (including a banned user asking to be reinstated).
+  Future<bool> requestJoin(String id) async {
+    try {
+      final response = await _apiClient.post('rooms/$id/request-join');
+      return response.success;
+    } catch (e) {
+      debugPrint('[RoomApiClient] requestJoin error: $e');
+      return false;
+    }
+  }
+
+  /// GET /rooms/:id/requests — owner/admin only. Returns the list of
+  /// pending join requests as raw decoded maps, each shaped
+  /// `{ user: {...}, requestedAt, status }` per the backend contract.
+  Future<List<Map<String, dynamic>>> getJoinRequests(String id) async {
+    try {
+      final response = await _apiClient.get('rooms/$id/requests');
+      if (!response.success) {
+        debugPrint('[RoomApiClient] getJoinRequests failed: ${response.error}');
+        return [];
+      }
+      final data = _extractList(response.data);
+      return data.map((r) => Map<String, dynamic>.from(r as Map)).toList();
+    } catch (e) {
+      debugPrint('[RoomApiClient] getJoinRequests error: $e');
+      return [];
+    }
+  }
+
+  /// POST /rooms/:id/requests/:userId/approve — owner/admin only.
+  Future<bool> approveJoinRequest(String id, String userId) async {
+    try {
+      final response =
+          await _apiClient.post('rooms/$id/requests/$userId/approve');
+      return response.success;
+    } catch (e) {
+      debugPrint('[RoomApiClient] approveJoinRequest error: $e');
+      return false;
+    }
+  }
+
+  /// POST /rooms/:id/requests/:userId/deny — owner/admin only.
+  Future<bool> denyJoinRequest(String id, String userId) async {
+    try {
+      final response =
+          await _apiClient.post('rooms/$id/requests/$userId/deny');
+      return response.success;
+    } catch (e) {
+      debugPrint('[RoomApiClient] denyJoinRequest error: $e');
+      return false;
+    }
+  }
+
   /// POST /rooms/:id/join
   Future<bool> join(String id) async {
     try {
@@ -116,7 +202,10 @@ class RoomApiClient {
 
   // ---- Admin (Task 10/11) — stubbed now, wired up to real UI later. ----
 
-  /// DELETE /rooms/:id/members/:userId — owner/admin removes a member.
+  /// DELETE /rooms/:id/members/:userId — owner/admin removes a member. On a
+  /// topic room this is a kick-as-ban (atomic remove + ban server-side); the
+  /// target can only get back in via [requestJoin] + [approveJoinRequest].
+  /// Also serves as the "kick member" method for the moderation UI.
   Future<bool> removeMember(String roomId, String userId) async {
     try {
       final response = await _apiClient.delete('rooms/$roomId/members/$userId');
