@@ -89,15 +89,19 @@ class LimitExceededDialog extends StatelessWidget {
     }
   }
 
-  /// Coins v1: this dialog is shared across several daily-limit surfaces
-  /// (messages, moments, stories, comments, profile views), but the v1
-  /// unlock catalog only covers `moment` — the others have no coin
-  /// unlock yet. Returns null (no CTA shown) for anything else.
+  /// Maps a daily-limit surface to its à-la-carte coin unlock key. The
+  /// message cap maps to `dm` (extra direct messages today — backend
+  /// coinCatalog `dm`, distinct from the AI-tutor `chat` quota). `moment`
+  /// maps to `moment`. Surfaces with no coin unlock return null (no CTA).
+  /// The CTA also self-hides if the returned key isn't in the live catalog.
   String? _featureKeyForUnlock() {
     switch (limitType.toLowerCase()) {
       case 'moment':
       case 'moments':
         return 'moment';
+      case 'message':
+      case 'messages':
+        return 'dm';
       default:
         return null;
     }
