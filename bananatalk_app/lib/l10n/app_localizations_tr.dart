@@ -7070,228 +7070,228 @@ class AppLocalizationsTr extends AppLocalizations {
   String get examTipsCategoryFluency => 'Fluency';
 
   @override
-  String get roomsNewRoom => 'New room';
+  String get roomsNewRoom => 'Yeni oda';
 
   @override
-  String get roomsCouldNotLoad => 'Could not load rooms';
+  String get roomsCouldNotLoad => 'Odalar yüklenemedi';
 
   @override
-  String get roomsEmptyTitle => 'No language rooms yet';
+  String get roomsEmptyTitle => 'Henüz dil odası yok';
 
   @override
-  String get roomsEmptySubtitle => 'Check back soon — hubs are being set up.';
+  String get roomsEmptySubtitle => 'Yakında tekrar kontrol edin — merkezler hazırlanıyor.';
 
   @override
-  String get roomCreateTitle => 'New Topic Room';
+  String get roomCreateTitle => 'Yeni Konu Odası';
 
   @override
-  String get roomCreateSubtitle => 'Start a focused chat under a language';
+  String get roomCreateSubtitle => 'Bir dil altında odaklı bir sohbet başlat';
 
   @override
-  String get roomNameLabel => 'Room name';
+  String get roomNameLabel => 'Oda adı';
 
   @override
-  String get roomNameHint => 'e.g. Daily conversation practice';
+  String get roomNameHint => 'örn. Günlük konuşma pratiği';
 
   @override
-  String get roomDescriptionLabel => 'Description (optional)';
+  String get roomDescriptionLabel => 'Açıklama (isteğe bağlı)';
 
   @override
-  String get roomDescriptionHint => 'What\'s this room about?';
+  String get roomDescriptionHint => 'Bu oda ne hakkında?';
 
   @override
-  String get roomCreateSubmit => 'Create room';
+  String get roomCreateSubmit => 'Oda oluştur';
 
   @override
-  String get roomNameRequired => 'Please enter a room name';
+  String get roomNameRequired => 'Lütfen bir oda adı girin';
 
   @override
-  String get roomCreateError => 'Could not create the room. Please try again.';
+  String get roomCreateError => 'Oda oluşturulamadı. Lütfen tekrar deneyin.';
 
   @override
-  String get roomUsEnglish => 'US English';
+  String get roomUsEnglish => 'ABD İngilizcesi';
 
   @override
-  String get roomUkEnglish => 'UK English';
+  String get roomUkEnglish => 'İngiltere İngilizcesi';
 
   @override
-  String get roomFailedLoadMessages => 'Failed to load messages';
+  String get roomFailedLoadMessages => 'Mesajlar yüklenemedi';
 
   @override
-  String get roomReportMessageTitle => 'Report message';
+  String get roomReportMessageTitle => 'Mesajı bildir';
 
   @override
   String get reportReasonSpam => 'Spam';
 
   @override
-  String get reportReasonHarassment => 'Harassment or Bullying';
+  String get reportReasonHarassment => 'Taciz veya Zorbalık';
 
   @override
-  String get reportReasonHateSpeech => 'Hate Speech';
+  String get reportReasonHateSpeech => 'Nefret Söylemi';
 
   @override
-  String get reportReasonViolence => 'Violence or Threats';
+  String get reportReasonViolence => 'Şiddet veya Tehdit';
 
   @override
-  String get reportReasonNudity => 'Nudity or Sexual Content';
+  String get reportReasonNudity => 'Çıplaklık veya Cinsel İçerik';
 
   @override
-  String get reportReasonFalseInformation => 'False Information';
+  String get reportReasonFalseInformation => 'Yanlış Bilgi';
 
   @override
-  String get roomReportSubmitted => 'Report submitted';
+  String get roomReportSubmitted => 'Bildirim gönderildi';
 
   @override
-  String get roomReportSubmitFailed => 'Failed to submit report';
+  String get roomReportSubmitFailed => 'Bildirim gönderilemedi';
 
   @override
-  String get roomLeaveHubTitle => 'Leave hub?';
+  String get roomLeaveHubTitle => 'Merkezden ayrılınsın mı?';
 
   @override
   String roomLeaveHubMessage(String title) {
-    return 'You can rejoin $title later from the Rooms directory.';
+    return 'Daha sonra Odalar dizininden $title odasına tekrar katılabilirsiniz.';
   }
 
   @override
-  String get roomLeaveHubFailed => 'Failed to leave hub';
+  String get roomLeaveHubFailed => 'Merkezden ayrılma başarısız oldu';
 
   @override
-  String get roomJoinRequestSent => 'Request sent — you\'ll be notified if approved';
+  String get roomJoinRequestSent => 'İstek gönderildi — onaylanırsa bilgilendirileceksiniz';
 
   @override
-  String get roomJoinRequestFailed => 'Failed to send request';
+  String get roomJoinRequestFailed => 'İstek gönderilemedi';
 
   @override
   String roomRequestsMenuItem(int count) {
-    return 'Requests ($count)';
+    return 'İstekler ($count)';
   }
 
   @override
-  String get roomViewMembers => 'View members';
+  String get roomViewMembers => 'Üyeleri görüntüle';
 
   @override
-  String get roomLeaveHubMenuItem => 'Leave hub';
+  String get roomLeaveHubMenuItem => 'Merkezden ayrıl';
 
   @override
   String roomMemberOnlineCount(int members, int online) {
-    return '$members members · $online online';
+    return '$members üye · $online çevrimiçi';
   }
 
   @override
-  String get roomBannedRequestMessage => 'You were removed from this room. Send a request to rejoin — the owner needs to approve it.';
+  String get roomBannedRequestMessage => 'Bu odadan çıkarıldınız. Tekrar katılmak için istek gönderin — sahibin onaylaması gerekir.';
 
   @override
-  String get roomModeratedRequestMessage => 'This is a moderated room. Request to join to start chatting.';
+  String get roomModeratedRequestMessage => 'Bu, denetimli bir odadır. Sohbete başlamak için katılma isteği gönderin.';
 
   @override
-  String get roomRequestPending => 'Request pending';
+  String get roomRequestPending => 'İstek beklemede';
 
   @override
-  String get roomRequestToJoin => 'Request to join';
+  String get roomRequestToJoin => 'Katılma isteği gönder';
 
   @override
-  String get roomDailyPromptLabel => 'Today\'s prompt';
+  String get roomDailyPromptLabel => 'Bugünün konusu';
 
   @override
-  String get roomSomeoneFallback => 'Someone';
+  String get roomSomeoneFallback => 'Biri';
 
   @override
-  String get roomRequestsLoadError => 'Could not load join requests';
+  String get roomRequestsLoadError => 'Katılma istekleri yüklenemedi';
 
   @override
-  String get roomRequestApproved => 'Request approved';
+  String get roomRequestApproved => 'İstek onaylandı';
 
   @override
-  String get roomRequestDenied => 'Request denied';
+  String get roomRequestDenied => 'İstek reddedildi';
 
   @override
-  String get roomRequestApproveFailed => 'Failed to approve request';
+  String get roomRequestApproveFailed => 'İstek onaylanamadı';
 
   @override
-  String get roomRequestDenyFailed => 'Failed to deny request';
+  String get roomRequestDenyFailed => 'İstek reddedilemedi';
 
   @override
   String roomRequestsAppBarTitle(String title) {
-    return '$title · Requests';
+    return '$title · İstekler';
   }
 
   @override
-  String get roomRequestsEmpty => 'No pending requests';
+  String get roomRequestsEmpty => 'Bekleyen istek yok';
 
   @override
-  String get roomRequestDeny => 'Deny';
+  String get roomRequestDeny => 'Reddet';
 
   @override
-  String get roomRequestApprove => 'Approve';
+  String get roomRequestApprove => 'Onayla';
 
   @override
-  String get roomMembersLoadError => 'Could not load members';
+  String get roomMembersLoadError => 'Üyeler yüklenemedi';
 
   @override
-  String get roomRemoveBanTitle => 'Remove and ban member?';
+  String get roomRemoveBanTitle => 'Üye çıkarılıp yasaklansın mı?';
 
   @override
-  String get roomRemoveTitle => 'Remove member?';
+  String get roomRemoveTitle => 'Üye çıkarılsın mı?';
 
   @override
   String roomRemoveBanConfirm(String name) {
-    return 'Remove and ban $name? They won\'t be able to rejoin unless you approve a request.';
+    return '$name çıkarılıp yasaklansın mı? Siz bir isteği onaylamadıkça tekrar katılamayacaklar.';
   }
 
   @override
   String roomRemoveConfirm(String name, String title) {
-    return 'Remove $name from $title?';
+    return '$name, $title odasından çıkarılsın mı?';
   }
 
   @override
-  String get roomRemoveBanButton => 'Remove & ban';
+  String get roomRemoveBanButton => 'Çıkar ve yasakla';
 
   @override
-  String get roomRemoveButton => 'Remove';
+  String get roomRemoveButton => 'Çıkar';
 
   @override
-  String get roomMemberRemovedBanned => 'Member removed and banned';
+  String get roomMemberRemovedBanned => 'Üye çıkarıldı ve yasaklandı';
 
   @override
-  String get roomMemberRemoved => 'Member removed';
+  String get roomMemberRemoved => 'Üye çıkarıldı';
 
   @override
-  String get roomMemberRemoveFailed => 'Failed to remove member';
+  String get roomMemberRemoveFailed => 'Üye çıkarılamadı';
 
   @override
-  String get roomMemberMuted => 'Member muted';
+  String get roomMemberMuted => 'Üye susturuldu';
 
   @override
-  String get roomMemberUnmuted => 'Member unmuted';
+  String get roomMemberUnmuted => 'Üyenin sesi açıldı';
 
   @override
-  String get roomMemberMuteFailed => 'Failed to update mute status';
+  String get roomMemberMuteFailed => 'Susturma durumu güncellenemedi';
 
   @override
   String roomMembersAppBarTitle(String title) {
-    return '$title · Members';
+    return '$title · Üyeler';
   }
 
   @override
-  String get roomMembersEmpty => 'No members to show yet';
+  String get roomMembersEmpty => 'Gösterilecek üye yok';
 
   @override
-  String get roomMemberMutedLabel => 'Muted';
+  String get roomMemberMutedLabel => 'Susturuldu';
 
   @override
-  String get roomMemberFallbackName => 'Member';
+  String get roomMemberFallbackName => 'Üye';
 
   @override
-  String get roomYourHub => 'Your hub';
+  String get roomYourHub => 'Merkeziniz';
 
   @override
   String roomOnlineCount(int count) {
-    return '$count online';
+    return '$count çevrimiçi';
   }
 
   @override
-  String get roomNotAvailable => 'This room is no longer available.';
+  String get roomNotAvailable => 'Bu oda artık kullanılamıyor.';
 
   @override
-  String get roomGoToRooms => 'Go to Rooms';
+  String get roomGoToRooms => 'Odalara git';
 }

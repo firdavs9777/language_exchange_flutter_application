@@ -7063,228 +7063,228 @@ class AppLocalizationsJa extends AppLocalizations {
   String get examTipsCategoryFluency => 'Fluency';
 
   @override
-  String get roomsNewRoom => 'New room';
+  String get roomsNewRoom => '新しいルーム';
 
   @override
-  String get roomsCouldNotLoad => 'Could not load rooms';
+  String get roomsCouldNotLoad => 'ルームを読み込めませんでした';
 
   @override
-  String get roomsEmptyTitle => 'No language rooms yet';
+  String get roomsEmptyTitle => '言語ルームはまだありません';
 
   @override
-  String get roomsEmptySubtitle => 'Check back soon — hubs are being set up.';
+  String get roomsEmptySubtitle => 'しばらくお待ちください — ハブを準備中です。';
 
   @override
-  String get roomCreateTitle => 'New Topic Room';
+  String get roomCreateTitle => '新しいトピックルーム';
 
   @override
-  String get roomCreateSubtitle => 'Start a focused chat under a language';
+  String get roomCreateSubtitle => '言語ごとに集中したチャットを始めましょう';
 
   @override
-  String get roomNameLabel => 'Room name';
+  String get roomNameLabel => 'ルーム名';
 
   @override
-  String get roomNameHint => 'e.g. Daily conversation practice';
+  String get roomNameHint => '例：毎日の会話練習';
 
   @override
-  String get roomDescriptionLabel => 'Description (optional)';
+  String get roomDescriptionLabel => '説明（任意）';
 
   @override
-  String get roomDescriptionHint => 'What\'s this room about?';
+  String get roomDescriptionHint => 'このルームは何についてですか？';
 
   @override
-  String get roomCreateSubmit => 'Create room';
+  String get roomCreateSubmit => 'ルームを作成';
 
   @override
-  String get roomNameRequired => 'Please enter a room name';
+  String get roomNameRequired => 'ルーム名を入力してください';
 
   @override
-  String get roomCreateError => 'Could not create the room. Please try again.';
+  String get roomCreateError => 'ルームを作成できませんでした。もう一度お試しください。';
 
   @override
-  String get roomUsEnglish => 'US English';
+  String get roomUsEnglish => 'アメリカ英語';
 
   @override
-  String get roomUkEnglish => 'UK English';
+  String get roomUkEnglish => 'イギリス英語';
 
   @override
-  String get roomFailedLoadMessages => 'Failed to load messages';
+  String get roomFailedLoadMessages => 'メッセージを読み込めませんでした';
 
   @override
-  String get roomReportMessageTitle => 'Report message';
+  String get roomReportMessageTitle => 'メッセージを報告';
 
   @override
-  String get reportReasonSpam => 'Spam';
+  String get reportReasonSpam => 'スパム';
 
   @override
-  String get reportReasonHarassment => 'Harassment or Bullying';
+  String get reportReasonHarassment => 'ハラスメントまたはいじめ';
 
   @override
-  String get reportReasonHateSpeech => 'Hate Speech';
+  String get reportReasonHateSpeech => 'ヘイトスピーチ';
 
   @override
-  String get reportReasonViolence => 'Violence or Threats';
+  String get reportReasonViolence => '暴力または脅迫';
 
   @override
-  String get reportReasonNudity => 'Nudity or Sexual Content';
+  String get reportReasonNudity => 'ヌードまたは性的なコンテンツ';
 
   @override
-  String get reportReasonFalseInformation => 'False Information';
+  String get reportReasonFalseInformation => '誤った情報';
 
   @override
-  String get roomReportSubmitted => 'Report submitted';
+  String get roomReportSubmitted => '報告を送信しました';
 
   @override
-  String get roomReportSubmitFailed => 'Failed to submit report';
+  String get roomReportSubmitFailed => '報告の送信に失敗しました';
 
   @override
-  String get roomLeaveHubTitle => 'Leave hub?';
+  String get roomLeaveHubTitle => 'ハブを退出しますか？';
 
   @override
   String roomLeaveHubMessage(String title) {
-    return 'You can rejoin $title later from the Rooms directory.';
+    return '後で「ルーム」ディレクトリから$titleに再参加できます。';
   }
 
   @override
-  String get roomLeaveHubFailed => 'Failed to leave hub';
+  String get roomLeaveHubFailed => 'ハブの退出に失敗しました';
 
   @override
-  String get roomJoinRequestSent => 'Request sent — you\'ll be notified if approved';
+  String get roomJoinRequestSent => 'リクエストを送信しました — 承認されると通知されます';
 
   @override
-  String get roomJoinRequestFailed => 'Failed to send request';
+  String get roomJoinRequestFailed => 'リクエストの送信に失敗しました';
 
   @override
   String roomRequestsMenuItem(int count) {
-    return 'Requests ($count)';
+    return 'リクエスト（$count）';
   }
 
   @override
-  String get roomViewMembers => 'View members';
+  String get roomViewMembers => 'メンバーを見る';
 
   @override
-  String get roomLeaveHubMenuItem => 'Leave hub';
+  String get roomLeaveHubMenuItem => 'ハブを退出';
 
   @override
   String roomMemberOnlineCount(int members, int online) {
-    return '$members members · $online online';
+    return '$members人のメンバー・$online人がオンライン';
   }
 
   @override
-  String get roomBannedRequestMessage => 'You were removed from this room. Send a request to rejoin — the owner needs to approve it.';
+  String get roomBannedRequestMessage => 'このルームから削除されました。再参加するにはリクエストを送信してください。オーナーの承認が必要です。';
 
   @override
-  String get roomModeratedRequestMessage => 'This is a moderated room. Request to join to start chatting.';
+  String get roomModeratedRequestMessage => 'これはモデレートされたルームです。参加するにはリクエストを送信してください。';
 
   @override
-  String get roomRequestPending => 'Request pending';
+  String get roomRequestPending => 'リクエスト保留中';
 
   @override
-  String get roomRequestToJoin => 'Request to join';
+  String get roomRequestToJoin => '参加をリクエスト';
 
   @override
-  String get roomDailyPromptLabel => 'Today\'s prompt';
+  String get roomDailyPromptLabel => '今日のお題';
 
   @override
-  String get roomSomeoneFallback => 'Someone';
+  String get roomSomeoneFallback => '誰か';
 
   @override
-  String get roomRequestsLoadError => 'Could not load join requests';
+  String get roomRequestsLoadError => '参加リクエストを読み込めませんでした';
 
   @override
-  String get roomRequestApproved => 'Request approved';
+  String get roomRequestApproved => 'リクエストが承認されました';
 
   @override
-  String get roomRequestDenied => 'Request denied';
+  String get roomRequestDenied => 'リクエストが拒否されました';
 
   @override
-  String get roomRequestApproveFailed => 'Failed to approve request';
+  String get roomRequestApproveFailed => 'リクエストの承認に失敗しました';
 
   @override
-  String get roomRequestDenyFailed => 'Failed to deny request';
+  String get roomRequestDenyFailed => 'リクエストの拒否に失敗しました';
 
   @override
   String roomRequestsAppBarTitle(String title) {
-    return '$title · Requests';
+    return '$title・リクエスト';
   }
 
   @override
-  String get roomRequestsEmpty => 'No pending requests';
+  String get roomRequestsEmpty => '保留中のリクエストはありません';
 
   @override
-  String get roomRequestDeny => 'Deny';
+  String get roomRequestDeny => '拒否';
 
   @override
-  String get roomRequestApprove => 'Approve';
+  String get roomRequestApprove => '承認';
 
   @override
-  String get roomMembersLoadError => 'Could not load members';
+  String get roomMembersLoadError => 'メンバーを読み込めませんでした';
 
   @override
-  String get roomRemoveBanTitle => 'Remove and ban member?';
+  String get roomRemoveBanTitle => 'メンバーを削除してBANしますか？';
 
   @override
-  String get roomRemoveTitle => 'Remove member?';
+  String get roomRemoveTitle => 'メンバーを削除しますか？';
 
   @override
   String roomRemoveBanConfirm(String name) {
-    return 'Remove and ban $name? They won\'t be able to rejoin unless you approve a request.';
+    return '$nameを削除してBANしますか？リクエストを承認しない限り再参加できなくなります。';
   }
 
   @override
   String roomRemoveConfirm(String name, String title) {
-    return 'Remove $name from $title?';
+    return '$nameを$titleから削除しますか？';
   }
 
   @override
-  String get roomRemoveBanButton => 'Remove & ban';
+  String get roomRemoveBanButton => '削除してBAN';
 
   @override
-  String get roomRemoveButton => 'Remove';
+  String get roomRemoveButton => '削除';
 
   @override
-  String get roomMemberRemovedBanned => 'Member removed and banned';
+  String get roomMemberRemovedBanned => 'メンバーを削除してBANしました';
 
   @override
-  String get roomMemberRemoved => 'Member removed';
+  String get roomMemberRemoved => 'メンバーを削除しました';
 
   @override
-  String get roomMemberRemoveFailed => 'Failed to remove member';
+  String get roomMemberRemoveFailed => 'メンバーの削除に失敗しました';
 
   @override
-  String get roomMemberMuted => 'Member muted';
+  String get roomMemberMuted => 'メンバーをミュートしました';
 
   @override
-  String get roomMemberUnmuted => 'Member unmuted';
+  String get roomMemberUnmuted => 'メンバーのミュートを解除しました';
 
   @override
-  String get roomMemberMuteFailed => 'Failed to update mute status';
+  String get roomMemberMuteFailed => 'ミュート状態の更新に失敗しました';
 
   @override
   String roomMembersAppBarTitle(String title) {
-    return '$title · Members';
+    return '$title・メンバー';
   }
 
   @override
-  String get roomMembersEmpty => 'No members to show yet';
+  String get roomMembersEmpty => '表示できるメンバーがいません';
 
   @override
-  String get roomMemberMutedLabel => 'Muted';
+  String get roomMemberMutedLabel => 'ミュート中';
 
   @override
-  String get roomMemberFallbackName => 'Member';
+  String get roomMemberFallbackName => 'メンバー';
 
   @override
-  String get roomYourHub => 'Your hub';
+  String get roomYourHub => 'あなたのハブ';
 
   @override
   String roomOnlineCount(int count) {
-    return '$count online';
+    return '$count人がオンライン';
   }
 
   @override
-  String get roomNotAvailable => 'This room is no longer available.';
+  String get roomNotAvailable => 'このルームはもう利用できません。';
 
   @override
-  String get roomGoToRooms => 'Go to Rooms';
+  String get roomGoToRooms => 'ルーム一覧へ';
 }

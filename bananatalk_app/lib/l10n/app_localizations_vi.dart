@@ -7063,228 +7063,228 @@ class AppLocalizationsVi extends AppLocalizations {
   String get examTipsCategoryFluency => 'Fluency';
 
   @override
-  String get roomsNewRoom => 'New room';
+  String get roomsNewRoom => 'Phòng mới';
 
   @override
-  String get roomsCouldNotLoad => 'Could not load rooms';
+  String get roomsCouldNotLoad => 'Không thể tải phòng';
 
   @override
-  String get roomsEmptyTitle => 'No language rooms yet';
+  String get roomsEmptyTitle => 'Chưa có phòng ngôn ngữ nào';
 
   @override
-  String get roomsEmptySubtitle => 'Check back soon — hubs are being set up.';
+  String get roomsEmptySubtitle => 'Hãy quay lại sau — các hub đang được thiết lập.';
 
   @override
-  String get roomCreateTitle => 'New Topic Room';
+  String get roomCreateTitle => 'Phòng Chủ đề Mới';
 
   @override
-  String get roomCreateSubtitle => 'Start a focused chat under a language';
+  String get roomCreateSubtitle => 'Bắt đầu một cuộc trò chuyện tập trung theo một ngôn ngữ';
 
   @override
-  String get roomNameLabel => 'Room name';
+  String get roomNameLabel => 'Tên phòng';
 
   @override
-  String get roomNameHint => 'e.g. Daily conversation practice';
+  String get roomNameHint => 'ví dụ: Luyện hội thoại hàng ngày';
 
   @override
-  String get roomDescriptionLabel => 'Description (optional)';
+  String get roomDescriptionLabel => 'Mô tả (không bắt buộc)';
 
   @override
-  String get roomDescriptionHint => 'What\'s this room about?';
+  String get roomDescriptionHint => 'Phòng này nói về điều gì?';
 
   @override
-  String get roomCreateSubmit => 'Create room';
+  String get roomCreateSubmit => 'Tạo phòng';
 
   @override
-  String get roomNameRequired => 'Please enter a room name';
+  String get roomNameRequired => 'Vui lòng nhập tên phòng';
 
   @override
-  String get roomCreateError => 'Could not create the room. Please try again.';
+  String get roomCreateError => 'Không thể tạo phòng. Vui lòng thử lại.';
 
   @override
-  String get roomUsEnglish => 'US English';
+  String get roomUsEnglish => 'Tiếng Anh (Mỹ)';
 
   @override
-  String get roomUkEnglish => 'UK English';
+  String get roomUkEnglish => 'Tiếng Anh (Anh)';
 
   @override
-  String get roomFailedLoadMessages => 'Failed to load messages';
+  String get roomFailedLoadMessages => 'Không thể tải tin nhắn';
 
   @override
-  String get roomReportMessageTitle => 'Report message';
+  String get roomReportMessageTitle => 'Báo cáo tin nhắn';
 
   @override
   String get reportReasonSpam => 'Spam';
 
   @override
-  String get reportReasonHarassment => 'Harassment or Bullying';
+  String get reportReasonHarassment => 'Quấy rối hoặc Bắt nạt';
 
   @override
-  String get reportReasonHateSpeech => 'Hate Speech';
+  String get reportReasonHateSpeech => 'Phát ngôn thù ghét';
 
   @override
-  String get reportReasonViolence => 'Violence or Threats';
+  String get reportReasonViolence => 'Bạo lực hoặc Đe dọa';
 
   @override
-  String get reportReasonNudity => 'Nudity or Sexual Content';
+  String get reportReasonNudity => 'Khỏa thân hoặc Nội dung khiêu dâm';
 
   @override
-  String get reportReasonFalseInformation => 'False Information';
+  String get reportReasonFalseInformation => 'Thông tin sai lệch';
 
   @override
-  String get roomReportSubmitted => 'Report submitted';
+  String get roomReportSubmitted => 'Đã gửi báo cáo';
 
   @override
-  String get roomReportSubmitFailed => 'Failed to submit report';
+  String get roomReportSubmitFailed => 'Gửi báo cáo không thành công';
 
   @override
-  String get roomLeaveHubTitle => 'Leave hub?';
+  String get roomLeaveHubTitle => 'Rời khỏi hub?';
 
   @override
   String roomLeaveHubMessage(String title) {
-    return 'You can rejoin $title later from the Rooms directory.';
+    return 'Bạn có thể tham gia lại $title sau này từ danh mục Phòng.';
   }
 
   @override
-  String get roomLeaveHubFailed => 'Failed to leave hub';
+  String get roomLeaveHubFailed => 'Rời khỏi hub không thành công';
 
   @override
-  String get roomJoinRequestSent => 'Request sent — you\'ll be notified if approved';
+  String get roomJoinRequestSent => 'Đã gửi yêu cầu — bạn sẽ được thông báo nếu được chấp thuận';
 
   @override
-  String get roomJoinRequestFailed => 'Failed to send request';
+  String get roomJoinRequestFailed => 'Gửi yêu cầu không thành công';
 
   @override
   String roomRequestsMenuItem(int count) {
-    return 'Requests ($count)';
+    return 'Yêu cầu ($count)';
   }
 
   @override
-  String get roomViewMembers => 'View members';
+  String get roomViewMembers => 'Xem thành viên';
 
   @override
-  String get roomLeaveHubMenuItem => 'Leave hub';
+  String get roomLeaveHubMenuItem => 'Rời khỏi hub';
 
   @override
   String roomMemberOnlineCount(int members, int online) {
-    return '$members members · $online online';
+    return '$members thành viên · $online đang trực tuyến';
   }
 
   @override
-  String get roomBannedRequestMessage => 'You were removed from this room. Send a request to rejoin — the owner needs to approve it.';
+  String get roomBannedRequestMessage => 'Bạn đã bị xóa khỏi phòng này. Gửi yêu cầu để tham gia lại — chủ phòng cần phê duyệt.';
 
   @override
-  String get roomModeratedRequestMessage => 'This is a moderated room. Request to join to start chatting.';
+  String get roomModeratedRequestMessage => 'Đây là phòng được kiểm duyệt. Gửi yêu cầu tham gia để bắt đầu trò chuyện.';
 
   @override
-  String get roomRequestPending => 'Request pending';
+  String get roomRequestPending => 'Yêu cầu đang chờ xử lý';
 
   @override
-  String get roomRequestToJoin => 'Request to join';
+  String get roomRequestToJoin => 'Yêu cầu tham gia';
 
   @override
-  String get roomDailyPromptLabel => 'Today\'s prompt';
+  String get roomDailyPromptLabel => 'Chủ đề hôm nay';
 
   @override
-  String get roomSomeoneFallback => 'Someone';
+  String get roomSomeoneFallback => 'Ai đó';
 
   @override
-  String get roomRequestsLoadError => 'Could not load join requests';
+  String get roomRequestsLoadError => 'Không thể tải yêu cầu tham gia';
 
   @override
-  String get roomRequestApproved => 'Request approved';
+  String get roomRequestApproved => 'Yêu cầu đã được chấp thuận';
 
   @override
-  String get roomRequestDenied => 'Request denied';
+  String get roomRequestDenied => 'Yêu cầu đã bị từ chối';
 
   @override
-  String get roomRequestApproveFailed => 'Failed to approve request';
+  String get roomRequestApproveFailed => 'Chấp thuận yêu cầu không thành công';
 
   @override
-  String get roomRequestDenyFailed => 'Failed to deny request';
+  String get roomRequestDenyFailed => 'Từ chối yêu cầu không thành công';
 
   @override
   String roomRequestsAppBarTitle(String title) {
-    return '$title · Requests';
+    return '$title · Yêu cầu';
   }
 
   @override
-  String get roomRequestsEmpty => 'No pending requests';
+  String get roomRequestsEmpty => 'Không có yêu cầu đang chờ';
 
   @override
-  String get roomRequestDeny => 'Deny';
+  String get roomRequestDeny => 'Từ chối';
 
   @override
-  String get roomRequestApprove => 'Approve';
+  String get roomRequestApprove => 'Chấp thuận';
 
   @override
-  String get roomMembersLoadError => 'Could not load members';
+  String get roomMembersLoadError => 'Không thể tải thành viên';
 
   @override
-  String get roomRemoveBanTitle => 'Remove and ban member?';
+  String get roomRemoveBanTitle => 'Xóa và cấm thành viên?';
 
   @override
-  String get roomRemoveTitle => 'Remove member?';
+  String get roomRemoveTitle => 'Xóa thành viên?';
 
   @override
   String roomRemoveBanConfirm(String name) {
-    return 'Remove and ban $name? They won\'t be able to rejoin unless you approve a request.';
+    return 'Xóa và cấm $name? Họ sẽ không thể tham gia lại trừ khi bạn chấp thuận một yêu cầu.';
   }
 
   @override
   String roomRemoveConfirm(String name, String title) {
-    return 'Remove $name from $title?';
+    return 'Xóa $name khỏi $title?';
   }
 
   @override
-  String get roomRemoveBanButton => 'Remove & ban';
+  String get roomRemoveBanButton => 'Xóa & cấm';
 
   @override
-  String get roomRemoveButton => 'Remove';
+  String get roomRemoveButton => 'Xóa';
 
   @override
-  String get roomMemberRemovedBanned => 'Member removed and banned';
+  String get roomMemberRemovedBanned => 'Đã xóa và cấm thành viên';
 
   @override
-  String get roomMemberRemoved => 'Member removed';
+  String get roomMemberRemoved => 'Đã xóa thành viên';
 
   @override
-  String get roomMemberRemoveFailed => 'Failed to remove member';
+  String get roomMemberRemoveFailed => 'Xóa thành viên không thành công';
 
   @override
-  String get roomMemberMuted => 'Member muted';
+  String get roomMemberMuted => 'Đã tắt tiếng thành viên';
 
   @override
-  String get roomMemberUnmuted => 'Member unmuted';
+  String get roomMemberUnmuted => 'Đã bật tiếng thành viên';
 
   @override
-  String get roomMemberMuteFailed => 'Failed to update mute status';
+  String get roomMemberMuteFailed => 'Cập nhật trạng thái tắt tiếng không thành công';
 
   @override
   String roomMembersAppBarTitle(String title) {
-    return '$title · Members';
+    return '$title · Thành viên';
   }
 
   @override
-  String get roomMembersEmpty => 'No members to show yet';
+  String get roomMembersEmpty => 'Chưa có thành viên nào để hiển thị';
 
   @override
-  String get roomMemberMutedLabel => 'Muted';
+  String get roomMemberMutedLabel => 'Đã tắt tiếng';
 
   @override
-  String get roomMemberFallbackName => 'Member';
+  String get roomMemberFallbackName => 'Thành viên';
 
   @override
-  String get roomYourHub => 'Your hub';
+  String get roomYourHub => 'Hub của bạn';
 
   @override
   String roomOnlineCount(int count) {
-    return '$count online';
+    return '$count đang trực tuyến';
   }
 
   @override
-  String get roomNotAvailable => 'This room is no longer available.';
+  String get roomNotAvailable => 'Phòng này không còn khả dụng.';
 
   @override
-  String get roomGoToRooms => 'Go to Rooms';
+  String get roomGoToRooms => 'Đi đến Phòng';
 }

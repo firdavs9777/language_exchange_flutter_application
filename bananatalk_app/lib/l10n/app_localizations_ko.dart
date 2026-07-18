@@ -7063,228 +7063,228 @@ class AppLocalizationsKo extends AppLocalizations {
   String get examTipsCategoryFluency => 'Fluency';
 
   @override
-  String get roomsNewRoom => 'New room';
+  String get roomsNewRoom => '새 방';
 
   @override
-  String get roomsCouldNotLoad => 'Could not load rooms';
+  String get roomsCouldNotLoad => '방을 불러올 수 없습니다';
 
   @override
-  String get roomsEmptyTitle => 'No language rooms yet';
+  String get roomsEmptyTitle => '아직 언어 방이 없습니다';
 
   @override
-  String get roomsEmptySubtitle => 'Check back soon — hubs are being set up.';
+  String get roomsEmptySubtitle => '곧 다시 확인해 주세요 — 허브를 준비 중입니다.';
 
   @override
-  String get roomCreateTitle => 'New Topic Room';
+  String get roomCreateTitle => '새 주제 방';
 
   @override
-  String get roomCreateSubtitle => 'Start a focused chat under a language';
+  String get roomCreateSubtitle => '언어별로 집중 채팅을 시작하세요';
 
   @override
-  String get roomNameLabel => 'Room name';
+  String get roomNameLabel => '방 이름';
 
   @override
-  String get roomNameHint => 'e.g. Daily conversation practice';
+  String get roomNameHint => '예: 매일 대화 연습';
 
   @override
-  String get roomDescriptionLabel => 'Description (optional)';
+  String get roomDescriptionLabel => '설명 (선택 사항)';
 
   @override
-  String get roomDescriptionHint => 'What\'s this room about?';
+  String get roomDescriptionHint => '이 방은 무엇에 관한 건가요?';
 
   @override
-  String get roomCreateSubmit => 'Create room';
+  String get roomCreateSubmit => '방 만들기';
 
   @override
-  String get roomNameRequired => 'Please enter a room name';
+  String get roomNameRequired => '방 이름을 입력해 주세요';
 
   @override
-  String get roomCreateError => 'Could not create the room. Please try again.';
+  String get roomCreateError => '방을 만들 수 없습니다. 다시 시도해 주세요.';
 
   @override
-  String get roomUsEnglish => 'US English';
+  String get roomUsEnglish => '미국식 영어';
 
   @override
-  String get roomUkEnglish => 'UK English';
+  String get roomUkEnglish => '영국식 영어';
 
   @override
-  String get roomFailedLoadMessages => 'Failed to load messages';
+  String get roomFailedLoadMessages => '메시지를 불러오지 못했습니다';
 
   @override
-  String get roomReportMessageTitle => 'Report message';
+  String get roomReportMessageTitle => '메시지 신고';
 
   @override
-  String get reportReasonSpam => 'Spam';
+  String get reportReasonSpam => '스팸';
 
   @override
-  String get reportReasonHarassment => 'Harassment or Bullying';
+  String get reportReasonHarassment => '괴롭힘 또는 따돌림';
 
   @override
-  String get reportReasonHateSpeech => 'Hate Speech';
+  String get reportReasonHateSpeech => '혐오 발언';
 
   @override
-  String get reportReasonViolence => 'Violence or Threats';
+  String get reportReasonViolence => '폭력 또는 위협';
 
   @override
-  String get reportReasonNudity => 'Nudity or Sexual Content';
+  String get reportReasonNudity => '나체 또는 성적인 콘텐츠';
 
   @override
-  String get reportReasonFalseInformation => 'False Information';
+  String get reportReasonFalseInformation => '허위 정보';
 
   @override
-  String get roomReportSubmitted => 'Report submitted';
+  String get roomReportSubmitted => '신고가 접수되었습니다';
 
   @override
-  String get roomReportSubmitFailed => 'Failed to submit report';
+  String get roomReportSubmitFailed => '신고를 제출하지 못했습니다';
 
   @override
-  String get roomLeaveHubTitle => 'Leave hub?';
+  String get roomLeaveHubTitle => '허브를 나가시겠습니까?';
 
   @override
   String roomLeaveHubMessage(String title) {
-    return 'You can rejoin $title later from the Rooms directory.';
+    return '나중에 방 디렉터리에서 $title에 다시 참여할 수 있습니다.';
   }
 
   @override
-  String get roomLeaveHubFailed => 'Failed to leave hub';
+  String get roomLeaveHubFailed => '허브 나가기에 실패했습니다';
 
   @override
-  String get roomJoinRequestSent => 'Request sent — you\'ll be notified if approved';
+  String get roomJoinRequestSent => '요청이 전송되었습니다 — 승인되면 알림을 받습니다';
 
   @override
-  String get roomJoinRequestFailed => 'Failed to send request';
+  String get roomJoinRequestFailed => '요청 전송에 실패했습니다';
 
   @override
   String roomRequestsMenuItem(int count) {
-    return 'Requests ($count)';
+    return '요청 ($count)';
   }
 
   @override
-  String get roomViewMembers => 'View members';
+  String get roomViewMembers => '멤버 보기';
 
   @override
-  String get roomLeaveHubMenuItem => 'Leave hub';
+  String get roomLeaveHubMenuItem => '허브 나가기';
 
   @override
   String roomMemberOnlineCount(int members, int online) {
-    return '$members members · $online online';
+    return '멤버 $members명 · $online명 온라인';
   }
 
   @override
-  String get roomBannedRequestMessage => 'You were removed from this room. Send a request to rejoin — the owner needs to approve it.';
+  String get roomBannedRequestMessage => '이 방에서 제외되었습니다. 다시 참여하려면 요청을 보내세요 — 방장의 승인이 필요합니다.';
 
   @override
-  String get roomModeratedRequestMessage => 'This is a moderated room. Request to join to start chatting.';
+  String get roomModeratedRequestMessage => '이 방은 운영진이 관리하는 방입니다. 채팅을 시작하려면 참여를 요청하세요.';
 
   @override
-  String get roomRequestPending => 'Request pending';
+  String get roomRequestPending => '요청 대기 중';
 
   @override
-  String get roomRequestToJoin => 'Request to join';
+  String get roomRequestToJoin => '참여 요청';
 
   @override
-  String get roomDailyPromptLabel => 'Today\'s prompt';
+  String get roomDailyPromptLabel => '오늘의 주제';
 
   @override
-  String get roomSomeoneFallback => 'Someone';
+  String get roomSomeoneFallback => '누군가';
 
   @override
-  String get roomRequestsLoadError => 'Could not load join requests';
+  String get roomRequestsLoadError => '참여 요청을 불러올 수 없습니다';
 
   @override
-  String get roomRequestApproved => 'Request approved';
+  String get roomRequestApproved => '요청이 승인되었습니다';
 
   @override
-  String get roomRequestDenied => 'Request denied';
+  String get roomRequestDenied => '요청이 거절되었습니다';
 
   @override
-  String get roomRequestApproveFailed => 'Failed to approve request';
+  String get roomRequestApproveFailed => '요청 승인에 실패했습니다';
 
   @override
-  String get roomRequestDenyFailed => 'Failed to deny request';
+  String get roomRequestDenyFailed => '요청 거절에 실패했습니다';
 
   @override
   String roomRequestsAppBarTitle(String title) {
-    return '$title · Requests';
+    return '$title · 요청';
   }
 
   @override
-  String get roomRequestsEmpty => 'No pending requests';
+  String get roomRequestsEmpty => '대기 중인 요청이 없습니다';
 
   @override
-  String get roomRequestDeny => 'Deny';
+  String get roomRequestDeny => '거절';
 
   @override
-  String get roomRequestApprove => 'Approve';
+  String get roomRequestApprove => '승인';
 
   @override
-  String get roomMembersLoadError => 'Could not load members';
+  String get roomMembersLoadError => '멤버를 불러올 수 없습니다';
 
   @override
-  String get roomRemoveBanTitle => 'Remove and ban member?';
+  String get roomRemoveBanTitle => '멤버를 제거하고 차단하시겠습니까?';
 
   @override
-  String get roomRemoveTitle => 'Remove member?';
+  String get roomRemoveTitle => '멤버를 제거하시겠습니까?';
 
   @override
   String roomRemoveBanConfirm(String name) {
-    return 'Remove and ban $name? They won\'t be able to rejoin unless you approve a request.';
+    return '$name님을 제거하고 차단하시겠습니까? 요청을 승인하지 않는 한 다시 참여할 수 없습니다.';
   }
 
   @override
   String roomRemoveConfirm(String name, String title) {
-    return 'Remove $name from $title?';
+    return '$title에서 $name님을 제거하시겠습니까?';
   }
 
   @override
-  String get roomRemoveBanButton => 'Remove & ban';
+  String get roomRemoveBanButton => '제거 및 차단';
 
   @override
-  String get roomRemoveButton => 'Remove';
+  String get roomRemoveButton => '제거';
 
   @override
-  String get roomMemberRemovedBanned => 'Member removed and banned';
+  String get roomMemberRemovedBanned => '멤버를 제거하고 차단했습니다';
 
   @override
-  String get roomMemberRemoved => 'Member removed';
+  String get roomMemberRemoved => '멤버를 제거했습니다';
 
   @override
-  String get roomMemberRemoveFailed => 'Failed to remove member';
+  String get roomMemberRemoveFailed => '멤버 제거에 실패했습니다';
 
   @override
-  String get roomMemberMuted => 'Member muted';
+  String get roomMemberMuted => '멤버를 음소거했습니다';
 
   @override
-  String get roomMemberUnmuted => 'Member unmuted';
+  String get roomMemberUnmuted => '멤버 음소거를 해제했습니다';
 
   @override
-  String get roomMemberMuteFailed => 'Failed to update mute status';
+  String get roomMemberMuteFailed => '음소거 상태 업데이트에 실패했습니다';
 
   @override
   String roomMembersAppBarTitle(String title) {
-    return '$title · Members';
+    return '$title · 멤버';
   }
 
   @override
-  String get roomMembersEmpty => 'No members to show yet';
+  String get roomMembersEmpty => '표시할 멤버가 없습니다';
 
   @override
-  String get roomMemberMutedLabel => 'Muted';
+  String get roomMemberMutedLabel => '음소거됨';
 
   @override
-  String get roomMemberFallbackName => 'Member';
+  String get roomMemberFallbackName => '멤버';
 
   @override
-  String get roomYourHub => 'Your hub';
+  String get roomYourHub => '내 허브';
 
   @override
   String roomOnlineCount(int count) {
-    return '$count online';
+    return '$count명 온라인';
   }
 
   @override
-  String get roomNotAvailable => 'This room is no longer available.';
+  String get roomNotAvailable => '이 방은 더 이상 이용할 수 없습니다.';
 
   @override
-  String get roomGoToRooms => 'Go to Rooms';
+  String get roomGoToRooms => '방 목록으로 이동';
 }

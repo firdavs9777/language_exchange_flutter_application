@@ -7076,228 +7076,228 @@ class AppLocalizationsTg extends AppLocalizations {
   String get examTipsCategoryFluency => 'Fluency';
 
   @override
-  String get roomsNewRoom => 'New room';
+  String get roomsNewRoom => 'Ҳуҷраи нав';
 
   @override
-  String get roomsCouldNotLoad => 'Could not load rooms';
+  String get roomsCouldNotLoad => 'Ҳуҷраҳоро бор карда натавонист';
 
   @override
-  String get roomsEmptyTitle => 'No language rooms yet';
+  String get roomsEmptyTitle => 'Ҳанӯз ҳуҷраи забонӣ нест';
 
   @override
-  String get roomsEmptySubtitle => 'Check back soon — hubs are being set up.';
+  String get roomsEmptySubtitle => 'Пасон бознигаред — хабҳо омода мешаванд.';
 
   @override
-  String get roomCreateTitle => 'New Topic Room';
+  String get roomCreateTitle => 'Ҳуҷраи мавзӯии нав';
 
   @override
-  String get roomCreateSubtitle => 'Start a focused chat under a language';
+  String get roomCreateSubtitle => 'Сӯҳбати мутамарказ дар як забон оғоз кунед';
 
   @override
-  String get roomNameLabel => 'Room name';
+  String get roomNameLabel => 'Номи ҳуҷра';
 
   @override
-  String get roomNameHint => 'e.g. Daily conversation practice';
+  String get roomNameHint => 'масалан, Машқи ҳаррӯзаи сӯҳбат';
 
   @override
-  String get roomDescriptionLabel => 'Description (optional)';
+  String get roomDescriptionLabel => 'Тавсиф (ихтиёрӣ)';
 
   @override
-  String get roomDescriptionHint => 'What\'s this room about?';
+  String get roomDescriptionHint => 'Ин ҳуҷра дар бораи чист?';
 
   @override
-  String get roomCreateSubmit => 'Create room';
+  String get roomCreateSubmit => 'Ҳуҷра сохтан';
 
   @override
-  String get roomNameRequired => 'Please enter a room name';
+  String get roomNameRequired => 'Лутфан номи ҳуҷраро ворид кунед';
 
   @override
-  String get roomCreateError => 'Could not create the room. Please try again.';
+  String get roomCreateError => 'Ҳуҷраро сохта натавонист. Лутфан бори дигар кӯшиш кунед.';
 
   @override
-  String get roomUsEnglish => 'US English';
+  String get roomUsEnglish => 'Англисии амрикоӣ';
 
   @override
-  String get roomUkEnglish => 'UK English';
+  String get roomUkEnglish => 'Англисии бритониёӣ';
 
   @override
-  String get roomFailedLoadMessages => 'Failed to load messages';
+  String get roomFailedLoadMessages => 'Паёмҳоро бор карда натавонист';
 
   @override
-  String get roomReportMessageTitle => 'Report message';
+  String get roomReportMessageTitle => 'Шикоят аз паём';
 
   @override
-  String get reportReasonSpam => 'Spam';
+  String get reportReasonSpam => 'Спам';
 
   @override
-  String get reportReasonHarassment => 'Harassment or Bullying';
+  String get reportReasonHarassment => 'Таъқиб ё зӯроварии равонӣ';
 
   @override
-  String get reportReasonHateSpeech => 'Hate Speech';
+  String get reportReasonHateSpeech => 'Нутқи нафратангез';
 
   @override
-  String get reportReasonViolence => 'Violence or Threats';
+  String get reportReasonViolence => 'Зӯроварӣ ё таҳдид';
 
   @override
-  String get reportReasonNudity => 'Nudity or Sexual Content';
+  String get reportReasonNudity => 'Урёнӣ ё мӯҳтавои ҷинсӣ';
 
   @override
-  String get reportReasonFalseInformation => 'False Information';
+  String get reportReasonFalseInformation => 'Иттилооти бардурӯғ';
 
   @override
-  String get roomReportSubmitted => 'Report submitted';
+  String get roomReportSubmitted => 'Шикоят фиристода шуд';
 
   @override
-  String get roomReportSubmitFailed => 'Failed to submit report';
+  String get roomReportSubmitFailed => 'Шикоятро фиристода натавонист';
 
   @override
-  String get roomLeaveHubTitle => 'Leave hub?';
+  String get roomLeaveHubTitle => 'Аз хаб баромадан мехоҳед?';
 
   @override
   String roomLeaveHubMessage(String title) {
-    return 'You can rejoin $title later from the Rooms directory.';
+    return 'Шумо метавонед баъдтар аз феҳристи Ҳуҷраҳо ба $title дубора ҳамроҳ шавед.';
   }
 
   @override
-  String get roomLeaveHubFailed => 'Failed to leave hub';
+  String get roomLeaveHubFailed => 'Аз хаб баромада натавонист';
 
   @override
-  String get roomJoinRequestSent => 'Request sent — you\'ll be notified if approved';
+  String get roomJoinRequestSent => 'Дархост фиристода шуд — агар тасдиқ шавад, ба шумо огоҳӣ дода мешавад';
 
   @override
-  String get roomJoinRequestFailed => 'Failed to send request';
+  String get roomJoinRequestFailed => 'Дархостро фиристода натавонист';
 
   @override
   String roomRequestsMenuItem(int count) {
-    return 'Requests ($count)';
+    return 'Дархостҳо ($count)';
   }
 
   @override
-  String get roomViewMembers => 'View members';
+  String get roomViewMembers => 'Аъзоёнро дидан';
 
   @override
-  String get roomLeaveHubMenuItem => 'Leave hub';
+  String get roomLeaveHubMenuItem => 'Аз хаб баромадан';
 
   @override
   String roomMemberOnlineCount(int members, int online) {
-    return '$members members · $online online';
+    return '$members аъзо · $online онлайн';
   }
 
   @override
-  String get roomBannedRequestMessage => 'You were removed from this room. Send a request to rejoin — the owner needs to approve it.';
+  String get roomBannedRequestMessage => 'Шумо аз ин ҳуҷра хориҷ карда шудед. Барои дубора ҳамроҳ шудан дархост фиристед — соҳиб бояд онро тасдиқ кунад.';
 
   @override
-  String get roomModeratedRequestMessage => 'This is a moderated room. Request to join to start chatting.';
+  String get roomModeratedRequestMessage => 'Ин ҳуҷраи назоратшаванда аст. Барои сӯҳбат кардан дархости ҳамроҳшавӣ фиристед.';
 
   @override
-  String get roomRequestPending => 'Request pending';
+  String get roomRequestPending => 'Дархост дар интизорӣ';
 
   @override
-  String get roomRequestToJoin => 'Request to join';
+  String get roomRequestToJoin => 'Дархости ҳамроҳшавӣ';
 
   @override
-  String get roomDailyPromptLabel => 'Today\'s prompt';
+  String get roomDailyPromptLabel => 'Мавзӯи имрӯза';
 
   @override
-  String get roomSomeoneFallback => 'Someone';
+  String get roomSomeoneFallback => 'Касе';
 
   @override
-  String get roomRequestsLoadError => 'Could not load join requests';
+  String get roomRequestsLoadError => 'Дархостҳои ҳамроҳшавиро бор карда натавонист';
 
   @override
-  String get roomRequestApproved => 'Request approved';
+  String get roomRequestApproved => 'Дархост тасдиқ шуд';
 
   @override
-  String get roomRequestDenied => 'Request denied';
+  String get roomRequestDenied => 'Дархост рад карда шуд';
 
   @override
-  String get roomRequestApproveFailed => 'Failed to approve request';
+  String get roomRequestApproveFailed => 'Дархостро тасдиқ карда натавонист';
 
   @override
-  String get roomRequestDenyFailed => 'Failed to deny request';
+  String get roomRequestDenyFailed => 'Дархостро рад карда натавонист';
 
   @override
   String roomRequestsAppBarTitle(String title) {
-    return '$title · Requests';
+    return '$title · Дархостҳо';
   }
 
   @override
-  String get roomRequestsEmpty => 'No pending requests';
+  String get roomRequestsEmpty => 'Дархости интизорӣ нест';
 
   @override
-  String get roomRequestDeny => 'Deny';
+  String get roomRequestDeny => 'Рад кардан';
 
   @override
-  String get roomRequestApprove => 'Approve';
+  String get roomRequestApprove => 'Тасдиқ кардан';
 
   @override
-  String get roomMembersLoadError => 'Could not load members';
+  String get roomMembersLoadError => 'Аъзоёнро бор карда натавонист';
 
   @override
-  String get roomRemoveBanTitle => 'Remove and ban member?';
+  String get roomRemoveBanTitle => 'Аъзоро хориҷ ва манъ мекунед?';
 
   @override
-  String get roomRemoveTitle => 'Remove member?';
+  String get roomRemoveTitle => 'Аъзоро хориҷ мекунед?';
 
   @override
   String roomRemoveBanConfirm(String name) {
-    return 'Remove and ban $name? They won\'t be able to rejoin unless you approve a request.';
+    return '$name-ро хориҷ ва манъ мекунед? Агар шумо дархостро тасдиқ накунед, ӯ дубора ҳамроҳ шуда наметавонад.';
   }
 
   @override
   String roomRemoveConfirm(String name, String title) {
-    return 'Remove $name from $title?';
+    return '$name-ро аз $title хориҷ мекунед?';
   }
 
   @override
-  String get roomRemoveBanButton => 'Remove & ban';
+  String get roomRemoveBanButton => 'Хориҷ ва манъ кардан';
 
   @override
-  String get roomRemoveButton => 'Remove';
+  String get roomRemoveButton => 'Хориҷ кардан';
 
   @override
-  String get roomMemberRemovedBanned => 'Member removed and banned';
+  String get roomMemberRemovedBanned => 'Аъзо хориҷ ва манъ карда шуд';
 
   @override
-  String get roomMemberRemoved => 'Member removed';
+  String get roomMemberRemoved => 'Аъзо хориҷ карда шуд';
 
   @override
-  String get roomMemberRemoveFailed => 'Failed to remove member';
+  String get roomMemberRemoveFailed => 'Аъзоро хориҷ карда натавонист';
 
   @override
-  String get roomMemberMuted => 'Member muted';
+  String get roomMemberMuted => 'Аъзо бесадо карда шуд';
 
   @override
-  String get roomMemberUnmuted => 'Member unmuted';
+  String get roomMemberUnmuted => 'Аъзо бо садо карда шуд';
 
   @override
-  String get roomMemberMuteFailed => 'Failed to update mute status';
+  String get roomMemberMuteFailed => 'Ҳолати бесадоиро навсозӣ карда натавонист';
 
   @override
   String roomMembersAppBarTitle(String title) {
-    return '$title · Members';
+    return '$title · Аъзоён';
   }
 
   @override
-  String get roomMembersEmpty => 'No members to show yet';
+  String get roomMembersEmpty => 'Ҳанӯз аъзое барои нишон додан нест';
 
   @override
-  String get roomMemberMutedLabel => 'Muted';
+  String get roomMemberMutedLabel => 'Бесадо';
 
   @override
-  String get roomMemberFallbackName => 'Member';
+  String get roomMemberFallbackName => 'Аъзо';
 
   @override
-  String get roomYourHub => 'Your hub';
+  String get roomYourHub => 'Хаби шумо';
 
   @override
   String roomOnlineCount(int count) {
-    return '$count online';
+    return '$count онлайн';
   }
 
   @override
-  String get roomNotAvailable => 'This room is no longer available.';
+  String get roomNotAvailable => 'Ин ҳуҷра дигар дастрас нест.';
 
   @override
-  String get roomGoToRooms => 'Go to Rooms';
+  String get roomGoToRooms => 'Ба Ҳуҷраҳо гузаштан';
 }

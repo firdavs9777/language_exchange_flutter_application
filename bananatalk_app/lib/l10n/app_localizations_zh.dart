@@ -7063,230 +7063,230 @@ class AppLocalizationsZh extends AppLocalizations {
   String get examTipsCategoryFluency => 'Fluency';
 
   @override
-  String get roomsNewRoom => 'New room';
+  String get roomsNewRoom => '新建房间';
 
   @override
-  String get roomsCouldNotLoad => 'Could not load rooms';
+  String get roomsCouldNotLoad => '无法加载房间';
 
   @override
-  String get roomsEmptyTitle => 'No language rooms yet';
+  String get roomsEmptyTitle => '暂无语言房间';
 
   @override
-  String get roomsEmptySubtitle => 'Check back soon — hubs are being set up.';
+  String get roomsEmptySubtitle => '请稍后再来查看 —— 中心正在筹备中。';
 
   @override
-  String get roomCreateTitle => 'New Topic Room';
+  String get roomCreateTitle => '新建主题房间';
 
   @override
-  String get roomCreateSubtitle => 'Start a focused chat under a language';
+  String get roomCreateSubtitle => '在某种语言下开启一场专注的聊天';
 
   @override
-  String get roomNameLabel => 'Room name';
+  String get roomNameLabel => '房间名称';
 
   @override
-  String get roomNameHint => 'e.g. Daily conversation practice';
+  String get roomNameHint => '例如：每日口语练习';
 
   @override
-  String get roomDescriptionLabel => 'Description (optional)';
+  String get roomDescriptionLabel => '描述（可选）';
 
   @override
-  String get roomDescriptionHint => 'What\'s this room about?';
+  String get roomDescriptionHint => '这个房间是关于什么的？';
 
   @override
-  String get roomCreateSubmit => 'Create room';
+  String get roomCreateSubmit => '创建房间';
 
   @override
-  String get roomNameRequired => 'Please enter a room name';
+  String get roomNameRequired => '请输入房间名称';
 
   @override
-  String get roomCreateError => 'Could not create the room. Please try again.';
+  String get roomCreateError => '无法创建房间，请重试。';
 
   @override
-  String get roomUsEnglish => 'US English';
+  String get roomUsEnglish => '美式英语';
 
   @override
-  String get roomUkEnglish => 'UK English';
+  String get roomUkEnglish => '英式英语';
 
   @override
-  String get roomFailedLoadMessages => 'Failed to load messages';
+  String get roomFailedLoadMessages => '加载消息失败';
 
   @override
-  String get roomReportMessageTitle => 'Report message';
+  String get roomReportMessageTitle => '举报消息';
 
   @override
-  String get reportReasonSpam => 'Spam';
+  String get reportReasonSpam => '垃圾信息';
 
   @override
-  String get reportReasonHarassment => 'Harassment or Bullying';
+  String get reportReasonHarassment => '骚扰或欺凌';
 
   @override
-  String get reportReasonHateSpeech => 'Hate Speech';
+  String get reportReasonHateSpeech => '仇恨言论';
 
   @override
-  String get reportReasonViolence => 'Violence or Threats';
+  String get reportReasonViolence => '暴力或威胁';
 
   @override
-  String get reportReasonNudity => 'Nudity or Sexual Content';
+  String get reportReasonNudity => '裸露或色情内容';
 
   @override
-  String get reportReasonFalseInformation => 'False Information';
+  String get reportReasonFalseInformation => '虚假信息';
 
   @override
-  String get roomReportSubmitted => 'Report submitted';
+  String get roomReportSubmitted => '举报已提交';
 
   @override
-  String get roomReportSubmitFailed => 'Failed to submit report';
+  String get roomReportSubmitFailed => '提交举报失败';
 
   @override
-  String get roomLeaveHubTitle => 'Leave hub?';
+  String get roomLeaveHubTitle => '离开中心？';
 
   @override
   String roomLeaveHubMessage(String title) {
-    return 'You can rejoin $title later from the Rooms directory.';
+    return '之后你可以从房间目录中重新加入 $title。';
   }
 
   @override
-  String get roomLeaveHubFailed => 'Failed to leave hub';
+  String get roomLeaveHubFailed => '离开中心失败';
 
   @override
-  String get roomJoinRequestSent => 'Request sent — you\'ll be notified if approved';
+  String get roomJoinRequestSent => '请求已发送 —— 获得批准后会通知你';
 
   @override
-  String get roomJoinRequestFailed => 'Failed to send request';
+  String get roomJoinRequestFailed => '发送请求失败';
 
   @override
   String roomRequestsMenuItem(int count) {
-    return 'Requests ($count)';
+    return '请求（$count）';
   }
 
   @override
-  String get roomViewMembers => 'View members';
+  String get roomViewMembers => '查看成员';
 
   @override
-  String get roomLeaveHubMenuItem => 'Leave hub';
+  String get roomLeaveHubMenuItem => '离开中心';
 
   @override
   String roomMemberOnlineCount(int members, int online) {
-    return '$members members · $online online';
+    return '$members 位成员 · $online 人在线';
   }
 
   @override
-  String get roomBannedRequestMessage => 'You were removed from this room. Send a request to rejoin — the owner needs to approve it.';
+  String get roomBannedRequestMessage => '你已被移出此房间。发送请求以重新加入 —— 需要房主批准。';
 
   @override
-  String get roomModeratedRequestMessage => 'This is a moderated room. Request to join to start chatting.';
+  String get roomModeratedRequestMessage => '这是一个受管理的房间。发送加入请求以开始聊天。';
 
   @override
-  String get roomRequestPending => 'Request pending';
+  String get roomRequestPending => '请求待处理';
 
   @override
-  String get roomRequestToJoin => 'Request to join';
+  String get roomRequestToJoin => '请求加入';
 
   @override
-  String get roomDailyPromptLabel => 'Today\'s prompt';
+  String get roomDailyPromptLabel => '今日话题';
 
   @override
-  String get roomSomeoneFallback => 'Someone';
+  String get roomSomeoneFallback => '某人';
 
   @override
-  String get roomRequestsLoadError => 'Could not load join requests';
+  String get roomRequestsLoadError => '无法加载加入请求';
 
   @override
-  String get roomRequestApproved => 'Request approved';
+  String get roomRequestApproved => '请求已批准';
 
   @override
-  String get roomRequestDenied => 'Request denied';
+  String get roomRequestDenied => '请求已拒绝';
 
   @override
-  String get roomRequestApproveFailed => 'Failed to approve request';
+  String get roomRequestApproveFailed => '批准请求失败';
 
   @override
-  String get roomRequestDenyFailed => 'Failed to deny request';
+  String get roomRequestDenyFailed => '拒绝请求失败';
 
   @override
   String roomRequestsAppBarTitle(String title) {
-    return '$title · Requests';
+    return '$title · 请求';
   }
 
   @override
-  String get roomRequestsEmpty => 'No pending requests';
+  String get roomRequestsEmpty => '没有待处理的请求';
 
   @override
-  String get roomRequestDeny => 'Deny';
+  String get roomRequestDeny => '拒绝';
 
   @override
-  String get roomRequestApprove => 'Approve';
+  String get roomRequestApprove => '批准';
 
   @override
-  String get roomMembersLoadError => 'Could not load members';
+  String get roomMembersLoadError => '无法加载成员';
 
   @override
-  String get roomRemoveBanTitle => 'Remove and ban member?';
+  String get roomRemoveBanTitle => '移除并封禁成员？';
 
   @override
-  String get roomRemoveTitle => 'Remove member?';
+  String get roomRemoveTitle => '移除成员？';
 
   @override
   String roomRemoveBanConfirm(String name) {
-    return 'Remove and ban $name? They won\'t be able to rejoin unless you approve a request.';
+    return '移除并封禁 $name？除非你批准其请求，否则他们将无法重新加入。';
   }
 
   @override
   String roomRemoveConfirm(String name, String title) {
-    return 'Remove $name from $title?';
+    return '将 $name 从 $title 中移除？';
   }
 
   @override
-  String get roomRemoveBanButton => 'Remove & ban';
+  String get roomRemoveBanButton => '移除并封禁';
 
   @override
-  String get roomRemoveButton => 'Remove';
+  String get roomRemoveButton => '移除';
 
   @override
-  String get roomMemberRemovedBanned => 'Member removed and banned';
+  String get roomMemberRemovedBanned => '成员已被移除并封禁';
 
   @override
-  String get roomMemberRemoved => 'Member removed';
+  String get roomMemberRemoved => '成员已被移除';
 
   @override
-  String get roomMemberRemoveFailed => 'Failed to remove member';
+  String get roomMemberRemoveFailed => '移除成员失败';
 
   @override
-  String get roomMemberMuted => 'Member muted';
+  String get roomMemberMuted => '成员已被禁言';
 
   @override
-  String get roomMemberUnmuted => 'Member unmuted';
+  String get roomMemberUnmuted => '成员已解除禁言';
 
   @override
-  String get roomMemberMuteFailed => 'Failed to update mute status';
+  String get roomMemberMuteFailed => '更新禁言状态失败';
 
   @override
   String roomMembersAppBarTitle(String title) {
-    return '$title · Members';
+    return '$title · 成员';
   }
 
   @override
-  String get roomMembersEmpty => 'No members to show yet';
+  String get roomMembersEmpty => '暂无成员可显示';
 
   @override
-  String get roomMemberMutedLabel => 'Muted';
+  String get roomMemberMutedLabel => '已禁言';
 
   @override
-  String get roomMemberFallbackName => 'Member';
+  String get roomMemberFallbackName => '成员';
 
   @override
-  String get roomYourHub => 'Your hub';
+  String get roomYourHub => '你的中心';
 
   @override
   String roomOnlineCount(int count) {
-    return '$count online';
+    return '$count 人在线';
   }
 
   @override
-  String get roomNotAvailable => 'This room is no longer available.';
+  String get roomNotAvailable => '此房间已不可用。';
 
   @override
-  String get roomGoToRooms => 'Go to Rooms';
+  String get roomGoToRooms => '前往房间';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -13209,4 +13209,230 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get examTipsCategoryFluency => 'Fluency';
+
+  @override
+  String get roomsNewRoom => '新建房間';
+
+  @override
+  String get roomsCouldNotLoad => '無法載入房間';
+
+  @override
+  String get roomsEmptyTitle => '尚無語言房間';
+
+  @override
+  String get roomsEmptySubtitle => '請稍後再來查看 —— 中心正在籌備中。';
+
+  @override
+  String get roomCreateTitle => '新建主題房間';
+
+  @override
+  String get roomCreateSubtitle => '在某種語言下開啟一場專注的聊天';
+
+  @override
+  String get roomNameLabel => '房間名稱';
+
+  @override
+  String get roomNameHint => '例如：每日口說練習';
+
+  @override
+  String get roomDescriptionLabel => '描述（選填）';
+
+  @override
+  String get roomDescriptionHint => '這個房間是關於什麼的？';
+
+  @override
+  String get roomCreateSubmit => '建立房間';
+
+  @override
+  String get roomNameRequired => '請輸入房間名稱';
+
+  @override
+  String get roomCreateError => '無法建立房間，請重試。';
+
+  @override
+  String get roomUsEnglish => '美式英語';
+
+  @override
+  String get roomUkEnglish => '英式英語';
+
+  @override
+  String get roomFailedLoadMessages => '載入訊息失敗';
+
+  @override
+  String get roomReportMessageTitle => '檢舉訊息';
+
+  @override
+  String get reportReasonSpam => '垃圾訊息';
+
+  @override
+  String get reportReasonHarassment => '騷擾或霸凌';
+
+  @override
+  String get reportReasonHateSpeech => '仇恨言論';
+
+  @override
+  String get reportReasonViolence => '暴力或威脅';
+
+  @override
+  String get reportReasonNudity => '裸露或色情內容';
+
+  @override
+  String get reportReasonFalseInformation => '不實資訊';
+
+  @override
+  String get roomReportSubmitted => '檢舉已提交';
+
+  @override
+  String get roomReportSubmitFailed => '提交檢舉失敗';
+
+  @override
+  String get roomLeaveHubTitle => '離開中心？';
+
+  @override
+  String roomLeaveHubMessage(String title) {
+    return '之後你可以從房間目錄重新加入 $title。';
+  }
+
+  @override
+  String get roomLeaveHubFailed => '離開中心失敗';
+
+  @override
+  String get roomJoinRequestSent => '請求已送出 —— 獲得核准後會通知你';
+
+  @override
+  String get roomJoinRequestFailed => '送出請求失敗';
+
+  @override
+  String roomRequestsMenuItem(int count) {
+    return '請求（$count）';
+  }
+
+  @override
+  String get roomViewMembers => '查看成員';
+
+  @override
+  String get roomLeaveHubMenuItem => '離開中心';
+
+  @override
+  String roomMemberOnlineCount(int members, int online) {
+    return '$members 位成員 · $online 人在線';
+  }
+
+  @override
+  String get roomBannedRequestMessage => '你已被移出此房間。送出請求以重新加入 —— 需由房主核准。';
+
+  @override
+  String get roomModeratedRequestMessage => '這是一個受管理的房間。送出加入請求以開始聊天。';
+
+  @override
+  String get roomRequestPending => '請求待處理';
+
+  @override
+  String get roomRequestToJoin => '請求加入';
+
+  @override
+  String get roomDailyPromptLabel => '今日話題';
+
+  @override
+  String get roomSomeoneFallback => '某人';
+
+  @override
+  String get roomRequestsLoadError => '無法載入加入請求';
+
+  @override
+  String get roomRequestApproved => '請求已核准';
+
+  @override
+  String get roomRequestDenied => '請求已拒絕';
+
+  @override
+  String get roomRequestApproveFailed => '核准請求失敗';
+
+  @override
+  String get roomRequestDenyFailed => '拒絕請求失敗';
+
+  @override
+  String roomRequestsAppBarTitle(String title) {
+    return '$title · 請求';
+  }
+
+  @override
+  String get roomRequestsEmpty => '沒有待處理的請求';
+
+  @override
+  String get roomRequestDeny => '拒絕';
+
+  @override
+  String get roomRequestApprove => '核准';
+
+  @override
+  String get roomMembersLoadError => '無法載入成員';
+
+  @override
+  String get roomRemoveBanTitle => '移除並封鎖成員？';
+
+  @override
+  String get roomRemoveTitle => '移除成員？';
+
+  @override
+  String roomRemoveBanConfirm(String name) {
+    return '移除並封鎖 $name？除非你核准其請求，否則他們將無法重新加入。';
+  }
+
+  @override
+  String roomRemoveConfirm(String name, String title) {
+    return '將 $name 從 $title 中移除？';
+  }
+
+  @override
+  String get roomRemoveBanButton => '移除並封鎖';
+
+  @override
+  String get roomRemoveButton => '移除';
+
+  @override
+  String get roomMemberRemovedBanned => '成員已被移除並封鎖';
+
+  @override
+  String get roomMemberRemoved => '成員已被移除';
+
+  @override
+  String get roomMemberRemoveFailed => '移除成員失敗';
+
+  @override
+  String get roomMemberMuted => '成員已被靜音';
+
+  @override
+  String get roomMemberUnmuted => '成員已解除靜音';
+
+  @override
+  String get roomMemberMuteFailed => '更新靜音狀態失敗';
+
+  @override
+  String roomMembersAppBarTitle(String title) {
+    return '$title · 成員';
+  }
+
+  @override
+  String get roomMembersEmpty => '尚無成員可顯示';
+
+  @override
+  String get roomMemberMutedLabel => '已靜音';
+
+  @override
+  String get roomMemberFallbackName => '成員';
+
+  @override
+  String get roomYourHub => '你的中心';
+
+  @override
+  String roomOnlineCount(int count) {
+    return '$count 人在線';
+  }
+
+  @override
+  String get roomNotAvailable => '此房間已不再可用。';
+
+  @override
+  String get roomGoToRooms => '前往房間';
 }
