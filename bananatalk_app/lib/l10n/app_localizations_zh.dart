@@ -24,6 +24,33 @@ class AppLocalizationsZh extends AppLocalizations {
   String get aiStudyPromoDismiss => '以后再说';
 
   @override
+  String get promoSpotlightCoinsHeadline => 'Never run out mid-conversation';
+
+  @override
+  String get promoSpotlightCoinsSubtitle => 'Grab coins to unlock extra translations, tutor chats, and moments whenever you hit a daily limit.';
+
+  @override
+  String get promoSpotlightRoomsHeadline => 'Join a topic room';
+
+  @override
+  String get promoSpotlightRoomsSubtitle => 'Drop into a live text room and practice with learners chatting about topics you care about.';
+
+  @override
+  String get promoSpotlightVoiceHeadline => 'Hop into a voice room';
+
+  @override
+  String get promoSpotlightVoiceSubtitle => 'Talk live with other learners and build real speaking confidence, one conversation at a time.';
+
+  @override
+  String get promoSpotlightTryIt => 'Try it';
+
+  @override
+  String get promoSpotlightMaybeLater => 'Maybe later';
+
+  @override
+  String get promoSpotlightDontShowAgain => 'Don\'t show this again';
+
+  @override
   String get login => '登录';
 
   @override

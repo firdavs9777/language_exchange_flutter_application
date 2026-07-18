@@ -11,6 +11,10 @@ import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/providers/badge_count_provider.dart';
 import 'package:bananatalk_app/widgets/promo/ai_study_promo_modal.dart';
 import 'package:bananatalk_app/widgets/promo/ads_notice_modal.dart';
+import 'package:bananatalk_app/widgets/promos/feature_spotlight_sheet.dart';
+import 'package:bananatalk_app/pages/coins/coin_shop_screen.dart';
+import 'package:bananatalk_app/services/promo_service.dart';
+import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
@@ -25,6 +29,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 /// the consumer when the selected tab changes; writing it is what every
 /// "go to tab N" entry point should do.
 final selectedTabProvider = StateProvider<int>((ref) => 0);
+
+/// In-memory guard so the rotating feature-spotlight promo (coins/rooms/
+/// voice) is attempted at most once per app process launch, on top of its
+/// own once-per-day SharedPreferences cap. Module-level (not per-State) so
+/// it survives `TabsScreen` being recreated (e.g. deep links reusing vs.
+/// rebuilding the widget) within the same process.
+bool _featureSpotlightAttemptedThisLaunch = false;
 
 class TabsScreen extends ConsumerStatefulWidget {
   /// Default to AI Study tab (index 0).
@@ -71,7 +82,61 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
           if (mounted) AdsNoticeModal.showIfNeeded(context);
         });
       }
+      // Rotating "feature spotlight" promo (coins/rooms/voice). Reaching
+      // this point already means the user is logged in and on the home
+      // shell — the /home route is only reachable post-login (see
+      // app_router.dart: splash -> login -> home) — so no separate
+      // onboarding/login check is needed here. `pickPromo` itself enforces
+      // the once-per-day cap, per-promo "don't show again" snooze, the
+      // global dismiss-count stop, and coins eligibility; this call site
+      // only adds the once-per-process-launch guard and confirms this tab
+      // shell is still the active route before popping a sheet over it.
+      _maybeShowFeatureSpotlight();
     });
+  }
+
+  Future<void> _maybeShowFeatureSpotlight() async {
+    if (_featureSpotlightAttemptedThisLaunch) return;
+    _featureSpotlightAttemptedThisLaunch = true;
+    if (!mounted) return;
+    final route = ModalRoute.of(context);
+    if (route != null && !route.isCurrent) return;
+
+    final promo = await pickPromo(ref);
+    if (promo == null) return;
+    if (!mounted) return;
+    final route2 = ModalRoute.of(context);
+    if (route2 != null && !route2.isCurrent) return;
+
+    await showFeatureSpotlight(
+      context,
+      promo,
+      onTry: () => _openPromoDestination(promo),
+    );
+    await markShown(promo);
+  }
+
+  /// Deep-link for the feature spotlight's "Try it" CTA.
+  ///
+  /// Coins has a real, precise destination (`CoinShopScreen`). Rooms and
+  /// voice rooms both live as sub-tabs inside `CommunityMain`'s own
+  /// internal `TabController`, which isn't exposed via any external
+  /// provider — so the simplest correct deep-link for those is switching
+  /// to the Community tab itself (matching how `AppShellDrawer` already
+  /// jumps between top-level tabs) rather than pushing `RoomsDirectoryScreen`
+  /// / `VoiceRoomsTab` standalone, which have no back button of their own
+  /// since they're designed to live inside `CommunityMain`'s app bar.
+  void _openPromoDestination(PromoType promo) {
+    switch (promo) {
+      case PromoType.coins:
+        Navigator.push(
+          context,
+          AppPageRoute(builder: (_) => const CoinShopScreen()),
+        );
+      case PromoType.rooms:
+      case PromoType.voice:
+        ref.read(selectedTabProvider.notifier).state = 1;
+    }
   }
 
   @override

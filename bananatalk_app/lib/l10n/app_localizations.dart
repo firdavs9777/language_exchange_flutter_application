@@ -158,6 +158,60 @@ abstract class AppLocalizations {
   /// **'Maybe later'**
   String get aiStudyPromoDismiss;
 
+  /// Headline for the coins feature spotlight promo
+  ///
+  /// In en, this message translates to:
+  /// **'Never run out mid-conversation'**
+  String get promoSpotlightCoinsHeadline;
+
+  /// Subtitle for the coins feature spotlight promo
+  ///
+  /// In en, this message translates to:
+  /// **'Grab coins to unlock extra translations, tutor chats, and moments whenever you hit a daily limit.'**
+  String get promoSpotlightCoinsSubtitle;
+
+  /// Headline for the rooms feature spotlight promo
+  ///
+  /// In en, this message translates to:
+  /// **'Join a topic room'**
+  String get promoSpotlightRoomsHeadline;
+
+  /// Subtitle for the rooms feature spotlight promo
+  ///
+  /// In en, this message translates to:
+  /// **'Drop into a live text room and practice with learners chatting about topics you care about.'**
+  String get promoSpotlightRoomsSubtitle;
+
+  /// Headline for the voice rooms feature spotlight promo
+  ///
+  /// In en, this message translates to:
+  /// **'Hop into a voice room'**
+  String get promoSpotlightVoiceHeadline;
+
+  /// Subtitle for the voice rooms feature spotlight promo
+  ///
+  /// In en, this message translates to:
+  /// **'Talk live with other learners and build real speaking confidence, one conversation at a time.'**
+  String get promoSpotlightVoiceSubtitle;
+
+  /// Primary CTA button on the feature spotlight promo sheet
+  ///
+  /// In en, this message translates to:
+  /// **'Try it'**
+  String get promoSpotlightTryIt;
+
+  /// Dismiss button on the feature spotlight promo sheet
+  ///
+  /// In en, this message translates to:
+  /// **'Maybe later'**
+  String get promoSpotlightMaybeLater;
+
+  /// Checkbox label on the feature spotlight promo sheet to snooze that promo
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t show this again'**
+  String get promoSpotlightDontShowAgain;
+
   /// No description provided for @login.
   ///
   /// In en, this message translates to:
