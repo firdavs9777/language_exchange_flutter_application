@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:bananatalk_app/providers/provider_models/message_model.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
+import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/widgets/message_reaction_widget.dart';
 import 'package:bananatalk_app/providers/provider_root/message_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
@@ -608,11 +609,26 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
 
   // ---------- Profile navigation ----------
 
-  void _navigateToProfile(BuildContext context) {
+  Future<void> _navigateToProfile(BuildContext context) async {
+    // The sender embedded in a message is a PARTIAL Community (id/name/images
+    // only), so opening the detail page with it directly shows incomplete
+    // info. Fetch the full profile by id first (mirrors chat_app_bar); fall
+    // back to the partial sender if the fetch fails so the tap never dead-ends.
+    final sender = widget.message.sender;
+    Community community = sender;
+    try {
+      final full = await ref
+          .read(communityServiceProvider)
+          .getSingleCommunity(id: sender.id);
+      if (full != null) community = full;
+    } catch (_) {
+      // Non-fatal — fall back to the partial sender below.
+    }
+    if (!context.mounted) return;
     Navigator.push(
       context,
       AppPageRoute(
-        builder: (_) => SingleCommunity(community: widget.message.sender),
+        builder: (_) => SingleCommunity(community: community),
       ),
     );
   }
