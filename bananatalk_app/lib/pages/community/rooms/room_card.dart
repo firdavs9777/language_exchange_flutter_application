@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/models/room.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/utils/language_flags.dart';
 
 /// One room row in the Rooms directory: flag, title, member/online counts,
 /// and a short description. Mirrors the visual density of
@@ -37,7 +38,11 @@ class RoomCard extends StatelessWidget {
           padding: const EdgeInsets.all(Spacing.md),
           child: Row(
             children: [
-              _FlagAvatar(emoji: room.emojiFlag),
+              _FlagAvatar(
+                emoji: room.emojiFlag.isNotEmpty
+                    ? room.emojiFlag
+                    : LanguageFlags.getFlagByName(room.targetLanguage),
+              ),
               Spacing.hGapMD,
               Expanded(
                 child: Column(

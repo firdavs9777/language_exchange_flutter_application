@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/models/room.dart';
+import 'package:bananatalk_app/utils/language_flags.dart';
 import 'package:bananatalk_app/providers/provider_models/message_model.dart';
 import 'package:bananatalk_app/providers/rooms_provider.dart';
 import 'package:bananatalk_app/pages/chat/input/chat_input_bar.dart';
@@ -523,7 +524,8 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              '${_room.emojiFlag} ${_room.title}'.trim(),
+              '${_room.emojiFlag.isNotEmpty ? _room.emojiFlag : LanguageFlags.getFlagByName(_room.targetLanguage)} ${_room.title}'
+                  .trim(),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),
