@@ -3025,5 +3025,14 @@
   "authWelcomeFeatureLearnTitle": "学习",
   "authWelcomeFeatureLearnSubtitle": "AI 导师、测验和发音训练——全部集于一款应用",
   "authWelcomeFeatureGrowTitle": "成长",
-  "authWelcomeFeatureGrowSubtitle": "通过每日对话和社区建立真正的语言流利度"
+  "authWelcomeFeatureGrowSubtitle": "通过每日对话和社区建立真正的语言流利度",
+  "promoSpotlightCoinsHeadline": "聊到一半再也不怕金币用完",
+  "promoSpotlightCoinsSubtitle": "每次达到每日限额时，获取金币即可解锁额外翻译、导师聊天和瞬间功能。",
+  "promoSpotlightRoomsHeadline": "加入话题房间",
+  "promoSpotlightRoomsSubtitle": "进入实时文字房间，和同样关注这些话题的学习者一起练习。",
+  "promoSpotlightVoiceHeadline": "加入语音房间",
+  "promoSpotlightVoiceSubtitle": "和其他学习者实时对话，在一次次交流中建立真正的口语自信。",
+  "promoSpotlightTryIt": "立即试试",
+  "promoSpotlightMaybeLater": "以后再说",
+  "promoSpotlightDontShowAgain": "不再显示"
 }

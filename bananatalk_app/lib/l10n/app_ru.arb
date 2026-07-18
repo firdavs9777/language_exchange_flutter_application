@@ -3041,5 +3041,14 @@
   "authWelcomeFeatureLearnTitle": "Обучение",
   "authWelcomeFeatureLearnSubtitle": "ИИ-репетитор, тесты и тренировка произношения — всё в одном приложении",
   "authWelcomeFeatureGrowTitle": "Развитие",
-  "authWelcomeFeatureGrowSubtitle": "Развивайте настоящую беглость речи через ежедневное общение и сообщество"
+  "authWelcomeFeatureGrowSubtitle": "Развивайте настоящую беглость речи через ежедневное общение и сообщество",
+  "promoSpotlightCoinsHeadline": "Пусть монеты не закончатся посреди разговора",
+  "promoSpotlightCoinsSubtitle": "Получайте монеты, чтобы открывать дополнительные переводы, чаты с преподавателем и моменты, когда достигаете дневного лимита.",
+  "promoSpotlightRoomsHeadline": "Присоединяйтесь к тематической комнате",
+  "promoSpotlightRoomsSubtitle": "Заходите в текстовую комнату в реальном времени и практикуйтесь с изучающими язык, которые обсуждают интересные вам темы.",
+  "promoSpotlightVoiceHeadline": "Заходите в голосовую комнату",
+  "promoSpotlightVoiceSubtitle": "Общайтесь вживую с другими изучающими язык и обретайте настоящую уверенность в разговоре, беседа за беседой.",
+  "promoSpotlightTryIt": "Попробовать",
+  "promoSpotlightMaybeLater": "Может быть позже",
+  "promoSpotlightDontShowAgain": "Больше не показывать"
 }

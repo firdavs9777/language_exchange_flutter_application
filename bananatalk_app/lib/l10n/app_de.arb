@@ -3251,5 +3251,14 @@
   "authWelcomeFeatureLearnTitle": "Lernen",
   "authWelcomeFeatureLearnSubtitle": "KI-Tutor, Quizze & Ausspracheübungen — alles in einer App",
   "authWelcomeFeatureGrowTitle": "Wachsen",
-  "authWelcomeFeatureGrowSubtitle": "Baue echte Sprachgewandtheit durch tägliche Gespräche und Community auf"
+  "authWelcomeFeatureGrowSubtitle": "Baue echte Sprachgewandtheit durch tägliche Gespräche und Community auf",
+  "promoSpotlightCoinsHeadline": "Nie mehr mitten im Gespräch ohne Münzen",
+  "promoSpotlightCoinsSubtitle": "Hol dir Münzen für zusätzliche Übersetzungen, Tutor-Chats und Moments, sobald du dein Tageslimit erreichst.",
+  "promoSpotlightRoomsHeadline": "Tritt einem Themenraum bei",
+  "promoSpotlightRoomsSubtitle": "Steig in einen Live-Textraum ein und übe mit Lernenden, die über Themen chatten, die dich interessieren.",
+  "promoSpotlightVoiceHeadline": "Steig in einen Sprachraum ein",
+  "promoSpotlightVoiceSubtitle": "Sprich live mit anderen Lernenden und gewinne echtes Sprechvertrauen, ein Gespräch nach dem anderen.",
+  "promoSpotlightTryIt": "Jetzt ausprobieren",
+  "promoSpotlightMaybeLater": "Vielleicht später",
+  "promoSpotlightDontShowAgain": "Nicht mehr anzeigen"
 }

@@ -3223,5 +3223,14 @@
   "authWelcomeFeatureLearnTitle": "Öğren",
   "authWelcomeFeatureLearnSubtitle": "Yapay zeka öğretmeni, quizler ve telaffuz antrenmanı — hepsi tek bir uygulamada",
   "authWelcomeFeatureGrowTitle": "Gelişim",
-  "authWelcomeFeatureGrowSubtitle": "Günlük sohbetler ve toplulukla gerçek bir akıcılık kazan"
+  "authWelcomeFeatureGrowSubtitle": "Günlük sohbetler ve toplulukla gerçek bir akıcılık kazan",
+  "promoSpotlightCoinsHeadline": "Konuşmanın ortasında asla jetonun bitmesin",
+  "promoSpotlightCoinsSubtitle": "Günlük sınırına her ulaştığında ekstra çeviriler, öğretmenle sohbetler ve anlar için jeton al.",
+  "promoSpotlightRoomsHeadline": "Bir konu odasına katıl",
+  "promoSpotlightRoomsSubtitle": "Canlı bir metin odasına gir ve ilgini çeken konular hakkında sohbet eden öğrencilerle pratik yap.",
+  "promoSpotlightVoiceHeadline": "Bir sesli odaya katıl",
+  "promoSpotlightVoiceSubtitle": "Diğer öğrencilerle canlı konuş ve her sohbette gerçek konuşma özgüveni kazan.",
+  "promoSpotlightTryIt": "Dene",
+  "promoSpotlightMaybeLater": "Belki sonra",
+  "promoSpotlightDontShowAgain": "Bunu bir daha gösterme"
 }

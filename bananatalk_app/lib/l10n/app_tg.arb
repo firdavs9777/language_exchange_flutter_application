@@ -2504,5 +2504,14 @@
   "authWelcomeFeatureLearnTitle": "Омӯзиш",
   "authWelcomeFeatureLearnSubtitle": "Муаллими сунъӣ, тестҳо ва машқи талаффуз — ҳама дар як барнома",
   "authWelcomeFeatureGrowTitle": "Рушд",
-  "authWelcomeFeatureGrowSubtitle": "Тавассути сӯҳбатҳои ҳаррӯза ва ҷомеа равонии воқеӣ ба даст оред"
+  "authWelcomeFeatureGrowSubtitle": "Тавассути сӯҳбатҳои ҳаррӯза ва ҷомеа равонии воқеӣ ба даст оред",
+  "promoSpotlightCoinsHeadline": "Ҳеҷ гоҳ дар миёнаи сӯҳбат тангаҳоятон тамом нашаванд",
+  "promoSpotlightCoinsSubtitle": "Ҳар вақте ки ба ҳадди рӯзонаи худ мерасед, тангаҳо гиред, то тарҷумаҳои иловагӣ, сӯҳбат бо муаллим ва лаҳзаҳоро кушоед.",
+  "promoSpotlightRoomsHeadline": "Ба як утоқи мавзуӣ ҳамроҳ шавед",
+  "promoSpotlightRoomsSubtitle": "Ба утоқи матнии зинда ворид шавед ва бо забономӯзоне, ки дар бораи мавзуъҳои писандидаатон сӯҳбат мекунанд, машқ кунед.",
+  "promoSpotlightVoiceHeadline": "Ба утоқи овозӣ ворид шавед",
+  "promoSpotlightVoiceSubtitle": "Бо забономӯзони дигар зинда сӯҳбат кунед ва бо ҳар сӯҳбат боварии воқеии гуфторӣ пайдо кунед.",
+  "promoSpotlightTryIt": "Санҷед",
+  "promoSpotlightMaybeLater": "Шояд баъдтар",
+  "promoSpotlightDontShowAgain": "Дигар нишон надиҳед"
 }

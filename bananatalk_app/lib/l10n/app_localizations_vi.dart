@@ -24,31 +24,31 @@ class AppLocalizationsVi extends AppLocalizations {
   String get aiStudyPromoDismiss => 'Để sau';
 
   @override
-  String get promoSpotlightCoinsHeadline => 'Never run out mid-conversation';
+  String get promoSpotlightCoinsHeadline => 'Đừng bao giờ hết xu giữa cuộc trò chuyện';
 
   @override
-  String get promoSpotlightCoinsSubtitle => 'Grab coins to unlock extra translations, tutor chats, and moments whenever you hit a daily limit.';
+  String get promoSpotlightCoinsSubtitle => 'Nhận xu để mở khóa thêm bản dịch, trò chuyện với gia sư và khoảnh khắc mỗi khi bạn đạt giới hạn hàng ngày.';
 
   @override
-  String get promoSpotlightRoomsHeadline => 'Join a topic room';
+  String get promoSpotlightRoomsHeadline => 'Tham gia một phòng chủ đề';
 
   @override
-  String get promoSpotlightRoomsSubtitle => 'Drop into a live text room and practice with learners chatting about topics you care about.';
+  String get promoSpotlightRoomsSubtitle => 'Vào một phòng trò chuyện văn bản trực tiếp và luyện tập cùng những người học đang nói về chủ đề bạn quan tâm.';
 
   @override
-  String get promoSpotlightVoiceHeadline => 'Hop into a voice room';
+  String get promoSpotlightVoiceHeadline => 'Tham gia một phòng thoại';
 
   @override
-  String get promoSpotlightVoiceSubtitle => 'Talk live with other learners and build real speaking confidence, one conversation at a time.';
+  String get promoSpotlightVoiceSubtitle => 'Trò chuyện trực tiếp với những người học khác và xây dựng sự tự tin nói thật sự, từng cuộc trò chuyện một.';
 
   @override
-  String get promoSpotlightTryIt => 'Try it';
+  String get promoSpotlightTryIt => 'Thử ngay';
 
   @override
-  String get promoSpotlightMaybeLater => 'Maybe later';
+  String get promoSpotlightMaybeLater => 'Để sau';
 
   @override
-  String get promoSpotlightDontShowAgain => 'Don\'t show this again';
+  String get promoSpotlightDontShowAgain => 'Không hiển thị lại';
 
   @override
   String get login => 'Đăng nhập';

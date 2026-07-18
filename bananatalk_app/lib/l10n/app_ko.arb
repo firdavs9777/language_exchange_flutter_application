@@ -3032,5 +3032,14 @@
   "authWelcomeFeatureLearnTitle": "학습",
   "authWelcomeFeatureLearnSubtitle": "AI 튜터, 퀴즈, 발음 훈련까지 — 하나의 앱에서",
   "authWelcomeFeatureGrowTitle": "성장",
-  "authWelcomeFeatureGrowSubtitle": "매일의 대화와 커뮤니티를 통해 진짜 유창함을 키워보세요"
+  "authWelcomeFeatureGrowSubtitle": "매일의 대화와 커뮤니티를 통해 진짜 유창함을 키워보세요",
+  "promoSpotlightCoinsHeadline": "대화 중에 코인이 떨어질 걱정은 이제 그만",
+  "promoSpotlightCoinsSubtitle": "일일 한도에 도달할 때마다 코인으로 추가 번역, 튜터 채팅, 모먼트를 잠금 해제하세요.",
+  "promoSpotlightRoomsHeadline": "주제별 방에 참여하세요",
+  "promoSpotlightRoomsSubtitle": "실시간 텍스트 방에 들어가서 관심 있는 주제로 이야기하는 학습자들과 연습해보세요.",
+  "promoSpotlightVoiceHeadline": "보이스룸에 참여하세요",
+  "promoSpotlightVoiceSubtitle": "다른 학습자들과 실시간으로 대화하며 한 번의 대화마다 진짜 말하기 자신감을 쌓아보세요.",
+  "promoSpotlightTryIt": "체험해보기",
+  "promoSpotlightMaybeLater": "나중에 할게요",
+  "promoSpotlightDontShowAgain": "다시 보지 않기"
 }

@@ -24,31 +24,31 @@ class AppLocalizationsTh extends AppLocalizations {
   String get aiStudyPromoDismiss => 'ไว้ก่อน';
 
   @override
-  String get promoSpotlightCoinsHeadline => 'Never run out mid-conversation';
+  String get promoSpotlightCoinsHeadline => 'ไม่มีวันเหรียญหมดกลางบทสนทนาอีกต่อไป';
 
   @override
-  String get promoSpotlightCoinsSubtitle => 'Grab coins to unlock extra translations, tutor chats, and moments whenever you hit a daily limit.';
+  String get promoSpotlightCoinsSubtitle => 'รับเหรียญเพื่อปลดล็อกการแปลเพิ่มเติม แชทกับติวเตอร์ และโมเมนต์ ทุกครั้งที่คุณถึงขีดจำกัดรายวัน';
 
   @override
-  String get promoSpotlightRoomsHeadline => 'Join a topic room';
+  String get promoSpotlightRoomsHeadline => 'เข้าร่วมห้องหัวข้อ';
 
   @override
-  String get promoSpotlightRoomsSubtitle => 'Drop into a live text room and practice with learners chatting about topics you care about.';
+  String get promoSpotlightRoomsSubtitle => 'เข้าห้องแชทข้อความสดและฝึกฝนกับผู้เรียนที่พูดคุยเรื่องที่คุณสนใจ';
 
   @override
-  String get promoSpotlightVoiceHeadline => 'Hop into a voice room';
+  String get promoSpotlightVoiceHeadline => 'เข้าร่วมห้องเสียง';
 
   @override
-  String get promoSpotlightVoiceSubtitle => 'Talk live with other learners and build real speaking confidence, one conversation at a time.';
+  String get promoSpotlightVoiceSubtitle => 'พูดคุยสดกับผู้เรียนคนอื่น ๆ และสร้างความมั่นใจในการพูดที่แท้จริง ทีละบทสนทนา';
 
   @override
-  String get promoSpotlightTryIt => 'Try it';
+  String get promoSpotlightTryIt => 'ลองเลย';
 
   @override
-  String get promoSpotlightMaybeLater => 'Maybe later';
+  String get promoSpotlightMaybeLater => 'ไว้ทีหลัง';
 
   @override
-  String get promoSpotlightDontShowAgain => 'Don\'t show this again';
+  String get promoSpotlightDontShowAgain => 'ไม่ต้องแสดงอีก';
 
   @override
   String get login => 'เข้าสู่ระบบ';

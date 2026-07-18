@@ -3041,5 +3041,14 @@
   "authWelcomeFeatureLearnTitle": "تعلّم",
   "authWelcomeFeatureLearnSubtitle": "معلم ذكاء اصطناعي، اختبارات وتدريب على النطق — كل ذلك في تطبيق واحد",
   "authWelcomeFeatureGrowTitle": "تطوّر",
-  "authWelcomeFeatureGrowSubtitle": "طوّر طلاقتك الحقيقية من خلال المحادثات اليومية والمجتمع"
+  "authWelcomeFeatureGrowSubtitle": "طوّر طلاقتك الحقيقية من خلال المحادثات اليومية والمجتمع",
+  "promoSpotlightCoinsHeadline": "لا تنفد عملاتك أبدًا في منتصف المحادثة",
+  "promoSpotlightCoinsSubtitle": "احصل على عملات لفتح ترجمات إضافية ومحادثات مع المعلم ولحظات جديدة كلما وصلت إلى الحد اليومي.",
+  "promoSpotlightRoomsHeadline": "انضم إلى غرفة نقاش",
+  "promoSpotlightRoomsSubtitle": "ادخل غرفة نص مباشرة وتدرّب مع متعلمين يتحدثون عن مواضيع تهمك.",
+  "promoSpotlightVoiceHeadline": "ادخل غرفة صوتية",
+  "promoSpotlightVoiceSubtitle": "تحدّث مباشرة مع متعلمين آخرين وابنِ ثقتك الحقيقية في المحادثة، محادثة تلو الأخرى.",
+  "promoSpotlightTryIt": "جرّبها",
+  "promoSpotlightMaybeLater": "ربما لاحقًا",
+  "promoSpotlightDontShowAgain": "عدم إظهار هذا مرة أخرى"
 }

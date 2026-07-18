@@ -24,31 +24,31 @@ class AppLocalizationsFr extends AppLocalizations {
   String get aiStudyPromoDismiss => 'Plus tard';
 
   @override
-  String get promoSpotlightCoinsHeadline => 'Never run out mid-conversation';
+  String get promoSpotlightCoinsHeadline => 'Ne manquez plus jamais de pièces en pleine conversation';
 
   @override
-  String get promoSpotlightCoinsSubtitle => 'Grab coins to unlock extra translations, tutor chats, and moments whenever you hit a daily limit.';
+  String get promoSpotlightCoinsSubtitle => 'Obtenez des pièces pour débloquer des traductions supplémentaires, des discussions avec le tuteur et des moments dès que vous atteignez votre limite quotidienne.';
 
   @override
-  String get promoSpotlightRoomsHeadline => 'Join a topic room';
+  String get promoSpotlightRoomsHeadline => 'Rejoignez un salon thématique';
 
   @override
-  String get promoSpotlightRoomsSubtitle => 'Drop into a live text room and practice with learners chatting about topics you care about.';
+  String get promoSpotlightRoomsSubtitle => 'Entrez dans un salon de discussion en direct et entraînez-vous avec des apprenants qui parlent de sujets qui vous tiennent à cœur.';
 
   @override
-  String get promoSpotlightVoiceHeadline => 'Hop into a voice room';
+  String get promoSpotlightVoiceHeadline => 'Rejoignez un salon vocal';
 
   @override
-  String get promoSpotlightVoiceSubtitle => 'Talk live with other learners and build real speaking confidence, one conversation at a time.';
+  String get promoSpotlightVoiceSubtitle => 'Parlez en direct avec d\'autres apprenants et gagnez une vraie confiance à l\'oral, conversation après conversation.';
 
   @override
-  String get promoSpotlightTryIt => 'Try it';
+  String get promoSpotlightTryIt => 'Essayer';
 
   @override
-  String get promoSpotlightMaybeLater => 'Maybe later';
+  String get promoSpotlightMaybeLater => 'Plus tard';
 
   @override
-  String get promoSpotlightDontShowAgain => 'Don\'t show this again';
+  String get promoSpotlightDontShowAgain => 'Ne plus afficher ceci';
 
   @override
   String get login => 'Connexion';

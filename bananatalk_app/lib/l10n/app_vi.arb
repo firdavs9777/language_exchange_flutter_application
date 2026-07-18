@@ -3011,5 +3011,14 @@
   "authWelcomeFeatureLearnTitle": "Học tập",
   "authWelcomeFeatureLearnSubtitle": "Gia sư AI, câu đố và luyện phát âm — tất cả trong một ứng dụng",
   "authWelcomeFeatureGrowTitle": "Phát triển",
-  "authWelcomeFeatureGrowSubtitle": "Xây dựng khả năng nói trôi chảy thực sự qua các cuộc trò chuyện hằng ngày và cộng đồng"
+  "authWelcomeFeatureGrowSubtitle": "Xây dựng khả năng nói trôi chảy thực sự qua các cuộc trò chuyện hằng ngày và cộng đồng",
+  "promoSpotlightCoinsHeadline": "Đừng bao giờ hết xu giữa cuộc trò chuyện",
+  "promoSpotlightCoinsSubtitle": "Nhận xu để mở khóa thêm bản dịch, trò chuyện với gia sư và khoảnh khắc mỗi khi bạn đạt giới hạn hàng ngày.",
+  "promoSpotlightRoomsHeadline": "Tham gia một phòng chủ đề",
+  "promoSpotlightRoomsSubtitle": "Vào một phòng trò chuyện văn bản trực tiếp và luyện tập cùng những người học đang nói về chủ đề bạn quan tâm.",
+  "promoSpotlightVoiceHeadline": "Tham gia một phòng thoại",
+  "promoSpotlightVoiceSubtitle": "Trò chuyện trực tiếp với những người học khác và xây dựng sự tự tin nói thật sự, từng cuộc trò chuyện một.",
+  "promoSpotlightTryIt": "Thử ngay",
+  "promoSpotlightMaybeLater": "Để sau",
+  "promoSpotlightDontShowAgain": "Không hiển thị lại"
 }

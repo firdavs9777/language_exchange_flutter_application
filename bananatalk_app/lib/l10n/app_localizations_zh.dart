@@ -24,31 +24,31 @@ class AppLocalizationsZh extends AppLocalizations {
   String get aiStudyPromoDismiss => '以后再说';
 
   @override
-  String get promoSpotlightCoinsHeadline => 'Never run out mid-conversation';
+  String get promoSpotlightCoinsHeadline => '聊到一半再也不怕金币用完';
 
   @override
-  String get promoSpotlightCoinsSubtitle => 'Grab coins to unlock extra translations, tutor chats, and moments whenever you hit a daily limit.';
+  String get promoSpotlightCoinsSubtitle => '每次达到每日限额时，获取金币即可解锁额外翻译、导师聊天和瞬间功能。';
 
   @override
-  String get promoSpotlightRoomsHeadline => 'Join a topic room';
+  String get promoSpotlightRoomsHeadline => '加入话题房间';
 
   @override
-  String get promoSpotlightRoomsSubtitle => 'Drop into a live text room and practice with learners chatting about topics you care about.';
+  String get promoSpotlightRoomsSubtitle => '进入实时文字房间，和同样关注这些话题的学习者一起练习。';
 
   @override
-  String get promoSpotlightVoiceHeadline => 'Hop into a voice room';
+  String get promoSpotlightVoiceHeadline => '加入语音房间';
 
   @override
-  String get promoSpotlightVoiceSubtitle => 'Talk live with other learners and build real speaking confidence, one conversation at a time.';
+  String get promoSpotlightVoiceSubtitle => '和其他学习者实时对话，在一次次交流中建立真正的口语自信。';
 
   @override
-  String get promoSpotlightTryIt => 'Try it';
+  String get promoSpotlightTryIt => '立即试试';
 
   @override
-  String get promoSpotlightMaybeLater => 'Maybe later';
+  String get promoSpotlightMaybeLater => '以后再说';
 
   @override
-  String get promoSpotlightDontShowAgain => 'Don\'t show this again';
+  String get promoSpotlightDontShowAgain => '不再显示';
 
   @override
   String get login => '登录';
@@ -7361,6 +7361,33 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get aiStudyPromoDismiss => '以後再說';
+
+  @override
+  String get promoSpotlightCoinsHeadline => '聊到一半再也不怕金幣用完';
+
+  @override
+  String get promoSpotlightCoinsSubtitle => '每次達到每日上限時，取得金幣即可解鎖額外翻譯、導師聊天和精采時刻。';
+
+  @override
+  String get promoSpotlightRoomsHeadline => '加入主題房間';
+
+  @override
+  String get promoSpotlightRoomsSubtitle => '進入即時文字房間，和同樣關心這些話題的學習者一起練習。';
+
+  @override
+  String get promoSpotlightVoiceHeadline => '加入語音房間';
+
+  @override
+  String get promoSpotlightVoiceSubtitle => '和其他學習者即時對話，在一次次交流中建立真正的口說自信。';
+
+  @override
+  String get promoSpotlightTryIt => '立即試試';
+
+  @override
+  String get promoSpotlightMaybeLater => '以後再說';
+
+  @override
+  String get promoSpotlightDontShowAgain => '不再顯示';
 
   @override
   String get login => '登入';

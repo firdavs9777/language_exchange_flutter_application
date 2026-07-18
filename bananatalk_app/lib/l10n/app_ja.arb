@@ -3011,5 +3011,14 @@
   "authWelcomeFeatureLearnTitle": "学ぶ",
   "authWelcomeFeatureLearnSubtitle": "AIチューター、クイズ、発音トレーニングがすべて1つのアプリに",
   "authWelcomeFeatureGrowTitle": "成長する",
-  "authWelcomeFeatureGrowSubtitle": "毎日の会話とコミュニティで本物の流暢さを身につけよう"
+  "authWelcomeFeatureGrowSubtitle": "毎日の会話とコミュニティで本物の流暢さを身につけよう",
+  "promoSpotlightCoinsHeadline": "会話の途中でコイン切れの心配なし",
+  "promoSpotlightCoinsSubtitle": "1日の上限に達したら、コインを使って追加の翻訳、チューターとのチャット、モーメントを解放しよう。",
+  "promoSpotlightRoomsHeadline": "トピックルームに参加しよう",
+  "promoSpotlightRoomsSubtitle": "ライブテキストルームに入って、気になるトピックについて話す学習者たちと練習しよう。",
+  "promoSpotlightVoiceHeadline": "ボイスルームに参加しよう",
+  "promoSpotlightVoiceSubtitle": "他の学習者とライブで話して、会話を重ねながら本物の話す自信を身につけよう。",
+  "promoSpotlightTryIt": "試してみる",
+  "promoSpotlightMaybeLater": "また今度",
+  "promoSpotlightDontShowAgain": "今後表示しない"
 }

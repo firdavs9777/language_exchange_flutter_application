@@ -24,31 +24,31 @@ class AppLocalizationsTl extends AppLocalizations {
   String get aiStudyPromoDismiss => 'Sa susunod na lang';
 
   @override
-  String get promoSpotlightCoinsHeadline => 'Never run out mid-conversation';
+  String get promoSpotlightCoinsHeadline => 'Huwag nang maubusan ng coins sa gitna ng usapan';
 
   @override
-  String get promoSpotlightCoinsSubtitle => 'Grab coins to unlock extra translations, tutor chats, and moments whenever you hit a daily limit.';
+  String get promoSpotlightCoinsSubtitle => 'Kumuha ng coins para ma-unlock ang extra na pagsasalin, chat sa tutor, at moments sa tuwing maaabot mo ang iyong daily limit.';
 
   @override
-  String get promoSpotlightRoomsHeadline => 'Join a topic room';
+  String get promoSpotlightRoomsHeadline => 'Sumali sa isang topic room';
 
   @override
-  String get promoSpotlightRoomsSubtitle => 'Drop into a live text room and practice with learners chatting about topics you care about.';
+  String get promoSpotlightRoomsSubtitle => 'Pumasok sa isang live na text room at mag-practice kasama ang mga learner na nag-uusap tungkol sa mga paksang mahalaga sa\'yo.';
 
   @override
-  String get promoSpotlightVoiceHeadline => 'Hop into a voice room';
+  String get promoSpotlightVoiceHeadline => 'Pumasok sa isang voice room';
 
   @override
-  String get promoSpotlightVoiceSubtitle => 'Talk live with other learners and build real speaking confidence, one conversation at a time.';
+  String get promoSpotlightVoiceSubtitle => 'Makipag-usap nang live sa ibang mga learner at magkaroon ng tunay na tiwala sa pagsasalita, isang usapan sa isang pagkakataon.';
 
   @override
-  String get promoSpotlightTryIt => 'Try it';
+  String get promoSpotlightTryIt => 'Subukan';
 
   @override
-  String get promoSpotlightMaybeLater => 'Maybe later';
+  String get promoSpotlightMaybeLater => 'Sa ibang pagkakataon na lang';
 
   @override
-  String get promoSpotlightDontShowAgain => 'Don\'t show this again';
+  String get promoSpotlightDontShowAgain => 'Huwag nang ipakita ulit ito';
 
   @override
   String get login => 'Mag-login';

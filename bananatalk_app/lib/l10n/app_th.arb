@@ -3011,5 +3011,14 @@
   "authWelcomeFeatureLearnTitle": "เรียนรู้",
   "authWelcomeFeatureLearnSubtitle": "ติวเตอร์ AI แบบทดสอบ และฝึกออกเสียง — ครบในแอปเดียว",
   "authWelcomeFeatureGrowTitle": "เติบโต",
-  "authWelcomeFeatureGrowSubtitle": "สร้างความคล่องแคล่วที่แท้จริงผ่านบทสนทนาประจำวันและชุมชน"
+  "authWelcomeFeatureGrowSubtitle": "สร้างความคล่องแคล่วที่แท้จริงผ่านบทสนทนาประจำวันและชุมชน",
+  "promoSpotlightCoinsHeadline": "ไม่มีวันเหรียญหมดกลางบทสนทนาอีกต่อไป",
+  "promoSpotlightCoinsSubtitle": "รับเหรียญเพื่อปลดล็อกการแปลเพิ่มเติม แชทกับติวเตอร์ และโมเมนต์ ทุกครั้งที่คุณถึงขีดจำกัดรายวัน",
+  "promoSpotlightRoomsHeadline": "เข้าร่วมห้องหัวข้อ",
+  "promoSpotlightRoomsSubtitle": "เข้าห้องแชทข้อความสดและฝึกฝนกับผู้เรียนที่พูดคุยเรื่องที่คุณสนใจ",
+  "promoSpotlightVoiceHeadline": "เข้าร่วมห้องเสียง",
+  "promoSpotlightVoiceSubtitle": "พูดคุยสดกับผู้เรียนคนอื่น ๆ และสร้างความมั่นใจในการพูดที่แท้จริง ทีละบทสนทนา",
+  "promoSpotlightTryIt": "ลองเลย",
+  "promoSpotlightMaybeLater": "ไว้ทีหลัง",
+  "promoSpotlightDontShowAgain": "ไม่ต้องแสดงอีก"
 }

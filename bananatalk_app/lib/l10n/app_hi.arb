@@ -3027,5 +3027,14 @@
   "authWelcomeFeatureLearnTitle": "सीखें",
   "authWelcomeFeatureLearnSubtitle": "एआई ट्यूटर, क्विज़ और उच्चारण प्रशिक्षण — सब एक ही ऐप में",
   "authWelcomeFeatureGrowTitle": "आगे बढ़ें",
-  "authWelcomeFeatureGrowSubtitle": "रोज़ाना बातचीत और समुदाय के ज़रिए असली प्रवाह हासिल करें"
+  "authWelcomeFeatureGrowSubtitle": "रोज़ाना बातचीत और समुदाय के ज़रिए असली प्रवाह हासिल करें",
+  "promoSpotlightCoinsHeadline": "बातचीत के बीच में कभी सिक्के खत्म न हों",
+  "promoSpotlightCoinsSubtitle": "जब भी आप अपनी दैनिक सीमा तक पहुँचें, तो अतिरिक्त अनुवाद, ट्यूटर चैट और मोमेंट्स अनलॉक करने के लिए सिक्के पाएं।",
+  "promoSpotlightRoomsHeadline": "एक टॉपिक रूम में शामिल हों",
+  "promoSpotlightRoomsSubtitle": "एक लाइव टेक्स्ट रूम में जाएं और उन विषयों पर बात करने वाले सीखने वालों के साथ अभ्यास करें जिनकी आपको परवाह है।",
+  "promoSpotlightVoiceHeadline": "एक वॉइस रूम में जाएं",
+  "promoSpotlightVoiceSubtitle": "अन्य सीखने वालों के साथ लाइव बात करें और एक-एक बातचीत से असली बोलने का आत्मविश्वास बनाएं।",
+  "promoSpotlightTryIt": "आज़माएं",
+  "promoSpotlightMaybeLater": "शायद बाद में",
+  "promoSpotlightDontShowAgain": "इसे फिर से न दिखाएं"
 }

@@ -2984,5 +2984,14 @@
   "authWelcomeFeatureLearnTitle": "Matuto",
   "authWelcomeFeatureLearnSubtitle": "AI tutor, mga quiz, at pagsasanay sa pagbigkas — lahat nasa isang app",
   "authWelcomeFeatureGrowTitle": "Lumago",
-  "authWelcomeFeatureGrowSubtitle": "Bumuo ng tunay na katatasan sa pamamagitan ng araw-araw na usapan at komunidad"
+  "authWelcomeFeatureGrowSubtitle": "Bumuo ng tunay na katatasan sa pamamagitan ng araw-araw na usapan at komunidad",
+  "promoSpotlightCoinsHeadline": "Huwag nang maubusan ng coins sa gitna ng usapan",
+  "promoSpotlightCoinsSubtitle": "Kumuha ng coins para ma-unlock ang extra na pagsasalin, chat sa tutor, at moments sa tuwing maaabot mo ang iyong daily limit.",
+  "promoSpotlightRoomsHeadline": "Sumali sa isang topic room",
+  "promoSpotlightRoomsSubtitle": "Pumasok sa isang live na text room at mag-practice kasama ang mga learner na nag-uusap tungkol sa mga paksang mahalaga sa'yo.",
+  "promoSpotlightVoiceHeadline": "Pumasok sa isang voice room",
+  "promoSpotlightVoiceSubtitle": "Makipag-usap nang live sa ibang mga learner at magkaroon ng tunay na tiwala sa pagsasalita, isang usapan sa isang pagkakataon.",
+  "promoSpotlightTryIt": "Subukan",
+  "promoSpotlightMaybeLater": "Sa ibang pagkakataon na lang",
+  "promoSpotlightDontShowAgain": "Huwag nang ipakita ulit ito"
 }

@@ -3251,5 +3251,14 @@
   "authWelcomeFeatureLearnTitle": "Apprendre",
   "authWelcomeFeatureLearnSubtitle": "Tuteur IA, quiz et entraînement à la prononciation — le tout dans une seule appli",
   "authWelcomeFeatureGrowTitle": "Progresser",
-  "authWelcomeFeatureGrowSubtitle": "Développe une vraie aisance grâce aux conversations quotidiennes et à la communauté"
+  "authWelcomeFeatureGrowSubtitle": "Développe une vraie aisance grâce aux conversations quotidiennes et à la communauté",
+  "promoSpotlightCoinsHeadline": "Ne manquez plus jamais de pièces en pleine conversation",
+  "promoSpotlightCoinsSubtitle": "Obtenez des pièces pour débloquer des traductions supplémentaires, des discussions avec le tuteur et des moments dès que vous atteignez votre limite quotidienne.",
+  "promoSpotlightRoomsHeadline": "Rejoignez un salon thématique",
+  "promoSpotlightRoomsSubtitle": "Entrez dans un salon de discussion en direct et entraînez-vous avec des apprenants qui parlent de sujets qui vous tiennent à cœur.",
+  "promoSpotlightVoiceHeadline": "Rejoignez un salon vocal",
+  "promoSpotlightVoiceSubtitle": "Parlez en direct avec d'autres apprenants et gagnez une vraie confiance à l'oral, conversation après conversation.",
+  "promoSpotlightTryIt": "Essayer",
+  "promoSpotlightMaybeLater": "Plus tard",
+  "promoSpotlightDontShowAgain": "Ne plus afficher ceci"
 }

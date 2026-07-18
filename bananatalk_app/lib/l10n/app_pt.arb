@@ -3027,5 +3027,14 @@
   "authWelcomeFeatureLearnTitle": "Aprenda",
   "authWelcomeFeatureLearnSubtitle": "Tutor de IA, quizzes e treinamento de pronúncia — tudo em um só app",
   "authWelcomeFeatureGrowTitle": "Evolua",
-  "authWelcomeFeatureGrowSubtitle": "Desenvolva fluência real através de conversas diárias e comunidade"
+  "authWelcomeFeatureGrowSubtitle": "Desenvolva fluência real através de conversas diárias e comunidade",
+  "promoSpotlightCoinsHeadline": "Nunca fique sem moedas no meio da conversa",
+  "promoSpotlightCoinsSubtitle": "Consiga moedas para desbloquear traduções extras, chats com o tutor e momentos sempre que atingir o limite diário.",
+  "promoSpotlightRoomsHeadline": "Entre em uma sala de tópico",
+  "promoSpotlightRoomsSubtitle": "Entre em uma sala de texto ao vivo e pratique com aprendizes que conversam sobre assuntos que você gosta.",
+  "promoSpotlightVoiceHeadline": "Entre em uma sala de voz",
+  "promoSpotlightVoiceSubtitle": "Converse ao vivo com outros aprendizes e ganhe confiança real para falar, uma conversa de cada vez.",
+  "promoSpotlightTryIt": "Experimentar",
+  "promoSpotlightMaybeLater": "Talvez mais tarde",
+  "promoSpotlightDontShowAgain": "Não mostrar isso novamente"
 }

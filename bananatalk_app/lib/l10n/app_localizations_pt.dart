@@ -24,31 +24,31 @@ class AppLocalizationsPt extends AppLocalizations {
   String get aiStudyPromoDismiss => 'Talvez depois';
 
   @override
-  String get promoSpotlightCoinsHeadline => 'Never run out mid-conversation';
+  String get promoSpotlightCoinsHeadline => 'Nunca fique sem moedas no meio da conversa';
 
   @override
-  String get promoSpotlightCoinsSubtitle => 'Grab coins to unlock extra translations, tutor chats, and moments whenever you hit a daily limit.';
+  String get promoSpotlightCoinsSubtitle => 'Consiga moedas para desbloquear traduções extras, chats com o tutor e momentos sempre que atingir o limite diário.';
 
   @override
-  String get promoSpotlightRoomsHeadline => 'Join a topic room';
+  String get promoSpotlightRoomsHeadline => 'Entre em uma sala de tópico';
 
   @override
-  String get promoSpotlightRoomsSubtitle => 'Drop into a live text room and practice with learners chatting about topics you care about.';
+  String get promoSpotlightRoomsSubtitle => 'Entre em uma sala de texto ao vivo e pratique com aprendizes que conversam sobre assuntos que você gosta.';
 
   @override
-  String get promoSpotlightVoiceHeadline => 'Hop into a voice room';
+  String get promoSpotlightVoiceHeadline => 'Entre em uma sala de voz';
 
   @override
-  String get promoSpotlightVoiceSubtitle => 'Talk live with other learners and build real speaking confidence, one conversation at a time.';
+  String get promoSpotlightVoiceSubtitle => 'Converse ao vivo com outros aprendizes e ganhe confiança real para falar, uma conversa de cada vez.';
 
   @override
-  String get promoSpotlightTryIt => 'Try it';
+  String get promoSpotlightTryIt => 'Experimentar';
 
   @override
-  String get promoSpotlightMaybeLater => 'Maybe later';
+  String get promoSpotlightMaybeLater => 'Talvez mais tarde';
 
   @override
-  String get promoSpotlightDontShowAgain => 'Don\'t show this again';
+  String get promoSpotlightDontShowAgain => 'Não mostrar isso novamente';
 
   @override
   String get login => 'Entrar';

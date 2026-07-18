@@ -2702,5 +2702,14 @@
   "authWelcomeFeatureLearnTitle": "學習",
   "authWelcomeFeatureLearnSubtitle": "AI 導師、測驗和發音訓練——全部集於一款應用程式",
   "authWelcomeFeatureGrowTitle": "成長",
-  "authWelcomeFeatureGrowSubtitle": "透過每日對話和社群建立真正的語言流暢度"
+  "authWelcomeFeatureGrowSubtitle": "透過每日對話和社群建立真正的語言流暢度",
+  "promoSpotlightCoinsHeadline": "聊到一半再也不怕金幣用完",
+  "promoSpotlightCoinsSubtitle": "每次達到每日上限時，取得金幣即可解鎖額外翻譯、導師聊天和精采時刻。",
+  "promoSpotlightRoomsHeadline": "加入主題房間",
+  "promoSpotlightRoomsSubtitle": "進入即時文字房間，和同樣關心這些話題的學習者一起練習。",
+  "promoSpotlightVoiceHeadline": "加入語音房間",
+  "promoSpotlightVoiceSubtitle": "和其他學習者即時對話，在一次次交流中建立真正的口說自信。",
+  "promoSpotlightTryIt": "立即試試",
+  "promoSpotlightMaybeLater": "以後再說",
+  "promoSpotlightDontShowAgain": "不再顯示"
 }

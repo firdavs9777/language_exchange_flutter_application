@@ -24,31 +24,31 @@ class AppLocalizationsTg extends AppLocalizations {
   String get aiStudyPromoDismiss => 'Шояд баъдтар';
 
   @override
-  String get promoSpotlightCoinsHeadline => 'Never run out mid-conversation';
+  String get promoSpotlightCoinsHeadline => 'Ҳеҷ гоҳ дар миёнаи сӯҳбат тангаҳоятон тамом нашаванд';
 
   @override
-  String get promoSpotlightCoinsSubtitle => 'Grab coins to unlock extra translations, tutor chats, and moments whenever you hit a daily limit.';
+  String get promoSpotlightCoinsSubtitle => 'Ҳар вақте ки ба ҳадди рӯзонаи худ мерасед, тангаҳо гиред, то тарҷумаҳои иловагӣ, сӯҳбат бо муаллим ва лаҳзаҳоро кушоед.';
 
   @override
-  String get promoSpotlightRoomsHeadline => 'Join a topic room';
+  String get promoSpotlightRoomsHeadline => 'Ба як утоқи мавзуӣ ҳамроҳ шавед';
 
   @override
-  String get promoSpotlightRoomsSubtitle => 'Drop into a live text room and practice with learners chatting about topics you care about.';
+  String get promoSpotlightRoomsSubtitle => 'Ба утоқи матнии зинда ворид шавед ва бо забономӯзоне, ки дар бораи мавзуъҳои писандидаатон сӯҳбат мекунанд, машқ кунед.';
 
   @override
-  String get promoSpotlightVoiceHeadline => 'Hop into a voice room';
+  String get promoSpotlightVoiceHeadline => 'Ба утоқи овозӣ ворид шавед';
 
   @override
-  String get promoSpotlightVoiceSubtitle => 'Talk live with other learners and build real speaking confidence, one conversation at a time.';
+  String get promoSpotlightVoiceSubtitle => 'Бо забономӯзони дигар зинда сӯҳбат кунед ва бо ҳар сӯҳбат боварии воқеии гуфторӣ пайдо кунед.';
 
   @override
-  String get promoSpotlightTryIt => 'Try it';
+  String get promoSpotlightTryIt => 'Санҷед';
 
   @override
-  String get promoSpotlightMaybeLater => 'Maybe later';
+  String get promoSpotlightMaybeLater => 'Шояд баъдтар';
 
   @override
-  String get promoSpotlightDontShowAgain => 'Don\'t show this again';
+  String get promoSpotlightDontShowAgain => 'Дигар нишон надиҳед';
 
   @override
   String get login => 'Ворид шавед';
