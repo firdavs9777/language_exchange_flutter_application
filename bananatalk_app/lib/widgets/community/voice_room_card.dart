@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/models/community/voice_room_model.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/image_utils.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 
 /// Voice room card for room listings
 class VoiceRoomCard extends StatelessWidget {
@@ -211,10 +213,14 @@ class VoiceRoomCard extends StatelessWidget {
       ),
       child: ClipOval(
         child: room.hostAvatar.isNotEmpty
-            ? Image.network(
-                room.hostAvatar,
+            ? CachedImageWidget(
+                imageUrl: room.hostAvatar,
+                width: 44,
+                height: 44,
                 fit: BoxFit.cover,
-                errorBuilder: (_, __, ___) => _buildAvatarFallback(room.hostName),
+                quality: ImageQuality.thumbnail,
+                highQuality: false,
+                errorWidget: _buildAvatarFallback(room.hostName),
               )
             : _buildAvatarFallback(room.hostName),
       ),
@@ -263,10 +269,14 @@ class VoiceRoomCard extends StatelessWidget {
                     ),
                     child: ClipOval(
                       child: room.participants[i].avatar.isNotEmpty
-                          ? Image.network(
-                              room.participants[i].avatar,
+                          ? CachedImageWidget(
+                              imageUrl: room.participants[i].avatar,
+                              width: 32,
+                              height: 32,
                               fit: BoxFit.cover,
-                              errorBuilder: (_, __, ___) =>
+                              quality: ImageQuality.thumbnail,
+                              highQuality: false,
+                              errorWidget:
                                   _buildAvatarFallback(room.participants[i].name),
                             )
                           : _buildAvatarFallback(room.participants[i].name),

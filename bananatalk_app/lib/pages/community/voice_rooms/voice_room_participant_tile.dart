@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:bananatalk_app/models/community/voice_room_model.dart';
+import 'package:bananatalk_app/utils/image_utils.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 
 /// A single participant tile shown in the voice room grid.
 ///
@@ -77,11 +79,14 @@ class VoiceRoomParticipantTile extends StatelessWidget {
                   ),
                   child: ClipOval(
                     child: participant.avatar.isNotEmpty
-                        ? Image.network(
-                            participant.avatar,
+                        ? CachedImageWidget(
+                            imageUrl: participant.avatar,
+                            width: 72,
+                            height: 72,
                             fit: BoxFit.cover,
-                            errorBuilder: (_, __, ___) =>
-                                _buildAvatarFallback(),
+                            quality: ImageQuality.thumbnail,
+                            highQuality: false,
+                            errorWidget: _buildAvatarFallback(),
                           )
                         : _buildAvatarFallback(),
                   ),

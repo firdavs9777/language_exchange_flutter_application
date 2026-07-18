@@ -30,7 +30,11 @@ class VoiceRoomsTab extends ConsumerStatefulWidget {
   ConsumerState<VoiceRoomsTab> createState() => _VoiceRoomsTabState();
 }
 
-class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
+class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab>
+    with AutomaticKeepAliveClientMixin<VoiceRoomsTab> {
+  @override
+  bool get wantKeepAlive => true;
+
   late Future<List<VoiceRoom>> _roomsFuture;
   List<VoiceRoom> _scheduledRooms = [];
 
@@ -164,6 +168,7 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context); // AutomaticKeepAliveClientMixin
     final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       backgroundColor: Colors.transparent,
