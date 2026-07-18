@@ -18,6 +18,7 @@ import 'package:bananatalk_app/pages/community/voice_rooms/voice_room_chat_panel
 import 'package:bananatalk_app/pages/community/voice_rooms/voice_room_host_menu.dart';
 import 'package:bananatalk_app/pages/community/voice_rooms/voice_room_participant_actions.dart';
 import 'package:bananatalk_app/pages/community/voice_rooms/voice_room_reconnect_banner.dart';
+import 'package:bananatalk_app/pages/community/voice_rooms/post_room_connect_sheet.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/widgets/voice_room/floating_reaction.dart';
 import 'package:bananatalk_app/widgets/voice_room/reaction_picker.dart';
@@ -39,6 +40,15 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
 
   bool _chatVisible = false;
   int _lastSeenChatCount = 0;
+
+  /// True while the post-room "connect with who you talked to" sheet
+  /// (`showPostRoomConnectSheet`) is up. `leaveRoom()` resets the provider's
+  /// `currentRoom` to null in the background (see `_leaveRoom`), which would
+  /// otherwise trip the auto-pop `ref.listen` below and pop the modal sheet
+  /// itself (it's the top route on this screen's Navigator) instead of
+  /// leaving it open for the user to tap "Send wave". Guarding the auto-pop
+  /// on this flag keeps the sheet up until it's explicitly dismissed.
+  bool _showingPostRoomSheet = false;
 
   /// GlobalKeys for each participant tile so [_showReactionFor] can
   /// resolve a tile's screen position and anchor a floating emoji over
@@ -226,6 +236,20 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
           ),
           ElevatedButton(
             onPressed: () async {
+              // Capture the OTHER participants BEFORE leaveRoom() fires —
+              // it resets the provider's state (participants included) to
+              // a blank VoiceRoomState once its internal await resolves.
+              final currentUserId = ref.read(authServiceProvider).userId;
+              final rawParticipants =
+                  ref.read(voiceRoomProvider).participants.isNotEmpty
+                      ? ref.read(voiceRoomProvider).participants
+                      : widget.room.participants;
+              final otherParticipants = rawParticipants
+                  .where((p) =>
+                      p.id.isNotEmpty &&
+                      (currentUserId.isEmpty || p.id != currentUserId))
+                  .toList();
+
               ref.read(voiceRoomProvider).leaveRoom();
               Navigator.pop(dialogContext);
               final adService = AdService();
@@ -237,6 +261,15 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
                     );
                   }
                 });
+              }
+              // Skip entirely if the user was alone in the room. Otherwise
+              // show the "connect with who you talked to" sheet ON TOP of
+              // this still-mounted screen (see `_showingPostRoomSheet`
+              // above for why), then pop this screen once it's dismissed.
+              if (context.mounted && otherParticipants.isNotEmpty) {
+                _showingPostRoomSheet = true;
+                await showPostRoomConnectSheet(context, otherParticipants);
+                _showingPostRoomSheet = false;
               }
               if (context.mounted) Navigator.pop(context);
             },
@@ -295,7 +328,10 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
       final nowOutOfRoom = next.currentRoom == null;
       final joinFailed =
           wasJoining && !next.isLoading && nowOutOfRoom && next.state.error != null;
-      if ((wasInRoom || joinFailed) && nowOutOfRoom && context.mounted) {
+      if ((wasInRoom || joinFailed) &&
+          nowOutOfRoom &&
+          context.mounted &&
+          !_showingPostRoomSheet) {
         final reason = next.state.error;
         if (reason != null && reason.isNotEmpty) {
           showCommunitySnackBar(
