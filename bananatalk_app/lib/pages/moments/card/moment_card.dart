@@ -168,15 +168,6 @@ class _MomentCardState extends ConsumerState<MomentCard> {
     }
   }
 
-  /// Like-only variant for double-tap-to-like (Instagram-style): a no-op on
-  /// the like state when the post is already liked, so an accidental
-  /// double-tap on an already-liked post never silently unlikes it. The
-  /// heart-burst animation in [MomentCardDoubleTap] still plays either way.
-  void likeOnlyDoubleTap() {
-    if (isLiked) return;
-    toggleLike();
-  }
-
   void _showReactionPicker(BuildContext context) {
     final renderBox =
         _likeButtonKey.currentContext?.findRenderObject() as RenderBox?;
@@ -462,7 +453,7 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                       context: context,
                       builder: (context) => ReportDialog(
                         type: 'user',
-                        reportedId: widget.moments.user.id,
+                        reportedId: widget.moments.id,
                         reportedUserId: widget.moments.user.id,
                       ),
                     );
@@ -678,7 +669,7 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   MomentCardDoubleTap(
-                    onDoubleTap: likeOnlyDoubleTap,
+                    onDoubleTap: toggleLike,
                     child: MomentCardGradient(moment: widget.moments),
                   ),
                   // Translate chip for text/gradient moments too (e.g. a
@@ -715,7 +706,7 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 12),
                   child: MomentCardDoubleTap(
-                    onDoubleTap: likeOnlyDoubleTap,
+                    onDoubleTap: toggleLike,
                     child: GestureDetector(
                       onTap: () {
                         Navigator.push(
@@ -740,7 +731,7 @@ class _MomentCardState extends ConsumerState<MomentCard> {
               Padding(
                 padding: const EdgeInsets.only(bottom: 8),
                 child: MomentCardDoubleTap(
-                  onDoubleTap: likeOnlyDoubleTap,
+                  onDoubleTap: toggleLike,
                   child: MomentCardMedia(
                     imageUrls: widget.moments.imageUrls,
                     audio: widget.moments.audio,
@@ -751,7 +742,7 @@ class _MomentCardState extends ConsumerState<MomentCard> {
               Padding(
                 padding: const EdgeInsets.only(bottom: 8),
                 child: MomentCardDoubleTap(
-                  onDoubleTap: likeOnlyDoubleTap,
+                  onDoubleTap: toggleLike,
                   child: MomentCardMedia(imageUrls: widget.moments.imageUrls),
                 ),
               ),
