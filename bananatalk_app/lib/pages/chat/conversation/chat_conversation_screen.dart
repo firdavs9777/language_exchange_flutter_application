@@ -42,6 +42,7 @@ import 'package:bananatalk_app/pages/chat/conversation/sections/conversation_scr
 import 'package:bananatalk_app/pages/chat/conversation/sections/conversation_setup.dart';
 import 'package:bananatalk_app/utils/haptic_utils.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
+import 'package:bananatalk_app/pages/chat/wallpaper/premium_wallpapers.dart';
 
 class ChatScreen extends ConsumerStatefulWidget {
   final String userId;
@@ -1848,6 +1849,15 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
 
     if (_chatWallpaper!.startsWith('gradient_')) {
       return BoxDecoration(gradient: _getGradient(_chatWallpaper!));
+    }
+
+    // Coin-unlockable "Premium ✨" gradients (Task 12) — same shared
+    // definitions the picker renders from, resolved by the `premium_`
+    // prefix. Checked after the free `gradient_` prefix so existing free
+    // presets keep resolving exactly as before.
+    final premiumGradient = premiumWallpaperGradient(_chatWallpaper!);
+    if (premiumGradient != null) {
+      return BoxDecoration(gradient: premiumGradient);
     }
 
     return BoxDecoration(color: _getColor(_chatWallpaper!));

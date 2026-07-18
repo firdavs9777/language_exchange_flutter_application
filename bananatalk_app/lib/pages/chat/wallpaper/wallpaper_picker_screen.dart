@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:bananatalk_app/services/conversation_service.dart';
@@ -8,8 +9,11 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/chat/widgets/chat_snackbar.dart';
+import 'package:bananatalk_app/pages/chat/wallpaper/premium_wallpapers.dart';
+import 'package:bananatalk_app/providers/coins_provider.dart';
+import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
 
-class WallpaperPickerScreen extends StatefulWidget {
+class WallpaperPickerScreen extends ConsumerStatefulWidget {
   final String conversationId;
   final String userName;
   final VoidCallback? onThemeChanged;
@@ -22,14 +26,17 @@ class WallpaperPickerScreen extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<WallpaperPickerScreen> createState() => _WallpaperPickerScreenState();
+  ConsumerState<WallpaperPickerScreen> createState() =>
+      _WallpaperPickerScreenState();
 }
 
-class _WallpaperPickerScreenState extends State<WallpaperPickerScreen> {
+class _WallpaperPickerScreenState
+    extends ConsumerState<WallpaperPickerScreen> {
   final ConversationService _conversationService = ConversationService();
   String? _selectedPreset;
   String? _customImagePath;
   bool _isLoading = false;
+  bool _unlockingPremium = false;
 
   // Preset color themes - adapts to light/dark mode
   List<Map<String, dynamic>> _getPresets(bool isDark) => isDark
@@ -227,6 +234,20 @@ class _WallpaperPickerScreenState extends State<WallpaperPickerScreen> {
             .toList();
       }
 
+      // Premium (coin-unlockable) gradients persist the same
+      // `gradientColors` shape as free gradients for parity — the actual
+      // render side resolves purely from `preset`'s `premium_` name via
+      // the shared `premiumWallpapers` list, not from this field.
+      if (_selectedPreset != null && isPremiumWallpaperName(_selectedPreset!)) {
+        final premium = premiumWallpapers.firstWhere(
+          (w) => w.name == _selectedPreset,
+          orElse: () => premiumWallpapers.first,
+        );
+        theme['gradientColors'] = premium.colors
+            .map((c) => '#${c.value.toRadixString(16).substring(2)}')
+            .toList();
+      }
+
       if (_customImagePath != null && _selectedPreset == 'custom') {
         // For custom images, we would upload to server
         // For now, just save locally
@@ -258,6 +279,236 @@ class _WallpaperPickerScreenState extends State<WallpaperPickerScreen> {
         Navigator.of(context).pop(true);
         showChatSnackBar(context, message: 'Wallpaper saved locally', type: ChatSnackBarType.info);
       }
+    }
+  }
+
+  /// Renders the "Premium ✨" gradient section, or nothing at all.
+  ///
+  /// Hidden entirely (returns `[]`) when coins are off server-side or the
+  /// `wallpaper` featureKey isn't in the live unlock catalog — matches the
+  /// [UnlockCta] "render nothing rather than guess" convention so this
+  /// screen never shows a coin surface the backend hasn't turned on.
+  List<Widget> _buildPremiumSection() {
+    final coinsEnabled = ref.watch(appConfigProvider).maybeWhen(
+          data: (config) => config?.coinsEnabled ?? false,
+          orElse: () => false,
+        );
+    if (!coinsEnabled) return const [];
+
+    final catalogAsync = ref.watch(coinUnlockCatalogProvider);
+    final entry = catalogAsync.maybeWhen(
+      data: (catalog) => catalog[premiumWallpaperFeatureKey],
+      orElse: () => null,
+    );
+    if (entry == null || entry.cost <= 0) return const [];
+
+    final unlockedAsync = ref.watch(coinUnlockedFeaturesProvider);
+    final isUnlocked = unlockedAsync.maybeWhen(
+      data: (unlocked) => unlocked.contains(premiumWallpaperFeatureKey),
+      orElse: () => false,
+    );
+    // While the entitlement is still loading we don't yet know if this was
+    // already purchased — treat taps as locked-but-not-actionable rather
+    // than risk firing `unlock` a second time once it resolves to true.
+    final entitlementLoading = unlockedAsync.isLoading;
+
+    return [
+      Text(
+        'Premium ✨',
+        style: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+          color: context.textPrimary,
+        ),
+      ),
+      Spacing.gapMD,
+      GridView.builder(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 4,
+          crossAxisSpacing: 12,
+          mainAxisSpacing: 12,
+          childAspectRatio: 0.8,
+        ),
+        itemCount: premiumWallpapers.length,
+        itemBuilder: (context, index) {
+          final wallpaper = premiumWallpapers[index];
+          final isSelected = _selectedPreset == wallpaper.name;
+
+          return GestureDetector(
+            onTap: () => _handlePremiumTap(
+              wallpaper,
+              cost: entry.cost,
+              isUnlocked: isUnlocked,
+              entitlementLoading: entitlementLoading,
+            ),
+            child: Column(
+              children: [
+                Stack(
+                  children: [
+                    Container(
+                      width: 60,
+                      height: 60,
+                      decoration: BoxDecoration(
+                        gradient: wallpaper.gradient,
+                        borderRadius: AppRadius.borderMD,
+                        border: Border.all(
+                          color: isSelected
+                              ? AppColors.primary
+                              : context.dividerColor,
+                          width: isSelected ? 3 : 1,
+                        ),
+                        boxShadow: isSelected
+                            ? [
+                                BoxShadow(
+                                  color: AppColors.primary.withValues(alpha: 0.3),
+                                  blurRadius: 8,
+                                  spreadRadius: 2,
+                                ),
+                              ]
+                            : null,
+                      ),
+                    ),
+                    if (!isUnlocked)
+                      Positioned.fill(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.black.withValues(alpha: 0.45),
+                            borderRadius: AppRadius.borderMD,
+                          ),
+                          child: Center(
+                            child: entitlementLoading
+                                ? const SizedBox(
+                                    width: 16,
+                                    height: 16,
+                                    child: CircularProgressIndicator(
+                                      strokeWidth: 2,
+                                      color: Colors.white,
+                                    ),
+                                  )
+                                : Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      const Icon(
+                                        Icons.lock,
+                                        color: Colors.white,
+                                        size: 16,
+                                      ),
+                                      Text(
+                                        '💎${entry.cost}',
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
+                Spacing.gapXS,
+                Text(
+                  wallpaper.label,
+                  style: TextStyle(
+                    fontSize: 11,
+                    color: context.textPrimary,
+                    fontWeight:
+                        isSelected ? FontWeight.bold : FontWeight.normal,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+          );
+        },
+      ),
+      Spacing.gapLG,
+    ];
+  }
+
+  /// Tap handler for a premium preset tile.
+  ///
+  /// - Already unlocked -> selects it exactly like a free preset, no
+  ///   network call (never re-charge an already-unlocked feature).
+  /// - Entitlement still loading, or an unlock is already in flight ->
+  ///   no-op, so a double-tap can't fire two spends.
+  /// - Locked -> confirm dialog showing the live cost, then spends via
+  ///   `CoinApiClient.unlock`; on success re-reads entitlements so the
+  ///   whole pack becomes selectable immediately.
+  Future<void> _handlePremiumTap(
+    PremiumWallpaper wallpaper, {
+    required int cost,
+    required bool isUnlocked,
+    required bool entitlementLoading,
+  }) async {
+    if (isUnlocked) {
+      setState(() {
+        _selectedPreset = wallpaper.name;
+        _customImagePath = null;
+      });
+      return;
+    }
+
+    if (entitlementLoading || _unlockingPremium) return;
+
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text('Unlock premium wallpapers'),
+        content: Text(
+          'Unlock all Premium ✨ wallpapers for 💎$cost coins? This unlocks the whole pack for good.',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(dialogContext).pop(false),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(dialogContext).pop(true),
+            child: const Text('Unlock'),
+          ),
+        ],
+      ),
+    );
+    if (confirmed != true || !mounted) return;
+
+    setState(() => _unlockingPremium = true);
+    try {
+      final client = ref.read(coinApiClientProvider);
+      final response = await client.unlock(premiumWallpaperFeatureKey);
+      if (!mounted) return;
+
+      if (response.success) {
+        refreshCoinBalance(ref);
+        refreshCoinUnlockedFeatures(ref);
+        setState(() {
+          _selectedPreset = wallpaper.name;
+          _customImagePath = null;
+        });
+        showChatSnackBar(
+          context,
+          message: 'Premium wallpapers unlocked!',
+          type: ChatSnackBarType.success,
+        );
+      } else if (response.statusCode == 402) {
+        showChatSnackBar(
+          context,
+          message: 'Not enough coins for that.',
+          type: ChatSnackBarType.error,
+        );
+      } else {
+        showChatSnackBar(
+          context,
+          message: response.error ?? 'Could not unlock right now.',
+          type: ChatSnackBarType.error,
+        );
+      }
+    } finally {
+      if (mounted) setState(() => _unlockingPremium = false);
     }
   }
 
@@ -458,6 +709,11 @@ class _WallpaperPickerScreenState extends State<WallpaperPickerScreen> {
 
             Spacing.gapLG,
 
+            // Premium Gradients Section (coin-unlockable, Task 12) — hidden
+            // entirely when coins are off or the `wallpaper` catalog key
+            // isn't present server-side.
+            ..._buildPremiumSection(),
+
             // Custom Image Section
             Text(
               'Custom Image',
@@ -571,14 +827,21 @@ class _WallpaperPickerScreenState extends State<WallpaperPickerScreen> {
           ),
         );
       } else {
-        final presets = _getPresets(isDark);
-        final preset = presets.firstWhere(
-          (p) => p['name'] == _selectedPreset,
-          orElse: () => {'backgroundColor': isDark ? AppColors.backgroundDark : AppColors.gray100},
-        );
-        background = Container(
-          color: preset['backgroundColor'] as Color,
-        );
+        final premiumGradient = premiumWallpaperGradient(_selectedPreset ?? '');
+        if (premiumGradient != null) {
+          background = Container(
+            decoration: BoxDecoration(gradient: premiumGradient),
+          );
+        } else {
+          final presets = _getPresets(isDark);
+          final preset = presets.firstWhere(
+            (p) => p['name'] == _selectedPreset,
+            orElse: () => {'backgroundColor': isDark ? AppColors.backgroundDark : AppColors.gray100},
+          );
+          background = Container(
+            color: preset['backgroundColor'] as Color,
+          );
+        }
       }
     }
 

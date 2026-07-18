@@ -179,6 +179,28 @@ class CoinApiClient {
     );
   }
 
+  /// Durable per-featureKey entitlements from `GET /coins/balance`'s
+  /// `unlocks` map — e.g. `{ wallpaper: 1 }` means the coin-unlockable
+  /// premium chat wallpapers are unlocked. Unlike [getUnlockCatalog] (cost
+  /// to unlock) this is *whether the user already has* the unlock, so it
+  /// survives reinstall/device (server-side, tied to the account) and
+  /// callers MUST check it before spending coins again — never re-charge
+  /// an already-unlocked feature.
+  ///
+  /// Hits the same endpoint as [getBalance] but parses a different field;
+  /// kept as a separate method (rather than changing [getBalance]'s
+  /// return type) so existing `int`-typed callers are unaffected.
+  Future<Set<String>> getUnlockedFeatures() async {
+    final res = await _client.get(Endpoints.coinsBalanceURL);
+    if (!res.success) {
+      throw CoinApiException(
+        res.error ?? 'Failed to load unlocked features',
+        statusCode: res.statusCode,
+      );
+    }
+    return _extractUnlockedFeatures(res.data);
+  }
+
   int _extractBalance(dynamic data) {
     if (data is Map) {
       final direct = data['balance'];
@@ -189,6 +211,21 @@ class CoinApiClient {
       }
     }
     return 0;
+  }
+
+  Set<String> _extractUnlockedFeatures(dynamic data) {
+    Map? unlocks;
+    if (data is Map) {
+      unlocks = data['unlocks'] as Map?;
+      if (unlocks == null && data['data'] is Map) {
+        unlocks = (data['data'] as Map)['unlocks'] as Map?;
+      }
+    }
+    final result = <String>{};
+    unlocks?.forEach((key, value) {
+      if (value is num && value >= 1) result.add(key.toString());
+    });
+    return result;
   }
 }
 

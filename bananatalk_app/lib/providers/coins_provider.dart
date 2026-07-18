@@ -37,6 +37,16 @@ final dailyRewardStatusProvider = FutureProvider<bool>((ref) async {
   return client.getDailyRewardStatus();
 });
 
+/// Durable per-featureKey unlock entitlements (Task 12 — premium chat
+/// wallpapers, the first consumer). `unlocked.contains('wallpaper')` means
+/// the premium gradient pack is already paid for — durable across
+/// reinstall/device, so surfaces gating on this MUST NOT call
+/// `CoinApiClient.unlock` again once it's true.
+final coinUnlockedFeaturesProvider = FutureProvider<Set<String>>((ref) async {
+  final client = ref.watch(coinApiClientProvider);
+  return client.getUnlockedFeatures();
+});
+
 /// Refreshes the coin balance after a purchase or unlock succeeds, so the
 /// balance pill and coin shop reflect the new value immediately rather
 /// than waiting for their next natural rebuild.
@@ -51,4 +61,11 @@ void refreshCoinBalance(WidgetRef ref) {
 /// it stays cached for the whole session).
 void refreshDailyRewardStatus(WidgetRef ref) {
   ref.invalidate(dailyRewardStatusProvider);
+}
+
+/// Refreshes durable unlock entitlements after a successful
+/// `CoinApiClient.unlock` call, so gated surfaces (e.g. the premium
+/// wallpaper pack) flip from locked to unlocked immediately.
+void refreshCoinUnlockedFeatures(WidgetRef ref) {
+  ref.invalidate(coinUnlockedFeaturesProvider);
 }
