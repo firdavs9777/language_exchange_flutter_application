@@ -18,6 +18,8 @@ import 'package:bananatalk_app/pages/chat/dialogs/chat_options_menu.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/pages/chat/widgets/chat_snackbar.dart';
 import 'package:bananatalk_app/widgets/navigation/app_back_button.dart';
+import 'package:bananatalk_app/widgets/coins/coin_balance_pill.dart';
+import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
 
 class ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
   final String userName;
@@ -264,6 +266,12 @@ class ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
         ? ref.watch(canCallProvider(userId!))
         : false;
 
+    // Passive coin-awareness nudge in the chat header (gated server-side).
+    final coinsEnabled = ref.watch(appConfigProvider).maybeWhen(
+          data: (config) => config?.coinsEnabled ?? false,
+          orElse: () => false,
+        );
+
     return AppBar(
       backgroundColor: context.surfaceColor,
       elevation: 0,
@@ -335,6 +343,12 @@ class ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
         ),
       ),
       actions: [
+        // Coin balance pill — passive "you have coins to spend" awareness.
+        if (coinsEnabled)
+          const Padding(
+            padding: EdgeInsets.only(right: 2),
+            child: Center(child: CoinBalancePill()),
+          ),
         // Video call button
         _CallButton(
           icon: Icons.videocam_rounded,
