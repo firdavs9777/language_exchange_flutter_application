@@ -3,10 +3,14 @@ import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/models/room.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 
-/// One hub row in the Rooms directory: flag, title, member/online counts,
+/// One room row in the Rooms directory: flag, title, member/online counts,
 /// and a short description. Mirrors the visual density of
 /// `VoiceRoomCard`/community list rows so the Rooms tab feels consistent
 /// with the rest of the Community screen.
+///
+/// Doubles as the row for both backend-seeded hubs and user-created topic
+/// rooms (`room.isTopicRoom`) — topic rooms get a small "Topic" chip so
+/// they read as distinct from the language hub they're nested under.
 class RoomCard extends StatelessWidget {
   const RoomCard({
     super.key,
@@ -68,6 +72,26 @@ class RoomCard extends StatelessWidget {
                               'Your hub',
                               style: context.caption.copyWith(
                                 color: context.primaryColor,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                        ],
+                        if (room.isTopicRoom) ...[
+                          Spacing.hGapSM,
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 8,
+                              vertical: 2,
+                            ),
+                            decoration: BoxDecoration(
+                              color: context.textMuted.withValues(alpha: 0.14),
+                              borderRadius: AppRadius.borderSM,
+                            ),
+                            child: Text(
+                              'Topic',
+                              style: context.caption.copyWith(
+                                color: context.textSecondary,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
