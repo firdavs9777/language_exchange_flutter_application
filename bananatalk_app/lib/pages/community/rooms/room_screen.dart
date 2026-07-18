@@ -587,6 +587,10 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
               hasMoreMessages: _hasMoreMessages,
               isGroup: true,
               onReport: _reportMessage,
+              // "Tap to say hi" in the empty state — send a 👋 to the room.
+              // Gated to members who can compose (banned/pending users can't).
+              onSendWave:
+                  _canCompose ? () => _sendMessage(messageText: '👋') : null,
             ),
           ),
           if (_needsJoinRequest)
