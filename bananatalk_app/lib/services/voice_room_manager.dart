@@ -521,6 +521,16 @@ class VoiceRoomManager {
   }
 
   void dispose() {
+    // Reset init guard state so a future initialize() call (e.g. after a
+    // Riverpod container teardown/rebuild on logout/login) doesn't hit the
+    // early-return in initialize() and skip re-subscribing the socket
+    // listeners we're about to cancel below. ChatSocketService is itself a
+    // singleton, so without this reset `_chatSocketService == chatSocketService`
+    // would always be true on re-init and the room would silently stop
+    // receiving participant/chat/mute/host/ended/kicked events.
+    _isInitialized = false;
+    _chatSocketService = null;
+
     _heartbeatTimer?.cancel();
     _participantJoinedSub?.cancel();
     _participantLeftSub?.cancel();
