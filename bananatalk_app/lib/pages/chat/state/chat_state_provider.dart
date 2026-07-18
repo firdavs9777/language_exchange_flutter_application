@@ -136,6 +136,16 @@ class ChatStateNotifier extends StateNotifier<ChatState> {
       state = state.copyWith(messages: messages);
     };
 
+    _socketManager!.onMessageDelivered = (messageId) {
+      final messages = state.messages.map((msg) {
+        if (msg.id == messageId && !msg.delivered && !msg.read) {
+          return msg.copyWith(delivered: true);
+        }
+        return msg;
+      }).toList();
+      state = state.copyWith(messages: messages);
+    };
+
     await _socketManager!.initialize();
   }
 

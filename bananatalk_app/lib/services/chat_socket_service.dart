@@ -42,6 +42,7 @@ class ChatSocketService {
   final _typingController = StreamController<dynamic>.broadcast();
   final _statusUpdateController = StreamController<dynamic>.broadcast();
   final _messageReadController = StreamController<dynamic>.broadcast();
+  final _messageDeliveredController = StreamController<dynamic>.broadcast();
   final _connectionStateController = StreamController<bool>.broadcast();
   final _messageDeliveryController =
       StreamController<Map<String, dynamic>>.broadcast();
@@ -89,6 +90,7 @@ class ChatSocketService {
   Stream<dynamic> get onTyping => _typingController.stream;
   Stream<dynamic> get onStatusUpdate => _statusUpdateController.stream;
   Stream<dynamic> get onMessageRead => _messageReadController.stream;
+  Stream<dynamic> get onMessageDelivered => _messageDeliveredController.stream;
   Stream<bool> get onConnectionStateChange => _connectionStateController.stream;
   Stream<Map<String, dynamic>> get onMessageDelivery =>
       _messageDeliveryController.stream;
@@ -431,6 +433,11 @@ class ChatSocketService {
 
     _socket?.on('messagesRead', (data) {
       _safeAdd(_messageReadController, data);
+    });
+
+    // Delivery receipt events
+    _socket?.on('messageDelivered', (data) {
+      _safeAdd(_messageDeliveredController, data);
     });
 
     // Message edited
@@ -910,6 +917,7 @@ class ChatSocketService {
     _typingController.close();
     _statusUpdateController.close();
     _messageReadController.close();
+    _messageDeliveredController.close();
     _connectionStateController.close();
     _messageDeliveryController.close();
     _messageReactionController.close();

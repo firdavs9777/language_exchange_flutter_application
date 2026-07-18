@@ -17,6 +17,7 @@ class ChatSocketStateManager {
   StreamSubscription? _typingSub;
   StreamSubscription? _statusSub;
   StreamSubscription? _messageReadSub;
+  StreamSubscription? _messageDeliveredSub;
   StreamSubscription? _reactionSub;
   StreamSubscription? _correctionSub;
 
@@ -37,6 +38,7 @@ class ChatSocketStateManager {
   Function(bool)? onTypingChanged;
   Function(bool, String?)? onStatusChanged;
   Function(List<String>)? onMessagesRead;
+  Function(String messageId)? onMessageDelivered;
   Function(String messageId, List<dynamic> reactions)? onReactionUpdated;
   Function(String messageId, Map<String, dynamic> correction)? onCorrectionReceived;
 
@@ -211,6 +213,12 @@ class ChatSocketStateManager {
       }
     });
 
+    // Delivery receipts
+    _messageDeliveredSub = _socketService.onMessageDelivered.listen((data) {
+      final id = data is Map ? data['messageId']?.toString() : null;
+      if (id != null) onMessageDelivered?.call(id);
+    });
+
     // Reaction updates (real-time)
     _reactionSub = _socketService.onMessageReaction.listen((data) {
       if (data is Map) {
@@ -305,6 +313,7 @@ class ChatSocketStateManager {
     _typingSub?.cancel();
     _statusSub?.cancel();
     _messageReadSub?.cancel();
+    _messageDeliveredSub?.cancel();
     _reactionSub?.cancel();
     _correctionSub?.cancel();
     _typingTimeout?.cancel();
