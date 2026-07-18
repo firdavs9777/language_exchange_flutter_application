@@ -3023,5 +3023,14 @@
   "quietHoursAllowUrgent": "긴급 알림 허용",
   "quietHoursAllowUrgentSubtitle": "VIP 파트너의 전화와 메시지는 계속 수신됩니다",
   "silencedByQuietHours": "방해 금지 시간으로 인해 무음 처리됨",
-  "silencedByCap": "일일 한도로 인해 무음 처리됨"
+  "silencedByCap": "일일 한도로 인해 무음 처리됨",
+  "authWelcomeTagline": "만나다 · 대화하다 · 연결하다",
+  "authWelcomeCtaTitle": "Bananatalk에서 전 세계 친구를 만들어보세요",
+  "authWelcomeCtaSubtitle": "지금 수백만 명의 언어 학습자와 함께하세요",
+  "authWelcomeFeatureConnectTitle": "연결",
+  "authWelcomeFeatureConnectSubtitle": "전 세계 150개 이상의 국가에서 언어 파트너를 만나보세요",
+  "authWelcomeFeatureLearnTitle": "학습",
+  "authWelcomeFeatureLearnSubtitle": "AI 튜터, 퀴즈, 발음 훈련까지 — 하나의 앱에서",
+  "authWelcomeFeatureGrowTitle": "성장",
+  "authWelcomeFeatureGrowSubtitle": "매일의 대화와 커뮤니티를 통해 진짜 유창함을 키워보세요"
 }

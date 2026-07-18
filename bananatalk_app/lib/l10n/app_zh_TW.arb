@@ -2693,5 +2693,14 @@
   "momentsPrivacyPublic": "公開",
   "momentsPrivacyFriends": "朋友",
   "momentsPrivacyPrivate": "私密",
-  "splashLoading": "載入中…"
+  "splashLoading": "載入中…",
+  "authWelcomeTagline": "相遇 · 聊天 · 連結",
+  "authWelcomeCtaTitle": "在 Bananatalk 結交全球好友",
+  "authWelcomeCtaSubtitle": "立即加入數百萬語言學習者的行列",
+  "authWelcomeFeatureConnectTitle": "連結",
+  "authWelcomeFeatureConnectSubtitle": "結識來自全球150多個國家的語言夥伴",
+  "authWelcomeFeatureLearnTitle": "學習",
+  "authWelcomeFeatureLearnSubtitle": "AI 導師、測驗和發音訓練——全部集於一款應用程式",
+  "authWelcomeFeatureGrowTitle": "成長",
+  "authWelcomeFeatureGrowSubtitle": "透過每日對話和社群建立真正的語言流暢度"
 }

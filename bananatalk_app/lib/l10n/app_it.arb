@@ -3242,5 +3242,14 @@
   "quietHoursAllowUrgent": "Consenti notifiche urgenti",
   "quietHoursAllowUrgentSubtitle": "Chiamate e messaggi dai partner VIP possono comunque arrivare",
   "silencedByQuietHours": "Silenziato dalle ore silenziose",
-  "silencedByCap": "Silenziato dal limite giornaliero"
+  "silencedByCap": "Silenziato dal limite giornaliero",
+  "authWelcomeTagline": "INCONTRA · CHATTA · CONNETTITI",
+  "authWelcomeCtaTitle": "Fai amicizie in tutto il mondo su Bananatalk",
+  "authWelcomeCtaSubtitle": "Unisciti oggi a milioni di studenti di lingue",
+  "authWelcomeFeatureConnectTitle": "Connetti",
+  "authWelcomeFeatureConnectSubtitle": "Incontra partner linguistici da oltre 150 paesi in tutto il mondo",
+  "authWelcomeFeatureLearnTitle": "Impara",
+  "authWelcomeFeatureLearnSubtitle": "Tutor IA, quiz e allenamento della pronuncia — tutto in un'unica app",
+  "authWelcomeFeatureGrowTitle": "Cresci",
+  "authWelcomeFeatureGrowSubtitle": "Sviluppa una vera scioltezza attraverso conversazioni quotidiane e community"
 }

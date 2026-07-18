@@ -3016,5 +3016,14 @@
   "quietHoursAllowUrgent": "允许紧急通知",
   "quietHoursAllowUrgentSubtitle": "VIP 伙伴的通话和消息仍可送达",
   "silencedByQuietHours": "已被免打扰时段静音",
-  "silencedByCap": "已达每日上限并静音"
+  "silencedByCap": "已达每日上限并静音",
+  "authWelcomeTagline": "相遇 · 聊天 · 连接",
+  "authWelcomeCtaTitle": "在 Bananatalk 结交全球好友",
+  "authWelcomeCtaSubtitle": "立即加入数百万语言学习者的行列",
+  "authWelcomeFeatureConnectTitle": "连接",
+  "authWelcomeFeatureConnectSubtitle": "结识来自全球150多个国家的语言伙伴",
+  "authWelcomeFeatureLearnTitle": "学习",
+  "authWelcomeFeatureLearnSubtitle": "AI 导师、测验和发音训练——全部集于一款应用",
+  "authWelcomeFeatureGrowTitle": "成长",
+  "authWelcomeFeatureGrowSubtitle": "通过每日对话和社区建立真正的语言流利度"
 }

@@ -3032,5 +3032,14 @@
   "quietHoursAllowUrgent": "السماح بالإشعارات العاجلة",
   "quietHoursAllowUrgentSubtitle": "لا تزال المكالمات والرسائل من الشركاء المميزين تصل إليك",
   "silencedByQuietHours": "تم كتمه بواسطة ساعات الهدوء",
-  "silencedByCap": "تم كتمه بسبب الحد اليومي"
+  "silencedByCap": "تم كتمه بسبب الحد اليومي",
+  "authWelcomeTagline": "تعارف · تحدث · تواصل",
+  "authWelcomeCtaTitle": "كوّن صداقات عالمية على Bananatalk",
+  "authWelcomeCtaSubtitle": "انضم إلى ملايين متعلمي اللغات اليوم",
+  "authWelcomeFeatureConnectTitle": "تواصل",
+  "authWelcomeFeatureConnectSubtitle": "تعرّف على شركاء لغويين من أكثر من 150 دولة حول العالم",
+  "authWelcomeFeatureLearnTitle": "تعلّم",
+  "authWelcomeFeatureLearnSubtitle": "معلم ذكاء اصطناعي، اختبارات وتدريب على النطق — كل ذلك في تطبيق واحد",
+  "authWelcomeFeatureGrowTitle": "تطوّر",
+  "authWelcomeFeatureGrowSubtitle": "طوّر طلاقتك الحقيقية من خلال المحادثات اليومية والمجتمع"
 }

@@ -3032,5 +3032,14 @@
   "quietHoursAllowUrgent": "Разрешить срочные уведомления",
   "quietHoursAllowUrgentSubtitle": "Звонки и сообщения от VIP-партнёров всё равно будут поступать",
   "silencedByQuietHours": "Отключено тихими часами",
-  "silencedByCap": "Отключено дневным лимитом"
+  "silencedByCap": "Отключено дневным лимитом",
+  "authWelcomeTagline": "ЗНАКОМЬТЕСЬ · ОБЩАЙТЕСЬ · СВЯЗЫВАЙТЕСЬ",
+  "authWelcomeCtaTitle": "Заводите друзей по всему миру в Bananatalk",
+  "authWelcomeCtaSubtitle": "Присоединяйтесь сегодня к миллионам изучающих языки",
+  "authWelcomeFeatureConnectTitle": "Общение",
+  "authWelcomeFeatureConnectSubtitle": "Знакомьтесь с языковыми партнёрами из более чем 150 стран мира",
+  "authWelcomeFeatureLearnTitle": "Обучение",
+  "authWelcomeFeatureLearnSubtitle": "ИИ-репетитор, тесты и тренировка произношения — всё в одном приложении",
+  "authWelcomeFeatureGrowTitle": "Развитие",
+  "authWelcomeFeatureGrowSubtitle": "Развивайте настоящую беглость речи через ежедневное общение и сообщество"
 }

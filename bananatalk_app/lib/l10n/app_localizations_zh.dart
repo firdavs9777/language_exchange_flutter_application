@@ -2900,31 +2900,31 @@ class AppLocalizationsZh extends AppLocalizations {
   String get welcomeCompleteProfile => '欢迎！请完善你的个人资料';
 
   @override
-  String get authWelcomeTagline => 'MEET  ·  CHAT  ·  CONNECT';
+  String get authWelcomeTagline => '相遇 · 聊天 · 连接';
 
   @override
-  String get authWelcomeCtaTitle => 'Make global friends on Bananatalk';
+  String get authWelcomeCtaTitle => '在 Bananatalk 结交全球好友';
 
   @override
-  String get authWelcomeCtaSubtitle => 'Join millions of language learners today';
+  String get authWelcomeCtaSubtitle => '立即加入数百万语言学习者的行列';
 
   @override
-  String get authWelcomeFeatureConnectTitle => 'Connect';
+  String get authWelcomeFeatureConnectTitle => '连接';
 
   @override
-  String get authWelcomeFeatureConnectSubtitle => 'Meet language partners from 150+ countries around the world';
+  String get authWelcomeFeatureConnectSubtitle => '结识来自全球150多个国家的语言伙伴';
 
   @override
-  String get authWelcomeFeatureLearnTitle => 'Learn';
+  String get authWelcomeFeatureLearnTitle => '学习';
 
   @override
-  String get authWelcomeFeatureLearnSubtitle => 'AI tutor, quizzes & pronunciation training — all in one app';
+  String get authWelcomeFeatureLearnSubtitle => 'AI 导师、测验和发音训练——全部集于一款应用';
 
   @override
-  String get authWelcomeFeatureGrowTitle => 'Grow';
+  String get authWelcomeFeatureGrowTitle => '成长';
 
   @override
-  String get authWelcomeFeatureGrowSubtitle => 'Build real fluency through daily conversations and community';
+  String get authWelcomeFeatureGrowSubtitle => '通过每日对话和社区建立真正的语言流利度';
 
   @override
   String welcomeBackName(String name) {
@@ -10210,6 +10210,33 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get welcomeCompleteProfile => '歡迎！請完善您的個人資料';
+
+  @override
+  String get authWelcomeTagline => '相遇 · 聊天 · 連結';
+
+  @override
+  String get authWelcomeCtaTitle => '在 Bananatalk 結交全球好友';
+
+  @override
+  String get authWelcomeCtaSubtitle => '立即加入數百萬語言學習者的行列';
+
+  @override
+  String get authWelcomeFeatureConnectTitle => '連結';
+
+  @override
+  String get authWelcomeFeatureConnectSubtitle => '結識來自全球150多個國家的語言夥伴';
+
+  @override
+  String get authWelcomeFeatureLearnTitle => '學習';
+
+  @override
+  String get authWelcomeFeatureLearnSubtitle => 'AI 導師、測驗和發音訓練——全部集於一款應用程式';
+
+  @override
+  String get authWelcomeFeatureGrowTitle => '成長';
+
+  @override
+  String get authWelcomeFeatureGrowSubtitle => '透過每日對話和社群建立真正的語言流暢度';
 
   @override
   String welcomeBackName(String name) {

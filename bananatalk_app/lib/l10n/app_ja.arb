@@ -3002,5 +3002,14 @@
   "quietHoursAllowUrgent": "緊急通知を許可する",
   "quietHoursAllowUrgentSubtitle": "VIPパートナーからの通話やメッセージは引き続き届きます",
   "silencedByQuietHours": "サイレント時間によりミュートされました",
-  "silencedByCap": "1日の上限によりミュートされました"
+  "silencedByCap": "1日の上限によりミュートされました",
+  "authWelcomeTagline": "出会う · 話す · つながる",
+  "authWelcomeCtaTitle": "Bananatalkで世界中に友達を作ろう",
+  "authWelcomeCtaSubtitle": "今すぐ何百万人もの言語学習者に仲間入り",
+  "authWelcomeFeatureConnectTitle": "つながる",
+  "authWelcomeFeatureConnectSubtitle": "世界150カ国以上の言語パートナーと出会える",
+  "authWelcomeFeatureLearnTitle": "学ぶ",
+  "authWelcomeFeatureLearnSubtitle": "AIチューター、クイズ、発音トレーニングがすべて1つのアプリに",
+  "authWelcomeFeatureGrowTitle": "成長する",
+  "authWelcomeFeatureGrowSubtitle": "毎日の会話とコミュニティで本物の流暢さを身につけよう"
 }

@@ -3002,5 +3002,14 @@
   "quietHoursAllowUrgent": "Izinkan notifikasi mendesak",
   "quietHoursAllowUrgentSubtitle": "Panggilan dan pesan dari pasangan VIP tetap dapat masuk",
   "silencedByQuietHours": "Dibisukan oleh Jam Tenang",
-  "silencedByCap": "Dibisukan oleh batas harian"
+  "silencedByCap": "Dibisukan oleh batas harian",
+  "authWelcomeTagline": "TEMU · OBROLAN · TERHUBUNG",
+  "authWelcomeCtaTitle": "Berteman dengan orang dari seluruh dunia di Bananatalk",
+  "authWelcomeCtaSubtitle": "Bergabunglah dengan jutaan pembelajar bahasa hari ini",
+  "authWelcomeFeatureConnectTitle": "Terhubung",
+  "authWelcomeFeatureConnectSubtitle": "Temui mitra bahasa dari lebih dari 150 negara di seluruh dunia",
+  "authWelcomeFeatureLearnTitle": "Belajar",
+  "authWelcomeFeatureLearnSubtitle": "Tutor AI, kuis & latihan pengucapan — semua dalam satu aplikasi",
+  "authWelcomeFeatureGrowTitle": "Berkembang",
+  "authWelcomeFeatureGrowSubtitle": "Bangun kefasihan nyata melalui percakapan harian dan komunitas"
 }

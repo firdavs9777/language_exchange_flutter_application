@@ -2900,31 +2900,31 @@ class AppLocalizationsTr extends AppLocalizations {
   String get welcomeCompleteProfile => 'Hoş geldin! Profilini tamamla';
 
   @override
-  String get authWelcomeTagline => 'MEET  ·  CHAT  ·  CONNECT';
+  String get authWelcomeTagline => 'TANIŞ · SOHBET ET · BAĞLAN';
 
   @override
-  String get authWelcomeCtaTitle => 'Make global friends on Bananatalk';
+  String get authWelcomeCtaTitle => 'Bananatalk\'ta dünyanın dört bir yanından arkadaşlar edin';
 
   @override
-  String get authWelcomeCtaSubtitle => 'Join millions of language learners today';
+  String get authWelcomeCtaSubtitle => 'Bugün milyonlarca dil öğrencisine katıl';
 
   @override
-  String get authWelcomeFeatureConnectTitle => 'Connect';
+  String get authWelcomeFeatureConnectTitle => 'Bağlan';
 
   @override
-  String get authWelcomeFeatureConnectSubtitle => 'Meet language partners from 150+ countries around the world';
+  String get authWelcomeFeatureConnectSubtitle => 'Dünya genelinde 150\'den fazla ülkeden dil partnerleriyle tanış';
 
   @override
-  String get authWelcomeFeatureLearnTitle => 'Learn';
+  String get authWelcomeFeatureLearnTitle => 'Öğren';
 
   @override
-  String get authWelcomeFeatureLearnSubtitle => 'AI tutor, quizzes & pronunciation training — all in one app';
+  String get authWelcomeFeatureLearnSubtitle => 'Yapay zeka öğretmeni, quizler ve telaffuz antrenmanı — hepsi tek bir uygulamada';
 
   @override
-  String get authWelcomeFeatureGrowTitle => 'Grow';
+  String get authWelcomeFeatureGrowTitle => 'Gelişim';
 
   @override
-  String get authWelcomeFeatureGrowSubtitle => 'Build real fluency through daily conversations and community';
+  String get authWelcomeFeatureGrowSubtitle => 'Günlük sohbetler ve toplulukla gerçek bir akıcılık kazan';
 
   @override
   String welcomeBackName(String name) {

@@ -3002,5 +3002,14 @@
   "quietHoursAllowUrgent": "Cho phép thông báo khẩn cấp",
   "quietHoursAllowUrgentSubtitle": "Cuộc gọi và tin nhắn từ đối tác VIP vẫn có thể được gửi đến",
   "silencedByQuietHours": "Đã tắt tiếng bởi giờ yên tĩnh",
-  "silencedByCap": "Đã tắt tiếng do giới hạn hàng ngày"
+  "silencedByCap": "Đã tắt tiếng do giới hạn hàng ngày",
+  "authWelcomeTagline": "GẶP GỠ · TRÒ CHUYỆN · KẾT NỐI",
+  "authWelcomeCtaTitle": "Kết bạn khắp thế giới trên Bananatalk",
+  "authWelcomeCtaSubtitle": "Tham gia cùng hàng triệu người học ngôn ngữ ngay hôm nay",
+  "authWelcomeFeatureConnectTitle": "Kết nối",
+  "authWelcomeFeatureConnectSubtitle": "Gặp gỡ các đối tác học ngôn ngữ từ hơn 150 quốc gia trên toàn thế giới",
+  "authWelcomeFeatureLearnTitle": "Học tập",
+  "authWelcomeFeatureLearnSubtitle": "Gia sư AI, câu đố và luyện phát âm — tất cả trong một ứng dụng",
+  "authWelcomeFeatureGrowTitle": "Phát triển",
+  "authWelcomeFeatureGrowSubtitle": "Xây dựng khả năng nói trôi chảy thực sự qua các cuộc trò chuyện hằng ngày và cộng đồng"
 }

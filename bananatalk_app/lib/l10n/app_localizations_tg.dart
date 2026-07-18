@@ -2906,31 +2906,31 @@ class AppLocalizationsTg extends AppLocalizations {
   String get welcomeCompleteProfile => 'Хуш омадед! Лутфан профили худро пурра кунед';
 
   @override
-  String get authWelcomeTagline => 'MEET  ·  CHAT  ·  CONNECT';
+  String get authWelcomeTagline => 'ВОХӮРӢ · СӮҲБАТ · ПАЙВАСТ';
 
   @override
-  String get authWelcomeCtaTitle => 'Make global friends on Bananatalk';
+  String get authWelcomeCtaTitle => 'Дар Bananatalk дӯстони ҷаҳонӣ пайдо кунед';
 
   @override
-  String get authWelcomeCtaSubtitle => 'Join millions of language learners today';
+  String get authWelcomeCtaSubtitle => 'Имрӯз ба миллионҳо омӯзандагони забон ҳамроҳ шавед';
 
   @override
-  String get authWelcomeFeatureConnectTitle => 'Connect';
+  String get authWelcomeFeatureConnectTitle => 'Пайваст';
 
   @override
-  String get authWelcomeFeatureConnectSubtitle => 'Meet language partners from 150+ countries around the world';
+  String get authWelcomeFeatureConnectSubtitle => 'Бо шарикони забонӣ аз зиёда аз 150 кишвари ҷаҳон вохӯред';
 
   @override
-  String get authWelcomeFeatureLearnTitle => 'Learn';
+  String get authWelcomeFeatureLearnTitle => 'Омӯзиш';
 
   @override
-  String get authWelcomeFeatureLearnSubtitle => 'AI tutor, quizzes & pronunciation training — all in one app';
+  String get authWelcomeFeatureLearnSubtitle => 'Муаллими сунъӣ, тестҳо ва машқи талаффуз — ҳама дар як барнома';
 
   @override
-  String get authWelcomeFeatureGrowTitle => 'Grow';
+  String get authWelcomeFeatureGrowTitle => 'Рушд';
 
   @override
-  String get authWelcomeFeatureGrowSubtitle => 'Build real fluency through daily conversations and community';
+  String get authWelcomeFeatureGrowSubtitle => 'Тавассути сӯҳбатҳои ҳаррӯза ва ҷомеа равонии воқеӣ ба даст оред';
 
   @override
   String welcomeBackName(String name) {

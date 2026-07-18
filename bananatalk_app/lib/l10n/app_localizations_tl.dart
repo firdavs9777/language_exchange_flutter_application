@@ -2900,31 +2900,31 @@ class AppLocalizationsTl extends AppLocalizations {
   String get welcomeCompleteProfile => 'Welcome! Kumpletuhin ang profile mo';
 
   @override
-  String get authWelcomeTagline => 'MEET  ·  CHAT  ·  CONNECT';
+  String get authWelcomeTagline => 'MAKIPAGKITA · MAKIPAG-USAP · KUMONEKTA';
 
   @override
-  String get authWelcomeCtaTitle => 'Make global friends on Bananatalk';
+  String get authWelcomeCtaTitle => 'Gumawa ng mga kaibigan sa buong mundo sa Bananatalk';
 
   @override
-  String get authWelcomeCtaSubtitle => 'Join millions of language learners today';
+  String get authWelcomeCtaSubtitle => 'Sumali ngayon sa milyun-milyong nag-aaral ng wika';
 
   @override
-  String get authWelcomeFeatureConnectTitle => 'Connect';
+  String get authWelcomeFeatureConnectTitle => 'Kumonekta';
 
   @override
-  String get authWelcomeFeatureConnectSubtitle => 'Meet language partners from 150+ countries around the world';
+  String get authWelcomeFeatureConnectSubtitle => 'Makipagkita sa mga language partner mula sa mahigit 150 bansa sa buong mundo';
 
   @override
-  String get authWelcomeFeatureLearnTitle => 'Learn';
+  String get authWelcomeFeatureLearnTitle => 'Matuto';
 
   @override
-  String get authWelcomeFeatureLearnSubtitle => 'AI tutor, quizzes & pronunciation training — all in one app';
+  String get authWelcomeFeatureLearnSubtitle => 'AI tutor, mga quiz, at pagsasanay sa pagbigkas — lahat nasa isang app';
 
   @override
-  String get authWelcomeFeatureGrowTitle => 'Grow';
+  String get authWelcomeFeatureGrowTitle => 'Lumago';
 
   @override
-  String get authWelcomeFeatureGrowSubtitle => 'Build real fluency through daily conversations and community';
+  String get authWelcomeFeatureGrowSubtitle => 'Bumuo ng tunay na katatasan sa pamamagitan ng araw-araw na usapan at komunidad';
 
   @override
   String welcomeBackName(String name) {

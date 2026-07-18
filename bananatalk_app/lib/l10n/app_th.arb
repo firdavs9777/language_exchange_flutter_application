@@ -3002,5 +3002,14 @@
   "quietHoursAllowUrgent": "อนุญาตการแจ้งเตือนเร่งด่วน",
   "quietHoursAllowUrgentSubtitle": "การโทรและข้อความจากคู่ฝึก VIP ยังคงส่งถึงคุณได้",
   "silencedByQuietHours": "ปิดเสียงโดยช่วงเวลาเงียบ",
-  "silencedByCap": "ปิดเสียงโดยขีดจำกัดรายวัน"
+  "silencedByCap": "ปิดเสียงโดยขีดจำกัดรายวัน",
+  "authWelcomeTagline": "พบเจอ · แชท · เชื่อมต่อ",
+  "authWelcomeCtaTitle": "สร้างเพื่อนทั่วโลกบน Bananatalk",
+  "authWelcomeCtaSubtitle": "เข้าร่วมกับผู้เรียนภาษาหลายล้านคนวันนี้",
+  "authWelcomeFeatureConnectTitle": "เชื่อมต่อ",
+  "authWelcomeFeatureConnectSubtitle": "พบปะเพื่อนฝึกภาษาจากกว่า 150 ประเทศทั่วโลก",
+  "authWelcomeFeatureLearnTitle": "เรียนรู้",
+  "authWelcomeFeatureLearnSubtitle": "ติวเตอร์ AI แบบทดสอบ และฝึกออกเสียง — ครบในแอปเดียว",
+  "authWelcomeFeatureGrowTitle": "เติบโต",
+  "authWelcomeFeatureGrowSubtitle": "สร้างความคล่องแคล่วที่แท้จริงผ่านบทสนทนาประจำวันและชุมชน"
 }

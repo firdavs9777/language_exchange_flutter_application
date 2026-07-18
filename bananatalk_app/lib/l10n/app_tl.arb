@@ -2975,5 +2975,14 @@
   "quietHoursAllowUrgent": "Payagan ang mahahalagang notification",
   "quietHoursAllowUrgentSubtitle": "Ang mga tawag at mensahe mula sa VIP partners ay makakarating pa rin",
   "silencedByQuietHours": "Naka-silent dahil sa Quiet Hours",
-  "silencedByCap": "Naka-silent dahil sa daily limit"
+  "silencedByCap": "Naka-silent dahil sa daily limit",
+  "authWelcomeTagline": "MAKIPAGKITA · MAKIPAG-USAP · KUMONEKTA",
+  "authWelcomeCtaTitle": "Gumawa ng mga kaibigan sa buong mundo sa Bananatalk",
+  "authWelcomeCtaSubtitle": "Sumali ngayon sa milyun-milyong nag-aaral ng wika",
+  "authWelcomeFeatureConnectTitle": "Kumonekta",
+  "authWelcomeFeatureConnectSubtitle": "Makipagkita sa mga language partner mula sa mahigit 150 bansa sa buong mundo",
+  "authWelcomeFeatureLearnTitle": "Matuto",
+  "authWelcomeFeatureLearnSubtitle": "AI tutor, mga quiz, at pagsasanay sa pagbigkas — lahat nasa isang app",
+  "authWelcomeFeatureGrowTitle": "Lumago",
+  "authWelcomeFeatureGrowSubtitle": "Bumuo ng tunay na katatasan sa pamamagitan ng araw-araw na usapan at komunidad"
 }

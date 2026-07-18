@@ -3018,5 +3018,14 @@
   "quietHoursAllowUrgent": "Permitir notificações urgentes",
   "quietHoursAllowUrgentSubtitle": "Chamadas e mensagens de parceiros VIP ainda podem chegar",
   "silencedByQuietHours": "Silenciado pelo Modo Silencioso",
-  "silencedByCap": "Silenciado pelo limite diário"
+  "silencedByCap": "Silenciado pelo limite diário",
+  "authWelcomeTagline": "CONHEÇA · CONVERSE · CONECTE-SE",
+  "authWelcomeCtaTitle": "Faça amigos ao redor do mundo no Bananatalk",
+  "authWelcomeCtaSubtitle": "Junte-se hoje a milhões de aprendizes de idiomas",
+  "authWelcomeFeatureConnectTitle": "Conecte-se",
+  "authWelcomeFeatureConnectSubtitle": "Conheça parceiros de idiomas de mais de 150 países ao redor do mundo",
+  "authWelcomeFeatureLearnTitle": "Aprenda",
+  "authWelcomeFeatureLearnSubtitle": "Tutor de IA, quizzes e treinamento de pronúncia — tudo em um só app",
+  "authWelcomeFeatureGrowTitle": "Evolua",
+  "authWelcomeFeatureGrowSubtitle": "Desenvolva fluência real através de conversas diárias e comunidade"
 }

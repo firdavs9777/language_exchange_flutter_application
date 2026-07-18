@@ -3214,5 +3214,14 @@
   "quietHoursAllowUrgent": "Acil bildirimlere izin ver",
   "quietHoursAllowUrgentSubtitle": "VIP partnerlerinden gelen aramalar ve mesajlar yine de ulaşabilir",
   "silencedByQuietHours": "Sessiz Saatler nedeniyle sessize alındı",
-  "silencedByCap": "Günlük limit nedeniyle sessize alındı"
+  "silencedByCap": "Günlük limit nedeniyle sessize alındı",
+  "authWelcomeTagline": "TANIŞ · SOHBET ET · BAĞLAN",
+  "authWelcomeCtaTitle": "Bananatalk'ta dünyanın dört bir yanından arkadaşlar edin",
+  "authWelcomeCtaSubtitle": "Bugün milyonlarca dil öğrencisine katıl",
+  "authWelcomeFeatureConnectTitle": "Bağlan",
+  "authWelcomeFeatureConnectSubtitle": "Dünya genelinde 150'den fazla ülkeden dil partnerleriyle tanış",
+  "authWelcomeFeatureLearnTitle": "Öğren",
+  "authWelcomeFeatureLearnSubtitle": "Yapay zeka öğretmeni, quizler ve telaffuz antrenmanı — hepsi tek bir uygulamada",
+  "authWelcomeFeatureGrowTitle": "Gelişim",
+  "authWelcomeFeatureGrowSubtitle": "Günlük sohbetler ve toplulukla gerçek bir akıcılık kazan"
 }

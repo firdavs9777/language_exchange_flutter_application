@@ -2495,5 +2495,14 @@
   "noFollowingMomentsBody": "Барои дидани лаҳзаҳои онҳо дар ин ҷо, ба одамон аз Ҷомеа пайравӣ кунед.",
   "goToCommunity": "Ба Ҷомеа гузаштан",
   "checkOutProfile": "Ин профилро дар Bananatalk бубинед!",
-  "checkOutCommunity": "Ин корбарро дар Bananatalk бубинед!"
+  "checkOutCommunity": "Ин корбарро дар Bananatalk бубинед!",
+  "authWelcomeTagline": "ВОХӮРӢ · СӮҲБАТ · ПАЙВАСТ",
+  "authWelcomeCtaTitle": "Дар Bananatalk дӯстони ҷаҳонӣ пайдо кунед",
+  "authWelcomeCtaSubtitle": "Имрӯз ба миллионҳо омӯзандагони забон ҳамроҳ шавед",
+  "authWelcomeFeatureConnectTitle": "Пайваст",
+  "authWelcomeFeatureConnectSubtitle": "Бо шарикони забонӣ аз зиёда аз 150 кишвари ҷаҳон вохӯред",
+  "authWelcomeFeatureLearnTitle": "Омӯзиш",
+  "authWelcomeFeatureLearnSubtitle": "Муаллими сунъӣ, тестҳо ва машқи талаффуз — ҳама дар як барнома",
+  "authWelcomeFeatureGrowTitle": "Рушд",
+  "authWelcomeFeatureGrowSubtitle": "Тавассути сӯҳбатҳои ҳаррӯза ва ҷомеа равонии воқеӣ ба даст оред"
 }

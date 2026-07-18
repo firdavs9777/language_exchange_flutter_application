@@ -3018,5 +3018,14 @@
   "quietHoursAllowUrgent": "जरूरी सूचनाओं की अनुमति दें",
   "quietHoursAllowUrgentSubtitle": "VIP पार्टनर की कॉल और संदेश अभी भी आ सकते हैं",
   "silencedByQuietHours": "शांत घंटों द्वारा साइलेंट किया गया",
-  "silencedByCap": "दैनिक सीमा द्वारा साइलेंट किया गया"
+  "silencedByCap": "दैनिक सीमा द्वारा साइलेंट किया गया",
+  "authWelcomeTagline": "मिलें · बातचीत करें · जुड़ें",
+  "authWelcomeCtaTitle": "Bananatalk पर दुनिया भर के दोस्त बनाएं",
+  "authWelcomeCtaSubtitle": "आज ही लाखों भाषा सीखने वालों के साथ जुड़ें",
+  "authWelcomeFeatureConnectTitle": "जुड़ें",
+  "authWelcomeFeatureConnectSubtitle": "दुनिया भर के 150+ देशों के भाषा साथियों से मिलें",
+  "authWelcomeFeatureLearnTitle": "सीखें",
+  "authWelcomeFeatureLearnSubtitle": "एआई ट्यूटर, क्विज़ और उच्चारण प्रशिक्षण — सब एक ही ऐप में",
+  "authWelcomeFeatureGrowTitle": "आगे बढ़ें",
+  "authWelcomeFeatureGrowSubtitle": "रोज़ाना बातचीत और समुदाय के ज़रिए असली प्रवाह हासिल करें"
 }
