@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/room.dart';
 import 'package:bananatalk_app/pages/community/widgets/community_snackbar.dart';
 import 'package:bananatalk_app/providers/rooms_provider.dart';
@@ -73,7 +74,7 @@ class _CreateTopicRoomSheetState extends ConsumerState<CreateTopicRoomSheet> {
   Future<void> _submit() async {
     final title = _titleController.text.trim();
     if (title.isEmpty) {
-      setState(() => _titleError = 'Please enter a room name');
+      setState(() => _titleError = AppLocalizations.of(context)!.roomNameRequired);
       return;
     }
 
@@ -100,7 +101,7 @@ class _CreateTopicRoomSheetState extends ConsumerState<CreateTopicRoomSheet> {
     } else {
       showCommunitySnackBar(
         context,
-        message: 'Could not create the room. Please try again.',
+        message: AppLocalizations.of(context)!.roomCreateError,
         type: CommunitySnackBarType.error,
       );
     }
@@ -108,6 +109,7 @@ class _CreateTopicRoomSheetState extends ConsumerState<CreateTopicRoomSheet> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Container(
       decoration: BoxDecoration(
         color: context.surfaceColor,
@@ -157,9 +159,9 @@ class _CreateTopicRoomSheetState extends ConsumerState<CreateTopicRoomSheet> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('New Topic Room', style: context.titleLarge),
+                        Text(l10n.roomCreateTitle, style: context.titleLarge),
                         Text(
-                          'Start a focused chat under a language',
+                          l10n.roomCreateSubtitle,
                           style: context.bodyMedium.copyWith(
                             color: context.textSecondary,
                           ),
@@ -187,17 +189,17 @@ class _CreateTopicRoomSheetState extends ConsumerState<CreateTopicRoomSheet> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // Room name (* required)
-                  const Text.rich(
+                  Text.rich(
                     TextSpan(
                       children: [
-                        TextSpan(text: 'Room name'),
-                        TextSpan(
+                        TextSpan(text: l10n.roomNameLabel),
+                        const TextSpan(
                           text: ' *',
                           style: TextStyle(color: Colors.red),
                         ),
                       ],
                     ),
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
                     ),
@@ -212,7 +214,7 @@ class _CreateTopicRoomSheetState extends ConsumerState<CreateTopicRoomSheet> {
                       }
                     },
                     decoration: InputDecoration(
-                      hintText: 'e.g. Daily conversation practice',
+                      hintText: l10n.roomNameHint,
                       filled: true,
                       fillColor: context.containerColor,
                       border: OutlineInputBorder(
@@ -241,17 +243,17 @@ class _CreateTopicRoomSheetState extends ConsumerState<CreateTopicRoomSheet> {
                   ),
                   Spacing.gapMD,
                   // Language
-                  const Text(
-                    'Language',
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                  Text(
+                    l10n.language,
+                    style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
                   ),
                   Spacing.gapSM,
-                  _buildLanguageSelector(),
+                  _buildLanguageSelector(l10n),
                   Spacing.gapMD,
                   // Description (optional)
-                  const Text(
-                    'Description (optional)',
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                  Text(
+                    l10n.roomDescriptionLabel,
+                    style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
                   ),
                   Spacing.gapSM,
                   TextField(
@@ -260,7 +262,7 @@ class _CreateTopicRoomSheetState extends ConsumerState<CreateTopicRoomSheet> {
                     maxLines: 2,
                     maxLength: _descriptionMaxLength,
                     decoration: InputDecoration(
-                      hintText: "What's this room about?",
+                      hintText: l10n.roomDescriptionHint,
                       filled: true,
                       fillColor: context.containerColor,
                       border: OutlineInputBorder(
@@ -296,14 +298,14 @@ class _CreateTopicRoomSheetState extends ConsumerState<CreateTopicRoomSheet> {
                                 ),
                               ),
                             )
-                          : const Row(
+                          : Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(Icons.add_rounded),
-                                SizedBox(width: 8),
+                                const Icon(Icons.add_rounded),
+                                const SizedBox(width: 8),
                                 Text(
-                                  'Create room',
-                                  style: TextStyle(
+                                  l10n.roomCreateSubmit,
+                                  style: const TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w700,
                                   ),
@@ -322,7 +324,7 @@ class _CreateTopicRoomSheetState extends ConsumerState<CreateTopicRoomSheet> {
     );
   }
 
-  Widget _buildLanguageSelector() {
+  Widget _buildLanguageSelector(AppLocalizations l10n) {
     // Full shared catalog (fetch-once, cached); fallback while loading. The
     // current selection is kept in the item list even if the catalog
     // doesn't contain it (DropdownButton requires value ∈ items).
@@ -372,7 +374,7 @@ class _CreateTopicRoomSheetState extends ConsumerState<CreateTopicRoomSheet> {
             children: [
               Expanded(
                 child: _EnglishFlagChoice(
-                  label: '🇺🇸 US English',
+                  label: '🇺🇸 ${l10n.roomUsEnglish}',
                   selected: _englishFlag == '🇺🇸',
                   onTap: _isSubmitting
                       ? null
@@ -382,7 +384,7 @@ class _CreateTopicRoomSheetState extends ConsumerState<CreateTopicRoomSheet> {
               const SizedBox(width: 8),
               Expanded(
                 child: _EnglishFlagChoice(
-                  label: '🇬🇧 UK English',
+                  label: '🇬🇧 ${l10n.roomUkEnglish}',
                   selected: _englishFlag == '🇬🇧',
                   onTap: _isSubmitting
                       ? null

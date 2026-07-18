@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/room.dart';
 import 'package:bananatalk_app/pages/community/rooms/room_screen.dart';
 import 'package:bananatalk_app/pages/community/widgets/community_error_state.dart';
@@ -46,12 +47,13 @@ class _RoomScreenWrapperState extends ConsumerState<RoomScreenWrapper> {
           // Room not found (deleted) or the notification is stale — fall
           // back to the Community tab (rooms directory lives inside it)
           // rather than stranding the user on a dead-end error screen.
+          final l10n = AppLocalizations.of(context)!;
           return Scaffold(
             appBar: AppBar(),
             body: CommunityErrorState(
-              message: 'This room is no longer available.',
+              message: l10n.roomNotAvailable,
               onRetry: () => context.go('/tabs/1'),
-              retryLabel: 'Go to Rooms',
+              retryLabel: l10n.roomGoToRooms,
             ),
           );
         }

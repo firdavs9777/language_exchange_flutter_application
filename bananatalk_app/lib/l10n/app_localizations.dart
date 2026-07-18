@@ -13165,6 +13165,426 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Fluency'**
   String get examTipsCategoryFluency;
+
+  /// FAB label to create a new Community Room topic room
+  ///
+  /// In en, this message translates to:
+  /// **'New room'**
+  String get roomsNewRoom;
+
+  /// Error state message on the rooms directory screen
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load rooms'**
+  String get roomsCouldNotLoad;
+
+  /// Empty state title on the rooms directory screen
+  ///
+  /// In en, this message translates to:
+  /// **'No language rooms yet'**
+  String get roomsEmptyTitle;
+
+  /// Empty state subtitle on the rooms directory screen
+  ///
+  /// In en, this message translates to:
+  /// **'Check back soon — hubs are being set up.'**
+  String get roomsEmptySubtitle;
+
+  /// Title of the create-topic-room bottom sheet
+  ///
+  /// In en, this message translates to:
+  /// **'New Topic Room'**
+  String get roomCreateTitle;
+
+  /// Subtitle of the create-topic-room bottom sheet
+  ///
+  /// In en, this message translates to:
+  /// **'Start a focused chat under a language'**
+  String get roomCreateSubtitle;
+
+  /// Label for the room name field in the create-topic-room sheet
+  ///
+  /// In en, this message translates to:
+  /// **'Room name'**
+  String get roomNameLabel;
+
+  /// Hint text for the room name field in the create-topic-room sheet
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Daily conversation practice'**
+  String get roomNameHint;
+
+  /// Label for the optional description field in the create-topic-room sheet
+  ///
+  /// In en, this message translates to:
+  /// **'Description (optional)'**
+  String get roomDescriptionLabel;
+
+  /// Hint text for the description field in the create-topic-room sheet
+  ///
+  /// In en, this message translates to:
+  /// **'What\'s this room about?'**
+  String get roomDescriptionHint;
+
+  /// Submit button label on the create-topic-room sheet
+  ///
+  /// In en, this message translates to:
+  /// **'Create room'**
+  String get roomCreateSubmit;
+
+  /// Validation error when the room name field is left empty
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a room name'**
+  String get roomNameRequired;
+
+  /// Snackbar shown when creating a topic room fails
+  ///
+  /// In en, this message translates to:
+  /// **'Could not create the room. Please try again.'**
+  String get roomCreateError;
+
+  /// US English flag-choice label in the create-topic-room sheet (flag emoji composed in code)
+  ///
+  /// In en, this message translates to:
+  /// **'US English'**
+  String get roomUsEnglish;
+
+  /// UK English flag-choice label in the create-topic-room sheet (flag emoji composed in code)
+  ///
+  /// In en, this message translates to:
+  /// **'UK English'**
+  String get roomUkEnglish;
+
+  /// Error state message in the room/hub chat screen
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load messages'**
+  String get roomFailedLoadMessages;
+
+  /// Title of the report-reason bottom sheet for a chat message
+  ///
+  /// In en, this message translates to:
+  /// **'Report message'**
+  String get roomReportMessageTitle;
+
+  /// Report reason option
+  ///
+  /// In en, this message translates to:
+  /// **'Spam'**
+  String get reportReasonSpam;
+
+  /// Report reason option
+  ///
+  /// In en, this message translates to:
+  /// **'Harassment or Bullying'**
+  String get reportReasonHarassment;
+
+  /// Report reason option
+  ///
+  /// In en, this message translates to:
+  /// **'Hate Speech'**
+  String get reportReasonHateSpeech;
+
+  /// Report reason option
+  ///
+  /// In en, this message translates to:
+  /// **'Violence or Threats'**
+  String get reportReasonViolence;
+
+  /// Report reason option
+  ///
+  /// In en, this message translates to:
+  /// **'Nudity or Sexual Content'**
+  String get reportReasonNudity;
+
+  /// Report reason option
+  ///
+  /// In en, this message translates to:
+  /// **'False Information'**
+  String get reportReasonFalseInformation;
+
+  /// Snackbar confirming a message report was submitted
+  ///
+  /// In en, this message translates to:
+  /// **'Report submitted'**
+  String get roomReportSubmitted;
+
+  /// Snackbar shown when submitting a message report fails
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to submit report'**
+  String get roomReportSubmitFailed;
+
+  /// Title of the leave-hub confirmation dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Leave hub?'**
+  String get roomLeaveHubTitle;
+
+  /// Body of the leave-hub confirmation dialog
+  ///
+  /// In en, this message translates to:
+  /// **'You can rejoin {title} later from the Rooms directory.'**
+  String roomLeaveHubMessage(String title);
+
+  /// Snackbar shown when leaving a hub fails
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to leave hub'**
+  String get roomLeaveHubFailed;
+
+  /// Snackbar shown after successfully requesting to join a moderated room
+  ///
+  /// In en, this message translates to:
+  /// **'Request sent — you\'ll be notified if approved'**
+  String get roomJoinRequestSent;
+
+  /// Snackbar shown when a join request fails to send
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to send request'**
+  String get roomJoinRequestFailed;
+
+  /// Overflow menu item showing the pending join-request count
+  ///
+  /// In en, this message translates to:
+  /// **'Requests ({count})'**
+  String roomRequestsMenuItem(int count);
+
+  /// Overflow menu item opening the room member list
+  ///
+  /// In en, this message translates to:
+  /// **'View members'**
+  String get roomViewMembers;
+
+  /// Overflow menu item to leave the current hub
+  ///
+  /// In en, this message translates to:
+  /// **'Leave hub'**
+  String get roomLeaveHubMenuItem;
+
+  /// Room chat app bar subtitle showing member and online counts
+  ///
+  /// In en, this message translates to:
+  /// **'{members} members · {online} online'**
+  String roomMemberOnlineCount(int members, int online);
+
+  /// Composer replacement copy for a banned user in a room
+  ///
+  /// In en, this message translates to:
+  /// **'You were removed from this room. Send a request to rejoin — the owner needs to approve it.'**
+  String get roomBannedRequestMessage;
+
+  /// Composer replacement copy for a non-member of a moderated topic room
+  ///
+  /// In en, this message translates to:
+  /// **'This is a moderated room. Request to join to start chatting.'**
+  String get roomModeratedRequestMessage;
+
+  /// Disabled button label once a join request has been sent
+  ///
+  /// In en, this message translates to:
+  /// **'Request pending'**
+  String get roomRequestPending;
+
+  /// Button label to request joining a moderated room
+  ///
+  /// In en, this message translates to:
+  /// **'Request to join'**
+  String get roomRequestToJoin;
+
+  /// Label above the pinned daily-prompt card in a room
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s prompt'**
+  String get roomDailyPromptLabel;
+
+  /// Fallback display name when a room member/requester name is unavailable
+  ///
+  /// In en, this message translates to:
+  /// **'Someone'**
+  String get roomSomeoneFallback;
+
+  /// Error state message on the room join-requests screen
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load join requests'**
+  String get roomRequestsLoadError;
+
+  /// Snackbar shown after approving a join request
+  ///
+  /// In en, this message translates to:
+  /// **'Request approved'**
+  String get roomRequestApproved;
+
+  /// Snackbar shown after denying a join request
+  ///
+  /// In en, this message translates to:
+  /// **'Request denied'**
+  String get roomRequestDenied;
+
+  /// Snackbar shown when approving a join request fails
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to approve request'**
+  String get roomRequestApproveFailed;
+
+  /// Snackbar shown when denying a join request fails
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to deny request'**
+  String get roomRequestDenyFailed;
+
+  /// App bar title on the room join-requests screen
+  ///
+  /// In en, this message translates to:
+  /// **'{title} · Requests'**
+  String roomRequestsAppBarTitle(String title);
+
+  /// Empty state on the room join-requests screen
+  ///
+  /// In en, this message translates to:
+  /// **'No pending requests'**
+  String get roomRequestsEmpty;
+
+  /// Icon button tooltip to deny a join request
+  ///
+  /// In en, this message translates to:
+  /// **'Deny'**
+  String get roomRequestDeny;
+
+  /// Icon button tooltip to approve a join request
+  ///
+  /// In en, this message translates to:
+  /// **'Approve'**
+  String get roomRequestApprove;
+
+  /// Error state message on the room members screen
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load members'**
+  String get roomMembersLoadError;
+
+  /// Confirmation dialog title when removing a member from a topic room (kick-as-ban)
+  ///
+  /// In en, this message translates to:
+  /// **'Remove and ban member?'**
+  String get roomRemoveBanTitle;
+
+  /// Confirmation dialog title when removing a member from a hub
+  ///
+  /// In en, this message translates to:
+  /// **'Remove member?'**
+  String get roomRemoveTitle;
+
+  /// Confirmation dialog body when removing a member from a topic room (kick-as-ban)
+  ///
+  /// In en, this message translates to:
+  /// **'Remove and ban {name}? They won\'t be able to rejoin unless you approve a request.'**
+  String roomRemoveBanConfirm(String name);
+
+  /// Confirmation dialog body when removing a member from a hub
+  ///
+  /// In en, this message translates to:
+  /// **'Remove {name} from {title}?'**
+  String roomRemoveConfirm(String name, String title);
+
+  /// Confirm-action button label to remove and ban a topic-room member
+  ///
+  /// In en, this message translates to:
+  /// **'Remove & ban'**
+  String get roomRemoveBanButton;
+
+  /// Confirm-action button label to remove a hub member
+  ///
+  /// In en, this message translates to:
+  /// **'Remove'**
+  String get roomRemoveButton;
+
+  /// Snackbar shown after removing and banning a topic-room member
+  ///
+  /// In en, this message translates to:
+  /// **'Member removed and banned'**
+  String get roomMemberRemovedBanned;
+
+  /// Snackbar shown after removing a hub member
+  ///
+  /// In en, this message translates to:
+  /// **'Member removed'**
+  String get roomMemberRemoved;
+
+  /// Snackbar shown when removing a member fails
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to remove member'**
+  String get roomMemberRemoveFailed;
+
+  /// Snackbar shown after muting a member
+  ///
+  /// In en, this message translates to:
+  /// **'Member muted'**
+  String get roomMemberMuted;
+
+  /// Snackbar shown after unmuting a member
+  ///
+  /// In en, this message translates to:
+  /// **'Member unmuted'**
+  String get roomMemberUnmuted;
+
+  /// Snackbar shown when muting/unmuting a member fails
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to update mute status'**
+  String get roomMemberMuteFailed;
+
+  /// App bar title on the room members screen
+  ///
+  /// In en, this message translates to:
+  /// **'{title} · Members'**
+  String roomMembersAppBarTitle(String title);
+
+  /// Empty state on the room members screen
+  ///
+  /// In en, this message translates to:
+  /// **'No members to show yet'**
+  String get roomMembersEmpty;
+
+  /// Subtitle tag shown next to a muted member's name
+  ///
+  /// In en, this message translates to:
+  /// **'Muted'**
+  String get roomMemberMutedLabel;
+
+  /// Fallback display name when a member's name is unavailable
+  ///
+  /// In en, this message translates to:
+  /// **'Member'**
+  String get roomMemberFallbackName;
+
+  /// Badge on the room card for the caller's auto-joined hub
+  ///
+  /// In en, this message translates to:
+  /// **'Your hub'**
+  String get roomYourHub;
+
+  /// Online member count shown on a room card
+  ///
+  /// In en, this message translates to:
+  /// **'{count} online'**
+  String roomOnlineCount(int count);
+
+  /// Error state shown when a deep-linked room can't be found
+  ///
+  /// In en, this message translates to:
+  /// **'This room is no longer available.'**
+  String get roomNotAvailable;
+
+  /// Retry-state button label to navigate back to the rooms directory
+  ///
+  /// In en, this message translates to:
+  /// **'Go to Rooms'**
+  String get roomGoToRooms;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -7061,4 +7061,230 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get examTipsCategoryFluency => 'Fluency';
+
+  @override
+  String get roomsNewRoom => 'New room';
+
+  @override
+  String get roomsCouldNotLoad => 'Could not load rooms';
+
+  @override
+  String get roomsEmptyTitle => 'No language rooms yet';
+
+  @override
+  String get roomsEmptySubtitle => 'Check back soon — hubs are being set up.';
+
+  @override
+  String get roomCreateTitle => 'New Topic Room';
+
+  @override
+  String get roomCreateSubtitle => 'Start a focused chat under a language';
+
+  @override
+  String get roomNameLabel => 'Room name';
+
+  @override
+  String get roomNameHint => 'e.g. Daily conversation practice';
+
+  @override
+  String get roomDescriptionLabel => 'Description (optional)';
+
+  @override
+  String get roomDescriptionHint => 'What\'s this room about?';
+
+  @override
+  String get roomCreateSubmit => 'Create room';
+
+  @override
+  String get roomNameRequired => 'Please enter a room name';
+
+  @override
+  String get roomCreateError => 'Could not create the room. Please try again.';
+
+  @override
+  String get roomUsEnglish => 'US English';
+
+  @override
+  String get roomUkEnglish => 'UK English';
+
+  @override
+  String get roomFailedLoadMessages => 'Failed to load messages';
+
+  @override
+  String get roomReportMessageTitle => 'Report message';
+
+  @override
+  String get reportReasonSpam => 'Spam';
+
+  @override
+  String get reportReasonHarassment => 'Harassment or Bullying';
+
+  @override
+  String get reportReasonHateSpeech => 'Hate Speech';
+
+  @override
+  String get reportReasonViolence => 'Violence or Threats';
+
+  @override
+  String get reportReasonNudity => 'Nudity or Sexual Content';
+
+  @override
+  String get reportReasonFalseInformation => 'False Information';
+
+  @override
+  String get roomReportSubmitted => 'Report submitted';
+
+  @override
+  String get roomReportSubmitFailed => 'Failed to submit report';
+
+  @override
+  String get roomLeaveHubTitle => 'Leave hub?';
+
+  @override
+  String roomLeaveHubMessage(String title) {
+    return 'You can rejoin $title later from the Rooms directory.';
+  }
+
+  @override
+  String get roomLeaveHubFailed => 'Failed to leave hub';
+
+  @override
+  String get roomJoinRequestSent => 'Request sent — you\'ll be notified if approved';
+
+  @override
+  String get roomJoinRequestFailed => 'Failed to send request';
+
+  @override
+  String roomRequestsMenuItem(int count) {
+    return 'Requests ($count)';
+  }
+
+  @override
+  String get roomViewMembers => 'View members';
+
+  @override
+  String get roomLeaveHubMenuItem => 'Leave hub';
+
+  @override
+  String roomMemberOnlineCount(int members, int online) {
+    return '$members members · $online online';
+  }
+
+  @override
+  String get roomBannedRequestMessage => 'You were removed from this room. Send a request to rejoin — the owner needs to approve it.';
+
+  @override
+  String get roomModeratedRequestMessage => 'This is a moderated room. Request to join to start chatting.';
+
+  @override
+  String get roomRequestPending => 'Request pending';
+
+  @override
+  String get roomRequestToJoin => 'Request to join';
+
+  @override
+  String get roomDailyPromptLabel => 'Today\'s prompt';
+
+  @override
+  String get roomSomeoneFallback => 'Someone';
+
+  @override
+  String get roomRequestsLoadError => 'Could not load join requests';
+
+  @override
+  String get roomRequestApproved => 'Request approved';
+
+  @override
+  String get roomRequestDenied => 'Request denied';
+
+  @override
+  String get roomRequestApproveFailed => 'Failed to approve request';
+
+  @override
+  String get roomRequestDenyFailed => 'Failed to deny request';
+
+  @override
+  String roomRequestsAppBarTitle(String title) {
+    return '$title · Requests';
+  }
+
+  @override
+  String get roomRequestsEmpty => 'No pending requests';
+
+  @override
+  String get roomRequestDeny => 'Deny';
+
+  @override
+  String get roomRequestApprove => 'Approve';
+
+  @override
+  String get roomMembersLoadError => 'Could not load members';
+
+  @override
+  String get roomRemoveBanTitle => 'Remove and ban member?';
+
+  @override
+  String get roomRemoveTitle => 'Remove member?';
+
+  @override
+  String roomRemoveBanConfirm(String name) {
+    return 'Remove and ban $name? They won\'t be able to rejoin unless you approve a request.';
+  }
+
+  @override
+  String roomRemoveConfirm(String name, String title) {
+    return 'Remove $name from $title?';
+  }
+
+  @override
+  String get roomRemoveBanButton => 'Remove & ban';
+
+  @override
+  String get roomRemoveButton => 'Remove';
+
+  @override
+  String get roomMemberRemovedBanned => 'Member removed and banned';
+
+  @override
+  String get roomMemberRemoved => 'Member removed';
+
+  @override
+  String get roomMemberRemoveFailed => 'Failed to remove member';
+
+  @override
+  String get roomMemberMuted => 'Member muted';
+
+  @override
+  String get roomMemberUnmuted => 'Member unmuted';
+
+  @override
+  String get roomMemberMuteFailed => 'Failed to update mute status';
+
+  @override
+  String roomMembersAppBarTitle(String title) {
+    return '$title · Members';
+  }
+
+  @override
+  String get roomMembersEmpty => 'No members to show yet';
+
+  @override
+  String get roomMemberMutedLabel => 'Muted';
+
+  @override
+  String get roomMemberFallbackName => 'Member';
+
+  @override
+  String get roomYourHub => 'Your hub';
+
+  @override
+  String roomOnlineCount(int count) {
+    return '$count online';
+  }
+
+  @override
+  String get roomNotAvailable => 'This room is no longer available.';
+
+  @override
+  String get roomGoToRooms => 'Go to Rooms';
 }

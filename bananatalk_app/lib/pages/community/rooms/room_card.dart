@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/room.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/utils/language_flags.dart';
@@ -28,6 +29,7 @@ class RoomCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Material(
       color: context.containerColor,
       borderRadius: AppRadius.borderMD,
@@ -74,7 +76,7 @@ class RoomCard extends StatelessWidget {
                               borderRadius: AppRadius.borderSM,
                             ),
                             child: Text(
-                              'Your hub',
+                              l10n.roomYourHub,
                               style: context.caption.copyWith(
                                 color: context.primaryColor,
                                 fontWeight: FontWeight.w600,
@@ -94,7 +96,7 @@ class RoomCard extends StatelessWidget {
                               borderRadius: AppRadius.borderSM,
                             ),
                             child: Text(
-                              'Topic',
+                              l10n.roomTopic,
                               style: context.caption.copyWith(
                                 color: context.textSecondary,
                                 fontWeight: FontWeight.w600,
@@ -134,7 +136,7 @@ class RoomCard extends StatelessWidget {
                         _OnlineDot(online: room.onlineCount > 0),
                         const SizedBox(width: 4),
                         Text(
-                          '${room.onlineCount} online',
+                          l10n.roomOnlineCount(room.onlineCount),
                           style: context.caption.copyWith(
                             color: context.textMuted,
                           ),

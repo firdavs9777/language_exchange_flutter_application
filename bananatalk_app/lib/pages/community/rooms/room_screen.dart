@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/room.dart';
 import 'package:bananatalk_app/utils/language_flags.dart';
 import 'package:bananatalk_app/providers/provider_models/message_model.dart';
@@ -164,7 +165,8 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
       final userId = data['userId']?.toString();
       if (userId == null || userId == _currentUserId) return;
       final isTyping = data['isTyping'] == true;
-      final name = data['userName']?.toString() ?? 'Someone';
+      final name = data['userName']?.toString() ??
+          AppLocalizations.of(context)!.roomSomeoneFallback;
       setState(() {
         if (isTyping) {
           _typingUserNames.add(name);
@@ -233,7 +235,7 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
       if (!mounted) return;
       setState(() {
         _isLoading = false;
-        _error = 'Failed to load messages';
+        _error = AppLocalizations.of(context)!.roomFailedLoadMessages;
       });
     }
   }
@@ -330,6 +332,7 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
   /// evidence uploads that are unnecessary friction for a quick hub report.
   Future<void> _reportMessage(Message message) async {
     HapticUtils.lightImpact();
+    final l10n = AppLocalizations.of(context)!;
     final reason = await showModalBottomSheet<String>(
       context: context,
       backgroundColor: context.isDarkMode ? AppColors.cardDark : AppColors.white,
@@ -340,11 +343,11 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 12),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 12),
               child: Text(
-                'Report message',
-                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
+                l10n.roomReportMessageTitle,
+                style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
               ),
             ),
             for (final reason in const [
@@ -357,7 +360,7 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
               'other',
             ])
               ListTile(
-                title: Text(_reasonLabel(reason)),
+                title: Text(_reasonLabel(l10n, reason)),
                 onTap: () => Navigator.pop(sheetCtx, reason),
               ),
           ],
@@ -375,49 +378,48 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
       SnackBar(
         content: Text(
           result['success'] == true
-              ? 'Report submitted'
-              : (result['message'] ?? 'Failed to submit report'),
+              ? l10n.roomReportSubmitted
+              : (result['message'] ?? l10n.roomReportSubmitFailed),
         ),
         backgroundColor: result['success'] == true ? AppColors.success : AppColors.error,
       ),
     );
   }
 
-  String _reasonLabel(String value) {
+  String _reasonLabel(AppLocalizations l10n, String value) {
     switch (value) {
       case 'spam':
-        return 'Spam';
+        return l10n.reportReasonSpam;
       case 'harassment':
-        return 'Harassment or Bullying';
+        return l10n.reportReasonHarassment;
       case 'hate_speech':
-        return 'Hate Speech';
+        return l10n.reportReasonHateSpeech;
       case 'violence':
-        return 'Violence or Threats';
+        return l10n.reportReasonViolence;
       case 'nudity':
-        return 'Nudity or Sexual Content';
+        return l10n.reportReasonNudity;
       case 'false_information':
-        return 'False Information';
+        return l10n.reportReasonFalseInformation;
       default:
-        return 'Other';
+        return l10n.other;
     }
   }
 
   Future<void> _leaveHub() async {
+    final l10n = AppLocalizations.of(context)!;
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Leave hub?'),
-        content: Text(
-          'You can rejoin ${_room.title} later from the Rooms directory.',
-        ),
+        title: Text(l10n.roomLeaveHubTitle),
+        content: Text(l10n.roomLeaveHubMessage(_room.title)),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx, false),
-            child: const Text('Cancel'),
+            child: Text(l10n.cancel),
           ),
           FilledButton(
             onPressed: () => Navigator.pop(ctx, true),
-            child: const Text('Leave'),
+            child: Text(l10n.leave),
           ),
         ],
       ),
@@ -430,7 +432,7 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
       Navigator.of(context).pop();
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Failed to leave hub')),
+        SnackBar(content: Text(l10n.roomLeaveHubFailed)),
       );
     }
   }
@@ -478,10 +480,11 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
       _isRequestingJoin = false;
       if (ok) _room = _room.copyWith(hasPendingRequest: true);
     });
+    final l10n = AppLocalizations.of(context)!;
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
-          ok ? 'Request sent — you\'ll be notified if approved' : 'Failed to send request',
+          ok ? l10n.roomJoinRequestSent : l10n.roomJoinRequestFailed,
         ),
         backgroundColor: ok ? AppColors.success : AppColors.error,
       ),
@@ -517,6 +520,7 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
         title: Column(
@@ -530,7 +534,7 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
               overflow: TextOverflow.ellipsis,
             ),
             Text(
-              '${_room.memberCount} members · ${_room.onlineCount} online',
+              l10n.roomMemberOnlineCount(_room.memberCount, _room.onlineCount),
               style: const TextStyle(fontSize: 12, fontWeight: FontWeight.normal),
             ),
           ],
@@ -556,16 +560,16 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
               if (_room.isOwnerOrAdmin && _room.pendingRequestCount > 0)
                 PopupMenuItem(
                   value: 'requests',
-                  child: Text('Requests (${_room.pendingRequestCount})'),
+                  child: Text(l10n.roomRequestsMenuItem(_room.pendingRequestCount)),
                 ),
               // Only shown to the hub's owner/admin — everyone else can
               // still leave, but member-list moderation stays hidden.
               if (_room.isOwnerOrAdmin)
-                const PopupMenuItem(value: 'members', child: Text('View members')),
+                PopupMenuItem(value: 'members', child: Text(l10n.roomViewMembers)),
               // Nothing to leave if we were never a member (or got kicked)
               // — Task 16 topic rooms no longer auto-join a non-member.
               if (_room.isMember)
-                const PopupMenuItem(value: 'leave', child: Text('Leave hub')),
+                PopupMenuItem(value: 'leave', child: Text(l10n.roomLeaveHubMenuItem)),
             ],
           ),
         ],
@@ -642,6 +646,7 @@ class _RequestToJoinBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return SafeArea(
       top: false,
       child: Container(
@@ -656,8 +661,8 @@ class _RequestToJoinBar extends StatelessWidget {
           children: [
             Text(
               isBanned
-                  ? 'You were removed from this room. Send a request to rejoin — the owner needs to approve it.'
-                  : 'This is a moderated room. Request to join to start chatting.',
+                  ? l10n.roomBannedRequestMessage
+                  : l10n.roomModeratedRequestMessage,
               textAlign: TextAlign.center,
               style: context.bodySmall.copyWith(color: context.textSecondary),
             ),
@@ -665,9 +670,9 @@ class _RequestToJoinBar extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: hasPendingRequest
-                  ? const FilledButton(
+                  ? FilledButton(
                       onPressed: null,
-                      child: Text('Request pending'),
+                      child: Text(l10n.roomRequestPending),
                     )
                   : FilledButton(
                       onPressed: isRequesting ? null : onRequest,
@@ -680,7 +685,7 @@ class _RequestToJoinBar extends StatelessWidget {
                                 valueColor: AlwaysStoppedAnimation(Colors.white),
                               ),
                             )
-                          : const Text('Request to join'),
+                          : Text(l10n.roomRequestToJoin),
                     ),
             ),
           ],
@@ -719,7 +724,7 @@ class _DailyPromptCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Today's prompt",
+                  AppLocalizations.of(context)!.roomDailyPromptLabel,
                   style: context.captionSmall.copyWith(
                     color: AppColors.primary,
                     fontWeight: FontWeight.w700,

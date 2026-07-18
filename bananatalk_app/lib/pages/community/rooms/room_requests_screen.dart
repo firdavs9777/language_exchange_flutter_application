@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/room.dart';
 import 'package:bananatalk_app/pages/chat/header/user_avatar.dart';
 import 'package:bananatalk_app/providers/rooms_provider.dart';
@@ -57,7 +58,7 @@ class _RoomRequestsScreenState extends ConsumerState<RoomRequestsScreen> {
       if (!mounted) return;
       setState(() {
         _isLoading = false;
-        _error = 'Could not load join requests';
+        _error = AppLocalizations.of(context)!.roomRequestsLoadError;
       });
     }
   }
@@ -74,7 +75,8 @@ class _RoomRequestsScreenState extends ConsumerState<RoomRequestsScreen> {
   }
 
   String _requestUserName(Map<String, dynamic> request) =>
-      _requestUser(request)['name']?.toString() ?? 'Someone';
+      _requestUser(request)['name']?.toString() ??
+      AppLocalizations.of(context)!.roomSomeoneFallback;
 
   String? _requestUserPicture(Map<String, dynamic> request) {
     final images = _requestUser(request)['images'];
@@ -93,6 +95,7 @@ class _RoomRequestsScreenState extends ConsumerState<RoomRequestsScreen> {
         : await apiClient.denyJoinRequest(widget.room.id, userId);
     if (!mounted) return;
 
+    final l10n = AppLocalizations.of(context)!;
     setState(() {
       _processingIds.remove(userId);
       if (ok) {
@@ -103,8 +106,8 @@ class _RoomRequestsScreenState extends ConsumerState<RoomRequestsScreen> {
       SnackBar(
         content: Text(
           ok
-              ? (approve ? 'Request approved' : 'Request denied')
-              : 'Failed to ${approve ? 'approve' : 'deny'} request',
+              ? (approve ? l10n.roomRequestApproved : l10n.roomRequestDenied)
+              : (approve ? l10n.roomRequestApproveFailed : l10n.roomRequestDenyFailed),
         ),
         backgroundColor: ok ? AppColors.success : AppColors.error,
       ),
@@ -113,9 +116,10 @@ class _RoomRequestsScreenState extends ConsumerState<RoomRequestsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
-        title: Text('${widget.room.title} · Requests'),
+        title: Text(l10n.roomRequestsAppBarTitle(widget.room.title)),
       ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
@@ -126,12 +130,12 @@ class _RoomRequestsScreenState extends ConsumerState<RoomRequestsScreen> {
                     children: [
                       Text(_error!),
                       const SizedBox(height: 12),
-                      ElevatedButton(onPressed: _load, child: const Text('Retry')),
+                      ElevatedButton(onPressed: _load, child: Text(l10n.retry)),
                     ],
                   ),
                 )
               : _requests.isEmpty
-                  ? const Center(child: Text('No pending requests'))
+                  ? Center(child: Text(l10n.roomRequestsEmpty))
                   : ListView.separated(
                       padding: const EdgeInsets.all(Spacing.md),
                       itemCount: _requests.length,
@@ -174,7 +178,7 @@ class _RoomRequestsScreenState extends ConsumerState<RoomRequestsScreen> {
                                   )
                                 else ...[
                                   IconButton(
-                                    tooltip: 'Deny',
+                                    tooltip: l10n.roomRequestDeny,
                                     onPressed: () => _respond(request, approve: false),
                                     icon: const Icon(
                                       Icons.close_rounded,
@@ -182,7 +186,7 @@ class _RoomRequestsScreenState extends ConsumerState<RoomRequestsScreen> {
                                     ),
                                   ),
                                   IconButton(
-                                    tooltip: 'Approve',
+                                    tooltip: l10n.roomRequestApprove,
                                     onPressed: () => _respond(request, approve: true),
                                     icon: const Icon(
                                       Icons.check_rounded,

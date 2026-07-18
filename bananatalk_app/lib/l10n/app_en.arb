@@ -4244,5 +4244,332 @@
   "examTipsCategoryFluency": "Fluency",
   "@examTipsCategoryFluency": {
     "description": "Tip group label"
+  },
+
+  "roomsNewRoom": "New room",
+  "@roomsNewRoom": {
+    "description": "FAB label to create a new Community Room topic room"
+  },
+  "roomsCouldNotLoad": "Could not load rooms",
+  "@roomsCouldNotLoad": {
+    "description": "Error state message on the rooms directory screen"
+  },
+  "roomsEmptyTitle": "No language rooms yet",
+  "@roomsEmptyTitle": {
+    "description": "Empty state title on the rooms directory screen"
+  },
+  "roomsEmptySubtitle": "Check back soon — hubs are being set up.",
+  "@roomsEmptySubtitle": {
+    "description": "Empty state subtitle on the rooms directory screen"
+  },
+  "roomCreateTitle": "New Topic Room",
+  "@roomCreateTitle": {
+    "description": "Title of the create-topic-room bottom sheet"
+  },
+  "roomCreateSubtitle": "Start a focused chat under a language",
+  "@roomCreateSubtitle": {
+    "description": "Subtitle of the create-topic-room bottom sheet"
+  },
+  "roomNameLabel": "Room name",
+  "@roomNameLabel": {
+    "description": "Label for the room name field in the create-topic-room sheet"
+  },
+  "roomNameHint": "e.g. Daily conversation practice",
+  "@roomNameHint": {
+    "description": "Hint text for the room name field in the create-topic-room sheet"
+  },
+  "roomDescriptionLabel": "Description (optional)",
+  "@roomDescriptionLabel": {
+    "description": "Label for the optional description field in the create-topic-room sheet"
+  },
+  "roomDescriptionHint": "What's this room about?",
+  "@roomDescriptionHint": {
+    "description": "Hint text for the description field in the create-topic-room sheet"
+  },
+  "roomCreateSubmit": "Create room",
+  "@roomCreateSubmit": {
+    "description": "Submit button label on the create-topic-room sheet"
+  },
+  "roomNameRequired": "Please enter a room name",
+  "@roomNameRequired": {
+    "description": "Validation error when the room name field is left empty"
+  },
+  "roomCreateError": "Could not create the room. Please try again.",
+  "@roomCreateError": {
+    "description": "Snackbar shown when creating a topic room fails"
+  },
+  "roomUsEnglish": "US English",
+  "@roomUsEnglish": {
+    "description": "US English flag-choice label in the create-topic-room sheet (flag emoji composed in code)"
+  },
+  "roomUkEnglish": "UK English",
+  "@roomUkEnglish": {
+    "description": "UK English flag-choice label in the create-topic-room sheet (flag emoji composed in code)"
+  },
+  "roomFailedLoadMessages": "Failed to load messages",
+  "@roomFailedLoadMessages": {
+    "description": "Error state message in the room/hub chat screen"
+  },
+  "roomReportMessageTitle": "Report message",
+  "@roomReportMessageTitle": {
+    "description": "Title of the report-reason bottom sheet for a chat message"
+  },
+  "reportReasonSpam": "Spam",
+  "@reportReasonSpam": {
+    "description": "Report reason option"
+  },
+  "reportReasonHarassment": "Harassment or Bullying",
+  "@reportReasonHarassment": {
+    "description": "Report reason option"
+  },
+  "reportReasonHateSpeech": "Hate Speech",
+  "@reportReasonHateSpeech": {
+    "description": "Report reason option"
+  },
+  "reportReasonViolence": "Violence or Threats",
+  "@reportReasonViolence": {
+    "description": "Report reason option"
+  },
+  "reportReasonNudity": "Nudity or Sexual Content",
+  "@reportReasonNudity": {
+    "description": "Report reason option"
+  },
+  "reportReasonFalseInformation": "False Information",
+  "@reportReasonFalseInformation": {
+    "description": "Report reason option"
+  },
+  "roomReportSubmitted": "Report submitted",
+  "@roomReportSubmitted": {
+    "description": "Snackbar confirming a message report was submitted"
+  },
+  "roomReportSubmitFailed": "Failed to submit report",
+  "@roomReportSubmitFailed": {
+    "description": "Snackbar shown when submitting a message report fails"
+  },
+  "roomLeaveHubTitle": "Leave hub?",
+  "@roomLeaveHubTitle": {
+    "description": "Title of the leave-hub confirmation dialog"
+  },
+  "roomLeaveHubMessage": "You can rejoin {title} later from the Rooms directory.",
+  "@roomLeaveHubMessage": {
+    "description": "Body of the leave-hub confirmation dialog",
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "roomLeaveHubFailed": "Failed to leave hub",
+  "@roomLeaveHubFailed": {
+    "description": "Snackbar shown when leaving a hub fails"
+  },
+  "roomJoinRequestSent": "Request sent — you'll be notified if approved",
+  "@roomJoinRequestSent": {
+    "description": "Snackbar shown after successfully requesting to join a moderated room"
+  },
+  "roomJoinRequestFailed": "Failed to send request",
+  "@roomJoinRequestFailed": {
+    "description": "Snackbar shown when a join request fails to send"
+  },
+  "roomRequestsMenuItem": "Requests ({count})",
+  "@roomRequestsMenuItem": {
+    "description": "Overflow menu item showing the pending join-request count",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "roomViewMembers": "View members",
+  "@roomViewMembers": {
+    "description": "Overflow menu item opening the room member list"
+  },
+  "roomLeaveHubMenuItem": "Leave hub",
+  "@roomLeaveHubMenuItem": {
+    "description": "Overflow menu item to leave the current hub"
+  },
+  "roomMemberOnlineCount": "{members} members · {online} online",
+  "@roomMemberOnlineCount": {
+    "description": "Room chat app bar subtitle showing member and online counts",
+    "placeholders": {
+      "members": {
+        "type": "int"
+      },
+      "online": {
+        "type": "int"
+      }
+    }
+  },
+  "roomBannedRequestMessage": "You were removed from this room. Send a request to rejoin — the owner needs to approve it.",
+  "@roomBannedRequestMessage": {
+    "description": "Composer replacement copy for a banned user in a room"
+  },
+  "roomModeratedRequestMessage": "This is a moderated room. Request to join to start chatting.",
+  "@roomModeratedRequestMessage": {
+    "description": "Composer replacement copy for a non-member of a moderated topic room"
+  },
+  "roomRequestPending": "Request pending",
+  "@roomRequestPending": {
+    "description": "Disabled button label once a join request has been sent"
+  },
+  "roomRequestToJoin": "Request to join",
+  "@roomRequestToJoin": {
+    "description": "Button label to request joining a moderated room"
+  },
+  "roomDailyPromptLabel": "Today's prompt",
+  "@roomDailyPromptLabel": {
+    "description": "Label above the pinned daily-prompt card in a room"
+  },
+  "roomSomeoneFallback": "Someone",
+  "@roomSomeoneFallback": {
+    "description": "Fallback display name when a room member/requester name is unavailable"
+  },
+  "roomRequestsLoadError": "Could not load join requests",
+  "@roomRequestsLoadError": {
+    "description": "Error state message on the room join-requests screen"
+  },
+  "roomRequestApproved": "Request approved",
+  "@roomRequestApproved": {
+    "description": "Snackbar shown after approving a join request"
+  },
+  "roomRequestDenied": "Request denied",
+  "@roomRequestDenied": {
+    "description": "Snackbar shown after denying a join request"
+  },
+  "roomRequestApproveFailed": "Failed to approve request",
+  "@roomRequestApproveFailed": {
+    "description": "Snackbar shown when approving a join request fails"
+  },
+  "roomRequestDenyFailed": "Failed to deny request",
+  "@roomRequestDenyFailed": {
+    "description": "Snackbar shown when denying a join request fails"
+  },
+  "roomRequestsAppBarTitle": "{title} · Requests",
+  "@roomRequestsAppBarTitle": {
+    "description": "App bar title on the room join-requests screen",
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "roomRequestsEmpty": "No pending requests",
+  "@roomRequestsEmpty": {
+    "description": "Empty state on the room join-requests screen"
+  },
+  "roomRequestDeny": "Deny",
+  "@roomRequestDeny": {
+    "description": "Icon button tooltip to deny a join request"
+  },
+  "roomRequestApprove": "Approve",
+  "@roomRequestApprove": {
+    "description": "Icon button tooltip to approve a join request"
+  },
+  "roomMembersLoadError": "Could not load members",
+  "@roomMembersLoadError": {
+    "description": "Error state message on the room members screen"
+  },
+  "roomRemoveBanTitle": "Remove and ban member?",
+  "@roomRemoveBanTitle": {
+    "description": "Confirmation dialog title when removing a member from a topic room (kick-as-ban)"
+  },
+  "roomRemoveTitle": "Remove member?",
+  "@roomRemoveTitle": {
+    "description": "Confirmation dialog title when removing a member from a hub"
+  },
+  "roomRemoveBanConfirm": "Remove and ban {name}? They won't be able to rejoin unless you approve a request.",
+  "@roomRemoveBanConfirm": {
+    "description": "Confirmation dialog body when removing a member from a topic room (kick-as-ban)",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "roomRemoveConfirm": "Remove {name} from {title}?",
+  "@roomRemoveConfirm": {
+    "description": "Confirmation dialog body when removing a member from a hub",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "roomRemoveBanButton": "Remove & ban",
+  "@roomRemoveBanButton": {
+    "description": "Confirm-action button label to remove and ban a topic-room member"
+  },
+  "roomRemoveButton": "Remove",
+  "@roomRemoveButton": {
+    "description": "Confirm-action button label to remove a hub member"
+  },
+  "roomMemberRemovedBanned": "Member removed and banned",
+  "@roomMemberRemovedBanned": {
+    "description": "Snackbar shown after removing and banning a topic-room member"
+  },
+  "roomMemberRemoved": "Member removed",
+  "@roomMemberRemoved": {
+    "description": "Snackbar shown after removing a hub member"
+  },
+  "roomMemberRemoveFailed": "Failed to remove member",
+  "@roomMemberRemoveFailed": {
+    "description": "Snackbar shown when removing a member fails"
+  },
+  "roomMemberMuted": "Member muted",
+  "@roomMemberMuted": {
+    "description": "Snackbar shown after muting a member"
+  },
+  "roomMemberUnmuted": "Member unmuted",
+  "@roomMemberUnmuted": {
+    "description": "Snackbar shown after unmuting a member"
+  },
+  "roomMemberMuteFailed": "Failed to update mute status",
+  "@roomMemberMuteFailed": {
+    "description": "Snackbar shown when muting/unmuting a member fails"
+  },
+  "roomMembersAppBarTitle": "{title} · Members",
+  "@roomMembersAppBarTitle": {
+    "description": "App bar title on the room members screen",
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "roomMembersEmpty": "No members to show yet",
+  "@roomMembersEmpty": {
+    "description": "Empty state on the room members screen"
+  },
+  "roomMemberMutedLabel": "Muted",
+  "@roomMemberMutedLabel": {
+    "description": "Subtitle tag shown next to a muted member's name"
+  },
+  "roomMemberFallbackName": "Member",
+  "@roomMemberFallbackName": {
+    "description": "Fallback display name when a member's name is unavailable"
+  },
+  "roomYourHub": "Your hub",
+  "@roomYourHub": {
+    "description": "Badge on the room card for the caller's auto-joined hub"
+  },
+  "roomOnlineCount": "{count} online",
+  "@roomOnlineCount": {
+    "description": "Online member count shown on a room card",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "roomNotAvailable": "This room is no longer available.",
+  "@roomNotAvailable": {
+    "description": "Error state shown when a deep-linked room can't be found"
+  },
+  "roomGoToRooms": "Go to Rooms",
+  "@roomGoToRooms": {
+    "description": "Retry-state button label to navigate back to the rooms directory"
   }
 }

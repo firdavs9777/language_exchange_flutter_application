@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/room.dart';
 import 'package:bananatalk_app/pages/chat/header/user_avatar.dart';
 import 'package:bananatalk_app/providers/rooms_provider.dart';
@@ -54,7 +55,7 @@ class _RoomMembersScreenState extends ConsumerState<RoomMembersScreen> {
       if (!mounted) return;
       setState(() {
         _isLoading = false;
-        _error = 'Could not load members';
+        _error = AppLocalizations.of(context)!.roomMembersLoadError;
       });
     }
   }
@@ -63,7 +64,8 @@ class _RoomMembersScreenState extends ConsumerState<RoomMembersScreen> {
       (member['_id'] ?? member['id'] ?? member['userId'])?.toString() ?? '';
 
   String _memberName(Map<String, dynamic> member) =>
-      member['name']?.toString() ?? 'Member';
+      member['name']?.toString() ??
+      AppLocalizations.of(context)!.roomMemberFallbackName;
 
   String? _memberPicture(Map<String, dynamic> member) {
     final images = member['imageUrls'] ?? member['images'];
@@ -83,23 +85,24 @@ class _RoomMembersScreenState extends ConsumerState<RoomMembersScreen> {
     final userId = _memberId(member);
     if (userId.isEmpty || _isOwner(member)) return;
     final isTopicRoom = widget.room.isTopicRoom;
+    final l10n = AppLocalizations.of(context)!;
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: Text(isTopicRoom ? 'Remove and ban member?' : 'Remove member?'),
+        title: Text(isTopicRoom ? l10n.roomRemoveBanTitle : l10n.roomRemoveTitle),
         content: Text(
           isTopicRoom
-              ? 'Remove and ban ${_memberName(member)}? They won\'t be able to rejoin unless you approve a request.'
-              : 'Remove ${_memberName(member)} from ${widget.room.title}?',
+              ? l10n.roomRemoveBanConfirm(_memberName(member))
+              : l10n.roomRemoveConfirm(_memberName(member), widget.room.title),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx, false),
-            child: const Text('Cancel'),
+            child: Text(l10n.cancel),
           ),
           FilledButton(
             onPressed: () => Navigator.pop(ctx, true),
-            child: Text(isTopicRoom ? 'Remove & ban' : 'Remove'),
+            child: Text(isTopicRoom ? l10n.roomRemoveBanButton : l10n.roomRemoveButton),
           ),
         ],
       ),
@@ -116,8 +119,8 @@ class _RoomMembersScreenState extends ConsumerState<RoomMembersScreen> {
       SnackBar(
         content: Text(
           ok
-              ? (isTopicRoom ? 'Member removed and banned' : 'Member removed')
-              : 'Failed to remove member',
+              ? (isTopicRoom ? l10n.roomMemberRemovedBanned : l10n.roomMemberRemoved)
+              : l10n.roomMemberRemoveFailed,
         ),
         backgroundColor: ok ? AppColors.success : AppColors.error,
       ),
@@ -128,6 +131,7 @@ class _RoomMembersScreenState extends ConsumerState<RoomMembersScreen> {
     final userId = _memberId(member);
     if (userId.isEmpty) return;
     final currentlyMuted = _memberMuted(member);
+    final l10n = AppLocalizations.of(context)!;
 
     final apiClient = ref.read(roomApiClientProvider);
     final ok = await apiClient.muteMember(
@@ -148,8 +152,8 @@ class _RoomMembersScreenState extends ConsumerState<RoomMembersScreen> {
       SnackBar(
         content: Text(
           ok
-              ? (currentlyMuted ? 'Member unmuted' : 'Member muted')
-              : 'Failed to update mute status',
+              ? (currentlyMuted ? l10n.roomMemberUnmuted : l10n.roomMemberMuted)
+              : l10n.roomMemberMuteFailed,
         ),
         backgroundColor: ok ? AppColors.success : AppColors.error,
       ),
@@ -159,10 +163,11 @@ class _RoomMembersScreenState extends ConsumerState<RoomMembersScreen> {
   @override
   Widget build(BuildContext context) {
     final canModerate = widget.room.isOwnerOrAdmin;
+    final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('${widget.room.title} · Members'),
+        title: Text(l10n.roomMembersAppBarTitle(widget.room.title)),
       ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
@@ -173,12 +178,12 @@ class _RoomMembersScreenState extends ConsumerState<RoomMembersScreen> {
                     children: [
                       Text(_error!),
                       const SizedBox(height: 12),
-                      ElevatedButton(onPressed: _load, child: const Text('Retry')),
+                      ElevatedButton(onPressed: _load, child: Text(l10n.retry)),
                     ],
                   ),
                 )
               : _members.isEmpty
-                  ? const Center(child: Text('No members to show yet'))
+                  ? Center(child: Text(l10n.roomMembersEmpty))
                   : ListView.separated(
                       padding: const EdgeInsets.all(Spacing.md),
                       itemCount: _members.length,
@@ -205,9 +210,9 @@ class _RoomMembersScreenState extends ConsumerState<RoomMembersScreen> {
                             ),
                             title: Text(_memberName(member)),
                             subtitle: muted
-                                ? const Text(
-                                    'Muted',
-                                    style: TextStyle(color: AppColors.warning),
+                                ? Text(
+                                    l10n.roomMemberMutedLabel,
+                                    style: const TextStyle(color: AppColors.warning),
                                   )
                                 : null,
                             trailing: canModerate
@@ -222,7 +227,7 @@ class _RoomMembersScreenState extends ConsumerState<RoomMembersScreen> {
                                     itemBuilder: (ctx) => [
                                       PopupMenuItem(
                                         value: 'mute',
-                                        child: Text(muted ? 'Unmute' : 'Mute'),
+                                        child: Text(muted ? l10n.unmute : l10n.mute),
                                       ),
                                       // The owner can never be removed —
                                       // omit the option entirely rather
@@ -232,8 +237,8 @@ class _RoomMembersScreenState extends ConsumerState<RoomMembersScreen> {
                                           value: 'remove',
                                           child: Text(
                                             widget.room.isTopicRoom
-                                                ? 'Remove & ban'
-                                                : 'Remove',
+                                                ? l10n.roomRemoveBanButton
+                                                : l10n.roomRemoveButton,
                                           ),
                                         ),
                                     ],

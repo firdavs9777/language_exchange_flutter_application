@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/room.dart';
 import 'package:bananatalk_app/pages/community/rooms/create_topic_room_sheet.dart';
 import 'package:bananatalk_app/pages/community/rooms/room_card.dart';
@@ -56,6 +57,7 @@ class RoomsDirectoryScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final roomsAsync = ref.watch(roomsProvider);
+    final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
       backgroundColor: Colors.transparent,
@@ -67,22 +69,22 @@ class RoomsDirectoryScreen extends ConsumerWidget {
           heroTag: 'rooms-directory-fab',
           onPressed: () => _createTopicRoom(context, ref),
           icon: const Icon(Icons.add_rounded),
-          label: const Text('New room'),
+          label: Text(l10n.roomsNewRoom),
         ),
       ),
       body: roomsAsync.when(
         loading: () => const UserListSkeleton(count: 6),
         error: (error, _) => CommunityErrorState(
-          message: 'Could not load rooms',
+          message: l10n.roomsCouldNotLoad,
           onRetry: () => ref.read(roomsProvider.notifier).refresh(),
-          retryLabel: 'Try again',
+          retryLabel: l10n.chatRetry,
         ),
         data: (rooms) {
           if (rooms.isEmpty) {
-            return const CommunityEmptyState(
+            return CommunityEmptyState(
               icon: Icons.forum_outlined,
-              title: 'No language rooms yet',
-              subtitle: 'Check back soon — hubs are being set up.',
+              title: l10n.roomsEmptyTitle,
+              subtitle: l10n.roomsEmptySubtitle,
             );
           }
           return _RoomsList(rooms: rooms);
@@ -105,11 +107,14 @@ class _LanguageSection {
 /// Groups [rooms] by `targetLanguage`, preserving first-seen order per
 /// language (so the section containing the caller's pinned hub stays
 /// first) and putting hubs before topic rooms within each section.
-List<_LanguageSection> _groupByLanguage(List<Room> rooms) {
+List<_LanguageSection> _groupByLanguage(
+  List<Room> rooms, {
+  required String otherLabel,
+}) {
   final order = <String>[];
   final byLanguage = <String, List<Room>>{};
   for (final room in rooms) {
-    final language = room.targetLanguage.isEmpty ? 'Other' : room.targetLanguage;
+    final language = room.targetLanguage.isEmpty ? otherLabel : room.targetLanguage;
     final bucket = byLanguage.putIfAbsent(language, () {
       order.add(language);
       return [];
@@ -147,7 +152,8 @@ class _RoomsListState extends ConsumerState<_RoomsList> {
 
   @override
   Widget build(BuildContext context) {
-    final allSections = _groupByLanguage(widget.rooms);
+    final l10n = AppLocalizations.of(context)!;
+    final allSections = _groupByLanguage(widget.rooms, otherLabel: l10n.other);
     final languages = allSections.map((s) => s.language).toList();
 
     // Drop a stale selection (e.g. its last room was deleted / filtered away).
@@ -165,7 +171,7 @@ class _RoomsListState extends ConsumerState<_RoomsList> {
         ..sort((a, b) => b.memberCount.compareTo(a.memberCount));
       final top = popular.where((r) => r.memberCount > 0).take(5).toList();
       if (top.length >= 2) {
-        sections.add(_LanguageSection(language: '🔥 Popular', rooms: top));
+        sections.add(_LanguageSection(language: '🔥 ${l10n.popular}', rooms: top));
       }
       sections.addAll(allSections);
     } else {
@@ -282,7 +288,11 @@ class _LanguageFilterBar extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         padding: const EdgeInsets.symmetric(horizontal: Spacing.md, vertical: 8),
         children: [
-          _chip(context, label: 'All', value: null),
+          _chip(
+            context,
+            label: AppLocalizations.of(context)!.communityTabAll,
+            value: null,
+          ),
           for (final lang in languages)
             _chip(
               context,
