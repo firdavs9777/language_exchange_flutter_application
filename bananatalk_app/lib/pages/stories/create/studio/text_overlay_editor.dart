@@ -1,5 +1,6 @@
 // lib/pages/stories/create/studio/text_overlay_editor.dart
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/pages/stories/create/studio/overlay_draft.dart';
 import 'package:bananatalk_app/pages/stories/create/studio/story_canvas.dart';
 
@@ -83,7 +84,17 @@ class _TextOverlayEditorSheetState extends State<_TextOverlayEditorSheet> {
 
   @override
   Widget build(BuildContext context) {
-    return PopScope(
+    // This sheet is unconditionally dark by design (it edits text over a
+    // black-ish full-screen backdrop) regardless of the device's system
+    // light/dark appearance. Forcing AppTheme.dark here — on top of the
+    // explicit `filled: false` below — is belt-and-suspenders: it ensures
+    // any unstyled Material widget (the font-style ChoiceChips further
+    // down included) resolves theme-derived defaults to dark values
+    // instead of silently inheriting the app's global (possibly light)
+    // theme.
+    return Theme(
+      data: AppTheme.dark,
+      child: PopScope(
       // Covers system back / any dismissal not going through our buttons.
       onPopInvokedWithResult: (didPop, _) {
         if (didPop) _commit();
@@ -116,7 +127,14 @@ class _TextOverlayEditorSheetState extends State<_TextOverlayEditorSheet> {
                   textAlign: TextAlign.center,
                   style: overlayTextStyle(_draft, base: 30),
                   cursorColor: Colors.white,
-                  decoration: const InputDecoration(border: InputBorder.none),
+                  decoration: const InputDecoration(
+                    border: InputBorder.none,
+                    // Same theme-leak fix as create_story_screen.dart's
+                    // hashtag input: explicitly opt out of the ambient
+                    // theme's default fill so a light system appearance
+                    // can't paint a stray near-white box here.
+                    filled: false,
+                  ),
                 ),
               ),
             ),
@@ -210,6 +228,7 @@ class _TextOverlayEditorSheetState extends State<_TextOverlayEditorSheet> {
             ]),
           ),
         ]),
+      ),
       ),
     );
   }

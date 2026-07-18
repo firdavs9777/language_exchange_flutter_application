@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:video_player/video_player.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/providers/provider_models/story_model.dart';
 import 'package:bananatalk_app/services/stories_service.dart';
 import 'package:bananatalk_app/services/video_compression_service.dart';
@@ -574,51 +575,71 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        title: Text(AppLocalizations.of(context)!.createStory),
-        actions: [
-          // Drawing (Task 6) is scoped to image stories only — see the
-          // `_strokes` field doc for why video/text are excluded.
-          if (_mediaFile != null && !_isVideo)
-            IconButton(
-              tooltip: 'Draw',
-              onPressed: () => setState(() => _drawMode = !_drawMode),
-              icon: Icon(
-                Icons.brush_rounded,
-                color: _drawMode ? const Color(0xFF00BFA5) : Colors.white,
+    // The Stories creation flow is an intentionally-dark, Instagram-style
+    // editor regardless of the device's system light/dark appearance. Most
+    // widgets below hardcode their own dark colors, but forcing the ambient
+    // Theme to AppTheme.dark here is belt-and-suspenders: it guarantees any
+    // unstyled Material widget (TextField, Chip, etc.) added now or in the
+    // future resolves its theme-derived defaults (fill color, chip color,
+    // etc.) to dark values instead of silently inheriting the app's global
+    // light theme and painting a stray near-white box (see the hashtag
+    // input fix below for the concrete bug this caused).
+    return Theme(
+      data: AppTheme.dark,
+      child: Scaffold(
+        backgroundColor: Colors.black,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          // Text mode (`_buildTextEditor()`) renders its own top-right
+          // custom "X" close control (different corner/scope: it exits
+          // text mode back to the media picker, not the whole screen).
+          // Suppress the auto-inserted back arrow only in that mode so the
+          // two controls don't stack; the other modes (media picker, media
+          // preview) have no close affordance of their own and still need
+          // this back arrow.
+          automaticallyImplyLeading: !(_mediaFile == null && _isTextStory),
+          title: Text(AppLocalizations.of(context)!.createStory),
+          actions: [
+            // Drawing (Task 6) is scoped to image stories only — see the
+            // `_strokes` field doc for why video/text are excluded.
+            if (_mediaFile != null && !_isVideo)
+              IconButton(
+                tooltip: 'Draw',
+                onPressed: () => setState(() => _drawMode = !_drawMode),
+                icon: Icon(
+                  Icons.brush_rounded,
+                  color: _drawMode ? const Color(0xFF00BFA5) : Colors.white,
+                ),
               ),
-            ),
-          if (_mediaFile != null || _isTextStory)
-            TextButton(
-              onPressed: _isUploading ? null : _uploadStory,
-              child: _isUploading
-                  ? const SizedBox(
-                      width: 20,
-                      height: 20,
-                      child: CircularProgressIndicator(
-                        strokeWidth: 2,
-                        valueColor: AlwaysStoppedAnimation(Colors.white),
+            if (_mediaFile != null || _isTextStory)
+              TextButton(
+                onPressed: _isUploading ? null : _uploadStory,
+                child: _isUploading
+                    ? const SizedBox(
+                        width: 20,
+                        height: 20,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                          valueColor: AlwaysStoppedAnimation(Colors.white),
+                        ),
+                      )
+                    : const Text(
+                        'Share',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    )
-                  : const Text(
-                      'Share',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-            ),
-        ],
+              ),
+          ],
+        ),
+        body: _mediaFile != null
+            ? _buildPreview()
+            : _isTextStory
+                ? _buildTextEditor()
+                : _buildMediaPicker(),
       ),
-      body: _mediaFile != null
-          ? _buildPreview()
-          : _isTextStory
-              ? _buildTextEditor()
-              : _buildMediaPicker(),
     );
   }
 
@@ -1165,6 +1186,13 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
                 hintStyle: TextStyle(color: Colors.white54, fontSize: 14),
                 border: InputBorder.none,
                 isDense: true,
+                // Explicitly disable the theme's default fill so this
+                // doesn't inherit InputDecorationTheme.filled/fillColor from
+                // whatever ambient Theme is in effect (previously painted a
+                // stray near-white box under light system appearance — see
+                // build()'s dark Theme wrapper, which is belt-and-suspenders
+                // to this explicit override).
+                filled: false,
                 prefixIcon: Icon(Icons.tag, color: Colors.white54, size: 18),
                 prefixIconConstraints: BoxConstraints(minWidth: 26, minHeight: 20),
               ),
