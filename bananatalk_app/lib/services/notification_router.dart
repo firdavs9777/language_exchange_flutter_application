@@ -103,6 +103,24 @@ class NotificationRouter {
           targetPath = '/tabs/1';
           break;
 
+        // Task 16 (client layer C) — user-created topic room moderation +
+        // notifications. All five payloads carry `roomId`; `/room/:roomId`
+        // (new GoRoute, `RoomScreenWrapper`) fetches the `Room` via
+        // `RoomApiClient.getRoom` and pushes the real `RoomScreen`,
+        // falling back to the Community tab itself if the room is gone
+        // (deleted) or the fetch fails — same "closest available surface"
+        // fallback `room_mention` above already uses, just one hop closer.
+        case 'room_message':
+        case 'room_join':
+        case 'room_join_request':
+        case 'room_join_approved':
+        case 'room_join_denied':
+          final roomId = data['roomId']?.toString();
+          targetPath = (roomId != null && roomId.isNotEmpty)
+              ? '/room/$roomId'
+              : '/tabs/1';
+          break;
+
         // Workstream E-core Task 12 Step 3 — new follower deep-links to
         // the follower's profile (mirrors friend_request/profile_visit).
         case 'new_follower':

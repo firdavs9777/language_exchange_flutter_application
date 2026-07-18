@@ -10,6 +10,7 @@ import 'package:bananatalk_app/providers/rooms_provider.dart';
 import 'package:bananatalk_app/pages/chat/input/chat_input_bar.dart';
 import 'package:bananatalk_app/pages/chat/message/messages_list.dart';
 import 'package:bananatalk_app/pages/community/rooms/room_members_screen.dart';
+import 'package:bananatalk_app/pages/community/rooms/room_requests_screen.dart';
 import 'package:bananatalk_app/services/chat_socket_service.dart';
 import 'package:bananatalk_app/services/report_service.dart';
 import 'package:bananatalk_app/utils/haptic_utils.dart';
@@ -55,6 +56,7 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
   bool _isLoading = true;
   String _error = '';
   bool _isSending = false;
+  bool _isRequestingJoin = false;
   final List<Message> _messages = [];
 
   /// The pinned daily-prompt message, if the history contains one. Backend
@@ -100,8 +102,12 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
     _currentUserId = prefs.getString('userId');
 
     // Join membership (REST) if we're not already a member. Safe to call
-    // even if already a member — the backend join is idempotent.
-    if (!_room.isMember) {
+    // even if already a member — the backend join is idempotent. Topic
+    // rooms are moderated (Task 16): a non-member never auto-joins here —
+    // they see a "Request to join" prompt instead (see `build`) and only
+    // become a member once the owner/admin approves. Hubs stay open, as
+    // before.
+    if (!_room.isMember && !_room.isTopicRoom) {
       final joined = await ref.read(roomsProvider.notifier).join(_room.id);
       if (joined && mounted) {
         setState(() => _room = _room.copyWith(isMember: true));
@@ -435,6 +441,49 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
     );
   }
 
+  /// Owner/admin-only pending join requests (Task 16, client layer C) —
+  /// only surfaced in the menu when there's actually something to act on
+  /// (`_room.pendingRequestCount > 0`); refetches the room on return so the
+  /// badge count and any newly-approved member reflect immediately.
+  Future<void> _openRequests() async {
+    await Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) => RoomRequestsScreen(room: _room),
+      ),
+    );
+    if (!mounted) return;
+    try {
+      final detail = await ref.read(roomApiClientProvider).getRoom(_room.id);
+      if (detail != null && mounted) setState(() => _room = detail);
+    } catch (_) {
+      // Non-fatal — stale count until the next natural refresh.
+    }
+  }
+
+  /// Banned users and non-members of a moderated topic room can't send
+  /// messages or join directly — they ask the owner/admin via
+  /// `requestJoin` instead (Task 16). Idempotent server-side, but the
+  /// button is hidden once `hasPendingRequest` is true so this only really
+  /// fires once per ban/non-membership.
+  Future<void> _requestToJoin() async {
+    if (_isRequestingJoin) return;
+    setState(() => _isRequestingJoin = true);
+    final ok = await ref.read(roomApiClientProvider).requestJoin(_room.id);
+    if (!mounted) return;
+    setState(() {
+      _isRequestingJoin = false;
+      if (ok) _room = _room.copyWith(hasPendingRequest: true);
+    });
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          ok ? 'Request sent — you\'ll be notified if approved' : 'Failed to send request',
+        ),
+        backgroundColor: ok ? AppColors.success : AppColors.error,
+      ),
+    );
+  }
+
   @override
   void dispose() {
     // Socket-only leave — REST membership persists. This lets a member
@@ -450,6 +499,18 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
     _scrollController.dispose();
     super.dispose();
   }
+
+  /// True when the caller can neither join instantly nor message — either
+  /// banned (any room type) or a non-member of a moderated topic room
+  /// (Task 16). Gates the composer off and swaps in the request-to-join
+  /// bar instead of a normal `ChatInputBar`.
+  bool get _needsJoinRequest =>
+      _room.isBanned || (_room.isTopicRoom && !_room.isMember);
+
+  /// A banned user must never be able to send messages, even if some stale
+  /// `isMember:true` slipped through — membership AND not-banned are both
+  /// required.
+  bool get _canCompose => _room.isMember && !_room.isBanned;
 
   @override
   Widget build(BuildContext context) {
@@ -474,6 +535,9 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
           PopupMenuButton<String>(
             onSelected: (value) {
               switch (value) {
+                case 'requests':
+                  _openRequests();
+                  break;
                 case 'members':
                   _openMembers();
                   break;
@@ -483,11 +547,21 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
               }
             },
             itemBuilder: (ctx) => [
+              // Owner/admin-only, and only when there's something pending
+              // (Task 16) — an empty queue doesn't clutter the menu.
+              if (_room.isOwnerOrAdmin && _room.pendingRequestCount > 0)
+                PopupMenuItem(
+                  value: 'requests',
+                  child: Text('Requests (${_room.pendingRequestCount})'),
+                ),
               // Only shown to the hub's owner/admin — everyone else can
               // still leave, but member-list moderation stays hidden.
               if (_room.isOwnerOrAdmin)
                 const PopupMenuItem(value: 'members', child: Text('View members')),
-              const PopupMenuItem(value: 'leave', child: Text('Leave hub')),
+              // Nothing to leave if we were never a member (or got kicked)
+              // — Task 16 topic rooms no longer auto-join a non-member.
+              if (_room.isMember)
+                const PopupMenuItem(value: 'leave', child: Text('Leave hub')),
             ],
           ),
         ],
@@ -511,23 +585,98 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
               onReport: _reportMessage,
             ),
           ),
-          ChatInputBar(
-            messageController: _messageController,
-            isSending: _isSending,
-            showMediaPanel: false,
-            showStickerPanel: false,
-            onSendMessage: _sendMessage,
-            // Media/sticker panels aren't wired for hubs in this batch —
-            // hub composing is text-first. Toggling is a no-op rather than
-            // a crash; see report notes.
-            onToggleMediaPanel: () {},
-            onToggleStickerPanel: () {},
-            onTogglePhrasesPanel: () {},
-            onTyping: _onTyping,
-            onStopTyping: _stopTyping,
-            onHidePanels: () {},
-          ),
+          if (_needsJoinRequest)
+            _RequestToJoinBar(
+              isBanned: _room.isBanned,
+              hasPendingRequest: _room.hasPendingRequest,
+              isRequesting: _isRequestingJoin,
+              onRequest: _requestToJoin,
+            )
+          else if (_canCompose)
+            ChatInputBar(
+              messageController: _messageController,
+              isSending: _isSending,
+              showMediaPanel: false,
+              showStickerPanel: false,
+              onSendMessage: _sendMessage,
+              // Media/sticker panels aren't wired for hubs in this batch —
+              // hub composing is text-first. Toggling is a no-op rather than
+              // a crash; see report notes.
+              onToggleMediaPanel: () {},
+              onToggleStickerPanel: () {},
+              onTogglePhrasesPanel: () {},
+              onTyping: _onTyping,
+              onStopTyping: _stopTyping,
+              onHidePanels: () {},
+            ),
         ],
+      ),
+    );
+  }
+}
+
+/// Replaces the composer for a banned user or a non-member of a moderated
+/// topic room (Task 16, client layer C). Copy distinguishes "you were
+/// removed" from "this room is moderated" so the user understands why
+/// they can't just start typing.
+class _RequestToJoinBar extends StatelessWidget {
+  const _RequestToJoinBar({
+    required this.isBanned,
+    required this.hasPendingRequest,
+    required this.isRequesting,
+    required this.onRequest,
+  });
+
+  final bool isBanned;
+  final bool hasPendingRequest;
+  final bool isRequesting;
+  final VoidCallback onRequest;
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      top: false,
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.all(Spacing.md),
+        decoration: BoxDecoration(
+          color: context.containerColor,
+          border: Border(top: BorderSide(color: context.dividerColor)),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              isBanned
+                  ? 'You were removed from this room. Send a request to rejoin — the owner needs to approve it.'
+                  : 'This is a moderated room. Request to join to start chatting.',
+              textAlign: TextAlign.center,
+              style: context.bodySmall.copyWith(color: context.textSecondary),
+            ),
+            const SizedBox(height: Spacing.sm),
+            SizedBox(
+              width: double.infinity,
+              child: hasPendingRequest
+                  ? const FilledButton(
+                      onPressed: null,
+                      child: Text('Request pending'),
+                    )
+                  : FilledButton(
+                      onPressed: isRequesting ? null : onRequest,
+                      child: isRequesting
+                          ? const SizedBox(
+                              width: 18,
+                              height: 18,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 2,
+                                valueColor: AlwaysStoppedAnimation(Colors.white),
+                              ),
+                            )
+                          : const Text('Request to join'),
+                    ),
+            ),
+          ],
+        ),
       ),
     );
   }

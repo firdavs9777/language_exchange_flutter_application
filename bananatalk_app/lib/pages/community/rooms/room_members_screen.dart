@@ -7,14 +7,16 @@ import 'package:bananatalk_app/pages/chat/header/user_avatar.dart';
 import 'package:bananatalk_app/providers/rooms_provider.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 
-/// Hub member list — Workstream D (Task 11).
+/// Hub member list — Workstream D (Task 11), moderation wired up in Task 16
+/// (client layer C).
 ///
 /// Owner/admin-only moderation actions (remove/mute) are gated on
-/// `room.isOwnerOrAdmin`, which the backend hasn't wired up yet (its
-/// moderation endpoints are a later phase of this workstream) — until then
-/// this defaults to `false` and the screen is a read-only member list for
-/// everyone, which is a safe fallback rather than exposing controls to the
-/// wrong users.
+/// `room.isOwnerOrAdmin`. On a topic room, "Remove" is a kick-as-ban: the
+/// backend atomically removes the member and adds them to `bannedUsers`, so
+/// they can't silently rejoin — they must `requestJoin` and get re-approved
+/// (Task 16). Hubs have no ban concept, so removal there is a plain kick.
+/// The room owner can never be removed — the trailing menu simply omits the
+/// "Remove" item for their row (mirrors the backend's `canKickMember` gate).
 class RoomMembersScreen extends ConsumerStatefulWidget {
   const RoomMembersScreen({super.key, required this.room});
 
@@ -71,14 +73,25 @@ class _RoomMembersScreenState extends ConsumerState<RoomMembersScreen> {
 
   bool _memberMuted(Map<String, dynamic> member) => member['muted'] == true;
 
+  /// The owner can never be kicked (server-enforced too, via
+  /// `canKickMember` — this is a client-side mirror so the option never
+  /// even appears).
+  bool _isOwner(Map<String, dynamic> member) =>
+      widget.room.ownerId != null && _memberId(member) == widget.room.ownerId;
+
   Future<void> _removeMember(Map<String, dynamic> member) async {
     final userId = _memberId(member);
-    if (userId.isEmpty) return;
+    if (userId.isEmpty || _isOwner(member)) return;
+    final isTopicRoom = widget.room.isTopicRoom;
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Remove member?'),
-        content: Text('Remove ${_memberName(member)} from ${widget.room.title}?'),
+        title: Text(isTopicRoom ? 'Remove and ban member?' : 'Remove member?'),
+        content: Text(
+          isTopicRoom
+              ? 'Remove and ban ${_memberName(member)}? They won\'t be able to rejoin unless you approve a request.'
+              : 'Remove ${_memberName(member)} from ${widget.room.title}?',
+        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx, false),
@@ -86,7 +99,7 @@ class _RoomMembersScreenState extends ConsumerState<RoomMembersScreen> {
           ),
           FilledButton(
             onPressed: () => Navigator.pop(ctx, true),
-            child: const Text('Remove'),
+            child: Text(isTopicRoom ? 'Remove & ban' : 'Remove'),
           ),
         ],
       ),
@@ -101,7 +114,11 @@ class _RoomMembersScreenState extends ConsumerState<RoomMembersScreen> {
     }
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(ok ? 'Member removed' : 'Failed to remove member'),
+        content: Text(
+          ok
+              ? (isTopicRoom ? 'Member removed and banned' : 'Member removed')
+              : 'Failed to remove member',
+        ),
         backgroundColor: ok ? AppColors.success : AppColors.error,
       ),
     );
@@ -169,6 +186,7 @@ class _RoomMembersScreenState extends ConsumerState<RoomMembersScreen> {
                       itemBuilder: (context, index) {
                         final member = _members[index];
                         final muted = _memberMuted(member);
+                        final isOwner = _isOwner(member);
                         return Material(
                           color: context.containerColor,
                           borderRadius: AppRadius.borderMD,
@@ -206,10 +224,18 @@ class _RoomMembersScreenState extends ConsumerState<RoomMembersScreen> {
                                         value: 'mute',
                                         child: Text(muted ? 'Unmute' : 'Mute'),
                                       ),
-                                      const PopupMenuItem(
-                                        value: 'remove',
-                                        child: Text('Remove'),
-                                      ),
+                                      // The owner can never be removed —
+                                      // omit the option entirely rather
+                                      // than show it disabled.
+                                      if (!isOwner)
+                                        PopupMenuItem(
+                                          value: 'remove',
+                                          child: Text(
+                                            widget.room.isTopicRoom
+                                                ? 'Remove & ban'
+                                                : 'Remove',
+                                          ),
+                                        ),
                                     ],
                                   )
                                 : null,

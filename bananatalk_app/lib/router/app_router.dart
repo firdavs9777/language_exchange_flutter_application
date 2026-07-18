@@ -5,6 +5,7 @@ import 'package:bananatalk_app/pages/home/splash_screen.dart';
 import 'package:bananatalk_app/pages/menu_tab/TabBarMenu.dart';
 import 'package:bananatalk_app/pages/moments/moment_detail_wrapper.dart';
 import 'package:bananatalk_app/pages/profile/profile_wrapper.dart';
+import 'package:bananatalk_app/pages/community/rooms/room_screen_wrapper.dart';
 import 'package:bananatalk_app/pages/matching/smart_matching_screen.dart';
 import 'package:bananatalk_app/pages/learning/leaderboard/leaderboard_screen.dart';
 import 'package:bananatalk_app/pages/learning/exam_study/exam_picker_screen.dart';
@@ -204,6 +205,23 @@ final goRouter = GoRouter(
         return _buildSlideTransition(
           state: state,
           child: ProfileWrapper(userId: userId),
+        );
+      },
+    ),
+
+    // Slide from right + fade — standard navigation push feel.
+    // Rooms are otherwise only reached via `Navigator.push` from within the
+    // Community tab (there's no directory-by-id GoRoute), so this is
+    // deep-link-only — Task 16 (client layer C) added it so
+    // `NotificationRouter` can push straight into a topic-room/hub instead
+    // of only as far as the Community tab.
+    GoRoute(
+      path: '/room/:roomId',
+      pageBuilder: (context, state) {
+        final roomId = state.pathParameters['roomId']!;
+        return _buildSlideTransition(
+          state: state,
+          child: RoomScreenWrapper(roomId: roomId),
         );
       },
     ),
