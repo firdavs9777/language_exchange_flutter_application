@@ -1,125 +1,216 @@
-import { useState, useMemo } from "react";
-import { 
+import React from "react";
+import { MapPin, ArrowRight } from "lucide-react";
+import { LANGUAGE_FLAGS, LANGUAGE_CODES } from "./type";
 
-  ArrowRight, Heart, MessageCircle, Star, Zap
-} from "lucide-react";
+/**
+ * Normalized member shape as produced by `communityApiSlice.getCommunityMembers`
+ * transformResponse (see src/store/slices/communitySlice.ts). Only fields that
+ * actually exist on USER_LIST_FIELDS / the transform are modeled here —
+ * responseRate/mbti are intentionally NOT included (not present on the list
+ * payload; see Package "Community" design spec, "Open items").
+ */
+export interface CommunityMemberCard {
+  _id: string;
+  name: string;
+  bio?: string;
+  native_language: string;
+  language_to_learn: string;
+  imageUrls: string[];
+  birth_year?: string | number;
+  gender?: string;
+  createdAt?: string;
+  isNew?: boolean;
+  isVIP?: boolean;
+  languageLevel?: string;
+  location?: { city?: string; country?: string } | string;
+  lastActive?: string;
+  hasActiveStory?: boolean;
+  isOnline?: boolean;
+  followersCount?: number;
+}
 
-import { Link } from "react-router-dom";
-import { MemberCardProps } from "./type";
-import { generateRandomStats, getLanguageCode } from "./utils";
-import { LanguageFlag } from "./MainCommunity";
+export interface MemberCardProps {
+  user: CommunityMemberCard;
+  onWave: (user: CommunityMemberCard) => void;
+  onOpen: (user: CommunityMemberCard) => void;
+}
 
+const NEW_WINDOW_MS = 7 * 24 * 60 * 60 * 1000;
 
+const getLanguageCode = (language?: string): string => {
+  if (!language) return "";
+  return LANGUAGE_CODES[language] || language.substring(0, 2).toLowerCase();
+};
 
+const getFlag = (language?: string): string => {
+  const code = getLanguageCode(language);
+  return LANGUAGE_FLAGS[code] || "🌐";
+};
 
-export const MemberCard: React.FC<MemberCardProps> = ({ member, onMemberClick }) => {
-  const [isLiked, setIsLiked] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
-  
-  const stats = useMemo(() => generateRandomStats(), []);
-  const nativeCode = useMemo(() => getLanguageCode(member.native_language), [member.native_language]);
-  const learningCode = useMemo(() => getLanguageCode(member.language_to_learn), [member.language_to_learn]);
+const getAge = (birthYear?: string | number): number | undefined => {
+  if (birthYear === undefined || birthYear === null || birthYear === "") return undefined;
+  const year = typeof birthYear === "string" ? parseInt(birthYear, 10) : birthYear;
+  if (!year || Number.isNaN(year)) return undefined;
+  const age = new Date().getFullYear() - year;
+  return age > 0 && age < 130 ? age : undefined;
+};
 
-  const handleCardClick = () => onMemberClick(member._id);
-  
-  const handleLikeClick = (e: React.MouseEvent) => {
+const isRecentlyCreated = (createdAt?: string): boolean => {
+  if (!createdAt) return false;
+  const created = new Date(createdAt).getTime();
+  if (Number.isNaN(created)) return false;
+  return Date.now() - created <= NEW_WINDOW_MS;
+};
+
+const formatLocation = (location?: CommunityMemberCard["location"]): string | undefined => {
+  if (!location) return undefined;
+  if (typeof location === "string") return location || undefined;
+  const parts = [location.city, location.country].filter(Boolean);
+  return parts.length > 0 ? parts.join(", ") : undefined;
+};
+
+const MemberCard: React.FC<MemberCardProps> = ({ user, onWave, onOpen }) => {
+  const age = getAge(user.birth_year);
+  const isNew = !!user.isNew || isRecentlyCreated(user.createdAt);
+  const locationLabel = formatLocation(user.location);
+  const avatar = user.imageUrls?.[0];
+  const nativeFlag = getFlag(user.native_language);
+  const learningFlag = getFlag(user.language_to_learn);
+
+  const handleWaveClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    setIsLiked(!isLiked);
-  };
-
-  const handleMessageClick = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    console.log(`Message ${member.name}`);
-  };
-
-  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
-    e.currentTarget.src = "";
+    onWave(user);
   };
 
   return (
-    <Link to={`/community/${member._id}`} className="member-card">
-      <div 
-        className="group relative bg-white bg-opacity-10 backdrop-blur-lg rounded-3xl overflow-hidden hover:bg-opacity-15 transition-all duration-500 hover:scale-105 hover:-translate-y-2 shadow-xl hover:shadow-2xl cursor-pointer border border-white border-opacity-20"
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-        onClick={handleCardClick}
-      >
-        {/* Gradient border effect */}
-        <div className="absolute inset-0 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 rounded-3xl opacity-0 group-hover:opacity-75 transition-opacity duration-300 p-px">
-          <div className="w-full h-full bg-gray-900 bg-opacity-90 rounded-3xl"></div>
-        </div>
-        
-        <div className="relative z-10 p-4 sm:p-6">
-          {/* Header with image and status */}
-          <div className="relative mb-4">
-            <div className="relative w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-4">
+    <div
+      data-testid="member-card-root"
+      onClick={() => onOpen(user)}
+      className="flex items-center gap-4 bg-white/80 backdrop-blur-xl rounded-2xl p-4 shadow-lg border border-white/30 hover:shadow-xl hover:-translate-y-0.5 transition-all cursor-pointer"
+    >
+      {/* Avatar */}
+      <div className="relative shrink-0 w-[72px] h-[72px]">
+        <div
+          data-testid={user.hasActiveStory ? "member-card-story-ring" : undefined}
+          className={
+            user.hasActiveStory
+              ? "absolute inset-0 rounded-[22px] bg-gradient-to-tr from-[#00BFA5] via-[#FFD700] to-[#00ACC1] p-[3px]"
+              : ""
+          }
+        >
+          <div
+            className={
+              user.hasActiveStory
+                ? "w-full h-full rounded-[19px] bg-white p-[2px] overflow-hidden"
+                : "w-full h-full rounded-[22px] overflow-hidden"
+            }
+          >
+            {avatar ? (
               <img
-                src={member.imageUrls?.[0] || ""}
-                alt={member.name}
-                className="w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover border-4 border-white border-opacity-20 group-hover:border-opacity-40 transition-all duration-300"
-                onError={handleImageError}
+                src={avatar}
+                alt={user.name}
+                className="w-full h-full object-cover rounded-[19px]"
               />
-              <div className="absolute -top-1 -right-1 w-5 h-5 sm:w-6 sm:h-6 bg-green-400 rounded-full border-2 border-white animate-pulse"></div>
-            </div>
-            
-            {/* Action buttons */}
-            <div className={`absolute top-2 right-2 flex space-x-2 transition-all duration-300 ${isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'}`}>
-              <button 
-                onClick={handleLikeClick}
-                className={`p-2 rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 ${isLiked ? 'bg-red-500 bg-opacity-20 text-red-400' : 'bg-white bg-opacity-10 text-white hover:bg-opacity-20'}`}
-                aria-label={isLiked ? "Unlike" : "Like"}
-              >
-                <Heart className={`w-3 h-3 sm:w-4 sm:h-4 ${isLiked ? 'fill-current' : ''}`} />
-              </button>
-              <button 
-                onClick={handleMessageClick}
-                className="p-2 bg-white bg-opacity-10 backdrop-blur-sm rounded-full hover:bg-opacity-20 transition-all duration-300 hover:scale-110"
-                aria-label="Send message"
-              >
-                <MessageCircle className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
-              </button>
-            </div>
-          </div>
-
-          <div className="flex items-center justify-center space-x-2 sm:space-x-3 mb-4 bg-white bg-opacity-5 rounded-2xl p-2 sm:p-3">
-            <div className="flex items-center space-x-1 sm:space-x-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg sm:rounded-xl px-2 sm:px-3 py-1 sm:py-2">
-              <LanguageFlag code={nativeCode} />
-              <span className="text-white text-xs sm:text-sm font-medium hidden sm:inline">Native</span>
-            </div>
-            <ArrowRight className="text-white text-opacity-60 w-3 h-3 sm:w-4 sm:h-4" />
-            <div className="flex items-center space-x-1 sm:space-x-2 bg-gradient-to-r from-pink-500 to-orange-500 rounded-lg sm:rounded-xl px-2 sm:px-3 py-1 sm:py-2">
-              <LanguageFlag code={learningCode} />
-              <span className="text-white text-xs sm:text-sm font-medium hidden sm:inline">Learning</span>
-            </div>
-          </div>
-
-          {/* Member info */}
-          <div className="text-center">
-            <h3 className="text-lg sm:text-xl font-bold text-white mb-2 bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">
-              {member.name}
-            </h3>
-            
-            <div className="flex items-center justify-center space-x-3 sm:space-x-4 mb-3 text-white text-opacity-80">
-              <div className="flex items-center space-x-1" title="Rating">
-                <Star className="w-3 h-3 sm:w-4 sm:h-4 text-yellow-400 fill-current" />
-                <span className="text-xs sm:text-sm">{stats.rating}</span>
+            ) : (
+              <div className="w-full h-full rounded-[19px] bg-gradient-to-br from-teal-100 to-yellow-50 flex items-center justify-center text-2xl font-semibold text-teal-600">
+                {user.name?.[0]?.toUpperCase() || "?"}
               </div>
-              <div className="flex items-center space-x-1" title="Sessions completed">
-                <Zap className="w-3 h-3 sm:w-4 sm:h-4 text-green-400" />
-                <span className="text-xs sm:text-sm">{stats.sessions}</span>
-              </div>
-            </div>
-
-            <p className="text-white text-opacity-90 text-xs sm:text-sm leading-relaxed">
-              {member.bio?.substring(0, 60) || "Passionate language learner ready to connect!"}
-              {member.bio && member.bio.length > 60 ? "..." : ""}
-            </p>
+            )}
           </div>
-
-          {/* Hover overlay */}
-          <div className={`absolute inset-0 bg-gradient-to-t from-purple-600 from-opacity-20 to-transparent rounded-3xl transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`}></div>
         </div>
+
+        {/* Native-language flag overlay */}
+        <span
+          className="absolute -bottom-1 -left-1 text-base leading-none bg-white rounded-full w-6 h-6 flex items-center justify-center shadow border border-white"
+          aria-hidden
+          title={user.native_language}
+        >
+          {nativeFlag}
+        </span>
+
+        {/* Online dot */}
+        {user.isOnline && (
+          <span
+            data-testid="member-card-online-dot"
+            className="absolute -bottom-0.5 -right-0.5 w-4 h-4 rounded-full bg-green-500 border-2 border-white"
+            aria-label="Online"
+          />
+        )}
       </div>
-    </Link>
+
+      {/* Info column */}
+      <div className="flex-1 min-w-0">
+        <div className="flex items-center gap-2 flex-wrap">
+          <span data-testid="member-card-name" className="font-semibold text-gray-900 truncate">
+            {user.name}
+            {age !== undefined ? `, ${age}` : ""}
+          </span>
+
+          {isNew && (
+            <span
+              data-testid="member-card-new-badge"
+              className="text-[10px] font-bold uppercase tracking-wide text-white bg-gradient-to-r from-teal-500 to-cyan-500 rounded-full px-2 py-0.5"
+            >
+              New
+            </span>
+          )}
+
+          {user.isVIP && (
+            <span
+              data-testid="member-card-vip-badge"
+              className="text-[10px] font-bold uppercase tracking-wide text-white bg-gradient-to-r from-[#FFD700] to-[#FFA500] rounded-full px-2 py-0.5"
+            >
+              VIP
+            </span>
+          )}
+        </div>
+
+        {/* Language exchange row */}
+        <div className="flex items-center gap-1.5 mt-1 text-sm text-gray-600">
+          <span aria-hidden>{nativeFlag}</span>
+          <ArrowRight className="w-3 h-3 text-gray-400" />
+          <span aria-hidden>{learningFlag}</span>
+          {user.languageLevel && (
+            <span
+              data-testid="member-card-level-badge"
+              className="ml-1 text-[11px] font-semibold text-teal-700 bg-teal-50 border border-teal-200 rounded-full px-2 py-0.5"
+            >
+              {user.languageLevel}
+            </span>
+          )}
+        </div>
+
+        {/* Location row */}
+        {locationLabel && (
+          <div
+            data-testid="member-card-location"
+            className="flex items-center gap-1 mt-1 text-xs text-gray-500"
+          >
+            <MapPin className="w-3 h-3" />
+            <span className="truncate">{locationLabel}</span>
+          </div>
+        )}
+
+        {/* Bio */}
+        {user.bio && (
+          <p className="mt-1 text-xs text-gray-500 truncate">{user.bio}</p>
+        )}
+      </div>
+
+      {/* Wave button */}
+      <button
+        type="button"
+        data-testid="member-card-wave-button"
+        onClick={handleWaveClick}
+        aria-label={`Wave at ${user.name}`}
+        className="shrink-0 flex items-center justify-center w-11 h-11 rounded-full text-white bg-gradient-to-r from-[#00BFA5] to-[#00ACC1] shadow-md hover:shadow-lg hover:scale-105 active:scale-95 transition-all"
+      >
+        <span className="text-lg leading-none" aria-hidden>
+          👋
+        </span>
+      </button>
+    </div>
   );
 };
+
+export default MemberCard;

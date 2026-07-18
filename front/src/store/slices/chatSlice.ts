@@ -174,16 +174,87 @@ export const chatApiSlice = apiSlice.injectEndpoints({
       invalidatesTags: ["Conversation", "Conversations"],
     }),
 
-    // Read Receipts
-    markMessageRead: builder.mutation({
+    // Pin (toggle) — POST /api/v1/messages/:id/pin, no body. Server does NOT
+    // emit this over socket, so invalidate the conversation/list tags so the
+    // UI refetches the pinned state.
+    pinMessage: builder.mutation({
       query: (messageId: string) => ({
-        url: `${MESSAGES_URL}/${messageId}/read`,
-        method: "PUT",
+        url: `${MESSAGES_URL}/${messageId}/pin`,
+        method: "POST",
       }),
+      invalidatesTags: ["Conversation", "Conversations"],
     }),
-    getReadReceipts: builder.query({
+
+    // Bookmarks
+    bookmarkMessage: builder.mutation({
       query: (messageId: string) => ({
-        url: `${MESSAGES_URL}/${messageId}/read-receipts`,
+        url: `${MESSAGES_URL}/${messageId}/bookmark`,
+        method: "POST",
+      }),
+      invalidatesTags: ["Conversation"],
+    }),
+    unbookmarkMessage: builder.mutation({
+      query: (messageId: string) => ({
+        url: `${MESSAGES_URL}/${messageId}/bookmark`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Conversation"],
+    }),
+    getBookmarks: builder.query({
+      query: () => ({
+        url: `${MESSAGES_URL}/bookmarks`,
+      }),
+      providesTags: ["Conversation"],
+    }),
+
+    // Forward — POST /api/v1/messages/:id/forward, body {receivers: string[]}
+    // (array of target user IDs — confirmed against
+    // controllers/messageManagement.js forwardMessage).
+    forwardMessage: builder.mutation({
+      query: ({ messageId, receivers }: { messageId: string; receivers: string[] }) => ({
+        url: `${MESSAGES_URL}/${messageId}/forward`,
+        method: "POST",
+        body: { receivers },
+      }),
+      invalidatesTags: ["Conversations"],
+    }),
+
+    // Reply — POST /api/v1/messages/:id/reply, body {message, receiver}
+    // (confirmed against controllers/messageManagement.js replyToMessage).
+    replyToMessage: builder.mutation({
+      query: ({
+        messageId,
+        message,
+        receiver,
+      }: {
+        messageId: string;
+        message: string;
+        receiver: string;
+      }) => ({
+        url: `${MESSAGES_URL}/${messageId}/reply`,
+        method: "POST",
+        body: { message, receiver },
+      }),
+      invalidatesTags: ["Conversation", "Conversations"],
+    }),
+
+    // TTS — POST /api/v1/messages/:id/tts. Response (confirmed against
+    // controllers/advancedMessages.js getMessageTTS):
+    // { success, data: { audioUrl, duration, cached } } — an audio URL to
+    // play, NOT base64/binary.
+    ttsMessage: builder.mutation({
+      query: ({
+        messageId,
+        language,
+        speed,
+      }: {
+        messageId: string;
+        language?: string;
+        speed?: number;
+      }) => ({
+        url: `${MESSAGES_URL}/${messageId}/tts`,
+        method: "POST",
+        body: { language, speed },
       }),
     }),
 
@@ -230,14 +301,6 @@ export const chatApiSlice = apiSlice.injectEndpoints({
         body: { word, translation, language, pronunciation, partOfSpeech },
       }),
     }),
-
-    // Unread Count
-    getUnreadCount: builder.query({
-      query: () => ({
-        url: `${MESSAGES_URL}/unread-count`,
-      }),
-      providesTags: ["Conversations"],
-    }),
   }),
 });
 
@@ -267,16 +330,21 @@ export const {
   useSendMediaMessageMutation,
   // Video
   useSendVideoMessageMutation,
-  // Read Receipts
-  useMarkMessageReadMutation,
-  useGetReadReceiptsQuery,
+  // Pin
+  usePinMessageMutation,
+  // Bookmarks
+  useBookmarkMessageMutation,
+  useUnbookmarkMessageMutation,
+  useGetBookmarksQuery,
+  // Forward / Reply / TTS
+  useForwardMessageMutation,
+  useReplyToMessageMutation,
+  useTtsMessageMutation,
   // Search
   useSearchMessagesQuery,
   // Translation
   useTranslateMessageMutation,
   useSaveMessageVocabularyMutation,
-  // Unread
-  useGetUnreadCountQuery,
 } = chatApiSlice;
 
 export default chatApiSlice.reducer;

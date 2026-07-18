@@ -1,73 +1,131 @@
 import { useState, useMemo, useCallback, useEffect, useLayoutEffect, useRef } from "react";
 import { Loader2, Search } from "lucide-react";
-import { useGetCommunityMembersQuery } from "../../store/slices/communitySlice";
-import { useGetProfileVisitorsQuery } from "../../store/slices/usersSlice";
+import { useNavigate, Navigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
+
+import {
+  useGetCommunityMembersQuery,
+  useGetTopicsQuery,
+} from "../../store/slices/communitySlice";
+import { useGetProfileVisitorsQuery } from "../../store/slices/usersSlice";
 import { RootState } from "../../store";
-import { LANGUAGE_FLAGS, LanguageFlagProps } from "./type";
 import { useDebounce } from "./utils";
-import { Navigate } from "react-router-dom";
 
 import CommunitySubNav, { CommunityNavTab } from "./tandem/CommunitySubNav";
 import HighlightedProfilesCarousel from "./tandem/HighlightedProfilesCarousel";
 import VisitorsBanner from "./tandem/VisitorsBanner";
-import TandemMemberCard, { TandemMember } from "./tandem/TandemMemberCard";
-import CommunityFilterSheet, {
-  CommunityFilters,
-  EMPTY_FILTERS,
-  countActiveFilters,
-} from "./tandem/CommunityFilterSheet";
+import MemberCard, { CommunityMemberCard } from "./MemberCard";
+import CommunityFilterSheet from "./CommunityFilterSheet";
+import ActiveFilterChips from "./ActiveFilterChips";
+import QuickFilterChips from "./QuickFilterChips";
+import WaveSheet from "./WaveSheet";
+import { CommunityFilters, buildCommunityQuery } from "./lib/buildCommunityQuery";
+import * as filterStorage from "./lib/filterStorage";
+import { DEFAULT_FILTERS } from "./lib/filterStorage";
 import "./tandem/tandem-community.scss";
 
-const SEVEN_DAYS_MS = 7 * 24 * 60 * 60 * 1000;
-const isRecentlyJoined = (createdAt?: string): boolean => {
-  if (!createdAt) return false;
-  const t = new Date(createdAt).getTime();
-  return !Number.isNaN(t) && Date.now() - t < SEVEN_DAYS_MS;
-};
+const PAGE_LIMIT = 20;
 
-// Re-exported so other files (legacy MemberCard, etc.) can keep importing it.
-export const LanguageFlag: React.FC<LanguageFlagProps> = ({ code }) => (
-  <span style={{ fontSize: "1rem" }}>{LANGUAGE_FLAGS[code] || code}</span>
-);
-
-const getLanguageCode = (language: string): string => {
-  const codes: Record<string, string> = {
-    English: "en",
-    Spanish: "es",
-    French: "fr",
-    German: "de",
-    Italian: "it",
-    Portuguese: "pt",
-    Russian: "ru",
-    Japanese: "ja",
-    Korean: "ko",
-    Chinese: "zh",
-    Uzbek: "uz",
-    Turkish: "tr",
-    Arabic: "ar",
-  };
-  return codes[language] || language.substring(0, 2).toLowerCase();
+/** Count how many discovery filters are active (drives the SubNav badge). */
+const countActiveFilters = (f: CommunityFilters): number => {
+  let n = 0;
+  if (f.minAge !== undefined && f.minAge > (DEFAULT_FILTERS.minAge ?? 18)) n += 1;
+  if (f.maxAge !== undefined && f.maxAge < (DEFAULT_FILTERS.maxAge ?? 100)) n += 1;
+  if (f.gender) n += 1;
+  if (f.nativeLanguage) n += 1;
+  if (f.learningLanguage) n += 1;
+  if (f.country) n += 1;
+  if (f.languageLevel) n += 1;
+  if (f.topics && f.topics.length) n += f.topics.length;
+  if (f.topicsAtLeast) n += 1;
+  if (f.onlineOnly) n += 1;
+  if (f.newUsersOnly) n += 1;
+  return n;
 };
 
 const ModernCommunity: React.FC = () => {
   const { t } = useTranslation();
-  const [filter, setFilter] = useState("");
-  const [filters, setFilters] = useState<CommunityFilters>(EMPTY_FILTERS);
+  const navigate = useNavigate();
+
+  // Search + sort live outside `filters` (search is the SubNav box, sort is a
+  // quick chip) but are folded into the query so BOTH hit the DB.
+  const [search, setSearch] = useState("");
+  const [sort, setSort] = useState<"recently_active" | undefined>(undefined);
+  const [filters, setFilters] = useState<CommunityFilters>(() => filterStorage.load());
+  const [draftFilters, setDraftFilters] = useState<CommunityFilters>(filters);
+
   const [activeTab, setActiveTab] = useState<CommunityNavTab>("all");
   const [isFilterSheetOpen, setIsFilterSheetOpen] = useState(false);
+  const [waveTarget, setWaveTarget] = useState<CommunityMemberCard | null>(null);
   const [page, setPage] = useState(1);
   // Pages beyond the first are accumulated here so "Load more" keeps prior
-  // results visible. Page 1 itself is derived directly from the RTK Query
-  // cache below — that way, returning from /community/:id shows the cached
-  // member list on the FIRST render instead of flashing the empty state
-  // while a useEffect copy fires after paint.
-  const [extraPages, setExtraPages] = useState<TandemMember[]>([]);
+  // results visible. Page 1 is derived directly from the RTK Query cache below
+  // so returning from /community/:id shows the cached list on the first render
+  // instead of flashing the empty state.
+  const [extraPages, setExtraPages] = useState<CommunityMemberCard[]>([]);
 
-  // Persist scroll position continuously (throttled with rAF) so we never
-  // miss a save — relying on unmount alone is fragile because the browser
-  // can reset scroll before the cleanup runs in some transitions.
+  const debouncedSearch = useDebounce(search, 300);
+  const userInfo = useSelector((state: RootState) => state.auth.userInfo);
+
+  const currentUser = useMemo(
+    () => ({
+      _id: userInfo?.user?._id,
+      name: userInfo?.user?.name,
+      imageUrls: userInfo?.user?.imageUrls,
+    }),
+    [userInfo]
+  );
+
+  // `me` drives the default language-exchange match inside buildCommunityQuery
+  // (and the quick chips' "Speaks / Learning" labels).
+  const me = useMemo(
+    () => ({
+      native_language: userInfo?.user?.native_language,
+      language_to_learn: userInfo?.user?.language_to_learn,
+    }),
+    [userInfo]
+  );
+
+  // Single source of truth for the server query — ALL filters map to real
+  // params here (inverted-language semantics handled inside the mapper).
+  const queryArg = useMemo(
+    () =>
+      buildCommunityQuery(
+        { ...filters, search: debouncedSearch || undefined, sort },
+        me,
+        page,
+        PAGE_LIMIT
+      ),
+    [filters, debouncedSearch, sort, me, page]
+  );
+
+  const {
+    data: communityData,
+    isLoading,
+    isFetching,
+    error: errorInfo,
+    refetch,
+  } = useGetCommunityMembersQuery(queryArg);
+
+  const { data: topicsResult } = useGetTopicsQuery({});
+  const topicLabels = useMemo<Record<string, string>>(() => {
+    const raw = topicsResult?.data;
+    if (!Array.isArray(raw)) return {};
+    const map: Record<string, string> = {};
+    for (const topic of raw) {
+      const id = topic._id || topic.id || topic.name;
+      if (id) map[id] = topic.name;
+    }
+    return map;
+  }, [topicsResult]);
+
+  const { data: visitorsData } = useGetProfileVisitorsQuery(
+    { userId: currentUser._id || "", page: 1, limit: 8 },
+    { skip: !currentUser._id }
+  );
+
+  // Persist scroll position continuously (throttled with rAF).
   useEffect(() => {
     let pending = false;
     const onScroll = () => {
@@ -82,62 +140,27 @@ const ModernCommunity: React.FC = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Restore scroll once, after the first batch of members is in the DOM
-  // and BEFORE the browser paints. useLayoutEffect runs synchronously
-  // after layout, so the user never sees the page at y=0. Using
-  // behavior: "instant" overrides scroll-behavior: smooth from App.scss /
-  // MainCommunity.css — otherwise the restore would animate visibly.
   const hasRestoredScroll = useRef(false);
 
-  const debouncedFilter = useDebounce(filter, 300);
-  const userInfo = useSelector((state: RootState) => state.auth.userInfo);
-  const currentUser = useMemo(
-    () => ({
-      _id: userInfo?.user?._id,
-      name: userInfo?.user?.name,
-      imageUrls: userInfo?.user?.imageUrls,
-    }),
-    [userInfo]
-  );
-
-  const {
-    data: communityData,
-    isLoading,
-    isFetching,
-    error: errorInfo,
-    refetch,
-  } = useGetCommunityMembersQuery({
-    page,
-    limit: 20,
-    language: filters.language || undefined,
-    gender: filters.gender || undefined,
-    ageMin: filters.ageMin === "" ? undefined : filters.ageMin,
-    ageMax: filters.ageMax === "" ? undefined : filters.ageMax,
-  });
-
-  const {
-    data: visitorsData,
-  } = useGetProfileVisitorsQuery(
-    { userId: currentUser._id || "", page: 1, limit: 8 },
-    { skip: !currentUser._id }
-  );
-
-  // When a "Load more" page arrives, append it to extraPages. Page 1 itself
-  // is read directly off the query cache via the useMemo below — no effect
-  // round-trip means no first-render flash of the empty state.
+  // Append "Load more" pages. Page 1 is read off the cache in the useMemo below.
   useEffect(() => {
     if (!communityData?.data || page === 1) return;
     setExtraPages((prev) => {
       const existingIds = new Set(prev.map((m) => m._id));
-      const newOnes = communityData.data.filter(
-        (m: TandemMember) => !existingIds.has(m._id)
+      const newOnes = (communityData.data as CommunityMemberCard[]).filter(
+        (m) => !existingIds.has(m._id)
       );
       return [...prev, ...newOnes];
     });
   }, [communityData, page]);
 
-  // Reset pagination when filters change. Skip the first run so a fresh
-  // mount (back-nav from /community/:id) doesn't clobber state.
+  // Reset pagination whenever the server query changes (filters / search /
+  // sort). Skip the first run so a fresh mount (back-nav from /community/:id)
+  // doesn't clobber restored state.
+  const filterKey = useMemo(
+    () => JSON.stringify({ filters, debouncedSearch, sort }),
+    [filters, debouncedSearch, sort]
+  );
   const skipFilterReset = useRef(true);
   useEffect(() => {
     if (skipFilterReset.current) {
@@ -146,29 +169,33 @@ const ModernCommunity: React.FC = () => {
     }
     setPage(1);
     setExtraPages([]);
-  }, [
-    debouncedFilter,
-    filters.language,
-    filters.gender,
-    filters.ageMin,
-    filters.ageMax,
-  ]);
+  }, [filterKey]);
 
-  // Derived union of the first page (from RTK Query cache, available on the
-  // very first render after remount) + any accumulated extra pages.
-  const allMembers = useMemo<TandemMember[]>(() => {
-    const firstPage: TandemMember[] = communityData?.data || [];
-    if (!extraPages.length) return firstPage;
-    const seen = new Set(firstPage.map((m) => m._id));
-    const merged: TandemMember[] = [...firstPage];
-    for (const m of extraPages) {
-      if (!seen.has(m._id)) {
-        seen.add(m._id);
-        merged.push(m);
+  // Derived union of the first page (cache) + accumulated extra pages, with a
+  // stable VIP-first then online-first tiebreak. `Array.prototype.sort` is
+  // stable, so equal-rank members keep server order.
+  const allMembers = useMemo<CommunityMemberCard[]>(() => {
+    const firstPage = (communityData?.data as CommunityMemberCard[]) || [];
+    const merged: CommunityMemberCard[] = [...firstPage];
+    if (extraPages.length) {
+      const seen = new Set(firstPage.map((m) => m._id));
+      for (const m of extraPages) {
+        if (!seen.has(m._id)) {
+          seen.add(m._id);
+          merged.push(m);
+        }
       }
     }
-    return merged;
-  }, [communityData, extraPages]);
+    const list = merged.filter((m) => (currentUser._id ? m._id !== currentUser._id : true));
+    return list.sort((a, b) => {
+      const av = a.isVIP ? 1 : 0;
+      const bv = b.isVIP ? 1 : 0;
+      if (av !== bv) return bv - av;
+      const ao = a.isOnline ? 1 : 0;
+      const bo = b.isOnline ? 1 : 0;
+      return bo - ao;
+    });
+  }, [communityData, extraPages, currentUser._id]);
 
   // Restore scroll exactly once, the first time the grid has rows.
   useLayoutEffect(() => {
@@ -186,40 +213,11 @@ const ModernCommunity: React.FC = () => {
     hasRestoredScroll.current = true;
   }, [allMembers.length]);
 
-  const filteredMembers = useMemo(() => {
-    let list: TandemMember[] = allMembers.filter((m) =>
-      currentUser._id ? m._id !== currentUser._id : true
-    );
-    if (debouncedFilter?.trim()) {
-      const term = debouncedFilter.toLowerCase();
-      list = list.filter((m) =>
-        [m.name, m.native_language, m.language_to_learn, m.bio]
-          .some((field) => field?.toLowerCase().includes(term))
-      );
-    }
-    if (filters.language) {
-      list = list.filter(
-        (m) =>
-          m.native_language === filters.language ||
-          m.language_to_learn === filters.language
-      );
-    }
-    // Client-side filters that the backend doesn't surface natively.
-    if (filters.onlineOnly) {
-      list = list.filter((m) => m.isOnline);
-    }
-    if (filters.newOnly) {
-      list = list.filter((m) => isRecentlyJoined(m.createdAt));
-    }
-    return list;
-  }, [allMembers, currentUser._id, debouncedFilter, filters]);
-
   const highlightedProfiles = useMemo(() => {
-    const pool = filteredMembers.length ? filteredMembers : allMembers;
-    const pros = pool.filter((m) => m.isVIP || m.isVip);
-    const fillers = pool.filter((m) => !m.isVIP && !m.isVip);
+    const pros = allMembers.filter((m) => m.isVIP);
+    const fillers = allMembers.filter((m) => !m.isVIP);
     return [...pros, ...fillers].slice(0, 12);
-  }, [filteredMembers, allMembers]);
+  }, [allMembers]);
 
   const visitorsList = useMemo(() => {
     const raw = (visitorsData?.data ?? visitorsData?.visitors ?? []) as any[];
@@ -240,17 +238,81 @@ const ModernCommunity: React.FC = () => {
     );
   }, [visitorsData, visitorsList]);
 
-  const hasMore = communityData?.data?.length === 20;
+  const hasMore = communityData?.data?.length === PAGE_LIMIT;
 
   const handleLoadMore = useCallback(() => {
     if (!isFetching && hasMore) setPage((p) => p + 1);
   }, [isFetching, hasMore]);
 
-  const handleResetFilters = useCallback(() => {
-    setFilter("");
-    setFilters(EMPTY_FILTERS);
-    setActiveTab("all");
+  const openFilterSheet = useCallback(() => {
+    setDraftFilters(filters);
+    setIsFilterSheetOpen(true);
+  }, [filters]);
+
+  const applyFilters = useCallback((next: CommunityFilters) => {
+    setFilters(next);
+    filterStorage.save(next);
+    setIsFilterSheetOpen(false);
   }, []);
+
+  // Reset ALL discovery filters back to defaults (used by the sheet's
+  // "Clear all" and the ActiveFilterChips "Clear"). Persisted immediately.
+  const clearAllFilters = useCallback(() => {
+    const next = { ...DEFAULT_FILTERS };
+    setDraftFilters(next);
+    setFilters(next);
+    filterStorage.save(next);
+  }, []);
+
+  // Remove a single active filter chip (or one topic within `topics[]`).
+  const removeFilter = useCallback(
+    (key: keyof CommunityFilters, topicValue?: string) => {
+      setFilters((prev) => {
+        const next: CommunityFilters = { ...prev };
+        if (key === "topics" && topicValue) {
+          const remaining = (prev.topics || []).filter((topic) => topic !== topicValue);
+          if (remaining.length) next.topics = remaining;
+          else delete next.topics;
+        } else if (key === "minAge") {
+          next.minAge = DEFAULT_FILTERS.minAge;
+        } else if (key === "maxAge") {
+          next.maxAge = DEFAULT_FILTERS.maxAge;
+        } else {
+          delete next[key];
+        }
+        filterStorage.save(next);
+        return next;
+      });
+    },
+    []
+  );
+
+  // Quick chips replace the filter object wholesale — persist + reset via the
+  // shared applyFilters-style path (no sheet to close, so update inline).
+  const handleQuickChange = useCallback((next: CommunityFilters) => {
+    setFilters(next);
+    filterStorage.save(next);
+  }, []);
+
+  const handleOpenMember = useCallback(
+    (user: CommunityMemberCard) => {
+      navigate(`/community/${user._id}`);
+    },
+    [navigate]
+  );
+
+  // Opens the WaveSheet for the tapped member; the sheet owns the actual
+  // send call (useSendWaveMutation) + mutual/already-waved handling.
+  const handleWaveMember = useCallback((user: CommunityMemberCard) => {
+    setWaveTarget(user);
+  }, []);
+
+  const handleResetAll = useCallback(() => {
+    setSearch("");
+    setSort(undefined);
+    clearAllFilters();
+    setActiveTab("all");
+  }, [clearAllFilters]);
 
   const activeFilterCount = useMemo(() => countActiveFilters(filters), [filters]);
 
@@ -284,27 +346,47 @@ const ModernCommunity: React.FC = () => {
       <CommunitySubNav
         activeTab={activeTab}
         onTabChange={setActiveTab}
-        searchValue={filter}
-        onSearchChange={setFilter}
-        onOpenFilters={() => setIsFilterSheetOpen(true)}
+        searchValue={search}
+        onSearchChange={setSearch}
+        onOpenFilters={openFilterSheet}
         hasActiveFilters={activeFilterCount > 0}
         activeFilterCount={activeFilterCount}
       />
 
       <CommunityFilterSheet
         open={isFilterSheetOpen}
-        initialFilters={filters}
+        value={draftFilters}
+        onChange={setDraftFilters}
+        onApply={applyFilters}
+        onClear={clearAllFilters}
         onClose={() => setIsFilterSheetOpen(false)}
-        onApply={(next) => {
-          setFilters(next);
-          setIsFilterSheetOpen(false);
-        }}
+      />
+
+      <WaveSheet
+        open={!!waveTarget}
+        targetUser={waveTarget}
+        onClose={() => setWaveTarget(null)}
       />
 
       <div className="community-page__container">
+        <QuickFilterChips
+          filters={filters}
+          sort={sort}
+          me={me}
+          onChange={handleQuickChange}
+          onSortChange={setSort}
+        />
+
+        <ActiveFilterChips
+          value={filters}
+          onRemove={removeFilter}
+          onClear={clearAllFilters}
+          topicLabels={topicLabels}
+        />
+
         {highlightedProfiles.length > 0 && (
           <HighlightedProfilesCarousel
-            profiles={highlightedProfiles}
+            profiles={highlightedProfiles as any}
             currentUser={currentUser}
           />
         )}
@@ -318,14 +400,14 @@ const ModernCommunity: React.FC = () => {
             <Loader2 className="animate-spin" />
             <p>{t("communityMain.search.loading") || "Loading members..."}</p>
           </div>
-        ) : filteredMembers.length === 0 ? (
+        ) : allMembers.length === 0 ? (
           <div className="community-empty">
             <Search style={{ width: 40, height: 40, color: "#d1d5db", margin: "0 auto 12px", display: "block" }} />
             <h3>{t("communityMain.results.noneFound.title") || "No members found"}</h3>
             <p>{t("communityMain.results.noneFound.message") || "Try widening your search or clearing filters."}</p>
             <button
               type="button"
-              onClick={handleResetFilters}
+              onClick={handleResetAll}
               style={{
                 padding: "10px 24px",
                 borderRadius: 999,
@@ -341,9 +423,14 @@ const ModernCommunity: React.FC = () => {
           </div>
         ) : (
           <>
-            <div className="community-grid">
-              {filteredMembers.map((member) => (
-                <TandemMemberCard key={member._id} member={member} />
+            <div className="flex flex-col gap-3">
+              {allMembers.map((member) => (
+                <MemberCard
+                  key={member._id}
+                  user={member}
+                  onOpen={handleOpenMember}
+                  onWave={handleWaveMember}
+                />
               ))}
             </div>
             {hasMore && (

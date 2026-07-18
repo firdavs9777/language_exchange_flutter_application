@@ -11,23 +11,26 @@ import { apiSlice } from "./apiSlice";
 
 export const communityApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder: any) => ({
+    // Accepts the flat `Record<string,string>` produced by
+    // `buildCommunityQuery` (community/lib) so EVERY discovery filter
+    // (age/gender/language/level/country/topics/online/search/sort/…) reaches
+    // the DB, plus the legacy `{ page, limit, language }` shape still passed by
+    // CommunityDetail's "Suggested for you" strip. Any defined key is spread
+    // straight onto `params`; `page`/`limit` default when absent. Empty /
+    // undefined / null values are dropped so we never send `?gender=`.
     getCommunityMembers: builder.query({
-      query: ({ page = 1, limit = 10, gender, ageMin, ageMax, country, language }: {
-        page?: number;
-        limit?: number;
-        gender?: string;
-        ageMin?: number;
-        ageMax?: number;
-        country?: string;
-        language?: string;
-      } = {}) => {
-        let url = `${COMMUNITY_URL}?page=${page}&limit=${limit}`;
-        if (gender) url += `&gender=${gender}`;
-        if (ageMin) url += `&ageMin=${ageMin}`;
-        if (ageMax) url += `&ageMax=${ageMax}`;
-        if (country) url += `&country=${country}`;
-        if (language) url += `&language=${language}`;
-        return { url };
+      query: (arg: Record<string, any> = {}) => {
+        const { page = 1, limit = 20, ...rest } = arg;
+        const params: Record<string, string> = {
+          page: String(page),
+          limit: String(limit),
+        };
+        for (const [key, val] of Object.entries(rest)) {
+          if (val !== undefined && val !== null && val !== "") {
+            params[key] = String(val);
+          }
+        }
+        return { url: COMMUNITY_URL, params };
       },
       // Normalize each user in data[] so the UI never has to reach into
       // nested/inconsistent backend fields directly:
