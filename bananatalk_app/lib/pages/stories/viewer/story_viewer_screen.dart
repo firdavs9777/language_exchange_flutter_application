@@ -569,7 +569,7 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
 
     if (confirmed == true) {
       final result = await StoriesService.deleteStory(storyId: story.id);
-      
+
       if (mounted) {
         if (result['success'] == true) {
           widget.onStoriesUpdated?.call();
@@ -578,6 +578,17 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
           } else {
             _nextStory();
           }
+        } else {
+          // Surface the failure instead of silently doing nothing — the old
+          // no-op made a failed delete look like a broken button.
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                result['error']?.toString() ?? 'Failed to delete story',
+              ),
+              backgroundColor: Colors.red,
+            ),
+          );
         }
       }
     }
