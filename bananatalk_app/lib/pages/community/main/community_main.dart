@@ -26,6 +26,44 @@ import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/pages/community/widgets/visitor_recall_card.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 
+/// Pure index-remap helper for the conditional "Rooms" tab.
+///
+/// `_syncTabCountWithRoomsFlag` rebuilds `_tabController` with one extra (or
+/// one fewer) tab whenever the `roomsEnabled` flag flips, and needs to move
+/// the user's *currently selected tab* along with it — not just reuse the
+/// same numeric index. That reuse-the-index shortcut only works when the
+/// conditional tab sits at the very end of the list (every other tab's index
+/// is unaffected either way). Now that Rooms is grouped next to Gender at
+/// [CommunityMainState.roomsInsertionIndex], inserting/removing it shifts
+/// every tab after it by one slot, so the index must be remapped explicitly:
+///
+/// - Enabling (7 tabs -> 8): any tab at or after the insertion point shifts
+///   right by one to make room for the newly-inserted Rooms tab.
+/// - Disabling (8 tabs -> 7): any tab strictly after the insertion point
+///   shifts left by one to fill the gap left by the removed Rooms tab. A
+///   `previousIndex` that was pointing *at* Rooms itself has nothing to map
+///   to and falls back to the insertion point (now occupied by the tab that
+///   used to follow Rooms).
+///
+/// The result is always clamped into `[0, newCount - 1]` as a final safety
+/// net.
+int remapTabIndexForRoomsFlag({
+  required int previousIndex,
+  required bool enabling,
+  required int roomsInsertionIndex,
+  required int newCount,
+}) {
+  var index = previousIndex;
+  if (enabling) {
+    if (index >= roomsInsertionIndex) index += 1;
+  } else {
+    if (index > roomsInsertionIndex) index -= 1;
+  }
+  if (index < 0) index = 0;
+  if (index > newCount - 1) index = newCount - 1;
+  return index;
+}
+
 /// Main Community screen with HelloTalk-style tabs
 class CommunityMain extends ConsumerStatefulWidget {
   const CommunityMain({super.key});
@@ -37,10 +75,20 @@ class CommunityMain extends ConsumerStatefulWidget {
 class _CommunityMainState extends ConsumerState<CommunityMain>
     with TickerProviderStateMixin {
   static const String _filtersKey = 'community_filters';
+
+  /// Total number of tabs, not a position — this is a length used to size
+  /// `TabController`, and carries no assumption about where any particular
+  /// tab (including the conditional Rooms tab) sits in the order.
   static const int _baseTabCount = 7;
 
   /// Tab index that should display the profile-visitor recall card.
   static const int _partnersTabIndex = 0;
+
+  /// Index the conditional "Rooms" tab is inserted at when `roomsEnabled` is
+  /// true (All=0, Gender=1, Voice Rooms=2, Rooms=3, ...). Must match its
+  /// position in both `CommunityTabBar`'s tab list and this file's
+  /// `TabBarView` children list — see `remapTabIndexForRoomsFlag`.
+  static const int _roomsInsertionIndex = 3;
 
   late TabController _tabController;
   final TextEditingController _searchController = TextEditingController();
@@ -63,8 +111,11 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
   }
 
   /// Rebuilds `_tabController` with 8 tabs once `roomsEnabled` resolves to
-  /// true, or shrinks back to 7 if it's false. Keeps the currently selected
-  /// tab index stable when it's still in range.
+  /// true, or shrinks back to 7 if it's false. Remaps the currently selected
+  /// tab index by *identity* (via `remapTabIndexForRoomsFlag`) rather than
+  /// reusing the raw index, since the conditional Rooms tab now sits at
+  /// `_roomsInsertionIndex` (not at the end) and inserting/removing it shifts
+  /// every later tab by one slot.
   void _syncTabCountWithRoomsFlag(bool roomsEnabled) {
     if (_roomsTabBuilt == roomsEnabled) return;
     final newCount = roomsEnabled ? _baseTabCount + 1 : _baseTabCount;
@@ -73,11 +124,17 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
       return;
     }
     final previousIndex = _tabController.index;
+    final remappedIndex = remapTabIndexForRoomsFlag(
+      previousIndex: previousIndex,
+      enabling: roomsEnabled,
+      roomsInsertionIndex: _roomsInsertionIndex,
+      newCount: newCount,
+    );
     _tabController.removeListener(_onTabChanged);
     _tabController.dispose();
     _tabController = TabController(
       length: newCount,
-      initialIndex: previousIndex < newCount ? previousIndex : 0,
+      initialIndex: remappedIndex,
       vsync: this,
     )..addListener(_onTabChanged);
     _roomsTabBuilt = roomsEnabled;
@@ -270,6 +327,14 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
                   filters: filtersJson,
                   searchQuery: _searchQuery,
                 ),
+                // Both "rooms" concepts are grouped immediately after Gender
+                // so they read as related features — see
+                // rooms-audit-report.md §5. This order MUST mirror
+                // `CommunityTabBar`'s tab list exactly, and
+                // `_roomsInsertionIndex` below must stay equal to this
+                // conditional entry's index (3).
+                const VoiceRoomsTab(),
+                if (roomsEnabled) const RoomsDirectoryScreen(),
                 NearbyTab(
                   key: ValueKey('nearby_$filtersKey'),
                   filters: filtersJson,
@@ -285,9 +350,7 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
                   filters: filtersJson,
                   searchQuery: _searchQuery,
                 ),
-                const VoiceRoomsTab(),
                 const WavesTab(),
-                if (roomsEnabled) const RoomsDirectoryScreen(),
               ],
             ),
           ),

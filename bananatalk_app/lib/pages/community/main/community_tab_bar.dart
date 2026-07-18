@@ -8,9 +8,10 @@ import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 
 /// Scrollable tab bar for the Community screen.
 ///
-/// Renders the community tabs (All, Gender, Nearby, City, Topics,
-/// Voice Rooms, Waves, and — when enabled — Rooms) and applies the shared
-/// slide-in entrance animation.
+/// Renders the community tabs in order: All, Gender, Voice Rooms,
+/// (when enabled) Rooms, Nearby, City, Topics, Waves — the two "rooms"
+/// tabs are grouped right after Gender — and applies the shared slide-in
+/// entrance animation.
 class CommunityTabBar extends ConsumerWidget {
   const CommunityTabBar({
     super.key,
@@ -79,6 +80,37 @@ class CommunityTabBar extends ConsumerWidget {
                   ],
                 ),
               ),
+              // Both "rooms" concepts (Voice Rooms + text Rooms) are grouped
+              // immediately after Gender so they read as related features —
+              // see rooms-audit-report.md §5. Keep `roomsInsertionIndex` in
+              // `_syncTabCountWithRoomsFlag` (community_main.dart) equal to
+              // this conditional Tab's index (3) if this order ever changes.
+              Tab(
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Icon(Icons.mic_rounded, size: 20),
+                    Spacing.hGapSM,
+                    Text(AppLocalizations.of(context)!.voiceRooms),
+                  ],
+                ),
+              ),
+              if (showRoomsTab)
+                Tab(
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: const [
+                      Icon(Icons.forum_rounded, size: 20),
+                      Spacing.hGapSM,
+                      // TODO(l10n): no `communityTabRooms` key exists yet in
+                      // the arb files. Adding one across every locale is
+                      // heavy for this batch — following the established
+                      // fallback pattern (see plan Task 9) with a plain
+                      // string until a follow-up localizes it.
+                      Text('Rooms'),
+                    ],
+                  ),
+                ),
               Tab(
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
@@ -106,16 +138,6 @@ class CommunityTabBar extends ConsumerWidget {
                     const Icon(Icons.tag_rounded, size: 20),
                     Spacing.hGapSM,
                     Text(AppLocalizations.of(context)!.topics),
-                  ],
-                ),
-              ),
-              Tab(
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const Icon(Icons.mic_rounded, size: 20),
-                    Spacing.hGapSM,
-                    Text(AppLocalizations.of(context)!.voiceRooms),
                   ],
                 ),
               ),
@@ -154,22 +176,6 @@ class CommunityTabBar extends ConsumerWidget {
                   ],
                 ),
               ),
-              if (showRoomsTab)
-                Tab(
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: const [
-                      Icon(Icons.forum_rounded, size: 20),
-                      Spacing.hGapSM,
-                      // TODO(l10n): no `communityTabRooms` key exists yet in
-                      // the arb files. Adding one across every locale is
-                      // heavy for this batch — following the established
-                      // fallback pattern (see plan Task 9) with a plain
-                      // string until a follow-up localizes it.
-                      Text('Rooms'),
-                    ],
-                  ),
-                ),
             ],
           ),
         )
