@@ -243,7 +243,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get beTheFirstToComment => 'Станьте первым, кто оставит комментарий.';
 
   @override
-  String get loadMoreComments => 'Load more comments';
+  String get loadMoreComments => 'Загрузить больше комментариев';
 
   @override
   String get writeAComment => 'Написать комментарий...';
@@ -267,10 +267,10 @@ class AppLocalizationsRu extends AppLocalizations {
   String get momentDeleted => 'Момент удален';
 
   @override
-  String get deleteComment => 'Delete Comment?';
+  String get deleteComment => 'Удалить комментарий?';
 
   @override
-  String get commentDeleted => 'Comment deleted';
+  String get commentDeleted => 'Комментарий удалён';
 
   @override
   String get editFeatureComingSoon => 'Функция редактирования скоро появится';
@@ -394,7 +394,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get aiTutorChipPhoto => 'Фото';
 
   @override
-  String get aiToolsMoreSection => 'More AI tools';
+  String get aiToolsMoreSection => 'Больше инструментов ИИ';
 
   @override
   String get aiConversationPartnerTile => 'ИИ-разговор';
@@ -767,7 +767,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get aboutMe => 'О себе';
 
   @override
-  String get bloodType => 'Blood Type';
+  String get bloodType => 'Группа крови';
 
   @override
   String get photos => 'Фото';
@@ -1740,19 +1740,19 @@ class AppLocalizationsRu extends AppLocalizations {
   String get noMomentsYet => 'Пока нет моментов';
 
   @override
-  String get noForYouMomentsTitle => 'No moments yet';
+  String get noForYouMomentsTitle => 'Пока нет моментов';
 
   @override
-  String get noForYouMomentsBody => 'Answer today\'s prompt to get the conversation started.';
+  String get noForYouMomentsBody => 'Ответьте на тему дня, чтобы начать разговор.';
 
   @override
-  String get noFollowingMomentsTitle => 'Nothing here yet';
+  String get noFollowingMomentsTitle => 'Здесь пока пусто';
 
   @override
-  String get noFollowingMomentsBody => 'Follow people from Community to see their moments here.';
+  String get noFollowingMomentsBody => 'Подпишитесь на людей в Сообществе, чтобы видеть их моменты здесь.';
 
   @override
-  String get goToCommunity => 'Go to Community';
+  String get goToCommunity => 'Перейти в Сообщество';
 
   @override
   String get unableToLoadMoments => 'Не удалось загрузить моменты';
@@ -1761,25 +1761,25 @@ class AppLocalizationsRu extends AppLocalizations {
   String get map => 'Карта';
 
   @override
-  String get mapUnavailable => 'Map unavailable';
+  String get mapUnavailable => 'Карта недоступна';
 
   @override
-  String get location => 'Location';
+  String get location => 'Местоположение';
 
   @override
-  String get unknownLocation => 'Unknown location';
+  String get unknownLocation => 'Неизвестное местоположение';
 
   @override
-  String get noImagesAvailable2 => 'No images available';
+  String get noImagesAvailable2 => 'Изображения недоступны';
 
   @override
-  String get permissionsRequired => 'Permissions Required';
+  String get permissionsRequired => 'Требуются разрешения';
 
   @override
   String get openSettings => 'Открыть настройки';
 
   @override
-  String get refresh => 'Refresh';
+  String get refresh => 'Обновить';
 
   @override
   String get videoCall => 'Видео';
@@ -1797,28 +1797,28 @@ class AppLocalizationsRu extends AppLocalizations {
   String get pleaseLoginToCall => 'Пожалуйста, войдите, чтобы позвонить';
 
   @override
-  String get cannotCallYourself => 'You cannot call yourself';
+  String get cannotCallYourself => 'Вы не можете позвонить самому себе';
 
   @override
-  String get failedToFollowUser => 'Failed to follow user';
+  String get failedToFollowUser => 'Не удалось подписаться на пользователя';
 
   @override
-  String get failedToUnfollowUser => 'Failed to unfollow user';
+  String get failedToUnfollowUser => 'Не удалось отписаться от пользователя';
 
   @override
-  String get areYouSureUnfollow => 'Are you sure you want to unfollow this user?';
+  String get areYouSureUnfollow => 'Вы уверены, что хотите отписаться от этого пользователя?';
 
   @override
-  String get areYouSureUnblock => 'Are you sure you want to unblock this user?';
+  String get areYouSureUnblock => 'Вы уверены, что хотите разблокировать этого пользователя?';
 
   @override
-  String get youFollowed => 'You followed';
+  String get youFollowed => 'Вы подписались на';
 
   @override
-  String get youUnfollowed => 'You unfollowed';
+  String get youUnfollowed => 'Вы отписались от';
 
   @override
-  String get alreadyFollowing => 'You are already following';
+  String get alreadyFollowing => 'Вы уже подписаны на';
 
   @override
   String get soon => 'Скоро';
@@ -2263,45 +2263,45 @@ class AppLocalizationsRu extends AppLocalizations {
   String get emailPreferences => 'Настройки почты';
 
   @override
-  String get receiveEmailNotifications => 'Receive email notifications from Bananatalk';
+  String get receiveEmailNotifications => 'Получать уведомления по электронной почте от Bananatalk';
 
   @override
-  String get whenAwayFor24Hours => 'When you\'re away for 24+ hours';
+  String get whenAwayFor24Hours => 'Когда вы отсутствуете более 24 часов';
 
   @override
-  String get passwordAndLoginAlerts => 'Password & login alerts';
+  String get passwordAndLoginAlerts => 'Оповещения о пароле и входе';
 
   @override
-  String get failedToLoadPreferences => 'Failed to load preferences';
+  String get failedToLoadPreferences => 'Не удалось загрузить настройки';
 
   @override
-  String get failedToUpdateSetting => 'Failed to update setting';
+  String get failedToUpdateSetting => 'Не удалось обновить настройку';
 
   @override
-  String get securityAlertsRecommended => 'We recommend keeping Security Alerts enabled to stay informed about important account activity.';
+  String get securityAlertsRecommended => 'Рекомендуем оставить оповещения о безопасности включёнными, чтобы быть в курсе важных действий в аккаунте.';
 
   @override
   String chatWallpaperFor(String name) {
-    return 'Chat wallpaper for $name';
+    return 'Обои чата для $name';
   }
 
   @override
-  String get solidColors => 'Solid Colors';
+  String get solidColors => 'Однотонные цвета';
 
   @override
-  String get gradients => 'Gradients';
+  String get gradients => 'Градиенты';
 
   @override
-  String get customImage => 'Custom Image';
+  String get customImage => 'Своё изображение';
 
   @override
-  String get chooseFromGallery => 'Choose from Gallery';
+  String get chooseFromGallery => 'Выбрать из галереи';
 
   @override
-  String get preview => 'Preview';
+  String get preview => 'Предпросмотр';
 
   @override
-  String get wallpaperUpdated => 'Wallpaper updated';
+  String get wallpaperUpdated => 'Обои обновлены';
 
   @override
   String get category => 'Категория';
@@ -2310,66 +2310,66 @@ class AppLocalizationsRu extends AppLocalizations {
   String get mood => 'Настроение';
 
   @override
-  String get sortBy => 'Sort By';
+  String get sortBy => 'Сортировать по';
 
   @override
-  String get timePeriod => 'Time Period';
+  String get timePeriod => 'Период времени';
 
   @override
-  String get searchLanguages => 'Search languages...';
+  String get searchLanguages => 'Поиск языков...';
 
   @override
-  String get selected => 'Selected';
+  String get selected => 'Выбрано';
 
   @override
-  String get categories => 'Categories';
+  String get categories => 'Категории';
 
   @override
-  String get moods => 'Moods';
+  String get moods => 'Настроения';
 
   @override
   String get applyFilters => 'Применить фильтры';
 
   @override
   String applyNFilters(int count) {
-    return 'Apply $count Filters';
+    return 'Применить $count фильтров';
   }
 
   @override
   String get videoMustBeUnder1GB => 'Видео должно быть меньше 1 ГБ.';
 
   @override
-  String get failedToRecordVideo => 'Failed to record video';
+  String get failedToRecordVideo => 'Не удалось записать видео';
 
   @override
-  String get errorSendingVideo => 'Error sending video';
+  String get errorSendingVideo => 'Ошибка при отправке видео';
 
   @override
-  String get errorSendingVoiceMessage => 'Error sending voice message';
+  String get errorSendingVoiceMessage => 'Ошибка при отправке голосового сообщения';
 
   @override
-  String get errorSendingMedia => 'Error sending media';
+  String get errorSendingMedia => 'Ошибка при отправке медиафайла';
 
   @override
-  String get cameraPermissionRequired => 'Camera and microphone permissions are required to record videos.';
+  String get cameraPermissionRequired => 'Для записи видео требуются разрешения на использование камеры и микрофона.';
 
   @override
-  String get locationPermissionRequired => 'Location permission is required to share your location.';
+  String get locationPermissionRequired => 'Для отправки геолокации требуется разрешение на доступ к местоположению.';
 
   @override
-  String get noInternetConnection => 'No internet connection';
+  String get noInternetConnection => 'Нет подключения к интернету';
 
   @override
-  String get tryAgainLater => 'Try again later';
+  String get tryAgainLater => 'Повторите попытку позже';
 
   @override
-  String get messageSent => 'Message sent';
+  String get messageSent => 'Сообщение отправлено';
 
   @override
-  String get messageDeleted => 'Message deleted';
+  String get messageDeleted => 'Сообщение удалено';
 
   @override
-  String get messageEdited => 'Message edited';
+  String get messageEdited => 'Сообщение изменено';
 
   @override
   String get edited => '(изменено)';
@@ -2406,10 +2406,10 @@ class AppLocalizationsRu extends AppLocalizations {
   String get checkOutMoment => 'Посмотрите этот момент на Bananatalk!';
 
   @override
-  String get checkOutProfile => 'Check out this profile on Bananatalk!';
+  String get checkOutProfile => 'Посмотрите этот профиль в Bananatalk!';
 
   @override
-  String get checkOutCommunity => 'Check out this member on Bananatalk!';
+  String get checkOutCommunity => 'Посмотрите этого участника в Bananatalk!';
 
   @override
   String get failedToLoadMoments => 'Не удалось загрузить моменты';
@@ -3374,133 +3374,133 @@ class AppLocalizationsRu extends AppLocalizations {
   String get allCategories => 'Все категории';
 
   @override
-  String get leaderboard => 'Leaderboard';
+  String get leaderboard => 'Таблица лидеров';
 
   @override
-  String get competeWithLearners => 'Compete with other learners!';
+  String get competeWithLearners => 'Соревнуйтесь с другими учениками!';
 
   @override
-  String get xpRankings => 'XP Rankings';
+  String get xpRankings => 'Рейтинг XP';
 
   @override
-  String get streaks => 'Streaks';
+  String get streaks => 'Серии';
 
   @override
-  String get friends => 'Friends';
+  String get friends => 'Друзья';
 
   @override
-  String get myRanks => 'My Ranks';
+  String get myRanks => 'Мои рейтинги';
 
   @override
-  String get currentStreak => 'Current Streak';
+  String get currentStreak => 'Текущая серия';
 
   @override
-  String get longestStreak => 'Longest Streak';
+  String get longestStreak => 'Самая длинная серия';
 
   @override
-  String get weekly => 'Weekly';
+  String get weekly => 'Еженедельно';
 
   @override
-  String get monthly => 'Monthly';
+  String get monthly => 'Ежемесячно';
 
   @override
-  String get yourRank => 'Your Rank';
+  String get yourRank => 'Ваш рейтинг';
 
   @override
   String outOf(int total) {
-    return 'out of $total';
+    return 'из $total';
   }
 
   @override
   String topPercent(String percent) {
-    return 'Top $percent%';
+    return 'Топ $percent%';
   }
 
   @override
-  String get xpRank => 'XP Rank';
+  String get xpRank => 'Ранг XP';
 
   @override
-  String get streakRank => 'Streak Rank';
+  String get streakRank => 'Ранг серии';
 
   @override
-  String get days => 'days';
+  String get days => 'дней';
 
   @override
-  String get learningStats => 'Learning Stats';
+  String get learningStats => 'Статистика обучения';
 
   @override
-  String get totalXp => 'Total XP';
+  String get totalXp => 'Всего XP';
 
   @override
-  String get lessonsCompleted => 'Lessons Completed';
+  String get lessonsCompleted => 'Завершено уроков';
 
   @override
-  String get rankings => 'Rankings';
+  String get rankings => 'Рейтинги';
 
   @override
-  String get yourPosition => 'Your Position';
+  String get yourPosition => 'Ваша позиция';
 
   @override
-  String get keepLearning => 'Keep learning to climb!';
+  String get keepLearning => 'Продолжайте учиться, чтобы подняться выше!';
 
   @override
-  String get noRankingsYet => 'No rankings yet';
+  String get noRankingsYet => 'Пока нет рейтингов';
 
   @override
-  String get startLearningToAppear => 'Start learning to appear on the leaderboard!';
+  String get startLearningToAppear => 'Начните учиться, чтобы попасть в таблицу лидеров!';
 
   @override
-  String get noFriendsYet => 'No friends yet';
+  String get noFriendsYet => 'Пока нет друзей';
 
   @override
-  String get addFriendsToCompete => 'Add friends to compete with them!';
+  String get addFriendsToCompete => 'Добавьте друзей, чтобы соревноваться с ними!';
 
   @override
-  String get failedToLoadLeaderboard => 'Failed to load leaderboard';
+  String get failedToLoadLeaderboard => 'Не удалось загрузить таблицу лидеров';
 
   @override
   String get you => 'Вы';
 
   @override
-  String get findPartners => 'Find Partners';
+  String get findPartners => 'Найти партнёров';
 
   @override
-  String get discoverLanguagePartners => 'Discover language partners';
+  String get discoverLanguagePartners => 'Найдите языковых партнёров';
 
   @override
-  String get byLanguage => 'By Language';
+  String get byLanguage => 'По языку';
 
   @override
-  String get match => 'match';
+  String get match => 'совпадение';
 
   @override
-  String get matchScore => 'Match Score';
+  String get matchScore => 'Оценка совпадения';
 
   @override
-  String get noMatchesFound => 'No matches found';
+  String get noMatchesFound => 'Совпадений не найдено';
 
   @override
-  String get noUsersOnline => 'No users online';
+  String get noUsersOnline => 'Нет пользователей онлайн';
 
   @override
-  String get checkBackLater => 'Check back later';
+  String get checkBackLater => 'Загляните позже';
 
   @override
-  String get selectLanguagePrompt => 'Select a language';
+  String get selectLanguagePrompt => 'Выберите язык';
 
   @override
-  String get findPartnersByLanguage => 'Find partners who speak or learn this language';
+  String get findPartnersByLanguage => 'Найдите партнёров, которые говорят на этом языке или изучают его';
 
   @override
   String noPartnersForLanguage(String language) {
-    return 'No partners for $language';
+    return 'Нет партнёров для $language';
   }
 
   @override
-  String get tryAnotherLanguage => 'Try selecting another language';
+  String get tryAnotherLanguage => 'Попробуйте выбрать другой язык';
 
   @override
-  String get failedToLoadMatches => 'Failed to load matches';
+  String get failedToLoadMatches => 'Не удалось загрузить совпадения';
 
   @override
   String get dataAndStorage => 'Данные и Хранилище';
@@ -4453,63 +4453,63 @@ class AppLocalizationsRu extends AppLocalizations {
   String get dragToDelete => 'Перетащите сюда для удаления';
 
   @override
-  String get noBlockedUsers => 'No blocked users';
+  String get noBlockedUsers => 'Нет заблокированных пользователей';
 
   @override
-  String get usersYouBlockWillAppearHere => 'Users you block will appear here';
+  String get usersYouBlockWillAppearHere => 'Заблокированные вами пользователи будут отображаться здесь';
 
   @override
   String unblockConfirm(String name) {
-    return 'Are you sure you want to unblock $name?';
+    return 'Вы уверены, что хотите разблокировать $name?';
   }
 
   @override
   String reasonLabel(String reason) {
-    return 'Reason: $reason';
+    return 'Причина: $reason';
   }
 
   @override
   String blockedAgo(String time) {
-    return 'Blocked $time';
+    return 'Заблокирован $time';
   }
 
   @override
   String errorLoadingBlockedUsers(String error) {
-    return 'Error loading blocked users: $error';
+    return 'Ошибка загрузки заблокированных пользователей: $error';
   }
 
   @override
-  String get logoutConfirmMessage => 'Are you sure you want to logout from Bananatalk?';
+  String get logoutConfirmMessage => 'Вы уверены, что хотите выйти из Bananatalk?';
 
   @override
-  String get loggingOut => 'Logging out...';
+  String get loggingOut => 'Выход из системы...';
 
   @override
-  String get quietHours => 'Quiet Hours';
+  String get quietHours => 'Тихие часы';
 
   @override
-  String get quietHoursEnable => 'Enable Quiet Hours';
+  String get quietHoursEnable => 'Включить тихие часы';
 
   @override
-  String get quietHoursSubtitle => 'Pause non-urgent notifications during a time window';
+  String get quietHoursSubtitle => 'Приостановить неважные уведомления на определённый промежуток времени';
 
   @override
-  String get quietHoursStart => 'Start time';
+  String get quietHoursStart => 'Время начала';
 
   @override
-  String get quietHoursEnd => 'End time';
+  String get quietHoursEnd => 'Время окончания';
 
   @override
-  String get quietHoursAllowUrgent => 'Allow urgent notifications';
+  String get quietHoursAllowUrgent => 'Разрешить срочные уведомления';
 
   @override
-  String get quietHoursAllowUrgentSubtitle => 'Calls and messages from VIP partners can still come through';
+  String get quietHoursAllowUrgentSubtitle => 'Звонки и сообщения от VIP-партнёров всё равно будут поступать';
 
   @override
-  String get silencedByQuietHours => 'Silenced by Quiet Hours';
+  String get silencedByQuietHours => 'Отключено тихими часами';
 
   @override
-  String get silencedByCap => 'Silenced by daily limit';
+  String get silencedByCap => 'Отключено дневным лимитом';
 
   @override
   String get momentUpdatedSuccessfully => 'Момент успешно обновлён';

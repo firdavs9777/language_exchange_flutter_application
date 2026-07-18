@@ -243,7 +243,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get beTheFirstToComment => '첫 번째 댓글을 작성하세요.';
 
   @override
-  String get loadMoreComments => 'Load more comments';
+  String get loadMoreComments => '댓글 더 보기';
 
   @override
   String get writeAComment => '댓글 작성...';
@@ -267,10 +267,10 @@ class AppLocalizationsKo extends AppLocalizations {
   String get momentDeleted => '모멘트가 삭제되었습니다';
 
   @override
-  String get deleteComment => 'Delete Comment?';
+  String get deleteComment => '댓글을 삭제하시겠습니까?';
 
   @override
-  String get commentDeleted => 'Comment deleted';
+  String get commentDeleted => '댓글이 삭제되었습니다';
 
   @override
   String get editFeatureComingSoon => '편집 기능이 곧 제공됩니다';
@@ -394,7 +394,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get aiTutorChipPhoto => '사진';
 
   @override
-  String get aiToolsMoreSection => 'More AI tools';
+  String get aiToolsMoreSection => '더 많은 AI 도구';
 
   @override
   String get aiConversationPartnerTile => 'AI 대화';
@@ -1740,19 +1740,19 @@ class AppLocalizationsKo extends AppLocalizations {
   String get noMomentsYet => '아직 모멘트가 없습니다';
 
   @override
-  String get noForYouMomentsTitle => 'No moments yet';
+  String get noForYouMomentsTitle => '아직 모먼트가 없습니다';
 
   @override
-  String get noForYouMomentsBody => 'Answer today\'s prompt to get the conversation started.';
+  String get noForYouMomentsBody => '오늘의 주제에 답하고 대화를 시작해 보세요.';
 
   @override
-  String get noFollowingMomentsTitle => 'Nothing here yet';
+  String get noFollowingMomentsTitle => '아직 아무것도 없습니다';
 
   @override
-  String get noFollowingMomentsBody => 'Follow people from Community to see their moments here.';
+  String get noFollowingMomentsBody => '커뮤니티에서 사람들을 팔로우하면 이곳에서 그들의 모먼트를 볼 수 있습니다.';
 
   @override
-  String get goToCommunity => 'Go to Community';
+  String get goToCommunity => '커뮤니티로 이동';
 
   @override
   String get unableToLoadMoments => '모멘트를 불러올 수 없습니다';
@@ -2266,42 +2266,42 @@ class AppLocalizationsKo extends AppLocalizations {
   String get receiveEmailNotifications => 'Bananatalk에서 이메일 알림 받기';
 
   @override
-  String get whenAwayFor24Hours => 'When you\'re away for 24+ hours';
+  String get whenAwayFor24Hours => '24시간 이상 자리를 비웠을 때';
 
   @override
-  String get passwordAndLoginAlerts => 'Password & login alerts';
+  String get passwordAndLoginAlerts => '비밀번호 및 로그인 알림';
 
   @override
-  String get failedToLoadPreferences => 'Failed to load preferences';
+  String get failedToLoadPreferences => '환경설정을 불러오지 못했습니다';
 
   @override
-  String get failedToUpdateSetting => 'Failed to update setting';
+  String get failedToUpdateSetting => '설정을 업데이트하지 못했습니다';
 
   @override
-  String get securityAlertsRecommended => 'We recommend keeping Security Alerts enabled to stay informed about important account activity.';
+  String get securityAlertsRecommended => '중요한 계정 활동을 계속 확인할 수 있도록 보안 알림을 켜두는 것을 권장합니다.';
 
   @override
   String chatWallpaperFor(String name) {
-    return 'Chat wallpaper for $name';
+    return '$name님과의 채팅 배경화면';
   }
 
   @override
-  String get solidColors => 'Solid Colors';
+  String get solidColors => '단색';
 
   @override
-  String get gradients => 'Gradients';
+  String get gradients => '그라데이션';
 
   @override
-  String get customImage => 'Custom Image';
+  String get customImage => '사용자 지정 이미지';
 
   @override
-  String get chooseFromGallery => 'Choose from Gallery';
+  String get chooseFromGallery => '갤러리에서 선택';
 
   @override
-  String get preview => 'Preview';
+  String get preview => '미리보기';
 
   @override
-  String get wallpaperUpdated => 'Wallpaper updated';
+  String get wallpaperUpdated => '배경화면이 업데이트되었습니다';
 
   @override
   String get category => '카테고리';
@@ -2310,66 +2310,66 @@ class AppLocalizationsKo extends AppLocalizations {
   String get mood => '기분';
 
   @override
-  String get sortBy => 'Sort By';
+  String get sortBy => '정렬 기준';
 
   @override
-  String get timePeriod => 'Time Period';
+  String get timePeriod => '기간';
 
   @override
-  String get searchLanguages => 'Search languages...';
+  String get searchLanguages => '언어 검색...';
 
   @override
-  String get selected => 'Selected';
+  String get selected => '선택됨';
 
   @override
-  String get categories => 'Categories';
+  String get categories => '카테고리';
 
   @override
-  String get moods => 'Moods';
+  String get moods => '기분';
 
   @override
   String get applyFilters => '필터 적용';
 
   @override
   String applyNFilters(int count) {
-    return 'Apply $count Filters';
+    return '필터 $count개 적용';
   }
 
   @override
   String get videoMustBeUnder1GB => '동영상은 1GB 미만이어야 합니다.';
 
   @override
-  String get failedToRecordVideo => 'Failed to record video';
+  String get failedToRecordVideo => '동영상 녹화에 실패했습니다';
 
   @override
-  String get errorSendingVideo => 'Error sending video';
+  String get errorSendingVideo => '동영상 전송 오류';
 
   @override
-  String get errorSendingVoiceMessage => 'Error sending voice message';
+  String get errorSendingVoiceMessage => '음성 메시지 전송 오류';
 
   @override
-  String get errorSendingMedia => 'Error sending media';
+  String get errorSendingMedia => '미디어 전송 오류';
 
   @override
-  String get cameraPermissionRequired => 'Camera and microphone permissions are required to record videos.';
+  String get cameraPermissionRequired => '동영상을 녹화하려면 카메라와 마이크 권한이 필요합니다.';
 
   @override
-  String get locationPermissionRequired => 'Location permission is required to share your location.';
+  String get locationPermissionRequired => '위치를 공유하려면 위치 권한이 필요합니다.';
 
   @override
-  String get noInternetConnection => 'No internet connection';
+  String get noInternetConnection => '인터넷 연결이 없습니다';
 
   @override
-  String get tryAgainLater => 'Try again later';
+  String get tryAgainLater => '나중에 다시 시도해 주세요';
 
   @override
-  String get messageSent => 'Message sent';
+  String get messageSent => '메시지가 전송되었습니다';
 
   @override
-  String get messageDeleted => 'Message deleted';
+  String get messageDeleted => '메시지가 삭제되었습니다';
 
   @override
-  String get messageEdited => 'Message edited';
+  String get messageEdited => '메시지가 수정되었습니다';
 
   @override
   String get edited => '(수정됨)';
@@ -2406,10 +2406,10 @@ class AppLocalizationsKo extends AppLocalizations {
   String get checkOutMoment => 'Bananatalk에서 이 모멘트를 확인해보세요!';
 
   @override
-  String get checkOutProfile => 'Check out this profile on Bananatalk!';
+  String get checkOutProfile => 'Bananatalk에서 이 프로필을 확인해 보세요!';
 
   @override
-  String get checkOutCommunity => 'Check out this member on Bananatalk!';
+  String get checkOutCommunity => 'Bananatalk에서 이 멤버를 확인해 보세요!';
 
   @override
   String get failedToLoadMoments => '모멘트를 불러오지 못했습니다';
@@ -3374,133 +3374,133 @@ class AppLocalizationsKo extends AppLocalizations {
   String get allCategories => '모든 카테고리';
 
   @override
-  String get leaderboard => 'Leaderboard';
+  String get leaderboard => '리더보드';
 
   @override
-  String get competeWithLearners => 'Compete with other learners!';
+  String get competeWithLearners => '다른 학습자들과 경쟁해 보세요!';
 
   @override
-  String get xpRankings => 'XP Rankings';
+  String get xpRankings => 'XP 순위';
 
   @override
-  String get streaks => 'Streaks';
+  String get streaks => '연속 기록';
 
   @override
-  String get friends => 'Friends';
+  String get friends => '친구';
 
   @override
-  String get myRanks => 'My Ranks';
+  String get myRanks => '내 랭킹';
 
   @override
-  String get currentStreak => 'Current Streak';
+  String get currentStreak => '현재 연속 기록';
 
   @override
-  String get longestStreak => 'Longest Streak';
+  String get longestStreak => '최장 연속 기록';
 
   @override
-  String get weekly => 'Weekly';
+  String get weekly => '주간';
 
   @override
-  String get monthly => 'Monthly';
+  String get monthly => '월간';
 
   @override
-  String get yourRank => 'Your Rank';
+  String get yourRank => '내 순위';
 
   @override
   String outOf(int total) {
-    return 'out of $total';
+    return '$total명 중';
   }
 
   @override
   String topPercent(String percent) {
-    return 'Top $percent%';
+    return '상위 $percent%';
   }
 
   @override
-  String get xpRank => 'XP Rank';
+  String get xpRank => 'XP 랭크';
 
   @override
-  String get streakRank => 'Streak Rank';
+  String get streakRank => '연속 기록 순위';
 
   @override
-  String get days => 'days';
+  String get days => '일';
 
   @override
-  String get learningStats => 'Learning Stats';
+  String get learningStats => '학습 통계';
 
   @override
-  String get totalXp => 'Total XP';
+  String get totalXp => '총 XP';
 
   @override
-  String get lessonsCompleted => 'Lessons Completed';
+  String get lessonsCompleted => '완료한 레슨';
 
   @override
-  String get rankings => 'Rankings';
+  String get rankings => '순위';
 
   @override
-  String get yourPosition => 'Your Position';
+  String get yourPosition => '내 위치';
 
   @override
-  String get keepLearning => 'Keep learning to climb!';
+  String get keepLearning => '계속 학습해서 순위를 올려보세요!';
 
   @override
-  String get noRankingsYet => 'No rankings yet';
+  String get noRankingsYet => '아직 순위가 없습니다';
 
   @override
-  String get startLearningToAppear => 'Start learning to appear on the leaderboard!';
+  String get startLearningToAppear => '학습을 시작하면 리더보드에 나타납니다!';
 
   @override
-  String get noFriendsYet => 'No friends yet';
+  String get noFriendsYet => '아직 친구가 없습니다';
 
   @override
-  String get addFriendsToCompete => 'Add friends to compete with them!';
+  String get addFriendsToCompete => '친구를 추가해서 경쟁해 보세요!';
 
   @override
-  String get failedToLoadLeaderboard => 'Failed to load leaderboard';
+  String get failedToLoadLeaderboard => '리더보드를 불러오지 못했습니다';
 
   @override
   String get you => '나';
 
   @override
-  String get findPartners => 'Find Partners';
+  String get findPartners => '파트너 찾기';
 
   @override
-  String get discoverLanguagePartners => 'Discover language partners';
+  String get discoverLanguagePartners => '언어 파트너 찾아보기';
 
   @override
-  String get byLanguage => 'By Language';
+  String get byLanguage => '언어별';
 
   @override
-  String get match => 'match';
+  String get match => '매치';
 
   @override
-  String get matchScore => 'Match Score';
+  String get matchScore => '매치 점수';
 
   @override
-  String get noMatchesFound => 'No matches found';
+  String get noMatchesFound => '일치하는 결과가 없습니다';
 
   @override
-  String get noUsersOnline => 'No users online';
+  String get noUsersOnline => '온라인 사용자가 없습니다';
 
   @override
-  String get checkBackLater => 'Check back later';
+  String get checkBackLater => '나중에 다시 확인해 주세요';
 
   @override
-  String get selectLanguagePrompt => 'Select a language';
+  String get selectLanguagePrompt => '언어를 선택하세요';
 
   @override
-  String get findPartnersByLanguage => 'Find partners who speak or learn this language';
+  String get findPartnersByLanguage => '이 언어를 사용하거나 배우는 파트너 찾기';
 
   @override
   String noPartnersForLanguage(String language) {
-    return 'No partners for $language';
+    return '$language에 대한 파트너가 없습니다';
   }
 
   @override
-  String get tryAnotherLanguage => 'Try selecting another language';
+  String get tryAnotherLanguage => '다른 언어를 선택해 보세요';
 
   @override
-  String get failedToLoadMatches => 'Failed to load matches';
+  String get failedToLoadMatches => '매치 정보를 불러오지 못했습니다';
 
   @override
   String get dataAndStorage => '데이터 및 저장공간';
@@ -4453,63 +4453,63 @@ class AppLocalizationsKo extends AppLocalizations {
   String get dragToDelete => '여기로 끌어서 삭제';
 
   @override
-  String get noBlockedUsers => 'No blocked users';
+  String get noBlockedUsers => '차단된 사용자가 없습니다';
 
   @override
-  String get usersYouBlockWillAppearHere => 'Users you block will appear here';
+  String get usersYouBlockWillAppearHere => '차단한 사용자가 여기에 표시됩니다';
 
   @override
   String unblockConfirm(String name) {
-    return 'Are you sure you want to unblock $name?';
+    return '$name님을 차단 해제하시겠습니까?';
   }
 
   @override
   String reasonLabel(String reason) {
-    return 'Reason: $reason';
+    return '사유: $reason';
   }
 
   @override
   String blockedAgo(String time) {
-    return 'Blocked $time';
+    return '$time 차단됨';
   }
 
   @override
   String errorLoadingBlockedUsers(String error) {
-    return 'Error loading blocked users: $error';
+    return '차단된 사용자를 불러오는 중 오류 발생: $error';
   }
 
   @override
-  String get logoutConfirmMessage => 'Are you sure you want to logout from Bananatalk?';
+  String get logoutConfirmMessage => 'Bananatalk에서 로그아웃하시겠습니까?';
 
   @override
-  String get loggingOut => 'Logging out...';
+  String get loggingOut => '로그아웃 중...';
 
   @override
-  String get quietHours => 'Quiet Hours';
+  String get quietHours => '방해 금지 시간';
 
   @override
-  String get quietHoursEnable => 'Enable Quiet Hours';
+  String get quietHoursEnable => '방해 금지 시간 사용';
 
   @override
-  String get quietHoursSubtitle => 'Pause non-urgent notifications during a time window';
+  String get quietHoursSubtitle => '지정한 시간 동안 긴급하지 않은 알림을 일시 중지합니다';
 
   @override
-  String get quietHoursStart => 'Start time';
+  String get quietHoursStart => '시작 시간';
 
   @override
-  String get quietHoursEnd => 'End time';
+  String get quietHoursEnd => '종료 시간';
 
   @override
-  String get quietHoursAllowUrgent => 'Allow urgent notifications';
+  String get quietHoursAllowUrgent => '긴급 알림 허용';
 
   @override
-  String get quietHoursAllowUrgentSubtitle => 'Calls and messages from VIP partners can still come through';
+  String get quietHoursAllowUrgentSubtitle => 'VIP 파트너의 전화와 메시지는 계속 수신됩니다';
 
   @override
-  String get silencedByQuietHours => 'Silenced by Quiet Hours';
+  String get silencedByQuietHours => '방해 금지 시간으로 인해 무음 처리됨';
 
   @override
-  String get silencedByCap => 'Silenced by daily limit';
+  String get silencedByCap => '일일 한도로 인해 무음 처리됨';
 
   @override
   String get momentUpdatedSuccessfully => '모멘트가 성공적으로 업데이트되었습니다';

@@ -243,7 +243,7 @@ class AppLocalizationsTg extends AppLocalizations {
   String get beTheFirstToComment => 'Аввалин шуда шарҳ нависед.';
 
   @override
-  String get loadMoreComments => 'Load more comments';
+  String get loadMoreComments => 'Шарҳҳои бештарро бор кунед';
 
   @override
   String get writeAComment => 'Шарҳ нависед...';
@@ -1740,19 +1740,19 @@ class AppLocalizationsTg extends AppLocalizations {
   String get noMomentsYet => 'Ҳоло лаҳза нест';
 
   @override
-  String get noForYouMomentsTitle => 'No moments yet';
+  String get noForYouMomentsTitle => 'Ҳоло лаҳза нест';
 
   @override
-  String get noForYouMomentsBody => 'Answer today\'s prompt to get the conversation started.';
+  String get noForYouMomentsBody => 'Барои оғози сӯҳбат ба супориши имрӯза ҷавоб диҳед.';
 
   @override
-  String get noFollowingMomentsTitle => 'Nothing here yet';
+  String get noFollowingMomentsTitle => 'Ҳанӯз ин ҷо чизе нест';
 
   @override
-  String get noFollowingMomentsBody => 'Follow people from Community to see their moments here.';
+  String get noFollowingMomentsBody => 'Барои дидани лаҳзаҳои онҳо дар ин ҷо, ба одамон аз Ҷомеа пайравӣ кунед.';
 
   @override
-  String get goToCommunity => 'Go to Community';
+  String get goToCommunity => 'Ба Ҷомеа гузаштан';
 
   @override
   String get unableToLoadMoments => 'Лаҳзаҳоро бор кардан имконнопазир аст';
@@ -2412,10 +2412,10 @@ class AppLocalizationsTg extends AppLocalizations {
   String get checkOutMoment => 'Ин лаҳзаро дар Bananatalk бубинед!';
 
   @override
-  String get checkOutProfile => 'Check out this profile on Bananatalk!';
+  String get checkOutProfile => 'Ин профилро дар Bananatalk бубинед!';
 
   @override
-  String get checkOutCommunity => 'Check out this member on Bananatalk!';
+  String get checkOutCommunity => 'Ин корбарро дар Bananatalk бубинед!';
 
   @override
   String get failedToLoadMoments => 'Боргирии лаҳзаҳо муяссар нашуд';

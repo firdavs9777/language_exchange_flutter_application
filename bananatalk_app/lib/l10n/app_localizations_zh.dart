@@ -243,7 +243,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get beTheFirstToComment => '成为第一个评论的人。';
 
   @override
-  String get loadMoreComments => 'Load more comments';
+  String get loadMoreComments => '加载更多评论';
 
   @override
   String get writeAComment => '写评论...';
@@ -267,10 +267,10 @@ class AppLocalizationsZh extends AppLocalizations {
   String get momentDeleted => '动态已删除';
 
   @override
-  String get deleteComment => 'Delete Comment?';
+  String get deleteComment => '删除评论？';
 
   @override
-  String get commentDeleted => 'Comment deleted';
+  String get commentDeleted => '评论已删除';
 
   @override
   String get editFeatureComingSoon => '编辑功能即将推出';
@@ -394,7 +394,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get aiTutorChipPhoto => '照片';
 
   @override
-  String get aiToolsMoreSection => 'More AI tools';
+  String get aiToolsMoreSection => '更多AI工具';
 
   @override
   String get aiConversationPartnerTile => 'AI 对话';
@@ -767,7 +767,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get aboutMe => '关于我';
 
   @override
-  String get bloodType => 'Blood Type';
+  String get bloodType => '血型';
 
   @override
   String get photos => '照片';
@@ -1740,19 +1740,19 @@ class AppLocalizationsZh extends AppLocalizations {
   String get noMomentsYet => '暂无动态';
 
   @override
-  String get noForYouMomentsTitle => 'No moments yet';
+  String get noForYouMomentsTitle => '暂无动态';
 
   @override
-  String get noForYouMomentsBody => 'Answer today\'s prompt to get the conversation started.';
+  String get noForYouMomentsBody => '回答今日话题，开启对话吧。';
 
   @override
-  String get noFollowingMomentsTitle => 'Nothing here yet';
+  String get noFollowingMomentsTitle => '这里还没有内容';
 
   @override
-  String get noFollowingMomentsBody => 'Follow people from Community to see their moments here.';
+  String get noFollowingMomentsBody => '在社区中关注他人，即可在此查看他们的动态。';
 
   @override
-  String get goToCommunity => 'Go to Community';
+  String get goToCommunity => '前往社区';
 
   @override
   String get unableToLoadMoments => '无法加载动态';
@@ -2266,42 +2266,42 @@ class AppLocalizationsZh extends AppLocalizations {
   String get receiveEmailNotifications => '接收来自Bananatalk的邮件通知';
 
   @override
-  String get whenAwayFor24Hours => 'When you\'re away for 24+ hours';
+  String get whenAwayFor24Hours => '当你离开超过24小时';
 
   @override
-  String get passwordAndLoginAlerts => 'Password & login alerts';
+  String get passwordAndLoginAlerts => '密码与登录提醒';
 
   @override
-  String get failedToLoadPreferences => 'Failed to load preferences';
+  String get failedToLoadPreferences => '加载偏好设置失败';
 
   @override
-  String get failedToUpdateSetting => 'Failed to update setting';
+  String get failedToUpdateSetting => '更新设置失败';
 
   @override
-  String get securityAlertsRecommended => 'We recommend keeping Security Alerts enabled to stay informed about important account activity.';
+  String get securityAlertsRecommended => '我们建议保持开启安全提醒，以便及时了解账户的重要活动。';
 
   @override
   String chatWallpaperFor(String name) {
-    return 'Chat wallpaper for $name';
+    return '$name 的聊天壁纸';
   }
 
   @override
-  String get solidColors => 'Solid Colors';
+  String get solidColors => '纯色';
 
   @override
-  String get gradients => 'Gradients';
+  String get gradients => '渐变';
 
   @override
-  String get customImage => 'Custom Image';
+  String get customImage => '自定义图片';
 
   @override
-  String get chooseFromGallery => 'Choose from Gallery';
+  String get chooseFromGallery => '从相册选择';
 
   @override
-  String get preview => 'Preview';
+  String get preview => '预览';
 
   @override
-  String get wallpaperUpdated => 'Wallpaper updated';
+  String get wallpaperUpdated => '壁纸已更新';
 
   @override
   String get category => '分类';
@@ -2310,66 +2310,66 @@ class AppLocalizationsZh extends AppLocalizations {
   String get mood => '心情';
 
   @override
-  String get sortBy => 'Sort By';
+  String get sortBy => '排序方式';
 
   @override
-  String get timePeriod => 'Time Period';
+  String get timePeriod => '时间段';
 
   @override
-  String get searchLanguages => 'Search languages...';
+  String get searchLanguages => '搜索语言…';
 
   @override
-  String get selected => 'Selected';
+  String get selected => '已选择';
 
   @override
-  String get categories => 'Categories';
+  String get categories => '分类';
 
   @override
-  String get moods => 'Moods';
+  String get moods => '心情';
 
   @override
   String get applyFilters => '应用筛选';
 
   @override
   String applyNFilters(int count) {
-    return 'Apply $count Filters';
+    return '应用 $count 个筛选条件';
   }
 
   @override
   String get videoMustBeUnder1GB => '视频必须小于1GB。';
 
   @override
-  String get failedToRecordVideo => 'Failed to record video';
+  String get failedToRecordVideo => '录制视频失败';
 
   @override
-  String get errorSendingVideo => 'Error sending video';
+  String get errorSendingVideo => '发送视频出错';
 
   @override
-  String get errorSendingVoiceMessage => 'Error sending voice message';
+  String get errorSendingVoiceMessage => '发送语音消息出错';
 
   @override
-  String get errorSendingMedia => 'Error sending media';
+  String get errorSendingMedia => '发送媒体文件出错';
 
   @override
-  String get cameraPermissionRequired => 'Camera and microphone permissions are required to record videos.';
+  String get cameraPermissionRequired => '录制视频需要相机和麦克风权限。';
 
   @override
-  String get locationPermissionRequired => 'Location permission is required to share your location.';
+  String get locationPermissionRequired => '分享位置需要位置权限。';
 
   @override
-  String get noInternetConnection => 'No internet connection';
+  String get noInternetConnection => '无网络连接';
 
   @override
-  String get tryAgainLater => 'Try again later';
+  String get tryAgainLater => '请稍后重试';
 
   @override
-  String get messageSent => 'Message sent';
+  String get messageSent => '消息已发送';
 
   @override
-  String get messageDeleted => 'Message deleted';
+  String get messageDeleted => '消息已删除';
 
   @override
-  String get messageEdited => 'Message edited';
+  String get messageEdited => '消息已编辑';
 
   @override
   String get edited => '(已编辑)';
@@ -2406,10 +2406,10 @@ class AppLocalizationsZh extends AppLocalizations {
   String get checkOutMoment => '在Bananatalk上看看这条动态!';
 
   @override
-  String get checkOutProfile => 'Check out this profile on Bananatalk!';
+  String get checkOutProfile => '快来看看这个 Bananatalk 上的个人主页！';
 
   @override
-  String get checkOutCommunity => 'Check out this member on Bananatalk!';
+  String get checkOutCommunity => '快来看看这位 Bananatalk 成员！';
 
   @override
   String get failedToLoadMoments => '加载动态失败';
@@ -3374,133 +3374,133 @@ class AppLocalizationsZh extends AppLocalizations {
   String get allCategories => '所有类别';
 
   @override
-  String get leaderboard => 'Leaderboard';
+  String get leaderboard => '排行榜';
 
   @override
-  String get competeWithLearners => 'Compete with other learners!';
+  String get competeWithLearners => '与其他学习者一较高下！';
 
   @override
-  String get xpRankings => 'XP Rankings';
+  String get xpRankings => '经验值排名';
 
   @override
-  String get streaks => 'Streaks';
+  String get streaks => '连续打卡';
 
   @override
-  String get friends => 'Friends';
+  String get friends => '好友';
 
   @override
-  String get myRanks => 'My Ranks';
+  String get myRanks => '我的排名';
 
   @override
-  String get currentStreak => 'Current Streak';
+  String get currentStreak => '当前连续天数';
 
   @override
-  String get longestStreak => 'Longest Streak';
+  String get longestStreak => '最长连续天数';
 
   @override
-  String get weekly => 'Weekly';
+  String get weekly => '每周';
 
   @override
-  String get monthly => 'Monthly';
+  String get monthly => '每月';
 
   @override
-  String get yourRank => 'Your Rank';
+  String get yourRank => '你的排名';
 
   @override
   String outOf(int total) {
-    return 'out of $total';
+    return '共 $total 名';
   }
 
   @override
   String topPercent(String percent) {
-    return 'Top $percent%';
+    return '前 $percent%';
   }
 
   @override
-  String get xpRank => 'XP Rank';
+  String get xpRank => '经验值排名';
 
   @override
-  String get streakRank => 'Streak Rank';
+  String get streakRank => '连续打卡排名';
 
   @override
-  String get days => 'days';
+  String get days => '天';
 
   @override
-  String get learningStats => 'Learning Stats';
+  String get learningStats => '学习统计';
 
   @override
-  String get totalXp => 'Total XP';
+  String get totalXp => '总经验值';
 
   @override
-  String get lessonsCompleted => 'Lessons Completed';
+  String get lessonsCompleted => '已完成课程';
 
   @override
-  String get rankings => 'Rankings';
+  String get rankings => '排名';
 
   @override
-  String get yourPosition => 'Your Position';
+  String get yourPosition => '你的位置';
 
   @override
-  String get keepLearning => 'Keep learning to climb!';
+  String get keepLearning => '继续学习，排名更进一步！';
 
   @override
-  String get noRankingsYet => 'No rankings yet';
+  String get noRankingsYet => '暂无排名';
 
   @override
-  String get startLearningToAppear => 'Start learning to appear on the leaderboard!';
+  String get startLearningToAppear => '开始学习，登上排行榜吧！';
 
   @override
-  String get noFriendsYet => 'No friends yet';
+  String get noFriendsYet => '暂无好友';
 
   @override
-  String get addFriendsToCompete => 'Add friends to compete with them!';
+  String get addFriendsToCompete => '添加好友，与他们一较高下！';
 
   @override
-  String get failedToLoadLeaderboard => 'Failed to load leaderboard';
+  String get failedToLoadLeaderboard => '加载排行榜失败';
 
   @override
   String get you => '你';
 
   @override
-  String get findPartners => 'Find Partners';
+  String get findPartners => '寻找语伴';
 
   @override
-  String get discoverLanguagePartners => 'Discover language partners';
+  String get discoverLanguagePartners => '发现语言伙伴';
 
   @override
-  String get byLanguage => 'By Language';
+  String get byLanguage => '按语言';
 
   @override
-  String get match => 'match';
+  String get match => '匹配';
 
   @override
-  String get matchScore => 'Match Score';
+  String get matchScore => '匹配度';
 
   @override
-  String get noMatchesFound => 'No matches found';
+  String get noMatchesFound => '未找到匹配';
 
   @override
-  String get noUsersOnline => 'No users online';
+  String get noUsersOnline => '暂无在线用户';
 
   @override
-  String get checkBackLater => 'Check back later';
+  String get checkBackLater => '请稍后再来查看';
 
   @override
-  String get selectLanguagePrompt => 'Select a language';
+  String get selectLanguagePrompt => '选择一种语言';
 
   @override
-  String get findPartnersByLanguage => 'Find partners who speak or learn this language';
+  String get findPartnersByLanguage => '寻找说这门语言或正在学习这门语言的伙伴';
 
   @override
   String noPartnersForLanguage(String language) {
-    return 'No partners for $language';
+    return '暂无 $language 语伴';
   }
 
   @override
-  String get tryAnotherLanguage => 'Try selecting another language';
+  String get tryAnotherLanguage => '请尝试选择其他语言';
 
   @override
-  String get failedToLoadMatches => 'Failed to load matches';
+  String get failedToLoadMatches => '加载匹配结果失败';
 
   @override
   String get dataAndStorage => '数据与存储';
@@ -4453,63 +4453,63 @@ class AppLocalizationsZh extends AppLocalizations {
   String get dragToDelete => '拖到此处删除';
 
   @override
-  String get noBlockedUsers => 'No blocked users';
+  String get noBlockedUsers => '暂无屏蔽用户';
 
   @override
-  String get usersYouBlockWillAppearHere => 'Users you block will appear here';
+  String get usersYouBlockWillAppearHere => '你屏蔽的用户将显示在这里';
 
   @override
   String unblockConfirm(String name) {
-    return 'Are you sure you want to unblock $name?';
+    return '确定要取消屏蔽 $name 吗？';
   }
 
   @override
   String reasonLabel(String reason) {
-    return 'Reason: $reason';
+    return '原因：$reason';
   }
 
   @override
   String blockedAgo(String time) {
-    return 'Blocked $time';
+    return '$time前屏蔽';
   }
 
   @override
   String errorLoadingBlockedUsers(String error) {
-    return 'Error loading blocked users: $error';
+    return '加载屏蔽用户列表出错：$error';
   }
 
   @override
-  String get logoutConfirmMessage => 'Are you sure you want to logout from Bananatalk?';
+  String get logoutConfirmMessage => '确定要退出 Bananatalk 登录吗？';
 
   @override
-  String get loggingOut => 'Logging out...';
+  String get loggingOut => '正在退出登录…';
 
   @override
-  String get quietHours => 'Quiet Hours';
+  String get quietHours => '免打扰时段';
 
   @override
-  String get quietHoursEnable => 'Enable Quiet Hours';
+  String get quietHoursEnable => '启用免打扰时段';
 
   @override
-  String get quietHoursSubtitle => 'Pause non-urgent notifications during a time window';
+  String get quietHoursSubtitle => '在设定时段内暂停非紧急通知';
 
   @override
-  String get quietHoursStart => 'Start time';
+  String get quietHoursStart => '开始时间';
 
   @override
-  String get quietHoursEnd => 'End time';
+  String get quietHoursEnd => '结束时间';
 
   @override
-  String get quietHoursAllowUrgent => 'Allow urgent notifications';
+  String get quietHoursAllowUrgent => '允许紧急通知';
 
   @override
-  String get quietHoursAllowUrgentSubtitle => 'Calls and messages from VIP partners can still come through';
+  String get quietHoursAllowUrgentSubtitle => 'VIP 伙伴的通话和消息仍可送达';
 
   @override
-  String get silencedByQuietHours => 'Silenced by Quiet Hours';
+  String get silencedByQuietHours => '已被免打扰时段静音';
 
   @override
-  String get silencedByCap => 'Silenced by daily limit';
+  String get silencedByCap => '已达每日上限并静音';
 
   @override
   String get momentUpdatedSuccessfully => '动态更新成功';
@@ -7528,6 +7528,9 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get beTheFirstToComment => '成為第一個留言的人。';
 
   @override
+  String get loadMoreComments => '載入更多留言';
+
+  @override
   String get writeAComment => '寫下留言...';
 
   @override
@@ -7547,6 +7550,12 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get momentDeleted => '動態已刪除';
+
+  @override
+  String get deleteComment => '刪除留言？';
+
+  @override
+  String get commentDeleted => '留言已刪除';
 
   @override
   String get editFeatureComingSoon => '編輯功能即將推出';
@@ -7633,6 +7642,12 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get getHelpAndSupport => '獲取幫助和支援';
 
   @override
+  String get aiTutorChangePersona => '更換 AI 導師';
+
+  @override
+  String get aiTutorChangePersonaSubtitle => '切換到 Nana、Sensei 或 Riko';
+
+  @override
   String aiTutorHeroTitleSet(String name) {
     return 'AI 導師 · $name';
   }
@@ -7664,10 +7679,309 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get aiTutorChipPhoto => '照片';
 
   @override
+  String get aiToolsMoreSection => '更多 AI 工具';
+
+  @override
   String get aiConversationPartnerTile => 'AI 對話';
 
   @override
   String get aiConversationPartnerTileSubtitle => '與 AI 夥伴練習';
+
+  @override
+  String get aiTutorPickerTitle => '挑選你的 AI 導師';
+
+  @override
+  String get aiTutorPickerHeader => '你想和誰一起學習？';
+
+  @override
+  String get aiTutorPickerSubtitle => '你隨時可以在設定中更改。';
+
+  @override
+  String get aiTutorPersonaNanaTagline => '溫暖 + 鼓勵';
+
+  @override
+  String get aiTutorPersonaNanaSample => '我會為你加油，沒有壓力。';
+
+  @override
+  String get aiTutorPersonaSenseiTagline => '精準 + 應試';
+
+  @override
+  String get aiTutorPersonaSenseiSample => '我們一起掌握規則。';
+
+  @override
+  String get aiTutorPersonaRikoTagline => '俏皮 + 口語化';
+
+  @override
+  String get aiTutorPersonaRikoSample => '哈哈一起放鬆學吧';
+
+  @override
+  String aiTutorPickerSaveError(String error) {
+    return '無法儲存: $error';
+  }
+
+  @override
+  String get aiTutorHomeTitle => 'AI 導師';
+
+  @override
+  String get aiTutorHomeChangeTutor => '更換導師';
+
+  @override
+  String get aiTutorHomeGreetingDefault => '嗨！準備好一起學習了嗎？';
+
+  @override
+  String get aiTutorHomeTodaysPlan => '今日計劃';
+
+  @override
+  String get aiTutorHomePlanEmpty => '今日還沒有計劃 — 開始聊天來啟動吧。';
+
+  @override
+  String get aiTutorHomeStartChat => '開始聊天';
+
+  @override
+  String get aiTutorHomeRecent => '最近';
+
+  @override
+  String get aiTutorHomePracticeScenarios => '練習情境';
+
+  @override
+  String get aiTutorHomePracticeScenariosSubtitle => '角色扮演真實對話 — 餐廳、面試、酒店…';
+
+  @override
+  String get aiTutorHomeReadStory => '讀一個故事';
+
+  @override
+  String get aiTutorHomeReadStorySubtitle => 'AI 用你的詞彙寫一個短故事 — 附帶快速理解問答。';
+
+  @override
+  String get aiTutorHomeDescribePhoto => '描述一張照片';
+
+  @override
+  String get aiTutorHomeDescribePhotoSubtitle => '拍張照片並描述 — AI 評估詞彙和語法。';
+
+  @override
+  String get aiTutorChatTitle => '與導師聊天';
+
+  @override
+  String get aiTutorChatVoiceOn => '語音開';
+
+  @override
+  String get aiTutorChatVoiceOff => '語音關';
+
+  @override
+  String get aiTutorChatStopRecording => '停止錄音';
+
+  @override
+  String get aiTutorChatHoldToTalk => '按住說話';
+
+  @override
+  String get aiTutorChatTranscribing => '正在轉寫…';
+
+  @override
+  String get aiTutorChatListening => '正在聆聽…';
+
+  @override
+  String get aiTutorChatInputHint => '輸入訊息…';
+
+  @override
+  String get aiTutorChatTypeReplyHint => '輸入你的回覆…';
+
+  @override
+  String get aiTutorChatMicPermissionDenied => '語音模式需要麥克風權限。';
+
+  @override
+  String get aiTutorChatTranscribeFailed => '沒聽清 — 再試一次。';
+
+  @override
+  String aiTutorChatStartFailed(String error) {
+    return '啟動失敗: $error';
+  }
+
+  @override
+  String get aiTutorRoleplayEnd => '結束';
+
+  @override
+  String aiTutorRoleplayEndFailed(String error) {
+    return '結束失敗: $error';
+  }
+
+  @override
+  String get aiTutorRoleplayDone => '完成';
+
+  @override
+  String get aiTutorStoryTitle => '讀一個故事';
+
+  @override
+  String get aiTutorStoryLength => '長度';
+
+  @override
+  String get aiTutorStoryTheme => '主題';
+
+  @override
+  String aiTutorStoryWordCount(int count) {
+    return '$count 個詞';
+  }
+
+  @override
+  String get aiTutorStoryWriting => '撰寫中…';
+
+  @override
+  String get aiTutorStoryGenerate => '生成故事';
+
+  @override
+  String aiTutorStoryGenerateFailed(String error) {
+    return '無法生成: $error';
+  }
+
+  @override
+  String aiTutorStoryWordCountHint(int n) {
+    return 'AI 會使用你詞彙表中最多 $n 個詞。';
+  }
+
+  @override
+  String get aiTutorStoryThemeFree => '自由';
+
+  @override
+  String get aiTutorStoryThemeAdventure => '冒險';
+
+  @override
+  String get aiTutorStoryThemeMystery => '懸疑';
+
+  @override
+  String get aiTutorStoryThemeRomance => '愛情';
+
+  @override
+  String get aiTutorStoryThemeSciFi => '科幻';
+
+  @override
+  String get aiTutorStoryThemeSliceOfLife => '日常';
+
+  @override
+  String get aiTutorStoryReaderTitle => '故事';
+
+  @override
+  String get aiTutorStoryReaderVocab => '詞彙';
+
+  @override
+  String get aiTutorStoryReaderVocabUsed => '使用過的詞';
+
+  @override
+  String aiTutorStoryReaderPart(int n) {
+    return '第 $n 部分';
+  }
+
+  @override
+  String get aiTutorStoryReaderWrongHint => '差一點 — 繼續';
+
+  @override
+  String get aiTutorStoryReaderNiceWork => '做得好！';
+
+  @override
+  String aiTutorStoryReaderScore(int correct, int total) {
+    return '你答對了 $correct/$total 道理解題。';
+  }
+
+  @override
+  String get aiTutorStoryReaderDone => '完成';
+
+  @override
+  String get aiTutorImageVocabTitle => '描述照片';
+
+  @override
+  String get aiTutorImagePickHeader => '選擇要描述的照片';
+
+  @override
+  String get aiTutorImagePickSubtitle => 'AI 會用你的目標語言給出提示，然後評估你的描述。';
+
+  @override
+  String get aiTutorImagePickCamera => '相機';
+
+  @override
+  String get aiTutorImagePickGallery => '相簿';
+
+  @override
+  String aiTutorImagePickError(String error) {
+    return '無法開啟圖片: $error';
+  }
+
+  @override
+  String get aiTutorImageDescriptionHint => '輸入描述…';
+
+  @override
+  String get aiTutorImageDifferentPhoto => '換一張';
+
+  @override
+  String get aiTutorImageSubmit => '提交';
+
+  @override
+  String get aiTutorImageGrammarNotes => '語法筆記';
+
+  @override
+  String get aiTutorImageThingsYouMissed => '漏掉的內容';
+
+  @override
+  String get aiTutorImageTryAnother => '試試另一張';
+
+  @override
+  String get aiTutorCardQuiz => '小測驗';
+
+  @override
+  String get aiTutorCardVocab => '詞彙';
+
+  @override
+  String get aiTutorCardGrammar => '語法';
+
+  @override
+  String get aiTutorCardReviewDue => '複習時間到';
+
+  @override
+  String get aiTutorCardMiniLesson => '迷你課';
+
+  @override
+  String get aiTutorCardAddToVocab => '新增到詞彙';
+
+  @override
+  String get aiTutorCardAddedToVocab => '已新增';
+
+  @override
+  String get aiTutorCardAdding => '新增中…';
+
+  @override
+  String aiTutorCardReviewCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count 張卡在等你',
+      one: '$count 張卡在等你',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiTutorCardReviewNow => '立即複習';
+
+  @override
+  String get aiTutorCardReviewStarting => '啟動中…';
+
+  @override
+  String get aiTutorCardTryIt => '試試';
+
+  @override
+  String get aiTutorCardPracticing => '練習中…';
+
+  @override
+  String aiTutorPlanSrsReview(int count, int done) {
+    return '複習 $count 張 SRS 卡 ($done 完成)';
+  }
+
+  @override
+  String aiTutorPlanGrammar(String topic) {
+    return '練習: $topic';
+  }
+
+  @override
+  String aiTutorPlanChat(int min, int done) {
+    return '聊 $min 分鐘 (目前 $done)';
+  }
 
   @override
   String get aboutBananatalk => '關於 Bananatalk';
@@ -8711,6 +9025,21 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get noMomentsYet => '尚無動態';
 
   @override
+  String get noForYouMomentsTitle => '尚無動態';
+
+  @override
+  String get noForYouMomentsBody => '回答今天的提示，開始對話吧。';
+
+  @override
+  String get noFollowingMomentsTitle => '這裡還沒有內容';
+
+  @override
+  String get noFollowingMomentsBody => '追蹤社群中的用戶，即可在這裡看到他們的動態。';
+
+  @override
+  String get goToCommunity => '前往社群';
+
+  @override
   String get unableToLoadMoments => '無法載入動態';
 
   @override
@@ -8879,6 +9208,9 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get wallpaperSaved => '桌布已儲存至本機';
+
+  @override
+  String get typeDeleteToConfirm => '輸入DELETE確認';
 
   @override
   String get storyArchive => '限時動態存檔';
@@ -9357,6 +9689,12 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get checkOutMoment => '在Bananatalk上看看這則動態!';
+
+  @override
+  String get checkOutProfile => '來看看我在 Bananatalk 上的個人檔案！';
+
+  @override
+  String get checkOutCommunity => '來看看 Bananatalk 上的這位成員！';
 
   @override
   String get failedToLoadMoments => '載入動態失敗';
@@ -10321,7 +10659,133 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get allCategories => '所有類別';
 
   @override
+  String get leaderboard => '排行榜';
+
+  @override
+  String get competeWithLearners => '與其他學習者一較高下！';
+
+  @override
+  String get xpRankings => 'XP 排名';
+
+  @override
+  String get streaks => '連擊';
+
+  @override
+  String get friends => '好友';
+
+  @override
+  String get myRanks => '我的排名';
+
+  @override
+  String get currentStreak => '目前連擊';
+
+  @override
+  String get longestStreak => '最長連擊';
+
+  @override
+  String get weekly => '每週';
+
+  @override
+  String get monthly => '每月';
+
+  @override
+  String get yourRank => '你的排名';
+
+  @override
+  String outOf(int total) {
+    return '（共 $total 人）';
+  }
+
+  @override
+  String topPercent(String percent) {
+    return '前 $percent%';
+  }
+
+  @override
+  String get xpRank => 'XP 排名';
+
+  @override
+  String get streakRank => '連擊排名';
+
+  @override
+  String get days => '天';
+
+  @override
+  String get learningStats => '學習統計';
+
+  @override
+  String get totalXp => '總 XP';
+
+  @override
+  String get lessonsCompleted => '已完成課程數';
+
+  @override
+  String get rankings => '排名';
+
+  @override
+  String get yourPosition => '你的位置';
+
+  @override
+  String get keepLearning => '繼續學習，向上晉升！';
+
+  @override
+  String get noRankingsYet => '尚無排名';
+
+  @override
+  String get startLearningToAppear => '開始學習即可出現在排行榜上！';
+
+  @override
+  String get noFriendsYet => '尚無好友';
+
+  @override
+  String get addFriendsToCompete => '新增好友，和他們一較高下！';
+
+  @override
+  String get failedToLoadLeaderboard => '載入排行榜失敗';
+
+  @override
   String get you => '你';
+
+  @override
+  String get findPartners => '尋找夥伴';
+
+  @override
+  String get discoverLanguagePartners => '探索語言夥伴';
+
+  @override
+  String get byLanguage => '依語言';
+
+  @override
+  String get match => '配對';
+
+  @override
+  String get matchScore => '配對分數';
+
+  @override
+  String get noMatchesFound => '未找到配對';
+
+  @override
+  String get noUsersOnline => '目前沒有使用者上線';
+
+  @override
+  String get checkBackLater => '稍後再回來看看';
+
+  @override
+  String get selectLanguagePrompt => '選擇一種語言';
+
+  @override
+  String get findPartnersByLanguage => '尋找使用或學習這個語言的夥伴';
+
+  @override
+  String noPartnersForLanguage(String language) {
+    return '沒有適合 $language 的夥伴';
+  }
+
+  @override
+  String get tryAnotherLanguage => '試試選擇另一種語言';
+
+  @override
+  String get failedToLoadMatches => '載入配對失敗';
 
   @override
   String get dataAndStorage => '數據與儲存';
@@ -10639,6 +11103,33 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get removeImageConfirm => '確定要移除此照片嗎？';
 
   @override
+  String get removeAll => '全部刪除';
+
+  @override
+  String get removeAllSelectedImages => '刪除所有選中的圖片';
+
+  @override
+  String get removeAllSelectedImagesConfirm => '確定要刪除所有選中的圖片嗎？';
+
+  @override
+  String get yourProfilePictureWillBeKept => '您現有的頭像將被保留';
+
+  @override
+  String get removeAllImages => '刪除所有圖片';
+
+  @override
+  String get removeAllImagesConfirm => '確定要刪除所有頭像嗎？';
+
+  @override
+  String get currentImages => '當前圖片';
+
+  @override
+  String get newImages => '新圖片';
+
+  @override
+  String get addMoreImages => '新增更多圖片';
+
+  @override
   String uploadImages(int count) {
     return '上傳$count張照片';
   }
@@ -10650,7 +11141,75 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get imagesUploadedSuccessfully => '照片已上傳';
 
   @override
+  String get selectedImagesCleared => '已清除選中的圖片';
+
+  @override
+  String get extraImagesRemovedSuccessfully => '多餘圖片已成功刪除';
+
+  @override
+  String get mustKeepAtLeastOneProfilePicture => '必須保留至少一張頭像';
+
+  @override
+  String get noProfilePicturesToRemove => '沒有可刪除的頭像';
+
+  @override
+  String get authenticationTokenNotFound => '未找到認證令牌';
+
+  @override
+  String get saveChangesQuestion => '儲存更改？';
+
+  @override
+  String youHaveUnuploadedImages(int count) {
+    return '您已選擇$count張圖片但未上傳。是否現在上傳？';
+  }
+
+  @override
+  String get discard => '放棄';
+
+  @override
+  String get upload => '上傳';
+
+  @override
+  String maxImagesInfo(int max, int current) {
+    return '最多可上傳$max張圖片。當前: $current/$max\n每次最多上傳5張圖片。';
+  }
+
+  @override
+  String canOnlyAddMoreImages(int count, int max) {
+    return '只能再新增$count張圖片。最多$max張。';
+  }
+
+  @override
+  String get maxImagesPerUpload => '每次最多隻能上傳5張圖片。只有前5張會被新增。';
+
+  @override
+  String canOnlyHaveMaxImages(int max) {
+    return '最多只能有$max張圖片';
+  }
+
+  @override
+  String get imageSizeExceedsLimit => '圖片大小超過10MB限制';
+
+  @override
+  String get unsupportedImageFormat => '不支援的圖片格式';
+
+  @override
+  String get pleaseSelectAtLeastOneImage => '請至少選擇一張圖片上傳';
+
+  @override
+  String get basicInformation => '基本資訊';
+
+  @override
+  String get languageToLearn => '學習語言';
+
+  @override
+  String get hometown => '家鄉';
+
+  @override
   String get characters => '字';
+
+  @override
+  String get failedToLoadLanguages => '載入語言失敗';
 
   @override
   String get studyHub => '學習中心';
@@ -11177,6 +11736,65 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get dragToDelete => '拖曳至此刪除';
+
+  @override
+  String get noBlockedUsers => '沒有已封鎖的用戶';
+
+  @override
+  String get usersYouBlockWillAppearHere => '您封鎖的用戶會顯示在這裡';
+
+  @override
+  String unblockConfirm(String name) {
+    return '您確定要解除封鎖 $name 嗎？';
+  }
+
+  @override
+  String reasonLabel(String reason) {
+    return '原因: $reason';
+  }
+
+  @override
+  String blockedAgo(String time) {
+    return '$time前封鎖';
+  }
+
+  @override
+  String errorLoadingBlockedUsers(String error) {
+    return '載入已封鎖用戶時發生錯誤: $error';
+  }
+
+  @override
+  String get logoutConfirmMessage => '確定要從 Bananatalk 登出嗎？';
+
+  @override
+  String get loggingOut => '登出中…';
+
+  @override
+  String get quietHours => '免打擾時段';
+
+  @override
+  String get quietHoursEnable => '啟用免打擾時段';
+
+  @override
+  String get quietHoursSubtitle => '在特定時段內暫停非緊急通知';
+
+  @override
+  String get quietHoursStart => '開始時間';
+
+  @override
+  String get quietHoursEnd => '結束時間';
+
+  @override
+  String get quietHoursAllowUrgent => '允許緊急通知';
+
+  @override
+  String get quietHoursAllowUrgentSubtitle => '來自 VIP 夥伴的通話和訊息仍可送達';
+
+  @override
+  String get silencedByQuietHours => '已被免打擾時段靜音';
+
+  @override
+  String get silencedByCap => '已達每日上限而靜音';
 
   @override
   String get momentUpdatedSuccessfully => '動態更新成功';
@@ -12337,10 +12955,529 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get learningProgressWeeklyChartTitle => '最近7天';
 
   @override
+  String get aiTutorPronounceLoading => '為你挑選一個句子…';
+
+  @override
+  String get aiTutorPronounceTapToRecord => '點按錄音';
+
+  @override
+  String get aiTutorPronounceTapToStop => '點按停止';
+
+  @override
+  String get aiTutorPronounceTranscribing => '正在聽你…';
+
+  @override
+  String get aiTutorPronounceTryAgain => '再試一次';
+
+  @override
+  String get aiTutorPronounceNext => '下一個';
+
+  @override
+  String get aiTutorPronounceUseYourOwn => '用我自己的 ✏️';
+
+  @override
+  String get aiTutorPronounceCustomHint => '輸入想練習的句子';
+
+  @override
+  String get aiTutorPronounceCustomCancel => '取消';
+
+  @override
+  String get aiTutorPronounceCustomUse => '使用';
+
+  @override
+  String get aiTutorPronounceQuitConfirm => '退出練習？進度不會儲存。';
+
+  @override
+  String get aiTutorPronounceQuitYes => '是';
+
+  @override
+  String get aiTutorPronounceQuitNo => '否';
+
+  @override
+  String aiTutorPronounceSentenceOf(int current, int total) {
+    return '第 $current 句 / 共 $total 句';
+  }
+
+  @override
+  String get aiTutorPronounceSummaryTitle => '練習完成';
+
+  @override
+  String get aiTutorPronounceSummaryAvg => '平均分';
+
+  @override
+  String get aiTutorPronounceSummaryWeak => '需練習的詞';
+
+  @override
+  String get aiTutorPronounceSaveClose => '儲存並關閉';
+
+  @override
+  String get aiTutorPronounceSaving => '儲存中…';
+
+  @override
   String get aiTutorChipPronounce => '發音';
 
   @override
+  String aiTutorPlanPronunciation(int count, int completed) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '發音練習 ($completed/$count)',
+      one: '發音練習 ($completed/1)',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiTutorPronounceStartHeadline => '你想怎麼練習？';
+
+  @override
+  String get aiTutorPronounceStartSubhead => '選一個開始 5 句練習。';
+
+  @override
+  String get aiTutorPronounceStartAITitle => 'AI 生成句子';
+
+  @override
+  String get aiTutorPronounceStartAISubtitle => '按等級調整，針對你的難詞';
+
+  @override
+  String get aiTutorPronounceStartCustomTitle => '用自己的句子';
+
+  @override
+  String get aiTutorPronounceStartCustomSubtitle => '輸入或貼上你想掌握的句子';
+
+  @override
+  String aiTutorQuotaRemaining(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '今日還剩 $count 次',
+      one: '今日還剩 1 次',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get submit => '提交';
+
+  @override
+  String get exit => '退出';
+
+  @override
+  String get previous => '上一個';
+
+  @override
+  String get aiDailyPracticeTitle => '每日練習';
+
+  @override
+  String get aiDailyPracticeTranslateThis => '翻譯以下內容:';
+
+  @override
+  String get aiDailyPracticeSuggested => '建議:';
+
+  @override
+  String get aiDailyPracticeHint => '你的翻譯';
+
+  @override
+  String get aiLanguagesLoading => '語言仍在載入...';
+
+  @override
+  String get aiCopiedToClipboard => '已複製到剪貼簿';
+
+  @override
+  String get aiGrammarHint => '輸入要分析的文字...';
+
+  @override
+  String get aiGrammarSectionOriginal => '原文';
+
+  @override
+  String get aiGrammarSectionCorrected => '修正後的文字';
+
+  @override
+  String aiGrammarSectionIssues(int count) {
+    return '發現的問題 ($count)';
+  }
+
+  @override
+  String get aiGrammarSectionWell => '你做得好的';
+
+  @override
+  String get aiGrammarSectionSuggestions => '建議';
+
+  @override
+  String get aiGrammarSectionSummary => '摘要';
+
+  @override
+  String get aiLessonBuilderLabelLanguage => '語言';
+
+  @override
+  String get aiLessonBuilderLabelLevel => '等級';
+
+  @override
+  String get aiLessonBuilderTopicHint => '輸入主題（例如 \"美食與餐廳\"）';
+
+  @override
+  String aiLessonBuilderSaved(String title) {
+    return '課程 \"$title\" 已儲存！';
+  }
+
+  @override
+  String get aiLessonBuilderBackToLessons => '返回課程';
+
+  @override
+  String get aiTranslationHint => '輸入要翻譯的文字...';
+
+  @override
+  String get aiTranslationSavedToVocab => '已儲存到你的詞彙表';
+
+  @override
+  String aiTranslationCouldNotSave(String error) {
+    return '無法儲存: $error';
+  }
+
+  @override
+  String get aiQuizTitle => '小測驗';
+
+  @override
+  String get aiQuizFailedToGenerate => '生成測驗失敗';
+
+  @override
+  String get aiQuizSubmitTitle => '提交測驗？';
+
+  @override
+  String get aiQuizSubmitBody => '確定要提交你的答案嗎？';
+
+  @override
+  String get aiQuizExitTitle => '退出測驗？';
+
+  @override
+  String get aiQuizExitBody => '你的進度將丟失。';
+
+  @override
+  String get aiQuizAnswerHint => '輸入你的答案...';
+
+  @override
+  String get aiQuizTranslationHint => '輸入你的翻譯...';
+
+  @override
+  String get aiPronunciationPlayingAudio => '正在播放音訊...';
+
+  @override
+  String get aiPronunciationListenFirst => '先聽一遍';
+
+  @override
+  String get aiPronunciationHint => '輸入要練習的文字...';
+
+  @override
+  String aiTutorCouldNotLoad(String error) {
+    return '無法載入導師: $error';
+  }
+
+  @override
+  String aiTutorPlanUnavailable(String error) {
+    return '計劃不可用: $error';
+  }
+
+  @override
+  String get aiTutorReplay => '重播';
+
+  @override
+  String get aiScenariosTitle => '練習情境';
+
+  @override
+  String aiScenariosCouldNotLoad(String error) {
+    return '無法載入情境: $error';
+  }
+
+  @override
+  String get aiScenariosNoneAvailable => '暫無情境';
+
+  @override
+  String aiScenariosCouldNotStart(String error) {
+    return '無法開始: $error';
+  }
+
+  @override
+  String aiScenariosForYourLevel(String level) {
+    return '適合你的等級 ($level)';
+  }
+
+  @override
+  String get aiScenariosEasier => '更簡單 — 熱身';
+
+  @override
+  String get aiScenariosHarder => '更難 — 挑戰';
+
+  @override
+  String get aiRoleplayStillStarting => '情境仍在啟動 — 稍後再試。';
+
+  @override
+  String aiRoleplaySendFailed(String error) {
+    return '傳送失敗: $error';
+  }
+
+  @override
+  String get aiRoleplayCouldNotGrade => '這次無法評分 — 下次再試。';
+
+  @override
+  String get aiConversationHistoryCompleted => '已完成';
+
+  @override
+  String get aiConversationHistoryInProgress => '進行中';
+
+  @override
+  String get aiConversationMessageHint => '輸入訊息...';
+
+  @override
+  String get aiConversationTopicSpeak => '我說';
+
+  @override
+  String get aiConversationTopicPractice => '練習';
+
+  @override
+  String aiToolsVipUpgradeDescription(String feature) {
+    return '升級到 VIP 解鎖 $feature！';
+  }
+
+  @override
+  String get aiToolsVipBadge => 'VIP';
+
+  @override
+  String aiScenariosBannerPracticingIn(String language) {
+    return '正在用$language練習';
+  }
+
+  @override
+  String get aiScenariosBannerSubhead => '選擇符合你等級的情境，或挑戰高一級。';
+
+  @override
+  String get chatListSearchHint => '搜尋或輸入 @使用者名稱';
+
+  @override
+  String get chatListFilterAll => '全部';
+
+  @override
+  String get chatListFilterUnread => '未讀';
+
+  @override
+  String get chatListFilterOnline => '線上';
+
+  @override
+  String get chatListNewChat => '新建聊天';
+
+  @override
+  String get chatListNewChatByUsernameTooltip => '透過使用者名稱發起聊天';
+
+  @override
+  String get chatListFindUser => '查詢使用者';
+
+  @override
+  String chatListFindUserSearchTerm(String term) {
+    return '查詢 @$term';
+  }
+
+  @override
+  String get chatListDeleteConversation => '刪除會話';
+
+  @override
+  String chatListMediaTitle(String name) {
+    return '與 $name 的媒體';
+  }
+
+  @override
+  String get chatListMediaError => '媒體載入錯誤';
+
+  @override
+  String get chatDetailViewFullProfile => '查看完整個人檔案';
+
+  @override
+  String get chatMessageReply => '回覆';
+
+  @override
+  String get chatMessageCopy => '複製';
+
+  @override
+  String get chatMessageCorrect => '糾正';
+
+  @override
+  String get chatMessageTranslate => '翻譯';
+
+  @override
+  String get chatMessageSavePhrase => '儲存短語';
+
+  @override
+  String get chatMessageEdit => '編輯';
+
+  @override
+  String get chatMessageDelete => '刪除';
+
+  @override
+  String get chatMessageRetrySubtitle => '再次嘗試傳送';
+
+  @override
+  String get chatMessageRemoveSubtitle => '移除該訊息';
+
+  @override
+  String get chatWallpaperPreviewHello => '你好！👋';
+
+  @override
+  String get chatWallpaperPreviewHow => '最近怎樣？';
+
+  @override
+  String get chatGifSearchHint => '搜尋 GIF...';
+
+  @override
+  String get communitySearchHint => '搜尋或輸入 @使用者名稱';
+
+  @override
+  String communityUserNotFound(String name) {
+    return '找不到使用者 @$name';
+  }
+
+  @override
+  String get communityTabAll => '全部';
+
+  @override
+  String get communityTabGender => '性別';
+
+  @override
+  String get communityTabCity => '城市';
+
+  @override
+  String get communityRefresh => '重新整理';
+
+  @override
+  String get communityNoUsersFound => '未找到使用者';
+
+  @override
+  String communityUnblockConfirm(String name) {
+    return '確定要取消封鎖 $name 嗎？';
+  }
+
+  @override
+  String get communityUsernameCopied => '使用者名稱已複製！';
+
+  @override
+  String communityLocationDetected(String country) {
+    return '位置: $country';
+  }
+
+  @override
+  String get communityWaveLater => '稍後';
+
+  @override
+  String get communityAboutMBTI => 'MBTI';
+
+  @override
+  String get voiceRoomReactTooltip => '反應';
+
+  @override
+  String get momentsCancel => '取消';
+
+  @override
+  String get momentsNotNow => '現在不';
+
+  @override
+  String get commonOK => '確定';
+
+  @override
+  String commonError(String error) {
+    return '錯誤: $error';
+  }
+
+  @override
+  String get chatActiveJustNow => '剛剛活躍';
+
+  @override
+  String chatActiveMinAgo(int min) {
+    return '$min 分鐘前活躍';
+  }
+
+  @override
+  String get chatActiveHourAgo => '1 小時前活躍';
+
+  @override
+  String chatActiveHoursAgo(int hours) {
+    return '$hours 小時前活躍';
+  }
+
+  @override
+  String get chatActiveYesterday => '昨天活躍';
+
+  @override
+  String chatActiveDaysAgo(int days) {
+    return '$days 天前活躍';
+  }
+
+  @override
+  String get chatSayHiPrompt => '打個招呼，開始聊吧！';
+
+  @override
+  String get communityConversationStartersTitle => '破冰話題';
+
+  @override
+  String communityConversationStartersTopic(String topic) {
+    return '你們都喜歡 $topic — 問問他/她最喜歡的！';
+  }
+
+  @override
+  String get communityConversationStartersDefault => '打個招呼，介紹一下自己！';
+
+  @override
+  String get communityConversationChatAction => '聊天';
+
+  @override
+  String get communityConversationMessageCopied => '訊息已複製！貼上即可傳送。';
+
+  @override
+  String get communityConversationCopiedToast => '已複製！';
+
+  @override
+  String get communityLanguageMatchTitle => '語言匹配';
+
+  @override
+  String get communityLanguageMatchNative => '母語';
+
+  @override
+  String get communityLanguageMatchLearning => '在學';
+
+  @override
+  String get communityLanguageMatchPerfect => '完美的語言交換匹配！';
+
+  @override
+  String get communityLanguageMatchSameNative => '你們的母語相同';
+
+  @override
+  String get momentsFilterApply => '應用';
+
+  @override
+  String get momentsCreateAddTo => '新增到你的動態';
+
+  @override
+  String get momentsCreateCategory => '分類';
+
+  @override
+  String get momentsCreateLanguage => '語言';
+
+  @override
+  String get momentsCreateSchedule => '定時（可選）';
+
+  @override
+  String get momentsCreateScheduleForLater => '稍後釋出';
+
+  @override
+  String get momentsPrivacyPublic => '公開';
+
+  @override
+  String get momentsPrivacyFriends => '朋友';
+
+  @override
+  String get momentsPrivacyPrivate => '私密';
+
+  @override
   String get splashTagline => '學習 · 聊天 · 相識';
+
+  @override
+  String get splashLoading => '載入中…';
 
   @override
   String get supportSheetGreeting => '你好，我是 Firdavs 👋';

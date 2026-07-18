@@ -243,7 +243,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get beTheFirstToComment => 'Jadilah yang pertama berkomentar.';
 
   @override
-  String get loadMoreComments => 'Load more comments';
+  String get loadMoreComments => 'Muat lebih banyak komentar';
 
   @override
   String get writeAComment => 'Tulis komentar...';
@@ -267,10 +267,10 @@ class AppLocalizationsId extends AppLocalizations {
   String get momentDeleted => 'Momen dihapus';
 
   @override
-  String get deleteComment => 'Delete Comment?';
+  String get deleteComment => 'Hapus Komentar?';
 
   @override
-  String get commentDeleted => 'Comment deleted';
+  String get commentDeleted => 'Komentar dihapus';
 
   @override
   String get editFeatureComingSoon => 'Fitur edit segera hadir';
@@ -394,7 +394,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get aiTutorChipPhoto => 'Foto';
 
   @override
-  String get aiToolsMoreSection => 'More AI tools';
+  String get aiToolsMoreSection => 'Alat AI lainnya';
 
   @override
   String get aiConversationPartnerTile => 'Percakapan AI';
@@ -1030,7 +1030,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get warningThisActionIsPermanent => 'Peringatan: Tindakan ini permanen!';
 
   @override
-  String get deletingYourAccountWillPermanentlyRemove => 'Deleting your account will permanently remove:\n\n• Your profile and all personal data\n• All your messages and conversations\n• All your moments and stories\n• Your VIP subscription (no refund)\n• All your connections and followers\n\nThis action cannot be undone.';
+  String get deletingYourAccountWillPermanentlyRemove => 'Menghapus akun Anda akan menghapus secara permanen:\n\n• Profil dan semua data pribadi Anda\n• Semua pesan dan percakapan Anda\n• Semua momen dan story Anda\n• Langganan VIP Anda (tidak ada pengembalian dana)\n• Semua koneksi dan pengikut Anda\n\nTindakan ini tidak dapat dibatalkan.';
 
   @override
   String get clearAllNotifications => 'Hapus semua notifikasi?';
@@ -1039,13 +1039,13 @@ class AppLocalizationsId extends AppLocalizations {
   String get clearAll => 'Hapus Semua';
 
   @override
-  String get notificationDebug => 'Notification Debug';
+  String get notificationDebug => 'Debug Notifikasi';
 
   @override
   String get markAllRead => 'Tandai semua sudah dibaca';
 
   @override
-  String get clearAll2 => 'Clear all';
+  String get clearAll2 => 'Hapus semua';
 
   @override
   String get emailAddress => 'Alamat email';
@@ -1057,34 +1057,34 @@ class AppLocalizationsId extends AppLocalizations {
   String get alreadyHaveAnAccount => 'Sudah punya akun?';
 
   @override
-  String get login2 => 'Login';
+  String get login2 => 'Masuk';
 
   @override
-  String get selectYourNativeLanguage2 => 'Select your native language';
+  String get selectYourNativeLanguage2 => 'Pilih bahasa ibu Anda';
 
   @override
-  String get whichLanguageDoYouWantToLearn2 => 'Which language do you want to learn?';
+  String get whichLanguageDoYouWantToLearn2 => 'Bahasa apa yang ingin Anda pelajari?';
 
   @override
-  String get selectYourGender2 => 'Select your gender';
+  String get selectYourGender2 => 'Pilih jenis kelamin Anda';
 
   @override
-  String get dateFormat => 'YYYY.MM.DD';
+  String get dateFormat => 'DD.MM.YYYY';
 
   @override
-  String get detectYourLocation2 => 'Detect your location';
+  String get detectYourLocation2 => 'Deteksi lokasi Anda';
 
   @override
-  String get tapToUpdateLocation2 => 'Tap to update location';
+  String get tapToUpdateLocation2 => 'Ketuk untuk memperbarui lokasi';
 
   @override
-  String get helpOthersFindYouNearby2 => 'Help others find you nearby';
+  String get helpOthersFindYouNearby2 => 'Bantu orang lain menemukan Anda di sekitar';
 
   @override
   String get couldNotOpenLink => 'Tidak dapat membuka tautan';
 
   @override
-  String get legalPrivacy2 => 'Legal & Privacy';
+  String get legalPrivacy2 => 'Hukum & Privasi';
 
   @override
   String get termsOfUseEULA => 'Ketentuan Penggunaan (EULA)';
@@ -1120,7 +1120,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get newFollowers => 'Pengikut Baru';
 
   @override
-  String get whenSomeoneFollowsYou2 => 'When someone follows you';
+  String get whenSomeoneFollowsYou2 => 'Saat seseorang mengikuti Anda';
 
   @override
   String get securityAlerts => 'Peringatan Keamanan';
@@ -1129,10 +1129,10 @@ class AppLocalizationsId extends AppLocalizations {
   String get passwordLoginAlerts => 'Peringatan kata sandi dan login';
 
   @override
-  String get unblockUser2 => 'Unblock User';
+  String get unblockUser2 => 'Buka Blokir Pengguna';
 
   @override
-  String get blockedUsers2 => 'Blocked Users';
+  String get blockedUsers2 => 'Pengguna yang Diblokir';
 
   @override
   String get finalWarning => 'Peringatan Terakhir';
@@ -1141,7 +1141,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get deleteForever => 'Hapus Selamanya';
 
   @override
-  String get deleteAccount2 => 'Delete Account';
+  String get deleteAccount2 => 'Hapus Akun';
 
   @override
   String get enterYourPassword => 'Masukkan kata sandi Anda';
@@ -1181,7 +1181,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get reportStory => 'Laporkan Story';
 
   @override
-  String get reply2 => 'Reply...';
+  String get reply2 => 'Balas...';
 
   @override
   String get failedToPickImage => 'Gagal memilih gambar';
@@ -1301,37 +1301,37 @@ class AppLocalizationsId extends AppLocalizations {
   String get connectWithFriends => 'Terhubung dengan Teman';
 
   @override
-  String get reviewStarted => 'Review started';
+  String get reviewStarted => 'Peninjauan dimulai';
 
   @override
-  String get reportResolved => 'Report resolved';
+  String get reportResolved => 'Laporan diselesaikan';
 
   @override
-  String get reportDismissed => 'Report dismissed';
+  String get reportDismissed => 'Laporan ditolak';
 
   @override
-  String get selectAction => 'Select Action';
+  String get selectAction => 'Pilih Tindakan';
 
   @override
-  String get noViolation => 'No Violation';
+  String get noViolation => 'Tidak Ada Pelanggaran';
 
   @override
-  String get contentRemoved => 'Content Removed';
+  String get contentRemoved => 'Konten Dihapus';
 
   @override
-  String get userWarned => 'User Warned';
+  String get userWarned => 'Pengguna Diperingatkan';
 
   @override
-  String get userSuspended => 'User Suspended';
+  String get userSuspended => 'Pengguna Ditangguhkan';
 
   @override
-  String get userBanned => 'User Banned';
+  String get userBanned => 'Pengguna Diblokir Permanen';
 
   @override
-  String get addNotesOptional => 'Add Notes (Optional)';
+  String get addNotesOptional => 'Tambahkan Catatan (Opsional)';
 
   @override
-  String get enterModeratorNotes => 'Enter moderator notes...';
+  String get enterModeratorNotes => 'Masukkan catatan moderator...';
 
   @override
   String get skip => 'Lewati';
@@ -1358,7 +1358,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get apply => 'Terapkan';
 
   @override
-  String get myReports2 => 'My Reports';
+  String get myReports2 => 'Laporan Saya';
 
   @override
   String get blockUser => 'Blokir Pengguna';
@@ -1376,13 +1376,13 @@ class AppLocalizationsId extends AppLocalizations {
   String get yesBlockThem => 'Ya, blokir mereka';
 
   @override
-  String get reportUser2 => 'Report User';
+  String get reportUser2 => 'Laporkan Pengguna';
 
   @override
   String get submitReport => 'Kirim Laporan';
 
   @override
-  String get addAQuestionAndAtLeast2Options => 'Add a question and at least 2 options';
+  String get addAQuestionAndAtLeast2Options => 'Tambahkan pertanyaan dan minimal 2 pilihan';
 
   @override
   String get addOption => 'Tambah opsi';
@@ -1397,13 +1397,13 @@ class AppLocalizationsId extends AppLocalizations {
   String get typeYourAnswer => 'Ketik jawaban Anda...';
 
   @override
-  String get send2 => 'Send';
+  String get send2 => 'Kirim';
 
   @override
   String get yourPrompt => 'Prompt Anda...';
 
   @override
-  String get add2 => 'Add';
+  String get add2 => 'Tambah';
 
   @override
   String get contentNotAvailable => 'Konten tidak tersedia';
@@ -1472,10 +1472,10 @@ class AppLocalizationsId extends AppLocalizations {
   String get manageSubscription => 'Kelola Langganan';
 
   @override
-  String get manageSubscriptionInSettings => 'To cancel your subscription, go to Settings > [Your Name] > Subscriptions on your device.';
+  String get manageSubscriptionInSettings => 'Untuk membatalkan langganan Anda, buka Pengaturan > [Nama Anda] > Langganan di perangkat Anda.';
 
   @override
-  String get contactSupportToCancel => 'To cancel your subscription, please contact our support team.';
+  String get contactSupportToCancel => 'Untuk membatalkan langganan Anda, silakan hubungi tim dukungan kami.';
 
   @override
   String get status => 'Status';
@@ -1508,16 +1508,16 @@ class AppLocalizationsId extends AppLocalizations {
   String get maximumTagsAllowed => 'Maksimum 5 tag diizinkan';
 
   @override
-  String get pleaseRemoveImagesFirstToAddVideo => 'Please remove images first to add a video';
+  String get pleaseRemoveImagesFirstToAddVideo => 'Harap hapus gambar terlebih dahulu untuk menambahkan video';
 
   @override
-  String get unsupportedFormat => 'Unsupported format';
+  String get unsupportedFormat => 'Format tidak didukung';
 
   @override
-  String get errorProcessingVideo => 'Error processing video';
+  String get errorProcessingVideo => 'Kesalahan saat memproses video';
 
   @override
-  String get pleaseRemoveImagesFirstToRecordVideo => 'Please remove images first to record a video';
+  String get pleaseRemoveImagesFirstToRecordVideo => 'Harap hapus gambar terlebih dahulu untuk merekam video';
 
   @override
   String get locationAdded => 'Lokasi ditambahkan';
@@ -1544,7 +1544,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get uploadingMomentInBackground => 'Mengunggah momen di latar belakang...';
 
   @override
-  String get failedToQueueUpload => 'Failed to queue upload';
+  String get failedToQueueUpload => 'Gagal mengantrekan unggahan';
 
   @override
   String get viewProfile => 'Lihat Profil';
@@ -1556,10 +1556,10 @@ class AppLocalizationsId extends AppLocalizations {
   String get wallpaper => 'Wallpaper';
 
   @override
-  String get userIdNotAvailable => 'User ID not available';
+  String get userIdNotAvailable => 'ID pengguna tidak tersedia';
 
   @override
-  String get cannotBlockYourself => 'Cannot block yourself';
+  String get cannotBlockYourself => 'Tidak dapat memblokir diri sendiri';
 
   @override
   String get chatWallpaper => 'Wallpaper Chat';
@@ -1571,16 +1571,16 @@ class AppLocalizationsId extends AppLocalizations {
   String get messageCopied => 'Pesan disalin';
 
   @override
-  String get forwardFeatureComingSoon => 'Forward feature coming soon';
+  String get forwardFeatureComingSoon => 'Fitur teruskan segera hadir';
 
   @override
   String get momentUnsaved => 'Dihapus dari tersimpan';
 
   @override
-  String get documentPickerComingSoon => 'Document picker coming soon';
+  String get documentPickerComingSoon => 'Pemilih dokumen segera hadir';
 
   @override
-  String get contactSharingComingSoon => 'Contact sharing coming soon';
+  String get contactSharingComingSoon => 'Berbagi kontak segera hadir';
 
   @override
   String get featureComingSoon => 'Fitur segera hadir';
@@ -1592,40 +1592,40 @@ class AppLocalizationsId extends AppLocalizations {
   String get noImagesAvailable => 'Tidak ada gambar tersedia';
 
   @override
-  String get mentionPickerComingSoon => 'Mention picker coming soon';
+  String get mentionPickerComingSoon => 'Pemilih mention segera hadir';
 
   @override
-  String get musicPickerComingSoon => 'Music picker coming soon';
+  String get musicPickerComingSoon => 'Pemilih musik segera hadir';
 
   @override
-  String get repostFeatureComingSoon => 'Repost feature coming soon';
+  String get repostFeatureComingSoon => 'Fitur repost segera hadir';
 
   @override
-  String get addFriendsFromYourProfile => 'Add friends from your profile';
+  String get addFriendsFromYourProfile => 'Tambahkan teman dari profil Anda';
 
   @override
-  String get quickReplyAdded => 'Quick reply added';
+  String get quickReplyAdded => 'Balasan cepat ditambahkan';
 
   @override
-  String get quickReplyDeleted => 'Quick reply deleted';
+  String get quickReplyDeleted => 'Balasan cepat dihapus';
 
   @override
   String get linkCopied => 'Tautan disalin!';
 
   @override
-  String get maximumOptionsAllowed => 'Maximum 10 options allowed';
+  String get maximumOptionsAllowed => 'Maksimal 10 pilihan diizinkan';
 
   @override
-  String get minimumOptionsRequired => 'Minimum 2 options required';
+  String get minimumOptionsRequired => 'Minimal 2 pilihan diperlukan';
 
   @override
-  String get pleaseEnterAQuestion => 'Please enter a question';
+  String get pleaseEnterAQuestion => 'Harap masukkan pertanyaan';
 
   @override
-  String get pleaseAddAtLeast2Options => 'Please add at least 2 options';
+  String get pleaseAddAtLeast2Options => 'Harap tambahkan minimal 2 pilihan';
 
   @override
-  String get pleaseSelectCorrectAnswerForQuiz => 'Please select the correct answer for quiz';
+  String get pleaseSelectCorrectAnswerForQuiz => 'Harap pilih jawaban yang benar untuk kuis';
 
   @override
   String get correctionSent => 'Koreksi terkirim!';
@@ -1640,13 +1640,13 @@ class AppLocalizationsId extends AppLocalizations {
   String get unsave => 'Batal Simpan';
 
   @override
-  String get playingAudio => 'Playing audio...';
+  String get playingAudio => 'Memutar audio...';
 
   @override
-  String get failedToGenerateQuiz => 'Failed to generate quiz';
+  String get failedToGenerateQuiz => 'Gagal membuat kuis';
 
   @override
-  String get failedToAddComment => 'Failed to add comment';
+  String get failedToAddComment => 'Gagal menambahkan komentar';
 
   @override
   String get hello => 'Halo!';
@@ -1655,10 +1655,10 @@ class AppLocalizationsId extends AppLocalizations {
   String get howAreYou => 'Apa kabar?';
 
   @override
-  String get cannotOpen => 'Cannot open';
+  String get cannotOpen => 'Tidak dapat membuka';
 
   @override
-  String get errorOpeningLink => 'Error opening link';
+  String get errorOpeningLink => 'Kesalahan saat membuka tautan';
 
   @override
   String get saved => 'Tersimpan';
@@ -1740,40 +1740,40 @@ class AppLocalizationsId extends AppLocalizations {
   String get noMomentsYet => 'Belum ada momen';
 
   @override
-  String get noForYouMomentsTitle => 'No moments yet';
+  String get noForYouMomentsTitle => 'Belum ada momen';
 
   @override
-  String get noForYouMomentsBody => 'Answer today\'s prompt to get the conversation started.';
+  String get noForYouMomentsBody => 'Jawab prompt hari ini untuk memulai percakapan.';
 
   @override
-  String get noFollowingMomentsTitle => 'Nothing here yet';
+  String get noFollowingMomentsTitle => 'Belum ada apa pun di sini';
 
   @override
-  String get noFollowingMomentsBody => 'Follow people from Community to see their moments here.';
+  String get noFollowingMomentsBody => 'Ikuti orang dari Komunitas untuk melihat momen mereka di sini.';
 
   @override
-  String get goToCommunity => 'Go to Community';
+  String get goToCommunity => 'Ke Komunitas';
 
   @override
-  String get unableToLoadMoments => 'Unable to load moments';
+  String get unableToLoadMoments => 'Tidak dapat memuat momen';
 
   @override
   String get map => 'Peta';
 
   @override
-  String get mapUnavailable => 'Map unavailable';
+  String get mapUnavailable => 'Peta tidak tersedia';
 
   @override
   String get location => 'Lokasi';
 
   @override
-  String get unknownLocation => 'Unknown location';
+  String get unknownLocation => 'Lokasi tidak diketahui';
 
   @override
-  String get noImagesAvailable2 => 'No images available';
+  String get noImagesAvailable2 => 'Tidak ada gambar tersedia';
 
   @override
-  String get permissionsRequired => 'Permissions Required';
+  String get permissionsRequired => 'Izin Diperlukan';
 
   @override
   String get openSettings => 'Buka Pengaturan';
@@ -1791,25 +1791,25 @@ class AppLocalizationsId extends AppLocalizations {
   String get message => 'Pesan';
 
   @override
-  String get pleaseLoginToFollow => 'Please login to follow users';
+  String get pleaseLoginToFollow => 'Silakan masuk untuk mengikuti pengguna';
 
   @override
-  String get pleaseLoginToCall => 'Please login to make a call';
+  String get pleaseLoginToCall => 'Silakan masuk untuk melakukan panggilan';
 
   @override
-  String get cannotCallYourself => 'You cannot call yourself';
+  String get cannotCallYourself => 'Anda tidak dapat menelepon diri sendiri';
 
   @override
-  String get failedToFollowUser => 'Failed to follow user';
+  String get failedToFollowUser => 'Gagal mengikuti pengguna';
 
   @override
-  String get failedToUnfollowUser => 'Failed to unfollow user';
+  String get failedToUnfollowUser => 'Gagal berhenti mengikuti pengguna';
 
   @override
-  String get areYouSureUnfollow => 'Are you sure you want to unfollow this user?';
+  String get areYouSureUnfollow => 'Apakah Anda yakin ingin berhenti mengikuti pengguna ini?';
 
   @override
-  String get areYouSureUnblock => 'Are you sure you want to unblock this user?';
+  String get areYouSureUnblock => 'Apakah Anda yakin ingin membuka blokir pengguna ini?';
 
   @override
   String get youFollowed => 'Anda mengikuti';
@@ -1818,56 +1818,56 @@ class AppLocalizationsId extends AppLocalizations {
   String get youUnfollowed => 'Anda berhenti mengikuti';
 
   @override
-  String get alreadyFollowing => 'You are already following';
+  String get alreadyFollowing => 'Anda sudah mengikuti';
 
   @override
-  String get soon => 'Soon';
+  String get soon => 'Segera';
 
   @override
   String comingSoon(String feature) {
-    return '$feature is coming soon!';
+    return '$feature segera hadir!';
   }
 
   @override
-  String get muteNotifications => 'Mute notifications';
+  String get muteNotifications => 'Bisukan notifikasi';
 
   @override
-  String get unmuteNotifications => 'Unmute notifications';
+  String get unmuteNotifications => 'Aktifkan kembali notifikasi';
 
   @override
-  String get operationCompleted => 'Operation completed';
+  String get operationCompleted => 'Operasi selesai';
 
   @override
-  String get couldNotOpenMaps => 'Could not open maps';
+  String get couldNotOpenMaps => 'Tidak dapat membuka peta';
 
   @override
   String hasntSharedMoments(Object name) {
-    return '$name hasn\'t shared any moments';
+    return '$name belum membagikan momen apa pun';
   }
 
   @override
   String messageUser(String name) {
-    return 'Message $name';
+    return 'Kirim pesan ke $name';
   }
 
   @override
   String notFollowingUser(String name) {
-    return 'You were not following $name';
+    return 'Anda tidak mengikuti $name';
   }
 
   @override
   String youFollowedUser(String name) {
-    return 'You followed $name';
+    return 'Anda mengikuti $name';
   }
 
   @override
   String youUnfollowedUser(String name) {
-    return 'You unfollowed $name';
+    return 'Anda berhenti mengikuti $name';
   }
 
   @override
   String unfollowUser(String name) {
-    return 'Unfollow $name';
+    return 'Berhenti mengikuti $name';
   }
 
   @override
@@ -1882,53 +1882,53 @@ class AppLocalizationsId extends AppLocalizations {
   }
 
   @override
-  String get maxTagsAllowed => 'Maximum 5 tags allowed';
+  String get maxTagsAllowed => 'Maksimal 5 tag diizinkan';
 
   @override
   String maxImagesAllowed(int count) {
-    return 'Maximum $count images allowed';
+    return 'Maksimal $count gambar diizinkan';
   }
 
   @override
-  String get pleaseRemoveImagesFirst => 'Please remove images first to add a video';
+  String get pleaseRemoveImagesFirst => 'Harap hapus gambar terlebih dahulu untuk menambahkan video';
 
   @override
   String get exchange3MessagesBeforeCall => 'Tukar setidaknya 5 pesan dulu sebelum menelepon';
 
   @override
   String mediaWithUser(String name) {
-    return 'Media with $name';
+    return 'Media dengan $name';
   }
 
   @override
-  String get errorLoadingMedia => 'Error loading media';
+  String get errorLoadingMedia => 'Kesalahan saat memuat media';
 
   @override
-  String get savedMomentsTitle => 'Saved Moments';
+  String get savedMomentsTitle => 'Momen Tersimpan';
 
   @override
-  String get removeBookmark => 'Remove bookmark?';
+  String get removeBookmark => 'Hapus bookmark?';
 
   @override
-  String get thisWillRemoveBookmark => 'This will remove the message from your bookmarks.';
+  String get thisWillRemoveBookmark => 'Ini akan menghapus pesan dari bookmark Anda.';
 
   @override
-  String get remove => 'Remove';
+  String get remove => 'Hapus';
 
   @override
-  String get bookmarkRemoved => 'Bookmark removed';
+  String get bookmarkRemoved => 'Bookmark dihapus';
 
   @override
-  String get bookmarkedMessages => 'Bookmarked Messages';
+  String get bookmarkedMessages => 'Pesan yang Dibookmark';
 
   @override
-  String get wallpaperSaved => 'Wallpaper saved locally';
+  String get wallpaperSaved => 'Wallpaper disimpan secara lokal';
 
   @override
-  String get typeDeleteToConfirm => 'Type DELETE to confirm';
+  String get typeDeleteToConfirm => 'Ketik DELETE untuk konfirmasi';
 
   @override
-  String get storyArchive => 'Story Archive';
+  String get storyArchive => 'Arsip Story';
 
   @override
   String get newHighlight => 'Sorotan Baru';
@@ -1940,13 +1940,13 @@ class AppLocalizationsId extends AppLocalizations {
   String get repost => 'Repost';
 
   @override
-  String get repostFeatureSoon => 'Repost feature coming soon';
+  String get repostFeatureSoon => 'Fitur repost segera hadir';
 
   @override
   String get closeFriends => 'Teman Dekat';
 
   @override
-  String get addFriends => 'Add Friends';
+  String get addFriends => 'Tambah Teman';
 
   @override
   String get highlights => 'Highlights';
@@ -1961,19 +1961,19 @@ class AppLocalizationsId extends AppLocalizations {
   String get editHighlight => 'Edit Sorotan';
 
   @override
-  String get addMoreToStory => 'Add more to story';
+  String get addMoreToStory => 'Tambahkan lebih banyak ke story';
 
   @override
-  String get noViewersYet => 'No viewers yet';
+  String get noViewersYet => 'Belum ada penonton';
 
   @override
-  String get noReactionsYet => 'No reactions yet';
+  String get noReactionsYet => 'Belum ada reaksi';
 
   @override
   String get leaveRoom => 'Tinggalkan Ruang';
 
   @override
-  String get areYouSureLeaveRoom => 'Are you sure you want to leave this voice room?';
+  String get areYouSureLeaveRoom => 'Apakah Anda yakin ingin meninggalkan ruang suara ini?';
 
   @override
   String get stay => 'Tetap';
@@ -1990,40 +1990,40 @@ class AppLocalizationsId extends AppLocalizations {
   }
 
   @override
-  String get areYouSureFollow => 'Are you sure you want to follow';
+  String get areYouSureFollow => 'Apakah Anda yakin ingin mengikuti';
 
   @override
-  String get failedToLoadProfile => 'Failed to load profile';
+  String get failedToLoadProfile => 'Gagal memuat profil';
 
   @override
-  String get noFollowersYet => 'No followers yet';
+  String get noFollowersYet => 'Belum ada pengikut';
 
   @override
-  String get noFollowingYet => 'Not following anyone yet';
+  String get noFollowingYet => 'Belum mengikuti siapa pun';
 
   @override
   String get searchUsers => 'Cari pengguna...';
 
   @override
-  String get noResultsFound => 'No results found';
+  String get noResultsFound => 'Tidak ada hasil ditemukan';
 
   @override
-  String get loadingFailed => 'Loading failed';
+  String get loadingFailed => 'Pemuatan gagal';
 
   @override
-  String get copyLink => 'Copy link';
+  String get copyLink => 'Salin tautan';
 
   @override
-  String get shareStory => 'Share story';
+  String get shareStory => 'Bagikan story';
 
   @override
-  String get thisWillDeleteStory => 'This will permanently delete this story.';
+  String get thisWillDeleteStory => 'Ini akan menghapus story ini secara permanen.';
 
   @override
-  String get storyDeleted => 'Story deleted';
+  String get storyDeleted => 'Story dihapus';
 
   @override
-  String get addCaption => 'Add a caption...';
+  String get addCaption => 'Tambahkan keterangan...';
 
   @override
   String get yourStory => 'Story Anda';
@@ -2032,48 +2032,48 @@ class AppLocalizationsId extends AppLocalizations {
   String get sendMessage => 'Kirim pesan';
 
   @override
-  String get replyToStory => 'Reply to story...';
+  String get replyToStory => 'Balas story...';
 
   @override
-  String get viewAllReplies => 'View all replies';
+  String get viewAllReplies => 'Lihat semua balasan';
 
   @override
-  String get preparingVideo => 'Preparing video...';
+  String get preparingVideo => 'Menyiapkan video...';
 
   @override
   String videoOptimized(String size, String savings) {
-    return 'Video optimized: ${size}MB (saved $savings%)';
+    return 'Video dioptimalkan: ${size}MB (hemat $savings%)';
   }
 
   @override
-  String get failedToProcessVideo => 'Failed to process video';
+  String get failedToProcessVideo => 'Gagal memproses video';
 
   @override
-  String get optimizingForBestExperience => 'Optimizing for the best story experience';
+  String get optimizingForBestExperience => 'Mengoptimalkan untuk pengalaman story terbaik';
 
   @override
-  String get pleaseSelectImageOrVideo => 'Please select an image or video for your story';
+  String get pleaseSelectImageOrVideo => 'Silakan pilih gambar atau video untuk story Anda';
 
   @override
-  String get storyCreatedSuccessfully => 'Story created successfully!';
+  String get storyCreatedSuccessfully => 'Story berhasil dibuat!';
 
   @override
-  String get uploadingStoryInBackground => 'Uploading story in background...';
+  String get uploadingStoryInBackground => 'Mengunggah story di latar belakang...';
 
   @override
-  String get storyCreationFailed => 'Story Creation Failed';
+  String get storyCreationFailed => 'Pembuatan Story Gagal';
 
   @override
-  String get pleaseCheckConnection => 'Please check your connection and try again.';
+  String get pleaseCheckConnection => 'Silakan periksa koneksi Anda dan coba lagi.';
 
   @override
-  String get uploadFailed => 'Upload Failed';
+  String get uploadFailed => 'Unggahan Gagal';
 
   @override
-  String get tryShorterVideo => 'Try using a shorter video or try again later.';
+  String get tryShorterVideo => 'Coba gunakan video yang lebih pendek atau coba lagi nanti.';
 
   @override
-  String get shareMomentsThatDisappear => 'Share moments that disappear in 24 hours';
+  String get shareMomentsThatDisappear => 'Bagikan momen yang menghilang dalam 24 jam';
 
   @override
   String get photo => 'Foto';
@@ -2100,28 +2100,28 @@ class AppLocalizationsId extends AppLocalizations {
   String get hashtag => 'Hashtag';
 
   @override
-  String get whoCanSeeThis => 'Who can see this?';
+  String get whoCanSeeThis => 'Siapa yang bisa melihat ini?';
 
   @override
   String get everyone => 'Semua Orang';
 
   @override
-  String get anyoneCanSeeStory => 'Anyone can see this story';
+  String get anyoneCanSeeStory => 'Siapa saja dapat melihat story ini';
 
   @override
   String get friendsOnly => 'Hanya Teman';
 
   @override
-  String get onlyFollowersCanSee => 'Only your followers can see';
+  String get onlyFollowersCanSee => 'Hanya pengikut Anda yang dapat melihat';
 
   @override
-  String get onlyCloseFriendsCanSee => 'Only your close friends can see';
+  String get onlyCloseFriendsCanSee => 'Hanya teman dekat Anda yang dapat melihat';
 
   @override
-  String get backgroundColor => 'Background Color';
+  String get backgroundColor => 'Warna Latar Belakang';
 
   @override
-  String get fontStyle => 'Font Style';
+  String get fontStyle => 'Gaya Font';
 
   @override
   String get normal => 'Normal';
@@ -2133,79 +2133,79 @@ class AppLocalizationsId extends AppLocalizations {
   String get italic => 'Miring';
 
   @override
-  String get handwriting => 'Handwriting';
+  String get handwriting => 'Tulisan Tangan';
 
   @override
   String get addLocation => 'Tambah Lokasi';
 
   @override
-  String get enterLocationName => 'Enter location name';
+  String get enterLocationName => 'Masukkan nama lokasi';
 
   @override
   String get addLink => 'Tambah Tautan';
 
   @override
-  String get buttonText => 'Button text';
+  String get buttonText => 'Teks tombol';
 
   @override
   String get learnMore => 'Pelajari Lebih Lanjut';
 
   @override
-  String get addHashtags => 'Add Hashtags';
+  String get addHashtags => 'Tambah Hashtag';
 
   @override
-  String get addHashtag => 'Add hashtag';
+  String get addHashtag => 'Tambah hashtag';
 
   @override
-  String get sendAsMessage => 'Send as Message';
+  String get sendAsMessage => 'Kirim sebagai Pesan';
 
   @override
-  String get shareExternally => 'Share Externally';
+  String get shareExternally => 'Bagikan ke Luar';
 
   @override
-  String get checkOutStory => 'Check out this story on Bananatalk!';
+  String get checkOutStory => 'Lihat story ini di Bananatalk!';
 
   @override
   String viewsTab(String count) {
-    return 'Views ($count)';
+    return 'Dilihat ($count)';
   }
 
   @override
   String reactionsTab(String count) {
-    return 'Reactions ($count)';
+    return 'Reaksi ($count)';
   }
 
   @override
-  String get processingVideo => 'Processing video...';
+  String get processingVideo => 'Memproses video...';
 
   @override
-  String get link => 'Link';
+  String get link => 'Tautan';
 
   @override
   String unmuteUser(String name) {
-    return 'Unmute $name?';
+    return 'Aktifkan kembali notifikasi $name?';
   }
 
   @override
-  String get willReceiveNotifications => 'You will receive notifications for new messages.';
+  String get willReceiveNotifications => 'Anda akan menerima notifikasi untuk pesan baru.';
 
   @override
   String muteNotificationsFor(String name) {
-    return 'Mute notifications for $name';
+    return 'Bisukan notifikasi untuk $name';
   }
 
   @override
   String notificationsUnmutedFor(String name) {
-    return 'Notifications unmuted for $name';
+    return 'Notifikasi diaktifkan kembali untuk $name';
   }
 
   @override
   String notificationsMutedFor(String name) {
-    return 'Notifications muted for $name';
+    return 'Notifikasi dibisukan untuk $name';
   }
 
   @override
-  String get failedToUpdateMuteSettings => 'Failed to update mute settings';
+  String get failedToUpdateMuteSettings => 'Gagal memperbarui pengaturan bisukan';
 
   @override
   String get oneHour => '1 jam';
@@ -2220,25 +2220,25 @@ class AppLocalizationsId extends AppLocalizations {
   String get always => 'Selalu';
 
   @override
-  String get failedToLoadBookmarks => 'Failed to load bookmarks';
+  String get failedToLoadBookmarks => 'Gagal memuat bookmark';
 
   @override
-  String get noBookmarkedMessages => 'No bookmarked messages';
+  String get noBookmarkedMessages => 'Tidak ada pesan yang dibookmark';
 
   @override
-  String get longPressToBookmark => 'Long press on a message to bookmark it';
+  String get longPressToBookmark => 'Tekan lama pada pesan untuk membookmarknya';
 
   @override
-  String get thisWillRemoveFromBookmarks => 'This will remove the message from your bookmarks.';
+  String get thisWillRemoveFromBookmarks => 'Ini akan menghapus pesan dari bookmark Anda.';
 
   @override
   String navigateToMessage(String name) {
-    return 'Navigate to message in chat with $name';
+    return 'Buka pesan dalam obrolan dengan $name';
   }
 
   @override
   String bookmarkedOn(String date) {
-    return 'Bookmarked $date';
+    return 'Dibookmark $date';
   }
 
   @override
@@ -2251,57 +2251,57 @@ class AppLocalizationsId extends AppLocalizations {
   String get attachment => 'Lampiran';
 
   @override
-  String get sendMeAMessage => 'Send me a message';
+  String get sendMeAMessage => 'Kirimi saya pesan';
 
   @override
-  String get shareWithFriends => 'Share with friends';
+  String get shareWithFriends => 'Bagikan dengan teman';
 
   @override
-  String get shareAnywhere => 'Share anywhere';
+  String get shareAnywhere => 'Bagikan di mana saja';
 
   @override
-  String get emailPreferences => 'Email Preferences';
+  String get emailPreferences => 'Preferensi Email';
 
   @override
-  String get receiveEmailNotifications => 'Receive email notifications from Bananatalk';
+  String get receiveEmailNotifications => 'Terima notifikasi email dari Bananatalk';
 
   @override
-  String get whenAwayFor24Hours => 'When you\'re away for 24+ hours';
+  String get whenAwayFor24Hours => 'Saat Anda tidak aktif selama 24+ jam';
 
   @override
-  String get passwordAndLoginAlerts => 'Password & login alerts';
+  String get passwordAndLoginAlerts => 'Peringatan kata sandi & masuk';
 
   @override
-  String get failedToLoadPreferences => 'Failed to load preferences';
+  String get failedToLoadPreferences => 'Gagal memuat preferensi';
 
   @override
-  String get failedToUpdateSetting => 'Failed to update setting';
+  String get failedToUpdateSetting => 'Gagal memperbarui pengaturan';
 
   @override
-  String get securityAlertsRecommended => 'We recommend keeping Security Alerts enabled to stay informed about important account activity.';
+  String get securityAlertsRecommended => 'Kami menyarankan untuk tetap mengaktifkan Peringatan Keamanan agar Anda tetap mendapat informasi tentang aktivitas akun penting.';
 
   @override
   String chatWallpaperFor(String name) {
-    return 'Chat wallpaper for $name';
+    return 'Wallpaper obrolan untuk $name';
   }
 
   @override
-  String get solidColors => 'Solid Colors';
+  String get solidColors => 'Warna Polos';
 
   @override
-  String get gradients => 'Gradients';
+  String get gradients => 'Gradasi';
 
   @override
-  String get customImage => 'Custom Image';
+  String get customImage => 'Gambar Kustom';
 
   @override
-  String get chooseFromGallery => 'Choose from Gallery';
+  String get chooseFromGallery => 'Pilih dari Galeri';
 
   @override
   String get preview => 'Pratinjau';
 
   @override
-  String get wallpaperUpdated => 'Wallpaper updated';
+  String get wallpaperUpdated => 'Wallpaper diperbarui';
 
   @override
   String get category => 'Kategori';
@@ -2313,10 +2313,10 @@ class AppLocalizationsId extends AppLocalizations {
   String get sortBy => 'Urutkan Berdasarkan';
 
   @override
-  String get timePeriod => 'Time Period';
+  String get timePeriod => 'Periode Waktu';
 
   @override
-  String get searchLanguages => 'Search languages...';
+  String get searchLanguages => 'Cari bahasa...';
 
   @override
   String get selected => 'Terpilih';
@@ -2332,29 +2332,29 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String applyNFilters(int count) {
-    return 'Apply $count Filters';
+    return 'Terapkan $count Filter';
   }
 
   @override
   String get videoMustBeUnder1GB => 'Video harus kurang dari 1GB.';
 
   @override
-  String get failedToRecordVideo => 'Failed to record video';
+  String get failedToRecordVideo => 'Gagal merekam video';
 
   @override
-  String get errorSendingVideo => 'Error sending video';
+  String get errorSendingVideo => 'Kesalahan saat mengirim video';
 
   @override
-  String get errorSendingVoiceMessage => 'Error sending voice message';
+  String get errorSendingVoiceMessage => 'Kesalahan saat mengirim pesan suara';
 
   @override
-  String get errorSendingMedia => 'Error sending media';
+  String get errorSendingMedia => 'Kesalahan saat mengirim media';
 
   @override
-  String get cameraPermissionRequired => 'Camera and microphone permissions are required to record videos.';
+  String get cameraPermissionRequired => 'Izin kamera dan mikrofon diperlukan untuk merekam video.';
 
   @override
-  String get locationPermissionRequired => 'Location permission is required to share your location.';
+  String get locationPermissionRequired => 'Izin lokasi diperlukan untuk membagikan lokasi Anda.';
 
   @override
   String get noInternetConnection => 'Tidak ada koneksi internet';
@@ -2406,10 +2406,10 @@ class AppLocalizationsId extends AppLocalizations {
   String get checkOutMoment => 'Lihat momen ini di Bananatalk!';
 
   @override
-  String get checkOutProfile => 'Check out this profile on Bananatalk!';
+  String get checkOutProfile => 'Lihat profil ini di Bananatalk!';
 
   @override
-  String get checkOutCommunity => 'Check out this member on Bananatalk!';
+  String get checkOutCommunity => 'Lihat anggota ini di Bananatalk!';
 
   @override
   String get failedToLoadMoments => 'Gagal memuat momen';
@@ -3374,41 +3374,41 @@ class AppLocalizationsId extends AppLocalizations {
   String get allCategories => 'Semua kategori';
 
   @override
-  String get leaderboard => 'Leaderboard';
+  String get leaderboard => 'Papan Peringkat';
 
   @override
-  String get competeWithLearners => 'Compete with other learners!';
+  String get competeWithLearners => 'Bersaing dengan pembelajar lainnya!';
 
   @override
-  String get xpRankings => 'XP Rankings';
+  String get xpRankings => 'Peringkat XP';
 
   @override
-  String get streaks => 'Streaks';
+  String get streaks => 'Rentetan';
 
   @override
-  String get friends => 'Friends';
+  String get friends => 'Teman';
 
   @override
-  String get myRanks => 'My Ranks';
+  String get myRanks => 'Peringkat Saya';
 
   @override
-  String get currentStreak => 'Current Streak';
+  String get currentStreak => 'Rentetan Saat Ini';
 
   @override
-  String get longestStreak => 'Longest Streak';
+  String get longestStreak => 'Rentetan Terpanjang';
 
   @override
-  String get weekly => 'Weekly';
+  String get weekly => 'Mingguan';
 
   @override
-  String get monthly => 'Monthly';
+  String get monthly => 'Bulanan';
 
   @override
-  String get yourRank => 'Your Rank';
+  String get yourRank => 'Peringkat Anda';
 
   @override
   String outOf(int total) {
-    return 'out of $total';
+    return 'dari $total';
   }
 
   @override
@@ -3417,90 +3417,90 @@ class AppLocalizationsId extends AppLocalizations {
   }
 
   @override
-  String get xpRank => 'XP Rank';
+  String get xpRank => 'Peringkat XP';
 
   @override
-  String get streakRank => 'Streak Rank';
+  String get streakRank => 'Peringkat Rentetan';
 
   @override
-  String get days => 'days';
+  String get days => 'hari';
 
   @override
-  String get learningStats => 'Learning Stats';
+  String get learningStats => 'Statistik Belajar';
 
   @override
   String get totalXp => 'Total XP';
 
   @override
-  String get lessonsCompleted => 'Lessons Completed';
+  String get lessonsCompleted => 'Pelajaran Selesai';
 
   @override
-  String get rankings => 'Rankings';
+  String get rankings => 'Peringkat';
 
   @override
-  String get yourPosition => 'Your Position';
+  String get yourPosition => 'Posisi Anda';
 
   @override
-  String get keepLearning => 'Keep learning to climb!';
+  String get keepLearning => 'Terus belajar untuk naik peringkat!';
 
   @override
-  String get noRankingsYet => 'No rankings yet';
+  String get noRankingsYet => 'Belum ada peringkat';
 
   @override
-  String get startLearningToAppear => 'Start learning to appear on the leaderboard!';
+  String get startLearningToAppear => 'Mulai belajar untuk muncul di papan peringkat!';
 
   @override
-  String get noFriendsYet => 'No friends yet';
+  String get noFriendsYet => 'Belum ada teman';
 
   @override
-  String get addFriendsToCompete => 'Add friends to compete with them!';
+  String get addFriendsToCompete => 'Tambahkan teman untuk bersaing dengan mereka!';
 
   @override
-  String get failedToLoadLeaderboard => 'Failed to load leaderboard';
+  String get failedToLoadLeaderboard => 'Gagal memuat papan peringkat';
 
   @override
   String get you => 'Kamu';
 
   @override
-  String get findPartners => 'Find Partners';
+  String get findPartners => 'Cari Pasangan Belajar';
 
   @override
-  String get discoverLanguagePartners => 'Discover language partners';
+  String get discoverLanguagePartners => 'Temukan pasangan belajar bahasa';
 
   @override
-  String get byLanguage => 'By Language';
+  String get byLanguage => 'Berdasarkan Bahasa';
 
   @override
-  String get match => 'match';
+  String get match => 'kecocokan';
 
   @override
-  String get matchScore => 'Match Score';
+  String get matchScore => 'Skor Kecocokan';
 
   @override
-  String get noMatchesFound => 'No matches found';
+  String get noMatchesFound => 'Tidak ada kecocokan ditemukan';
 
   @override
-  String get noUsersOnline => 'No users online';
+  String get noUsersOnline => 'Tidak ada pengguna daring';
 
   @override
-  String get checkBackLater => 'Check back later';
+  String get checkBackLater => 'Periksa kembali nanti';
 
   @override
-  String get selectLanguagePrompt => 'Select a language';
+  String get selectLanguagePrompt => 'Pilih bahasa';
 
   @override
-  String get findPartnersByLanguage => 'Find partners who speak or learn this language';
+  String get findPartnersByLanguage => 'Temukan pasangan yang berbicara atau belajar bahasa ini';
 
   @override
   String noPartnersForLanguage(String language) {
-    return 'No partners for $language';
+    return 'Tidak ada pasangan untuk $language';
   }
 
   @override
-  String get tryAnotherLanguage => 'Try selecting another language';
+  String get tryAnotherLanguage => 'Coba pilih bahasa lain';
 
   @override
-  String get failedToLoadMatches => 'Failed to load matches';
+  String get failedToLoadMatches => 'Gagal memuat kecocokan';
 
   @override
   String get dataAndStorage => 'Data dan Penyimpanan';
@@ -4453,63 +4453,63 @@ class AppLocalizationsId extends AppLocalizations {
   String get dragToDelete => 'Seret ke sini untuk menghapus';
 
   @override
-  String get noBlockedUsers => 'No blocked users';
+  String get noBlockedUsers => 'Tidak ada pengguna yang diblokir';
 
   @override
-  String get usersYouBlockWillAppearHere => 'Users you block will appear here';
+  String get usersYouBlockWillAppearHere => 'Pengguna yang Anda blokir akan muncul di sini';
 
   @override
   String unblockConfirm(String name) {
-    return 'Are you sure you want to unblock $name?';
+    return 'Apakah Anda yakin ingin membuka blokir $name?';
   }
 
   @override
   String reasonLabel(String reason) {
-    return 'Reason: $reason';
+    return 'Alasan: $reason';
   }
 
   @override
   String blockedAgo(String time) {
-    return 'Blocked $time';
+    return 'Diblokir $time';
   }
 
   @override
   String errorLoadingBlockedUsers(String error) {
-    return 'Error loading blocked users: $error';
+    return 'Kesalahan saat memuat pengguna yang diblokir: $error';
   }
 
   @override
-  String get logoutConfirmMessage => 'Are you sure you want to logout from Bananatalk?';
+  String get logoutConfirmMessage => 'Apakah Anda yakin ingin keluar dari Bananatalk?';
 
   @override
-  String get loggingOut => 'Logging out...';
+  String get loggingOut => 'Sedang keluar...';
 
   @override
-  String get quietHours => 'Quiet Hours';
+  String get quietHours => 'Jam Tenang';
 
   @override
-  String get quietHoursEnable => 'Enable Quiet Hours';
+  String get quietHoursEnable => 'Aktifkan Jam Tenang';
 
   @override
-  String get quietHoursSubtitle => 'Pause non-urgent notifications during a time window';
+  String get quietHoursSubtitle => 'Jeda notifikasi yang tidak mendesak selama rentang waktu tertentu';
 
   @override
-  String get quietHoursStart => 'Start time';
+  String get quietHoursStart => 'Waktu mulai';
 
   @override
-  String get quietHoursEnd => 'End time';
+  String get quietHoursEnd => 'Waktu selesai';
 
   @override
-  String get quietHoursAllowUrgent => 'Allow urgent notifications';
+  String get quietHoursAllowUrgent => 'Izinkan notifikasi mendesak';
 
   @override
-  String get quietHoursAllowUrgentSubtitle => 'Calls and messages from VIP partners can still come through';
+  String get quietHoursAllowUrgentSubtitle => 'Panggilan dan pesan dari pasangan VIP tetap dapat masuk';
 
   @override
-  String get silencedByQuietHours => 'Silenced by Quiet Hours';
+  String get silencedByQuietHours => 'Dibisukan oleh Jam Tenang';
 
   @override
-  String get silencedByCap => 'Silenced by daily limit';
+  String get silencedByCap => 'Dibisukan oleh batas harian';
 
   @override
   String get momentUpdatedSuccessfully => 'Momen berhasil diperbarui';

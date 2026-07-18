@@ -243,7 +243,7 @@ class AppLocalizationsTh extends AppLocalizations {
   String get beTheFirstToComment => 'เป็นคนแรกที่แสดงความคิดเห็น';
 
   @override
-  String get loadMoreComments => 'Load more comments';
+  String get loadMoreComments => 'โหลดความคิดเห็นเพิ่มเติม';
 
   @override
   String get writeAComment => 'เขียนความคิดเห็น...';
@@ -267,10 +267,10 @@ class AppLocalizationsTh extends AppLocalizations {
   String get momentDeleted => 'ลบโมเมนต์แล้ว';
 
   @override
-  String get deleteComment => 'Delete Comment?';
+  String get deleteComment => 'ลบความคิดเห็น?';
 
   @override
-  String get commentDeleted => 'Comment deleted';
+  String get commentDeleted => 'ลบความคิดเห็นแล้ว';
 
   @override
   String get editFeatureComingSoon => 'ฟีเจอร์แก้ไขเร็วๆ นี้';
@@ -394,7 +394,7 @@ class AppLocalizationsTh extends AppLocalizations {
   String get aiTutorChipPhoto => 'รูปภาพ';
 
   @override
-  String get aiToolsMoreSection => 'More AI tools';
+  String get aiToolsMoreSection => 'เครื่องมือ AI เพิ่มเติม';
 
   @override
   String get aiConversationPartnerTile => 'การสนทนา AI';
@@ -1030,7 +1030,7 @@ class AppLocalizationsTh extends AppLocalizations {
   String get warningThisActionIsPermanent => 'คำเตือน: การกระทำนี้ถาวร!';
 
   @override
-  String get deletingYourAccountWillPermanentlyRemove => 'Deleting your account will permanently remove:\n\n• Your profile and all personal data\n• All your messages and conversations\n• All your moments and stories\n• Your VIP subscription (no refund)\n• All your connections and followers\n\nThis action cannot be undone.';
+  String get deletingYourAccountWillPermanentlyRemove => 'การลบบัญชีของคุณจะลบข้อมูลต่อไปนี้อย่างถาวร:\n\n• โปรไฟล์และข้อมูลส่วนตัวทั้งหมดของคุณ\n• ข้อความและบทสนทนาทั้งหมดของคุณ\n• โมเมนต์และสตอรี่ทั้งหมดของคุณ\n• การสมัครสมาชิก VIP ของคุณ (ไม่มีการคืนเงิน)\n• การเชื่อมต่อและผู้ติดตามทั้งหมดของคุณ\n\nไม่สามารถย้อนกลับการกระทำนี้ได้';
 
   @override
   String get clearAllNotifications => 'ล้างการแจ้งเตือนทั้งหมด?';
@@ -1039,13 +1039,13 @@ class AppLocalizationsTh extends AppLocalizations {
   String get clearAll => 'ล้างทั้งหมด';
 
   @override
-  String get notificationDebug => 'Notification Debug';
+  String get notificationDebug => 'ดีบักการแจ้งเตือน';
 
   @override
   String get markAllRead => 'ทำเครื่องหมายอ่านทั้งหมด';
 
   @override
-  String get clearAll2 => 'Clear all';
+  String get clearAll2 => 'ล้างทั้งหมด';
 
   @override
   String get emailAddress => 'ที่อยู่อีเมล';
@@ -1057,34 +1057,34 @@ class AppLocalizationsTh extends AppLocalizations {
   String get alreadyHaveAnAccount => 'มีบัญชีแล้ว?';
 
   @override
-  String get login2 => 'Login';
+  String get login2 => 'เข้าสู่ระบบ';
 
   @override
-  String get selectYourNativeLanguage2 => 'Select your native language';
+  String get selectYourNativeLanguage2 => 'เลือกภาษาแม่ของคุณ';
 
   @override
-  String get whichLanguageDoYouWantToLearn2 => 'Which language do you want to learn?';
+  String get whichLanguageDoYouWantToLearn2 => 'คุณต้องการเรียนภาษาอะไร?';
 
   @override
-  String get selectYourGender2 => 'Select your gender';
+  String get selectYourGender2 => 'เลือกเพศของคุณ';
 
   @override
-  String get dateFormat => 'YYYY.MM.DD';
+  String get dateFormat => 'ปปปป.ดด.วว';
 
   @override
-  String get detectYourLocation2 => 'Detect your location';
+  String get detectYourLocation2 => 'ตรวจจับตำแหน่งของคุณ';
 
   @override
-  String get tapToUpdateLocation2 => 'Tap to update location';
+  String get tapToUpdateLocation2 => 'แตะเพื่ออัปเดตตำแหน่ง';
 
   @override
-  String get helpOthersFindYouNearby2 => 'Help others find you nearby';
+  String get helpOthersFindYouNearby2 => 'ช่วยให้คนอื่นพบคุณในบริเวณใกล้เคียง';
 
   @override
   String get couldNotOpenLink => 'ไม่สามารถเปิดลิงก์';
 
   @override
-  String get legalPrivacy2 => 'Legal & Privacy';
+  String get legalPrivacy2 => 'กฎหมายและความเป็นส่วนตัว';
 
   @override
   String get termsOfUseEULA => 'ข้อกำหนดการใช้งาน (EULA)';
@@ -1120,7 +1120,7 @@ class AppLocalizationsTh extends AppLocalizations {
   String get newFollowers => 'ผู้ติดตามใหม่';
 
   @override
-  String get whenSomeoneFollowsYou2 => 'When someone follows you';
+  String get whenSomeoneFollowsYou2 => 'เมื่อมีคนติดตามคุณ';
 
   @override
   String get securityAlerts => 'การแจ้งเตือนความปลอดภัย';
@@ -1129,10 +1129,10 @@ class AppLocalizationsTh extends AppLocalizations {
   String get passwordLoginAlerts => 'การแจ้งเตือนรหัสผ่านและการเข้าสู่ระบบ';
 
   @override
-  String get unblockUser2 => 'Unblock User';
+  String get unblockUser2 => 'เลิกบล็อกผู้ใช้';
 
   @override
-  String get blockedUsers2 => 'Blocked Users';
+  String get blockedUsers2 => 'ผู้ใช้ที่ถูกบล็อก';
 
   @override
   String get finalWarning => 'คำเตือนสุดท้าย';
@@ -1141,7 +1141,7 @@ class AppLocalizationsTh extends AppLocalizations {
   String get deleteForever => 'ลบถาวร';
 
   @override
-  String get deleteAccount2 => 'Delete Account';
+  String get deleteAccount2 => 'ลบบัญชี';
 
   @override
   String get enterYourPassword => 'ป้อนรหัสผ่านของคุณ';
@@ -1181,7 +1181,7 @@ class AppLocalizationsTh extends AppLocalizations {
   String get reportStory => 'รายงานสตอรี่';
 
   @override
-  String get reply2 => 'Reply...';
+  String get reply2 => 'ตอบกลับ...';
 
   @override
   String get failedToPickImage => 'เลือกรูปภาพล้มเหลว';
@@ -1301,37 +1301,37 @@ class AppLocalizationsTh extends AppLocalizations {
   String get connectWithFriends => 'เชื่อมต่อกับเพื่อน';
 
   @override
-  String get reviewStarted => 'Review started';
+  String get reviewStarted => 'เริ่มตรวจสอบแล้ว';
 
   @override
-  String get reportResolved => 'Report resolved';
+  String get reportResolved => 'รายงานได้รับการแก้ไขแล้ว';
 
   @override
-  String get reportDismissed => 'Report dismissed';
+  String get reportDismissed => 'ยกเลิกรายงานแล้ว';
 
   @override
-  String get selectAction => 'Select Action';
+  String get selectAction => 'เลือกการดำเนินการ';
 
   @override
-  String get noViolation => 'No Violation';
+  String get noViolation => 'ไม่มีการละเมิด';
 
   @override
-  String get contentRemoved => 'Content Removed';
+  String get contentRemoved => 'เนื้อหาถูกลบแล้ว';
 
   @override
-  String get userWarned => 'User Warned';
+  String get userWarned => 'เตือนผู้ใช้แล้ว';
 
   @override
-  String get userSuspended => 'User Suspended';
+  String get userSuspended => 'ระงับผู้ใช้แล้ว';
 
   @override
-  String get userBanned => 'User Banned';
+  String get userBanned => 'แบนผู้ใช้แล้ว';
 
   @override
-  String get addNotesOptional => 'Add Notes (Optional)';
+  String get addNotesOptional => 'เพิ่มหมายเหตุ (ไม่บังคับ)';
 
   @override
-  String get enterModeratorNotes => 'Enter moderator notes...';
+  String get enterModeratorNotes => 'ใส่หมายเหตุของผู้ดูแล...';
 
   @override
   String get skip => 'ข้าม';
@@ -1358,7 +1358,7 @@ class AppLocalizationsTh extends AppLocalizations {
   String get apply => 'ใช้';
 
   @override
-  String get myReports2 => 'My Reports';
+  String get myReports2 => 'รายงานของฉัน';
 
   @override
   String get blockUser => 'บล็อกผู้ใช้';
@@ -1376,13 +1376,13 @@ class AppLocalizationsTh extends AppLocalizations {
   String get yesBlockThem => 'ใช่ บล็อกพวกเขา';
 
   @override
-  String get reportUser2 => 'Report User';
+  String get reportUser2 => 'รายงานผู้ใช้';
 
   @override
   String get submitReport => 'ส่งรายงาน';
 
   @override
-  String get addAQuestionAndAtLeast2Options => 'Add a question and at least 2 options';
+  String get addAQuestionAndAtLeast2Options => 'เพิ่มคำถามและตัวเลือกอย่างน้อย 2 ข้อ';
 
   @override
   String get addOption => 'เพิ่มตัวเลือก';
@@ -1397,13 +1397,13 @@ class AppLocalizationsTh extends AppLocalizations {
   String get typeYourAnswer => 'พิมพ์คำตอบของคุณ...';
 
   @override
-  String get send2 => 'Send';
+  String get send2 => 'ส่ง';
 
   @override
   String get yourPrompt => 'คำถามของคุณ...';
 
   @override
-  String get add2 => 'Add';
+  String get add2 => 'เพิ่ม';
 
   @override
   String get contentNotAvailable => 'เนื้อหาไม่พร้อมใช้งาน';
@@ -1472,10 +1472,10 @@ class AppLocalizationsTh extends AppLocalizations {
   String get manageSubscription => 'จัดการการสมัคร';
 
   @override
-  String get manageSubscriptionInSettings => 'To cancel your subscription, go to Settings > [Your Name] > Subscriptions on your device.';
+  String get manageSubscriptionInSettings => 'หากต้องการยกเลิกการสมัครสมาชิก ให้ไปที่การตั้งค่า > [ชื่อของคุณ] > การสมัครสมาชิก บนอุปกรณ์ของคุณ';
 
   @override
-  String get contactSupportToCancel => 'To cancel your subscription, please contact our support team.';
+  String get contactSupportToCancel => 'หากต้องการยกเลิกการสมัครสมาชิก โปรดติดต่อทีมสนับสนุนของเรา';
 
   @override
   String get status => 'สถานะ';
@@ -1508,16 +1508,16 @@ class AppLocalizationsTh extends AppLocalizations {
   String get maximumTagsAllowed => 'อนุญาตสูงสุด 5 แท็ก';
 
   @override
-  String get pleaseRemoveImagesFirstToAddVideo => 'Please remove images first to add a video';
+  String get pleaseRemoveImagesFirstToAddVideo => 'โปรดลบรูปภาพออกก่อนเพื่อเพิ่มวิดีโอ';
 
   @override
-  String get unsupportedFormat => 'Unsupported format';
+  String get unsupportedFormat => 'รูปแบบไม่รองรับ';
 
   @override
-  String get errorProcessingVideo => 'Error processing video';
+  String get errorProcessingVideo => 'เกิดข้อผิดพลาดในการประมวลผลวิดีโอ';
 
   @override
-  String get pleaseRemoveImagesFirstToRecordVideo => 'Please remove images first to record a video';
+  String get pleaseRemoveImagesFirstToRecordVideo => 'โปรดลบรูปภาพออกก่อนเพื่อบันทึกวิดีโอ';
 
   @override
   String get locationAdded => 'เพิ่มตำแหน่งแล้ว';
@@ -1544,7 +1544,7 @@ class AppLocalizationsTh extends AppLocalizations {
   String get uploadingMomentInBackground => 'กำลังอัปโหลดโมเมนต์ในพื้นหลัง...';
 
   @override
-  String get failedToQueueUpload => 'Failed to queue upload';
+  String get failedToQueueUpload => 'ไม่สามารถจัดคิวการอัปโหลดได้';
 
   @override
   String get viewProfile => 'ดูโปรไฟล์';
@@ -1556,10 +1556,10 @@ class AppLocalizationsTh extends AppLocalizations {
   String get wallpaper => 'วอลเปเปอร์';
 
   @override
-  String get userIdNotAvailable => 'User ID not available';
+  String get userIdNotAvailable => 'ไม่มีรหัสผู้ใช้';
 
   @override
-  String get cannotBlockYourself => 'Cannot block yourself';
+  String get cannotBlockYourself => 'ไม่สามารถบล็อกตัวเองได้';
 
   @override
   String get chatWallpaper => 'วอลเปเปอร์แชท';
@@ -1571,16 +1571,16 @@ class AppLocalizationsTh extends AppLocalizations {
   String get messageCopied => 'คัดลอกข้อความแล้ว';
 
   @override
-  String get forwardFeatureComingSoon => 'Forward feature coming soon';
+  String get forwardFeatureComingSoon => 'ฟีเจอร์ส่งต่อกำลังจะมาเร็วๆ นี้';
 
   @override
   String get momentUnsaved => 'ลบออกจากที่บันทึกแล้ว';
 
   @override
-  String get documentPickerComingSoon => 'Document picker coming soon';
+  String get documentPickerComingSoon => 'ตัวเลือกเอกสารกำลังจะมาเร็วๆ นี้';
 
   @override
-  String get contactSharingComingSoon => 'Contact sharing coming soon';
+  String get contactSharingComingSoon => 'การแชร์ผู้ติดต่อกำลังจะมาเร็วๆ นี้';
 
   @override
   String get featureComingSoon => 'ฟีเจอร์เร็วๆ นี้';
@@ -1592,40 +1592,40 @@ class AppLocalizationsTh extends AppLocalizations {
   String get noImagesAvailable => 'ไม่มีรูปภาพ';
 
   @override
-  String get mentionPickerComingSoon => 'Mention picker coming soon';
+  String get mentionPickerComingSoon => 'ตัวเลือกการกล่าวถึงกำลังจะมาเร็วๆ นี้';
 
   @override
-  String get musicPickerComingSoon => 'Music picker coming soon';
+  String get musicPickerComingSoon => 'ตัวเลือกเพลงกำลังจะมาเร็วๆ นี้';
 
   @override
-  String get repostFeatureComingSoon => 'Repost feature coming soon';
+  String get repostFeatureComingSoon => 'ฟีเจอร์รีโพสต์กำลังจะมาเร็วๆ นี้';
 
   @override
-  String get addFriendsFromYourProfile => 'Add friends from your profile';
+  String get addFriendsFromYourProfile => 'เพิ่มเพื่อนจากโปรไฟล์ของคุณ';
 
   @override
-  String get quickReplyAdded => 'Quick reply added';
+  String get quickReplyAdded => 'เพิ่มการตอบกลับด่วนแล้ว';
 
   @override
-  String get quickReplyDeleted => 'Quick reply deleted';
+  String get quickReplyDeleted => 'ลบการตอบกลับด่วนแล้ว';
 
   @override
   String get linkCopied => 'คัดลอกลิงก์แล้ว!';
 
   @override
-  String get maximumOptionsAllowed => 'Maximum 10 options allowed';
+  String get maximumOptionsAllowed => 'อนุญาตสูงสุด 10 ตัวเลือก';
 
   @override
-  String get minimumOptionsRequired => 'Minimum 2 options required';
+  String get minimumOptionsRequired => 'ต้องมีอย่างน้อย 2 ตัวเลือก';
 
   @override
-  String get pleaseEnterAQuestion => 'Please enter a question';
+  String get pleaseEnterAQuestion => 'โปรดใส่คำถาม';
 
   @override
-  String get pleaseAddAtLeast2Options => 'Please add at least 2 options';
+  String get pleaseAddAtLeast2Options => 'โปรดเพิ่มตัวเลือกอย่างน้อย 2 ข้อ';
 
   @override
-  String get pleaseSelectCorrectAnswerForQuiz => 'Please select the correct answer for quiz';
+  String get pleaseSelectCorrectAnswerForQuiz => 'โปรดเลือกคำตอบที่ถูกต้องสำหรับแบบทดสอบ';
 
   @override
   String get correctionSent => 'ส่งการแก้ไขแล้ว!';
@@ -1640,13 +1640,13 @@ class AppLocalizationsTh extends AppLocalizations {
   String get unsave => 'ยกเลิกบันทึก';
 
   @override
-  String get playingAudio => 'Playing audio...';
+  String get playingAudio => 'กำลังเล่นเสียง...';
 
   @override
-  String get failedToGenerateQuiz => 'Failed to generate quiz';
+  String get failedToGenerateQuiz => 'ไม่สามารถสร้างแบบทดสอบได้';
 
   @override
-  String get failedToAddComment => 'Failed to add comment';
+  String get failedToAddComment => 'ไม่สามารถเพิ่มความคิดเห็นได้';
 
   @override
   String get hello => 'สวัสดี!';
@@ -1655,10 +1655,10 @@ class AppLocalizationsTh extends AppLocalizations {
   String get howAreYou => 'สบายดีไหม?';
 
   @override
-  String get cannotOpen => 'Cannot open';
+  String get cannotOpen => 'ไม่สามารถเปิดได้';
 
   @override
-  String get errorOpeningLink => 'Error opening link';
+  String get errorOpeningLink => 'เกิดข้อผิดพลาดในการเปิดลิงก์';
 
   @override
   String get saved => 'บันทึกแล้ว';
@@ -1740,40 +1740,40 @@ class AppLocalizationsTh extends AppLocalizations {
   String get noMomentsYet => 'ยังไม่มีโมเมนต์';
 
   @override
-  String get noForYouMomentsTitle => 'No moments yet';
+  String get noForYouMomentsTitle => 'ยังไม่มีโมเมนต์';
 
   @override
-  String get noForYouMomentsBody => 'Answer today\'s prompt to get the conversation started.';
+  String get noForYouMomentsBody => 'ตอบคำถามประจำวันนี้เพื่อเริ่มบทสนทนา';
 
   @override
-  String get noFollowingMomentsTitle => 'Nothing here yet';
+  String get noFollowingMomentsTitle => 'ยังไม่มีอะไรที่นี่';
 
   @override
-  String get noFollowingMomentsBody => 'Follow people from Community to see their moments here.';
+  String get noFollowingMomentsBody => 'ติดตามผู้คนจากคอมมูนิตี้เพื่อดูโมเมนต์ของพวกเขาที่นี่';
 
   @override
-  String get goToCommunity => 'Go to Community';
+  String get goToCommunity => 'ไปที่คอมมูนิตี้';
 
   @override
-  String get unableToLoadMoments => 'Unable to load moments';
+  String get unableToLoadMoments => 'ไม่สามารถโหลดโมเมนต์ได้';
 
   @override
   String get map => 'แผนที่';
 
   @override
-  String get mapUnavailable => 'Map unavailable';
+  String get mapUnavailable => 'แผนที่ไม่พร้อมใช้งาน';
 
   @override
   String get location => 'ตำแหน่ง';
 
   @override
-  String get unknownLocation => 'Unknown location';
+  String get unknownLocation => 'ไม่ทราบตำแหน่ง';
 
   @override
-  String get noImagesAvailable2 => 'No images available';
+  String get noImagesAvailable2 => 'ไม่มีรูปภาพ';
 
   @override
-  String get permissionsRequired => 'Permissions Required';
+  String get permissionsRequired => 'ต้องได้รับสิทธิ์อนุญาต';
 
   @override
   String get openSettings => 'เปิดการตั้งค่า';
@@ -1791,25 +1791,25 @@ class AppLocalizationsTh extends AppLocalizations {
   String get message => 'ข้อความ';
 
   @override
-  String get pleaseLoginToFollow => 'Please login to follow users';
+  String get pleaseLoginToFollow => 'โปรดเข้าสู่ระบบเพื่อติดตามผู้ใช้';
 
   @override
-  String get pleaseLoginToCall => 'Please login to make a call';
+  String get pleaseLoginToCall => 'โปรดเข้าสู่ระบบเพื่อโทร';
 
   @override
-  String get cannotCallYourself => 'You cannot call yourself';
+  String get cannotCallYourself => 'คุณไม่สามารถโทรหาตัวเองได้';
 
   @override
-  String get failedToFollowUser => 'Failed to follow user';
+  String get failedToFollowUser => 'ไม่สามารถติดตามผู้ใช้ได้';
 
   @override
-  String get failedToUnfollowUser => 'Failed to unfollow user';
+  String get failedToUnfollowUser => 'ไม่สามารถเลิกติดตามผู้ใช้ได้';
 
   @override
-  String get areYouSureUnfollow => 'Are you sure you want to unfollow this user?';
+  String get areYouSureUnfollow => 'คุณแน่ใจหรือไม่ว่าต้องการเลิกติดตามผู้ใช้นี้?';
 
   @override
-  String get areYouSureUnblock => 'Are you sure you want to unblock this user?';
+  String get areYouSureUnblock => 'คุณแน่ใจหรือไม่ว่าต้องการเลิกบล็อกผู้ใช้นี้?';
 
   @override
   String get youFollowed => 'คุณติดตาม';
@@ -1818,56 +1818,56 @@ class AppLocalizationsTh extends AppLocalizations {
   String get youUnfollowed => 'คุณเลิกติดตาม';
 
   @override
-  String get alreadyFollowing => 'You are already following';
+  String get alreadyFollowing => 'คุณติดตามอยู่แล้ว';
 
   @override
-  String get soon => 'Soon';
+  String get soon => 'เร็วๆ นี้';
 
   @override
   String comingSoon(String feature) {
-    return '$feature is coming soon!';
+    return '$feature กำลังจะมาเร็วๆ นี้!';
   }
 
   @override
-  String get muteNotifications => 'Mute notifications';
+  String get muteNotifications => 'ปิดเสียงการแจ้งเตือน';
 
   @override
-  String get unmuteNotifications => 'Unmute notifications';
+  String get unmuteNotifications => 'เปิดเสียงการแจ้งเตือน';
 
   @override
-  String get operationCompleted => 'Operation completed';
+  String get operationCompleted => 'การดำเนินการเสร็จสมบูรณ์';
 
   @override
-  String get couldNotOpenMaps => 'Could not open maps';
+  String get couldNotOpenMaps => 'ไม่สามารถเปิดแผนที่ได้';
 
   @override
   String hasntSharedMoments(Object name) {
-    return '$name hasn\'t shared any moments';
+    return '$name ยังไม่ได้แชร์โมเมนต์ใดๆ';
   }
 
   @override
   String messageUser(String name) {
-    return 'Message $name';
+    return 'ส่งข้อความถึง $name';
   }
 
   @override
   String notFollowingUser(String name) {
-    return 'You were not following $name';
+    return 'คุณไม่ได้ติดตาม $name';
   }
 
   @override
   String youFollowedUser(String name) {
-    return 'You followed $name';
+    return 'คุณติดตาม $name แล้ว';
   }
 
   @override
   String youUnfollowedUser(String name) {
-    return 'You unfollowed $name';
+    return 'คุณเลิกติดตาม $name แล้ว';
   }
 
   @override
   String unfollowUser(String name) {
-    return 'Unfollow $name';
+    return 'เลิกติดตาม $name';
   }
 
   @override
@@ -1882,53 +1882,53 @@ class AppLocalizationsTh extends AppLocalizations {
   }
 
   @override
-  String get maxTagsAllowed => 'Maximum 5 tags allowed';
+  String get maxTagsAllowed => 'อนุญาตสูงสุด 5 แท็ก';
 
   @override
   String maxImagesAllowed(int count) {
-    return 'Maximum $count images allowed';
+    return 'อนุญาตสูงสุด $count รูปภาพ';
   }
 
   @override
-  String get pleaseRemoveImagesFirst => 'Please remove images first to add a video';
+  String get pleaseRemoveImagesFirst => 'โปรดลบรูปภาพออกก่อนเพื่อเพิ่มวิดีโอ';
 
   @override
   String get exchange3MessagesBeforeCall => 'แลกเปลี่ยนข้อความอย่างน้อย 5 ข้อความก่อนโทร';
 
   @override
   String mediaWithUser(String name) {
-    return 'Media with $name';
+    return 'สื่อกับ $name';
   }
 
   @override
-  String get errorLoadingMedia => 'Error loading media';
+  String get errorLoadingMedia => 'เกิดข้อผิดพลาดในการโหลดสื่อ';
 
   @override
-  String get savedMomentsTitle => 'Saved Moments';
+  String get savedMomentsTitle => 'โมเมนต์ที่บันทึกไว้';
 
   @override
-  String get removeBookmark => 'Remove bookmark?';
+  String get removeBookmark => 'ลบบุ๊กมาร์ก?';
 
   @override
-  String get thisWillRemoveBookmark => 'This will remove the message from your bookmarks.';
+  String get thisWillRemoveBookmark => 'การดำเนินการนี้จะลบข้อความออกจากบุ๊กมาร์กของคุณ';
 
   @override
-  String get remove => 'Remove';
+  String get remove => 'ลบ';
 
   @override
-  String get bookmarkRemoved => 'Bookmark removed';
+  String get bookmarkRemoved => 'ลบบุ๊กมาร์กแล้ว';
 
   @override
-  String get bookmarkedMessages => 'Bookmarked Messages';
+  String get bookmarkedMessages => 'ข้อความที่บุ๊กมาร์กไว้';
 
   @override
-  String get wallpaperSaved => 'Wallpaper saved locally';
+  String get wallpaperSaved => 'บันทึกวอลเปเปอร์ในเครื่องแล้ว';
 
   @override
-  String get typeDeleteToConfirm => 'Type DELETE to confirm';
+  String get typeDeleteToConfirm => 'พิมพ์ DELETE เพื่อยืนยัน';
 
   @override
-  String get storyArchive => 'Story Archive';
+  String get storyArchive => 'คลังสตอรี่';
 
   @override
   String get newHighlight => 'ไฮไลท์ใหม่';
@@ -1937,16 +1937,16 @@ class AppLocalizationsTh extends AppLocalizations {
   String get addToHighlight => 'เพิ่มไปยังไฮไลท์';
 
   @override
-  String get repost => 'Repost';
+  String get repost => 'รีโพสต์';
 
   @override
-  String get repostFeatureSoon => 'Repost feature coming soon';
+  String get repostFeatureSoon => 'ฟีเจอร์รีโพสต์กำลังจะมาเร็วๆ นี้';
 
   @override
   String get closeFriends => 'เพื่อนสนิท';
 
   @override
-  String get addFriends => 'Add Friends';
+  String get addFriends => 'เพิ่มเพื่อน';
 
   @override
   String get highlights => 'ไฮไลท์';
@@ -1961,19 +1961,19 @@ class AppLocalizationsTh extends AppLocalizations {
   String get editHighlight => 'แก้ไขไฮไลท์';
 
   @override
-  String get addMoreToStory => 'Add more to story';
+  String get addMoreToStory => 'เพิ่มเติมในสตอรี่';
 
   @override
-  String get noViewersYet => 'No viewers yet';
+  String get noViewersYet => 'ยังไม่มีผู้ชม';
 
   @override
-  String get noReactionsYet => 'No reactions yet';
+  String get noReactionsYet => 'ยังไม่มีการตอบสนอง';
 
   @override
   String get leaveRoom => 'ออกจากห้อง';
 
   @override
-  String get areYouSureLeaveRoom => 'Are you sure you want to leave this voice room?';
+  String get areYouSureLeaveRoom => 'คุณแน่ใจหรือไม่ว่าต้องการออกจากห้องเสียงนี้?';
 
   @override
   String get stay => 'อยู่';
@@ -1990,40 +1990,40 @@ class AppLocalizationsTh extends AppLocalizations {
   }
 
   @override
-  String get areYouSureFollow => 'Are you sure you want to follow';
+  String get areYouSureFollow => 'คุณแน่ใจหรือไม่ว่าต้องการติดตาม';
 
   @override
-  String get failedToLoadProfile => 'Failed to load profile';
+  String get failedToLoadProfile => 'ไม่สามารถโหลดโปรไฟล์ได้';
 
   @override
-  String get noFollowersYet => 'No followers yet';
+  String get noFollowersYet => 'ยังไม่มีผู้ติดตาม';
 
   @override
-  String get noFollowingYet => 'Not following anyone yet';
+  String get noFollowingYet => 'ยังไม่ได้ติดตามใครเลย';
 
   @override
   String get searchUsers => 'ค้นหาผู้ใช้...';
 
   @override
-  String get noResultsFound => 'No results found';
+  String get noResultsFound => 'ไม่พบผลลัพธ์';
 
   @override
-  String get loadingFailed => 'Loading failed';
+  String get loadingFailed => 'โหลดไม่สำเร็จ';
 
   @override
-  String get copyLink => 'Copy link';
+  String get copyLink => 'คัดลอกลิงก์';
 
   @override
-  String get shareStory => 'Share story';
+  String get shareStory => 'แชร์สตอรี่';
 
   @override
-  String get thisWillDeleteStory => 'This will permanently delete this story.';
+  String get thisWillDeleteStory => 'การดำเนินการนี้จะลบสตอรี่นี้อย่างถาวร';
 
   @override
-  String get storyDeleted => 'Story deleted';
+  String get storyDeleted => 'ลบสตอรี่แล้ว';
 
   @override
-  String get addCaption => 'Add a caption...';
+  String get addCaption => 'เพิ่มคำบรรยาย...';
 
   @override
   String get yourStory => 'สตอรี่ของคุณ';
@@ -2032,48 +2032,48 @@ class AppLocalizationsTh extends AppLocalizations {
   String get sendMessage => 'ส่งข้อความ';
 
   @override
-  String get replyToStory => 'Reply to story...';
+  String get replyToStory => 'ตอบกลับสตอรี่...';
 
   @override
-  String get viewAllReplies => 'View all replies';
+  String get viewAllReplies => 'ดูการตอบกลับทั้งหมด';
 
   @override
-  String get preparingVideo => 'Preparing video...';
+  String get preparingVideo => 'กำลังเตรียมวิดีโอ...';
 
   @override
   String videoOptimized(String size, String savings) {
-    return 'Video optimized: ${size}MB (saved $savings%)';
+    return 'เพิ่มประสิทธิภาพวิดีโอแล้ว: ${size}MB (ประหยัด $savings%)';
   }
 
   @override
-  String get failedToProcessVideo => 'Failed to process video';
+  String get failedToProcessVideo => 'ไม่สามารถประมวลผลวิดีโอได้';
 
   @override
-  String get optimizingForBestExperience => 'Optimizing for the best story experience';
+  String get optimizingForBestExperience => 'กำลังเพิ่มประสิทธิภาพเพื่อประสบการณ์สตอรี่ที่ดีที่สุด';
 
   @override
-  String get pleaseSelectImageOrVideo => 'Please select an image or video for your story';
+  String get pleaseSelectImageOrVideo => 'โปรดเลือกรูปภาพหรือวิดีโอสำหรับสตอรี่ของคุณ';
 
   @override
-  String get storyCreatedSuccessfully => 'Story created successfully!';
+  String get storyCreatedSuccessfully => 'สร้างสตอรี่สำเร็จแล้ว!';
 
   @override
-  String get uploadingStoryInBackground => 'Uploading story in background...';
+  String get uploadingStoryInBackground => 'กำลังอัปโหลดสตอรี่ในพื้นหลัง...';
 
   @override
-  String get storyCreationFailed => 'Story Creation Failed';
+  String get storyCreationFailed => 'สร้างสตอรี่ไม่สำเร็จ';
 
   @override
-  String get pleaseCheckConnection => 'Please check your connection and try again.';
+  String get pleaseCheckConnection => 'โปรดตรวจสอบการเชื่อมต่อของคุณแล้วลองใหม่อีกครั้ง';
 
   @override
-  String get uploadFailed => 'Upload Failed';
+  String get uploadFailed => 'อัปโหลดไม่สำเร็จ';
 
   @override
-  String get tryShorterVideo => 'Try using a shorter video or try again later.';
+  String get tryShorterVideo => 'ลองใช้วิดีโอที่สั้นลงหรือลองใหม่อีกครั้งในภายหลัง';
 
   @override
-  String get shareMomentsThatDisappear => 'Share moments that disappear in 24 hours';
+  String get shareMomentsThatDisappear => 'แชร์โมเมนต์ที่จะหายไปภายใน 24 ชั่วโมง';
 
   @override
   String get photo => 'รูปภาพ';
@@ -2100,28 +2100,28 @@ class AppLocalizationsTh extends AppLocalizations {
   String get hashtag => 'แฮชแท็ก';
 
   @override
-  String get whoCanSeeThis => 'Who can see this?';
+  String get whoCanSeeThis => 'ใครสามารถดูสิ่งนี้ได้บ้าง?';
 
   @override
   String get everyone => 'ทุกคน';
 
   @override
-  String get anyoneCanSeeStory => 'Anyone can see this story';
+  String get anyoneCanSeeStory => 'ทุกคนสามารถดูสตอรี่นี้ได้';
 
   @override
   String get friendsOnly => 'เพื่อนเท่านั้น';
 
   @override
-  String get onlyFollowersCanSee => 'Only your followers can see';
+  String get onlyFollowersCanSee => 'เฉพาะผู้ติดตามของคุณเท่านั้นที่ดูได้';
 
   @override
-  String get onlyCloseFriendsCanSee => 'Only your close friends can see';
+  String get onlyCloseFriendsCanSee => 'เฉพาะเพื่อนสนิทของคุณเท่านั้นที่ดูได้';
 
   @override
-  String get backgroundColor => 'Background Color';
+  String get backgroundColor => 'สีพื้นหลัง';
 
   @override
-  String get fontStyle => 'Font Style';
+  String get fontStyle => 'รูปแบบตัวอักษร';
 
   @override
   String get normal => 'ปกติ';
@@ -2133,79 +2133,79 @@ class AppLocalizationsTh extends AppLocalizations {
   String get italic => 'ตัวเอียง';
 
   @override
-  String get handwriting => 'Handwriting';
+  String get handwriting => 'ลายมือ';
 
   @override
   String get addLocation => 'เพิ่มตำแหน่ง';
 
   @override
-  String get enterLocationName => 'Enter location name';
+  String get enterLocationName => 'ใส่ชื่อสถานที่';
 
   @override
   String get addLink => 'เพิ่มลิงก์';
 
   @override
-  String get buttonText => 'Button text';
+  String get buttonText => 'ข้อความปุ่ม';
 
   @override
   String get learnMore => 'เรียนรู้เพิ่มเติม';
 
   @override
-  String get addHashtags => 'Add Hashtags';
+  String get addHashtags => 'เพิ่มแฮชแท็ก';
 
   @override
-  String get addHashtag => 'Add hashtag';
+  String get addHashtag => 'เพิ่มแฮชแท็ก';
 
   @override
-  String get sendAsMessage => 'Send as Message';
+  String get sendAsMessage => 'ส่งเป็นข้อความ';
 
   @override
-  String get shareExternally => 'Share Externally';
+  String get shareExternally => 'แชร์ภายนอก';
 
   @override
-  String get checkOutStory => 'Check out this story on Bananatalk!';
+  String get checkOutStory => 'มาดูสตอรี่นี้บน Bananatalk สิ!';
 
   @override
   String viewsTab(String count) {
-    return 'Views ($count)';
+    return 'การดู ($count)';
   }
 
   @override
   String reactionsTab(String count) {
-    return 'Reactions ($count)';
+    return 'การตอบสนอง ($count)';
   }
 
   @override
-  String get processingVideo => 'Processing video...';
+  String get processingVideo => 'กำลังประมวลผลวิดีโอ...';
 
   @override
-  String get link => 'Link';
+  String get link => 'ลิงก์';
 
   @override
   String unmuteUser(String name) {
-    return 'Unmute $name?';
+    return 'เปิดเสียง $name?';
   }
 
   @override
-  String get willReceiveNotifications => 'You will receive notifications for new messages.';
+  String get willReceiveNotifications => 'คุณจะได้รับการแจ้งเตือนสำหรับข้อความใหม่';
 
   @override
   String muteNotificationsFor(String name) {
-    return 'Mute notifications for $name';
+    return 'ปิดเสียงการแจ้งเตือนสำหรับ $name';
   }
 
   @override
   String notificationsUnmutedFor(String name) {
-    return 'Notifications unmuted for $name';
+    return 'เปิดเสียงการแจ้งเตือนสำหรับ $name แล้ว';
   }
 
   @override
   String notificationsMutedFor(String name) {
-    return 'Notifications muted for $name';
+    return 'ปิดเสียงการแจ้งเตือนสำหรับ $name แล้ว';
   }
 
   @override
-  String get failedToUpdateMuteSettings => 'Failed to update mute settings';
+  String get failedToUpdateMuteSettings => 'ไม่สามารถอัปเดตการตั้งค่าปิดเสียงได้';
 
   @override
   String get oneHour => '1 ชั่วโมง';
@@ -2220,25 +2220,25 @@ class AppLocalizationsTh extends AppLocalizations {
   String get always => 'เสมอ';
 
   @override
-  String get failedToLoadBookmarks => 'Failed to load bookmarks';
+  String get failedToLoadBookmarks => 'ไม่สามารถโหลดบุ๊กมาร์กได้';
 
   @override
-  String get noBookmarkedMessages => 'No bookmarked messages';
+  String get noBookmarkedMessages => 'ไม่มีข้อความที่บุ๊กมาร์กไว้';
 
   @override
-  String get longPressToBookmark => 'Long press on a message to bookmark it';
+  String get longPressToBookmark => 'กดค้างที่ข้อความเพื่อบุ๊กมาร์ก';
 
   @override
-  String get thisWillRemoveFromBookmarks => 'This will remove the message from your bookmarks.';
+  String get thisWillRemoveFromBookmarks => 'การดำเนินการนี้จะลบข้อความออกจากบุ๊กมาร์กของคุณ';
 
   @override
   String navigateToMessage(String name) {
-    return 'Navigate to message in chat with $name';
+    return 'ไปยังข้อความในแชทกับ $name';
   }
 
   @override
   String bookmarkedOn(String date) {
-    return 'Bookmarked $date';
+    return 'บุ๊กมาร์กเมื่อ $date';
   }
 
   @override
@@ -2251,57 +2251,57 @@ class AppLocalizationsTh extends AppLocalizations {
   String get attachment => 'ไฟล์แนบ';
 
   @override
-  String get sendMeAMessage => 'Send me a message';
+  String get sendMeAMessage => 'ส่งข้อความถึงฉัน';
 
   @override
-  String get shareWithFriends => 'Share with friends';
+  String get shareWithFriends => 'แชร์กับเพื่อน';
 
   @override
-  String get shareAnywhere => 'Share anywhere';
+  String get shareAnywhere => 'แชร์ได้ทุกที่';
 
   @override
-  String get emailPreferences => 'Email Preferences';
+  String get emailPreferences => 'การตั้งค่าอีเมล';
 
   @override
-  String get receiveEmailNotifications => 'Receive email notifications from Bananatalk';
+  String get receiveEmailNotifications => 'รับการแจ้งเตือนทางอีเมลจาก Bananatalk';
 
   @override
-  String get whenAwayFor24Hours => 'When you\'re away for 24+ hours';
+  String get whenAwayFor24Hours => 'เมื่อคุณไม่ได้ใช้งานนานกว่า 24 ชั่วโมง';
 
   @override
-  String get passwordAndLoginAlerts => 'Password & login alerts';
+  String get passwordAndLoginAlerts => 'การแจ้งเตือนรหัสผ่านและการเข้าสู่ระบบ';
 
   @override
-  String get failedToLoadPreferences => 'Failed to load preferences';
+  String get failedToLoadPreferences => 'ไม่สามารถโหลดการตั้งค่าที่ต้องการได้';
 
   @override
-  String get failedToUpdateSetting => 'Failed to update setting';
+  String get failedToUpdateSetting => 'ไม่สามารถอัปเดตการตั้งค่าได้';
 
   @override
-  String get securityAlertsRecommended => 'We recommend keeping Security Alerts enabled to stay informed about important account activity.';
+  String get securityAlertsRecommended => 'เราขอแนะนำให้เปิดใช้งานการแจ้งเตือนความปลอดภัยไว้ เพื่อให้คุณทราบความเคลื่อนไหวสำคัญของบัญชี';
 
   @override
   String chatWallpaperFor(String name) {
-    return 'Chat wallpaper for $name';
+    return 'วอลเปเปอร์แชทสำหรับ $name';
   }
 
   @override
-  String get solidColors => 'Solid Colors';
+  String get solidColors => 'สีพื้น';
 
   @override
-  String get gradients => 'Gradients';
+  String get gradients => 'ไล่โทนสี';
 
   @override
-  String get customImage => 'Custom Image';
+  String get customImage => 'รูปภาพกำหนดเอง';
 
   @override
-  String get chooseFromGallery => 'Choose from Gallery';
+  String get chooseFromGallery => 'เลือกจากคลังภาพ';
 
   @override
   String get preview => 'ดูตัวอย่าง';
 
   @override
-  String get wallpaperUpdated => 'Wallpaper updated';
+  String get wallpaperUpdated => 'อัปเดตวอลเปเปอร์แล้ว';
 
   @override
   String get category => 'หมวดหมู่';
@@ -2313,10 +2313,10 @@ class AppLocalizationsTh extends AppLocalizations {
   String get sortBy => 'เรียงตาม';
 
   @override
-  String get timePeriod => 'Time Period';
+  String get timePeriod => 'ช่วงเวลา';
 
   @override
-  String get searchLanguages => 'Search languages...';
+  String get searchLanguages => 'ค้นหาภาษา...';
 
   @override
   String get selected => 'เลือกแล้ว';
@@ -2332,29 +2332,29 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String applyNFilters(int count) {
-    return 'Apply $count Filters';
+    return 'ใช้ตัวกรอง $count รายการ';
   }
 
   @override
   String get videoMustBeUnder1GB => 'วิดีโอต้องมีขนาดไม่เกิน 1GB';
 
   @override
-  String get failedToRecordVideo => 'Failed to record video';
+  String get failedToRecordVideo => 'ไม่สามารถบันทึกวิดีโอได้';
 
   @override
-  String get errorSendingVideo => 'Error sending video';
+  String get errorSendingVideo => 'เกิดข้อผิดพลาดในการส่งวิดีโอ';
 
   @override
-  String get errorSendingVoiceMessage => 'Error sending voice message';
+  String get errorSendingVoiceMessage => 'เกิดข้อผิดพลาดในการส่งข้อความเสียง';
 
   @override
-  String get errorSendingMedia => 'Error sending media';
+  String get errorSendingMedia => 'เกิดข้อผิดพลาดในการส่งสื่อ';
 
   @override
-  String get cameraPermissionRequired => 'Camera and microphone permissions are required to record videos.';
+  String get cameraPermissionRequired => 'ต้องได้รับสิทธิ์เข้าถึงกล้องและไมโครโฟนเพื่อบันทึกวิดีโอ';
 
   @override
-  String get locationPermissionRequired => 'Location permission is required to share your location.';
+  String get locationPermissionRequired => 'ต้องได้รับสิทธิ์เข้าถึงตำแหน่งเพื่อแชร์ตำแหน่งของคุณ';
 
   @override
   String get noInternetConnection => 'ไม่มีการเชื่อมต่ออินเทอร์เน็ต';
@@ -2406,10 +2406,10 @@ class AppLocalizationsTh extends AppLocalizations {
   String get checkOutMoment => 'ดูโมเมนต์นี้บน Bananatalk!';
 
   @override
-  String get checkOutProfile => 'Check out this profile on Bananatalk!';
+  String get checkOutProfile => 'มาดูโปรไฟล์นี้บน Bananatalk สิ!';
 
   @override
-  String get checkOutCommunity => 'Check out this member on Bananatalk!';
+  String get checkOutCommunity => 'มาดูสมาชิกคนนี้บน Bananatalk สิ!';
 
   @override
   String get failedToLoadMoments => 'โหลดโมเมนต์ล้มเหลว';
@@ -3374,133 +3374,133 @@ class AppLocalizationsTh extends AppLocalizations {
   String get allCategories => 'ทุกหมวดหมู่';
 
   @override
-  String get leaderboard => 'Leaderboard';
+  String get leaderboard => 'กระดานผู้นำ';
 
   @override
-  String get competeWithLearners => 'Compete with other learners!';
+  String get competeWithLearners => 'แข่งขันกับผู้เรียนคนอื่นๆ!';
 
   @override
-  String get xpRankings => 'XP Rankings';
+  String get xpRankings => 'อันดับ XP';
 
   @override
-  String get streaks => 'Streaks';
+  String get streaks => 'สตรีค';
 
   @override
-  String get friends => 'Friends';
+  String get friends => 'เพื่อน';
 
   @override
-  String get myRanks => 'My Ranks';
+  String get myRanks => 'อันดับของฉัน';
 
   @override
-  String get currentStreak => 'Current Streak';
+  String get currentStreak => 'สตรีคปัจจุบัน';
 
   @override
-  String get longestStreak => 'Longest Streak';
+  String get longestStreak => 'สตรีคที่ยาวนานที่สุด';
 
   @override
-  String get weekly => 'Weekly';
+  String get weekly => 'รายสัปดาห์';
 
   @override
-  String get monthly => 'Monthly';
+  String get monthly => 'รายเดือน';
 
   @override
-  String get yourRank => 'Your Rank';
+  String get yourRank => 'อันดับของคุณ';
 
   @override
   String outOf(int total) {
-    return 'out of $total';
+    return 'จาก $total';
   }
 
   @override
   String topPercent(String percent) {
-    return 'Top $percent%';
+    return 'ท็อป $percent%';
   }
 
   @override
-  String get xpRank => 'XP Rank';
+  String get xpRank => 'อันดับ XP';
 
   @override
-  String get streakRank => 'Streak Rank';
+  String get streakRank => 'อันดับสตรีค';
 
   @override
-  String get days => 'days';
+  String get days => 'วัน';
 
   @override
-  String get learningStats => 'Learning Stats';
+  String get learningStats => 'สถิติการเรียนรู้';
 
   @override
-  String get totalXp => 'Total XP';
+  String get totalXp => 'XP รวม';
 
   @override
-  String get lessonsCompleted => 'Lessons Completed';
+  String get lessonsCompleted => 'บทเรียนที่เรียนจบ';
 
   @override
-  String get rankings => 'Rankings';
+  String get rankings => 'อันดับ';
 
   @override
-  String get yourPosition => 'Your Position';
+  String get yourPosition => 'ตำแหน่งของคุณ';
 
   @override
-  String get keepLearning => 'Keep learning to climb!';
+  String get keepLearning => 'เรียนต่อไปเพื่อไต่อันดับ!';
 
   @override
-  String get noRankingsYet => 'No rankings yet';
+  String get noRankingsYet => 'ยังไม่มีอันดับ';
 
   @override
-  String get startLearningToAppear => 'Start learning to appear on the leaderboard!';
+  String get startLearningToAppear => 'เริ่มเรียนเพื่อปรากฏบนกระดานผู้นำ!';
 
   @override
-  String get noFriendsYet => 'No friends yet';
+  String get noFriendsYet => 'ยังไม่มีเพื่อน';
 
   @override
-  String get addFriendsToCompete => 'Add friends to compete with them!';
+  String get addFriendsToCompete => 'เพิ่มเพื่อนเพื่อแข่งขันกับพวกเขา!';
 
   @override
-  String get failedToLoadLeaderboard => 'Failed to load leaderboard';
+  String get failedToLoadLeaderboard => 'ไม่สามารถโหลดกระดานผู้นำได้';
 
   @override
   String get you => 'คุณ';
 
   @override
-  String get findPartners => 'Find Partners';
+  String get findPartners => 'ค้นหาคู่ฝึกภาษา';
 
   @override
-  String get discoverLanguagePartners => 'Discover language partners';
+  String get discoverLanguagePartners => 'ค้นพบคู่ฝึกภาษา';
 
   @override
-  String get byLanguage => 'By Language';
+  String get byLanguage => 'ตามภาษา';
 
   @override
-  String get match => 'match';
+  String get match => 'ตรงกัน';
 
   @override
-  String get matchScore => 'Match Score';
+  String get matchScore => 'คะแนนความเข้ากัน';
 
   @override
-  String get noMatchesFound => 'No matches found';
+  String get noMatchesFound => 'ไม่พบผลที่ตรงกัน';
 
   @override
-  String get noUsersOnline => 'No users online';
+  String get noUsersOnline => 'ไม่มีผู้ใช้ออนไลน์';
 
   @override
-  String get checkBackLater => 'Check back later';
+  String get checkBackLater => 'กลับมาตรวจสอบใหม่ภายหลัง';
 
   @override
-  String get selectLanguagePrompt => 'Select a language';
+  String get selectLanguagePrompt => 'เลือกภาษา';
 
   @override
-  String get findPartnersByLanguage => 'Find partners who speak or learn this language';
+  String get findPartnersByLanguage => 'ค้นหาคู่ฝึกที่พูดหรือเรียนภาษานี้';
 
   @override
   String noPartnersForLanguage(String language) {
-    return 'No partners for $language';
+    return 'ไม่มีคู่ฝึกสำหรับ $language';
   }
 
   @override
-  String get tryAnotherLanguage => 'Try selecting another language';
+  String get tryAnotherLanguage => 'ลองเลือกภาษาอื่น';
 
   @override
-  String get failedToLoadMatches => 'Failed to load matches';
+  String get failedToLoadMatches => 'ไม่สามารถโหลดผลที่ตรงกันได้';
 
   @override
   String get dataAndStorage => 'ข้อมูลและพื้นที่จัดเก็บ';
@@ -4453,63 +4453,63 @@ class AppLocalizationsTh extends AppLocalizations {
   String get dragToDelete => 'ลากมาที่นี่เพื่อลบ';
 
   @override
-  String get noBlockedUsers => 'No blocked users';
+  String get noBlockedUsers => 'ไม่มีผู้ใช้ที่ถูกบล็อก';
 
   @override
-  String get usersYouBlockWillAppearHere => 'Users you block will appear here';
+  String get usersYouBlockWillAppearHere => 'ผู้ใช้ที่คุณบล็อกจะปรากฏที่นี่';
 
   @override
   String unblockConfirm(String name) {
-    return 'Are you sure you want to unblock $name?';
+    return 'คุณแน่ใจหรือไม่ว่าต้องการเลิกบล็อก $name?';
   }
 
   @override
   String reasonLabel(String reason) {
-    return 'Reason: $reason';
+    return 'เหตุผล: $reason';
   }
 
   @override
   String blockedAgo(String time) {
-    return 'Blocked $time';
+    return 'บล็อกเมื่อ $time';
   }
 
   @override
   String errorLoadingBlockedUsers(String error) {
-    return 'Error loading blocked users: $error';
+    return 'เกิดข้อผิดพลาดในการโหลดผู้ใช้ที่ถูกบล็อก: $error';
   }
 
   @override
-  String get logoutConfirmMessage => 'Are you sure you want to logout from Bananatalk?';
+  String get logoutConfirmMessage => 'คุณแน่ใจหรือไม่ว่าต้องการออกจากระบบ Bananatalk?';
 
   @override
-  String get loggingOut => 'Logging out...';
+  String get loggingOut => 'กำลังออกจากระบบ...';
 
   @override
-  String get quietHours => 'Quiet Hours';
+  String get quietHours => 'ช่วงเวลาเงียบ';
 
   @override
-  String get quietHoursEnable => 'Enable Quiet Hours';
+  String get quietHoursEnable => 'เปิดใช้งานช่วงเวลาเงียบ';
 
   @override
-  String get quietHoursSubtitle => 'Pause non-urgent notifications during a time window';
+  String get quietHoursSubtitle => 'หยุดการแจ้งเตือนที่ไม่เร่งด่วนในช่วงเวลาที่กำหนด';
 
   @override
-  String get quietHoursStart => 'Start time';
+  String get quietHoursStart => 'เวลาเริ่มต้น';
 
   @override
-  String get quietHoursEnd => 'End time';
+  String get quietHoursEnd => 'เวลาสิ้นสุด';
 
   @override
-  String get quietHoursAllowUrgent => 'Allow urgent notifications';
+  String get quietHoursAllowUrgent => 'อนุญาตการแจ้งเตือนเร่งด่วน';
 
   @override
-  String get quietHoursAllowUrgentSubtitle => 'Calls and messages from VIP partners can still come through';
+  String get quietHoursAllowUrgentSubtitle => 'การโทรและข้อความจากคู่ฝึก VIP ยังคงส่งถึงคุณได้';
 
   @override
-  String get silencedByQuietHours => 'Silenced by Quiet Hours';
+  String get silencedByQuietHours => 'ปิดเสียงโดยช่วงเวลาเงียบ';
 
   @override
-  String get silencedByCap => 'Silenced by daily limit';
+  String get silencedByCap => 'ปิดเสียงโดยขีดจำกัดรายวัน';
 
   @override
   String get momentUpdatedSuccessfully => 'อัปเดตโมเมนต์สำเร็จ';

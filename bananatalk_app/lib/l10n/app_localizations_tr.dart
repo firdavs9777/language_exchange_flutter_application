@@ -243,7 +243,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get beTheFirstToComment => 'İlk yorumu siz yapın.';
 
   @override
-  String get loadMoreComments => 'Load more comments';
+  String get loadMoreComments => 'Daha fazla yorum yükle';
 
   @override
   String get writeAComment => 'Bir yorum yazın...';
@@ -267,10 +267,10 @@ class AppLocalizationsTr extends AppLocalizations {
   String get momentDeleted => 'An silindi';
 
   @override
-  String get deleteComment => 'Delete Comment?';
+  String get deleteComment => 'Yorum silinsin mi?';
 
   @override
-  String get commentDeleted => 'Comment deleted';
+  String get commentDeleted => 'Yorum silindi';
 
   @override
   String get editFeatureComingSoon => 'Düzenleme özelliği yakında';
@@ -394,7 +394,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get aiTutorChipPhoto => 'Fotoğraf';
 
   @override
-  String get aiToolsMoreSection => 'More AI tools';
+  String get aiToolsMoreSection => 'Daha fazla yapay zeka aracı';
 
   @override
   String get aiConversationPartnerTile => 'AI Sohbeti';
@@ -1740,19 +1740,19 @@ class AppLocalizationsTr extends AppLocalizations {
   String get noMomentsYet => 'Henüz an yok';
 
   @override
-  String get noForYouMomentsTitle => 'No moments yet';
+  String get noForYouMomentsTitle => 'Henüz anı yok';
 
   @override
-  String get noForYouMomentsBody => 'Answer today\'s prompt to get the conversation started.';
+  String get noForYouMomentsBody => 'Sohbeti başlatmak için bugünün sorusunu yanıtla.';
 
   @override
-  String get noFollowingMomentsTitle => 'Nothing here yet';
+  String get noFollowingMomentsTitle => 'Burada henüz bir şey yok';
 
   @override
-  String get noFollowingMomentsBody => 'Follow people from Community to see their moments here.';
+  String get noFollowingMomentsBody => 'Anılarını burada görmek için Topluluk\'tan kişileri takip et.';
 
   @override
-  String get goToCommunity => 'Go to Community';
+  String get goToCommunity => 'Topluluğa Git';
 
   @override
   String get unableToLoadMoments => 'Anlar yüklenemedi';
@@ -1925,7 +1925,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get wallpaperSaved => 'Duvar kağıdı yerel olarak kaydedildi';
 
   @override
-  String get typeDeleteToConfirm => 'Type DELETE to confirm';
+  String get typeDeleteToConfirm => 'Onaylamak için SİL yazın';
 
   @override
   String get storyArchive => 'Hikaye Arşivi';
@@ -2406,10 +2406,10 @@ class AppLocalizationsTr extends AppLocalizations {
   String get checkOutMoment => 'Bananatalk\'ta bu anıya göz at!';
 
   @override
-  String get checkOutProfile => 'Check out this profile on Bananatalk!';
+  String get checkOutProfile => 'Bananatalk\'ta bu profile göz at!';
 
   @override
-  String get checkOutCommunity => 'Check out this member on Bananatalk!';
+  String get checkOutCommunity => 'Bananatalk\'ta bu üyeye göz at!';
 
   @override
   String get failedToLoadMoments => 'Anılar yüklenemedi';
@@ -3374,133 +3374,133 @@ class AppLocalizationsTr extends AppLocalizations {
   String get allCategories => 'Tüm kategoriler';
 
   @override
-  String get leaderboard => 'Leaderboard';
+  String get leaderboard => 'Liderlik Tablosu';
 
   @override
-  String get competeWithLearners => 'Compete with other learners!';
+  String get competeWithLearners => 'Diğer öğrenenlerle yarış!';
 
   @override
-  String get xpRankings => 'XP Rankings';
+  String get xpRankings => 'XP Sıralaması';
 
   @override
-  String get streaks => 'Streaks';
+  String get streaks => 'Seri';
 
   @override
-  String get friends => 'Friends';
+  String get friends => 'Arkadaşlar';
 
   @override
-  String get myRanks => 'My Ranks';
+  String get myRanks => 'Sıralamalarım';
 
   @override
-  String get currentStreak => 'Current Streak';
+  String get currentStreak => 'Mevcut Seri';
 
   @override
-  String get longestStreak => 'Longest Streak';
+  String get longestStreak => 'En Uzun Seri';
 
   @override
-  String get weekly => 'Weekly';
+  String get weekly => 'Haftalık';
 
   @override
-  String get monthly => 'Monthly';
+  String get monthly => 'Aylık';
 
   @override
-  String get yourRank => 'Your Rank';
+  String get yourRank => 'Sıralaman';
 
   @override
   String outOf(int total) {
-    return 'out of $total';
+    return '$total üzerinden';
   }
 
   @override
   String topPercent(String percent) {
-    return 'Top $percent%';
+    return 'İlk %$percent';
   }
 
   @override
-  String get xpRank => 'XP Rank';
+  String get xpRank => 'XP Sırası';
 
   @override
-  String get streakRank => 'Streak Rank';
+  String get streakRank => 'Seri Sırası';
 
   @override
-  String get days => 'days';
+  String get days => 'gün';
 
   @override
-  String get learningStats => 'Learning Stats';
+  String get learningStats => 'Öğrenme İstatistikleri';
 
   @override
-  String get totalXp => 'Total XP';
+  String get totalXp => 'Toplam XP';
 
   @override
-  String get lessonsCompleted => 'Lessons Completed';
+  String get lessonsCompleted => 'Tamamlanan Dersler';
 
   @override
-  String get rankings => 'Rankings';
+  String get rankings => 'Sıralamalar';
 
   @override
-  String get yourPosition => 'Your Position';
+  String get yourPosition => 'Konumun';
 
   @override
-  String get keepLearning => 'Keep learning to climb!';
+  String get keepLearning => 'Yükselmek için öğrenmeye devam et!';
 
   @override
-  String get noRankingsYet => 'No rankings yet';
+  String get noRankingsYet => 'Henüz sıralama yok';
 
   @override
-  String get startLearningToAppear => 'Start learning to appear on the leaderboard!';
+  String get startLearningToAppear => 'Liderlik tablosunda görünmek için öğrenmeye başla!';
 
   @override
-  String get noFriendsYet => 'No friends yet';
+  String get noFriendsYet => 'Henüz arkadaşın yok';
 
   @override
-  String get addFriendsToCompete => 'Add friends to compete with them!';
+  String get addFriendsToCompete => 'Onlarla yarışmak için arkadaş ekle!';
 
   @override
-  String get failedToLoadLeaderboard => 'Failed to load leaderboard';
+  String get failedToLoadLeaderboard => 'Liderlik tablosu yüklenemedi';
 
   @override
   String get you => 'Sen';
 
   @override
-  String get findPartners => 'Find Partners';
+  String get findPartners => 'Partner Bul';
 
   @override
-  String get discoverLanguagePartners => 'Discover language partners';
+  String get discoverLanguagePartners => 'Dil partnerlerini keşfet';
 
   @override
-  String get byLanguage => 'By Language';
+  String get byLanguage => 'Dile Göre';
 
   @override
-  String get match => 'match';
+  String get match => 'eşleşme';
 
   @override
-  String get matchScore => 'Match Score';
+  String get matchScore => 'Eşleşme Puanı';
 
   @override
-  String get noMatchesFound => 'No matches found';
+  String get noMatchesFound => 'Eşleşme bulunamadı';
 
   @override
-  String get noUsersOnline => 'No users online';
+  String get noUsersOnline => 'Çevrimiçi kullanıcı yok';
 
   @override
-  String get checkBackLater => 'Check back later';
+  String get checkBackLater => 'Daha sonra tekrar kontrol et';
 
   @override
-  String get selectLanguagePrompt => 'Select a language';
+  String get selectLanguagePrompt => 'Bir dil seç';
 
   @override
-  String get findPartnersByLanguage => 'Find partners who speak or learn this language';
+  String get findPartnersByLanguage => 'Bu dili konuşan veya öğrenen partnerleri bul';
 
   @override
   String noPartnersForLanguage(String language) {
-    return 'No partners for $language';
+    return '$language için partner yok';
   }
 
   @override
-  String get tryAnotherLanguage => 'Try selecting another language';
+  String get tryAnotherLanguage => 'Başka bir dil seçmeyi dene';
 
   @override
-  String get failedToLoadMatches => 'Failed to load matches';
+  String get failedToLoadMatches => 'Eşleşmeler yüklenemedi';
 
   @override
   String get dataAndStorage => 'Veri ve Depolama';
@@ -3818,31 +3818,31 @@ class AppLocalizationsTr extends AppLocalizations {
   String get removeImageConfirm => 'Bu fotoğrafı kaldırmak istediğinizden emin misiniz?';
 
   @override
-  String get removeAll => 'Remove All';
+  String get removeAll => 'Tümünü Kaldır';
 
   @override
-  String get removeAllSelectedImages => 'Remove All Selected Images';
+  String get removeAllSelectedImages => 'Seçilen Tüm Görselleri Kaldır';
 
   @override
-  String get removeAllSelectedImagesConfirm => 'Are you sure you want to remove all selected images?';
+  String get removeAllSelectedImagesConfirm => 'Seçilen tüm görselleri kaldırmak istediğine emin misin?';
 
   @override
-  String get yourProfilePictureWillBeKept => 'Your existing profile picture will be kept';
+  String get yourProfilePictureWillBeKept => 'Mevcut profil fotoğrafın korunacak';
 
   @override
-  String get removeAllImages => 'Remove All Images';
+  String get removeAllImages => 'Tüm Görselleri Kaldır';
 
   @override
-  String get removeAllImagesConfirm => 'Are you sure you want to remove all profile pictures?';
+  String get removeAllImagesConfirm => 'Tüm profil fotoğraflarını kaldırmak istediğine emin misin?';
 
   @override
-  String get currentImages => 'Current Images';
+  String get currentImages => 'Mevcut Görseller';
 
   @override
-  String get newImages => 'New Images';
+  String get newImages => 'Yeni Görseller';
 
   @override
-  String get addMoreImages => 'Add More Images';
+  String get addMoreImages => 'Daha Fazla Görsel Ekle';
 
   @override
   String uploadImages(int count) {
@@ -3856,75 +3856,75 @@ class AppLocalizationsTr extends AppLocalizations {
   String get imagesUploadedSuccessfully => 'Fotoğraflar yüklendi';
 
   @override
-  String get selectedImagesCleared => 'Selected images cleared';
+  String get selectedImagesCleared => 'Seçilen görseller temizlendi';
 
   @override
-  String get extraImagesRemovedSuccessfully => 'Extra images removed successfully';
+  String get extraImagesRemovedSuccessfully => 'Fazla görseller başarıyla kaldırıldı';
 
   @override
-  String get mustKeepAtLeastOneProfilePicture => 'You must keep at least one profile picture';
+  String get mustKeepAtLeastOneProfilePicture => 'En az bir profil fotoğrafı bulundurmalısın';
 
   @override
-  String get noProfilePicturesToRemove => 'No profile pictures to remove';
+  String get noProfilePicturesToRemove => 'Kaldırılacak profil fotoğrafı yok';
 
   @override
-  String get authenticationTokenNotFound => 'Authentication token not found';
+  String get authenticationTokenNotFound => 'Kimlik doğrulama belirteci bulunamadı';
 
   @override
-  String get saveChangesQuestion => 'Save Changes?';
+  String get saveChangesQuestion => 'Değişiklikler Kaydedilsin mi?';
 
   @override
   String youHaveUnuploadedImages(int count) {
-    return 'You have $count image(s) selected but not uploaded. Do you want to upload them now?';
+    return 'Seçtiğin $count görsel yüklenmedi. Şimdi yüklemek ister misin?';
   }
 
   @override
-  String get discard => 'Discard';
+  String get discard => 'Vazgeç';
 
   @override
-  String get upload => 'Upload';
+  String get upload => 'Yükle';
 
   @override
   String maxImagesInfo(int max, int current) {
-    return 'You can upload up to $max images. Currently: $current/$max\nMax 5 images per upload.';
+    return 'En fazla $max görsel yükleyebilirsin. Şu an: $current/$max\nYükleme başına en fazla 5 görsel.';
   }
 
   @override
   String canOnlyAddMoreImages(int count, int max) {
-    return 'You can only add $count more image(s). Maximum is $max images total.';
+    return 'Yalnızca $count görsel daha ekleyebilirsin. Toplamda en fazla $max görsel olabilir.';
   }
 
   @override
-  String get maxImagesPerUpload => 'You can upload maximum 5 images at once. Only first 5 will be added.';
+  String get maxImagesPerUpload => 'Tek seferde en fazla 5 görsel yükleyebilirsin. Yalnızca ilk 5 tanesi eklenecek.';
 
   @override
   String canOnlyHaveMaxImages(int max) {
-    return 'You can only have up to $max images';
+    return 'En fazla $max görsele sahip olabilirsin';
   }
 
   @override
-  String get imageSizeExceedsLimit => 'Image size exceeds 10MB limit';
+  String get imageSizeExceedsLimit => 'Görsel boyutu 10MB sınırını aşıyor';
 
   @override
-  String get unsupportedImageFormat => 'Unsupported image format';
+  String get unsupportedImageFormat => 'Desteklenmeyen görsel biçimi';
 
   @override
-  String get pleaseSelectAtLeastOneImage => 'Please select at least one image to upload';
+  String get pleaseSelectAtLeastOneImage => 'Yüklemek için en az bir görsel seç';
 
   @override
-  String get basicInformation => 'Basic Information';
+  String get basicInformation => 'Temel Bilgiler';
 
   @override
-  String get languageToLearn => 'Language to Learn';
+  String get languageToLearn => 'Öğrenilecek Dil';
 
   @override
-  String get hometown => 'Hometown';
+  String get hometown => 'Memleket';
 
   @override
   String get characters => 'karakter';
 
   @override
-  String get failedToLoadLanguages => 'Failed to load languages';
+  String get failedToLoadLanguages => 'Diller yüklenemedi';
 
   @override
   String get studyHub => 'Çalışma Merkezi';
@@ -4453,63 +4453,63 @@ class AppLocalizationsTr extends AppLocalizations {
   String get dragToDelete => 'Silmek için buraya sürükle';
 
   @override
-  String get noBlockedUsers => 'No blocked users';
+  String get noBlockedUsers => 'Engellenen kullanıcı yok';
 
   @override
-  String get usersYouBlockWillAppearHere => 'Users you block will appear here';
+  String get usersYouBlockWillAppearHere => 'Engellediğin kullanıcılar burada görünecek';
 
   @override
   String unblockConfirm(String name) {
-    return 'Are you sure you want to unblock $name?';
+    return '$name kişisinin engelini kaldırmak istediğine emin misin?';
   }
 
   @override
   String reasonLabel(String reason) {
-    return 'Reason: $reason';
+    return 'Sebep: $reason';
   }
 
   @override
   String blockedAgo(String time) {
-    return 'Blocked $time';
+    return '$time önce engellendi';
   }
 
   @override
   String errorLoadingBlockedUsers(String error) {
-    return 'Error loading blocked users: $error';
+    return 'Engellenen kullanıcılar yüklenirken hata oluştu: $error';
   }
 
   @override
-  String get logoutConfirmMessage => 'Are you sure you want to logout from Bananatalk?';
+  String get logoutConfirmMessage => 'Bananatalk\'tan çıkış yapmak istediğine emin misin?';
 
   @override
-  String get loggingOut => 'Logging out...';
+  String get loggingOut => 'Çıkış yapılıyor...';
 
   @override
-  String get quietHours => 'Quiet Hours';
+  String get quietHours => 'Sessiz Saatler';
 
   @override
-  String get quietHoursEnable => 'Enable Quiet Hours';
+  String get quietHoursEnable => 'Sessiz Saatleri Etkinleştir';
 
   @override
-  String get quietHoursSubtitle => 'Pause non-urgent notifications during a time window';
+  String get quietHoursSubtitle => 'Belirli bir zaman aralığında acil olmayan bildirimleri duraklat';
 
   @override
-  String get quietHoursStart => 'Start time';
+  String get quietHoursStart => 'Başlangıç saati';
 
   @override
-  String get quietHoursEnd => 'End time';
+  String get quietHoursEnd => 'Bitiş saati';
 
   @override
-  String get quietHoursAllowUrgent => 'Allow urgent notifications';
+  String get quietHoursAllowUrgent => 'Acil bildirimlere izin ver';
 
   @override
-  String get quietHoursAllowUrgentSubtitle => 'Calls and messages from VIP partners can still come through';
+  String get quietHoursAllowUrgentSubtitle => 'VIP partnerlerinden gelen aramalar ve mesajlar yine de ulaşabilir';
 
   @override
-  String get silencedByQuietHours => 'Silenced by Quiet Hours';
+  String get silencedByQuietHours => 'Sessiz Saatler nedeniyle sessize alındı';
 
   @override
-  String get silencedByCap => 'Silenced by daily limit';
+  String get silencedByCap => 'Günlük limit nedeniyle sessize alındı';
 
   @override
   String get momentUpdatedSuccessfully => 'An başarıyla güncellendi';

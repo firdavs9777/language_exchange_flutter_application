@@ -243,7 +243,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get beTheFirstToComment => '最初にコメントしてください。';
 
   @override
-  String get loadMoreComments => 'Load more comments';
+  String get loadMoreComments => 'コメントをもっと見る';
 
   @override
   String get writeAComment => 'コメントを書く...';
@@ -267,10 +267,10 @@ class AppLocalizationsJa extends AppLocalizations {
   String get momentDeleted => 'モーメントが削除されました';
 
   @override
-  String get deleteComment => 'Delete Comment?';
+  String get deleteComment => 'コメントを削除しますか？';
 
   @override
-  String get commentDeleted => 'Comment deleted';
+  String get commentDeleted => 'コメントを削除しました';
 
   @override
   String get editFeatureComingSoon => '編集機能は近日公開';
@@ -394,7 +394,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get aiTutorChipPhoto => '写真';
 
   @override
-  String get aiToolsMoreSection => 'More AI tools';
+  String get aiToolsMoreSection => 'その他のAIツール';
 
   @override
   String get aiConversationPartnerTile => 'AI会話';
@@ -767,7 +767,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get aboutMe => '自己紹介';
 
   @override
-  String get bloodType => 'Blood Type';
+  String get bloodType => '血液型';
 
   @override
   String get photos => '写真';
@@ -1740,19 +1740,19 @@ class AppLocalizationsJa extends AppLocalizations {
   String get noMomentsYet => 'モーメントがありません';
 
   @override
-  String get noForYouMomentsTitle => 'No moments yet';
+  String get noForYouMomentsTitle => 'まだモーメントがありません';
 
   @override
-  String get noForYouMomentsBody => 'Answer today\'s prompt to get the conversation started.';
+  String get noForYouMomentsBody => '今日のお題に答えて会話を始めましょう。';
 
   @override
-  String get noFollowingMomentsTitle => 'Nothing here yet';
+  String get noFollowingMomentsTitle => 'まだここには何もありません';
 
   @override
-  String get noFollowingMomentsBody => 'Follow people from Community to see their moments here.';
+  String get noFollowingMomentsBody => 'コミュニティでユーザーをフォローすると、ここにモーメントが表示されます。';
 
   @override
-  String get goToCommunity => 'Go to Community';
+  String get goToCommunity => 'コミュニティへ移動';
 
   @override
   String get unableToLoadMoments => 'モーメントを読み込めません';
@@ -2266,42 +2266,42 @@ class AppLocalizationsJa extends AppLocalizations {
   String get receiveEmailNotifications => 'Bananatalkからのメール通知を受け取る';
 
   @override
-  String get whenAwayFor24Hours => 'When you\'re away for 24+ hours';
+  String get whenAwayFor24Hours => '24時間以上離れているとき';
 
   @override
-  String get passwordAndLoginAlerts => 'Password & login alerts';
+  String get passwordAndLoginAlerts => 'パスワードとログインアラート';
 
   @override
-  String get failedToLoadPreferences => 'Failed to load preferences';
+  String get failedToLoadPreferences => '設定の読み込みに失敗しました';
 
   @override
-  String get failedToUpdateSetting => 'Failed to update setting';
+  String get failedToUpdateSetting => '設定の更新に失敗しました';
 
   @override
-  String get securityAlertsRecommended => 'We recommend keeping Security Alerts enabled to stay informed about important account activity.';
+  String get securityAlertsRecommended => '重要なアカウント活動を把握するため、セキュリティアラートを有効にしておくことをお勧めします。';
 
   @override
   String chatWallpaperFor(String name) {
-    return 'Chat wallpaper for $name';
+    return '$nameのチャット壁紙';
   }
 
   @override
-  String get solidColors => 'Solid Colors';
+  String get solidColors => '単色';
 
   @override
-  String get gradients => 'Gradients';
+  String get gradients => 'グラデーション';
 
   @override
-  String get customImage => 'Custom Image';
+  String get customImage => 'カスタム画像';
 
   @override
-  String get chooseFromGallery => 'Choose from Gallery';
+  String get chooseFromGallery => 'ギャラリーから選択';
 
   @override
-  String get preview => 'Preview';
+  String get preview => 'プレビュー';
 
   @override
-  String get wallpaperUpdated => 'Wallpaper updated';
+  String get wallpaperUpdated => '壁紙を更新しました';
 
   @override
   String get category => 'カテゴリー';
@@ -2310,66 +2310,66 @@ class AppLocalizationsJa extends AppLocalizations {
   String get mood => '気分';
 
   @override
-  String get sortBy => 'Sort By';
+  String get sortBy => '並べ替え';
 
   @override
-  String get timePeriod => 'Time Period';
+  String get timePeriod => '期間';
 
   @override
-  String get searchLanguages => 'Search languages...';
+  String get searchLanguages => '言語を検索...';
 
   @override
-  String get selected => 'Selected';
+  String get selected => '選択済み';
 
   @override
-  String get categories => 'Categories';
+  String get categories => 'カテゴリー';
 
   @override
-  String get moods => 'Moods';
+  String get moods => '気分';
 
   @override
   String get applyFilters => 'フィルターを適用';
 
   @override
   String applyNFilters(int count) {
-    return 'Apply $count Filters';
+    return '$count件のフィルターを適用';
   }
 
   @override
   String get videoMustBeUnder1GB => '動画は1GB以下にしてください。';
 
   @override
-  String get failedToRecordVideo => 'Failed to record video';
+  String get failedToRecordVideo => '動画の録画に失敗しました';
 
   @override
-  String get errorSendingVideo => 'Error sending video';
+  String get errorSendingVideo => '動画の送信中にエラーが発生しました';
 
   @override
-  String get errorSendingVoiceMessage => 'Error sending voice message';
+  String get errorSendingVoiceMessage => 'ボイスメッセージの送信中にエラーが発生しました';
 
   @override
-  String get errorSendingMedia => 'Error sending media';
+  String get errorSendingMedia => 'メディアの送信中にエラーが発生しました';
 
   @override
-  String get cameraPermissionRequired => 'Camera and microphone permissions are required to record videos.';
+  String get cameraPermissionRequired => '動画を録画するにはカメラとマイクの許可が必要です。';
 
   @override
-  String get locationPermissionRequired => 'Location permission is required to share your location.';
+  String get locationPermissionRequired => '位置情報を共有するには位置情報の許可が必要です。';
 
   @override
-  String get noInternetConnection => 'No internet connection';
+  String get noInternetConnection => 'インターネット接続がありません';
 
   @override
-  String get tryAgainLater => 'Try again later';
+  String get tryAgainLater => '後でもう一度お試しください';
 
   @override
-  String get messageSent => 'Message sent';
+  String get messageSent => 'メッセージを送信しました';
 
   @override
-  String get messageDeleted => 'Message deleted';
+  String get messageDeleted => 'メッセージを削除しました';
 
   @override
-  String get messageEdited => 'Message edited';
+  String get messageEdited => 'メッセージを編集しました';
 
   @override
   String get edited => '(編集済み)';
@@ -2406,10 +2406,10 @@ class AppLocalizationsJa extends AppLocalizations {
   String get checkOutMoment => 'Bananatalkでこのモーメントをチェック!';
 
   @override
-  String get checkOutProfile => 'Check out this profile on Bananatalk!';
+  String get checkOutProfile => 'Bananatalkでこのプロフィールをチェック！';
 
   @override
-  String get checkOutCommunity => 'Check out this member on Bananatalk!';
+  String get checkOutCommunity => 'Bananatalkでこのメンバーをチェック！';
 
   @override
   String get failedToLoadMoments => 'モーメントの読み込みに失敗しました';
@@ -3374,133 +3374,133 @@ class AppLocalizationsJa extends AppLocalizations {
   String get allCategories => 'すべてのカテゴリ';
 
   @override
-  String get leaderboard => 'Leaderboard';
+  String get leaderboard => 'リーダーボード';
 
   @override
-  String get competeWithLearners => 'Compete with other learners!';
+  String get competeWithLearners => '他の学習者と競い合おう！';
 
   @override
-  String get xpRankings => 'XP Rankings';
+  String get xpRankings => 'XPランキング';
 
   @override
-  String get streaks => 'Streaks';
+  String get streaks => '連続記録';
 
   @override
-  String get friends => 'Friends';
+  String get friends => 'フレンド';
 
   @override
-  String get myRanks => 'My Ranks';
+  String get myRanks => '自分のランク';
 
   @override
-  String get currentStreak => 'Current Streak';
+  String get currentStreak => '現在の連続記録';
 
   @override
-  String get longestStreak => 'Longest Streak';
+  String get longestStreak => '最長連続記録';
 
   @override
-  String get weekly => 'Weekly';
+  String get weekly => '週間';
 
   @override
-  String get monthly => 'Monthly';
+  String get monthly => '月間';
 
   @override
-  String get yourRank => 'Your Rank';
+  String get yourRank => 'あなたのランク';
 
   @override
   String outOf(int total) {
-    return 'out of $total';
+    return '$total人中';
   }
 
   @override
   String topPercent(String percent) {
-    return 'Top $percent%';
+    return '上位$percent%';
   }
 
   @override
-  String get xpRank => 'XP Rank';
+  String get xpRank => 'XPランク';
 
   @override
-  String get streakRank => 'Streak Rank';
+  String get streakRank => '連続記録ランク';
 
   @override
-  String get days => 'days';
+  String get days => '日';
 
   @override
-  String get learningStats => 'Learning Stats';
+  String get learningStats => '学習統計';
 
   @override
-  String get totalXp => 'Total XP';
+  String get totalXp => '合計XP';
 
   @override
-  String get lessonsCompleted => 'Lessons Completed';
+  String get lessonsCompleted => '完了したレッスン';
 
   @override
-  String get rankings => 'Rankings';
+  String get rankings => 'ランキング';
 
   @override
-  String get yourPosition => 'Your Position';
+  String get yourPosition => 'あなたの順位';
 
   @override
-  String get keepLearning => 'Keep learning to climb!';
+  String get keepLearning => '順位を上げるために学習を続けましょう！';
 
   @override
-  String get noRankingsYet => 'No rankings yet';
+  String get noRankingsYet => 'まだランキングがありません';
 
   @override
-  String get startLearningToAppear => 'Start learning to appear on the leaderboard!';
+  String get startLearningToAppear => 'リーダーボードに表示されるには学習を始めましょう！';
 
   @override
-  String get noFriendsYet => 'No friends yet';
+  String get noFriendsYet => 'まだフレンドがいません';
 
   @override
-  String get addFriendsToCompete => 'Add friends to compete with them!';
+  String get addFriendsToCompete => 'フレンドを追加して競い合いましょう！';
 
   @override
-  String get failedToLoadLeaderboard => 'Failed to load leaderboard';
+  String get failedToLoadLeaderboard => 'リーダーボードの読み込みに失敗しました';
 
   @override
   String get you => 'あなた';
 
   @override
-  String get findPartners => 'Find Partners';
+  String get findPartners => 'パートナーを探す';
 
   @override
-  String get discoverLanguagePartners => 'Discover language partners';
+  String get discoverLanguagePartners => '言語パートナーを見つける';
 
   @override
-  String get byLanguage => 'By Language';
+  String get byLanguage => '言語別';
 
   @override
-  String get match => 'match';
+  String get match => 'マッチ';
 
   @override
-  String get matchScore => 'Match Score';
+  String get matchScore => 'マッチスコア';
 
   @override
-  String get noMatchesFound => 'No matches found';
+  String get noMatchesFound => 'マッチが見つかりません';
 
   @override
-  String get noUsersOnline => 'No users online';
+  String get noUsersOnline => 'オンラインのユーザーがいません';
 
   @override
-  String get checkBackLater => 'Check back later';
+  String get checkBackLater => '後でもう一度確認してください';
 
   @override
-  String get selectLanguagePrompt => 'Select a language';
+  String get selectLanguagePrompt => '言語を選択してください';
 
   @override
-  String get findPartnersByLanguage => 'Find partners who speak or learn this language';
+  String get findPartnersByLanguage => 'この言語を話す、または学んでいるパートナーを探す';
 
   @override
   String noPartnersForLanguage(String language) {
-    return 'No partners for $language';
+    return '$languageのパートナーがいません';
   }
 
   @override
-  String get tryAnotherLanguage => 'Try selecting another language';
+  String get tryAnotherLanguage => '別の言語を選んでみてください';
 
   @override
-  String get failedToLoadMatches => 'Failed to load matches';
+  String get failedToLoadMatches => 'マッチの読み込みに失敗しました';
 
   @override
   String get dataAndStorage => 'データとストレージ';
@@ -4453,63 +4453,63 @@ class AppLocalizationsJa extends AppLocalizations {
   String get dragToDelete => 'ここにドラッグして削除';
 
   @override
-  String get noBlockedUsers => 'No blocked users';
+  String get noBlockedUsers => 'ブロックしたユーザーはいません';
 
   @override
-  String get usersYouBlockWillAppearHere => 'Users you block will appear here';
+  String get usersYouBlockWillAppearHere => 'ブロックしたユーザーはここに表示されます';
 
   @override
   String unblockConfirm(String name) {
-    return 'Are you sure you want to unblock $name?';
+    return '$nameのブロックを解除してもよろしいですか？';
   }
 
   @override
   String reasonLabel(String reason) {
-    return 'Reason: $reason';
+    return '理由：$reason';
   }
 
   @override
   String blockedAgo(String time) {
-    return 'Blocked $time';
+    return '$time前にブロック';
   }
 
   @override
   String errorLoadingBlockedUsers(String error) {
-    return 'Error loading blocked users: $error';
+    return 'ブロックしたユーザーの読み込みエラー：$error';
   }
 
   @override
-  String get logoutConfirmMessage => 'Are you sure you want to logout from Bananatalk?';
+  String get logoutConfirmMessage => 'Bananatalkからログアウトしてもよろしいですか？';
 
   @override
-  String get loggingOut => 'Logging out...';
+  String get loggingOut => 'ログアウト中...';
 
   @override
-  String get quietHours => 'Quiet Hours';
+  String get quietHours => 'サイレント時間';
 
   @override
-  String get quietHoursEnable => 'Enable Quiet Hours';
+  String get quietHoursEnable => 'サイレント時間を有効にする';
 
   @override
-  String get quietHoursSubtitle => 'Pause non-urgent notifications during a time window';
+  String get quietHoursSubtitle => '指定した時間帯は緊急でない通知を一時停止します';
 
   @override
-  String get quietHoursStart => 'Start time';
+  String get quietHoursStart => '開始時刻';
 
   @override
-  String get quietHoursEnd => 'End time';
+  String get quietHoursEnd => '終了時刻';
 
   @override
-  String get quietHoursAllowUrgent => 'Allow urgent notifications';
+  String get quietHoursAllowUrgent => '緊急通知を許可する';
 
   @override
-  String get quietHoursAllowUrgentSubtitle => 'Calls and messages from VIP partners can still come through';
+  String get quietHoursAllowUrgentSubtitle => 'VIPパートナーからの通話やメッセージは引き続き届きます';
 
   @override
-  String get silencedByQuietHours => 'Silenced by Quiet Hours';
+  String get silencedByQuietHours => 'サイレント時間によりミュートされました';
 
   @override
-  String get silencedByCap => 'Silenced by daily limit';
+  String get silencedByCap => '1日の上限によりミュートされました';
 
   @override
   String get momentUpdatedSuccessfully => 'モーメントが正常に更新されました';

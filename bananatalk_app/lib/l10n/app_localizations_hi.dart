@@ -243,7 +243,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get beTheFirstToComment => 'पहली टिप्पणी करें।';
 
   @override
-  String get loadMoreComments => 'Load more comments';
+  String get loadMoreComments => 'और टिप्पणियां लोड करें';
 
   @override
   String get writeAComment => 'टिप्पणी लिखें...';
@@ -267,10 +267,10 @@ class AppLocalizationsHi extends AppLocalizations {
   String get momentDeleted => 'पल हटाया गया';
 
   @override
-  String get deleteComment => 'Delete Comment?';
+  String get deleteComment => 'टिप्पणी हटाएं?';
 
   @override
-  String get commentDeleted => 'Comment deleted';
+  String get commentDeleted => 'टिप्पणी हटा दी गई';
 
   @override
   String get editFeatureComingSoon => 'संपादन सुविधा जल्द आ रही है';
@@ -394,7 +394,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get aiTutorChipPhoto => 'फ़ोटो';
 
   @override
-  String get aiToolsMoreSection => 'More AI tools';
+  String get aiToolsMoreSection => 'अधिक AI उपकरण';
 
   @override
   String get aiConversationPartnerTile => 'AI बातचीत';
@@ -767,7 +767,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get aboutMe => 'मेरे बारे में';
 
   @override
-  String get bloodType => 'Blood Type';
+  String get bloodType => 'रक्त समूह';
 
   @override
   String get photos => 'फ़ोटो';
@@ -1740,19 +1740,19 @@ class AppLocalizationsHi extends AppLocalizations {
   String get noMomentsYet => 'अभी कोई पल नहीं';
 
   @override
-  String get noForYouMomentsTitle => 'No moments yet';
+  String get noForYouMomentsTitle => 'अभी तक कोई पल नहीं';
 
   @override
-  String get noForYouMomentsBody => 'Answer today\'s prompt to get the conversation started.';
+  String get noForYouMomentsBody => 'बातचीत शुरू करने के लिए आज के प्रॉम्प्ट का जवाब दें।';
 
   @override
-  String get noFollowingMomentsTitle => 'Nothing here yet';
+  String get noFollowingMomentsTitle => 'यहाँ अभी कुछ नहीं है';
 
   @override
-  String get noFollowingMomentsBody => 'Follow people from Community to see their moments here.';
+  String get noFollowingMomentsBody => 'उनके पल यहां देखने के लिए समुदाय से लोगों को फॉलो करें।';
 
   @override
-  String get goToCommunity => 'Go to Community';
+  String get goToCommunity => 'समुदाय पर जाएं';
 
   @override
   String get unableToLoadMoments => 'पल लोड नहीं हो सके';
@@ -1761,25 +1761,25 @@ class AppLocalizationsHi extends AppLocalizations {
   String get map => 'मानचित्र';
 
   @override
-  String get mapUnavailable => 'Map unavailable';
+  String get mapUnavailable => 'मानचित्र उपलब्ध नहीं है';
 
   @override
-  String get location => 'Location';
+  String get location => 'स्थान';
 
   @override
-  String get unknownLocation => 'Unknown location';
+  String get unknownLocation => 'अज्ञात स्थान';
 
   @override
-  String get noImagesAvailable2 => 'No images available';
+  String get noImagesAvailable2 => 'कोई छवि उपलब्ध नहीं है';
 
   @override
-  String get permissionsRequired => 'Permissions Required';
+  String get permissionsRequired => 'अनुमतियां आवश्यक हैं';
 
   @override
   String get openSettings => 'सेटिंग्स खोलें';
 
   @override
-  String get refresh => 'Refresh';
+  String get refresh => 'रीफ़्रेश करें';
 
   @override
   String get videoCall => 'वीडियो';
@@ -1797,28 +1797,28 @@ class AppLocalizationsHi extends AppLocalizations {
   String get pleaseLoginToCall => 'कॉल करने के लिए कृपया लॉगिन करें';
 
   @override
-  String get cannotCallYourself => 'You cannot call yourself';
+  String get cannotCallYourself => 'आप स्वयं को कॉल नहीं कर सकते';
 
   @override
-  String get failedToFollowUser => 'Failed to follow user';
+  String get failedToFollowUser => 'उपयोगकर्ता को फॉलो करने में विफल';
 
   @override
-  String get failedToUnfollowUser => 'Failed to unfollow user';
+  String get failedToUnfollowUser => 'उपयोगकर्ता को अनफॉलो करने में विफल';
 
   @override
-  String get areYouSureUnfollow => 'Are you sure you want to unfollow this user?';
+  String get areYouSureUnfollow => 'क्या आप वाकई इस उपयोगकर्ता को अनफॉलो करना चाहते हैं?';
 
   @override
-  String get areYouSureUnblock => 'Are you sure you want to unblock this user?';
+  String get areYouSureUnblock => 'क्या आप वाकई इस उपयोगकर्ता को अनब्लॉक करना चाहते हैं?';
 
   @override
-  String get youFollowed => 'You followed';
+  String get youFollowed => 'आपने फॉलो किया';
 
   @override
-  String get youUnfollowed => 'You unfollowed';
+  String get youUnfollowed => 'आपने अनफॉलो किया';
 
   @override
-  String get alreadyFollowing => 'You are already following';
+  String get alreadyFollowing => 'आप पहले से फॉलो कर रहे हैं';
 
   @override
   String get soon => 'जल्द';
@@ -2263,45 +2263,45 @@ class AppLocalizationsHi extends AppLocalizations {
   String get emailPreferences => 'ईमेल प्राथमिकताएं';
 
   @override
-  String get receiveEmailNotifications => 'Receive email notifications from Bananatalk';
+  String get receiveEmailNotifications => 'Bananatalk से ईमेल सूचनाएं प्राप्त करें';
 
   @override
-  String get whenAwayFor24Hours => 'When you\'re away for 24+ hours';
+  String get whenAwayFor24Hours => 'जब आप 24+ घंटों के लिए दूर हों';
 
   @override
-  String get passwordAndLoginAlerts => 'Password & login alerts';
+  String get passwordAndLoginAlerts => 'पासवर्ड और लॉगिन अलर्ट';
 
   @override
-  String get failedToLoadPreferences => 'Failed to load preferences';
+  String get failedToLoadPreferences => 'प्राथमिकताएं लोड करने में विफल';
 
   @override
-  String get failedToUpdateSetting => 'Failed to update setting';
+  String get failedToUpdateSetting => 'सेटिंग अपडेट करने में विफल';
 
   @override
-  String get securityAlertsRecommended => 'We recommend keeping Security Alerts enabled to stay informed about important account activity.';
+  String get securityAlertsRecommended => 'महत्वपूर्ण खाता गतिविधि की जानकारी रखने के लिए हम सुरक्षा अलर्ट सक्षम रखने की सलाह देते हैं।';
 
   @override
   String chatWallpaperFor(String name) {
-    return 'Chat wallpaper for $name';
+    return '$name के लिए चैट वॉलपेपर';
   }
 
   @override
-  String get solidColors => 'Solid Colors';
+  String get solidColors => 'सॉलिड रंग';
 
   @override
-  String get gradients => 'Gradients';
+  String get gradients => 'ग्रेडिएंट्स';
 
   @override
-  String get customImage => 'Custom Image';
+  String get customImage => 'कस्टम इमेज';
 
   @override
-  String get chooseFromGallery => 'Choose from Gallery';
+  String get chooseFromGallery => 'गैलरी से चुनें';
 
   @override
-  String get preview => 'Preview';
+  String get preview => 'पूर्वावलोकन';
 
   @override
-  String get wallpaperUpdated => 'Wallpaper updated';
+  String get wallpaperUpdated => 'वॉलपेपर अपडेट किया गया';
 
   @override
   String get category => 'श्रेणी';
@@ -2310,66 +2310,66 @@ class AppLocalizationsHi extends AppLocalizations {
   String get mood => 'मूड';
 
   @override
-  String get sortBy => 'Sort By';
+  String get sortBy => 'इसके अनुसार क्रमबद्ध करें';
 
   @override
-  String get timePeriod => 'Time Period';
+  String get timePeriod => 'समय अवधि';
 
   @override
-  String get searchLanguages => 'Search languages...';
+  String get searchLanguages => 'भाषाएं खोजें...';
 
   @override
-  String get selected => 'Selected';
+  String get selected => 'चयनित';
 
   @override
-  String get categories => 'Categories';
+  String get categories => 'श्रेणियां';
 
   @override
-  String get moods => 'Moods';
+  String get moods => 'मूड्स';
 
   @override
   String get applyFilters => 'फ़िल्टर लागू करें';
 
   @override
   String applyNFilters(int count) {
-    return 'Apply $count Filters';
+    return '$count फ़िल्टर लागू करें';
   }
 
   @override
   String get videoMustBeUnder1GB => 'वीडियो 1GB से कम होना चाहिए।';
 
   @override
-  String get failedToRecordVideo => 'Failed to record video';
+  String get failedToRecordVideo => 'वीडियो रिकॉर्ड करने में विफल';
 
   @override
-  String get errorSendingVideo => 'Error sending video';
+  String get errorSendingVideo => 'वीडियो भेजने में त्रुटि';
 
   @override
-  String get errorSendingVoiceMessage => 'Error sending voice message';
+  String get errorSendingVoiceMessage => 'वॉइस मैसेज भेजने में त्रुटि';
 
   @override
-  String get errorSendingMedia => 'Error sending media';
+  String get errorSendingMedia => 'मीडिया भेजने में त्रुटि';
 
   @override
-  String get cameraPermissionRequired => 'Camera and microphone permissions are required to record videos.';
+  String get cameraPermissionRequired => 'वीडियो रिकॉर्ड करने के लिए कैमरा और माइक्रोफ़ोन अनुमतियां आवश्यक हैं।';
 
   @override
-  String get locationPermissionRequired => 'Location permission is required to share your location.';
+  String get locationPermissionRequired => 'अपना स्थान साझा करने के लिए स्थान अनुमति आवश्यक है।';
 
   @override
-  String get noInternetConnection => 'No internet connection';
+  String get noInternetConnection => 'इंटरनेट कनेक्शन नहीं है';
 
   @override
-  String get tryAgainLater => 'Try again later';
+  String get tryAgainLater => 'बाद में पुनः प्रयास करें';
 
   @override
-  String get messageSent => 'Message sent';
+  String get messageSent => 'संदेश भेजा गया';
 
   @override
-  String get messageDeleted => 'Message deleted';
+  String get messageDeleted => 'संदेश हटा दिया गया';
 
   @override
-  String get messageEdited => 'Message edited';
+  String get messageEdited => 'संदेश संपादित किया गया';
 
   @override
   String get edited => '(संपादित)';
@@ -2406,10 +2406,10 @@ class AppLocalizationsHi extends AppLocalizations {
   String get checkOutMoment => 'Bananatalk पर यह पल देखें!';
 
   @override
-  String get checkOutProfile => 'Check out this profile on Bananatalk!';
+  String get checkOutProfile => 'Bananatalk पर यह प्रोफ़ाइल देखें!';
 
   @override
-  String get checkOutCommunity => 'Check out this member on Bananatalk!';
+  String get checkOutCommunity => 'Bananatalk पर इस सदस्य को देखें!';
 
   @override
   String get failedToLoadMoments => 'पल लोड करने में विफल';
@@ -3374,133 +3374,133 @@ class AppLocalizationsHi extends AppLocalizations {
   String get allCategories => 'सभी श्रेणियाँ';
 
   @override
-  String get leaderboard => 'Leaderboard';
+  String get leaderboard => 'लीडरबोर्ड';
 
   @override
-  String get competeWithLearners => 'Compete with other learners!';
+  String get competeWithLearners => 'अन्य शिक्षार्थियों के साथ प्रतिस्पर्धा करें!';
 
   @override
-  String get xpRankings => 'XP Rankings';
+  String get xpRankings => 'XP रैंकिंग';
 
   @override
-  String get streaks => 'Streaks';
+  String get streaks => 'स्ट्रीक्स';
 
   @override
-  String get friends => 'Friends';
+  String get friends => 'दोस्त';
 
   @override
-  String get myRanks => 'My Ranks';
+  String get myRanks => 'मेरी रैंक';
 
   @override
-  String get currentStreak => 'Current Streak';
+  String get currentStreak => 'वर्तमान स्ट्रीक';
 
   @override
-  String get longestStreak => 'Longest Streak';
+  String get longestStreak => 'सबसे लंबी स्ट्रीक';
 
   @override
-  String get weekly => 'Weekly';
+  String get weekly => 'साप्ताहिक';
 
   @override
-  String get monthly => 'Monthly';
+  String get monthly => 'मासिक';
 
   @override
-  String get yourRank => 'Your Rank';
+  String get yourRank => 'आपकी रैंक';
 
   @override
   String outOf(int total) {
-    return 'out of $total';
+    return 'कुल $total में से';
   }
 
   @override
   String topPercent(String percent) {
-    return 'Top $percent%';
+    return 'शीर्ष $percent%';
   }
 
   @override
-  String get xpRank => 'XP Rank';
+  String get xpRank => 'XP रैंक';
 
   @override
-  String get streakRank => 'Streak Rank';
+  String get streakRank => 'स्ट्रीक रैंक';
 
   @override
-  String get days => 'days';
+  String get days => 'दिन';
 
   @override
-  String get learningStats => 'Learning Stats';
+  String get learningStats => 'लर्निंग आंकड़े';
 
   @override
-  String get totalXp => 'Total XP';
+  String get totalXp => 'कुल XP';
 
   @override
-  String get lessonsCompleted => 'Lessons Completed';
+  String get lessonsCompleted => 'पूर्ण किए गए पाठ';
 
   @override
-  String get rankings => 'Rankings';
+  String get rankings => 'रैंकिंग';
 
   @override
-  String get yourPosition => 'Your Position';
+  String get yourPosition => 'आपकी स्थिति';
 
   @override
-  String get keepLearning => 'Keep learning to climb!';
+  String get keepLearning => 'आगे बढ़ने के लिए सीखते रहें!';
 
   @override
-  String get noRankingsYet => 'No rankings yet';
+  String get noRankingsYet => 'अभी तक कोई रैंकिंग नहीं';
 
   @override
-  String get startLearningToAppear => 'Start learning to appear on the leaderboard!';
+  String get startLearningToAppear => 'लीडरबोर्ड पर दिखने के लिए सीखना शुरू करें!';
 
   @override
-  String get noFriendsYet => 'No friends yet';
+  String get noFriendsYet => 'अभी तक कोई दोस्त नहीं';
 
   @override
-  String get addFriendsToCompete => 'Add friends to compete with them!';
+  String get addFriendsToCompete => 'उनके साथ प्रतिस्पर्धा करने के लिए दोस्त जोड़ें!';
 
   @override
-  String get failedToLoadLeaderboard => 'Failed to load leaderboard';
+  String get failedToLoadLeaderboard => 'लीडरबोर्ड लोड करने में विफल';
 
   @override
   String get you => 'आप';
 
   @override
-  String get findPartners => 'Find Partners';
+  String get findPartners => 'पार्टनर खोजें';
 
   @override
-  String get discoverLanguagePartners => 'Discover language partners';
+  String get discoverLanguagePartners => 'भाषा पार्टनर खोजें';
 
   @override
-  String get byLanguage => 'By Language';
+  String get byLanguage => 'भाषा के अनुसार';
 
   @override
-  String get match => 'match';
+  String get match => 'मैच';
 
   @override
-  String get matchScore => 'Match Score';
+  String get matchScore => 'मैच स्कोर';
 
   @override
-  String get noMatchesFound => 'No matches found';
+  String get noMatchesFound => 'कोई मैच नहीं मिला';
 
   @override
-  String get noUsersOnline => 'No users online';
+  String get noUsersOnline => 'कोई उपयोगकर्ता ऑनलाइन नहीं है';
 
   @override
-  String get checkBackLater => 'Check back later';
+  String get checkBackLater => 'बाद में फिर से देखें';
 
   @override
-  String get selectLanguagePrompt => 'Select a language';
+  String get selectLanguagePrompt => 'एक भाषा चुनें';
 
   @override
-  String get findPartnersByLanguage => 'Find partners who speak or learn this language';
+  String get findPartnersByLanguage => 'इस भाषा को बोलने या सीखने वाले पार्टनर खोजें';
 
   @override
   String noPartnersForLanguage(String language) {
-    return 'No partners for $language';
+    return '$language के लिए कोई पार्टनर नहीं';
   }
 
   @override
-  String get tryAnotherLanguage => 'Try selecting another language';
+  String get tryAnotherLanguage => 'कोई अन्य भाषा चुनने का प्रयास करें';
 
   @override
-  String get failedToLoadMatches => 'Failed to load matches';
+  String get failedToLoadMatches => 'मैच लोड करने में विफल';
 
   @override
   String get dataAndStorage => 'डेटा और स्टोरेज';
@@ -4453,63 +4453,63 @@ class AppLocalizationsHi extends AppLocalizations {
   String get dragToDelete => 'हटाने के लिए यहां खींचें';
 
   @override
-  String get noBlockedUsers => 'No blocked users';
+  String get noBlockedUsers => 'कोई ब्लॉक किया गया उपयोगकर्ता नहीं';
 
   @override
-  String get usersYouBlockWillAppearHere => 'Users you block will appear here';
+  String get usersYouBlockWillAppearHere => 'जिन उपयोगकर्ताओं को आप ब्लॉक करते हैं वे यहां दिखाई देंगे';
 
   @override
   String unblockConfirm(String name) {
-    return 'Are you sure you want to unblock $name?';
+    return 'क्या आप वाकई $name को अनब्लॉक करना चाहते हैं?';
   }
 
   @override
   String reasonLabel(String reason) {
-    return 'Reason: $reason';
+    return 'कारण: $reason';
   }
 
   @override
   String blockedAgo(String time) {
-    return 'Blocked $time';
+    return '$time पहले ब्लॉक किया गया';
   }
 
   @override
   String errorLoadingBlockedUsers(String error) {
-    return 'Error loading blocked users: $error';
+    return 'ब्लॉक किए गए उपयोगकर्ताओं को लोड करने में त्रुटि: $error';
   }
 
   @override
-  String get logoutConfirmMessage => 'Are you sure you want to logout from Bananatalk?';
+  String get logoutConfirmMessage => 'क्या आप वाकई Bananatalk से लॉगआउट करना चाहते हैं?';
 
   @override
-  String get loggingOut => 'Logging out...';
+  String get loggingOut => 'लॉग आउट हो रहा है...';
 
   @override
-  String get quietHours => 'Quiet Hours';
+  String get quietHours => 'शांत घंटे';
 
   @override
-  String get quietHoursEnable => 'Enable Quiet Hours';
+  String get quietHoursEnable => 'शांत घंटे सक्षम करें';
 
   @override
-  String get quietHoursSubtitle => 'Pause non-urgent notifications during a time window';
+  String get quietHoursSubtitle => 'एक समय सीमा के दौरान गैर-जरूरी सूचनाओं को रोकें';
 
   @override
-  String get quietHoursStart => 'Start time';
+  String get quietHoursStart => 'प्रारंभ समय';
 
   @override
-  String get quietHoursEnd => 'End time';
+  String get quietHoursEnd => 'समाप्ति समय';
 
   @override
-  String get quietHoursAllowUrgent => 'Allow urgent notifications';
+  String get quietHoursAllowUrgent => 'जरूरी सूचनाओं की अनुमति दें';
 
   @override
-  String get quietHoursAllowUrgentSubtitle => 'Calls and messages from VIP partners can still come through';
+  String get quietHoursAllowUrgentSubtitle => 'VIP पार्टनर की कॉल और संदेश अभी भी आ सकते हैं';
 
   @override
-  String get silencedByQuietHours => 'Silenced by Quiet Hours';
+  String get silencedByQuietHours => 'शांत घंटों द्वारा साइलेंट किया गया';
 
   @override
-  String get silencedByCap => 'Silenced by daily limit';
+  String get silencedByCap => 'दैनिक सीमा द्वारा साइलेंट किया गया';
 
   @override
   String get momentUpdatedSuccessfully => 'मोमेंट सफलतापूर्वक अपडेट किया गया';

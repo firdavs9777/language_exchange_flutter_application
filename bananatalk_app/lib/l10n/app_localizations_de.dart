@@ -243,7 +243,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get beTheFirstToComment => 'Sei der Erste, der kommentiert.';
 
   @override
-  String get loadMoreComments => 'Load more comments';
+  String get loadMoreComments => 'Weitere Kommentare laden';
 
   @override
   String get writeAComment => 'Schreibe einen Kommentar...';
@@ -267,10 +267,10 @@ class AppLocalizationsDe extends AppLocalizations {
   String get momentDeleted => 'Moment gelöscht';
 
   @override
-  String get deleteComment => 'Delete Comment?';
+  String get deleteComment => 'Kommentar löschen?';
 
   @override
-  String get commentDeleted => 'Comment deleted';
+  String get commentDeleted => 'Kommentar gelöscht';
 
   @override
   String get editFeatureComingSoon => 'Bearbeitungsfunktion kommt bald';
@@ -394,7 +394,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get aiTutorChipPhoto => 'Foto';
 
   @override
-  String get aiToolsMoreSection => 'More AI tools';
+  String get aiToolsMoreSection => 'Weitere KI-Tools';
 
   @override
   String get aiConversationPartnerTile => 'KI-Gespräch';
@@ -1740,19 +1740,19 @@ class AppLocalizationsDe extends AppLocalizations {
   String get noMomentsYet => 'Noch keine Momente';
 
   @override
-  String get noForYouMomentsTitle => 'No moments yet';
+  String get noForYouMomentsTitle => 'Noch keine Momente';
 
   @override
-  String get noForYouMomentsBody => 'Answer today\'s prompt to get the conversation started.';
+  String get noForYouMomentsBody => 'Beantworte die heutige Frage, um die Unterhaltung zu starten.';
 
   @override
-  String get noFollowingMomentsTitle => 'Nothing here yet';
+  String get noFollowingMomentsTitle => 'Hier ist noch nichts';
 
   @override
-  String get noFollowingMomentsBody => 'Follow people from Community to see their moments here.';
+  String get noFollowingMomentsBody => 'Folge Personen in der Community, um ihre Momente hier zu sehen.';
 
   @override
-  String get goToCommunity => 'Go to Community';
+  String get goToCommunity => 'Zur Community';
 
   @override
   String get unableToLoadMoments => 'Momente können nicht geladen werden';
@@ -1925,7 +1925,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get wallpaperSaved => 'Hintergrundbild lokal gespeichert';
 
   @override
-  String get typeDeleteToConfirm => 'Type DELETE to confirm';
+  String get typeDeleteToConfirm => 'Gib DELETE ein, um zu bestätigen';
 
   @override
   String get storyArchive => 'Story-Archiv';
@@ -2406,10 +2406,10 @@ class AppLocalizationsDe extends AppLocalizations {
   String get checkOutMoment => 'Schau dir diesen Moment auf Bananatalk an!';
 
   @override
-  String get checkOutProfile => 'Check out this profile on Bananatalk!';
+  String get checkOutProfile => 'Schau dir dieses Profil auf Bananatalk an!';
 
   @override
-  String get checkOutCommunity => 'Check out this member on Bananatalk!';
+  String get checkOutCommunity => 'Schau dir dieses Mitglied auf Bananatalk an!';
 
   @override
   String get failedToLoadMoments => 'Momente konnten nicht geladen werden';
@@ -3374,41 +3374,41 @@ class AppLocalizationsDe extends AppLocalizations {
   String get allCategories => 'Alle Kategorien';
 
   @override
-  String get leaderboard => 'Leaderboard';
+  String get leaderboard => 'Bestenliste';
 
   @override
-  String get competeWithLearners => 'Compete with other learners!';
+  String get competeWithLearners => 'Tritt gegen andere Lernende an!';
 
   @override
-  String get xpRankings => 'XP Rankings';
+  String get xpRankings => 'XP-Rangliste';
 
   @override
-  String get streaks => 'Streaks';
+  String get streaks => 'Serien';
 
   @override
-  String get friends => 'Friends';
+  String get friends => 'Freunde';
 
   @override
-  String get myRanks => 'My Ranks';
+  String get myRanks => 'Meine Ränge';
 
   @override
-  String get currentStreak => 'Current Streak';
+  String get currentStreak => 'Aktuelle Serie';
 
   @override
-  String get longestStreak => 'Longest Streak';
+  String get longestStreak => 'Längste Serie';
 
   @override
-  String get weekly => 'Weekly';
+  String get weekly => 'Wöchentlich';
 
   @override
-  String get monthly => 'Monthly';
+  String get monthly => 'Monatlich';
 
   @override
-  String get yourRank => 'Your Rank';
+  String get yourRank => 'Dein Rang';
 
   @override
   String outOf(int total) {
-    return 'out of $total';
+    return 'von $total';
   }
 
   @override
@@ -3417,90 +3417,90 @@ class AppLocalizationsDe extends AppLocalizations {
   }
 
   @override
-  String get xpRank => 'XP Rank';
+  String get xpRank => 'XP-Rang';
 
   @override
-  String get streakRank => 'Streak Rank';
+  String get streakRank => 'Serien-Rang';
 
   @override
-  String get days => 'days';
+  String get days => 'Tage';
 
   @override
-  String get learningStats => 'Learning Stats';
+  String get learningStats => 'Lernstatistik';
 
   @override
-  String get totalXp => 'Total XP';
+  String get totalXp => 'Gesamt-XP';
 
   @override
-  String get lessonsCompleted => 'Lessons Completed';
+  String get lessonsCompleted => 'Abgeschlossene Lektionen';
 
   @override
-  String get rankings => 'Rankings';
+  String get rankings => 'Ranglisten';
 
   @override
-  String get yourPosition => 'Your Position';
+  String get yourPosition => 'Deine Position';
 
   @override
-  String get keepLearning => 'Keep learning to climb!';
+  String get keepLearning => 'Lern weiter, um aufzusteigen!';
 
   @override
-  String get noRankingsYet => 'No rankings yet';
+  String get noRankingsYet => 'Noch keine Ranglisten';
 
   @override
-  String get startLearningToAppear => 'Start learning to appear on the leaderboard!';
+  String get startLearningToAppear => 'Beginne zu lernen, um in der Bestenliste zu erscheinen!';
 
   @override
-  String get noFriendsYet => 'No friends yet';
+  String get noFriendsYet => 'Noch keine Freunde';
 
   @override
-  String get addFriendsToCompete => 'Add friends to compete with them!';
+  String get addFriendsToCompete => 'Füge Freunde hinzu, um mit ihnen zu konkurrieren!';
 
   @override
-  String get failedToLoadLeaderboard => 'Failed to load leaderboard';
+  String get failedToLoadLeaderboard => 'Bestenliste konnte nicht geladen werden';
 
   @override
   String get you => 'Du';
 
   @override
-  String get findPartners => 'Find Partners';
+  String get findPartners => 'Partner finden';
 
   @override
-  String get discoverLanguagePartners => 'Discover language partners';
+  String get discoverLanguagePartners => 'Sprachpartner entdecken';
 
   @override
-  String get byLanguage => 'By Language';
+  String get byLanguage => 'Nach Sprache';
 
   @override
-  String get match => 'match';
+  String get match => 'Übereinstimmung';
 
   @override
-  String get matchScore => 'Match Score';
+  String get matchScore => 'Übereinstimmungswert';
 
   @override
-  String get noMatchesFound => 'No matches found';
+  String get noMatchesFound => 'Keine Übereinstimmungen gefunden';
 
   @override
-  String get noUsersOnline => 'No users online';
+  String get noUsersOnline => 'Keine Nutzer online';
 
   @override
-  String get checkBackLater => 'Check back later';
+  String get checkBackLater => 'Schau später wieder vorbei';
 
   @override
-  String get selectLanguagePrompt => 'Select a language';
+  String get selectLanguagePrompt => 'Sprache auswählen';
 
   @override
-  String get findPartnersByLanguage => 'Find partners who speak or learn this language';
+  String get findPartnersByLanguage => 'Finde Partner, die diese Sprache sprechen oder lernen';
 
   @override
   String noPartnersForLanguage(String language) {
-    return 'No partners for $language';
+    return 'Keine Partner für $language';
   }
 
   @override
-  String get tryAnotherLanguage => 'Try selecting another language';
+  String get tryAnotherLanguage => 'Versuche es mit einer anderen Sprache';
 
   @override
-  String get failedToLoadMatches => 'Failed to load matches';
+  String get failedToLoadMatches => 'Übereinstimmungen konnten nicht geladen werden';
 
   @override
   String get dataAndStorage => 'Daten und Speicher';
@@ -4453,63 +4453,63 @@ class AppLocalizationsDe extends AppLocalizations {
   String get dragToDelete => 'Zum Löschen hierher ziehen';
 
   @override
-  String get noBlockedUsers => 'No blocked users';
+  String get noBlockedUsers => 'Keine blockierten Nutzer';
 
   @override
-  String get usersYouBlockWillAppearHere => 'Users you block will appear here';
+  String get usersYouBlockWillAppearHere => 'Nutzer, die du blockierst, erscheinen hier';
 
   @override
   String unblockConfirm(String name) {
-    return 'Are you sure you want to unblock $name?';
+    return 'Möchtest du $name wirklich entsperren?';
   }
 
   @override
   String reasonLabel(String reason) {
-    return 'Reason: $reason';
+    return 'Grund: $reason';
   }
 
   @override
   String blockedAgo(String time) {
-    return 'Blocked $time';
+    return 'Blockiert $time';
   }
 
   @override
   String errorLoadingBlockedUsers(String error) {
-    return 'Error loading blocked users: $error';
+    return 'Fehler beim Laden blockierter Nutzer: $error';
   }
 
   @override
-  String get logoutConfirmMessage => 'Are you sure you want to logout from Bananatalk?';
+  String get logoutConfirmMessage => 'Möchtest du dich wirklich von Bananatalk abmelden?';
 
   @override
-  String get loggingOut => 'Logging out...';
+  String get loggingOut => 'Wird abgemeldet...';
 
   @override
-  String get quietHours => 'Quiet Hours';
+  String get quietHours => 'Ruhezeiten';
 
   @override
-  String get quietHoursEnable => 'Enable Quiet Hours';
+  String get quietHoursEnable => 'Ruhezeiten aktivieren';
 
   @override
-  String get quietHoursSubtitle => 'Pause non-urgent notifications during a time window';
+  String get quietHoursSubtitle => 'Nicht dringende Benachrichtigungen während eines Zeitfensters pausieren';
 
   @override
-  String get quietHoursStart => 'Start time';
+  String get quietHoursStart => 'Startzeit';
 
   @override
-  String get quietHoursEnd => 'End time';
+  String get quietHoursEnd => 'Endzeit';
 
   @override
-  String get quietHoursAllowUrgent => 'Allow urgent notifications';
+  String get quietHoursAllowUrgent => 'Dringende Benachrichtigungen zulassen';
 
   @override
-  String get quietHoursAllowUrgentSubtitle => 'Calls and messages from VIP partners can still come through';
+  String get quietHoursAllowUrgentSubtitle => 'Anrufe und Nachrichten von VIP-Partnern können weiterhin durchkommen';
 
   @override
-  String get silencedByQuietHours => 'Silenced by Quiet Hours';
+  String get silencedByQuietHours => 'Durch Ruhezeiten stummgeschaltet';
 
   @override
-  String get silencedByCap => 'Silenced by daily limit';
+  String get silencedByCap => 'Durch Tageslimit stummgeschaltet';
 
   @override
   String get momentUpdatedSuccessfully => 'Moment erfolgreich aktualisiert';

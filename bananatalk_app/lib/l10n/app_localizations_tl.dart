@@ -243,7 +243,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get beTheFirstToComment => 'Maging una sa pagkomento.';
 
   @override
-  String get loadMoreComments => 'Load more comments';
+  String get loadMoreComments => 'Mag-load ng higit pang komento';
 
   @override
   String get writeAComment => 'Magsulat ng komento...';
@@ -267,10 +267,10 @@ class AppLocalizationsTl extends AppLocalizations {
   String get momentDeleted => 'Nabura ang sandali';
 
   @override
-  String get deleteComment => 'Delete Comment?';
+  String get deleteComment => 'Tanggalin ang Komento?';
 
   @override
-  String get commentDeleted => 'Comment deleted';
+  String get commentDeleted => 'Natanggal ang komento';
 
   @override
   String get editFeatureComingSoon => 'Malapit nang dumating ang edit feature';
@@ -394,7 +394,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get aiTutorChipPhoto => 'Larawan';
 
   @override
-  String get aiToolsMoreSection => 'More AI tools';
+  String get aiToolsMoreSection => 'Higit pang AI tools';
 
   @override
   String get aiConversationPartnerTile => 'AI na Pag-uusap';
@@ -1030,7 +1030,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get warningThisActionIsPermanent => 'Babala: Permanente ang aksyong ito!';
 
   @override
-  String get deletingYourAccountWillPermanentlyRemove => 'Deleting your account will permanently remove:\n\n• Your profile and all personal data\n• All your messages and conversations\n• All your moments and stories\n• Your VIP subscription (no refund)\n• All your connections and followers\n\nThis action cannot be undone.';
+  String get deletingYourAccountWillPermanentlyRemove => 'Ang pagtanggal ng iyong account ay permanenteng magtatanggal ng:\n\n• Iyong profile at lahat ng personal na data\n• Lahat ng iyong mensahe at mga usapan\n• Lahat ng iyong moments at stories\n• Iyong VIP subscription (walang refund)\n• Lahat ng iyong mga koneksyon at followers\n\nHindi na maibabalik ang aksyong ito.';
 
   @override
   String get clearAllNotifications => 'I-clear ang lahat ng notipikasyon?';
@@ -1039,13 +1039,13 @@ class AppLocalizationsTl extends AppLocalizations {
   String get clearAll => 'I-clear Lahat';
 
   @override
-  String get notificationDebug => 'Notification Debug';
+  String get notificationDebug => 'Pag-debug ng Notification';
 
   @override
   String get markAllRead => 'Markahan lahat na nabasa';
 
   @override
-  String get clearAll2 => 'Clear all';
+  String get clearAll2 => 'Burahin Lahat';
 
   @override
   String get emailAddress => 'Email address';
@@ -1057,34 +1057,34 @@ class AppLocalizationsTl extends AppLocalizations {
   String get alreadyHaveAnAccount => 'Mayroon nang account?';
 
   @override
-  String get login2 => 'Login';
+  String get login2 => 'Mag-log In';
 
   @override
-  String get selectYourNativeLanguage2 => 'Select your native language';
+  String get selectYourNativeLanguage2 => 'Piliin ang iyong katutubong wika';
 
   @override
-  String get whichLanguageDoYouWantToLearn2 => 'Which language do you want to learn?';
+  String get whichLanguageDoYouWantToLearn2 => 'Anong wika ang gusto mong matutunan?';
 
   @override
-  String get selectYourGender2 => 'Select your gender';
+  String get selectYourGender2 => 'Piliin ang iyong kasarian';
 
   @override
   String get dateFormat => 'YYYY.MM.DD';
 
   @override
-  String get detectYourLocation2 => 'Detect your location';
+  String get detectYourLocation2 => 'Tukuyin ang iyong lokasyon';
 
   @override
-  String get tapToUpdateLocation2 => 'Tap to update location';
+  String get tapToUpdateLocation2 => 'I-tap para i-update ang lokasyon';
 
   @override
-  String get helpOthersFindYouNearby2 => 'Help others find you nearby';
+  String get helpOthersFindYouNearby2 => 'Tulungan ang iba na mahanap ka sa malapit';
 
   @override
   String get couldNotOpenLink => 'Hindi mabuksan ang link';
 
   @override
-  String get legalPrivacy2 => 'Legal & Privacy';
+  String get legalPrivacy2 => 'Legal at Privacy';
 
   @override
   String get termsOfUseEULA => 'Mga Tuntunin ng Paggamit (EULA)';
@@ -1120,7 +1120,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get newFollowers => 'Mga Bagong Tagasunod';
 
   @override
-  String get whenSomeoneFollowsYou2 => 'When someone follows you';
+  String get whenSomeoneFollowsYou2 => 'Kapag may nag-follow sa iyo';
 
   @override
   String get securityAlerts => 'Mga Alerto sa Seguridad';
@@ -1129,10 +1129,10 @@ class AppLocalizationsTl extends AppLocalizations {
   String get passwordLoginAlerts => 'Mga alerto sa password at login';
 
   @override
-  String get unblockUser2 => 'Unblock User';
+  String get unblockUser2 => 'I-unblock ang User';
 
   @override
-  String get blockedUsers2 => 'Blocked Users';
+  String get blockedUsers2 => 'Mga Naka-block na User';
 
   @override
   String get finalWarning => 'Huling Babala';
@@ -1141,7 +1141,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get deleteForever => 'Burahin Habang-buhay';
 
   @override
-  String get deleteAccount2 => 'Delete Account';
+  String get deleteAccount2 => 'Tanggalin ang Account';
 
   @override
   String get enterYourPassword => 'Ilagay ang iyong password';
@@ -1181,7 +1181,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get reportStory => 'I-report ang Story';
 
   @override
-  String get reply2 => 'Reply...';
+  String get reply2 => 'Sumagot...';
 
   @override
   String get failedToPickImage => 'Nabigo ang pagpili ng larawan';
@@ -1301,37 +1301,37 @@ class AppLocalizationsTl extends AppLocalizations {
   String get connectWithFriends => 'Kumonekta sa mga Kaibigan';
 
   @override
-  String get reviewStarted => 'Review started';
+  String get reviewStarted => 'Nagsimula na ang review';
 
   @override
-  String get reportResolved => 'Report resolved';
+  String get reportResolved => 'Naresolba ang report';
 
   @override
-  String get reportDismissed => 'Report dismissed';
+  String get reportDismissed => 'Na-dismiss ang report';
 
   @override
-  String get selectAction => 'Select Action';
+  String get selectAction => 'Pumili ng Aksyon';
 
   @override
-  String get noViolation => 'No Violation';
+  String get noViolation => 'Walang Paglabag';
 
   @override
-  String get contentRemoved => 'Content Removed';
+  String get contentRemoved => 'Natanggal ang Content';
 
   @override
-  String get userWarned => 'User Warned';
+  String get userWarned => 'Binigyan ng Warning ang User';
 
   @override
-  String get userSuspended => 'User Suspended';
+  String get userSuspended => 'Na-suspend ang User';
 
   @override
-  String get userBanned => 'User Banned';
+  String get userBanned => 'Na-ban ang User';
 
   @override
-  String get addNotesOptional => 'Add Notes (Optional)';
+  String get addNotesOptional => 'Magdagdag ng Notes (Opsyonal)';
 
   @override
-  String get enterModeratorNotes => 'Enter moderator notes...';
+  String get enterModeratorNotes => 'Ilagay ang mga tala ng moderator...';
 
   @override
   String get skip => 'Laktawan';
@@ -1358,7 +1358,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get apply => 'Ilapat';
 
   @override
-  String get myReports2 => 'My Reports';
+  String get myReports2 => 'Aking mga Report';
 
   @override
   String get blockUser => 'I-block ang User';
@@ -1376,13 +1376,13 @@ class AppLocalizationsTl extends AppLocalizations {
   String get yesBlockThem => 'Oo, i-block sila';
 
   @override
-  String get reportUser2 => 'Report User';
+  String get reportUser2 => 'I-report ang User';
 
   @override
   String get submitReport => 'Isumite ang Report';
 
   @override
-  String get addAQuestionAndAtLeast2Options => 'Add a question and at least 2 options';
+  String get addAQuestionAndAtLeast2Options => 'Magdagdag ng tanong at hindi bababa sa 2 opsyon';
 
   @override
   String get addOption => 'Magdagdag ng opsyon';
@@ -1397,13 +1397,13 @@ class AppLocalizationsTl extends AppLocalizations {
   String get typeYourAnswer => 'I-type ang iyong sagot...';
 
   @override
-  String get send2 => 'Send';
+  String get send2 => 'Ipadala';
 
   @override
   String get yourPrompt => 'Ang iyong prompt...';
 
   @override
-  String get add2 => 'Add';
+  String get add2 => 'Idagdag';
 
   @override
   String get contentNotAvailable => 'Hindi available ang content';
@@ -1740,19 +1740,19 @@ class AppLocalizationsTl extends AppLocalizations {
   String get noMomentsYet => 'Wala pang mga sandali';
 
   @override
-  String get noForYouMomentsTitle => 'No moments yet';
+  String get noForYouMomentsTitle => 'Wala pang moments';
 
   @override
-  String get noForYouMomentsBody => 'Answer today\'s prompt to get the conversation started.';
+  String get noForYouMomentsBody => 'Sagutin ang prompt ngayong araw para simulan ang usapan.';
 
   @override
-  String get noFollowingMomentsTitle => 'Nothing here yet';
+  String get noFollowingMomentsTitle => 'Wala pang laman dito';
 
   @override
-  String get noFollowingMomentsBody => 'Follow people from Community to see their moments here.';
+  String get noFollowingMomentsBody => 'Mag-follow ng mga tao mula sa Community para makita ang kanilang mga moments dito.';
 
   @override
-  String get goToCommunity => 'Go to Community';
+  String get goToCommunity => 'Pumunta sa Community';
 
   @override
   String get unableToLoadMoments => 'Hindi ma-load ang mga sandali';
@@ -1770,7 +1770,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get unknownLocation => 'Hindi kilalang lokasyon';
 
   @override
-  String get noImagesAvailable2 => 'No images available';
+  String get noImagesAvailable2 => 'Walang available na larawan';
 
   @override
   String get permissionsRequired => 'Kailangan ang mga Permiso';
@@ -1890,7 +1890,7 @@ class AppLocalizationsTl extends AppLocalizations {
   }
 
   @override
-  String get pleaseRemoveImagesFirst => 'Please remove images first to add a video';
+  String get pleaseRemoveImagesFirst => 'Pakitanggal muna ang mga larawan para makapagdagdag ng video';
 
   @override
   String get exchange3MessagesBeforeCall => 'Kailangan mong magpalitan ng hindi bababa sa 5 mensahe bago tumawag';
@@ -1922,10 +1922,10 @@ class AppLocalizationsTl extends AppLocalizations {
   String get bookmarkedMessages => 'Mga Na-bookmark na Mensahe';
 
   @override
-  String get wallpaperSaved => 'Wallpaper saved locally';
+  String get wallpaperSaved => 'Na-save ang wallpaper sa device';
 
   @override
-  String get typeDeleteToConfirm => 'Type DELETE to confirm';
+  String get typeDeleteToConfirm => 'I-type ang DELETE para kumpirmahin';
 
   @override
   String get storyArchive => 'Archive ng Story';
@@ -1940,7 +1940,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get repost => 'I-repost';
 
   @override
-  String get repostFeatureSoon => 'Repost feature coming soon';
+  String get repostFeatureSoon => 'Malapit nang available ang repost feature';
 
   @override
   String get closeFriends => 'Mga Matalik na Kaibigan';
@@ -2406,10 +2406,10 @@ class AppLocalizationsTl extends AppLocalizations {
   String get checkOutMoment => 'Tingnan ang moment na ito sa Bananatalk!';
 
   @override
-  String get checkOutProfile => 'Check out this profile on Bananatalk!';
+  String get checkOutProfile => 'Tingnan ang profile na ito sa Bananatalk!';
 
   @override
-  String get checkOutCommunity => 'Check out this member on Bananatalk!';
+  String get checkOutCommunity => 'Tingnan ang miyembrong ito sa Bananatalk!';
 
   @override
   String get failedToLoadMoments => 'Hindi na-load ang mga moment';
@@ -3377,7 +3377,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get leaderboard => 'Leaderboard';
 
   @override
-  String get competeWithLearners => 'Compete with other learners!';
+  String get competeWithLearners => 'Makipagkumpitensya sa ibang mga nag-aaral!';
 
   @override
   String get xpRankings => 'XP Rankings';
@@ -3386,34 +3386,34 @@ class AppLocalizationsTl extends AppLocalizations {
   String get streaks => 'Streaks';
 
   @override
-  String get friends => 'Friends';
+  String get friends => 'Mga Kaibigan';
 
   @override
-  String get myRanks => 'My Ranks';
+  String get myRanks => 'Aking mga Ranggo';
 
   @override
-  String get currentStreak => 'Current Streak';
+  String get currentStreak => 'Kasalukuyang Streak';
 
   @override
-  String get longestStreak => 'Longest Streak';
+  String get longestStreak => 'Pinakamahabang Streak';
 
   @override
-  String get weekly => 'Weekly';
+  String get weekly => 'Lingguhan';
 
   @override
-  String get monthly => 'Monthly';
+  String get monthly => 'Buwanan';
 
   @override
-  String get yourRank => 'Your Rank';
+  String get yourRank => 'Ang Iyong Ranggo';
 
   @override
   String outOf(int total) {
-    return 'out of $total';
+    return 'sa $total';
   }
 
   @override
   String topPercent(String percent) {
-    return 'Top $percent%';
+    return 'Nangungunang $percent%';
   }
 
   @override
@@ -3423,52 +3423,52 @@ class AppLocalizationsTl extends AppLocalizations {
   String get streakRank => 'Streak Rank';
 
   @override
-  String get days => 'days';
+  String get days => 'araw';
 
   @override
   String get learningStats => 'Learning Stats';
 
   @override
-  String get totalXp => 'Total XP';
+  String get totalXp => 'Kabuuang XP';
 
   @override
-  String get lessonsCompleted => 'Lessons Completed';
+  String get lessonsCompleted => 'Natapos na Lessons';
 
   @override
-  String get rankings => 'Rankings';
+  String get rankings => 'Mga Ranggo';
 
   @override
-  String get yourPosition => 'Your Position';
+  String get yourPosition => 'Ang Iyong Posisyon';
 
   @override
-  String get keepLearning => 'Keep learning to climb!';
+  String get keepLearning => 'Patuloy na mag-aral para umakyat!';
 
   @override
-  String get noRankingsYet => 'No rankings yet';
+  String get noRankingsYet => 'Wala pang ranggo';
 
   @override
-  String get startLearningToAppear => 'Start learning to appear on the leaderboard!';
+  String get startLearningToAppear => 'Magsimulang mag-aral para lumabas sa leaderboard!';
 
   @override
-  String get noFriendsYet => 'No friends yet';
+  String get noFriendsYet => 'Wala ka pang kaibigan';
 
   @override
-  String get addFriendsToCompete => 'Add friends to compete with them!';
+  String get addFriendsToCompete => 'Magdagdag ng kaibigan para makipagkumpitensya sa kanila!';
 
   @override
-  String get failedToLoadLeaderboard => 'Failed to load leaderboard';
+  String get failedToLoadLeaderboard => 'Nabigo ang pag-load ng leaderboard';
 
   @override
   String get you => 'Ikaw';
 
   @override
-  String get findPartners => 'Find Partners';
+  String get findPartners => 'Maghanap ng Partners';
 
   @override
-  String get discoverLanguagePartners => 'Discover language partners';
+  String get discoverLanguagePartners => 'Tumuklas ng mga language partner';
 
   @override
-  String get byLanguage => 'By Language';
+  String get byLanguage => 'Ayon sa Wika';
 
   @override
   String get match => 'match';
@@ -3477,30 +3477,30 @@ class AppLocalizationsTl extends AppLocalizations {
   String get matchScore => 'Match Score';
 
   @override
-  String get noMatchesFound => 'No matches found';
+  String get noMatchesFound => 'Walang nahanap na match';
 
   @override
-  String get noUsersOnline => 'No users online';
+  String get noUsersOnline => 'Walang online na user';
 
   @override
-  String get checkBackLater => 'Check back later';
+  String get checkBackLater => 'Bumalik mamaya';
 
   @override
-  String get selectLanguagePrompt => 'Select a language';
+  String get selectLanguagePrompt => 'Pumili ng wika';
 
   @override
-  String get findPartnersByLanguage => 'Find partners who speak or learn this language';
+  String get findPartnersByLanguage => 'Maghanap ng mga partner na nagsasalita o nag-aaral ng wikang ito';
 
   @override
   String noPartnersForLanguage(String language) {
-    return 'No partners for $language';
+    return 'Walang partner para sa $language';
   }
 
   @override
-  String get tryAnotherLanguage => 'Try selecting another language';
+  String get tryAnotherLanguage => 'Subukang pumili ng ibang wika';
 
   @override
-  String get failedToLoadMatches => 'Failed to load matches';
+  String get failedToLoadMatches => 'Nabigo ang pag-load ng mga match';
 
   @override
   String get dataAndStorage => 'Data at Storage';
@@ -3818,31 +3818,31 @@ class AppLocalizationsTl extends AppLocalizations {
   String get removeImageConfirm => 'Sigurado ka bang gusto mong alisin ang larawang ito?';
 
   @override
-  String get removeAll => 'Remove All';
+  String get removeAll => 'Alisin Lahat';
 
   @override
-  String get removeAllSelectedImages => 'Remove All Selected Images';
+  String get removeAllSelectedImages => 'Alisin ang Lahat ng Napiling Larawan';
 
   @override
-  String get removeAllSelectedImagesConfirm => 'Are you sure you want to remove all selected images?';
+  String get removeAllSelectedImagesConfirm => 'Sigurado ka bang gusto mong alisin ang lahat ng napiling larawan?';
 
   @override
-  String get yourProfilePictureWillBeKept => 'Your existing profile picture will be kept';
+  String get yourProfilePictureWillBeKept => 'Mananatili ang iyong kasalukuyang profile picture';
 
   @override
-  String get removeAllImages => 'Remove All Images';
+  String get removeAllImages => 'Alisin Lahat ng Larawan';
 
   @override
-  String get removeAllImagesConfirm => 'Are you sure you want to remove all profile pictures?';
+  String get removeAllImagesConfirm => 'Sigurado ka bang gusto mong alisin ang lahat ng profile picture?';
 
   @override
-  String get currentImages => 'Current Images';
+  String get currentImages => 'Kasalukuyang mga Larawan';
 
   @override
-  String get newImages => 'New Images';
+  String get newImages => 'Mga Bagong Larawan';
 
   @override
-  String get addMoreImages => 'Add More Images';
+  String get addMoreImages => 'Magdagdag ng Higit pang Larawan';
 
   @override
   String uploadImages(int count) {
@@ -3856,75 +3856,75 @@ class AppLocalizationsTl extends AppLocalizations {
   String get imagesUploadedSuccessfully => 'Na-upload na ang mga larawan';
 
   @override
-  String get selectedImagesCleared => 'Selected images cleared';
+  String get selectedImagesCleared => 'Na-clear ang mga napiling larawan';
 
   @override
-  String get extraImagesRemovedSuccessfully => 'Extra images removed successfully';
+  String get extraImagesRemovedSuccessfully => 'Matagumpay na natanggal ang mga extrang larawan';
 
   @override
-  String get mustKeepAtLeastOneProfilePicture => 'You must keep at least one profile picture';
+  String get mustKeepAtLeastOneProfilePicture => 'Kailangan mong panatilihin ang hindi bababa sa isang profile picture';
 
   @override
-  String get noProfilePicturesToRemove => 'No profile pictures to remove';
+  String get noProfilePicturesToRemove => 'Walang profile picture na aalisin';
 
   @override
-  String get authenticationTokenNotFound => 'Authentication token not found';
+  String get authenticationTokenNotFound => 'Hindi nahanap ang authentication token';
 
   @override
-  String get saveChangesQuestion => 'Save Changes?';
+  String get saveChangesQuestion => 'I-save ang mga Pagbabago?';
 
   @override
   String youHaveUnuploadedImages(int count) {
-    return 'You have $count image(s) selected but not uploaded. Do you want to upload them now?';
+    return 'May $count larawan kang napili pero hindi pa na-upload. Gusto mo bang i-upload na ngayon?';
   }
 
   @override
-  String get discard => 'Discard';
+  String get discard => 'Itapon';
 
   @override
-  String get upload => 'Upload';
+  String get upload => 'I-upload';
 
   @override
   String maxImagesInfo(int max, int current) {
-    return 'You can upload up to $max images. Currently: $current/$max\nMax 5 images per upload.';
+    return 'Maaari kang mag-upload ng hanggang $max na larawan. Kasalukuyan: $current/$max\nMax 5 larawan bawat upload.';
   }
 
   @override
   String canOnlyAddMoreImages(int count, int max) {
-    return 'You can only add $count more image(s). Maximum is $max images total.';
+    return 'Makakapagdagdag ka lang ng $count pang larawan. Ang maximum ay $max na larawan sa kabuuan.';
   }
 
   @override
-  String get maxImagesPerUpload => 'You can upload maximum 5 images at once. Only first 5 will be added.';
+  String get maxImagesPerUpload => 'Maaari kang mag-upload ng maximum na 5 larawan nang sabay-sabay. Ang unang 5 lang ang idadagdag.';
 
   @override
   String canOnlyHaveMaxImages(int max) {
-    return 'You can only have up to $max images';
+    return 'Maaari ka lamang magkaroon ng hanggang $max na larawan';
   }
 
   @override
-  String get imageSizeExceedsLimit => 'Image size exceeds 10MB limit';
+  String get imageSizeExceedsLimit => 'Lumagpas sa 10MB na limitasyon ang laki ng larawan';
 
   @override
-  String get unsupportedImageFormat => 'Unsupported image format';
+  String get unsupportedImageFormat => 'Hindi suportadong image format';
 
   @override
-  String get pleaseSelectAtLeastOneImage => 'Please select at least one image to upload';
+  String get pleaseSelectAtLeastOneImage => 'Pumili ng hindi bababa sa isang larawan para i-upload';
 
   @override
-  String get basicInformation => 'Basic Information';
+  String get basicInformation => 'Pangunahing Impormasyon';
 
   @override
-  String get languageToLearn => 'Language to Learn';
+  String get languageToLearn => 'Wikang Aaralin';
 
   @override
-  String get hometown => 'Hometown';
+  String get hometown => 'Sariling Bayan';
 
   @override
   String get characters => 'character';
 
   @override
-  String get failedToLoadLanguages => 'Failed to load languages';
+  String get failedToLoadLanguages => 'Nabigo ang pag-load ng mga wika';
 
   @override
   String get studyHub => 'Sentro ng Pag-aaral';
@@ -4453,63 +4453,63 @@ class AppLocalizationsTl extends AppLocalizations {
   String get dragToDelete => 'I-drag dito para burahin';
 
   @override
-  String get noBlockedUsers => 'No blocked users';
+  String get noBlockedUsers => 'Walang naka-block na user';
 
   @override
-  String get usersYouBlockWillAppearHere => 'Users you block will appear here';
+  String get usersYouBlockWillAppearHere => 'Ang mga user na iyong bina-block ay lalabas dito';
 
   @override
   String unblockConfirm(String name) {
-    return 'Are you sure you want to unblock $name?';
+    return 'Sigurado ka bang gusto mong i-unblock si $name?';
   }
 
   @override
   String reasonLabel(String reason) {
-    return 'Reason: $reason';
+    return 'Dahilan: $reason';
   }
 
   @override
   String blockedAgo(String time) {
-    return 'Blocked $time';
+    return 'Na-block noong $time';
   }
 
   @override
   String errorLoadingBlockedUsers(String error) {
-    return 'Error loading blocked users: $error';
+    return 'Error sa pag-load ng mga naka-block na user: $error';
   }
 
   @override
-  String get logoutConfirmMessage => 'Are you sure you want to logout from Bananatalk?';
+  String get logoutConfirmMessage => 'Sigurado ka bang gusto mong mag-logout sa Bananatalk?';
 
   @override
-  String get loggingOut => 'Logging out...';
+  String get loggingOut => 'Nagla-log out...';
 
   @override
   String get quietHours => 'Quiet Hours';
 
   @override
-  String get quietHoursEnable => 'Enable Quiet Hours';
+  String get quietHoursEnable => 'I-enable ang Quiet Hours';
 
   @override
-  String get quietHoursSubtitle => 'Pause non-urgent notifications during a time window';
+  String get quietHoursSubtitle => 'I-pause ang mga hindi mahalagang notification sa isang time window';
 
   @override
-  String get quietHoursStart => 'Start time';
+  String get quietHoursStart => 'Oras ng Simula';
 
   @override
-  String get quietHoursEnd => 'End time';
+  String get quietHoursEnd => 'Oras ng Pagtatapos';
 
   @override
-  String get quietHoursAllowUrgent => 'Allow urgent notifications';
+  String get quietHoursAllowUrgent => 'Payagan ang mahahalagang notification';
 
   @override
-  String get quietHoursAllowUrgentSubtitle => 'Calls and messages from VIP partners can still come through';
+  String get quietHoursAllowUrgentSubtitle => 'Ang mga tawag at mensahe mula sa VIP partners ay makakarating pa rin';
 
   @override
-  String get silencedByQuietHours => 'Silenced by Quiet Hours';
+  String get silencedByQuietHours => 'Naka-silent dahil sa Quiet Hours';
 
   @override
-  String get silencedByCap => 'Silenced by daily limit';
+  String get silencedByCap => 'Naka-silent dahil sa daily limit';
 
   @override
   String get momentUpdatedSuccessfully => 'Matagumpay na na-update ang moment';

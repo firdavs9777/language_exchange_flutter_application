@@ -2487,5 +2487,13 @@
   "roomYourHub": "Хаби шумо",
   "roomOnlineCount": "{count} онлайн",
   "roomNotAvailable": "Ин ҳуҷра дигар дастрас нест.",
-  "roomGoToRooms": "Ба Ҳуҷраҳо гузаштан"
+  "roomGoToRooms": "Ба Ҳуҷраҳо гузаштан",
+  "loadMoreComments": "Шарҳҳои бештарро бор кунед",
+  "noForYouMomentsTitle": "Ҳоло лаҳза нест",
+  "noForYouMomentsBody": "Барои оғози сӯҳбат ба супориши имрӯза ҷавоб диҳед.",
+  "noFollowingMomentsTitle": "Ҳанӯз ин ҷо чизе нест",
+  "noFollowingMomentsBody": "Барои дидани лаҳзаҳои онҳо дар ин ҷо, ба одамон аз Ҷомеа пайравӣ кунед.",
+  "goToCommunity": "Ба Ҷомеа гузаштан",
+  "checkOutProfile": "Ин профилро дар Bananatalk бубинед!",
+  "checkOutCommunity": "Ин корбарро дар Bananatalk бубинед!"
 }
