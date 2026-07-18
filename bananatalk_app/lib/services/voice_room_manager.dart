@@ -92,6 +92,14 @@ class VoiceRoomManager {
   /// emoji at the sender's avatar. Self-display is the caller's job
   /// (LiveKit doesn't echo data packets to the publisher).
   Function(String participantId, String emoji)? onReactionReceived;
+  /// Fired when [toggleMute] fails to publish the new mic state to LiveKit
+  /// (most commonly a denied/revoked OS mic permission). By the time this
+  /// fires, [isMuted] has already been reverted to its prior value and
+  /// [onStateChanged] already invoked, so the UI is back in sync — this
+  /// callback exists purely so the screen can show a one-off "Microphone
+  /// permission needed" message (e.g. a snackbar with an app-settings
+  /// deep link).
+  Function()? onMicPermissionDenied;
 
   // Getters
   VoiceRoom? get currentRoom => _currentRoom;
@@ -433,9 +441,30 @@ class VoiceRoomManager {
   /// Toggle mute state — flips the LiveKit local mic, then broadcasts on
   /// the socket for snappy cross-client UI (LiveKit's own TrackMuted
   /// event reaches peers ~100ms later).
-  void toggleMute() {
-    _isMuted = !_isMuted;
-    _liveKit.setMuted(_isMuted);
+  ///
+  /// The flip is optimistic (applied to `_isMuted` + `onStateChanged`
+  /// immediately, for a snappy button response) but is then confirmed by
+  /// awaiting the actual LiveKit publish. If that publish fails — most
+  /// commonly a denied/revoked mic permission — the flip is reverted and
+  /// `onStateChanged` fires again so the UI snaps back to the last
+  /// confirmed mute state instead of showing "unmuted" while nobody can
+  /// actually hear the user. `onMicPermissionDenied` fires so the screen
+  /// can surface a user-visible message.
+  Future<void> toggleMute() async {
+    final previousMuted = _isMuted;
+    final nextMuted = !_isMuted;
+    _isMuted = nextMuted;
+    onStateChanged?.call();
+
+    try {
+      await _liveKit.setMuted(nextMuted);
+    } catch (e) {
+      debugPrint('[VR] toggleMute FAILED, reverting to isMuted=$previousMuted: $e');
+      _isMuted = previousMuted;
+      onStateChanged?.call();
+      onMicPermissionDenied?.call();
+      return;
+    }
 
     debugPrint('Voice room mute toggled: isMuted=$_isMuted');
 
@@ -443,8 +472,6 @@ class VoiceRoomManager {
       'roomId': _currentRoom?.id,
       'isMuted': _isMuted,
     });
-
-    onStateChanged?.call();
   }
 
   /// Toggle hand raised

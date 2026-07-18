@@ -113,8 +113,19 @@ class VoiceRoomLiveKitManager {
   }
 
   /// Toggle the local microphone. [muted] == true mutes; false unmutes.
+  ///
+  /// Unlike the initial `connect()` path (which deliberately swallows a
+  /// failed mic publish so a healthy room connection isn't torn down),
+  /// callers here need to know when this fails — e.g. mic permission
+  /// denied/revoked mid-call — so they can revert optimistic UI state and
+  /// surface a message. We log then rethrow so [VoiceRoomManager] can react.
   Future<void> setMuted(bool muted) async {
-    await _livekit.setMicrophoneEnabled(!muted);
+    try {
+      await _livekit.setMicrophoneEnabled(!muted);
+    } catch (e) {
+      debugPrint('[VR] setMuted(muted=$muted) FAILED: $e');
+      rethrow;
+    }
   }
 
   /// Broadcast an emoji reaction to every other participant over the
