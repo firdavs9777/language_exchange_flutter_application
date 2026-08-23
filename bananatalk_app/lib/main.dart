@@ -7,6 +7,7 @@ import 'package:bananatalk_app/services/global_chat_listener.dart';
 import 'package:bananatalk_app/services/analytics_service.dart';
 import 'package:bananatalk_app/services/api_client.dart';
 import 'package:bananatalk_app/services/ad_service.dart';
+import 'package:bananatalk_app/providers/ad_providers.dart';
 import 'package:bananatalk_app/services/deep_link_service.dart';
 import 'package:bananatalk_app/widgets/tutor/persona_upgrade_sheet.dart';
 import 'package:bananatalk_app/providers/call_provider.dart';
@@ -255,6 +256,22 @@ class _MyAppState extends ConsumerState<MyApp> {
 
     // Keep global chat listener active so badge counts update everywhere.
     ref.watch(globalChatListenerProvider);
+
+    // Keep AdService's ad-free flag in lockstep with VIP status, app-wide.
+    //
+    // It used to be assigned only inside `adServiceProvider`'s body, so it ran
+    // only when something read that provider — which two screens did, while six
+    // call sites use the `AdService()` singleton directly. A VIP who never hit
+    // those two screens kept `_isAdFree == false` and could be shown a
+    // full-screen interstitial. Listening here, above the router, means the flag
+    // is correct on every screen; `fireImmediately` also marks it *known*, which
+    // is what allows AdService to refuse full-screen ads until VIP status is in.
+    // Watched, not listened: `ref.listen` has no `fireImmediately` in this
+    // Riverpod version, and the flag must be correct on the FIRST build — not
+    // only after VIP status later changes. `setAdFree` is idempotent, so
+    // calling it each build is cheap, and it marks the state *known*, which is
+    // what lets AdService refuse full-screen ads until VIP status is in.
+    AdService().setAdFree(!ref.watch(showAdsProvider));
 
     return MaterialApp.router(
       routerConfig: goRouter,

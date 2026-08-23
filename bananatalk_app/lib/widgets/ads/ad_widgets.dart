@@ -18,6 +18,16 @@ class _BannerAdWidgetState extends ConsumerState<BannerAdWidget> {
   BannerAd? _bannerAd;
   bool _isLoaded = false;
 
+  /// One request per widget lifetime.
+  ///
+  /// `_bannerAd != null` was the only guard, and `onAdFailedToLoad` sets
+  /// `_bannerAd` back to null — while `_loadAd` reads `MediaQuery`, which
+  /// registers an inherited dependency. So every keyboard show/hide, rotation,
+  /// theme or locale change re-entered `didChangeDependencies` and fired a
+  /// fresh request. With ads failing (as they are while the native unit is
+  /// misconfigured) that is an unbounded request loop against a live ad unit.
+  bool _requested = false;
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -26,16 +36,17 @@ class _BannerAdWidgetState extends ConsumerState<BannerAdWidget> {
 
   void _loadAd() {
     final showAds = ref.read(showAdsProvider);
-    if (!showAds || _bannerAd != null) return;
+    if (!showAds || _requested) return;
 
     final adService = AdService();
     if (!adService.isInitialized) return;
 
     final adSize = AdSize.getInlineAdaptiveBannerAdSize(
-      MediaQuery.of(context).size.width.truncate(),
+      MediaQuery.sizeOf(context).width.truncate(),
       60,
     );
 
+    _requested = true;
     _bannerAd = BannerAd(
       adUnitId: adService.bannerAdUnitId,
       size: adSize,
@@ -94,6 +105,9 @@ class _SmallBannerAdWidgetState extends ConsumerState<SmallBannerAdWidget> {
   BannerAd? _bannerAd;
   bool _isLoaded = false;
 
+  /// One request per widget lifetime — see the note in [_BannerAdWidgetState].
+  bool _requested = false;
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -102,7 +116,7 @@ class _SmallBannerAdWidgetState extends ConsumerState<SmallBannerAdWidget> {
 
   void _loadAd() {
     final showAds = ref.read(showAdsProvider);
-    if (!showAds || _bannerAd != null) return;
+    if (!showAds || _requested) return;
 
     final adService = AdService();
     if (!adService.isInitialized) {
@@ -110,6 +124,7 @@ class _SmallBannerAdWidgetState extends ConsumerState<SmallBannerAdWidget> {
       return;
     }
 
+    _requested = true;
     _bannerAd = BannerAd(
       adUnitId: adService.bannerAdUnitId,
       size: AdSize.banner, // 320x50 standard banner
@@ -170,6 +185,17 @@ class _NativeAdWidgetState extends ConsumerState<NativeAdWidget> {
   void _loadAd() {
     final adService = AdService();
     if (!adService.isInitialized || adService.isAdFree) return;
+
+    // No native ad unit is configured yet — `_nativeAdUnitId` still repeats
+    // `_bannerAdUnitId`, so AdMob rejects every request with "Ad unit doesn't
+    // match format". Requesting anyway burns a round trip per slot and lands on
+    // the banner fallback regardless; the Learning screen has three of these.
+    // Go straight to the banner. This branch disappears by itself once real
+    // native unit ids exist.
+    if (!adService.hasNativeAdUnit) {
+      _useBannerFallback = true;
+      return;
+    }
 
     _nativeAd = NativeAd(
       adUnitId: adService.nativeAdUnitId,
