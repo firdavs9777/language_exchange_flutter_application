@@ -23,6 +23,8 @@ import MomentReactionRow from "./actions/MomentReactionRow";
 import MomentVideoPlayer from "./media/MomentVideoPlayer";
 import VoiceNotePlayer from "./media/VoiceNotePlayer";
 import GradientMomentCard from "./media/GradientMomentCard";
+import AdUnit from "../ads/AdUnit";
+import { AD_SLOTS } from "../ads/adsenseConfig";
 
 // API hooks
 import {
@@ -869,6 +871,10 @@ const MomentDetail: React.FC = () => {
             </div>
           )}
 
+          {/* Banner ad below the action/reactions row (parity with Flutter
+              SmallBannerAdWidget). No-op until AdSense is configured. */}
+          <AdUnit slot={AD_SLOTS.momentDetail} className="my-4" />
+
           {/* Comments Section */}
           <div className="p-4 sm:p-6">
             {isLoadingComments ? (
@@ -935,18 +941,25 @@ const MomentDetail: React.FC = () => {
                       <div className="max-h-80 sm:max-h-96 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent hover:scrollbar-thumb-gray-400 rounded-xl">
                         <div className="space-y-1">
                           {commentsList.map((comment, index) => (
-                            <div
-                              key={comment._id}
-                              className="transform transition-all duration-300 ease-out"
-                              style={{
-                                transitionDelay: `${Math.min(
-                                  index * 50,
-                                  500
-                                )}ms`, // Cap delay
-                              }}
-                            >
-                              <CommentItem comment={comment} index={index} />
-                            </div>
+                            <React.Fragment key={comment._id}>
+                              <div
+                                className="transform transition-all duration-300 ease-out"
+                                style={{
+                                  transitionDelay: `${Math.min(
+                                    index * 50,
+                                    500
+                                  )}ms`, // Cap delay
+                                }}
+                              >
+                                <CommentItem comment={comment} index={index} />
+                              </div>
+                              {/* Interleave one ad after ~the 5th comment when
+                                  there are enough comments. No-op until AdSense
+                                  is configured. */}
+                              {index === 4 && commentsList.length > 5 && (
+                                <AdUnit slot={AD_SLOTS.comments} />
+                              )}
+                            </React.Fragment>
                           ))}
                         </div>
                       </div>

@@ -14,6 +14,13 @@ export interface UserProfileData {
   createdAt: string;
   images: string[];
   imageUrls: string[];
+  mbti?: string;
+  bloodType?: string;
+  topics?: string[];
+  languageLevel?: string;
+  location?: any;
+  isOnline?: boolean;
+  lastActive?: string;
 }
 export interface FollowerInterface {
   success?: boolean;

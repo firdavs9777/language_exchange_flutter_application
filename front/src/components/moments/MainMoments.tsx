@@ -23,6 +23,8 @@ import EmptyState from "./EmptyState";
 import SingleMoment from "./SingleMoment";
 import { MomentType } from "./types";
 import StoriesFeed from "../stories/StoriesFeed";
+import AdUnit from "../ads/AdUnit";
+import { AD_SLOTS } from "../ads/adsenseConfig";
 
 interface User {
   _id: string;
@@ -873,39 +875,47 @@ const MainMoments: React.FC = () => {
               <>
                 <div className="space-y-3 sm:space-y-6 px-2 sm:px-4 pb-4 sm:pb-6 lg:px-6">
                   {paginatedMoments.map((moment, index) => (
-                    <div
-                      key={moment._id}
-                      className="group transform transition-all duration-500 hover:-translate-y-1 hover:shadow-xl"
-                      style={{
-                        animationDelay: `${index * 0.1}s`,
-                      }}
-                    >
-                      <div className="overflow-hidden rounded-xl sm:rounded-2xl bg-white/80 backdrop-blur-sm border border-white/30 shadow-lg transition-all duration-300 group-hover:bg-white/90 group-hover:shadow-2xl">
-                        <SingleMoment
-                          _id={moment._id}
-                          title={moment.title}
-                          description={moment.description}
-                          likeCount={moment.likeCount}
-                          commentCount={
-                            moment.commentCount || moment.comments || []
-                          }
-                          user={moment.user}
-                          likedUsers={moment.likedUsers}
-                          imageUrls={moment.imageUrls}
-                          createdAt={moment.createdAt}
-                          refetch={refetch}
-                          reactions={moment.reactions}
-                          reactionCount={moment.reactionCount}
-                          shareCount={moment.shareCount}
-                          isSaved={moment.isSaved}
-                          saveCount={moment.saveCount}
-                          mediaType={moment.mediaType}
-                          video={moment.video}
-                          audio={moment.audio}
-                          backgroundColor={moment.backgroundColor}
-                        />
+                    <React.Fragment key={moment._id}>
+                      <div
+                        className="group transform transition-all duration-500 hover:-translate-y-1 hover:shadow-xl"
+                        style={{
+                          animationDelay: `${index * 0.1}s`,
+                        }}
+                      >
+                        <div className="overflow-hidden rounded-xl sm:rounded-2xl bg-white/80 backdrop-blur-sm border border-white/30 shadow-lg transition-all duration-300 group-hover:bg-white/90 group-hover:shadow-2xl">
+                          <SingleMoment
+                            _id={moment._id}
+                            title={moment.title}
+                            description={moment.description}
+                            likeCount={moment.likeCount}
+                            commentCount={
+                              moment.commentCount || moment.comments || []
+                            }
+                            user={moment.user}
+                            likedUsers={moment.likedUsers}
+                            imageUrls={moment.imageUrls}
+                            createdAt={moment.createdAt}
+                            refetch={refetch}
+                            reactions={moment.reactions}
+                            reactionCount={moment.reactionCount}
+                            shareCount={moment.shareCount}
+                            isSaved={moment.isSaved}
+                            saveCount={moment.saveCount}
+                            mediaType={moment.mediaType}
+                            video={moment.video}
+                            audio={moment.audio}
+                            backgroundColor={moment.backgroundColor}
+                          />
+                        </div>
                       </div>
-                    </div>
+                      {/* Interleave a feed ad every 4 moments (parity with
+                          Flutter _adEveryNPosts = 4), but never after the last
+                          item. No-op until AdSense is configured. */}
+                      {(index + 1) % 4 === 0 &&
+                        index !== paginatedMoments.length - 1 && (
+                          <AdUnit slot={AD_SLOTS.feed} className="my-3" />
+                        )}
+                    </React.Fragment>
                   ))}
                 </div>
 

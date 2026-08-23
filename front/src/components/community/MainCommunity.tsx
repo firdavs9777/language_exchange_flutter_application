@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback, useEffect, useLayoutEffect, useRef } from "react";
+import { Fragment, useState, useMemo, useCallback, useEffect, useLayoutEffect, useRef } from "react";
 import { Loader2, Search } from "lucide-react";
 import { useNavigate, Navigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -20,6 +20,8 @@ import CommunityFilterSheet from "./CommunityFilterSheet";
 import ActiveFilterChips from "./ActiveFilterChips";
 import QuickFilterChips from "./QuickFilterChips";
 import WaveSheet from "./WaveSheet";
+import AdUnit from "../ads/AdUnit";
+import { AD_SLOTS } from "../ads/adsenseConfig";
 import { CommunityFilters, buildCommunityQuery } from "./lib/buildCommunityQuery";
 import * as filterStorage from "./lib/filterStorage";
 import { DEFAULT_FILTERS } from "./lib/filterStorage";
@@ -424,13 +426,20 @@ const ModernCommunity: React.FC = () => {
         ) : (
           <>
             <div className="flex flex-col gap-3">
-              {allMembers.map((member) => (
-                <MemberCard
-                  key={member._id}
-                  user={member}
-                  onOpen={handleOpenMember}
-                  onWave={handleWaveMember}
-                />
+              {allMembers.map((member, index) => (
+                <Fragment key={member._id}>
+                  <MemberCard
+                    user={member}
+                    onOpen={handleOpenMember}
+                    onWave={handleWaveMember}
+                  />
+                  {/* Interleave a community ad every 6 members, but never after
+                      the last item. No-op until AdSense is configured. */}
+                  {(index + 1) % 6 === 0 &&
+                    index !== allMembers.length - 1 && (
+                      <AdUnit slot={AD_SLOTS.community} className="my-3" />
+                    )}
+                </Fragment>
               ))}
             </div>
             {hasMore && (

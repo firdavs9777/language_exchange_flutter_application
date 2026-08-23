@@ -29,24 +29,7 @@ import {
   Plus,
   Trash2,
 } from "lucide-react";
-
-interface UserProfileData {
-  _id: string;
-  name: string;
-  username: string;
-  gender: string;
-  email: string;
-  bio: string;
-  birth_year: string;
-  birth_month: string;
-  birth_day: string;
-  native_language: string;
-  language_to_learn: string;
-  imageUrls: string[];
-  mbti: string;
-  bloodType: string;
-  topics: string[];
-}
+import { UserProfileData } from "./ProfileTypes/types";
 
 // MBTI Types
 const MBTI_TYPES = [
@@ -165,9 +148,10 @@ const EditProfile: React.FC = () => {
 
   const handleTopicToggle = useCallback((topic: string) => {
     setFormData((prev) => {
-      const newTopics = prev.topics.includes(topic)
-        ? prev.topics.filter((t) => t !== topic)
-        : [...prev.topics, topic];
+      const currentTopics = prev.topics ?? [];
+      const newTopics = currentTopics.includes(topic)
+        ? currentTopics.filter((t) => t !== topic)
+        : [...currentTopics, topic];
       return { ...prev, topics: newTopics };
     });
     setHasChanges(true);
@@ -607,8 +591,8 @@ const EditProfile: React.FC = () => {
           </p>
           <div className="flex flex-wrap gap-2">
             {TOPIC_OPTIONS.map((topic) => {
-              const isSelected = formData.topics.includes(topic);
-              const isDisabled = !isSelected && formData.topics.length >= 10;
+              const isSelected = (formData.topics ?? []).includes(topic);
+              const isDisabled = !isSelected && (formData.topics ?? []).length >= 10;
               return (
                 <button
                   key={topic}
@@ -629,7 +613,7 @@ const EditProfile: React.FC = () => {
             })}
           </div>
           <p className="text-xs text-gray-400 mt-3 text-right">
-            {formData.topics.length}/10 {t("profile.labels.selected") || "selected"}
+            {(formData.topics ?? []).length}/10 {t("profile.labels.selected") || "selected"}
           </p>
         </div>
       </div>

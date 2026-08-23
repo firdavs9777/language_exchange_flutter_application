@@ -18,6 +18,8 @@ import {
   Crown,
   X,
 } from "lucide-react";
+import AdUnit from "../ads/AdUnit";
+import { AD_SLOTS } from "../ads/adsenseConfig";
 import "./HomeMain.scss";
 
 const APP_STORE_URL =
@@ -398,6 +400,10 @@ const HomeMain: React.FC = () => {
           </div>
         </div>
       </section>
+
+      <div className="section-container">
+        <AdUnit slot={AD_SLOTS.home} className="my-6" />
+      </div>
 
       <section className="how-it-works-section">
         <div className="section-container">
