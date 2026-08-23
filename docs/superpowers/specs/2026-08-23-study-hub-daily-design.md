@@ -350,6 +350,15 @@ This is the anchor for the retention metric. Today zero users have reached a
   it for the same slot.
 - New providers under `lib/providers/provider_root/learning/` following the
   existing pattern in that directory.
+
+**Reachability.** Study Hub is one tap from the root bottom nav, but its own
+sub-tabs are ordered `[Exam Study, AI Tools, Learn]` with no `initialIndex`, so
+the hub opens on Exam Study — its least-used surface (74 exam-progress docs,
+against 309 AI tutor sessions). Learn, which will host the daily drop, is last
+of three. The order becomes `[Today, AI Tools, Exam Study]`, and the sub-tab
+order moves out of the widget tree into a tested value so a future reorder
+cannot silently break `animateTo` call sites. No deep link targets a Study Hub
+sub-tab index, so the change is safe.
 - All Dart imports use `package:` paths, per project convention.
 
 ### 4.9 Notifications
