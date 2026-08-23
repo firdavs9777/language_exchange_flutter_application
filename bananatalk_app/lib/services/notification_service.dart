@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
@@ -9,6 +10,7 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
@@ -560,8 +562,30 @@ class NotificationService {
           '${result['message']}',
         );
       }
+
+      // Task 23 — report the device's real IANA timezone alongside the FCM
+      // token so scheduled sends (daily drop, streak reminders, ...) can be
+      // bucketed to the user's local evening instead of the Asia/Seoul
+      // default nothing has ever overridden. Best-effort and independent of
+      // token-registration success/failure above.
+      unawaited(_reportTimezone());
     } catch (e) {
       debugPrint('[NotificationService] FCM token registration error: $e');
+    }
+  }
+
+  /// Report the device's real IANA timezone identifier (e.g.
+  /// "Asia/Shanghai"). `DateTime.now().timeZoneName` is not used here — on
+  /// some platforms it returns an abbreviation ("CST") rather than an IANA
+  /// zone, which the backend cannot use for delivery-hour bucketing.
+  /// Failures are swallowed: a lost timezone report must never block app
+  /// startup or token registration.
+  Future<void> _reportTimezone() async {
+    try {
+      final timezoneInfo = await FlutterTimezone.getLocalTimezone();
+      await _apiClient.updateTimezone(timezoneInfo.identifier);
+    } catch (e) {
+      debugPrint('[NotificationService] timezone report failed: $e');
     }
   }
 
