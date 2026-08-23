@@ -23,7 +23,10 @@ List<int> reelTilesToPlay({
       crossAxisCount <= 0 ||
       tileHeight <= 0 ||
       viewportHeight <= 0 ||
-      maxPlaying <= 0) {
+      maxPlaying <= 0 ||
+      !scrollOffset.isFinite ||
+      !viewportHeight.isFinite ||
+      !tileHeight.isFinite) {
     return const [];
   }
 
@@ -31,9 +34,9 @@ List<int> reelTilesToPlay({
   final rowCount = (itemCount / crossAxisCount).ceil();
 
   final firstVisibleRow =
-      ((offset / tileHeight).floor() as int).clamp(0, rowCount - 1);
-  final lastVisibleRow = (((offset + viewportHeight) / tileHeight)
-          .ceil() as int)
+      (offset / tileHeight).floor().clamp(0, rowCount - 1);
+  final lastVisibleRow = ((offset + viewportHeight) / tileHeight)
+      .ceil()
       .clamp(0, rowCount);
 
   // Rows ordered by how close their centre is to the viewport centre, so the

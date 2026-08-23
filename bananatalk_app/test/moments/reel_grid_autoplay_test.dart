@@ -76,5 +76,79 @@ void main() {
       final indices = play(offset: -120);
       expect(indices.every((i) => i >= 0 && i < 30), isTrue);
     });
+
+    test('infinity in scrollOffset plays nothing', () {
+      final indices = play(offset: double.infinity);
+      expect(indices, isEmpty);
+    });
+
+    test('NaN in scrollOffset plays nothing', () {
+      final indices = play(offset: double.nan);
+      expect(indices, isEmpty);
+    });
+
+    test('infinity in viewportHeight plays nothing', () {
+      expect(
+        reelTilesToPlay(
+          scrollOffset: 0,
+          viewportHeight: double.infinity,
+          tileHeight: 200,
+          crossAxisCount: 3,
+          itemCount: 30,
+        ),
+        isEmpty,
+      );
+    });
+
+    test('NaN in viewportHeight plays nothing', () {
+      expect(
+        reelTilesToPlay(
+          scrollOffset: 0,
+          viewportHeight: double.nan,
+          tileHeight: 200,
+          crossAxisCount: 3,
+          itemCount: 30,
+        ),
+        isEmpty,
+      );
+    });
+
+    test('infinity in tileHeight plays nothing', () {
+      expect(
+        reelTilesToPlay(
+          scrollOffset: 0,
+          viewportHeight: 800,
+          tileHeight: double.infinity,
+          crossAxisCount: 3,
+          itemCount: 30,
+        ),
+        isEmpty,
+      );
+    });
+
+    test('NaN in tileHeight plays nothing', () {
+      expect(
+        reelTilesToPlay(
+          scrollOffset: 0,
+          viewportHeight: 800,
+          tileHeight: double.nan,
+          crossAxisCount: 3,
+          itemCount: 30,
+        ),
+        isEmpty,
+      );
+    });
+
+    test('partial last row is clamped correctly', () {
+      // 29 items in 3-column grid = 9 rows + 2 tiles in row 9
+      // Scroll to the end (offset 1800) to see rows 9-12, but only 2 items exist in row 9
+      final indices = play(offset: 1800, itemCount: 29);
+      expect(indices.every((i) => i < 29), isTrue,
+          reason: 'no index should be >= itemCount');
+      // Verify that the break statement is actually exercised by checking
+      // that we don't get row 9's third tile
+      expect(indices.contains(29), isFalse,
+          reason: 'index 29 does not exist in itemCount: 29');
+    });
   });
 }
