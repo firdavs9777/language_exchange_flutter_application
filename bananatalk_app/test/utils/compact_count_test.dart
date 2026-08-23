@@ -30,8 +30,8 @@ void main() {
     });
 
     test('truncates rather than rounding up across a threshold', () {
-      // 999,999 must not render as "1000k"; it truncates to 999.9k.
-      expect(formatCompactCount(999999), '999.9k');
+      // 999,999 must not round to "1000k" or "1m"; truncation keeps it at 999k.
+      expect(formatCompactCount(999999), '999k');
       // 1,099 truncates to 1k, never rounds to 1.1k.
       expect(formatCompactCount(1099), '1k');
     });
