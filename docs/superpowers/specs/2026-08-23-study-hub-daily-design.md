@@ -136,12 +136,29 @@ about CTR can be drawn until it is fixed.
 
 ### 2.5 Data hazards
 
-**Language variants are unnormalized.** `"English"`, `"English (US)"`,
-`"English (UK)"` and `"en"` all exist as distinct stored values. No
-normalization helper exists in either repo — confirmed by grep for
-`baseLanguage` / `normalizeLanguage` / `variantOf` across `lib/` and the
-backend's `utils/` and `models/Language.js`. `models/Language.js` stores
-`code`, `name`, `nativeName`, `flag` with no base/variant relationship.
+**Language variants are unnormalized in storage.** `"English"`,
+`"English (US)"`, `"English (UK)"` and `"en"` all exist as distinct stored
+values, and `models/Language.js` stores `code`, `name`, `nativeName`, `flag`
+with no base/variant relationship.
+
+*Corrected 2026-08-23 during implementation:* an earlier draft of this section
+claimed no normalization helper existed. That was wrong — the original grep
+searched only `utils/` and `models/Language.js` for the name patterns and
+missed both of these:
+
+- `utils/languageCodes.js` — `toIso(nameOrCode)`, 205 lines, 127+ language
+  names verified against prod on 2026-07-15. Trims, case-insensitive, passes
+  valid ISO codes through, returns `null` for empty and unknown. Used by
+  `controllers/moments.js` for feed ranking.
+- `lib/normalizeLanguage.js` — a 24-line `normalizeLanguage` with a small
+  CANONICAL/ALIASES table, used by rooms, SRS and locale code.
+
+`toIso` is therefore the base-code authority for this feature. The daily
+content module wraps it rather than duplicating it, adding exactly one thing
+`toIso` does not provide: the `zh-Hans` / `zh-Hant` split (`toIso` maps both
+Chinese variants to `zh`). Writing a fresh 20-language table instead would
+have returned `null` for the ~107 languages `toIso` already covers, silently
+denying those learners any daily content.
 
 Any per-language query that does not normalize will miss roughly half its
 intended audience.
