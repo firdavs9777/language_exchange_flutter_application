@@ -3579,11 +3579,22 @@ option (0: 34.4%, 1: 58.7%, 2: 6.9% across all 540 questions). Not wrong, but a
 learner could partially game it by always picking the middle. Rebalance as you
 review if you care to.
 
-When satisfied, flip the flag — either edit the data file so `approved` is
-`true` and re-run the seeder, or update in place after seeding. The seeder's
-`$set` includes `approved`, so re-running it after editing the file is the
-idempotent path. Then update `test/dailyItemsSeedData.test.js`, which currently
-asserts `approved === false` as the guard for this gate.
+**Approve by editing `migrations/dailyItemsData.json` and re-running the
+seeder. That is the only supported path.**
+
+Do NOT flip `approved` directly in the database. `seeds/dailyItems.js` carries
+`approved` inside its `$set`, so the data file is the single source of truth:
+the next seeder run — for new content, for a new language, for anything —
+silently reverts every hand-approved row to `approved: false`, and the English
+daily drop goes back to serving nothing with no error anywhere.
+
+So:
+
+1. Edit `migrations/dailyItemsData.json` so the reviewed items carry
+   `"approved": true`.
+2. Re-run the seeder (Step 1 below). It is idempotent.
+3. Update `test/dailyItemsSeedData.test.js`, which currently asserts
+   `approved === false` as the guard for this gate.
 
 - [ ] **Step 1: Seed the English bank on prod**
 
