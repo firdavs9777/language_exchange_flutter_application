@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/providers/reels_provider.dart';
 import 'package:bananatalk_app/pages/moments/reels/create_reel_flow.dart';
@@ -138,6 +139,20 @@ class _ReelsGridScreenState extends ConsumerState<ReelsGridScreen> {
   void _onSettleChanged() {
     if (!mounted) return;
     if (_observedPosition?.isScrollingNotifier.value ?? true) return;
+    // A loadMore page landing while a ballistic fling still has
+    // sub-tolerance velocity can flip this notifier from inside
+    // ScrollPosition.applyContentDimensions (goBallistic -> null
+    // simulation -> goIdle), which runs during layout. Calling setState
+    // synchronously there throws ("setState() called during build"), so
+    // when we're in that phase, defer the recompute to the next frame
+    // instead of calling it inline.
+    if (SchedulerBinding.instance.schedulerPhase ==
+        SchedulerPhase.persistentCallbacks) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) _recomputePlaying();
+      });
+      return;
+    }
     _recomputePlaying();
   }
 
