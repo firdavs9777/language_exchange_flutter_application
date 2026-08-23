@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:video_player/video_player.dart';
 
+import 'package:bananatalk_app/pages/moments/reels/reel_video_cache.dart';
+
 /// Owns at most **3** live [VideoPlayerController]s for the Reels vertical
 /// swipe feed (Workstream G, Task 5) — current, previous, next — so a long
 /// swipe session never accumulates unbounded native video decoders (the
@@ -12,6 +14,11 @@ import 'package:video_player/video_player.dart';
 /// `[current-1, current+1]` window. Call [pauseAll] on app background /
 /// route change, and [disposeAll] from the feed screen's `dispose()`.
 class ReelControllerPool {
+  ReelControllerPool({ReelVideoCache? cache})
+      : _cache = cache ?? ReelVideoCache.instance;
+
+  final ReelVideoCache _cache;
+
   final Map<int, VideoPlayerController> _controllers = {};
 
   /// Indices currently being disposed — guards against double-dispose if
@@ -26,7 +33,16 @@ class ReelControllerPool {
   Future<VideoPlayerController> activate(int index, String url) async {
     var controller = _controllers[index];
     if (controller == null) {
-      controller = VideoPlayerController.networkUrl(Uri.parse(url));
+      // Play from disk when we already have the bytes: instant start, no
+      // network. On a miss stream as before AND warm the cache, so the next
+      // view of this reel is local. Cache failure is always soft.
+      final cached = await _cache.cachedFileFor(url);
+      if (cached == null) {
+        _cache.warm(url);
+        controller = VideoPlayerController.networkUrl(Uri.parse(url));
+      } else {
+        controller = VideoPlayerController.file(cached);
+      }
       _controllers[index] = controller;
       try {
         await controller.initialize();
@@ -64,7 +80,10 @@ class ReelControllerPool {
   /// [index] so it's ready the instant the user swipes to it.
   Future<void> preload(int index, String url) async {
     if (_controllers.containsKey(index)) return;
-    final controller = VideoPlayerController.networkUrl(Uri.parse(url));
+    final cached = await _cache.cachedFileFor(url);
+    final controller = cached == null
+        ? VideoPlayerController.networkUrl(Uri.parse(url))
+        : VideoPlayerController.file(cached);
     _controllers[index] = controller;
     try {
       await controller.initialize();
@@ -79,6 +98,18 @@ class ReelControllerPool {
       try {
         await controller.dispose();
       } catch (_) {}
+    }
+  }
+
+  /// Downloads [urls] into the cache **without** creating controllers.
+  ///
+  /// Prefetching bytes and creating decoders are separate concerns: a cached
+  /// file costs disk, a controller costs a native decoder. Keeping them apart
+  /// is what lets prefetch reach further ahead than the ±1 controller window
+  /// without raising the live-controller ceiling.
+  Future<void> prefetchAhead(List<String> urls) async {
+    for (final url in urls) {
+      if (url.isNotEmpty) _cache.prefetch(url);
     }
   }
 

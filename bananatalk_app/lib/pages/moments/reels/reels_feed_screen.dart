@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:share_plus/share_plus.dart';
@@ -11,6 +12,7 @@ import 'package:bananatalk_app/pages/comments/create_comment.dart';
 import 'package:bananatalk_app/pages/community/single/single_community_screen.dart';
 import 'package:bananatalk_app/pages/moments/reels/reel_controller_pool.dart';
 import 'package:bananatalk_app/pages/moments/reels/reel_fit.dart';
+import 'package:bananatalk_app/pages/moments/reels/reel_prefetch_policy.dart';
 import 'package:bananatalk_app/pages/moments/reels/widgets/reel_overlays.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:bananatalk_app/providers/provider_root/comments_providers.dart';
@@ -52,6 +54,10 @@ class _ReelsFeedScreenState extends ConsumerState<ReelsFeedScreen>
   /// Starts unmuted: opening a reel is deliberate, unlike an autoplaying feed.
   bool _muted = false;
 
+  /// How many upcoming reels to prefetch, driven by connectivity type.
+  int _prefetchDepth = 1;
+  StreamSubscription<List<ConnectivityResult>>? _connectivitySub;
+
   void _toggleMute() {
     setState(() => _muted = !_muted);
     _applyVolume();
@@ -70,6 +76,12 @@ class _ReelsFeedScreenState extends ConsumerState<ReelsFeedScreen>
     _currentIndex = widget.initialIndex;
     _pageController = PageController(initialPage: widget.initialIndex);
     _loadCurrentUserId();
+    Connectivity().checkConnectivity().then((status) {
+      if (mounted) setState(() => _prefetchDepth = reelPrefetchDepth(status));
+    });
+    _connectivitySub = Connectivity().onConnectivityChanged.listen((status) {
+      if (mounted) setState(() => _prefetchDepth = reelPrefetchDepth(status));
+    });
     WidgetsBinding.instance.addPostFrameCallback((_) => _syncControllers());
   }
 
@@ -91,6 +103,7 @@ class _ReelsFeedScreenState extends ConsumerState<ReelsFeedScreen>
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
+    _connectivitySub?.cancel();
     _pool.disposeAll();
     _pageController.dispose();
     super.dispose();
@@ -120,6 +133,17 @@ class _ReelsFeedScreenState extends ConsumerState<ReelsFeedScreen>
     }
 
     _pool.releaseOutside(_currentIndex);
+
+    // Bytes only: reaches further ahead than the controller window, creating
+    // no decoders. releaseOutside() below stays at ±1 for that reason.
+    final upcoming = <String>[];
+    for (var i = _currentIndex + 1;
+        i <= _currentIndex + _prefetchDepth && i < reels.length;
+        i++) {
+      final url = reels[i].video?.url;
+      if (url != null && url.isNotEmpty) upcoming.add(url);
+    }
+    _pool.prefetchAhead(upcoming);
   }
 
   void _onPageChanged(int index) {
