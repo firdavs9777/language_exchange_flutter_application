@@ -79,8 +79,19 @@ class ReelsFeedNotifier extends StateNotifier<ReelsFeedState> {
         before: state.nextCursor,
         limit: _pageSize,
       );
+      // Newest-first pagination can hand back a reel that's already on an
+      // earlier page (e.g. a new post shifts the cursor window). The grid
+      // now keys tiles by reel id (not index), so a duplicate id here would
+      // produce two identical GlobalKey-bearing widgets in the same
+      // GridView and trip Flutter's duplicate-key assertion — dedupe at the
+      // source rather than relying on the UI to tolerate it.
+      final seenIds = state.reels.map((r) => r.id).toSet();
+      final newReels = [
+        for (final reel in page.reels)
+          if (seenIds.add(reel.id)) reel,
+      ];
       state = state.copyWith(
-        reels: [...state.reels, ...page.reels],
+        reels: [...state.reels, ...newReels],
         nextCursor: page.nextCursor,
         clearCursor: page.nextCursor == null,
         hasMore: page.nextCursor != null,

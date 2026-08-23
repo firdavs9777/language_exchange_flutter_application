@@ -39,11 +39,42 @@ class _ReelsGridScreenState extends ConsumerState<ReelsGridScreen> {
   final ScrollController _scrollController = ScrollController();
   bool _policyChecked = false;
 
-  static const double _tileHeight = 180; // 9:16 at a third of a phone width
+  // Single source of truth for the grid's geometry: both the GridView's own
+  // delegate/padding below AND the row-pitch arithmetic in `_rowPitch` read
+  // these, so the two cannot drift apart the way a second hardcoded literal
+  // did (round 1's `_tileHeight = 180` guessed the pitch instead of deriving
+  // it, and was off by 48pt/row — by row 10 the accumulated error exceeded
+  // two screens and `reelTilesToPlay` pointed at indices GridView never
+  // built, so nothing played at all a few screens down).
+  static const int _crossAxisCount = 3;
+  static const double _gridPadding = 2;
+  static const double _gridSpacing = 2;
+  static const double _tileAspectRatio = 9 / 16;
+
   List<int> _playing = const [];
   bool _unmetered = false;
-  Timer? _settleTimer;
   StreamSubscription<List<ConnectivityResult>>? _connectivitySub;
+
+  // The ScrollPosition we've attached `_onSettleChanged` to. ScrollPosition
+  // instances get replaced (e.g. on a viewport metrics change), so tracking
+  // this — rather than always reading `_scrollController.position` — lets us
+  // detect the swap and re-attach, and lets `dispose` remove the listener
+  // from the instance it was actually added to instead of whatever instance
+  // happens to be current (which would either no-op or throw).
+  ScrollPosition? _observedPosition;
+
+  /// The vertical distance from one row's top edge to the next row's top
+  /// edge, derived from the same constants the `GridView`'s delegate below
+  /// is built from — so this can never silently disagree with what the grid
+  /// actually renders.
+  double _rowPitch(double viewportWidth) {
+    final usable = viewportWidth -
+        _gridPadding * 2 -
+        _gridSpacing * (_crossAxisCount - 1);
+    final tileWidth = usable / _crossAxisCount;
+    final tileHeight = tileWidth / _tileAspectRatio;
+    return tileHeight + _gridSpacing;
+  }
 
   @override
   void initState() {
@@ -59,13 +90,12 @@ class _ReelsGridScreenState extends ConsumerState<ReelsGridScreen> {
     _connectivitySub = Connectivity().onConnectivityChanged.listen((status) {
       if (mounted) setState(() => _unmetered = reelPrefetchDepth(status) > 1);
     });
-    WidgetsBinding.instance.addPostFrameCallback((_) => _recomputePlaying());
   }
 
   @override
   void dispose() {
     _scrollController.removeListener(_onScroll);
-    _settleTimer?.cancel();
+    _observedPosition?.isScrollingNotifier.removeListener(_onSettleChanged);
     _connectivitySub?.cancel();
     _scrollController.dispose();
     super.dispose();
@@ -79,9 +109,40 @@ class _ReelsGridScreenState extends ConsumerState<ReelsGridScreen> {
       return;
     }
     setState(() => _policyChecked = true);
+    // The GridView doesn't exist (so has no ScrollPosition) until this
+    // rebuild lands, which is why the very first recompute has to wait for
+    // it — an earlier attempt scheduled this from initState, before
+    // `_policyChecked` flips, and always no-op'd on a missing client.
+    WidgetsBinding.instance.addPostFrameCallback((_) => _recomputePlaying());
+  }
+
+  /// Keeps `_onSettleChanged` attached to whichever `ScrollPosition` is
+  /// currently live. `isScrollingNotifier` — not a debounce timer — is the
+  /// authority on "settled": a fixed-delay `Timer` armed on the last scroll
+  /// delta can fire while a held-but-not-moving drag still reads as
+  /// scrolling, bail out, and then never get re-armed because a stationary
+  /// finger emits no further scroll notifications — freezing the grid on
+  /// thumbnails until the user scrolls again. Listening to the notifier
+  /// itself means the moment it flips to false (drag release, fling
+  /// decay finished) we recompute, regardless of how long the finger sat
+  /// still beforehand.
+  void _syncSettleListener() {
+    if (!_scrollController.hasClients) return;
+    final position = _scrollController.position;
+    if (identical(position, _observedPosition)) return;
+    _observedPosition?.isScrollingNotifier.removeListener(_onSettleChanged);
+    _observedPosition = position;
+    position.isScrollingNotifier.addListener(_onSettleChanged);
+  }
+
+  void _onSettleChanged() {
+    if (!mounted) return;
+    if (_observedPosition?.isScrollingNotifier.value ?? true) return;
+    _recomputePlaying();
   }
 
   void _onScroll() {
+    _syncSettleListener();
     if (!_scrollController.hasClients) return;
     final position = _scrollController.position;
     if (position.pixels >= position.maxScrollExtent - 600) {
@@ -89,35 +150,35 @@ class _ReelsGridScreenState extends ConsumerState<ReelsGridScreen> {
     }
 
     // Nothing plays mid-scroll: flinging through the grid would otherwise
-    // spawn and tear down controllers for every row it passed.
+    // spawn and tear down controllers for every row it passed. The resume
+    // trigger is `_onSettleChanged` above, not this listener.
     if (_playing.isNotEmpty) {
       setState(() => _playing = const []);
     }
-    _settleTimer?.cancel();
-    _settleTimer = Timer(const Duration(milliseconds: 180), () {
-      if (!mounted) return;
-      // isScrollingNotifier is the authority on "settled" — it stays true
-      // through the ballistic phase, which a bare debounce would miss.
-      if (_scrollController.hasClients &&
-          _scrollController.position.isScrollingNotifier.value) {
-        return;
-      }
-      _recomputePlaying();
-    });
   }
 
   void _recomputePlaying() {
+    _syncSettleListener();
     if (!mounted || !_scrollController.hasClients) return;
     final reels = ref.read(reelsFeedProvider).reels;
     final next = reelTilesToPlay(
       scrollOffset: _scrollController.position.pixels,
       viewportHeight: _scrollController.position.viewportDimension,
-      tileHeight: _tileHeight,
-      crossAxisCount: 3,
+      tileHeight: _rowPitch(MediaQuery.sizeOf(context).width),
+      crossAxisCount: _crossAxisCount,
       itemCount: reels.length,
       maxPlaying: kReelGridMaxPlaying,
     );
+    if (_sameIndices(next, _playing)) return;
     setState(() => _playing = next);
+  }
+
+  bool _sameIndices(List<int> a, List<int> b) {
+    if (a.length != b.length) return false;
+    for (var i = 0; i < a.length; i++) {
+      if (a[i] != b[i]) return false;
+    }
+    return true;
   }
 
   Future<void> _onRefresh() => ref.read(reelsFeedProvider.notifier).refresh();
@@ -139,6 +200,20 @@ class _ReelsGridScreenState extends ConsumerState<ReelsGridScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // Any time the reel list itself changes identity — first load, refresh,
+    // or a loadMore append — recompute what should be playing. `reels` is
+    // rebuilt via `copyWith` only when its contents actually change (a
+    // loading-flag-only update reuses the same List instance), so reference
+    // inequality is exactly "the list changed" here. This is what makes the
+    // grid resume after `_onRefresh` shifts indices around, and what gets
+    // the first frame of real data playing on cold entry when the fetch
+    // resolves after this screen is already built.
+    ref.listen<ReelsFeedState>(reelsFeedProvider, (previous, next) {
+      if (previous?.reels != next.reels) {
+        WidgetsBinding.instance.addPostFrameCallback((_) => _recomputePlaying());
+      }
+    });
+
     if (!_policyChecked) {
       return const Center(child: CircularProgressIndicator());
     }
@@ -185,12 +260,12 @@ class _ReelsGridScreenState extends ConsumerState<ReelsGridScreen> {
 
     return GridView.builder(
       controller: _scrollController,
-      padding: const EdgeInsets.all(2),
+      padding: const EdgeInsets.all(_gridPadding),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 3,
-        crossAxisSpacing: 2,
-        mainAxisSpacing: 2,
-        childAspectRatio: 9 / 16,
+        crossAxisCount: _crossAxisCount,
+        crossAxisSpacing: _gridSpacing,
+        mainAxisSpacing: _gridSpacing,
+        childAspectRatio: _tileAspectRatio,
       ),
       itemCount: state.reels.length + (state.isLoadingMore ? 3 : 0),
       itemBuilder: (context, index) {
