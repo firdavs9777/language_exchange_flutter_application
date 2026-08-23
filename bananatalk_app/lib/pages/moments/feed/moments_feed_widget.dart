@@ -98,7 +98,14 @@ class MomentsFeedWidget extends ConsumerWidget {
           itemBuilder: (context, index) {
             final item = items[index];
             if (item is! Moments) {
-              return const NativeAdWidget();
+              // Keyed for the same reason MomentCard below is: without a key,
+              // Flutter matches elements by (type, key) alone, so a refresh or
+              // reorder can hand an existing _NativeAdWidgetState — already
+              // holding a NativeAd bound to a live platform view — to a
+              // different slot. Its build then makes a second AdWidget for the
+              // same Ad and iOS rejects the duplicate view id:
+              // PlatformException(recreating_view, view id: '0').
+              return NativeAdWidget(key: ValueKey('feed-ad-$index'));
             }
 
             return MomentCard(moments: item, onRefresh: onRefresh)

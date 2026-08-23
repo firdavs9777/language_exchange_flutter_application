@@ -758,7 +758,11 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
           final block = bodyIndex ~/ blockSize;
           final posInBlock = bodyIndex % blockSize;
           if (posInBlock == _adEveryNMembers) {
-            return const NativeAdWidget();
+            // Keyed per ad slot: an unkeyed ad widget can have its State (and
+            // its live platform view) reassigned to another slot on reorder,
+            // which surfaces as
+            // PlatformException(recreating_view, view id: '0').
+            return NativeAdWidget(key: ValueKey('partner-ad-$block'));
           }
 
           final realIndex = block * _adEveryNMembers + posInBlock;
