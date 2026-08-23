@@ -1,6 +1,7 @@
 import 'package:bananatalk_app/main.dart' show languageProvider;
 import 'package:bananatalk_app/services/language_service.dart';
 import 'package:go_router/go_router.dart';
+import 'package:bananatalk_app/pages/moments/saved/saved_moments_screen.dart';
 import 'package:bananatalk_app/pages/notifications/notification_settings_screen.dart';
 import 'package:bananatalk_app/pages/settings/notification_preferences_screen.dart';
 import 'package:bananatalk_app/pages/profile/settings.dart';
@@ -75,13 +76,36 @@ class LeftDrawer extends ConsumerWidget {
                         title: l10n.profileSettings,
                         subtitle: l10n.editYourProfileInformation,
                         isFirst: true,
-                        isLast: true,
+                        isLast: false,
                         onTap: () {
                           Navigator.pop(context);
                           Navigator.push(
                             context,
                             AppPageRoute(
                               builder: (context) => ProfileSettings(),
+                            ),
+                          );
+                        },
+                      ),
+                      // SavedMomentsScreen already existed but was never
+                      // navigated to from anywhere — saving a moment or reel
+                      // worked, yet there was no way to see what you'd saved.
+                      // TODO(l10n): no `savedTitle`/`savedSubtitle` keys exist
+                      // yet in the arb files — plain-string fallback, matching
+                      // the pattern used for the Reels tab label.
+                      DrawerMenuItem(
+                        icon: Icons.bookmark_rounded,
+                        iconColor: const Color(0xFF00BFA5),
+                        title: 'Saved',
+                        subtitle: 'Reels and moments you bookmarked',
+                        isFirst: false,
+                        isLast: true,
+                        onTap: () {
+                          Navigator.pop(context);
+                          Navigator.push(
+                            context,
+                            AppPageRoute(
+                              builder: (context) => const SavedMomentsScreen(),
                             ),
                           );
                         },

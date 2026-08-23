@@ -351,6 +351,39 @@ class MomentCard extends StatelessWidget {
                     },
                   ),
                 ),
+              ]
+              // A video moment (including a saved reel) carries no `images` —
+              // its preview lives on video.thumbnail. Without this branch a
+              // saved reel rendered as caption-only text, looking like nothing
+              // had been saved at all.
+              else if (moment.hasVideo) ...[
+                const SizedBox(height: 12),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      SizedBox(
+                        width: double.infinity,
+                        height: 200,
+                        child: (moment.video?.thumbnail ?? '').isEmpty
+                            // Older uploads predate thumbnail generation.
+                            ? Container(color: Colors.black54)
+                            : Image.network(
+                                moment.video!.thumbnail!,
+                                fit: BoxFit.cover,
+                                errorBuilder: (context, error, stackTrace) =>
+                                    Container(color: Colors.black54),
+                              ),
+                      ),
+                      const Icon(
+                        Icons.play_circle_fill_rounded,
+                        color: Colors.white,
+                        size: 48,
+                      ),
+                    ],
+                  ),
+                ),
               ],
 
               // Tags

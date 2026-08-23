@@ -182,6 +182,62 @@ class _ReelsFeedScreenState extends ConsumerState<ReelsFeedScreen>
     }
   }
 
+  /// Saved state comes from `savedBy` rather than the model's `isSaved` flag:
+  /// the reels endpoint doesn't populate `isSaved`, and `savedBy` is the same
+  /// shape `likedUsers` uses, so the optimistic update below matches
+  /// `_applyLikeToList` exactly.
+  bool _isSaved(Moments reel) {
+    if (_currentUserId == null) return false;
+    return reel.savedBy.contains(_currentUserId);
+  }
+
+  List<String> _applySaveToList(Moments reel, bool isSaved) {
+    final current = List<String>.from(reel.savedBy);
+    final userId = _currentUserId;
+    if (userId == null) return current;
+    if (isSaved && !current.contains(userId)) {
+      current.add(userId);
+    } else if (!isSaved) {
+      current.remove(userId);
+    }
+    return current;
+  }
+
+  Future<void> _toggleSave(Moments reel) async {
+    final wasSaved = _isSaved(reel);
+    // Optimistic: the bookmark must respond instantly, and a failed round trip
+    // is reverted below rather than left lying about the state.
+    ref.read(reelsFeedProvider.notifier).updateReel(
+          reel.copyWith(savedBy: _applySaveToList(reel, !wasSaved)),
+        );
+    try {
+      await MomentsServiceAPI.toggleSave(
+        momentId: reel.id,
+        currentlySaved: wasSaved,
+      );
+      if (!mounted) return;
+      if (!wasSaved) {
+        _showSavedToast();
+      }
+    } catch (_) {
+      if (!mounted) return;
+      ref.read(reelsFeedProvider.notifier).updateReel(
+            reel.copyWith(savedBy: _applySaveToList(reel, wasSaved)),
+          );
+    }
+  }
+
+  void _showSavedToast() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Saved. Find it in Profile → Saved.'),
+        duration: Duration(seconds: 2),
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Color(0xFF00BFA5),
+      ),
+    );
+  }
+
   void _openComments(Moments reel) {
     _pool.controllerAt(_currentIndex)?.pause();
     Navigator.push(
@@ -351,7 +407,9 @@ class _ReelsFeedScreenState extends ConsumerState<ReelsFeedScreen>
                 reel: reel,
                 controller: controller,
                 isLiked: _isLiked(reel),
+                isSaved: _isSaved(reel),
                 muted: _muted,
+                onSave: () => _toggleSave(reel),
                 onToggleMute: _toggleMute,
                 onTogglePlayPause: () => _togglePlayPause(index),
                 onLike: () => _toggleLike(reel),
@@ -383,6 +441,7 @@ class _ReelFeedItem extends StatefulWidget {
     required this.reel,
     required this.controller,
     required this.isLiked,
+    required this.isSaved,
     required this.muted,
     required this.onTogglePlayPause,
     required this.onLike,
@@ -390,12 +449,14 @@ class _ReelFeedItem extends StatefulWidget {
     required this.onShare,
     required this.onMore,
     required this.onAvatarTap,
+    required this.onSave,
     required this.onToggleMute,
   });
 
   final Moments reel;
   final VideoPlayerController? controller;
   final bool isLiked;
+  final bool isSaved;
   final bool muted;
   final VoidCallback onTogglePlayPause;
   final VoidCallback onLike;
@@ -403,6 +464,7 @@ class _ReelFeedItem extends StatefulWidget {
   final VoidCallback onShare;
   final VoidCallback onMore;
   final VoidCallback onAvatarTap;
+  final VoidCallback onSave;
   final VoidCallback onToggleMute;
 
   @override
@@ -618,6 +680,17 @@ class _ReelFeedItemState extends State<_ReelFeedItem> {
                   icon: Icons.chat_bubble_outline,
                   label: reel.commentCount > 0 ? '${reel.commentCount}' : '',
                   onTap: widget.onComment,
+                ),
+                const SizedBox(height: 20),
+                _RailButton(
+                  icon: widget.isSaved
+                      ? Icons.bookmark_rounded
+                      : Icons.bookmark_border_rounded,
+                  color: widget.isSaved
+                      ? const Color(0xFF00BFA5)
+                      : Colors.white,
+                  label: '',
+                  onTap: widget.onSave,
                 ),
                 const SizedBox(height: 20),
                 _RailButton(
