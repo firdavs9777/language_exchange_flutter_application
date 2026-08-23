@@ -316,8 +316,8 @@ class _ReelsGridScreenState extends ConsumerState<ReelsGridScreen>
     final route = AppPageRoute<void>(builder: (_) => page);
     _occludingRoutes++;
     _applyPlaybackGate();
-    Navigator.of(context).push(route);
     try {
+      Navigator.of(context).push(route);
       await route.completed;
     } finally {
       _occludingRoutes--;
@@ -384,7 +384,7 @@ class _ReelsGridScreenState extends ConsumerState<ReelsGridScreen>
           bottom: 88,
           child: FloatingActionButton(
             heroTag: 'reels_create_fab',
-            onPressed: _openCreateFlow,
+            onPressed: () => _openCreateFlow().catchError((_) {}),
             backgroundColor: const Color(0xFF00BFA5),
             child: const Icon(Icons.videocam, color: Colors.white),
           ),
@@ -438,7 +438,7 @@ class _ReelsGridScreenState extends ConsumerState<ReelsGridScreen>
           reel: reel,
           shouldPlay: _playing.contains(index),
           mayDownload: _unmetered,
-          onTap: () => _openReel(index),
+          onTap: () => _openReel(index).catchError((_) {}),
         );
       },
     );
@@ -507,7 +507,7 @@ class _ReelsGridScreenState extends ConsumerState<ReelsGridScreen>
                   ),
                   const SizedBox(height: 20),
                   ElevatedButton.icon(
-                    onPressed: _openCreateFlow,
+                    onPressed: () => _openCreateFlow().catchError((_) {}),
                     icon: const Icon(Icons.videocam),
                     label: const Text('Record a reel'),
                     style: ElevatedButton.styleFrom(
