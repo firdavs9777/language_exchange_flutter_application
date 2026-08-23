@@ -20,6 +20,7 @@ import 'package:bananatalk_app/widgets/community/user_skeleton.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/utils/privacy_utils.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
+import 'package:bananatalk_app/utils/compact_count.dart';
 
 /// Genders Tab — browse users filtered by gender with a polished UI
 class GendersTab extends ConsumerStatefulWidget {
@@ -446,7 +447,7 @@ class _GendersTabState extends ConsumerState<GendersTab> {
                     if (_countsLoaded) ...[
                       const SizedBox(height: 2),
                       Text(
-                        '${_formatCount(_femaleCount)} members',
+                        '${formatCompactCount(_femaleCount)} members',
                         style: TextStyle(
                           fontSize: 11,
                           fontWeight: FontWeight.w500,
@@ -514,7 +515,7 @@ class _GendersTabState extends ConsumerState<GendersTab> {
                     if (_countsLoaded) ...[
                       const SizedBox(height: 2),
                       Text(
-                        '${_formatCount(_maleCount)} members',
+                        '${formatCompactCount(_maleCount)} members',
                         style: TextStyle(
                           fontSize: 11,
                           fontWeight: FontWeight.w500,
@@ -665,11 +666,6 @@ class _GendersTabState extends ConsumerState<GendersTab> {
         message: '\u{1F44B}', // Wave emoji - renders as big sticker
       );
     } catch (_) {}
-  }
-
-  String _formatCount(int count) {
-    if (count >= 1000) return '${(count / 1000).toStringAsFixed(1)}k';
-    return '$count';
   }
 }
 

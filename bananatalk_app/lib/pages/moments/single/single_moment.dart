@@ -28,6 +28,7 @@ import 'package:bananatalk_app/services/moments_service.dart' as api;
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/widgets/language_flag_badge.dart';
 import 'package:bananatalk_app/widgets/navigation/app_back_button.dart';
+import 'package:bananatalk_app/utils/compact_count.dart';
 
 class SingleMoment extends ConsumerStatefulWidget {
   final Moments moment;
@@ -873,9 +874,7 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
             if (count > 0) ...[
               const SizedBox(width: 4),
               Text(
-                count > 999
-                    ? '${(count / 1000).toStringAsFixed(1)}k'
-                    : '$count',
+                formatCompactCount(count),
                 style: TextStyle(
                   fontSize: 13,
                   color: color,

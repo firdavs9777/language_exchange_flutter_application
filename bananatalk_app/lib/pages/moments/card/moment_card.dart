@@ -27,6 +27,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
+import 'package:bananatalk_app/utils/compact_count.dart';
 
 class MomentCard extends ConsumerStatefulWidget {
   final Moments moments;
@@ -796,9 +797,7 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                           if (likeCount > 0) ...[
                             const SizedBox(width: 4),
                             Text(
-                              likeCount > 999
-                                  ? '${(likeCount / 1000).toStringAsFixed(1)}k'
-                                  : '$likeCount',
+                              formatCompactCount(likeCount),
                               style: TextStyle(
                                 fontSize: 13,
                                 color: isLiked
@@ -962,9 +961,7 @@ class _MomentCardState extends ConsumerState<MomentCard> {
             if (count > 0) ...[
               const SizedBox(width: 4),
               Text(
-                count > 999
-                    ? '${(count / 1000).toStringAsFixed(1)}k'
-                    : '$count',
+                formatCompactCount(count),
                 style: TextStyle(
                   fontSize: 13,
                   color: color,

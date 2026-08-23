@@ -30,6 +30,17 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 /// "go to tab N" entry point should do.
 final selectedTabProvider = StateProvider<int>((ref) => 0);
 
+/// Index of the Moments tab in [_TabsScreenState._pages] / the bottom nav.
+///
+/// Named because "is my page the visible one?" is a real question for pages
+/// that own expensive resources: every page lives in a `Stack` behind an
+/// `AnimatedOpacity`, so an unselected tab is *invisible but fully alive* —
+/// never disposed, still laid out, still building. Anything holding a video
+/// decoder, camera or socket has to gate itself on
+/// `ref.watch(selectedTabProvider) == <its index>` rather than assuming a
+/// tab switch tore it down (see `ReelsGridScreen`).
+const int kMomentsTabIndex = 3;
+
 /// In-memory guard so the rotating feature-spotlight promo (coins/rooms/
 /// voice) is attempted at most once per app process launch, on top of its
 /// own once-per-day SharedPreferences cap. Module-level (not per-State) so

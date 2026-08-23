@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/services/moments_service.dart';
+import 'package:bananatalk_app/utils/compact_count.dart';
 
 class SaveMomentButton extends StatefulWidget {
   final String momentId;
@@ -144,7 +145,7 @@ class _SaveMomentButtonState extends State<SaveMomentButton>
             if (widget.showCount && _saveCount > 0) ...[
               const SizedBox(width: 4),
               Text(
-                _formatCount(_saveCount),
+                formatCompactCount(_saveCount),
                 style: TextStyle(
                   fontSize: 12,
                   color: _isSaved ? savedColor : unsavedColor,
@@ -155,15 +156,6 @@ class _SaveMomentButtonState extends State<SaveMomentButton>
         ),
       ),
     );
-  }
-
-  String _formatCount(int count) {
-    if (count >= 1000000) {
-      return '${(count / 1000000).toStringAsFixed(1)}M';
-    } else if (count >= 1000) {
-      return '${(count / 1000).toStringAsFixed(1)}K';
-    }
-    return count.toString();
   }
 }
 
@@ -302,7 +294,7 @@ class _ShareMomentButtonState extends State<ShareMomentButton> {
           if (widget.showCount && _shareCount > 0) ...[
             const SizedBox(width: 4),
             Text(
-              _formatCount(_shareCount),
+              formatCompactCount(_shareCount),
               style: TextStyle(
                 fontSize: 12,
                 color: color,
@@ -312,15 +304,6 @@ class _ShareMomentButtonState extends State<ShareMomentButton> {
         ],
       ),
     );
-  }
-
-  String _formatCount(int count) {
-    if (count >= 1000000) {
-      return '${(count / 1000000).toStringAsFixed(1)}M';
-    } else if (count >= 1000) {
-      return '${(count / 1000).toStringAsFixed(1)}K';
-    }
-    return count.toString();
   }
 }
 

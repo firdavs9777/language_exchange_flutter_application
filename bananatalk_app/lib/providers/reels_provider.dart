@@ -57,7 +57,7 @@ class ReelsFeedNotifier extends StateNotifier<ReelsFeedState> {
     try {
       final page = await _client.getReels(limit: _pageSize);
       state = ReelsFeedState(
-        reels: page.reels,
+        reels: _dedupedById(page.reels),
         nextCursor: page.nextCursor,
         hasMore: page.nextCursor != null,
       );
@@ -80,7 +80,7 @@ class ReelsFeedNotifier extends StateNotifier<ReelsFeedState> {
         limit: _pageSize,
       );
       state = state.copyWith(
-        reels: [...state.reels, ...page.reels],
+        reels: _dedupedById([...state.reels, ...page.reels]),
         nextCursor: page.nextCursor,
         clearCursor: page.nextCursor == null,
         hasMore: page.nextCursor != null,
@@ -89,6 +89,23 @@ class ReelsFeedNotifier extends StateNotifier<ReelsFeedState> {
     } catch (e) {
       state = state.copyWith(isLoadingMore: false, error: e);
     }
+  }
+
+  /// Drops any reel whose id already appeared earlier in [reels], keeping
+  /// first-occurrence order. Newest-first pagination can hand back a reel
+  /// that's already been seen (e.g. a new post shifts the cursor window
+  /// between pages, or a single page itself repeats an id), and the grid
+  /// now keys tiles by reel id (not index) — a duplicate id there produces
+  /// two identical `ValueKey`-bearing widgets in the same `GridView` and
+  /// trips Flutter's duplicate-key assertion. Both [refresh] (replaces the
+  /// whole list) and [loadMore] (appends to it) route through this so
+  /// neither path can reopen that crash.
+  List<Moments> _dedupedById(List<Moments> reels) {
+    final seenIds = <String>{};
+    return [
+      for (final reel in reels)
+        if (seenIds.add(reel.id)) reel,
+    ];
   }
 
   /// Replaces a single reel in-place (e.g. after a like toggle) so the grid
