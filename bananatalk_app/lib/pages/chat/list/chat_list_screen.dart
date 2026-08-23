@@ -1336,7 +1336,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
           ConnectionStatusIndicator(),
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 16, vertical: 2),
-            child: SmallBannerAdWidget(),
+            child: SmallBannerAdWidget(key: ValueKey('chat-list-banner')),
           ),
           Expanded(
             child: _isLoading

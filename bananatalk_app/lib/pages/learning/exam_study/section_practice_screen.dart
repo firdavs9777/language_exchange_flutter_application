@@ -123,7 +123,7 @@ class _SectionPracticeScreenState
             child: _renderQuestion(question, l10n),
           ),
         ),
-        const BannerAdWidget(),
+        const BannerAdWidget(key: ValueKey('section-practice-banner')),
         _bottomBar(question, total, l10n),
       ],
     );

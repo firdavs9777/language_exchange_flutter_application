@@ -276,7 +276,7 @@ class _EssayEditorScreenState extends ConsumerState<EssayEditorScreen> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const BannerAdWidget(),
+                  const BannerAdWidget(key: ValueKey('essay-editor-banner')),
                   const SizedBox(height: 8),
                   SizedBox(
                 width: double.infinity,

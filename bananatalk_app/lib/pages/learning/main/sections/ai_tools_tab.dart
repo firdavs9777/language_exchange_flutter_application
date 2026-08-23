@@ -122,7 +122,7 @@ class _AIToolsTabState extends ConsumerState<AIToolsTab>
 
             // Sparse native ad between the tools grid and progress sections.
             // Self-hides for VIP/ad-free users via showAdsProvider.
-            const NativeAdWidget(),
+            const NativeAdWidget(key: ValueKey('ai-tools-native')),
             const SizedBox(height: 8),
 
             // Quick Stats
