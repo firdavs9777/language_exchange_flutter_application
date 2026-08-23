@@ -793,7 +793,7 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                   // like-count row.
                   const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    child: SmallBannerAdWidget(),
+                    child: SmallBannerAdWidget(key: ValueKey('single-moment-banner')),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(16),

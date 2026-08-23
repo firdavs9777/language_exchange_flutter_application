@@ -56,7 +56,7 @@ class SingleCommunityOverview extends ConsumerWidget {
         SingleCommunityTopics(community: community),
 
         const SizedBox(height: 12),
-        const SmallBannerAdWidget(),
+        const SmallBannerAdWidget(key: ValueKey('community-overview-banner')),
 
         // Engagement Stats Bar
         EngagementStatsBar(profile: community),

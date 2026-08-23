@@ -248,7 +248,7 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
                     const SizedBox(height: 20),
                     const Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20),
-                      child: SmallBannerAdWidget(),
+                      child: SmallBannerAdWidget(key: ValueKey('profile-main-banner')),
                     ),
                     const SizedBox(height: 20),
                     HighlightsRow(

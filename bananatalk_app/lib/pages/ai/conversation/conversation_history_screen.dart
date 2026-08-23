@@ -63,7 +63,7 @@ class _ConversationHistoryScreenState
       ),
       body: Column(
         children: [
-          const SmallBannerAdWidget(),
+          const SmallBannerAdWidget(key: ValueKey('conv-history-banner')),
           Expanded(
             child: TabBarView(
               controller: _tabController,

@@ -155,7 +155,9 @@ class _ProfileVisitorsScreenState extends State<ProfileVisitorsScreen> {
           parent: AlwaysScrollableScrollPhysics(),
         ),
         slivers: [
-          const SliverToBoxAdapter(child: BannerAdWidget()),
+          const SliverToBoxAdapter(
+            child: BannerAdWidget(key: ValueKey('visitors-banner')),
+          ),
           if (_stats != null) SliverToBoxAdapter(child: _buildStatsHeader()),
           SliverToBoxAdapter(
             child: Padding(

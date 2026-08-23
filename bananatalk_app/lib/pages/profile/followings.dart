@@ -224,7 +224,7 @@ class _ProfileFollowingsState extends ConsumerState<ProfileFollowings> {
               final filteredFollowings = snapshot.data!;
               return Column(
                 children: [
-                  const BannerAdWidget(),
+                  const BannerAdWidget(key: ValueKey('followings-banner')),
                   Expanded(
                     child: ListView.builder(
                       itemCount: filteredFollowings.length,

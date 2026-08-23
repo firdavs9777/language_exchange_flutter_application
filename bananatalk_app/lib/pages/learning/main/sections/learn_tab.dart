@@ -93,7 +93,7 @@ class LearnTab extends ConsumerWidget {
                 const WeeklyDigestCard(),
                 const DailyPracticeCard(),
                 const SizedBox(height: 8),
-                const BannerAdWidget(),
+                const BannerAdWidget(key: ValueKey('learn-banner-today')),
                 const SizedBox(height: 20),
 
                 // Quick Actions — prominent, 2-column
@@ -106,8 +106,15 @@ class LearnTab extends ConsumerWidget {
                 _buildAIBanner(context, onSwitchToAI, isDark),
                 const SizedBox(height: 28),
 
-                // Native ad between sections
-                const NativeAdWidget(),
+                // Native ad between sections. Keyed because this Column
+                // holds a second NativeAdWidget below: `const NativeAdWidget()`
+                // is canonicalised to ONE shared instance, and Widget.canUpdate
+                // compares only (runtimeType, key) — so without distinct keys
+                // Flutter can reconcile one slot's State onto the other, leaving
+                // two AdWidgets on a single Ad. google_mobile_ads keys the native
+                // view by ad id, so that throws
+                // PlatformException(recreating_view, view id: '0').
+                const NativeAdWidget(key: ValueKey('learn-native-mid')),
                 const SizedBox(height: 28),
 
                 // Daily Challenges
@@ -160,8 +167,8 @@ class LearnTab extends ConsumerWidget {
                 _buildLearningSections(context, isDark),
                 const SizedBox(height: 28),
 
-                // Native ad after the last section
-                const NativeAdWidget(),
+                // Native ad after the last section (see the keying note above).
+                const NativeAdWidget(key: ValueKey('learn-native-end')),
                 const SizedBox(height: 32),
               ],
             ),

@@ -77,7 +77,7 @@ class _BannerAdWidgetState extends ConsumerState<BannerAdWidget> {
         borderRadius: BorderRadius.circular(8),
       ),
       clipBehavior: Clip.hardEdge,
-      child: AdWidget(ad: _bannerAd!),
+      child: AdWidget(key: ObjectKey(_bannerAd), ad: _bannerAd!),
     );
   }
 }
@@ -142,7 +142,7 @@ class _SmallBannerAdWidgetState extends ConsumerState<SmallBannerAdWidget> {
     return SizedBox(
       width: double.infinity,
       height: 50,
-      child: AdWidget(ad: _bannerAd!),
+      child: AdWidget(key: ObjectKey(_bannerAd), ad: _bannerAd!),
     );
   }
 }
@@ -236,12 +236,12 @@ class _NativeAdWidgetState extends ConsumerState<NativeAdWidget> {
           if (_isLoaded && _nativeAd != null)
             SizedBox(
               height: 300,
-              child: AdWidget(ad: _nativeAd!),
+              child: AdWidget(key: ObjectKey(_nativeAd), ad: _nativeAd!),
             )
           else if (_useBannerFallback)
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 8),
-              child: BannerAdWidget(),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: BannerAdWidget(key: ObjectKey(this)),
             )
           else
             Shimmer.fromColors(
