@@ -3244,5 +3244,7 @@
   "dailyTooHard": "Çok zor",
   "dailyScore": "{score}/{total}",
   "dailyStreakDays": "{count, plural, =1{1 günlük seri} other{{count} günlük seri}}",
-  "dailyXpEarned": "+{xp} XP"
+  "dailyXpEarned": "+{xp} XP",
+  "todayEmpty": "Bugünün içeriği hâlâ hazırlanıyor. Birazdan tekrar bak.",
+  "todayLanguageUnsupported": "{language} için günlük çalışma henüz mevcut değil."
 }

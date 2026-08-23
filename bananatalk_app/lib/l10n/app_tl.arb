@@ -3005,5 +3005,7 @@
   "dailyTooHard": "Sobrang hirap",
   "dailyScore": "{score}/{total}",
   "dailyStreakDays": "{count, plural, =1{1 araw na sunod-sunod} other{{count} araw na sunod-sunod}}",
-  "dailyXpEarned": "+{xp} XP"
+  "dailyXpEarned": "+{xp} XP",
+  "todayEmpty": "Inihahanda pa ang mga aralin ngayong araw. Balikan mo mamaya.",
+  "todayLanguageUnsupported": "Wala pang daily study para sa {language}."
 }

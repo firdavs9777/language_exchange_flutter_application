@@ -3032,5 +3032,7 @@
   "dailyTooHard": "Terlalu sulit",
   "dailyScore": "{score}/{total}",
   "dailyStreakDays": "{count, plural, other{Rentetan {count} hari}}",
-  "dailyXpEarned": "+{xp} XP"
+  "dailyXpEarned": "+{xp} XP",
+  "todayEmpty": "Materi hari ini masih disiapkan. Cek lagi nanti.",
+  "todayLanguageUnsupported": "Belajar harian belum tersedia untuk {language}."
 }

@@ -13765,6 +13765,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'+{xp} XP'**
   String dailyXpEarned(int xp);
+
+  /// Shown in the Today section when the bank has no approved items for the user's language and level yet
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s items are still being prepared. Check back soon.'**
+  String get todayEmpty;
+
+  /// Shown when the language the user picked cannot be resolved to a daily-study language
+  ///
+  /// In en, this message translates to:
+  /// **'Daily study isn\'t available for {language} yet.'**
+  String todayLanguageUnsupported(String language);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

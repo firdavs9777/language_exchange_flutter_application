@@ -7399,4 +7399,12 @@ class AppLocalizationsId extends AppLocalizations {
   String dailyXpEarned(int xp) {
     return '+$xp XP';
   }
+
+  @override
+  String get todayEmpty => 'Materi hari ini masih disiapkan. Cek lagi nanti.';
+
+  @override
+  String todayLanguageUnsupported(String language) {
+    return 'Belajar harian belum tersedia untuk $language.';
+  }
 }

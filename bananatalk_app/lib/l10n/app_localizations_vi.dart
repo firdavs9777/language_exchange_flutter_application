@@ -7392,4 +7392,12 @@ class AppLocalizationsVi extends AppLocalizations {
   String dailyXpEarned(int xp) {
     return '+$xp XP';
   }
+
+  @override
+  String get todayEmpty => 'Nội dung hôm nay đang được chuẩn bị. Hãy quay lại sau.';
+
+  @override
+  String todayLanguageUnsupported(String language) {
+    return 'Chưa có bài học hằng ngày cho $language.';
+  }
 }

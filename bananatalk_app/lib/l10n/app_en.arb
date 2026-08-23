@@ -4721,5 +4721,18 @@
         "type": "int"
       }
     }
+  },
+  "todayEmpty": "Today's items are still being prepared. Check back soon.",
+  "@todayEmpty": {
+    "description": "Shown in the Today section when the bank has no approved items for the user's language and level yet"
+  },
+  "todayLanguageUnsupported": "Daily study isn't available for {language} yet.",
+  "@todayLanguageUnsupported": {
+    "description": "Shown when the language the user picked cannot be resolved to a daily-study language",
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
   }
 }

@@ -3053,5 +3053,7 @@
   "dailyTooHard": "너무 어려움",
   "dailyScore": "{score}/{total}",
   "dailyStreakDays": "{count, plural, other{{count}일 연속}}",
-  "dailyXpEarned": "+{xp} XP"
+  "dailyXpEarned": "+{xp} XP",
+  "todayEmpty": "오늘의 학습 항목을 준비하고 있어요. 곧 다시 확인해 주세요.",
+  "todayLanguageUnsupported": "{language}은(는) 아직 데일리 학습을 지원하지 않아요."
 }

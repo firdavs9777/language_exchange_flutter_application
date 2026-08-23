@@ -3046,5 +3046,7 @@
   "dailyTooHard": "太难",
   "dailyScore": "{score}/{total}",
   "dailyStreakDays": "{count, plural, other{连续 {count} 天}}",
-  "dailyXpEarned": "+{xp} XP"
+  "dailyXpEarned": "+{xp} XP",
+  "todayEmpty": "今天的学习内容正在准备中，请稍后再来看看。",
+  "todayLanguageUnsupported": "{language}暂不支持每日学习。"
 }

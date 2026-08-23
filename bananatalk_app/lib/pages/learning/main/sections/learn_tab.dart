@@ -534,6 +534,24 @@ Future<void> _pickLearningLanguage(BuildContext context, WidgetRef ref) async {
   await LearningService.setLearningLanguage(picked.name);
   if (!context.mounted) return;
   ref.invalidate(dailyDropProvider);
+
+  // 6 of the 137 catalog languages (Dari, Hawaiian and the four sign
+  // languages) do not resolve through the server's toBaseLanguage, so the save
+  // succeeds and the reloaded drop still comes back needsLanguage — which just
+  // re-showed the same picker prompt forever with no explanation. Say so.
+  try {
+    final state = await ref.read(dailyDropProvider.future);
+    if (!context.mounted || !state.needsLanguage) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          AppLocalizations.of(context)!.todayLanguageUnsupported(picked.name),
+        ),
+      ),
+    );
+  } catch (_) {
+    // A failed reload is the loader's problem to surface, not this one's.
+  }
 }
 
 // ========== LearnTab private sub-widgets ==========

@@ -2525,5 +2525,7 @@
   "dailyTooHard": "Хеле мушкил",
   "dailyScore": "{score}/{total}",
   "dailyStreakDays": "{count, plural, =1{Силсилаи 1 рӯз} other{Силсилаи {count} рӯз}}",
-  "dailyXpEarned": "+{xp} XP"
+  "dailyXpEarned": "+{xp} XP",
+  "todayEmpty": "Мӯҳтавои имрӯза ҳанӯз омода мешавад. Ба зудӣ дубора нигаред.",
+  "todayLanguageUnsupported": "Омӯзиши ҳаррӯза барои {language} ҳанӯз дастрас нест."
 }

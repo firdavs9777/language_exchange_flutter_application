@@ -3062,5 +3062,7 @@
   "dailyTooHard": "صعب جدًا",
   "dailyScore": "{score}/{total}",
   "dailyStreakDays": "{count, plural, =1{سلسلة يوم واحد} =2{سلسلة يومين} other{سلسلة {count} أيام}}",
-  "dailyXpEarned": "+{xp} نقطة خبرة"
+  "dailyXpEarned": "+{xp} نقطة خبرة",
+  "todayEmpty": "محتوى اليوم قيد الإعداد. عد قريبًا.",
+  "todayLanguageUnsupported": "الدراسة اليومية غير متاحة بعد للغة {language}."
 }

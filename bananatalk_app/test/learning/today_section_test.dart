@@ -89,10 +89,16 @@ void main() {
     expect(find.byKey(const Key('today-level-fallback')), findsOneWidget);
   });
 
-  testWidgets('renders nothing rather than crashing when both items are null', (tester) async {
+  testWidgets('explains itself rather than rendering nothing when both items are null',
+      (tester) async {
     await tester.pumpWidget(_host(
       const DailyDropState(needsLanguage: false, dateKey: '2026-08-23'),
     ));
-    expect(find.byKey(const Key('today-empty')), findsOneWidget);
+    final empty = find.byKey(const Key('today-empty'));
+    expect(empty, findsOneWidget);
+    // Every English user sees this until the bank is approved — it must say
+    // something, not occupy zero height.
+    expect(find.descendant(of: empty, matching: find.byType(Text)), findsOneWidget);
+    expect(tester.getSize(empty).height, greaterThan(0));
   });
 }

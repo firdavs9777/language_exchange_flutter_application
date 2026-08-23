@@ -3272,5 +3272,7 @@
   "dailyTooHard": "Zu schwer",
   "dailyScore": "{score}/{total}",
   "dailyStreakDays": "{count, plural, =1{1 Tag in Folge} other{{count} Tage in Folge}}",
-  "dailyXpEarned": "+{xp} XP"
+  "dailyXpEarned": "+{xp} XP",
+  "todayEmpty": "Die heutigen Inhalte werden noch vorbereitet. Schau bald wieder vorbei.",
+  "todayLanguageUnsupported": "Tägliches Lernen ist für {language} noch nicht verfügbar."
 }

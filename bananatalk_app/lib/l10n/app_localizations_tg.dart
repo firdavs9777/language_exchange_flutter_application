@@ -7406,4 +7406,12 @@ class AppLocalizationsTg extends AppLocalizations {
   String dailyXpEarned(int xp) {
     return '+$xp XP';
   }
+
+  @override
+  String get todayEmpty => 'Мӯҳтавои имрӯза ҳанӯз омода мешавад. Ба зудӣ дубора нигаред.';
+
+  @override
+  String todayLanguageUnsupported(String language) {
+    return 'Омӯзиши ҳаррӯза барои $language ҳанӯз дастрас нест.';
+  }
 }

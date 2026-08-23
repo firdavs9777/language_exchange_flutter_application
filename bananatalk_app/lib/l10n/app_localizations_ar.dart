@@ -7410,4 +7410,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String dailyXpEarned(int xp) {
     return '+$xp نقطة خبرة';
   }
+
+  @override
+  String get todayEmpty => 'محتوى اليوم قيد الإعداد. عد قريبًا.';
+
+  @override
+  String todayLanguageUnsupported(String language) {
+    return 'الدراسة اليومية غير متاحة بعد للغة $language.';
+  }
 }

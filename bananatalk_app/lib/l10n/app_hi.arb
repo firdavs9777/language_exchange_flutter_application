@@ -3048,5 +3048,7 @@
   "dailyTooHard": "बहुत कठिन",
   "dailyScore": "{score}/{total}",
   "dailyStreakDays": "{count, plural, =1{1 दिन की स्ट्रीक} other{{count} दिन की स्ट्रीक}}",
-  "dailyXpEarned": "+{xp} XP"
+  "dailyXpEarned": "+{xp} XP",
+  "todayEmpty": "आज की सामग्री अभी तैयार की जा रही है। जल्द ही फिर देखें।",
+  "todayLanguageUnsupported": "{language} के लिए दैनिक अध्ययन अभी उपलब्ध नहीं है।"
 }

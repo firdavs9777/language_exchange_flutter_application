@@ -7392,4 +7392,12 @@ class AppLocalizationsTh extends AppLocalizations {
   String dailyXpEarned(int xp) {
     return '+$xp XP';
   }
+
+  @override
+  String get todayEmpty => 'เนื้อหาของวันนี้กำลังเตรียมอยู่ กลับมาดูใหม่เร็ว ๆ นี้';
+
+  @override
+  String todayLanguageUnsupported(String language) {
+    return 'ยังไม่มีบทเรียนประจำวันสำหรับ$language';
+  }
 }

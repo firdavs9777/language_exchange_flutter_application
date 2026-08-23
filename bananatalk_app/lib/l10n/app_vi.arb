@@ -3032,5 +3032,7 @@
   "dailyTooHard": "Quá khó",
   "dailyScore": "{score}/{total}",
   "dailyStreakDays": "{count, plural, other{Chuỗi {count} ngày}}",
-  "dailyXpEarned": "+{xp} XP"
+  "dailyXpEarned": "+{xp} XP",
+  "todayEmpty": "Nội dung hôm nay đang được chuẩn bị. Hãy quay lại sau.",
+  "todayLanguageUnsupported": "Chưa có bài học hằng ngày cho {language}."
 }

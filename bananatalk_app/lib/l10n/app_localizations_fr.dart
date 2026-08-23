@@ -7400,4 +7400,12 @@ class AppLocalizationsFr extends AppLocalizations {
   String dailyXpEarned(int xp) {
     return '+$xp XP';
   }
+
+  @override
+  String get todayEmpty => 'Le contenu du jour est en cours de préparation. Revenez bientôt.';
+
+  @override
+  String todayLanguageUnsupported(String language) {
+    return 'L\'étude quotidienne n\'est pas encore disponible pour $language.';
+  }
 }

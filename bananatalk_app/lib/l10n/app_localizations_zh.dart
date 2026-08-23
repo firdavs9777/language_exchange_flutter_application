@@ -7392,6 +7392,14 @@ class AppLocalizationsZh extends AppLocalizations {
   String dailyXpEarned(int xp) {
     return '+$xp XP';
   }
+
+  @override
+  String get todayEmpty => '今天的学习内容正在准备中，请稍后再来看看。';
+
+  @override
+  String todayLanguageUnsupported(String language) {
+    return '$language暂不支持每日学习。';
+  }
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -14781,5 +14789,13 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   @override
   String dailyXpEarned(int xp) {
     return '+$xp XP';
+  }
+
+  @override
+  String get todayEmpty => '今天的學習內容正在準備中，請稍後再來看看。';
+
+  @override
+  String todayLanguageUnsupported(String language) {
+    return '$language暫不支援每日學習。';
   }
 }

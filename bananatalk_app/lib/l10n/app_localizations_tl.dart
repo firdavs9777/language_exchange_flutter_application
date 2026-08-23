@@ -7400,4 +7400,12 @@ class AppLocalizationsTl extends AppLocalizations {
   String dailyXpEarned(int xp) {
     return '+$xp XP';
   }
+
+  @override
+  String get todayEmpty => 'Inihahanda pa ang mga aralin ngayong araw. Balikan mo mamaya.';
+
+  @override
+  String todayLanguageUnsupported(String language) {
+    return 'Wala pang daily study para sa $language.';
+  }
 }

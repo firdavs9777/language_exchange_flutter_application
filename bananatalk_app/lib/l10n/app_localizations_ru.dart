@@ -7413,4 +7413,12 @@ class AppLocalizationsRu extends AppLocalizations {
   String dailyXpEarned(int xp) {
     return '+$xp XP';
   }
+
+  @override
+  String get todayEmpty => 'Сегодняшние материалы ещё готовятся. Загляните позже.';
+
+  @override
+  String todayLanguageUnsupported(String language) {
+    return 'Ежедневные занятия для языка $language пока недоступны.';
+  }
 }

@@ -3062,5 +3062,7 @@
   "dailyTooHard": "Слишком сложно",
   "dailyScore": "{score}/{total}",
   "dailyStreakDays": "{count, plural, =1{Серия: 1 день} few{Серия: {count} дня} other{Серия: {count} дней}}",
-  "dailyXpEarned": "+{xp} XP"
+  "dailyXpEarned": "+{xp} XP",
+  "todayEmpty": "Сегодняшние материалы ещё готовятся. Загляните позже.",
+  "todayLanguageUnsupported": "Ежедневные занятия для языка {language} пока недоступны."
 }

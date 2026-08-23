@@ -30,7 +30,18 @@ class TodaySection extends StatelessWidget {
 
     final items = [state.grammar, state.vocabulary].whereType<DailyItem>().toList();
     if (items.isEmpty) {
-      return const SizedBox(key: Key('today-empty'), height: 0);
+      // Not a rare edge case: every English learner sees this until the bank
+      // is approved, and so does anyone learning a language before its first
+      // AI-fill run. A zero-height box left them staring at the gap where the
+      // day's study was supposed to be, with nothing to explain it.
+      return Padding(
+        key: const Key('today-empty'),
+        padding: const EdgeInsets.fromLTRB(16, 12, 16, 4),
+        child: Text(
+          AppLocalizations.of(context)!.todayEmpty,
+          style: Theme.of(context).textTheme.bodyMedium,
+        ),
+      );
     }
 
     return Column(

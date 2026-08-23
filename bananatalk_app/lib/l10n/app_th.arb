@@ -3032,5 +3032,7 @@
   "dailyTooHard": "ยากเกินไป",
   "dailyScore": "{score}/{total}",
   "dailyStreakDays": "{count, plural, other{ต่อเนื่อง {count} วัน}}",
-  "dailyXpEarned": "+{xp} XP"
+  "dailyXpEarned": "+{xp} XP",
+  "todayEmpty": "เนื้อหาของวันนี้กำลังเตรียมอยู่ กลับมาดูใหม่เร็ว ๆ นี้",
+  "todayLanguageUnsupported": "ยังไม่มีบทเรียนประจำวันสำหรับ{language}"
 }

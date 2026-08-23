@@ -3062,5 +3062,7 @@
   "dailyTooHard": "Demasiado difícil",
   "dailyScore": "{score}/{total}",
   "dailyStreakDays": "{count, plural, =1{Racha de 1 día} other{Racha de {count} días}}",
-  "dailyXpEarned": "+{xp} XP"
+  "dailyXpEarned": "+{xp} XP",
+  "todayEmpty": "El contenido de hoy aún se está preparando. Vuelve pronto.",
+  "todayLanguageUnsupported": "El estudio diario aún no está disponible para {language}."
 }
