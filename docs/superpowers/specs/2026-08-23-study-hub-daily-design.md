@@ -196,7 +196,15 @@ Blocks every other section.
   Traditional map to **distinct** base codes `zh-Hans` and `zh-Hant`, because
   the written content genuinely differs and both have real populations
   (35 and 16 learners respectively).
-- Mirrored `lib/utils/language_normalize.dart` for client-side resolution.
+- ~~Mirrored `lib/utils/language_normalize.dart` for client-side resolution.~~
+  *Dropped during implementation (2026-08-23).* Nothing consumes it: `GET
+  /daily` returns the already-resolved base code in its `language` field, and
+  every client surface renders what the API returns. The app's existing
+  `LanguageCodes` (`lib/utils/language_codes.dart`) also has no static
+  name→code table, so a client-side mirror could only resolve display names
+  through the network-fetched catalog and would return `null` before that
+  loads — a latent bug in code no caller needed. Normalization is server-side
+  only.
 - All daily content is keyed by base code. Users resolve to a base code at
   query time; no write-side migration of `language_to_learn` is required for
   this wave.
