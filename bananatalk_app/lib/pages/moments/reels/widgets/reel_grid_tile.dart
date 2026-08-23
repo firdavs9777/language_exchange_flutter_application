@@ -167,30 +167,35 @@ class _ReelGridTileState extends State<ReelGridTile> {
                 child: VideoPlayer(controller),
               ),
             ),
-          if (!playing)
-            Align(
-              alignment: Alignment.bottomRight,
-              child: Padding(
-                padding: const EdgeInsets.all(6),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
+          Align(
+            alignment: Alignment.bottomRight,
+            child: Padding(
+              padding: const EdgeInsets.all(6),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // A play glyph over already-playing video is meaningless,
+                  // so it hides once the tile is animating. The count is a
+                  // stat, not a playback affordance, so it stays visible
+                  // (and stable, not flickering) whether or not the tile is
+                  // currently playing.
+                  if (!playing) ...[
                     const Icon(Icons.play_arrow, color: Colors.white, size: 16),
-                    if (widget.reel.likeCount > 0) ...[
-                      const SizedBox(width: 2),
-                      Text(
-                        formatCompactCount(widget.reel.likeCount),
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 11,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ],
+                    if (widget.reel.likeCount > 0) const SizedBox(width: 2),
                   ],
-                ),
+                  if (widget.reel.likeCount > 0)
+                    Text(
+                      formatCompactCount(widget.reel.likeCount),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 11,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                ],
               ),
             ),
+          ),
           Positioned(
             top: 6,
             left: 6,
