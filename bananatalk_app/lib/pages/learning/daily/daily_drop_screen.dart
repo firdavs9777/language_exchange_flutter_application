@@ -61,9 +61,9 @@ class _DailyDropScreenState extends State<DailyDropScreen> {
         padding: const EdgeInsets.all(16),
         children: [
           Text(item.explanation, style: Theme.of(context).textTheme.bodyLarge),
-          const SizedBox(height: 8),
+          const SizedBox(height: 16),
           ...item.examples.map((e) => Padding(
-                padding: const EdgeInsets.only(bottom: 4),
+                padding: const EdgeInsets.only(bottom: 8),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -73,7 +73,7 @@ class _DailyDropScreenState extends State<DailyDropScreen> {
                   ],
                 ),
               )),
-          const Divider(height: 16),
+          const Divider(height: 32),
           ...List.generate(item.quickCheck.length, (i) {
             final q = item.quickCheck[i];
             return Column(
@@ -85,14 +85,11 @@ class _DailyDropScreenState extends State<DailyDropScreen> {
                       value: o,
                       groupValue: _answers[i],
                       title: Text(q.options[o]),
-                      dense: true,
-                      visualDensity: VisualDensity.compact,
-                      contentPadding: EdgeInsets.zero,
                       onChanged: _result != null
                           ? null
                           : (v) => setState(() => _answers[i] = v),
                     )),
-                const SizedBox(height: 4),
+                const SizedBox(height: 12),
               ],
             );
           }),
@@ -105,7 +102,7 @@ class _DailyDropScreenState extends State<DailyDropScreen> {
             onPressed: (!_allAnswered || _submitting || _result != null) ? null : _submit,
             child: const Text('Check'),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 16),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [

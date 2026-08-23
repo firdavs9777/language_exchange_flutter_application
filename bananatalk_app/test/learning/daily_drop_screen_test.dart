@@ -30,6 +30,22 @@ Widget _host({
     );
 
 void main() {
+  // The production layout uses default-density RadioListTiles (comfortable
+  // touch targets for a screen used every day) which don't fit inside
+  // flutter_test's default 800x600 surface. Rather than shrink the real
+  // layout to fit the test, give the test a taller surface instead.
+  setUp(() {
+    final view = TestWidgetsFlutterBinding.ensureInitialized().platformDispatcher.views.first;
+    view.physicalSize = const Size(1200, 3000);
+    view.devicePixelRatio = 1.0;
+  });
+
+  tearDown(() {
+    final view = TestWidgetsFlutterBinding.ensureInitialized().platformDispatcher.views.first;
+    view.resetPhysicalSize();
+    view.resetDevicePixelRatio();
+  });
+
   testWidgets('shows the explanation and every example', (tester) async {
     await tester.pumpWidget(_host());
     expect(find.text('Both describe past habits.'), findsOneWidget);
