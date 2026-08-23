@@ -123,27 +123,62 @@ class ProfileMomentsTab extends ConsumerWidget {
                       ? ImageUtils.normalizeImageUrl(moment.imageUrls[0])
                       : null;
 
+                  // A video moment carries no `images` — its preview lives on
+                  // `video.thumbnail`. Without this it fell through to the
+                  // text tile below and looked like it had never been posted.
+                  final videoThumb = imageUrl == null && moment.hasVideo
+                      ? (moment.video?.thumbnail ?? '')
+                      : '';
+
+                  Widget tile;
+                  if (imageUrl != null) {
+                    tile = CachedImageWidget(
+                      imageUrl: imageUrl,
+                      fit: BoxFit.cover,
+                      errorWidget: Container(
+                        color: context.containerColor,
+                        child: Icon(
+                          Icons.broken_image_rounded,
+                          color: context.iconColor,
+                        ),
+                      ),
+                    );
+                  } else if (moment.hasVideo) {
+                    // Play badge marks it as video even when the thumbnail is
+                    // missing (older uploads predate thumbnail generation).
+                    tile = Stack(
+                      fit: StackFit.expand,
+                      children: [
+                        if (videoThumb.isNotEmpty)
+                          CachedImageWidget(
+                            imageUrl: ImageUtils.normalizeImageUrl(videoThumb),
+                            fit: BoxFit.cover,
+                            errorWidget: Container(color: Colors.black54),
+                          )
+                        else
+                          Container(color: Colors.black54),
+                        const Center(
+                          child: Icon(
+                            Icons.play_circle_fill_rounded,
+                            color: Colors.white,
+                            size: 32,
+                          ),
+                        ),
+                      ],
+                    );
+                  } else {
+                    // Text / prompt moments have no image — show a colored
+                    // text preview (using the moment's background colour)
+                    // instead of a blank placeholder tile.
+                    tile = TextMomentTile(
+                      text: moment.description,
+                      backgroundColor: moment.backgroundColor,
+                    );
+                  }
+
                   return ClipRRect(
                     borderRadius: BorderRadius.circular(12),
-                    child: imageUrl != null
-                        ? CachedImageWidget(
-                            imageUrl: imageUrl,
-                            fit: BoxFit.cover,
-                            errorWidget: Container(
-                              color: context.containerColor,
-                              child: Icon(
-                                Icons.broken_image_rounded,
-                                color: context.iconColor,
-                              ),
-                            ),
-                          )
-                        // Text / prompt moments have no image — show a colored
-                        // text preview (using the moment's background colour)
-                        // instead of a blank placeholder tile.
-                        : TextMomentTile(
-                            text: moment.description,
-                            backgroundColor: moment.backgroundColor,
-                          ),
+                    child: tile,
                   );
                 },
               ),
