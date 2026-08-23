@@ -652,7 +652,14 @@ class _NotificationHistoryScreenState
                   .markAsRead(notification.id);
             }
             if (notification.data.isNotEmpty) {
-              NotificationRouter.handleNotification(context, notification.data);
+              // Thread the history row's own id in as `notificationId` so the
+              // router reports the tap. The stored `data` blob is whatever the
+              // server put in the push payload and historically carried no id,
+              // so an in-app tap never registered as a click.
+              NotificationRouter.handleNotification(context, {
+                ...notification.data,
+                'notificationId': notification.id,
+              });
             }
           },
           borderRadius: BorderRadius.circular(16),
