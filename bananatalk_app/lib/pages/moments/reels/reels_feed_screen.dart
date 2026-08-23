@@ -135,7 +135,7 @@ class _ReelsFeedScreenState extends ConsumerState<ReelsFeedScreen>
     _pool.releaseOutside(_currentIndex);
 
     // Bytes only: reaches further ahead than the controller window, creating
-    // no decoders. releaseOutside() below stays at ±1 for that reason.
+    // no decoders. releaseOutside() above stays at ±1 for that reason.
     final upcoming = <String>[];
     for (var i = _currentIndex + 1;
         i <= _currentIndex + _prefetchDepth && i < reels.length;

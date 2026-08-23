@@ -26,45 +26,139 @@ class ReelControllerPool {
   /// index twice before the first dispose completes.
   final Set<int> _disposing = {};
 
+  /// Creation in flight per index, keyed before the first `await` inside
+  /// [_createController] runs. `activate` and `preload` both funnel through
+  /// [_getOrCreateController], so if one is already building the controller
+  /// for an index, the other joins that same future instead of starting a
+  /// second construction — otherwise two callers racing the same slot (e.g.
+  /// a `preload` suspended on the cache probe while a swipe triggers
+  /// `activate` for the same index) would each build a controller and the
+  /// loser's write to `_controllers[index]` would silently orphan the
+  /// winner's, leaking a live decoder (and, if it was already playing,
+  /// ghost audio).
+  final Map<int, Future<VideoPlayerController?>> _pendingCreations = {};
+
+  /// Set by [disposeAll]. Checked after every `await` in
+  /// [_createController] so a controller build that was suspended when the
+  /// screen tore down bails out — and disposes anything it already
+  /// constructed — instead of registering a decoder into a pool nobody will
+  /// ever dispose again.
+  bool _disposed = false;
+
   VideoPlayerController? controllerAt(int index) => _controllers[index];
 
-  /// Activates (creating + initializing if needed) the controller at
-  /// [index] for [url], and starts looped playback.
-  Future<VideoPlayerController> activate(int index, String url) async {
-    var controller = _controllers[index];
-    if (controller == null) {
-      // Play from disk when we already have the bytes: instant start, no
-      // network. On a miss stream as before AND warm the cache, so the next
-      // view of this reel is local. Cache failure is always soft.
-      final cached = await _cache.cachedFileFor(url);
-      if (cached == null) {
-        _cache.warm(url);
-        controller = VideoPlayerController.networkUrl(Uri.parse(url));
-      } else {
-        controller = VideoPlayerController.file(cached);
+  /// Returns the live controller for [index], joining an in-flight build for
+  /// the same index if one exists, or starting exactly one otherwise.
+  Future<VideoPlayerController?> _getOrCreateController(
+    int index,
+    String url,
+  ) {
+    final existing = _controllers[index];
+    if (existing != null) return Future.value(existing);
+    if (_disposed) return Future.value(null);
+
+    final pending = _pendingCreations[index];
+    if (pending != null) return pending;
+
+    final future = _createController(index, url);
+    _pendingCreations[index] = future;
+    future.whenComplete(() => _pendingCreations.remove(index));
+    return future;
+  }
+
+  /// Builds, registers and initializes the controller for [index]/[url].
+  /// Never called directly — only through [_getOrCreateController], which
+  /// guarantees at most one of these runs per index at a time.
+  Future<VideoPlayerController?> _createController(
+    int index,
+    String url,
+  ) async {
+    // Play from disk when we already have the bytes: instant start, no
+    // network. On a miss stream as before AND warm the cache, so the next
+    // view of this reel is local. Cache failure is always soft.
+    final cached = await _cache.cachedFileFor(url);
+    if (_disposed) return null;
+
+    final usingCache = cached != null;
+    var controller = cached == null
+        ? VideoPlayerController.networkUrl(Uri.parse(url))
+        : VideoPlayerController.file(cached);
+    if (!usingCache) _cache.warm(url);
+    _controllers[index] = controller;
+
+    try {
+      await controller.initialize();
+    } catch (e) {
+      debugPrint(
+        'ReelControllerPool: failed to init reel $index (cached=$usingCache): $e',
+      );
+      // Evict the failed controller so a later swipe-back retries instead
+      // of finding a permanently-uninitialized cached instance (gate
+      // review minor: otherwise this reel shows a spinner forever).
+      if (_controllers[index] == controller) {
+        _controllers.remove(index);
       }
+      try {
+        await controller.dispose();
+      } catch (_) {}
+
+      if (!usingCache || _disposed) return null;
+
+      // The probe found a file, but it was gone, truncated, or otherwise
+      // unplayable by the time we tried to use it. A cache problem must
+      // never make a reel unplayable, so fall back to streaming exactly as
+      // a cache miss would — the miss path already degrades this way, the
+      // hit path should too.
+      debugPrint(
+        'ReelControllerPool: cached file for reel $index failed to init, '
+        'falling back to network',
+      );
+      controller = VideoPlayerController.networkUrl(Uri.parse(url));
       _controllers[index] = controller;
       try {
         await controller.initialize();
-      } catch (e) {
-        debugPrint('ReelControllerPool: failed to init reel $index: $e');
-        // Evict the failed controller so a later swipe-back retries instead
-        // of finding a permanently-uninitialized cached instance (gate
-        // review minor: otherwise this reel shows a spinner forever).
+      } catch (e2) {
+        debugPrint(
+          'ReelControllerPool: network fallback failed for reel $index: $e2',
+        );
         if (_controllers[index] == controller) {
           _controllers.remove(index);
         }
         try {
           await controller.dispose();
         } catch (_) {}
-        return controller;
+        return null;
       }
     }
 
-    // The controller may have been evicted (releaseOutside) while the
-    // `await controller.initialize()` above was in flight — don't touch a
-    // controller that's no longer ours to touch.
-    if (_controllers[index] != controller) return controller;
+    // The controller may have been evicted (releaseOutside) or the pool
+    // torn down (disposeAll) while an `await` above was in flight — don't
+    // leave a decoder running that nothing will ever release.
+    if (_disposed || _controllers[index] != controller) {
+      if (_controllers[index] == controller) {
+        _controllers.remove(index);
+      }
+      try {
+        await controller.dispose();
+      } catch (_) {}
+      return null;
+    }
+
+    try {
+      await controller.setLooping(true);
+    } catch (_) {}
+    return controller;
+  }
+
+  /// Activates (creating + initializing if needed) the controller at
+  /// [index] for [url], and starts looped playback.
+  Future<VideoPlayerController?> activate(int index, String url) async {
+    final controller = await _getOrCreateController(index, url);
+    if (controller == null) return null;
+
+    // Same eviction/disposal race as inside `_createController` — the
+    // await above may have crossed a `releaseOutside`/`disposeAll`.
+    if (_disposed || _controllers[index] != controller) return controller;
 
     try {
       await controller.setLooping(true);
@@ -79,26 +173,7 @@ class ReelControllerPool {
   /// Preloads (creates + initializes, but does not play) the controller at
   /// [index] so it's ready the instant the user swipes to it.
   Future<void> preload(int index, String url) async {
-    if (_controllers.containsKey(index)) return;
-    final cached = await _cache.cachedFileFor(url);
-    final controller = cached == null
-        ? VideoPlayerController.networkUrl(Uri.parse(url))
-        : VideoPlayerController.file(cached);
-    _controllers[index] = controller;
-    try {
-      await controller.initialize();
-      if (_controllers[index] != controller) return; // evicted meanwhile
-      await controller.setLooping(true);
-    } catch (e) {
-      debugPrint('ReelControllerPool: failed to preload reel $index: $e');
-      // Same eviction-on-failure as activate(): let a later attempt retry.
-      if (_controllers[index] == controller) {
-        _controllers.remove(index);
-      }
-      try {
-        await controller.dispose();
-      } catch (_) {}
-    }
+    await _getOrCreateController(index, url);
   }
 
   /// Downloads [urls] into the cache **without** creating controllers.
@@ -146,7 +221,14 @@ class ReelControllerPool {
   }
 
   /// Disposes all controllers — call from the feed screen's `dispose()`.
+  ///
+  /// Also latches [_disposed], so any `activate`/`preload` build still in
+  /// flight (suspended on a cache probe or `initialize()`) bails out on its
+  /// next check instead of registering a fresh controller after the pool is
+  /// meant to be dead. This pool is one-shot per feed screen instance, so
+  /// the flag is never expected to be un-set.
   void disposeAll() {
+    _disposed = true;
     final indices = _controllers.keys.toList();
     for (final index in indices) {
       _disposeController(index);
