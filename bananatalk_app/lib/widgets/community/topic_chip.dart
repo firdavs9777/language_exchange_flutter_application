@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/models/community/topic_model.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/utils/compact_count.dart';
 
 /// Topic chip widget for displaying interests
 class TopicChip extends StatelessWidget {
@@ -120,7 +121,7 @@ class TopicChip extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Text(
-                    _formatUserCount(topic.userCount),
+                    formatCompactCount(topic.userCount),
                     style: TextStyle(
                       fontSize: 10,
                       fontWeight: FontWeight.w600,
@@ -134,15 +135,6 @@ class TopicChip extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  String _formatUserCount(int count) {
-    if (count >= 1000000) {
-      return '${(count / 1000000).toStringAsFixed(1)}M';
-    } else if (count >= 1000) {
-      return '${(count / 1000).toStringAsFixed(1)}K';
-    }
-    return count.toString();
   }
 }
 

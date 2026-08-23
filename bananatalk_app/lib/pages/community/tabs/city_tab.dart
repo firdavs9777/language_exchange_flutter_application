@@ -18,6 +18,7 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
+import 'package:bananatalk_app/utils/compact_count.dart';
 
 /// Country pin on the map
 class _CountryPin {
@@ -987,7 +988,7 @@ class _MapPin extends StatelessWidget {
                   ),
                 )
               : Text(
-                  _formatCount(count),
+                  formatCompactCount(count),
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 10,
@@ -1011,10 +1012,5 @@ class _MapPin extends StatelessWidget {
         ),
       ],
     );
-  }
-
-  String _formatCount(int count) {
-    if (count >= 1000) return '${(count / 1000).toStringAsFixed(1)}k';
-    return '$count';
   }
 }
