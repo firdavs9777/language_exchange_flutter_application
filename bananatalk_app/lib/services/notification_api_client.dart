@@ -448,6 +448,46 @@ class NotificationApiClient {
     }
   }
 
+  /// POST /api/v1/notifications/:id/clicked
+  ///
+  /// Reports that a notification was tapped, so click-through becomes
+  /// measurable (every historical row has `clicked: false` because nothing
+  /// ever called this). Fire-and-forget: swallow failures so a lost
+  /// analytics ping never blocks navigation.
+  Future<void> markClicked(String notificationId) async {
+    try {
+      final url = Uri.parse('${baseUrl}notifications/$notificationId/clicked');
+      final headers = await _getHeaders();
+
+      await http.post(url, headers: headers);
+    } catch (e) {
+      // Intentionally swallowed — see doc comment above.
+    }
+  }
+
+  /// PUT /api/v1/notifications/settings
+  ///
+  /// Reports the device's real IANA timezone (e.g. "Asia/Shanghai") so
+  /// scheduled sends can be bucketed to the user's local evening instead of
+  /// the Asia/Seoul default. Uses the same endpoint as [updateSettings];
+  /// the backend persists top-level `timezone` fields independently of the
+  /// other settings keys. Fire-and-forget: a failed report must never block
+  /// app startup.
+  Future<void> updateTimezone(String tz) async {
+    try {
+      final url = Uri.parse('${baseUrl}notifications/settings');
+      final headers = await _getHeaders();
+
+      await http.put(
+        url,
+        headers: headers,
+        body: jsonEncode({'timezone': tz}),
+      );
+    } catch (e) {
+      // Intentionally swallowed — see doc comment above.
+    }
+  }
+
   /// POST /api/v1/notifications/test (for debugging)
   Future<Map<String, dynamic>> sendTestNotification({
     String? userId,

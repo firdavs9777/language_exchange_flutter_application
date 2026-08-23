@@ -3050,5 +3050,19 @@
   "promoSpotlightVoiceSubtitle": "Общайтесь вживую с другими изучающими язык и обретайте настоящую уверенность в разговоре, беседа за беседой.",
   "promoSpotlightTryIt": "Попробовать",
   "promoSpotlightMaybeLater": "Может быть позже",
-  "promoSpotlightDontShowAgain": "Больше не показывать"
+  "promoSpotlightDontShowAgain": "Больше не показывать",
+  "todayTab": "Сегодня",
+  "todaysGrammar": "Грамматика на сегодня",
+  "todaysVocabulary": "Словарь на сегодня",
+  "todayMinutes": "{count} мин",
+  "todayPickLanguage": "Что вы изучаете?",
+  "todayLevelFallback": "Показан {served} — контента для {requested} пока нет",
+  "dailyCheck": "Проверить",
+  "dailyTooEasy": "Слишком легко",
+  "dailyTooHard": "Слишком сложно",
+  "dailyScore": "{score}/{total}",
+  "dailyStreakDays": "{count, plural, =1{Серия: 1 день} few{Серия: {count} дня} other{Серия: {count} дней}}",
+  "dailyXpEarned": "+{xp} XP",
+  "todayEmpty": "Сегодняшние материалы ещё готовятся. Загляните позже.",
+  "todayLanguageUnsupported": "Ежедневные занятия для языка {language} пока недоступны."
 }

@@ -7341,6 +7341,65 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get roomGoToRooms => '前往房间';
+
+  @override
+  String get todayTab => '今日';
+
+  @override
+  String get todaysGrammar => '今日语法';
+
+  @override
+  String get todaysVocabulary => '今日词汇';
+
+  @override
+  String todayMinutes(int count) {
+    return '$count 分钟';
+  }
+
+  @override
+  String get todayPickLanguage => '你在学什么？';
+
+  @override
+  String todayLevelFallback(String served, String requested) {
+    return '正在显示$served — 暂无$requested内容';
+  }
+
+  @override
+  String get dailyCheck => '检查';
+
+  @override
+  String get dailyTooEasy => '太简单';
+
+  @override
+  String get dailyTooHard => '太难';
+
+  @override
+  String dailyScore(int score, int total) {
+    return '$score/$total';
+  }
+
+  @override
+  String dailyStreakDays(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '连续 $count 天',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String dailyXpEarned(int xp) {
+    return '+$xp XP';
+  }
+
+  @override
+  String get todayEmpty => '今天的学习内容正在准备中，请稍后再来看看。';
+
+  @override
+  String todayLanguageUnsupported(String language) {
+    return '$language暂不支持每日学习。';
+  }
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -14680,4 +14739,63 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get roomGoToRooms => '前往房間';
+
+  @override
+  String get todayTab => '今日';
+
+  @override
+  String get todaysGrammar => '今日語法';
+
+  @override
+  String get todaysVocabulary => '今日詞彙';
+
+  @override
+  String todayMinutes(int count) {
+    return '$count 分鐘';
+  }
+
+  @override
+  String get todayPickLanguage => '你在學什麼？';
+
+  @override
+  String todayLevelFallback(String served, String requested) {
+    return '正在顯示$served — 暫無$requested內容';
+  }
+
+  @override
+  String get dailyCheck => '檢查';
+
+  @override
+  String get dailyTooEasy => '太簡單';
+
+  @override
+  String get dailyTooHard => '太難';
+
+  @override
+  String dailyScore(int score, int total) {
+    return '$score/$total';
+  }
+
+  @override
+  String dailyStreakDays(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '連續 $count 天',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String dailyXpEarned(int xp) {
+    return '+$xp XP';
+  }
+
+  @override
+  String get todayEmpty => '今天的學習內容正在準備中，請稍後再來看看。';
+
+  @override
+  String todayLanguageUnsupported(String language) {
+    return '$language暫不支援每日學習。';
+  }
 }

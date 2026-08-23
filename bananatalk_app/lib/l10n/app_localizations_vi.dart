@@ -7341,4 +7341,63 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get roomGoToRooms => 'Đi đến Phòng';
+
+  @override
+  String get todayTab => 'Hôm nay';
+
+  @override
+  String get todaysGrammar => 'Ngữ pháp hôm nay';
+
+  @override
+  String get todaysVocabulary => 'Từ vựng hôm nay';
+
+  @override
+  String todayMinutes(int count) {
+    return '$count phút';
+  }
+
+  @override
+  String get todayPickLanguage => 'Bạn đang học gì?';
+
+  @override
+  String todayLevelFallback(String served, String requested) {
+    return 'Đang hiển thị $served — chưa có nội dung cho $requested';
+  }
+
+  @override
+  String get dailyCheck => 'Kiểm tra';
+
+  @override
+  String get dailyTooEasy => 'Quá dễ';
+
+  @override
+  String get dailyTooHard => 'Quá khó';
+
+  @override
+  String dailyScore(int score, int total) {
+    return '$score/$total';
+  }
+
+  @override
+  String dailyStreakDays(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Chuỗi $count ngày',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String dailyXpEarned(int xp) {
+    return '+$xp XP';
+  }
+
+  @override
+  String get todayEmpty => 'Nội dung hôm nay đang được chuẩn bị. Hãy quay lại sau.';
+
+  @override
+  String todayLanguageUnsupported(String language) {
+    return 'Chưa có bài học hằng ngày cho $language.';
+  }
 }

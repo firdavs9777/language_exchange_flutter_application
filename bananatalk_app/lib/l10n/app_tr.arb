@@ -3232,5 +3232,19 @@
   "promoSpotlightVoiceSubtitle": "Diğer öğrencilerle canlı konuş ve her sohbette gerçek konuşma özgüveni kazan.",
   "promoSpotlightTryIt": "Dene",
   "promoSpotlightMaybeLater": "Belki sonra",
-  "promoSpotlightDontShowAgain": "Bunu bir daha gösterme"
+  "promoSpotlightDontShowAgain": "Bunu bir daha gösterme",
+  "todayTab": "Bugün",
+  "todaysGrammar": "Bugünün dil bilgisi",
+  "todaysVocabulary": "Bugünün kelimeleri",
+  "todayMinutes": "{count} dk",
+  "todayPickLanguage": "Ne öğreniyorsun?",
+  "todayLevelFallback": "{served} gösteriliyor — {requested} için henüz içerik yok",
+  "dailyCheck": "Kontrol et",
+  "dailyTooEasy": "Çok kolay",
+  "dailyTooHard": "Çok zor",
+  "dailyScore": "{score}/{total}",
+  "dailyStreakDays": "{count, plural, =1{1 günlük seri} other{{count} günlük seri}}",
+  "dailyXpEarned": "+{xp} XP",
+  "todayEmpty": "Bugünün içeriği hâlâ hazırlanıyor. Birazdan tekrar bak.",
+  "todayLanguageUnsupported": "{language} için günlük çalışma henüz mevcut değil."
 }

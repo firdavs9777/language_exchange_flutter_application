@@ -4317,7 +4317,6 @@
   "@examTipsCategoryFluency": {
     "description": "Tip group label"
   },
-
   "roomsNewRoom": "New room",
   "@roomsNewRoom": {
     "description": "FAB label to create a new Community Room topic room"
@@ -4643,5 +4642,97 @@
   "roomGoToRooms": "Go to Rooms",
   "@roomGoToRooms": {
     "description": "Retry-state button label to navigate back to the rooms directory"
+  },
+  "todayTab": "Today",
+  "@todayTab": {
+    "description": "Label for the Study Hub's landing tab, which hosts the daily drop"
+  },
+  "todaysGrammar": "Today's grammar",
+  "@todaysGrammar": {
+    "description": "Subtitle prefix for the daily grammar card on the Today section"
+  },
+  "todaysVocabulary": "Today's vocabulary",
+  "@todaysVocabulary": {
+    "description": "Subtitle prefix for the daily vocabulary card on the Today section"
+  },
+  "todayMinutes": "{count} min",
+  "@todayMinutes": {
+    "description": "Estimated minutes suffix appended to a Today card subtitle",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "todayPickLanguage": "What are you learning?",
+  "@todayPickLanguage": {
+    "description": "Button label prompting the user to pick a language before the daily drop can load"
+  },
+  "todayLevelFallback": "Showing {served} — no {requested} content yet",
+  "@todayLevelFallback": {
+    "description": "Notice shown when the daily drop falls back to a different level than requested",
+    "placeholders": {
+      "served": {
+        "type": "String"
+      },
+      "requested": {
+        "type": "String"
+      }
+    }
+  },
+  "dailyCheck": "Check",
+  "@dailyCheck": {
+    "description": "Button label to submit answers on the daily drop quick-check"
+  },
+  "dailyTooEasy": "Too easy",
+  "@dailyTooEasy": {
+    "description": "Feedback button label indicating the daily drop item was too easy"
+  },
+  "dailyTooHard": "Too hard",
+  "@dailyTooHard": {
+    "description": "Feedback button label indicating the daily drop item was too hard"
+  },
+  "dailyScore": "{score}/{total}",
+  "@dailyScore": {
+    "description": "Score fraction shown after completing a daily drop quick-check",
+    "placeholders": {
+      "score": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "dailyStreakDays": "{count, plural, =1{1-day streak} other{{count}-day streak}}",
+  "@dailyStreakDays": {
+    "description": "Streak length shown on the daily drop screen after completing the day",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "dailyXpEarned": "+{xp} XP",
+  "@dailyXpEarned": {
+    "description": "XP earned, shown on the daily drop screen after completing the day",
+    "placeholders": {
+      "xp": {
+        "type": "int"
+      }
+    }
+  },
+  "todayEmpty": "Today's items are still being prepared. Check back soon.",
+  "@todayEmpty": {
+    "description": "Shown in the Today section when the bank has no approved items for the user's language and level yet"
+  },
+  "todayLanguageUnsupported": "Daily study isn't available for {language} yet.",
+  "@todayLanguageUnsupported": {
+    "description": "Shown when the language the user picked cannot be resolved to a daily-study language",
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
   }
 }

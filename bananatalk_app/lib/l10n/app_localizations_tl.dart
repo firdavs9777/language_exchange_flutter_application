@@ -7348,4 +7348,64 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get roomGoToRooms => 'Pumunta sa Mga Silid';
+
+  @override
+  String get todayTab => 'Ngayon';
+
+  @override
+  String get todaysGrammar => 'Gramatika ngayon';
+
+  @override
+  String get todaysVocabulary => 'Bokabularyo ngayon';
+
+  @override
+  String todayMinutes(int count) {
+    return '$count min';
+  }
+
+  @override
+  String get todayPickLanguage => 'Ano ang natututuhan mo?';
+
+  @override
+  String todayLevelFallback(String served, String requested) {
+    return 'Ipinapakita ang $served — walang content pa para sa $requested';
+  }
+
+  @override
+  String get dailyCheck => 'Suriin';
+
+  @override
+  String get dailyTooEasy => 'Sobrang madali';
+
+  @override
+  String get dailyTooHard => 'Sobrang hirap';
+
+  @override
+  String dailyScore(int score, int total) {
+    return '$score/$total';
+  }
+
+  @override
+  String dailyStreakDays(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count araw na sunod-sunod',
+      one: '1 araw na sunod-sunod',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String dailyXpEarned(int xp) {
+    return '+$xp XP';
+  }
+
+  @override
+  String get todayEmpty => 'Inihahanda pa ang mga aralin ngayong araw. Balikan mo mamaya.';
+
+  @override
+  String todayLanguageUnsupported(String language) {
+    return 'Wala pang daily study para sa $language.';
+  }
 }

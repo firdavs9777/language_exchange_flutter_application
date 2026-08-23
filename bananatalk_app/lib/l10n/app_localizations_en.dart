@@ -7354,4 +7354,64 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get roomGoToRooms => 'Go to Rooms';
+
+  @override
+  String get todayTab => 'Today';
+
+  @override
+  String get todaysGrammar => 'Today\'s grammar';
+
+  @override
+  String get todaysVocabulary => 'Today\'s vocabulary';
+
+  @override
+  String todayMinutes(int count) {
+    return '$count min';
+  }
+
+  @override
+  String get todayPickLanguage => 'What are you learning?';
+
+  @override
+  String todayLevelFallback(String served, String requested) {
+    return 'Showing $served — no $requested content yet';
+  }
+
+  @override
+  String get dailyCheck => 'Check';
+
+  @override
+  String get dailyTooEasy => 'Too easy';
+
+  @override
+  String get dailyTooHard => 'Too hard';
+
+  @override
+  String dailyScore(int score, int total) {
+    return '$score/$total';
+  }
+
+  @override
+  String dailyStreakDays(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count-day streak',
+      one: '1-day streak',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String dailyXpEarned(int xp) {
+    return '+$xp XP';
+  }
+
+  @override
+  String get todayEmpty => 'Today\'s items are still being prepared. Check back soon.';
+
+  @override
+  String todayLanguageUnsupported(String language) {
+    return 'Daily study isn\'t available for $language yet.';
+  }
 }

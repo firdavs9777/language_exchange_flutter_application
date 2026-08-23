@@ -3260,5 +3260,19 @@
   "promoSpotlightVoiceSubtitle": "Sprich live mit anderen Lernenden und gewinne echtes Sprechvertrauen, ein Gespräch nach dem anderen.",
   "promoSpotlightTryIt": "Jetzt ausprobieren",
   "promoSpotlightMaybeLater": "Vielleicht später",
-  "promoSpotlightDontShowAgain": "Nicht mehr anzeigen"
+  "promoSpotlightDontShowAgain": "Nicht mehr anzeigen",
+  "todayTab": "Heute",
+  "todaysGrammar": "Heutige Grammatik",
+  "todaysVocabulary": "Heutiger Wortschatz",
+  "todayMinutes": "{count} Min.",
+  "todayPickLanguage": "Was lernst du?",
+  "todayLevelFallback": "Zeige {served} — noch keine Inhalte für {requested}",
+  "dailyCheck": "Prüfen",
+  "dailyTooEasy": "Zu einfach",
+  "dailyTooHard": "Zu schwer",
+  "dailyScore": "{score}/{total}",
+  "dailyStreakDays": "{count, plural, =1{1 Tag in Folge} other{{count} Tage in Folge}}",
+  "dailyXpEarned": "+{xp} XP",
+  "todayEmpty": "Die heutigen Inhalte werden noch vorbereitet. Schau bald wieder vorbei.",
+  "todayLanguageUnsupported": "Tägliches Lernen ist für {language} noch nicht verfügbar."
 }

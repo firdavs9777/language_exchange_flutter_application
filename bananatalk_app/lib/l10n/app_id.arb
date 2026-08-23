@@ -3020,5 +3020,19 @@
   "promoSpotlightVoiceSubtitle": "Ngobrol langsung dengan pelajar lain dan bangun kepercayaan diri berbicara yang sesungguhnya, satu percakapan demi satu percakapan.",
   "promoSpotlightTryIt": "Coba sekarang",
   "promoSpotlightMaybeLater": "Nanti saja",
-  "promoSpotlightDontShowAgain": "Jangan tampilkan lagi"
+  "promoSpotlightDontShowAgain": "Jangan tampilkan lagi",
+  "todayTab": "Hari Ini",
+  "todaysGrammar": "Tata bahasa hari ini",
+  "todaysVocabulary": "Kosakata hari ini",
+  "todayMinutes": "{count} menit",
+  "todayPickLanguage": "Apa yang sedang Anda pelajari?",
+  "todayLevelFallback": "Menampilkan {served} — belum ada konten {requested}",
+  "dailyCheck": "Periksa",
+  "dailyTooEasy": "Terlalu mudah",
+  "dailyTooHard": "Terlalu sulit",
+  "dailyScore": "{score}/{total}",
+  "dailyStreakDays": "{count, plural, other{Rentetan {count} hari}}",
+  "dailyXpEarned": "+{xp} XP",
+  "todayEmpty": "Materi hari ini masih disiapkan. Cek lagi nanti.",
+  "todayLanguageUnsupported": "Belajar harian belum tersedia untuk {language}."
 }

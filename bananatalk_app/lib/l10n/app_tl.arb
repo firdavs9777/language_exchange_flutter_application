@@ -2993,5 +2993,19 @@
   "promoSpotlightVoiceSubtitle": "Makipag-usap nang live sa ibang mga learner at magkaroon ng tunay na tiwala sa pagsasalita, isang usapan sa isang pagkakataon.",
   "promoSpotlightTryIt": "Subukan",
   "promoSpotlightMaybeLater": "Sa ibang pagkakataon na lang",
-  "promoSpotlightDontShowAgain": "Huwag nang ipakita ulit ito"
+  "promoSpotlightDontShowAgain": "Huwag nang ipakita ulit ito",
+  "todayTab": "Ngayon",
+  "todaysGrammar": "Gramatika ngayon",
+  "todaysVocabulary": "Bokabularyo ngayon",
+  "todayMinutes": "{count} min",
+  "todayPickLanguage": "Ano ang natututuhan mo?",
+  "todayLevelFallback": "Ipinapakita ang {served} — walang content pa para sa {requested}",
+  "dailyCheck": "Suriin",
+  "dailyTooEasy": "Sobrang madali",
+  "dailyTooHard": "Sobrang hirap",
+  "dailyScore": "{score}/{total}",
+  "dailyStreakDays": "{count, plural, =1{1 araw na sunod-sunod} other{{count} araw na sunod-sunod}}",
+  "dailyXpEarned": "+{xp} XP",
+  "todayEmpty": "Inihahanda pa ang mga aralin ngayong araw. Balikan mo mamaya.",
+  "todayLanguageUnsupported": "Wala pang daily study para sa {language}."
 }

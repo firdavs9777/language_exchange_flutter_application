@@ -7354,4 +7354,64 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get roomGoToRooms => 'Ба Ҳуҷраҳо гузаштан';
+
+  @override
+  String get todayTab => 'Имрӯз';
+
+  @override
+  String get todaysGrammar => 'Грамматикаи имрӯз';
+
+  @override
+  String get todaysVocabulary => 'Луғати имрӯз';
+
+  @override
+  String todayMinutes(int count) {
+    return '$count дақиқа';
+  }
+
+  @override
+  String get todayPickLanguage => 'Шумо чиро меомӳзед?';
+
+  @override
+  String todayLevelFallback(String served, String requested) {
+    return 'Намоиши $served — ҳанӯз мӳҳтавои $requested нест';
+  }
+
+  @override
+  String get dailyCheck => 'Тафтиш кунед';
+
+  @override
+  String get dailyTooEasy => 'Хеле осон';
+
+  @override
+  String get dailyTooHard => 'Хеле мушкил';
+
+  @override
+  String dailyScore(int score, int total) {
+    return '$score/$total';
+  }
+
+  @override
+  String dailyStreakDays(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Силсилаи $count рӯз',
+      one: 'Силсилаи 1 рӯз',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String dailyXpEarned(int xp) {
+    return '+$xp XP';
+  }
+
+  @override
+  String get todayEmpty => 'Мӯҳтавои имрӯза ҳанӯз омода мешавад. Ба зудӣ дубора нигаред.';
+
+  @override
+  String todayLanguageUnsupported(String language) {
+    return 'Омӯзиши ҳаррӯза барои $language ҳанӯз дастрас нест.';
+  }
 }

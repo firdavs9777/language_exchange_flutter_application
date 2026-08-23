@@ -3260,5 +3260,19 @@
   "promoSpotlightVoiceSubtitle": "Parla dal vivo con altri studenti e costruisci una vera sicurezza nel parlare, una conversazione alla volta.",
   "promoSpotlightTryIt": "Provalo",
   "promoSpotlightMaybeLater": "Forse più tardi",
-  "promoSpotlightDontShowAgain": "Non mostrare più"
+  "promoSpotlightDontShowAgain": "Non mostrare più",
+  "todayTab": "Oggi",
+  "todaysGrammar": "Grammatica di oggi",
+  "todaysVocabulary": "Vocabolario di oggi",
+  "todayMinutes": "{count} min",
+  "todayPickLanguage": "Cosa stai imparando?",
+  "todayLevelFallback": "Mostrando {served} — nessun contenuto per {requested} ancora",
+  "dailyCheck": "Verifica",
+  "dailyTooEasy": "Troppo facile",
+  "dailyTooHard": "Troppo difficile",
+  "dailyScore": "{score}/{total}",
+  "dailyStreakDays": "{count, plural, =1{Serie di 1 giorno} other{Serie di {count} giorni}}",
+  "dailyXpEarned": "+{xp} XP",
+  "todayEmpty": "I contenuti di oggi sono in preparazione. Torna presto.",
+  "todayLanguageUnsupported": "Lo studio quotidiano non è ancora disponibile per {language}."
 }

@@ -7348,4 +7348,64 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get roomGoToRooms => 'Aller aux salons';
+
+  @override
+  String get todayTab => 'Aujourd\'hui';
+
+  @override
+  String get todaysGrammar => 'Grammaire du jour';
+
+  @override
+  String get todaysVocabulary => 'Vocabulaire du jour';
+
+  @override
+  String todayMinutes(int count) {
+    return '$count min';
+  }
+
+  @override
+  String get todayPickLanguage => 'Qu\'apprenez-vous ?';
+
+  @override
+  String todayLevelFallback(String served, String requested) {
+    return 'Affichage de $served — pas encore de contenu pour $requested';
+  }
+
+  @override
+  String get dailyCheck => 'Vérifier';
+
+  @override
+  String get dailyTooEasy => 'Trop facile';
+
+  @override
+  String get dailyTooHard => 'Trop difficile';
+
+  @override
+  String dailyScore(int score, int total) {
+    return '$score/$total';
+  }
+
+  @override
+  String dailyStreakDays(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Série de $count jours',
+      one: 'Série de 1 jour',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String dailyXpEarned(int xp) {
+    return '+$xp XP';
+  }
+
+  @override
+  String get todayEmpty => 'Le contenu du jour est en cours de préparation. Revenez bientôt.';
+
+  @override
+  String todayLanguageUnsupported(String language) {
+    return 'L\'étude quotidienne n\'est pas encore disponible pour $language.';
+  }
 }

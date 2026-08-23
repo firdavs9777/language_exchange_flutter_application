@@ -62,6 +62,10 @@ dependencies:
   flutter_local_notifications: ^16.3.0
   app_settings: ^5.1.1
   device_info_plus: ^12.3.0
+  # Reports the device's real IANA timezone (DateTime.now().timeZoneName
+  # returns just an abbreviation on some platforms) so daily-drop delivery
+  # can be bucketed to the user's local evening instead of Asia/Seoul.
+  flutter_timezone: ^5.1.0
   
   # Routing
   go_router: ^14.0.0

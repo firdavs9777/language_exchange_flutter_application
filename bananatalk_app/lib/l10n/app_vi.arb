@@ -3020,5 +3020,19 @@
   "promoSpotlightVoiceSubtitle": "Trò chuyện trực tiếp với những người học khác và xây dựng sự tự tin nói thật sự, từng cuộc trò chuyện một.",
   "promoSpotlightTryIt": "Thử ngay",
   "promoSpotlightMaybeLater": "Để sau",
-  "promoSpotlightDontShowAgain": "Không hiển thị lại"
+  "promoSpotlightDontShowAgain": "Không hiển thị lại",
+  "todayTab": "Hôm nay",
+  "todaysGrammar": "Ngữ pháp hôm nay",
+  "todaysVocabulary": "Từ vựng hôm nay",
+  "todayMinutes": "{count} phút",
+  "todayPickLanguage": "Bạn đang học gì?",
+  "todayLevelFallback": "Đang hiển thị {served} — chưa có nội dung cho {requested}",
+  "dailyCheck": "Kiểm tra",
+  "dailyTooEasy": "Quá dễ",
+  "dailyTooHard": "Quá khó",
+  "dailyScore": "{score}/{total}",
+  "dailyStreakDays": "{count, plural, other{Chuỗi {count} ngày}}",
+  "dailyXpEarned": "+{xp} XP",
+  "todayEmpty": "Nội dung hôm nay đang được chuẩn bị. Hãy quay lại sau.",
+  "todayLanguageUnsupported": "Chưa có bài học hằng ngày cho {language}."
 }

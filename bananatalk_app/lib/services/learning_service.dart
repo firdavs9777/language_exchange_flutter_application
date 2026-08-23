@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:bananatalk_app/service/endpoints.dart';
 import 'package:bananatalk_app/models/learning/vocabulary_model.dart';
 import 'package:bananatalk_app/models/learning/vocab_pack_model.dart';
+import 'package:bananatalk_app/models/learning/daily_drop_model.dart';
 import 'package:bananatalk_app/models/learning/lesson_model.dart';
 import 'package:bananatalk_app/models/learning/quiz_model.dart';
 import 'package:bananatalk_app/pages/learning/models/weekly_digest.dart';
@@ -1462,5 +1463,77 @@ class LearningService {
       return Map<String, dynamic>.from(data['data'] as Map);
     }
     throw Exception(_getErrorMessage(data, 'Failed to add pack'));
+  }
+
+  // ==================== STUDY HUB DAILY DROP ====================
+
+  /// Today's grammar + vocabulary for the signed-in user.
+  static Future<DailyDropState> getDailyDrop({String? locale}) async {
+    final token = await _getToken();
+    var url = Uri.parse('${Endpoints.baseURL}${Endpoints.dailyDropURL}');
+    if (locale != null && locale.isNotEmpty) {
+      url = url.replace(queryParameters: {'locale': locale});
+    }
+    final response = await http.get(url, headers: _getHeaders(token));
+    final data = _safeJsonDecode(response.body);
+    if (response.statusCode == 200 && data != null && data['data'] != null) {
+      return DailyDropState.fromJson(data['data'] as Map<String, dynamic>);
+    }
+    throw Exception(_getErrorMessage(data, 'Failed to load today\'s study'));
+  }
+
+  /// Submit quick-check answers for one item.
+  static Future<DailyCompletionResult> completeDailyItem(
+    String itemId,
+    List<int> answers,
+  ) async {
+    final token = await _getToken();
+    final url = Uri.parse('${Endpoints.baseURL}${Endpoints.dailyCompleteURL(itemId)}');
+    final response = await http.post(
+      url,
+      headers: _getHeaders(token),
+      body: jsonEncode({'answers': answers}),
+    );
+    final data = _safeJsonDecode(response.body);
+    if (response.statusCode == 200 && data != null && data['data'] != null) {
+      return DailyCompletionResult.fromJson(data['data'] as Map<String, dynamic>);
+    }
+    throw Exception(_getErrorMessage(data, 'Failed to submit answers'));
+  }
+
+  /// Too easy / too hard. Returns the user's new CEFR level.
+  static Future<String> submitDailyFeedback(String itemId, String verdict) async {
+    final token = await _getToken();
+    final url = Uri.parse('${Endpoints.baseURL}${Endpoints.dailyFeedbackURL(itemId)}');
+    final response = await http.post(
+      url,
+      headers: _getHeaders(token),
+      body: jsonEncode({'verdict': verdict}),
+    );
+    final data = _safeJsonDecode(response.body);
+    if (response.statusCode == 200 && data != null && data['data'] != null) {
+      return (data['data'] as Map<String, dynamic>)['languageLevel'] as String;
+    }
+    throw Exception(_getErrorMessage(data, 'Failed to update level'));
+  }
+
+  /// Persist the user's learning target. Stores the display name, matching
+  /// what `language_to_learn` already holds elsewhere in the product;
+  /// the server normalizes to a base code at read time.
+  ///
+  /// `language_to_learn` is a plain String field on the User model
+  /// (`models/User.js`), not an array — sending a list here throws a
+  /// Mongoose CastError server-side and this call fails with a 400.
+  static Future<void> setLearningLanguage(String languageName) async {
+    final token = await _getToken();
+    final url = Uri.parse('${Endpoints.baseURL}${Endpoints.updateDetailsURL}');
+    final response = await http.put(
+      url,
+      headers: _getHeaders(token),
+      body: jsonEncode({'language_to_learn': languageName}),
+    );
+    if (response.statusCode != 200) {
+      throw Exception('Failed to save learning language');
+    }
   }
 }

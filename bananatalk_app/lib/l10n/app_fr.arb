@@ -3260,5 +3260,19 @@
   "promoSpotlightVoiceSubtitle": "Parlez en direct avec d'autres apprenants et gagnez une vraie confiance à l'oral, conversation après conversation.",
   "promoSpotlightTryIt": "Essayer",
   "promoSpotlightMaybeLater": "Plus tard",
-  "promoSpotlightDontShowAgain": "Ne plus afficher ceci"
+  "promoSpotlightDontShowAgain": "Ne plus afficher ceci",
+  "todayTab": "Aujourd'hui",
+  "todaysGrammar": "Grammaire du jour",
+  "todaysVocabulary": "Vocabulaire du jour",
+  "todayMinutes": "{count} min",
+  "todayPickLanguage": "Qu'apprenez-vous ?",
+  "todayLevelFallback": "Affichage de {served} — pas encore de contenu pour {requested}",
+  "dailyCheck": "Vérifier",
+  "dailyTooEasy": "Trop facile",
+  "dailyTooHard": "Trop difficile",
+  "dailyScore": "{score}/{total}",
+  "dailyStreakDays": "{count, plural, =1{Série de 1 jour} other{Série de {count} jours}}",
+  "dailyXpEarned": "+{xp} XP",
+  "todayEmpty": "Le contenu du jour est en cours de préparation. Revenez bientôt.",
+  "todayLanguageUnsupported": "L'étude quotidienne n'est pas encore disponible pour {language}."
 }

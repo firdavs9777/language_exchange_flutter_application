@@ -7348,4 +7348,64 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get roomGoToRooms => 'Odalara git';
+
+  @override
+  String get todayTab => 'Bugün';
+
+  @override
+  String get todaysGrammar => 'Bugünün dil bilgisi';
+
+  @override
+  String get todaysVocabulary => 'Bugünün kelimeleri';
+
+  @override
+  String todayMinutes(int count) {
+    return '$count dk';
+  }
+
+  @override
+  String get todayPickLanguage => 'Ne öğreniyorsun?';
+
+  @override
+  String todayLevelFallback(String served, String requested) {
+    return '$served gösteriliyor — $requested için henüz içerik yok';
+  }
+
+  @override
+  String get dailyCheck => 'Kontrol et';
+
+  @override
+  String get dailyTooEasy => 'Çok kolay';
+
+  @override
+  String get dailyTooHard => 'Çok zor';
+
+  @override
+  String dailyScore(int score, int total) {
+    return '$score/$total';
+  }
+
+  @override
+  String dailyStreakDays(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count günlük seri',
+      one: '1 günlük seri',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String dailyXpEarned(int xp) {
+    return '+$xp XP';
+  }
+
+  @override
+  String get todayEmpty => 'Bugünün içeriği hâlâ hazırlanıyor. Birazdan tekrar bak.';
+
+  @override
+  String todayLanguageUnsupported(String language) {
+    return '$language için günlük çalışma henüz mevcut değil.';
+  }
 }

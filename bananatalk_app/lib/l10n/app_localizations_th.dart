@@ -7341,4 +7341,63 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get roomGoToRooms => 'ไปที่ห้อง';
+
+  @override
+  String get todayTab => 'วันนี้';
+
+  @override
+  String get todaysGrammar => 'แกรมมาร์ของวันนี้';
+
+  @override
+  String get todaysVocabulary => 'คำศัพท์ของวันนี้';
+
+  @override
+  String todayMinutes(int count) {
+    return '$count นาที';
+  }
+
+  @override
+  String get todayPickLanguage => 'คุณกำลังเรียนภาษาอะไร?';
+
+  @override
+  String todayLevelFallback(String served, String requested) {
+    return 'กำลังแสดง $served — ยังไม่มีเนื้อหาสำหรับ $requested';
+  }
+
+  @override
+  String get dailyCheck => 'ตรวจสอบ';
+
+  @override
+  String get dailyTooEasy => 'ง่ายเกินไป';
+
+  @override
+  String get dailyTooHard => 'ยากเกินไป';
+
+  @override
+  String dailyScore(int score, int total) {
+    return '$score/$total';
+  }
+
+  @override
+  String dailyStreakDays(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'ต่อเนื่อง $count วัน',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String dailyXpEarned(int xp) {
+    return '+$xp XP';
+  }
+
+  @override
+  String get todayEmpty => 'เนื้อหาของวันนี้กำลังเตรียมอยู่ กลับมาดูใหม่เร็ว ๆ นี้';
+
+  @override
+  String todayLanguageUnsupported(String language) {
+    return 'ยังไม่มีบทเรียนประจำวันสำหรับ$language';
+  }
 }

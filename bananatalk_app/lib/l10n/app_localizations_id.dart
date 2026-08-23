@@ -7348,4 +7348,63 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get roomGoToRooms => 'Buka Ruang';
+
+  @override
+  String get todayTab => 'Hari Ini';
+
+  @override
+  String get todaysGrammar => 'Tata bahasa hari ini';
+
+  @override
+  String get todaysVocabulary => 'Kosakata hari ini';
+
+  @override
+  String todayMinutes(int count) {
+    return '$count menit';
+  }
+
+  @override
+  String get todayPickLanguage => 'Apa yang sedang Anda pelajari?';
+
+  @override
+  String todayLevelFallback(String served, String requested) {
+    return 'Menampilkan $served — belum ada konten $requested';
+  }
+
+  @override
+  String get dailyCheck => 'Periksa';
+
+  @override
+  String get dailyTooEasy => 'Terlalu mudah';
+
+  @override
+  String get dailyTooHard => 'Terlalu sulit';
+
+  @override
+  String dailyScore(int score, int total) {
+    return '$score/$total';
+  }
+
+  @override
+  String dailyStreakDays(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Rentetan $count hari',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String dailyXpEarned(int xp) {
+    return '+$xp XP';
+  }
+
+  @override
+  String get todayEmpty => 'Materi hari ini masih disiapkan. Cek lagi nanti.';
+
+  @override
+  String todayLanguageUnsupported(String language) {
+    return 'Belajar harian belum tersedia untuk $language.';
+  }
 }

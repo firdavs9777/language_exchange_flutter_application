@@ -13693,6 +13693,90 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Go to Rooms'**
   String get roomGoToRooms;
+
+  /// Label for the Study Hub's landing tab, which hosts the daily drop
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get todayTab;
+
+  /// Subtitle prefix for the daily grammar card on the Today section
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s grammar'**
+  String get todaysGrammar;
+
+  /// Subtitle prefix for the daily vocabulary card on the Today section
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s vocabulary'**
+  String get todaysVocabulary;
+
+  /// Estimated minutes suffix appended to a Today card subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'{count} min'**
+  String todayMinutes(int count);
+
+  /// Button label prompting the user to pick a language before the daily drop can load
+  ///
+  /// In en, this message translates to:
+  /// **'What are you learning?'**
+  String get todayPickLanguage;
+
+  /// Notice shown when the daily drop falls back to a different level than requested
+  ///
+  /// In en, this message translates to:
+  /// **'Showing {served} — no {requested} content yet'**
+  String todayLevelFallback(String served, String requested);
+
+  /// Button label to submit answers on the daily drop quick-check
+  ///
+  /// In en, this message translates to:
+  /// **'Check'**
+  String get dailyCheck;
+
+  /// Feedback button label indicating the daily drop item was too easy
+  ///
+  /// In en, this message translates to:
+  /// **'Too easy'**
+  String get dailyTooEasy;
+
+  /// Feedback button label indicating the daily drop item was too hard
+  ///
+  /// In en, this message translates to:
+  /// **'Too hard'**
+  String get dailyTooHard;
+
+  /// Score fraction shown after completing a daily drop quick-check
+  ///
+  /// In en, this message translates to:
+  /// **'{score}/{total}'**
+  String dailyScore(int score, int total);
+
+  /// Streak length shown on the daily drop screen after completing the day
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1-day streak} other{{count}-day streak}}'**
+  String dailyStreakDays(int count);
+
+  /// XP earned, shown on the daily drop screen after completing the day
+  ///
+  /// In en, this message translates to:
+  /// **'+{xp} XP'**
+  String dailyXpEarned(int xp);
+
+  /// Shown in the Today section when the bank has no approved items for the user's language and level yet
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s items are still being prepared. Check back soon.'**
+  String get todayEmpty;
+
+  /// Shown when the language the user picked cannot be resolved to a daily-study language
+  ///
+  /// In en, this message translates to:
+  /// **'Daily study isn\'t available for {language} yet.'**
+  String todayLanguageUnsupported(String language);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

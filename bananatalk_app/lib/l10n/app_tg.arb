@@ -2513,5 +2513,19 @@
   "promoSpotlightVoiceSubtitle": "Бо забономӯзони дигар зинда сӯҳбат кунед ва бо ҳар сӯҳбат боварии воқеии гуфторӣ пайдо кунед.",
   "promoSpotlightTryIt": "Санҷед",
   "promoSpotlightMaybeLater": "Шояд баъдтар",
-  "promoSpotlightDontShowAgain": "Дигар нишон надиҳед"
+  "promoSpotlightDontShowAgain": "Дигар нишон надиҳед",
+  "todayTab": "Имрӯз",
+  "todaysGrammar": "Грамматикаи имрӯз",
+  "todaysVocabulary": "Луғати имрӯз",
+  "todayMinutes": "{count} дақиқа",
+  "todayPickLanguage": "Шумо чиро меомӳзед?",
+  "todayLevelFallback": "Намоиши {served} — ҳанӯз мӳҳтавои {requested} нест",
+  "dailyCheck": "Тафтиш кунед",
+  "dailyTooEasy": "Хеле осон",
+  "dailyTooHard": "Хеле мушкил",
+  "dailyScore": "{score}/{total}",
+  "dailyStreakDays": "{count, plural, =1{Силсилаи 1 рӯз} other{Силсилаи {count} рӯз}}",
+  "dailyXpEarned": "+{xp} XP",
+  "todayEmpty": "Мӯҳтавои имрӯза ҳанӯз омода мешавад. Ба зудӣ дубора нигаред.",
+  "todayLanguageUnsupported": "Омӯзиши ҳаррӯза барои {language} ҳанӯз дастрас нест."
 }

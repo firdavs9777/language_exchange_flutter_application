@@ -3041,5 +3041,19 @@
   "promoSpotlightVoiceSubtitle": "다른 학습자들과 실시간으로 대화하며 한 번의 대화마다 진짜 말하기 자신감을 쌓아보세요.",
   "promoSpotlightTryIt": "체험해보기",
   "promoSpotlightMaybeLater": "나중에 할게요",
-  "promoSpotlightDontShowAgain": "다시 보지 않기"
+  "promoSpotlightDontShowAgain": "다시 보지 않기",
+  "todayTab": "오늘",
+  "todaysGrammar": "오늘의 문법",
+  "todaysVocabulary": "오늘의 어휘",
+  "todayMinutes": "{count}분",
+  "todayPickLanguage": "무엇을 배우고 있나요?",
+  "todayLevelFallback": "{served} 표시 중 — {requested} 콘텐츠가 아직 없습니다",
+  "dailyCheck": "확인",
+  "dailyTooEasy": "너무 쉬움",
+  "dailyTooHard": "너무 어려움",
+  "dailyScore": "{score}/{total}",
+  "dailyStreakDays": "{count, plural, other{{count}일 연속}}",
+  "dailyXpEarned": "+{xp} XP",
+  "todayEmpty": "오늘의 학습 항목을 준비하고 있어요. 곧 다시 확인해 주세요.",
+  "todayLanguageUnsupported": "{language}은(는) 아직 데일리 학습을 지원하지 않아요."
 }

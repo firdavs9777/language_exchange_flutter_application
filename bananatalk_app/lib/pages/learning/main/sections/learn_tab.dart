@@ -16,6 +16,11 @@ import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/pages/learning/main/sections/weekly_digest_card.dart';
 import 'package:bananatalk_app/pages/learning/main/sections/progress_hero.dart';
 import 'package:bananatalk_app/pages/learning/main/sections/daily_practice_card.dart';
+import 'package:bananatalk_app/pages/learning/daily/daily_drop_screen.dart';
+import 'package:bananatalk_app/pages/learning/daily/widgets/today_section.dart';
+import 'package:bananatalk_app/providers/provider_root/learning/daily_drop_providers.dart';
+import 'package:bananatalk_app/services/learning_service.dart';
+import 'package:bananatalk_app/widgets/language_selection/show_language_picker.dart';
 
 /// The "Learn" tab inside the Study Hub.
 class LearnTab extends ConsumerWidget {
@@ -47,6 +52,33 @@ class LearnTab extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                // ── Today zone: daily drop leads the tab (spec §4.8) ──
+                ref.watch(dailyDropProvider).when(
+                      loading: () => const Padding(
+                        padding: EdgeInsets.all(24),
+                        child: Center(child: CircularProgressIndicator()),
+                      ),
+                      error: (_, __) => const SizedBox.shrink(),
+                      data: (state) => TodaySection(
+                        state: state,
+                        onOpen: (item) => Navigator.of(context)
+                            .push(AppPageRoute(builder: (_) => DailyDropScreen(item: item)))
+                            .then((_) {
+                          if (!context.mounted) return;
+                          ref.invalidate(dailyDropProvider);
+                          // ProgressHero, the quick stats and DailyGoalWidget
+                          // all sit directly under these cards and read
+                          // learningProgressProvider. Without invalidating it
+                          // too, the cards flip to done while the streak
+                          // counter and XP bar an inch below still show
+                          // yesterday's numbers.
+                          ref.invalidate(learningProgressProvider);
+                        }),
+                        onPickLanguage: () => _pickLearningLanguage(context, ref),
+                      ),
+                    ),
+                const SizedBox(height: 16),
+
                 // Progress Hero Card
                 const ProgressHero(),
                 const SizedBox(height: 16),
@@ -491,6 +523,34 @@ class LearnTab extends ConsumerWidget {
         ),
       ],
     );
+  }
+}
+
+/// Ask the 134 active users with a blank `language_to_learn` what they are
+/// learning, then persist it and refresh today's drop (spec §4.1).
+Future<void> _pickLearningLanguage(BuildContext context, WidgetRef ref) async {
+  final picked = await showLanguagePickerSheet(context);
+  if (picked == null) return;
+  await LearningService.setLearningLanguage(picked.name);
+  if (!context.mounted) return;
+  ref.invalidate(dailyDropProvider);
+
+  // 6 of the 137 catalog languages (Dari, Hawaiian and the four sign
+  // languages) do not resolve through the server's toBaseLanguage, so the save
+  // succeeds and the reloaded drop still comes back needsLanguage — which just
+  // re-showed the same picker prompt forever with no explanation. Say so.
+  try {
+    final state = await ref.read(dailyDropProvider.future);
+    if (!context.mounted || !state.needsLanguage) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          AppLocalizations.of(context)!.todayLanguageUnsupported(picked.name),
+        ),
+      ),
+    );
+  } catch (_) {
+    // A failed reload is the loader's problem to surface, not this one's.
   }
 }
 

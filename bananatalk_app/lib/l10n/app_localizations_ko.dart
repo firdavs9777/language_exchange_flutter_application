@@ -7341,4 +7341,63 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get roomGoToRooms => '방 목록으로 이동';
+
+  @override
+  String get todayTab => '오늘';
+
+  @override
+  String get todaysGrammar => '오늘의 문법';
+
+  @override
+  String get todaysVocabulary => '오늘의 어휘';
+
+  @override
+  String todayMinutes(int count) {
+    return '$count분';
+  }
+
+  @override
+  String get todayPickLanguage => '무엇을 배우고 있나요?';
+
+  @override
+  String todayLevelFallback(String served, String requested) {
+    return '$served 표시 중 — $requested 콘텐츠가 아직 없습니다';
+  }
+
+  @override
+  String get dailyCheck => '확인';
+
+  @override
+  String get dailyTooEasy => '너무 쉬움';
+
+  @override
+  String get dailyTooHard => '너무 어려움';
+
+  @override
+  String dailyScore(int score, int total) {
+    return '$score/$total';
+  }
+
+  @override
+  String dailyStreakDays(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count일 연속',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String dailyXpEarned(int xp) {
+    return '+$xp XP';
+  }
+
+  @override
+  String get todayEmpty => '오늘의 학습 항목을 준비하고 있어요. 곧 다시 확인해 주세요.';
+
+  @override
+  String todayLanguageUnsupported(String language) {
+    return '$language은(는) 아직 데일리 학습을 지원하지 않아요.';
+  }
 }

@@ -3020,5 +3020,19 @@
   "promoSpotlightVoiceSubtitle": "พูดคุยสดกับผู้เรียนคนอื่น ๆ และสร้างความมั่นใจในการพูดที่แท้จริง ทีละบทสนทนา",
   "promoSpotlightTryIt": "ลองเลย",
   "promoSpotlightMaybeLater": "ไว้ทีหลัง",
-  "promoSpotlightDontShowAgain": "ไม่ต้องแสดงอีก"
+  "promoSpotlightDontShowAgain": "ไม่ต้องแสดงอีก",
+  "todayTab": "วันนี้",
+  "todaysGrammar": "แกรมมาร์ของวันนี้",
+  "todaysVocabulary": "คำศัพท์ของวันนี้",
+  "todayMinutes": "{count} นาที",
+  "todayPickLanguage": "คุณกำลังเรียนภาษาอะไร?",
+  "todayLevelFallback": "กำลังแสดง {served} — ยังไม่มีเนื้อหาสำหรับ {requested}",
+  "dailyCheck": "ตรวจสอบ",
+  "dailyTooEasy": "ง่ายเกินไป",
+  "dailyTooHard": "ยากเกินไป",
+  "dailyScore": "{score}/{total}",
+  "dailyStreakDays": "{count, plural, other{ต่อเนื่อง {count} วัน}}",
+  "dailyXpEarned": "+{xp} XP",
+  "todayEmpty": "เนื้อหาของวันนี้กำลังเตรียมอยู่ กลับมาดูใหม่เร็ว ๆ นี้",
+  "todayLanguageUnsupported": "ยังไม่มีบทเรียนประจำวันสำหรับ{language}"
 }
