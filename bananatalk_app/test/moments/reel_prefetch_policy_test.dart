@@ -44,4 +44,51 @@ void main() {
           lessThanOrEqualTo(kReelMaxPrefetchDepth));
     });
   });
+
+  group('reelConnectionUnmetered', () {
+    test('wifi is unmetered', () {
+      expect(reelConnectionUnmetered([ConnectivityResult.wifi]), isTrue);
+    });
+
+    test('ethernet is unmetered', () {
+      expect(reelConnectionUnmetered([ConnectivityResult.ethernet]), isTrue);
+    });
+
+    test('mobile data is metered', () {
+      expect(reelConnectionUnmetered([ConnectivityResult.mobile]), isFalse);
+    });
+
+    test('an unrecognised transport is metered, not unmetered', () {
+      expect(reelConnectionUnmetered([ConnectivityResult.bluetooth]), isFalse);
+    });
+
+    test('offline is not unmetered', () {
+      expect(reelConnectionUnmetered([ConnectivityResult.none]), isFalse);
+    });
+
+    test('an empty list is not unmetered', () {
+      expect(reelConnectionUnmetered([]), isFalse);
+    });
+
+    test('mixed wifi and mobile is unmetered', () {
+      expect(
+        reelConnectionUnmetered(
+            [ConnectivityResult.mobile, ConnectivityResult.wifi]),
+        isTrue,
+      );
+    });
+
+    test('agrees with reelPrefetchDepth on every single transport', () {
+      // The grid used to ask "is this unmetered?" by open-coding
+      // `reelPrefetchDepth(status) > 1`. The named helper must mean exactly
+      // that, for every value, or the two call sites would drift apart.
+      for (final result in ConnectivityResult.values) {
+        expect(
+          reelConnectionUnmetered([result]),
+          reelPrefetchDepth([result]) > 1,
+          reason: 'disagreement on $result',
+        );
+      }
+    });
+  });
 }

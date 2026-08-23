@@ -45,6 +45,26 @@ class ReelControllerPool {
   /// ever dispose again.
   bool _disposed = false;
 
+  /// Centre of the `[current-1, current+1]` window this pool is allowed to
+  /// hold decoders for. Declared by [activate] (the index being watched) and
+  /// re-declared by [releaseOutside]; `null` only before the first of those
+  /// runs, when nothing has claimed a window yet.
+  int? _window;
+
+  /// Whether this pool may still own a decoder for [index].
+  ///
+  /// Every door that registers a controller checks this, not just
+  /// [releaseOutside]. Identity checks against `_controllers[index]` alone
+  /// are not enough: they only catch an eviction that happened *after* the
+  /// controller was written into the map, so a build that registers late
+  /// (the network fallback after a corrupt cached file, or a [preload] that
+  /// was suspended on a cache probe while the user swiped away) could park a
+  /// 4th decoder that nothing releases until the next [releaseOutside].
+  /// With the grid now also holding up to 3, a 4th here is no longer a
+  /// harmless overshoot.
+  bool _ownsIndex(int index) =>
+      _window == null || (index - _window!).abs() <= 1;
+
   VideoPlayerController? controllerAt(int index) => _controllers[index];
 
   /// Returns the live controller for [index], joining an in-flight build for
@@ -102,7 +122,10 @@ class ReelControllerPool {
         await controller.dispose();
       } catch (_) {}
 
-      if (!usingCache || _disposed) return null;
+      // Ownership door 1: the retry below registers a *new* controller, so
+      // it must re-confirm the index is still ours. A fast swipe during the
+      // failed initialize() may have moved the window past this index.
+      if (!usingCache || _disposed || !_ownsIndex(index)) return null;
 
       // The probe found a file, but it was gone, truncated, or otherwise
       // unplayable by the time we tried to use it. A cache problem must
@@ -133,8 +156,11 @@ class ReelControllerPool {
 
     // The controller may have been evicted (releaseOutside) or the pool
     // torn down (disposeAll) while an `await` above was in flight — don't
-    // leave a decoder running that nothing will ever release.
-    if (_disposed || _controllers[index] != controller) {
+    // leave a decoder running that nothing will ever release. `_ownsIndex`
+    // additionally covers the case where the window moved *before* this
+    // controller was written into the map, which the identity check cannot
+    // see.
+    if (_disposed || !_ownsIndex(index) || _controllers[index] != controller) {
       if (_controllers[index] == controller) {
         _controllers.remove(index);
       }
@@ -153,6 +179,10 @@ class ReelControllerPool {
   /// Activates (creating + initializing if needed) the controller at
   /// [index] for [url], and starts looped playback.
   Future<VideoPlayerController?> activate(int index, String url) async {
+    // Activating an index *is* the declaration of a new window centre — do
+    // it before the first await so any build already in flight for a now
+    // out-of-window index fails its ownership check instead of registering.
+    _window = index;
     final controller = await _getOrCreateController(index, url);
     if (controller == null) return null;
 
@@ -173,7 +203,13 @@ class ReelControllerPool {
   /// Preloads (creates + initializes, but does not play) the controller at
   /// [index] so it's ready the instant the user swipes to it.
   Future<void> preload(int index, String url) async {
+    // Ownership door 2. Checked both before (don't start a build for an
+    // index we already don't own) and after (the window may have moved while
+    // the build was in flight — release rather than leave a 4th decoder up
+    // until the next releaseOutside).
+    if (!_ownsIndex(index)) return;
     await _getOrCreateController(index, url);
+    if (!_ownsIndex(index)) _disposeController(index);
   }
 
   /// Downloads [urls] into the cache **without** creating controllers.
@@ -201,6 +237,7 @@ class ReelControllerPool {
   /// Disposes every controller outside the `[current-1, current, current+1]`
   /// window — the hard cap of 3 live controllers.
   void releaseOutside(int current) {
+    _window = current;
     final keep = {current - 1, current, current + 1};
     final toRemove =
         _controllers.keys.where((i) => !keep.contains(i)).toList();

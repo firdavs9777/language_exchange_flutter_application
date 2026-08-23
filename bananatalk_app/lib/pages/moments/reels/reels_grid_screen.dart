@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/providers/reels_provider.dart';
+import 'package:bananatalk_app/pages/menu_tab/TabBarMenu.dart'
+    show selectedTabProvider, kMomentsTabIndex;
 import 'package:bananatalk_app/pages/moments/reels/create_reel_flow.dart';
 import 'package:bananatalk_app/pages/moments/reels/reel_grid_autoplay.dart';
 import 'package:bananatalk_app/pages/moments/reels/reel_policy_dialog.dart';
@@ -36,7 +38,8 @@ class ReelsGridScreen extends ConsumerStatefulWidget {
   ConsumerState<ReelsGridScreen> createState() => _ReelsGridScreenState();
 }
 
-class _ReelsGridScreenState extends ConsumerState<ReelsGridScreen> {
+class _ReelsGridScreenState extends ConsumerState<ReelsGridScreen>
+    with WidgetsBindingObserver {
   final ScrollController _scrollController = ScrollController();
   bool _policyChecked = false;
 
@@ -55,6 +58,49 @@ class _ReelsGridScreenState extends ConsumerState<ReelsGridScreen> {
   List<int> _playing = const [];
   bool _unmetered = false;
   StreamSubscription<List<ConnectivityResult>>? _connectivitySub;
+
+  // ---------------------------------------------------------------------
+  // The decoder budget gate.
+  //
+  // Native video decoders are a hard, small, device-wide resource (Android's
+  // MediaCodec commonly allows 4-8 instances). The reels design spends that
+  // budget in exactly one place at a time: the full-screen viewer holds up
+  // to 3 (ReelControllerPool), or this grid holds up to 3 — never both.
+  //
+  // `_playbackAllowed` is the single owner of that rule for the grid. Every
+  // path that could start grid playback funnels through
+  // `_recomputePlaying`, which refuses to hand out controllers unless all
+  // three conditions below hold. There is deliberately no second, cleverer
+  // route to `_playing`: the previous design cleared `_playing` once at
+  // route-push time and had nothing latching it, so the provider listener
+  // (a viewer-side `loadMore` or a like) quietly rebuilt all 3 tiles while
+  // the viewer's own 3 were live.
+  //
+  // Conditions:
+  //  1. no route pushed over us  — `_occludingRoutes == 0`
+  //  2. our tab is the visible one — `selectedTabProvider == Moments`
+  //  3. the app is foregrounded  — `_appResumed`
+  //
+  // (2) matters because `TabsScreen` keeps every tab alive in a `Stack`
+  // under an `AnimatedOpacity(opacity: 0)`: switching tabs does NOT dispose
+  // this screen, so without the gate a single visit to Reels left 3 muted
+  // decoders (and their cache downloads) running for the rest of the
+  // session, underneath Chats, stories, moment video and LiveKit calls.
+
+  /// How many routes this screen has pushed that are still on screen.
+  /// A counter rather than a bool so overlapping pushes cannot have the
+  /// inner one's completion reopen the gate while the outer is still up.
+  int _occludingRoutes = 0;
+
+  /// Whether the app is foregrounded. Mirrors the viewer's
+  /// `didChangeAppLifecycleState` discipline, which the grid had none of.
+  bool _appResumed = true;
+
+  /// True only when the grid is allowed to spend decoders.
+  bool get _playbackAllowed =>
+      _occludingRoutes == 0 &&
+      _appResumed &&
+      ref.read(selectedTabProvider) == kMomentsTabIndex;
 
   // The ScrollPosition we've attached `_onSettleChanged` to. ScrollPosition
   // instances get replaced (e.g. on a viewport metrics change), so tracking
@@ -80,21 +126,35 @@ class _ReelsGridScreenState extends ConsumerState<ReelsGridScreen> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     _scrollController.addListener(_onScroll);
     WidgetsBinding.instance.addPostFrameCallback((_) => _checkPolicy());
 
     Connectivity().checkConnectivity().then((status) {
       if (mounted) {
-        setState(() => _unmetered = reelPrefetchDepth(status) > 1);
+        setState(() => _unmetered = reelConnectionUnmetered(status));
       }
     });
     _connectivitySub = Connectivity().onConnectivityChanged.listen((status) {
-      if (mounted) setState(() => _unmetered = reelPrefetchDepth(status) > 1);
+      if (mounted) setState(() => _unmetered = reelConnectionUnmetered(status));
     });
   }
 
   @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    final resumed = state == AppLifecycleState.resumed;
+    if (resumed == _appResumed) return;
+    _appResumed = resumed;
+    // Backgrounding must *stop* (not pause) grid playback: unlike the
+    // viewer — which pauses so the reel resumes mid-clip — a muted 90x160
+    // thumbnail loop has no state worth preserving, and holding decoders
+    // while another app (or a LiveKit call) wants them is the whole problem.
+    _applyPlaybackGate();
+  }
+
+  @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     _scrollController.removeListener(_onScroll);
     _observedPosition?.isScrollingNotifier.removeListener(_onSettleChanged);
     _connectivitySub?.cancel();
@@ -172,9 +232,51 @@ class _ReelsGridScreenState extends ConsumerState<ReelsGridScreen> {
     }
   }
 
+  /// Re-evaluates the gate: stop everything if the budget isn't ours right
+  /// now, otherwise recompute which tiles should play. This is the only
+  /// thing lifecycle changes, tab changes and route completion call — they
+  /// don't each implement their own stop/resume logic.
+  void _applyPlaybackGate() {
+    if (!mounted) return;
+    // Both branches below call setState, and a gate change can arrive from a
+    // `ref.listen` callback that fires while another widget is building —
+    // same hazard `_onSettleChanged` documents. Defer a frame rather than
+    // throw "setState() called during build".
+    if (SchedulerBinding.instance.schedulerPhase ==
+        SchedulerPhase.persistentCallbacks) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) _applyPlaybackGate();
+      });
+      return;
+    }
+    if (!_playbackAllowed) {
+      _stopPlaying();
+      return;
+    }
+    _recomputePlaying();
+  }
+
+  void _stopPlaying() {
+    if (_playing.isEmpty) return;
+    // Handing every tile `shouldPlay: false` is what disposes their
+    // controllers (`_ReelGridTileState._stop`) and, because tiles only ever
+    // download inside `_start`, is also what stops grid-driven cache
+    // downloads.
+    setState(() => _playing = const []);
+  }
+
   void _recomputePlaying() {
     _syncSettleListener();
     if (!mounted || !_scrollController.hasClients) return;
+    // The one choke point for the decoder budget. Every resume path — the
+    // settle listener, the policy gate's first frame, the `ref.listen` on
+    // the feed provider (viewer-side `loadMore`/like), returning from a
+    // pushed route, a tab switch, foregrounding — ends up here, so the gate
+    // only has to be enforced once.
+    if (!_playbackAllowed) {
+      _stopPlaying();
+      return;
+    }
     final reels = ref.read(reelsFeedProvider).reels;
     final next = reelTilesToPlay(
       scrollOffset: _scrollController.position.pixels,
@@ -198,19 +300,41 @@ class _ReelsGridScreenState extends ConsumerState<ReelsGridScreen> {
 
   Future<void> _onRefresh() => ref.read(reelsFeedProvider.notifier).refresh();
 
-  void _openReel(int index) {
-    setState(() => _playing = const []);
-    Navigator.of(context)
-        .push(AppPageRoute(builder: (_) => ReelsFeedScreen(initialIndex: index)))
-        .then((_) {
-      if (mounted) _recomputePlaying();
-    });
+  /// Pushes [page] with the grid's playback budget handed over for the
+  /// route's entire on-screen lifetime — every route this screen opens goes
+  /// through here, so no caller has to remember to stop playback.
+  ///
+  /// Timing is the subtle part. `Navigator.push(...)`'s future (and `await`)
+  /// completes in `Route.didComplete`, i.e. at the *start* of the 250ms
+  /// reverse transition — while the popped route's widgets are still alive
+  /// and its `dispose()`/`disposeAll()` has not run. Resuming there
+  /// guaranteed a 3+3 decoder overlap on every single back-out. `TransitionRoute.completed`
+  /// instead completes after the transition finished and the route's overlay
+  /// entries were removed, which is after the viewer's `State.dispose()` —
+  /// so the viewer's 3 are gone before the grid's 3 come back.
+  Future<void> _pushOccluding(Widget page) async {
+    final route = AppPageRoute<void>(builder: (_) => page);
+    _occludingRoutes++;
+    _applyPlaybackGate();
+    Navigator.of(context).push(route);
+    try {
+      await route.completed;
+    } finally {
+      _occludingRoutes--;
+      _applyPlaybackGate();
+    }
   }
 
-  void _openCreateFlow() {
-    Navigator.of(context)
-        .push(AppPageRoute(builder: (_) => const CreateReelFlow()))
-        .then((_) => ref.read(reelsFeedProvider.notifier).refresh());
+  Future<void> _openReel(int index) =>
+      _pushOccluding(ReelsFeedScreen(initialIndex: index));
+
+  Future<void> _openCreateFlow() async {
+    // Also gated: `CreateReelFlow` -> `CreateMoment` opens a camera and a
+    // video preview, which contend for the same decoders/encoders as 3
+    // playing grid tiles.
+    await _pushOccluding(const CreateReelFlow());
+    if (!mounted) return;
+    await ref.read(reelsFeedProvider.notifier).refresh();
   }
 
   @override
@@ -227,6 +351,15 @@ class _ReelsGridScreenState extends ConsumerState<ReelsGridScreen> {
       if (previous?.reels != next.reels) {
         WidgetsBinding.instance.addPostFrameCallback((_) => _recomputePlaying());
       }
+    });
+
+    // Tab visibility. `TabsScreen` never disposes an unselected tab (it just
+    // fades it to opacity 0 inside a Stack), so this listener is the only
+    // signal that our decoders are no longer on screen. It is a trigger
+    // only — `_playbackAllowed` re-reads the provider itself, so a missed
+    // notification can never leave the gate stuck open or stuck closed.
+    ref.listen<int>(selectedTabProvider, (previous, next) {
+      _applyPlaybackGate();
     });
 
     if (!_policyChecked) {
