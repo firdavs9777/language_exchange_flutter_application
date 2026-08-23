@@ -282,7 +282,7 @@ Hand-authoring ko/ja/zh/fr/ru/de/es/ar is not justified at 12–50 learners each
 
 ### 4.4 English curated bank
 
-Seed 60 days × 2 kinds × 3 levels (A1, A2, B1) = **360 items**, following the
+Seed 30 days × 2 kinds × 3 levels (A1, A2, B1) = **180 items**, following the
 existing `seeds/` pattern in the backend. A1/A2/B1 covers 57 of the 66 users who
 have declared a level, and is where the A2 default lands new users.
 
@@ -292,6 +292,12 @@ this is where new material genuinely adds coverage rather than duplicating the
 12,600 unused exam vocabulary words.
 
 `explanation` is authored in `en`, `zh-Hans` and `ar` for the curated bank.
+
+**Cycle length consequence.** A 30-day bank repeats for any user who sustains a
+30-day streak. That is acceptable for this wave — the week-4 success target is
+25 users at a 7-day streak, and today nobody has reached 7 — but the bank
+should be extended before a meaningful cohort passes day 30. The
+bank-exhaustion warning logged in §4.3 is the signal to do so.
 
 ### 4.5 Level handling
 
