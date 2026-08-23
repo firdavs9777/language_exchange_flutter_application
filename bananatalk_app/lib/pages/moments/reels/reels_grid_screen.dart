@@ -97,7 +97,12 @@ class _ReelsGridScreenState extends ConsumerState<ReelsGridScreen> {
         ),
         Positioned(
           right: 16,
-          bottom: 16,
+          // 88 = the Scaffold FAB's usual 16 plus the 72 that MomentsMain
+          // adds to clear the bottom nav bar (see its own FAB). This screen
+          // renders inside MomentsMain's body, so at 16 the button sat
+          // behind the nav bar and was effectively unreachable — which is
+          // why reels got posted through the Moments composer instead.
+          bottom: 88,
           child: FloatingActionButton(
             heroTag: 'reels_create_fab',
             onPressed: _openCreateFlow,
