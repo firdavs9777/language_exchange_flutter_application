@@ -10,6 +10,7 @@ import 'package:bananatalk_app/pages/matching/smart_matching_screen.dart';
 import 'package:bananatalk_app/pages/learning/leaderboard/leaderboard_screen.dart';
 import 'package:bananatalk_app/pages/learning/exam_study/exam_picker_screen.dart';
 import 'package:bananatalk_app/pages/learning/exam_study/exam_dashboard_screen.dart';
+import 'package:bananatalk_app/pages/learning/main/learning_main_screen.dart';
 import 'package:bananatalk_app/providers/provider_models/exam/exam_language.dart';
 import 'package:bananatalk_app/providers/provider_models/exam/exam_type.dart';
 import 'package:bananatalk_app/screens/call_history_screen.dart';
@@ -249,6 +250,18 @@ final goRouter = GoRouter(
         state: state,
         child: const SmartMatchingScreen(),
       ),
+    ),
+
+    // Slide from right + fade — standard navigation push feel.
+    // `daily_drop` push notifications deep-link here. There is no route for
+    // `DailyDropScreen` itself — it requires a `DailyItem` (plus submit
+    // callbacks) that a bare notification payload cannot supply — so this
+    // opens the Study Hub instead, the closest real surface, same as the
+    // `srs_review`/`streak_reminder` "closest available surface" fallback.
+    GoRoute(
+      path: '/learning/daily',
+      pageBuilder: (context, state) =>
+          _buildSlideTransition(state: state, child: const LearningMain()),
     ),
 
     // Slide from right + fade — standard navigation push feel.

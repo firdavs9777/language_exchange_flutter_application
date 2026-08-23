@@ -448,6 +448,23 @@ class NotificationApiClient {
     }
   }
 
+  /// POST /api/v1/notifications/:id/clicked
+  ///
+  /// Reports that a notification was tapped, so click-through becomes
+  /// measurable (every historical row has `clicked: false` because nothing
+  /// ever called this). Fire-and-forget: swallow failures so a lost
+  /// analytics ping never blocks navigation.
+  Future<void> markClicked(String notificationId) async {
+    try {
+      final url = Uri.parse('${baseUrl}notifications/$notificationId/clicked');
+      final headers = await _getHeaders();
+
+      await http.post(url, headers: headers);
+    } catch (e) {
+      // Intentionally swallowed — see doc comment above.
+    }
+  }
+
   /// POST /api/v1/notifications/test (for debugging)
   Future<Map<String, dynamic>> sendTestNotification({
     String? userId,
