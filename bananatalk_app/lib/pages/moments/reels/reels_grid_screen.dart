@@ -1,12 +1,16 @@
+import 'dart:async';
+
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:bananatalk_app/providers/reels_provider.dart';
 import 'package:bananatalk_app/pages/moments/reels/create_reel_flow.dart';
+import 'package:bananatalk_app/pages/moments/reels/reel_grid_autoplay.dart';
 import 'package:bananatalk_app/pages/moments/reels/reel_policy_dialog.dart';
+import 'package:bananatalk_app/pages/moments/reels/reel_prefetch_policy.dart';
 import 'package:bananatalk_app/pages/moments/reels/reels_feed_screen.dart';
+import 'package:bananatalk_app/pages/moments/reels/widgets/reel_grid_tile.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
-import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 
 /// Thumbnail grid landing for the Reels tab (Workstream G, Task 4).
@@ -35,16 +39,34 @@ class _ReelsGridScreenState extends ConsumerState<ReelsGridScreen> {
   final ScrollController _scrollController = ScrollController();
   bool _policyChecked = false;
 
+  static const double _tileHeight = 180; // 9:16 at a third of a phone width
+  List<int> _playing = const [];
+  bool _unmetered = false;
+  Timer? _settleTimer;
+  StreamSubscription<List<ConnectivityResult>>? _connectivitySub;
+
   @override
   void initState() {
     super.initState();
     _scrollController.addListener(_onScroll);
     WidgetsBinding.instance.addPostFrameCallback((_) => _checkPolicy());
+
+    Connectivity().checkConnectivity().then((status) {
+      if (mounted) {
+        setState(() => _unmetered = reelPrefetchDepth(status) > 1);
+      }
+    });
+    _connectivitySub = Connectivity().onConnectivityChanged.listen((status) {
+      if (mounted) setState(() => _unmetered = reelPrefetchDepth(status) > 1);
+    });
+    WidgetsBinding.instance.addPostFrameCallback((_) => _recomputePlaying());
   }
 
   @override
   void dispose() {
     _scrollController.removeListener(_onScroll);
+    _settleTimer?.cancel();
+    _connectivitySub?.cancel();
     _scrollController.dispose();
     super.dispose();
   }
@@ -65,14 +87,48 @@ class _ReelsGridScreenState extends ConsumerState<ReelsGridScreen> {
     if (position.pixels >= position.maxScrollExtent - 600) {
       ref.read(reelsFeedProvider.notifier).loadMore();
     }
+
+    // Nothing plays mid-scroll: flinging through the grid would otherwise
+    // spawn and tear down controllers for every row it passed.
+    if (_playing.isNotEmpty) {
+      setState(() => _playing = const []);
+    }
+    _settleTimer?.cancel();
+    _settleTimer = Timer(const Duration(milliseconds: 180), () {
+      if (!mounted) return;
+      // isScrollingNotifier is the authority on "settled" — it stays true
+      // through the ballistic phase, which a bare debounce would miss.
+      if (_scrollController.hasClients &&
+          _scrollController.position.isScrollingNotifier.value) {
+        return;
+      }
+      _recomputePlaying();
+    });
+  }
+
+  void _recomputePlaying() {
+    if (!mounted || !_scrollController.hasClients) return;
+    final reels = ref.read(reelsFeedProvider).reels;
+    final next = reelTilesToPlay(
+      scrollOffset: _scrollController.position.pixels,
+      viewportHeight: _scrollController.position.viewportDimension,
+      tileHeight: _tileHeight,
+      crossAxisCount: 3,
+      itemCount: reels.length,
+      maxPlaying: kReelGridMaxPlaying,
+    );
+    setState(() => _playing = next);
   }
 
   Future<void> _onRefresh() => ref.read(reelsFeedProvider.notifier).refresh();
 
   void _openReel(int index) {
-    Navigator.of(context).push(
-      AppPageRoute(builder: (_) => ReelsFeedScreen(initialIndex: index)),
-    );
+    setState(() => _playing = const []);
+    Navigator.of(context)
+        .push(AppPageRoute(builder: (_) => ReelsFeedScreen(initialIndex: index)))
+        .then((_) {
+      if (mounted) _recomputePlaying();
+    });
   }
 
   void _openCreateFlow() {
@@ -150,8 +206,15 @@ class _ReelsGridScreenState extends ConsumerState<ReelsGridScreen> {
             ),
           );
         }
-        return _ReelTile(
-          reel: state.reels[index],
+        final reel = state.reels[index];
+        return ReelGridTile(
+          // Keyed by reel id, never index: GridView.builder recycles
+          // children, and an index key would let a recycled tile inherit the
+          // previous cell's controller and play the wrong video.
+          key: ValueKey('reel-tile-${reel.id}'),
+          reel: reel,
+          shouldPlay: _playing.contains(index),
+          mayDownload: _unmetered,
           onTap: () => _openReel(index),
         );
       },
@@ -233,85 +296,6 @@ class _ReelsGridScreenState extends ConsumerState<ReelsGridScreen> {
               ),
             ),
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class _ReelTile extends StatelessWidget {
-  const _ReelTile({required this.reel, required this.onTap});
-
-  final Moments reel;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final thumbnail = reel.video?.thumbnail;
-    return GestureDetector(
-      onTap: onTap,
-      child: Stack(
-        fit: StackFit.expand,
-        children: [
-          if (thumbnail != null && thumbnail.isNotEmpty)
-            CachedImageWidget(imageUrl: thumbnail, fit: BoxFit.cover)
-          else
-            Container(
-              color: context.containerColor,
-              child: Icon(Icons.videocam, color: context.textMuted),
-            ),
-          Positioned(
-            top: 6,
-            left: 6,
-            child: _LanguageChip(language: reel.language),
-          ),
-          Positioned(
-            bottom: 6,
-            right: 6,
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Icon(Icons.play_arrow, color: Colors.white, size: 16),
-                if (reel.likeCount > 0) ...[
-                  const SizedBox(width: 2),
-                  Text(
-                    '${reel.likeCount}',
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 11,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ],
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _LanguageChip extends StatelessWidget {
-  const _LanguageChip({required this.language});
-
-  final String language;
-
-  @override
-  Widget build(BuildContext context) {
-    if (language.isEmpty) return const SizedBox.shrink();
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-      decoration: BoxDecoration(
-        color: Colors.black.withValues(alpha: 0.55),
-        borderRadius: BorderRadius.circular(6),
-      ),
-      child: Text(
-        language.toUpperCase(),
-        style: const TextStyle(
-          color: Colors.white,
-          fontSize: 10,
-          fontWeight: FontWeight.w700,
         ),
       ),
     );
