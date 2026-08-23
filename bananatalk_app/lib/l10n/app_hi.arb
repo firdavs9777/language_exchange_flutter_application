@@ -3036,5 +3036,15 @@
   "promoSpotlightVoiceSubtitle": "अन्य सीखने वालों के साथ लाइव बात करें और एक-एक बातचीत से असली बोलने का आत्मविश्वास बनाएं।",
   "promoSpotlightTryIt": "आज़माएं",
   "promoSpotlightMaybeLater": "शायद बाद में",
-  "promoSpotlightDontShowAgain": "इसे फिर से न दिखाएं"
+  "promoSpotlightDontShowAgain": "इसे फिर से न दिखाएं",
+  "todayTab": "आज",
+  "todaysGrammar": "आज का व्याकरण",
+  "todaysVocabulary": "आज की शब्दावली",
+  "todayMinutes": "{count} मिनट",
+  "todayPickLanguage": "आप क्या सीख रहे हैं?",
+  "todayLevelFallback": "{served} दिखाया जा रहा है — {requested} की सामग्री अभी उपलब्ध नहीं है",
+  "dailyCheck": "जांचें",
+  "dailyTooEasy": "बहुत आसान",
+  "dailyTooHard": "बहुत कठिन",
+  "dailyScore": "{score}/{total}"
 }

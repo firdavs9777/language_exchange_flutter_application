@@ -3020,5 +3020,15 @@
   "promoSpotlightVoiceSubtitle": "他の学習者とライブで話して、会話を重ねながら本物の話す自信を身につけよう。",
   "promoSpotlightTryIt": "試してみる",
   "promoSpotlightMaybeLater": "また今度",
-  "promoSpotlightDontShowAgain": "今後表示しない"
+  "promoSpotlightDontShowAgain": "今後表示しない",
+  "todayTab": "今日",
+  "todaysGrammar": "今日の文法",
+  "todaysVocabulary": "今日の単語",
+  "todayMinutes": "{count}分",
+  "todayPickLanguage": "何を学んでいますか？",
+  "todayLevelFallback": "{served}を表示中 — {requested}のコンテンツはまだありません",
+  "dailyCheck": "確認",
+  "dailyTooEasy": "簡単すぎる",
+  "dailyTooHard": "難しすぎる",
+  "dailyScore": "{score}/{total}"
 }

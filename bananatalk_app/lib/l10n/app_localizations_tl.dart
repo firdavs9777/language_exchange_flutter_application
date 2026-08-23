@@ -7350,5 +7350,38 @@ class AppLocalizationsTl extends AppLocalizations {
   String get roomGoToRooms => 'Pumunta sa Mga Silid';
 
   @override
-  String get todayTab => 'Today';
+  String get todayTab => 'Ngayon';
+
+  @override
+  String get todaysGrammar => 'Gramatika ngayon';
+
+  @override
+  String get todaysVocabulary => 'Bokabularyo ngayon';
+
+  @override
+  String todayMinutes(int count) {
+    return '$count min';
+  }
+
+  @override
+  String get todayPickLanguage => 'Ano ang natututuhan mo?';
+
+  @override
+  String todayLevelFallback(String served, String requested) {
+    return 'Ipinapakita ang $served — walang content pa para sa $requested';
+  }
+
+  @override
+  String get dailyCheck => 'Suriin';
+
+  @override
+  String get dailyTooEasy => 'Sobrang madali';
+
+  @override
+  String get dailyTooHard => 'Sobrang hirap';
+
+  @override
+  String dailyScore(int score, int total) {
+    return '$score/$total';
+  }
 }

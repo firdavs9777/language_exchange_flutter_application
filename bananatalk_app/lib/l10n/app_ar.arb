@@ -3050,5 +3050,15 @@
   "promoSpotlightVoiceSubtitle": "تحدّث مباشرة مع متعلمين آخرين وابنِ ثقتك الحقيقية في المحادثة، محادثة تلو الأخرى.",
   "promoSpotlightTryIt": "جرّبها",
   "promoSpotlightMaybeLater": "ربما لاحقًا",
-  "promoSpotlightDontShowAgain": "عدم إظهار هذا مرة أخرى"
+  "promoSpotlightDontShowAgain": "عدم إظهار هذا مرة أخرى",
+  "todayTab": "اليوم",
+  "todaysGrammar": "قواعد اليوم",
+  "todaysVocabulary": "مفردات اليوم",
+  "todayMinutes": "{count} دقيقة",
+  "todayPickLanguage": "ما الذي تتعلمه؟",
+  "todayLevelFallback": "عرض {served} — لا يوجد محتوى لـ {requested} بعد",
+  "dailyCheck": "تحقق",
+  "dailyTooEasy": "سهل جدًا",
+  "dailyTooHard": "صعب جدًا",
+  "dailyScore": "{score}/{total}"
 }

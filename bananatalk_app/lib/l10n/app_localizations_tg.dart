@@ -7356,5 +7356,38 @@ class AppLocalizationsTg extends AppLocalizations {
   String get roomGoToRooms => 'Ба Ҳуҷраҳо гузаштан';
 
   @override
-  String get todayTab => 'Today';
+  String get todayTab => 'Имрӯз';
+
+  @override
+  String get todaysGrammar => 'Грамматикаи имрӯз';
+
+  @override
+  String get todaysVocabulary => 'Луғати имрӯз';
+
+  @override
+  String todayMinutes(int count) {
+    return '$count дақиқа';
+  }
+
+  @override
+  String get todayPickLanguage => 'Шумо чиро меомӳзед?';
+
+  @override
+  String todayLevelFallback(String served, String requested) {
+    return 'Намоиши $served — ҳанӯз мӳҳтавои $requested нест';
+  }
+
+  @override
+  String get dailyCheck => 'Тафтиш кунед';
+
+  @override
+  String get dailyTooEasy => 'Хеле осон';
+
+  @override
+  String get dailyTooHard => 'Хеле мушкил';
+
+  @override
+  String dailyScore(int score, int total) {
+    return '$score/$total';
+  }
 }

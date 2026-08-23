@@ -7343,7 +7343,40 @@ class AppLocalizationsZh extends AppLocalizations {
   String get roomGoToRooms => '前往房间';
 
   @override
-  String get todayTab => 'Today';
+  String get todayTab => '今日';
+
+  @override
+  String get todaysGrammar => '今日语法';
+
+  @override
+  String get todaysVocabulary => '今日词汇';
+
+  @override
+  String todayMinutes(int count) {
+    return '$count 分钟';
+  }
+
+  @override
+  String get todayPickLanguage => '你在学什么？';
+
+  @override
+  String todayLevelFallback(String served, String requested) {
+    return '正在显示$served — 暂无$requested内容';
+  }
+
+  @override
+  String get dailyCheck => '检查';
+
+  @override
+  String get dailyTooEasy => '太简单';
+
+  @override
+  String get dailyTooHard => '太难';
+
+  @override
+  String dailyScore(int score, int total) {
+    return '$score/$total';
+  }
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -14683,4 +14716,40 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get roomGoToRooms => '前往房間';
+
+  @override
+  String get todayTab => '今日';
+
+  @override
+  String get todaysGrammar => '今日語法';
+
+  @override
+  String get todaysVocabulary => '今日詞彙';
+
+  @override
+  String todayMinutes(int count) {
+    return '$count 分鐘';
+  }
+
+  @override
+  String get todayPickLanguage => '你在學什麼？';
+
+  @override
+  String todayLevelFallback(String served, String requested) {
+    return '正在顯示$served — 暫無$requested內容';
+  }
+
+  @override
+  String get dailyCheck => '檢查';
+
+  @override
+  String get dailyTooEasy => '太簡單';
+
+  @override
+  String get dailyTooHard => '太難';
+
+  @override
+  String dailyScore(int score, int total) {
+    return '$score/$total';
+  }
 }

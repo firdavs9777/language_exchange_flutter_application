@@ -3034,5 +3034,15 @@
   "promoSpotlightVoiceSubtitle": "和其他学习者实时对话，在一次次交流中建立真正的口语自信。",
   "promoSpotlightTryIt": "立即试试",
   "promoSpotlightMaybeLater": "以后再说",
-  "promoSpotlightDontShowAgain": "不再显示"
+  "promoSpotlightDontShowAgain": "不再显示",
+  "todayTab": "今日",
+  "todaysGrammar": "今日语法",
+  "todaysVocabulary": "今日词汇",
+  "todayMinutes": "{count} 分钟",
+  "todayPickLanguage": "你在学什么？",
+  "todayLevelFallback": "正在显示{served} — 暂无{requested}内容",
+  "dailyCheck": "检查",
+  "dailyTooEasy": "太简单",
+  "dailyTooHard": "太难",
+  "dailyScore": "{score}/{total}"
 }

@@ -1,15 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/learning/daily_drop_model.dart';
 import 'package:bananatalk_app/pages/learning/daily/widgets/today_section.dart';
 
 DailyItem _item(String kind, String title) => DailyItem(
       id: '$kind-1', kind: kind, level: 'A2', title: title,
-      explanation: 'why', examples: const [], quickCheck: const [],
+      explanation: 'why', examples: const [],
+      quickCheck: const [
+        DailyQuickCheck(prompt: 'Q1', options: ['a', 'b']),
+        DailyQuickCheck(prompt: 'Q2', options: ['a', 'b']),
+        DailyQuickCheck(prompt: 'Q3', options: ['a', 'b']),
+      ],
     );
 
 Widget _host(DailyDropState state, {void Function(DailyItem)? onOpen, VoidCallback? onPick}) =>
     MaterialApp(
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
       home: Scaffold(
         body: TodaySection(
           state: state,

@@ -7343,5 +7343,38 @@ class AppLocalizationsJa extends AppLocalizations {
   String get roomGoToRooms => 'ルーム一覧へ';
 
   @override
-  String get todayTab => 'Today';
+  String get todayTab => '今日';
+
+  @override
+  String get todaysGrammar => '今日の文法';
+
+  @override
+  String get todaysVocabulary => '今日の単語';
+
+  @override
+  String todayMinutes(int count) {
+    return '$count分';
+  }
+
+  @override
+  String get todayPickLanguage => '何を学んでいますか？';
+
+  @override
+  String todayLevelFallback(String served, String requested) {
+    return '$servedを表示中 — $requestedのコンテンツはまだありません';
+  }
+
+  @override
+  String get dailyCheck => '確認';
+
+  @override
+  String get dailyTooEasy => '簡単すぎる';
+
+  @override
+  String get dailyTooHard => '難しすぎる';
+
+  @override
+  String dailyScore(int score, int total) {
+    return '$score/$total';
+  }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/learning/daily_drop_model.dart';
 import 'package:bananatalk_app/services/learning_service.dart';
 
@@ -55,6 +56,7 @@ class _DailyDropScreenState extends State<DailyDropScreen> {
   @override
   Widget build(BuildContext context) {
     final item = widget.item;
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(title: Text(item.title)),
       body: ListView(
@@ -94,13 +96,13 @@ class _DailyDropScreenState extends State<DailyDropScreen> {
             );
           }),
           if (_result != null)
-            Text('${_result!.score}/${_result!.total}',
+            Text(l10n.dailyScore(_result!.score, _result!.total),
                 style: Theme.of(context).textTheme.headlineSmall),
           const SizedBox(height: 8),
           FilledButton(
             key: const Key('daily-submit'),
             onPressed: (!_allAnswered || _submitting || _result != null) ? null : _submit,
-            child: const Text('Check'),
+            child: Text(l10n.dailyCheck),
           ),
           const SizedBox(height: 16),
           Row(
@@ -109,12 +111,12 @@ class _DailyDropScreenState extends State<DailyDropScreen> {
               TextButton(
                 key: const Key('daily-too-easy'),
                 onPressed: () => _feedback('tooEasy'),
-                child: const Text('Too easy'),
+                child: Text(l10n.dailyTooEasy),
               ),
               TextButton(
                 key: const Key('daily-too-hard'),
                 onPressed: () => _feedback('tooHard'),
-                child: const Text('Too hard'),
+                child: Text(l10n.dailyTooHard),
               ),
             ],
           ),

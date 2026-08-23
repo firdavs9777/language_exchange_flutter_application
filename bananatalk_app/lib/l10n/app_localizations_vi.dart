@@ -7343,5 +7343,38 @@ class AppLocalizationsVi extends AppLocalizations {
   String get roomGoToRooms => 'Đi đến Phòng';
 
   @override
-  String get todayTab => 'Today';
+  String get todayTab => 'Hôm nay';
+
+  @override
+  String get todaysGrammar => 'Ngữ pháp hôm nay';
+
+  @override
+  String get todaysVocabulary => 'Từ vựng hôm nay';
+
+  @override
+  String todayMinutes(int count) {
+    return '$count phút';
+  }
+
+  @override
+  String get todayPickLanguage => 'Bạn đang học gì?';
+
+  @override
+  String todayLevelFallback(String served, String requested) {
+    return 'Đang hiển thị $served — chưa có nội dung cho $requested';
+  }
+
+  @override
+  String get dailyCheck => 'Kiểm tra';
+
+  @override
+  String get dailyTooEasy => 'Quá dễ';
+
+  @override
+  String get dailyTooHard => 'Quá khó';
+
+  @override
+  String dailyScore(int score, int total) {
+    return '$score/$total';
+  }
 }

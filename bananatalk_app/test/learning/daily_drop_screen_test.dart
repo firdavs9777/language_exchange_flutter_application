@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/learning/daily_drop_model.dart';
 import 'package:bananatalk_app/pages/learning/daily/daily_drop_screen.dart';
 
@@ -19,6 +20,8 @@ Widget _host({
   Future<String> Function(String, String)? feedback,
 }) =>
     MaterialApp(
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
       home: DailyDropScreen(
         item: _item,
         submitAnswers: submit ??

@@ -13699,6 +13699,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Today'**
   String get todayTab;
+
+  /// Subtitle prefix for the daily grammar card on the Today section
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s grammar'**
+  String get todaysGrammar;
+
+  /// Subtitle prefix for the daily vocabulary card on the Today section
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s vocabulary'**
+  String get todaysVocabulary;
+
+  /// Estimated minutes suffix appended to a Today card subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'{count} min'**
+  String todayMinutes(int count);
+
+  /// Button label prompting the user to pick a language before the daily drop can load
+  ///
+  /// In en, this message translates to:
+  /// **'What are you learning?'**
+  String get todayPickLanguage;
+
+  /// Notice shown when the daily drop falls back to a different level than requested
+  ///
+  /// In en, this message translates to:
+  /// **'Showing {served} — no {requested} content yet'**
+  String todayLevelFallback(String served, String requested);
+
+  /// Button label to submit answers on the daily drop quick-check
+  ///
+  /// In en, this message translates to:
+  /// **'Check'**
+  String get dailyCheck;
+
+  /// Feedback button label indicating the daily drop item was too easy
+  ///
+  /// In en, this message translates to:
+  /// **'Too easy'**
+  String get dailyTooEasy;
+
+  /// Feedback button label indicating the daily drop item was too hard
+  ///
+  /// In en, this message translates to:
+  /// **'Too hard'**
+  String get dailyTooHard;
+
+  /// Score fraction shown after completing a daily drop quick-check
+  ///
+  /// In en, this message translates to:
+  /// **'{score}/{total}'**
+  String dailyScore(int score, int total);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

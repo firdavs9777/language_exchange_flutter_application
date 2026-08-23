@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/learning/daily_drop_model.dart';
 
 /// The two "Today" cards at the top of the Learn tab (spec §4.8).
@@ -22,7 +23,7 @@ class TodaySection extends StatelessWidget {
         child: FilledButton(
           key: const Key('today-pick-language'),
           onPressed: onPickLanguage,
-          child: const Text('What are you learning?'),
+          child: Text(AppLocalizations.of(context)!.todayPickLanguage),
         ),
       );
     }
@@ -40,7 +41,10 @@ class TodaySection extends StatelessWidget {
             key: const Key('today-level-fallback'),
             padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
             child: Text(
-              'Showing ${state.servedLevel} — no ${state.requestedLevel} content yet',
+              AppLocalizations.of(context)!.todayLevelFallback(
+                state.servedLevel!,
+                state.requestedLevel!,
+              ),
               style: Theme.of(context).textTheme.bodySmall,
             ),
           ),
@@ -64,17 +68,20 @@ class _TodayCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final done = score != null;
+    final l10n = AppLocalizations.of(context)!;
+    final subtitlePrefix = item.kind == 'grammar' ? l10n.todaysGrammar : l10n.todaysVocabulary;
     return Card(
       margin: const EdgeInsets.fromLTRB(16, 8, 16, 0),
       child: ListTile(
         onTap: done ? null : onTap,
         leading: Icon(item.kind == 'grammar' ? Icons.rule : Icons.style),
         title: Text(item.title),
-        subtitle: Text(
-          item.kind == 'grammar' ? "Today's grammar · 2 min" : "Today's vocabulary · 2 min",
-        ),
+        subtitle: Text('$subtitlePrefix · ${l10n.todayMinutes(2)}'),
         trailing: done
-            ? Text('$score/3', style: Theme.of(context).textTheme.titleMedium)
+            ? Text(
+                l10n.dailyScore(score!, item.quickCheck.length),
+                style: Theme.of(context).textTheme.titleMedium,
+              )
             : const Icon(Icons.chevron_right),
       ),
     );

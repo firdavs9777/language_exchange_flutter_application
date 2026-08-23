@@ -7359,5 +7359,38 @@ class AppLocalizationsAr extends AppLocalizations {
   String get roomGoToRooms => 'الذهاب إلى الغرف';
 
   @override
-  String get todayTab => 'Today';
+  String get todayTab => 'اليوم';
+
+  @override
+  String get todaysGrammar => 'قواعد اليوم';
+
+  @override
+  String get todaysVocabulary => 'مفردات اليوم';
+
+  @override
+  String todayMinutes(int count) {
+    return '$count دقيقة';
+  }
+
+  @override
+  String get todayPickLanguage => 'ما الذي تتعلمه؟';
+
+  @override
+  String todayLevelFallback(String served, String requested) {
+    return 'عرض $served — لا يوجد محتوى لـ $requested بعد';
+  }
+
+  @override
+  String get dailyCheck => 'تحقق';
+
+  @override
+  String get dailyTooEasy => 'سهل جدًا';
+
+  @override
+  String get dailyTooHard => 'صعب جدًا';
+
+  @override
+  String dailyScore(int score, int total) {
+    return '$score/$total';
+  }
 }

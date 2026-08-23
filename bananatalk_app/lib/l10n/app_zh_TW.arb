@@ -2711,5 +2711,15 @@
   "promoSpotlightVoiceSubtitle": "和其他學習者即時對話，在一次次交流中建立真正的口說自信。",
   "promoSpotlightTryIt": "立即試試",
   "promoSpotlightMaybeLater": "以後再說",
-  "promoSpotlightDontShowAgain": "不再顯示"
+  "promoSpotlightDontShowAgain": "不再顯示",
+  "todayTab": "今日",
+  "todaysGrammar": "今日語法",
+  "todaysVocabulary": "今日詞彙",
+  "todayMinutes": "{count} 分鐘",
+  "todayPickLanguage": "你在學什麼？",
+  "todayLevelFallback": "正在顯示{served} — 暫無{requested}內容",
+  "dailyCheck": "檢查",
+  "dailyTooEasy": "太簡單",
+  "dailyTooHard": "太難",
+  "dailyScore": "{score}/{total}"
 }

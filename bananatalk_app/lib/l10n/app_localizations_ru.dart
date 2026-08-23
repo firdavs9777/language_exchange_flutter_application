@@ -7362,5 +7362,38 @@ class AppLocalizationsRu extends AppLocalizations {
   String get roomGoToRooms => 'Перейти к комнатам';
 
   @override
-  String get todayTab => 'Today';
+  String get todayTab => 'Сегодня';
+
+  @override
+  String get todaysGrammar => 'Грамматика на сегодня';
+
+  @override
+  String get todaysVocabulary => 'Словарь на сегодня';
+
+  @override
+  String todayMinutes(int count) {
+    return '$count мин';
+  }
+
+  @override
+  String get todayPickLanguage => 'Что вы изучаете?';
+
+  @override
+  String todayLevelFallback(String served, String requested) {
+    return 'Показан $served — контента для $requested пока нет';
+  }
+
+  @override
+  String get dailyCheck => 'Проверить';
+
+  @override
+  String get dailyTooEasy => 'Слишком легко';
+
+  @override
+  String get dailyTooHard => 'Слишком сложно';
+
+  @override
+  String dailyScore(int score, int total) {
+    return '$score/$total';
+  }
 }

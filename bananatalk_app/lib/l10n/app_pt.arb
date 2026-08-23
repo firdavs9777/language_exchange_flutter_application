@@ -3036,5 +3036,15 @@
   "promoSpotlightVoiceSubtitle": "Converse ao vivo com outros aprendizes e ganhe confiança real para falar, uma conversa de cada vez.",
   "promoSpotlightTryIt": "Experimentar",
   "promoSpotlightMaybeLater": "Talvez mais tarde",
-  "promoSpotlightDontShowAgain": "Não mostrar isso novamente"
+  "promoSpotlightDontShowAgain": "Não mostrar isso novamente",
+  "todayTab": "Hoje",
+  "todaysGrammar": "Gramática de hoje",
+  "todaysVocabulary": "Vocabulário de hoje",
+  "todayMinutes": "{count} min",
+  "todayPickLanguage": "O que você está aprendendo?",
+  "todayLevelFallback": "Mostrando {served} — ainda não há conteúdo de {requested}",
+  "dailyCheck": "Verificar",
+  "dailyTooEasy": "Muito fácil",
+  "dailyTooHard": "Muito difícil",
+  "dailyScore": "{score}/{total}"
 }

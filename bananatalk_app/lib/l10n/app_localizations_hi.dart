@@ -7350,5 +7350,38 @@ class AppLocalizationsHi extends AppLocalizations {
   String get roomGoToRooms => 'रूम्स पर जाएं';
 
   @override
-  String get todayTab => 'Today';
+  String get todayTab => 'आज';
+
+  @override
+  String get todaysGrammar => 'आज का व्याकरण';
+
+  @override
+  String get todaysVocabulary => 'आज की शब्दावली';
+
+  @override
+  String todayMinutes(int count) {
+    return '$count मिनट';
+  }
+
+  @override
+  String get todayPickLanguage => 'आप क्या सीख रहे हैं?';
+
+  @override
+  String todayLevelFallback(String served, String requested) {
+    return '$served दिखाया जा रहा है — $requested की सामग्री अभी उपलब्ध नहीं है';
+  }
+
+  @override
+  String get dailyCheck => 'जांचें';
+
+  @override
+  String get dailyTooEasy => 'बहुत आसान';
+
+  @override
+  String get dailyTooHard => 'बहुत कठिन';
+
+  @override
+  String dailyScore(int score, int total) {
+    return '$score/$total';
+  }
 }
