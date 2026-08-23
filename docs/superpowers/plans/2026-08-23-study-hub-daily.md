@@ -3562,6 +3562,29 @@ git commit -m "i18n(study): translate 10 daily-drop keys into all 19 locales"
 
 Not code. Do these in order and confirm each.
 
+> **Added during implementation.** Every one of the 180 curated items ships with
+> `approved: false`, and the selection query only serves approved items — so the
+> English daily drop returns nothing until a human reviews them and flips the
+> flag. That is deliberate: §4.4 makes English curated-only precisely so the
+> majority audience never sees unreviewed content, and the items were AI-drafted.
+> Step 0 below is therefore a required gate, not optional polish.
+
+- [ ] **Step 0: Human-review the 180 items, then approve them**
+
+Read `migrations/dailyItemsData.json`. It is ordered A1-grammar, A1-vocabulary,
+A2-grammar, A2-vocabulary, B1-grammar, B1-vocabulary, 30 items each.
+
+Known issue to watch for while reviewing: `answerIndex` skews to the middle
+option (0: 34.4%, 1: 58.7%, 2: 6.9% across all 540 questions). Not wrong, but a
+learner could partially game it by always picking the middle. Rebalance as you
+review if you care to.
+
+When satisfied, flip the flag — either edit the data file so `approved` is
+`true` and re-run the seeder, or update in place after seeding. The seeder's
+`$set` includes `approved`, so re-running it after editing the file is the
+idempotent path. Then update `test/dailyItemsSeedData.test.js`, which currently
+asserts `approved === false` as the guard for this gate.
+
 - [ ] **Step 1: Seed the English bank on prod**
 
 ```bash
