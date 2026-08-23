@@ -7341,4 +7341,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get roomGoToRooms => 'Đi đến Phòng';
+
+  @override
+  String get todayTab => 'Today';
 }

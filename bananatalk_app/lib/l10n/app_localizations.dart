@@ -13693,6 +13693,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Go to Rooms'**
   String get roomGoToRooms;
+
+  /// Label for the Study Hub's landing tab, which hosts the daily drop
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get todayTab;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

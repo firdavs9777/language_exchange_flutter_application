@@ -7348,4 +7348,7 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get roomGoToRooms => 'Buka Ruang';
+
+  @override
+  String get todayTab => 'Today';
 }

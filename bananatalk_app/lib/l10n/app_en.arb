@@ -4643,5 +4643,9 @@
   "roomGoToRooms": "Go to Rooms",
   "@roomGoToRooms": {
     "description": "Retry-state button label to navigate back to the rooms directory"
+  },
+  "todayTab": "Today",
+  "@todayTab": {
+    "description": "Label for the Study Hub's landing tab, which hosts the daily drop"
   }
 }

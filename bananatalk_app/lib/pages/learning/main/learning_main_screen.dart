@@ -7,6 +7,7 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/pages/learning/main/sections/learn_tab.dart';
 import 'package:bananatalk_app/pages/learning/main/sections/ai_tools_tab.dart';
+import 'package:bananatalk_app/pages/learning/main/study_hub_tabs.dart';
 import 'package:bananatalk_app/pages/learning/animations/streak_milestone_celebration.dart';
 import 'package:bananatalk_app/pages/learning/animations/achievement_unlock_overlay.dart';
 import 'package:bananatalk_app/pages/learning/animations/level_up_sequence.dart';
@@ -177,9 +178,9 @@ class _LearningMainState extends ConsumerState<LearningMain>
                   unselectedLabelStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
                   dividerHeight: 0,
                   tabs: [
-                    Tab(text: AppLocalizations.of(context)!.examStudy),
+                    Tab(text: AppLocalizations.of(context)!.todayTab),
                     Tab(text: AppLocalizations.of(context)!.aiTools),
-                    Tab(text: AppLocalizations.of(context)!.learnTab),
+                    Tab(text: AppLocalizations.of(context)!.examStudy),
                   ],
                 ),
               ),
@@ -189,9 +190,11 @@ class _LearningMainState extends ConsumerState<LearningMain>
         body: TabBarView(
           controller: _tabController,
           children: [
-            const ExamStudyTab(),
+            LearnTab(
+              onSwitchToAI: () => _tabController.animateTo(indexOfTab(StudyHubTab.aiTools)),
+            ),
             const AIToolsTab(),
-            LearnTab(onSwitchToAI: () => _tabController.animateTo(1)),
+            const ExamStudyTab(),
           ],
         ),
       ),

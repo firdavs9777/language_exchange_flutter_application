@@ -7360,4 +7360,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get roomGoToRooms => 'Перейти к комнатам';
+
+  @override
+  String get todayTab => 'Today';
 }

@@ -7348,4 +7348,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get roomGoToRooms => 'Odalara git';
+
+  @override
+  String get todayTab => 'Today';
 }

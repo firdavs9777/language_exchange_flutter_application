@@ -7348,4 +7348,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get roomGoToRooms => 'Ir a Salas';
+
+  @override
+  String get todayTab => 'Today';
 }

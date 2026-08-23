@@ -7354,4 +7354,7 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get roomGoToRooms => 'Ба Ҳуҷраҳо гузаштан';
+
+  @override
+  String get todayTab => 'Today';
 }

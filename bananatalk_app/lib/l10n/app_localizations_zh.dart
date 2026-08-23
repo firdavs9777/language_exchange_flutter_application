@@ -7341,6 +7341,9 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get roomGoToRooms => '前往房间';
+
+  @override
+  String get todayTab => 'Today';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).

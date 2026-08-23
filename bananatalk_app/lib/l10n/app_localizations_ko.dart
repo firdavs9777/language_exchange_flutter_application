@@ -7341,4 +7341,7 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get roomGoToRooms => '방 목록으로 이동';
+
+  @override
+  String get todayTab => 'Today';
 }

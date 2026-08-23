@@ -7341,4 +7341,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get roomGoToRooms => 'ルーム一覧へ';
+
+  @override
+  String get todayTab => 'Today';
 }
