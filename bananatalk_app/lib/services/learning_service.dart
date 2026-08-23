@@ -1516,4 +1516,20 @@ class LearningService {
     }
     throw Exception(_getErrorMessage(data, 'Failed to update level'));
   }
+
+  /// Persist the user's learning target. Stores the display name, matching
+  /// what `language_to_learn` already holds elsewhere in the product;
+  /// the server normalizes to a base code at read time.
+  static Future<void> setLearningLanguage(String languageName) async {
+    final token = await _getToken();
+    final url = Uri.parse('${Endpoints.baseURL}${Endpoints.updateDetailsURL}');
+    final response = await http.put(
+      url,
+      headers: _getHeaders(token),
+      body: jsonEncode({'language_to_learn': [languageName]}),
+    );
+    if (response.statusCode != 200) {
+      throw Exception('Failed to save learning language');
+    }
+  }
 }
