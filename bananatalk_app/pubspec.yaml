@@ -2,7 +2,7 @@ name: bananatalk_app
 description: Learn, Meet or Date, the best language exchange application.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-version: 1.7.0+10557
+version: 2.2.3+10559
 
 
 environment:
@@ -50,7 +50,9 @@ dependencies:
   flutter_launcher_icons: ^0.13.1
   flutter_dotenv: ^6.0.0
   sign_in_with_apple: ^6.0.0
-  in_app_purchase: ^3.1.11
+  # Google Play requires Billing Library >= 8.0.0 from Aug 31, 2026.
+  # in_app_purchase 3.3.0 -> in_app_purchase_android 0.5.x -> billing 8.0.0.
+  in_app_purchase: ^3.3.0
   google_mobile_ads: ^5.3.0
   
   # Firebase & Notifications

@@ -3,6 +3,7 @@ import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
+import 'package:bananatalk_app/widgets/natural_aspect_image.dart';
 import 'package:bananatalk_app/widgets/voice_message_player.dart';
 import 'package:flutter/material.dart';
 
@@ -62,15 +63,11 @@ class MomentCardMedia extends StatelessWidget {
         },
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12),
-          child: CachedImageWidget(
+          child: NaturalAspectImage(
             imageUrl: imageUrls[0],
-            width: double.infinity,
-            height: 280,
-            fit: BoxFit.cover,
             borderRadius: BorderRadius.circular(8),
             errorWidget: Container(
               width: double.infinity,
-              height: 280,
               color: context.containerColor,
               child: Icon(
                 Icons.broken_image,
