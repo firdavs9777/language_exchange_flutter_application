@@ -171,6 +171,17 @@ class _NativeAdWidgetState extends ConsumerState<NativeAdWidget> {
     final adService = AdService();
     if (!adService.isInitialized || adService.isAdFree) return;
 
+    // No native ad unit is configured yet — `_nativeAdUnitId` still repeats
+    // `_bannerAdUnitId`, so AdMob rejects every request with "Ad unit doesn't
+    // match format". Requesting anyway burns a round trip per slot and lands on
+    // the banner fallback regardless; the Learning screen has three of these.
+    // Go straight to the banner. This branch disappears by itself once real
+    // native unit ids exist.
+    if (!adService.hasNativeAdUnit) {
+      _useBannerFallback = true;
+      return;
+    }
+
     _nativeAd = NativeAd(
       adUnitId: adService.nativeAdUnitId,
       request: const AdRequest(),

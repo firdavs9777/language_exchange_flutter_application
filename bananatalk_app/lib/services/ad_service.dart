@@ -2,6 +2,25 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
+/// Whether a genuinely separate NATIVE ad unit has been configured.
+///
+/// Returns false when [nativeAdUnitId] is blank or merely repeats
+/// [bannerAdUnitId]. In that state AdMob rejects every `NativeAd` request with
+/// "Ad unit doesn't match format" — correctly, because a banner ad unit cannot
+/// serve a native ad. Requesting anyway costs a round trip per slot and then
+/// falls back to a banner regardless, which on the Learning screen meant three
+/// wasted requests on every visit.
+///
+/// Compared trimmed, because a stray space is a typo rather than a new ad unit.
+bool nativeAdUnitIsDistinct({
+  required String bannerAdUnitId,
+  required String nativeAdUnitId,
+}) {
+  final native = nativeAdUnitId.trim();
+  if (native.isEmpty) return false;
+  return native != bannerAdUnitId.trim();
+}
+
 class AdService {
   static final AdService _instance = AdService._internal();
   factory AdService() => _instance;
@@ -32,6 +51,17 @@ class AdService {
 
   String get bannerAdUnitId => _bannerAdUnitId;
   String get nativeAdUnitId => _nativeAdUnitId;
+
+  /// False while `_nativeAdUnitId` is still a copy of `_bannerAdUnitId`, i.e.
+  /// while no native ad unit exists in AdMob. Callers should render a banner
+  /// directly rather than requesting a native ad that cannot be served.
+  ///
+  /// This flips to true on its own the moment real native unit ids are pasted
+  /// into `_nativeAdUnitId` — no other code needs changing.
+  bool get hasNativeAdUnit => nativeAdUnitIsDistinct(
+        bannerAdUnitId: _bannerAdUnitId,
+        nativeAdUnitId: _nativeAdUnitId,
+      );
 
   bool get isAdFree => _isAdFree;
   bool get isInitialized => _initialized;
