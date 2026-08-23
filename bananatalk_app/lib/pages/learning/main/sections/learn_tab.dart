@@ -63,7 +63,10 @@ class LearnTab extends ConsumerWidget {
                         state: state,
                         onOpen: (item) => Navigator.of(context)
                             .push(AppPageRoute(builder: (_) => DailyDropScreen(item: item)))
-                            .then((_) => ref.invalidate(dailyDropProvider)),
+                            .then((_) {
+                          if (!context.mounted) return;
+                          ref.invalidate(dailyDropProvider);
+                        }),
                         onPickLanguage: () => _pickLearningLanguage(context, ref),
                       ),
                     ),
@@ -522,6 +525,7 @@ Future<void> _pickLearningLanguage(BuildContext context, WidgetRef ref) async {
   final picked = await showLanguagePickerSheet(context);
   if (picked == null) return;
   await LearningService.setLearningLanguage(picked.name);
+  if (!context.mounted) return;
   ref.invalidate(dailyDropProvider);
 }
 

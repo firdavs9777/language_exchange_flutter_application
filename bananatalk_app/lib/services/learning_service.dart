@@ -1520,13 +1520,17 @@ class LearningService {
   /// Persist the user's learning target. Stores the display name, matching
   /// what `language_to_learn` already holds elsewhere in the product;
   /// the server normalizes to a base code at read time.
+  ///
+  /// `language_to_learn` is a plain String field on the User model
+  /// (`models/User.js`), not an array — sending a list here throws a
+  /// Mongoose CastError server-side and this call fails with a 400.
   static Future<void> setLearningLanguage(String languageName) async {
     final token = await _getToken();
     final url = Uri.parse('${Endpoints.baseURL}${Endpoints.updateDetailsURL}');
     final response = await http.put(
       url,
       headers: _getHeaders(token),
-      body: jsonEncode({'language_to_learn': [languageName]}),
+      body: jsonEncode({'language_to_learn': languageName}),
     );
     if (response.statusCode != 200) {
       throw Exception('Failed to save learning language');
