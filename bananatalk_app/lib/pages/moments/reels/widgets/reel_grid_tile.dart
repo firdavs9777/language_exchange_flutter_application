@@ -5,6 +5,7 @@ import 'package:video_player/video_player.dart';
 
 import 'package:bananatalk_app/pages/moments/reels/reel_video_cache.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
+import 'package:bananatalk_app/utils/compact_count.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 
@@ -37,7 +38,26 @@ class ReelGridTile extends StatefulWidget {
 
 class _ReelGridTileState extends State<ReelGridTile> {
   VideoPlayerController? _controller;
-  bool _starting = false;
+  bool _disposed = false;
+
+  // Bumped every time the tile is stopped or recycled onto a different reel.
+  // `_start()` captures the value at entry (`epoch`) and re-checks it after
+  // every await via `_bail`; a mismatch means this run is stale (the tile
+  // moved on to another reel, or was stopped/disposed) and it must tear down
+  // without touching `_controller` or calling `setState`. A plain
+  // `_starting` bool cannot tell "still the same reel" apart from "recycled
+  // onto a new one", which is exactly the bug this token closes.
+  int _epoch = 0;
+
+  // The epoch of the `_start()` call currently in flight, if any. Scoping
+  // the reentry guard to the epoch (rather than a single shared bool) means
+  // a stale run from an old epoch never blocks a fresh run for the new one:
+  // when a reel change bumps `_epoch` and immediately calls `_start()`
+  // again, the new call reads a different epoch than whatever the old,
+  // still-awaiting call recorded, so it is free to proceed.
+  int? _startingEpoch;
+
+  bool _bail(int epoch) => epoch != _epoch || _disposed;
 
   @override
   void initState() {
@@ -48,12 +68,12 @@ class _ReelGridTileState extends State<ReelGridTile> {
   @override
   void didUpdateWidget(ReelGridTile oldWidget) {
     super.didUpdateWidget(oldWidget);
-    final reelChanged = oldWidget.reel.video?.url != widget.reel.video?.url;
+    final reelChanged = oldWidget.reel.id != widget.reel.id;
     if (reelChanged) {
       // The tile was recycled onto a different reel (GridView reuses
-      // elements): tear down whatever was playing before deciding whether
-      // to start again, so we never keep the old clip's controller alive
-      // under the new reel's tile.
+      // elements): tear down whatever was playing/in-flight before deciding
+      // whether to start again, so we never keep the old clip's controller
+      // alive under the new reel's tile.
       _stop();
       if (widget.shouldPlay) _start();
     } else if (widget.shouldPlay && !oldWidget.shouldPlay) {
@@ -65,60 +85,61 @@ class _ReelGridTileState extends State<ReelGridTile> {
 
   @override
   void dispose() {
+    _disposed = true;
     _stop();
     super.dispose();
   }
 
   Future<void> _start() async {
     final url = widget.reel.video?.url ?? '';
-    if (url.isEmpty || _starting || _controller != null) return;
-    _starting = true;
+    if (url.isEmpty || _controller != null) return;
+    final epoch = _epoch;
+    // A start for this exact generation is already in flight; do not
+    // double-launch it. A start for a DIFFERENT (older) generation being in
+    // flight does not block this one — see `_startingEpoch` doc above.
+    if (_startingEpoch == epoch) return;
+    _startingEpoch = epoch;
 
-    File? file = await ReelVideoCache.instance.cachedFileFor(url);
-    if (!mounted) {
-      _starting = false;
-      return;
-    }
-    if (file == null && widget.mayDownload) {
-      file = await ReelVideoCache.instance.prefetch(url);
-    }
-    // On a metered connection with nothing cached we simply stay a
-    // thumbnail — never stream just to animate a grid preview.
-    if (file == null || !mounted || !widget.shouldPlay) {
-      _starting = false;
-      return;
-    }
-
-    final controller = VideoPlayerController.file(file);
     try {
-      await controller.initialize();
-      if (!mounted || !widget.shouldPlay) {
-        await controller.dispose();
-        _starting = false;
-        return;
+      File? file = await ReelVideoCache.instance.cachedFileFor(url);
+      if (_bail(epoch)) return;
+      if (file == null && widget.mayDownload) {
+        file = await ReelVideoCache.instance.prefetch(url);
       }
-      await controller.setLooping(true);
-      await controller.setVolume(0); // grid previews are always silent
-      await controller.play();
-      if (!mounted) {
+      // On a metered connection with nothing cached we simply stay a
+      // thumbnail — never stream just to animate a grid preview.
+      if (file == null || _bail(epoch) || !widget.shouldPlay) return;
+
+      final controller = VideoPlayerController.file(file);
+      try {
+        await controller.initialize();
+        if (_bail(epoch) || !widget.shouldPlay) {
+          await controller.dispose();
+          return;
+        }
+        await controller.setLooping(true);
+        await controller.setVolume(0); // grid previews are always silent
+        await controller.play();
+        if (_bail(epoch) || !widget.shouldPlay) {
+          await controller.dispose();
+          return;
+        }
+        setState(() => _controller = controller);
+      } catch (_) {
         await controller.dispose();
-        _starting = false;
-        return;
       }
-      setState(() => _controller = controller);
-    } catch (_) {
-      await controller.dispose();
     } finally {
-      _starting = false;
+      if (_startingEpoch == epoch) _startingEpoch = null;
     }
   }
 
   void _stop() {
+    _epoch++;
     final controller = _controller;
     _controller = null;
     if (controller == null) return;
     controller.pause().whenComplete(controller.dispose);
-    if (mounted) setState(() {});
+    if (!_disposed) setState(() {});
   }
 
   @override
@@ -147,15 +168,31 @@ class _ReelGridTileState extends State<ReelGridTile> {
               ),
             ),
           if (!playing)
-            const Align(
+            Align(
               alignment: Alignment.bottomRight,
               child: Padding(
-                padding: EdgeInsets.all(6),
-                child: Icon(Icons.play_arrow, color: Colors.white, size: 16),
+                padding: const EdgeInsets.all(6),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Icon(Icons.play_arrow, color: Colors.white, size: 16),
+                    if (widget.reel.likeCount > 0) ...[
+                      const SizedBox(width: 2),
+                      Text(
+                        formatCompactCount(widget.reel.likeCount),
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 11,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ],
+                ),
               ),
             ),
           Positioned(
-            bottom: 6,
+            top: 6,
             left: 6,
             child: _LanguageChip(language: widget.reel.language),
           ),
