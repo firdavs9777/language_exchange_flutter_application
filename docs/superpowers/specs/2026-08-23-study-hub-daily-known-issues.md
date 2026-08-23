@@ -39,6 +39,19 @@ from scratch later.
 - Task 23 isValidTimezone accepts case-variant IANA strings and stores them unnormalized; harmless since localHourFor re-runs the same Intl check.
 - Task 23 no backend test for the timezone-persistence path itself.
 
+## Delivery is gated off
+
+`jobs/dailyDropJob.js` (backend) now gates `runDailyDropDelivery()` behind the env var
+`DAILY_DROP_DELIVERY_ENABLED`. It **defaults OFF** — delivery runs only when the value is
+exactly the string `'true'`; anything else (unset, empty, `'1'`, `'yes'`, `'TRUE'`) is
+treated as off. `runDailyDropGeneration()` is unaffected and keeps running nightly so the
+content bank keeps rotating and drops exist the moment delivery is switched on.
+
+Reason: the backend half of daily drop shipped ahead of the app half. Until an app build
+carrying the `daily_drop` deep-link route and Today section has reached users, turning
+delivery on would push a notification for a screen ~113 real users cannot open. Do not
+set `DAILY_DROP_DELIVERY_ENABLED=true` on the server until that app build is out.
+
 ## Migration consequence to know before deploy
 
 On the first `updateStreak()` after rollout, a user whose `lastActivityDate` is already
