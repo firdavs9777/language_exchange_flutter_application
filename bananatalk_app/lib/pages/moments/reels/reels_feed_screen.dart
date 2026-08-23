@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:share_plus/share_plus.dart';
@@ -8,6 +10,8 @@ import 'package:bananatalk_app/pages/comments/comments_main.dart';
 import 'package:bananatalk_app/pages/comments/create_comment.dart';
 import 'package:bananatalk_app/pages/community/single/single_community_screen.dart';
 import 'package:bananatalk_app/pages/moments/reels/reel_controller_pool.dart';
+import 'package:bananatalk_app/pages/moments/reels/reel_fit.dart';
+import 'package:bananatalk_app/pages/moments/reels/widgets/reel_overlays.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:bananatalk_app/providers/provider_root/comments_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
@@ -42,6 +46,22 @@ class _ReelsFeedScreenState extends ConsumerState<ReelsFeedScreen>
   final ReelControllerPool _pool = ReelControllerPool();
   late int _currentIndex;
   String? _currentUserId;
+
+  /// Sound state for the whole session, not per page — muting one reel and
+  /// having the next blast audio would be worse than no control at all.
+  /// Starts unmuted: opening a reel is deliberate, unlike an autoplaying feed.
+  bool _muted = false;
+
+  void _toggleMute() {
+    setState(() => _muted = !_muted);
+    _applyVolume();
+  }
+
+  /// Re-applied after every controller swap, since a freshly activated
+  /// controller defaults to full volume.
+  void _applyVolume() {
+    _pool.controllerAt(_currentIndex)?.setVolume(_muted ? 0.0 : 1.0);
+  }
 
   @override
   void initState() {
@@ -85,7 +105,10 @@ class _ReelsFeedScreenState extends ConsumerState<ReelsFeedScreen>
     final currentUrl = reels[_currentIndex].video?.url;
     if (currentUrl != null && currentUrl.isNotEmpty) {
       _pool.activate(_currentIndex, currentUrl).then((_) {
-        if (mounted) setState(() {});
+        if (mounted) {
+          _applyVolume();
+          setState(() {});
+        }
       });
     }
 
@@ -328,6 +351,8 @@ class _ReelsFeedScreenState extends ConsumerState<ReelsFeedScreen>
                 reel: reel,
                 controller: controller,
                 isLiked: _isLiked(reel),
+                muted: _muted,
+                onToggleMute: _toggleMute,
                 onTogglePlayPause: () => _togglePlayPause(index),
                 onLike: () => _toggleLike(reel),
                 onComment: () => _openComments(reel),
@@ -353,45 +378,115 @@ class _ReelsFeedScreenState extends ConsumerState<ReelsFeedScreen>
   }
 }
 
-class _ReelFeedItem extends StatelessWidget {
+class _ReelFeedItem extends StatefulWidget {
   const _ReelFeedItem({
     required this.reel,
     required this.controller,
     required this.isLiked,
+    required this.muted,
     required this.onTogglePlayPause,
     required this.onLike,
     required this.onComment,
     required this.onShare,
     required this.onMore,
     required this.onAvatarTap,
+    required this.onToggleMute,
   });
 
   final Moments reel;
   final VideoPlayerController? controller;
   final bool isLiked;
+  final bool muted;
   final VoidCallback onTogglePlayPause;
   final VoidCallback onLike;
   final VoidCallback onComment;
   final VoidCallback onShare;
   final VoidCallback onMore;
   final VoidCallback onAvatarTap;
+  final VoidCallback onToggleMute;
+
+  @override
+  State<_ReelFeedItem> createState() => _ReelFeedItemState();
+}
+
+class _ReelFeedItemState extends State<_ReelFeedItem> {
+  /// Live heart bursts, keyed so several rapid double-taps can overlap.
+  final List<_HeartBurstEntry> _bursts = <_HeartBurstEntry>[];
+  int _burstSeq = 0;
+
+  /// Drives the brief play/pause glyph after a tap. While the video is paused
+  /// the glyph is shown regardless (see build).
+  bool _flashVisible = false;
+  Timer? _flashTimer;
+
+  @override
+  void dispose() {
+    _flashTimer?.cancel();
+    super.dispose();
+  }
+
+  void _handleTap() {
+    widget.onTogglePlayPause();
+    setState(() => _flashVisible = true);
+    _flashTimer?.cancel();
+    _flashTimer = Timer(const Duration(milliseconds: 450), () {
+      if (mounted) setState(() => _flashVisible = false);
+    });
+  }
+
+  void _handleDoubleTapDown(TapDownDetails details) {
+    // Spawn the heart where the finger landed. Firing it from the centre is
+    // what makes double-tap-to-like feel canned.
+    final id = _burstSeq++;
+    setState(() {
+      _bursts.add(_HeartBurstEntry(id: id, at: details.localPosition));
+    });
+  }
+
+  void _removeBurst(int id) {
+    if (!mounted) return;
+    setState(() => _bursts.removeWhere((b) => b.id == id));
+  }
 
   @override
   Widget build(BuildContext context) {
-    final isReady = controller != null && controller!.value.isInitialized;
+    final reel = widget.reel;
+    final controller = widget.controller;
+    final isReady = controller != null && controller.value.isInitialized;
+    final isPaused = isReady && !controller.value.isPlaying;
+    // Guard the empty STRING, not just the empty list: an author stored as
+    // images: [''] produced NetworkImage("") and threw
+    // "No host specified in URI file:///" on every painted frame.
+    final avatarUrl = reel.user.imageUrls.isNotEmpty
+        ? reel.user.imageUrls.first.trim()
+        : '';
 
     return GestureDetector(
-      onTap: onTogglePlayPause,
-      onDoubleTap: onLike,
+      onTap: _handleTap,
+      onDoubleTapDown: _handleDoubleTapDown,
+      onDoubleTap: widget.onLike,
       child: Stack(
         fit: StackFit.expand,
         children: [
           if (isReady)
-            Center(
-              child: AspectRatio(
-                aspectRatio: controller!.value.aspectRatio,
-                child: VideoPlayer(controller!),
-              ),
+            // Fill the screen for portrait footage, letterbox only when
+            // cropping would gut the frame — see reelVideoFit.
+            LayoutBuilder(
+              builder: (context, constraints) {
+                final size = controller.value.size;
+                return FittedBox(
+                  fit: reelVideoFit(
+                    videoAspect: controller.value.aspectRatio,
+                    screenAspect: constraints.maxWidth / constraints.maxHeight,
+                  ),
+                  clipBehavior: Clip.hardEdge,
+                  child: SizedBox(
+                    width: size.width,
+                    height: size.height,
+                    child: VideoPlayer(controller),
+                  ),
+                );
+              },
             )
           else if (reel.video?.thumbnail != null &&
               reel.video!.thumbnail!.isNotEmpty)
@@ -407,9 +502,20 @@ class _ReelFeedItem extends StatelessWidget {
               child: CircularProgressIndicator(color: Colors.white),
             ),
 
-          if (isReady && !controller!.value.isPlaying)
-            const Center(
-              child: Icon(Icons.play_arrow, color: Colors.white70, size: 64),
+          const ReelScrim(alignment: Alignment.topCenter),
+          const ReelScrim(alignment: Alignment.bottomCenter),
+
+          if (isReady)
+            ReelPlayPauseFlash(
+              isPaused: isPaused,
+              showPersistent: isPaused || _flashVisible,
+            ),
+
+          for (final burst in _bursts)
+            ReelHeartBurst(
+              key: ValueKey(burst.id),
+              at: burst.at,
+              onDone: () => _removeBurst(burst.id),
             ),
 
           // Bottom-left: poster + caption + language/prompt overlay.
@@ -421,17 +527,29 @@ class _ReelFeedItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 GestureDetector(
-                  onTap: onAvatarTap,
+                  onTap: widget.onAvatarTap,
                   child: Row(
                     children: [
-                      CircleAvatar(
-                        radius: 18,
-                        backgroundImage: reel.user.imageUrls.isNotEmpty
-                            ? NetworkImage(reel.user.imageUrls.first)
-                            : null,
-                        child: reel.user.imageUrls.isEmpty
-                            ? const Icon(Icons.person)
-                            : null,
+                      ClipOval(
+                        child: SizedBox(
+                          width: 36,
+                          height: 36,
+                          child: avatarUrl.isEmpty
+                              ? Container(
+                                  color: Colors.white24,
+                                  child: const Icon(Icons.person,
+                                      color: Colors.white, size: 20),
+                                )
+                              : CachedImageWidget(
+                                  imageUrl: avatarUrl,
+                                  fit: BoxFit.cover,
+                                  errorWidget: Container(
+                                    color: Colors.white24,
+                                    child: const Icon(Icons.person,
+                                        color: Colors.white, size: 20),
+                                  ),
+                                ),
+                        ),
                       ),
                       const SizedBox(width: 8),
                       Flexible(
@@ -489,28 +607,55 @@ class _ReelFeedItem extends StatelessWidget {
             child: Column(
               children: [
                 _RailButton(
-                  icon: isLiked ? Icons.favorite : Icons.favorite_border,
-                  color: isLiked ? Colors.redAccent : Colors.white,
+                  icon:
+                      widget.isLiked ? Icons.favorite : Icons.favorite_border,
+                  color: widget.isLiked ? Colors.redAccent : Colors.white,
                   label: reel.likeCount > 0 ? '${reel.likeCount}' : '',
-                  onTap: onLike,
+                  onTap: widget.onLike,
                 ),
                 const SizedBox(height: 20),
                 _RailButton(
                   icon: Icons.chat_bubble_outline,
                   label: reel.commentCount > 0 ? '${reel.commentCount}' : '',
-                  onTap: onComment,
+                  onTap: widget.onComment,
                 ),
                 const SizedBox(height: 20),
-                _RailButton(icon: Icons.share, label: '', onTap: onShare),
+                _RailButton(
+                    icon: Icons.share, label: '', onTap: widget.onShare),
                 const SizedBox(height: 20),
-                _RailButton(icon: Icons.more_horiz, label: '', onTap: onMore),
+                _RailButton(
+                    icon: Icons.more_horiz, label: '', onTap: widget.onMore),
+                const SizedBox(height: 20),
+                ReelCircleButton(
+                  icon: widget.muted
+                      ? Icons.volume_off_rounded
+                      : Icons.volume_up_rounded,
+                  tooltip: widget.muted ? 'Unmute' : 'Mute',
+                  onTap: widget.onToggleMute,
+                ),
               ],
             ),
+          ),
+
+          // Scrub bar owns the very bottom edge, below the caption and rail.
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: ReelProgressBar(controller: controller),
           ),
         ],
       ),
     );
   }
+}
+
+/// One in-flight heart animation.
+class _HeartBurstEntry {
+  const _HeartBurstEntry({required this.id, required this.at});
+
+  final int id;
+  final Offset at;
 }
 
 class _RailButton extends StatelessWidget {
