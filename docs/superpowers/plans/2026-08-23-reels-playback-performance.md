@@ -40,6 +40,9 @@
 | Create `test/moments/reel_prefetch_policy_test.dart` | Task 1 tests |
 | Create `test/moments/reel_video_cache_test.dart` | Task 2 tests |
 | Create `test/moments/reel_grid_autoplay_test.dart` | Task 4 tests |
+| Create `lib/utils/compact_count.dart` | The one Instagram-style compact count formatter |
+| Create `test/utils/compact_count_test.dart` | Task 7 tests |
+| Modify 7 files carrying a hand-rolled `_formatCount` | Task 8 replaces them all |
 
 Tasks 1, 2 and 4 are pure/injectable and fully unit-tested. Tasks 3, 5 and 6 touch platform video and have no unit-test harness in this repo; they end in `flutter analyze` plus explicit manual simulator verification.
 
@@ -1101,6 +1104,231 @@ At most three tiles play, nearest the viewport centre, and only once
 scrolling settles. Tiles are keyed by reel id so recycling can't hand a
 tile another tile's controller, and the grid releases its controllers
 while the full-screen viewer is open."
+```
+
+---
+
+### Task 7: Instagram-style compact counts
+
+**Files:**
+- Create: `lib/utils/compact_count.dart`
+- Create: `test/utils/compact_count_test.dart`
+
+**Interfaces:**
+- Consumes: nothing. Pure Dart, no imports beyond `dart:core`.
+- Produces: `String formatCompactCount(int count)`.
+
+**Why:** count display is currently hand-rolled in **nine places** — five
+private `_formatCount` methods (`city_tab.dart:1016`, `genders_tab.dart:670`,
+`topics_tab.dart:458`, and two in `save_moment_button.dart` at `:160` and
+`:317`) plus four inline ternaries (`moment_card.dart:800`,
+`moment_card.dart:966`, `single_moment.dart:877`,
+`profile/moments/moment_card.dart:635`) — and they disagree.
+
+Six of the nine have no millions branch at all, so 1,000,000 renders as
+**"1000.0k"**. Of the three that do handle millions, `topics_tab.dart:460` and
+both `save_moment_button.dart` methods use uppercase `K`/`M` while every other
+site uses lowercase `k`. And all nine render exactly 1000 as `1.0k`.
+
+This task creates the one true formatter; replacing the call sites is Task 8.
+
+**Do not touch distance formatting.** `nearby_tab.dart:866`,
+`location_service.dart:114` and `compact_user_tile.dart:343` also call
+`toStringAsFixed(1)` but render kilometres (`"1.4km"`), not counts. They are
+out of scope and must be left exactly as they are.
+
+- [ ] **Step 1: Write the failing tests**
+
+```dart
+// test/utils/compact_count_test.dart
+import 'package:flutter_test/flutter_test.dart';
+
+import 'package:bananatalk_app/utils/compact_count.dart';
+
+void main() {
+  group('formatCompactCount', () {
+    test('renders counts below a thousand exactly', () {
+      expect(formatCompactCount(0), '0');
+      expect(formatCompactCount(7), '7');
+      expect(formatCompactCount(999), '999');
+    });
+
+    test('drops the dead decimal at exact thresholds', () {
+      // The bug this replaces rendered these as "1.0k" and "1.0M".
+      expect(formatCompactCount(1000), '1k');
+      expect(formatCompactCount(1000000), '1m');
+    });
+
+    test('keeps one decimal below ten of a unit', () {
+      expect(formatCompactCount(1100), '1.1k');
+      expect(formatCompactCount(9900), '9.9k');
+      expect(formatCompactCount(1500000), '1.5m');
+    });
+
+    test('drops the decimal at ten of a unit and above', () {
+      expect(formatCompactCount(10000), '10k');
+      expect(formatCompactCount(12300), '12.3k');
+      expect(formatCompactCount(123400), '123k');
+      expect(formatCompactCount(999000), '999k');
+    });
+
+    test('truncates rather than rounding up across a threshold', () {
+      // 999,999 must not render as "1000k"; it truncates to 999.9k.
+      expect(formatCompactCount(999999), '999.9k');
+      // 1,099 truncates to 1k, never rounds to 1.1k.
+      expect(formatCompactCount(1099), '1k');
+    });
+
+    test('handles millions the same way it handles thousands', () {
+      expect(formatCompactCount(10000000), '10m');
+      expect(formatCompactCount(1234000000), '1234m');
+    });
+
+    test('never emits a negative or a minus sign', () {
+      // Counts are cardinalities; a negative is a server bug, not a display
+      // case. Clamp rather than render "-5".
+      expect(formatCompactCount(-1), '0');
+      expect(formatCompactCount(-1000000), '0');
+    });
+  });
+}
+```
+
+Run: `flutter test test/utils/compact_count_test.dart`
+Expected: fails to compile — `compact_count.dart` does not exist yet.
+
+- [ ] **Step 2: Implement**
+
+```dart
+// lib/utils/compact_count.dart
+
+/// Renders a cardinal count the way Instagram does: `999`, `1k`, `1.1k`,
+/// `12.3k`, `999k`, `1m`.
+///
+/// Two rules make it look right rather than merely short:
+///
+///  * **No dead decimal.** Exactly 1000 is `1k`, not `1.0k`. This is the
+///    single most visible flaw in the seven hand-rolled formatters this
+///    replaces.
+///  * **Truncate, never round up.** 999,999 renders `999.9k`; rounding would
+///    produce the self-contradictory `1000k`. Truncation also means a
+///    displayed count never overstates the real one.
+///
+/// One decimal appears only below ten of a unit, where it carries real
+/// information (`1.1k` vs `1k`). At ten and above the decimal is noise, so
+/// `12300` is `12.3k` but `123400` is `123k`.
+String formatCompactCount(int count) {
+  // A count is a cardinality. A negative one means the server sent something
+  // impossible, and "-5 likes" is a worse answer than "0".
+  if (count <= 0) return '0';
+  if (count < 1000) return '$count';
+  if (count < 1000000) return '${_unit(count, 1000)}k';
+  return '${_unit(count, 1000000)}m';
+}
+
+/// Formats [count] in units of [divisor], keeping one truncated decimal only
+/// while the whole part is a single digit.
+String _unit(int count, int divisor) {
+  final whole = count ~/ divisor;
+  if (whole >= 10) return '$whole';
+
+  // Truncate the tenth rather than rounding, so the result never crosses back
+  // over the threshold it was just reduced below.
+  final tenths = (count % divisor) * 10 ~/ divisor;
+  return tenths == 0 ? '$whole' : '$whole.$tenths';
+}
+```
+
+Run: `flutter test test/utils/compact_count_test.dart`
+Expected: all tests pass.
+
+- [ ] **Step 3: Verify statically**
+
+Run: `flutter analyze lib/utils/compact_count.dart test/utils/compact_count_test.dart`
+Expected: no issues.
+
+- [ ] **Step 4: Commit**
+
+```bash
+git add bananatalk_app/lib/utils/compact_count.dart bananatalk_app/test/utils/compact_count_test.dart
+git commit -m "feat(ui): one Instagram-style compact count formatter
+
+Seven hand-rolled _formatCount implementations disagreed with each other,
+and six of them had no millions branch — so a million likes rendered as
+'1000.0k'. This is the single formatter they will all be replaced by.
+
+Truncates rather than rounding so 999,999 cannot render as '1000k', and
+drops the dead decimal so 1000 is '1k' rather than '1.0k'."
+```
+
+---
+
+### Task 8: Replace every hand-rolled count formatter
+
+**Files (all Modify):**
+- `lib/pages/moments/card/moment_card.dart` (two sites: `:799`, `:965`)
+- `lib/pages/moments/single/single_moment.dart` (`:876`)
+- `lib/pages/profile/moments/moment_card.dart` (`:634`)
+- `lib/pages/community/tabs/city_tab.dart` (`_formatCount` at `:1016`, call at `:990`)
+- `lib/pages/community/tabs/genders_tab.dart` (`_formatCount` at `:670`, calls at `:449`, `:517`)
+- `lib/pages/community/tabs/topics_tab.dart` (`_formatCount` at `:458`, call at `:438`)
+- `lib/widgets/save_moment_button.dart` (two `_formatCount` at `:160`, `:317`; calls at `:147`, `:305`)
+
+**Interfaces:**
+- Consumes: `formatCompactCount` from `lib/utils/compact_count.dart` (Task 7).
+- Produces: nothing new. This task only deletes duplication.
+
+This is deliberately mechanical: import the shared formatter, replace the
+inline ternary or the private method's body's call sites with
+`formatCompactCount(...)`, then **delete** the now-unused private
+`_formatCount` methods. Do not leave a private wrapper that just forwards.
+
+Note the two casing families — `k`/`M` in some files, `K`/`M` in others. They
+all become lowercase `k`/`m`, which is the deliberate, stated choice from
+Task 7; a reviewer seeing casing change in `topics_tab.dart` and
+`save_moment_button.dart` is seeing the intended unification, not a
+regression.
+
+- [ ] **Step 1: Replace the call sites and delete the duplicates**
+
+Work file by file. For the four inline-ternary sites, the shape is:
+
+```dart
+// before
+count > 999 ? '${(count / 1000).toStringAsFixed(1)}k' : '$count'
+// after
+formatCompactCount(count)
+```
+
+For the private-method sites, replace the call with `formatCompactCount(...)`
+and delete the method declaration.
+
+- [ ] **Step 2: Prove no formatter survives**
+
+Run: `grep -rnE '_formatCount|\((count|likeCount) / 1000' lib --include='*.dart'`
+Expected: no output. Any hit is a count site this task missed.
+
+This pattern is deliberately narrower than "anything ending in k". A looser
+grep on `toStringAsFixed(1)}` also matches the three **distance** formatters
+named in Task 7, which are correct as they stand — do not "fix" them to make
+a grep quiet.
+
+- [ ] **Step 3: Verify statically and run the suite**
+
+Run: `flutter analyze lib/` then `flutter test`
+Expected: no new analyzer issues; the suite passes. Deleting a private method
+that is still referenced fails analysis, which is the check that Step 1 was
+complete.
+
+- [ ] **Step 4: Commit**
+
+```bash
+git add -u bananatalk_app/lib
+git commit -m "refactor(ui): route every count display through formatCompactCount
+
+Deletes seven duplicated _formatCount implementations. Six of them had no
+millions branch, so large counts rendered as '1000.0k'; two used uppercase
+K/M while the rest used lowercase. All counts now format identically."
 ```
 
 ---
