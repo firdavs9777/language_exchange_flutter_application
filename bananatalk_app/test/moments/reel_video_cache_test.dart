@@ -127,4 +127,94 @@ void main() {
       expect(downloads, 0);
     });
   });
+
+/// Regression tests for the iOS `-12847` failure found on device.
+///
+/// The CDN serves reel videos as `content-type: application/octet-stream`
+/// (verified with curl against cdn.banatalk.com). flutter_cache_manager maps
+/// that content type to a `.bin` extension (`mime_converter.dart:19`), and iOS
+/// `AVURLAsset` infers a file's container format from its EXTENSION, not its
+/// bytes — so a perfectly valid MP4 saved as `.bin` is rejected with
+/// `OSStatus -12847, "This media format is not supported"`.
+///
+/// The cached files really were valid: `file` reported "ISO Media, MP4 v2" and
+/// their sizes matched the CDN's content-length exactly.
+
+  group('reelVideoFileExtension', () {
+    test('takes the extension from the URL path, not the content type', () {
+      expect(reelVideoFileExtension('https://cdn.x.com/a/b/clip.mov'), '.mov');
+      expect(reelVideoFileExtension('https://cdn.x.com/a/b/clip.mp4'), '.mp4');
+      expect(reelVideoFileExtension('https://cdn.x.com/a/b/clip.m4v'), '.m4v');
+    });
+
+    test('ignores query strings and fragments', () {
+      // Signed CDN urls carry query parameters; the extension must survive.
+      expect(
+        reelVideoFileExtension('https://cdn.x.com/clip.mp4?token=abc&e=123'),
+        '.mp4',
+      );
+      expect(reelVideoFileExtension('https://cdn.x.com/clip.mov#t=2'), '.mov');
+    });
+
+    test('is case insensitive', () {
+      expect(reelVideoFileExtension('https://cdn.x.com/CLIP.MP4'), '.mp4');
+      expect(reelVideoFileExtension('https://cdn.x.com/CLIP.MoV'), '.mov');
+    });
+
+    test('falls back to .mp4 when the URL carries no video extension', () {
+      // Better a plausible container hint than the ".bin" that provably makes
+      // AVFoundation refuse the file outright.
+      expect(reelVideoFileExtension('https://cdn.x.com/clip'), '.mp4');
+      expect(reelVideoFileExtension('https://cdn.x.com/clip.bin'), '.mp4');
+      expect(reelVideoFileExtension('https://cdn.x.com/clip.txt'), '.mp4');
+      expect(reelVideoFileExtension(''), '.mp4');
+    });
+
+    test('is not fooled by a dot in a path segment', () {
+      expect(
+        reelVideoFileExtension('https://cdn.x.com/v1.2/reels/clip.mp4'),
+        '.mp4',
+      );
+      // A dot in a directory but none in the filename must not leak ".2/reels".
+      expect(reelVideoFileExtension('https://cdn.x.com/v1.2/reels/clip'), '.mp4');
+    });
+
+    test('never returns .bin, whatever the input', () {
+      for (final url in [
+        'https://cdn.x.com/a.bin',
+        'https://cdn.x.com/a.BIN',
+        'https://cdn.x.com/bin',
+        'bin',
+      ]) {
+        expect(reelVideoFileExtension(url), isNot('.bin'), reason: url);
+      }
+    });
+  });
+
+  group('ReelVideoCache.evict', () {
+    test('removes the entry so the next probe misses', () async {
+      final evicted = <String>[];
+      final cache = ReelVideoCache(
+        probe: (url) async => evicted.contains(url) ? null : File('/tmp/x.mp4'),
+        downloader: (url) async => File('/tmp/x.mp4'),
+        evictor: (url) async => evicted.add(url),
+      );
+
+      expect(await cache.cachedFileFor('u'), isNotNull);
+      await cache.evict('u');
+      expect(evicted, ['u']);
+      expect(await cache.cachedFileFor('u'), isNull,
+          reason: 'an unplayable cached file must not be served again');
+    });
+
+    test('swallows evictor failures', () async {
+      final cache = ReelVideoCache(
+        probe: (url) async => null,
+        downloader: (url) async => null,
+        evictor: (url) async => throw Exception('disk gone'),
+      );
+      // Eviction is best-effort cleanup; it must never surface to the caller.
+      await expectLater(cache.evict('u'), completes);
+    });
+  });
 }

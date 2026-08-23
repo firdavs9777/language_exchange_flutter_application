@@ -122,6 +122,14 @@ class ReelControllerPool {
         await controller.dispose();
       } catch (_) {}
 
+      // Purge the unplayable bytes before retrying. Without this the cache
+      // still reports a hit next time, so every future attempt repeats this
+      // failed init and then streams anyway — the entry stays "valid" for the
+      // whole 7-day stale period. That is precisely how the `.bin` extension
+      // bug kept reproducing on device after the first download: reels 0-3
+      // failed on every single app restart.
+      if (usingCache) await _cache.evict(url);
+
       // Ownership door 1: the retry below registers a *new* controller, so
       // it must re-confirm the index is still ours. A fast swipe during the
       // failed initialize() may have moved the window past this index.
