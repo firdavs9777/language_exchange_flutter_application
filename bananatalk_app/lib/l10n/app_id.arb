@@ -3030,5 +3030,7 @@
   "dailyCheck": "Periksa",
   "dailyTooEasy": "Terlalu mudah",
   "dailyTooHard": "Terlalu sulit",
-  "dailyScore": "{score}/{total}"
+  "dailyScore": "{score}/{total}",
+  "dailyStreakDays": "{count, plural, other{Rentetan {count} hari}}",
+  "dailyXpEarned": "+{xp} XP"
 }

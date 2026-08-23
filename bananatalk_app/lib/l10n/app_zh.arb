@@ -3044,5 +3044,7 @@
   "dailyCheck": "检查",
   "dailyTooEasy": "太简单",
   "dailyTooHard": "太难",
-  "dailyScore": "{score}/{total}"
+  "dailyScore": "{score}/{total}",
+  "dailyStreakDays": "{count, plural, other{连续 {count} 天}}",
+  "dailyXpEarned": "+{xp} XP"
 }

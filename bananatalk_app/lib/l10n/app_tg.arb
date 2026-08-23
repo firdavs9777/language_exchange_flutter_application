@@ -2523,5 +2523,7 @@
   "dailyCheck": "Тафтиш кунед",
   "dailyTooEasy": "Хеле осон",
   "dailyTooHard": "Хеле мушкил",
-  "dailyScore": "{score}/{total}"
+  "dailyScore": "{score}/{total}",
+  "dailyStreakDays": "{count, plural, =1{Силсилаи 1 рӯз} other{Силсилаи {count} рӯз}}",
+  "dailyXpEarned": "+{xp} XP"
 }

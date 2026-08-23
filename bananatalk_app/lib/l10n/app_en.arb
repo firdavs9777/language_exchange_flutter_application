@@ -4317,7 +4317,6 @@
   "@examTipsCategoryFluency": {
     "description": "Tip group label"
   },
-
   "roomsNewRoom": "New room",
   "@roomsNewRoom": {
     "description": "FAB label to create a new Community Room topic room"
@@ -4701,6 +4700,24 @@
         "type": "int"
       },
       "total": {
+        "type": "int"
+      }
+    }
+  },
+  "dailyStreakDays": "{count, plural, =1{1-day streak} other{{count}-day streak}}",
+  "@dailyStreakDays": {
+    "description": "Streak length shown on the daily drop screen after completing the day",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "dailyXpEarned": "+{xp} XP",
+  "@dailyXpEarned": {
+    "description": "XP earned, shown on the daily drop screen after completing the day",
+    "placeholders": {
+      "xp": {
         "type": "int"
       }
     }

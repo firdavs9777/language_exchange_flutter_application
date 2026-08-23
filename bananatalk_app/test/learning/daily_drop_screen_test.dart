@@ -84,6 +84,25 @@ void main() {
 
     expect(sent, [1, 1, 1]);
     expect(find.text('3/3'), findsOneWidget);
+    // The streak and XP the server awarded are what the feature is for.
+    expect(find.byKey(const Key('daily-reward')), findsOneWidget);
+    expect(find.text('4-day streak · +20 XP'), findsOneWidget);
+  });
+
+  testWidgets('no reward line when the day is not yet complete', (tester) async {
+    await tester.pumpWidget(_host(submit: (_, __) async =>
+        const DailyCompletionResult(
+            score: 2, total: 3, correctAnswers: [0, 0, 0], dayComplete: false)));
+
+    for (var i = 0; i < 3; i++) {
+      await tester.tap(find.byKey(Key('daily-q$i-opt0')));
+      await tester.pump();
+    }
+    await tester.tap(find.byKey(const Key('daily-submit')));
+    await tester.pumpAndSettle();
+
+    expect(find.text('2/3'), findsOneWidget);
+    expect(find.byKey(const Key('daily-reward')), findsNothing);
   });
 
   testWidgets('too hard reports the verdict', (tester) async {

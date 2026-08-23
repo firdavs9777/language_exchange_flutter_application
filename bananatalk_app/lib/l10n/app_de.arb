@@ -3270,5 +3270,7 @@
   "dailyCheck": "Prüfen",
   "dailyTooEasy": "Zu einfach",
   "dailyTooHard": "Zu schwer",
-  "dailyScore": "{score}/{total}"
+  "dailyScore": "{score}/{total}",
+  "dailyStreakDays": "{count, plural, =1{1 Tag in Folge} other{{count} Tage in Folge}}",
+  "dailyXpEarned": "+{xp} XP"
 }

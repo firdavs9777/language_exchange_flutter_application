@@ -3060,5 +3060,7 @@
   "dailyCheck": "تحقق",
   "dailyTooEasy": "سهل جدًا",
   "dailyTooHard": "صعب جدًا",
-  "dailyScore": "{score}/{total}"
+  "dailyScore": "{score}/{total}",
+  "dailyStreakDays": "{count, plural, =1{سلسلة يوم واحد} =2{سلسلة يومين} other{سلسلة {count} أيام}}",
+  "dailyXpEarned": "+{xp} نقطة خبرة"
 }

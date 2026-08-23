@@ -48,6 +48,19 @@ class _DailyDropScreenState extends State<DailyDropScreen> {
     }
   }
 
+  /// "3-day streak · +20 XP" — whichever halves the server actually awarded.
+  /// Null when the day is not complete and no XP moved, so nothing is shown.
+  String? _rewardLine(AppLocalizations l10n) {
+    final result = _result;
+    if (result == null) return null;
+    final parts = <String>[
+      if (result.dayComplete && result.streak != null)
+        l10n.dailyStreakDays(result.streak!),
+      if (result.xpAwarded > 0) l10n.dailyXpEarned(result.xpAwarded),
+    ];
+    return parts.isEmpty ? null : parts.join(' · ');
+  }
+
   Future<void> _feedback(String verdict) async {
     await widget.submitFeedback(widget.item.id, verdict);
     if (mounted) Navigator.of(context).maybePop();
@@ -95,9 +108,22 @@ class _DailyDropScreenState extends State<DailyDropScreen> {
               ],
             );
           }),
-          if (_result != null)
+          if (_result != null) ...[
             Text(l10n.dailyScore(_result!.score, _result!.total),
                 style: Theme.of(context).textTheme.headlineSmall),
+            // The streak and the XP are the reward the whole feature exists to
+            // deliver — the server returns them on completion and they were
+            // being thrown away, so the user never saw either.
+            if (_rewardLine(l10n) != null)
+              Padding(
+                key: const Key('daily-reward'),
+                padding: const EdgeInsets.only(top: 4),
+                child: Text(
+                  _rewardLine(l10n)!,
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+              ),
+          ],
           const SizedBox(height: 8),
           FilledButton(
             key: const Key('daily-submit'),

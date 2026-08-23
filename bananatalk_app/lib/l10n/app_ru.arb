@@ -3060,5 +3060,7 @@
   "dailyCheck": "Проверить",
   "dailyTooEasy": "Слишком легко",
   "dailyTooHard": "Слишком сложно",
-  "dailyScore": "{score}/{total}"
+  "dailyScore": "{score}/{total}",
+  "dailyStreakDays": "{count, plural, =1{Серия: 1 день} few{Серия: {count} дня} other{Серия: {count} дней}}",
+  "dailyXpEarned": "+{xp} XP"
 }

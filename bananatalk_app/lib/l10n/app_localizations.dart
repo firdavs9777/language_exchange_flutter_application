@@ -13753,6 +13753,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{score}/{total}'**
   String dailyScore(int score, int total);
+
+  /// Streak length shown on the daily drop screen after completing the day
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1-day streak} other{{count}-day streak}}'**
+  String dailyStreakDays(int count);
+
+  /// XP earned, shown on the daily drop screen after completing the day
+  ///
+  /// In en, this message translates to:
+  /// **'+{xp} XP'**
+  String dailyXpEarned(int xp);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -3051,5 +3051,7 @@
   "dailyCheck": "확인",
   "dailyTooEasy": "너무 쉬움",
   "dailyTooHard": "너무 어려움",
-  "dailyScore": "{score}/{total}"
+  "dailyScore": "{score}/{total}",
+  "dailyStreakDays": "{count, plural, other{{count}일 연속}}",
+  "dailyXpEarned": "+{xp} XP"
 }

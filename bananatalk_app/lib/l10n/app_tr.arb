@@ -3242,5 +3242,7 @@
   "dailyCheck": "Kontrol et",
   "dailyTooEasy": "Çok kolay",
   "dailyTooHard": "Çok zor",
-  "dailyScore": "{score}/{total}"
+  "dailyScore": "{score}/{total}",
+  "dailyStreakDays": "{count, plural, =1{1 günlük seri} other{{count} günlük seri}}",
+  "dailyXpEarned": "+{xp} XP"
 }

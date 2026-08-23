@@ -66,6 +66,13 @@ class LearnTab extends ConsumerWidget {
                             .then((_) {
                           if (!context.mounted) return;
                           ref.invalidate(dailyDropProvider);
+                          // ProgressHero, the quick stats and DailyGoalWidget
+                          // all sit directly under these cards and read
+                          // learningProgressProvider. Without invalidating it
+                          // too, the cards flip to done while the streak
+                          // counter and XP bar an inch below still show
+                          // yesterday's numbers.
+                          ref.invalidate(learningProgressProvider);
                         }),
                         onPickLanguage: () => _pickLearningLanguage(context, ref),
                       ),

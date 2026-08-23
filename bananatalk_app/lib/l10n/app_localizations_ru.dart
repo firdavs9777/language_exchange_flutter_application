@@ -7396,4 +7396,21 @@ class AppLocalizationsRu extends AppLocalizations {
   String dailyScore(int score, int total) {
     return '$score/$total';
   }
+
+  @override
+  String dailyStreakDays(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Серия: $count дней',
+      few: 'Серия: $count дня',
+      one: 'Серия: 1 день',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String dailyXpEarned(int xp) {
+    return '+$xp XP';
+  }
 }

@@ -2721,5 +2721,7 @@
   "dailyCheck": "檢查",
   "dailyTooEasy": "太簡單",
   "dailyTooHard": "太難",
-  "dailyScore": "{score}/{total}"
+  "dailyScore": "{score}/{total}",
+  "dailyStreakDays": "{count, plural, other{連續 {count} 天}}",
+  "dailyXpEarned": "+{xp} XP"
 }

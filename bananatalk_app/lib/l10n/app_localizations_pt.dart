@@ -7384,4 +7384,20 @@ class AppLocalizationsPt extends AppLocalizations {
   String dailyScore(int score, int total) {
     return '$score/$total';
   }
+
+  @override
+  String dailyStreakDays(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Sequência de $count dias',
+      one: 'Sequência de 1 dia',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String dailyXpEarned(int xp) {
+    return '+$xp XP';
+  }
 }

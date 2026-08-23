@@ -3030,5 +3030,7 @@
   "dailyCheck": "Kiểm tra",
   "dailyTooEasy": "Quá dễ",
   "dailyTooHard": "Quá khó",
-  "dailyScore": "{score}/{total}"
+  "dailyScore": "{score}/{total}",
+  "dailyStreakDays": "{count, plural, other{Chuỗi {count} ngày}}",
+  "dailyXpEarned": "+{xp} XP"
 }

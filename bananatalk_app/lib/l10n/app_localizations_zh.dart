@@ -7377,6 +7377,21 @@ class AppLocalizationsZh extends AppLocalizations {
   String dailyScore(int score, int total) {
     return '$score/$total';
   }
+
+  @override
+  String dailyStreakDays(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '连续 $count 天',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String dailyXpEarned(int xp) {
+    return '+$xp XP';
+  }
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -14751,5 +14766,20 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   @override
   String dailyScore(int score, int total) {
     return '$score/$total';
+  }
+
+  @override
+  String dailyStreakDays(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '連續 $count 天',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String dailyXpEarned(int xp) {
+    return '+$xp XP';
   }
 }

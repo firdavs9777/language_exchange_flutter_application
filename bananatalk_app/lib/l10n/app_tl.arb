@@ -3003,5 +3003,7 @@
   "dailyCheck": "Suriin",
   "dailyTooEasy": "Sobrang madali",
   "dailyTooHard": "Sobrang hirap",
-  "dailyScore": "{score}/{total}"
+  "dailyScore": "{score}/{total}",
+  "dailyStreakDays": "{count, plural, =1{1 araw na sunod-sunod} other{{count} araw na sunod-sunod}}",
+  "dailyXpEarned": "+{xp} XP"
 }
