@@ -703,14 +703,17 @@ class _MomentsFeedTabBar extends ConsumerWidget {
           data: (config) => config?.reelsEnabled ?? false,
           orElse: () => false,
         );
+    // Insertion order is the on-screen order. Reels sits directly after
+    // For You so it's the first thing reachable from the default tab
+    // instead of being buried at the end of the strip.
     final tabs = <MomentsFeedTab, String>{
       MomentsFeedTab.forYou: 'For You',
-      MomentsFeedTab.following: l10n.following,
-      MomentsFeedTab.trending: l10n.trending,
       // TODO(l10n): no `momentsTabReels` key exists yet in the arb files —
       // plain-string fallback, following the established pattern (see
       // `CommunityTabBar`'s "Rooms" tab) until a follow-up localizes it.
       if (reelsEnabled) MomentsFeedTab.reels: 'Reels',
+      MomentsFeedTab.following: l10n.following,
+      MomentsFeedTab.trending: l10n.trending,
     };
 
     return Container(
