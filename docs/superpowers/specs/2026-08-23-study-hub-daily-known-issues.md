@@ -6,15 +6,32 @@ from scratch later.
 
 ## Pre-existing, found while working here (NOT caused by this wave)
 
-- **`npm test` hangs for everyone.** Not slow — a test leaves a handle open so the
-  process never exits. `node --experimental-test-module-mocks --test --test-force-exit
-  services/*.test.js test/*.test.js` runs the whole suite in ~5s. The `test` script in
-  `package.json` lacks the flag.
-- **`test/profileVisitCleanup.test.js` has never passed** — `ReferenceError: describe is
-  not defined`; it never imports `describe` from `node:test`. Untouched by this branch.
-- **`controllers/tutor.js:25` and `controllers/learning.js:235,346` award XP without ever
-  touching the streak.** The daily drop now advances the streak correctly, but those
-  surfaces still do not.
+**All four RESOLVED 2026-09-11** — backend `fix/deferred-backend-four`, merged as
+`4502ce0` and deployed to production. Suite is 580/581 (the one failure is environmental,
+see below).
+
+- ~~**`npm test` hangs for everyone.**~~ FIXED (`ddb01a3`) — `--test-force-exit` added to
+  the `test` script; the whole suite finishes in ~5s.
+- ~~**`test/profileVisitCleanup.test.js` has never passed.**~~ FIXED (`d8372f0`) — it was
+  worse than the missing `describe` import: it used Jest globals throughout, pointed
+  mongoose at `process.env.MONGO_URI` (**production**) and ran `ProfileVisit.deleteMany({})`
+  in `beforeEach`, and its User fixtures omitted required schema fields. Rewritten for
+  `node:test` on an in-memory Mongo, and re-aimed at the real seam:
+  `User.findByIdAndDelete()` never cascaded anything (there is no hook for it) — account
+  deletion goes through `services/userCascadeDeleteService.js`.
+  **It then exposed a real bug**, also fixed in that commit: step 13 deleted only
+  `{ visitor: userId }`, so every visit made TO a deleted user's profile was left behind
+  as an orphan pointing at a dead account. `controllers/auth.js:1859` always used the
+  correct `$or`; the service did not.
+- ~~**`controllers/tutor.js:25` and `controllers/learning.js:235,346` award XP without ever
+  touching the streak.**~~ FIXED (`21787c5`) — new
+  `learningTrackingService.awardXPWithStreak()` advances the streak first (so `awardXP`'s
+  streak multiplier sees today's increment, matching `controllers/dailyStudy.js`), then
+  awards, idempotent per UTC day via `lastStreakDateKey`. Wired into tutor chips, tutor
+  daily practice, `add_vocabulary` and `add_vocab_pack`. The get-or-create of the progress
+  row was also lifted out of `awardXP` so `updateStreak` shares it — it used to return
+  `'Progress not found'` for a user whose first-ever activity hit it, silently awarding
+  nothing.
 
 ## Deferred from this wave
 
@@ -26,7 +43,7 @@ from scratch later.
 - Task 1: complete (backend commits 73f99f6..4e00b42, 1 parked)
 - Task 5 eligibility uses truthy `i.approved` not `=== true`; Mongoose casts the field to Boolean so equivalent in practice.
 - Task 5 the determinism test asserts two orderings agree rather than pinning a specific winner; still catches a missing _id tiebreak. Brief-prescribed test.
-- Task 6 feature key 'daily_drop_generation' is not registered in config/aiConfig.js; chatCompletion falls back to `|| 1024` maxTokens and `?? 0.7` temperature, so harmless. Register it if AI fill is ever tuned per-feature.
+- ~~Task 6 feature key 'daily_drop_generation' is not registered in config/aiConfig.js.~~ FIXED 2026-09-11 (`3b96898`) — registered at exactly those former fallback values (1024 / 0.7), so generation behavior is unchanged and the knob now exists.
 - Task 6 generateDailyItem (the network path) has no test coverage — an explicit brief constraint, not an implementer gap.
 - Task 7 exports KINDS_REQUIRED beyond the brief's stated interface; harmless constant.
 - Task 8 LearningProgress.getOrCreate has a theoretical duplicate-key race under concurrent first-time requests (unique index on `user`). Pre-existing in the reused static, not introduced here.
@@ -61,3 +78,20 @@ To pause delivery in an emergency, set `DAILY_DROP_DELIVERY_ENABLED=false` on th
 On the first `updateStreak()` after rollout, a user whose `lastActivityDate` is already
 today (UTC) with no `lastStreakDateKey` yet gets one extra streak increment. Deliberate —
 the alternative reset healthy streaks to 1. One-off, errs toward preserving streaks.
+
+## Found during the 2026-09-11 fix pass (open)
+
+- **`config/config.env` carries a 12-character `JWT_SECRET`** (`REFRESH_TOKEN_SECRET` is
+  64). `test/authSecretRotation.test.js` enforces a 32-char minimum, so this is now the
+  suite's only failure — pre-existing and environmental, invisible until the suite could
+  run to completion. If production shares that value it is a weak signing secret, and
+  rotating it invalidates every live session, so it needs a deliberate call.
+- **Eight AI feature keys still fall through to `chatCompletion`'s hardcoded 1024 / 0.7**:
+  `idiomDetection`, `grammarExplanation`, `alternativeTranslations`,
+  `contextualTranslation`, `examEssayEvaluation`, `examSpeakingEvaluation`,
+  `examStudyPlan`, `pronunciationEvaluation`. Each looks tunable in `config/aiConfig.js`
+  but is not. Pinned as `KNOWN_UNREGISTERED` in `test/aiConfigDailyDrop.test.js`;
+  registering any of them changes a real token budget or temperature, so they were listed
+  rather than silently changed. A NEW unregistered key now fails that test.
+- **The `backend` gitlink has no `.gitmodules` entry**, so `git submodule` commands fail on
+  it and `backend/` sits empty in a fresh clone. The pointer is still updated by hand.
