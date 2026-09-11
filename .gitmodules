@@ -1,0 +1,3 @@
+[submodule "backend"]
+	path = backend
+	url = git@github.com:firdavs9777/language_exchange_backend_application.git
