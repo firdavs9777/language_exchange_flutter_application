@@ -4800,5 +4800,18 @@
   "packTranslateHint": "Type your translation",
   "@packTranslateHint": {
     "description": "Placeholder in the translate station's input"
+  },
+  "packDone": "Done",
+  "@packDone": {
+    "description": "Closes the day-complete sheet"
+  },
+  "packTomorrowTeaser": "Tomorrow: more from {topic}",
+  "@packTomorrowTeaser": {
+    "description": "Teases the next day inside the completion sheet",
+    "placeholders": {
+      "topic": {
+        "type": "String"
+      }
+    }
   }
 }
