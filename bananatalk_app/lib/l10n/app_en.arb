@@ -4780,5 +4780,25 @@
         "type": "int"
       }
     }
+  },
+  "packReveal": "Show answer",
+  "@packReveal": {
+    "description": "Reveals a review word's translation"
+  },
+  "packKnewIt": "I knew it",
+  "@packKnewIt": {
+    "description": "Review verdict: recalled correctly"
+  },
+  "packMissed": "Missed it",
+  "@packMissed": {
+    "description": "Review verdict: did not recall"
+  },
+  "packTranslatePrompt": "Translate this sentence",
+  "@packTranslatePrompt": {
+    "description": "Label above the weekend translate station's sentence"
+  },
+  "packTranslateHint": "Type your translation",
+  "@packTranslateHint": {
+    "description": "Placeholder in the translate station's input"
   }
 }
