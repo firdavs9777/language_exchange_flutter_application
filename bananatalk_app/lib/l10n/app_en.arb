@@ -4938,5 +4938,33 @@
         "type": "int"
       }
     }
+  },
+  "placementTitle": "Find your level",
+  "@placementTitle": {
+    "description": "Title of the placement screen"
+  },
+  "placementSkip": "Skip",
+  "@placementSkip": {
+    "description": "Skips the placement test"
+  },
+  "placementProgress": "Question {current} of {total}",
+  "@placementProgress": {
+    "description": "Placement position",
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "placementResult": "We'll start you here. You can change it any time.",
+  "@placementResult": {
+    "description": "Explains the placement result without claiming certification"
+  },
+  "placementStart": "Start learning",
+  "@placementStart": {
+    "description": "Leaves placement and opens the pack"
   }
 }
