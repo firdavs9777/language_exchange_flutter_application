@@ -7402,147 +7402,147 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
-  String get packContinue => 'Continue';
+  String get packContinue => '继续';
 
   @override
-  String get packGotIt => 'Got it';
+  String get packGotIt => '明白了';
 
   @override
-  String get packSubmitFailed => 'Couldn\'t save that — check your connection and try again.';
+  String get packSubmitFailed => '保存失败——请检查网络后重试。';
 
   @override
   String packWordProgress(int current, int total) {
-    return 'Word $current of $total';
+    return '第 $current 个词，共 $total 个';
   }
 
   @override
   String packGrammarUnit(int unit) {
-    return 'Unit $unit';
+    return '第 $unit 单元';
   }
 
   @override
-  String get packListeningPrompt => 'Which word did you hear?';
+  String get packListeningPrompt => '你听到的是哪个词？';
 
   @override
   String packPlayClip(int number) {
-    return 'Play clip $number';
+    return '播放第 $number 段';
   }
 
   @override
-  String get packReveal => 'Show answer';
+  String get packReveal => '查看答案';
 
   @override
-  String get packKnewIt => 'I knew it';
+  String get packKnewIt => '我知道';
 
   @override
-  String get packMissed => 'Missed it';
+  String get packMissed => '没想起来';
 
   @override
-  String get packTranslatePrompt => 'Translate this sentence';
+  String get packTranslatePrompt => '翻译这句话';
 
   @override
-  String get packTranslateHint => 'Type your translation';
+  String get packTranslateHint => '输入你的翻译';
 
   @override
-  String get packDone => 'Done';
+  String get packDone => '完成';
 
   @override
   String packTomorrowTeaser(String topic) {
-    return 'Tomorrow: more from $topic';
+    return '明天：继续「$topic」';
   }
 
   @override
   String packContinueTo(String station) {
-    return 'Continue · $station';
+    return '继续 · $station';
   }
 
   @override
-  String get packDoneForToday => 'Done for today';
+  String get packDoneForToday => '今天已完成';
 
   @override
-  String get packStationVocabulary => 'Vocabulary';
+  String get packStationVocabulary => '词汇';
 
   @override
-  String get packStationGrammar => 'Grammar';
+  String get packStationGrammar => '语法';
 
   @override
-  String get packStationListening => 'Listening';
+  String get packStationListening => '听力';
 
   @override
-  String get packStationReview => 'Review';
+  String get packStationReview => '复习';
 
   @override
-  String get packStationWrap => 'Week quiz';
+  String get packStationWrap => '本周测验';
 
   @override
-  String get packStationTranslate => 'Translate';
+  String get packStationTranslate => '翻译';
 
   @override
-  String get masteryTitle => 'Your progress';
+  String get masteryTitle => '你的进度';
 
   @override
-  String get masteryEmpty => 'Finish a day of study and your progress will show up here.';
+  String get masteryEmpty => '完成一天的学习后，这里会显示你的进度。';
 
   @override
-  String get masteryYourLevel => 'your level';
+  String get masteryYourLevel => '你的水平';
 
   @override
-  String get masteryRetake => 'Retake';
+  String get masteryRetake => '重测';
 
   @override
-  String get masteryVocabulary => 'Vocabulary';
+  String get masteryVocabulary => '词汇';
 
   @override
-  String get masteryGrammar => 'Grammar';
+  String get masteryGrammar => '语法';
 
   @override
-  String get masteryListening => 'Listening';
+  String get masteryListening => '听力';
 
   @override
-  String get masteryTranslate => 'Translation';
+  String get masteryTranslate => '翻译';
 
   @override
-  String get masteryNotStarted => 'Not started yet';
+  String get masteryNotStarted => '尚未开始';
 
   @override
   String masteryVocabularyCaption(int mastered, int learning, int due) {
-    return '$mastered mastered · $learning learning · $due due';
+    return '已掌握 $mastered · 学习中 $learning · 待复习 $due';
   }
 
   @override
   String masteryGrammarCaption(int mastered, int total) {
-    return 'Unit $mastered of $total';
+    return '第 $mastered 单元，共 $total 个';
   }
 
   @override
   String masteryAccuracyCaption(int percent, int samples) {
-    return '$percent% over $samples sessions';
+    return '$samples 次中正确率 $percent%';
   }
 
   @override
-  String get masteryConsistency => 'Last 30 days';
+  String get masteryConsistency => '最近 30 天';
 
   @override
   String masteryDueCta(int count) {
-    return 'Review $count words now';
+    return '立即复习 $count 个词';
   }
 
   @override
-  String get placementTitle => 'Find your level';
+  String get placementTitle => '测测你的水平';
 
   @override
-  String get placementSkip => 'Skip';
+  String get placementSkip => '跳过';
 
   @override
   String placementProgress(int current, int total) {
-    return 'Question $current of $total';
+    return '第 $current 题，共 $total 题';
   }
 
   @override
-  String get placementResult => 'We\'ll start you here. You can change it any time.';
+  String get placementResult => '我们就从这里开始。你可以随时修改。';
 
   @override
-  String get placementStart => 'Start learning';
+  String get placementStart => '开始学习';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -14941,4 +14941,147 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String todayLanguageUnsupported(String language) {
     return '$language暫不支援每日學習。';
   }
+
+  @override
+  String get packContinue => '繼續';
+
+  @override
+  String get packGotIt => '明白了';
+
+  @override
+  String get packSubmitFailed => '儲存失敗——請檢查網路後重試。';
+
+  @override
+  String packWordProgress(int current, int total) {
+    return '第 $current 個詞，共 $total 個';
+  }
+
+  @override
+  String packGrammarUnit(int unit) {
+    return '第 $unit 單元';
+  }
+
+  @override
+  String get packListeningPrompt => '你聽到的是哪個詞？';
+
+  @override
+  String packPlayClip(int number) {
+    return '播放第 $number 段';
+  }
+
+  @override
+  String get packReveal => '查看答案';
+
+  @override
+  String get packKnewIt => '我知道';
+
+  @override
+  String get packMissed => '沒想起來';
+
+  @override
+  String get packTranslatePrompt => '翻譯這句話';
+
+  @override
+  String get packTranslateHint => '輸入你的翻譯';
+
+  @override
+  String get packDone => '完成';
+
+  @override
+  String packTomorrowTeaser(String topic) {
+    return '明天：繼續「$topic」';
+  }
+
+  @override
+  String packContinueTo(String station) {
+    return '繼續 · $station';
+  }
+
+  @override
+  String get packDoneForToday => '今天已完成';
+
+  @override
+  String get packStationVocabulary => '詞彙';
+
+  @override
+  String get packStationGrammar => '語法';
+
+  @override
+  String get packStationListening => '聽力';
+
+  @override
+  String get packStationReview => '複習';
+
+  @override
+  String get packStationWrap => '本週測驗';
+
+  @override
+  String get packStationTranslate => '翻譯';
+
+  @override
+  String get masteryTitle => '你的進度';
+
+  @override
+  String get masteryEmpty => '完成一天的學習後，這裡會顯示你的進度。';
+
+  @override
+  String get masteryYourLevel => '你的程度';
+
+  @override
+  String get masteryRetake => '重測';
+
+  @override
+  String get masteryVocabulary => '詞彙';
+
+  @override
+  String get masteryGrammar => '語法';
+
+  @override
+  String get masteryListening => '聽力';
+
+  @override
+  String get masteryTranslate => '翻譯';
+
+  @override
+  String get masteryNotStarted => '尚未開始';
+
+  @override
+  String masteryVocabularyCaption(int mastered, int learning, int due) {
+    return '已掌握 $mastered · 學習中 $learning · 待複習 $due';
+  }
+
+  @override
+  String masteryGrammarCaption(int mastered, int total) {
+    return '第 $mastered 單元，共 $total 個';
+  }
+
+  @override
+  String masteryAccuracyCaption(int percent, int samples) {
+    return '$samples 次中正確率 $percent%';
+  }
+
+  @override
+  String get masteryConsistency => '最近 30 天';
+
+  @override
+  String masteryDueCta(int count) {
+    return '立即複習 $count 個詞';
+  }
+
+  @override
+  String get placementTitle => '測測你的程度';
+
+  @override
+  String get placementSkip => '略過';
+
+  @override
+  String placementProgress(int current, int total) {
+    return '第 $current 題，共 $total 題';
+  }
+
+  @override
+  String get placementResult => '我們就從這裡開始。你可以隨時修改。';
+
+  @override
+  String get placementStart => '開始學習';
 }

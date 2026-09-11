@@ -7402,145 +7402,145 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
-  String get packContinue => 'Continue';
+  String get packContinue => 'Tiếp tục';
 
   @override
-  String get packGotIt => 'Got it';
+  String get packGotIt => 'Đã hiểu';
 
   @override
-  String get packSubmitFailed => 'Couldn\'t save that — check your connection and try again.';
+  String get packSubmitFailed => 'Không lưu được — hãy kiểm tra kết nối và thử lại.';
 
   @override
   String packWordProgress(int current, int total) {
-    return 'Word $current of $total';
+    return 'Từ $current trên $total';
   }
 
   @override
   String packGrammarUnit(int unit) {
-    return 'Unit $unit';
+    return 'Bài $unit';
   }
 
   @override
-  String get packListeningPrompt => 'Which word did you hear?';
+  String get packListeningPrompt => 'Bạn đã nghe từ nào?';
 
   @override
   String packPlayClip(int number) {
-    return 'Play clip $number';
+    return 'Phát đoạn $number';
   }
 
   @override
-  String get packReveal => 'Show answer';
+  String get packReveal => 'Xem đáp án';
 
   @override
-  String get packKnewIt => 'I knew it';
+  String get packKnewIt => 'Tôi đã biết';
 
   @override
-  String get packMissed => 'Missed it';
+  String get packMissed => 'Tôi chưa biết';
 
   @override
-  String get packTranslatePrompt => 'Translate this sentence';
+  String get packTranslatePrompt => 'Dịch câu này';
 
   @override
-  String get packTranslateHint => 'Type your translation';
+  String get packTranslateHint => 'Nhập bản dịch của bạn';
 
   @override
-  String get packDone => 'Done';
+  String get packDone => 'Xong';
 
   @override
   String packTomorrowTeaser(String topic) {
-    return 'Tomorrow: more from $topic';
+    return 'Mai: tiếp tục với $topic';
   }
 
   @override
   String packContinueTo(String station) {
-    return 'Continue · $station';
+    return 'Tiếp tục · $station';
   }
 
   @override
-  String get packDoneForToday => 'Done for today';
+  String get packDoneForToday => 'Xong cho hôm nay';
 
   @override
-  String get packStationVocabulary => 'Vocabulary';
+  String get packStationVocabulary => 'Từ vựng';
 
   @override
-  String get packStationGrammar => 'Grammar';
+  String get packStationGrammar => 'Ngữ pháp';
 
   @override
-  String get packStationListening => 'Listening';
+  String get packStationListening => 'Nghe';
 
   @override
-  String get packStationReview => 'Review';
+  String get packStationReview => 'Ôn tập';
 
   @override
-  String get packStationWrap => 'Week quiz';
+  String get packStationWrap => 'Bài kiểm tra tuần';
 
   @override
-  String get packStationTranslate => 'Translate';
+  String get packStationTranslate => 'Dịch';
 
   @override
-  String get masteryTitle => 'Your progress';
+  String get masteryTitle => 'Tiến độ của bạn';
 
   @override
-  String get masteryEmpty => 'Finish a day of study and your progress will show up here.';
+  String get masteryEmpty => 'Hoàn thành một ngày học và tiến độ của bạn sẽ hiện ở đây.';
 
   @override
-  String get masteryYourLevel => 'your level';
+  String get masteryYourLevel => 'trình độ của bạn';
 
   @override
-  String get masteryRetake => 'Retake';
+  String get masteryRetake => 'Làm lại';
 
   @override
-  String get masteryVocabulary => 'Vocabulary';
+  String get masteryVocabulary => 'Từ vựng';
 
   @override
-  String get masteryGrammar => 'Grammar';
+  String get masteryGrammar => 'Ngữ pháp';
 
   @override
-  String get masteryListening => 'Listening';
+  String get masteryListening => 'Nghe';
 
   @override
-  String get masteryTranslate => 'Translation';
+  String get masteryTranslate => 'Dịch';
 
   @override
-  String get masteryNotStarted => 'Not started yet';
+  String get masteryNotStarted => 'Chưa bắt đầu';
 
   @override
   String masteryVocabularyCaption(int mastered, int learning, int due) {
-    return '$mastered mastered · $learning learning · $due due';
+    return '$mastered đã thuộc · $learning đang học · $due cần ôn';
   }
 
   @override
   String masteryGrammarCaption(int mastered, int total) {
-    return 'Unit $mastered of $total';
+    return 'Bài $mastered trên $total';
   }
 
   @override
   String masteryAccuracyCaption(int percent, int samples) {
-    return '$percent% over $samples sessions';
+    return '$percent% qua $samples lượt';
   }
 
   @override
-  String get masteryConsistency => 'Last 30 days';
+  String get masteryConsistency => '30 ngày qua';
 
   @override
   String masteryDueCta(int count) {
-    return 'Review $count words now';
+    return 'Ôn $count từ ngay';
   }
 
   @override
-  String get placementTitle => 'Find your level';
+  String get placementTitle => 'Tìm trình độ của bạn';
 
   @override
-  String get placementSkip => 'Skip';
+  String get placementSkip => 'Bỏ qua';
 
   @override
   String placementProgress(int current, int total) {
-    return 'Question $current of $total';
+    return 'Câu $current trên $total';
   }
 
   @override
-  String get placementResult => 'We\'ll start you here. You can change it any time.';
+  String get placementResult => 'Chúng tôi sẽ bắt đầu từ đây. Bạn có thể thay đổi bất cứ lúc nào.';
 
   @override
-  String get placementStart => 'Start learning';
+  String get placementStart => 'Bắt đầu học';
 }

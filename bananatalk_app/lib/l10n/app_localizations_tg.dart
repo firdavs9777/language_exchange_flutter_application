@@ -7416,145 +7416,145 @@ class AppLocalizationsTg extends AppLocalizations {
   }
 
   @override
-  String get packContinue => 'Continue';
+  String get packContinue => 'Идома';
 
   @override
-  String get packGotIt => 'Got it';
+  String get packGotIt => 'Фаҳмидам';
 
   @override
-  String get packSubmitFailed => 'Couldn\'t save that — check your connection and try again.';
+  String get packSubmitFailed => 'Сабт нашуд — пайвастшавиро санҷед ва бори дигар кӯшиш кунед.';
 
   @override
   String packWordProgress(int current, int total) {
-    return 'Word $current of $total';
+    return 'Калимаи $current аз $total';
   }
 
   @override
   String packGrammarUnit(int unit) {
-    return 'Unit $unit';
+    return 'Воҳиди $unit';
   }
 
   @override
-  String get packListeningPrompt => 'Which word did you hear?';
+  String get packListeningPrompt => 'Кадом калимаро шунидед?';
 
   @override
   String packPlayClip(int number) {
-    return 'Play clip $number';
+    return 'Пахши сабти $number';
   }
 
   @override
-  String get packReveal => 'Show answer';
+  String get packReveal => 'Ҷавобро нишон диҳед';
 
   @override
-  String get packKnewIt => 'I knew it';
+  String get packKnewIt => 'Медонистам';
 
   @override
-  String get packMissed => 'Missed it';
+  String get packMissed => 'Намедонистам';
 
   @override
-  String get packTranslatePrompt => 'Translate this sentence';
+  String get packTranslatePrompt => 'Ин ҷумларо тарҷума кунед';
 
   @override
-  String get packTranslateHint => 'Type your translation';
+  String get packTranslateHint => 'Тарҷумаи худро нависед';
 
   @override
-  String get packDone => 'Done';
+  String get packDone => 'Тайёр';
 
   @override
   String packTomorrowTeaser(String topic) {
-    return 'Tomorrow: more from $topic';
+    return 'Пагоҳ: идомаи «$topic»';
   }
 
   @override
   String packContinueTo(String station) {
-    return 'Continue · $station';
+    return 'Идома · $station';
   }
 
   @override
-  String get packDoneForToday => 'Done for today';
+  String get packDoneForToday => 'Барои имрӯз тамом';
 
   @override
-  String get packStationVocabulary => 'Vocabulary';
+  String get packStationVocabulary => 'Луғат';
 
   @override
-  String get packStationGrammar => 'Grammar';
+  String get packStationGrammar => 'Грамматика';
 
   @override
-  String get packStationListening => 'Listening';
+  String get packStationListening => 'Шунидан';
 
   @override
-  String get packStationReview => 'Review';
+  String get packStationReview => 'Такрор';
 
   @override
-  String get packStationWrap => 'Week quiz';
+  String get packStationWrap => 'Санҷиши ҳафта';
 
   @override
-  String get packStationTranslate => 'Translate';
+  String get packStationTranslate => 'Тарҷума';
 
   @override
-  String get masteryTitle => 'Your progress';
+  String get masteryTitle => 'Пешрафти шумо';
 
   @override
-  String get masteryEmpty => 'Finish a day of study and your progress will show up here.';
+  String get masteryEmpty => 'Як рӯз таҳсилро анҷом диҳед ва пешрафти шумо дар ин ҷо пайдо мешавад.';
 
   @override
-  String get masteryYourLevel => 'your level';
+  String get masteryYourLevel => 'сатҳи шумо';
 
   @override
-  String get masteryRetake => 'Retake';
+  String get masteryRetake => 'Аз нав';
 
   @override
-  String get masteryVocabulary => 'Vocabulary';
+  String get masteryVocabulary => 'Луғат';
 
   @override
-  String get masteryGrammar => 'Grammar';
+  String get masteryGrammar => 'Грамматика';
 
   @override
-  String get masteryListening => 'Listening';
+  String get masteryListening => 'Шунидан';
 
   @override
-  String get masteryTranslate => 'Translation';
+  String get masteryTranslate => 'Тарҷума';
 
   @override
-  String get masteryNotStarted => 'Not started yet';
+  String get masteryNotStarted => 'Ҳанӯз оғоз нашудааст';
 
   @override
   String masteryVocabularyCaption(int mastered, int learning, int due) {
-    return '$mastered mastered · $learning learning · $due due';
+    return '$mastered азхудшуда · $learning дар омӯзиш · $due барои такрор';
   }
 
   @override
   String masteryGrammarCaption(int mastered, int total) {
-    return 'Unit $mastered of $total';
+    return 'Воҳиди $mastered аз $total';
   }
 
   @override
   String masteryAccuracyCaption(int percent, int samples) {
-    return '$percent% over $samples sessions';
+    return '$percent% дар $samples машғулият';
   }
 
   @override
-  String get masteryConsistency => 'Last 30 days';
+  String get masteryConsistency => '30 рӯзи охир';
 
   @override
   String masteryDueCta(int count) {
-    return 'Review $count words now';
+    return 'Ҳозир $count калимаро такрор кунед';
   }
 
   @override
-  String get placementTitle => 'Find your level';
+  String get placementTitle => 'Сатҳи худро муайян кунед';
 
   @override
-  String get placementSkip => 'Skip';
+  String get placementSkip => 'Гузаштан';
 
   @override
   String placementProgress(int current, int total) {
-    return 'Question $current of $total';
+    return 'Саволи $current аз $total';
   }
 
   @override
-  String get placementResult => 'We\'ll start you here. You can change it any time.';
+  String get placementResult => 'Мо аз ин ҷо оғоз мекунем. Шумо метавонед ҳар вақт онро иваз кунед.';
 
   @override
-  String get placementStart => 'Start learning';
+  String get placementStart => 'Ба омӯзиш шурӯъ кунед';
 }

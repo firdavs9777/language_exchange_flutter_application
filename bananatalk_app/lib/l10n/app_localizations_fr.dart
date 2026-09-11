@@ -7410,145 +7410,145 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
-  String get packContinue => 'Continue';
+  String get packContinue => 'Continuer';
 
   @override
-  String get packGotIt => 'Got it';
+  String get packGotIt => 'Compris';
 
   @override
-  String get packSubmitFailed => 'Couldn\'t save that — check your connection and try again.';
+  String get packSubmitFailed => 'Enregistrement impossible — vérifie ta connexion et réessaie.';
 
   @override
   String packWordProgress(int current, int total) {
-    return 'Word $current of $total';
+    return 'Mot $current sur $total';
   }
 
   @override
   String packGrammarUnit(int unit) {
-    return 'Unit $unit';
+    return 'Unité $unit';
   }
 
   @override
-  String get packListeningPrompt => 'Which word did you hear?';
+  String get packListeningPrompt => 'Quel mot as-tu entendu ?';
 
   @override
   String packPlayClip(int number) {
-    return 'Play clip $number';
+    return 'Écouter l\'extrait $number';
   }
 
   @override
-  String get packReveal => 'Show answer';
+  String get packReveal => 'Voir la réponse';
 
   @override
-  String get packKnewIt => 'I knew it';
+  String get packKnewIt => 'Je le savais';
 
   @override
-  String get packMissed => 'Missed it';
+  String get packMissed => 'Je ne savais pas';
 
   @override
-  String get packTranslatePrompt => 'Translate this sentence';
+  String get packTranslatePrompt => 'Traduis cette phrase';
 
   @override
-  String get packTranslateHint => 'Type your translation';
+  String get packTranslateHint => 'Saisis ta traduction';
 
   @override
-  String get packDone => 'Done';
+  String get packDone => 'Terminé';
 
   @override
   String packTomorrowTeaser(String topic) {
-    return 'Tomorrow: more from $topic';
+    return 'Demain : la suite de $topic';
   }
 
   @override
   String packContinueTo(String station) {
-    return 'Continue · $station';
+    return 'Continuer · $station';
   }
 
   @override
-  String get packDoneForToday => 'Done for today';
+  String get packDoneForToday => 'Terminé pour aujourd\'hui';
 
   @override
-  String get packStationVocabulary => 'Vocabulary';
+  String get packStationVocabulary => 'Vocabulaire';
 
   @override
-  String get packStationGrammar => 'Grammar';
+  String get packStationGrammar => 'Grammaire';
 
   @override
-  String get packStationListening => 'Listening';
+  String get packStationListening => 'Écoute';
 
   @override
-  String get packStationReview => 'Review';
+  String get packStationReview => 'Révision';
 
   @override
-  String get packStationWrap => 'Week quiz';
+  String get packStationWrap => 'Quiz de la semaine';
 
   @override
-  String get packStationTranslate => 'Translate';
+  String get packStationTranslate => 'Traduction';
 
   @override
-  String get masteryTitle => 'Your progress';
+  String get masteryTitle => 'Ta progression';
 
   @override
-  String get masteryEmpty => 'Finish a day of study and your progress will show up here.';
+  String get masteryEmpty => 'Termine une journée d\'étude et ta progression apparaîtra ici.';
 
   @override
-  String get masteryYourLevel => 'your level';
+  String get masteryYourLevel => 'ton niveau';
 
   @override
-  String get masteryRetake => 'Retake';
+  String get masteryRetake => 'Refaire';
 
   @override
-  String get masteryVocabulary => 'Vocabulary';
+  String get masteryVocabulary => 'Vocabulaire';
 
   @override
-  String get masteryGrammar => 'Grammar';
+  String get masteryGrammar => 'Grammaire';
 
   @override
-  String get masteryListening => 'Listening';
+  String get masteryListening => 'Écoute';
 
   @override
-  String get masteryTranslate => 'Translation';
+  String get masteryTranslate => 'Traduction';
 
   @override
-  String get masteryNotStarted => 'Not started yet';
+  String get masteryNotStarted => 'Pas encore commencé';
 
   @override
   String masteryVocabularyCaption(int mastered, int learning, int due) {
-    return '$mastered mastered · $learning learning · $due due';
+    return '$mastered maîtrisés · $learning en cours · $due à revoir';
   }
 
   @override
   String masteryGrammarCaption(int mastered, int total) {
-    return 'Unit $mastered of $total';
+    return 'Unité $mastered sur $total';
   }
 
   @override
   String masteryAccuracyCaption(int percent, int samples) {
-    return '$percent% over $samples sessions';
+    return '$percent % sur $samples séances';
   }
 
   @override
-  String get masteryConsistency => 'Last 30 days';
+  String get masteryConsistency => '30 derniers jours';
 
   @override
   String masteryDueCta(int count) {
-    return 'Review $count words now';
+    return 'Réviser $count mots maintenant';
   }
 
   @override
-  String get placementTitle => 'Find your level';
+  String get placementTitle => 'Trouve ton niveau';
 
   @override
-  String get placementSkip => 'Skip';
+  String get placementSkip => 'Passer';
 
   @override
   String placementProgress(int current, int total) {
-    return 'Question $current of $total';
+    return 'Question $current sur $total';
   }
 
   @override
-  String get placementResult => 'We\'ll start you here. You can change it any time.';
+  String get placementResult => 'On commence ici. Tu peux le changer à tout moment.';
 
   @override
-  String get placementStart => 'Start learning';
+  String get placementStart => 'Commencer à apprendre';
 }
