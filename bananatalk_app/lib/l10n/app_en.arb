@@ -4734,5 +4734,51 @@
         "type": "String"
       }
     }
+  },
+  "packContinue": "Continue",
+  "@packContinue": {
+    "description": "Advances from a finished station to the next one"
+  },
+  "packGotIt": "Got it",
+  "@packGotIt": {
+    "description": "Advances past one taught vocabulary word"
+  },
+  "packSubmitFailed": "Couldn't save that — check your connection and try again.",
+  "@packSubmitFailed": {
+    "description": "Shown when a station submission fails; the answers stay on screen"
+  },
+  "packWordProgress": "Word {current} of {total}",
+  "@packWordProgress": {
+    "description": "Position within the day's new words",
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "packGrammarUnit": "Unit {unit}",
+  "@packGrammarUnit": {
+    "description": "Grammar syllabus unit number",
+    "placeholders": {
+      "unit": {
+        "type": "int"
+      }
+    }
+  },
+  "packListeningPrompt": "Which word did you hear?",
+  "@packListeningPrompt": {
+    "description": "Question prompt for a listening clip"
+  },
+  "packPlayClip": "Play clip {number}",
+  "@packPlayClip": {
+    "description": "Button that plays one listening clip",
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
   }
 }
