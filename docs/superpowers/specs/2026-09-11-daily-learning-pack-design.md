@@ -378,6 +378,24 @@ one and gates launch.
 3. Do beginner packs get authored in-house or from the same reference workflow as the
    50 existing packs?
 
+## Content seeded — 2026-09-11
+
+Both seeders run against production. Before and after, measured:
+
+| | Before | After |
+|---|---|---|
+| `dailyitems` | 214 | **334** |
+| ... with a syllabus position | 0 | **120** |
+| by level | A1 60 · A2 90 · B1 62 · C1 2 · **B2 0** | A1 90 · A2 120 · B1 92 · **B2 30** · C1 2 |
+| `vocabpacks` | 50 | **62** |
+| ... beginner packs | 0 | **12** |
+
+The 120 grammar units are `approved: true`, so the existing two-card daily
+drop began serving them immediately — the live bank is larger, its answer
+positions are balanced, and B2 learners have content for the first time,
+before any pack UI exists. The pack seeder reported `created 12, updated 50`:
+the 50 existing packs were re-upserted unchanged.
+
 ## 11. Adjacent findings (not this design's work)
 
 - **1,318 of 2,542 `LearningProgress` rows (52%) belong to users that no longer
