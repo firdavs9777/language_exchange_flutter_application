@@ -13777,6 +13777,252 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Daily study isn\'t available for {language} yet.'**
   String todayLanguageUnsupported(String language);
+
+  /// Advances from a finished station to the next one
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get packContinue;
+
+  /// Advances past one taught vocabulary word
+  ///
+  /// In en, this message translates to:
+  /// **'Got it'**
+  String get packGotIt;
+
+  /// Shown when a station submission fails; the answers stay on screen
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t save that — check your connection and try again.'**
+  String get packSubmitFailed;
+
+  /// Position within the day's new words
+  ///
+  /// In en, this message translates to:
+  /// **'Word {current} of {total}'**
+  String packWordProgress(int current, int total);
+
+  /// Grammar syllabus unit number
+  ///
+  /// In en, this message translates to:
+  /// **'Unit {unit}'**
+  String packGrammarUnit(int unit);
+
+  /// Question prompt for a listening clip
+  ///
+  /// In en, this message translates to:
+  /// **'Which word did you hear?'**
+  String get packListeningPrompt;
+
+  /// Button that plays one listening clip
+  ///
+  /// In en, this message translates to:
+  /// **'Play clip {number}'**
+  String packPlayClip(int number);
+
+  /// Reveals a review word's translation
+  ///
+  /// In en, this message translates to:
+  /// **'Show answer'**
+  String get packReveal;
+
+  /// Review verdict: recalled correctly
+  ///
+  /// In en, this message translates to:
+  /// **'I knew it'**
+  String get packKnewIt;
+
+  /// Review verdict: did not recall
+  ///
+  /// In en, this message translates to:
+  /// **'Missed it'**
+  String get packMissed;
+
+  /// Label above the weekend translate station's sentence
+  ///
+  /// In en, this message translates to:
+  /// **'Translate this sentence'**
+  String get packTranslatePrompt;
+
+  /// Placeholder in the translate station's input
+  ///
+  /// In en, this message translates to:
+  /// **'Type your translation'**
+  String get packTranslateHint;
+
+  /// Closes the day-complete sheet
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get packDone;
+
+  /// Teases the next day inside the completion sheet
+  ///
+  /// In en, this message translates to:
+  /// **'Tomorrow: more from {topic}'**
+  String packTomorrowTeaser(String topic);
+
+  /// Hero card CTA naming the next station
+  ///
+  /// In en, this message translates to:
+  /// **'Continue · {station}'**
+  String packContinueTo(String station);
+
+  /// Hero card state when the day is finished
+  ///
+  /// In en, this message translates to:
+  /// **'Done for today'**
+  String get packDoneForToday;
+
+  /// Station name
+  ///
+  /// In en, this message translates to:
+  /// **'Vocabulary'**
+  String get packStationVocabulary;
+
+  /// Station name
+  ///
+  /// In en, this message translates to:
+  /// **'Grammar'**
+  String get packStationGrammar;
+
+  /// Station name
+  ///
+  /// In en, this message translates to:
+  /// **'Listening'**
+  String get packStationListening;
+
+  /// Station name
+  ///
+  /// In en, this message translates to:
+  /// **'Review'**
+  String get packStationReview;
+
+  /// Station name for Friday's theme wrap quiz
+  ///
+  /// In en, this message translates to:
+  /// **'Week quiz'**
+  String get packStationWrap;
+
+  /// Station name for the weekend translation station
+  ///
+  /// In en, this message translates to:
+  /// **'Translate'**
+  String get packStationTranslate;
+
+  /// Title of the mastery screen
+  ///
+  /// In en, this message translates to:
+  /// **'Your progress'**
+  String get masteryTitle;
+
+  /// Mastery screen empty state
+  ///
+  /// In en, this message translates to:
+  /// **'Finish a day of study and your progress will show up here.'**
+  String get masteryEmpty;
+
+  /// Caption beside the level badge; deliberately not a CEFR certification claim
+  ///
+  /// In en, this message translates to:
+  /// **'your level'**
+  String get masteryYourLevel;
+
+  /// Retakes the placement test
+  ///
+  /// In en, this message translates to:
+  /// **'Retake'**
+  String get masteryRetake;
+
+  /// Mastery skill label
+  ///
+  /// In en, this message translates to:
+  /// **'Vocabulary'**
+  String get masteryVocabulary;
+
+  /// Mastery skill label
+  ///
+  /// In en, this message translates to:
+  /// **'Grammar'**
+  String get masteryGrammar;
+
+  /// Mastery skill label
+  ///
+  /// In en, this message translates to:
+  /// **'Listening'**
+  String get masteryListening;
+
+  /// Mastery skill label
+  ///
+  /// In en, this message translates to:
+  /// **'Translation'**
+  String get masteryTranslate;
+
+  /// Shown for a skill with no attempts, instead of 0%
+  ///
+  /// In en, this message translates to:
+  /// **'Not started yet'**
+  String get masteryNotStarted;
+
+  /// Vocabulary counts
+  ///
+  /// In en, this message translates to:
+  /// **'{mastered} mastered · {learning} learning · {due} due'**
+  String masteryVocabularyCaption(int mastered, int learning, int due);
+
+  /// Grammar syllabus position
+  ///
+  /// In en, this message translates to:
+  /// **'Unit {mastered} of {total}'**
+  String masteryGrammarCaption(int mastered, int total);
+
+  /// Accuracy caption for listening and translation
+  ///
+  /// In en, this message translates to:
+  /// **'{percent}% over {samples} sessions'**
+  String masteryAccuracyCaption(int percent, int samples);
+
+  /// Heading above the streak calendar
+  ///
+  /// In en, this message translates to:
+  /// **'Last 30 days'**
+  String get masteryConsistency;
+
+  /// Opens the review station from the progress screen
+  ///
+  /// In en, this message translates to:
+  /// **'Review {count} words now'**
+  String masteryDueCta(int count);
+
+  /// Title of the placement screen
+  ///
+  /// In en, this message translates to:
+  /// **'Find your level'**
+  String get placementTitle;
+
+  /// Skips the placement test
+  ///
+  /// In en, this message translates to:
+  /// **'Skip'**
+  String get placementSkip;
+
+  /// Placement position
+  ///
+  /// In en, this message translates to:
+  /// **'Question {current} of {total}'**
+  String placementProgress(int current, int total);
+
+  /// Explains the placement result without claiming certification
+  ///
+  /// In en, this message translates to:
+  /// **'We\'ll start you here. You can change it any time.'**
+  String get placementResult;
+
+  /// Leaves placement and opens the pack
+  ///
+  /// In en, this message translates to:
+  /// **'Start learning'**
+  String get placementStart;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
