@@ -4813,5 +4813,130 @@
         "type": "String"
       }
     }
+  },
+  "packContinueTo": "Continue · {station}",
+  "@packContinueTo": {
+    "description": "Hero card CTA naming the next station",
+    "placeholders": {
+      "station": {
+        "type": "String"
+      }
+    }
+  },
+  "packDoneForToday": "Done for today",
+  "@packDoneForToday": {
+    "description": "Hero card state when the day is finished"
+  },
+  "packStationVocabulary": "Vocabulary",
+  "@packStationVocabulary": {
+    "description": "Station name"
+  },
+  "packStationGrammar": "Grammar",
+  "@packStationGrammar": {
+    "description": "Station name"
+  },
+  "packStationListening": "Listening",
+  "@packStationListening": {
+    "description": "Station name"
+  },
+  "packStationReview": "Review",
+  "@packStationReview": {
+    "description": "Station name"
+  },
+  "packStationWrap": "Week quiz",
+  "@packStationWrap": {
+    "description": "Station name for Friday's theme wrap quiz"
+  },
+  "packStationTranslate": "Translate",
+  "@packStationTranslate": {
+    "description": "Station name for the weekend translation station"
+  },
+  "masteryTitle": "Your progress",
+  "@masteryTitle": {
+    "description": "Title of the mastery screen"
+  },
+  "masteryEmpty": "Finish a day of study and your progress will show up here.",
+  "@masteryEmpty": {
+    "description": "Mastery screen empty state"
+  },
+  "masteryYourLevel": "your level",
+  "@masteryYourLevel": {
+    "description": "Caption beside the level badge; deliberately not a CEFR certification claim"
+  },
+  "masteryRetake": "Retake",
+  "@masteryRetake": {
+    "description": "Retakes the placement test"
+  },
+  "masteryVocabulary": "Vocabulary",
+  "@masteryVocabulary": {
+    "description": "Mastery skill label"
+  },
+  "masteryGrammar": "Grammar",
+  "@masteryGrammar": {
+    "description": "Mastery skill label"
+  },
+  "masteryListening": "Listening",
+  "@masteryListening": {
+    "description": "Mastery skill label"
+  },
+  "masteryTranslate": "Translation",
+  "@masteryTranslate": {
+    "description": "Mastery skill label"
+  },
+  "masteryNotStarted": "Not started yet",
+  "@masteryNotStarted": {
+    "description": "Shown for a skill with no attempts, instead of 0%"
+  },
+  "masteryVocabularyCaption": "{mastered} mastered · {learning} learning · {due} due",
+  "@masteryVocabularyCaption": {
+    "description": "Vocabulary counts",
+    "placeholders": {
+      "mastered": {
+        "type": "int"
+      },
+      "learning": {
+        "type": "int"
+      },
+      "due": {
+        "type": "int"
+      }
+    }
+  },
+  "masteryGrammarCaption": "Unit {mastered} of {total}",
+  "@masteryGrammarCaption": {
+    "description": "Grammar syllabus position",
+    "placeholders": {
+      "mastered": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "masteryAccuracyCaption": "{percent}% over {samples} sessions",
+  "@masteryAccuracyCaption": {
+    "description": "Accuracy caption for listening and translation",
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      },
+      "samples": {
+        "type": "int"
+      }
+    }
+  },
+  "masteryConsistency": "Last 30 days",
+  "@masteryConsistency": {
+    "description": "Heading above the streak calendar"
+  },
+  "masteryDueCta": "Review {count} words now",
+  "@masteryDueCta": {
+    "description": "Opens the review station from the progress screen",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   }
 }
