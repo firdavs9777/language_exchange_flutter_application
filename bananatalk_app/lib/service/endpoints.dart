@@ -299,6 +299,12 @@ class Endpoints {
   static String dailyCompleteURL(String id) => 'study/daily/$id/complete';
   static String dailyFeedbackURL(String id) => 'study/daily/$id/feedback';
 
+  // Daily learning pack (four stations under a weekly theme)
+  static const String dailyPackURL = 'study/pack';
+  static String dailyPackCompleteURL(String station) => 'study/pack/$station/complete';
+  static const String placementURL = 'study/placement';
+  static const String masteryURL = 'learning/mastery';
+
   // Lessons
   static const String lessonsURL = 'learning/lessons';
   static const String lessonsRecommendedURL = 'learning/lessons/recommended';
