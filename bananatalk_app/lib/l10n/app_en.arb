@@ -4734,5 +4734,237 @@
         "type": "String"
       }
     }
+  },
+  "packContinue": "Continue",
+  "@packContinue": {
+    "description": "Advances from a finished station to the next one"
+  },
+  "packGotIt": "Got it",
+  "@packGotIt": {
+    "description": "Advances past one taught vocabulary word"
+  },
+  "packSubmitFailed": "Couldn't save that — check your connection and try again.",
+  "@packSubmitFailed": {
+    "description": "Shown when a station submission fails; the answers stay on screen"
+  },
+  "packWordProgress": "Word {current} of {total}",
+  "@packWordProgress": {
+    "description": "Position within the day's new words",
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "packGrammarUnit": "Unit {unit}",
+  "@packGrammarUnit": {
+    "description": "Grammar syllabus unit number",
+    "placeholders": {
+      "unit": {
+        "type": "int"
+      }
+    }
+  },
+  "packListeningPrompt": "Which word did you hear?",
+  "@packListeningPrompt": {
+    "description": "Question prompt for a listening clip"
+  },
+  "packPlayClip": "Play clip {number}",
+  "@packPlayClip": {
+    "description": "Button that plays one listening clip",
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "packReveal": "Show answer",
+  "@packReveal": {
+    "description": "Reveals a review word's translation"
+  },
+  "packKnewIt": "I knew it",
+  "@packKnewIt": {
+    "description": "Review verdict: recalled correctly"
+  },
+  "packMissed": "Missed it",
+  "@packMissed": {
+    "description": "Review verdict: did not recall"
+  },
+  "packTranslatePrompt": "Translate this sentence",
+  "@packTranslatePrompt": {
+    "description": "Label above the weekend translate station's sentence"
+  },
+  "packTranslateHint": "Type your translation",
+  "@packTranslateHint": {
+    "description": "Placeholder in the translate station's input"
+  },
+  "packDone": "Done",
+  "@packDone": {
+    "description": "Closes the day-complete sheet"
+  },
+  "packTomorrowTeaser": "Tomorrow: more from {topic}",
+  "@packTomorrowTeaser": {
+    "description": "Teases the next day inside the completion sheet",
+    "placeholders": {
+      "topic": {
+        "type": "String"
+      }
+    }
+  },
+  "packContinueTo": "Continue · {station}",
+  "@packContinueTo": {
+    "description": "Hero card CTA naming the next station",
+    "placeholders": {
+      "station": {
+        "type": "String"
+      }
+    }
+  },
+  "packDoneForToday": "Done for today",
+  "@packDoneForToday": {
+    "description": "Hero card state when the day is finished"
+  },
+  "packStationVocabulary": "Vocabulary",
+  "@packStationVocabulary": {
+    "description": "Station name"
+  },
+  "packStationGrammar": "Grammar",
+  "@packStationGrammar": {
+    "description": "Station name"
+  },
+  "packStationListening": "Listening",
+  "@packStationListening": {
+    "description": "Station name"
+  },
+  "packStationReview": "Review",
+  "@packStationReview": {
+    "description": "Station name"
+  },
+  "packStationWrap": "Week quiz",
+  "@packStationWrap": {
+    "description": "Station name for Friday's theme wrap quiz"
+  },
+  "packStationTranslate": "Translate",
+  "@packStationTranslate": {
+    "description": "Station name for the weekend translation station"
+  },
+  "masteryTitle": "Your progress",
+  "@masteryTitle": {
+    "description": "Title of the mastery screen"
+  },
+  "masteryEmpty": "Finish a day of study and your progress will show up here.",
+  "@masteryEmpty": {
+    "description": "Mastery screen empty state"
+  },
+  "masteryYourLevel": "your level",
+  "@masteryYourLevel": {
+    "description": "Caption beside the level badge; deliberately not a CEFR certification claim"
+  },
+  "masteryRetake": "Retake",
+  "@masteryRetake": {
+    "description": "Retakes the placement test"
+  },
+  "masteryVocabulary": "Vocabulary",
+  "@masteryVocabulary": {
+    "description": "Mastery skill label"
+  },
+  "masteryGrammar": "Grammar",
+  "@masteryGrammar": {
+    "description": "Mastery skill label"
+  },
+  "masteryListening": "Listening",
+  "@masteryListening": {
+    "description": "Mastery skill label"
+  },
+  "masteryTranslate": "Translation",
+  "@masteryTranslate": {
+    "description": "Mastery skill label"
+  },
+  "masteryNotStarted": "Not started yet",
+  "@masteryNotStarted": {
+    "description": "Shown for a skill with no attempts, instead of 0%"
+  },
+  "masteryVocabularyCaption": "{mastered} mastered · {learning} learning · {due} due",
+  "@masteryVocabularyCaption": {
+    "description": "Vocabulary counts",
+    "placeholders": {
+      "mastered": {
+        "type": "int"
+      },
+      "learning": {
+        "type": "int"
+      },
+      "due": {
+        "type": "int"
+      }
+    }
+  },
+  "masteryGrammarCaption": "Unit {mastered} of {total}",
+  "@masteryGrammarCaption": {
+    "description": "Grammar syllabus position",
+    "placeholders": {
+      "mastered": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "masteryAccuracyCaption": "{percent}% over {samples} sessions",
+  "@masteryAccuracyCaption": {
+    "description": "Accuracy caption for listening and translation",
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      },
+      "samples": {
+        "type": "int"
+      }
+    }
+  },
+  "masteryConsistency": "Last 30 days",
+  "@masteryConsistency": {
+    "description": "Heading above the streak calendar"
+  },
+  "masteryDueCta": "Review {count} words now",
+  "@masteryDueCta": {
+    "description": "Opens the review station from the progress screen",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "placementTitle": "Find your level",
+  "@placementTitle": {
+    "description": "Title of the placement screen"
+  },
+  "placementSkip": "Skip",
+  "@placementSkip": {
+    "description": "Skips the placement test"
+  },
+  "placementProgress": "Question {current} of {total}",
+  "@placementProgress": {
+    "description": "Placement position",
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "placementResult": "We'll start you here. You can change it any time.",
+  "@placementResult": {
+    "description": "Explains the placement result without claiming certification"
+  },
+  "placementStart": "Start learning",
+  "@placementStart": {
+    "description": "Leaves placement and opens the pack"
   }
 }

@@ -7418,4 +7418,147 @@ class AppLocalizationsAr extends AppLocalizations {
   String todayLanguageUnsupported(String language) {
     return 'الدراسة اليومية غير متاحة بعد للغة $language.';
   }
+
+  @override
+  String get packContinue => 'متابعة';
+
+  @override
+  String get packGotIt => 'فهمت';
+
+  @override
+  String get packSubmitFailed => 'لم نتمكن من الحفظ — تحقّق من الاتصال وحاول مرة أخرى.';
+
+  @override
+  String packWordProgress(int current, int total) {
+    return 'الكلمة $current من $total';
+  }
+
+  @override
+  String packGrammarUnit(int unit) {
+    return 'الوحدة $unit';
+  }
+
+  @override
+  String get packListeningPrompt => 'أي كلمة سمعت؟';
+
+  @override
+  String packPlayClip(int number) {
+    return 'تشغيل المقطع $number';
+  }
+
+  @override
+  String get packReveal => 'إظهار الجواب';
+
+  @override
+  String get packKnewIt => 'كنت أعرفها';
+
+  @override
+  String get packMissed => 'لم أعرفها';
+
+  @override
+  String get packTranslatePrompt => 'ترجم هذه الجملة';
+
+  @override
+  String get packTranslateHint => 'اكتب ترجمتك';
+
+  @override
+  String get packDone => 'تم';
+
+  @override
+  String packTomorrowTeaser(String topic) {
+    return 'غدًا: المزيد من $topic';
+  }
+
+  @override
+  String packContinueTo(String station) {
+    return 'متابعة · $station';
+  }
+
+  @override
+  String get packDoneForToday => 'انتهيت لليوم';
+
+  @override
+  String get packStationVocabulary => 'المفردات';
+
+  @override
+  String get packStationGrammar => 'القواعد';
+
+  @override
+  String get packStationListening => 'الاستماع';
+
+  @override
+  String get packStationReview => 'المراجعة';
+
+  @override
+  String get packStationWrap => 'اختبار الأسبوع';
+
+  @override
+  String get packStationTranslate => 'الترجمة';
+
+  @override
+  String get masteryTitle => 'تقدّمك';
+
+  @override
+  String get masteryEmpty => 'أكمل يومًا من الدراسة وسيظهر تقدّمك هنا.';
+
+  @override
+  String get masteryYourLevel => 'مستواك';
+
+  @override
+  String get masteryRetake => 'إعادة';
+
+  @override
+  String get masteryVocabulary => 'المفردات';
+
+  @override
+  String get masteryGrammar => 'القواعد';
+
+  @override
+  String get masteryListening => 'الاستماع';
+
+  @override
+  String get masteryTranslate => 'الترجمة';
+
+  @override
+  String get masteryNotStarted => 'لم تبدأ بعد';
+
+  @override
+  String masteryVocabularyCaption(int mastered, int learning, int due) {
+    return '$mastered متقنة · $learning قيد التعلّم · $due مستحقة';
+  }
+
+  @override
+  String masteryGrammarCaption(int mastered, int total) {
+    return 'الوحدة $mastered من $total';
+  }
+
+  @override
+  String masteryAccuracyCaption(int percent, int samples) {
+    return '$percent% خلال $samples جلسات';
+  }
+
+  @override
+  String get masteryConsistency => 'آخر 30 يومًا';
+
+  @override
+  String masteryDueCta(int count) {
+    return 'راجع $count كلمة الآن';
+  }
+
+  @override
+  String get placementTitle => 'حدّد مستواك';
+
+  @override
+  String get placementSkip => 'تخطٍ';
+
+  @override
+  String placementProgress(int current, int total) {
+    return 'السؤال $current من $total';
+  }
+
+  @override
+  String get placementResult => 'سنبدأ من هنا. يمكنك تغييره في أي وقت.';
+
+  @override
+  String get placementStart => 'ابدأ التعلّم';
 }

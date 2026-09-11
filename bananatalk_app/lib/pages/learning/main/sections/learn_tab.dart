@@ -15,10 +15,11 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/pages/learning/main/sections/weekly_digest_card.dart';
 import 'package:bananatalk_app/pages/learning/main/sections/progress_hero.dart';
-import 'package:bananatalk_app/pages/learning/main/sections/daily_practice_card.dart';
-import 'package:bananatalk_app/pages/learning/daily/daily_drop_screen.dart';
-import 'package:bananatalk_app/pages/learning/daily/widgets/today_section.dart';
-import 'package:bananatalk_app/providers/provider_root/learning/daily_drop_providers.dart';
+import 'package:bananatalk_app/pages/learning/daily/daily_pack_flow.dart';
+import 'package:bananatalk_app/pages/learning/daily/daily_pack_hero_card.dart';
+import 'package:bananatalk_app/pages/learning/daily/placement/placement_screen.dart';
+import 'package:bananatalk_app/pages/learning/progress/mastery_screen.dart';
+import 'package:bananatalk_app/providers/provider_root/learning/daily_pack_providers.dart';
 import 'package:bananatalk_app/services/learning_service.dart';
 import 'package:bananatalk_app/widgets/language_selection/show_language_picker.dart';
 
@@ -53,19 +54,31 @@ class LearnTab extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // ── Today zone: daily drop leads the tab (spec §4.8) ──
-                ref.watch(dailyDropProvider).when(
+                ref.watch(dailyPackProvider).when(
                       loading: () => const Padding(
                         padding: EdgeInsets.all(24),
                         child: Center(child: CircularProgressIndicator()),
                       ),
                       error: (_, __) => const SizedBox.shrink(),
-                      data: (state) => TodaySection(
-                        state: state,
-                        onOpen: (item) => Navigator.of(context)
-                            .push(AppPageRoute(builder: (_) => DailyDropScreen(item: item)))
+                      data: (pack) => DailyPackHeroCard(
+                        pack: pack,
+                        mastery: ref.watch(masteryProvider).valueOrNull,
+                        onOpenProgress: () => Navigator.of(context).push(
+                          AppPageRoute(
+                            builder: (_) => MasteryScreen(
+                              mastery: ref.read(masteryProvider).valueOrNull,
+                              onRetakePlacement: () => Navigator.of(context).push(
+                                AppPageRoute(builder: (_) => const PlacementScreen()),
+                              ),
+                            ),
+                          ),
+                        ),
+                        onOpen: () => Navigator.of(context)
+                            .push(AppPageRoute(builder: (_) => DailyPackFlow(pack: pack)))
                             .then((_) {
                           if (!context.mounted) return;
-                          ref.invalidate(dailyDropProvider);
+                          ref.invalidate(dailyPackProvider);
+                          ref.invalidate(masteryProvider);
                           // ProgressHero, the quick stats and DailyGoalWidget
                           // all sit directly under these cards and read
                           // learningProgressProvider. Without invalidating it
@@ -89,9 +102,11 @@ class LearnTab extends ConsumerWidget {
                 DailyGoalWidget(progress: progress),
                 const SizedBox(height: 24),
 
-                // ── Today zone: weekly digest + AI daily practice ──
+                // ── Today zone: weekly digest ──
+                // The AI daily-practice card used to sit here. It is now the
+                // pack's weekend `translate` station (spec D8): two competing
+                // "daily" cards diluted the ritual the hero card is meant to be.
                 const WeeklyDigestCard(),
-                const DailyPracticeCard(),
                 const SizedBox(height: 8),
                 const BannerAdWidget(key: ValueKey('learn-banner-today')),
                 const SizedBox(height: 20),
@@ -533,22 +548,22 @@ class LearnTab extends ConsumerWidget {
   }
 }
 
-/// Ask the 134 active users with a blank `language_to_learn` what they are
-/// learning, then persist it and refresh today's drop (spec §4.1).
+/// Ask the active users with a blank `language_to_learn` what they are
+/// learning, then persist it and refresh today's pack (spec §4.1).
 Future<void> _pickLearningLanguage(BuildContext context, WidgetRef ref) async {
   final picked = await showLanguagePickerSheet(context);
   if (picked == null) return;
   await LearningService.setLearningLanguage(picked.name);
   if (!context.mounted) return;
-  ref.invalidate(dailyDropProvider);
+  ref.invalidate(dailyPackProvider);
 
   // 6 of the 137 catalog languages (Dari, Hawaiian and the four sign
   // languages) do not resolve through the server's toBaseLanguage, so the save
   // succeeds and the reloaded drop still comes back needsLanguage — which just
   // re-showed the same picker prompt forever with no explanation. Say so.
   try {
-    final state = await ref.read(dailyDropProvider.future);
-    if (!context.mounted || !state.needsLanguage) return;
+    final pack = await ref.read(dailyPackProvider.future);
+    if (!context.mounted || !pack.needsLanguage) return;
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(

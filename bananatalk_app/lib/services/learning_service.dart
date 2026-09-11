@@ -2,11 +2,11 @@ import 'dart:convert';
 import 'dart:developer' as developer;
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter/foundation.dart';
 import 'package:bananatalk_app/service/endpoints.dart';
 import 'package:bananatalk_app/models/learning/vocabulary_model.dart';
 import 'package:bananatalk_app/models/learning/vocab_pack_model.dart';
 import 'package:bananatalk_app/models/learning/daily_drop_model.dart';
+import 'package:bananatalk_app/models/learning/daily_pack_model.dart';
 import 'package:bananatalk_app/models/learning/lesson_model.dart';
 import 'package:bananatalk_app/models/learning/quiz_model.dart';
 import 'package:bananatalk_app/pages/learning/models/weekly_digest.dart';
@@ -1499,6 +1499,87 @@ class LearningService {
       return DailyCompletionResult.fromJson(data['data'] as Map<String, dynamic>);
     }
     throw Exception(_getErrorMessage(data, 'Failed to submit answers'));
+  }
+
+  // ===================== DAILY LEARNING PACK =====================
+
+  /// Today's four-station pack.
+  static Future<DailyPack> getDailyPack({String? locale}) async {
+    final token = await _getToken();
+    var url = Uri.parse('${Endpoints.baseURL}${Endpoints.dailyPackURL}');
+    if (locale != null && locale.isNotEmpty) {
+      url = url.replace(queryParameters: {'locale': locale});
+    }
+    final response = await http.get(url, headers: _getHeaders(token));
+    final data = _safeJsonDecode(response.body);
+    if (response.statusCode == 200 && data != null && data['data'] != null) {
+      return DailyPack.fromJson(data['data'] as Map<String, dynamic>);
+    }
+    throw Exception(_getErrorMessage(data, 'Failed to load today\'s pack'));
+  }
+
+  /// Commit one station. Stations commit independently, so abandoning the flow
+  /// keeps whatever the learner finished.
+  static Future<StationResult> completeStation(
+    String station, {
+    List<int> answers = const [],
+    List<Map<String, dynamic>> reviews = const [],
+  }) async {
+    final token = await _getToken();
+    final url =
+        Uri.parse('${Endpoints.baseURL}${Endpoints.dailyPackCompleteURL(station)}');
+    final response = await http.post(
+      url,
+      headers: _getHeaders(token),
+      body: jsonEncode({'answers': answers, 'reviews': reviews}),
+    );
+    final data = _safeJsonDecode(response.body);
+    if (response.statusCode == 200 && data != null && data['data'] != null) {
+      return StationResult.fromJson(data['data'] as Map<String, dynamic>);
+    }
+    throw Exception(_getErrorMessage(data, 'Failed to submit this station'));
+  }
+
+  /// The placement questions. No answer key is ever sent to the client.
+  static Future<List<PackCheck>> getPlacement() async {
+    final token = await _getToken();
+    final url = Uri.parse('${Endpoints.baseURL}${Endpoints.placementURL}');
+    final response = await http.get(url, headers: _getHeaders(token));
+    final data = _safeJsonDecode(response.body);
+    if (response.statusCode == 200 && data != null && data['data'] != null) {
+      return ((data['data'] as Map<String, dynamic>)['questions'] as List? ?? const [])
+          .map((e) => PackCheck.fromJson(e as Map<String, dynamic>))
+          .toList();
+    }
+    throw Exception(_getErrorMessage(data, 'Failed to load the placement test'));
+  }
+
+  /// Submit placement answers; the server sets the caller's level.
+  static Future<Map<String, dynamic>> submitPlacement(List<int> answers) async {
+    final token = await _getToken();
+    final url = Uri.parse('${Endpoints.baseURL}${Endpoints.placementURL}');
+    final response = await http.post(
+      url,
+      headers: _getHeaders(token),
+      body: jsonEncode({'answers': answers}),
+    );
+    final data = _safeJsonDecode(response.body);
+    if (response.statusCode == 200 && data != null && data['data'] != null) {
+      return data['data'] as Map<String, dynamic>;
+    }
+    throw Exception(_getErrorMessage(data, 'Failed to save your level'));
+  }
+
+  /// Per-skill mastery summary.
+  static Future<MasterySummary> getMastery() async {
+    final token = await _getToken();
+    final url = Uri.parse('${Endpoints.baseURL}${Endpoints.masteryURL}');
+    final response = await http.get(url, headers: _getHeaders(token));
+    final data = _safeJsonDecode(response.body);
+    if (response.statusCode == 200 && data != null && data['data'] != null) {
+      return MasterySummary.fromJson(data['data'] as Map<String, dynamic>);
+    }
+    throw Exception(_getErrorMessage(data, 'Failed to load your progress'));
   }
 
   /// Too easy / too hard. Returns the user's new CEFR level.

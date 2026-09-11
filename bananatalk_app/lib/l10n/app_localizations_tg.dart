@@ -7414,4 +7414,147 @@ class AppLocalizationsTg extends AppLocalizations {
   String todayLanguageUnsupported(String language) {
     return 'Омӯзиши ҳаррӯза барои $language ҳанӯз дастрас нест.';
   }
+
+  @override
+  String get packContinue => 'Идома';
+
+  @override
+  String get packGotIt => 'Фаҳмидам';
+
+  @override
+  String get packSubmitFailed => 'Сабт нашуд — пайвастшавиро санҷед ва бори дигар кӯшиш кунед.';
+
+  @override
+  String packWordProgress(int current, int total) {
+    return 'Калимаи $current аз $total';
+  }
+
+  @override
+  String packGrammarUnit(int unit) {
+    return 'Воҳиди $unit';
+  }
+
+  @override
+  String get packListeningPrompt => 'Кадом калимаро шунидед?';
+
+  @override
+  String packPlayClip(int number) {
+    return 'Пахши сабти $number';
+  }
+
+  @override
+  String get packReveal => 'Ҷавобро нишон диҳед';
+
+  @override
+  String get packKnewIt => 'Медонистам';
+
+  @override
+  String get packMissed => 'Намедонистам';
+
+  @override
+  String get packTranslatePrompt => 'Ин ҷумларо тарҷума кунед';
+
+  @override
+  String get packTranslateHint => 'Тарҷумаи худро нависед';
+
+  @override
+  String get packDone => 'Тайёр';
+
+  @override
+  String packTomorrowTeaser(String topic) {
+    return 'Пагоҳ: идомаи «$topic»';
+  }
+
+  @override
+  String packContinueTo(String station) {
+    return 'Идома · $station';
+  }
+
+  @override
+  String get packDoneForToday => 'Барои имрӯз тамом';
+
+  @override
+  String get packStationVocabulary => 'Луғат';
+
+  @override
+  String get packStationGrammar => 'Грамматика';
+
+  @override
+  String get packStationListening => 'Шунидан';
+
+  @override
+  String get packStationReview => 'Такрор';
+
+  @override
+  String get packStationWrap => 'Санҷиши ҳафта';
+
+  @override
+  String get packStationTranslate => 'Тарҷума';
+
+  @override
+  String get masteryTitle => 'Пешрафти шумо';
+
+  @override
+  String get masteryEmpty => 'Як рӯз таҳсилро анҷом диҳед ва пешрафти шумо дар ин ҷо пайдо мешавад.';
+
+  @override
+  String get masteryYourLevel => 'сатҳи шумо';
+
+  @override
+  String get masteryRetake => 'Аз нав';
+
+  @override
+  String get masteryVocabulary => 'Луғат';
+
+  @override
+  String get masteryGrammar => 'Грамматика';
+
+  @override
+  String get masteryListening => 'Шунидан';
+
+  @override
+  String get masteryTranslate => 'Тарҷума';
+
+  @override
+  String get masteryNotStarted => 'Ҳанӯз оғоз нашудааст';
+
+  @override
+  String masteryVocabularyCaption(int mastered, int learning, int due) {
+    return '$mastered азхудшуда · $learning дар омӯзиш · $due барои такрор';
+  }
+
+  @override
+  String masteryGrammarCaption(int mastered, int total) {
+    return 'Воҳиди $mastered аз $total';
+  }
+
+  @override
+  String masteryAccuracyCaption(int percent, int samples) {
+    return '$percent% дар $samples машғулият';
+  }
+
+  @override
+  String get masteryConsistency => '30 рӯзи охир';
+
+  @override
+  String masteryDueCta(int count) {
+    return 'Ҳозир $count калимаро такрор кунед';
+  }
+
+  @override
+  String get placementTitle => 'Сатҳи худро муайян кунед';
+
+  @override
+  String get placementSkip => 'Гузаштан';
+
+  @override
+  String placementProgress(int current, int total) {
+    return 'Саволи $current аз $total';
+  }
+
+  @override
+  String get placementResult => 'Мо аз ин ҷо оғоз мекунем. Шумо метавонед ҳар вақт онро иваз кунед.';
+
+  @override
+  String get placementStart => 'Ба омӯзиш шурӯъ кунед';
 }

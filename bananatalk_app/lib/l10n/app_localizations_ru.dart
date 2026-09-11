@@ -7421,4 +7421,147 @@ class AppLocalizationsRu extends AppLocalizations {
   String todayLanguageUnsupported(String language) {
     return 'Ежедневные занятия для языка $language пока недоступны.';
   }
+
+  @override
+  String get packContinue => 'Продолжить';
+
+  @override
+  String get packGotIt => 'Понятно';
+
+  @override
+  String get packSubmitFailed => 'Не удалось сохранить — проверьте соединение и попробуйте снова.';
+
+  @override
+  String packWordProgress(int current, int total) {
+    return 'Слово $current из $total';
+  }
+
+  @override
+  String packGrammarUnit(int unit) {
+    return 'Раздел $unit';
+  }
+
+  @override
+  String get packListeningPrompt => 'Какое слово вы услышали?';
+
+  @override
+  String packPlayClip(int number) {
+    return 'Прослушать запись $number';
+  }
+
+  @override
+  String get packReveal => 'Показать ответ';
+
+  @override
+  String get packKnewIt => 'Я знал';
+
+  @override
+  String get packMissed => 'Не знал';
+
+  @override
+  String get packTranslatePrompt => 'Переведите это предложение';
+
+  @override
+  String get packTranslateHint => 'Введите перевод';
+
+  @override
+  String get packDone => 'Готово';
+
+  @override
+  String packTomorrowTeaser(String topic) {
+    return 'Завтра: продолжение темы «$topic»';
+  }
+
+  @override
+  String packContinueTo(String station) {
+    return 'Продолжить · $station';
+  }
+
+  @override
+  String get packDoneForToday => 'На сегодня всё';
+
+  @override
+  String get packStationVocabulary => 'Лексика';
+
+  @override
+  String get packStationGrammar => 'Грамматика';
+
+  @override
+  String get packStationListening => 'Аудирование';
+
+  @override
+  String get packStationReview => 'Повторение';
+
+  @override
+  String get packStationWrap => 'Тест недели';
+
+  @override
+  String get packStationTranslate => 'Перевод';
+
+  @override
+  String get masteryTitle => 'Ваш прогресс';
+
+  @override
+  String get masteryEmpty => 'Завершите один день занятий — и здесь появится ваш прогресс.';
+
+  @override
+  String get masteryYourLevel => 'ваш уровень';
+
+  @override
+  String get masteryRetake => 'Пройти снова';
+
+  @override
+  String get masteryVocabulary => 'Лексика';
+
+  @override
+  String get masteryGrammar => 'Грамматика';
+
+  @override
+  String get masteryListening => 'Аудирование';
+
+  @override
+  String get masteryTranslate => 'Перевод';
+
+  @override
+  String get masteryNotStarted => 'Ещё не начато';
+
+  @override
+  String masteryVocabularyCaption(int mastered, int learning, int due) {
+    return 'усвоено $mastered · в изучении $learning · к повторению $due';
+  }
+
+  @override
+  String masteryGrammarCaption(int mastered, int total) {
+    return 'Раздел $mastered из $total';
+  }
+
+  @override
+  String masteryAccuracyCaption(int percent, int samples) {
+    return '$percent% за $samples занятий';
+  }
+
+  @override
+  String get masteryConsistency => 'Последние 30 дней';
+
+  @override
+  String masteryDueCta(int count) {
+    return 'Повторить $count слов сейчас';
+  }
+
+  @override
+  String get placementTitle => 'Определите свой уровень';
+
+  @override
+  String get placementSkip => 'Пропустить';
+
+  @override
+  String placementProgress(int current, int total) {
+    return 'Вопрос $current из $total';
+  }
+
+  @override
+  String get placementResult => 'Начнём отсюда. Вы можете изменить это в любой момент.';
+
+  @override
+  String get placementStart => 'Начать учиться';
 }

@@ -7400,4 +7400,147 @@ class AppLocalizationsTh extends AppLocalizations {
   String todayLanguageUnsupported(String language) {
     return 'ยังไม่มีบทเรียนประจำวันสำหรับ$language';
   }
+
+  @override
+  String get packContinue => 'ต่อไป';
+
+  @override
+  String get packGotIt => 'เข้าใจแล้ว';
+
+  @override
+  String get packSubmitFailed => 'บันทึกไม่สำเร็จ — ตรวจสอบการเชื่อมต่อแล้วลองอีกครั้ง';
+
+  @override
+  String packWordProgress(int current, int total) {
+    return 'คำที่ $current จาก $total';
+  }
+
+  @override
+  String packGrammarUnit(int unit) {
+    return 'บทที่ $unit';
+  }
+
+  @override
+  String get packListeningPrompt => 'คุณได้ยินคำใด';
+
+  @override
+  String packPlayClip(int number) {
+    return 'เล่นคลิปที่ $number';
+  }
+
+  @override
+  String get packReveal => 'ดูคำตอบ';
+
+  @override
+  String get packKnewIt => 'รู้อยู่แล้ว';
+
+  @override
+  String get packMissed => 'ยังไม่รู้';
+
+  @override
+  String get packTranslatePrompt => 'แปลประโยคนี้';
+
+  @override
+  String get packTranslateHint => 'พิมพ์คำแปลของคุณ';
+
+  @override
+  String get packDone => 'เสร็จสิ้น';
+
+  @override
+  String packTomorrowTeaser(String topic) {
+    return 'พรุ่งนี้: ต่อจาก $topic';
+  }
+
+  @override
+  String packContinueTo(String station) {
+    return 'ต่อไป · $station';
+  }
+
+  @override
+  String get packDoneForToday => 'เสร็จสำหรับวันนี้';
+
+  @override
+  String get packStationVocabulary => 'คำศัพท์';
+
+  @override
+  String get packStationGrammar => 'ไวยากรณ์';
+
+  @override
+  String get packStationListening => 'การฟัง';
+
+  @override
+  String get packStationReview => 'ทบทวน';
+
+  @override
+  String get packStationWrap => 'แบบทดสอบประจำสัปดาห์';
+
+  @override
+  String get packStationTranslate => 'การแปล';
+
+  @override
+  String get masteryTitle => 'ความก้าวหน้าของคุณ';
+
+  @override
+  String get masteryEmpty => 'เรียนให้ครบหนึ่งวัน แล้วความก้าวหน้าของคุณจะแสดงที่นี่';
+
+  @override
+  String get masteryYourLevel => 'ระดับของคุณ';
+
+  @override
+  String get masteryRetake => 'ทำอีกครั้ง';
+
+  @override
+  String get masteryVocabulary => 'คำศัพท์';
+
+  @override
+  String get masteryGrammar => 'ไวยากรณ์';
+
+  @override
+  String get masteryListening => 'การฟัง';
+
+  @override
+  String get masteryTranslate => 'การแปล';
+
+  @override
+  String get masteryNotStarted => 'ยังไม่เริ่ม';
+
+  @override
+  String masteryVocabularyCaption(int mastered, int learning, int due) {
+    return 'เชี่ยวชาญ $mastered · กำลังเรียน $learning · ถึงกำหนด $due';
+  }
+
+  @override
+  String masteryGrammarCaption(int mastered, int total) {
+    return 'บทที่ $mastered จาก $total';
+  }
+
+  @override
+  String masteryAccuracyCaption(int percent, int samples) {
+    return '$percent% จาก $samples ครั้ง';
+  }
+
+  @override
+  String get masteryConsistency => '30 วันที่ผ่านมา';
+
+  @override
+  String masteryDueCta(int count) {
+    return 'ทบทวน $count คำตอนนี้';
+  }
+
+  @override
+  String get placementTitle => 'ค้นหาระดับของคุณ';
+
+  @override
+  String get placementSkip => 'ข้าม';
+
+  @override
+  String placementProgress(int current, int total) {
+    return 'คำถามที่ $current จาก $total';
+  }
+
+  @override
+  String get placementResult => 'เราจะเริ่มจากจุดนี้ คุณเปลี่ยนได้ทุกเมื่อ';
+
+  @override
+  String get placementStart => 'เริ่มเรียน';
 }

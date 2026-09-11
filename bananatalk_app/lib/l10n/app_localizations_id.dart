@@ -7407,4 +7407,147 @@ class AppLocalizationsId extends AppLocalizations {
   String todayLanguageUnsupported(String language) {
     return 'Belajar harian belum tersedia untuk $language.';
   }
+
+  @override
+  String get packContinue => 'Lanjut';
+
+  @override
+  String get packGotIt => 'Paham';
+
+  @override
+  String get packSubmitFailed => 'Gagal menyimpan — periksa koneksimu dan coba lagi.';
+
+  @override
+  String packWordProgress(int current, int total) {
+    return 'Kata $current dari $total';
+  }
+
+  @override
+  String packGrammarUnit(int unit) {
+    return 'Unit $unit';
+  }
+
+  @override
+  String get packListeningPrompt => 'Kata mana yang kamu dengar?';
+
+  @override
+  String packPlayClip(int number) {
+    return 'Putar klip $number';
+  }
+
+  @override
+  String get packReveal => 'Tampilkan jawaban';
+
+  @override
+  String get packKnewIt => 'Aku tahu';
+
+  @override
+  String get packMissed => 'Belum tahu';
+
+  @override
+  String get packTranslatePrompt => 'Terjemahkan kalimat ini';
+
+  @override
+  String get packTranslateHint => 'Tulis terjemahanmu';
+
+  @override
+  String get packDone => 'Selesai';
+
+  @override
+  String packTomorrowTeaser(String topic) {
+    return 'Besok: lanjutan dari $topic';
+  }
+
+  @override
+  String packContinueTo(String station) {
+    return 'Lanjut · $station';
+  }
+
+  @override
+  String get packDoneForToday => 'Selesai untuk hari ini';
+
+  @override
+  String get packStationVocabulary => 'Kosakata';
+
+  @override
+  String get packStationGrammar => 'Tata bahasa';
+
+  @override
+  String get packStationListening => 'Menyimak';
+
+  @override
+  String get packStationReview => 'Ulasan';
+
+  @override
+  String get packStationWrap => 'Kuis mingguan';
+
+  @override
+  String get packStationTranslate => 'Terjemahan';
+
+  @override
+  String get masteryTitle => 'Kemajuanmu';
+
+  @override
+  String get masteryEmpty => 'Selesaikan satu hari belajar, kemajuanmu akan muncul di sini.';
+
+  @override
+  String get masteryYourLevel => 'levelmu';
+
+  @override
+  String get masteryRetake => 'Ulangi';
+
+  @override
+  String get masteryVocabulary => 'Kosakata';
+
+  @override
+  String get masteryGrammar => 'Tata bahasa';
+
+  @override
+  String get masteryListening => 'Menyimak';
+
+  @override
+  String get masteryTranslate => 'Terjemahan';
+
+  @override
+  String get masteryNotStarted => 'Belum dimulai';
+
+  @override
+  String masteryVocabularyCaption(int mastered, int learning, int due) {
+    return '$mastered dikuasai · $learning dipelajari · $due perlu diulang';
+  }
+
+  @override
+  String masteryGrammarCaption(int mastered, int total) {
+    return 'Unit $mastered dari $total';
+  }
+
+  @override
+  String masteryAccuracyCaption(int percent, int samples) {
+    return '$percent% dari $samples sesi';
+  }
+
+  @override
+  String get masteryConsistency => '30 hari terakhir';
+
+  @override
+  String masteryDueCta(int count) {
+    return 'Ulangi $count kata sekarang';
+  }
+
+  @override
+  String get placementTitle => 'Temukan levelmu';
+
+  @override
+  String get placementSkip => 'Lewati';
+
+  @override
+  String placementProgress(int current, int total) {
+    return 'Pertanyaan $current dari $total';
+  }
+
+  @override
+  String get placementResult => 'Kita mulai dari sini. Kamu bisa mengubahnya kapan saja.';
+
+  @override
+  String get placementStart => 'Mulai belajar';
 }

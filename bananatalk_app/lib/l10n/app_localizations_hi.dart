@@ -7408,4 +7408,147 @@ class AppLocalizationsHi extends AppLocalizations {
   String todayLanguageUnsupported(String language) {
     return '$language के लिए दैनिक अध्ययन अभी उपलब्ध नहीं है।';
   }
+
+  @override
+  String get packContinue => 'जारी रखें';
+
+  @override
+  String get packGotIt => 'समझ गया';
+
+  @override
+  String get packSubmitFailed => 'सहेजा नहीं जा सका — अपना कनेक्शन जाँचें और फिर कोशिश करें।';
+
+  @override
+  String packWordProgress(int current, int total) {
+    return 'शब्द $current / $total';
+  }
+
+  @override
+  String packGrammarUnit(int unit) {
+    return 'इकाई $unit';
+  }
+
+  @override
+  String get packListeningPrompt => 'आपने कौन-सा शब्द सुना?';
+
+  @override
+  String packPlayClip(int number) {
+    return 'क्लिप $number चलाएँ';
+  }
+
+  @override
+  String get packReveal => 'उत्तर दिखाएँ';
+
+  @override
+  String get packKnewIt => 'मुझे पता था';
+
+  @override
+  String get packMissed => 'पता नहीं था';
+
+  @override
+  String get packTranslatePrompt => 'इस वाक्य का अनुवाद करें';
+
+  @override
+  String get packTranslateHint => 'अपना अनुवाद लिखें';
+
+  @override
+  String get packDone => 'हो गया';
+
+  @override
+  String packTomorrowTeaser(String topic) {
+    return 'कल: $topic से और';
+  }
+
+  @override
+  String packContinueTo(String station) {
+    return 'जारी रखें · $station';
+  }
+
+  @override
+  String get packDoneForToday => 'आज के लिए पूरा';
+
+  @override
+  String get packStationVocabulary => 'शब्दावली';
+
+  @override
+  String get packStationGrammar => 'व्याकरण';
+
+  @override
+  String get packStationListening => 'श्रवण';
+
+  @override
+  String get packStationReview => 'दोहराव';
+
+  @override
+  String get packStationWrap => 'साप्ताहिक प्रश्नोत्तरी';
+
+  @override
+  String get packStationTranslate => 'अनुवाद';
+
+  @override
+  String get masteryTitle => 'आपकी प्रगति';
+
+  @override
+  String get masteryEmpty => 'एक दिन की पढ़ाई पूरी करें और आपकी प्रगति यहाँ दिखेगी।';
+
+  @override
+  String get masteryYourLevel => 'आपका स्तर';
+
+  @override
+  String get masteryRetake => 'फिर दें';
+
+  @override
+  String get masteryVocabulary => 'शब्दावली';
+
+  @override
+  String get masteryGrammar => 'व्याकरण';
+
+  @override
+  String get masteryListening => 'श्रवण';
+
+  @override
+  String get masteryTranslate => 'अनुवाद';
+
+  @override
+  String get masteryNotStarted => 'अभी शुरू नहीं हुआ';
+
+  @override
+  String masteryVocabularyCaption(int mastered, int learning, int due) {
+    return '$mastered में निपुण · $learning सीख रहे · $due बाकी';
+  }
+
+  @override
+  String masteryGrammarCaption(int mastered, int total) {
+    return 'इकाई $mastered / $total';
+  }
+
+  @override
+  String masteryAccuracyCaption(int percent, int samples) {
+    return '$samples सत्रों में $percent%';
+  }
+
+  @override
+  String get masteryConsistency => 'पिछले 30 दिन';
+
+  @override
+  String masteryDueCta(int count) {
+    return 'अभी $count शब्द दोहराएँ';
+  }
+
+  @override
+  String get placementTitle => 'अपना स्तर जानें';
+
+  @override
+  String get placementSkip => 'छोड़ें';
+
+  @override
+  String placementProgress(int current, int total) {
+    return 'प्रश्न $current / $total';
+  }
+
+  @override
+  String get placementResult => 'हम यहाँ से शुरू करेंगे। आप इसे कभी भी बदल सकते हैं।';
+
+  @override
+  String get placementStart => 'सीखना शुरू करें';
 }

@@ -7400,4 +7400,147 @@ class AppLocalizationsVi extends AppLocalizations {
   String todayLanguageUnsupported(String language) {
     return 'Chưa có bài học hằng ngày cho $language.';
   }
+
+  @override
+  String get packContinue => 'Tiếp tục';
+
+  @override
+  String get packGotIt => 'Đã hiểu';
+
+  @override
+  String get packSubmitFailed => 'Không lưu được — hãy kiểm tra kết nối và thử lại.';
+
+  @override
+  String packWordProgress(int current, int total) {
+    return 'Từ $current trên $total';
+  }
+
+  @override
+  String packGrammarUnit(int unit) {
+    return 'Bài $unit';
+  }
+
+  @override
+  String get packListeningPrompt => 'Bạn đã nghe từ nào?';
+
+  @override
+  String packPlayClip(int number) {
+    return 'Phát đoạn $number';
+  }
+
+  @override
+  String get packReveal => 'Xem đáp án';
+
+  @override
+  String get packKnewIt => 'Tôi đã biết';
+
+  @override
+  String get packMissed => 'Tôi chưa biết';
+
+  @override
+  String get packTranslatePrompt => 'Dịch câu này';
+
+  @override
+  String get packTranslateHint => 'Nhập bản dịch của bạn';
+
+  @override
+  String get packDone => 'Xong';
+
+  @override
+  String packTomorrowTeaser(String topic) {
+    return 'Mai: tiếp tục với $topic';
+  }
+
+  @override
+  String packContinueTo(String station) {
+    return 'Tiếp tục · $station';
+  }
+
+  @override
+  String get packDoneForToday => 'Xong cho hôm nay';
+
+  @override
+  String get packStationVocabulary => 'Từ vựng';
+
+  @override
+  String get packStationGrammar => 'Ngữ pháp';
+
+  @override
+  String get packStationListening => 'Nghe';
+
+  @override
+  String get packStationReview => 'Ôn tập';
+
+  @override
+  String get packStationWrap => 'Bài kiểm tra tuần';
+
+  @override
+  String get packStationTranslate => 'Dịch';
+
+  @override
+  String get masteryTitle => 'Tiến độ của bạn';
+
+  @override
+  String get masteryEmpty => 'Hoàn thành một ngày học và tiến độ của bạn sẽ hiện ở đây.';
+
+  @override
+  String get masteryYourLevel => 'trình độ của bạn';
+
+  @override
+  String get masteryRetake => 'Làm lại';
+
+  @override
+  String get masteryVocabulary => 'Từ vựng';
+
+  @override
+  String get masteryGrammar => 'Ngữ pháp';
+
+  @override
+  String get masteryListening => 'Nghe';
+
+  @override
+  String get masteryTranslate => 'Dịch';
+
+  @override
+  String get masteryNotStarted => 'Chưa bắt đầu';
+
+  @override
+  String masteryVocabularyCaption(int mastered, int learning, int due) {
+    return '$mastered đã thuộc · $learning đang học · $due cần ôn';
+  }
+
+  @override
+  String masteryGrammarCaption(int mastered, int total) {
+    return 'Bài $mastered trên $total';
+  }
+
+  @override
+  String masteryAccuracyCaption(int percent, int samples) {
+    return '$percent% qua $samples lượt';
+  }
+
+  @override
+  String get masteryConsistency => '30 ngày qua';
+
+  @override
+  String masteryDueCta(int count) {
+    return 'Ôn $count từ ngay';
+  }
+
+  @override
+  String get placementTitle => 'Tìm trình độ của bạn';
+
+  @override
+  String get placementSkip => 'Bỏ qua';
+
+  @override
+  String placementProgress(int current, int total) {
+    return 'Câu $current trên $total';
+  }
+
+  @override
+  String get placementResult => 'Chúng tôi sẽ bắt đầu từ đây. Bạn có thể thay đổi bất cứ lúc nào.';
+
+  @override
+  String get placementStart => 'Bắt đầu học';
 }

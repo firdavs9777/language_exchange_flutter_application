@@ -7400,4 +7400,147 @@ class AppLocalizationsKo extends AppLocalizations {
   String todayLanguageUnsupported(String language) {
     return '$language은(는) 아직 데일리 학습을 지원하지 않아요.';
   }
+
+  @override
+  String get packContinue => '계속';
+
+  @override
+  String get packGotIt => '이해했어요';
+
+  @override
+  String get packSubmitFailed => '저장하지 못했어요. 연결을 확인하고 다시 시도해 주세요.';
+
+  @override
+  String packWordProgress(int current, int total) {
+    return '$total개 중 $current번째 단어';
+  }
+
+  @override
+  String packGrammarUnit(int unit) {
+    return '$unit단원';
+  }
+
+  @override
+  String get packListeningPrompt => '어떤 단어가 들렸나요?';
+
+  @override
+  String packPlayClip(int number) {
+    return '$number번 음성 재생';
+  }
+
+  @override
+  String get packReveal => '정답 보기';
+
+  @override
+  String get packKnewIt => '알고 있었어요';
+
+  @override
+  String get packMissed => '몰랐어요';
+
+  @override
+  String get packTranslatePrompt => '이 문장을 번역하세요';
+
+  @override
+  String get packTranslateHint => '번역을 입력하세요';
+
+  @override
+  String get packDone => '완료';
+
+  @override
+  String packTomorrowTeaser(String topic) {
+    return '내일: $topic 계속';
+  }
+
+  @override
+  String packContinueTo(String station) {
+    return '계속 · $station';
+  }
+
+  @override
+  String get packDoneForToday => '오늘은 완료';
+
+  @override
+  String get packStationVocabulary => '어휘';
+
+  @override
+  String get packStationGrammar => '문법';
+
+  @override
+  String get packStationListening => '듣기';
+
+  @override
+  String get packStationReview => '복습';
+
+  @override
+  String get packStationWrap => '주간 퀴즈';
+
+  @override
+  String get packStationTranslate => '번역';
+
+  @override
+  String get masteryTitle => '나의 진행 상황';
+
+  @override
+  String get masteryEmpty => '하루 학습을 마치면 여기에 진행 상황이 표시돼요.';
+
+  @override
+  String get masteryYourLevel => '내 레벨';
+
+  @override
+  String get masteryRetake => '다시 하기';
+
+  @override
+  String get masteryVocabulary => '어휘';
+
+  @override
+  String get masteryGrammar => '문법';
+
+  @override
+  String get masteryListening => '듣기';
+
+  @override
+  String get masteryTranslate => '번역';
+
+  @override
+  String get masteryNotStarted => '아직 시작하지 않음';
+
+  @override
+  String masteryVocabularyCaption(int mastered, int learning, int due) {
+    return '완성 $mastered · 학습 중 $learning · 복습 $due';
+  }
+
+  @override
+  String masteryGrammarCaption(int mastered, int total) {
+    return '$total단원 중 $mastered단원';
+  }
+
+  @override
+  String masteryAccuracyCaption(int percent, int samples) {
+    return '$samples회 중 $percent%';
+  }
+
+  @override
+  String get masteryConsistency => '지난 30일';
+
+  @override
+  String masteryDueCta(int count) {
+    return '$count개 단어 지금 복습';
+  }
+
+  @override
+  String get placementTitle => '레벨 찾기';
+
+  @override
+  String get placementSkip => '건너뛰기';
+
+  @override
+  String placementProgress(int current, int total) {
+    return '$total문항 중 $current번';
+  }
+
+  @override
+  String get placementResult => '여기서 시작해요. 언제든 바꿀 수 있어요.';
+
+  @override
+  String get placementStart => '학습 시작';
 }

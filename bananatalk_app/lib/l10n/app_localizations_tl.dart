@@ -7408,4 +7408,147 @@ class AppLocalizationsTl extends AppLocalizations {
   String todayLanguageUnsupported(String language) {
     return 'Wala pang daily study para sa $language.';
   }
+
+  @override
+  String get packContinue => 'Magpatuloy';
+
+  @override
+  String get packGotIt => 'Nakuha ko';
+
+  @override
+  String get packSubmitFailed => 'Hindi nai-save — tingnan ang koneksyon at subukan muli.';
+
+  @override
+  String packWordProgress(int current, int total) {
+    return 'Salita $current ng $total';
+  }
+
+  @override
+  String packGrammarUnit(int unit) {
+    return 'Yunit $unit';
+  }
+
+  @override
+  String get packListeningPrompt => 'Aling salita ang narinig mo?';
+
+  @override
+  String packPlayClip(int number) {
+    return 'I-play ang clip $number';
+  }
+
+  @override
+  String get packReveal => 'Ipakita ang sagot';
+
+  @override
+  String get packKnewIt => 'Alam ko';
+
+  @override
+  String get packMissed => 'Hindi ko alam';
+
+  @override
+  String get packTranslatePrompt => 'Isalin ang pangungusap na ito';
+
+  @override
+  String get packTranslateHint => 'Isulat ang salin mo';
+
+  @override
+  String get packDone => 'Tapos';
+
+  @override
+  String packTomorrowTeaser(String topic) {
+    return 'Bukas: karugtong ng $topic';
+  }
+
+  @override
+  String packContinueTo(String station) {
+    return 'Magpatuloy · $station';
+  }
+
+  @override
+  String get packDoneForToday => 'Tapos na para ngayong araw';
+
+  @override
+  String get packStationVocabulary => 'Bokabularyo';
+
+  @override
+  String get packStationGrammar => 'Gramatika';
+
+  @override
+  String get packStationListening => 'Pakikinig';
+
+  @override
+  String get packStationReview => 'Balik-aral';
+
+  @override
+  String get packStationWrap => 'Pagsusulit sa linggo';
+
+  @override
+  String get packStationTranslate => 'Pagsasalin';
+
+  @override
+  String get masteryTitle => 'Ang progreso mo';
+
+  @override
+  String get masteryEmpty => 'Tapusin ang isang araw ng pag-aaral at lilitaw dito ang progreso mo.';
+
+  @override
+  String get masteryYourLevel => 'antas mo';
+
+  @override
+  String get masteryRetake => 'Ulitin';
+
+  @override
+  String get masteryVocabulary => 'Bokabularyo';
+
+  @override
+  String get masteryGrammar => 'Gramatika';
+
+  @override
+  String get masteryListening => 'Pakikinig';
+
+  @override
+  String get masteryTranslate => 'Pagsasalin';
+
+  @override
+  String get masteryNotStarted => 'Hindi pa nasimulan';
+
+  @override
+  String masteryVocabularyCaption(int mastered, int learning, int due) {
+    return '$mastered nabisado · $learning pinag-aaralan · $due dapat ulitin';
+  }
+
+  @override
+  String masteryGrammarCaption(int mastered, int total) {
+    return 'Yunit $mastered ng $total';
+  }
+
+  @override
+  String masteryAccuracyCaption(int percent, int samples) {
+    return '$percent% sa $samples sesyon';
+  }
+
+  @override
+  String get masteryConsistency => 'Huling 30 araw';
+
+  @override
+  String masteryDueCta(int count) {
+    return 'Balik-aralan ang $count salita ngayon';
+  }
+
+  @override
+  String get placementTitle => 'Hanapin ang antas mo';
+
+  @override
+  String get placementSkip => 'Laktawan';
+
+  @override
+  String placementProgress(int current, int total) {
+    return 'Tanong $current ng $total';
+  }
+
+  @override
+  String get placementResult => 'Dito tayo magsisimula. Mababago mo ito anumang oras.';
+
+  @override
+  String get placementStart => 'Simulan ang pag-aaral';
 }

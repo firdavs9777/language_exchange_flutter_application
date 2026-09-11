@@ -7408,4 +7408,147 @@ class AppLocalizationsTr extends AppLocalizations {
   String todayLanguageUnsupported(String language) {
     return '$language için günlük çalışma henüz mevcut değil.';
   }
+
+  @override
+  String get packContinue => 'Devam';
+
+  @override
+  String get packGotIt => 'Anladım';
+
+  @override
+  String get packSubmitFailed => 'Kaydedilemedi — bağlantını kontrol edip tekrar dene.';
+
+  @override
+  String packWordProgress(int current, int total) {
+    return '$total kelimeden $current.';
+  }
+
+  @override
+  String packGrammarUnit(int unit) {
+    return 'Ünite $unit';
+  }
+
+  @override
+  String get packListeningPrompt => 'Hangi kelimeyi duydun?';
+
+  @override
+  String packPlayClip(int number) {
+    return '$number. kaydı oynat';
+  }
+
+  @override
+  String get packReveal => 'Cevabı göster';
+
+  @override
+  String get packKnewIt => 'Biliyordum';
+
+  @override
+  String get packMissed => 'Bilemedim';
+
+  @override
+  String get packTranslatePrompt => 'Bu cümleyi çevir';
+
+  @override
+  String get packTranslateHint => 'Çevirini yaz';
+
+  @override
+  String get packDone => 'Tamam';
+
+  @override
+  String packTomorrowTeaser(String topic) {
+    return 'Yarın: $topic devam ediyor';
+  }
+
+  @override
+  String packContinueTo(String station) {
+    return 'Devam · $station';
+  }
+
+  @override
+  String get packDoneForToday => 'Bugünlük tamam';
+
+  @override
+  String get packStationVocabulary => 'Kelime';
+
+  @override
+  String get packStationGrammar => 'Gramer';
+
+  @override
+  String get packStationListening => 'Dinleme';
+
+  @override
+  String get packStationReview => 'Tekrar';
+
+  @override
+  String get packStationWrap => 'Hafta testi';
+
+  @override
+  String get packStationTranslate => 'Çeviri';
+
+  @override
+  String get masteryTitle => 'İlerlemen';
+
+  @override
+  String get masteryEmpty => 'Bir günlük çalışmayı tamamla, ilerlemen burada görünecek.';
+
+  @override
+  String get masteryYourLevel => 'seviyen';
+
+  @override
+  String get masteryRetake => 'Yeniden';
+
+  @override
+  String get masteryVocabulary => 'Kelime';
+
+  @override
+  String get masteryGrammar => 'Gramer';
+
+  @override
+  String get masteryListening => 'Dinleme';
+
+  @override
+  String get masteryTranslate => 'Çeviri';
+
+  @override
+  String get masteryNotStarted => 'Henüz başlamadın';
+
+  @override
+  String masteryVocabularyCaption(int mastered, int learning, int due) {
+    return '$mastered öğrenildi · $learning çalışılıyor · $due tekrar';
+  }
+
+  @override
+  String masteryGrammarCaption(int mastered, int total) {
+    return '$total üniteden $mastered.';
+  }
+
+  @override
+  String masteryAccuracyCaption(int percent, int samples) {
+    return '$samples oturumda %$percent';
+  }
+
+  @override
+  String get masteryConsistency => 'Son 30 gün';
+
+  @override
+  String masteryDueCta(int count) {
+    return '$count kelimeyi şimdi tekrar et';
+  }
+
+  @override
+  String get placementTitle => 'Seviyeni bul';
+
+  @override
+  String get placementSkip => 'Atla';
+
+  @override
+  String placementProgress(int current, int total) {
+    return '$total sorudan $current.';
+  }
+
+  @override
+  String get placementResult => 'Buradan başlıyoruz. Dilediğin zaman değiştirebilirsin.';
+
+  @override
+  String get placementStart => 'Öğrenmeye başla';
 }

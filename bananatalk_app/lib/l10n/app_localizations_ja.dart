@@ -7400,4 +7400,147 @@ class AppLocalizationsJa extends AppLocalizations {
   String todayLanguageUnsupported(String language) {
     return '$languageのデイリー学習はまだ利用できません。';
   }
+
+  @override
+  String get packContinue => '続ける';
+
+  @override
+  String get packGotIt => 'わかった';
+
+  @override
+  String get packSubmitFailed => '保存できませんでした。接続を確認してもう一度お試しください。';
+
+  @override
+  String packWordProgress(int current, int total) {
+    return '$total 語中 $current 語目';
+  }
+
+  @override
+  String packGrammarUnit(int unit) {
+    return 'ユニット $unit';
+  }
+
+  @override
+  String get packListeningPrompt => 'どの単語が聞こえましたか？';
+
+  @override
+  String packPlayClip(int number) {
+    return '音声 $number を再生';
+  }
+
+  @override
+  String get packReveal => '答えを見る';
+
+  @override
+  String get packKnewIt => 'わかった';
+
+  @override
+  String get packMissed => 'わからなかった';
+
+  @override
+  String get packTranslatePrompt => 'この文を訳してください';
+
+  @override
+  String get packTranslateHint => '訳を入力';
+
+  @override
+  String get packDone => '完了';
+
+  @override
+  String packTomorrowTeaser(String topic) {
+    return '明日は「$topic」の続き';
+  }
+
+  @override
+  String packContinueTo(String station) {
+    return '続ける · $station';
+  }
+
+  @override
+  String get packDoneForToday => '今日の分は完了';
+
+  @override
+  String get packStationVocabulary => '単語';
+
+  @override
+  String get packStationGrammar => '文法';
+
+  @override
+  String get packStationListening => 'リスニング';
+
+  @override
+  String get packStationReview => '復習';
+
+  @override
+  String get packStationWrap => '週のまとめテスト';
+
+  @override
+  String get packStationTranslate => '翻訳';
+
+  @override
+  String get masteryTitle => '学習の進み具合';
+
+  @override
+  String get masteryEmpty => '1 日分の学習を終えると、ここに進み具合が表示されます。';
+
+  @override
+  String get masteryYourLevel => 'あなたのレベル';
+
+  @override
+  String get masteryRetake => 'もう一度';
+
+  @override
+  String get masteryVocabulary => '単語';
+
+  @override
+  String get masteryGrammar => '文法';
+
+  @override
+  String get masteryListening => 'リスニング';
+
+  @override
+  String get masteryTranslate => '翻訳';
+
+  @override
+  String get masteryNotStarted => 'まだ始めていません';
+
+  @override
+  String masteryVocabularyCaption(int mastered, int learning, int due) {
+    return '習得 $mastered · 学習中 $learning · 復習 $due';
+  }
+
+  @override
+  String masteryGrammarCaption(int mastered, int total) {
+    return '$total ユニット中 $mastered';
+  }
+
+  @override
+  String masteryAccuracyCaption(int percent, int samples) {
+    return '$samples 回で $percent%';
+  }
+
+  @override
+  String get masteryConsistency => '過去 30 日';
+
+  @override
+  String masteryDueCta(int count) {
+    return '$count 語を今すぐ復習';
+  }
+
+  @override
+  String get placementTitle => 'レベル診断';
+
+  @override
+  String get placementSkip => 'スキップ';
+
+  @override
+  String placementProgress(int current, int total) {
+    return '$total 問中 $current 問目';
+  }
+
+  @override
+  String get placementResult => 'ここから始めます。いつでも変更できます。';
+
+  @override
+  String get placementStart => '学習を始める';
 }
