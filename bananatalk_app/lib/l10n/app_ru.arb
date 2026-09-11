@@ -3105,5 +3105,7 @@
   "placementSkip": "Пропустить",
   "placementProgress": "Вопрос {current} из {total}",
   "placementResult": "Начнём отсюда. Вы можете изменить это в любой момент.",
-  "placementStart": "Начать учиться"
+  "placementStart": "Начать учиться",
+  "packNotGraded": "Сохранено — сейчас не удалось проверить.",
+  "packSuggestedTranslation": "Вариант: {translation}"
 }

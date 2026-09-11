@@ -7543,4 +7543,12 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get placementStart => 'เริ่มเรียน';
+
+  @override
+  String get packNotGraded => 'บันทึกแล้ว — ยังตรวจให้ไม่ได้ตอนนี้';
+
+  @override
+  String packSuggestedTranslation(String translation) {
+    return 'คำแนะนำ: $translation';
+  }
 }

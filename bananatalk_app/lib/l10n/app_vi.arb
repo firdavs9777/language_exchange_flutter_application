@@ -3075,5 +3075,7 @@
   "placementSkip": "Bỏ qua",
   "placementProgress": "Câu {current} trên {total}",
   "placementResult": "Chúng tôi sẽ bắt đầu từ đây. Bạn có thể thay đổi bất cứ lúc nào.",
-  "placementStart": "Bắt đầu học"
+  "placementStart": "Bắt đầu học",
+  "packNotGraded": "Đã lưu — hiện chưa chấm được.",
+  "packSuggestedTranslation": "Gợi ý: {translation}"
 }

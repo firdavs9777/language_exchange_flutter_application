@@ -7550,4 +7550,12 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get placementStart => 'Mulai belajar';
+
+  @override
+  String get packNotGraded => 'Tersimpan — belum bisa dinilai sekarang.';
+
+  @override
+  String packSuggestedTranslation(String translation) {
+    return 'Saran: $translation';
+  }
 }

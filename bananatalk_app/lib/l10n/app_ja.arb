@@ -3075,5 +3075,7 @@
   "placementSkip": "スキップ",
   "placementProgress": "{total} 問中 {current} 問目",
   "placementResult": "ここから始めます。いつでも変更できます。",
-  "placementStart": "学習を始める"
+  "placementStart": "学習を始める",
+  "packNotGraded": "保存しました。今は採点できませんでした。",
+  "packSuggestedTranslation": "参考訳：{translation}"
 }

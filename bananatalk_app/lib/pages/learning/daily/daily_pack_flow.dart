@@ -15,6 +15,7 @@ typedef SubmitStation = Future<StationResult> Function(
   String station, {
   List<int> answers,
   List<Map<String, dynamic>> reviews,
+  String text,
 });
 
 /// The full-screen day: one station at a time, rail on top, no bottom nav.
@@ -61,13 +62,15 @@ class _DailyPackFlowState extends State<DailyPackFlow> {
     String station, {
     List<int> answers = const [],
     List<Map<String, dynamic>> reviews = const [],
+    String text = '',
   }) async {
     final result = widget.submit != null
-        ? await widget.submit!(station, answers: answers, reviews: reviews)
+        ? await widget.submit!(station, answers: answers, reviews: reviews, text: text)
         : await LearningService.completeStation(
             station,
             answers: answers,
             reviews: reviews,
+            text: text,
           );
     _last = result;
     return result;
@@ -98,6 +101,7 @@ class _DailyPackFlowState extends State<DailyPackFlow> {
       case 'listening':
         return ListeningStation(
           payload: station.payload as ListeningPayload,
+          language: widget.pack.language ?? 'en',
           onSubmit: (a) => _submit('listening', answers: a),
           onDone: _advance,
         );
@@ -116,9 +120,7 @@ class _DailyPackFlowState extends State<DailyPackFlow> {
       case 'translate':
         return TranslateStation(
           payload: station.payload as TranslatePayload,
-          // Wave 1 credits the attempt; wiring the text to the existing
-          // AI-graded daily-practice path is a follow-up.
-          onSubmit: (_) => _submit('translate', answers: const [1]),
+          onSubmit: (text) => _submit('translate', text: text),
           onDone: _advance,
         );
       default:

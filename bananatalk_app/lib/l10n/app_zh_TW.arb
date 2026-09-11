@@ -2766,5 +2766,7 @@
   "placementSkip": "略過",
   "placementProgress": "第 {current} 題，共 {total} 題",
   "placementResult": "我們就從這裡開始。你可以隨時修改。",
-  "placementStart": "開始學習"
+  "placementStart": "開始學習",
+  "packNotGraded": "已儲存——暫時無法批改。",
+  "packSuggestedTranslation": "參考：{translation}"
 }

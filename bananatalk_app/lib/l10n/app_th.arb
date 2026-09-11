@@ -3075,5 +3075,7 @@
   "placementSkip": "ข้าม",
   "placementProgress": "คำถามที่ {current} จาก {total}",
   "placementResult": "เราจะเริ่มจากจุดนี้ คุณเปลี่ยนได้ทุกเมื่อ",
-  "placementStart": "เริ่มเรียน"
+  "placementStart": "เริ่มเรียน",
+  "packNotGraded": "บันทึกแล้ว — ยังตรวจให้ไม่ได้ตอนนี้",
+  "packSuggestedTranslation": "คำแนะนำ: {translation}"
 }

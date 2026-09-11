@@ -7564,4 +7564,12 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get placementStart => 'Начать учиться';
+
+  @override
+  String get packNotGraded => 'Сохранено — сейчас не удалось проверить.';
+
+  @override
+  String packSuggestedTranslation(String translation) {
+    return 'Вариант: $translation';
+  }
 }

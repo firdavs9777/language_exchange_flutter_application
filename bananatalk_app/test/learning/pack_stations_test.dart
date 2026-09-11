@@ -128,7 +128,10 @@ void main() {
 
   testWidgets('the listening station hides the text until the clip is played', (tester) async {
     await tester.pumpWidget(_host(ListeningStation(
-      payload: _listening, onSubmit: (_) async => _ok(), onDone: () {},
+      payload: _listening,
+      fetchAudioUrl: (_, __) async => 'https://cdn/clip.mp3',
+      playAudio: (_) async {},
+      onSubmit: (_) async => _ok(), onDone: () {},
     )));
     expect(find.text('She is waiting outside.'), findsNothing);
     expect(find.byKey(const Key('clip-play-0')), findsOneWidget);
@@ -136,5 +139,52 @@ void main() {
     await tester.tap(find.byKey(const Key('clip-play-0')));
     await tester.pumpAndSettle();
     expect(find.text('She is waiting outside.'), findsOneWidget);
+  });
+
+  testWidgets('tapping play asks for audio of that clip and plays it', (tester) async {
+    String? asked;
+    String? played;
+    await tester.pumpWidget(_host(ListeningStation(
+      payload: _listening,
+      language: 'en',
+      fetchAudioUrl: (text, lang) async { asked = text; return 'https://cdn/clip.mp3'; },
+      playAudio: (url) async { played = url; },
+      onSubmit: (_) async => _ok(),
+      onDone: () {},
+    )));
+    await tester.tap(find.byKey(const Key('clip-play-0')));
+    await tester.pumpAndSettle();
+    expect(asked, 'She is waiting outside.');
+    expect(played, 'https://cdn/clip.mp3');
+    expect(find.text('She is waiting outside.'), findsOneWidget, reason: 'text revealed after playing');
+  });
+
+  testWidgets('unavailable audio still reveals the text rather than blocking', (tester) async {
+    await tester.pumpWidget(_host(ListeningStation(
+      payload: _listening,
+      fetchAudioUrl: (_, __) async => null,
+      playAudio: (_) async {},
+      onSubmit: (_) async => _ok(),
+      onDone: () {},
+    )));
+    await tester.tap(find.byKey(const Key('clip-play-0')));
+    await tester.pumpAndSettle();
+    expect(find.text('She is waiting outside.'), findsOneWidget);
+  });
+
+  testWidgets('a TTS failure leaves the station usable and reveals the text', (tester) async {
+    await tester.pumpWidget(_host(ListeningStation(
+      payload: _listening,
+      fetchAudioUrl: (_, __) async => throw Exception('offline'),
+      playAudio: (_) async {},
+      onSubmit: (_) async => _ok(),
+      onDone: () {},
+    )));
+    await tester.tap(find.byKey(const Key('clip-play-0')));
+    await tester.pumpAndSettle();
+    // The finally block still runs, so the learner is not stuck on a spinner
+    // and can read the line instead.
+    expect(find.text('She is waiting outside.'), findsOneWidget);
+    expect(find.byKey(const Key('clip-play-0')), findsOneWidget);
   });
 }

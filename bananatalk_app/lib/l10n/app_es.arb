@@ -3105,5 +3105,7 @@
   "placementSkip": "Omitir",
   "placementProgress": "Pregunta {current} de {total}",
   "placementResult": "Empezaremos aquí. Puedes cambiarlo cuando quieras.",
-  "placementStart": "Empezar a aprender"
+  "placementStart": "Empezar a aprender",
+  "packNotGraded": "Guardado: no pudimos corregirlo ahora mismo.",
+  "packSuggestedTranslation": "Sugerencia: {translation}"
 }

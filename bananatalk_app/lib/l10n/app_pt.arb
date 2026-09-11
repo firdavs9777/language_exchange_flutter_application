@@ -3091,5 +3091,7 @@
   "placementSkip": "Pular",
   "placementProgress": "Pergunta {current} de {total}",
   "placementResult": "Vamos começar aqui. Você pode mudar quando quiser.",
-  "placementStart": "Começar a aprender"
+  "placementStart": "Começar a aprender",
+  "packNotGraded": "Salvo — não conseguimos corrigir agora.",
+  "packSuggestedTranslation": "Sugestão: {translation}"
 }

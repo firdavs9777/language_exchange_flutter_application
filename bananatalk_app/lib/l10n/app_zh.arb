@@ -3089,5 +3089,7 @@
   "placementSkip": "跳过",
   "placementProgress": "第 {current} 题，共 {total} 题",
   "placementResult": "我们就从这里开始。你可以随时修改。",
-  "placementStart": "开始学习"
+  "placementStart": "开始学习",
+  "packNotGraded": "已保存——暂时无法批改。",
+  "packSuggestedTranslation": "参考：{translation}"
 }

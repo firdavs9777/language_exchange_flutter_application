@@ -1524,6 +1524,7 @@ class LearningService {
     String station, {
     List<int> answers = const [],
     List<Map<String, dynamic>> reviews = const [],
+    String text = '',
   }) async {
     final token = await _getToken();
     final url =
@@ -1531,7 +1532,7 @@ class LearningService {
     final response = await http.post(
       url,
       headers: _getHeaders(token),
-      body: jsonEncode({'answers': answers, 'reviews': reviews}),
+      body: jsonEncode({'answers': answers, 'reviews': reviews, 'text': text}),
     );
     final data = _safeJsonDecode(response.body);
     if (response.statusCode == 200 && data != null && data['data'] != null) {

@@ -7551,4 +7551,12 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get placementStart => 'Começar a aprender';
+
+  @override
+  String get packNotGraded => 'Salvo — não conseguimos corrigir agora.';
+
+  @override
+  String packSuggestedTranslation(String translation) {
+    return 'Sugestão: $translation';
+  }
 }

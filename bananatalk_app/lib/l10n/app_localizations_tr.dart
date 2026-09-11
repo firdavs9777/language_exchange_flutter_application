@@ -7551,4 +7551,12 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get placementStart => 'Öğrenmeye başla';
+
+  @override
+  String get packNotGraded => 'Kaydedildi — şu anda değerlendiremedik.';
+
+  @override
+  String packSuggestedTranslation(String translation) {
+    return 'Öneri: $translation';
+  }
 }

@@ -178,12 +178,18 @@ class WrapPayload implements StationPayload {
 }
 
 class TranslatePayload implements StationPayload {
-  final String prompt;
+  /// The sentence to translate, in the learner's native language.
+  final String sentence;
+  final String hint;
 
-  const TranslatePayload({required this.prompt});
+  const TranslatePayload({required this.sentence, this.hint = ''});
 
-  factory TranslatePayload.fromJson(Map<String, dynamic> json) =>
-      TranslatePayload(prompt: json['prompt'] as String? ?? '');
+  factory TranslatePayload.fromJson(Map<String, dynamic> json) => TranslatePayload(
+        // `prompt` was the pre-grading field name; accepted so an older
+        // server response does not render a blank station.
+        sentence: (json['sentence'] ?? json['prompt']) as String? ?? '',
+        hint: json['hint'] as String? ?? '',
+      );
 }
 
 StationPayload? _payloadFor(String kind, Map<String, dynamic>? json) {
@@ -318,6 +324,14 @@ class StationResult {
   final bool packComplete;
   final List<String> stationsRemaining;
 
+  /// Translate station only. Null for every other station; false when the
+  /// submission was saved but the grader was unavailable, so the UI can say
+  /// so instead of implying a mark.
+  final bool? graded;
+  final String feedback;
+  final String suggestedTranslation;
+  final int? aiScore;
+
   const StationResult({
     required this.score,
     required this.total,
@@ -325,6 +339,10 @@ class StationResult {
     this.streak,
     this.packComplete = false,
     this.stationsRemaining = const [],
+    this.graded,
+    this.feedback = '',
+    this.suggestedTranslation = '',
+    this.aiScore,
   });
 
   factory StationResult.fromJson(Map<String, dynamic> json) => StationResult(
@@ -336,6 +354,10 @@ class StationResult {
         stationsRemaining: (json['stationsRemaining'] as List? ?? const [])
             .map((e) => e.toString())
             .toList(),
+        graded: json['graded'] as bool?,
+        feedback: json['feedback'] as String? ?? '',
+        suggestedTranslation: json['suggestedTranslation'] as String? ?? '',
+        aiScore: (json['aiScore'] as num?)?.toInt(),
       );
 }
 

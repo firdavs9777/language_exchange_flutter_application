@@ -58,7 +58,16 @@ class _TranslateStationState extends State<TranslateStation> {
       children: [
         Text(l10n.packTranslatePrompt, style: theme.textTheme.labelMedium),
         const SizedBox(height: 12),
-        Text(widget.payload.prompt, style: theme.textTheme.titleLarge),
+        Text(widget.payload.sentence, style: theme.textTheme.titleLarge),
+        if (widget.payload.hint.isNotEmpty)
+          Padding(
+            padding: const EdgeInsets.only(top: 8),
+            child: Text(
+              widget.payload.hint,
+              key: const Key('translate-hint'),
+              style: theme.textTheme.bodySmall,
+            ),
+          ),
         const SizedBox(height: 24),
         TextField(
           key: const Key('translate-input'),
@@ -72,15 +81,35 @@ class _TranslateStationState extends State<TranslateStation> {
           ),
         ),
         const SizedBox(height: 16),
-        if (_result != null)
+        if (_result != null) ...[
           Padding(
             key: const Key('station-score'),
-            padding: const EdgeInsets.only(bottom: 12),
+            padding: const EdgeInsets.only(bottom: 8),
             child: Text(
-              l10n.dailyScore(_result!.score, _result!.total),
-              style: theme.textTheme.headlineSmall,
+              // A submission the grader could not mark says so rather than
+              // showing a score the learner did not earn.
+              _result!.graded == false
+                  ? l10n.packNotGraded
+                  : l10n.dailyScore(_result!.score, _result!.total),
+              style: theme.textTheme.titleLarge,
             ),
           ),
+          if (_result!.feedback.isNotEmpty)
+            Padding(
+              key: const Key('translate-feedback'),
+              padding: const EdgeInsets.only(bottom: 8),
+              child: Text(_result!.feedback, style: theme.textTheme.bodyMedium),
+            ),
+          if (_result!.suggestedTranslation.isNotEmpty)
+            Padding(
+              key: const Key('translate-suggestion'),
+              padding: const EdgeInsets.only(bottom: 12),
+              child: Text(
+                l10n.packSuggestedTranslation(_result!.suggestedTranslation),
+                style: theme.textTheme.bodyMedium?.copyWith(fontStyle: FontStyle.italic),
+              ),
+            ),
+        ],
         if (_failed)
           Padding(
             key: const Key('station-error'),

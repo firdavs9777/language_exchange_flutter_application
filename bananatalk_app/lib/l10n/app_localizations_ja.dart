@@ -7543,4 +7543,12 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get placementStart => '学習を始める';
+
+  @override
+  String get packNotGraded => '保存しました。今は採点できませんでした。';
+
+  @override
+  String packSuggestedTranslation(String translation) {
+    return '参考訳：$translation';
+  }
 }

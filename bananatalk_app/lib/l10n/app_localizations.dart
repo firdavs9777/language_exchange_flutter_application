@@ -14023,6 +14023,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Start learning'**
   String get placementStart;
+
+  /// Shown when a translation was stored but the grader was unavailable
+  ///
+  /// In en, this message translates to:
+  /// **'Saved — we couldn\'t grade it just now.'**
+  String get packNotGraded;
+
+  /// The grader's model translation
+  ///
+  /// In en, this message translates to:
+  /// **'Suggested: {translation}'**
+  String packSuggestedTranslation(String translation);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

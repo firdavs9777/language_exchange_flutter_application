@@ -7543,4 +7543,12 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get placementStart => 'Bắt đầu học';
+
+  @override
+  String get packNotGraded => 'Đã lưu — hiện chưa chấm được.';
+
+  @override
+  String packSuggestedTranslation(String translation) {
+    return 'Gợi ý: $translation';
+  }
 }

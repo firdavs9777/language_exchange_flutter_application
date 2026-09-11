@@ -3105,5 +3105,7 @@
   "placementSkip": "تخطٍ",
   "placementProgress": "السؤال {current} من {total}",
   "placementResult": "سنبدأ من هنا. يمكنك تغييره في أي وقت.",
-  "placementStart": "ابدأ التعلّم"
+  "placementStart": "ابدأ التعلّم",
+  "packNotGraded": "تم الحفظ — تعذّر تقييمه الآن.",
+  "packSuggestedTranslation": "الاقتراح: {translation}"
 }

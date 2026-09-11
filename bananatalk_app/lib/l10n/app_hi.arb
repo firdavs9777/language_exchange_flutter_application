@@ -3091,5 +3091,7 @@
   "placementSkip": "छोड़ें",
   "placementProgress": "प्रश्न {current} / {total}",
   "placementResult": "हम यहाँ से शुरू करेंगे। आप इसे कभी भी बदल सकते हैं।",
-  "placementStart": "सीखना शुरू करें"
+  "placementStart": "सीखना शुरू करें",
+  "packNotGraded": "सहेजा गया — अभी जाँच नहीं हो सकी।",
+  "packSuggestedTranslation": "सुझाव: {translation}"
 }

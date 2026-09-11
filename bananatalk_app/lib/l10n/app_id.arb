@@ -3075,5 +3075,7 @@
   "placementSkip": "Lewati",
   "placementProgress": "Pertanyaan {current} dari {total}",
   "placementResult": "Kita mulai dari sini. Kamu bisa mengubahnya kapan saja.",
-  "placementStart": "Mulai belajar"
+  "placementStart": "Mulai belajar",
+  "packNotGraded": "Tersimpan — belum bisa dinilai sekarang.",
+  "packSuggestedTranslation": "Saran: {translation}"
 }

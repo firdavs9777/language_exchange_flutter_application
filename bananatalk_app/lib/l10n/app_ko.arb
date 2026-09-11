@@ -3096,5 +3096,7 @@
   "placementSkip": "건너뛰기",
   "placementProgress": "{total}문항 중 {current}번",
   "placementResult": "여기서 시작해요. 언제든 바꿀 수 있어요.",
-  "placementStart": "학습 시작"
+  "placementStart": "학습 시작",
+  "packNotGraded": "저장했어요 — 지금은 채점할 수 없었어요.",
+  "packSuggestedTranslation": "제안: {translation}"
 }
