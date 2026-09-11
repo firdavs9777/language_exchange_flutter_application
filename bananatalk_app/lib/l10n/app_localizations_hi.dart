@@ -7551,4 +7551,12 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get placementStart => 'सीखना शुरू करें';
+
+  @override
+  String get packNotGraded => 'सहेजा गया — अभी जाँच नहीं हो सकी।';
+
+  @override
+  String packSuggestedTranslation(String translation) {
+    return 'सुझाव: $translation';
+  }
 }

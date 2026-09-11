@@ -7543,6 +7543,14 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get placementStart => '开始学习';
+
+  @override
+  String get packNotGraded => '已保存——暂时无法批改。';
+
+  @override
+  String packSuggestedTranslation(String translation) {
+    return '参考：$translation';
+  }
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -15084,4 +15092,12 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get placementStart => '開始學習';
+
+  @override
+  String get packNotGraded => '已儲存——暫時無法批改。';
+
+  @override
+  String packSuggestedTranslation(String translation) {
+    return '參考：$translation';
+  }
 }

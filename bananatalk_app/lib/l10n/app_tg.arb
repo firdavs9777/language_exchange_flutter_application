@@ -2568,5 +2568,7 @@
   "placementSkip": "Гузаштан",
   "placementProgress": "Саволи {current} аз {total}",
   "placementResult": "Мо аз ин ҷо оғоз мекунем. Шумо метавонед ҳар вақт онро иваз кунед.",
-  "placementStart": "Ба омӯзиш шурӯъ кунед"
+  "placementStart": "Ба омӯзиш шурӯъ кунед",
+  "packNotGraded": "Сабт шуд — ҳоло баҳо дода натавонистем.",
+  "packSuggestedTranslation": "Пешниҳод: {translation}"
 }

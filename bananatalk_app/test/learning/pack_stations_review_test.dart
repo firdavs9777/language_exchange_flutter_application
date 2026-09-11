@@ -76,7 +76,7 @@ void main() {
   testWidgets('the translate station sends the typed sentence', (tester) async {
     String? sent;
     await tester.pumpWidget(_host(TranslateStation(
-      payload: const TranslatePayload(prompt: 'Her ambition showed.'),
+      payload: const TranslatePayload(sentence: 'Her ambition showed.'),
       onSubmit: (text) async { sent = text; return _ok(); },
       onDone: () {},
     )));
@@ -89,7 +89,7 @@ void main() {
 
   testWidgets('translate submit is disabled while the field is empty', (tester) async {
     await tester.pumpWidget(_host(TranslateStation(
-      payload: const TranslatePayload(prompt: 'Her ambition showed.'),
+      payload: const TranslatePayload(sentence: 'Her ambition showed.'),
       onSubmit: (_) async => _ok(),
       onDone: () {},
     )));
@@ -112,5 +112,49 @@ void main() {
     await tester.tap(find.byKey(const Key('review-knew')));
     await tester.pumpAndSettle();
     expect(find.byKey(const Key('station-error')), findsOneWidget);
+  });
+
+  testWidgets('the translate station shows the sentence and its hint', (tester) async {
+    await tester.pumpWidget(_host(TranslateStation(
+      payload: const TranslatePayload(
+        sentence: 'Ella tiene mucha ambicion.', hint: 'Watch the article.',
+      ),
+      onSubmit: (_) async => _ok(),
+      onDone: () {},
+    )));
+    expect(find.text('Ella tiene mucha ambicion.'), findsOneWidget);
+    expect(find.byKey(const Key('translate-hint')), findsOneWidget);
+  });
+
+  testWidgets('a graded translation shows the feedback and the suggestion', (tester) async {
+    await tester.pumpWidget(_host(TranslateStation(
+      payload: const TranslatePayload(sentence: 'x'),
+      onSubmit: (_) async => const StationResult(
+        score: 1, total: 1, graded: true, aiScore: 92,
+        feedback: 'Well done.', suggestedTranslation: 'She has ambition.',
+      ),
+      onDone: () {},
+    )));
+    await tester.enterText(find.byKey(const Key('translate-input')), 'She has ambition.');
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('station-submit')));
+    await tester.pumpAndSettle();
+    expect(find.byKey(const Key('translate-feedback')), findsOneWidget);
+    expect(find.text('Well done.'), findsOneWidget);
+    expect(find.byKey(const Key('translate-suggestion')), findsOneWidget);
+  });
+
+  testWidgets('an ungraded submission says so instead of showing a score', (tester) async {
+    await tester.pumpWidget(_host(TranslateStation(
+      payload: const TranslatePayload(sentence: 'x'),
+      onSubmit: (_) async => const StationResult(score: 1, total: 1, graded: false),
+      onDone: () {},
+    )));
+    await tester.enterText(find.byKey(const Key('translate-input')), 'anything');
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('station-submit')));
+    await tester.pumpAndSettle();
+    expect(find.text('1/1'), findsNothing, reason: 'no mark was earned');
+    expect(find.byKey(const Key('station-score')), findsOneWidget);
   });
 }

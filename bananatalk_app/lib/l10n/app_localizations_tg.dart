@@ -7557,4 +7557,12 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get placementStart => 'Ба омӯзиш шурӯъ кунед';
+
+  @override
+  String get packNotGraded => 'Сабт шуд — ҳоло баҳо дода натавонистем.';
+
+  @override
+  String packSuggestedTranslation(String translation) {
+    return 'Пешниҳод: $translation';
+  }
 }

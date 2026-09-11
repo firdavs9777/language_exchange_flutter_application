@@ -114,4 +114,38 @@ void main() {
     expect(result.streak, 4);
     expect(result.stationsRemaining, ['review']);
   });
+
+  test('a translate payload carries the native sentence and its hint', () {
+    final p = TranslatePayload.fromJson({
+      'sentence': 'Ella tiene mucha ambicion.',
+      'hint': 'Watch the article.',
+    });
+    expect(p.sentence, 'Ella tiene mucha ambicion.');
+    expect(p.hint, 'Watch the article.');
+  });
+
+  test('an older server sending prompt instead of sentence still renders', () {
+    expect(TranslatePayload.fromJson({'prompt': 'old shape'}).sentence, 'old shape');
+  });
+
+  test('a graded station result carries the feedback and the suggestion', () {
+    final r = StationResult.fromJson({
+      'score': 1, 'total': 1, 'graded': true, 'aiScore': 92,
+      'feedback': 'Well done.', 'suggestedTranslation': 'She has ambition.',
+    });
+    expect(r.graded, isTrue);
+    expect(r.aiScore, 92);
+    expect(r.feedback, 'Well done.');
+    expect(r.suggestedTranslation, 'She has ambition.');
+  });
+
+  test('graded is null for stations that are not graded by AI', () {
+    final r = StationResult.fromJson({'score': 3, 'total': 3});
+    expect(r.graded, isNull);
+  });
+
+  test('graded false means saved but not marked', () {
+    final r = StationResult.fromJson({'score': 1, 'total': 1, 'graded': false});
+    expect(r.graded, isFalse);
+  });
 }

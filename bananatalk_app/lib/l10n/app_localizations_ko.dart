@@ -7543,4 +7543,12 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get placementStart => '학습 시작';
+
+  @override
+  String get packNotGraded => '저장했어요 — 지금은 채점할 수 없었어요.';
+
+  @override
+  String packSuggestedTranslation(String translation) {
+    return '제안: $translation';
+  }
 }

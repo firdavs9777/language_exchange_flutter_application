@@ -53,7 +53,7 @@ void main() {
     String? submitted;
     await tester.pumpWidget(_host(
       _pack(),
-      submit: (station, {answers = const [], reviews = const []}) async {
+      submit: (station, {answers = const [], reviews = const [], text = ''}) async {
         submitted = station;
         return const StationResult(score: 1, total: 1, packComplete: false);
       },
@@ -68,7 +68,7 @@ void main() {
   testWidgets('completing the last station shows the completion sheet', (tester) async {
     await tester.pumpWidget(_host(
       _pack(),
-      submit: (station, {answers = const [], reviews = const []}) async =>
+      submit: (station, {answers = const [], reviews = const [], text = ''}) async =>
           const StationResult(score: 1, total: 1, xpAwarded: 10, streak: 3, packComplete: true),
     ));
     await tester.tap(find.byKey(const Key('check-q0-opt1')));

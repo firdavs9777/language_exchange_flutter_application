@@ -3287,5 +3287,7 @@
   "placementSkip": "Atla",
   "placementProgress": "{total} sorudan {current}.",
   "placementResult": "Buradan başlıyoruz. Dilediğin zaman değiştirebilirsin.",
-  "placementStart": "Öğrenmeye başla"
+  "placementStart": "Öğrenmeye başla",
+  "packNotGraded": "Kaydedildi — şu anda değerlendiremedik.",
+  "packSuggestedTranslation": "Öneri: {translation}"
 }

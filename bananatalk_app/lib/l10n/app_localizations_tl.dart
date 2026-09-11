@@ -7551,4 +7551,12 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get placementStart => 'Simulan ang pag-aaral';
+
+  @override
+  String get packNotGraded => 'Na-save — hindi namin ito nasuri ngayon.';
+
+  @override
+  String packSuggestedTranslation(String translation) {
+    return 'Mungkahi: $translation';
+  }
 }

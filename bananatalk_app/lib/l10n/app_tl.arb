@@ -3048,5 +3048,7 @@
   "placementSkip": "Laktawan",
   "placementProgress": "Tanong {current} ng {total}",
   "placementResult": "Dito tayo magsisimula. Mababago mo ito anumang oras.",
-  "placementStart": "Simulan ang pag-aaral"
+  "placementStart": "Simulan ang pag-aaral",
+  "packNotGraded": "Na-save — hindi namin ito nasuri ngayon.",
+  "packSuggestedTranslation": "Mungkahi: {translation}"
 }

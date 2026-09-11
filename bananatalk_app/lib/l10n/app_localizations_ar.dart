@@ -7561,4 +7561,12 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get placementStart => 'ابدأ التعلّم';
+
+  @override
+  String get packNotGraded => 'تم الحفظ — تعذّر تقييمه الآن.';
+
+  @override
+  String packSuggestedTranslation(String translation) {
+    return 'الاقتراح: $translation';
+  }
 }
