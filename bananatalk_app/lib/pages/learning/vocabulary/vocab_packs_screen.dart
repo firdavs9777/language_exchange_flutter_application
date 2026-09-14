@@ -5,8 +5,19 @@ import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-/// Browse curated vocabulary packs (intermediate / advanced), each with words
-/// and practice exercises.
+/// The pack levels the server serves, easiest first. This mirrors PACK_LEVELS
+/// in the backend's lib/vocabPackShape.js; when a level is added there it has
+/// to be added here too, or the new packs are only reachable through "All".
+/// That is exactly what happened to the beginner and proficiency packs.
+const kVocabPackLevels = <({String value, String label, Color accent})>[
+  (value: 'beginner', label: 'Beginner', accent: Color(0xFF22C55E)),
+  (value: 'intermediate', label: 'Intermediate', accent: Color(0xFF6366F1)),
+  (value: 'advanced', label: 'Advanced', accent: Color(0xFFEC4899)),
+  (value: 'proficiency', label: 'Proficiency', accent: Color(0xFFF59E0B)),
+];
+
+/// Browse curated vocabulary packs at every CEFR band, each with words and
+/// practice exercises.
 class VocabPacksScreen extends ConsumerWidget {
   const VocabPacksScreen({super.key});
 
@@ -20,32 +31,31 @@ class VocabPacksScreen extends ConsumerWidget {
       appBar: AppBar(title: const Text('Vocabulary Packs')),
       body: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 12, 16, 4),
-            child: Row(
+          // Horizontally scrollable: five chips do not fit a narrow phone.
+          SizedBox(
+            height: 52,
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              padding: const EdgeInsets.fromLTRB(16, 12, 16, 4),
               children: [
                 _LevelChip(
+                  key: const Key('level-chip-all'),
                   label: 'All',
                   selected: level == null,
                   onTap: () =>
                       ref.read(vocabPackLevelFilterProvider.notifier).state = null,
                 ),
-                const SizedBox(width: 8),
-                _LevelChip(
-                  label: 'Intermediate',
-                  selected: level == 'intermediate',
-                  onTap: () => ref
-                      .read(vocabPackLevelFilterProvider.notifier)
-                      .state = 'intermediate',
-                ),
-                const SizedBox(width: 8),
-                _LevelChip(
-                  label: 'Advanced',
-                  selected: level == 'advanced',
-                  onTap: () => ref
-                      .read(vocabPackLevelFilterProvider.notifier)
-                      .state = 'advanced',
-                ),
+                for (final l in kVocabPackLevels) ...[
+                  const SizedBox(width: 8),
+                  _LevelChip(
+                    key: Key('level-chip-${l.value}'),
+                    label: l.label,
+                    selected: level == l.value,
+                    onTap: () => ref
+                        .read(vocabPackLevelFilterProvider.notifier)
+                        .state = l.value,
+                  ),
+                ],
               ],
             ),
           ),
@@ -104,7 +114,10 @@ class _LevelChip extends StatelessWidget {
   final bool selected;
   final VoidCallback onTap;
   const _LevelChip(
-      {required this.label, required this.selected, required this.onTap});
+      {super.key,
+      required this.label,
+      required this.selected,
+      required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -149,8 +162,14 @@ class _PackCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final isAdvanced = pack.level == 'advanced';
-    final accent = isAdvanced ? const Color(0xFFEC4899) : const Color(0xFF6366F1);
+    // One accent per level, from the same list the filter chips use — the
+    // old two-way 'advanced or not' left beginner and proficiency packs
+    // sharing the intermediate colour.
+    final accent = kVocabPackLevels
+            .where((l) => l.value == pack.level)
+            .map((l) => l.accent)
+            .firstOrNull ??
+        const Color(0xFF6366F1);
     return InkWell(
       borderRadius: BorderRadius.circular(16),
       onTap: () => Navigator.push(
