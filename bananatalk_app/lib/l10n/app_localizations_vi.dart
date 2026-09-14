@@ -7368,6 +7368,11 @@ class AppLocalizationsVi extends AppLocalizations {
   String get packTakePlacement => 'Tìm trình độ của bạn';
 
   @override
+  String todayContentLanguage(String language) {
+    return 'Bài học hôm nay bằng tiếng $language';
+  }
+
+  @override
   String get dailyCheck => 'Kiểm tra';
 
   @override

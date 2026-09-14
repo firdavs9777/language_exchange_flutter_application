@@ -264,6 +264,17 @@ class DailyPack {
   final List<PackStation> stations;
   final bool packComplete;
 
+  /// The language the served content is actually in, as a base code, and its
+  /// authored display name. Curated content is English-only, and the theme
+  /// query is not filtered by language, so a learner targeting anything else
+  /// is served English. Null when nothing was served.
+  final String? contentLanguage;
+  final String? contentLanguageName;
+
+  /// False when [contentLanguage] is not the learner's target. Defaults to
+  /// true so an older server that omits the field never warns.
+  final bool contentLanguageMatches;
+
   /// Whether [requestedLevel] is the learner's own level or the server's A2
   /// fallback. False means nobody has ever asked them, so the card offers the
   /// placement test. Defaults to true so an older server that omits the field
@@ -282,6 +293,9 @@ class DailyPack {
     this.stations = const [],
     this.packComplete = false,
     this.levelPlaced = true,
+    this.contentLanguage,
+    this.contentLanguageName,
+    this.contentLanguageMatches = true,
   });
 
   PackStation? stationOf(String kind) {
@@ -321,6 +335,9 @@ class DailyPack {
             .toList(),
         packComplete: json['packComplete'] as bool? ?? false,
         levelPlaced: json['levelPlaced'] as bool? ?? true,
+        contentLanguage: json['contentLanguage'] as String?,
+        contentLanguageName: json['contentLanguageName'] as String?,
+        contentLanguageMatches: json['contentLanguageMatches'] as bool? ?? true,
       );
 }
 

@@ -7387,6 +7387,11 @@ class AppLocalizationsRu extends AppLocalizations {
   String get packTakePlacement => 'Определить уровень';
 
   @override
+  String todayContentLanguage(String language) {
+    return 'Сегодняшние уроки на языке $language';
+  }
+
+  @override
   String get dailyCheck => 'Проверить';
 
   @override

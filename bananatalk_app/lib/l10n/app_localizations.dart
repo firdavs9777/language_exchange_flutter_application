@@ -13736,6 +13736,12 @@ abstract class AppLocalizations {
   /// **'Find your level'**
   String get packTakePlacement;
 
+  /// Shown on the daily pack card when the curated content is not in the learner's target language
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s lessons are in {language}'**
+  String todayContentLanguage(String language);
+
   /// Button label to submit answers on the daily drop quick-check
   ///
   /// In en, this message translates to:

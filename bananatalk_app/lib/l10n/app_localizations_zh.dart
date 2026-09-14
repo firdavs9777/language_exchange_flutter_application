@@ -7368,6 +7368,11 @@ class AppLocalizationsZh extends AppLocalizations {
   String get packTakePlacement => '测测你的水平';
 
   @override
+  String todayContentLanguage(String language) {
+    return '今天的课程为$language';
+  }
+
+  @override
   String get dailyCheck => '检查';
 
   @override
@@ -14952,6 +14957,11 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get packTakePlacement => '測測你的程度';
+
+  @override
+  String todayContentLanguage(String language) {
+    return '今天的課程為$language';
+  }
 
   @override
   String get dailyCheck => '檢查';

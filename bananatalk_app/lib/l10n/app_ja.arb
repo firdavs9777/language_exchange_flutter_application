@@ -3028,6 +3028,15 @@
   "todayPickLanguage": "何を学んでいますか？",
   "todayLevelFallback": "{served}を表示中 — {requested}のコンテンツはまだありません",
   "packTakePlacement": "レベルを判定する",
+  "todayContentLanguage": "今日のレッスンは{language}です",
+  "@todayContentLanguage": {
+    "description": "Shown on the daily pack card when the curated content is not in the learner's target language",
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
   "dailyCheck": "確認",
   "dailyTooEasy": "簡単すぎる",
   "dailyTooHard": "難しすぎる",

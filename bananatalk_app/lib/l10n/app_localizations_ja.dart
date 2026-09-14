@@ -7368,6 +7368,11 @@ class AppLocalizationsJa extends AppLocalizations {
   String get packTakePlacement => 'レベルを判定する';
 
   @override
+  String todayContentLanguage(String language) {
+    return '今日のレッスンは$languageです';
+  }
+
+  @override
   String get dailyCheck => '確認';
 
   @override

@@ -7368,6 +7368,11 @@ class AppLocalizationsTh extends AppLocalizations {
   String get packTakePlacement => 'ค้นหาระดับของคุณ';
 
   @override
+  String todayContentLanguage(String language) {
+    return 'บทเรียนวันนี้เป็นภาษา$language';
+  }
+
+  @override
   String get dailyCheck => 'ตรวจสอบ';
 
   @override

@@ -7375,6 +7375,11 @@ class AppLocalizationsPt extends AppLocalizations {
   String get packTakePlacement => 'Descubra seu nível';
 
   @override
+  String todayContentLanguage(String language) {
+    return 'As lições de hoje estão em $language';
+  }
+
+  @override
   String get dailyCheck => 'Verificar';
 
   @override

@@ -7375,6 +7375,11 @@ class AppLocalizationsTl extends AppLocalizations {
   String get packTakePlacement => 'Alamin ang iyong level';
 
   @override
+  String todayContentLanguage(String language) {
+    return 'Ang mga aralin ngayon ay nasa $language';
+  }
+
+  @override
   String get dailyCheck => 'Suriin';
 
   @override

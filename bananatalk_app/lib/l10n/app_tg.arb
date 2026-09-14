@@ -2521,6 +2521,15 @@
   "todayPickLanguage": "Шумо чиро меомӳзед?",
   "todayLevelFallback": "Намоиши {served} — ҳанӯз мӳҳтавои {requested} нест",
   "packTakePlacement": "Сатҳи худро муайян кунед",
+  "todayContentLanguage": "Дарсҳои имрӯз бо забони {language} мебошанд",
+  "@todayContentLanguage": {
+    "description": "Shown on the daily pack card when the curated content is not in the learner's target language",
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
   "dailyCheck": "Тафтиш кунед",
   "dailyTooEasy": "Хеле осон",
   "dailyTooHard": "Хеле мушкил",

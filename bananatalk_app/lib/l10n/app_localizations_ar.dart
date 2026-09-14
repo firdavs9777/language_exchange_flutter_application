@@ -7384,6 +7384,11 @@ class AppLocalizationsAr extends AppLocalizations {
   String get packTakePlacement => 'حدّد مستواك';
 
   @override
+  String todayContentLanguage(String language) {
+    return 'دروس اليوم بلغة $language';
+  }
+
+  @override
   String get dailyCheck => 'تحقق';
 
   @override
