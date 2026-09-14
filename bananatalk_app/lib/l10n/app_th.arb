@@ -3077,5 +3077,15 @@
   "placementResult": "เราจะเริ่มจากจุดนี้ คุณเปลี่ยนได้ทุกเมื่อ",
   "placementStart": "เริ่มเรียน",
   "packNotGraded": "บันทึกแล้ว — ยังตรวจให้ไม่ได้ตอนนี้",
-  "packSuggestedTranslation": "คำแนะนำ: {translation}"
+  "packSuggestedTranslation": "คำแนะนำ: {translation}",
+  "weeklyReportTitle": "สัปดาห์ของคุณ",
+  "weeklyReportRange": "{start} – {end}",
+  "weeklyReportDays": "วันที่เรียน",
+  "weeklyReportStations": "สถานีที่ทำเสร็จ",
+  "weeklyReportUnits": "บทไวยากรณ์ที่เชี่ยวชาญ",
+  "weeklyReportWords": "คำศัพท์ใหม่",
+  "weeklyReportAccuracy": "ถูกต้อง",
+  "weeklyReportBestDay": "วันที่ดีที่สุดคือ {day} — ทำเสร็จ {count} สถานี",
+  "weeklyReportEmpty": "สัปดาห์นี้ยังไม่ได้เรียน เริ่มแค่วันเดียวก็พอ",
+  "weeklyReportStart": "เริ่มแพ็กของวันนี้"
 }

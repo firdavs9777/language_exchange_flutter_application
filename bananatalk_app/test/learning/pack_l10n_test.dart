@@ -10,12 +10,18 @@ void main() {
       as Map<String, dynamic>;
   final packKeys = en.keys
       .where((k) => !k.startsWith('@'))
+      // Every prefix the daily pack owns. A key outside this list is silently
+      // unguarded, which is how the weeklyReport strings were nearly shipped
+      // untranslated.
       .where((k) =>
-          k.startsWith('pack') || k.startsWith('mastery') || k.startsWith('placement'))
+          k.startsWith('pack') ||
+          k.startsWith('mastery') ||
+          k.startsWith('placement') ||
+          k.startsWith('weeklyReport'))
       .toList();
 
   test('the pack keys exist in app_en.arb', () {
-    expect(packKeys.length, greaterThanOrEqualTo(40));
+    expect(packKeys.length, greaterThanOrEqualTo(50));
   });
 
   test('every pack and mastery key is present in all locales', () {

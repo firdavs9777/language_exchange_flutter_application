@@ -7551,4 +7551,38 @@ class AppLocalizationsTh extends AppLocalizations {
   String packSuggestedTranslation(String translation) {
     return 'คำแนะนำ: $translation';
   }
+
+  @override
+  String get weeklyReportTitle => 'สัปดาห์ของคุณ';
+
+  @override
+  String weeklyReportRange(String start, String end) {
+    return '$start – $end';
+  }
+
+  @override
+  String get weeklyReportDays => 'วันที่เรียน';
+
+  @override
+  String get weeklyReportStations => 'สถานีที่ทำเสร็จ';
+
+  @override
+  String get weeklyReportUnits => 'บทไวยากรณ์ที่เชี่ยวชาญ';
+
+  @override
+  String get weeklyReportWords => 'คำศัพท์ใหม่';
+
+  @override
+  String get weeklyReportAccuracy => 'ถูกต้อง';
+
+  @override
+  String weeklyReportBestDay(String day, int count) {
+    return 'วันที่ดีที่สุดคือ $day — ทำเสร็จ $count สถานี';
+  }
+
+  @override
+  String get weeklyReportEmpty => 'สัปดาห์นี้ยังไม่ได้เรียน เริ่มแค่วันเดียวก็พอ';
+
+  @override
+  String get weeklyReportStart => 'เริ่มแพ็กของวันนี้';
 }

@@ -3107,5 +3107,15 @@
   "placementResult": "سنبدأ من هنا. يمكنك تغييره في أي وقت.",
   "placementStart": "ابدأ التعلّم",
   "packNotGraded": "تم الحفظ — تعذّر تقييمه الآن.",
-  "packSuggestedTranslation": "الاقتراح: {translation}"
+  "packSuggestedTranslation": "الاقتراح: {translation}",
+  "weeklyReportTitle": "أسبوعك",
+  "weeklyReportRange": "{start} – {end}",
+  "weeklyReportDays": "أيام الدراسة",
+  "weeklyReportStations": "محطات مكتملة",
+  "weeklyReportUnits": "وحدات نحوية أتقنتها",
+  "weeklyReportWords": "كلمات جديدة",
+  "weeklyReportAccuracy": "صحيحة",
+  "weeklyReportBestDay": "أفضل أيامك كان {day} — {count} محطات مكتملة",
+  "weeklyReportEmpty": "لا دراسة هذا الأسبوع بعد. يوم واحد يكفي للبداية.",
+  "weeklyReportStart": "ابدأ حزمة اليوم"
 }

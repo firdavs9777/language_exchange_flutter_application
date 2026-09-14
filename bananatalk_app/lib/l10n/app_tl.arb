@@ -3050,5 +3050,15 @@
   "placementResult": "Dito tayo magsisimula. Mababago mo ito anumang oras.",
   "placementStart": "Simulan ang pag-aaral",
   "packNotGraded": "Na-save — hindi namin ito nasuri ngayon.",
-  "packSuggestedTranslation": "Mungkahi: {translation}"
+  "packSuggestedTranslation": "Mungkahi: {translation}",
+  "weeklyReportTitle": "Ang linggo mo",
+  "weeklyReportRange": "{start} – {end}",
+  "weeklyReportDays": "araw ng pag-aaral",
+  "weeklyReportStations": "natapos na istasyon",
+  "weeklyReportUnits": "yunit ng gramatika na nabisado",
+  "weeklyReportWords": "bagong salita",
+  "weeklyReportAccuracy": "tama",
+  "weeklyReportBestDay": "Ang pinakamahusay mong araw ay {day} — {count} istasyon ang natapos",
+  "weeklyReportEmpty": "Wala pang pag-aaral ngayong linggo. Isang araw lang ang kailangan para magsimula.",
+  "weeklyReportStart": "Simulan ang pack ngayong araw"
 }

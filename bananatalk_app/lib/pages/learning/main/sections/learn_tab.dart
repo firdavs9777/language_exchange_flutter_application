@@ -19,6 +19,7 @@ import 'package:bananatalk_app/pages/learning/daily/daily_pack_flow.dart';
 import 'package:bananatalk_app/pages/learning/daily/daily_pack_hero_card.dart';
 import 'package:bananatalk_app/pages/learning/daily/placement/placement_screen.dart';
 import 'package:bananatalk_app/pages/learning/progress/mastery_screen.dart';
+import 'package:bananatalk_app/pages/learning/progress/weekly_report_screen.dart';
 import 'package:bananatalk_app/providers/provider_root/learning/daily_pack_providers.dart';
 import 'package:bananatalk_app/services/learning_service.dart';
 import 'package:bananatalk_app/widgets/language_selection/show_language_picker.dart';
@@ -69,6 +70,15 @@ class LearnTab extends ConsumerWidget {
                               mastery: ref.read(masteryProvider).valueOrNull,
                               onRetakePlacement: () => Navigator.of(context).push(
                                 AppPageRoute(builder: (_) => const PlacementScreen()),
+                              ),
+                              onOpenWeeklyReport: () => Navigator.of(context).push(
+                                AppPageRoute(
+                                  builder: (_) => Consumer(
+                                    builder: (_, r, __) => WeeklyReportScreen(
+                                      report: r.watch(weeklyReportProvider).valueOrNull,
+                                    ),
+                                  ),
+                                ),
                               ),
                             ),
                           ),

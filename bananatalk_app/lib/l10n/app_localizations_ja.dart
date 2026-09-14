@@ -7551,4 +7551,38 @@ class AppLocalizationsJa extends AppLocalizations {
   String packSuggestedTranslation(String translation) {
     return '参考訳：$translation';
   }
+
+  @override
+  String get weeklyReportTitle => '今週の記録';
+
+  @override
+  String weeklyReportRange(String start, String end) {
+    return '$start – $end';
+  }
+
+  @override
+  String get weeklyReportDays => '学習した日数';
+
+  @override
+  String get weeklyReportStations => '終えたステーション';
+
+  @override
+  String get weeklyReportUnits => '習得した文法ユニット';
+
+  @override
+  String get weeklyReportWords => '新しい単語';
+
+  @override
+  String get weeklyReportAccuracy => '正解';
+
+  @override
+  String weeklyReportBestDay(String day, int count) {
+    return '一番できた日は $day。$count ステーション完了';
+  }
+
+  @override
+  String get weeklyReportEmpty => '今週はまだ学習がありません。1 日から始めましょう。';
+
+  @override
+  String get weeklyReportStart => '今日のパックを始める';
 }

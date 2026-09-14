@@ -3107,5 +3107,15 @@
   "placementResult": "Начнём отсюда. Вы можете изменить это в любой момент.",
   "placementStart": "Начать учиться",
   "packNotGraded": "Сохранено — сейчас не удалось проверить.",
-  "packSuggestedTranslation": "Вариант: {translation}"
+  "packSuggestedTranslation": "Вариант: {translation}",
+  "weeklyReportTitle": "Ваша неделя",
+  "weeklyReportRange": "{start} – {end}",
+  "weeklyReportDays": "дней занятий",
+  "weeklyReportStations": "этапов пройдено",
+  "weeklyReportUnits": "разделов грамматики освоено",
+  "weeklyReportWords": "новых слов",
+  "weeklyReportAccuracy": "верно",
+  "weeklyReportBestDay": "Лучший день — {day}: пройдено этапов: {count}",
+  "weeklyReportEmpty": "На этой неделе занятий пока нет. Начать можно с одного дня.",
+  "weeklyReportStart": "Начать сегодняшний набор"
 }

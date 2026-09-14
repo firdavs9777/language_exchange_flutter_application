@@ -3091,5 +3091,15 @@
   "placementResult": "我们就从这里开始。你可以随时修改。",
   "placementStart": "开始学习",
   "packNotGraded": "已保存——暂时无法批改。",
-  "packSuggestedTranslation": "参考：{translation}"
+  "packSuggestedTranslation": "参考：{translation}",
+  "weeklyReportTitle": "你的一周",
+  "weeklyReportRange": "{start} – {end}",
+  "weeklyReportDays": "学习天数",
+  "weeklyReportStations": "完成的环节",
+  "weeklyReportUnits": "掌握的语法单元",
+  "weeklyReportWords": "新词",
+  "weeklyReportAccuracy": "正确率",
+  "weeklyReportBestDay": "你表现最好的一天是 {day}——完成 {count} 个环节",
+  "weeklyReportEmpty": "本周还没有学习。一天就够开个头了。",
+  "weeklyReportStart": "开始今天的学习包"
 }

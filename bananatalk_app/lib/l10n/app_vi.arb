@@ -3077,5 +3077,15 @@
   "placementResult": "Chúng tôi sẽ bắt đầu từ đây. Bạn có thể thay đổi bất cứ lúc nào.",
   "placementStart": "Bắt đầu học",
   "packNotGraded": "Đã lưu — hiện chưa chấm được.",
-  "packSuggestedTranslation": "Gợi ý: {translation}"
+  "packSuggestedTranslation": "Gợi ý: {translation}",
+  "weeklyReportTitle": "Tuần của bạn",
+  "weeklyReportRange": "{start} – {end}",
+  "weeklyReportDays": "ngày đã học",
+  "weeklyReportStations": "chặng đã hoàn thành",
+  "weeklyReportUnits": "bài ngữ pháp đã thuộc",
+  "weeklyReportWords": "từ mới",
+  "weeklyReportAccuracy": "chính xác",
+  "weeklyReportBestDay": "Ngày tốt nhất của bạn là {day} — hoàn thành {count} chặng",
+  "weeklyReportEmpty": "Tuần này bạn chưa học. Chỉ một ngày là đủ để bắt đầu.",
+  "weeklyReportStart": "Bắt đầu gói hôm nay"
 }

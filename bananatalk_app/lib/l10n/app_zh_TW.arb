@@ -2768,5 +2768,15 @@
   "placementResult": "我們就從這裡開始。你可以隨時修改。",
   "placementStart": "開始學習",
   "packNotGraded": "已儲存——暫時無法批改。",
-  "packSuggestedTranslation": "參考：{translation}"
+  "packSuggestedTranslation": "參考：{translation}",
+  "weeklyReportTitle": "你的一週",
+  "weeklyReportRange": "{start} – {end}",
+  "weeklyReportDays": "學習天數",
+  "weeklyReportStations": "完成的環節",
+  "weeklyReportUnits": "掌握的語法單元",
+  "weeklyReportWords": "新詞",
+  "weeklyReportAccuracy": "正確率",
+  "weeklyReportBestDay": "你表現最好的一天是 {day}——完成 {count} 個環節",
+  "weeklyReportEmpty": "本週還沒有學習。一天就夠開個頭了。",
+  "weeklyReportStart": "開始今天的學習包"
 }

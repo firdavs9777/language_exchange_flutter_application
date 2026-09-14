@@ -7559,4 +7559,38 @@ class AppLocalizationsTl extends AppLocalizations {
   String packSuggestedTranslation(String translation) {
     return 'Mungkahi: $translation';
   }
+
+  @override
+  String get weeklyReportTitle => 'Ang linggo mo';
+
+  @override
+  String weeklyReportRange(String start, String end) {
+    return '$start – $end';
+  }
+
+  @override
+  String get weeklyReportDays => 'araw ng pag-aaral';
+
+  @override
+  String get weeklyReportStations => 'natapos na istasyon';
+
+  @override
+  String get weeklyReportUnits => 'yunit ng gramatika na nabisado';
+
+  @override
+  String get weeklyReportWords => 'bagong salita';
+
+  @override
+  String get weeklyReportAccuracy => 'tama';
+
+  @override
+  String weeklyReportBestDay(String day, int count) {
+    return 'Ang pinakamahusay mong araw ay $day — $count istasyon ang natapos';
+  }
+
+  @override
+  String get weeklyReportEmpty => 'Wala pang pag-aaral ngayong linggo. Isang araw lang ang kailangan para magsimula.';
+
+  @override
+  String get weeklyReportStart => 'Simulan ang pack ngayong araw';
 }

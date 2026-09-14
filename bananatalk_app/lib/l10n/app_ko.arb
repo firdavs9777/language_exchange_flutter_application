@@ -3098,5 +3098,15 @@
   "placementResult": "여기서 시작해요. 언제든 바꿀 수 있어요.",
   "placementStart": "학습 시작",
   "packNotGraded": "저장했어요 — 지금은 채점할 수 없었어요.",
-  "packSuggestedTranslation": "제안: {translation}"
+  "packSuggestedTranslation": "제안: {translation}",
+  "weeklyReportTitle": "이번 주 기록",
+  "weeklyReportRange": "{start} – {end}",
+  "weeklyReportDays": "학습한 날",
+  "weeklyReportStations": "완료한 스테이션",
+  "weeklyReportUnits": "익힌 문법 단원",
+  "weeklyReportWords": "새로운 단어",
+  "weeklyReportAccuracy": "정답률",
+  "weeklyReportBestDay": "가장 잘한 날은 {day} — 스테이션 {count}개 완료",
+  "weeklyReportEmpty": "이번 주엔 아직 학습이 없어요. 하루면 시작하기 충분해요.",
+  "weeklyReportStart": "오늘의 팩 시작하기"
 }

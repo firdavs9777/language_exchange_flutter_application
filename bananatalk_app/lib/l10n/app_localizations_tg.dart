@@ -7565,4 +7565,38 @@ class AppLocalizationsTg extends AppLocalizations {
   String packSuggestedTranslation(String translation) {
     return 'Пешниҳод: $translation';
   }
+
+  @override
+  String get weeklyReportTitle => 'Ҳафтаи шумо';
+
+  @override
+  String weeklyReportRange(String start, String end) {
+    return '$start – $end';
+  }
+
+  @override
+  String get weeklyReportDays => 'рӯзҳои таҳсил';
+
+  @override
+  String get weeklyReportStations => 'марҳилаҳои анҷомёфта';
+
+  @override
+  String get weeklyReportUnits => 'воҳидҳои грамматикӣ азхудшуда';
+
+  @override
+  String get weeklyReportWords => 'калимаҳои нав';
+
+  @override
+  String get weeklyReportAccuracy => 'дуруст';
+
+  @override
+  String weeklyReportBestDay(String day, int count) {
+    return 'Беҳтарин рӯзи шумо $day буд — $count марҳила анҷом ёфт';
+  }
+
+  @override
+  String get weeklyReportEmpty => 'Ин ҳафта ҳанӯз таҳсил нашудааст. Як рӯз барои оғоз кифоя аст.';
+
+  @override
+  String get weeklyReportStart => 'Маҷмӯаи имрӯзаро оғоз кунед';
 }

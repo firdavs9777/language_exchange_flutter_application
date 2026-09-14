@@ -304,6 +304,7 @@ class Endpoints {
   static String dailyPackCompleteURL(String station) => 'study/pack/$station/complete';
   static const String placementURL = 'study/placement';
   static const String masteryURL = 'learning/mastery';
+  static const String weeklyReportURL = 'study/weekly-report';
 
   // Lessons
   static const String lessonsURL = 'learning/lessons';

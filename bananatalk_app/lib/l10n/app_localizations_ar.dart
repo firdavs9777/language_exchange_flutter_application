@@ -7569,4 +7569,38 @@ class AppLocalizationsAr extends AppLocalizations {
   String packSuggestedTranslation(String translation) {
     return 'الاقتراح: $translation';
   }
+
+  @override
+  String get weeklyReportTitle => 'أسبوعك';
+
+  @override
+  String weeklyReportRange(String start, String end) {
+    return '$start – $end';
+  }
+
+  @override
+  String get weeklyReportDays => 'أيام الدراسة';
+
+  @override
+  String get weeklyReportStations => 'محطات مكتملة';
+
+  @override
+  String get weeklyReportUnits => 'وحدات نحوية أتقنتها';
+
+  @override
+  String get weeklyReportWords => 'كلمات جديدة';
+
+  @override
+  String get weeklyReportAccuracy => 'صحيحة';
+
+  @override
+  String weeklyReportBestDay(String day, int count) {
+    return 'أفضل أيامك كان $day — $count محطات مكتملة';
+  }
+
+  @override
+  String get weeklyReportEmpty => 'لا دراسة هذا الأسبوع بعد. يوم واحد يكفي للبداية.';
+
+  @override
+  String get weeklyReportStart => 'ابدأ حزمة اليوم';
 }
