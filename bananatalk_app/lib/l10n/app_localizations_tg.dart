@@ -7378,6 +7378,9 @@ class AppLocalizationsTg extends AppLocalizations {
   }
 
   @override
+  String get packTakePlacement => 'Сатҳи худро муайян кунед';
+
+  @override
   String get dailyCheck => 'Тафтиш кунед';
 
   @override

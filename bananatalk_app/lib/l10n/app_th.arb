@@ -3027,6 +3027,7 @@
   "todayMinutes": "{count} นาที",
   "todayPickLanguage": "คุณกำลังเรียนภาษาอะไร?",
   "todayLevelFallback": "กำลังแสดง {served} — ยังไม่มีเนื้อหาสำหรับ {requested}",
+  "packTakePlacement": "ค้นหาระดับของคุณ",
   "dailyCheck": "ตรวจสอบ",
   "dailyTooEasy": "ง่ายเกินไป",
   "dailyTooHard": "ยากเกินไป",

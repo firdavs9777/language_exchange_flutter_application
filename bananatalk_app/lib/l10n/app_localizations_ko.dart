@@ -7365,6 +7365,9 @@ class AppLocalizationsKo extends AppLocalizations {
   }
 
   @override
+  String get packTakePlacement => '내 레벨 찾기';
+
+  @override
   String get dailyCheck => '확인';
 
   @override

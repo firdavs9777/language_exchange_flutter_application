@@ -3027,6 +3027,7 @@
   "todayMinutes": "{count} menit",
   "todayPickLanguage": "Apa yang sedang Anda pelajari?",
   "todayLevelFallback": "Menampilkan {served} — belum ada konten {requested}",
+  "packTakePlacement": "Cari level kamu",
   "dailyCheck": "Periksa",
   "dailyTooEasy": "Terlalu mudah",
   "dailyTooHard": "Terlalu sulit",

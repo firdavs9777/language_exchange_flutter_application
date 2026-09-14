@@ -2718,6 +2718,7 @@
   "todayMinutes": "{count} 分鐘",
   "todayPickLanguage": "你在學什麼？",
   "todayLevelFallback": "正在顯示{served} — 暫無{requested}內容",
+  "packTakePlacement": "測測你的程度",
   "dailyCheck": "檢查",
   "dailyTooEasy": "太簡單",
   "dailyTooHard": "太難",

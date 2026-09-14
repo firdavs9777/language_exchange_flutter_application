@@ -264,6 +264,12 @@ class DailyPack {
   final List<PackStation> stations;
   final bool packComplete;
 
+  /// Whether [requestedLevel] is the learner's own level or the server's A2
+  /// fallback. False means nobody has ever asked them, so the card offers the
+  /// placement test. Defaults to true so an older server that omits the field
+  /// does not nag every learner.
+  final bool levelPlaced;
+
   const DailyPack({
     required this.needsLanguage,
     required this.dateKey,
@@ -275,6 +281,7 @@ class DailyPack {
     this.theme,
     this.stations = const [],
     this.packComplete = false,
+    this.levelPlaced = true,
   });
 
   PackStation? stationOf(String kind) {
@@ -313,6 +320,7 @@ class DailyPack {
             .map((e) => PackStation.fromJson(e as Map<String, dynamic>))
             .toList(),
         packComplete: json['packComplete'] as bool? ?? false,
+        levelPlaced: json['levelPlaced'] as bool? ?? true,
       );
 }
 

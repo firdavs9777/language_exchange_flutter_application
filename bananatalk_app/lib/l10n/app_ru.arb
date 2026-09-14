@@ -3057,6 +3057,7 @@
   "todayMinutes": "{count} мин",
   "todayPickLanguage": "Что вы изучаете?",
   "todayLevelFallback": "Показан {served} — контента для {requested} пока нет",
+  "packTakePlacement": "Определить уровень",
   "dailyCheck": "Проверить",
   "dailyTooEasy": "Слишком легко",
   "dailyTooHard": "Слишком сложно",

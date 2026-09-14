@@ -7372,6 +7372,9 @@ class AppLocalizationsDe extends AppLocalizations {
   }
 
   @override
+  String get packTakePlacement => 'Niveau bestimmen';
+
+  @override
   String get dailyCheck => 'Prüfen';
 
   @override

@@ -3048,6 +3048,7 @@
   "todayMinutes": "{count}분",
   "todayPickLanguage": "무엇을 배우고 있나요?",
   "todayLevelFallback": "{served} 표시 중 — {requested} 콘텐츠가 아직 없습니다",
+  "packTakePlacement": "내 레벨 찾기",
   "dailyCheck": "확인",
   "dailyTooEasy": "너무 쉬움",
   "dailyTooHard": "너무 어려움",

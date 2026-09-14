@@ -3027,6 +3027,7 @@
   "todayMinutes": "{count}分",
   "todayPickLanguage": "何を学んでいますか？",
   "todayLevelFallback": "{served}を表示中 — {requested}のコンテンツはまだありません",
+  "packTakePlacement": "レベルを判定する",
   "dailyCheck": "確認",
   "dailyTooEasy": "簡単すぎる",
   "dailyTooHard": "難しすぎる",

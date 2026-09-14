@@ -7372,6 +7372,9 @@ class AppLocalizationsId extends AppLocalizations {
   }
 
   @override
+  String get packTakePlacement => 'Cari level kamu';
+
+  @override
   String get dailyCheck => 'Periksa';
 
   @override

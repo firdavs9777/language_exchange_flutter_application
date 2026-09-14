@@ -7372,6 +7372,9 @@ class AppLocalizationsTl extends AppLocalizations {
   }
 
   @override
+  String get packTakePlacement => 'Alamin ang iyong level';
+
+  @override
   String get dailyCheck => 'Suriin';
 
   @override

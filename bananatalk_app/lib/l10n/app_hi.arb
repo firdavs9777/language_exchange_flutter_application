@@ -3043,6 +3043,7 @@
   "todayMinutes": "{count} मिनट",
   "todayPickLanguage": "आप क्या सीख रहे हैं?",
   "todayLevelFallback": "{served} दिखाया जा रहा है — {requested} की सामग्री अभी उपलब्ध नहीं है",
+  "packTakePlacement": "अपना स्तर जानें",
   "dailyCheck": "जांचें",
   "dailyTooEasy": "बहुत आसान",
   "dailyTooHard": "बहुत कठिन",

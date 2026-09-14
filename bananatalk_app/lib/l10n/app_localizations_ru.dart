@@ -7384,6 +7384,9 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
+  String get packTakePlacement => 'Определить уровень';
+
+  @override
   String get dailyCheck => 'Проверить';
 
   @override

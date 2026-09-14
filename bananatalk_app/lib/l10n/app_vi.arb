@@ -3027,6 +3027,7 @@
   "todayMinutes": "{count} phút",
   "todayPickLanguage": "Bạn đang học gì?",
   "todayLevelFallback": "Đang hiển thị {served} — chưa có nội dung cho {requested}",
+  "packTakePlacement": "Tìm trình độ của bạn",
   "dailyCheck": "Kiểm tra",
   "dailyTooEasy": "Quá dễ",
   "dailyTooHard": "Quá khó",

@@ -3267,6 +3267,7 @@
   "todayMinutes": "{count} min",
   "todayPickLanguage": "Qu'apprenez-vous ?",
   "todayLevelFallback": "Affichage de {served} — pas encore de contenu pour {requested}",
+  "packTakePlacement": "Trouver mon niveau",
   "dailyCheck": "Vérifier",
   "dailyTooEasy": "Trop facile",
   "dailyTooHard": "Trop difficile",
