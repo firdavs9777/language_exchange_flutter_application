@@ -221,6 +221,48 @@ enum VipPlan {
 
   String toJson() => name;
 
+  /// The App Store Connect product ID for this plan.
+  ///
+  /// This enum and [CoinPack] are the only two places a store product ID is
+  /// spelled out; `test/models/store_product_ids_test.dart` fails if a third
+  /// appears. The IDs were previously duplicated in both purchase services and
+  /// both VIP screens, so a plan could be offered by a screen that its own
+  /// service never queried — which surfaces to the user as "Product not found"
+  /// rather than a paywall.
+  ///
+  /// Changing one of these is a store-console change too, never a refactor.
+  String get iosProductId {
+    switch (this) {
+      case VipPlan.monthly:
+        return 'com.bananatalk.bananatalkApp.vip.month';
+      case VipPlan.quarterly:
+        return 'com.bananatalk.bananatalkApp.vip.quarter';
+      case VipPlan.yearly:
+        return 'com.bananatalk.bananatalkApp.vip.year';
+    }
+  }
+
+  /// The Google Play Console product ID for this plan. The suffixes differ
+  /// from [iosProductId] because that is how they were registered.
+  String get androidProductId {
+    switch (this) {
+      case VipPlan.monthly:
+        return 'com.bananatalk.app.vip.monthly';
+      case VipPlan.quarterly:
+        return 'com.bananatalk.app.vip.quarterly';
+      case VipPlan.yearly:
+        return 'com.bananatalk.app.vip.yearly';
+    }
+  }
+
+  /// Platform-appropriate store product ID, mirroring [CoinPack.productId].
+  String productId(bool isIOS) => isIOS ? iosProductId : androidProductId;
+
+  /// Every VIP product ID for one platform — what the purchase service asks
+  /// the store about at startup.
+  static Set<String> productIdsFor(bool isIOS) =>
+      VipPlan.values.map((p) => p.productId(isIOS)).toSet();
+
   double get price {
     switch (this) {
       case VipPlan.monthly:

@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:in_app_purchase_android/in_app_purchase_android.dart';
+import 'package:bananatalk_app/models/coin_pack.dart';
+import 'package:bananatalk_app/models/vip_subscription.dart';
 
 /// Callback for purchase completion
 typedef PurchaseCallback = void Function(
@@ -31,12 +33,10 @@ class AndroidPurchaseService {
   // Completer for purchase result
   static Completer<PurchaseDetails?>? _purchaseCompleter;
 
-  // Product IDs for VIP subscriptions (must match Google Play Console)
-  static const Set<String> _vipProductIds = {
-    'com.bananatalk.app.vip.monthly',
-    'com.bananatalk.app.vip.quarterly',
-    'com.bananatalk.app.vip.yearly',
-  };
+  /// VIP subscription product IDs (must match Google Play Console).
+  ///
+  /// Derived from [VipPlan] — see the note on the iOS service's copy.
+  static Set<String> get _vipProductIds => VipPlan.productIdsFor(false);
 
   /// Coins v1 (Workstream F) — consumable coin-pack product IDs (must
   /// match Google Play Console). See `lib/models/coin_pack.dart` for the
@@ -45,16 +45,14 @@ class AndroidPurchaseService {
   /// subscription and skip the auto-acknowledge for the former (Task 7
   /// contract — only consume a coin pack after the backend has verified
   /// the receipt and credited coins).
-  static const Set<String> _coinProductIds = {
-    'com.bananatalk.app.coins.100',
-    'com.bananatalk.app.coins.500',
-    'com.bananatalk.app.coins.1500',
-  };
+  static Set<String> get _coinProductIds =>
+      CoinPack.all.map((p) => p.androidProductId).toSet();
 
-  static const Set<String> _productIds = {
-    ..._vipProductIds,
-    ..._coinProductIds,
-  };
+  /// Everything queried from the store in one call.
+  static Set<String> get _productIds => {
+        ..._vipProductIds,
+        ..._coinProductIds,
+      };
 
   static final List<ProductDetails> _products = [];
   static final List<PurchaseDetails> _purchases = [];

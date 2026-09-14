@@ -298,20 +298,7 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
     final isYearly = plan == VipPlan.yearly;
 
     // Use store price when available, otherwise fall back to the plan const.
-    String productId;
-    if (_isIOS) {
-      productId = switch (plan) {
-        VipPlan.monthly => 'com.bananatalk.bananatalkApp.vip.month',
-        VipPlan.quarterly => 'com.bananatalk.bananatalkApp.vip.quarter',
-        VipPlan.yearly => 'com.bananatalk.bananatalkApp.vip.year',
-      };
-    } else {
-      productId = switch (plan) {
-        VipPlan.monthly => 'com.bananatalk.app.vip.monthly',
-        VipPlan.quarterly => 'com.bananatalk.app.vip.quarterly',
-        VipPlan.yearly => 'com.bananatalk.app.vip.yearly',
-      };
-    }
+    final productId = plan.productId(_isIOS);
 
     ProductDetails? product;
     if (_isIOS) {
