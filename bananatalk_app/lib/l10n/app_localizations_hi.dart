@@ -7372,6 +7372,9 @@ class AppLocalizationsHi extends AppLocalizations {
   }
 
   @override
+  String get packTakePlacement => 'अपना स्तर जानें';
+
+  @override
   String get dailyCheck => 'जांचें';
 
   @override

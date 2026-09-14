@@ -2520,6 +2520,7 @@
   "todayMinutes": "{count} дақиқа",
   "todayPickLanguage": "Шумо чиро меомӳзед?",
   "todayLevelFallback": "Намоиши {served} — ҳанӯз мӳҳтавои {requested} нест",
+  "packTakePlacement": "Сатҳи худро муайян кунед",
   "dailyCheck": "Тафтиш кунед",
   "dailyTooEasy": "Хеле осон",
   "dailyTooHard": "Хеле мушкил",

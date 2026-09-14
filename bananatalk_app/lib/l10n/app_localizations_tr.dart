@@ -7372,6 +7372,9 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
+  String get packTakePlacement => 'Seviyeni belirle';
+
+  @override
   String get dailyCheck => 'Kontrol et';
 
   @override

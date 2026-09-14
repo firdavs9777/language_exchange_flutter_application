@@ -4680,6 +4680,10 @@
       }
     }
   },
+  "packTakePlacement": "Find your level",
+  "@packTakePlacement": {
+    "description": "Button on the daily pack card offering the placement test to a learner who has never taken it"
+  },
   "dailyCheck": "Check",
   "@dailyCheck": {
     "description": "Button label to submit answers on the daily drop quick-check"

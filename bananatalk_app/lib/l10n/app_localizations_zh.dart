@@ -7365,6 +7365,9 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
+  String get packTakePlacement => '测测你的水平';
+
+  @override
   String get dailyCheck => '检查';
 
   @override
@@ -14946,6 +14949,9 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String todayLevelFallback(String served, String requested) {
     return '正在顯示$served — 暫無$requested內容';
   }
+
+  @override
+  String get packTakePlacement => '測測你的程度';
 
   @override
   String get dailyCheck => '檢查';

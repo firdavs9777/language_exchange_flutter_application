@@ -7365,6 +7365,9 @@ class AppLocalizationsTh extends AppLocalizations {
   }
 
   @override
+  String get packTakePlacement => 'ค้นหาระดับของคุณ';
+
+  @override
   String get dailyCheck => 'ตรวจสอบ';
 
   @override

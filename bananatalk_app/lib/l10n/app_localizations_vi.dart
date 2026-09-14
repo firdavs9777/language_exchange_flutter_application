@@ -7365,6 +7365,9 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
+  String get packTakePlacement => 'Tìm trình độ của bạn';
+
+  @override
   String get dailyCheck => 'Kiểm tra';
 
   @override

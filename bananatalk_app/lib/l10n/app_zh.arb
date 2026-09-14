@@ -3041,6 +3041,7 @@
   "todayMinutes": "{count} 分钟",
   "todayPickLanguage": "你在学什么？",
   "todayLevelFallback": "正在显示{served} — 暂无{requested}内容",
+  "packTakePlacement": "测测你的水平",
   "dailyCheck": "检查",
   "dailyTooEasy": "太简单",
   "dailyTooHard": "太难",

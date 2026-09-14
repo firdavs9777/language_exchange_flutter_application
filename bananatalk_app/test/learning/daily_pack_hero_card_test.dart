@@ -48,6 +48,7 @@ Widget _host(DailyPack pack,
           onOpen: onOpen ?? () {},
           onPickLanguage: () {},
           onOpenProgress: onProgress ?? () {},
+          onTakePlacement: () {},
         ),
       ),
     );

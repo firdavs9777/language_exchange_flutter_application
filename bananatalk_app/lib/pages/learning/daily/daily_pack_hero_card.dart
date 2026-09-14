@@ -15,12 +15,17 @@ class DailyPackHeroCard extends StatelessWidget {
   final VoidCallback onPickLanguage;
   final VoidCallback onOpenProgress;
 
+  /// Opens the placement test. Offered only when the learner has no level of
+  /// their own — see [DailyPack.levelPlaced].
+  final VoidCallback onTakePlacement;
+
   const DailyPackHeroCard({
     super.key,
     required this.pack,
     required this.onOpen,
     required this.onPickLanguage,
     required this.onOpenProgress,
+    required this.onTakePlacement,
     this.mastery,
   });
 
@@ -110,6 +115,24 @@ class DailyPackHeroCard extends StatelessWidget {
                     child: Text(
                       l10n.todayLevelFallback(pack.servedLevel!, pack.requestedLevel!),
                       style: theme.textTheme.bodySmall,
+                    ),
+                  ),
+                if (!pack.levelPlaced)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 4),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: TextButton.icon(
+                        key: const Key('hero-take-placement'),
+                        onPressed: onTakePlacement,
+                        style: TextButton.styleFrom(
+                          padding: EdgeInsets.zero,
+                          minimumSize: const Size(0, 32),
+                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        ),
+                        icon: const Icon(Icons.straighten, size: 18),
+                        label: Text(l10n.packTakePlacement),
+                      ),
                     ),
                   ),
                 const SizedBox(height: 16),

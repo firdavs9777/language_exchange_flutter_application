@@ -7372,6 +7372,9 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
+  String get packTakePlacement => 'Trouver mon niveau';
+
+  @override
   String get dailyCheck => 'Vérifier';
 
   @override

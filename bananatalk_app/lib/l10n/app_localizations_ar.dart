@@ -7381,6 +7381,9 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
+  String get packTakePlacement => 'حدّد مستواك';
+
+  @override
   String get dailyCheck => 'تحقق';
 
   @override

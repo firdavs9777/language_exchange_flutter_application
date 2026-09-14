@@ -13730,6 +13730,12 @@ abstract class AppLocalizations {
   /// **'Showing {served} — no {requested} content yet'**
   String todayLevelFallback(String served, String requested);
 
+  /// Button on the daily pack card offering the placement test to a learner who has never taken it
+  ///
+  /// In en, this message translates to:
+  /// **'Find your level'**
+  String get packTakePlacement;
+
   /// Button label to submit answers on the daily drop quick-check
   ///
   /// In en, this message translates to:

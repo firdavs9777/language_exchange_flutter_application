@@ -97,6 +97,17 @@ class LearnTab extends ConsumerWidget {
                           // yesterday's numbers.
                           ref.invalidate(learningProgressProvider);
                         }),
+                        onTakePlacement: () => Navigator.of(context)
+                            .push(AppPageRoute(
+                                builder: (_) => const PlacementScreen()))
+                            .then((_) {
+                          if (!context.mounted) return;
+                          // The level the whole pack is built from just
+                          // changed, so the pack and the mastery summary are
+                          // both stale.
+                          ref.invalidate(dailyPackProvider);
+                          ref.invalidate(masteryProvider);
+                        }),
                         onPickLanguage: () => _pickLearningLanguage(context, ref),
                       ),
                     ),

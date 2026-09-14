@@ -37,6 +37,7 @@ void main() {
                     onOpen: () {},
                     onPickLanguage: () {},
                     onOpenProgress: () {},
+                    onTakePlacement: () {},
                   ),
                 ),
           ),

@@ -7378,6 +7378,9 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get packTakePlacement => 'Find your level';
+
+  @override
   String get dailyCheck => 'Check';
 
   @override

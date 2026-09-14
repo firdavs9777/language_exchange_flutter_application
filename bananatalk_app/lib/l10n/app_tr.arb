@@ -3239,6 +3239,7 @@
   "todayMinutes": "{count} dk",
   "todayPickLanguage": "Ne öğreniyorsun?",
   "todayLevelFallback": "{served} gösteriliyor — {requested} için henüz içerik yok",
+  "packTakePlacement": "Seviyeni belirle",
   "dailyCheck": "Kontrol et",
   "dailyTooEasy": "Çok kolay",
   "dailyTooHard": "Çok zor",

@@ -3000,6 +3000,7 @@
   "todayMinutes": "{count} min",
   "todayPickLanguage": "Ano ang natututuhan mo?",
   "todayLevelFallback": "Ipinapakita ang {served} — walang content pa para sa {requested}",
+  "packTakePlacement": "Alamin ang iyong level",
   "dailyCheck": "Suriin",
   "dailyTooEasy": "Sobrang madali",
   "dailyTooHard": "Sobrang hirap",

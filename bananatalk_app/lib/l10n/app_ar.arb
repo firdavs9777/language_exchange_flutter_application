@@ -3057,6 +3057,7 @@
   "todayMinutes": "{count} دقيقة",
   "todayPickLanguage": "ما الذي تتعلمه؟",
   "todayLevelFallback": "عرض {served} — لا يوجد محتوى لـ {requested} بعد",
+  "packTakePlacement": "حدّد مستواك",
   "dailyCheck": "تحقق",
   "dailyTooEasy": "سهل جدًا",
   "dailyTooHard": "صعب جدًا",
