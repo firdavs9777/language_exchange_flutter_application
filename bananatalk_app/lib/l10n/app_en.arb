@@ -4684,6 +4684,15 @@
   "@packTakePlacement": {
     "description": "Button on the daily pack card offering the placement test to a learner who has never taken it"
   },
+  "todayContentLanguage": "Today's lessons are in {language}",
+  "@todayContentLanguage": {
+    "description": "Shown on the daily pack card when the curated content is not in the learner's target language",
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
   "dailyCheck": "Check",
   "@dailyCheck": {
     "description": "Button label to submit answers on the daily drop quick-check"

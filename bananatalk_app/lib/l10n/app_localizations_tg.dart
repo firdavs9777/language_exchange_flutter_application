@@ -7381,6 +7381,11 @@ class AppLocalizationsTg extends AppLocalizations {
   String get packTakePlacement => 'Сатҳи худро муайян кунед';
 
   @override
+  String todayContentLanguage(String language) {
+    return 'Дарсҳои имрӯз бо забони $language мебошанд';
+  }
+
+  @override
   String get dailyCheck => 'Тафтиш кунед';
 
   @override

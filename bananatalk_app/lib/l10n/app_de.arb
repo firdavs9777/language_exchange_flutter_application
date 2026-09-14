@@ -3268,6 +3268,15 @@
   "todayPickLanguage": "Was lernst du?",
   "todayLevelFallback": "Zeige {served} — noch keine Inhalte für {requested}",
   "packTakePlacement": "Niveau bestimmen",
+  "todayContentLanguage": "Die heutigen Lektionen sind auf {language}",
+  "@todayContentLanguage": {
+    "description": "Shown on the daily pack card when the curated content is not in the learner's target language",
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
   "dailyCheck": "Prüfen",
   "dailyTooEasy": "Zu einfach",
   "dailyTooHard": "Zu schwer",

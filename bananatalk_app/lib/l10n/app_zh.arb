@@ -3042,6 +3042,15 @@
   "todayPickLanguage": "你在学什么？",
   "todayLevelFallback": "正在显示{served} — 暂无{requested}内容",
   "packTakePlacement": "测测你的水平",
+  "todayContentLanguage": "今天的课程为{language}",
+  "@todayContentLanguage": {
+    "description": "Shown on the daily pack card when the curated content is not in the learner's target language",
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
   "dailyCheck": "检查",
   "dailyTooEasy": "太简单",
   "dailyTooHard": "太难",

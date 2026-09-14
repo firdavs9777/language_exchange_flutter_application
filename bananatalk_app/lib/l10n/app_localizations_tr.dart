@@ -7375,6 +7375,11 @@ class AppLocalizationsTr extends AppLocalizations {
   String get packTakePlacement => 'Seviyeni belirle';
 
   @override
+  String todayContentLanguage(String language) {
+    return 'Bugünün dersleri $language dilinde';
+  }
+
+  @override
   String get dailyCheck => 'Kontrol et';
 
   @override

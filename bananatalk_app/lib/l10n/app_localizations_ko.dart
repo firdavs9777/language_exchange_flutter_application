@@ -7368,6 +7368,11 @@ class AppLocalizationsKo extends AppLocalizations {
   String get packTakePlacement => '내 레벨 찾기';
 
   @override
+  String todayContentLanguage(String language) {
+    return '오늘의 학습은 $language로 제공됩니다';
+  }
+
+  @override
   String get dailyCheck => '확인';
 
   @override

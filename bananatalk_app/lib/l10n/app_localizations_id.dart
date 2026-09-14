@@ -7375,6 +7375,11 @@ class AppLocalizationsId extends AppLocalizations {
   String get packTakePlacement => 'Cari level kamu';
 
   @override
+  String todayContentLanguage(String language) {
+    return 'Pelajaran hari ini dalam bahasa $language';
+  }
+
+  @override
   String get dailyCheck => 'Periksa';
 
   @override

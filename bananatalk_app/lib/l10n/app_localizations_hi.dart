@@ -7375,6 +7375,11 @@ class AppLocalizationsHi extends AppLocalizations {
   String get packTakePlacement => 'अपना स्तर जानें';
 
   @override
+  String todayContentLanguage(String language) {
+    return 'आज के पाठ $language में हैं';
+  }
+
+  @override
   String get dailyCheck => 'जांचें';
 
   @override

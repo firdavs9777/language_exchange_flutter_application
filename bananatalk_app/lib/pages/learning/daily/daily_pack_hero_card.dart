@@ -117,6 +117,26 @@ class DailyPackHeroCard extends StatelessWidget {
                       style: theme.textTheme.bodySmall,
                     ),
                   ),
+                if (!pack.contentLanguageMatches &&
+                    pack.contentLanguageName != null)
+                  Padding(
+                    key: const Key('today-content-language'),
+                    padding: const EdgeInsets.only(top: 4),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Icon(Icons.translate,
+                            size: 16, color: theme.colorScheme.outline),
+                        const SizedBox(width: 6),
+                        Expanded(
+                          child: Text(
+                            l10n.todayContentLanguage(pack.contentLanguageName!),
+                            style: theme.textTheme.bodySmall,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 if (!pack.levelPlaced)
                   Padding(
                     padding: const EdgeInsets.only(top: 4),
