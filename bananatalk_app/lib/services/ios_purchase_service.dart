@@ -2,6 +2,8 @@ import 'dart:async';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:bananatalk_app/models/coin_pack.dart';
+import 'package:bananatalk_app/models/vip_subscription.dart';
 
 // Callback for purchase completion
 typedef PurchaseCallback = void Function(PurchaseDetails details, bool success, String? error);
@@ -24,12 +26,12 @@ class IOSPurchaseService {
   // Completer for purchase result
   static Completer<PurchaseDetails?>? _purchaseCompleter;
 
-  // Product IDs for VIP subscriptions (must match App Store Connect)
-  static const Set<String> _vipProductIds = {
-    'com.bananatalk.bananatalkApp.vip.month',
-    'com.bananatalk.bananatalkApp.vip.quarter',
-    'com.bananatalk.bananatalkApp.vip.year',
-  };
+  /// VIP subscription product IDs (must match App Store Connect).
+  ///
+  /// Derived from [VipPlan] rather than listed here: a plan the screens can
+  /// offer but this set omits is a product the store is never asked about, so
+  /// the purchase fails with "Product not found".
+  static Set<String> get _vipProductIds => VipPlan.productIdsFor(true);
 
   /// Coins v1 (Workstream F) — consumable coin-pack product IDs (must
   /// match App Store Connect). See `lib/models/coin_pack.dart` for the
@@ -38,16 +40,14 @@ class IOSPurchaseService {
   /// subscription and skip the auto-complete for the former (Task 7
   /// contract — only complete a coin pack after the backend has verified
   /// the receipt and credited coins).
-  static const Set<String> _coinProductIds = {
-    'com.bananatalk.bananatalkApp.coins.100',
-    'com.bananatalk.bananatalkApp.coins.500',
-    'com.bananatalk.bananatalkApp.coins.1500',
-  };
+  static Set<String> get _coinProductIds =>
+      CoinPack.all.map((p) => p.iosProductId).toSet();
 
-  static const Set<String> _productIds = {
-    ..._vipProductIds,
-    ..._coinProductIds,
-  };
+  /// Everything queried from the store in one call.
+  static Set<String> get _productIds => {
+        ..._vipProductIds,
+        ..._coinProductIds,
+      };
 
   static final List<ProductDetails> _products = [];
   static final List<PurchaseDetails> _purchases = [];

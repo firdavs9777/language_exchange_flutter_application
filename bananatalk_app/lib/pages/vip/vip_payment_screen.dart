@@ -135,19 +135,9 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
         throw Exception('Failed to load products from App Store. ${error ?? "Please try again later."}');
       }
 
-      // Get product ID based on plan (must match App Store Connect)
-      String productId;
-      switch (widget.plan) {
-        case VipPlan.monthly:
-          productId = 'com.bananatalk.bananatalkApp.vip.month';
-          break;
-        case VipPlan.quarterly:
-          productId = 'com.bananatalk.bananatalkApp.vip.quarter';
-          break;
-        case VipPlan.yearly:
-          productId = 'com.bananatalk.bananatalkApp.vip.year';
-          break;
-      }
+      // The App Store Connect ID for this plan. Taken from VipPlan so it
+      // cannot drift from the set IOSPurchaseService queried at startup.
+      final productId = widget.plan.iosProductId;
 
       // Verify product exists before attempting purchase
       final product = IOSPurchaseService.getProduct(productId);
@@ -313,19 +303,9 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
             'Failed to load products from Google Play. ${error ?? "Please try again later."}');
       }
 
-      // Get product ID based on plan (must match Google Play Console)
-      String productId;
-      switch (widget.plan) {
-        case VipPlan.monthly:
-          productId = 'com.bananatalk.app.vip.monthly';
-          break;
-        case VipPlan.quarterly:
-          productId = 'com.bananatalk.app.vip.quarterly';
-          break;
-        case VipPlan.yearly:
-          productId = 'com.bananatalk.app.vip.yearly';
-          break;
-      }
+      // The Google Play Console ID for this plan, from VipPlan for the same
+      // reason as the iOS path above.
+      final productId = widget.plan.androidProductId;
 
       // Verify product exists before attempting purchase
       final product = AndroidPurchaseService.getProduct(productId);
