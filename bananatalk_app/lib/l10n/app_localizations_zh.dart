@@ -7551,6 +7551,40 @@ class AppLocalizationsZh extends AppLocalizations {
   String packSuggestedTranslation(String translation) {
     return '参考：$translation';
   }
+
+  @override
+  String get weeklyReportTitle => '你的一周';
+
+  @override
+  String weeklyReportRange(String start, String end) {
+    return '$start – $end';
+  }
+
+  @override
+  String get weeklyReportDays => '学习天数';
+
+  @override
+  String get weeklyReportStations => '完成的环节';
+
+  @override
+  String get weeklyReportUnits => '掌握的语法单元';
+
+  @override
+  String get weeklyReportWords => '新词';
+
+  @override
+  String get weeklyReportAccuracy => '正确率';
+
+  @override
+  String weeklyReportBestDay(String day, int count) {
+    return '你表现最好的一天是 $day——完成 $count 个环节';
+  }
+
+  @override
+  String get weeklyReportEmpty => '本周还没有学习。一天就够开个头了。';
+
+  @override
+  String get weeklyReportStart => '开始今天的学习包';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -15100,4 +15134,38 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String packSuggestedTranslation(String translation) {
     return '參考：$translation';
   }
+
+  @override
+  String get weeklyReportTitle => '你的一週';
+
+  @override
+  String weeklyReportRange(String start, String end) {
+    return '$start – $end';
+  }
+
+  @override
+  String get weeklyReportDays => '學習天數';
+
+  @override
+  String get weeklyReportStations => '完成的環節';
+
+  @override
+  String get weeklyReportUnits => '掌握的語法單元';
+
+  @override
+  String get weeklyReportWords => '新詞';
+
+  @override
+  String get weeklyReportAccuracy => '正確率';
+
+  @override
+  String weeklyReportBestDay(String day, int count) {
+    return '你表現最好的一天是 $day——完成 $count 個環節';
+  }
+
+  @override
+  String get weeklyReportEmpty => '本週還沒有學習。一天就夠開個頭了。';
+
+  @override
+  String get weeklyReportStart => '開始今天的學習包';
 }

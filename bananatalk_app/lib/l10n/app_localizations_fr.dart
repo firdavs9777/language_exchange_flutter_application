@@ -7559,4 +7559,38 @@ class AppLocalizationsFr extends AppLocalizations {
   String packSuggestedTranslation(String translation) {
     return 'Suggestion : $translation';
   }
+
+  @override
+  String get weeklyReportTitle => 'Ta semaine';
+
+  @override
+  String weeklyReportRange(String start, String end) {
+    return '$start – $end';
+  }
+
+  @override
+  String get weeklyReportDays => 'jours étudiés';
+
+  @override
+  String get weeklyReportStations => 'stations terminées';
+
+  @override
+  String get weeklyReportUnits => 'unités de grammaire maîtrisées';
+
+  @override
+  String get weeklyReportWords => 'nouveaux mots';
+
+  @override
+  String get weeklyReportAccuracy => 'correct';
+
+  @override
+  String weeklyReportBestDay(String day, int count) {
+    return 'Ta meilleure journée : $day — $count stations terminées';
+  }
+
+  @override
+  String get weeklyReportEmpty => 'Pas encore d\'étude cette semaine. Un seul jour suffit pour commencer.';
+
+  @override
+  String get weeklyReportStart => 'Commencer le pack du jour';
 }

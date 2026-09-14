@@ -3077,5 +3077,15 @@
   "placementResult": "Kita mulai dari sini. Kamu bisa mengubahnya kapan saja.",
   "placementStart": "Mulai belajar",
   "packNotGraded": "Tersimpan — belum bisa dinilai sekarang.",
-  "packSuggestedTranslation": "Saran: {translation}"
+  "packSuggestedTranslation": "Saran: {translation}",
+  "weeklyReportTitle": "Pekanmu",
+  "weeklyReportRange": "{start} – {end}",
+  "weeklyReportDays": "hari belajar",
+  "weeklyReportStations": "stasiun selesai",
+  "weeklyReportUnits": "unit tata bahasa dikuasai",
+  "weeklyReportWords": "kata baru",
+  "weeklyReportAccuracy": "benar",
+  "weeklyReportBestDay": "Hari terbaikmu adalah {day} — {count} stasiun selesai",
+  "weeklyReportEmpty": "Belum ada belajar pekan ini. Satu hari saja sudah cukup untuk mulai.",
+  "weeklyReportStart": "Mulai paket hari ini"
 }

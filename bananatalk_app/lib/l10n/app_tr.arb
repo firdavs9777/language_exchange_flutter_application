@@ -3289,5 +3289,15 @@
   "placementResult": "Buradan başlıyoruz. Dilediğin zaman değiştirebilirsin.",
   "placementStart": "Öğrenmeye başla",
   "packNotGraded": "Kaydedildi — şu anda değerlendiremedik.",
-  "packSuggestedTranslation": "Öneri: {translation}"
+  "packSuggestedTranslation": "Öneri: {translation}",
+  "weeklyReportTitle": "Haftan",
+  "weeklyReportRange": "{start} – {end}",
+  "weeklyReportDays": "çalışılan gün",
+  "weeklyReportStations": "tamamlanan durak",
+  "weeklyReportUnits": "öğrenilen gramer ünitesi",
+  "weeklyReportWords": "yeni kelime",
+  "weeklyReportAccuracy": "doğru",
+  "weeklyReportBestDay": "En iyi günün {day} — {count} durak tamamlandı",
+  "weeklyReportEmpty": "Bu hafta henüz çalışma yok. Başlamak için bir gün yeter.",
+  "weeklyReportStart": "Bugünün paketini başlat"
 }

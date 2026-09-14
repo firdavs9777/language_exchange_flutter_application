@@ -7,6 +7,7 @@ import 'package:bananatalk_app/models/learning/vocabulary_model.dart';
 import 'package:bananatalk_app/models/learning/vocab_pack_model.dart';
 import 'package:bananatalk_app/models/learning/daily_drop_model.dart';
 import 'package:bananatalk_app/models/learning/daily_pack_model.dart';
+import 'package:bananatalk_app/models/learning/weekly_report_model.dart';
 import 'package:bananatalk_app/models/learning/lesson_model.dart';
 import 'package:bananatalk_app/models/learning/quiz_model.dart';
 import 'package:bananatalk_app/pages/learning/models/weekly_digest.dart';
@@ -1569,6 +1570,18 @@ class LearningService {
       return data['data'] as Map<String, dynamic>;
     }
     throw Exception(_getErrorMessage(data, 'Failed to save your level'));
+  }
+
+  /// The learner's week in the daily pack.
+  static Future<WeeklyReport> getWeeklyReport() async {
+    final token = await _getToken();
+    final url = Uri.parse('${Endpoints.baseURL}${Endpoints.weeklyReportURL}');
+    final response = await http.get(url, headers: _getHeaders(token));
+    final data = _safeJsonDecode(response.body);
+    if (response.statusCode == 200 && data != null && data['data'] != null) {
+      return WeeklyReport.fromJson(data['data'] as Map<String, dynamic>);
+    }
+    throw Exception(_getErrorMessage(data, 'Failed to load your week'));
   }
 
   /// Per-skill mastery summary.

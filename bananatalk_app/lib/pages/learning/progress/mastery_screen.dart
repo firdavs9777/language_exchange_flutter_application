@@ -13,12 +13,14 @@ class MasteryScreen extends StatelessWidget {
   final MasterySummary? mastery;
   final VoidCallback? onRetakePlacement;
   final VoidCallback? onOpenReview;
+  final VoidCallback? onOpenWeeklyReport;
 
   const MasteryScreen({
     super.key,
     this.mastery,
     this.onRetakePlacement,
     this.onOpenReview,
+    this.onOpenWeeklyReport,
   });
 
   @override
@@ -134,6 +136,14 @@ class MasteryScreen extends StatelessWidget {
           Text(l10n.masteryConsistency, style: theme.textTheme.titleSmall),
           const SizedBox(height: 12),
           StreakCalendar(activeDays: m.consistencyDays),
+          if (onOpenWeeklyReport != null) ...[
+            const SizedBox(height: 20),
+            OutlinedButton(
+              key: const Key('mastery-weekly-report'),
+              onPressed: onOpenWeeklyReport,
+              child: Text(l10n.weeklyReportTitle),
+            ),
+          ],
         ],
       ),
     );

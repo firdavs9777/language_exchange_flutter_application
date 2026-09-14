@@ -7551,4 +7551,38 @@ class AppLocalizationsVi extends AppLocalizations {
   String packSuggestedTranslation(String translation) {
     return 'Gợi ý: $translation';
   }
+
+  @override
+  String get weeklyReportTitle => 'Tuần của bạn';
+
+  @override
+  String weeklyReportRange(String start, String end) {
+    return '$start – $end';
+  }
+
+  @override
+  String get weeklyReportDays => 'ngày đã học';
+
+  @override
+  String get weeklyReportStations => 'chặng đã hoàn thành';
+
+  @override
+  String get weeklyReportUnits => 'bài ngữ pháp đã thuộc';
+
+  @override
+  String get weeklyReportWords => 'từ mới';
+
+  @override
+  String get weeklyReportAccuracy => 'chính xác';
+
+  @override
+  String weeklyReportBestDay(String day, int count) {
+    return 'Ngày tốt nhất của bạn là $day — hoàn thành $count chặng';
+  }
+
+  @override
+  String get weeklyReportEmpty => 'Tuần này bạn chưa học. Chỉ một ngày là đủ để bắt đầu.';
+
+  @override
+  String get weeklyReportStart => 'Bắt đầu gói hôm nay';
 }

@@ -14035,6 +14035,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Suggested: {translation}'**
   String packSuggestedTranslation(String translation);
+
+  /// Title of the weekly report screen
+  ///
+  /// In en, this message translates to:
+  /// **'Your week'**
+  String get weeklyReportTitle;
+
+  /// The week the report covers
+  ///
+  /// In en, this message translates to:
+  /// **'{start} – {end}'**
+  String weeklyReportRange(String start, String end);
+
+  /// Label for the days-studied count
+  ///
+  /// In en, this message translates to:
+  /// **'days studied'**
+  String get weeklyReportDays;
+
+  /// Label for the stations-completed count
+  ///
+  /// In en, this message translates to:
+  /// **'stations finished'**
+  String get weeklyReportStations;
+
+  /// Label for units mastered this week
+  ///
+  /// In en, this message translates to:
+  /// **'grammar units mastered'**
+  String get weeklyReportUnits;
+
+  /// Label for words learned this week
+  ///
+  /// In en, this message translates to:
+  /// **'new words'**
+  String get weeklyReportWords;
+
+  /// Label beside the accuracy percentage
+  ///
+  /// In en, this message translates to:
+  /// **'correct'**
+  String get weeklyReportAccuracy;
+
+  /// Highlights the learner's strongest day
+  ///
+  /// In en, this message translates to:
+  /// **'Your best day was {day} — {count} stations finished'**
+  String weeklyReportBestDay(String day, int count);
+
+  /// Empty-week state; invites a start rather than reporting zeroes
+  ///
+  /// In en, this message translates to:
+  /// **'No study yet this week. One day is all it takes to start.'**
+  String get weeklyReportEmpty;
+
+  /// Opens the daily pack from the empty weekly report
+  ///
+  /// In en, this message translates to:
+  /// **'Start today\'s pack'**
+  String get weeklyReportStart;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

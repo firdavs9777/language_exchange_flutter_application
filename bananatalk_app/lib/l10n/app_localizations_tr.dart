@@ -7559,4 +7559,38 @@ class AppLocalizationsTr extends AppLocalizations {
   String packSuggestedTranslation(String translation) {
     return 'Öneri: $translation';
   }
+
+  @override
+  String get weeklyReportTitle => 'Haftan';
+
+  @override
+  String weeklyReportRange(String start, String end) {
+    return '$start – $end';
+  }
+
+  @override
+  String get weeklyReportDays => 'çalışılan gün';
+
+  @override
+  String get weeklyReportStations => 'tamamlanan durak';
+
+  @override
+  String get weeklyReportUnits => 'öğrenilen gramer ünitesi';
+
+  @override
+  String get weeklyReportWords => 'yeni kelime';
+
+  @override
+  String get weeklyReportAccuracy => 'doğru';
+
+  @override
+  String weeklyReportBestDay(String day, int count) {
+    return 'En iyi günün $day — $count durak tamamlandı';
+  }
+
+  @override
+  String get weeklyReportEmpty => 'Bu hafta henüz çalışma yok. Başlamak için bir gün yeter.';
+
+  @override
+  String get weeklyReportStart => 'Bugünün paketini başlat';
 }

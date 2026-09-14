@@ -7551,4 +7551,38 @@ class AppLocalizationsKo extends AppLocalizations {
   String packSuggestedTranslation(String translation) {
     return '제안: $translation';
   }
+
+  @override
+  String get weeklyReportTitle => '이번 주 기록';
+
+  @override
+  String weeklyReportRange(String start, String end) {
+    return '$start – $end';
+  }
+
+  @override
+  String get weeklyReportDays => '학습한 날';
+
+  @override
+  String get weeklyReportStations => '완료한 스테이션';
+
+  @override
+  String get weeklyReportUnits => '익힌 문법 단원';
+
+  @override
+  String get weeklyReportWords => '새로운 단어';
+
+  @override
+  String get weeklyReportAccuracy => '정답률';
+
+  @override
+  String weeklyReportBestDay(String day, int count) {
+    return '가장 잘한 날은 $day — 스테이션 $count개 완료';
+  }
+
+  @override
+  String get weeklyReportEmpty => '이번 주엔 아직 학습이 없어요. 하루면 시작하기 충분해요.';
+
+  @override
+  String get weeklyReportStart => '오늘의 팩 시작하기';
 }

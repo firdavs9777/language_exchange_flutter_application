@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:bananatalk_app/main.dart' show languageProvider;
 import 'package:bananatalk_app/models/learning/daily_pack_model.dart';
+import 'package:bananatalk_app/models/learning/weekly_report_model.dart';
 import 'package:bananatalk_app/services/learning_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -30,4 +31,9 @@ final dailyPackProvider = FutureProvider<DailyPack>((ref) async {
 /// Per-skill mastery for the signed-in learner.
 final masteryProvider = FutureProvider<MasterySummary>((ref) async {
   return LearningService.getMastery();
+});
+
+/// The learner's most recently finished week in the pack.
+final weeklyReportProvider = FutureProvider<WeeklyReport>((ref) async {
+  return LearningService.getWeeklyReport();
 });

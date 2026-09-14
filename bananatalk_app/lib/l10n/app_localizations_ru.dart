@@ -7572,4 +7572,38 @@ class AppLocalizationsRu extends AppLocalizations {
   String packSuggestedTranslation(String translation) {
     return 'Вариант: $translation';
   }
+
+  @override
+  String get weeklyReportTitle => 'Ваша неделя';
+
+  @override
+  String weeklyReportRange(String start, String end) {
+    return '$start – $end';
+  }
+
+  @override
+  String get weeklyReportDays => 'дней занятий';
+
+  @override
+  String get weeklyReportStations => 'этапов пройдено';
+
+  @override
+  String get weeklyReportUnits => 'разделов грамматики освоено';
+
+  @override
+  String get weeklyReportWords => 'новых слов';
+
+  @override
+  String get weeklyReportAccuracy => 'верно';
+
+  @override
+  String weeklyReportBestDay(String day, int count) {
+    return 'Лучший день — $day: пройдено этапов: $count';
+  }
+
+  @override
+  String get weeklyReportEmpty => 'На этой неделе занятий пока нет. Начать можно с одного дня.';
+
+  @override
+  String get weeklyReportStart => 'Начать сегодняшний набор';
 }

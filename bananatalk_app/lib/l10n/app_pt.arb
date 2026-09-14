@@ -3093,5 +3093,15 @@
   "placementResult": "Vamos começar aqui. Você pode mudar quando quiser.",
   "placementStart": "Começar a aprender",
   "packNotGraded": "Salvo — não conseguimos corrigir agora.",
-  "packSuggestedTranslation": "Sugestão: {translation}"
+  "packSuggestedTranslation": "Sugestão: {translation}",
+  "weeklyReportTitle": "Sua semana",
+  "weeklyReportRange": "{start} – {end}",
+  "weeklyReportDays": "dias de estudo",
+  "weeklyReportStations": "etapas concluídas",
+  "weeklyReportUnits": "unidades de gramática dominadas",
+  "weeklyReportWords": "palavras novas",
+  "weeklyReportAccuracy": "correto",
+  "weeklyReportBestDay": "Seu melhor dia foi {day} — {count} etapas concluídas",
+  "weeklyReportEmpty": "Ainda sem estudo esta semana. Um dia já basta para começar.",
+  "weeklyReportStart": "Começar o pacote de hoje"
 }

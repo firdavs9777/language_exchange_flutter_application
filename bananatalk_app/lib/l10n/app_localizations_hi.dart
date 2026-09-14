@@ -7559,4 +7559,38 @@ class AppLocalizationsHi extends AppLocalizations {
   String packSuggestedTranslation(String translation) {
     return 'सुझाव: $translation';
   }
+
+  @override
+  String get weeklyReportTitle => 'आपका सप्ताह';
+
+  @override
+  String weeklyReportRange(String start, String end) {
+    return '$start – $end';
+  }
+
+  @override
+  String get weeklyReportDays => 'पढ़ाई के दिन';
+
+  @override
+  String get weeklyReportStations => 'पूरे किए गए चरण';
+
+  @override
+  String get weeklyReportUnits => 'व्याकरण इकाइयाँ सीखीं';
+
+  @override
+  String get weeklyReportWords => 'नए शब्द';
+
+  @override
+  String get weeklyReportAccuracy => 'सही';
+
+  @override
+  String weeklyReportBestDay(String day, int count) {
+    return 'आपका सबसे अच्छा दिन $day था — $count चरण पूरे';
+  }
+
+  @override
+  String get weeklyReportEmpty => 'इस सप्ताह अभी पढ़ाई नहीं हुई। शुरू करने के लिए एक दिन काफी है।';
+
+  @override
+  String get weeklyReportStart => 'आज का पैक शुरू करें';
 }

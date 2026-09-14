@@ -2570,5 +2570,15 @@
   "placementResult": "Мо аз ин ҷо оғоз мекунем. Шумо метавонед ҳар вақт онро иваз кунед.",
   "placementStart": "Ба омӯзиш шурӯъ кунед",
   "packNotGraded": "Сабт шуд — ҳоло баҳо дода натавонистем.",
-  "packSuggestedTranslation": "Пешниҳод: {translation}"
+  "packSuggestedTranslation": "Пешниҳод: {translation}",
+  "weeklyReportTitle": "Ҳафтаи шумо",
+  "weeklyReportRange": "{start} – {end}",
+  "weeklyReportDays": "рӯзҳои таҳсил",
+  "weeklyReportStations": "марҳилаҳои анҷомёфта",
+  "weeklyReportUnits": "воҳидҳои грамматикӣ азхудшуда",
+  "weeklyReportWords": "калимаҳои нав",
+  "weeklyReportAccuracy": "дуруст",
+  "weeklyReportBestDay": "Беҳтарин рӯзи шумо {day} буд — {count} марҳила анҷом ёфт",
+  "weeklyReportEmpty": "Ин ҳафта ҳанӯз таҳсил нашудааст. Як рӯз барои оғоз кифоя аст.",
+  "weeklyReportStart": "Маҷмӯаи имрӯзаро оғоз кунед"
 }

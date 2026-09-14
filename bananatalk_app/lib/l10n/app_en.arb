@@ -4979,5 +4979,61 @@
         "type": "String"
       }
     }
+  },
+  "weeklyReportTitle": "Your week",
+  "@weeklyReportTitle": {
+    "description": "Title of the weekly report screen"
+  },
+  "weeklyReportRange": "{start} – {end}",
+  "@weeklyReportRange": {
+    "description": "The week the report covers",
+    "placeholders": {
+      "start": {
+        "type": "String"
+      },
+      "end": {
+        "type": "String"
+      }
+    }
+  },
+  "weeklyReportDays": "days studied",
+  "@weeklyReportDays": {
+    "description": "Label for the days-studied count"
+  },
+  "weeklyReportStations": "stations finished",
+  "@weeklyReportStations": {
+    "description": "Label for the stations-completed count"
+  },
+  "weeklyReportUnits": "grammar units mastered",
+  "@weeklyReportUnits": {
+    "description": "Label for units mastered this week"
+  },
+  "weeklyReportWords": "new words",
+  "@weeklyReportWords": {
+    "description": "Label for words learned this week"
+  },
+  "weeklyReportAccuracy": "correct",
+  "@weeklyReportAccuracy": {
+    "description": "Label beside the accuracy percentage"
+  },
+  "weeklyReportBestDay": "Your best day was {day} — {count} stations finished",
+  "@weeklyReportBestDay": {
+    "description": "Highlights the learner's strongest day",
+    "placeholders": {
+      "day": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "weeklyReportEmpty": "No study yet this week. One day is all it takes to start.",
+  "@weeklyReportEmpty": {
+    "description": "Empty-week state; invites a start rather than reporting zeroes"
+  },
+  "weeklyReportStart": "Start today's pack",
+  "@weeklyReportStart": {
+    "description": "Opens the daily pack from the empty weekly report"
   }
 }

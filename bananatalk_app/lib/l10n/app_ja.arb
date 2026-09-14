@@ -3077,5 +3077,15 @@
   "placementResult": "ここから始めます。いつでも変更できます。",
   "placementStart": "学習を始める",
   "packNotGraded": "保存しました。今は採点できませんでした。",
-  "packSuggestedTranslation": "参考訳：{translation}"
+  "packSuggestedTranslation": "参考訳：{translation}",
+  "weeklyReportTitle": "今週の記録",
+  "weeklyReportRange": "{start} – {end}",
+  "weeklyReportDays": "学習した日数",
+  "weeklyReportStations": "終えたステーション",
+  "weeklyReportUnits": "習得した文法ユニット",
+  "weeklyReportWords": "新しい単語",
+  "weeklyReportAccuracy": "正解",
+  "weeklyReportBestDay": "一番できた日は {day}。{count} ステーション完了",
+  "weeklyReportEmpty": "今週はまだ学習がありません。1 日から始めましょう。",
+  "weeklyReportStart": "今日のパックを始める"
 }

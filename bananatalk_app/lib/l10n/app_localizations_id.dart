@@ -7558,4 +7558,38 @@ class AppLocalizationsId extends AppLocalizations {
   String packSuggestedTranslation(String translation) {
     return 'Saran: $translation';
   }
+
+  @override
+  String get weeklyReportTitle => 'Pekanmu';
+
+  @override
+  String weeklyReportRange(String start, String end) {
+    return '$start – $end';
+  }
+
+  @override
+  String get weeklyReportDays => 'hari belajar';
+
+  @override
+  String get weeklyReportStations => 'stasiun selesai';
+
+  @override
+  String get weeklyReportUnits => 'unit tata bahasa dikuasai';
+
+  @override
+  String get weeklyReportWords => 'kata baru';
+
+  @override
+  String get weeklyReportAccuracy => 'benar';
+
+  @override
+  String weeklyReportBestDay(String day, int count) {
+    return 'Hari terbaikmu adalah $day — $count stasiun selesai';
+  }
+
+  @override
+  String get weeklyReportEmpty => 'Belum ada belajar pekan ini. Satu hari saja sudah cukup untuk mulai.';
+
+  @override
+  String get weeklyReportStart => 'Mulai paket hari ini';
 }

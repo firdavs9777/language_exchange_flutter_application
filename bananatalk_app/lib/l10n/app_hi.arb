@@ -3093,5 +3093,15 @@
   "placementResult": "हम यहाँ से शुरू करेंगे। आप इसे कभी भी बदल सकते हैं।",
   "placementStart": "सीखना शुरू करें",
   "packNotGraded": "सहेजा गया — अभी जाँच नहीं हो सकी।",
-  "packSuggestedTranslation": "सुझाव: {translation}"
+  "packSuggestedTranslation": "सुझाव: {translation}",
+  "weeklyReportTitle": "आपका सप्ताह",
+  "weeklyReportRange": "{start} – {end}",
+  "weeklyReportDays": "पढ़ाई के दिन",
+  "weeklyReportStations": "पूरे किए गए चरण",
+  "weeklyReportUnits": "व्याकरण इकाइयाँ सीखीं",
+  "weeklyReportWords": "नए शब्द",
+  "weeklyReportAccuracy": "सही",
+  "weeklyReportBestDay": "आपका सबसे अच्छा दिन {day} था — {count} चरण पूरे",
+  "weeklyReportEmpty": "इस सप्ताह अभी पढ़ाई नहीं हुई। शुरू करने के लिए एक दिन काफी है।",
+  "weeklyReportStart": "आज का पैक शुरू करें"
 }
