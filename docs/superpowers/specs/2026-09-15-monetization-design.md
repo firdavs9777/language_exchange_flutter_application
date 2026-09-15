@@ -86,7 +86,7 @@ Every current allowance is unchanged, plus:
 
 | Capability | Free |
 |---|---|
-| Profile visitors | Count + most recent one; the rest blurred |
+| Profile visitors | Count + most recent visitor; older ones shown blurred with names hidden |
 | Chat translation | 10/day |
 | **New conversations** | **3/day** (replies always unlimited) |
 | Ads | On |
@@ -109,6 +109,28 @@ Capping messages instead was rejected: HelloTalk can cap messages because a bloc
 conversation is replaceable among millions of users. With 796 active users the blocked
 conversation may be the only one that person has, and ~1/3 of signups are already lost
 in the first hour.
+
+### 3.2.1 Cap mechanics — precise definition
+
+Four details a planner would otherwise have to guess:
+
+- **Initiator only.** A conversation start consumes the quota of the user who sends the
+  first message. The recipient's quota is untouched, so a popular user is never rate-limited
+  by other people's interest in them.
+- **Reset boundary: the user's local day**, not UTC. The daily pack uses a UTC `dateKey`
+  because content is global; a personal quota that resets at 09:00 local time would feel
+  arbitrary and punitive. This is a deliberate divergence from `lib/dailyCompletion.js`'s
+  `toDateKey` and needs its own helper.
+- **What counts as a "start":** the first message in a conversation with no prior messages
+  between those two users. Re-opening a dormant conversation is a reply, not a start.
+- **Ad credits expire at the same local-day boundary** and do not accumulate. Watching
+  five ads at midnight does not bank five starts for the week.
+
+### 3.2.2 Tiers
+
+`config/limitations.js` has three tiers: `visitor`, `regular`, `vip`. This design's "free"
+means **both `visitor` and `regular`** — they get the same caps. Splitting them would create
+a middle tier nobody asked for and nobody can buy.
 
 ### 3.3 VIP
 
