@@ -751,6 +751,46 @@
   "newUser": "NEW",
   "warningPermanent": "警告：此操作不可撤銷！",
   "deleteAccountWarning": "刪除帳號將永久刪除：\n\n• 您的個人資料和所有個人數據\n• 所有訊息和對話\n• 所有動態和限時動態\n• VIP訂閱（不退款）\n• 所有關注和粉絲\n\n此操作不可撤銷。",
+  "deletionReasonTitle": "離開之前——能告訴我們原因嗎？",
+  "@deletionReasonTitle": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonOptional": "選填。這能幫我們改進。",
+  "@deletionReasonOptional": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonNoPeople": "找不到可以聊天的人",
+  "@deletionReasonNoPeople": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonNoContent": "沒有我的語言的內容",
+  "@deletionReasonNoContent": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonNotUseful": "和我預期的不一樣",
+  "@deletionReasonNotUseful": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonBugs": "應用程式無法正常使用",
+  "@deletionReasonBugs": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonNotifications": "通知太多",
+  "@deletionReasonNotifications": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonPrivacy": "隱私疑慮",
+  "@deletionReasonPrivacy": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonOther": "其他原因",
+  "@deletionReasonOther": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonHint": "多說一點（選填）",
+  "@deletionReasonHint": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
   "requiredForEmailOnly": "僅電子郵件帳號需要",
   "pleaseEnterPassword": "請輸入密碼",
   "typeDELETE": "輸入DELETE確認",

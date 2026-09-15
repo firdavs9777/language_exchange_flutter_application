@@ -2710,6 +2710,36 @@ class AppLocalizationsFr extends AppLocalizations {
   String get deleteAccountWarning => 'La suppression de votre compte effacera définitivement toutes vos données, messages, moments et connexions. Cette action est irréversible.';
 
   @override
+  String get deletionReasonTitle => 'Avant de partir — pourquoi ?';
+
+  @override
+  String get deletionReasonOptional => 'Facultatif. Cela nous aide à corriger le tir.';
+
+  @override
+  String get deletionReasonNoPeople => 'Je n’ai trouvé personne à qui parler';
+
+  @override
+  String get deletionReasonNoContent => 'Aucun contenu dans ma langue';
+
+  @override
+  String get deletionReasonNotUseful => 'Ce n’est pas ce que j’attendais';
+
+  @override
+  String get deletionReasonBugs => 'L’appli ne fonctionnait pas bien';
+
+  @override
+  String get deletionReasonNotifications => 'Trop de notifications';
+
+  @override
+  String get deletionReasonPrivacy => 'Préoccupations de confidentialité';
+
+  @override
+  String get deletionReasonOther => 'Autre chose';
+
+  @override
+  String get deletionReasonHint => 'Dites-nous en plus (facultatif)';
+
+  @override
   String get requiredForEmailOnly => 'Requis uniquement pour les comptes e-mail';
 
   @override

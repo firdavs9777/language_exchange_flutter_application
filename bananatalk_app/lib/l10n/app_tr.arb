@@ -998,6 +998,46 @@
   "newUser": "Yeni kullanıcı",
   "warningPermanent": "Uyarı: Bu işlem kalıcıdır!",
   "deleteAccountWarning": "Hesabınızı silmek şunları kalıcı olarak kaldırır:\n\n• Profiliniz ve tüm kişisel verileriniz\n• Tüm mesajlarınız ve sohbetleriniz\n• Tüm anlarınız ve hikayeleriniz\n• VIP aboneliğiniz (iade yok)\n• Tüm bağlantılarınız ve takipçileriniz\n\nBu işlem geri alınamaz.",
+  "deletionReasonTitle": "Gitmeden önce — neden?",
+  "@deletionReasonTitle": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonOptional": "İsteğe bağlı. Neyi düzelteceğimizi anlamamıza yardım eder.",
+  "@deletionReasonOptional": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonNoPeople": "Konuşacak kimse bulamadım",
+  "@deletionReasonNoPeople": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonNoContent": "Dilimde içerik yok",
+  "@deletionReasonNoContent": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonNotUseful": "Beklediğim gibi değildi",
+  "@deletionReasonNotUseful": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonBugs": "Uygulama düzgün çalışmadı",
+  "@deletionReasonBugs": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonNotifications": "Çok fazla bildirim",
+  "@deletionReasonNotifications": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonPrivacy": "Gizlilik endişesi",
+  "@deletionReasonPrivacy": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonOther": "Başka bir şey",
+  "@deletionReasonOther": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonHint": "Biraz daha anlat (isteğe bağlı)",
+  "@deletionReasonHint": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
   "requiredForEmailOnly": "Yalnızca e-posta hesapları için gerekli",
   "pleaseEnterPassword": "Lütfen şifrenizi girin",
   "typeDELETE": "DELETE yazın",

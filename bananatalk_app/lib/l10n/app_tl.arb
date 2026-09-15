@@ -722,6 +722,46 @@
   "newUser": "Bagong user",
   "warningPermanent": "Babala: Permanente ang aksyong ito!",
   "deleteAccountWarning": "Ang pagbura ng iyong account ay permanenteng mag-aalis ng:\n\n• Iyong profile at lahat ng personal na data\n• Lahat ng iyong mensahe at usapan\n• Lahat ng iyong mga sandali at story\n• Iyong VIP subscription (walang refund)\n• Lahat ng iyong koneksyon at tagasunod\n\nHindi na maaaring bawiin ang aksyong ito.",
+  "deletionReasonTitle": "Bago ka umalis — bakit?",
+  "@deletionReasonTitle": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonOptional": "Opsyonal. Nakakatulong itong maayos namin ang mali.",
+  "@deletionReasonOptional": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonNoPeople": "Walang nakitang makakausap",
+  "@deletionReasonNoPeople": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonNoContent": "Walang nilalaman sa wika ko",
+  "@deletionReasonNoContent": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonNotUseful": "Hindi ito ang inaasahan ko",
+  "@deletionReasonNotUseful": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonBugs": "Hindi gumana nang maayos ang app",
+  "@deletionReasonBugs": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonNotifications": "Sobrang daming notification",
+  "@deletionReasonNotifications": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonPrivacy": "Alalahanin sa privacy",
+  "@deletionReasonPrivacy": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonOther": "Iba pa",
+  "@deletionReasonOther": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonHint": "Sabihin pa (opsyonal)",
+  "@deletionReasonHint": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
   "requiredForEmailOnly": "Kailangan lang para sa mga email account",
   "pleaseEnterPassword": "Mangyaring ilagay ang iyong password",
   "typeDELETE": "I-type ang DELETE",

@@ -2710,6 +2710,36 @@ class AppLocalizationsId extends AppLocalizations {
   String get deleteAccountWarning => 'Menghapus akun Anda akan menghapus secara permanen:\n\n• Profil dan semua data pribadi Anda\n• Semua pesan dan percakapan Anda\n• Semua momen dan story Anda\n• Langganan VIP Anda (tanpa pengembalian dana)\n• Semua koneksi dan pengikut Anda\n\nTindakan ini tidak dapat dibatalkan.';
 
   @override
+  String get deletionReasonTitle => 'Sebelum pergi — kenapa?';
+
+  @override
+  String get deletionReasonOptional => 'Opsional. Ini membantu kami memperbaikinya.';
+
+  @override
+  String get deletionReasonNoPeople => 'Tidak menemukan orang untuk diajak bicara';
+
+  @override
+  String get deletionReasonNoContent => 'Tidak ada konten dalam bahasa saya';
+
+  @override
+  String get deletionReasonNotUseful => 'Bukan seperti yang saya harapkan';
+
+  @override
+  String get deletionReasonBugs => 'Aplikasinya tidak berfungsi dengan baik';
+
+  @override
+  String get deletionReasonNotifications => 'Terlalu banyak notifikasi';
+
+  @override
+  String get deletionReasonPrivacy => 'Kekhawatiran privasi';
+
+  @override
+  String get deletionReasonOther => 'Lainnya';
+
+  @override
+  String get deletionReasonHint => 'Ceritakan lebih banyak (opsional)';
+
+  @override
   String get requiredForEmailOnly => 'Diperlukan hanya untuk akun email';
 
   @override

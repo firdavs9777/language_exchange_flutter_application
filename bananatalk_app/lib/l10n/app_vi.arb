@@ -562,6 +562,46 @@
   "newUser": "Người dùng mới",
   "warningPermanent": "Cảnh báo: Hành động này là vĩnh viễn!",
   "deleteAccountWarning": "Xóa tài khoản của bạn sẽ xóa vĩnh viễn:\n\n• Hồ sơ và tất cả dữ liệu cá nhân của bạn\n• Tất cả tin nhắn và cuộc trò chuyện của bạn\n• Tất cả khoảnh khắc và story của bạn\n• Đăng ký VIP của bạn (không hoàn tiền)\n• Tất cả kết nối và người theo dõi của bạn\n\nHành động này không thể hoàn tác.",
+  "deletionReasonTitle": "Trước khi bạn đi — vì sao?",
+  "@deletionReasonTitle": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonOptional": "Không bắt buộc. Điều này giúp chúng tôi khắc phục.",
+  "@deletionReasonOptional": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonNoPeople": "Không tìm được người để trò chuyện",
+  "@deletionReasonNoPeople": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonNoContent": "Không có nội dung bằng ngôn ngữ của tôi",
+  "@deletionReasonNoContent": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonNotUseful": "Không như tôi mong đợi",
+  "@deletionReasonNotUseful": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonBugs": "Ứng dụng hoạt động không tốt",
+  "@deletionReasonBugs": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonNotifications": "Quá nhiều thông báo",
+  "@deletionReasonNotifications": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonPrivacy": "Lo ngại về quyền riêng tư",
+  "@deletionReasonPrivacy": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonOther": "Lý do khác",
+  "@deletionReasonOther": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonHint": "Cho chúng tôi biết thêm (không bắt buộc)",
+  "@deletionReasonHint": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
   "requiredForEmailOnly": "Chỉ bắt buộc cho tài khoản email",
   "pleaseEnterPassword": "Vui lòng nhập mật khẩu của bạn",
   "typeDELETE": "Nhập DELETE",

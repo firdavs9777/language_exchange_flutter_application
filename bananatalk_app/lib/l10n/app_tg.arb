@@ -860,6 +860,46 @@
   "newUser": "НАВ",
   "warningPermanent": "Огоҳӣ: Ин амал доимӣ аст!",
   "deleteAccountWarning": "Несткунии ҳисоби шумо ба таври доимӣ инҳоро бармедорад:\n\n• Профили шумо ва ҳамаи маълумоти шахсӣ\n• Ҳамаи паёмҳо ва сӯҳбатҳои шумо\n• Ҳамаи лаҳзаҳо ва сториҳои шумо\n• Обунаи VIP-и шумо (баргардонии пул нест)\n• Ҳамаи робитаҳо ва пайравони шумо\n\nИн амалро баргардонидан мумкин нест.",
+  "deletionReasonTitle": "Пеш аз рафтан — чаро?",
+  "@deletionReasonTitle": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonOptional": "Ихтиёрӣ. Ба мо барои ислоҳ кӯмак мекунад.",
+  "@deletionReasonOptional": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonNoPeople": "Ҳамсӯҳбат наёфтам",
+  "@deletionReasonNoPeople": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonNoContent": "Дар забони ман мавод нест",
+  "@deletionReasonNoContent": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonNotUseful": "Он чизе ки интизор доштам набуд",
+  "@deletionReasonNotUseful": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonBugs": "Барнома дуруст кор накард",
+  "@deletionReasonBugs": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonNotifications": "Огоҳиномаҳо аз ҳад зиёданд",
+  "@deletionReasonNotifications": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonPrivacy": "Нигаронӣ аз махфият",
+  "@deletionReasonPrivacy": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonOther": "Дигар",
+  "@deletionReasonOther": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonHint": "Бештар нависед (ихтиёрӣ)",
+  "@deletionReasonHint": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
   "requiredForEmailOnly": "Танҳо барои ҳисобҳои почтаи электронӣ лозим аст",
   "pleaseEnterPassword": "Лутфан паролро ворид кунед",
   "typeDELETE": "Барои тасдиқ DELETE нависед",

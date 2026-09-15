@@ -2710,6 +2710,36 @@ class AppLocalizationsRu extends AppLocalizations {
   String get deleteAccountWarning => 'Удаление аккаунта навсегда сотрёт все ваши данные, сообщения, моменты и связи. Это действие нельзя отменить.';
 
   @override
+  String get deletionReasonTitle => 'Перед уходом — почему?';
+
+  @override
+  String get deletionReasonOptional => 'Необязательно. Это поможет нам всё исправить.';
+
+  @override
+  String get deletionReasonNoPeople => 'Не нашёл(ла) собеседников';
+
+  @override
+  String get deletionReasonNoContent => 'Нет материалов на моём языке';
+
+  @override
+  String get deletionReasonNotUseful => 'Не то, чего я ожидал(а)';
+
+  @override
+  String get deletionReasonBugs => 'Приложение работало плохо';
+
+  @override
+  String get deletionReasonNotifications => 'Слишком много уведомлений';
+
+  @override
+  String get deletionReasonPrivacy => 'Беспокойство о приватности';
+
+  @override
+  String get deletionReasonOther => 'Другое';
+
+  @override
+  String get deletionReasonHint => 'Расскажите подробнее (необязательно)';
+
+  @override
   String get requiredForEmailOnly => 'Требуется только для аккаунтов с электронной почтой';
 
   @override

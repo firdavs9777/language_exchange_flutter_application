@@ -727,6 +727,46 @@
   "newUser": "Novo usuário",
   "warningPermanent": "Aviso: Esta ação é permanente!",
   "deleteAccountWarning": "Excluir sua conta removerá permanentemente:\n\n• Seu perfil e todos os dados pessoais\n• Todas as suas mensagens e conversas\n• Todos os seus momentos e stories\n• Sua assinatura VIP (sem reembolso)\n• Todas as suas conexões e seguidores\n\nEsta ação não pode ser desfeita.",
+  "deletionReasonTitle": "Antes de sair — por quê?",
+  "@deletionReasonTitle": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonOptional": "Opcional. Ajuda a corrigirmos o que falhou.",
+  "@deletionReasonOptional": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonNoPeople": "Não encontrei pessoas para conversar",
+  "@deletionReasonNoPeople": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonNoContent": "Sem conteúdo no meu idioma",
+  "@deletionReasonNoContent": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonNotUseful": "Não é o que eu esperava",
+  "@deletionReasonNotUseful": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonBugs": "O app não funcionou direito",
+  "@deletionReasonBugs": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonNotifications": "Notificações demais",
+  "@deletionReasonNotifications": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonPrivacy": "Preocupações com privacidade",
+  "@deletionReasonPrivacy": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonOther": "Outro motivo",
+  "@deletionReasonOther": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonHint": "Conte mais (opcional)",
+  "@deletionReasonHint": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
   "requiredForEmailOnly": "Necessário apenas para contas de email",
   "pleaseEnterPassword": "Por favor, digite sua senha",
   "typeDELETE": "Digite DELETE",

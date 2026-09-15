@@ -2710,6 +2710,36 @@ class AppLocalizationsJa extends AppLocalizations {
   String get deleteAccountWarning => 'アカウントを削除すると完全に削除されます：\n\n• プロフィールとすべての個人データ\n• すべてのメッセージと会話\n• すべてのモーメントとストーリー\n• VIPサブスクリプション（返金なし）\n• すべてのフォロワーとフォロー\n\nこの操作は元に戻せません。';
 
   @override
+  String get deletionReasonTitle => '退会の前に — 理由を教えてください';
+
+  @override
+  String get deletionReasonOptional => '任意です。改善に役立てます。';
+
+  @override
+  String get deletionReasonNoPeople => '話せる相手が見つからなかった';
+
+  @override
+  String get deletionReasonNoContent => '自分の言語の教材がない';
+
+  @override
+  String get deletionReasonNotUseful => '期待していたものと違った';
+
+  @override
+  String get deletionReasonBugs => 'アプリが正しく動かなかった';
+
+  @override
+  String get deletionReasonNotifications => '通知が多すぎた';
+
+  @override
+  String get deletionReasonPrivacy => 'プライバシーが心配';
+
+  @override
+  String get deletionReasonOther => 'その他';
+
+  @override
+  String get deletionReasonHint => '詳しく教えてください（任意）';
+
+  @override
   String get requiredForEmailOnly => 'メールアカウントのみ必要';
 
   @override

@@ -5282,6 +5282,66 @@ abstract class AppLocalizations {
   /// **'Deleting your account will permanently remove:\n\n• Your profile and all personal data\n• All your messages and conversations\n• All your moments and stories\n• Your VIP subscription (no refund)\n• All your connections and followers\n\nThis action cannot be undone.'**
   String get deleteAccountWarning;
 
+  /// Optional "why are you leaving" prompt on the account deletion screen
+  ///
+  /// In en, this message translates to:
+  /// **'Before you go — why are you leaving?'**
+  String get deletionReasonTitle;
+
+  /// Optional "why are you leaving" prompt on the account deletion screen
+  ///
+  /// In en, this message translates to:
+  /// **'Optional. It helps us fix what went wrong.'**
+  String get deletionReasonOptional;
+
+  /// Optional "why are you leaving" prompt on the account deletion screen
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t find people to talk with'**
+  String get deletionReasonNoPeople;
+
+  /// Optional "why are you leaving" prompt on the account deletion screen
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing to learn in my language'**
+  String get deletionReasonNoContent;
+
+  /// Optional "why are you leaving" prompt on the account deletion screen
+  ///
+  /// In en, this message translates to:
+  /// **'Not what I expected'**
+  String get deletionReasonNotUseful;
+
+  /// Optional "why are you leaving" prompt on the account deletion screen
+  ///
+  /// In en, this message translates to:
+  /// **'The app didn\'t work properly'**
+  String get deletionReasonBugs;
+
+  /// Optional "why are you leaving" prompt on the account deletion screen
+  ///
+  /// In en, this message translates to:
+  /// **'Too many notifications'**
+  String get deletionReasonNotifications;
+
+  /// Optional "why are you leaving" prompt on the account deletion screen
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy concerns'**
+  String get deletionReasonPrivacy;
+
+  /// Optional "why are you leaving" prompt on the account deletion screen
+  ///
+  /// In en, this message translates to:
+  /// **'Something else'**
+  String get deletionReasonOther;
+
+  /// Optional "why are you leaving" prompt on the account deletion screen
+  ///
+  /// In en, this message translates to:
+  /// **'Tell us more (optional)'**
+  String get deletionReasonHint;
+
   /// No description provided for @requiredForEmailOnly.
   ///
   /// In en, this message translates to:

@@ -560,6 +560,8 @@ class AuthService extends ChangeNotifier {
   Future<Map<String, dynamic>> deleteAccount({
     String? password,
     required String confirmText,
+    String? reason,
+    String? reasonText,
   }) async {
     final url = Uri.parse('${Endpoints.baseURL}auth/me');
 
@@ -573,6 +575,11 @@ class AuthService extends ChangeNotifier {
         body: jsonEncode({
           if (password != null) 'password': password,
           'confirmText': confirmText,
+          // Optional. The server records it and never refuses a deletion over
+          // it, so an unrecognised or absent value costs the user nothing.
+          if (reason != null) 'reason': reason,
+          if (reasonText != null && reasonText.trim().isNotEmpty)
+            'reasonText': reasonText.trim(),
         }),
       );
 

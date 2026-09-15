@@ -9,6 +9,7 @@ import 'package:bananatalk_app/widgets/banana_button.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/pages/settings/widgets/settings_snackbar.dart';
+import 'package:bananatalk_app/pages/settings/deletion_reason_picker.dart';
 
 class DeleteAccountScreen extends ConsumerStatefulWidget {
   final bool isOAuthUser; // Google, Facebook, or Apple user
@@ -40,6 +41,10 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
     _confirmController.dispose();
     super.dispose();
   }
+
+  /// Optional, never required — see DeletionReasonPicker.
+  String? _deletionReason;
+  String _deletionReasonText = '';
 
   Future<void> _deleteAccount() async {
     if (!_formKey.currentState!.validate()) return;
@@ -86,6 +91,8 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
       final result = await ref.read(authServiceProvider).deleteAccount(
             password: widget.isOAuthUser ? null : _passwordController.text,
             confirmText: _confirmController.text,
+            reason: _deletionReason,
+            reasonText: _deletionReasonText,
           );
 
       if (mounted) {
@@ -170,6 +177,18 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
                       ),
                     ],
                   ),
+                ),
+                SizedBox(height: AppSpacing.xxxl),
+                // Asked before the confirmation fields, so it reads as a
+                // question rather than a toll gate on the way out. Optional —
+                // nothing below depends on it.
+                DeletionReasonPicker(
+                  selected: _deletionReason,
+                  onChanged: (v) => setState(() {
+                    _deletionReason = v;
+                    if (v != 'other') _deletionReasonText = '';
+                  }),
+                  onTextChanged: (v) => _deletionReasonText = v,
                 ),
                 SizedBox(height: AppSpacing.xxxl),
                 if (!widget.isOAuthUser) ...[

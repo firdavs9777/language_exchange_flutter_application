@@ -562,6 +562,46 @@
   "newUser": "Pengguna baru",
   "warningPermanent": "Peringatan: Tindakan ini permanen!",
   "deleteAccountWarning": "Menghapus akun Anda akan menghapus secara permanen:\n\n• Profil dan semua data pribadi Anda\n• Semua pesan dan percakapan Anda\n• Semua momen dan story Anda\n• Langganan VIP Anda (tanpa pengembalian dana)\n• Semua koneksi dan pengikut Anda\n\nTindakan ini tidak dapat dibatalkan.",
+  "deletionReasonTitle": "Sebelum pergi — kenapa?",
+  "@deletionReasonTitle": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonOptional": "Opsional. Ini membantu kami memperbaikinya.",
+  "@deletionReasonOptional": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonNoPeople": "Tidak menemukan orang untuk diajak bicara",
+  "@deletionReasonNoPeople": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonNoContent": "Tidak ada konten dalam bahasa saya",
+  "@deletionReasonNoContent": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonNotUseful": "Bukan seperti yang saya harapkan",
+  "@deletionReasonNotUseful": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonBugs": "Aplikasinya tidak berfungsi dengan baik",
+  "@deletionReasonBugs": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonNotifications": "Terlalu banyak notifikasi",
+  "@deletionReasonNotifications": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonPrivacy": "Kekhawatiran privasi",
+  "@deletionReasonPrivacy": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonOther": "Lainnya",
+  "@deletionReasonOther": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonHint": "Ceritakan lebih banyak (opsional)",
+  "@deletionReasonHint": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
   "requiredForEmailOnly": "Diperlukan hanya untuk akun email",
   "pleaseEnterPassword": "Silakan masukkan kata sandi Anda",
   "typeDELETE": "Ketik DELETE",

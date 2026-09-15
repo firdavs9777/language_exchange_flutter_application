@@ -727,6 +727,46 @@
   "newUser": "NEW",
   "warningPermanent": "警告：この操作は元に戻せません！",
   "deleteAccountWarning": "アカウントを削除すると完全に削除されます：\n\n• プロフィールとすべての個人データ\n• すべてのメッセージと会話\n• すべてのモーメントとストーリー\n• VIPサブスクリプション（返金なし）\n• すべてのフォロワーとフォロー\n\nこの操作は元に戻せません。",
+  "deletionReasonTitle": "退会の前に — 理由を教えてください",
+  "@deletionReasonTitle": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonOptional": "任意です。改善に役立てます。",
+  "@deletionReasonOptional": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonNoPeople": "話せる相手が見つからなかった",
+  "@deletionReasonNoPeople": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonNoContent": "自分の言語の教材がない",
+  "@deletionReasonNoContent": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonNotUseful": "期待していたものと違った",
+  "@deletionReasonNotUseful": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonBugs": "アプリが正しく動かなかった",
+  "@deletionReasonBugs": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonNotifications": "通知が多すぎた",
+  "@deletionReasonNotifications": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonPrivacy": "プライバシーが心配",
+  "@deletionReasonPrivacy": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonOther": "その他",
+  "@deletionReasonOther": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonHint": "詳しく教えてください（任意）",
+  "@deletionReasonHint": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
   "requiredForEmailOnly": "メールアカウントのみ必要",
   "pleaseEnterPassword": "パスワードを入力してください",
   "typeDELETE": "DELETEと入力して確認",

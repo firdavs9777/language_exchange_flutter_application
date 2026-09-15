@@ -2710,6 +2710,36 @@ class AppLocalizationsTl extends AppLocalizations {
   String get deleteAccountWarning => 'Ang pagbura ng iyong account ay permanenteng mag-aalis ng:\n\n• Iyong profile at lahat ng personal na data\n• Lahat ng iyong mensahe at usapan\n• Lahat ng iyong mga sandali at story\n• Iyong VIP subscription (walang refund)\n• Lahat ng iyong koneksyon at tagasunod\n\nHindi na maaaring bawiin ang aksyong ito.';
 
   @override
+  String get deletionReasonTitle => 'Bago ka umalis — bakit?';
+
+  @override
+  String get deletionReasonOptional => 'Opsyonal. Nakakatulong itong maayos namin ang mali.';
+
+  @override
+  String get deletionReasonNoPeople => 'Walang nakitang makakausap';
+
+  @override
+  String get deletionReasonNoContent => 'Walang nilalaman sa wika ko';
+
+  @override
+  String get deletionReasonNotUseful => 'Hindi ito ang inaasahan ko';
+
+  @override
+  String get deletionReasonBugs => 'Hindi gumana nang maayos ang app';
+
+  @override
+  String get deletionReasonNotifications => 'Sobrang daming notification';
+
+  @override
+  String get deletionReasonPrivacy => 'Alalahanin sa privacy';
+
+  @override
+  String get deletionReasonOther => 'Iba pa';
+
+  @override
+  String get deletionReasonHint => 'Sabihin pa (opsyonal)';
+
+  @override
   String get requiredForEmailOnly => 'Kailangan lang para sa mga email account';
 
   @override
