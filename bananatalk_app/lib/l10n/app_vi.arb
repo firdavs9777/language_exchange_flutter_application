@@ -322,6 +322,30 @@
   "selectALanguage": "Chọn một ngôn ngữ",
   "languagesAreStillLoading": "Ngôn ngữ vẫn đang tải...",
   "selectNativeLanguage": "Chọn ngôn ngữ mẹ đẻ",
+  "languagesStepTitle": "Ngôn ngữ của bạn",
+  "@languagesStepTitle": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesStepSubtitle": "Chúng tôi ghép bạn với người học chiều ngược lại",
+  "@languagesStepSubtitle": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesISpeak": "Tôi nói",
+  "@languagesISpeak": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesImLearning": "Tôi đang học",
+  "@languagesImLearning": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesSwap": "Hoán đổi",
+  "@languagesSwap": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesChoose": "Chọn ngôn ngữ",
+  "@languagesChoose": {
+    "description": "Combined language step of the signup wizard"
+  },
   "subscriptionDetails": "Chi tiết đăng ký",
   "activeFeatures": "Tính năng đang hoạt động",
   "legalInformation": "Thông tin pháp lý",

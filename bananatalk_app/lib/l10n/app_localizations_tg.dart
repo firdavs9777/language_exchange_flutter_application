@@ -1484,6 +1484,24 @@ class AppLocalizationsTg extends AppLocalizations {
   String get selectNativeLanguage => 'Лутфан забони модарии худро интихоб кунед';
 
   @override
+  String get languagesStepTitle => 'Забонҳои шумо';
+
+  @override
+  String get languagesStepSubtitle => 'Шуморо бо онҳое, ки баръакс меомӯзанд, пайваст мекунем';
+
+  @override
+  String get languagesISpeak => 'Ман ҳарф мезанам';
+
+  @override
+  String get languagesImLearning => 'Ман меомӯзам';
+
+  @override
+  String get languagesSwap => 'Иваз кардан';
+
+  @override
+  String get languagesChoose => 'Забонро интихоб кунед';
+
+  @override
   String get subscriptionDetails => 'Тафсилоти обуна';
 
   @override

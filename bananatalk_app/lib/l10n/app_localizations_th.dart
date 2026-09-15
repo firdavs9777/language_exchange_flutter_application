@@ -1484,6 +1484,24 @@ class AppLocalizationsTh extends AppLocalizations {
   String get selectNativeLanguage => 'เลือกภาษาแม่';
 
   @override
+  String get languagesStepTitle => 'ภาษาของคุณ';
+
+  @override
+  String get languagesStepSubtitle => 'เราจับคู่คุณกับคนที่เรียนสลับกัน';
+
+  @override
+  String get languagesISpeak => 'ฉันพูด';
+
+  @override
+  String get languagesImLearning => 'ฉันกำลังเรียน';
+
+  @override
+  String get languagesSwap => 'สลับ';
+
+  @override
+  String get languagesChoose => 'เลือกภาษา';
+
+  @override
   String get subscriptionDetails => 'รายละเอียดการสมัคร';
 
   @override

@@ -366,6 +366,30 @@
   "selectALanguage": "اختر لغة",
   "languagesAreStillLoading": "جاري تحميل اللغات...",
   "selectNativeLanguage": "اختر لغتك الأم",
+  "languagesStepTitle": "لغاتك",
+  "@languagesStepTitle": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesStepSubtitle": "نطابقك مع من يتعلّم العكس",
+  "@languagesStepSubtitle": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesISpeak": "أتحدث",
+  "@languagesISpeak": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesImLearning": "أتعلّم",
+  "@languagesImLearning": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesSwap": "تبديل",
+  "@languagesSwap": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesChoose": "اختر لغة",
+  "@languagesChoose": {
+    "description": "Combined language step of the signup wizard"
+  },
   "clear": "مسح",
   "apply": "تطبيق",
   "subscriptionDetails": "تفاصيل الاشتراك",

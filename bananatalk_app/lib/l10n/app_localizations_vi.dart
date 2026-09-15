@@ -1484,6 +1484,24 @@ class AppLocalizationsVi extends AppLocalizations {
   String get selectNativeLanguage => 'Chọn ngôn ngữ mẹ đẻ';
 
   @override
+  String get languagesStepTitle => 'Ngôn ngữ của bạn';
+
+  @override
+  String get languagesStepSubtitle => 'Chúng tôi ghép bạn với người học chiều ngược lại';
+
+  @override
+  String get languagesISpeak => 'Tôi nói';
+
+  @override
+  String get languagesImLearning => 'Tôi đang học';
+
+  @override
+  String get languagesSwap => 'Hoán đổi';
+
+  @override
+  String get languagesChoose => 'Chọn ngôn ngữ';
+
+  @override
   String get subscriptionDetails => 'Chi tiết đăng ký';
 
   @override

@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 import 'package:bananatalk_app/pages/authentication/register/register_two/finish_step.dart';
-import 'package:bananatalk_app/pages/authentication/register/register_two/native_language_step.dart';
+import 'package:bananatalk_app/pages/authentication/register/register_two/languages_step.dart';
 import 'package:bananatalk_app/pages/authentication/register/register_two/personal_info_step.dart';
 import 'package:bananatalk_app/pages/authentication/register/register_two/profile_photo_step.dart';
 import 'package:bananatalk_app/pages/authentication/register/registration_progress_service.dart';
@@ -120,7 +120,6 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
   bool _isLoadingLanguages = true;
 
   // Whether languages are already set (returning OAuth user)
-  bool _hasExistingLanguages = false;
 
   // ─── Finish step ─────────────────────────────────────────────────────────
   bool _isFetchingLocation = false;
@@ -163,7 +162,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
     _fetchLanguages();
   }
 
-  /// Derives [_needsPersonalInfo], [_hasExistingLanguages] and [_totalSteps]
+  /// Derives [_needsPersonalInfo] and [_totalSteps]
   /// from the effective (possibly prefilled) fields, and seeds the personal
   /// info controllers so an already-known gender/birth date isn't re-asked.
   void _computeSteps() {
@@ -175,7 +174,6 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
       hasPhoto: _effectiveHasPhoto,
     );
     _needsPersonalInfo = _plan.needsPersonalInfo;
-    _hasExistingLanguages = !_plan.needsLanguages;
     _totalSteps = _plan.totalSteps;
 
     if (_effectiveGender.isNotEmpty) _selectedGender = _effectiveGender;
@@ -347,7 +345,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
   //
   // The searchable bottom-sheet picker now lives inside
   // NativeLanguageStep/LearningLanguageStep themselves (see
-  // register_two/native_language_step.dart), which are handed the opposite
+  // register_two/languages_step.dart), which are handed the opposite
   // selection via `excludeLanguage` and filter it out of the sheet's list
   // *before* it's ever shown. That's the structural fix for the prod bug
   // class where 23 users picked the same language for native and learning
@@ -363,6 +361,23 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
       return;
     }
     setState(() => _nativeLanguage = language);
+  }
+
+  /// Exchange the two languages (and their levels) in one tap.
+  ///
+  /// Safe by construction: the pair was already distinct, so swapping cannot
+  /// produce the duplicate the backend refuses. Having them the wrong way
+  /// round is the commonest correction on this screen, and re-picking both
+  /// costs four taps.
+  void _swapLanguages() {
+    setState(() {
+      final lang = _nativeLanguage;
+      _nativeLanguage = _learningLanguage;
+      _learningLanguage = lang;
+      final level = _nativeLevel;
+      _nativeLevel = _learningLevel;
+      _learningLevel = level;
+    });
   }
 
   void _onLearningLanguageSelected(Language language) {
@@ -773,40 +788,27 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                         onPhotoChanged: (p) => setState(() => _pickedPhoto = p),
                         onContinue: _goToNext,
                       ),
-                    if (!_hasExistingLanguages)
-                      NativeLanguageStep(
-                        selectedLanguage: _nativeLanguage,
-                        selectedLevel: _nativeLevel,
+                    if (_plan.needsLanguages)
+                      LanguagesStep(
+                        nativeLanguage: _nativeLanguage,
+                        learningLanguage: _learningLanguage,
+                        nativeLevel: _nativeLevel,
+                        learningLevel: _learningLevel,
                         isLoadingLanguages: _isLoadingLanguages,
                         allLanguages: _languages,
-                        excludeLanguage: _learningLanguage,
-                        onLanguageSelected: _onNativeLanguageSelected,
-                        onLevelChanged: (level) =>
+                        onNativeSelected: _onNativeLanguageSelected,
+                        onLearningSelected: _onLearningLanguageSelected,
+                        onNativeLevelChanged: (level) =>
                             setState(() => _nativeLevel = level),
-                        onNext: () {
-                          if (_nativeLanguage == null) {
-                            _showError(
-                              AppLocalizations.of(
-                                context,
-                              )!.selectNativeLanguage,
-                            );
-                            return;
-                          }
-                          _goToNext();
-                        },
-                      ),
-                    if (!_hasExistingLanguages)
-                      LearningLanguageStep(
-                        selectedLanguage: _learningLanguage,
-                        selectedLevel: _learningLevel,
-                        isLoadingLanguages: _isLoadingLanguages,
-                        allLanguages: _languages,
-                        excludeLanguage: _nativeLanguage,
-                        onLanguageSelected: _onLearningLanguageSelected,
-                        onLevelChanged: (level) =>
+                        onLearningLevelChanged: (level) =>
                             setState(() => _learningLevel = level),
+                        onSwap: _swapLanguages,
                         onNext: () {
                           final l10n = AppLocalizations.of(context)!;
+                          if (_nativeLanguage == null) {
+                            _showError(l10n.selectNativeLanguage);
+                            return;
+                          }
                           if (_learningLanguage == null) {
                             _showError(l10n.selectLearningLanguage);
                             return;

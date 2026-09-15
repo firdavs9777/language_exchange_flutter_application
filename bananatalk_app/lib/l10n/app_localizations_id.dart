@@ -1484,6 +1484,24 @@ class AppLocalizationsId extends AppLocalizations {
   String get selectNativeLanguage => 'Pilih bahasa ibu';
 
   @override
+  String get languagesStepTitle => 'Bahasamu';
+
+  @override
+  String get languagesStepSubtitle => 'Kami cocokkan kamu dengan yang belajar sebaliknya';
+
+  @override
+  String get languagesISpeak => 'Saya berbicara';
+
+  @override
+  String get languagesImLearning => 'Saya belajar';
+
+  @override
+  String get languagesSwap => 'Tukar';
+
+  @override
+  String get languagesChoose => 'Pilih bahasa';
+
+  @override
   String get subscriptionDetails => 'Detail Langganan';
 
   @override

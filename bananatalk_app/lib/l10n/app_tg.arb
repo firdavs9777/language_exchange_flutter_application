@@ -463,6 +463,30 @@
   "selectALanguage": "Як забонро интихоб кунед",
   "languagesAreStillLoading": "Забонҳо ҳоло бор шуда истодаанд...",
   "selectNativeLanguage": "Лутфан забони модарии худро интихоб кунед",
+  "languagesStepTitle": "Забонҳои шумо",
+  "@languagesStepTitle": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesStepSubtitle": "Шуморо бо онҳое, ки баръакс меомӯзанд, пайваст мекунем",
+  "@languagesStepSubtitle": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesISpeak": "Ман ҳарф мезанам",
+  "@languagesISpeak": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesImLearning": "Ман меомӯзам",
+  "@languagesImLearning": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesSwap": "Иваз кардан",
+  "@languagesSwap": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesChoose": "Забонро интихоб кунед",
+  "@languagesChoose": {
+    "description": "Combined language step of the signup wizard"
+  },
   "subscriptionDetails": "Тафсилоти обуна",
   "activeFeatures": "Имкониятҳои фаъол",
   "legalInformation": "Маълумоти ҳуқуқӣ",

@@ -1484,6 +1484,24 @@ class AppLocalizationsAr extends AppLocalizations {
   String get selectNativeLanguage => 'اختر لغتك الأم';
 
   @override
+  String get languagesStepTitle => 'لغاتك';
+
+  @override
+  String get languagesStepSubtitle => 'نطابقك مع من يتعلّم العكس';
+
+  @override
+  String get languagesISpeak => 'أتحدث';
+
+  @override
+  String get languagesImLearning => 'أتعلّم';
+
+  @override
+  String get languagesSwap => 'تبديل';
+
+  @override
+  String get languagesChoose => 'اختر لغة';
+
+  @override
   String get subscriptionDetails => 'تفاصيل الاشتراك';
 
   @override

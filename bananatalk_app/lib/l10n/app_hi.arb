@@ -354,6 +354,30 @@
   "selectALanguage": "भाषा चुनें",
   "languagesAreStillLoading": "भाषाएं अभी लोड हो रही हैं...",
   "selectNativeLanguage": "मातृभाषा चुनें",
+  "languagesStepTitle": "आपकी भाषाएँ",
+  "@languagesStepTitle": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesStepSubtitle": "हम आपको उल्टा सीखने वालों से जोड़ते हैं",
+  "@languagesStepSubtitle": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesISpeak": "मैं बोलता/बोलती हूँ",
+  "@languagesISpeak": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesImLearning": "मैं सीख रहा/रही हूँ",
+  "@languagesImLearning": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesSwap": "अदला-बदली",
+  "@languagesSwap": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesChoose": "भाषा चुनें",
+  "@languagesChoose": {
+    "description": "Combined language step of the signup wizard"
+  },
   "subscriptionDetails": "सदस्यता विवरण",
   "activeFeatures": "सक्रिय सुविधाएं",
   "legalInformation": "कानूनी जानकारी",

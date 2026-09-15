@@ -366,6 +366,30 @@
   "selectALanguage": "Выберите язык",
   "languagesAreStillLoading": "Загрузка языков...",
   "selectNativeLanguage": "Выберите ваш родной язык",
+  "languagesStepTitle": "Ваши языки",
+  "@languagesStepTitle": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesStepSubtitle": "Подбираем собеседников с обратной парой",
+  "@languagesStepSubtitle": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesISpeak": "Я говорю на",
+  "@languagesISpeak": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesImLearning": "Я изучаю",
+  "@languagesImLearning": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesSwap": "Поменять",
+  "@languagesSwap": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesChoose": "Выберите язык",
+  "@languagesChoose": {
+    "description": "Combined language step of the signup wizard"
+  },
   "clear": "Очистить",
   "apply": "Применить",
   "subscriptionDetails": "Детали подписки",

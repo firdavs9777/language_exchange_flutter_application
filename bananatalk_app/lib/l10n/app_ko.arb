@@ -367,6 +367,30 @@
   "selectALanguage": "언어 선택",
   "languagesAreStillLoading": "언어를 불러오는 중...",
   "selectNativeLanguage": "모국어 선택",
+  "languagesStepTitle": "내 언어",
+  "@languagesStepTitle": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesStepSubtitle": "반대로 배우는 사람과 매칭해 드려요",
+  "@languagesStepSubtitle": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesISpeak": "사용 언어",
+  "@languagesISpeak": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesImLearning": "배우는 언어",
+  "@languagesImLearning": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesSwap": "서로 바꾸기",
+  "@languagesSwap": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesChoose": "언어 선택",
+  "@languagesChoose": {
+    "description": "Combined language step of the signup wizard"
+  },
   "clear": "지우기",
   "apply": "적용",
   "subscriptionDetails": "구독 상세정보",

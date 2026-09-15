@@ -431,6 +431,30 @@
   "selectALanguage": "Bir dil seçin",
   "languagesAreStillLoading": "Diller hâlâ yükleniyor...",
   "selectNativeLanguage": "Ana dili seçin",
+  "languagesStepTitle": "Dillerin",
+  "@languagesStepTitle": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesStepSubtitle": "Seni tersini öğrenenlerle eşleştiriyoruz",
+  "@languagesStepSubtitle": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesISpeak": "Konuştuğum dil",
+  "@languagesISpeak": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesImLearning": "Öğrendiğim dil",
+  "@languagesImLearning": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesSwap": "Yer değiştir",
+  "@languagesSwap": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesChoose": "Bir dil seç",
+  "@languagesChoose": {
+    "description": "Combined language step of the signup wizard"
+  },
   "subscriptionDetails": "Abonelik Detayları",
   "activeFeatures": "Aktif Özellikler",
   "legalInformation": "Yasal Bilgiler",

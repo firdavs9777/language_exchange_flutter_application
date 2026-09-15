@@ -1484,6 +1484,24 @@ class AppLocalizationsHi extends AppLocalizations {
   String get selectNativeLanguage => 'मातृभाषा चुनें';
 
   @override
+  String get languagesStepTitle => 'आपकी भाषाएँ';
+
+  @override
+  String get languagesStepSubtitle => 'हम आपको उल्टा सीखने वालों से जोड़ते हैं';
+
+  @override
+  String get languagesISpeak => 'मैं बोलता/बोलती हूँ';
+
+  @override
+  String get languagesImLearning => 'मैं सीख रहा/रही हूँ';
+
+  @override
+  String get languagesSwap => 'अदला-बदली';
+
+  @override
+  String get languagesChoose => 'भाषा चुनें';
+
+  @override
   String get subscriptionDetails => 'सदस्यता विवरण';
 
   @override

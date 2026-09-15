@@ -431,6 +431,30 @@
   "selectALanguage": "Seleziona una lingua",
   "languagesAreStillLoading": "Le lingue sono ancora in caricamento...",
   "selectNativeLanguage": "Seleziona lingua madre",
+  "languagesStepTitle": "Le tue lingue",
+  "@languagesStepTitle": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesStepSubtitle": "Ti abbiniamo a chi impara il contrario",
+  "@languagesStepSubtitle": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesISpeak": "Parlo",
+  "@languagesISpeak": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesImLearning": "Sto imparando",
+  "@languagesImLearning": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesSwap": "Scambia",
+  "@languagesSwap": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesChoose": "Scegli una lingua",
+  "@languagesChoose": {
+    "description": "Combined language step of the signup wizard"
+  },
   "subscriptionDetails": "Dettagli abbonamento",
   "activeFeatures": "Funzionalità attive",
   "legalInformation": "Informazioni legali",

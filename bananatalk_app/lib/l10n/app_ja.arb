@@ -354,6 +354,30 @@
   "selectALanguage": "言語を選択",
   "languagesAreStillLoading": "言語を読み込み中...",
   "selectNativeLanguage": "母国語を選択",
+  "languagesStepTitle": "あなたの言語",
+  "@languagesStepTitle": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesStepSubtitle": "逆の組み合わせで学ぶ人とマッチングします",
+  "@languagesStepSubtitle": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesISpeak": "話せる言語",
+  "@languagesISpeak": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesImLearning": "学びたい言語",
+  "@languagesImLearning": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesSwap": "入れ替え",
+  "@languagesSwap": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesChoose": "言語を選ぶ",
+  "@languagesChoose": {
+    "description": "Combined language step of the signup wizard"
+  },
   "subscriptionDetails": "サブスクリプション詳細",
   "activeFeatures": "アクティブな機能",
   "legalInformation": "法的情報",

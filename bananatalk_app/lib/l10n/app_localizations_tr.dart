@@ -1484,6 +1484,24 @@ class AppLocalizationsTr extends AppLocalizations {
   String get selectNativeLanguage => 'Ana dili seçin';
 
   @override
+  String get languagesStepTitle => 'Dillerin';
+
+  @override
+  String get languagesStepSubtitle => 'Seni tersini öğrenenlerle eşleştiriyoruz';
+
+  @override
+  String get languagesISpeak => 'Konuştuğum dil';
+
+  @override
+  String get languagesImLearning => 'Öğrendiğim dil';
+
+  @override
+  String get languagesSwap => 'Yer değiştir';
+
+  @override
+  String get languagesChoose => 'Bir dil seç';
+
+  @override
   String get subscriptionDetails => 'Abonelik Detayları';
 
   @override

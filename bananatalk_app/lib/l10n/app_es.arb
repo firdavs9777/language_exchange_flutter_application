@@ -366,6 +366,30 @@
   "selectALanguage": "Selecciona un idioma",
   "languagesAreStillLoading": "Cargando idiomas...",
   "selectNativeLanguage": "Selecciona tu idioma nativo",
+  "languagesStepTitle": "Tus idiomas",
+  "@languagesStepTitle": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesStepSubtitle": "Te emparejamos con quien aprende lo contrario",
+  "@languagesStepSubtitle": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesISpeak": "Hablo",
+  "@languagesISpeak": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesImLearning": "Estoy aprendiendo",
+  "@languagesImLearning": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesSwap": "Intercambiar",
+  "@languagesSwap": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesChoose": "Elige un idioma",
+  "@languagesChoose": {
+    "description": "Combined language step of the signup wizard"
+  },
   "clear": "Limpiar",
   "apply": "Aplicar",
   "subscriptionDetails": "Detalles de suscripción",
