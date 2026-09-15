@@ -25,14 +25,18 @@ class RegistrationSteps {
   int get totalSteps =>
       (needsPersonalInfo ? 1 : 0) +
       (needsPhoto ? 1 : 0) +
-      (needsLanguages ? 2 : 0) +
+      (needsLanguages ? 1 : 0) +
       1; // Finish is always shown
 
-  /// Page order: [PersonalInfo?] -> [Photo?] -> [Native, Learning]? -> Finish
+  /// Page order: [PersonalInfo?] -> [Photo?] -> [Languages?] -> Finish
+  ///
+  /// Native and learning share one page (LanguagesStep). They used to be two,
+  /// which made this the longest part of the wizard for exactly the signups
+  /// that were already abandoning it.
   List<String> get labels => [
         if (needsPersonalInfo) 'About you',
         if (needsPhoto) 'Photo',
-        if (needsLanguages) ...['Native language', 'Learning language'],
+        if (needsLanguages) 'Languages',
         'Finish',
       ];
 

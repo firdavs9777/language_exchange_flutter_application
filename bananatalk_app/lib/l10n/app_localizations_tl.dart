@@ -1484,6 +1484,24 @@ class AppLocalizationsTl extends AppLocalizations {
   String get selectNativeLanguage => 'Piliin ang katutubong wika';
 
   @override
+  String get languagesStepTitle => 'Ang iyong mga wika';
+
+  @override
+  String get languagesStepSubtitle => 'Ipapares ka namin sa natututo ng kabaliktaran';
+
+  @override
+  String get languagesISpeak => 'Nagsasalita ako ng';
+
+  @override
+  String get languagesImLearning => 'Natututo ako ng';
+
+  @override
+  String get languagesSwap => 'Palitan';
+
+  @override
+  String get languagesChoose => 'Pumili ng wika';
+
+  @override
   String get subscriptionDetails => 'Mga Detalye ng Subscription';
 
   @override

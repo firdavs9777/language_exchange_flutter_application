@@ -323,6 +323,30 @@
   "selectALanguage": "Pumili ng wika",
   "languagesAreStillLoading": "Naglo-load pa ang mga wika...",
   "selectNativeLanguage": "Piliin ang katutubong wika",
+  "languagesStepTitle": "Ang iyong mga wika",
+  "@languagesStepTitle": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesStepSubtitle": "Ipapares ka namin sa natututo ng kabaliktaran",
+  "@languagesStepSubtitle": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesISpeak": "Nagsasalita ako ng",
+  "@languagesISpeak": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesImLearning": "Natututo ako ng",
+  "@languagesImLearning": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesSwap": "Palitan",
+  "@languagesSwap": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesChoose": "Pumili ng wika",
+  "@languagesChoose": {
+    "description": "Combined language step of the signup wizard"
+  },
   "subscriptionDetails": "Mga Detalye ng Subscription",
   "activeFeatures": "Mga Aktibong Feature",
   "legalInformation": "Legal na Impormasyon",

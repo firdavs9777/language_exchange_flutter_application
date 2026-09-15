@@ -1484,6 +1484,24 @@ class AppLocalizationsZh extends AppLocalizations {
   String get selectNativeLanguage => '选择您的母语';
 
   @override
+  String get languagesStepTitle => '你的语言';
+
+  @override
+  String get languagesStepSubtitle => '我们为你匹配学习相反组合的人';
+
+  @override
+  String get languagesISpeak => '我会说';
+
+  @override
+  String get languagesImLearning => '我在学';
+
+  @override
+  String get languagesSwap => '互换';
+
+  @override
+  String get languagesChoose => '选择语言';
+
+  @override
   String get subscriptionDetails => '订阅详情';
 
   @override
@@ -9073,6 +9091,24 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get selectNativeLanguage => '選擇母語';
+
+  @override
+  String get languagesStepTitle => '你的語言';
+
+  @override
+  String get languagesStepSubtitle => '我們為你配對學習相反組合的人';
+
+  @override
+  String get languagesISpeak => '我會說';
+
+  @override
+  String get languagesImLearning => '我在學';
+
+  @override
+  String get languagesSwap => '互換';
+
+  @override
+  String get languagesChoose => '選擇語言';
 
   @override
   String get subscriptionDetails => '訂閱詳情';

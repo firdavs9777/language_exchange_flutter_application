@@ -366,6 +366,30 @@
   "selectALanguage": "选择语言",
   "languagesAreStillLoading": "正在加载语言...",
   "selectNativeLanguage": "选择您的母语",
+  "languagesStepTitle": "你的语言",
+  "@languagesStepTitle": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesStepSubtitle": "我们为你匹配学习相反组合的人",
+  "@languagesStepSubtitle": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesISpeak": "我会说",
+  "@languagesISpeak": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesImLearning": "我在学",
+  "@languagesImLearning": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesSwap": "互换",
+  "@languagesSwap": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesChoose": "选择语言",
+  "@languagesChoose": {
+    "description": "Combined language step of the signup wizard"
+  },
   "clear": "清除",
   "apply": "应用",
   "subscriptionDetails": "订阅详情",

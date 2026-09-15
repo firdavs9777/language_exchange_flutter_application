@@ -1484,6 +1484,24 @@ class AppLocalizationsEn extends AppLocalizations {
   String get selectNativeLanguage => 'Please select your native language';
 
   @override
+  String get languagesStepTitle => 'Your languages';
+
+  @override
+  String get languagesStepSubtitle => 'We match you with people learning the reverse';
+
+  @override
+  String get languagesISpeak => 'I speak';
+
+  @override
+  String get languagesImLearning => 'I\'m learning';
+
+  @override
+  String get languagesSwap => 'Swap';
+
+  @override
+  String get languagesChoose => 'Choose a language';
+
+  @override
   String get subscriptionDetails => 'Subscription Details';
 
   @override

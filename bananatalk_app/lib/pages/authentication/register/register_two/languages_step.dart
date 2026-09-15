@@ -17,226 +17,7 @@ import 'package:flutter/services.dart';
 /// (if any) is excluded from this list, mirroring the backend rule that
 /// native != learning. This is the fix for the prod bug class where users
 /// picked the same language for both and the backend silently 400'd.
-class NativeLanguageStep extends StatelessWidget {
-  final Language? selectedLanguage;
-  final String? selectedLevel;
-  final bool isLoadingLanguages;
-  final List<Language> allLanguages;
-  final Language? excludeLanguage;
-  final ValueChanged<Language> onLanguageSelected;
-  final ValueChanged<String> onLevelChanged;
-  final VoidCallback onNext;
-
-  const NativeLanguageStep({
-    super.key,
-    required this.selectedLanguage,
-    required this.selectedLevel,
-    required this.isLoadingLanguages,
-    required this.allLanguages,
-    required this.excludeLanguage,
-    required this.onLanguageSelected,
-    required this.onLevelChanged,
-    required this.onNext,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-    return _LanguageStepBody(
-      title: l10n.whatsYourNativeLanguage,
-      subtitle: l10n.helpsMatchWithLearners,
-      selectedLanguage: selectedLanguage,
-      selectedLevel: selectedLevel,
-      isNative: true,
-      isLoadingLanguages: isLoadingLanguages,
-      allLanguages: allLanguages,
-      excludeLanguage: excludeLanguage,
-      onLanguageSelected: onLanguageSelected,
-      onLevelChanged: onLevelChanged,
-      onNext: onNext,
-    );
-  }
-}
-
-/// Step where the user picks the language they are learning and their
-/// current proficiency level (required before advancing).
-///
-/// The picker sheet opened from here excludes [excludeLanguage] (the native
-/// language), mirroring the backend rule and preventing the class of prod
-/// bug where a user picked the same language for both fields.
-class LearningLanguageStep extends StatelessWidget {
-  final Language? selectedLanguage;
-  final String? selectedLevel;
-  final bool isLoadingLanguages;
-  final List<Language> allLanguages;
-  final Language? excludeLanguage;
-  final ValueChanged<Language> onLanguageSelected;
-  final ValueChanged<String> onLevelChanged;
-  final VoidCallback onNext;
-
-  const LearningLanguageStep({
-    super.key,
-    required this.selectedLanguage,
-    required this.selectedLevel,
-    required this.isLoadingLanguages,
-    required this.allLanguages,
-    required this.excludeLanguage,
-    required this.onLanguageSelected,
-    required this.onLevelChanged,
-    required this.onNext,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-    return _LanguageStepBody(
-      title: l10n.whatAreYouLearning,
-      subtitle: l10n.connectWithNativeSpeakers,
-      selectedLanguage: selectedLanguage,
-      selectedLevel: selectedLevel,
-      isNative: false,
-      isLoadingLanguages: isLoadingLanguages,
-      allLanguages: allLanguages,
-      excludeLanguage: excludeLanguage,
-      onLanguageSelected: onLanguageSelected,
-      onLevelChanged: onLevelChanged,
-      onNext: onNext,
-    );
-  }
-}
-
-// ─── Shared body ────────────────────────────────────────────────────────────
-
 const List<String> _cefrLevels = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
-
-class _LanguageStepBody extends StatelessWidget {
-  final String title;
-  final String subtitle;
-  final Language? selectedLanguage;
-  final String? selectedLevel;
-  final bool isNative;
-  final bool isLoadingLanguages;
-  final List<Language> allLanguages;
-  final Language? excludeLanguage;
-  final ValueChanged<Language> onLanguageSelected;
-  final ValueChanged<String> onLevelChanged;
-  final VoidCallback onNext;
-
-  const _LanguageStepBody({
-    required this.title,
-    required this.subtitle,
-    required this.selectedLanguage,
-    required this.selectedLevel,
-    required this.isNative,
-    required this.isLoadingLanguages,
-    required this.allLanguages,
-    required this.excludeLanguage,
-    required this.onLanguageSelected,
-    required this.onLevelChanged,
-    required this.onNext,
-  });
-
-  Future<void> _openPicker(BuildContext context) async {
-    if (isLoadingLanguages || allLanguages.isEmpty) return;
-    // CRITICAL GUARD: exclude the language already chosen on the other side
-    // (native excludes learning, learning excludes native). This mirrors the
-    // backend's rejection rule and prevents users from ever being able to
-    // pick the same language twice — the root cause of the 23-user stuck
-    // cohort where the backend silently 400'd on save.
-    final selectable = excludeLanguage == null
-        ? allLanguages
-        : allLanguages
-            .where((lang) => lang.code != excludeLanguage!.code)
-            .toList();
-
-    final result = await showModalBottomSheet<Language>(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      builder: (sheetContext) => _LanguagePickerSheet(
-        languages: selectable,
-        selectedLanguage: selectedLanguage,
-      ),
-    );
-
-    if (result != null) {
-      onLanguageSelected(result);
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-
-    return SingleChildScrollView(
-      physics: const BouncingScrollPhysics(),
-      padding: const EdgeInsets.symmetric(horizontal: 24),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(height: 24),
-
-          Text(
-            title,
-            style: TextStyle(
-              fontSize: 28,
-              fontWeight: FontWeight.w800,
-              color: context.textPrimary,
-              letterSpacing: -0.5,
-            ),
-          ),
-          const SizedBox(height: 6),
-          Text(
-            subtitle,
-            style: TextStyle(fontSize: 15, color: context.textSecondary),
-          ),
-
-          const SizedBox(height: 32),
-
-          _LanguageCard(
-            selectedLanguage: selectedLanguage,
-            isLoadingLanguages: isLoadingLanguages,
-            onTap: () => _openPicker(context),
-          ),
-
-          if (selectedLanguage != null) ...[
-            const SizedBox(height: 28),
-            Text(
-              isNative
-                  ? l10n.yourLevelIn(selectedLanguage!.name)
-                  : l10n.yourCurrentLevel,
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w700,
-                color: context.textPrimary,
-              ),
-            ),
-            const SizedBox(height: 12),
-            ..._cefrLevels.map(
-              (level) => _LevelTile(
-                level: level,
-                isSelected: selectedLevel == level,
-                onTap: () {
-                  HapticFeedback.selectionClick();
-                  onLevelChanged(level);
-                },
-              ),
-            ),
-          ],
-
-          const SizedBox(height: 32),
-
-          AuthGradientButton(
-            label: l10n.continueButton,
-            onPressed: onNext,
-          ),
-
-          const SizedBox(height: 40),
-        ],
-      ),
-    );
-  }
-}
 
 class _LanguageCard extends StatelessWidget {
   final Language? selectedLanguage;
@@ -622,6 +403,330 @@ class _LanguagePickerSheetState extends State<_LanguagePickerSheet> {
           ),
         );
       },
+    );
+  }
+}
+
+/// Both language choices on one screen.
+///
+/// Replaces the separate native/learning pages. The wizard is where Apple and
+/// Google signups are lost — 301 blank accounts on prod, 282 of 298 never
+/// returning — and these were the last two pages of it, asking one question
+/// each. Together they read as a single idea: the pair that gets you matched.
+///
+/// The exclusion guard is unchanged and load-bearing: each side's picker is
+/// given the other side's language to exclude, so the same language can never
+/// be chosen twice. The backend refuses that pair, and a picker that allowed
+/// it produced an earlier cohort stuck on a silent 400.
+///
+/// Validation stays with the parent, which owns the error copy and already
+/// distinguishes "no language" from "no level".
+class LanguagesStep extends StatelessWidget {
+  final Language? nativeLanguage;
+  final Language? learningLanguage;
+  final String? nativeLevel;
+  final String? learningLevel;
+  final bool isLoadingLanguages;
+  final List<Language> allLanguages;
+  final ValueChanged<Language> onNativeSelected;
+  final ValueChanged<Language> onLearningSelected;
+  final ValueChanged<String> onNativeLevelChanged;
+  final ValueChanged<String> onLearningLevelChanged;
+  final VoidCallback onSwap;
+  final VoidCallback onNext;
+
+  const LanguagesStep({
+    super.key,
+    required this.nativeLanguage,
+    required this.learningLanguage,
+    required this.nativeLevel,
+    required this.learningLevel,
+    required this.isLoadingLanguages,
+    required this.allLanguages,
+    required this.onNativeSelected,
+    required this.onLearningSelected,
+    required this.onNativeLevelChanged,
+    required this.onLearningLevelChanged,
+    required this.onSwap,
+    required this.onNext,
+  });
+
+  Future<void> _pick(
+    BuildContext context, {
+    required Language? exclude,
+    required ValueChanged<Language> onSelected,
+    required Language? current,
+  }) async {
+    if (isLoadingLanguages || allLanguages.isEmpty) return;
+    final selectable = exclude == null
+        ? allLanguages
+        : allLanguages.where((l) => l.code != exclude.code).toList();
+
+    final result = await showModalBottomSheet<Language>(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (sheetContext) => _LanguagePickerSheet(
+        languages: selectable,
+        selectedLanguage: current,
+      ),
+    );
+    if (result != null) onSelected(result);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final bothChosen = nativeLanguage != null && learningLanguage != null;
+
+    return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
+      padding: const EdgeInsets.symmetric(horizontal: 24),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 24),
+          Text(
+            l10n.languagesStepTitle,
+            style: TextStyle(
+              fontSize: 28,
+              fontWeight: FontWeight.w800,
+              color: context.textPrimary,
+              letterSpacing: -0.5,
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            l10n.languagesStepSubtitle,
+            style: TextStyle(fontSize: 15, color: context.textSecondary),
+          ),
+          const SizedBox(height: 28),
+
+          _LanguageSide(
+            cardKey: const Key('languages-native-card'),
+            levelKeyPrefix: 'native',
+            label: l10n.languagesISpeak,
+            language: nativeLanguage,
+            level: nativeLevel,
+            levelLabel: nativeLanguage == null
+                ? null
+                : l10n.yourLevelIn(nativeLanguage!.name),
+            isLoadingLanguages: isLoadingLanguages,
+            onTap: () => _pick(
+              context,
+              exclude: learningLanguage,
+              current: nativeLanguage,
+              onSelected: onNativeSelected,
+            ),
+            onLevelChanged: onNativeLevelChanged,
+          ),
+
+          // The connector doubles as the swap control once both sides are
+          // set — the commonest correction on this screen is having them the
+          // wrong way round, and re-picking both costs four taps.
+          _Connector(
+            showSwap: bothChosen,
+            swapLabel: l10n.languagesSwap,
+            onSwap: onSwap,
+          ),
+
+          _LanguageSide(
+            cardKey: const Key('languages-learning-card'),
+            levelKeyPrefix: 'learning',
+            label: l10n.languagesImLearning,
+            language: learningLanguage,
+            level: learningLevel,
+            levelLabel:
+                learningLanguage == null ? null : l10n.yourCurrentLevel,
+            isLoadingLanguages: isLoadingLanguages,
+            onTap: () => _pick(
+              context,
+              exclude: nativeLanguage,
+              current: learningLanguage,
+              onSelected: onLearningSelected,
+            ),
+            onLevelChanged: onLearningLevelChanged,
+          ),
+
+          const SizedBox(height: 32),
+          AuthGradientButton(
+            key: const Key('languages-continue'),
+            label: l10n.continueButton,
+            onPressed: onNext,
+          ),
+          const SizedBox(height: 40),
+        ],
+      ),
+    );
+  }
+}
+
+/// One side of the pair: a heading, the language card, and — once a language
+/// is chosen — its CEFR level as a compact chip row. Chips rather than the
+/// full-width tiles the separate pages used: two stacked six-row lists would
+/// not fit a phone screen, which is what made one-question-per-page feel
+/// necessary in the first place.
+class _LanguageSide extends StatelessWidget {
+  final Key cardKey;
+  final String levelKeyPrefix;
+  final String label;
+  final Language? language;
+  final String? level;
+  final String? levelLabel;
+  final bool isLoadingLanguages;
+  final VoidCallback onTap;
+  final ValueChanged<String> onLevelChanged;
+
+  const _LanguageSide({
+    required this.cardKey,
+    required this.levelKeyPrefix,
+    required this.label,
+    required this.language,
+    required this.level,
+    required this.levelLabel,
+    required this.isLoadingLanguages,
+    required this.onTap,
+    required this.onLevelChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label.toUpperCase(),
+          style: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w700,
+            letterSpacing: 0.8,
+            color: context.textSecondary,
+          ),
+        ),
+        const SizedBox(height: 10),
+        KeyedSubtree(
+          key: cardKey,
+          child: _LanguageCard(
+            selectedLanguage: language,
+            isLoadingLanguages: isLoadingLanguages,
+            onTap: onTap,
+          ),
+        ),
+        if (language != null && levelLabel != null) ...[
+          const SizedBox(height: 14),
+          Text(
+            levelLabel!,
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w600,
+              color: context.textPrimary,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: _cefrLevels
+                .map((l) => _LevelChip(
+                      key: Key('$levelKeyPrefix-level-$l'),
+                      level: l,
+                      isSelected: level == l,
+                      onTap: () {
+                        HapticFeedback.selectionClick();
+                        onLevelChanged(l);
+                      },
+                    ))
+                .toList(),
+          ),
+        ],
+      ],
+    );
+  }
+}
+
+class _LevelChip extends StatelessWidget {
+  final String level;
+  final bool isSelected;
+  final VoidCallback onTap;
+
+  const _LevelChip({
+    super.key,
+    required this.level,
+    required this.isSelected,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 150),
+        padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
+        decoration: BoxDecoration(
+          color: isSelected
+              ? AppColors.primary
+              : context.cardBackground,
+          borderRadius: AppRadius.borderMD,
+          border: Border.all(
+            color: isSelected
+                ? AppColors.primary
+                : context.dividerColor,
+            width: isSelected ? 2 : 1,
+          ),
+        ),
+        child: Text(
+          level,
+          style: TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.w700,
+            color: isSelected ? Colors.white : context.textPrimary,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// The vertical rule between the two sides, carrying the swap affordance.
+class _Connector extends StatelessWidget {
+  final bool showSwap;
+  final String swapLabel;
+  final VoidCallback onSwap;
+
+  const _Connector({
+    required this.showSwap,
+    required this.swapLabel,
+    required this.onSwap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 14),
+      child: Row(
+        children: [
+          const SizedBox(width: 10),
+          Container(width: 2, height: 28, color: context.dividerColor),
+          if (showSwap) ...[
+            const SizedBox(width: 14),
+            TextButton.icon(
+              key: const Key('languages-swap'),
+              onPressed: () {
+                HapticFeedback.selectionClick();
+                onSwap();
+              },
+              style: TextButton.styleFrom(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                minimumSize: const Size(0, 32),
+                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              ),
+              icon: const Icon(Icons.swap_vert, size: 18),
+              label: Text(swapLabel),
+            ),
+          ],
+        ],
+      ),
     );
   }
 }

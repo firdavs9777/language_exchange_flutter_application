@@ -1484,6 +1484,24 @@ class AppLocalizationsFr extends AppLocalizations {
   String get selectNativeLanguage => 'Sélectionner la langue maternelle';
 
   @override
+  String get languagesStepTitle => 'Tes langues';
+
+  @override
+  String get languagesStepSubtitle => 'On te met en relation avec ceux qui apprennent l’inverse';
+
+  @override
+  String get languagesISpeak => 'Je parle';
+
+  @override
+  String get languagesImLearning => 'J’apprends';
+
+  @override
+  String get languagesSwap => 'Inverser';
+
+  @override
+  String get languagesChoose => 'Choisir une langue';
+
+  @override
   String get subscriptionDetails => 'Détails de l\'abonnement';
 
   @override

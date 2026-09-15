@@ -322,6 +322,30 @@
   "selectALanguage": "Pilih bahasa",
   "languagesAreStillLoading": "Bahasa masih dimuat...",
   "selectNativeLanguage": "Pilih bahasa ibu",
+  "languagesStepTitle": "Bahasamu",
+  "@languagesStepTitle": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesStepSubtitle": "Kami cocokkan kamu dengan yang belajar sebaliknya",
+  "@languagesStepSubtitle": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesISpeak": "Saya berbicara",
+  "@languagesISpeak": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesImLearning": "Saya belajar",
+  "@languagesImLearning": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesSwap": "Tukar",
+  "@languagesSwap": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesChoose": "Pilih bahasa",
+  "@languagesChoose": {
+    "description": "Combined language step of the signup wizard"
+  },
   "subscriptionDetails": "Detail Langganan",
   "activeFeatures": "Fitur Aktif",
   "legalInformation": "Informasi Hukum",

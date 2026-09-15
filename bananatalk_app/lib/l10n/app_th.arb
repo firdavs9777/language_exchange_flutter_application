@@ -322,6 +322,30 @@
   "selectALanguage": "เลือกภาษา",
   "languagesAreStillLoading": "กำลังโหลดภาษา...",
   "selectNativeLanguage": "เลือกภาษาแม่",
+  "languagesStepTitle": "ภาษาของคุณ",
+  "@languagesStepTitle": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesStepSubtitle": "เราจับคู่คุณกับคนที่เรียนสลับกัน",
+  "@languagesStepSubtitle": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesISpeak": "ฉันพูด",
+  "@languagesISpeak": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesImLearning": "ฉันกำลังเรียน",
+  "@languagesImLearning": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesSwap": "สลับ",
+  "@languagesSwap": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesChoose": "เลือกภาษา",
+  "@languagesChoose": {
+    "description": "Combined language step of the signup wizard"
+  },
   "subscriptionDetails": "รายละเอียดการสมัคร",
   "activeFeatures": "ฟีเจอร์ที่ใช้งานอยู่",
   "legalInformation": "ข้อมูลทางกฎหมาย",

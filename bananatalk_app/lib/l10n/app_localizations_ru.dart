@@ -1484,6 +1484,24 @@ class AppLocalizationsRu extends AppLocalizations {
   String get selectNativeLanguage => 'Выберите ваш родной язык';
 
   @override
+  String get languagesStepTitle => 'Ваши языки';
+
+  @override
+  String get languagesStepSubtitle => 'Подбираем собеседников с обратной парой';
+
+  @override
+  String get languagesISpeak => 'Я говорю на';
+
+  @override
+  String get languagesImLearning => 'Я изучаю';
+
+  @override
+  String get languagesSwap => 'Поменять';
+
+  @override
+  String get languagesChoose => 'Выберите язык';
+
+  @override
   String get subscriptionDetails => 'Детали подписки';
 
   @override

@@ -702,6 +702,30 @@
   "selectALanguage": "Select a language",
   "languagesAreStillLoading": "Languages are still loading...",
   "selectNativeLanguage": "Please select your native language",
+  "languagesStepTitle": "Your languages",
+  "@languagesStepTitle": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesStepSubtitle": "We match you with people learning the reverse",
+  "@languagesStepSubtitle": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesISpeak": "I speak",
+  "@languagesISpeak": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesImLearning": "I'm learning",
+  "@languagesImLearning": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesSwap": "Swap",
+  "@languagesSwap": {
+    "description": "Combined language step of the signup wizard"
+  },
+  "languagesChoose": "Choose a language",
+  "@languagesChoose": {
+    "description": "Combined language step of the signup wizard"
+  },
   "subscriptionDetails": "Subscription Details",
   "activeFeatures": "Active Features",
   "legalInformation": "Legal Information",

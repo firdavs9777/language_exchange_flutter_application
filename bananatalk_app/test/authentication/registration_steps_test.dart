@@ -21,7 +21,7 @@ void main() {
         hasPhoto: true,
       );
       expect(plan.needsPhoto, false);
-      expect(plan.labels, ['About you', 'Native language', 'Learning language', 'Finish']);
+      expect(plan.labels, ['About you', 'Languages', 'Finish']);
     });
 
     test('no photo anywhere still asks for one', () {
@@ -30,7 +30,9 @@ void main() {
         hasPhoto: false,
       );
       expect(plan.needsPhoto, true);
-      expect(plan.totalSteps, 5);
+      // About you -> Photo -> Languages -> Finish. The two language pages were
+      // merged into one; see LanguagesStep.
+      expect(plan.totalSteps, 4);
     });
 
     test('a fully prefilled account goes straight to Finish', () {

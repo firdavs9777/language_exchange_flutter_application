@@ -1484,6 +1484,24 @@ class AppLocalizationsKo extends AppLocalizations {
   String get selectNativeLanguage => '모국어 선택';
 
   @override
+  String get languagesStepTitle => '내 언어';
+
+  @override
+  String get languagesStepSubtitle => '반대로 배우는 사람과 매칭해 드려요';
+
+  @override
+  String get languagesISpeak => '사용 언어';
+
+  @override
+  String get languagesImLearning => '배우는 언어';
+
+  @override
+  String get languagesSwap => '서로 바꾸기';
+
+  @override
+  String get languagesChoose => '언어 선택';
+
+  @override
   String get subscriptionDetails => '구독 상세정보';
 
   @override

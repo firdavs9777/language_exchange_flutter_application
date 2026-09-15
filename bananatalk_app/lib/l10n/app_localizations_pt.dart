@@ -1484,6 +1484,24 @@ class AppLocalizationsPt extends AppLocalizations {
   String get selectNativeLanguage => 'Selecionar idioma nativo';
 
   @override
+  String get languagesStepTitle => 'Seus idiomas';
+
+  @override
+  String get languagesStepSubtitle => 'Combinamos você com quem aprende o inverso';
+
+  @override
+  String get languagesISpeak => 'Eu falo';
+
+  @override
+  String get languagesImLearning => 'Estou aprendendo';
+
+  @override
+  String get languagesSwap => 'Trocar';
+
+  @override
+  String get languagesChoose => 'Escolha um idioma';
+
+  @override
   String get subscriptionDetails => 'Detalhes da Assinatura';
 
   @override

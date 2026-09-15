@@ -2966,6 +2966,42 @@ abstract class AppLocalizations {
   /// **'Please select your native language'**
   String get selectNativeLanguage;
 
+  /// Combined language step of the signup wizard
+  ///
+  /// In en, this message translates to:
+  /// **'Your languages'**
+  String get languagesStepTitle;
+
+  /// Combined language step of the signup wizard
+  ///
+  /// In en, this message translates to:
+  /// **'We match you with people learning the reverse'**
+  String get languagesStepSubtitle;
+
+  /// Combined language step of the signup wizard
+  ///
+  /// In en, this message translates to:
+  /// **'I speak'**
+  String get languagesISpeak;
+
+  /// Combined language step of the signup wizard
+  ///
+  /// In en, this message translates to:
+  /// **'I\'m learning'**
+  String get languagesImLearning;
+
+  /// Combined language step of the signup wizard
+  ///
+  /// In en, this message translates to:
+  /// **'Swap'**
+  String get languagesSwap;
+
+  /// Combined language step of the signup wizard
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a language'**
+  String get languagesChoose;
+
   /// No description provided for @subscriptionDetails.
   ///
   /// In en, this message translates to:
