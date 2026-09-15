@@ -2710,6 +2710,36 @@ class AppLocalizationsTr extends AppLocalizations {
   String get deleteAccountWarning => 'Hesabınızı silmek şunları kalıcı olarak kaldırır:\n\n• Profiliniz ve tüm kişisel verileriniz\n• Tüm mesajlarınız ve sohbetleriniz\n• Tüm anlarınız ve hikayeleriniz\n• VIP aboneliğiniz (iade yok)\n• Tüm bağlantılarınız ve takipçileriniz\n\nBu işlem geri alınamaz.';
 
   @override
+  String get deletionReasonTitle => 'Gitmeden önce — neden?';
+
+  @override
+  String get deletionReasonOptional => 'İsteğe bağlı. Neyi düzelteceğimizi anlamamıza yardım eder.';
+
+  @override
+  String get deletionReasonNoPeople => 'Konuşacak kimse bulamadım';
+
+  @override
+  String get deletionReasonNoContent => 'Dilimde içerik yok';
+
+  @override
+  String get deletionReasonNotUseful => 'Beklediğim gibi değildi';
+
+  @override
+  String get deletionReasonBugs => 'Uygulama düzgün çalışmadı';
+
+  @override
+  String get deletionReasonNotifications => 'Çok fazla bildirim';
+
+  @override
+  String get deletionReasonPrivacy => 'Gizlilik endişesi';
+
+  @override
+  String get deletionReasonOther => 'Başka bir şey';
+
+  @override
+  String get deletionReasonHint => 'Biraz daha anlat (isteğe bağlı)';
+
+  @override
   String get requiredForEmailOnly => 'Yalnızca e-posta hesapları için gerekli';
 
   @override

@@ -2710,6 +2710,36 @@ class AppLocalizationsDe extends AppLocalizations {
   String get deleteAccountWarning => 'Das Löschen deines Kontos entfernt dauerhaft alle deine Daten, Nachrichten, Momente und Verbindungen. Diese Aktion kann nicht rückgängig gemacht werden.';
 
   @override
+  String get deletionReasonTitle => 'Bevor du gehst — warum?';
+
+  @override
+  String get deletionReasonOptional => 'Freiwillig. Es hilft uns, Fehler zu beheben.';
+
+  @override
+  String get deletionReasonNoPeople => 'Keine Leute zum Reden gefunden';
+
+  @override
+  String get deletionReasonNoContent => 'Keine Inhalte in meiner Sprache';
+
+  @override
+  String get deletionReasonNotUseful => 'Nicht das, was ich erwartet habe';
+
+  @override
+  String get deletionReasonBugs => 'Die App hat nicht richtig funktioniert';
+
+  @override
+  String get deletionReasonNotifications => 'Zu viele Benachrichtigungen';
+
+  @override
+  String get deletionReasonPrivacy => 'Datenschutzbedenken';
+
+  @override
+  String get deletionReasonOther => 'Etwas anderes';
+
+  @override
+  String get deletionReasonHint => 'Erzähl uns mehr (optional)';
+
+  @override
   String get requiredForEmailOnly => 'Nur für E-Mail-Konten erforderlich';
 
   @override

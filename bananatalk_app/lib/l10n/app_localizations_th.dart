@@ -2710,6 +2710,36 @@ class AppLocalizationsTh extends AppLocalizations {
   String get deleteAccountWarning => 'การลบบัญชีของคุณจะลบอย่างถาวร:\n\n• โปรไฟล์และข้อมูลส่วนตัวทั้งหมดของคุณ\n• ข้อความและการสนทนาทั้งหมดของคุณ\n• โมเมนต์และสตอรี่ทั้งหมดของคุณ\n• การสมัคร VIP ของคุณ (ไม่คืนเงิน)\n• การเชื่อมต่อและผู้ติดตามทั้งหมดของคุณ\n\nการกระทำนี้ไม่สามารถยกเลิกได้';
 
   @override
+  String get deletionReasonTitle => 'ก่อนจากกัน — เพราะอะไร?';
+
+  @override
+  String get deletionReasonOptional => 'ไม่บังคับ ช่วยให้เราแก้ไขได้';
+
+  @override
+  String get deletionReasonNoPeople => 'หาคนคุยด้วยไม่ได้';
+
+  @override
+  String get deletionReasonNoContent => 'ไม่มีเนื้อหาในภาษาของฉัน';
+
+  @override
+  String get deletionReasonNotUseful => 'ไม่ใช่อย่างที่คิดไว้';
+
+  @override
+  String get deletionReasonBugs => 'แอปทำงานผิดพลาด';
+
+  @override
+  String get deletionReasonNotifications => 'การแจ้งเตือนมากเกินไป';
+
+  @override
+  String get deletionReasonPrivacy => 'กังวลเรื่องความเป็นส่วนตัว';
+
+  @override
+  String get deletionReasonOther => 'อื่น ๆ';
+
+  @override
+  String get deletionReasonHint => 'บอกเราเพิ่มเติม (ไม่บังคับ)';
+
+  @override
   String get requiredForEmailOnly => 'จำเป็นสำหรับบัญชีอีเมลเท่านั้น';
 
   @override

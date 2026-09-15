@@ -727,6 +727,46 @@
   "newUser": "नया उपयोगकर्ता",
   "warningPermanent": "चेतावनी: यह क्रिया स्थायी है!",
   "deleteAccountWarning": "आपका खाता हटाने से स्थायी रूप से हटाया जाएगा:\n\n• आपकी प्रोफ़ाइल और सभी व्यक्तिगत डेटा\n• आपके सभी संदेश और बातचीत\n• आपके सभी पल और स्टोरी\n• आपकी VIP सदस्यता (कोई रिफंड नहीं)\n• आपके सभी कनेक्शन और फॉलोअर्स\n\nयह क्रिया पूर्ववत नहीं की जा सकती।",
+  "deletionReasonTitle": "जाने से पहले — क्यों जा रहे हैं?",
+  "@deletionReasonTitle": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonOptional": "वैकल्पिक. इससे हमें सुधार करने में मदद मिलती है।",
+  "@deletionReasonOptional": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonNoPeople": "बात करने के लिए लोग नहीं मिले",
+  "@deletionReasonNoPeople": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonNoContent": "मेरी भाषा में कोई सामग्री नहीं",
+  "@deletionReasonNoContent": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonNotUseful": "जैसा सोचा था वैसा नहीं",
+  "@deletionReasonNotUseful": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonBugs": "ऐप ठीक से काम नहीं किया",
+  "@deletionReasonBugs": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonNotifications": "बहुत ज़्यादा सूचनाएँ",
+  "@deletionReasonNotifications": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonPrivacy": "निजता की चिंता",
+  "@deletionReasonPrivacy": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonOther": "कुछ और",
+  "@deletionReasonOther": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonHint": "हमें और बताएं (वैकल्पिक)",
+  "@deletionReasonHint": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
   "requiredForEmailOnly": "केवल ईमेल खातों के लिए आवश्यक",
   "pleaseEnterPassword": "कृपया अपना पासवर्ड दर्ज करें",
   "typeDELETE": "DELETE टाइप करें",

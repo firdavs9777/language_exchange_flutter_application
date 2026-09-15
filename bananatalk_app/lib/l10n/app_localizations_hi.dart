@@ -2710,6 +2710,36 @@ class AppLocalizationsHi extends AppLocalizations {
   String get deleteAccountWarning => 'आपका खाता हटाने से स्थायी रूप से हटाया जाएगा:\n\n• आपकी प्रोफ़ाइल और सभी व्यक्तिगत डेटा\n• आपके सभी संदेश और बातचीत\n• आपके सभी पल और स्टोरी\n• आपकी VIP सदस्यता (कोई रिफंड नहीं)\n• आपके सभी कनेक्शन और फॉलोअर्स\n\nयह क्रिया पूर्ववत नहीं की जा सकती।';
 
   @override
+  String get deletionReasonTitle => 'जाने से पहले — क्यों जा रहे हैं?';
+
+  @override
+  String get deletionReasonOptional => 'वैकल्पिक. इससे हमें सुधार करने में मदद मिलती है।';
+
+  @override
+  String get deletionReasonNoPeople => 'बात करने के लिए लोग नहीं मिले';
+
+  @override
+  String get deletionReasonNoContent => 'मेरी भाषा में कोई सामग्री नहीं';
+
+  @override
+  String get deletionReasonNotUseful => 'जैसा सोचा था वैसा नहीं';
+
+  @override
+  String get deletionReasonBugs => 'ऐप ठीक से काम नहीं किया';
+
+  @override
+  String get deletionReasonNotifications => 'बहुत ज़्यादा सूचनाएँ';
+
+  @override
+  String get deletionReasonPrivacy => 'निजता की चिंता';
+
+  @override
+  String get deletionReasonOther => 'कुछ और';
+
+  @override
+  String get deletionReasonHint => 'हमें और बताएं (वैकल्पिक)';
+
+  @override
   String get requiredForEmailOnly => 'केवल ईमेल खातों के लिए आवश्यक';
 
   @override

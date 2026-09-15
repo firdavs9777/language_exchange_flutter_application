@@ -2710,6 +2710,36 @@ class AppLocalizationsVi extends AppLocalizations {
   String get deleteAccountWarning => 'Xóa tài khoản của bạn sẽ xóa vĩnh viễn:\n\n• Hồ sơ và tất cả dữ liệu cá nhân của bạn\n• Tất cả tin nhắn và cuộc trò chuyện của bạn\n• Tất cả khoảnh khắc và story của bạn\n• Đăng ký VIP của bạn (không hoàn tiền)\n• Tất cả kết nối và người theo dõi của bạn\n\nHành động này không thể hoàn tác.';
 
   @override
+  String get deletionReasonTitle => 'Trước khi bạn đi — vì sao?';
+
+  @override
+  String get deletionReasonOptional => 'Không bắt buộc. Điều này giúp chúng tôi khắc phục.';
+
+  @override
+  String get deletionReasonNoPeople => 'Không tìm được người để trò chuyện';
+
+  @override
+  String get deletionReasonNoContent => 'Không có nội dung bằng ngôn ngữ của tôi';
+
+  @override
+  String get deletionReasonNotUseful => 'Không như tôi mong đợi';
+
+  @override
+  String get deletionReasonBugs => 'Ứng dụng hoạt động không tốt';
+
+  @override
+  String get deletionReasonNotifications => 'Quá nhiều thông báo';
+
+  @override
+  String get deletionReasonPrivacy => 'Lo ngại về quyền riêng tư';
+
+  @override
+  String get deletionReasonOther => 'Lý do khác';
+
+  @override
+  String get deletionReasonHint => 'Cho chúng tôi biết thêm (không bắt buộc)';
+
+  @override
   String get requiredForEmailOnly => 'Chỉ bắt buộc cho tài khoản email';
 
   @override

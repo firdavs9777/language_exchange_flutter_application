@@ -741,6 +741,46 @@
   "newUser": "Новый",
   "warningPermanent": "Внимание: это действие необратимо!",
   "deleteAccountWarning": "Удаление аккаунта навсегда сотрёт все ваши данные, сообщения, моменты и связи. Это действие нельзя отменить.",
+  "deletionReasonTitle": "Перед уходом — почему?",
+  "@deletionReasonTitle": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonOptional": "Необязательно. Это поможет нам всё исправить.",
+  "@deletionReasonOptional": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonNoPeople": "Не нашёл(ла) собеседников",
+  "@deletionReasonNoPeople": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonNoContent": "Нет материалов на моём языке",
+  "@deletionReasonNoContent": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonNotUseful": "Не то, чего я ожидал(а)",
+  "@deletionReasonNotUseful": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonBugs": "Приложение работало плохо",
+  "@deletionReasonBugs": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonNotifications": "Слишком много уведомлений",
+  "@deletionReasonNotifications": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonPrivacy": "Беспокойство о приватности",
+  "@deletionReasonPrivacy": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonOther": "Другое",
+  "@deletionReasonOther": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonHint": "Расскажите подробнее (необязательно)",
+  "@deletionReasonHint": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
   "requiredForEmailOnly": "Требуется только для аккаунтов с электронной почтой",
   "pleaseEnterPassword": "Пожалуйста, введите пароль",
   "typeDELETE": "Введите DELETE",

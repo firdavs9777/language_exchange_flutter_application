@@ -741,6 +741,46 @@
   "newUser": "جديد",
   "warningPermanent": "تحذير: هذا الإجراء نهائي!",
   "deleteAccountWarning": "حذف حسابك سيزيل نهائياً:\n\n• ملفك الشخصي وجميع بياناتك\n• جميع رسائلك ومحادثاتك\n• جميع لحظاتك وقصصك\n• اشتراك VIP (بدون استرداد)\n• جميع متابعيك ومتابعاتك\n\nلا يمكن التراجع عن هذا الإجراء.",
+  "deletionReasonTitle": "قبل أن تغادر — لماذا ترحل؟",
+  "@deletionReasonTitle": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonOptional": "اختياري. يساعدنا على إصلاح الخلل.",
+  "@deletionReasonOptional": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonNoPeople": "لم أجد أشخاصًا للتحدث معهم",
+  "@deletionReasonNoPeople": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonNoContent": "لا يوجد محتوى بلغتي",
+  "@deletionReasonNoContent": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonNotUseful": "ليس ما توقعته",
+  "@deletionReasonNotUseful": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonBugs": "التطبيق لم يعمل بشكل صحيح",
+  "@deletionReasonBugs": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonNotifications": "إشعارات كثيرة جدًا",
+  "@deletionReasonNotifications": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonPrivacy": "مخاوف تتعلق بالخصوصية",
+  "@deletionReasonPrivacy": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonOther": "سبب آخر",
+  "@deletionReasonOther": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonHint": "أخبرنا المزيد (اختياري)",
+  "@deletionReasonHint": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
   "requiredForEmailOnly": "مطلوب لحسابات البريد الإلكتروني فقط",
   "pleaseEnterPassword": "يرجى إدخال كلمة المرور",
   "typeDELETE": "اكتب DELETE للتأكيد",

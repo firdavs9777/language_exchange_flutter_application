@@ -2716,6 +2716,36 @@ class AppLocalizationsEn extends AppLocalizations {
   String get deleteAccountWarning => 'Deleting your account will permanently remove:\n\n• Your profile and all personal data\n• All your messages and conversations\n• All your moments and stories\n• Your VIP subscription (no refund)\n• All your connections and followers\n\nThis action cannot be undone.';
 
   @override
+  String get deletionReasonTitle => 'Before you go — why are you leaving?';
+
+  @override
+  String get deletionReasonOptional => 'Optional. It helps us fix what went wrong.';
+
+  @override
+  String get deletionReasonNoPeople => 'Couldn\'t find people to talk with';
+
+  @override
+  String get deletionReasonNoContent => 'Nothing to learn in my language';
+
+  @override
+  String get deletionReasonNotUseful => 'Not what I expected';
+
+  @override
+  String get deletionReasonBugs => 'The app didn\'t work properly';
+
+  @override
+  String get deletionReasonNotifications => 'Too many notifications';
+
+  @override
+  String get deletionReasonPrivacy => 'Privacy concerns';
+
+  @override
+  String get deletionReasonOther => 'Something else';
+
+  @override
+  String get deletionReasonHint => 'Tell us more (optional)';
+
+  @override
   String get requiredForEmailOnly => 'Required for email accounts only';
 
   @override

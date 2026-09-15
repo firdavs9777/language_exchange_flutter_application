@@ -2710,6 +2710,36 @@ class AppLocalizationsAr extends AppLocalizations {
   String get deleteAccountWarning => 'حذف حسابك سيزيل نهائياً:\n\n• ملفك الشخصي وجميع بياناتك\n• جميع رسائلك ومحادثاتك\n• جميع لحظاتك وقصصك\n• اشتراك VIP (بدون استرداد)\n• جميع متابعيك ومتابعاتك\n\nلا يمكن التراجع عن هذا الإجراء.';
 
   @override
+  String get deletionReasonTitle => 'قبل أن تغادر — لماذا ترحل؟';
+
+  @override
+  String get deletionReasonOptional => 'اختياري. يساعدنا على إصلاح الخلل.';
+
+  @override
+  String get deletionReasonNoPeople => 'لم أجد أشخاصًا للتحدث معهم';
+
+  @override
+  String get deletionReasonNoContent => 'لا يوجد محتوى بلغتي';
+
+  @override
+  String get deletionReasonNotUseful => 'ليس ما توقعته';
+
+  @override
+  String get deletionReasonBugs => 'التطبيق لم يعمل بشكل صحيح';
+
+  @override
+  String get deletionReasonNotifications => 'إشعارات كثيرة جدًا';
+
+  @override
+  String get deletionReasonPrivacy => 'مخاوف تتعلق بالخصوصية';
+
+  @override
+  String get deletionReasonOther => 'سبب آخر';
+
+  @override
+  String get deletionReasonHint => 'أخبرنا المزيد (اختياري)';
+
+  @override
   String get requiredForEmailOnly => 'مطلوب لحسابات البريد الإلكتروني فقط';
 
   @override

@@ -2710,6 +2710,36 @@ class AppLocalizationsPt extends AppLocalizations {
   String get deleteAccountWarning => 'Excluir sua conta removerá permanentemente:\n\n• Seu perfil e todos os dados pessoais\n• Todas as suas mensagens e conversas\n• Todos os seus momentos e stories\n• Sua assinatura VIP (sem reembolso)\n• Todas as suas conexões e seguidores\n\nEsta ação não pode ser desfeita.';
 
   @override
+  String get deletionReasonTitle => 'Antes de sair — por quê?';
+
+  @override
+  String get deletionReasonOptional => 'Opcional. Ajuda a corrigirmos o que falhou.';
+
+  @override
+  String get deletionReasonNoPeople => 'Não encontrei pessoas para conversar';
+
+  @override
+  String get deletionReasonNoContent => 'Sem conteúdo no meu idioma';
+
+  @override
+  String get deletionReasonNotUseful => 'Não é o que eu esperava';
+
+  @override
+  String get deletionReasonBugs => 'O app não funcionou direito';
+
+  @override
+  String get deletionReasonNotifications => 'Notificações demais';
+
+  @override
+  String get deletionReasonPrivacy => 'Preocupações com privacidade';
+
+  @override
+  String get deletionReasonOther => 'Outro motivo';
+
+  @override
+  String get deletionReasonHint => 'Conte mais (opcional)';
+
+  @override
   String get requiredForEmailOnly => 'Necessário apenas para contas de email';
 
   @override

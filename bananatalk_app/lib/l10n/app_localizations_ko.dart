@@ -2710,6 +2710,36 @@ class AppLocalizationsKo extends AppLocalizations {
   String get deleteAccountWarning => '계정을 삭제하면 영구적으로 삭제됩니다:\n\n• 프로필 및 모든 개인 데이터\n• 모든 메시지 및 대화\n• 모든 모먼트 및 스토리\n• VIP 구독 (환불 불가)\n• 모든 연결 및 팔로워\n\n이 작업은 되돌릴 수 없습니다.';
 
   @override
+  String get deletionReasonTitle => '떠나시기 전에 — 이유를 알려주세요';
+
+  @override
+  String get deletionReasonOptional => '선택 사항입니다. 개선에 도움이 됩니다.';
+
+  @override
+  String get deletionReasonNoPeople => '대화할 사람을 찾지 못했어요';
+
+  @override
+  String get deletionReasonNoContent => '제 언어로 된 학습 자료가 없어요';
+
+  @override
+  String get deletionReasonNotUseful => '기대했던 것과 달랐어요';
+
+  @override
+  String get deletionReasonBugs => '앱이 제대로 작동하지 않았어요';
+
+  @override
+  String get deletionReasonNotifications => '알림이 너무 많았어요';
+
+  @override
+  String get deletionReasonPrivacy => '개인정보가 걱정돼요';
+
+  @override
+  String get deletionReasonOther => '기타';
+
+  @override
+  String get deletionReasonHint => '자세히 알려주세요 (선택)';
+
+  @override
   String get requiredForEmailOnly => '이메일 계정에만 필요합니다';
 
   @override

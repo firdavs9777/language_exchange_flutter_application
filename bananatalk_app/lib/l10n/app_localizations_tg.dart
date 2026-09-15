@@ -2716,6 +2716,36 @@ class AppLocalizationsTg extends AppLocalizations {
   String get deleteAccountWarning => 'Несткунии ҳисоби шумо ба таври доимӣ инҳоро бармедорад:\n\n• Профили шумо ва ҳамаи маълумоти шахсӣ\n• Ҳамаи паёмҳо ва сӯҳбатҳои шумо\n• Ҳамаи лаҳзаҳо ва сториҳои шумо\n• Обунаи VIP-и шумо (баргардонии пул нест)\n• Ҳамаи робитаҳо ва пайравони шумо\n\nИн амалро баргардонидан мумкин нест.';
 
   @override
+  String get deletionReasonTitle => 'Пеш аз рафтан — чаро?';
+
+  @override
+  String get deletionReasonOptional => 'Ихтиёрӣ. Ба мо барои ислоҳ кӯмак мекунад.';
+
+  @override
+  String get deletionReasonNoPeople => 'Ҳамсӯҳбат наёфтам';
+
+  @override
+  String get deletionReasonNoContent => 'Дар забони ман мавод нест';
+
+  @override
+  String get deletionReasonNotUseful => 'Он чизе ки интизор доштам набуд';
+
+  @override
+  String get deletionReasonBugs => 'Барнома дуруст кор накард';
+
+  @override
+  String get deletionReasonNotifications => 'Огоҳиномаҳо аз ҳад зиёданд';
+
+  @override
+  String get deletionReasonPrivacy => 'Нигаронӣ аз махфият';
+
+  @override
+  String get deletionReasonOther => 'Дигар';
+
+  @override
+  String get deletionReasonHint => 'Бештар нависед (ихтиёрӣ)';
+
+  @override
   String get requiredForEmailOnly => 'Танҳо барои ҳисобҳои почтаи электронӣ лозим аст';
 
   @override

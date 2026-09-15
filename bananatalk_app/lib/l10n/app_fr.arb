@@ -998,6 +998,46 @@
   "newUser": "Nouveau",
   "warningPermanent": "Attention : cette action est irréversible !",
   "deleteAccountWarning": "La suppression de votre compte effacera définitivement toutes vos données, messages, moments et connexions. Cette action est irréversible.",
+  "deletionReasonTitle": "Avant de partir — pourquoi ?",
+  "@deletionReasonTitle": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonOptional": "Facultatif. Cela nous aide à corriger le tir.",
+  "@deletionReasonOptional": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonNoPeople": "Je n’ai trouvé personne à qui parler",
+  "@deletionReasonNoPeople": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonNoContent": "Aucun contenu dans ma langue",
+  "@deletionReasonNoContent": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonNotUseful": "Ce n’est pas ce que j’attendais",
+  "@deletionReasonNotUseful": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonBugs": "L’appli ne fonctionnait pas bien",
+  "@deletionReasonBugs": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonNotifications": "Trop de notifications",
+  "@deletionReasonNotifications": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonPrivacy": "Préoccupations de confidentialité",
+  "@deletionReasonPrivacy": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonOther": "Autre chose",
+  "@deletionReasonOther": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
+  "deletionReasonHint": "Dites-nous en plus (facultatif)",
+  "@deletionReasonHint": {
+    "description": "Optional \"why are you leaving\" prompt on the account deletion screen"
+  },
   "requiredForEmailOnly": "Requis uniquement pour les comptes e-mail",
   "pleaseEnterPassword": "Veuillez entrer votre mot de passe",
   "typeDELETE": "Tapez DELETE",

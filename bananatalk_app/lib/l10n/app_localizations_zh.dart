@@ -2710,6 +2710,36 @@ class AppLocalizationsZh extends AppLocalizations {
   String get deleteAccountWarning => '删除账号将永久删除：\n\n• 你的个人资料和所有个人数据\n• 所有消息和对话\n• 所有动态和故事\n• VIP订阅（不退款）\n• 所有关注和粉丝\n\n此操作不可撤销。';
 
   @override
+  String get deletionReasonTitle => '离开之前——能告诉我们原因吗？';
+
+  @override
+  String get deletionReasonOptional => '选填。这能帮我们改进。';
+
+  @override
+  String get deletionReasonNoPeople => '找不到可以聊天的人';
+
+  @override
+  String get deletionReasonNoContent => '没有我的语言的内容';
+
+  @override
+  String get deletionReasonNotUseful => '和我预期的不一样';
+
+  @override
+  String get deletionReasonBugs => '应用无法正常使用';
+
+  @override
+  String get deletionReasonNotifications => '通知太多';
+
+  @override
+  String get deletionReasonPrivacy => '隐私顾虑';
+
+  @override
+  String get deletionReasonOther => '其他原因';
+
+  @override
+  String get deletionReasonHint => '多说一点（选填）';
+
+  @override
   String get requiredForEmailOnly => '仅邮箱账号需要';
 
   @override
@@ -10317,6 +10347,36 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get deleteAccountWarning => '刪除帳號將永久刪除：\n\n• 您的個人資料和所有個人數據\n• 所有訊息和對話\n• 所有動態和限時動態\n• VIP訂閱（不退款）\n• 所有關注和粉絲\n\n此操作不可撤銷。';
+
+  @override
+  String get deletionReasonTitle => '離開之前——能告訴我們原因嗎？';
+
+  @override
+  String get deletionReasonOptional => '選填。這能幫我們改進。';
+
+  @override
+  String get deletionReasonNoPeople => '找不到可以聊天的人';
+
+  @override
+  String get deletionReasonNoContent => '沒有我的語言的內容';
+
+  @override
+  String get deletionReasonNotUseful => '和我預期的不一樣';
+
+  @override
+  String get deletionReasonBugs => '應用程式無法正常使用';
+
+  @override
+  String get deletionReasonNotifications => '通知太多';
+
+  @override
+  String get deletionReasonPrivacy => '隱私疑慮';
+
+  @override
+  String get deletionReasonOther => '其他原因';
+
+  @override
+  String get deletionReasonHint => '多說一點（選填）';
 
   @override
   String get requiredForEmailOnly => '僅電子郵件帳號需要';
