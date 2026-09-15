@@ -26,6 +26,7 @@ import 'package:http/http.dart' as http;
 import 'package:bananatalk_app/providers/provider_models/location_modal.dart';
 import 'package:bananatalk_app/service/endpoints.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:bananatalk_app/pages/authentication/register/registration_steps.dart';
 
 /// Multi-step registration wizard (Step 2 of 2).
 ///
@@ -92,6 +93,18 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
   String _effectiveNativeLanguage = '';
   String _effectiveLearningLanguage = '';
 
+  /// Apple and Google attach a profile picture at sign-in. When one is already
+  /// there the wizard must not ask for another: the server treats images as
+  /// optional, and this is the funnel where social signups are lost.
+  bool _effectiveHasPhoto = false;
+
+  /// The step plan derived from the effective values above. Recomputed by
+  /// [_computeSteps] whenever those change.
+  RegistrationSteps _plan = planRegistrationSteps(
+    gender: '', birthDate: '', nativeLanguage: '', learningLanguage: '',
+    hasPhoto: false,
+  );
+
   // ─── Personal info ───────────────────────────────────────────────────────
   String? _selectedGender;
   final TextEditingController _birthDateController = TextEditingController();
@@ -154,18 +167,16 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
   /// from the effective (possibly prefilled) fields, and seeds the personal
   /// info controllers so an already-known gender/birth date isn't re-asked.
   void _computeSteps() {
-    _needsPersonalInfo =
-        _effectiveGender.isEmpty || _effectiveBirthDate.isEmpty;
-    _hasExistingLanguages =
-        _effectiveNativeLanguage.isNotEmpty &&
-        _effectiveLearningLanguage.isNotEmpty &&
-        _effectiveNativeLanguage != _effectiveLearningLanguage;
-
-    _totalSteps =
-        (_needsPersonalInfo ? 1 : 0) +
-        1 + // profile photo step (required)
-        (_hasExistingLanguages ? 0 : 2) +
-        1; // finish step always shown
+    _plan = planRegistrationSteps(
+      gender: _effectiveGender,
+      birthDate: _effectiveBirthDate,
+      nativeLanguage: _effectiveNativeLanguage,
+      learningLanguage: _effectiveLearningLanguage,
+      hasPhoto: _effectiveHasPhoto,
+    );
+    _needsPersonalInfo = _plan.needsPersonalInfo;
+    _hasExistingLanguages = !_plan.needsLanguages;
+    _totalSteps = _plan.totalSteps;
 
     if (_effectiveGender.isNotEmpty) _selectedGender = _effectiveGender;
     if (_effectiveBirthDate.isNotEmpty) {
@@ -179,12 +190,11 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
   // Each getter returns null when that step isn't part of this run (so the
   // summary card can hide its edit affordance instead of jumping nowhere).
 
-  int? get _personalInfoStepIndex => _needsPersonalInfo ? 0 : null;
+  int? get _personalInfoStepIndex => _plan.personalInfoStepIndex;
 
-  int get _photoStepIndex => _needsPersonalInfo ? 1 : 0;
+  int? get _photoStepIndex => _plan.photoStepIndex;
 
-  int? get _languageStepIndex =>
-      _hasExistingLanguages ? null : _photoStepIndex + 1;
+  int? get _languageStepIndex => _plan.languageStepIndex;
 
   /// Per-step progress-bar labels built from the same step order used by the
   /// PageView's `children` in `build()`:
@@ -194,12 +204,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
   /// instead of a fixed 4-label list that assumed a step order that doesn't
   /// hold once language steps are skipped (existing languages) or personal
   /// info is skipped (prefilled OAuth users).
-  List<String> get _stepLabels => [
-    if (_needsPersonalInfo) 'About you',
-    'Photo',
-    if (!_hasExistingLanguages) ...['Native language', 'Learning language'],
-    'Finish',
-  ];
+  List<String> get _stepLabels => _plan.labels;
 
   /// Completion-mode only: fetch the current user (already logged in — this
   /// screen was opened from the login gate, not straight after OAuth) and
@@ -213,6 +218,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
       _effectiveGender = user.gender;
       _effectiveNativeLanguage = user.native_language;
       _effectiveLearningLanguage = user.language_to_learn;
+      _effectiveHasPhoto = user.effectiveImageUrls.isNotEmpty;
       if (user.birth_year.isNotEmpty &&
           user.birth_month.isNotEmpty &&
           user.birth_day.isNotEmpty) {
@@ -761,11 +767,12 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                         onBirthDateSelected: _onBirthDateSelected,
                         onNext: _onPersonalInfoNext,
                       ),
-                    ProfilePhotoStep(
-                      pickedPhoto: _pickedPhoto,
-                      onPhotoChanged: (p) => setState(() => _pickedPhoto = p),
-                      onContinue: _goToNext,
-                    ),
+                    if (_plan.needsPhoto)
+                      ProfilePhotoStep(
+                        pickedPhoto: _pickedPhoto,
+                        onPhotoChanged: (p) => setState(() => _pickedPhoto = p),
+                        onContinue: _goToNext,
+                      ),
                     if (!_hasExistingLanguages)
                       NativeLanguageStep(
                         selectedLanguage: _nativeLanguage,
