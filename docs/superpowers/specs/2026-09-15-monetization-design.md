@@ -261,3 +261,45 @@ describes.
 2. **Ad inventory.** 6 ad rewards in the ledger suggests very low ad volume. If ads rarely
    fill, the "watch an ad" exit is not a real exit and the cap becomes VIP-or-nothing.
    Worth measuring fill rate before the cap ships.
+
+3. **The data this paywall sells is already free, and that is unresolved.**
+   *(Found by the whole-branch review, 2026-09-16.)* Every profile visit sends a
+   `profile_visit` push carrying the visitor's **name** and photo, and `send()` persists it
+   to notification history for every non-`chat_message` type. `GET /notifications/history`
+   has no tier gate, and both notification preferences default to true. So a free user reads
+   a complete, durable, unpaginated list of everyone who viewed them in their notification
+   tab, while the paid visitor screen shows one.
+
+   Pre-existing, and nothing in the backend branch closes it. **The primary paywall of this
+   design is worth nothing until it is closed**, and closing it is a product decision rather
+   than a bug fix: do we stop naming visitors in pushes? That costs a genuinely engaging
+   notification — 2,808 profile-visit pushes in 30 days, the second-highest volume in the
+   app — to protect a paywall that has earned nothing yet. **Decide before launch.**
+
+4. **Rewarded ads are unverified.** `POST /purchases/ad-credit/conversation` takes no
+   ad-network receipt — it trusts that the client calling it really watched an ad. Real proof
+   needs server-side verification (SSV) from AdMob/AppLovin, which requires their callback
+   contract. Until then the `AD_REWARD_DAILY_CAP` clamp (5/day) is the only thing bounding
+   abuse.
+
+   *(This was claimed as "recorded in the spec's open questions" during implementation and
+   was not actually written here until the whole-branch review caught the omission. Noted
+   because a known hole in a money path that lives only in a scratch ledger is a hole nobody
+   finds again.)*
+
+5. **An expired VIP keeps unlimited translation.** `models/User.js`'s `canTranslate` and
+   `incrementTranslationCount` branch on `userMode === 'vip'` with no expiry check, unlike
+   `isVIP()`, `getUserTier` and the new `tierOf`. Between a lapse and the expiry job running,
+   a user is simultaneously downgraded (conversation cap binds, visitor list locks) and not
+   (translation stays unlimited). Ten sibling occurrences of the pattern exist. Its own
+   change, not this design's.
+
+6. **The `translation_cap` placement can never fire.** It is a valid `PaywallEvent`
+   placement, but nothing emits a "you hit the translation wall" signal — translation
+   enforcement lives entirely in the coinBonus free-then-pool path. That metric will read
+   zero views forever, and zero must not be misread as "nobody hits that wall."
+
+7. **`lib/googlePlayReceipt.js`'s fail-closed behaviour is still untested.** §5 asks for a
+   test so a future env change cannot silently reintroduce the failure that plausibly caused
+   the original $0. No such test exists. It is the cheapest item in this spec and it guards
+   the most expensive failure mode.
