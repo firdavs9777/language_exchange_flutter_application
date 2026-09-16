@@ -39,9 +39,27 @@ class GatheringsTab extends ConsumerStatefulWidget {
 }
 
 class _GatheringsTabState extends ConsumerState<GatheringsTab>
-    with AutomaticKeepAliveClientMixin<GatheringsTab> {
+    with
+        AutomaticKeepAliveClientMixin<GatheringsTab>,
+        TickerProviderStateMixin {
   @override
   bool get wantKeepAlive => true;
+
+  /// Gatherings first, clubs second.
+  ///
+  /// The original single-scroll layout led with clubs on purpose: a club does
+  /// not reset to empty between events, so it looked alive on a day when
+  /// nothing was scheduled. Splitting the two loses that cover, so the
+  /// Gatherings tab carries its own — its empty state is a pre-filled create
+  /// form, not an apology, which reads as an invitation rather than an
+  /// abandoned list.
+  late final TabController _tabs = TabController(length: 2, vsync: this);
+
+  @override
+  void dispose() {
+    _tabs.dispose();
+    super.dispose();
+  }
 
   late final GatheringApiClient _api = widget.apiClient ?? GatheringApiClient();
 
@@ -59,10 +77,7 @@ class _GatheringsTabState extends ConsumerState<GatheringsTab>
   Future<_FeedData> _load() async {
     // One round trip each, in parallel: the strip and the list are
     // independent and the tab should not wait for the slower of them twice.
-    final results = await Future.wait([
-      _api.getClubs(),
-      _api.getGatherings(),
-    ]);
+    final results = await Future.wait([_api.getClubs(), _api.getGatherings()]);
     return _FeedData(
       clubs: results[0] as List<Club>,
       gatherings: results[1] as List<Gathering>,
@@ -157,83 +172,143 @@ class _GatheringsTabState extends ConsumerState<GatheringsTab>
 
           final data = snapshot.data ?? const _FeedData();
 
-          return RefreshIndicator(
-            onRefresh: _refresh,
-            child: CustomScrollView(
-              // Always scrollable so pull-to-refresh works on the empty state
-              // too, which is the state most in need of a retry.
-              physics: const AlwaysScrollableScrollPhysics(),
-              slivers: [
-                // The header renders whenever there is anything at all to show,
-                // not only when clubs already exist. Gating it on
-                // clubs.isNotEmpty meant the ONLY other route to creating one
-                // -- the empty state, which needs gatherings.isEmpty -- was
-                // also hidden as soon as a single gathering existed. Between
-                // them, a viewer with no clubs and one gathering had no way to
-                // create their first club at all.
-                _sectionHeader(
-                  context,
-                  l10n.gatheringClubs,
-                  action: _textAction(
-                    context,
-                    l10n.gatheringNewClub,
-                    () async {
-                      final club = await showCreateClubSheet(
-                        context,
-                        defaultLanguage: _defaultLanguage,
-                      );
-                      if (club != null) await _refresh();
-                    },
-                  ),
+          return Column(
+            children: [
+              _innerTabs(context, l10n, data),
+              Expanded(
+                child: TabBarView(
+                  controller: _tabs,
+                  children: [
+                    _gatheringsView(context, l10n, data),
+                    _clubsView(context, l10n, data),
+                  ],
                 ),
-                if (data.clubs.isNotEmpty)
-                  SliverToBoxAdapter(child: _clubStrip(data.clubs))
-                else
-                  SliverToBoxAdapter(child: _noClubsYet(context)),
-                if (data.gatherings.isEmpty)
-                  SliverFillRemaining(
-                    hasScrollBody: false,
-                    child: _emptyState(context, data.clubs.isEmpty),
-                  )
-                else ...[
-                  _sectionHeader(
-                    context,
-                    l10n.gatheringStartingSoon,
-                    action: _textAction(
-                      context,
-                      l10n.gatheringCreateShort,
-                      () => _create(),
-                    ),
-                  ),
-                  SliverList.builder(
-                    itemCount: data.gatherings.length,
-                    itemBuilder: (context, index) {
-                      final gathering = data.gatherings[index];
-                      return GatheringCard(
-                        gathering: gathering,
-                        busy: _busy.contains(gathering.id),
-                        onRsvp: gathering.isOpenForRsvp
-                            ? () => _rsvp(gathering)
-                            : null,
-                        onTap: () async {
-                          await Navigator.of(context).push(
-                            AppPageRoute(
-                              builder: (_) => GatheringDetailScreen(
-                                gatheringId: gathering.id,
-                              ),
-                            ),
-                          );
-                          await _refresh();
-                        },
-                      );
-                    },
-                  ),
-                  const SliverToBoxAdapter(child: SizedBox(height: 80)),
-                ],
-              ],
-            ),
+              ),
+            ],
           );
         },
+      ),
+    );
+  }
+
+  /// The two-tab header. Counts are shown only when non-zero: a "Clubs 0"
+  /// label advertises the emptiness this feature is most at risk from.
+  Widget _innerTabs(
+    BuildContext context,
+    AppLocalizations l10n,
+    _FeedData data,
+  ) {
+    String label(String base, int count) => count > 0 ? '$base  $count' : base;
+    return Container(
+      decoration: BoxDecoration(
+        border: Border(bottom: BorderSide(color: context.dividerColor)),
+      ),
+      child: TabBar(
+        controller: _tabs,
+        labelColor: AppColors.primary,
+        unselectedLabelColor: context.textSecondary,
+        indicatorColor: AppColors.primary,
+        indicatorSize: TabBarIndicatorSize.label,
+        tabs: [
+          Tab(
+            key: const Key('gatherings-inner-tab'),
+            text: label(l10n.gatheringStartingSoon, data.gatherings.length),
+          ),
+          Tab(
+            key: const Key('clubs-inner-tab'),
+            text: label(l10n.gatheringClubs, data.clubs.length),
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// What is starting soon. Empty means the create form, not an apology.
+  Widget _gatheringsView(
+    BuildContext context,
+    AppLocalizations l10n,
+    _FeedData data,
+  ) {
+    if (data.gatherings.isEmpty) {
+      return RefreshIndicator(
+        onRefresh: _refresh,
+        child: ListView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          children: [_emptyState(context, data.clubs.isEmpty)],
+        ),
+      );
+    }
+    return RefreshIndicator(
+      onRefresh: _refresh,
+      child: CustomScrollView(
+        // Always scrollable so pull-to-refresh works even on a short list.
+        physics: const AlwaysScrollableScrollPhysics(),
+        slivers: [
+          _sectionHeader(
+            context,
+            l10n.gatheringStartingSoon,
+            action: _textAction(
+              context,
+              l10n.gatheringCreateShort,
+              () => _create(),
+            ),
+          ),
+          SliverList.builder(
+            itemCount: data.gatherings.length,
+            itemBuilder: (context, index) {
+              final gathering = data.gatherings[index];
+              return GatheringCard(
+                gathering: gathering,
+                busy: _busy.contains(gathering.id),
+                onRsvp: gathering.isOpenForRsvp ? () => _rsvp(gathering) : null,
+                onTap: () async {
+                  await Navigator.of(context).push(
+                    AppPageRoute(
+                      builder: (_) =>
+                          GatheringDetailScreen(gatheringId: gathering.id),
+                    ),
+                  );
+                  await _refresh();
+                },
+              );
+            },
+          ),
+          const SliverToBoxAdapter(child: SizedBox(height: 80)),
+        ],
+      ),
+    );
+  }
+
+  /// Every club, as a full-width list rather than the old horizontal strip.
+  /// The strip existed because clubs shared a scroll view with the gatherings
+  /// list; with a tab of their own they get the room.
+  Widget _clubsView(
+    BuildContext context,
+    AppLocalizations l10n,
+    _FeedData data,
+  ) {
+    return RefreshIndicator(
+      onRefresh: _refresh,
+      child: CustomScrollView(
+        physics: const AlwaysScrollableScrollPhysics(),
+        slivers: [
+          _sectionHeader(
+            context,
+            l10n.gatheringClubs,
+            action: _textAction(context, l10n.gatheringNewClub, () async {
+              final club = await showCreateClubSheet(
+                context,
+                defaultLanguage: _defaultLanguage,
+              );
+              if (club != null) await _refresh();
+            }),
+          ),
+          if (data.clubs.isEmpty)
+            SliverToBoxAdapter(child: _noClubsYet(context))
+          else
+            SliverToBoxAdapter(child: _clubStrip(data.clubs)),
+          const SliverToBoxAdapter(child: SizedBox(height: 80)),
+        ],
       ),
     );
   }
@@ -343,11 +418,7 @@ class _GatheringsTabState extends ConsumerState<GatheringsTab>
     );
   }
 
-  Widget _sectionHeader(
-    BuildContext context,
-    String title, {
-    Widget? action,
-  }) {
+  Widget _sectionHeader(BuildContext context, String title, {Widget? action}) {
     return SliverToBoxAdapter(
       child: Padding(
         padding: const EdgeInsets.fromLTRB(
@@ -392,7 +463,9 @@ class _ClubChip extends StatelessWidget {
         decoration: BoxDecoration(
           color: context.containerColor,
           borderRadius: AppRadius.borderLG,
-          border: Border.all(color: context.dividerColor.withValues(alpha: 0.4)),
+          border: Border.all(
+            color: context.dividerColor.withValues(alpha: 0.4),
+          ),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

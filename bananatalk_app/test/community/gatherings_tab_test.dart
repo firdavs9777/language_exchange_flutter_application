@@ -99,8 +99,18 @@ void main() {
       await tester.pumpWidget(_host(_FakeApi(clubs: [_club()])));
       await tester.pumpAndSettle();
 
+      // Clubs have their own tab now; the count on the tab label is what
+      // carries the "not abandoned" signal from the Gatherings side.
+      expect(find.textContaining('1'), findsWidgets);
+
+      await tester.tap(find.byKey(const Key('clubs-inner-tab')));
+      await tester.pumpAndSettle();
+
       expect(find.text('Korean Learners Club'), findsOneWidget);
       expect(find.textContaining('49'), findsOneWidget);
+
+      await tester.tap(find.byKey(const Key('gatherings-inner-tab')));
+      await tester.pumpAndSettle();
       // Still offers the draft, because there is nothing to attend yet.
       expect(
         find.byKey(const Key('gatherings_empty_create_form')),
@@ -221,8 +231,28 @@ void main() {
     await tester.pumpWidget(_host(api));
     await tester.pumpAndSettle();
 
-    // "New club" is the header action; before the fix the whole header was
-    // gated on already having clubs, so this was the unreachable state.
+    await tester.tap(find.byKey(const Key('clubs-inner-tab')));
+    await tester.pumpAndSettle();
+
+    // "New club" is the header action; before the fix it was gated on already
+    // having clubs, so a first club was unreachable in exactly this state.
     expect(find.text('New club'), findsOneWidget);
+  });
+
+  testWidgets('clubs and gatherings are separate tabs', (tester) async {
+    final api = _FakeApi(clubs: [_club()], gatherings: [_gathering()]);
+    await tester.pumpWidget(_host(api));
+    await tester.pumpAndSettle();
+
+    // Gatherings lead: the tab is named for them and its empty state is a
+    // create form, which is what covers a day with nothing scheduled.
+    expect(find.text('Korean evening'), findsOneWidget);
+    expect(find.text('Korean Learners Club'), findsNothing);
+
+    await tester.tap(find.byKey(const Key('clubs-inner-tab')));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Korean Learners Club'), findsOneWidget);
+    expect(find.text('Korean evening'), findsNothing);
   });
 }
