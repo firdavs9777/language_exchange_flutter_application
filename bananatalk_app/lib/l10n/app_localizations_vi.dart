@@ -7644,4 +7644,277 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get weeklyReportStart => 'Bắt đầu gói hôm nay';
+
+  @override
+  String get gatheringsTabLabel => 'Buổi gặp';
+
+  @override
+  String get gatheringClubs => 'Câu lạc bộ';
+
+  @override
+  String get gatheringNewClub => 'CLB mới';
+
+  @override
+  String get gatheringStartingSoon => 'Sắp bắt đầu';
+
+  @override
+  String get gatheringCreateShort => 'Tạo mới';
+
+  @override
+  String get gatheringLoadFailed => 'Không tải được các buổi gặp';
+
+  @override
+  String get gatheringEmptyTitle => 'Hãy tổ chức buổi đầu tiên';
+
+  @override
+  String get gatheringEmptyBody => 'Chưa có gì được lên lịch. Chọn một giờ rồi đăng lên — mọi người tham gia những buổi đã có người đứng ra tổ chức.';
+
+  @override
+  String get gatheringStartAClub => 'Tạo câu lạc bộ thay vì vậy';
+
+  @override
+  String get gatheringToday => 'Hôm nay';
+
+  @override
+  String get gatheringTomorrow => 'Ngày mai';
+
+  @override
+  String get gatheringHappeningNow => 'Đang diễn ra';
+
+  @override
+  String gatheringStartsIn(int minutes) {
+    return 'Bắt đầu sau $minutes phút';
+  }
+
+  @override
+  String gatheringHostZone(String zone) {
+    return 'Múi giờ của người tổ chức: $zone';
+  }
+
+  @override
+  String gatheringHostedBy(String name) {
+    return 'Tổ chức bởi $name';
+  }
+
+  @override
+  String gatheringQuorumNeeded(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+      
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Cần thêm $countString người để xác nhận',
+      zero: 'Sẵn sàng xác nhận',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String gatheringConfirmed(int count) {
+    return 'Đã xác nhận · $count người tham gia';
+  }
+
+  @override
+  String get gatheringYouHost => 'Bạn là người tổ chức';
+
+  @override
+  String get gatheringGoingYou => 'Bạn sẽ tham gia';
+
+  @override
+  String get gatheringFull => 'Đã đầy';
+
+  @override
+  String get gatheringJoin => 'Tham gia';
+
+  @override
+  String get gatheringAskToJoin => 'Xin tham gia';
+
+  @override
+  String get gatheringRequested => 'Đã gửi yêu cầu — người tổ chức sẽ quyết định';
+
+  @override
+  String get gatheringCreateTitle => 'Buổi gặp mới';
+
+  @override
+  String get gatheringCreateSubtitle => 'Một giờ hẹn, một ngôn ngữ và vài chỗ ngồi. Còn lại là tùy chọn.';
+
+  @override
+  String gatheringDefaultTitle(String language) {
+    return 'Luyện $language';
+  }
+
+  @override
+  String get gatheringTitleLabel => 'Mọi người sẽ làm gì?';
+
+  @override
+  String get gatheringLanguageLabel => 'Ngôn ngữ';
+
+  @override
+  String get gatheringWhenLabel => 'Khi nào';
+
+  @override
+  String get gatheringSeatsLabel => 'Số chỗ';
+
+  @override
+  String get gatheringQuorumLabel => 'Xác nhận khi đủ';
+
+  @override
+  String get gatheringQuorumExplainer => 'Bạn được tính là người tham gia đầu tiên. Buổi gặp được xác nhận ngay khi đủ số người này.';
+
+  @override
+  String get gatheringPost => 'Đăng lên';
+
+  @override
+  String get gatheringPosted => 'Đã đăng — giờ thì chia sẻ đi';
+
+  @override
+  String get gatheringNeedsTitle => 'Đặt tên trước đã';
+
+  @override
+  String get gatheringNeedsLanguage => 'Chọn ngôn ngữ trước đã';
+
+  @override
+  String get gatheringNeedsFuture => 'Hãy chọn một thời điểm trong tương lai';
+
+  @override
+  String get gatheringDetailTitle => 'Buổi gặp';
+
+  @override
+  String get gatheringNotFound => 'Buổi gặp này không còn khả dụng';
+
+  @override
+  String gatheringDuration(int minutes) {
+    return '$minutes phút';
+  }
+
+  @override
+  String gatheringSeatsTaken(int going, int capacity) {
+    return 'Đã kín $going trong $capacity chỗ';
+  }
+
+  @override
+  String get gatheringCancelled => 'Đã hủy';
+
+  @override
+  String get gatheringEnded => 'Buổi gặp này đã kết thúc';
+
+  @override
+  String get gatheringCancelRsvp => 'Hủy tham gia';
+
+  @override
+  String gatheringHostDecision(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+      
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Hiện mới chỉ có $countString người. Vẫn tổ chức hay hủy?',
+      one: 'Hiện mới chỉ có mình bạn. Vẫn tổ chức hay hủy?',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get gatheringRunAnyway => 'Vẫn tổ chức';
+
+  @override
+  String get gatheringCallItOff => 'Hủy buổi gặp';
+
+  @override
+  String get gatheringEnd => 'Kết thúc buổi gặp';
+
+  @override
+  String get gatheringEndedThanks => 'Đã kết thúc — nhắn tin cho người bạn vừa gặp là miễn phí';
+
+  @override
+  String get gatheringCancelIt => 'Hủy buổi gặp';
+
+  @override
+  String get gatheringKeepIt => 'Giữ lại';
+
+  @override
+  String gatheringCancelConfirm(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+      
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString người đang chờ buổi này. Họ sẽ được báo là đã hủy.',
+      one: '1 người đang chờ buổi này. Họ sẽ được báo là đã hủy.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get clubDetailTitle => 'Câu lạc bộ';
+
+  @override
+  String get clubNotFound => 'Câu lạc bộ này không còn khả dụng';
+
+  @override
+  String clubMembers(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+      
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString thành viên',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get clubJoin => 'Tham gia CLB';
+
+  @override
+  String get clubLeave => 'Rời CLB';
+
+  @override
+  String get clubUpcoming => 'Sắp tới';
+
+  @override
+  String get clubNothingScheduled => 'Chưa có gì được lên lịch.';
+
+  @override
+  String get clubHostGathering => 'Tổ chức buổi gặp';
+
+  @override
+  String get clubCreateTitle => 'Câu lạc bộ mới';
+
+  @override
+  String get clubCreateSubtitle => 'Câu lạc bộ giữ mọi người ở lại giữa các buổi gặp. Hãy đặt tên theo điều các bạn thực sự sẽ làm.';
+
+  @override
+  String get clubNameLabel => 'Tên câu lạc bộ';
+
+  @override
+  String get clubInterestLabel => 'Sở thích';
+
+  @override
+  String get clubInterestHint => 'Tùy chọn — chạy bộ, K-pop, HSK4';
+
+  @override
+  String get clubDescriptionLabel => 'Giới thiệu';
+
+  @override
+  String get clubCreate => 'Tạo câu lạc bộ';
+
+  @override
+  String get clubNeedsName => 'Hãy đặt tên cho câu lạc bộ trước';
 }

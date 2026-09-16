@@ -7658,4 +7658,277 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get weeklyReportStart => 'Маҷмӯаи имрӯзаро оғоз кунед';
+
+  @override
+  String get gatheringsTabLabel => 'Вохӯриҳо';
+
+  @override
+  String get gatheringClubs => 'Клубҳо';
+
+  @override
+  String get gatheringNewClub => 'Клуби нав';
+
+  @override
+  String get gatheringStartingSoon => 'Ба зудӣ оғоз мешавад';
+
+  @override
+  String get gatheringCreateShort => 'Нав';
+
+  @override
+  String get gatheringLoadFailed => 'Вохӯриҳоро бор кардан нашуд';
+
+  @override
+  String get gatheringEmptyTitle => 'Аввалинашро шумо ташкил кунед';
+
+  @override
+  String get gatheringEmptyBody => 'Ҳанӯз чизе банақшагирӣ нашудааст. Вақт интихоб кунед ва нашр кунед — одамон ба вохӯриҳое мепайвнданд, ки аллакай мизбон доранд.';
+
+  @override
+  String get gatheringStartAClub => 'Ба ҷояш клуб созед';
+
+  @override
+  String get gatheringToday => 'Имрӯз';
+
+  @override
+  String get gatheringTomorrow => 'Фардо';
+
+  @override
+  String get gatheringHappeningNow => 'Ҳоло идома дорад';
+
+  @override
+  String gatheringStartsIn(int minutes) {
+    return 'Пас аз $minutes дақиқа оғоз мешавад';
+  }
+
+  @override
+  String gatheringHostZone(String zone) {
+    return 'Минтақаи вақти мизбон: $zone';
+  }
+
+  @override
+  String gatheringHostedBy(String name) {
+    return 'Мизбон: $name';
+  }
+
+  @override
+  String gatheringQuorumNeeded(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+      
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Барои тасдиқ боз $countString нафар лозим аст',
+      zero: 'Барои тасдиқ омода аст',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String gatheringConfirmed(int count) {
+    return 'Тасдиқшуда · $count нафар меоянд';
+  }
+
+  @override
+  String get gatheringYouHost => 'Шумо мизбонед';
+
+  @override
+  String get gatheringGoingYou => 'Шумо меоед';
+
+  @override
+  String get gatheringFull => 'Ҷой нест';
+
+  @override
+  String get gatheringJoin => 'Ҳамроҳ шудан';
+
+  @override
+  String get gatheringAskToJoin => 'Дархости ҳамроҳшавӣ';
+
+  @override
+  String get gatheringRequested => 'Дархост фиристода шуд — қарорро мизбон қабул мекунад';
+
+  @override
+  String get gatheringCreateTitle => 'Вохӯрии нав';
+
+  @override
+  String get gatheringCreateSubtitle => 'Як вақт, як забон ва чанд ҷой. Боқимонда ихтиёрӣ аст.';
+
+  @override
+  String gatheringDefaultTitle(String language) {
+    return 'Машқи $language';
+  }
+
+  @override
+  String get gatheringTitleLabel => 'Чӣ кор мекунед?';
+
+  @override
+  String get gatheringLanguageLabel => 'Забон';
+
+  @override
+  String get gatheringWhenLabel => 'Кай';
+
+  @override
+  String get gatheringSeatsLabel => 'Ҷойҳо';
+
+  @override
+  String get gatheringQuorumLabel => 'Тасдиқ дар';
+
+  @override
+  String get gatheringQuorumExplainer => 'Шумо ҳамчун иштирокчии аввал ҳисоб мешавед. Вохӯрӣ ҳамин ки ин шумора ҷамъ шуд, тасдиқ мегардад.';
+
+  @override
+  String get gatheringPost => 'Нашр кардан';
+
+  @override
+  String get gatheringPosted => 'Нашр шуд — акнун хабар диҳед';
+
+  @override
+  String get gatheringNeedsTitle => 'Аввал ном гузоред';
+
+  @override
+  String get gatheringNeedsLanguage => 'Аввал забон интихоб кунед';
+
+  @override
+  String get gatheringNeedsFuture => 'Вақти ояндаро интихоб кунед';
+
+  @override
+  String get gatheringDetailTitle => 'Вохӯрӣ';
+
+  @override
+  String get gatheringNotFound => 'Ин вохӯрӣ дигар дастрас нест';
+
+  @override
+  String gatheringDuration(int minutes) {
+    return '$minutes дақиқа';
+  }
+
+  @override
+  String gatheringSeatsTaken(int going, int capacity) {
+    return '$going аз $capacity ҷой банд аст';
+  }
+
+  @override
+  String get gatheringCancelled => 'Бекор карда шуд';
+
+  @override
+  String get gatheringEnded => 'Ин вохӯрӣ ба анҷом расид';
+
+  @override
+  String get gatheringCancelRsvp => 'Иштироки худро бекор кардан';
+
+  @override
+  String gatheringHostDecision(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+      
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'То ҳол танҳо $countString нафар меоянд. Бо вуҷуди ин гузаронем ё бекор кунем?',
+      one: 'То ҳол танҳо шумо меоед. Бо вуҷуди ин гузаронем ё бекор кунем?',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get gatheringRunAnyway => 'Бо вуҷуди ин гузаронидан';
+
+  @override
+  String get gatheringCallItOff => 'Бекор кардан';
+
+  @override
+  String get gatheringEnd => 'Анҷоми вохӯрӣ';
+
+  @override
+  String get gatheringEndedThanks => 'Анҷом ёфт — ба шиносони нав паём навиштан ройгон аст';
+
+  @override
+  String get gatheringCancelIt => 'Вохӯриро бекор кардан';
+
+  @override
+  String get gatheringKeepIt => 'Нигоҳ доштан';
+
+  @override
+  String gatheringCancelConfirm(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+      
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString нафар инро интизоранд. Ба онҳо дар бораи бекоршавӣ хабар дода мешавад.',
+      one: '1 нафар инро интизор аст. Ба ӯ дар бораи бекоршавӣ хабар дода мешавад.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get clubDetailTitle => 'Клуб';
+
+  @override
+  String get clubNotFound => 'Ин клуб дигар дастрас нест';
+
+  @override
+  String clubMembers(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+      
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString аъзо',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get clubJoin => 'Ба клуб ҳамроҳ шудан';
+
+  @override
+  String get clubLeave => 'Тарки клуб';
+
+  @override
+  String get clubUpcoming => 'Ба зудӣ';
+
+  @override
+  String get clubNothingScheduled => 'Ҳанӯз чизе банақшагирӣ нашудааст.';
+
+  @override
+  String get clubHostGathering => 'Вохӯрӣ ташкил кардан';
+
+  @override
+  String get clubCreateTitle => 'Клуби нав';
+
+  @override
+  String get clubCreateSubtitle => 'Клуб одамонро дар байни вохӯриҳо низ нигоҳ медорад. Онро бо номи коре, ки воқеан мекунед, номгузорӣ кунед.';
+
+  @override
+  String get clubNameLabel => 'Номи клуб';
+
+  @override
+  String get clubInterestLabel => 'Шавқмандӣ';
+
+  @override
+  String get clubInterestHint => 'Ихтиёрӣ — давидан, K-pop, HSK4';
+
+  @override
+  String get clubDescriptionLabel => 'Дар бораи клуб';
+
+  @override
+  String get clubCreate => 'Сохтани клуб';
+
+  @override
+  String get clubNeedsName => 'Аввал ба клуб ном гузоред';
 }

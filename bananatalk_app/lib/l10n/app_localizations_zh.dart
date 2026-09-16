@@ -7644,6 +7644,279 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get weeklyReportStart => '开始今天的学习包';
+
+  @override
+  String get gatheringsTabLabel => '聚会';
+
+  @override
+  String get gatheringClubs => '俱乐部';
+
+  @override
+  String get gatheringNewClub => '新建俱乐部';
+
+  @override
+  String get gatheringStartingSoon => '即将开始';
+
+  @override
+  String get gatheringCreateShort => '新建';
+
+  @override
+  String get gatheringLoadFailed => '无法加载聚会';
+
+  @override
+  String get gatheringEmptyTitle => '来办第一场吧';
+
+  @override
+  String get gatheringEmptyBody => '目前还没有安排。选个时间发布出去——有主持人的聚会，大家才会参加。';
+
+  @override
+  String get gatheringStartAClub => '或者先创建俱乐部';
+
+  @override
+  String get gatheringToday => '今天';
+
+  @override
+  String get gatheringTomorrow => '明天';
+
+  @override
+  String get gatheringHappeningNow => '正在进行';
+
+  @override
+  String gatheringStartsIn(int minutes) {
+    return '$minutes分钟后开始';
+  }
+
+  @override
+  String gatheringHostZone(String zone) {
+    return '主持人时区：$zone';
+  }
+
+  @override
+  String gatheringHostedBy(String name) {
+    return '主持人：$name';
+  }
+
+  @override
+  String gatheringQuorumNeeded(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+      
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '还差$countString人即可确认',
+      zero: '可以确认了',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String gatheringConfirmed(int count) {
+    return '已确认 · $count人参加';
+  }
+
+  @override
+  String get gatheringYouHost => '你是主持人';
+
+  @override
+  String get gatheringGoingYou => '你已报名';
+
+  @override
+  String get gatheringFull => '已满';
+
+  @override
+  String get gatheringJoin => '参加';
+
+  @override
+  String get gatheringAskToJoin => '申请参加';
+
+  @override
+  String get gatheringRequested => '已申请参加——等待主持人确认';
+
+  @override
+  String get gatheringCreateTitle => '新建聚会';
+
+  @override
+  String get gatheringCreateSubtitle => '一个时间、一门语言、几个名额。其余都是可选的。';
+
+  @override
+  String gatheringDefaultTitle(String language) {
+    return '$language练习';
+  }
+
+  @override
+  String get gatheringTitleLabel => '你们要做什么？';
+
+  @override
+  String get gatheringLanguageLabel => '语言';
+
+  @override
+  String get gatheringWhenLabel => '时间';
+
+  @override
+  String get gatheringSeatsLabel => '名额';
+
+  @override
+  String get gatheringQuorumLabel => '确认人数';
+
+  @override
+  String get gatheringQuorumExplainer => '作为主持人，你算作第一位参加者。达到这个人数聚会就会确认。';
+
+  @override
+  String get gatheringPost => '发布';
+
+  @override
+  String get gatheringPosted => '已发布——去告诉大家吧';
+
+  @override
+  String get gatheringNeedsTitle => '先起个名字';
+
+  @override
+  String get gatheringNeedsLanguage => '先选择语言';
+
+  @override
+  String get gatheringNeedsFuture => '请选择将来的时间';
+
+  @override
+  String get gatheringDetailTitle => '聚会';
+
+  @override
+  String get gatheringNotFound => '该聚会已不可用';
+
+  @override
+  String gatheringDuration(int minutes) {
+    return '$minutes分钟';
+  }
+
+  @override
+  String gatheringSeatsTaken(int going, int capacity) {
+    return '$capacity个名额已占$going个';
+  }
+
+  @override
+  String get gatheringCancelled => '已取消';
+
+  @override
+  String get gatheringEnded => '该聚会已结束';
+
+  @override
+  String get gatheringCancelRsvp => '取消报名';
+
+  @override
+  String gatheringHostDecision(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+      
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '目前只有$countString人参加。还是照常举行，还是取消？',
+      one: '目前只有你一个人参加。还是照常举行，还是取消？',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get gatheringRunAnyway => '照常举行';
+
+  @override
+  String get gatheringCallItOff => '取消聚会';
+
+  @override
+  String get gatheringEnd => '结束聚会';
+
+  @override
+  String get gatheringEndedThanks => '已结束——给刚认识的人发消息是免费的';
+
+  @override
+  String get gatheringCancelIt => '取消聚会';
+
+  @override
+  String get gatheringKeepIt => '保留';
+
+  @override
+  String gatheringCancelConfirm(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+      
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '有$countString人正在等这场聚会，我们会通知他们已取消。',
+      one: '有1人正在等这场聚会，我们会通知他们已取消。',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get clubDetailTitle => '俱乐部';
+
+  @override
+  String get clubNotFound => '该俱乐部已不可用';
+
+  @override
+  String clubMembers(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+      
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString名成员',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get clubJoin => '加入俱乐部';
+
+  @override
+  String get clubLeave => '退出俱乐部';
+
+  @override
+  String get clubUpcoming => '即将举行';
+
+  @override
+  String get clubNothingScheduled => '目前还没有安排。';
+
+  @override
+  String get clubHostGathering => '发起聚会';
+
+  @override
+  String get clubCreateTitle => '新建俱乐部';
+
+  @override
+  String get clubCreateSubtitle => '俱乐部让成员在两次聚会之间也留在一起。用你们真正要做的事来命名。';
+
+  @override
+  String get clubNameLabel => '俱乐部名称';
+
+  @override
+  String get clubInterestLabel => '兴趣';
+
+  @override
+  String get clubInterestHint => '可选——跑步、K-pop、HSK4';
+
+  @override
+  String get clubDescriptionLabel => '简介';
+
+  @override
+  String get clubCreate => '创建俱乐部';
+
+  @override
+  String get clubNeedsName => '请先为俱乐部起个名字';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -15286,4 +15559,277 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get weeklyReportStart => '開始今天的學習包';
+
+  @override
+  String get gatheringsTabLabel => '聚會';
+
+  @override
+  String get gatheringClubs => '社團';
+
+  @override
+  String get gatheringNewClub => '新增社團';
+
+  @override
+  String get gatheringStartingSoon => '即將開始';
+
+  @override
+  String get gatheringCreateShort => '新增';
+
+  @override
+  String get gatheringLoadFailed => '無法載入聚會';
+
+  @override
+  String get gatheringEmptyTitle => '來辦第一場吧';
+
+  @override
+  String get gatheringEmptyBody => '目前還沒有安排。選個時間發布出去——有主辦人的聚會，大家才會參加。';
+
+  @override
+  String get gatheringStartAClub => '或者先建立社團';
+
+  @override
+  String get gatheringToday => '今天';
+
+  @override
+  String get gatheringTomorrow => '明天';
+
+  @override
+  String get gatheringHappeningNow => '正在進行';
+
+  @override
+  String gatheringStartsIn(int minutes) {
+    return '$minutes分鐘後開始';
+  }
+
+  @override
+  String gatheringHostZone(String zone) {
+    return '主辦人時區：$zone';
+  }
+
+  @override
+  String gatheringHostedBy(String name) {
+    return '主辦人：$name';
+  }
+
+  @override
+  String gatheringQuorumNeeded(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+      
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '還差$countString人即可確認',
+      zero: '可以確認了',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String gatheringConfirmed(int count) {
+    return '已確認 · $count人參加';
+  }
+
+  @override
+  String get gatheringYouHost => '你是主辦人';
+
+  @override
+  String get gatheringGoingYou => '你已報名';
+
+  @override
+  String get gatheringFull => '已額滿';
+
+  @override
+  String get gatheringJoin => '參加';
+
+  @override
+  String get gatheringAskToJoin => '申請參加';
+
+  @override
+  String get gatheringRequested => '已申請參加——等待主辦人確認';
+
+  @override
+  String get gatheringCreateTitle => '新增聚會';
+
+  @override
+  String get gatheringCreateSubtitle => '一個時間、一種語言、幾個名額。其餘都是選填。';
+
+  @override
+  String gatheringDefaultTitle(String language) {
+    return '$language練習';
+  }
+
+  @override
+  String get gatheringTitleLabel => '你們要做什麼？';
+
+  @override
+  String get gatheringLanguageLabel => '語言';
+
+  @override
+  String get gatheringWhenLabel => '時間';
+
+  @override
+  String get gatheringSeatsLabel => '名額';
+
+  @override
+  String get gatheringQuorumLabel => '確認人數';
+
+  @override
+  String get gatheringQuorumExplainer => '身為主辦人，你算作第一位參加者。達到這個人數聚會就會確認。';
+
+  @override
+  String get gatheringPost => '發布';
+
+  @override
+  String get gatheringPosted => '已發布——去告訴大家吧';
+
+  @override
+  String get gatheringNeedsTitle => '先取個名字';
+
+  @override
+  String get gatheringNeedsLanguage => '先選擇語言';
+
+  @override
+  String get gatheringNeedsFuture => '請選擇未來的時間';
+
+  @override
+  String get gatheringDetailTitle => '聚會';
+
+  @override
+  String get gatheringNotFound => '此聚會已無法查看';
+
+  @override
+  String gatheringDuration(int minutes) {
+    return '$minutes分鐘';
+  }
+
+  @override
+  String gatheringSeatsTaken(int going, int capacity) {
+    return '$capacity個名額已佔$going個';
+  }
+
+  @override
+  String get gatheringCancelled => '已取消';
+
+  @override
+  String get gatheringEnded => '此聚會已結束';
+
+  @override
+  String get gatheringCancelRsvp => '取消報名';
+
+  @override
+  String gatheringHostDecision(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+      
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '目前只有$countString人參加。還是照常舉行，還是取消？',
+      one: '目前只有你一個人參加。還是照常舉行，還是取消？',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get gatheringRunAnyway => '照常舉行';
+
+  @override
+  String get gatheringCallItOff => '取消聚會';
+
+  @override
+  String get gatheringEnd => '結束聚會';
+
+  @override
+  String get gatheringEndedThanks => '已結束——傳訊息給剛認識的人是免費的';
+
+  @override
+  String get gatheringCancelIt => '取消聚會';
+
+  @override
+  String get gatheringKeepIt => '保留';
+
+  @override
+  String gatheringCancelConfirm(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+      
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '有$countString人正在等這場聚會，我們會通知他們已取消。',
+      one: '有1人正在等這場聚會，我們會通知他們已取消。',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get clubDetailTitle => '社團';
+
+  @override
+  String get clubNotFound => '此社團已無法查看';
+
+  @override
+  String clubMembers(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+      
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString位成員',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get clubJoin => '加入社團';
+
+  @override
+  String get clubLeave => '退出社團';
+
+  @override
+  String get clubUpcoming => '即將舉行';
+
+  @override
+  String get clubNothingScheduled => '目前還沒有安排。';
+
+  @override
+  String get clubHostGathering => '發起聚會';
+
+  @override
+  String get clubCreateTitle => '新增社團';
+
+  @override
+  String get clubCreateSubtitle => '社團讓成員在兩次聚會之間也留在一起。用你們真正要做的事來命名。';
+
+  @override
+  String get clubNameLabel => '社團名稱';
+
+  @override
+  String get clubInterestLabel => '興趣';
+
+  @override
+  String get clubInterestHint => '選填——跑步、K-pop、HSK4';
+
+  @override
+  String get clubDescriptionLabel => '簡介';
+
+  @override
+  String get clubCreate => '建立社團';
+
+  @override
+  String get clubNeedsName => '請先為社團取個名字';
 }

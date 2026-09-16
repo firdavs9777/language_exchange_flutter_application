@@ -7652,4 +7652,279 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get weeklyReportStart => 'आज का पैक शुरू करें';
+
+  @override
+  String get gatheringsTabLabel => 'मिलन';
+
+  @override
+  String get gatheringClubs => 'क्लब';
+
+  @override
+  String get gatheringNewClub => 'नया क्लब';
+
+  @override
+  String get gatheringStartingSoon => 'जल्द शुरू';
+
+  @override
+  String get gatheringCreateShort => 'नया';
+
+  @override
+  String get gatheringLoadFailed => 'मिलन लोड नहीं हो सके';
+
+  @override
+  String get gatheringEmptyTitle => 'पहला मिलन आप रखें';
+
+  @override
+  String get gatheringEmptyBody => 'अभी कुछ तय नहीं है। समय चुनकर पोस्ट करें — लोग उन्हीं मिलनों में जुड़ते हैं जिनका मेज़बान पहले से हो।';
+
+  @override
+  String get gatheringStartAClub => 'इसके बजाय क्लब बनाएँ';
+
+  @override
+  String get gatheringToday => 'आज';
+
+  @override
+  String get gatheringTomorrow => 'कल';
+
+  @override
+  String get gatheringHappeningNow => 'अभी चल रहा है';
+
+  @override
+  String gatheringStartsIn(int minutes) {
+    return '$minutes मिनट में शुरू';
+  }
+
+  @override
+  String gatheringHostZone(String zone) {
+    return 'मेज़बान का समय क्षेत्र: $zone';
+  }
+
+  @override
+  String gatheringHostedBy(String name) {
+    return 'मेज़बान: $name';
+  }
+
+  @override
+  String gatheringQuorumNeeded(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+      
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'पुष्टि के लिए $countString और लोग चाहिए',
+      one: 'पुष्टि के लिए 1 और व्यक्ति चाहिए',
+      zero: 'पुष्टि के लिए तैयार',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String gatheringConfirmed(int count) {
+    return 'पुष्ट · $count आ रहे हैं';
+  }
+
+  @override
+  String get gatheringYouHost => 'आप मेज़बान हैं';
+
+  @override
+  String get gatheringGoingYou => 'आप जा रहे हैं';
+
+  @override
+  String get gatheringFull => 'भर गया';
+
+  @override
+  String get gatheringJoin => 'शामिल हों';
+
+  @override
+  String get gatheringAskToJoin => 'शामिल होने का अनुरोध';
+
+  @override
+  String get gatheringRequested => 'अनुरोध भेजा गया — निर्णय मेज़बान करेंगे';
+
+  @override
+  String get gatheringCreateTitle => 'नया मिलन';
+
+  @override
+  String get gatheringCreateSubtitle => 'एक समय, एक भाषा और कुछ सीटें। बाकी सब वैकल्पिक है।';
+
+  @override
+  String gatheringDefaultTitle(String language) {
+    return '$language अभ्यास';
+  }
+
+  @override
+  String get gatheringTitleLabel => 'आप क्या करेंगे?';
+
+  @override
+  String get gatheringLanguageLabel => 'भाषा';
+
+  @override
+  String get gatheringWhenLabel => 'कब';
+
+  @override
+  String get gatheringSeatsLabel => 'सीटें';
+
+  @override
+  String get gatheringQuorumLabel => 'पुष्टि इतने पर';
+
+  @override
+  String get gatheringQuorumExplainer => 'मेज़बान के रूप में आप पहले भागीदार गिने जाते हैं। इतने लोग हो जाने पर मिलन पुष्ट हो जाता है।';
+
+  @override
+  String get gatheringPost => 'पोस्ट करें';
+
+  @override
+  String get gatheringPosted => 'पोस्ट हो गया — अब सबको बताएँ';
+
+  @override
+  String get gatheringNeedsTitle => 'पहले नाम दें';
+
+  @override
+  String get gatheringNeedsLanguage => 'पहले भाषा चुनें';
+
+  @override
+  String get gatheringNeedsFuture => 'आगे का समय चुनें';
+
+  @override
+  String get gatheringDetailTitle => 'मिलन';
+
+  @override
+  String get gatheringNotFound => 'यह मिलन अब उपलब्ध नहीं है';
+
+  @override
+  String gatheringDuration(int minutes) {
+    return '$minutes मिनट';
+  }
+
+  @override
+  String gatheringSeatsTaken(int going, int capacity) {
+    return '$capacity में से $going सीटें भरीं';
+  }
+
+  @override
+  String get gatheringCancelled => 'रद्द';
+
+  @override
+  String get gatheringEnded => 'यह मिलन समाप्त हो चुका है';
+
+  @override
+  String get gatheringCancelRsvp => 'मेरी उपस्थिति रद्द करें';
+
+  @override
+  String gatheringHostDecision(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+      
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'अभी तक सिर्फ़ $countString लोग आ रहे हैं। फिर भी करें या रद्द करें?',
+      one: 'अभी तक सिर्फ़ आप आ रहे हैं। फिर भी करें या रद्द करें?',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get gatheringRunAnyway => 'फिर भी करें';
+
+  @override
+  String get gatheringCallItOff => 'रद्द करें';
+
+  @override
+  String get gatheringEnd => 'मिलन समाप्त करें';
+
+  @override
+  String get gatheringEndedThanks => 'समाप्त — जिनसे मिले उन्हें संदेश भेजना मुफ़्त है';
+
+  @override
+  String get gatheringCancelIt => 'मिलन रद्द करें';
+
+  @override
+  String get gatheringKeepIt => 'रहने दें';
+
+  @override
+  String gatheringCancelConfirm(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+      
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString लोग इसका इंतज़ार कर रहे हैं। उन्हें रद्द होने की सूचना दी जाएगी।',
+      one: '1 व्यक्ति इसका इंतज़ार कर रहा है। उन्हें रद्द होने की सूचना दी जाएगी।',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get clubDetailTitle => 'क्लब';
+
+  @override
+  String get clubNotFound => 'यह क्लब अब उपलब्ध नहीं है';
+
+  @override
+  String clubMembers(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+      
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString सदस्य',
+      one: '1 सदस्य',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get clubJoin => 'क्लब से जुड़ें';
+
+  @override
+  String get clubLeave => 'क्लब छोड़ें';
+
+  @override
+  String get clubUpcoming => 'आगामी';
+
+  @override
+  String get clubNothingScheduled => 'अभी कुछ तय नहीं है।';
+
+  @override
+  String get clubHostGathering => 'मिलन आयोजित करें';
+
+  @override
+  String get clubCreateTitle => 'नया क्लब';
+
+  @override
+  String get clubCreateSubtitle => 'क्लब दो मिलनों के बीच भी लोगों को जोड़े रखता है। उसे उसी नाम से बुलाएँ जो आप सच में करेंगे।';
+
+  @override
+  String get clubNameLabel => 'क्लब का नाम';
+
+  @override
+  String get clubInterestLabel => 'रुचि';
+
+  @override
+  String get clubInterestHint => 'वैकल्पिक — दौड़, K-pop, HSK4';
+
+  @override
+  String get clubDescriptionLabel => 'परिचय';
+
+  @override
+  String get clubCreate => 'क्लब बनाएँ';
+
+  @override
+  String get clubNeedsName => 'पहले क्लब को नाम दें';
 }

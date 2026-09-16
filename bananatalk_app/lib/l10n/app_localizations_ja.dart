@@ -7644,4 +7644,277 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get weeklyReportStart => '今日のパックを始める';
+
+  @override
+  String get gatheringsTabLabel => '集まり';
+
+  @override
+  String get gatheringClubs => 'クラブ';
+
+  @override
+  String get gatheringNewClub => '新しいクラブ';
+
+  @override
+  String get gatheringStartingSoon => 'まもなく開始';
+
+  @override
+  String get gatheringCreateShort => '新規';
+
+  @override
+  String get gatheringLoadFailed => '集まりを読み込めませんでした';
+
+  @override
+  String get gatheringEmptyTitle => '最初の一つを開きましょう';
+
+  @override
+  String get gatheringEmptyBody => 'まだ予定がありません。時間を決めて投稿してみてください — ホストがいる集まりには人が集まります。';
+
+  @override
+  String get gatheringStartAClub => '代わりにクラブを作る';
+
+  @override
+  String get gatheringToday => '今日';
+
+  @override
+  String get gatheringTomorrow => '明日';
+
+  @override
+  String get gatheringHappeningNow => '開催中';
+
+  @override
+  String gatheringStartsIn(int minutes) {
+    return 'あと$minutes分で開始';
+  }
+
+  @override
+  String gatheringHostZone(String zone) {
+    return 'ホストのタイムゾーン: $zone';
+  }
+
+  @override
+  String gatheringHostedBy(String name) {
+    return 'ホスト: $name';
+  }
+
+  @override
+  String gatheringQuorumNeeded(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+      
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '確定まであと$countString人',
+      zero: '確定できます',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String gatheringConfirmed(int count) {
+    return '確定 · $count人が参加';
+  }
+
+  @override
+  String get gatheringYouHost => 'あなたがホスト';
+
+  @override
+  String get gatheringGoingYou => '参加予定';
+
+  @override
+  String get gatheringFull => '満席';
+
+  @override
+  String get gatheringJoin => '参加する';
+
+  @override
+  String get gatheringAskToJoin => '参加を申請';
+
+  @override
+  String get gatheringRequested => '参加を申請しました — ホストが判断します';
+
+  @override
+  String get gatheringCreateTitle => '新しい集まり';
+
+  @override
+  String get gatheringCreateSubtitle => '時間と言語、そしていくつかの席。あとは任意です。';
+
+  @override
+  String gatheringDefaultTitle(String language) {
+    return '$languageの練習';
+  }
+
+  @override
+  String get gatheringTitleLabel => '何をしますか？';
+
+  @override
+  String get gatheringLanguageLabel => '言語';
+
+  @override
+  String get gatheringWhenLabel => '日時';
+
+  @override
+  String get gatheringSeatsLabel => '定員';
+
+  @override
+  String get gatheringQuorumLabel => '確定人数';
+
+  @override
+  String get gatheringQuorumExplainer => 'ホストのあなたも参加者に数えられます。この人数が集まると集まりが確定します。';
+
+  @override
+  String get gatheringPost => '投稿する';
+
+  @override
+  String get gatheringPosted => '投稿しました — 知らせましょう';
+
+  @override
+  String get gatheringNeedsTitle => 'まず名前をつけてください';
+
+  @override
+  String get gatheringNeedsLanguage => 'まず言語を選んでください';
+
+  @override
+  String get gatheringNeedsFuture => '未来の時間を選んでください';
+
+  @override
+  String get gatheringDetailTitle => '集まり';
+
+  @override
+  String get gatheringNotFound => 'この集まりは表示できなくなりました';
+
+  @override
+  String gatheringDuration(int minutes) {
+    return '$minutes分';
+  }
+
+  @override
+  String gatheringSeatsTaken(int going, int capacity) {
+    return '$capacity席中$going席が埋まりました';
+  }
+
+  @override
+  String get gatheringCancelled => '中止されました';
+
+  @override
+  String get gatheringEnded => 'この集まりは終了しました';
+
+  @override
+  String get gatheringCancelRsvp => '参加を取り消す';
+
+  @override
+  String gatheringHostDecision(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+      
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '今のところ参加は$countString人です。開催しますか、中止しますか？',
+      one: '今のところ参加はあなただけです。開催しますか、中止しますか？',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get gatheringRunAnyway => 'それでも開催';
+
+  @override
+  String get gatheringCallItOff => '中止する';
+
+  @override
+  String get gatheringEnd => '集まりを終了';
+
+  @override
+  String get gatheringEndedThanks => '終了しました — 会った人へのメッセージは無料です';
+
+  @override
+  String get gatheringCancelIt => '集まりを中止';
+
+  @override
+  String get gatheringKeepIt => 'そのままにする';
+
+  @override
+  String gatheringCancelConfirm(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+      
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString人がこの集まりを待っています。中止を知らせます。',
+      one: '1人がこの集まりを待っています。中止を知らせます。',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get clubDetailTitle => 'クラブ';
+
+  @override
+  String get clubNotFound => 'このクラブは表示できなくなりました';
+
+  @override
+  String clubMembers(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+      
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'メンバー$countString人',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get clubJoin => 'クラブに参加';
+
+  @override
+  String get clubLeave => 'クラブを退会';
+
+  @override
+  String get clubUpcoming => '今後の予定';
+
+  @override
+  String get clubNothingScheduled => 'まだ予定がありません。';
+
+  @override
+  String get clubHostGathering => '集まりを開く';
+
+  @override
+  String get clubCreateTitle => '新しいクラブ';
+
+  @override
+  String get clubCreateSubtitle => 'クラブは集まりと集まりの間も人をつなぎます。実際にやることで名前をつけましょう。';
+
+  @override
+  String get clubNameLabel => 'クラブ名';
+
+  @override
+  String get clubInterestLabel => '興味・関心';
+
+  @override
+  String get clubInterestHint => '任意 — ランニング、K-POP、HSK4';
+
+  @override
+  String get clubDescriptionLabel => '紹介';
+
+  @override
+  String get clubCreate => 'クラブを作成';
+
+  @override
+  String get clubNeedsName => 'まずクラブ名を入力してください';
 }

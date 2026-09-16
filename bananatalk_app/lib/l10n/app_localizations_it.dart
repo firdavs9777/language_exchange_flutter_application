@@ -7652,4 +7652,279 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get weeklyReportStart => 'Inizia il pacchetto di oggi';
+
+  @override
+  String get gatheringsTabLabel => 'Incontri';
+
+  @override
+  String get gatheringClubs => 'Club';
+
+  @override
+  String get gatheringNewClub => 'Nuovo club';
+
+  @override
+  String get gatheringStartingSoon => 'Iniziano a breve';
+
+  @override
+  String get gatheringCreateShort => 'Nuovo';
+
+  @override
+  String get gatheringLoadFailed => 'Impossibile caricare gli incontri';
+
+  @override
+  String get gatheringEmptyTitle => 'Organizza il primo';
+
+  @override
+  String get gatheringEmptyBody => 'Non c\'è ancora nulla in programma. Scegli un orario e pubblicalo: le persone partecipano agli incontri che hanno già un organizzatore.';
+
+  @override
+  String get gatheringStartAClub => 'Crea invece un club';
+
+  @override
+  String get gatheringToday => 'Oggi';
+
+  @override
+  String get gatheringTomorrow => 'Domani';
+
+  @override
+  String get gatheringHappeningNow => 'In corso';
+
+  @override
+  String gatheringStartsIn(int minutes) {
+    return 'Inizia tra $minutes min';
+  }
+
+  @override
+  String gatheringHostZone(String zone) {
+    return 'Fuso orario dell\'organizzatore: $zone';
+  }
+
+  @override
+  String gatheringHostedBy(String name) {
+    return 'Organizzato da $name';
+  }
+
+  @override
+  String gatheringQuorumNeeded(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+      
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Mancano $countString persone per confermare',
+      one: 'Manca 1 persona per confermare',
+      zero: 'Pronto per la conferma',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String gatheringConfirmed(int count) {
+    return 'Confermato · $count partecipanti';
+  }
+
+  @override
+  String get gatheringYouHost => 'Sei l\'organizzatore';
+
+  @override
+  String get gatheringGoingYou => 'Parteciperai';
+
+  @override
+  String get gatheringFull => 'Al completo';
+
+  @override
+  String get gatheringJoin => 'Partecipa';
+
+  @override
+  String get gatheringAskToJoin => 'Chiedi di partecipare';
+
+  @override
+  String get gatheringRequested => 'Richiesta inviata: deciderà l\'organizzatore';
+
+  @override
+  String get gatheringCreateTitle => 'Nuovo incontro';
+
+  @override
+  String get gatheringCreateSubtitle => 'Un orario, una lingua e qualche posto. Il resto è facoltativo.';
+
+  @override
+  String gatheringDefaultTitle(String language) {
+    return 'Pratica di $language';
+  }
+
+  @override
+  String get gatheringTitleLabel => 'Cosa farete?';
+
+  @override
+  String get gatheringLanguageLabel => 'Lingua';
+
+  @override
+  String get gatheringWhenLabel => 'Quando';
+
+  @override
+  String get gatheringSeatsLabel => 'Posti';
+
+  @override
+  String get gatheringQuorumLabel => 'Conferma a';
+
+  @override
+  String get gatheringQuorumExplainer => 'Conti come la prima persona presente. L\'incontro si conferma quando si raggiunge questo numero.';
+
+  @override
+  String get gatheringPost => 'Pubblica';
+
+  @override
+  String get gatheringPosted => 'Pubblicato: ora fallo sapere';
+
+  @override
+  String get gatheringNeedsTitle => 'Dagli prima un nome';
+
+  @override
+  String get gatheringNeedsLanguage => 'Scegli prima una lingua';
+
+  @override
+  String get gatheringNeedsFuture => 'Scegli un orario futuro';
+
+  @override
+  String get gatheringDetailTitle => 'Incontro';
+
+  @override
+  String get gatheringNotFound => 'Questo incontro non è più disponibile';
+
+  @override
+  String gatheringDuration(int minutes) {
+    return '$minutes minuti';
+  }
+
+  @override
+  String gatheringSeatsTaken(int going, int capacity) {
+    return '$going posti su $capacity occupati';
+  }
+
+  @override
+  String get gatheringCancelled => 'Annullato';
+
+  @override
+  String get gatheringEnded => 'Questo incontro è terminato';
+
+  @override
+  String get gatheringCancelRsvp => 'Annulla la mia partecipazione';
+
+  @override
+  String gatheringHostDecision(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+      
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Per ora siete solo in $countString. Lo fai lo stesso o lo annulli?',
+      one: 'Per ora ci sei solo tu. Lo fai lo stesso o lo annulli?',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get gatheringRunAnyway => 'Farlo lo stesso';
+
+  @override
+  String get gatheringCallItOff => 'Annullarlo';
+
+  @override
+  String get gatheringEnd => 'Termina incontro';
+
+  @override
+  String get gatheringEndedThanks => 'Terminato: scrivere a chi hai conosciuto è gratis';
+
+  @override
+  String get gatheringCancelIt => 'Annulla incontro';
+
+  @override
+  String get gatheringKeepIt => 'Mantienilo';
+
+  @override
+  String gatheringCancelConfirm(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+      
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString persone lo stanno aspettando. Comunicheremo loro l\'annullamento.',
+      one: '1 persona lo sta aspettando. Le comunicheremo l\'annullamento.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get clubDetailTitle => 'Club';
+
+  @override
+  String get clubNotFound => 'Questo club non è più disponibile';
+
+  @override
+  String clubMembers(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+      
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString membri',
+      one: '1 membro',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get clubJoin => 'Unisciti al club';
+
+  @override
+  String get clubLeave => 'Lascia il club';
+
+  @override
+  String get clubUpcoming => 'In programma';
+
+  @override
+  String get clubNothingScheduled => 'Non c\'è ancora nulla in programma.';
+
+  @override
+  String get clubHostGathering => 'Organizza un incontro';
+
+  @override
+  String get clubCreateTitle => 'Nuovo club';
+
+  @override
+  String get clubCreateSubtitle => 'Un club tiene insieme le persone tra un incontro e l\'altro. Chiamalo come ciò che farete davvero.';
+
+  @override
+  String get clubNameLabel => 'Nome del club';
+
+  @override
+  String get clubInterestLabel => 'Interesse';
+
+  @override
+  String get clubInterestHint => 'Facoltativo: corsa, K-pop, HSK4';
+
+  @override
+  String get clubDescriptionLabel => 'Descrizione';
+
+  @override
+  String get clubCreate => 'Crea club';
+
+  @override
+  String get clubNeedsName => 'Dai prima un nome al club';
 }

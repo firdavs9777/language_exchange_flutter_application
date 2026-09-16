@@ -158,6 +158,33 @@ class NotificationRouter {
             ? '/room/$roomId'
             : '/tabs/1';
 
+      // 모임 — every gathering notification carries `gatheringId`, and
+      // `/gathering/:gatheringId` (app_router.dart) opens the detail screen,
+      // which fetches by id itself.
+      //
+      // `gathering_reminder` is the one sent by jobs/gatheringReminders.js
+      // rather than through notificationService, and it is the one that most
+      // needs to land somewhere: it is the 24h/10-minute reminder, the
+      // notification spec §5 calls load-bearing. A reminder that opens the
+      // home screen is most of the way to not being a reminder.
+      //
+      // The fallback is the Community tab rather than null, so a gathering
+      // that was cancelled or is gone still lands on the surface that lists
+      // them — the same "closest available surface" rule the room cases use.
+      case 'gathering_created':
+      case 'gathering_confirmed':
+      case 'gathering_join_request':
+      case 'gathering_join_approved':
+      case 'gathering_join_denied':
+      case 'gathering_ended':
+      case 'gathering_reminder':
+      case 'gathering_host_decision':
+      case 'gathering_cancelled':
+        final gatheringId = data['gatheringId']?.toString();
+        return (gatheringId != null && gatheringId.isNotEmpty)
+            ? '/gathering/$gatheringId'
+            : '/tabs/1';
+
       // Workstream E-core Task 12 Step 3 — new follower deep-links to
       // the follower's profile (mirrors friend_request/profile_visit).
       case 'new_follower':

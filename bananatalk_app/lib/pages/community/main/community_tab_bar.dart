@@ -8,18 +8,30 @@ import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 
 /// Scrollable tab bar for the Community screen.
 ///
-/// Renders the community tabs in order: All, Gender, Voice Rooms,
-/// (when enabled) Rooms, Nearby, City, Topics, Waves — the two "rooms"
-/// tabs are grouped right after Gender — and applies the shared slide-in
+/// Renders the community tabs in order: All, Gender, 모임 / Gatherings,
+/// (when enabled) Rooms, Nearby, City, Topics, Waves — the two group tabs
+/// are grouped right after Gender — and applies the shared slide-in
 /// entrance animation.
 class CommunityTabBar extends ConsumerWidget {
   const CommunityTabBar({
     super.key,
     required this.tabController,
     this.showRoomsTab = true,
+    this.gatheringsEnabled = true,
   });
 
   final TabController tabController;
+
+  /// 모임 REPLACES the voice-rooms entry rather than adding a ninth tab.
+  /// Gatherings are voice rooms with commitment attached, and voice rooms
+  /// failed 93 times out of 93 by depending on people being online at the
+  /// same moment — so the fix is to retire that entry, not to sit beside it.
+  ///
+  /// When the server's kill switch is off this slot falls back to the old
+  /// Voice Rooms tab. It does NOT disappear: the tab count stays flat in both
+  /// states, which keeps the conditional-Rooms index arithmetic below (and
+  /// `remapTabIndexForRoomsFlag`) untouched by this flag.
+  final bool gatheringsEnabled;
 
   /// Workstream D: hides the 8th "Rooms" tab when the server-side
   /// `roomsEnabled` kill switch is off. Must stay in sync with
@@ -80,7 +92,7 @@ class CommunityTabBar extends ConsumerWidget {
                   ],
                 ),
               ),
-              // Both "rooms" concepts (Voice Rooms + text Rooms) are grouped
+              // Both group concepts (모임 + text Rooms) are grouped
               // immediately after Gender so they read as related features —
               // see rooms-audit-report.md §5. Keep `roomsInsertionIndex` in
               // `_syncTabCountWithRoomsFlag` (community_main.dart) equal to
@@ -89,9 +101,18 @@ class CommunityTabBar extends ConsumerWidget {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Icon(Icons.mic_rounded, size: 20),
+                    Icon(
+                      gatheringsEnabled
+                          ? Icons.event_available_rounded
+                          : Icons.mic_rounded,
+                      size: 20,
+                    ),
                     Spacing.hGapSM,
-                    Text(AppLocalizations.of(context)!.voiceRooms),
+                    Text(
+                      gatheringsEnabled
+                          ? AppLocalizations.of(context)!.gatheringsTabLabel
+                          : AppLocalizations.of(context)!.voiceRooms,
+                    ),
                   ],
                 ),
               ),

@@ -7644,4 +7644,277 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get weeklyReportStart => 'เริ่มแพ็กของวันนี้';
+
+  @override
+  String get gatheringsTabLabel => 'การพบปะ';
+
+  @override
+  String get gatheringClubs => 'ชมรม';
+
+  @override
+  String get gatheringNewClub => 'ชมรมใหม่';
+
+  @override
+  String get gatheringStartingSoon => 'ใกล้เริ่มแล้ว';
+
+  @override
+  String get gatheringCreateShort => 'สร้างใหม่';
+
+  @override
+  String get gatheringLoadFailed => 'โหลดการพบปะไม่สำเร็จ';
+
+  @override
+  String get gatheringEmptyTitle => 'จัดครั้งแรกเลย';
+
+  @override
+  String get gatheringEmptyBody => 'ยังไม่มีอะไรตั้งไว้ เลือกเวลาแล้วโพสต์เลย — คนจะเข้าร่วมการพบปะที่มีเจ้าภาพอยู่แล้ว';
+
+  @override
+  String get gatheringStartAClub => 'สร้างชมรมแทน';
+
+  @override
+  String get gatheringToday => 'วันนี้';
+
+  @override
+  String get gatheringTomorrow => 'พรุ่งนี้';
+
+  @override
+  String get gatheringHappeningNow => 'กำลังเกิดขึ้น';
+
+  @override
+  String gatheringStartsIn(int minutes) {
+    return 'เริ่มในอีก $minutes นาที';
+  }
+
+  @override
+  String gatheringHostZone(String zone) {
+    return 'เขตเวลาของเจ้าภาพ: $zone';
+  }
+
+  @override
+  String gatheringHostedBy(String name) {
+    return 'จัดโดย $name';
+  }
+
+  @override
+  String gatheringQuorumNeeded(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+      
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'ต้องการอีก $countString คนจึงจะยืนยัน',
+      zero: 'พร้อมยืนยันแล้ว',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String gatheringConfirmed(int count) {
+    return 'ยืนยันแล้ว · $count คนจะมา';
+  }
+
+  @override
+  String get gatheringYouHost => 'คุณเป็นเจ้าภาพ';
+
+  @override
+  String get gatheringGoingYou => 'คุณจะไป';
+
+  @override
+  String get gatheringFull => 'เต็มแล้ว';
+
+  @override
+  String get gatheringJoin => 'เข้าร่วม';
+
+  @override
+  String get gatheringAskToJoin => 'ขอเข้าร่วม';
+
+  @override
+  String get gatheringRequested => 'ส่งคำขอแล้ว — เจ้าภาพจะเป็นผู้ตัดสิน';
+
+  @override
+  String get gatheringCreateTitle => 'การพบปะใหม่';
+
+  @override
+  String get gatheringCreateSubtitle => 'เวลา ภาษา และที่นั่งไม่กี่ที่ นอกนั้นไม่บังคับ';
+
+  @override
+  String gatheringDefaultTitle(String language) {
+    return 'ฝึก$language';
+  }
+
+  @override
+  String get gatheringTitleLabel => 'จะทำอะไรกัน?';
+
+  @override
+  String get gatheringLanguageLabel => 'ภาษา';
+
+  @override
+  String get gatheringWhenLabel => 'เมื่อไร';
+
+  @override
+  String get gatheringSeatsLabel => 'ที่นั่ง';
+
+  @override
+  String get gatheringQuorumLabel => 'ยืนยันเมื่อครบ';
+
+  @override
+  String get gatheringQuorumExplainer => 'คุณนับเป็นคนแรกที่เข้าร่วม การพบปะจะยืนยันเมื่อมีคนครบตามจำนวนนี้';
+
+  @override
+  String get gatheringPost => 'โพสต์เลย';
+
+  @override
+  String get gatheringPosted => 'โพสต์แล้ว — บอกต่อได้เลย';
+
+  @override
+  String get gatheringNeedsTitle => 'ตั้งชื่อก่อน';
+
+  @override
+  String get gatheringNeedsLanguage => 'เลือกภาษาก่อน';
+
+  @override
+  String get gatheringNeedsFuture => 'เลือกเวลาในอนาคต';
+
+  @override
+  String get gatheringDetailTitle => 'การพบปะ';
+
+  @override
+  String get gatheringNotFound => 'การพบปะนี้ไม่พร้อมใช้งานแล้ว';
+
+  @override
+  String gatheringDuration(int minutes) {
+    return '$minutes นาที';
+  }
+
+  @override
+  String gatheringSeatsTaken(int going, int capacity) {
+    return 'จอง $going จาก $capacity ที่นั่ง';
+  }
+
+  @override
+  String get gatheringCancelled => 'ยกเลิกแล้ว';
+
+  @override
+  String get gatheringEnded => 'การพบปะนี้จบแล้ว';
+
+  @override
+  String get gatheringCancelRsvp => 'ยกเลิกการเข้าร่วม';
+
+  @override
+  String gatheringHostDecision(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+      
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'ตอนนี้มีแค่ $countString คน จะจัดต่อหรือยกเลิก?',
+      one: 'ตอนนี้มีแค่คุณคนเดียว จะจัดต่อหรือยกเลิก?',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get gatheringRunAnyway => 'จัดต่อ';
+
+  @override
+  String get gatheringCallItOff => 'ยกเลิก';
+
+  @override
+  String get gatheringEnd => 'จบการพบปะ';
+
+  @override
+  String get gatheringEndedThanks => 'จบแล้ว — ทักคนที่คุณเจอได้ฟรี';
+
+  @override
+  String get gatheringCancelIt => 'ยกเลิกการพบปะ';
+
+  @override
+  String get gatheringKeepIt => 'เก็บไว้';
+
+  @override
+  String gatheringCancelConfirm(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+      
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'มี $countString คนรออยู่ เราจะแจ้งให้ทราบว่ายกเลิกแล้ว',
+      one: 'มี 1 คนรออยู่ เราจะแจ้งให้ทราบว่ายกเลิกแล้ว',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get clubDetailTitle => 'ชมรม';
+
+  @override
+  String get clubNotFound => 'ชมรมนี้ไม่พร้อมใช้งานแล้ว';
+
+  @override
+  String clubMembers(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+      
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'สมาชิก $countString คน',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get clubJoin => 'เข้าร่วมชมรม';
+
+  @override
+  String get clubLeave => 'ออกจากชมรม';
+
+  @override
+  String get clubUpcoming => 'ที่จะถึง';
+
+  @override
+  String get clubNothingScheduled => 'ยังไม่มีอะไรตั้งไว้';
+
+  @override
+  String get clubHostGathering => 'จัดการพบปะ';
+
+  @override
+  String get clubCreateTitle => 'ชมรมใหม่';
+
+  @override
+  String get clubCreateSubtitle => 'ชมรมทำให้สมาชิกอยู่ด้วยกันแม้ระหว่างการพบปะ ตั้งชื่อตามสิ่งที่พวกคุณจะทำจริง ๆ';
+
+  @override
+  String get clubNameLabel => 'ชื่อชมรม';
+
+  @override
+  String get clubInterestLabel => 'ความสนใจ';
+
+  @override
+  String get clubInterestHint => 'ไม่บังคับ — วิ่ง, K-pop, HSK4';
+
+  @override
+  String get clubDescriptionLabel => 'เกี่ยวกับ';
+
+  @override
+  String get clubCreate => 'สร้างชมรม';
+
+  @override
+  String get clubNeedsName => 'ตั้งชื่อชมรมก่อน';
 }

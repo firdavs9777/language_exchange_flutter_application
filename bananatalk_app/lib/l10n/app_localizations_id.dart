@@ -7651,4 +7651,277 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get weeklyReportStart => 'Mulai paket hari ini';
+
+  @override
+  String get gatheringsTabLabel => 'Pertemuan';
+
+  @override
+  String get gatheringClubs => 'Klub';
+
+  @override
+  String get gatheringNewClub => 'Klub baru';
+
+  @override
+  String get gatheringStartingSoon => 'Segera dimulai';
+
+  @override
+  String get gatheringCreateShort => 'Baru';
+
+  @override
+  String get gatheringLoadFailed => 'Tidak dapat memuat pertemuan';
+
+  @override
+  String get gatheringEmptyTitle => 'Adakan yang pertama';
+
+  @override
+  String get gatheringEmptyBody => 'Belum ada yang dijadwalkan. Pilih waktu dan posting — orang bergabung ke pertemuan yang sudah punya tuan rumah.';
+
+  @override
+  String get gatheringStartAClub => 'Buat klub saja';
+
+  @override
+  String get gatheringToday => 'Hari ini';
+
+  @override
+  String get gatheringTomorrow => 'Besok';
+
+  @override
+  String get gatheringHappeningNow => 'Sedang berlangsung';
+
+  @override
+  String gatheringStartsIn(int minutes) {
+    return 'Mulai dalam $minutes menit';
+  }
+
+  @override
+  String gatheringHostZone(String zone) {
+    return 'Zona waktu tuan rumah: $zone';
+  }
+
+  @override
+  String gatheringHostedBy(String name) {
+    return 'Diadakan oleh $name';
+  }
+
+  @override
+  String gatheringQuorumNeeded(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+      
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Butuh $countString orang lagi untuk konfirmasi',
+      zero: 'Siap dikonfirmasi',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String gatheringConfirmed(int count) {
+    return 'Terkonfirmasi · $count ikut';
+  }
+
+  @override
+  String get gatheringYouHost => 'Kamu tuan rumahnya';
+
+  @override
+  String get gatheringGoingYou => 'Kamu ikut';
+
+  @override
+  String get gatheringFull => 'Penuh';
+
+  @override
+  String get gatheringJoin => 'Ikut';
+
+  @override
+  String get gatheringAskToJoin => 'Minta ikut';
+
+  @override
+  String get gatheringRequested => 'Permintaan dikirim — tuan rumah yang memutuskan';
+
+  @override
+  String get gatheringCreateTitle => 'Pertemuan baru';
+
+  @override
+  String get gatheringCreateSubtitle => 'Satu waktu, satu bahasa, dan beberapa kursi. Sisanya opsional.';
+
+  @override
+  String gatheringDefaultTitle(String language) {
+    return 'Latihan $language';
+  }
+
+  @override
+  String get gatheringTitleLabel => 'Mau ngapain?';
+
+  @override
+  String get gatheringLanguageLabel => 'Bahasa';
+
+  @override
+  String get gatheringWhenLabel => 'Kapan';
+
+  @override
+  String get gatheringSeatsLabel => 'Kursi';
+
+  @override
+  String get gatheringQuorumLabel => 'Konfirmasi pada';
+
+  @override
+  String get gatheringQuorumExplainer => 'Kamu dihitung sebagai orang pertama yang hadir. Pertemuan terkonfirmasi begitu jumlah itu tercapai.';
+
+  @override
+  String get gatheringPost => 'Posting';
+
+  @override
+  String get gatheringPosted => 'Diposting — sekarang sebarkan';
+
+  @override
+  String get gatheringNeedsTitle => 'Beri nama dulu';
+
+  @override
+  String get gatheringNeedsLanguage => 'Pilih bahasa dulu';
+
+  @override
+  String get gatheringNeedsFuture => 'Pilih waktu di masa depan';
+
+  @override
+  String get gatheringDetailTitle => 'Pertemuan';
+
+  @override
+  String get gatheringNotFound => 'Pertemuan ini sudah tidak tersedia';
+
+  @override
+  String gatheringDuration(int minutes) {
+    return '$minutes menit';
+  }
+
+  @override
+  String gatheringSeatsTaken(int going, int capacity) {
+    return '$going dari $capacity kursi terisi';
+  }
+
+  @override
+  String get gatheringCancelled => 'Dibatalkan';
+
+  @override
+  String get gatheringEnded => 'Pertemuan ini sudah berakhir';
+
+  @override
+  String get gatheringCancelRsvp => 'Batalkan kehadiran saya';
+
+  @override
+  String gatheringHostDecision(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+      
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Sejauh ini hanya $countString orang. Tetap jalan atau batalkan?',
+      one: 'Sejauh ini hanya kamu. Tetap jalan atau batalkan?',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get gatheringRunAnyway => 'Tetap jalan';
+
+  @override
+  String get gatheringCallItOff => 'Batalkan';
+
+  @override
+  String get gatheringEnd => 'Akhiri pertemuan';
+
+  @override
+  String get gatheringEndedThanks => 'Selesai — mengirim pesan ke orang yang kamu temui itu gratis';
+
+  @override
+  String get gatheringCancelIt => 'Batalkan pertemuan';
+
+  @override
+  String get gatheringKeepIt => 'Biarkan';
+
+  @override
+  String gatheringCancelConfirm(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+      
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString orang menunggu ini. Mereka akan diberi tahu pembatalannya.',
+      one: '1 orang menunggu ini. Mereka akan diberi tahu pembatalannya.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get clubDetailTitle => 'Klub';
+
+  @override
+  String get clubNotFound => 'Klub ini sudah tidak tersedia';
+
+  @override
+  String clubMembers(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+      
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString anggota',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get clubJoin => 'Gabung klub';
+
+  @override
+  String get clubLeave => 'Keluar dari klub';
+
+  @override
+  String get clubUpcoming => 'Akan datang';
+
+  @override
+  String get clubNothingScheduled => 'Belum ada yang dijadwalkan.';
+
+  @override
+  String get clubHostGathering => 'Adakan pertemuan';
+
+  @override
+  String get clubCreateTitle => 'Klub baru';
+
+  @override
+  String get clubCreateSubtitle => 'Klub menjaga anggotanya tetap terhubung di antara pertemuan. Beri nama sesuai yang benar-benar kalian lakukan.';
+
+  @override
+  String get clubNameLabel => 'Nama klub';
+
+  @override
+  String get clubInterestLabel => 'Minat';
+
+  @override
+  String get clubInterestHint => 'Opsional — lari, K-pop, HSK4';
+
+  @override
+  String get clubDescriptionLabel => 'Tentang';
+
+  @override
+  String get clubCreate => 'Buat klub';
+
+  @override
+  String get clubNeedsName => 'Beri nama klub dulu';
 }

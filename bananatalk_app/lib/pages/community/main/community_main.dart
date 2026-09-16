@@ -8,6 +8,7 @@ import 'package:bananatalk_app/pages/community/tabs/nearby_tab.dart';
 import 'package:bananatalk_app/pages/community/tabs/city_tab.dart';
 import 'package:bananatalk_app/pages/community/tabs/genders_tab.dart';
 import 'package:bananatalk_app/pages/community/tabs/topics_tab.dart';
+import 'package:bananatalk_app/pages/community/gatherings/gatherings_tab.dart';
 import 'package:bananatalk_app/pages/community/voice_rooms/voice_rooms_tab.dart';
 import 'package:bananatalk_app/pages/community/tabs/waves_tab.dart';
 import 'package:bananatalk_app/pages/community/rooms/rooms_directory_screen.dart';
@@ -64,10 +65,15 @@ int remapTabIndexForRoomsFlag({
   return index;
 }
 
-/// Community sub-tab indices (post-reorder: All=0, Gender=1, Voice Rooms=2,
+/// Community sub-tab indices (post-reorder: All=0, Gender=1, 모임=2,
 /// Rooms=3, ...). Used by deep links (e.g. the feature-spotlight promo) that
 /// want to open a specific Community sub-tab.
+///
+/// Index 2 is the same slot whether it renders 모임 or, with the switch off,
+/// the old voice-rooms tab — so existing deep links keep working and the
+/// name is kept for them.
 const int communityVoiceRoomsSubTab = 2;
+const int communityGatheringsSubTab = 2;
 const int communityRoomsSubTab = 3;
 
 /// Set by a deep link to request that Community open on a specific sub-tab
@@ -279,6 +285,18 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
         .maybeWhen(data: (config) => config?.roomsEnabled ?? true, orElse: () => true);
     _syncTabCountWithRoomsFlag(roomsEnabled);
 
+    // 모임 occupies the voice-rooms slot. Unlike `roomsEnabled` this flag
+    // never changes the tab COUNT -- it swaps which widget lives in that one
+    // slot -- so it deliberately does not feed `_syncTabCountWithRoomsFlag`
+    // and cannot disturb the index remapping. Defaults to on while the
+    // config request is in flight, matching `AppConfig.gatheringsEnabled`.
+    final gatheringsEnabled = ref
+        .watch(appConfigProvider)
+        .maybeWhen(
+          data: (config) => config?.gatheringsEnabled ?? true,
+          orElse: () => true,
+        );
+
     // Deep-link: a caller (e.g. the feature-spotlight promo) can request a
     // specific sub-tab. Animate to it once, clamped, then clear the request.
     // Rooms (index 3) only exists when enabled — fall back to Voice Rooms.
@@ -333,6 +351,7 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
           CommunityTabBar(
             tabController: _tabController,
             showRoomsTab: roomsEnabled,
+            gatheringsEnabled: gatheringsEnabled,
           ),
           // Active filter chips
           if (hasActiveFilters)
@@ -357,13 +376,23 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
                   filters: filtersJson,
                   searchQuery: _searchQuery,
                 ),
-                // Both "rooms" concepts are grouped immediately after Gender
+                // Both group concepts are grouped immediately after Gender
                 // so they read as related features — see
                 // rooms-audit-report.md §5. This order MUST mirror
                 // `CommunityTabBar`'s tab list exactly, and
                 // `_roomsInsertionIndex` below must stay equal to this
                 // conditional entry's index (3).
-                const VoiceRoomsTab(),
+                //
+                // 모임 REPLACES voice rooms in this slot rather than adding a
+                // ninth tab: gatherings are voice rooms with commitment
+                // attached, and 93 voice rooms produced a maximum of one
+                // participant each. The old tab remains as the fallback when
+                // the server switch is off, so the slot is never empty and
+                // the tab count is identical either way.
+                if (gatheringsEnabled)
+                  const GatheringsTab()
+                else
+                  const VoiceRoomsTab(),
                 if (roomsEnabled) const RoomsDirectoryScreen(),
                 NearbyTab(
                   key: ValueKey('nearby_$filtersKey'),

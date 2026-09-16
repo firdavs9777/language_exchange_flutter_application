@@ -14209,6 +14209,414 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Start today\'s pack'**
   String get weeklyReportStart;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'Gatherings'**
+  String get gatheringsTabLabel;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'Clubs'**
+  String get gatheringClubs;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'New club'**
+  String get gatheringNewClub;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'Starting soon'**
+  String get gatheringStartingSoon;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'New'**
+  String get gatheringCreateShort;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load gatherings'**
+  String get gatheringLoadFailed;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'Host the first one'**
+  String get gatheringEmptyTitle;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing is scheduled yet. Pick a time and post it — people join gatherings that already have a host.'**
+  String get gatheringEmptyBody;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'Start a club instead'**
+  String get gatheringStartAClub;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get gatheringToday;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'Tomorrow'**
+  String get gatheringTomorrow;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'Happening now'**
+  String get gatheringHappeningNow;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'Starts in {minutes} min'**
+  String gatheringStartsIn(int minutes);
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'Host\'s time zone: {zone}'**
+  String gatheringHostZone(String zone);
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'Hosted by {name}'**
+  String gatheringHostedBy(String name);
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{Ready to confirm} =1{1 more needed to confirm} other{{count} more needed to confirm}}'**
+  String gatheringQuorumNeeded(num count);
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'Confirmed · {count} going'**
+  String gatheringConfirmed(int count);
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re hosting'**
+  String get gatheringYouHost;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re going'**
+  String get gatheringGoingYou;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'Full'**
+  String get gatheringFull;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'Join'**
+  String get gatheringJoin;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'Ask to join'**
+  String get gatheringAskToJoin;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'Asked to join — the host will decide'**
+  String get gatheringRequested;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'New gathering'**
+  String get gatheringCreateTitle;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'A time, a language, and a few seats. Everything else is optional.'**
+  String get gatheringCreateSubtitle;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'{language} practice'**
+  String gatheringDefaultTitle(String language);
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'What are you doing?'**
+  String get gatheringTitleLabel;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get gatheringLanguageLabel;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'When'**
+  String get gatheringWhenLabel;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'Seats'**
+  String get gatheringSeatsLabel;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm at'**
+  String get gatheringQuorumLabel;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re counted as the first person going. The gathering confirms once that many people have said yes.'**
+  String get gatheringQuorumExplainer;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'Post it'**
+  String get gatheringPost;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'Posted — now share it'**
+  String get gatheringPosted;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'Give it a name first'**
+  String get gatheringNeedsTitle;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'Pick a language first'**
+  String get gatheringNeedsLanguage;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'Pick a time in the future'**
+  String get gatheringNeedsFuture;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'Gathering'**
+  String get gatheringDetailTitle;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'This gathering is no longer available'**
+  String get gatheringNotFound;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes} minutes'**
+  String gatheringDuration(int minutes);
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'{going} of {capacity} seats taken'**
+  String gatheringSeatsTaken(int going, int capacity);
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'Cancelled'**
+  String get gatheringCancelled;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'This gathering has ended'**
+  String get gatheringEnded;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel my RSVP'**
+  String get gatheringCancelRsvp;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Only you are coming so far. Run it anyway, or call it off?} other{Only {count} people are coming so far. Run it anyway, or call it off?}}'**
+  String gatheringHostDecision(num count);
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'Run it anyway'**
+  String get gatheringRunAnyway;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'Call it off'**
+  String get gatheringCallItOff;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'End gathering'**
+  String get gatheringEnd;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'Ended — message anyone you met, it\'s free'**
+  String get gatheringEndedThanks;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel gathering'**
+  String get gatheringCancelIt;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'Keep it'**
+  String get gatheringKeepIt;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 person is expecting this. They\'ll be told it\'s off.} other{{count} people are expecting this. They\'ll be told it\'s off.}}'**
+  String gatheringCancelConfirm(num count);
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'Club'**
+  String get clubDetailTitle;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'This club is no longer available'**
+  String get clubNotFound;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 member} other{{count} members}}'**
+  String clubMembers(num count);
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'Join club'**
+  String get clubJoin;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'Leave club'**
+  String get clubLeave;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'Coming up'**
+  String get clubUpcoming;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing scheduled yet.'**
+  String get clubNothingScheduled;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'Host a gathering'**
+  String get clubHostGathering;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'New club'**
+  String get clubCreateTitle;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'A club keeps its people between gatherings. Name it after what you\'ll actually do.'**
+  String get clubCreateSubtitle;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'Club name'**
+  String get clubNameLabel;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'Interest'**
+  String get clubInterestLabel;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'Optional — running, K-pop, HSK4'**
+  String get clubInterestHint;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'About'**
+  String get clubDescriptionLabel;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'Create club'**
+  String get clubCreate;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'Give the club a name first'**
+  String get clubNeedsName;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

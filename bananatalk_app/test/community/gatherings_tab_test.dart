@@ -1,0 +1,213 @@
+import 'dart:async';
+
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/models/community/gathering_model.dart';
+import 'package:bananatalk_app/pages/community/gatherings/create_gathering_form.dart';
+import 'package:bananatalk_app/pages/community/gatherings/gatherings_tab.dart';
+import 'package:bananatalk_app/pages/community/main/community_tab_bar.dart';
+import 'package:bananatalk_app/providers/provider_models/community_model.dart';
+import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
+import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
+import 'package:bananatalk_app/services/gathering_api_client.dart';
+
+/// A client that answers from memory. Widget tests must never touch the
+/// network, and the states worth testing here (nothing scheduled at all) are
+/// precisely the ones a live server would not reliably produce.
+class _FakeApi extends GatheringApiClient {
+  _FakeApi({this.clubs = const [], this.gatherings = const []});
+
+  final List<Club> clubs;
+  final List<Gathering> gatherings;
+
+  @override
+  Future<List<Club>> getClubs({
+    String? language,
+    String? interest,
+    String scope = 'mine',
+    int page = 1,
+  }) async => clubs;
+
+  @override
+  Future<List<Gathering>> getGatherings({
+    String? language,
+    String? level,
+    String scope = 'mine',
+    int page = 1,
+  }) async => gatherings;
+}
+
+Gathering _gathering({String id = 'g1', String title = 'Korean evening'}) =>
+    Gathering(
+      id: id,
+      title: title,
+      startsAt: DateTime.now().add(const Duration(days: 1)),
+      languageLabel: 'Korean',
+      going: 2,
+      needed: 1,
+    );
+
+Club _club({String id = 'c1', String name = 'Korean Learners Club'}) =>
+    Club(id: id, name: name, languageLabel: 'Korean', memberCount: 49);
+
+Widget _host(GatheringApiClient api) => ProviderScope(
+  overrides: [
+    // Never completes: the tab only reads this to pre-fill a language, and a
+    // real `userProvider` would make a network call.
+    userProvider.overrideWith((ref) => Completer<Community>().future),
+  ],
+  child: MaterialApp(
+    localizationsDelegates: AppLocalizations.localizationsDelegates,
+    supportedLocales: AppLocalizations.supportedLocales,
+    home: GatheringsTab(apiClient: api),
+  ),
+);
+
+void main() {
+  group('the empty state is a create form, not an apology', () {
+    testWidgets('nothing scheduled renders the pre-filled draft', (
+      tester,
+    ) async {
+      await tester.pumpWidget(_host(_FakeApi()));
+      await tester.pumpAndSettle();
+
+      // THE assertion from the plan. An empty list is the exact impression
+      // that killed voice rooms 93 times; the fix is a draft the viewer can
+      // post, not a message telling them there is nothing here.
+      expect(
+        find.byKey(const Key('gatherings_empty_create_form')),
+        findsOneWidget,
+        reason: 'the empty state must BE the create form',
+      );
+      expect(find.byType(CreateGatheringForm), findsOneWidget);
+
+      // And the form is actually usable, not a decorative promise: the
+      // post button is the thing one tap lands on.
+      final l10n = await AppLocalizations.delegate.load(const Locale('en'));
+      expect(find.text(l10n.gatheringPost), findsOneWidget);
+      expect(find.text(l10n.gatheringEmptyTitle), findsOneWidget);
+    });
+
+    testWidgets('a club with nothing scheduled still shows the strip', (
+      tester,
+    ) async {
+      // The whole argument for making the club the primary entity: on a day
+      // with nothing scheduled, "49 members" is what stops the tab reading
+      // as abandoned.
+      await tester.pumpWidget(_host(_FakeApi(clubs: [_club()])));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Korean Learners Club'), findsOneWidget);
+      expect(find.textContaining('49'), findsOneWidget);
+      // Still offers the draft, because there is nothing to attend yet.
+      expect(
+        find.byKey(const Key('gatherings_empty_create_form')),
+        findsOneWidget,
+      );
+    });
+
+    testWidgets('with gatherings, the list replaces the form', (tester) async {
+      await tester.pumpWidget(
+        _host(_FakeApi(gatherings: [_gathering(), _gathering(id: 'g2')])),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.byKey(const Key('gatherings_empty_create_form')), findsNothing);
+      expect(find.text('Korean evening'), findsNWidgets(2));
+    });
+  });
+
+  group('모임 replaces the voice-rooms tab without changing the tab count', () {
+    /// Counts the tabs the bar actually builds for a given flag combination.
+    Future<int> tabCount(
+      WidgetTester tester, {
+      required bool gatheringsEnabled,
+      required bool showRoomsTab,
+    }) async {
+      final controller = TabController(
+        length: showRoomsTab ? 8 : 7,
+        vsync: const TestVSync(),
+      );
+      addTearDown(controller.dispose);
+
+      await tester.pumpWidget(
+        ProviderScope(
+          overrides: [
+            // The waves badge fires a real request otherwise, which outlives
+            // the widget tree and trips the pending-timer check.
+            wavesUnreadProvider.overrideWith((ref) async => 0),
+          ],
+          child: MaterialApp(
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
+            home: Scaffold(
+              body: CommunityTabBar(
+                tabController: controller,
+                showRoomsTab: showRoomsTab,
+                gatheringsEnabled: gatheringsEnabled,
+              ),
+            ),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+      return tester.widgetList(find.byType(Tab)).length;
+    }
+
+    testWidgets('the count is identical with the switch on and off', (
+      tester,
+    ) async {
+      // 모임 is NOT a ninth tab. It takes the voice-rooms slot, so flipping
+      // the switch must never add or remove one — if it did, the tab count
+      // would disagree with the TabController's length and the index
+      // arithmetic in `remapTabIndexForRoomsFlag` would be operating on a
+      // list that no longer matches.
+      final on = await tabCount(
+        tester,
+        gatheringsEnabled: true,
+        showRoomsTab: true,
+      );
+      final off = await tabCount(
+        tester,
+        gatheringsEnabled: false,
+        showRoomsTab: true,
+      );
+      expect(on, off);
+      expect(on, 8, reason: 'Community keeps 8 tabs with Rooms enabled');
+    });
+
+    testWidgets('the switch changes the label, not the structure', (
+      tester,
+    ) async {
+      final l10n = await AppLocalizations.delegate.load(const Locale('en'));
+
+      await tabCount(tester, gatheringsEnabled: true, showRoomsTab: true);
+      expect(find.text(l10n.gatheringsTabLabel), findsOneWidget);
+      expect(find.text(l10n.voiceRooms), findsNothing);
+
+      await tabCount(tester, gatheringsEnabled: false, showRoomsTab: true);
+      expect(find.text(l10n.voiceRooms), findsOneWidget);
+      expect(find.text(l10n.gatheringsTabLabel), findsNothing);
+    });
+
+    testWidgets('the rooms flag still controls the count on its own', (
+      tester,
+    ) async {
+      // Guards the interaction: the 모임 switch must not disturb the one
+      // flag that IS allowed to change the tab count.
+      final withRooms = await tabCount(
+        tester,
+        gatheringsEnabled: true,
+        showRoomsTab: true,
+      );
+      final withoutRooms = await tabCount(
+        tester,
+        gatheringsEnabled: true,
+        showRoomsTab: false,
+      );
+      expect(withRooms - withoutRooms, 1);
+    });
+  });
+}
