@@ -3244,5 +3244,46 @@
   "clubInterestHint": "可选——跑步、K-pop、HSK4",
   "clubDescriptionLabel": "简介",
   "clubCreate": "创建俱乐部",
-  "clubNeedsName": "请先为俱乐部起个名字"
+  "clubNeedsName": "请先为俱乐部起个名字",
+  "gatheringRequests": "{count} 人等待加入",
+  "@gatheringRequests": {
+    "description": "모임 / gatherings",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "gatheringAdmit": "通过",
+  "@gatheringAdmit": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringDeny": "拒绝",
+  "@gatheringDeny": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringsMine": "我的聚会",
+  "@gatheringsMine": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringsMineEmpty": "暂无。你主持或参加的聚会会显示在这里。",
+  "@gatheringsMineEmpty": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringsMineSubtitle": "你主持或参加的聚会",
+  "@gatheringsMineSubtitle": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringSave": "保存",
+  "@gatheringSave": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringSaved": "更改已保存",
+  "@gatheringSaved": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringEditIt": "编辑",
+  "@gatheringEditIt": {
+    "description": "모임 / gatherings"
+  }
 }

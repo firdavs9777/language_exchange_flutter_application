@@ -61,12 +61,20 @@ class _CheckSequenceState extends State<CheckSequence> {
         if (widget.header != null) widget.header!,
         if (widget.header != null) const SizedBox(height: 24),
         ...List.generate(widget.checks.length, (i) {
+          // Null until the server answers, which is what puts CheckQuestion in
+          // its marked state. The key can be shorter than the question list
+          // (or absent entirely for an unscored station), so index defensively
+          // rather than assuming they line up.
+          final key = _result?.answerKey ?? const <int>[];
+          final explanations = _result?.explanations ?? const <String>[];
           return Padding(
             padding: const EdgeInsets.only(bottom: 20),
             child: CheckQuestion(
               check: widget.checks[i],
               index: i,
               selected: _answers[i],
+              correctIndex: i < key.length ? key[i] : null,
+              explanation: i < explanations.length ? explanations[i] : null,
               onSelect: (o) => setState(() => _answers[i] = o),
             ),
           );

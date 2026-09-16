@@ -7927,4 +7927,33 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get clubNeedsName => 'Bigyan muna ng pangalan ang club';
+
+  @override
+  String gatheringRequests(int count) {
+    return '$count naghihintay sumali';
+  }
+
+  @override
+  String get gatheringAdmit => 'Tanggapin';
+
+  @override
+  String get gatheringDeny => 'Tanggihan';
+
+  @override
+  String get gatheringsMine => 'Aking mga pagtitipon';
+
+  @override
+  String get gatheringsMineEmpty => 'Wala pa. Lalabas dito ang mga pagtitipong iyong hino-host o sinalihan.';
+
+  @override
+  String get gatheringsMineSubtitle => 'Mga pagtitipong hino-host o sinalihan mo';
+
+  @override
+  String get gatheringSave => 'I-save';
+
+  @override
+  String get gatheringSaved => 'Na-save ang mga pagbabago';
+
+  @override
+  String get gatheringEditIt => 'I-edit';
 }

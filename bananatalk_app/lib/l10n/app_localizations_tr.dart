@@ -7925,4 +7925,33 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get clubNeedsName => 'Önce kulübe bir ad ver';
+
+  @override
+  String gatheringRequests(int count) {
+    return '$count kişi katılmayı bekliyor';
+  }
+
+  @override
+  String get gatheringAdmit => 'Kabul et';
+
+  @override
+  String get gatheringDeny => 'Reddet';
+
+  @override
+  String get gatheringsMine => 'Buluşmalarım';
+
+  @override
+  String get gatheringsMineEmpty => 'Henüz yok. Düzenlediğin veya katıldığın buluşmalar burada görünür.';
+
+  @override
+  String get gatheringsMineSubtitle => 'Düzenlediğin veya katıldığın buluşmalar';
+
+  @override
+  String get gatheringSave => 'Kaydet';
+
+  @override
+  String get gatheringSaved => 'Değişiklikler kaydedildi';
+
+  @override
+  String get gatheringEditIt => 'Düzenle';
 }

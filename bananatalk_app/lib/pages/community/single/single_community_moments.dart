@@ -131,9 +131,10 @@ class SingleCommunityMoments extends ConsumerWidget {
   // ---------------------------------------------------------------------------
 
   Widget _buildError(BuildContext context) {
+    // Same short-slot constraint as _buildEmpty below.
     return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(32),
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -155,9 +156,12 @@ class SingleCommunityMoments extends ConsumerWidget {
   // ---------------------------------------------------------------------------
 
   Widget _buildEmpty(BuildContext context) {
+    // Scrollable, and the vertical inset is half the horizontal one: this slot
+    // is only ~65px tall on a short profile tab, and a fixed 32px all round
+    // left the text no room to lay out.
     return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(32),
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [

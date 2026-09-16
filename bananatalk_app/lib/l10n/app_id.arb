@@ -3230,5 +3230,46 @@
   "clubInterestHint": "Opsional — lari, K-pop, HSK4",
   "clubDescriptionLabel": "Tentang",
   "clubCreate": "Buat klub",
-  "clubNeedsName": "Beri nama klub dulu"
+  "clubNeedsName": "Beri nama klub dulu",
+  "gatheringRequests": "{count} menunggu untuk bergabung",
+  "@gatheringRequests": {
+    "description": "모임 / gatherings",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "gatheringAdmit": "Terima",
+  "@gatheringAdmit": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringDeny": "Tolak",
+  "@gatheringDeny": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringsMine": "Pertemuan saya",
+  "@gatheringsMine": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringsMineEmpty": "Belum ada. Pertemuan yang kamu adakan atau ikuti akan muncul di sini.",
+  "@gatheringsMineEmpty": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringsMineSubtitle": "Pertemuan yang kamu adakan atau ikuti",
+  "@gatheringsMineSubtitle": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringSave": "Simpan",
+  "@gatheringSave": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringSaved": "Perubahan disimpan",
+  "@gatheringSaved": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringEditIt": "Ubah",
+  "@gatheringEditIt": {
+    "description": "모임 / gatherings"
+  }
 }

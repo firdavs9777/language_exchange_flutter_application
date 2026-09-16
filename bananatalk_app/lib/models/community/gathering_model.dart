@@ -95,6 +95,12 @@ class Gathering {
   /// an ambiguous time across Shanghai/Seoul/Europe is a guaranteed no-show.
   final String? hostTimezone;
 
+  /// Where the host is. Display only — an online gathering is open to every
+  /// country, and discovery still matches on language alone. Shown so a viewer
+  /// in Seoul can tell that a gathering is hosted from Moscow before they RSVP.
+  final String? hostCity;
+  final String? hostCountry;
+
   final int capacity;
   final int quorum;
   final String joinMode;
@@ -110,6 +116,12 @@ class Gathering {
   final bool viewerIsAttending;
   final bool viewerIsHost;
 
+  /// People waiting on the host's decision, for a gathering with
+  /// `joinMode: 'approval'`. Populated with names only on the detail endpoint;
+  /// the list endpoint sends id-only rows, which is enough for a count badge.
+  /// Always empty for anyone who is not the host.
+  final List<GatheringHost> requests;
+
   const Gathering({
     required this.id,
     required this.title,
@@ -122,6 +134,8 @@ class Gathering {
     this.level,
     this.durationMinutes = 60,
     this.hostTimezone,
+    this.hostCity,
+    this.hostCountry,
     this.capacity = 6,
     this.quorum = 3,
     this.joinMode = 'open',
@@ -132,6 +146,7 @@ class Gathering {
     this.repeatedFrom,
     this.viewerIsAttending = false,
     this.viewerIsHost = false,
+    this.requests = const [],
   });
 
   factory Gathering.fromJson(Map<String, dynamic> json) {
@@ -149,6 +164,8 @@ class Gathering {
           DateTime.now(),
       durationMinutes: (json['durationMinutes'] as num?)?.toInt() ?? 60,
       hostTimezone: json['hostTimezone']?.toString(),
+      hostCity: json['hostCity']?.toString(),
+      hostCountry: json['hostCountry']?.toString(),
       capacity: (json['capacity'] as num?)?.toInt() ?? 6,
       quorum: (json['quorum'] as num?)?.toInt() ?? 3,
       joinMode: json['joinMode']?.toString() ?? 'open',
@@ -159,12 +176,21 @@ class Gathering {
       repeatedFrom: json['repeatedFrom']?.toString(),
       viewerIsAttending: json['viewerIsAttending'] == true,
       viewerIsHost: json['viewerIsHost'] == true,
+      requests: (json['requests'] as List? ?? const [])
+          .map(GatheringHost.fromJson)
+          .toList(),
     );
   }
 
   /// Display label, preferring what the host typed over the match key.
   String get displayLanguage =>
       languageLabel.isNotEmpty ? languageLabel : language;
+
+  /// "Moscow, Russia", or whichever half the host has filled in. Empty when
+  /// the host has no location — callers must hide the row rather than print a
+  /// stray separator.
+  String get hostPlace =>
+      [hostCity, hostCountry].where((p) => (p ?? '').trim().isNotEmpty).join(', ');
 
   /// Whether there is still a seat. The backend is the authority — this only
   /// decides whether to grey the button before the round trip.
@@ -181,6 +207,7 @@ class Gathering {
     int? needed,
     bool? quorumMet,
     bool? viewerIsAttending,
+    List<GatheringHost>? requests,
   }) {
     return Gathering(
       id: id,
@@ -194,6 +221,8 @@ class Gathering {
       startsAt: startsAt,
       durationMinutes: durationMinutes,
       hostTimezone: hostTimezone,
+      hostCity: hostCity,
+      hostCountry: hostCountry,
       capacity: capacity,
       quorum: quorum,
       joinMode: joinMode,
@@ -202,6 +231,7 @@ class Gathering {
       needed: needed ?? this.needed,
       quorumMet: quorumMet ?? this.quorumMet,
       repeatedFrom: repeatedFrom,
+      requests: requests ?? this.requests,
       viewerIsAttending: viewerIsAttending ?? this.viewerIsAttending,
       viewerIsHost: viewerIsHost,
     );

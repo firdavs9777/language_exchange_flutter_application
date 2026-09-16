@@ -3260,5 +3260,46 @@
   "clubInterestHint": "اختياري — الجري، K-pop، HSK4",
   "clubDescriptionLabel": "نبذة",
   "clubCreate": "إنشاء النادي",
-  "clubNeedsName": "أعطِ النادي اسمًا أولًا"
+  "clubNeedsName": "أعطِ النادي اسمًا أولًا",
+  "gatheringRequests": "{count} في انتظار الانضمام",
+  "@gatheringRequests": {
+    "description": "모임 / gatherings",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "gatheringAdmit": "قبول",
+  "@gatheringAdmit": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringDeny": "رفض",
+  "@gatheringDeny": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringsMine": "لقاءاتي",
+  "@gatheringsMine": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringsMineEmpty": "لا شيء بعد. ستظهر هنا اللقاءات التي تستضيفها أو تنضم إليها.",
+  "@gatheringsMineEmpty": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringsMineSubtitle": "اللقاءات التي تستضيفها أو انضممت إليها",
+  "@gatheringsMineSubtitle": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringSave": "حفظ",
+  "@gatheringSave": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringSaved": "تم حفظ التغييرات",
+  "@gatheringSaved": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringEditIt": "تعديل",
+  "@gatheringEditIt": {
+    "description": "모임 / gatherings"
+  }
 }

@@ -7948,4 +7948,33 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get clubNeedsName => 'Сначала назовите клуб';
+
+  @override
+  String gatheringRequests(int count) {
+    return '$count ожидают вступления';
+  }
+
+  @override
+  String get gatheringAdmit => 'Принять';
+
+  @override
+  String get gatheringDeny => 'Отклонить';
+
+  @override
+  String get gatheringsMine => 'Мои встречи';
+
+  @override
+  String get gatheringsMineEmpty => 'Пока пусто. Здесь появятся встречи, которые вы организуете или посещаете.';
+
+  @override
+  String get gatheringsMineSubtitle => 'Встречи, которые вы организуете или посещаете';
+
+  @override
+  String get gatheringSave => 'Сохранить';
+
+  @override
+  String get gatheringSaved => 'Изменения сохранены';
+
+  @override
+  String get gatheringEditIt => 'Изменить';
 }

@@ -5447,5 +5447,46 @@
   "clubNeedsName": "Give the club a name first",
   "@clubNeedsName": {
     "description": "모임 / gatherings"
+  },
+  "gatheringRequests": "{count} waiting to join",
+  "@gatheringRequests": {
+    "description": "모임 / gatherings",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "gatheringAdmit": "Admit",
+  "@gatheringAdmit": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringDeny": "Deny",
+  "@gatheringDeny": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringsMine": "My gatherings",
+  "@gatheringsMine": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringsMineEmpty": "Nothing yet. Gatherings you host or join will show up here.",
+  "@gatheringsMineEmpty": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringsMineSubtitle": "Gatherings you host or joined",
+  "@gatheringsMineSubtitle": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringSave": "Save",
+  "@gatheringSave": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringSaved": "Changes saved",
+  "@gatheringSaved": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringEditIt": "Edit",
+  "@gatheringEditIt": {
+    "description": "모임 / gatherings"
   }
 }

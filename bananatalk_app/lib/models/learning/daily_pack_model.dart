@@ -357,6 +357,13 @@ class StationResult {
   final String suggestedTranslation;
   final int? aiScore;
 
+  /// The correct option per question, in the order the checks were shown, and
+  /// the matching explanations. Sent only in the completion response — the pack
+  /// itself still withholds the key. Empty for stations that are not scored
+  /// against a quick-check (translate, review), so callers must index safely.
+  final List<int> answerKey;
+  final List<String> explanations;
+
   const StationResult({
     required this.score,
     required this.total,
@@ -368,6 +375,8 @@ class StationResult {
     this.feedback = '',
     this.suggestedTranslation = '',
     this.aiScore,
+    this.answerKey = const [],
+    this.explanations = const [],
   });
 
   factory StationResult.fromJson(Map<String, dynamic> json) => StationResult(
@@ -383,6 +392,12 @@ class StationResult {
         feedback: json['feedback'] as String? ?? '',
         suggestedTranslation: json['suggestedTranslation'] as String? ?? '',
         aiScore: (json['aiScore'] as num?)?.toInt(),
+        answerKey: (json['answerKey'] as List? ?? const [])
+            .map((e) => (e as num?)?.toInt() ?? -1)
+            .toList(),
+        explanations: (json['explanations'] as List? ?? const [])
+            .map((e) => e?.toString() ?? '')
+            .toList(),
       );
 }
 

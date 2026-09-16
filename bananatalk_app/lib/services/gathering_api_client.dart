@@ -129,6 +129,49 @@ class GatheringApiClient {
     }
   }
 
+  /// PUT /gatherings/:id — host edits their own gathering.
+  ///
+  /// Partial: only the fields passed are sent, so a caller changing the time
+  /// cannot accidentally blank the description. Sent as PUT rather than PATCH
+  /// because ApiClient has no patch verb; the route accepts both.
+  Future<GatheringResult<Gathering>> updateGathering(
+    String id, {
+    String? title,
+    String? description,
+    String? language,
+    String? level,
+    DateTime? startsAt,
+    int? durationMinutes,
+    int? capacity,
+    String? joinMode,
+  }) async {
+    try {
+      final response = await _apiClient.put(
+        'gatherings/$id',
+        body: {
+          if (title != null) 'title': title,
+          if (description != null) 'description': description,
+          if (language != null) 'language': language,
+          if (level != null) 'level': level,
+          // UTC on the wire; every render converts back to the viewer's zone.
+          if (startsAt != null) 'startsAt': startsAt.toUtc().toIso8601String(),
+          if (durationMinutes != null) 'durationMinutes': durationMinutes,
+          if (capacity != null) 'capacity': capacity,
+          if (joinMode != null) 'joinMode': joinMode,
+        },
+      );
+      if (!response.success) {
+        return GatheringResult.failed(response.error ?? 'Could not save');
+      }
+      final data = _mapOf(response.data);
+      if (data == null) return const GatheringResult.failed('Could not save');
+      return GatheringResult.ok(Gathering.fromJson(data));
+    } catch (e) {
+      debugPrint('[GatheringApiClient] updateGathering error: $e');
+      return GatheringResult.failed(e.toString());
+    }
+  }
+
   /// POST /gatherings/:id/rsvp — the transition that is the whole product.
   /// The returned gathering carries the new quorum state, including a
   /// `scheduled` → `confirmed` flip this RSVP may have caused.

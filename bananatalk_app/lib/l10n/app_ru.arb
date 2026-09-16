@@ -3260,5 +3260,46 @@
   "clubInterestHint": "Необязательно — бег, K-pop, HSK4",
   "clubDescriptionLabel": "О клубе",
   "clubCreate": "Создать клуб",
-  "clubNeedsName": "Сначала назовите клуб"
+  "clubNeedsName": "Сначала назовите клуб",
+  "gatheringRequests": "{count} ожидают вступления",
+  "@gatheringRequests": {
+    "description": "모임 / gatherings",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "gatheringAdmit": "Принять",
+  "@gatheringAdmit": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringDeny": "Отклонить",
+  "@gatheringDeny": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringsMine": "Мои встречи",
+  "@gatheringsMine": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringsMineEmpty": "Пока пусто. Здесь появятся встречи, которые вы организуете или посещаете.",
+  "@gatheringsMineEmpty": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringsMineSubtitle": "Встречи, которые вы организуете или посещаете",
+  "@gatheringsMineSubtitle": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringSave": "Сохранить",
+  "@gatheringSave": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringSaved": "Изменения сохранены",
+  "@gatheringSaved": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringEditIt": "Изменить",
+  "@gatheringEditIt": {
+    "description": "모임 / gatherings"
+  }
 }

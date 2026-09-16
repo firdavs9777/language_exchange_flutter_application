@@ -7917,4 +7917,33 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get clubNeedsName => 'まずクラブ名を入力してください';
+
+  @override
+  String gatheringRequests(int count) {
+    return '参加待ち $count人';
+  }
+
+  @override
+  String get gatheringAdmit => '承認';
+
+  @override
+  String get gatheringDeny => '拒否';
+
+  @override
+  String get gatheringsMine => 'マイ集まり';
+
+  @override
+  String get gatheringsMineEmpty => 'まだありません。主催または参加した集まりがここに表示されます。';
+
+  @override
+  String get gatheringsMineSubtitle => '主催または参加した集まり';
+
+  @override
+  String get gatheringSave => '保存';
+
+  @override
+  String get gatheringSaved => '変更を保存しました';
+
+  @override
+  String get gatheringEditIt => '編集';
 }

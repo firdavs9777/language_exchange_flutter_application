@@ -71,7 +71,11 @@ class _GatheringsTabState extends ConsumerState<GatheringsTab>
 
   Future<void> _refresh() async {
     final next = _load();
-    setState(() => _feed = next);
+    // Block body, not an arrow: `() => _feed = next` evaluates to the assigned
+    // Future, and setState rejects a callback that returns one.
+    setState(() {
+      _feed = next;
+    });
     await next;
   }
 

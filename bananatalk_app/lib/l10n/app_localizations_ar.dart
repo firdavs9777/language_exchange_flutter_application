@@ -7939,4 +7939,33 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get clubNeedsName => 'أعطِ النادي اسمًا أولًا';
+
+  @override
+  String gatheringRequests(int count) {
+    return '$count في انتظار الانضمام';
+  }
+
+  @override
+  String get gatheringAdmit => 'قبول';
+
+  @override
+  String get gatheringDeny => 'رفض';
+
+  @override
+  String get gatheringsMine => 'لقاءاتي';
+
+  @override
+  String get gatheringsMineEmpty => 'لا شيء بعد. ستظهر هنا اللقاءات التي تستضيفها أو تنضم إليها.';
+
+  @override
+  String get gatheringsMineSubtitle => 'اللقاءات التي تستضيفها أو انضممت إليها';
+
+  @override
+  String get gatheringSave => 'حفظ';
+
+  @override
+  String get gatheringSaved => 'تم حفظ التغييرات';
+
+  @override
+  String get gatheringEditIt => 'تعديل';
 }

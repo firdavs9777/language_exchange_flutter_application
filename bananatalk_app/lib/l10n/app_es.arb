@@ -3260,5 +3260,46 @@
   "clubInterestHint": "Opcional: correr, K-pop, HSK4",
   "clubDescriptionLabel": "Acerca de",
   "clubCreate": "Crear club",
-  "clubNeedsName": "Primero ponle un nombre al club"
+  "clubNeedsName": "Primero ponle un nombre al club",
+  "gatheringRequests": "{count} esperando unirse",
+  "@gatheringRequests": {
+    "description": "모임 / gatherings",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "gatheringAdmit": "Admitir",
+  "@gatheringAdmit": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringDeny": "Rechazar",
+  "@gatheringDeny": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringsMine": "Mis quedadas",
+  "@gatheringsMine": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringsMineEmpty": "Nada todavía. Aquí aparecerán las quedadas que organices o a las que te unas.",
+  "@gatheringsMineEmpty": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringsMineSubtitle": "Quedadas que organizas o a las que te uniste",
+  "@gatheringsMineSubtitle": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringSave": "Guardar",
+  "@gatheringSave": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringSaved": "Cambios guardados",
+  "@gatheringSaved": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringEditIt": "Editar",
+  "@gatheringEditIt": {
+    "description": "모임 / gatherings"
+  }
 }

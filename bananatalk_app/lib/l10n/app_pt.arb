@@ -3246,5 +3246,46 @@
   "clubInterestHint": "Opcional: corrida, K-pop, HSK4",
   "clubDescriptionLabel": "Sobre",
   "clubCreate": "Criar clube",
-  "clubNeedsName": "Dê um nome ao clube primeiro"
+  "clubNeedsName": "Dê um nome ao clube primeiro",
+  "gatheringRequests": "{count} aguardando para entrar",
+  "@gatheringRequests": {
+    "description": "모임 / gatherings",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "gatheringAdmit": "Admitir",
+  "@gatheringAdmit": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringDeny": "Recusar",
+  "@gatheringDeny": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringsMine": "Meus encontros",
+  "@gatheringsMine": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringsMineEmpty": "Nada ainda. Os encontros que você organiza ou participa aparecerão aqui.",
+  "@gatheringsMineEmpty": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringsMineSubtitle": "Encontros que você organiza ou participa",
+  "@gatheringsMineSubtitle": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringSave": "Salvar",
+  "@gatheringSave": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringSaved": "Alterações salvas",
+  "@gatheringSaved": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringEditIt": "Editar",
+  "@gatheringEditIt": {
+    "description": "모임 / gatherings"
+  }
 }

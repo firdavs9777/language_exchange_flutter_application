@@ -2723,5 +2723,46 @@
   "clubInterestHint": "Ихтиёрӣ — давидан, K-pop, HSK4",
   "clubDescriptionLabel": "Дар бораи клуб",
   "clubCreate": "Сохтани клуб",
-  "clubNeedsName": "Аввал ба клуб ном гузоред"
+  "clubNeedsName": "Аввал ба клуб ном гузоред",
+  "gatheringRequests": "{count} интизори ҳамроҳшавӣ",
+  "@gatheringRequests": {
+    "description": "모임 / gatherings",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "gatheringAdmit": "Қабул",
+  "@gatheringAdmit": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringDeny": "Рад",
+  "@gatheringDeny": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringsMine": "Вохӯриҳои ман",
+  "@gatheringsMine": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringsMineEmpty": "Ҳоло чизе нест. Вохӯриҳое, ки шумо ташкил мекунед ё ҳамроҳ мешавед, дар ин ҷо пайдо мешаванд.",
+  "@gatheringsMineEmpty": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringsMineSubtitle": "Вохӯриҳое, ки шумо ташкил кардед ё ҳамроҳ шудед",
+  "@gatheringsMineSubtitle": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringSave": "Нигоҳ доштан",
+  "@gatheringSave": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringSaved": "Тағйирот сабт шуд",
+  "@gatheringSaved": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringEditIt": "Таҳрир",
+  "@gatheringEditIt": {
+    "description": "모임 / gatherings"
+  }
 }

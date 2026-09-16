@@ -3203,5 +3203,46 @@
   "clubInterestHint": "Opsyonal — pagtakbo, K-pop, HSK4",
   "clubDescriptionLabel": "Tungkol dito",
   "clubCreate": "Gumawa ng club",
-  "clubNeedsName": "Bigyan muna ng pangalan ang club"
+  "clubNeedsName": "Bigyan muna ng pangalan ang club",
+  "gatheringRequests": "{count} naghihintay sumali",
+  "@gatheringRequests": {
+    "description": "모임 / gatherings",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "gatheringAdmit": "Tanggapin",
+  "@gatheringAdmit": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringDeny": "Tanggihan",
+  "@gatheringDeny": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringsMine": "Aking mga pagtitipon",
+  "@gatheringsMine": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringsMineEmpty": "Wala pa. Lalabas dito ang mga pagtitipong iyong hino-host o sinalihan.",
+  "@gatheringsMineEmpty": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringsMineSubtitle": "Mga pagtitipong hino-host o sinalihan mo",
+  "@gatheringsMineSubtitle": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringSave": "I-save",
+  "@gatheringSave": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringSaved": "Na-save ang mga pagbabago",
+  "@gatheringSaved": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringEditIt": "I-edit",
+  "@gatheringEditIt": {
+    "description": "모임 / gatherings"
+  }
 }

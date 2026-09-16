@@ -7931,4 +7931,33 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get clubNeedsName => 'Аввал ба клуб ном гузоред';
+
+  @override
+  String gatheringRequests(int count) {
+    return '$count интизори ҳамроҳшавӣ';
+  }
+
+  @override
+  String get gatheringAdmit => 'Қабул';
+
+  @override
+  String get gatheringDeny => 'Рад';
+
+  @override
+  String get gatheringsMine => 'Вохӯриҳои ман';
+
+  @override
+  String get gatheringsMineEmpty => 'Ҳоло чизе нест. Вохӯриҳое, ки шумо ташкил мекунед ё ҳамроҳ мешавед, дар ин ҷо пайдо мешаванд.';
+
+  @override
+  String get gatheringsMineSubtitle => 'Вохӯриҳое, ки шумо ташкил кардед ё ҳамроҳ шудед';
+
+  @override
+  String get gatheringSave => 'Нигоҳ доштан';
+
+  @override
+  String get gatheringSaved => 'Тағйирот сабт шуд';
+
+  @override
+  String get gatheringEditIt => 'Таҳрир';
 }

@@ -7917,4 +7917,33 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get clubNeedsName => '먼저 클럽 이름을 정해주세요';
+
+  @override
+  String gatheringRequests(int count) {
+    return '참가 대기 $count명';
+  }
+
+  @override
+  String get gatheringAdmit => '수락';
+
+  @override
+  String get gatheringDeny => '거절';
+
+  @override
+  String get gatheringsMine => '내 모임';
+
+  @override
+  String get gatheringsMineEmpty => '아직 없습니다. 주최하거나 참가한 모임이 여기에 표시됩니다.';
+
+  @override
+  String get gatheringsMineSubtitle => '내가 주최하거나 참가한 모임';
+
+  @override
+  String get gatheringSave => '저장';
+
+  @override
+  String get gatheringSaved => '변경사항이 저장되었습니다';
+
+  @override
+  String get gatheringEditIt => '수정';
 }

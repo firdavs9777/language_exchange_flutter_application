@@ -7927,4 +7927,33 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get clubNeedsName => 'Dê um nome ao clube primeiro';
+
+  @override
+  String gatheringRequests(int count) {
+    return '$count aguardando para entrar';
+  }
+
+  @override
+  String get gatheringAdmit => 'Admitir';
+
+  @override
+  String get gatheringDeny => 'Recusar';
+
+  @override
+  String get gatheringsMine => 'Meus encontros';
+
+  @override
+  String get gatheringsMineEmpty => 'Nada ainda. Os encontros que você organiza ou participa aparecerão aqui.';
+
+  @override
+  String get gatheringsMineSubtitle => 'Encontros que você organiza ou participa';
+
+  @override
+  String get gatheringSave => 'Salvar';
+
+  @override
+  String get gatheringSaved => 'Alterações salvas';
+
+  @override
+  String get gatheringEditIt => 'Editar';
 }

@@ -3230,5 +3230,46 @@
   "clubInterestHint": "ไม่บังคับ — วิ่ง, K-pop, HSK4",
   "clubDescriptionLabel": "เกี่ยวกับ",
   "clubCreate": "สร้างชมรม",
-  "clubNeedsName": "ตั้งชื่อชมรมก่อน"
+  "clubNeedsName": "ตั้งชื่อชมรมก่อน",
+  "gatheringRequests": "{count} คนรอเข้าร่วม",
+  "@gatheringRequests": {
+    "description": "모임 / gatherings",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "gatheringAdmit": "อนุญาต",
+  "@gatheringAdmit": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringDeny": "ปฏิเสธ",
+  "@gatheringDeny": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringsMine": "การพบปะของฉัน",
+  "@gatheringsMine": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringsMineEmpty": "ยังไม่มี การพบปะที่คุณจัดหรือเข้าร่วมจะแสดงที่นี่",
+  "@gatheringsMineEmpty": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringsMineSubtitle": "การพบปะที่คุณจัดหรือเข้าร่วม",
+  "@gatheringsMineSubtitle": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringSave": "บันทึก",
+  "@gatheringSave": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringSaved": "บันทึกการเปลี่ยนแปลงแล้ว",
+  "@gatheringSaved": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringEditIt": "แก้ไข",
+  "@gatheringEditIt": {
+    "description": "모임 / gatherings"
+  }
 }

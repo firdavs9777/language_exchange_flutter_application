@@ -39,7 +39,11 @@ class _ClubDetailScreenState extends State<ClubDetailScreen> {
 
   Future<void> _reload() async {
     final next = _api.getClub(widget.clubId);
-    setState(() => _future = next);
+    // Block body, not an arrow: `() => _future = next` evaluates to the
+    // assigned Future, and setState rejects a callback that returns one.
+    setState(() {
+      _future = next;
+    });
     await next;
   }
 

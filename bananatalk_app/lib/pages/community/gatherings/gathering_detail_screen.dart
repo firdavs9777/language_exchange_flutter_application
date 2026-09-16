@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/community/gathering_model.dart';
+import 'package:bananatalk_app/pages/community/gatherings/create_gathering_form.dart';
 import 'package:bananatalk_app/services/gathering_api_client.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/pages/community/widgets/community_error_state.dart';
@@ -41,7 +42,11 @@ class _GatheringDetailScreenState extends State<GatheringDetailScreen> {
 
   Future<void> _reload() async {
     final next = _api.getGathering(widget.gatheringId);
-    setState(() => _future = next);
+    // Block body, not an arrow: `() => _future = next` evaluates to the
+    // assigned Future, and setState rejects a callback that returns one.
+    setState(() {
+      _future = next;
+    });
     await next;
   }
 
@@ -148,7 +153,19 @@ class _GatheringDetailScreenState extends State<GatheringDetailScreen> {
               context,
               Icons.person_rounded,
               l10n.gatheringHostedBy(gathering.host.name),
+              // Where the host is. An online gathering is open to every
+              // country, so this informs rather than filters — it is the
+              // difference between "9pm" and "9pm, hosted from Moscow".
+              subtitle: gathering.hostPlace.isEmpty ? null : gathering.hostPlace,
             ),
+
+          // The host's pending queue. Sits above the actions because deciding
+          // on people who already asked matters more than anything else the
+          // host could do here.
+          if (gathering.viewerIsHost && gathering.requests.isNotEmpty) ...[
+            Spacing.gapLG,
+            _requestsSection(context, l10n, gathering),
+          ],
 
           if (gathering.description.isNotEmpty) ...[
             Spacing.gapLG,
@@ -309,9 +326,23 @@ class _GatheringDetailScreenState extends State<GatheringDetailScreen> {
             ),
           ),
         Spacing.gapMD,
+        // Edit sits above Cancel: fixing a typo or moving the time is the far
+        // more common thing a host wants, and cancelling strands everyone who
+        // already said yes.
+        SizedBox(
+          width: double.infinity,
+          child: FilledButton.icon(
+            key: const Key('gathering-edit'),
+            onPressed: _busy ? null : () => _openEdit(gathering),
+            icon: const Icon(Icons.edit_rounded, size: 18),
+            label: Text(l10n.gatheringEditIt),
+          ),
+        ),
+        Spacing.gapMD,
         SizedBox(
           width: double.infinity,
           child: OutlinedButton.icon(
+            key: const Key('gathering-cancel'),
             onPressed: _busy ? null : () => _confirmCancel(l10n, gathering),
             icon: const Icon(Icons.close_rounded, size: 18),
             label: Text(l10n.gatheringCancelIt),
@@ -378,6 +409,21 @@ class _GatheringDetailScreenState extends State<GatheringDetailScreen> {
     ];
   }
 
+  /// Opens the create form in edit mode. Same form so the pickers, the
+  /// clamping and the validation cannot drift between creating and editing.
+  Future<void> _openEdit(Gathering gathering) async {
+    await showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      builder: (sheetContext) => CreateGatheringForm(
+        defaultLanguage: gathering.displayLanguage,
+        editing: gathering,
+        onCreated: (_) => Navigator.of(sheetContext).pop(),
+      ),
+    );
+    if (mounted) await _reload();
+  }
+
   Future<void> _confirmCancel(
     AppLocalizations l10n,
     Gathering gathering,
@@ -404,6 +450,80 @@ class _GatheringDetailScreenState extends State<GatheringDetailScreen> {
     if (confirmed != true) return;
     await _run(
       () async => (await _api.cancelGathering(gathering.id)).error,
+    );
+  }
+
+  /// Who is waiting, and the two buttons that answer them.
+  ///
+  /// Only ever built for the host — the backend sends an empty list to
+  /// everyone else, so this is a display concern rather than the access check.
+  Widget _requestsSection(
+    BuildContext context,
+    AppLocalizations l10n,
+    Gathering gathering,
+  ) {
+    return Container(
+      padding: Spacing.paddingMD,
+      decoration: BoxDecoration(
+        color: context.containerHighColor,
+        borderRadius: AppRadius.borderMD,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            l10n.gatheringRequests(gathering.requests.length),
+            style: context.bodyMedium.copyWith(fontWeight: FontWeight.w600),
+          ),
+          Spacing.gapMD,
+          for (final person in gathering.requests)
+            Padding(
+              key: Key('gathering-request-${person.id}'),
+              padding: const EdgeInsets.only(bottom: Spacing.sm),
+              child: Row(
+                children: [
+                  CircleAvatar(
+                    radius: 14,
+                    backgroundColor: context.containerColor,
+                    backgroundImage:
+                        person.avatar.isNotEmpty ? NetworkImage(person.avatar) : null,
+                    child: person.avatar.isEmpty
+                        ? Icon(Icons.person, size: 14, color: context.textMuted)
+                        : null,
+                  ),
+                  Spacing.hGapMD,
+                  Expanded(
+                    child: Text(
+                      person.name.isNotEmpty ? person.name : person.username,
+                      style: context.bodyMedium,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                  TextButton(
+                    key: Key('gathering-deny-${person.id}'),
+                    onPressed: _busy
+                        ? null
+                        : () => _run(() async =>
+                            (await _api.decideJoinRequest(
+                              gathering.id, person.id, approve: false,
+                            )).error),
+                    child: Text(l10n.gatheringDeny),
+                  ),
+                  FilledButton(
+                    key: Key('gathering-admit-${person.id}'),
+                    onPressed: _busy
+                        ? null
+                        : () => _run(() async =>
+                            (await _api.decideJoinRequest(
+                              gathering.id, person.id, approve: true,
+                            )).error),
+                    child: Text(l10n.gatheringAdmit),
+                  ),
+                ],
+              ),
+            ),
+        ],
+      ),
     );
   }
 

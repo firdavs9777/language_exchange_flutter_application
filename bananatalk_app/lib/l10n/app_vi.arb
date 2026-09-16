@@ -3230,5 +3230,46 @@
   "clubInterestHint": "Tùy chọn — chạy bộ, K-pop, HSK4",
   "clubDescriptionLabel": "Giới thiệu",
   "clubCreate": "Tạo câu lạc bộ",
-  "clubNeedsName": "Hãy đặt tên cho câu lạc bộ trước"
+  "clubNeedsName": "Hãy đặt tên cho câu lạc bộ trước",
+  "gatheringRequests": "{count} đang chờ tham gia",
+  "@gatheringRequests": {
+    "description": "모임 / gatherings",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "gatheringAdmit": "Chấp nhận",
+  "@gatheringAdmit": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringDeny": "Từ chối",
+  "@gatheringDeny": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringsMine": "Buổi gặp của tôi",
+  "@gatheringsMine": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringsMineEmpty": "Chưa có gì. Các buổi gặp bạn tổ chức hoặc tham gia sẽ hiện ở đây.",
+  "@gatheringsMineEmpty": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringsMineSubtitle": "Buổi gặp bạn tổ chức hoặc đã tham gia",
+  "@gatheringsMineSubtitle": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringSave": "Lưu",
+  "@gatheringSave": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringSaved": "Đã lưu thay đổi",
+  "@gatheringSaved": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringEditIt": "Chỉnh sửa",
+  "@gatheringEditIt": {
+    "description": "모임 / gatherings"
+  }
 }

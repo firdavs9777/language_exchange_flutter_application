@@ -24,7 +24,14 @@ class CreateGatheringForm extends StatefulWidget {
     this.onCreated,
     this.compact = false,
     this.now,
+    this.editing,
   });
+
+  /// When set the form edits this gathering instead of creating a new one:
+  /// fields are seeded from it and Save issues an update. Reused rather than
+  /// duplicated so the pickers, validation and clamping cannot drift between
+  /// creating and editing.
+  final Gathering? editing;
 
   /// The viewer's target language, pre-filled. Empty falls back to a free
   /// text field with nothing in it, which is the only case where the form
@@ -49,6 +56,7 @@ class CreateGatheringForm extends StatefulWidget {
 
 class _CreateGatheringFormState extends State<CreateGatheringForm> {
   final _api = GatheringApiClient();
+  bool get _isEdit => widget.editing != null;
   late final TextEditingController _title;
   late final TextEditingController _language;
   late DateTime _startsAt;
@@ -65,9 +73,20 @@ class _CreateGatheringFormState extends State<CreateGatheringForm> {
   @override
   void initState() {
     super.initState();
-    _language = TextEditingController(text: widget.defaultLanguage);
-    _title = TextEditingController();
-    _startsAt = defaultGatheringStart(widget.now ?? DateTime.now());
+    final editing = widget.editing;
+    _language = TextEditingController(
+      text: editing?.displayLanguage ?? widget.defaultLanguage,
+    );
+    _title = TextEditingController(text: editing?.title ?? '');
+    _startsAt = editing?.startsAt.toLocal() ??
+        defaultGatheringStart(widget.now ?? DateTime.now());
+    if (editing != null) {
+      _capacity = editing.capacity;
+      _quorum = editing.quorum;
+      // Seeded from a real gathering, so the language picker must not rewrite
+      // the host's own title underneath them.
+      _titleTouched = true;
+    }
     _title.addListener(() {
       if (_title.text.isNotEmpty) _titleTouched = true;
     });
@@ -98,7 +117,10 @@ class _CreateGatheringFormState extends State<CreateGatheringForm> {
     final date = await showDatePicker(
       context: context,
       initialDate: _startsAt,
-      firstDate: now,
+      // An existing gathering may start before "now + nothing" once the sheet
+      // has been open a while; clamping to the earlier of the two keeps the
+      // picker from rejecting its own initial date.
+      firstDate: _startsAt.isBefore(now) ? _startsAt : now,
       lastDate: now.add(const Duration(days: 90)),
       helpText: l10n.gatheringWhenLabel,
     );
@@ -153,17 +175,27 @@ class _CreateGatheringFormState extends State<CreateGatheringForm> {
     }
 
     setState(() => _submitting = true);
-    final result = await _api.createGathering(
-      title: title,
-      language: language,
-      startsAt: _startsAt,
-      durationMinutes: _duration,
-      capacity: _capacity,
-      // A quorum above capacity can never be met, so it is clamped rather
-      // than left to produce a gathering that is permanently unconfirmable.
-      quorum: _quorum > _capacity ? _capacity : _quorum,
-      clubId: widget.clubId,
-    );
+    final result = _isEdit
+        ? await _api.updateGathering(
+            widget.editing!.id,
+            title: title,
+            language: language,
+            startsAt: _startsAt,
+            durationMinutes: _duration,
+            capacity: _capacity,
+          )
+        : await _api.createGathering(
+            title: title,
+            language: language,
+            startsAt: _startsAt,
+            durationMinutes: _duration,
+            capacity: _capacity,
+            // A quorum above capacity can never be met, so it is clamped
+            // rather than left to produce a gathering that is permanently
+            // unconfirmable.
+            quorum: _quorum > _capacity ? _capacity : _quorum,
+            clubId: widget.clubId,
+          );
     if (!mounted) return;
     setState(() => _submitting = false);
 
@@ -178,7 +210,7 @@ class _CreateGatheringFormState extends State<CreateGatheringForm> {
 
     showCommunitySnackBar(
       context,
-      message: l10n.gatheringPosted,
+      message: _isEdit ? l10n.gatheringSaved : l10n.gatheringPosted,
       type: CommunitySnackBarType.success,
     );
     widget.onCreated?.call(result.value!);
@@ -316,7 +348,7 @@ class _CreateGatheringFormState extends State<CreateGatheringForm> {
                       height: 20,
                       child: CircularProgressIndicator(strokeWidth: 2),
                     )
-                  : Text(l10n.gatheringPost),
+                  : Text(_isEdit ? l10n.gatheringSave : l10n.gatheringPost),
             ),
           ),
         ],

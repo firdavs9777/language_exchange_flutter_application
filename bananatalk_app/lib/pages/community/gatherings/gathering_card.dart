@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/community/gathering_model.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
@@ -63,8 +64,27 @@ class GatheringCard extends StatelessWidget {
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               ),
+              // Language and level sit with the title, not with the time: they
+              // describe what the gathering IS, and a Wrap means a long label
+              // like "Chinese (Traditional)" pushes to its own line instead of
+              // overflowing the row.
+              if (_tags.isNotEmpty) ...[
+                Spacing.gapXS,
+                Wrap(
+                  spacing: Spacing.xs,
+                  runSpacing: Spacing.xs,
+                  children: [for (final tag in _tags) _pill(context, tag)],
+                ),
+              ],
               Spacing.gapXS,
               _hostLine(context, l10n),
+              // Host-only, and only when someone is actually waiting. A host
+              // who cannot see a pending request from the list will not open
+              // the gathering to find it.
+              if (gathering.viewerIsHost && gathering.requests.isNotEmpty) ...[
+                Spacing.gapSM,
+                _requestsBadge(context, l10n),
+              ],
               Spacing.gapMD,
               Row(
                 children: [
@@ -104,7 +124,7 @@ class GatheringCard extends StatelessWidget {
       final day = switch (gatheringDayBucket(gathering.startsAt, clock)) {
         GatheringDayBucket.today => l10n.gatheringToday,
         GatheringDayBucket.tomorrow => l10n.gatheringTomorrow,
-        _ => _shortDate(gathering.startsAt.toLocal()),
+        _ => _shortDate(context, gathering.startsAt.toLocal()),
       };
       headline = '$day · ${formatLocalClock(gathering.startsAt)}';
     }
@@ -132,14 +152,6 @@ class GatheringCard extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
             ),
-            if (gathering.displayLanguage.isNotEmpty) ...[
-              Spacing.hGapSM,
-              _pill(context, gathering.displayLanguage),
-            ],
-            if (gathering.level != null && gathering.level!.isNotEmpty) ...[
-              Spacing.hGapXS,
-              _pill(context, gathering.level!),
-            ],
           ],
         ),
         if (zone != null) ...[
@@ -158,6 +170,7 @@ class GatheringCard extends StatelessWidget {
         ? gathering.host.name
         : gathering.host.username;
     if (name.isEmpty) return const SizedBox.shrink();
+    final place = gathering.hostPlace;
     return Row(
       children: [
         CircleAvatar(
@@ -173,7 +186,12 @@ class GatheringCard extends StatelessWidget {
         Spacing.hGapSM,
         Flexible(
           child: Text(
-            l10n.gatheringHostedBy(name),
+            // The place is appended with a separator rather than through its
+            // own l10n key: it is a proper noun either way, and this keeps the
+            // line from needing 19 new translations to say "Moscow, Russia".
+            place.isEmpty
+                ? l10n.gatheringHostedBy(name)
+                : '${l10n.gatheringHostedBy(name)} · $place',
             style: context.bodySmall.copyWith(color: context.textSecondary),
             overflow: TextOverflow.ellipsis,
           ),
@@ -249,6 +267,46 @@ class GatheringCard extends StatelessWidget {
     );
   }
 
+  /// Language and level, in that order, skipping whichever is absent.
+  List<String> get _tags => [
+    if (gathering.displayLanguage.isNotEmpty) gathering.displayLanguage,
+    if (gathering.level != null && gathering.level!.isNotEmpty) gathering.level!,
+  ];
+
+  /// "2 waiting to join" — the host's cue that there is a decision to make.
+  /// Uses the primary accent because it is the one thing on this card that
+  /// asks the viewer to do something.
+  Widget _requestsBadge(BuildContext context, AppLocalizations l10n) {
+    return Container(
+      key: const Key('gathering-card-requests'),
+      padding: const EdgeInsets.symmetric(
+        horizontal: Spacing.sm,
+        vertical: Spacing.xxs,
+      ),
+      decoration: BoxDecoration(
+        color: AppColors.primary.withValues(alpha: 0.10),
+        borderRadius: AppRadius.borderRound,
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(Icons.how_to_reg_rounded, size: 14, color: AppColors.primary),
+          Spacing.hGapXS,
+          Flexible(
+            child: Text(
+              l10n.gatheringRequests(gathering.requests.length),
+              style: context.captionSmall.copyWith(
+                color: AppColors.primary,
+                fontWeight: FontWeight.w600,
+              ),
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _pill(BuildContext context, String text) {
     return Container(
       padding: const EdgeInsets.symmetric(
@@ -266,6 +324,9 @@ class GatheringCard extends StatelessWidget {
     );
   }
 
-  String _shortDate(DateTime local) =>
-      '${local.day}/${local.month}';
+  /// Locale-aware. A bare "16/9" reads as 16 September to a Russian and as an
+  /// invalid month to an American, and this list is shown in 19 locales.
+  String _shortDate(BuildContext context, DateTime local) => DateFormat.MMMd(
+    Localizations.localeOf(context).toString(),
+  ).format(local);
 }

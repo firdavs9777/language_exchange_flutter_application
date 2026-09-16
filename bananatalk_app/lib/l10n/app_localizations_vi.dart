@@ -7917,4 +7917,33 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get clubNeedsName => 'Hãy đặt tên cho câu lạc bộ trước';
+
+  @override
+  String gatheringRequests(int count) {
+    return '$count đang chờ tham gia';
+  }
+
+  @override
+  String get gatheringAdmit => 'Chấp nhận';
+
+  @override
+  String get gatheringDeny => 'Từ chối';
+
+  @override
+  String get gatheringsMine => 'Buổi gặp của tôi';
+
+  @override
+  String get gatheringsMineEmpty => 'Chưa có gì. Các buổi gặp bạn tổ chức hoặc tham gia sẽ hiện ở đây.';
+
+  @override
+  String get gatheringsMineSubtitle => 'Buổi gặp bạn tổ chức hoặc đã tham gia';
+
+  @override
+  String get gatheringSave => 'Lưu';
+
+  @override
+  String get gatheringSaved => 'Đã lưu thay đổi';
+
+  @override
+  String get gatheringEditIt => 'Chỉnh sửa';
 }

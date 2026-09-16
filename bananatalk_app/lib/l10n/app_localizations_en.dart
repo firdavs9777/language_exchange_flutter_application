@@ -7933,4 +7933,33 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get clubNeedsName => 'Give the club a name first';
+
+  @override
+  String gatheringRequests(int count) {
+    return '$count waiting to join';
+  }
+
+  @override
+  String get gatheringAdmit => 'Admit';
+
+  @override
+  String get gatheringDeny => 'Deny';
+
+  @override
+  String get gatheringsMine => 'My gatherings';
+
+  @override
+  String get gatheringsMineEmpty => 'Nothing yet. Gatherings you host or join will show up here.';
+
+  @override
+  String get gatheringsMineSubtitle => 'Gatherings you host or joined';
+
+  @override
+  String get gatheringSave => 'Save';
+
+  @override
+  String get gatheringSaved => 'Changes saved';
+
+  @override
+  String get gatheringEditIt => 'Edit';
 }

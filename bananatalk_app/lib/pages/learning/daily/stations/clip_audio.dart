@@ -1,3 +1,4 @@
+import 'package:audio_session/audio_session.dart';
 import 'package:flutter/foundation.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:bananatalk_app/models/ai/speech_model.dart';
@@ -28,8 +29,33 @@ class ClipAudio {
     }
   }
 
+  /// Claims the audio session for speech playback before the first clip.
+  ///
+  /// Without this the station is silent on iPhone in two ways that both read as
+  /// "the button does nothing": the default category is silenced by the ring/
+  /// silent switch, and flutter_sound, WebRTC and CallKit each leave the shared
+  /// session in playAndRecord — which routes to the earpiece, not the speaker —
+  /// once voice chat, a call or the tutor has run. just_audio does not touch
+  /// AVAudioSession itself, so nothing else restores it.
+  static Future<void> _claimSession() async {
+    try {
+      final session = await AudioSession.instance;
+      await session.configure(const AudioSessionConfiguration(
+        avAudioSessionCategory: AVAudioSessionCategory.playback,
+        avAudioSessionCategoryOptions: AVAudioSessionCategoryOptions.duckOthers,
+        avAudioSessionMode: AVAudioSessionMode.spokenAudio,
+      ));
+      await session.setActive(true);
+    } catch (e) {
+      // A session we could not claim still often plays; failing here must not
+      // cost the learner the clip.
+      debugPrint('[clipAudio] audio session unavailable: $e');
+    }
+  }
+
   Future<void> play(String url) async {
     try {
+      await _claimSession();
       await _player.setUrl(url);
       await _player.play();
     } catch (e) {

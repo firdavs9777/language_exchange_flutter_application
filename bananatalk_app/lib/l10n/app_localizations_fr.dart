@@ -7927,4 +7927,33 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get clubNeedsName => 'Donnez d\'abord un nom au club';
+
+  @override
+  String gatheringRequests(int count) {
+    return '$count en attente';
+  }
+
+  @override
+  String get gatheringAdmit => 'Accepter';
+
+  @override
+  String get gatheringDeny => 'Refuser';
+
+  @override
+  String get gatheringsMine => 'Mes rencontres';
+
+  @override
+  String get gatheringsMineEmpty => 'Rien pour l\'instant. Les rencontres que vous organisez ou rejoignez apparaîtront ici.';
+
+  @override
+  String get gatheringsMineSubtitle => 'Rencontres que vous organisez ou avez rejointes';
+
+  @override
+  String get gatheringSave => 'Enregistrer';
+
+  @override
+  String get gatheringSaved => 'Modifications enregistrées';
+
+  @override
+  String get gatheringEditIt => 'Modifier';
 }

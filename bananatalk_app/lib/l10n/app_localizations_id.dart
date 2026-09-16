@@ -7924,4 +7924,33 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get clubNeedsName => 'Beri nama klub dulu';
+
+  @override
+  String gatheringRequests(int count) {
+    return '$count menunggu untuk bergabung';
+  }
+
+  @override
+  String get gatheringAdmit => 'Terima';
+
+  @override
+  String get gatheringDeny => 'Tolak';
+
+  @override
+  String get gatheringsMine => 'Pertemuan saya';
+
+  @override
+  String get gatheringsMineEmpty => 'Belum ada. Pertemuan yang kamu adakan atau ikuti akan muncul di sini.';
+
+  @override
+  String get gatheringsMineSubtitle => 'Pertemuan yang kamu adakan atau ikuti';
+
+  @override
+  String get gatheringSave => 'Simpan';
+
+  @override
+  String get gatheringSaved => 'Perubahan disimpan';
+
+  @override
+  String get gatheringEditIt => 'Ubah';
 }

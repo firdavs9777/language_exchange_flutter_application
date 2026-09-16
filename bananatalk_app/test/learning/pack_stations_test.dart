@@ -187,4 +187,51 @@ void main() {
     expect(find.text('She is waiting outside.'), findsOneWidget);
     expect(find.byKey(const Key('clip-play-0')), findsOneWidget);
   });
+
+  testWidgets('a checked station marks which answer was right and which was wrong',
+      (tester) async {
+    await tester.pumpWidget(_host(VocabStation(
+      payload: _vocab,
+      // Question 0 correct is option 0, question 1 correct is option 1.
+      onSubmit: (_) async => const StationResult(
+        score: 1, total: 2, xpAwarded: 10,
+        answerKey: [0, 1],
+        explanations: ['', 'A colleague is a workmate.'],
+      ),
+      onDone: () {},
+    )));
+    for (var i = 0; i < _vocab.words.length; i++) {
+      await tester.tap(find.byKey(const Key('word-next')));
+      await tester.pumpAndSettle();
+    }
+    // Answer q0 right, q1 wrong.
+    await tester.tap(find.byKey(const Key('check-q0-opt0')));
+    await tester.tap(find.byKey(const Key('check-q1-opt0')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('station-submit')));
+    await tester.pumpAndSettle();
+
+    // Before the fix the learner saw only a score, so a wrong answer was
+    // indistinguishable from a right one.
+    expect(find.byIcon(Icons.check_circle), findsNWidgets(2));
+    expect(find.byIcon(Icons.cancel), findsOneWidget);
+    expect(find.byKey(const Key('check-q1-explanation')), findsOneWidget);
+  });
+
+  testWidgets('a station with no answer key shows no marks', (tester) async {
+    await tester.pumpWidget(_host(VocabStation(
+      payload: _vocab, onSubmit: (_) async => _ok(), onDone: () {},
+    )));
+    for (var i = 0; i < _vocab.words.length; i++) {
+      await tester.tap(find.byKey(const Key('word-next')));
+      await tester.pumpAndSettle();
+    }
+    await tester.tap(find.byKey(const Key('check-q0-opt0')));
+    await tester.tap(find.byKey(const Key('check-q1-opt1')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('station-submit')));
+    await tester.pumpAndSettle();
+    expect(find.byIcon(Icons.check_circle), findsNothing);
+    expect(find.byIcon(Icons.cancel), findsNothing);
+  });
 }

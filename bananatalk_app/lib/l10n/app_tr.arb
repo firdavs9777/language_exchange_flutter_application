@@ -3442,5 +3442,46 @@
   "clubInterestHint": "İsteğe bağlı — koşu, K-pop, HSK4",
   "clubDescriptionLabel": "Hakkında",
   "clubCreate": "Kulüp oluştur",
-  "clubNeedsName": "Önce kulübe bir ad ver"
+  "clubNeedsName": "Önce kulübe bir ad ver",
+  "gatheringRequests": "{count} kişi katılmayı bekliyor",
+  "@gatheringRequests": {
+    "description": "모임 / gatherings",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "gatheringAdmit": "Kabul et",
+  "@gatheringAdmit": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringDeny": "Reddet",
+  "@gatheringDeny": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringsMine": "Buluşmalarım",
+  "@gatheringsMine": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringsMineEmpty": "Henüz yok. Düzenlediğin veya katıldığın buluşmalar burada görünür.",
+  "@gatheringsMineEmpty": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringsMineSubtitle": "Düzenlediğin veya katıldığın buluşmalar",
+  "@gatheringsMineSubtitle": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringSave": "Kaydet",
+  "@gatheringSave": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringSaved": "Değişiklikler kaydedildi",
+  "@gatheringSaved": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringEditIt": "Düzenle",
+  "@gatheringEditIt": {
+    "description": "모임 / gatherings"
+  }
 }

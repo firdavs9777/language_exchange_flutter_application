@@ -7917,6 +7917,35 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get clubNeedsName => '请先为俱乐部起个名字';
+
+  @override
+  String gatheringRequests(int count) {
+    return '$count 人等待加入';
+  }
+
+  @override
+  String get gatheringAdmit => '通过';
+
+  @override
+  String get gatheringDeny => '拒绝';
+
+  @override
+  String get gatheringsMine => '我的聚会';
+
+  @override
+  String get gatheringsMineEmpty => '暂无。你主持或参加的聚会会显示在这里。';
+
+  @override
+  String get gatheringsMineSubtitle => '你主持或参加的聚会';
+
+  @override
+  String get gatheringSave => '保存';
+
+  @override
+  String get gatheringSaved => '更改已保存';
+
+  @override
+  String get gatheringEditIt => '编辑';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -15832,4 +15861,33 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get clubNeedsName => '請先為社團取個名字';
+
+  @override
+  String gatheringRequests(int count) {
+    return '$count 人等待加入';
+  }
+
+  @override
+  String get gatheringAdmit => '通過';
+
+  @override
+  String get gatheringDeny => '拒絕';
+
+  @override
+  String get gatheringsMine => '我的聚會';
+
+  @override
+  String get gatheringsMineEmpty => '尚無。你主持或參加的聚會會顯示在這裡。';
+
+  @override
+  String get gatheringsMineSubtitle => '你主持或參加的聚會';
+
+  @override
+  String get gatheringSave => '儲存';
+
+  @override
+  String get gatheringSaved => '變更已儲存';
+
+  @override
+  String get gatheringEditIt => '編輯';
 }

@@ -3251,5 +3251,46 @@
   "clubInterestHint": "선택 사항 — 러닝, K-pop, HSK4",
   "clubDescriptionLabel": "소개",
   "clubCreate": "클럽 만들기",
-  "clubNeedsName": "먼저 클럽 이름을 정해주세요"
+  "clubNeedsName": "먼저 클럽 이름을 정해주세요",
+  "gatheringRequests": "참가 대기 {count}명",
+  "@gatheringRequests": {
+    "description": "모임 / gatherings",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "gatheringAdmit": "수락",
+  "@gatheringAdmit": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringDeny": "거절",
+  "@gatheringDeny": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringsMine": "내 모임",
+  "@gatheringsMine": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringsMineEmpty": "아직 없습니다. 주최하거나 참가한 모임이 여기에 표시됩니다.",
+  "@gatheringsMineEmpty": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringsMineSubtitle": "내가 주최하거나 참가한 모임",
+  "@gatheringsMineSubtitle": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringSave": "저장",
+  "@gatheringSave": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringSaved": "변경사항이 저장되었습니다",
+  "@gatheringSaved": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringEditIt": "수정",
+  "@gatheringEditIt": {
+    "description": "모임 / gatherings"
+  }
 }

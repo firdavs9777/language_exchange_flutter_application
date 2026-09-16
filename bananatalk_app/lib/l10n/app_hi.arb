@@ -3246,5 +3246,46 @@
   "clubInterestHint": "वैकल्पिक — दौड़, K-pop, HSK4",
   "clubDescriptionLabel": "परिचय",
   "clubCreate": "क्लब बनाएँ",
-  "clubNeedsName": "पहले क्लब को नाम दें"
+  "clubNeedsName": "पहले क्लब को नाम दें",
+  "gatheringRequests": "{count} शामिल होने की प्रतीक्षा में",
+  "@gatheringRequests": {
+    "description": "모임 / gatherings",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "gatheringAdmit": "स्वीकारें",
+  "@gatheringAdmit": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringDeny": "अस्वीकारें",
+  "@gatheringDeny": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringsMine": "मेरी सभाएँ",
+  "@gatheringsMine": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringsMineEmpty": "अभी कुछ नहीं। आपके द्वारा आयोजित या जॉइन की गई सभाएँ यहाँ दिखेंगी।",
+  "@gatheringsMineEmpty": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringsMineSubtitle": "आपके द्वारा आयोजित या जॉइन की गई सभाएँ",
+  "@gatheringsMineSubtitle": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringSave": "सहेजें",
+  "@gatheringSave": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringSaved": "परिवर्तन सहेजे गए",
+  "@gatheringSaved": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringEditIt": "संपादित करें",
+  "@gatheringEditIt": {
+    "description": "모임 / gatherings"
+  }
 }

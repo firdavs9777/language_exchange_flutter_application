@@ -14617,6 +14617,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Give the club a name first'**
   String get clubNeedsName;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'{count} waiting to join'**
+  String gatheringRequests(int count);
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'Admit'**
+  String get gatheringAdmit;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'Deny'**
+  String get gatheringDeny;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'My gatherings'**
+  String get gatheringsMine;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing yet. Gatherings you host or join will show up here.'**
+  String get gatheringsMineEmpty;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'Gatherings you host or joined'**
+  String get gatheringsMineSubtitle;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get gatheringSave;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'Changes saved'**
+  String get gatheringSaved;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get gatheringEditIt;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -7917,4 +7917,33 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get clubNeedsName => 'ตั้งชื่อชมรมก่อน';
+
+  @override
+  String gatheringRequests(int count) {
+    return '$count คนรอเข้าร่วม';
+  }
+
+  @override
+  String get gatheringAdmit => 'อนุญาต';
+
+  @override
+  String get gatheringDeny => 'ปฏิเสธ';
+
+  @override
+  String get gatheringsMine => 'การพบปะของฉัน';
+
+  @override
+  String get gatheringsMineEmpty => 'ยังไม่มี การพบปะที่คุณจัดหรือเข้าร่วมจะแสดงที่นี่';
+
+  @override
+  String get gatheringsMineSubtitle => 'การพบปะที่คุณจัดหรือเข้าร่วม';
+
+  @override
+  String get gatheringSave => 'บันทึก';
+
+  @override
+  String get gatheringSaved => 'บันทึกการเปลี่ยนแปลงแล้ว';
+
+  @override
+  String get gatheringEditIt => 'แก้ไข';
 }

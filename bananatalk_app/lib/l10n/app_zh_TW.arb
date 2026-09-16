@@ -2921,5 +2921,46 @@
   "clubInterestHint": "選填——跑步、K-pop、HSK4",
   "clubDescriptionLabel": "簡介",
   "clubCreate": "建立社團",
-  "clubNeedsName": "請先為社團取個名字"
+  "clubNeedsName": "請先為社團取個名字",
+  "gatheringRequests": "{count} 人等待加入",
+  "@gatheringRequests": {
+    "description": "모임 / gatherings",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "gatheringAdmit": "通過",
+  "@gatheringAdmit": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringDeny": "拒絕",
+  "@gatheringDeny": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringsMine": "我的聚會",
+  "@gatheringsMine": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringsMineEmpty": "尚無。你主持或參加的聚會會顯示在這裡。",
+  "@gatheringsMineEmpty": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringsMineSubtitle": "你主持或參加的聚會",
+  "@gatheringsMineSubtitle": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringSave": "儲存",
+  "@gatheringSave": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringSaved": "變更已儲存",
+  "@gatheringSaved": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringEditIt": "編輯",
+  "@gatheringEditIt": {
+    "description": "모임 / gatherings"
+  }
 }

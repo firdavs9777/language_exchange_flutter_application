@@ -34,6 +34,7 @@ import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/pages/profile/profile_main/sections/profile_tab_bar.dart';
 import 'package:bananatalk_app/pages/profile/profile_main/sections/profile_action_buttons.dart';
 import 'package:bananatalk_app/pages/profile/profile_main/sections/profile_stats_row.dart';
+import 'package:bananatalk_app/pages/profile/profile_main/sections/my_gatherings_entry.dart';
 import 'package:bananatalk_app/pages/profile/profile_main/sections/profile_highlights_tab.dart';
 import 'package:bananatalk_app/pages/profile/profile_main/sections/profile_about_tab.dart';
 import 'package:bananatalk_app/pages/profile/profile_main/sections/profile_moments_tab.dart';
@@ -245,6 +246,13 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
                     ProfileHighlightsTab(
                       user: user,
                     ).animate().fadeIn(duration: 350.ms, delay: 200.ms),
+                    const SizedBox(height: 20),
+                    // Directly under the completion card. Unlike that card
+                    // this never hides itself -- completion is a task that
+                    // ends, this is a permanent destination.
+                    const MyGatheringsEntry()
+                        .animate()
+                        .fadeIn(duration: 350.ms, delay: 225.ms),
                     const SizedBox(height: 20),
                     const Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20),

@@ -3230,5 +3230,46 @@
   "clubInterestHint": "任意 — ランニング、K-POP、HSK4",
   "clubDescriptionLabel": "紹介",
   "clubCreate": "クラブを作成",
-  "clubNeedsName": "まずクラブ名を入力してください"
+  "clubNeedsName": "まずクラブ名を入力してください",
+  "gatheringRequests": "参加待ち {count}人",
+  "@gatheringRequests": {
+    "description": "모임 / gatherings",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "gatheringAdmit": "承認",
+  "@gatheringAdmit": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringDeny": "拒否",
+  "@gatheringDeny": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringsMine": "マイ集まり",
+  "@gatheringsMine": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringsMineEmpty": "まだありません。主催または参加した集まりがここに表示されます。",
+  "@gatheringsMineEmpty": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringsMineSubtitle": "主催または参加した集まり",
+  "@gatheringsMineSubtitle": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringSave": "保存",
+  "@gatheringSave": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringSaved": "変更を保存しました",
+  "@gatheringSaved": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringEditIt": "編集",
+  "@gatheringEditIt": {
+    "description": "모임 / gatherings"
+  }
 }
