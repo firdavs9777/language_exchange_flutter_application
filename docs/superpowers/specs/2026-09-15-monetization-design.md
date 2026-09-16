@@ -87,13 +87,22 @@ Every current allowance is unchanged, plus:
 | Capability | Free |
 |---|---|
 | Profile visitors | Count + most recent visitor; older ones shown blurred with names hidden |
-| Chat translation | 10/day |
+| Chat translation | 5/day (pre-existing — see below) |
 | **New conversations** | **3/day** (replies always unlimited) |
 | Ads | On |
 | Nearby radius | 50 km |
 
-The only new caps are on **chat translation** (74 users, and each call costs real AI
-spend) and **new conversations**.
+**CORRECTED 2026-09-16, during implementation.** This section originally specified a new
+10/day translation cap. It was written without knowing that **a 5/day cap already exists
+and is already enforced** — `test/coinBonus.enforcement.test.js:40` pins
+`REGULAR_TRANSLATION_CAP = 5` as the free allowance a user consumes before the coinBonus
+pool starts paying.
+
+Raising 5 -> 10 would have *weakened* a paywall inside a monetization design, doubled the
+AI translation cost we pay, and broken five passing tests to do it. **The existing 5/day
+stands and needs no new code in either plan.**
+
+That leaves exactly **one** new cap in this design: **new conversations**.
 
 ### 3.2 The new-conversation cap is the core mechanic
 
@@ -158,7 +167,8 @@ Five placements, each tied to a moment the user is already having:
 
 1. **Visitor list** — "3 people viewed you this week", faces blurred. Primary paywall.
 2. **New-conversation cap** — on the 4th start of the day. Two exits: watch an ad, or VIP.
-3. **Chat translation cap** — at the 10th translation, mid-conversation, highest intent.
+3. **Chat translation cap** — at the 5th translation, mid-conversation, highest intent.
+   (Already enforced today via the coinBonus path; only the paywall UI is new.)
 4. **Ad removal** — offered from the ad itself, not a settings page.
 5. **Nearby / discovery** — "appear higher to people learning your language", and the
    radius wall at 50 km.
