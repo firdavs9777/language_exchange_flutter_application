@@ -18,7 +18,11 @@
 - **The cap consumes the INITIATOR's quota only.** A recipient is never rate-limited by other people's interest in them.
 - **Quota resets on the user's LOCAL day**, from `User.timezone` (IANA, nullable), falling back to UTC. This deliberately diverges from `lib/dailyCompletion.js`'s UTC `toDateKey`.
 - **Ad credits expire at the same local-day boundary and never accumulate.**
-- Free new-conversation limit: **3/day**. Free chat-translation limit: **10/day**. VIP: unlimited (`-1`).
+- Free new-conversation limit: **3/day**. VIP: unlimited (`-1`).
+- **`translationsPerDay` is NOT changed by this plan.** A 5/day cap already exists and is
+  already enforced via the coinBonus path (`test/coinBonus.enforcement.test.js:40`). The
+  spec's original "10/day" was written without knowing that; raising it would weaken the
+  paywall and break five tests. Ruled 2026-09-16 during Task 3.
 - All new models are **append-only logs**. No updates, no deletes.
 - Every new file gets tests in `test/` run by `npm test` (`node --test`).
 - Repo: `/Users/davis/Desktop/Personal/language_exchange_backend_application`.
