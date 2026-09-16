@@ -5113,5 +5113,339 @@
   "weeklyReportStart": "Start today's pack",
   "@weeklyReportStart": {
     "description": "Opens the daily pack from the empty weekly report"
+  },
+  "gatheringsTabLabel": "Gatherings",
+  "@gatheringsTabLabel": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringClubs": "Clubs",
+  "@gatheringClubs": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringNewClub": "New club",
+  "@gatheringNewClub": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringStartingSoon": "Starting soon",
+  "@gatheringStartingSoon": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringCreateShort": "New",
+  "@gatheringCreateShort": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringLoadFailed": "Could not load gatherings",
+  "@gatheringLoadFailed": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringEmptyTitle": "Host the first one",
+  "@gatheringEmptyTitle": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringEmptyBody": "Nothing is scheduled yet. Pick a time and post it — people join gatherings that already have a host.",
+  "@gatheringEmptyBody": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringStartAClub": "Start a club instead",
+  "@gatheringStartAClub": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringToday": "Today",
+  "@gatheringToday": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringTomorrow": "Tomorrow",
+  "@gatheringTomorrow": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringHappeningNow": "Happening now",
+  "@gatheringHappeningNow": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringStartsIn": "Starts in {minutes} min",
+  "@gatheringStartsIn": {
+    "description": "모임 / gatherings",
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "gatheringHostZone": "Host's time zone: {zone}",
+  "@gatheringHostZone": {
+    "description": "모임 / gatherings",
+    "placeholders": {
+      "zone": {
+        "type": "String"
+      }
+    }
+  },
+  "gatheringHostedBy": "Hosted by {name}",
+  "@gatheringHostedBy": {
+    "description": "모임 / gatherings",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "gatheringQuorumNeeded": "{count, plural, =0{Ready to confirm} =1{1 more needed to confirm} other{{count} more needed to confirm}}",
+  "@gatheringQuorumNeeded": {
+    "description": "모임 / gatherings",
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "compact"
+      }
+    }
+  },
+  "gatheringConfirmed": "Confirmed · {count} going",
+  "@gatheringConfirmed": {
+    "description": "모임 / gatherings",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "gatheringYouHost": "You're hosting",
+  "@gatheringYouHost": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringGoingYou": "You're going",
+  "@gatheringGoingYou": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringFull": "Full",
+  "@gatheringFull": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringJoin": "Join",
+  "@gatheringJoin": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringAskToJoin": "Ask to join",
+  "@gatheringAskToJoin": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringRequested": "Asked to join — the host will decide",
+  "@gatheringRequested": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringCreateTitle": "New gathering",
+  "@gatheringCreateTitle": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringCreateSubtitle": "A time, a language, and a few seats. Everything else is optional.",
+  "@gatheringCreateSubtitle": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringDefaultTitle": "{language} practice",
+  "@gatheringDefaultTitle": {
+    "description": "모임 / gatherings",
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "gatheringTitleLabel": "What are you doing?",
+  "@gatheringTitleLabel": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringLanguageLabel": "Language",
+  "@gatheringLanguageLabel": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringWhenLabel": "When",
+  "@gatheringWhenLabel": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringSeatsLabel": "Seats",
+  "@gatheringSeatsLabel": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringQuorumLabel": "Confirm at",
+  "@gatheringQuorumLabel": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringQuorumExplainer": "You're counted as the first person going. The gathering confirms once that many people have said yes.",
+  "@gatheringQuorumExplainer": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringPost": "Post it",
+  "@gatheringPost": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringPosted": "Posted — now share it",
+  "@gatheringPosted": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringNeedsTitle": "Give it a name first",
+  "@gatheringNeedsTitle": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringNeedsLanguage": "Pick a language first",
+  "@gatheringNeedsLanguage": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringNeedsFuture": "Pick a time in the future",
+  "@gatheringNeedsFuture": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringDetailTitle": "Gathering",
+  "@gatheringDetailTitle": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringNotFound": "This gathering is no longer available",
+  "@gatheringNotFound": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringDuration": "{minutes} minutes",
+  "@gatheringDuration": {
+    "description": "모임 / gatherings",
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "gatheringSeatsTaken": "{going} of {capacity} seats taken",
+  "@gatheringSeatsTaken": {
+    "description": "모임 / gatherings",
+    "placeholders": {
+      "going": {
+        "type": "int"
+      },
+      "capacity": {
+        "type": "int"
+      }
+    }
+  },
+  "gatheringCancelled": "Cancelled",
+  "@gatheringCancelled": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringEnded": "This gathering has ended",
+  "@gatheringEnded": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringCancelRsvp": "Cancel my RSVP",
+  "@gatheringCancelRsvp": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringHostDecision": "{count, plural, =1{Only you are coming so far. Run it anyway, or call it off?} other{Only {count} people are coming so far. Run it anyway, or call it off?}}",
+  "@gatheringHostDecision": {
+    "description": "모임 / gatherings",
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "compact"
+      }
+    }
+  },
+  "gatheringRunAnyway": "Run it anyway",
+  "@gatheringRunAnyway": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringCallItOff": "Call it off",
+  "@gatheringCallItOff": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringEnd": "End gathering",
+  "@gatheringEnd": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringEndedThanks": "Ended — message anyone you met, it's free",
+  "@gatheringEndedThanks": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringCancelIt": "Cancel gathering",
+  "@gatheringCancelIt": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringKeepIt": "Keep it",
+  "@gatheringKeepIt": {
+    "description": "모임 / gatherings"
+  },
+  "gatheringCancelConfirm": "{count, plural, =1{1 person is expecting this. They'll be told it's off.} other{{count} people are expecting this. They'll be told it's off.}}",
+  "@gatheringCancelConfirm": {
+    "description": "모임 / gatherings",
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "compact"
+      }
+    }
+  },
+  "clubDetailTitle": "Club",
+  "@clubDetailTitle": {
+    "description": "모임 / gatherings"
+  },
+  "clubNotFound": "This club is no longer available",
+  "@clubNotFound": {
+    "description": "모임 / gatherings"
+  },
+  "clubMembers": "{count, plural, =1{1 member} other{{count} members}}",
+  "@clubMembers": {
+    "description": "모임 / gatherings",
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "compact"
+      }
+    }
+  },
+  "clubJoin": "Join club",
+  "@clubJoin": {
+    "description": "모임 / gatherings"
+  },
+  "clubLeave": "Leave club",
+  "@clubLeave": {
+    "description": "모임 / gatherings"
+  },
+  "clubUpcoming": "Coming up",
+  "@clubUpcoming": {
+    "description": "모임 / gatherings"
+  },
+  "clubNothingScheduled": "Nothing scheduled yet.",
+  "@clubNothingScheduled": {
+    "description": "모임 / gatherings"
+  },
+  "clubHostGathering": "Host a gathering",
+  "@clubHostGathering": {
+    "description": "모임 / gatherings"
+  },
+  "clubCreateTitle": "New club",
+  "@clubCreateTitle": {
+    "description": "모임 / gatherings"
+  },
+  "clubCreateSubtitle": "A club keeps its people between gatherings. Name it after what you'll actually do.",
+  "@clubCreateSubtitle": {
+    "description": "모임 / gatherings"
+  },
+  "clubNameLabel": "Club name",
+  "@clubNameLabel": {
+    "description": "모임 / gatherings"
+  },
+  "clubInterestLabel": "Interest",
+  "@clubInterestLabel": {
+    "description": "모임 / gatherings"
+  },
+  "clubInterestHint": "Optional — running, K-pop, HSK4",
+  "@clubInterestHint": {
+    "description": "모임 / gatherings"
+  },
+  "clubDescriptionLabel": "About",
+  "@clubDescriptionLabel": {
+    "description": "모임 / gatherings"
+  },
+  "clubCreate": "Create club",
+  "@clubCreate": {
+    "description": "모임 / gatherings"
+  },
+  "clubNeedsName": "Give the club a name first",
+  "@clubNeedsName": {
+    "description": "모임 / gatherings"
   }
 }
