@@ -29,6 +29,67 @@ will fail at this scale. Commitment made in advance is the only mechanic that wo
 
 ---
 
+## 1.5 AMENDMENT 2026-09-16 — 모임 is a CLUB, and the club is the primary entity
+
+The original spec modelled 모임 as a one-off scheduled event. The owner's mental model is
+different and is the one that ships: **a standing club** — "Gwanghwamun Runners Club", a
+bicycle club — a persistent group with members that meets repeatedly. In Korean 모임 covers
+both, but they are different entities and the difference is load-bearing.
+
+**The club is the primary entity. A gathering is something a club hosts.**
+
+### Why the club is the better primary entity
+
+It answers §4.3, the cold-start risk this spec called its own biggest danger. An empty
+event list looks abandoned — which is exactly the impression that killed voice rooms 93
+times. **"Korean Learners Club · 49 members" looks alive with nothing scheduled at all.**
+A club accumulates membership between events; an event list resets to empty after every
+one.
+
+### Why the club is keyed on LANGUAGE OR INTEREST, not on a city
+
+Measured 2026-09-16, active users in the last 30 days:
+
+| | |
+|---|---|
+| Distinct cities with any active user | **432** |
+| Cities with ≥5 active users | **10** |
+| Cities with ≥10 | **1** (Shanghai, 14) |
+| Cities with ≥20 | **0** |
+
+That is ~1.8 active users per city. The owner's own example decides it: **Seoul has 4
+active users.** A Gwanghwamun Runners Club would have four candidate members before
+filtering for anyone who wants to run.
+
+The same axis measured by language is viable:
+
+| Club axis | Pool |
+|---|---|
+| Seoul (city) | **4 active** |
+| Shanghai (densest city) | 14 active |
+| learning Korean | 108 total / **49 active** |
+| native Chinese | **586** |
+
+Place-based clubs are also the highest-risk option, not merely the least supported: they
+are inherently in-person, which is the `offline_meetup` territory §6.1 fences behind a hard
+18+ rule because 5 active accounts are minors. Worst on both axes at once.
+
+**Decision: clubs are keyed on language (base code) plus an optional free-text interest,
+and they are online-first.** `place` and `city` stay modelled and unreachable, so enabling
+them for a city that later crosses a real density threshold is a flag rather than a
+rewrite.
+
+### What this does NOT change
+
+- **The cap exemption still requires GATHERING ATTENDANCE, never club membership.** Club
+  co-membership as an exemption would be a trivial bypass: join a 586-member club, message
+  anyone free. §3.1's reasoning is about having spent an hour together, which membership
+  does not establish.
+- Quorum, the T-2h host decision, capacity and the reminder matrix are unchanged. They
+  describe an event, and a club still hosts events.
+
+---
+
 ## 2. What a Gathering is
 
 One typed entity, so a new type is a row rather than a rewrite.
