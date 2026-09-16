@@ -1,7 +1,7 @@
 # Matching — Design
 
 **Date:** 2026-09-16
-**Status:** draft, open questions unresolved
+**Status:** approved, ready for implementation planning
 **Goal:** make matching find the partners that already exist. Today it hides more than
 half of them.
 
@@ -69,6 +69,49 @@ steps.
 1,257 conversations were created in the last 30 days. That is the outcome variable, and
 today it cannot be attributed to anything.
 
+### 1.5 The Chinese family, answered by behaviour rather than opinion
+
+The open question was whether Simplified, Traditional and Cantonese speakers can actually
+converse. Rather than ask, look at whether they already do. Every message between two
+native Chinese-family speakers, grouped by variant pair (`twoWay` = both people sent at
+least one message, i.e. a real exchange rather than an ignored opener):
+
+| Variant pair | Pairs | Two-way | Messages |
+|---|---|---|---|
+| Simplified ↔ **Traditional** | 8 | **2 (25%)** | **243** |
+| Simplified ↔ Simplified | 106 | 6 (5.7%) | 184 |
+| Simplified ↔ **Cantonese** | 10 | **0 (0%)** | 14 |
+
+**Simplified ↔ Traditional is the strongest pairing in the dataset.** 8 pairs produced 243
+messages — more than the 106 same-variant pairs produced between them — and became real
+two-way exchanges at 25%, over four times the same-variant rate. Whatever the script
+difference costs, it is not stopping these conversations.
+
+**Cantonese is the opposite.** Ten pairs, fourteen messages, and **not one reply ever**.
+Cantonese is a distinct spoken language, and the data declines to contradict that.
+
+**Decision: merge `zh`, `zh-Hans` and `zh-Hant`. Keep Cantonese separate.**
+
+The cost of that restraint is exact:
+
+| Rule | Pairs | Users with no perfect match |
+|---|---|---|
+| Exact string (today) | 7,596 | 320 (24.6%) |
+| Normalized | 17,151 | 277 (21.3%) |
+| **+ Hans/Hant merged, Cantonese separate** | **17,936** | **267 (20.5%)** |
+| + Cantonese folded in as well | 18,569 | 250 (19.2%) |
+
+Folding Cantonese in would add 633 pairs. The evidence says those 633 are pairs that do
+not talk, and manufacturing them would spend the largest population's recommendation slots
+on partners who have never once replied to each other.
+
+**Sample sizes are small and the spec does not pretend otherwise:** 8 Simplified↔Traditional
+pairs and 10 Cantonese pairs. The Cantonese finding is the weaker of the two — 0/10 is
+suggestive, not conclusive. Both should be revisited once §2.3 makes outcomes attributable.
+Neither is a reason to delay §2.1, whose benefit does not depend on either.
+
+---
+
 ### 1.4 A measurement trap, recorded so it is not stepped in twice
 
 Measured across **all** users rather than the candidate pool, normalization appears to
@@ -99,11 +142,12 @@ Hawaiian, Dari, British/Korean/Japanese Sign Language. A user whose language nor
 `null` must fall back to trimmed, case-insensitive raw comparison, not vanish. The current
 exact-string rule at least matches those users to each other.
 
-### 2.2 Treat the Chinese family as mutually matchable *for partners only*
+### 2.2 Merge the Chinese scripts *for partners only*; leave Cantonese alone
 
-`zh`, `zh-Hans`, `zh-Hant` and Cantonese match each other when scoring a conversation
-partner. Study content keeps the existing distinction. One shared helper, used by matching
-only, with the reason written next to it.
+`zh`, `zh-Hans` and `zh-Hant` match each other when scoring a conversation partner.
+**Cantonese does not** — see §1.5, where ten Cantonese↔Simplified pairs produced not one
+reply. Study content keeps the existing distinction throughout. One shared helper, used by
+matching only, with the reason written next to it.
 
 ### 2.3 Record impressions durably
 
@@ -154,16 +198,15 @@ a scoring expression, and a half-applied one is incoherent. §2.3 is additive an
 user-visible risk.
 
 Watch: conversations created per week (1,257/30d today) and the share of users with at
-least one perfect match (80.9% after §2.2, up from 75.5%).
+least one perfect match (**79.5% after §2.2, up from 75.4%**).
 
 ---
 
 ## 6. Open questions
 
-1. **Is the Chinese family really mutually intelligible enough for partner matching?** The
-   data says it doubles the pool for the largest group. A native Chinese speaker should
-   confirm before shipping, because the alternative is 586 users being shown partners they
-   cannot comfortably talk to.
+1. ~~**Is the Chinese family really mutually intelligible enough for partner matching?**~~
+   **ANSWERED 2026-09-16 from production conversation data — partly. Simplified and
+   Traditional yes; Cantonese no.** See §1.5.
 2. **Should a user learning a language they already speak natively be matched at all?**
    Not checked; unknown how many exist.
 3. **What is the right fallback for unrecognised languages** — raw comparison, or an
