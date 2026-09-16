@@ -4041,7 +4041,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get learnTab => 'Belajar';
 
   @override
-  String get aiTools => 'Alat AI';
+  String get aiTools => 'Latihan';
 
   @override
   String get streak => 'Rangkaian';

@@ -4047,7 +4047,7 @@ class AppLocalizationsTg extends AppLocalizations {
   String get learnTab => 'Омӯзед';
 
   @override
-  String get aiTools => 'Абзорҳои AI';
+  String get aiTools => 'Машқ';
 
   @override
   String get streak => 'Силсила';

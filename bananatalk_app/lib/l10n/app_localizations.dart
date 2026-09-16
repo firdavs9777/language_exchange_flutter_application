@@ -7835,7 +7835,7 @@ abstract class AppLocalizations {
   /// No description provided for @aiTools.
   ///
   /// In en, this message translates to:
-  /// **'AI Tools'**
+  /// **'Practice'**
   String get aiTools;
 
   /// No description provided for @streak.

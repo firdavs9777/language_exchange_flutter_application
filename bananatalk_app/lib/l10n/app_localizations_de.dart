@@ -4041,7 +4041,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get learnTab => 'Lernen';
 
   @override
-  String get aiTools => 'KI-Werkzeuge';
+  String get aiTools => 'Üben';
 
   @override
   String get streak => 'Serie';

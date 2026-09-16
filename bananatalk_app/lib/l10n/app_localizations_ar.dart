@@ -4041,7 +4041,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get learnTab => 'تعلّم';
 
   @override
-  String get aiTools => 'أدوات الذكاء الاصطناعي';
+  String get aiTools => 'تدريب';
 
   @override
   String get streak => 'سلسلة التعلم';

@@ -4041,7 +4041,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get learnTab => 'Учиться';
 
   @override
-  String get aiTools => 'Инструменты ИИ';
+  String get aiTools => 'Практика';
 
   @override
   String get streak => 'Серия';

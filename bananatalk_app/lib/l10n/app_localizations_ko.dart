@@ -4041,7 +4041,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get learnTab => '학습';
 
   @override
-  String get aiTools => 'AI 도구';
+  String get aiTools => '연습';
 
   @override
   String get streak => '연속 학습';

@@ -4041,7 +4041,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get learnTab => 'Học';
 
   @override
-  String get aiTools => 'Công cụ AI';
+  String get aiTools => 'Luyện tập';
 
   @override
   String get streak => 'Chuỗi học';

@@ -4041,7 +4041,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get learnTab => 'सीखें';
 
   @override
-  String get aiTools => 'AI उपकरण';
+  String get aiTools => 'अभ्यास';
 
   @override
   String get streak => 'स्ट्रीक';

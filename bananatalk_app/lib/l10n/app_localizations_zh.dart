@@ -4041,7 +4041,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get learnTab => '学习';
 
   @override
-  String get aiTools => 'AI工具';
+  String get aiTools => '练习';
 
   @override
   String get streak => '连续学习';
@@ -11683,7 +11683,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get learnTab => '學習';
 
   @override
-  String get aiTools => 'AI工具';
+  String get aiTools => '練習';
 
   @override
   String get streak => '連續學習';

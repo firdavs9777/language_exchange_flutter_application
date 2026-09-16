@@ -4041,7 +4041,7 @@ class AppLocalizationsTh extends AppLocalizations {
   String get learnTab => 'เรียน';
 
   @override
-  String get aiTools => 'เครื่องมือ AI';
+  String get aiTools => 'ฝึกฝน';
 
   @override
   String get streak => 'ความต่อเนื่อง';

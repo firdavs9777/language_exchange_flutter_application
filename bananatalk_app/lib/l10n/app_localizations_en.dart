@@ -4047,7 +4047,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get learnTab => 'Learn';
 
   @override
-  String get aiTools => 'AI Tools';
+  String get aiTools => 'Practice';
 
   @override
   String get streak => 'Streak';
