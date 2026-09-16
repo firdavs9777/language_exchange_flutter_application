@@ -7946,6 +7946,21 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get gatheringEditIt => '编辑';
+
+  @override
+  String get intentSectionTitle => '你来这里的目的';
+
+  @override
+  String get intentLearn => '来学习';
+
+  @override
+  String get intentMeet => '想认识新朋友';
+
+  @override
+  String get intentDate => '对约会持开放态度';
+
+  @override
+  String get intentPrivacyNote => '你的选择会公开显示，约会除外，它会保持私密。';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -15890,4 +15905,19 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get gatheringEditIt => '編輯';
+
+  @override
+  String get intentSectionTitle => '你來這裡的目的';
+
+  @override
+  String get intentLearn => '來學習';
+
+  @override
+  String get intentMeet => '想認識新朋友';
+
+  @override
+  String get intentDate => '對約會持開放態度';
+
+  @override
+  String get intentPrivacyNote => '你的選擇會公開顯示，約會除外，它會保持私密。';
 }

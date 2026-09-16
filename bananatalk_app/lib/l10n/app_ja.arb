@@ -3271,5 +3271,25 @@
   "gatheringEditIt": "編集",
   "@gatheringEditIt": {
     "description": "모임 / gatherings"
+  },
+  "intentSectionTitle": "ここに来た目的",
+  "@intentSectionTitle": {
+    "description": "matching intent"
+  },
+  "intentLearn": "学びに来ました",
+  "@intentLearn": {
+    "description": "matching intent"
+  },
+  "intentMeet": "人と出会いたい",
+  "@intentMeet": {
+    "description": "matching intent"
+  },
+  "intentDate": "デートに興味があります",
+  "@intentDate": {
+    "description": "matching intent"
+  },
+  "intentPrivacyNote": "選んだ内容は表示されます。デートは非公開です。",
+  "@intentPrivacyNote": {
+    "description": "matching intent"
   }
 }

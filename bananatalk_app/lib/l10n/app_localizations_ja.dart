@@ -7946,4 +7946,19 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get gatheringEditIt => '編集';
+
+  @override
+  String get intentSectionTitle => 'ここに来た目的';
+
+  @override
+  String get intentLearn => '学びに来ました';
+
+  @override
+  String get intentMeet => '人と出会いたい';
+
+  @override
+  String get intentDate => 'デートに興味があります';
+
+  @override
+  String get intentPrivacyNote => '選んだ内容は表示されます。デートは非公開です。';
 }

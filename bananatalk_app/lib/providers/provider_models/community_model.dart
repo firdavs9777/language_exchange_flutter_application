@@ -60,6 +60,7 @@ class Community {
     this.reelsPolicyAccepted = false,
     // New HelloTalk-style fields
     this.topics = const [],
+    this.intents = const [],
     this.languageLevel,
     this.responseRate,
     this.lastActive,
@@ -114,6 +115,13 @@ class Community {
   final bool reelsPolicyAccepted;
   // New HelloTalk-style fields
   final List<String> topics;
+
+  /// Why this person is here: any of `learn`, `meet`, `date`.
+  ///
+  /// The server never sends `date` for another user — it ranks on it but will
+  /// not publicly badge anyone as open to dating — so in practice this holds
+  /// `learn` and `meet` for everyone except the signed-in user themselves.
+  final List<String> intents;
   final String? languageLevel; // A1, A2, B1, B2, C1, C2
   final double? responseRate; // 0-100
   final DateTime? lastActive;
@@ -240,6 +248,10 @@ class Community {
               ?.map((e) => _s(e))
               .toList() ??
           [],
+      intents: (json['intents'] as List<dynamic>?)
+              ?.map((e) => _s(e))
+              .toList() ??
+          [],
       languageLevel: json['languageLevel'] != null ? _s(json['languageLevel']) : null,
       responseRate: (json['responseRate'] as num?)?.toDouble(),
       lastActive: json['lastActive'] != null
@@ -289,6 +301,7 @@ class Community {
       'reelsPolicyAccepted': reelsPolicyAccepted,
       // New HelloTalk-style fields
       'topics': topics,
+      'intents': intents,
       if (languageLevel != null) 'languageLevel': languageLevel,
       if (responseRate != null) 'responseRate': responseRate,
       if (lastActive != null) 'lastActive': lastActive!.toIso8601String(),

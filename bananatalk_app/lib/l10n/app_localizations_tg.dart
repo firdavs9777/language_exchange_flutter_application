@@ -7960,4 +7960,19 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get gatheringEditIt => 'Таҳрир';
+
+  @override
+  String get intentSectionTitle => 'Шумо чаро дар ин ҷоед';
+
+  @override
+  String get intentLearn => 'Барои омӯхтан омадаам';
+
+  @override
+  String get intentMeet => 'Мехоҳам шинос шавам';
+
+  @override
+  String get intentDate => 'Ба вохӯрӣ омодаам';
+
+  @override
+  String get intentPrivacyNote => 'Интихоби шумо ба дигарон намоён аст, ба ҷуз вохӯрӣ, ки махфӣ мемонад.';
 }

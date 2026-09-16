@@ -3483,5 +3483,25 @@
   "gatheringEditIt": "Düzenle",
   "@gatheringEditIt": {
     "description": "모임 / gatherings"
+  },
+  "intentSectionTitle": "Neden buradasın",
+  "@intentSectionTitle": {
+    "description": "matching intent"
+  },
+  "intentLearn": "Öğrenmek için buradayım",
+  "@intentLearn": {
+    "description": "matching intent"
+  },
+  "intentMeet": "Yeni insanlarla tanışmaya açığım",
+  "@intentMeet": {
+    "description": "matching intent"
+  },
+  "intentDate": "Flörte açığım",
+  "@intentDate": {
+    "description": "matching intent"
+  },
+  "intentPrivacyNote": "Seçimlerini başkaları görür; flört seçeneği gizli kalır.",
+  "@intentPrivacyNote": {
+    "description": "matching intent"
   }
 }

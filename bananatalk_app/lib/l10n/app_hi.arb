@@ -3287,5 +3287,25 @@
   "gatheringEditIt": "संपादित करें",
   "@gatheringEditIt": {
     "description": "모임 / gatherings"
+  },
+  "intentSectionTitle": "आप यहाँ क्यों हैं",
+  "@intentSectionTitle": {
+    "description": "matching intent"
+  },
+  "intentLearn": "सीखने आया हूँ",
+  "@intentLearn": {
+    "description": "matching intent"
+  },
+  "intentMeet": "लोगों से मिलना चाहता हूँ",
+  "@intentMeet": {
+    "description": "matching intent"
+  },
+  "intentDate": "डेटिंग के लिए तैयार",
+  "@intentDate": {
+    "description": "matching intent"
+  },
+  "intentPrivacyNote": "आपकी पसंद दूसरों को दिखती है, डेटिंग को छोड़कर जो निजी रहती है।",
+  "@intentPrivacyNote": {
+    "description": "matching intent"
   }
 }

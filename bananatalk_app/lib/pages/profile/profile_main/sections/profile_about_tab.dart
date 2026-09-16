@@ -3,12 +3,14 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/utils/language_flags.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/pages/profile/edit/intent_edit.dart';
 import 'package:flutter/material.dart';
 
 /// The "About" content section of the own-profile page.
 ///
-/// Renders two cards:
+/// Renders up to three cards:
 /// - Language exchange card (native + learning language with proficiency bar)
+/// - Intent card (what they are here for — never shows the dating intent)
 /// - About me card (bio, MBTI chip, blood type chip)
 ///
 /// Both cards are hidden if their backing data is empty.
@@ -23,8 +25,86 @@ class ProfileAboutTab extends StatelessWidget {
       children: [
         _LanguageCard(user: user),
         const SizedBox(height: 16),
+        // Only when there is something to show. `date` is filtered out both
+        // here and on the server -- a public "open to dating" badge is a
+        // harassment vector, so it never reaches the widget tree.
+        if (publicIntents(user.intents).isNotEmpty) ...[
+          _IntentCard(user: user),
+          const SizedBox(height: 16),
+        ],
         _AboutCard(user: user),
       ],
+    );
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Intent card — what this person is here for
+// ---------------------------------------------------------------------------
+
+class _IntentCard extends StatelessWidget {
+  const _IntentCard({required this.user});
+  final Community user;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final shown = publicIntents(user.intents);
+
+    return Container(
+      key: const Key('profile-intent-card'),
+      width: double.infinity,
+      margin: const EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.all(18),
+      decoration: BoxDecoration(
+        color: context.containerColor,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: context.dividerColor),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            l10n.intentSectionTitle,
+            style: context.titleSmall.copyWith(fontWeight: FontWeight.w700),
+          ),
+          const SizedBox(height: 12),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: [
+              for (final intent in shown)
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: AppColors.primary.withValues(alpha: 0.10),
+                    borderRadius: BorderRadius.circular(999),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        intent == kIntentLearn
+                            ? Icons.school_rounded
+                            : Icons.people_alt_rounded,
+                        size: 14,
+                        color: AppColors.primary,
+                      ),
+                      const SizedBox(width: 6),
+                      Text(
+                        intent == kIntentLearn ? l10n.intentLearn : l10n.intentMeet,
+                        style: context.captionSmall.copyWith(
+                          color: AppColors.primary,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

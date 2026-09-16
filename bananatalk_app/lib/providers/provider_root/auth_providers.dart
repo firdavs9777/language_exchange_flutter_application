@@ -1355,6 +1355,40 @@ class AuthService extends ChangeNotifier {
     }
   }
 
+  /// Why the user is here: any of `learn`, `meet`, `date`.
+  ///
+  /// The server sanitizes what it stores — `date` is dropped for under-18
+  /// accounts — so the value that comes back may be shorter than the one sent.
+  /// Callers should take the returned Community as authoritative rather than
+  /// assuming their input was kept.
+  Future<Community> updateUserIntents({required List<String> intents}) async {
+    final url = Uri.parse(
+      '${Endpoints.baseURL}${Endpoints.usersURL}/${userId}',
+    );
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
+
+    if (token == null) {
+      throw Exception('Authentication required. Please login again.');
+    }
+
+    final response = await http.put(
+      url,
+      body: json.encode({'intents': intents}),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      return Community.fromJson(data['user']);
+    } else {
+      throw Exception('Failed to update intents: ${response.body}');
+    }
+  }
+
   Future<Community> updateUserNativeLanguage({required natLang}) async {
     final url = Uri.parse(
       '${Endpoints.baseURL}${Endpoints.usersURL}/${userId}',

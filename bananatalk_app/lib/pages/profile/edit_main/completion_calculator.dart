@@ -37,9 +37,10 @@ ProfileCompletion calculateProfileCompletion({
   required String mbti,
   required String address,
   required List<String> topics,
+  required List<String> intents,
 }) {
   const notSet = 'Not Set';
-  const total = 9;
+  const total = 10;
   int filled = 0;
 
   if (name != notSet) filled++;
@@ -51,6 +52,10 @@ ProfileCompletion calculateProfileCompletion({
   if (mbti != notSet) filled++;
   if (address != notSet) filled++;
   if (topics.isNotEmpty) filled++;
+  // Why they are here — learn, meet or date. Counted because the completion
+  // card is the one surface that reaches users who signed up before the field
+  // existed, and a soft ranking signal nobody fills in changes nothing.
+  if (intents.isNotEmpty) filled++;
 
   return ProfileCompletion(completedFields: filled, totalFields: total);
 }

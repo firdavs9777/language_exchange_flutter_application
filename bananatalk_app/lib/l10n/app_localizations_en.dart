@@ -7962,4 +7962,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get gatheringEditIt => 'Edit';
+
+  @override
+  String get intentSectionTitle => 'What you\'re here for';
+
+  @override
+  String get intentLearn => 'Here to learn';
+
+  @override
+  String get intentMeet => 'Open to meeting people';
+
+  @override
+  String get intentDate => 'Open to dating';
+
+  @override
+  String get intentPrivacyNote => 'Others see what you pick, except dating, which stays private.';
 }

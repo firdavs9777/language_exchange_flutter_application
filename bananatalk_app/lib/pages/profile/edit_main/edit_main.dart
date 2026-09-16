@@ -1,5 +1,6 @@
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/pages/profile/edit/intent_edit.dart';
 import 'package:bananatalk_app/pages/profile/edit_main/completion_calculator.dart';
 import 'package:bananatalk_app/pages/profile/edit_main/sections/basic_info_tile.dart';
 import 'package:bananatalk_app/pages/profile/edit_main/sections/language_section.dart';
@@ -21,6 +22,7 @@ class ProfileEdit extends ConsumerStatefulWidget {
   final String gender;
   final String bio;
   final List<String> topics;
+  final List<String> intents;
   final String? languageLevel;
 
   const ProfileEdit({
@@ -34,6 +36,7 @@ class ProfileEdit extends ConsumerStatefulWidget {
     required this.gender,
     this.bio = '',
     this.topics = const [],
+    this.intents = const [],
     this.languageLevel,
   });
 
@@ -53,6 +56,7 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
   late String selectedAddress;
   late String selectedBio;
   late List<String> selectedTopics;
+  late List<String> selectedIntents;
   late String? selectedLanguageLevel;
 
   @override
@@ -72,6 +76,7 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
     selectedGender = widget.gender.isEmpty ? notSet : widget.gender;
     selectedBio = widget.bio.isEmpty ? notSet : widget.bio;
     selectedTopics = List.from(widget.topics);
+    selectedIntents = List.from(widget.intents);
     selectedLanguageLevel = widget.languageLevel;
   }
 
@@ -105,6 +110,28 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
   void _onTopicsChanged(List<String> topics) =>
       setState(() => selectedTopics = topics);
 
+  /// Persists immediately, like every other field on this screen.
+  ///
+  /// The optimistic local update is reconciled with what the server actually
+  /// stored: it strips `date` for under-18 accounts, so the saved value can be
+  /// shorter than the tapped one and the chips must reflect the truth.
+  Future<void> _onIntentsChanged(List<String> intents) async {
+    setState(() => selectedIntents = intents);
+    try {
+      final saved = await ref.read(authServiceProvider).updateUserIntents(
+        intents: intents,
+      );
+      if (mounted) setState(() => selectedIntents = List.from(saved.intents));
+    } catch (e) {
+      if (!mounted) return;
+      // Roll back rather than leave a chip showing a state the server rejected.
+      setState(() => selectedIntents = List.from(widget.intents));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('$e')),
+      );
+    }
+  }
+
   // ─── Build ────────────────────────────────────────────────────────────────
 
   @override
@@ -121,6 +148,7 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
       mbti: selectedMBTI,
       address: selectedAddress,
       topics: selectedTopics,
+      intents: selectedIntents,
     );
 
     return Scaffold(
@@ -189,6 +217,16 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
                 onBloodTypeChanged: _onBloodTypeChanged,
                 onAddressChanged: _onAddressChanged,
                 onTopicsChanged: _onTopicsChanged,
+              ),
+
+              // Why they are here. Saved with the rest of the profile rather
+              // than on its own endpoint, so setting it costs no extra step.
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 8, 20, 0),
+                child: IntentEdit(
+                  selected: selectedIntents,
+                  onChanged: _onIntentsChanged,
+                ),
               ),
 
               const SizedBox(height: 32),

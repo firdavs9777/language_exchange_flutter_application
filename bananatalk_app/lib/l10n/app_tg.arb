@@ -2764,5 +2764,25 @@
   "gatheringEditIt": "Таҳрир",
   "@gatheringEditIt": {
     "description": "모임 / gatherings"
+  },
+  "intentSectionTitle": "Шумо чаро дар ин ҷоед",
+  "@intentSectionTitle": {
+    "description": "matching intent"
+  },
+  "intentLearn": "Барои омӯхтан омадаам",
+  "@intentLearn": {
+    "description": "matching intent"
+  },
+  "intentMeet": "Мехоҳам шинос шавам",
+  "@intentMeet": {
+    "description": "matching intent"
+  },
+  "intentDate": "Ба вохӯрӣ омодаам",
+  "@intentDate": {
+    "description": "matching intent"
+  },
+  "intentPrivacyNote": "Интихоби шумо ба дигарон намоён аст, ба ҷуз вохӯрӣ, ки махфӣ мемонад.",
+  "@intentPrivacyNote": {
+    "description": "matching intent"
   }
 }

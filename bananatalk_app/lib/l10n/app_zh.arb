@@ -3285,5 +3285,25 @@
   "gatheringEditIt": "编辑",
   "@gatheringEditIt": {
     "description": "모임 / gatherings"
+  },
+  "intentSectionTitle": "你来这里的目的",
+  "@intentSectionTitle": {
+    "description": "matching intent"
+  },
+  "intentLearn": "来学习",
+  "@intentLearn": {
+    "description": "matching intent"
+  },
+  "intentMeet": "想认识新朋友",
+  "@intentMeet": {
+    "description": "matching intent"
+  },
+  "intentDate": "对约会持开放态度",
+  "@intentDate": {
+    "description": "matching intent"
+  },
+  "intentPrivacyNote": "你的选择会公开显示，约会除外，它会保持私密。",
+  "@intentPrivacyNote": {
+    "description": "matching intent"
   }
 }

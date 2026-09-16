@@ -3301,5 +3301,25 @@
   "gatheringEditIt": "تعديل",
   "@gatheringEditIt": {
     "description": "모임 / gatherings"
+  },
+  "intentSectionTitle": "لماذا أنت هنا",
+  "@intentSectionTitle": {
+    "description": "matching intent"
+  },
+  "intentLearn": "هنا للتعلم",
+  "@intentLearn": {
+    "description": "matching intent"
+  },
+  "intentMeet": "منفتح على لقاء أشخاص",
+  "@intentMeet": {
+    "description": "matching intent"
+  },
+  "intentDate": "منفتح على المواعدة",
+  "@intentDate": {
+    "description": "matching intent"
+  },
+  "intentPrivacyNote": "يرى الآخرون اختياراتك، عدا المواعدة التي تبقى خاصة.",
+  "@intentPrivacyNote": {
+    "description": "matching intent"
   }
 }

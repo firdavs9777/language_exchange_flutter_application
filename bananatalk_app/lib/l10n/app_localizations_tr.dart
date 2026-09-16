@@ -7954,4 +7954,19 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get gatheringEditIt => 'Düzenle';
+
+  @override
+  String get intentSectionTitle => 'Neden buradasın';
+
+  @override
+  String get intentLearn => 'Öğrenmek için buradayım';
+
+  @override
+  String get intentMeet => 'Yeni insanlarla tanışmaya açığım';
+
+  @override
+  String get intentDate => 'Flörte açığım';
+
+  @override
+  String get intentPrivacyNote => 'Seçimlerini başkaları görür; flört seçeneği gizli kalır.';
 }

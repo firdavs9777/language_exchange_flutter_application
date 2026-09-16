@@ -3271,5 +3271,25 @@
   "gatheringEditIt": "Chỉnh sửa",
   "@gatheringEditIt": {
     "description": "모임 / gatherings"
+  },
+  "intentSectionTitle": "Bạn ở đây để làm gì",
+  "@intentSectionTitle": {
+    "description": "matching intent"
+  },
+  "intentLearn": "Ở đây để học",
+  "@intentLearn": {
+    "description": "matching intent"
+  },
+  "intentMeet": "Muốn gặp gỡ mọi người",
+  "@intentMeet": {
+    "description": "matching intent"
+  },
+  "intentDate": "Sẵn sàng hẹn hò",
+  "@intentDate": {
+    "description": "matching intent"
+  },
+  "intentPrivacyNote": "Người khác thấy lựa chọn của bạn, trừ hẹn hò — mục đó được giữ riêng tư.",
+  "@intentPrivacyNote": {
+    "description": "matching intent"
   }
 }

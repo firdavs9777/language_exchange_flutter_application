@@ -7946,4 +7946,19 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get gatheringEditIt => '수정';
+
+  @override
+  String get intentSectionTitle => '여기 온 이유';
+
+  @override
+  String get intentLearn => '배우러 왔어요';
+
+  @override
+  String get intentMeet => '사람들을 만나고 싶어요';
+
+  @override
+  String get intentDate => '데이트에 열려 있어요';
+
+  @override
+  String get intentPrivacyNote => '선택한 항목이 표시됩니다. 데이트는 비공개로 유지됩니다.';
 }

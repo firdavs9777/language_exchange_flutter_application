@@ -7977,4 +7977,19 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get gatheringEditIt => 'Изменить';
+
+  @override
+  String get intentSectionTitle => 'Зачем вы здесь';
+
+  @override
+  String get intentLearn => 'Хочу учиться';
+
+  @override
+  String get intentMeet => 'Хочу знакомиться';
+
+  @override
+  String get intentDate => 'Открыт(а) к свиданиям';
+
+  @override
+  String get intentPrivacyNote => 'Ваш выбор виден другим, кроме свиданий — это остаётся приватным.';
 }

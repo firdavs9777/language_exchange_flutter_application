@@ -3244,5 +3244,25 @@
   "gatheringEditIt": "I-edit",
   "@gatheringEditIt": {
     "description": "모임 / gatherings"
+  },
+  "intentSectionTitle": "Bakit ka nandito",
+  "@intentSectionTitle": {
+    "description": "matching intent"
+  },
+  "intentLearn": "Narito para matuto",
+  "@intentLearn": {
+    "description": "matching intent"
+  },
+  "intentMeet": "Bukas makipagkilala",
+  "@intentMeet": {
+    "description": "matching intent"
+  },
+  "intentDate": "Bukas sa pakikipag-date",
+  "@intentDate": {
+    "description": "matching intent"
+  },
+  "intentPrivacyNote": "Nakikita ng iba ang pinili mo, maliban sa pakikipag-date na nananatiling pribado.",
+  "@intentPrivacyNote": {
+    "description": "matching intent"
   }
 }

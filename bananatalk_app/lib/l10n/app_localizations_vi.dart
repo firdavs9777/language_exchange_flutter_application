@@ -7946,4 +7946,19 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get gatheringEditIt => 'Chỉnh sửa';
+
+  @override
+  String get intentSectionTitle => 'Bạn ở đây để làm gì';
+
+  @override
+  String get intentLearn => 'Ở đây để học';
+
+  @override
+  String get intentMeet => 'Muốn gặp gỡ mọi người';
+
+  @override
+  String get intentDate => 'Sẵn sàng hẹn hò';
+
+  @override
+  String get intentPrivacyNote => 'Người khác thấy lựa chọn của bạn, trừ hẹn hò — mục đó được giữ riêng tư.';
 }

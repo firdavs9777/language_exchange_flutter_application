@@ -48,6 +48,7 @@ class _ProfileCompletionCard extends StatelessWidget {
       'Topics': user.topics.isNotEmpty,
       'MBTI': user.mbti.isNotEmpty,
       'Birth Year': user.birth_year.isNotEmpty,
+      'What you\'re here for': user.intents.isNotEmpty,
     };
     final completed = fields.values.where((v) => v).length;
     final percentage = (completed / fields.length * 100).round();

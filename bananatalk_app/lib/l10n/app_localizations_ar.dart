@@ -7968,4 +7968,19 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get gatheringEditIt => 'تعديل';
+
+  @override
+  String get intentSectionTitle => 'لماذا أنت هنا';
+
+  @override
+  String get intentLearn => 'هنا للتعلم';
+
+  @override
+  String get intentMeet => 'منفتح على لقاء أشخاص';
+
+  @override
+  String get intentDate => 'منفتح على المواعدة';
+
+  @override
+  String get intentPrivacyNote => 'يرى الآخرون اختياراتك، عدا المواعدة التي تبقى خاصة.';
 }

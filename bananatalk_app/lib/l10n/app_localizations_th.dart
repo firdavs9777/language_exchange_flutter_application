@@ -7946,4 +7946,19 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get gatheringEditIt => 'แก้ไข';
+
+  @override
+  String get intentSectionTitle => 'คุณมาที่นี่เพื่ออะไร';
+
+  @override
+  String get intentLearn => 'มาเพื่อเรียนรู้';
+
+  @override
+  String get intentMeet => 'อยากพบปะผู้คน';
+
+  @override
+  String get intentDate => 'เปิดรับการเดท';
+
+  @override
+  String get intentPrivacyNote => 'คนอื่นจะเห็นสิ่งที่คุณเลือก ยกเว้นการเดทซึ่งจะเป็นความลับ';
 }

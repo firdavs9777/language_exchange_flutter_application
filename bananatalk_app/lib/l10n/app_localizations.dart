@@ -14671,6 +14671,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Edit'**
   String get gatheringEditIt;
+
+  /// matching intent
+  ///
+  /// In en, this message translates to:
+  /// **'What you\'re here for'**
+  String get intentSectionTitle;
+
+  /// matching intent
+  ///
+  /// In en, this message translates to:
+  /// **'Here to learn'**
+  String get intentLearn;
+
+  /// matching intent
+  ///
+  /// In en, this message translates to:
+  /// **'Open to meeting people'**
+  String get intentMeet;
+
+  /// matching intent
+  ///
+  /// In en, this message translates to:
+  /// **'Open to dating'**
+  String get intentDate;
+
+  /// matching intent
+  ///
+  /// In en, this message translates to:
+  /// **'Others see what you pick, except dating, which stays private.'**
+  String get intentPrivacyNote;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

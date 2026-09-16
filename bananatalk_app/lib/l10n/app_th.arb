@@ -3271,5 +3271,25 @@
   "gatheringEditIt": "แก้ไข",
   "@gatheringEditIt": {
     "description": "모임 / gatherings"
+  },
+  "intentSectionTitle": "คุณมาที่นี่เพื่ออะไร",
+  "@intentSectionTitle": {
+    "description": "matching intent"
+  },
+  "intentLearn": "มาเพื่อเรียนรู้",
+  "@intentLearn": {
+    "description": "matching intent"
+  },
+  "intentMeet": "อยากพบปะผู้คน",
+  "@intentMeet": {
+    "description": "matching intent"
+  },
+  "intentDate": "เปิดรับการเดท",
+  "@intentDate": {
+    "description": "matching intent"
+  },
+  "intentPrivacyNote": "คนอื่นจะเห็นสิ่งที่คุณเลือก ยกเว้นการเดทซึ่งจะเป็นความลับ",
+  "@intentPrivacyNote": {
+    "description": "matching intent"
   }
 }

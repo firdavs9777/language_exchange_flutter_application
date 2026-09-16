@@ -7956,4 +7956,19 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get gatheringEditIt => 'संपादित करें';
+
+  @override
+  String get intentSectionTitle => 'आप यहाँ क्यों हैं';
+
+  @override
+  String get intentLearn => 'सीखने आया हूँ';
+
+  @override
+  String get intentMeet => 'लोगों से मिलना चाहता हूँ';
+
+  @override
+  String get intentDate => 'डेटिंग के लिए तैयार';
+
+  @override
+  String get intentPrivacyNote => 'आपकी पसंद दूसरों को दिखती है, डेटिंग को छोड़कर जो निजी रहती है।';
 }

@@ -3301,5 +3301,25 @@
   "gatheringEditIt": "Изменить",
   "@gatheringEditIt": {
     "description": "모임 / gatherings"
+  },
+  "intentSectionTitle": "Зачем вы здесь",
+  "@intentSectionTitle": {
+    "description": "matching intent"
+  },
+  "intentLearn": "Хочу учиться",
+  "@intentLearn": {
+    "description": "matching intent"
+  },
+  "intentMeet": "Хочу знакомиться",
+  "@intentMeet": {
+    "description": "matching intent"
+  },
+  "intentDate": "Открыт(а) к свиданиям",
+  "@intentDate": {
+    "description": "matching intent"
+  },
+  "intentPrivacyNote": "Ваш выбор виден другим, кроме свиданий — это остаётся приватным.",
+  "@intentPrivacyNote": {
+    "description": "matching intent"
   }
 }

@@ -3287,5 +3287,25 @@
   "gatheringEditIt": "Editar",
   "@gatheringEditIt": {
     "description": "모임 / gatherings"
+  },
+  "intentSectionTitle": "Por que você está aqui",
+  "@intentSectionTitle": {
+    "description": "matching intent"
+  },
+  "intentLearn": "Aqui para aprender",
+  "@intentLearn": {
+    "description": "matching intent"
+  },
+  "intentMeet": "Aberto a conhecer pessoas",
+  "@intentMeet": {
+    "description": "matching intent"
+  },
+  "intentDate": "Aberto a encontros",
+  "@intentDate": {
+    "description": "matching intent"
+  },
+  "intentPrivacyNote": "Os outros veem suas escolhas, exceto encontros, que ficam privados.",
+  "@intentPrivacyNote": {
+    "description": "matching intent"
   }
 }

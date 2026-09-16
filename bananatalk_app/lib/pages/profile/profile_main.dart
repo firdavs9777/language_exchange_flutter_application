@@ -228,6 +228,7 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
                               gender: user.gender,
                               bio: user.bio,
                               topics: user.topics,
+                              intents: user.intents,
                               languageLevel: user.languageLevel,
                             ),
                           ),

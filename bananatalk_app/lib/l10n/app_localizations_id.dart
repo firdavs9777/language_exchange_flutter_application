@@ -7953,4 +7953,19 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get gatheringEditIt => 'Ubah';
+
+  @override
+  String get intentSectionTitle => 'Kamu di sini untuk apa';
+
+  @override
+  String get intentLearn => 'Di sini untuk belajar';
+
+  @override
+  String get intentMeet => 'Terbuka untuk berkenalan';
+
+  @override
+  String get intentDate => 'Terbuka untuk kencan';
+
+  @override
+  String get intentPrivacyNote => 'Orang lain melihat pilihanmu, kecuali kencan yang tetap privat.';
 }

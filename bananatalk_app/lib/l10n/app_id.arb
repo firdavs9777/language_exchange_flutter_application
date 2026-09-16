@@ -3271,5 +3271,25 @@
   "gatheringEditIt": "Ubah",
   "@gatheringEditIt": {
     "description": "모임 / gatherings"
+  },
+  "intentSectionTitle": "Kamu di sini untuk apa",
+  "@intentSectionTitle": {
+    "description": "matching intent"
+  },
+  "intentLearn": "Di sini untuk belajar",
+  "@intentLearn": {
+    "description": "matching intent"
+  },
+  "intentMeet": "Terbuka untuk berkenalan",
+  "@intentMeet": {
+    "description": "matching intent"
+  },
+  "intentDate": "Terbuka untuk kencan",
+  "@intentDate": {
+    "description": "matching intent"
+  },
+  "intentPrivacyNote": "Orang lain melihat pilihanmu, kecuali kencan yang tetap privat.",
+  "@intentPrivacyNote": {
+    "description": "matching intent"
   }
 }

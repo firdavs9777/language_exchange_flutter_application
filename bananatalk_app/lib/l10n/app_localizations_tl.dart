@@ -7956,4 +7956,19 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get gatheringEditIt => 'I-edit';
+
+  @override
+  String get intentSectionTitle => 'Bakit ka nandito';
+
+  @override
+  String get intentLearn => 'Narito para matuto';
+
+  @override
+  String get intentMeet => 'Bukas makipagkilala';
+
+  @override
+  String get intentDate => 'Bukas sa pakikipag-date';
+
+  @override
+  String get intentPrivacyNote => 'Nakikita ng iba ang pinili mo, maliban sa pakikipag-date na nananatiling pribado.';
 }
