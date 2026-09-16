@@ -902,6 +902,9 @@ class AppLocalizationsTl extends AppLocalizations {
   String get conversation => 'Usapan';
 
   @override
+  String get conversationHistory => 'Kasaysayan ng Pag-uusap';
+
+  @override
   String get unmute => 'I-unmute';
 
   @override
@@ -4038,7 +4041,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get learnTab => 'Matuto';
 
   @override
-  String get aiTools => 'Mga Kagamitan ng AI';
+  String get aiTools => 'Praktis';
 
   @override
   String get streak => 'Sunud-sunod';

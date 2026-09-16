@@ -902,6 +902,9 @@ class AppLocalizationsId extends AppLocalizations {
   String get conversation => 'Percakapan';
 
   @override
+  String get conversationHistory => 'Riwayat Percakapan';
+
+  @override
   String get unmute => 'Bunyikan';
 
   @override
@@ -4038,7 +4041,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get learnTab => 'Belajar';
 
   @override
-  String get aiTools => 'Alat AI';
+  String get aiTools => 'Latihan';
 
   @override
   String get streak => 'Rangkaian';

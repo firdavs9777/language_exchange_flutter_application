@@ -7,24 +7,21 @@ import 'package:bananatalk_app/providers/tutor_provider.dart';
 import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
 import 'package:bananatalk_app/widgets/vip_locked_feature.dart';
 import 'package:bananatalk_app/pages/learning/lessons/lessons_screen.dart';
-import 'package:bananatalk_app/pages/ai/conversation/ai_conversation_screen.dart';
 import 'package:bananatalk_app/pages/ai/grammar/grammar_feedback_screen.dart';
 import 'package:bananatalk_app/pages/ai/pronunciation/pronunciation_screen.dart';
-import 'package:bananatalk_app/pages/ai/translation/translation_screen.dart';
 import 'package:bananatalk_app/pages/ai/quiz/ai_quiz_screen.dart';
-import 'package:bananatalk_app/pages/ai/lesson_builder/lesson_builder_screen.dart';
 import 'package:bananatalk_app/pages/ai/tutor/tutor_home_screen.dart';
 import 'package:bananatalk_app/pages/ai/tutor/tutor_chat_screen.dart';
 import 'package:bananatalk_app/pages/ai/tutor/persona_picker_screen.dart';
 import 'package:bananatalk_app/pages/ai/tutor/scenario_picker_screen.dart';
 import 'package:bananatalk_app/pages/ai/tutor/story_setup_screen.dart';
 import 'package:bananatalk_app/pages/ai/tutor/image_vocab_screen.dart';
-import 'package:bananatalk_app/pages/ai/tutor/pronunciation_start_screen.dart';
 import 'package:bananatalk_app/pages/learning/vocabulary/vocabulary_review_screen.dart';
 import 'package:bananatalk_app/providers/provider_root/learning/vocabulary_providers.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
+import 'package:bananatalk_app/pages/learning/main/sections/practice_entries.dart';
 
 /// The "AI Tools" tab inside the Study Hub.
 class AIToolsTab extends ConsumerStatefulWidget {
@@ -234,27 +231,40 @@ class _AIToolsTabState extends ConsumerState<AIToolsTab>
     );
   }
 
+  /// One Practice entry's presentation and destination.
+  ///
+  /// Separate from the order so that "what is on the tab" and "what each thing
+  /// does" are two questions with two answers, rather than one 20-line literal
+  /// that has to be re-read to answer either.
+  _AIFeature _featureFor(BuildContext context, PracticeEntry entry, AppLocalizations l10n) {
+    switch (entry) {
+      case PracticeEntry.lessons:
+        return _AIFeature(Icons.menu_book_rounded, l10n.aiLessons, l10n.learnWithAI,
+            const Color(0xFF8B5CF6), false,
+            () => Navigator.push(context, AppPageRoute(builder: (_) => const LessonsScreen())));
+      case PracticeEntry.pronunciation:
+        return _AIFeature(Icons.mic_rounded, l10n.pronunciation, l10n.improveSpeaking,
+            const Color(0xFFF59E0B), false,
+            () => Navigator.push(context, AppPageRoute(builder: (_) => const PronunciationScreen())));
+      case PracticeEntry.quizzes:
+        return _AIFeature(Icons.quiz_rounded, l10n.aiQuizzes, l10n.testKnowledge,
+            const Color(0xFFEF4444), false,
+            () => Navigator.push(context, AppPageRoute(builder: (_) => const AIQuizScreen())));
+      case PracticeEntry.writingCheck:
+        return _AIFeature(Icons.spellcheck_rounded, l10n.grammar, l10n.checkWriting,
+            const Color(0xFF10B981), false,
+            () => Navigator.push(context, AppPageRoute(builder: (_) => const GrammarFeedbackScreen())));
+    }
+  }
+
   Widget _buildFeaturesGrid(BuildContext context, bool isVip, bool isDark) {
     final l10n = AppLocalizations.of(context)!;
-    final features = [
-      _AIFeature(Icons.chat_bubble_outline_rounded, l10n.aiConversationPartnerTile,
-          l10n.aiConversationPartnerTileSubtitle,
-          const Color(0xFF6366F1), false,
-          () => Navigator.push(context, AppPageRoute(builder: (_) => const AIConversationScreen()))),
-      _AIFeature(Icons.menu_book_rounded, l10n.aiLessons, l10n.learnWithAI, const Color(0xFF8B5CF6), false,
-          () => Navigator.push(context, AppPageRoute(builder: (_) => const LessonsScreen()))),
-      _AIFeature(Icons.spellcheck_rounded, l10n.grammar, l10n.checkWriting, const Color(0xFF10B981), false,
-          () => Navigator.push(context, AppPageRoute(builder: (_) => const GrammarFeedbackScreen()))),
-      _AIFeature(Icons.mic_rounded, l10n.pronunciation, l10n.improveSpeaking, const Color(0xFFF59E0B), false,
-          () => Navigator.push(context, AppPageRoute(builder: (_) => const PronunciationScreen()))),
-      _AIFeature(Icons.translate_rounded, l10n.translation, l10n.smartTranslate, const Color(0xFF3B82F6), false,
-          () => Navigator.push(context, AppPageRoute(builder: (_) => const TranslationScreen()))),
-      _AIFeature(Icons.quiz_rounded, l10n.aiQuizzes, l10n.testKnowledge, const Color(0xFFEF4444), false,
-          () => Navigator.push(context, AppPageRoute(builder: (_) => const AIQuizScreen()))),
-      _AIFeature(Icons.auto_awesome_rounded, l10n.lessonBuilder, l10n.customLessons, const Color(0xFFEC4899), false,
-          () => Navigator.push(context, AppPageRoute(builder: (_) => const LessonBuilderScreen()))),
-      // Vocab Packs moved to the English section of the exam picker.
-    ];
+    // Rendered from practiceEntryOrder (practice_entries.dart) rather than a
+    // literal, so the order is a value a test can assert and a reorder cannot
+    // silently change what a call site means.
+    final features = practiceEntryOrder
+        .map((entry) => _featureFor(context, entry, l10n))
+        .toList();
 
     return GridView.count(
       shrinkWrap: true,
@@ -566,14 +576,6 @@ class _TutorModeChips extends ConsumerWidget {
             emoji: '📷',
             label: l10n.aiTutorChipPhoto,
             onTap: () => _open(context, ref, const ImageVocabScreen()),
-          ),
-        ),
-        const SizedBox(width: 8),
-        Expanded(
-          child: _ModeChip(
-            emoji: '🎙️',
-            label: l10n.aiTutorChipPronounce,
-            onTap: () => _open(context, ref, const PronunciationStartScreen()),
           ),
         ),
       ],

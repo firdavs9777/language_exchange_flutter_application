@@ -902,6 +902,9 @@ class AppLocalizationsTh extends AppLocalizations {
   String get conversation => 'การสนทนา';
 
   @override
+  String get conversationHistory => 'ประวัติการสนทนา';
+
+  @override
   String get unmute => 'เปิดเสียง';
 
   @override
@@ -4038,7 +4041,7 @@ class AppLocalizationsTh extends AppLocalizations {
   String get learnTab => 'เรียน';
 
   @override
-  String get aiTools => 'เครื่องมือ AI';
+  String get aiTools => 'ฝึกฝน';
 
   @override
   String get streak => 'ความต่อเนื่อง';

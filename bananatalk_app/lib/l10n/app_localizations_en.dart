@@ -902,6 +902,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get conversation => 'Conversation';
 
   @override
+  String get conversationHistory => 'Conversation History';
+
+  @override
   String get unmute => 'Unmute';
 
   @override
@@ -4044,7 +4047,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get learnTab => 'Learn';
 
   @override
-  String get aiTools => 'AI Tools';
+  String get aiTools => 'Practice';
 
   @override
   String get streak => 'Streak';

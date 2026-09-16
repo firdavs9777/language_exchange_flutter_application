@@ -902,6 +902,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get conversation => '对话';
 
   @override
+  String get conversationHistory => '对话记录';
+
+  @override
   String get unmute => '取消静音';
 
   @override
@@ -4038,7 +4041,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get learnTab => '学习';
 
   @override
-  String get aiTools => 'AI工具';
+  String get aiTools => '练习';
 
   @override
   String get streak => '连续学习';
@@ -8541,6 +8544,9 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get conversation => '對話';
 
   @override
+  String get conversationHistory => '對話記錄';
+
+  @override
   String get unmute => '取消靜音';
 
   @override
@@ -11677,7 +11683,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get learnTab => '學習';
 
   @override
-  String get aiTools => 'AI工具';
+  String get aiTools => '練習';
 
   @override
   String get streak => '連續學習';

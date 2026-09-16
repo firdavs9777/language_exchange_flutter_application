@@ -47,7 +47,7 @@ class _ConversationHistoryScreenState
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
-          'Conversation History',
+          AppLocalizations.of(context)!.conversationHistory,
           style: context.titleMedium?.copyWith(fontWeight: FontWeight.bold),
         ),
         bottom: TabBar(

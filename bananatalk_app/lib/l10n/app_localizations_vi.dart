@@ -902,6 +902,9 @@ class AppLocalizationsVi extends AppLocalizations {
   String get conversation => 'Cuộc trò chuyện';
 
   @override
+  String get conversationHistory => 'Lịch sử trò chuyện';
+
+  @override
   String get unmute => 'Bật tiếng';
 
   @override
@@ -4038,7 +4041,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get learnTab => 'Học';
 
   @override
-  String get aiTools => 'Công cụ AI';
+  String get aiTools => 'Luyện tập';
 
   @override
   String get streak => 'Chuỗi học';

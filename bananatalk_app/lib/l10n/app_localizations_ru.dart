@@ -902,6 +902,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get conversation => 'Разговор';
 
   @override
+  String get conversationHistory => 'История разговоров';
+
+  @override
   String get unmute => 'Включить звук';
 
   @override
@@ -4038,7 +4041,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get learnTab => 'Учиться';
 
   @override
-  String get aiTools => 'Инструменты ИИ';
+  String get aiTools => 'Практика';
 
   @override
   String get streak => 'Серия';

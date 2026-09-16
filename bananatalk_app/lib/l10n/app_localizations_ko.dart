@@ -902,6 +902,9 @@ class AppLocalizationsKo extends AppLocalizations {
   String get conversation => '대화';
 
   @override
+  String get conversationHistory => '대화 기록';
+
+  @override
   String get unmute => '음소거 해제';
 
   @override
@@ -4038,7 +4041,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get learnTab => '학습';
 
   @override
-  String get aiTools => 'AI 도구';
+  String get aiTools => '연습';
 
   @override
   String get streak => '연속 학습';
