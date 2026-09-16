@@ -7667,54 +7667,54 @@ class AppLocalizationsRu extends AppLocalizations {
   String get weeklyReportStart => 'Начать сегодняшний набор';
 
   @override
-  String get gatheringsTabLabel => 'Gatherings';
+  String get gatheringsTabLabel => 'Встречи';
 
   @override
-  String get gatheringClubs => 'Clubs';
+  String get gatheringClubs => 'Клубы';
 
   @override
-  String get gatheringNewClub => 'New club';
+  String get gatheringNewClub => 'Новый клуб';
 
   @override
-  String get gatheringStartingSoon => 'Starting soon';
+  String get gatheringStartingSoon => 'Скоро начнётся';
 
   @override
-  String get gatheringCreateShort => 'New';
+  String get gatheringCreateShort => 'Создать';
 
   @override
-  String get gatheringLoadFailed => 'Could not load gatherings';
+  String get gatheringLoadFailed => 'Не удалось загрузить встречи';
 
   @override
-  String get gatheringEmptyTitle => 'Host the first one';
+  String get gatheringEmptyTitle => 'Проведите первую';
 
   @override
-  String get gatheringEmptyBody => 'Nothing is scheduled yet. Pick a time and post it — people join gatherings that already have a host.';
+  String get gatheringEmptyBody => 'Пока ничего не запланировано. Выберите время и опубликуйте — люди приходят на встречи, у которых уже есть организатор.';
 
   @override
-  String get gatheringStartAClub => 'Start a club instead';
+  String get gatheringStartAClub => 'Лучше создать клуб';
 
   @override
-  String get gatheringToday => 'Today';
+  String get gatheringToday => 'Сегодня';
 
   @override
-  String get gatheringTomorrow => 'Tomorrow';
+  String get gatheringTomorrow => 'Завтра';
 
   @override
-  String get gatheringHappeningNow => 'Happening now';
+  String get gatheringHappeningNow => 'Идёт сейчас';
 
   @override
   String gatheringStartsIn(int minutes) {
-    return 'Starts in $minutes min';
+    return 'Начало через $minutes мин';
   }
 
   @override
   String gatheringHostZone(String zone) {
-    return 'Host\'s time zone: $zone';
+    return 'Часовой пояс организатора: $zone';
   }
 
   @override
   String gatheringHostedBy(String name) {
-    return 'Hosted by $name';
+    return 'Организует $name';
   }
 
   @override
@@ -7728,104 +7728,106 @@ class AppLocalizationsRu extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$countString more needed to confirm',
-      one: '1 more needed to confirm',
-      zero: 'Ready to confirm',
+      other: 'Ещё $countString человека для подтверждения',
+      many: 'Ещё $countString человек для подтверждения',
+      few: 'Ещё $countString человека для подтверждения',
+      one: 'Ещё $countString человек для подтверждения',
+      zero: 'Готово к подтверждению',
     );
     return '$_temp0';
   }
 
   @override
   String gatheringConfirmed(int count) {
-    return 'Confirmed · $count going';
+    return 'Подтверждено · идут $count';
   }
 
   @override
-  String get gatheringYouHost => 'You\'re hosting';
+  String get gatheringYouHost => 'Вы организатор';
 
   @override
-  String get gatheringGoingYou => 'You\'re going';
+  String get gatheringGoingYou => 'Вы идёте';
 
   @override
-  String get gatheringFull => 'Full';
+  String get gatheringFull => 'Мест нет';
 
   @override
-  String get gatheringJoin => 'Join';
+  String get gatheringJoin => 'Пойду';
 
   @override
-  String get gatheringAskToJoin => 'Ask to join';
+  String get gatheringAskToJoin => 'Запросить участие';
 
   @override
-  String get gatheringRequested => 'Asked to join — the host will decide';
+  String get gatheringRequested => 'Запрос отправлен — решение за организатором';
 
   @override
-  String get gatheringCreateTitle => 'New gathering';
+  String get gatheringCreateTitle => 'Новая встреча';
 
   @override
-  String get gatheringCreateSubtitle => 'A time, a language, and a few seats. Everything else is optional.';
+  String get gatheringCreateSubtitle => 'Время, язык и несколько мест. Остальное по желанию.';
 
   @override
   String gatheringDefaultTitle(String language) {
-    return '$language practice';
+    return 'Практика: $language';
   }
 
   @override
-  String get gatheringTitleLabel => 'What are you doing?';
+  String get gatheringTitleLabel => 'Чем займётесь?';
 
   @override
-  String get gatheringLanguageLabel => 'Language';
+  String get gatheringLanguageLabel => 'Язык';
 
   @override
-  String get gatheringWhenLabel => 'When';
+  String get gatheringWhenLabel => 'Когда';
 
   @override
-  String get gatheringSeatsLabel => 'Seats';
+  String get gatheringSeatsLabel => 'Мест';
 
   @override
-  String get gatheringQuorumLabel => 'Confirm at';
+  String get gatheringQuorumLabel => 'Подтвердить при';
 
   @override
-  String get gatheringQuorumExplainer => 'You\'re counted as the first person going. The gathering confirms once that many people have said yes.';
+  String get gatheringQuorumExplainer => 'Вы считаетесь первым участником. Встреча подтверждается, как только наберётся столько человек.';
 
   @override
-  String get gatheringPost => 'Post it';
+  String get gatheringPost => 'Опубликовать';
 
   @override
-  String get gatheringPosted => 'Posted — now share it';
+  String get gatheringPosted => 'Опубликовано — теперь расскажите о ней';
 
   @override
-  String get gatheringNeedsTitle => 'Give it a name first';
+  String get gatheringNeedsTitle => 'Сначала дайте название';
 
   @override
-  String get gatheringNeedsLanguage => 'Pick a language first';
+  String get gatheringNeedsLanguage => 'Сначала выберите язык';
 
   @override
-  String get gatheringNeedsFuture => 'Pick a time in the future';
+  String get gatheringNeedsFuture => 'Выберите время в будущем';
 
   @override
-  String get gatheringDetailTitle => 'Gathering';
+  String get gatheringDetailTitle => 'Встреча';
 
   @override
-  String get gatheringNotFound => 'This gathering is no longer available';
+  String get gatheringNotFound => 'Эта встреча больше недоступна';
 
   @override
   String gatheringDuration(int minutes) {
-    return '$minutes minutes';
+    return '$minutes минут';
   }
 
   @override
   String gatheringSeatsTaken(int going, int capacity) {
-    return '$going of $capacity seats taken';
+    return 'Занято $going из $capacity мест';
   }
 
   @override
-  String get gatheringCancelled => 'Cancelled';
+  String get gatheringCancelled => 'Отменена';
 
   @override
-  String get gatheringEnded => 'This gathering has ended';
+  String get gatheringEnded => 'Эта встреча завершена';
 
   @override
-  String get gatheringCancelRsvp => 'Cancel my RSVP';
+  String get gatheringCancelRsvp => 'Отменить участие';
 
   @override
   String gatheringHostDecision(num count) {
@@ -7838,29 +7840,31 @@ class AppLocalizationsRu extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: 'Only $countString people are coming so far. Run it anyway, or call it off?',
-      one: 'Only you are coming so far. Run it anyway, or call it off?',
+      other: 'Пока идут только $countString человека. Провести всё равно или отменить?',
+      many: 'Пока идут только $countString человек. Провести всё равно или отменить?',
+      few: 'Пока идут только $countString человека. Провести всё равно или отменить?',
+      one: 'Пока идёте только вы. Провести всё равно или отменить?',
     );
     return '$_temp0';
   }
 
   @override
-  String get gatheringRunAnyway => 'Run it anyway';
+  String get gatheringRunAnyway => 'Всё равно провести';
 
   @override
-  String get gatheringCallItOff => 'Call it off';
+  String get gatheringCallItOff => 'Отменить';
 
   @override
-  String get gatheringEnd => 'End gathering';
+  String get gatheringEnd => 'Завершить встречу';
 
   @override
-  String get gatheringEndedThanks => 'Ended — message anyone you met, it\'s free';
+  String get gatheringEndedThanks => 'Завершено — написать тем, кого вы встретили, можно бесплатно';
 
   @override
-  String get gatheringCancelIt => 'Cancel gathering';
+  String get gatheringCancelIt => 'Отменить встречу';
 
   @override
-  String get gatheringKeepIt => 'Keep it';
+  String get gatheringKeepIt => 'Оставить';
 
   @override
   String gatheringCancelConfirm(num count) {
@@ -7873,17 +7877,19 @@ class AppLocalizationsRu extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$countString people are expecting this. They\'ll be told it\'s off.',
-      one: '1 person is expecting this. They\'ll be told it\'s off.',
+      other: '$countString человека ждут эту встречу. Мы сообщим об отмене.',
+      many: '$countString человек ждут эту встречу. Мы сообщим об отмене.',
+      few: '$countString человека ждут эту встречу. Мы сообщим об отмене.',
+      one: '$countString человек ждёт эту встречу. Мы сообщим об отмене.',
     );
     return '$_temp0';
   }
 
   @override
-  String get clubDetailTitle => 'Club';
+  String get clubDetailTitle => 'Клуб';
 
   @override
-  String get clubNotFound => 'This club is no longer available';
+  String get clubNotFound => 'Этот клуб больше недоступен';
 
   @override
   String clubMembers(num count) {
@@ -7896,48 +7902,50 @@ class AppLocalizationsRu extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$countString members',
-      one: '1 member',
+      other: '$countString участника',
+      many: '$countString участников',
+      few: '$countString участника',
+      one: '$countString участник',
     );
     return '$_temp0';
   }
 
   @override
-  String get clubJoin => 'Join club';
+  String get clubJoin => 'Вступить в клуб';
 
   @override
-  String get clubLeave => 'Leave club';
+  String get clubLeave => 'Покинуть клуб';
 
   @override
-  String get clubUpcoming => 'Coming up';
+  String get clubUpcoming => 'Ближайшие';
 
   @override
-  String get clubNothingScheduled => 'Nothing scheduled yet.';
+  String get clubNothingScheduled => 'Пока ничего не запланировано.';
 
   @override
-  String get clubHostGathering => 'Host a gathering';
+  String get clubHostGathering => 'Провести встречу';
 
   @override
-  String get clubCreateTitle => 'New club';
+  String get clubCreateTitle => 'Новый клуб';
 
   @override
-  String get clubCreateSubtitle => 'A club keeps its people between gatherings. Name it after what you\'ll actually do.';
+  String get clubCreateSubtitle => 'Клуб сохраняет людей между встречами. Назовите его тем, чем вы действительно будете заниматься.';
 
   @override
-  String get clubNameLabel => 'Club name';
+  String get clubNameLabel => 'Название клуба';
 
   @override
-  String get clubInterestLabel => 'Interest';
+  String get clubInterestLabel => 'Интерес';
 
   @override
-  String get clubInterestHint => 'Optional — running, K-pop, HSK4';
+  String get clubInterestHint => 'Необязательно — бег, K-pop, HSK4';
 
   @override
-  String get clubDescriptionLabel => 'About';
+  String get clubDescriptionLabel => 'О клубе';
 
   @override
-  String get clubCreate => 'Create club';
+  String get clubCreate => 'Создать клуб';
 
   @override
-  String get clubNeedsName => 'Give the club a name first';
+  String get clubNeedsName => 'Сначала назовите клуб';
 }

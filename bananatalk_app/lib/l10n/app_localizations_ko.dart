@@ -7646,54 +7646,54 @@ class AppLocalizationsKo extends AppLocalizations {
   String get weeklyReportStart => '오늘의 팩 시작하기';
 
   @override
-  String get gatheringsTabLabel => 'Gatherings';
+  String get gatheringsTabLabel => '모임';
 
   @override
-  String get gatheringClubs => 'Clubs';
+  String get gatheringClubs => '클럽';
 
   @override
-  String get gatheringNewClub => 'New club';
+  String get gatheringNewClub => '새 클럽';
 
   @override
-  String get gatheringStartingSoon => 'Starting soon';
+  String get gatheringStartingSoon => '곧 시작';
 
   @override
-  String get gatheringCreateShort => 'New';
+  String get gatheringCreateShort => '새로 만들기';
 
   @override
-  String get gatheringLoadFailed => 'Could not load gatherings';
+  String get gatheringLoadFailed => '모임을 불러오지 못했습니다';
 
   @override
-  String get gatheringEmptyTitle => 'Host the first one';
+  String get gatheringEmptyTitle => '첫 모임을 열어보세요';
 
   @override
-  String get gatheringEmptyBody => 'Nothing is scheduled yet. Pick a time and post it — people join gatherings that already have a host.';
+  String get gatheringEmptyBody => '아직 예정된 모임이 없어요. 시간을 정해서 올려보세요 — 사람들은 호스트가 있는 모임에 참여합니다.';
 
   @override
-  String get gatheringStartAClub => 'Start a club instead';
+  String get gatheringStartAClub => '대신 클럽 만들기';
 
   @override
-  String get gatheringToday => 'Today';
+  String get gatheringToday => '오늘';
 
   @override
-  String get gatheringTomorrow => 'Tomorrow';
+  String get gatheringTomorrow => '내일';
 
   @override
-  String get gatheringHappeningNow => 'Happening now';
+  String get gatheringHappeningNow => '지금 진행 중';
 
   @override
   String gatheringStartsIn(int minutes) {
-    return 'Starts in $minutes min';
+    return '$minutes분 후 시작';
   }
 
   @override
   String gatheringHostZone(String zone) {
-    return 'Host\'s time zone: $zone';
+    return '호스트 시간대: $zone';
   }
 
   @override
   String gatheringHostedBy(String name) {
-    return 'Hosted by $name';
+    return '호스트: $name';
   }
 
   @override
@@ -7707,104 +7707,103 @@ class AppLocalizationsKo extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$countString more needed to confirm',
-      one: '1 more needed to confirm',
-      zero: 'Ready to confirm',
+      other: '확정까지 $countString명 더 필요',
+      zero: '확정 준비 완료',
     );
     return '$_temp0';
   }
 
   @override
   String gatheringConfirmed(int count) {
-    return 'Confirmed · $count going';
+    return '확정 · $count명 참여';
   }
 
   @override
-  String get gatheringYouHost => 'You\'re hosting';
+  String get gatheringYouHost => '내가 호스트';
 
   @override
-  String get gatheringGoingYou => 'You\'re going';
+  String get gatheringGoingYou => '참여 중';
 
   @override
-  String get gatheringFull => 'Full';
+  String get gatheringFull => '마감';
 
   @override
-  String get gatheringJoin => 'Join';
+  String get gatheringJoin => '참여하기';
 
   @override
-  String get gatheringAskToJoin => 'Ask to join';
+  String get gatheringAskToJoin => '참여 요청';
 
   @override
-  String get gatheringRequested => 'Asked to join — the host will decide';
+  String get gatheringRequested => '참여를 요청했어요 — 호스트가 결정합니다';
 
   @override
-  String get gatheringCreateTitle => 'New gathering';
+  String get gatheringCreateTitle => '새 모임';
 
   @override
-  String get gatheringCreateSubtitle => 'A time, a language, and a few seats. Everything else is optional.';
+  String get gatheringCreateSubtitle => '시간, 언어, 그리고 몇 자리. 나머지는 선택 사항입니다.';
 
   @override
   String gatheringDefaultTitle(String language) {
-    return '$language practice';
+    return '$language 연습';
   }
 
   @override
-  String get gatheringTitleLabel => 'What are you doing?';
+  String get gatheringTitleLabel => '무엇을 하나요?';
 
   @override
-  String get gatheringLanguageLabel => 'Language';
+  String get gatheringLanguageLabel => '언어';
 
   @override
-  String get gatheringWhenLabel => 'When';
+  String get gatheringWhenLabel => '언제';
 
   @override
-  String get gatheringSeatsLabel => 'Seats';
+  String get gatheringSeatsLabel => '정원';
 
   @override
-  String get gatheringQuorumLabel => 'Confirm at';
+  String get gatheringQuorumLabel => '확정 인원';
 
   @override
-  String get gatheringQuorumExplainer => 'You\'re counted as the first person going. The gathering confirms once that many people have said yes.';
+  String get gatheringQuorumExplainer => '호스트인 나도 참여 인원에 포함됩니다. 이 인원이 모이면 모임이 확정돼요.';
 
   @override
-  String get gatheringPost => 'Post it';
+  String get gatheringPost => '올리기';
 
   @override
-  String get gatheringPosted => 'Posted — now share it';
+  String get gatheringPosted => '올렸어요 — 이제 알려보세요';
 
   @override
-  String get gatheringNeedsTitle => 'Give it a name first';
+  String get gatheringNeedsTitle => '먼저 이름을 정해주세요';
 
   @override
-  String get gatheringNeedsLanguage => 'Pick a language first';
+  String get gatheringNeedsLanguage => '먼저 언어를 선택해주세요';
 
   @override
-  String get gatheringNeedsFuture => 'Pick a time in the future';
+  String get gatheringNeedsFuture => '미래의 시간을 선택해주세요';
 
   @override
-  String get gatheringDetailTitle => 'Gathering';
+  String get gatheringDetailTitle => '모임';
 
   @override
-  String get gatheringNotFound => 'This gathering is no longer available';
+  String get gatheringNotFound => '이 모임은 더 이상 볼 수 없습니다';
 
   @override
   String gatheringDuration(int minutes) {
-    return '$minutes minutes';
+    return '$minutes분';
   }
 
   @override
   String gatheringSeatsTaken(int going, int capacity) {
-    return '$going of $capacity seats taken';
+    return '$capacity자리 중 $going자리 참여';
   }
 
   @override
-  String get gatheringCancelled => 'Cancelled';
+  String get gatheringCancelled => '취소됨';
 
   @override
-  String get gatheringEnded => 'This gathering has ended';
+  String get gatheringEnded => '종료된 모임입니다';
 
   @override
-  String get gatheringCancelRsvp => 'Cancel my RSVP';
+  String get gatheringCancelRsvp => '참여 취소';
 
   @override
   String gatheringHostDecision(num count) {
@@ -7817,29 +7816,29 @@ class AppLocalizationsKo extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: 'Only $countString people are coming so far. Run it anyway, or call it off?',
-      one: 'Only you are coming so far. Run it anyway, or call it off?',
+      other: '지금까지 $countString명만 참여해요. 그래도 진행할까요, 아니면 취소할까요?',
+      one: '지금은 나만 참여해요. 그래도 진행할까요, 아니면 취소할까요?',
     );
     return '$_temp0';
   }
 
   @override
-  String get gatheringRunAnyway => 'Run it anyway';
+  String get gatheringRunAnyway => '그래도 진행';
 
   @override
-  String get gatheringCallItOff => 'Call it off';
+  String get gatheringCallItOff => '취소하기';
 
   @override
-  String get gatheringEnd => 'End gathering';
+  String get gatheringEnd => '모임 종료';
 
   @override
-  String get gatheringEndedThanks => 'Ended — message anyone you met, it\'s free';
+  String get gatheringEndedThanks => '종료했어요 — 만난 사람에게 무료로 메시지를 보낼 수 있어요';
 
   @override
-  String get gatheringCancelIt => 'Cancel gathering';
+  String get gatheringCancelIt => '모임 취소';
 
   @override
-  String get gatheringKeepIt => 'Keep it';
+  String get gatheringKeepIt => '유지하기';
 
   @override
   String gatheringCancelConfirm(num count) {
@@ -7852,17 +7851,17 @@ class AppLocalizationsKo extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$countString people are expecting this. They\'ll be told it\'s off.',
-      one: '1 person is expecting this. They\'ll be told it\'s off.',
+      other: '$countString명이 이 모임을 기다리고 있어요. 취소되었다고 알려드립니다.',
+      one: '1명이 이 모임을 기다리고 있어요. 취소되었다고 알려드립니다.',
     );
     return '$_temp0';
   }
 
   @override
-  String get clubDetailTitle => 'Club';
+  String get clubDetailTitle => '클럽';
 
   @override
-  String get clubNotFound => 'This club is no longer available';
+  String get clubNotFound => '이 클럽은 더 이상 볼 수 없습니다';
 
   @override
   String clubMembers(num count) {
@@ -7875,48 +7874,47 @@ class AppLocalizationsKo extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$countString members',
-      one: '1 member',
+      other: '멤버 $countString명',
     );
     return '$_temp0';
   }
 
   @override
-  String get clubJoin => 'Join club';
+  String get clubJoin => '클럽 가입';
 
   @override
-  String get clubLeave => 'Leave club';
+  String get clubLeave => '클럽 탈퇴';
 
   @override
-  String get clubUpcoming => 'Coming up';
+  String get clubUpcoming => '예정된 모임';
 
   @override
-  String get clubNothingScheduled => 'Nothing scheduled yet.';
+  String get clubNothingScheduled => '아직 예정된 모임이 없어요.';
 
   @override
-  String get clubHostGathering => 'Host a gathering';
+  String get clubHostGathering => '모임 열기';
 
   @override
-  String get clubCreateTitle => 'New club';
+  String get clubCreateTitle => '새 클럽';
 
   @override
-  String get clubCreateSubtitle => 'A club keeps its people between gatherings. Name it after what you\'ll actually do.';
+  String get clubCreateSubtitle => '클럽은 모임과 모임 사이에도 사람들을 이어줍니다. 실제로 함께 할 일로 이름을 지어보세요.';
 
   @override
-  String get clubNameLabel => 'Club name';
+  String get clubNameLabel => '클럽 이름';
 
   @override
-  String get clubInterestLabel => 'Interest';
+  String get clubInterestLabel => '관심사';
 
   @override
-  String get clubInterestHint => 'Optional — running, K-pop, HSK4';
+  String get clubInterestHint => '선택 사항 — 러닝, K-pop, HSK4';
 
   @override
-  String get clubDescriptionLabel => 'About';
+  String get clubDescriptionLabel => '소개';
 
   @override
-  String get clubCreate => 'Create club';
+  String get clubCreate => '클럽 만들기';
 
   @override
-  String get clubNeedsName => 'Give the club a name first';
+  String get clubNeedsName => '먼저 클럽 이름을 정해주세요';
 }

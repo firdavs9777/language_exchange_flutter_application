@@ -7660,54 +7660,54 @@ class AppLocalizationsTg extends AppLocalizations {
   String get weeklyReportStart => 'Маҷмӯаи имрӯзаро оғоз кунед';
 
   @override
-  String get gatheringsTabLabel => 'Gatherings';
+  String get gatheringsTabLabel => 'Вохӯриҳо';
 
   @override
-  String get gatheringClubs => 'Clubs';
+  String get gatheringClubs => 'Клубҳо';
 
   @override
-  String get gatheringNewClub => 'New club';
+  String get gatheringNewClub => 'Клуби нав';
 
   @override
-  String get gatheringStartingSoon => 'Starting soon';
+  String get gatheringStartingSoon => 'Ба зудӣ оғоз мешавад';
 
   @override
-  String get gatheringCreateShort => 'New';
+  String get gatheringCreateShort => 'Нав';
 
   @override
-  String get gatheringLoadFailed => 'Could not load gatherings';
+  String get gatheringLoadFailed => 'Вохӯриҳоро бор кардан нашуд';
 
   @override
-  String get gatheringEmptyTitle => 'Host the first one';
+  String get gatheringEmptyTitle => 'Аввалинашро шумо ташкил кунед';
 
   @override
-  String get gatheringEmptyBody => 'Nothing is scheduled yet. Pick a time and post it — people join gatherings that already have a host.';
+  String get gatheringEmptyBody => 'Ҳанӯз чизе банақшагирӣ нашудааст. Вақт интихоб кунед ва нашр кунед — одамон ба вохӯриҳое мепайвнданд, ки аллакай мизбон доранд.';
 
   @override
-  String get gatheringStartAClub => 'Start a club instead';
+  String get gatheringStartAClub => 'Ба ҷояш клуб созед';
 
   @override
-  String get gatheringToday => 'Today';
+  String get gatheringToday => 'Имрӯз';
 
   @override
-  String get gatheringTomorrow => 'Tomorrow';
+  String get gatheringTomorrow => 'Фардо';
 
   @override
-  String get gatheringHappeningNow => 'Happening now';
+  String get gatheringHappeningNow => 'Ҳоло идома дорад';
 
   @override
   String gatheringStartsIn(int minutes) {
-    return 'Starts in $minutes min';
+    return 'Пас аз $minutes дақиқа оғоз мешавад';
   }
 
   @override
   String gatheringHostZone(String zone) {
-    return 'Host\'s time zone: $zone';
+    return 'Минтақаи вақти мизбон: $zone';
   }
 
   @override
   String gatheringHostedBy(String name) {
-    return 'Hosted by $name';
+    return 'Мизбон: $name';
   }
 
   @override
@@ -7721,104 +7721,103 @@ class AppLocalizationsTg extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$countString more needed to confirm',
-      one: '1 more needed to confirm',
-      zero: 'Ready to confirm',
+      other: 'Барои тасдиқ боз $countString нафар лозим аст',
+      zero: 'Барои тасдиқ омода аст',
     );
     return '$_temp0';
   }
 
   @override
   String gatheringConfirmed(int count) {
-    return 'Confirmed · $count going';
+    return 'Тасдиқшуда · $count нафар меоянд';
   }
 
   @override
-  String get gatheringYouHost => 'You\'re hosting';
+  String get gatheringYouHost => 'Шумо мизбонед';
 
   @override
-  String get gatheringGoingYou => 'You\'re going';
+  String get gatheringGoingYou => 'Шумо меоед';
 
   @override
-  String get gatheringFull => 'Full';
+  String get gatheringFull => 'Ҷой нест';
 
   @override
-  String get gatheringJoin => 'Join';
+  String get gatheringJoin => 'Ҳамроҳ шудан';
 
   @override
-  String get gatheringAskToJoin => 'Ask to join';
+  String get gatheringAskToJoin => 'Дархости ҳамроҳшавӣ';
 
   @override
-  String get gatheringRequested => 'Asked to join — the host will decide';
+  String get gatheringRequested => 'Дархост фиристода шуд — қарорро мизбон қабул мекунад';
 
   @override
-  String get gatheringCreateTitle => 'New gathering';
+  String get gatheringCreateTitle => 'Вохӯрии нав';
 
   @override
-  String get gatheringCreateSubtitle => 'A time, a language, and a few seats. Everything else is optional.';
+  String get gatheringCreateSubtitle => 'Як вақт, як забон ва чанд ҷой. Боқимонда ихтиёрӣ аст.';
 
   @override
   String gatheringDefaultTitle(String language) {
-    return '$language practice';
+    return 'Машқи $language';
   }
 
   @override
-  String get gatheringTitleLabel => 'What are you doing?';
+  String get gatheringTitleLabel => 'Чӣ кор мекунед?';
 
   @override
-  String get gatheringLanguageLabel => 'Language';
+  String get gatheringLanguageLabel => 'Забон';
 
   @override
-  String get gatheringWhenLabel => 'When';
+  String get gatheringWhenLabel => 'Кай';
 
   @override
-  String get gatheringSeatsLabel => 'Seats';
+  String get gatheringSeatsLabel => 'Ҷойҳо';
 
   @override
-  String get gatheringQuorumLabel => 'Confirm at';
+  String get gatheringQuorumLabel => 'Тасдиқ дар';
 
   @override
-  String get gatheringQuorumExplainer => 'You\'re counted as the first person going. The gathering confirms once that many people have said yes.';
+  String get gatheringQuorumExplainer => 'Шумо ҳамчун иштирокчии аввал ҳисоб мешавед. Вохӯрӣ ҳамин ки ин шумора ҷамъ шуд, тасдиқ мегардад.';
 
   @override
-  String get gatheringPost => 'Post it';
+  String get gatheringPost => 'Нашр кардан';
 
   @override
-  String get gatheringPosted => 'Posted — now share it';
+  String get gatheringPosted => 'Нашр шуд — акнун хабар диҳед';
 
   @override
-  String get gatheringNeedsTitle => 'Give it a name first';
+  String get gatheringNeedsTitle => 'Аввал ном гузоред';
 
   @override
-  String get gatheringNeedsLanguage => 'Pick a language first';
+  String get gatheringNeedsLanguage => 'Аввал забон интихоб кунед';
 
   @override
-  String get gatheringNeedsFuture => 'Pick a time in the future';
+  String get gatheringNeedsFuture => 'Вақти ояндаро интихоб кунед';
 
   @override
-  String get gatheringDetailTitle => 'Gathering';
+  String get gatheringDetailTitle => 'Вохӯрӣ';
 
   @override
-  String get gatheringNotFound => 'This gathering is no longer available';
+  String get gatheringNotFound => 'Ин вохӯрӣ дигар дастрас нест';
 
   @override
   String gatheringDuration(int minutes) {
-    return '$minutes minutes';
+    return '$minutes дақиқа';
   }
 
   @override
   String gatheringSeatsTaken(int going, int capacity) {
-    return '$going of $capacity seats taken';
+    return '$going аз $capacity ҷой банд аст';
   }
 
   @override
-  String get gatheringCancelled => 'Cancelled';
+  String get gatheringCancelled => 'Бекор карда шуд';
 
   @override
-  String get gatheringEnded => 'This gathering has ended';
+  String get gatheringEnded => 'Ин вохӯрӣ ба анҷом расид';
 
   @override
-  String get gatheringCancelRsvp => 'Cancel my RSVP';
+  String get gatheringCancelRsvp => 'Иштироки худро бекор кардан';
 
   @override
   String gatheringHostDecision(num count) {
@@ -7831,29 +7830,29 @@ class AppLocalizationsTg extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: 'Only $countString people are coming so far. Run it anyway, or call it off?',
-      one: 'Only you are coming so far. Run it anyway, or call it off?',
+      other: 'То ҳол танҳо $countString нафар меоянд. Бо вуҷуди ин гузаронем ё бекор кунем?',
+      one: 'То ҳол танҳо шумо меоед. Бо вуҷуди ин гузаронем ё бекор кунем?',
     );
     return '$_temp0';
   }
 
   @override
-  String get gatheringRunAnyway => 'Run it anyway';
+  String get gatheringRunAnyway => 'Бо вуҷуди ин гузаронидан';
 
   @override
-  String get gatheringCallItOff => 'Call it off';
+  String get gatheringCallItOff => 'Бекор кардан';
 
   @override
-  String get gatheringEnd => 'End gathering';
+  String get gatheringEnd => 'Анҷоми вохӯрӣ';
 
   @override
-  String get gatheringEndedThanks => 'Ended — message anyone you met, it\'s free';
+  String get gatheringEndedThanks => 'Анҷом ёфт — ба шиносони нав паём навиштан ройгон аст';
 
   @override
-  String get gatheringCancelIt => 'Cancel gathering';
+  String get gatheringCancelIt => 'Вохӯриро бекор кардан';
 
   @override
-  String get gatheringKeepIt => 'Keep it';
+  String get gatheringKeepIt => 'Нигоҳ доштан';
 
   @override
   String gatheringCancelConfirm(num count) {
@@ -7866,17 +7865,17 @@ class AppLocalizationsTg extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$countString people are expecting this. They\'ll be told it\'s off.',
-      one: '1 person is expecting this. They\'ll be told it\'s off.',
+      other: '$countString нафар инро интизоранд. Ба онҳо дар бораи бекоршавӣ хабар дода мешавад.',
+      one: '1 нафар инро интизор аст. Ба ӯ дар бораи бекоршавӣ хабар дода мешавад.',
     );
     return '$_temp0';
   }
 
   @override
-  String get clubDetailTitle => 'Club';
+  String get clubDetailTitle => 'Клуб';
 
   @override
-  String get clubNotFound => 'This club is no longer available';
+  String get clubNotFound => 'Ин клуб дигар дастрас нест';
 
   @override
   String clubMembers(num count) {
@@ -7889,48 +7888,47 @@ class AppLocalizationsTg extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$countString members',
-      one: '1 member',
+      other: '$countString аъзо',
     );
     return '$_temp0';
   }
 
   @override
-  String get clubJoin => 'Join club';
+  String get clubJoin => 'Ба клуб ҳамроҳ шудан';
 
   @override
-  String get clubLeave => 'Leave club';
+  String get clubLeave => 'Тарки клуб';
 
   @override
-  String get clubUpcoming => 'Coming up';
+  String get clubUpcoming => 'Ба зудӣ';
 
   @override
-  String get clubNothingScheduled => 'Nothing scheduled yet.';
+  String get clubNothingScheduled => 'Ҳанӯз чизе банақшагирӣ нашудааст.';
 
   @override
-  String get clubHostGathering => 'Host a gathering';
+  String get clubHostGathering => 'Вохӯрӣ ташкил кардан';
 
   @override
-  String get clubCreateTitle => 'New club';
+  String get clubCreateTitle => 'Клуби нав';
 
   @override
-  String get clubCreateSubtitle => 'A club keeps its people between gatherings. Name it after what you\'ll actually do.';
+  String get clubCreateSubtitle => 'Клуб одамонро дар байни вохӯриҳо низ нигоҳ медорад. Онро бо номи коре, ки воқеан мекунед, номгузорӣ кунед.';
 
   @override
-  String get clubNameLabel => 'Club name';
+  String get clubNameLabel => 'Номи клуб';
 
   @override
-  String get clubInterestLabel => 'Interest';
+  String get clubInterestLabel => 'Шавқмандӣ';
 
   @override
-  String get clubInterestHint => 'Optional — running, K-pop, HSK4';
+  String get clubInterestHint => 'Ихтиёрӣ — давидан, K-pop, HSK4';
 
   @override
-  String get clubDescriptionLabel => 'About';
+  String get clubDescriptionLabel => 'Дар бораи клуб';
 
   @override
-  String get clubCreate => 'Create club';
+  String get clubCreate => 'Сохтани клуб';
 
   @override
-  String get clubNeedsName => 'Give the club a name first';
+  String get clubNeedsName => 'Аввал ба клуб ном гузоред';
 }
