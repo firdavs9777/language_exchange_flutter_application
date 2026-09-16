@@ -60,6 +60,16 @@ class AppConfig {
   /// into view. See `docs/superpowers/specs/2026-07-13-coins-v1-design.md`.
   final bool coinsEnabled;
 
+  /// 모임: server-side kill switch for Clubs and Gatherings, which share one
+  /// switch because they are one feature and half of it shipping is worse
+  /// than neither.
+  ///
+  /// Defaults to `true`, unlike [reelsEnabled] and [coinsEnabled]. 모임
+  /// *replaces* the voice-rooms tab rather than adding a surface, so a config
+  /// payload that predates this flag must not leave Community with a hole
+  /// where a tab used to be. The backend default is ON for the same reason.
+  final bool gatheringsEnabled;
+
   const AppConfig({
     required this.minVersion,
     required this.latestVersion,
@@ -71,6 +81,7 @@ class AppConfig {
     this.roomsEnabled = true,
     this.reelsEnabled = false,
     this.coinsEnabled = false,
+    this.gatheringsEnabled = true,
   });
 
   factory AppConfig.fromJson(Map<String, dynamic> json) {
@@ -89,6 +100,7 @@ class AppConfig {
       roomsEnabled: (json['roomsEnabled'] as bool?) ?? true,
       reelsEnabled: (json['reelsEnabled'] as bool?) ?? false,
       coinsEnabled: (json['coinsEnabled'] as bool?) ?? false,
+      gatheringsEnabled: (json['gatheringsEnabled'] as bool?) ?? true,
     );
   }
 }
