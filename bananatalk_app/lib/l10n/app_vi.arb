@@ -3291,5 +3291,9 @@
   "intentPrivacyNote": "Người khác thấy lựa chọn của bạn, trừ hẹn hò — mục đó được giữ riêng tư.",
   "@intentPrivacyNote": {
     "description": "matching intent"
+  },
+  "gatheringNoClubsYet": "Chưa có câu lạc bộ — tạo một cái để các buổi gặp có nơi thuộc về.",
+  "@gatheringNoClubsYet": {
+    "description": "모임 / gatherings"
   }
 }

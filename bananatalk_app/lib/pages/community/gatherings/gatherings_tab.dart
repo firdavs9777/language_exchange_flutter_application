@@ -164,24 +164,32 @@ class _GatheringsTabState extends ConsumerState<GatheringsTab>
               // too, which is the state most in need of a retry.
               physics: const AlwaysScrollableScrollPhysics(),
               slivers: [
-                if (data.clubs.isNotEmpty) ...[
-                  _sectionHeader(
+                // The header renders whenever there is anything at all to show,
+                // not only when clubs already exist. Gating it on
+                // clubs.isNotEmpty meant the ONLY other route to creating one
+                // -- the empty state, which needs gatherings.isEmpty -- was
+                // also hidden as soon as a single gathering existed. Between
+                // them, a viewer with no clubs and one gathering had no way to
+                // create their first club at all.
+                _sectionHeader(
+                  context,
+                  l10n.gatheringClubs,
+                  action: _textAction(
                     context,
-                    l10n.gatheringClubs,
-                    action: _textAction(
-                      context,
-                      l10n.gatheringNewClub,
-                      () async {
-                        final club = await showCreateClubSheet(
-                          context,
-                          defaultLanguage: _defaultLanguage,
-                        );
-                        if (club != null) await _refresh();
-                      },
-                    ),
+                    l10n.gatheringNewClub,
+                    () async {
+                      final club = await showCreateClubSheet(
+                        context,
+                        defaultLanguage: _defaultLanguage,
+                      );
+                      if (club != null) await _refresh();
+                    },
                   ),
-                  SliverToBoxAdapter(child: _clubStrip(data.clubs)),
-                ],
+                ),
+                if (data.clubs.isNotEmpty)
+                  SliverToBoxAdapter(child: _clubStrip(data.clubs))
+                else
+                  SliverToBoxAdapter(child: _noClubsYet(context)),
                 if (data.gatherings.isEmpty)
                   SliverFillRemaining(
                     hasScrollBody: false,
@@ -292,6 +300,22 @@ class _GatheringsTabState extends ConsumerState<GatheringsTab>
               ),
             ),
         ],
+      ),
+    );
+  }
+
+  /// Shown in the club strip's place when there are none.
+  ///
+  /// A line of copy rather than an empty gap: the strip disappearing entirely
+  /// is what made the missing "New club" action invisible rather than merely
+  /// inconvenient.
+  Widget _noClubsYet(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(Spacing.lg, 0, Spacing.lg, Spacing.md),
+      child: Text(
+        l10n.gatheringNoClubsYet,
+        style: context.bodySmall.copyWith(color: context.textSecondary),
       ),
     );
   }

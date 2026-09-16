@@ -3291,5 +3291,9 @@
   "intentPrivacyNote": "คนอื่นจะเห็นสิ่งที่คุณเลือก ยกเว้นการเดทซึ่งจะเป็นความลับ",
   "@intentPrivacyNote": {
     "description": "matching intent"
+  },
+  "gatheringNoClubsYet": "ยังไม่มีคลับ — สร้างสักคลับเพื่อให้การพบปะของคุณมีที่อยู่",
+  "@gatheringNoClubsYet": {
+    "description": "모임 / gatherings"
   }
 }

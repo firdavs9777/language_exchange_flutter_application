@@ -7961,4 +7961,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get intentPrivacyNote => 'Người khác thấy lựa chọn của bạn, trừ hẹn hò — mục đó được giữ riêng tư.';
+
+  @override
+  String get gatheringNoClubsYet => 'Chưa có câu lạc bộ — tạo một cái để các buổi gặp có nơi thuộc về.';
 }

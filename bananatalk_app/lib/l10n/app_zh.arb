@@ -3305,5 +3305,9 @@
   "intentPrivacyNote": "你的选择会公开显示，约会除外，它会保持私密。",
   "@intentPrivacyNote": {
     "description": "matching intent"
+  },
+  "gatheringNoClubsYet": "还没有俱乐部。创建一个，让你的聚会有个归属。",
+  "@gatheringNoClubsYet": {
+    "description": "모임 / gatherings"
   }
 }

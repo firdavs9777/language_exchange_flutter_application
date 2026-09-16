@@ -7992,4 +7992,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get intentPrivacyNote => 'Ваш выбор виден другим, кроме свиданий — это остаётся приватным.';
+
+  @override
+  String get gatheringNoClubsYet => 'Пока нет клубов — создайте, и встречам будет где жить.';
 }

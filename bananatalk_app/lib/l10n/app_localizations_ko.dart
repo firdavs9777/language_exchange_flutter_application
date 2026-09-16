@@ -7961,4 +7961,7 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get intentPrivacyNote => '선택한 항목이 표시됩니다. 데이트는 비공개로 유지됩니다.';
+
+  @override
+  String get gatheringNoClubsYet => '아직 클럽이 없어요. 하나 만들면 모임이 머물 곳이 생깁니다.';
 }

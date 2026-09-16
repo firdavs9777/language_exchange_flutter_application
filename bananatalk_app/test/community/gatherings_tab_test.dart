@@ -210,4 +210,19 @@ void main() {
       expect(withRooms - withoutRooms, 1);
     });
   });
+
+  testWidgets('a club can be started even when gatherings already exist',
+      (tester) async {
+    // The gap: the "New club" header rendered only when clubs.isNotEmpty, and
+    // the empty state's "Start a club instead" only when gatherings.isEmpty.
+    // With no clubs but one gathering, neither did -- so a first club could
+    // never be created once anything at all was scheduled.
+    final api = _FakeApi(clubs: const [], gatherings: [_gathering()]);
+    await tester.pumpWidget(_host(api));
+    await tester.pumpAndSettle();
+
+    // "New club" is the header action; before the fix the whole header was
+    // gated on already having clubs, so this was the unreachable state.
+    expect(find.text('New club'), findsOneWidget);
+  });
 }

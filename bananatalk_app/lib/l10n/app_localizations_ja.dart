@@ -7961,4 +7961,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get intentPrivacyNote => '選んだ内容は表示されます。デートは非公開です。';
+
+  @override
+  String get gatheringNoClubsYet => 'まだクラブがありません。作れば集まりの拠点になります。';
 }

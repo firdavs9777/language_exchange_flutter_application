@@ -2982,5 +2982,9 @@
   "intentPrivacyNote": "你的選擇會公開顯示，約會除外，它會保持私密。",
   "@intentPrivacyNote": {
     "description": "matching intent"
+  },
+  "gatheringNoClubsYet": "還沒有俱樂部。建立一個，讓你的聚會有個歸屬。",
+  "@gatheringNoClubsYet": {
+    "description": "모임 / gatherings"
   }
 }

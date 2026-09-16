@@ -3321,5 +3321,9 @@
   "intentPrivacyNote": "Los demás ven lo que elijas, salvo las citas, que son privadas.",
   "@intentPrivacyNote": {
     "description": "matching intent"
+  },
+  "gatheringNoClubsYet": "Aún no hay clubes: crea uno y tus quedadas tendrán un hogar.",
+  "@gatheringNoClubsYet": {
+    "description": "모임 / gatherings"
   }
 }

@@ -3291,5 +3291,9 @@
   "intentPrivacyNote": "Orang lain melihat pilihanmu, kecuali kencan yang tetap privat.",
   "@intentPrivacyNote": {
     "description": "matching intent"
+  },
+  "gatheringNoClubsYet": "Belum ada klub — buat satu agar pertemuanmu punya rumah.",
+  "@gatheringNoClubsYet": {
+    "description": "모임 / gatherings"
   }
 }

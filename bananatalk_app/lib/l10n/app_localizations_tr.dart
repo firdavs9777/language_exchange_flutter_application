@@ -7969,4 +7969,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get intentPrivacyNote => 'Seçimlerini başkaları görür; flört seçeneği gizli kalır.';
+
+  @override
+  String get gatheringNoClubsYet => 'Henüz kulüp yok — bir tane kur, buluşmaların bir yuvası olsun.';
 }

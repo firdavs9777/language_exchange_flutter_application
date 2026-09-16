@@ -3264,5 +3264,9 @@
   "intentPrivacyNote": "Nakikita ng iba ang pinili mo, maliban sa pakikipag-date na nananatiling pribado.",
   "@intentPrivacyNote": {
     "description": "matching intent"
+  },
+  "gatheringNoClubsYet": "Wala pang club — gumawa ka at magkakaroon ng tahanan ang mga pagtitipon mo.",
+  "@gatheringNoClubsYet": {
+    "description": "모임 / gatherings"
   }
 }

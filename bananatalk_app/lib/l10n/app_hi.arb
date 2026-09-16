@@ -3307,5 +3307,9 @@
   "intentPrivacyNote": "आपकी पसंद दूसरों को दिखती है, डेटिंग को छोड़कर जो निजी रहती है।",
   "@intentPrivacyNote": {
     "description": "matching intent"
+  },
+  "gatheringNoClubsYet": "अभी कोई क्लब नहीं — एक बनाइए, आपकी सभाओं को घर मिल जाएगा।",
+  "@gatheringNoClubsYet": {
+    "description": "모임 / gatherings"
   }
 }

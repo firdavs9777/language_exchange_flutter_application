@@ -5508,5 +5508,9 @@
   "intentPrivacyNote": "Others see what you pick, except dating, which stays private.",
   "@intentPrivacyNote": {
     "description": "matching intent"
+  },
+  "gatheringNoClubsYet": "No clubs yet — start one and your gatherings get a home.",
+  "@gatheringNoClubsYet": {
+    "description": "모임 / gatherings"
   }
 }

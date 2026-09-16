@@ -14701,6 +14701,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Others see what you pick, except dating, which stays private.'**
   String get intentPrivacyNote;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'No clubs yet — start one and your gatherings get a home.'**
+  String get gatheringNoClubsYet;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

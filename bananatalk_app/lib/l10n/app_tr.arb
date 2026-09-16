@@ -3503,5 +3503,9 @@
   "intentPrivacyNote": "Seçimlerini başkaları görür; flört seçeneği gizli kalır.",
   "@intentPrivacyNote": {
     "description": "matching intent"
+  },
+  "gatheringNoClubsYet": "Henüz kulüp yok — bir tane kur, buluşmaların bir yuvası olsun.",
+  "@gatheringNoClubsYet": {
+    "description": "모임 / gatherings"
   }
 }

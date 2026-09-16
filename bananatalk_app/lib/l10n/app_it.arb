@@ -3531,5 +3531,9 @@
   "intentPrivacyNote": "Gli altri vedono le tue scelte, tranne gli appuntamenti, che restano privati.",
   "@intentPrivacyNote": {
     "description": "matching intent"
+  },
+  "gatheringNoClubsYet": "Ancora nessun club: creane uno e i tuoi incontri avranno una casa.",
+  "@gatheringNoClubsYet": {
+    "description": "모임 / gatherings"
   }
 }

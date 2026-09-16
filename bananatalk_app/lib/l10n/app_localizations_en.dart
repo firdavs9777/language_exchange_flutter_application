@@ -7977,4 +7977,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get intentPrivacyNote => 'Others see what you pick, except dating, which stays private.';
+
+  @override
+  String get gatheringNoClubsYet => 'No clubs yet — start one and your gatherings get a home.';
 }

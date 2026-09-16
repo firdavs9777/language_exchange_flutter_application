@@ -7983,4 +7983,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get intentPrivacyNote => 'يرى الآخرون اختياراتك، عدا المواعدة التي تبقى خاصة.';
+
+  @override
+  String get gatheringNoClubsYet => 'لا توجد نوادٍ بعد — أنشئ نادياً ليصبح للقاءاتك مكان.';
 }

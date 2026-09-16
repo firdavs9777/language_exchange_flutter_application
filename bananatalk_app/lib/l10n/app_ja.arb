@@ -3291,5 +3291,9 @@
   "intentPrivacyNote": "選んだ内容は表示されます。デートは非公開です。",
   "@intentPrivacyNote": {
     "description": "matching intent"
+  },
+  "gatheringNoClubsYet": "まだクラブがありません。作れば集まりの拠点になります。",
+  "@gatheringNoClubsYet": {
+    "description": "모임 / gatherings"
   }
 }

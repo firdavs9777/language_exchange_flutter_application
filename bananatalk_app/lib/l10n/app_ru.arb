@@ -3321,5 +3321,9 @@
   "intentPrivacyNote": "Ваш выбор виден другим, кроме свиданий — это остаётся приватным.",
   "@intentPrivacyNote": {
     "description": "matching intent"
+  },
+  "gatheringNoClubsYet": "Пока нет клубов — создайте, и встречам будет где жить.",
+  "@gatheringNoClubsYet": {
+    "description": "모임 / gatherings"
   }
 }

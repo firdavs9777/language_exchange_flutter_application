@@ -7961,4 +7961,7 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get intentPrivacyNote => 'คนอื่นจะเห็นสิ่งที่คุณเลือก ยกเว้นการเดทซึ่งจะเป็นความลับ';
+
+  @override
+  String get gatheringNoClubsYet => 'ยังไม่มีคลับ — สร้างสักคลับเพื่อให้การพบปะของคุณมีที่อยู่';
 }

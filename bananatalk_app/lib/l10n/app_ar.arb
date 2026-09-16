@@ -3321,5 +3321,9 @@
   "intentPrivacyNote": "يرى الآخرون اختياراتك، عدا المواعدة التي تبقى خاصة.",
   "@intentPrivacyNote": {
     "description": "matching intent"
+  },
+  "gatheringNoClubsYet": "لا توجد نوادٍ بعد — أنشئ نادياً ليصبح للقاءاتك مكان.",
+  "@gatheringNoClubsYet": {
+    "description": "모임 / gatherings"
   }
 }

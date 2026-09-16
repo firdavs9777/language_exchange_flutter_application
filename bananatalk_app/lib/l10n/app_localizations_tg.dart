@@ -7975,4 +7975,7 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get intentPrivacyNote => 'Интихоби шумо ба дигарон намоён аст, ба ҷуз вохӯрӣ, ки махфӣ мемонад.';
+
+  @override
+  String get gatheringNoClubsYet => 'Ҳоло клуб нест — яктояшро созед, то вохӯриҳоятон ҷой дошта бошанд.';
 }

@@ -7961,6 +7961,9 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get intentPrivacyNote => '你的选择会公开显示，约会除外，它会保持私密。';
+
+  @override
+  String get gatheringNoClubsYet => '还没有俱乐部。创建一个，让你的聚会有个归属。';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -15920,4 +15923,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get intentPrivacyNote => '你的選擇會公開顯示，約會除外，它會保持私密。';
+
+  @override
+  String get gatheringNoClubsYet => '還沒有俱樂部。建立一個，讓你的聚會有個歸屬。';
 }

@@ -7971,4 +7971,7 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get intentPrivacyNote => 'Nakikita ng iba ang pinili mo, maliban sa pakikipag-date na nananatiling pribado.';
+
+  @override
+  String get gatheringNoClubsYet => 'Wala pang club — gumawa ka at magkakaroon ng tahanan ang mga pagtitipon mo.';
 }

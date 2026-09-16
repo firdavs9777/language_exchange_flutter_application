@@ -7968,4 +7968,7 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get intentPrivacyNote => 'Orang lain melihat pilihanmu, kecuali kencan yang tetap privat.';
+
+  @override
+  String get gatheringNoClubsYet => 'Belum ada klub — buat satu agar pertemuanmu punya rumah.';
 }
