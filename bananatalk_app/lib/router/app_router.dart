@@ -13,6 +13,7 @@ import 'package:bananatalk_app/pages/learning/exam_study/exam_dashboard_screen.d
 import 'package:bananatalk_app/pages/learning/main/learning_main_screen.dart';
 import 'package:bananatalk_app/providers/provider_models/exam/exam_language.dart';
 import 'package:bananatalk_app/providers/provider_models/exam/exam_type.dart';
+import 'package:bananatalk_app/pages/community/gatherings/gathering_detail_screen.dart';
 import 'package:bananatalk_app/screens/call_history_screen.dart';
 import 'package:go_router/go_router.dart';
 
@@ -210,6 +211,25 @@ final goRouter = GoRouter(
       },
     ),
 
+    // 모임 — deep-link-only, same shape and the same reason as `/room/:roomId`
+    // below. The detail screen fetches by id itself, so unlike
+    // `RoomScreenWrapper` no wrapper is needed: the id IS the whole argument.
+    //
+    // Without this route a gathering reminder push taps through to the
+    // home screen. That matters more here than for most types: the 24h
+    // reminder is the notification spec §5 calls load-bearing, and a reminder
+    // that does not open the thing it is reminding you about is most of the
+    // way to not being a reminder.
+    GoRoute(
+      path: '/gathering/:gatheringId',
+      pageBuilder: (context, state) {
+        final gatheringId = state.pathParameters['gatheringId']!;
+        return _buildSlideTransition(
+          state: state,
+          child: GatheringDetailScreen(gatheringId: gatheringId),
+        );
+      },
+    ),
     // Slide from right + fade — standard navigation push feel.
     // Rooms are otherwise only reached via `Navigator.push` from within the
     // Community tab (there's no directory-by-id GoRoute), so this is
