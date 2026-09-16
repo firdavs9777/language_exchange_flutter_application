@@ -198,7 +198,27 @@ a scoring expression, and a half-applied one is incoherent. §2.3 is additive an
 user-visible risk.
 
 Watch: conversations created per week (1,257/30d today) and the share of users with at
-least one perfect match (**79.5% after §2.2, up from 75.4%**).
+least one perfect match (**79.6% after §2.2, up from 75.4%**).
+
+### 5.1 Verified against production, 2026-09-16
+
+The shipped rule (`lib/matchLanguage.js`) measured against the live candidate pool, after
+Tasks 2-3:
+
+| | Pairs | Users with no perfect match |
+|---|---|---|
+| Exact string (before) | 7,596 | 320 (24.6%) |
+| **Shipped rule (after)** | **17,937** | **265 (20.4%)** |
+| Predicted by this spec | ~17,936 | ~267 (20.5%) |
+
+**+10,341 pairs (+136%). 55 users who had no language partner at all now have one.**
+
+The outcome landed one pair above prediction and two users better, because the shipped
+rule falls back to the raw value for unrecognised languages — so Dari↔Dari and the sign
+languages pair with each other, which the pure-normalization model counted as nothing.
+That is Global Constraint 1 visibly doing its job.
+
+The never-fewer constraint held: no user lost a match.
 
 ---
 
