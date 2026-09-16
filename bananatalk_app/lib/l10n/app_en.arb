@@ -470,6 +470,7 @@
   "showMessagePreviewInNotifications": "Show message preview in notifications",
   "mutedConversations": "Muted Conversations",
   "conversation": "Conversation",
+  "conversationHistory": "Conversation History",
   "unmute": "Unmute",
   "systemNotificationSettings": "System Notification Settings",
   "manageNotificationsInSystemSettings": "Manage notifications in system settings",

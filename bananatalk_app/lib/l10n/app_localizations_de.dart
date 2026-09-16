@@ -902,6 +902,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String get conversation => 'Unterhaltung';
 
   @override
+  String get conversationHistory => 'Gesprächsverlauf';
+
+  @override
   String get unmute => 'Stummschaltung aufheben';
 
   @override

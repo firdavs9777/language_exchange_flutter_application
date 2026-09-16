@@ -902,6 +902,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get conversation => 'محادثة';
 
   @override
+  String get conversationHistory => 'سجل المحادثات';
+
+  @override
   String get unmute => 'إلغاء كتم الصوت';
 
   @override

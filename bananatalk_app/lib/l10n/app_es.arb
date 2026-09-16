@@ -164,6 +164,7 @@
   "showMessagePreviewInNotifications": "Mostrar vista previa del mensaje en notificaciones",
   "mutedConversations": "Conversaciones silenciadas",
   "conversation": "Conversación",
+  "conversationHistory": "Historial de conversaciones",
   "unmute": "Activar sonido",
   "systemNotificationSettings": "Configuración de notificaciones del sistema",
   "manageNotificationsInSystemSettings": "Gestionar notificaciones en la configuración del sistema",

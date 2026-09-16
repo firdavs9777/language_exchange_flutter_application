@@ -1,4 +1,5 @@
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
+import 'package:bananatalk_app/pages/ai/translation/translation_screen.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/pages/community/single/single_community_screen.dart';
 import 'package:bananatalk_app/pages/chat/search/chat_search_screen.dart';
@@ -191,6 +192,20 @@ class _ChatOptionsMenuState extends ConsumerState<ChatOptionsMenu> {
             contentPadding: EdgeInsets.zero,
           ),
         ),
+        // The translation TOOL, as opposed to auto-translate's per-conversation
+        // setting above. It used to sit as the fifth card of seven on the Study
+        // Hub's second tab, despite being used 2.6x more than anything else
+        // there (295 calls / 74 users in 30 days). Nobody opens a study tab to
+        // translate; they translate mid-conversation with a person, which is
+        // here.
+        PopupMenuItem(
+          value: 'translate_tool',
+          child: ListTile(
+            leading: const Icon(Icons.g_translate_rounded),
+            title: Text(l10n.translation),
+            contentPadding: EdgeInsets.zero,
+          ),
+        ),
         const PopupMenuDivider(),
 
         // Block/Unblock - dynamically change based on status
@@ -309,6 +324,13 @@ class _ChatOptionsMenuState extends ConsumerState<ChatOptionsMenu> {
             );
           }
         }
+        break;
+
+      case 'translate_tool':
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (_) => const TranslationScreen()),
+        );
         break;
 
       case 'auto_translate':

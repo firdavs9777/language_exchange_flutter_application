@@ -902,6 +902,9 @@ class AppLocalizationsTl extends AppLocalizations {
   String get conversation => 'Usapan';
 
   @override
+  String get conversationHistory => 'Kasaysayan ng Pag-uusap';
+
+  @override
   String get unmute => 'I-unmute';
 
   @override

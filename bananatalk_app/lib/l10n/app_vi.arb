@@ -165,6 +165,7 @@
   "showMessagePreviewInNotifications": "Hiển thị xem trước tin nhắn trong thông báo",
   "mutedConversations": "Cuộc trò chuyện đã tắt tiếng",
   "conversation": "Cuộc trò chuyện",
+  "conversationHistory": "Lịch sử trò chuyện",
   "unmute": "Bật tiếng",
   "systemNotificationSettings": "Cài đặt thông báo hệ thống",
   "manageNotificationsInSystemSettings": "Quản lý thông báo trong cài đặt hệ thống",

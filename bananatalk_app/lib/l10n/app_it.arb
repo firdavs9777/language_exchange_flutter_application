@@ -199,6 +199,7 @@
   "showMessagePreviewInNotifications": "Mostra anteprima messaggio nelle notifiche",
   "mutedConversations": "Conversazioni silenziate",
   "conversation": "Conversazione",
+  "conversationHistory": "Cronologia conversazioni",
   "unmute": "Riattiva",
   "systemNotificationSettings": "Impostazioni notifiche di sistema",
   "manageNotificationsInSystemSettings": "Gestisci notifiche nelle impostazioni di sistema",

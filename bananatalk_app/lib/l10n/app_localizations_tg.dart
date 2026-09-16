@@ -902,6 +902,9 @@ class AppLocalizationsTg extends AppLocalizations {
   String get conversation => 'Сӯҳбат';
 
   @override
+  String get conversationHistory => 'Таърихи сӯҳбатҳо';
+
+  @override
   String get unmute => 'Бо садо кардан';
 
   @override

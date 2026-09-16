@@ -164,6 +164,7 @@
   "showMessagePreviewInNotifications": "Mostrar prévia da mensagem nas notificações",
   "mutedConversations": "Conversas Silenciadas",
   "conversation": "Conversa",
+  "conversationHistory": "Histórico de conversas",
   "unmute": "Reativar Som",
   "systemNotificationSettings": "Configurações de Notificação do Sistema",
   "manageNotificationsInSystemSettings": "Gerenciar notificações nas configurações do sistema",

@@ -902,6 +902,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get conversation => 'Разговор';
 
   @override
+  String get conversationHistory => 'История разговоров';
+
+  @override
   String get unmute => 'Включить звук';
 
   @override

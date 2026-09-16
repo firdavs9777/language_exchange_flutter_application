@@ -902,6 +902,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get conversation => 'Conversación';
 
   @override
+  String get conversationHistory => 'Historial de conversaciones';
+
+  @override
   String get unmute => 'Activar sonido';
 
   @override

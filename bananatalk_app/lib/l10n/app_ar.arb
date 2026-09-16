@@ -164,6 +164,7 @@
   "showMessagePreviewInNotifications": "إظهار معاينة الرسالة في الإشعارات",
   "mutedConversations": "المحادثات المكتومة",
   "conversation": "محادثة",
+  "conversationHistory": "سجل المحادثات",
   "unmute": "إلغاء كتم الصوت",
   "systemNotificationSettings": "إعدادات إشعارات النظام",
   "manageNotificationsInSystemSettings": "إدارة الإشعارات في إعدادات النظام",

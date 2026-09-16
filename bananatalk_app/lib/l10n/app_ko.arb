@@ -165,6 +165,7 @@
   "showMessagePreviewInNotifications": "알림에 메시지 미리보기 표시",
   "mutedConversations": "음소거된 대화",
   "conversation": "대화",
+  "conversationHistory": "대화 기록",
   "unmute": "음소거 해제",
   "systemNotificationSettings": "시스템 알림 설정",
   "manageNotificationsInSystemSettings": "시스템 설정에서 알림 관리",

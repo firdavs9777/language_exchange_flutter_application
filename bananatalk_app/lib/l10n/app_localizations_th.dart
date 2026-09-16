@@ -902,6 +902,9 @@ class AppLocalizationsTh extends AppLocalizations {
   String get conversation => 'การสนทนา';
 
   @override
+  String get conversationHistory => 'ประวัติการสนทนา';
+
+  @override
   String get unmute => 'เปิดเสียง';
 
   @override

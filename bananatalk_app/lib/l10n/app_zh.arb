@@ -164,6 +164,7 @@
   "showMessagePreviewInNotifications": "在通知中显示消息预览",
   "mutedConversations": "静音对话",
   "conversation": "对话",
+  "conversationHistory": "对话记录",
   "unmute": "取消静音",
   "systemNotificationSettings": "系统通知设置",
   "manageNotificationsInSystemSettings": "在系统设置中管理通知",

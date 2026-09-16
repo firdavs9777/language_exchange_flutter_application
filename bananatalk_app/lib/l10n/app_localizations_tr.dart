@@ -902,6 +902,9 @@ class AppLocalizationsTr extends AppLocalizations {
   String get conversation => 'Sohbet';
 
   @override
+  String get conversationHistory => 'Konuşma Geçmişi';
+
+  @override
   String get unmute => 'Sesi Aç';
 
   @override

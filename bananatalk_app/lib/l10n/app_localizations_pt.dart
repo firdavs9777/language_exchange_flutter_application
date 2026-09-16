@@ -902,6 +902,9 @@ class AppLocalizationsPt extends AppLocalizations {
   String get conversation => 'Conversa';
 
   @override
+  String get conversationHistory => 'Histórico de conversas';
+
+  @override
   String get unmute => 'Reativar Som';
 
   @override

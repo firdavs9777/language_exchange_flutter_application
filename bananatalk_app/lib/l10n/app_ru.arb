@@ -164,6 +164,7 @@
   "showMessagePreviewInNotifications": "Показывать предпросмотр сообщений в уведомлениях",
   "mutedConversations": "Приглушенные разговоры",
   "conversation": "Разговор",
+  "conversationHistory": "История разговоров",
   "unmute": "Включить звук",
   "systemNotificationSettings": "Настройки системных уведомлений",
   "manageNotificationsInSystemSettings": "Управление уведомлениями в системных настройках",

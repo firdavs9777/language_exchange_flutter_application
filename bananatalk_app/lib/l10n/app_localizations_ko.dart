@@ -902,6 +902,9 @@ class AppLocalizationsKo extends AppLocalizations {
   String get conversation => '대화';
 
   @override
+  String get conversationHistory => '대화 기록';
+
+  @override
   String get unmute => '음소거 해제';
 
   @override

@@ -199,6 +199,7 @@
   "showMessagePreviewInNotifications": "Nachrichtenvorschau in Benachrichtigungen anzeigen",
   "mutedConversations": "Stummgeschaltete Unterhaltungen",
   "conversation": "Unterhaltung",
+  "conversationHistory": "Gesprächsverlauf",
   "unmute": "Stummschaltung aufheben",
   "systemNotificationSettings": "System-Benachrichtigungseinstellungen",
   "manageNotificationsInSystemSettings": "Benachrichtigungen in Systemeinstellungen verwalten",

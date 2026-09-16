@@ -902,6 +902,9 @@ class AppLocalizationsId extends AppLocalizations {
   String get conversation => 'Percakapan';
 
   @override
+  String get conversationHistory => 'Riwayat Percakapan';
+
+  @override
   String get unmute => 'Bunyikan';
 
   @override

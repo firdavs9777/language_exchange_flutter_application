@@ -165,6 +165,7 @@
   "showMessagePreviewInNotifications": "แสดงตัวอย่างข้อความในการแจ้งเตือน",
   "mutedConversations": "การสนทนาที่ปิดเสียง",
   "conversation": "การสนทนา",
+  "conversationHistory": "ประวัติการสนทนา",
   "unmute": "เปิดเสียง",
   "systemNotificationSettings": "ตั้งค่าการแจ้งเตือนระบบ",
   "manageNotificationsInSystemSettings": "จัดการการแจ้งเตือนในตั้งค่าระบบ",

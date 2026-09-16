@@ -165,6 +165,7 @@
   "showMessagePreviewInNotifications": "Ipakita ang preview ng mensahe sa mga notipikasyon",
   "mutedConversations": "Mga Naka-mute na Usapan",
   "conversation": "Usapan",
+  "conversationHistory": "Kasaysayan ng Pag-uusap",
   "unmute": "I-unmute",
   "systemNotificationSettings": "Mga Setting ng System Notification",
   "manageNotificationsInSystemSettings": "Pamahalaan ang mga notipikasyon sa system settings",

@@ -902,6 +902,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get conversation => '对话';
 
   @override
+  String get conversationHistory => '对话记录';
+
+  @override
   String get unmute => '取消静音';
 
   @override
@@ -8539,6 +8542,9 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get conversation => '對話';
+
+  @override
+  String get conversationHistory => '對話記錄';
 
   @override
   String get unmute => '取消靜音';

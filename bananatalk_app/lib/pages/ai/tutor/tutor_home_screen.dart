@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/pages/ai/conversation/conversation_history_screen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:bananatalk_app/models/tutor/tutor_memory.dart';
@@ -379,24 +380,59 @@ class _RecentSessions extends StatelessWidget {
       loading: () => const SizedBox.shrink(),
       error: (_, __) => const SizedBox.shrink(),
       data: (sessions) {
-        if (sessions.isEmpty) return const SizedBox.shrink();
+        // Note the archive link renders even with no tutor sessions: a user who
+        // has only ever used the retired AI Conversation feature has no tutor
+        // history at all, and they are exactly the person who needs the link.
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(AppLocalizations.of(context)!.aiTutorHomeRecent,
-                style: context.titleSmall.copyWith(fontWeight: FontWeight.w600)),
-            const SizedBox(height: 8),
-            for (final s in sessions.take(5))
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 4),
-                child: Text(
-                  s.summary ?? '(no summary)',
-                  style: context.bodySmall.copyWith(color: context.textSecondary),
+            if (sessions.isNotEmpty) ...[
+              Text(AppLocalizations.of(context)!.aiTutorHomeRecent,
+                  style: context.titleSmall.copyWith(fontWeight: FontWeight.w600)),
+              const SizedBox(height: 8),
+              for (final s in sessions.take(5))
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 4),
+                  child: Text(
+                    s.summary ?? '(no summary)',
+                    style: context.bodySmall.copyWith(color: context.textSecondary),
+                  ),
                 ),
-              ),
+            ],
+            const _ConversationArchiveLink(),
           ],
         );
       },
+    );
+  }
+}
+
+/// The way back to AI Conversation's saved history.
+///
+/// AI Conversation was retired as an entry point because it duplicated the
+/// tutor on a second backend, but 141 saved conversations belong to users and
+/// deleting user content to tidy a menu is the wrong trade.
+///
+/// This link is load-bearing, not decorative: ConversationHistoryScreen was
+/// reachable ONLY from AIConversationScreen, so removing that grid card
+/// orphaned every one of those transcripts. The spec requires the history stay
+/// readable from the tutor's session list, and this is that.
+class _ConversationArchiveLink extends StatelessWidget {
+  const _ConversationArchiveLink();
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 12),
+      child: TextButton.icon(
+        onPressed: () => Navigator.push(
+          context,
+          MaterialPageRoute(builder: (_) => const ConversationHistoryScreen()),
+        ),
+        icon: const Icon(Icons.history_rounded, size: 18),
+        label: Text(AppLocalizations.of(context)!.conversationHistory),
+        style: TextButton.styleFrom(padding: EdgeInsets.zero),
+      ),
     );
   }
 }

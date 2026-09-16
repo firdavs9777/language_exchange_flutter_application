@@ -164,6 +164,7 @@
   "showMessagePreviewInNotifications": "通知にメッセージのプレビューを表示",
   "mutedConversations": "ミュートされた会話",
   "conversation": "会話",
+  "conversationHistory": "会話履歴",
   "unmute": "ミュート解除",
   "systemNotificationSettings": "システム通知設定",
   "manageNotificationsInSystemSettings": "システム設定で通知を管理",

@@ -164,6 +164,7 @@
   "showMessagePreviewInNotifications": "सूचनाओं में संदेश प्रीव्यू दिखाएं",
   "mutedConversations": "म्यूट बातचीत",
   "conversation": "बातचीत",
+  "conversationHistory": "बातचीत का इतिहास",
   "unmute": "अनम्यूट",
   "systemNotificationSettings": "सिस्टम सूचना सेटिंग्स",
   "manageNotificationsInSystemSettings": "सिस्टम सेटिंग्स में सूचनाएं प्रबंधित करें",

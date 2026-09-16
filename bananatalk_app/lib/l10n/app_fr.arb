@@ -199,6 +199,7 @@
   "showMessagePreviewInNotifications": "Afficher l'aperçu du message dans les notifications",
   "mutedConversations": "Conversations en sourdine",
   "conversation": "Conversation",
+  "conversationHistory": "Historique des conversations",
   "unmute": "Réactiver",
   "systemNotificationSettings": "Paramètres de notification système",
   "manageNotificationsInSystemSettings": "Gérer les notifications dans les paramètres système",

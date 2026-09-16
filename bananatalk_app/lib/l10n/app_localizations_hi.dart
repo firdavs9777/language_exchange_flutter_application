@@ -902,6 +902,9 @@ class AppLocalizationsHi extends AppLocalizations {
   String get conversation => 'बातचीत';
 
   @override
+  String get conversationHistory => 'बातचीत का इतिहास';
+
+  @override
   String get unmute => 'अनम्यूट';
 
   @override

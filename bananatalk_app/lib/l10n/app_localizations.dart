@@ -1826,6 +1826,12 @@ abstract class AppLocalizations {
   /// **'Conversation'**
   String get conversation;
 
+  /// No description provided for @conversationHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Conversation History'**
+  String get conversationHistory;
+
   /// No description provided for @unmute.
   ///
   /// In en, this message translates to:

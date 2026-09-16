@@ -165,6 +165,7 @@
   "showMessagePreviewInNotifications": "在通知中顯示訊息預覽",
   "mutedConversations": "已靜音的對話",
   "conversation": "對話",
+  "conversationHistory": "對話記錄",
   "unmute": "取消靜音",
   "systemNotificationSettings": "系統通知設定",
   "manageNotificationsInSystemSettings": "在系統設定中管理通知",
