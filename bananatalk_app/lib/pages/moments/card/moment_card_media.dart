@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/pages/moments/card/moment_media_carousel.dart';
 import 'package:bananatalk_app/pages/moments/viewer/image_viewer.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
@@ -16,7 +17,16 @@ class MomentCardMedia extends StatelessWidget {
   final List<String> imageUrls;
   final MomentAudio? audio;
 
-  const MomentCardMedia({super.key, required this.imageUrls, this.audio});
+  /// When set, carousel pages are Hero-tagged so tapping through to detail
+  /// expands the image the reader was actually looking at.
+  final String? heroPrefix;
+
+  const MomentCardMedia({
+    super.key,
+    required this.imageUrls,
+    this.audio,
+    this.heroPrefix,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -46,97 +56,13 @@ class MomentCardMedia extends StatelessWidget {
   }
 
   Widget _buildImageGrid(BuildContext context) {
-    final imageCount = imageUrls.length;
-
-    if (imageCount == 1) {
-      return GestureDetector(
-        onTap: () {
-          Navigator.push(
-            context,
-            AppPageRoute(
-              builder: (context) => ImageGallery(
-                imageUrls: imageUrls,
-                initialIndex: 0,
-              ),
-            ),
-          );
-        },
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12),
-          child: NaturalAspectImage(
-            imageUrl: imageUrls[0],
-            borderRadius: BorderRadius.circular(8),
-            errorWidget: Container(
-              width: double.infinity,
-              color: context.containerColor,
-              child: Icon(
-                Icons.broken_image,
-                size: 50,
-                color: context.textMuted,
-              ),
-            ),
-          ),
-        ),
-      );
-    }
-
-    // HelloTalk style: 2 images side-by-side with gap
-    if (imageCount == 2) {
-      return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12),
-        child: Row(
-          children: [
-            Expanded(
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: AspectRatio(
-                  aspectRatio: 1.0,
-                  child: _buildImageItem(context, imageUrls[0], 0),
-                ),
-              ),
-            ),
-            const SizedBox(width: 3),
-            Expanded(
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: AspectRatio(
-                  aspectRatio: 1.0,
-                  child: _buildImageItem(context, imageUrls[1], 1),
-                ),
-              ),
-            ),
-          ],
-        ),
-      );
-    }
-
-    // For 3+ images, use grid
+    if (imageUrls.isEmpty) return const SizedBox.shrink();
+    // One widget for every count. A 1-image post and a 5-image post get the
+    // same frame, so the feed keeps a single rhythm -- and every image is
+    // reachable, where the grid this replaced rendered at most six.
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12),
-      child: GridView.builder(
-        physics: const NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3,
-          crossAxisSpacing: 3,
-          mainAxisSpacing: 3,
-          childAspectRatio: 1,
-        ),
-        itemCount: imageCount > 6 ? 6 : imageCount,
-        itemBuilder: (context, index) {
-          final isLastItem = index == 5 && imageCount > 6;
-          return ClipRRect(
-            borderRadius: BorderRadius.circular(4),
-            child: _buildImageItem(
-              context,
-              imageUrls[index],
-              index,
-              isLastItem: isLastItem,
-              remainingCount: isLastItem ? imageCount - 6 : 0,
-            ),
-          );
-        },
-      ),
+      child: MomentMediaCarousel(imageUrls: imageUrls, heroPrefix: heroPrefix),
     );
   }
 
@@ -152,10 +78,8 @@ class MomentCardMedia extends StatelessWidget {
         Navigator.push(
           context,
           AppPageRoute(
-            builder: (context) => ImageGallery(
-              imageUrls: imageUrls,
-              initialIndex: index,
-            ),
+            builder: (context) =>
+                ImageGallery(imageUrls: imageUrls, initialIndex: index),
           ),
         );
       },

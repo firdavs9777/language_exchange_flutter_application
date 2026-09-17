@@ -1,175 +1,26 @@
-import 'package:bananatalk_app/pages/moments/viewer/image_viewer.dart';
-import 'package:bananatalk_app/utils/app_page_route.dart';
-import 'package:bananatalk_app/utils/theme_extensions.dart';
-import 'package:bananatalk_app/widgets/cached_image_widget.dart';
-import 'package:bananatalk_app/widgets/natural_aspect_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
-/// Displays one or more moment images in a responsive grid layout.
-///
-/// - 1 image → full-width with fixed height.
-/// - 2 images → side-by-side square tiles.
-/// - 3-6 images → 3-column grid; the 6th slot shows "+N" overlay if more exist.
-///
-/// Tapping any image opens [ImageGallery] at the corresponding index.
+import 'package:bananatalk_app/pages/moments/card/moment_media_carousel.dart';
+
 class MomentImageGrid extends StatelessWidget {
   final List<String> imageUrls;
 
-  const MomentImageGrid({super.key, required this.imageUrls});
+  /// Hero tags matching the feed card, so opening image three expands THAT
+  /// image rather than the first.
+  final String? heroPrefix;
+
+  const MomentImageGrid({super.key, required this.imageUrls, this.heroPrefix});
 
   @override
   Widget build(BuildContext context) {
+    if (imageUrls.isEmpty) return const SizedBox.shrink();
+    // The same carousel the feed uses. A carousel in the feed and a grid here
+    // would mean swiping works, then stops working, at exactly the point the
+    // reader has shown more interest. The grid this replaced also rendered at
+    // most six images, so a nine-image moment lost three of them here too.
     return Padding(
       padding: const EdgeInsets.only(bottom: 16),
-      child: _buildGrid(context),
-    );
-  }
-
-  Widget _buildGrid(BuildContext context) {
-    final imageCount = imageUrls.length;
-
-    if (imageCount == 1) {
-      return GestureDetector(
-        onTap: () {
-          Navigator.push(
-            context,
-            AppPageRoute(
-              builder: (context) => ImageGallery(
-                imageUrls: imageUrls,
-                initialIndex: 0,
-              ),
-            ),
-          );
-        },
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12),
-          child: NaturalAspectImage(
-            imageUrl: imageUrls[0],
-            borderRadius: BorderRadius.circular(8),
-            errorWidget: Container(
-              width: double.infinity,
-              color: context.containerColor,
-              child: Icon(
-                Icons.broken_image,
-                size: 50,
-                color: context.textMuted,
-              ),
-            ),
-          ),
-        ),
-      );
-    }
-
-    if (imageCount == 2) {
-      return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12),
-        child: Row(
-          children: [
-            Expanded(
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: AspectRatio(
-                  aspectRatio: 1.0,
-                  child: _buildImageItem(context, imageUrls[0], 0),
-                ),
-              ),
-            ),
-            const SizedBox(width: 3),
-            Expanded(
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: AspectRatio(
-                  aspectRatio: 1.0,
-                  child: _buildImageItem(context, imageUrls[1], 1),
-                ),
-              ),
-            ),
-          ],
-        ),
-      );
-    }
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12),
-      child: GridView.builder(
-        physics: const NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3,
-          crossAxisSpacing: 3,
-          mainAxisSpacing: 3,
-          childAspectRatio: 1,
-        ),
-        itemCount: imageCount > 6 ? 6 : imageCount,
-        itemBuilder: (context, index) {
-          final isLastItem = index == 5 && imageCount > 6;
-          return ClipRRect(
-            borderRadius: BorderRadius.circular(4),
-            child: _buildImageItem(
-              context,
-              imageUrls[index],
-              index,
-              isLastItem: isLastItem,
-              remainingCount: isLastItem ? imageCount - 6 : 0,
-            ),
-          );
-        },
-      ),
-    );
-  }
-
-  Widget _buildImageItem(
-    BuildContext context,
-    String url,
-    int index, {
-    bool isLastItem = false,
-    int remainingCount = 0,
-  }) {
-    return GestureDetector(
-      onTap: () {
-        HapticFeedback.selectionClick();
-        Navigator.push(
-          context,
-          AppPageRoute(
-            builder: (context) => ImageGallery(
-              imageUrls: imageUrls,
-              initialIndex: index,
-            ),
-          ),
-        );
-      },
-      child: Stack(
-        fit: StackFit.expand,
-        children: [
-          CachedImageWidget(
-            imageUrl: url,
-            fit: BoxFit.cover,
-            errorWidget: Container(
-              color: context.containerColor,
-              child: Icon(
-                Icons.broken_image,
-                size: 30,
-                color: context.textMuted,
-              ),
-            ),
-          ),
-          if (isLastItem)
-            Container(
-              color: Colors.black54,
-              child: Center(
-                child: Text(
-                  '+$remainingCount',
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ),
-        ],
-      ),
+      child: MomentMediaCarousel(imageUrls: imageUrls, heroPrefix: heroPrefix),
     );
   }
 }
