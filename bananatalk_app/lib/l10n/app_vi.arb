@@ -3372,5 +3372,9 @@
   "composerNext": "Tiếp theo",
   "@composerNext": {
     "description": "moment composer"
-  }
+  },
+  "notifyRepliesTitle": "Nhận thông báo khi có người trả lời",
+  "notifyRepliesBody": "Chúng tôi sẽ báo về tin nhắn mới và lời nhắc học tập hằng ngày. Bạn có thể tắt bất kỳ lúc nào.",
+  "notifyRepliesEnable": "Bật",
+  "notifyRepliesLater": "Để sau"
 }

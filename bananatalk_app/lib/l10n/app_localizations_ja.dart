@@ -8020,4 +8020,16 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get composerNext => '次へ';
+
+  @override
+  String get notifyRepliesTitle => '返信が来たらお知らせします';
+
+  @override
+  String get notifyRepliesBody => '新しいメッセージと毎日の学習リマインダーをお届けします。どちらもいつでもオフにできます。';
+
+  @override
+  String get notifyRepliesEnable => 'オンにする';
+
+  @override
+  String get notifyRepliesLater => 'あとで';
 }

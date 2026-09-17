@@ -8051,4 +8051,16 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get composerNext => 'Далее';
+
+  @override
+  String get notifyRepliesTitle => 'Уведомлять, когда вам ответят';
+
+  @override
+  String get notifyRepliesBody => 'Мы сообщим о новых сообщениях и ежедневном напоминании об учёбе. Любое из них можно отключить в любой момент.';
+
+  @override
+  String get notifyRepliesEnable => 'Включить';
+
+  @override
+  String get notifyRepliesLater => 'Не сейчас';
 }

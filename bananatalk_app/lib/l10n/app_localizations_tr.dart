@@ -8028,4 +8028,16 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get composerNext => 'İleri';
+
+  @override
+  String get notifyRepliesTitle => 'Biri yanıtladığında bildirim al';
+
+  @override
+  String get notifyRepliesBody => 'Yeni mesajları ve günlük çalışma hatırlatmanı bildiririz. İkisini de istediğin zaman kapatabilirsin.';
+
+  @override
+  String get notifyRepliesEnable => 'Aç';
+
+  @override
+  String get notifyRepliesLater => 'Şimdi değil';
 }

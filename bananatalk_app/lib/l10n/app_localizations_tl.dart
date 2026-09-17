@@ -8030,4 +8030,16 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get composerNext => 'Susunod';
+
+  @override
+  String get notifyRepliesTitle => 'Ipaalam kapag may sumagot';
+
+  @override
+  String get notifyRepliesBody => 'Ipapaalam namin ang mga bagong mensahe at ang araw-araw mong paalala sa pag-aaral. Puwede mong i-off ang alinman anumang oras.';
+
+  @override
+  String get notifyRepliesEnable => 'I-on';
+
+  @override
+  String get notifyRepliesLater => 'Hindi muna';
 }

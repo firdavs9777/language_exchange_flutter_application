@@ -3372,5 +3372,9 @@
   "composerNext": "ถัดไป",
   "@composerNext": {
     "description": "moment composer"
-  }
+  },
+  "notifyRepliesTitle": "แจ้งเตือนเมื่อมีคนตอบกลับ",
+  "notifyRepliesBody": "เราจะแจ้งข้อความใหม่และการเตือนเรียนประจำวัน คุณปิดอย่างใดอย่างหนึ่งได้ทุกเมื่อ",
+  "notifyRepliesEnable": "เปิด",
+  "notifyRepliesLater": "ไว้ก่อน"
 }

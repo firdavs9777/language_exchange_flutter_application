@@ -8020,4 +8020,16 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get composerNext => 'ถัดไป';
+
+  @override
+  String get notifyRepliesTitle => 'แจ้งเตือนเมื่อมีคนตอบกลับ';
+
+  @override
+  String get notifyRepliesBody => 'เราจะแจ้งข้อความใหม่และการเตือนเรียนประจำวัน คุณปิดอย่างใดอย่างหนึ่งได้ทุกเมื่อ';
+
+  @override
+  String get notifyRepliesEnable => 'เปิด';
+
+  @override
+  String get notifyRepliesLater => 'ไว้ก่อน';
 }

@@ -8020,6 +8020,18 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get composerNext => '下一步';
+
+  @override
+  String get notifyRepliesTitle => '有人回复时通知我';
+
+  @override
+  String get notifyRepliesBody => '我们会通知你新消息和每日学习提醒。两者都可以随时关闭。';
+
+  @override
+  String get notifyRepliesEnable => '开启';
+
+  @override
+  String get notifyRepliesLater => '暂不';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -16038,4 +16050,16 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get composerNext => '下一步';
+
+  @override
+  String get notifyRepliesTitle => '有人回覆時通知我';
+
+  @override
+  String get notifyRepliesBody => '我們會通知你新訊息和每日學習提醒。兩者都可以隨時關閉。';
+
+  @override
+  String get notifyRepliesEnable => '開啟';
+
+  @override
+  String get notifyRepliesLater => '暫不';
 }

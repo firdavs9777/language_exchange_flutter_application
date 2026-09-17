@@ -8027,4 +8027,16 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get composerNext => 'Lanjut';
+
+  @override
+  String get notifyRepliesTitle => 'Dapatkan notifikasi saat ada yang membalas';
+
+  @override
+  String get notifyRepliesBody => 'Kami akan memberi tahu tentang pesan baru dan pengingat belajar harian. Keduanya bisa dimatikan kapan saja.';
+
+  @override
+  String get notifyRepliesEnable => 'Aktifkan';
+
+  @override
+  String get notifyRepliesLater => 'Nanti saja';
 }

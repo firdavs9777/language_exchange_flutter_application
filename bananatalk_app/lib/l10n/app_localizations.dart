@@ -14815,6 +14815,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Next'**
   String get composerNext;
+
+  /// No description provided for @notifyRepliesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Get notified when someone replies'**
+  String get notifyRepliesTitle;
+
+  /// No description provided for @notifyRepliesBody.
+  ///
+  /// In en, this message translates to:
+  /// **'We\'ll let you know about new messages and your daily study reminder. You can turn either off any time.'**
+  String get notifyRepliesBody;
+
+  /// No description provided for @notifyRepliesEnable.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn on'**
+  String get notifyRepliesEnable;
+
+  /// No description provided for @notifyRepliesLater.
+  ///
+  /// In en, this message translates to:
+  /// **'Not now'**
+  String get notifyRepliesLater;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -3372,5 +3372,9 @@
   "composerNext": "次へ",
   "@composerNext": {
     "description": "moment composer"
-  }
+  },
+  "notifyRepliesTitle": "返信が来たらお知らせします",
+  "notifyRepliesBody": "新しいメッセージと毎日の学習リマインダーをお届けします。どちらもいつでもオフにできます。",
+  "notifyRepliesEnable": "オンにする",
+  "notifyRepliesLater": "あとで"
 }

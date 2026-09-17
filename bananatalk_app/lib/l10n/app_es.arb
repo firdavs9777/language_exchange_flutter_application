@@ -3402,5 +3402,9 @@
   "composerNext": "Siguiente",
   "@composerNext": {
     "description": "moment composer"
-  }
+  },
+  "notifyRepliesTitle": "Recibe un aviso cuando alguien responda",
+  "notifyRepliesBody": "Te avisaremos de los mensajes nuevos y de tu recordatorio diario de estudio. Puedes desactivar cualquiera cuando quieras.",
+  "notifyRepliesEnable": "Activar",
+  "notifyRepliesLater": "Ahora no"
 }

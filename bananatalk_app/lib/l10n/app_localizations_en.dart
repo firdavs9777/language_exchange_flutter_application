@@ -8036,4 +8036,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get composerNext => 'Next';
+
+  @override
+  String get notifyRepliesTitle => 'Get notified when someone replies';
+
+  @override
+  String get notifyRepliesBody => 'We\'ll let you know about new messages and your daily study reminder. You can turn either off any time.';
+
+  @override
+  String get notifyRepliesEnable => 'Turn on';
+
+  @override
+  String get notifyRepliesLater => 'Not now';
 }

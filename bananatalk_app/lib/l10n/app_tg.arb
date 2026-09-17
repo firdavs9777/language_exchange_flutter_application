@@ -2865,5 +2865,9 @@
   "composerNext": "Минбаъд",
   "@composerNext": {
     "description": "moment composer"
-  }
+  },
+  "notifyRepliesTitle": "Вақте касе ҷавоб медиҳад, хабар диҳед",
+  "notifyRepliesBody": "Мо дар бораи паёмҳои нав ва ёдоварии ҳаррӯзаи омӯзиш хабар медиҳем. Шумо метавонед ҳар вақт онҳоро хомӯш кунед.",
+  "notifyRepliesEnable": "Фаъол кардан",
+  "notifyRepliesLater": "Ҳоло не"
 }

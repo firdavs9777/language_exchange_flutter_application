@@ -3584,5 +3584,9 @@
   "composerNext": "İleri",
   "@composerNext": {
     "description": "moment composer"
-  }
+  },
+  "notifyRepliesTitle": "Biri yanıtladığında bildirim al",
+  "notifyRepliesBody": "Yeni mesajları ve günlük çalışma hatırlatmanı bildiririz. İkisini de istediğin zaman kapatabilirsin.",
+  "notifyRepliesEnable": "Aç",
+  "notifyRepliesLater": "Şimdi değil"
 }

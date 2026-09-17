@@ -3402,5 +3402,9 @@
   "composerNext": "التالي",
   "@composerNext": {
     "description": "moment composer"
-  }
+  },
+  "notifyRepliesTitle": "أعلمني عندما يرد أحد",
+  "notifyRepliesBody": "سنُعلمك بالرسائل الجديدة وتذكير الدراسة اليومي. يمكنك إيقاف أي منهما في أي وقت.",
+  "notifyRepliesEnable": "تفعيل",
+  "notifyRepliesLater": "ليس الآن"
 }

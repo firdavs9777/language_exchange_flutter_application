@@ -5589,5 +5589,9 @@
   "composerNext": "Next",
   "@composerNext": {
     "description": "moment composer"
-  }
+  },
+  "notifyRepliesTitle": "Get notified when someone replies",
+  "notifyRepliesBody": "We'll let you know about new messages and your daily study reminder. You can turn either off any time.",
+  "notifyRepliesEnable": "Turn on",
+  "notifyRepliesLater": "Not now"
 }

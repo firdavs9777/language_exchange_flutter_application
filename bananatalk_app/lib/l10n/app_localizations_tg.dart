@@ -8034,4 +8034,16 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get composerNext => 'Минбаъд';
+
+  @override
+  String get notifyRepliesTitle => 'Вақте касе ҷавоб медиҳад, хабар диҳед';
+
+  @override
+  String get notifyRepliesBody => 'Мо дар бораи паёмҳои нав ва ёдоварии ҳаррӯзаи омӯзиш хабар медиҳем. Шумо метавонед ҳар вақт онҳоро хомӯш кунед.';
+
+  @override
+  String get notifyRepliesEnable => 'Фаъол кардан';
+
+  @override
+  String get notifyRepliesLater => 'Ҳоло не';
 }

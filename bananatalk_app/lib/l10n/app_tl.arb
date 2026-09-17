@@ -3345,5 +3345,9 @@
   "composerNext": "Susunod",
   "@composerNext": {
     "description": "moment composer"
-  }
+  },
+  "notifyRepliesTitle": "Ipaalam kapag may sumagot",
+  "notifyRepliesBody": "Ipapaalam namin ang mga bagong mensahe at ang araw-araw mong paalala sa pag-aaral. Puwede mong i-off ang alinman anumang oras.",
+  "notifyRepliesEnable": "I-on",
+  "notifyRepliesLater": "Hindi muna"
 }

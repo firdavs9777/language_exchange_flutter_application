@@ -3372,5 +3372,9 @@
   "composerNext": "Lanjut",
   "@composerNext": {
     "description": "moment composer"
-  }
+  },
+  "notifyRepliesTitle": "Dapatkan notifikasi saat ada yang membalas",
+  "notifyRepliesBody": "Kami akan memberi tahu tentang pesan baru dan pengingat belajar harian. Keduanya bisa dimatikan kapan saja.",
+  "notifyRepliesEnable": "Aktifkan",
+  "notifyRepliesLater": "Nanti saja"
 }

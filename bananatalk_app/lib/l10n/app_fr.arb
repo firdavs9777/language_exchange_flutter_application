@@ -3612,5 +3612,9 @@
   "composerNext": "Suivant",
   "@composerNext": {
     "description": "moment composer"
-  }
+  },
+  "notifyRepliesTitle": "Soyez averti quand quelqu'un répond",
+  "notifyRepliesBody": "Nous vous préviendrons des nouveaux messages et de votre rappel d'étude quotidien. Vous pouvez désactiver l'un ou l'autre à tout moment.",
+  "notifyRepliesEnable": "Activer",
+  "notifyRepliesLater": "Plus tard"
 }

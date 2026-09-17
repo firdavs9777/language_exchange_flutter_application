@@ -8030,4 +8030,16 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get composerNext => 'Weiter';
+
+  @override
+  String get notifyRepliesTitle => 'Benachrichtigung bei Antworten';
+
+  @override
+  String get notifyRepliesBody => 'Wir informieren dich über neue Nachrichten und deine tägliche Lernerinnerung. Beides kannst du jederzeit ausschalten.';
+
+  @override
+  String get notifyRepliesEnable => 'Einschalten';
+
+  @override
+  String get notifyRepliesLater => 'Später';
 }

@@ -3386,5 +3386,9 @@
   "composerNext": "下一步",
   "@composerNext": {
     "description": "moment composer"
-  }
+  },
+  "notifyRepliesTitle": "有人回复时通知我",
+  "notifyRepliesBody": "我们会通知你新消息和每日学习提醒。两者都可以随时关闭。",
+  "notifyRepliesEnable": "开启",
+  "notifyRepliesLater": "暂不"
 }

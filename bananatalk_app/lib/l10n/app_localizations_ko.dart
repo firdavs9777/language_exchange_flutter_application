@@ -8020,4 +8020,16 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get composerNext => '다음';
+
+  @override
+  String get notifyRepliesTitle => '답장이 오면 알려드릴게요';
+
+  @override
+  String get notifyRepliesBody => '새 메시지와 매일 학습 알림을 보내드려요. 언제든지 각각 끌 수 있어요.';
+
+  @override
+  String get notifyRepliesEnable => '켜기';
+
+  @override
+  String get notifyRepliesLater => '나중에';
 }

@@ -8042,4 +8042,16 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get composerNext => 'التالي';
+
+  @override
+  String get notifyRepliesTitle => 'أعلمني عندما يرد أحد';
+
+  @override
+  String get notifyRepliesBody => 'سنُعلمك بالرسائل الجديدة وتذكير الدراسة اليومي. يمكنك إيقاف أي منهما في أي وقت.';
+
+  @override
+  String get notifyRepliesEnable => 'تفعيل';
+
+  @override
+  String get notifyRepliesLater => 'ليس الآن';
 }

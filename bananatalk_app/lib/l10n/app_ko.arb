@@ -3393,5 +3393,9 @@
   "composerNext": "다음",
   "@composerNext": {
     "description": "moment composer"
-  }
+  },
+  "notifyRepliesTitle": "답장이 오면 알려드릴게요",
+  "notifyRepliesBody": "새 메시지와 매일 학습 알림을 보내드려요. 언제든지 각각 끌 수 있어요.",
+  "notifyRepliesEnable": "켜기",
+  "notifyRepliesLater": "나중에"
 }

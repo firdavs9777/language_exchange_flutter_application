@@ -8020,4 +8020,16 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get composerNext => 'Tiếp theo';
+
+  @override
+  String get notifyRepliesTitle => 'Nhận thông báo khi có người trả lời';
+
+  @override
+  String get notifyRepliesBody => 'Chúng tôi sẽ báo về tin nhắn mới và lời nhắc học tập hằng ngày. Bạn có thể tắt bất kỳ lúc nào.';
+
+  @override
+  String get notifyRepliesEnable => 'Bật';
+
+  @override
+  String get notifyRepliesLater => 'Để sau';
 }

@@ -8030,4 +8030,16 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get composerNext => 'Suivant';
+
+  @override
+  String get notifyRepliesTitle => 'Soyez averti quand quelqu\'un répond';
+
+  @override
+  String get notifyRepliesBody => 'Nous vous préviendrons des nouveaux messages et de votre rappel d\'étude quotidien. Vous pouvez désactiver l\'un ou l\'autre à tout moment.';
+
+  @override
+  String get notifyRepliesEnable => 'Activer';
+
+  @override
+  String get notifyRepliesLater => 'Plus tard';
 }

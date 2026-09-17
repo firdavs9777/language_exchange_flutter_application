@@ -8030,4 +8030,16 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get composerNext => 'आगे';
+
+  @override
+  String get notifyRepliesTitle => 'जब कोई जवाब दे तो सूचित करें';
+
+  @override
+  String get notifyRepliesBody => 'हम आपको नए संदेशों और आपके दैनिक अध्ययन रिमाइंडर के बारे में बताएंगे। आप कभी भी इन्हें बंद कर सकते हैं।';
+
+  @override
+  String get notifyRepliesEnable => 'चालू करें';
+
+  @override
+  String get notifyRepliesLater => 'अभी नहीं';
 }

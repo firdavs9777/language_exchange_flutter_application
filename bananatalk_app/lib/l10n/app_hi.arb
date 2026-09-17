@@ -3388,5 +3388,9 @@
   "composerNext": "आगे",
   "@composerNext": {
     "description": "moment composer"
-  }
+  },
+  "notifyRepliesTitle": "जब कोई जवाब दे तो सूचित करें",
+  "notifyRepliesBody": "हम आपको नए संदेशों और आपके दैनिक अध्ययन रिमाइंडर के बारे में बताएंगे। आप कभी भी इन्हें बंद कर सकते हैं।",
+  "notifyRepliesEnable": "चालू करें",
+  "notifyRepliesLater": "अभी नहीं"
 }
