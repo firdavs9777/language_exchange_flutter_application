@@ -257,7 +257,13 @@ class Story {
       location: json['location'] != null ? StoryLocation.fromJson(json['location']) : null,
       link: json['link'] != null ? StoryLink.fromJson(json['link']) : null,
       poll: json['poll'] != null ? StoryPoll.fromJson(json['poll']) : null,
-      questionBox: json['questionBox'] != null ? StoryQuestionBox.fromJson(json['questionBox']) : null,
+      // Not a bare null check. A nested Mongoose object materialises as
+      // `{ responses: [] }` for a story nobody added a sticker to, which
+      // passed `!= null` and then fell back to the "Ask me anything!" default
+      // — so the sticker appeared on EVERY story. The server now strips those,
+      // and this refuses them too so a single fix does not have to hold on
+      // both sides forever.
+      questionBox: StoryQuestionBox.fromJsonOrNull(json['questionBox']),
       music: json['music'] != null ? StoryMusic.fromJson(json['music']) : null,
       hashtags: json['hashtags'] != null
           ? (json['hashtags'] as List).map((h) => h.toString()).toList()
@@ -773,6 +779,14 @@ class StoryQuestionBox {
     required this.prompt,
     this.responses = const [],
   });
+
+  /// Null unless the box carries the thing that makes it a box: a prompt.
+  static StoryQuestionBox? fromJsonOrNull(Object? json) {
+    if (json is! Map) return null;
+    final prompt = json['prompt']?.toString().trim() ?? '';
+    if (prompt.isEmpty) return null;
+    return StoryQuestionBox.fromJson(Map<String, dynamic>.from(json));
+  }
 
   factory StoryQuestionBox.fromJson(Map<String, dynamic> json) {
     return StoryQuestionBox(
