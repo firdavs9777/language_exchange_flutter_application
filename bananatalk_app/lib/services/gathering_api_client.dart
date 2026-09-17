@@ -1,5 +1,7 @@
 import 'dart:io';
 import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart' show MediaType;
+import 'package:mime/mime.dart' show lookupMimeType;
 import 'package:flutter/foundation.dart';
 import 'package:bananatalk_app/models/community/gathering_model.dart';
 import 'package:bananatalk_app/services/api_client.dart';
@@ -374,10 +376,21 @@ class GatheringApiClient {
   /// that is how they stop being identical.
   Future<GatheringResult<String>> _uploadCover(String path, File image) async {
     try {
+      // MultipartFile.fromPath defaults to application/octet-stream, which
+      // multer's fileFilter rejects outright — and that rejection surfaces as
+      // a 500, not a 400, so it looks like a server fault. Sniff the real type
+      // from the extension, exactly as the pronunciation upload does.
+      final mime = lookupMimeType(image.path) ?? 'image/jpeg';
       final response = await _apiClient.postMultipart(
         path,
         fields: const {},
-        files: [await http.MultipartFile.fromPath('image', image.path)],
+        files: [
+          await http.MultipartFile.fromPath(
+            'image',
+            image.path,
+            contentType: MediaType.parse(mime),
+          ),
+        ],
       );
       if (!response.success) {
         return GatheringResult.failed(response.error ?? 'Could not upload');
