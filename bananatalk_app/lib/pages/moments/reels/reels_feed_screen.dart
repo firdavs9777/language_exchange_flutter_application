@@ -11,6 +11,7 @@ import 'package:bananatalk_app/pages/comments/comments_main.dart';
 import 'package:bananatalk_app/pages/comments/create_comment.dart';
 import 'package:bananatalk_app/pages/community/single/single_community_screen.dart';
 import 'package:bananatalk_app/pages/moments/reels/reel_controller_pool.dart';
+import 'package:bananatalk_app/pages/moments/create/create_moment.dart';
 import 'package:bananatalk_app/services/video_sound_preference.dart';
 import 'package:bananatalk_app/services/reel_view_tracker.dart';
 import 'package:bananatalk_app/pages/moments/reels/reel_fit.dart';
@@ -366,6 +367,35 @@ class _ReelsFeedScreenState extends ConsumerState<ReelsFeedScreen>
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            // Your own reel: edit and delete. There was NO way to remove a reel
+            // you had posted from the place you watch it — only Report and
+            // Block, neither of which applies to yourself.
+            if (_isMine(reel)) ...[
+              ListTile(
+                key: const Key('reel-edit'),
+                leading: const Icon(Icons.edit, color: Colors.blue),
+                title: Text(l10n.edit),
+                onTap: () {
+                  Navigator.pop(sheetContext);
+                  _editReel(reel);
+                },
+              ),
+              ListTile(
+                key: const Key('reel-delete'),
+                leading: const Icon(Icons.delete, color: Colors.red),
+                title: Text(
+                  l10n.delete,
+                  style: const TextStyle(color: Colors.red),
+                ),
+                onTap: () {
+                  Navigator.pop(sheetContext);
+                  _deleteReel(reel);
+                },
+              ),
+            ],
+            // Reporting or blocking yourself is meaningless, so the owner sees
+            // neither.
+            if (!_isMine(reel))
             ListTile(
               leading: const Icon(Icons.flag_outlined, color: Colors.orange),
               title: Text(l10n.report),
@@ -374,6 +404,7 @@ class _ReelsFeedScreenState extends ConsumerState<ReelsFeedScreen>
                 _reportReel(reel);
               },
             ),
+            if (!_isMine(reel))
             ListTile(
               leading: const Icon(Icons.block, color: Colors.red),
               title: Text(l10n.blockUser),
@@ -400,6 +431,76 @@ class _ReelsFeedScreenState extends ConsumerState<ReelsFeedScreen>
     ).whenComplete(() {
       if (mounted) _syncControllers();
     });
+  }
+
+  /// Whether this reel is the viewer's own.
+  ///
+  /// False while the id is still loading, which is the safe default: showing
+  /// Report on your own reel is confusing, but showing Delete on someone
+  /// else's would be alarming.
+  bool _isMine(Moments reel) =>
+      _currentUserId != null && reel.user.id == _currentUserId;
+
+  /// Edit a reel through the same composer that created it, so caption,
+  /// tags and privacy all behave identically to editing any other moment.
+  Future<void> _editReel(Moments reel) async {
+    _pool.controllerAt(_currentIndex)?.pause();
+    final changed = await Navigator.push(
+      context,
+      AppPageRoute(builder: (_) => CreateMoment(momentToEdit: reel)),
+    );
+    if (!mounted) return;
+    if (changed == true) {
+      // Reload rather than patch in place: an edit can change the caption,
+      // the tags and the privacy, and reconciling those by hand is how a feed
+      // starts disagreeing with the server.
+      await ref.read(reelsFeedProvider.notifier).refresh();
+    } else {
+      _pool.controllerAt(_currentIndex)?.play();
+    }
+  }
+
+  Future<void> _deleteReel(Moments reel) async {
+    final l10n = AppLocalizations.of(context)!;
+    _pool.controllerAt(_currentIndex)?.pause();
+
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: Text(l10n.deleteMoment),
+        content: Text(l10n.thisActionCannotBeUndone),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext, false),
+            child: Text(l10n.cancel),
+          ),
+          TextButton(
+            key: const Key('reel-delete-confirm'),
+            onPressed: () => Navigator.pop(dialogContext, true),
+            child: Text(l10n.delete, style: const TextStyle(color: Colors.red)),
+          ),
+        ],
+      ),
+    );
+    if (confirmed != true || !mounted) {
+      _pool.controllerAt(_currentIndex)?.play();
+      return;
+    }
+
+    try {
+      await ref.read(momentsServiceProvider).deleteUserMoment(id: reel.id);
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(l10n.momentDeleted)),
+      );
+      await ref.read(reelsFeedProvider.notifier).refresh();
+    } catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(l10n.somethingWentWrong)),
+      );
+      _pool.controllerAt(_currentIndex)?.play();
+    }
   }
 
   Future<void> _reportReel(Moments reel) async {
