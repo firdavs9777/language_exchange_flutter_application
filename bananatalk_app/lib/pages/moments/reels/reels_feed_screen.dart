@@ -11,6 +11,7 @@ import 'package:bananatalk_app/pages/comments/comments_main.dart';
 import 'package:bananatalk_app/pages/comments/create_comment.dart';
 import 'package:bananatalk_app/pages/community/single/single_community_screen.dart';
 import 'package:bananatalk_app/pages/moments/reels/reel_controller_pool.dart';
+import 'package:bananatalk_app/services/video_sound_preference.dart';
 import 'package:bananatalk_app/services/reel_view_tracker.dart';
 import 'package:bananatalk_app/pages/moments/reels/reel_fit.dart';
 import 'package:bananatalk_app/pages/moments/reels/reel_prefetch_policy.dart';
@@ -53,14 +54,31 @@ class _ReelsFeedScreenState extends ConsumerState<ReelsFeedScreen>
   /// Sound state for the whole session, not per page — muting one reel and
   /// having the next blast audio would be worse than no control at all.
   /// Starts unmuted: opening a reel is deliberate, unlike an autoplaying feed.
+  ///
+  /// That default is per-surface, but the user's EXPLICIT choice is shared
+  /// with stories via VideoSoundPreference -- muting is a decision about the
+  /// room you are in, not about one screen.
   bool _muted = false;
 
   /// How many upcoming reels to prefetch, driven by connectivity type.
   int _prefetchDepth = 1;
   StreamSubscription<List<ConnectivityResult>>? _connectivitySub;
 
-  void _toggleMute() {
-    setState(() => _muted = !_muted);
+  Future<void> _toggleMute() async {
+    final muted = await VideoSoundPreference.instance.toggle(fallback: false);
+    if (!mounted) return;
+    setState(() => _muted = muted);
+    _applyVolume();
+  }
+
+  /// Adopts a choice the user made elsewhere, keeping this screen's unmuted
+  /// default when they have never chosen.
+  Future<void> _loadSoundPreference() async {
+    await VideoSoundPreference.instance.load();
+    if (!mounted) return;
+    setState(() {
+      _muted = VideoSoundPreference.instance.isMutedOr(fallback: false);
+    });
     _applyVolume();
   }
 
@@ -77,6 +95,7 @@ class _ReelsFeedScreenState extends ConsumerState<ReelsFeedScreen>
     _currentIndex = widget.initialIndex;
     _pageController = PageController(initialPage: widget.initialIndex);
     _loadCurrentUserId();
+    _loadSoundPreference();
     Connectivity().checkConnectivity().then((status) {
       if (mounted) setState(() => _prefetchDepth = reelPrefetchDepth(status));
     });

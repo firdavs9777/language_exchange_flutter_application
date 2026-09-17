@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/services/video_sound_preference.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/providers/provider_models/story_model.dart';
@@ -22,7 +23,8 @@ import 'dart:async';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/pages/stories/widgets/stories_snackbar.dart';
 import 'package:bananatalk_app/pages/stories/viewer/viewer_text_story_layer.dart';
-import 'package:bananatalk_app/pages/stories/viewer/viewer_overlay_layer.dart' as overlay_layer;
+import 'package:bananatalk_app/pages/stories/viewer/viewer_overlay_layer.dart'
+    as overlay_layer;
 import 'package:bananatalk_app/pages/stories/viewer/story_viewers_sheet.dart';
 import 'package:bananatalk_app/pages/stories/viewer/story_share_sheet.dart';
 import 'package:bananatalk_app/widgets/story/story_poll_widget.dart';
@@ -103,7 +105,8 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
   late final List<UserStories> _userStories = widget.stories != null
       ? [
           UserStories(
-            user: widget.storiesUser ??
+            user:
+                widget.storiesUser ??
                 (widget.stories!.isNotEmpty
                     ? widget.stories!.first.user
                     : throw StateError('stories list must not be empty')),
@@ -157,6 +160,14 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
 
     try {
       await _videoController!.initialize();
+      // The viewer's standing choice, shared with reels. Applied before play()
+      // so a muted user never hears the first half-second.
+      await VideoSoundPreference.instance.load();
+      // Stories autoplay off a ring tap, so they start muted unless the user
+      // has explicitly chosen otherwise anywhere in the app.
+      await _videoController!.setVolume(
+        VideoSoundPreference.instance.isMutedOr(fallback: true) ? 0.0 : 1.0,
+      );
       if (mounted) {
         setState(() {
           _isVideoInitialized = true;
@@ -224,14 +235,25 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
 
   Story? get _currentStory =>
       _currentStories.isNotEmpty && _currentStoryIndex < _currentStories.length
-          ? _currentStories[_currentStoryIndex]
-          : null;
+      ? _currentStories[_currentStoryIndex]
+      : null;
 
   UserStories get _currentUser => _userStories[_currentUserIndex];
 
   void _startStoryTimer() {
     _progressController.reset();
     _progressController.forward();
+  }
+
+  /// Flips sound for video stories, and remembers it.
+  ///
+  /// Shared with reels rather than local to this screen: muting is a decision
+  /// about the room you are in, not about one surface, so making it per-screen
+  /// means making it twice.
+  Future<void> _toggleMute() async {
+    final muted = await VideoSoundPreference.instance.toggle(fallback: true);
+    await _videoController?.setVolume(muted ? 0.0 : 1.0);
+    if (mounted) setState(() {});
   }
 
   void _pauseStory() {
@@ -271,7 +293,9 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
       }
       await Navigator.push(
         context,
-        AppPageRoute(builder: (context) => SingleCommunity(community: community)),
+        AppPageRoute(
+          builder: (context) => SingleCommunity(community: community),
+        ),
       );
     } catch (_) {
       if (mounted) {
@@ -304,9 +328,14 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
                 color: Colors.black.withValues(alpha: 0.55),
                 borderRadius: BorderRadius.circular(14),
               ),
-              child: Text('@${m.username}',
-                  style: const TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.w700, fontSize: 13)),
+              child: Text(
+                '@${m.username}',
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 13,
+                ),
+              ),
             ),
           ),
         ),
@@ -399,7 +428,10 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
     if (mounted) {
       if (result['blocked'] == true) {
         setState(() => _isBlocked = true);
-        BlockedContentSnackbar.show(context, message: "You can't react to this story");
+        BlockedContentSnackbar.show(
+          context,
+          message: "You can't react to this story",
+        );
       } else if (result['success'] == true) {
         showStoriesSnackBar(
           context,
@@ -413,7 +445,7 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
   Future<void> _sendReply() async {
     final story = _currentStory;
     final message = _replyController.text.trim();
-    
+
     if (story == null || message.isEmpty) return;
 
     final result = await StoriesService.replyToStory(
@@ -424,7 +456,10 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
     if (mounted) {
       if (result['blocked'] == true) {
         setState(() => _isBlocked = true);
-        BlockedContentSnackbar.show(context, message: "You can't reply to this story");
+        BlockedContentSnackbar.show(
+          context,
+          message: "You can't reply to this story",
+        );
       } else if (result['success'] == true) {
         _replyController.clear();
         setState(() => _showReplyField = false);
@@ -470,7 +505,10 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
       );
     });
 
-    final result = await StoriesService.votePoll(storyId: story.id, optionIndex: optionIndex);
+    final result = await StoriesService.votePoll(
+      storyId: story.id,
+      optionIndex: optionIndex,
+    );
     if (!mounted) return;
 
     if (result['success'] == true && result['poll'] != null) {
@@ -486,7 +524,11 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
     }
   }
 
-  Future<void> _answerQuestion(Story story, String text, bool isAnonymous) async {
+  Future<void> _answerQuestion(
+    Story story,
+    String text,
+    bool isAnonymous,
+  ) async {
     final result = await StoriesService.answerQuestion(
       storyId: story.id,
       text: text,
@@ -528,11 +570,15 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
             future: StoriesService.getQuestionResponses(storyId: story.id),
             builder: (context, snapshot) {
               if (snapshot.connectionState != ConnectionState.done) {
-                return const StoryQuestionResponsesList(responses: [], isLoading: true);
+                return const StoryQuestionResponsesList(
+                  responses: [],
+                  isLoading: true,
+                );
               }
               final data = snapshot.data;
               final responses = (data != null && data['success'] == true)
-                  ? (data['responses'] as List<StoryQuestionResponse>?) ?? const []
+                  ? (data['responses'] as List<StoryQuestionResponse>?) ??
+                        const []
                   : (story.questionBox?.responses ?? const []);
               return StoryQuestionResponsesList(responses: responses);
             },
@@ -552,7 +598,9 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
       context: context,
       builder: (context) => AlertDialog(
         title: Text(AppLocalizations.of(context)!.deleteStory),
-        content: Text(AppLocalizations.of(context)!.thisStoryWillBeRemovedPermanently),
+        content: Text(
+          AppLocalizations.of(context)!.thisStoryWillBeRemovedPermanently,
+        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
@@ -619,8 +667,11 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
     if (story == null) return;
 
     final userName = _currentUser.user.name;
-    final storyText = (story.text != null && story.text!.isNotEmpty) ? '\n"${story.text}"' : '';
-    final shareText = 'Check out $userName\'s story on Bananatalk!$storyText\n\nhttps://bananatalk.com/story/${story.id}';
+    final storyText = (story.text != null && story.text!.isNotEmpty)
+        ? '\n"${story.text}"'
+        : '';
+    final shareText =
+        'Check out $userName\'s story on Bananatalk!$storyText\n\nhttps://bananatalk.com/story/${story.id}';
 
     Share.share(shareText);
   }
@@ -672,7 +723,10 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
       final url = ImageUtils.normalizeImageUrl(story.mediaUrl);
       final file = await DefaultCacheManager().getSingleFile(url);
       await SharePlus.instance.share(
-        ShareParams(files: [XFile(file.path)], text: 'Save this to your device'),
+        ShareParams(
+          files: [XFile(file.path)],
+          text: 'Save this to your device',
+        ),
       );
     } catch (e) {
       // Fall back to a plain link share if the file can't be fetched/shared directly.
@@ -702,9 +756,7 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
     if (_isBlocked) {
       return Scaffold(
         backgroundColor: Colors.black,
-        body: Center(
-          child: BlockedContentWidget.stories(),
-        ),
+        body: Center(child: BlockedContentWidget.stories()),
       );
     }
 
@@ -713,62 +765,65 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
       body: Stack(
         children: [
           GestureDetector(
-        onTapDown: (details) => _pauseStory(),
-        onTapUp: (details) {
-          _resumeStory();
-          final screenWidth = MediaQuery.of(context).size.width;
-          // Tap left 30% for previous, right 70% for next
-          if (details.globalPosition.dx < screenWidth * 0.3) {
-            HapticFeedback.selectionClick();
-            _previousStory();
-          } else if (details.globalPosition.dx > screenWidth * 0.3) {
-            HapticFeedback.selectionClick();
-            _nextStory();
-          }
-        },
-        onTapCancel: () => _resumeStory(),
-        onLongPressStart: (_) {
-          HapticFeedback.mediumImpact();
-          _pauseStory();
-        },
-        onLongPressEnd: (_) => _resumeStory(),
-        // Swipe down to close
-        onVerticalDragStart: (_) {
-          _isDragging = true;
-          _pauseStory();
-        },
-        onVerticalDragUpdate: (details) {
-          if (details.delta.dy > 0) {
-            setState(() {
-              _dragOffset += details.delta.dy;
-            });
-          }
-        },
-        onVerticalDragEnd: (details) {
-          _isDragging = false;
-          if (_dragOffset > 100 || (details.velocity.pixelsPerSecond.dy > 500)) {
-            // Close the viewer
-            Navigator.pop(context);
-          } else {
-            // Snap back
-            setState(() {
-              _dragOffset = 0;
-            });
-            _resumeStory();
-          }
-        },
-        child: AnimatedContainer(
-          duration: _isDragging ? Duration.zero : const Duration(milliseconds: 200),
-          transform: Matrix4.identity()
-            ..translate(0.0, _dragOffset)
-            ..scale(1 - (_dragOffset / 1000).clamp(0.0, 0.2)),
-          child: AnimatedOpacity(
-            duration: const Duration(milliseconds: 100),
-            opacity: 1 - (_dragOffset / 400).clamp(0.0, 0.5),
-            child: _buildCubePageView(),
+            onTapDown: (details) => _pauseStory(),
+            onTapUp: (details) {
+              _resumeStory();
+              final screenWidth = MediaQuery.of(context).size.width;
+              // Tap left 30% for previous, right 70% for next
+              if (details.globalPosition.dx < screenWidth * 0.3) {
+                HapticFeedback.selectionClick();
+                _previousStory();
+              } else if (details.globalPosition.dx > screenWidth * 0.3) {
+                HapticFeedback.selectionClick();
+                _nextStory();
+              }
+            },
+            onTapCancel: () => _resumeStory(),
+            onLongPressStart: (_) {
+              HapticFeedback.mediumImpact();
+              _pauseStory();
+            },
+            onLongPressEnd: (_) => _resumeStory(),
+            // Swipe down to close
+            onVerticalDragStart: (_) {
+              _isDragging = true;
+              _pauseStory();
+            },
+            onVerticalDragUpdate: (details) {
+              if (details.delta.dy > 0) {
+                setState(() {
+                  _dragOffset += details.delta.dy;
+                });
+              }
+            },
+            onVerticalDragEnd: (details) {
+              _isDragging = false;
+              if (_dragOffset > 100 ||
+                  (details.velocity.pixelsPerSecond.dy > 500)) {
+                // Close the viewer
+                Navigator.pop(context);
+              } else {
+                // Snap back
+                setState(() {
+                  _dragOffset = 0;
+                });
+                _resumeStory();
+              }
+            },
+            child: AnimatedContainer(
+              duration: _isDragging
+                  ? Duration.zero
+                  : const Duration(milliseconds: 200),
+              transform: Matrix4.identity()
+                ..translate(0.0, _dragOffset)
+                ..scale(1 - (_dragOffset / 1000).clamp(0.0, 0.2)),
+              child: AnimatedOpacity(
+                duration: const Duration(milliseconds: 100),
+                opacity: 1 - (_dragOffset / 400).clamp(0.0, 0.5),
+                child: _buildCubePageView(),
+              ),
+            ),
           ),
-        ),
-      ),
           // Viewer count chip for own stories — outside GestureDetector so taps work
           if (widget.isOwnStory && _currentStory != null)
             Positioned(
@@ -777,7 +832,10 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
               child: GestureDetector(
                 onTap: () => _showViewersSheet(_currentStory!),
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 14,
+                    vertical: 8,
+                  ),
                   decoration: BoxDecoration(
                     color: Colors.black54,
                     borderRadius: BorderRadius.circular(20),
@@ -789,7 +847,11 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
                       const SizedBox(width: 6),
                       Text(
                         '${_currentStory!.viewCount}',
-                        style: const TextStyle(color: Colors.white, fontSize: 13, fontWeight: FontWeight.w600),
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ],
                   ),
@@ -806,7 +868,8 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
       onNotification: (notification) {
         if (notification is ScrollUpdateNotification) {
           setState(() {
-            _cubeOffset = _userPageController.page ?? _currentUserIndex.toDouble();
+            _cubeOffset =
+                _userPageController.page ?? _currentUserIndex.toDouble();
           });
         }
         return false;
@@ -940,7 +1003,11 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
                 errorWidget: Container(
                   color: Colors.grey[900],
                   child: const Center(
-                    child: Icon(Icons.broken_image, color: Colors.white54, size: 64),
+                    child: Icon(
+                      Icons.broken_image,
+                      color: Colors.white54,
+                      size: 64,
+                    ),
                   ),
                 ),
               ),
@@ -960,10 +1027,7 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
             gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.center,
-              colors: [
-                Colors.black.withValues(alpha: 0.7),
-                Colors.transparent,
-              ],
+              colors: [Colors.black.withValues(alpha: 0.7), Colors.transparent],
             ),
           ),
         ),
@@ -1006,10 +1070,12 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
                       : null,
                 ),
                 child: CachedCircleAvatar(
-                  imageUrl: (_currentUser.user.images.isNotEmpty || _currentUser.user.imageUrls.isNotEmpty)
+                  imageUrl:
+                      (_currentUser.user.images.isNotEmpty ||
+                          _currentUser.user.imageUrls.isNotEmpty)
                       ? (_currentUser.user.images.isNotEmpty
-                          ? _currentUser.user.images.first
-                          : _currentUser.user.imageUrls.first)
+                            ? _currentUser.user.images.first
+                            : _currentUser.user.imageUrls.first)
                       : null,
                   radius: 18,
                   errorWidget: Container(
@@ -1022,7 +1088,10 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
                       _currentUser.user.name.isNotEmpty
                           ? _currentUser.user.name[0].toUpperCase()
                           : '?',
-                      style: const TextStyle(fontSize: 14, color: Colors.white70),
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: Colors.white70,
+                      ),
                     ),
                   ),
                 ),
@@ -1045,7 +1114,10 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
                         if (story.privacy == StoryPrivacy.closeFriends) ...[
                           const SizedBox(width: 6),
                           Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 6,
+                              vertical: 2,
+                            ),
                             decoration: BoxDecoration(
                               color: const Color(0xFF00C853),
                               borderRadius: BorderRadius.circular(4),
@@ -1073,6 +1145,19 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
                   ],
                 ),
               ),
+              // Sound, for video stories only -- a mute button over a photo
+              // is a control that does nothing.
+              if (_currentStory?.mediaType == 'video')
+                IconButton(
+                  key: const Key('story-mute-toggle'),
+                  icon: Icon(
+                    VideoSoundPreference.instance.isMutedOr(fallback: true)
+                        ? Icons.volume_off_rounded
+                        : Icons.volume_up_rounded,
+                    color: Colors.white,
+                  ),
+                  onPressed: _toggleMute,
+                ),
               // Close button (always visible)
               IconButton(
                 icon: const Icon(Icons.close, color: Colors.white),
@@ -1101,24 +1186,56 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
                               ),
                             ),
                             ListTile(
-                              leading: Icon(Icons.visibility, color: Theme.of(context).iconTheme.color),
-                              title: Text(AppLocalizations.of(context)!.views('${story.viewCount}'), style: TextStyle(color: Theme.of(context).textTheme.bodyLarge?.color)),
+                              leading: Icon(
+                                Icons.visibility,
+                                color: Theme.of(context).iconTheme.color,
+                              ),
+                              title: Text(
+                                AppLocalizations.of(
+                                  context,
+                                )!.views('${story.viewCount}'),
+                                style: TextStyle(
+                                  color: Theme.of(
+                                    context,
+                                  ).textTheme.bodyLarge?.color,
+                                ),
+                              ),
                               onTap: () {
                                 Navigator.pop(context);
                                 _showViewersSheet(story);
                               },
                             ),
                             ListTile(
-                              leading: Icon(Icons.send_rounded, color: Theme.of(context).iconTheme.color),
-                              title: Text('Send to friends', style: TextStyle(color: Theme.of(context).textTheme.bodyLarge?.color)),
+                              leading: Icon(
+                                Icons.send_rounded,
+                                color: Theme.of(context).iconTheme.color,
+                              ),
+                              title: Text(
+                                'Send to friends',
+                                style: TextStyle(
+                                  color: Theme.of(
+                                    context,
+                                  ).textTheme.bodyLarge?.color,
+                                ),
+                              ),
                               onTap: () {
                                 Navigator.pop(context);
                                 showStoryShareSheet(context, ref, story);
                               },
                             ),
                             ListTile(
-                              leading: Icon(Icons.share, color: Theme.of(context).iconTheme.color),
-                              title: Text(AppLocalizations.of(context)!.share, style: TextStyle(color: Theme.of(context).textTheme.bodyLarge?.color)),
+                              leading: Icon(
+                                Icons.share,
+                                color: Theme.of(context).iconTheme.color,
+                              ),
+                              title: Text(
+                                AppLocalizations.of(context)!.share,
+                                style: TextStyle(
+                                  color: Theme.of(
+                                    context,
+                                  ).textTheme.bodyLarge?.color,
+                                ),
+                              ),
                               onTap: () {
                                 Navigator.pop(context);
                                 _shareStory();
@@ -1126,24 +1243,54 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
                             ),
                             if (story.mediaType != 'text')
                               ListTile(
-                                leading: Icon(Icons.download_outlined, color: Theme.of(context).iconTheme.color),
-                                title: Text('Share/Save', style: TextStyle(color: Theme.of(context).textTheme.bodyLarge?.color)),
+                                leading: Icon(
+                                  Icons.download_outlined,
+                                  color: Theme.of(context).iconTheme.color,
+                                ),
+                                title: Text(
+                                  'Share/Save',
+                                  style: TextStyle(
+                                    color: Theme.of(
+                                      context,
+                                    ).textTheme.bodyLarge?.color,
+                                  ),
+                                ),
                                 onTap: () {
                                   Navigator.pop(context);
                                   _saveStoryToDevice();
                                 },
                               ),
                             ListTile(
-                              leading: Icon(Icons.add_circle_outline, color: Theme.of(context).iconTheme.color),
-                              title: Text('Add more to story', style: TextStyle(color: Theme.of(context).textTheme.bodyLarge?.color)),
+                              leading: Icon(
+                                Icons.add_circle_outline,
+                                color: Theme.of(context).iconTheme.color,
+                              ),
+                              title: Text(
+                                'Add more to story',
+                                style: TextStyle(
+                                  color: Theme.of(
+                                    context,
+                                  ).textTheme.bodyLarge?.color,
+                                ),
+                              ),
                               onTap: () {
                                 Navigator.pop(context);
                                 _addMoreToStory();
                               },
                             ),
                             ListTile(
-                              leading: Icon(Icons.bookmark_add_outlined, color: Theme.of(context).iconTheme.color),
-                              title: Text(AppLocalizations.of(context)!.addToHighlight, style: TextStyle(color: Theme.of(context).textTheme.bodyLarge?.color)),
+                              leading: Icon(
+                                Icons.bookmark_add_outlined,
+                                color: Theme.of(context).iconTheme.color,
+                              ),
+                              title: Text(
+                                AppLocalizations.of(context)!.addToHighlight,
+                                style: TextStyle(
+                                  color: Theme.of(
+                                    context,
+                                  ).textTheme.bodyLarge?.color,
+                                ),
+                              ),
                               onTap: () {
                                 Navigator.pop(context);
                                 _addToHighlight(story);
@@ -1151,8 +1298,14 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
                             ),
                             const Divider(color: Colors.grey, height: 1),
                             ListTile(
-                              leading: const Icon(Icons.delete, color: Colors.red),
-                              title: Text(AppLocalizations.of(context)!.delete, style: const TextStyle(color: Colors.red)),
+                              leading: const Icon(
+                                Icons.delete,
+                                color: Colors.red,
+                              ),
+                              title: Text(
+                                AppLocalizations.of(context)!.delete,
+                                style: const TextStyle(color: Colors.red),
+                              ),
                               onTap: () {
                                 Navigator.pop(context);
                                 _deleteStory();
@@ -1179,9 +1332,16 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
                       value: 'report',
                       child: Row(
                         children: [
-                          Icon(Icons.flag_outlined, color: Colors.orange[700], size: 20),
+                          Icon(
+                            Icons.flag_outlined,
+                            color: Colors.orange[700],
+                            size: 20,
+                          ),
                           const SizedBox(width: 12),
-                          Text(AppLocalizations.of(context)!.reportStory, style: const TextStyle(color: Colors.white)),
+                          Text(
+                            AppLocalizations.of(context)!.reportStory,
+                            style: const TextStyle(color: Colors.white),
+                          ),
                         ],
                       ),
                     ),
@@ -1202,9 +1362,7 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
               style: const TextStyle(
                 color: Colors.white,
                 fontSize: 16,
-                shadows: [
-                  Shadow(blurRadius: 4, color: Colors.black),
-                ],
+                shadows: [Shadow(blurRadius: 4, color: Colors.black)],
               ),
               textAlign: TextAlign.center,
             ),
@@ -1215,16 +1373,20 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
           Positioned(
             left: 0,
             right: 0,
-            bottom: MediaQuery.of(context).padding.bottom + (widget.isOwnStory ? 100 : 180),
+            bottom:
+                MediaQuery.of(context).padding.bottom +
+                (widget.isOwnStory ? 100 : 180),
             child: StoryPollWidget(
               key: ValueKey('poll_${story.id}'),
               poll: _pollOverrides[story.id] ?? story.poll!,
               isOwner: widget.isOwnStory,
-              onVote: widget.isOwnStory ? null : (index) => _votePoll(story, index),
+              onVote: widget.isOwnStory
+                  ? null
+                  : (index) => _votePoll(story, index),
               onInteracting: widget.isOwnStory
                   ? null
                   : (interacting) =>
-                      interacting ? _pauseStory() : _resumeStory(),
+                        interacting ? _pauseStory() : _resumeStory(),
             ),
           ),
 
@@ -1233,15 +1395,20 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
           Positioned(
             left: 0,
             right: 0,
-            bottom: MediaQuery.of(context).padding.bottom + (widget.isOwnStory ? 100 : 180),
+            bottom:
+                MediaQuery.of(context).padding.bottom +
+                (widget.isOwnStory ? 100 : 180),
             child: StoryQuestionBoxWidget(
               key: ValueKey('question_${story.id}'),
               questionBox: story.questionBox!,
               isOwner: widget.isOwnStory,
               onSubmitAnswer: widget.isOwnStory
                   ? null
-                  : (text, isAnonymous) => _answerQuestion(story, text, isAnonymous),
-              onViewResponses: widget.isOwnStory ? () => _showQuestionResponses(story) : null,
+                  : (text, isAnonymous) =>
+                        _answerQuestion(story, text, isAnonymous),
+              onViewResponses: widget.isOwnStory
+                  ? () => _showQuestionResponses(story)
+                  : null,
               onFocusChanged: widget.isOwnStory
                   ? null
                   : (focused) => focused ? _pauseStory() : _resumeStory(),
@@ -1254,7 +1421,8 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
           Positioned(
             left: 0,
             right: 0,
-            bottom: MediaQuery.of(context).padding.bottom +
+            bottom:
+                MediaQuery.of(context).padding.bottom +
                 (widget.isOwnStory ? 100 : 180) +
                 ((story.poll != null || story.questionBox != null) ? 90 : 0),
             child: Center(child: _buildLinkPill(story.link!)),
@@ -1266,9 +1434,7 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
             bottom: MediaQuery.of(context).padding.bottom + 16,
             left: 16,
             right: 16,
-            child: _showReplyField
-                ? _buildReplyField()
-                : _buildReactionBar(),
+            child: _showReplyField ? _buildReplyField() : _buildReactionBar(),
           ),
 
         // Seen by bar is now rendered at top-level Stack (outside GestureDetector)
@@ -1295,8 +1461,9 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
     }
 
     final highlightsResponse = await StoriesService.getMyHighlights();
-    final existingHighlights =
-        highlightsResponse.success ? highlightsResponse.data : <StoryHighlight>[];
+    final existingHighlights = highlightsResponse.success
+        ? highlightsResponse.data
+        : <StoryHighlight>[];
 
     if (!mounted) return;
 
@@ -1394,7 +1561,10 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
                 setState(() => _showReplyField = true);
               },
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 10,
+                ),
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(24),
@@ -1406,7 +1576,10 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
                     Expanded(
                       child: Text(
                         'Reply to story...',
-                        style: const TextStyle(color: Colors.white60, fontSize: 14),
+                        style: const TextStyle(
+                          color: Colors.white60,
+                          fontSize: 14,
+                        ),
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
@@ -1437,10 +1610,7 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
       },
       child: Container(
         padding: const EdgeInsets.all(6),
-        child: Text(
-          emoji,
-          style: const TextStyle(fontSize: 26),
-        ),
+        child: Text(emoji, style: const TextStyle(fontSize: 26)),
       ),
     );
   }
@@ -1532,9 +1702,7 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
           )
         else
           Container(color: Colors.black),
-        const Center(
-          child: CircularProgressIndicator(color: Colors.white),
-        ),
+        const Center(child: CircularProgressIndicator(color: Colors.white)),
       ],
     );
   }
@@ -1552,4 +1720,3 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
     }
   }
 }
-
