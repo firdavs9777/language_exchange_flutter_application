@@ -325,11 +325,21 @@ class _ReelsFeedScreenState extends ConsumerState<ReelsFeedScreen>
     );
   }
 
+  /// Comments slide up OVER the reel, which keeps playing behind them.
+  ///
+  /// This used to push a full-screen page, so opening comments took the video
+  /// off-screen and paused it — you stopped watching to read. Keeping playback
+  /// running is the whole point of the sheet; a full-height sheet would just
+  /// be the old page with a nicer animation, so it stops at 70%.
   void _openComments(Moments reel) {
-    _pool.controllerAt(_currentIndex)?.pause();
-    Navigator.push(
-      context,
-      AppPageRoute(builder: (_) => _ReelCommentsPage(reel: reel)),
+    showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      // Barrier rather than a route change: the reel behind stays mounted and
+      // playing, just dimmed.
+      barrierColor: Colors.black.withValues(alpha: 0.35),
+      builder: (_) => _ReelCommentsSheet(reel: reel),
     ).then((_) {
       if (mounted) _syncControllers();
     });
@@ -396,35 +406,35 @@ class _ReelsFeedScreenState extends ConsumerState<ReelsFeedScreen>
             // Reporting or blocking yourself is meaningless, so the owner sees
             // neither.
             if (!_isMine(reel))
-            ListTile(
-              leading: const Icon(Icons.flag_outlined, color: Colors.orange),
-              title: Text(l10n.report),
-              onTap: () {
-                Navigator.pop(sheetContext);
-                _reportReel(reel);
-              },
-            ),
+              ListTile(
+                leading: const Icon(Icons.flag_outlined, color: Colors.orange),
+                title: Text(l10n.report),
+                onTap: () {
+                  Navigator.pop(sheetContext);
+                  _reportReel(reel);
+                },
+              ),
             if (!_isMine(reel))
-            ListTile(
-              leading: const Icon(Icons.block, color: Colors.red),
-              title: Text(l10n.blockUser),
-              onTap: () async {
-                Navigator.pop(sheetContext);
-                final prefs = await SharedPreferences.getInstance();
-                final currentUserId = prefs.getString('userId');
-                if (currentUserId == null || !mounted) return;
-                await BlockUserDialog.show(
-                  context: context,
-                  currentUserId: currentUserId,
-                  targetUserId: reel.user.id,
-                  targetUserName: reel.user.name,
-                  targetUserAvatar: reel.user.imageUrls.isNotEmpty
-                      ? reel.user.imageUrls.first
-                      : null,
-                  ref: ref,
-                );
-              },
-            ),
+              ListTile(
+                leading: const Icon(Icons.block, color: Colors.red),
+                title: Text(l10n.blockUser),
+                onTap: () async {
+                  Navigator.pop(sheetContext);
+                  final prefs = await SharedPreferences.getInstance();
+                  final currentUserId = prefs.getString('userId');
+                  if (currentUserId == null || !mounted) return;
+                  await BlockUserDialog.show(
+                    context: context,
+                    currentUserId: currentUserId,
+                    targetUserId: reel.user.id,
+                    targetUserName: reel.user.name,
+                    targetUserAvatar: reel.user.imageUrls.isNotEmpty
+                        ? reel.user.imageUrls.first
+                        : null,
+                    ref: ref,
+                  );
+                },
+              ),
           ],
         ),
       ),
@@ -490,15 +500,15 @@ class _ReelsFeedScreenState extends ConsumerState<ReelsFeedScreen>
     try {
       await ref.read(momentsServiceProvider).deleteUserMoment(id: reel.id);
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(l10n.momentDeleted)),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(l10n.momentDeleted)));
       await ref.read(reelsFeedProvider.notifier).refresh();
     } catch (e) {
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(l10n.somethingWentWrong)),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(l10n.somethingWentWrong)));
       _pool.controllerAt(_currentIndex)?.play();
     }
   }
@@ -976,16 +986,16 @@ class _RailButton extends StatelessWidget {
 
 /// Comments as a pushed page (not a sheet — plan-review M4). The calling
 /// video item is paused before this pushes (see `_openComments` above).
-class _ReelCommentsPage extends ConsumerStatefulWidget {
-  const _ReelCommentsPage({required this.reel});
+class _ReelCommentsSheet extends ConsumerStatefulWidget {
+  const _ReelCommentsSheet({required this.reel});
 
   final Moments reel;
 
   @override
-  ConsumerState<_ReelCommentsPage> createState() => _ReelCommentsPageState();
+  ConsumerState<_ReelCommentsSheet> createState() => _ReelCommentsSheetState();
 }
 
-class _ReelCommentsPageState extends ConsumerState<_ReelCommentsPage> {
+class _ReelCommentsSheetState extends ConsumerState<_ReelCommentsSheet> {
   final FocusNode _commentFocusNode = FocusNode();
   String? _replyToCommentId;
   String? _replyToUserName;
@@ -999,43 +1009,83 @@ class _ReelCommentsPageState extends ConsumerState<_ReelCommentsPage> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    return Scaffold(
-      appBar: AppBar(title: Text(l10n.comments)),
-      body: Column(
-        children: [
-          Expanded(
-            child: SingleChildScrollView(
-              child: CommentsMain(
-                id: widget.reel.id,
-                paginated: true,
-                onReply: (commentId, userName) {
-                  setState(() {
-                    _replyToCommentId = commentId;
-                    _replyToUserName = userName;
-                  });
-                  _commentFocusNode.requestFocus();
-                },
+    final theme = Theme.of(context);
+
+    // Draggable so it can be flicked away or pulled taller, and so the
+    // keyboard does not fight a fixed height when replying.
+    return DraggableScrollableSheet(
+      initialChildSize: 0.7,
+      minChildSize: 0.4,
+      maxChildSize: 0.95,
+      expand: false,
+      builder: (context, scrollController) => Container(
+        decoration: BoxDecoration(
+          color: theme.colorScheme.surface,
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+        ),
+        child: Column(
+          children: [
+            // Grab handle: the sheet is dismissed by dragging, and without a
+            // visible affordance that is a gesture nobody discovers.
+            Container(
+              key: const Key('reel-comments-handle'),
+              margin: const EdgeInsets.only(top: 10, bottom: 6),
+              width: 40,
+              height: 4,
+              decoration: BoxDecoration(
+                color: theme.colorScheme.onSurfaceVariant.withValues(
+                  alpha: 0.4,
+                ),
+                borderRadius: BorderRadius.circular(2),
               ),
             ),
-          ),
-          CreateComment(
-            focusNode: _commentFocusNode,
-            id: widget.reel.id,
-            onCommentAdded: () {
-              ref
-                  .read(paginatedCommentsProvider(widget.reel.id).notifier)
-                  .refresh();
-            },
-            parentCommentId: _replyToCommentId,
-            replyToUserName: _replyToUserName,
-            onCancelReply: () {
-              setState(() {
-                _replyToCommentId = null;
-                _replyToUserName = null;
-              });
-            },
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.only(bottom: 8),
+              child: Text(
+                l10n.comments,
+                style: theme.textTheme.titleSmall?.copyWith(
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+            const Divider(height: 1),
+            Expanded(
+              child: SingleChildScrollView(
+                // Driven by the sheet, so dragging the LIST resizes the sheet
+                // when it is at the top and scrolls when it is not.
+                controller: scrollController,
+                child: CommentsMain(
+                  id: widget.reel.id,
+                  paginated: true,
+                  onReply: (commentId, userName) {
+                    setState(() {
+                      _replyToCommentId = commentId;
+                      _replyToUserName = userName;
+                    });
+                    _commentFocusNode.requestFocus();
+                  },
+                ),
+              ),
+            ),
+            CreateComment(
+              focusNode: _commentFocusNode,
+              id: widget.reel.id,
+              onCommentAdded: () {
+                ref
+                    .read(paginatedCommentsProvider(widget.reel.id).notifier)
+                    .refresh();
+              },
+              parentCommentId: _replyToCommentId,
+              replyToUserName: _replyToUserName,
+              onCancelReply: () {
+                setState(() {
+                  _replyToCommentId = null;
+                  _replyToUserName = null;
+                });
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
