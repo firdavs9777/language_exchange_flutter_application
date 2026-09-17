@@ -3389,5 +3389,9 @@
   "avatarViewPhoto": "프로필 사진 보기",
   "@avatarViewPhoto": {
     "description": "avatar tap chooser"
+  },
+  "composerNext": "다음",
+  "@composerNext": {
+    "description": "moment composer"
   }
 }

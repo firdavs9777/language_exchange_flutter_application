@@ -8033,4 +8033,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get avatarViewPhoto => 'See profile photo';
+
+  @override
+  String get composerNext => 'Next';
 }

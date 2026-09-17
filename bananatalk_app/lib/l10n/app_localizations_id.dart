@@ -8024,4 +8024,7 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get avatarViewPhoto => 'Lihat foto profil';
+
+  @override
+  String get composerNext => 'Lanjut';
 }

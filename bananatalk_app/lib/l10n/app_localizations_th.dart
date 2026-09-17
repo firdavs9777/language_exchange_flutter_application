@@ -8017,4 +8017,7 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get avatarViewPhoto => 'ดูรูปโปรไฟล์';
+
+  @override
+  String get composerNext => 'ถัดไป';
 }

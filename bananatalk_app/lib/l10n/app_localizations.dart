@@ -14809,6 +14809,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'See profile photo'**
   String get avatarViewPhoto;
+
+  /// moment composer
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get composerNext;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

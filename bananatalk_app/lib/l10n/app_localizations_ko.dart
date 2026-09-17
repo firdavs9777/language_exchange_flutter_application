@@ -8017,4 +8017,7 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get avatarViewPhoto => '프로필 사진 보기';
+
+  @override
+  String get composerNext => '다음';
 }

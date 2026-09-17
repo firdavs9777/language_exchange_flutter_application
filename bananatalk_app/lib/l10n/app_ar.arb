@@ -3398,5 +3398,9 @@
   "avatarViewPhoto": "عرض صورة الملف الشخصي",
   "@avatarViewPhoto": {
     "description": "avatar tap chooser"
+  },
+  "composerNext": "التالي",
+  "@composerNext": {
+    "description": "moment composer"
   }
 }

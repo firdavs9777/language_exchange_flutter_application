@@ -8048,4 +8048,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get avatarViewPhoto => 'Посмотреть фото профиля';
+
+  @override
+  String get composerNext => 'Далее';
 }

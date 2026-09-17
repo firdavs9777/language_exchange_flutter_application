@@ -8031,4 +8031,7 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get avatarViewPhoto => 'Дидани акси профил';
+
+  @override
+  String get composerNext => 'Минбаъд';
 }

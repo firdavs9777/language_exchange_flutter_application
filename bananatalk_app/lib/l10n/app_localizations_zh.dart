@@ -8017,6 +8017,9 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get avatarViewPhoto => '查看头像';
+
+  @override
+  String get composerNext => '下一步';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -16032,4 +16035,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get avatarViewPhoto => '查看大頭貼';
+
+  @override
+  String get composerNext => '下一步';
 }

@@ -3341,5 +3341,9 @@
   "avatarViewPhoto": "Tingnan ang profile photo",
   "@avatarViewPhoto": {
     "description": "avatar tap chooser"
+  },
+  "composerNext": "Susunod",
+  "@composerNext": {
+    "description": "moment composer"
   }
 }

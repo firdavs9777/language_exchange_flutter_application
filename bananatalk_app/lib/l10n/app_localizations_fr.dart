@@ -8027,4 +8027,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get avatarViewPhoto => 'Voir la photo de profil';
+
+  @override
+  String get composerNext => 'Suivant';
 }

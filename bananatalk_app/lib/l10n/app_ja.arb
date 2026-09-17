@@ -3368,5 +3368,9 @@
   "avatarViewPhoto": "プロフィール写真を見る",
   "@avatarViewPhoto": {
     "description": "avatar tap chooser"
+  },
+  "composerNext": "次へ",
+  "@composerNext": {
+    "description": "moment composer"
   }
 }

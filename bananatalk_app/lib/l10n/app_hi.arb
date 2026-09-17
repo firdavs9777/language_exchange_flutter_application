@@ -3384,5 +3384,9 @@
   "avatarViewPhoto": "प्रोफ़ाइल फ़ोटो देखें",
   "@avatarViewPhoto": {
     "description": "avatar tap chooser"
+  },
+  "composerNext": "आगे",
+  "@composerNext": {
+    "description": "moment composer"
   }
 }

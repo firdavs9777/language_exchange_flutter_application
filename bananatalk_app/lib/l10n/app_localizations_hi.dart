@@ -8027,4 +8027,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get avatarViewPhoto => 'प्रोफ़ाइल फ़ोटो देखें';
+
+  @override
+  String get composerNext => 'आगे';
 }

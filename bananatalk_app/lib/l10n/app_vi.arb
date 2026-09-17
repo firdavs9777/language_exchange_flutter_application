@@ -3368,5 +3368,9 @@
   "avatarViewPhoto": "Xem ảnh đại diện",
   "@avatarViewPhoto": {
     "description": "avatar tap chooser"
+  },
+  "composerNext": "Tiếp theo",
+  "@composerNext": {
+    "description": "moment composer"
   }
 }

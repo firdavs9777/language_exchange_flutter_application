@@ -5585,5 +5585,9 @@
   "avatarViewPhoto": "See profile photo",
   "@avatarViewPhoto": {
     "description": "avatar tap chooser"
+  },
+  "composerNext": "Next",
+  "@composerNext": {
+    "description": "moment composer"
   }
 }

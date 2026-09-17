@@ -8027,4 +8027,7 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get avatarViewPhoto => 'Tingnan ang profile photo';
+
+  @override
+  String get composerNext => 'Susunod';
 }

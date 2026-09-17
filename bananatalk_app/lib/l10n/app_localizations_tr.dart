@@ -8025,4 +8025,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get avatarViewPhoto => 'Profil fotoğrafını gör';
+
+  @override
+  String get composerNext => 'İleri';
 }

@@ -3580,5 +3580,9 @@
   "avatarViewPhoto": "Profil fotoğrafını gör",
   "@avatarViewPhoto": {
     "description": "avatar tap chooser"
+  },
+  "composerNext": "İleri",
+  "@composerNext": {
+    "description": "moment composer"
   }
 }

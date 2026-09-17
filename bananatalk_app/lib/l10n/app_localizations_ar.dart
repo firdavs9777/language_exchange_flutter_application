@@ -8039,4 +8039,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get avatarViewPhoto => 'عرض صورة الملف الشخصي';
+
+  @override
+  String get composerNext => 'التالي';
 }

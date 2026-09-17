@@ -3382,5 +3382,9 @@
   "avatarViewPhoto": "查看头像",
   "@avatarViewPhoto": {
     "description": "avatar tap chooser"
+  },
+  "composerNext": "下一步",
+  "@composerNext": {
+    "description": "moment composer"
   }
 }

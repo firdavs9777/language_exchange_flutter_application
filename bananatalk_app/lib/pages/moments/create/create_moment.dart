@@ -27,6 +27,7 @@ import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:bananatalk_app/pages/moments/widgets/moments_snackbar.dart';
 import 'package:bananatalk_app/pages/moments/create/moment_draft_rules.dart';
 import 'package:bananatalk_app/pages/moments/create/moment_media_rules.dart';
+import 'package:bananatalk_app/pages/moments/create/composer_stage.dart';
 import 'package:bananatalk_app/pages/moments/create/moment_upload_retry.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/pages/moments/create/create_action_helpers.dart';
@@ -113,6 +114,13 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
   // Prompt-of-the-day prefill state
   bool _showPromptChip = false;
   String? _promptId;
+
+  /// Which step of the composer is showing.
+  ///
+  /// Compose first, configure second -- not media-first. This app allows
+  /// text-only moments, so a media-first flow would open by refusing to let
+  /// someone type.
+  ComposerStage _stage = ComposerStage.compose;
 
   // Aliases, so the widget keeps its familiar names while the values live in
   // one place with the rules that use them.
@@ -1685,6 +1693,43 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     }
   }
 
+  /// What the moment says.
+  List<Widget> _composeSections() => [
+    ..._sectionPrompt(),
+    ..._sectionDescription(),
+    ..._sectionBackground(),
+    ..._sectionAddHeader(),
+    ..._sectionActionButtons(),
+    ..._sectionAudioPreview(),
+    ..._sectionImages(),
+    ..._sectionVideoPreview(),
+  ];
+
+  /// Who sees it, and how it is filed.
+  List<Widget> _detailSections() => [
+    ..._sectionPrivacy(),
+    ..._sectionCategoryLanguage(),
+    ..._sectionTags(),
+    ..._sectionLocation(),
+    ..._sectionSchedule(),
+  ];
+
+  bool get _hasMedia =>
+      _selectedImages.isNotEmpty ||
+      _selectedVideo != null ||
+      _recordedAudio != null;
+
+  bool get _canAdvance => canAdvanceFrom(
+    stage: _stage,
+    hasCaption: descriptionController.text.trim().isNotEmpty,
+    hasMedia: _hasMedia,
+  );
+
+  void _goToStage(ComposerStage stage) {
+    FocusScope.of(context).unfocus();
+    setState(() => _stage = stage);
+  }
+
   @override
   Widget build(BuildContext context) {
     // Swap the fallback tag list for the full shared catalog once loaded
@@ -1710,8 +1755,17 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
         elevation: 0,
         backgroundColor: context.surfaceColor,
         leading: IconButton(
-          icon: Icon(Icons.close, color: context.textPrimary),
-          onPressed: () => Navigator.pop(context),
+          key: const Key('composer-leading'),
+          // On the second step this goes BACK, not out: closing the composer
+          // from there would discard a caption and media the person has
+          // already entered, with no warning.
+          icon: Icon(
+            _stage.isFirst ? Icons.close : Icons.arrow_back,
+            color: context.textPrimary,
+          ),
+          onPressed: _stage.isFirst
+              ? () => Navigator.pop(context)
+              : () => _goToStage(_stage.previous),
         ),
         title: Text(
           isEditMode
@@ -1720,35 +1774,51 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
           style: context.titleLarge,
         ),
         actions: [
-          ValueListenableBuilder<bool>(
-            valueListenable: isButtonEnabled,
-            builder: (context, isEnabled, child) {
-              return TextButton(
-                onPressed: isEnabled && !_isLoading ? _createMoment : null,
-                child: _isLoading
-                    ? const SizedBox(
-                        width: 20,
-                        height: 20,
-                        child: CircularProgressIndicator(
-                          strokeWidth: 2,
-                          valueColor: AlwaysStoppedAnimation<Color>(
-                            Color(0xFF00BFA5),
+          // Next on the first step, Post on the last. One action, so there is
+          // never a Post button sitting next to a Next button competing for
+          // the same tap.
+          if (_stage.isFirst)
+            TextButton(
+              key: const Key('composer-next'),
+              onPressed: _canAdvance ? () => _goToStage(_stage.next) : null,
+              child: Text(
+                AppLocalizations.of(context)!.composerNext,
+                style: context.labelLarge.copyWith(
+                  color: _canAdvance ? AppColors.primary : context.textMuted,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            )
+          else
+            ValueListenableBuilder<bool>(
+              valueListenable: isButtonEnabled,
+              builder: (context, isEnabled, child) {
+                return TextButton(
+                  onPressed: isEnabled && !_isLoading ? _createMoment : null,
+                  child: _isLoading
+                      ? const SizedBox(
+                          width: 20,
+                          height: 20,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              Color(0xFF00BFA5),
+                            ),
+                          ),
+                        )
+                      : Text(
+                          isEditMode
+                              ? AppLocalizations.of(context)!.save
+                              : AppLocalizations.of(context)!.post,
+                          style: context.labelLarge.copyWith(
+                            color: isEnabled
+                                ? AppColors.primary
+                                : context.textMuted,
                           ),
                         ),
-                      )
-                    : Text(
-                        isEditMode
-                            ? AppLocalizations.of(context)!.save
-                            : AppLocalizations.of(context)!.post,
-                        style: context.labelLarge.copyWith(
-                          color: isEnabled
-                              ? AppColors.primary
-                              : context.textMuted,
-                        ),
-                      ),
-              );
-            },
-          ),
+                );
+              },
+            ),
         ],
       ),
       body: SingleChildScrollView(
@@ -1756,869 +1826,14 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Prompt-of-the-day chip (dismissible)
-            if (_showPromptChip) ...[
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 8,
-                  ),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFFFD54F).withValues(alpha: 0.18),
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(
-                      color: const Color(0xFFFFD54F).withValues(alpha: 0.5),
-                    ),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const Icon(
-                        Icons.wb_sunny_outlined,
-                        size: 16,
-                        color: Color(0xFFC9A415),
-                      ),
-                      const SizedBox(width: 6),
-                      const Flexible(
-                        child: Text(
-                          'Answering the prompt of the day',
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                            color: Color(0xFFC9A415),
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                      const SizedBox(width: 4),
-                      GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            _showPromptChip = false;
-                            _promptId = null;
-                          });
-                        },
-                        child: const Icon(
-                          Icons.close,
-                          size: 16,
-                          color: Color(0xFFC9A415),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Spacing.gapMD,
-            ],
-            // Privacy Selector
-            Container(
-              decoration: BoxDecoration(
-                color: context.cardBackground,
-                borderRadius: AppRadius.borderMD,
-                boxShadow: AppShadows.sm,
-              ),
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: DropdownButton<String>(
-                value: _selectedPrivacy,
-                isExpanded: true,
-                underline: const SizedBox(),
-                icon: const Icon(Icons.arrow_drop_down),
-                items: _privacyOptions.map((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Row(
-                      children: [
-                        Icon(
-                          value == 'Public'
-                              ? Icons.public
-                              : value == 'Friends'
-                              ? Icons.people
-                              : Icons.lock,
-                          size: 20,
-                          color: AppColors.primary,
-                        ),
-                        const SizedBox(width: 8),
-                        Text(value),
-                      ],
-                    ),
-                  );
-                }).toList(),
-                onChanged: (String? newValue) {
-                  if (newValue != null) {
-                    setState(() {
-                      _selectedPrivacy = newValue;
-                    });
-                  }
-                },
-              ),
-            ),
-            Spacing.gapMD,
-
-            // Description Field with Counter + gradient preview
-            () {
-              final hasGradient =
-                  _selectedBackgroundColor.isNotEmpty &&
-                  _selectedImages.isEmpty &&
-                  _selectedVideo == null;
-              final gradientColors = hasGradient
-                  ? MomentGradients.getColors(
-                      _selectedBackgroundColor,
-                    ).map((c) => Color(c)).toList()
-                  : null;
-
-              return Container(
-                decoration: BoxDecoration(
-                  color: hasGradient ? null : context.cardBackground,
-                  gradient: hasGradient
-                      ? LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          colors: gradientColors!,
-                        )
-                      : null,
-                  borderRadius: AppRadius.borderMD,
-                ),
-                child: Column(
-                  children: [
-                    TextField(
-                      controller: descriptionController,
-                      maxLines: 8,
-                      maxLength: maxDescriptionLength,
-                      style: TextStyle(
-                        color: hasGradient ? Colors.white : null,
-                        fontWeight: hasGradient ? FontWeight.w600 : null,
-                        fontSize: hasGradient ? 18 : null,
-                        height: hasGradient ? 1.5 : null,
-                        shadows: hasGradient
-                            ? [
-                                const Shadow(
-                                  blurRadius: 4,
-                                  color: Colors.black26,
-                                ),
-                              ]
-                            : null,
-                      ),
-                      textAlign: hasGradient
-                          ? TextAlign.center
-                          : TextAlign.start,
-                      decoration: InputDecoration(
-                        hintText: hasGradient
-                            ? AppLocalizations.of(context)!.whatsOnYourMind
-                            : AppLocalizations.of(context)!.whatsOnYourMind,
-                        hintStyle: TextStyle(
-                          color: hasGradient
-                              ? Colors.white54
-                              : context.textHint,
-                        ),
-                        filled: hasGradient,
-                        fillColor: hasGradient
-                            ? Colors.black.withValues(alpha: 0.15)
-                            : null,
-                        border: OutlineInputBorder(
-                          borderRadius: AppRadius.borderMD,
-                          borderSide: BorderSide.none,
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: AppRadius.borderMD,
-                          borderSide: BorderSide.none,
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: AppRadius.borderMD,
-                          borderSide: BorderSide.none,
-                        ),
-                        contentPadding: Spacing.paddingLG,
-                        counterText: '',
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 16, bottom: 8),
-                      child: Align(
-                        alignment: Alignment.centerRight,
-                        child: Text(
-                          '${descriptionController.text.length}/$maxDescriptionLength',
-                          style: context.caption.copyWith(
-                            color:
-                                descriptionController.text.length >
-                                    maxDescriptionLength
-                                ? AppColors.error
-                                : descriptionController.text.length >
-                                      maxDescriptionLength * 0.9
-                                ? Colors.orange
-                                : hasGradient
-                                ? Colors.white70
-                                : context.textMuted,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            }(),
-            // Background color picker (text-only posts)
-            if (_selectedImages.isEmpty && _selectedVideo == null) ...[
-              Spacing.gapMD,
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 4),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      AppLocalizations.of(context)!.chooseBackground,
-                      style: context.labelMedium.copyWith(
-                        color: context.textSecondary,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    SizedBox(
-                      height: 44,
-                      child: ListView(
-                        scrollDirection: Axis.horizontal,
-                        children: [
-                          // "None" option
-                          GestureDetector(
-                            onTap: () =>
-                                setState(() => _selectedBackgroundColor = ''),
-                            child: Container(
-                              width: 36,
-                              height: 36,
-                              margin: const EdgeInsets.only(right: 8),
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Theme.of(
-                                  context,
-                                ).colorScheme.surfaceContainerHighest,
-                                border: Border.all(
-                                  color: _selectedBackgroundColor.isEmpty
-                                      ? AppColors.primary
-                                      : Colors.transparent,
-                                  width: 2,
-                                ),
-                              ),
-                              child: Icon(
-                                Icons.block,
-                                size: 18,
-                                color: context.textMuted,
-                              ),
-                            ),
-                          ),
-                          ...MomentGradients.presets.entries.map((entry) {
-                            final colors = entry.value;
-                            final isSelected =
-                                _selectedBackgroundColor == entry.key;
-                            return GestureDetector(
-                              onTap: () => setState(
-                                () => _selectedBackgroundColor = entry.key,
-                              ),
-                              child: Container(
-                                width: 36,
-                                height: 36,
-                                margin: const EdgeInsets.only(right: 8),
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  gradient: LinearGradient(
-                                    colors: colors
-                                        .map((c) => Color(c))
-                                        .toList(),
-                                  ),
-                                  border: Border.all(
-                                    color: isSelected
-                                        ? AppColors.primary
-                                        : Colors.transparent,
-                                    width: 2,
-                                  ),
-                                ),
-                              ),
-                            );
-                          }),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-            Spacing.gapXL,
-
-            // Add to your moment section
-            Text(
-              AppLocalizations.of(context)!.momentsCreateAddTo,
-              style: context.titleMedium,
-            ),
-            Spacing.gapMD,
-
-            // Action Buttons Row
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                createActionIcon(
-                  context: context,
-                  icon: Icons.image,
-                  color: const Color(0xFF4CAF50),
-                  onTap: _pickImages,
-                ),
-                createActionIcon(
-                  context: context,
-                  icon: Icons.emoji_emotions,
-                  color: const Color(0xFFFFC107),
-                  onTap: _showMoodPicker,
-                  badge: _selectedMood,
-                ),
-                createActionIcon(
-                  context: context,
-                  icon: Icons.location_on,
-                  color: const Color(0xFFF44336),
-                  onTap: _requestLocationPermission,
-                  isActive: _currentPosition != null,
-                ),
-                createActionIcon(
-                  context: context,
-                  icon: Icons.tag,
-                  color: const Color(0xFF2196F3),
-                  onTap: () async {
-                    final updated = await showCreateTagDialog(
-                      context,
-                      existingTags: _tags,
-                      maxTags: 5,
-                    );
-                    setState(() => _tags = updated);
-                  },
-                  badge: _tags.isNotEmpty ? '${_tags.length}' : null,
-                ),
-                // Voice notes aren't supported when editing an existing
-                // moment yet (the update submit path doesn't upload audio),
-                // so hide the control rather than silently drop a recording.
-                if (!isEditMode)
-                  createActionIcon(
-                    context: context,
-                    icon: Icons.mic,
-                    color: const Color(0xFF9C27B0),
-                    onTap: _isRecordingAudio ? () {} : _startRecordingAudio,
-                    isActive: _recordedAudio != null,
-                  ),
-              ],
-            ),
-            Spacing.gapXL,
-
-            // Recorded audio preview (voice note)
-            if (!isEditMode && _recordedAudio != null) ...[
-              Container(
-                decoration: BoxDecoration(
-                  color: context.cardBackground,
-                  borderRadius: AppRadius.borderMD,
-                  boxShadow: AppShadows.sm,
-                ),
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: _LocalAudioPreviewPlayer(
-                        file: _recordedAudio!,
-                        durationSeconds: _recordedAudioDuration,
-                      ),
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.delete_outline, color: Colors.red),
-                      onPressed: _removeRecordedAudio,
-                      tooltip: 'Remove voice note',
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 20),
-            ],
-
-            // Images Section
-            if (_selectedImages.isNotEmpty) ...[
-              Container(
-                decoration: BoxDecoration(
-                  color: context.cardBackground,
-                  borderRadius: AppRadius.borderMD,
-                  boxShadow: AppShadows.sm,
-                ),
-                padding: const EdgeInsets.all(12),
-                child: GridView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    crossAxisSpacing: 8,
-                    mainAxisSpacing: 8,
-                    childAspectRatio: 1,
-                  ),
-                  itemCount: _selectedImages.length < maxImages
-                      ? _selectedImages.length + 1
-                      : _selectedImages.length,
-                  itemBuilder: (context, index) {
-                    if (index < _selectedImages.length) {
-                      return Stack(
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(8),
-                            child: Image.file(
-                              _selectedImages[index],
-                              fit: BoxFit.cover,
-                              width: double.infinity,
-                              height: double.infinity,
-                            ),
-                          ),
-                          Positioned(
-                            top: 4,
-                            right: 4,
-                            child: GestureDetector(
-                              onTap: () => _removeImage(index),
-                              child: Container(
-                                padding: const EdgeInsets.all(4),
-                                decoration: const BoxDecoration(
-                                  color: Colors.black54,
-                                  shape: BoxShape.circle,
-                                ),
-                                child: const Icon(
-                                  Icons.close,
-                                  color: Colors.white,
-                                  size: 16,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      );
-                    } else {
-                      return InkWell(
-                        onTap: _pickImages,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: context.dividerColor,
-                              style: BorderStyle.solid,
-                              width: 2,
-                            ),
-                            borderRadius: AppRadius.borderSM,
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.add,
-                                size: 32,
-                                color: context.iconColor,
-                              ),
-                              Spacing.gapXS,
-                              Text(
-                                'Add More',
-                                style: context.caption.copyWith(
-                                  color: context.textSecondary,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
-                    }
-                  },
-                ),
-              ),
-              const SizedBox(height: 20),
-            ],
-
-            // Video Preview Section
-            if (_selectedVideo != null) ...[
-              Container(
-                decoration: BoxDecoration(
-                  color: context.cardBackground,
-                  borderRadius: BorderRadius.circular(12),
-                  boxShadow: AppShadows.sm,
-                ),
-                padding: const EdgeInsets.all(12),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                            color: const Color(
-                              0xFF00BFA5,
-                            ).withValues(alpha: 0.1),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: const Icon(
-                            Icons.videocam,
-                            color: Color(0xFF00BFA5),
-                            size: 24,
-                          ),
-                        ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Video Ready',
-                                style: context.bodyMedium.copyWith(
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              const SizedBox(height: 4),
-                              Row(
-                                children: [
-                                  if (_videoProcessResult != null) ...[
-                                    Text(
-                                      '${_videoProcessResult!.fileSizeMB}MB',
-                                      style: context.captionSmall.copyWith(
-                                        color: context.textSecondary,
-                                      ),
-                                    ),
-                                    if (_videoProcessResult!.duration !=
-                                        null) ...[
-                                      Text(
-                                        ' | ${_videoProcessResult!.durationFormatted}',
-                                        style: context.captionSmall.copyWith(
-                                          color: context.textSecondary,
-                                        ),
-                                      ),
-                                    ],
-                                    if (_videoProcessResult!.wasCompressed) ...[
-                                      const SizedBox(width: 8),
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 6,
-                                          vertical: 2,
-                                        ),
-                                        decoration: BoxDecoration(
-                                          color: const Color(
-                                            0xFF00BFA5,
-                                          ).withValues(alpha: 0.1),
-                                          borderRadius: BorderRadius.circular(
-                                            4,
-                                          ),
-                                        ),
-                                        child: const Text(
-                                          'Compressed',
-                                          style: TextStyle(
-                                            fontSize: 10,
-                                            color: Color(0xFF00BFA5),
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ] else
-                                    Text(
-                                      'Ready to upload',
-                                      style: context.captionSmall.copyWith(
-                                        color: context.textSecondary,
-                                      ),
-                                    ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                        IconButton(
-                          icon: const Icon(Icons.close, size: 20),
-                          onPressed: _removeVideo,
-                          color: context.textSecondary,
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 12),
-                    Container(
-                      height: 160,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        color: Colors.grey[900],
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.all(20),
-                            decoration: BoxDecoration(
-                              color: Colors.white.withValues(alpha: 0.1),
-                              shape: BoxShape.circle,
-                            ),
-                            child: const Icon(
-                              Icons.play_arrow_rounded,
-                              size: 48,
-                              color: Colors.white,
-                            ),
-                          ),
-                          // Duration badge
-                          Positioned(
-                            bottom: 12,
-                            left: 12,
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 10,
-                                vertical: 5,
-                              ),
-                              decoration: BoxDecoration(
-                                color: Colors.black.withValues(alpha: 0.7),
-                                borderRadius: BorderRadius.circular(6),
-                              ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  const Icon(
-                                    Icons.access_time,
-                                    size: 14,
-                                    color: Colors.white,
-                                  ),
-                                  const SizedBox(width: 4),
-                                  Text(
-                                    _videoProcessResult?.durationFormatted ??
-                                        (widget.isReel
-                                            ? 'Max 3:00'
-                                            : 'Max 10:00'),
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          // File size badge
-                          Positioned(
-                            bottom: 12,
-                            right: 12,
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 10,
-                                vertical: 5,
-                              ),
-                              decoration: BoxDecoration(
-                                color: Colors.black.withValues(alpha: 0.7),
-                                borderRadius: BorderRadius.circular(6),
-                              ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  const Icon(
-                                    Icons.storage,
-                                    size: 14,
-                                    color: Colors.white,
-                                  ),
-                                  const SizedBox(width: 4),
-                                  Text(
-                                    _videoProcessResult != null
-                                        ? '${_videoProcessResult!.fileSizeMB}MB'
-                                        : 'Processing...',
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 20),
-            ],
-
-            // Tags Display
-            if (_tags.isNotEmpty) ...[
-              Wrap(
-                spacing: 8,
-                runSpacing: 8,
-                children: _tags.map((tag) {
-                  return Chip(
-                    label: Text('#$tag'),
-                    deleteIcon: const Icon(Icons.close, size: 16),
-                    onDeleted: () => _removeTag(tag),
-                    backgroundColor: AppColors.primary.withValues(alpha: 0.1),
-                    labelStyle: context.labelMedium.copyWith(
-                      color: AppColors.primary,
-                    ),
-                  );
-                }).toList(),
-              ),
-              Spacing.gapXL,
-            ],
-
-            // Location Display
-            if (_currentPosition != null) ...[
-              Container(
-                padding: Spacing.paddingMD,
-                decoration: BoxDecoration(
-                  color: AppColors.primary.withValues(alpha: 0.1),
-                  borderRadius: AppRadius.borderSM,
-                ),
-                child: Row(
-                  children: [
-                    const Icon(Icons.location_on, color: AppColors.primary),
-                    Spacing.hGapSM,
-                    Expanded(
-                      child: Text(
-                        _formattedAddress ?? 'Location added',
-                        style: context.bodyMedium.copyWith(
-                          color: AppColors.primary,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.close, size: 20),
-                      onPressed: _clearLocation,
-                    ),
-                  ],
-                ),
-              ),
-              Spacing.gapXL,
-            ],
-
-            // Category and Language
-            Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        AppLocalizations.of(context)!.momentsCreateCategory,
-                        style: context.labelLarge,
-                      ),
-                      Spacing.gapSM,
-                      Container(
-                        decoration: BoxDecoration(
-                          color: context.cardBackground,
-                          borderRadius: AppRadius.borderMD,
-                        ),
-                        padding: const EdgeInsets.symmetric(horizontal: 12),
-                        child: DropdownButton<String>(
-                          value: _selectedCategory,
-                          isExpanded: true,
-                          underline: const SizedBox(),
-                          items: _categories.map((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(
-                                value,
-                                style: const TextStyle(fontSize: 14),
-                              ),
-                            );
-                          }).toList(),
-                          onChanged: (String? newValue) {
-                            if (newValue != null) {
-                              setState(() {
-                                _selectedCategory = newValue;
-                              });
-                            }
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Spacing.hGapMD,
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        AppLocalizations.of(context)!.momentsCreateLanguage,
-                        style: context.labelLarge,
-                      ),
-                      Spacing.gapSM,
-                      Container(
-                        decoration: BoxDecoration(
-                          color: context.cardBackground,
-                          borderRadius: AppRadius.borderMD,
-                        ),
-                        padding: const EdgeInsets.symmetric(horizontal: 12),
-                        child: DropdownButton<String>(
-                          value: _selectedLanguage,
-                          isExpanded: true,
-                          underline: const SizedBox(),
-                          items: _languages.keys.map((String displayName) {
-                            return DropdownMenuItem<String>(
-                              value: displayName,
-                              child: Text(
-                                displayName,
-                                style: const TextStyle(fontSize: 14),
-                              ),
-                            );
-                          }).toList(),
-                          onChanged: (String? newValue) {
-                            if (newValue != null) {
-                              setState(() {
-                                _selectedLanguage = newValue;
-                              });
-                            }
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            Spacing.gapXL,
-
-            // Schedule (Optional)
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  AppLocalizations.of(context)!.momentsCreateSchedule,
-                  style: context.labelLarge,
-                ),
-                Spacing.gapSM,
-                InkWell(
-                  onTap: _selectScheduleDate,
-                  child: Container(
-                    padding: Spacing.paddingLG,
-                    decoration: BoxDecoration(
-                      color: context.cardBackground,
-                      borderRadius: AppRadius.borderMD,
-                    ),
-                    child: Row(
-                      children: [
-                        Icon(Icons.schedule, color: context.iconColor),
-                        Spacing.hGapMD,
-                        Expanded(
-                          child: Text(
-                            _scheduledDate != null
-                                ? '${_scheduledDate!.day}/${_scheduledDate!.month}/${_scheduledDate!.year} at ${_scheduledDate!.hour}:${_scheduledDate!.minute.toString().padLeft(2, '0')}'
-                                : AppLocalizations.of(
-                                    context,
-                                  )!.momentsCreateScheduleForLater,
-                            style: context.bodyMedium.copyWith(
-                              color: _scheduledDate != null
-                                  ? context.textPrimary
-                                  : context.textMuted,
-                            ),
-                          ),
-                        ),
-                        if (_scheduledDate != null)
-                          IconButton(
-                            icon: const Icon(Icons.close, size: 20),
-                            onPressed: () {
-                              setState(() {
-                                _scheduledDate = null;
-                              });
-                            },
-                          ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
+            _StageIndicator(stage: _stage),
+            const SizedBox(height: 16),
+            // Only the current step. Editing state lives on the State, so
+            // switching steps keeps everything already entered.
+            if (_stage == ComposerStage.compose)
+              ..._composeSections()
+            else
+              ..._detailSections(),
           ],
         ),
       ),
@@ -2666,6 +1881,924 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
         ),
       ),
     );
+  }
+
+  /// One section of the composer body, extracted so the staged
+  /// flow can order and group them without touching their contents.
+  List<Widget> _sectionPrompt() {
+    return [
+      // Prompt-of-the-day chip (dismissible)
+      if (_showPromptChip) ...[
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            decoration: BoxDecoration(
+              color: const Color(0xFFFFD54F).withValues(alpha: 0.18),
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(
+                color: const Color(0xFFFFD54F).withValues(alpha: 0.5),
+              ),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Icon(
+                  Icons.wb_sunny_outlined,
+                  size: 16,
+                  color: Color(0xFFC9A415),
+                ),
+                const SizedBox(width: 6),
+                const Flexible(
+                  child: Text(
+                    'Answering the prompt of the day',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xFFC9A415),
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                const SizedBox(width: 4),
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      _showPromptChip = false;
+                      _promptId = null;
+                    });
+                  },
+                  child: const Icon(
+                    Icons.close,
+                    size: 16,
+                    color: Color(0xFFC9A415),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        Spacing.gapMD,
+      ],
+    ];
+  }
+
+  /// One section of the composer body, extracted so the staged
+  /// flow can order and group them without touching their contents.
+  List<Widget> _sectionPrivacy() {
+    return [
+      // Privacy Selector
+      Container(
+        decoration: BoxDecoration(
+          color: context.cardBackground,
+          borderRadius: AppRadius.borderMD,
+          boxShadow: AppShadows.sm,
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        child: DropdownButton<String>(
+          value: _selectedPrivacy,
+          isExpanded: true,
+          underline: const SizedBox(),
+          icon: const Icon(Icons.arrow_drop_down),
+          items: _privacyOptions.map((String value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Row(
+                children: [
+                  Icon(
+                    value == 'Public'
+                        ? Icons.public
+                        : value == 'Friends'
+                        ? Icons.people
+                        : Icons.lock,
+                    size: 20,
+                    color: AppColors.primary,
+                  ),
+                  const SizedBox(width: 8),
+                  Text(value),
+                ],
+              ),
+            );
+          }).toList(),
+          onChanged: (String? newValue) {
+            if (newValue != null) {
+              setState(() {
+                _selectedPrivacy = newValue;
+              });
+            }
+          },
+        ),
+      ),
+      Spacing.gapMD,
+    ];
+  }
+
+  /// One section of the composer body, extracted so the staged
+  /// flow can order and group them without touching their contents.
+  List<Widget> _sectionDescription() {
+    return [
+      // Description Field with Counter + gradient preview
+      () {
+        final hasGradient =
+            _selectedBackgroundColor.isNotEmpty &&
+            _selectedImages.isEmpty &&
+            _selectedVideo == null;
+        final gradientColors = hasGradient
+            ? MomentGradients.getColors(
+                _selectedBackgroundColor,
+              ).map((c) => Color(c)).toList()
+            : null;
+
+        return Container(
+          decoration: BoxDecoration(
+            color: hasGradient ? null : context.cardBackground,
+            gradient: hasGradient
+                ? LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: gradientColors!,
+                  )
+                : null,
+            borderRadius: AppRadius.borderMD,
+          ),
+          child: Column(
+            children: [
+              TextField(
+                controller: descriptionController,
+                maxLines: 8,
+                maxLength: maxDescriptionLength,
+                style: TextStyle(
+                  color: hasGradient ? Colors.white : null,
+                  fontWeight: hasGradient ? FontWeight.w600 : null,
+                  fontSize: hasGradient ? 18 : null,
+                  height: hasGradient ? 1.5 : null,
+                  shadows: hasGradient
+                      ? [const Shadow(blurRadius: 4, color: Colors.black26)]
+                      : null,
+                ),
+                textAlign: hasGradient ? TextAlign.center : TextAlign.start,
+                decoration: InputDecoration(
+                  hintText: hasGradient
+                      ? AppLocalizations.of(context)!.whatsOnYourMind
+                      : AppLocalizations.of(context)!.whatsOnYourMind,
+                  hintStyle: TextStyle(
+                    color: hasGradient ? Colors.white54 : context.textHint,
+                  ),
+                  filled: hasGradient,
+                  fillColor: hasGradient
+                      ? Colors.black.withValues(alpha: 0.15)
+                      : null,
+                  border: OutlineInputBorder(
+                    borderRadius: AppRadius.borderMD,
+                    borderSide: BorderSide.none,
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: AppRadius.borderMD,
+                    borderSide: BorderSide.none,
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: AppRadius.borderMD,
+                    borderSide: BorderSide.none,
+                  ),
+                  contentPadding: Spacing.paddingLG,
+                  counterText: '',
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 16, bottom: 8),
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                    '${descriptionController.text.length}/$maxDescriptionLength',
+                    style: context.caption.copyWith(
+                      color:
+                          descriptionController.text.length >
+                              maxDescriptionLength
+                          ? AppColors.error
+                          : descriptionController.text.length >
+                                maxDescriptionLength * 0.9
+                          ? Colors.orange
+                          : hasGradient
+                          ? Colors.white70
+                          : context.textMuted,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      }(),
+    ];
+  }
+
+  /// One section of the composer body, extracted so the staged
+  /// flow can order and group them without touching their contents.
+  List<Widget> _sectionBackground() {
+    return [
+      // Background color picker (text-only posts)
+      if (_selectedImages.isEmpty && _selectedVideo == null) ...[
+        Spacing.gapMD,
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 4),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                AppLocalizations.of(context)!.chooseBackground,
+                style: context.labelMedium.copyWith(
+                  color: context.textSecondary,
+                ),
+              ),
+              const SizedBox(height: 8),
+              SizedBox(
+                height: 44,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    // "None" option
+                    GestureDetector(
+                      onTap: () =>
+                          setState(() => _selectedBackgroundColor = ''),
+                      child: Container(
+                        width: 36,
+                        height: 36,
+                        margin: const EdgeInsets.only(right: 8),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Theme.of(
+                            context,
+                          ).colorScheme.surfaceContainerHighest,
+                          border: Border.all(
+                            color: _selectedBackgroundColor.isEmpty
+                                ? AppColors.primary
+                                : Colors.transparent,
+                            width: 2,
+                          ),
+                        ),
+                        child: Icon(
+                          Icons.block,
+                          size: 18,
+                          color: context.textMuted,
+                        ),
+                      ),
+                    ),
+                    ...MomentGradients.presets.entries.map((entry) {
+                      final colors = entry.value;
+                      final isSelected = _selectedBackgroundColor == entry.key;
+                      return GestureDetector(
+                        onTap: () => setState(
+                          () => _selectedBackgroundColor = entry.key,
+                        ),
+                        child: Container(
+                          width: 36,
+                          height: 36,
+                          margin: const EdgeInsets.only(right: 8),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            gradient: LinearGradient(
+                              colors: colors.map((c) => Color(c)).toList(),
+                            ),
+                            border: Border.all(
+                              color: isSelected
+                                  ? AppColors.primary
+                                  : Colors.transparent,
+                              width: 2,
+                            ),
+                          ),
+                        ),
+                      );
+                    }),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+      Spacing.gapXL,
+    ];
+  }
+
+  /// One section of the composer body, extracted so the staged
+  /// flow can order and group them without touching their contents.
+  List<Widget> _sectionAddHeader() {
+    return [
+      // Add to your moment section
+      Text(
+        AppLocalizations.of(context)!.momentsCreateAddTo,
+        style: context.titleMedium,
+      ),
+      Spacing.gapMD,
+    ];
+  }
+
+  /// One section of the composer body, extracted so the staged
+  /// flow can order and group them without touching their contents.
+  List<Widget> _sectionActionButtons() {
+    return [
+      // Action Buttons Row
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          createActionIcon(
+            context: context,
+            icon: Icons.image,
+            color: const Color(0xFF4CAF50),
+            onTap: _pickImages,
+          ),
+          createActionIcon(
+            context: context,
+            icon: Icons.emoji_emotions,
+            color: const Color(0xFFFFC107),
+            onTap: _showMoodPicker,
+            badge: _selectedMood,
+          ),
+          createActionIcon(
+            context: context,
+            icon: Icons.location_on,
+            color: const Color(0xFFF44336),
+            onTap: _requestLocationPermission,
+            isActive: _currentPosition != null,
+          ),
+          createActionIcon(
+            context: context,
+            icon: Icons.tag,
+            color: const Color(0xFF2196F3),
+            onTap: () async {
+              final updated = await showCreateTagDialog(
+                context,
+                existingTags: _tags,
+                maxTags: 5,
+              );
+              setState(() => _tags = updated);
+            },
+            badge: _tags.isNotEmpty ? '${_tags.length}' : null,
+          ),
+          // Voice notes aren't supported when editing an existing
+          // moment yet (the update submit path doesn't upload audio),
+          // so hide the control rather than silently drop a recording.
+          if (!isEditMode)
+            createActionIcon(
+              context: context,
+              icon: Icons.mic,
+              color: const Color(0xFF9C27B0),
+              onTap: _isRecordingAudio ? () {} : _startRecordingAudio,
+              isActive: _recordedAudio != null,
+            ),
+        ],
+      ),
+      Spacing.gapXL,
+    ];
+  }
+
+  /// One section of the composer body, extracted so the staged
+  /// flow can order and group them without touching their contents.
+  List<Widget> _sectionAudioPreview() {
+    return [
+      // Recorded audio preview (voice note)
+      if (!isEditMode && _recordedAudio != null) ...[
+        Container(
+          decoration: BoxDecoration(
+            color: context.cardBackground,
+            borderRadius: AppRadius.borderMD,
+            boxShadow: AppShadows.sm,
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+          child: Row(
+            children: [
+              Expanded(
+                child: _LocalAudioPreviewPlayer(
+                  file: _recordedAudio!,
+                  durationSeconds: _recordedAudioDuration,
+                ),
+              ),
+              IconButton(
+                icon: const Icon(Icons.delete_outline, color: Colors.red),
+                onPressed: _removeRecordedAudio,
+                tooltip: 'Remove voice note',
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 20),
+      ],
+    ];
+  }
+
+  /// One section of the composer body, extracted so the staged
+  /// flow can order and group them without touching their contents.
+  List<Widget> _sectionImages() {
+    return [
+      // Images Section
+      if (_selectedImages.isNotEmpty) ...[
+        Container(
+          decoration: BoxDecoration(
+            color: context.cardBackground,
+            borderRadius: AppRadius.borderMD,
+            boxShadow: AppShadows.sm,
+          ),
+          padding: const EdgeInsets.all(12),
+          child: GridView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3,
+              crossAxisSpacing: 8,
+              mainAxisSpacing: 8,
+              childAspectRatio: 1,
+            ),
+            itemCount: _selectedImages.length < maxImages
+                ? _selectedImages.length + 1
+                : _selectedImages.length,
+            itemBuilder: (context, index) {
+              if (index < _selectedImages.length) {
+                return Stack(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: Image.file(
+                        _selectedImages[index],
+                        fit: BoxFit.cover,
+                        width: double.infinity,
+                        height: double.infinity,
+                      ),
+                    ),
+                    Positioned(
+                      top: 4,
+                      right: 4,
+                      child: GestureDetector(
+                        onTap: () => _removeImage(index),
+                        child: Container(
+                          padding: const EdgeInsets.all(4),
+                          decoration: const BoxDecoration(
+                            color: Colors.black54,
+                            shape: BoxShape.circle,
+                          ),
+                          child: const Icon(
+                            Icons.close,
+                            color: Colors.white,
+                            size: 16,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              } else {
+                return InkWell(
+                  onTap: _pickImages,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: context.dividerColor,
+                        style: BorderStyle.solid,
+                        width: 2,
+                      ),
+                      borderRadius: AppRadius.borderSM,
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.add, size: 32, color: context.iconColor),
+                        Spacing.gapXS,
+                        Text(
+                          'Add More',
+                          style: context.caption.copyWith(
+                            color: context.textSecondary,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              }
+            },
+          ),
+        ),
+        const SizedBox(height: 20),
+      ],
+    ];
+  }
+
+  /// One section of the composer body, extracted so the staged
+  /// flow can order and group them without touching their contents.
+  List<Widget> _sectionVideoPreview() {
+    return [
+      // Video Preview Section
+      if (_selectedVideo != null) ...[
+        Container(
+          decoration: BoxDecoration(
+            color: context.cardBackground,
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: AppShadows.sm,
+          ),
+          padding: const EdgeInsets.all(12),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF00BFA5).withValues(alpha: 0.1),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: const Icon(
+                      Icons.videocam,
+                      color: Color(0xFF00BFA5),
+                      size: 24,
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Video Ready',
+                          style: context.bodyMedium.copyWith(
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Row(
+                          children: [
+                            if (_videoProcessResult != null) ...[
+                              Text(
+                                '${_videoProcessResult!.fileSizeMB}MB',
+                                style: context.captionSmall.copyWith(
+                                  color: context.textSecondary,
+                                ),
+                              ),
+                              if (_videoProcessResult!.duration != null) ...[
+                                Text(
+                                  ' | ${_videoProcessResult!.durationFormatted}',
+                                  style: context.captionSmall.copyWith(
+                                    color: context.textSecondary,
+                                  ),
+                                ),
+                              ],
+                              if (_videoProcessResult!.wasCompressed) ...[
+                                const SizedBox(width: 8),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 6,
+                                    vertical: 2,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: const Color(
+                                      0xFF00BFA5,
+                                    ).withValues(alpha: 0.1),
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  child: const Text(
+                                    'Compressed',
+                                    style: TextStyle(
+                                      fontSize: 10,
+                                      color: Color(0xFF00BFA5),
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ] else
+                              Text(
+                                'Ready to upload',
+                                style: context.captionSmall.copyWith(
+                                  color: context.textSecondary,
+                                ),
+                              ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.close, size: 20),
+                    onPressed: _removeVideo,
+                    color: context.textSecondary,
+                  ),
+                ],
+              ),
+              const SizedBox(height: 12),
+              Container(
+                height: 160,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: Colors.grey[900],
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withValues(alpha: 0.1),
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(
+                        Icons.play_arrow_rounded,
+                        size: 48,
+                        color: Colors.white,
+                      ),
+                    ),
+                    // Duration badge
+                    Positioned(
+                      bottom: 12,
+                      left: 12,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 5,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.black.withValues(alpha: 0.7),
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Icon(
+                              Icons.access_time,
+                              size: 14,
+                              color: Colors.white,
+                            ),
+                            const SizedBox(width: 4),
+                            Text(
+                              _videoProcessResult?.durationFormatted ??
+                                  (widget.isReel ? 'Max 3:00' : 'Max 10:00'),
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    // File size badge
+                    Positioned(
+                      bottom: 12,
+                      right: 12,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 5,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.black.withValues(alpha: 0.7),
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Icon(
+                              Icons.storage,
+                              size: 14,
+                              color: Colors.white,
+                            ),
+                            const SizedBox(width: 4),
+                            Text(
+                              _videoProcessResult != null
+                                  ? '${_videoProcessResult!.fileSizeMB}MB'
+                                  : 'Processing...',
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 20),
+      ],
+    ];
+  }
+
+  /// One section of the composer body, extracted so the staged
+  /// flow can order and group them without touching their contents.
+  List<Widget> _sectionTags() {
+    return [
+      // Tags Display
+      if (_tags.isNotEmpty) ...[
+        Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          children: _tags.map((tag) {
+            return Chip(
+              label: Text('#$tag'),
+              deleteIcon: const Icon(Icons.close, size: 16),
+              onDeleted: () => _removeTag(tag),
+              backgroundColor: AppColors.primary.withValues(alpha: 0.1),
+              labelStyle: context.labelMedium.copyWith(
+                color: AppColors.primary,
+              ),
+            );
+          }).toList(),
+        ),
+        Spacing.gapXL,
+      ],
+    ];
+  }
+
+  /// One section of the composer body, extracted so the staged
+  /// flow can order and group them without touching their contents.
+  List<Widget> _sectionLocation() {
+    return [
+      // Location Display
+      if (_currentPosition != null) ...[
+        Container(
+          padding: Spacing.paddingMD,
+          decoration: BoxDecoration(
+            color: AppColors.primary.withValues(alpha: 0.1),
+            borderRadius: AppRadius.borderSM,
+          ),
+          child: Row(
+            children: [
+              const Icon(Icons.location_on, color: AppColors.primary),
+              Spacing.hGapSM,
+              Expanded(
+                child: Text(
+                  _formattedAddress ?? 'Location added',
+                  style: context.bodyMedium.copyWith(
+                    color: AppColors.primary,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+              IconButton(
+                icon: const Icon(Icons.close, size: 20),
+                onPressed: _clearLocation,
+              ),
+            ],
+          ),
+        ),
+        Spacing.gapXL,
+      ],
+    ];
+  }
+
+  /// One section of the composer body, extracted so the staged
+  /// flow can order and group them without touching their contents.
+  List<Widget> _sectionCategoryLanguage() {
+    return [
+      // Category and Language
+      Row(
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  AppLocalizations.of(context)!.momentsCreateCategory,
+                  style: context.labelLarge,
+                ),
+                Spacing.gapSM,
+                Container(
+                  decoration: BoxDecoration(
+                    color: context.cardBackground,
+                    borderRadius: AppRadius.borderMD,
+                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  child: DropdownButton<String>(
+                    value: _selectedCategory,
+                    isExpanded: true,
+                    underline: const SizedBox(),
+                    items: _categories.map((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(
+                          value,
+                          style: const TextStyle(fontSize: 14),
+                        ),
+                      );
+                    }).toList(),
+                    onChanged: (String? newValue) {
+                      if (newValue != null) {
+                        setState(() {
+                          _selectedCategory = newValue;
+                        });
+                      }
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Spacing.hGapMD,
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  AppLocalizations.of(context)!.momentsCreateLanguage,
+                  style: context.labelLarge,
+                ),
+                Spacing.gapSM,
+                Container(
+                  decoration: BoxDecoration(
+                    color: context.cardBackground,
+                    borderRadius: AppRadius.borderMD,
+                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  child: DropdownButton<String>(
+                    value: _selectedLanguage,
+                    isExpanded: true,
+                    underline: const SizedBox(),
+                    items: _languages.keys.map((String displayName) {
+                      return DropdownMenuItem<String>(
+                        value: displayName,
+                        child: Text(
+                          displayName,
+                          style: const TextStyle(fontSize: 14),
+                        ),
+                      );
+                    }).toList(),
+                    onChanged: (String? newValue) {
+                      if (newValue != null) {
+                        setState(() {
+                          _selectedLanguage = newValue;
+                        });
+                      }
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+      Spacing.gapXL,
+    ];
+  }
+
+  /// One section of the composer body, extracted so the staged
+  /// flow can order and group them without touching their contents.
+  List<Widget> _sectionSchedule() {
+    return [
+      // Schedule (Optional)
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            AppLocalizations.of(context)!.momentsCreateSchedule,
+            style: context.labelLarge,
+          ),
+          Spacing.gapSM,
+          InkWell(
+            onTap: _selectScheduleDate,
+            child: Container(
+              padding: Spacing.paddingLG,
+              decoration: BoxDecoration(
+                color: context.cardBackground,
+                borderRadius: AppRadius.borderMD,
+              ),
+              child: Row(
+                children: [
+                  Icon(Icons.schedule, color: context.iconColor),
+                  Spacing.hGapMD,
+                  Expanded(
+                    child: Text(
+                      _scheduledDate != null
+                          ? '${_scheduledDate!.day}/${_scheduledDate!.month}/${_scheduledDate!.year} at ${_scheduledDate!.hour}:${_scheduledDate!.minute.toString().padLeft(2, '0')}'
+                          : AppLocalizations.of(
+                              context,
+                            )!.momentsCreateScheduleForLater,
+                      style: context.bodyMedium.copyWith(
+                        color: _scheduledDate != null
+                            ? context.textPrimary
+                            : context.textMuted,
+                      ),
+                    ),
+                  ),
+                  if (_scheduledDate != null)
+                    IconButton(
+                      icon: const Icon(Icons.close, size: 20),
+                      onPressed: () {
+                        setState(() {
+                          _scheduledDate = null;
+                        });
+                      },
+                    ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    ];
   }
 }
 
@@ -2775,6 +2908,40 @@ class _LocalAudioPreviewPlayerState extends State<_LocalAudioPreviewPlayer> {
           ),
         ],
       ),
+    );
+  }
+}
+
+/// Which of the two steps is showing.
+///
+/// A bar rather than a number: "1 of 2" tells someone where they are, a filled
+/// bar also tells them how much is left, which is the question people actually
+/// have when a form grows a second page.
+class _StageIndicator extends StatelessWidget {
+  const _StageIndicator({required this.stage});
+
+  final ComposerStage stage;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      key: const Key('composer-stage-indicator'),
+      children: [
+        for (var i = 0; i < ComposerStage.values.length; i++) ...[
+          Expanded(
+            child: Container(
+              height: 3,
+              decoration: BoxDecoration(
+                color: i <= stage.index
+                    ? AppColors.primary
+                    : context.dividerColor,
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+          ),
+          if (i < ComposerStage.values.length - 1) const SizedBox(width: 6),
+        ],
+      ],
     );
   }
 }

@@ -3368,5 +3368,9 @@
   "avatarViewPhoto": "ดูรูปโปรไฟล์",
   "@avatarViewPhoto": {
     "description": "avatar tap chooser"
+  },
+  "composerNext": "ถัดไป",
+  "@composerNext": {
+    "description": "moment composer"
   }
 }

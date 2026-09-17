@@ -2861,5 +2861,9 @@
   "avatarViewPhoto": "Дидани акси профил",
   "@avatarViewPhoto": {
     "description": "avatar tap chooser"
+  },
+  "composerNext": "Минбаъд",
+  "@composerNext": {
+    "description": "moment composer"
   }
 }

@@ -8017,4 +8017,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get avatarViewPhoto => 'Xem ảnh đại diện';
+
+  @override
+  String get composerNext => 'Tiếp theo';
 }

@@ -3398,5 +3398,9 @@
   "avatarViewPhoto": "Ver foto de perfil",
   "@avatarViewPhoto": {
     "description": "avatar tap chooser"
+  },
+  "composerNext": "Siguiente",
+  "@composerNext": {
+    "description": "moment composer"
   }
 }

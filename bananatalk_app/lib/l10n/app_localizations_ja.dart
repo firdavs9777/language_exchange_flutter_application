@@ -8017,4 +8017,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get avatarViewPhoto => 'プロフィール写真を見る';
+
+  @override
+  String get composerNext => '次へ';
 }
