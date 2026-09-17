@@ -3401,5 +3401,9 @@
   "clubRemoveOrganizer": "運営から外す",
   "clubSince": "{date} に開設",
   "clubNoEventsHeld": "まだ開催実績がありません",
-  "clubPlaceLabel": "よく使う場所"
+  "clubPlaceLabel": "よく使う場所",
+  "groupCoverChange": "写真を変更",
+  "groupCoverFromLibrary": "ライブラリから選ぶ",
+  "groupCoverTakePhoto": "写真を撮る",
+  "groupCoverRemove": "写真を削除"
 }

@@ -3092,5 +3092,9 @@
   "clubRemoveOrganizer": "取消組織者",
   "clubSince": "{date} 建立",
   "clubNoEventsHeld": "還沒有舉辦過活動",
-  "clubPlaceLabel": "常用地點"
+  "clubPlaceLabel": "常用地點",
+  "groupCoverChange": "更換照片",
+  "groupCoverFromLibrary": "從相簿選擇",
+  "groupCoverTakePhoto": "拍照",
+  "groupCoverRemove": "移除照片"
 }

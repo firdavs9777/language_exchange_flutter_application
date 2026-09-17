@@ -11,6 +11,9 @@ import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/pages/community/gatherings/gathering_safety_menu.dart';
 import 'package:bananatalk_app/pages/community/gatherings/club_people_section.dart';
+import 'package:bananatalk_app/pages/community/gatherings/group_cover.dart';
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
 
 /// A club, and what it has coming up.
 ///
@@ -236,6 +239,77 @@ class _ClubDetailScreenState extends State<ClubDetailScreen> {
     }
   }
 
+  /// Pick, take or remove the cover photo.
+  ///
+  /// A failure here never blocks anything: the club is unchanged and the
+  /// message says so. Nobody should be unable to run their club because an
+  /// upload timed out.
+  Future<void> _changeCover(Club club) async {
+    final l10n = AppLocalizations.of(context)!;
+    final choice = await showModalBottomSheet<String>(
+      context: context,
+      builder: (sheetContext) => SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              leading: const Icon(Icons.photo_library_outlined),
+              title: Text(l10n.groupCoverFromLibrary),
+              onTap: () => Navigator.pop(sheetContext, 'library'),
+            ),
+            ListTile(
+              leading: const Icon(Icons.photo_camera_outlined),
+              title: Text(l10n.groupCoverTakePhoto),
+              onTap: () => Navigator.pop(sheetContext, 'camera'),
+            ),
+            if (club.coverImage != null)
+              ListTile(
+                leading: const Icon(Icons.delete_outline, color: Colors.red),
+                title: Text(l10n.groupCoverRemove,
+                    style: const TextStyle(color: Colors.red)),
+                onTap: () => Navigator.pop(sheetContext, 'remove'),
+              ),
+          ],
+        ),
+      ),
+    );
+    if (choice == null || !mounted) return;
+
+    if (choice == 'remove') {
+      setState(() => _busy = true);
+      final result = await _api.removeClubCover(club.id);
+      if (!mounted) return;
+      setState(() {
+        _busy = false;
+        if (result.success) _future = _api.getClub(widget.clubId);
+      });
+      if (!result.success) {
+        showCommunitySnackBar(context, message: result.error ?? '');
+      }
+      return;
+    }
+
+    final picked = await ImagePicker().pickImage(
+      source: choice == 'camera' ? ImageSource.camera : ImageSource.gallery,
+      // Capped before upload: a modern phone photo is several megabytes and a
+      // cover is shown at most a few hundred pixels tall.
+      maxWidth: 1600,
+      imageQuality: 85,
+    );
+    if (picked == null || !mounted) return;
+
+    setState(() => _busy = true);
+    final result = await _api.uploadClubCover(club.id, File(picked.path));
+    if (!mounted) return;
+    setState(() {
+      _busy = false;
+      if (result.success) _future = _api.getClub(widget.clubId);
+    });
+    if (!result.success) {
+      showCommunitySnackBar(context, message: result.error ?? '');
+    }
+  }
+
   Future<void> _toggleMembership(Club club) async {
     if (_busy) return;
     setState(() => _busy = true);
@@ -315,6 +389,14 @@ class _ClubDetailScreenState extends State<ClubDetailScreen> {
         physics: const AlwaysScrollableScrollPhysics(),
         padding: const EdgeInsets.only(bottom: Spacing.xxxl),
         children: [
+          // Optional: most clubs will have no photo, and the colour fallback
+          // is the designed state rather than an error case.
+          GroupCover(
+            id: club.id,
+            title: club.name,
+            imageUrl: club.coverImage,
+            onTap: club.viewerCanManage ? () => _changeCover(club) : null,
+          ),
           Padding(
             padding: Spacing.paddingLG,
             child: Column(

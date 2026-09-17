@@ -8115,4 +8115,16 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get clubPlaceLabel => '주로 만나는 장소';
+
+  @override
+  String get groupCoverChange => '사진 변경';
+
+  @override
+  String get groupCoverFromLibrary => '앨범에서 선택';
+
+  @override
+  String get groupCoverTakePhoto => '사진 촬영';
+
+  @override
+  String get groupCoverRemove => '사진 삭제';
 }

@@ -8131,4 +8131,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get clubPlaceLabel => 'Usual place';
+
+  @override
+  String get groupCoverChange => 'Change photo';
+
+  @override
+  String get groupCoverFromLibrary => 'Choose from library';
+
+  @override
+  String get groupCoverTakePhoto => 'Take a photo';
+
+  @override
+  String get groupCoverRemove => 'Remove photo';
 }

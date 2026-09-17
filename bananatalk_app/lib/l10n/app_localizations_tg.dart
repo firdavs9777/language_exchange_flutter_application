@@ -8129,4 +8129,16 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get clubPlaceLabel => 'Ҷои маъмулӣ';
+
+  @override
+  String get groupCoverChange => 'Тағйири акс';
+
+  @override
+  String get groupCoverFromLibrary => 'Аз галерея интихоб кунед';
+
+  @override
+  String get groupCoverTakePhoto => 'Акс гирифтан';
+
+  @override
+  String get groupCoverRemove => 'Нест кардани акс';
 }

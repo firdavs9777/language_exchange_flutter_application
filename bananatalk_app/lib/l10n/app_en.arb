@@ -5649,5 +5649,9 @@
       }
     }
   },
-  "clubPlaceLabel": "Usual place"
+  "clubPlaceLabel": "Usual place",
+  "groupCoverChange": "Change photo",
+  "groupCoverFromLibrary": "Choose from library",
+  "groupCoverTakePhoto": "Take a photo",
+  "groupCoverRemove": "Remove photo"
 }

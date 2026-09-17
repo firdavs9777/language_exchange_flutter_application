@@ -99,6 +99,10 @@ class Gathering {
 
   /// The host's IANA zone. Rendered *beneath* the viewer's own local time —
   /// an ambiguous time across Shanghai/Seoul/Europe is a guaranteed no-show.
+  /// One optional cover photo. Null is the normal state — a gathering is
+  /// created without one and stays valid without one.
+  final String? coverImage;
+
   final String? hostTimezone;
 
   /// Where the host is. Display only — an online gathering is open to every
@@ -140,6 +144,7 @@ class Gathering {
     this.level,
     this.topic,
     this.durationMinutes = 60,
+    this.coverImage,
     this.hostTimezone,
     this.hostCity,
     this.hostCountry,
@@ -171,6 +176,7 @@ class Gathering {
           DateTime.tryParse(json['startsAt']?.toString() ?? '')?.toLocal() ??
           DateTime.now(),
       durationMinutes: (json['durationMinutes'] as num?)?.toInt() ?? 60,
+      coverImage: sanitize(json['coverImage']).isEmpty ? null : sanitize(json['coverImage']),
       hostTimezone: json['hostTimezone']?.toString(),
       hostCity: json['hostCity']?.toString(),
       hostCountry: json['hostCountry']?.toString(),
@@ -331,6 +337,11 @@ class Club {
   /// club or change who else is an organizer.
   final bool viewerCanManage;
 
+  /// One optional cover photo. Null is the normal, expected state — a club is
+  /// created without one and stays valid without one — so every consumer must
+  /// have a fallback rather than treating absence as an error.
+  final String? coverImage;
+
   /// Where the club meets. Both have existed on the server model since it was
   /// written and were never sent to any client.
   final String? city;
@@ -362,6 +373,7 @@ class Club {
     this.viewerIsMember = false,
     this.viewerIsOwner = false,
     this.viewerCanManage = false,
+    this.coverImage,
     this.city,
     this.place,
     this.createdAt,
@@ -388,6 +400,7 @@ class Club {
       viewerIsMember: json['viewerIsMember'] == true,
       viewerIsOwner: json['viewerIsOwner'] == true,
       viewerCanManage: json['viewerCanManage'] == true,
+      coverImage: sanitize(json['coverImage']).isEmpty ? null : sanitize(json['coverImage']),
       city: sanitize(json['city']).isEmpty ? null : sanitize(json['city']),
       place: ClubPlace.fromJson(json['place']),
       createdAt: json['createdAt'] != null

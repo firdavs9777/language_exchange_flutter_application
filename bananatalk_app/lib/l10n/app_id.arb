@@ -3401,5 +3401,9 @@
   "clubRemoveOrganizer": "Hapus pengurus",
   "clubSince": "Klub sejak {date}",
   "clubNoEventsHeld": "Belum ada acara terselenggara",
-  "clubPlaceLabel": "Tempat biasa"
+  "clubPlaceLabel": "Tempat biasa",
+  "groupCoverChange": "Ganti foto",
+  "groupCoverFromLibrary": "Pilih dari galeri",
+  "groupCoverTakePhoto": "Ambil foto",
+  "groupCoverRemove": "Hapus foto"
 }

@@ -3417,5 +3417,9 @@
   "clubRemoveOrganizer": "Remover organizador",
   "clubSince": "Clube desde {date}",
   "clubNoEventsHeld": "Ainda sem eventos realizados",
-  "clubPlaceLabel": "Local habitual"
+  "clubPlaceLabel": "Local habitual",
+  "groupCoverChange": "Alterar foto",
+  "groupCoverFromLibrary": "Escolher da galeria",
+  "groupCoverTakePhoto": "Tirar uma foto",
+  "groupCoverRemove": "Remover foto"
 }

@@ -3401,5 +3401,9 @@
   "clubRemoveOrganizer": "Bỏ ban tổ chức",
   "clubSince": "Câu lạc bộ từ {date}",
   "clubNoEventsHeld": "Chưa tổ chức sự kiện nào",
-  "clubPlaceLabel": "Địa điểm thường lệ"
+  "clubPlaceLabel": "Địa điểm thường lệ",
+  "groupCoverChange": "Đổi ảnh",
+  "groupCoverFromLibrary": "Chọn từ thư viện",
+  "groupCoverTakePhoto": "Chụp ảnh",
+  "groupCoverRemove": "Xóa ảnh"
 }

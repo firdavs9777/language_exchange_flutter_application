@@ -3417,5 +3417,9 @@
   "clubRemoveOrganizer": "आयोजक हटाएं",
   "clubSince": "{date} से क्लब",
   "clubNoEventsHeld": "अभी तक कोई आयोजन नहीं",
-  "clubPlaceLabel": "सामान्य स्थान"
+  "clubPlaceLabel": "सामान्य स्थान",
+  "groupCoverChange": "फ़ोटो बदलें",
+  "groupCoverFromLibrary": "गैलरी से चुनें",
+  "groupCoverTakePhoto": "फ़ोटो लें",
+  "groupCoverRemove": "फ़ोटो हटाएं"
 }

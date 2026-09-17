@@ -8125,4 +8125,16 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get clubPlaceLabel => 'Karaniwang lugar';
+
+  @override
+  String get groupCoverChange => 'Palitan ang larawan';
+
+  @override
+  String get groupCoverFromLibrary => 'Pumili mula sa library';
+
+  @override
+  String get groupCoverTakePhoto => 'Kumuha ng larawan';
+
+  @override
+  String get groupCoverRemove => 'Alisin ang larawan';
 }

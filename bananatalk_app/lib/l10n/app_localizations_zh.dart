@@ -8115,6 +8115,18 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get clubPlaceLabel => '常用地点';
+
+  @override
+  String get groupCoverChange => '更换照片';
+
+  @override
+  String get groupCoverFromLibrary => '从相册选择';
+
+  @override
+  String get groupCoverTakePhoto => '拍照';
+
+  @override
+  String get groupCoverRemove => '移除照片';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -16228,4 +16240,16 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get clubPlaceLabel => '常用地點';
+
+  @override
+  String get groupCoverChange => '更換照片';
+
+  @override
+  String get groupCoverFromLibrary => '從相簿選擇';
+
+  @override
+  String get groupCoverTakePhoto => '拍照';
+
+  @override
+  String get groupCoverRemove => '移除照片';
 }

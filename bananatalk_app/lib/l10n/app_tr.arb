@@ -3613,5 +3613,9 @@
   "clubRemoveOrganizer": "Düzenleyenlikten al",
   "clubSince": "{date} tarihinden beri kulüp",
   "clubNoEventsHeld": "Henüz etkinlik düzenlenmedi",
-  "clubPlaceLabel": "Her zamanki yer"
+  "clubPlaceLabel": "Her zamanki yer",
+  "groupCoverChange": "Fotoğrafı değiştir",
+  "groupCoverFromLibrary": "Galeriden seç",
+  "groupCoverTakePhoto": "Fotoğraf çek",
+  "groupCoverRemove": "Fotoğrafı kaldır"
 }

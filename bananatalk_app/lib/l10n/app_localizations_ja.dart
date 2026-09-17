@@ -8115,4 +8115,16 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get clubPlaceLabel => 'よく使う場所';
+
+  @override
+  String get groupCoverChange => '写真を変更';
+
+  @override
+  String get groupCoverFromLibrary => 'ライブラリから選ぶ';
+
+  @override
+  String get groupCoverTakePhoto => '写真を撮る';
+
+  @override
+  String get groupCoverRemove => '写真を削除';
 }

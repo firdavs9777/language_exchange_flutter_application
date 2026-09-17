@@ -8123,4 +8123,16 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get clubPlaceLabel => 'Her zamanki yer';
+
+  @override
+  String get groupCoverChange => 'Fotoğrafı değiştir';
+
+  @override
+  String get groupCoverFromLibrary => 'Galeriden seç';
+
+  @override
+  String get groupCoverTakePhoto => 'Fotoğraf çek';
+
+  @override
+  String get groupCoverRemove => 'Fotoğrafı kaldır';
 }

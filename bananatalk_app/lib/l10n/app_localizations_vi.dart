@@ -8115,4 +8115,16 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get clubPlaceLabel => 'Địa điểm thường lệ';
+
+  @override
+  String get groupCoverChange => 'Đổi ảnh';
+
+  @override
+  String get groupCoverFromLibrary => 'Chọn từ thư viện';
+
+  @override
+  String get groupCoverTakePhoto => 'Chụp ảnh';
+
+  @override
+  String get groupCoverRemove => 'Xóa ảnh';
 }

@@ -8125,4 +8125,16 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get clubPlaceLabel => 'Luogo abituale';
+
+  @override
+  String get groupCoverChange => 'Cambia foto';
+
+  @override
+  String get groupCoverFromLibrary => 'Scegli dalla galleria';
+
+  @override
+  String get groupCoverTakePhoto => 'Scatta una foto';
+
+  @override
+  String get groupCoverRemove => 'Rimuovi foto';
 }

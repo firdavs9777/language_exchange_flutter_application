@@ -3374,5 +3374,9 @@
   "clubRemoveOrganizer": "Alisin bilang organizer",
   "clubSince": "Club mula {date}",
   "clubNoEventsHeld": "Wala pang naidaos na event",
-  "clubPlaceLabel": "Karaniwang lugar"
+  "clubPlaceLabel": "Karaniwang lugar",
+  "groupCoverChange": "Palitan ang larawan",
+  "groupCoverFromLibrary": "Pumili mula sa library",
+  "groupCoverTakePhoto": "Kumuha ng larawan",
+  "groupCoverRemove": "Alisin ang larawan"
 }

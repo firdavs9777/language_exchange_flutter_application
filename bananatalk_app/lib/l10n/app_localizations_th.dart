@@ -8115,4 +8115,16 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get clubPlaceLabel => 'สถานที่ประจำ';
+
+  @override
+  String get groupCoverChange => 'เปลี่ยนรูป';
+
+  @override
+  String get groupCoverFromLibrary => 'เลือกจากคลังภาพ';
+
+  @override
+  String get groupCoverTakePhoto => 'ถ่ายรูป';
+
+  @override
+  String get groupCoverRemove => 'ลบรูป';
 }

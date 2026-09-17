@@ -3431,5 +3431,9 @@
   "clubRemoveOrganizer": "إزالة المنظّم",
   "clubSince": "النادي منذ {date}",
   "clubNoEventsHeld": "لم تُقَم فعاليات بعد",
-  "clubPlaceLabel": "المكان المعتاد"
+  "clubPlaceLabel": "المكان المعتاد",
+  "groupCoverChange": "تغيير الصورة",
+  "groupCoverFromLibrary": "اختيار من المعرض",
+  "groupCoverTakePhoto": "التقاط صورة",
+  "groupCoverRemove": "إزالة الصورة"
 }

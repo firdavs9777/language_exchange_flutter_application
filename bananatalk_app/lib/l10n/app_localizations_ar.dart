@@ -8137,4 +8137,16 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get clubPlaceLabel => 'المكان المعتاد';
+
+  @override
+  String get groupCoverChange => 'تغيير الصورة';
+
+  @override
+  String get groupCoverFromLibrary => 'اختيار من المعرض';
+
+  @override
+  String get groupCoverTakePhoto => 'التقاط صورة';
+
+  @override
+  String get groupCoverRemove => 'إزالة الصورة';
 }

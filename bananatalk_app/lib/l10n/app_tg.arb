@@ -2894,5 +2894,9 @@
   "clubRemoveOrganizer": "Аз ташкилкунандагӣ гирифтан",
   "clubSince": "Клуб аз {date}",
   "clubNoEventsHeld": "Ҳанӯз чорабинӣ нашудааст",
-  "clubPlaceLabel": "Ҷои маъмулӣ"
+  "clubPlaceLabel": "Ҷои маъмулӣ",
+  "groupCoverChange": "Тағйири акс",
+  "groupCoverFromLibrary": "Аз галерея интихоб кунед",
+  "groupCoverTakePhoto": "Акс гирифтан",
+  "groupCoverRemove": "Нест кардани акс"
 }

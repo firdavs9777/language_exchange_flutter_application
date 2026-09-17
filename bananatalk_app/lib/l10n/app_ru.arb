@@ -3431,5 +3431,9 @@
   "clubRemoveOrganizer": "Снять организатора",
   "clubSince": "Клуб с {date}",
   "clubNoEventsHeld": "Встреч пока не было",
-  "clubPlaceLabel": "Обычное место"
+  "clubPlaceLabel": "Обычное место",
+  "groupCoverChange": "Изменить фото",
+  "groupCoverFromLibrary": "Выбрать из галереи",
+  "groupCoverTakePhoto": "Сделать фото",
+  "groupCoverRemove": "Удалить фото"
 }

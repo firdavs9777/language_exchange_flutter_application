@@ -1,3 +1,5 @@
+import 'dart:io';
+import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
 import 'package:bananatalk_app/models/community/gathering_model.dart';
 import 'package:bananatalk_app/services/api_client.dart';
@@ -344,6 +346,64 @@ class GatheringApiClient {
     } catch (e) {
       debugPrint('[GatheringApiClient] updateClub error: $e');
       return const GatheringResult.failed('Could not save');
+    }
+  }
+
+  /// POST /clubs/:id/cover — owner or organizer.
+  ///
+  /// Optional everywhere: a club without a cover is normal, so failure here
+  /// never blocks anything the user was doing — it reports and leaves the club
+  /// exactly as it was.
+  Future<GatheringResult<String>> uploadClubCover(String id, File image) =>
+      _uploadCover('clubs/$id/cover', image);
+
+  /// DELETE /clubs/:id/cover
+  Future<GatheringResult<bool>> removeClubCover(String id) =>
+      _removeCover('clubs/$id/cover');
+
+  /// POST /gatherings/:id/cover — host only.
+  Future<GatheringResult<String>> uploadGatheringCover(String id, File image) =>
+      _uploadCover('gatherings/$id/cover', image);
+
+  /// DELETE /gatherings/:id/cover
+  Future<GatheringResult<bool>> removeGatheringCover(String id) =>
+      _removeCover('gatherings/$id/cover');
+
+  /// Shared so clubs and gatherings cannot drift: the field name, the response
+  /// shape and the failure handling are identical on both, and two copies of
+  /// that is how they stop being identical.
+  Future<GatheringResult<String>> _uploadCover(String path, File image) async {
+    try {
+      final response = await _apiClient.postMultipart(
+        path,
+        fields: const {},
+        files: [await http.MultipartFile.fromPath('image', image.path)],
+      );
+      if (!response.success) {
+        return GatheringResult.failed(response.error ?? 'Could not upload');
+      }
+      final data = _mapOf(response.data);
+      final url = data?['coverImage']?.toString();
+      if (url == null || url.isEmpty) {
+        return const GatheringResult.failed('Could not upload');
+      }
+      return GatheringResult.ok(url);
+    } catch (e) {
+      debugPrint('[GatheringApiClient] uploadCover error: $e');
+      return const GatheringResult.failed('Could not upload');
+    }
+  }
+
+  Future<GatheringResult<bool>> _removeCover(String path) async {
+    try {
+      final response = await _apiClient.delete(path);
+      if (!response.success) {
+        return GatheringResult.failed(response.error ?? 'Could not remove');
+      }
+      return const GatheringResult.ok(true);
+    } catch (e) {
+      debugPrint('[GatheringApiClient] removeCover error: $e');
+      return const GatheringResult.failed('Could not remove');
     }
   }
 

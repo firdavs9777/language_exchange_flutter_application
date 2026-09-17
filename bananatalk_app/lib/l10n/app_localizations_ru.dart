@@ -8146,4 +8146,16 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get clubPlaceLabel => 'Обычное место';
+
+  @override
+  String get groupCoverChange => 'Изменить фото';
+
+  @override
+  String get groupCoverFromLibrary => 'Выбрать из галереи';
+
+  @override
+  String get groupCoverTakePhoto => 'Сделать фото';
+
+  @override
+  String get groupCoverRemove => 'Удалить фото';
 }

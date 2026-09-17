@@ -3401,5 +3401,9 @@
   "clubRemoveOrganizer": "ปลดผู้จัดงาน",
   "clubSince": "คลับตั้งแต่ {date}",
   "clubNoEventsHeld": "ยังไม่เคยจัดกิจกรรม",
-  "clubPlaceLabel": "สถานที่ประจำ"
+  "clubPlaceLabel": "สถานที่ประจำ",
+  "groupCoverChange": "เปลี่ยนรูป",
+  "groupCoverFromLibrary": "เลือกจากคลังภาพ",
+  "groupCoverTakePhoto": "ถ่ายรูป",
+  "groupCoverRemove": "ลบรูป"
 }

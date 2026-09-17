@@ -8125,4 +8125,16 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get clubPlaceLabel => 'Lugar habitual';
+
+  @override
+  String get groupCoverChange => 'Cambiar foto';
+
+  @override
+  String get groupCoverFromLibrary => 'Elegir de la galería';
+
+  @override
+  String get groupCoverTakePhoto => 'Hacer una foto';
+
+  @override
+  String get groupCoverRemove => 'Quitar foto';
 }

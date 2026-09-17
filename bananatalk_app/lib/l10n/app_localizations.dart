@@ -14989,6 +14989,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Usual place'**
   String get clubPlaceLabel;
+
+  /// No description provided for @groupCoverChange.
+  ///
+  /// In en, this message translates to:
+  /// **'Change photo'**
+  String get groupCoverChange;
+
+  /// No description provided for @groupCoverFromLibrary.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose from library'**
+  String get groupCoverFromLibrary;
+
+  /// No description provided for @groupCoverTakePhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Take a photo'**
+  String get groupCoverTakePhoto;
+
+  /// No description provided for @groupCoverRemove.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove photo'**
+  String get groupCoverRemove;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

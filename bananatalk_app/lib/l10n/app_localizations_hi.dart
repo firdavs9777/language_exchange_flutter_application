@@ -8125,4 +8125,16 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get clubPlaceLabel => 'सामान्य स्थान';
+
+  @override
+  String get groupCoverChange => 'फ़ोटो बदलें';
+
+  @override
+  String get groupCoverFromLibrary => 'गैलरी से चुनें';
+
+  @override
+  String get groupCoverTakePhoto => 'फ़ोटो लें';
+
+  @override
+  String get groupCoverRemove => 'फ़ोटो हटाएं';
 }

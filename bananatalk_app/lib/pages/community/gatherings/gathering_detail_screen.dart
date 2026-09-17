@@ -9,6 +9,9 @@ import 'package:bananatalk_app/pages/community/widgets/community_snackbar.dart';
 import 'package:bananatalk_app/utils/gathering_time.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/pages/community/gatherings/gathering_safety_menu.dart';
+import 'package:bananatalk_app/pages/community/gatherings/group_cover.dart';
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
 
 /// One gathering, in full.
 class GatheringDetailScreen extends StatefulWidget {
@@ -39,6 +42,68 @@ class _GatheringDetailScreenState extends State<GatheringDetailScreen> {
   void initState() {
     super.initState();
     _future = _api.getGathering(widget.gatheringId);
+  }
+
+  /// Pick, take or remove the gathering's cover photo. Host only.
+  ///
+  /// Optional throughout: a failure leaves the gathering exactly as it was and
+  /// says so. Nobody should be unable to host because an upload timed out.
+  Future<void> _changeCover(Gathering gathering) async {
+    final l10n = AppLocalizations.of(context)!;
+    final choice = await showModalBottomSheet<String>(
+      context: context,
+      builder: (sheetContext) => SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              leading: const Icon(Icons.photo_library_outlined),
+              title: Text(l10n.groupCoverFromLibrary),
+              onTap: () => Navigator.pop(sheetContext, 'library'),
+            ),
+            ListTile(
+              leading: const Icon(Icons.photo_camera_outlined),
+              title: Text(l10n.groupCoverTakePhoto),
+              onTap: () => Navigator.pop(sheetContext, 'camera'),
+            ),
+            if (gathering.coverImage != null)
+              ListTile(
+                leading: const Icon(Icons.delete_outline, color: Colors.red),
+                title: Text(l10n.groupCoverRemove,
+                    style: const TextStyle(color: Colors.red)),
+                onTap: () => Navigator.pop(sheetContext, 'remove'),
+              ),
+          ],
+        ),
+      ),
+    );
+    if (choice == null || !mounted) return;
+
+    if (choice == 'remove') {
+      final result = await _api.removeGatheringCover(gathering.id);
+      if (!mounted) return;
+      if (result.success) {
+        await _reload();
+      } else {
+        showCommunitySnackBar(context, message: result.error ?? '');
+      }
+      return;
+    }
+
+    final picked = await ImagePicker().pickImage(
+      source: choice == 'camera' ? ImageSource.camera : ImageSource.gallery,
+      maxWidth: 1600,
+      imageQuality: 85,
+    );
+    if (picked == null || !mounted) return;
+
+    final result = await _api.uploadGatheringCover(gathering.id, File(picked.path));
+    if (!mounted) return;
+    if (result.success) {
+      await _reload();
+    } else {
+      showCommunitySnackBar(context, message: result.error ?? '');
+    }
   }
 
   Future<void> _reload() async {
@@ -142,6 +207,29 @@ class _GatheringDetailScreenState extends State<GatheringDetailScreen> {
         physics: const AlwaysScrollableScrollPhysics(),
         padding: Spacing.paddingLG,
         children: [
+          // ONLY when there is a real photo.
+          //
+          // Unlike a club, a gathering does not get the generated-colour
+          // fallback. A club is a standing identity you recognise in a list,
+          // so a colour earns its space; a gathering's value is its time,
+          // place and who is coming, and 140px of decorative gradient above
+          // that costs real screen for nothing. The host adds a photo from
+          // the actions below instead.
+          if (gathering.coverImage != null) ...[
+            ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: GroupCover(
+                id: gathering.id,
+                title: gathering.title,
+                imageUrl: gathering.coverImage,
+                height: 140,
+                onTap: gathering.viewerIsHost
+                    ? () => _changeCover(gathering)
+                    : null,
+              ),
+            ),
+            Spacing.gapMD,
+          ],
           Text(gathering.title, style: context.displaySmall),
           Spacing.gapMD,
           _statusBanner(context, l10n, gathering, now),
@@ -361,6 +449,20 @@ class _GatheringDetailScreenState extends State<GatheringDetailScreen> {
         // Edit sits above Cancel: fixing a typo or moving the time is the far
         // more common thing a host wants, and cancelling strands everyone who
         // already said yes.
+        // Where a host with no cover adds one. Kept out of the top of the page
+        // so an absent photo costs no vertical space at all.
+        SizedBox(
+          width: double.infinity,
+          child: TextButton.icon(
+            key: const Key('gathering-cover'),
+            onPressed: _busy ? null : () => _changeCover(gathering),
+            icon: const Icon(Icons.photo_camera_outlined, size: 18),
+            label: Text(gathering.coverImage == null
+                ? l10n.groupCoverTakePhoto
+                : l10n.groupCoverChange),
+          ),
+        ),
+        Spacing.gapMD,
         SizedBox(
           width: double.infinity,
           child: FilledButton.icon(

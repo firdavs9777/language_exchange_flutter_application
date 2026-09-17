@@ -3422,5 +3422,9 @@
   "clubRemoveOrganizer": "운영진 해제",
   "clubSince": "{date}에 개설",
   "clubNoEventsHeld": "아직 진행한 모임이 없어요",
-  "clubPlaceLabel": "주로 만나는 장소"
+  "clubPlaceLabel": "주로 만나는 장소",
+  "groupCoverChange": "사진 변경",
+  "groupCoverFromLibrary": "앨범에서 선택",
+  "groupCoverTakePhoto": "사진 촬영",
+  "groupCoverRemove": "사진 삭제"
 }

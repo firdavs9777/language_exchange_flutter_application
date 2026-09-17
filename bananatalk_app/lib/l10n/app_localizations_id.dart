@@ -8122,4 +8122,16 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get clubPlaceLabel => 'Tempat biasa';
+
+  @override
+  String get groupCoverChange => 'Ganti foto';
+
+  @override
+  String get groupCoverFromLibrary => 'Pilih dari galeri';
+
+  @override
+  String get groupCoverTakePhoto => 'Ambil foto';
+
+  @override
+  String get groupCoverRemove => 'Hapus foto';
 }
