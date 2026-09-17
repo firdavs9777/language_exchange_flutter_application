@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/pages/reports/admin_reports_screen.dart';
+import 'package:bananatalk_app/pages/admin/admin_content_screen.dart';
 import 'package:bananatalk_app/pages/admin/admin_users_screen.dart';
 import 'package:bananatalk_app/pages/admin/admin_audit_log_screen.dart';
 import 'package:bananatalk_app/pages/admin/admin_analytics_screen.dart';
@@ -64,6 +65,19 @@ class _AdminHomeScreenState extends ConsumerState<AdminHomeScreen> {
                   context,
                   MaterialPageRoute(
                     builder: (_) => const AdminReportsScreen(),
+                  ),
+                ),
+              ),
+              _AdminTile(
+                key: const Key('admin-tile-content'),
+                icon: Icons.groups_outlined,
+                label: 'Clubs & Gatherings',
+                subtitle: 'Review · archive · cancel',
+                color: AppColors.primary,
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const AdminContentScreen(),
                   ),
                 ),
               ),
@@ -140,6 +154,7 @@ class _AdminTile extends StatelessWidget {
   final Color color;
   final VoidCallback onTap;
   const _AdminTile({
+    super.key,
     required this.icon,
     required this.label,
     required this.subtitle,

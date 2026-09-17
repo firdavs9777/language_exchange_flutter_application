@@ -153,6 +153,96 @@ class AdminService {
 
   /// Aggregate user stats for the analytics screen.
   /// Returns total + byGender + byRole + byMode + counters + top languages.
+  /// Clubs awaiting a moderator's eye, newest first.
+  ///
+  /// Post-moderation: these have ALREADY published. The list exists so an
+  /// admin can review and remove, not to gate creation.
+  Future<Map<String, dynamic>> listClubs({
+    String? q,
+    String? status,
+    bool reportedOnly = false,
+    int page = 1,
+    int limit = 20,
+  }) =>
+      _listContent('clubs', q: q, status: status, reportedOnly: reportedOnly, page: page, limit: limit);
+
+  /// Gatherings, same contract.
+  Future<Map<String, dynamic>> listGatherings({
+    String? q,
+    String? status,
+    bool reportedOnly = false,
+    int page = 1,
+    int limit = 20,
+  }) =>
+      _listContent('gatherings', q: q, status: status, reportedOnly: reportedOnly, page: page, limit: limit);
+
+  /// Shared so the two lists cannot drift in paging, filtering or error
+  /// handling — the only thing that differs is the path segment.
+  Future<Map<String, dynamic>> _listContent(
+    String kind, {
+    String? q,
+    String? status,
+    bool reportedOnly = false,
+    int page = 1,
+    int limit = 20,
+  }) async {
+    try {
+      final headers = await _getHeaders();
+      final params = <String, String>{
+        'page': page.toString(),
+        'limit': limit.toString(),
+      };
+      if (q != null && q.trim().isNotEmpty) params['q'] = q.trim();
+      if (status != null && status.isNotEmpty) params['status'] = status;
+      if (reportedOnly) params['reported'] = 'true';
+
+      final uri = Uri.parse('${Endpoints.baseURL}admin/content/$kind')
+          .replace(queryParameters: params);
+      final response = await http.get(uri, headers: headers);
+      final body = json.decode(response.body);
+      if (response.statusCode == 200) {
+        return {'success': true, 'data': body['data'], 'total': body['total']};
+      }
+      return {'success': false, 'error': body['error'] ?? 'Failed to load $kind'};
+    } catch (e) {
+      return {'success': false, 'error': 'Network error: ${e.toString()}'};
+    }
+  }
+
+  /// Archive a club, or put it back.
+  ///
+  /// Archiving uses the status the app already filters on, so it leaves
+  /// discovery without being deleted and can be undone.
+  Future<Map<String, dynamic>> setClubArchived(
+    String clubId, {
+    required bool archived,
+    String? reason,
+  }) =>
+      _moderate('clubs/$clubId/archive', {'archived': archived, 'reason': reason});
+
+  /// Cancel a gathering. It stays visible as cancelled rather than vanishing:
+  /// attendees who said yes deserve to see it is off.
+  Future<Map<String, dynamic>> cancelGathering(String gatheringId, {String? reason}) =>
+      _moderate('gatherings/$gatheringId/cancel', {'reason': reason});
+
+  Future<Map<String, dynamic>> _moderate(String path, Map<String, dynamic> body) async {
+    try {
+      final headers = await _getHeaders();
+      final response = await http.post(
+        Uri.parse('${Endpoints.baseURL}admin/content/$path'),
+        headers: headers,
+        body: json.encode(body),
+      );
+      final decoded = json.decode(response.body);
+      if (response.statusCode == 200) {
+        return {'success': true, 'data': decoded['data']};
+      }
+      return {'success': false, 'error': decoded['error'] ?? 'Action failed'};
+    } catch (e) {
+      return {'success': false, 'error': 'Network error: ${e.toString()}'};
+    }
+  }
+
   Future<Map<String, dynamic>> getStats() async {
     try {
       final headers = await _getHeaders();
