@@ -27,6 +27,7 @@ import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:bananatalk_app/pages/moments/widgets/moments_snackbar.dart';
 import 'package:bananatalk_app/pages/moments/create/moment_draft_rules.dart';
 import 'package:bananatalk_app/pages/moments/create/moment_media_rules.dart';
+import 'package:bananatalk_app/pages/moments/create/moment_upload_retry.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/pages/moments/create/create_action_helpers.dart';
 import 'package:bananatalk_app/pages/moments/create/create_tag_dialog.dart';
@@ -772,58 +773,84 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     _updateButtonState();
   }
 
-  /// Show error dialog for audio upload failures with retry option.
-  /// The moment already exists at this point (created without audio) —
-  /// tell the user so they don't think the whole post failed.
+  /// Offers to retry a failed voice-note upload, a bounded number of times.
+  ///
+  /// A LOOP, not recursion. This used to call itself from inside the failure
+  /// handler of its own retry, so every tap nested another dialog future
+  /// inside the last -- ten taps meant ten stacked awaits that never unwound,
+  /// and the message said "failed again" on the tenth exactly as on the
+  /// second. The policy and the wording live in moment_upload_retry.dart so
+  /// both are testable.
+  ///
+  /// The moment itself already exists at this point, created without audio.
+  /// Saying so is the whole point of the dialog: otherwise a failed voice note
+  /// reads as a failed post.
   Future<void> _showAudioUploadErrorDialog(
     String momentId,
-    String message,
+    String initialReason,
   ) async {
-    final result = await showDialog<bool>(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) => AlertDialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        title: Row(
-          children: [
-            const Icon(
-              Icons.warning_amber_rounded,
-              color: Colors.orange,
-              size: 28,
-            ),
-            const SizedBox(width: 12),
-            const Expanded(child: Text('Audio upload failed')),
-          ],
-        ),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(message),
-            const SizedBox(height: 12),
-            Text(
-              'Your moment was posted without the voice note.',
-              style: TextStyle(fontSize: 13, color: context.textSecondary),
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(false),
-            child: const Text('Dismiss'),
-          ),
-          ElevatedButton(
-            onPressed: () => Navigator.of(context).pop(true),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF00BFA5),
-            ),
-            child: const Text('Retry'),
-          ),
-        ],
-      ),
-    );
+    var attemptsMade = 0;
+    var reason = initialReason;
 
-    if (result == true && _recordedAudio != null) {
+    while (true) {
+      final decision = decideRetry(attemptsMade: attemptsMade);
+      final message = uploadFailureMessage(
+        attemptsMade: attemptsMade,
+        reason: reason,
+      );
+
+      if (!mounted) return;
+      final retry = await showDialog<bool>(
+        context: context,
+        barrierDismissible: false,
+        builder: (dialogContext) => AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          title: const Row(
+            children: [
+              Icon(Icons.warning_amber_rounded, color: Colors.orange, size: 28),
+              SizedBox(width: 12),
+              Expanded(child: Text('Audio upload failed')),
+            ],
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(message),
+              const SizedBox(height: 12),
+              Text(
+                'Your moment was posted without the voice note.',
+                style: TextStyle(fontSize: 13, color: context.textSecondary),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              key: const Key('audio-retry-dismiss'),
+              onPressed: () => Navigator.of(dialogContext).pop(false),
+              child: Text(
+                decision == UploadRetryDecision.giveUp ? 'OK' : 'Dismiss',
+              ),
+            ),
+            // Out of attempts: no button, rather than one that keeps failing.
+            if (decision == UploadRetryDecision.offerRetry)
+              ElevatedButton(
+                key: const Key('audio-retry-again'),
+                onPressed: () => Navigator.of(dialogContext).pop(true),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF00BFA5),
+                ),
+                child: const Text('Retry'),
+              ),
+          ],
+        ),
+      );
+
+      if (retry != true || _recordedAudio == null) return;
+
+      attemptsMade += 1;
       try {
         await ref
             .read(momentsServiceProvider)
@@ -842,13 +869,10 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
             type: MomentsSnackBarType.success,
           );
         }
+        return;
       } catch (e) {
-        if (mounted) {
-          await _showAudioUploadErrorDialog(
-            momentId,
-            'Upload failed again: ${e.toString().replaceFirst('Exception: ', '')}',
-          );
-        }
+        // Round the loop again with the new reason and one more attempt spent.
+        reason = e.toString();
       }
     }
   }

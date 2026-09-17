@@ -571,7 +571,13 @@ class AppTheme {
     chipTheme: ChipThemeData(
       backgroundColor: AppColors.gray100,
       selectedColor: AppColors.primaryLight,
-      labelStyle: AppTypography.labelMedium,
+      // AppTypography.labelMedium carries NO colour of its own, so without
+      // this the label inherits whatever surrounds it -- which is how chips
+      // came to render invisibly. Both states are stated explicitly rather
+      // than left to inheritance.
+      labelStyle: AppTypography.labelMedium.copyWith(color: AppColors.gray800),
+      secondaryLabelStyle:
+          AppTypography.labelMedium.copyWith(color: AppColors.gray900),
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       shape: RoundedRectangleBorder(
         borderRadius: AppRadius.borderRound,
@@ -626,6 +632,18 @@ class AppTheme {
       brightness: Brightness.dark,
       primaryColor: AppColors.primary,
       scaffoldBackgroundColor: AppColors.backgroundDark,
+      // The dark theme had no chipTheme at all, so every chip fell back to
+      // Material defaults that do not match these surfaces -- the label ended
+      // up the same tone as the chip behind it and read as missing.
+      chipTheme: ChipThemeData(
+        backgroundColor: AppColors.gray800,
+        selectedColor: AppColors.primary,
+        labelStyle: AppTypography.labelMedium.copyWith(color: AppColors.gray100),
+        secondaryLabelStyle:
+            AppTypography.labelMedium.copyWith(color: AppColors.white),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        shape: RoundedRectangleBorder(borderRadius: AppRadius.borderRound),
+      ),
       // Apply consistent text theme for dark mode
       textTheme: TextTheme(
         displayLarge: AppTypography.displayLarge.copyWith(color: AppColors.gray100),
