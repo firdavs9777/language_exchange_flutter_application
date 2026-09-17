@@ -3572,5 +3572,13 @@
   "gatheringTopicLabel": "Konu (isteğe bağlı)",
   "@gatheringTopicLabel": {
     "description": "모임 / gatherings"
+  },
+  "avatarViewStory": "Hikâyeyi gör",
+  "@avatarViewStory": {
+    "description": "avatar tap chooser"
+  },
+  "avatarViewPhoto": "Profil fotoğrafını gör",
+  "@avatarViewPhoto": {
+    "description": "avatar tap chooser"
   }
 }

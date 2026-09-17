@@ -3600,5 +3600,13 @@
   "gatheringTopicLabel": "Thème (facultatif)",
   "@gatheringTopicLabel": {
     "description": "모임 / gatherings"
+  },
+  "avatarViewStory": "Voir la story",
+  "@avatarViewStory": {
+    "description": "avatar tap chooser"
+  },
+  "avatarViewPhoto": "Voir la photo de profil",
+  "@avatarViewPhoto": {
+    "description": "avatar tap chooser"
   }
 }

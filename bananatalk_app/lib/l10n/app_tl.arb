@@ -3333,5 +3333,13 @@
   "gatheringTopicLabel": "Paksa (opsyonal)",
   "@gatheringTopicLabel": {
     "description": "모임 / gatherings"
+  },
+  "avatarViewStory": "Tingnan ang story",
+  "@avatarViewStory": {
+    "description": "avatar tap chooser"
+  },
+  "avatarViewPhoto": "Tingnan ang profile photo",
+  "@avatarViewPhoto": {
+    "description": "avatar tap chooser"
   }
 }

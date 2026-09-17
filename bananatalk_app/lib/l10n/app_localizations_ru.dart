@@ -8042,4 +8042,10 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get gatheringTopicLabel => 'Тема (необязательно)';
+
+  @override
+  String get avatarViewStory => 'Смотреть историю';
+
+  @override
+  String get avatarViewPhoto => 'Посмотреть фото профиля';
 }

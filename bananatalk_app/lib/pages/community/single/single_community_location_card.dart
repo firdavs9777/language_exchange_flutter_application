@@ -23,12 +23,12 @@ class SingleCommunityLocationCard extends StatelessWidget {
     final locationText = PrivacyUtils.getLocationText(community);
 
     final coordinates = community.location.coordinates;
-    final hasCoords = coordinates.length >= 2 &&
+    final hasCoords =
+        coordinates.length >= 2 &&
         (coordinates[0] != 0.0 || coordinates[1] != 0.0);
 
     // Coordinates are stored in GeoJSON order: [longitude, latitude].
-    final canShowMap =
-        hasCoords && PrivacyUtils.shouldShowLocation(community);
+    final canShowMap = hasCoords && PrivacyUtils.shouldShowLocation(community);
 
     if (!canShowMap) {
       if (locationText.isEmpty) {
@@ -152,10 +152,7 @@ class SingleCommunityLocationCard extends StatelessWidget {
           ),
           if (locationText.isNotEmpty)
             Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 14,
-                vertical: 10,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
               child: Row(
                 children: [
                   Icon(

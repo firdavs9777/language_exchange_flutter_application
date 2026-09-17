@@ -8025,4 +8025,10 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get gatheringTopicLabel => 'Мавзӯъ (ихтиёрӣ)';
+
+  @override
+  String get avatarViewStory => 'Дидани ҳикоя';
+
+  @override
+  String get avatarViewPhoto => 'Дидани акси профил';
 }

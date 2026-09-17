@@ -8033,4 +8033,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get gatheringTopicLabel => 'الموضوع (اختياري)';
+
+  @override
+  String get avatarViewStory => 'عرض القصة';
+
+  @override
+  String get avatarViewPhoto => 'عرض صورة الملف الشخصي';
 }

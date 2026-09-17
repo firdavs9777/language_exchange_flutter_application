@@ -5577,5 +5577,13 @@
   "gatheringTopicLabel": "Topic (optional)",
   "@gatheringTopicLabel": {
     "description": "모임 / gatherings"
+  },
+  "avatarViewStory": "View story",
+  "@avatarViewStory": {
+    "description": "avatar tap chooser"
+  },
+  "avatarViewPhoto": "See profile photo",
+  "@avatarViewPhoto": {
+    "description": "avatar tap chooser"
   }
 }

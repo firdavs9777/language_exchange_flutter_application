@@ -2853,5 +2853,13 @@
   "gatheringTopicLabel": "Мавзӯъ (ихтиёрӣ)",
   "@gatheringTopicLabel": {
     "description": "모임 / gatherings"
+  },
+  "avatarViewStory": "Дидани ҳикоя",
+  "@avatarViewStory": {
+    "description": "avatar tap chooser"
+  },
+  "avatarViewPhoto": "Дидани акси профил",
+  "@avatarViewPhoto": {
+    "description": "avatar tap chooser"
   }
 }

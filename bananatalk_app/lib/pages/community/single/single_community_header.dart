@@ -250,10 +250,7 @@ class _SingleCommunityHeaderState extends ConsumerState<SingleCommunityHeader> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        _StatColumn(
-          value: postsCount?.toString() ?? '-',
-          label: l10n.moments,
-        ),
+        _StatColumn(value: postsCount?.toString() ?? '-', label: l10n.moments),
         _StatColumn(
           value: widget.community.followers.length.toString(),
           label: l10n.followers,
@@ -474,7 +471,9 @@ class _ExpandableBioState extends State<_ExpandableBio> {
               widget.bio,
               style: style,
               maxLines: _expanded ? null : 3,
-              overflow: _expanded ? TextOverflow.visible : TextOverflow.ellipsis,
+              overflow: _expanded
+                  ? TextOverflow.visible
+                  : TextOverflow.ellipsis,
             ),
             if (_isTruncated || _expanded)
               GestureDetector(

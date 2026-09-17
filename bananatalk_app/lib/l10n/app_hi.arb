@@ -3376,5 +3376,13 @@
   "gatheringTopicLabel": "विषय (वैकल्पिक)",
   "@gatheringTopicLabel": {
     "description": "모임 / gatherings"
+  },
+  "avatarViewStory": "स्टोरी देखें",
+  "@avatarViewStory": {
+    "description": "avatar tap chooser"
+  },
+  "avatarViewPhoto": "प्रोफ़ाइल फ़ोटो देखें",
+  "@avatarViewPhoto": {
+    "description": "avatar tap chooser"
   }
 }

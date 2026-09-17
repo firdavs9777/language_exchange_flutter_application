@@ -8019,4 +8019,10 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get gatheringTopicLabel => 'Konu (isteğe bağlı)';
+
+  @override
+  String get avatarViewStory => 'Hikâyeyi gör';
+
+  @override
+  String get avatarViewPhoto => 'Profil fotoğrafını gör';
 }

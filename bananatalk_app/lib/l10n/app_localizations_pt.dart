@@ -8021,4 +8021,10 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get gatheringTopicLabel => 'Tema (opcional)';
+
+  @override
+  String get avatarViewStory => 'Ver story';
+
+  @override
+  String get avatarViewPhoto => 'Ver foto do perfil';
 }

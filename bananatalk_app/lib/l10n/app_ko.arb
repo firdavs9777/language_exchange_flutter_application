@@ -3381,5 +3381,13 @@
   "gatheringTopicLabel": "주제 (선택)",
   "@gatheringTopicLabel": {
     "description": "모임 / gatherings"
+  },
+  "avatarViewStory": "스토리 보기",
+  "@avatarViewStory": {
+    "description": "avatar tap chooser"
+  },
+  "avatarViewPhoto": "프로필 사진 보기",
+  "@avatarViewPhoto": {
+    "description": "avatar tap chooser"
   }
 }

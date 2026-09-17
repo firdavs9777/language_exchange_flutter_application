@@ -8011,4 +8011,10 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get gatheringTopicLabel => 'トピック（任意）';
+
+  @override
+  String get avatarViewStory => 'ストーリーを見る';
+
+  @override
+  String get avatarViewPhoto => 'プロフィール写真を見る';
 }

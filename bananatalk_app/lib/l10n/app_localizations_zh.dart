@@ -8011,6 +8011,12 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get gatheringTopicLabel => '主题（可选）';
+
+  @override
+  String get avatarViewStory => '查看快拍';
+
+  @override
+  String get avatarViewPhoto => '查看头像';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -16020,4 +16026,10 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get gatheringTopicLabel => '主題（選填）';
+
+  @override
+  String get avatarViewStory => '查看限時動態';
+
+  @override
+  String get avatarViewPhoto => '查看大頭貼';
 }

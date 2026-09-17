@@ -8021,4 +8021,10 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get gatheringTopicLabel => 'Paksa (opsyonal)';
+
+  @override
+  String get avatarViewStory => 'Tingnan ang story';
+
+  @override
+  String get avatarViewPhoto => 'Tingnan ang profile photo';
 }

@@ -8011,4 +8011,10 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get gatheringTopicLabel => '주제 (선택)';
+
+  @override
+  String get avatarViewStory => '스토리 보기';
+
+  @override
+  String get avatarViewPhoto => '프로필 사진 보기';
 }

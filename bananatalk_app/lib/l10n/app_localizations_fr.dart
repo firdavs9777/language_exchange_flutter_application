@@ -8021,4 +8021,10 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get gatheringTopicLabel => 'Thème (facultatif)';
+
+  @override
+  String get avatarViewStory => 'Voir la story';
+
+  @override
+  String get avatarViewPhoto => 'Voir la photo de profil';
 }

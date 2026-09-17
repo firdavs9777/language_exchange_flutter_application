@@ -121,8 +121,7 @@ class SingleCommunityMoments extends ConsumerWidget {
         childAspectRatio: 1,
       ),
       itemCount: 9,
-      itemBuilder: (context, index) =>
-          Container(color: context.containerColor),
+      itemBuilder: (context, index) => Container(color: context.containerColor),
     );
   }
 
@@ -138,7 +137,11 @@ class SingleCommunityMoments extends ConsumerWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.error_outline_rounded, color: context.textMuted, size: 32),
+            Icon(
+              Icons.error_outline_rounded,
+              color: context.textMuted,
+              size: 32,
+            ),
             const SizedBox(height: 8),
             Text(
               AppLocalizations.of(context)!.unableToLoadMoments,

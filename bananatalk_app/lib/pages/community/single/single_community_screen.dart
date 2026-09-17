@@ -1,5 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/pages/community/single/avatar_action_sheet.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:share_plus/share_plus.dart';
@@ -327,7 +328,11 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
       context: context,
       builder: (context) => AlertDialog(
         title: Text(AppLocalizations.of(context)!.unblockUser),
-        content: Text(AppLocalizations.of(context)!.communityUnblockConfirm(_community.name)),
+        content: Text(
+          AppLocalizations.of(
+            context,
+          )!.communityUnblockConfirm(_community.name),
+        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
@@ -450,15 +455,30 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
   // Avatar tap: open the active story via the same launcher Task 11 wired
   // up elsewhere (chat list, community discovery cards) when this user has
   // one; otherwise go straight to the profile-photo view.
-  void _onAvatarTap() {
-    if (_community.hasActiveStory) {
-      StoryViewerLauncher.open(
-        context,
-        userId: _community.id,
-        fallback: _openProfilePhotoView,
-      );
-    } else {
+  Future<void> _onAvatarTap() async {
+    // No story: the photo is the only thing to show, so show it. A sheet with
+    // one option is a worse version of doing the obvious thing.
+    if (!_community.hasActiveStory) {
       _openProfilePhotoView();
+      return;
+    }
+
+    // With a story, both are worth reaching. Opening the story directly --
+    // which is what this did -- made the profile photo unreachable entirely,
+    // and on a language-exchange app the photo is how someone sizes up a
+    // potential partner.
+    final choice = await showAvatarActionSheet(context);
+    if (!mounted || choice == null) return;
+
+    switch (choice) {
+      case AvatarAction.story:
+        StoryViewerLauncher.open(
+          context,
+          userId: _community.id,
+          fallback: _openProfilePhotoView,
+        );
+      case AvatarAction.photo:
+        _openProfilePhotoView();
     }
   }
 

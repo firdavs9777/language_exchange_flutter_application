@@ -14797,6 +14797,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Topic (optional)'**
   String get gatheringTopicLabel;
+
+  /// avatar tap chooser
+  ///
+  /// In en, this message translates to:
+  /// **'View story'**
+  String get avatarViewStory;
+
+  /// avatar tap chooser
+  ///
+  /// In en, this message translates to:
+  /// **'See profile photo'**
+  String get avatarViewPhoto;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

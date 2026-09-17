@@ -426,7 +426,8 @@ class SingleCommunityAbout extends ConsumerWidget {
 
   Widget _buildLocationSection(BuildContext context, bool isDark) {
     final coordinates = community.location.coordinates;
-    final hasCoords = coordinates.length >= 2 &&
+    final hasCoords =
+        coordinates.length >= 2 &&
         (coordinates[0] != 0.0 || coordinates[1] != 0.0);
     final canShowMap = hasCoords && PrivacyUtils.shouldShowLocation(community);
     final locationText = PrivacyUtils.getLocationText(community);

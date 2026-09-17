@@ -3360,5 +3360,13 @@
   "gatheringTopicLabel": "หัวข้อ (ไม่บังคับ)",
   "@gatheringTopicLabel": {
     "description": "모임 / gatherings"
+  },
+  "avatarViewStory": "ดูสตอรี่",
+  "@avatarViewStory": {
+    "description": "avatar tap chooser"
+  },
+  "avatarViewPhoto": "ดูรูปโปรไฟล์",
+  "@avatarViewPhoto": {
+    "description": "avatar tap chooser"
   }
 }

@@ -8011,4 +8011,10 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get gatheringTopicLabel => 'หัวข้อ (ไม่บังคับ)';
+
+  @override
+  String get avatarViewStory => 'ดูสตอรี่';
+
+  @override
+  String get avatarViewPhoto => 'ดูรูปโปรไฟล์';
 }

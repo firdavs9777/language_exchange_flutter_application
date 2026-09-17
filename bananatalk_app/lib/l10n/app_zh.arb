@@ -3374,5 +3374,13 @@
   "gatheringTopicLabel": "主题（可选）",
   "@gatheringTopicLabel": {
     "description": "모임 / gatherings"
+  },
+  "avatarViewStory": "查看快拍",
+  "@avatarViewStory": {
+    "description": "avatar tap chooser"
+  },
+  "avatarViewPhoto": "查看头像",
+  "@avatarViewPhoto": {
+    "description": "avatar tap chooser"
   }
 }

@@ -8011,4 +8011,10 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get gatheringTopicLabel => 'Chủ đề (tùy chọn)';
+
+  @override
+  String get avatarViewStory => 'Xem tin';
+
+  @override
+  String get avatarViewPhoto => 'Xem ảnh đại diện';
 }

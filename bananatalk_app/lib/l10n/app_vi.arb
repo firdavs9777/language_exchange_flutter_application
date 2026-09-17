@@ -3360,5 +3360,13 @@
   "gatheringTopicLabel": "Chủ đề (tùy chọn)",
   "@gatheringTopicLabel": {
     "description": "모임 / gatherings"
+  },
+  "avatarViewStory": "Xem tin",
+  "@avatarViewStory": {
+    "description": "avatar tap chooser"
+  },
+  "avatarViewPhoto": "Xem ảnh đại diện",
+  "@avatarViewPhoto": {
+    "description": "avatar tap chooser"
   }
 }

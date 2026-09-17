@@ -8021,4 +8021,10 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get gatheringTopicLabel => 'विषय (वैकल्पिक)';
+
+  @override
+  String get avatarViewStory => 'स्टोरी देखें';
+
+  @override
+  String get avatarViewPhoto => 'प्रोफ़ाइल फ़ोटो देखें';
 }

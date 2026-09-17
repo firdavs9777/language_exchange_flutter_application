@@ -8018,4 +8018,10 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get gatheringTopicLabel => 'Topik (opsional)';
+
+  @override
+  String get avatarViewStory => 'Lihat story';
+
+  @override
+  String get avatarViewPhoto => 'Lihat foto profil';
 }

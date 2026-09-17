@@ -3390,5 +3390,13 @@
   "gatheringTopicLabel": "Тема (необязательно)",
   "@gatheringTopicLabel": {
     "description": "모임 / gatherings"
+  },
+  "avatarViewStory": "Смотреть историю",
+  "@avatarViewStory": {
+    "description": "avatar tap chooser"
+  },
+  "avatarViewPhoto": "Посмотреть фото профиля",
+  "@avatarViewPhoto": {
+    "description": "avatar tap chooser"
   }
 }

@@ -3051,5 +3051,13 @@
   "gatheringTopicLabel": "主題（選填）",
   "@gatheringTopicLabel": {
     "description": "모임 / gatherings"
+  },
+  "avatarViewStory": "查看限時動態",
+  "@avatarViewStory": {
+    "description": "avatar tap chooser"
+  },
+  "avatarViewPhoto": "查看大頭貼",
+  "@avatarViewPhoto": {
+    "description": "avatar tap chooser"
   }
 }

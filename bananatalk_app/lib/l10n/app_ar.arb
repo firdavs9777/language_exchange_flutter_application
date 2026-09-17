@@ -3390,5 +3390,13 @@
   "gatheringTopicLabel": "الموضوع (اختياري)",
   "@gatheringTopicLabel": {
     "description": "모임 / gatherings"
+  },
+  "avatarViewStory": "عرض القصة",
+  "@avatarViewStory": {
+    "description": "avatar tap chooser"
+  },
+  "avatarViewPhoto": "عرض صورة الملف الشخصي",
+  "@avatarViewPhoto": {
+    "description": "avatar tap chooser"
   }
 }
