@@ -684,6 +684,29 @@ class MomentsService {
     }
   }
 
+  /// Posts a batch of reel view events.
+  ///
+  /// Telemetry: the server always answers 200, even for a malformed body, and
+  /// a failure here must never surface to the user or interrupt scrolling.
+  /// ReelViewTracker swallows whatever this throws.
+  Future<void> recordReelViews(List<Map<String, dynamic>> batch) async {
+    if (batch.isEmpty) return;
+    final url = Uri.parse('${Endpoints.baseURL}${Endpoints.momentsURL}/views');
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
+    if (token == null) return;
+
+    await http.post(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+      body: json.encode({'views': batch}),
+    );
+  }
+
   Future<Map<String, dynamic>> likeMoment(String momentId) async {
     final url = Uri.parse(
         '${Endpoints.baseURL}${Endpoints.momentsURL}/$momentId/like');

@@ -11,6 +11,7 @@ import 'package:bananatalk_app/pages/comments/comments_main.dart';
 import 'package:bananatalk_app/pages/comments/create_comment.dart';
 import 'package:bananatalk_app/pages/community/single/single_community_screen.dart';
 import 'package:bananatalk_app/pages/moments/reels/reel_controller_pool.dart';
+import 'package:bananatalk_app/services/reel_view_tracker.dart';
 import 'package:bananatalk_app/pages/moments/reels/reel_fit.dart';
 import 'package:bananatalk_app/pages/moments/reels/reel_prefetch_policy.dart';
 import 'package:bananatalk_app/pages/moments/reels/widgets/reel_overlays.dart';
@@ -94,8 +95,13 @@ class _ReelsFeedScreenState extends ConsumerState<ReelsFeedScreen>
   void didChangeAppLifecycleState(AppLifecycleState state) {
     // Pause on background/inactive; resume the current reel on return.
     if (state != AppLifecycleState.resumed) {
+      // Leaving the app is the usual end of a scroll session, so this is the
+      // flush that matters most. A timer alone would lose it.
+      _recordOutgoing();
+      _viewTracker.flush();
       _pool.pauseAll();
     } else if (mounted) {
+      _markStarted(_currentIndex);
       _syncControllers();
     }
   }
@@ -103,13 +109,44 @@ class _ReelsFeedScreenState extends ConsumerState<ReelsFeedScreen>
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
+    _recordOutgoing();
+    _viewTracker.flush();
     _connectivitySub?.cancel();
     _pool.disposeAll();
     _pageController.dispose();
     super.dispose();
   }
 
+  /// Records what was actually watched, so the feed can be ranked on it.
+  ///
+  /// Nothing recorded a view before this: the server counted likes, comments,
+  /// saves and shares but never a view, so every engagement RATE had no
+  /// denominator.
+  late final ReelViewTracker _viewTracker = ReelViewTracker(
+    send: (batch) => ref.read(momentsServiceProvider).recordReelViews(batch),
+  );
+
   List<Moments> get _reels => ref.read(reelsFeedProvider).reels;
+
+  /// Hands the outgoing reel's watch time to the tracker.
+  ///
+  /// Read from the controller rather than timed by hand: a paused or buffering
+  /// reel is not being watched, and `position` already accounts for that.
+  void _recordOutgoing() {
+    final controller = _pool.controllerAt(_currentIndex);
+    if (controller == null || !controller.value.isInitialized) return;
+    _viewTracker.onReelEnded(
+      watched: controller.value.position,
+      total: controller.value.duration,
+    );
+  }
+
+  void _markStarted(int index) {
+    final reels = _reels;
+    if (index < 0 || index >= reels.length) return;
+    final id = reels[index].id;
+    if (id.isNotEmpty) _viewTracker.onReelStarted(id);
+  }
 
   void _syncControllers() {
     final reels = _reels;
@@ -137,9 +174,11 @@ class _ReelsFeedScreenState extends ConsumerState<ReelsFeedScreen>
     // Bytes only: reaches further ahead than the controller window, creating
     // no decoders. releaseOutside() above stays at ±1 for that reason.
     final upcoming = <String>[];
-    for (var i = _currentIndex + 1;
-        i <= _currentIndex + _prefetchDepth && i < reels.length;
-        i++) {
+    for (
+      var i = _currentIndex + 1;
+      i <= _currentIndex + _prefetchDepth && i < reels.length;
+      i++
+    ) {
       final url = reels[i].video?.url;
       if (url != null && url.isNotEmpty) upcoming.add(url);
     }
@@ -147,10 +186,14 @@ class _ReelsFeedScreenState extends ConsumerState<ReelsFeedScreen>
   }
 
   void _onPageChanged(int index) {
+    // Recorded BEFORE the pause, while position still reflects what was
+    // watched.
+    _recordOutgoing();
     // Pause the outgoing controller explicitly — `releaseOutside` disposes
     // it shortly after anyway, but this avoids a beat of overlapping audio.
     _pool.controllerAt(_currentIndex)?.pause();
     setState(() => _currentIndex = index);
+    _markStarted(index);
     _syncControllers();
 
     final reels = _reels;
@@ -231,9 +274,9 @@ class _ReelsFeedScreenState extends ConsumerState<ReelsFeedScreen>
     final wasSaved = _isSaved(reel);
     // Optimistic: the bookmark must respond instantly, and a failed round trip
     // is reverted below rather than left lying about the state.
-    ref.read(reelsFeedProvider.notifier).updateReel(
-          reel.copyWith(savedBy: _applySaveToList(reel, !wasSaved)),
-        );
+    ref
+        .read(reelsFeedProvider.notifier)
+        .updateReel(reel.copyWith(savedBy: _applySaveToList(reel, !wasSaved)));
     try {
       await MomentsServiceAPI.toggleSave(
         momentId: reel.id,
@@ -245,9 +288,9 @@ class _ReelsFeedScreenState extends ConsumerState<ReelsFeedScreen>
       }
     } catch (_) {
       if (!mounted) return;
-      ref.read(reelsFeedProvider.notifier).updateReel(
-            reel.copyWith(savedBy: _applySaveToList(reel, wasSaved)),
-          );
+      ref
+          .read(reelsFeedProvider.notifier)
+          .updateReel(reel.copyWith(savedBy: _applySaveToList(reel, wasSaved)));
     }
   }
 
@@ -584,9 +627,7 @@ class _ReelFeedItemState extends State<_ReelFeedItem> {
             Container(color: Colors.black),
 
           if (!isReady)
-            const Center(
-              child: CircularProgressIndicator(color: Colors.white),
-            ),
+            const Center(child: CircularProgressIndicator(color: Colors.white)),
 
           const ReelScrim(alignment: Alignment.topCenter),
           const ReelScrim(alignment: Alignment.bottomCenter),
@@ -623,16 +664,22 @@ class _ReelFeedItemState extends State<_ReelFeedItem> {
                           child: avatarUrl.isEmpty
                               ? Container(
                                   color: Colors.white24,
-                                  child: const Icon(Icons.person,
-                                      color: Colors.white, size: 20),
+                                  child: const Icon(
+                                    Icons.person,
+                                    color: Colors.white,
+                                    size: 20,
+                                  ),
                                 )
                               : CachedImageWidget(
                                   imageUrl: avatarUrl,
                                   fit: BoxFit.cover,
                                   errorWidget: Container(
                                     color: Colors.white24,
-                                    child: const Icon(Icons.person,
-                                        color: Colors.white, size: 20),
+                                    child: const Icon(
+                                      Icons.person,
+                                      color: Colors.white,
+                                      size: 20,
+                                    ),
                                   ),
                                 ),
                         ),
@@ -655,7 +702,9 @@ class _ReelFeedItemState extends State<_ReelFeedItem> {
                         const SizedBox(width: 8),
                         Container(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 6, vertical: 2),
+                            horizontal: 6,
+                            vertical: 2,
+                          ),
                           decoration: BoxDecoration(
                             color: Colors.black45,
                             borderRadius: BorderRadius.circular(6),
@@ -663,7 +712,9 @@ class _ReelFeedItemState extends State<_ReelFeedItem> {
                           child: Text(
                             reel.language.toUpperCase(),
                             style: const TextStyle(
-                                color: Colors.white, fontSize: 11),
+                              color: Colors.white,
+                              fontSize: 11,
+                            ),
                           ),
                         ),
                       ],
@@ -693,8 +744,7 @@ class _ReelFeedItemState extends State<_ReelFeedItem> {
             child: Column(
               children: [
                 _RailButton(
-                  icon:
-                      widget.isLiked ? Icons.favorite : Icons.favorite_border,
+                  icon: widget.isLiked ? Icons.favorite : Icons.favorite_border,
                   color: widget.isLiked ? Colors.redAccent : Colors.white,
                   label: reel.likeCount > 0 ? '${reel.likeCount}' : '',
                   onTap: widget.onLike,
@@ -718,10 +768,16 @@ class _ReelFeedItemState extends State<_ReelFeedItem> {
                 ),
                 const SizedBox(height: 20),
                 _RailButton(
-                    icon: Icons.share, label: '', onTap: widget.onShare),
+                  icon: Icons.share,
+                  label: '',
+                  onTap: widget.onShare,
+                ),
                 const SizedBox(height: 20),
                 _RailButton(
-                    icon: Icons.more_horiz, label: '', onTap: widget.onMore),
+                  icon: Icons.more_horiz,
+                  label: '',
+                  onTap: widget.onMore,
+                ),
                 const SizedBox(height: 20),
                 ReelCircleButton(
                   icon: widget.muted
@@ -846,7 +902,9 @@ class _ReelCommentsPageState extends ConsumerState<_ReelCommentsPage> {
             focusNode: _commentFocusNode,
             id: widget.reel.id,
             onCommentAdded: () {
-              ref.read(paginatedCommentsProvider(widget.reel.id).notifier).refresh();
+              ref
+                  .read(paginatedCommentsProvider(widget.reel.id).notifier)
+                  .refresh();
             },
             parentCommentId: _replyToCommentId,
             replyToUserName: _replyToUserName,
