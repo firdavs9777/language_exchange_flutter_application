@@ -64,25 +64,7 @@ class LearnTab extends ConsumerWidget {
                       data: (pack) => DailyPackHeroCard(
                         pack: pack,
                         mastery: ref.watch(masteryProvider).valueOrNull,
-                        onOpenProgress: () => Navigator.of(context).push(
-                          AppPageRoute(
-                            builder: (_) => MasteryScreen(
-                              mastery: ref.read(masteryProvider).valueOrNull,
-                              onRetakePlacement: () => Navigator.of(context).push(
-                                AppPageRoute(builder: (_) => const PlacementScreen()),
-                              ),
-                              onOpenWeeklyReport: () => Navigator.of(context).push(
-                                AppPageRoute(
-                                  builder: (_) => Consumer(
-                                    builder: (_, r, __) => WeeklyReportScreen(
-                                      report: r.watch(weeklyReportProvider).valueOrNull,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
+                        onOpenProgress: () => _openProgress(context, ref),
                         onOpen: () => Navigator.of(context)
                             .push(AppPageRoute(builder: (_) => DailyPackFlow(pack: pack)))
                             .then((_) {
@@ -136,6 +118,15 @@ class LearnTab extends ConsumerWidget {
                 _buildSectionHeader(context, AppLocalizations.of(context)!.quickActions),
                 const SizedBox(height: 12),
                 _buildQuickActions(context, vocabStatsAsync, isDark),
+                const SizedBox(height: 12),
+                // "Your progress" was reachable only by tapping an undecorated
+                // strip inside the hero card, and that strip renders only when
+                // mastery data is non-null — so while it loaded, or if the
+                // learner had none yet, the screen had no route at all.
+                // Full width rather than a third quick-action card: three
+                // across is where this row starts overflowing on narrow
+                // phones.
+                _ProgressEntryButton(onTap: () => _openProgress(context, ref)),
                 const SizedBox(height: 28),
 
                 // AI Quick Access
@@ -366,6 +357,34 @@ class LearnTab extends ConsumerWidget {
           ),
         ],
       ],
+    );
+  }
+
+  /// Open "Your progress".
+  ///
+  /// Extracted because it now has two callers. It used to be reachable ONLY by
+  /// tapping an undecorated strip inside the daily-pack hero card — and that
+  /// strip renders only when mastery data is non-null, so when it was still
+  /// loading or absent there was no route to this screen at all.
+  void _openProgress(BuildContext context, WidgetRef ref) {
+    Navigator.of(context).push(
+      AppPageRoute(
+        builder: (_) => MasteryScreen(
+          mastery: ref.read(masteryProvider).valueOrNull,
+          onRetakePlacement: () => Navigator.of(context).push(
+            AppPageRoute(builder: (_) => const PlacementScreen()),
+          ),
+          onOpenWeeklyReport: () => Navigator.of(context).push(
+            AppPageRoute(
+              builder: (_) => Consumer(
+                builder: (_, r, __) => WeeklyReportScreen(
+                  report: r.watch(weeklyReportProvider).valueOrNull,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 
@@ -837,6 +856,51 @@ class _LearningNavCard extends StatelessWidget {
               child: Icon(Icons.arrow_forward_ios_rounded, color: color, size: 14),
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Full-width entry to "Your progress".
+///
+/// A real button rather than a tappable strip: the previous affordance was an
+/// InkWell around bare padding with nothing to say it could be pressed.
+class _ProgressEntryButton extends StatelessWidget {
+  const _ProgressEntryButton({required this.onTap});
+
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Material(
+      color: theme.colorScheme.surfaceContainerHighest,
+      borderRadius: BorderRadius.circular(16),
+      child: InkWell(
+        key: const Key('learn-open-progress'),
+        borderRadius: BorderRadius.circular(16),
+        onTap: onTap,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+          child: Row(
+            children: [
+              Icon(Icons.insights_rounded, color: theme.colorScheme.primary),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Text(
+                  AppLocalizations.of(context)!.masteryTitle,
+                  style: theme.textTheme.titleSmall?.copyWith(
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+              Icon(
+                Icons.chevron_right_rounded,
+                color: theme.colorScheme.onSurfaceVariant,
+              ),
+            ],
+          ),
         ),
       ),
     );

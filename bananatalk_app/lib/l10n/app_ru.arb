@@ -3415,5 +3415,7 @@
   "finishProfileTitle": "Завершите настройку профиля",
   "finishProfileBody": "Нам нужна ваша дата рождения, чтобы BananaTalk оставался безопасным для всех. Вы можете выйти, если не хотите продолжать.",
   "finishProfileContinue": "Продолжить",
-  "finishProfileSignOut": "Выйти"
+  "finishProfileSignOut": "Выйти",
+  "packReviewProgress": "Повторение {current} из {total}",
+  "packReviewRecall": "Помните это слово?"
 }

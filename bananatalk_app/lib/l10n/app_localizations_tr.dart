@@ -8067,4 +8067,12 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get finishProfileSignOut => 'Çıkış yap';
+
+  @override
+  String packReviewProgress(int current, int total) {
+    return 'Tekrar $current / $total';
+  }
+
+  @override
+  String get packReviewRecall => 'Bu kelimeyi hatırlıyor musun?';
 }

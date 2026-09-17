@@ -3415,5 +3415,7 @@
   "finishProfileTitle": "أكمل إعداد ملفك الشخصي",
   "finishProfileBody": "نحتاج تاريخ ميلادك للحفاظ على أمان BananaTalk للجميع. يمكنك تسجيل الخروج إذا كنت تفضل عدم المتابعة.",
   "finishProfileContinue": "المتابعة",
-  "finishProfileSignOut": "تسجيل الخروج"
+  "finishProfileSignOut": "تسجيل الخروج",
+  "packReviewProgress": "مراجعة {current} من {total}",
+  "packReviewRecall": "هل تتذكر هذه الكلمة؟"
 }

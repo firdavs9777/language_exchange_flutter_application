@@ -8090,4 +8090,12 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get finishProfileSignOut => 'Выйти';
+
+  @override
+  String packReviewProgress(int current, int total) {
+    return 'Повторение $current из $total';
+  }
+
+  @override
+  String get packReviewRecall => 'Помните это слово?';
 }

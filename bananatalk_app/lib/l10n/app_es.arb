@@ -3415,5 +3415,7 @@
   "finishProfileTitle": "Termina de configurar tu perfil",
   "finishProfileBody": "Necesitamos tu fecha de nacimiento para que BananaTalk sea seguro para todos. Puedes cerrar sesión si prefieres no continuar.",
   "finishProfileContinue": "Continuar",
-  "finishProfileSignOut": "Cerrar sesión"
+  "finishProfileSignOut": "Cerrar sesión",
+  "packReviewProgress": "Repaso {current} de {total}",
+  "packReviewRecall": "¿Recuerdas esta palabra?"
 }

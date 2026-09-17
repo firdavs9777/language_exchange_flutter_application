@@ -5602,5 +5602,17 @@
   "finishProfileTitle": "Finish setting up your profile",
   "finishProfileBody": "We need your birthday to keep BananaTalk safe for everyone. You can sign out if you'd rather not continue.",
   "finishProfileContinue": "Keep going",
-  "finishProfileSignOut": "Sign out"
+  "finishProfileSignOut": "Sign out",
+  "packReviewProgress": "Review {current} of {total}",
+  "packReviewRecall": "Do you remember this word?",
+  "@packReviewProgress": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  }
 }

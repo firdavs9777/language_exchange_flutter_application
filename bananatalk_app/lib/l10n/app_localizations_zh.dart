@@ -8059,6 +8059,14 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get finishProfileSignOut => '退出登录';
+
+  @override
+  String packReviewProgress(int current, int total) {
+    return '复习 第$current个，共$total个';
+  }
+
+  @override
+  String get packReviewRecall => '还记得这个词吗？';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -16116,4 +16124,12 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get finishProfileSignOut => '登出';
+
+  @override
+  String packReviewProgress(int current, int total) {
+    return '複習 第$current個，共$total個';
+  }
+
+  @override
+  String get packReviewRecall => '還記得這個詞嗎？';
 }

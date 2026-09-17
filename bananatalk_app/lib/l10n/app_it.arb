@@ -3625,5 +3625,7 @@
   "finishProfileTitle": "Completa la configurazione del profilo",
   "finishProfileBody": "Ci serve la tua data di nascita per mantenere BananaTalk sicuro per tutti. Puoi disconnetterti se preferisci non continuare.",
   "finishProfileContinue": "Continua",
-  "finishProfileSignOut": "Esci"
+  "finishProfileSignOut": "Esci",
+  "packReviewProgress": "Ripasso {current} di {total}",
+  "packReviewRecall": "Ti ricordi questa parola?"
 }

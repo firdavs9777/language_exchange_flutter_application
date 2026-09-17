@@ -3385,5 +3385,7 @@
   "finishProfileTitle": "Selesaikan penyiapan profilmu",
   "finishProfileBody": "Kami butuh tanggal lahirmu agar BananaTalk aman untuk semua. Kamu bisa keluar jika tidak ingin melanjutkan.",
   "finishProfileContinue": "Lanjutkan",
-  "finishProfileSignOut": "Keluar"
+  "finishProfileSignOut": "Keluar",
+  "packReviewProgress": "Ulasan {current} dari {total}",
+  "packReviewRecall": "Masih ingat kata ini?"
 }

@@ -8073,4 +8073,12 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get finishProfileSignOut => 'Баромад';
+
+  @override
+  String packReviewProgress(int current, int total) {
+    return 'Такрор $current аз $total';
+  }
+
+  @override
+  String get packReviewRecall => 'Шумо ин калимаро дар ёд доред?';
 }

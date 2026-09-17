@@ -8069,4 +8069,12 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get finishProfileSignOut => 'Abmelden';
+
+  @override
+  String packReviewProgress(int current, int total) {
+    return 'Wiederholung $current von $total';
+  }
+
+  @override
+  String get packReviewRecall => 'Erinnerst du dich an dieses Wort?';
 }

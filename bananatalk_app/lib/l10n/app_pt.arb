@@ -3401,5 +3401,7 @@
   "finishProfileTitle": "Termine de configurar o seu perfil",
   "finishProfileBody": "Precisamos da sua data de nascimento para manter o BananaTalk seguro para todos. Pode terminar sessão se preferir não continuar.",
   "finishProfileContinue": "Continuar",
-  "finishProfileSignOut": "Terminar sessão"
+  "finishProfileSignOut": "Terminar sessão",
+  "packReviewProgress": "Revisão {current} de {total}",
+  "packReviewRecall": "Lembra-se desta palavra?"
 }

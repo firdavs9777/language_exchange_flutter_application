@@ -3625,5 +3625,7 @@
   "finishProfileTitle": "Profil fertig einrichten",
   "finishProfileBody": "Wir brauchen dein Geburtsdatum, damit BananaTalk für alle sicher bleibt. Du kannst dich abmelden, wenn du nicht fortfahren möchtest.",
   "finishProfileContinue": "Weiter",
-  "finishProfileSignOut": "Abmelden"
+  "finishProfileSignOut": "Abmelden",
+  "packReviewProgress": "Wiederholung {current} von {total}",
+  "packReviewRecall": "Erinnerst du dich an dieses Wort?"
 }

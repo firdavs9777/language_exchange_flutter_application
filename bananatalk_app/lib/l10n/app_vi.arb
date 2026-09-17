@@ -3385,5 +3385,7 @@
   "finishProfileTitle": "Hoàn tất thiết lập hồ sơ",
   "finishProfileBody": "Chúng tôi cần ngày sinh của bạn để giữ BananaTalk an toàn cho mọi người. Bạn có thể đăng xuất nếu không muốn tiếp tục.",
   "finishProfileContinue": "Tiếp tục",
-  "finishProfileSignOut": "Đăng xuất"
+  "finishProfileSignOut": "Đăng xuất",
+  "packReviewProgress": "Ôn tập {current} trên {total}",
+  "packReviewRecall": "Bạn còn nhớ từ này không?"
 }

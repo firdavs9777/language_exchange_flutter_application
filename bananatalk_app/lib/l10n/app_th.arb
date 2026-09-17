@@ -3385,5 +3385,7 @@
   "finishProfileTitle": "ตั้งค่าโปรไฟล์ให้เสร็จ",
   "finishProfileBody": "เราต้องการวันเกิดของคุณเพื่อให้ BananaTalk ปลอดภัยสำหรับทุกคน คุณออกจากระบบได้หากไม่ต้องการดำเนินการต่อ",
   "finishProfileContinue": "ไปต่อ",
-  "finishProfileSignOut": "ออกจากระบบ"
+  "finishProfileSignOut": "ออกจากระบบ",
+  "packReviewProgress": "ทบทวน {current} จาก {total}",
+  "packReviewRecall": "จำคำนี้ได้ไหม?"
 }

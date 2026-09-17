@@ -3399,5 +3399,7 @@
   "finishProfileTitle": "请完成个人资料设置",
   "finishProfileBody": "为了让所有人安全使用，我们需要你的出生日期。如果不想继续，可以退出登录。",
   "finishProfileContinue": "继续",
-  "finishProfileSignOut": "退出登录"
+  "finishProfileSignOut": "退出登录",
+  "packReviewProgress": "复习 第{current}个，共{total}个",
+  "packReviewRecall": "还记得这个词吗？"
 }

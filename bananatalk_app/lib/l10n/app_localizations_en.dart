@@ -8075,4 +8075,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get finishProfileSignOut => 'Sign out';
+
+  @override
+  String packReviewProgress(int current, int total) {
+    return 'Review $current of $total';
+  }
+
+  @override
+  String get packReviewRecall => 'Do you remember this word?';
 }

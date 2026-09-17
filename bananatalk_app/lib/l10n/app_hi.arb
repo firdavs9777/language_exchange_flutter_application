@@ -3401,5 +3401,7 @@
   "finishProfileTitle": "अपनी प्रोफ़ाइल सेटअप पूरी करें",
   "finishProfileBody": "सभी के लिए BananaTalk सुरक्षित रखने हेतु हमें आपकी जन्मतिथि चाहिए। अगर आप जारी नहीं रखना चाहते तो साइन आउट कर सकते हैं।",
   "finishProfileContinue": "जारी रखें",
-  "finishProfileSignOut": "साइन आउट"
+  "finishProfileSignOut": "साइन आउट",
+  "packReviewProgress": "दोहराव {current} / {total}",
+  "packReviewRecall": "क्या आपको यह शब्द याद है?"
 }

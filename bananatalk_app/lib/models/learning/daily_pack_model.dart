@@ -136,19 +136,35 @@ class ReviewWord {
   final String id;
   final String word;
   final String translation;
+
+  /// Null rather than '' when absent, so the UI skips the block instead of
+  /// rendering a blank line where a sentence should be. 42% of rows have no
+  /// example.
+  final String? partOfSpeech;
+  final String? example;
   final int srsLevel;
 
   const ReviewWord({
     required this.id,
     required this.word,
     required this.translation,
+    this.partOfSpeech,
+    this.example,
     required this.srsLevel,
   });
+
+  static String? _orNull(Object? v) {
+    if (v is! String) return null;
+    final t = v.trim();
+    return t.isEmpty ? null : t;
+  }
 
   factory ReviewWord.fromJson(Map<String, dynamic> json) => ReviewWord(
         id: json['id'].toString(),
         word: json['word'] as String? ?? '',
         translation: json['translation'] as String? ?? '',
+        partOfSpeech: _orNull(json['partOfSpeech']),
+        example: _orNull(json['example']),
         srsLevel: (json['srsLevel'] as num?)?.toInt() ?? 0,
       );
 }

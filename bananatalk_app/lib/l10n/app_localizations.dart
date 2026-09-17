@@ -14893,6 +14893,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Sign out'**
   String get finishProfileSignOut;
+
+  /// No description provided for @packReviewProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Review {current} of {total}'**
+  String packReviewProgress(int current, int total);
+
+  /// No description provided for @packReviewRecall.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you remember this word?'**
+  String get packReviewRecall;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

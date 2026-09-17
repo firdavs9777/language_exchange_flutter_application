@@ -3358,5 +3358,7 @@
   "finishProfileTitle": "Tapusin ang pag-set up ng profile mo",
   "finishProfileBody": "Kailangan namin ang kaarawan mo para manatiling ligtas ang BananaTalk para sa lahat. Puwede kang mag-sign out kung ayaw mong magpatuloy.",
   "finishProfileContinue": "Ituloy",
-  "finishProfileSignOut": "Mag-sign out"
+  "finishProfileSignOut": "Mag-sign out",
+  "packReviewProgress": "Review {current} ng {total}",
+  "packReviewRecall": "Naaalala mo ba ang salitang ito?"
 }

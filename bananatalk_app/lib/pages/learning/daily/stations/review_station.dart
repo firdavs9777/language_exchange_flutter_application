@@ -78,14 +78,77 @@ class _ReviewStationState extends State<ReviewStation> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
-            l10n.packWordProgress(_index + 1, widget.payload.words.length),
+            // "Word N of 5" is the VocabStation's label, where the learner is
+            // meeting words for the FIRST time. Reusing it here told someone
+            // recalling from memory that they were being taught.
+            l10n.packReviewProgress(_index + 1, widget.payload.words.length),
             style: theme.textTheme.labelMedium,
           ),
-          const SizedBox(height: 32),
-          Center(child: Text(word.word, style: theme.textTheme.headlineMedium)),
           const SizedBox(height: 24),
-          if (_revealed)
-            Center(child: Text(word.translation, style: theme.textTheme.titleLarge)),
+          // Without this the screen was a bare word floating above a button,
+          // with nothing saying what to do with it.
+          Center(
+            child: Text(
+              l10n.packReviewRecall,
+              style: theme.textTheme.bodyMedium?.copyWith(
+                color: theme.colorScheme.onSurfaceVariant,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          const SizedBox(height: 20),
+          Center(
+            child: Text(
+              word.word,
+              style: theme.textTheme.headlineMedium,
+              textAlign: TextAlign.center,
+            ),
+          ),
+          if (_revealed) ...[
+            const SizedBox(height: 20),
+            Center(
+              child: Text(
+                word.translation,
+                key: const Key('review-translation'),
+                style: theme.textTheme.titleLarge,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            // Part of speech and an example sentence exist on the majority of
+            // rows and were simply never sent. Revealing one bare word as the
+            // "answer" is what made this screen feel empty.
+            if (word.partOfSpeech != null) ...[
+              const SizedBox(height: 6),
+              Center(
+                child: Text(
+                  word.partOfSpeech!,
+                  key: const Key('review-pos'),
+                  style: theme.textTheme.labelMedium?.copyWith(
+                    color: theme.colorScheme.onSurfaceVariant,
+                    fontStyle: FontStyle.italic,
+                  ),
+                ),
+              ),
+            ],
+            if (word.example != null) ...[
+              const SizedBox(height: 16),
+              Container(
+                key: const Key('review-example'),
+                padding: const EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  color: theme.colorScheme.surfaceContainerHighest,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Text(
+                  word.example!,
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    fontStyle: FontStyle.italic,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ],
+          ],
           if (_failed)
             Padding(
               key: const Key('station-error'),

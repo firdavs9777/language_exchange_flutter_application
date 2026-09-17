@@ -3597,5 +3597,7 @@
   "finishProfileTitle": "Profilini kurmayı tamamla",
   "finishProfileBody": "BananaTalk'u herkes için güvenli tutmak adına doğum tarihine ihtiyacımız var. Devam etmek istemezsen çıkış yapabilirsin.",
   "finishProfileContinue": "Devam et",
-  "finishProfileSignOut": "Çıkış yap"
+  "finishProfileSignOut": "Çıkış yap",
+  "packReviewProgress": "Tekrar {current} / {total}",
+  "packReviewRecall": "Bu kelimeyi hatırlıyor musun?"
 }

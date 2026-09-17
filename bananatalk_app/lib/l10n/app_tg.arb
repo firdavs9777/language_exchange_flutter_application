@@ -2878,5 +2878,7 @@
   "finishProfileTitle": "Танзими профилро ба анҷом расонед",
   "finishProfileBody": "Барои амният барои ҳама ба мо санаи таваллуди шумо лозим аст. Агар нахоҳед идома диҳед, метавонед бароед.",
   "finishProfileContinue": "Идома додан",
-  "finishProfileSignOut": "Баромад"
+  "finishProfileSignOut": "Баромад",
+  "packReviewProgress": "Такрор {current} аз {total}",
+  "packReviewRecall": "Шумо ин калимаро дар ёд доред?"
 }

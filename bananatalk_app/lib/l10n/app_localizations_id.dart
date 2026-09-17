@@ -8066,4 +8066,12 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get finishProfileSignOut => 'Keluar';
+
+  @override
+  String packReviewProgress(int current, int total) {
+    return 'Ulasan $current dari $total';
+  }
+
+  @override
+  String get packReviewRecall => 'Masih ingat kata ini?';
 }

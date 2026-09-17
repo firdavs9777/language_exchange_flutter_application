@@ -8069,4 +8069,12 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get finishProfileSignOut => 'Mag-sign out';
+
+  @override
+  String packReviewProgress(int current, int total) {
+    return 'Review $current ng $total';
+  }
+
+  @override
+  String get packReviewRecall => 'Naaalala mo ba ang salitang ito?';
 }

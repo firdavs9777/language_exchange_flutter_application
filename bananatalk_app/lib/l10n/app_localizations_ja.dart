@@ -8059,4 +8059,12 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get finishProfileSignOut => 'ログアウト';
+
+  @override
+  String packReviewProgress(int current, int total) {
+    return '復習 $current / $total';
+  }
+
+  @override
+  String get packReviewRecall => 'この単語を覚えていますか？';
 }

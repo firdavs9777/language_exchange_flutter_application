@@ -8059,4 +8059,12 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get finishProfileSignOut => 'Đăng xuất';
+
+  @override
+  String packReviewProgress(int current, int total) {
+    return 'Ôn tập $current trên $total';
+  }
+
+  @override
+  String get packReviewRecall => 'Bạn còn nhớ từ này không?';
 }

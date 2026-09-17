@@ -3076,5 +3076,7 @@
   "finishProfileTitle": "請完成個人資料設定",
   "finishProfileBody": "為了讓所有人安全使用，我們需要你的出生日期。如果不想繼續，可以登出。",
   "finishProfileContinue": "繼續",
-  "finishProfileSignOut": "登出"
+  "finishProfileSignOut": "登出",
+  "packReviewProgress": "複習 第{current}個，共{total}個",
+  "packReviewRecall": "還記得這個詞嗎？"
 }

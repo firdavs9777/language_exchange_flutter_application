@@ -8059,4 +8059,12 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get finishProfileSignOut => 'ออกจากระบบ';
+
+  @override
+  String packReviewProgress(int current, int total) {
+    return 'ทบทวน $current จาก $total';
+  }
+
+  @override
+  String get packReviewRecall => 'จำคำนี้ได้ไหม?';
 }

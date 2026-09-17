@@ -8081,4 +8081,12 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get finishProfileSignOut => 'تسجيل الخروج';
+
+  @override
+  String packReviewProgress(int current, int total) {
+    return 'مراجعة $current من $total';
+  }
+
+  @override
+  String get packReviewRecall => 'هل تتذكر هذه الكلمة؟';
 }
