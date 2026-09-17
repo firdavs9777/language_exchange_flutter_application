@@ -3417,5 +3417,19 @@
   "finishProfileContinue": "المتابعة",
   "finishProfileSignOut": "تسجيل الخروج",
   "packReviewProgress": "مراجعة {current} من {total}",
-  "packReviewRecall": "هل تتذكر هذه الكلمة؟"
+  "packReviewRecall": "هل تتذكر هذه الكلمة؟",
+  "clubOrganizers": "المنظمون",
+  "clubMembersLabel": "الأعضاء",
+  "clubMeetsIn": "يجتمع في {city}",
+  "clubEventsHeld": "أُقيمت {count} فعاليات",
+  "clubEdit": "تعديل النادي",
+  "clubDelete": "حذف النادي",
+  "clubDeleteConfirmTitle": "حذف هذا النادي؟",
+  "clubDeleteConfirmBody": "تبقى الفعاليات المجدولة — هناك من أكّد حضوره بالفعل. يُحذف النادي فقط.",
+  "clubRemoveMember": "إزالة من النادي",
+  "clubMakeOrganizer": "تعيين منظّمًا",
+  "clubRemoveOrganizer": "إزالة المنظّم",
+  "clubSince": "النادي منذ {date}",
+  "clubNoEventsHeld": "لم تُقَم فعاليات بعد",
+  "clubPlaceLabel": "المكان المعتاد"
 }

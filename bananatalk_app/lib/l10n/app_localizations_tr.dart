@@ -8075,4 +8075,52 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get packReviewRecall => 'Bu kelimeyi hatırlıyor musun?';
+
+  @override
+  String get clubOrganizers => 'Düzenleyenler';
+
+  @override
+  String get clubMembersLabel => 'Üyeler';
+
+  @override
+  String clubMeetsIn(String city) {
+    return '$city şehrinde buluşuyor';
+  }
+
+  @override
+  String clubEventsHeld(int count) {
+    return '$count etkinlik düzenlendi';
+  }
+
+  @override
+  String get clubEdit => 'Kulübü düzenle';
+
+  @override
+  String get clubDelete => 'Kulübü sil';
+
+  @override
+  String get clubDeleteConfirmTitle => 'Bu kulüp silinsin mi?';
+
+  @override
+  String get clubDeleteConfirmBody => 'Planlanan etkinlikler kalır — katılacağını söyleyenler var. Yalnızca kulüp silinir.';
+
+  @override
+  String get clubRemoveMember => 'Kulüpten çıkar';
+
+  @override
+  String get clubMakeOrganizer => 'Düzenleyen yap';
+
+  @override
+  String get clubRemoveOrganizer => 'Düzenleyenlikten al';
+
+  @override
+  String clubSince(String date) {
+    return '$date tarihinden beri kulüp';
+  }
+
+  @override
+  String get clubNoEventsHeld => 'Henüz etkinlik düzenlenmedi';
+
+  @override
+  String get clubPlaceLabel => 'Her zamanki yer';
 }

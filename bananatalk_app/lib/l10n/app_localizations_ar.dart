@@ -8089,4 +8089,52 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get packReviewRecall => 'هل تتذكر هذه الكلمة؟';
+
+  @override
+  String get clubOrganizers => 'المنظمون';
+
+  @override
+  String get clubMembersLabel => 'الأعضاء';
+
+  @override
+  String clubMeetsIn(String city) {
+    return 'يجتمع في $city';
+  }
+
+  @override
+  String clubEventsHeld(int count) {
+    return 'أُقيمت $count فعاليات';
+  }
+
+  @override
+  String get clubEdit => 'تعديل النادي';
+
+  @override
+  String get clubDelete => 'حذف النادي';
+
+  @override
+  String get clubDeleteConfirmTitle => 'حذف هذا النادي؟';
+
+  @override
+  String get clubDeleteConfirmBody => 'تبقى الفعاليات المجدولة — هناك من أكّد حضوره بالفعل. يُحذف النادي فقط.';
+
+  @override
+  String get clubRemoveMember => 'إزالة من النادي';
+
+  @override
+  String get clubMakeOrganizer => 'تعيين منظّمًا';
+
+  @override
+  String get clubRemoveOrganizer => 'إزالة المنظّم';
+
+  @override
+  String clubSince(String date) {
+    return 'النادي منذ $date';
+  }
+
+  @override
+  String get clubNoEventsHeld => 'لم تُقَم فعاليات بعد';
+
+  @override
+  String get clubPlaceLabel => 'المكان المعتاد';
 }

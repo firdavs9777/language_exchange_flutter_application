@@ -5614,5 +5614,40 @@
         "type": "int"
       }
     }
-  }
+  },
+  "clubOrganizers": "Organizers",
+  "clubMembersLabel": "Members",
+  "clubMeetsIn": "Meets in {city}",
+  "clubEventsHeld": "{count} events held",
+  "clubEdit": "Edit club",
+  "clubDelete": "Delete club",
+  "clubDeleteConfirmTitle": "Delete this club?",
+  "clubDeleteConfirmBody": "Its scheduled events stay — people have already said they're coming. Only the club is removed.",
+  "clubRemoveMember": "Remove from club",
+  "clubMakeOrganizer": "Make organizer",
+  "clubRemoveOrganizer": "Remove organizer",
+  "clubSince": "Club since {date}",
+  "clubNoEventsHeld": "No events held yet",
+  "@clubMeetsIn": {
+    "placeholders": {
+      "city": {
+        "type": "String"
+      }
+    }
+  },
+  "@clubEventsHeld": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@clubSince": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clubPlaceLabel": "Usual place"
 }

@@ -3401,5 +3401,19 @@
   "finishProfileContinue": "继续",
   "finishProfileSignOut": "退出登录",
   "packReviewProgress": "复习 第{current}个，共{total}个",
-  "packReviewRecall": "还记得这个词吗？"
+  "packReviewRecall": "还记得这个词吗？",
+  "clubOrganizers": "组织者",
+  "clubMembersLabel": "成员",
+  "clubMeetsIn": "在{city}聚会",
+  "clubEventsHeld": "已举办 {count} 次活动",
+  "clubEdit": "编辑俱乐部",
+  "clubDelete": "删除俱乐部",
+  "clubDeleteConfirmTitle": "确定删除这个俱乐部吗？",
+  "clubDeleteConfirmBody": "已安排的活动会保留 —— 已有人表示参加。仅删除俱乐部。",
+  "clubRemoveMember": "移出俱乐部",
+  "clubMakeOrganizer": "设为组织者",
+  "clubRemoveOrganizer": "取消组织者",
+  "clubSince": "{date} 创建",
+  "clubNoEventsHeld": "还没有举办过活动",
+  "clubPlaceLabel": "常用地点"
 }

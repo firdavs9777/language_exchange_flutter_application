@@ -313,6 +313,90 @@ class GatheringApiClient {
     }
   }
 
+  /// PUT /clubs/:id — owner or organizer.
+  ///
+  /// Language is deliberately absent: it is the discovery spine, and every
+  /// member joined a club in a language they chose.
+  Future<GatheringResult<Club>> updateClub(
+    String id, {
+    String? name,
+    String? description,
+    String? interest,
+    String? city,
+    String? placeName,
+    String? placeAddress,
+  }) async {
+    try {
+      final response = await _apiClient.put('clubs/$id', body: {
+        if (name != null) 'name': name,
+        if (description != null) 'description': description,
+        if (interest != null) 'interest': interest,
+        if (city != null) 'city': city,
+        if (placeName != null || placeAddress != null)
+          'place': {'name': placeName, 'address': placeAddress},
+      });
+      if (!response.success) {
+        return GatheringResult.failed(response.error ?? 'Could not save');
+      }
+      final data = _mapOf(response.data);
+      if (data == null) return const GatheringResult.failed('Could not save');
+      return GatheringResult.ok(Club.fromJson(data));
+    } catch (e) {
+      debugPrint('[GatheringApiClient] updateClub error: $e');
+      return const GatheringResult.failed('Could not save');
+    }
+  }
+
+  /// DELETE /clubs/:id — owner only. Its gatherings are detached, not
+  /// cancelled: people have already RSVP'd to them.
+  Future<GatheringResult<bool>> deleteClub(String id) async {
+    try {
+      final response = await _apiClient.delete('clubs/$id');
+      if (!response.success) {
+        return GatheringResult.failed(response.error ?? 'Could not delete');
+      }
+      return const GatheringResult.ok(true);
+    } catch (e) {
+      debugPrint('[GatheringApiClient] deleteClub error: $e');
+      return const GatheringResult.failed('Could not delete');
+    }
+  }
+
+  /// DELETE /clubs/:id/members/:userId — owner or organizer.
+  Future<GatheringResult<bool>> removeClubMember(String clubId, String userId) async {
+    try {
+      final response = await _apiClient.delete('clubs/$clubId/members/$userId');
+      if (!response.success) {
+        return GatheringResult.failed(response.error ?? 'Could not remove');
+      }
+      return const GatheringResult.ok(true);
+    } catch (e) {
+      debugPrint('[GatheringApiClient] removeClubMember error: $e');
+      return const GatheringResult.failed('Could not remove');
+    }
+  }
+
+  /// PUT /clubs/:id/members/:userId — owner only.
+  Future<GatheringResult<bool>> setClubMemberRole(
+    String clubId,
+    String userId, {
+    required String role,
+  }) async {
+    try {
+      final response = await _apiClient.put(
+        'clubs/$clubId/members/$userId',
+        body: {'role': role},
+      );
+      if (!response.success) {
+        return GatheringResult.failed(response.error ?? 'Could not update role');
+      }
+      return const GatheringResult.ok(true);
+    } catch (e) {
+      debugPrint('[GatheringApiClient] setClubMemberRole error: $e');
+      return const GatheringResult.failed('Could not update role');
+    }
+  }
+
   /// POST /clubs — the creator is member #1.
   Future<GatheringResult<Club>> createClub({
     required String name,

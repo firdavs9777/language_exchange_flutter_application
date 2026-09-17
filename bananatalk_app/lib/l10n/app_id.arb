@@ -3387,5 +3387,19 @@
   "finishProfileContinue": "Lanjutkan",
   "finishProfileSignOut": "Keluar",
   "packReviewProgress": "Ulasan {current} dari {total}",
-  "packReviewRecall": "Masih ingat kata ini?"
+  "packReviewRecall": "Masih ingat kata ini?",
+  "clubOrganizers": "Pengurus",
+  "clubMembersLabel": "Anggota",
+  "clubMeetsIn": "Berkumpul di {city}",
+  "clubEventsHeld": "{count} acara terselenggara",
+  "clubEdit": "Edit klub",
+  "clubDelete": "Hapus klub",
+  "clubDeleteConfirmTitle": "Hapus klub ini?",
+  "clubDeleteConfirmBody": "Acara terjadwal tetap ada — sudah ada yang menyatakan hadir. Hanya klubnya yang dihapus.",
+  "clubRemoveMember": "Keluarkan dari klub",
+  "clubMakeOrganizer": "Jadikan pengurus",
+  "clubRemoveOrganizer": "Hapus pengurus",
+  "clubSince": "Klub sejak {date}",
+  "clubNoEventsHeld": "Belum ada acara terselenggara",
+  "clubPlaceLabel": "Tempat biasa"
 }

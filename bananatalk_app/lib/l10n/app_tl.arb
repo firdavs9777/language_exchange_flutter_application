@@ -3360,5 +3360,19 @@
   "finishProfileContinue": "Ituloy",
   "finishProfileSignOut": "Mag-sign out",
   "packReviewProgress": "Review {current} ng {total}",
-  "packReviewRecall": "Naaalala mo ba ang salitang ito?"
+  "packReviewRecall": "Naaalala mo ba ang salitang ito?",
+  "clubOrganizers": "Mga organizer",
+  "clubMembersLabel": "Mga miyembro",
+  "clubMeetsIn": "Nagkikita sa {city}",
+  "clubEventsHeld": "{count} na event na naidaos",
+  "clubEdit": "I-edit ang club",
+  "clubDelete": "Tanggalin ang club",
+  "clubDeleteConfirmTitle": "Tanggalin ang club na ito?",
+  "clubDeleteConfirmBody": "Mananatili ang mga nakaiskedyul na event — may sumagot nang sasama. Ang club lang ang matatanggal.",
+  "clubRemoveMember": "Alisin sa club",
+  "clubMakeOrganizer": "Gawing organizer",
+  "clubRemoveOrganizer": "Alisin bilang organizer",
+  "clubSince": "Club mula {date}",
+  "clubNoEventsHeld": "Wala pang naidaos na event",
+  "clubPlaceLabel": "Karaniwang lugar"
 }

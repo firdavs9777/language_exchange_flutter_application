@@ -3627,5 +3627,19 @@
   "finishProfileContinue": "Weiter",
   "finishProfileSignOut": "Abmelden",
   "packReviewProgress": "Wiederholung {current} von {total}",
-  "packReviewRecall": "Erinnerst du dich an dieses Wort?"
+  "packReviewRecall": "Erinnerst du dich an dieses Wort?",
+  "clubOrganizers": "Organisatoren",
+  "clubMembersLabel": "Mitglieder",
+  "clubMeetsIn": "Trifft sich in {city}",
+  "clubEventsHeld": "{count} Treffen abgehalten",
+  "clubEdit": "Club bearbeiten",
+  "clubDelete": "Club löschen",
+  "clubDeleteConfirmTitle": "Diesen Club löschen?",
+  "clubDeleteConfirmBody": "Geplante Treffen bleiben bestehen — es haben bereits Leute zugesagt. Nur der Club wird entfernt.",
+  "clubRemoveMember": "Aus dem Club entfernen",
+  "clubMakeOrganizer": "Zum Organisator machen",
+  "clubRemoveOrganizer": "Organisator entfernen",
+  "clubSince": "Club seit {date}",
+  "clubNoEventsHeld": "Noch keine Treffen abgehalten",
+  "clubPlaceLabel": "Üblicher Ort"
 }

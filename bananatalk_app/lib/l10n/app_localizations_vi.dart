@@ -8067,4 +8067,52 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get packReviewRecall => 'Bạn còn nhớ từ này không?';
+
+  @override
+  String get clubOrganizers => 'Ban tổ chức';
+
+  @override
+  String get clubMembersLabel => 'Thành viên';
+
+  @override
+  String clubMeetsIn(String city) {
+    return 'Gặp nhau tại $city';
+  }
+
+  @override
+  String clubEventsHeld(int count) {
+    return 'Đã tổ chức $count sự kiện';
+  }
+
+  @override
+  String get clubEdit => 'Sửa câu lạc bộ';
+
+  @override
+  String get clubDelete => 'Xóa câu lạc bộ';
+
+  @override
+  String get clubDeleteConfirmTitle => 'Xóa câu lạc bộ này?';
+
+  @override
+  String get clubDeleteConfirmBody => 'Các buổi đã lên lịch vẫn giữ nguyên — đã có người nhận lời tham gia. Chỉ câu lạc bộ bị xóa.';
+
+  @override
+  String get clubRemoveMember => 'Xóa khỏi câu lạc bộ';
+
+  @override
+  String get clubMakeOrganizer => 'Đặt làm ban tổ chức';
+
+  @override
+  String get clubRemoveOrganizer => 'Bỏ ban tổ chức';
+
+  @override
+  String clubSince(String date) {
+    return 'Câu lạc bộ từ $date';
+  }
+
+  @override
+  String get clubNoEventsHeld => 'Chưa tổ chức sự kiện nào';
+
+  @override
+  String get clubPlaceLabel => 'Địa điểm thường lệ';
 }

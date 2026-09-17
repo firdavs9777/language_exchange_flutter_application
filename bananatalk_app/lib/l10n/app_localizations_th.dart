@@ -8067,4 +8067,52 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get packReviewRecall => 'จำคำนี้ได้ไหม?';
+
+  @override
+  String get clubOrganizers => 'ผู้จัดงาน';
+
+  @override
+  String get clubMembersLabel => 'สมาชิก';
+
+  @override
+  String clubMeetsIn(String city) {
+    return 'พบกันที่ $city';
+  }
+
+  @override
+  String clubEventsHeld(int count) {
+    return 'จัดมาแล้ว $count ครั้ง';
+  }
+
+  @override
+  String get clubEdit => 'แก้ไขคลับ';
+
+  @override
+  String get clubDelete => 'ลบคลับ';
+
+  @override
+  String get clubDeleteConfirmTitle => 'ลบคลับนี้ไหม?';
+
+  @override
+  String get clubDeleteConfirmBody => 'กิจกรรมที่นัดไว้ยังอยู่ — มีคนตอบรับแล้ว ลบเฉพาะคลับเท่านั้น';
+
+  @override
+  String get clubRemoveMember => 'นำออกจากคลับ';
+
+  @override
+  String get clubMakeOrganizer => 'ตั้งเป็นผู้จัดงาน';
+
+  @override
+  String get clubRemoveOrganizer => 'ปลดผู้จัดงาน';
+
+  @override
+  String clubSince(String date) {
+    return 'คลับตั้งแต่ $date';
+  }
+
+  @override
+  String get clubNoEventsHeld => 'ยังไม่เคยจัดกิจกรรม';
+
+  @override
+  String get clubPlaceLabel => 'สถานที่ประจำ';
 }

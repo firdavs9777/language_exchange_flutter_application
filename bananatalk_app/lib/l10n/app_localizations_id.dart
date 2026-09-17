@@ -8074,4 +8074,52 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get packReviewRecall => 'Masih ingat kata ini?';
+
+  @override
+  String get clubOrganizers => 'Pengurus';
+
+  @override
+  String get clubMembersLabel => 'Anggota';
+
+  @override
+  String clubMeetsIn(String city) {
+    return 'Berkumpul di $city';
+  }
+
+  @override
+  String clubEventsHeld(int count) {
+    return '$count acara terselenggara';
+  }
+
+  @override
+  String get clubEdit => 'Edit klub';
+
+  @override
+  String get clubDelete => 'Hapus klub';
+
+  @override
+  String get clubDeleteConfirmTitle => 'Hapus klub ini?';
+
+  @override
+  String get clubDeleteConfirmBody => 'Acara terjadwal tetap ada — sudah ada yang menyatakan hadir. Hanya klubnya yang dihapus.';
+
+  @override
+  String get clubRemoveMember => 'Keluarkan dari klub';
+
+  @override
+  String get clubMakeOrganizer => 'Jadikan pengurus';
+
+  @override
+  String get clubRemoveOrganizer => 'Hapus pengurus';
+
+  @override
+  String clubSince(String date) {
+    return 'Klub sejak $date';
+  }
+
+  @override
+  String get clubNoEventsHeld => 'Belum ada acara terselenggara';
+
+  @override
+  String get clubPlaceLabel => 'Tempat biasa';
 }

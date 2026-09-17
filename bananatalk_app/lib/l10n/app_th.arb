@@ -3387,5 +3387,19 @@
   "finishProfileContinue": "ไปต่อ",
   "finishProfileSignOut": "ออกจากระบบ",
   "packReviewProgress": "ทบทวน {current} จาก {total}",
-  "packReviewRecall": "จำคำนี้ได้ไหม?"
+  "packReviewRecall": "จำคำนี้ได้ไหม?",
+  "clubOrganizers": "ผู้จัดงาน",
+  "clubMembersLabel": "สมาชิก",
+  "clubMeetsIn": "พบกันที่ {city}",
+  "clubEventsHeld": "จัดมาแล้ว {count} ครั้ง",
+  "clubEdit": "แก้ไขคลับ",
+  "clubDelete": "ลบคลับ",
+  "clubDeleteConfirmTitle": "ลบคลับนี้ไหม?",
+  "clubDeleteConfirmBody": "กิจกรรมที่นัดไว้ยังอยู่ — มีคนตอบรับแล้ว ลบเฉพาะคลับเท่านั้น",
+  "clubRemoveMember": "นำออกจากคลับ",
+  "clubMakeOrganizer": "ตั้งเป็นผู้จัดงาน",
+  "clubRemoveOrganizer": "ปลดผู้จัดงาน",
+  "clubSince": "คลับตั้งแต่ {date}",
+  "clubNoEventsHeld": "ยังไม่เคยจัดกิจกรรม",
+  "clubPlaceLabel": "สถานที่ประจำ"
 }

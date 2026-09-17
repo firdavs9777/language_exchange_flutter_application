@@ -8081,4 +8081,52 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get packReviewRecall => 'Шумо ин калимаро дар ёд доред?';
+
+  @override
+  String get clubOrganizers => 'Ташкилкунандагон';
+
+  @override
+  String get clubMembersLabel => 'Аъзоён';
+
+  @override
+  String clubMeetsIn(String city) {
+    return 'Дар $city вомехӯранд';
+  }
+
+  @override
+  String clubEventsHeld(int count) {
+    return '$count чорабинӣ гузаронида шуд';
+  }
+
+  @override
+  String get clubEdit => 'Таҳрири клуб';
+
+  @override
+  String get clubDelete => 'Нест кардани клуб';
+
+  @override
+  String get clubDeleteConfirmTitle => 'Ин клубро нест кунем?';
+
+  @override
+  String get clubDeleteConfirmBody => 'Чорабиниҳои банақшагирифта боқӣ мемонанд — аллакай касоне ҳастанд, ки омаданӣ шуданд. Танҳо клуб нест мешавад.';
+
+  @override
+  String get clubRemoveMember => 'Аз клуб хориҷ кардан';
+
+  @override
+  String get clubMakeOrganizer => 'Ташкилкунанда таъин кардан';
+
+  @override
+  String get clubRemoveOrganizer => 'Аз ташкилкунандагӣ гирифтан';
+
+  @override
+  String clubSince(String date) {
+    return 'Клуб аз $date';
+  }
+
+  @override
+  String get clubNoEventsHeld => 'Ҳанӯз чорабинӣ нашудааст';
+
+  @override
+  String get clubPlaceLabel => 'Ҷои маъмулӣ';
 }

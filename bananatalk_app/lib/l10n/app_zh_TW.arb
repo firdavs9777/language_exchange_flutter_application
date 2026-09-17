@@ -3078,5 +3078,19 @@
   "finishProfileContinue": "繼續",
   "finishProfileSignOut": "登出",
   "packReviewProgress": "複習 第{current}個，共{total}個",
-  "packReviewRecall": "還記得這個詞嗎？"
+  "packReviewRecall": "還記得這個詞嗎？",
+  "clubOrganizers": "組織者",
+  "clubMembersLabel": "成員",
+  "clubMeetsIn": "在{city}聚會",
+  "clubEventsHeld": "已舉辦 {count} 次活動",
+  "clubEdit": "編輯俱樂部",
+  "clubDelete": "刪除俱樂部",
+  "clubDeleteConfirmTitle": "確定刪除這個俱樂部嗎？",
+  "clubDeleteConfirmBody": "已安排的活動會保留 —— 已有人表示參加。僅刪除俱樂部。",
+  "clubRemoveMember": "移出俱樂部",
+  "clubMakeOrganizer": "設為組織者",
+  "clubRemoveOrganizer": "取消組織者",
+  "clubSince": "{date} 建立",
+  "clubNoEventsHeld": "還沒有舉辦過活動",
+  "clubPlaceLabel": "常用地點"
 }

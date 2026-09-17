@@ -8077,4 +8077,52 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get packReviewRecall => 'Naaalala mo ba ang salitang ito?';
+
+  @override
+  String get clubOrganizers => 'Mga organizer';
+
+  @override
+  String get clubMembersLabel => 'Mga miyembro';
+
+  @override
+  String clubMeetsIn(String city) {
+    return 'Nagkikita sa $city';
+  }
+
+  @override
+  String clubEventsHeld(int count) {
+    return '$count na event na naidaos';
+  }
+
+  @override
+  String get clubEdit => 'I-edit ang club';
+
+  @override
+  String get clubDelete => 'Tanggalin ang club';
+
+  @override
+  String get clubDeleteConfirmTitle => 'Tanggalin ang club na ito?';
+
+  @override
+  String get clubDeleteConfirmBody => 'Mananatili ang mga nakaiskedyul na event — may sumagot nang sasama. Ang club lang ang matatanggal.';
+
+  @override
+  String get clubRemoveMember => 'Alisin sa club';
+
+  @override
+  String get clubMakeOrganizer => 'Gawing organizer';
+
+  @override
+  String get clubRemoveOrganizer => 'Alisin bilang organizer';
+
+  @override
+  String clubSince(String date) {
+    return 'Club mula $date';
+  }
+
+  @override
+  String get clubNoEventsHeld => 'Wala pang naidaos na event';
+
+  @override
+  String get clubPlaceLabel => 'Karaniwang lugar';
 }

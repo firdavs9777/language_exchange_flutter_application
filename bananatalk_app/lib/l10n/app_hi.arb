@@ -3403,5 +3403,19 @@
   "finishProfileContinue": "जारी रखें",
   "finishProfileSignOut": "साइन आउट",
   "packReviewProgress": "दोहराव {current} / {total}",
-  "packReviewRecall": "क्या आपको यह शब्द याद है?"
+  "packReviewRecall": "क्या आपको यह शब्द याद है?",
+  "clubOrganizers": "आयोजक",
+  "clubMembersLabel": "सदस्य",
+  "clubMeetsIn": "{city} में मिलते हैं",
+  "clubEventsHeld": "{count} आयोजन हो चुके",
+  "clubEdit": "क्लब संपादित करें",
+  "clubDelete": "क्लब हटाएं",
+  "clubDeleteConfirmTitle": "यह क्लब हटाएं?",
+  "clubDeleteConfirmBody": "निर्धारित आयोजन बने रहेंगे — लोग पहले ही आने को कह चुके हैं। केवल क्लब हटेगा।",
+  "clubRemoveMember": "क्लब से हटाएं",
+  "clubMakeOrganizer": "आयोजक बनाएं",
+  "clubRemoveOrganizer": "आयोजक हटाएं",
+  "clubSince": "{date} से क्लब",
+  "clubNoEventsHeld": "अभी तक कोई आयोजन नहीं",
+  "clubPlaceLabel": "सामान्य स्थान"
 }

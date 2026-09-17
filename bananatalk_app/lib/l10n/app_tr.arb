@@ -3599,5 +3599,19 @@
   "finishProfileContinue": "Devam et",
   "finishProfileSignOut": "Çıkış yap",
   "packReviewProgress": "Tekrar {current} / {total}",
-  "packReviewRecall": "Bu kelimeyi hatırlıyor musun?"
+  "packReviewRecall": "Bu kelimeyi hatırlıyor musun?",
+  "clubOrganizers": "Düzenleyenler",
+  "clubMembersLabel": "Üyeler",
+  "clubMeetsIn": "{city} şehrinde buluşuyor",
+  "clubEventsHeld": "{count} etkinlik düzenlendi",
+  "clubEdit": "Kulübü düzenle",
+  "clubDelete": "Kulübü sil",
+  "clubDeleteConfirmTitle": "Bu kulüp silinsin mi?",
+  "clubDeleteConfirmBody": "Planlanan etkinlikler kalır — katılacağını söyleyenler var. Yalnızca kulüp silinir.",
+  "clubRemoveMember": "Kulüpten çıkar",
+  "clubMakeOrganizer": "Düzenleyen yap",
+  "clubRemoveOrganizer": "Düzenleyenlikten al",
+  "clubSince": "{date} tarihinden beri kulüp",
+  "clubNoEventsHeld": "Henüz etkinlik düzenlenmedi",
+  "clubPlaceLabel": "Her zamanki yer"
 }

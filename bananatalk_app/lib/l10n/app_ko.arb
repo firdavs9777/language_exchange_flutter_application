@@ -3408,5 +3408,19 @@
   "finishProfileContinue": "계속하기",
   "finishProfileSignOut": "로그아웃",
   "packReviewProgress": "복습 {current} / {total}",
-  "packReviewRecall": "이 단어 기억나세요?"
+  "packReviewRecall": "이 단어 기억나세요?",
+  "clubOrganizers": "운영진",
+  "clubMembersLabel": "멤버",
+  "clubMeetsIn": "{city}에서 모임",
+  "clubEventsHeld": "지난 모임 {count}회",
+  "clubEdit": "클럽 수정",
+  "clubDelete": "클럽 삭제",
+  "clubDeleteConfirmTitle": "이 클럽을 삭제할까요?",
+  "clubDeleteConfirmBody": "예정된 모임은 유지돼요 — 이미 참석하겠다고 한 분들이 있어요. 클럽만 삭제됩니다.",
+  "clubRemoveMember": "클럽에서 내보내기",
+  "clubMakeOrganizer": "운영진으로 지정",
+  "clubRemoveOrganizer": "운영진 해제",
+  "clubSince": "{date}에 개설",
+  "clubNoEventsHeld": "아직 진행한 모임이 없어요",
+  "clubPlaceLabel": "주로 만나는 장소"
 }

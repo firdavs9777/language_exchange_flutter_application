@@ -8067,4 +8067,52 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get packReviewRecall => 'この単語を覚えていますか？';
+
+  @override
+  String get clubOrganizers => '運営メンバー';
+
+  @override
+  String get clubMembersLabel => 'メンバー';
+
+  @override
+  String clubMeetsIn(String city) {
+    return '$cityで開催';
+  }
+
+  @override
+  String clubEventsHeld(int count) {
+    return '開催実績 $count 回';
+  }
+
+  @override
+  String get clubEdit => 'クラブを編集';
+
+  @override
+  String get clubDelete => 'クラブを削除';
+
+  @override
+  String get clubDeleteConfirmTitle => 'このクラブを削除しますか？';
+
+  @override
+  String get clubDeleteConfirmBody => '予定されている集まりは残ります — すでに参加予定の人がいます。クラブのみ削除されます。';
+
+  @override
+  String get clubRemoveMember => 'クラブから削除';
+
+  @override
+  String get clubMakeOrganizer => '運営メンバーにする';
+
+  @override
+  String get clubRemoveOrganizer => '運営から外す';
+
+  @override
+  String clubSince(String date) {
+    return '$date に開設';
+  }
+
+  @override
+  String get clubNoEventsHeld => 'まだ開催実績がありません';
+
+  @override
+  String get clubPlaceLabel => 'よく使う場所';
 }

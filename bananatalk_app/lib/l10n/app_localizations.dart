@@ -14905,6 +14905,90 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Do you remember this word?'**
   String get packReviewRecall;
+
+  /// No description provided for @clubOrganizers.
+  ///
+  /// In en, this message translates to:
+  /// **'Organizers'**
+  String get clubOrganizers;
+
+  /// No description provided for @clubMembersLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Members'**
+  String get clubMembersLabel;
+
+  /// No description provided for @clubMeetsIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Meets in {city}'**
+  String clubMeetsIn(String city);
+
+  /// No description provided for @clubEventsHeld.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} events held'**
+  String clubEventsHeld(int count);
+
+  /// No description provided for @clubEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit club'**
+  String get clubEdit;
+
+  /// No description provided for @clubDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete club'**
+  String get clubDelete;
+
+  /// No description provided for @clubDeleteConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this club?'**
+  String get clubDeleteConfirmTitle;
+
+  /// No description provided for @clubDeleteConfirmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Its scheduled events stay — people have already said they\'re coming. Only the club is removed.'**
+  String get clubDeleteConfirmBody;
+
+  /// No description provided for @clubRemoveMember.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove from club'**
+  String get clubRemoveMember;
+
+  /// No description provided for @clubMakeOrganizer.
+  ///
+  /// In en, this message translates to:
+  /// **'Make organizer'**
+  String get clubMakeOrganizer;
+
+  /// No description provided for @clubRemoveOrganizer.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove organizer'**
+  String get clubRemoveOrganizer;
+
+  /// No description provided for @clubSince.
+  ///
+  /// In en, this message translates to:
+  /// **'Club since {date}'**
+  String clubSince(String date);
+
+  /// No description provided for @clubNoEventsHeld.
+  ///
+  /// In en, this message translates to:
+  /// **'No events held yet'**
+  String get clubNoEventsHeld;
+
+  /// No description provided for @clubPlaceLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Usual place'**
+  String get clubPlaceLabel;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

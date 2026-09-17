@@ -3627,5 +3627,19 @@
   "finishProfileContinue": "Continuer",
   "finishProfileSignOut": "Se déconnecter",
   "packReviewProgress": "Révision {current} sur {total}",
-  "packReviewRecall": "Vous souvenez-vous de ce mot ?"
+  "packReviewRecall": "Vous souvenez-vous de ce mot ?",
+  "clubOrganizers": "Organisateurs",
+  "clubMembersLabel": "Membres",
+  "clubMeetsIn": "Se réunit à {city}",
+  "clubEventsHeld": "{count} événements organisés",
+  "clubEdit": "Modifier le club",
+  "clubDelete": "Supprimer le club",
+  "clubDeleteConfirmTitle": "Supprimer ce club ?",
+  "clubDeleteConfirmBody": "Ses événements programmés sont conservés : des personnes se sont déjà inscrites. Seul le club est supprimé.",
+  "clubRemoveMember": "Retirer du club",
+  "clubMakeOrganizer": "Nommer organisateur",
+  "clubRemoveOrganizer": "Retirer organisateur",
+  "clubSince": "Club depuis {date}",
+  "clubNoEventsHeld": "Aucun événement encore organisé",
+  "clubPlaceLabel": "Lieu habituel"
 }

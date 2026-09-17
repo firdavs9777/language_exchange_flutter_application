@@ -8067,6 +8067,54 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get packReviewRecall => '还记得这个词吗？';
+
+  @override
+  String get clubOrganizers => '组织者';
+
+  @override
+  String get clubMembersLabel => '成员';
+
+  @override
+  String clubMeetsIn(String city) {
+    return '在$city聚会';
+  }
+
+  @override
+  String clubEventsHeld(int count) {
+    return '已举办 $count 次活动';
+  }
+
+  @override
+  String get clubEdit => '编辑俱乐部';
+
+  @override
+  String get clubDelete => '删除俱乐部';
+
+  @override
+  String get clubDeleteConfirmTitle => '确定删除这个俱乐部吗？';
+
+  @override
+  String get clubDeleteConfirmBody => '已安排的活动会保留 —— 已有人表示参加。仅删除俱乐部。';
+
+  @override
+  String get clubRemoveMember => '移出俱乐部';
+
+  @override
+  String get clubMakeOrganizer => '设为组织者';
+
+  @override
+  String get clubRemoveOrganizer => '取消组织者';
+
+  @override
+  String clubSince(String date) {
+    return '$date 创建';
+  }
+
+  @override
+  String get clubNoEventsHeld => '还没有举办过活动';
+
+  @override
+  String get clubPlaceLabel => '常用地点';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -16132,4 +16180,52 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get packReviewRecall => '還記得這個詞嗎？';
+
+  @override
+  String get clubOrganizers => '組織者';
+
+  @override
+  String get clubMembersLabel => '成員';
+
+  @override
+  String clubMeetsIn(String city) {
+    return '在$city聚會';
+  }
+
+  @override
+  String clubEventsHeld(int count) {
+    return '已舉辦 $count 次活動';
+  }
+
+  @override
+  String get clubEdit => '編輯俱樂部';
+
+  @override
+  String get clubDelete => '刪除俱樂部';
+
+  @override
+  String get clubDeleteConfirmTitle => '確定刪除這個俱樂部嗎？';
+
+  @override
+  String get clubDeleteConfirmBody => '已安排的活動會保留 —— 已有人表示參加。僅刪除俱樂部。';
+
+  @override
+  String get clubRemoveMember => '移出俱樂部';
+
+  @override
+  String get clubMakeOrganizer => '設為組織者';
+
+  @override
+  String get clubRemoveOrganizer => '取消組織者';
+
+  @override
+  String clubSince(String date) {
+    return '$date 建立';
+  }
+
+  @override
+  String get clubNoEventsHeld => '還沒有舉辦過活動';
+
+  @override
+  String get clubPlaceLabel => '常用地點';
 }

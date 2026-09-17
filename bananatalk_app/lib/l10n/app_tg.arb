@@ -2880,5 +2880,19 @@
   "finishProfileContinue": "Идома додан",
   "finishProfileSignOut": "Баромад",
   "packReviewProgress": "Такрор {current} аз {total}",
-  "packReviewRecall": "Шумо ин калимаро дар ёд доред?"
+  "packReviewRecall": "Шумо ин калимаро дар ёд доред?",
+  "clubOrganizers": "Ташкилкунандагон",
+  "clubMembersLabel": "Аъзоён",
+  "clubMeetsIn": "Дар {city} вомехӯранд",
+  "clubEventsHeld": "{count} чорабинӣ гузаронида шуд",
+  "clubEdit": "Таҳрири клуб",
+  "clubDelete": "Нест кардани клуб",
+  "clubDeleteConfirmTitle": "Ин клубро нест кунем?",
+  "clubDeleteConfirmBody": "Чорабиниҳои банақшагирифта боқӣ мемонанд — аллакай касоне ҳастанд, ки омаданӣ шуданд. Танҳо клуб нест мешавад.",
+  "clubRemoveMember": "Аз клуб хориҷ кардан",
+  "clubMakeOrganizer": "Ташкилкунанда таъин кардан",
+  "clubRemoveOrganizer": "Аз ташкилкунандагӣ гирифтан",
+  "clubSince": "Клуб аз {date}",
+  "clubNoEventsHeld": "Ҳанӯз чорабинӣ нашудааст",
+  "clubPlaceLabel": "Ҷои маъмулӣ"
 }

@@ -247,6 +247,65 @@ class Gathering {
   }
 }
 
+/// One person in a club, with the role the schema has always stored and
+/// nothing ever read.
+class ClubMember {
+  final String id;
+  final String name;
+  final String username;
+  final List<String> images;
+
+  /// 'owner' | 'organizer' | 'member'. Defaults to member so an older payload
+  /// renders as an ordinary member rather than vanishing.
+  final String role;
+
+  const ClubMember({
+    required this.id,
+    this.name = '',
+    this.username = '',
+    this.images = const [],
+    this.role = 'member',
+  });
+
+  bool get isOwner => role == 'owner';
+  bool get isOrganizer => role == 'organizer';
+
+  /// Runs the club: shown above ordinary members and the answer to "who is
+  /// behind this?", which the page could not answer at all.
+  bool get leads => isOwner || isOrganizer;
+
+  String? get avatar => images.isNotEmpty ? images.first : null;
+
+  factory ClubMember.fromJson(Map<String, dynamic> json) => ClubMember(
+        id: json['_id']?.toString() ?? json['id']?.toString() ?? '',
+        name: sanitize(json['name']),
+        username: sanitize(json['username']),
+        images: json['images'] is List
+            ? (json['images'] as List).map((e) => e.toString()).toList()
+            : const [],
+        role: json['role']?.toString() ?? 'member',
+      );
+}
+
+/// Where a club meets, when it meets anywhere in particular.
+class ClubPlace {
+  final String? name;
+  final String? address;
+
+  const ClubPlace({this.name, this.address});
+
+  bool get isEmpty => (name == null || name!.isEmpty) && (address == null || address!.isEmpty);
+
+  static ClubPlace? fromJson(Object? json) {
+    if (json is! Map) return null;
+    final place = ClubPlace(
+      name: sanitize(json['name']).isEmpty ? null : sanitize(json['name']),
+      address: sanitize(json['address']).isEmpty ? null : sanitize(json['address']),
+    );
+    return place.isEmpty ? null : place;
+  }
+}
+
 /// A standing group. [memberCount] leads the card because it is the
 /// cold-start signal — the number that makes the list look alive when nothing
 /// is scheduled.
@@ -267,6 +326,26 @@ class Club {
   final bool viewerIsMember;
   final bool viewerIsOwner;
 
+  /// True for the owner AND organizers. Distinct from [viewerIsOwner]: an
+  /// organizer may edit and remove members, but only the owner may delete the
+  /// club or change who else is an organizer.
+  final bool viewerCanManage;
+
+  /// Where the club meets. Both have existed on the server model since it was
+  /// written and were never sent to any client.
+  final String? city;
+  final ClubPlace? place;
+
+  final DateTime? createdAt;
+
+  /// Owner first, then organizers, then the most recent joiners. Detail only.
+  final List<ClubMember> members;
+  final int organizerCount;
+
+  /// Gatherings that already happened. A club that has met eleven times reads
+  /// completely differently from one that never has.
+  final int pastCount;
+
   /// Populated by the detail endpoint only (`GET /clubs/:id`); empty in lists.
   final List<Gathering> gatherings;
 
@@ -282,8 +361,18 @@ class Club {
     this.status = 'active',
     this.viewerIsMember = false,
     this.viewerIsOwner = false,
+    this.viewerCanManage = false,
+    this.city,
+    this.place,
+    this.createdAt,
+    this.members = const [],
+    this.organizerCount = 0,
+    this.pastCount = 0,
     this.gatherings = const [],
   });
+
+  /// The people who run it, for the "who is behind this?" row.
+  List<ClubMember> get leaders => members.where((m) => m.leads).toList();
 
   factory Club.fromJson(Map<String, dynamic> json) {
     return Club(
@@ -298,6 +387,22 @@ class Club {
       status: json['status']?.toString() ?? 'active',
       viewerIsMember: json['viewerIsMember'] == true,
       viewerIsOwner: json['viewerIsOwner'] == true,
+      viewerCanManage: json['viewerCanManage'] == true,
+      city: sanitize(json['city']).isEmpty ? null : sanitize(json['city']),
+      place: ClubPlace.fromJson(json['place']),
+      createdAt: json['createdAt'] != null
+          ? DateTime.tryParse(json['createdAt'].toString())
+          : null,
+      members: json['members'] is List
+          ? (json['members'] as List)
+              .whereType<Map<String, dynamic>>()
+              .map(ClubMember.fromJson)
+              .toList()
+          : const [],
+      organizerCount: json['roleCounts'] is Map
+          ? ((json['roleCounts'] as Map)['organizer'] as num?)?.toInt() ?? 0
+          : 0,
+      pastCount: (json['pastCount'] as num?)?.toInt() ?? 0,
       gatherings:
           (json['gatherings'] as List<dynamic>?)
               ?.whereType<Map>()

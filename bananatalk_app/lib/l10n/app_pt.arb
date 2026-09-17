@@ -3403,5 +3403,19 @@
   "finishProfileContinue": "Continuar",
   "finishProfileSignOut": "Terminar sessão",
   "packReviewProgress": "Revisão {current} de {total}",
-  "packReviewRecall": "Lembra-se desta palavra?"
+  "packReviewRecall": "Lembra-se desta palavra?",
+  "clubOrganizers": "Organizadores",
+  "clubMembersLabel": "Membros",
+  "clubMeetsIn": "Reúne-se em {city}",
+  "clubEventsHeld": "{count} eventos realizados",
+  "clubEdit": "Editar clube",
+  "clubDelete": "Eliminar clube",
+  "clubDeleteConfirmTitle": "Eliminar este clube?",
+  "clubDeleteConfirmBody": "Os eventos agendados mantêm-se — já há pessoas inscritas. Apenas o clube é removido.",
+  "clubRemoveMember": "Remover do clube",
+  "clubMakeOrganizer": "Tornar organizador",
+  "clubRemoveOrganizer": "Remover organizador",
+  "clubSince": "Clube desde {date}",
+  "clubNoEventsHeld": "Ainda sem eventos realizados",
+  "clubPlaceLabel": "Local habitual"
 }

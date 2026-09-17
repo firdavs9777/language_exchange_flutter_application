@@ -10,6 +10,7 @@ import 'package:bananatalk_app/pages/community/widgets/community_snackbar.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/pages/community/gatherings/gathering_safety_menu.dart';
+import 'package:bananatalk_app/pages/community/gatherings/club_people_section.dart';
 
 /// A club, and what it has coming up.
 ///
@@ -48,6 +49,193 @@ class _ClubDetailScreenState extends State<ClubDetailScreen> {
     await next;
   }
 
+  /// Edit name, description, interest and where it meets.
+  ///
+  /// Language is absent on purpose: it is the discovery spine, and every
+  /// member joined a club in a language they chose. Moving it would take a
+  /// Korean club away from everyone in it.
+  Future<void> _editClub(Club club) async {
+    final name = TextEditingController(text: club.name);
+    final description = TextEditingController(text: club.description);
+    final interest = TextEditingController(text: club.interest);
+    final city = TextEditingController(text: club.city ?? '');
+    final placeName = TextEditingController(text: club.place?.name ?? '');
+    final l10n = AppLocalizations.of(context)!;
+
+    final saved = await showModalBottomSheet<bool>(
+      context: context,
+      isScrollControlled: true,
+      builder: (sheetContext) => Padding(
+        padding: EdgeInsets.fromLTRB(
+          20, 20, 20, MediaQuery.of(sheetContext).viewInsets.bottom + 20,
+        ),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text(l10n.clubEdit,
+                  style: Theme.of(sheetContext).textTheme.titleMedium),
+              const SizedBox(height: 16),
+              TextField(
+                key: const Key('club-edit-name'),
+                controller: name,
+                decoration: InputDecoration(labelText: l10n.clubNameLabel),
+                textInputAction: TextInputAction.next,
+              ),
+              const SizedBox(height: 12),
+              TextField(
+                controller: description,
+                decoration:
+                    InputDecoration(labelText: l10n.clubDescriptionLabel),
+                maxLines: 3,
+              ),
+              const SizedBox(height: 12),
+              TextField(
+                controller: interest,
+                decoration: InputDecoration(labelText: l10n.clubInterestLabel),
+              ),
+              const SizedBox(height: 12),
+              TextField(
+                controller: city,
+                decoration: InputDecoration(labelText: l10n.city),
+              ),
+              const SizedBox(height: 12),
+              TextField(
+                controller: placeName,
+                decoration: InputDecoration(labelText: l10n.clubPlaceLabel),
+              ),
+              const SizedBox(height: 20),
+              FilledButton(
+                key: const Key('club-edit-save'),
+                onPressed: () => Navigator.pop(sheetContext, true),
+                child: Text(l10n.save),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+
+    if (saved != true || !mounted) return;
+
+    setState(() => _busy = true);
+    final result = await _api.updateClub(
+      club.id,
+      name: name.text.trim(),
+      description: description.text.trim(),
+      interest: interest.text.trim(),
+      city: city.text.trim(),
+      placeName: placeName.text.trim().isEmpty ? null : placeName.text.trim(),
+    );
+    if (!mounted) return;
+    setState(() {
+      _busy = false;
+      if (result.success) _future = _api.getClub(widget.clubId);
+    });
+    if (!result.success) {
+      showCommunitySnackBar(context, message: result.error ?? '');
+    }
+  }
+
+  /// Delete, after saying plainly what survives.
+  ///
+  /// The confirmation names the consequence rather than asking "are you sure":
+  /// the scheduled events stay, because people have already said they are
+  /// coming and those are commitments between attendees, not the owner's to
+  /// cancel by tidying up.
+  Future<void> _deleteClub(Club club) async {
+    final l10n = AppLocalizations.of(context)!;
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: Text(l10n.clubDeleteConfirmTitle),
+        content: Text(l10n.clubDeleteConfirmBody),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext, false),
+            child: Text(l10n.cancel),
+          ),
+          TextButton(
+            key: const Key('club-delete-confirm'),
+            onPressed: () => Navigator.pop(dialogContext, true),
+            child: Text(l10n.clubDelete,
+                style: const TextStyle(color: Colors.red)),
+          ),
+        ],
+      ),
+    );
+    if (confirmed != true || !mounted) return;
+
+    setState(() => _busy = true);
+    final result = await _api.deleteClub(club.id);
+    if (!mounted) return;
+    setState(() => _busy = false);
+    if (result.success) {
+      Navigator.of(context).pop(true);
+    } else {
+      showCommunitySnackBar(context, message: result.error ?? '');
+    }
+  }
+
+  /// Promote, demote or remove — long-pressing a face.
+  Future<void> _manageMember(Club club, ClubMember member) async {
+    if (member.isOwner) return;
+    final l10n = AppLocalizations.of(context)!;
+
+    final action = await showModalBottomSheet<String>(
+      context: context,
+      builder: (sheetContext) => SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              title: Text(member.name, style: const TextStyle(fontWeight: FontWeight.w600)),
+              subtitle: Text(member.role),
+            ),
+            const Divider(height: 1),
+            // Role changes are the owner's alone: letting organizers appoint
+            // organizers compounds one bad appointment beyond what the owner
+            // can undo.
+            if (club.viewerIsOwner)
+              ListTile(
+                leading: const Icon(Icons.shield_outlined),
+                title: Text(member.isOrganizer
+                    ? l10n.clubRemoveOrganizer
+                    : l10n.clubMakeOrganizer),
+                onTap: () => Navigator.pop(
+                    sheetContext, member.isOrganizer ? 'demote' : 'promote'),
+              ),
+            ListTile(
+              leading: const Icon(Icons.person_remove_outlined, color: Colors.red),
+              title: Text(l10n.clubRemoveMember,
+                  style: const TextStyle(color: Colors.red)),
+              onTap: () => Navigator.pop(sheetContext, 'remove'),
+            ),
+          ],
+        ),
+      ),
+    );
+    if (action == null || !mounted) return;
+
+    setState(() => _busy = true);
+    final result = action == 'remove'
+        ? await _api.removeClubMember(club.id, member.id)
+        : await _api.setClubMemberRole(
+            club.id,
+            member.id,
+            role: action == 'promote' ? 'organizer' : 'member',
+          );
+    if (!mounted) return;
+    setState(() {
+      _busy = false;
+      if (result.success) _future = _api.getClub(widget.clubId);
+    });
+    if (!result.success) {
+      showCommunitySnackBar(context, message: result.error ?? '');
+    }
+  }
+
   Future<void> _toggleMembership(Club club) async {
     if (_busy) return;
     setState(() => _busy = true);
@@ -83,6 +271,13 @@ class _ClubDetailScreenState extends State<ClubDetailScreen> {
             builder: (context, snapshot) {
               final club = snapshot.data;
               if (club == null) return const SizedBox.shrink();
+              if (club.viewerCanManage) {
+                return _ClubOwnerMenu(
+                  club: club,
+                  onEdit: () => _editClub(club),
+                  onDelete: club.viewerIsOwner ? () => _deleteClub(club) : null,
+                );
+              }
               return GatheringSafetyMenu(
                 target: SafetyTarget.club,
                 contentId: club.id,
@@ -164,6 +359,36 @@ class _ClubDetailScreenState extends State<ClubDetailScreen> {
                   Spacing.gapMD,
                   Text(club.description, style: context.bodyMedium),
                 ],
+                // Where it meets and how often it actually has. Both were
+                // stored on the server model since it was written and never
+                // sent, so a club that meets every Saturday in Hapjeong looked
+                // identical to one that has never met at all.
+                if (club.city != null ||
+                    club.place != null ||
+                    club.pastCount > 0) ...[
+                  Spacing.gapMD,
+                  Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
+                    children: [
+                      if (club.city != null)
+                        _ClubFact(
+                          key: const Key('club-city'),
+                          icon: Icons.place_outlined,
+                          label: club.place?.name != null
+                              ? '${club.place!.name} · ${club.city}'
+                              : l10n.clubMeetsIn(club.city!),
+                        ),
+                      _ClubFact(
+                        key: const Key('club-history'),
+                        icon: Icons.history_rounded,
+                        label: club.pastCount > 0
+                            ? l10n.clubEventsHeld(club.pastCount)
+                            : l10n.clubNoEventsHeld,
+                      ),
+                    ],
+                  ),
+                ],
                 Spacing.gapLG,
                 if (!club.viewerIsOwner)
                   SizedBox(
@@ -190,6 +415,14 @@ class _ClubDetailScreenState extends State<ClubDetailScreen> {
               ],
             ),
           ),
+
+          ClubPeopleSection(
+            club: club,
+            onMemberLongPress: club.viewerCanManage
+                ? (member) => _manageMember(club, member)
+                : null,
+          ),
+          Spacing.gapLG,
 
           Padding(
             padding: const EdgeInsets.fromLTRB(
@@ -262,6 +495,87 @@ class _ClubDetailScreenState extends State<ClubDetailScreen> {
           ],
         ],
       ),
+    );
+  }
+}
+
+/// One fact about the club — where it meets, how often it has.
+class _ClubFact extends StatelessWidget {
+  const _ClubFact({super.key, required this.icon, required this.label});
+
+  final IconData icon;
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+      decoration: BoxDecoration(
+        color: context.containerColor,
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, size: 14, color: context.textSecondary),
+          const SizedBox(width: 6),
+          Text(
+            label,
+            style: context.captionSmall.copyWith(color: context.textSecondary),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// Edit and delete, for whoever may use them.
+///
+/// Delete is owner-only and simply absent for an organizer — a disabled entry
+/// would invite a tap that can only ever fail.
+class _ClubOwnerMenu extends StatelessWidget {
+  const _ClubOwnerMenu({
+    required this.club,
+    required this.onEdit,
+    this.onDelete,
+  });
+
+  final Club club;
+  final VoidCallback onEdit;
+  final VoidCallback? onDelete;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    return PopupMenuButton<String>(
+      key: const Key('club-owner-menu'),
+      icon: const Icon(Icons.more_vert),
+      onSelected: (v) {
+        if (v == 'edit') onEdit();
+        if (v == 'delete') onDelete?.call();
+      },
+      itemBuilder: (context) => [
+        PopupMenuItem(
+          value: 'edit',
+          child: ListTile(
+            contentPadding: EdgeInsets.zero,
+            leading: const Icon(Icons.edit_outlined),
+            title: Text(l10n.clubEdit),
+          ),
+        ),
+        if (onDelete != null)
+          PopupMenuItem(
+            value: 'delete',
+            child: ListTile(
+              contentPadding: EdgeInsets.zero,
+              leading: const Icon(Icons.delete_outline, color: Colors.red),
+              title: Text(
+                l10n.clubDelete,
+                style: const TextStyle(color: Colors.red),
+              ),
+            ),
+          ),
+      ],
     );
   }
 }

@@ -8083,4 +8083,52 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get packReviewRecall => 'Do you remember this word?';
+
+  @override
+  String get clubOrganizers => 'Organizers';
+
+  @override
+  String get clubMembersLabel => 'Members';
+
+  @override
+  String clubMeetsIn(String city) {
+    return 'Meets in $city';
+  }
+
+  @override
+  String clubEventsHeld(int count) {
+    return '$count events held';
+  }
+
+  @override
+  String get clubEdit => 'Edit club';
+
+  @override
+  String get clubDelete => 'Delete club';
+
+  @override
+  String get clubDeleteConfirmTitle => 'Delete this club?';
+
+  @override
+  String get clubDeleteConfirmBody => 'Its scheduled events stay — people have already said they\'re coming. Only the club is removed.';
+
+  @override
+  String get clubRemoveMember => 'Remove from club';
+
+  @override
+  String get clubMakeOrganizer => 'Make organizer';
+
+  @override
+  String get clubRemoveOrganizer => 'Remove organizer';
+
+  @override
+  String clubSince(String date) {
+    return 'Club since $date';
+  }
+
+  @override
+  String get clubNoEventsHeld => 'No events held yet';
+
+  @override
+  String get clubPlaceLabel => 'Usual place';
 }

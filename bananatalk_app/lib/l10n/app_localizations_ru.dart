@@ -8098,4 +8098,52 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get packReviewRecall => 'Помните это слово?';
+
+  @override
+  String get clubOrganizers => 'Организаторы';
+
+  @override
+  String get clubMembersLabel => 'Участники';
+
+  @override
+  String clubMeetsIn(String city) {
+    return 'Встречается в $city';
+  }
+
+  @override
+  String clubEventsHeld(int count) {
+    return 'Проведено встреч: $count';
+  }
+
+  @override
+  String get clubEdit => 'Изменить клуб';
+
+  @override
+  String get clubDelete => 'Удалить клуб';
+
+  @override
+  String get clubDeleteConfirmTitle => 'Удалить этот клуб?';
+
+  @override
+  String get clubDeleteConfirmBody => 'Запланированные встречи останутся — люди уже записались. Удаляется только клуб.';
+
+  @override
+  String get clubRemoveMember => 'Исключить из клуба';
+
+  @override
+  String get clubMakeOrganizer => 'Назначить организатором';
+
+  @override
+  String get clubRemoveOrganizer => 'Снять организатора';
+
+  @override
+  String clubSince(String date) {
+    return 'Клуб с $date';
+  }
+
+  @override
+  String get clubNoEventsHeld => 'Встреч пока не было';
+
+  @override
+  String get clubPlaceLabel => 'Обычное место';
 }

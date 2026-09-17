@@ -3387,5 +3387,19 @@
   "finishProfileContinue": "Tiếp tục",
   "finishProfileSignOut": "Đăng xuất",
   "packReviewProgress": "Ôn tập {current} trên {total}",
-  "packReviewRecall": "Bạn còn nhớ từ này không?"
+  "packReviewRecall": "Bạn còn nhớ từ này không?",
+  "clubOrganizers": "Ban tổ chức",
+  "clubMembersLabel": "Thành viên",
+  "clubMeetsIn": "Gặp nhau tại {city}",
+  "clubEventsHeld": "Đã tổ chức {count} sự kiện",
+  "clubEdit": "Sửa câu lạc bộ",
+  "clubDelete": "Xóa câu lạc bộ",
+  "clubDeleteConfirmTitle": "Xóa câu lạc bộ này?",
+  "clubDeleteConfirmBody": "Các buổi đã lên lịch vẫn giữ nguyên — đã có người nhận lời tham gia. Chỉ câu lạc bộ bị xóa.",
+  "clubRemoveMember": "Xóa khỏi câu lạc bộ",
+  "clubMakeOrganizer": "Đặt làm ban tổ chức",
+  "clubRemoveOrganizer": "Bỏ ban tổ chức",
+  "clubSince": "Câu lạc bộ từ {date}",
+  "clubNoEventsHeld": "Chưa tổ chức sự kiện nào",
+  "clubPlaceLabel": "Địa điểm thường lệ"
 }

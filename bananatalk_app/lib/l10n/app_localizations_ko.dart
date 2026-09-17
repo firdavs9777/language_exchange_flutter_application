@@ -8067,4 +8067,52 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get packReviewRecall => '이 단어 기억나세요?';
+
+  @override
+  String get clubOrganizers => '운영진';
+
+  @override
+  String get clubMembersLabel => '멤버';
+
+  @override
+  String clubMeetsIn(String city) {
+    return '$city에서 모임';
+  }
+
+  @override
+  String clubEventsHeld(int count) {
+    return '지난 모임 $count회';
+  }
+
+  @override
+  String get clubEdit => '클럽 수정';
+
+  @override
+  String get clubDelete => '클럽 삭제';
+
+  @override
+  String get clubDeleteConfirmTitle => '이 클럽을 삭제할까요?';
+
+  @override
+  String get clubDeleteConfirmBody => '예정된 모임은 유지돼요 — 이미 참석하겠다고 한 분들이 있어요. 클럽만 삭제됩니다.';
+
+  @override
+  String get clubRemoveMember => '클럽에서 내보내기';
+
+  @override
+  String get clubMakeOrganizer => '운영진으로 지정';
+
+  @override
+  String get clubRemoveOrganizer => '운영진 해제';
+
+  @override
+  String clubSince(String date) {
+    return '$date에 개설';
+  }
+
+  @override
+  String get clubNoEventsHeld => '아직 진행한 모임이 없어요';
+
+  @override
+  String get clubPlaceLabel => '주로 만나는 장소';
 }

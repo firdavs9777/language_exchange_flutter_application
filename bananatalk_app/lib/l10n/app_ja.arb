@@ -3387,5 +3387,19 @@
   "finishProfileContinue": "続ける",
   "finishProfileSignOut": "ログアウト",
   "packReviewProgress": "復習 {current} / {total}",
-  "packReviewRecall": "この単語を覚えていますか？"
+  "packReviewRecall": "この単語を覚えていますか？",
+  "clubOrganizers": "運営メンバー",
+  "clubMembersLabel": "メンバー",
+  "clubMeetsIn": "{city}で開催",
+  "clubEventsHeld": "開催実績 {count} 回",
+  "clubEdit": "クラブを編集",
+  "clubDelete": "クラブを削除",
+  "clubDeleteConfirmTitle": "このクラブを削除しますか？",
+  "clubDeleteConfirmBody": "予定されている集まりは残ります — すでに参加予定の人がいます。クラブのみ削除されます。",
+  "clubRemoveMember": "クラブから削除",
+  "clubMakeOrganizer": "運営メンバーにする",
+  "clubRemoveOrganizer": "運営から外す",
+  "clubSince": "{date} に開設",
+  "clubNoEventsHeld": "まだ開催実績がありません",
+  "clubPlaceLabel": "よく使う場所"
 }
