@@ -6,6 +6,7 @@ import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:bananatalk_app/widgets/language_flag_badge.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/widgets/story/story_gradient_ring.dart';
 
 /// Avatar + name + language chips + timestamp + menu row at the top of a
 /// MomentCard. Pure render — no state. Navigation is handled by callbacks.
@@ -90,16 +91,24 @@ class MomentCardHeader extends StatelessWidget {
             child: Stack(
               clipBehavior: Clip.none,
               children: [
-                CachedCircleAvatar(
-                  imageUrl: moment.user.imageUrls.isNotEmpty
-                      ? moment.user.imageUrls[0]
-                      : null,
-                  radius: 24,
-                  backgroundColor: context.containerColor,
-                  errorWidget: Icon(
-                    Icons.person,
-                    size: 22,
-                    color: context.textSecondary,
+                // The ring is the same widget the chat list, community cards
+                // and profile headers already use. moments.js simply never
+                // sent the flag, so this avatar had nothing to ring -- the
+                // fix was server-side, not here.
+                StoryGradientRing(
+                  hasStory: moment.user.hasActiveStory,
+                  size: 48,
+                  child: CachedCircleAvatar(
+                    imageUrl: moment.user.imageUrls.isNotEmpty
+                        ? moment.user.imageUrls[0]
+                        : null,
+                    radius: 24,
+                    backgroundColor: context.containerColor,
+                    errorWidget: Icon(
+                      Icons.person,
+                      size: 22,
+                      color: context.textSecondary,
+                    ),
                   ),
                 ),
                 LanguageFlagBadge(
