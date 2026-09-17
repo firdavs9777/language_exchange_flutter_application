@@ -12,6 +12,7 @@ import 'package:bananatalk_app/pages/authentication/widgets/auth_step_progress.d
 import 'package:bananatalk_app/pages/authentication/widgets/auth_snackbar.dart';
 import 'package:go_router/go_router.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
+import 'package:bananatalk_app/pages/authentication/register/birth_date_parts.dart';
 import 'package:bananatalk_app/services/chat_socket_service.dart';
 import 'package:bananatalk_app/providers/provider_models//users_model.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
@@ -524,15 +525,27 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
       return;
     }
 
-    setState(() => _isSubmitting = true);
-
     final birthDate = _birthDateController.text.isNotEmpty
         ? _birthDateController.text
         : _effectiveBirthDate;
-    final dateParts = birthDate.split('.');
-    final year = dateParts.isNotEmpty ? dateParts[0] : '';
-    final month = dateParts.length > 1 ? dateParts[1] : '';
-    final day = dateParts.length > 2 ? dateParts[2] : '';
+
+    // Checked BEFORE _isSubmitting flips, so a rejected date leaves the form
+    // usable. The old inline split could not fail: ''.split('.') is [''], so
+    // its `isNotEmpty` guard passed and birth_year went out as ''. Apple and
+    // Google never supply a birthday, so this screen is the only place the app
+    // ever learns one -- sending an empty value here is how a user ends up
+    // permanently ageless.
+    final parts = parseBirthDateParts(birthDate);
+    if (parts == null) {
+      _showError(AppLocalizations.of(context)!.pleaseSelectBirthDate);
+      return;
+    }
+
+    setState(() => _isSubmitting = true);
+
+    final year = parts.year;
+    final month = parts.month;
+    final day = parts.day;
     final gender = _selectedGender ?? _effectiveGender;
 
     final authService = ref.read(authServiceProvider);
