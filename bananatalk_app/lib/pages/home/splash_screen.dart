@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:bananatalk_app/pages/home/splash_timing.dart';
+
 import 'package:bananatalk_app/pages/authentication/register/register_two_screen.dart';
 import 'package:bananatalk_app/pages/authentication/terms_of_service_screen.dart';
 import 'package:bananatalk_app/pages/authentication/widgets/animated_banana_title.dart';
@@ -69,19 +71,39 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
     _initializeApp();
   }
 
-  Future<void> _initializeApp() async {
+  /// Notification set-up, independent of auth.
+  ///
+  /// Pulled into its own future so it can run ALONGSIDE the auth restore
+  /// instead of in front of it. Nothing about deciding where to navigate
+  /// depends on the badge being cleared or the messaging SDK being ready —
+  /// only the pending-notification payload does, and that is awaited before
+  /// navigation.
+  Future<void> _prepareNotifications() async {
     try {
       await NotificationService().initialize(context: context);
       await NotificationService().clearBadge();
-      final initialMessage = await FirebaseMessaging.instance
-          .getInitialMessage();
+      final initialMessage =
+          await FirebaseMessaging.instance.getInitialMessage();
       if (initialMessage != null) {
         _pendingNotification = initialMessage;
       }
-    } catch (e) {}
+    } catch (e) {
+      // Never block start-up on notifications; the app is usable without them.
+      debugPrint('[splash] notification set-up failed: $e');
+    }
+  }
+
+  Future<void> _initializeApp() async {
+    final startedAt = DateTime.now();
+
+    // Started, not awaited: it runs while auth restores.
+    final notificationsReady = _prepareNotifications();
 
     final authService = ref.read(authServiceProvider);
     final isAuthenticated = await authService.initializeAuth();
+
+    // Awaited before navigating, because _pendingNotification decides where.
+    await notificationsReady;
 
     // Task 7 Step 1 (Workstream E-core): register the FCM token on every
     // session restore, not just fresh logins. Most app opens are session
@@ -97,7 +119,13 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
       );
     }
 
-    await Future.delayed(const Duration(seconds: 2));
+    // A FLOOR, not an addition. This used to be a flat two-second delay sitting
+    // after notification set-up, auth restore and a version check — two seconds
+    // added to whatever those already cost, every launch, worst on a cold
+    // first one. Now the branding is simply guaranteed a minimum, and slow
+    // start-up waits no longer at all.
+    final remaining = remainingSplash(DateTime.now().difference(startedAt));
+    if (remaining > Duration.zero) await Future.delayed(remaining);
 
     if (!mounted) return;
     await VersionCheckCoordinator().check(context);
