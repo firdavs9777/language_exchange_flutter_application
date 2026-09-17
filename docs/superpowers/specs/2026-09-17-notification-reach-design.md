@@ -41,36 +41,62 @@ nobody is being brought back into it.
 
 ## Root cause
 
-A single cold permission prompt at app launch cascades into every number above.
+The audit's first reading — "a cold permission prompt at splash whose denial is
+terminal" — is correct for Android and WRONG for iOS. The two platforms fail in
+opposite directions, and 407 of the 442 token holders are iOS:
 
-`NotificationService.initialize()` calls `_requestPermission()` unconditionally
-(`lib/services/notification_service.dart:101`), and `initialize()` is invoked
-from `lib/main.dart:108` and `lib/pages/home/splash_screen.dart:74` — before the
-user has seen a single screen or has any reason to accept.
+| platform | users with a token |
+|---|---|
+| iOS | 407 |
+| Android | 35 |
 
-Denial is then terminal in three compounding ways:
+### iOS: granted silently, delivered invisibly
 
-- `_getFCMToken()` runs only inside the `authorized` branch. The `else` branch
-  is empty and the enclosing `catch` is empty, so a denial is silent.
-- `unawaited(_reportTimezone())` sits **inside the FCM token-registration
-  block** (`notification_service.dart:571`). Timezone therefore depends on a
-  permission it does not need. This is why the 290 users with a timezone are a
-  subset of the 441 with a token.
-- `lib/pages/settings/notification_preferences_screen.dart` toggles server-side
-  preferences but never re-requests permission and never opens system settings.
-  A user who declined has no path back, and is shown toggles that can never
-  fire.
+`_requestPermission()` passes `provisional: true`
+(`lib/services/notification_service.dart:154`) and is the ONLY request path in
+the app — full authorization is never requested, anywhere.
 
-The delivery pipeline itself is sound and is NOT the problem:
+Provisional authorization is granted by iOS without showing a dialog, which is
+why iOS token coverage is comparatively healthy. But provisional notifications
+are delivered **quietly**: no banner, no sound, no lock-screen alert. They
+accumulate in Notification Center where nobody looks.
 
-- `jobs/scheduler.js` runs delivery hourly, anchored to :15 past the UTC hour
-  rather than to process boot (a deliberate fix already in place).
-- `jobs/dailyDropJob.js:180` selects `lastActive` within 30 days AND
-  `fcmTokens.0` exists — correct, but it can only ever return the 284.
-- `lib/localHour.js` fires when the user's local hour equals their configured
-  hour, default 19. With no timezone it falls back to UTC, so 19:00 UTC lands at
-  04:00 Seoul, 03:00 Shanghai, 00:00 Tashkent. 76 of the 284 reachable users are
-  in that state.
+So the daily study reminder is very likely being delivered to hundreds of iOS
+users and seen by almost none of them. For a habit product this is worse than
+not sending it, because it looks like it is working.
+
+The app cannot currently tell: lines 103-104 and 675-676 treat
+`AuthorizationStatus.provisional` as equivalent to `authorized`, and the status
+is never persisted or sent to the backend.
+
+### Android: the cold prompt, as originally diagnosed
+
+`POST_NOTIFICATIONS` is correctly declared in
+`android/app/src/main/AndroidManifest.xml:57`, so on Android 13+
+`requestPermission()` raises a real runtime dialog — at splash, before the user
+has seen anything. Denial there is permanent.
+
+35 Android token holders is consistent with heavy denial, but the true denial
+rate is **not measurable today**: tokenless users carry no platform field, so
+there is no way to know how many Android users exist to have denied. Fixing that
+blindness is part of this work rather than a nice-to-have.
+
+### Both platforms: timezone and blindness
+
+- `unawaited(_reportTimezone())` sits inside the FCM token-registration block
+  (`notification_service.dart:571`), so timezone depends on a permission it does
+  not need. This is why the 290 users with a timezone are a subset of the 441
+  with a token.
+- `notification_preferences_screen.dart` toggles server preferences but never
+  re-requests permission and never opens system settings, so a denied user sees
+  toggles that cannot fire.
+
+The delivery pipeline itself is sound and is NOT the problem: `jobs/scheduler.js`
+runs hourly anchored to :15 past the UTC hour; `jobs/dailyDropJob.js:180`
+correctly selects active users holding a token; `lib/localHour.js` fires at the
+user's configured local hour, defaulting to 19, falling back to UTC when no
+timezone is known (which puts 76 reachable users at 04:00 Seoul / 03:00
+Shanghai).
 
 ## Design
 
@@ -80,54 +106,63 @@ Promote `_reportTimezone()` to a public `reportTimezone()` and call it from the
 post-login bootstrap, independent of `initialize()` and of the permission
 outcome.
 
-Timezone is useful on its own (gathering times, quiet hours, delivery bucketing)
-and never required notification permission. This is the smallest change in the
-document and the only one that helps every logged-in user immediately, including
-those who have already denied notifications and will never be asked again.
+Timezone is useful on its own and never required notification permission. It is
+the smallest change here and the only one that helps every logged-in user
+immediately — including those already denied, who will never be asked again.
 
-Failures stay swallowed, as today: a lost timezone report must not block
-startup.
+Failures stay swallowed, as today: a lost timezone report must not block startup.
 
-### 2. Move the ask out of splash; prime it in chat
+### 2. Make the authorization level visible
 
-`initialize()` stops asking unconditionally. It reads
-`FirebaseMessaging.getNotificationSettings()` and branches on
-`authorizationStatus`:
+Send the resolved `authorizationStatus` to the backend alongside the token, and
+store it on the user. Without this, none of the rest can be measured: provisional
+and full are indistinguishable server-side today, so "407 iOS users have tokens"
+cannot be turned into "how many can actually see a reminder".
+
+This is deliberately first among the behavioural changes. It is also what makes
+the iOS finding above falsifiable rather than merely argued.
+
+### 3. Ask for what each platform actually needs, at a primed moment
+
+`initialize()` stops requesting unconditionally. It reads
+`getNotificationSettings()` and branches:
 
 | status | behaviour |
 |---|---|
-| `authorized` / `provisional` | proceed exactly as today — no user-visible change |
-| `notDetermined` | set up local notifications and handlers, but do NOT ask; mark the ask as pending |
-| `denied` | do not ask (the OS will not show the dialog); mark eligible for recovery |
+| `authorized` | proceed exactly as today — no user-visible change |
+| `provisional` (iOS) | keep the token and quiet delivery; mark an UPGRADE as pending |
+| `notDetermined` (Android) | set up handlers but do NOT ask; mark an ASK as pending |
+| `denied` | do not ask — the OS will not show the dialog; mark eligible for recovery |
 
-The pending ask is then triggered by the user's first chat interaction, framed
-honestly for chat: "Get notified when someone replies."
+The pending ask or upgrade fires on the user's first chat interaction, framed
+honestly: "Get notified when someone replies." On iOS this is a second
+`requestPermission()` call with `provisional: false`, which is what raises the
+real dialog and converts quiet delivery into visible delivery. On Android it is
+the first and only dialog, now shown in context rather than at splash.
 
-**Why chat rather than study**, given study is the goal: 43% of active users
-sent a message in the last 30 days; 4% have ever completed a daily drop.
-Priming on drop completion would reach almost nobody — it is the same
-chicken-and-egg that produced these numbers. It is one OS permission, so
-granting it in chat is what makes the daily study reminder possible at all.
+**Why chat rather than study**, given study is the goal: 43% of active users sent
+a message in the last 30 days; 4% have ever completed a daily drop. Priming on
+drop completion would reach almost nobody — that is the same chicken-and-egg that
+produced these numbers. It is one OS permission, so granting it in chat is what
+makes the study reminder possible at all.
 
-The prime shows at most once. If the user dismisses it without granting, it does
-not reappear; the recovery path below is the route thereafter.
+Shown at most once. If dismissed without granting, it does not reappear; recovery
+below is the route thereafter.
 
-### 3. Recovery path for users who already declined
+### 4. Recovery path for users who already declined
 
-This is the only mechanism that can help the 1,397 users who have no token
-today. On iOS and Android 13+, once permission is denied the system dialog will
-never be shown again, so priming is irrelevant to the existing base.
+The only mechanism that can help users with no token today. Once denied, iOS and
+Android 13+ never show the dialog again, so priming is irrelevant to them.
 
 Two surfaces, both using `app_settings` (already in `pubspec.yaml`):
 
-- A persistent card at the top of `notification_preferences_screen.dart`, shown
-  only when status is `denied`, explaining that notifications are off at the
-  system level with a button that opens the system screen. The existing toggles
-  are disabled while in this state — showing live-looking toggles that cannot
+- A card at the top of `notification_preferences_screen.dart`, shown only when
+  status is `denied`, with a button opening the system screen. The existing
+  toggles are disabled in that state — showing live-looking toggles that cannot
   fire is the current bug.
 - A dismissible banner on the Study "Today" screen, shown only when status is
-  `denied` AND the user has completed at least one station — i.e. only to people
-  who have demonstrated interest. Dismissal is permanent.
+  `denied` AND the user has completed at least one station, so it reaches only
+  people who have shown interest. Dismissal is permanent.
 
 ### 4. Measurement
 
@@ -140,6 +175,8 @@ Without these the change is unfalsifiable. Baselines recorded 2026-09-17:
 | `timezone` set among 30-day actives | 290 / 792 |
 | daily-drop completions per week | ~12 (53 in 30 days) |
 | users with `currentStreak` >= 1 | 23 |
+| iOS token holders on `provisional` (invisible delivery) | unknown — not recorded until Design 2 lands |
+| Android users with no token | unknown — tokenless users carry no platform field |
 
 Expected movement: timezone coverage should approach 100% of logged-in actives
 within one release cycle (it no longer depends on anything the user must
@@ -179,11 +216,17 @@ denial. That needs manual verification on both platforms before release.
 
 ## Risks
 
-- **Fewer users are asked at all.** Moving the prompt out of splash means users
-  who would have blindly accepted at launch are now asked later, or not at all
-  if they never open a chat. The bet is that a contextual ask converts better
-  than a cold one; if token coverage among new users falls instead of rising,
-  the trigger is wrong and should move earlier, not back to splash.
+- **The iOS upgrade can lose what provisional already gives.** Today every iOS
+  user gets a token silently. Asking for full authorization introduces a dialog
+  that can be refused, and a refusal on iOS is permanent. A user who refuses is
+  worse off than a provisional user, who at least receives quiet notifications.
+  This is the central bet of the change: a visible reminder for some beats an
+  invisible one for all. It must be measured (Design 2) before being judged, and
+  the trigger moved earlier or later rather than reverted blindly.
+- **Fewer Android users are asked at all.** Moving the prompt out of splash means
+  users who would have blindly accepted are now asked later, or never if they do
+  not open a chat. If token coverage among new Android users falls instead of
+  rising, the trigger is wrong and should move earlier, not back to splash.
 - **Recovery converts poorly.** Sending someone to system settings is
   high-friction. The 1,397 will not return in bulk.
 - **This changes no content.** If completions stay flat once reach is fixed,
