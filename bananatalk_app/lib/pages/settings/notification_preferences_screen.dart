@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:bananatalk_app/services/notification_permission.dart';
+import 'package:bananatalk_app/services/notification_service.dart';
+import 'package:bananatalk_app/widgets/notifications_off_card.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/settings/widgets/settings_snackbar.dart';
@@ -155,6 +158,8 @@ class _NotificationPreferencesScreenState
                 )
               : ListView(
                   children: [
+                    // Renders nothing unless the OS is blocking us.
+                    const NotificationsOffCard(),
                     Padding(
                       padding: const EdgeInsets.all(16),
                       child: Text(
@@ -163,12 +168,21 @@ class _NotificationPreferencesScreenState
                             .copyWith(color: context.textSecondary),
                       ),
                     ),
+                    // Toggles that cannot fire are worse than no toggles: they
+                    // tell the user notifications are configured while the OS
+                    // discards every one of them. Disabled, not hidden, so the
+                    // card above explains why.
                     for (final key in _keys)
                       SwitchListTile(
                         title: Text(_labelFor(key, l10n),
                             style: context.bodyMedium),
                         value: _prefs![key]!,
-                        onChanged: (v) => _toggle(key, v),
+                        // A null onChanged is what actually disables a
+                        // SwitchListTile, and it greys the row out too.
+                        onChanged: NotificationService().pendingAction ==
+                                NotificationAction.recover
+                            ? null
+                            : (v) => _toggle(key, v),
                         activeThumbColor: AppColors.primary,
                       ),
                     const SizedBox(height: 24),

@@ -8032,4 +8032,13 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get notifyRepliesLater => '나중에';
+
+  @override
+  String get notificationsOffTitle => '알림이 꺼져 있어요';
+
+  @override
+  String get notificationsOffBody => '기기에서 BananaTalk 알림을 차단하고 있어 리마인더와 메시지를 받을 수 없어요. 켜기 전까지 아래 설정은 적용되지 않아요.';
+
+  @override
+  String get notificationsOffOpen => '설정 열기';
 }

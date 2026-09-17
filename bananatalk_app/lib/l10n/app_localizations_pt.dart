@@ -8042,4 +8042,13 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get notifyRepliesLater => 'Agora não';
+
+  @override
+  String get notificationsOffTitle => 'As notificações estão desativadas';
+
+  @override
+  String get notificationsOffBody => 'O seu dispositivo está a bloquear as notificações do BananaTalk, por isso lembretes e mensagens não chegam até si. As definições abaixo só terão efeito depois de as ativar.';
+
+  @override
+  String get notificationsOffOpen => 'Abrir definições';
 }

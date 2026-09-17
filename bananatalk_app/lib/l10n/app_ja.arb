@@ -3376,5 +3376,8 @@
   "notifyRepliesTitle": "返信が来たらお知らせします",
   "notifyRepliesBody": "新しいメッセージと毎日の学習リマインダーをお届けします。どちらもいつでもオフにできます。",
   "notifyRepliesEnable": "オンにする",
-  "notifyRepliesLater": "あとで"
+  "notifyRepliesLater": "あとで",
+  "notificationsOffTitle": "通知がオフになっています",
+  "notificationsOffBody": "端末がBananaTalkの通知をブロックしているため、リマインダーやメッセージが届きません。オンにするまで下の設定は反映されません。",
+  "notificationsOffOpen": "設定を開く"
 }

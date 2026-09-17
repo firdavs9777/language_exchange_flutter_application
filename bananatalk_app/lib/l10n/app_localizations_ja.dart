@@ -8032,4 +8032,13 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get notifyRepliesLater => 'あとで';
+
+  @override
+  String get notificationsOffTitle => '通知がオフになっています';
+
+  @override
+  String get notificationsOffBody => '端末がBananaTalkの通知をブロックしているため、リマインダーやメッセージが届きません。オンにするまで下の設定は反映されません。';
+
+  @override
+  String get notificationsOffOpen => '設定を開く';
 }

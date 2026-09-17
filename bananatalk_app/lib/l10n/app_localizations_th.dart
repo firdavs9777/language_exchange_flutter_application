@@ -8032,4 +8032,13 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get notifyRepliesLater => 'ไว้ก่อน';
+
+  @override
+  String get notificationsOffTitle => 'การแจ้งเตือนถูกปิดอยู่';
+
+  @override
+  String get notificationsOffBody => 'อุปกรณ์ของคุณกำลังบล็อกการแจ้งเตือนจาก BananaTalk ทำให้การเตือนและข้อความส่งไม่ถึง การตั้งค่าด้านล่างจะยังไม่มีผลจนกว่าคุณจะเปิด';
+
+  @override
+  String get notificationsOffOpen => 'เปิดการตั้งค่า';
 }

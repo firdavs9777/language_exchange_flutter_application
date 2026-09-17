@@ -8042,4 +8042,13 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get notifyRepliesLater => 'Später';
+
+  @override
+  String get notificationsOffTitle => 'Benachrichtigungen sind aus';
+
+  @override
+  String get notificationsOffBody => 'Dein Gerät blockiert Benachrichtigungen von BananaTalk, daher erreichen dich weder Erinnerungen noch Nachrichten. Die Einstellungen unten wirken erst, wenn du sie einschaltest.';
+
+  @override
+  String get notificationsOffOpen => 'Einstellungen öffnen';
 }

@@ -8046,4 +8046,13 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get notifyRepliesLater => 'Ҳоло не';
+
+  @override
+  String get notificationsOffTitle => 'Огоҳиномаҳо хомӯшанд';
+
+  @override
+  String get notificationsOffBody => 'Дастгоҳи шумо огоҳиномаҳои BananaTalk-ро бозмедорад, бинобар ин ёдоварӣ ва паёмҳо ба шумо намерасанд. То даме ки онҳоро фаъол накунед, танзимоти зерин амал намекунанд.';
+
+  @override
+  String get notificationsOffOpen => 'Кушодани танзимот';
 }

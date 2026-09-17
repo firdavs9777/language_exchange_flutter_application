@@ -3392,5 +3392,8 @@
   "notifyRepliesTitle": "Receba um aviso quando alguém responder",
   "notifyRepliesBody": "Avisamos sobre novas mensagens e o seu lembrete diário de estudo. Pode desativar qualquer um a qualquer momento.",
   "notifyRepliesEnable": "Ativar",
-  "notifyRepliesLater": "Agora não"
+  "notifyRepliesLater": "Agora não",
+  "notificationsOffTitle": "As notificações estão desativadas",
+  "notificationsOffBody": "O seu dispositivo está a bloquear as notificações do BananaTalk, por isso lembretes e mensagens não chegam até si. As definições abaixo só terão efeito depois de as ativar.",
+  "notificationsOffOpen": "Abrir definições"
 }

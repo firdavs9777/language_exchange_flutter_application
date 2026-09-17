@@ -3390,5 +3390,8 @@
   "notifyRepliesTitle": "有人回复时通知我",
   "notifyRepliesBody": "我们会通知你新消息和每日学习提醒。两者都可以随时关闭。",
   "notifyRepliesEnable": "开启",
-  "notifyRepliesLater": "暂不"
+  "notifyRepliesLater": "暂不",
+  "notificationsOffTitle": "通知已关闭",
+  "notificationsOffBody": "你的设备正在屏蔽 BananaTalk 的通知，提醒和消息无法送达。开启前，下面的设置不会生效。",
+  "notificationsOffOpen": "打开设置"
 }

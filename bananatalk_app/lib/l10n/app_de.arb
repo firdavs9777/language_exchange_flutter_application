@@ -3616,5 +3616,8 @@
   "notifyRepliesTitle": "Benachrichtigung bei Antworten",
   "notifyRepliesBody": "Wir informieren dich über neue Nachrichten und deine tägliche Lernerinnerung. Beides kannst du jederzeit ausschalten.",
   "notifyRepliesEnable": "Einschalten",
-  "notifyRepliesLater": "Später"
+  "notifyRepliesLater": "Später",
+  "notificationsOffTitle": "Benachrichtigungen sind aus",
+  "notificationsOffBody": "Dein Gerät blockiert Benachrichtigungen von BananaTalk, daher erreichen dich weder Erinnerungen noch Nachrichten. Die Einstellungen unten wirken erst, wenn du sie einschaltest.",
+  "notificationsOffOpen": "Einstellungen öffnen"
 }

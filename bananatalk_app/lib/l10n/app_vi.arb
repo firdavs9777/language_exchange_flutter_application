@@ -3376,5 +3376,8 @@
   "notifyRepliesTitle": "Nhận thông báo khi có người trả lời",
   "notifyRepliesBody": "Chúng tôi sẽ báo về tin nhắn mới và lời nhắc học tập hằng ngày. Bạn có thể tắt bất kỳ lúc nào.",
   "notifyRepliesEnable": "Bật",
-  "notifyRepliesLater": "Để sau"
+  "notifyRepliesLater": "Để sau",
+  "notificationsOffTitle": "Thông báo đang tắt",
+  "notificationsOffBody": "Thiết bị của bạn đang chặn thông báo từ BananaTalk nên lời nhắc và tin nhắn không thể đến với bạn. Các cài đặt bên dưới sẽ chưa có hiệu lực cho đến khi bạn bật lên.",
+  "notificationsOffOpen": "Mở cài đặt"
 }

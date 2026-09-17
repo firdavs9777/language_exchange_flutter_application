@@ -8042,4 +8042,13 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get notifyRepliesLater => 'Hindi muna';
+
+  @override
+  String get notificationsOffTitle => 'Naka-off ang mga notification';
+
+  @override
+  String get notificationsOffBody => 'Hinaharangan ng device mo ang mga notification mula sa BananaTalk, kaya hindi ka maaabot ng mga paalala at mensahe. Hindi iiral ang mga setting sa ibaba hangga\'t hindi mo ito bino-on.';
+
+  @override
+  String get notificationsOffOpen => 'Buksan ang settings';
 }

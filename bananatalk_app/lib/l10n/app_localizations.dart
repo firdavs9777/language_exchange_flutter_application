@@ -14839,6 +14839,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Not now'**
   String get notifyRepliesLater;
+
+  /// No description provided for @notificationsOffTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications are off'**
+  String get notificationsOffTitle;
+
+  /// No description provided for @notificationsOffBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your device is blocking notifications from BananaTalk, so reminders and messages can\'t reach you. The settings below won\'t take effect until you turn them on.'**
+  String get notificationsOffBody;
+
+  /// No description provided for @notificationsOffOpen.
+  ///
+  /// In en, this message translates to:
+  /// **'Open settings'**
+  String get notificationsOffOpen;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

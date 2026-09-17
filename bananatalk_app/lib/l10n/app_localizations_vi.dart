@@ -8032,4 +8032,13 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get notifyRepliesLater => 'Để sau';
+
+  @override
+  String get notificationsOffTitle => 'Thông báo đang tắt';
+
+  @override
+  String get notificationsOffBody => 'Thiết bị của bạn đang chặn thông báo từ BananaTalk nên lời nhắc và tin nhắn không thể đến với bạn. Các cài đặt bên dưới sẽ chưa có hiệu lực cho đến khi bạn bật lên.';
+
+  @override
+  String get notificationsOffOpen => 'Mở cài đặt';
 }

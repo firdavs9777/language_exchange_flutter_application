@@ -8042,4 +8042,13 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get notifyRepliesLater => 'अभी नहीं';
+
+  @override
+  String get notificationsOffTitle => 'सूचनाएं बंद हैं';
+
+  @override
+  String get notificationsOffBody => 'आपका डिवाइस BananaTalk की सूचनाएं रोक रहा है, इसलिए रिमाइंडर और संदेश आप तक नहीं पहुंच पाते। जब तक आप इन्हें चालू नहीं करते, नीचे की सेटिंग्स लागू नहीं होंगी।';
+
+  @override
+  String get notificationsOffOpen => 'सेटिंग्स खोलें';
 }

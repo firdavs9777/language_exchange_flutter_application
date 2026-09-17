@@ -3406,5 +3406,8 @@
   "notifyRepliesTitle": "Уведомлять, когда вам ответят",
   "notifyRepliesBody": "Мы сообщим о новых сообщениях и ежедневном напоминании об учёбе. Любое из них можно отключить в любой момент.",
   "notifyRepliesEnable": "Включить",
-  "notifyRepliesLater": "Не сейчас"
+  "notifyRepliesLater": "Не сейчас",
+  "notificationsOffTitle": "Уведомления отключены",
+  "notificationsOffBody": "Ваше устройство блокирует уведомления BananaTalk, поэтому напоминания и сообщения до вас не доходят. Настройки ниже не сработают, пока вы их не включите.",
+  "notificationsOffOpen": "Открыть настройки"
 }

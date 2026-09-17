@@ -8054,4 +8054,13 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get notifyRepliesLater => 'ليس الآن';
+
+  @override
+  String get notificationsOffTitle => 'الإشعارات مُعطَّلة';
+
+  @override
+  String get notificationsOffBody => 'جهازك يحظر إشعارات BananaTalk، لذا لا تصلك التذكيرات والرسائل. لن تُطبَّق الإعدادات أدناه حتى تُفعّلها.';
+
+  @override
+  String get notificationsOffOpen => 'فتح الإعدادات';
 }

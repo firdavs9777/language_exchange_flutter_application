@@ -8063,4 +8063,13 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get notifyRepliesLater => 'Не сейчас';
+
+  @override
+  String get notificationsOffTitle => 'Уведомления отключены';
+
+  @override
+  String get notificationsOffBody => 'Ваше устройство блокирует уведомления BananaTalk, поэтому напоминания и сообщения до вас не доходят. Настройки ниже не сработают, пока вы их не включите.';
+
+  @override
+  String get notificationsOffOpen => 'Открыть настройки';
 }

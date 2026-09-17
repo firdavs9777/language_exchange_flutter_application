@@ -5593,5 +5593,8 @@
   "notifyRepliesTitle": "Get notified when someone replies",
   "notifyRepliesBody": "We'll let you know about new messages and your daily study reminder. You can turn either off any time.",
   "notifyRepliesEnable": "Turn on",
-  "notifyRepliesLater": "Not now"
+  "notifyRepliesLater": "Not now",
+  "notificationsOffTitle": "Notifications are off",
+  "notificationsOffBody": "Your device is blocking notifications from BananaTalk, so reminders and messages can't reach you. The settings below won't take effect until you turn them on.",
+  "notificationsOffOpen": "Open settings"
 }

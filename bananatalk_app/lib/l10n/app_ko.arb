@@ -3397,5 +3397,8 @@
   "notifyRepliesTitle": "답장이 오면 알려드릴게요",
   "notifyRepliesBody": "새 메시지와 매일 학습 알림을 보내드려요. 언제든지 각각 끌 수 있어요.",
   "notifyRepliesEnable": "켜기",
-  "notifyRepliesLater": "나중에"
+  "notifyRepliesLater": "나중에",
+  "notificationsOffTitle": "알림이 꺼져 있어요",
+  "notificationsOffBody": "기기에서 BananaTalk 알림을 차단하고 있어 리마인더와 메시지를 받을 수 없어요. 켜기 전까지 아래 설정은 적용되지 않아요.",
+  "notificationsOffOpen": "설정 열기"
 }

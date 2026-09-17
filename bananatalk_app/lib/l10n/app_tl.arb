@@ -3349,5 +3349,8 @@
   "notifyRepliesTitle": "Ipaalam kapag may sumagot",
   "notifyRepliesBody": "Ipapaalam namin ang mga bagong mensahe at ang araw-araw mong paalala sa pag-aaral. Puwede mong i-off ang alinman anumang oras.",
   "notifyRepliesEnable": "I-on",
-  "notifyRepliesLater": "Hindi muna"
+  "notifyRepliesLater": "Hindi muna",
+  "notificationsOffTitle": "Naka-off ang mga notification",
+  "notificationsOffBody": "Hinaharangan ng device mo ang mga notification mula sa BananaTalk, kaya hindi ka maaabot ng mga paalala at mensahe. Hindi iiral ang mga setting sa ibaba hangga't hindi mo ito bino-on.",
+  "notificationsOffOpen": "Buksan ang settings"
 }

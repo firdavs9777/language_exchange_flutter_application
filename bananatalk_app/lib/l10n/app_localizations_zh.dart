@@ -8032,6 +8032,15 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get notifyRepliesLater => '暂不';
+
+  @override
+  String get notificationsOffTitle => '通知已关闭';
+
+  @override
+  String get notificationsOffBody => '你的设备正在屏蔽 BananaTalk 的通知，提醒和消息无法送达。开启前，下面的设置不会生效。';
+
+  @override
+  String get notificationsOffOpen => '打开设置';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -16062,4 +16071,13 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get notifyRepliesLater => '暫不';
+
+  @override
+  String get notificationsOffTitle => '通知已關閉';
+
+  @override
+  String get notificationsOffBody => '你的裝置正在封鎖 BananaTalk 的通知，提醒和訊息無法送達。開啟前，下面的設定不會生效。';
+
+  @override
+  String get notificationsOffOpen => '開啟設定';
 }

@@ -8040,4 +8040,13 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get notifyRepliesLater => 'Şimdi değil';
+
+  @override
+  String get notificationsOffTitle => 'Bildirimler kapalı';
+
+  @override
+  String get notificationsOffBody => 'Cihazın BananaTalk bildirimlerini engelliyor, bu yüzden hatırlatmalar ve mesajlar sana ulaşamıyor. Açana kadar aşağıdaki ayarlar etkili olmaz.';
+
+  @override
+  String get notificationsOffOpen => 'Ayarları aç';
 }

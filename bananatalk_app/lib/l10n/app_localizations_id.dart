@@ -8039,4 +8039,13 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get notifyRepliesLater => 'Nanti saja';
+
+  @override
+  String get notificationsOffTitle => 'Notifikasi nonaktif';
+
+  @override
+  String get notificationsOffBody => 'Perangkatmu memblokir notifikasi dari BananaTalk, jadi pengingat dan pesan tidak bisa sampai. Pengaturan di bawah tidak akan berlaku sampai kamu mengaktifkannya.';
+
+  @override
+  String get notificationsOffOpen => 'Buka pengaturan';
 }
