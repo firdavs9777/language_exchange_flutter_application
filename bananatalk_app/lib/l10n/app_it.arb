@@ -3621,5 +3621,9 @@
   "notificationsOffBody": "Il tuo dispositivo blocca le notifiche di BananaTalk, quindi promemoria e messaggi non possono raggiungerti. Le impostazioni qui sotto non avranno effetto finché non le attivi.",
   "notificationsOffOpen": "Apri impostazioni",
   "reportGathering": "Segnala incontro",
-  "reportClub": "Segnala club"
+  "reportClub": "Segnala club",
+  "finishProfileTitle": "Completa la configurazione del profilo",
+  "finishProfileBody": "Ci serve la tua data di nascita per mantenere BananaTalk sicuro per tutti. Puoi disconnetterti se preferisci non continuare.",
+  "finishProfileContinue": "Continua",
+  "finishProfileSignOut": "Esci"
 }

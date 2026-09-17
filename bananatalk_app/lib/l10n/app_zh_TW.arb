@@ -3072,5 +3072,9 @@
   "notificationsOffBody": "你的裝置正在封鎖 BananaTalk 的通知，提醒和訊息無法送達。開啟前，下面的設定不會生效。",
   "notificationsOffOpen": "開啟設定",
   "reportGathering": "檢舉聚會",
-  "reportClub": "檢舉俱樂部"
+  "reportClub": "檢舉俱樂部",
+  "finishProfileTitle": "請完成個人資料設定",
+  "finishProfileBody": "為了讓所有人安全使用，我們需要你的出生日期。如果不想繼續，可以登出。",
+  "finishProfileContinue": "繼續",
+  "finishProfileSignOut": "登出"
 }

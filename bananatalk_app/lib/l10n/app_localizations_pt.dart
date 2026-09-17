@@ -8057,4 +8057,16 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get reportClub => 'Denunciar clube';
+
+  @override
+  String get finishProfileTitle => 'Termine de configurar o seu perfil';
+
+  @override
+  String get finishProfileBody => 'Precisamos da sua data de nascimento para manter o BananaTalk seguro para todos. Pode terminar sessão se preferir não continuar.';
+
+  @override
+  String get finishProfileContinue => 'Continuar';
+
+  @override
+  String get finishProfileSignOut => 'Terminar sessão';
 }

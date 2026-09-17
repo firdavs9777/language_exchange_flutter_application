@@ -8047,4 +8047,16 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get reportClub => '클럽 신고';
+
+  @override
+  String get finishProfileTitle => '프로필 설정을 마쳐주세요';
+
+  @override
+  String get finishProfileBody => '모두가 안전하게 이용할 수 있도록 생년월일이 필요해요. 계속하지 않으시려면 로그아웃할 수 있어요.';
+
+  @override
+  String get finishProfileContinue => '계속하기';
+
+  @override
+  String get finishProfileSignOut => '로그아웃';
 }

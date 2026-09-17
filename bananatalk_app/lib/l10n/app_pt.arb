@@ -3397,5 +3397,9 @@
   "notificationsOffBody": "O seu dispositivo está a bloquear as notificações do BananaTalk, por isso lembretes e mensagens não chegam até si. As definições abaixo só terão efeito depois de as ativar.",
   "notificationsOffOpen": "Abrir definições",
   "reportGathering": "Denunciar encontro",
-  "reportClub": "Denunciar clube"
+  "reportClub": "Denunciar clube",
+  "finishProfileTitle": "Termine de configurar o seu perfil",
+  "finishProfileBody": "Precisamos da sua data de nascimento para manter o BananaTalk seguro para todos. Pode terminar sessão se preferir não continuar.",
+  "finishProfileContinue": "Continuar",
+  "finishProfileSignOut": "Terminar sessão"
 }

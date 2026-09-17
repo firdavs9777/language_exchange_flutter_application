@@ -3593,5 +3593,9 @@
   "notificationsOffBody": "Cihazın BananaTalk bildirimlerini engelliyor, bu yüzden hatırlatmalar ve mesajlar sana ulaşamıyor. Açana kadar aşağıdaki ayarlar etkili olmaz.",
   "notificationsOffOpen": "Ayarları aç",
   "reportGathering": "Buluşmayı bildir",
-  "reportClub": "Kulübü bildir"
+  "reportClub": "Kulübü bildir",
+  "finishProfileTitle": "Profilini kurmayı tamamla",
+  "finishProfileBody": "BananaTalk'u herkes için güvenli tutmak adına doğum tarihine ihtiyacımız var. Devam etmek istemezsen çıkış yapabilirsin.",
+  "finishProfileContinue": "Devam et",
+  "finishProfileSignOut": "Çıkış yap"
 }

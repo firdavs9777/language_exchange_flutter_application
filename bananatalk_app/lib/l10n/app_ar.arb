@@ -3411,5 +3411,9 @@
   "notificationsOffBody": "جهازك يحظر إشعارات BananaTalk، لذا لا تصلك التذكيرات والرسائل. لن تُطبَّق الإعدادات أدناه حتى تُفعّلها.",
   "notificationsOffOpen": "فتح الإعدادات",
   "reportGathering": "الإبلاغ عن اللقاء",
-  "reportClub": "الإبلاغ عن النادي"
+  "reportClub": "الإبلاغ عن النادي",
+  "finishProfileTitle": "أكمل إعداد ملفك الشخصي",
+  "finishProfileBody": "نحتاج تاريخ ميلادك للحفاظ على أمان BananaTalk للجميع. يمكنك تسجيل الخروج إذا كنت تفضل عدم المتابعة.",
+  "finishProfileContinue": "المتابعة",
+  "finishProfileSignOut": "تسجيل الخروج"
 }

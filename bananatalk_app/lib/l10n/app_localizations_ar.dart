@@ -8069,4 +8069,16 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get reportClub => 'الإبلاغ عن النادي';
+
+  @override
+  String get finishProfileTitle => 'أكمل إعداد ملفك الشخصي';
+
+  @override
+  String get finishProfileBody => 'نحتاج تاريخ ميلادك للحفاظ على أمان BananaTalk للجميع. يمكنك تسجيل الخروج إذا كنت تفضل عدم المتابعة.';
+
+  @override
+  String get finishProfileContinue => 'المتابعة';
+
+  @override
+  String get finishProfileSignOut => 'تسجيل الخروج';
 }

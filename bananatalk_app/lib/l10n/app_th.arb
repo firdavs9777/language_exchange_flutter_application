@@ -3381,5 +3381,9 @@
   "notificationsOffBody": "อุปกรณ์ของคุณกำลังบล็อกการแจ้งเตือนจาก BananaTalk ทำให้การเตือนและข้อความส่งไม่ถึง การตั้งค่าด้านล่างจะยังไม่มีผลจนกว่าคุณจะเปิด",
   "notificationsOffOpen": "เปิดการตั้งค่า",
   "reportGathering": "รายงานการพบปะ",
-  "reportClub": "รายงานคลับ"
+  "reportClub": "รายงานคลับ",
+  "finishProfileTitle": "ตั้งค่าโปรไฟล์ให้เสร็จ",
+  "finishProfileBody": "เราต้องการวันเกิดของคุณเพื่อให้ BananaTalk ปลอดภัยสำหรับทุกคน คุณออกจากระบบได้หากไม่ต้องการดำเนินการต่อ",
+  "finishProfileContinue": "ไปต่อ",
+  "finishProfileSignOut": "ออกจากระบบ"
 }

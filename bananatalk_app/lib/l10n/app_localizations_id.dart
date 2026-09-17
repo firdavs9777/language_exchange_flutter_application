@@ -8054,4 +8054,16 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get reportClub => 'Laporkan klub';
+
+  @override
+  String get finishProfileTitle => 'Selesaikan penyiapan profilmu';
+
+  @override
+  String get finishProfileBody => 'Kami butuh tanggal lahirmu agar BananaTalk aman untuk semua. Kamu bisa keluar jika tidak ingin melanjutkan.';
+
+  @override
+  String get finishProfileContinue => 'Lanjutkan';
+
+  @override
+  String get finishProfileSignOut => 'Keluar';
 }

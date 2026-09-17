@@ -8078,4 +8078,16 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get reportClub => 'Пожаловаться на клуб';
+
+  @override
+  String get finishProfileTitle => 'Завершите настройку профиля';
+
+  @override
+  String get finishProfileBody => 'Нам нужна ваша дата рождения, чтобы BananaTalk оставался безопасным для всех. Вы можете выйти, если не хотите продолжать.';
+
+  @override
+  String get finishProfileContinue => 'Продолжить';
+
+  @override
+  String get finishProfileSignOut => 'Выйти';
 }

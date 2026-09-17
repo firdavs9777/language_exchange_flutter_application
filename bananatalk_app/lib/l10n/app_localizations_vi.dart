@@ -8047,4 +8047,16 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get reportClub => 'Báo cáo câu lạc bộ';
+
+  @override
+  String get finishProfileTitle => 'Hoàn tất thiết lập hồ sơ';
+
+  @override
+  String get finishProfileBody => 'Chúng tôi cần ngày sinh của bạn để giữ BananaTalk an toàn cho mọi người. Bạn có thể đăng xuất nếu không muốn tiếp tục.';
+
+  @override
+  String get finishProfileContinue => 'Tiếp tục';
+
+  @override
+  String get finishProfileSignOut => 'Đăng xuất';
 }

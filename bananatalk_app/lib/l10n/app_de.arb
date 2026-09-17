@@ -3621,5 +3621,9 @@
   "notificationsOffBody": "Dein Gerät blockiert Benachrichtigungen von BananaTalk, daher erreichen dich weder Erinnerungen noch Nachrichten. Die Einstellungen unten wirken erst, wenn du sie einschaltest.",
   "notificationsOffOpen": "Einstellungen öffnen",
   "reportGathering": "Treffen melden",
-  "reportClub": "Club melden"
+  "reportClub": "Club melden",
+  "finishProfileTitle": "Profil fertig einrichten",
+  "finishProfileBody": "Wir brauchen dein Geburtsdatum, damit BananaTalk für alle sicher bleibt. Du kannst dich abmelden, wenn du nicht fortfahren möchtest.",
+  "finishProfileContinue": "Weiter",
+  "finishProfileSignOut": "Abmelden"
 }

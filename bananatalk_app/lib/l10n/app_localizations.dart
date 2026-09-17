@@ -14869,6 +14869,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Report club'**
   String get reportClub;
+
+  /// No description provided for @finishProfileTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Finish setting up your profile'**
+  String get finishProfileTitle;
+
+  /// No description provided for @finishProfileBody.
+  ///
+  /// In en, this message translates to:
+  /// **'We need your birthday to keep BananaTalk safe for everyone. You can sign out if you\'d rather not continue.'**
+  String get finishProfileBody;
+
+  /// No description provided for @finishProfileContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep going'**
+  String get finishProfileContinue;
+
+  /// No description provided for @finishProfileSignOut.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign out'**
+  String get finishProfileSignOut;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

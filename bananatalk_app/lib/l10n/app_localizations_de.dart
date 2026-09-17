@@ -8057,4 +8057,16 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get reportClub => 'Club melden';
+
+  @override
+  String get finishProfileTitle => 'Profil fertig einrichten';
+
+  @override
+  String get finishProfileBody => 'Wir brauchen dein Geburtsdatum, damit BananaTalk für alle sicher bleibt. Du kannst dich abmelden, wenn du nicht fortfahren möchtest.';
+
+  @override
+  String get finishProfileContinue => 'Weiter';
+
+  @override
+  String get finishProfileSignOut => 'Abmelden';
 }

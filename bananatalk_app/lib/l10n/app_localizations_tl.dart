@@ -8057,4 +8057,16 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get reportClub => 'I-report ang club';
+
+  @override
+  String get finishProfileTitle => 'Tapusin ang pag-set up ng profile mo';
+
+  @override
+  String get finishProfileBody => 'Kailangan namin ang kaarawan mo para manatiling ligtas ang BananaTalk para sa lahat. Puwede kang mag-sign out kung ayaw mong magpatuloy.';
+
+  @override
+  String get finishProfileContinue => 'Ituloy';
+
+  @override
+  String get finishProfileSignOut => 'Mag-sign out';
 }

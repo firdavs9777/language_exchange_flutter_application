@@ -5598,5 +5598,9 @@
   "notificationsOffBody": "Your device is blocking notifications from BananaTalk, so reminders and messages can't reach you. The settings below won't take effect until you turn them on.",
   "notificationsOffOpen": "Open settings",
   "reportGathering": "Report gathering",
-  "reportClub": "Report club"
+  "reportClub": "Report club",
+  "finishProfileTitle": "Finish setting up your profile",
+  "finishProfileBody": "We need your birthday to keep BananaTalk safe for everyone. You can sign out if you'd rather not continue.",
+  "finishProfileContinue": "Keep going",
+  "finishProfileSignOut": "Sign out"
 }

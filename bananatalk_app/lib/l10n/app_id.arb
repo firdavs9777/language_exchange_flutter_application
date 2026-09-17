@@ -3381,5 +3381,9 @@
   "notificationsOffBody": "Perangkatmu memblokir notifikasi dari BananaTalk, jadi pengingat dan pesan tidak bisa sampai. Pengaturan di bawah tidak akan berlaku sampai kamu mengaktifkannya.",
   "notificationsOffOpen": "Buka pengaturan",
   "reportGathering": "Laporkan pertemuan",
-  "reportClub": "Laporkan klub"
+  "reportClub": "Laporkan klub",
+  "finishProfileTitle": "Selesaikan penyiapan profilmu",
+  "finishProfileBody": "Kami butuh tanggal lahirmu agar BananaTalk aman untuk semua. Kamu bisa keluar jika tidak ingin melanjutkan.",
+  "finishProfileContinue": "Lanjutkan",
+  "finishProfileSignOut": "Keluar"
 }

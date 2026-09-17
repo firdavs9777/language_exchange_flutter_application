@@ -8047,6 +8047,18 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get reportClub => '举报俱乐部';
+
+  @override
+  String get finishProfileTitle => '请完成个人资料设置';
+
+  @override
+  String get finishProfileBody => '为了让所有人安全使用，我们需要你的出生日期。如果不想继续，可以退出登录。';
+
+  @override
+  String get finishProfileContinue => '继续';
+
+  @override
+  String get finishProfileSignOut => '退出登录';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -16092,4 +16104,16 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get reportClub => '檢舉俱樂部';
+
+  @override
+  String get finishProfileTitle => '請完成個人資料設定';
+
+  @override
+  String get finishProfileBody => '為了讓所有人安全使用，我們需要你的出生日期。如果不想繼續，可以登出。';
+
+  @override
+  String get finishProfileContinue => '繼續';
+
+  @override
+  String get finishProfileSignOut => '登出';
 }

@@ -3381,5 +3381,9 @@
   "notificationsOffBody": "端末がBananaTalkの通知をブロックしているため、リマインダーやメッセージが届きません。オンにするまで下の設定は反映されません。",
   "notificationsOffOpen": "設定を開く",
   "reportGathering": "集まりを報告",
-  "reportClub": "クラブを報告"
+  "reportClub": "クラブを報告",
+  "finishProfileTitle": "プロフィールの設定を完了してください",
+  "finishProfileBody": "みんなが安全に使えるよう生年月日が必要です。続けない場合はログアウトできます。",
+  "finishProfileContinue": "続ける",
+  "finishProfileSignOut": "ログアウト"
 }

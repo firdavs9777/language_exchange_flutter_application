@@ -8061,4 +8061,16 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get reportClub => 'Шикоят аз клуб';
+
+  @override
+  String get finishProfileTitle => 'Танзими профилро ба анҷом расонед';
+
+  @override
+  String get finishProfileBody => 'Барои амният барои ҳама ба мо санаи таваллуди шумо лозим аст. Агар нахоҳед идома диҳед, метавонед бароед.';
+
+  @override
+  String get finishProfileContinue => 'Идома додан';
+
+  @override
+  String get finishProfileSignOut => 'Баромад';
 }

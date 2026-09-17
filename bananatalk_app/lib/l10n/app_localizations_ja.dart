@@ -8047,4 +8047,16 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get reportClub => 'クラブを報告';
+
+  @override
+  String get finishProfileTitle => 'プロフィールの設定を完了してください';
+
+  @override
+  String get finishProfileBody => 'みんなが安全に使えるよう生年月日が必要です。続けない場合はログアウトできます。';
+
+  @override
+  String get finishProfileContinue => '続ける';
+
+  @override
+  String get finishProfileSignOut => 'ログアウト';
 }

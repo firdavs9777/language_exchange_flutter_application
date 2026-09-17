@@ -167,6 +167,11 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
             Navigator.of(context).pushReplacement(
               MaterialPageRoute(
                 builder: (ctx) => RegisterTwo(
+                  // A gate, not a suggestion. This screen is reached already
+                  // authenticated, and neither Apple nor Google returns a
+                  // birthday, so backing out here used to land the user in the
+                  // app with no age on file and nothing that would ever ask.
+                  mandatory: true,
                   name: user?['name'] ?? '',
                   email: user?['email'] ?? '',
                   password: '', // OAuth users don't have password

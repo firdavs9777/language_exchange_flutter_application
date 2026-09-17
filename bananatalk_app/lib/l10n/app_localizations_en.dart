@@ -8063,4 +8063,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get reportClub => 'Report club';
+
+  @override
+  String get finishProfileTitle => 'Finish setting up your profile';
+
+  @override
+  String get finishProfileBody => 'We need your birthday to keep BananaTalk safe for everyone. You can sign out if you\'d rather not continue.';
+
+  @override
+  String get finishProfileContinue => 'Keep going';
+
+  @override
+  String get finishProfileSignOut => 'Sign out';
 }

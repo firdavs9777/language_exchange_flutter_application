@@ -3354,5 +3354,9 @@
   "notificationsOffBody": "Hinaharangan ng device mo ang mga notification mula sa BananaTalk, kaya hindi ka maaabot ng mga paalala at mensahe. Hindi iiral ang mga setting sa ibaba hangga't hindi mo ito bino-on.",
   "notificationsOffOpen": "Buksan ang settings",
   "reportGathering": "I-report ang gathering",
-  "reportClub": "I-report ang club"
+  "reportClub": "I-report ang club",
+  "finishProfileTitle": "Tapusin ang pag-set up ng profile mo",
+  "finishProfileBody": "Kailangan namin ang kaarawan mo para manatiling ligtas ang BananaTalk para sa lahat. Puwede kang mag-sign out kung ayaw mong magpatuloy.",
+  "finishProfileContinue": "Ituloy",
+  "finishProfileSignOut": "Mag-sign out"
 }

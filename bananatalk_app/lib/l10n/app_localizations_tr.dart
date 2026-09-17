@@ -8055,4 +8055,16 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get reportClub => 'Kulübü bildir';
+
+  @override
+  String get finishProfileTitle => 'Profilini kurmayı tamamla';
+
+  @override
+  String get finishProfileBody => 'BananaTalk\'u herkes için güvenli tutmak adına doğum tarihine ihtiyacımız var. Devam etmek istemezsen çıkış yapabilirsin.';
+
+  @override
+  String get finishProfileContinue => 'Devam et';
+
+  @override
+  String get finishProfileSignOut => 'Çıkış yap';
 }

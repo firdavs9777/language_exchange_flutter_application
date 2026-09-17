@@ -8057,4 +8057,16 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get reportClub => 'क्लब की रिपोर्ट करें';
+
+  @override
+  String get finishProfileTitle => 'अपनी प्रोफ़ाइल सेटअप पूरी करें';
+
+  @override
+  String get finishProfileBody => 'सभी के लिए BananaTalk सुरक्षित रखने हेतु हमें आपकी जन्मतिथि चाहिए। अगर आप जारी नहीं रखना चाहते तो साइन आउट कर सकते हैं।';
+
+  @override
+  String get finishProfileContinue => 'जारी रखें';
+
+  @override
+  String get finishProfileSignOut => 'साइन आउट';
 }

@@ -51,6 +51,18 @@ class RegisterTwo extends ConsumerStatefulWidget {
   /// via `getLoggedInUser()` and prefills from that instead.
   final bool completionMode;
 
+  /// True when this screen is a GATE the user must not walk around.
+  ///
+  /// Social sign-ups reach here already authenticated — the FCM token is
+  /// registered before this screen deliberately — so a plain `Navigator.pop`
+  /// on step 0 dropped them straight into the app with no birthday. 128 users
+  /// did exactly that in the last 30 days, and Apple and Google never return a
+  /// birthday, so nothing else would ever ask them for one.
+  ///
+  /// Defaults to false so the ordinary email-registration flow, where backing
+  /// out is correct, is untouched.
+  final bool mandatory;
+
   const RegisterTwo({
     super.key,
     this.name = '',
@@ -62,6 +74,7 @@ class RegisterTwo extends ConsumerStatefulWidget {
     this.nativeLanguage = '',
     this.learningLanguage = '',
     this.completionMode = false,
+    this.mandatory = false,
   });
 
   @override
@@ -101,7 +114,10 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
   /// The step plan derived from the effective values above. Recomputed by
   /// [_computeSteps] whenever those change.
   RegistrationSteps _plan = planRegistrationSteps(
-    gender: '', birthDate: '', nativeLanguage: '', learningLanguage: '',
+    gender: '',
+    birthDate: '',
+    nativeLanguage: '',
+    learningLanguage: '',
     hasPhoto: false,
   );
 
@@ -317,12 +333,52 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
     );
   }
 
+  /// A completionMode entry is always a gate: splash and login only send the
+  /// user here when the profile is already known to be incomplete.
+  bool get _isMandatory => widget.mandatory || widget.completionMode;
+
+  /// Leaving a mandatory gate signs the user out rather than dropping them
+  /// into the app. Trapping someone with no exit would be its own bug — they
+  /// may leave, just not leave INTO the app without a birthday.
+  Future<void> _confirmLeaveMandatory() async {
+    final l10n = AppLocalizations.of(context)!;
+    final signOut = await showDialog<bool>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: Text(l10n.finishProfileTitle),
+        content: Text(l10n.finishProfileBody),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext, false),
+            child: Text(l10n.finishProfileContinue),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext, true),
+            child: Text(l10n.finishProfileSignOut),
+          ),
+        ],
+      ),
+    );
+    if (signOut != true || !mounted) return;
+
+    try {
+      await ref.read(authServiceProvider).logout();
+    } catch (e) {
+      // Sign-out failing must not strand the user on a screen they asked to
+      // leave; the router send below still gets them off it.
+      debugPrint('[RegisterTwo] logout failed: $e');
+    }
+    if (mounted) context.go('/login');
+  }
+
   void _goBack() {
     if (_currentStep > 0) {
       _pageController.previousPage(
         duration: _pageTransitionDuration,
         curve: _pageTransitionCurve,
       );
+    } else if (_isMandatory) {
+      _confirmLeaveMandatory();
     } else {
       Navigator.of(context).pop();
     }
@@ -744,119 +800,129 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
       );
     }
 
-    return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
-      child: Scaffold(
-        backgroundColor: context.scaffoldBackground,
-        body: SafeArea(
-          child: Column(
-            children: [
-              _buildAppBar(),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(24, 12, 24, 12),
-                child: AuthStepProgress(
-                  currentStep: _currentStep,
-                  totalSteps: _totalSteps,
-                  labels: _stepLabels,
+    return PopScope(
+      // Blocks Android back and the iOS swipe-back gesture. Without this the
+      // app-bar guard above is trivially bypassed.
+      canPop: !_isMandatory,
+      onPopInvokedWithResult: (didPop, _) {
+        if (!didPop && _isMandatory) _confirmLeaveMandatory();
+      },
+      child: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: Scaffold(
+          backgroundColor: context.scaffoldBackground,
+          body: SafeArea(
+            child: Column(
+              children: [
+                _buildAppBar(),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(24, 12, 24, 12),
+                  child: AuthStepProgress(
+                    currentStep: _currentStep,
+                    totalSteps: _totalSteps,
+                    labels: _stepLabels,
+                  ),
                 ),
-              ),
-              Expanded(
-                child: _FadeSlidePageView(
-                  controller: _pageController,
-                  onPageChanged: (index) {
-                    setState(() => _currentStep = index);
-                  },
-                  children: [
-                    if (_needsPersonalInfo)
-                      PersonalInfoStep(
-                        showGenderField: _effectiveGender.isEmpty,
-                        showBirthDateField: _effectiveBirthDate.isEmpty,
-                        selectedGender: _selectedGender,
-                        birthDateController: _birthDateController,
-                        genderError: _genderError,
-                        birthDateError: _birthDateError,
-                        onGenderSelected: (g) => setState(() {
-                          _selectedGender = g;
-                          _genderError = null;
-                        }),
-                        onBirthDateSelected: _onBirthDateSelected,
-                        onNext: _onPersonalInfoNext,
+                Expanded(
+                  child: _FadeSlidePageView(
+                    controller: _pageController,
+                    onPageChanged: (index) {
+                      setState(() => _currentStep = index);
+                    },
+                    children: [
+                      if (_needsPersonalInfo)
+                        PersonalInfoStep(
+                          showGenderField: _effectiveGender.isEmpty,
+                          showBirthDateField: _effectiveBirthDate.isEmpty,
+                          selectedGender: _selectedGender,
+                          birthDateController: _birthDateController,
+                          genderError: _genderError,
+                          birthDateError: _birthDateError,
+                          onGenderSelected: (g) => setState(() {
+                            _selectedGender = g;
+                            _genderError = null;
+                          }),
+                          onBirthDateSelected: _onBirthDateSelected,
+                          onNext: _onPersonalInfoNext,
+                        ),
+                      if (_plan.needsPhoto)
+                        ProfilePhotoStep(
+                          pickedPhoto: _pickedPhoto,
+                          onPhotoChanged: (p) =>
+                              setState(() => _pickedPhoto = p),
+                          onContinue: _goToNext,
+                        ),
+                      if (_plan.needsLanguages)
+                        LanguagesStep(
+                          nativeLanguage: _nativeLanguage,
+                          learningLanguage: _learningLanguage,
+                          nativeLevel: _nativeLevel,
+                          learningLevel: _learningLevel,
+                          isLoadingLanguages: _isLoadingLanguages,
+                          allLanguages: _languages,
+                          onNativeSelected: _onNativeLanguageSelected,
+                          onLearningSelected: _onLearningLanguageSelected,
+                          onNativeLevelChanged: (level) =>
+                              setState(() => _nativeLevel = level),
+                          onLearningLevelChanged: (level) =>
+                              setState(() => _learningLevel = level),
+                          onSwap: _swapLanguages,
+                          onNext: () {
+                            final l10n = AppLocalizations.of(context)!;
+                            if (_nativeLanguage == null) {
+                              _showError(l10n.selectNativeLanguage);
+                              return;
+                            }
+                            if (_learningLanguage == null) {
+                              _showError(l10n.selectLearningLanguage);
+                              return;
+                            }
+                            if (_learningLevel == null) {
+                              _showError(l10n.selectCurrentLevel);
+                              return;
+                            }
+                            _goToNext();
+                          },
+                        ),
+                      FinishStep(
+                        city: _city,
+                        country: _country,
+                        isFetchingLocation: _isFetchingLocation,
+                        onDetectLocation: _getCurrentLocation,
+                        showLocationError: _showLocationError,
+                        termsAccepted: _termsAccepted,
+                        onTermsChanged: (v) =>
+                            setState(() => _termsAccepted = v),
+                        isSubmitting: _isSubmitting,
+                        onSubmit: _submit,
+                        summaryName: _effectiveName.isNotEmpty
+                            ? _effectiveName
+                            : null,
+                        summaryGender: _selectedGender ?? _effectiveGender,
+                        summaryBirthDate: _birthDateController.text.isNotEmpty
+                            ? _birthDateController.text
+                            : _effectiveBirthDate,
+                        summaryNativeLanguage:
+                            _nativeLanguage?.name ??
+                            (_effectiveNativeLanguage.isNotEmpty
+                                ? _effectiveNativeLanguage
+                                : null),
+                        summaryLearningLanguage:
+                            _learningLanguage?.name ??
+                            (_effectiveLearningLanguage.isNotEmpty
+                                ? _effectiveLearningLanguage
+                                : null),
+                        summaryPhoto: _pickedPhoto,
+                        onEditStep: _goToStep,
+                        personalInfoStepIndex: _personalInfoStepIndex,
+                        photoStepIndex: _photoStepIndex,
+                        languageStepIndex: _languageStepIndex,
                       ),
-                    if (_plan.needsPhoto)
-                      ProfilePhotoStep(
-                        pickedPhoto: _pickedPhoto,
-                        onPhotoChanged: (p) => setState(() => _pickedPhoto = p),
-                        onContinue: _goToNext,
-                      ),
-                    if (_plan.needsLanguages)
-                      LanguagesStep(
-                        nativeLanguage: _nativeLanguage,
-                        learningLanguage: _learningLanguage,
-                        nativeLevel: _nativeLevel,
-                        learningLevel: _learningLevel,
-                        isLoadingLanguages: _isLoadingLanguages,
-                        allLanguages: _languages,
-                        onNativeSelected: _onNativeLanguageSelected,
-                        onLearningSelected: _onLearningLanguageSelected,
-                        onNativeLevelChanged: (level) =>
-                            setState(() => _nativeLevel = level),
-                        onLearningLevelChanged: (level) =>
-                            setState(() => _learningLevel = level),
-                        onSwap: _swapLanguages,
-                        onNext: () {
-                          final l10n = AppLocalizations.of(context)!;
-                          if (_nativeLanguage == null) {
-                            _showError(l10n.selectNativeLanguage);
-                            return;
-                          }
-                          if (_learningLanguage == null) {
-                            _showError(l10n.selectLearningLanguage);
-                            return;
-                          }
-                          if (_learningLevel == null) {
-                            _showError(l10n.selectCurrentLevel);
-                            return;
-                          }
-                          _goToNext();
-                        },
-                      ),
-                    FinishStep(
-                      city: _city,
-                      country: _country,
-                      isFetchingLocation: _isFetchingLocation,
-                      onDetectLocation: _getCurrentLocation,
-                      showLocationError: _showLocationError,
-                      termsAccepted: _termsAccepted,
-                      onTermsChanged: (v) => setState(() => _termsAccepted = v),
-                      isSubmitting: _isSubmitting,
-                      onSubmit: _submit,
-                      summaryName: _effectiveName.isNotEmpty
-                          ? _effectiveName
-                          : null,
-                      summaryGender: _selectedGender ?? _effectiveGender,
-                      summaryBirthDate: _birthDateController.text.isNotEmpty
-                          ? _birthDateController.text
-                          : _effectiveBirthDate,
-                      summaryNativeLanguage:
-                          _nativeLanguage?.name ??
-                          (_effectiveNativeLanguage.isNotEmpty
-                              ? _effectiveNativeLanguage
-                              : null),
-                      summaryLearningLanguage:
-                          _learningLanguage?.name ??
-                          (_effectiveLearningLanguage.isNotEmpty
-                              ? _effectiveLearningLanguage
-                              : null),
-                      summaryPhoto: _pickedPhoto,
-                      onEditStep: _goToStep,
-                      personalInfoStepIndex: _personalInfoStepIndex,
-                      photoStepIndex: _photoStepIndex,
-                      languageStepIndex: _languageStepIndex,
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

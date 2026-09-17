@@ -3621,5 +3621,9 @@
   "notificationsOffBody": "Votre appareil bloque les notifications de BananaTalk, les rappels et messages ne peuvent donc pas vous parvenir. Les réglages ci-dessous resteront sans effet tant qu'elles seront désactivées.",
   "notificationsOffOpen": "Ouvrir les réglages",
   "reportGathering": "Signaler la rencontre",
-  "reportClub": "Signaler le club"
+  "reportClub": "Signaler le club",
+  "finishProfileTitle": "Terminez la configuration de votre profil",
+  "finishProfileBody": "Nous avons besoin de votre date de naissance pour que BananaTalk reste sûr pour tout le monde. Vous pouvez vous déconnecter si vous préférez ne pas continuer.",
+  "finishProfileContinue": "Continuer",
+  "finishProfileSignOut": "Se déconnecter"
 }

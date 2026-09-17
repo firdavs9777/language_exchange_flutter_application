@@ -3411,5 +3411,9 @@
   "notificationsOffBody": "Tu dispositivo bloquea las notificaciones de BananaTalk, así que los recordatorios y mensajes no pueden llegarte. Los ajustes de abajo no se aplicarán hasta que las actives.",
   "notificationsOffOpen": "Abrir ajustes",
   "reportGathering": "Denunciar quedada",
-  "reportClub": "Denunciar club"
+  "reportClub": "Denunciar club",
+  "finishProfileTitle": "Termina de configurar tu perfil",
+  "finishProfileBody": "Necesitamos tu fecha de nacimiento para que BananaTalk sea seguro para todos. Puedes cerrar sesión si prefieres no continuar.",
+  "finishProfileContinue": "Continuar",
+  "finishProfileSignOut": "Cerrar sesión"
 }

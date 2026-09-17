@@ -3397,5 +3397,9 @@
   "notificationsOffBody": "आपका डिवाइस BananaTalk की सूचनाएं रोक रहा है, इसलिए रिमाइंडर और संदेश आप तक नहीं पहुंच पाते। जब तक आप इन्हें चालू नहीं करते, नीचे की सेटिंग्स लागू नहीं होंगी।",
   "notificationsOffOpen": "सेटिंग्स खोलें",
   "reportGathering": "सभा की रिपोर्ट करें",
-  "reportClub": "क्लब की रिपोर्ट करें"
+  "reportClub": "क्लब की रिपोर्ट करें",
+  "finishProfileTitle": "अपनी प्रोफ़ाइल सेटअप पूरी करें",
+  "finishProfileBody": "सभी के लिए BananaTalk सुरक्षित रखने हेतु हमें आपकी जन्मतिथि चाहिए। अगर आप जारी नहीं रखना चाहते तो साइन आउट कर सकते हैं।",
+  "finishProfileContinue": "जारी रखें",
+  "finishProfileSignOut": "साइन आउट"
 }
