@@ -568,19 +568,27 @@ class NotificationService {
       // bucketed to the user's local evening instead of the Asia/Seoul
       // default nothing has ever overridden. Best-effort and independent of
       // token-registration success/failure above.
-      unawaited(_reportTimezone());
+      unawaited(reportTimezone());
     } catch (e) {
       debugPrint('[NotificationService] FCM token registration error: $e');
     }
   }
 
-  /// Report the device's real IANA timezone identifier (e.g.
-  /// "Asia/Shanghai"). `DateTime.now().timeZoneName` is not used here — on
-  /// some platforms it returns an abbreviation ("CST") rather than an IANA
-  /// zone, which the backend cannot use for delivery-hour bucketing.
+  /// Report the device's real IANA timezone identifier (e.g. "Asia/Shanghai").
+  ///
+  /// PUBLIC, and called independently of notification permission. This used to
+  /// live only inside the FCM token-registration block, so a user who never
+  /// granted notifications also never reported a timezone — and `localHourFor`
+  /// then fell back to UTC, putting their 19:00 daily drop at 04:00 in Seoul
+  /// and 03:00 in Shanghai. Timezone never needed that permission.
+  ///
+  /// `DateTime.now().timeZoneName` is not used here — on some platforms it
+  /// returns an abbreviation ("CST") rather than an IANA zone, which the
+  /// backend cannot use for delivery-hour bucketing.
+  ///
   /// Failures are swallowed: a lost timezone report must never block app
   /// startup or token registration.
-  Future<void> _reportTimezone() async {
+  Future<void> reportTimezone() async {
     try {
       final timezoneInfo = await FlutterTimezone.getLocalTimezone();
       await _apiClient.updateTimezone(timezoneInfo.identifier);
@@ -594,6 +602,11 @@ class NotificationService {
 
     // Store the current user ID for token refresh events
     _currentUserId = userId;
+
+    // Ahead of the early returns below: a user with no FCM token still has a
+    // timezone, and every scheduled send depends on it. Gating this behind a
+    // token is what left 84% of users on the UTC fallback.
+    unawaited(reportTimezone());
 
     // Wait a bit to ensure FCM token is available
     if (_fcmToken == null) {
