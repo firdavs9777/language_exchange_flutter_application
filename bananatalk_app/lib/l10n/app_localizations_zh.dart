@@ -7964,6 +7964,53 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get gatheringNoClubsYet => '还没有俱乐部。创建一个，让你的聚会有个归属。';
+
+  @override
+  String get topicConversation => '自由交流';
+
+  @override
+  String get topicExamPrep => '考试备考';
+
+  @override
+  String get topicGrammar => '语法';
+
+  @override
+  String get topicPronunciation => '发音';
+
+  @override
+  String get topicCulture => '文化';
+
+  @override
+  String get topicMedia => '音乐与电影';
+
+  @override
+  String get topicGames => '游戏';
+
+  @override
+  String get topicBusiness => '商务';
+
+  @override
+  String get topicTravel => '旅行';
+
+  @override
+  String get filterThisWeek => '本周';
+
+  @override
+  String get filterThisWeekend => '本周末';
+
+  @override
+  String get filterHasSeat => '还有名额';
+
+  @override
+  String filterClear(int count) {
+    return '清除 $count';
+  }
+
+  @override
+  String get filterNoMatches => '暂时没有符合条件的聚会。';
+
+  @override
+  String get gatheringTopicLabel => '主题（可选）';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -15926,4 +15973,51 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get gatheringNoClubsYet => '還沒有俱樂部。建立一個，讓你的聚會有個歸屬。';
+
+  @override
+  String get topicConversation => '自由交流';
+
+  @override
+  String get topicExamPrep => '考試準備';
+
+  @override
+  String get topicGrammar => '文法';
+
+  @override
+  String get topicPronunciation => '發音';
+
+  @override
+  String get topicCulture => '文化';
+
+  @override
+  String get topicMedia => '音樂與電影';
+
+  @override
+  String get topicGames => '遊戲';
+
+  @override
+  String get topicBusiness => '商務';
+
+  @override
+  String get topicTravel => '旅行';
+
+  @override
+  String get filterThisWeek => '本週';
+
+  @override
+  String get filterThisWeekend => '本週末';
+
+  @override
+  String get filterHasSeat => '還有名額';
+
+  @override
+  String filterClear(int count) {
+    return '清除 $count';
+  }
+
+  @override
+  String get filterNoMatches => '暫時沒有符合條件的聚會。';
+
+  @override
+  String get gatheringTopicLabel => '主題（選填）';
 }

@@ -7986,4 +7986,51 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get gatheringNoClubsYet => 'لا توجد نوادٍ بعد — أنشئ نادياً ليصبح للقاءاتك مكان.';
+
+  @override
+  String get topicConversation => 'محادثة';
+
+  @override
+  String get topicExamPrep => 'تحضير للامتحان';
+
+  @override
+  String get topicGrammar => 'القواعد';
+
+  @override
+  String get topicPronunciation => 'النطق';
+
+  @override
+  String get topicCulture => 'الثقافة';
+
+  @override
+  String get topicMedia => 'موسيقى وأفلام';
+
+  @override
+  String get topicGames => 'ألعاب';
+
+  @override
+  String get topicBusiness => 'أعمال';
+
+  @override
+  String get topicTravel => 'سفر';
+
+  @override
+  String get filterThisWeek => 'هذا الأسبوع';
+
+  @override
+  String get filterThisWeekend => 'نهاية هذا الأسبوع';
+
+  @override
+  String get filterHasSeat => 'توجد مقاعد';
+
+  @override
+  String filterClear(int count) {
+    return 'مسح $count';
+  }
+
+  @override
+  String get filterNoMatches => 'لا شيء يطابق هذه المرشحات بعد.';
+
+  @override
+  String get gatheringTopicLabel => 'الموضوع (اختياري)';
 }

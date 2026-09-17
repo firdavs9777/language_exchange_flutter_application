@@ -7974,4 +7974,51 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get gatheringNoClubsYet => 'Wala pang club — gumawa ka at magkakaroon ng tahanan ang mga pagtitipon mo.';
+
+  @override
+  String get topicConversation => 'Usapan';
+
+  @override
+  String get topicExamPrep => 'Paghahanda sa exam';
+
+  @override
+  String get topicGrammar => 'Gramatika';
+
+  @override
+  String get topicPronunciation => 'Pagbigkas';
+
+  @override
+  String get topicCulture => 'Kultura';
+
+  @override
+  String get topicMedia => 'Musika at pelikula';
+
+  @override
+  String get topicGames => 'Laro';
+
+  @override
+  String get topicBusiness => 'Negosyo';
+
+  @override
+  String get topicTravel => 'Paglalakbay';
+
+  @override
+  String get filterThisWeek => 'Ngayong linggo';
+
+  @override
+  String get filterThisWeekend => 'Ngayong weekend';
+
+  @override
+  String get filterHasSeat => 'May bakante';
+
+  @override
+  String filterClear(int count) {
+    return 'I-clear ang $count';
+  }
+
+  @override
+  String get filterNoMatches => 'Wala pang tumutugma sa mga filter na iyan.';
+
+  @override
+  String get gatheringTopicLabel => 'Paksa (opsyonal)';
 }

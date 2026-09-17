@@ -3,6 +3,7 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/community/gathering_model.dart';
 import 'package:bananatalk_app/services/gathering_api_client.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/pages/community/gatherings/gathering_filter_bar.dart';
 import 'package:bananatalk_app/pages/community/widgets/community_snackbar.dart';
 import 'package:bananatalk_app/utils/gathering_time.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
@@ -62,6 +63,10 @@ class _CreateGatheringFormState extends State<CreateGatheringForm> {
   late DateTime _startsAt;
 
   int _capacity = 6;
+
+  /// Optional. Null is a real answer -- an uncategorised gathering is still
+  /// findable by language, level and time, and a forced category is a wrong one.
+  String? _topic;
   int _quorum = 3;
   static const int _duration = 60;
   bool _submitting = false;
@@ -78,10 +83,12 @@ class _CreateGatheringFormState extends State<CreateGatheringForm> {
       text: editing?.displayLanguage ?? widget.defaultLanguage,
     );
     _title = TextEditingController(text: editing?.title ?? '');
-    _startsAt = editing?.startsAt.toLocal() ??
+    _startsAt =
+        editing?.startsAt.toLocal() ??
         defaultGatheringStart(widget.now ?? DateTime.now());
     if (editing != null) {
       _capacity = editing.capacity;
+      _topic = editing.topic;
       _quorum = editing.quorum;
       // Seeded from a real gathering, so the language picker must not rewrite
       // the host's own title underneath them.
@@ -183,6 +190,7 @@ class _CreateGatheringFormState extends State<CreateGatheringForm> {
             startsAt: _startsAt,
             durationMinutes: _duration,
             capacity: _capacity,
+            topic: _topic,
           )
         : await _api.createGathering(
             title: title,
@@ -190,6 +198,7 @@ class _CreateGatheringFormState extends State<CreateGatheringForm> {
             startsAt: _startsAt,
             durationMinutes: _duration,
             capacity: _capacity,
+            topic: _topic,
             // A quorum above capacity can never be met, so it is clamped
             // rather than left to produce a gathering that is permanently
             // unconfirmable.
@@ -220,7 +229,10 @@ class _CreateGatheringFormState extends State<CreateGatheringForm> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
 
-    return Padding(
+    // Scrollable: the form grew a topic row and a short phone in landscape,
+    // or with a large text scale, no longer fits it. A sheet that overflows
+    // hides its own submit button, which is the one control it exists for.
+    return SingleChildScrollView(
       padding: EdgeInsets.only(
         left: Spacing.lg,
         right: Spacing.lg,
@@ -297,6 +309,29 @@ class _CreateGatheringFormState extends State<CreateGatheringForm> {
                 ],
               ),
             ),
+          ),
+          Spacing.gapMD,
+          // Optional, and presented as such: no chip selected is a valid and
+          // common answer, so there is no "none" option to pick.
+          Text(
+            l10n.gatheringTopicLabel,
+            style: context.captionSmall.copyWith(color: context.textSecondary),
+          ),
+          Spacing.gapXS,
+          Wrap(
+            spacing: Spacing.xs,
+            runSpacing: Spacing.xs,
+            children: [
+              for (final t in kGatheringTopics)
+                ChoiceChip(
+                  key: Key('create-topic-$t'),
+                  selected: _topic == t,
+                  // Tapping the selected chip clears it.
+                  onSelected: (v) => setState(() => _topic = v ? t : null),
+                  label: Text(gatheringTopicLabel(l10n, t)),
+                  showCheckmark: false,
+                ),
+            ],
           ),
           Spacing.gapMD,
           Row(

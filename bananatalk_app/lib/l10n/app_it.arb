@@ -3535,5 +3535,70 @@
   "gatheringNoClubsYet": "Ancora nessun club: creane uno e i tuoi incontri avranno una casa.",
   "@gatheringNoClubsYet": {
     "description": "모임 / gatherings"
+  },
+  "topicConversation": "Conversazione",
+  "@topicConversation": {
+    "description": "gathering filters"
+  },
+  "topicExamPrep": "Preparazione esame",
+  "@topicExamPrep": {
+    "description": "gathering filters"
+  },
+  "topicGrammar": "Grammatica",
+  "@topicGrammar": {
+    "description": "gathering filters"
+  },
+  "topicPronunciation": "Pronuncia",
+  "@topicPronunciation": {
+    "description": "gathering filters"
+  },
+  "topicCulture": "Cultura",
+  "@topicCulture": {
+    "description": "gathering filters"
+  },
+  "topicMedia": "Musica e film",
+  "@topicMedia": {
+    "description": "gathering filters"
+  },
+  "topicGames": "Giochi",
+  "@topicGames": {
+    "description": "gathering filters"
+  },
+  "topicBusiness": "Lavoro",
+  "@topicBusiness": {
+    "description": "gathering filters"
+  },
+  "topicTravel": "Viaggi",
+  "@topicTravel": {
+    "description": "gathering filters"
+  },
+  "filterThisWeek": "Questa settimana",
+  "@filterThisWeek": {
+    "description": "gathering filters"
+  },
+  "filterThisWeekend": "Questo fine settimana",
+  "@filterThisWeekend": {
+    "description": "gathering filters"
+  },
+  "filterHasSeat": "Posti liberi",
+  "@filterHasSeat": {
+    "description": "gathering filters"
+  },
+  "filterClear": "Cancella {count}",
+  "@filterClear": {
+    "description": "gathering filters",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "filterNoMatches": "Nessun risultato per questi filtri.",
+  "@filterNoMatches": {
+    "description": "gathering filters"
+  },
+  "gatheringTopicLabel": "Argomento (facoltativo)",
+  "@gatheringTopicLabel": {
+    "description": "모임 / gatherings"
   }
 }

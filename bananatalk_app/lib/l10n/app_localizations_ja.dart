@@ -7964,4 +7964,51 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get gatheringNoClubsYet => 'まだクラブがありません。作れば集まりの拠点になります。';
+
+  @override
+  String get topicConversation => 'フリートーク';
+
+  @override
+  String get topicExamPrep => '試験対策';
+
+  @override
+  String get topicGrammar => '文法';
+
+  @override
+  String get topicPronunciation => '発音';
+
+  @override
+  String get topicCulture => '文化';
+
+  @override
+  String get topicMedia => '音楽・映画';
+
+  @override
+  String get topicGames => 'ゲーム';
+
+  @override
+  String get topicBusiness => 'ビジネス';
+
+  @override
+  String get topicTravel => '旅行';
+
+  @override
+  String get filterThisWeek => '今週';
+
+  @override
+  String get filterThisWeekend => '今週末';
+
+  @override
+  String get filterHasSeat => '空きあり';
+
+  @override
+  String filterClear(int count) {
+    return '$count件クリア';
+  }
+
+  @override
+  String get filterNoMatches => '条件に合う集まりはまだありません。';
+
+  @override
+  String get gatheringTopicLabel => 'トピック（任意）';
 }

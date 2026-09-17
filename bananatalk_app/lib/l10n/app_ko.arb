@@ -3316,5 +3316,70 @@
   "gatheringNoClubsYet": "아직 클럽이 없어요. 하나 만들면 모임이 머물 곳이 생깁니다.",
   "@gatheringNoClubsYet": {
     "description": "모임 / gatherings"
+  },
+  "topicConversation": "자유 대화",
+  "@topicConversation": {
+    "description": "gathering filters"
+  },
+  "topicExamPrep": "시험 대비",
+  "@topicExamPrep": {
+    "description": "gathering filters"
+  },
+  "topicGrammar": "문법",
+  "@topicGrammar": {
+    "description": "gathering filters"
+  },
+  "topicPronunciation": "발음",
+  "@topicPronunciation": {
+    "description": "gathering filters"
+  },
+  "topicCulture": "문화",
+  "@topicCulture": {
+    "description": "gathering filters"
+  },
+  "topicMedia": "음악·영화",
+  "@topicMedia": {
+    "description": "gathering filters"
+  },
+  "topicGames": "게임",
+  "@topicGames": {
+    "description": "gathering filters"
+  },
+  "topicBusiness": "비즈니스",
+  "@topicBusiness": {
+    "description": "gathering filters"
+  },
+  "topicTravel": "여행",
+  "@topicTravel": {
+    "description": "gathering filters"
+  },
+  "filterThisWeek": "이번 주",
+  "@filterThisWeek": {
+    "description": "gathering filters"
+  },
+  "filterThisWeekend": "이번 주말",
+  "@filterThisWeekend": {
+    "description": "gathering filters"
+  },
+  "filterHasSeat": "자리 있음",
+  "@filterHasSeat": {
+    "description": "gathering filters"
+  },
+  "filterClear": "{count}개 해제",
+  "@filterClear": {
+    "description": "gathering filters",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "filterNoMatches": "조건에 맞는 모임이 아직 없어요.",
+  "@filterNoMatches": {
+    "description": "gathering filters"
+  },
+  "gatheringTopicLabel": "주제 (선택)",
+  "@gatheringTopicLabel": {
+    "description": "모임 / gatherings"
   }
 }

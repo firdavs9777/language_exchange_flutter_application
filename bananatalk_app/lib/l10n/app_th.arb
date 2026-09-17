@@ -3295,5 +3295,70 @@
   "gatheringNoClubsYet": "ยังไม่มีคลับ — สร้างสักคลับเพื่อให้การพบปะของคุณมีที่อยู่",
   "@gatheringNoClubsYet": {
     "description": "모임 / gatherings"
+  },
+  "topicConversation": "สนทนา",
+  "@topicConversation": {
+    "description": "gathering filters"
+  },
+  "topicExamPrep": "เตรียมสอบ",
+  "@topicExamPrep": {
+    "description": "gathering filters"
+  },
+  "topicGrammar": "ไวยากรณ์",
+  "@topicGrammar": {
+    "description": "gathering filters"
+  },
+  "topicPronunciation": "การออกเสียง",
+  "@topicPronunciation": {
+    "description": "gathering filters"
+  },
+  "topicCulture": "วัฒนธรรม",
+  "@topicCulture": {
+    "description": "gathering filters"
+  },
+  "topicMedia": "เพลงและหนัง",
+  "@topicMedia": {
+    "description": "gathering filters"
+  },
+  "topicGames": "เกม",
+  "@topicGames": {
+    "description": "gathering filters"
+  },
+  "topicBusiness": "ธุรกิจ",
+  "@topicBusiness": {
+    "description": "gathering filters"
+  },
+  "topicTravel": "ท่องเที่ยว",
+  "@topicTravel": {
+    "description": "gathering filters"
+  },
+  "filterThisWeek": "สัปดาห์นี้",
+  "@filterThisWeek": {
+    "description": "gathering filters"
+  },
+  "filterThisWeekend": "สุดสัปดาห์นี้",
+  "@filterThisWeekend": {
+    "description": "gathering filters"
+  },
+  "filterHasSeat": "ยังมีที่ว่าง",
+  "@filterHasSeat": {
+    "description": "gathering filters"
+  },
+  "filterClear": "ล้าง {count}",
+  "@filterClear": {
+    "description": "gathering filters",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "filterNoMatches": "ยังไม่มีรายการที่ตรงกับตัวกรอง",
+  "@filterNoMatches": {
+    "description": "gathering filters"
+  },
+  "gatheringTopicLabel": "หัวข้อ (ไม่บังคับ)",
+  "@gatheringTopicLabel": {
+    "description": "모임 / gatherings"
   }
 }

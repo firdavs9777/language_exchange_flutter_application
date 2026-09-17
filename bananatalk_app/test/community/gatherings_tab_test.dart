@@ -22,6 +22,12 @@ class _FakeApi extends GatheringApiClient {
   final List<Club> clubs;
   final List<Gathering> gatherings;
 
+  /// The filters the tab actually sent, so a test can assert that narrowing
+  /// reaches the server rather than being applied to an already-fetched page.
+  String? lastTopic;
+  String? lastWhen;
+  bool lastHasSeat = false;
+
   @override
   Future<List<Club>> getClubs({
     String? language,
@@ -36,7 +42,15 @@ class _FakeApi extends GatheringApiClient {
     String? level,
     String scope = 'mine',
     int page = 1,
-  }) async => gatherings;
+    String? topic,
+    String? when,
+    bool hasSeat = false,
+  }) async {
+    lastTopic = topic;
+    lastWhen = when;
+    lastHasSeat = hasSeat;
+    return gatherings;
+  }
 }
 
 Gathering _gathering({String id = 'g1', String title = 'Korean evening'}) =>
@@ -254,5 +268,35 @@ void main() {
 
     expect(find.text('Korean Learners Club'), findsOneWidget);
     expect(find.text('Korean evening'), findsNothing);
+  });
+
+  testWidgets('filtering refetches from the server, not the fetched page',
+      (tester) async {
+    // Narrowing a page already in hand would show three of thirty results and
+    // call it "all". The filters have to reach the query.
+    final api = _FakeApi(clubs: const [], gatherings: [_gathering()]);
+    await tester.pumpWidget(_host(api));
+    await tester.pumpAndSettle();
+
+    expect(api.lastHasSeat, isFalse, reason: 'no filter on first load');
+    expect(find.byKey(const Key('filter-has-seat')), findsOneWidget,
+        reason: 'the bar must be present to be tapped');
+
+    await tester.tap(find.byKey(const Key('filter-has-seat')));
+    await tester.pumpAndSettle();
+
+    expect(api.lastHasSeat, isTrue);
+  });
+
+  testWidgets('the filter bar is hidden until it is needed on an empty list',
+      (tester) async {
+    // Nothing scheduled at all: the create form is the right thing to show,
+    // and a row of chips that would narrow nothing is noise.
+    final api = _FakeApi(clubs: const [], gatherings: const []);
+    await tester.pumpWidget(_host(api));
+    await tester.pumpAndSettle();
+
+    expect(find.byKey(const Key('filter-has-seat')), findsNothing);
+    expect(find.byKey(const Key('gatherings_empty_create_form')), findsOneWidget);
   });
 }

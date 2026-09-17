@@ -2986,5 +2986,70 @@
   "gatheringNoClubsYet": "還沒有俱樂部。建立一個，讓你的聚會有個歸屬。",
   "@gatheringNoClubsYet": {
     "description": "모임 / gatherings"
+  },
+  "topicConversation": "自由交流",
+  "@topicConversation": {
+    "description": "gathering filters"
+  },
+  "topicExamPrep": "考試準備",
+  "@topicExamPrep": {
+    "description": "gathering filters"
+  },
+  "topicGrammar": "文法",
+  "@topicGrammar": {
+    "description": "gathering filters"
+  },
+  "topicPronunciation": "發音",
+  "@topicPronunciation": {
+    "description": "gathering filters"
+  },
+  "topicCulture": "文化",
+  "@topicCulture": {
+    "description": "gathering filters"
+  },
+  "topicMedia": "音樂與電影",
+  "@topicMedia": {
+    "description": "gathering filters"
+  },
+  "topicGames": "遊戲",
+  "@topicGames": {
+    "description": "gathering filters"
+  },
+  "topicBusiness": "商務",
+  "@topicBusiness": {
+    "description": "gathering filters"
+  },
+  "topicTravel": "旅行",
+  "@topicTravel": {
+    "description": "gathering filters"
+  },
+  "filterThisWeek": "本週",
+  "@filterThisWeek": {
+    "description": "gathering filters"
+  },
+  "filterThisWeekend": "本週末",
+  "@filterThisWeekend": {
+    "description": "gathering filters"
+  },
+  "filterHasSeat": "還有名額",
+  "@filterHasSeat": {
+    "description": "gathering filters"
+  },
+  "filterClear": "清除 {count}",
+  "@filterClear": {
+    "description": "gathering filters",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "filterNoMatches": "暫時沒有符合條件的聚會。",
+  "@filterNoMatches": {
+    "description": "gathering filters"
+  },
+  "gatheringTopicLabel": "主題（選填）",
+  "@gatheringTopicLabel": {
+    "description": "모임 / gatherings"
   }
 }

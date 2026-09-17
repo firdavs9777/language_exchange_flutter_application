@@ -27,6 +27,9 @@ class _FakeApi extends GatheringApiClient {
     String? level,
     String scope = 'mine',
     int page = 1,
+    String? topic,
+    String? when,
+    bool hasSeat = false,
   }) async {
     lastScope = scope;
     return mine;

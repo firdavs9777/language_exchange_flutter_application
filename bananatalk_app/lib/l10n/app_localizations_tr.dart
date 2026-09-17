@@ -7972,4 +7972,51 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get gatheringNoClubsYet => 'Henüz kulüp yok — bir tane kur, buluşmaların bir yuvası olsun.';
+
+  @override
+  String get topicConversation => 'Sohbet';
+
+  @override
+  String get topicExamPrep => 'Sınav hazırlığı';
+
+  @override
+  String get topicGrammar => 'Dil bilgisi';
+
+  @override
+  String get topicPronunciation => 'Telaffuz';
+
+  @override
+  String get topicCulture => 'Kültür';
+
+  @override
+  String get topicMedia => 'Müzik ve film';
+
+  @override
+  String get topicGames => 'Oyunlar';
+
+  @override
+  String get topicBusiness => 'İş';
+
+  @override
+  String get topicTravel => 'Seyahat';
+
+  @override
+  String get filterThisWeek => 'Bu hafta';
+
+  @override
+  String get filterThisWeekend => 'Bu hafta sonu';
+
+  @override
+  String get filterHasSeat => 'Yer var';
+
+  @override
+  String filterClear(int count) {
+    return '$count temizle';
+  }
+
+  @override
+  String get filterNoMatches => 'Bu filtrelere uyan bir şey yok.';
+
+  @override
+  String get gatheringTopicLabel => 'Konu (isteğe bağlı)';
 }

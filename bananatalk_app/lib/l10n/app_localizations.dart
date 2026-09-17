@@ -14707,6 +14707,96 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No clubs yet — start one and your gatherings get a home.'**
   String get gatheringNoClubsYet;
+
+  /// gathering filters
+  ///
+  /// In en, this message translates to:
+  /// **'Conversation'**
+  String get topicConversation;
+
+  /// gathering filters
+  ///
+  /// In en, this message translates to:
+  /// **'Exam prep'**
+  String get topicExamPrep;
+
+  /// gathering filters
+  ///
+  /// In en, this message translates to:
+  /// **'Grammar'**
+  String get topicGrammar;
+
+  /// gathering filters
+  ///
+  /// In en, this message translates to:
+  /// **'Pronunciation'**
+  String get topicPronunciation;
+
+  /// gathering filters
+  ///
+  /// In en, this message translates to:
+  /// **'Culture'**
+  String get topicCulture;
+
+  /// gathering filters
+  ///
+  /// In en, this message translates to:
+  /// **'Music & film'**
+  String get topicMedia;
+
+  /// gathering filters
+  ///
+  /// In en, this message translates to:
+  /// **'Games'**
+  String get topicGames;
+
+  /// gathering filters
+  ///
+  /// In en, this message translates to:
+  /// **'Business'**
+  String get topicBusiness;
+
+  /// gathering filters
+  ///
+  /// In en, this message translates to:
+  /// **'Travel'**
+  String get topicTravel;
+
+  /// gathering filters
+  ///
+  /// In en, this message translates to:
+  /// **'This week'**
+  String get filterThisWeek;
+
+  /// gathering filters
+  ///
+  /// In en, this message translates to:
+  /// **'This weekend'**
+  String get filterThisWeekend;
+
+  /// gathering filters
+  ///
+  /// In en, this message translates to:
+  /// **'Has a seat'**
+  String get filterHasSeat;
+
+  /// gathering filters
+  ///
+  /// In en, this message translates to:
+  /// **'Clear {count}'**
+  String filterClear(int count);
+
+  /// gathering filters
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing matches those filters yet.'**
+  String get filterNoMatches;
+
+  /// 모임 / gatherings
+  ///
+  /// In en, this message translates to:
+  /// **'Topic (optional)'**
+  String get gatheringTopicLabel;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -7974,4 +7974,51 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get gatheringNoClubsYet => 'Ainda sem clubes — crie um e seus encontros terão uma casa.';
+
+  @override
+  String get topicConversation => 'Conversação';
+
+  @override
+  String get topicExamPrep => 'Preparação para exame';
+
+  @override
+  String get topicGrammar => 'Gramática';
+
+  @override
+  String get topicPronunciation => 'Pronúncia';
+
+  @override
+  String get topicCulture => 'Cultura';
+
+  @override
+  String get topicMedia => 'Música e cinema';
+
+  @override
+  String get topicGames => 'Jogos';
+
+  @override
+  String get topicBusiness => 'Negócios';
+
+  @override
+  String get topicTravel => 'Viagens';
+
+  @override
+  String get filterThisWeek => 'Esta semana';
+
+  @override
+  String get filterThisWeekend => 'Este fim de semana';
+
+  @override
+  String get filterHasSeat => 'Com vagas';
+
+  @override
+  String filterClear(int count) {
+    return 'Limpar $count';
+  }
+
+  @override
+  String get filterNoMatches => 'Nada corresponde a esses filtros ainda.';
+
+  @override
+  String get gatheringTopicLabel => 'Tema (opcional)';
 }

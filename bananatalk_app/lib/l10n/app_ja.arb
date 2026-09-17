@@ -3295,5 +3295,70 @@
   "gatheringNoClubsYet": "まだクラブがありません。作れば集まりの拠点になります。",
   "@gatheringNoClubsYet": {
     "description": "모임 / gatherings"
+  },
+  "topicConversation": "フリートーク",
+  "@topicConversation": {
+    "description": "gathering filters"
+  },
+  "topicExamPrep": "試験対策",
+  "@topicExamPrep": {
+    "description": "gathering filters"
+  },
+  "topicGrammar": "文法",
+  "@topicGrammar": {
+    "description": "gathering filters"
+  },
+  "topicPronunciation": "発音",
+  "@topicPronunciation": {
+    "description": "gathering filters"
+  },
+  "topicCulture": "文化",
+  "@topicCulture": {
+    "description": "gathering filters"
+  },
+  "topicMedia": "音楽・映画",
+  "@topicMedia": {
+    "description": "gathering filters"
+  },
+  "topicGames": "ゲーム",
+  "@topicGames": {
+    "description": "gathering filters"
+  },
+  "topicBusiness": "ビジネス",
+  "@topicBusiness": {
+    "description": "gathering filters"
+  },
+  "topicTravel": "旅行",
+  "@topicTravel": {
+    "description": "gathering filters"
+  },
+  "filterThisWeek": "今週",
+  "@filterThisWeek": {
+    "description": "gathering filters"
+  },
+  "filterThisWeekend": "今週末",
+  "@filterThisWeekend": {
+    "description": "gathering filters"
+  },
+  "filterHasSeat": "空きあり",
+  "@filterHasSeat": {
+    "description": "gathering filters"
+  },
+  "filterClear": "{count}件クリア",
+  "@filterClear": {
+    "description": "gathering filters",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "filterNoMatches": "条件に合う集まりはまだありません。",
+  "@filterNoMatches": {
+    "description": "gathering filters"
+  },
+  "gatheringTopicLabel": "トピック（任意）",
+  "@gatheringTopicLabel": {
+    "description": "모임 / gatherings"
   }
 }

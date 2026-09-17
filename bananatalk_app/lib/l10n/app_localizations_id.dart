@@ -7971,4 +7971,51 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get gatheringNoClubsYet => 'Belum ada klub — buat satu agar pertemuanmu punya rumah.';
+
+  @override
+  String get topicConversation => 'Percakapan';
+
+  @override
+  String get topicExamPrep => 'Persiapan ujian';
+
+  @override
+  String get topicGrammar => 'Tata bahasa';
+
+  @override
+  String get topicPronunciation => 'Pelafalan';
+
+  @override
+  String get topicCulture => 'Budaya';
+
+  @override
+  String get topicMedia => 'Musik & film';
+
+  @override
+  String get topicGames => 'Permainan';
+
+  @override
+  String get topicBusiness => 'Bisnis';
+
+  @override
+  String get topicTravel => 'Perjalanan';
+
+  @override
+  String get filterThisWeek => 'Minggu ini';
+
+  @override
+  String get filterThisWeekend => 'Akhir pekan ini';
+
+  @override
+  String get filterHasSeat => 'Ada tempat';
+
+  @override
+  String filterClear(int count) {
+    return 'Hapus $count';
+  }
+
+  @override
+  String get filterNoMatches => 'Belum ada yang cocok dengan filter itu.';
+
+  @override
+  String get gatheringTopicLabel => 'Topik (opsional)';
 }

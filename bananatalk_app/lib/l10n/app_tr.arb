@@ -3507,5 +3507,70 @@
   "gatheringNoClubsYet": "Henüz kulüp yok — bir tane kur, buluşmaların bir yuvası olsun.",
   "@gatheringNoClubsYet": {
     "description": "모임 / gatherings"
+  },
+  "topicConversation": "Sohbet",
+  "@topicConversation": {
+    "description": "gathering filters"
+  },
+  "topicExamPrep": "Sınav hazırlığı",
+  "@topicExamPrep": {
+    "description": "gathering filters"
+  },
+  "topicGrammar": "Dil bilgisi",
+  "@topicGrammar": {
+    "description": "gathering filters"
+  },
+  "topicPronunciation": "Telaffuz",
+  "@topicPronunciation": {
+    "description": "gathering filters"
+  },
+  "topicCulture": "Kültür",
+  "@topicCulture": {
+    "description": "gathering filters"
+  },
+  "topicMedia": "Müzik ve film",
+  "@topicMedia": {
+    "description": "gathering filters"
+  },
+  "topicGames": "Oyunlar",
+  "@topicGames": {
+    "description": "gathering filters"
+  },
+  "topicBusiness": "İş",
+  "@topicBusiness": {
+    "description": "gathering filters"
+  },
+  "topicTravel": "Seyahat",
+  "@topicTravel": {
+    "description": "gathering filters"
+  },
+  "filterThisWeek": "Bu hafta",
+  "@filterThisWeek": {
+    "description": "gathering filters"
+  },
+  "filterThisWeekend": "Bu hafta sonu",
+  "@filterThisWeekend": {
+    "description": "gathering filters"
+  },
+  "filterHasSeat": "Yer var",
+  "@filterHasSeat": {
+    "description": "gathering filters"
+  },
+  "filterClear": "{count} temizle",
+  "@filterClear": {
+    "description": "gathering filters",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "filterNoMatches": "Bu filtrelere uyan bir şey yok.",
+  "@filterNoMatches": {
+    "description": "gathering filters"
+  },
+  "gatheringTopicLabel": "Konu (isteğe bağlı)",
+  "@gatheringTopicLabel": {
+    "description": "모임 / gatherings"
   }
 }

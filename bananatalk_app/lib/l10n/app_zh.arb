@@ -3309,5 +3309,70 @@
   "gatheringNoClubsYet": "还没有俱乐部。创建一个，让你的聚会有个归属。",
   "@gatheringNoClubsYet": {
     "description": "모임 / gatherings"
+  },
+  "topicConversation": "自由交流",
+  "@topicConversation": {
+    "description": "gathering filters"
+  },
+  "topicExamPrep": "考试备考",
+  "@topicExamPrep": {
+    "description": "gathering filters"
+  },
+  "topicGrammar": "语法",
+  "@topicGrammar": {
+    "description": "gathering filters"
+  },
+  "topicPronunciation": "发音",
+  "@topicPronunciation": {
+    "description": "gathering filters"
+  },
+  "topicCulture": "文化",
+  "@topicCulture": {
+    "description": "gathering filters"
+  },
+  "topicMedia": "音乐与电影",
+  "@topicMedia": {
+    "description": "gathering filters"
+  },
+  "topicGames": "游戏",
+  "@topicGames": {
+    "description": "gathering filters"
+  },
+  "topicBusiness": "商务",
+  "@topicBusiness": {
+    "description": "gathering filters"
+  },
+  "topicTravel": "旅行",
+  "@topicTravel": {
+    "description": "gathering filters"
+  },
+  "filterThisWeek": "本周",
+  "@filterThisWeek": {
+    "description": "gathering filters"
+  },
+  "filterThisWeekend": "本周末",
+  "@filterThisWeekend": {
+    "description": "gathering filters"
+  },
+  "filterHasSeat": "还有名额",
+  "@filterHasSeat": {
+    "description": "gathering filters"
+  },
+  "filterClear": "清除 {count}",
+  "@filterClear": {
+    "description": "gathering filters",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "filterNoMatches": "暂时没有符合条件的聚会。",
+  "@filterNoMatches": {
+    "description": "gathering filters"
+  },
+  "gatheringTopicLabel": "主题（可选）",
+  "@gatheringTopicLabel": {
+    "description": "모임 / gatherings"
   }
 }

@@ -7964,4 +7964,51 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get gatheringNoClubsYet => 'Chưa có câu lạc bộ — tạo một cái để các buổi gặp có nơi thuộc về.';
+
+  @override
+  String get topicConversation => 'Trò chuyện';
+
+  @override
+  String get topicExamPrep => 'Luyện thi';
+
+  @override
+  String get topicGrammar => 'Ngữ pháp';
+
+  @override
+  String get topicPronunciation => 'Phát âm';
+
+  @override
+  String get topicCulture => 'Văn hóa';
+
+  @override
+  String get topicMedia => 'Âm nhạc & phim';
+
+  @override
+  String get topicGames => 'Trò chơi';
+
+  @override
+  String get topicBusiness => 'Kinh doanh';
+
+  @override
+  String get topicTravel => 'Du lịch';
+
+  @override
+  String get filterThisWeek => 'Tuần này';
+
+  @override
+  String get filterThisWeekend => 'Cuối tuần này';
+
+  @override
+  String get filterHasSeat => 'Còn chỗ';
+
+  @override
+  String filterClear(int count) {
+    return 'Xóa $count';
+  }
+
+  @override
+  String get filterNoMatches => 'Chưa có buổi gặp nào khớp bộ lọc.';
+
+  @override
+  String get gatheringTopicLabel => 'Chủ đề (tùy chọn)';
 }

@@ -88,6 +88,12 @@ class Gathering {
   /// Optional CEFR band, so beginners are not dropped into a C1 conversation.
   final String? level;
 
+  /// What the gathering is about, from the closed set in
+  /// `lib/gatheringFilters.js`. Null is normal and stays discoverable by
+  /// language, level and time — forcing a category would only produce wrong
+  /// ones.
+  final String? topic;
+
   final DateTime startsAt;
   final int durationMinutes;
 
@@ -132,6 +138,7 @@ class Gathering {
     this.language = '',
     this.languageLabel = '',
     this.level,
+    this.topic,
     this.durationMinutes = 60,
     this.hostTimezone,
     this.hostCity,
@@ -159,6 +166,7 @@ class Gathering {
       language: json['language']?.toString() ?? '',
       languageLabel: sanitize(json['languageLabel']),
       level: json['level']?.toString(),
+      topic: json['topic']?.toString(),
       startsAt:
           DateTime.tryParse(json['startsAt']?.toString() ?? '')?.toLocal() ??
           DateTime.now(),
@@ -218,6 +226,7 @@ class Gathering {
       language: language,
       languageLabel: languageLabel,
       level: level,
+      topic: topic,
       startsAt: startsAt,
       durationMinutes: durationMinutes,
       hostTimezone: hostTimezone,

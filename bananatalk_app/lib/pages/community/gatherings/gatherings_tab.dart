@@ -10,6 +10,7 @@ import 'package:bananatalk_app/pages/community/gatherings/create_club_sheet.dart
 import 'package:bananatalk_app/pages/community/gatherings/create_gathering_form.dart';
 import 'package:bananatalk_app/pages/community/gatherings/gathering_card.dart';
 import 'package:bananatalk_app/pages/community/gatherings/gathering_detail_screen.dart';
+import 'package:bananatalk_app/pages/community/gatherings/gathering_filter_bar.dart';
 import 'package:bananatalk_app/pages/community/widgets/community_error_state.dart';
 import 'package:bananatalk_app/pages/community/widgets/community_snackbar.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
@@ -68,6 +69,11 @@ class _GatheringsTabState extends ConsumerState<GatheringsTab>
   /// Ids currently mid-RSVP, so a double tap cannot double-post.
   final Set<String> _busy = {};
 
+  /// What the list is narrowed to. Filtering happens server-side so the page
+  /// size stays meaningful -- narrowing a single fetched page would show three
+  /// results out of thirty and call it "all".
+  GatheringFilters _filters = const GatheringFilters();
+
   @override
   void initState() {
     super.initState();
@@ -77,7 +83,14 @@ class _GatheringsTabState extends ConsumerState<GatheringsTab>
   Future<_FeedData> _load() async {
     // One round trip each, in parallel: the strip and the list are
     // independent and the tab should not wait for the slower of them twice.
-    final results = await Future.wait([_api.getClubs(), _api.getGatherings()]);
+    final results = await Future.wait([
+      _api.getClubs(),
+      _api.getGatherings(
+        topic: _filters.topic,
+        when: _filters.when,
+        hasSeat: _filters.hasSeat,
+      ),
+    ]);
     return _FeedData(
       clubs: results[0] as List<Club>,
       gatherings: results[1] as List<Gathering>,
@@ -136,6 +149,16 @@ class _GatheringsTabState extends ConsumerState<GatheringsTab>
       showCommunitySnackBar(context, message: l10n.gatheringRequested);
     }
     await _refresh();
+  }
+
+  /// Refetches, because filtering is server-side. Skips identical filters so
+  /// tapping a lit chip twice costs nothing.
+  void _onFiltersChanged(GatheringFilters next) {
+    if (next == _filters) return;
+    setState(() {
+      _filters = next;
+      _feed = _load();
+    });
   }
 
   Future<void> _create({String? clubId}) async {
@@ -230,50 +253,114 @@ class _GatheringsTabState extends ConsumerState<GatheringsTab>
     _FeedData data,
   ) {
     if (data.gatherings.isEmpty) {
-      return RefreshIndicator(
-        onRefresh: _refresh,
-        child: ListView(
-          physics: const AlwaysScrollableScrollPhysics(),
-          children: [_emptyState(context, data.clubs.isEmpty)],
-        ),
-      );
-    }
-    return RefreshIndicator(
-      onRefresh: _refresh,
-      child: CustomScrollView(
-        // Always scrollable so pull-to-refresh works even on a short list.
-        physics: const AlwaysScrollableScrollPhysics(),
-        slivers: [
-          _sectionHeader(
-            context,
-            l10n.gatheringStartingSoon,
-            action: _textAction(
-              context,
-              l10n.gatheringCreateShort,
-              () => _create(),
+      return Column(
+        children: [
+          // Kept visible when the list is empty: an active filter is the most
+          // likely reason it IS empty, and hiding the control that caused it
+          // makes the state unexplainable.
+          if (!_filters.isEmpty)
+            GatheringFilterBar(filters: _filters, onChanged: _onFiltersChanged),
+          Expanded(
+            child: RefreshIndicator(
+              onRefresh: _refresh,
+              child: ListView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                children: [
+                  if (_filters.isEmpty)
+                    _emptyState(context, data.clubs.isEmpty)
+                  else
+                    _noMatchState(context),
+                ],
+              ),
             ),
           ),
-          SliverList.builder(
-            itemCount: data.gatherings.length,
-            itemBuilder: (context, index) {
-              final gathering = data.gatherings[index];
-              return GatheringCard(
-                gathering: gathering,
-                busy: _busy.contains(gathering.id),
-                onRsvp: gathering.isOpenForRsvp ? () => _rsvp(gathering) : null,
-                onTap: () async {
-                  await Navigator.of(context).push(
-                    AppPageRoute(
-                      builder: (_) =>
-                          GatheringDetailScreen(gatheringId: gathering.id),
-                    ),
-                  );
-                  await _refresh();
-                },
-              );
-            },
+        ],
+      );
+    }
+    return Column(
+      children: [
+        GatheringFilterBar(filters: _filters, onChanged: _onFiltersChanged),
+        Expanded(
+          child: RefreshIndicator(
+            onRefresh: _refresh,
+            child: CustomScrollView(
+              // Always scrollable so pull-to-refresh works even on a short list.
+              physics: const AlwaysScrollableScrollPhysics(),
+              slivers: [
+                _sectionHeader(
+                  context,
+                  l10n.gatheringStartingSoon,
+                  action: _textAction(
+                    context,
+                    l10n.gatheringCreateShort,
+                    () => _create(),
+                  ),
+                ),
+                SliverList.builder(
+                  itemCount: data.gatherings.length,
+                  itemBuilder: (context, index) {
+                    final gathering = data.gatherings[index];
+                    return GatheringCard(
+                      gathering: gathering,
+                      busy: _busy.contains(gathering.id),
+                      onRsvp: gathering.isOpenForRsvp
+                          ? () => _rsvp(gathering)
+                          : null,
+                      onTap: () async {
+                        await Navigator.of(context).push(
+                          AppPageRoute(
+                            builder: (_) => GatheringDetailScreen(
+                              gatheringId: gathering.id,
+                            ),
+                          ),
+                        );
+                        await _refresh();
+                      },
+                    );
+                  },
+                ),
+                const SliverToBoxAdapter(child: SizedBox(height: 80)),
+              ],
+            ),
           ),
-          const SliverToBoxAdapter(child: SizedBox(height: 80)),
+        ),
+      ],
+    );
+  }
+
+  /// Empty because of a filter, not because nothing exists.
+  ///
+  /// Distinct from the create-form empty state on purpose: offering a draft
+  /// here would answer a question nobody asked. What they want is their list
+  /// back.
+  Widget _noMatchState(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(
+        Spacing.lg,
+        Spacing.xxl,
+        Spacing.lg,
+        0,
+      ),
+      child: Column(
+        children: [
+          Icon(
+            Icons.filter_alt_off_rounded,
+            size: 40,
+            color: context.textMuted,
+          ),
+          Spacing.gapMD,
+          Text(
+            l10n.filterNoMatches,
+            textAlign: TextAlign.center,
+            style: context.bodyMedium.copyWith(color: context.textSecondary),
+          ),
+          Spacing.gapMD,
+          TextButton(
+            key: const Key('filter-clear-empty'),
+            onPressed: () => _onFiltersChanged(const GatheringFilters()),
+            child: Text(l10n.filterClear(_filters.activeCount)),
+          ),
         ],
       ),
     );

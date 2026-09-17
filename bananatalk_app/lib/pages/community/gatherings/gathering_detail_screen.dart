@@ -53,7 +53,10 @@ class _GatheringDetailScreenState extends State<GatheringDetailScreen> {
   /// Runs a write, shows whatever the server said if it refused, and reloads.
   /// The refusals here are specific and worth surfacing verbatim — "this
   /// gathering is full", "a gathering cannot end before it starts".
-  Future<void> _run(Future<String?> Function() action, {String? success}) async {
+  Future<void> _run(
+    Future<String?> Function() action, {
+    String? success,
+  }) async {
     if (_busy) return;
     setState(() => _busy = true);
     final error = await action();
@@ -156,7 +159,9 @@ class _GatheringDetailScreenState extends State<GatheringDetailScreen> {
               // Where the host is. An online gathering is open to every
               // country, so this informs rather than filters — it is the
               // difference between "9pm" and "9pm, hosted from Moscow".
-              subtitle: gathering.hostPlace.isEmpty ? null : gathering.hostPlace,
+              subtitle: gathering.hostPlace.isEmpty
+                  ? null
+                  : gathering.hostPlace,
             ),
 
           // The host's pending queue. Sits above the actions because deciding
@@ -187,7 +192,11 @@ class _GatheringDetailScreenState extends State<GatheringDetailScreen> {
     Gathering gathering,
     DateTime now,
   ) {
-    final (String text, Color color, IconData icon) = switch (gathering.status) {
+    final (
+      String text,
+      Color color,
+      IconData icon,
+    ) = switch (gathering.status) {
       GatheringStatus.cancelled => (
         l10n.gatheringCancelled,
         AppColors.error,
@@ -255,7 +264,8 @@ class _GatheringDetailScreenState extends State<GatheringDetailScreen> {
         // The T-2h question, asked once and answered out loud. A gathering is
         // never auto-cancelled: a host who abandons their own gathering is
         // the worst outcome here, so the decision is theirs and explicit.
-        if (!gathering.quorumMet && minutesUntil(gathering.startsAt, now) <= 120)
+        if (!gathering.quorumMet &&
+            minutesUntil(gathering.startsAt, now) <= 120)
           Container(
             margin: const EdgeInsets.only(bottom: Spacing.lg),
             padding: Spacing.paddingMD,
@@ -448,9 +458,7 @@ class _GatheringDetailScreenState extends State<GatheringDetailScreen> {
       ),
     );
     if (confirmed != true) return;
-    await _run(
-      () async => (await _api.cancelGathering(gathering.id)).error,
-    );
+    await _run(() async => (await _api.cancelGathering(gathering.id)).error);
   }
 
   /// Who is waiting, and the two buttons that answer them.
@@ -485,8 +493,9 @@ class _GatheringDetailScreenState extends State<GatheringDetailScreen> {
                   CircleAvatar(
                     radius: 14,
                     backgroundColor: context.containerColor,
-                    backgroundImage:
-                        person.avatar.isNotEmpty ? NetworkImage(person.avatar) : null,
+                    backgroundImage: person.avatar.isNotEmpty
+                        ? NetworkImage(person.avatar)
+                        : null,
                     child: person.avatar.isEmpty
                         ? Icon(Icons.person, size: 14, color: context.textMuted)
                         : null,
@@ -503,20 +512,26 @@ class _GatheringDetailScreenState extends State<GatheringDetailScreen> {
                     key: Key('gathering-deny-${person.id}'),
                     onPressed: _busy
                         ? null
-                        : () => _run(() async =>
-                            (await _api.decideJoinRequest(
-                              gathering.id, person.id, approve: false,
-                            )).error),
+                        : () => _run(
+                            () async => (await _api.decideJoinRequest(
+                              gathering.id,
+                              person.id,
+                              approve: false,
+                            )).error,
+                          ),
                     child: Text(l10n.gatheringDeny),
                   ),
                   FilledButton(
                     key: Key('gathering-admit-${person.id}'),
                     onPressed: _busy
                         ? null
-                        : () => _run(() async =>
-                            (await _api.decideJoinRequest(
-                              gathering.id, person.id, approve: true,
-                            )).error),
+                        : () => _run(
+                            () async => (await _api.decideJoinRequest(
+                              gathering.id,
+                              person.id,
+                              approve: true,
+                            )).error,
+                          ),
                     child: Text(l10n.gatheringAdmit),
                   ),
                 ],

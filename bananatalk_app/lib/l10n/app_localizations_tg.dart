@@ -7978,4 +7978,51 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get gatheringNoClubsYet => 'Ҳоло клуб нест — яктояшро созед, то вохӯриҳоятон ҷой дошта бошанд.';
+
+  @override
+  String get topicConversation => 'Сӯҳбат';
+
+  @override
+  String get topicExamPrep => 'Омодагӣ ба имтиҳон';
+
+  @override
+  String get topicGrammar => 'Грамматика';
+
+  @override
+  String get topicPronunciation => 'Талаффуз';
+
+  @override
+  String get topicCulture => 'Фарҳанг';
+
+  @override
+  String get topicMedia => 'Мусиқӣ ва филм';
+
+  @override
+  String get topicGames => 'Бозиҳо';
+
+  @override
+  String get topicBusiness => 'Тиҷорат';
+
+  @override
+  String get topicTravel => 'Сафар';
+
+  @override
+  String get filterThisWeek => 'Ин ҳафта';
+
+  @override
+  String get filterThisWeekend => 'Ин истироҳат';
+
+  @override
+  String get filterHasSeat => 'Ҷой ҳаст';
+
+  @override
+  String filterClear(int count) {
+    return '$count-ро тоза кунед';
+  }
+
+  @override
+  String get filterNoMatches => 'Ҳоло чизе ба ин филтрҳо мувофиқ нест.';
+
+  @override
+  String get gatheringTopicLabel => 'Мавзӯъ (ихтиёрӣ)';
 }

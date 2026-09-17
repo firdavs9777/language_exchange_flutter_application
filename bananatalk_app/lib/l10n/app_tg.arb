@@ -2788,5 +2788,70 @@
   "gatheringNoClubsYet": "Ҳоло клуб нест — яктояшро созед, то вохӯриҳоятон ҷой дошта бошанд.",
   "@gatheringNoClubsYet": {
     "description": "모임 / gatherings"
+  },
+  "topicConversation": "Сӯҳбат",
+  "@topicConversation": {
+    "description": "gathering filters"
+  },
+  "topicExamPrep": "Омодагӣ ба имтиҳон",
+  "@topicExamPrep": {
+    "description": "gathering filters"
+  },
+  "topicGrammar": "Грамматика",
+  "@topicGrammar": {
+    "description": "gathering filters"
+  },
+  "topicPronunciation": "Талаффуз",
+  "@topicPronunciation": {
+    "description": "gathering filters"
+  },
+  "topicCulture": "Фарҳанг",
+  "@topicCulture": {
+    "description": "gathering filters"
+  },
+  "topicMedia": "Мусиқӣ ва филм",
+  "@topicMedia": {
+    "description": "gathering filters"
+  },
+  "topicGames": "Бозиҳо",
+  "@topicGames": {
+    "description": "gathering filters"
+  },
+  "topicBusiness": "Тиҷорат",
+  "@topicBusiness": {
+    "description": "gathering filters"
+  },
+  "topicTravel": "Сафар",
+  "@topicTravel": {
+    "description": "gathering filters"
+  },
+  "filterThisWeek": "Ин ҳафта",
+  "@filterThisWeek": {
+    "description": "gathering filters"
+  },
+  "filterThisWeekend": "Ин истироҳат",
+  "@filterThisWeekend": {
+    "description": "gathering filters"
+  },
+  "filterHasSeat": "Ҷой ҳаст",
+  "@filterHasSeat": {
+    "description": "gathering filters"
+  },
+  "filterClear": "{count}-ро тоза кунед",
+  "@filterClear": {
+    "description": "gathering filters",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "filterNoMatches": "Ҳоло чизе ба ин филтрҳо мувофиқ нест.",
+  "@filterNoMatches": {
+    "description": "gathering filters"
+  },
+  "gatheringTopicLabel": "Мавзӯъ (ихтиёрӣ)",
+  "@gatheringTopicLabel": {
+    "description": "모임 / gatherings"
   }
 }

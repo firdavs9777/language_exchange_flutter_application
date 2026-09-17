@@ -7964,4 +7964,51 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get gatheringNoClubsYet => '아직 클럽이 없어요. 하나 만들면 모임이 머물 곳이 생깁니다.';
+
+  @override
+  String get topicConversation => '자유 대화';
+
+  @override
+  String get topicExamPrep => '시험 대비';
+
+  @override
+  String get topicGrammar => '문법';
+
+  @override
+  String get topicPronunciation => '발음';
+
+  @override
+  String get topicCulture => '문화';
+
+  @override
+  String get topicMedia => '음악·영화';
+
+  @override
+  String get topicGames => '게임';
+
+  @override
+  String get topicBusiness => '비즈니스';
+
+  @override
+  String get topicTravel => '여행';
+
+  @override
+  String get filterThisWeek => '이번 주';
+
+  @override
+  String get filterThisWeekend => '이번 주말';
+
+  @override
+  String get filterHasSeat => '자리 있음';
+
+  @override
+  String filterClear(int count) {
+    return '$count개 해제';
+  }
+
+  @override
+  String get filterNoMatches => '조건에 맞는 모임이 아직 없어요.';
+
+  @override
+  String get gatheringTopicLabel => '주제 (선택)';
 }

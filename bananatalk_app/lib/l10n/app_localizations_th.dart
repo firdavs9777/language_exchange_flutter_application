@@ -7964,4 +7964,51 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get gatheringNoClubsYet => 'ยังไม่มีคลับ — สร้างสักคลับเพื่อให้การพบปะของคุณมีที่อยู่';
+
+  @override
+  String get topicConversation => 'สนทนา';
+
+  @override
+  String get topicExamPrep => 'เตรียมสอบ';
+
+  @override
+  String get topicGrammar => 'ไวยากรณ์';
+
+  @override
+  String get topicPronunciation => 'การออกเสียง';
+
+  @override
+  String get topicCulture => 'วัฒนธรรม';
+
+  @override
+  String get topicMedia => 'เพลงและหนัง';
+
+  @override
+  String get topicGames => 'เกม';
+
+  @override
+  String get topicBusiness => 'ธุรกิจ';
+
+  @override
+  String get topicTravel => 'ท่องเที่ยว';
+
+  @override
+  String get filterThisWeek => 'สัปดาห์นี้';
+
+  @override
+  String get filterThisWeekend => 'สุดสัปดาห์นี้';
+
+  @override
+  String get filterHasSeat => 'ยังมีที่ว่าง';
+
+  @override
+  String filterClear(int count) {
+    return 'ล้าง $count';
+  }
+
+  @override
+  String get filterNoMatches => 'ยังไม่มีรายการที่ตรงกับตัวกรอง';
+
+  @override
+  String get gatheringTopicLabel => 'หัวข้อ (ไม่บังคับ)';
 }

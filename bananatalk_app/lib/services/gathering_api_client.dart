@@ -49,6 +49,9 @@ class GatheringApiClient {
     String? level,
     String scope = 'mine',
     int page = 1,
+    String? topic,
+    String? when,
+    bool hasSeat = false,
   }) async {
     try {
       final response = await _apiClient.get(
@@ -57,6 +60,11 @@ class GatheringApiClient {
           if (language != null && language.isNotEmpty) 'language': language,
           if (level != null && level.isNotEmpty) 'level': level,
           'scope': scope,
+          if (topic != null && topic.isNotEmpty) 'topic': topic,
+          if (when != null && when.isNotEmpty) 'when': when,
+          // Only sent when on: the server treats anything but 'true' as off,
+          // and an always-present 'false' is noise in the request log.
+          if (hasSeat) 'hasSeat': 'true',
           'page': page.toString(),
         },
       );
@@ -99,6 +107,7 @@ class GatheringApiClient {
     int quorum = 3,
     String joinMode = 'open',
     String? clubId,
+    String? topic,
   }) async {
     try {
       final response = await _apiClient.post(
@@ -114,6 +123,7 @@ class GatheringApiClient {
           'capacity': capacity,
           'quorum': quorum,
           'joinMode': joinMode,
+          if (topic != null && topic.isNotEmpty) 'topic': topic,
           if (clubId != null && clubId.isNotEmpty) 'club': clubId,
         },
       );
@@ -144,6 +154,7 @@ class GatheringApiClient {
     int? durationMinutes,
     int? capacity,
     String? joinMode,
+    String? topic,
   }) async {
     try {
       final response = await _apiClient.put(
@@ -158,6 +169,9 @@ class GatheringApiClient {
           if (durationMinutes != null) 'durationMinutes': durationMinutes,
           if (capacity != null) 'capacity': capacity,
           if (joinMode != null) 'joinMode': joinMode,
+          // Sent whenever the caller passed the field at all, including null,
+          // because null is how a topic is CLEARED.
+          if (topic != null) 'topic': topic,
         },
       );
       if (!response.success) {
@@ -245,10 +259,7 @@ class GatheringApiClient {
     String id,
     String userId, {
     required bool approve,
-  }) => _mutate(
-    'gatherings/$id/requests/$userId',
-    body: {'approve': approve},
-  );
+  }) => _mutate('gatherings/$id/requests/$userId', body: {'approve': approve});
 
   /// DELETE /gatherings/:id/attendees/:userId — host removes someone.
   Future<GatheringResult<Gathering>> removeParticipant(
@@ -280,9 +291,9 @@ class GatheringApiClient {
         debugPrint('[GatheringApiClient] getClubs: ${response.error}');
         return [];
       }
-      return _listOf(response.data)
-          .map((c) => Club.fromJson(Map<String, dynamic>.from(c as Map)))
-          .toList();
+      return _listOf(
+        response.data,
+      ).map((c) => Club.fromJson(Map<String, dynamic>.from(c as Map))).toList();
     } catch (e) {
       debugPrint('[GatheringApiClient] getClubs error: $e');
       return [];

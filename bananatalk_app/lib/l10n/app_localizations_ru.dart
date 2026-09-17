@@ -7995,4 +7995,51 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get gatheringNoClubsYet => 'Пока нет клубов — создайте, и встречам будет где жить.';
+
+  @override
+  String get topicConversation => 'Разговор';
+
+  @override
+  String get topicExamPrep => 'Подготовка к экзамену';
+
+  @override
+  String get topicGrammar => 'Грамматика';
+
+  @override
+  String get topicPronunciation => 'Произношение';
+
+  @override
+  String get topicCulture => 'Культура';
+
+  @override
+  String get topicMedia => 'Музыка и кино';
+
+  @override
+  String get topicGames => 'Игры';
+
+  @override
+  String get topicBusiness => 'Бизнес';
+
+  @override
+  String get topicTravel => 'Путешествия';
+
+  @override
+  String get filterThisWeek => 'На этой неделе';
+
+  @override
+  String get filterThisWeekend => 'В выходные';
+
+  @override
+  String get filterHasSeat => 'Есть места';
+
+  @override
+  String filterClear(int count) {
+    return 'Сбросить $count';
+  }
+
+  @override
+  String get filterNoMatches => 'Пока нет встреч по этим фильтрам.';
+
+  @override
+  String get gatheringTopicLabel => 'Тема (необязательно)';
 }

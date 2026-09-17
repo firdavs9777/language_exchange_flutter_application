@@ -87,7 +87,9 @@ class _MyGatheringsScreenState extends State<MyGatheringsScreen> {
                   Text(
                     l10n.gatheringsMineEmpty,
                     textAlign: TextAlign.center,
-                    style: context.bodyMedium.copyWith(color: context.textMuted),
+                    style: context.bodyMedium.copyWith(
+                      color: context.textMuted,
+                    ),
                   ),
                 ],
               ),

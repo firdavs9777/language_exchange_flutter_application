@@ -3295,5 +3295,70 @@
   "gatheringNoClubsYet": "Chưa có câu lạc bộ — tạo một cái để các buổi gặp có nơi thuộc về.",
   "@gatheringNoClubsYet": {
     "description": "모임 / gatherings"
+  },
+  "topicConversation": "Trò chuyện",
+  "@topicConversation": {
+    "description": "gathering filters"
+  },
+  "topicExamPrep": "Luyện thi",
+  "@topicExamPrep": {
+    "description": "gathering filters"
+  },
+  "topicGrammar": "Ngữ pháp",
+  "@topicGrammar": {
+    "description": "gathering filters"
+  },
+  "topicPronunciation": "Phát âm",
+  "@topicPronunciation": {
+    "description": "gathering filters"
+  },
+  "topicCulture": "Văn hóa",
+  "@topicCulture": {
+    "description": "gathering filters"
+  },
+  "topicMedia": "Âm nhạc & phim",
+  "@topicMedia": {
+    "description": "gathering filters"
+  },
+  "topicGames": "Trò chơi",
+  "@topicGames": {
+    "description": "gathering filters"
+  },
+  "topicBusiness": "Kinh doanh",
+  "@topicBusiness": {
+    "description": "gathering filters"
+  },
+  "topicTravel": "Du lịch",
+  "@topicTravel": {
+    "description": "gathering filters"
+  },
+  "filterThisWeek": "Tuần này",
+  "@filterThisWeek": {
+    "description": "gathering filters"
+  },
+  "filterThisWeekend": "Cuối tuần này",
+  "@filterThisWeekend": {
+    "description": "gathering filters"
+  },
+  "filterHasSeat": "Còn chỗ",
+  "@filterHasSeat": {
+    "description": "gathering filters"
+  },
+  "filterClear": "Xóa {count}",
+  "@filterClear": {
+    "description": "gathering filters",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "filterNoMatches": "Chưa có buổi gặp nào khớp bộ lọc.",
+  "@filterNoMatches": {
+    "description": "gathering filters"
+  },
+  "gatheringTopicLabel": "Chủ đề (tùy chọn)",
+  "@gatheringTopicLabel": {
+    "description": "모임 / gatherings"
   }
 }

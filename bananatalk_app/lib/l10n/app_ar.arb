@@ -3325,5 +3325,70 @@
   "gatheringNoClubsYet": "لا توجد نوادٍ بعد — أنشئ نادياً ليصبح للقاءاتك مكان.",
   "@gatheringNoClubsYet": {
     "description": "모임 / gatherings"
+  },
+  "topicConversation": "محادثة",
+  "@topicConversation": {
+    "description": "gathering filters"
+  },
+  "topicExamPrep": "تحضير للامتحان",
+  "@topicExamPrep": {
+    "description": "gathering filters"
+  },
+  "topicGrammar": "القواعد",
+  "@topicGrammar": {
+    "description": "gathering filters"
+  },
+  "topicPronunciation": "النطق",
+  "@topicPronunciation": {
+    "description": "gathering filters"
+  },
+  "topicCulture": "الثقافة",
+  "@topicCulture": {
+    "description": "gathering filters"
+  },
+  "topicMedia": "موسيقى وأفلام",
+  "@topicMedia": {
+    "description": "gathering filters"
+  },
+  "topicGames": "ألعاب",
+  "@topicGames": {
+    "description": "gathering filters"
+  },
+  "topicBusiness": "أعمال",
+  "@topicBusiness": {
+    "description": "gathering filters"
+  },
+  "topicTravel": "سفر",
+  "@topicTravel": {
+    "description": "gathering filters"
+  },
+  "filterThisWeek": "هذا الأسبوع",
+  "@filterThisWeek": {
+    "description": "gathering filters"
+  },
+  "filterThisWeekend": "نهاية هذا الأسبوع",
+  "@filterThisWeekend": {
+    "description": "gathering filters"
+  },
+  "filterHasSeat": "توجد مقاعد",
+  "@filterHasSeat": {
+    "description": "gathering filters"
+  },
+  "filterClear": "مسح {count}",
+  "@filterClear": {
+    "description": "gathering filters",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "filterNoMatches": "لا شيء يطابق هذه المرشحات بعد.",
+  "@filterNoMatches": {
+    "description": "gathering filters"
+  },
+  "gatheringTopicLabel": "الموضوع (اختياري)",
+  "@gatheringTopicLabel": {
+    "description": "모임 / gatherings"
   }
 }

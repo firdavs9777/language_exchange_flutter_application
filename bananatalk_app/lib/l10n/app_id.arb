@@ -3295,5 +3295,70 @@
   "gatheringNoClubsYet": "Belum ada klub — buat satu agar pertemuanmu punya rumah.",
   "@gatheringNoClubsYet": {
     "description": "모임 / gatherings"
+  },
+  "topicConversation": "Percakapan",
+  "@topicConversation": {
+    "description": "gathering filters"
+  },
+  "topicExamPrep": "Persiapan ujian",
+  "@topicExamPrep": {
+    "description": "gathering filters"
+  },
+  "topicGrammar": "Tata bahasa",
+  "@topicGrammar": {
+    "description": "gathering filters"
+  },
+  "topicPronunciation": "Pelafalan",
+  "@topicPronunciation": {
+    "description": "gathering filters"
+  },
+  "topicCulture": "Budaya",
+  "@topicCulture": {
+    "description": "gathering filters"
+  },
+  "topicMedia": "Musik & film",
+  "@topicMedia": {
+    "description": "gathering filters"
+  },
+  "topicGames": "Permainan",
+  "@topicGames": {
+    "description": "gathering filters"
+  },
+  "topicBusiness": "Bisnis",
+  "@topicBusiness": {
+    "description": "gathering filters"
+  },
+  "topicTravel": "Perjalanan",
+  "@topicTravel": {
+    "description": "gathering filters"
+  },
+  "filterThisWeek": "Minggu ini",
+  "@filterThisWeek": {
+    "description": "gathering filters"
+  },
+  "filterThisWeekend": "Akhir pekan ini",
+  "@filterThisWeekend": {
+    "description": "gathering filters"
+  },
+  "filterHasSeat": "Ada tempat",
+  "@filterHasSeat": {
+    "description": "gathering filters"
+  },
+  "filterClear": "Hapus {count}",
+  "@filterClear": {
+    "description": "gathering filters",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "filterNoMatches": "Belum ada yang cocok dengan filter itu.",
+  "@filterNoMatches": {
+    "description": "gathering filters"
+  },
+  "gatheringTopicLabel": "Topik (opsional)",
+  "@gatheringTopicLabel": {
+    "description": "모임 / gatherings"
   }
 }

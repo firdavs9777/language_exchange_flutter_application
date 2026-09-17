@@ -3268,5 +3268,70 @@
   "gatheringNoClubsYet": "Wala pang club — gumawa ka at magkakaroon ng tahanan ang mga pagtitipon mo.",
   "@gatheringNoClubsYet": {
     "description": "모임 / gatherings"
+  },
+  "topicConversation": "Usapan",
+  "@topicConversation": {
+    "description": "gathering filters"
+  },
+  "topicExamPrep": "Paghahanda sa exam",
+  "@topicExamPrep": {
+    "description": "gathering filters"
+  },
+  "topicGrammar": "Gramatika",
+  "@topicGrammar": {
+    "description": "gathering filters"
+  },
+  "topicPronunciation": "Pagbigkas",
+  "@topicPronunciation": {
+    "description": "gathering filters"
+  },
+  "topicCulture": "Kultura",
+  "@topicCulture": {
+    "description": "gathering filters"
+  },
+  "topicMedia": "Musika at pelikula",
+  "@topicMedia": {
+    "description": "gathering filters"
+  },
+  "topicGames": "Laro",
+  "@topicGames": {
+    "description": "gathering filters"
+  },
+  "topicBusiness": "Negosyo",
+  "@topicBusiness": {
+    "description": "gathering filters"
+  },
+  "topicTravel": "Paglalakbay",
+  "@topicTravel": {
+    "description": "gathering filters"
+  },
+  "filterThisWeek": "Ngayong linggo",
+  "@filterThisWeek": {
+    "description": "gathering filters"
+  },
+  "filterThisWeekend": "Ngayong weekend",
+  "@filterThisWeekend": {
+    "description": "gathering filters"
+  },
+  "filterHasSeat": "May bakante",
+  "@filterHasSeat": {
+    "description": "gathering filters"
+  },
+  "filterClear": "I-clear ang {count}",
+  "@filterClear": {
+    "description": "gathering filters",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "filterNoMatches": "Wala pang tumutugma sa mga filter na iyan.",
+  "@filterNoMatches": {
+    "description": "gathering filters"
+  },
+  "gatheringTopicLabel": "Paksa (opsyonal)",
+  "@gatheringTopicLabel": {
+    "description": "모임 / gatherings"
   }
 }

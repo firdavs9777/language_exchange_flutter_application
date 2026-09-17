@@ -3311,5 +3311,70 @@
   "gatheringNoClubsYet": "अभी कोई क्लब नहीं — एक बनाइए, आपकी सभाओं को घर मिल जाएगा।",
   "@gatheringNoClubsYet": {
     "description": "모임 / gatherings"
+  },
+  "topicConversation": "बातचीत",
+  "@topicConversation": {
+    "description": "gathering filters"
+  },
+  "topicExamPrep": "परीक्षा तैयारी",
+  "@topicExamPrep": {
+    "description": "gathering filters"
+  },
+  "topicGrammar": "व्याकरण",
+  "@topicGrammar": {
+    "description": "gathering filters"
+  },
+  "topicPronunciation": "उच्चारण",
+  "@topicPronunciation": {
+    "description": "gathering filters"
+  },
+  "topicCulture": "संस्कृति",
+  "@topicCulture": {
+    "description": "gathering filters"
+  },
+  "topicMedia": "संगीत और फ़िल्म",
+  "@topicMedia": {
+    "description": "gathering filters"
+  },
+  "topicGames": "खेल",
+  "@topicGames": {
+    "description": "gathering filters"
+  },
+  "topicBusiness": "व्यापार",
+  "@topicBusiness": {
+    "description": "gathering filters"
+  },
+  "topicTravel": "यात्रा",
+  "@topicTravel": {
+    "description": "gathering filters"
+  },
+  "filterThisWeek": "इस सप्ताह",
+  "@filterThisWeek": {
+    "description": "gathering filters"
+  },
+  "filterThisWeekend": "इस सप्ताहांत",
+  "@filterThisWeekend": {
+    "description": "gathering filters"
+  },
+  "filterHasSeat": "सीट उपलब्ध",
+  "@filterHasSeat": {
+    "description": "gathering filters"
+  },
+  "filterClear": "{count} हटाएँ",
+  "@filterClear": {
+    "description": "gathering filters",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "filterNoMatches": "इन फ़िल्टर से अभी कुछ मेल नहीं खाता।",
+  "@filterNoMatches": {
+    "description": "gathering filters"
+  },
+  "gatheringTopicLabel": "विषय (वैकल्पिक)",
+  "@gatheringTopicLabel": {
+    "description": "모임 / gatherings"
   }
 }

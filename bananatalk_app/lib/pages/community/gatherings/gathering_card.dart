@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/community/gathering_model.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/pages/community/gatherings/gathering_filter_bar.dart';
 import 'package:bananatalk_app/utils/gathering_time.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 
@@ -68,12 +69,14 @@ class GatheringCard extends StatelessWidget {
               // describe what the gathering IS, and a Wrap means a long label
               // like "Chinese (Traditional)" pushes to its own line instead of
               // overflowing the row.
-              if (_tags.isNotEmpty) ...[
+              if (_tags(l10n).isNotEmpty) ...[
                 Spacing.gapXS,
                 Wrap(
                   spacing: Spacing.xs,
                   runSpacing: Spacing.xs,
-                  children: [for (final tag in _tags) _pill(context, tag)],
+                  children: [
+                    for (final tag in _tags(l10n)) _pill(context, tag),
+                  ],
                 ),
               ],
               Spacing.gapXS,
@@ -119,7 +122,9 @@ class GatheringCard extends StatelessWidget {
     if (underway) {
       headline = l10n.gatheringHappeningNow;
     } else if (isImminent(gathering.startsAt, clock)) {
-      headline = l10n.gatheringStartsIn(minutesUntil(gathering.startsAt, clock));
+      headline = l10n.gatheringStartsIn(
+        minutesUntil(gathering.startsAt, clock),
+      );
     } else {
       final day = switch (gatheringDayBucket(gathering.startsAt, clock)) {
         GatheringDayBucket.today => l10n.gatheringToday,
@@ -243,10 +248,7 @@ class GatheringCard extends StatelessWidget {
     }
 
     if (gathering.viewerIsAttending) {
-      return TextButton(
-        onPressed: onRsvp,
-        child: Text(l10n.gatheringGoingYou),
-      );
+      return TextButton(onPressed: onRsvp, child: Text(l10n.gatheringGoingYou));
     }
 
     if (gathering.isFull) {
@@ -267,10 +269,16 @@ class GatheringCard extends StatelessWidget {
     );
   }
 
-  /// Language and level, in that order, skipping whichever is absent.
-  List<String> get _tags => [
+  /// Language, level and topic, skipping whichever is absent.
+  ///
+  /// The topic is resolved through the same label map the filter bar uses, so
+  /// a chip on a card and a chip in the filter row always read the same.
+  List<String> _tags(AppLocalizations l10n) => [
     if (gathering.displayLanguage.isNotEmpty) gathering.displayLanguage,
-    if (gathering.level != null && gathering.level!.isNotEmpty) gathering.level!,
+    if (gathering.level != null && gathering.level!.isNotEmpty)
+      gathering.level!,
+    if (gathering.topic != null && gathering.topic!.isNotEmpty)
+      gatheringTopicLabel(l10n, gathering.topic!),
   ];
 
   /// "2 waiting to join" — the host's cue that there is a decision to make.
@@ -326,7 +334,6 @@ class GatheringCard extends StatelessWidget {
 
   /// Locale-aware. A bare "16/9" reads as 16 September to a Russian and as an
   /// invalid month to an American, and this list is shown in 19 locales.
-  String _shortDate(BuildContext context, DateTime local) => DateFormat.MMMd(
-    Localizations.localeOf(context).toString(),
-  ).format(local);
+  String _shortDate(BuildContext context, DateTime local) =>
+      DateFormat.MMMd(Localizations.localeOf(context).toString()).format(local);
 }

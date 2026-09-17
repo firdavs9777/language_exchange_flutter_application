@@ -7974,4 +7974,51 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get gatheringNoClubsYet => 'अभी कोई क्लब नहीं — एक बनाइए, आपकी सभाओं को घर मिल जाएगा।';
+
+  @override
+  String get topicConversation => 'बातचीत';
+
+  @override
+  String get topicExamPrep => 'परीक्षा तैयारी';
+
+  @override
+  String get topicGrammar => 'व्याकरण';
+
+  @override
+  String get topicPronunciation => 'उच्चारण';
+
+  @override
+  String get topicCulture => 'संस्कृति';
+
+  @override
+  String get topicMedia => 'संगीत और फ़िल्म';
+
+  @override
+  String get topicGames => 'खेल';
+
+  @override
+  String get topicBusiness => 'व्यापार';
+
+  @override
+  String get topicTravel => 'यात्रा';
+
+  @override
+  String get filterThisWeek => 'इस सप्ताह';
+
+  @override
+  String get filterThisWeekend => 'इस सप्ताहांत';
+
+  @override
+  String get filterHasSeat => 'सीट उपलब्ध';
+
+  @override
+  String filterClear(int count) {
+    return '$count हटाएँ';
+  }
+
+  @override
+  String get filterNoMatches => 'इन फ़िल्टर से अभी कुछ मेल नहीं खाता।';
+
+  @override
+  String get gatheringTopicLabel => 'विषय (वैकल्पिक)';
 }

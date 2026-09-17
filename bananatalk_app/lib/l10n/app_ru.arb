@@ -3325,5 +3325,70 @@
   "gatheringNoClubsYet": "Пока нет клубов — создайте, и встречам будет где жить.",
   "@gatheringNoClubsYet": {
     "description": "모임 / gatherings"
+  },
+  "topicConversation": "Разговор",
+  "@topicConversation": {
+    "description": "gathering filters"
+  },
+  "topicExamPrep": "Подготовка к экзамену",
+  "@topicExamPrep": {
+    "description": "gathering filters"
+  },
+  "topicGrammar": "Грамматика",
+  "@topicGrammar": {
+    "description": "gathering filters"
+  },
+  "topicPronunciation": "Произношение",
+  "@topicPronunciation": {
+    "description": "gathering filters"
+  },
+  "topicCulture": "Культура",
+  "@topicCulture": {
+    "description": "gathering filters"
+  },
+  "topicMedia": "Музыка и кино",
+  "@topicMedia": {
+    "description": "gathering filters"
+  },
+  "topicGames": "Игры",
+  "@topicGames": {
+    "description": "gathering filters"
+  },
+  "topicBusiness": "Бизнес",
+  "@topicBusiness": {
+    "description": "gathering filters"
+  },
+  "topicTravel": "Путешествия",
+  "@topicTravel": {
+    "description": "gathering filters"
+  },
+  "filterThisWeek": "На этой неделе",
+  "@filterThisWeek": {
+    "description": "gathering filters"
+  },
+  "filterThisWeekend": "В выходные",
+  "@filterThisWeekend": {
+    "description": "gathering filters"
+  },
+  "filterHasSeat": "Есть места",
+  "@filterHasSeat": {
+    "description": "gathering filters"
+  },
+  "filterClear": "Сбросить {count}",
+  "@filterClear": {
+    "description": "gathering filters",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "filterNoMatches": "Пока нет встреч по этим фильтрам.",
+  "@filterNoMatches": {
+    "description": "gathering filters"
+  },
+  "gatheringTopicLabel": "Тема (необязательно)",
+  "@gatheringTopicLabel": {
+    "description": "모임 / gatherings"
   }
 }
