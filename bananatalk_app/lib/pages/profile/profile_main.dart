@@ -244,33 +244,53 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
                       user: user,
                     ).animate().fadeIn(duration: 350.ms, delay: 150.ms),
                     const SizedBox(height: 20),
-                    ProfileHighlightsTab(
-                      user: user,
-                    ).animate().fadeIn(duration: 350.ms, delay: 200.ms),
-                    const SizedBox(height: 20),
-                    // Directly under the completion card. Unlike that card
-                    // this never hides itself -- completion is a task that
-                    // ends, this is a permanent destination.
-                    const MyGatheringsEntry()
-                        .animate()
-                        .fadeIn(duration: 350.ms, delay: 225.ms),
-                    const SizedBox(height: 20),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20),
-                      child: SmallBannerAdWidget(key: ValueKey('profile-main-banner')),
-                    ),
-                    const SizedBox(height: 20),
+                    // Story highlights belong directly under the header —
+                    // which is what highlights_row.dart's own doc says ("shown
+                    // under a profile header"). They were sitting below the
+                    // stats, the VIP and completion banners, the gatherings
+                    // entry AND an ad, which is nowhere near the face they
+                    // belong to.
                     HighlightsRow(
                       userId: user.id,
                       isOwnProfile: true,
                       user: user,
-                    ).animate().fadeIn(duration: 350.ms, delay: 275.ms),
-                    const SizedBox(height: 20),
+                    ).animate().fadeIn(duration: 350.ms, delay: 200.ms),
+
+                    // Wider gap: everything above is who this person is;
+                    // everything below is things to do. The page used a flat
+                    // 20 everywhere, so nothing grouped and nothing separated.
+                    const SizedBox(height: 32),
+
+                    // VIP status and profile completion. Named
+                    // ProfileHighlightsTab for historical reasons; it has
+                    // nothing to do with story highlights above.
+                    ProfileHighlightsTab(
+                      user: user,
+                    ).animate().fadeIn(duration: 350.ms, delay: 225.ms),
+                    const SizedBox(height: 12),
+                    // Kept adjacent to the completion card: completion is a
+                    // task that ends, this is a permanent destination, and
+                    // they read as one stack.
+                    const MyGatheringsEntry()
+                        .animate()
+                        .fadeIn(duration: 350.ms, delay: 250.ms),
+
+                    const SizedBox(height: 32),
                     ProfileAboutTab(
                       user: user,
-                    ).animate().fadeIn(duration: 350.ms, delay: 300.ms),
+                    ).animate().fadeIn(duration: 350.ms, delay: 275.ms),
                     const SizedBox(height: 20),
                     ProfileMomentsTab(user: user),
+
+                    // The ad moved to the END of the person's own content. It
+                    // was between the gatherings entry and the story
+                    // highlights — an advert interrupting someone's own
+                    // profile mid-sentence.
+                    const SizedBox(height: 32),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      child: SmallBannerAdWidget(key: ValueKey('profile-main-banner')),
+                    ),
                     const SizedBox(height: 20),
                     if (user.isAdmin)
                       _buildAdminToolsEntry(
