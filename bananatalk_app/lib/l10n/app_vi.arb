@@ -3406,5 +3406,7 @@
   "groupCoverFromLibrary": "Chọn từ thư viện",
   "groupCoverTakePhoto": "Chụp ảnh",
   "groupCoverRemove": "Xóa ảnh",
-  "groupCoverAddOptional": "Thêm ảnh (tùy chọn)"
+  "groupCoverAddOptional": "Thêm ảnh (tùy chọn)",
+  "clubsMine": "Câu lạc bộ của tôi",
+  "clubsMineEmpty": "Bạn chưa tham gia câu lạc bộ nào"
 }

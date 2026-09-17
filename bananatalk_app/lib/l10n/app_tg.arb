@@ -2899,5 +2899,7 @@
   "groupCoverFromLibrary": "Аз галерея интихоб кунед",
   "groupCoverTakePhoto": "Акс гирифтан",
   "groupCoverRemove": "Нест кардани акс",
-  "groupCoverAddOptional": "Илова кардани акс (ихтиёрӣ)"
+  "groupCoverAddOptional": "Илова кардани акс (ихтиёрӣ)",
+  "clubsMine": "Клубҳои ман",
+  "clubsMineEmpty": "Шумо ҳанӯз ба ягон клуб ҳамроҳ нашудаед"
 }

@@ -8140,4 +8140,10 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get groupCoverAddOptional => 'Foto hinzufügen (optional)';
+
+  @override
+  String get clubsMine => 'Meine Clubs';
+
+  @override
+  String get clubsMineEmpty => 'Du bist noch keinem Club beigetreten';
 }

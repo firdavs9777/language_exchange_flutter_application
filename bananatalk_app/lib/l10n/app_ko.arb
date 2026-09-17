@@ -3427,5 +3427,7 @@
   "groupCoverFromLibrary": "앨범에서 선택",
   "groupCoverTakePhoto": "사진 촬영",
   "groupCoverRemove": "사진 삭제",
-  "groupCoverAddOptional": "사진 추가 (선택)"
+  "groupCoverAddOptional": "사진 추가 (선택)",
+  "clubsMine": "내 클럽",
+  "clubsMineEmpty": "아직 가입한 클럽이 없어요"
 }

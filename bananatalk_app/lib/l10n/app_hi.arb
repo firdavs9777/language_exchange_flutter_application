@@ -3422,5 +3422,7 @@
   "groupCoverFromLibrary": "गैलरी से चुनें",
   "groupCoverTakePhoto": "फ़ोटो लें",
   "groupCoverRemove": "फ़ोटो हटाएं",
-  "groupCoverAddOptional": "फ़ोटो जोड़ें (वैकल्पिक)"
+  "groupCoverAddOptional": "फ़ोटो जोड़ें (वैकल्पिक)",
+  "clubsMine": "मेरे क्लब",
+  "clubsMineEmpty": "आपने अभी तक कोई क्लब जॉइन नहीं किया"
 }

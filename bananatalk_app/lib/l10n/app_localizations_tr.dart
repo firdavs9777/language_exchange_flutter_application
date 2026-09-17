@@ -8138,4 +8138,10 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get groupCoverAddOptional => 'Fotoğraf ekle (isteğe bağlı)';
+
+  @override
+  String get clubsMine => 'Kulüplerim';
+
+  @override
+  String get clubsMineEmpty => 'Henüz bir kulübe katılmadın';
 }

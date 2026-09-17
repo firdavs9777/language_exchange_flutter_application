@@ -8130,6 +8130,12 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get groupCoverAddOptional => '添加照片（可选）';
+
+  @override
+  String get clubsMine => '我的俱乐部';
+
+  @override
+  String get clubsMineEmpty => '你还没有加入任何俱乐部';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -16258,4 +16264,10 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get groupCoverAddOptional => '新增照片（選填）';
+
+  @override
+  String get clubsMine => '我的俱樂部';
+
+  @override
+  String get clubsMineEmpty => '你還沒有加入任何俱樂部';
 }

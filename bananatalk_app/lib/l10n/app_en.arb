@@ -5654,5 +5654,7 @@
   "groupCoverFromLibrary": "Choose from library",
   "groupCoverTakePhoto": "Take a photo",
   "groupCoverRemove": "Remove photo",
-  "groupCoverAddOptional": "Add a photo (optional)"
+  "groupCoverAddOptional": "Add a photo (optional)",
+  "clubsMine": "My clubs",
+  "clubsMineEmpty": "You haven't joined a club yet"
 }

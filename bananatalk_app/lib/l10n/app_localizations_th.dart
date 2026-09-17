@@ -8130,4 +8130,10 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get groupCoverAddOptional => 'เพิ่มรูป (ไม่บังคับ)';
+
+  @override
+  String get clubsMine => 'คลับของฉัน';
+
+  @override
+  String get clubsMineEmpty => 'คุณยังไม่ได้เข้าร่วมคลับใด';
 }

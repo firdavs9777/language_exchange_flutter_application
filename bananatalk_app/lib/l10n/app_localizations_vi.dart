@@ -8130,4 +8130,10 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get groupCoverAddOptional => 'Thêm ảnh (tùy chọn)';
+
+  @override
+  String get clubsMine => 'Câu lạc bộ của tôi';
+
+  @override
+  String get clubsMineEmpty => 'Bạn chưa tham gia câu lạc bộ nào';
 }

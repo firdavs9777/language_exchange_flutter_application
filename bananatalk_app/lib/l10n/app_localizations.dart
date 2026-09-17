@@ -15019,6 +15019,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Add a photo (optional)'**
   String get groupCoverAddOptional;
+
+  /// No description provided for @clubsMine.
+  ///
+  /// In en, this message translates to:
+  /// **'My clubs'**
+  String get clubsMine;
+
+  /// No description provided for @clubsMineEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'You haven\'t joined a club yet'**
+  String get clubsMineEmpty;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -3406,5 +3406,7 @@
   "groupCoverFromLibrary": "ライブラリから選ぶ",
   "groupCoverTakePhoto": "写真を撮る",
   "groupCoverRemove": "写真を削除",
-  "groupCoverAddOptional": "写真を追加（任意）"
+  "groupCoverAddOptional": "写真を追加（任意）",
+  "clubsMine": "マイクラブ",
+  "clubsMineEmpty": "まだクラブに参加していません"
 }

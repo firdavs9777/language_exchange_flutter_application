@@ -3618,5 +3618,7 @@
   "groupCoverFromLibrary": "Galeriden seç",
   "groupCoverTakePhoto": "Fotoğraf çek",
   "groupCoverRemove": "Fotoğrafı kaldır",
-  "groupCoverAddOptional": "Fotoğraf ekle (isteğe bağlı)"
+  "groupCoverAddOptional": "Fotoğraf ekle (isteğe bağlı)",
+  "clubsMine": "Kulüplerim",
+  "clubsMineEmpty": "Henüz bir kulübe katılmadın"
 }

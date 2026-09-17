@@ -12,6 +12,7 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/pages/community/gatherings/gathering_safety_menu.dart';
 import 'package:bananatalk_app/pages/community/gatherings/club_people_section.dart';
 import 'package:bananatalk_app/pages/community/gatherings/group_cover.dart';
+import 'package:bananatalk_app/pages/community/gatherings/group_cover_picker.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 
@@ -79,6 +80,18 @@ class _ClubDetailScreenState extends State<ClubDetailScreen> {
             children: [
               Text(l10n.clubEdit,
                   style: Theme.of(sheetContext).textTheme.titleMedium),
+              const SizedBox(height: 16),
+              // The photo belongs in "edit" too — that is where people look
+              // for it, even though tapping the cover on the page does the
+              // same thing. Same widget, same endpoint: one control in two
+              // places rather than two implementations.
+              GroupCoverPicker(
+                file: null,
+                onChanged: (file) {
+                  Navigator.pop(sheetContext, false);
+                  if (file != null) _uploadCover(club, file);
+                },
+              ),
               const SizedBox(height: 16),
               TextField(
                 key: const Key('club-edit-name'),
@@ -229,6 +242,21 @@ class _ClubDetailScreenState extends State<ClubDetailScreen> {
             member.id,
             role: action == 'promote' ? 'organizer' : 'member',
           );
+    if (!mounted) return;
+    setState(() {
+      _busy = false;
+      if (result.success) _future = _api.getClub(widget.clubId);
+    });
+    if (!result.success) {
+      showCommunitySnackBar(context, message: result.error ?? '');
+    }
+  }
+
+  /// Upload a already-picked cover. Shared by the cover tap and the edit
+  /// sheet so both report failure the same way and both refresh the page.
+  Future<void> _uploadCover(Club club, File file) async {
+    setState(() => _busy = true);
+    final result = await _api.uploadClubCover(club.id, file);
     if (!mounted) return;
     setState(() {
       _busy = false;

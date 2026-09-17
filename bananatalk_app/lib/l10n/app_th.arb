@@ -3406,5 +3406,7 @@
   "groupCoverFromLibrary": "เลือกจากคลังภาพ",
   "groupCoverTakePhoto": "ถ่ายรูป",
   "groupCoverRemove": "ลบรูป",
-  "groupCoverAddOptional": "เพิ่มรูป (ไม่บังคับ)"
+  "groupCoverAddOptional": "เพิ่มรูป (ไม่บังคับ)",
+  "clubsMine": "คลับของฉัน",
+  "clubsMineEmpty": "คุณยังไม่ได้เข้าร่วมคลับใด"
 }

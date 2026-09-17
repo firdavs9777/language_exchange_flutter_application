@@ -3436,5 +3436,7 @@
   "groupCoverFromLibrary": "Выбрать из галереи",
   "groupCoverTakePhoto": "Сделать фото",
   "groupCoverRemove": "Удалить фото",
-  "groupCoverAddOptional": "Добавить фото (необязательно)"
+  "groupCoverAddOptional": "Добавить фото (необязательно)",
+  "clubsMine": "Мои клубы",
+  "clubsMineEmpty": "Вы ещё не вступили ни в один клуб"
 }

@@ -3379,5 +3379,7 @@
   "groupCoverFromLibrary": "Pumili mula sa library",
   "groupCoverTakePhoto": "Kumuha ng larawan",
   "groupCoverRemove": "Alisin ang larawan",
-  "groupCoverAddOptional": "Magdagdag ng larawan (opsyonal)"
+  "groupCoverAddOptional": "Magdagdag ng larawan (opsyonal)",
+  "clubsMine": "Mga club ko",
+  "clubsMineEmpty": "Wala ka pang sinasalihang club"
 }

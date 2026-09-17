@@ -8137,4 +8137,10 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get groupCoverAddOptional => 'Tambahkan foto (opsional)';
+
+  @override
+  String get clubsMine => 'Klub saya';
+
+  @override
+  String get clubsMineEmpty => 'Kamu belum bergabung dengan klub mana pun';
 }

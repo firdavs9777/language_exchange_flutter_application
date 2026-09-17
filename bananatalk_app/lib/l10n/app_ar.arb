@@ -3436,5 +3436,7 @@
   "groupCoverFromLibrary": "اختيار من المعرض",
   "groupCoverTakePhoto": "التقاط صورة",
   "groupCoverRemove": "إزالة الصورة",
-  "groupCoverAddOptional": "إضافة صورة (اختياري)"
+  "groupCoverAddOptional": "إضافة صورة (اختياري)",
+  "clubsMine": "أنديتي",
+  "clubsMineEmpty": "لم تنضم إلى أي نادٍ بعد"
 }

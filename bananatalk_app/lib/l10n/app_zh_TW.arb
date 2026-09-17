@@ -3097,5 +3097,7 @@
   "groupCoverFromLibrary": "從相簿選擇",
   "groupCoverTakePhoto": "拍照",
   "groupCoverRemove": "移除照片",
-  "groupCoverAddOptional": "新增照片（選填）"
+  "groupCoverAddOptional": "新增照片（選填）",
+  "clubsMine": "我的俱樂部",
+  "clubsMineEmpty": "你還沒有加入任何俱樂部"
 }

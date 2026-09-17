@@ -3436,5 +3436,7 @@
   "groupCoverFromLibrary": "Elegir de la galería",
   "groupCoverTakePhoto": "Hacer una foto",
   "groupCoverRemove": "Quitar foto",
-  "groupCoverAddOptional": "Añadir una foto (opcional)"
+  "groupCoverAddOptional": "Añadir una foto (opcional)",
+  "clubsMine": "Mis clubes",
+  "clubsMineEmpty": "Aún no te has unido a ningún club"
 }

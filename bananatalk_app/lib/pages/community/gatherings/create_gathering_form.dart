@@ -230,7 +230,7 @@ class _CreateGatheringFormState extends State<CreateGatheringForm> {
     // is valid without a photo, and a flaky connection at this moment must not
     // cost someone the event they just scheduled.
     final created = result.value!;
-    if (_cover != null && !_isEdit) {
+    if (_cover != null) {
       final upload = await _api.uploadGatheringCover(created.id, _cover!);
       if (!mounted) return;
       if (!upload.success) {
@@ -269,15 +269,15 @@ class _CreateGatheringFormState extends State<CreateGatheringForm> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Creation only. Changing an existing cover belongs to the detail
-          // screen, and offering it in two places is how they drift.
-          if (!_isEdit) ...[
-            GroupCoverPicker(
-              file: _cover,
-              onChanged: (f) => setState(() => _cover = f),
-            ),
-            Spacing.gapLG,
-          ],
+          // Offered while editing too. The detail screen can also change the
+          // cover, but "edit" is where people look for it — and both go
+          // through the same GroupCoverPicker and the same endpoint, so this
+          // is one control in two places rather than two implementations.
+          GroupCoverPicker(
+            file: _cover,
+            onChanged: (f) => setState(() => _cover = f),
+          ),
+          Spacing.gapLG,
           if (!widget.compact) ...[
             Center(
               child: Container(

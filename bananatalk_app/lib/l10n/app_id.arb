@@ -3406,5 +3406,7 @@
   "groupCoverFromLibrary": "Pilih dari galeri",
   "groupCoverTakePhoto": "Ambil foto",
   "groupCoverRemove": "Hapus foto",
-  "groupCoverAddOptional": "Tambahkan foto (opsional)"
+  "groupCoverAddOptional": "Tambahkan foto (opsional)",
+  "clubsMine": "Klub saya",
+  "clubsMineEmpty": "Kamu belum bergabung dengan klub mana pun"
 }

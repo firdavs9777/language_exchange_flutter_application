@@ -8140,4 +8140,10 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get groupCoverAddOptional => 'Magdagdag ng larawan (opsyonal)';
+
+  @override
+  String get clubsMine => 'Mga club ko';
+
+  @override
+  String get clubsMineEmpty => 'Wala ka pang sinasalihang club';
 }

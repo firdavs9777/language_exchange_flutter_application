@@ -8144,4 +8144,10 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get groupCoverAddOptional => 'Илова кардани акс (ихтиёрӣ)';
+
+  @override
+  String get clubsMine => 'Клубҳои ман';
+
+  @override
+  String get clubsMineEmpty => 'Шумо ҳанӯз ба ягон клуб ҳамроҳ нашудаед';
 }

@@ -8152,4 +8152,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get groupCoverAddOptional => 'إضافة صورة (اختياري)';
+
+  @override
+  String get clubsMine => 'أنديتي';
+
+  @override
+  String get clubsMineEmpty => 'لم تنضم إلى أي نادٍ بعد';
 }

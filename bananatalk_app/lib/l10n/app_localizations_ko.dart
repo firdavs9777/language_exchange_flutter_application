@@ -8130,4 +8130,10 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get groupCoverAddOptional => '사진 추가 (선택)';
+
+  @override
+  String get clubsMine => '내 클럽';
+
+  @override
+  String get clubsMineEmpty => '아직 가입한 클럽이 없어요';
 }

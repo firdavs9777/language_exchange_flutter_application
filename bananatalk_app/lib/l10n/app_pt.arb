@@ -3422,5 +3422,7 @@
   "groupCoverFromLibrary": "Escolher da galeria",
   "groupCoverTakePhoto": "Tirar uma foto",
   "groupCoverRemove": "Remover foto",
-  "groupCoverAddOptional": "Adicionar uma foto (opcional)"
+  "groupCoverAddOptional": "Adicionar uma foto (opcional)",
+  "clubsMine": "Os meus clubes",
+  "clubsMineEmpty": "Ainda não entrou em nenhum clube"
 }

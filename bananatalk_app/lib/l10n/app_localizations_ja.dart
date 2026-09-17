@@ -8130,4 +8130,10 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get groupCoverAddOptional => '写真を追加（任意）';
+
+  @override
+  String get clubsMine => 'マイクラブ';
+
+  @override
+  String get clubsMineEmpty => 'まだクラブに参加していません';
 }

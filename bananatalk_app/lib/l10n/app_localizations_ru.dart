@@ -8161,4 +8161,10 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get groupCoverAddOptional => 'Добавить фото (необязательно)';
+
+  @override
+  String get clubsMine => 'Мои клубы';
+
+  @override
+  String get clubsMineEmpty => 'Вы ещё не вступили ни в один клуб';
 }
