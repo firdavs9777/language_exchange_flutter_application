@@ -52,8 +52,14 @@ class NotificationApiClient {
   Future<Map<String, dynamic>> registerToken(
     String token,
     String platform,
-    String deviceId,
-  ) async {
+    String deviceId, {
+    /// The device's real authorization level, as an
+    /// `AuthorizationStatus.name` ("authorized" | "provisional" | "denied" |
+    /// "notDetermined"). Only the device knows this, and provisional delivers
+    /// QUIETLY, so without it the server cannot tell a user who will see a
+    /// reminder from one who will not.
+    String? authorization,
+  }) async {
     try {
       final url = Uri.parse('${baseUrl}notifications/register-token');
       final headers = await _getHeaders();
@@ -71,6 +77,7 @@ class NotificationApiClient {
           // Sent on every launch (E-core), so locale changes self-heal.
           'deviceLocale':
               PlatformDispatcher.instance.locale.toLanguageTag(),
+          if (authorization != null) 'authorization': authorization,
         }),
       );
 

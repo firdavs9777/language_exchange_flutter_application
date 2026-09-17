@@ -71,3 +71,25 @@ NotificationPermission permissionFromStatusName(String name) {
       return NotificationPermission.notDetermined;
   }
 }
+
+/// Whether to quietly request provisional authorization during start-up.
+///
+/// iOS only, and only for a user who has never been asked. Provisional is
+/// granted WITHOUT a dialog, so this costs the user nothing and yields a token
+/// immediately — which is where the app's existing iOS token coverage comes
+/// from. Removing it in favour of asking later would trade 407 silent grants
+/// for a dialog many users never reach.
+///
+/// It is deliberately NOT the whole answer: provisional delivers quietly, so
+/// [notificationActionFor] still returns [NotificationAction.upgrade] for the
+/// resulting state, and the visible-delivery dialog is raised later at a primed
+/// moment.
+///
+/// Android has no provisional concept — `requestPermission` there raises the
+/// real POST_NOTIFICATIONS dialog — so asking at start-up would put the cold
+/// prompt straight back on the splash screen.
+bool shouldRequestProvisionalAtStartup({
+  required NotificationPermission permission,
+  required bool isIOS,
+}) =>
+    isIOS && permission == NotificationPermission.notDetermined;

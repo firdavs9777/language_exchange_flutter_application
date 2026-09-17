@@ -11,6 +11,8 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
+import 'package:flutter/foundation.dart' show defaultTargetPlatform, TargetPlatform;
+import 'package:bananatalk_app/services/notification_permission.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
@@ -66,6 +68,12 @@ class NotificationService {
   String? _fcmToken;
   String? get fcmToken => _fcmToken;
 
+  NotificationAction? _pendingAction;
+
+  /// What the UI should do at the next primed moment, or null before
+  /// [initialize] has run. Read by the chat trigger and the recovery surfaces.
+  NotificationAction? get pendingAction => _pendingAction;
+
   // Track current user ID to ensure token refresh registers with correct user
   String? _currentUserId;
 
@@ -97,11 +105,40 @@ class NotificationService {
       // Initialize Firebase Messaging
       _fcm = FirebaseMessaging.instance;
 
-      // Request notification permissions
-      final settings = await _requestPermission();
+      // READ the current status; do not ask. Asking here means asking on the
+      // splash screen, before the user has seen a screen or has any reason to
+      // accept. On Android that is a real POST_NOTIFICATIONS dialog and a
+      // denial is permanent.
+      var settings = await _fcm!.getNotificationSettings();
+      var permission =
+          permissionFromStatusName(settings.authorizationStatus.name);
 
-      if (settings.authorizationStatus == AuthorizationStatus.authorized ||
-          settings.authorizationStatus == AuthorizationStatus.provisional) {
+      // iOS only, and only if never asked: provisional is granted WITHOUT a
+      // dialog, so it costs the user nothing and yields a token immediately.
+      // This is where the app's existing iOS token coverage comes from and
+      // dropping it would trade silent grants for a dialog many never reach.
+      // It is not sufficient on its own -- provisional delivers quietly -- so
+      // the visible-delivery upgrade is offered later at a primed moment.
+      if (shouldRequestProvisionalAtStartup(
+        permission: permission,
+        isIOS: defaultTargetPlatform == TargetPlatform.iOS,
+      )) {
+        settings = await _requestPermission();
+        permission =
+            permissionFromStatusName(settings.authorizationStatus.name);
+      }
+
+      final prefs = await SharedPreferences.getInstance();
+      final alreadyPrompted = prefs.getBool(kPromptedPrefsKey) ?? false;
+      _pendingAction = notificationActionFor(
+        permission: permission,
+        alreadyPrompted: alreadyPrompted,
+      );
+
+      // Handlers and local-notification set-up run for everyone except a hard
+      // denial: a notDetermined Android user may grant later in this session,
+      // and nothing below shows the user anything by itself.
+      if (permission != NotificationPermission.denied) {
 
         // Initialize local notifications
         await _initializeLocalNotifications();
@@ -132,6 +169,9 @@ class NotificationService {
 
         _isInitialized = true;
       } else {
+        // Denied. Nothing to set up -- the OS discards everything we send --
+        // but _pendingAction is already NotificationAction.recover, which is
+        // what surfaces the settings deep-link.
       }
     } catch (e, stackTrace) {
     }
@@ -156,6 +196,62 @@ class NotificationService {
     );
 
     return settings;
+  }
+
+  /// Raise the REAL permission dialog and return whether it was granted.
+  ///
+  /// `provisional: false` is the entire point. The app has only ever requested
+  /// provisional authorization, which iOS grants silently and then delivers
+  /// QUIETLY — no banner, no sound, no lock-screen alert. This is the call that
+  /// turns an invisible daily reminder into a visible one.
+  ///
+  /// Marks the prompt as spent BEFORE showing it: if the process dies while the
+  /// dialog is up, the user has still seen it, and re-showing on next launch is
+  /// how an app teaches people to refuse reflexively.
+  ///
+  /// On Android this is the first and only dialog — there is no provisional
+  /// state to upgrade from.
+  Future<bool> requestFullAuthorization() async {
+    _pendingAction = null;
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setBool(kPromptedPrefsKey, true);
+    } catch (e) {
+      debugPrint('[NotificationService] could not persist prompt flag: $e');
+    }
+
+    if (_fcm == null) return false;
+
+    final settings = await _fcm!.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
+    final granted =
+        settings.authorizationStatus == AuthorizationStatus.authorized;
+
+    if (granted) {
+      // An Android user had no token at all until this moment; an iOS user had
+      // a provisional one whose authorization level is now stale on the server.
+      await _getFCMToken();
+    }
+    return granted;
+  }
+
+  /// Record that the prompt was offered and declined, without showing the OS
+  /// dialog. Used when the user dismisses the priming sheet.
+  Future<void> markPromptDeclined() async {
+    _pendingAction = null;
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setBool(kPromptedPrefsKey, true);
+    } catch (e) {
+      debugPrint('[NotificationService] could not persist prompt flag: $e');
+    }
   }
 
   /// Initialize local notifications plugin
@@ -545,10 +641,22 @@ class NotificationService {
       final platform = Platform.isIOS ? 'ios' : 'android';
 
 
+      // Read the live status rather than reusing _pendingAction: the user may
+      // have changed it in system settings since start-up, and a stale value
+      // is worse than none for measurement.
+      String? authorization;
+      try {
+        final current = await _fcm!.getNotificationSettings();
+        authorization = current.authorizationStatus.name;
+      } catch (e) {
+        debugPrint('[NotificationService] could not read auth status: $e');
+      }
+
       final result = await _apiClient.registerToken(
         _fcmToken!,
         platform,
         deviceId,
+        authorization: authorization,
       );
 
       if (result['success'] == true) {
