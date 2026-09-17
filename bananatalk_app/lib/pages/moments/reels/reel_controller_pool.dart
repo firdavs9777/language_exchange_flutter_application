@@ -1,4 +1,6 @@
+import 'dart:async';
 import 'package:flutter/foundation.dart';
+import 'package:bananatalk_app/pages/moments/reels/reel_failure_diagnostics.dart';
 import 'package:video_player/video_player.dart';
 
 import 'package:bananatalk_app/pages/moments/reels/reel_video_cache.dart';
@@ -112,6 +114,14 @@ class ReelControllerPool {
       debugPrint(
         'ReelControllerPool: failed to init reel $index (cached=$usingCache): $e',
       );
+      // The exception alone is a bare OSStatus — it says a decoder refused
+      // the file and nothing about the file. This prints what the server
+      // actually returns, which is where the answer usually is.
+      unawaited(ReelFailureDiagnostics.report(
+        url: url,
+        usingCache: usingCache,
+        cachedFile: cached,
+      ));
       // Evict the failed controller so a later swipe-back retries instead
       // of finding a permanently-uninitialized cached instance (gate
       // review minor: otherwise this reel shows a spinner forever).
