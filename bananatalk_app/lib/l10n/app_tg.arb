@@ -2901,5 +2901,22 @@
   "groupCoverRemove": "Нест кардани акс",
   "groupCoverAddOptional": "Илова кардани акс (ихтиёрӣ)",
   "clubsMine": "Клубҳои ман",
-  "clubsMineEmpty": "Шумо ҳанӯз ба ягон клуб ҳамроҳ нашудаед"
+  "clubsMineEmpty": "Шумо ҳанӯз ба ягон клуб ҳамроҳ нашудаед",
+  "storyLink": "Пайванд",
+  "storyLinkSubtitle": "Тамошобинонро ба саҳифа мебарад",
+  "storyLinkAdd": "Илова кардани пайванд",
+  "storyLinkUrlLabel": "Суроғаи пайванд",
+  "storyLinkButtonLabel": "Матни тугма",
+  "storyLinkButtonDefault": "Ҳозир бинед",
+  "storyLinkOpensHost": "{host}-ро мекушояд",
+  "storyLinkInvalid": "Суроғаи дурусти http ё https ворид кунед",
+  "storyStickerPoll": "Пурсиш",
+  "storyStickerPollSubtitle": "Саволи дорои вариантҳо",
+  "storyStickerQuestion": "Савол",
+  "storyStickerQuestionSubtitle": "Бигзор тамошобинон ҷавоб фиристанд",
+  "storyStickerLocation": "Ҷойгоҳ",
+  "storyStickerLocationSubtitle": "Ҷои гирифтани ин ҳикояро қайд кунед",
+  "storyStickerMention": "Ишора",
+  "storyStickerMentionSubtitle": "Касеро, ки пайгирӣ мекунед, қайд кунед",
+  "storyToolDraw": "Расм кашидан"
 }

@@ -3438,5 +3438,22 @@
   "groupCoverRemove": "Удалить фото",
   "groupCoverAddOptional": "Добавить фото (необязательно)",
   "clubsMine": "Мои клубы",
-  "clubsMineEmpty": "Вы ещё не вступили ни в один клуб"
+  "clubsMineEmpty": "Вы ещё не вступили ни в один клуб",
+  "storyLink": "Ссылка",
+  "storyLinkSubtitle": "Отправит зрителей на страницу",
+  "storyLinkAdd": "Добавить ссылку",
+  "storyLinkUrlLabel": "Адрес ссылки",
+  "storyLinkButtonLabel": "Текст кнопки",
+  "storyLinkButtonDefault": "Смотреть",
+  "storyLinkOpensHost": "Откроет {host}",
+  "storyLinkInvalid": "Введите корректный адрес http или https",
+  "storyStickerPoll": "Опрос",
+  "storyStickerPollSubtitle": "Задать вопрос с вариантами",
+  "storyStickerQuestion": "Вопрос",
+  "storyStickerQuestionSubtitle": "Зрители смогут вам ответить",
+  "storyStickerLocation": "Место",
+  "storyStickerLocationSubtitle": "Отметьте, где снята история",
+  "storyStickerMention": "Упоминание",
+  "storyStickerMentionSubtitle": "Отметьте того, на кого подписаны",
+  "storyToolDraw": "Рисовать"
 }

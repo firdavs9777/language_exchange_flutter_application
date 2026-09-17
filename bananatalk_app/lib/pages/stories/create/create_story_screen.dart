@@ -13,6 +13,7 @@ import 'package:bananatalk_app/pages/stories/widgets/stories_snackbar.dart';
 import 'package:bananatalk_app/pages/stories/create/gradient_picker.dart';
 import 'package:bananatalk_app/pages/stories/models/story_gradient.dart';
 import 'package:bananatalk_app/pages/stories/create/poll_sticker_editor.dart';
+import 'package:bananatalk_app/pages/stories/create/link_sticker_editor.dart';
 import 'package:bananatalk_app/pages/stories/create/question_sticker_editor.dart';
 import 'package:bananatalk_app/pages/stories/create/studio/draw_layer.dart';
 import 'package:bananatalk_app/pages/stories/create/studio/filter_bar.dart';
@@ -78,6 +79,9 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
 
   // Interactive stickers — a story carries at most one of these (matches backend).
   StoryPoll? _poll;
+
+  /// The optional link sticker. Null is the normal state.
+  StoryLink? _link;
   StoryQuestionBox? _questionBox;
 
   // Location tag (Task 7) — independent of poll/questionBox, may be combined
@@ -502,6 +506,7 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
           overlays: _overlays.map((o) => o.toJson()).toList(),
           location: _pickedLocation,
           mentions: _mentions,
+          link: _link,
         );
 
         if (mounted) {
@@ -545,6 +550,7 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
           hashtags: _hashtags,
           location: _pickedLocation,
           mentions: _mentions,
+          link: _link,
         );
 
         if (mounted) {
@@ -1281,6 +1287,7 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
   }
 
   void _openStickerMenu() {
+    final l10n = AppLocalizations.of(context)!;
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.grey[900],
@@ -1300,40 +1307,51 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
                 borderRadius: BorderRadius.circular(2),
               ),
             ),
-            ListTile(
-              leading: const Icon(Icons.poll, color: Color(0xFF00BFA5)),
-              title: const Text('Poll', style: TextStyle(color: Colors.white)),
-              subtitle: const Text('Ask a question with options', style: TextStyle(color: Colors.white54)),
+            _StickerOption(
+              icon: Icons.poll,
+              title: l10n.storyStickerPoll,
+              subtitle: l10n.storyStickerPollSubtitle,
               onTap: () {
                 Navigator.pop(ctx);
                 _openPollEditor();
               },
             ),
-            ListTile(
-              leading: const Icon(Icons.chat_bubble_outline, color: Color(0xFF00BFA5)),
-              title: const Text('Question', style: TextStyle(color: Colors.white)),
-              subtitle: const Text('Let viewers send you answers', style: TextStyle(color: Colors.white54)),
+            _StickerOption(
+              icon: Icons.chat_bubble_outline,
+              title: l10n.storyStickerQuestion,
+              subtitle: l10n.storyStickerQuestionSubtitle,
               onTap: () {
                 Navigator.pop(ctx);
                 _openQuestionEditor();
               },
             ),
-            ListTile(
-              leading: const Icon(Icons.place_outlined, color: Color(0xFF00BFA5)),
-              title: const Text('Location', style: TextStyle(color: Colors.white)),
-              subtitle: const Text('Tag where this story was taken', style: TextStyle(color: Colors.white54)),
+            _StickerOption(
+              icon: Icons.place_outlined,
+              title: l10n.storyStickerLocation,
+              subtitle: l10n.storyStickerLocationSubtitle,
               onTap: () {
                 Navigator.pop(ctx);
                 _pickLocation();
               },
             ),
-            ListTile(
-              leading: const Icon(Icons.alternate_email, color: Color(0xFF00BFA5)),
-              title: const Text('Mention', style: TextStyle(color: Colors.white)),
-              subtitle: const Text('Tag someone you follow', style: TextStyle(color: Colors.white54)),
+            _StickerOption(
+              icon: Icons.alternate_email,
+              title: l10n.storyStickerMention,
+              subtitle: l10n.storyStickerMentionSubtitle,
               onTap: () {
                 Navigator.pop(ctx);
                 _pickMention();
+              },
+            ),
+            // Story.link had schema support and no UI at all.
+            _StickerOption(
+              key: const Key('sticker-link'),
+              icon: Icons.link,
+              title: l10n.storyLink,
+              subtitle: l10n.storyLinkSubtitle,
+              onTap: () {
+                Navigator.pop(ctx);
+                _openLinkEditor();
               },
             ),
             const SizedBox(height: 8),
@@ -1341,6 +1359,16 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
         ),
       ),
     );
+  }
+
+  /// Attach or replace the link sticker.
+  ///
+  /// Only one link per story: a story is a single tap target, and two
+  /// competing buttons is how a viewer taps the one they did not mean.
+  Future<void> _openLinkEditor() async {
+    final link = await showLinkStickerEditor(context, initial: _link);
+    if (!mounted || link == null) return;
+    setState(() => _link = link);
   }
 
   Future<void> _openPollEditor() async {
@@ -1646,5 +1674,35 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
         _videoController!.play();
       }
     });
+  }
+}
+
+/// One row in the sticker menu.
+///
+/// Extracted because the four existing rows were four copies of the same
+/// ListTile with hardcoded English text and hardcoded colours — which is how
+/// the fifth would have drifted from the other four on its first edit.
+class _StickerOption extends StatelessWidget {
+  const _StickerOption({
+    super.key,
+    required this.icon,
+    required this.title,
+    required this.subtitle,
+    required this.onTap,
+  });
+
+  final IconData icon;
+  final String title;
+  final String subtitle;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: Icon(icon, color: const Color(0xFF00BFA5)),
+      title: Text(title, style: const TextStyle(color: Colors.white)),
+      subtitle: Text(subtitle, style: const TextStyle(color: Colors.white54)),
+      onTap: onTap,
+    );
   }
 }

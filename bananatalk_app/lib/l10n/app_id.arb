@@ -3408,5 +3408,22 @@
   "groupCoverRemove": "Hapus foto",
   "groupCoverAddOptional": "Tambahkan foto (opsional)",
   "clubsMine": "Klub saya",
-  "clubsMineEmpty": "Kamu belum bergabung dengan klub mana pun"
+  "clubsMineEmpty": "Kamu belum bergabung dengan klub mana pun",
+  "storyLink": "Tautan",
+  "storyLinkSubtitle": "Bawa penonton ke sebuah halaman",
+  "storyLinkAdd": "Tambahkan tautan",
+  "storyLinkUrlLabel": "Alamat tautan",
+  "storyLinkButtonLabel": "Teks tombol",
+  "storyLinkButtonDefault": "Lihat sekarang",
+  "storyLinkOpensHost": "Membuka {host}",
+  "storyLinkInvalid": "Masukkan alamat http atau https yang valid",
+  "storyStickerPoll": "Polling",
+  "storyStickerPollSubtitle": "Ajukan pertanyaan dengan pilihan",
+  "storyStickerQuestion": "Pertanyaan",
+  "storyStickerQuestionSubtitle": "Biarkan penonton mengirim jawaban",
+  "storyStickerLocation": "Lokasi",
+  "storyStickerLocationSubtitle": "Tandai tempat story ini diambil",
+  "storyStickerMention": "Sebutan",
+  "storyStickerMentionSubtitle": "Tandai orang yang kamu ikuti",
+  "storyToolDraw": "Gambar"
 }

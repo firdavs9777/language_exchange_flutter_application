@@ -8146,4 +8146,57 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get clubsMineEmpty => 'Du bist noch keinem Club beigetreten';
+
+  @override
+  String get storyLink => 'Link';
+
+  @override
+  String get storyLinkSubtitle => 'Führt Zuschauer auf eine Seite';
+
+  @override
+  String get storyLinkAdd => 'Link hinzufügen';
+
+  @override
+  String get storyLinkUrlLabel => 'Linkadresse';
+
+  @override
+  String get storyLinkButtonLabel => 'Buttontext';
+
+  @override
+  String get storyLinkButtonDefault => 'Jetzt ansehen';
+
+  @override
+  String storyLinkOpensHost(String host) {
+    return 'Öffnet $host';
+  }
+
+  @override
+  String get storyLinkInvalid => 'Gib eine gültige http- oder https-Adresse ein';
+
+  @override
+  String get storyStickerPoll => 'Umfrage';
+
+  @override
+  String get storyStickerPollSubtitle => 'Eine Frage mit Optionen stellen';
+
+  @override
+  String get storyStickerQuestion => 'Frage';
+
+  @override
+  String get storyStickerQuestionSubtitle => 'Zuschauer können dir antworten';
+
+  @override
+  String get storyStickerLocation => 'Ort';
+
+  @override
+  String get storyStickerLocationSubtitle => 'Markiere, wo diese Story entstand';
+
+  @override
+  String get storyStickerMention => 'Erwähnung';
+
+  @override
+  String get storyStickerMentionSubtitle => 'Markiere jemanden, dem du folgst';
+
+  @override
+  String get storyToolDraw => 'Zeichnen';
 }

@@ -1560,15 +1560,39 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
             const Icon(Icons.link, color: Colors.black87, size: 18),
             const SizedBox(width: 8),
             Flexible(
-              child: Text(
-                link.displayText,
-                style: const TextStyle(
-                  color: Colors.black87,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
-                ),
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    link.displayText,
+                    style: const TextStyle(
+                      color: Colors.black87,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                  ),
+                  // The real destination, under the label.
+                  //
+                  // The label is chosen by whoever posted the story, so a pill
+                  // reading "Shop Now" tells a viewer nothing about where a tap
+                  // goes — which is the entire phishing trick. The host comes
+                  // from the server's own URL parse, not from anything the
+                  // poster typed.
+                  if (link.host != null && link.host!.isNotEmpty)
+                    Text(
+                      link.host!,
+                      key: const Key('story-link-host'),
+                      style: const TextStyle(
+                        color: Colors.black54,
+                        fontSize: 11,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                    ),
+                ],
               ),
             ),
           ],

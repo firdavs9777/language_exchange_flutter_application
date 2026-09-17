@@ -8150,4 +8150,57 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get clubsMineEmpty => 'Шумо ҳанӯз ба ягон клуб ҳамроҳ нашудаед';
+
+  @override
+  String get storyLink => 'Пайванд';
+
+  @override
+  String get storyLinkSubtitle => 'Тамошобинонро ба саҳифа мебарад';
+
+  @override
+  String get storyLinkAdd => 'Илова кардани пайванд';
+
+  @override
+  String get storyLinkUrlLabel => 'Суроғаи пайванд';
+
+  @override
+  String get storyLinkButtonLabel => 'Матни тугма';
+
+  @override
+  String get storyLinkButtonDefault => 'Ҳозир бинед';
+
+  @override
+  String storyLinkOpensHost(String host) {
+    return '$host-ро мекушояд';
+  }
+
+  @override
+  String get storyLinkInvalid => 'Суроғаи дурусти http ё https ворид кунед';
+
+  @override
+  String get storyStickerPoll => 'Пурсиш';
+
+  @override
+  String get storyStickerPollSubtitle => 'Саволи дорои вариантҳо';
+
+  @override
+  String get storyStickerQuestion => 'Савол';
+
+  @override
+  String get storyStickerQuestionSubtitle => 'Бигзор тамошобинон ҷавоб фиристанд';
+
+  @override
+  String get storyStickerLocation => 'Ҷойгоҳ';
+
+  @override
+  String get storyStickerLocationSubtitle => 'Ҷои гирифтани ин ҳикояро қайд кунед';
+
+  @override
+  String get storyStickerMention => 'Ишора';
+
+  @override
+  String get storyStickerMentionSubtitle => 'Касеро, ки пайгирӣ мекунед, қайд кунед';
+
+  @override
+  String get storyToolDraw => 'Расм кашидан';
 }

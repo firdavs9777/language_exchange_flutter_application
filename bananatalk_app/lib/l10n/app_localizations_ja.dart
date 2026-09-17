@@ -8136,4 +8136,57 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get clubsMineEmpty => 'まだクラブに参加していません';
+
+  @override
+  String get storyLink => 'リンク';
+
+  @override
+  String get storyLinkSubtitle => '閲覧者をページへ誘導';
+
+  @override
+  String get storyLinkAdd => 'リンクを追加';
+
+  @override
+  String get storyLinkUrlLabel => 'リンクのアドレス';
+
+  @override
+  String get storyLinkButtonLabel => 'ボタンの文言';
+
+  @override
+  String get storyLinkButtonDefault => '今すぐ見る';
+
+  @override
+  String storyLinkOpensHost(String host) {
+    return '$host を開く';
+  }
+
+  @override
+  String get storyLinkInvalid => '有効な http または https のアドレスを入力してください';
+
+  @override
+  String get storyStickerPoll => 'アンケート';
+
+  @override
+  String get storyStickerPollSubtitle => '選択肢つきの質問';
+
+  @override
+  String get storyStickerQuestion => '質問';
+
+  @override
+  String get storyStickerQuestionSubtitle => '閲覧者から回答を受け取る';
+
+  @override
+  String get storyStickerLocation => '位置情報';
+
+  @override
+  String get storyStickerLocationSubtitle => 'このストーリーの場所をタグ付け';
+
+  @override
+  String get storyStickerMention => 'メンション';
+
+  @override
+  String get storyStickerMentionSubtitle => 'フォロー中の人をタグ付け';
+
+  @override
+  String get storyToolDraw => 'お絵かき';
 }

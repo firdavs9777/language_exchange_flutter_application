@@ -8146,4 +8146,57 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get clubsMineEmpty => 'आपने अभी तक कोई क्लब जॉइन नहीं किया';
+
+  @override
+  String get storyLink => 'लिंक';
+
+  @override
+  String get storyLinkSubtitle => 'देखने वालों को किसी पेज पर ले जाएं';
+
+  @override
+  String get storyLinkAdd => 'लिंक जोड़ें';
+
+  @override
+  String get storyLinkUrlLabel => 'लिंक पता';
+
+  @override
+  String get storyLinkButtonLabel => 'बटन टेक्स्ट';
+
+  @override
+  String get storyLinkButtonDefault => 'अभी देखें';
+
+  @override
+  String storyLinkOpensHost(String host) {
+    return '$host खोलेगा';
+  }
+
+  @override
+  String get storyLinkInvalid => 'मान्य http या https पता डालें';
+
+  @override
+  String get storyStickerPoll => 'पोल';
+
+  @override
+  String get storyStickerPollSubtitle => 'विकल्पों के साथ सवाल पूछें';
+
+  @override
+  String get storyStickerQuestion => 'सवाल';
+
+  @override
+  String get storyStickerQuestionSubtitle => 'देखने वाले आपको जवाब भेज सकें';
+
+  @override
+  String get storyStickerLocation => 'स्थान';
+
+  @override
+  String get storyStickerLocationSubtitle => 'टैग करें कि यह स्टोरी कहां ली गई';
+
+  @override
+  String get storyStickerMention => 'मेंशन';
+
+  @override
+  String get storyStickerMentionSubtitle => 'जिसे आप फ़ॉलो करते हैं उसे टैग करें';
+
+  @override
+  String get storyToolDraw => 'ड्रॉ';
 }

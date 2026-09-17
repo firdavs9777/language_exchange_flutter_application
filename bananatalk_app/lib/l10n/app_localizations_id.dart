@@ -8143,4 +8143,57 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get clubsMineEmpty => 'Kamu belum bergabung dengan klub mana pun';
+
+  @override
+  String get storyLink => 'Tautan';
+
+  @override
+  String get storyLinkSubtitle => 'Bawa penonton ke sebuah halaman';
+
+  @override
+  String get storyLinkAdd => 'Tambahkan tautan';
+
+  @override
+  String get storyLinkUrlLabel => 'Alamat tautan';
+
+  @override
+  String get storyLinkButtonLabel => 'Teks tombol';
+
+  @override
+  String get storyLinkButtonDefault => 'Lihat sekarang';
+
+  @override
+  String storyLinkOpensHost(String host) {
+    return 'Membuka $host';
+  }
+
+  @override
+  String get storyLinkInvalid => 'Masukkan alamat http atau https yang valid';
+
+  @override
+  String get storyStickerPoll => 'Polling';
+
+  @override
+  String get storyStickerPollSubtitle => 'Ajukan pertanyaan dengan pilihan';
+
+  @override
+  String get storyStickerQuestion => 'Pertanyaan';
+
+  @override
+  String get storyStickerQuestionSubtitle => 'Biarkan penonton mengirim jawaban';
+
+  @override
+  String get storyStickerLocation => 'Lokasi';
+
+  @override
+  String get storyStickerLocationSubtitle => 'Tandai tempat story ini diambil';
+
+  @override
+  String get storyStickerMention => 'Sebutan';
+
+  @override
+  String get storyStickerMentionSubtitle => 'Tandai orang yang kamu ikuti';
+
+  @override
+  String get storyToolDraw => 'Gambar';
 }

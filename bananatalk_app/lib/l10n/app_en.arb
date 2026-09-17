@@ -5656,5 +5656,29 @@
   "groupCoverRemove": "Remove photo",
   "groupCoverAddOptional": "Add a photo (optional)",
   "clubsMine": "My clubs",
-  "clubsMineEmpty": "You haven't joined a club yet"
+  "clubsMineEmpty": "You haven't joined a club yet",
+  "storyLink": "Link",
+  "storyLinkSubtitle": "Send viewers to a page",
+  "storyLinkAdd": "Add a link",
+  "storyLinkUrlLabel": "Link address",
+  "storyLinkButtonLabel": "Button text",
+  "storyLinkButtonDefault": "Shop Now",
+  "storyLinkOpensHost": "Opens {host}",
+  "storyLinkInvalid": "Enter a valid http or https address",
+  "storyStickerPoll": "Poll",
+  "storyStickerPollSubtitle": "Ask a question with options",
+  "storyStickerQuestion": "Question",
+  "storyStickerQuestionSubtitle": "Let viewers send you answers",
+  "storyStickerLocation": "Location",
+  "storyStickerLocationSubtitle": "Tag where this story was taken",
+  "storyStickerMention": "Mention",
+  "storyStickerMentionSubtitle": "Tag someone you follow",
+  "storyToolDraw": "Draw",
+  "@storyLinkOpensHost": {
+    "placeholders": {
+      "host": {
+        "type": "String"
+      }
+    }
+  }
 }

@@ -8136,4 +8136,57 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get clubsMineEmpty => 'คุณยังไม่ได้เข้าร่วมคลับใด';
+
+  @override
+  String get storyLink => 'ลิงก์';
+
+  @override
+  String get storyLinkSubtitle => 'พาผู้ชมไปยังหน้าเว็บ';
+
+  @override
+  String get storyLinkAdd => 'เพิ่มลิงก์';
+
+  @override
+  String get storyLinkUrlLabel => 'ที่อยู่ลิงก์';
+
+  @override
+  String get storyLinkButtonLabel => 'ข้อความปุ่ม';
+
+  @override
+  String get storyLinkButtonDefault => 'ดูเลย';
+
+  @override
+  String storyLinkOpensHost(String host) {
+    return 'เปิด $host';
+  }
+
+  @override
+  String get storyLinkInvalid => 'กรอกที่อยู่ http หรือ https ที่ถูกต้อง';
+
+  @override
+  String get storyStickerPoll => 'โพล';
+
+  @override
+  String get storyStickerPollSubtitle => 'ถามคำถามพร้อมตัวเลือก';
+
+  @override
+  String get storyStickerQuestion => 'คำถาม';
+
+  @override
+  String get storyStickerQuestionSubtitle => 'ให้ผู้ชมส่งคำตอบถึงคุณ';
+
+  @override
+  String get storyStickerLocation => 'ตำแหน่ง';
+
+  @override
+  String get storyStickerLocationSubtitle => 'แท็กสถานที่ถ่ายสตอรีนี้';
+
+  @override
+  String get storyStickerMention => 'กล่าวถึง';
+
+  @override
+  String get storyStickerMentionSubtitle => 'แท็กคนที่คุณติดตาม';
+
+  @override
+  String get storyToolDraw => 'วาด';
 }

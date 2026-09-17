@@ -3438,5 +3438,22 @@
   "groupCoverRemove": "Quitar foto",
   "groupCoverAddOptional": "Añadir una foto (opcional)",
   "clubsMine": "Mis clubes",
-  "clubsMineEmpty": "Aún no te has unido a ningún club"
+  "clubsMineEmpty": "Aún no te has unido a ningún club",
+  "storyLink": "Enlace",
+  "storyLinkSubtitle": "Lleva a quien lo vea a una página",
+  "storyLinkAdd": "Añadir un enlace",
+  "storyLinkUrlLabel": "Dirección del enlace",
+  "storyLinkButtonLabel": "Texto del botón",
+  "storyLinkButtonDefault": "Ver ahora",
+  "storyLinkOpensHost": "Abre {host}",
+  "storyLinkInvalid": "Introduce una dirección http o https válida",
+  "storyStickerPoll": "Encuesta",
+  "storyStickerPollSubtitle": "Haz una pregunta con opciones",
+  "storyStickerQuestion": "Pregunta",
+  "storyStickerQuestionSubtitle": "Deja que te envíen respuestas",
+  "storyStickerLocation": "Ubicación",
+  "storyStickerLocationSubtitle": "Etiqueta dónde se tomó esta historia",
+  "storyStickerMention": "Mención",
+  "storyStickerMentionSubtitle": "Etiqueta a alguien que sigues",
+  "storyToolDraw": "Dibujar"
 }

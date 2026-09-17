@@ -3408,5 +3408,22 @@
   "groupCoverRemove": "Xóa ảnh",
   "groupCoverAddOptional": "Thêm ảnh (tùy chọn)",
   "clubsMine": "Câu lạc bộ của tôi",
-  "clubsMineEmpty": "Bạn chưa tham gia câu lạc bộ nào"
+  "clubsMineEmpty": "Bạn chưa tham gia câu lạc bộ nào",
+  "storyLink": "Liên kết",
+  "storyLinkSubtitle": "Đưa người xem đến một trang",
+  "storyLinkAdd": "Thêm liên kết",
+  "storyLinkUrlLabel": "Địa chỉ liên kết",
+  "storyLinkButtonLabel": "Chữ trên nút",
+  "storyLinkButtonDefault": "Xem ngay",
+  "storyLinkOpensHost": "Mở {host}",
+  "storyLinkInvalid": "Nhập địa chỉ http hoặc https hợp lệ",
+  "storyStickerPoll": "Bình chọn",
+  "storyStickerPollSubtitle": "Đặt câu hỏi có lựa chọn",
+  "storyStickerQuestion": "Câu hỏi",
+  "storyStickerQuestionSubtitle": "Để người xem gửi câu trả lời",
+  "storyStickerLocation": "Vị trí",
+  "storyStickerLocationSubtitle": "Gắn thẻ nơi chụp tin này",
+  "storyStickerMention": "Nhắc đến",
+  "storyStickerMentionSubtitle": "Gắn thẻ người bạn theo dõi",
+  "storyToolDraw": "Vẽ"
 }

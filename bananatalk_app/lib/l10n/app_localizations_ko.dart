@@ -8136,4 +8136,57 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get clubsMineEmpty => '아직 가입한 클럽이 없어요';
+
+  @override
+  String get storyLink => '링크';
+
+  @override
+  String get storyLinkSubtitle => '보는 사람을 페이지로 보내기';
+
+  @override
+  String get storyLinkAdd => '링크 추가';
+
+  @override
+  String get storyLinkUrlLabel => '링크 주소';
+
+  @override
+  String get storyLinkButtonLabel => '버튼 문구';
+
+  @override
+  String get storyLinkButtonDefault => '지금 보기';
+
+  @override
+  String storyLinkOpensHost(String host) {
+    return '$host 열기';
+  }
+
+  @override
+  String get storyLinkInvalid => '올바른 http 또는 https 주소를 입력하세요';
+
+  @override
+  String get storyStickerPoll => '투표';
+
+  @override
+  String get storyStickerPollSubtitle => '선택지가 있는 질문하기';
+
+  @override
+  String get storyStickerQuestion => '질문';
+
+  @override
+  String get storyStickerQuestionSubtitle => '보는 사람이 답을 보낼 수 있어요';
+
+  @override
+  String get storyStickerLocation => '위치';
+
+  @override
+  String get storyStickerLocationSubtitle => '이 스토리를 찍은 장소 태그';
+
+  @override
+  String get storyStickerMention => '멘션';
+
+  @override
+  String get storyStickerMentionSubtitle => '팔로우하는 사람 태그';
+
+  @override
+  String get storyToolDraw => '그리기';
 }

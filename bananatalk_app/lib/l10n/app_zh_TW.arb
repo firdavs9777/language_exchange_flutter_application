@@ -3099,5 +3099,22 @@
   "groupCoverRemove": "移除照片",
   "groupCoverAddOptional": "新增照片（選填）",
   "clubsMine": "我的俱樂部",
-  "clubsMineEmpty": "你還沒有加入任何俱樂部"
+  "clubsMineEmpty": "你還沒有加入任何俱樂部",
+  "storyLink": "連結",
+  "storyLinkSubtitle": "把觀看者帶到某個頁面",
+  "storyLinkAdd": "新增連結",
+  "storyLinkUrlLabel": "連結網址",
+  "storyLinkButtonLabel": "按鈕文字",
+  "storyLinkButtonDefault": "立即查看",
+  "storyLinkOpensHost": "開啟 {host}",
+  "storyLinkInvalid": "請輸入有效的 http 或 https 網址",
+  "storyStickerPoll": "投票",
+  "storyStickerPollSubtitle": "提出帶選項的問題",
+  "storyStickerQuestion": "提問",
+  "storyStickerQuestionSubtitle": "讓觀看者給你回答",
+  "storyStickerLocation": "位置",
+  "storyStickerLocationSubtitle": "標記這則限時動態的拍攝地點",
+  "storyStickerMention": "提及",
+  "storyStickerMentionSubtitle": "標記你追蹤的人",
+  "storyToolDraw": "塗鴉"
 }

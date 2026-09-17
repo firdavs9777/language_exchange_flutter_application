@@ -8167,4 +8167,57 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get clubsMineEmpty => 'Вы ещё не вступили ни в один клуб';
+
+  @override
+  String get storyLink => 'Ссылка';
+
+  @override
+  String get storyLinkSubtitle => 'Отправит зрителей на страницу';
+
+  @override
+  String get storyLinkAdd => 'Добавить ссылку';
+
+  @override
+  String get storyLinkUrlLabel => 'Адрес ссылки';
+
+  @override
+  String get storyLinkButtonLabel => 'Текст кнопки';
+
+  @override
+  String get storyLinkButtonDefault => 'Смотреть';
+
+  @override
+  String storyLinkOpensHost(String host) {
+    return 'Откроет $host';
+  }
+
+  @override
+  String get storyLinkInvalid => 'Введите корректный адрес http или https';
+
+  @override
+  String get storyStickerPoll => 'Опрос';
+
+  @override
+  String get storyStickerPollSubtitle => 'Задать вопрос с вариантами';
+
+  @override
+  String get storyStickerQuestion => 'Вопрос';
+
+  @override
+  String get storyStickerQuestionSubtitle => 'Зрители смогут вам ответить';
+
+  @override
+  String get storyStickerLocation => 'Место';
+
+  @override
+  String get storyStickerLocationSubtitle => 'Отметьте, где снята история';
+
+  @override
+  String get storyStickerMention => 'Упоминание';
+
+  @override
+  String get storyStickerMentionSubtitle => 'Отметьте того, на кого подписаны';
+
+  @override
+  String get storyToolDraw => 'Рисовать';
 }

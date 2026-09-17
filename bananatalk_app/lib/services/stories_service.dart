@@ -254,6 +254,12 @@ class StoriesService {
         if (hashtags != null && hashtags.isNotEmpty) {
           request.fields['hashtags'] = jsonEncode(hashtags);
         }
+        // The parameter existed and was never sent — the sticker could not
+        // have worked even once. Server-side parseStoryLink stays
+        // authoritative about what is acceptable.
+        if (link != null) {
+          request.fields['link'] = jsonEncode(link.toJson());
+        }
         if (location != null) {
           request.fields['location'] = jsonEncode(location.toJson());
         }
@@ -349,6 +355,8 @@ class StoriesService {
     List<String>? hashtags,
     StoryLocation? location,
     List<StoryMention>? mentions,
+    /// A text story carries a link just as usefully as a photo one.
+    StoryLink? link,
   }) async {
     try {
       final token = await _getToken();
@@ -374,6 +382,7 @@ class StoriesService {
         'allowSharing': allowSharing,
         if (overlays != null && overlays.isNotEmpty) 'overlays': overlays,
         if (hashtags != null && hashtags.isNotEmpty) 'hashtags': hashtags,
+        if (link != null) 'link': link.toJson(),
         if (location != null) 'location': location.toJson(),
         if (mentions != null && mentions.isNotEmpty)
           'mentions': _mentionsToBackendJson(mentions),

@@ -8136,6 +8136,59 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get clubsMineEmpty => '你还没有加入任何俱乐部';
+
+  @override
+  String get storyLink => '链接';
+
+  @override
+  String get storyLinkSubtitle => '把观看者带到某个页面';
+
+  @override
+  String get storyLinkAdd => '添加链接';
+
+  @override
+  String get storyLinkUrlLabel => '链接地址';
+
+  @override
+  String get storyLinkButtonLabel => '按钮文字';
+
+  @override
+  String get storyLinkButtonDefault => '立即查看';
+
+  @override
+  String storyLinkOpensHost(String host) {
+    return '打开 $host';
+  }
+
+  @override
+  String get storyLinkInvalid => '请输入有效的 http 或 https 地址';
+
+  @override
+  String get storyStickerPoll => '投票';
+
+  @override
+  String get storyStickerPollSubtitle => '提出带选项的问题';
+
+  @override
+  String get storyStickerQuestion => '提问';
+
+  @override
+  String get storyStickerQuestionSubtitle => '让观看者给你回答';
+
+  @override
+  String get storyStickerLocation => '位置';
+
+  @override
+  String get storyStickerLocationSubtitle => '标记这条快拍的拍摄地点';
+
+  @override
+  String get storyStickerMention => '提及';
+
+  @override
+  String get storyStickerMentionSubtitle => '标记你关注的人';
+
+  @override
+  String get storyToolDraw => '涂鸦';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -16270,4 +16323,57 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get clubsMineEmpty => '你還沒有加入任何俱樂部';
+
+  @override
+  String get storyLink => '連結';
+
+  @override
+  String get storyLinkSubtitle => '把觀看者帶到某個頁面';
+
+  @override
+  String get storyLinkAdd => '新增連結';
+
+  @override
+  String get storyLinkUrlLabel => '連結網址';
+
+  @override
+  String get storyLinkButtonLabel => '按鈕文字';
+
+  @override
+  String get storyLinkButtonDefault => '立即查看';
+
+  @override
+  String storyLinkOpensHost(String host) {
+    return '開啟 $host';
+  }
+
+  @override
+  String get storyLinkInvalid => '請輸入有效的 http 或 https 網址';
+
+  @override
+  String get storyStickerPoll => '投票';
+
+  @override
+  String get storyStickerPollSubtitle => '提出帶選項的問題';
+
+  @override
+  String get storyStickerQuestion => '提問';
+
+  @override
+  String get storyStickerQuestionSubtitle => '讓觀看者給你回答';
+
+  @override
+  String get storyStickerLocation => '位置';
+
+  @override
+  String get storyStickerLocationSubtitle => '標記這則限時動態的拍攝地點';
+
+  @override
+  String get storyStickerMention => '提及';
+
+  @override
+  String get storyStickerMentionSubtitle => '標記你追蹤的人';
+
+  @override
+  String get storyToolDraw => '塗鴉';
 }

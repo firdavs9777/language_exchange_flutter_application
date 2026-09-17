@@ -8144,4 +8144,57 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get clubsMineEmpty => 'Henüz bir kulübe katılmadın';
+
+  @override
+  String get storyLink => 'Bağlantı';
+
+  @override
+  String get storyLinkSubtitle => 'İzleyicileri bir sayfaya götürür';
+
+  @override
+  String get storyLinkAdd => 'Bağlantı ekle';
+
+  @override
+  String get storyLinkUrlLabel => 'Bağlantı adresi';
+
+  @override
+  String get storyLinkButtonLabel => 'Düğme metni';
+
+  @override
+  String get storyLinkButtonDefault => 'Şimdi bak';
+
+  @override
+  String storyLinkOpensHost(String host) {
+    return '$host açılır';
+  }
+
+  @override
+  String get storyLinkInvalid => 'Geçerli bir http veya https adresi gir';
+
+  @override
+  String get storyStickerPoll => 'Anket';
+
+  @override
+  String get storyStickerPollSubtitle => 'Seçenekli bir soru sor';
+
+  @override
+  String get storyStickerQuestion => 'Soru';
+
+  @override
+  String get storyStickerQuestionSubtitle => 'İzleyiciler sana yanıt göndersin';
+
+  @override
+  String get storyStickerLocation => 'Konum';
+
+  @override
+  String get storyStickerLocationSubtitle => 'Bu hikâyenin çekildiği yeri etiketle';
+
+  @override
+  String get storyStickerMention => 'Bahset';
+
+  @override
+  String get storyStickerMentionSubtitle => 'Takip ettiğin birini etiketle';
+
+  @override
+  String get storyToolDraw => 'Çiz';
 }

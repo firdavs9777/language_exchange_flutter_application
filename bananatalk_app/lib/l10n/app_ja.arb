@@ -3408,5 +3408,22 @@
   "groupCoverRemove": "写真を削除",
   "groupCoverAddOptional": "写真を追加（任意）",
   "clubsMine": "マイクラブ",
-  "clubsMineEmpty": "まだクラブに参加していません"
+  "clubsMineEmpty": "まだクラブに参加していません",
+  "storyLink": "リンク",
+  "storyLinkSubtitle": "閲覧者をページへ誘導",
+  "storyLinkAdd": "リンクを追加",
+  "storyLinkUrlLabel": "リンクのアドレス",
+  "storyLinkButtonLabel": "ボタンの文言",
+  "storyLinkButtonDefault": "今すぐ見る",
+  "storyLinkOpensHost": "{host} を開く",
+  "storyLinkInvalid": "有効な http または https のアドレスを入力してください",
+  "storyStickerPoll": "アンケート",
+  "storyStickerPollSubtitle": "選択肢つきの質問",
+  "storyStickerQuestion": "質問",
+  "storyStickerQuestionSubtitle": "閲覧者から回答を受け取る",
+  "storyStickerLocation": "位置情報",
+  "storyStickerLocationSubtitle": "このストーリーの場所をタグ付け",
+  "storyStickerMention": "メンション",
+  "storyStickerMentionSubtitle": "フォロー中の人をタグ付け",
+  "storyToolDraw": "お絵かき"
 }

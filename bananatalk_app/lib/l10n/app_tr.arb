@@ -3620,5 +3620,22 @@
   "groupCoverRemove": "Fotoğrafı kaldır",
   "groupCoverAddOptional": "Fotoğraf ekle (isteğe bağlı)",
   "clubsMine": "Kulüplerim",
-  "clubsMineEmpty": "Henüz bir kulübe katılmadın"
+  "clubsMineEmpty": "Henüz bir kulübe katılmadın",
+  "storyLink": "Bağlantı",
+  "storyLinkSubtitle": "İzleyicileri bir sayfaya götürür",
+  "storyLinkAdd": "Bağlantı ekle",
+  "storyLinkUrlLabel": "Bağlantı adresi",
+  "storyLinkButtonLabel": "Düğme metni",
+  "storyLinkButtonDefault": "Şimdi bak",
+  "storyLinkOpensHost": "{host} açılır",
+  "storyLinkInvalid": "Geçerli bir http veya https adresi gir",
+  "storyStickerPoll": "Anket",
+  "storyStickerPollSubtitle": "Seçenekli bir soru sor",
+  "storyStickerQuestion": "Soru",
+  "storyStickerQuestionSubtitle": "İzleyiciler sana yanıt göndersin",
+  "storyStickerLocation": "Konum",
+  "storyStickerLocationSubtitle": "Bu hikâyenin çekildiği yeri etiketle",
+  "storyStickerMention": "Bahset",
+  "storyStickerMentionSubtitle": "Takip ettiğin birini etiketle",
+  "storyToolDraw": "Çiz"
 }

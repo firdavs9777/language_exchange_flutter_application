@@ -3381,5 +3381,22 @@
   "groupCoverRemove": "Alisin ang larawan",
   "groupCoverAddOptional": "Magdagdag ng larawan (opsyonal)",
   "clubsMine": "Mga club ko",
-  "clubsMineEmpty": "Wala ka pang sinasalihang club"
+  "clubsMineEmpty": "Wala ka pang sinasalihang club",
+  "storyLink": "Link",
+  "storyLinkSubtitle": "Dalhin ang manonood sa isang page",
+  "storyLinkAdd": "Magdagdag ng link",
+  "storyLinkUrlLabel": "Address ng link",
+  "storyLinkButtonLabel": "Teksto ng button",
+  "storyLinkButtonDefault": "Tingnan na",
+  "storyLinkOpensHost": "Bubuksan ang {host}",
+  "storyLinkInvalid": "Maglagay ng valid na http o https address",
+  "storyStickerPoll": "Poll",
+  "storyStickerPollSubtitle": "Magtanong na may mga pagpipilian",
+  "storyStickerQuestion": "Tanong",
+  "storyStickerQuestionSubtitle": "Hayaang magpadala sila ng sagot",
+  "storyStickerLocation": "Lokasyon",
+  "storyStickerLocationSubtitle": "I-tag kung saan kinuha ito",
+  "storyStickerMention": "Banggit",
+  "storyStickerMentionSubtitle": "I-tag ang sinusundan mo",
+  "storyToolDraw": "Gumuhit"
 }

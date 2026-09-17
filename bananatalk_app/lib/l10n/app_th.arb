@@ -3408,5 +3408,22 @@
   "groupCoverRemove": "ลบรูป",
   "groupCoverAddOptional": "เพิ่มรูป (ไม่บังคับ)",
   "clubsMine": "คลับของฉัน",
-  "clubsMineEmpty": "คุณยังไม่ได้เข้าร่วมคลับใด"
+  "clubsMineEmpty": "คุณยังไม่ได้เข้าร่วมคลับใด",
+  "storyLink": "ลิงก์",
+  "storyLinkSubtitle": "พาผู้ชมไปยังหน้าเว็บ",
+  "storyLinkAdd": "เพิ่มลิงก์",
+  "storyLinkUrlLabel": "ที่อยู่ลิงก์",
+  "storyLinkButtonLabel": "ข้อความปุ่ม",
+  "storyLinkButtonDefault": "ดูเลย",
+  "storyLinkOpensHost": "เปิด {host}",
+  "storyLinkInvalid": "กรอกที่อยู่ http หรือ https ที่ถูกต้อง",
+  "storyStickerPoll": "โพล",
+  "storyStickerPollSubtitle": "ถามคำถามพร้อมตัวเลือก",
+  "storyStickerQuestion": "คำถาม",
+  "storyStickerQuestionSubtitle": "ให้ผู้ชมส่งคำตอบถึงคุณ",
+  "storyStickerLocation": "ตำแหน่ง",
+  "storyStickerLocationSubtitle": "แท็กสถานที่ถ่ายสตอรีนี้",
+  "storyStickerMention": "กล่าวถึง",
+  "storyStickerMentionSubtitle": "แท็กคนที่คุณติดตาม",
+  "storyToolDraw": "วาด"
 }

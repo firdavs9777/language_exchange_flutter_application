@@ -673,14 +673,23 @@ class StoryLink {
   final String? title;
   final String displayText;
 
+  /// The real destination host, supplied by the server.
+  ///
+  /// Shown under the button so a viewer can see where a tap actually goes. A
+  /// sticker reading "Shop Now" that silently opens an unrelated domain is the
+  /// entire trick, and the label is chosen by whoever posted the story.
+  final String? host;
+
   const StoryLink({
     required this.url,
     this.title,
     this.displayText = 'Learn More',
+    this.host,
   });
 
   factory StoryLink.fromJson(Map<String, dynamic> json) {
     return StoryLink(
+      host: json['host']?.toString(),
       url: json['url']?.toString() ?? '',
       title: json['title']?.toString(),
       displayText: json['displayText']?.toString() ?? 'Learn More',

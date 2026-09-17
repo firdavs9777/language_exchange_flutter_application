@@ -3422,5 +3422,22 @@
   "groupCoverRemove": "移除照片",
   "groupCoverAddOptional": "添加照片（可选）",
   "clubsMine": "我的俱乐部",
-  "clubsMineEmpty": "你还没有加入任何俱乐部"
+  "clubsMineEmpty": "你还没有加入任何俱乐部",
+  "storyLink": "链接",
+  "storyLinkSubtitle": "把观看者带到某个页面",
+  "storyLinkAdd": "添加链接",
+  "storyLinkUrlLabel": "链接地址",
+  "storyLinkButtonLabel": "按钮文字",
+  "storyLinkButtonDefault": "立即查看",
+  "storyLinkOpensHost": "打开 {host}",
+  "storyLinkInvalid": "请输入有效的 http 或 https 地址",
+  "storyStickerPoll": "投票",
+  "storyStickerPollSubtitle": "提出带选项的问题",
+  "storyStickerQuestion": "提问",
+  "storyStickerQuestionSubtitle": "让观看者给你回答",
+  "storyStickerLocation": "位置",
+  "storyStickerLocationSubtitle": "标记这条快拍的拍摄地点",
+  "storyStickerMention": "提及",
+  "storyStickerMentionSubtitle": "标记你关注的人",
+  "storyToolDraw": "涂鸦"
 }

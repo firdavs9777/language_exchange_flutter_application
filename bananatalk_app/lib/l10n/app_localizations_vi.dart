@@ -8136,4 +8136,57 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get clubsMineEmpty => 'Bạn chưa tham gia câu lạc bộ nào';
+
+  @override
+  String get storyLink => 'Liên kết';
+
+  @override
+  String get storyLinkSubtitle => 'Đưa người xem đến một trang';
+
+  @override
+  String get storyLinkAdd => 'Thêm liên kết';
+
+  @override
+  String get storyLinkUrlLabel => 'Địa chỉ liên kết';
+
+  @override
+  String get storyLinkButtonLabel => 'Chữ trên nút';
+
+  @override
+  String get storyLinkButtonDefault => 'Xem ngay';
+
+  @override
+  String storyLinkOpensHost(String host) {
+    return 'Mở $host';
+  }
+
+  @override
+  String get storyLinkInvalid => 'Nhập địa chỉ http hoặc https hợp lệ';
+
+  @override
+  String get storyStickerPoll => 'Bình chọn';
+
+  @override
+  String get storyStickerPollSubtitle => 'Đặt câu hỏi có lựa chọn';
+
+  @override
+  String get storyStickerQuestion => 'Câu hỏi';
+
+  @override
+  String get storyStickerQuestionSubtitle => 'Để người xem gửi câu trả lời';
+
+  @override
+  String get storyStickerLocation => 'Vị trí';
+
+  @override
+  String get storyStickerLocationSubtitle => 'Gắn thẻ nơi chụp tin này';
+
+  @override
+  String get storyStickerMention => 'Nhắc đến';
+
+  @override
+  String get storyStickerMentionSubtitle => 'Gắn thẻ người bạn theo dõi';
+
+  @override
+  String get storyToolDraw => 'Vẽ';
 }

@@ -3438,5 +3438,22 @@
   "groupCoverRemove": "إزالة الصورة",
   "groupCoverAddOptional": "إضافة صورة (اختياري)",
   "clubsMine": "أنديتي",
-  "clubsMineEmpty": "لم تنضم إلى أي نادٍ بعد"
+  "clubsMineEmpty": "لم تنضم إلى أي نادٍ بعد",
+  "storyLink": "رابط",
+  "storyLinkSubtitle": "ينقل المشاهدين إلى صفحة",
+  "storyLinkAdd": "إضافة رابط",
+  "storyLinkUrlLabel": "عنوان الرابط",
+  "storyLinkButtonLabel": "نص الزر",
+  "storyLinkButtonDefault": "تسوّق الآن",
+  "storyLinkOpensHost": "يفتح {host}",
+  "storyLinkInvalid": "أدخل عنوان http أو https صالحًا",
+  "storyStickerPoll": "استطلاع",
+  "storyStickerPollSubtitle": "اطرح سؤالًا بخيارات",
+  "storyStickerQuestion": "سؤال",
+  "storyStickerQuestionSubtitle": "دع المشاهدين يرسلون إجاباتهم",
+  "storyStickerLocation": "الموقع",
+  "storyStickerLocationSubtitle": "حدّد مكان تصوير هذه القصة",
+  "storyStickerMention": "إشارة",
+  "storyStickerMentionSubtitle": "أشر إلى شخص تتابعه",
+  "storyToolDraw": "رسم"
 }

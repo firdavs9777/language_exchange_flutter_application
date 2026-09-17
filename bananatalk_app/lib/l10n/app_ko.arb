@@ -3429,5 +3429,22 @@
   "groupCoverRemove": "사진 삭제",
   "groupCoverAddOptional": "사진 추가 (선택)",
   "clubsMine": "내 클럽",
-  "clubsMineEmpty": "아직 가입한 클럽이 없어요"
+  "clubsMineEmpty": "아직 가입한 클럽이 없어요",
+  "storyLink": "링크",
+  "storyLinkSubtitle": "보는 사람을 페이지로 보내기",
+  "storyLinkAdd": "링크 추가",
+  "storyLinkUrlLabel": "링크 주소",
+  "storyLinkButtonLabel": "버튼 문구",
+  "storyLinkButtonDefault": "지금 보기",
+  "storyLinkOpensHost": "{host} 열기",
+  "storyLinkInvalid": "올바른 http 또는 https 주소를 입력하세요",
+  "storyStickerPoll": "투표",
+  "storyStickerPollSubtitle": "선택지가 있는 질문하기",
+  "storyStickerQuestion": "질문",
+  "storyStickerQuestionSubtitle": "보는 사람이 답을 보낼 수 있어요",
+  "storyStickerLocation": "위치",
+  "storyStickerLocationSubtitle": "이 스토리를 찍은 장소 태그",
+  "storyStickerMention": "멘션",
+  "storyStickerMentionSubtitle": "팔로우하는 사람 태그",
+  "storyToolDraw": "그리기"
 }

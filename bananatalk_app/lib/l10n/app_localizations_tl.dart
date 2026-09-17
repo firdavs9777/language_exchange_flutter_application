@@ -8146,4 +8146,57 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get clubsMineEmpty => 'Wala ka pang sinasalihang club';
+
+  @override
+  String get storyLink => 'Link';
+
+  @override
+  String get storyLinkSubtitle => 'Dalhin ang manonood sa isang page';
+
+  @override
+  String get storyLinkAdd => 'Magdagdag ng link';
+
+  @override
+  String get storyLinkUrlLabel => 'Address ng link';
+
+  @override
+  String get storyLinkButtonLabel => 'Teksto ng button';
+
+  @override
+  String get storyLinkButtonDefault => 'Tingnan na';
+
+  @override
+  String storyLinkOpensHost(String host) {
+    return 'Bubuksan ang $host';
+  }
+
+  @override
+  String get storyLinkInvalid => 'Maglagay ng valid na http o https address';
+
+  @override
+  String get storyStickerPoll => 'Poll';
+
+  @override
+  String get storyStickerPollSubtitle => 'Magtanong na may mga pagpipilian';
+
+  @override
+  String get storyStickerQuestion => 'Tanong';
+
+  @override
+  String get storyStickerQuestionSubtitle => 'Hayaang magpadala sila ng sagot';
+
+  @override
+  String get storyStickerLocation => 'Lokasyon';
+
+  @override
+  String get storyStickerLocationSubtitle => 'I-tag kung saan kinuha ito';
+
+  @override
+  String get storyStickerMention => 'Banggit';
+
+  @override
+  String get storyStickerMentionSubtitle => 'I-tag ang sinusundan mo';
+
+  @override
+  String get storyToolDraw => 'Gumuhit';
 }

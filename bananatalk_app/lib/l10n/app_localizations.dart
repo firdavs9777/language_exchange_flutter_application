@@ -15031,6 +15031,108 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You haven\'t joined a club yet'**
   String get clubsMineEmpty;
+
+  /// No description provided for @storyLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Link'**
+  String get storyLink;
+
+  /// No description provided for @storyLinkSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Send viewers to a page'**
+  String get storyLinkSubtitle;
+
+  /// No description provided for @storyLinkAdd.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a link'**
+  String get storyLinkAdd;
+
+  /// No description provided for @storyLinkUrlLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Link address'**
+  String get storyLinkUrlLabel;
+
+  /// No description provided for @storyLinkButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Button text'**
+  String get storyLinkButtonLabel;
+
+  /// No description provided for @storyLinkButtonDefault.
+  ///
+  /// In en, this message translates to:
+  /// **'Shop Now'**
+  String get storyLinkButtonDefault;
+
+  /// No description provided for @storyLinkOpensHost.
+  ///
+  /// In en, this message translates to:
+  /// **'Opens {host}'**
+  String storyLinkOpensHost(String host);
+
+  /// No description provided for @storyLinkInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a valid http or https address'**
+  String get storyLinkInvalid;
+
+  /// No description provided for @storyStickerPoll.
+  ///
+  /// In en, this message translates to:
+  /// **'Poll'**
+  String get storyStickerPoll;
+
+  /// No description provided for @storyStickerPollSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Ask a question with options'**
+  String get storyStickerPollSubtitle;
+
+  /// No description provided for @storyStickerQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Question'**
+  String get storyStickerQuestion;
+
+  /// No description provided for @storyStickerQuestionSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Let viewers send you answers'**
+  String get storyStickerQuestionSubtitle;
+
+  /// No description provided for @storyStickerLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Location'**
+  String get storyStickerLocation;
+
+  /// No description provided for @storyStickerLocationSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Tag where this story was taken'**
+  String get storyStickerLocationSubtitle;
+
+  /// No description provided for @storyStickerMention.
+  ///
+  /// In en, this message translates to:
+  /// **'Mention'**
+  String get storyStickerMention;
+
+  /// No description provided for @storyStickerMentionSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Tag someone you follow'**
+  String get storyStickerMentionSubtitle;
+
+  /// No description provided for @storyToolDraw.
+  ///
+  /// In en, this message translates to:
+  /// **'Draw'**
+  String get storyToolDraw;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

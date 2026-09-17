@@ -3424,5 +3424,22 @@
   "groupCoverRemove": "फ़ोटो हटाएं",
   "groupCoverAddOptional": "फ़ोटो जोड़ें (वैकल्पिक)",
   "clubsMine": "मेरे क्लब",
-  "clubsMineEmpty": "आपने अभी तक कोई क्लब जॉइन नहीं किया"
+  "clubsMineEmpty": "आपने अभी तक कोई क्लब जॉइन नहीं किया",
+  "storyLink": "लिंक",
+  "storyLinkSubtitle": "देखने वालों को किसी पेज पर ले जाएं",
+  "storyLinkAdd": "लिंक जोड़ें",
+  "storyLinkUrlLabel": "लिंक पता",
+  "storyLinkButtonLabel": "बटन टेक्स्ट",
+  "storyLinkButtonDefault": "अभी देखें",
+  "storyLinkOpensHost": "{host} खोलेगा",
+  "storyLinkInvalid": "मान्य http या https पता डालें",
+  "storyStickerPoll": "पोल",
+  "storyStickerPollSubtitle": "विकल्पों के साथ सवाल पूछें",
+  "storyStickerQuestion": "सवाल",
+  "storyStickerQuestionSubtitle": "देखने वाले आपको जवाब भेज सकें",
+  "storyStickerLocation": "स्थान",
+  "storyStickerLocationSubtitle": "टैग करें कि यह स्टोरी कहां ली गई",
+  "storyStickerMention": "मेंशन",
+  "storyStickerMentionSubtitle": "जिसे आप फ़ॉलो करते हैं उसे टैग करें",
+  "storyToolDraw": "ड्रॉ"
 }

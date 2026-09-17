@@ -8158,4 +8158,57 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get clubsMineEmpty => 'لم تنضم إلى أي نادٍ بعد';
+
+  @override
+  String get storyLink => 'رابط';
+
+  @override
+  String get storyLinkSubtitle => 'ينقل المشاهدين إلى صفحة';
+
+  @override
+  String get storyLinkAdd => 'إضافة رابط';
+
+  @override
+  String get storyLinkUrlLabel => 'عنوان الرابط';
+
+  @override
+  String get storyLinkButtonLabel => 'نص الزر';
+
+  @override
+  String get storyLinkButtonDefault => 'تسوّق الآن';
+
+  @override
+  String storyLinkOpensHost(String host) {
+    return 'يفتح $host';
+  }
+
+  @override
+  String get storyLinkInvalid => 'أدخل عنوان http أو https صالحًا';
+
+  @override
+  String get storyStickerPoll => 'استطلاع';
+
+  @override
+  String get storyStickerPollSubtitle => 'اطرح سؤالًا بخيارات';
+
+  @override
+  String get storyStickerQuestion => 'سؤال';
+
+  @override
+  String get storyStickerQuestionSubtitle => 'دع المشاهدين يرسلون إجاباتهم';
+
+  @override
+  String get storyStickerLocation => 'الموقع';
+
+  @override
+  String get storyStickerLocationSubtitle => 'حدّد مكان تصوير هذه القصة';
+
+  @override
+  String get storyStickerMention => 'إشارة';
+
+  @override
+  String get storyStickerMentionSubtitle => 'أشر إلى شخص تتابعه';
+
+  @override
+  String get storyToolDraw => 'رسم';
 }
