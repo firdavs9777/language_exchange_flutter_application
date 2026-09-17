@@ -25,6 +25,7 @@ import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:bananatalk_app/pages/moments/widgets/moments_snackbar.dart';
+import 'package:bananatalk_app/pages/moments/create/moment_draft_rules.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/pages/moments/create/create_action_helpers.dart';
 import 'package:bananatalk_app/pages/moments/create/create_tag_dialog.dart';
@@ -110,8 +111,10 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
   bool _showPromptChip = false;
   String? _promptId;
 
-  static const int maxImages = 10;
-  static const int maxDescriptionLength = 2000;
+  // Aliases, so the widget keeps its familiar names while the values live in
+  // one place with the rules that use them.
+  static const int maxImages = kMaxImages;
+  static const int maxDescriptionLength = kMaxDescriptionLength;
 
   final List<String> _privacyOptions = ['Public', 'Friends', 'Private'];
   final List<String> _categories = [
@@ -273,11 +276,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
   /// display name (e.g. `'Korean'`), used to default the language dropdown
   /// in reel mode. Falls back to English if the code isn't in the list.
   void _applyLanguageCode(String code) {
-    final entry = _languages.entries.firstWhere(
-      (e) => e.value == code,
-      orElse: () => const MapEntry('English', 'en'),
-    );
-    _selectedLanguage = entry.key;
+    _selectedLanguage = languageNameForCode(code, _languages);
   }
 
   @override
@@ -365,7 +364,10 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     final pickedFiles = await picker.pickMultiImage();
 
     if (pickedFiles != null) {
-      final remainingSlots = maxImages - _selectedImages.length;
+      final remainingSlots = imagesAddable(
+        current: _selectedImages.length,
+        adding: pickedFiles.length,
+      );
       final filesToAdd = pickedFiles
           .take(remainingSlots)
           .map((file) => File(file.path))
@@ -1215,23 +1217,16 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     );
   }
 
-  // Validate input before creating moment
-  String? _validateInputs() {
-    final description = descriptionController.text.trim();
-    if (description.isEmpty) {
-      return 'Caption is required';
-    }
-    if (description.length > maxDescriptionLength) {
-      return 'Caption must be $maxDescriptionLength characters or less';
-    }
-    if (_tags.length > 5) {
-      return 'Maximum 5 tags allowed';
-    }
-    if (_scheduledDate != null && _scheduledDate!.isBefore(DateTime.now())) {
-      return 'Scheduled date must be in the future';
-    }
-    return null;
-  }
+  // Validate input before creating moment.
+  //
+  // The rules live in moment_draft_rules.dart so they can be tested without a
+  // camera, a gallery or a network — this file had none.
+  String? _validateInputs() => validateMomentDraft(
+    description: descriptionController.text,
+    tags: _tags,
+    scheduledDate: _scheduledDate,
+    now: DateTime.now(),
+  );
 
   // Format location data for backend (GeoJSON format)
   Map<String, dynamic>? _formatLocationData() {
