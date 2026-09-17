@@ -419,6 +419,13 @@ class MomentGradients {
     'gradient_gold': [0xFFF7971E, 0xFFFFD200],
     'gradient_nightclub': [0xFF8E2DE2, 0xFFFF6FD8],
     'gradient_arctic': [0xFFE0EAFC, 0xFFCFDEF3],
+    'gradient_peach': [0xFFFFB347, 0xFFFFCC33],
+    'gradient_lavender': [0xFF9D50BB, 0xFF6E48AA],
+    'gradient_mint': [0xFF00B09B, 0xFF96C93D],
+    'gradient_rose': [0xFFF4C4F3, 0xFFFC67FA],
+    'gradient_slate': [0xFF485563, 0xFF29323C],
+    'gradient_ember': [0xFFCB356B, 0xFFBD3F32],
+    'gradient_lagoon': [0xFF43C6AC, 0xFF191654],
   };
 
   static const String defaultGradient = 'gradient_purple';
@@ -426,6 +433,14 @@ class MomentGradients {
   static List<int> getColors(String key) {
     return presets[key] ?? presets[defaultGradient]!;
   }
+
+  /// Every key the picker may offer.
+  ///
+  /// Must match `MOMENT_GRADIENTS` in `backend/lib/momentGradients.js`. A key
+  /// this list has and the server does not is not a cosmetic mismatch: the
+  /// server rejects it on save, so the moment never posts. There is a test
+  /// that reads the server's file directly rather than a copy of it.
+  static List<String> get keys => presets.keys.toList(growable: false);
 }
 
 /// Reaction on a comment
