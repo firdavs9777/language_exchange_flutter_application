@@ -3379,5 +3379,7 @@
   "notifyRepliesLater": "Để sau",
   "notificationsOffTitle": "Thông báo đang tắt",
   "notificationsOffBody": "Thiết bị của bạn đang chặn thông báo từ BananaTalk nên lời nhắc và tin nhắn không thể đến với bạn. Các cài đặt bên dưới sẽ chưa có hiệu lực cho đến khi bạn bật lên.",
-  "notificationsOffOpen": "Mở cài đặt"
+  "notificationsOffOpen": "Mở cài đặt",
+  "reportGathering": "Báo cáo buổi gặp",
+  "reportClub": "Báo cáo câu lạc bộ"
 }

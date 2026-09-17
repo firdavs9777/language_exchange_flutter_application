@@ -3409,5 +3409,7 @@
   "notifyRepliesLater": "ليس الآن",
   "notificationsOffTitle": "الإشعارات مُعطَّلة",
   "notificationsOffBody": "جهازك يحظر إشعارات BananaTalk، لذا لا تصلك التذكيرات والرسائل. لن تُطبَّق الإعدادات أدناه حتى تُفعّلها.",
-  "notificationsOffOpen": "فتح الإعدادات"
+  "notificationsOffOpen": "فتح الإعدادات",
+  "reportGathering": "الإبلاغ عن اللقاء",
+  "reportClub": "الإبلاغ عن النادي"
 }

@@ -3395,5 +3395,7 @@
   "notifyRepliesLater": "Agora não",
   "notificationsOffTitle": "As notificações estão desativadas",
   "notificationsOffBody": "O seu dispositivo está a bloquear as notificações do BananaTalk, por isso lembretes e mensagens não chegam até si. As definições abaixo só terão efeito depois de as ativar.",
-  "notificationsOffOpen": "Abrir definições"
+  "notificationsOffOpen": "Abrir definições",
+  "reportGathering": "Denunciar encontro",
+  "reportClub": "Denunciar clube"
 }

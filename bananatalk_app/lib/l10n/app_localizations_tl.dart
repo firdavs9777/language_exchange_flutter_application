@@ -8051,4 +8051,10 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get notificationsOffOpen => 'Buksan ang settings';
+
+  @override
+  String get reportGathering => 'I-report ang gathering';
+
+  @override
+  String get reportClub => 'I-report ang club';
 }

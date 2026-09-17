@@ -3395,5 +3395,7 @@
   "notifyRepliesLater": "अभी नहीं",
   "notificationsOffTitle": "सूचनाएं बंद हैं",
   "notificationsOffBody": "आपका डिवाइस BananaTalk की सूचनाएं रोक रहा है, इसलिए रिमाइंडर और संदेश आप तक नहीं पहुंच पाते। जब तक आप इन्हें चालू नहीं करते, नीचे की सेटिंग्स लागू नहीं होंगी।",
-  "notificationsOffOpen": "सेटिंग्स खोलें"
+  "notificationsOffOpen": "सेटिंग्स खोलें",
+  "reportGathering": "सभा की रिपोर्ट करें",
+  "reportClub": "क्लब की रिपोर्ट करें"
 }

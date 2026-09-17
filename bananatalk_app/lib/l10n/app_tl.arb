@@ -3352,5 +3352,7 @@
   "notifyRepliesLater": "Hindi muna",
   "notificationsOffTitle": "Naka-off ang mga notification",
   "notificationsOffBody": "Hinaharangan ng device mo ang mga notification mula sa BananaTalk, kaya hindi ka maaabot ng mga paalala at mensahe. Hindi iiral ang mga setting sa ibaba hangga't hindi mo ito bino-on.",
-  "notificationsOffOpen": "Buksan ang settings"
+  "notificationsOffOpen": "Buksan ang settings",
+  "reportGathering": "I-report ang gathering",
+  "reportClub": "I-report ang club"
 }

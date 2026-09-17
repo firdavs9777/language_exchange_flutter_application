@@ -3409,5 +3409,7 @@
   "notifyRepliesLater": "Ahora no",
   "notificationsOffTitle": "Las notificaciones están desactivadas",
   "notificationsOffBody": "Tu dispositivo bloquea las notificaciones de BananaTalk, así que los recordatorios y mensajes no pueden llegarte. Los ajustes de abajo no se aplicarán hasta que las actives.",
-  "notificationsOffOpen": "Abrir ajustes"
+  "notificationsOffOpen": "Abrir ajustes",
+  "reportGathering": "Denunciar quedada",
+  "reportClub": "Denunciar club"
 }

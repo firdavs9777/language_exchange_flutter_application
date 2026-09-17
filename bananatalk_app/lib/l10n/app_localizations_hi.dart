@@ -8051,4 +8051,10 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get notificationsOffOpen => 'सेटिंग्स खोलें';
+
+  @override
+  String get reportGathering => 'सभा की रिपोर्ट करें';
+
+  @override
+  String get reportClub => 'क्लब की रिपोर्ट करें';
 }

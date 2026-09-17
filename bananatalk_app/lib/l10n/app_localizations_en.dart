@@ -8057,4 +8057,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get notificationsOffOpen => 'Open settings';
+
+  @override
+  String get reportGathering => 'Report gathering';
+
+  @override
+  String get reportClub => 'Report club';
 }

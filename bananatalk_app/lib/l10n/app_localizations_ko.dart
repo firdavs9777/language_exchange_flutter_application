@@ -8041,4 +8041,10 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get notificationsOffOpen => '설정 열기';
+
+  @override
+  String get reportGathering => '모임 신고';
+
+  @override
+  String get reportClub => '클럽 신고';
 }

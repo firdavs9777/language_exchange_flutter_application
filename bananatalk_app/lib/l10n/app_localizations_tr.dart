@@ -8049,4 +8049,10 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get notificationsOffOpen => 'Ayarları aç';
+
+  @override
+  String get reportGathering => 'Buluşmayı bildir';
+
+  @override
+  String get reportClub => 'Kulübü bildir';
 }

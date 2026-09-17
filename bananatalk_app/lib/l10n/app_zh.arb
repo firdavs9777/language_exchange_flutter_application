@@ -3393,5 +3393,7 @@
   "notifyRepliesLater": "暂不",
   "notificationsOffTitle": "通知已关闭",
   "notificationsOffBody": "你的设备正在屏蔽 BananaTalk 的通知，提醒和消息无法送达。开启前，下面的设置不会生效。",
-  "notificationsOffOpen": "打开设置"
+  "notificationsOffOpen": "打开设置",
+  "reportGathering": "举报聚会",
+  "reportClub": "举报俱乐部"
 }

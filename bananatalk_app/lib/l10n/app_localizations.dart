@@ -14857,6 +14857,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Open settings'**
   String get notificationsOffOpen;
+
+  /// No description provided for @reportGathering.
+  ///
+  /// In en, this message translates to:
+  /// **'Report gathering'**
+  String get reportGathering;
+
+  /// No description provided for @reportClub.
+  ///
+  /// In en, this message translates to:
+  /// **'Report club'**
+  String get reportClub;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

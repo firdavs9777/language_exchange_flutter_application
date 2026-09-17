@@ -8041,4 +8041,10 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get notificationsOffOpen => 'เปิดการตั้งค่า';
+
+  @override
+  String get reportGathering => 'รายงานการพบปะ';
+
+  @override
+  String get reportClub => 'รายงานคลับ';
 }

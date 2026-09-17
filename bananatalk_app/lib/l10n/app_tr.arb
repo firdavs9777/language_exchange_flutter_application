@@ -3591,5 +3591,7 @@
   "notifyRepliesLater": "Şimdi değil",
   "notificationsOffTitle": "Bildirimler kapalı",
   "notificationsOffBody": "Cihazın BananaTalk bildirimlerini engelliyor, bu yüzden hatırlatmalar ve mesajlar sana ulaşamıyor. Açana kadar aşağıdaki ayarlar etkili olmaz.",
-  "notificationsOffOpen": "Ayarları aç"
+  "notificationsOffOpen": "Ayarları aç",
+  "reportGathering": "Buluşmayı bildir",
+  "reportClub": "Kulübü bildir"
 }

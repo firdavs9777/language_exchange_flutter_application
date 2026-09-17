@@ -8055,4 +8055,10 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get notificationsOffOpen => 'Кушодани танзимот';
+
+  @override
+  String get reportGathering => 'Шикоят аз вохӯрӣ';
+
+  @override
+  String get reportClub => 'Шикоят аз клуб';
 }

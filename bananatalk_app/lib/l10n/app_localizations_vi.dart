@@ -8041,4 +8041,10 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get notificationsOffOpen => 'Mở cài đặt';
+
+  @override
+  String get reportGathering => 'Báo cáo buổi gặp';
+
+  @override
+  String get reportClub => 'Báo cáo câu lạc bộ';
 }

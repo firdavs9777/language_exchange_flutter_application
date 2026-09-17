@@ -8063,4 +8063,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get notificationsOffOpen => 'فتح الإعدادات';
+
+  @override
+  String get reportGathering => 'الإبلاغ عن اللقاء';
+
+  @override
+  String get reportClub => 'الإبلاغ عن النادي';
 }

@@ -3619,5 +3619,7 @@
   "notifyRepliesLater": "Plus tard",
   "notificationsOffTitle": "Les notifications sont désactivées",
   "notificationsOffBody": "Votre appareil bloque les notifications de BananaTalk, les rappels et messages ne peuvent donc pas vous parvenir. Les réglages ci-dessous resteront sans effet tant qu'elles seront désactivées.",
-  "notificationsOffOpen": "Ouvrir les réglages"
+  "notificationsOffOpen": "Ouvrir les réglages",
+  "reportGathering": "Signaler la rencontre",
+  "reportClub": "Signaler le club"
 }

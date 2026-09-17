@@ -3070,5 +3070,7 @@
   "notifyRepliesLater": "暫不",
   "notificationsOffTitle": "通知已關閉",
   "notificationsOffBody": "你的裝置正在封鎖 BananaTalk 的通知，提醒和訊息無法送達。開啟前，下面的設定不會生效。",
-  "notificationsOffOpen": "開啟設定"
+  "notificationsOffOpen": "開啟設定",
+  "reportGathering": "檢舉聚會",
+  "reportClub": "檢舉俱樂部"
 }

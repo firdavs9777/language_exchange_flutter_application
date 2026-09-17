@@ -3619,5 +3619,7 @@
   "notifyRepliesLater": "Später",
   "notificationsOffTitle": "Benachrichtigungen sind aus",
   "notificationsOffBody": "Dein Gerät blockiert Benachrichtigungen von BananaTalk, daher erreichen dich weder Erinnerungen noch Nachrichten. Die Einstellungen unten wirken erst, wenn du sie einschaltest.",
-  "notificationsOffOpen": "Einstellungen öffnen"
+  "notificationsOffOpen": "Einstellungen öffnen",
+  "reportGathering": "Treffen melden",
+  "reportClub": "Club melden"
 }

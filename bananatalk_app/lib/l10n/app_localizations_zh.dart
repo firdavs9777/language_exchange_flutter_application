@@ -8041,6 +8041,12 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get notificationsOffOpen => '打开设置';
+
+  @override
+  String get reportGathering => '举报聚会';
+
+  @override
+  String get reportClub => '举报俱乐部';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -16080,4 +16086,10 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get notificationsOffOpen => '開啟設定';
+
+  @override
+  String get reportGathering => '檢舉聚會';
+
+  @override
+  String get reportClub => '檢舉俱樂部';
 }

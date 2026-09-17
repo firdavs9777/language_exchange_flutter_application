@@ -3379,5 +3379,7 @@
   "notifyRepliesLater": "あとで",
   "notificationsOffTitle": "通知がオフになっています",
   "notificationsOffBody": "端末がBananaTalkの通知をブロックしているため、リマインダーやメッセージが届きません。オンにするまで下の設定は反映されません。",
-  "notificationsOffOpen": "設定を開く"
+  "notificationsOffOpen": "設定を開く",
+  "reportGathering": "集まりを報告",
+  "reportClub": "クラブを報告"
 }

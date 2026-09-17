@@ -9,6 +9,7 @@ import 'package:bananatalk_app/pages/community/widgets/community_error_state.dar
 import 'package:bananatalk_app/pages/community/widgets/community_snackbar.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/pages/community/gatherings/gathering_safety_menu.dart';
 
 /// A club, and what it has coming up.
 ///
@@ -72,7 +73,27 @@ class _ClubDetailScreenState extends State<ClubDetailScreen> {
     final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.clubDetailTitle)),
+      appBar: AppBar(
+        title: Text(l10n.clubDetailTitle),
+        // Same future as the body: a resolved future rebuilds synchronously,
+        // so this adds no request. Nothing renders for the owner.
+        actions: [
+          FutureBuilder<Club?>(
+            future: _future,
+            builder: (context, snapshot) {
+              final club = snapshot.data;
+              if (club == null) return const SizedBox.shrink();
+              return GatheringSafetyMenu(
+                target: SafetyTarget.club,
+                contentId: club.id,
+                hostId: club.owner.id,
+                hostName: club.owner.name,
+                viewerIsOwner: club.viewerIsOwner,
+              );
+            },
+          ),
+        ],
+      ),
       body: FutureBuilder<Club?>(
         future: _future,
         builder: (context, snapshot) {

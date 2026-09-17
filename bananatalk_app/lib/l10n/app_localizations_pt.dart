@@ -8051,4 +8051,10 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get notificationsOffOpen => 'Abrir definições';
+
+  @override
+  String get reportGathering => 'Denunciar encontro';
+
+  @override
+  String get reportClub => 'Denunciar clube';
 }

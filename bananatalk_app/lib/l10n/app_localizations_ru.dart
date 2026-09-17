@@ -8072,4 +8072,10 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get notificationsOffOpen => 'Открыть настройки';
+
+  @override
+  String get reportGathering => 'Пожаловаться на встречу';
+
+  @override
+  String get reportClub => 'Пожаловаться на клуб';
 }

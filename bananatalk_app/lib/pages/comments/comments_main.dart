@@ -10,6 +10,7 @@ import 'package:bananatalk_app/services/moments_service.dart' as api;
 import 'package:bananatalk_app/widgets/report_dialog.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/widgets/block_user_action.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
@@ -854,6 +855,16 @@ class _CommentItemState extends State<_CommentItem> with SingleTickerProviderSta
             ),
           );
         }
+        if (value == 'block') {
+          // Reporting a comment asks someone to act later. Blocking its author
+          // stops them reaching you now, and used to require leaving the thread
+          // and finding their profile.
+          showBlockUserFlow(
+            context: context,
+            targetUserId: comment.user.id,
+            targetUserName: comment.user.name,
+          );
+        }
       },
       itemBuilder: (context) => [
         if (_isOwnComment)
@@ -889,6 +900,20 @@ class _CommentItemState extends State<_CommentItem> with SingleTickerProviderSta
                 Icon(Icons.flag_outlined, size: 18, color: AppColors.warning),
                 const SizedBox(width: 8),
                 Text(AppLocalizations.of(context)!.report),
+              ],
+            ),
+          ),
+        if (!_isOwnComment)
+          PopupMenuItem(
+            value: 'block',
+            child: Row(
+              children: [
+                Icon(Icons.block, size: 18, color: AppColors.error),
+                const SizedBox(width: 8),
+                Text(
+                  AppLocalizations.of(context)!.blockUser,
+                  style: TextStyle(color: AppColors.error),
+                ),
               ],
             ),
           ),

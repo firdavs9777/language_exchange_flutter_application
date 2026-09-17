@@ -3379,5 +3379,7 @@
   "notifyRepliesLater": "ไว้ก่อน",
   "notificationsOffTitle": "การแจ้งเตือนถูกปิดอยู่",
   "notificationsOffBody": "อุปกรณ์ของคุณกำลังบล็อกการแจ้งเตือนจาก BananaTalk ทำให้การเตือนและข้อความส่งไม่ถึง การตั้งค่าด้านล่างจะยังไม่มีผลจนกว่าคุณจะเปิด",
-  "notificationsOffOpen": "เปิดการตั้งค่า"
+  "notificationsOffOpen": "เปิดการตั้งค่า",
+  "reportGathering": "รายงานการพบปะ",
+  "reportClub": "รายงานคลับ"
 }

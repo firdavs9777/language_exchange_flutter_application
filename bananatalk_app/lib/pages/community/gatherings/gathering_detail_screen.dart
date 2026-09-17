@@ -8,6 +8,7 @@ import 'package:bananatalk_app/pages/community/widgets/community_error_state.dar
 import 'package:bananatalk_app/pages/community/widgets/community_snackbar.dart';
 import 'package:bananatalk_app/utils/gathering_time.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/pages/community/gatherings/gathering_safety_menu.dart';
 
 /// One gathering, in full.
 class GatheringDetailScreen extends StatefulWidget {
@@ -86,7 +87,28 @@ class _GatheringDetailScreenState extends State<GatheringDetailScreen> {
     final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.gatheringDetailTitle)),
+      appBar: AppBar(
+        title: Text(l10n.gatheringDetailTitle),
+        // Built from the SAME future as the body, so it costs no extra
+        // request; a resolved future rebuilds synchronously. Renders nothing
+        // until the gathering is known, and nothing at all for the host.
+        actions: [
+          FutureBuilder<Gathering?>(
+            future: _future,
+            builder: (context, snapshot) {
+              final gathering = snapshot.data;
+              if (gathering == null) return const SizedBox.shrink();
+              return GatheringSafetyMenu(
+                target: SafetyTarget.gathering,
+                contentId: gathering.id,
+                hostId: gathering.host.id,
+                hostName: gathering.host.name,
+                viewerIsOwner: gathering.viewerIsHost,
+              );
+            },
+          ),
+        ],
+      ),
       body: FutureBuilder<Gathering?>(
         future: _future,
         builder: (context, snapshot) {

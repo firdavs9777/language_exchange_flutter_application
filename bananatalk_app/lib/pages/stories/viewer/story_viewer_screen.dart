@@ -13,6 +13,7 @@ import 'package:bananatalk_app/widgets/report_dialog.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:bananatalk_app/widgets/story/story_progress_bar.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/widgets/block_user_action.dart';
 import 'package:bananatalk_app/utils/image_utils.dart';
 import 'package:bananatalk_app/pages/stories/create/create_story_screen.dart';
 import 'package:video_player/video_player.dart';
@@ -640,6 +641,23 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
         }
       }
     }
+  }
+
+  /// Block the story's author.
+  ///
+  /// Mirrors _reportStory's pause/resume: leaving the timer running behind a
+  /// modal advances to the next story while the user is deciding.
+  Future<void> _blockStoryAuthor() async {
+    final story = _currentStory;
+    if (story == null) return;
+
+    _pauseStory();
+    await showBlockUserFlow(
+      context: context,
+      targetUserId: story.user.id,
+      targetUserName: story.user.name,
+    );
+    if (mounted) _resumeStory();
   }
 
   Future<void> _reportStory() async {
@@ -1325,6 +1343,8 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
                   onSelected: (value) {
                     if (value == 'report') {
                       _reportStory();
+                    } else if (value == 'block') {
+                      _blockStoryAuthor();
                     }
                   },
                   itemBuilder: (context) => [
@@ -1340,6 +1360,19 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
                           const SizedBox(width: 12),
                           Text(
                             AppLocalizations.of(context)!.reportStory,
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                        ],
+                      ),
+                    ),
+                    PopupMenuItem(
+                      value: 'block',
+                      child: Row(
+                        children: [
+                          const Icon(Icons.block, color: Colors.red, size: 20),
+                          const SizedBox(width: 12),
+                          Text(
+                            AppLocalizations.of(context)!.blockUser,
                             style: const TextStyle(color: Colors.white),
                           ),
                         ],

@@ -2872,5 +2872,7 @@
   "notifyRepliesLater": "Ҳоло не",
   "notificationsOffTitle": "Огоҳиномаҳо хомӯшанд",
   "notificationsOffBody": "Дастгоҳи шумо огоҳиномаҳои BananaTalk-ро бозмедорад, бинобар ин ёдоварӣ ва паёмҳо ба шумо намерасанд. То даме ки онҳоро фаъол накунед, танзимоти зерин амал намекунанд.",
-  "notificationsOffOpen": "Кушодани танзимот"
+  "notificationsOffOpen": "Кушодани танзимот",
+  "reportGathering": "Шикоят аз вохӯрӣ",
+  "reportClub": "Шикоят аз клуб"
 }

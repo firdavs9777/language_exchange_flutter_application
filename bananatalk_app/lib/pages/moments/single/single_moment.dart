@@ -15,6 +15,7 @@ import 'package:bananatalk_app/widgets/language_selection/show_language_picker.d
 import 'package:bananatalk_app/widgets/moment_translate_chip.dart';
 import 'package:bananatalk_app/widgets/translated_moment_widget.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/widgets/block_user_action.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
@@ -389,6 +390,22 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                         reportedId: widget.moment.id,
                         reportedUserId: widget.moment.user.id,
                       ),
+                    );
+                  },
+                ),
+              if (!isOwnMoment)
+                ListTile(
+                  key: const Key('block-author-tile'),
+                  leading: const Icon(Icons.block, color: Colors.red),
+                  title: Text(AppLocalizations.of(context)!.blockUser),
+                  onTap: () {
+                    Navigator.pop(context);
+                    // Reporting asks someone to act later; blocking stops it
+                    // now, and used to require navigating to the profile.
+                    showBlockUserFlow(
+                      context: context,
+                      targetUserId: widget.moment.user.id,
+                      targetUserName: widget.moment.user.name,
                     );
                   },
                 ),

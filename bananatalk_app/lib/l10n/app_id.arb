@@ -3379,5 +3379,7 @@
   "notifyRepliesLater": "Nanti saja",
   "notificationsOffTitle": "Notifikasi nonaktif",
   "notificationsOffBody": "Perangkatmu memblokir notifikasi dari BananaTalk, jadi pengingat dan pesan tidak bisa sampai. Pengaturan di bawah tidak akan berlaku sampai kamu mengaktifkannya.",
-  "notificationsOffOpen": "Buka pengaturan"
+  "notificationsOffOpen": "Buka pengaturan",
+  "reportGathering": "Laporkan pertemuan",
+  "reportClub": "Laporkan klub"
 }

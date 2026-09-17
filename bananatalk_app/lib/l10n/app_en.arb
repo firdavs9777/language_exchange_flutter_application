@@ -5596,5 +5596,7 @@
   "notifyRepliesLater": "Not now",
   "notificationsOffTitle": "Notifications are off",
   "notificationsOffBody": "Your device is blocking notifications from BananaTalk, so reminders and messages can't reach you. The settings below won't take effect until you turn them on.",
-  "notificationsOffOpen": "Open settings"
+  "notificationsOffOpen": "Open settings",
+  "reportGathering": "Report gathering",
+  "reportClub": "Report club"
 }

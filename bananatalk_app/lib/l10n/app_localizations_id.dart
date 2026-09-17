@@ -8048,4 +8048,10 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get notificationsOffOpen => 'Buka pengaturan';
+
+  @override
+  String get reportGathering => 'Laporkan pertemuan';
+
+  @override
+  String get reportClub => 'Laporkan klub';
 }

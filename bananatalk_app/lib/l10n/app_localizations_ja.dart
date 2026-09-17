@@ -8041,4 +8041,10 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get notificationsOffOpen => '設定を開く';
+
+  @override
+  String get reportGathering => '集まりを報告';
+
+  @override
+  String get reportClub => 'クラブを報告';
 }
