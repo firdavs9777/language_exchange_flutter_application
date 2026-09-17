@@ -102,37 +102,16 @@ class StoriesService {
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
         
-        // API returns: { success: true, count: 2, data: [Story, Story] }
-        // We need to convert to UserStories format
+        // Same flat-array shape as /stories/user/:id, so it shares that
+        // parser. This wrap was duplicated inline here, which is exactly how
+        // two copies of one rule drift apart.
         if (data['success'] == true && data['data'] != null) {
-          final stories = (data['data'] as List)
-              .map((s) => Story.fromJson(s))
-              .toList();
-          
-          // Group stories by user (should all be current user's stories)
-          if (stories.isNotEmpty) {
-            final firstStory = stories.first;
-            final userStories = UserStories(
-              user: firstStory.user,
-              stories: stories,
-              hasUnviewed: false, // My own stories are always viewed
-              unviewedCount: 0,
-              latestStory: stories.isNotEmpty ? stories.last : null,
-            );
-            
-            return StoriesResponse(
-              success: true,
-              count: data['count'] ?? stories.length,
-              data: [userStories],
-              message: data['message'],
-            );
-          }
-          
-          // No stories - return empty but successful
+          final parsed = StoriesResponse.fromUserStoriesJson(data, '');
+          if (parsed.data.isNotEmpty) return parsed;
           return StoriesResponse(
             success: true,
             count: 0,
-            data: [],
+            data: const [],
             message: data['message'] ?? 'No active stories found',
           );
         }
@@ -162,7 +141,11 @@ class StoriesService {
         if (data['blocked'] == true) {
           return StoriesResponse(success: true, blocked: true, message: 'Content not available');
         }
-        return StoriesResponse.fromJson(data, currentUserId ?? '');
+        // This endpoint returns a FLAT array of stories; the feed endpoint
+        // returns user GROUPS. Running this through the group parser turned
+        // each story into a group holding zero stories, so the viewer opened
+        // and rendered "No stories" for every user who had one.
+        return StoriesResponse.fromUserStoriesJson(data, currentUserId ?? '');
       } else if (response.statusCode == 403) {
         return StoriesResponse(success: true, blocked: true, message: 'Content not available');
       }

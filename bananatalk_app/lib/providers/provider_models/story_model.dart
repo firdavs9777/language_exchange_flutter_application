@@ -947,18 +947,53 @@ class StoriesResponse {
     this.error,
   });
 
-  factory StoriesResponse.fromJson(Map<String, dynamic> json, String currentUserId) {
+  /// Parse `GET /stories/user/:id`, whose `data` is a FLAT array of stories.
+  ///
+  /// That endpoint is per-user, so it has no reason to group — but the feed
+  /// endpoint DOES group, and both were being run through [fromJson], which
+  /// maps every element through `UserStories.fromJson`. A Story object has no
+  /// `stories` key, so each one parsed into a group containing zero stories.
+  ///
+  /// The result was worse than an error: `data.isNotEmpty` came back true (one
+  /// empty group per story), so StoryViewerLauncher opened the viewer instead
+  /// of running its fallback, and the viewer rendered "No stories". It happened
+  /// for every user with a story, every time.
+  ///
+  /// An empty array yields NO group, so the caller's fallback still runs.
+  factory StoriesResponse.fromUserStoriesJson(
+    Map<String, dynamic> json,
+    String currentUserId,
+  ) {
+    final raw = json['data'];
+    final stories = raw is List
+        ? raw
+            .whereType<Map<String, dynamic>>()
+            .map((s) => Story.fromJson(s))
+            .toList()
+        : <Story>[];
+
     return StoriesResponse(
       success: json['success'] == true,
-      count: json['count'] ?? 0,
-      data: json['data'] != null
-          ? (json['data'] as List).map((d) => UserStories.fromJson(d, currentUserId)).toList()
-          : [],
+      count: json['count'] ?? stories.length,
+      data: stories.isEmpty
+          ? const []
+          : [
+              UserStories(
+                user: stories.first.user,
+                stories: stories,
+                hasUnviewed:
+                    stories.any((s) => !s.hasViewed(currentUserId)),
+                unviewedCount:
+                    stories.where((s) => !s.hasViewed(currentUserId)).length,
+                latestStory: stories.last,
+              ),
+            ],
       blocked: json['blocked'] == true,
       message: json['message'],
       error: json['error'],
     );
   }
+
 }
 
 class SingleStoryResponse {
