@@ -8149,4 +8149,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get groupCoverRemove => 'إزالة الصورة';
+
+  @override
+  String get groupCoverAddOptional => 'إضافة صورة (اختياري)';
 }

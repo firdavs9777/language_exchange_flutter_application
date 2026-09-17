@@ -8137,4 +8137,7 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get groupCoverRemove => 'Alisin ang larawan';
+
+  @override
+  String get groupCoverAddOptional => 'Magdagdag ng larawan (opsyonal)';
 }

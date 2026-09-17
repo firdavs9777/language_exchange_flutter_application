@@ -8135,4 +8135,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get groupCoverRemove => 'Fotoğrafı kaldır';
+
+  @override
+  String get groupCoverAddOptional => 'Fotoğraf ekle (isteğe bağlı)';
 }

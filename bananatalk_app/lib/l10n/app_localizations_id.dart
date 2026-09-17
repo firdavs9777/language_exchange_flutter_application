@@ -8134,4 +8134,7 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get groupCoverRemove => 'Hapus foto';
+
+  @override
+  String get groupCoverAddOptional => 'Tambahkan foto (opsional)';
 }

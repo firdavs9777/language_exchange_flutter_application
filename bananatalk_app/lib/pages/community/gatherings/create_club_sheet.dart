@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'dart:io';
+
+import 'package:bananatalk_app/pages/community/gatherings/group_cover_picker.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/community/gathering_model.dart';
 import 'package:bananatalk_app/services/gathering_api_client.dart';
@@ -38,6 +41,10 @@ class _CreateClubSheetState extends State<CreateClubSheet> {
     text: widget.defaultLanguage,
   );
   bool _submitting = false;
+
+  /// Optional. Held locally and uploaded only after the club exists, because
+  /// the cover endpoint is keyed on the new id.
+  File? _cover;
 
   @override
   void dispose() {
@@ -88,7 +95,23 @@ class _CreateClubSheetState extends State<CreateClubSheet> {
       );
       return;
     }
-    Navigator.of(context).pop(result.value);
+    // Upload AFTER creation, and never let it fail the creation. The club is
+    // valid without a photo, so a flaky connection at this moment must not
+    // cost the user the club they just filled in a form for.
+    final club = result.value;
+    if (_cover != null && club != null) {
+      final upload = await _api.uploadClubCover(club.id, _cover!);
+      if (!mounted) return;
+      if (!upload.success) {
+        showCommunitySnackBar(
+          context,
+          message: upload.error ?? '',
+          type: CommunitySnackBarType.error,
+        );
+      }
+    }
+    if (!mounted) return;
+    Navigator.of(context).pop(club);
   }
 
   @override
@@ -122,6 +145,11 @@ class _CreateClubSheetState extends State<CreateClubSheet> {
           Text(
             l10n.clubCreateSubtitle,
             style: context.bodySmall.copyWith(color: context.textSecondary),
+          ),
+          Spacing.gapLG,
+          GroupCoverPicker(
+            file: _cover,
+            onChanged: (f) => setState(() => _cover = f),
           ),
           Spacing.gapLG,
           TextField(

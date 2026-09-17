@@ -8158,4 +8158,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get groupCoverRemove => 'Удалить фото';
+
+  @override
+  String get groupCoverAddOptional => 'Добавить фото (необязательно)';
 }

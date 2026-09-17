@@ -8127,4 +8127,7 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get groupCoverRemove => '사진 삭제';
+
+  @override
+  String get groupCoverAddOptional => '사진 추가 (선택)';
 }

@@ -8137,4 +8137,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get groupCoverRemove => 'फ़ोटो हटाएं';
+
+  @override
+  String get groupCoverAddOptional => 'फ़ोटो जोड़ें (वैकल्पिक)';
 }

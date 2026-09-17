@@ -2898,5 +2898,6 @@
   "groupCoverChange": "Тағйири акс",
   "groupCoverFromLibrary": "Аз галерея интихоб кунед",
   "groupCoverTakePhoto": "Акс гирифтан",
-  "groupCoverRemove": "Нест кардани акс"
+  "groupCoverRemove": "Нест кардани акс",
+  "groupCoverAddOptional": "Илова кардани акс (ихтиёрӣ)"
 }

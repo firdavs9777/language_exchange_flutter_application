@@ -3421,5 +3421,6 @@
   "groupCoverChange": "फ़ोटो बदलें",
   "groupCoverFromLibrary": "गैलरी से चुनें",
   "groupCoverTakePhoto": "फ़ोटो लें",
-  "groupCoverRemove": "फ़ोटो हटाएं"
+  "groupCoverRemove": "फ़ोटो हटाएं",
+  "groupCoverAddOptional": "फ़ोटो जोड़ें (वैकल्पिक)"
 }

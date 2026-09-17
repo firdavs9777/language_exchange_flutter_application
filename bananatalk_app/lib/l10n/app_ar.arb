@@ -3435,5 +3435,6 @@
   "groupCoverChange": "تغيير الصورة",
   "groupCoverFromLibrary": "اختيار من المعرض",
   "groupCoverTakePhoto": "التقاط صورة",
-  "groupCoverRemove": "إزالة الصورة"
+  "groupCoverRemove": "إزالة الصورة",
+  "groupCoverAddOptional": "إضافة صورة (اختياري)"
 }

@@ -5653,5 +5653,6 @@
   "groupCoverChange": "Change photo",
   "groupCoverFromLibrary": "Choose from library",
   "groupCoverTakePhoto": "Take a photo",
-  "groupCoverRemove": "Remove photo"
+  "groupCoverRemove": "Remove photo",
+  "groupCoverAddOptional": "Add a photo (optional)"
 }

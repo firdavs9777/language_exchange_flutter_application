@@ -3405,5 +3405,6 @@
   "groupCoverChange": "写真を変更",
   "groupCoverFromLibrary": "ライブラリから選ぶ",
   "groupCoverTakePhoto": "写真を撮る",
-  "groupCoverRemove": "写真を削除"
+  "groupCoverRemove": "写真を削除",
+  "groupCoverAddOptional": "写真を追加（任意）"
 }

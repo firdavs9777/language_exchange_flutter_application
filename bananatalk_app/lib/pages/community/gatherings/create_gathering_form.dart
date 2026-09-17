@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'dart:io';
+
+import 'package:bananatalk_app/pages/community/gatherings/group_cover_picker.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/community/gathering_model.dart';
 import 'package:bananatalk_app/services/gathering_api_client.dart';
@@ -70,6 +73,12 @@ class _CreateGatheringFormState extends State<CreateGatheringForm> {
   int _quorum = 3;
   static const int _duration = 60;
   bool _submitting = false;
+
+  /// Optional. Uploaded after the gathering exists, because the cover endpoint
+  /// is keyed on the new id. Never offered while editing — the detail screen
+  /// already owns changing an existing cover, and two places to set one thing
+  /// is how they drift.
+  File? _cover;
 
   /// Set once the user edits the title by hand, after which the language
   /// picker stops rewriting it underneath them.
@@ -217,12 +226,29 @@ class _CreateGatheringFormState extends State<CreateGatheringForm> {
       return;
     }
 
+    // Upload AFTER creation and never let it fail the creation: the gathering
+    // is valid without a photo, and a flaky connection at this moment must not
+    // cost someone the event they just scheduled.
+    final created = result.value!;
+    if (_cover != null && !_isEdit) {
+      final upload = await _api.uploadGatheringCover(created.id, _cover!);
+      if (!mounted) return;
+      if (!upload.success) {
+        showCommunitySnackBar(
+          context,
+          message: upload.error ?? '',
+          type: CommunitySnackBarType.error,
+        );
+      }
+    }
+    if (!mounted) return;
+
     showCommunitySnackBar(
       context,
       message: _isEdit ? l10n.gatheringSaved : l10n.gatheringPosted,
       type: CommunitySnackBarType.success,
     );
-    widget.onCreated?.call(result.value!);
+    widget.onCreated?.call(created);
   }
 
   @override
@@ -243,6 +269,15 @@ class _CreateGatheringFormState extends State<CreateGatheringForm> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // Creation only. Changing an existing cover belongs to the detail
+          // screen, and offering it in two places is how they drift.
+          if (!_isEdit) ...[
+            GroupCoverPicker(
+              file: _cover,
+              onChanged: (f) => setState(() => _cover = f),
+            ),
+            Spacing.gapLG,
+          ],
           if (!widget.compact) ...[
             Center(
               child: Container(

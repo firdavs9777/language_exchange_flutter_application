@@ -3617,5 +3617,6 @@
   "groupCoverChange": "Fotoğrafı değiştir",
   "groupCoverFromLibrary": "Galeriden seç",
   "groupCoverTakePhoto": "Fotoğraf çek",
-  "groupCoverRemove": "Fotoğrafı kaldır"
+  "groupCoverRemove": "Fotoğrafı kaldır",
+  "groupCoverAddOptional": "Fotoğraf ekle (isteğe bağlı)"
 }

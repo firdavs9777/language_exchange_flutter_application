@@ -15013,6 +15013,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Remove photo'**
   String get groupCoverRemove;
+
+  /// No description provided for @groupCoverAddOptional.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a photo (optional)'**
+  String get groupCoverAddOptional;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

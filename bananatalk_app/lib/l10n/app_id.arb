@@ -3405,5 +3405,6 @@
   "groupCoverChange": "Ganti foto",
   "groupCoverFromLibrary": "Pilih dari galeri",
   "groupCoverTakePhoto": "Ambil foto",
-  "groupCoverRemove": "Hapus foto"
+  "groupCoverRemove": "Hapus foto",
+  "groupCoverAddOptional": "Tambahkan foto (opsional)"
 }

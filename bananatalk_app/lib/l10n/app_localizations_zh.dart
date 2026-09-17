@@ -8127,6 +8127,9 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get groupCoverRemove => '移除照片';
+
+  @override
+  String get groupCoverAddOptional => '添加照片（可选）';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -16252,4 +16255,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get groupCoverRemove => '移除照片';
+
+  @override
+  String get groupCoverAddOptional => '新增照片（選填）';
 }

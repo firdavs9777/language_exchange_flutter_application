@@ -3405,5 +3405,6 @@
   "groupCoverChange": "เปลี่ยนรูป",
   "groupCoverFromLibrary": "เลือกจากคลังภาพ",
   "groupCoverTakePhoto": "ถ่ายรูป",
-  "groupCoverRemove": "ลบรูป"
+  "groupCoverRemove": "ลบรูป",
+  "groupCoverAddOptional": "เพิ่มรูป (ไม่บังคับ)"
 }

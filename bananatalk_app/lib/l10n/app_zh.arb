@@ -3419,5 +3419,6 @@
   "groupCoverChange": "更换照片",
   "groupCoverFromLibrary": "从相册选择",
   "groupCoverTakePhoto": "拍照",
-  "groupCoverRemove": "移除照片"
+  "groupCoverRemove": "移除照片",
+  "groupCoverAddOptional": "添加照片（可选）"
 }

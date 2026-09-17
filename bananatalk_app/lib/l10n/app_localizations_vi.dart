@@ -8127,4 +8127,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get groupCoverRemove => 'Xóa ảnh';
+
+  @override
+  String get groupCoverAddOptional => 'Thêm ảnh (tùy chọn)';
 }

@@ -8127,4 +8127,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get groupCoverRemove => '写真を削除';
+
+  @override
+  String get groupCoverAddOptional => '写真を追加（任意）';
 }

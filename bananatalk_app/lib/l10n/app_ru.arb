@@ -3435,5 +3435,6 @@
   "groupCoverChange": "Изменить фото",
   "groupCoverFromLibrary": "Выбрать из галереи",
   "groupCoverTakePhoto": "Сделать фото",
-  "groupCoverRemove": "Удалить фото"
+  "groupCoverRemove": "Удалить фото",
+  "groupCoverAddOptional": "Добавить фото (необязательно)"
 }

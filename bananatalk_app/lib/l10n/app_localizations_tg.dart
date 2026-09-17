@@ -8141,4 +8141,7 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get groupCoverRemove => 'Нест кардани акс';
+
+  @override
+  String get groupCoverAddOptional => 'Илова кардани акс (ихтиёрӣ)';
 }

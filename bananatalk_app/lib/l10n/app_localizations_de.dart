@@ -8137,4 +8137,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get groupCoverRemove => 'Foto entfernen';
+
+  @override
+  String get groupCoverAddOptional => 'Foto hinzufügen (optional)';
 }

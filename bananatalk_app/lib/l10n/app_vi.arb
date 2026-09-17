@@ -3405,5 +3405,6 @@
   "groupCoverChange": "Đổi ảnh",
   "groupCoverFromLibrary": "Chọn từ thư viện",
   "groupCoverTakePhoto": "Chụp ảnh",
-  "groupCoverRemove": "Xóa ảnh"
+  "groupCoverRemove": "Xóa ảnh",
+  "groupCoverAddOptional": "Thêm ảnh (tùy chọn)"
 }

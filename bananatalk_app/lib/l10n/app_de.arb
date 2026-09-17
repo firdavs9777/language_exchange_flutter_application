@@ -3645,5 +3645,6 @@
   "groupCoverChange": "Foto ändern",
   "groupCoverFromLibrary": "Aus Galerie wählen",
   "groupCoverTakePhoto": "Foto aufnehmen",
-  "groupCoverRemove": "Foto entfernen"
+  "groupCoverRemove": "Foto entfernen",
+  "groupCoverAddOptional": "Foto hinzufügen (optional)"
 }

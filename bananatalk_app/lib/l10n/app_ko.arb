@@ -3426,5 +3426,6 @@
   "groupCoverChange": "사진 변경",
   "groupCoverFromLibrary": "앨범에서 선택",
   "groupCoverTakePhoto": "사진 촬영",
-  "groupCoverRemove": "사진 삭제"
+  "groupCoverRemove": "사진 삭제",
+  "groupCoverAddOptional": "사진 추가 (선택)"
 }

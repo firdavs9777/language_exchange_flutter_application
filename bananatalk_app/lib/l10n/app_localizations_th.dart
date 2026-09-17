@@ -8127,4 +8127,7 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get groupCoverRemove => 'ลบรูป';
+
+  @override
+  String get groupCoverAddOptional => 'เพิ่มรูป (ไม่บังคับ)';
 }
