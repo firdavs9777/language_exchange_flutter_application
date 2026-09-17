@@ -26,6 +26,7 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:bananatalk_app/pages/moments/widgets/moments_snackbar.dart';
 import 'package:bananatalk_app/pages/moments/create/moment_draft_rules.dart';
+import 'package:bananatalk_app/pages/moments/create/moment_media_rules.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/pages/moments/create/create_action_helpers.dart';
 import 'package:bananatalk_app/pages/moments/create/create_tag_dialog.dart';
@@ -96,7 +97,8 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
   double _videoCompressionProgress = 0;
   String _videoProcessingStatus = '';
   VideoProcessResult? _videoProcessResult;
-  final VideoCompressionService _videoCompressionService = VideoCompressionService();
+  final VideoCompressionService _videoCompressionService =
+      VideoCompressionService();
 
   // New fields matching web version
   String _selectedPrivacy = 'Public';
@@ -263,7 +265,8 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (mounted && _selectedVideo == null) _showVideoSourceSheet();
       });
-    } else if (widget.prefillPrompt != null && widget.prefillPrompt!.isNotEmpty) {
+    } else if (widget.prefillPrompt != null &&
+        widget.prefillPrompt!.isNotEmpty) {
       // Prefill from prompt-of-the-day (see PromptOfDayCard)
       descriptionController.text = widget.prefillPrompt!;
       _promptId = widget.prefillPromptId;
@@ -308,9 +311,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
       builder: (context, child) {
         return Theme(
           data: Theme.of(context).copyWith(
-            colorScheme: const ColorScheme.light(
-              primary: Color(0xFF00BFA5),
-            ),
+            colorScheme: const ColorScheme.light(primary: Color(0xFF00BFA5)),
           ),
           child: child!,
         );
@@ -324,9 +325,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
         builder: (context, child) {
           return Theme(
             data: Theme.of(context).copyWith(
-              colorScheme: const ColorScheme.light(
-                primary: Color(0xFF00BFA5),
-              ),
+              colorScheme: const ColorScheme.light(primary: Color(0xFF00BFA5)),
             ),
             child: child!,
           );
@@ -347,14 +346,35 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     }
   }
 
+  /// Refuses a media combination, and says which thing is in the way.
+  ///
+  /// One guard for every picker. They each decided for themselves before this,
+  /// which is how _pickImages came to check for a voice note while _takePhoto
+  /// did not -- the same action refused from the gallery and allowed from the
+  /// camera.
+  ///
+  /// Returns true when the caller should stop.
+  bool _blockedFrom(MomentMediaKind wanted) {
+    final block = blockerFor(
+      wanted: wanted,
+      imageCount: _selectedImages.length,
+      hasVideo: _selectedVideo != null,
+      hasAudio: _recordedAudio != null,
+    );
+    if (block == null) return false;
+
+    final l10n = AppLocalizations.of(context)!;
+    final message = switch (block.present) {
+      MomentMediaKind.audio => 'Please remove the voice note first',
+      MomentMediaKind.video => 'Please remove the video first',
+      _ => l10n.pleaseRemoveImagesFirst,
+    };
+    showMomentsSnackBar(context, message: message);
+    return true;
+  }
+
   Future<void> _pickImages() async {
-    if (_recordedAudio != null) {
-      showMomentsSnackBar(
-        context,
-        message: 'Please remove the voice note first to add images',
-      );
-      return;
-    }
+    if (_blockedFrom(MomentMediaKind.images)) return;
     if (_selectedImages.length >= maxImages) {
       _showMaxImagesDialog();
       return;
@@ -376,7 +396,8 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
       if (pickedFiles.length > remainingSlots) {
         showMomentsSnackBar(
           context,
-          message: 'Maximum $maxImages images allowed. Only $remainingSlots images added.',
+          message:
+              'Maximum $maxImages images allowed. Only $remainingSlots images added.',
         );
       }
 
@@ -387,6 +408,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
   }
 
   Future<void> _takePhoto() async {
+    if (_blockedFrom(MomentMediaKind.images)) return;
     if (_selectedImages.length >= maxImages) {
       _showMaxImagesDialog();
       return;
@@ -407,13 +429,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
   /// here) to both `_recordVideo` (previously defined but never called
   /// from anywhere in the UI) and the existing `_pickVideo`.
   Future<void> _showVideoSourceSheet() async {
-    if (_selectedImages.isNotEmpty) {
-      showMomentsSnackBar(
-        context,
-        message: AppLocalizations.of(context)!.pleaseRemoveImagesFirst,
-      );
-      return;
-    }
+    if (_blockedFrom(MomentMediaKind.video)) return;
     final l10n = AppLocalizations.of(context)!;
     await showModalBottomSheet(
       context: context,
@@ -433,8 +449,10 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
               },
             ),
             ListTile(
-              leading:
-                  const Icon(Icons.video_library_outlined, color: Color(0xFF9C27B0)),
+              leading: const Icon(
+                Icons.video_library_outlined,
+                color: Color(0xFF9C27B0),
+              ),
               title: Text(l10n.chooseFromGallery),
               onTap: () {
                 Navigator.pop(sheetContext);
@@ -450,14 +468,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
   /// Pick video from gallery (max 10 minutes, max 1GB)
   /// Automatically compresses video like Instagram for faster uploads
   Future<void> _pickVideo() async {
-    // Can't have both video and images
-    if (_selectedImages.isNotEmpty) {
-      showMomentsSnackBar(
-        context,
-        message: AppLocalizations.of(context)!.pleaseRemoveImagesFirst,
-      );
-      return;
-    }
+    if (_blockedFrom(MomentMediaKind.video)) return;
 
     final picker = ImagePicker();
     final pickedFile = await picker.pickVideo(
@@ -475,7 +486,8 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
         if (mounted) {
           showMomentsSnackBar(
             context,
-            message: 'Unsupported format. Use: ${allowedExtensions.join(", ").toUpperCase()}',
+            message:
+                'Unsupported format. Use: ${allowedExtensions.join(", ").toUpperCase()}',
             type: MomentsSnackBarType.error,
           );
         }
@@ -561,7 +573,8 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
         if (mounted && result.wasCompressed) {
           showMomentsSnackBar(
             context,
-            message: 'Video compressed: ${result.fileSizeMB}MB (saved ${result.compressionSavings.toStringAsFixed(0)}%)',
+            message:
+                'Video compressed: ${result.fileSizeMB}MB (saved ${result.compressionSavings.toStringAsFixed(0)}%)',
             type: MomentsSnackBarType.success,
           );
         }
@@ -606,7 +619,9 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
       builder: (context) => StatefulBuilder(
         builder: (context, setDialogState) {
           return AlertDialog(
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -659,10 +674,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                 const SizedBox(height: 8),
                 Text(
                   'Please wait while we optimize your video',
-                  style: TextStyle(
-                    fontSize: 13,
-                    color: context.textSecondary,
-                  ),
+                  style: TextStyle(fontSize: 13, color: context.textSecondary),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 16),
@@ -676,13 +688,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
 
   /// Record video with camera
   Future<void> _recordVideo() async {
-    if (_selectedImages.isNotEmpty) {
-      showMomentsSnackBar(
-        context,
-        message: 'Please remove images first to record a video',
-      );
-      return;
-    }
+    if (_blockedFrom(MomentMediaKind.video)) return;
 
     final picker = ImagePicker();
     final pickedFile = await picker.pickVideo(
@@ -709,13 +715,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
   /// Open the inline voice recorder (mic mode). Mutually exclusive with
   /// images/video, mirroring the existing image/video exclusivity rules.
   void _startRecordingAudio() {
-    if (_selectedImages.isNotEmpty || _selectedVideo != null) {
-      showMomentsSnackBar(
-        context,
-        message: 'Please remove images/video first to record audio',
-      );
-      return;
-    }
+    if (_blockedFrom(MomentMediaKind.audio)) return;
     setState(() {
       _isRecordingAudio = true;
     });
@@ -775,7 +775,10 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
   /// Show error dialog for audio upload failures with retry option.
   /// The moment already exists at this point (created without audio) —
   /// tell the user so they don't think the whole post failed.
-  Future<void> _showAudioUploadErrorDialog(String momentId, String message) async {
+  Future<void> _showAudioUploadErrorDialog(
+    String momentId,
+    String message,
+  ) async {
     final result = await showDialog<bool>(
       context: context,
       barrierDismissible: false,
@@ -783,7 +786,11 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         title: Row(
           children: [
-            const Icon(Icons.warning_amber_rounded, color: Colors.orange, size: 28),
+            const Icon(
+              Icons.warning_amber_rounded,
+              color: Colors.orange,
+              size: 28,
+            ),
             const SizedBox(width: 12),
             const Expanded(child: Text('Audio upload failed')),
           ],
@@ -818,7 +825,9 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
 
     if (result == true && _recordedAudio != null) {
       try {
-        await ref.read(momentsServiceProvider).uploadMomentAudio(
+        await ref
+            .read(momentsServiceProvider)
+            .uploadMomentAudio(
               momentId,
               _recordedAudio!,
               _recordedAudioDuration,
@@ -923,7 +932,9 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
           title: const Text(
             'Location Access Restricted',
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
@@ -971,7 +982,8 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
         if (place.locality != null && place.locality!.isNotEmpty) {
           addressParts.add(place.locality!);
         }
-        if (place.administrativeArea != null && place.administrativeArea!.isNotEmpty) {
+        if (place.administrativeArea != null &&
+            place.administrativeArea!.isNotEmpty) {
           addressParts.add(place.administrativeArea!);
         }
         if (place.postalCode != null && place.postalCode!.isNotEmpty) {
@@ -980,9 +992,9 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
         if (place.country != null && place.country!.isNotEmpty) {
           addressParts.add(place.country!);
         }
-        
+
         setState(() {
-          _formattedAddress = addressParts.isNotEmpty 
+          _formattedAddress = addressParts.isNotEmpty
               ? addressParts.join(', ')
               : "${place.locality ?? ''}, ${place.country ?? ''}";
         });
@@ -1024,8 +1036,9 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
           title: const Text(
             'Location Services Disabled',
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
@@ -1037,7 +1050,10 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: Text(AppLocalizations.of(context)!.momentsCancel, style: TextStyle(color: context.textSecondary)),
+              child: Text(
+                AppLocalizations.of(context)!.momentsCancel,
+                style: TextStyle(color: context.textSecondary),
+              ),
             ),
             TextButton(
               onPressed: () async {
@@ -1063,8 +1079,9 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
           title: const Text(
             'Location Permission Needed',
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
@@ -1076,7 +1093,10 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: Text(AppLocalizations.of(context)!.momentsNotNow, style: TextStyle(color: context.textSecondary)),
+              child: Text(
+                AppLocalizations.of(context)!.momentsNotNow,
+                style: TextStyle(color: context.textSecondary),
+              ),
             ),
             TextButton(
               onPressed: () {
@@ -1102,8 +1122,9 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
           title: const Text(
             'Location Permission Required',
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
@@ -1115,7 +1136,10 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: Text('Cancel', style: TextStyle(color: context.textSecondary)),
+              child: Text(
+                'Cancel',
+                style: TextStyle(color: context.textSecondary),
+              ),
             ),
             TextButton(
               onPressed: () async {
@@ -1151,10 +1175,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
             children: [
               const Text(
                 'How are you feeling?',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 16),
               GridView.builder(
@@ -1249,7 +1270,10 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
   }
 
   /// Show error dialog for video upload failures with retry option
-  Future<bool> _showVideoUploadErrorDialog(String momentId, String message) async {
+  Future<bool> _showVideoUploadErrorDialog(
+    String momentId,
+    String message,
+  ) async {
     final result = await showDialog<bool>(
       context: context,
       barrierDismissible: false,
@@ -1257,7 +1281,11 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         title: Row(
           children: [
-            const Icon(Icons.warning_amber_rounded, color: Colors.orange, size: 28),
+            const Icon(
+              Icons.warning_amber_rounded,
+              color: Colors.orange,
+              size: 28,
+            ),
             const SizedBox(width: 12),
             Text(AppLocalizations.of(context)!.videoUploadFailed),
           ],
@@ -1308,15 +1336,17 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     if (result == true && _selectedVideo != null) {
       // Retry the upload
       try {
-        await ref.read(momentsServiceProvider).uploadMomentVideo(
-              momentId,
-              _selectedVideo!,
-            );
+        await ref
+            .read(momentsServiceProvider)
+            .uploadMomentVideo(momentId, _selectedVideo!);
         return true;
       } catch (e) {
         // Show error again
         if (mounted) {
-          return await _showVideoUploadErrorDialog(momentId, 'Upload failed again: ${e.toString().replaceFirst('Exception: ', '')}');
+          return await _showVideoUploadErrorDialog(
+            momentId,
+            'Upload failed again: ${e.toString().replaceFirst('Exception: ', '')}',
+          );
         }
       }
     }
@@ -1329,10 +1359,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     // Validate inputs
     final validationError = _validateInputs();
     if (validationError != null) {
-      showMomentsSnackBar(
-        context,
-        message: validationError,
-      );
+      showMomentsSnackBar(context, message: validationError);
       return;
     }
 
@@ -1377,23 +1404,26 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     try {
       if (isEditMode) {
         // UPDATE existing moment
-        await ref.read(momentsServiceProvider).updateMoment(
+        await ref
+            .read(momentsServiceProvider)
+            .updateMoment(
               id: widget.momentToEdit!.id,
               description: descriptionController.text.trim(),
               category: _categoryToBackend[_selectedCategory] ?? 'general',
               mood: _selectedMood != null ? _moods[_selectedMood] : null,
               tags: _tags.isNotEmpty ? _tags : null,
-              backgroundColor: _selectedBackgroundColor.isNotEmpty ? _selectedBackgroundColor : null,
+              backgroundColor: _selectedBackgroundColor.isNotEmpty
+                  ? _selectedBackgroundColor
+                  : null,
               language: _languages[_selectedLanguage] ?? 'en',
               privacy: _selectedPrivacy.toLowerCase(),
             );
 
         // Upload new images if any were added
         if (_selectedImages.isNotEmpty) {
-          await ref.read(momentsServiceProvider).uploadMomentPhotos(
-                widget.momentToEdit!.id,
-                _selectedImages,
-              );
+          await ref
+              .read(momentsServiceProvider)
+              .uploadMomentPhotos(widget.momentToEdit!.id, _selectedImages);
         }
 
         // Refresh moments list
@@ -1414,7 +1444,9 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
         final locationData = _formatLocationData();
 
         // Create moment with all fields (no userId - backend uses authenticated user)
-        final moment = await ref.read(momentsServiceProvider).createMoments(
+        final moment = await ref
+            .read(momentsServiceProvider)
+            .createMoments(
               description: descriptionController.text.trim(),
               privacy: _selectedPrivacy.toLowerCase(),
               category: _categoryToBackend[_selectedCategory] ?? 'general',
@@ -1423,17 +1455,18 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
               tags: _tags.isNotEmpty ? _tags : null,
               scheduledFor: _scheduledDate?.toIso8601String(),
               location: locationData,
-              backgroundColor: _selectedBackgroundColor.isNotEmpty ? _selectedBackgroundColor : null,
+              backgroundColor: _selectedBackgroundColor.isNotEmpty
+                  ? _selectedBackgroundColor
+                  : null,
               promptId: _showPromptChip ? _promptId : null,
               isReel: widget.isReel,
             );
 
         // Upload images if any
         if (_selectedImages.isNotEmpty) {
-          await ref.read(momentsServiceProvider).uploadMomentPhotos(
-                moment.id,
-                _selectedImages,
-              );
+          await ref
+              .read(momentsServiceProvider)
+              .uploadMomentPhotos(moment.id, _selectedImages);
         }
 
         // Upload recorded audio (voice note) if any. The moment already
@@ -1443,7 +1476,9 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
         String? audioUploadError;
         if (_recordedAudio != null) {
           try {
-            await ref.read(momentsServiceProvider).uploadMomentAudio(
+            await ref
+                .read(momentsServiceProvider)
+                .uploadMomentAudio(
                   moment.id,
                   _recordedAudio!,
                   _recordedAudioDuration,
@@ -1544,20 +1579,24 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
 
     try {
       // Queue the upload for background processing
-      final taskId = await ref.read(uploadManagerProvider.notifier).queueMomentUpload(
-        description: descriptionController.text.trim(),
-        privacy: _selectedPrivacy.toLowerCase(),
-        category: _categoryToBackend[_selectedCategory] ?? 'general',
-        language: _languages[_selectedLanguage] ?? 'en',
-        mood: _selectedMood != null ? _moods[_selectedMood] : null,
-        tags: _tags.isNotEmpty ? _tags : null,
-        location: locationData,
-        imagePaths: _selectedImages.map((f) => f.path).toList(),
-        videoPath: _selectedVideo?.path,
-        backgroundColor: _selectedBackgroundColor.isNotEmpty ? _selectedBackgroundColor : null,
-        promptId: widget.isReel && _showPromptChip ? _promptId : null,
-        isReel: widget.isReel,
-      );
+      final taskId = await ref
+          .read(uploadManagerProvider.notifier)
+          .queueMomentUpload(
+            description: descriptionController.text.trim(),
+            privacy: _selectedPrivacy.toLowerCase(),
+            category: _categoryToBackend[_selectedCategory] ?? 'general',
+            language: _languages[_selectedLanguage] ?? 'en',
+            mood: _selectedMood != null ? _moods[_selectedMood] : null,
+            tags: _tags.isNotEmpty ? _tags : null,
+            location: locationData,
+            imagePaths: _selectedImages.map((f) => f.path).toList(),
+            videoPath: _selectedVideo?.path,
+            backgroundColor: _selectedBackgroundColor.isNotEmpty
+                ? _selectedBackgroundColor
+                : null,
+            promptId: widget.isReel && _showPromptChip ? _promptId : null,
+            isReel: widget.isReel,
+          );
 
       // Reels upload/create in the background (same pipeline as any other
       // video moment), so "post success" isn't visible at this call site.
@@ -1614,7 +1653,8 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
       if (mounted) {
         showMomentsSnackBar(
           context,
-          message: 'Failed to queue upload: ${e.toString().replaceFirst('Exception: ', '')}',
+          message:
+              'Failed to queue upload: ${e.toString().replaceFirst('Exception: ', '')}',
           type: MomentsSnackBarType.error,
         );
       }
@@ -1650,7 +1690,9 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
-          isEditMode ? AppLocalizations.of(context)!.edit : AppLocalizations.of(context)!.createMoment,
+          isEditMode
+              ? AppLocalizations.of(context)!.edit
+              : AppLocalizations.of(context)!.createMoment,
           style: context.titleLarge,
         ),
         actions: [
@@ -1665,8 +1707,9 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                         height: 20,
                         child: CircularProgressIndicator(
                           strokeWidth: 2,
-                          valueColor:
-                              AlwaysStoppedAnimation<Color>(Color(0xFF00BFA5)),
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            Color(0xFF00BFA5),
+                          ),
                         ),
                       )
                     : Text(
@@ -1694,7 +1737,10 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
               Align(
                 alignment: Alignment.centerLeft,
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 8,
+                  ),
                   decoration: BoxDecoration(
                     color: const Color(0xFFFFD54F).withValues(alpha: 0.18),
                     borderRadius: BorderRadius.circular(20),
@@ -1705,7 +1751,11 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const Icon(Icons.wb_sunny_outlined, size: 16, color: Color(0xFFC9A415)),
+                      const Icon(
+                        Icons.wb_sunny_outlined,
+                        size: 16,
+                        color: Color(0xFFC9A415),
+                      ),
                       const SizedBox(width: 6),
                       const Flexible(
                         child: Text(
@@ -1726,7 +1776,11 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                             _promptId = null;
                           });
                         },
-                        child: const Icon(Icons.close, size: 16, color: Color(0xFFC9A415)),
+                        child: const Icon(
+                          Icons.close,
+                          size: 16,
+                          color: Color(0xFFC9A415),
+                        ),
                       ),
                     ],
                   ),
@@ -1756,8 +1810,8 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                           value == 'Public'
                               ? Icons.public
                               : value == 'Friends'
-                                  ? Icons.people
-                                  : Icons.lock,
+                              ? Icons.people
+                              : Icons.lock,
                           size: 20,
                           color: AppColors.primary,
                         ),
@@ -1780,9 +1834,14 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
 
             // Description Field with Counter + gradient preview
             () {
-              final hasGradient = _selectedBackgroundColor.isNotEmpty && _selectedImages.isEmpty && _selectedVideo == null;
+              final hasGradient =
+                  _selectedBackgroundColor.isNotEmpty &&
+                  _selectedImages.isEmpty &&
+                  _selectedVideo == null;
               final gradientColors = hasGradient
-                  ? MomentGradients.getColors(_selectedBackgroundColor).map((c) => Color(c)).toList()
+                  ? MomentGradients.getColors(
+                      _selectedBackgroundColor,
+                    ).map((c) => Color(c)).toList()
                   : null;
 
               return Container(
@@ -1809,19 +1868,30 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                         fontSize: hasGradient ? 18 : null,
                         height: hasGradient ? 1.5 : null,
                         shadows: hasGradient
-                            ? [const Shadow(blurRadius: 4, color: Colors.black26)]
+                            ? [
+                                const Shadow(
+                                  blurRadius: 4,
+                                  color: Colors.black26,
+                                ),
+                              ]
                             : null,
                       ),
-                      textAlign: hasGradient ? TextAlign.center : TextAlign.start,
+                      textAlign: hasGradient
+                          ? TextAlign.center
+                          : TextAlign.start,
                       decoration: InputDecoration(
                         hintText: hasGradient
                             ? AppLocalizations.of(context)!.whatsOnYourMind
                             : AppLocalizations.of(context)!.whatsOnYourMind,
                         hintStyle: TextStyle(
-                          color: hasGradient ? Colors.white54 : context.textHint,
+                          color: hasGradient
+                              ? Colors.white54
+                              : context.textHint,
                         ),
                         filled: hasGradient,
-                        fillColor: hasGradient ? Colors.black.withValues(alpha: 0.15) : null,
+                        fillColor: hasGradient
+                            ? Colors.black.withValues(alpha: 0.15)
+                            : null,
                         border: OutlineInputBorder(
                           borderRadius: AppRadius.borderMD,
                           borderSide: BorderSide.none,
@@ -1845,11 +1915,16 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                         child: Text(
                           '${descriptionController.text.length}/$maxDescriptionLength',
                           style: context.caption.copyWith(
-                            color: descriptionController.text.length > maxDescriptionLength
+                            color:
+                                descriptionController.text.length >
+                                    maxDescriptionLength
                                 ? AppColors.error
-                                : descriptionController.text.length > maxDescriptionLength * 0.9
-                                    ? Colors.orange
-                                    : hasGradient ? Colors.white70 : context.textMuted,
+                                : descriptionController.text.length >
+                                      maxDescriptionLength * 0.9
+                                ? Colors.orange
+                                : hasGradient
+                                ? Colors.white70
+                                : context.textMuted,
                           ),
                         ),
                       ),
@@ -1868,7 +1943,9 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                   children: [
                     Text(
                       AppLocalizations.of(context)!.chooseBackground,
-                      style: context.labelMedium.copyWith(color: context.textSecondary),
+                      style: context.labelMedium.copyWith(
+                        color: context.textSecondary,
+                      ),
                     ),
                     const SizedBox(height: 8),
                     SizedBox(
@@ -1878,14 +1955,17 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                         children: [
                           // "None" option
                           GestureDetector(
-                            onTap: () => setState(() => _selectedBackgroundColor = ''),
+                            onTap: () =>
+                                setState(() => _selectedBackgroundColor = ''),
                             child: Container(
                               width: 36,
                               height: 36,
                               margin: const EdgeInsets.only(right: 8),
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-                                color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.surfaceContainerHighest,
                                 border: Border.all(
                                   color: _selectedBackgroundColor.isEmpty
                                       ? AppColors.primary
@@ -1893,14 +1973,21 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                                   width: 2,
                                 ),
                               ),
-                              child: Icon(Icons.block, size: 18, color: context.textMuted),
+                              child: Icon(
+                                Icons.block,
+                                size: 18,
+                                color: context.textMuted,
+                              ),
                             ),
                           ),
                           ...MomentGradients.presets.entries.map((entry) {
                             final colors = entry.value;
-                            final isSelected = _selectedBackgroundColor == entry.key;
+                            final isSelected =
+                                _selectedBackgroundColor == entry.key;
                             return GestureDetector(
-                              onTap: () => setState(() => _selectedBackgroundColor = entry.key),
+                              onTap: () => setState(
+                                () => _selectedBackgroundColor = entry.key,
+                              ),
                               child: Container(
                                 width: 36,
                                 height: 36,
@@ -1908,10 +1995,14 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   gradient: LinearGradient(
-                                    colors: colors.map((c) => Color(c)).toList(),
+                                    colors: colors
+                                        .map((c) => Color(c))
+                                        .toList(),
                                   ),
                                   border: Border.all(
-                                    color: isSelected ? AppColors.primary : Colors.transparent,
+                                    color: isSelected
+                                        ? AppColors.primary
+                                        : Colors.transparent,
                                     width: 2,
                                   ),
                                 ),
@@ -2085,12 +2176,17 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(Icons.add,
-                                  size: 32, color: context.iconColor),
+                              Icon(
+                                Icons.add,
+                                size: 32,
+                                color: context.iconColor,
+                              ),
                               Spacing.gapXS,
                               Text(
                                 'Add More',
-                                style: context.caption.copyWith(color: context.textSecondary),
+                                style: context.caption.copyWith(
+                                  color: context.textSecondary,
+                                ),
                               ),
                             ],
                           ),
@@ -2120,10 +2216,16 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                         Container(
                           padding: const EdgeInsets.all(8),
                           decoration: BoxDecoration(
-                            color: const Color(0xFF00BFA5).withValues(alpha: 0.1),
+                            color: const Color(
+                              0xFF00BFA5,
+                            ).withValues(alpha: 0.1),
                             borderRadius: BorderRadius.circular(8),
                           ),
-                          child: const Icon(Icons.videocam, color: Color(0xFF00BFA5), size: 24),
+                          child: const Icon(
+                            Icons.videocam,
+                            color: Color(0xFF00BFA5),
+                            size: 24,
+                          ),
                         ),
                         const SizedBox(width: 12),
                         Expanded(
@@ -2132,7 +2234,9 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                             children: [
                               Text(
                                 'Video Ready',
-                                style: context.bodyMedium.copyWith(fontWeight: FontWeight.w600),
+                                style: context.bodyMedium.copyWith(
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
                               const SizedBox(height: 4),
                               Row(
@@ -2140,21 +2244,33 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                                   if (_videoProcessResult != null) ...[
                                     Text(
                                       '${_videoProcessResult!.fileSizeMB}MB',
-                                      style: context.captionSmall.copyWith(color: context.textSecondary),
+                                      style: context.captionSmall.copyWith(
+                                        color: context.textSecondary,
+                                      ),
                                     ),
-                                    if (_videoProcessResult!.duration != null) ...[
+                                    if (_videoProcessResult!.duration !=
+                                        null) ...[
                                       Text(
                                         ' | ${_videoProcessResult!.durationFormatted}',
-                                        style: context.captionSmall.copyWith(color: context.textSecondary),
+                                        style: context.captionSmall.copyWith(
+                                          color: context.textSecondary,
+                                        ),
                                       ),
                                     ],
                                     if (_videoProcessResult!.wasCompressed) ...[
                                       const SizedBox(width: 8),
                                       Container(
-                                        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 6,
+                                          vertical: 2,
+                                        ),
                                         decoration: BoxDecoration(
-                                          color: const Color(0xFF00BFA5).withValues(alpha: 0.1),
-                                          borderRadius: BorderRadius.circular(4),
+                                          color: const Color(
+                                            0xFF00BFA5,
+                                          ).withValues(alpha: 0.1),
+                                          borderRadius: BorderRadius.circular(
+                                            4,
+                                          ),
                                         ),
                                         child: const Text(
                                           'Compressed',
@@ -2169,7 +2285,9 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                                   ] else
                                     Text(
                                       'Ready to upload',
-                                      style: context.captionSmall.copyWith(color: context.textSecondary),
+                                      style: context.captionSmall.copyWith(
+                                        color: context.textSecondary,
+                                      ),
                                     ),
                                 ],
                               ),
@@ -2230,7 +2348,9 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                                   const SizedBox(width: 4),
                                   Text(
                                     _videoProcessResult?.durationFormatted ??
-                                        (widget.isReel ? 'Max 3:00' : 'Max 10:00'),
+                                        (widget.isReel
+                                            ? 'Max 3:00'
+                                            : 'Max 10:00'),
                                     style: const TextStyle(
                                       color: Colors.white,
                                       fontSize: 12,
@@ -2362,8 +2482,10 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                           items: _categories.map((String value) {
                             return DropdownMenuItem<String>(
                               value: value,
-                              child: Text(value,
-                                  style: const TextStyle(fontSize: 14)),
+                              child: Text(
+                                value,
+                                style: const TextStyle(fontSize: 14),
+                              ),
                             );
                           }).toList(),
                           onChanged: (String? newValue) {
@@ -2401,8 +2523,10 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                           items: _languages.keys.map((String displayName) {
                             return DropdownMenuItem<String>(
                               value: displayName,
-                              child: Text(displayName,
-                                  style: const TextStyle(fontSize: 14)),
+                              child: Text(
+                                displayName,
+                                style: const TextStyle(fontSize: 14),
+                              ),
                             );
                           }).toList(),
                           onChanged: (String? newValue) {
@@ -2446,7 +2570,9 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                           child: Text(
                             _scheduledDate != null
                                 ? '${_scheduledDate!.day}/${_scheduledDate!.month}/${_scheduledDate!.year} at ${_scheduledDate!.hour}:${_scheduledDate!.minute.toString().padLeft(2, '0')}'
-                                : AppLocalizations.of(context)!.momentsCreateScheduleForLater,
+                                : AppLocalizations.of(
+                                    context,
+                                  )!.momentsCreateScheduleForLater,
                             style: context.bodyMedium.copyWith(
                               color: _scheduledDate != null
                                   ? context.textPrimary
@@ -2517,7 +2643,6 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
       ),
     );
   }
-
 }
 
 /// Minimal local-file audio preview player for the composer's recorded
@@ -2534,7 +2659,8 @@ class _LocalAudioPreviewPlayer extends StatefulWidget {
   });
 
   @override
-  State<_LocalAudioPreviewPlayer> createState() => _LocalAudioPreviewPlayerState();
+  State<_LocalAudioPreviewPlayer> createState() =>
+      _LocalAudioPreviewPlayerState();
 }
 
 class _LocalAudioPreviewPlayerState extends State<_LocalAudioPreviewPlayer> {
@@ -2554,7 +2680,8 @@ class _LocalAudioPreviewPlayerState extends State<_LocalAudioPreviewPlayer> {
       if (!mounted) return;
       setState(() {
         _isPlaying = state.playing;
-        _isLoading = state.processingState == ProcessingState.loading ||
+        _isLoading =
+            state.processingState == ProcessingState.loading ||
             state.processingState == ProcessingState.buffering;
       });
       if (state.processingState == ProcessingState.completed) {
