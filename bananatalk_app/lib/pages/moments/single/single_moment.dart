@@ -707,6 +707,7 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                       padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
                       child: !_showTranslation
                           ? MomentTranslateChip(
+                              key: const Key('detail-translate'),
                               onTap: _handleTranslateChipTap,
                             )
                           : TranslatedMomentWidget(
@@ -790,6 +791,19 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                           onTap: focusCommentField,
                         ),
                         const Spacer(),
+                        IconButton(
+                          key: const Key('detail-save'),
+                          icon: Icon(
+                            isSaved ? Icons.bookmark : Icons.bookmark_border,
+                            color: isSaved
+                                ? AppColors.primary
+                                : context.iconColor,
+                            size: 20,
+                          ),
+                          padding: const EdgeInsets.all(8),
+                          constraints: const BoxConstraints(),
+                          onPressed: _toggleSave,
+                        ),
                         IconButton(
                           icon: Icon(
                             Icons.share_outlined,
