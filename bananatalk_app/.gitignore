@@ -79,3 +79,6 @@ lib/**/build/
 
 # Copyrighted reference textbooks — used only as headword blueprint, never shipped
 *.pdf
+
+# Visual brainstorming companion (superpowers)
+.superpowers/
