@@ -177,7 +177,14 @@ void main() {
         ),
       );
       await tester.pumpAndSettle();
-      return tester.widgetList(find.byType(Tab)).length;
+      // The strip renders teal pill chips now, not Material Tabs. The
+      // invariant under test is unchanged -- 모임 must take the voice-rooms
+      // SLOT rather than adding a ninth entry -- so this counts the chips.
+      return tester
+          .widgetList(find.byWidgetPredicate((w) =>
+              w.key is ValueKey<String> &&
+              (w.key as ValueKey<String>).value.startsWith('community-chip-')))
+          .length;
     }
 
     testWidgets('the count is identical with the switch on and off', (
