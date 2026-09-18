@@ -14,6 +14,7 @@ import 'package:bananatalk_app/services/moments_service.dart' as api;
 import 'package:bananatalk_app/services/ad_service.dart';
 import 'package:bananatalk_app/providers/provider_root/comments_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
+import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
 import 'package:bananatalk_app/widgets/report_dialog.dart';
 import 'package:bananatalk_app/widgets/language_selection/show_language_picker.dart';
@@ -282,6 +283,40 @@ class _MomentCardState extends ConsumerState<MomentCard> {
   }
 
   String _getCurrentUserId() => _cachedUserId;
+
+  /// Follow or unfollow this moment's author, reusing the community flow
+  /// rather than reimplementing it -- same service calls, same invalidations
+  /// as single_community_screen.dart.
+  Future<void> _toggleFollow() async {
+    final userId = _getCurrentUserId();
+    if (userId.isEmpty) return;
+
+    final following =
+        ref.read(userProvider).valueOrNull?.followings.contains(
+              widget.moments.user.id,
+            ) ??
+        false;
+
+    final service = ref.read(communityServiceProvider);
+    try {
+      if (following) {
+        await service.unfollowUser(
+          userId: userId,
+          targetUserId: widget.moments.user.id,
+        );
+      } else {
+        await service.followUser(
+          userId: userId,
+          targetUserId: widget.moments.user.id,
+        );
+      }
+      ref.invalidate(userProvider);
+      ref.invalidate(communityProvider);
+    } catch (_) {
+      // Non-fatal: the provider is the source of truth and the next read
+      // corrects the pill. A failed follow must not break the feed.
+    }
+  }
 
   /// Opens the full detail screen for this moment. Fetches a fresh copy of
   /// the moment (so the like/comment counts shown in the detail screen
@@ -608,17 +643,37 @@ class _MomentCardState extends ConsumerState<MomentCard> {
     return GestureDetector(
       onTap: _openMomentDetail,
       child: Container(
-        margin: const EdgeInsets.only(left: 12, right: 12, bottom: 8),
+        margin: const EdgeInsets.only(left: 12, right: 12, bottom: 10),
         decoration: BoxDecoration(
-          color: Theme.of(context).cardColor,
-          borderRadius: BorderRadius.circular(0),
+          color: context.surfaceColor,
+          // Was BorderRadius.circular(0) on a detached container -- no radius,
+          // no border, no divider, no shadow, so it read as neither a card nor
+          // a list row. Same treatment as the community partner row now.
+          borderRadius: BorderRadius.circular(AppRadius.xl),
+          boxShadow: context.isDarkMode ? [] : AppShadows.sm,
         ),
+        clipBehavior: Clip.antiAlias,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // ── Header ──────────────────────────────────────────────────────
             MomentCardHeader(
               moment: widget.moments,
+              // Read from the provider, never from local state: one author can
+              // appear in several posts in a single feed, and two of their
+              // cards must not disagree after a tap.
+              isFollowing: ref
+                      .watch(userProvider)
+                      .valueOrNull
+                      ?.followings
+                      .contains(widget.moments.user.id) ??
+                  false,
+              // Null hides the pill -- that is how your own post, and a feed
+              // with no signed-in viewer, render no Follow affordance.
+              onFollowToggle: (_getCurrentUserId().isEmpty ||
+                      _getCurrentUserId() == widget.moments.user.id)
+                  ? null
+                  : _toggleFollow,
               onAvatarTap: () async {
                 final community = await ref
                     .read(communityServiceProvider)
