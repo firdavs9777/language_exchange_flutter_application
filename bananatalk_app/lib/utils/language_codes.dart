@@ -46,6 +46,35 @@ class LanguageCodes {
     return base.length == 2 ? base : null;
   }
 
+  /// Two-letter display code for a language NAME, uppercased: 'Korean' ->
+  /// 'KO', 'Chinese (Traditional)' -> 'ZH', 'en' -> 'EN'.
+  ///
+  /// ISO-style (KO, ZH), not country-style (KR, CN) -- this is the convention
+  /// the app has always shown, and a pill that disagreed with the rest of the
+  /// app would be worse than one that disagreed with a competitor.
+  ///
+  /// Lives here rather than in a widget because two screens rendered their own
+  /// copy of this mapping and they had already drifted.
+  static String displayCode(String language) {
+    final lower = stripVariant(language).toLowerCase().trim();
+    if (lower.isEmpty) return '';
+    const byName = {
+      'japanese': 'JP', 'english': 'EN', 'korean': 'KO', 'chinese': 'ZH',
+      'spanish': 'ES', 'french': 'FR', 'german': 'DE', 'italian': 'IT',
+      'portuguese': 'PT', 'russian': 'RU', 'arabic': 'AR', 'hindi': 'HI',
+      'tajik': 'TG', 'vietnamese': 'VI', 'thai': 'TH', 'indonesian': 'ID',
+      'turkish': 'TR', 'filipino': 'TL', 'cantonese': 'YUE',
+    };
+    for (final entry in byName.entries) {
+      if (lower.contains(entry.key)) return entry.value;
+    }
+    // A bare ISO code ('en', 'ko') or anything unrecognised: show the first
+    // two letters rather than nothing.
+    final iso = toBaseIso6391(lower);
+    if (iso != null) return iso.toUpperCase();
+    return language.toUpperCase().substring(0, language.length > 2 ? 2 : language.length);
+  }
+
   /// Strip a trailing regional parenthetical from a display name:
   /// "Portuguese (Brazil)" → "Portuguese", "Chinese (Traditional)" →
   /// "Chinese". Names without one pass through ("Haitian Creole").
