@@ -18,6 +18,10 @@ Community buildCommunity({
   bool hasActiveStory = false,
   String city = 'Seoul',
   String country = 'South Korea',
+  // Defaults to production behaviour (visible). A layout test sets this false
+  // so the avatar does not open a live presence subscription that outlives the
+  // test and throws "used after dispose" during teardown.
+  bool showOnlineStatus = true,
 }) {
   return Community(
     id: id,
@@ -44,6 +48,7 @@ Community buildCommunity({
     isOnline: isOnline,
     vipSubscriptionActive: vipSubscriptionActive,
     hasActiveStory: hasActiveStory,
+    privacySettings: PrivacySettings(showOnlineStatus: showOnlineStatus),
     location: Location(
       type: 'Point',
       coordinates: const [0, 0],
