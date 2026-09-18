@@ -40,6 +40,10 @@ class MomentCard extends ConsumerStatefulWidget {
   _MomentCardState createState() => _MomentCardState();
 }
 
+/// Collapsed captions show four lines. A line count, not a character count:
+/// it is the same visual promise whatever the script.
+const int _captionMaxLines = 4;
+
 class _MomentCardState extends ConsumerState<MomentCard> {
   bool isLiked = false;
   late int likeCount;
@@ -594,10 +598,6 @@ class _MomentCardState extends ConsumerState<MomentCard> {
   @override
   Widget build(BuildContext context) {
     final fullText = widget.moments.description;
-    final shouldShowMore = fullText.length > 150;
-    final displayText = !isExpanded && shouldShowMore
-        ? '${fullText.substring(0, 150)}...'
-        : fullText;
 
     final isGradient =
         (widget.moments.mediaType == 'text' ||
@@ -656,26 +656,60 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      displayText,
-                      style: Theme.of(context).textTheme.bodyMedium,
+                    // Clamped by the text engine rather than by substring().
+                    //
+                    // `String.length` and `substring` count UTF-16 CODE UNITS,
+                    // so a caption with an emoji straddling index 150 was cut
+                    // mid-surrogate-pair and rendered as a replacement glyph.
+                    // maxLines clamps on grapheme clusters, so nothing can be
+                    // split -- and "4 lines" is the same visual promise in
+                    // every script, which 150 code units is not.
+                    LayoutBuilder(
+                      builder: (context, constraints) {
+                        final style = Theme.of(context).textTheme.bodyMedium;
+                        // Ask whether it ACTUALLY overflows instead of
+                        // guessing from a character count: a caption of 300
+                        // short-line-broken characters may not overflow four
+                        // lines, and today it always showed the toggle.
+                        final painter = TextPainter(
+                          text: TextSpan(text: fullText, style: style),
+                          maxLines: _captionMaxLines,
+                          textDirection: Directionality.of(context),
+                        )..layout(maxWidth: constraints.maxWidth);
+                        final overflows = painter.didExceedMaxLines;
+                        painter.dispose();
+
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              fullText,
+                              style: style,
+                              maxLines: isExpanded ? null : _captionMaxLines,
+                              overflow: isExpanded
+                                  ? TextOverflow.visible
+                                  : TextOverflow.ellipsis,
+                            ),
+                            if (overflows)
+                              GestureDetector(
+                                onTap: () {
+                                  setState(() => isExpanded = !isExpanded);
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.only(top: 4),
+                                  child: Text(
+                                    isExpanded
+                                        ? AppLocalizations.of(context)!.showLess
+                                        : AppLocalizations.of(context)!.showMore,
+                                    style: context.labelMedium.copyWith(
+                                        color: context.textSecondary),
+                                  ),
+                                ),
+                              ),
+                          ],
+                        );
+                      },
                     ),
-                    if (shouldShowMore)
-                      GestureDetector(
-                        onTap: () {
-                          setState(() => isExpanded = !isExpanded);
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 4),
-                          child: Text(
-                            isExpanded
-                                ? AppLocalizations.of(context)!.showLess
-                                : AppLocalizations.of(context)!.showMore,
-                            style: context.labelMedium
-                                .copyWith(color: context.textSecondary),
-                          ),
-                        ),
-                      ),
                     if (!_showTranslation)
                       Padding(
                         padding: const EdgeInsets.only(top: 8),
@@ -688,7 +722,11 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                         padding: const EdgeInsets.only(top: 8),
                         child: TranslatedMomentWidget(
                           momentId: widget.moments.id,
-                          originalText: displayText,
+                          // The FULL caption, not the collapsed one. This read
+                          // `displayText`, so tapping Translate on a long post
+                          // sent the text cut at 150 code units -- trailing
+                          // "..." included -- to be translated.
+                          originalText: fullText,
                           originalLanguage: widget.moments.language,
                           existingTranslations:
                               widget.moments.translations.isNotEmpty
