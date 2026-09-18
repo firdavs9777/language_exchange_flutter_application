@@ -9,10 +9,17 @@ class ConversationStarterRibbon extends StatelessWidget {
   final Community community;
   final bool compact;
 
+  /// When non-null, an × is rendered and this is called instead of the ribbon
+  /// dismissing itself. Dismissal is per-screen: a persisted one would need a
+  /// storage key per target user, which is not worth it for a suggestion that
+  /// changes as the profile does.
+  final VoidCallback? onDismiss;
+
   const ConversationStarterRibbon({
     super.key,
     required this.community,
     this.compact = false,
+    this.onDismiss,
   });
 
   String _pickPrompt(BuildContext context) {
@@ -73,6 +80,19 @@ class ConversationStarterRibbon extends StatelessWidget {
                 maxLines: 1,
               ),
             ),
+            if (onDismiss != null)
+              GestureDetector(
+                key: const Key('starter-dismiss'),
+                onTap: onDismiss,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 6),
+                  child: Icon(
+                    Icons.close_rounded,
+                    size: compact ? 13 : 15,
+                    color: AppColors.primary.withValues(alpha: 0.7),
+                  ),
+                ),
+              ),
           ],
         ),
       ),

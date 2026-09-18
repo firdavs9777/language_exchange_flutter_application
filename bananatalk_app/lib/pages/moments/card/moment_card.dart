@@ -14,6 +14,7 @@ import 'package:bananatalk_app/services/moments_service.dart' as api;
 import 'package:bananatalk_app/services/ad_service.dart';
 import 'package:bananatalk_app/providers/provider_root/comments_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
+import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
 import 'package:bananatalk_app/widgets/report_dialog.dart';
 import 'package:bananatalk_app/widgets/language_selection/show_language_picker.dart';
@@ -39,6 +40,10 @@ class MomentCard extends ConsumerStatefulWidget {
   @override
   _MomentCardState createState() => _MomentCardState();
 }
+
+/// Collapsed captions show four lines. A line count, not a character count:
+/// it is the same visual promise whatever the script.
+const int _captionMaxLines = 4;
 
 class _MomentCardState extends ConsumerState<MomentCard> {
   bool isLiked = false;
@@ -278,6 +283,40 @@ class _MomentCardState extends ConsumerState<MomentCard> {
   }
 
   String _getCurrentUserId() => _cachedUserId;
+
+  /// Follow or unfollow this moment's author, reusing the community flow
+  /// rather than reimplementing it -- same service calls, same invalidations
+  /// as single_community_screen.dart.
+  Future<void> _toggleFollow() async {
+    final userId = _getCurrentUserId();
+    if (userId.isEmpty) return;
+
+    final following =
+        ref.read(userProvider).valueOrNull?.followings.contains(
+              widget.moments.user.id,
+            ) ??
+        false;
+
+    final service = ref.read(communityServiceProvider);
+    try {
+      if (following) {
+        await service.unfollowUser(
+          userId: userId,
+          targetUserId: widget.moments.user.id,
+        );
+      } else {
+        await service.followUser(
+          userId: userId,
+          targetUserId: widget.moments.user.id,
+        );
+      }
+      ref.invalidate(userProvider);
+      ref.invalidate(communityProvider);
+    } catch (_) {
+      // Non-fatal: the provider is the source of truth and the next read
+      // corrects the pill. A failed follow must not break the feed.
+    }
+  }
 
   /// Opens the full detail screen for this moment. Fetches a fresh copy of
   /// the moment (so the like/comment counts shown in the detail screen
@@ -594,10 +633,6 @@ class _MomentCardState extends ConsumerState<MomentCard> {
   @override
   Widget build(BuildContext context) {
     final fullText = widget.moments.description;
-    final shouldShowMore = fullText.length > 150;
-    final displayText = !isExpanded && shouldShowMore
-        ? '${fullText.substring(0, 150)}...'
-        : fullText;
 
     final isGradient =
         (widget.moments.mediaType == 'text' ||
@@ -608,17 +643,37 @@ class _MomentCardState extends ConsumerState<MomentCard> {
     return GestureDetector(
       onTap: _openMomentDetail,
       child: Container(
-        margin: const EdgeInsets.only(left: 12, right: 12, bottom: 8),
+        margin: const EdgeInsets.only(left: 12, right: 12, bottom: 10),
         decoration: BoxDecoration(
-          color: Theme.of(context).cardColor,
-          borderRadius: BorderRadius.circular(0),
+          color: context.surfaceColor,
+          // Was BorderRadius.circular(0) on a detached container -- no radius,
+          // no border, no divider, no shadow, so it read as neither a card nor
+          // a list row. Same treatment as the community partner row now.
+          borderRadius: BorderRadius.circular(AppRadius.xl),
+          boxShadow: context.isDarkMode ? [] : AppShadows.sm,
         ),
+        clipBehavior: Clip.antiAlias,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // ── Header ──────────────────────────────────────────────────────
             MomentCardHeader(
               moment: widget.moments,
+              // Read from the provider, never from local state: one author can
+              // appear in several posts in a single feed, and two of their
+              // cards must not disagree after a tap.
+              isFollowing: ref
+                      .watch(userProvider)
+                      .valueOrNull
+                      ?.followings
+                      .contains(widget.moments.user.id) ??
+                  false,
+              // Null hides the pill -- that is how your own post, and a feed
+              // with no signed-in viewer, render no Follow affordance.
+              onFollowToggle: (_getCurrentUserId().isEmpty ||
+                      _getCurrentUserId() == widget.moments.user.id)
+                  ? null
+                  : _toggleFollow,
               onAvatarTap: () async {
                 final community = await ref
                     .read(communityServiceProvider)
@@ -656,26 +711,60 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      displayText,
-                      style: Theme.of(context).textTheme.bodyMedium,
+                    // Clamped by the text engine rather than by substring().
+                    //
+                    // `String.length` and `substring` count UTF-16 CODE UNITS,
+                    // so a caption with an emoji straddling index 150 was cut
+                    // mid-surrogate-pair and rendered as a replacement glyph.
+                    // maxLines clamps on grapheme clusters, so nothing can be
+                    // split -- and "4 lines" is the same visual promise in
+                    // every script, which 150 code units is not.
+                    LayoutBuilder(
+                      builder: (context, constraints) {
+                        final style = Theme.of(context).textTheme.bodyMedium;
+                        // Ask whether it ACTUALLY overflows instead of
+                        // guessing from a character count: a caption of 300
+                        // short-line-broken characters may not overflow four
+                        // lines, and today it always showed the toggle.
+                        final painter = TextPainter(
+                          text: TextSpan(text: fullText, style: style),
+                          maxLines: _captionMaxLines,
+                          textDirection: Directionality.of(context),
+                        )..layout(maxWidth: constraints.maxWidth);
+                        final overflows = painter.didExceedMaxLines;
+                        painter.dispose();
+
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              fullText,
+                              style: style,
+                              maxLines: isExpanded ? null : _captionMaxLines,
+                              overflow: isExpanded
+                                  ? TextOverflow.visible
+                                  : TextOverflow.ellipsis,
+                            ),
+                            if (overflows)
+                              GestureDetector(
+                                onTap: () {
+                                  setState(() => isExpanded = !isExpanded);
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.only(top: 4),
+                                  child: Text(
+                                    isExpanded
+                                        ? AppLocalizations.of(context)!.showLess
+                                        : AppLocalizations.of(context)!.showMore,
+                                    style: context.labelMedium.copyWith(
+                                        color: context.textSecondary),
+                                  ),
+                                ),
+                              ),
+                          ],
+                        );
+                      },
                     ),
-                    if (shouldShowMore)
-                      GestureDetector(
-                        onTap: () {
-                          setState(() => isExpanded = !isExpanded);
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 4),
-                          child: Text(
-                            isExpanded
-                                ? AppLocalizations.of(context)!.showLess
-                                : AppLocalizations.of(context)!.showMore,
-                            style: context.labelMedium
-                                .copyWith(color: context.textSecondary),
-                          ),
-                        ),
-                      ),
                     if (!_showTranslation)
                       Padding(
                         padding: const EdgeInsets.only(top: 8),
@@ -688,7 +777,11 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                         padding: const EdgeInsets.only(top: 8),
                         child: TranslatedMomentWidget(
                           momentId: widget.moments.id,
-                          originalText: displayText,
+                          // The FULL caption, not the collapsed one. This read
+                          // `displayText`, so tapping Translate on a long post
+                          // sent the text cut at 150 code units -- trailing
+                          // "..." included -- to be translated.
+                          originalText: fullText,
                           originalLanguage: widget.moments.language,
                           existingTranslations:
                               widget.moments.translations.isNotEmpty
@@ -869,36 +962,10 @@ class _MomentCardState extends ConsumerState<MomentCard> {
             // surface the count in the single_moment view, where comments
             // are already loaded via commentsProvider.
 
-            // ── Engagement counts ────────────────────────────────────────────
-            if (likeCount > 0 || widget.moments.commentCount > 0)
-              Padding(
-                padding: const EdgeInsets.fromLTRB(16, 0, 16, 4),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    if (likeCount > 0)
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 2),
-                        child: Text(
-                          '$likeCount ${likeCount == 1 ? "like" : "likes"}',
-                          style: context.bodySmall
-                              .copyWith(fontWeight: FontWeight.w600),
-                        ),
-                      ),
-                    if (widget.moments.commentCount > 0)
-                      GestureDetector(
-                        onTap: _openMomentDetail,
-                        child: Text(
-                          widget.moments.commentCount == 1
-                              ? '1 comment'
-                              : '${widget.moments.commentCount} comments',
-                          style: context.bodySmall
-                              .copyWith(color: context.textMuted),
-                        ),
-                      ),
-                  ],
-                ),
-              ),
+            // The engagement counts used to be repeated here, underneath an
+            // action row that already shows them. Same two numbers, ~40px of
+            // every card. The action row is the one that survives -- it is
+            // tappable and it is where people look.
 
             // ── Reaction chips ───────────────────────────────────────────────
             if (widget.moments.reactions.isNotEmpty)

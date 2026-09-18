@@ -46,7 +46,13 @@ class SingleCommunityMoments extends ConsumerWidget {
   Widget _buildGrid(BuildContext context, List<Moments> moments) {
     return GridView.builder(
       key: const PageStorageKey<String>('moments_grid'),
-      padding: const EdgeInsets.all(2),
+      // Room for the floating action bar, which paints over this grid.
+      padding: EdgeInsets.fromLTRB(
+        2,
+        2,
+        2,
+        96 + MediaQuery.of(context).padding.bottom,
+      ),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 3,
         crossAxisSpacing: 2,

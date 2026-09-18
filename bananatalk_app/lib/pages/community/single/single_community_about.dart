@@ -20,7 +20,13 @@ class SingleCommunityAbout extends ConsumerWidget {
 
     return ListView(
       key: const PageStorageKey<String>('about'),
-      padding: const EdgeInsets.all(16),
+      // Room for the floating action bar, which paints over this list.
+      padding: EdgeInsets.fromLTRB(
+        16,
+        16,
+        16,
+        96 + MediaQuery.of(context).padding.bottom,
+      ),
       children: [
         // Bio Section
         _buildBioSection(context, isDark),

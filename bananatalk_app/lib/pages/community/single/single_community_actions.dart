@@ -1,3 +1,5 @@
+import 'dart:ui' show ImageFilter;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -7,11 +9,15 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/pages/community/widgets/community_snackbar.dart';
 import 'package:bananatalk_app/pages/community/widgets/send_wave_sheet.dart';
-import 'package:bananatalk_app/pages/community/widgets/conversation_starter_ribbon.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 
-/// Instagram-style full-width action row below the profile header:
-/// Follow (filled teal) | Message (outlined) | Wave (outlined square icon).
+/// The profile's pinned action bar: Follow | Chat | Wave, floating over the
+/// content rather than scrolling with it.
+///
+/// It used to be a sliver between the header and the tab bar, which meant that
+/// by the time someone had scrolled into Moments or About -- the entire point
+/// of the screen -- there was no way to start a conversation without scrolling
+/// back up. On a language-exchange app that is the only action that matters.
 ///
 /// The Wave button is hidden when the profile belongs to the current user.
 /// The button is permanently greyed out once the current user has ever
@@ -21,13 +27,13 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 /// Video/voice call entry points were removed from this row as part of the
 /// Instagram-style redesign — they remain reachable from the chat header
 /// (see chat_app_bar.dart) once a conversation is open.
-class SingleCommunityActions extends ConsumerWidget {
+class SingleCommunityActionBar extends ConsumerWidget {
   final Community community;
   final bool isFollower;
   final VoidCallback onMessage;
   final VoidCallback onFollowToggle;
 
-  const SingleCommunityActions({
+  const SingleCommunityActionBar({
     super.key,
     required this.community,
     required this.isFollower,
@@ -52,47 +58,49 @@ class SingleCommunityActions extends ConsumerWidget {
     final isOwnProfile =
         currentUserId.isNotEmpty && currentUserId == community.id;
 
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      decoration: BoxDecoration(
-        color: context.surfaceColor,
-        border: Border(
-          bottom: BorderSide(color: context.dividerColor, width: 0.5),
-        ),
+    return Padding(
+      padding: EdgeInsets.fromLTRB(
+        14,
+        0,
+        14,
+        14 + MediaQuery.of(context).padding.bottom,
       ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          // IntrinsicHeight lets the three buttons share a common height
-          // (driven by the tallest, the 46px Wave square) without using
-          // CrossAxisAlignment.stretch — stretch on a horizontal Row demands
-          // a bounded Row height, which this sliver-hosted Column can't give,
-          // and would crash with a BoxConstraints-forces-infinite-height error.
-          IntrinsicHeight(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Expanded(child: _buildFollowButton(context, l10n)),
-                const SizedBox(width: 10),
-                Expanded(child: _buildMessageButton(context, l10n)),
-                if (!isOwnProfile) ...[
-                  const SizedBox(width: 10),
-                  FutureBuilder<bool>(
-                    future: _alreadyWaved(community.id),
-                    builder: (context, snapshot) {
-                      final alreadyWaved = snapshot.data ?? false;
-                      return _buildWaveButton(context, alreadyWaved);
-                    },
-                  ),
+      child: ClipRRect(
+        borderRadius: AppRadius.borderRound,
+        child: BackdropFilter(
+          // Blurred rather than opaque so the content keeps showing through --
+          // the bar floats over the feed, it does not cut it off.
+          filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 9),
+            decoration: BoxDecoration(
+              color: context.surfaceColor.withValues(alpha: 0.92),
+              borderRadius: AppRadius.borderRound,
+              border: Border.all(
+                color: context.dividerColor.withValues(alpha: 0.5),
+              ),
+              boxShadow: AppShadows.lg,
+            ),
+            child: IntrinsicHeight(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Expanded(flex: 10, child: _buildFollowButton(context, l10n)),
+                  const SizedBox(width: 8),
+                  Expanded(flex: 14, child: _buildMessageButton(context, l10n)),
+                  if (!isOwnProfile) ...[
+                    const SizedBox(width: 8),
+                    FutureBuilder<bool>(
+                      future: _alreadyWaved(community.id),
+                      builder: (context, snapshot) =>
+                          _buildWaveButton(context, snapshot.data ?? false),
+                    ),
+                  ],
                 ],
-              ],
+              ),
             ),
           ),
-          if (!isOwnProfile) ...[
-            const SizedBox(height: 8),
-            ConversationStarterRibbon(community: community),
-          ],
-        ],
+        ),
       ),
     );
   }
@@ -104,6 +112,7 @@ class SingleCommunityActions extends ConsumerWidget {
   Widget _buildFollowButton(BuildContext context, AppLocalizations l10n) {
     if (isFollower) {
       return OutlinedButton.icon(
+        key: const Key('action-bar-follow'),
         onPressed: onFollowToggle,
         icon: const Icon(Icons.check_circle_rounded, size: 18),
         label: Text(l10n.following),
@@ -111,13 +120,12 @@ class SingleCommunityActions extends ConsumerWidget {
           foregroundColor: context.textPrimary,
           side: BorderSide(color: context.dividerColor),
           padding: const EdgeInsets.symmetric(vertical: 12),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
+          shape: const StadiumBorder(),
         ),
       );
     }
     return ElevatedButton.icon(
+      key: const Key('action-bar-follow'),
       onPressed: onFollowToggle,
       icon: const Icon(Icons.person_add_rounded, size: 18),
       label: Text(l10n.follow),
@@ -126,7 +134,7 @@ class SingleCommunityActions extends ConsumerWidget {
         foregroundColor: Colors.white,
         elevation: 0,
         padding: const EdgeInsets.symmetric(vertical: 12),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        shape: const StadiumBorder(),
       ),
     );
   }
@@ -137,6 +145,7 @@ class SingleCommunityActions extends ConsumerWidget {
 
   Widget _buildMessageButton(BuildContext context, AppLocalizations l10n) {
     return OutlinedButton.icon(
+      key: const Key('action-bar-chat'),
       onPressed: onMessage,
       icon: const Icon(Icons.chat_bubble_outline_rounded, size: 18),
       label: Text(l10n.message),
@@ -144,7 +153,7 @@ class SingleCommunityActions extends ConsumerWidget {
         foregroundColor: context.textPrimary,
         side: BorderSide(color: context.dividerColor),
         padding: const EdgeInsets.symmetric(vertical: 12),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        shape: const StadiumBorder(),
       ),
     );
   }
@@ -186,9 +195,7 @@ class SingleCommunityActions extends ConsumerWidget {
             foregroundColor: color,
             side: BorderSide(color: context.dividerColor),
             padding: EdgeInsets.zero,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
+            shape: const StadiumBorder(),
           ),
           child: Icon(Icons.waving_hand_rounded, color: color, size: 20),
         ),
