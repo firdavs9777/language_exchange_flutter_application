@@ -7,6 +7,7 @@ import 'package:bananatalk_app/widgets/language_flag_badge.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/widgets/story/story_gradient_ring.dart';
+import 'package:bananatalk_app/widgets/language/language_exchange_pill.dart';
 
 /// Avatar + name + language chips + timestamp + menu row at the top of a
 /// MomentCard. Pure render — no state. Navigation is handled by callbacks.
@@ -23,31 +24,6 @@ class MomentCardHeader extends StatelessWidget {
   });
 
   // ---------------------------------------------------------------------------
-  // Language helpers (duplicated from orchestrator; keep co-located so the
-  // header remains self-contained).
-  // ---------------------------------------------------------------------------
-
-  String _getLanguageCode(String language) {
-    final langLower = language.toLowerCase();
-    if (langLower.contains('japan') || langLower == 'jp') return 'JP';
-    if (langLower.contains('english') || langLower == 'en') return 'EN';
-    if (langLower.contains('korean') || langLower == 'ko') return 'KO';
-    if (langLower.contains('chinese') || langLower == 'zh') return 'ZH';
-    if (langLower.contains('spanish') || langLower == 'es') return 'ES';
-    if (langLower.contains('french') || langLower == 'fr') return 'FR';
-    if (langLower.contains('german') || langLower == 'de') return 'DE';
-    if (langLower.contains('italian') || langLower == 'it') return 'IT';
-    if (langLower.contains('portuguese') || langLower == 'pt') return 'PT';
-    if (langLower.contains('russian') || langLower == 'ru') return 'RU';
-    if (langLower.contains('arabic') || langLower == 'ar') return 'AR';
-    if (langLower.contains('hindi') || langLower == 'hi') return 'HI';
-    if (langLower.contains('tajik') || langLower == 'tg') return 'TG';
-    return language.toUpperCase().substring(
-      0,
-      language.length > 2 ? 2 : language.length,
-    );
-  }
-
   /// Display name for the moment's own language (the language the post is
   /// written in), resolved from [FilterOptions.languages] — the full shared
   /// catalog once loaded, its static fallback before that — so it always
@@ -139,60 +115,15 @@ class MomentCardHeader extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 3),
-                Row(
-                  children: [
-                    // Native language with underline
-                    Container(
-                      padding: const EdgeInsets.only(bottom: 1),
-                      decoration: BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(
-                            color: AppColors.success,
-                            width: 2,
-                          ),
-                        ),
-                      ),
-                      child: Text(
-                        _getLanguageCode(moment.user.native_language),
-                        style: context.captionSmall.copyWith(
-                          fontWeight: FontWeight.w700,
-                          color: context.textPrimary,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 6),
-                    Icon(
-                      Icons.arrow_forward,
-                      size: 12,
-                      color: context.textMuted,
-                    ),
-                    const SizedBox(width: 6),
-                    // Learning language
-                    Text(
-                      _getLanguageCode(moment.user.language_to_learn),
-                      style: context.captionSmall.copyWith(
-                        fontWeight: FontWeight.w700,
-                        color: context.textSecondary,
-                      ),
-                    ),
-                    const SizedBox(width: 4),
-                    // Language level dots (3 filled, 2 empty)
-                    Row(
-                      children: List.generate(5, (index) {
-                        return Container(
-                          margin: const EdgeInsets.only(left: 2),
-                          width: 3,
-                          height: 3,
-                          decoration: BoxDecoration(
-                            color: index < 3
-                                ? context.textSecondary
-                                : context.dividerColor,
-                            shape: BoxShape.circle,
-                          ),
-                        );
-                      }),
-                    ),
-                  ],
+                // The shared pill. What stood here was a green-underlined
+                // native code, an arrow, the learning code, and five dots
+                // generated with `index < 3` -- a constant, so a beginner and
+                // a C2 speaker rendered identically on every card in the feed.
+                LanguageExchangePill(
+                  nativeLanguage: moment.user.native_language,
+                  learningLanguage: moment.user.language_to_learn,
+                  languageLevel: moment.user.languageLevel,
+                  dense: true,
                 ),
               ],
             ),

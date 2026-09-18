@@ -68,9 +68,12 @@ class LanguageExchangePill extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
+          // No dots on the native side. They were always three-of-three --
+          // it is their own language -- so the group varied for nobody and
+          // communicated nothing, while costing ~20px that overflowed the
+          // moment header at 320pt. Dots now appear only where there is a
+          // level to report.
           _code(LanguageCodes.displayCode(nativeLanguage), fontSize),
-          // The native side is always full: it is their own language.
-          _dots(3, fontSize),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 5),
             child: Icon(
