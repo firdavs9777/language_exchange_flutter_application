@@ -869,36 +869,10 @@ class _MomentCardState extends ConsumerState<MomentCard> {
             // surface the count in the single_moment view, where comments
             // are already loaded via commentsProvider.
 
-            // ── Engagement counts ────────────────────────────────────────────
-            if (likeCount > 0 || widget.moments.commentCount > 0)
-              Padding(
-                padding: const EdgeInsets.fromLTRB(16, 0, 16, 4),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    if (likeCount > 0)
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 2),
-                        child: Text(
-                          '$likeCount ${likeCount == 1 ? "like" : "likes"}',
-                          style: context.bodySmall
-                              .copyWith(fontWeight: FontWeight.w600),
-                        ),
-                      ),
-                    if (widget.moments.commentCount > 0)
-                      GestureDetector(
-                        onTap: _openMomentDetail,
-                        child: Text(
-                          widget.moments.commentCount == 1
-                              ? '1 comment'
-                              : '${widget.moments.commentCount} comments',
-                          style: context.bodySmall
-                              .copyWith(color: context.textMuted),
-                        ),
-                      ),
-                  ],
-                ),
-              ),
+            // The engagement counts used to be repeated here, underneath an
+            // action row that already shows them. Same two numbers, ~40px of
+            // every card. The action row is the one that survives -- it is
+            // tappable and it is where people look.
 
             // ── Reaction chips ───────────────────────────────────────────────
             if (widget.moments.reactions.isNotEmpty)
