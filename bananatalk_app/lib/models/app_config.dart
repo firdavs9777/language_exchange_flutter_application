@@ -70,6 +70,14 @@ class AppConfig {
   /// where a tab used to be. The backend default is ON for the same reason.
   final bool gatheringsEnabled;
 
+  /// Server-side switch for the RANKED Community list (`?sort=smart`).
+  ///
+  /// Defaults to `false`, like [reelsEnabled] and [coinsEnabled] and unlike
+  /// [roomsEnabled]: this changes the ORDER of the screen every user lands on,
+  /// and the backend ships it off. A client running against a server that
+  /// predates the flag must keep asking for the sort it has always asked for.
+  final bool smartSortEnabled;
+
   const AppConfig({
     required this.minVersion,
     required this.latestVersion,
@@ -82,6 +90,7 @@ class AppConfig {
     this.reelsEnabled = false,
     this.coinsEnabled = false,
     this.gatheringsEnabled = true,
+    this.smartSortEnabled = false,
   });
 
   factory AppConfig.fromJson(Map<String, dynamic> json) {
@@ -101,6 +110,7 @@ class AppConfig {
       reelsEnabled: (json['reelsEnabled'] as bool?) ?? false,
       coinsEnabled: (json['coinsEnabled'] as bool?) ?? false,
       gatheringsEnabled: (json['gatheringsEnabled'] as bool?) ?? true,
+      smartSortEnabled: (json['smartSortEnabled'] as bool?) ?? false,
     );
   }
 }

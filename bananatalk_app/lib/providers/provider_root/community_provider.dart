@@ -5,6 +5,7 @@ import 'package:bananatalk_app/services/api_client.dart';
 import 'package:bananatalk_app/service/endpoints.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
+import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/utils/string_sanitizer.dart';
 
@@ -1182,9 +1183,30 @@ class PartnerFilterState {
 /// Notifier for server-side filtered partners
 class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
   final CommunityService _service;
+
+  /// Whether the server offers the ranked list, read at REQUEST time rather
+  /// than at construction: the app-config fetch may still be in flight when
+  /// this notifier is built, and a flag latched too early would be wrong for
+  /// the rest of the session.
+  final bool Function() _smartSortEnabled;
+
   static const int _pageSize = 20;
 
-  PartnerFilterNotifier(this._service) : super(const PartnerFilterState());
+  PartnerFilterNotifier(this._service, this._smartSortEnabled)
+      : super(const PartnerFilterState());
+
+  /// The sort to ask the server for.
+  ///
+  /// An explicit user choice always wins -- picking "recently active" and
+  /// silently getting relevance ranking would be a lie. Only the DEFAULT
+  /// becomes `smart`, and only when the server says it is available; an older
+  /// server ignores the parameter anyway, but asking for something it does not
+  /// offer would misdescribe the response.
+  String? _sortFor(PartnerFilterParams filters) {
+    final chosen = filters.sort;
+    if (chosen != null && chosen.isNotEmpty) return chosen;
+    return _smartSortEnabled() ? 'smart' : null;
+  }
 
   /// Load partners with filters (server-side)
   Future<void> loadWithFilters(PartnerFilterParams filters) async {
@@ -1211,7 +1233,7 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
         country: filters.country,
         languageLevel: filters.languageLevel,
         search: filters.search,
-        sort: filters.sort,
+        sort: _sortFor(filters),
       );
 
       // If 0 results returned, set hasMore to false to prevent infinite loading
@@ -1286,5 +1308,14 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
 final partnerFilterProvider =
     StateNotifierProvider<PartnerFilterNotifier, PartnerFilterState>((ref) {
       final service = ref.read(communityServiceProvider);
-      return PartnerFilterNotifier(service);
+      return PartnerFilterNotifier(
+        service,
+        () => ref
+                .read(appConfigProvider)
+                .maybeWhen(
+                  data: (config) => config?.smartSortEnabled,
+                  orElse: () => false,
+                ) ??
+            false,
+      );
     });
