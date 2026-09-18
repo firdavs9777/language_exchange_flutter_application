@@ -28,6 +28,7 @@ import 'package:bananatalk_app/pages/stories/viewer/story_viewer_launcher.dart';
 
 import 'package:bananatalk_app/pages/community/single/single_community_header.dart';
 import 'package:bananatalk_app/pages/community/single/single_community_actions.dart';
+import 'package:bananatalk_app/pages/community/widgets/conversation_starter_ribbon.dart';
 import 'package:bananatalk_app/pages/community/single/single_community_about.dart';
 import 'package:bananatalk_app/pages/community/single/single_community_moments.dart';
 import 'package:bananatalk_app/pages/stories/highlights/highlights_row.dart';
@@ -48,6 +49,7 @@ class SingleCommunity extends ConsumerStatefulWidget {
 class _SingleCommunityState extends ConsumerState<SingleCommunity>
     with SingleTickerProviderStateMixin {
   bool isFollower = false;
+  bool _starterDismissed = false;
   bool isBlocked = false;
   String userId = '';
   Community? _updatedCommunity;
@@ -495,7 +497,9 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
 
     return Scaffold(
       backgroundColor: context.scaffoldBackground,
-      body: NestedScrollView(
+      body: Stack(
+        children: [
+          NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) {
           return [
             // Name-only app bar — the visual "hero" is now the ringed
@@ -552,16 +556,6 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
               ),
             ),
 
-            // Action buttons row (Follow / Message / Wave)
-            SliverToBoxAdapter(
-              child: SingleCommunityActions(
-                community: _community,
-                isFollower: isFollower,
-                onMessage: _navigateToChat,
-                onFollowToggle: isFollower ? _unfollowUser : _followUser,
-              ),
-            ),
-
             // Story highlights row (directly under the header/actions)
             SliverToBoxAdapter(
               child: HighlightsRow(
@@ -611,6 +605,39 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
             SingleCommunityAbout(community: _community),
           ],
         ),
+          ),
+
+          // The action bar floats over the content instead of scrolling with
+          // it, so Chat is reachable from anywhere on the profile. Hidden on
+          // your own profile and while the viewer is not signed in.
+          if (userId.isNotEmpty && userId != _community.id)
+            Positioned(
+              left: 0,
+              right: 0,
+              bottom: 0,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  if (!_starterDismissed)
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(14, 0, 14, 6),
+                      child: ConversationStarterRibbon(
+                        community: _community,
+                        compact: true,
+                        onDismiss: () =>
+                            setState(() => _starterDismissed = true),
+                      ),
+                    ),
+                  SingleCommunityActionBar(
+                    community: _community,
+                    isFollower: isFollower,
+                    onMessage: _navigateToChat,
+                    onFollowToggle: isFollower ? _unfollowUser : _followUser,
+                  ),
+                ],
+              ),
+            ),
+        ],
       ),
     );
   }
