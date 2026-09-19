@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/providers/provider_models/message_model.dart';
 import 'package:bananatalk_app/services/poll_service.dart';
 
@@ -175,7 +177,7 @@ class _CreatePollDialogState extends State<CreatePollDialog> {
         setState(() => _isCreating = false);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Error: $e'),
+            content: Text(friendlyErrorMessage(AppLocalizations.of(context)!, e)),
             backgroundColor: Colors.red,
           ),
         );
@@ -214,7 +216,7 @@ class _CreatePollDialogState extends State<CreatePollDialog> {
                 const Spacer(),
                 TextButton(
                   onPressed: _isCreating ? null : () => Navigator.pop(context),
-                  child: const Text('Cancel'),
+                  child: Text(AppLocalizations.of(context)!.cancel),
                 ),
                 const SizedBox(width: 8),
                 ElevatedButton(

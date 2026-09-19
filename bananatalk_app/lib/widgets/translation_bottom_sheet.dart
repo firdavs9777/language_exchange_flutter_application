@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/services.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
@@ -404,7 +405,7 @@ class _TranslationBottomSheetState extends State<TranslationBottomSheet> {
                   const SizedBox(height: 16),
                   OutlinedButton(
                     onPressed: _translate,
-                    child: const Text('Retry'),
+                    child: Text(AppLocalizations.of(context)!.retry),
                   ),
                 ],
               ),
