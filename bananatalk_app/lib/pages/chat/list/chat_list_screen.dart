@@ -252,48 +252,38 @@ class _ChatMainState extends ConsumerState<ChatMain>
       (data) => handleMessageSent(ctx, data),
       onError: onStreamError,
     );
-    _typingSub = _chatSocketService.onTyping.listen(
-      (data) {
-        if (data['isTyping'] == false) {
-          handleUserStoppedTyping(ctx, data);
-        } else {
-          handleUserTyping(ctx, data);
+    _typingSub = _chatSocketService.onTyping.listen((data) {
+      if (data['isTyping'] == false) {
+        handleUserStoppedTyping(ctx, data);
+      } else {
+        handleUserTyping(ctx, data);
+      }
+    }, onError: onStreamError);
+    _statusSub = _chatSocketService.onStatusUpdate.listen((data) {
+      if (data is Map && data.containsKey('userId')) {
+        handleStatusUpdate(ctx, data);
+      } else if (data is List) {
+        for (var userData in data) {
+          handleStatusUpdate(ctx, userData);
         }
-      },
-      onError: onStreamError,
-    );
-    _statusSub = _chatSocketService.onStatusUpdate.listen(
-      (data) {
-        if (data is Map && data.containsKey('userId')) {
-          handleStatusUpdate(ctx, data);
-        } else if (data is List) {
-          for (var userData in data) {
-            handleStatusUpdate(ctx, userData);
-          }
-        } else {
-          handleBulkStatusUpdate(ctx, data);
-        }
-      },
-      onError: onStreamError,
-    );
-    _messageReadSub = _chatSocketService.onMessageRead.listen(
-      (data) {
-        if (data['readBy'] != null) {
-          handleMessagesRead(ctx, data);
-        } else {
-          handleMessageRead(ctx, data);
-        }
-      },
-      onError: onStreamError,
-    );
-    _connectionStateSub = _chatSocketService.onConnectionStateChange.listen(
-      (isConnected) {
-        if (isConnected && _chatPartners.isNotEmpty) {
-          _requestStatusUpdatesInBatches();
-        }
-      },
-      onError: onStreamError,
-    );
+      } else {
+        handleBulkStatusUpdate(ctx, data);
+      }
+    }, onError: onStreamError);
+    _messageReadSub = _chatSocketService.onMessageRead.listen((data) {
+      if (data['readBy'] != null) {
+        handleMessagesRead(ctx, data);
+      } else {
+        handleMessageRead(ctx, data);
+      }
+    }, onError: onStreamError);
+    _connectionStateSub = _chatSocketService.onConnectionStateChange.listen((
+      isConnected,
+    ) {
+      if (isConnected && _chatPartners.isNotEmpty) {
+        _requestStatusUpdatesInBatches();
+      }
+    }, onError: onStreamError);
   }
 
   void _requestStatusUpdatesInBatches() {
@@ -604,7 +594,8 @@ class _ChatMainState extends ConsumerState<ChatMain>
             nativeLanguage: otherUser.native_language.isNotEmpty
                 ? otherUser.native_language
                 : null,
-            country: ((otherUser.privacySettings?.showCountryRegion ?? true) &&
+            country:
+                ((otherUser.privacySettings?.showCountryRegion ?? true) &&
                     otherUser.location.country.isNotEmpty)
                 ? otherUser.location.country
                 : null,
@@ -709,9 +700,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
       // excluded.
       result = result.where((p) {
         final sender = p.lastMessageSenderId;
-        return sender != null &&
-            sender.isNotEmpty &&
-            sender != _currentUserId;
+        return sender != null && sender.isNotEmpty && sender != _currentUserId;
       }).toList();
     }
 
@@ -744,7 +733,9 @@ class _ChatMainState extends ConsumerState<ChatMain>
     final userState = ref.read(userProvider);
     if (userState.hasError) {
       ref.invalidate(userProvider);
-      try { await ref.read(userProvider.future); } catch (_) {}
+      try {
+        await ref.read(userProvider.future);
+      } catch (_) {}
     }
 
     final prefs = await SharedPreferences.getInstance();
@@ -852,10 +843,9 @@ class _ChatMainState extends ConsumerState<ChatMain>
           // Navigate to the chat screen for the scanned user.
           // We don't have the user's name here so we pass an empty extra map
           // — the chat screen handles missing metadata gracefully.
-          context.push(
-            '/chat/$scannedUserId',
-            extra: <String, String>{},
-          ).then((_) => _silentRefresh());
+          context
+              .push('/chat/$scannedUserId', extra: <String, String>{})
+              .then((_) => _silentRefresh());
         },
       ),
     );
@@ -921,8 +911,9 @@ class _ChatMainState extends ConsumerState<ChatMain>
               final value = usernameController.text.trim();
               if (value.isNotEmpty) {
                 Navigator.of(context).pop();
-                final username =
-                    value.startsWith('@') ? value.substring(1) : value;
+                final username = value.startsWith('@')
+                    ? value.substring(1)
+                    : value;
                 _searchAndStartChat(username);
               }
             },
@@ -1005,7 +996,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
         }
         showChatSnackBar(
           context,
-          message: 'Error searching for user: $e',
+          message: friendlyErrorMessage(AppLocalizations.of(context)!, e),
           type: ChatSnackBarType.error,
         );
       });
@@ -1210,27 +1201,26 @@ class _ChatMainState extends ConsumerState<ChatMain>
           ),
           itemBuilder: (context, index) {
             final partner = displayPartners[index];
-            final delay =
-                Duration(milliseconds: (index * 50).clamp(0, 500));
+            final delay = Duration(milliseconds: (index * 50).clamp(0, 500));
 
             return ChatListTile(
-              partner: partner,
-              isActive: _activeUserId == partner.id,
-              isTyping: _typingUsers[partner.id] == true,
-              realtimeStatus: _getRealtimeStatus(partner),
-              draft: _drafts[partner.id],
-              onTap: () =>
-                  _onSelectUser(partner.id, partner.name, partner.avatar),
-              onPin: _handlePinConversation,
-              onMute: _handleMuteConversation,
-              onDelete: _handleDeleteConversation,
-              onAvatarTap: () => StoryViewerLauncher.open(
-                context,
-                userId: partner.id,
-                fallback: () =>
-                    _onSelectUser(partner.id, partner.name, partner.avatar),
-              ),
-            )
+                  partner: partner,
+                  isActive: _activeUserId == partner.id,
+                  isTyping: _typingUsers[partner.id] == true,
+                  realtimeStatus: _getRealtimeStatus(partner),
+                  draft: _drafts[partner.id],
+                  onTap: () =>
+                      _onSelectUser(partner.id, partner.name, partner.avatar),
+                  onPin: _handlePinConversation,
+                  onMute: _handleMuteConversation,
+                  onDelete: _handleDeleteConversation,
+                  onAvatarTap: () => StoryViewerLauncher.open(
+                    context,
+                    userId: partner.id,
+                    fallback: () =>
+                        _onSelectUser(partner.id, partner.name, partner.avatar),
+                  ),
+                )
                 .animate()
                 .fadeIn(duration: 300.ms, delay: delay)
                 .slideX(
@@ -1322,8 +1312,11 @@ class _ChatMainState extends ConsumerState<ChatMain>
                   children: [
                     const Icon(Icons.person_add_alt_1_outlined, size: 20),
                     const SizedBox(width: 12),
-                    Text(AppLocalizations.of(context)!
-                        .chatListNewChatByUsernameTooltip),
+                    Text(
+                      AppLocalizations.of(
+                        context,
+                      )!.chatListNewChatByUsernameTooltip,
+                    ),
                   ],
                 ),
               ),
@@ -1356,11 +1349,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(
-                            Icons.wifi_off,
-                            size: 40,
-                            color: colors.outline,
-                          ),
+                          Icon(Icons.wifi_off, size: 40, color: colors.outline),
                           const SizedBox(height: 12),
                           // One sentence, not a hardcoded English heading
                           // above a raw exception. `_error` is already a
@@ -1378,9 +1367,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
                           const SizedBox(height: 16),
                           TextButton(
                             onPressed: _refresh,
-                            child: Text(
-                              AppLocalizations.of(context)!.retry,
-                            ),
+                            child: Text(AppLocalizations.of(context)!.retry),
                           ),
                         ],
                       ),
@@ -1481,8 +1468,9 @@ class _NotifPermissionBanner extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        AppLocalizations.of(context)!
-                            .chatListNewMessageAlertsTitle,
+                        AppLocalizations.of(
+                          context,
+                        )!.chatListNewMessageAlertsTitle,
                         style: const TextStyle(
                           color: purple,
                           fontSize: 14,
@@ -1491,8 +1479,9 @@ class _NotifPermissionBanner extends StatelessWidget {
                       ),
                       const SizedBox(height: 2),
                       Text(
-                        AppLocalizations.of(context)!
-                            .chatListNewMessageAlertsBody,
+                        AppLocalizations.of(
+                          context,
+                        )!.chatListNewMessageAlertsBody,
                         style: const TextStyle(
                           color: purple,
                           fontSize: 12,
@@ -1509,7 +1498,11 @@ class _NotifPermissionBanner extends StatelessWidget {
                     minWidth: 32,
                     minHeight: 32,
                   ),
-                  icon: const Icon(Icons.close_rounded, color: purple, size: 20),
+                  icon: const Icon(
+                    Icons.close_rounded,
+                    color: purple,
+                    size: 20,
+                  ),
                   onPressed: onDismiss,
                   tooltip: AppLocalizations.of(context)!.dismiss,
                 ),
@@ -1521,4 +1514,3 @@ class _NotifPermissionBanner extends StatelessWidget {
     );
   }
 }
-

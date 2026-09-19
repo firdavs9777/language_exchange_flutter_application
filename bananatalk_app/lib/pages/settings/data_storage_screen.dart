@@ -4,6 +4,7 @@ import 'package:bananatalk_app/services/storage_service.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/pages/settings/widgets/settings_snackbar.dart';
 import 'package:bananatalk_app/pages/settings/widgets/cache_stats_card.dart';
 
@@ -109,7 +110,7 @@ class _DataStorageScreenState extends ConsumerState<DataStorageScreen> {
       if (mounted) {
         showSettingsSnackBar(
           context,
-          message: '${l10n.clearCacheFailed}: $e',
+          message: friendlyErrorMessage(AppLocalizations.of(context)!, e, fallback: l10n.clearCacheFailed),
           type: SettingsSnackBarType.error,
         );
       }

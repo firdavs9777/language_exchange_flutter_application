@@ -1,6 +1,7 @@
 import 'package:bananatalk_app/services/language_service.dart';
 import 'package:bananatalk_app/services/translation_service.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
@@ -82,7 +83,7 @@ class _LanguageSettingsScreenState extends ConsumerState<LanguageSettingsScreen>
         final l10n = AppLocalizations.of(context)!;
         showSettingsSnackBar(
           context,
-          message: '${l10n.errorChangingLanguage}: $e',
+          message: friendlyErrorMessage(AppLocalizations.of(context)!, e, fallback: l10n.errorChangingLanguage),
           type: SettingsSnackBarType.error,
         );
       }

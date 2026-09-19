@@ -12,6 +12,7 @@ import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/pages/chat/widgets/chat_snackbar.dart';
 import 'package:bananatalk_app/pages/chat/widgets/chat_empty_state.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 
 /// Screen showing all media, links, and documents shared in a conversation
 class ChatMediaScreen extends ConsumerStatefulWidget {
@@ -354,7 +355,7 @@ class _ChatMediaScreenState extends ConsumerState<ChatMediaScreen>
       }
     } catch (e) {
       if (mounted) {
-        showChatSnackBar(context, message: 'Error opening link: $e', type: ChatSnackBarType.error);
+        showChatSnackBar(context, message: friendlyErrorMessage(AppLocalizations.of(context)!, e), type: ChatSnackBarType.error);
       }
     }
   }

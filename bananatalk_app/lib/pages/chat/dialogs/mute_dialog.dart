@@ -3,6 +3,7 @@ import 'package:bananatalk_app/services/conversation_service.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/pages/chat/widgets/chat_dialog_scaffold.dart';
 import 'package:bananatalk_app/pages/chat/widgets/chat_snackbar.dart';
 
@@ -101,7 +102,7 @@ class _MuteDialogState extends State<MuteDialog> {
       }
     } catch (e) {
       if (mounted) {
-        showChatSnackBar(context, message: 'Error: ${e.toString()}', type: ChatSnackBarType.error);
+        showChatSnackBar(context, message: friendlyErrorMessage(AppLocalizations.of(context)!, e), type: ChatSnackBarType.error);
         setState(() => _isLoading = false);
       }
     }

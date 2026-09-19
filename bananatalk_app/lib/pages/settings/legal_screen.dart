@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -30,7 +31,7 @@ class LegalScreen extends StatelessWidget {
       if (context.mounted) {
         showSettingsSnackBar(
           context,
-          message: '${AppLocalizations.of(context)!.error}: $e',
+          message: friendlyErrorMessage(AppLocalizations.of(context)!, e, fallback: AppLocalizations.of(context)!.error),
           type: SettingsSnackBarType.error,
         );
       }

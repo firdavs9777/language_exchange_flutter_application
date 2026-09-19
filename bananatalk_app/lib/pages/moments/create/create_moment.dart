@@ -23,6 +23,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:bananatalk_app/pages/moments/widgets/moments_snackbar.dart';
 import 'package:bananatalk_app/pages/moments/create/moment_draft_rules.dart';
@@ -613,7 +614,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
       if (mounted) {
         showMomentsSnackBar(
           context,
-          message: 'Error processing video: $e',
+          message: friendlyErrorMessage(AppLocalizations.of(context)!, e),
           type: MomentsSnackBarType.error,
         );
       }
@@ -1049,7 +1050,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
       if (mounted) {
         showMomentsSnackBar(
           context,
-          message: 'Failed to get location: $e',
+          message: friendlyErrorMessage(AppLocalizations.of(context)!, e),
           type: MomentsSnackBarType.error,
         );
       }

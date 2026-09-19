@@ -16,6 +16,7 @@ import 'package:bananatalk_app/widgets/limit_exceeded_dialog.dart';
 import 'package:bananatalk_app/widgets/image_preview_dialog.dart';
 import 'package:bananatalk_app/utils/api_error_handler.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/services/media_service.dart';
 import 'package:bananatalk_app/services/conversation_service.dart';
 import 'package:bananatalk_app/services/notification_permission.dart';
@@ -126,8 +127,9 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     // would reach almost nobody — the same chicken-and-egg that produced the
     // current numbers. It is one OS permission, so granting it here is what
     // makes the daily study reminder possible at all.
-    WidgetsBinding.instance
-        .addPostFrameCallback((_) => _maybePrimeNotifications());
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) => _maybePrimeNotifications(),
+    );
     // Restore any saved draft (and apply a prefill prompt if there is no
     // draft). Runs async because it reads from disk.
     _restoreDraft();
@@ -162,14 +164,16 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
   Future<void> _restoreDraft() async {
     final draft = await ChatDraftService.load(widget.userId);
     if (!mounted || _messageController.text.isNotEmpty) return;
-    final restored = draft ??
+    final restored =
+        draft ??
         ((widget.prefillMessage?.isNotEmpty ?? false)
             ? widget.prefillMessage
             : null);
     if (restored == null) return;
     _messageController.text = restored;
-    _messageController.selection =
-        TextSelection.collapsed(offset: restored.length);
+    _messageController.selection = TextSelection.collapsed(
+      offset: restored.length,
+    );
   }
 
   /// If pending intros (waves) are already loaded and include waves from
@@ -581,11 +585,11 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
   /// Registers call-error callback.
   /// Delegates to [setupCallListeners] in conversation_setup.dart.
   void _setupCallListeners() => setupCallListeners(
-        ref: ref,
-        onCallError: (error) {
-          if (mounted) _handleCallError(context, error);
-        },
-      );
+    ref: ref,
+    onCallError: (error) {
+      if (mounted) _handleCallError(context, error);
+    },
+  );
 
   @override
   void didChangeDependencies() {
@@ -659,8 +663,8 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     final existing = controller.text;
     final separator =
         existing.isEmpty || existing.endsWith(' ') || existing.endsWith('\n')
-            ? ''
-            : ' ';
+        ? ''
+        : ' ';
     final next = existing + separator + phrase;
     controller.text = next;
     controller.selection = TextSelection.fromPosition(
@@ -835,7 +839,9 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                 setState(() => _adBonusMessages = 3);
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
-                    content: Text('You unlocked 3 bonus messages! Keep chatting.'),
+                    content: Text(
+                      'You unlocked 3 bonus messages! Keep chatting.',
+                    ),
                     backgroundColor: Color(0xFF00BFA5),
                   ),
                 );
@@ -975,18 +981,30 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         case 'contact':
           if (mounted) {
             final l10n = AppLocalizations.of(context)!;
-            showChatSnackBar(context, message: l10n.contactSharingComingSoon, type: ChatSnackBarType.info);
+            showChatSnackBar(
+              context,
+              message: l10n.contactSharingComingSoon,
+              type: ChatSnackBarType.info,
+            );
           }
           break;
         default:
           if (mounted) {
             final l10n = AppLocalizations.of(context)!;
-            showChatSnackBar(context, message: l10n.featureComingSoon, type: ChatSnackBarType.info);
+            showChatSnackBar(
+              context,
+              message: l10n.featureComingSoon,
+              type: ChatSnackBarType.info,
+            );
           }
       }
     } catch (e) {
       if (mounted) {
-        showChatSnackBar(context, message: 'Error: ${e.toString()}', type: ChatSnackBarType.error);
+        showChatSnackBar(
+          context,
+          message: friendlyErrorMessage(AppLocalizations.of(context)!, e),
+          type: ChatSnackBarType.error,
+        );
       }
     }
   }
@@ -1021,7 +1039,11 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       }
     } catch (e) {
       if (mounted) {
-        showChatSnackBar(context, message: 'Failed to take photo: ${e.toString()}', type: ChatSnackBarType.error);
+        showChatSnackBar(
+          context,
+          message: friendlyErrorMessage(AppLocalizations.of(context)!, e),
+          type: ChatSnackBarType.error,
+        );
       }
     }
   }
@@ -1046,7 +1068,11 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       }
     } catch (e) {
       if (mounted) {
-        showChatSnackBar(context, message: 'Failed to pick image: ${e.toString()}', type: ChatSnackBarType.error);
+        showChatSnackBar(
+          context,
+          message: friendlyErrorMessage(AppLocalizations.of(context)!, e),
+          type: ChatSnackBarType.error,
+        );
       }
     }
   }
@@ -1066,7 +1092,11 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         final fileSize = await file.length();
         if (fileSize > 1024 * 1024 * 1024) {
           if (mounted) {
-            showChatSnackBar(context, message: AppLocalizations.of(context)!.videoMustBeUnder1GB, type: ChatSnackBarType.error);
+            showChatSnackBar(
+              context,
+              message: AppLocalizations.of(context)!.videoMustBeUnder1GB,
+              type: ChatSnackBarType.error,
+            );
           }
           return;
         }
@@ -1076,7 +1106,11 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       }
     } catch (e) {
       if (mounted) {
-        showChatSnackBar(context, message: 'Failed to pick video: ${e.toString()}', type: ChatSnackBarType.error);
+        showChatSnackBar(
+          context,
+          message: friendlyErrorMessage(AppLocalizations.of(context)!, e),
+          type: ChatSnackBarType.error,
+        );
       }
     }
   }
@@ -1096,7 +1130,11 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         final fileSize = await file.length();
         if (fileSize > 1024 * 1024 * 1024) {
           if (mounted) {
-            showChatSnackBar(context, message: AppLocalizations.of(context)!.videoMustBeUnder1GB, type: ChatSnackBarType.error);
+            showChatSnackBar(
+              context,
+              message: AppLocalizations.of(context)!.videoMustBeUnder1GB,
+              type: ChatSnackBarType.error,
+            );
           }
           return;
         }
@@ -1106,7 +1144,11 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       }
     } catch (e) {
       if (mounted) {
-        showChatSnackBar(context, message: 'Failed to record video: ${e.toString()}', type: ChatSnackBarType.error);
+        showChatSnackBar(
+          context,
+          message: friendlyErrorMessage(AppLocalizations.of(context)!, e),
+          type: ChatSnackBarType.error,
+        );
       }
     }
   }
@@ -1130,7 +1172,11 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         final fileSize = pickedFile.size;
         if (fileSize > 50 * 1024 * 1024) {
           if (mounted) {
-            showChatSnackBar(context, message: AppLocalizations.of(context)!.documentMustBeUnder50MB, type: ChatSnackBarType.error);
+            showChatSnackBar(
+              context,
+              message: AppLocalizations.of(context)!.documentMustBeUnder50MB,
+              type: ChatSnackBarType.error,
+            );
           }
           return;
         }
@@ -1151,7 +1197,11 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       }
     } catch (e) {
       if (mounted) {
-        showChatSnackBar(context, message: 'Failed to pick file: ${e.toString()}', type: ChatSnackBarType.error);
+        showChatSnackBar(
+          context,
+          message: friendlyErrorMessage(AppLocalizations.of(context)!, e),
+          type: ChatSnackBarType.error,
+        );
       }
     }
   }
@@ -1260,13 +1310,21 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
           } else if (errorMsg.contains('format')) {
             errorMsg = 'Unsupported video format. Use MP4, MOV, or WebM.';
           }
-          showChatSnackBar(context, message: errorMsg, type: ChatSnackBarType.error);
+          showChatSnackBar(
+            context,
+            message: errorMsg,
+            type: ChatSnackBarType.error,
+          );
         }
       }
     } catch (e) {
       setState(() => _isSending = false);
       if (mounted) {
-        showChatSnackBar(context, message: 'Error sending video: ${e.toString()}', type: ChatSnackBarType.error);
+        showChatSnackBar(
+          context,
+          message: friendlyErrorMessage(AppLocalizations.of(context)!, e),
+          type: ChatSnackBarType.error,
+        );
       }
     }
   }
@@ -1328,13 +1386,21 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
           } else if (errorMsg.contains('size')) {
             errorMsg = 'Voice message file too large';
           }
-          showChatSnackBar(context, message: errorMsg, type: ChatSnackBarType.error);
+          showChatSnackBar(
+            context,
+            message: errorMsg,
+            type: ChatSnackBarType.error,
+          );
         }
       }
     } catch (e) {
       setState(() => _isSending = false);
       if (mounted) {
-        showChatSnackBar(context, message: 'Error sending voice message: ${e.toString()}', type: ChatSnackBarType.error);
+        showChatSnackBar(
+          context,
+          message: friendlyErrorMessage(AppLocalizations.of(context)!, e),
+          type: ChatSnackBarType.error,
+        );
       }
     }
   }
@@ -1377,7 +1443,11 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       if (!permission.isGranted) {
         _isSharingLocation = false;
         if (mounted) {
-          showChatSnackBar(context, message: 'Location permission is required to share location', type: ChatSnackBarType.info);
+          showChatSnackBar(
+            context,
+            message: 'Location permission is required to share location',
+            type: ChatSnackBarType.info,
+          );
         }
         return;
       }
@@ -1443,7 +1513,11 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
           ref.refresh(userLimitsProvider(_currentUserId!));
         }
       } else {
-        showChatSnackBar(context, message: result['error'] ?? 'Failed to share location', type: ChatSnackBarType.error);
+        showChatSnackBar(
+          context,
+          message: result['error'] ?? 'Failed to share location',
+          type: ChatSnackBarType.error,
+        );
       }
     } catch (e) {
       // Dismiss loading dialog if still open
@@ -1451,7 +1525,11 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         Navigator.of(dialogContext!).pop();
       }
       if (mounted) {
-        showChatSnackBar(context, message: 'Failed to get location: ${e.toString()}', type: ChatSnackBarType.error);
+        showChatSnackBar(
+          context,
+          message: friendlyErrorMessage(AppLocalizations.of(context)!, e),
+          type: ChatSnackBarType.error,
+        );
       }
     } finally {
       _isSharingLocation = false;
@@ -1479,7 +1557,11 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       final validation = MediaService.validateMediaFile(file, detectedType);
       if (!validation['valid']) {
         if (mounted) {
-          showChatSnackBar(context, message: validation['error'] ?? 'Invalid file', type: ChatSnackBarType.error);
+          showChatSnackBar(
+            context,
+            message: validation['error'] ?? 'Invalid file',
+            type: ChatSnackBarType.error,
+          );
         }
         return;
       }
@@ -1526,13 +1608,21 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         }
       } else {
         if (mounted) {
-          showChatSnackBar(context, message: result['error'] ?? 'Failed to send media', type: ChatSnackBarType.error);
+          showChatSnackBar(
+            context,
+            message: result['error'] ?? 'Failed to send media',
+            type: ChatSnackBarType.error,
+          );
         }
       }
     } catch (e) {
       setState(() => _isSending = false);
       if (mounted) {
-        showChatSnackBar(context, message: 'Error sending media: ${e.toString()}', type: ChatSnackBarType.error);
+        showChatSnackBar(
+          context,
+          message: friendlyErrorMessage(AppLocalizations.of(context)!, e),
+          type: ChatSnackBarType.error,
+        );
       }
     }
   }
@@ -1677,14 +1767,17 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(Icons.notifications_active_outlined,
-                  size: 40, color: Theme.of(sheetContext).colorScheme.primary),
+              Icon(
+                Icons.notifications_active_outlined,
+                size: 40,
+                color: Theme.of(sheetContext).colorScheme.primary,
+              ),
               const SizedBox(height: 12),
               Text(
                 l10n.notifyRepliesTitle,
-                style: Theme.of(sheetContext).textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.w700,
-                    ),
+                style: Theme.of(
+                  sheetContext,
+                ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 8),
@@ -1812,8 +1905,9 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                     // Read native_language from the partner's profile so the
                     // small flag overlay rides on each incoming-message avatar.
                     otherUserNativeLanguage: ref.watch(
-                      singleCommunityProvider(widget.userId)
-                          .select((a) => a.valueOrNull?.native_language),
+                      singleCommunityProvider(
+                        widget.userId,
+                      ).select((a) => a.valueOrNull?.native_language),
                     ),
                     otherUserTyping: chatState.isOtherUserTyping,
                     scrollController: _scrollController,
@@ -1891,7 +1985,8 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                   onMediaOption: _handleMediaOption,
                   replyingToMessage: _replyingToMessage,
                   otherUserName: widget.userName,
-                  onCancelReply: () => setState(() => _replyingToMessage = null),
+                  onCancelReply: () =>
+                      setState(() => _replyingToMessage = null),
                   onAudioPressed: _showVoiceRecorder,
                   uploadBytesSent: _uploadBytesSent,
                   uploadTotalBytes: _uploadTotalBytes,
@@ -2029,4 +2124,3 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         (isDark ? AppColors.backgroundDark : AppColors.gray100);
   }
 }
-

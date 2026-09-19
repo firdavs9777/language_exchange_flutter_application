@@ -9,6 +9,7 @@ import 'package:bananatalk_app/providers/provider_models/story_model.dart';
 import 'package:bananatalk_app/services/stories_service.dart';
 import 'package:bananatalk_app/services/video_compression_service.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/pages/stories/widgets/stories_snackbar.dart';
 import 'package:bananatalk_app/pages/stories/create/gradient_picker.dart';
 import 'package:bananatalk_app/pages/stories/models/story_gradient.dart';
@@ -26,10 +27,7 @@ import 'package:bananatalk_app/pages/stories/create/studio/text_overlay_editor.d
 class CreateStoryScreen extends ConsumerStatefulWidget {
   final VoidCallback? onStoryCreated;
 
-  const CreateStoryScreen({
-    super.key,
-    this.onStoryCreated,
-  });
+  const CreateStoryScreen({super.key, this.onStoryCreated});
 
   @override
   ConsumerState<CreateStoryScreen> createState() => _CreateStoryScreenState();
@@ -103,7 +101,8 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
   bool _showHashtagInput = false;
 
   // Video support
-  final VideoCompressionService _videoCompressionService = VideoCompressionService();
+  final VideoCompressionService _videoCompressionService =
+      VideoCompressionService();
   VideoPlayerController? _videoController;
   double _videoCompressionProgress = 0;
   String _videoProcessingStatus = '';
@@ -206,7 +205,11 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
       if (mounted) {
         showStoriesSnackBar(
           context,
-          message: '${AppLocalizations.of(context)!.failedToPickImage}: $e',
+          message: friendlyErrorMessage(
+            AppLocalizations.of(context)!,
+            e,
+            fallback: AppLocalizations.of(context)!.failedToPickImage,
+          ),
           type: StoriesSnackBarType.error,
         );
       }
@@ -237,7 +240,11 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
       if (mounted) {
         showStoriesSnackBar(
           context,
-          message: '${AppLocalizations.of(context)!.failedToTakePhoto}: $e',
+          message: friendlyErrorMessage(
+            AppLocalizations.of(context)!,
+            e,
+            fallback: AppLocalizations.of(context)!.failedToTakePhoto,
+          ),
           type: StoriesSnackBarType.error,
         );
       }
@@ -269,7 +276,7 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
       if (mounted) {
         showStoriesSnackBar(
           context,
-          message: 'Failed to crop image: $e',
+          message: friendlyErrorMessage(AppLocalizations.of(context)!, e),
           type: StoriesSnackBarType.error,
         );
       }
@@ -291,7 +298,11 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
       if (mounted) {
         showStoriesSnackBar(
           context,
-          message: '${AppLocalizations.of(context)!.failedToPickVideo}: $e',
+          message: friendlyErrorMessage(
+            AppLocalizations.of(context)!,
+            e,
+            fallback: AppLocalizations.of(context)!.failedToPickVideo,
+          ),
           type: StoriesSnackBarType.error,
         );
       }
@@ -352,7 +363,8 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
         if (mounted && result.wasCompressed) {
           showStoriesSnackBar(
             context,
-            message: 'Video optimized: ${result.fileSizeMB}MB (saved ${result.compressionSavings.toStringAsFixed(0)}%)',
+            message:
+                'Video optimized: ${result.fileSizeMB}MB (saved ${result.compressionSavings.toStringAsFixed(0)}%)',
             type: StoriesSnackBarType.success,
           );
         }
@@ -372,7 +384,7 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
       if (mounted) {
         showStoriesSnackBar(
           context,
-          message: 'Error: $e',
+          message: friendlyErrorMessage(AppLocalizations.of(context)!, e),
           type: StoriesSnackBarType.error,
         );
       }
@@ -402,7 +414,9 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
                         : null,
                     strokeWidth: 6,
                     backgroundColor: Colors.grey[700],
-                    valueColor: const AlwaysStoppedAnimation<Color>(Color(0xFF00BFA5)),
+                    valueColor: const AlwaysStoppedAnimation<Color>(
+                      Color(0xFF00BFA5),
+                    ),
                   ),
                 ),
                 if (_videoCompressionProgress > 0)
@@ -415,13 +429,23 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
                     ),
                   )
                 else
-                  const Icon(Icons.videocam, size: 32, color: Color(0xFF00BFA5)),
+                  const Icon(
+                    Icons.videocam,
+                    size: 32,
+                    color: Color(0xFF00BFA5),
+                  ),
               ],
             ),
             const SizedBox(height: 20),
             Text(
-              _videoProcessingStatus.isNotEmpty ? _videoProcessingStatus : 'Processing...',
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.white),
+              _videoProcessingStatus.isNotEmpty
+                  ? _videoProcessingStatus
+                  : 'Processing...',
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+                color: Colors.white,
+              ),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 8),
@@ -463,7 +487,9 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
 
   Future<void> _uploadStory() async {
     if (_isTextStory) {
-      final hasVisibleOverlay = _overlays.any((o) => o.content.trim().isNotEmpty);
+      final hasVisibleOverlay = _overlays.any(
+        (o) => o.content.trim().isNotEmpty,
+      );
       if (!hasVisibleOverlay) {
         showStoriesSnackBar(
           context,
@@ -577,7 +603,7 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
         setState(() => _isUploading = false);
         showStoriesSnackBar(
           context,
-          message: 'Error: $e',
+          message: friendlyErrorMessage(AppLocalizations.of(context)!, e),
           type: StoriesSnackBarType.error,
         );
       }
@@ -648,8 +674,8 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
         body: _mediaFile != null
             ? _buildPreview()
             : _isTextStory
-                ? _buildTextEditor()
-                : _buildMediaPicker(),
+            ? _buildTextEditor()
+            : _buildMediaPicker(),
       ),
     );
   }
@@ -729,10 +755,7 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
           children: [
             Icon(icon, color: Colors.white, size: 32),
             const SizedBox(height: 8),
-            Text(
-              label,
-              style: const TextStyle(color: Colors.white70),
-            ),
+            Text(label, style: const TextStyle(color: Colors.white70)),
           ],
         ),
       ),
@@ -868,7 +891,10 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
 
               // Privacy selector
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 8,
+                ),
                 decoration: BoxDecoration(
                   color: Colors.black54,
                   borderRadius: BorderRadius.circular(20),
@@ -1052,7 +1078,9 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
 
   Widget _buildAttachedStickerChip() {
     final isPoll = _poll != null;
-    final label = isPoll ? 'Poll: ${_poll!.question}' : 'Question: ${_questionBox!.prompt}';
+    final label = isPoll
+        ? 'Poll: ${_poll!.question}'
+        : 'Question: ${_questionBox!.prompt}';
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
@@ -1062,12 +1090,20 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(isPoll ? Icons.poll : Icons.chat_bubble_outline, color: Colors.white, size: 16),
+          Icon(
+            isPoll ? Icons.poll : Icons.chat_bubble_outline,
+            color: Colors.white,
+            size: 16,
+          ),
           const SizedBox(width: 6),
           Flexible(
             child: Text(
               label,
-              style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w600),
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+              ),
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
             ),
@@ -1100,7 +1136,11 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
           Flexible(
             child: Text(
               _pickedLocation!.name,
-              style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w600),
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+              ),
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
             ),
@@ -1137,7 +1177,10 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
                 child: Text(
                   m.username,
                   style: const TextStyle(
-                      color: Colors.white, fontSize: 12, fontWeight: FontWeight.w600),
+                    color: Colors.white,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                  ),
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                 ),
@@ -1221,7 +1264,11 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
                       style: const TextStyle(color: Colors.white, fontSize: 12),
                     ),
                     backgroundColor: Colors.white.withValues(alpha: 0.15),
-                    deleteIcon: const Icon(Icons.close, size: 14, color: Colors.white70),
+                    deleteIcon: const Icon(
+                      Icons.close,
+                      size: 14,
+                      color: Colors.white70,
+                    ),
                     onDeleted: () => _removeHashtag(tag),
                     materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     visualDensity: VisualDensity.compact,
@@ -1239,7 +1286,11 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
                         color: Colors.white.withValues(alpha: 0.12),
                         shape: BoxShape.circle,
                       ),
-                      child: const Icon(Icons.add, color: Colors.white70, size: 14),
+                      child: const Icon(
+                        Icons.add,
+                        color: Colors.white70,
+                        size: 14,
+                      ),
                     ),
                   ),
               ],
@@ -1264,7 +1315,10 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
                 // to this explicit override).
                 filled: false,
                 prefixIcon: Icon(Icons.tag, color: Colors.white54, size: 18),
-                prefixIconConstraints: BoxConstraints(minWidth: 26, minHeight: 20),
+                prefixIconConstraints: BoxConstraints(
+                  minWidth: 26,
+                  minHeight: 20,
+                ),
               ),
               textInputAction: TextInputAction.done,
               onSubmitted: (value) {
@@ -1374,9 +1428,7 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
   Future<void> _openPollEditor() async {
     final result = await Navigator.push<StoryPoll>(
       context,
-      MaterialPageRoute(
-        builder: (_) => PollStickerEditor(initial: _poll),
-      ),
+      MaterialPageRoute(builder: (_) => PollStickerEditor(initial: _poll)),
     );
     if (result != null) {
       setState(() {
@@ -1487,7 +1539,10 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
               child: Row(
                 children: [
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 8,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.black26,
                       borderRadius: BorderRadius.circular(20),
@@ -1496,7 +1551,10 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
                       value: _privacy,
                       dropdownColor: Colors.grey[900],
                       underline: const SizedBox(),
-                      icon: const Icon(Icons.arrow_drop_down, color: Colors.white),
+                      icon: const Icon(
+                        Icons.arrow_drop_down,
+                        color: Colors.white,
+                      ),
                       items: StoryPrivacy.values.map((p) {
                         return DropdownMenuItem(
                           value: p,
@@ -1567,14 +1625,21 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
                   const SizedBox(height: 16),
                   const Text(
                     'Video Selected',
-                    style: TextStyle(color: Colors.white70, fontSize: 20, fontWeight: FontWeight.w500),
+                    style: TextStyle(
+                      color: Colors.white70,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                   const SizedBox(height: 8),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 32),
                     child: Text(
                       _mediaFile!.path.split('/').last,
-                      style: const TextStyle(color: Colors.white54, fontSize: 14),
+                      style: const TextStyle(
+                        color: Colors.white54,
+                        fontSize: 14,
+                      ),
                       textAlign: TextAlign.center,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
@@ -1597,7 +1662,9 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
                   shape: BoxShape.circle,
                 ),
                 child: Icon(
-                  _videoController!.value.isPlaying ? Icons.pause : Icons.play_arrow,
+                  _videoController!.value.isPlaying
+                      ? Icons.pause
+                      : Icons.play_arrow,
                   color: Colors.white,
                   size: 28,
                 ),
@@ -1610,7 +1677,10 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
               bottom: 120,
               left: 16,
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 6,
+                ),
                 decoration: BoxDecoration(
                   color: Colors.black.withValues(alpha: 0.7),
                   borderRadius: BorderRadius.circular(20),
@@ -1627,14 +1697,21 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
                     if (_videoProcessResult!.wasCompressed) ...[
                       const SizedBox(width: 8),
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 6,
+                          vertical: 2,
+                        ),
                         decoration: BoxDecoration(
                           color: const Color(0xFF00BFA5),
                           borderRadius: BorderRadius.circular(4),
                         ),
                         child: const Text(
                           'HD',
-                          style: TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ],
@@ -1665,7 +1742,8 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
   }
 
   void _toggleVideoPlayback() {
-    if (_videoController == null || !_videoController!.value.isInitialized) return;
+    if (_videoController == null || !_videoController!.value.isInitialized)
+      return;
 
     setState(() {
       if (_videoController!.value.isPlaying) {

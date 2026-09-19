@@ -16,6 +16,7 @@ import 'package:bananatalk_app/pages/settings/data_storage_screen.dart';
 import 'package:bananatalk_app/pages/reports/my_reports_screen.dart';
 import 'package:bananatalk_app/pages/admin/admin_home_screen.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
@@ -820,7 +821,7 @@ class LeftDrawer extends ConsumerWidget {
         Navigator.of(context, rootNavigator: true).pop(); // close loading
         showProfileSnackBar(
           context,
-          message: '${l10n.logoutFailedPrefix}: $error',
+          message: friendlyErrorMessage(AppLocalizations.of(context)!, error, fallback: l10n.logoutFailedPrefix),
           type: ProfileSnackBarType.error,
         );
       }
@@ -901,7 +902,7 @@ class LeftDrawer extends ConsumerWidget {
         Navigator.of(context, rootNavigator: true).pop();
         showProfileSnackBar(
           context,
-          message: '${l10n.clearCacheFailed}: $error',
+          message: friendlyErrorMessage(AppLocalizations.of(context)!, error, fallback: l10n.clearCacheFailed),
           type: ProfileSnackBarType.error,
         );
       }

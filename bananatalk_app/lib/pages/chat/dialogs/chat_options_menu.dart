@@ -16,6 +16,7 @@ import 'package:bananatalk_app/providers/provider_root/block_provider.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/pages/chat/widgets/chat_snackbar.dart';
 import 'package:bananatalk_app/pages/chat/header/auto_translate_toggle.dart';
@@ -125,7 +126,7 @@ class _ChatOptionsMenuState extends ConsumerState<ChatOptionsMenu> {
       }
     } catch (e) {
       if (mounted) {
-        showChatSnackBar(context, message: 'Error loading community: $e', type: ChatSnackBarType.error);
+        showChatSnackBar(context, message: friendlyErrorMessage(AppLocalizations.of(context)!, e), type: ChatSnackBarType.error);
       }
     }
   }

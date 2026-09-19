@@ -12,6 +12,7 @@ import 'package:bananatalk_app/utils/time_utils.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:app_settings/app_settings.dart';
 import 'package:bananatalk_app/pages/chat/header/user_avatar.dart';
 import 'package:bananatalk_app/pages/chat/dialogs/chat_options_menu.dart';
@@ -254,7 +255,7 @@ class ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
       }
     } catch (e) {
       if (context.mounted) {
-        showChatSnackBar(context, message: 'Error loading profile: $e', type: ChatSnackBarType.error);
+        showChatSnackBar(context, message: friendlyErrorMessage(AppLocalizations.of(context)!, e), type: ChatSnackBarType.error);
       }
     }
   }
