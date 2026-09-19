@@ -3464,5 +3464,11 @@
   "wordDeleted": "ลบคำศัพท์แล้ว",
   "vocabularyLoadFailed": "โหลดคำศัพท์ของคุณไม่สำเร็จ",
   "savedTitle": "ที่บันทึกไว้",
-  "savedSubtitle": "รีลและโมเมนต์ที่คุณบันทึกไว้"
+  "savedSubtitle": "รีลและโมเมนต์ที่คุณบันทึกไว้",
+  "introRequests": "คำขอทักทาย",
+  "icebreakerWhyLearn": "อะไรทำให้คุณเริ่มเรียนภาษาใหม่?",
+  "icebreakerCanHelp": "สวัสดี! เราช่วยคุณฝึกได้นะ 😊",
+  "icebreakerFavoriteWord": "คำโปรดในภาษาของคุณคืออะไร?",
+  "icebreakerCoffeeChat": "ไว้คุยกันตอนพักดื่มกาแฟไหม?",
+  "icebreakerHowsWeek": "สัปดาห์นี้เป็นยังไงบ้าง?"
 }

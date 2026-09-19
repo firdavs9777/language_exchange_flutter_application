@@ -1,4 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+
 import 'package:bananatalk_app/models/report_model.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
@@ -238,17 +242,33 @@ class _TextEvidenceViewState extends State<_TextEvidenceView> {
     _textFuture = _fetchText();
   }
 
+  /// Largest evidence file rendered inline. Past this the moderator gets a
+  /// clear refusal rather than a screen full of text they cannot scan.
+  static const int _maxInlineBytes = 512 * 1024;
+
   /// Fetches text content from the evidence file URL.
-  /// TODO: Implement actual HTTP fetch once backend text-file endpoint is available.
+  ///
+  /// This returned the literal string "Text file content would be loaded
+  /// here." to whoever opened the report — a moderator deciding whether to
+  /// act on someone's account was shown placeholder copy where the evidence
+  /// should be, with nothing marking it as a placeholder. The note saying to
+  /// wait for a backend endpoint was stale: evidence carries a storage URL
+  /// and the image view beside this one has been loading from it all along.
+  ///
+  /// Throws on failure so the FutureBuilder's error arm renders, rather than
+  /// returning the failure as if it were the file's contents.
   Future<String> _fetchText() async {
-    try {
-      // Placeholder for actual text file fetch.
-      // In production, this would make an HTTP GET request to fetch file content
-      // from the backend storage URL.
-      return 'Text file content would be loaded here.';
-    } catch (e) {
-      return 'Failed to load text file.';
+    if (widget.file.size > _maxInlineBytes) {
+      throw Exception('File too large to preview');
     }
+
+    final response = await http.get(Uri.parse(widget.file.url));
+    if (response.statusCode != 200) {
+      throw Exception('Could not load evidence (${response.statusCode})');
+    }
+    // allowMalformed: evidence is whatever the reporter uploaded, and a
+    // stray byte must not blank the whole file.
+    return utf8.decode(response.bodyBytes, allowMalformed: true);
   }
 
   /// Formats file size in human-readable format.
@@ -319,7 +339,15 @@ class _TextEvidenceViewState extends State<_TextEvidenceView> {
                 if (snapshot.hasError) {
                   return Center(
                     child: Text(
-                      'Error loading file',
+                      // The specific reason matters here: "too large to
+                      // preview" tells a moderator the evidence exists and
+                      // needs opening elsewhere, where a generic failure
+                      // would have them treat the report as unsupported.
+                      snapshot.error
+                              ?.toString()
+                              .replaceFirst('Exception: ', '') ??
+                          'Error loading file',
+                      textAlign: TextAlign.center,
                       style: context.caption.copyWith(
                         color: context.textHint,
                       ),

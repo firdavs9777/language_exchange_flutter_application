@@ -3464,5 +3464,11 @@
   "wordDeleted": "単語を削除しました",
   "vocabularyLoadFailed": "単語帳を読み込めませんでした",
   "savedTitle": "保存済み",
-  "savedSubtitle": "ブックマークしたリールとモーメント"
+  "savedSubtitle": "ブックマークしたリールとモーメント",
+  "introRequests": "紹介リクエスト",
+  "icebreakerWhyLearn": "新しい言語を学び始めたきっかけは何ですか？",
+  "icebreakerCanHelp": "こんにちは！練習を手伝いますよ 😊",
+  "icebreakerFavoriteWord": "あなたの言語で一番好きな言葉は何ですか？",
+  "icebreakerCoffeeChat": "いつかコーヒー休憩に話しませんか？",
+  "icebreakerHowsWeek": "今週はどんな感じですか？"
 }

@@ -3704,5 +3704,11 @@
   "wordDeleted": "Mot supprimé",
   "vocabularyLoadFailed": "Impossible de charger votre vocabulaire",
   "savedTitle": "Enregistrés",
-  "savedSubtitle": "Reels et moments que vous avez enregistrés"
+  "savedSubtitle": "Reels et moments que vous avez enregistrés",
+  "introRequests": "Demandes de contact",
+  "icebreakerWhyLearn": "Qu’est-ce qui vous a poussé à apprendre une nouvelle langue ?",
+  "icebreakerCanHelp": "Salut ! Je peux t’aider à pratiquer 😊",
+  "icebreakerFavoriteWord": "Quel est votre mot préféré dans votre langue ?",
+  "icebreakerCoffeeChat": "On papote pendant une pause café ?",
+  "icebreakerHowsWeek": "Comment se passe votre semaine ?"
 }

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
@@ -83,9 +84,8 @@ class _IntroRequestsStripContent extends ConsumerWidget {
           padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
           child: Row(
             children: [
-              // TODO: l10n batch
               Text(
-                'Intro requests',
+                AppLocalizations.of(context)!.introRequests,
                 style: Theme.of(context).textTheme.titleSmall?.copyWith(
                       fontWeight: FontWeight.w600,
                       color: colorScheme.onSurface,

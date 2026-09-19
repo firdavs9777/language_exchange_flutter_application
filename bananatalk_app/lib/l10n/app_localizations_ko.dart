@@ -8299,4 +8299,22 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get savedSubtitle => '북마크한 릴스와 모먼트';
+
+  @override
+  String get introRequests => '인사 요청';
+
+  @override
+  String get icebreakerWhyLearn => '새로운 언어를 배우기 시작한 계기가 뭐예요?';
+
+  @override
+  String get icebreakerCanHelp => '안녕하세요! 연습 도와드릴게요 😊';
+
+  @override
+  String get icebreakerFavoriteWord => '당신의 언어에서 가장 좋아하는 단어는 뭐예요?';
+
+  @override
+  String get icebreakerCoffeeChat => '언제 커피 한잔하며 얘기할까요?';
+
+  @override
+  String get icebreakerHowsWeek => '이번 주는 어떻게 보내고 있어요?';
 }

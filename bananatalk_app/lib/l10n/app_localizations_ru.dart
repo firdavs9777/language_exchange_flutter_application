@@ -8330,4 +8330,22 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get savedSubtitle => 'Сохранённые ролики и моменты';
+
+  @override
+  String get introRequests => 'Запросы на знакомство';
+
+  @override
+  String get icebreakerWhyLearn => 'Что побудило вас начать учить новый язык?';
+
+  @override
+  String get icebreakerCanHelp => 'Привет! Могу помочь вам попрактиковаться 😊';
+
+  @override
+  String get icebreakerFavoriteWord => 'Какое ваше любимое слово в вашем языке?';
+
+  @override
+  String get icebreakerCoffeeChat => 'Поболтаем как-нибудь за кофе?';
+
+  @override
+  String get icebreakerHowsWeek => 'Как проходит ваша неделя?';
 }

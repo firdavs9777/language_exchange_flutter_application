@@ -8299,4 +8299,22 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get savedSubtitle => 'ブックマークしたリールとモーメント';
+
+  @override
+  String get introRequests => '紹介リクエスト';
+
+  @override
+  String get icebreakerWhyLearn => '新しい言語を学び始めたきっかけは何ですか？';
+
+  @override
+  String get icebreakerCanHelp => 'こんにちは！練習を手伝いますよ 😊';
+
+  @override
+  String get icebreakerFavoriteWord => 'あなたの言語で一番好きな言葉は何ですか？';
+
+  @override
+  String get icebreakerCoffeeChat => 'いつかコーヒー休憩に話しませんか？';
+
+  @override
+  String get icebreakerHowsWeek => '今週はどんな感じですか？';
 }

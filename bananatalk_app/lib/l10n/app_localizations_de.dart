@@ -8309,4 +8309,22 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get savedSubtitle => 'Reels und Momente, die du gespeichert hast';
+
+  @override
+  String get introRequests => 'Vorstellungsanfragen';
+
+  @override
+  String get icebreakerWhyLearn => 'Was hat dich dazu gebracht, eine neue Sprache zu lernen?';
+
+  @override
+  String get icebreakerCanHelp => 'Hallo! Ich kann dir beim Üben helfen 😊';
+
+  @override
+  String get icebreakerFavoriteWord => 'Was ist dein Lieblingswort in deiner Sprache?';
+
+  @override
+  String get icebreakerCoffeeChat => 'Mal bei einem Kaffee plaudern?';
+
+  @override
+  String get icebreakerHowsWeek => 'Wie läuft deine Woche?';
 }

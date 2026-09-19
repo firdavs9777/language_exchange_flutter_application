@@ -3464,5 +3464,11 @@
   "wordDeleted": "Đã xóa từ",
   "vocabularyLoadFailed": "Không thể tải từ vựng của bạn",
   "savedTitle": "Đã lưu",
-  "savedSubtitle": "Reels và khoảnh khắc bạn đã lưu"
+  "savedSubtitle": "Reels và khoảnh khắc bạn đã lưu",
+  "introRequests": "Yêu cầu làm quen",
+  "icebreakerWhyLearn": "Điều gì khiến bạn bắt đầu học ngôn ngữ mới?",
+  "icebreakerCanHelp": "Chào bạn! Mình có thể giúp bạn luyện tập 😊",
+  "icebreakerFavoriteWord": "Từ yêu thích của bạn trong tiếng mẹ đẻ là gì?",
+  "icebreakerCoffeeChat": "Trò chuyện lúc nghỉ cà phê nhé?",
+  "icebreakerHowsWeek": "Tuần này của bạn thế nào?"
 }

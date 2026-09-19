@@ -3485,5 +3485,11 @@
   "wordDeleted": "단어를 삭제했어요",
   "vocabularyLoadFailed": "단어장을 불러올 수 없습니다",
   "savedTitle": "저장됨",
-  "savedSubtitle": "북마크한 릴스와 모먼트"
+  "savedSubtitle": "북마크한 릴스와 모먼트",
+  "introRequests": "인사 요청",
+  "icebreakerWhyLearn": "새로운 언어를 배우기 시작한 계기가 뭐예요?",
+  "icebreakerCanHelp": "안녕하세요! 연습 도와드릴게요 😊",
+  "icebreakerFavoriteWord": "당신의 언어에서 가장 좋아하는 단어는 뭐예요?",
+  "icebreakerCoffeeChat": "언제 커피 한잔하며 얘기할까요?",
+  "icebreakerHowsWeek": "이번 주는 어떻게 보내고 있어요?"
 }

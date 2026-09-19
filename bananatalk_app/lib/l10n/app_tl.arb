@@ -3437,5 +3437,11 @@
   "wordDeleted": "Nabura ang salita",
   "vocabularyLoadFailed": "Hindi ma-load ang iyong vocabulary",
   "savedTitle": "Naka-save",
-  "savedSubtitle": "Mga reel at moment na na-bookmark mo"
+  "savedSubtitle": "Mga reel at moment na na-bookmark mo",
+  "introRequests": "Mga intro request",
+  "icebreakerWhyLearn": "Ano ang nag-udyok sa iyong mag-aral ng bagong wika?",
+  "icebreakerCanHelp": "Hi! Matutulungan kitang mag-practice 😊",
+  "icebreakerFavoriteWord": "Ano ang paborito mong salita sa wika mo?",
+  "icebreakerCoffeeChat": "Mag-chat tayo sa coffee break minsan?",
+  "icebreakerHowsWeek": "Kumusta ang linggo mo?"
 }

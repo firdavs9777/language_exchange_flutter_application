@@ -3494,5 +3494,11 @@
   "wordDeleted": "تم حذف الكلمة",
   "vocabularyLoadFailed": "تعذر تحميل مفرداتك",
   "savedTitle": "المحفوظات",
-  "savedSubtitle": "مقاطع ولحظات قمت بحفظها"
+  "savedSubtitle": "مقاطع ولحظات قمت بحفظها",
+  "introRequests": "طلبات التعارف",
+  "icebreakerWhyLearn": "ما الذي دفعك لتعلم لغة جديدة؟",
+  "icebreakerCanHelp": "مرحبًا! يمكنني مساعدتك في التدرب 😊",
+  "icebreakerFavoriteWord": "ما كلمتك المفضلة في لغتك؟",
+  "icebreakerCoffeeChat": "دردشة في استراحة قهوة قريبًا؟",
+  "icebreakerHowsWeek": "كيف يسير أسبوعك؟"
 }

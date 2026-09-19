@@ -3494,5 +3494,11 @@
   "wordDeleted": "Слово удалено",
   "vocabularyLoadFailed": "Не удалось загрузить ваш словарь",
   "savedTitle": "Сохранённое",
-  "savedSubtitle": "Сохранённые ролики и моменты"
+  "savedSubtitle": "Сохранённые ролики и моменты",
+  "introRequests": "Запросы на знакомство",
+  "icebreakerWhyLearn": "Что побудило вас начать учить новый язык?",
+  "icebreakerCanHelp": "Привет! Могу помочь вам попрактиковаться 😊",
+  "icebreakerFavoriteWord": "Какое ваше любимое слово в вашем языке?",
+  "icebreakerCoffeeChat": "Поболтаем как-нибудь за кофе?",
+  "icebreakerHowsWeek": "Как проходит ваша неделя?"
 }

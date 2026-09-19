@@ -8309,4 +8309,22 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get savedSubtitle => 'आपके बुकमार्क किए गए रील्स और पल';
+
+  @override
+  String get introRequests => 'परिचय अनुरोध';
+
+  @override
+  String get icebreakerWhyLearn => 'आपने नई भाषा सीखना क्यों शुरू किया?';
+
+  @override
+  String get icebreakerCanHelp => 'नमस्ते! मैं आपको अभ्यास में मदद कर सकता हूँ 😊';
+
+  @override
+  String get icebreakerFavoriteWord => 'आपकी भाषा में आपका पसंदीदा शब्द क्या है?';
+
+  @override
+  String get icebreakerCoffeeChat => 'कभी कॉफी ब्रेक पर बात करें?';
+
+  @override
+  String get icebreakerHowsWeek => 'आपका हफ़्ता कैसा जा रहा है?';
 }

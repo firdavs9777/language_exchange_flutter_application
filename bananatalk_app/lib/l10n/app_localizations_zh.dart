@@ -8299,6 +8299,24 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get savedSubtitle => '你收藏的短视频和动态';
+
+  @override
+  String get introRequests => '打招呼请求';
+
+  @override
+  String get icebreakerWhyLearn => '是什么让你开始学习一门新语言的？';
+
+  @override
+  String get icebreakerCanHelp => '你好！我可以帮你练习 😊';
+
+  @override
+  String get icebreakerFavoriteWord => '你的母语里最喜欢哪个词？';
+
+  @override
+  String get icebreakerCoffeeChat => '有空喝杯咖啡聊聊？';
+
+  @override
+  String get icebreakerHowsWeek => '这周过得怎么样？';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -16596,4 +16614,22 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get savedSubtitle => '你收藏的短影片和動態';
+
+  @override
+  String get introRequests => '打招呼請求';
+
+  @override
+  String get icebreakerWhyLearn => '是什麼讓你開始學習新語言的？';
+
+  @override
+  String get icebreakerCanHelp => '你好！我可以幫你練習 😊';
+
+  @override
+  String get icebreakerFavoriteWord => '你的母語裡最喜歡哪個詞？';
+
+  @override
+  String get icebreakerCoffeeChat => '有空喝杯咖啡聊聊？';
+
+  @override
+  String get icebreakerHowsWeek => '這週過得怎麼樣？';
 }

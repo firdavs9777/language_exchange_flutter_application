@@ -1,4 +1,5 @@
 import 'package:bananatalk_app/pages/chat/list/intro_requests_strip.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -24,7 +25,10 @@ Wave _fakeWave({
 Widget harness(List<Override> overrides) {
   return ProviderScope(
     overrides: overrides,
+    // The header is localized now, so the delegates are load-bearing.
     child: const MaterialApp(
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
       home: Scaffold(body: IntroRequestsStrip()),
     ),
   );

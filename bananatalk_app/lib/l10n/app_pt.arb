@@ -3480,5 +3480,11 @@
   "wordDeleted": "Palavra excluída",
   "vocabularyLoadFailed": "Não foi possível carregar seu vocabulário",
   "savedTitle": "Salvos",
-  "savedSubtitle": "Reels e momentos que você salvou"
+  "savedSubtitle": "Reels e momentos que você salvou",
+  "introRequests": "Pedidos de apresentação",
+  "icebreakerWhyLearn": "O que te fez começar a aprender um novo idioma?",
+  "icebreakerCanHelp": "Oi! Posso te ajudar a praticar 😊",
+  "icebreakerFavoriteWord": "Qual é a sua palavra favorita no seu idioma?",
+  "icebreakerCoffeeChat": "Um bate-papo na pausa do café?",
+  "icebreakerHowsWeek": "Como está sua semana?"
 }

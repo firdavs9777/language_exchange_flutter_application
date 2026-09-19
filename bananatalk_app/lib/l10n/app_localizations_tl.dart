@@ -8309,4 +8309,22 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get savedSubtitle => 'Mga reel at moment na na-bookmark mo';
+
+  @override
+  String get introRequests => 'Mga intro request';
+
+  @override
+  String get icebreakerWhyLearn => 'Ano ang nag-udyok sa iyong mag-aral ng bagong wika?';
+
+  @override
+  String get icebreakerCanHelp => 'Hi! Matutulungan kitang mag-practice 😊';
+
+  @override
+  String get icebreakerFavoriteWord => 'Ano ang paborito mong salita sa wika mo?';
+
+  @override
+  String get icebreakerCoffeeChat => 'Mag-chat tayo sa coffee break minsan?';
+
+  @override
+  String get icebreakerHowsWeek => 'Kumusta ang linggo mo?';
 }

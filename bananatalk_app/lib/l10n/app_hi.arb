@@ -3480,5 +3480,11 @@
   "wordDeleted": "शब्द हटा दिया गया",
   "vocabularyLoadFailed": "आपकी शब्दावली लोड नहीं हो सकी",
   "savedTitle": "सहेजे गए",
-  "savedSubtitle": "आपके बुकमार्क किए गए रील्स और पल"
+  "savedSubtitle": "आपके बुकमार्क किए गए रील्स और पल",
+  "introRequests": "परिचय अनुरोध",
+  "icebreakerWhyLearn": "आपने नई भाषा सीखना क्यों शुरू किया?",
+  "icebreakerCanHelp": "नमस्ते! मैं आपको अभ्यास में मदद कर सकता हूँ 😊",
+  "icebreakerFavoriteWord": "आपकी भाषा में आपका पसंदीदा शब्द क्या है?",
+  "icebreakerCoffeeChat": "कभी कॉफी ब्रेक पर बात करें?",
+  "icebreakerHowsWeek": "आपका हफ़्ता कैसा जा रहा है?"
 }

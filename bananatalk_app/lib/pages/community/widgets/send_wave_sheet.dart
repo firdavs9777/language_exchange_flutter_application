@@ -67,18 +67,19 @@ class _SendWaveSheet extends ConsumerStatefulWidget {
   ConsumerState<_SendWaveSheet> createState() => _SendWaveSheetState();
 }
 
-// Icebreaker prompts shown above the message field to help start a
-// conversation. No l10n keys exist yet for these strings (checked
-// app_en.arb — only waveQuickReply* short replies are localized), and the
-// sheet only receives targetUserName/targetUserCountry (no language info),
-// so these stay generic/English for now.
-// TODO: l10n batch — add icebreaker strings to app_en.arb + translations.
-const List<String> _icebreakerPrompts = [
-  'What made you start learning a new language?',
-  'Hi! I can help you practice 😊',
-  "What's your favorite word in your language?",
-  'Coffee-break chat sometime?',
-  "How's your week going?",
+/// Icebreaker prompts shown above the message field to help start a
+/// conversation.
+///
+/// These were English literals, which mattered more than the usual
+/// localization gap: tapping one writes it into the message the user then
+/// SENDS. A Korean speaker waving at another Korean speaker was handed an
+/// English opener to send in their own name.
+List<String> _icebreakerPrompts(AppLocalizations l10n) => [
+  l10n.icebreakerWhyLearn,
+  l10n.icebreakerCanHelp,
+  l10n.icebreakerFavoriteWord,
+  l10n.icebreakerCoffeeChat,
+  l10n.icebreakerHowsWeek,
 ];
 
 class _SendWaveSheetState extends ConsumerState<_SendWaveSheet> {
@@ -184,6 +185,7 @@ class _SendWaveSheetState extends ConsumerState<_SendWaveSheet> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final prompts = _icebreakerPrompts(l10n);
     // Always allow sending while not in-flight; _send() falls back to a
     // friendly '👋' when neither a quick reply nor custom text is set.
     final canSend = !_isSending;
@@ -254,10 +256,10 @@ class _SendWaveSheetState extends ConsumerState<_SendWaveSheet> {
                 height: 36,
                 child: ListView.separated(
                   scrollDirection: Axis.horizontal,
-                  itemCount: _icebreakerPrompts.length,
+                  itemCount: prompts.length,
                   separatorBuilder: (_, __) => const SizedBox(width: 8),
                   itemBuilder: (context, index) {
-                    final prompt = _icebreakerPrompts[index];
+                    final prompt = prompts[index];
                     return ActionChip(
                       label: Text(prompt),
                       labelStyle: TextStyle(

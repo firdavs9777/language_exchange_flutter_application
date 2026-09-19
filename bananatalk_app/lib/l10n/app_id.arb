@@ -3464,5 +3464,11 @@
   "wordDeleted": "Kata dihapus",
   "vocabularyLoadFailed": "Tidak dapat memuat kosakata Anda",
   "savedTitle": "Tersimpan",
-  "savedSubtitle": "Reel dan momen yang Anda tandai"
+  "savedSubtitle": "Reel dan momen yang Anda tandai",
+  "introRequests": "Permintaan perkenalan",
+  "icebreakerWhyLearn": "Apa yang membuatmu mulai belajar bahasa baru?",
+  "icebreakerCanHelp": "Hai! Aku bisa bantu kamu berlatih 😊",
+  "icebreakerFavoriteWord": "Apa kata favoritmu dalam bahasamu?",
+  "icebreakerCoffeeChat": "Ngobrol sambil ngopi kapan-kapan?",
+  "icebreakerHowsWeek": "Bagaimana minggumu?"
 }

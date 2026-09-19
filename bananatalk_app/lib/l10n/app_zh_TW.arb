@@ -3155,5 +3155,11 @@
   "wordDeleted": "已刪除單字",
   "vocabularyLoadFailed": "無法載入你的單字表",
   "savedTitle": "已儲存",
-  "savedSubtitle": "你收藏的短影片和動態"
+  "savedSubtitle": "你收藏的短影片和動態",
+  "introRequests": "打招呼請求",
+  "icebreakerWhyLearn": "是什麼讓你開始學習新語言的？",
+  "icebreakerCanHelp": "你好！我可以幫你練習 😊",
+  "icebreakerFavoriteWord": "你的母語裡最喜歡哪個詞？",
+  "icebreakerCoffeeChat": "有空喝杯咖啡聊聊？",
+  "icebreakerHowsWeek": "這週過得怎麼樣？"
 }

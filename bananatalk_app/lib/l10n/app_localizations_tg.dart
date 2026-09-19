@@ -8313,4 +8313,22 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get savedSubtitle => 'Рилс ва лаҳзаҳои захирашудаи шумо';
+
+  @override
+  String get introRequests => 'Дархостҳои шиносоӣ';
+
+  @override
+  String get icebreakerWhyLearn => 'Чӣ шуморо ба омӯзиши забони нав водор кард?';
+
+  @override
+  String get icebreakerCanHelp => 'Салом! Ман метавонам ба шумо дар машқ кумак кунам 😊';
+
+  @override
+  String get icebreakerFavoriteWord => 'Калимаи дӯстдоштаи шумо дар забонатон кадом аст?';
+
+  @override
+  String get icebreakerCoffeeChat => 'Ягон вақт ҳангоми қаҳва сӯҳбат мекунем?';
+
+  @override
+  String get icebreakerHowsWeek => 'Ҳафтаи шумо чӣ тавр мегузарад?';
 }

@@ -3676,5 +3676,11 @@
   "wordDeleted": "Kelime silindi",
   "vocabularyLoadFailed": "Kelimeleriniz yüklenemedi",
   "savedTitle": "Kaydedilenler",
-  "savedSubtitle": "Yer imlerine eklediğin reel ve anlar"
+  "savedSubtitle": "Yer imlerine eklediğin reel ve anlar",
+  "introRequests": "Tanışma istekleri",
+  "icebreakerWhyLearn": "Yeni bir dil öğrenmeye nasıl başladın?",
+  "icebreakerCanHelp": "Merhaba! Pratik yapmana yardım edebilirim 😊",
+  "icebreakerFavoriteWord": "Kendi dilinde en sevdiğin kelime ne?",
+  "icebreakerCoffeeChat": "Bir kahve molasında sohbet edelim mi?",
+  "icebreakerHowsWeek": "Haftan nasıl geçiyor?"
 }

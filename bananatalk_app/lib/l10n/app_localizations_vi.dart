@@ -8299,4 +8299,22 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get savedSubtitle => 'Reels và khoảnh khắc bạn đã lưu';
+
+  @override
+  String get introRequests => 'Yêu cầu làm quen';
+
+  @override
+  String get icebreakerWhyLearn => 'Điều gì khiến bạn bắt đầu học ngôn ngữ mới?';
+
+  @override
+  String get icebreakerCanHelp => 'Chào bạn! Mình có thể giúp bạn luyện tập 😊';
+
+  @override
+  String get icebreakerFavoriteWord => 'Từ yêu thích của bạn trong tiếng mẹ đẻ là gì?';
+
+  @override
+  String get icebreakerCoffeeChat => 'Trò chuyện lúc nghỉ cà phê nhé?';
+
+  @override
+  String get icebreakerHowsWeek => 'Tuần này của bạn thế nào?';
 }

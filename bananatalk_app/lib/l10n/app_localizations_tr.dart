@@ -8307,4 +8307,22 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get savedSubtitle => 'Yer imlerine eklediğin reel ve anlar';
+
+  @override
+  String get introRequests => 'Tanışma istekleri';
+
+  @override
+  String get icebreakerWhyLearn => 'Yeni bir dil öğrenmeye nasıl başladın?';
+
+  @override
+  String get icebreakerCanHelp => 'Merhaba! Pratik yapmana yardım edebilirim 😊';
+
+  @override
+  String get icebreakerFavoriteWord => 'Kendi dilinde en sevdiğin kelime ne?';
+
+  @override
+  String get icebreakerCoffeeChat => 'Bir kahve molasında sohbet edelim mi?';
+
+  @override
+  String get icebreakerHowsWeek => 'Haftan nasıl geçiyor?';
 }

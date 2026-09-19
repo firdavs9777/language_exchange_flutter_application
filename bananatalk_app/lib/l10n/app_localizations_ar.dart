@@ -8321,4 +8321,22 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get savedSubtitle => 'مقاطع ولحظات قمت بحفظها';
+
+  @override
+  String get introRequests => 'طلبات التعارف';
+
+  @override
+  String get icebreakerWhyLearn => 'ما الذي دفعك لتعلم لغة جديدة؟';
+
+  @override
+  String get icebreakerCanHelp => 'مرحبًا! يمكنني مساعدتك في التدرب 😊';
+
+  @override
+  String get icebreakerFavoriteWord => 'ما كلمتك المفضلة في لغتك؟';
+
+  @override
+  String get icebreakerCoffeeChat => 'دردشة في استراحة قهوة قريبًا؟';
+
+  @override
+  String get icebreakerHowsWeek => 'كيف يسير أسبوعك؟';
 }

@@ -5719,5 +5719,11 @@
   "wordDeleted": "Word deleted",
   "vocabularyLoadFailed": "Could not load your vocabulary",
   "savedTitle": "Saved",
-  "savedSubtitle": "Reels and moments you bookmarked"
+  "savedSubtitle": "Reels and moments you bookmarked",
+  "introRequests": "Intro requests",
+  "icebreakerWhyLearn": "What made you start learning a new language?",
+  "icebreakerCanHelp": "Hi! I can help you practice 😊",
+  "icebreakerFavoriteWord": "What’s your favorite word in your language?",
+  "icebreakerCoffeeChat": "Coffee-break chat sometime?",
+  "icebreakerHowsWeek": "How’s your week going?"
 }

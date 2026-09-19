@@ -8299,4 +8299,22 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get savedSubtitle => 'รีลและโมเมนต์ที่คุณบันทึกไว้';
+
+  @override
+  String get introRequests => 'คำขอทักทาย';
+
+  @override
+  String get icebreakerWhyLearn => 'อะไรทำให้คุณเริ่มเรียนภาษาใหม่?';
+
+  @override
+  String get icebreakerCanHelp => 'สวัสดี! เราช่วยคุณฝึกได้นะ 😊';
+
+  @override
+  String get icebreakerFavoriteWord => 'คำโปรดในภาษาของคุณคืออะไร?';
+
+  @override
+  String get icebreakerCoffeeChat => 'ไว้คุยกันตอนพักดื่มกาแฟไหม?';
+
+  @override
+  String get icebreakerHowsWeek => 'สัปดาห์นี้เป็นยังไงบ้าง?';
 }

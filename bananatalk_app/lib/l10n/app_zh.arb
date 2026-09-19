@@ -3478,5 +3478,11 @@
   "wordDeleted": "已删除单词",
   "vocabularyLoadFailed": "无法加载你的词汇表",
   "savedTitle": "已保存",
-  "savedSubtitle": "你收藏的短视频和动态"
+  "savedSubtitle": "你收藏的短视频和动态",
+  "introRequests": "打招呼请求",
+  "icebreakerWhyLearn": "是什么让你开始学习一门新语言的？",
+  "icebreakerCanHelp": "你好！我可以帮你练习 😊",
+  "icebreakerFavoriteWord": "你的母语里最喜欢哪个词？",
+  "icebreakerCoffeeChat": "有空喝杯咖啡聊聊？",
+  "icebreakerHowsWeek": "这周过得怎么样？"
 }

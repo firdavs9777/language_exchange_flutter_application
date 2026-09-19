@@ -2957,5 +2957,11 @@
   "wordDeleted": "Калима нест карда шуд",
   "vocabularyLoadFailed": "Луғати шумо бор нашуд",
   "savedTitle": "Захирашуда",
-  "savedSubtitle": "Рилс ва лаҳзаҳои захирашудаи шумо"
+  "savedSubtitle": "Рилс ва лаҳзаҳои захирашудаи шумо",
+  "introRequests": "Дархостҳои шиносоӣ",
+  "icebreakerWhyLearn": "Чӣ шуморо ба омӯзиши забони нав водор кард?",
+  "icebreakerCanHelp": "Салом! Ман метавонам ба шумо дар машқ кумак кунам 😊",
+  "icebreakerFavoriteWord": "Калимаи дӯстдоштаи шумо дар забонатон кадом аст?",
+  "icebreakerCoffeeChat": "Ягон вақт ҳангоми қаҳва сӯҳбат мекунем?",
+  "icebreakerHowsWeek": "Ҳафтаи шумо чӣ тавр мегузарад?"
 }

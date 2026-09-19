@@ -8306,4 +8306,22 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get savedSubtitle => 'Reel dan momen yang Anda tandai';
+
+  @override
+  String get introRequests => 'Permintaan perkenalan';
+
+  @override
+  String get icebreakerWhyLearn => 'Apa yang membuatmu mulai belajar bahasa baru?';
+
+  @override
+  String get icebreakerCanHelp => 'Hai! Aku bisa bantu kamu berlatih 😊';
+
+  @override
+  String get icebreakerFavoriteWord => 'Apa kata favoritmu dalam bahasamu?';
+
+  @override
+  String get icebreakerCoffeeChat => 'Ngobrol sambil ngopi kapan-kapan?';
+
+  @override
+  String get icebreakerHowsWeek => 'Bagaimana minggumu?';
 }

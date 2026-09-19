@@ -15349,6 +15349,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Reels and moments you bookmarked'**
   String get savedSubtitle;
+
+  /// No description provided for @introRequests.
+  ///
+  /// In en, this message translates to:
+  /// **'Intro requests'**
+  String get introRequests;
+
+  /// No description provided for @icebreakerWhyLearn.
+  ///
+  /// In en, this message translates to:
+  /// **'What made you start learning a new language?'**
+  String get icebreakerWhyLearn;
+
+  /// No description provided for @icebreakerCanHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Hi! I can help you practice 😊'**
+  String get icebreakerCanHelp;
+
+  /// No description provided for @icebreakerFavoriteWord.
+  ///
+  /// In en, this message translates to:
+  /// **'What’s your favorite word in your language?'**
+  String get icebreakerFavoriteWord;
+
+  /// No description provided for @icebreakerCoffeeChat.
+  ///
+  /// In en, this message translates to:
+  /// **'Coffee-break chat sometime?'**
+  String get icebreakerCoffeeChat;
+
+  /// No description provided for @icebreakerHowsWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'How’s your week going?'**
+  String get icebreakerHowsWeek;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
