@@ -167,7 +167,7 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
             error: (error, stack) {
               final l10n = AppLocalizations.of(context)!;
               return Drawer(
-                child: Center(child: Text('${l10n.error}: $error')),
+                child: Center(child: Text(friendlyErrorMessage(l10n, error))),
               );
             },
           );

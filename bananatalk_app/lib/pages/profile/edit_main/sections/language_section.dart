@@ -1,5 +1,6 @@
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/pages/profile/edit/language_edit.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
@@ -336,7 +337,7 @@ class _LanguageSectionState extends ConsumerState<LanguageSection> {
         final colorScheme = Theme.of(context).colorScheme;
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('${l10n.failedToUpdate}: $e'),
+            content: Text(friendlyErrorMessage(l10n, e, fallback: l10n.failedToUpdate)),
             backgroundColor: colorScheme.error,
             behavior: SnackBarBehavior.floating,
             shape: RoundedRectangleBorder(

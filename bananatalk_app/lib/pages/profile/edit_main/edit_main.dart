@@ -1,5 +1,6 @@
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/pages/profile/edit/intent_edit.dart';
 import 'package:bananatalk_app/pages/profile/edit_main/completion_calculator.dart';
 import 'package:bananatalk_app/pages/profile/edit_main/sections/basic_info_tile.dart';
@@ -127,7 +128,7 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
       // Roll back rather than leave a chip showing a state the server rejected.
       setState(() => selectedIntents = List.from(widget.intents));
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('$e')),
+        SnackBar(content: Text(friendlyErrorMessage(AppLocalizations.of(context)!, e))),
       );
     }
   }
