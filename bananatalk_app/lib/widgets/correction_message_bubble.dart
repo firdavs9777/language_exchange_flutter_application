@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/providers/provider_models/message_model.dart';
 import 'package:bananatalk_app/services/correction_service.dart';
@@ -62,7 +64,7 @@ class _CorrectionMessageBubbleState
     } catch (e) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error: ${e.toString()}')),
+        SnackBar(content: Text(friendlyErrorMessage(AppLocalizations.of(context)!, e))),
       );
     } finally {
       if (mounted) setState(() => _accepting = false);

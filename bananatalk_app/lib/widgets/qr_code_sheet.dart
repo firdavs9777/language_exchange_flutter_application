@@ -1,5 +1,6 @@
 // lib/widgets/qr_code_sheet.dart
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -260,7 +261,7 @@ class _MyCodeTab extends StatelessWidget {
                 child: ElevatedButton.icon(
                   onPressed: onShare,
                   icon: const Icon(Icons.share_rounded, size: 18),
-                  label: const Text('Share'),
+                  label: Text(AppLocalizations.of(context)!.share),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primary,
                     foregroundColor: Colors.white,

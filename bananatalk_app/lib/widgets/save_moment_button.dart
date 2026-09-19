@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/services/moments_service.dart';
 import 'package:bananatalk_app/utils/compact_count.dart';
 
@@ -216,7 +218,7 @@ class _ShareMomentButtonState extends State<ShareMomentButton> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Error sharing: $e'),
+            content: Text(friendlyErrorMessage(AppLocalizations.of(context)!, e)),
             backgroundColor: Colors.red,
           ),
         );

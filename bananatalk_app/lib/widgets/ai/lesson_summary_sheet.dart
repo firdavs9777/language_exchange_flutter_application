@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/services/ai_service.dart';
 import 'package:bananatalk_app/models/ai/lesson_assistant_model.dart';
 import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
@@ -130,7 +131,7 @@ class _LessonSummarySheetState extends State<LessonSummarySheet> {
                     });
                     _loadSummary();
                   },
-                  child: const Text('Retry'),
+                  child: Text(AppLocalizations.of(context)!.retry),
                 ),
               ],
             ),

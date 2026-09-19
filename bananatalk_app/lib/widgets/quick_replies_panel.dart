@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/services/conversation_service.dart';
 
 class QuickRepliesPanel extends StatefulWidget {
@@ -82,7 +84,7 @@ class _QuickRepliesPanelState extends State<QuickRepliesPanel> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Error: $e'),
+            content: Text(friendlyErrorMessage(AppLocalizations.of(context)!, e)),
             backgroundColor: Colors.red,
           ),
         );
@@ -132,7 +134,7 @@ class _QuickRepliesPanelState extends State<QuickRepliesPanel> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
+            child: Text(AppLocalizations.of(context)!.cancel),
           ),
           ElevatedButton(
             onPressed: () {

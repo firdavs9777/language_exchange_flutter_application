@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:bananatalk_app/providers/provider_root/report_provider.dart';
@@ -345,7 +347,7 @@ class _ReportDialogState extends State<ReportDialog> {
         });
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Error: ${e.toString()}'),
+            content: Text(friendlyErrorMessage(AppLocalizations.of(context)!, e)),
             backgroundColor: Colors.red,
           ),
         );
@@ -520,7 +522,7 @@ class _ReportDialogState extends State<ReportDialog> {
                       onPressed: _isSubmitting
                           ? null
                           : () => Navigator.of(context).pop(),
-                      child: const Text('Cancel'),
+                      child: Text(AppLocalizations.of(context)!.cancel),
                     ),
                   ),
                   const SizedBox(width: 12),
