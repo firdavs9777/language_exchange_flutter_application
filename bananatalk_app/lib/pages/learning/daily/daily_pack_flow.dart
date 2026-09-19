@@ -41,6 +41,17 @@ class DailyPackFlow extends StatefulWidget {
   State<DailyPackFlow> createState() => _DailyPackFlowState();
 }
 
+/// The station kinds this build can render. Kept beside `_stationBody`'s
+/// switch, which must agree with it.
+const Set<String> _kinds = {
+  'vocabulary',
+  'grammar',
+  'listening',
+  'review',
+  'wrap',
+  'translate',
+};
+
 class _DailyPackFlowState extends State<DailyPackFlow> {
   late List<PackStation> _outstanding;
   late int _index;
@@ -52,7 +63,15 @@ class _DailyPackFlowState extends State<DailyPackFlow> {
     super.initState();
     // Empty stations are already satisfied; parking the learner on an empty
     // page would read as a broken step.
-    _outstanding = widget.pack.stations.where((s) => s.isOutstanding).toList();
+    //
+    // Unrecognised kinds are dropped for the same reason. `_stationBody`'s
+    // default arm renders nothing, and nothing has no Continue button — so a
+    // station kind this build does not know about (a server that shipped
+    // ahead of the store review) would strand the learner on a blank screen
+    // with no way to finish the day.
+    _outstanding = widget.pack.stations
+        .where((s) => s.isOutstanding && _kinds.contains(s.kind))
+        .toList();
     _index = _outstanding.isEmpty
         ? 0
         : widget.initialIndex.clamp(0, _outstanding.length - 1);
@@ -171,7 +190,16 @@ class _DailyPackFlowState extends State<DailyPackFlow> {
           children: [
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 8, 20, 4),
-              child: StationRail(stations: widget.pack.stations, currentIndex: _index),
+              child: StationRail(
+                stations: widget.pack.stations,
+                // The rail draws one dot per station in the PACK, but `_index`
+                // walks `_outstanding` — the todo subset. On a fresh day the
+                // two lists are identical, which is why this read correctly
+                // until someone resumed a half-finished day: then the enlarged
+                // "you are here" dot sat on a station they had already
+                // finished, and the one they were actually on looked untouched.
+                currentIndex: widget.pack.stations.indexOf(station),
+              ),
             ),
             Expanded(child: _stationBody(station)),
           ],

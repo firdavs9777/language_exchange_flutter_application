@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/learning/daily_pack_model.dart';
+import 'package:bananatalk_app/pages/learning/daily/daily_pack_flow.dart';
 import 'package:bananatalk_app/pages/learning/daily/stations/grammar_station.dart';
 import 'package:bananatalk_app/pages/learning/daily/stations/listening_station.dart';
 import 'package:bananatalk_app/pages/learning/daily/stations/vocab_station.dart';
@@ -233,5 +234,53 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.byIcon(Icons.check_circle), findsNothing);
     expect(find.byIcon(Icons.cancel), findsNothing);
+  });
+
+  testWidgets('the rail marks the station the learner is actually on', (
+    tester,
+  ) async {
+    // A day resumed after one station was finished. `_index` walks the
+    // OUTSTANDING stations, while the rail draws every station in the pack —
+    // so before the fix the enlarged "you are here" dot sat on the finished
+    // vocabulary station and grammar, the one on screen, looked untouched.
+    const pack = DailyPack(
+      needsLanguage: false,
+      dateKey: '2026-09-19',
+      weekKey: '2026-W38',
+      dayInWeek: 5,
+      stations: [
+        PackStation(kind: 'vocabulary', status: StationStatus.done),
+        PackStation(kind: 'grammar', status: StationStatus.todo, payload: _grammar),
+      ],
+    );
+
+    await tester.pumpWidget(_host(DailyPackFlow(pack: pack, onExit: () {})));
+    await tester.pumpAndSettle();
+
+    expect(find.byKey(const Key('rail-dot-1-current')), findsOneWidget);
+    expect(find.byKey(const Key('rail-dot-0-current')), findsNothing);
+  });
+
+  testWidgets('a station kind this build cannot render is skipped', (
+    tester,
+  ) async {
+    // A server that ships a new station kind ahead of a store review used to
+    // land the learner on `_stationBody`'s empty default arm -- a blank page
+    // with no Continue button and no way to finish the day.
+    const pack = DailyPack(
+      needsLanguage: false,
+      dateKey: '2026-09-19',
+      weekKey: '2026-W38',
+      dayInWeek: 5,
+      stations: [
+        PackStation(kind: 'hologram', status: StationStatus.todo),
+        PackStation(kind: 'grammar', status: StationStatus.todo, payload: _grammar),
+      ],
+    );
+
+    await tester.pumpWidget(_host(DailyPackFlow(pack: pack, onExit: () {})));
+    await tester.pumpAndSettle();
+
+    expect(find.byKey(const Key('check-q0-opt0')), findsOneWidget);
   });
 }
