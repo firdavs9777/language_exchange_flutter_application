@@ -6,6 +6,7 @@ import 'package:bananatalk_app/pages/moments/widgets/moments_snackbar.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 
 class SavedMomentsScreen extends StatefulWidget {
   const SavedMomentsScreen({Key? key}) : super(key: key);
@@ -72,7 +73,11 @@ class _SavedMomentsScreenState extends State<SavedMomentsScreen> {
     } catch (e) {
       if (mounted) {
         setState(() {
-          _error = 'Failed to load saved moments';
+          _error = friendlyErrorMessage(
+            AppLocalizations.of(context)!,
+            e,
+            fallback: AppLocalizations.of(context)!.failedToLoadSavedMoments,
+          );
           _isLoading = false;
         });
       }

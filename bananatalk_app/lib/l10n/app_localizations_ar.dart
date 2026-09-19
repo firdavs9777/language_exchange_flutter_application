@@ -8339,4 +8339,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get icebreakerHowsWeek => 'كيف يسير أسبوعك؟';
+
+  @override
+  String get failedToLoadReels => 'تعذر تحميل المقاطع';
+
+  @override
+  String get failedToLoadSavedMoments => 'تعذر تحميل العناصر المحفوظة';
 }

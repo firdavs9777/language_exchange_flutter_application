@@ -8327,4 +8327,10 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get icebreakerHowsWeek => 'Wie läuft deine Woche?';
+
+  @override
+  String get failedToLoadReels => 'Reels konnten nicht geladen werden';
+
+  @override
+  String get failedToLoadSavedMoments => 'Deine gespeicherten Inhalte konnten nicht geladen werden';
 }

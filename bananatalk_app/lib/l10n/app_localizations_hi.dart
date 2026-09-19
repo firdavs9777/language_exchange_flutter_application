@@ -8327,4 +8327,10 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get icebreakerHowsWeek => 'आपका हफ़्ता कैसा जा रहा है?';
+
+  @override
+  String get failedToLoadReels => 'रील्स लोड नहीं हो सके';
+
+  @override
+  String get failedToLoadSavedMoments => 'आपके सहेजे गए आइटम लोड नहीं हो सके';
 }

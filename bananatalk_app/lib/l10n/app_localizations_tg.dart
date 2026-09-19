@@ -8331,4 +8331,10 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get icebreakerHowsWeek => 'Ҳафтаи шумо чӣ тавр мегузарад?';
+
+  @override
+  String get failedToLoadReels => 'Рилсҳо бор нашуданд';
+
+  @override
+  String get failedToLoadSavedMoments => 'Мавридҳои захирашуда бор нашуданд';
 }

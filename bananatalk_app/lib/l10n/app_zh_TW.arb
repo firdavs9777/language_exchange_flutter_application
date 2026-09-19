@@ -3161,5 +3161,7 @@
   "icebreakerCanHelp": "你好！我可以幫你練習 😊",
   "icebreakerFavoriteWord": "你的母語裡最喜歡哪個詞？",
   "icebreakerCoffeeChat": "有空喝杯咖啡聊聊？",
-  "icebreakerHowsWeek": "這週過得怎麼樣？"
+  "icebreakerHowsWeek": "這週過得怎麼樣？",
+  "failedToLoadReels": "無法載入短影片",
+  "failedToLoadSavedMoments": "無法載入你儲存的內容"
 }

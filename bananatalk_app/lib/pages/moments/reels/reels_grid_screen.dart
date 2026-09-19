@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
@@ -458,14 +459,15 @@ class _ReelsGridScreenState extends ConsumerState<ReelsGridScreen>
                   Icon(Icons.error_outline, size: 48, color: context.textHint),
                   const SizedBox(height: 12),
                   Text(
-                    'Failed to load reels',
+                    AppLocalizations.of(context)!.failedToLoadReels,
+                    textAlign: TextAlign.center,
                     style: context.bodyMedium
                         .copyWith(color: context.textSecondary),
                   ),
                   const SizedBox(height: 12),
                   TextButton(
                     onPressed: _onRefresh,
-                    child: const Text('Retry'),
+                    child: Text(AppLocalizations.of(context)!.retry),
                   ),
                 ],
               ),

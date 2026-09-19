@@ -3682,5 +3682,7 @@
   "icebreakerCanHelp": "Merhaba! Pratik yapmana yardım edebilirim 😊",
   "icebreakerFavoriteWord": "Kendi dilinde en sevdiğin kelime ne?",
   "icebreakerCoffeeChat": "Bir kahve molasında sohbet edelim mi?",
-  "icebreakerHowsWeek": "Haftan nasıl geçiyor?"
+  "icebreakerHowsWeek": "Haftan nasıl geçiyor?",
+  "failedToLoadReels": "Reels yüklenemedi",
+  "failedToLoadSavedMoments": "Kaydedilenler yüklenemedi"
 }

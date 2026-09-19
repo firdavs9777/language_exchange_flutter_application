@@ -8317,6 +8317,12 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get icebreakerHowsWeek => '这周过得怎么样？';
+
+  @override
+  String get failedToLoadReels => '无法加载短视频';
+
+  @override
+  String get failedToLoadSavedMoments => '无法加载你保存的内容';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -16632,4 +16638,10 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get icebreakerHowsWeek => '這週過得怎麼樣？';
+
+  @override
+  String get failedToLoadReels => '無法載入短影片';
+
+  @override
+  String get failedToLoadSavedMoments => '無法載入你儲存的內容';
 }

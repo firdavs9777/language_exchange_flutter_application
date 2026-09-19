@@ -15385,6 +15385,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'How’s your week going?'**
   String get icebreakerHowsWeek;
+
+  /// No description provided for @failedToLoadReels.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load reels'**
+  String get failedToLoadReels;
+
+  /// No description provided for @failedToLoadSavedMoments.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load your saved items'**
+  String get failedToLoadSavedMoments;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

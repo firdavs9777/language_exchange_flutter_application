@@ -3486,5 +3486,7 @@
   "icebreakerCanHelp": "Oi! Posso te ajudar a praticar 😊",
   "icebreakerFavoriteWord": "Qual é a sua palavra favorita no seu idioma?",
   "icebreakerCoffeeChat": "Um bate-papo na pausa do café?",
-  "icebreakerHowsWeek": "Como está sua semana?"
+  "icebreakerHowsWeek": "Como está sua semana?",
+  "failedToLoadReels": "Não foi possível carregar os reels",
+  "failedToLoadSavedMoments": "Não foi possível carregar seus salvos"
 }

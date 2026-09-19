@@ -8317,4 +8317,10 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get icebreakerHowsWeek => '이번 주는 어떻게 보내고 있어요?';
+
+  @override
+  String get failedToLoadReels => '릴스를 불러올 수 없습니다';
+
+  @override
+  String get failedToLoadSavedMoments => '저장한 항목을 불러올 수 없습니다';
 }

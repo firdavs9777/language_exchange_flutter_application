@@ -8325,4 +8325,10 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get icebreakerHowsWeek => 'Haftan nasıl geçiyor?';
+
+  @override
+  String get failedToLoadReels => 'Reels yüklenemedi';
+
+  @override
+  String get failedToLoadSavedMoments => 'Kaydedilenler yüklenemedi';
 }

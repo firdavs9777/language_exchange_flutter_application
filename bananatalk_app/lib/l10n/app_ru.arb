@@ -3500,5 +3500,7 @@
   "icebreakerCanHelp": "Привет! Могу помочь вам попрактиковаться 😊",
   "icebreakerFavoriteWord": "Какое ваше любимое слово в вашем языке?",
   "icebreakerCoffeeChat": "Поболтаем как-нибудь за кофе?",
-  "icebreakerHowsWeek": "Как проходит ваша неделя?"
+  "icebreakerHowsWeek": "Как проходит ваша неделя?",
+  "failedToLoadReels": "Не удалось загрузить ролики",
+  "failedToLoadSavedMoments": "Не удалось загрузить сохранённое"
 }

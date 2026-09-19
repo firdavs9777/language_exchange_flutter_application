@@ -8327,4 +8327,10 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get icebreakerHowsWeek => '¿Qué tal va tu semana?';
+
+  @override
+  String get failedToLoadReels => 'No se pudieron cargar los reels';
+
+  @override
+  String get failedToLoadSavedMoments => 'No se pudieron cargar tus guardados';
 }

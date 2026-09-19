@@ -3486,5 +3486,7 @@
   "icebreakerCanHelp": "नमस्ते! मैं आपको अभ्यास में मदद कर सकता हूँ 😊",
   "icebreakerFavoriteWord": "आपकी भाषा में आपका पसंदीदा शब्द क्या है?",
   "icebreakerCoffeeChat": "कभी कॉफी ब्रेक पर बात करें?",
-  "icebreakerHowsWeek": "आपका हफ़्ता कैसा जा रहा है?"
+  "icebreakerHowsWeek": "आपका हफ़्ता कैसा जा रहा है?",
+  "failedToLoadReels": "रील्स लोड नहीं हो सके",
+  "failedToLoadSavedMoments": "आपके सहेजे गए आइटम लोड नहीं हो सके"
 }

@@ -8324,4 +8324,10 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get icebreakerHowsWeek => 'Bagaimana minggumu?';
+
+  @override
+  String get failedToLoadReels => 'Tidak dapat memuat reel';
+
+  @override
+  String get failedToLoadSavedMoments => 'Tidak dapat memuat item tersimpan';
 }

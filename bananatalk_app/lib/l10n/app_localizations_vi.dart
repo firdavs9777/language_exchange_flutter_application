@@ -8317,4 +8317,10 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get icebreakerHowsWeek => 'Tuần này của bạn thế nào?';
+
+  @override
+  String get failedToLoadReels => 'Không thể tải reels';
+
+  @override
+  String get failedToLoadSavedMoments => 'Không thể tải mục đã lưu';
 }

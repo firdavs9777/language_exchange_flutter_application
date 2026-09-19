@@ -8317,4 +8317,10 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get icebreakerHowsWeek => 'สัปดาห์นี้เป็นยังไงบ้าง?';
+
+  @override
+  String get failedToLoadReels => 'โหลดรีลไม่สำเร็จ';
+
+  @override
+  String get failedToLoadSavedMoments => 'โหลดรายการที่บันทึกไว้ไม่สำเร็จ';
 }

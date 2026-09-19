@@ -8317,4 +8317,10 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get icebreakerHowsWeek => '今週はどんな感じですか？';
+
+  @override
+  String get failedToLoadReels => 'リールを読み込めませんでした';
+
+  @override
+  String get failedToLoadSavedMoments => '保存済みの項目を読み込めませんでした';
 }

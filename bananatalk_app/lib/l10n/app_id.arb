@@ -3470,5 +3470,7 @@
   "icebreakerCanHelp": "Hai! Aku bisa bantu kamu berlatih 😊",
   "icebreakerFavoriteWord": "Apa kata favoritmu dalam bahasamu?",
   "icebreakerCoffeeChat": "Ngobrol sambil ngopi kapan-kapan?",
-  "icebreakerHowsWeek": "Bagaimana minggumu?"
+  "icebreakerHowsWeek": "Bagaimana minggumu?",
+  "failedToLoadReels": "Tidak dapat memuat reel",
+  "failedToLoadSavedMoments": "Tidak dapat memuat item tersimpan"
 }

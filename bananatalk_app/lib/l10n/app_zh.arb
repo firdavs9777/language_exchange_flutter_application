@@ -3484,5 +3484,7 @@
   "icebreakerCanHelp": "你好！我可以帮你练习 😊",
   "icebreakerFavoriteWord": "你的母语里最喜欢哪个词？",
   "icebreakerCoffeeChat": "有空喝杯咖啡聊聊？",
-  "icebreakerHowsWeek": "这周过得怎么样？"
+  "icebreakerHowsWeek": "这周过得怎么样？",
+  "failedToLoadReels": "无法加载短视频",
+  "failedToLoadSavedMoments": "无法加载你保存的内容"
 }

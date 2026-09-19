@@ -8348,4 +8348,10 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get icebreakerHowsWeek => 'Как проходит ваша неделя?';
+
+  @override
+  String get failedToLoadReels => 'Не удалось загрузить ролики';
+
+  @override
+  String get failedToLoadSavedMoments => 'Не удалось загрузить сохранённое';
 }

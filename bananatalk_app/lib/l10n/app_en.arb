@@ -5725,5 +5725,7 @@
   "icebreakerCanHelp": "Hi! I can help you practice 😊",
   "icebreakerFavoriteWord": "What’s your favorite word in your language?",
   "icebreakerCoffeeChat": "Coffee-break chat sometime?",
-  "icebreakerHowsWeek": "How’s your week going?"
+  "icebreakerHowsWeek": "How’s your week going?",
+  "failedToLoadReels": "Could not load reels",
+  "failedToLoadSavedMoments": "Could not load your saved items"
 }

@@ -2963,5 +2963,7 @@
   "icebreakerCanHelp": "Салом! Ман метавонам ба шумо дар машқ кумак кунам 😊",
   "icebreakerFavoriteWord": "Калимаи дӯстдоштаи шумо дар забонатон кадом аст?",
   "icebreakerCoffeeChat": "Ягон вақт ҳангоми қаҳва сӯҳбат мекунем?",
-  "icebreakerHowsWeek": "Ҳафтаи шумо чӣ тавр мегузарад?"
+  "icebreakerHowsWeek": "Ҳафтаи шумо чӣ тавр мегузарад?",
+  "failedToLoadReels": "Рилсҳо бор нашуданд",
+  "failedToLoadSavedMoments": "Мавридҳои захирашуда бор нашуданд"
 }

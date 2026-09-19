@@ -3470,5 +3470,7 @@
   "icebreakerCanHelp": "こんにちは！練習を手伝いますよ 😊",
   "icebreakerFavoriteWord": "あなたの言語で一番好きな言葉は何ですか？",
   "icebreakerCoffeeChat": "いつかコーヒー休憩に話しませんか？",
-  "icebreakerHowsWeek": "今週はどんな感じですか？"
+  "icebreakerHowsWeek": "今週はどんな感じですか？",
+  "failedToLoadReels": "リールを読み込めませんでした",
+  "failedToLoadSavedMoments": "保存済みの項目を読み込めませんでした"
 }

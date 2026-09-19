@@ -8327,4 +8327,10 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get icebreakerHowsWeek => 'Kumusta ang linggo mo?';
+
+  @override
+  String get failedToLoadReels => 'Hindi ma-load ang mga reel';
+
+  @override
+  String get failedToLoadSavedMoments => 'Hindi ma-load ang mga naka-save mo';
 }

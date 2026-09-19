@@ -3710,5 +3710,7 @@
   "icebreakerCanHelp": "Salut ! Je peux t’aider à pratiquer 😊",
   "icebreakerFavoriteWord": "Quel est votre mot préféré dans votre langue ?",
   "icebreakerCoffeeChat": "On papote pendant une pause café ?",
-  "icebreakerHowsWeek": "Comment se passe votre semaine ?"
+  "icebreakerHowsWeek": "Comment se passe votre semaine ?",
+  "failedToLoadReels": "Impossible de charger les reels",
+  "failedToLoadSavedMoments": "Impossible de charger vos enregistrements"
 }

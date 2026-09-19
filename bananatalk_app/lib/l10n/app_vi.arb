@@ -3470,5 +3470,7 @@
   "icebreakerCanHelp": "Chào bạn! Mình có thể giúp bạn luyện tập 😊",
   "icebreakerFavoriteWord": "Từ yêu thích của bạn trong tiếng mẹ đẻ là gì?",
   "icebreakerCoffeeChat": "Trò chuyện lúc nghỉ cà phê nhé?",
-  "icebreakerHowsWeek": "Tuần này của bạn thế nào?"
+  "icebreakerHowsWeek": "Tuần này của bạn thế nào?",
+  "failedToLoadReels": "Không thể tải reels",
+  "failedToLoadSavedMoments": "Không thể tải mục đã lưu"
 }

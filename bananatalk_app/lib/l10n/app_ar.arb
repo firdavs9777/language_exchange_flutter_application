@@ -3500,5 +3500,7 @@
   "icebreakerCanHelp": "مرحبًا! يمكنني مساعدتك في التدرب 😊",
   "icebreakerFavoriteWord": "ما كلمتك المفضلة في لغتك؟",
   "icebreakerCoffeeChat": "دردشة في استراحة قهوة قريبًا؟",
-  "icebreakerHowsWeek": "كيف يسير أسبوعك؟"
+  "icebreakerHowsWeek": "كيف يسير أسبوعك؟",
+  "failedToLoadReels": "تعذر تحميل المقاطع",
+  "failedToLoadSavedMoments": "تعذر تحميل العناصر المحفوظة"
 }

@@ -3470,5 +3470,7 @@
   "icebreakerCanHelp": "สวัสดี! เราช่วยคุณฝึกได้นะ 😊",
   "icebreakerFavoriteWord": "คำโปรดในภาษาของคุณคืออะไร?",
   "icebreakerCoffeeChat": "ไว้คุยกันตอนพักดื่มกาแฟไหม?",
-  "icebreakerHowsWeek": "สัปดาห์นี้เป็นยังไงบ้าง?"
+  "icebreakerHowsWeek": "สัปดาห์นี้เป็นยังไงบ้าง?",
+  "failedToLoadReels": "โหลดรีลไม่สำเร็จ",
+  "failedToLoadSavedMoments": "โหลดรายการที่บันทึกไว้ไม่สำเร็จ"
 }
