@@ -5,6 +5,7 @@ import 'package:bananatalk_app/models/community/gathering_model.dart';
 import 'package:bananatalk_app/pages/community/gatherings/gathering_card.dart';
 import 'package:bananatalk_app/pages/community/gatherings/club_detail_screen.dart';
 import 'package:bananatalk_app/pages/community/gatherings/gathering_detail_screen.dart';
+import 'package:bananatalk_app/pages/community/widgets/community_error_state.dart';
 import 'package:bananatalk_app/services/gathering_api_client.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
@@ -92,8 +93,18 @@ class _MyGatheringsScreenState extends State<MyGatheringsScreen> {
     return FutureBuilder<List<Gathering>>(
         future: _future,
         builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
+          // Keep the list up across a reload, and tell a failed fetch apart
+          // from an empty one -- the client used to return [] for both, so a
+          // network drop read as "you have no gatherings".
+          if (snapshot.connectionState == ConnectionState.waiting &&
+              !snapshot.hasData) {
             return const Center(child: CircularProgressIndicator());
+          }
+          if (snapshot.hasError) {
+            return CommunityErrorState(
+              message: l10n.gatheringLoadFailed,
+              onRetry: _refresh,
+            );
           }
           final gatherings = snapshot.data ?? const <Gathering>[];
           if (gatherings.isEmpty) {
@@ -179,8 +190,17 @@ class _MyClubsTabState extends State<MyClubsTab> {
     return FutureBuilder<List<Club>>(
       future: _future,
       builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
+        // Same as the gatherings tab above: a failed fetch is not an empty
+        // membership list.
+        if (snapshot.connectionState == ConnectionState.waiting &&
+            !snapshot.hasData) {
           return const Center(child: CircularProgressIndicator());
+        }
+        if (snapshot.hasError) {
+          return CommunityErrorState(
+            message: l10n.gatheringLoadFailed,
+            onRetry: _refresh,
+          );
         }
         final clubs = snapshot.data ?? const <Club>[];
         if (clubs.isEmpty) {

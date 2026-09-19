@@ -1,8 +1,12 @@
+import 'dart:async';
+
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/providers/provider_models/story_model.dart';
 import 'package:bananatalk_app/services/stories_service.dart';
+import 'package:bananatalk_app/pages/stories/feed/stories_feed_state.dart';
 import 'package:bananatalk_app/pages/stories/viewer/story_viewer_screen.dart';
 import 'package:bananatalk_app/pages/stories/create/create_story_screen.dart';
 import 'package:bananatalk_app/providers/provider_root/block_provider.dart';
@@ -39,20 +43,40 @@ class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> with Widg
   bool _isLoading = true;
   String? _error;
   UserStories? _myStories;
-  bool _hasLoadedOnce = false;
+
+  /// One load at a time. Without this, tapping Retry three times fires three
+  /// requests whose responses land in an arbitrary order, and the last one to
+  /// arrive wins — which can be the oldest failure.
+  bool _inFlight = false;
+  StreamSubscription<List<ConnectivityResult>>? _connectivitySub;
+
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     widget.refreshNotifier?.addListener(_onRefreshNotified);
+    // Coming back online is the single most likely reason this row can
+    // succeed now when it could not a moment ago, and making the user notice
+    // the banner and tap it is asking them to do the phone's job.
+    _connectivitySub =
+        Connectivity().onConnectivityChanged.listen(_onConnectivityChanged);
     _loadStories();
   }
 
   @override
   void dispose() {
+    _connectivitySub?.cancel();
     widget.refreshNotifier?.removeListener(_onRefreshNotified);
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
+  }
+
+  void _onConnectivityChanged(List<ConnectivityResult> status) {
+    final online =
+        status.isNotEmpty && status.any((r) => r != ConnectivityResult.none);
+    // Only when there is something to fix. A reconnect while the feed is
+    // healthy should not cost a request.
+    if (online && _error != null) _loadStories();
   }
 
   void _onRefreshNotified() {
@@ -68,8 +92,14 @@ class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> with Widg
   }
 
   Future<void> _loadStories({bool showLoading = true}) async {
-    // Only show loading spinner on first load
-    if (showLoading && !_hasLoadedOnce) {
+    if (_inFlight) return;
+    _inFlight = true;
+
+    final hasCached = _stories.isNotEmpty;
+    if (mounted && storiesFeedShowsShimmer(
+      explicitLoad: showLoading,
+      hasCachedStories: hasCached,
+    )) {
       setState(() {
         _isLoading = true;
         _error = null;
@@ -80,60 +110,69 @@ class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> with Widg
       // Load my stories
       final myStoriesResponse = await StoriesService.getMyStories();
 
-      if (myStoriesResponse.success && myStoriesResponse.data.isNotEmpty) {
-        _myStories = myStoriesResponse.data.first;
-      } else {
-        _myStories = null;
+      // Only a *successful* answer may clear this. Treating a failed call as
+      // "you have no stories" made your own ring vanish from the row
+      // whenever this one request flaked, which reads as the story having
+      // been deleted.
+      if (myStoriesResponse.success) {
+        _myStories = myStoriesResponse.data.isNotEmpty
+            ? myStoriesResponse.data.first
+            : null;
       }
 
       // Load stories feed
       final response = await StoriesService.getStoriesFeed();
+      if (!mounted) return;
 
-      if (mounted) {
-        if (response.success) {
-          // Get current user ID to filter out own stories from feed (avoid duplicates)
-          final prefs = await SharedPreferences.getInstance();
-          final currentUserId = prefs.getString('userId');
+      // `blocked` is not a failure — it is a complete answer that happens to
+      // be empty, so it clears the banner like any other success.
+      final ok = response.success || response.blocked;
 
-          // Get blocked user IDs
-          final blockedUserIdsAsync = ref.read(blockedUserIdsProvider);
-          final blockedUserIds = blockedUserIdsAsync.value ?? <String>{};
+      List<UserStories> next = _stories;
+      if (response.success) {
+        // Get current user ID to filter out own stories from feed (avoid duplicates)
+        final prefs = await SharedPreferences.getInstance();
+        final currentUserId = prefs.getString('userId');
 
-          // Filter out stories from blocked users AND current user (to avoid duplicates)
-          final filteredStories = response.data.where((userStories) {
-            // Filter out blocked users
-            if (blockedUserIds.contains(userStories.user.id)) return false;
-            // Filter out current user's stories (they're shown separately in _myStories)
-            if (currentUserId != null && userStories.user.id == currentUserId) return false;
-            return true;
-          }).toList();
+        // Get blocked user IDs
+        final blockedUserIdsAsync = ref.read(blockedUserIdsProvider);
+        final blockedUserIds = blockedUserIdsAsync.value ?? <String>{};
 
-
-          setState(() {
-            _stories = filteredStories;
-            _isLoading = false;
-            _hasLoadedOnce = true;
-          });
-        } else if (response.blocked) {
-          setState(() {
-            _stories = [];
-            _isLoading = false;
-            _hasLoadedOnce = true;
-          });
-        } else {
-          setState(() {
-            _error = response.error;
-            _isLoading = false;
-          });
-        }
+        // Filter out stories from blocked users AND current user (to avoid duplicates)
+        next = response.data.where((userStories) {
+          // Filter out blocked users
+          if (blockedUserIds.contains(userStories.user.id)) return false;
+          // Filter out current user's stories (they're shown separately in _myStories)
+          if (currentUserId != null && userStories.user.id == currentUserId) return false;
+          return true;
+        }).toList();
+      } else if (response.blocked) {
+        next = const [];
       }
+
+      if (!mounted) return;
+      setState(() {
+        _stories = next;
+        _isLoading = false;
+        _error = storiesFeedError(
+          succeeded: ok,
+          error: response.error,
+          hasCachedStories: hasCached,
+        );
+      });
     } catch (e) {
       if (mounted) {
         setState(() {
-          _error = _hasLoadedOnce ? null : 'Failed to load stories: $e'; // Don't show error if we have cached data
           _isLoading = false;
+          _error = storiesFeedError(
+            succeeded: false,
+            error: 'Failed to load stories: $e',
+            hasCachedStories: hasCached,
+          );
         });
       }
+    } finally {
+      _inFlight = false;
     }
   }
 
@@ -221,29 +260,33 @@ class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> with Widg
     }
 
     if (_error != null) {
+      final l10n = AppLocalizations.of(context)!;
       return SizedBox(
         height: widget.height,
-        child: Center(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(Icons.error_outline, color: context.textMuted, size: 20),
-              Spacing.hGapSM,
-              Text(
-                'Stories unavailable',
-                style: context.labelSmall,
-              ),
-              TextButton(
-                onPressed: _loadStories,
-                style: TextButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm),
-                  minimumSize: Size.zero,
-                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        // The whole row is the target. The 'Try again' label is a ~60pt strip
+        // in the middle of a 130pt band, and on a failure the rest of the band
+        // does nothing at all — so every near-miss tap read as a dead button.
+        child: InkWell(
+          key: const Key('stories-error-retry'),
+          onTap: _loadStories,
+          child: Center(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(Icons.wifi_off_rounded, color: context.textMuted, size: 20),
+                Spacing.hGapSM,
+                Text(l10n.storiesLoadError, style: context.labelSmall),
+                Spacing.hGapSM,
+                Text(
+                  l10n.storiesRetry,
+                  style: context.labelSmall.copyWith(
+                    color: AppColors.primary,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
-                child: Text(AppLocalizations.of(context)!.retry, style: context.labelSmall.copyWith(color: AppColors.primary)),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       );

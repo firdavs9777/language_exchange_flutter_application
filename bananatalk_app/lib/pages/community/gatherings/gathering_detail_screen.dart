@@ -177,8 +177,20 @@ class _GatheringDetailScreenState extends State<GatheringDetailScreen> {
       body: FutureBuilder<Gathering?>(
         future: _future,
         builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
+          // `!hasData` so a reload after RSVP or a host action does not
+          // blank the screen and throw away the scroll position.
+          if (snapshot.connectionState == ConnectionState.waiting &&
+              !snapshot.hasData) {
             return const Center(child: CircularProgressIndicator());
+          }
+          // A failure to *reach* the server is not a deleted gathering.
+          // Before the client separated the two, a dropped connection told
+          // the host their event was "no longer available".
+          if (snapshot.hasError) {
+            return CommunityErrorState(
+              message: l10n.somethingWentWrong,
+              onRetry: _reload,
+            );
           }
           final gathering = snapshot.data;
           if (gathering == null) {

@@ -53,6 +53,28 @@ class _FakeApi extends GatheringApiClient {
   }
 }
 
+/// A client whose reads fail, as they do with no network.
+class _FailingApi extends GatheringApiClient {
+  @override
+  Future<List<Club>> getClubs({
+    String? language,
+    String? interest,
+    String scope = 'mine',
+    int page = 1,
+  }) async => throw const GatheringFetchException('no route to host');
+
+  @override
+  Future<List<Gathering>> getGatherings({
+    String? language,
+    String? level,
+    String scope = 'mine',
+    int page = 1,
+    String? topic,
+    String? when,
+    bool hasSeat = false,
+  }) async => throw const GatheringFetchException('no route to host');
+}
+
 Gathering _gathering({String id = 'g1', String title = 'Korean evening'}) =>
     Gathering(
       id: id,
@@ -305,5 +327,20 @@ void main() {
 
     expect(find.byKey(const Key('filter-has-seat')), findsNothing);
     expect(find.byKey(const Key('gatherings_empty_create_form')), findsOneWidget);
+  });
+
+
+  testWidgets('a failed load shows the error state, not the empty state', (
+    tester,
+  ) async {
+    // The bug this pins: the client caught every failure and returned an
+    // empty list, so an offline user was shown the tab's *empty state* --
+    // a pre-filled "create your first gathering" form -- which told them
+    // nothing was scheduled when in fact nothing had been asked.
+    await tester.pumpWidget(_host(_FailingApi()));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Could not load gatherings'), findsOneWidget);
+    expect(find.byType(CreateGatheringForm), findsNothing);
   });
 }

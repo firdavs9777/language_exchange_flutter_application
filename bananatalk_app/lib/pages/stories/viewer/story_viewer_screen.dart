@@ -453,6 +453,15 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
           message: AppLocalizations.of(context)!.sent(emoji),
           type: StoriesSnackBarType.success,
         );
+      } else {
+        // A reaction that fails used to do nothing at all -- no snackbar, no
+        // change -- so offline it was indistinguishable from a tap that
+        // missed the button.
+        showStoriesSnackBar(
+          context,
+          message: AppLocalizations.of(context)!.somethingWentWrong,
+          type: StoriesSnackBarType.error,
+        );
       }
     }
   }
@@ -482,6 +491,15 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
           context,
           message: AppLocalizations.of(context)!.replySent,
           type: StoriesSnackBarType.success,
+        );
+      } else {
+        // Keep the typed text (it is not cleared on this path) and say so,
+        // rather than leaving the sender staring at an unchanged field with
+        // no idea whether it went.
+        showStoriesSnackBar(
+          context,
+          message: AppLocalizations.of(context)!.somethingWentWrong,
+          type: StoriesSnackBarType.error,
         );
       }
       _resumeStory();
@@ -531,6 +549,12 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
         _pollOverrides[story.id] = result['poll'] as StoryPoll;
       });
     } else {
+      // Undo the optimistic vote. Without this the poll kept rendering the
+      // choice as counted, so a vote the server rejected still looked cast
+      // -- and the option stayed locked, because `hasUserVoted` was true.
+      setState(() {
+        _pollOverrides[story.id] = currentPoll;
+      });
       showStoriesSnackBar(
         context,
         message: 'Failed to submit vote',
@@ -1181,12 +1205,53 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
                       ],
                     ),
                     const SizedBox(height: 2),
-                    Text(
-                      _formatTime(story.createdAt),
-                      style: const TextStyle(
-                        color: Colors.white60,
-                        fontSize: 12,
-                      ),
+                    // Time, and the location tag when there is one.
+                    //
+                    // The location survived the whole round trip — picker,
+                    // multipart field, Mongo, `Story.location` — and then no
+                    // screen ever read it, so tagging a place looked like it
+                    // silently failed. It belongs on this line rather than in
+                    // the bottom sticker stack: that stack already offsets
+                    // itself by hand for poll/question/link, and a fourth
+                    // element would be a fourth magic number.
+                    Row(
+                      children: [
+                        Text(
+                          _formatTime(story.createdAt),
+                          style: const TextStyle(
+                            color: Colors.white60,
+                            fontSize: 12,
+                          ),
+                        ),
+                        if (story.location != null &&
+                            story.location!.name.trim().isNotEmpty) ...[
+                          const Text(
+                            '  ·  ',
+                            style: TextStyle(
+                              color: Colors.white38,
+                              fontSize: 12,
+                            ),
+                          ),
+                          const Icon(
+                            Icons.place_rounded,
+                            size: 12,
+                            color: Colors.white70,
+                          ),
+                          const SizedBox(width: 2),
+                          Flexible(
+                            child: Text(
+                              story.location!.name,
+                              key: const Key('story-location-label'),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                color: Colors.white70,
+                                fontSize: 12,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ],
                     ),
                   ],
                 ),
@@ -1412,20 +1477,56 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
           ),
         ),
 
-        // Text overlay
-        if (story.text != null && story.text!.isNotEmpty)
+        // Caption, and the hashtags underneath it.
+        //
+        // Hashtags made the same round trip location did -- typed in the
+        // composer, sent, stored, indexed, returned -- and no screen read
+        // them, so tagging a story looked like it did nothing. They are
+        // labels rather than links because no hashtag search exists to send
+        // anyone to; a tappable chip that goes nowhere is the worse bug.
+        if ((story.text != null && story.text!.isNotEmpty) ||
+            story.hashtags.isNotEmpty)
           Positioned(
             bottom: _showReplyField ? 80 : 120,
             left: 16,
             right: 16,
-            child: Text(
-              story.text!,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                shadows: [Shadow(blurRadius: 4, color: Colors.black)],
-              ),
-              textAlign: TextAlign.center,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                if (story.text != null && story.text!.isNotEmpty)
+                  Text(
+                    story.text!,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      shadows: [Shadow(blurRadius: 4, color: Colors.black)],
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                if (story.hashtags.isNotEmpty) ...[
+                  const SizedBox(height: 6),
+                  Wrap(
+                    key: const Key('story-hashtags'),
+                    alignment: WrapAlignment.center,
+                    spacing: 8,
+                    runSpacing: 4,
+                    children: [
+                      for (final tag in story.hashtags)
+                        Text(
+                          tag.startsWith('#') ? tag : '#$tag',
+                          style: const TextStyle(
+                            color: Color(0xFF9FD4FF),
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                            shadows: [
+                              Shadow(blurRadius: 4, color: Colors.black),
+                            ],
+                          ),
+                        ),
+                    ],
+                  ),
+                ],
+              ],
             ),
           ),
 

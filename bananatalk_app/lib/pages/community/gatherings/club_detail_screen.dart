@@ -394,8 +394,18 @@ class _ClubDetailScreenState extends State<ClubDetailScreen> {
       body: FutureBuilder<Club?>(
         future: _future,
         builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
+          // `!hasData` so joining, leaving or editing does not blank the
+          // screen and throw away the scroll position.
+          if (snapshot.connectionState == ConnectionState.waiting &&
+              !snapshot.hasData) {
             return const Center(child: CircularProgressIndicator());
+          }
+          // Unreachable server != deleted club. See getClub.
+          if (snapshot.hasError) {
+            return CommunityErrorState(
+              message: l10n.somethingWentWrong,
+              onRetry: _reload,
+            );
           }
           final club = snapshot.data;
           if (club == null) {

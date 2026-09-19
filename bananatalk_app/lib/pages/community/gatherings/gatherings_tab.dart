@@ -54,7 +54,14 @@ class _GatheringsTabState extends ConsumerState<GatheringsTab>
   /// Gatherings tab carries its own — its empty state is a pre-filled create
   /// form, not an apology, which reads as an invitation rather than an
   /// abandoned list.
-  late final TabController _tabs = TabController(length: 2, vsync: this);
+  ///
+  /// Built in initState, not lazily. As a `late final` initialiser it was
+  /// constructed on first *use*, and the error and skeleton paths never build
+  /// the tab bar — so on those paths `dispose()` was the first read, which
+  /// constructed a TabController against an already-deactivated element and
+  /// threw "Looking up a deactivated widget's ancestor is unsafe" on the way
+  /// out of an offline tab.
+  late final TabController _tabs;
 
   @override
   void dispose() {
@@ -77,6 +84,7 @@ class _GatheringsTabState extends ConsumerState<GatheringsTab>
   @override
   void initState() {
     super.initState();
+    _tabs = TabController(length: 2, vsync: this);
     _feed = _load();
   }
 
@@ -180,12 +188,20 @@ class _GatheringsTabState extends ConsumerState<GatheringsTab>
       body: FutureBuilder<_FeedData>(
         future: _feed,
         builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
+          // Only skeleton when there is nothing to show. FutureBuilder keeps
+          // the previous snapshot's data across a future swap, so testing
+          // `waiting` alone replaced the whole tab -- header included -- with
+          // a skeleton after every RSVP, filter change and pull-to-refresh.
+          if (snapshot.connectionState == ConnectionState.waiting &&
+              !snapshot.hasData) {
             // UserListSkeleton IS a ListView -- wrapping it in another one
             // nests two vertical viewports and throws "Vertical viewport was
             // given unbounded height" on the very first frame of the tab.
             return const UserListSkeleton(count: 4);
           }
+          // Reachable at last: the read paths used to swallow every failure
+          // into an empty list, so an offline user was shown the empty state
+          // -- a "create your first gathering" form -- instead of this.
           if (snapshot.hasError) {
             return CommunityErrorState(
               message: l10n.gatheringLoadFailed,
@@ -393,7 +409,21 @@ class _GatheringsTabState extends ConsumerState<GatheringsTab>
           if (data.clubs.isEmpty)
             SliverToBoxAdapter(child: _noClubsYet(context))
           else
-            SliverToBoxAdapter(child: _clubStrip(data.clubs)),
+            SliverList.builder(
+              itemCount: data.clubs.length,
+              itemBuilder: (context, index) => _ClubRow(
+                club: data.clubs[index],
+                onTap: () async {
+                  await Navigator.of(context).push(
+                    AppPageRoute(
+                      builder: (_) =>
+                          ClubDetailScreen(clubId: data.clubs[index].id),
+                    ),
+                  );
+                  await _refresh();
+                },
+              ),
+            ),
           const SliverToBoxAdapter(child: SizedBox(height: 80)),
         ],
       ),
@@ -482,29 +512,6 @@ class _GatheringsTabState extends ConsumerState<GatheringsTab>
     );
   }
 
-  Widget _clubStrip(List<Club> clubs) {
-    return SizedBox(
-      height: 116,
-      child: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        padding: const EdgeInsets.symmetric(horizontal: Spacing.lg),
-        itemCount: clubs.length,
-        separatorBuilder: (_, __) => Spacing.hGapMD,
-        itemBuilder: (context, index) => _ClubChip(
-          club: clubs[index],
-          onTap: () async {
-            await Navigator.of(context).push(
-              AppPageRoute(
-                builder: (_) => ClubDetailScreen(clubId: clubs[index].id),
-              ),
-            );
-            await _refresh();
-          },
-        ),
-      ),
-    );
-  }
-
   Widget _sectionHeader(BuildContext context, String title, {Widget? action}) {
     return SliverToBoxAdapter(
       child: Padding(
@@ -529,11 +536,18 @@ class _GatheringsTabState extends ConsumerState<GatheringsTab>
   }
 }
 
-/// A club as it appears in the strip. The member count leads, because it is
-/// the cold-start signal — the number that makes the list look alive when
-/// nothing is scheduled.
-class _ClubChip extends StatelessWidget {
-  const _ClubChip({required this.club, required this.onTap});
+/// A club as a full-width row.
+///
+/// This was a 190x116 chip in a horizontally scrolling strip, which made
+/// sense when clubs shared one scroll view with the gatherings list. Once
+/// clubs got a tab of their own the strip stayed, so the whole tab was a
+/// single short band across the top with an empty screen beneath it — the
+/// abandoned look this feature can least afford.
+///
+/// The member count leads the subtitle because it is the cold-start signal:
+/// the number that makes the list look alive when nothing is scheduled.
+class _ClubRow extends StatelessWidget {
+  const _ClubRow({required this.club, required this.onTap});
 
   final Club club;
   final VoidCallback onTap;
@@ -541,59 +555,38 @@ class _ClubChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    return InkWell(
+    final subtitle = [
+      l10n.clubMembers(club.memberCount),
+      if (club.interest.isNotEmpty) club.interest,
+    ].join(' · ');
+
+    return ListTile(
+      key: Key('club-row-${club.id}'),
       onTap: onTap,
-      borderRadius: AppRadius.borderLG,
-      child: Container(
-        width: 190,
-        padding: Spacing.paddingMD,
-        decoration: BoxDecoration(
-          color: context.containerColor,
-          borderRadius: AppRadius.borderLG,
-          border: Border.all(
-            color: context.dividerColor.withValues(alpha: 0.4),
-          ),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              club.name,
-              style: context.titleSmall,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-            ),
-            if (club.interest.isNotEmpty)
-              Text(
-                club.interest,
-                style: context.captionSmall.copyWith(color: context.textMuted),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-            Row(
-              children: [
-                Icon(
-                  Icons.people_rounded,
-                  size: 14,
-                  color: context.primaryColor,
-                ),
-                Spacing.hGapXS,
-                Flexible(
-                  child: Text(
-                    l10n.clubMembers(club.memberCount),
-                    style: context.bodySmall.copyWith(
-                      color: context.primaryColor,
-                      fontWeight: FontWeight.w600,
-                    ),
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
+      leading: CircleAvatar(
+        radius: 24,
+        backgroundColor: context.containerColor,
+        backgroundImage:
+            club.coverImage != null && club.coverImage!.isNotEmpty
+            ? NetworkImage(club.coverImage!)
+            : null,
+        child: club.coverImage == null || club.coverImage!.isEmpty
+            ? Icon(Icons.groups_rounded, color: context.primaryColor)
+            : null,
       ),
+      title: Text(
+        club.name,
+        style: context.titleSmall,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+      ),
+      subtitle: Text(
+        subtitle,
+        style: context.bodySmall.copyWith(color: context.textSecondary),
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+      ),
+      trailing: Icon(Icons.chevron_right, color: context.textMuted),
     );
   }
 }

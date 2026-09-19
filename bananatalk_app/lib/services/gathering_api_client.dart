@@ -21,6 +21,24 @@ class GatheringResult<T> {
   bool get success => error == null;
 }
 
+/// A read could not be completed — the request never reached the server, or
+/// the server refused it.
+///
+/// The read paths used to collapse this into an empty list or a null, which
+/// made "the network is down" indistinguishable from "there is nothing here".
+/// Offline, the Gatherings tab therefore showed its *empty state* — a
+/// pre-filled "create your first gathering" form — and a detail screen showed
+/// "Gathering not found", telling a host their event had been deleted when
+/// the wifi had merely dropped.
+class GatheringFetchException implements Exception {
+  const GatheringFetchException(this.message);
+
+  final String message;
+
+  @override
+  String toString() => 'GatheringFetchException: $message';
+}
+
 /// The result of an RSVP: the gathering with its new quorum state, plus
 /// whether this landed as a pending *request* (join mode `approval`) rather
 /// than a seat.
@@ -72,16 +90,21 @@ class GatheringApiClient {
           'page': page.toString(),
         },
       );
+      // A 404 here is the GATHERINGS_ENABLED switch being off, which the
+      // class contract says degrades to an empty list rather than an error.
+      if (response.statusCode == 404) return [];
       if (!response.success) {
         debugPrint('[GatheringApiClient] getGatherings: ${response.error}');
-        return [];
+        throw GatheringFetchException(response.error ?? 'Could not load');
       }
       return _listOf(response.data)
           .map((g) => Gathering.fromJson(Map<String, dynamic>.from(g as Map)))
           .toList();
+    } on GatheringFetchException {
+      rethrow;
     } catch (e) {
       debugPrint('[GatheringApiClient] getGatherings error: $e');
-      return [];
+      throw GatheringFetchException(e.toString());
     }
   }
 
@@ -89,12 +112,20 @@ class GatheringApiClient {
   Future<Gathering?> getGathering(String id) async {
     try {
       final response = await _apiClient.get('gatherings/$id');
-      if (!response.success) return null;
+      // 404 is the only answer that means "this does not exist". Everything
+      // else — no route to host, 500, a timeout — is a failure to ask, and
+      // must not be reported to the host as a deleted gathering.
+      if (response.statusCode == 404) return null;
+      if (!response.success) {
+        throw GatheringFetchException(response.error ?? 'Could not load');
+      }
       final data = _mapOf(response.data);
       return data == null ? null : Gathering.fromJson(data);
+    } on GatheringFetchException {
+      rethrow;
     } catch (e) {
       debugPrint('[GatheringApiClient] getGathering error: $e');
-      return null;
+      throw GatheringFetchException(e.toString());
     }
   }
 
@@ -291,16 +322,21 @@ class GatheringApiClient {
           'page': page.toString(),
         },
       );
+      // A 404 here is the GATHERINGS_ENABLED switch being off, which the
+      // class contract says degrades to an empty list rather than an error.
+      if (response.statusCode == 404) return [];
       if (!response.success) {
         debugPrint('[GatheringApiClient] getClubs: ${response.error}');
-        return [];
+        throw GatheringFetchException(response.error ?? 'Could not load');
       }
       return _listOf(
         response.data,
       ).map((c) => Club.fromJson(Map<String, dynamic>.from(c as Map))).toList();
+    } on GatheringFetchException {
+      rethrow;
     } catch (e) {
       debugPrint('[GatheringApiClient] getClubs error: $e');
-      return [];
+      throw GatheringFetchException(e.toString());
     }
   }
 
@@ -308,12 +344,18 @@ class GatheringApiClient {
   Future<Club?> getClub(String id) async {
     try {
       final response = await _apiClient.get('clubs/$id');
-      if (!response.success) return null;
+      // See getGathering: only a 404 means the club is gone.
+      if (response.statusCode == 404) return null;
+      if (!response.success) {
+        throw GatheringFetchException(response.error ?? 'Could not load');
+      }
       final data = _mapOf(response.data);
       return data == null ? null : Club.fromJson(data);
+    } on GatheringFetchException {
+      rethrow;
     } catch (e) {
       debugPrint('[GatheringApiClient] getClub error: $e');
-      return null;
+      throw GatheringFetchException(e.toString());
     }
   }
 
