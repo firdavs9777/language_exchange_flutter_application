@@ -950,7 +950,7 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('${AppLocalizations.of(context)!.error}: $e'),
+            content: Text(friendlyErrorMessage(AppLocalizations.of(context)!, e)),
             backgroundColor: AppColors.error,
           ),
         );

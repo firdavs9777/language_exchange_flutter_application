@@ -10,6 +10,7 @@ import 'package:bananatalk_app/services/android_purchase_service.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 
@@ -738,7 +739,7 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('${AppLocalizations.of(context)!.error}: $e'),
+            content: Text(friendlyErrorMessage(AppLocalizations.of(context)!, e)),
             backgroundColor: AppColors.error,
           ),
         );
