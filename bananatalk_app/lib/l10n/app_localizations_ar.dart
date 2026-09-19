@@ -1761,6 +1761,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get waves => 'التحيات';
 
   @override
+  String get communityTabRooms => 'الغرف';
+
+  @override
   String get voiceRooms => 'صوت';
 
   @override
@@ -8235,4 +8238,70 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get storyArchiveAdded => 'أُضيفت إلى المميزة';
+
+  @override
+  String get doneAction => 'تم';
+
+  @override
+  String get noneOption => 'لا شيء';
+
+  @override
+  String get stopAction => 'إيقاف';
+
+  @override
+  String get selectPlaceholder => 'اختر...';
+
+  @override
+  String get goVip => 'اشترك VIP';
+
+  @override
+  String get logoutFailed => 'فشل تسجيل الخروج';
+
+  @override
+  String get vocabularyPacks => 'حزم المفردات';
+
+  @override
+  String get noVocabPacksYet => 'لا توجد حزم متاحة بعد.';
+
+  @override
+  String get addWord => 'إضافة كلمة';
+
+  @override
+  String get deleteWord => 'حذف الكلمة';
+
+  @override
+  String get shuffleAction => 'خلط';
+
+  @override
+  String get exitLessonTitle => 'الخروج من الدرس؟';
+
+  @override
+  String get exitQuizTitle => 'الخروج من الاختبار؟';
+
+  @override
+  String get quizNotFound => 'لم يتم العثور على الاختبار';
+
+  @override
+  String get vocabPackAddFailed => 'تعذر إضافة الحزمة';
+
+  @override
+  String get vocabPackLoadFailed => 'تعذر تحميل الحزمة';
+
+  @override
+  String get addToMyVocab => 'أضف إلى مفرداتي';
+
+  @override
+  String get viewAiSummary => 'عرض ملخص الذكاء الاصطناعي';
+
+  @override
+  String get reRecord => 'إعادة التسجيل';
+
+  @override
+  String get practiceComplete => 'اكتمل التدريب';
+
+  @override
+  String get micPermissionNeeded => 'مطلوب إذن الميكروفون';
+
+  @override
+  String get thanksForParticipating => 'شكرًا لمشاركتك! +10 XP 🎉';
 }

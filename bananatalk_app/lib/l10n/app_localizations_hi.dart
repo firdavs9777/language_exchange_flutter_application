@@ -1761,6 +1761,9 @@ class AppLocalizationsHi extends AppLocalizations {
   String get waves => 'अभिवादन';
 
   @override
+  String get communityTabRooms => 'रूम';
+
+  @override
   String get voiceRooms => 'वॉइस';
 
   @override
@@ -8223,4 +8226,70 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get storyArchiveAdded => 'हाइलाइट में जोड़ा गया';
+
+  @override
+  String get doneAction => 'हो गया';
+
+  @override
+  String get noneOption => 'कोई नहीं';
+
+  @override
+  String get stopAction => 'रोकें';
+
+  @override
+  String get selectPlaceholder => 'चुनें...';
+
+  @override
+  String get goVip => 'VIP बनें';
+
+  @override
+  String get logoutFailed => 'लॉगआउट विफल';
+
+  @override
+  String get vocabularyPacks => 'शब्दावली पैक';
+
+  @override
+  String get noVocabPacksYet => 'अभी कोई पैक उपलब्ध नहीं है।';
+
+  @override
+  String get addWord => 'शब्द जोड़ें';
+
+  @override
+  String get deleteWord => 'शब्द हटाएं';
+
+  @override
+  String get shuffleAction => 'शफ़ल';
+
+  @override
+  String get exitLessonTitle => 'पाठ छोड़ें?';
+
+  @override
+  String get exitQuizTitle => 'क्विज़ छोड़ें?';
+
+  @override
+  String get quizNotFound => 'क्विज़ नहीं मिली';
+
+  @override
+  String get vocabPackAddFailed => 'पैक नहीं जोड़ा जा सका';
+
+  @override
+  String get vocabPackLoadFailed => 'पैक लोड नहीं हो सका';
+
+  @override
+  String get addToMyVocab => 'मेरी शब्दावली में जोड़ें';
+
+  @override
+  String get viewAiSummary => 'AI सारांश देखें';
+
+  @override
+  String get reRecord => 'फिर से रिकॉर्ड करें';
+
+  @override
+  String get practiceComplete => 'अभ्यास पूरा';
+
+  @override
+  String get micPermissionNeeded => 'माइक्रोफ़ोन अनुमति आवश्यक है';
+
+  @override
+  String get thanksForParticipating => 'भाग लेने के लिए धन्यवाद! +10 XP 🎉';
 }

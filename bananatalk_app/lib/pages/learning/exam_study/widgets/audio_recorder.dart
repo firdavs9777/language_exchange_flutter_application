@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'dart:io';
 
 import 'package:bananatalk_app/utils/theme_extensions.dart';
@@ -221,7 +222,7 @@ class _AudioRecorderState extends State<AudioRecorder> {
         ElevatedButton.icon(
           onPressed: _stopRecording,
           icon: const Icon(Icons.stop_rounded),
-          label: const Text('Stop'),
+          label: Text(AppLocalizations.of(context)!.stopAction),
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFFEF4444),
             foregroundColor: Colors.white,
@@ -267,7 +268,7 @@ class _AudioRecorderState extends State<AudioRecorder> {
             OutlinedButton.icon(
               onPressed: _reset,
               icon: const Icon(Icons.refresh_rounded),
-              label: const Text('Re-record'),
+              label: Text(AppLocalizations.of(context)!.reRecord),
               style: OutlinedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(24),

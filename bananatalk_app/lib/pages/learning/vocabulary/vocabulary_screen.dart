@@ -232,13 +232,13 @@ class _VocabularyScreenState extends ConsumerState<VocabularyScreen> {
                           final confirm = await showDialog<bool>(
                             context: context,
                             builder: (context) => AlertDialog(
-                              title: const Text('Delete Word'),
+                              title: Text(AppLocalizations.of(context)!.deleteWord),
                               content: Text(
                                   'Are you sure you want to delete "${item.word}"?'),
                               actions: [
                                 TextButton(
                                   onPressed: () => Navigator.pop(context, false),
-                                  child: const Text('Cancel'),
+                                  child: Text(AppLocalizations.of(context)!.cancel),
                                 ),
                                 TextButton(
                                   onPressed: () => Navigator.pop(context, true),
@@ -277,7 +277,7 @@ class _VocabularyScreenState extends ConsumerState<VocabularyScreen> {
                     ElevatedButton(
                       onPressed: () =>
                           ref.invalidate(vocabularyListProvider(filter)),
-                      child: const Text('Retry'),
+                      child: Text(AppLocalizations.of(context)!.retry),
                     ),
                   ],
                 ),
@@ -298,7 +298,7 @@ class _VocabularyScreenState extends ConsumerState<VocabularyScreen> {
         },
         backgroundColor: AppColors.primary,
         icon: const Icon(Icons.add),
-        label: const Text('Add Word'),
+        label: Text(AppLocalizations.of(context)!.addWord),
       ),
     );
   }

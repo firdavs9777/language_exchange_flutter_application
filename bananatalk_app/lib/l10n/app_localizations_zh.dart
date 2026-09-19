@@ -1761,6 +1761,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get waves => '打招呼';
 
   @override
+  String get communityTabRooms => '房间';
+
+  @override
   String get voiceRooms => '语音';
 
   @override
@@ -8213,6 +8216,72 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get storyArchiveAdded => '已添加到精选';
+
+  @override
+  String get doneAction => '完成';
+
+  @override
+  String get noneOption => '无';
+
+  @override
+  String get stopAction => '停止';
+
+  @override
+  String get selectPlaceholder => '选择...';
+
+  @override
+  String get goVip => '成为VIP';
+
+  @override
+  String get logoutFailed => '退出登录失败';
+
+  @override
+  String get vocabularyPacks => '词汇包';
+
+  @override
+  String get noVocabPacksYet => '暂无可用词汇包。';
+
+  @override
+  String get addWord => '添加单词';
+
+  @override
+  String get deleteWord => '删除单词';
+
+  @override
+  String get shuffleAction => '打乱';
+
+  @override
+  String get exitLessonTitle => '退出课程？';
+
+  @override
+  String get exitQuizTitle => '退出测验？';
+
+  @override
+  String get quizNotFound => '未找到测验';
+
+  @override
+  String get vocabPackAddFailed => '无法添加词汇包';
+
+  @override
+  String get vocabPackLoadFailed => '无法加载词汇包';
+
+  @override
+  String get addToMyVocab => '添加到我的词汇';
+
+  @override
+  String get viewAiSummary => '查看AI摘要';
+
+  @override
+  String get reRecord => '重新录制';
+
+  @override
+  String get practiceComplete => '练习完成';
+
+  @override
+  String get micPermissionNeeded => '需要麦克风权限';
+
+  @override
+  String get thanksForParticipating => '感谢参与！+10 XP 🎉';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -9970,6 +10039,9 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get waves => '招手';
+
+  @override
+  String get communityTabRooms => '房間';
 
   @override
   String get voiceRooms => '語音';
@@ -16424,4 +16496,70 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get storyArchiveAdded => '已加入精選';
+
+  @override
+  String get doneAction => '完成';
+
+  @override
+  String get noneOption => '無';
+
+  @override
+  String get stopAction => '停止';
+
+  @override
+  String get selectPlaceholder => '選擇...';
+
+  @override
+  String get goVip => '成為VIP';
+
+  @override
+  String get logoutFailed => '登出失敗';
+
+  @override
+  String get vocabularyPacks => '詞彙包';
+
+  @override
+  String get noVocabPacksYet => '尚無可用的詞彙包。';
+
+  @override
+  String get addWord => '新增單字';
+
+  @override
+  String get deleteWord => '刪除單字';
+
+  @override
+  String get shuffleAction => '隨機排序';
+
+  @override
+  String get exitLessonTitle => '離開課程？';
+
+  @override
+  String get exitQuizTitle => '離開測驗？';
+
+  @override
+  String get quizNotFound => '找不到測驗';
+
+  @override
+  String get vocabPackAddFailed => '無法新增詞彙包';
+
+  @override
+  String get vocabPackLoadFailed => '無法載入詞彙包';
+
+  @override
+  String get addToMyVocab => '加入我的單字';
+
+  @override
+  String get viewAiSummary => '查看AI摘要';
+
+  @override
+  String get reRecord => '重新錄製';
+
+  @override
+  String get practiceComplete => '練習完成';
+
+  @override
+  String get micPermissionNeeded => '需要麥克風權限';
+
+  @override
+  String get thanksForParticipating => '感謝參與！+10 XP 🎉';
 }

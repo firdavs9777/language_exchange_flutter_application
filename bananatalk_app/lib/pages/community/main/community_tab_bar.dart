@@ -55,7 +55,7 @@ class CommunityTabBar extends ConsumerWidget {
       l10n.communityTabAll,
       l10n.communityTabGender,
       gatheringsEnabled ? l10n.gatheringsTabLabel : l10n.voiceRooms,
-      if (showRoomsTab) 'Rooms',
+      if (showRoomsTab) l10n.communityTabRooms,
       l10n.nearby,
       l10n.communityTabCity,
       l10n.topics,

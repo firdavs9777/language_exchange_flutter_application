@@ -10,6 +10,7 @@ import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:bananatalk_app/widgets/shimmer_loading.dart';
 import 'package:bananatalk_app/widgets/community/user_skeleton.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
@@ -104,7 +105,8 @@ class _ProfileFollowingsState extends ConsumerState<ProfileFollowings> {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text('${AppLocalizations.of(context)!.failedToUnfollowUser}: ${e.toString()}'),
+              content: Text(friendlyErrorMessage(AppLocalizations.of(context)!, e,
+                  fallback: AppLocalizations.of(context)!.failedToUnfollowUser)),
               backgroundColor: Colors.red,
               behavior: SnackBarBehavior.floating,
               shape: RoundedRectangleBorder(
@@ -141,7 +143,7 @@ class _ProfileFollowingsState extends ConsumerState<ProfileFollowings> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Failed to load profile: ${e.toString()}'),
+            content: Text(friendlyErrorMessage(AppLocalizations.of(context)!, e)),
             backgroundColor: Colors.red,
           ),
         );
@@ -184,11 +186,18 @@ class _ProfileFollowingsState extends ConsumerState<ProfileFollowings> {
                     Icon(Icons.error_outline,
                         size: 48, color: AppColors.error),
                     Spacing.gapLG,
-                    Text('Error: ${snapshot.error}', style: context.bodyMedium),
+                    Text(
+                      friendlyErrorMessage(
+                        AppLocalizations.of(context)!,
+                        snapshot.error,
+                      ),
+                      textAlign: TextAlign.center,
+                      style: context.bodyMedium,
+                    ),
                     Spacing.gapLG,
                     ElevatedButton(
                       onPressed: _refreshFollowings,
-                      child: const Text('Retry'),
+                      child: Text(AppLocalizations.of(context)!.retry),
                     ),
                   ],
                 ),

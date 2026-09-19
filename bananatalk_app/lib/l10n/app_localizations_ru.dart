@@ -1761,6 +1761,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get waves => 'Приветствия';
 
   @override
+  String get communityTabRooms => 'Комнаты';
+
+  @override
   String get voiceRooms => 'Голос';
 
   @override
@@ -8244,4 +8247,70 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get storyArchiveAdded => 'Добавлено в актуальное';
+
+  @override
+  String get doneAction => 'Готово';
+
+  @override
+  String get noneOption => 'Нет';
+
+  @override
+  String get stopAction => 'Стоп';
+
+  @override
+  String get selectPlaceholder => 'Выбрать...';
+
+  @override
+  String get goVip => 'Стать VIP';
+
+  @override
+  String get logoutFailed => 'Не удалось выйти';
+
+  @override
+  String get vocabularyPacks => 'Наборы слов';
+
+  @override
+  String get noVocabPacksYet => 'Пока нет доступных наборов.';
+
+  @override
+  String get addWord => 'Добавить слово';
+
+  @override
+  String get deleteWord => 'Удалить слово';
+
+  @override
+  String get shuffleAction => 'Перемешать';
+
+  @override
+  String get exitLessonTitle => 'Выйти из урока?';
+
+  @override
+  String get exitQuizTitle => 'Выйти из теста?';
+
+  @override
+  String get quizNotFound => 'Тест не найден';
+
+  @override
+  String get vocabPackAddFailed => 'Не удалось добавить набор';
+
+  @override
+  String get vocabPackLoadFailed => 'Не удалось загрузить набор';
+
+  @override
+  String get addToMyVocab => 'В мой словарь';
+
+  @override
+  String get viewAiSummary => 'Сводка ИИ';
+
+  @override
+  String get reRecord => 'Перезаписать';
+
+  @override
+  String get practiceComplete => 'Практика завершена';
+
+  @override
+  String get micPermissionNeeded => 'Нужен доступ к микрофону';
+
+  @override
+  String get thanksForParticipating => 'Спасибо за участие! +10 XP 🎉';
 }

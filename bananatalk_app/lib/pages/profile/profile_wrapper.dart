@@ -2,6 +2,7 @@ import 'package:bananatalk_app/pages/community/single/single_community_screen.da
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/widgets/navigation/app_back_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -44,7 +45,9 @@ class _ProfileWrapperState extends ConsumerState<ProfileWrapper> {
     } catch (e) {
       if (mounted) {
         setState(() {
-          _error = 'Failed to load profile';
+          // Was a hardcoded English sentence that also hid the most common
+          // cause: an unreachable server reads as a missing profile.
+          _error = friendlyErrorMessage(AppLocalizations.of(context)!, e);
           _isLoading = false;
         });
       }
@@ -81,7 +84,7 @@ class _ProfileWrapperState extends ConsumerState<ProfileWrapper> {
               const Icon(Icons.error_outline, size: 64, color: Colors.red),
               const SizedBox(height: 16),
               Text(
-                _error ?? 'Profile not found',
+                _error ?? AppLocalizations.of(context)!.somethingWentWrong,
                 style: const TextStyle(fontSize: 16),
               ),
               const SizedBox(height: 16),

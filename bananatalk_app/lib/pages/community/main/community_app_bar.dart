@@ -115,14 +115,14 @@ class CommunityAppBar extends ConsumerWidget implements PreferredSizeWidget {
                 ],
               ),
             ),
-            const PopupMenuItem(
+            PopupMenuItem(
               value: 'vip',
               child: Row(
                 children: [
-                  Icon(Icons.workspace_premium_rounded,
+                  const Icon(Icons.workspace_premium_rounded,
                       size: 20, color: Color(0xFFFFA000)),
-                  SizedBox(width: 12),
-                  Text('Go VIP'),
+                  const SizedBox(width: 12),
+                  Text(AppLocalizations.of(context)!.goVip),
                 ],
               ),
             ),

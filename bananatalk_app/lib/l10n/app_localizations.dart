@@ -3512,6 +3512,12 @@ abstract class AppLocalizations {
   /// **'Waves'**
   String get waves;
 
+  /// No description provided for @communityTabRooms.
+  ///
+  /// In en, this message translates to:
+  /// **'Rooms'**
+  String get communityTabRooms;
+
   /// No description provided for @voiceRooms.
   ///
   /// In en, this message translates to:
@@ -15181,6 +15187,138 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Added to highlights'**
   String get storyArchiveAdded;
+
+  /// No description provided for @doneAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get doneAction;
+
+  /// No description provided for @noneOption.
+  ///
+  /// In en, this message translates to:
+  /// **'None'**
+  String get noneOption;
+
+  /// No description provided for @stopAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop'**
+  String get stopAction;
+
+  /// No description provided for @selectPlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'Select...'**
+  String get selectPlaceholder;
+
+  /// No description provided for @goVip.
+  ///
+  /// In en, this message translates to:
+  /// **'Go VIP'**
+  String get goVip;
+
+  /// No description provided for @logoutFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Logout failed'**
+  String get logoutFailed;
+
+  /// No description provided for @vocabularyPacks.
+  ///
+  /// In en, this message translates to:
+  /// **'Vocabulary Packs'**
+  String get vocabularyPacks;
+
+  /// No description provided for @noVocabPacksYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No packs available yet.'**
+  String get noVocabPacksYet;
+
+  /// No description provided for @addWord.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Word'**
+  String get addWord;
+
+  /// No description provided for @deleteWord.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Word'**
+  String get deleteWord;
+
+  /// No description provided for @shuffleAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Shuffle'**
+  String get shuffleAction;
+
+  /// No description provided for @exitLessonTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Exit Lesson?'**
+  String get exitLessonTitle;
+
+  /// No description provided for @exitQuizTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Exit Quiz?'**
+  String get exitQuizTitle;
+
+  /// No description provided for @quizNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'Quiz not found'**
+  String get quizNotFound;
+
+  /// No description provided for @vocabPackAddFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not add pack'**
+  String get vocabPackAddFailed;
+
+  /// No description provided for @vocabPackLoadFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load pack'**
+  String get vocabPackLoadFailed;
+
+  /// No description provided for @addToMyVocab.
+  ///
+  /// In en, this message translates to:
+  /// **'Add to my vocab'**
+  String get addToMyVocab;
+
+  /// No description provided for @viewAiSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'View AI Summary'**
+  String get viewAiSummary;
+
+  /// No description provided for @reRecord.
+  ///
+  /// In en, this message translates to:
+  /// **'Re-record'**
+  String get reRecord;
+
+  /// No description provided for @practiceComplete.
+  ///
+  /// In en, this message translates to:
+  /// **'Practice complete'**
+  String get practiceComplete;
+
+  /// No description provided for @micPermissionNeeded.
+  ///
+  /// In en, this message translates to:
+  /// **'Microphone permission needed'**
+  String get micPermissionNeeded;
+
+  /// No description provided for @thanksForParticipating.
+  ///
+  /// In en, this message translates to:
+  /// **'Thanks for participating! +10 XP 🎉'**
+  String get thanksForParticipating;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

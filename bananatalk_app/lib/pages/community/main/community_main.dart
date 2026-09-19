@@ -26,6 +26,7 @@ import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/pages/community/widgets/visitor_recall_card.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 
 /// Pure index-remap helper for the conditional "Rooms" tab.
 ///
@@ -568,7 +569,7 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
       } catch (_) {}
       messenger.showSnackBar(
         SnackBar(
-          content: Text(l10n.commonError(e.toString())),
+          content: Text(friendlyErrorMessage(l10n, e)),
           backgroundColor: colorScheme.error,
           behavior: SnackBarBehavior.floating,
         ),

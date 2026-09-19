@@ -1761,6 +1761,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String get waves => 'Winken';
 
   @override
+  String get communityTabRooms => 'Räume';
+
+  @override
   String get voiceRooms => 'Sprache';
 
   @override
@@ -8223,4 +8226,70 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get storyArchiveAdded => 'Zu Highlights hinzugefügt';
+
+  @override
+  String get doneAction => 'Fertig';
+
+  @override
+  String get noneOption => 'Keine';
+
+  @override
+  String get stopAction => 'Stopp';
+
+  @override
+  String get selectPlaceholder => 'Auswählen...';
+
+  @override
+  String get goVip => 'VIP werden';
+
+  @override
+  String get logoutFailed => 'Abmeldung fehlgeschlagen';
+
+  @override
+  String get vocabularyPacks => 'Vokabelpakete';
+
+  @override
+  String get noVocabPacksYet => 'Noch keine Pakete verfügbar.';
+
+  @override
+  String get addWord => 'Wort hinzufügen';
+
+  @override
+  String get deleteWord => 'Wort löschen';
+
+  @override
+  String get shuffleAction => 'Mischen';
+
+  @override
+  String get exitLessonTitle => 'Lektion verlassen?';
+
+  @override
+  String get exitQuizTitle => 'Quiz verlassen?';
+
+  @override
+  String get quizNotFound => 'Quiz nicht gefunden';
+
+  @override
+  String get vocabPackAddFailed => 'Paket konnte nicht hinzugefügt werden';
+
+  @override
+  String get vocabPackLoadFailed => 'Paket konnte nicht geladen werden';
+
+  @override
+  String get addToMyVocab => 'Zu meinem Wortschatz';
+
+  @override
+  String get viewAiSummary => 'KI-Zusammenfassung ansehen';
+
+  @override
+  String get reRecord => 'Neu aufnehmen';
+
+  @override
+  String get practiceComplete => 'Übung abgeschlossen';
+
+  @override
+  String get micPermissionNeeded => 'Mikrofonberechtigung erforderlich';
+
+  @override
+  String get thanksForParticipating => 'Danke fürs Mitmachen! +10 XP 🎉';
 }

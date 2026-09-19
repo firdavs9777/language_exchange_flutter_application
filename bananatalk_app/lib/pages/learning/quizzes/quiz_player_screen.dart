@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/providers/provider_root/learning_providers.dart';
 import 'package:bananatalk_app/models/learning/quiz_model.dart';
@@ -69,8 +70,8 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
               quiz?.title ?? 'Quiz',
               style: context.titleMedium,
             ),
-            loading: () => const Text('Loading...'),
-            error: (_, __) => const Text('Error'),
+            loading: () => Text(AppLocalizations.of(context)!.loading),
+            error: (_, __) => Text(AppLocalizations.of(context)!.error),
           ),
           actions: [
             if (playerState.questions.isNotEmpty && !playerState.isComplete)
@@ -111,7 +112,7 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
         body: quizAsync.when(
           data: (quiz) {
             if (quiz == null) {
-              return const Center(child: Text('Quiz not found'));
+              return Center(child: Text(AppLocalizations.of(context)!.quizNotFound));
             }
 
             if (playerState.isComplete) {
@@ -147,7 +148,7 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
                 ElevatedButton(
                   onPressed: () =>
                       ref.invalidate(quizDetailProvider(widget.quizId)),
-                  child: const Text('Retry'),
+                  child: Text(AppLocalizations.of(context)!.retry),
                 ),
               ],
             ),
@@ -616,14 +617,14 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
     return await showDialog<bool>(
           context: context,
           builder: (context) => AlertDialog(
-            title: const Text('Exit Quiz?'),
+            title: Text(AppLocalizations.of(context)!.exitQuizTitle),
             content: const Text(
               'Your progress will be lost if you exit now.',
             ),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context, false),
-                child: const Text('Cancel'),
+                child: Text(AppLocalizations.of(context)!.cancel),
               ),
               TextButton(
                 onPressed: () => Navigator.pop(context, true),

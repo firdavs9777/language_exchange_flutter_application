@@ -1761,6 +1761,9 @@ class AppLocalizationsTr extends AppLocalizations {
   String get waves => 'El Sallama';
 
   @override
+  String get communityTabRooms => 'Odalar';
+
+  @override
   String get voiceRooms => 'Sesli';
 
   @override
@@ -8221,4 +8224,70 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get storyArchiveAdded => 'Öne çıkanlara eklendi';
+
+  @override
+  String get doneAction => 'Bitti';
+
+  @override
+  String get noneOption => 'Yok';
+
+  @override
+  String get stopAction => 'Durdur';
+
+  @override
+  String get selectPlaceholder => 'Seç...';
+
+  @override
+  String get goVip => 'VIP Ol';
+
+  @override
+  String get logoutFailed => 'Çıkış başarısız';
+
+  @override
+  String get vocabularyPacks => 'Kelime Paketleri';
+
+  @override
+  String get noVocabPacksYet => 'Henüz paket yok.';
+
+  @override
+  String get addWord => 'Kelime Ekle';
+
+  @override
+  String get deleteWord => 'Kelimeyi Sil';
+
+  @override
+  String get shuffleAction => 'Karıştır';
+
+  @override
+  String get exitLessonTitle => 'Dersten çıkılsın mı?';
+
+  @override
+  String get exitQuizTitle => 'Testten çıkılsın mı?';
+
+  @override
+  String get quizNotFound => 'Test bulunamadı';
+
+  @override
+  String get vocabPackAddFailed => 'Paket eklenemedi';
+
+  @override
+  String get vocabPackLoadFailed => 'Paket yüklenemedi';
+
+  @override
+  String get addToMyVocab => 'Kelimelerime ekle';
+
+  @override
+  String get viewAiSummary => 'AI Özetini Gör';
+
+  @override
+  String get reRecord => 'Yeniden kaydet';
+
+  @override
+  String get practiceComplete => 'Alıştırma tamamlandı';
+
+  @override
+  String get micPermissionNeeded => 'Mikrofon izni gerekli';
+
+  @override
+  String get thanksForParticipating => 'Katıldığın için teşekkürler! +10 XP 🎉';
 }

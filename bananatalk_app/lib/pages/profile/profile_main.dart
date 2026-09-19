@@ -20,6 +20,7 @@ import 'package:bananatalk_app/providers/provider_root/profile_visitor_provider.
 import 'package:bananatalk_app/widgets/profile/profile_main_skeleton.dart';
 import 'package:bananatalk_app/utils/haptic_utils.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -555,7 +556,7 @@ class _LogoutDialogState extends State<_LogoutDialog> {
       if (dialogContext.mounted) {
         ScaffoldMessenger.of(dialogContext).showSnackBar(
           SnackBar(
-            content: Text('Logout failed: $error'),
+            content: Text(friendlyErrorMessage(AppLocalizations.of(context)!, error, fallback: AppLocalizations.of(context)!.logoutFailed)),
             backgroundColor: AppColors.error,
             behavior: SnackBarBehavior.floating,
             shape: RoundedRectangleBorder(

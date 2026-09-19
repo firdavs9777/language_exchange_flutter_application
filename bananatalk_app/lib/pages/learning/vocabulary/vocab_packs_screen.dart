@@ -1,4 +1,5 @@
 import 'package:bananatalk_app/models/learning/vocab_pack_model.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/learning/vocabulary/vocab_pack_detail_screen.dart';
 import 'package:bananatalk_app/providers/provider_root/learning/vocab_packs_providers.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
@@ -28,7 +29,7 @@ class VocabPacksScreen extends ConsumerWidget {
     final theme = Theme.of(context);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Vocabulary Packs')),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.vocabularyPacks)),
       body: Column(
         children: [
           // Horizontally scrollable: five chips do not fit a narrow phone.
@@ -63,7 +64,7 @@ class VocabPacksScreen extends ConsumerWidget {
             child: packsAsync.when(
               data: (packs) {
                 if (packs.isEmpty) {
-                  return const Center(child: Text('No packs available yet.'));
+                  return Center(child: Text(AppLocalizations.of(context)!.noVocabPacksYet));
                 }
                 return RefreshIndicator(
                   onRefresh: () async => ref.invalidate(vocabPacksProvider(level)),
@@ -91,7 +92,7 @@ class VocabPacksScreen extends ConsumerWidget {
                       FilledButton(
                         onPressed: () =>
                             ref.invalidate(vocabPacksProvider(level)),
-                        child: const Text('Retry'),
+                        child: Text(AppLocalizations.of(context)!.retry),
                       ),
                     ],
                   ),

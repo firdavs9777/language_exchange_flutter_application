@@ -1761,6 +1761,9 @@ class AppLocalizationsKo extends AppLocalizations {
   String get waves => '인사';
 
   @override
+  String get communityTabRooms => '룸';
+
+  @override
   String get voiceRooms => '보이스';
 
   @override
@@ -8213,4 +8216,70 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get storyArchiveAdded => '하이라이트에 추가됨';
+
+  @override
+  String get doneAction => '완료';
+
+  @override
+  String get noneOption => '없음';
+
+  @override
+  String get stopAction => '정지';
+
+  @override
+  String get selectPlaceholder => '선택...';
+
+  @override
+  String get goVip => 'VIP 가입';
+
+  @override
+  String get logoutFailed => '로그아웃 실패';
+
+  @override
+  String get vocabularyPacks => '단어 팩';
+
+  @override
+  String get noVocabPacksYet => '아직 사용할 수 있는 팩이 없습니다.';
+
+  @override
+  String get addWord => '단어 추가';
+
+  @override
+  String get deleteWord => '단어 삭제';
+
+  @override
+  String get shuffleAction => '섞기';
+
+  @override
+  String get exitLessonTitle => '수업을 나가시겠어요?';
+
+  @override
+  String get exitQuizTitle => '퀴즈를 나가시겠어요?';
+
+  @override
+  String get quizNotFound => '퀴즈를 찾을 수 없습니다';
+
+  @override
+  String get vocabPackAddFailed => '팩을 추가할 수 없습니다';
+
+  @override
+  String get vocabPackLoadFailed => '팩을 불러올 수 없습니다';
+
+  @override
+  String get addToMyVocab => '내 단어장에 추가';
+
+  @override
+  String get viewAiSummary => 'AI 요약 보기';
+
+  @override
+  String get reRecord => '다시 녹음';
+
+  @override
+  String get practiceComplete => '연습 완료';
+
+  @override
+  String get micPermissionNeeded => '마이크 권한이 필요합니다';
+
+  @override
+  String get thanksForParticipating => '참여해 주셔서 감사합니다! +10 XP 🎉';
 }

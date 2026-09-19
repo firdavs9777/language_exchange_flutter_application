@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/providers/languages_provider.dart';
 import 'package:bananatalk_app/services/learning_service.dart';
@@ -278,9 +279,12 @@ class _VocabularyAddScreenState extends ConsumerState<VocabularyAddScreen> {
                   child: DropdownButton<String?>(
                     value: _selectedPartOfSpeech,
                     isExpanded: true,
-                    hint: const Text('Select...'),
+                    hint: Text(AppLocalizations.of(context)!.selectPlaceholder),
                     items: [
-                      const DropdownMenuItem(value: null, child: Text('None')),
+                      DropdownMenuItem(
+                        value: null,
+                        child: Text(AppLocalizations.of(context)!.noneOption),
+                      ),
                       ..._partsOfSpeech.map((pos) {
                         return DropdownMenuItem(
                           value: pos,

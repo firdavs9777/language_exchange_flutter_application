@@ -1761,6 +1761,9 @@ class AppLocalizationsId extends AppLocalizations {
   String get waves => 'Lambaian';
 
   @override
+  String get communityTabRooms => 'Ruang';
+
+  @override
   String get voiceRooms => 'Voice';
 
   @override
@@ -8220,4 +8223,70 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get storyArchiveAdded => 'Ditambahkan ke sorotan';
+
+  @override
+  String get doneAction => 'Selesai';
+
+  @override
+  String get noneOption => 'Tidak ada';
+
+  @override
+  String get stopAction => 'Berhenti';
+
+  @override
+  String get selectPlaceholder => 'Pilih...';
+
+  @override
+  String get goVip => 'Jadi VIP';
+
+  @override
+  String get logoutFailed => 'Gagal keluar';
+
+  @override
+  String get vocabularyPacks => 'Paket Kosakata';
+
+  @override
+  String get noVocabPacksYet => 'Belum ada paket tersedia.';
+
+  @override
+  String get addWord => 'Tambah Kata';
+
+  @override
+  String get deleteWord => 'Hapus Kata';
+
+  @override
+  String get shuffleAction => 'Acak';
+
+  @override
+  String get exitLessonTitle => 'Keluar dari pelajaran?';
+
+  @override
+  String get exitQuizTitle => 'Keluar dari kuis?';
+
+  @override
+  String get quizNotFound => 'Kuis tidak ditemukan';
+
+  @override
+  String get vocabPackAddFailed => 'Tidak dapat menambahkan paket';
+
+  @override
+  String get vocabPackLoadFailed => 'Tidak dapat memuat paket';
+
+  @override
+  String get addToMyVocab => 'Tambah ke kosakata saya';
+
+  @override
+  String get viewAiSummary => 'Lihat ringkasan AI';
+
+  @override
+  String get reRecord => 'Rekam ulang';
+
+  @override
+  String get practiceComplete => 'Latihan selesai';
+
+  @override
+  String get micPermissionNeeded => 'Izin mikrofon diperlukan';
+
+  @override
+  String get thanksForParticipating => 'Terima kasih sudah ikut! +10 XP 🎉';
 }

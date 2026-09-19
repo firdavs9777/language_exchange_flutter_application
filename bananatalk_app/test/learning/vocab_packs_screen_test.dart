@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/learning/vocab_pack_model.dart';
 import 'package:bananatalk_app/pages/learning/vocabulary/vocab_packs_screen.dart';
 import 'package:bananatalk_app/providers/provider_root/learning/vocab_packs_providers.dart';
@@ -29,7 +30,13 @@ Widget _host() => ProviderScope(
                 ? _packs
                 : _packs.where((p) => p.level == level).toList()),
       ],
-      child: const MaterialApp(home: VocabPacksScreen()),
+      // The screen's title and empty state are localized, so the delegates
+      // are load-bearing here rather than decoration.
+      child: const MaterialApp(
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        home: VocabPacksScreen(),
+      ),
     );
 
 void main() {

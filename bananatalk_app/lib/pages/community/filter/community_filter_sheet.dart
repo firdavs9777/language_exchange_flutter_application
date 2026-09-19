@@ -11,6 +11,7 @@ import 'package:bananatalk_app/service/endpoints.dart';
 import 'package:bananatalk_app/models/language_model.dart';
 import 'package:bananatalk_app/widgets/language_selection/language_picker_screen.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
@@ -334,7 +335,7 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
       setState(() => _isDetectingLocation = false);
       showCommunitySnackBar(
         context,
-        message: 'Error: ${e.toString()}',
+        message: friendlyErrorMessage(AppLocalizations.of(context)!, e),
         type: CommunitySnackBarType.error,
       );
     }

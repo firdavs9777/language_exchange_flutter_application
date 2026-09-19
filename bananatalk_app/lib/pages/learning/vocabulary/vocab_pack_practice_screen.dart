@@ -1,4 +1,5 @@
 import 'package:bananatalk_app/models/learning/vocab_pack_model.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 /// Plays through a pack's exercises (multiple_choice, fill_blank, matching,
@@ -80,7 +81,7 @@ class _VocabPackPracticeScreenState extends State<VocabPackPracticeScreen> {
       showDialog(
         context: context,
         builder: (ctx) => AlertDialog(
-          title: const Text('Practice complete'),
+          title: Text(AppLocalizations.of(context)!.practiceComplete),
           content: Text(
               'You got $_correct of ${widget.exercises.length} correct.'),
           actions: [
@@ -89,7 +90,7 @@ class _VocabPackPracticeScreenState extends State<VocabPackPracticeScreen> {
                 Navigator.pop(ctx);
                 Navigator.pop(context);
               },
-              child: const Text('Done'),
+              child: Text(AppLocalizations.of(context)!.doneAction),
             ),
           ],
         ),
@@ -263,7 +264,7 @@ class _VocabPackPracticeScreenState extends State<VocabPackPracticeScreen> {
                   child: DropdownButton<String>(
                     isExpanded: true,
                     value: chosen,
-                    hint: const Text('Choose…'),
+                    hint: Text(AppLocalizations.of(context)!.selectPlaceholder),
                     onChanged: _answered
                         ? null
                         : (v) => setState(() => _matchSelections[p.term] = v!),

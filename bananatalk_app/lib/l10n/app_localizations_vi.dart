@@ -1761,6 +1761,9 @@ class AppLocalizationsVi extends AppLocalizations {
   String get waves => 'Vẫy tay';
 
   @override
+  String get communityTabRooms => 'Phòng';
+
+  @override
   String get voiceRooms => 'Voice';
 
   @override
@@ -8213,4 +8216,70 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get storyArchiveAdded => 'Đã thêm vào tin nổi bật';
+
+  @override
+  String get doneAction => 'Xong';
+
+  @override
+  String get noneOption => 'Không có';
+
+  @override
+  String get stopAction => 'Dừng';
+
+  @override
+  String get selectPlaceholder => 'Chọn...';
+
+  @override
+  String get goVip => 'Lên VIP';
+
+  @override
+  String get logoutFailed => 'Đăng xuất thất bại';
+
+  @override
+  String get vocabularyPacks => 'Bộ từ vựng';
+
+  @override
+  String get noVocabPacksYet => 'Chưa có bộ từ nào.';
+
+  @override
+  String get addWord => 'Thêm từ';
+
+  @override
+  String get deleteWord => 'Xóa từ';
+
+  @override
+  String get shuffleAction => 'Xáo trộn';
+
+  @override
+  String get exitLessonTitle => 'Thoát bài học?';
+
+  @override
+  String get exitQuizTitle => 'Thoát bài kiểm tra?';
+
+  @override
+  String get quizNotFound => 'Không tìm thấy bài kiểm tra';
+
+  @override
+  String get vocabPackAddFailed => 'Không thể thêm bộ từ';
+
+  @override
+  String get vocabPackLoadFailed => 'Không thể tải bộ từ';
+
+  @override
+  String get addToMyVocab => 'Thêm vào từ vựng của tôi';
+
+  @override
+  String get viewAiSummary => 'Xem tóm tắt AI';
+
+  @override
+  String get reRecord => 'Ghi lại';
+
+  @override
+  String get practiceComplete => 'Hoàn thành luyện tập';
+
+  @override
+  String get micPermissionNeeded => 'Cần quyền micro';
+
+  @override
+  String get thanksForParticipating => 'Cảm ơn bạn đã tham gia! +10 XP 🎉';
 }

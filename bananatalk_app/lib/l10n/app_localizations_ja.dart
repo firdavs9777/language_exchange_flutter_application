@@ -1761,6 +1761,9 @@ class AppLocalizationsJa extends AppLocalizations {
   String get waves => '挨拶';
 
   @override
+  String get communityTabRooms => 'ルーム';
+
+  @override
   String get voiceRooms => 'ボイス';
 
   @override
@@ -8213,4 +8216,70 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get storyArchiveAdded => 'ハイライトに追加しました';
+
+  @override
+  String get doneAction => '完了';
+
+  @override
+  String get noneOption => 'なし';
+
+  @override
+  String get stopAction => '停止';
+
+  @override
+  String get selectPlaceholder => '選択...';
+
+  @override
+  String get goVip => 'VIPになる';
+
+  @override
+  String get logoutFailed => 'ログアウトに失敗しました';
+
+  @override
+  String get vocabularyPacks => '単語パック';
+
+  @override
+  String get noVocabPacksYet => '利用できるパックはまだありません。';
+
+  @override
+  String get addWord => '単語を追加';
+
+  @override
+  String get deleteWord => '単語を削除';
+
+  @override
+  String get shuffleAction => 'シャッフル';
+
+  @override
+  String get exitLessonTitle => 'レッスンを終了しますか？';
+
+  @override
+  String get exitQuizTitle => 'クイズを終了しますか？';
+
+  @override
+  String get quizNotFound => 'クイズが見つかりません';
+
+  @override
+  String get vocabPackAddFailed => 'パックを追加できませんでした';
+
+  @override
+  String get vocabPackLoadFailed => 'パックを読み込めませんでした';
+
+  @override
+  String get addToMyVocab => '単語帳に追加';
+
+  @override
+  String get viewAiSummary => 'AI要約を見る';
+
+  @override
+  String get reRecord => '録り直す';
+
+  @override
+  String get practiceComplete => '練習完了';
+
+  @override
+  String get micPermissionNeeded => 'マイクの許可が必要です';
+
+  @override
+  String get thanksForParticipating => 'ご参加ありがとうございます！+10 XP 🎉';
 }

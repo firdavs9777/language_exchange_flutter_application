@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/providers/provider_root/learning_providers.dart';
 import 'package:bananatalk_app/models/learning/challenge_model.dart';
@@ -119,7 +120,7 @@ class _ChallengesScreenState extends ConsumerState<ChallengesScreen>
               Spacing.gapLG,
               ElevatedButton(
                 onPressed: () => ref.invalidate(challengesProvider),
-                child: const Text('Retry'),
+                child: Text(AppLocalizations.of(context)!.retry),
               ),
             ],
           ),

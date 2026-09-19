@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/foundation.dart';
 import 'package:bananatalk_app/models/learning/lesson_model.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
@@ -238,7 +239,7 @@ class _OrderingWidgetState extends State<OrderingWidget> {
                 });
               },
               icon: const Icon(Icons.shuffle, size: 18),
-              label: const Text('Shuffle'),
+              label: Text(AppLocalizations.of(context)!.shuffleAction),
               style: TextButton.styleFrom(
                 foregroundColor: context.textSecondary,
               ),

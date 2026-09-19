@@ -1761,6 +1761,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get waves => 'Waves';
 
   @override
+  String get communityTabRooms => 'Rooms';
+
+  @override
   String get voiceRooms => 'Voice';
 
   @override
@@ -8229,4 +8232,70 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get storyArchiveAdded => 'Added to highlights';
+
+  @override
+  String get doneAction => 'Done';
+
+  @override
+  String get noneOption => 'None';
+
+  @override
+  String get stopAction => 'Stop';
+
+  @override
+  String get selectPlaceholder => 'Select...';
+
+  @override
+  String get goVip => 'Go VIP';
+
+  @override
+  String get logoutFailed => 'Logout failed';
+
+  @override
+  String get vocabularyPacks => 'Vocabulary Packs';
+
+  @override
+  String get noVocabPacksYet => 'No packs available yet.';
+
+  @override
+  String get addWord => 'Add Word';
+
+  @override
+  String get deleteWord => 'Delete Word';
+
+  @override
+  String get shuffleAction => 'Shuffle';
+
+  @override
+  String get exitLessonTitle => 'Exit Lesson?';
+
+  @override
+  String get exitQuizTitle => 'Exit Quiz?';
+
+  @override
+  String get quizNotFound => 'Quiz not found';
+
+  @override
+  String get vocabPackAddFailed => 'Could not add pack';
+
+  @override
+  String get vocabPackLoadFailed => 'Could not load pack';
+
+  @override
+  String get addToMyVocab => 'Add to my vocab';
+
+  @override
+  String get viewAiSummary => 'View AI Summary';
+
+  @override
+  String get reRecord => 'Re-record';
+
+  @override
+  String get practiceComplete => 'Practice complete';
+
+  @override
+  String get micPermissionNeeded => 'Microphone permission needed';
+
+  @override
+  String get thanksForParticipating => 'Thanks for participating! +10 XP 🎉';
 }

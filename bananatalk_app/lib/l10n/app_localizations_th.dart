@@ -1761,6 +1761,9 @@ class AppLocalizationsTh extends AppLocalizations {
   String get waves => 'โบกมือ';
 
   @override
+  String get communityTabRooms => 'ห้อง';
+
+  @override
   String get voiceRooms => 'เสียง';
 
   @override
@@ -8213,4 +8216,70 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get storyArchiveAdded => 'เพิ่มลงไฮไลท์แล้ว';
+
+  @override
+  String get doneAction => 'เสร็จสิ้น';
+
+  @override
+  String get noneOption => 'ไม่มี';
+
+  @override
+  String get stopAction => 'หยุด';
+
+  @override
+  String get selectPlaceholder => 'เลือก...';
+
+  @override
+  String get goVip => 'เป็น VIP';
+
+  @override
+  String get logoutFailed => 'ออกจากระบบไม่สำเร็จ';
+
+  @override
+  String get vocabularyPacks => 'ชุดคำศัพท์';
+
+  @override
+  String get noVocabPacksYet => 'ยังไม่มีชุดคำศัพท์';
+
+  @override
+  String get addWord => 'เพิ่มคำศัพท์';
+
+  @override
+  String get deleteWord => 'ลบคำศัพท์';
+
+  @override
+  String get shuffleAction => 'สลับ';
+
+  @override
+  String get exitLessonTitle => 'ออกจากบทเรียน?';
+
+  @override
+  String get exitQuizTitle => 'ออกจากแบบทดสอบ?';
+
+  @override
+  String get quizNotFound => 'ไม่พบแบบทดสอบ';
+
+  @override
+  String get vocabPackAddFailed => 'เพิ่มชุดคำศัพท์ไม่สำเร็จ';
+
+  @override
+  String get vocabPackLoadFailed => 'โหลดชุดคำศัพท์ไม่สำเร็จ';
+
+  @override
+  String get addToMyVocab => 'เพิ่มในคำศัพท์ของฉัน';
+
+  @override
+  String get viewAiSummary => 'ดูสรุปจาก AI';
+
+  @override
+  String get reRecord => 'อัดใหม่';
+
+  @override
+  String get practiceComplete => 'ฝึกฝนเสร็จสิ้น';
+
+  @override
+  String get micPermissionNeeded => 'ต้องอนุญาตให้ใช้ไมโครโฟน';
+
+  @override
+  String get thanksForParticipating => 'ขอบคุณที่เข้าร่วม! +10 XP 🎉';
 }

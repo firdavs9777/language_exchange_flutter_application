@@ -127,7 +127,7 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
         if (!mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: const Text('Microphone permission needed'),
+            content: Text(AppLocalizations.of(context)!.micPermissionNeeded),
             action: SnackBarAction(
               label: AppLocalizations.of(context)!.openSettings,
               onPressed: () => AppSettings.openAppSettings(),
@@ -257,7 +257,11 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
                 await adService.showRewarded(onRewarded: () {
                   if (context.mounted) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Thanks for participating! +10 XP 🎉')),
+                      SnackBar(
+                        content: Text(
+                          AppLocalizations.of(context)!.thanksForParticipating,
+                        ),
+                      ),
                     );
                   }
                 });

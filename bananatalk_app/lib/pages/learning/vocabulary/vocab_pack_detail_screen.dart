@@ -1,4 +1,6 @@
 import 'package:bananatalk_app/pages/learning/vocabulary/vocab_pack_practice_screen.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/providers/provider_root/learning/vocab_packs_providers.dart';
 import 'package:bananatalk_app/services/learning_service.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
@@ -39,7 +41,7 @@ class _VocabPackDetailScreenState extends ConsumerState<VocabPackDetailScreen> {
     } catch (e) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Could not add pack: $e')),
+        SnackBar(content: Text(friendlyErrorMessage(AppLocalizations.of(context)!, e, fallback: AppLocalizations.of(context)!.vocabPackAddFailed))),
       );
     } finally {
       if (mounted) setState(() => _adding = false);
@@ -59,12 +61,12 @@ class _VocabPackDetailScreenState extends ConsumerState<VocabPackDetailScreen> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Text('Could not load pack'),
+              Text(AppLocalizations.of(context)!.vocabPackLoadFailed),
               const SizedBox(height: 12),
               FilledButton(
                 onPressed: () =>
                     ref.invalidate(vocabPackDetailProvider(widget.packId)),
-                child: const Text('Retry'),
+                child: Text(AppLocalizations.of(context)!.retry),
               ),
             ],
           ),
@@ -129,7 +131,7 @@ class _VocabPackDetailScreenState extends ConsumerState<VocabPackDetailScreen> {
                                 height: 16,
                                 child: CircularProgressIndicator(strokeWidth: 2))
                             : const Icon(Icons.bookmark_add_outlined),
-                        label: const Text('Add to my vocab'),
+                        label: Text(AppLocalizations.of(context)!.addToMyVocab),
                       ),
                     ),
                     const SizedBox(width: 12),

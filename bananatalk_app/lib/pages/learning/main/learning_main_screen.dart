@@ -234,14 +234,14 @@ class _LearningMainState extends ConsumerState<LearningMain>
                 break;
             }
           },
-          itemBuilder: (context) => const [
+          itemBuilder: (context) => [
             PopupMenuItem(
               value: 'leaderboard',
               child: Row(
                 children: [
-                  Icon(Icons.leaderboard_rounded, size: 20),
-                  SizedBox(width: 12),
-                  Text('Leaderboard'),
+                  const Icon(Icons.leaderboard_rounded, size: 20),
+                  const SizedBox(width: 12),
+                  Text(AppLocalizations.of(context)!.leaderboard),
                 ],
               ),
             ),
@@ -249,9 +249,9 @@ class _LearningMainState extends ConsumerState<LearningMain>
               value: 'achievements',
               child: Row(
                 children: [
-                  Icon(Icons.emoji_events_rounded, size: 20),
-                  SizedBox(width: 12),
-                  Text('Achievements'),
+                  const Icon(Icons.emoji_events_rounded, size: 20),
+                  const SizedBox(width: 12),
+                  Text(AppLocalizations.of(context)!.achievements),
                 ],
               ),
             ),

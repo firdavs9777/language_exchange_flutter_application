@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/providers/ad_providers.dart';
@@ -215,8 +216,8 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
               lesson?.title ?? 'Lesson',
               style: context.titleMedium,
             ),
-            loading: () => const Text('Loading...'),
-            error: (_, __) => const Text('Error'),
+            loading: () => Text(AppLocalizations.of(context)!.loading),
+            error: (_, __) => Text(AppLocalizations.of(context)!.error),
           ),
           actions: [
             if (playerState.exercises.isNotEmpty)
@@ -292,7 +293,7 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
                 Spacing.gapLG,
                 ElevatedButton(
                   onPressed: _resetAndRetry,
-                  child: const Text('Retry'),
+                  child: Text(AppLocalizations.of(context)!.retry),
                 ),
               ],
             ),
@@ -391,7 +392,7 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
         );
       default:
         return Center(
-          child: Text('Unknown exercise type: ${exercise.type}'),
+          child: Text(AppLocalizations.of(context)!.somethingWentWrong),
         );
     }
   }
@@ -465,7 +466,7 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
                   );
                 },
                 icon: const Icon(Icons.smart_toy, size: 20),
-                label: const Text('View AI Summary'),
+                label: Text(AppLocalizations.of(context)!.viewAiSummary),
                 style: OutlinedButton.styleFrom(
                   foregroundColor: AppColors.info,
                   padding: const EdgeInsets.symmetric(vertical: 14),
@@ -583,14 +584,14 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
     return await showDialog<bool>(
           context: context,
           builder: (context) => AlertDialog(
-            title: const Text('Exit Lesson?'),
+            title: Text(AppLocalizations.of(context)!.exitLessonTitle),
             content: const Text(
               'Your progress will not be saved if you exit now.',
             ),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context, false),
-                child: const Text('Cancel'),
+                child: Text(AppLocalizations.of(context)!.cancel),
               ),
               TextButton(
                 onPressed: () => Navigator.pop(context, true),
@@ -628,7 +629,7 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
               children: [
                 OutlinedButton(
                   onPressed: () => Navigator.pop(context),
-                  child: const Text('Go Back'),
+                  child: Text(AppLocalizations.of(context)!.goBack),
                 ),
                 Spacing.hGapLG,
                 ElevatedButton(
@@ -636,7 +637,7 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primary,
                   ),
-                  child: const Text('Retry'),
+                  child: Text(AppLocalizations.of(context)!.retry),
                 ),
               ],
             ),
@@ -687,7 +688,7 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
                   backgroundColor: AppColors.primary,
                   padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 14),
                 ),
-                child: const Text('Go Back'),
+                child: Text(AppLocalizations.of(context)!.goBack),
               ),
             ],
           ),

@@ -1761,6 +1761,9 @@ class AppLocalizationsTl extends AppLocalizations {
   String get waves => 'Mga Wave';
 
   @override
+  String get communityTabRooms => 'Mga Room';
+
+  @override
   String get voiceRooms => 'Voice';
 
   @override
@@ -8223,4 +8226,70 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get storyArchiveAdded => 'Naidagdag sa highlights';
+
+  @override
+  String get doneAction => 'Tapos na';
+
+  @override
+  String get noneOption => 'Wala';
+
+  @override
+  String get stopAction => 'Itigil';
+
+  @override
+  String get selectPlaceholder => 'Pumili...';
+
+  @override
+  String get goVip => 'Maging VIP';
+
+  @override
+  String get logoutFailed => 'Nabigo ang pag-log out';
+
+  @override
+  String get vocabularyPacks => 'Mga Vocabulary Pack';
+
+  @override
+  String get noVocabPacksYet => 'Wala pang available na pack.';
+
+  @override
+  String get addWord => 'Magdagdag ng Salita';
+
+  @override
+  String get deleteWord => 'Burahin ang Salita';
+
+  @override
+  String get shuffleAction => 'Ihalo';
+
+  @override
+  String get exitLessonTitle => 'Lisanin ang aralin?';
+
+  @override
+  String get exitQuizTitle => 'Lisanin ang pagsusulit?';
+
+  @override
+  String get quizNotFound => 'Hindi nakita ang pagsusulit';
+
+  @override
+  String get vocabPackAddFailed => 'Hindi maidagdag ang pack';
+
+  @override
+  String get vocabPackLoadFailed => 'Hindi ma-load ang pack';
+
+  @override
+  String get addToMyVocab => 'Idagdag sa aking vocab';
+
+  @override
+  String get viewAiSummary => 'Tingnan ang AI Summary';
+
+  @override
+  String get reRecord => 'I-record ulit';
+
+  @override
+  String get practiceComplete => 'Tapos na ang practice';
+
+  @override
+  String get micPermissionNeeded => 'Kailangan ng pahintulot sa mikropono';
+
+  @override
+  String get thanksForParticipating => 'Salamat sa paglahok! +10 XP 🎉';
 }

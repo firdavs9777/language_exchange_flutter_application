@@ -1761,6 +1761,9 @@ class AppLocalizationsTg extends AppLocalizations {
   String get waves => 'Мавҷҳо';
 
   @override
+  String get communityTabRooms => 'Ҳуҷраҳо';
+
+  @override
   String get voiceRooms => 'Овоз';
 
   @override
@@ -8227,4 +8230,70 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get storyArchiveAdded => 'Ба баргузидаҳо илова шуд';
+
+  @override
+  String get doneAction => 'Тайёр';
+
+  @override
+  String get noneOption => 'Ҳеҷ';
+
+  @override
+  String get stopAction => 'Истодан';
+
+  @override
+  String get selectPlaceholder => 'Интихоб...';
+
+  @override
+  String get goVip => 'VIP шавед';
+
+  @override
+  String get logoutFailed => 'Баромадан нашуд';
+
+  @override
+  String get vocabularyPacks => 'Бастаҳои луғат';
+
+  @override
+  String get noVocabPacksYet => 'Ҳоло бастае мавҷуд нест.';
+
+  @override
+  String get addWord => 'Илова кардани калима';
+
+  @override
+  String get deleteWord => 'Нест кардани калима';
+
+  @override
+  String get shuffleAction => 'Омехтан';
+
+  @override
+  String get exitLessonTitle => 'Аз дарс баромадан?';
+
+  @override
+  String get exitQuizTitle => 'Аз викторина баромадан?';
+
+  @override
+  String get quizNotFound => 'Викторина ёфт нашуд';
+
+  @override
+  String get vocabPackAddFailed => 'Баста илова нашуд';
+
+  @override
+  String get vocabPackLoadFailed => 'Баста бор нашуд';
+
+  @override
+  String get addToMyVocab => 'Ба луғати ман илова кунед';
+
+  @override
+  String get viewAiSummary => 'Хулосаи AI';
+
+  @override
+  String get reRecord => 'Аз нав сабт';
+
+  @override
+  String get practiceComplete => 'Машқ анҷом ёфт';
+
+  @override
+  String get micPermissionNeeded => 'Иҷозати микрофон лозим аст';
+
+  @override
+  String get thanksForParticipating => 'Ташаккур барои иштирок! +10 XP 🎉';
 }

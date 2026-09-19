@@ -1,4 +1,5 @@
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/pages/learning/exam_study/study_plan_screen.dart';
 import 'package:bananatalk_app/providers/provider_models/exam/exam_type.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
@@ -267,7 +268,9 @@ class _StudyPlanSetupScreenState
       );
     } catch (e) {
       if (!mounted) return;
-      setState(() => _error = e.toString());
+      setState(
+        () => _error = friendlyErrorMessage(AppLocalizations.of(context)!, e),
+      );
     } finally {
       if (mounted) setState(() => _generating = false);
     }

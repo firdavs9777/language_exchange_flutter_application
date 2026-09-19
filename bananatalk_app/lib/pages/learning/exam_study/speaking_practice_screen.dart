@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/pages/learning/exam_study/evaluation_result_screen.dart';
 import 'package:bananatalk_app/pages/learning/exam_study/widgets/audio_recorder.dart';
 import 'package:bananatalk_app/providers/provider_models/exam/exam_question.dart';
@@ -60,7 +61,11 @@ class _SpeakingPracticeScreenState
     } catch (e) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(e.toString())),
+        SnackBar(
+          content: Text(
+            friendlyErrorMessage(AppLocalizations.of(context)!, e),
+          ),
+        ),
       );
     } finally {
       if (mounted) setState(() => _uploading = false);

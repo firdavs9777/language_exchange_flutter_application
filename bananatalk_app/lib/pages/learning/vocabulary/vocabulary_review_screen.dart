@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/providers/provider_root/learning_providers.dart';
 import 'package:bananatalk_app/widgets/learning/vocabulary_card.dart';
@@ -123,7 +124,7 @@ class _VocabularyReviewScreenState
               Spacing.gapLG,
               ElevatedButton(
                 onPressed: () => ref.invalidate(dueReviewsProvider(null)),
-                child: const Text('Retry'),
+                child: Text(AppLocalizations.of(context)!.retry),
               ),
             ],
           ),
@@ -168,7 +169,7 @@ class _VocabularyReviewScreenState
                 backgroundColor: AppColors.primary,
                 padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
               ),
-              child: const Text('Done'),
+              child: Text(AppLocalizations.of(context)!.doneAction),
             ),
           ],
         ),
