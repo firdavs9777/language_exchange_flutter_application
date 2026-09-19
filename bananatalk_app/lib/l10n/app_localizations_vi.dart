@@ -8282,4 +8282,21 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get thanksForParticipating => 'Cảm ơn bạn đã tham gia! +10 XP 🎉';
+
+  @override
+  String deleteWordConfirm(String word) {
+    return 'Xóa “$word” khỏi từ vựng của bạn?';
+  }
+
+  @override
+  String get wordDeleted => 'Đã xóa từ';
+
+  @override
+  String get vocabularyLoadFailed => 'Không thể tải từ vựng của bạn';
+
+  @override
+  String get savedTitle => 'Đã lưu';
+
+  @override
+  String get savedSubtitle => 'Reels và khoảnh khắc bạn đã lưu';
 }

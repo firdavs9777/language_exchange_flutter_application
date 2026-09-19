@@ -8282,4 +8282,21 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get thanksForParticipating => 'ขอบคุณที่เข้าร่วม! +10 XP 🎉';
+
+  @override
+  String deleteWordConfirm(String word) {
+    return 'ลบ “$word” ออกจากคำศัพท์ของคุณ?';
+  }
+
+  @override
+  String get wordDeleted => 'ลบคำศัพท์แล้ว';
+
+  @override
+  String get vocabularyLoadFailed => 'โหลดคำศัพท์ของคุณไม่สำเร็จ';
+
+  @override
+  String get savedTitle => 'ที่บันทึกไว้';
+
+  @override
+  String get savedSubtitle => 'รีลและโมเมนต์ที่คุณบันทึกไว้';
 }

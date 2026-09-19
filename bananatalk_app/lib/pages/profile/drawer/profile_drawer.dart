@@ -90,14 +90,11 @@ class LeftDrawer extends ConsumerWidget {
                       // SavedMomentsScreen already existed but was never
                       // navigated to from anywhere — saving a moment or reel
                       // worked, yet there was no way to see what you'd saved.
-                      // TODO(l10n): no `savedTitle`/`savedSubtitle` keys exist
-                      // yet in the arb files — plain-string fallback, matching
-                      // the pattern used for the Reels tab label.
                       DrawerMenuItem(
                         icon: Icons.bookmark_rounded,
                         iconColor: const Color(0xFF00BFA5),
-                        title: 'Saved',
-                        subtitle: 'Reels and moments you bookmarked',
+                        title: l10n.savedTitle,
+                        subtitle: l10n.savedSubtitle,
                         isFirst: false,
                         isLast: true,
                         onTap: () {

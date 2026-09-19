@@ -3486,5 +3486,13 @@
   "reRecord": "Перезаписать",
   "practiceComplete": "Практика завершена",
   "micPermissionNeeded": "Нужен доступ к микрофону",
-  "thanksForParticipating": "Спасибо за участие! +10 XP 🎉"
+  "thanksForParticipating": "Спасибо за участие! +10 XP 🎉",
+  "deleteWordConfirm": "Удалить «{word}» из вашего словаря?",
+  "@deleteWordConfirm": {
+    "placeholders": { "word": { "type": "String" } }
+  },
+  "wordDeleted": "Слово удалено",
+  "vocabularyLoadFailed": "Не удалось загрузить ваш словарь",
+  "savedTitle": "Сохранённое",
+  "savedSubtitle": "Сохранённые ролики и моменты"
 }

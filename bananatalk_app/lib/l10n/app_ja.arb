@@ -3456,5 +3456,13 @@
   "reRecord": "録り直す",
   "practiceComplete": "練習完了",
   "micPermissionNeeded": "マイクの許可が必要です",
-  "thanksForParticipating": "ご参加ありがとうございます！+10 XP 🎉"
+  "thanksForParticipating": "ご参加ありがとうございます！+10 XP 🎉",
+  "deleteWordConfirm": "単語帳から「{word}」を削除しますか？",
+  "@deleteWordConfirm": {
+    "placeholders": { "word": { "type": "String" } }
+  },
+  "wordDeleted": "単語を削除しました",
+  "vocabularyLoadFailed": "単語帳を読み込めませんでした",
+  "savedTitle": "保存済み",
+  "savedSubtitle": "ブックマークしたリールとモーメント"
 }

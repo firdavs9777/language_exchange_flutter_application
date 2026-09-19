@@ -8304,4 +8304,21 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get thanksForParticipating => 'شكرًا لمشاركتك! +10 XP 🎉';
+
+  @override
+  String deleteWordConfirm(String word) {
+    return 'حذف «$word» من مفرداتك؟';
+  }
+
+  @override
+  String get wordDeleted => 'تم حذف الكلمة';
+
+  @override
+  String get vocabularyLoadFailed => 'تعذر تحميل مفرداتك';
+
+  @override
+  String get savedTitle => 'المحفوظات';
+
+  @override
+  String get savedSubtitle => 'مقاطع ولحظات قمت بحفظها';
 }

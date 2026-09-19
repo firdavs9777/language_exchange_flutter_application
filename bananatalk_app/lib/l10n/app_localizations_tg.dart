@@ -8296,4 +8296,21 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get thanksForParticipating => 'Ташаккур барои иштирок! +10 XP 🎉';
+
+  @override
+  String deleteWordConfirm(String word) {
+    return '“$word”-ро аз луғати худ нест кунед?';
+  }
+
+  @override
+  String get wordDeleted => 'Калима нест карда шуд';
+
+  @override
+  String get vocabularyLoadFailed => 'Луғати шумо бор нашуд';
+
+  @override
+  String get savedTitle => 'Захирашуда';
+
+  @override
+  String get savedSubtitle => 'Рилс ва лаҳзаҳои захирашудаи шумо';
 }

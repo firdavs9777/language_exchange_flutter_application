@@ -3147,5 +3147,13 @@
   "reRecord": "重新錄製",
   "practiceComplete": "練習完成",
   "micPermissionNeeded": "需要麥克風權限",
-  "thanksForParticipating": "感謝參與！+10 XP 🎉"
+  "thanksForParticipating": "感謝參與！+10 XP 🎉",
+  "deleteWordConfirm": "要從你的單字表中刪除「{word}」嗎？",
+  "@deleteWordConfirm": {
+    "placeholders": { "word": { "type": "String" } }
+  },
+  "wordDeleted": "已刪除單字",
+  "vocabularyLoadFailed": "無法載入你的單字表",
+  "savedTitle": "已儲存",
+  "savedSubtitle": "你收藏的短影片和動態"
 }

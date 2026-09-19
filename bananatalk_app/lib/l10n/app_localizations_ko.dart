@@ -8282,4 +8282,21 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get thanksForParticipating => '참여해 주셔서 감사합니다! +10 XP 🎉';
+
+  @override
+  String deleteWordConfirm(String word) {
+    return '단어장에서 “$word”을(를) 삭제할까요?';
+  }
+
+  @override
+  String get wordDeleted => '단어를 삭제했어요';
+
+  @override
+  String get vocabularyLoadFailed => '단어장을 불러올 수 없습니다';
+
+  @override
+  String get savedTitle => '저장됨';
+
+  @override
+  String get savedSubtitle => '북마크한 릴스와 모먼트';
 }

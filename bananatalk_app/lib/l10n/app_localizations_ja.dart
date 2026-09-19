@@ -8282,4 +8282,21 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get thanksForParticipating => 'ご参加ありがとうございます！+10 XP 🎉';
+
+  @override
+  String deleteWordConfirm(String word) {
+    return '単語帳から「$word」を削除しますか？';
+  }
+
+  @override
+  String get wordDeleted => '単語を削除しました';
+
+  @override
+  String get vocabularyLoadFailed => '単語帳を読み込めませんでした';
+
+  @override
+  String get savedTitle => '保存済み';
+
+  @override
+  String get savedSubtitle => 'ブックマークしたリールとモーメント';
 }

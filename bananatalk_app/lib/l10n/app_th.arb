@@ -3456,5 +3456,13 @@
   "reRecord": "อัดใหม่",
   "practiceComplete": "ฝึกฝนเสร็จสิ้น",
   "micPermissionNeeded": "ต้องอนุญาตให้ใช้ไมโครโฟน",
-  "thanksForParticipating": "ขอบคุณที่เข้าร่วม! +10 XP 🎉"
+  "thanksForParticipating": "ขอบคุณที่เข้าร่วม! +10 XP 🎉",
+  "deleteWordConfirm": "ลบ “{word}” ออกจากคำศัพท์ของคุณ?",
+  "@deleteWordConfirm": {
+    "placeholders": { "word": { "type": "String" } }
+  },
+  "wordDeleted": "ลบคำศัพท์แล้ว",
+  "vocabularyLoadFailed": "โหลดคำศัพท์ของคุณไม่สำเร็จ",
+  "savedTitle": "ที่บันทึกไว้",
+  "savedSubtitle": "รีลและโมเมนต์ที่คุณบันทึกไว้"
 }

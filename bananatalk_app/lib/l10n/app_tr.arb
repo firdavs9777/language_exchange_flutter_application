@@ -3668,5 +3668,13 @@
   "reRecord": "Yeniden kaydet",
   "practiceComplete": "Alıştırma tamamlandı",
   "micPermissionNeeded": "Mikrofon izni gerekli",
-  "thanksForParticipating": "Katıldığın için teşekkürler! +10 XP 🎉"
+  "thanksForParticipating": "Katıldığın için teşekkürler! +10 XP 🎉",
+  "deleteWordConfirm": "“{word}” kelimeniz silinsin mi?",
+  "@deleteWordConfirm": {
+    "placeholders": { "word": { "type": "String" } }
+  },
+  "wordDeleted": "Kelime silindi",
+  "vocabularyLoadFailed": "Kelimeleriniz yüklenemedi",
+  "savedTitle": "Kaydedilenler",
+  "savedSubtitle": "Yer imlerine eklediğin reel ve anlar"
 }

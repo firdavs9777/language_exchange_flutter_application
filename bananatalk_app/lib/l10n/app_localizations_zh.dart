@@ -8282,6 +8282,23 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get thanksForParticipating => '感谢参与！+10 XP 🎉';
+
+  @override
+  String deleteWordConfirm(String word) {
+    return '要从你的词汇表中删除“$word”吗？';
+  }
+
+  @override
+  String get wordDeleted => '已删除单词';
+
+  @override
+  String get vocabularyLoadFailed => '无法加载你的词汇表';
+
+  @override
+  String get savedTitle => '已保存';
+
+  @override
+  String get savedSubtitle => '你收藏的短视频和动态';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -16562,4 +16579,21 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get thanksForParticipating => '感謝參與！+10 XP 🎉';
+
+  @override
+  String deleteWordConfirm(String word) {
+    return '要從你的單字表中刪除「$word」嗎？';
+  }
+
+  @override
+  String get wordDeleted => '已刪除單字';
+
+  @override
+  String get vocabularyLoadFailed => '無法載入你的單字表';
+
+  @override
+  String get savedTitle => '已儲存';
+
+  @override
+  String get savedSubtitle => '你收藏的短影片和動態';
 }

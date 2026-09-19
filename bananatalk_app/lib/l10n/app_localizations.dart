@@ -15319,6 +15319,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Thanks for participating! +10 XP 🎉'**
   String get thanksForParticipating;
+
+  /// No description provided for @deleteWordConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete “{word}” from your vocabulary?'**
+  String deleteWordConfirm(String word);
+
+  /// No description provided for @wordDeleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Word deleted'**
+  String get wordDeleted;
+
+  /// No description provided for @vocabularyLoadFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load your vocabulary'**
+  String get vocabularyLoadFailed;
+
+  /// No description provided for @savedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved'**
+  String get savedTitle;
+
+  /// No description provided for @savedSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reels and moments you bookmarked'**
+  String get savedSubtitle;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

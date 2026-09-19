@@ -3470,5 +3470,13 @@
   "reRecord": "重新录制",
   "practiceComplete": "练习完成",
   "micPermissionNeeded": "需要麦克风权限",
-  "thanksForParticipating": "感谢参与！+10 XP 🎉"
+  "thanksForParticipating": "感谢参与！+10 XP 🎉",
+  "deleteWordConfirm": "要从你的词汇表中删除“{word}”吗？",
+  "@deleteWordConfirm": {
+    "placeholders": { "word": { "type": "String" } }
+  },
+  "wordDeleted": "已删除单词",
+  "vocabularyLoadFailed": "无法加载你的词汇表",
+  "savedTitle": "已保存",
+  "savedSubtitle": "你收藏的短视频和动态"
 }

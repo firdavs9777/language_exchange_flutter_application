@@ -120,12 +120,25 @@ class ProfileStatsRow extends ConsumerWidget {
                       color: AppColors.accent,
                       onTap: () {},
                     ),
+                    // A failed COUNT is not zero moments, and the moments
+                    // screen fetches its own list -- so the tile stays
+                    // tappable (as the visitors tile beside it already does)
+                    // and shows a dash rather than asserting "0".
                     error: (_, __) => _StatItem(
-                      value: '0',
+                      value: '—',
                       label: l10n.moments,
                       icon: Icons.photo_library_rounded,
                       color: AppColors.accent,
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          AppPageRoute(
+                            builder: (context) => ProfileMoments(id: user.id),
+                          ),
+                        ).then(
+                          (_) => ref.invalidate(userMomentsProvider(user.id)),
+                        );
+                      },
                     ),
                   );
                 },
@@ -157,7 +170,7 @@ class ProfileStatsRow extends ConsumerWidget {
                       lockedForVip: false,
                     ),
                     error: (_, __) => _StatItem(
-                      value: '0',
+                      value: '—',
                       label: l10n.visitors,
                       icon: Icons.visibility_rounded,
                       color: AppColors.warning,
@@ -170,7 +183,7 @@ class ProfileStatsRow extends ConsumerWidget {
                       return _StatItem(
                         value: data['success'] == true
                             ? uniqueVisitors.toString()
-                            : '0',
+                            : '—',
                         label: l10n.visitors,
                         icon: Icons.visibility_rounded,
                         color: AppColors.warning,

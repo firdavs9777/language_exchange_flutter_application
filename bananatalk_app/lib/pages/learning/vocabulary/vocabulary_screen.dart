@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/services/learning_service.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/providers/provider_root/learning_providers.dart';
 import 'package:bananatalk_app/widgets/learning/vocabulary_card.dart';
 import 'package:bananatalk_app/pages/learning/vocabulary/vocabulary_add_screen.dart';
@@ -225,34 +227,56 @@ class _VocabularyScreenState extends ConsumerState<VocabularyScreen> {
                       return VocabularyCard(
                         item: item,
                         masteryChip: _MasteryChip(srsLevel: item.srsLevel),
-                        onTap: () {
-                          // TODO: Open vocabulary detail/edit
-                        },
+                        // No detail screen exists to open, and a tap that
+                        // does nothing reads as a broken card.
+                        onTap: null,
                         onDelete: () async {
+                          final l10n = AppLocalizations.of(context)!;
+                          final messenger = ScaffoldMessenger.of(context);
                           final confirm = await showDialog<bool>(
                             context: context,
                             builder: (context) => AlertDialog(
-                              title: Text(AppLocalizations.of(context)!.deleteWord),
-                              content: Text(
-                                  'Are you sure you want to delete "${item.word}"?'),
+                              title: Text(l10n.deleteWord),
+                              content: Text(l10n.deleteWordConfirm(item.word)),
                               actions: [
                                 TextButton(
                                   onPressed: () => Navigator.pop(context, false),
-                                  child: Text(AppLocalizations.of(context)!.cancel),
+                                  child: Text(l10n.cancel),
                                 ),
                                 TextButton(
                                   onPressed: () => Navigator.pop(context, true),
-                                  child: const Text(
-                                    'Delete',
-                                    style: TextStyle(color: Colors.red),
+                                  child: Text(
+                                    l10n.delete,
+                                    style: const TextStyle(color: Colors.red),
                                   ),
                                 ),
                               ],
                             ),
                           );
-                          if (confirm == true) {
-                            // TODO: Delete vocabulary
+                          if (confirm != true) return;
+
+                          // The delete used to be a TODO sitting behind a
+                          // confirm dialog that then invalidated the list --
+                          // so the word came straight back from the server
+                          // and the deletion looked rejected. The endpoint
+                          // and LearningService.deleteVocabulary both existed
+                          // the whole time; nothing called them.
+                          final result =
+                              await LearningService.deleteVocabulary(item.id);
+                          if (!context.mounted) return;
+                          if (result['success'] == true) {
                             ref.invalidate(vocabularyListProvider(filter));
+                            messenger.showSnackBar(
+                              SnackBar(content: Text(l10n.wordDeleted)),
+                            );
+                          } else {
+                            messenger.showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  friendlyErrorMessage(l10n, result['error']),
+                                ),
+                              ),
+                            );
                           }
                         },
                       );
@@ -270,7 +294,7 @@ class _VocabularyScreenState extends ConsumerState<VocabularyScreen> {
                     Icon(Icons.error_outline, size: 48, color: context.textMuted),
                     Spacing.gapLG,
                     Text(
-                      'Failed to load vocabulary',
+                      AppLocalizations.of(context)!.vocabularyLoadFailed,
                       style: context.bodyMedium.copyWith(color: context.textSecondary),
                     ),
                     Spacing.gapLG,

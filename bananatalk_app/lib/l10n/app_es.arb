@@ -3486,5 +3486,13 @@
   "reRecord": "Volver a grabar",
   "practiceComplete": "Práctica completada",
   "micPermissionNeeded": "Se necesita permiso del micrófono",
-  "thanksForParticipating": "¡Gracias por participar! +10 XP 🎉"
+  "thanksForParticipating": "¡Gracias por participar! +10 XP 🎉",
+  "deleteWordConfirm": "¿Eliminar “{word}” de tu vocabulario?",
+  "@deleteWordConfirm": {
+    "placeholders": { "word": { "type": "String" } }
+  },
+  "wordDeleted": "Palabra eliminada",
+  "vocabularyLoadFailed": "No se pudo cargar tu vocabulario",
+  "savedTitle": "Guardados",
+  "savedSubtitle": "Reels y momentos que guardaste"
 }

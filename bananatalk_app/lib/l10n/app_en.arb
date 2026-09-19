@@ -5711,5 +5711,13 @@
   "reRecord": "Re-record",
   "practiceComplete": "Practice complete",
   "micPermissionNeeded": "Microphone permission needed",
-  "thanksForParticipating": "Thanks for participating! +10 XP 🎉"
+  "thanksForParticipating": "Thanks for participating! +10 XP 🎉",
+  "deleteWordConfirm": "Delete “{word}” from your vocabulary?",
+  "@deleteWordConfirm": {
+    "placeholders": { "word": { "type": "String" } }
+  },
+  "wordDeleted": "Word deleted",
+  "vocabularyLoadFailed": "Could not load your vocabulary",
+  "savedTitle": "Saved",
+  "savedSubtitle": "Reels and moments you bookmarked"
 }

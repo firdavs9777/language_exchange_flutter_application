@@ -8289,4 +8289,21 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get thanksForParticipating => 'Terima kasih sudah ikut! +10 XP 🎉';
+
+  @override
+  String deleteWordConfirm(String word) {
+    return 'Hapus “$word” dari kosakata Anda?';
+  }
+
+  @override
+  String get wordDeleted => 'Kata dihapus';
+
+  @override
+  String get vocabularyLoadFailed => 'Tidak dapat memuat kosakata Anda';
+
+  @override
+  String get savedTitle => 'Tersimpan';
+
+  @override
+  String get savedSubtitle => 'Reel dan momen yang Anda tandai';
 }

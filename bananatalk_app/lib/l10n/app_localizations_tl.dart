@@ -8292,4 +8292,21 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get thanksForParticipating => 'Salamat sa paglahok! +10 XP 🎉';
+
+  @override
+  String deleteWordConfirm(String word) {
+    return 'Burahin ang “$word” sa iyong vocabulary?';
+  }
+
+  @override
+  String get wordDeleted => 'Nabura ang salita';
+
+  @override
+  String get vocabularyLoadFailed => 'Hindi ma-load ang iyong vocabulary';
+
+  @override
+  String get savedTitle => 'Naka-save';
+
+  @override
+  String get savedSubtitle => 'Mga reel at moment na na-bookmark mo';
 }

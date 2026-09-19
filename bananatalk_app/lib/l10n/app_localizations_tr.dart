@@ -8290,4 +8290,21 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get thanksForParticipating => 'Katıldığın için teşekkürler! +10 XP 🎉';
+
+  @override
+  String deleteWordConfirm(String word) {
+    return '“$word” kelimeniz silinsin mi?';
+  }
+
+  @override
+  String get wordDeleted => 'Kelime silindi';
+
+  @override
+  String get vocabularyLoadFailed => 'Kelimeleriniz yüklenemedi';
+
+  @override
+  String get savedTitle => 'Kaydedilenler';
+
+  @override
+  String get savedSubtitle => 'Yer imlerine eklediğin reel ve anlar';
 }

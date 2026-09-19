@@ -2949,5 +2949,13 @@
   "reRecord": "Аз нав сабт",
   "practiceComplete": "Машқ анҷом ёфт",
   "micPermissionNeeded": "Иҷозати микрофон лозим аст",
-  "thanksForParticipating": "Ташаккур барои иштирок! +10 XP 🎉"
+  "thanksForParticipating": "Ташаккур барои иштирок! +10 XP 🎉",
+  "deleteWordConfirm": "“{word}”-ро аз луғати худ нест кунед?",
+  "@deleteWordConfirm": {
+    "placeholders": { "word": { "type": "String" } }
+  },
+  "wordDeleted": "Калима нест карда шуд",
+  "vocabularyLoadFailed": "Луғати шумо бор нашуд",
+  "savedTitle": "Захирашуда",
+  "savedSubtitle": "Рилс ва лаҳзаҳои захирашудаи шумо"
 }

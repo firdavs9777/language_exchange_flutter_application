@@ -3456,5 +3456,13 @@
   "reRecord": "Rekam ulang",
   "practiceComplete": "Latihan selesai",
   "micPermissionNeeded": "Izin mikrofon diperlukan",
-  "thanksForParticipating": "Terima kasih sudah ikut! +10 XP 🎉"
+  "thanksForParticipating": "Terima kasih sudah ikut! +10 XP 🎉",
+  "deleteWordConfirm": "Hapus “{word}” dari kosakata Anda?",
+  "@deleteWordConfirm": {
+    "placeholders": { "word": { "type": "String" } }
+  },
+  "wordDeleted": "Kata dihapus",
+  "vocabularyLoadFailed": "Tidak dapat memuat kosakata Anda",
+  "savedTitle": "Tersimpan",
+  "savedSubtitle": "Reel dan momen yang Anda tandai"
 }

@@ -3696,5 +3696,13 @@
   "reRecord": "Neu aufnehmen",
   "practiceComplete": "Übung abgeschlossen",
   "micPermissionNeeded": "Mikrofonberechtigung erforderlich",
-  "thanksForParticipating": "Danke fürs Mitmachen! +10 XP 🎉"
+  "thanksForParticipating": "Danke fürs Mitmachen! +10 XP 🎉",
+  "deleteWordConfirm": "„{word}“ aus deinem Wortschatz löschen?",
+  "@deleteWordConfirm": {
+    "placeholders": { "word": { "type": "String" } }
+  },
+  "wordDeleted": "Wort gelöscht",
+  "vocabularyLoadFailed": "Dein Wortschatz konnte nicht geladen werden",
+  "savedTitle": "Gespeichert",
+  "savedSubtitle": "Reels und Momente, die du gespeichert hast"
 }

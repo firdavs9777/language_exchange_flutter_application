@@ -8292,4 +8292,21 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get thanksForParticipating => 'Danke fürs Mitmachen! +10 XP 🎉';
+
+  @override
+  String deleteWordConfirm(String word) {
+    return '„$word“ aus deinem Wortschatz löschen?';
+  }
+
+  @override
+  String get wordDeleted => 'Wort gelöscht';
+
+  @override
+  String get vocabularyLoadFailed => 'Dein Wortschatz konnte nicht geladen werden';
+
+  @override
+  String get savedTitle => 'Gespeichert';
+
+  @override
+  String get savedSubtitle => 'Reels und Momente, die du gespeichert hast';
 }

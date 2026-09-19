@@ -8313,4 +8313,21 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get thanksForParticipating => 'Спасибо за участие! +10 XP 🎉';
+
+  @override
+  String deleteWordConfirm(String word) {
+    return 'Удалить «$word» из вашего словаря?';
+  }
+
+  @override
+  String get wordDeleted => 'Слово удалено';
+
+  @override
+  String get vocabularyLoadFailed => 'Не удалось загрузить ваш словарь';
+
+  @override
+  String get savedTitle => 'Сохранённое';
+
+  @override
+  String get savedSubtitle => 'Сохранённые ролики и моменты';
 }

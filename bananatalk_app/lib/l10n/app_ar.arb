@@ -3486,5 +3486,13 @@
   "reRecord": "إعادة التسجيل",
   "practiceComplete": "اكتمل التدريب",
   "micPermissionNeeded": "مطلوب إذن الميكروفون",
-  "thanksForParticipating": "شكرًا لمشاركتك! +10 XP 🎉"
+  "thanksForParticipating": "شكرًا لمشاركتك! +10 XP 🎉",
+  "deleteWordConfirm": "حذف «{word}» من مفرداتك؟",
+  "@deleteWordConfirm": {
+    "placeholders": { "word": { "type": "String" } }
+  },
+  "wordDeleted": "تم حذف الكلمة",
+  "vocabularyLoadFailed": "تعذر تحميل مفرداتك",
+  "savedTitle": "المحفوظات",
+  "savedSubtitle": "مقاطع ولحظات قمت بحفظها"
 }

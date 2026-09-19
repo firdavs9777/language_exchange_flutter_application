@@ -3696,5 +3696,13 @@
   "reRecord": "Registra di nuovo",
   "practiceComplete": "Esercizio completato",
   "micPermissionNeeded": "Serve il permesso del microfono",
-  "thanksForParticipating": "Grazie per aver partecipato! +10 XP 🎉"
+  "thanksForParticipating": "Grazie per aver partecipato! +10 XP 🎉",
+  "deleteWordConfirm": "Eliminare “{word}” dal tuo vocabolario?",
+  "@deleteWordConfirm": {
+    "placeholders": { "word": { "type": "String" } }
+  },
+  "wordDeleted": "Parola eliminata",
+  "vocabularyLoadFailed": "Impossibile caricare il tuo vocabolario",
+  "savedTitle": "Salvati",
+  "savedSubtitle": "Reel e momenti che hai salvato"
 }

@@ -8292,4 +8292,21 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get thanksForParticipating => 'Grazie per aver partecipato! +10 XP 🎉';
+
+  @override
+  String deleteWordConfirm(String word) {
+    return 'Eliminare “$word” dal tuo vocabolario?';
+  }
+
+  @override
+  String get wordDeleted => 'Parola eliminata';
+
+  @override
+  String get vocabularyLoadFailed => 'Impossibile caricare il tuo vocabolario';
+
+  @override
+  String get savedTitle => 'Salvati';
+
+  @override
+  String get savedSubtitle => 'Reel e momenti che hai salvato';
 }

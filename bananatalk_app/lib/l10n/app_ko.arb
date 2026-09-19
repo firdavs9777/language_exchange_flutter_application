@@ -3477,5 +3477,13 @@
   "reRecord": "다시 녹음",
   "practiceComplete": "연습 완료",
   "micPermissionNeeded": "마이크 권한이 필요합니다",
-  "thanksForParticipating": "참여해 주셔서 감사합니다! +10 XP 🎉"
+  "thanksForParticipating": "참여해 주셔서 감사합니다! +10 XP 🎉",
+  "deleteWordConfirm": "단어장에서 “{word}”을(를) 삭제할까요?",
+  "@deleteWordConfirm": {
+    "placeholders": { "word": { "type": "String" } }
+  },
+  "wordDeleted": "단어를 삭제했어요",
+  "vocabularyLoadFailed": "단어장을 불러올 수 없습니다",
+  "savedTitle": "저장됨",
+  "savedSubtitle": "북마크한 릴스와 모먼트"
 }

@@ -3472,5 +3472,13 @@
   "reRecord": "फिर से रिकॉर्ड करें",
   "practiceComplete": "अभ्यास पूरा",
   "micPermissionNeeded": "माइक्रोफ़ोन अनुमति आवश्यक है",
-  "thanksForParticipating": "भाग लेने के लिए धन्यवाद! +10 XP 🎉"
+  "thanksForParticipating": "भाग लेने के लिए धन्यवाद! +10 XP 🎉",
+  "deleteWordConfirm": "अपनी शब्दावली से “{word}” हटाएं?",
+  "@deleteWordConfirm": {
+    "placeholders": { "word": { "type": "String" } }
+  },
+  "wordDeleted": "शब्द हटा दिया गया",
+  "vocabularyLoadFailed": "आपकी शब्दावली लोड नहीं हो सकी",
+  "savedTitle": "सहेजे गए",
+  "savedSubtitle": "आपके बुकमार्क किए गए रील्स और पल"
 }

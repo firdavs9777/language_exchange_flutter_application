@@ -8292,4 +8292,21 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get thanksForParticipating => 'भाग लेने के लिए धन्यवाद! +10 XP 🎉';
+
+  @override
+  String deleteWordConfirm(String word) {
+    return 'अपनी शब्दावली से “$word” हटाएं?';
+  }
+
+  @override
+  String get wordDeleted => 'शब्द हटा दिया गया';
+
+  @override
+  String get vocabularyLoadFailed => 'आपकी शब्दावली लोड नहीं हो सकी';
+
+  @override
+  String get savedTitle => 'सहेजे गए';
+
+  @override
+  String get savedSubtitle => 'आपके बुकमार्क किए गए रील्स और पल';
 }

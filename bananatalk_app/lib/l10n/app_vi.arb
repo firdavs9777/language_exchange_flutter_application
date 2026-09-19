@@ -3456,5 +3456,13 @@
   "reRecord": "Ghi lại",
   "practiceComplete": "Hoàn thành luyện tập",
   "micPermissionNeeded": "Cần quyền micro",
-  "thanksForParticipating": "Cảm ơn bạn đã tham gia! +10 XP 🎉"
+  "thanksForParticipating": "Cảm ơn bạn đã tham gia! +10 XP 🎉",
+  "deleteWordConfirm": "Xóa “{word}” khỏi từ vựng của bạn?",
+  "@deleteWordConfirm": {
+    "placeholders": { "word": { "type": "String" } }
+  },
+  "wordDeleted": "Đã xóa từ",
+  "vocabularyLoadFailed": "Không thể tải từ vựng của bạn",
+  "savedTitle": "Đã lưu",
+  "savedSubtitle": "Reels và khoảnh khắc bạn đã lưu"
 }
