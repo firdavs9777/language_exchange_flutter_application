@@ -277,12 +277,26 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
   /// question-responses/menu sheets above), fetches the mentioned user's
   /// full profile, and pushes it — resuming on return whether or not the
   /// fetch succeeded.
-  Future<void> _openMentionProfile(StoryMention mention) async {
+  Future<void> _openMentionProfile(StoryMention mention) =>
+      _openUserProfile(mention.userId);
+
+  /// Open a profile from inside the viewer.
+  ///
+  /// Shared by the @mention pills and the header avatar/name. The header was
+  /// plain Text and an avatar with no handler at all — tapping the person
+  /// whose story you are watching did nothing, while tapping a mention of
+  /// someone else worked.
+  ///
+  /// Pauses first and resumes on return whether or not the fetch succeeded:
+  /// a story advancing behind a pushed route means you come back to a
+  /// different story than the one you left.
+  Future<void> _openUserProfile(String userId) async {
+    if (userId.isEmpty) return;
     _pauseStory();
     try {
       final community = await ref
           .read(communityServiceProvider)
-          .getSingleCommunity(id: mention.userId);
+          .getSingleCommunity(id: userId);
       if (!mounted) return;
       if (community == null) {
         showStoriesSnackBar(
@@ -1076,39 +1090,48 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
           right: 12,
           child: Row(
             children: [
-              // Avatar with gradient ring
-              Container(
-                padding: const EdgeInsets.all(2),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  gradient: story.privacy == StoryPrivacy.closeFriends
-                      ? const LinearGradient(
-                          colors: [Color(0xFF00C853), Color(0xFF69F0AE)],
-                        )
-                      : null,
-                ),
-                child: CachedCircleAvatar(
-                  imageUrl:
-                      (_currentUser.user.images.isNotEmpty ||
-                          _currentUser.user.imageUrls.isNotEmpty)
-                      ? (_currentUser.user.images.isNotEmpty
-                            ? _currentUser.user.images.first
-                            : _currentUser.user.imageUrls.first)
-                      : null,
-                  radius: 18,
-                  errorWidget: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.grey[800],
-                      shape: BoxShape.circle,
-                    ),
-                    alignment: Alignment.center,
-                    child: Text(
-                      _currentUser.user.name.isNotEmpty
-                          ? _currentUser.user.name[0].toUpperCase()
-                          : '?',
-                      style: const TextStyle(
-                        fontSize: 14,
-                        color: Colors.white70,
+              // Avatar with gradient ring — tappable to the author's profile.
+              //
+              // opaque so the tap is consumed here rather than also reaching
+              // the full-screen tap-to-advance gesture underneath, which
+              // would skip a story on the way out.
+              GestureDetector(
+                key: const Key('story-author-avatar'),
+                behavior: HitTestBehavior.opaque,
+                onTap: () => _openUserProfile(_currentUser.user.id),
+                child: Container(
+                  padding: const EdgeInsets.all(2),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    gradient: story.privacy == StoryPrivacy.closeFriends
+                        ? const LinearGradient(
+                            colors: [Color(0xFF00C853), Color(0xFF69F0AE)],
+                          )
+                        : null,
+                  ),
+                  child: CachedCircleAvatar(
+                    imageUrl:
+                        (_currentUser.user.images.isNotEmpty ||
+                            _currentUser.user.imageUrls.isNotEmpty)
+                        ? (_currentUser.user.images.isNotEmpty
+                              ? _currentUser.user.images.first
+                              : _currentUser.user.imageUrls.first)
+                        : null,
+                    radius: 18,
+                    errorWidget: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.grey[800],
+                        shape: BoxShape.circle,
+                      ),
+                      alignment: Alignment.center,
+                      child: Text(
+                        _currentUser.user.name.isNotEmpty
+                            ? _currentUser.user.name[0].toUpperCase()
+                            : '?',
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: Colors.white70,
+                        ),
                       ),
                     ),
                   ),
@@ -1121,12 +1144,17 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
                   children: [
                     Row(
                       children: [
-                        Text(
-                          _currentUser.user.name,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 14,
+                        GestureDetector(
+                          key: const Key('story-author-name'),
+                          behavior: HitTestBehavior.opaque,
+                          onTap: () => _openUserProfile(_currentUser.user.id),
+                          child: Text(
+                            _currentUser.user.name,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14,
+                            ),
                           ),
                         ),
                         if (story.privacy == StoryPrivacy.closeFriends) ...[
