@@ -3427,5 +3427,11 @@
   "storyStickerMentionSubtitle": "フォロー中の人をタグ付け",
   "storyToolDraw": "お絵かき",
   "momentsTabForYou": "おすすめ",
-  "momentsTabReels": "リール"
+  "momentsTabReels": "リール",
+  "storyArchiveTitle": "アーカイブ",
+  "storyArchiveSubtitle": "期限切れのストーリー、自分だけに表示",
+  "storyArchiveEmpty": "まだアーカイブはありません",
+  "storyArchiveEmptyBody": "ストーリーは24時間後にここへ移ります。ハイライトに追加するとプロフィールに残せます。",
+  "storyArchiveAddHighlight": "ハイライトに追加",
+  "storyArchiveAdded": "ハイライトに追加しました"
 }

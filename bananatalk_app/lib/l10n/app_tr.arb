@@ -3639,5 +3639,11 @@
   "storyStickerMentionSubtitle": "Takip ettiğin birini etiketle",
   "storyToolDraw": "Çiz",
   "momentsTabForYou": "Senin İçin",
-  "momentsTabReels": "Reels"
+  "momentsTabReels": "Reels",
+  "storyArchiveTitle": "Arşiv",
+  "storyArchiveSubtitle": "Süresi dolan hikâyelerin, yalnızca sana görünür",
+  "storyArchiveEmpty": "Arşivde henüz bir şey yok",
+  "storyArchiveEmptyBody": "Hikâyeler 24 saat sonra buraya taşınır. Profilinde kalsın diye öne çıkanlara ekle.",
+  "storyArchiveAddHighlight": "Öne çıkanlara ekle",
+  "storyArchiveAdded": "Öne çıkanlara eklendi"
 }

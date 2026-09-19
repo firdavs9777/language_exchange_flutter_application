@@ -2920,5 +2920,11 @@
   "storyStickerMentionSubtitle": "Касеро, ки пайгирӣ мекунед, қайд кунед",
   "storyToolDraw": "Расм кашидан",
   "momentsTabForYou": "Барои шумо",
-  "momentsTabReels": "Reels"
+  "momentsTabReels": "Reels",
+  "storyArchiveTitle": "Бойгонӣ",
+  "storyArchiveSubtitle": "Ҳикояҳои гузаштаи шумо, танҳо ба шумо намоён",
+  "storyArchiveEmpty": "Ҳанӯз чизе нест",
+  "storyArchiveEmptyBody": "Ҳикояҳо пас аз 24 соат ба ин ҷо мегузаранд. Барои дар профил мондан ба баргузидаҳо илова кунед.",
+  "storyArchiveAddHighlight": "Илова ба баргузидаҳо",
+  "storyArchiveAdded": "Ба баргузидаҳо илова шуд"
 }

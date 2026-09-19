@@ -8226,4 +8226,22 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get momentsTabReels => 'Reels';
+
+  @override
+  String get storyArchiveTitle => 'Архив';
+
+  @override
+  String get storyArchiveSubtitle => 'Ваши истекшие истории, видны только вам';
+
+  @override
+  String get storyArchiveEmpty => 'В архиве пока пусто';
+
+  @override
+  String get storyArchiveEmptyBody => 'Истории попадают сюда через 24 часа. Добавьте в актуальное, чтобы оставить в профиле.';
+
+  @override
+  String get storyArchiveAddHighlight => 'Добавить в актуальное';
+
+  @override
+  String get storyArchiveAdded => 'Добавлено в актуальное';
 }

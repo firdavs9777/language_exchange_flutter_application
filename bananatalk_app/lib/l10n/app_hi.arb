@@ -3443,5 +3443,11 @@
   "storyStickerMentionSubtitle": "जिसे आप फ़ॉलो करते हैं उसे टैग करें",
   "storyToolDraw": "ड्रॉ",
   "momentsTabForYou": "आपके लिए",
-  "momentsTabReels": "रील्स"
+  "momentsTabReels": "रील्स",
+  "storyArchiveTitle": "संग्रह",
+  "storyArchiveSubtitle": "आपकी समाप्त स्टोरीज़, केवल आपको दिखेंगी",
+  "storyArchiveEmpty": "अभी कुछ संग्रहित नहीं",
+  "storyArchiveEmptyBody": "स्टोरीज़ 24 घंटे बाद यहाँ आ जाती हैं। हाइलाइट में जोड़कर प्रोफ़ाइल पर रखें।",
+  "storyArchiveAddHighlight": "हाइलाइट में जोड़ें",
+  "storyArchiveAdded": "हाइलाइट में जोड़ा गया"
 }

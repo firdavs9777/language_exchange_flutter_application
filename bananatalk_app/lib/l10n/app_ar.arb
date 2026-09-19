@@ -3457,5 +3457,11 @@
   "storyStickerMentionSubtitle": "أشر إلى شخص تتابعه",
   "storyToolDraw": "رسم",
   "momentsTabForYou": "لك",
-  "momentsTabReels": "ريلز"
+  "momentsTabReels": "ريلز",
+  "storyArchiveTitle": "الأرشيف",
+  "storyArchiveSubtitle": "قصصك المنتهية، مرئية لك وحدك",
+  "storyArchiveEmpty": "لا يوجد شيء في الأرشيف بعد",
+  "storyArchiveEmptyBody": "تنتقل القصص إلى هنا بعد ٢٤ ساعة. أضف واحدة إلى المميزة لإبقائها في ملفك.",
+  "storyArchiveAddHighlight": "إضافة إلى المميزة",
+  "storyArchiveAdded": "أُضيفت إلى المميزة"
 }

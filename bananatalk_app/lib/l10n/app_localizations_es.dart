@@ -8205,4 +8205,22 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get momentsTabReels => 'Reels';
+
+  @override
+  String get storyArchiveTitle => 'Archivo';
+
+  @override
+  String get storyArchiveSubtitle => 'Tus historias caducadas, solo visibles para ti';
+
+  @override
+  String get storyArchiveEmpty => 'Nada archivado todavía';
+
+  @override
+  String get storyArchiveEmptyBody => 'Las historias pasan aquí tras 24 horas. Añade una a destacadas para mantenerla en tu perfil.';
+
+  @override
+  String get storyArchiveAddHighlight => 'Añadir a destacadas';
+
+  @override
+  String get storyArchiveAdded => 'Añadida a destacadas';
 }

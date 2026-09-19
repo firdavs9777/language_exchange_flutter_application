@@ -5682,5 +5682,11 @@
     }
   },
   "momentsTabForYou": "For You",
-  "momentsTabReels": "Reels"
+  "momentsTabReels": "Reels",
+  "storyArchiveTitle": "Archive",
+  "storyArchiveSubtitle": "Your expired stories, only visible to you",
+  "storyArchiveEmpty": "Nothing archived yet",
+  "storyArchiveEmptyBody": "Stories move here after 24 hours. Add one to a highlight to keep it on your profile.",
+  "storyArchiveAddHighlight": "Add to highlight",
+  "storyArchiveAdded": "Added to highlights"
 }

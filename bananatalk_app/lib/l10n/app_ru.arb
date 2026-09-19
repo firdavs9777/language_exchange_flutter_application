@@ -3457,5 +3457,11 @@
   "storyStickerMentionSubtitle": "Отметьте того, на кого подписаны",
   "storyToolDraw": "Рисовать",
   "momentsTabForYou": "Для вас",
-  "momentsTabReels": "Reels"
+  "momentsTabReels": "Reels",
+  "storyArchiveTitle": "Архив",
+  "storyArchiveSubtitle": "Ваши истекшие истории, видны только вам",
+  "storyArchiveEmpty": "В архиве пока пусто",
+  "storyArchiveEmptyBody": "Истории попадают сюда через 24 часа. Добавьте в актуальное, чтобы оставить в профиле.",
+  "storyArchiveAddHighlight": "Добавить в актуальное",
+  "storyArchiveAdded": "Добавлено в актуальное"
 }

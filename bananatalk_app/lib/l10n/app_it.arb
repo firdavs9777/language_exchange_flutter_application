@@ -3667,5 +3667,11 @@
   "storyStickerMentionSubtitle": "Tagga qualcuno che segui",
   "storyToolDraw": "Disegna",
   "momentsTabForYou": "Per te",
-  "momentsTabReels": "Reels"
+  "momentsTabReels": "Reels",
+  "storyArchiveTitle": "Archivio",
+  "storyArchiveSubtitle": "Le tue storie scadute, visibili solo a te",
+  "storyArchiveEmpty": "Nulla in archivio",
+  "storyArchiveEmptyBody": "Le storie arrivano qui dopo 24 ore. Aggiungine una in evidenza per tenerla sul profilo.",
+  "storyArchiveAddHighlight": "Aggiungi in evidenza",
+  "storyArchiveAdded": "Aggiunta in evidenza"
 }

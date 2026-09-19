@@ -8205,4 +8205,22 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get momentsTabReels => 'Reels';
+
+  @override
+  String get storyArchiveTitle => 'Archive';
+
+  @override
+  String get storyArchiveSubtitle => 'Mga expired mong story, ikaw lang ang nakakakita';
+
+  @override
+  String get storyArchiveEmpty => 'Wala pang naka-archive';
+
+  @override
+  String get storyArchiveEmptyBody => 'Napupunta rito ang mga story pagkatapos ng 24 oras. Idagdag sa highlight para manatili sa profile mo.';
+
+  @override
+  String get storyArchiveAddHighlight => 'Idagdag sa highlight';
+
+  @override
+  String get storyArchiveAdded => 'Naidagdag sa highlights';
 }

@@ -15145,6 +15145,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Reels'**
   String get momentsTabReels;
+
+  /// No description provided for @storyArchiveTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Archive'**
+  String get storyArchiveTitle;
+
+  /// No description provided for @storyArchiveSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your expired stories, only visible to you'**
+  String get storyArchiveSubtitle;
+
+  /// No description provided for @storyArchiveEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing archived yet'**
+  String get storyArchiveEmpty;
+
+  /// No description provided for @storyArchiveEmptyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Stories move here after 24 hours. Add one to a highlight to keep it on your profile.'**
+  String get storyArchiveEmptyBody;
+
+  /// No description provided for @storyArchiveAddHighlight.
+  ///
+  /// In en, this message translates to:
+  /// **'Add to highlight'**
+  String get storyArchiveAddHighlight;
+
+  /// No description provided for @storyArchiveAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'Added to highlights'**
+  String get storyArchiveAdded;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

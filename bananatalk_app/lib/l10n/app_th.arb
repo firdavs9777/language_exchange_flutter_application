@@ -3427,5 +3427,11 @@
   "storyStickerMentionSubtitle": "แท็กคนที่คุณติดตาม",
   "storyToolDraw": "วาด",
   "momentsTabForYou": "สำหรับคุณ",
-  "momentsTabReels": "รีลส์"
+  "momentsTabReels": "รีลส์",
+  "storyArchiveTitle": "คลังเก็บ",
+  "storyArchiveSubtitle": "สตอรีที่หมดอายุ เห็นได้เฉพาะคุณ",
+  "storyArchiveEmpty": "ยังไม่มีอะไรในคลัง",
+  "storyArchiveEmptyBody": "สตอรีจะย้ายมาที่นี่หลัง 24 ชั่วโมง เพิ่มลงไฮไลท์เพื่อเก็บไว้บนโปรไฟล์",
+  "storyArchiveAddHighlight": "เพิ่มลงไฮไลท์",
+  "storyArchiveAdded": "เพิ่มลงไฮไลท์แล้ว"
 }

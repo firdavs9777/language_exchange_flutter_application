@@ -3400,5 +3400,11 @@
   "storyStickerMentionSubtitle": "I-tag ang sinusundan mo",
   "storyToolDraw": "Gumuhit",
   "momentsTabForYou": "Para Sa'yo",
-  "momentsTabReels": "Reels"
+  "momentsTabReels": "Reels",
+  "storyArchiveTitle": "Archive",
+  "storyArchiveSubtitle": "Mga expired mong story, ikaw lang ang nakakakita",
+  "storyArchiveEmpty": "Wala pang naka-archive",
+  "storyArchiveEmptyBody": "Napupunta rito ang mga story pagkatapos ng 24 oras. Idagdag sa highlight para manatili sa profile mo.",
+  "storyArchiveAddHighlight": "Idagdag sa highlight",
+  "storyArchiveAdded": "Naidagdag sa highlights"
 }

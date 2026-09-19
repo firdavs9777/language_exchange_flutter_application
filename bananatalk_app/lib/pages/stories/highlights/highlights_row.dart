@@ -9,6 +9,7 @@ import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/pages/stories/viewer/story_viewer_screen.dart';
 import 'package:bananatalk_app/pages/stories/highlights/highlight_editor_sheet.dart';
+import 'package:bananatalk_app/pages/stories/archive/story_archive_screen.dart';
 
 /// Horizontal row of story-highlight circles shown under a profile header.
 ///
@@ -111,6 +112,18 @@ class _HighlightsRowState extends State<HighlightsRow> {
         padding: const EdgeInsets.symmetric(horizontal: 16),
         children: [
           if (widget.isOwnProfile) _NewHighlightCircle(onTap: _createHighlight),
+          // The archive sits beside "+ New" because it is what FEEDS
+          // highlights: a highlight is made from one story id, and before
+          // this the only place offering that was the live viewer — so a
+          // story could be highlighted during its 24 hours and never again.
+          if (widget.isOwnProfile)
+            _ArchiveCircle(onTap: () async {
+              await Navigator.of(context).push(
+                AppPageRoute(builder: (_) => const StoryArchiveScreen()),
+              );
+              // A highlight may have been created in there.
+              if (mounted) _loadHighlights();
+            }),
           ..._highlights.map(
             (h) => _HighlightCircleItem(
               highlight: h,
@@ -243,6 +256,60 @@ class _HighlightCircleItem extends StatelessWidget {
                 textAlign: TextAlign.center,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Way into the story archive, shown only on your own profile.
+///
+/// Styled as a circle to sit in the same row as the highlights it creates,
+/// rather than hidden in a menu — the archive is only useful if someone can
+/// find it while looking at the highlights they want to add to.
+class _ArchiveCircle extends StatelessWidget {
+  final VoidCallback onTap;
+  const _ArchiveCircle({required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    return GestureDetector(
+      key: const Key('highlights-archive-circle'),
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.only(right: 12),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              width: 60,
+              height: 60,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: Theme.of(context).colorScheme.outlineVariant,
+                  width: 1,
+                ),
+              ),
+              child: Icon(
+                Icons.inventory_2_outlined,
+                size: 24,
+                color: context.textMuted,
+              ),
+            ),
+            const SizedBox(height: 4),
+            SizedBox(
+              width: 64,
+              child: Text(
+                l10n.storyArchiveTitle,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.center,
+                style: context.captionSmall.copyWith(color: context.textMuted),
               ),
             ),
           ],

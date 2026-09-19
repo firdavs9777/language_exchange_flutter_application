@@ -3667,5 +3667,11 @@
   "storyStickerMentionSubtitle": "Identifiez une personne que vous suivez",
   "storyToolDraw": "Dessiner",
   "momentsTabForYou": "Pour vous",
-  "momentsTabReels": "Reels"
+  "momentsTabReels": "Reels",
+  "storyArchiveTitle": "Archives",
+  "storyArchiveSubtitle": "Vos stories expirées, visibles par vous seul",
+  "storyArchiveEmpty": "Rien dans les archives",
+  "storyArchiveEmptyBody": "Les stories arrivent ici après 24 heures. Ajoutez-en une à la une pour la garder sur votre profil.",
+  "storyArchiveAddHighlight": "Ajouter à la une",
+  "storyArchiveAdded": "Ajoutée à la une"
 }

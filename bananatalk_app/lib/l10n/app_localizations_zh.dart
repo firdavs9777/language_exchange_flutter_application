@@ -8195,6 +8195,24 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get momentsTabReels => '快拍视频';
+
+  @override
+  String get storyArchiveTitle => '存档';
+
+  @override
+  String get storyArchiveSubtitle => '已过期的快拍，仅你可见';
+
+  @override
+  String get storyArchiveEmpty => '还没有存档内容';
+
+  @override
+  String get storyArchiveEmptyBody => '快拍会在24小时后移到这里。添加到精选即可保留在主页。';
+
+  @override
+  String get storyArchiveAddHighlight => '添加到精选';
+
+  @override
+  String get storyArchiveAdded => '已添加到精选';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -16388,4 +16406,22 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get momentsTabReels => '連續短片';
+
+  @override
+  String get storyArchiveTitle => '封存';
+
+  @override
+  String get storyArchiveSubtitle => '已過期的限時動態，僅你可見';
+
+  @override
+  String get storyArchiveEmpty => '還沒有封存內容';
+
+  @override
+  String get storyArchiveEmptyBody => '限時動態會在24小時後移到這裡。加入精選即可保留在個人檔案。';
+
+  @override
+  String get storyArchiveAddHighlight => '加入精選';
+
+  @override
+  String get storyArchiveAdded => '已加入精選';
 }

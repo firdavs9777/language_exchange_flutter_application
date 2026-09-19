@@ -8195,4 +8195,22 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get momentsTabReels => 'รีลส์';
+
+  @override
+  String get storyArchiveTitle => 'คลังเก็บ';
+
+  @override
+  String get storyArchiveSubtitle => 'สตอรีที่หมดอายุ เห็นได้เฉพาะคุณ';
+
+  @override
+  String get storyArchiveEmpty => 'ยังไม่มีอะไรในคลัง';
+
+  @override
+  String get storyArchiveEmptyBody => 'สตอรีจะย้ายมาที่นี่หลัง 24 ชั่วโมง เพิ่มลงไฮไลท์เพื่อเก็บไว้บนโปรไฟล์';
+
+  @override
+  String get storyArchiveAddHighlight => 'เพิ่มลงไฮไลท์';
+
+  @override
+  String get storyArchiveAdded => 'เพิ่มลงไฮไลท์แล้ว';
 }

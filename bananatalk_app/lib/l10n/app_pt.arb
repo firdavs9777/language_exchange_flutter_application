@@ -3443,5 +3443,11 @@
   "storyStickerMentionSubtitle": "Marque alguém que segue",
   "storyToolDraw": "Desenhar",
   "momentsTabForYou": "Para si",
-  "momentsTabReels": "Reels"
+  "momentsTabReels": "Reels",
+  "storyArchiveTitle": "Arquivo",
+  "storyArchiveSubtitle": "As suas stories expiradas, visíveis só para si",
+  "storyArchiveEmpty": "Nada arquivado ainda",
+  "storyArchiveEmptyBody": "As stories passam para aqui após 24 horas. Adicione uma aos destaques para a manter no perfil.",
+  "storyArchiveAddHighlight": "Adicionar aos destaques",
+  "storyArchiveAdded": "Adicionada aos destaques"
 }

@@ -3667,5 +3667,11 @@
   "storyStickerMentionSubtitle": "Markiere jemanden, dem du folgst",
   "storyToolDraw": "Zeichnen",
   "momentsTabForYou": "Für dich",
-  "momentsTabReels": "Reels"
+  "momentsTabReels": "Reels",
+  "storyArchiveTitle": "Archiv",
+  "storyArchiveSubtitle": "Deine abgelaufenen Storys, nur für dich sichtbar",
+  "storyArchiveEmpty": "Noch nichts archiviert",
+  "storyArchiveEmptyBody": "Storys landen nach 24 Stunden hier. Füge eine zu Highlights hinzu, damit sie im Profil bleibt.",
+  "storyArchiveAddHighlight": "Zu Highlights hinzufügen",
+  "storyArchiveAdded": "Zu Highlights hinzugefügt"
 }

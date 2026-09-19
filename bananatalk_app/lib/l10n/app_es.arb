@@ -3457,5 +3457,11 @@
   "storyStickerMentionSubtitle": "Etiqueta a alguien que sigues",
   "storyToolDraw": "Dibujar",
   "momentsTabForYou": "Para ti",
-  "momentsTabReels": "Reels"
+  "momentsTabReels": "Reels",
+  "storyArchiveTitle": "Archivo",
+  "storyArchiveSubtitle": "Tus historias caducadas, solo visibles para ti",
+  "storyArchiveEmpty": "Nada archivado todavía",
+  "storyArchiveEmptyBody": "Las historias pasan aquí tras 24 horas. Añade una a destacadas para mantenerla en tu perfil.",
+  "storyArchiveAddHighlight": "Añadir a destacadas",
+  "storyArchiveAdded": "Añadida a destacadas"
 }

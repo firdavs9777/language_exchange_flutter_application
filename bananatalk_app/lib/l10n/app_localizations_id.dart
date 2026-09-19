@@ -8202,4 +8202,22 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get momentsTabReels => 'Reels';
+
+  @override
+  String get storyArchiveTitle => 'Arsip';
+
+  @override
+  String get storyArchiveSubtitle => 'Story kedaluwarsa, hanya kamu yang bisa lihat';
+
+  @override
+  String get storyArchiveEmpty => 'Belum ada arsip';
+
+  @override
+  String get storyArchiveEmptyBody => 'Story pindah ke sini setelah 24 jam. Tambahkan ke sorotan agar tetap di profil.';
+
+  @override
+  String get storyArchiveAddHighlight => 'Tambahkan ke sorotan';
+
+  @override
+  String get storyArchiveAdded => 'Ditambahkan ke sorotan';
 }

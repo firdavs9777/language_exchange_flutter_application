@@ -8195,4 +8195,22 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get momentsTabReels => 'Reels';
+
+  @override
+  String get storyArchiveTitle => 'Kho lưu trữ';
+
+  @override
+  String get storyArchiveSubtitle => 'Tin đã hết hạn, chỉ bạn nhìn thấy';
+
+  @override
+  String get storyArchiveEmpty => 'Chưa có gì trong kho';
+
+  @override
+  String get storyArchiveEmptyBody => 'Tin sẽ chuyển vào đây sau 24 giờ. Thêm vào tin nổi bật để giữ trên trang cá nhân.';
+
+  @override
+  String get storyArchiveAddHighlight => 'Thêm vào tin nổi bật';
+
+  @override
+  String get storyArchiveAdded => 'Đã thêm vào tin nổi bật';
 }

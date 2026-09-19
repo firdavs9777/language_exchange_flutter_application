@@ -8195,4 +8195,22 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get momentsTabReels => 'リール';
+
+  @override
+  String get storyArchiveTitle => 'アーカイブ';
+
+  @override
+  String get storyArchiveSubtitle => '期限切れのストーリー、自分だけに表示';
+
+  @override
+  String get storyArchiveEmpty => 'まだアーカイブはありません';
+
+  @override
+  String get storyArchiveEmptyBody => 'ストーリーは24時間後にここへ移ります。ハイライトに追加するとプロフィールに残せます。';
+
+  @override
+  String get storyArchiveAddHighlight => 'ハイライトに追加';
+
+  @override
+  String get storyArchiveAdded => 'ハイライトに追加しました';
 }

@@ -3427,5 +3427,11 @@
   "storyStickerMentionSubtitle": "Gắn thẻ người bạn theo dõi",
   "storyToolDraw": "Vẽ",
   "momentsTabForYou": "Dành cho bạn",
-  "momentsTabReels": "Reels"
+  "momentsTabReels": "Reels",
+  "storyArchiveTitle": "Kho lưu trữ",
+  "storyArchiveSubtitle": "Tin đã hết hạn, chỉ bạn nhìn thấy",
+  "storyArchiveEmpty": "Chưa có gì trong kho",
+  "storyArchiveEmptyBody": "Tin sẽ chuyển vào đây sau 24 giờ. Thêm vào tin nổi bật để giữ trên trang cá nhân.",
+  "storyArchiveAddHighlight": "Thêm vào tin nổi bật",
+  "storyArchiveAdded": "Đã thêm vào tin nổi bật"
 }

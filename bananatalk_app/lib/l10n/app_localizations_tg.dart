@@ -8209,4 +8209,22 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get momentsTabReels => 'Reels';
+
+  @override
+  String get storyArchiveTitle => 'Бойгонӣ';
+
+  @override
+  String get storyArchiveSubtitle => 'Ҳикояҳои гузаштаи шумо, танҳо ба шумо намоён';
+
+  @override
+  String get storyArchiveEmpty => 'Ҳанӯз чизе нест';
+
+  @override
+  String get storyArchiveEmptyBody => 'Ҳикояҳо пас аз 24 соат ба ин ҷо мегузаранд. Барои дар профил мондан ба баргузидаҳо илова кунед.';
+
+  @override
+  String get storyArchiveAddHighlight => 'Илова ба баргузидаҳо';
+
+  @override
+  String get storyArchiveAdded => 'Ба баргузидаҳо илова шуд';
 }

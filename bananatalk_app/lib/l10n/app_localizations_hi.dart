@@ -8205,4 +8205,22 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get momentsTabReels => 'रील्स';
+
+  @override
+  String get storyArchiveTitle => 'संग्रह';
+
+  @override
+  String get storyArchiveSubtitle => 'आपकी समाप्त स्टोरीज़, केवल आपको दिखेंगी';
+
+  @override
+  String get storyArchiveEmpty => 'अभी कुछ संग्रहित नहीं';
+
+  @override
+  String get storyArchiveEmptyBody => 'स्टोरीज़ 24 घंटे बाद यहाँ आ जाती हैं। हाइलाइट में जोड़कर प्रोफ़ाइल पर रखें।';
+
+  @override
+  String get storyArchiveAddHighlight => 'हाइलाइट में जोड़ें';
+
+  @override
+  String get storyArchiveAdded => 'हाइलाइट में जोड़ा गया';
 }

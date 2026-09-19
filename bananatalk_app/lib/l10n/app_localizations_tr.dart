@@ -8203,4 +8203,22 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get momentsTabReels => 'Reels';
+
+  @override
+  String get storyArchiveTitle => 'Arşiv';
+
+  @override
+  String get storyArchiveSubtitle => 'Süresi dolan hikâyelerin, yalnızca sana görünür';
+
+  @override
+  String get storyArchiveEmpty => 'Arşivde henüz bir şey yok';
+
+  @override
+  String get storyArchiveEmptyBody => 'Hikâyeler 24 saat sonra buraya taşınır. Profilinde kalsın diye öne çıkanlara ekle.';
+
+  @override
+  String get storyArchiveAddHighlight => 'Öne çıkanlara ekle';
+
+  @override
+  String get storyArchiveAdded => 'Öne çıkanlara eklendi';
 }

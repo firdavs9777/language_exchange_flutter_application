@@ -3448,5 +3448,11 @@
   "storyStickerMentionSubtitle": "팔로우하는 사람 태그",
   "storyToolDraw": "그리기",
   "momentsTabForYou": "추천",
-  "momentsTabReels": "릴스"
+  "momentsTabReels": "릴스",
+  "storyArchiveTitle": "보관함",
+  "storyArchiveSubtitle": "만료된 스토리, 나만 볼 수 있어요",
+  "storyArchiveEmpty": "아직 보관된 스토리가 없어요",
+  "storyArchiveEmptyBody": "스토리는 24시간 후 여기로 옮겨져요. 하이라이트에 추가하면 프로필에 계속 남아요.",
+  "storyArchiveAddHighlight": "하이라이트에 추가",
+  "storyArchiveAdded": "하이라이트에 추가됨"
 }

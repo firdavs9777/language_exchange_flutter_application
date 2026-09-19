@@ -8205,4 +8205,22 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get momentsTabReels => 'Reels';
+
+  @override
+  String get storyArchiveTitle => 'Archives';
+
+  @override
+  String get storyArchiveSubtitle => 'Vos stories expirées, visibles par vous seul';
+
+  @override
+  String get storyArchiveEmpty => 'Rien dans les archives';
+
+  @override
+  String get storyArchiveEmptyBody => 'Les stories arrivent ici après 24 heures. Ajoutez-en une à la une pour la garder sur votre profil.';
+
+  @override
+  String get storyArchiveAddHighlight => 'Ajouter à la une';
+
+  @override
+  String get storyArchiveAdded => 'Ajoutée à la une';
 }

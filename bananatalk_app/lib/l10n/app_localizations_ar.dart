@@ -8217,4 +8217,22 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get momentsTabReels => 'ريلز';
+
+  @override
+  String get storyArchiveTitle => 'الأرشيف';
+
+  @override
+  String get storyArchiveSubtitle => 'قصصك المنتهية، مرئية لك وحدك';
+
+  @override
+  String get storyArchiveEmpty => 'لا يوجد شيء في الأرشيف بعد';
+
+  @override
+  String get storyArchiveEmptyBody => 'تنتقل القصص إلى هنا بعد ٢٤ ساعة. أضف واحدة إلى المميزة لإبقائها في ملفك.';
+
+  @override
+  String get storyArchiveAddHighlight => 'إضافة إلى المميزة';
+
+  @override
+  String get storyArchiveAdded => 'أُضيفت إلى المميزة';
 }

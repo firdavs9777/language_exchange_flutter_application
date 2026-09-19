@@ -8195,4 +8195,22 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get momentsTabReels => '릴스';
+
+  @override
+  String get storyArchiveTitle => '보관함';
+
+  @override
+  String get storyArchiveSubtitle => '만료된 스토리, 나만 볼 수 있어요';
+
+  @override
+  String get storyArchiveEmpty => '아직 보관된 스토리가 없어요';
+
+  @override
+  String get storyArchiveEmptyBody => '스토리는 24시간 후 여기로 옮겨져요. 하이라이트에 추가하면 프로필에 계속 남아요.';
+
+  @override
+  String get storyArchiveAddHighlight => '하이라이트에 추가';
+
+  @override
+  String get storyArchiveAdded => '하이라이트에 추가됨';
 }

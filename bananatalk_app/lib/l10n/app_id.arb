@@ -3427,5 +3427,11 @@
   "storyStickerMentionSubtitle": "Tandai orang yang kamu ikuti",
   "storyToolDraw": "Gambar",
   "momentsTabForYou": "Untuk Kamu",
-  "momentsTabReels": "Reels"
+  "momentsTabReels": "Reels",
+  "storyArchiveTitle": "Arsip",
+  "storyArchiveSubtitle": "Story kedaluwarsa, hanya kamu yang bisa lihat",
+  "storyArchiveEmpty": "Belum ada arsip",
+  "storyArchiveEmptyBody": "Story pindah ke sini setelah 24 jam. Tambahkan ke sorotan agar tetap di profil.",
+  "storyArchiveAddHighlight": "Tambahkan ke sorotan",
+  "storyArchiveAdded": "Ditambahkan ke sorotan"
 }

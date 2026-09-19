@@ -3118,5 +3118,11 @@
   "storyStickerMentionSubtitle": "標記你追蹤的人",
   "storyToolDraw": "塗鴉",
   "momentsTabForYou": "為你推薦",
-  "momentsTabReels": "連續短片"
+  "momentsTabReels": "連續短片",
+  "storyArchiveTitle": "封存",
+  "storyArchiveSubtitle": "已過期的限時動態，僅你可見",
+  "storyArchiveEmpty": "還沒有封存內容",
+  "storyArchiveEmptyBody": "限時動態會在24小時後移到這裡。加入精選即可保留在個人檔案。",
+  "storyArchiveAddHighlight": "加入精選",
+  "storyArchiveAdded": "已加入精選"
 }

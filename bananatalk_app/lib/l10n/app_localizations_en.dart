@@ -8211,4 +8211,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get momentsTabReels => 'Reels';
+
+  @override
+  String get storyArchiveTitle => 'Archive';
+
+  @override
+  String get storyArchiveSubtitle => 'Your expired stories, only visible to you';
+
+  @override
+  String get storyArchiveEmpty => 'Nothing archived yet';
+
+  @override
+  String get storyArchiveEmptyBody => 'Stories move here after 24 hours. Add one to a highlight to keep it on your profile.';
+
+  @override
+  String get storyArchiveAddHighlight => 'Add to highlight';
+
+  @override
+  String get storyArchiveAdded => 'Added to highlights';
 }
