@@ -115,9 +115,8 @@ class _ReelsGridScreenState extends ConsumerState<ReelsGridScreen>
   /// is built from — so this can never silently disagree with what the grid
   /// actually renders.
   double _rowPitch(double viewportWidth) {
-    final usable = viewportWidth -
-        _gridPadding * 2 -
-        _gridSpacing * (_crossAxisCount - 1);
+    final usable =
+        viewportWidth - _gridPadding * 2 - _gridSpacing * (_crossAxisCount - 1);
     final tileWidth = usable / _crossAxisCount;
     final tileHeight = tileWidth / _tileAspectRatio;
     return tileHeight + _gridSpacing;
@@ -349,7 +348,9 @@ class _ReelsGridScreenState extends ConsumerState<ReelsGridScreen>
     // resolves after this screen is already built.
     ref.listen<ReelsFeedState>(reelsFeedProvider, (previous, next) {
       if (previous?.reels != next.reels) {
-        WidgetsBinding.instance.addPostFrameCallback((_) => _recomputePlaying());
+        WidgetsBinding.instance.addPostFrameCallback(
+          (_) => _recomputePlaying(),
+        );
       }
     });
 
@@ -370,10 +371,7 @@ class _ReelsGridScreenState extends ConsumerState<ReelsGridScreen>
 
     return Stack(
       children: [
-        RefreshIndicator(
-          onRefresh: _onRefresh,
-          child: _buildBody(state),
-        ),
+        RefreshIndicator(onRefresh: _onRefresh, child: _buildBody(state)),
         Positioned(
           right: 16,
           // 88 = the Scaffold FAB's usual 16 plus the 72 that MomentsMain
@@ -461,8 +459,9 @@ class _ReelsGridScreenState extends ConsumerState<ReelsGridScreen>
                   Text(
                     AppLocalizations.of(context)!.failedToLoadReels,
                     textAlign: TextAlign.center,
-                    style: context.bodyMedium
-                        .copyWith(color: context.textSecondary),
+                    style: context.bodyMedium.copyWith(
+                      color: context.textSecondary,
+                    ),
                   ),
                   const SizedBox(height: 12),
                   TextButton(
@@ -490,21 +489,26 @@ class _ReelsGridScreenState extends ConsumerState<ReelsGridScreen>
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(Icons.video_camera_back_outlined,
-                      size: 64, color: context.textHint),
+                  Icon(
+                    Icons.video_camera_back_outlined,
+                    size: 64,
+                    color: context.textHint,
+                  ),
                   const SizedBox(height: 16),
                   Text(
                     'No reels yet',
-                    style: context.titleMedium
-                        .copyWith(fontWeight: FontWeight.w700),
+                    style: context.titleMedium.copyWith(
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                   const SizedBox(height: 8),
                   Text(
                     "Be the first to answer today's prompt on camera, or "
                     'record a free-form language-learning clip.',
                     textAlign: TextAlign.center,
-                    style: context.bodySmall
-                        .copyWith(color: context.textSecondary),
+                    style: context.bodySmall.copyWith(
+                      color: context.textSecondary,
+                    ),
                   ),
                   const SizedBox(height: 20),
                   ElevatedButton.icon(

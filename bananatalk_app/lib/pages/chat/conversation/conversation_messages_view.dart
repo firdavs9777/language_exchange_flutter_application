@@ -183,9 +183,7 @@ class _ScrollToBottomFab extends StatelessWidget {
           ),
           child: Icon(
             Icons.keyboard_arrow_down,
-            color: isDark
-                ? Colors.black.withValues(alpha: 0.87)
-                : Colors.white,
+            color: isDark ? Colors.black.withValues(alpha: 0.87) : Colors.white,
             size: 28,
           ),
         ),

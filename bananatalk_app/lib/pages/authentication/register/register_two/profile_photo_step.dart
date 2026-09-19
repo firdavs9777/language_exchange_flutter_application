@@ -68,9 +68,7 @@ class ProfilePhotoStep extends StatelessWidget {
                     height: 140,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: hasPhoto
-                          ? null
-                          : context.surfaceColor,
+                      color: hasPhoto ? null : context.surfaceColor,
                       border: Border.all(
                         color: AppColors.primary.withValues(alpha: 0.3),
                         width: 2,

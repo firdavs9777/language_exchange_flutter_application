@@ -329,6 +329,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     );
 
     if (pickedDate != null) {
+      if (!mounted) return;
       final TimeOfDay? pickedTime = await showTimePicker(
         context: context,
         initialTime: TimeOfDay.now(),
@@ -403,6 +404,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
           .map((file) => File(file.path))
           .toList();
 
+      if (!mounted) return;
       if (pickedFiles.length > remainingSlots) {
         showMomentsSnackBar(
           context,
@@ -1407,6 +1409,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
           final limits = ref.read(currentUserLimitsProvider(userId));
 
           if (!FeatureGate.canCreateMoment(user, limits)) {
+            if (!mounted) return;
             await LimitExceededDialog.show(
               context: context,
               limitType: 'moments',
@@ -1572,6 +1575,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
           try {
             final prefs = await SharedPreferences.getInstance();
             final userId = prefs.getString('userId');
+            if (!mounted) return;
             await ApiErrorHandler.handleLimitExceededError(
               context: context,
               error: e,

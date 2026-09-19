@@ -31,8 +31,14 @@ class _AnimatedBananaTitleState extends State<AnimatedBananaTitle>
   @override
   void initState() {
     super.initState();
-    _entryCtrl = AnimationController(vsync: this, duration: widget.entryDuration);
-    _shimmerCtrl = AnimationController(vsync: this, duration: const Duration(milliseconds: 1400));
+    _entryCtrl = AnimationController(
+      vsync: this,
+      duration: widget.entryDuration,
+    );
+    _shimmerCtrl = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1400),
+    );
 
     _entryCtrl.forward().then((_) {
       if (!mounted) return;
@@ -68,7 +74,8 @@ class _AnimatedBananaTitleState extends State<AnimatedBananaTitle>
             // Shimmer wave: brightness peak travels left→right
             final shimmerPos = _shimmerCtrl.value * (_n + 2) - 1;
             final dist = (i - shimmerPos).abs();
-            final glow = (1.0 - (dist / 2.5).clamp(0.0, 1.0)) *
+            final glow =
+                (1.0 - (dist / 2.5).clamp(0.0, 1.0)) *
                 (_entryCtrl.isCompleted ? 1.0 : 0.0);
 
             final color = Color.lerp(

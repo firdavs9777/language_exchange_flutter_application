@@ -195,10 +195,7 @@ class _MomentFilterSheetState extends State<MomentFilterSheet>
             onPressed: _clearAll,
             child: Text(
               AppLocalizations.of(context)!.clearAll,
-              style: TextStyle(
-                color: secondaryText,
-                fontSize: 15,
-              ),
+              style: TextStyle(color: secondaryText, fontSize: 15),
             ),
           ),
           Row(
@@ -216,8 +213,10 @@ class _MomentFilterSheetState extends State<MomentFilterSheet>
               if (_tempFilter.activeFilterCount > 0) ...[
                 const SizedBox(width: 8),
                 Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 4,
+                  ),
                   decoration: BoxDecoration(
                     color: colorScheme.primary.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(12),
@@ -292,8 +291,9 @@ class _MomentFilterSheetState extends State<MomentFilterSheet>
                 const SizedBox(width: 8),
                 Text(
                   _tempFilter.activeFilterCount > 0
-                      ? AppLocalizations.of(context)!
-                          .applyNFilters(_tempFilter.activeFilterCount)
+                      ? AppLocalizations.of(
+                          context,
+                        )!.applyNFilters(_tempFilter.activeFilterCount)
                       : AppLocalizations.of(context)!.applyFilters,
                   style: const TextStyle(
                     fontSize: 16,

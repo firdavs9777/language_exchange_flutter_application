@@ -26,8 +26,8 @@ enum UploadRetryDecision {
 
 UploadRetryDecision decideRetry({required int attemptsMade}) =>
     attemptsMade >= kMaxUploadRetries
-        ? UploadRetryDecision.giveUp
-        : UploadRetryDecision.offerRetry;
+    ? UploadRetryDecision.giveUp
+    : UploadRetryDecision.offerRetry;
 
 /// How many tries are left, never negative.
 int retriesRemaining({required int attemptsMade}) {

@@ -17,7 +17,7 @@ import 'package:bananatalk_app/pages/moments/reels/reel_video_cache.dart';
 /// route change, and [disposeAll] from the feed screen's `dispose()`.
 class ReelControllerPool {
   ReelControllerPool({ReelVideoCache? cache})
-      : _cache = cache ?? ReelVideoCache.instance;
+    : _cache = cache ?? ReelVideoCache.instance;
 
   final ReelVideoCache _cache;
 
@@ -71,10 +71,7 @@ class ReelControllerPool {
 
   /// Returns the live controller for [index], joining an in-flight build for
   /// the same index if one exists, or starting exactly one otherwise.
-  Future<VideoPlayerController?> _getOrCreateController(
-    int index,
-    String url,
-  ) {
+  Future<VideoPlayerController?> _getOrCreateController(int index, String url) {
     final existing = _controllers[index];
     if (existing != null) return Future.value(existing);
     if (_disposed) return Future.value(null);
@@ -117,11 +114,13 @@ class ReelControllerPool {
       // The exception alone is a bare OSStatus — it says a decoder refused
       // the file and nothing about the file. This prints what the server
       // actually returns, which is where the answer usually is.
-      unawaited(ReelFailureDiagnostics.report(
-        url: url,
-        usingCache: usingCache,
-        cachedFile: cached,
-      ));
+      unawaited(
+        ReelFailureDiagnostics.report(
+          url: url,
+          usingCache: usingCache,
+          cachedFile: cached,
+        ),
+      );
       // Evict the failed controller so a later swipe-back retries instead
       // of finding a permanently-uninitialized cached instance (gate
       // review minor: otherwise this reel shows a spinner forever).
@@ -257,8 +256,7 @@ class ReelControllerPool {
   void releaseOutside(int current) {
     _window = current;
     final keep = {current - 1, current, current + 1};
-    final toRemove =
-        _controllers.keys.where((i) => !keep.contains(i)).toList();
+    final toRemove = _controllers.keys.where((i) => !keep.contains(i)).toList();
     for (final index in toRemove) {
       _disposeController(index);
     }

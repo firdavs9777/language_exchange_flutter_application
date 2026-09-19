@@ -127,7 +127,9 @@ class MessageActionsBottomSheet extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            isMe ? AppLocalizations.of(context)!.you : message.sender.name,
+                            isMe
+                                ? AppLocalizations.of(context)!.you
+                                : message.sender.name,
                             style: TextStyle(
                               fontWeight: FontWeight.w600,
                               color: isMe ? theme.primaryColor : Colors.green,
@@ -140,7 +142,9 @@ class MessageActionsBottomSheet extends StatelessWidget {
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
-                              color: isDark ? AppColors.gray300 : AppColors.gray700,
+                              color: isDark
+                                  ? AppColors.gray300
+                                  : AppColors.gray700,
                               fontSize: 14,
                             ),
                           ),
@@ -176,10 +180,7 @@ class MessageActionsBottomSheet extends StatelessWidget {
                             : Colors.transparent,
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      child: Text(
-                        emoji,
-                        style: const TextStyle(fontSize: 28),
-                      ),
+                      child: Text(emoji, style: const TextStyle(fontSize: 28)),
                     ),
                   );
                 }).toList(),
@@ -212,7 +213,11 @@ class MessageActionsBottomSheet extends StatelessWidget {
                   Clipboard.setData(ClipboardData(text: message.message!));
                   Navigator.pop(context);
                   onCopy?.call();
-                  showChatSnackBar(context, message: AppLocalizations.of(context)!.messageCopied, type: ChatSnackBarType.success);
+                  showChatSnackBar(
+                    context,
+                    message: AppLocalizations.of(context)!.messageCopied,
+                    type: ChatSnackBarType.success,
+                  );
                 },
               ),
 
@@ -239,8 +244,12 @@ class MessageActionsBottomSheet extends StatelessWidget {
 
             _buildActionItem(
               context,
-              icon: message.isPinned ? Icons.push_pin_outlined : Icons.push_pin_rounded,
-              label: message.isPinned ? AppLocalizations.of(context)!.unpin : AppLocalizations.of(context)!.pin,
+              icon: message.isPinned
+                  ? Icons.push_pin_outlined
+                  : Icons.push_pin_rounded,
+              label: message.isPinned
+                  ? AppLocalizations.of(context)!.unpin
+                  : AppLocalizations.of(context)!.pin,
               onTap: () {
                 Navigator.pop(context);
                 onPin?.call();
@@ -288,7 +297,9 @@ class MessageActionsBottomSheet extends StatelessWidget {
   }) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
-    final color = isDestructive ? AppColors.error : (isDark ? AppColors.white : AppColors.gray900);
+    final color = isDestructive
+        ? AppColors.error
+        : (isDark ? AppColors.white : AppColors.gray900);
 
     return InkWell(
       onTap: () {
@@ -299,11 +310,7 @@ class MessageActionsBottomSheet extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
         child: Row(
           children: [
-            Icon(
-              icon,
-              size: 24,
-              color: color,
-            ),
+            Icon(icon, size: 24, color: color),
             const SizedBox(width: 16),
             Expanded(
               child: Text(

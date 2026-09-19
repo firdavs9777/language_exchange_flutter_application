@@ -9,10 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class MomentDetailWrapper extends ConsumerStatefulWidget {
   final String momentId;
 
-  const MomentDetailWrapper({
-    super.key,
-    required this.momentId,
-  });
+  const MomentDetailWrapper({super.key, required this.momentId});
 
   @override
   ConsumerState<MomentDetailWrapper> createState() =>
@@ -33,8 +30,7 @@ class _MomentDetailWrapperState extends ConsumerState<MomentDetailWrapper> {
   Future<void> _fetchMoment() async {
     try {
       final momentsService = MomentsService();
-      final moment =
-          await momentsService.getSingleMoment(id: widget.momentId);
+      final moment = await momentsService.getSingleMoment(id: widget.momentId);
 
       if (mounted) {
         setState(() {
@@ -100,4 +96,3 @@ class _MomentDetailWrapperState extends ConsumerState<MomentDetailWrapper> {
     return SingleMoment(moment: _moment!);
   }
 }
-

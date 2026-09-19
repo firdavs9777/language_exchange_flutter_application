@@ -87,6 +87,7 @@ class _ImageVocabScreenState extends ConsumerState<ImageVocabScreen> {
       });
       await _requestPrompt();
     } catch (e) {
+      if (!mounted) return;
       final l10n = AppLocalizations.of(context)!;
       setState(() {
         _loading = false;

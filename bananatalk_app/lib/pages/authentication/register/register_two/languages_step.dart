@@ -58,8 +58,10 @@ class _LanguageCard extends StatelessWidget {
             : Row(
                 children: [
                   if (selectedLanguage != null) ...[
-                    Text(selectedLanguage!.flag,
-                        style: const TextStyle(fontSize: 36)),
+                    Text(
+                      selectedLanguage!.flag,
+                      style: const TextStyle(fontSize: 36),
+                    ),
                     const SizedBox(width: 16),
                     Expanded(
                       child: Column(
@@ -92,8 +94,11 @@ class _LanguageCard extends StatelessWidget {
                         color: context.containerColor,
                         borderRadius: AppRadius.borderMD,
                       ),
-                      child: Icon(Icons.language,
-                          size: 28, color: context.textSecondary),
+                      child: Icon(
+                        Icons.language,
+                        size: 28,
+                        color: context.textSecondary,
+                      ),
                     ),
                     const SizedBox(width: 16),
                     Expanded(
@@ -197,8 +202,11 @@ class _LevelTile extends StatelessWidget {
                 ),
               ),
               if (isSelected)
-                Icon(Icons.check_circle_rounded,
-                    color: AppColors.primary, size: 22),
+                Icon(
+                  Icons.check_circle_rounded,
+                  color: AppColors.primary,
+                  size: 22,
+                ),
             ],
           ),
         ),
@@ -326,8 +334,11 @@ class _LanguagePickerSheetState extends State<_LanguagePickerSheet> {
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Icon(Icons.search_off,
-                                  size: 56, color: context.textMuted),
+                              Icon(
+                                Icons.search_off,
+                                size: 56,
+                                color: context.textMuted,
+                              ),
                               const SizedBox(height: 12),
                               Text(
                                 l10n.noLanguagesFound,
@@ -359,8 +370,10 @@ class _LanguagePickerSheetState extends State<_LanguagePickerSheet> {
                                     : Colors.transparent,
                                 child: Row(
                                   children: [
-                                    Text(lang.flag,
-                                        style: const TextStyle(fontSize: 30)),
+                                    Text(
+                                      lang.flag,
+                                      style: const TextStyle(fontSize: 30),
+                                    ),
                                     const SizedBox(width: 16),
                                     Expanded(
                                       child: Column(
@@ -389,8 +402,11 @@ class _LanguagePickerSheetState extends State<_LanguagePickerSheet> {
                                       ),
                                     ),
                                     if (isSelected)
-                                      Icon(Icons.check_circle_rounded,
-                                          color: AppColors.primary, size: 24),
+                                      Icon(
+                                        Icons.check_circle_rounded,
+                                        color: AppColors.primary,
+                                        size: 24,
+                                      ),
                                   ],
                                 ),
                               ),
@@ -536,8 +552,7 @@ class LanguagesStep extends StatelessWidget {
             label: l10n.languagesImLearning,
             language: learningLanguage,
             level: learningLevel,
-            levelLabel:
-                learningLanguage == null ? null : l10n.yourCurrentLevel,
+            levelLabel: learningLanguage == null ? null : l10n.yourCurrentLevel,
             isLoadingLanguages: isLoadingLanguages,
             onTap: () => _pick(
               context,
@@ -627,15 +642,17 @@ class _LanguageSide extends StatelessWidget {
             spacing: 8,
             runSpacing: 8,
             children: _cefrLevels
-                .map((l) => _LevelChip(
-                      key: Key('$levelKeyPrefix-level-$l'),
-                      level: l,
-                      isSelected: level == l,
-                      onTap: () {
-                        HapticFeedback.selectionClick();
-                        onLevelChanged(l);
-                      },
-                    ))
+                .map(
+                  (l) => _LevelChip(
+                    key: Key('$levelKeyPrefix-level-$l'),
+                    level: l,
+                    isSelected: level == l,
+                    onTap: () {
+                      HapticFeedback.selectionClick();
+                      onLevelChanged(l);
+                    },
+                  ),
+                )
                 .toList(),
           ),
         ],
@@ -664,14 +681,10 @@ class _LevelChip extends StatelessWidget {
         duration: const Duration(milliseconds: 150),
         padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
         decoration: BoxDecoration(
-          color: isSelected
-              ? AppColors.primary
-              : context.cardBackground,
+          color: isSelected ? AppColors.primary : context.cardBackground,
           borderRadius: AppRadius.borderMD,
           border: Border.all(
-            color: isSelected
-                ? AppColors.primary
-                : context.dividerColor,
+            color: isSelected ? AppColors.primary : context.dividerColor,
             width: isSelected ? 2 : 1,
           ),
         ),

@@ -17,18 +17,22 @@ class ChatPartner {
   final bool isPinned;
   final bool isMuted;
   final String? conversationId;
+
   /// Partner's native language (e.g. "Korean"). Used to render the flag
   /// overlay badge on the avatar. Optional — null hides the badge.
   final String? nativeLanguage;
+
   /// Partner's country display name (e.g. "Brazil"), already
   /// privacy-filtered server-side (null when the partner hides their
   /// country). When present, the avatar badge shows the COUNTRY flag;
   /// otherwise it falls back to the native-language flag.
   final String? country;
+
   /// Sender of the most-recent message in this thread. Used by the
   /// "My turn" filter (a thread is "your turn" when the last message came
   /// from the partner). Null when unknown.
   final String? lastMessageSenderId;
+
   /// Whether the partner currently has >=1 active story visible to the
   /// viewer (privacy-filtered server-side). Drives the gradient story ring
   /// on the chat-list avatar.

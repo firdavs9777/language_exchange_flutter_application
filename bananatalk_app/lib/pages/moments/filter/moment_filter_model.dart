@@ -52,12 +52,12 @@ class MomentFilter {
   MomentFilter clearAll() => const MomentFilter();
 
   Map<String, dynamic> toJson() => {
-        'languages': languages,
-        'categories': categories,
-        'moods': moods,
-        'sortBy': sortBy,
-        'dateFilter': dateFilter.name,
-      };
+    'languages': languages,
+    'categories': categories,
+    'moods': moods,
+    'sortBy': sortBy,
+    'dateFilter': dateFilter.name,
+  };
 
   factory MomentFilter.fromJson(Map<String, dynamic> json) {
     return MomentFilter(
@@ -67,9 +67,10 @@ class MomentFilter {
           (json['categories'] as List<dynamic>?)?.cast<String>() ?? const [],
       moods: (json['moods'] as List<dynamic>?)?.cast<String>() ?? const [],
       sortBy: json['sortBy'] as String? ?? 'recent',
-      dateFilter:
-          DateFilterType.values.firstWhere((type) => type.name == json['dateFilter'],
-              orElse: () => DateFilterType.allTime),
+      dateFilter: DateFilterType.values.firstWhere(
+        (type) => type.name == json['dateFilter'],
+        orElse: () => DateFilterType.allTime,
+      ),
     );
   }
 }
@@ -250,4 +251,3 @@ extension StringCasingExtension on String {
     return '${this[0].toUpperCase()}${substring(1)}';
   }
 }
-

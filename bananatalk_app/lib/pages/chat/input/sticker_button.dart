@@ -6,11 +6,8 @@ class StickerButton extends StatefulWidget {
   final String sticker;
   final VoidCallback onTap;
 
-  const StickerButton({
-    Key? key,
-    required this.sticker,
-    required this.onTap,
-  }) : super(key: key);
+  const StickerButton({Key? key, required this.sticker, required this.onTap})
+    : super(key: key);
 
   @override
   State<StickerButton> createState() => _StickerButtonState();
@@ -29,13 +26,9 @@ class _StickerButtonState extends State<StickerButton>
       duration: const Duration(milliseconds: 100),
       vsync: this,
     );
-    _scaleAnimation = Tween<double>(
-      begin: 1.0,
-      end: 0.9,
-    ).animate(CurvedAnimation(
-      parent: _animationController,
-      curve: Curves.easeInOut,
-    ));
+    _scaleAnimation = Tween<double>(begin: 1.0, end: 0.9).animate(
+      CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
+    );
   }
 
   @override
@@ -81,10 +74,7 @@ class _StickerButtonState extends State<StickerButton>
               decoration: BoxDecoration(
                 borderRadius: AppRadius.borderSM,
                 color: context.containerColor,
-                border: Border.all(
-                  color: context.dividerColor,
-                  width: 1,
-                ),
+                border: Border.all(color: context.dividerColor, width: 1),
                 boxShadow: _isPressed
                     ? null
                     : [
@@ -98,9 +88,7 @@ class _StickerButtonState extends State<StickerButton>
               child: Center(
                 child: Text(
                   widget.sticker,
-                  style: const TextStyle(
-                    fontSize: 24,
-                  ),
+                  style: const TextStyle(fontSize: 24),
                 ),
               ),
             ),

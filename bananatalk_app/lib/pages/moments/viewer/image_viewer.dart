@@ -8,8 +8,11 @@ class ImageGallery extends StatefulWidget {
   final List<String> imageUrls;
   final int initialIndex;
 
-  const ImageGallery(
-      {super.key, required this.imageUrls, this.initialIndex = 0});
+  const ImageGallery({
+    super.key,
+    required this.imageUrls,
+    this.initialIndex = 0,
+  });
 
   @override
   _ImageGalleryState createState() => _ImageGalleryState();
@@ -63,8 +66,9 @@ class _ImageGalleryState extends State<ImageGallery> {
             tooltip: 'Rotate',
             onPressed: () {
               HapticFeedback.selectionClick();
-              ImageRotationStore.instance
-                  .rotateClockwise(widget.imageUrls[currentIndex]);
+              ImageRotationStore.instance.rotateClockwise(
+                widget.imageUrls[currentIndex],
+              );
             },
           ),
         ],
@@ -86,11 +90,7 @@ class _ImageGalleryState extends State<ImageGallery> {
               ),
             ),
             errorWidget: (context, url, error) => const Center(
-              child: Icon(
-                Icons.broken_image,
-                color: Colors.white54,
-                size: 64,
-              ),
+              child: Icon(Icons.broken_image, color: Colors.white54, size: 64),
             ),
             fadeInDuration: const Duration(milliseconds: 150),
             fadeOutDuration: const Duration(milliseconds: 100),
@@ -105,8 +105,7 @@ class _ImageGalleryState extends State<ImageGallery> {
                 child: AnimatedBuilder(
                   animation: ImageRotationStore.instance,
                   builder: (context, _) {
-                    final turns =
-                        ImageRotationStore.instance.turnsFor(rawUrl);
+                    final turns = ImageRotationStore.instance.turnsFor(rawUrl);
                     return turns == 0
                         ? image
                         : RotatedBox(quarterTurns: turns, child: image);

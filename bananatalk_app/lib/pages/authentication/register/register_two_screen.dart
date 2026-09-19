@@ -498,9 +498,11 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
         });
       }
     } catch (e) {
-      _showError(AppLocalizations.of(context)!.failedToGetLocation);
+      if (mounted) {
+        _showError(AppLocalizations.of(context)!.failedToGetLocation);
+      }
     } finally {
-      setState(() => _isFetchingLocation = false);
+      if (mounted) setState(() => _isFetchingLocation = false);
     }
   }
 

@@ -31,8 +31,7 @@ class WallpaperPickerScreen extends ConsumerStatefulWidget {
       _WallpaperPickerScreenState();
 }
 
-class _WallpaperPickerScreenState
-    extends ConsumerState<WallpaperPickerScreen> {
+class _WallpaperPickerScreenState extends ConsumerState<WallpaperPickerScreen> {
   final ConversationService _conversationService = ConversationService();
   String? _selectedPreset;
   String? _customImagePath;
@@ -43,41 +42,201 @@ class _WallpaperPickerScreenState
   List<Map<String, dynamic>> _getPresets(bool isDark) => isDark
       ? [
           // Dark mode: all dark-friendly wallpapers
-          {'name': 'default', 'label': 'Default', 'backgroundColor': AppColors.backgroundDark, 'icon': Icons.brightness_auto},
-          {'name': 'dark', 'label': 'Dark', 'backgroundColor': const Color(0xFF0D0D0D), 'icon': Icons.dark_mode},
-          {'name': 'midnight', 'label': 'Midnight', 'backgroundColor': const Color(0xFF1A1A2E), 'icon': Icons.nights_stay},
-          {'name': 'charcoal', 'label': 'Charcoal', 'backgroundColor': const Color(0xFF2D2D2D), 'icon': Icons.circle},
-          {'name': 'navy', 'label': 'Navy', 'backgroundColor': const Color(0xFF0A1628), 'icon': Icons.anchor},
-          {'name': 'ocean', 'label': 'Ocean', 'backgroundColor': const Color(0xFF1E3A5F), 'icon': Icons.water},
-          {'name': 'teal', 'label': 'Teal', 'backgroundColor': const Color(0xFF115E59), 'icon': Icons.spa},
-          {'name': 'forest', 'label': 'Forest', 'backgroundColor': const Color(0xFF1B4332), 'icon': Icons.park},
-          {'name': 'sage', 'label': 'Sage', 'backgroundColor': const Color(0xFF4A5D4A), 'icon': Icons.eco},
-          {'name': 'wine', 'label': 'Wine', 'backgroundColor': const Color(0xFF4A1942), 'icon': Icons.wine_bar},
-          {'name': 'plum', 'label': 'Plum', 'backgroundColor': const Color(0xFF5B2C6F), 'icon': Icons.auto_awesome},
-          {'name': 'rose', 'label': 'Rose', 'backgroundColor': const Color(0xFF5C1A3A), 'icon': Icons.favorite},
-          {'name': 'mocha', 'label': 'Mocha', 'backgroundColor': const Color(0xFF4A3728), 'icon': Icons.coffee},
-          {'name': 'slate', 'label': 'Slate', 'backgroundColor': const Color(0xFF1E293B), 'icon': Icons.layers},
-          {'name': 'ember', 'label': 'Ember', 'backgroundColor': const Color(0xFF3B1A1A), 'icon': Icons.local_fire_department},
-          {'name': 'deep_sea', 'label': 'Deep Sea', 'backgroundColor': const Color(0xFF0B2545), 'icon': Icons.scuba_diving},
+          {
+            'name': 'default',
+            'label': 'Default',
+            'backgroundColor': AppColors.backgroundDark,
+            'icon': Icons.brightness_auto,
+          },
+          {
+            'name': 'dark',
+            'label': 'Dark',
+            'backgroundColor': const Color(0xFF0D0D0D),
+            'icon': Icons.dark_mode,
+          },
+          {
+            'name': 'midnight',
+            'label': 'Midnight',
+            'backgroundColor': const Color(0xFF1A1A2E),
+            'icon': Icons.nights_stay,
+          },
+          {
+            'name': 'charcoal',
+            'label': 'Charcoal',
+            'backgroundColor': const Color(0xFF2D2D2D),
+            'icon': Icons.circle,
+          },
+          {
+            'name': 'navy',
+            'label': 'Navy',
+            'backgroundColor': const Color(0xFF0A1628),
+            'icon': Icons.anchor,
+          },
+          {
+            'name': 'ocean',
+            'label': 'Ocean',
+            'backgroundColor': const Color(0xFF1E3A5F),
+            'icon': Icons.water,
+          },
+          {
+            'name': 'teal',
+            'label': 'Teal',
+            'backgroundColor': const Color(0xFF115E59),
+            'icon': Icons.spa,
+          },
+          {
+            'name': 'forest',
+            'label': 'Forest',
+            'backgroundColor': const Color(0xFF1B4332),
+            'icon': Icons.park,
+          },
+          {
+            'name': 'sage',
+            'label': 'Sage',
+            'backgroundColor': const Color(0xFF4A5D4A),
+            'icon': Icons.eco,
+          },
+          {
+            'name': 'wine',
+            'label': 'Wine',
+            'backgroundColor': const Color(0xFF4A1942),
+            'icon': Icons.wine_bar,
+          },
+          {
+            'name': 'plum',
+            'label': 'Plum',
+            'backgroundColor': const Color(0xFF5B2C6F),
+            'icon': Icons.auto_awesome,
+          },
+          {
+            'name': 'rose',
+            'label': 'Rose',
+            'backgroundColor': const Color(0xFF5C1A3A),
+            'icon': Icons.favorite,
+          },
+          {
+            'name': 'mocha',
+            'label': 'Mocha',
+            'backgroundColor': const Color(0xFF4A3728),
+            'icon': Icons.coffee,
+          },
+          {
+            'name': 'slate',
+            'label': 'Slate',
+            'backgroundColor': const Color(0xFF1E293B),
+            'icon': Icons.layers,
+          },
+          {
+            'name': 'ember',
+            'label': 'Ember',
+            'backgroundColor': const Color(0xFF3B1A1A),
+            'icon': Icons.local_fire_department,
+          },
+          {
+            'name': 'deep_sea',
+            'label': 'Deep Sea',
+            'backgroundColor': const Color(0xFF0B2545),
+            'icon': Icons.scuba_diving,
+          },
         ]
       : [
           // Light mode: mix of light and medium wallpapers
-          {'name': 'default', 'label': 'Default', 'backgroundColor': const Color(0xFFF5F5F5), 'icon': Icons.brightness_auto},
-          {'name': 'cream', 'label': 'Cream', 'backgroundColor': const Color(0xFFF5E6D3), 'icon': Icons.light_mode},
-          {'name': 'blush', 'label': 'Blush', 'backgroundColor': const Color(0xFFE8B4BC), 'icon': Icons.favorite_border},
-          {'name': 'peach', 'label': 'Peach', 'backgroundColor': const Color(0xFFE6A67C), 'icon': Icons.wb_sunny},
-          {'name': 'sage', 'label': 'Sage', 'backgroundColor': const Color(0xFF4A5D4A), 'icon': Icons.eco},
-          {'name': 'ocean', 'label': 'Ocean', 'backgroundColor': const Color(0xFF1E3A5F), 'icon': Icons.water},
-          {'name': 'teal', 'label': 'Teal', 'backgroundColor': const Color(0xFF115E59), 'icon': Icons.spa},
-          {'name': 'forest', 'label': 'Forest', 'backgroundColor': const Color(0xFF1B4332), 'icon': Icons.park},
-          {'name': 'rose', 'label': 'Rose', 'backgroundColor': const Color(0xFF8B3A62), 'icon': Icons.favorite},
-          {'name': 'wine', 'label': 'Wine', 'backgroundColor': const Color(0xFF4A1942), 'icon': Icons.wine_bar},
-          {'name': 'plum', 'label': 'Plum', 'backgroundColor': const Color(0xFF5B2C6F), 'icon': Icons.auto_awesome},
-          {'name': 'navy', 'label': 'Navy', 'backgroundColor': const Color(0xFF0A1628), 'icon': Icons.anchor},
-          {'name': 'mocha', 'label': 'Mocha', 'backgroundColor': const Color(0xFF4A3728), 'icon': Icons.coffee},
-          {'name': 'charcoal', 'label': 'Charcoal', 'backgroundColor': const Color(0xFF2D2D2D), 'icon': Icons.circle},
-          {'name': 'midnight', 'label': 'Midnight', 'backgroundColor': const Color(0xFF1A1A2E), 'icon': Icons.nights_stay},
-          {'name': 'dark', 'label': 'Dark', 'backgroundColor': const Color(0xFF0D0D0D), 'icon': Icons.dark_mode},
+          {
+            'name': 'default',
+            'label': 'Default',
+            'backgroundColor': const Color(0xFFF5F5F5),
+            'icon': Icons.brightness_auto,
+          },
+          {
+            'name': 'cream',
+            'label': 'Cream',
+            'backgroundColor': const Color(0xFFF5E6D3),
+            'icon': Icons.light_mode,
+          },
+          {
+            'name': 'blush',
+            'label': 'Blush',
+            'backgroundColor': const Color(0xFFE8B4BC),
+            'icon': Icons.favorite_border,
+          },
+          {
+            'name': 'peach',
+            'label': 'Peach',
+            'backgroundColor': const Color(0xFFE6A67C),
+            'icon': Icons.wb_sunny,
+          },
+          {
+            'name': 'sage',
+            'label': 'Sage',
+            'backgroundColor': const Color(0xFF4A5D4A),
+            'icon': Icons.eco,
+          },
+          {
+            'name': 'ocean',
+            'label': 'Ocean',
+            'backgroundColor': const Color(0xFF1E3A5F),
+            'icon': Icons.water,
+          },
+          {
+            'name': 'teal',
+            'label': 'Teal',
+            'backgroundColor': const Color(0xFF115E59),
+            'icon': Icons.spa,
+          },
+          {
+            'name': 'forest',
+            'label': 'Forest',
+            'backgroundColor': const Color(0xFF1B4332),
+            'icon': Icons.park,
+          },
+          {
+            'name': 'rose',
+            'label': 'Rose',
+            'backgroundColor': const Color(0xFF8B3A62),
+            'icon': Icons.favorite,
+          },
+          {
+            'name': 'wine',
+            'label': 'Wine',
+            'backgroundColor': const Color(0xFF4A1942),
+            'icon': Icons.wine_bar,
+          },
+          {
+            'name': 'plum',
+            'label': 'Plum',
+            'backgroundColor': const Color(0xFF5B2C6F),
+            'icon': Icons.auto_awesome,
+          },
+          {
+            'name': 'navy',
+            'label': 'Navy',
+            'backgroundColor': const Color(0xFF0A1628),
+            'icon': Icons.anchor,
+          },
+          {
+            'name': 'mocha',
+            'label': 'Mocha',
+            'backgroundColor': const Color(0xFF4A3728),
+            'icon': Icons.coffee,
+          },
+          {
+            'name': 'charcoal',
+            'label': 'Charcoal',
+            'backgroundColor': const Color(0xFF2D2D2D),
+            'icon': Icons.circle,
+          },
+          {
+            'name': 'midnight',
+            'label': 'Midnight',
+            'backgroundColor': const Color(0xFF1A1A2E),
+            'icon': Icons.nights_stay,
+          },
+          {
+            'name': 'dark',
+            'label': 'Dark',
+            'backgroundColor': const Color(0xFF0D0D0D),
+            'icon': Icons.dark_mode,
+          },
         ];
 
   // Gradient backgrounds - Modern gradients
@@ -95,7 +254,11 @@ class _WallpaperPickerScreenState
     {
       'name': 'gradient_aurora',
       'label': 'Aurora',
-      'colors': [const Color(0xFF0F2027), const Color(0xFF203A43), const Color(0xFF2C5364)],
+      'colors': [
+        const Color(0xFF0F2027),
+        const Color(0xFF203A43),
+        const Color(0xFF2C5364),
+      ],
     },
     {
       'name': 'gradient_purple',
@@ -165,8 +328,7 @@ class _WallpaperPickerScreenState
           return;
         }
       }
-    } catch (e) {
-    }
+    } catch (e) {}
 
     // Fallback to local storage
     final prefs = await SharedPreferences.getInstance();
@@ -197,7 +359,11 @@ class _WallpaperPickerScreenState
       }
     } catch (e) {
       if (mounted) {
-        showChatSnackBar(context, message: friendlyErrorMessage(AppLocalizations.of(context)!, e), type: ChatSnackBarType.error);
+        showChatSnackBar(
+          context,
+          message: friendlyErrorMessage(AppLocalizations.of(context)!, e),
+          type: ChatSnackBarType.error,
+        );
       }
     }
   }
@@ -208,19 +374,17 @@ class _WallpaperPickerScreenState
     setState(() => _isLoading = true);
 
     try {
-      Map<String, dynamic> theme = {
-        'preset': _selectedPreset,
-      };
+      Map<String, dynamic> theme = {'preset': _selectedPreset};
 
       // Find the preset data
       final isDark = Theme.of(context).brightness == Brightness.dark;
-      final preset = _getPresets(isDark).firstWhere(
-        (p) => p['name'] == _selectedPreset,
-        orElse: () => {},
-      );
+      final preset = _getPresets(
+        isDark,
+      ).firstWhere((p) => p['name'] == _selectedPreset, orElse: () => {});
 
       if (preset.isNotEmpty) {
-        theme['backgroundColor'] = '#${(preset['backgroundColor'] as Color).value.toRadixString(16).substring(2)}';
+        theme['backgroundColor'] =
+            '#${(preset['backgroundColor'] as Color).value.toRadixString(16).substring(2)}';
       }
 
       // Check if it's a gradient
@@ -269,7 +433,9 @@ class _WallpaperPickerScreenState
         Navigator.of(context).pop(true);
         showChatSnackBar(
           context,
-          message: result['success'] == true ? 'Wallpaper updated' : 'Wallpaper saved locally',
+          message: result['success'] == true
+              ? 'Wallpaper updated'
+              : 'Wallpaper saved locally',
           type: ChatSnackBarType.success,
         );
       }
@@ -277,8 +443,16 @@ class _WallpaperPickerScreenState
       if (mounted) {
         // Save locally even if server fails
         await _saveThemeLocally(_selectedPreset!);
+        if (!mounted) return;
+        // Captured before the pop: reading the messenger from this screen's
+        // own context afterwards would be reading a deactivated one.
+        final messenger = ScaffoldMessenger.of(context);
         Navigator.of(context).pop(true);
-        showChatSnackBar(context, message: 'Wallpaper saved locally', type: ChatSnackBarType.info);
+        messenger.showSnackBar(
+          SnackBar(
+            content: Text(AppLocalizations.of(context)!.wallpaperSavedLocally),
+          ),
+        );
       }
     }
   }
@@ -290,7 +464,9 @@ class _WallpaperPickerScreenState
   /// [UnlockCta] "render nothing rather than guess" convention so this
   /// screen never shows a coin surface the backend hasn't turned on.
   List<Widget> _buildPremiumSection() {
-    final coinsEnabled = ref.watch(appConfigProvider).maybeWhen(
+    final coinsEnabled = ref
+        .watch(appConfigProvider)
+        .maybeWhen(
           data: (config) => config?.coinsEnabled ?? false,
           orElse: () => false,
         );
@@ -363,7 +539,9 @@ class _WallpaperPickerScreenState
                         boxShadow: isSelected
                             ? [
                                 BoxShadow(
-                                  color: AppColors.primary.withValues(alpha: 0.3),
+                                  color: AppColors.primary.withValues(
+                                    alpha: 0.3,
+                                  ),
                                   blurRadius: 8,
                                   spreadRadius: 2,
                                 ),
@@ -417,8 +595,9 @@ class _WallpaperPickerScreenState
                   style: TextStyle(
                     fontSize: 11,
                     color: context.textPrimary,
-                    fontWeight:
-                        isSelected ? FontWeight.bold : FontWeight.normal,
+                    fontWeight: isSelected
+                        ? FontWeight.bold
+                        : FontWeight.normal,
                   ),
                   textAlign: TextAlign.center,
                 ),
@@ -537,264 +716,274 @@ class _WallpaperPickerScreenState
           final isDark = context.isDarkMode;
           final presets = _getPresets(isDark);
           return SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Chat wallpaper for ${widget.userName}',
-              style: TextStyle(color: context.textSecondary),
-            ),
-            Spacing.gapLG,
-
-            // Solid Colors Section
-            Text(
-              'Solid Colors',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: context.textPrimary,
-              ),
-            ),
-            Spacing.gapMD,
-            GridView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 4,
-                crossAxisSpacing: 12,
-                mainAxisSpacing: 12,
-                childAspectRatio: 0.8,
-              ),
-              itemCount: presets.length,
-              itemBuilder: (context, index) {
-                final preset = presets[index];
-                final isSelected = _selectedPreset == preset['name'];
-                
-                return GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      _selectedPreset = preset['name'];
-                      _customImagePath = null;
-                    });
-                  },
-                  child: Column(
-                    children: [
-                      Container(
-                        width: 60,
-                        height: 60,
-                        decoration: BoxDecoration(
-                          color: preset['backgroundColor'],
-                          borderRadius: AppRadius.borderMD,
-                          border: Border.all(
-                            color: isSelected
-                                ? AppColors.primary
-                                : context.dividerColor,
-                            width: isSelected ? 3 : 1,
-                          ),
-                          boxShadow: isSelected
-                              ? [
-                                  BoxShadow(
-                                    color: AppColors.primary.withValues(alpha: 0.3),
-                                    blurRadius: 8,
-                                    spreadRadius: 2,
-                                  ),
-                                ]
-                              : null,
-                        ),
-                        child: Builder(builder: (context) {
-                          // Use light icon on dark backgrounds
-                          final bg = preset['backgroundColor'] as Color;
-                          final isLightBg = bg.computeLuminance() > 0.5;
-                          return Icon(
-                            preset['icon'],
-                            color: isLightBg ? AppColors.gray600 : AppColors.white,
-                          );
-                        }),
-                      ),
-                      Spacing.gapXS,
-                      Text(
-                        preset['label'],
-                        style: TextStyle(
-                          fontSize: 11,
-                          color: context.textPrimary,
-                          fontWeight:
-                              isSelected ? FontWeight.bold : FontWeight.normal,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
-                  ),
-                );
-              },
-            ),
-            
-            Spacing.gapLG,
-            
-            // Gradients Section
-            Text(
-              'Gradients',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: context.textPrimary,
-              ),
-            ),
-            Spacing.gapMD,
-            GridView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 4,
-                crossAxisSpacing: 12,
-                mainAxisSpacing: 12,
-                childAspectRatio: 0.8,
-              ),
-              itemCount: _gradients.length,
-              itemBuilder: (context, index) {
-                final gradient = _gradients[index];
-                final isSelected = _selectedPreset == gradient['name'];
-
-                return GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      _selectedPreset = gradient['name'];
-                      _customImagePath = null;
-                    });
-                  },
-                  child: Column(
-                    children: [
-                      Container(
-                        width: 60,
-                        height: 60,
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: gradient['colors'],
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                          ),
-                          borderRadius: AppRadius.borderMD,
-                          border: Border.all(
-                            color: isSelected
-                                ? AppColors.primary
-                                : context.dividerColor,
-                            width: isSelected ? 3 : 1,
-                          ),
-                          boxShadow: isSelected
-                              ? [
-                                  BoxShadow(
-                                    color: AppColors.primary.withValues(alpha: 0.3),
-                                    blurRadius: 8,
-                                    spreadRadius: 2,
-                                  ),
-                                ]
-                              : null,
-                        ),
-                      ),
-                      Spacing.gapXS,
-                      Text(
-                        gradient['label'],
-                        style: TextStyle(
-                          fontSize: 11,
-                          color: context.textPrimary,
-                          fontWeight:
-                              isSelected ? FontWeight.bold : FontWeight.normal,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
-                  ),
-                );
-              },
-            ),
-
-            Spacing.gapLG,
-
-            // Premium Gradients Section (coin-unlockable, Task 12) — hidden
-            // entirely when coins are off or the `wallpaper` catalog key
-            // isn't present server-side.
-            ..._buildPremiumSection(),
-
-            // Custom Image Section
-            Text(
-              'Custom Image',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: context.textPrimary,
-              ),
-            ),
-            Spacing.gapMD,
-            GestureDetector(
-              onTap: _pickCustomImage,
-              child: Container(
-                width: double.infinity,
-                height: 120,
-                decoration: BoxDecoration(
-                  color: context.containerColor,
-                  borderRadius: AppRadius.borderMD,
-                  border: Border.all(
-                    color: _selectedPreset == 'custom'
-                        ? AppColors.primary
-                        : context.dividerColor,
-                    width: _selectedPreset == 'custom' ? 3 : 1,
-                  ),
-                  image: _customImagePath != null
-                      ? DecorationImage(
-                          image: FileImage(File(_customImagePath!)),
-                          fit: BoxFit.cover,
-                        )
-                      : null,
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Chat wallpaper for ${widget.userName}',
+                  style: TextStyle(color: context.textSecondary),
                 ),
-                child: _customImagePath == null
-                    ? Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                Spacing.gapLG,
+
+                // Solid Colors Section
+                Text(
+                  'Solid Colors',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: context.textPrimary,
+                  ),
+                ),
+                Spacing.gapMD,
+                GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 4,
+                    crossAxisSpacing: 12,
+                    mainAxisSpacing: 12,
+                    childAspectRatio: 0.8,
+                  ),
+                  itemCount: presets.length,
+                  itemBuilder: (context, index) {
+                    final preset = presets[index];
+                    final isSelected = _selectedPreset == preset['name'];
+
+                    return GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _selectedPreset = preset['name'];
+                          _customImagePath = null;
+                        });
+                      },
+                      child: Column(
                         children: [
-                          Icon(
-                            Icons.add_photo_alternate,
-                            size: 40,
-                            color: context.textHint,
+                          Container(
+                            width: 60,
+                            height: 60,
+                            decoration: BoxDecoration(
+                              color: preset['backgroundColor'],
+                              borderRadius: AppRadius.borderMD,
+                              border: Border.all(
+                                color: isSelected
+                                    ? AppColors.primary
+                                    : context.dividerColor,
+                                width: isSelected ? 3 : 1,
+                              ),
+                              boxShadow: isSelected
+                                  ? [
+                                      BoxShadow(
+                                        color: AppColors.primary.withValues(
+                                          alpha: 0.3,
+                                        ),
+                                        blurRadius: 8,
+                                        spreadRadius: 2,
+                                      ),
+                                    ]
+                                  : null,
+                            ),
+                            child: Builder(
+                              builder: (context) {
+                                // Use light icon on dark backgrounds
+                                final bg = preset['backgroundColor'] as Color;
+                                final isLightBg = bg.computeLuminance() > 0.5;
+                                return Icon(
+                                  preset['icon'],
+                                  color: isLightBg
+                                      ? AppColors.gray600
+                                      : AppColors.white,
+                                );
+                              },
+                            ),
                           ),
-                          Spacing.gapSM,
+                          Spacing.gapXS,
                           Text(
-                            'Choose from gallery',
-                            style: TextStyle(color: context.textSecondary),
+                            preset['label'],
+                            style: TextStyle(
+                              fontSize: 11,
+                              color: context.textPrimary,
+                              fontWeight: isSelected
+                                  ? FontWeight.bold
+                                  : FontWeight.normal,
+                            ),
+                            textAlign: TextAlign.center,
                           ),
                         ],
-                      )
-                    : null,
-              ),
+                      ),
+                    );
+                  },
+                ),
+
+                Spacing.gapLG,
+
+                // Gradients Section
+                Text(
+                  'Gradients',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: context.textPrimary,
+                  ),
+                ),
+                Spacing.gapMD,
+                GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 4,
+                    crossAxisSpacing: 12,
+                    mainAxisSpacing: 12,
+                    childAspectRatio: 0.8,
+                  ),
+                  itemCount: _gradients.length,
+                  itemBuilder: (context, index) {
+                    final gradient = _gradients[index];
+                    final isSelected = _selectedPreset == gradient['name'];
+
+                    return GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _selectedPreset = gradient['name'];
+                          _customImagePath = null;
+                        });
+                      },
+                      child: Column(
+                        children: [
+                          Container(
+                            width: 60,
+                            height: 60,
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: gradient['colors'],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                              ),
+                              borderRadius: AppRadius.borderMD,
+                              border: Border.all(
+                                color: isSelected
+                                    ? AppColors.primary
+                                    : context.dividerColor,
+                                width: isSelected ? 3 : 1,
+                              ),
+                              boxShadow: isSelected
+                                  ? [
+                                      BoxShadow(
+                                        color: AppColors.primary.withValues(
+                                          alpha: 0.3,
+                                        ),
+                                        blurRadius: 8,
+                                        spreadRadius: 2,
+                                      ),
+                                    ]
+                                  : null,
+                            ),
+                          ),
+                          Spacing.gapXS,
+                          Text(
+                            gradient['label'],
+                            style: TextStyle(
+                              fontSize: 11,
+                              color: context.textPrimary,
+                              fontWeight: isSelected
+                                  ? FontWeight.bold
+                                  : FontWeight.normal,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+
+                Spacing.gapLG,
+
+                // Premium Gradients Section (coin-unlockable, Task 12) — hidden
+                // entirely when coins are off or the `wallpaper` catalog key
+                // isn't present server-side.
+                ..._buildPremiumSection(),
+
+                // Custom Image Section
+                Text(
+                  'Custom Image',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: context.textPrimary,
+                  ),
+                ),
+                Spacing.gapMD,
+                GestureDetector(
+                  onTap: _pickCustomImage,
+                  child: Container(
+                    width: double.infinity,
+                    height: 120,
+                    decoration: BoxDecoration(
+                      color: context.containerColor,
+                      borderRadius: AppRadius.borderMD,
+                      border: Border.all(
+                        color: _selectedPreset == 'custom'
+                            ? AppColors.primary
+                            : context.dividerColor,
+                        width: _selectedPreset == 'custom' ? 3 : 1,
+                      ),
+                      image: _customImagePath != null
+                          ? DecorationImage(
+                              image: FileImage(File(_customImagePath!)),
+                              fit: BoxFit.cover,
+                            )
+                          : null,
+                    ),
+                    child: _customImagePath == null
+                        ? Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.add_photo_alternate,
+                                size: 40,
+                                color: context.textHint,
+                              ),
+                              Spacing.gapSM,
+                              Text(
+                                'Choose from gallery',
+                                style: TextStyle(color: context.textSecondary),
+                              ),
+                            ],
+                          )
+                        : null,
+                  ),
+                ),
+
+                Spacing.gapXL,
+
+                // Preview Section
+                if (_selectedPreset != null) ...[
+                  Text(
+                    'Preview',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: context.textPrimary,
+                    ),
+                  ),
+                  Spacing.gapMD,
+                  Container(
+                    width: double.infinity,
+                    height: 200,
+                    decoration: BoxDecoration(
+                      borderRadius: AppRadius.borderMD,
+                      border: Border.all(color: context.dividerColor),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(11),
+                      child: _buildPreview(),
+                    ),
+                  ),
+                ],
+              ],
             ),
-
-            Spacing.gapXL,
-
-            // Preview Section
-            if (_selectedPreset != null) ...[
-              Text(
-                'Preview',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: context.textPrimary,
-                ),
-              ),
-              Spacing.gapMD,
-              Container(
-                width: double.infinity,
-                height: 200,
-                decoration: BoxDecoration(
-                  borderRadius: AppRadius.borderMD,
-                  border: Border.all(color: context.dividerColor),
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(11),
-                  child: _buildPreview(),
-                ),
-              ),
-            ],
-          ],
-        ),
-      );
+          );
         },
       ),
     );
@@ -837,11 +1026,13 @@ class _WallpaperPickerScreenState
           final presets = _getPresets(isDark);
           final preset = presets.firstWhere(
             (p) => p['name'] == _selectedPreset,
-            orElse: () => {'backgroundColor': isDark ? AppColors.backgroundDark : AppColors.gray100},
+            orElse: () => {
+              'backgroundColor': isDark
+                  ? AppColors.backgroundDark
+                  : AppColors.gray100,
+            },
           );
-          background = Container(
-            color: preset['backgroundColor'] as Color,
-          );
+          background = Container(color: preset['backgroundColor'] as Color);
         }
       }
     }
@@ -862,7 +1053,10 @@ class _WallpaperPickerScreenState
               color: otherBubbleColor,
               borderRadius: AppRadius.borderMD,
             ),
-            child: Text(AppLocalizations.of(context)!.chatWallpaperPreviewHello, style: TextStyle(color: otherTextColor)),
+            child: Text(
+              AppLocalizations.of(context)!.chatWallpaperPreviewHello,
+              style: TextStyle(color: otherTextColor),
+            ),
           ),
         ),
         Positioned(
@@ -889,11 +1083,13 @@ class _WallpaperPickerScreenState
               color: otherBubbleColor,
               borderRadius: AppRadius.borderMD,
             ),
-            child: Text(AppLocalizations.of(context)!.chatWallpaperPreviewHow, style: TextStyle(color: otherTextColor)),
+            child: Text(
+              AppLocalizations.of(context)!.chatWallpaperPreviewHow,
+              style: TextStyle(color: otherTextColor),
+            ),
           ),
         ),
       ],
     );
   }
 }
-

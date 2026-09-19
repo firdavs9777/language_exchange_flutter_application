@@ -239,7 +239,8 @@ class _ChatInputBarState extends ConsumerState<ChatInputBar>
 
   Widget _buildReplyPreview(BuildContext context, bool isDark) {
     final replyMessage = widget.replyingToMessage!;
-    final replyText = replyMessage.message ??
+    final replyText =
+        replyMessage.message ??
         (replyMessage.media != null ? '📷 Media' : 'Message');
 
     return Container(
@@ -250,20 +251,11 @@ class _ChatInputBarState extends ConsumerState<ChatInputBar>
             ? AppColors.primary.withValues(alpha: 0.1)
             : AppColors.primary.withValues(alpha: 0.06),
         borderRadius: BorderRadius.circular(14),
-        border: Border(
-          left: BorderSide(
-            color: AppColors.primary,
-            width: 3,
-          ),
-        ),
+        border: Border(left: BorderSide(color: AppColors.primary, width: 3)),
       ),
       child: Row(
         children: [
-          Icon(
-            Icons.reply_rounded,
-            size: 16,
-            color: AppColors.primary,
-          ),
+          Icon(Icons.reply_rounded, size: 16, color: AppColors.primary),
           const SizedBox(width: 8),
           Expanded(
             child: Column(
@@ -283,10 +275,7 @@ class _ChatInputBarState extends ConsumerState<ChatInputBar>
                   replyText,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    fontSize: 13,
-                    color: context.textSecondary,
-                  ),
+                  style: TextStyle(fontSize: 13, color: context.textSecondary),
                 ),
               ],
             ),
@@ -425,7 +414,9 @@ class _ChatInputBarState extends ConsumerState<ChatInputBar>
         width: 44,
         height: 44,
         decoration: BoxDecoration(
-          color: tint.withValues(alpha: isActive ? 0.22 : (isDark ? 0.14 : 0.08)),
+          color: tint.withValues(
+            alpha: isActive ? 0.22 : (isDark ? 0.14 : 0.08),
+          ),
           borderRadius: BorderRadius.circular(14),
         ),
         child: Icon(
@@ -447,7 +438,9 @@ class _ChatInputBarState extends ConsumerState<ChatInputBar>
         width: 44,
         height: 44,
         decoration: BoxDecoration(
-          color: accent.withValues(alpha: isActive ? 0.22 : (isDark ? 0.14 : 0.08)),
+          color: accent.withValues(
+            alpha: isActive ? 0.22 : (isDark ? 0.14 : 0.08),
+          ),
           borderRadius: BorderRadius.circular(14),
         ),
         child: isActive
@@ -461,11 +454,7 @@ class _ChatInputBarState extends ConsumerState<ChatInputBar>
                   ),
                 ),
               )
-            : const Icon(
-                Icons.translate_rounded,
-                color: accent,
-                size: 24,
-              ),
+            : const Icon(Icons.translate_rounded, color: accent, size: 24),
       ),
     );
   }
@@ -485,10 +474,10 @@ class _ChatInputBarState extends ConsumerState<ChatInputBar>
         break;
       }
     }
-    final flag = backendLang?.flag ??
-        TranslationService.getLanguageFlag(targetCode);
-    final name = backendLang?.name ??
-        TranslationService.getLanguageName(targetCode);
+    final flag =
+        backendLang?.flag ?? TranslationService.getLanguageFlag(targetCode);
+    final name =
+        backendLang?.name ?? TranslationService.getLanguageName(targetCode);
     final preview = _translatedText;
 
     return Container(
@@ -499,9 +488,7 @@ class _ChatInputBarState extends ConsumerState<ChatInputBar>
             ? accent.withValues(alpha: 0.10)
             : accent.withValues(alpha: 0.06),
         borderRadius: BorderRadius.circular(14),
-        border: const Border(
-          left: BorderSide(color: accent, width: 3),
-        ),
+        border: const Border(left: BorderSide(color: accent, width: 3)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -543,8 +530,8 @@ class _ChatInputBarState extends ConsumerState<ChatInputBar>
                 Text(
                   preview == null || preview.isEmpty
                       ? (_hasText
-                          ? 'Translating…'
-                          : 'Start typing to see the translation')
+                            ? 'Translating…'
+                            : 'Start typing to see the translation')
                       : preview,
                   style: TextStyle(
                     fontSize: 14,
@@ -552,8 +539,9 @@ class _ChatInputBarState extends ConsumerState<ChatInputBar>
                     color: preview == null
                         ? context.textHint
                         : (isDark ? Colors.white : Colors.black87),
-                    fontStyle:
-                        preview == null ? FontStyle.italic : FontStyle.normal,
+                    fontStyle: preview == null
+                        ? FontStyle.italic
+                        : FontStyle.normal,
                   ),
                 ),
               ],
@@ -595,8 +583,9 @@ class _ChatInputBarState extends ConsumerState<ChatInputBar>
       if (response.statusCode == 200) {
         final decoded = json.decode(response.body);
         final List<dynamic> list = decoded['data'] ?? [];
-        _allLanguages =
-            list.map<Language>((j) => Language.fromJson(j)).toList();
+        _allLanguages = list
+            .map<Language>((j) => Language.fromJson(j))
+            .toList();
       }
     } catch (_) {
       // Best-effort; the picker fallback handles an empty list.
@@ -618,14 +607,16 @@ class _ChatInputBarState extends ConsumerState<ChatInputBar>
     final languages = _allLanguages.isNotEmpty
         ? _allLanguages
         : TranslationService.supportedLanguages
-            .map((m) => Language(
+              .map(
+                (m) => Language(
                   id: m['code'] ?? '',
                   code: m['code'] ?? '',
                   name: m['name'] ?? '',
                   nativeName: m['name'] ?? '',
                   backendFlag: m['flag'],
-                ))
-            .toList();
+                ),
+              )
+              .toList();
 
     if (languages.isEmpty) return;
 
@@ -666,7 +657,8 @@ class _ChatInputBarState extends ConsumerState<ChatInputBar>
 
     final user = ref.read(userProvider).valueOrNull;
     final sourceCode = TranslationService.codeForLanguageName(
-        user?.native_language ?? '');
+      user?.native_language ?? '',
+    );
 
     setState(() => _translating = true);
     final result = await TranslationService.translateWord(
@@ -722,8 +714,8 @@ class _ChatInputBarState extends ConsumerState<ChatInputBar>
       onTap: !canSend
           ? null
           : _hasText
-              ? _handleSend
-              : widget.onAudioPressed,
+          ? _handleSend
+          : widget.onAudioPressed,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 250),
         curve: Curves.easeOutCubic,
@@ -740,8 +732,8 @@ class _ChatInputBarState extends ConsumerState<ChatInputBar>
           color: _hasText
               ? null
               : isDark
-                  ? Colors.white.withValues(alpha: 0.06)
-                  : Colors.black.withValues(alpha: 0.04),
+              ? Colors.white.withValues(alpha: 0.06)
+              : Colors.black.withValues(alpha: 0.04),
           shape: BoxShape.circle,
           boxShadow: _hasText && canSend
               ? [
@@ -756,10 +748,8 @@ class _ChatInputBarState extends ConsumerState<ChatInputBar>
         child: Center(
           child: AnimatedSwitcher(
             duration: const Duration(milliseconds: 200),
-            transitionBuilder: (child, animation) => ScaleTransition(
-              scale: animation,
-              child: child,
-            ),
+            transitionBuilder: (child, animation) =>
+                ScaleTransition(scale: animation, child: child),
             child: _buildSendIcon(context, isDark, isUploadingMedia, canSend),
           ),
         ),
@@ -768,7 +758,11 @@ class _ChatInputBarState extends ConsumerState<ChatInputBar>
   }
 
   Widget _buildSendIcon(
-      BuildContext context, bool isDark, bool isUploadingMedia, bool canSend) {
+    BuildContext context,
+    bool isDark,
+    bool isUploadingMedia,
+    bool canSend,
+  ) {
     // Sending text (not media upload) — spinner
     if (widget.isSending && !isUploadingMedia) {
       return const SizedBox(
@@ -789,11 +783,7 @@ class _ChatInputBarState extends ConsumerState<ChatInputBar>
       return const Padding(
         key: ValueKey('send'),
         padding: EdgeInsets.only(left: 2),
-        child: Icon(
-          Icons.send_rounded,
-          color: Colors.white,
-          size: 24,
-        ),
+        child: Icon(Icons.send_rounded, color: Colors.white, size: 24),
       );
     }
 
@@ -846,5 +836,4 @@ class _ChatInputBarState extends ConsumerState<ChatInputBar>
       ),
     );
   }
-
 }

@@ -48,10 +48,8 @@ class ChatStateNotifier extends StateNotifier<ChatState> {
   final String currentUserId;
   ChatSocketStateManager? _socketManager;
 
-  ChatStateNotifier({
-    required this.chatPartnerId,
-    required this.currentUserId,
-  }) : super(ChatState());
+  ChatStateNotifier({required this.chatPartnerId, required this.currentUserId})
+    : super(ChatState());
 
   Future<void> initialize() async {
     _socketManager = ChatSocketStateManager(
@@ -73,8 +71,10 @@ class ChatStateNotifier extends StateNotifier<ChatState> {
       final messages = List<Message>.from(state.messages);
       if (!messages.any((m) => m.id == message.id)) {
         messages.add(message);
-        messages.sort((a, b) => 
-          DateTime.parse(a.createdAt).compareTo(DateTime.parse(b.createdAt))
+        messages.sort(
+          (a, b) => DateTime.parse(
+            a.createdAt,
+          ).compareTo(DateTime.parse(b.createdAt)),
         );
         state = state.copyWith(messages: messages);
         _socketManager!.markAsRead();
@@ -84,11 +84,11 @@ class ChatStateNotifier extends StateNotifier<ChatState> {
     _socketManager!.onMessageDeleted = (data) {
       final messageId = data['messageId']?.toString();
       final deletedForEveryone = data['deletedForEveryone'] ?? false;
-      
+
       if (messageId != null) {
         final messages = List<Message>.from(state.messages);
         final index = messages.indexWhere((m) => m.id == messageId);
-        
+
         if (index != -1) {
           if (deletedForEveryone) {
             final json = messages[index].toJson();
@@ -184,9 +184,14 @@ class ChatStateNotifier extends StateNotifier<ChatState> {
 }
 
 // Provider
-final chatStateProvider = StateNotifierProvider.family<ChatStateNotifier, ChatState, Map<String, String>>(
-  (ref, params) => ChatStateNotifier(
-    chatPartnerId: params['chatPartnerId']!,
-    currentUserId: params['currentUserId']!,
-  ),
-);
+final chatStateProvider =
+    StateNotifierProvider.family<
+      ChatStateNotifier,
+      ChatState,
+      Map<String, String>
+    >(
+      (ref, params) => ChatStateNotifier(
+        chatPartnerId: params['chatPartnerId']!,
+        currentUserId: params['currentUserId']!,
+      ),
+    );

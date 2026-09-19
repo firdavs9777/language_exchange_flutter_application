@@ -35,10 +35,7 @@ class MediaOptionButton extends StatelessWidget {
                 end: Alignment.bottomRight,
               ),
               borderRadius: AppRadius.borderMD,
-              border: Border.all(
-                color: color.withValues(alpha: 0.2),
-                width: 1,
-              ),
+              border: Border.all(color: color.withValues(alpha: 0.2), width: 1),
               boxShadow: [
                 BoxShadow(
                   color: color.withValues(alpha: 0.1),
@@ -47,19 +44,13 @@ class MediaOptionButton extends StatelessWidget {
                 ),
               ],
             ),
-            child: Icon(
-              icon,
-              size: 28,
-              color: color,
-            ),
+            child: Icon(icon, size: 28, color: color),
           ),
           Spacing.gapSM,
           Builder(
             builder: (context) => Text(
               label,
-              style: context.labelMedium.copyWith(
-                fontWeight: FontWeight.w600,
-              ),
+              style: context.labelMedium.copyWith(fontWeight: FontWeight.w600),
             ),
           ),
         ],

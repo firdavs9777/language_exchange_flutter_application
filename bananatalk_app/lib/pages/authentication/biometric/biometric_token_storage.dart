@@ -14,7 +14,8 @@ class BiometricTokenStorage {
     ),
   );
 
-  Future<void> save(String token) => _storage.write(key: _tokenKey, value: token);
+  Future<void> save(String token) =>
+      _storage.write(key: _tokenKey, value: token);
 
   Future<String?> read() async {
     try {

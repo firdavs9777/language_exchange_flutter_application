@@ -100,7 +100,10 @@ class _ChatTypingIndicatorState extends State<ChatTypingIndicator>
               ),
               const SizedBox(width: 8),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 12,
+                ),
                 decoration: BoxDecoration(
                   color: context.containerColor,
                   borderRadius: const BorderRadius.only(
@@ -238,7 +241,8 @@ class _CompactTypingIndicatorState extends State<CompactTypingIndicator>
 
   Widget _buildDot(double delay) {
     final progress = (_controller.value + delay) % 1.0;
-    final opacity = 0.3 + (0.7 * (progress < 0.5 ? progress * 2 : (1 - progress) * 2));
+    final opacity =
+        0.3 + (0.7 * (progress < 0.5 ? progress * 2 : (1 - progress) * 2));
 
     return Container(
       width: 4,

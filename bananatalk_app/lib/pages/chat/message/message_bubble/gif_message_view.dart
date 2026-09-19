@@ -32,16 +32,13 @@ class GifMessageView extends StatelessWidget {
     return GestureDetector(
       onLongPress: onLongPress,
       child: Column(
-        crossAxisAlignment:
-            isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+        crossAxisAlignment: isMe
+            ? CrossAxisAlignment.end
+            : CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
           if (message.replyTo != null)
-            ReplyPreview(
-              message: message,
-              isMe: isMe,
-              onReplyTap: onReplyTap,
-            ),
+            ReplyPreview(message: message, isMe: isMe, onReplyTap: onReplyTap),
           ClipRRect(
             borderRadius: BorderRadius.only(
               topLeft: const Radius.circular(20),

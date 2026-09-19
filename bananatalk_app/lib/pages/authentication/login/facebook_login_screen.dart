@@ -200,17 +200,16 @@ class _FacebookLoginState extends ConsumerState<FacebookLogin> {
                       height: 100,
                       decoration: BoxDecoration(
                         gradient: const LinearGradient(
-                          colors: [
-                            Color(0xFF1877F2),
-                            Color(0xFF0C63D4),
-                          ],
+                          colors: [Color(0xFF1877F2), Color(0xFF0C63D4)],
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
                         ),
                         borderRadius: BorderRadius.circular(30),
                         boxShadow: [
                           BoxShadow(
-                            color: const Color(0xFF1877F2).withValues(alpha: 0.3),
+                            color: const Color(
+                              0xFF1877F2,
+                            ).withValues(alpha: 0.3),
                             blurRadius: 20,
                             offset: const Offset(0, 10),
                           ),
@@ -348,9 +347,7 @@ class _FacebookLoginState extends ConsumerState<FacebookLogin> {
                                 ),
                                 child: const Text(
                                   'Try Again',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                  ),
+                                  style: TextStyle(fontWeight: FontWeight.w600),
                                 ),
                               ),
                             ),
@@ -364,10 +361,7 @@ class _FacebookLoginState extends ConsumerState<FacebookLogin> {
                     // Back to Sign In Methods Link
                     TextButton.icon(
                       onPressed: () => Navigator.of(context).pop(),
-                      icon: const Icon(
-                        Icons.arrow_back,
-                        size: 18,
-                      ),
+                      icon: const Icon(Icons.arrow_back, size: 18),
                       label: const Text(
                         'Back to sign-in methods',
                         style: TextStyle(

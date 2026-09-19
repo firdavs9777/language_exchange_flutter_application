@@ -121,25 +121,28 @@ class ReelFailureDiagnostics {
           .timeout(const Duration(seconds: 10));
       status = response.statusCode;
       contentType = response.headers['content-type'];
-      contentLength = response.headers['content-range'] ??
+      contentLength =
+          response.headers['content-range'] ??
           response.headers['content-length'];
-      cdnCache = response.headers['cf-cache-status'] ??
-          response.headers['x-cache'];
+      cdnCache =
+          response.headers['cf-cache-status'] ?? response.headers['x-cache'];
     } catch (e) {
       status = -1;
       contentType = null;
       debugPrint('  (diagnostic probe failed: $e)');
     }
 
-    debugPrint(describe(
-      url: url,
-      usingCache: usingCache,
-      status: status,
-      contentType: contentType,
-      contentLength: contentLength,
-      cdnCacheStatus: cdnCache,
-      cachedPath: cachedPath,
-      cachedBytes: cachedBytes,
-    ));
+    debugPrint(
+      describe(
+        url: url,
+        usingCache: usingCache,
+        status: status,
+        contentType: contentType,
+        contentLength: contentLength,
+        cdnCacheStatus: cdnCache,
+        cachedPath: cachedPath,
+        cachedBytes: cachedBytes,
+      ),
+    );
   }
 }

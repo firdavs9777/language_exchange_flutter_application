@@ -34,7 +34,7 @@ class _ChatSearchScreenState extends State<ChatSearchScreen> {
   final TextEditingController _searchController = TextEditingController();
   final FocusNode _searchFocusNode = FocusNode();
   final ConversationService _conversationService = ConversationService();
-  
+
   List<Message> _searchResults = [];
   bool _isLoading = false;
   String? _error;
@@ -60,7 +60,7 @@ class _ChatSearchScreenState extends State<ChatSearchScreen> {
 
   void _onSearchChanged(String query) {
     _debounceTimer?.cancel();
-    
+
     if (query.trim().isEmpty) {
       setState(() {
         _searchResults = [];
@@ -165,8 +165,7 @@ class _ChatSearchScreenState extends State<ChatSearchScreen> {
       text: TextSpan(
         style: TextStyle(color: context.textSecondary),
         children: [
-          if (matchIndex > 0)
-            TextSpan(text: text.substring(0, matchIndex)),
+          if (matchIndex > 0) TextSpan(text: text.substring(0, matchIndex)),
           TextSpan(
             text: text.substring(matchIndex, matchIndex + query.length),
             style: TextStyle(
@@ -191,7 +190,9 @@ class _ChatSearchScreenState extends State<ChatSearchScreen> {
           focusNode: _searchFocusNode,
           onChanged: _onSearchChanged,
           decoration: InputDecoration(
-            hintText: AppLocalizations.of(context)!.searchInChatWith(widget.otherUserName),
+            hintText: AppLocalizations.of(
+              context,
+            )!.searchInChatWith(widget.otherUserName),
             border: InputBorder.none,
             hintStyle: TextStyle(color: context.textHint),
           ),
@@ -214,9 +215,7 @@ class _ChatSearchScreenState extends State<ChatSearchScreen> {
 
   Widget _buildBody() {
     if (_isLoading) {
-      return const Center(
-        child: CircularProgressIndicator(),
-      );
+      return const Center(child: CircularProgressIndicator());
     }
 
     if (_error != null) {
@@ -245,7 +244,9 @@ class _ChatSearchScreenState extends State<ChatSearchScreen> {
       return ChatEmptyState(
         icon: Icons.search,
         title: AppLocalizations.of(context)!.search,
-        body: AppLocalizations.of(context)!.searchInChatWith(widget.otherUserName),
+        body: AppLocalizations.of(
+          context,
+        )!.searchInChatWith(widget.otherUserName),
       );
     }
 
@@ -269,7 +270,7 @@ class _ChatSearchScreenState extends State<ChatSearchScreen> {
   Widget _buildSearchResultItem(Message message) {
     final messageText = message.message ?? '[Media]';
     final senderName = message.sender.name ?? 'Unknown';
-    
+
     return ListTile(
       leading: CircleAvatar(
         backgroundColor: Theme.of(context).primaryColor.withValues(alpha: 0.1),
@@ -288,17 +289,11 @@ class _ChatSearchScreenState extends State<ChatSearchScreen> {
       ),
       title: Row(
         children: [
-          Text(
-            senderName,
-            style: const TextStyle(fontWeight: FontWeight.w600),
-          ),
+          Text(senderName, style: const TextStyle(fontWeight: FontWeight.w600)),
           Spacing.hGapSM,
           Text(
             _formatDate(message.createdAt),
-            style: TextStyle(
-              fontSize: 12,
-              color: context.textHint,
-            ),
+            style: TextStyle(fontSize: 12, color: context.textHint),
           ),
         ],
       ),
@@ -315,4 +310,3 @@ class _ChatSearchScreenState extends State<ChatSearchScreen> {
     );
   }
 }
-

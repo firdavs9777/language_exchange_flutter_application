@@ -22,7 +22,8 @@ const String premiumWallpaperPrefix = 'premium_';
 
 /// Whether [name] is one of the premium (coin-gated) preset names, purely
 /// by its `premium_` prefix — does not check entitlement.
-bool isPremiumWallpaperName(String name) => name.startsWith(premiumWallpaperPrefix);
+bool isPremiumWallpaperName(String name) =>
+    name.startsWith(premiumWallpaperPrefix);
 
 class PremiumWallpaper {
   final String name;
@@ -36,10 +37,10 @@ class PremiumWallpaper {
   });
 
   LinearGradient get gradient => LinearGradient(
-        colors: colors,
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
-      );
+    colors: colors,
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
 }
 
 /// The full premium pack — 6 gradients, shared as-is for light/dark (unlike

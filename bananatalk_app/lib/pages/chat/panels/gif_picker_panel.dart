@@ -54,10 +54,7 @@ class _GifPickerStateModel {
 class GifPickerPanel extends ConsumerStatefulWidget {
   final void Function(GiphyGif gif) onGifSelected;
 
-  const GifPickerPanel({
-    super.key,
-    required this.onGifSelected,
-  });
+  const GifPickerPanel({super.key, required this.onGifSelected});
 
   /// Opens the GIF picker as a modal bottom sheet.
   ///
@@ -68,9 +65,8 @@ class GifPickerPanel extends ConsumerStatefulWidget {
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      builder: (context) => GifPickerPanel(
-        onGifSelected: (gif) => Navigator.pop(context, gif),
-      ),
+      builder: (context) =>
+          GifPickerPanel(onGifSelected: (gif) => Navigator.pop(context, gif)),
     );
   }
 
@@ -107,10 +103,7 @@ class _GifPickerPanelState extends ConsumerState<GifPickerPanel> {
 
   Future<void> _loadTrending() async {
     setState(() {
-      _model = _model.copyWith(
-        state: _PickerState.loading,
-        isSearching: false,
-      );
+      _model = _model.copyWith(state: _PickerState.loading, isSearching: false);
     });
 
     try {
@@ -118,10 +111,7 @@ class _GifPickerPanelState extends ConsumerState<GifPickerPanel> {
       final gifs = await service.getTrendingGifs();
       if (mounted) {
         setState(() {
-          _model = _model.copyWith(
-            gifs: gifs,
-            state: _PickerState.loaded,
-          );
+          _model = _model.copyWith(gifs: gifs, state: _PickerState.loaded);
         });
       }
     } catch (e) {
@@ -143,10 +133,7 @@ class _GifPickerPanelState extends ConsumerState<GifPickerPanel> {
     }
 
     setState(() {
-      _model = _model.copyWith(
-        state: _PickerState.loading,
-        isSearching: true,
-      );
+      _model = _model.copyWith(state: _PickerState.loading, isSearching: true);
     });
 
     try {
@@ -154,10 +141,7 @@ class _GifPickerPanelState extends ConsumerState<GifPickerPanel> {
       final gifs = await service.searchGifs(query);
       if (mounted) {
         setState(() {
-          _model = _model.copyWith(
-            gifs: gifs,
-            state: _PickerState.loaded,
-          );
+          _model = _model.copyWith(gifs: gifs, state: _PickerState.loaded);
         });
       }
     } catch (e) {
@@ -281,15 +265,9 @@ class _GifPickerPanelState extends ConsumerState<GifPickerPanel> {
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(AppRadius.round),
-            borderSide: const BorderSide(
-              color: AppColors.primary,
-              width: 1.5,
-            ),
+            borderSide: const BorderSide(color: AppColors.primary, width: 1.5),
           ),
-          hintStyle: TextStyle(
-            color: context.textHint,
-            fontSize: 15,
-          ),
+          hintStyle: TextStyle(color: context.textHint, fontSize: 15),
         ),
       ),
     );
@@ -355,10 +333,7 @@ class _GifPickerPanelState extends ConsumerState<GifPickerPanel> {
       itemCount: _model.gifs.length,
       itemBuilder: (context, index) {
         final gif = _model.gifs[index];
-        return _GifGridItem(
-          gif: gif,
-          onTap: () => _onGifTapped(gif),
-        );
+        return _GifGridItem(gif: gif, onTap: () => _onGifTapped(gif));
       },
     );
   }
@@ -368,11 +343,7 @@ class _GifPickerPanelState extends ConsumerState<GifPickerPanel> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
-            Icons.gif_box_outlined,
-            size: 48,
-            color: context.textMuted,
-          ),
+          Icon(Icons.gif_box_outlined, size: 48, color: context.textMuted),
           const SizedBox(height: 12),
           Text(
             'No GIFs found',
@@ -385,10 +356,7 @@ class _GifPickerPanelState extends ConsumerState<GifPickerPanel> {
           const SizedBox(height: 4),
           Text(
             'Try a different search term',
-            style: TextStyle(
-              fontSize: 13,
-              color: context.textMuted,
-            ),
+            style: TextStyle(fontSize: 13, color: context.textMuted),
           ),
         ],
       ),
@@ -402,19 +370,12 @@ class _GifPickerPanelState extends ConsumerState<GifPickerPanel> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
-              Icons.wifi_off_rounded,
-              size: 44,
-              color: context.textMuted,
-            ),
+            Icon(Icons.wifi_off_rounded, size: 44, color: context.textMuted),
             const SizedBox(height: 12),
             Text(
               _model.errorMessage ?? 'Something went wrong.',
               textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 14,
-                color: context.textSecondary,
-              ),
+              style: TextStyle(fontSize: 14, color: context.textSecondary),
             ),
             const SizedBox(height: 16),
             TextButton.icon(
@@ -423,9 +384,7 @@ class _GifPickerPanelState extends ConsumerState<GifPickerPanel> {
                   : _loadTrending,
               icon: const Icon(Icons.refresh_rounded, size: 18),
               label: Text(AppLocalizations.of(context)!.momentsRetry),
-              style: TextButton.styleFrom(
-                foregroundColor: AppColors.primary,
-              ),
+              style: TextButton.styleFrom(foregroundColor: AppColors.primary),
             ),
           ],
         ),
@@ -444,10 +403,7 @@ class _GifPickerPanelState extends ConsumerState<GifPickerPanel> {
         children: [
           Text(
             'Powered by ',
-            style: TextStyle(
-              fontSize: 11,
-              color: context.textMuted,
-            ),
+            style: TextStyle(fontSize: 11, color: context.textMuted),
           ),
           Text(
             'GIPHY',
@@ -472,10 +428,7 @@ class _GifGridItem extends StatelessWidget {
   final GiphyGif gif;
   final VoidCallback onTap;
 
-  const _GifGridItem({
-    required this.gif,
-    required this.onTap,
-  });
+  const _GifGridItem({required this.gif, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -523,9 +476,10 @@ class _GifShimmerCellState extends State<_GifShimmerCell>
       vsync: this,
       duration: const Duration(milliseconds: 1000),
     )..repeat(reverse: true);
-    _animation = Tween<double>(begin: 0.3, end: 0.7).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
-    );
+    _animation = Tween<double>(
+      begin: 0.3,
+      end: 0.7,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
   }
 
   @override

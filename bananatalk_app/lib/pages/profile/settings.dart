@@ -163,6 +163,7 @@ class _ProfileSettingsState extends ConsumerState<ProfileSettings> {
       if (!hasPermission) {
         if (mounted) {
           final permStatus = await locationService.getPermissionStatus();
+          if (!mounted) return;
           ScaffoldMessenger.of(context).hideCurrentSnackBar();
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(

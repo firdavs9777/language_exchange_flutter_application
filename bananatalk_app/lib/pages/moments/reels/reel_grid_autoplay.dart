@@ -33,18 +33,17 @@ List<int> reelTilesToPlay({
   final offset = math.max(0.0, scrollOffset);
   final rowCount = (itemCount / crossAxisCount).ceil();
 
-  final firstVisibleRow =
-      (offset / tileHeight).floor().clamp(0, rowCount - 1);
-  final lastVisibleRow = ((offset + viewportHeight) / tileHeight)
-      .ceil()
-      .clamp(0, rowCount);
+  final firstVisibleRow = (offset / tileHeight).floor().clamp(0, rowCount - 1);
+  final lastVisibleRow = ((offset + viewportHeight) / tileHeight).ceil().clamp(
+    0,
+    rowCount,
+  );
 
   // Rows ordered by how close their centre is to the viewport centre, so the
   // tiles that draw the eye are the ones that move.
   final viewportCentre = offset + viewportHeight / 2;
-  final rows = <int>[
-    for (int r = firstVisibleRow; r < lastVisibleRow; r++) r,
-  ]..sort((a, b) {
+  final rows = <int>[for (int r = firstVisibleRow; r < lastVisibleRow; r++) r]
+    ..sort((a, b) {
       final da = ((a + 0.5) * tileHeight - viewportCentre).abs();
       final db = ((b + 0.5) * tileHeight - viewportCentre).abs();
       return da.compareTo(db);

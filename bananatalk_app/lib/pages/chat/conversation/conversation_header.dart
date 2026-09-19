@@ -148,18 +148,29 @@ class ConversationUserInfoHeader extends ConsumerWidget {
                         ],
                       ),
                       child: ClipOval(
-                        child: profilePicture != null && profilePicture!.isNotEmpty
+                        child:
+                            profilePicture != null && profilePicture!.isNotEmpty
                             ? Image.network(
                                 profilePicture!,
                                 fit: BoxFit.cover,
                                 errorBuilder: (_, __, ___) => Container(
-                                  color: AppColors.primary.withValues(alpha: 0.2),
-                                  child: const Icon(Icons.person, size: 50, color: AppColors.primary),
+                                  color: AppColors.primary.withValues(
+                                    alpha: 0.2,
+                                  ),
+                                  child: const Icon(
+                                    Icons.person,
+                                    size: 50,
+                                    color: AppColors.primary,
+                                  ),
                                 ),
                               )
                             : Container(
                                 color: AppColors.primary.withValues(alpha: 0.2),
-                                child: const Icon(Icons.person, size: 50, color: AppColors.primary),
+                                child: const Icon(
+                                  Icons.person,
+                                  size: 50,
+                                  color: AppColors.primary,
+                                ),
                               ),
                       ),
                     ),
@@ -188,7 +199,10 @@ class ConversationUserInfoHeader extends ConsumerWidget {
                   if (age != null) ...[
                     const SizedBox(width: 8),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 2,
+                      ),
                       decoration: BoxDecoration(
                         color: AppColors.primary.withValues(alpha: 0.15),
                         borderRadius: BorderRadius.circular(12),
@@ -264,7 +278,10 @@ class ConversationUserInfoHeader extends ConsumerWidget {
                   runSpacing: 6,
                   children: user.topics.take(5).map((topic) {
                     return Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 5,
+                      ),
                       decoration: BoxDecoration(
                         color: AppColors.primary.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(14),

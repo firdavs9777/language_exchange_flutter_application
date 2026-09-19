@@ -257,7 +257,8 @@ class _ReportDialogState extends State<ReportDialog> {
     try {
       final result = await _reportService.createReport(
         type: widget.type,
-        reportId: widget.reportedId, // Parameter name is reportId, but we pass reportedId value
+        reportId: widget
+            .reportedId, // Parameter name is reportId, but we pass reportedId value
         reportedUser: widget.reportedUserId,
         reason: _selectedReason!,
         description: _descriptionController.text.trim().isEmpty
@@ -281,24 +282,34 @@ class _ReportDialogState extends State<ReportDialog> {
             if (mounted) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: const Text('Report submitted, but some evidence failed to upload'),
+                  content: const Text(
+                    'Report submitted, but some evidence failed to upload',
+                  ),
                   backgroundColor: Colors.orange,
                 ),
               );
             }
           }
 
-          // Close dialog after evidence is uploaded
-          if (mounted) {
-            setState(() {
-              _isSubmitting = false;
-            });
-            Navigator.of(context).pop(true);
-          }
+          // Close dialog after evidence is uploaded.
+          //
+          // The messenger is captured BEFORE the pop. It used to be read
+          // after, from the dialog's own context — which by then had been
+          // deactivated by that very pop, so the one confirmation telling a
+          // user their report went through was the part most likely not to
+          // appear.
+          if (!mounted) return;
+          final messenger = ScaffoldMessenger.of(context);
+          setState(() {
+            _isSubmitting = false;
+          });
+          Navigator.of(context).pop(true);
 
-          ScaffoldMessenger.of(context).showSnackBar(
+          messenger.showSnackBar(
             SnackBar(
-              content: Text(result['message'] ?? 'Report submitted successfully'),
+              content: Text(
+                result['message'] ?? 'Report submitted successfully',
+              ),
               backgroundColor: Colors.green,
               duration: const Duration(seconds: 2),
             ),
@@ -313,14 +324,14 @@ class _ReportDialogState extends State<ReportDialog> {
               duration: const Duration(seconds: 4),
             ),
           );
-          
+
           // Re-enable button after error
           setState(() {
             _isSubmitting = false;
           });
-          
+
           // If it's a validation error, keep dialog open
-          if (errorMessage.toLowerCase().contains('required') || 
+          if (errorMessage.toLowerCase().contains('required') ||
               errorMessage.toLowerCase().contains('missing')) {
             // Don't close dialog, let user fix the issue
             return;
@@ -347,9 +358,7 @@ class _ReportDialogState extends State<ReportDialog> {
     final colorScheme = Theme.of(context).colorScheme;
 
     return Dialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: Container(
         constraints: const BoxConstraints(maxHeight: 600),
         child: Column(
@@ -360,19 +369,12 @@ class _ReportDialogState extends State<ReportDialog> {
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
                 border: Border(
-                  bottom: BorderSide(
-                    color: Colors.grey[300]!,
-                    width: 1,
-                  ),
+                  bottom: BorderSide(color: Colors.grey[300]!, width: 1),
                 ),
               ),
               child: Row(
                 children: [
-                  Icon(
-                    Icons.flag_outlined,
-                    color: Colors.red[600],
-                    size: 24,
-                  ),
+                  Icon(Icons.flag_outlined, color: Colors.red[600], size: 24),
                   const SizedBox(width: 12),
                   Expanded(
                     child: Text(
@@ -408,17 +410,19 @@ class _ReportDialogState extends State<ReportDialog> {
                     const SizedBox(height: 16),
 
                     // Reason options
-                    ..._reasons.map((reason) => RadioListTile<String>(
-                          title: Text(reason['label']!),
-                          value: reason['value']!,
-                          groupValue: _selectedReason,
-                          onChanged: (value) {
-                            setState(() {
-                              _selectedReason = value;
-                            });
-                          },
-                          contentPadding: EdgeInsets.zero,
-                        )),
+                    ..._reasons.map(
+                      (reason) => RadioListTile<String>(
+                        title: Text(reason['label']!),
+                        value: reason['value']!,
+                        groupValue: _selectedReason,
+                        onChanged: (value) {
+                          setState(() {
+                            _selectedReason = value;
+                          });
+                        },
+                        contentPadding: EdgeInsets.zero,
+                      ),
+                    ),
 
                     const SizedBox(height: 24),
 
@@ -460,7 +464,9 @@ class _ReportDialogState extends State<ReportDialog> {
 
                     // Evidence picker (photos or files)
                     ElevatedButton.icon(
-                      onPressed: _selectedFiles.length >= maxFiles ? null : _addEvidence,
+                      onPressed: _selectedFiles.length >= maxFiles
+                          ? null
+                          : _addEvidence,
                       icon: const Icon(Icons.add_photo_alternate_outlined),
                       label: Text(
                         'Add Evidence (${_selectedFiles.length}/$maxFiles)',
@@ -504,10 +510,7 @@ class _ReportDialogState extends State<ReportDialog> {
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
                 border: Border(
-                  top: BorderSide(
-                    color: Colors.grey[300]!,
-                    width: 1,
-                  ),
+                  top: BorderSide(color: Colors.grey[300]!, width: 1),
                 ),
               ),
               child: Row(
@@ -526,9 +529,13 @@ class _ReportDialogState extends State<ReportDialog> {
                     child: AbsorbPointer(
                       absorbing: _isSubmitting || _selectedFiles.isEmpty,
                       child: Opacity(
-                        opacity: _isSubmitting || _selectedFiles.isEmpty ? 0.6 : 1.0,
+                        opacity: _isSubmitting || _selectedFiles.isEmpty
+                            ? 0.6
+                            : 1.0,
                         child: ElevatedButton(
-                          onPressed: (_isSubmitting || _selectedFiles.isEmpty) ? null : _submitReport,
+                          onPressed: (_isSubmitting || _selectedFiles.isEmpty)
+                              ? null
+                              : _submitReport,
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.red[600],
                             foregroundColor: Colors.white,
@@ -543,14 +550,14 @@ class _ReportDialogState extends State<ReportDialog> {
                                   width: 20,
                                   child: CircularProgressIndicator(
                                     strokeWidth: 2,
-                                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                      Colors.white,
+                                    ),
                                   ),
                                 )
                               : const Text(
                                   'Submit Report',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                                  style: TextStyle(fontWeight: FontWeight.bold),
                                 ),
                         ),
                       ),
@@ -565,4 +572,3 @@ class _ReportDialogState extends State<ReportDialog> {
     );
   }
 }
-

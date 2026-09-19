@@ -106,7 +106,9 @@ class _MomentDoubleTapHeartState extends State<MomentDoubleTapHeart>
                         key: Key('double-tap-heart'),
                         color: Colors.white,
                         size: 92,
-                        shadows: [Shadow(color: Colors.black38, blurRadius: 12)],
+                        shadows: [
+                          Shadow(color: Colors.black38, blurRadius: 12),
+                        ],
                       ),
                     ),
                   );

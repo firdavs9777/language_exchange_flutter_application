@@ -11,7 +11,8 @@ class TermsOfServiceScreen extends ConsumerStatefulWidget {
   /// Will just return true/false instead of making API call
   final bool? isPreRegistration;
 
-  const TermsOfServiceScreen({Key? key, this.isPreRegistration}) : super(key: key);
+  const TermsOfServiceScreen({Key? key, this.isPreRegistration})
+    : super(key: key);
 
   @override
   ConsumerState<TermsOfServiceScreen> createState() =>
@@ -40,6 +41,7 @@ class _TermsOfServiceScreenState extends ConsumerState<TermsOfServiceScreen> {
     if (widget.isPreRegistration == true) {
       // Save local flag as fallback
       await _saveLocalTermsAccepted();
+      if (!mounted) return;
       Navigator.of(context).pop(true);
       return;
     }
@@ -58,6 +60,9 @@ class _TermsOfServiceScreenState extends ConsumerState<TermsOfServiceScreen> {
       if (result['success'] == true) {
         // Save local flag as fallback
         await _saveLocalTermsAccepted();
+        // Re-checked: the mounted guard above sits before this write, and
+        // popping a disposed route throws.
+        if (!mounted) return;
         // Terms accepted successfully - navigate back
         Navigator.of(context).pop(true);
       } else {
@@ -96,8 +101,7 @@ class _TermsOfServiceScreenState extends ConsumerState<TermsOfServiceScreen> {
     try {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setBool('termsAcceptedLocally', true);
-    } catch (e) {
-    }
+    } catch (e) {}
   }
 
   @override
@@ -387,9 +391,14 @@ class _TermsOfServiceScreenState extends ConsumerState<TermsOfServiceScreen> {
                       });
                     },
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 8,
+                      ),
                       decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.surfaceContainerHighest,
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Row(
@@ -404,7 +413,8 @@ class _TermsOfServiceScreenState extends ConsumerState<TermsOfServiceScreen> {
                                   _hasAcceptedTerms = value ?? false;
                                 });
                               },
-                              materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
                             ),
                           ),
                           const SizedBox(width: 8),

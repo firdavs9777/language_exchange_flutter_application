@@ -132,125 +132,136 @@ class _PromptOfDayCardState extends ConsumerState<PromptOfDayCard> {
         return Stack(
           children: [
             Container(
-          margin: const EdgeInsets.fromLTRB(16, 12, 16, 4),
-          padding: const EdgeInsets.fromLTRB(12, 12, 28, 12),
-          decoration: BoxDecoration(
-            color: _accent.withValues(alpha: 0.16),
-            borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: _accent.withValues(alpha: 0.4)),
-          ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(emoji, style: const TextStyle(fontSize: 22)),
-              const SizedBox(width: 10),
-              Expanded(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Prompt of the day',
-                      style: context.labelSmall.copyWith(
-                        color: context.textSecondary,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                    const SizedBox(height: 2),
-                    Text(
-                      prompt,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: context.bodyMedium.copyWith(
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    if (_showTranslation && _translation != null) ...[
-                      const SizedBox(height: 2),
-                      Text(
-                        _translation!,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: context.bodySmall.copyWith(
-                          color: context.textSecondary,
-                          fontStyle: FontStyle.italic,
-                        ),
-                      ),
-                    ],
-                    const SizedBox(height: 3),
-                    _buildContextRow(context, prompt, langCode, langName),
-                  ],
-                ),
+              margin: const EdgeInsets.fromLTRB(16, 12, 16, 4),
+              padding: const EdgeInsets.fromLTRB(12, 12, 28, 12),
+              decoration: BoxDecoration(
+                color: _accent.withValues(alpha: 0.16),
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: _accent.withValues(alpha: 0.4)),
               ),
-              const SizedBox(width: 8),
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.end,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        AppPageRoute(
-                          builder: (_) => CreateMoment(
-                            prefillPrompt: prompt,
-                            prefillPromptId: promptId,
+                  Text(emoji, style: const TextStyle(fontSize: 22)),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Prompt of the day',
+                          style: context.labelSmall.copyWith(
+                            color: context.textSecondary,
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
-                      ).then((_) => ref.invalidate(forYouMomentsProvider));
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: _accentDark,
-                      foregroundColor: Colors.white,
-                      elevation: 0,
-                      visualDensity: VisualDensity.compact,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 14,
-                        vertical: 6,
-                      ),
-                    ),
-                    child: const Text(
-                      'Answer',
-                      style: TextStyle(fontWeight: FontWeight.w700),
-                    ),
-                  ),
-                  // Workstream G: camera-answer entry point into the reel
-                  // creation flow, pre-tagged with this prompt. Hidden
-                  // while the server-side Reels kill switch is off.
-                  if (ref.watch(appConfigProvider).maybeWhen(
-                        data: (config) => config?.reelsEnabled ?? false,
-                        orElse: () => false,
-                      )) ...[
-                    const SizedBox(height: 4),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).push(
-                          AppPageRoute(
-                            builder: (_) => CreateReelFlow(
-                              prefillPrompt: prompt,
-                              prefillPromptId: promptId,
-                              prefillLanguage:
-                                  langCode.isEmpty ? null : langCode,
+                        const SizedBox(height: 2),
+                        Text(
+                          prompt,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: context.bodyMedium.copyWith(
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        if (_showTranslation && _translation != null) ...[
+                          const SizedBox(height: 2),
+                          Text(
+                            _translation!,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: context.bodySmall.copyWith(
+                              color: context.textSecondary,
+                              fontStyle: FontStyle.italic,
                             ),
                           ),
-                        ).then((_) => ref.invalidate(forYouMomentsProvider));
-                      },
-                      child: Text(
-                        '🎥 Answer on camera',
-                        style: context.labelSmall.copyWith(
-                          color: _accentDark,
-                          fontWeight: FontWeight.w700,
+                        ],
+                        const SizedBox(height: 3),
+                        _buildContextRow(context, prompt, langCode, langName),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context)
+                              .push(
+                                AppPageRoute(
+                                  builder: (_) => CreateMoment(
+                                    prefillPrompt: prompt,
+                                    prefillPromptId: promptId,
+                                  ),
+                                ),
+                              )
+                              .then(
+                                (_) => ref.invalidate(forYouMomentsProvider),
+                              );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: _accentDark,
+                          foregroundColor: Colors.white,
+                          elevation: 0,
+                          visualDensity: VisualDensity.compact,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 14,
+                            vertical: 6,
+                          ),
+                        ),
+                        child: const Text(
+                          'Answer',
+                          style: TextStyle(fontWeight: FontWeight.w700),
                         ),
                       ),
-                    ),
-                  ],
+                      // Workstream G: camera-answer entry point into the reel
+                      // creation flow, pre-tagged with this prompt. Hidden
+                      // while the server-side Reels kill switch is off.
+                      if (ref
+                          .watch(appConfigProvider)
+                          .maybeWhen(
+                            data: (config) => config?.reelsEnabled ?? false,
+                            orElse: () => false,
+                          )) ...[
+                        const SizedBox(height: 4),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context)
+                                .push(
+                                  AppPageRoute(
+                                    builder: (_) => CreateReelFlow(
+                                      prefillPrompt: prompt,
+                                      prefillPromptId: promptId,
+                                      prefillLanguage: langCode.isEmpty
+                                          ? null
+                                          : langCode,
+                                    ),
+                                  ),
+                                )
+                                .then(
+                                  (_) => ref.invalidate(forYouMomentsProvider),
+                                );
+                          },
+                          child: Text(
+                            '🎥 Answer on camera',
+                            style: context.labelSmall.copyWith(
+                              color: _accentDark,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ],
+                  ),
                 ],
               ),
-            ],
-          ),
-        ),
+            ),
             // Dismiss (X) — hides the card for the rest of the day.
             Positioned(
               top: 16,
@@ -314,9 +325,9 @@ class _PromptOfDayCardState extends ConsumerState<PromptOfDayCard> {
           onTap: (_translating || _translationFailed)
               ? null
               : () => _toggleTranslation(
-                    prompt,
-                    langCode.isEmpty ? null : langCode,
-                  ),
+                  prompt,
+                  langCode.isEmpty ? null : langCode,
+                ),
           child: Text(
             translateLabel,
             style: secondaryStyle.copyWith(

@@ -88,8 +88,7 @@ class ChatInputSection extends ConsumerWidget {
             totalBytes: uploadTotalBytes,
           ),
         // Message limit indicator for non-VIP users
-        if (!isVip && userId.isNotEmpty)
-          _MessageLimitIndicator(userId: userId),
+        if (!isVip && userId.isNotEmpty) _MessageLimitIndicator(userId: userId),
         ChatInputBar(
           messageController: messageController,
           isSending: isSending,
@@ -158,8 +157,8 @@ class _MessageLimitIndicator extends ConsumerWidget {
         final statusColor = isOut
             ? AppColors.error
             : isLow
-                ? AppColors.warning
-                : context.textSecondary;
+            ? AppColors.warning
+            : context.textSecondary;
 
         return Container(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -167,15 +166,15 @@ class _MessageLimitIndicator extends ConsumerWidget {
             color: isOut
                 ? AppColors.error.withValues(alpha: isDark ? 0.15 : 0.08)
                 : isLow
-                    ? AppColors.warning.withValues(alpha: isDark ? 0.15 : 0.08)
-                    : context.containerColor,
+                ? AppColors.warning.withValues(alpha: isDark ? 0.15 : 0.08)
+                : context.containerColor,
             border: Border(
               bottom: BorderSide(
                 color: isOut
                     ? AppColors.error.withValues(alpha: 0.5)
                     : isLow
-                        ? AppColors.warning.withValues(alpha: 0.5)
-                        : context.dividerColor,
+                    ? AppColors.warning.withValues(alpha: 0.5)
+                    : context.dividerColor,
                 width: 0.5,
               ),
             ),
@@ -186,8 +185,8 @@ class _MessageLimitIndicator extends ConsumerWidget {
                 isOut
                     ? Icons.error_outline
                     : isLow
-                        ? Icons.warning_amber_rounded
-                        : Icons.info_outline,
+                    ? Icons.warning_amber_rounded
+                    : Icons.info_outline,
                 size: 16,
                 color: statusColor,
               ),
@@ -200,7 +199,9 @@ class _MessageLimitIndicator extends ConsumerWidget {
                   style: TextStyle(
                     fontSize: 12,
                     color: statusColor,
-                    fontWeight: isLow || isOut ? FontWeight.w600 : FontWeight.normal,
+                    fontWeight: isLow || isOut
+                        ? FontWeight.w600
+                        : FontWeight.normal,
                   ),
                 ),
               ),
@@ -214,7 +215,10 @@ class _MessageLimitIndicator extends ConsumerWidget {
                   );
                 },
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 4,
+                  ),
                   decoration: BoxDecoration(
                     gradient: const LinearGradient(
                       colors: [Color(0xFFFFD700), Color(0xFFFFA500)],
@@ -273,7 +277,8 @@ class _UploadProgressBanner extends StatelessWidget {
   String _getMediaType(String? name) {
     if (name == null) return 'media';
     final ext = name.split('.').last.toLowerCase();
-    if (['jpg', 'jpeg', 'png', 'gif', 'webp', 'heic'].contains(ext)) return 'photo';
+    if (['jpg', 'jpeg', 'png', 'gif', 'webp', 'heic'].contains(ext))
+      return 'photo';
     if (['mp4', 'mov', 'avi', 'mkv'].contains(ext)) return 'video';
     if (['mp3', 'm4a', 'wav', 'aac'].contains(ext)) return 'audio';
     return 'file';

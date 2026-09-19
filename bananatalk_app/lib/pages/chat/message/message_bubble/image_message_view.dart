@@ -106,10 +106,9 @@ class ImageMessageView extends StatelessWidget {
         margin: const EdgeInsets.only(bottom: 4),
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: Theme.of(context)
-              .colorScheme
-              .surfaceContainerHighest
-              .withValues(alpha: 0.5),
+          color: Theme.of(
+            context,
+          ).colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
           borderRadius: BorderRadius.circular(12),
         ),
         child: Row(
@@ -125,9 +124,9 @@ class ImageMessageView extends StatelessWidget {
                     imageUrl: ref.thumbnail!,
                     fit: BoxFit.cover,
                     errorWidget: Container(
-                      color: Theme.of(context)
-                          .colorScheme
-                          .surfaceContainerHighest,
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.surfaceContainerHighest,
                       child: const Icon(Icons.auto_stories, size: 20),
                     ),
                   ),
@@ -138,8 +137,7 @@ class ImageMessageView extends StatelessWidget {
                 width: 44,
                 height: 44,
                 decoration: BoxDecoration(
-                  color:
-                      Theme.of(context).colorScheme.surfaceContainerHighest,
+                  color: Theme.of(context).colorScheme.surfaceContainerHighest,
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: const Icon(Icons.auto_stories, size: 20),
@@ -151,10 +149,9 @@ class ImageMessageView extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 11,
                   color: isMe
-                      ? Theme.of(context)
-                          .colorScheme
-                          .onPrimary
-                          .withValues(alpha: 0.7)
+                      ? Theme.of(
+                          context,
+                        ).colorScheme.onPrimary.withValues(alpha: 0.7)
                       : Theme.of(context).textTheme.bodySmall?.color,
                   fontStyle: FontStyle.italic,
                 ),
@@ -167,13 +164,17 @@ class ImageMessageView extends StatelessWidget {
   }
 
   Future<void> _openStoryFromReference(
-      BuildContext context, StoryReference ref) async {
+    BuildContext context,
+    StoryReference ref,
+  ) async {
     if (ref.storyId.isEmpty) return;
     try {
       final response = await StoriesService.getStory(storyId: ref.storyId);
       if (response.success && response.data != null && context.mounted) {
-        final userStories =
-            UserStories(user: response.data!.user, stories: [response.data!]);
+        final userStories = UserStories(
+          user: response.data!.user,
+          stories: [response.data!],
+        );
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -184,9 +185,11 @@ class ImageMessageView extends StatelessWidget {
           ),
         );
       } else if (context.mounted) {
-        showChatSnackBar(context,
-            message: 'Story is no longer available',
-            type: ChatSnackBarType.info);
+        showChatSnackBar(
+          context,
+          message: 'Story is no longer available',
+          type: ChatSnackBarType.info,
+        );
       }
     } catch (e) {
       debugPrint('Failed to open story: $e');
@@ -226,18 +229,15 @@ class ImageMessageView extends StatelessWidget {
     return GestureDetector(
       onLongPress: onLongPress,
       child: Column(
-        crossAxisAlignment:
-            isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+        crossAxisAlignment: isMe
+            ? CrossAxisAlignment.end
+            : CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
           if (message.storyReference != null)
             _buildStoryReferencePreview(context),
           if (message.replyTo != null)
-            ReplyPreview(
-              message: message,
-              isMe: isMe,
-              onReplyTap: onReplyTap,
-            ),
+            ReplyPreview(message: message, isMe: isMe, onReplyTap: onReplyTap),
           MediaMessageWidget(
             media: message.media!,
             isSentByMe: isMe,
@@ -252,8 +252,7 @@ class ImageMessageView extends StatelessWidget {
               children: [
                 Text(
                   formatMessageTime(message.createdAt),
-                  style: context.captionSmall
-                      .copyWith(color: timestampColor),
+                  style: context.captionSmall.copyWith(color: timestampColor),
                 ),
                 if (isMe && message.read) ...[
                   Spacing.hGapXS,
@@ -293,18 +292,15 @@ class ImageMessageView extends StatelessWidget {
         }
       },
       child: Column(
-        crossAxisAlignment:
-            isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+        crossAxisAlignment: isMe
+            ? CrossAxisAlignment.end
+            : CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
           if (message.storyReference != null)
             _buildStoryReferencePreview(context),
           if (message.replyTo != null)
-            ReplyPreview(
-              message: message,
-              isMe: isMe,
-              onReplyTap: onReplyTap,
-            ),
+            ReplyPreview(message: message, isMe: isMe, onReplyTap: onReplyTap),
           // Media container
           Container(
             decoration: BoxDecoration(
@@ -366,7 +362,9 @@ class ImageMessageView extends StatelessWidget {
                     right: 8,
                     child: Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 8, vertical: 4),
+                        horizontal: 8,
+                        vertical: 4,
+                      ),
                       decoration: BoxDecoration(
                         color: AppColors.black.withValues(alpha: 0.5),
                         borderRadius: AppRadius.borderMD,

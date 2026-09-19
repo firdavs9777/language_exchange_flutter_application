@@ -50,6 +50,9 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
       _videoController!.addListener(_onVideoUpdate);
 
       await _videoController!.initialize();
+      // initialize() decodes the file; leaving this screen during it left
+      // the Theme lookups below reading a dead context.
+      if (!mounted) return;
 
       _chewieController = ChewieController(
         videoPlayerController: _videoController!,

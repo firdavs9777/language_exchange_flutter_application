@@ -21,9 +21,9 @@ class ChatListEmptyState extends StatelessWidget {
   }) : isSearchEmpty = true;
 
   const ChatListEmptyState.noChats({super.key})
-      : isSearchEmpty = false,
-        searchQuery = '',
-        onFindUser = null;
+    : isSearchEmpty = false,
+      searchQuery = '',
+      onFindUser = null;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +46,11 @@ class ChatListEmptyState extends StatelessWidget {
             ? ElevatedButton.icon(
                 onPressed: onFindUser,
                 icon: const Icon(Icons.person_search, size: 20),
-                label: Text(AppLocalizations.of(context)!.chatListFindUserSearchTerm(searchTerm)),
+                label: Text(
+                  AppLocalizations.of(
+                    context,
+                  )!.chatListFindUserSearchTerm(searchTerm),
+                ),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: colors.primary,
                   foregroundColor: colors.onPrimary,

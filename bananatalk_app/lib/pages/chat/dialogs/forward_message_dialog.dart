@@ -21,7 +21,8 @@ class ForwardMessageDialog extends ConsumerStatefulWidget {
   });
 
   @override
-  ConsumerState<ForwardMessageDialog> createState() => _ForwardMessageDialogState();
+  ConsumerState<ForwardMessageDialog> createState() =>
+      _ForwardMessageDialogState();
 }
 
 class _ForwardMessageDialogState extends ConsumerState<ForwardMessageDialog> {
@@ -46,12 +47,13 @@ class _ForwardMessageDialogState extends ConsumerState<ForwardMessageDialog> {
       final List<Community> users = [];
       for (final userId in widget.userIds) {
         try {
-          final user = await ref.read(communityServiceProvider).getSingleCommunity(id: userId);
+          final user = await ref
+              .read(communityServiceProvider)
+              .getSingleCommunity(id: userId);
           if (user != null) {
             users.add(user);
           }
-        } catch (e) {
-        }
+        } catch (e) {}
       }
 
       setState(() {
@@ -78,81 +80,78 @@ class _ForwardMessageDialogState extends ConsumerState<ForwardMessageDialog> {
       content: SizedBox(
         width: double.maxFinite,
         child: _isLoading
-            ? const Center(child: CircularProgressIndicator(color: AppColors.primary))
+            ? const Center(
+                child: CircularProgressIndicator(color: AppColors.primary),
+              )
             : _error.isNotEmpty
-                ? Text(
-                    l10n.failedToLoadUsers,
-                    style: context.bodyMedium.copyWith(color: AppColors.error),
-                  )
-                : _users.isEmpty
-                    ? Text(
-                        l10n.noUsersAvailableToForwardTo,
-                        style: context.bodyMedium,
-                      )
-                    : Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            l10n.selectUsersToForward,
-                            style: context.bodySmall,
-                          ),
-                          Spacing.gapLG,
-                          Flexible(
-                            child: ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: _users.length,
-                              itemBuilder: (context, index) {
-                                final user = _users[index];
-                                final isSelected = _selectedUserIds.contains(user.id);
+            ? Text(
+                l10n.failedToLoadUsers,
+                style: context.bodyMedium.copyWith(color: AppColors.error),
+              )
+            : _users.isEmpty
+            ? Text(l10n.noUsersAvailableToForwardTo, style: context.bodyMedium)
+            : Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(l10n.selectUsersToForward, style: context.bodySmall),
+                  Spacing.gapLG,
+                  Flexible(
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: _users.length,
+                      itemBuilder: (context, index) {
+                        final user = _users[index];
+                        final isSelected = _selectedUserIds.contains(user.id);
 
-                                return CheckboxListTile(
-                                  value: isSelected,
-                                  activeColor: AppColors.primary,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      if (value == true) {
-                                        _selectedUserIds.add(user.id);
-                                      } else {
-                                        _selectedUserIds.remove(user.id);
-                                      }
-                                    });
-                                  },
-                                  title: Text(user.name, style: context.titleSmall),
-                                  subtitle: user.email.isNotEmpty
-                                      ? Text(user.email, style: context.caption)
-                                      : null,
-                                  secondary: CircleAvatar(
-                                    radius: 20,
-                                    backgroundColor: context.containerColor,
-                                    backgroundImage: (user.images.isNotEmpty
-                                            ? NetworkImage(user.images.first)
-                                            : user.imageUrls.isNotEmpty
-                                                ? NetworkImage(user.imageUrls.first)
-                                                : null) as ImageProvider?,
-                                    child: (user.images.isEmpty && user.imageUrls.isEmpty)
-                                        ? Text(
-                                            user.name.isNotEmpty
-                                                ? user.name[0].toUpperCase()
-                                                : '?',
-                                            style: context.titleMedium,
-                                          )
-                                        : null,
-                                  ),
-                                );
-                              },
-                            ),
+                        return CheckboxListTile(
+                          value: isSelected,
+                          activeColor: AppColors.primary,
+                          onChanged: (value) {
+                            setState(() {
+                              if (value == true) {
+                                _selectedUserIds.add(user.id);
+                              } else {
+                                _selectedUserIds.remove(user.id);
+                              }
+                            });
+                          },
+                          title: Text(user.name, style: context.titleSmall),
+                          subtitle: user.email.isNotEmpty
+                              ? Text(user.email, style: context.caption)
+                              : null,
+                          secondary: CircleAvatar(
+                            radius: 20,
+                            backgroundColor: context.containerColor,
+                            backgroundImage:
+                                (user.images.isNotEmpty
+                                        ? NetworkImage(user.images.first)
+                                        : user.imageUrls.isNotEmpty
+                                        ? NetworkImage(user.imageUrls.first)
+                                        : null)
+                                    as ImageProvider?,
+                            child:
+                                (user.images.isEmpty && user.imageUrls.isEmpty)
+                                ? Text(
+                                    user.name.isNotEmpty
+                                        ? user.name[0].toUpperCase()
+                                        : '?',
+                                    style: context.titleMedium,
+                                  )
+                                : null,
                           ),
-                        ],
-                      ),
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
       ),
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context, null),
           child: Text(
             l10n.cancel,
-            style: context.labelLarge.copyWith(
-              color: context.textSecondary,
-            ),
+            style: context.labelLarge.copyWith(color: context.textSecondary),
           ),
         ),
         ElevatedButton(
@@ -162,9 +161,7 @@ class _ForwardMessageDialogState extends ConsumerState<ForwardMessageDialog> {
           style: ElevatedButton.styleFrom(
             backgroundColor: AppColors.primary,
             foregroundColor: AppColors.white,
-            shape: RoundedRectangleBorder(
-              borderRadius: AppRadius.borderMD,
-            ),
+            shape: RoundedRectangleBorder(borderRadius: AppRadius.borderMD),
           ),
           child: Text(
             l10n.forwardCount(_selectedUserIds.length),

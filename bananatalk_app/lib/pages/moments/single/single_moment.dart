@@ -152,9 +152,13 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
     // loaded via "Load more comments".
     _pollTimer = Timer.periodic(const Duration(seconds: 15), (_) {
       if (mounted) {
-        final current = ref.read(paginatedCommentsProvider(widget.moment.id)).valueOrNull;
+        final current = ref
+            .read(paginatedCommentsProvider(widget.moment.id))
+            .valueOrNull;
         if (current == null || current.page <= 1) {
-          ref.read(paginatedCommentsProvider(widget.moment.id).notifier).refresh();
+          ref
+              .read(paginatedCommentsProvider(widget.moment.id).notifier)
+              .refresh();
         }
       }
     });
@@ -310,10 +314,12 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
   Future<void> _handleTranslateChipTap() async {
     final picked = await showLanguagePickerSheet(context);
     if (picked == null || !mounted) return;
-    debugPrint('🌐 [single-moment] user picked '
-        'code=${picked.code} name=${picked.name} '
-        'momentId=${widget.moment.id} '
-        'momentLanguage=${widget.moment.language}');
+    debugPrint(
+      '🌐 [single-moment] user picked '
+      'code=${picked.code} name=${picked.name} '
+      'momentId=${widget.moment.id} '
+      'momentLanguage=${widget.moment.language}',
+    );
     setState(() {
       _translationTargetCode = picked.code;
       _showTranslation = true;
@@ -334,6 +340,7 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
     final prefs = await SharedPreferences.getInstance();
     final currentUserId = prefs.getString('userId');
     final isOwnMoment = currentUserId == widget.moment.user.id;
+    if (!mounted) return;
 
     showModalBottomSheet(
       context: context,
@@ -471,15 +478,23 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                         await ref
                             .read(momentsServiceProvider)
                             .deleteUserMoment(id: widget.moment.id);
+                        // The delete is a network round trip; the mounted
+                        // check above happened before it. Popping or showing
+                        // a snackbar on a disposed route throws.
+                        if (!mounted) return;
                         Navigator.pop(context);
                         showMomentsSnackBar(
                           context,
                           message: AppLocalizations.of(context)!.momentDeleted,
                         );
                       } catch (e) {
+                        if (!mounted) return;
                         showMomentsSnackBar(
                           context,
-                          message: friendlyErrorMessage(AppLocalizations.of(context)!, e),
+                          message: friendlyErrorMessage(
+                            AppLocalizations.of(context)!,
+                            e,
+                          ),
                           type: MomentsSnackBarType.error,
                         );
                       }
@@ -554,7 +569,8 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                             clipBehavior: Clip.none,
                             children: [
                               CachedCircleAvatar(
-                                imageUrl: widget.moment.user.imageUrls.isNotEmpty
+                                imageUrl:
+                                    widget.moment.user.imageUrls.isNotEmpty
                                     ? widget.moment.user.imageUrls[0]
                                     : null,
                                 radius: 24,
@@ -657,7 +673,8 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                       ),
                     ),
                   ),
-                  if ((widget.moment.mediaType == 'text' || widget.moment.backgroundColor.isNotEmpty) &&
+                  if ((widget.moment.mediaType == 'text' ||
+                          widget.moment.backgroundColor.isNotEmpty) &&
                       widget.moment.imageUrls.isEmpty &&
                       !widget.moment.hasVideo)
                     Padding(
@@ -686,7 +703,9 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                               fontSize: 22,
                               fontWeight: FontWeight.w600,
                               height: 1.5,
-                              shadows: [Shadow(blurRadius: 4, color: Colors.black26)],
+                              shadows: [
+                                Shadow(blurRadius: 4, color: Colors.black26),
+                              ],
                             ),
                             textAlign: TextAlign.center,
                           ),
@@ -717,8 +736,8 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                               originalLanguage: widget.moment.language,
                               existingTranslations:
                                   widget.moment.translations.isNotEmpty
-                                      ? widget.moment.translations
-                                      : null,
+                                  ? widget.moment.translations
+                                  : null,
                               initialTargetCode: _translationTargetCode,
                               onDismiss: () => setState(() {
                                 _showTranslation = false;
@@ -744,30 +763,46 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                           if (widget.moment.mood.isNotEmpty)
                             _buildInfoChip(
                               icon: Icons.mood,
-                              label: widget.moment.mood[0].toUpperCase() + widget.moment.mood.substring(1),
+                              label:
+                                  widget.moment.mood[0].toUpperCase() +
+                                  widget.moment.mood.substring(1),
                             ),
                           // Category
-                          if (widget.moment.category.isNotEmpty && widget.moment.category != 'general')
+                          if (widget.moment.category.isNotEmpty &&
+                              widget.moment.category != 'general')
                             _buildInfoChip(
                               icon: Icons.category_outlined,
-                              label: widget.moment.category.replaceAll('-', ' ').split(' ').map((w) => w.isNotEmpty ? w[0].toUpperCase() + w.substring(1) : '').join(' '),
+                              label: widget.moment.category
+                                  .replaceAll('-', ' ')
+                                  .split(' ')
+                                  .map(
+                                    (w) => w.isNotEmpty
+                                        ? w[0].toUpperCase() + w.substring(1)
+                                        : '',
+                                  )
+                                  .join(' '),
                             ),
                           // Tags
-                          ...widget.moment.tags.map((tag) => Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                            decoration: BoxDecoration(
-                              color: AppColors.primary.withValues(alpha: 0.1),
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: Text(
-                              '#$tag',
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: AppColors.primary,
-                                fontWeight: FontWeight.w500,
+                          ...widget.moment.tags.map(
+                            (tag) => Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 8,
+                                vertical: 4,
+                              ),
+                              decoration: BoxDecoration(
+                                color: AppColors.primary.withValues(alpha: 0.1),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Text(
+                                '#$tag',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: AppColors.primary,
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
                             ),
-                          )),
+                          ),
                         ],
                       ),
                     ),
@@ -825,7 +860,9 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                   // like-count row.
                   const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    child: SmallBannerAdWidget(key: ValueKey('single-moment-banner')),
+                    child: SmallBannerAdWidget(
+                      key: ValueKey('single-moment-banner'),
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(16),
@@ -919,5 +956,4 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
       ),
     );
   }
-
 }

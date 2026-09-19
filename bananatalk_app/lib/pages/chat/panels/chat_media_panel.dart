@@ -24,10 +24,7 @@ class ChatMediaPanel extends StatelessWidget {
           decoration: BoxDecoration(
             color: context.surfaceColor,
             border: Border(
-              top: BorderSide(
-                color: context.dividerColor,
-                width: 0.5,
-              ),
+              top: BorderSide(color: context.dividerColor, width: 0.5),
             ),
             boxShadow: [
               BoxShadow(

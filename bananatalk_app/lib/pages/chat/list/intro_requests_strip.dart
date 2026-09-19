@@ -57,11 +57,7 @@ class _IntroRequestsStripContent extends ConsumerWidget {
     }
   }
 
-  void _onCardTap(
-    BuildContext context,
-    WidgetRef ref,
-    Wave wave,
-  ) {
+  void _onCardTap(BuildContext context, WidgetRef ref, Wave wave) {
     // Guard against deleted/unknown senders: nothing sensible to navigate
     // to, but the card should still be dismissible via the close button.
     if (wave.fromUserId.isEmpty) return;
@@ -87,16 +83,13 @@ class _IntroRequestsStripContent extends ConsumerWidget {
               Text(
                 AppLocalizations.of(context)!.introRequests,
                 style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                      fontWeight: FontWeight.w600,
-                      color: colorScheme.onSurface,
-                    ),
+                  fontWeight: FontWeight.w600,
+                  color: colorScheme.onSurface,
+                ),
               ),
               const SizedBox(width: 8),
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 8,
-                  vertical: 2,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                 decoration: BoxDecoration(
                   color: _kBananaAccent,
                   borderRadius: BorderRadius.circular(12),
@@ -153,8 +146,7 @@ class _IntroCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final timeAgo = timeago.format(wave.createdAt);
-    final preview =
-        wave.message?.isNotEmpty == true ? wave.message! : '👋';
+    final preview = wave.message?.isNotEmpty == true ? wave.message! : '👋';
 
     return SizedBox(
       width: 200,
@@ -198,9 +190,7 @@ class _IntroCard extends StatelessWidget {
                           Expanded(
                             child: Text(
                               wave.fromUserName,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium
+                              style: Theme.of(context).textTheme.bodyMedium
                                   ?.copyWith(
                                     fontWeight: FontWeight.w600,
                                     color: colorScheme.onSurface,
@@ -227,13 +217,10 @@ class _IntroCard extends StatelessWidget {
                       const SizedBox(height: 2),
                       Text(
                         preview,
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodySmall
-                            ?.copyWith(
-                              color: colorScheme.onSurfaceVariant,
-                              height: 1.1,
-                            ),
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          color: colorScheme.onSurfaceVariant,
+                          height: 1.1,
+                        ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -241,10 +228,11 @@ class _IntroCard extends StatelessWidget {
                       Text(
                         timeAgo,
                         style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                              color: colorScheme.onSurfaceVariant
-                                  .withValues(alpha: 0.8),
-                              height: 1.0,
-                            ),
+                          color: colorScheme.onSurfaceVariant.withValues(
+                            alpha: 0.8,
+                          ),
+                          height: 1.0,
+                        ),
                       ),
                     ],
                   ),

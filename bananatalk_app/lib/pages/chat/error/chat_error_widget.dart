@@ -7,11 +7,8 @@ class ChatErrorWidget extends StatelessWidget {
   final String error;
   final VoidCallback onRetry;
 
-  const ChatErrorWidget({
-    Key? key,
-    required this.error,
-    required this.onRetry,
-  }) : super(key: key);
+  const ChatErrorWidget({Key? key, required this.error, required this.onRetry})
+    : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,21 +16,14 @@ class ChatErrorWidget extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
-            Icons.error_outline,
-            size: 64,
-            color: AppColors.error,
-          ),
+          Icon(Icons.error_outline, size: 64, color: AppColors.error),
           Spacing.gapMD,
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 32),
             child: Text(
               error,
               textAlign: TextAlign.center,
-              style: TextStyle(
-                color: AppColors.error,
-                fontSize: 16,
-              ),
+              style: TextStyle(color: AppColors.error, fontSize: 16),
             ),
           ),
           Spacing.gapLG,
@@ -44,10 +34,7 @@ class ChatErrorWidget extends StatelessWidget {
             style: ElevatedButton.styleFrom(
               backgroundColor: AppColors.error,
               foregroundColor: AppColors.white,
-              padding: const EdgeInsets.symmetric(
-                horizontal: 24,
-                vertical: 12,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
             ),
           ),
         ],

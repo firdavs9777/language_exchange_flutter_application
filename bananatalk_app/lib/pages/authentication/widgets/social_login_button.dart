@@ -41,9 +41,10 @@ class _SocialLoginButtonState extends State<SocialLoginButton>
       reverseDuration: const Duration(milliseconds: 180),
       value: 1.0,
     );
-    _scaleAnim = Tween<double>(begin: 0.96, end: 1.0).animate(
-      CurvedAnimation(parent: _pressController, curve: Curves.easeOut),
-    );
+    _scaleAnim = Tween<double>(
+      begin: 0.96,
+      end: 1.0,
+    ).animate(CurvedAnimation(parent: _pressController, curve: Curves.easeOut));
   }
 
   @override
@@ -70,10 +71,8 @@ class _SocialLoginButtonState extends State<SocialLoginButton>
   Widget build(BuildContext context) {
     return AnimatedBuilder(
       animation: _scaleAnim,
-      builder: (context, child) => Transform.scale(
-        scale: _scaleAnim.value,
-        child: child,
-      ),
+      builder: (context, child) =>
+          Transform.scale(scale: _scaleAnim.value, child: child),
       child: GestureDetector(
         onTapDown: _onTapDown,
         onTapUp: _onTapUp,
@@ -87,11 +86,18 @@ class _SocialLoginButtonState extends State<SocialLoginButton>
   Widget _buildButton(BuildContext context) {
     if (widget.compact) {
       return switch (widget.provider) {
-        SocialProvider.google => _CompactGoogleButton(isLoading: widget.isLoading),
-        SocialProvider.apple => _CompactAppleButton(isLoading: widget.isLoading),
-        SocialProvider.email => _CompactEmailButton(isLoading: widget.isLoading),
-        SocialProvider.facebook =>
-          _CompactFacebookButton(isLoading: widget.isLoading),
+        SocialProvider.google => _CompactGoogleButton(
+          isLoading: widget.isLoading,
+        ),
+        SocialProvider.apple => _CompactAppleButton(
+          isLoading: widget.isLoading,
+        ),
+        SocialProvider.email => _CompactEmailButton(
+          isLoading: widget.isLoading,
+        ),
+        SocialProvider.facebook => _CompactFacebookButton(
+          isLoading: widget.isLoading,
+        ),
       };
     }
     return switch (widget.provider) {
@@ -365,10 +371,10 @@ class _GoogleLogoPainter extends CustomPainter {
 
     const pi = 3.14159265358979;
     // Draw the four colored arcs of the Google G
-    drawArc(red, -pi / 2 + 0.1, pi * 0.55 - 0.05);    // top-right → right
-    drawArc(yellow, pi * 0.05, pi * 0.5);               // right → bottom
-    drawArc(green, pi * 0.55, pi * 0.5);                // bottom → left
-    drawArc(blue, pi * 1.05, pi * 0.4);                 // left → top-left
+    drawArc(red, -pi / 2 + 0.1, pi * 0.55 - 0.05); // top-right → right
+    drawArc(yellow, pi * 0.05, pi * 0.5); // right → bottom
+    drawArc(green, pi * 0.55, pi * 0.5); // bottom → left
+    drawArc(blue, pi * 1.05, pi * 0.4); // left → top-left
 
     // White cutout for the horizontal G bar
     final barPaint = Paint()

@@ -151,12 +151,16 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
     );
 
     final success = await ref.read(aiQuizProvider.notifier).generateQuiz(request);
+    // Generation is a model call and can run for many seconds; the setState
+    // below was unguarded, and the failure branch read context with no check
+    // at all.
+    if (!mounted) return;
 
     setState(() {
       _isGenerating = false;
     });
 
-    if (success && mounted) {
+    if (success) {
       Navigator.push(
         context,
         AppPageRoute(

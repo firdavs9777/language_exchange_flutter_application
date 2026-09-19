@@ -169,6 +169,7 @@ class _RoleplayChatScreenState extends ConsumerState<RoleplayChatScreen> {
       );
       if (!mounted) return;
       await _voice.stopPlayback();
+      if (!mounted) return;
       await showModalBottomSheet<void>(
         context: context,
         isScrollControlled: true,

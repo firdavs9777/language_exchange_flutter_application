@@ -45,9 +45,7 @@ class ChatEmptyState extends StatelessWidget {
             Text(
               title,
               textAlign: TextAlign.center,
-              style: context.titleMedium.copyWith(
-                fontWeight: FontWeight.w700,
-              ),
+              style: context.titleMedium.copyWith(fontWeight: FontWeight.w700),
             ),
             if (body != null) ...[
               const SizedBox(height: 8),
@@ -60,10 +58,7 @@ class ChatEmptyState extends StatelessWidget {
                 ),
               ),
             ],
-            if (cta != null) ...[
-              const SizedBox(height: 20),
-              cta!,
-            ],
+            if (cta != null) ...[const SizedBox(height: 20), cta!],
           ],
         ),
       ),

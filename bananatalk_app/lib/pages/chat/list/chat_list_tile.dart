@@ -28,6 +28,7 @@ class ChatListTile extends StatelessWidget {
   final ValueChanged<ChatPartner> onPin;
   final ValueChanged<ChatPartner> onMute;
   final ValueChanged<ChatPartner> onDelete;
+
   /// Called when the avatar itself is tapped while
   /// [partner.hasActiveStory] is true (opens the story viewer); other taps
   /// keep opening the conversation via [onTap].
@@ -139,10 +140,9 @@ class ChatListTile extends StatelessWidget {
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: textTheme.bodySmall?.copyWith(
-              color: Theme.of(context)
-                  .colorScheme
-                  .onSurface
-                  .withValues(alpha: 0.5),
+              color: Theme.of(
+                context,
+              ).colorScheme.onSurface.withValues(alpha: 0.5),
               fontSize: 13,
             ),
           ),
@@ -236,10 +236,7 @@ class ChatListTile extends StatelessWidget {
             decoration: BoxDecoration(
               color: getStatusColor(realtimeStatus),
               shape: BoxShape.circle,
-              border: Border.all(
-                color: colors.surface,
-                width: 2.5,
-              ),
+              border: Border.all(color: colors.surface, width: 2.5),
               boxShadow: _isOnline
                   ? [
                       BoxShadow(
@@ -290,9 +287,7 @@ class ChatListTile extends StatelessWidget {
             onPressed: (_) => onPin(partner),
             backgroundColor: const Color(0xFF2196F3),
             foregroundColor: Colors.white,
-            icon: partner.isPinned
-                ? Icons.push_pin
-                : Icons.push_pin_outlined,
+            icon: partner.isPinned ? Icons.push_pin : Icons.push_pin_outlined,
             label: partner.isPinned ? 'Unpin' : 'Pin',
             borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(12),
@@ -442,8 +437,8 @@ class ChatListTile extends StatelessWidget {
                           child: isTyping
                               ? _buildTypingIndicator()
                               : (draft != null && draft!.trim().isNotEmpty)
-                                  ? _buildDraftPreview(context)
-                                  : Row(
+                              ? _buildDraftPreview(context)
+                              : Row(
                                   children: [
                                     if (_isOnline) ...[
                                       Container(
@@ -458,14 +453,16 @@ class ChatListTile extends StatelessWidget {
                                     ],
                                     Expanded(
                                       child: Text(
-                                        partner.lastMessage ?? 'No messages yet',
+                                        partner.lastMessage ??
+                                            'No messages yet',
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
                                         style: textTheme.bodySmall?.copyWith(
                                           color: partner.unreadCount > 0
                                               ? colors.onSurface
-                                              : colors.onSurface
-                                                  .withValues(alpha: 0.5),
+                                              : colors.onSurface.withValues(
+                                                  alpha: 0.5,
+                                                ),
                                           fontWeight: partner.unreadCount > 0
                                               ? FontWeight.w500
                                               : FontWeight.normal,

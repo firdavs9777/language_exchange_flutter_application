@@ -148,6 +148,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
           if (termsAccepted) {
             await prefs.setBool('termsAcceptedLocally', true);
           } else {
+            if (!mounted) return;
             await Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) => const TermsOfServiceScreen(),
@@ -175,6 +176,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
       try {
         final user = await authService.getLoggedInUser();
         if (!user.profileCompleted) {
+          if (!mounted) return;
           await Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) => const RegisterTwo(completionMode: true),
@@ -191,6 +193,10 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
       } catch (e) {}
     }
 
+    // Cold start runs several network calls before this point; the app can
+    // be backgrounded through all of them, and routing a disposed splash
+    // throws.
+    if (!mounted) return;
     if (isAuthenticated) {
       context.go('/home');
       if (_pendingNotification != null) {

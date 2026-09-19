@@ -22,22 +22,22 @@ class AuthErrorState extends StatelessWidget {
   Widget build(BuildContext context) {
     final (icon, title, body) = switch (kind) {
       AuthErrorKind.locked => (
-          Icons.lock_clock,
-          'Account temporarily locked',
-          'Too many failed attempts. Try again '
-              '${retryAfter != null ? 'in ${retryAfter!.inMinutes} min' : 'later'}.',
-        ),
+        Icons.lock_clock,
+        'Account temporarily locked',
+        'Too many failed attempts. Try again '
+            '${retryAfter != null ? 'in ${retryAfter!.inMinutes} min' : 'later'}.',
+      ),
       AuthErrorKind.rateLimited => (
-          Icons.hourglass_top,
-          'Slow down a moment',
-          'Too many attempts. Try again '
-              '${retryAfter != null ? 'in ${retryAfter!.inSeconds}s' : 'shortly'}.',
-        ),
+        Icons.hourglass_top,
+        'Slow down a moment',
+        'Too many attempts. Try again '
+            '${retryAfter != null ? 'in ${retryAfter!.inSeconds}s' : 'shortly'}.',
+      ),
       AuthErrorKind.network => (
-          Icons.wifi_off,
-          'No connection',
-          'Check your internet connection and try again.',
-        ),
+        Icons.wifi_off,
+        'No connection',
+        'Check your internet connection and try again.',
+      ),
     };
     return Column(
       mainAxisSize: MainAxisSize.min,

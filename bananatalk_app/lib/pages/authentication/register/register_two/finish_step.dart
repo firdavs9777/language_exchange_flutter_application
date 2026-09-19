@@ -99,7 +99,8 @@ class _FinishStepState extends State<FinishStep> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final hasSummary = widget.summaryName != null ||
+    final hasSummary =
+        widget.summaryName != null ||
         widget.summaryGender != null ||
         widget.summaryBirthDate != null ||
         widget.summaryNativeLanguage != null ||
@@ -229,7 +230,8 @@ class _SummaryCard extends StatelessWidget {
       if (gender != null && gender!.isNotEmpty) gender,
       if (birthDate != null && birthDate!.isNotEmpty) birthDate,
     ].join(' · ');
-    final languagesValue = (nativeLanguage != null && nativeLanguage!.isNotEmpty) ||
+    final languagesValue =
+        (nativeLanguage != null && nativeLanguage!.isNotEmpty) ||
             (learningLanguage != null && learningLanguage!.isNotEmpty)
         ? '${nativeLanguage ?? '—'} → ${learningLanguage ?? '—'}'
         : null;
@@ -465,10 +467,7 @@ class _TermsCheckbox extends StatelessWidget {
   final bool termsAccepted;
   final ValueChanged<bool> onChanged;
 
-  const _TermsCheckbox({
-    required this.termsAccepted,
-    required this.onChanged,
-  });
+  const _TermsCheckbox({required this.termsAccepted, required this.onChanged});
 
   @override
   Widget build(BuildContext context) {

@@ -11,6 +11,7 @@ import 'package:bananatalk_app/utils/feature_gate.dart';
 import 'package:bananatalk_app/widgets/limit_exceeded_dialog.dart';
 import 'package:bananatalk_app/utils/api_error_handler.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -127,6 +128,7 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
         final limits = ref.read(currentUserLimitsProvider(userId));
 
         if (!FeatureGate.canCreateComment(user, limits)) {
+          if (!mounted) return;
           await LimitExceededDialog.show(
             context: context,
             limitType: 'comments',
@@ -208,6 +210,7 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
 
 
       // Show success message
+      if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(AppLocalizations.of(context)!.commentAddedSuccessfully),
@@ -222,6 +225,7 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
         try {
           final prefs = await SharedPreferences.getInstance();
           final userId = prefs.getString('userId');
+          if (!mounted) return;
           await ApiErrorHandler.handleLimitExceededError(
             context: context,
             error: e,
@@ -231,9 +235,18 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
         }
       } else {
         // Show error message
+        if (!mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Failed to add comment: ${e.toString().replaceFirst('Exception: ', '')}'),
+            // Was the raw exception text. The server's own refusal is worth
+            // reading, so it is the fallback rather than the whole message.
+            content: Text(
+              friendlyErrorMessage(
+                AppLocalizations.of(context)!,
+                e,
+                fallback: e.toString().replaceFirst('Exception: ', ''),
+              ),
+            ),
             duration: const Duration(seconds: 3),
             backgroundColor: AppColors.error,
           ),

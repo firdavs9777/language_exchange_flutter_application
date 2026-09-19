@@ -9,11 +9,11 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 /// Used inside `showDialog(builder: (ctx) => ChatDialogScaffold(...))`.
 class ChatDialogScaffold extends StatelessWidget {
   final IconData? heroIcon;
-  final Color? heroColor;       // null → uses AppColors.primary
+  final Color? heroColor; // null → uses AppColors.primary
   final String title;
   final String? body;
-  final Widget? content;        // when non-null, replaces [body]
-  final List<Widget> actions;   // typically [CancelButton, ConfirmButton]
+  final Widget? content; // when non-null, replaces [body]
+  final List<Widget> actions; // typically [CancelButton, ConfirmButton]
   final CrossAxisAlignment titleAlignment;
 
   const ChatDialogScaffold({

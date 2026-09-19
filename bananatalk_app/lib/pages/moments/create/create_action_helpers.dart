@@ -22,7 +22,9 @@ Widget createActionIcon({
       width: 60,
       height: 60,
       decoration: BoxDecoration(
-        color: isActive ? color.withValues(alpha: 0.1) : Theme.of(context).cardColor,
+        color: isActive
+            ? color.withValues(alpha: 0.1)
+            : Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
           color: isActive ? color : Theme.of(context).dividerColor,
@@ -33,10 +35,7 @@ Widget createActionIcon({
         alignment: Alignment.center,
         children: [
           if (badge != null && badge.isNotEmpty)
-            Text(
-              badge,
-              style: TextStyle(fontSize: badge.length == 1 ? 28 : 16),
-            )
+            Text(badge, style: TextStyle(fontSize: badge.length == 1 ? 28 : 16))
           else
             Icon(icon, color: color, size: 28),
           if (badge != null && badge.length > 1)
@@ -49,10 +48,7 @@ Widget createActionIcon({
                   color: Color(0xFFF44336),
                   shape: BoxShape.circle,
                 ),
-                constraints: const BoxConstraints(
-                  minWidth: 18,
-                  minHeight: 18,
-                ),
+                constraints: const BoxConstraints(minWidth: 18, minHeight: 18),
                 child: Center(
                   child: Text(
                     badge,
@@ -89,10 +85,7 @@ Widget createBottomButton({
         children: [
           Icon(icon, color: color, size: 28),
           Spacing.gapXS,
-          Text(
-            label,
-            style: context.labelSmall.copyWith(color: color),
-          ),
+          Text(label, style: context.labelSmall.copyWith(color: color)),
         ],
       ),
     ),

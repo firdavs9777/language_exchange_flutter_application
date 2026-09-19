@@ -41,12 +41,15 @@ String reelVideoFileExtension(String url) {
 /// other response property delegates untouched.
 class ReelVideoFileService extends FileService {
   ReelVideoFileService({FileService? inner})
-      : _inner = inner ?? HttpFileService();
+    : _inner = inner ?? HttpFileService();
 
   final FileService _inner;
 
   @override
-  Future<FileServiceResponse> get(String url, {Map<String, String>? headers}) async {
+  Future<FileServiceResponse> get(
+    String url, {
+    Map<String, String>? headers,
+  }) async {
     final response = await _inner.get(url, headers: headers);
     return _UrlExtensionResponse(response, reelVideoFileExtension(url));
   }
@@ -95,9 +98,9 @@ class ReelVideoCache {
     ReelVideoDownloader? downloader,
     ReelVideoCacheProbe? probe,
     ReelVideoEvictor? evictor,
-  })  : _downloader = downloader ?? _defaultDownloader,
-        _probe = probe ?? _defaultProbe,
-        _evictor = evictor ?? _defaultEvictor;
+  }) : _downloader = downloader ?? _defaultDownloader,
+       _probe = probe ?? _defaultProbe,
+       _evictor = evictor ?? _defaultEvictor;
 
   static const String storeKey = 'bananatalkReelVideoCache';
 

@@ -65,6 +65,7 @@ class _QuickRepliesPanelState extends State<QuickRepliesPanel> {
       if (mounted) {
         if (result['success'] == true) {
           await _loadQuickReplies();
+          if (!mounted) return;
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Quick reply added')),
           );

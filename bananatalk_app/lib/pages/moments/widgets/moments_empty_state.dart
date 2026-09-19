@@ -25,7 +25,11 @@ class MomentsEmptyState extends StatelessWidget {
           children: [
             Icon(icon, size: 64, color: context.textMuted),
             const SizedBox(height: 16),
-            Text(title, style: context.titleMedium, textAlign: TextAlign.center),
+            Text(
+              title,
+              style: context.titleMedium,
+              textAlign: TextAlign.center,
+            ),
             if (subtitle != null) ...[
               const SizedBox(height: 8),
               Text(

@@ -103,9 +103,11 @@ class _ReelProgressBarState extends State<ReelProgressBar> {
     final playedFraction = !ready
         ? 0.0
         : _dragging
-            ? _dragFraction
-            : (value.position.inMilliseconds / total.inMilliseconds)
-                .clamp(0.0, 1.0);
+        ? _dragFraction
+        : (value.position.inMilliseconds / total.inMilliseconds).clamp(
+            0.0,
+            1.0,
+          );
 
     // A generous invisible hit area over a hairline bar: easy to grab without
     // a chunky control sitting on top of the video.
@@ -127,8 +129,9 @@ class _ReelProgressBarState extends State<ReelProgressBar> {
                   updateFromDx(details.localPosition.dx);
                 }
               : null,
-          onHorizontalDragUpdate:
-              ready ? (details) => updateFromDx(details.localPosition.dx) : null,
+          onHorizontalDragUpdate: ready
+              ? (details) => updateFromDx(details.localPosition.dx)
+              : null,
           onHorizontalDragEnd: ready
               ? (_) {
                   _seekToFraction(_dragFraction);
@@ -200,13 +203,17 @@ class _ReelHeartBurstState extends State<ReelHeartBurst>
     // scale is what makes these animations look cheap.
     final scale = TweenSequence<double>([
       TweenSequenceItem(
-        tween: Tween(begin: 0.2, end: 1.25)
-            .chain(CurveTween(curve: Curves.easeOutBack)),
+        tween: Tween(
+          begin: 0.2,
+          end: 1.25,
+        ).chain(CurveTween(curve: Curves.easeOutBack)),
         weight: 35,
       ),
       TweenSequenceItem(
-        tween: Tween(begin: 1.25, end: 1.0)
-            .chain(CurveTween(curve: Curves.easeOut)),
+        tween: Tween(
+          begin: 1.25,
+          end: 1.0,
+        ).chain(CurveTween(curve: Curves.easeOut)),
         weight: 25,
       ),
       TweenSequenceItem(tween: ConstantTween(1.0), weight: 40),
@@ -216,15 +223,18 @@ class _ReelHeartBurstState extends State<ReelHeartBurst>
       TweenSequenceItem(tween: Tween(begin: 0.0, end: 1.0), weight: 15),
       TweenSequenceItem(tween: ConstantTween(1.0), weight: 45),
       TweenSequenceItem(
-        tween: Tween(begin: 1.0, end: 0.0)
-            .chain(CurveTween(curve: Curves.easeIn)),
+        tween: Tween(
+          begin: 1.0,
+          end: 0.0,
+        ).chain(CurveTween(curve: Curves.easeIn)),
         weight: 40,
       ),
     ]).animate(_c);
 
-    final rise = Tween<double>(begin: 0, end: -46)
-        .chain(CurveTween(curve: Curves.easeOut))
-        .animate(_c);
+    final rise = Tween<double>(
+      begin: 0,
+      end: -46,
+    ).chain(CurveTween(curve: Curves.easeOut)).animate(_c);
 
     return Positioned(
       left: widget.at.dx - 50,

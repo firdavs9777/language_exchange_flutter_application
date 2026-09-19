@@ -78,8 +78,9 @@ class FilterSortSection extends StatelessWidget {
               : Colors.transparent,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
-            color:
-                isSelected ? colorScheme.primary : colorScheme.outlineVariant,
+            color: isSelected
+                ? colorScheme.primary
+                : colorScheme.outlineVariant,
           ),
         ),
         child: Row(
@@ -87,8 +88,7 @@ class FilterSortSection extends StatelessWidget {
             Icon(
               icon,
               size: 20,
-              color:
-                  isSelected ? colorScheme.primary : context.textSecondary,
+              color: isSelected ? colorScheme.primary : context.textSecondary,
             ),
             const SizedBox(width: 12),
             Expanded(
@@ -97,8 +97,7 @@ class FilterSortSection extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 15,
                   color: isSelected ? colorScheme.primary : context.textPrimary,
-                  fontWeight:
-                      isSelected ? FontWeight.w600 : FontWeight.w500,
+                  fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
                 ),
               ),
             ),
@@ -148,8 +147,7 @@ class FilterSortSection extends StatelessWidget {
                 context: context,
                 label: label,
                 isSelected: isSelected,
-                onTap: () =>
-                    onChanged(tempFilter.copyWith(dateFilter: value)),
+                onTap: () => onChanged(tempFilter.copyWith(dateFilter: value)),
               );
             }).toList(),
           ),

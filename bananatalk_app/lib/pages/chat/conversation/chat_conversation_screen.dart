@@ -1234,6 +1234,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
 
     File finalVideoFile = editedVideoFile;
     if (needsCompression) {
+      if (!mounted) return;
       // Show compression dialog
       showDialog(
         context: context,
@@ -1490,6 +1491,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       }
 
       // Dismiss loading dialog safely using its own context
+      if (!mounted) return;
       if (dialogContext != null && Navigator.of(dialogContext!).canPop()) {
         Navigator.of(dialogContext!).pop();
       }

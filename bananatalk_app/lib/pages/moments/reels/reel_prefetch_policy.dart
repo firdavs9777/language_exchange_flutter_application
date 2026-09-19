@@ -20,8 +20,9 @@ const int kReelMaxPrefetchDepth = 3;
 /// result (`> 1` was previously open-coded at two call sites, with the
 /// meaning of the comparison living nowhere).
 bool reelConnectionUnmetered(List<ConnectivityResult> status) {
-  return status.any((r) =>
-      r == ConnectivityResult.wifi || r == ConnectivityResult.ethernet);
+  return status.any(
+    (r) => r == ConnectivityResult.wifi || r == ConnectivityResult.ethernet,
+  );
 }
 
 /// How many upcoming reels to download ahead of the current one.

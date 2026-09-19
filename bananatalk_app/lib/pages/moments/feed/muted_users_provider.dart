@@ -34,5 +34,5 @@ class MutedMomentsNotifier extends StateNotifier<Set<String>> {
 
 final mutedMomentsProvider =
     StateNotifierProvider<MutedMomentsNotifier, Set<String>>(
-  (ref) => MutedMomentsNotifier(),
-);
+      (ref) => MutedMomentsNotifier(),
+    );

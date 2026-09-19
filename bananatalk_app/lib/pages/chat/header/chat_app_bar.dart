@@ -6,7 +6,8 @@ import 'package:bananatalk_app/providers/message_count_provider.dart';
 import 'package:bananatalk_app/providers/chat_state_provider.dart';
 import 'package:bananatalk_app/models/call_model.dart';
 import 'package:bananatalk_app/screens/active_call_screen.dart';
-import 'package:bananatalk_app/router/app_router.dart' show callOverlayNavigatorKey;
+import 'package:bananatalk_app/router/app_router.dart'
+    show callOverlayNavigatorKey;
 import 'package:bananatalk_app/pages/community/single/single_community_screen.dart';
 import 'package:bananatalk_app/utils/time_utils.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
@@ -93,7 +94,7 @@ class ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
                         color: AppColors.online.withValues(alpha: 0.4),
                         blurRadius: 4,
                         spreadRadius: 1,
-                      )
+                      ),
                     ]
                   : null,
             ),
@@ -148,22 +149,17 @@ class ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
           Container(
             width: 6,
             height: 6,
-            decoration: BoxDecoration(
-              color: dotColor,
-              shape: BoxShape.circle,
-            ),
+            decoration: BoxDecoration(color: dotColor, shape: BoxShape.circle),
           ),
         Spacing.hGapXS,
         Text(
           statusText,
-          style: context.captionSmall.copyWith(
-            color: context.textSecondary,
-          ),
+          style: context.captionSmall.copyWith(color: context.textSecondary),
         ),
       ],
     );
   }
-  
+
   String _formatLastSeen(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     // If lastSeen is null or empty, user was recently online or we don't have data
@@ -199,8 +195,20 @@ class ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
         return l10n.chatActiveDaysAgo(difference.inDays);
       } else {
         // Show actual date for 7+ days ago
-        final months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-                        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        final months = [
+          'Jan',
+          'Feb',
+          'Mar',
+          'Apr',
+          'May',
+          'Jun',
+          'Jul',
+          'Aug',
+          'Sep',
+          'Oct',
+          'Nov',
+          'Dec',
+        ];
         final month = months[lastSeenDate.month - 1];
         return 'Last seen $month ${lastSeenDate.day}';
       }
@@ -212,7 +220,11 @@ class ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
   Future<void> _navigateToProfile(BuildContext context, WidgetRef ref) async {
     final l10n = AppLocalizations.of(context)!;
     if (userId == null) {
-      showChatSnackBar(context, message: l10n.userIdNotAvailable, type: ChatSnackBarType.error);
+      showChatSnackBar(
+        context,
+        message: l10n.userIdNotAvailable,
+        type: ChatSnackBarType.error,
+      );
       return;
     }
 
@@ -222,7 +234,11 @@ class ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
 
       if (community == null) {
         if (context.mounted) {
-          showChatSnackBar(context, message: AppLocalizations.of(context)!.userNotFound, type: ChatSnackBarType.error);
+          showChatSnackBar(
+            context,
+            message: AppLocalizations.of(context)!.userNotFound,
+            type: ChatSnackBarType.error,
+          );
         }
         return;
       }
@@ -235,27 +251,34 @@ class ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
                 SingleCommunity(community: community),
             transitionsBuilder:
                 (context, animation, secondaryAnimation, child) {
-              return FadeTransition(
-                opacity: animation,
-                child: SlideTransition(
-                  position: Tween<Offset>(
-                    begin: const Offset(0.4, 0.0),
-                    end: Offset.zero,
-                  ).animate(CurvedAnimation(
-                    parent: animation,
-                    curve: Curves.easeIn,
-                  )),
-                  child: child,
-                ),
-              );
-            },
+                  return FadeTransition(
+                    opacity: animation,
+                    child: SlideTransition(
+                      position:
+                          Tween<Offset>(
+                            begin: const Offset(0.4, 0.0),
+                            end: Offset.zero,
+                          ).animate(
+                            CurvedAnimation(
+                              parent: animation,
+                              curve: Curves.easeIn,
+                            ),
+                          ),
+                      child: child,
+                    ),
+                  );
+                },
             transitionDuration: const Duration(milliseconds: 400),
           ),
         );
       }
     } catch (e) {
       if (context.mounted) {
-        showChatSnackBar(context, message: friendlyErrorMessage(AppLocalizations.of(context)!, e), type: ChatSnackBarType.error);
+        showChatSnackBar(
+          context,
+          message: friendlyErrorMessage(AppLocalizations.of(context)!, e),
+          type: ChatSnackBarType.error,
+        );
       }
     }
   }
@@ -268,7 +291,9 @@ class ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
         : false;
 
     // Passive coin-awareness nudge in the chat header (gated server-side).
-    final coinsEnabled = ref.watch(appConfigProvider).maybeWhen(
+    final coinsEnabled = ref
+        .watch(appConfigProvider)
+        .maybeWhen(
           data: (config) => config?.coinsEnabled ?? false,
           orElse: () => false,
         );
@@ -303,7 +328,10 @@ class ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
                         if (isVip) ...[
                           Spacing.hGapSM,
                           Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 6,
+                              vertical: 2,
+                            ),
                             decoration: BoxDecoration(
                               gradient: const LinearGradient(
                                 colors: [Color(0xFFFFD700), Color(0xFFFFA500)],
@@ -378,7 +406,11 @@ class ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
 
   void _showCallDisabledTooltip(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    showChatSnackBar(context, message: l10n.exchange3MessagesBeforeCall, type: ChatSnackBarType.info);
+    showChatSnackBar(
+      context,
+      message: l10n.exchange3MessagesBeforeCall,
+      type: ChatSnackBarType.info,
+    );
   }
 
   Future<void> _initiateCall(
@@ -426,7 +458,7 @@ class ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
       // Error is already handled via the callback, no need to handle again
     }
   }
-  
+
   void _handleCallError(BuildContext context, String error) {
     final l10n = AppLocalizations.of(context)!;
     if (error.startsWith('PERMANENTLY_DENIED:')) {
@@ -500,9 +532,7 @@ class _CallButton extends StatelessWidget {
             child: Icon(
               icon,
               size: 22,
-              color: isEnabled
-                  ? AppColors.primary
-                  : context.textSecondary,
+              color: isEnabled ? AppColors.primary : context.textSecondary,
             ),
           ),
         ),
@@ -573,7 +603,9 @@ class _TypingDotsState extends State<_TypingDots>
                     width: 5,
                     height: 5,
                     decoration: BoxDecoration(
-                      color: AppColors.primary.withValues(alpha: 0.6 + 0.4 * bounce),
+                      color: AppColors.primary.withValues(
+                        alpha: 0.6 + 0.4 * bounce,
+                      ),
                       shape: BoxShape.circle,
                     ),
                   ),
@@ -609,9 +641,10 @@ class _PulsingDotState extends State<_PulsingDot>
       vsync: this,
       duration: const Duration(milliseconds: 1000),
     )..repeat(reverse: true);
-    _animation = Tween<double>(begin: 0.4, end: 1.0).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
-    );
+    _animation = Tween<double>(
+      begin: 0.4,
+      end: 1.0,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
   }
 
   @override
