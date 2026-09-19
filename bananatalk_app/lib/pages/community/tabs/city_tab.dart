@@ -15,6 +15,8 @@ import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:bananatalk_app/pages/community/single/single_community_screen.dart';
 import 'package:bananatalk_app/pages/chat/conversation/chat_conversation_screen.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
+import 'package:bananatalk_app/pages/community/widgets/community_error_state.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
@@ -64,6 +66,7 @@ class _CityTabState extends ConsumerState<CityTab> {
   // Users for selected country/city
   List<Community> _users = [];
   bool _isLoadingUsers = false;
+  String? _loadError;
   bool _hasMore = true;
   int _currentPage = 1;
 
@@ -422,10 +425,18 @@ class _CityTabState extends ConsumerState<CityTab> {
           _users.addAll(filtered);
           _hasMore = result.hasMore;
           _isLoadingUsers = false;
+          _loadError = null;
         });
       }
     } catch (e) {
-      if (mounted) setState(() => _isLoadingUsers = false);
+      if (mounted) {
+        setState(() {
+          _isLoadingUsers = false;
+          _loadError = _users.isEmpty
+              ? friendlyErrorMessage(AppLocalizations.of(context)!, e)
+              : null;
+        });
+      }
     }
   }
 
@@ -841,6 +852,13 @@ class _CityTabState extends ConsumerState<CityTab> {
         Expanded(
           child: _isLoadingUsers && _users.isEmpty
               ? const UserListSkeleton(count: 6)
+              : (_users.isEmpty && _loadError != null)
+              // "No one in this city" is a claim about the city. Do not make
+              // it on the strength of a request that never arrived.
+              ? CommunityErrorState(
+                  message: _loadError!,
+                  onRetry: _loadUsers,
+                )
               : _users.isEmpty
               ? Center(
                   child: Column(

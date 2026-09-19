@@ -14,6 +14,8 @@ import 'package:bananatalk_app/pages/community/single/single_community_screen.da
 import 'package:bananatalk_app/pages/chat/conversation/chat_conversation_screen.dart';
 import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
+import 'package:bananatalk_app/pages/community/widgets/community_error_state.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/utils/language_flags.dart';
 import 'package:bananatalk_app/widgets/community/user_skeleton.dart';
@@ -42,6 +44,7 @@ class _GendersTabState extends ConsumerState<GendersTab> {
   String _selectedGender = 'female';
   List<Community> _users = [];
   bool _isLoading = false;
+  String? _loadError;
   bool _hasMore = true;
   int _currentPage = 1;
   int _maleCount = 0;
@@ -215,13 +218,23 @@ class _GendersTabState extends ConsumerState<GendersTab> {
 
       if (mounted) {
         setState(() {
+          _loadError = null;
           _users.addAll(filtered);
           _hasMore = result.hasMore;
           _isLoading = false;
         });
       }
     } catch (e) {
-      if (mounted) setState(() => _isLoading = false);
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+          // A failed fetch is not "nobody here". Only surfaced when the grid
+          // is empty, so a failed later page leaves what is already loaded.
+          _loadError = _users.isEmpty
+              ? friendlyErrorMessage(AppLocalizations.of(context)!, e)
+              : null;
+        });
+      }
     }
   }
 
@@ -288,6 +301,11 @@ class _GendersTabState extends ConsumerState<GendersTab> {
             onRefresh: _refresh,
             child: _isLoading && _users.isEmpty
                 ? const UserGridSkeleton(count: 6)
+                : (_users.isEmpty && _loadError != null)
+                ? CommunityErrorState(
+                    message: _loadError!,
+                    onRetry: _refresh,
+                  )
                 : _users.isEmpty
                 ? _buildEmptyState()
                 : _buildUserGrid(),

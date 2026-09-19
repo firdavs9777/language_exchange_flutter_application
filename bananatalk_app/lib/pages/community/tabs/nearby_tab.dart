@@ -16,6 +16,8 @@ import 'package:bananatalk_app/utils/language_flags.dart';
 import 'package:bananatalk_app/widgets/community/user_skeleton.dart';
 import 'package:bananatalk_app/services/location_service.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
+import 'package:bananatalk_app/pages/community/widgets/community_error_state.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
@@ -43,6 +45,12 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
   final LocationService _locationService = LocationService();
   int _selectedRadius = 50; // Default 50km radius
   bool _isLoadingMore = false;
+
+  /// Set when a fetch fails. Without it the catch below simply cleared the
+  /// spinner, so a failed request left an empty list and the tab rendered
+  /// "no one nearby" -- telling the user their area is empty when in fact
+  /// nobody had been asked.
+  String? _loadError;
   int _currentOffset = 0;
   List<NearbyUser> _nearbyUsers = [];
   bool _hasMore = true;
@@ -179,10 +187,20 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
               response.users.length; // Keep original offset for pagination
           _hasMore = response.pagination.hasMore;
           _isLoadingMore = false;
+          _loadError = null;
         });
       }
     } catch (e) {
-      if (mounted) setState(() => _isLoadingMore = false);
+      if (mounted) {
+        setState(() {
+          _isLoadingMore = false;
+          // Only when there is nothing on screen: a failed page 3 must not
+          // replace two pages the user is already reading.
+          _loadError = _nearbyUsers.isEmpty
+              ? friendlyErrorMessage(AppLocalizations.of(context)!, e)
+              : null;
+        });
+      }
     }
   }
 
@@ -237,6 +255,14 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
     // Show location permission request if denied
     if (_locationDenied) {
       return _buildLocationPermissionRequest();
+    }
+
+    // A failed fetch is not an empty neighbourhood.
+    if (_nearbyUsers.isEmpty && !_isLoadingMore && _loadError != null) {
+      return CommunityErrorState(
+        message: _loadError!,
+        onRetry: _loadNearbyUsers,
+      );
     }
 
     // Show empty state if no users

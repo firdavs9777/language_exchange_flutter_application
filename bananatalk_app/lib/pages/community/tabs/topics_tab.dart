@@ -17,6 +17,8 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
+import 'package:bananatalk_app/pages/community/widgets/community_error_state.dart';
 import 'package:bananatalk_app/utils/compact_count.dart';
 
 /// Topics Tab - Topic-based discovery
@@ -264,10 +266,19 @@ class _TopicsTabState extends ConsumerState<TopicsTab> {
                 return const UserListSkeleton(count: 6);
               }
 
-              // Show error if any
+              // Show error if any. Was `commonError(error.toString())` --
+              // the raw exception, with no way to try again.
               if (topicUsersState.error != null &&
                   topicUsersState.users.isEmpty) {
-                return Center(child: Text(AppLocalizations.of(context)!.commonError(topicUsersState.error.toString())));
+                return CommunityErrorState(
+                  message: friendlyErrorMessage(
+                    AppLocalizations.of(context)!,
+                    topicUsersState.error,
+                  ),
+                  onRetry: _selectedTopicId == null
+                      ? null
+                      : () => _loadTopicUsers(_selectedTopicId!),
+                );
               }
 
               final users = topicUsersState.users;

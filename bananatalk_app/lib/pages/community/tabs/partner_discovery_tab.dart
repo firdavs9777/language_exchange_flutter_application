@@ -19,6 +19,7 @@ import 'package:bananatalk_app/pages/community/single/single_community_screen.da
 import 'package:bananatalk_app/pages/chat/conversation/chat_conversation_screen.dart';
 import 'package:bananatalk_app/pages/stories/viewer/story_viewer_launcher.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
@@ -1171,12 +1172,13 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
               color: context.textMuted,
             ),
             Spacing.gapLG,
-            Text(l10n.somethingWentWrong, style: context.titleLarge),
-            Spacing.gapSM,
+            // One sentence rather than a generic heading over the raw
+            // exception: offline this now says so, instead of printing a
+            // SocketException under "Something went wrong".
             Text(
-              '$error',
+              friendlyErrorMessage(l10n, error),
               textAlign: TextAlign.center,
-              style: context.bodySmall,
+              style: context.titleLarge,
             ),
             Spacing.gapXXL,
             ElevatedButton.icon(
