@@ -3446,5 +3446,7 @@
   "storyStickerLocationSubtitle": "이 스토리를 찍은 장소 태그",
   "storyStickerMention": "멘션",
   "storyStickerMentionSubtitle": "팔로우하는 사람 태그",
-  "storyToolDraw": "그리기"
+  "storyToolDraw": "그리기",
+  "momentsTabForYou": "추천",
+  "momentsTabReels": "릴스"
 }

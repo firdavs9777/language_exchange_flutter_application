@@ -8220,4 +8220,10 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get storyToolDraw => 'Рисовать';
+
+  @override
+  String get momentsTabForYou => 'Для вас';
+
+  @override
+  String get momentsTabReels => 'Reels';
 }

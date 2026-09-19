@@ -8205,4 +8205,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get storyToolDraw => 'Draw';
+
+  @override
+  String get momentsTabForYou => 'For You';
+
+  @override
+  String get momentsTabReels => 'Reels';
 }

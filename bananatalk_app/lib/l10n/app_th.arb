@@ -3425,5 +3425,7 @@
   "storyStickerLocationSubtitle": "แท็กสถานที่ถ่ายสตอรีนี้",
   "storyStickerMention": "กล่าวถึง",
   "storyStickerMentionSubtitle": "แท็กคนที่คุณติดตาม",
-  "storyToolDraw": "วาด"
+  "storyToolDraw": "วาด",
+  "momentsTabForYou": "สำหรับคุณ",
+  "momentsTabReels": "รีลส์"
 }

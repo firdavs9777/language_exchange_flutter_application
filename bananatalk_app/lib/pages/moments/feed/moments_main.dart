@@ -702,11 +702,8 @@ class _MomentsFeedTabBar extends ConsumerWidget {
     // For You so it's the first thing reachable from the default tab
     // instead of being buried at the end of the strip.
     final tabs = <MomentsFeedTab, String>{
-      MomentsFeedTab.forYou: 'For You',
-      // TODO(l10n): no `momentsTabReels` key exists yet in the arb files —
-      // plain-string fallback, following the established pattern (see
-      // `CommunityTabBar`'s "Rooms" tab) until a follow-up localizes it.
-      if (reelsEnabled) MomentsFeedTab.reels: 'Reels',
+      MomentsFeedTab.forYou: l10n.momentsTabForYou,
+      if (reelsEnabled) MomentsFeedTab.reels: l10n.momentsTabReels,
       MomentsFeedTab.following: l10n.following,
       MomentsFeedTab.trending: l10n.trending,
     };

@@ -8189,4 +8189,10 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get storyToolDraw => 'วาด';
+
+  @override
+  String get momentsTabForYou => 'สำหรับคุณ';
+
+  @override
+  String get momentsTabReels => 'รีลส์';
 }

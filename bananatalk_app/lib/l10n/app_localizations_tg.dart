@@ -8203,4 +8203,10 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get storyToolDraw => 'Расм кашидан';
+
+  @override
+  String get momentsTabForYou => 'Барои шумо';
+
+  @override
+  String get momentsTabReels => 'Reels';
 }

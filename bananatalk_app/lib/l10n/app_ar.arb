@@ -3455,5 +3455,7 @@
   "storyStickerLocationSubtitle": "حدّد مكان تصوير هذه القصة",
   "storyStickerMention": "إشارة",
   "storyStickerMentionSubtitle": "أشر إلى شخص تتابعه",
-  "storyToolDraw": "رسم"
+  "storyToolDraw": "رسم",
+  "momentsTabForYou": "لك",
+  "momentsTabReels": "ريلز"
 }

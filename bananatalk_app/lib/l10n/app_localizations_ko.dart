@@ -8189,4 +8189,10 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get storyToolDraw => '그리기';
+
+  @override
+  String get momentsTabForYou => '추천';
+
+  @override
+  String get momentsTabReels => '릴스';
 }

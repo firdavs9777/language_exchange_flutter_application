@@ -5680,5 +5680,7 @@
         "type": "String"
       }
     }
-  }
+  },
+  "momentsTabForYou": "For You",
+  "momentsTabReels": "Reels"
 }

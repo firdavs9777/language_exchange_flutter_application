@@ -8211,4 +8211,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get storyToolDraw => 'رسم';
+
+  @override
+  String get momentsTabForYou => 'لك';
+
+  @override
+  String get momentsTabReels => 'ريلز';
 }

@@ -8199,4 +8199,10 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get storyToolDraw => 'ड्रॉ';
+
+  @override
+  String get momentsTabForYou => 'आपके लिए';
+
+  @override
+  String get momentsTabReels => 'रील्स';
 }

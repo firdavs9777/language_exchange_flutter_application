@@ -3441,5 +3441,7 @@
   "storyStickerLocationSubtitle": "टैग करें कि यह स्टोरी कहां ली गई",
   "storyStickerMention": "मेंशन",
   "storyStickerMentionSubtitle": "जिसे आप फ़ॉलो करते हैं उसे टैग करें",
-  "storyToolDraw": "ड्रॉ"
+  "storyToolDraw": "ड्रॉ",
+  "momentsTabForYou": "आपके लिए",
+  "momentsTabReels": "रील्स"
 }

@@ -8189,4 +8189,10 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get storyToolDraw => 'お絵かき';
+
+  @override
+  String get momentsTabForYou => 'おすすめ';
+
+  @override
+  String get momentsTabReels => 'リール';
 }

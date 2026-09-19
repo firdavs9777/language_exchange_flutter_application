@@ -3116,5 +3116,7 @@
   "storyStickerLocationSubtitle": "標記這則限時動態的拍攝地點",
   "storyStickerMention": "提及",
   "storyStickerMentionSubtitle": "標記你追蹤的人",
-  "storyToolDraw": "塗鴉"
+  "storyToolDraw": "塗鴉",
+  "momentsTabForYou": "為你推薦",
+  "momentsTabReels": "連續短片"
 }

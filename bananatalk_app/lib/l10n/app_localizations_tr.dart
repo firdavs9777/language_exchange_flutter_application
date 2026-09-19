@@ -8197,4 +8197,10 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get storyToolDraw => 'Çiz';
+
+  @override
+  String get momentsTabForYou => 'Senin İçin';
+
+  @override
+  String get momentsTabReels => 'Reels';
 }

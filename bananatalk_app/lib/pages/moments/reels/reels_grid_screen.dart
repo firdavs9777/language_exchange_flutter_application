@@ -21,10 +21,9 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 /// Renders a designed empty state when supply is thin, an infinite-scroll
 /// 3-column grid otherwise, and the one-time content-policy gate
 /// (Apple 1.2, see [ReelPolicyGate]) before the first frame of real
-/// content. Tapping a tile opens the full-screen vertical swipe feed at
-/// that reel (wired in Task 5); the "+" FAB opens the reel creation flow
-/// (wired in Task 6) — both are TODO stubs here so this screen compiles
-/// and is usable standalone ahead of those tasks landing.
+/// content. Tapping a tile opens the full-screen vertical swipe feed at that
+/// reel, and the "+" FAB opens the reel creation flow. Both were stubs while
+/// those tasks were outstanding; they are wired now.
 class ReelsGridScreen extends ConsumerStatefulWidget {
   const ReelsGridScreen({super.key, required this.onPolicyDeclined});
 

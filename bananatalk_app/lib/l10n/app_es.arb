@@ -3455,5 +3455,7 @@
   "storyStickerLocationSubtitle": "Etiqueta dónde se tomó esta historia",
   "storyStickerMention": "Mención",
   "storyStickerMentionSubtitle": "Etiqueta a alguien que sigues",
-  "storyToolDraw": "Dibujar"
+  "storyToolDraw": "Dibujar",
+  "momentsTabForYou": "Para ti",
+  "momentsTabReels": "Reels"
 }

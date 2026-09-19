@@ -3439,5 +3439,7 @@
   "storyStickerLocationSubtitle": "标记这条快拍的拍摄地点",
   "storyStickerMention": "提及",
   "storyStickerMentionSubtitle": "标记你关注的人",
-  "storyToolDraw": "涂鸦"
+  "storyToolDraw": "涂鸦",
+  "momentsTabForYou": "为你推荐",
+  "momentsTabReels": "快拍视频"
 }

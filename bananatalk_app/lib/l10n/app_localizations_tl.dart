@@ -8199,4 +8199,10 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get storyToolDraw => 'Gumuhit';
+
+  @override
+  String get momentsTabForYou => 'Para Sa\'yo';
+
+  @override
+  String get momentsTabReels => 'Reels';
 }

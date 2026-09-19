@@ -8189,4 +8189,10 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get storyToolDraw => 'Vẽ';
+
+  @override
+  String get momentsTabForYou => 'Dành cho bạn';
+
+  @override
+  String get momentsTabReels => 'Reels';
 }

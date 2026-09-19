@@ -3425,5 +3425,7 @@
   "storyStickerLocationSubtitle": "このストーリーの場所をタグ付け",
   "storyStickerMention": "メンション",
   "storyStickerMentionSubtitle": "フォロー中の人をタグ付け",
-  "storyToolDraw": "お絵かき"
+  "storyToolDraw": "お絵かき",
+  "momentsTabForYou": "おすすめ",
+  "momentsTabReels": "リール"
 }

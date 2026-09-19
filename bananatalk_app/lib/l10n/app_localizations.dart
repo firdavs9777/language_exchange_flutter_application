@@ -15133,6 +15133,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Draw'**
   String get storyToolDraw;
+
+  /// No description provided for @momentsTabForYou.
+  ///
+  /// In en, this message translates to:
+  /// **'For You'**
+  String get momentsTabForYou;
+
+  /// No description provided for @momentsTabReels.
+  ///
+  /// In en, this message translates to:
+  /// **'Reels'**
+  String get momentsTabReels;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

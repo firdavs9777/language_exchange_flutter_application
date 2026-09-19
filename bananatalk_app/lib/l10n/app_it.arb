@@ -3665,5 +3665,7 @@
   "storyStickerLocationSubtitle": "Tagga dove è stata scattata",
   "storyStickerMention": "Menzione",
   "storyStickerMentionSubtitle": "Tagga qualcuno che segui",
-  "storyToolDraw": "Disegna"
+  "storyToolDraw": "Disegna",
+  "momentsTabForYou": "Per te",
+  "momentsTabReels": "Reels"
 }

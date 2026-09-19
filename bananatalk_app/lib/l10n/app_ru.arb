@@ -3455,5 +3455,7 @@
   "storyStickerLocationSubtitle": "Отметьте, где снята история",
   "storyStickerMention": "Упоминание",
   "storyStickerMentionSubtitle": "Отметьте того, на кого подписаны",
-  "storyToolDraw": "Рисовать"
+  "storyToolDraw": "Рисовать",
+  "momentsTabForYou": "Для вас",
+  "momentsTabReels": "Reels"
 }

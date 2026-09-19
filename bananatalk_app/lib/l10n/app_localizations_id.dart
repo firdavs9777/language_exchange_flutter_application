@@ -8196,4 +8196,10 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get storyToolDraw => 'Gambar';
+
+  @override
+  String get momentsTabForYou => 'Untuk Kamu';
+
+  @override
+  String get momentsTabReels => 'Reels';
 }

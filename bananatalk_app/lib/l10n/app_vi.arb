@@ -3425,5 +3425,7 @@
   "storyStickerLocationSubtitle": "Gắn thẻ nơi chụp tin này",
   "storyStickerMention": "Nhắc đến",
   "storyStickerMentionSubtitle": "Gắn thẻ người bạn theo dõi",
-  "storyToolDraw": "Vẽ"
+  "storyToolDraw": "Vẽ",
+  "momentsTabForYou": "Dành cho bạn",
+  "momentsTabReels": "Reels"
 }

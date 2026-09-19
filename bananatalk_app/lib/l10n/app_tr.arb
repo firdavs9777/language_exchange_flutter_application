@@ -3637,5 +3637,7 @@
   "storyStickerLocationSubtitle": "Bu hikâyenin çekildiği yeri etiketle",
   "storyStickerMention": "Bahset",
   "storyStickerMentionSubtitle": "Takip ettiğin birini etiketle",
-  "storyToolDraw": "Çiz"
+  "storyToolDraw": "Çiz",
+  "momentsTabForYou": "Senin İçin",
+  "momentsTabReels": "Reels"
 }

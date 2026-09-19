@@ -3665,5 +3665,7 @@
   "storyStickerLocationSubtitle": "Markiere, wo diese Story entstand",
   "storyStickerMention": "Erwähnung",
   "storyStickerMentionSubtitle": "Markiere jemanden, dem du folgst",
-  "storyToolDraw": "Zeichnen"
+  "storyToolDraw": "Zeichnen",
+  "momentsTabForYou": "Für dich",
+  "momentsTabReels": "Reels"
 }

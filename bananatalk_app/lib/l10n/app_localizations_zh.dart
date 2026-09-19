@@ -8189,6 +8189,12 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get storyToolDraw => '涂鸦';
+
+  @override
+  String get momentsTabForYou => '为你推荐';
+
+  @override
+  String get momentsTabReels => '快拍视频';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -16376,4 +16382,10 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get storyToolDraw => '塗鴉';
+
+  @override
+  String get momentsTabForYou => '為你推薦';
+
+  @override
+  String get momentsTabReels => '連續短片';
 }
