@@ -10,6 +10,7 @@ import 'package:bananatalk_app/widgets/connection_status_indicator.dart';
 import 'package:bananatalk_app/widgets/shimmer_loading.dart';
 import 'package:bananatalk_app/widgets/qr_code_sheet.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/providers/provider_models/message_model.dart';
@@ -487,7 +488,9 @@ class _ChatMainState extends ConsumerState<ChatMain>
     } catch (error) {
       if (mounted) {
         setState(() {
-          _error = 'Failed to load messages: $error';
+          // Was 'Failed to load messages: $error', which printed the raw
+          // SocketException on the screen this app's users open most.
+          _error = friendlyErrorMessage(AppLocalizations.of(context)!, error);
         });
       }
     }
@@ -751,7 +754,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
     if (newUserId == null || newToken == null || newUserId == '{}') {
       if (mounted) {
         setState(() {
-          _error = 'Please login again';
+          _error = AppLocalizations.of(context)!.sessionExpired;
         });
       }
       return;
@@ -1359,21 +1362,17 @@ class _ChatMainState extends ConsumerState<ChatMain>
                             color: colors.outline,
                           ),
                           const SizedBox(height: 12),
-                          Text(
-                            'Connection error',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              color: colors.onBackground,
-                            ),
-                          ),
-                          const SizedBox(height: 8),
+                          // One sentence, not a hardcoded English heading
+                          // above a raw exception. `_error` is already a
+                          // human line ("No internet connection", "Session
+                          // expired") by the time it gets here.
                           Text(
                             _error,
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              fontSize: 13,
-                              color: colors.outlineVariant,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              color: colors.onBackground,
                             ),
                           ),
                           const SizedBox(height: 16),

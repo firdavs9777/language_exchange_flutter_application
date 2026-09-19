@@ -54,6 +54,12 @@ ErrorKind classifyError(Object? error) {
 /// [fallback] is for when the caller has something more specific worth saying
 /// than "something went wrong" — a failed follow, say. It is used only for
 /// non-network failures; a dropped connection always reports as one.
+///
+/// A caller holding a message the SERVER wrote ("this club is full", "you
+/// already removed this word") should pass it as [fallback]. This function
+/// cannot tell a server's sentence from an exception dump, so it treats
+/// everything unrecognised as opaque — which would throw away exactly the
+/// refusals worth reading. The caller knows which it has; this does not.
 String friendlyErrorMessage(
   AppLocalizations l10n,
   Object? error, {

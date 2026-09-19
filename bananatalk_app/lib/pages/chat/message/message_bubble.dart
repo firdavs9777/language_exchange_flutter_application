@@ -25,6 +25,7 @@ import 'package:bananatalk_app/services/learning_service.dart';
 import 'package:bananatalk_app/services/translation_service.dart';
 import 'package:bananatalk_app/pages/chat/dialogs/translate_unlock_sheet.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/pages/chat/message/bubble/bubble_actions_menu.dart';
 import 'package:bananatalk_app/pages/chat/message/bubble/system_bubble.dart';
 import 'package:bananatalk_app/pages/chat/message/message_bubble/text_message_view.dart';
@@ -379,7 +380,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
     } catch (e) {
       if (mounted) {
         showChatSnackBar(context,
-            message: 'Failed to update reaction: $e',
+            message: friendlyErrorMessage(AppLocalizations.of(context)!, e),
             type: ChatSnackBarType.error);
       }
     }

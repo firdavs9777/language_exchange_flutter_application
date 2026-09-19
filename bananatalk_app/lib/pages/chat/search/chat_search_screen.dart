@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:bananatalk_app/providers/provider_models/message_model.dart';
 import 'package:bananatalk_app/services/conversation_service.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:intl/intl.dart';
 import 'package:bananatalk_app/utils/time_utils.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
@@ -107,7 +108,7 @@ class _ChatSearchScreenState extends State<ChatSearchScreen> {
     } catch (e) {
       if (mounted) {
         setState(() {
-          _error = 'Search failed: ${e.toString()}';
+          _error = friendlyErrorMessage(AppLocalizations.of(context)!, e);
           _isLoading = false;
         });
       }

@@ -13,6 +13,7 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'dart:async';
 
 class VipPaymentScreen extends ConsumerStatefulWidget {
@@ -106,7 +107,7 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
       });
       _showErrorDialog(
         AppLocalizations.of(context)!.vipErrorPaymentTitle,
-        'An error occurred: ${e.toString()}',
+        friendlyErrorMessage(AppLocalizations.of(context)!, e),
       );
     }
   }

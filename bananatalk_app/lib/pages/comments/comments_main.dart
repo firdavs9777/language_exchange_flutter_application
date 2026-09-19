@@ -10,6 +10,7 @@ import 'package:bananatalk_app/services/moments_service.dart' as api;
 import 'package:bananatalk_app/widgets/report_dialog.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/widgets/block_user_action.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -97,7 +98,8 @@ class _CommentsMainState extends ConsumerState<CommentsMain> {
         padding: const EdgeInsets.all(16),
         child: Center(
           child: Text(
-            'Error: $error',
+            friendlyErrorMessage(AppLocalizations.of(context)!, error),
+            textAlign: TextAlign.center,
             style: context.bodySmall.copyWith(color: AppColors.error),
           ),
         ),
@@ -192,7 +194,8 @@ class _CommentsMainState extends ConsumerState<CommentsMain> {
         padding: const EdgeInsets.all(16),
         child: Center(
           child: Text(
-            'Error: $error',
+            friendlyErrorMessage(AppLocalizations.of(context)!, error),
+            textAlign: TextAlign.center,
             style: context.bodySmall.copyWith(color: AppColors.error),
           ),
         ),
@@ -522,6 +525,12 @@ class _CommentItemState extends State<_CommentItem> with SingleTickerProviderSta
       widget.onRefresh();
     } catch (e) {
       debugPrint('React error: $e');
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(friendlyErrorMessage(AppLocalizations.of(context)!, e)),
+        ),
+      );
     }
   }
 

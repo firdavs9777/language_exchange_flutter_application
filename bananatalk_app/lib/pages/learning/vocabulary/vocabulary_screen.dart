@@ -273,7 +273,16 @@ class _VocabularyScreenState extends ConsumerState<VocabularyScreen> {
                             messenger.showSnackBar(
                               SnackBar(
                                 content: Text(
-                                  friendlyErrorMessage(l10n, result['error']),
+                                  // The server's own message is the
+                                  // fallback, not the generic one: "you
+                                  // already removed this word" is worth
+                                  // reading, and it is only reached when the
+                                  // failure was not a network drop.
+                                  friendlyErrorMessage(
+                                    l10n,
+                                    result['error'],
+                                    fallback: result['error']?.toString(),
+                                  ),
                                 ),
                               ),
                             );

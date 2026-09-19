@@ -21,6 +21,7 @@ import 'package:bananatalk_app/widgets/language_selection/show_language_picker.d
 import 'package:bananatalk_app/widgets/moment_translate_chip.dart';
 import 'package:bananatalk_app/widgets/translated_moment_widget.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/widgets/block_user_action.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
@@ -268,7 +269,15 @@ class _MomentCardState extends ConsumerState<MomentCard> {
       );
       invalidateMomentFeeds(ref);
     } catch (e) {
+      // A reaction that fails used to log and stop, so offline the tap was
+      // indistinguishable from one that missed the button.
       debugPrint('React to moment error: $e');
+      if (!mounted) return;
+      showMomentsSnackBar(
+        context,
+        message: friendlyErrorMessage(AppLocalizations.of(context)!, e),
+        type: MomentsSnackBarType.error,
+      );
     }
   }
 
@@ -610,7 +619,7 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                       } catch (e) {
                         showMomentsSnackBar(
                           context,
-                          message: 'Error: $e',
+                          message: friendlyErrorMessage(AppLocalizations.of(context)!, e),
                           type: MomentsSnackBarType.error,
                         );
                       }
