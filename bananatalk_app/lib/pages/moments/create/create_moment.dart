@@ -1538,7 +1538,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
           final prefs = await SharedPreferences.getInstance();
           final userId = prefs.getString('userId');
           if (userId != null) {
-            ref.refresh(userLimitsProvider(userId));
+            ref.invalidate(userLimitsProvider(userId));
           }
         } catch (e) {
           debugPrint('Error refreshing limits: $e');

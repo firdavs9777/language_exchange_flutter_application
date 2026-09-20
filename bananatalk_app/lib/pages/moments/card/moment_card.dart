@@ -348,7 +348,7 @@ class _MomentCardState extends ConsumerState<MomentCard> {
         .read(momentsServiceProvider)
         .getSingleMoment(id: widget.moments.id);
 
-    ref.refresh(commentsProvider(singleMoment.id));
+    ref.invalidate(commentsProvider(singleMoment.id));
 
     // SingleMoment actually renders comments via CommentsMain(paginated:
     // true) (paginatedCommentsProvider), not the plain commentsProvider

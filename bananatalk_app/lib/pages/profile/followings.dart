@@ -165,7 +165,8 @@ class _ProfileFollowingsState extends ConsumerState<ProfileFollowings> {
           icon: const Icon(Icons.arrow_back),
           onPressed: () async {
             Navigator.pop(context);
-            await ref.refresh(userProvider);
+            ref.invalidate(userProvider);
+            await ref.read(userProvider.future);
           },
         ),
       ),

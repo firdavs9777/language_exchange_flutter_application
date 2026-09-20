@@ -203,7 +203,7 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
         final prefs = await SharedPreferences.getInstance();
         final userId = prefs.getString('userId');
         if (userId != null) {
-          ref.refresh(userLimitsProvider(userId));
+          ref.invalidate(userLimitsProvider(userId));
         }
       } catch (e) {
       }

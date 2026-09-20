@@ -233,7 +233,7 @@ class _ProfileFollowersState extends ConsumerState<ProfileFollowers> {
           icon: const Icon(Icons.arrow_back),
           onPressed: () async {
             Navigator.pop(context);
-            ref.refresh(userProvider);
+            ref.invalidate(userProvider);
           },
         ),
       ),

@@ -758,7 +758,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
           if (mounted) {
             setState(() => _replyingToMessage = null);
             _messageController.clear();
-            ref.refresh(userLimitsProvider(_currentUserId!));
+            ref.invalidate(userLimitsProvider(_currentUserId!));
           }
         }
       } catch (e) {
@@ -874,7 +874,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         ref
             .read(messageCountProvider.notifier)
             .refreshMessageCount(widget.userId);
-        ref.refresh(userLimitsProvider(_currentUserId!));
+        ref.invalidate(userLimitsProvider(_currentUserId!));
       } else {
         // Show error to user
         _showSendError(result['error'] ?? 'Failed to send', text, messageType);
@@ -1295,7 +1295,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         // Don't reload - socket already adds the sent message
         WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToBottom());
         if (_currentUserId != null) {
-          ref.refresh(userLimitsProvider(_currentUserId!));
+          ref.invalidate(userLimitsProvider(_currentUserId!));
         }
       } else {
         if (mounted) {
@@ -1372,7 +1372,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         // Don't reload - socket already adds the sent message
         WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToBottom());
         if (_currentUserId != null) {
-          ref.refresh(userLimitsProvider(_currentUserId!));
+          ref.invalidate(userLimitsProvider(_currentUserId!));
         }
 
         // Clean up the temp file
@@ -1512,7 +1512,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       if (result['success'] == true) {
         WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToBottom());
         if (_currentUserId != null) {
-          ref.refresh(userLimitsProvider(_currentUserId!));
+          ref.invalidate(userLimitsProvider(_currentUserId!));
         }
       } else {
         showChatSnackBar(
@@ -1606,7 +1606,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         // Just scroll to bottom to show the new message
         WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToBottom());
         if (_currentUserId != null) {
-          ref.refresh(userLimitsProvider(_currentUserId!));
+          ref.invalidate(userLimitsProvider(_currentUserId!));
         }
       } else {
         if (mounted) {

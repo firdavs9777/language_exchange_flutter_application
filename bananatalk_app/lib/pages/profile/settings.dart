@@ -426,7 +426,7 @@ class _ProfileSettingsState extends ConsumerState<ProfileSettings> {
             Material(
               color: Colors.transparent,
               child: InkWell(
-                onTap: () => ref.refresh(userProvider),
+                onTap: () => ref.invalidate(userProvider),
                 borderRadius: BorderRadius.circular(14),
                 child: Ink(
                   decoration: BoxDecoration(
