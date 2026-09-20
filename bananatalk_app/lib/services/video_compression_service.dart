@@ -1,7 +1,5 @@
 import 'dart:io';
-import 'package:flutter/foundation.dart';
 import 'package:video_compress/video_compress.dart';
-import 'package:path_provider/path_provider.dart';
 
 /// Video compression service for Instagram-like video processing
 /// Compresses videos before upload to reduce file size and improve upload speed

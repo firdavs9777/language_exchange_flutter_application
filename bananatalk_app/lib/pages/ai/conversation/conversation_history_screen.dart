@@ -48,7 +48,7 @@ class _ConversationHistoryScreenState
         ),
         title: Text(
           AppLocalizations.of(context)!.conversationHistory,
-          style: context.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+          style: context.titleMedium.copyWith(fontWeight: FontWeight.bold),
         ),
         bottom: TabBar(
           controller: _tabController,
@@ -118,7 +118,7 @@ class _ConversationHistoryScreenState
             Spacing.gapMD,
             Text(
               'Failed to load history',
-              style: context.bodyMedium?.copyWith(color: context.textSecondary),
+              style: context.bodyMedium.copyWith(color: context.textSecondary),
             ),
             Spacing.gapMD,
             ElevatedButton(
@@ -178,13 +178,13 @@ class _ConversationHistoryScreenState
                         children: [
                           Text(
                             conversation.settings.level.toUpperCase(),
-                            style: context.titleSmall?.copyWith(
+                            style: context.titleSmall.copyWith(
                               fontWeight: FontWeight.w600,
                             ),
                           ),
                           Text(
                             dateFormat.format(conversation.createdAt),
-                            style: context.caption?.copyWith(
+                            style: context.caption.copyWith(
                               color: context.textSecondary,
                             ),
                           ),
@@ -204,7 +204,7 @@ class _ConversationHistoryScreenState
                       ),
                       child: Text(
                         conversation.status,
-                        style: context.caption?.copyWith(
+                        style: context.caption.copyWith(
                           fontWeight: FontWeight.w500,
                           color: conversation.isCompleted
                               ? AppColors.success
@@ -226,7 +226,7 @@ class _ConversationHistoryScreenState
                       conversation.messages.last.content,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
-                      style: context.bodySmall?.copyWith(
+                      style: context.bodySmall.copyWith(
                         color: context.textSecondary,
                         height: 1.4,
                       ),
@@ -244,14 +244,14 @@ class _ConversationHistoryScreenState
                     Spacing.hGapXS,
                     Text(
                       '${conversation.messages.length} messages',
-                      style: context.caption?.copyWith(
+                      style: context.caption.copyWith(
                         color: context.textMuted,
                       ),
                     ),
                     const Spacer(),
                     Text(
                       timeFormat.format(conversation.createdAt),
-                      style: context.caption?.copyWith(
+                      style: context.caption.copyWith(
                         color: context.textMuted,
                       ),
                     ),
@@ -292,12 +292,12 @@ class _ConversationHistoryScreenState
             status == 'completed'
                 ? 'No completed conversations'
                 : 'No active conversations',
-            style: context.bodyLarge?.copyWith(color: context.textSecondary),
+            style: context.bodyLarge.copyWith(color: context.textSecondary),
           ),
           Spacing.gapSM,
           Text(
             'Start a new conversation to see it here',
-            style: context.bodyMedium?.copyWith(color: context.textMuted),
+            style: context.bodyMedium.copyWith(color: context.textMuted),
           ),
         ],
       ),
@@ -404,7 +404,7 @@ class _ConversationDetailsSheetState extends State<_ConversationDetailsSheet> {
                   children: [
                     Text(
                       'Conversation',
-                      style: context.titleMedium?.copyWith(
+                      style: context.titleMedium.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -434,7 +434,7 @@ class _ConversationDetailsSheetState extends State<_ConversationDetailsSheet> {
             Spacing.gapMD,
             Text(
               'Loading messages...',
-              style: context.bodyMedium?.copyWith(color: context.textMuted),
+              style: context.bodyMedium.copyWith(color: context.textMuted),
             ),
           ],
         ),
@@ -450,7 +450,7 @@ class _ConversationDetailsSheetState extends State<_ConversationDetailsSheet> {
             Spacing.gapMD,
             Text(
               _error!,
-              style: context.bodyMedium?.copyWith(color: context.textSecondary),
+              style: context.bodyMedium.copyWith(color: context.textSecondary),
             ),
             Spacing.gapMD,
             ElevatedButton(
@@ -477,7 +477,7 @@ class _ConversationDetailsSheetState extends State<_ConversationDetailsSheet> {
             Spacing.gapMD,
             Text(
               'No messages in this conversation',
-              style: context.bodyMedium?.copyWith(color: context.textSecondary),
+              style: context.bodyMedium.copyWith(color: context.textSecondary),
             ),
           ],
         ),
@@ -522,7 +522,7 @@ class _ConversationDetailsSheetState extends State<_ConversationDetailsSheet> {
                   ),
                   child: Text(
                     message.content,
-                    style: context.bodyMedium?.copyWith(
+                    style: context.bodyMedium.copyWith(
                       color: isUser ? Colors.white : context.textPrimary,
                     ),
                   ),

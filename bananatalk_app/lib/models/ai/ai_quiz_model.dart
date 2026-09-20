@@ -1,6 +1,3 @@
-/// AI-Generated Quiz Models
-
-import 'package:flutter/foundation.dart';
 
 class AIQuiz {
   final String id;

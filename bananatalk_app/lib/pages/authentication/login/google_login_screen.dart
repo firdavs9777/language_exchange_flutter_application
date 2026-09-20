@@ -267,7 +267,7 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
           _isLoading = false;
         });
       }
-    } catch (e, stackTrace) {
+    } catch (e) {
       String userFriendlyMessage = 'Google sign-in error';
 
       // Parse common errors

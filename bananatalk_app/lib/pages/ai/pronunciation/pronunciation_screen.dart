@@ -159,7 +159,7 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
             Spacing.hGapMD,
             Text(
               'Loading languages...',
-              style: context.bodyMedium?.copyWith(color: context.textMuted),
+              style: context.bodyMedium.copyWith(color: context.textMuted),
             ),
           ],
         ),
@@ -195,7 +195,7 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
                 children: [
                   Text(
                     _selectedLanguage?.name ?? 'Select Language',
-                    style: context.titleSmall?.copyWith(
+                    style: context.titleSmall.copyWith(
                       fontWeight: FontWeight.w500,
                       color: _selectedLanguage != null
                           ? context.textPrimary
@@ -206,7 +206,7 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
                     Spacing.gapXXS,
                     Text(
                       _selectedLanguage!.nativeName,
-                      style: context.bodySmall?.copyWith(
+                      style: context.bodySmall.copyWith(
                         color: context.textMuted,
                       ),
                     ),
@@ -395,7 +395,7 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
         ),
         title: Text(
           'Pronunciation Practice',
-          style: context.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+          style: context.titleMedium.copyWith(fontWeight: FontWeight.bold),
         ),
       ),
       body: SingleChildScrollView(
@@ -426,7 +426,7 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
             // History Section
             Text(
               'Practice History',
-              style: context.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+              style: context.titleMedium.copyWith(fontWeight: FontWeight.bold),
             ),
             Spacing.gapMD,
             historyAsync.when(
@@ -494,14 +494,14 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
         Spacing.gapXS,
         Text(
           value,
-          style: context.titleLarge?.copyWith(
+          style: context.titleLarge.copyWith(
             color: Colors.white,
             fontWeight: FontWeight.bold,
           ),
         ),
         Text(
           label,
-          style: context.caption?.copyWith(
+          style: context.caption.copyWith(
             color: Colors.white.withOpacity(0.8),
           ),
         ),
@@ -527,7 +527,7 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
           // Text to Practice
           Text(
             'Text to Practice',
-            style: context.labelLarge?.copyWith(fontWeight: FontWeight.w500),
+            style: context.labelLarge.copyWith(fontWeight: FontWeight.w500),
           ),
           Spacing.gapSM,
           TextField(
@@ -576,7 +576,7 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
                   ),
                   child: Text(
                     text.length > 25 ? '${text.substring(0, 25)}...' : text,
-                    style: context.caption?.copyWith(
+                    style: context.caption.copyWith(
                       color: context.textSecondary,
                     ),
                   ),
@@ -662,7 +662,7 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
                   : _isAnalyzing
                   ? 'Analyzing...'
                   : 'Tap to record',
-              style: context.bodyMedium?.copyWith(color: context.textSecondary),
+              style: context.bodyMedium.copyWith(color: context.textSecondary),
             ),
           ),
         ],
@@ -927,7 +927,7 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
           Expanded(
             child: Text(
               _error!,
-              style: context.bodyMedium?.copyWith(color: AppColors.error),
+              style: context.bodyMedium.copyWith(color: AppColors.error),
             ),
           ),
         ],
@@ -956,7 +956,7 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
             child: Center(
               child: Text(
                 '${result.overallScore}',
-                style: context.labelLarge?.copyWith(
+                style: context.labelLarge.copyWith(
                   fontWeight: FontWeight.bold,
                   color: _getScoreColor(result.overallScore),
                 ),
@@ -972,13 +972,13 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
                   result.targetText,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: context.bodyMedium?.copyWith(
+                  style: context.bodyMedium.copyWith(
                     fontWeight: FontWeight.w500,
                   ),
                 ),
                 Text(
                   result.scoreGrade,
-                  style: context.caption?.copyWith(
+                  style: context.caption.copyWith(
                     color: context.textSecondary,
                   ),
                 ),
@@ -999,7 +999,7 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
           Spacing.gapMD,
           Text(
             'No practice history yet',
-            style: context.bodyMedium?.copyWith(color: context.textMuted),
+            style: context.bodyMedium.copyWith(color: context.textMuted),
           ),
         ],
       ),

@@ -43,14 +43,6 @@ class UserLimitsNotifier extends StateNotifier<AsyncValue<UserLimits>> {
   }
 }
 
-/// StateNotifierProvider for user limits
-final userLimitsNotifierProvider =
-    StateNotifierProvider.family<UserLimitsNotifier, AsyncValue<UserLimits>, String>(
-  (ref, userId) {
-    return UserLimitsNotifier(userId);
-  },
-);
-
 /// Helper provider to get current limits or null
 final currentUserLimitsProvider = Provider.family<UserLimits?, String>(
   (ref, userId) {

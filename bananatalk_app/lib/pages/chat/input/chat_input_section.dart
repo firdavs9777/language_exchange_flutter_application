@@ -145,8 +145,6 @@ class _MessageLimitIndicator extends ConsumerWidget {
 
     return limitsAsync.when(
       data: (limits) {
-        if (limits == null) return const SizedBox.shrink();
-
         final messageLimit = limits.messages;
         if (messageLimit.isUnlimited) return const SizedBox.shrink();
 

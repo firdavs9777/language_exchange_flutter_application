@@ -124,16 +124,15 @@ class BlockedContentWidget extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 16),
-          if (displayTitle != null)
-            Text(
-              displayTitle,
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-                color: Colors.grey[700],
-              ),
-              textAlign: TextAlign.center,
+          Text(
+            displayTitle,
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+              color: Colors.grey[700],
             ),
+            textAlign: TextAlign.center,
+          ),
           if (message != null) ...[
             const SizedBox(height: 8),
             Text(

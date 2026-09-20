@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:flutter/foundation.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:bananatalk_app/models/coin_pack.dart';
 import 'package:bananatalk_app/models/vip_subscription.dart';

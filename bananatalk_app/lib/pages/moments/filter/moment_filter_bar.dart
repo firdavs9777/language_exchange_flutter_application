@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:bananatalk_app/pages/moments/filter/moment_filter_model.dart';
 import 'package:bananatalk_app/pages/moments/filter/moment_filter_sheet.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
-import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 class MomentFilterBar extends StatelessWidget {

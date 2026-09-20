@@ -1,7 +1,4 @@
-import 'package:bananatalk_app/pages/authentication/register/register_two_screen.dart';
-import 'package:bananatalk_app/pages/menu_tab/TabBarMenu.dart';
 import 'package:bananatalk_app/pages/authentication/widgets/social_login_button.dart';
-import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/widgets/banana_text.dart';
 import 'package:flutter/material.dart';

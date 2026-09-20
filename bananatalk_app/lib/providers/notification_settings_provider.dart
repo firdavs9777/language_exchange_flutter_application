@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:bananatalk_app/models/notification_models.dart';
 import 'package:bananatalk_app/services/notification_api_client.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

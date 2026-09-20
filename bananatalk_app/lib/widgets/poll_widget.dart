@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/providers/provider_models/message_model.dart';
 import 'package:bananatalk_app/services/poll_service.dart';
-import 'package:intl/intl.dart';
 
 class PollWidget extends StatefulWidget {
   final Poll poll;

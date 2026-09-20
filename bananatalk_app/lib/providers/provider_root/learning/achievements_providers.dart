@@ -24,8 +24,3 @@ final achievementsProvider = FutureProvider<List<Achievement>>((ref) async {
   }
 });
 
-/// Unlocked achievements count (for badge)
-final unlockedAchievementsCountProvider = Provider<int>((ref) {
-  final achievements = ref.watch(achievementsProvider);
-  return achievements.valueOrNull?.where((a) => a.isUnlocked).length ?? 0;
-});

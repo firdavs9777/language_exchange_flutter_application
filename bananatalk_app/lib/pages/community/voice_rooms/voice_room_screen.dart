@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:app_settings/app_settings.dart';
 import 'package:bananatalk_app/models/community/voice_room_model.dart';
 import 'package:bananatalk_app/providers/voice_room_provider.dart';
-import 'package:bananatalk_app/providers/ad_providers.dart';
 import 'package:bananatalk_app/services/ad_service.dart';
 import 'package:bananatalk_app/pages/profile/profile_wrapper.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';

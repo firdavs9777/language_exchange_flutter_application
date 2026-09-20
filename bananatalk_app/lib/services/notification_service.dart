@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-import 'dart:typed_data';
 import 'package:bananatalk_app/models/notification_models.dart' as nm;
 import 'package:bananatalk_app/services/callkit_service.dart';
 import 'package:bananatalk_app/services/notification_api_client.dart';
@@ -173,7 +172,7 @@ class NotificationService {
         // but _pendingAction is already NotificationAction.recover, which is
         // what surfaces the settings deep-link.
       }
-    } catch (e, stackTrace) {
+    } catch (e) {
     }
   }
 

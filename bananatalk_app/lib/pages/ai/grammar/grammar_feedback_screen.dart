@@ -173,7 +173,7 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
         ),
         title: Text(
           'Grammar Check',
-          style: context.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+          style: context.titleMedium.copyWith(fontWeight: FontWeight.bold),
         ),
       ),
       body: SingleChildScrollView(
@@ -234,7 +234,7 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
             // History Section
             Text(
               'Recent Analysis',
-              style: context.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+              style: context.titleMedium.copyWith(fontWeight: FontWeight.bold),
             ),
             Spacing.gapMD,
             historyAsync.when(
@@ -1488,7 +1488,7 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
           Spacing.gapMD,
           Text(
             'No analysis history yet',
-            style: context.bodyMedium?.copyWith(color: context.textMuted),
+            style: context.bodyMedium.copyWith(color: context.textMuted),
           ),
         ],
       ),

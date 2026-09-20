@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:bananatalk_app/models/notification_models.dart';
 import 'package:bananatalk_app/services/notification_api_client.dart';
 import 'package:bananatalk_app/services/notification_service.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class BadgeCountNotifier extends StateNotifier<BadgeCount> {

@@ -1,7 +1,6 @@
 // lib/services/chat_socket_state_manager.dart
 import 'dart:async';
 
-import 'package:flutter/foundation.dart';
 import 'package:bananatalk_app/services/chat_socket_service.dart';
 import 'package:bananatalk_app/providers/provider_models/message_model.dart';
 
@@ -118,14 +117,14 @@ class ChatSocketStateManager {
                 onNewMessage?.call(message);
                 } else {
                 }
-              } catch (e, stackTrace) {
+              } catch (e) {
               }
             } else {
               }
             }
         } else {
         }
-      } catch (e, stackTrace) {
+      } catch (e) {
       }
     });
 

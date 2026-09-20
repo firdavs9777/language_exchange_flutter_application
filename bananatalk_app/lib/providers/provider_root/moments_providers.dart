@@ -548,7 +548,7 @@ class MomentsService {
       }
     } on http.ClientException catch (e) {
       throw Exception('Network error uploading video: ${e.message}');
-    } on FormatException catch (e) {
+    } on FormatException {
       throw Exception('Invalid response from server. Video service may be unavailable.');
     } catch (e) {
       if (e is Exception) {

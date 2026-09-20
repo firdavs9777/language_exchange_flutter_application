@@ -1,7 +1,6 @@
 // Lesson Model
 // Represents lessons, exercises, and curriculum structure
 
-import 'package:flutter/foundation.dart';
 
 /// Helper to safely parse int from dynamic (handles String, int, double, null)
 int _safeInt(dynamic value, [int defaultValue = 0]) {

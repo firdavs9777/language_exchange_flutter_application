@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:bananatalk_app/providers/badge_count_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

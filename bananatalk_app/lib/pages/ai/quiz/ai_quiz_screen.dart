@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
@@ -201,7 +200,7 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
             ),
             title: Text(
               'AI Quizzes',
-              style: context.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+              style: context.titleMedium.copyWith(fontWeight: FontWeight.bold),
             ),
           ),
           body: SingleChildScrollView(
@@ -226,7 +225,7 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
                 // Generate New Quiz Section
                 Text(
                   'Generate New Quiz',
-                  style: context.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                  style: context.titleMedium.copyWith(fontWeight: FontWeight.bold),
                 ),
                 Spacing.gapMD,
                 _buildGenerateSection(),
@@ -235,7 +234,7 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
                 // Previous Quizzes
                 Text(
                   'Previous Quizzes',
-                  style: context.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                  style: context.titleMedium.copyWith(fontWeight: FontWeight.bold),
                 ),
                 Spacing.gapMD,
                 quizzesAsync.when(
@@ -339,7 +338,7 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
                   Text(
                     card['label'] as String,
                     textAlign: TextAlign.center,
-                    style: context.caption?.copyWith(
+                    style: context.caption.copyWith(
                       color: color,
                       fontWeight: FontWeight.w600,
                     ),
@@ -394,7 +393,7 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
                   Expanded(
                     child: Text(
                       'Focus area: ${stats.weakAreas.first.name}',
-                      style: context.bodySmall?.copyWith(
+                      style: context.bodySmall.copyWith(
                         color: Colors.white.withOpacity(0.9),
                       ),
                     ),
@@ -413,7 +412,7 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
       children: [
         Text(
           value,
-          style: context.titleLarge?.copyWith(
+          style: context.titleLarge.copyWith(
             color: Colors.white,
             fontWeight: FontWeight.bold,
           ),
@@ -421,7 +420,7 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
         Spacing.gapXS,
         Text(
           label,
-          style: context.caption?.copyWith(
+          style: context.caption.copyWith(
             color: Colors.white.withOpacity(0.8),
           ),
         ),
@@ -443,7 +442,7 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
           // Quiz Type Selection
           Text(
             'Quiz Type',
-            style: context.labelLarge?.copyWith(fontWeight: FontWeight.w600),
+            style: context.labelLarge.copyWith(fontWeight: FontWeight.w600),
           ),
           Spacing.gapMD,
           GridView.count(
@@ -486,7 +485,7 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
                       Expanded(
                         child: Text(
                           type['name'],
-                          style: context.bodySmall?.copyWith(
+                          style: context.bodySmall.copyWith(
                             fontWeight:
                                 isSelected ? FontWeight.w600 : FontWeight.w500,
                             color: isSelected
@@ -506,7 +505,7 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
           // Language Selection
           Text(
             'Language',
-            style: context.labelLarge?.copyWith(fontWeight: FontWeight.w600),
+            style: context.labelLarge.copyWith(fontWeight: FontWeight.w600),
           ),
           Spacing.gapSM,
           _buildLanguageSelector(),
@@ -515,7 +514,7 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
           // Difficulty Selection
           Text(
             'Difficulty',
-            style: context.labelLarge?.copyWith(fontWeight: FontWeight.w600),
+            style: context.labelLarge.copyWith(fontWeight: FontWeight.w600),
           ),
           Spacing.gapSM,
           Row(
@@ -542,7 +541,7 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
                     child: Text(
                       diff['name']!,
                       textAlign: TextAlign.center,
-                      style: context.caption?.copyWith(
+                      style: context.caption.copyWith(
                         fontWeight: FontWeight.w500,
                         color: isSelected ? Colors.white : context.textSecondary,
                       ),
@@ -559,12 +558,12 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
             children: [
               Text(
                 'Questions:',
-                style: context.labelLarge?.copyWith(fontWeight: FontWeight.w600),
+                style: context.labelLarge.copyWith(fontWeight: FontWeight.w600),
               ),
               Spacing.hGapMD,
               Text(
                 '$_questionCount',
-                style: context.titleMedium?.copyWith(
+                style: context.titleMedium.copyWith(
                   fontWeight: FontWeight.bold,
                   color: AppColors.error,
                 ),
@@ -611,7 +610,7 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
                     )
                   : Text(
                       'Generate Quiz',
-                      style: context.bodyLarge?.copyWith(
+                      style: context.bodyLarge.copyWith(
                         fontWeight: FontWeight.w600,
                         color: Colors.white,
                       ),
@@ -644,7 +643,7 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
             Spacing.hGapMD,
             Text(
               'Loading languages...',
-              style: context.bodyMedium?.copyWith(color: context.textSecondary),
+              style: context.bodyMedium.copyWith(color: context.textSecondary),
             ),
           ],
         ),
@@ -674,13 +673,13 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
                   children: [
                     Text(
                       _selectedLanguage!.name,
-                      style: context.titleSmall?.copyWith(fontWeight: FontWeight.w600),
+                      style: context.titleSmall.copyWith(fontWeight: FontWeight.w600),
                     ),
                     if (_selectedLanguage!.nativeName.isNotEmpty &&
                         _selectedLanguage!.nativeName != _selectedLanguage!.name)
                       Text(
                         _selectedLanguage!.nativeName,
-                        style: context.caption?.copyWith(color: context.textSecondary),
+                        style: context.caption.copyWith(color: context.textSecondary),
                       ),
                   ],
                 ),
@@ -691,7 +690,7 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
               Expanded(
                 child: Text(
                   'Select a language',
-                  style: context.bodyMedium?.copyWith(color: context.textMuted),
+                  style: context.bodyMedium.copyWith(color: context.textMuted),
                 ),
               ),
             ],
@@ -746,13 +745,13 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
                     children: [
                       Text(
                         quiz.title,
-                        style: context.titleSmall?.copyWith(fontWeight: FontWeight.w600),
+                        style: context.titleSmall.copyWith(fontWeight: FontWeight.w600),
                       ),
                       Row(
                         children: [
                           Text(
                             '${quiz.questionCount} questions',
-                            style: context.caption?.copyWith(color: context.textSecondary),
+                            style: context.caption.copyWith(color: context.textSecondary),
                           ),
                           Spacing.hGapSM,
                           Container(
@@ -766,7 +765,7 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
                           Spacing.hGapSM,
                           Text(
                             quiz.difficulty,
-                            style: context.caption?.copyWith(color: context.textSecondary),
+                            style: context.caption.copyWith(color: context.textSecondary),
                           ),
                         ],
                       ),
@@ -786,7 +785,7 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
                     ),
                     child: Text(
                       '${quiz.result!.percentage.toInt()}%',
-                      style: context.labelLarge?.copyWith(
+                      style: context.labelLarge.copyWith(
                         fontWeight: FontWeight.bold,
                         color: _getScoreColor(quiz.result!.percentage.toInt()),
                       ),
@@ -1024,12 +1023,12 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
           Spacing.gapMD,
           Text(
             'No quizzes yet',
-            style: context.bodyMedium?.copyWith(color: context.textMuted),
+            style: context.bodyMedium.copyWith(color: context.textMuted),
           ),
           Spacing.gapXS,
           Text(
             'Generate your first quiz above!',
-            style: context.caption?.copyWith(color: context.textMuted),
+            style: context.caption.copyWith(color: context.textMuted),
           ),
         ],
       ),

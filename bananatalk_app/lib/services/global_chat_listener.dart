@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:flutter/foundation.dart';
 import 'package:bananatalk_app/services/chat_socket_service.dart';
 import 'package:bananatalk_app/providers/unread_count_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -108,7 +107,7 @@ class GlobalChatListener {
         final newCount = chatState.unreadCounts[senderId] ?? 0;
       }).catchError((error) {
       });
-    } catch (e, stackTrace) {
+    } catch (e) {
     }
   }
 
@@ -134,7 +133,7 @@ class GlobalChatListener {
         // But we should NOT clear our unread count here - that's handled when we open chats
       } else {
       }
-    } catch (e, stackTrace) {
+    } catch (e) {
     }
   }
 

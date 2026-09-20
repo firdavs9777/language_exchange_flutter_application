@@ -396,11 +396,11 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
             children: [
               Text(
                 quiz.title,
-                style: context.labelLarge?.copyWith(fontWeight: FontWeight.w600),
+                style: context.labelLarge.copyWith(fontWeight: FontWeight.w600),
               ),
               Text(
                 'Question ${state.currentIndex + 1} of ${quiz.questions.length}',
-                style: context.caption?.copyWith(color: context.textSecondary),
+                style: context.caption.copyWith(color: context.textSecondary),
               ),
             ],
           ),
@@ -430,7 +430,7 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
                                 ),
                                 child: Text(
                                   _getQuestionTypeLabel(question.type),
-                                  style: context.caption?.copyWith(
+                                  style: context.caption.copyWith(
                                     fontWeight: FontWeight.w500,
                                     color: AppColors.error,
                                   ),
@@ -460,7 +460,7 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
                           // Question Text
                           Text(
                             question.question,
-                            style: context.titleLarge?.copyWith(
+                            style: context.titleLarge.copyWith(
                               fontWeight: FontWeight.w600,
                               height: 1.4,
                             ),
@@ -477,7 +477,7 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
                               ),
                               child: Text(
                                 question.context!,
-                                style: context.bodyMedium?.copyWith(
+                                style: context.bodyMedium.copyWith(
                                   color: context.textSecondary,
                                   fontStyle: FontStyle.italic,
                                 ),
@@ -495,7 +495,7 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
                                 Expanded(
                                   child: Text(
                                     question.hint!,
-                                    style: context.bodySmall?.copyWith(color: AppColors.warning),
+                                    style: context.bodySmall.copyWith(color: AppColors.warning),
                                   ),
                                 ),
                               ],
@@ -608,7 +608,7 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
                   const SizedBox(height: 4),
                   Text(
                     feedbackText,
-                    style: context.bodySmall?.copyWith(color: context.textSecondary),
+                    style: context.bodySmall.copyWith(color: context.textSecondary),
                   ),
                 ],
               ],
@@ -715,7 +715,7 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
                 Expanded(
                   child: Text(
                     option,
-                    style: context.bodyLarge?.copyWith(
+                    style: context.bodyLarge.copyWith(
                       fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
                       color: isSelected
                           ? (locked
@@ -744,7 +744,7 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
       children: [
         Text(
           'Your answer:',
-          style: context.labelLarge?.copyWith(fontWeight: FontWeight.w500),
+          style: context.labelLarge.copyWith(fontWeight: FontWeight.w500),
         ),
         Spacing.gapSM,
         TextField(
@@ -836,7 +836,7 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
         child: Center(
           child: Text(
             value,
-            style: context.titleMedium?.copyWith(
+            style: context.titleMedium.copyWith(
               fontWeight: FontWeight.w600,
               color: textColor,
             ),
@@ -856,7 +856,7 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
       children: [
         Text(
           'Your translation:',
-          style: context.labelLarge?.copyWith(fontWeight: FontWeight.w500),
+          style: context.labelLarge.copyWith(fontWeight: FontWeight.w500),
         ),
         Spacing.gapSM,
         TextField(
@@ -918,7 +918,7 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
           ),
           child: Text(
             isLastQuestion ? 'Submit' : 'Next',
-            style: context.bodyLarge?.copyWith(
+            style: context.bodyLarge.copyWith(
               fontWeight: FontWeight.w600,
               color: Colors.white,
             ),

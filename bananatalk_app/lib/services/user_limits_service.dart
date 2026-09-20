@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:bananatalk_app/models/user_limits.dart';
 import 'package:bananatalk_app/service/endpoints.dart';

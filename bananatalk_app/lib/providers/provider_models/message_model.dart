@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/utils/string_sanitizer.dart';
 

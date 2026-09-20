@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:bananatalk_app/models/vip_subscription.dart';
 import 'package:bananatalk_app/models/user_limits.dart';
 import 'package:bananatalk_app/providers/provider_models/users_model.dart';
-import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/widgets/visitor_limit_dialog.dart';
 import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
 

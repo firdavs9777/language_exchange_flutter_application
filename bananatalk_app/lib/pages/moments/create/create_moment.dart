@@ -211,7 +211,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
       _tags = List<String>.from(moment.tags ?? []);
 
       // Map backend category to display category
-      final backendCategory = moment.category?.toLowerCase() ?? '';
+      final backendCategory = moment.category.toLowerCase() ?? '';
       _selectedCategory = _categoryToBackend.entries
           .firstWhere(
             (e) => e.value == backendCategory,
@@ -394,30 +394,28 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     final picker = ImagePicker();
     final pickedFiles = await picker.pickMultiImage();
 
-    if (pickedFiles != null) {
-      final remainingSlots = imagesAddable(
-        current: _selectedImages.length,
-        adding: pickedFiles.length,
+    final remainingSlots = imagesAddable(
+      current: _selectedImages.length,
+      adding: pickedFiles.length,
+    );
+    final filesToAdd = pickedFiles
+        .take(remainingSlots)
+        .map((file) => File(file.path))
+        .toList();
+
+    if (!mounted) return;
+    if (pickedFiles.length > remainingSlots) {
+      showMomentsSnackBar(
+        context,
+        message:
+            'Maximum $maxImages images allowed. Only $remainingSlots images added.',
       );
-      final filesToAdd = pickedFiles
-          .take(remainingSlots)
-          .map((file) => File(file.path))
-          .toList();
-
-      if (!mounted) return;
-      if (pickedFiles.length > remainingSlots) {
-        showMomentsSnackBar(
-          context,
-          message:
-              'Maximum $maxImages images allowed. Only $remainingSlots images added.',
-        );
-      }
-
-      setState(() {
-        _selectedImages.addAll(filesToAdd);
-      });
     }
-  }
+
+    setState(() {
+      _selectedImages.addAll(filesToAdd);
+    });
+    }
 
   Future<void> _takePhoto() async {
     if (_blockedFrom(MomentMediaKind.images)) return;

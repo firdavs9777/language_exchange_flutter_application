@@ -97,7 +97,7 @@ class ChatStateNotifier extends StateNotifier<ChatState> with WidgetsBindingObse
   bool get _isThisChatActive {
     if (_ref == null) return false;
     try {
-      final activeChatId = _ref!.read(chatPartnersProvider).activeChatUserId;
+      final activeChatId = _ref.read(chatPartnersProvider).activeChatUserId;
       return activeChatId == chatPartnerId;
     } catch (e) {
       return false;
@@ -520,7 +520,7 @@ class ChatStateNotifier extends StateNotifier<ChatState> with WidgetsBindingObse
             }
           }
         }
-      } catch (e, stackTrace) {
+      } catch (e) {
       }
     } else {
       if (localId != null) {

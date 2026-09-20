@@ -18,19 +18,6 @@ final learningProgressProvider = FutureProvider<LearningProgress?>((ref) async {
   }
 });
 
-/// Daily goals provider
-final dailyGoalsProvider = FutureProvider<DailyGoalsResponse?>((ref) async {
-  try {
-    final result = await LearningService.getDailyGoals();
-    if (result['success'] == true && result['data'] != null) {
-      return DailyGoalsResponse.fromJson(result['data']);
-    }
-    return null;
-  } catch (e) {
-    return null;
-  }
-});
-
 /// Weekly digest provider — last 7 days of learning activity.
 final weeklyDigestProvider = FutureProvider.autoDispose<WeeklyDigest>((ref) async {
   return LearningService.getWeeklyDigest();

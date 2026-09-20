@@ -1,4 +1,3 @@
-import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/pages/ai/translation/translation_screen.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/pages/community/single/single_community_screen.dart';
@@ -13,7 +12,6 @@ import 'package:bananatalk_app/widgets/block_user_dialog.dart';
 import 'package:bananatalk_app/widgets/report_dialog.dart';
 import 'package:bananatalk_app/services/block_service.dart';
 import 'package:bananatalk_app/providers/provider_root/block_provider.dart';
-import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/friendly_error.dart';

@@ -860,33 +860,6 @@ final singleCommunityProvider = FutureProvider.family<Community?, String>((
   return service.getSingleCommunity(id: userId);
 });
 
-/// Paginated community provider
-final paginatedCommunityProvider =
-    StateNotifierProvider<PaginatedCommunityNotifier, PaginatedCommunityState>((
-      ref,
-    ) {
-      final service = ref.read(communityServiceProvider);
-      return PaginatedCommunityNotifier(service);
-    });
-
-/// Nearby users provider with location parameters
-final nearbyUsersProvider =
-    FutureProvider.family<NearbyUsersResponse, NearbyUsersParams>((
-      ref,
-      params,
-    ) async {
-      final service = ref.read(communityServiceProvider);
-      return service.getNearbyUsers(
-        latitude: params.latitude,
-        longitude: params.longitude,
-        radius: params.radius,
-        limit: params.limit,
-        offset: params.offset,
-        language: params.language,
-        onlineOnly: params.onlineOnly,
-      );
-    });
-
 class NearbyUsersParams {
   final double latitude;
   final double longitude;
@@ -924,18 +897,6 @@ class NearbyUsersParams {
       limit.hashCode ^
       offset.hashCode;
 }
-
-/// Topics provider
-final topicsProvider = FutureProvider<List<Topic>>((ref) async {
-  final service = ref.read(communityServiceProvider);
-  return service.getTopics();
-});
-
-/// Waves received provider
-final wavesProvider = FutureProvider<List<Wave>>((ref) async {
-  final service = ref.read(communityServiceProvider);
-  return service.getWavesReceived();
-});
 
 /// Returns the count of unread waves for the current user. Refresh on
 /// app resume and after `markWavesAsRead`.

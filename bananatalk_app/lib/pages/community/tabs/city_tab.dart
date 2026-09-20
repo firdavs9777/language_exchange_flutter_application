@@ -27,13 +27,16 @@ class _CountryPin {
   final String name;
   final String flag;
   final LatLng position;
-  int userCount;
+
+  // Defaulted on the field, not the constructor: `dart fix` removed the
+  // `this.userCount = 0` parameter as unused (no caller passed it) and left
+  // the non-nullable field with no initializer.
+  int userCount = 0;
 
   _CountryPin({
     required this.name,
     required this.flag,
     required this.position,
-    this.userCount = 0,
   });
 }
 

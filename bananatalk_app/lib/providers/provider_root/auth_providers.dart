@@ -551,7 +551,7 @@ class AuthService extends ChangeNotifier {
               'Server error: ${response.statusCode}',
         };
       }
-    } catch (e, stackTrace) {
+    } catch (e) {
       return {'success': false, 'message': 'Network error: ${e.toString()}'};
     }
   }
@@ -682,7 +682,7 @@ class AuthService extends ChangeNotifier {
               'Server error: ${response.statusCode}',
         };
       }
-    } catch (e, stackTrace) {
+    } catch (e) {
       return {'success': false, 'message': 'Network error: ${e.toString()}'};
     }
   }

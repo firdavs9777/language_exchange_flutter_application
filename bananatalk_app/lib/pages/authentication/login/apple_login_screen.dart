@@ -227,7 +227,7 @@ class _AppleLoginState extends ConsumerState<AppleLogin> {
           _isLoading = false;
         });
       }
-    } catch (e, stackTrace) {
+    } catch (e) {
       String userFriendlyMessage = 'Apple sign-in error';
 
       // Parse common errors

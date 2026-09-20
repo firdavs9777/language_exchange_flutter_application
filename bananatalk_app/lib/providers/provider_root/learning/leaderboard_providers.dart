@@ -4,30 +4,6 @@ import 'package:bananatalk_app/models/learning/leaderboard_model.dart';
 
 // ==================== LEADERBOARD PROVIDERS ====================
 
-/// Leaderboard provider
-final leaderboardProvider =
-    FutureProvider.family<LeaderboardResponse?, LeaderboardFilter>(
-        (ref, filter) async {
-  try {
-    final result = await LearningService.getLeaderboard(
-      type: filter.type,
-      language: filter.language,
-      limit: filter.limit,
-    );
-    if (result['success'] == true && result['data'] != null) {
-      return LeaderboardResponse.fromJson(result['data']);
-    }
-    return null;
-  } catch (e) {
-    return null;
-  }
-});
-
-/// Selected leaderboard type
-final leaderboardTypeProvider = StateProvider<String>((ref) {
-  return 'weekly';
-});
-
 /// XP Leaderboard with period filter
 final xpLeaderboardProvider =
     FutureProvider.family<LeaderboardResponse?, LeaderboardFilter>(

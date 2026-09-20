@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 /// Global socket service to manage socket connections and cleanup

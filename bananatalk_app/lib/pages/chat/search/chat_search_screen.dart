@@ -274,10 +274,10 @@ class _ChatSearchScreenState extends State<ChatSearchScreen> {
     return ListTile(
       leading: CircleAvatar(
         backgroundColor: Theme.of(context).primaryColor.withValues(alpha: 0.1),
-        backgroundImage: message.sender.images?.isNotEmpty == true
-            ? NetworkImage(message.sender.images!.first)
+        backgroundImage: message.sender.images.isNotEmpty == true
+            ? NetworkImage(message.sender.images.first)
             : null,
-        child: message.sender.images?.isEmpty != false
+        child: message.sender.images.isEmpty != false
             ? Text(
                 senderName.isNotEmpty ? senderName[0].toUpperCase() : '?',
                 style: TextStyle(

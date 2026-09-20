@@ -154,7 +154,7 @@ class _TopicSelectionSheetState extends ConsumerState<TopicSelectionSheet> {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Text(
                   'Start Conversation',
-                  style: context.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+                  style: context.titleLarge.copyWith(fontWeight: FontWeight.bold),
                 ),
               ),
               Spacing.gapLG,
@@ -171,7 +171,7 @@ class _TopicSelectionSheetState extends ConsumerState<TopicSelectionSheet> {
                   children: [
                     Text(
                       'Difficulty Level',
-                      style: context.labelLarge?.copyWith(fontWeight: FontWeight.w600),
+                      style: context.labelLarge.copyWith(fontWeight: FontWeight.w600),
                     ),
                     Spacing.gapSM,
                     Row(
@@ -202,7 +202,7 @@ class _TopicSelectionSheetState extends ConsumerState<TopicSelectionSheet> {
                               child: Text(
                                 level['name']!,
                                 textAlign: TextAlign.center,
-                                style: context.bodySmall?.copyWith(
+                                style: context.bodySmall.copyWith(
                                   fontWeight: FontWeight.w500,
                                   color: isSelected
                                       ? Colors.white
@@ -244,7 +244,7 @@ class _TopicSelectionSheetState extends ConsumerState<TopicSelectionSheet> {
                           child: Text(
                             'Topics',
                             textAlign: TextAlign.center,
-                            style: context.bodyMedium?.copyWith(
+                            style: context.bodyMedium.copyWith(
                               fontWeight: FontWeight.w500,
                               color: _tabIndex == 0
                                   ? AppColors.accent
@@ -269,7 +269,7 @@ class _TopicSelectionSheetState extends ConsumerState<TopicSelectionSheet> {
                           child: Text(
                             'Scenarios',
                             textAlign: TextAlign.center,
-                            style: context.bodyMedium?.copyWith(
+                            style: context.bodyMedium.copyWith(
                               fontWeight: FontWeight.w500,
                               color: _tabIndex == 1
                                   ? AppColors.accent
@@ -331,7 +331,7 @@ class _TopicSelectionSheetState extends ConsumerState<TopicSelectionSheet> {
                       _targetLanguage != null
                           ? 'Start in ${_targetLanguage!.name}'
                           : 'Start Conversation',
-                      style: context.bodyLarge?.copyWith(
+                      style: context.bodyLarge.copyWith(
                         fontWeight: FontWeight.w600,
                         color: Colors.white,
                       ),
@@ -359,7 +359,7 @@ class _TopicSelectionSheetState extends ConsumerState<TopicSelectionSheet> {
         children: [
           Text(
             'Languages',
-            style: context.labelLarge?.copyWith(fontWeight: FontWeight.w600),
+            style: context.labelLarge.copyWith(fontWeight: FontWeight.w600),
           ),
           Spacing.gapSM,
           Row(
@@ -434,7 +434,7 @@ class _TopicSelectionSheetState extends ConsumerState<TopicSelectionSheet> {
           children: [
             Text(
               label,
-              style: context.captionSmall?.copyWith(color: context.textSecondary),
+              style: context.captionSmall.copyWith(color: context.textSecondary),
             ),
             Spacing.gapXS,
             Row(
@@ -447,7 +447,7 @@ class _TopicSelectionSheetState extends ConsumerState<TopicSelectionSheet> {
                 Expanded(
                   child: Text(
                     language?.name ?? 'Select',
-                    style: context.bodyMedium?.copyWith(
+                    style: context.bodyMedium.copyWith(
                       fontWeight: FontWeight.w600,
                       color: language != null ? context.textPrimary : context.textMuted,
                     ),
@@ -530,12 +530,12 @@ class _TopicSelectionSheetState extends ConsumerState<TopicSelectionSheet> {
                 children: [
                   Text(
                     topic.name,
-                    style: context.titleSmall?.copyWith(fontWeight: FontWeight.w600),
+                    style: context.titleSmall.copyWith(fontWeight: FontWeight.w600),
                   ),
                   if (topic.description != null)
                     Text(
                       topic.description!,
-                      style: context.bodySmall?.copyWith(color: context.textSecondary),
+                      style: context.bodySmall.copyWith(color: context.textSecondary),
                     ),
                 ],
               ),
@@ -644,12 +644,12 @@ class _TopicSelectionSheetState extends ConsumerState<TopicSelectionSheet> {
                     children: [
                       Text(
                         scenario.title,
-                        style: context.titleSmall?.copyWith(fontWeight: FontWeight.w600),
+                        style: context.titleSmall.copyWith(fontWeight: FontWeight.w600),
                       ),
                       if (scenario.setting.isNotEmpty)
                         Text(
                           scenario.setting,
-                          style: context.caption?.copyWith(color: context.textSecondary),
+                          style: context.caption.copyWith(color: context.textSecondary),
                         ),
                     ],
                   ),
@@ -665,7 +665,7 @@ class _TopicSelectionSheetState extends ConsumerState<TopicSelectionSheet> {
               Spacing.gapMD,
               Text(
                 scenario.description,
-                style: context.bodySmall?.copyWith(
+                style: context.bodySmall.copyWith(
                   color: context.textSecondary,
                   height: 1.4,
                 ),
@@ -688,7 +688,7 @@ class _TopicSelectionSheetState extends ConsumerState<TopicSelectionSheet> {
                     ),
                     child: Text(
                       obj,
-                      style: context.captionSmall?.copyWith(color: AppColors.success),
+                      style: context.captionSmall.copyWith(color: AppColors.success),
                     ),
                   );
                 }).toList(),
@@ -713,7 +713,7 @@ class _TopicSelectionSheetState extends ConsumerState<TopicSelectionSheet> {
           Spacing.gapMD,
           Text(
             message,
-            style: context.bodyMedium?.copyWith(color: context.textMuted),
+            style: context.bodyMedium.copyWith(color: context.textMuted),
           ),
         ],
       ),

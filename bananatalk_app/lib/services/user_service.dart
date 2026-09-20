@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:bananatalk_app/services/api_client.dart';
 import 'package:bananatalk_app/service/endpoints.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';

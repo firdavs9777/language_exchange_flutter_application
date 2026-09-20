@@ -1,6 +1,4 @@
-import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:bananatalk_app/models/vip_subscription.dart';
 import 'package:bananatalk_app/services/vip_service.dart';
 import 'package:bananatalk_app/services/ios_purchase_service.dart';
 import 'package:bananatalk_app/services/android_purchase_service.dart';
@@ -31,19 +29,6 @@ final androidProductsProvider = FutureProvider<List<ProductDetails>>(
   },
 );
 
-/// Platform-aware products provider
-/// Returns iOS or Android products based on the current platform
-final platformProductsProvider = FutureProvider<List<ProductDetails>>(
-  (ref) async {
-    if (Platform.isIOS) {
-      return ref.watch(iosProductsProvider.future);
-    } else if (Platform.isAndroid) {
-      return ref.watch(androidProductsProvider.future);
-    }
-    return [];
-  },
-);
-
 /// StateProvider for purchase flow state
 final purchaseStateProvider = StateProvider<PurchaseState>(
   (ref) => PurchaseState.idle,
@@ -71,22 +56,6 @@ final isVipProvider = Provider.family<bool, String>(
   (ref, userId) {
     final vipStatusAsync = ref.watch(vipStatusProvider(userId));
     return vipStatusAsync.valueOrNull?['isVIP'] ?? false;
-  },
-);
-
-/// Helper provider to get VIP subscription
-final vipSubscriptionProvider = Provider.family<VipSubscription?, String>(
-  (ref, userId) {
-    final vipStatusAsync = ref.watch(vipStatusProvider(userId));
-    return vipStatusAsync.valueOrNull?['vipSubscription'] as VipSubscription?;
-  },
-);
-
-/// Helper provider to get VIP features
-final vipFeaturesProvider = Provider.family<VipFeatures?, String>(
-  (ref, userId) {
-    final vipStatusAsync = ref.watch(vipStatusProvider(userId));
-    return vipStatusAsync.valueOrNull?['vipFeatures'] as VipFeatures?;
   },
 );
 

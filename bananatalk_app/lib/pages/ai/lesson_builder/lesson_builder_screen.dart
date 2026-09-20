@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/providers/languages_provider.dart';
 import 'package:bananatalk_app/services/ai_service.dart';
@@ -166,7 +165,7 @@ class _LessonBuilderScreenState extends ConsumerState<LessonBuilderScreen> {
         ),
         title: Text(
           'AI Lesson Builder',
-          style: context.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+          style: context.titleMedium.copyWith(fontWeight: FontWeight.bold),
         ),
       ),
       body: SingleChildScrollView(
@@ -274,7 +273,7 @@ class _LessonBuilderScreenState extends ConsumerState<LessonBuilderScreen> {
   Widget _buildSectionTitle(String title) {
     return Text(
       title,
-      style: context.titleSmall?.copyWith(fontWeight: FontWeight.bold),
+      style: context.titleSmall.copyWith(fontWeight: FontWeight.bold),
     );
   }
 
@@ -594,12 +593,12 @@ class _LessonBuilderScreenState extends ConsumerState<LessonBuilderScreen> {
           Spacing.gapMD,
           Text(
             'Creating your lesson...',
-            style: context.titleSmall?.copyWith(fontWeight: FontWeight.w600),
+            style: context.titleSmall.copyWith(fontWeight: FontWeight.w600),
           ),
           Spacing.gapSM,
           Text(
             'AI is generating exercises and content',
-            style: context.bodySmall?.copyWith(color: context.textSecondary),
+            style: context.bodySmall.copyWith(color: context.textSecondary),
           ),
         ],
       ),

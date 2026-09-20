@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/models/upload_task.dart';
 import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
@@ -281,7 +280,7 @@ class UploadQueueService {
     final imagePaths = metadata['imagePaths'];
     if (imagePaths != null && (imagePaths as List).isNotEmpty) {
       final imageFiles = imagePaths.map((p) => File(p.toString())).toList();
-      await _momentsService.uploadMomentPhotos(moment.id!, imageFiles);
+      await _momentsService.uploadMomentPhotos(moment.id, imageFiles);
     }
 
     _tasks[taskIndex] = _tasks[taskIndex].copyWith(progress: 1.0);
@@ -317,7 +316,7 @@ class UploadQueueService {
     if (videoPath != null) {
       final videoFile = File(videoPath);
       await _momentsService.uploadMomentVideo(
-        moment.id!,
+        moment.id,
         videoFile,
         onProgress: (progress) {
           // Map progress (0-100) to our range (0.2-0.9)
@@ -334,7 +333,7 @@ class UploadQueueService {
     if (imagePaths != null && (imagePaths as List).isNotEmpty) {
       _notifyProgress(task.id, 0.95, UploadStatus.uploading, message: 'Uploading images...');
       final imageFiles = imagePaths.map((p) => File(p.toString())).toList();
-      await _momentsService.uploadMomentPhotos(moment.id!, imageFiles);
+      await _momentsService.uploadMomentPhotos(moment.id, imageFiles);
     }
 
     _tasks[taskIndex] = _tasks[taskIndex].copyWith(progress: 1.0);

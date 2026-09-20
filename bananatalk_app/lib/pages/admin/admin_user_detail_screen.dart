@@ -254,7 +254,7 @@ class _AdminUserDetailScreenState extends ConsumerState<AdminUserDetailScreen> {
             _Field(
               label: 'Location',
               value:
-                  [city, country].where((x) => x != null && x!.isNotEmpty).join(', '),
+                  [city, country].where((x) => x != null && x.isNotEmpty).join(', '),
             ),
           if (createdAt != null && createdAt.isNotEmpty)
             _Field(label: 'Joined', value: _formatDate(createdAt)),

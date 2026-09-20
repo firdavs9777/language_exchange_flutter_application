@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:bananatalk_app/services/moments_service.dart';
-import 'package:bananatalk_app/pages/moments/card/moment_card.dart';
 import 'package:bananatalk_app/pages/moments/widgets/moments_snackbar.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
-import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/friendly_error.dart';
 
@@ -278,8 +276,8 @@ class MomentCard extends StatelessWidget {
                         : null,
                     child: moment.user.images.isEmpty
                         ? Text(
-                            moment.user.name?.isNotEmpty == true
-                                ? moment.user.name![0].toUpperCase()
+                            moment.user.name.isNotEmpty == true
+                                ? moment.user.name[0].toUpperCase()
                                 : '?',
                           )
                         : null,

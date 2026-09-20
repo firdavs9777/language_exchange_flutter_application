@@ -36,20 +36,3 @@ final challengesProvider = FutureProvider<List<Challenge>>((ref) async {
   }
 });
 
-/// Daily challenges provider
-final dailyChallengesProvider = Provider<List<Challenge>>((ref) {
-  final challenges = ref.watch(challengesProvider);
-  return challenges.valueOrNull
-          ?.where((c) => c.type.toLowerCase() == 'daily')
-          .toList() ??
-      [];
-});
-
-/// Weekly challenges provider
-final weeklyChallengesProvider = Provider<List<Challenge>>((ref) {
-  final challenges = ref.watch(challengesProvider);
-  return challenges.valueOrNull
-          ?.where((c) => c.type.toLowerCase() == 'weekly')
-          .toList() ??
-      [];
-});

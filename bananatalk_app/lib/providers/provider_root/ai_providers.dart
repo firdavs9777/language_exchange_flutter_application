@@ -1,10 +1,8 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/services/ai_service.dart';
 import 'package:bananatalk_app/models/ai/ai_conversation_model.dart';
 import 'package:bananatalk_app/models/ai/grammar_feedback_model.dart';
 import 'package:bananatalk_app/models/ai/speech_model.dart';
-import 'package:bananatalk_app/models/ai/translation_model.dart';
 import 'package:bananatalk_app/models/ai/ai_quiz_model.dart';
 
 // ============================================
@@ -322,51 +320,9 @@ final pronunciationStatsProvider =
   }
 });
 
-/// Available voices provider
-final availableVoicesProvider =
-    FutureProvider.family<List<VoiceOption>, String?>((ref, language) async {
-  try {
-    final result = await AIService.getAvailableVoices(language: language);
-    if (result['success'] == true && result['data'] != null) {
-      final data = result['data'];
-      if (data is List<VoiceOption>) return data;
-      if (data is List) {
-        return data
-            .where((e) => e is Map)
-            .map((e) => VoiceOption.fromJson(Map<String, dynamic>.from(e)))
-            .toList();
-      }
-    }
-    return [];
-  } catch (e) {
-    return [];
-  }
-});
-
 // ============================================
 // TRANSLATION PROVIDERS
 // ============================================
-
-/// Popular translations provider
-final popularTranslationsProvider =
-    FutureProvider.family<List<PopularTranslation>, String>((ref, language) async {
-  try {
-    final result = await AIService.getPopularTranslations(language: language);
-    if (result['success'] == true && result['data'] != null) {
-      final data = result['data'];
-      if (data is List<PopularTranslation>) return data;
-      if (data is List) {
-        return data
-            .where((e) => e is Map)
-            .map((e) => PopularTranslation.fromJson(Map<String, dynamic>.from(e)))
-            .toList();
-      }
-    }
-    return [];
-  } catch (e) {
-    return [];
-  }
-});
 
 // ============================================
 // AI QUIZ PROVIDERS
@@ -596,15 +552,6 @@ final aiQuizProvider = StateNotifierProvider<AIQuizNotifier, AIQuizState>((ref) 
 // ============================================
 // RECOMMENDATIONS PROVIDERS
 // ============================================
-
-/// Adaptive recommendations provider
-final adaptiveRecommendationsProvider = FutureProvider((ref) async {
-  final result = await AIService.getAdaptiveRecommendations();
-  if (result['success'] == true) {
-    return result['data'];
-  }
-  return null;
-});
 
 /// Weak areas provider
 final weakAreasProvider = FutureProvider<List<WeakArea>>((ref) async {

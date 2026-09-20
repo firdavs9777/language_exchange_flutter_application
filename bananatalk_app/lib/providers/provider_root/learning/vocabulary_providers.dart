@@ -86,14 +86,6 @@ final vocabularyListProvider =
   }
 });
 
-/// Filtered vocabulary list (uses current filter state)
-final filteredVocabularyProvider =
-    FutureProvider<List<VocabularyItem>>((ref) async {
-  final filter = ref.watch(vocabularyFilterProvider);
-  final result = await ref.watch(vocabularyListProvider(filter).future);
-  return result;
-});
-
 /// Due reviews provider
 final dueReviewsProvider =
     FutureProvider.family<DueWordsResponse?, String?>((ref, language) async {

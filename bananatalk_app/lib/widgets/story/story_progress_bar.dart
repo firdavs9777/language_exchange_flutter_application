@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:bananatalk_app/core/theme/app_theme.dart';
 
 /// Segmented progress bar for story viewer (Instagram-style)
 class StoryProgressBar extends StatelessWidget {
