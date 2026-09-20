@@ -72,8 +72,8 @@ class _QrCodeSheetState extends State<QrCodeSheet>
 
     // Nothing valid found — show snackbar once per scan attempt
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Invalid QR code'),
+      SnackBar(
+        content: Text(AppLocalizations.of(context)!.invalidQrCode),
         duration: Duration(seconds: 2),
       ),
     );
@@ -91,8 +91,8 @@ class _QrCodeSheetState extends State<QrCodeSheet>
   void _copyQrLink() {
     Clipboard.setData(ClipboardData(text: _qrData));
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Link copied to clipboard'),
+      SnackBar(
+        content: Text(AppLocalizations.of(context)!.linkCopiedToClipboard),
         duration: Duration(seconds: 2),
       ),
     );
@@ -245,7 +245,7 @@ class _MyCodeTab extends StatelessWidget {
                 child: OutlinedButton.icon(
                   onPressed: onCopy,
                   icon: const Icon(Icons.copy_rounded, size: 18),
-                  label: const Text('Copy Link'),
+                  label: Text(AppLocalizations.of(context)!.copyLink),
                   style: OutlinedButton.styleFrom(
                     foregroundColor: AppColors.primary,
                     side: const BorderSide(color: AppColors.primary),
@@ -332,10 +332,7 @@ class _ScanTabState extends State<_ScanTab> {
           Text(
             'Point your camera at a Bananatalk QR code',
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 13,
-              color: colors.onSurfaceVariant,
-            ),
+            style: TextStyle(fontSize: 13, color: colors.onSurfaceVariant),
           ),
         ],
       ),

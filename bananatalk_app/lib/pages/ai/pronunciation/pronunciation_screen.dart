@@ -88,7 +88,9 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
           }
           if (defaultIdx == -1) {
             defaultIdx = _languages.indexWhere(
-              (l) => l.code.toLowerCase() == 'en' || l.name.toLowerCase() == 'english',
+              (l) =>
+                  l.code.toLowerCase() == 'en' ||
+                  l.name.toLowerCase() == 'english',
             );
           }
           _selectedLanguage = defaultIdx != -1
@@ -183,11 +185,7 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
                 style: const TextStyle(fontSize: 26),
               )
             else
-              Icon(
-                Icons.public,
-                size: 26,
-                color: context.textMuted,
-              ),
+              Icon(Icons.public, size: 26, color: context.textMuted),
             Spacing.hGapMD,
 
             // Language names
@@ -208,7 +206,9 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
                     Spacing.gapXXS,
                     Text(
                       _selectedLanguage!.nativeName,
-                      style: context.bodySmall?.copyWith(color: context.textMuted),
+                      style: context.bodySmall?.copyWith(
+                        color: context.textMuted,
+                      ),
                     ),
                   ],
                 ],
@@ -246,23 +246,25 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
     _recorder = FlutterSoundRecorder();
     await _recorder!.openRecorder();
     final session = await AudioSession.instance;
-    await session.configure(AudioSessionConfiguration(
-      avAudioSessionCategory: AVAudioSessionCategory.playAndRecord,
-      avAudioSessionCategoryOptions:
-          AVAudioSessionCategoryOptions.allowBluetooth |
-          AVAudioSessionCategoryOptions.defaultToSpeaker,
-      avAudioSessionMode: AVAudioSessionMode.spokenAudio,
-      avAudioSessionRouteSharingPolicy:
-          AVAudioSessionRouteSharingPolicy.defaultPolicy,
-      avAudioSessionSetActiveOptions: AVAudioSessionSetActiveOptions.none,
-      androidAudioAttributes: const AndroidAudioAttributes(
-        contentType: AndroidAudioContentType.speech,
-        flags: AndroidAudioFlags.none,
-        usage: AndroidAudioUsage.voiceCommunication,
+    await session.configure(
+      AudioSessionConfiguration(
+        avAudioSessionCategory: AVAudioSessionCategory.playAndRecord,
+        avAudioSessionCategoryOptions:
+            AVAudioSessionCategoryOptions.allowBluetooth |
+            AVAudioSessionCategoryOptions.defaultToSpeaker,
+        avAudioSessionMode: AVAudioSessionMode.spokenAudio,
+        avAudioSessionRouteSharingPolicy:
+            AVAudioSessionRouteSharingPolicy.defaultPolicy,
+        avAudioSessionSetActiveOptions: AVAudioSessionSetActiveOptions.none,
+        androidAudioAttributes: const AndroidAudioAttributes(
+          contentType: AndroidAudioContentType.speech,
+          flags: AndroidAudioFlags.none,
+          usage: AndroidAudioUsage.voiceCommunication,
+        ),
+        androidAudioFocusGainType: AndroidAudioFocusGainType.gain,
+        androidWillPauseWhenDucked: true,
       ),
-      androidAudioFocusGainType: AndroidAudioFocusGainType.gain,
-      androidWillPauseWhenDucked: true,
-    ));
+    );
     _recorderReady = true;
   }
 
@@ -331,7 +333,8 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
       if (res['success'] == true) {
         _result = res['data'] as PronunciationResult?;
       } else {
-        _error = res['message']?.toString() ?? 'Failed to evaluate pronunciation';
+        _error =
+            res['message']?.toString() ?? 'Failed to evaluate pronunciation';
       }
     });
   }
@@ -361,7 +364,11 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
       // This would typically use audioplayers package
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(AppLocalizations.of(context)!.aiPronunciationPlayingAudio)),
+          SnackBar(
+            content: Text(
+              AppLocalizations.of(context)!.aiPronunciationPlayingAudio,
+            ),
+          ),
         );
       }
     } else {
@@ -411,16 +418,10 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
             Spacing.gapXL,
 
             // Results Section
-            if (_result != null) ...[
-              _buildResultsSection(),
-              Spacing.gapXL,
-            ],
+            if (_result != null) ...[_buildResultsSection(), Spacing.gapXL],
 
             // Error
-            if (_error != null) ...[
-              _buildErrorSection(),
-              Spacing.gapXL,
-            ],
+            if (_error != null) ...[_buildErrorSection(), Spacing.gapXL],
 
             // History Section
             Text(
@@ -575,7 +576,9 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
                   ),
                   child: Text(
                     text.length > 25 ? '${text.substring(0, 25)}...' : text,
-                    style: context.caption?.copyWith(color: context.textSecondary),
+                    style: context.caption?.copyWith(
+                      color: context.textSecondary,
+                    ),
                   ),
                 ),
               );
@@ -596,7 +599,9 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
                           child: CircularProgressIndicator(strokeWidth: 2),
                         )
                       : const Icon(Icons.volume_up_rounded),
-                  label: Text(AppLocalizations.of(context)!.aiPronunciationListenFirst),
+                  label: Text(
+                    AppLocalizations.of(context)!.aiPronunciationListenFirst,
+                  ),
                   style: OutlinedButton.styleFrom(
                     foregroundColor: AppColors.warning,
                     side: const BorderSide(color: AppColors.warning),
@@ -624,15 +629,14 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
                   color: _isRecording
                       ? AppColors.error
                       : _isAnalyzing
-                          ? AppColors.gray300
-                          : AppColors.warning,
+                      ? AppColors.gray300
+                      : AppColors.warning,
                   shape: BoxShape.circle,
                   boxShadow: [
                     BoxShadow(
-                      color: (_isRecording
-                              ? AppColors.error
-                              : AppColors.warning)
-                          .withOpacity(0.3),
+                      color:
+                          (_isRecording ? AppColors.error : AppColors.warning)
+                              .withOpacity(0.3),
                       blurRadius: 20,
                       offset: const Offset(0, 8),
                     ),
@@ -640,9 +644,7 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
                 ),
                 child: _isAnalyzing
                     ? const Center(
-                        child: CircularProgressIndicator(
-                          color: Colors.white,
-                        ),
+                        child: CircularProgressIndicator(color: Colors.white),
                       )
                     : Icon(
                         _isRecording ? Icons.stop_rounded : Icons.mic_rounded,
@@ -658,8 +660,8 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
               _isRecording
                   ? 'Tap to stop'
                   : _isAnalyzing
-                      ? 'Analyzing...'
-                      : 'Tap to record',
+                  ? 'Analyzing...'
+                  : 'Tap to record',
               style: context.bodyMedium?.copyWith(color: context.textSecondary),
             ),
           ),
@@ -693,7 +695,9 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
                   width: 100,
                   height: 100,
                   decoration: BoxDecoration(
-                    color: _getScoreColor(_result!.overallScore).withOpacity(0.1),
+                    color: _getScoreColor(
+                      _result!.overallScore,
+                    ).withOpacity(0.1),
                     shape: BoxShape.circle,
                   ),
                   child: Center(
@@ -725,8 +729,8 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
                   _result!.isExcellent
                       ? 'Excellent pronunciation!'
                       : _result!.isGood
-                          ? 'Good job!'
-                          : 'Keep practicing!',
+                      ? 'Good job!'
+                      : 'Keep practicing!',
                   style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
@@ -741,24 +745,15 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
           Row(
             children: [
               Expanded(
-                child: _buildScoreItem(
-                  'Accuracy',
-                  _result!.accuracyScore,
-                ),
+                child: _buildScoreItem('Accuracy', _result!.accuracyScore),
               ),
               const SizedBox(width: 12),
               Expanded(
-                child: _buildScoreItem(
-                  'Fluency',
-                  _result!.fluencyScore,
-                ),
+                child: _buildScoreItem('Fluency', _result!.fluencyScore),
               ),
               const SizedBox(width: 12),
               Expanded(
-                child: _buildScoreItem(
-                  'Complete',
-                  _result!.completenessScore,
-                ),
+                child: _buildScoreItem('Complete', _result!.completenessScore),
               ),
             ],
           ),
@@ -768,10 +763,7 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
             const SizedBox(height: 20),
             const Text(
               'Word Analysis',
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 15,
-              ),
+              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
             ),
             const SizedBox(height: 12),
             Wrap(
@@ -800,7 +792,9 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
                       Text(
                         w.word,
                         style: TextStyle(
-                          color: w.isCorrect ? Colors.green[700] : Colors.red[700],
+                          color: w.isCorrect
+                              ? Colors.green[700]
+                              : Colors.red[700],
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -809,7 +803,9 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
                         '${w.score}%',
                         style: TextStyle(
                           fontSize: 11,
-                          color: w.isCorrect ? Colors.green[600] : Colors.red[600],
+                          color: w.isCorrect
+                              ? Colors.green[600]
+                              : Colors.red[600],
                         ),
                       ),
                     ],
@@ -831,11 +827,7 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Icon(
-                    Icons.info_outline,
-                    size: 18,
-                    color: Colors.blue[700],
-                  ),
+                  Icon(Icons.info_outline, size: 18, color: Colors.blue[700]),
                   const SizedBox(width: 8),
                   Expanded(
                     child: Text(
@@ -855,29 +847,28 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
           // Suggestions
           if (_result!.suggestions.isNotEmpty) ...[
             const SizedBox(height: 16),
-            ..._result!.suggestions.map((s) => Padding(
-                  padding: const EdgeInsets.only(bottom: 6),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Icon(
-                        Icons.lightbulb_outline,
-                        size: 16,
-                        color: Colors.amber[700],
+            ..._result!.suggestions.map(
+              (s) => Padding(
+                padding: const EdgeInsets.only(bottom: 6),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Icon(
+                      Icons.lightbulb_outline,
+                      size: 16,
+                      color: Colors.amber[700],
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        s,
+                        style: TextStyle(fontSize: 13, color: Colors.grey[700]),
                       ),
-                      const SizedBox(width: 8),
-                      Expanded(
-                        child: Text(
-                          s,
-                          style: TextStyle(
-                            fontSize: 13,
-                            color: Colors.grey[700],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                )),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ],
           const SizedBox(height: 16),
           RewardedAdButton(
@@ -885,7 +876,11 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
             onRewarded: () {
               setState(() => _result = null);
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Free retry unlocked! 🎉')),
+                SnackBar(
+                  content: Text(
+                    AppLocalizations.of(context)!.freeRetryUnlocked,
+                  ),
+                ),
               );
             },
           ),
@@ -911,13 +906,7 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
               color: _getScoreColor(score),
             ),
           ),
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 12,
-              color: Colors.grey[600],
-            ),
-          ),
+          Text(label, style: TextStyle(fontSize: 12, color: Colors.grey[600])),
         ],
       ),
     );
@@ -983,11 +972,15 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
                   result.targetText,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: context.bodyMedium?.copyWith(fontWeight: FontWeight.w500),
+                  style: context.bodyMedium?.copyWith(
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
                 Text(
                   result.scoreGrade,
-                  style: context.caption?.copyWith(color: context.textSecondary),
+                  style: context.caption?.copyWith(
+                    color: context.textSecondary,
+                  ),
                 ),
               ],
             ),
@@ -1002,11 +995,7 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
       padding: Spacing.paddingXL,
       child: Column(
         children: [
-          Icon(
-            Icons.mic_none_rounded,
-            size: 48,
-            color: context.textMuted,
-          ),
+          Icon(Icons.mic_none_rounded, size: 48, color: context.textMuted),
           Spacing.gapMD,
           Text(
             'No practice history yet',

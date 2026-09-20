@@ -56,8 +56,16 @@ class _ConversationHistoryScreenState
           unselectedLabelColor: context.textSecondary,
           indicatorColor: AppColors.accent,
           tabs: [
-            Tab(text: AppLocalizations.of(context)!.aiConversationHistoryCompleted),
-            Tab(text: AppLocalizations.of(context)!.aiConversationHistoryInProgress),
+            Tab(
+              text: AppLocalizations.of(
+                context,
+              )!.aiConversationHistoryCompleted,
+            ),
+            Tab(
+              text: AppLocalizations.of(
+                context,
+              )!.aiConversationHistoryInProgress,
+            ),
           ],
         ),
       ),
@@ -170,11 +178,15 @@ class _ConversationHistoryScreenState
                         children: [
                           Text(
                             conversation.settings.level.toUpperCase(),
-                            style: context.titleSmall?.copyWith(fontWeight: FontWeight.w600),
+                            style: context.titleSmall?.copyWith(
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                           Text(
                             dateFormat.format(conversation.createdAt),
-                            style: context.caption?.copyWith(color: context.textSecondary),
+                            style: context.caption?.copyWith(
+                              color: context.textSecondary,
+                            ),
                           ),
                         ],
                       ),
@@ -232,12 +244,16 @@ class _ConversationHistoryScreenState
                     Spacing.hGapXS,
                     Text(
                       '${conversation.messages.length} messages',
-                      style: context.caption?.copyWith(color: context.textMuted),
+                      style: context.caption?.copyWith(
+                        color: context.textMuted,
+                      ),
                     ),
                     const Spacer(),
                     Text(
                       timeFormat.format(conversation.createdAt),
-                      style: context.caption?.copyWith(color: context.textMuted),
+                      style: context.caption?.copyWith(
+                        color: context.textMuted,
+                      ),
                     ),
                   ],
                 ),
@@ -327,8 +343,9 @@ class _ConversationDetailsSheetState extends State<_ConversationDetailsSheet> {
         if (data is AIConversation) {
           conversation = data;
         } else if (data is Map) {
-          conversation =
-              AIConversation.fromJson(Map<String, dynamic>.from(data));
+          conversation = AIConversation.fromJson(
+            Map<String, dynamic>.from(data),
+          );
         }
 
         if (conversation != null && mounted) {
@@ -387,7 +404,9 @@ class _ConversationDetailsSheetState extends State<_ConversationDetailsSheet> {
                   children: [
                     Text(
                       'Conversation',
-                      style: context.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                      style: context.titleMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     const Spacer(),
                     IconButton(
@@ -397,9 +416,7 @@ class _ConversationDetailsSheetState extends State<_ConversationDetailsSheet> {
                   ],
                 ),
               ),
-              Expanded(
-                child: _buildContent(scrollController),
-              ),
+              Expanded(child: _buildContent(scrollController)),
             ],
           ),
         );
@@ -444,7 +461,7 @@ class _ConversationDetailsSheetState extends State<_ConversationDetailsSheet> {
                 });
                 _loadConversationDetails();
               },
-              child: const Text('Retry'),
+              child: Text(AppLocalizations.of(context)!.retry),
             ),
           ],
         ),
@@ -477,8 +494,9 @@ class _ConversationDetailsSheetState extends State<_ConversationDetailsSheet> {
         return Padding(
           padding: const EdgeInsets.only(bottom: 12),
           child: Row(
-            mainAxisAlignment:
-                isUser ? MainAxisAlignment.end : MainAxisAlignment.start,
+            mainAxisAlignment: isUser
+                ? MainAxisAlignment.end
+                : MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               if (!isUser) ...[
@@ -498,7 +516,9 @@ class _ConversationDetailsSheetState extends State<_ConversationDetailsSheet> {
                   padding: Spacing.paddingMD,
                   decoration: BoxDecoration(
                     color: isUser ? AppColors.accent : context.containerColor,
-                    borderRadius: isUser ? AppRadius.chatBubbleMine : AppRadius.chatBubbleOther,
+                    borderRadius: isUser
+                        ? AppRadius.chatBubbleMine
+                        : AppRadius.chatBubbleOther,
                   ),
                   child: Text(
                     message.content,

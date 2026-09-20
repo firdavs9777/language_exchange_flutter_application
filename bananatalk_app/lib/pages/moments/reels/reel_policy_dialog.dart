@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -92,11 +93,13 @@ class ReelPolicyDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      title: const Row(
+      title: Row(
         children: [
           Icon(Icons.videocam, color: Color(0xFF00BFA5)),
           SizedBox(width: 10),
-          Expanded(child: Text('Reels content guidelines')),
+          Expanded(
+            child: Text(AppLocalizations.of(context)!.reelsContentGuidelines),
+          ),
         ],
       ),
       content: const SingleChildScrollView(
@@ -115,7 +118,7 @@ class ReelPolicyDialog extends StatelessWidget {
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(false),
-          child: const Text('Decline'),
+          child: Text(AppLocalizations.of(context)!.decline),
         ),
         ElevatedButton(
           onPressed: () => Navigator.of(context).pop(true),

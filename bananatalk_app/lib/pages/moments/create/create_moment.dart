@@ -818,11 +818,13 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
           ),
-          title: const Row(
+          title: Row(
             children: [
               Icon(Icons.warning_amber_rounded, color: Colors.orange, size: 28),
               SizedBox(width: 12),
-              Expanded(child: Text('Audio upload failed')),
+              Expanded(
+                child: Text(AppLocalizations.of(context)!.audioUploadFailed),
+              ),
             ],
           ),
           content: Column(
@@ -853,7 +855,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF00BFA5),
                 ),
-                child: const Text('Retry'),
+                child: Text(AppLocalizations.of(context)!.retry),
               ),
           ],
         ),

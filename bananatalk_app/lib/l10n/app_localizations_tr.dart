@@ -15,7 +15,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get aiStudyPromoTitle => 'AI senaryolarıyla pratik yap';
 
   @override
-  String get aiStudyPromoBody => 'AI öğretmeninle gerçek hayat konuşmalarını canlandır ve konuşma özgüvenini geliştir.';
+  String get aiStudyPromoBody =>
+      'AI öğretmeninle gerçek hayat konuşmalarını canlandır ve konuşma özgüvenini geliştir.';
 
   @override
   String get aiStudyPromoCTA => 'Bir senaryo dene';
@@ -24,22 +25,26 @@ class AppLocalizationsTr extends AppLocalizations {
   String get aiStudyPromoDismiss => 'Belki sonra';
 
   @override
-  String get promoSpotlightCoinsHeadline => 'Konuşmanın ortasında asla jetonun bitmesin';
+  String get promoSpotlightCoinsHeadline =>
+      'Konuşmanın ortasında asla jetonun bitmesin';
 
   @override
-  String get promoSpotlightCoinsSubtitle => 'Günlük sınırına her ulaştığında ekstra çeviriler, öğretmenle sohbetler ve anlar için jeton al.';
+  String get promoSpotlightCoinsSubtitle =>
+      'Günlük sınırına her ulaştığında ekstra çeviriler, öğretmenle sohbetler ve anlar için jeton al.';
 
   @override
   String get promoSpotlightRoomsHeadline => 'Bir konu odasına katıl';
 
   @override
-  String get promoSpotlightRoomsSubtitle => 'Canlı bir metin odasına gir ve ilgini çeken konular hakkında sohbet eden öğrencilerle pratik yap.';
+  String get promoSpotlightRoomsSubtitle =>
+      'Canlı bir metin odasına gir ve ilgini çeken konular hakkında sohbet eden öğrencilerle pratik yap.';
 
   @override
   String get promoSpotlightVoiceHeadline => 'Bir sesli odaya katıl';
 
   @override
-  String get promoSpotlightVoiceSubtitle => 'Diğer öğrencilerle canlı konuş ve her sohbette gerçek konuşma özgüveni kazan.';
+  String get promoSpotlightVoiceSubtitle =>
+      'Diğer öğrencilerle canlı konuş ve her sohbette gerçek konuşma özgüveni kazan.';
 
   @override
   String get promoSpotlightTryIt => 'Dene';
@@ -243,16 +248,19 @@ class AppLocalizationsTr extends AppLocalizations {
   String get autoTranslateSettings => 'Otomatik Çeviri Ayarları';
 
   @override
-  String get automaticallyTranslateIncomingMessages => 'Gelen mesajları otomatik çevir';
+  String get automaticallyTranslateIncomingMessages =>
+      'Gelen mesajları otomatik çevir';
 
   @override
-  String get automaticallyTranslateMomentsInFeed => 'Akıştaki anları otomatik çevir';
+  String get automaticallyTranslateMomentsInFeed =>
+      'Akıştaki anları otomatik çevir';
 
   @override
   String get automaticallyTranslateComments => 'Yorumları otomatik çevir';
 
   @override
-  String get translationServiceBeingConfigured => 'Çeviri hizmeti yapılandırılıyor. Lütfen daha sonra tekrar deneyin.';
+  String get translationServiceBeingConfigured =>
+      'Çeviri hizmeti yapılandırılıyor. Lütfen daha sonra tekrar deneyin.';
 
   @override
   String get translationUnavailable => 'Çeviri mevcut değil';
@@ -345,16 +353,19 @@ class AppLocalizationsTr extends AppLocalizations {
   String get clearCacheSubtitle => 'Depolama alanı aç';
 
   @override
-  String get clearCacheDescription => 'Bu, önbelleğe alınmış tüm görüntüleri, videoları ve ses dosyalarını temizleyecektir. Uygulama, medyayı yeniden indirirken içeriği geçici olarak daha yavaş yükleyebilir.';
+  String get clearCacheDescription =>
+      'Bu, önbelleğe alınmış tüm görüntüleri, videoları ve ses dosyalarını temizleyecektir. Uygulama, medyayı yeniden indirirken içeriği geçici olarak daha yavaş yükleyebilir.';
 
   @override
-  String get clearCacheHint => 'Görüntüler veya ses düzgün yüklenmiyorsa bunu kullanın.';
+  String get clearCacheHint =>
+      'Görüntüler veya ses düzgün yüklenmiyorsa bunu kullanın.';
 
   @override
   String get clearingCache => 'Önbellek temizleniyor...';
 
   @override
-  String get cacheCleared => 'Önbellek başarıyla temizlendi! Görüntüler yeniden yüklenecek.';
+  String get cacheCleared =>
+      'Önbellek başarıyla temizlendi! Görüntüler yeniden yüklenecek.';
 
   @override
   String get clearCacheFailed => 'Önbellek temizlenemedi';
@@ -363,7 +374,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get myReports => 'Bildirilerim';
 
   @override
-  String get viewYourSubmittedReports => 'Gönderdiğiniz bildirimleri görüntüleyin';
+  String get viewYourSubmittedReports =>
+      'Gönderdiğiniz bildirimleri görüntüleyin';
 
   @override
   String get reportsManagement => 'Bildirim Yönetimi';
@@ -375,7 +387,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get legalPrivacy => 'Yasal ve Gizlilik';
 
   @override
-  String get termsPrivacySubscriptionInfo => 'Şartlar, Gizlilik ve Abonelik bilgisi';
+  String get termsPrivacySubscriptionInfo =>
+      'Şartlar, Gizlilik ve Abonelik bilgisi';
 
   @override
   String get helpCenter => 'Yardım Merkezi';
@@ -398,7 +411,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get aiTutorHeroTitleNew => 'AI Öğretmeninle tanış';
 
   @override
-  String get aiTutorHeroSubtitleSet => 'Sohbet etmek veya bugünkü planı görmek için dokun';
+  String get aiTutorHeroSubtitleSet =>
+      'Sohbet etmek veya bugünkü planı görmek için dokun';
 
   @override
   String aiTutorHeroSubtitleLast(String summary) {
@@ -406,7 +420,8 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String get aiTutorHeroSubtitleNew => 'Bir karakter seç — Nana, Sensei veya Riko';
+  String get aiTutorHeroSubtitleNew =>
+      'Bir karakter seç — Nana, Sensei veya Riko';
 
   @override
   String get aiTutorChipChat => 'Sohbet';
@@ -436,7 +451,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get aiTutorPickerHeader => 'Kiminle öğrenmek istiyorsun?';
 
   @override
-  String get aiTutorPickerSubtitle => 'Bunu ayarlardan istediğin zaman değiştirebilirsin.';
+  String get aiTutorPickerSubtitle =>
+      'Bunu ayarlardan istediğin zaman değiştirebilirsin.';
 
   @override
   String get aiTutorPersonaNanaTagline => 'Sıcak + cesaretlendirici';
@@ -468,13 +484,15 @@ class AppLocalizationsTr extends AppLocalizations {
   String get aiTutorHomeChangeTutor => 'Öğretmeni değiştir';
 
   @override
-  String get aiTutorHomeGreetingDefault => 'Selam! Birlikte öğrenmeye hazır mısın?';
+  String get aiTutorHomeGreetingDefault =>
+      'Selam! Birlikte öğrenmeye hazır mısın?';
 
   @override
   String get aiTutorHomeTodaysPlan => 'Bugünkü plan';
 
   @override
-  String get aiTutorHomePlanEmpty => 'Bugün için plan yok — başlamak için bir sohbet aç.';
+  String get aiTutorHomePlanEmpty =>
+      'Bugün için plan yok — başlamak için bir sohbet aç.';
 
   @override
   String get aiTutorHomeStartChat => 'Sohbete başla';
@@ -486,19 +504,22 @@ class AppLocalizationsTr extends AppLocalizations {
   String get aiTutorHomePracticeScenarios => 'Pratik senaryoları';
 
   @override
-  String get aiTutorHomePracticeScenariosSubtitle => 'Gerçek konuşmaları canlandır — restoran, mülakat, otel…';
+  String get aiTutorHomePracticeScenariosSubtitle =>
+      'Gerçek konuşmaları canlandır — restoran, mülakat, otel…';
 
   @override
   String get aiTutorHomeReadStory => 'Hikaye oku';
 
   @override
-  String get aiTutorHomeReadStorySubtitle => 'AI senin kelimelerinle kısa bir hikaye yazar — hızlı anlama soruları ile.';
+  String get aiTutorHomeReadStorySubtitle =>
+      'AI senin kelimelerinle kısa bir hikaye yazar — hızlı anlama soruları ile.';
 
   @override
   String get aiTutorHomeDescribePhoto => 'Bir fotoğrafı tanımla';
 
   @override
-  String get aiTutorHomeDescribePhotoSubtitle => 'Bir fotoğraf çek ve tanımla — AI kelime + dilbilgisini puanlar.';
+  String get aiTutorHomeDescribePhotoSubtitle =>
+      'Bir fotoğraf çek ve tanımla — AI kelime + dilbilgisini puanlar.';
 
   @override
   String get aiTutorChatTitle => 'Öğretmenle sohbet';
@@ -528,7 +549,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get aiTutorChatTypeReplyHint => 'Yanıtını yaz…';
 
   @override
-  String get aiTutorChatMicPermissionDenied => 'Ses modu için mikrofon izni gerekli.';
+  String get aiTutorChatMicPermissionDenied =>
+      'Ses modu için mikrofon izni gerekli.';
 
   @override
   String get aiTutorChatTranscribeFailed => 'Anlayamadım — tekrar dene.';
@@ -632,7 +654,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get aiTutorImagePickHeader => 'Tanımlayacak bir fotoğraf seç';
 
   @override
-  String get aiTutorImagePickSubtitle => 'AI hedef dilinde bir komut verir, sonra senin tanımını puanlar.';
+  String get aiTutorImagePickSubtitle =>
+      'AI hedef dilinde bir komut verir, sonra senin tanımını puanlar.';
 
   @override
   String get aiTutorImagePickCamera => 'Kamera';
@@ -770,7 +793,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get searchConversations => 'Sohbetleri ara...';
 
   @override
-  String get visitorTrackingNotAvailable => 'Ziyaretçi takibi henüz mevcut değil. Backend güncellemesi gerekli.';
+  String get visitorTrackingNotAvailable =>
+      'Ziyaretçi takibi henüz mevcut değil. Backend güncellemesi gerekli.';
 
   @override
   String get chatList => 'Sohbet Listesi';
@@ -848,13 +872,16 @@ class AppLocalizationsTr extends AppLocalizations {
   String get chatMessages => 'Sohbet Mesajları';
 
   @override
-  String get getNotifiedWhenYouReceiveMessages => 'Mesaj aldığınızda bildirim alın';
+  String get getNotifiedWhenYouReceiveMessages =>
+      'Mesaj aldığınızda bildirim alın';
 
   @override
-  String get likesAndCommentsOnYourMoments => 'Anlarınızdaki beğeniler ve yorumlar';
+  String get likesAndCommentsOnYourMoments =>
+      'Anlarınızdaki beğeniler ve yorumlar';
 
   @override
-  String get whenPeopleYouFollowPostMoments => 'Takip ettiğiniz kişiler an paylaştığında';
+  String get whenPeopleYouFollowPostMoments =>
+      'Takip ettiğiniz kişiler an paylaştığında';
 
   @override
   String get friendRequests => 'Arkadaşlık İstekleri';
@@ -866,13 +893,15 @@ class AppLocalizationsTr extends AppLocalizations {
   String get profileVisits => 'Profil Ziyaretleri';
 
   @override
-  String get whenSomeoneViewsYourProfileVIP => 'Biri profilinizi görüntülediğinde (VIP)';
+  String get whenSomeoneViewsYourProfileVIP =>
+      'Biri profilinizi görüntülediğinde (VIP)';
 
   @override
   String get marketing => 'Pazarlama';
 
   @override
-  String get updatesAndPromotionalMessages => 'Güncellemeler ve promosyon mesajları';
+  String get updatesAndPromotionalMessages =>
+      'Güncellemeler ve promosyon mesajları';
 
   @override
   String get notificationPreferences => 'Bildirim Tercihleri';
@@ -893,7 +922,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get showPreview => 'Önizleme Göster';
 
   @override
-  String get showMessagePreviewInNotifications => 'Bildirimlerde mesaj önizlemesi göster';
+  String get showMessagePreviewInNotifications =>
+      'Bildirimlerde mesaj önizlemesi göster';
 
   @override
   String get mutedConversations => 'Sessize Alınan Sohbetler';
@@ -911,7 +941,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get systemNotificationSettings => 'Sistem Bildirim Ayarları';
 
   @override
-  String get manageNotificationsInSystemSettings => 'Sistem ayarlarında bildirimleri yönet';
+  String get manageNotificationsInSystemSettings =>
+      'Sistem ayarlarında bildirimleri yönet';
 
   @override
   String get errorLoadingSettings => 'Ayarlar yüklenirken hata';
@@ -926,37 +957,44 @@ class AppLocalizationsTr extends AppLocalizations {
   String get goBack => 'Geri';
 
   @override
-  String get messageSendTimeout => 'Mesaj gönderme zaman aşımı. Lütfen bağlantınızı kontrol edin.';
+  String get messageSendTimeout =>
+      'Mesaj gönderme zaman aşımı. Lütfen bağlantınızı kontrol edin.';
 
   @override
   String get failedToSendMessage => 'Mesaj gönderilemedi';
 
   @override
-  String get dailyMessageLimitExceeded => 'Günlük mesaj limiti aşıldı. Sınırsız mesaj için VIP\'e yükseltin.';
+  String get dailyMessageLimitExceeded =>
+      'Günlük mesaj limiti aşıldı. Sınırsız mesaj için VIP\'e yükseltin.';
 
   @override
-  String get cannotSendMessageUserMayBeBlocked => 'Mesaj gönderilemiyor. Kullanıcı engellenmiş olabilir.';
+  String get cannotSendMessageUserMayBeBlocked =>
+      'Mesaj gönderilemiyor. Kullanıcı engellenmiş olabilir.';
 
   @override
-  String get sessionExpired => 'Oturum süresi doldu. Lütfen tekrar giriş yapın.';
+  String get sessionExpired =>
+      'Oturum süresi doldu. Lütfen tekrar giriş yapın.';
 
   @override
   String get sendThisSticker => 'Bu çıkartmayı gönder?';
 
   @override
-  String get chooseHowYouWantToDeleteThisMessage => 'Bu mesajı nasıl silmek istediğinizi seçin:';
+  String get chooseHowYouWantToDeleteThisMessage =>
+      'Bu mesajı nasıl silmek istediğinizi seçin:';
 
   @override
   String get deleteForEveryone => 'Herkes için sil';
 
   @override
-  String get removesTheMessageForBothYouAndTheRecipient => 'Mesajı hem sizin hem de alıcının için siler';
+  String get removesTheMessageForBothYouAndTheRecipient =>
+      'Mesajı hem sizin hem de alıcının için siler';
 
   @override
   String get deleteForMe => 'Benim için sil';
 
   @override
-  String get removesTheMessageOnlyFromYourChat => 'Mesajı yalnızca sizin sohbetinizden siler';
+  String get removesTheMessageOnlyFromYourChat =>
+      'Mesajı yalnızca sizin sohbetinizden siler';
 
   @override
   String get copy => 'Kopyala';
@@ -994,13 +1032,15 @@ class AppLocalizationsTr extends AppLocalizations {
   String get tapToUpdateLocation => 'Konumu güncellemek için dokunun';
 
   @override
-  String get helpOthersFindYouNearby => 'Başkalarının sizi yakınlarda bulmasına yardımcı olun';
+  String get helpOthersFindYouNearby =>
+      'Başkalarının sizi yakınlarda bulmasına yardımcı olun';
 
   @override
   String get selectYourNativeLanguage => 'Ana dilinizi seçin';
 
   @override
-  String get whichLanguageDoYouWantToLearn => 'Hangi dili öğrenmek istiyorsunuz?';
+  String get whichLanguageDoYouWantToLearn =>
+      'Hangi dili öğrenmek istiyorsunuz?';
 
   @override
   String get selectYourGender => 'Cinsiyetinizi seçin';
@@ -1024,7 +1064,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get provideMoreInformation => 'Daha fazla bilgi verin...';
 
   @override
-  String get searchByNameLanguageOrInterests => 'İsim, dil veya ilgi alanlarına göre ara...';
+  String get searchByNameLanguageOrInterests =>
+      'İsim, dil veya ilgi alanlarına göre ara...';
 
   @override
   String get addTagAndPressEnter => 'Etiket ekle ve Enter\'a bas';
@@ -1060,7 +1101,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get warningThisActionIsPermanent => 'Uyarı: Bu işlem kalıcıdır!';
 
   @override
-  String get deletingYourAccountWillPermanentlyRemove => 'Hesabınızı silmek şunları kalıcı olarak kaldırır:\n\n• Profiliniz ve tüm kişisel verileriniz\n• Tüm mesajlarınız ve sohbetleriniz\n• Tüm anlarınız ve hikayeleriniz\n• VIP aboneliğiniz (iade yok)\n• Tüm bağlantılarınız ve takipçileriniz\n\nBu işlem geri alınamaz.';
+  String get deletingYourAccountWillPermanentlyRemove =>
+      'Hesabınızı silmek şunları kalıcı olarak kaldırır:\n\n• Profiliniz ve tüm kişisel verileriniz\n• Tüm mesajlarınız ve sohbetleriniz\n• Tüm anlarınız ve hikayeleriniz\n• VIP aboneliğiniz (iade yok)\n• Tüm bağlantılarınız ve takipçileriniz\n\nBu işlem geri alınamaz.';
 
   @override
   String get clearAllNotifications => 'Tüm bildirimler silinsin mi?';
@@ -1093,7 +1135,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get selectYourNativeLanguage2 => 'Ana dilinizi seçin';
 
   @override
-  String get whichLanguageDoYouWantToLearn2 => 'Hangi dili öğrenmek istiyorsunuz?';
+  String get whichLanguageDoYouWantToLearn2 =>
+      'Hangi dili öğrenmek istiyorsunuz?';
 
   @override
   String get selectYourGender2 => 'Cinsiyetinizi seçin';
@@ -1108,7 +1151,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get tapToUpdateLocation2 => 'Konumu güncellemek için dokunun';
 
   @override
-  String get helpOthersFindYouNearby2 => 'Başkalarının sizi yakınlarda bulmasına yardımcı olun';
+  String get helpOthersFindYouNearby2 =>
+      'Başkalarının sizi yakınlarda bulmasına yardımcı olun';
 
   @override
   String get couldNotOpenLink => 'Bağlantı açılamadı';
@@ -1120,7 +1164,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get termsOfUseEULA => 'Kullanım Şartları (EULA)';
 
   @override
-  String get viewOurTermsAndConditions => 'Şartlar ve koşullarımızı görüntüleyin';
+  String get viewOurTermsAndConditions =>
+      'Şartlar ve koşullarımızı görüntüleyin';
 
   @override
   String get privacyPolicy => 'Gizlilik Politikası';
@@ -1132,7 +1177,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get emailNotifications => 'E-posta Bildirimleri';
 
   @override
-  String get receiveEmailNotificationsFromBananatalk => 'Bananatalk\'tan e-posta bildirimleri al';
+  String get receiveEmailNotificationsFromBananatalk =>
+      'Bananatalk\'tan e-posta bildirimleri al';
 
   @override
   String get weeklySummary => 'Haftalık Özet';
@@ -1197,7 +1243,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get deleteStory => 'Hikaye silinsin mi?';
 
   @override
-  String get thisStoryWillBeRemovedPermanently => 'Bu hikaye kalıcı olarak kaldırılacak.';
+  String get thisStoryWillBeRemovedPermanently =>
+      'Bu hikaye kalıcı olarak kaldırılacak.';
 
   @override
   String get noStories => 'Hikaye yok';
@@ -1232,7 +1279,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get storyPosted => 'Hikaye paylaşıldı!';
 
   @override
-  String get textOnlyStoriesRequireAnImage => 'Yalnızca metin hikayeleri bir resim gerektirir';
+  String get textOnlyStoriesRequireAnImage =>
+      'Yalnızca metin hikayeleri bir resim gerektirir';
 
   @override
   String get createStory => 'Hikaye Oluştur';
@@ -1241,7 +1289,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get change => 'Değiştir';
 
   @override
-  String get userIdNotFound => 'Kullanıcı kimliği bulunamadı. Lütfen tekrar giriş yapın.';
+  String get userIdNotFound =>
+      'Kullanıcı kimliği bulunamadı. Lütfen tekrar giriş yapın.';
 
   @override
   String get pleaseSelectAPaymentMethod => 'Lütfen bir ödeme yöntemi seçin';
@@ -1271,7 +1320,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get cancelSubscription => 'Aboneliği İptal Et';
 
   @override
-  String get vipSubscriptionCancelledSuccessfully => 'VIP aboneliği başarıyla iptal edildi';
+  String get vipSubscriptionCancelledSuccessfully =>
+      'VIP aboneliği başarıyla iptal edildi';
 
   @override
   String get vipStatus => 'VIP Durumu';
@@ -1283,7 +1333,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get subscriptionExpired => 'Abonelik Süresi Doldu';
 
   @override
-  String get vipExpiredMessage => 'VIP aboneliğinizin süresi doldu. Sınırsız özelliklerden yararlanmaya devam etmek için şimdi yenileyin!';
+  String get vipExpiredMessage =>
+      'VIP aboneliğinizin süresi doldu. Sınırsız özelliklerden yararlanmaya devam etmek için şimdi yenileyin!';
 
   @override
   String get expiredOn => 'Sona erme tarihi';
@@ -1397,7 +1448,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get block => 'Engelle';
 
   @override
-  String get wouldYouAlsoLikeToBlockThisUser => 'Bu kullanıcıyı da engellemek ister misiniz?';
+  String get wouldYouAlsoLikeToBlockThisUser =>
+      'Bu kullanıcıyı da engellemek ister misiniz?';
 
   @override
   String get noThanks => 'Hayır, teşekkürler';
@@ -1412,7 +1464,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get submitReport => 'Bildirimi Gönder';
 
   @override
-  String get addAQuestionAndAtLeast2Options => 'Bir soru ve en az 2 seçenek ekleyin';
+  String get addAQuestionAndAtLeast2Options =>
+      'Bir soru ve en az 2 seçenek ekleyin';
 
   @override
   String get addOption => 'Seçenek ekle';
@@ -1454,13 +1507,15 @@ class AppLocalizationsTr extends AppLocalizations {
   String get pleaseSelectAReason => 'Lütfen bir neden seçin';
 
   @override
-  String get reportSubmitted => 'Bildirim gönderildi. Topluluğumuzu güvende tutmaya yardımcı olduğunuz için teşekkürler.';
+  String get reportSubmitted =>
+      'Bildirim gönderildi. Topluluğumuzu güvende tutmaya yardımcı olduğunuz için teşekkürler.';
 
   @override
   String get youHaveAlreadyReportedThisMoment => 'Bu anı zaten bildirdiniz';
 
   @override
-  String get tellUsMoreAboutWhyYouAreReportingThis => 'Bunu neden bildirdiğiniz hakkında daha fazla bilgi verin';
+  String get tellUsMoreAboutWhyYouAreReportingThis =>
+      'Bunu neden bildirdiğiniz hakkında daha fazla bilgi verin';
 
   @override
   String get errorSharing => 'Paylaşım hatası';
@@ -1490,7 +1545,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get languagesStepTitle => 'Dillerin';
 
   @override
-  String get languagesStepSubtitle => 'Seni tersini öğrenenlerle eşleştiriyoruz';
+  String get languagesStepSubtitle =>
+      'Seni tersini öğrenenlerle eşleştiriyoruz';
 
   @override
   String get languagesISpeak => 'Konuştuğum dil';
@@ -1520,10 +1576,12 @@ class AppLocalizationsTr extends AppLocalizations {
   String get manageSubscription => 'Aboneliği Yönet';
 
   @override
-  String get manageSubscriptionInSettings => 'Aboneliğinizi iptal etmek için cihazınızda Ayarlar > [Adınız] > Abonelikler\'e gidin.';
+  String get manageSubscriptionInSettings =>
+      'Aboneliğinizi iptal etmek için cihazınızda Ayarlar > [Adınız] > Abonelikler\'e gidin.';
 
   @override
-  String get contactSupportToCancel => 'Aboneliğinizi iptal etmek için lütfen destek ekibimizle iletişime geçin.';
+  String get contactSupportToCancel =>
+      'Aboneliğinizi iptal etmek için lütfen destek ekibimizle iletişime geçin.';
 
   @override
   String get status => 'Durum';
@@ -1550,13 +1608,15 @@ class AppLocalizationsTr extends AppLocalizations {
   String get pleaseLogInToContinue => 'Devam etmek için lütfen giriş yapın';
 
   @override
-  String get purchaseCanceledOrFailed => 'Satın alma iptal edildi veya başarısız oldu. Lütfen tekrar deneyin.';
+  String get purchaseCanceledOrFailed =>
+      'Satın alma iptal edildi veya başarısız oldu. Lütfen tekrar deneyin.';
 
   @override
   String get maximumTagsAllowed => 'Maksimum 5 etiket izni var';
 
   @override
-  String get pleaseRemoveImagesFirstToAddVideo => 'Video eklemek için lütfen önce resimleri kaldırın';
+  String get pleaseRemoveImagesFirstToAddVideo =>
+      'Video eklemek için lütfen önce resimleri kaldırın';
 
   @override
   String get unsupportedFormat => 'Desteklenmeyen format';
@@ -1565,7 +1625,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get errorProcessingVideo => 'Video işlenirken hata';
 
   @override
-  String get pleaseRemoveImagesFirstToRecordVideo => 'Video kaydetmek için lütfen önce resimleri kaldırın';
+  String get pleaseRemoveImagesFirstToRecordVideo =>
+      'Video kaydetmek için lütfen önce resimleri kaldırın';
 
   @override
   String get locationAdded => 'Konum eklendi';
@@ -1673,7 +1734,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get pleaseAddAtLeast2Options => 'Lütfen en az 2 seçenek ekleyin';
 
   @override
-  String get pleaseSelectCorrectAnswerForQuiz => 'Lütfen test için doğru cevabı seçin';
+  String get pleaseSelectCorrectAnswerForQuiz =>
+      'Lütfen test için doğru cevabı seçin';
 
   @override
   String get correctionSent => 'Düzeltme gönderildi!';
@@ -1794,13 +1856,15 @@ class AppLocalizationsTr extends AppLocalizations {
   String get noForYouMomentsTitle => 'Henüz anı yok';
 
   @override
-  String get noForYouMomentsBody => 'Sohbeti başlatmak için bugünün sorusunu yanıtla.';
+  String get noForYouMomentsBody =>
+      'Sohbeti başlatmak için bugünün sorusunu yanıtla.';
 
   @override
   String get noFollowingMomentsTitle => 'Burada henüz bir şey yok';
 
   @override
-  String get noFollowingMomentsBody => 'Anılarını burada görmek için Topluluk\'tan kişileri takip et.';
+  String get noFollowingMomentsBody =>
+      'Anılarını burada görmek için Topluluk\'tan kişileri takip et.';
 
   @override
   String get goToCommunity => 'Topluluğa Git';
@@ -1842,7 +1906,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get message => 'Mesaj';
 
   @override
-  String get pleaseLoginToFollow => 'Kullanıcıları takip etmek için lütfen giriş yapın';
+  String get pleaseLoginToFollow =>
+      'Kullanıcıları takip etmek için lütfen giriş yapın';
 
   @override
   String get pleaseLoginToCall => 'Arama yapmak için lütfen giriş yapın';
@@ -1857,10 +1922,12 @@ class AppLocalizationsTr extends AppLocalizations {
   String get failedToUnfollowUser => 'Takip bırakılamadı';
 
   @override
-  String get areYouSureUnfollow => 'Bu kullanıcının takibini bırakmak istediğinizden emin misiniz?';
+  String get areYouSureUnfollow =>
+      'Bu kullanıcının takibini bırakmak istediğinizden emin misiniz?';
 
   @override
-  String get areYouSureUnblock => 'Bu kullanıcının engelini kaldırmak istediğinizden emin misiniz?';
+  String get areYouSureUnblock =>
+      'Bu kullanıcının engelini kaldırmak istediğinizden emin misiniz?';
 
   @override
   String get youFollowed => 'Takip ettiniz';
@@ -1941,10 +2008,12 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String get pleaseRemoveImagesFirst => 'Video eklemek için lütfen önce resimleri kaldırın';
+  String get pleaseRemoveImagesFirst =>
+      'Video eklemek için lütfen önce resimleri kaldırın';
 
   @override
-  String get exchange3MessagesBeforeCall => 'Aramadan önce en az 5 mesaj alışverişinde bulunun';
+  String get exchange3MessagesBeforeCall =>
+      'Aramadan önce en az 5 mesaj alışverişinde bulunun';
 
   @override
   String mediaWithUser(String name) {
@@ -1961,7 +2030,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get removeBookmark => 'Yer imi kaldırılsın mı?';
 
   @override
-  String get thisWillRemoveBookmark => 'Bu, mesajı yer imlerinizden kaldıracak.';
+  String get thisWillRemoveBookmark =>
+      'Bu, mesajı yer imlerinizden kaldıracak.';
 
   @override
   String get remove => 'Kaldır';
@@ -2024,7 +2094,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get leaveRoom => 'Odadan Ayrıl';
 
   @override
-  String get areYouSureLeaveRoom => 'Bu sesli odadan ayrılmak istediğinizden emin misiniz?';
+  String get areYouSureLeaveRoom =>
+      'Bu sesli odadan ayrılmak istediğinizden emin misiniz?';
 
   @override
   String get stay => 'Kal';
@@ -2100,10 +2171,12 @@ class AppLocalizationsTr extends AppLocalizations {
   String get failedToProcessVideo => 'Video işlenemedi';
 
   @override
-  String get optimizingForBestExperience => 'En iyi hikaye deneyimi için optimize ediliyor';
+  String get optimizingForBestExperience =>
+      'En iyi hikaye deneyimi için optimize ediliyor';
 
   @override
-  String get pleaseSelectImageOrVideo => 'Hikayeniz için lütfen bir resim veya video seçin';
+  String get pleaseSelectImageOrVideo =>
+      'Hikayeniz için lütfen bir resim veya video seçin';
 
   @override
   String get storyCreatedSuccessfully => 'Hikaye başarıyla oluşturuldu!';
@@ -2115,16 +2188,19 @@ class AppLocalizationsTr extends AppLocalizations {
   String get storyCreationFailed => 'Hikaye Oluşturma Başarısız';
 
   @override
-  String get pleaseCheckConnection => 'Lütfen bağlantınızı kontrol edip tekrar deneyin.';
+  String get pleaseCheckConnection =>
+      'Lütfen bağlantınızı kontrol edip tekrar deneyin.';
 
   @override
   String get uploadFailed => 'Yükleme Başarısız';
 
   @override
-  String get tryShorterVideo => 'Daha kısa bir video deneyin veya daha sonra tekrar deneyin.';
+  String get tryShorterVideo =>
+      'Daha kısa bir video deneyin veya daha sonra tekrar deneyin.';
 
   @override
-  String get shareMomentsThatDisappear => '24 saat içinde kaybolan anlar paylaşın';
+  String get shareMomentsThatDisappear =>
+      '24 saat içinde kaybolan anlar paylaşın';
 
   @override
   String get photo => 'Fotoğraf';
@@ -2238,7 +2314,8 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String get willReceiveNotifications => 'Yeni mesajlar için bildirim alacaksınız.';
+  String get willReceiveNotifications =>
+      'Yeni mesajlar için bildirim alacaksınız.';
 
   @override
   String muteNotificationsFor(String name) {
@@ -2277,10 +2354,12 @@ class AppLocalizationsTr extends AppLocalizations {
   String get noBookmarkedMessages => 'Yer imli mesaj yok';
 
   @override
-  String get longPressToBookmark => 'Yer imi eklemek için bir mesaja uzun basın';
+  String get longPressToBookmark =>
+      'Yer imi eklemek için bir mesaja uzun basın';
 
   @override
-  String get thisWillRemoveFromBookmarks => 'Bu, mesajı yer imlerinizden kaldıracak.';
+  String get thisWillRemoveFromBookmarks =>
+      'Bu, mesajı yer imlerinizden kaldıracak.';
 
   @override
   String navigateToMessage(String name) {
@@ -2314,7 +2393,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get emailPreferences => 'E-posta Tercihleri';
 
   @override
-  String get receiveEmailNotifications => 'Bananatalk\'tan e-posta bildirimleri al';
+  String get receiveEmailNotifications =>
+      'Bananatalk\'tan e-posta bildirimleri al';
 
   @override
   String get whenAwayFor24Hours => '24+ saat uzakta olduğunuzda';
@@ -2329,7 +2409,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get failedToUpdateSetting => 'Ayar güncellenemedi';
 
   @override
-  String get securityAlertsRecommended => 'Önemli hesap etkinlikleri hakkında bilgi sahibi olmak için Güvenlik Uyarılarını etkin tutmanızı öneririz.';
+  String get securityAlertsRecommended =>
+      'Önemli hesap etkinlikleri hakkında bilgi sahibi olmak için Güvenlik Uyarılarını etkin tutmanızı öneririz.';
 
   @override
   String chatWallpaperFor(String name) {
@@ -2402,10 +2483,12 @@ class AppLocalizationsTr extends AppLocalizations {
   String get errorSendingMedia => 'Medya gönderilirken hata';
 
   @override
-  String get cameraPermissionRequired => 'Video kaydetmek için kamera ve mikrofon izinleri gereklidir.';
+  String get cameraPermissionRequired =>
+      'Video kaydetmek için kamera ve mikrofon izinleri gereklidir.';
 
   @override
-  String get locationPermissionRequired => 'Konumunuzu paylaşmak için konum izni gereklidir.';
+  String get locationPermissionRequired =>
+      'Konumunuzu paylaşmak için konum izni gereklidir.';
 
   @override
   String get noInternetConnection => 'İnternet bağlantısı yok';
@@ -2481,7 +2564,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get noSavedMoments => 'Kaydedilmiş anı yok';
 
   @override
-  String get tapBookmarkToSave => 'Bir anıyı kaydetmek için yer imi simgesine dokunun';
+  String get tapBookmarkToSave =>
+      'Bir anıyı kaydetmek için yer imi simgesine dokunun';
 
   @override
   String get failedToLoadVideo => 'Video yüklenemedi';
@@ -2592,10 +2676,12 @@ class AppLocalizationsTr extends AppLocalizations {
   String get findingPartners => 'Partner aranıyor...';
 
   @override
-  String get setLocationReminder => 'Yakındaki partnerleri bulmak için konumunuzu ayarlayın';
+  String get setLocationReminder =>
+      'Yakındaki partnerleri bulmak için konumunuzu ayarlayın';
 
   @override
-  String get updateLocationReminder => 'Daha iyi sonuçlar için konumunuzu güncelleyin';
+  String get updateLocationReminder =>
+      'Daha iyi sonuçlar için konumunuzu güncelleyin';
 
   @override
   String get male => 'Erkek';
@@ -2646,7 +2732,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get enableLocationForDistance => 'Mesafe için konumu etkinleştir';
 
   @override
-  String get enableLocationDescription => 'Yakındaki dil partnerlerini bulmak için konum hizmetlerini etkinleştirin';
+  String get enableLocationDescription =>
+      'Yakındaki dil partnerlerini bulmak için konum hizmetlerini etkinleştirin';
 
   @override
   String get enableGps => 'GPS\'i Etkinleştir';
@@ -2713,13 +2800,15 @@ class AppLocalizationsTr extends AppLocalizations {
   String get warningPermanent => 'Uyarı: Bu işlem kalıcıdır!';
 
   @override
-  String get deleteAccountWarning => 'Hesabınızı silmek şunları kalıcı olarak kaldırır:\n\n• Profiliniz ve tüm kişisel verileriniz\n• Tüm mesajlarınız ve sohbetleriniz\n• Tüm anlarınız ve hikayeleriniz\n• VIP aboneliğiniz (iade yok)\n• Tüm bağlantılarınız ve takipçileriniz\n\nBu işlem geri alınamaz.';
+  String get deleteAccountWarning =>
+      'Hesabınızı silmek şunları kalıcı olarak kaldırır:\n\n• Profiliniz ve tüm kişisel verileriniz\n• Tüm mesajlarınız ve sohbetleriniz\n• Tüm anlarınız ve hikayeleriniz\n• VIP aboneliğiniz (iade yok)\n• Tüm bağlantılarınız ve takipçileriniz\n\nBu işlem geri alınamaz.';
 
   @override
   String get deletionReasonTitle => 'Gitmeden önce — neden?';
 
   @override
-  String get deletionReasonOptional => 'İsteğe bağlı. Neyi düzelteceğimizi anlamamıza yardım eder.';
+  String get deletionReasonOptional =>
+      'İsteğe bağlı. Neyi düzelteceğimizi anlamamıza yardım eder.';
 
   @override
   String get deletionReasonNoPeople => 'Konuşacak kimse bulamadım';
@@ -2800,10 +2889,12 @@ class AppLocalizationsTr extends AppLocalizations {
   String get proficient => 'Uzman';
 
   @override
-  String get showingPartnersByDistance => 'Partnerler mesafeye göre gösteriliyor';
+  String get showingPartnersByDistance =>
+      'Partnerler mesafeye göre gösteriliyor';
 
   @override
-  String get enableLocationForResults => 'Daha iyi sonuçlar için konumu etkinleştirin';
+  String get enableLocationForResults =>
+      'Daha iyi sonuçlar için konumu etkinleştirin';
 
   @override
   String get enable => 'Etkinleştir';
@@ -2845,7 +2936,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get almostDone => 'Neredeyse bitti!';
 
   @override
-  String get addPhotoLocationForMatches => 'Daha iyi eşleşmeler için fotoğraf ve konum ekleyin';
+  String get addPhotoLocationForMatches =>
+      'Daha iyi eşleşmeler için fotoğraf ve konum ekleyin';
 
   @override
   String get addProfilePhoto => 'Profil fotoğrafı ekle';
@@ -2857,7 +2949,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get requiredUpTo6Photos => 'Zorunlu — en fazla 6 fotoğraf';
 
   @override
-  String get profilePhotoRequired => 'Lütfen en az bir profil fotoğrafı ekleyin';
+  String get profilePhotoRequired =>
+      'Lütfen en az bir profil fotoğrafı ekleyin';
 
   @override
   String get locationOptional => 'Devam etmek için lütfen konumunuzu ayarlayın';
@@ -2869,7 +2962,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get tapToDetectLocation => 'Konumu algılamak için dokunun';
 
   @override
-  String get optionalHelpsNearbyPartners => 'Gerekli — yakındaki ortakları bulmanıza yardımcı olur';
+  String get optionalHelpsNearbyPartners =>
+      'Gerekli — yakındaki ortakları bulmanıza yardımcı olur';
 
   @override
   String get startLearning => 'Öğrenmeye başla';
@@ -2898,10 +2992,12 @@ class AppLocalizationsTr extends AppLocalizations {
   String get yourCurrentLevel => 'Mevcut seviyeniz';
 
   @override
-  String get nativeCannotBeSameAsLearning => 'Ana dil öğrenilen dille aynı olamaz';
+  String get nativeCannotBeSameAsLearning =>
+      'Ana dil öğrenilen dille aynı olamaz';
 
   @override
-  String get learningCannotBeSameAsNative => 'Öğrenilen dil ana dille aynı olamaz';
+  String get learningCannotBeSameAsNative =>
+      'Öğrenilen dil ana dille aynı olamaz';
 
   @override
   String stepOf(String current, String total) {
@@ -2963,7 +3059,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get otherGender => 'Diğer';
 
   @override
-  String get continueWithGoogleAccount => 'Google hesabınla devam et\nsorunsuz bir deneyim için';
+  String get continueWithGoogleAccount =>
+      'Google hesabınla devam et\nsorunsuz bir deneyim için';
 
   @override
   String get signingYouIn => 'Giriş yapılıyor...';
@@ -2975,7 +3072,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get securedByGoogle => 'Google tarafından korunuyor';
 
   @override
-  String get dataProtectedEncryption => 'Verilerin standart şifreleme ile korunuyor';
+  String get dataProtectedEncryption =>
+      'Verilerin standart şifreleme ile korunuyor';
 
   @override
   String get welcomeCompleteProfile => 'Hoş geldin! Profilini tamamla';
@@ -2984,28 +3082,33 @@ class AppLocalizationsTr extends AppLocalizations {
   String get authWelcomeTagline => 'TANIŞ · SOHBET ET · BAĞLAN';
 
   @override
-  String get authWelcomeCtaTitle => 'Bananatalk\'ta dünyanın dört bir yanından arkadaşlar edin';
+  String get authWelcomeCtaTitle =>
+      'Bananatalk\'ta dünyanın dört bir yanından arkadaşlar edin';
 
   @override
-  String get authWelcomeCtaSubtitle => 'Bugün milyonlarca dil öğrencisine katıl';
+  String get authWelcomeCtaSubtitle =>
+      'Bugün milyonlarca dil öğrencisine katıl';
 
   @override
   String get authWelcomeFeatureConnectTitle => 'Bağlan';
 
   @override
-  String get authWelcomeFeatureConnectSubtitle => 'Dünya genelinde 150\'den fazla ülkeden dil partnerleriyle tanış';
+  String get authWelcomeFeatureConnectSubtitle =>
+      'Dünya genelinde 150\'den fazla ülkeden dil partnerleriyle tanış';
 
   @override
   String get authWelcomeFeatureLearnTitle => 'Öğren';
 
   @override
-  String get authWelcomeFeatureLearnSubtitle => 'Yapay zeka öğretmeni, quizler ve telaffuz antrenmanı — hepsi tek bir uygulamada';
+  String get authWelcomeFeatureLearnSubtitle =>
+      'Yapay zeka öğretmeni, quizler ve telaffuz antrenmanı — hepsi tek bir uygulamada';
 
   @override
   String get authWelcomeFeatureGrowTitle => 'Gelişim';
 
   @override
-  String get authWelcomeFeatureGrowSubtitle => 'Günlük sohbetler ve toplulukla gerçek bir akıcılık kazan';
+  String get authWelcomeFeatureGrowSubtitle =>
+      'Günlük sohbetler ve toplulukla gerçek bir akıcılık kazan';
 
   @override
   String welcomeBackName(String name) {
@@ -3013,7 +3116,8 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String get continueWithAppleId => 'Apple ID ile devam et\ngüvenli bir deneyim için';
+  String get continueWithAppleId =>
+      'Apple ID ile devam et\ngüvenli bir deneyim için';
 
   @override
   String get continueWithApple => 'Apple ile devam et';
@@ -3046,7 +3150,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get resetPasswordTitle => 'Şifreyi sıfırla';
 
   @override
-  String get enterEmailForResetCode => 'E-postanı gir, şifre sıfırlama kodu gönderelim';
+  String get enterEmailForResetCode =>
+      'E-postanı gir, şifre sıfırlama kodu gönderelim';
 
   @override
   String get sendResetCode => 'Sıfırlama kodu gönder';
@@ -3117,7 +3222,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get pleaseFillAllFields => 'Tüm alanları doldur';
 
   @override
-  String get passwordResetSuccessful => 'Şifre sıfırlandı! Yeni şifrenle giriş yap';
+  String get passwordResetSuccessful =>
+      'Şifre sıfırlandı! Yeni şifrenle giriş yap';
 
   @override
   String get privacyTitle => 'Gizlilik';
@@ -3156,7 +3262,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get showOnlineStatus => 'Çevrimiçi Durumu Göster';
 
   @override
-  String get showOnlineStatusDesc => 'Başkalarının çevrimiçi olduğunuzu görmesine izin verin';
+  String get showOnlineStatusDesc =>
+      'Başkalarının çevrimiçi olduğunuzu görmesine izin verin';
 
   @override
   String get otherSettings => 'Diğer Ayarlar';
@@ -3204,10 +3311,12 @@ class AppLocalizationsTr extends AppLocalizations {
   String get locationUpdated => 'Konum başarıyla güncellendi';
 
   @override
-  String get locationPermissionDenied => 'Konum izni reddedildi. Ayarlardan etkinleştirin.';
+  String get locationPermissionDenied =>
+      'Konum izni reddedildi. Ayarlardan etkinleştirin.';
 
   @override
-  String get locationServiceDisabled => 'Konum hizmetleri devre dışı. Lütfen etkinleştirin.';
+  String get locationServiceDisabled =>
+      'Konum hizmetleri devre dışı. Lütfen etkinleştirin.';
 
   @override
   String get updatingLocation => 'Konum güncelleniyor...';
@@ -3287,7 +3396,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get callPermissionDenied => 'Aramalar için mikrofon izni gerekli';
 
   @override
-  String get cameraPermissionDenied => 'Görüntülü aramalar için kamera izni gerekli';
+  String get cameraPermissionDenied =>
+      'Görüntülü aramalar için kamera izni gerekli';
 
   @override
   String get callConnectionFailed => 'Bağlanılamadı. Lütfen tekrar deneyin.';
@@ -3337,7 +3447,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get leaveRoomConfirm => 'Odadan Ayrıl?';
 
   @override
-  String get leaveRoomMessage => 'Bu odadan ayrılmak istediğinizden emin misiniz?';
+  String get leaveRoomMessage =>
+      'Bu odadan ayrılmak istediğinizden emin misiniz?';
 
   @override
   String get roomTitle => 'Oda Başlığı';
@@ -3374,7 +3485,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get lowerHand => 'El İndir';
 
   @override
-  String get handRaisedNotification => 'El kaldırıldı! Ev sahibi isteğinizi görecek.';
+  String get handRaisedNotification =>
+      'El kaldırıldı! Ev sahibi isteğinizi görecek.';
 
   @override
   String get handLoweredNotification => 'El indirildi';
@@ -3413,7 +3525,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get typeMessage => 'Mesaj yazın...';
 
   @override
-  String get voiceRoomsDescription => 'Canlı sohbetlere katıl ve konuşma pratiği yap';
+  String get voiceRoomsDescription =>
+      'Canlı sohbetlere katıl ve konuşma pratiği yap';
 
   @override
   String liveRoomsCount(int count) {
@@ -3424,7 +3537,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get noActiveRooms => 'Aktif oda yok';
 
   @override
-  String get noActiveRoomsDescription => 'İlk sen bir ses odası başlat ve başkalarıyla konuşma pratiği yap!';
+  String get noActiveRoomsDescription =>
+      'İlk sen bir ses odası başlat ve başkalarıyla konuşma pratiği yap!';
 
   @override
   String get startRoom => 'Oda Başlat';
@@ -3555,7 +3669,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get noRankingsYet => 'Henüz sıralama yok';
 
   @override
-  String get startLearningToAppear => 'Liderlik tablosunda görünmek için öğrenmeye başla!';
+  String get startLearningToAppear =>
+      'Liderlik tablosunda görünmek için öğrenmeye başla!';
 
   @override
   String get noFriendsYet => 'Henüz arkadaşın yok';
@@ -3597,7 +3712,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get selectLanguagePrompt => 'Bir dil seç';
 
   @override
-  String get findPartnersByLanguage => 'Bu dili konuşan veya öğrenen partnerleri bul';
+  String get findPartnersByLanguage =>
+      'Bu dili konuşan veya öğrenen partnerleri bul';
 
   @override
   String noPartnersForLanguage(String language) {
@@ -3665,7 +3781,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get allCache => 'Tüm Önbellek';
 
   @override
-  String get clearAllCacheConfirmation => 'Bu, önbelleğe alınmış tüm resimleri, sesli mesajları, videoları ve diğer dosyaları silecektir. Uygulama geçici olarak içeriği daha yavaş yükleyebilir.';
+  String get clearAllCacheConfirmation =>
+      'Bu, önbelleğe alınmış tüm resimleri, sesli mesajları, videoları ve diğer dosyaları silecektir. Uygulama geçici olarak içeriği daha yavaş yükleyebilir.';
 
   @override
   String clearCacheConfirmationFor(String category) {
@@ -3727,19 +3844,22 @@ class AppLocalizationsTr extends AppLocalizations {
   String get followerMoments => 'Takip Edilen Anlar';
 
   @override
-  String get whenPeopleYouFollowPost => 'Takip ettiğiniz kişiler yeni anlar paylaştığında';
+  String get whenPeopleYouFollowPost =>
+      'Takip ettiğiniz kişiler yeni anlar paylaştığında';
 
   @override
   String get noNotificationsYet => 'Henüz bildirim yok';
 
   @override
-  String get whenYouGetNotifications => 'Bildirim aldığınızda burada görünecekler';
+  String get whenYouGetNotifications =>
+      'Bildirim aldığınızda burada görünecekler';
 
   @override
   String get failedToLoadNotifications => 'Bildirimler yüklenemedi';
 
   @override
-  String get clearAllNotificationsConfirm => 'Tüm bildirimleri silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.';
+  String get clearAllNotificationsConfirm =>
+      'Tüm bildirimleri silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.';
 
   @override
   String get tapToChange => 'Değiştirmek için dokun';
@@ -3839,7 +3959,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get locationServicesDisabled => 'Konum servisleri devre dışı';
 
   @override
-  String get locationPermissionPermanentlyDenied => 'Konum izni kalıcı olarak reddedildi';
+  String get locationPermissionPermanentlyDenied =>
+      'Konum izni kalıcı olarak reddedildi';
 
   @override
   String get unknown => 'Bilinmiyor';
@@ -3880,10 +4001,12 @@ class AppLocalizationsTr extends AppLocalizations {
   String get languageToLearnRequired => 'Öğrenilecek dil gerekli';
 
   @override
-  String get nativeLanguageCannotBeSame => 'Ana dil öğrenilen dille aynı olamaz';
+  String get nativeLanguageCannotBeSame =>
+      'Ana dil öğrenilen dille aynı olamaz';
 
   @override
-  String get learningLanguageCannotBeSame => 'Öğrenilen dil ana dille aynı olamaz';
+  String get learningLanguageCannotBeSame =>
+      'Öğrenilen dil ana dille aynı olamaz';
 
   @override
   String get pleaseSelectALanguage => 'Lütfen bir dil seçin';
@@ -3923,7 +4046,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get removeImage => 'Fotoğrafı Kaldır';
 
   @override
-  String get removeImageConfirm => 'Bu fotoğrafı kaldırmak istediğinizden emin misiniz?';
+  String get removeImageConfirm =>
+      'Bu fotoğrafı kaldırmak istediğinizden emin misiniz?';
 
   @override
   String get removeAll => 'Tümünü Kaldır';
@@ -3932,16 +4056,19 @@ class AppLocalizationsTr extends AppLocalizations {
   String get removeAllSelectedImages => 'Seçilen Tüm Görselleri Kaldır';
 
   @override
-  String get removeAllSelectedImagesConfirm => 'Seçilen tüm görselleri kaldırmak istediğine emin misin?';
+  String get removeAllSelectedImagesConfirm =>
+      'Seçilen tüm görselleri kaldırmak istediğine emin misin?';
 
   @override
-  String get yourProfilePictureWillBeKept => 'Mevcut profil fotoğrafın korunacak';
+  String get yourProfilePictureWillBeKept =>
+      'Mevcut profil fotoğrafın korunacak';
 
   @override
   String get removeAllImages => 'Tüm Görselleri Kaldır';
 
   @override
-  String get removeAllImagesConfirm => 'Tüm profil fotoğraflarını kaldırmak istediğine emin misin?';
+  String get removeAllImagesConfirm =>
+      'Tüm profil fotoğraflarını kaldırmak istediğine emin misin?';
 
   @override
   String get currentImages => 'Mevcut Görseller';
@@ -3967,16 +4094,19 @@ class AppLocalizationsTr extends AppLocalizations {
   String get selectedImagesCleared => 'Seçilen görseller temizlendi';
 
   @override
-  String get extraImagesRemovedSuccessfully => 'Fazla görseller başarıyla kaldırıldı';
+  String get extraImagesRemovedSuccessfully =>
+      'Fazla görseller başarıyla kaldırıldı';
 
   @override
-  String get mustKeepAtLeastOneProfilePicture => 'En az bir profil fotoğrafı bulundurmalısın';
+  String get mustKeepAtLeastOneProfilePicture =>
+      'En az bir profil fotoğrafı bulundurmalısın';
 
   @override
   String get noProfilePicturesToRemove => 'Kaldırılacak profil fotoğrafı yok';
 
   @override
-  String get authenticationTokenNotFound => 'Kimlik doğrulama belirteci bulunamadı';
+  String get authenticationTokenNotFound =>
+      'Kimlik doğrulama belirteci bulunamadı';
 
   @override
   String get saveChangesQuestion => 'Değişiklikler Kaydedilsin mi?';
@@ -4003,7 +4133,8 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String get maxImagesPerUpload => 'Tek seferde en fazla 5 görsel yükleyebilirsin. Yalnızca ilk 5 tanesi eklenecek.';
+  String get maxImagesPerUpload =>
+      'Tek seferde en fazla 5 görsel yükleyebilirsin. Yalnızca ilk 5 tanesi eklenecek.';
 
   @override
   String canOnlyHaveMaxImages(int max) {
@@ -4017,7 +4148,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get unsupportedImageFormat => 'Desteklenmeyen görsel biçimi';
 
   @override
-  String get pleaseSelectAtLeastOneImage => 'Yüklemek için en az bir görsel seç';
+  String get pleaseSelectAtLeastOneImage =>
+      'Yüklemek için en az bir görsel seç';
 
   @override
   String get basicInformation => 'Temel Bilgiler';
@@ -4109,7 +4241,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get startYourJourney => 'Yolculuğunuza başlayın!';
 
   @override
-  String get startJourneyDescription => 'Dersleri tamamlayın, kelime hazinesi oluşturun\nve ilerlemenizi takip edin';
+  String get startJourneyDescription =>
+      'Dersleri tamamlayın, kelime hazinesi oluşturun\nve ilerlemenizi takip edin';
 
   @override
   String levelN(int level) {
@@ -4209,7 +4342,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get noLessonsFound => 'Ders bulunamadı';
 
   @override
-  String get createCustomLessonDescription => 'AI ile kendi özel dersinizi oluşturun';
+  String get createCustomLessonDescription =>
+      'AI ile kendi özel dersinizi oluşturun';
 
   @override
   String get createLessonWithAI => 'AI ile Ders Oluştur';
@@ -4319,7 +4453,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get documentMustBeUnder50MB => 'Belge 50MB\'den küçük olmalıdır.';
 
   @override
-  String get editWithin15Minutes => 'Mesajlar yalnızca 15 dakika içinde düzenlenebilir';
+  String get editWithin15Minutes =>
+      'Mesajlar yalnızca 15 dakika içinde düzenlenebilir';
 
   @override
   String messageForwardedTo(int count) {
@@ -4451,7 +4586,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get howAreYouFeeling => 'Nasıl hissediyorsun?';
 
   @override
-  String get pleaseWaitOptimizingVideo => 'Videonuzu optimize ederken lütfen bekleyin';
+  String get pleaseWaitOptimizingVideo =>
+      'Videonuzu optimize ederken lütfen bekleyin';
 
   @override
   String unsupportedVideoFormat(String formats) {
@@ -4564,7 +4700,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get noBlockedUsers => 'Engellenen kullanıcı yok';
 
   @override
-  String get usersYouBlockWillAppearHere => 'Engellediğin kullanıcılar burada görünecek';
+  String get usersYouBlockWillAppearHere =>
+      'Engellediğin kullanıcılar burada görünecek';
 
   @override
   String unblockConfirm(String name) {
@@ -4587,7 +4724,8 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String get logoutConfirmMessage => 'Bananatalk\'tan çıkış yapmak istediğine emin misin?';
+  String get logoutConfirmMessage =>
+      'Bananatalk\'tan çıkış yapmak istediğine emin misin?';
 
   @override
   String get loggingOut => 'Çıkış yapılıyor...';
@@ -4599,7 +4737,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get quietHoursEnable => 'Sessiz Saatleri Etkinleştir';
 
   @override
-  String get quietHoursSubtitle => 'Belirli bir zaman aralığında acil olmayan bildirimleri duraklat';
+  String get quietHoursSubtitle =>
+      'Belirli bir zaman aralığında acil olmayan bildirimleri duraklat';
 
   @override
   String get quietHoursStart => 'Başlangıç saati';
@@ -4611,7 +4750,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get quietHoursAllowUrgent => 'Acil bildirimlere izin ver';
 
   @override
-  String get quietHoursAllowUrgentSubtitle => 'VIP partnerlerinden gelen aramalar ve mesajlar yine de ulaşabilir';
+  String get quietHoursAllowUrgentSubtitle =>
+      'VIP partnerlerinden gelen aramalar ve mesajlar yine de ulaşabilir';
 
   @override
   String get silencedByQuietHours => 'Sessiz Saatler nedeniyle sessize alındı';
@@ -4638,7 +4778,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get languageUpdatedSuccessfully => 'Dil başarıyla güncellendi';
 
   @override
-  String get bioHintCard => 'İyi bir biyografi, diğerlerinin seninle bağlantı kurmasına yardımcı olur. İlgi alanlarını, dillerini veya ne aradığını paylaş.';
+  String get bioHintCard =>
+      'İyi bir biyografi, diğerlerinin seninle bağlantı kurmasına yardımcı olur. İlgi alanlarını, dillerini veya ne aradığını paylaş.';
 
   @override
   String get bioCounterStartWriting => 'Yazmaya başla...';
@@ -4677,7 +4818,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get tapTypeBelow => 'Aşağıdan bir tür seçin';
 
   @override
-  String get tapButtonToDetectLocation => 'Mevcut konumunu tespit etmek için aşağıdaki düğmeye dokun';
+  String get tapButtonToDetectLocation =>
+      'Mevcut konumunu tespit etmek için aşağıdaki düğmeye dokun';
 
   @override
   String currentAddressLabel(String address) {
@@ -4685,7 +4827,8 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String get onlyCityCountryShown => 'Diğer kullanıcılara yalnızca şehrin ve ülken gösterilir. Kesin koordinatlar gizli kalır.';
+  String get onlyCityCountryShown =>
+      'Diğer kullanıcılara yalnızca şehrin ve ülken gösterilir. Kesin koordinatlar gizli kalır.';
 
   @override
   String get updateLocationCta => 'Konumu Güncelle';
@@ -4732,7 +4875,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get drawerAccount => 'Hesap';
 
   @override
-  String get logoutConfirmBody => 'Bananatalk\'tan çıkış yapmak istediğinizden emin misiniz?';
+  String get logoutConfirmBody =>
+      'Bananatalk\'tan çıkış yapmak istediğinizden emin misiniz?';
 
   @override
   String get helpEmailSupport => 'E-posta Desteği';
@@ -4744,7 +4888,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get helpReportBug => 'Hata Bildir';
 
   @override
-  String get helpReportBugSubtitle => 'Bananatalk\'ı geliştirmemize yardımcı olun';
+  String get helpReportBugSubtitle =>
+      'Bananatalk\'ı geliştirmemize yardımcı olun';
 
   @override
   String get helpFaqs => 'SSS';
@@ -4756,7 +4901,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get aboutDialogClose => 'Kapat';
 
   @override
-  String get aboutBananatalkTagline => 'Dünya genelindeki dil öğrencileriyle bağlantı kurun ve gerçek sohbetler aracılığıyla becerilerinizi geliştirin.';
+  String get aboutBananatalkTagline =>
+      'Dünya genelindeki dil öğrencileriyle bağlantı kurun ve gerçek sohbetler aracılığıyla becerilerinizi geliştirin.';
 
   @override
   String get aboutCopyright => '© 2024 Bananatalk. Tüm hakları saklıdır.';
@@ -4786,7 +4932,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get noVisitorsYet => 'Henüz ziyaretçi yok';
 
   @override
-  String get noVisitorsYetSubtitle => 'Biri profilinizi ziyaret ettiğinde,\nburada görünecekler';
+  String get noVisitorsYetSubtitle =>
+      'Biri profilinizi ziyaret ettiğinde,\nburada görünecekler';
 
   @override
   String get visitedViaSearch => 'Arama yoluyla';
@@ -4801,19 +4948,23 @@ class AppLocalizationsTr extends AppLocalizations {
   String get visitedDirect => 'Doğrudan ziyaret';
 
   @override
-  String get visitorTrackingUnavailable => 'Ziyaretçi takip özelliği kullanılamıyor. Lütfen backend\'i güncelleyin.';
+  String get visitorTrackingUnavailable =>
+      'Ziyaretçi takip özelliği kullanılamıyor. Lütfen backend\'i güncelleyin.';
 
   @override
-  String get visitorTrackingNotAvailableYet => 'Ziyaretçi takibi henüz mevcut değil';
+  String get visitorTrackingNotAvailableYet =>
+      'Ziyaretçi takibi henüz mevcut değil';
 
   @override
-  String get noFollowersYetSubtitle => 'Başkalarıyla bağlantı kurmaya başlayın!';
+  String get noFollowersYetSubtitle =>
+      'Başkalarıyla bağlantı kurmaya başlayın!';
 
   @override
   String get partnerButton => 'Ortak';
 
   @override
-  String get notFollowingAnyoneYetSubtitle => 'Güncellemelerini görmek için kişileri takip edin!';
+  String get notFollowingAnyoneYetSubtitle =>
+      'Güncellemelerini görmek için kişileri takip edin!';
 
   @override
   String get unfollowButton => 'Takibi Bırak';
@@ -4825,7 +4976,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get themeAutoSwitch => 'Otomatik Geçiş (Sistem Teması)';
 
   @override
-  String get themeSystemHint => 'Etkinleştirildiğinde uygulama sistem teması ayarlarınızı takip eder';
+  String get themeSystemHint =>
+      'Etkinleştirildiğinde uygulama sistem teması ayarlarınızı takip eder';
 
   @override
   String get themeLightMode => 'Açık Mod';
@@ -4843,7 +4995,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get momentGridView => 'Izgara Görünümü';
 
   @override
-  String get shareLanguageLearningJourney => 'Dil öğrenme yolculuğunuzu paylaşın!';
+  String get shareLanguageLearningJourney =>
+      'Dil öğrenme yolculuğunuzu paylaşın!';
 
   @override
   String get deleteHighlightTitle => 'Öne Çıkanı Sil';
@@ -4875,7 +5028,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get momentEnterDescription => 'Lütfen bir açıklama girin';
 
   @override
-  String get momentUpdatedImageFailed => 'An güncellendi fakat görsel yükleme başarısız oldu';
+  String get momentUpdatedImageFailed =>
+      'An güncellendi fakat görsel yükleme başarısız oldu';
 
   @override
   String get updateRequiredTitle => 'Güncelleme Gerekli';
@@ -4884,10 +5038,12 @@ class AppLocalizationsTr extends AppLocalizations {
   String get updateAvailableTitle => 'Güncelleme Mevcut';
 
   @override
-  String get updateRequiredBody => 'Bananatalk\'ın bu sürümü artık desteklenmiyor. Devam etmek için lütfen güncelleyin.';
+  String get updateRequiredBody =>
+      'Bananatalk\'ın bu sürümü artık desteklenmiyor. Devam etmek için lütfen güncelleyin.';
 
   @override
-  String get updateAvailableBody => 'İyileştirmeler ve hata düzeltmeleri içeren yeni bir Bananatalk sürümü mevcut.';
+  String get updateAvailableBody =>
+      'İyileştirmeler ve hata düzeltmeleri içeren yeni bir Bananatalk sürümü mevcut.';
 
   @override
   String get updateNow => 'Şimdi Güncelle';
@@ -4896,7 +5052,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get updateLater => 'Sonra';
 
   @override
-  String get updateOpenStoreFailed => 'Mağaza açılamadı. Lütfen App Store veya Play Store\'dan güncelleyin.';
+  String get updateOpenStoreFailed =>
+      'Mağaza açılamadı. Lütfen App Store veya Play Store\'dan güncelleyin.';
 
   @override
   String get rememberMe => 'Beni hatırla';
@@ -4937,22 +5094,26 @@ class AppLocalizationsTr extends AppLocalizations {
   String get usernameNotAvailable => 'Kullanılamaz';
 
   @override
-  String get usernameInvalidFormat => '3-20 karakter: harf, rakam veya alt çizgi';
+  String get usernameInvalidFormat =>
+      '3-20 karakter: harf, rakam veya alt çizgi';
 
   @override
   String get usernameHint => '@kullaniciadi';
 
   @override
-  String get enableBiometricTitle => 'Bir dahaki sefere Face ID ile giriş yapılsın mı?';
+  String get enableBiometricTitle =>
+      'Bir dahaki sefere Face ID ile giriş yapılsın mı?';
 
   @override
-  String get enableBiometricBody => 'Şifre yazmadan biyometrik ile giriş yapın.';
+  String get enableBiometricBody =>
+      'Şifre yazmadan biyometrik ile giriş yapın.';
 
   @override
   String get enableBiometricCta => 'Etkinleştir';
 
   @override
-  String get biometricSignInPrompt => 'Bananatalk\'a giriş için kimliğinizi doğrulayın';
+  String get biometricSignInPrompt =>
+      'Bananatalk\'a giriş için kimliğinizi doğrulayın';
 
   @override
   String continueAs(String name) {
@@ -5108,7 +5269,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get interestsInCommonAddCta => 'Konu ekle';
 
   @override
-  String get interestsInCommonAddSubtitle => 'Ortak nokta bulmak için profiline konu ekle';
+  String get interestsInCommonAddSubtitle =>
+      'Ortak nokta bulmak için profiline konu ekle';
 
   @override
   String activeAgo(String time) {
@@ -5173,7 +5335,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get notificationPreferencesTitle => 'Bildirimler';
 
   @override
-  String get notificationPreferencesSubtitle => 'Hangi uyarıları alacağınızı seçin';
+  String get notificationPreferencesSubtitle =>
+      'Hangi uyarıları alacağınızı seçin';
 
   @override
   String get notifPrefChat => 'Yeni mesajlar';
@@ -5520,7 +5683,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get tapWordToSave => 'Kaydetmek için kelimeye basılı tutun';
 
   @override
-  String get autoTranslateChatHint => 'Gelen mesajlar otomatik olarak çevrilecek';
+  String get autoTranslateChatHint =>
+      'Gelen mesajlar otomatik olarak çevrilecek';
 
   @override
   String get noConversationsYet => 'Henüz konuşma yok';
@@ -5577,7 +5741,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get learningStreakFreezeUse => 'Donmayı kullan';
 
   @override
-  String get learningStreakFreezeDescription => 'Dondurma, bir gün kaçırdığınızda serinizi korur.';
+  String get learningStreakFreezeDescription =>
+      'Dondurma, bir gün kaçırdığınızda serinizi korur.';
 
   @override
   String get learningStreakFreezeProtected => 'Seri korundu!';
@@ -5806,7 +5971,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get aiTutorPronounceUseYourOwn => 'Kendi cümlem ✏️';
 
   @override
-  String get aiTutorPronounceCustomHint => 'Pratik yapmak istediğin bir cümle yaz';
+  String get aiTutorPronounceCustomHint =>
+      'Pratik yapmak istediğin bir cümle yaz';
 
   @override
   String get aiTutorPronounceCustomCancel => 'İptal';
@@ -5815,7 +5981,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get aiTutorPronounceCustomUse => 'Kullan';
 
   @override
-  String get aiTutorPronounceQuitConfirm => 'Alıştırmadan çık? İlerlemen kaydedilmez.';
+  String get aiTutorPronounceQuitConfirm =>
+      'Alıştırmadan çık? İlerlemen kaydedilmez.';
 
   @override
   String get aiTutorPronounceQuitYes => 'Evet';
@@ -5861,19 +6028,22 @@ class AppLocalizationsTr extends AppLocalizations {
   String get aiTutorPronounceStartHeadline => 'Nasıl pratik yapmak istersin?';
 
   @override
-  String get aiTutorPronounceStartSubhead => '5 cümlelik bir alıştırma başlatmak için birini seç.';
+  String get aiTutorPronounceStartSubhead =>
+      '5 cümlelik bir alıştırma başlatmak için birini seç.';
 
   @override
   String get aiTutorPronounceStartAITitle => 'AI cümle üretir';
 
   @override
-  String get aiTutorPronounceStartAISubtitle => 'Seviyene göre, zor kelimelere ağırlık';
+  String get aiTutorPronounceStartAISubtitle =>
+      'Seviyene göre, zor kelimelere ağırlık';
 
   @override
   String get aiTutorPronounceStartCustomTitle => 'Kendi cümleni kullan';
 
   @override
-  String get aiTutorPronounceStartCustomSubtitle => 'Ustalaşmak istediğin bir cümle yaz ya da yapıştır';
+  String get aiTutorPronounceStartCustomSubtitle =>
+      'Ustalaşmak istediğin bir cümle yaz ya da yapıştır';
 
   @override
   String aiTutorQuotaRemaining(int count) {
@@ -5943,7 +6113,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get aiLessonBuilderLabelLevel => 'Seviye';
 
   @override
-  String get aiLessonBuilderTopicHint => 'Bir konu gir (örn. \"Yemek ve Restoranlar\")';
+  String get aiLessonBuilderTopicHint =>
+      'Bir konu gir (örn. \"Yemek ve Restoranlar\")';
 
   @override
   String aiLessonBuilderSaved(String title) {
@@ -6038,7 +6209,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get aiScenariosHarder => 'Daha zor — zorluk';
 
   @override
-  String get aiRoleplayStillStarting => 'Senaryo hâlâ başlıyor — biraz sonra tekrar dene.';
+  String get aiRoleplayStillStarting =>
+      'Senaryo hâlâ başlıyor — biraz sonra tekrar dene.';
 
   @override
   String aiRoleplaySendFailed(String error) {
@@ -6046,7 +6218,8 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String get aiRoleplayCouldNotGrade => 'Bu kez puanlanamadı — bir dahaki sefere dene.';
+  String get aiRoleplayCouldNotGrade =>
+      'Bu kez puanlanamadı — bir dahaki sefere dene.';
 
   @override
   String get aiConversationHistoryCompleted => 'Tamamlandı';
@@ -6077,7 +6250,8 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String get aiScenariosBannerSubhead => 'Seviyene uygun bir senaryo seç ya da bir üst seviye dene.';
+  String get aiScenariosBannerSubhead =>
+      'Seviyene uygun bir senaryo seç ya da bir üst seviye dene.';
 
   @override
   String get chatListSearchHint => 'Ara veya @kullanıcı_adı yaz';
@@ -6095,7 +6269,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get chatListNewChat => 'Yeni sohbet';
 
   @override
-  String get chatListNewChatByUsernameTooltip => 'Kullanıcı adı ile yeni sohbet';
+  String get chatListNewChatByUsernameTooltip =>
+      'Kullanıcı adı ile yeni sohbet';
 
   @override
   String get chatListFindUser => 'Kullanıcı bul';
@@ -6250,13 +6425,15 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String get communityConversationStartersDefault => 'Selam ver ve kendini tanıt!';
+  String get communityConversationStartersDefault =>
+      'Selam ver ve kendini tanıt!';
 
   @override
   String get communityConversationChatAction => 'Sohbet';
 
   @override
-  String get communityConversationMessageCopied => 'Mesaj kopyalandı! Göndermek için yapıştır.';
+  String get communityConversationMessageCopied =>
+      'Mesaj kopyalandı! Göndermek için yapıştır.';
 
   @override
   String get communityConversationCopiedToast => 'Kopyalandı!';
@@ -6271,7 +6448,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get communityLanguageMatchLearning => 'Öğrenilen';
 
   @override
-  String get communityLanguageMatchPerfect => 'Mükemmel dil değişimi eşleşmesi!';
+  String get communityLanguageMatchPerfect =>
+      'Mükemmel dil değişimi eşleşmesi!';
 
   @override
   String get communityLanguageMatchSameNative => 'Aynı anadili paylaşıyorsunuz';
@@ -6313,7 +6491,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get supportSheetGreeting => 'Merhaba, ben Firdavs 👋';
 
   @override
-  String get supportSheetStory => 'Bananatalk\'ı tamamen tek başıma inşa ettim — her ekran, her özellik, her gece geç saatlerde yapılan hata düzeltmesi. Amacım dünyanın dört bir yanındaki dil öğrenenlerinin bağlantı kurmasına ve gelişmesine yardımcı olmak ve bunu gerçekleştirmek için sürekli yeni özellikler ekliyorum.\n\nBananatalk sana herhangi bir şekilde yardımcı olduysa, küçük bir kahve bile beni inşa etmeye devam etmem için motive ediyor. Her katkı, tek başına çalışan bir geliştirici için çok şey ifade ediyor. 🙏';
+  String get supportSheetStory =>
+      'Bananatalk\'ı tamamen tek başıma inşa ettim — her ekran, her özellik, her gece geç saatlerde yapılan hata düzeltmesi. Amacım dünyanın dört bir yanındaki dil öğrenenlerinin bağlantı kurmasına ve gelişmesine yardımcı olmak ve bunu gerçekleştirmek için sürekli yeni özellikler ekliyorum.\n\nBananatalk sana herhangi bir şekilde yardımcı olduysa, küçük bir kahve bile beni inşa etmeye devam etmem için motive ediyor. Her katkı, tek başına çalışan bir geliştirici için çok şey ifade ediyor. 🙏';
 
   @override
   String get supportSheetDonateButton => 'PayPal ile bağış yapın';
@@ -6435,7 +6614,8 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String get birthdateRateLimited => 'Doğum tarihi 60 günde en fazla 3 kez değiştirilebilir.';
+  String get birthdateRateLimited =>
+      'Doğum tarihi 60 günde en fazla 3 kez değiştirilebilir.';
 
   @override
   String birthdateRateLimitedUntil(String date) {
@@ -6464,7 +6644,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get passwordsDontMatch => 'Şifreler eşleşmiyor.';
 
   @override
-  String get newPasswordSameAsCurrent => 'Yeni şifre mevcut şifreden farklı olmalı.';
+  String get newPasswordSameAsCurrent =>
+      'Yeni şifre mevcut şifreden farklı olmalı.';
 
   @override
   String get passwordChangedSuccess => 'Şifre başarıyla değiştirildi';
@@ -6494,7 +6675,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get occupationCustomTabHint => 'Mesleğini bulamadın mı? Buraya yaz.';
 
   @override
-  String get occupationCustomInputHint => 'örn. Deniz biyoloğu, Seslendirme sanatçısı';
+  String get occupationCustomInputHint =>
+      'örn. Deniz biyoloğu, Seslendirme sanatçısı';
 
   @override
   String get occupationCustomSaveCTA => 'Bunu mesleğim olarak kullan';
@@ -6548,10 +6730,12 @@ class AppLocalizationsTr extends AppLocalizations {
   String get vipBrandTitle => 'BananaTalk VIP';
 
   @override
-  String get vipTagline => 'Küresel bağlantıların pasaportu — gerçek sohbetler, kalıcı dostluklar.';
+  String get vipTagline =>
+      'Küresel bağlantıların pasaportu — gerçek sohbetler, kalıcı dostluklar.';
 
   @override
-  String get vipDisclosure => 'Dönem sona ermeden 24 saat önce iptal edilmezse otomatik yenilenir. Ödeme, iTunes veya Google Play hesabınıza yansıtılır.';
+  String get vipDisclosure =>
+      'Dönem sona ermeden 24 saat önce iptal edilmezse otomatik yenilenir. Ödeme, iTunes veya Google Play hesabınıza yansıtılır.';
 
   @override
   String get vipLoginRequired => 'Devam etmek için lütfen giriş yapın';
@@ -6563,7 +6747,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get chatListNewMessageAlertsTitle => 'New Message Alerts';
 
   @override
-  String get chatListNewMessageAlertsBody => 'Tap to turn on notifications and never miss a message';
+  String get chatListNewMessageAlertsBody =>
+      'Tap to turn on notifications and never miss a message';
 
   @override
   String get chatListFilterMyTurn => 'My turn';
@@ -6620,10 +6805,12 @@ class AppLocalizationsTr extends AppLocalizations {
   String get vipPaymentPurchaseGooglePlay => 'Google Play üzerinden satın al';
 
   @override
-  String get vipPaymentSecureAppStore => 'Satın alma işleminiz App Store üzerinden güvenli şekilde yapılacaktır.';
+  String get vipPaymentSecureAppStore =>
+      'Satın alma işleminiz App Store üzerinden güvenli şekilde yapılacaktır.';
 
   @override
-  String get vipPaymentSecureGooglePlay => 'Satın alma işleminiz Google Play üzerinden güvenli şekilde yapılacaktır.';
+  String get vipPaymentSecureGooglePlay =>
+      'Satın alma işleminiz Google Play üzerinden güvenli şekilde yapılacaktır.';
 
   @override
   String get vipPaymentSubscriptionInfo => 'Abonelik bilgileri';
@@ -6638,19 +6825,22 @@ class AppLocalizationsTr extends AppLocalizations {
   String get vipPaymentInfoLabelPrice => 'Fiyat';
 
   @override
-  String get vipPaymentDisclosure => 'Bu satın alma işlemini tamamlayarak Kullanım Koşullarımızı ve Gizlilik Politikamızı kabul etmiş olursunuz. Aboneliğiniz, mevcut dönem sona ermeden en az 24 saat önce iptal edilmediği sürece otomatik olarak yenilenir.';
+  String get vipPaymentDisclosure =>
+      'Bu satın alma işlemini tamamlayarak Kullanım Koşullarımızı ve Gizlilik Politikamızı kabul etmiş olursunuz. Aboneliğiniz, mevcut dönem sona ermeden en az 24 saat önce iptal edilmediği sürece otomatik olarak yenilenir.';
 
   @override
   String get vipSuccessTitle => 'VIP’e hoş geldiniz!';
 
   @override
-  String get vipSuccessBody => 'VIP aboneliğiniz artık aktif. Tüm premium özelliklerin tadını çıkarın!';
+  String get vipSuccessBody =>
+      'VIP aboneliğiniz artık aktif. Tüm premium özelliklerin tadını çıkarın!';
 
   @override
   String get vipPendingTitle => 'Az kaldı';
 
   @override
-  String get vipPendingBody => 'Aboneliğiniz işleniyor — lütfen bir dakika sonra yenileyin.';
+  String get vipPendingBody =>
+      'Aboneliğiniz işleniyor — lütfen bir dakika sonra yenileyin.';
 
   @override
   String get vipErrorPaymentTitle => 'Ödeme hatası';
@@ -6668,10 +6858,12 @@ class AppLocalizationsTr extends AppLocalizations {
   String get vipErrorBodyPrefix => 'Ödemeniz işlenirken bir hata oluştu:';
 
   @override
-  String get vipErrorPurchaseCanceled => 'Satın alma iptal edildi veya başarısız oldu. Lütfen tekrar deneyin.';
+  String get vipErrorPurchaseCanceled =>
+      'Satın alma iptal edildi veya başarısız oldu. Lütfen tekrar deneyin.';
 
   @override
-  String get vipErrorVerifyServer => 'Satın alma sunucu tarafında doğrulanamadı. Lütfen destek ile iletişime geçin.';
+  String get vipErrorVerifyServer =>
+      'Satın alma sunucu tarafında doğrulanamadı. Lütfen destek ile iletişime geçin.';
 
   @override
   String get vipPlanLengthOneMonth => '1 ay';
@@ -6712,7 +6904,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get chatPhrasesAddHint => 'Sık kullandığın bir cümle yaz';
 
   @override
-  String get chatPhrasesEmptyMostUsed => 'Henüz kayıtlı cümle yok. Eklemek için + simgesine dokun.';
+  String get chatPhrasesEmptyMostUsed =>
+      'Henüz kayıtlı cümle yok. Eklemek için + simgesine dokun.';
 
   @override
   String get chatPhrasesDeleteTitle => 'Bu cümle silinsin mi?';
@@ -6721,7 +6914,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get filterVipPromoTitle => 'Sana en uygun kişiyi daha hızlı bul';
 
   @override
-  String get filterVipPromoSubtitle => 'VIP ile öncelikli keşif, gelişmiş filtreler ve reklamsız sohbetler.';
+  String get filterVipPromoSubtitle =>
+      'VIP ile öncelikli keşif, gelişmiş filtreler ve reklamsız sohbetler.';
 
   @override
   String get filterVipPromoCta => 'VIP ol';
@@ -6733,7 +6927,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get examStudyChooseLanguage => 'Choose your study language';
 
   @override
-  String get examStudyChooseLanguageSubtitle => 'Pick the language you want to prepare an exam in.';
+  String get examStudyChooseLanguageSubtitle =>
+      'Pick the language you want to prepare an exam in.';
 
   @override
   String get examStudyLoading => 'Loading…';
@@ -6813,16 +7008,19 @@ class AppLocalizationsTr extends AppLocalizations {
   String get examQuestionNoQuestions => 'No questions in this section yet.';
 
   @override
-  String get examQuestionEssayComingSoon => 'Essay evaluation is coming soon. Try a reading section for now.';
+  String get examQuestionEssayComingSoon =>
+      'Essay evaluation is coming soon. Try a reading section for now.';
 
   @override
-  String get examQuestionUnsupported => 'This question type isn\'t supported yet.';
+  String get examQuestionUnsupported =>
+      'This question type isn\'t supported yet.';
 
   @override
   String get examPracticeFinishedTitle => 'Section complete';
 
   @override
-  String get examPracticeFinishedBody => 'Nice work — you\'ve completed every question in this section.';
+  String get examPracticeFinishedBody =>
+      'Nice work — you\'ve completed every question in this section.';
 
   @override
   String get examPracticeBackToDashboard => 'Back to dashboard';
@@ -6862,7 +7060,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get examEssayEvaluating => 'Evaluating your essay…';
 
   @override
-  String get examEssayEvaluatingHint => 'This usually takes 10–30 seconds. You can leave this screen — we\'ll keep evaluating in the background.';
+  String get examEssayEvaluatingHint =>
+      'This usually takes 10–30 seconds. You can leave this screen — we\'ll keep evaluating in the background.';
 
   @override
   String get examEssayResultTitle => 'Evaluation';
@@ -6886,7 +7085,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get examEssayResultDone => 'Done';
 
   @override
-  String get examEssayPollTimeout => 'Still evaluating — check back in a minute.';
+  String get examEssayPollTimeout =>
+      'Still evaluating — check back in a minute.';
 
   @override
   String get examEssayPollRefresh => 'Check again';
@@ -6897,7 +7097,8 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String get examEssayQuotaExhausted => 'You\'ve used today\'s free essay evaluations. Upgrade to VIP for unlimited.';
+  String get examEssayQuotaExhausted =>
+      'You\'ve used today\'s free essay evaluations. Upgrade to VIP for unlimited.';
 
   @override
   String get examEssayQuotaUpgrade => 'Upgrade to VIP';
@@ -6915,7 +7116,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get examProgressNotStartedTitle => 'No practice yet';
 
   @override
-  String get examProgressNotStartedBody => 'Answer a few questions in any section to see your progress here.';
+  String get examProgressNotStartedBody =>
+      'Answer a few questions in any section to see your progress here.';
 
   @override
   String get examProgressFocusAreas => 'Focus areas';
@@ -6926,7 +7128,8 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String get examProgressNoFocusAreas => 'You\'re doing well across every section — keep practicing!';
+  String get examProgressNoFocusAreas =>
+      'You\'re doing well across every section — keep practicing!';
 
   @override
   String get examPlanSetupTitle => 'Start study plan';
@@ -6959,7 +7162,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get examPlanEmptyTitle => 'No active plan';
 
   @override
-  String get examPlanEmptyBody => 'Generate a plan to get weekly milestones tailored to your weak areas.';
+  String get examPlanEmptyBody =>
+      'Generate a plan to get weekly milestones tailored to your weak areas.';
 
   @override
   String get examPlanRegenerate => 'Regenerate plan';
@@ -6991,7 +7195,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get examTopicPickerTitle => 'Pick a topic';
 
   @override
-  String get examTopicPickerSubtitle => 'Practice questions on a specific subject, or jump into all questions.';
+  String get examTopicPickerSubtitle =>
+      'Practice questions on a specific subject, or jump into all questions.';
 
   @override
   String get examTopicAllTopics => 'All topics';
@@ -7000,7 +7205,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get examTopicAllTopicsDescription => 'Mix from every available topic';
 
   @override
-  String get examTopicEmpty => 'No topical content yet. Tap All topics to start practicing.';
+  String get examTopicEmpty =>
+      'No topical content yet. Tap All topics to start practicing.';
 
   @override
   String examTopicQuestionCount(int count) {
@@ -7038,7 +7244,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get examSpeakingUploading => 'Uploading…';
 
   @override
-  String get examSpeakingTooShort => 'Recording is too short. Please speak for at least a few seconds.';
+  String get examSpeakingTooShort =>
+      'Recording is too short. Please speak for at least a few seconds.';
 
   @override
   String get examGroupWriting => 'Writing';
@@ -7072,7 +7279,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get examVocabLevelPickerTitle => 'Pick a level';
 
   @override
-  String get examVocabLevelPickerSubtitle => 'Browse words and practice quizzes by CEFR level.';
+  String get examVocabLevelPickerSubtitle =>
+      'Browse words and practice quizzes by CEFR level.';
 
   @override
   String get examVocabTopicPickerTitle => 'Pick a topic';
@@ -7119,22 +7327,26 @@ class AppLocalizationsTr extends AppLocalizations {
   String get examVocabQuizRestart => 'Restart';
 
   @override
-  String get examVocabQuizEmpty => 'No questions could be generated. Try another topic or level.';
+  String get examVocabQuizEmpty =>
+      'No questions could be generated. Try another topic or level.';
 
   @override
-  String get examVocabQuizNotEnough => 'Not enough words at this level and topic to build a quiz.';
+  String get examVocabQuizNotEnough =>
+      'Not enough words at this level and topic to build a quiz.';
 
   @override
   String get examVocabQuizExpiredTitle => 'Quiz expired';
 
   @override
-  String get examVocabQuizExpiredBody => 'This quiz has been idle too long. Restart to get a fresh one.';
+  String get examVocabQuizExpiredBody =>
+      'This quiz has been idle too long. Restart to get a fresh one.';
 
   @override
   String get examVocabTranslate => 'Translate';
 
   @override
-  String get examVocabTranslateFailed => 'Translation unavailable. Try again later.';
+  String get examVocabTranslateFailed =>
+      'Translation unavailable. Try again later.';
 
   @override
   String get examDashboardTips => 'Tips';
@@ -7187,7 +7399,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get roomsEmptyTitle => 'Henüz dil odası yok';
 
   @override
-  String get roomsEmptySubtitle => 'Yakında tekrar kontrol edin — merkezler hazırlanıyor.';
+  String get roomsEmptySubtitle =>
+      'Yakında tekrar kontrol edin — merkezler hazırlanıyor.';
 
   @override
   String get roomCreateTitle => 'Yeni Konu Odası';
@@ -7264,7 +7477,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get roomLeaveHubFailed => 'Merkezden ayrılma başarısız oldu';
 
   @override
-  String get roomJoinRequestSent => 'İstek gönderildi — onaylanırsa bilgilendirileceksiniz';
+  String get roomJoinRequestSent =>
+      'İstek gönderildi — onaylanırsa bilgilendirileceksiniz';
 
   @override
   String get roomJoinRequestFailed => 'İstek gönderilemedi';
@@ -7286,10 +7500,12 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String get roomBannedRequestMessage => 'Bu odadan çıkarıldınız. Tekrar katılmak için istek gönderin — sahibin onaylaması gerekir.';
+  String get roomBannedRequestMessage =>
+      'Bu odadan çıkarıldınız. Tekrar katılmak için istek gönderin — sahibin onaylaması gerekir.';
 
   @override
-  String get roomModeratedRequestMessage => 'Bu, denetimli bir odadır. Sohbete başlamak için katılma isteği gönderin.';
+  String get roomModeratedRequestMessage =>
+      'Bu, denetimli bir odadır. Sohbete başlamak için katılma isteği gönderin.';
 
   @override
   String get roomRequestPending => 'İstek beklemede';
@@ -7464,7 +7680,8 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String get todayEmpty => 'Bugünün içeriği hâlâ hazırlanıyor. Birazdan tekrar bak.';
+  String get todayEmpty =>
+      'Bugünün içeriği hâlâ hazırlanıyor. Birazdan tekrar bak.';
 
   @override
   String todayLanguageUnsupported(String language) {
@@ -7478,7 +7695,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get packGotIt => 'Anladım';
 
   @override
-  String get packSubmitFailed => 'Kaydedilemedi — bağlantını kontrol edip tekrar dene.';
+  String get packSubmitFailed =>
+      'Kaydedilemedi — bağlantını kontrol edip tekrar dene.';
 
   @override
   String packWordProgress(int current, int total) {
@@ -7551,7 +7769,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get masteryTitle => 'İlerlemen';
 
   @override
-  String get masteryEmpty => 'Bir günlük çalışmayı tamamla, ilerlemen burada görünecek.';
+  String get masteryEmpty =>
+      'Bir günlük çalışmayı tamamla, ilerlemen burada görünecek.';
 
   @override
   String get masteryYourLevel => 'seviyen';
@@ -7609,7 +7828,8 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String get placementResult => 'Buradan başlıyoruz. Dilediğin zaman değiştirebilirsin.';
+  String get placementResult =>
+      'Buradan başlıyoruz. Dilediğin zaman değiştirebilirsin.';
 
   @override
   String get placementStart => 'Öğrenmeye başla';
@@ -7651,7 +7871,8 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String get weeklyReportEmpty => 'Bu hafta henüz çalışma yok. Başlamak için bir gün yeter.';
+  String get weeklyReportEmpty =>
+      'Bu hafta henüz çalışma yok. Başlamak için bir gün yeter.';
 
   @override
   String get weeklyReportStart => 'Bugünün paketini başlat';
@@ -7678,7 +7899,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get gatheringEmptyTitle => 'İlkini sen düzenle';
 
   @override
-  String get gatheringEmptyBody => 'Henüz planlanmış bir şey yok. Bir saat seç ve paylaş — insanlar zaten bir ev sahibi olan buluşmalara katılır.';
+  String get gatheringEmptyBody =>
+      'Henüz planlanmış bir şey yok. Bir saat seç ve paylaş — insanlar zaten bir ev sahibi olan buluşmalara katılır.';
 
   @override
   String get gatheringStartAClub => 'Bunun yerine kulüp kur';
@@ -7711,7 +7933,6 @@ class AppLocalizationsTr extends AppLocalizations {
   String gatheringQuorumNeeded(num count) {
     final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String countString = countNumberFormat.format(count);
 
@@ -7745,13 +7966,15 @@ class AppLocalizationsTr extends AppLocalizations {
   String get gatheringAskToJoin => 'Katılmak için istek gönder';
 
   @override
-  String get gatheringRequested => 'Katılma isteği gönderildi — kararı ev sahibi verecek';
+  String get gatheringRequested =>
+      'Katılma isteği gönderildi — kararı ev sahibi verecek';
 
   @override
   String get gatheringCreateTitle => 'Yeni buluşma';
 
   @override
-  String get gatheringCreateSubtitle => 'Bir saat, bir dil ve birkaç kişilik yer. Gerisi isteğe bağlı.';
+  String get gatheringCreateSubtitle =>
+      'Bir saat, bir dil ve birkaç kişilik yer. Gerisi isteğe bağlı.';
 
   @override
   String gatheringDefaultTitle(String language) {
@@ -7774,7 +7997,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get gatheringQuorumLabel => 'Onay sayısı';
 
   @override
-  String get gatheringQuorumExplainer => 'Ev sahibi olarak ilk katılımcı sensin. Bu sayıya ulaşıldığında buluşma onaylanır.';
+  String get gatheringQuorumExplainer =>
+      'Ev sahibi olarak ilk katılımcı sensin. Bu sayıya ulaşıldığında buluşma onaylanır.';
 
   @override
   String get gatheringPost => 'Paylaş';
@@ -7820,14 +8044,14 @@ class AppLocalizationsTr extends AppLocalizations {
   String gatheringHostDecision(num count) {
     final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: 'Şimdilik yalnızca $countString kişi var. Yine de yapalım mı, iptal mi edelim?',
+      other:
+          'Şimdilik yalnızca $countString kişi var. Yine de yapalım mı, iptal mi edelim?',
       one: 'Şimdilik yalnızca sen varsın. Yine de yapalım mı, iptal mi edelim?',
     );
     return '$_temp0';
@@ -7843,7 +8067,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get gatheringEnd => 'Buluşmayı bitir';
 
   @override
-  String get gatheringEndedThanks => 'Bitti — tanıştığın kişilere mesaj atmak ücretsiz';
+  String get gatheringEndedThanks =>
+      'Bitti — tanıştığın kişilere mesaj atmak ücretsiz';
 
   @override
   String get gatheringCancelIt => 'Buluşmayı iptal et';
@@ -7855,14 +8080,14 @@ class AppLocalizationsTr extends AppLocalizations {
   String gatheringCancelConfirm(num count) {
     final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$countString kişi bunu bekliyor. İptal edildiği kendilerine bildirilecek.',
+      other:
+          '$countString kişi bunu bekliyor. İptal edildiği kendilerine bildirilecek.',
       one: '1 kişi bunu bekliyor. İptal edildiği kendisine bildirilecek.',
     );
     return '$_temp0';
@@ -7878,7 +8103,6 @@ class AppLocalizationsTr extends AppLocalizations {
   String clubMembers(num count) {
     final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String countString = countNumberFormat.format(count);
 
@@ -7909,7 +8133,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get clubCreateTitle => 'Yeni kulüp';
 
   @override
-  String get clubCreateSubtitle => 'Kulüp, buluşmalar arasında da insanları bir arada tutar. Gerçekten yapacağınız şeyin adını verin.';
+  String get clubCreateSubtitle =>
+      'Kulüp, buluşmalar arasında da insanları bir arada tutar. Gerçekten yapacağınız şeyin adını verin.';
 
   @override
   String get clubNameLabel => 'Kulüp adı';
@@ -7944,10 +8169,12 @@ class AppLocalizationsTr extends AppLocalizations {
   String get gatheringsMine => 'Buluşmalarım';
 
   @override
-  String get gatheringsMineEmpty => 'Henüz yok. Düzenlediğin veya katıldığın buluşmalar burada görünür.';
+  String get gatheringsMineEmpty =>
+      'Henüz yok. Düzenlediğin veya katıldığın buluşmalar burada görünür.';
 
   @override
-  String get gatheringsMineSubtitle => 'Düzenlediğin veya katıldığın buluşmalar';
+  String get gatheringsMineSubtitle =>
+      'Düzenlediğin veya katıldığın buluşmalar';
 
   @override
   String get gatheringSave => 'Kaydet';
@@ -7971,10 +8198,12 @@ class AppLocalizationsTr extends AppLocalizations {
   String get intentDate => 'Flörte açığım';
 
   @override
-  String get intentPrivacyNote => 'Seçimlerini başkaları görür; flört seçeneği gizli kalır.';
+  String get intentPrivacyNote =>
+      'Seçimlerini başkaları görür; flört seçeneği gizli kalır.';
 
   @override
-  String get gatheringNoClubsYet => 'Henüz kulüp yok — bir tane kur, buluşmaların bir yuvası olsun.';
+  String get gatheringNoClubsYet =>
+      'Henüz kulüp yok — bir tane kur, buluşmaların bir yuvası olsun.';
 
   @override
   String get topicConversation => 'Sohbet';
@@ -8036,7 +8265,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get notifyRepliesTitle => 'Biri yanıtladığında bildirim al';
 
   @override
-  String get notifyRepliesBody => 'Yeni mesajları ve günlük çalışma hatırlatmanı bildiririz. İkisini de istediğin zaman kapatabilirsin.';
+  String get notifyRepliesBody =>
+      'Yeni mesajları ve günlük çalışma hatırlatmanı bildiririz. İkisini de istediğin zaman kapatabilirsin.';
 
   @override
   String get notifyRepliesEnable => 'Aç';
@@ -8048,7 +8278,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get notificationsOffTitle => 'Bildirimler kapalı';
 
   @override
-  String get notificationsOffBody => 'Cihazın BananaTalk bildirimlerini engelliyor, bu yüzden hatırlatmalar ve mesajlar sana ulaşamıyor. Açana kadar aşağıdaki ayarlar etkili olmaz.';
+  String get notificationsOffBody =>
+      'Cihazın BananaTalk bildirimlerini engelliyor, bu yüzden hatırlatmalar ve mesajlar sana ulaşamıyor. Açana kadar aşağıdaki ayarlar etkili olmaz.';
 
   @override
   String get notificationsOffOpen => 'Ayarları aç';
@@ -8063,7 +8294,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get finishProfileTitle => 'Profilini kurmayı tamamla';
 
   @override
-  String get finishProfileBody => 'BananaTalk\'u herkes için güvenli tutmak adına doğum tarihine ihtiyacımız var. Devam etmek istemezsen çıkış yapabilirsin.';
+  String get finishProfileBody =>
+      'BananaTalk\'u herkes için güvenli tutmak adına doğum tarihine ihtiyacımız var. Devam etmek istemezsen çıkış yapabilirsin.';
 
   @override
   String get finishProfileContinue => 'Devam et';
@@ -8105,7 +8337,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get clubDeleteConfirmTitle => 'Bu kulüp silinsin mi?';
 
   @override
-  String get clubDeleteConfirmBody => 'Planlanan etkinlikler kalır — katılacağını söyleyenler var. Yalnızca kulüp silinir.';
+  String get clubDeleteConfirmBody =>
+      'Planlanan etkinlikler kalır — katılacağını söyleyenler var. Yalnızca kulüp silinir.';
 
   @override
   String get clubRemoveMember => 'Kulüpten çıkar';
@@ -8190,7 +8423,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get storyStickerLocation => 'Konum';
 
   @override
-  String get storyStickerLocationSubtitle => 'Bu hikâyenin çekildiği yeri etiketle';
+  String get storyStickerLocationSubtitle =>
+      'Bu hikâyenin çekildiği yeri etiketle';
 
   @override
   String get storyStickerMention => 'Bahset';
@@ -8211,13 +8445,15 @@ class AppLocalizationsTr extends AppLocalizations {
   String get storyArchiveTitle => 'Arşiv';
 
   @override
-  String get storyArchiveSubtitle => 'Süresi dolan hikâyelerin, yalnızca sana görünür';
+  String get storyArchiveSubtitle =>
+      'Süresi dolan hikâyelerin, yalnızca sana görünür';
 
   @override
   String get storyArchiveEmpty => 'Arşivde henüz bir şey yok';
 
   @override
-  String get storyArchiveEmptyBody => 'Hikâyeler 24 saat sonra buraya taşınır. Profilinde kalsın diye öne çıkanlara ekle.';
+  String get storyArchiveEmptyBody =>
+      'Hikâyeler 24 saat sonra buraya taşınır. Profilinde kalsın diye öne çıkanlara ekle.';
 
   @override
   String get storyArchiveAddHighlight => 'Öne çıkanlara ekle';
@@ -8315,7 +8551,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get icebreakerWhyLearn => 'Yeni bir dil öğrenmeye nasıl başladın?';
 
   @override
-  String get icebreakerCanHelp => 'Merhaba! Pratik yapmana yardım edebilirim 😊';
+  String get icebreakerCanHelp =>
+      'Merhaba! Pratik yapmana yardım edebilirim 😊';
 
   @override
   String get icebreakerFavoriteWord => 'Kendi dilinde en sevdiğin kelime ne?';
@@ -8331,4 +8568,196 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get failedToLoadSavedMoments => 'Kaydedilenler yüklenemedi';
+
+  @override
+  String get adNotReady => 'Reklam henüz hazır değil — birazdan tekrar deneyin';
+
+  @override
+  String get addQuickReply => 'Hızlı Yanıt Ekle';
+
+  @override
+  String get pollNeedQuestionAndOptions =>
+      'Bir soru ve en az 2 seçenek ekleyin';
+
+  @override
+  String get addOne => 'Bir tane ekle';
+
+  @override
+  String get addScreenshotsOrPhotos => 'Ekran görüntüsü veya fotoğraf ekleyin';
+
+  @override
+  String get allowMultipleVotes => 'Çoklu oya izin ver';
+
+  @override
+  String get attachImageOrTxt => 'Bir görsel veya .txt dosyası ekleyin';
+
+  @override
+  String get audioUploadFailed => 'Ses yüklenemedi';
+
+  @override
+  String get browseFiles => 'Dosyalara Gözat';
+
+  @override
+  String get clearCompleted => 'Tamamlananları Temizle';
+
+  @override
+  String get closePollTitle => 'Anket kapatılsın mı?';
+
+  @override
+  String get coinHistory => 'Coin Geçmişi';
+
+  @override
+  String get coinShop => 'Coin Mağazası';
+
+  @override
+  String get conversationSummary => 'Konuşma Özeti';
+
+  @override
+  String get couldNotLoadFollowings => 'Takip edilenler yüklenemedi';
+
+  @override
+  String get couldNotLoadMoreHistory => 'Daha fazla geçmiş yüklenemedi.';
+
+  @override
+  String get couldNotLoadChats => 'Sohbetleriniz yüklenemedi';
+
+  @override
+  String get decline => 'Reddet';
+
+  @override
+  String get endConversationTitle => 'Konuşma bitirilsin mi?';
+
+  @override
+  String get explainAction => 'Açıkla';
+
+  @override
+  String get failedToPlayAudio => 'Ses çalınamadı';
+
+  @override
+  String get failedToSavePhrase => 'İfade kaydedilemedi';
+
+  @override
+  String get freeRetryUnlocked => 'Ücretsiz yeniden deneme açıldı! 🎉';
+
+  @override
+  String get getAnotherHint => 'Başka İpucu Al';
+
+  @override
+  String get hideWhoVoted => 'Her seçeneğe kimin oy verdiğini gizle';
+
+  @override
+  String get invalidQrCode => 'Geçersiz QR kodu';
+
+  @override
+  String get linkCopiedToClipboard => 'Bağlantı panoya kopyalandı';
+
+  @override
+  String get loadMore => 'Daha fazla yükle';
+
+  @override
+  String get manage => 'Yönet';
+
+  @override
+  String get maxTenOptions => 'En fazla 10 seçenek';
+
+  @override
+  String get maybeLater => 'Belki sonra';
+
+  @override
+  String get minTwoOptions => 'En az 2 seçenek gerekli';
+
+  @override
+  String get noMoreVotesAfterClosing => 'Kapatıldıktan sonra oy alınmaz.';
+
+  @override
+  String get noOneToMention => 'Henüz bahsedilecek kimse yok';
+
+  @override
+  String get noRecentChatsToSendTo => 'Gönderilecek son sohbet yok';
+
+  @override
+  String get notEnoughCoins => 'Yeterli coin yok.';
+
+  @override
+  String get oneOptionIsCorrect => 'Bir seçenek doğru cevaptır';
+
+  @override
+  String get photoLibrary => 'Fotoğraf Galerisi';
+
+  @override
+  String get phraseSavedToStudyQueue => 'İfade çalışma listesine kaydedildi';
+
+  @override
+  String get pleaseAddTwoOptions => 'Lütfen en az 2 seçenek ekleyin';
+
+  @override
+  String get pleaseAttachEvidence => 'Kanıt olarak en az bir dosya ekleyin';
+
+  @override
+  String get pleaseEnterQuestion => 'Lütfen bir soru girin';
+
+  @override
+  String get pleaseSelectReportReason => 'Lütfen bir bildirim nedeni seçin';
+
+  @override
+  String get pleaseSelectCorrectAnswer => 'Lütfen testin doğru cevabını seçin';
+
+  @override
+  String get pollExpires => 'Anket sona eriyor';
+
+  @override
+  String get quizMode => 'Test modu';
+
+  @override
+  String get recordAReel => 'Reel kaydet';
+
+  @override
+  String get reelsContentGuidelines => 'Reels içerik kuralları';
+
+  @override
+  String get reportTypeMissing => 'Bildirim türü eksik';
+
+  @override
+  String get reportedContentIdMissing => 'Bildirilen içerik kimliği eksik';
+
+  @override
+  String get reportedUserIdMissing => 'Bildirilen kullanıcı kimliği eksik';
+
+  @override
+  String get retryAll => 'Tümünü Yeniden Dene';
+
+  @override
+  String get savedToVocabulary => 'Kelimelere kaydedildi!';
+
+  @override
+  String get savedFindInProfile =>
+      'Kaydedildi. Profil → Kaydedilenler’de bulabilirsin.';
+
+  @override
+  String get shareVia => 'Şununla paylaş...';
+
+  @override
+  String get shareYourLocation => 'Konumun paylaşılsın mı?';
+
+  @override
+  String get suggestACorrection => 'Düzeltme öner';
+
+  @override
+  String get translationCopied => 'Çeviri kopyalandı';
+
+  @override
+  String get unlock => 'Kilidi aç';
+
+  @override
+  String get unlockPremiumWallpapers => 'Premium duvar kâğıtlarını aç';
+
+  @override
+  String get uploadQueue => 'Yükleme Kuyruğu';
+
+  @override
+  String get usersCanVoteMultiple =>
+      'Kullanıcılar birden fazla seçeneğe oy verebilir';
+
+  @override
+  String get watchAd => 'Reklam İzle';
 }

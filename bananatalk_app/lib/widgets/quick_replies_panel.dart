@@ -69,7 +69,9 @@ class _QuickRepliesPanelState extends State<QuickRepliesPanel> {
           await _loadQuickReplies();
           if (!mounted) return;
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Quick reply added')),
+            SnackBar(
+              content: Text(AppLocalizations.of(context)!.quickReplyAdded),
+            ),
           );
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -84,7 +86,9 @@ class _QuickRepliesPanelState extends State<QuickRepliesPanel> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(friendlyErrorMessage(AppLocalizations.of(context)!, e)),
+            content: Text(
+              friendlyErrorMessage(AppLocalizations.of(context)!, e),
+            ),
             backgroundColor: Colors.red,
           ),
         );
@@ -105,7 +109,9 @@ class _QuickRepliesPanelState extends State<QuickRepliesPanel> {
             _quickReplies.removeWhere((r) => r.id == reply.id);
           });
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Quick reply deleted')),
+            SnackBar(
+              content: Text(AppLocalizations.of(context)!.quickReplyDeleted),
+            ),
           );
         }
       }
@@ -120,7 +126,7 @@ class _QuickRepliesPanelState extends State<QuickRepliesPanel> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Add Quick Reply'),
+        title: Text(AppLocalizations.of(context)!.addQuickReply),
         content: TextField(
           controller: controller,
           decoration: const InputDecoration(
@@ -171,10 +177,7 @@ class _QuickRepliesPanelState extends State<QuickRepliesPanel> {
                 children: [
                   const Text(
                     'Quick Replies',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   const Spacer(),
                   IconButton(
@@ -215,7 +218,7 @@ class _QuickRepliesPanelState extends State<QuickRepliesPanel> {
                               _showAddQuickReplyDialog();
                             },
                             icon: const Icon(Icons.add),
-                            label: const Text('Add one'),
+                            label: Text(AppLocalizations.of(context)!.addOne),
                           ),
                         ],
                       ),
@@ -259,9 +262,7 @@ class _QuickRepliesPanelState extends State<QuickRepliesPanel> {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 200),
       height: widget.isExpanded ? 100 : 44,
-      child: widget.isExpanded
-          ? _buildExpandedPanel()
-          : _buildCollapsedPanel(),
+      child: widget.isExpanded ? _buildExpandedPanel() : _buildCollapsedPanel(),
     );
   }
 
@@ -306,9 +307,7 @@ class _QuickRepliesPanelState extends State<QuickRepliesPanel> {
     return Container(
       decoration: BoxDecoration(
         color: Colors.grey[100],
-        border: Border(
-          top: BorderSide(color: Colors.grey[300]!),
-        ),
+        border: Border(top: BorderSide(color: Colors.grey[300]!)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -319,15 +318,12 @@ class _QuickRepliesPanelState extends State<QuickRepliesPanel> {
               children: [
                 const Text(
                   'Quick Replies',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12,
-                  ),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
                 ),
                 const Spacer(),
                 TextButton(
                   onPressed: _showManageQuickRepliesSheet,
-                  child: const Text('Manage'),
+                  child: Text(AppLocalizations.of(context)!.manage),
                 ),
               ],
             ),
@@ -343,7 +339,8 @@ class _QuickRepliesPanelState extends State<QuickRepliesPanel> {
                   padding: const EdgeInsets.only(right: 8),
                   child: ActionChip(
                     label: Text(reply.text),
-                    onPressed: () => widget.onQuickReplySelected?.call(reply.text),
+                    onPressed: () =>
+                        widget.onQuickReplySelected?.call(reply.text),
                   ),
                 );
               },
@@ -392,4 +389,3 @@ class QuickReplyButton extends StatelessWidget {
     );
   }
 }
-

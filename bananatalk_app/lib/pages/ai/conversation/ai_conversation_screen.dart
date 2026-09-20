@@ -14,7 +14,8 @@ class AIConversationScreen extends ConsumerStatefulWidget {
   const AIConversationScreen({super.key});
 
   @override
-  ConsumerState<AIConversationScreen> createState() => _AIConversationScreenState();
+  ConsumerState<AIConversationScreen> createState() =>
+      _AIConversationScreenState();
 }
 
 class _AIConversationScreenState extends ConsumerState<AIConversationScreen> {
@@ -53,10 +54,9 @@ class _AIConversationScreenState extends ConsumerState<AIConversationScreen> {
     _messageController.clear();
     _messageStartTime = null;
 
-    final success = await ref.read(conversationProvider.notifier).sendMessage(
-      content,
-      responseTime: responseTime,
-    );
+    final success = await ref
+        .read(conversationProvider.notifier)
+        .sendMessage(content, responseTime: responseTime);
 
     if (success) {
       _scrollToBottom();
@@ -75,7 +75,9 @@ class _AIConversationScreenState extends ConsumerState<AIConversationScreen> {
       setState(() => _isCreatingConversation = true);
 
       try {
-        final success = await ref.read(conversationProvider.notifier).startConversation(result);
+        final success = await ref
+            .read(conversationProvider.notifier)
+            .startConversation(result);
         if (success) {
           _scrollToBottom();
         }
@@ -91,12 +93,14 @@ class _AIConversationScreenState extends ConsumerState<AIConversationScreen> {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('End Conversation?'),
-        content: const Text('This will end the current conversation and show your summary.'),
+        title: Text(AppLocalizations.of(context)!.endConversationTitle),
+        content: const Text(
+          'This will end the current conversation and show your summary.',
+        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const Text('Cancel'),
+            child: Text(AppLocalizations.of(context)!.cancel),
           ),
           ElevatedButton(
             onPressed: () => Navigator.pop(context, true),
@@ -110,7 +114,9 @@ class _AIConversationScreenState extends ConsumerState<AIConversationScreen> {
     );
 
     if (confirmed == true) {
-      final summary = await ref.read(conversationProvider.notifier).endConversation();
+      final summary = await ref
+          .read(conversationProvider.notifier)
+          .endConversation();
       if (summary != null && mounted) {
         _showSummaryDialog(summary);
       }
@@ -121,7 +127,7 @@ class _AIConversationScreenState extends ConsumerState<AIConversationScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Conversation Summary'),
+        title: Text(AppLocalizations.of(context)!.conversationSummary),
         content: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -138,10 +144,7 @@ class _AIConversationScreenState extends ConsumerState<AIConversationScreen> {
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 4),
-              Text(
-                summary.feedback,
-                style: TextStyle(color: Colors.grey[700]),
-              ),
+              Text(summary.feedback, style: TextStyle(color: Colors.grey[700])),
               if (summary.improvements.isNotEmpty) ...[
                 const SizedBox(height: 12),
                 const Text(
@@ -149,16 +152,18 @@ class _AIConversationScreenState extends ConsumerState<AIConversationScreen> {
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 4),
-                ...summary.improvements.map((i) => Padding(
-                  padding: const EdgeInsets.only(bottom: 4),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text('• '),
-                      Expanded(child: Text(i)),
-                    ],
+                ...summary.improvements.map(
+                  (i) => Padding(
+                    padding: const EdgeInsets.only(bottom: 4),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text('• '),
+                        Expanded(child: Text(i)),
+                      ],
+                    ),
                   ),
-                )),
+                ),
               ],
             ],
           ),
@@ -241,10 +246,7 @@ class _AIConversationScreenState extends ConsumerState<AIConversationScreen> {
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'AI Tutor',
-              style: context.titleMedium,
-            ),
+            Text('AI Tutor', style: context.titleMedium),
             if (state.conversation != null)
               Text(
                 '${_getLanguageName(state.conversation!.targetLanguage)} - ${state.conversation!.cefrLevel}',
@@ -258,15 +260,16 @@ class _AIConversationScreenState extends ConsumerState<AIConversationScreen> {
             onPressed: () {
               Navigator.push(
                 context,
-                AppPageRoute(
-                  builder: (_) => const ConversationHistoryScreen(),
-                ),
+                AppPageRoute(builder: (_) => const ConversationHistoryScreen()),
               );
             },
           ),
           if (state.conversation != null)
             IconButton(
-              icon: const Icon(Icons.stop_circle_outlined, color: AppColors.error),
+              icon: const Icon(
+                Icons.stop_circle_outlined,
+                color: AppColors.error,
+              ),
               onPressed: _endConversation,
             ),
         ],
@@ -340,9 +343,7 @@ class _AIConversationScreenState extends ConsumerState<AIConversationScreen> {
                   horizontal: 32,
                   vertical: 14,
                 ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: AppRadius.borderMD,
-                ),
+                shape: RoundedRectangleBorder(borderRadius: AppRadius.borderMD),
               ),
               child: _isCreatingConversation
                   ? const SizedBox(
@@ -387,7 +388,9 @@ class _AIConversationScreenState extends ConsumerState<AIConversationScreen> {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
       child: Row(
-        mainAxisAlignment: isUser ? MainAxisAlignment.end : MainAxisAlignment.start,
+        mainAxisAlignment: isUser
+            ? MainAxisAlignment.end
+            : MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           if (!isUser) ...[
@@ -404,8 +407,9 @@ class _AIConversationScreenState extends ConsumerState<AIConversationScreen> {
           ],
           Flexible(
             child: Column(
-              crossAxisAlignment:
-                  isUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+              crossAxisAlignment: isUser
+                  ? CrossAxisAlignment.end
+                  : CrossAxisAlignment.start,
               children: [
                 Container(
                   padding: const EdgeInsets.symmetric(
@@ -414,7 +418,9 @@ class _AIConversationScreenState extends ConsumerState<AIConversationScreen> {
                   ),
                   decoration: BoxDecoration(
                     color: isUser ? AppColors.accent : context.cardBackground,
-                    borderRadius: isUser ? AppRadius.chatBubbleMine : AppRadius.chatBubbleOther,
+                    borderRadius: isUser
+                        ? AppRadius.chatBubbleMine
+                        : AppRadius.chatBubbleOther,
                     boxShadow: AppShadows.sm,
                   ),
                   child: Text(
@@ -445,20 +451,14 @@ class _AIConversationScreenState extends ConsumerState<AIConversationScreen> {
       decoration: BoxDecoration(
         color: AppColors.warning.withOpacity(0.1),
         borderRadius: AppRadius.borderMD,
-        border: Border.all(
-          color: AppColors.warning.withOpacity(0.3),
-        ),
+        border: Border.all(color: AppColors.warning.withOpacity(0.3)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              Icon(
-                Icons.lightbulb_outline,
-                size: 16,
-                color: AppColors.warning,
-              ),
+              Icon(Icons.lightbulb_outline, size: 16, color: AppColors.warning),
               Spacing.hGapXS,
               Text(
                 'Grammar Feedback',
@@ -470,30 +470,32 @@ class _AIConversationScreenState extends ConsumerState<AIConversationScreen> {
             ],
           ),
           Spacing.gapSM,
-          ...feedback.corrections.map((c) => Padding(
-            padding: const EdgeInsets.only(bottom: 4),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  '${c.original} → ',
-                  style: context.bodySmall.copyWith(
-                    decoration: TextDecoration.lineThrough,
-                    color: AppColors.error,
-                  ),
-                ),
-                Expanded(
-                  child: Text(
-                    c.corrected,
+          ...feedback.corrections.map(
+            (c) => Padding(
+              padding: const EdgeInsets.only(bottom: 4),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '${c.original} → ',
                     style: context.bodySmall.copyWith(
-                      color: AppColors.success,
-                      fontWeight: FontWeight.w500,
+                      decoration: TextDecoration.lineThrough,
+                      color: AppColors.error,
                     ),
                   ),
-                ),
-              ],
+                  Expanded(
+                    child: Text(
+                      c.corrected,
+                      style: context.bodySmall.copyWith(
+                        color: AppColors.success,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          )),
+          ),
         ],
       ),
     );
@@ -573,7 +575,9 @@ class _AIConversationScreenState extends ConsumerState<AIConversationScreen> {
                 _messageStartTime ??= DateTime.now();
               },
               decoration: InputDecoration(
-                hintText: AppLocalizations.of(context)!.aiConversationMessageHint,
+                hintText: AppLocalizations.of(
+                  context,
+                )!.aiConversationMessageHint,
                 hintStyle: context.bodyMedium.copyWith(color: context.textHint),
                 filled: true,
                 fillColor: context.containerColor,

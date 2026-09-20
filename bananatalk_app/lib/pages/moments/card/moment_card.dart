@@ -510,7 +510,7 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                     Icons.spellcheck_rounded,
                     color: Color(0xFF00BFA5),
                   ),
-                  title: const Text('Suggest a correction'),
+                  title: Text(AppLocalizations.of(context)!.suggestACorrection),
                   onTap: () {
                     Navigator.pop(context);
                     _suggestCorrection(context);

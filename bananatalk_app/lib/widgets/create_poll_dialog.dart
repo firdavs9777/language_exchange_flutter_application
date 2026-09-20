@@ -47,7 +47,7 @@ class _CreatePollDialogState extends State<CreatePollDialog> {
     TextEditingController(),
     TextEditingController(),
   ];
-  
+
   bool _isCreating = false;
   bool _allowMultipleVotes = false;
   bool _isAnonymous = false;
@@ -55,7 +55,7 @@ class _CreatePollDialogState extends State<CreatePollDialog> {
   int? _correctOptionIndex;
   String? _explanation;
   int? _expiresInHours;
-  
+
   final List<int> _expiryOptions = [1, 6, 12, 24, 48, 168]; // hours
 
   @override
@@ -70,7 +70,7 @@ class _CreatePollDialogState extends State<CreatePollDialog> {
   void _addOption() {
     if (_optionControllers.length >= 10) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Maximum 10 options allowed')),
+        SnackBar(content: Text(AppLocalizations.of(context)!.maxTenOptions)),
       );
       return;
     }
@@ -82,7 +82,7 @@ class _CreatePollDialogState extends State<CreatePollDialog> {
   void _removeOption(int index) {
     if (_optionControllers.length <= 2) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Minimum 2 options required')),
+        SnackBar(content: Text(AppLocalizations.of(context)!.minTwoOptions)),
       );
       return;
     }
@@ -101,7 +101,9 @@ class _CreatePollDialogState extends State<CreatePollDialog> {
     final question = _questionController.text.trim();
     if (question.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please enter a question')),
+        SnackBar(
+          content: Text(AppLocalizations.of(context)!.pleaseEnterQuestion),
+        ),
       );
       return false;
     }
@@ -113,14 +115,20 @@ class _CreatePollDialogState extends State<CreatePollDialog> {
 
     if (validOptions.length < 2) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please add at least 2 options')),
+        SnackBar(
+          content: Text(AppLocalizations.of(context)!.pleaseAddTwoOptions),
+        ),
       );
       return false;
     }
 
     if (_isQuiz && _correctOptionIndex == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please select the correct answer for quiz')),
+        SnackBar(
+          content: Text(
+            AppLocalizations.of(context)!.pleaseSelectCorrectAnswer,
+          ),
+        ),
       );
       return false;
     }
@@ -177,7 +185,9 @@ class _CreatePollDialogState extends State<CreatePollDialog> {
         setState(() => _isCreating = false);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(friendlyErrorMessage(AppLocalizations.of(context)!, e)),
+            content: Text(
+              friendlyErrorMessage(AppLocalizations.of(context)!, e),
+            ),
             backgroundColor: Colors.red,
           ),
         );
@@ -198,9 +208,7 @@ class _CreatePollDialogState extends State<CreatePollDialog> {
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              border: Border(
-                bottom: BorderSide(color: Colors.grey[200]!),
-              ),
+              border: Border(bottom: BorderSide(color: Colors.grey[200]!)),
             ),
             child: Row(
               children: [
@@ -208,10 +216,7 @@ class _CreatePollDialogState extends State<CreatePollDialog> {
                 const SizedBox(width: 8),
                 const Text(
                   'Create Poll',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 const Spacer(),
                 TextButton(
@@ -227,7 +232,7 @@ class _CreatePollDialogState extends State<CreatePollDialog> {
                           height: 20,
                           child: CircularProgressIndicator(strokeWidth: 2),
                         )
-                      : const Text('Create'),
+                      : Text(AppLocalizations.of(context)!.create),
                 ),
               ],
             ),
@@ -255,10 +260,7 @@ class _CreatePollDialogState extends State<CreatePollDialog> {
                 // Options
                 const Text(
                   'Options',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  ),
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                 ),
                 const SizedBox(height: 8),
                 ..._optionControllers.asMap().entries.map((entry) {
@@ -300,13 +302,13 @@ class _CreatePollDialogState extends State<CreatePollDialog> {
                     ),
                   );
                 }),
-                
+
                 // Add option button
                 if (_optionControllers.length < 10)
                   TextButton.icon(
                     onPressed: _addOption,
                     icon: const Icon(Icons.add),
-                    label: const Text('Add option'),
+                    label: Text(AppLocalizations.of(context)!.addOption),
                   ),
 
                 const SizedBox(height: 24),
@@ -314,17 +316,16 @@ class _CreatePollDialogState extends State<CreatePollDialog> {
                 // Settings
                 const Text(
                   'Settings',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  ),
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                 ),
                 const SizedBox(height: 8),
 
                 // Quiz mode
                 SwitchListTile(
-                  title: const Text('Quiz mode'),
-                  subtitle: const Text('One option is the correct answer'),
+                  title: Text(AppLocalizations.of(context)!.quizMode),
+                  subtitle: Text(
+                    AppLocalizations.of(context)!.oneOptionIsCorrect,
+                  ),
                   value: _isQuiz,
                   onChanged: (value) {
                     setState(() {
@@ -354,8 +355,10 @@ class _CreatePollDialogState extends State<CreatePollDialog> {
 
                 // Multiple votes
                 SwitchListTile(
-                  title: const Text('Allow multiple votes'),
-                  subtitle: const Text('Users can vote for multiple options'),
+                  title: Text(AppLocalizations.of(context)!.allowMultipleVotes),
+                  subtitle: Text(
+                    AppLocalizations.of(context)!.usersCanVoteMultiple,
+                  ),
                   value: _allowMultipleVotes,
                   onChanged: _isQuiz
                       ? null
@@ -366,8 +369,8 @@ class _CreatePollDialogState extends State<CreatePollDialog> {
 
                 // Anonymous
                 SwitchListTile(
-                  title: const Text('Anonymous voting'),
-                  subtitle: const Text('Hide who voted for each option'),
+                  title: Text(AppLocalizations.of(context)!.anonymousVoting),
+                  subtitle: Text(AppLocalizations.of(context)!.hideWhoVoted),
                   value: _isAnonymous,
                   onChanged: (value) {
                     setState(() => _isAnonymous = value);
@@ -376,10 +379,12 @@ class _CreatePollDialogState extends State<CreatePollDialog> {
 
                 // Expiry
                 ListTile(
-                  title: const Text('Poll expires'),
-                  subtitle: Text(_expiresInHours == null
-                      ? 'Never'
-                      : _formatExpiry(_expiresInHours!)),
+                  title: Text(AppLocalizations.of(context)!.pollExpires),
+                  subtitle: Text(
+                    _expiresInHours == null
+                        ? 'Never'
+                        : _formatExpiry(_expiresInHours!),
+                  ),
                   trailing: const Icon(Icons.chevron_right),
                   onTap: _showExpiryPicker,
                 ),
@@ -400,7 +405,7 @@ class _CreatePollDialogState extends State<CreatePollDialog> {
         mainAxisSize: MainAxisSize.min,
         children: [
           ListTile(
-            title: const Text('Never'),
+            title: Text(AppLocalizations.of(context)!.never),
             trailing: _expiresInHours == null
                 ? const Icon(Icons.check, color: Colors.green)
                 : null,
@@ -409,16 +414,18 @@ class _CreatePollDialogState extends State<CreatePollDialog> {
               Navigator.pop(context);
             },
           ),
-          ..._expiryOptions.map((hours) => ListTile(
-                title: Text(_formatExpiry(hours)),
-                trailing: _expiresInHours == hours
-                    ? const Icon(Icons.check, color: Colors.green)
-                    : null,
-                onTap: () {
-                  setState(() => _expiresInHours = hours);
-                  Navigator.pop(context);
-                },
-              )),
+          ..._expiryOptions.map(
+            (hours) => ListTile(
+              title: Text(_formatExpiry(hours)),
+              trailing: _expiresInHours == hours
+                  ? const Icon(Icons.check, color: Colors.green)
+                  : null,
+              onTap: () {
+                setState(() => _expiresInHours = hours);
+                Navigator.pop(context);
+              },
+            ),
+          ),
         ],
       ),
     );
@@ -433,4 +440,3 @@ class _CreatePollDialogState extends State<CreatePollDialog> {
     }
   }
 }
-

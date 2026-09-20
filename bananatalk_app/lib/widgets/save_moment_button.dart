@@ -50,10 +50,7 @@ class _SaveMomentButtonState extends State<SaveMomentButton>
     );
 
     _scaleAnimation = Tween<double>(begin: 1.0, end: 1.3).animate(
-      CurvedAnimation(
-        parent: _animationController,
-        curve: Curves.easeInOut,
-      ),
+      CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
     );
   }
 
@@ -132,10 +129,8 @@ class _SaveMomentButtonState extends State<SaveMomentButton>
       onTap: _toggleSave,
       child: AnimatedBuilder(
         animation: _scaleAnimation,
-        builder: (context, child) => Transform.scale(
-          scale: _scaleAnimation.value,
-          child: child,
-        ),
+        builder: (context, child) =>
+            Transform.scale(scale: _scaleAnimation.value, child: child),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -199,7 +194,9 @@ class _ShareMomentButtonState extends State<ShareMomentButton> {
 
     try {
       // Track share on backend
-      final result = await MomentsService.shareMoment(momentId: widget.momentId);
+      final result = await MomentsService.shareMoment(
+        momentId: widget.momentId,
+      );
 
       if (result['success'] == true) {
         setState(() {
@@ -218,7 +215,9 @@ class _ShareMomentButtonState extends State<ShareMomentButton> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(friendlyErrorMessage(AppLocalizations.of(context)!, e)),
+            content: Text(
+              friendlyErrorMessage(AppLocalizations.of(context)!, e),
+            ),
             backgroundColor: Colors.red,
           ),
         );
@@ -245,19 +244,21 @@ class _ShareMomentButtonState extends State<ShareMomentButton> {
             const SizedBox(height: 16),
             ListTile(
               leading: const Icon(Icons.copy),
-              title: const Text('Copy Link'),
+              title: Text(AppLocalizations.of(context)!.copyLink),
               onTap: () {
                 // Copy to clipboard
                 // Clipboard.setData(ClipboardData(text: link));
                 Navigator.pop(context);
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Link copied!')),
+                  SnackBar(
+                    content: Text(AppLocalizations.of(context)!.linkCopied),
+                  ),
                 );
               },
             ),
             ListTile(
               leading: const Icon(Icons.share),
-              title: const Text('Share via...'),
+              title: Text(AppLocalizations.of(context)!.shareVia),
               onTap: () {
                 Navigator.pop(context);
                 // Use share_plus package for native sharing
@@ -288,19 +289,12 @@ class _ShareMomentButtonState extends State<ShareMomentButton> {
                     valueColor: AlwaysStoppedAnimation(color),
                   ),
                 )
-              : Icon(
-                  Icons.share_outlined,
-                  size: widget.iconSize,
-                  color: color,
-                ),
+              : Icon(Icons.share_outlined, size: widget.iconSize, color: color),
           if (widget.showCount && _shareCount > 0) ...[
             const SizedBox(width: 4),
             Text(
               formatCompactCount(_shareCount),
-              style: TextStyle(
-                fontSize: 12,
-                color: color,
-              ),
+              style: TextStyle(fontSize: 12, color: color),
             ),
           ],
         ],
@@ -308,4 +302,3 @@ class _ShareMomentButtonState extends State<ShareMomentButton> {
     );
   }
 }
-

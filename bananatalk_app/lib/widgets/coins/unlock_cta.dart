@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:bananatalk_app/pages/coins/coin_shop_screen.dart';
@@ -22,11 +23,7 @@ import 'package:bananatalk_app/utils/app_page_route.dart';
 /// Renders nothing when coins are disabled server-side, when the catalog
 /// hasn't loaded yet, or when [featureKey] isn't in the catalog.
 class UnlockCta extends ConsumerWidget {
-  const UnlockCta({
-    super.key,
-    required this.featureKey,
-    this.onUnlocked,
-  });
+  const UnlockCta({super.key, required this.featureKey, this.onUnlocked});
 
   final String featureKey;
 
@@ -39,7 +36,9 @@ class UnlockCta extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final coinsEnabled = ref.watch(appConfigProvider).maybeWhen(
+    final coinsEnabled = ref
+        .watch(appConfigProvider)
+        .maybeWhen(
           data: (config) => config?.coinsEnabled ?? false,
           orElse: () => false,
         );
@@ -118,7 +117,7 @@ class _UnlockButtonState extends ConsumerState<_UnlockButton> {
   void _showInsufficientCoinsDialog() {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: const Text('Not enough coins for that.'),
+        content: Text(AppLocalizations.of(context)!.notEnoughCoins),
         action: SnackBarAction(
           label: 'Get more coins',
           onPressed: () {

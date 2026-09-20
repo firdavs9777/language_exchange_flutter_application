@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -51,7 +52,9 @@ class _CoinHistoryScreenState extends ConsumerState<CoinHistoryScreen> {
     } catch (e) {
       if (!mounted) return;
       setState(() {
-        _error = e is CoinApiException ? e.message : 'Could not load coin history.';
+        _error = e is CoinApiException
+            ? e.message
+            : 'Could not load coin history.';
         _isLoading = false;
       });
     }
@@ -73,7 +76,9 @@ class _CoinHistoryScreenState extends ConsumerState<CoinHistoryScreen> {
       if (!mounted) return;
       setState(() => _isLoadingMore = false);
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Could not load more history.')),
+        SnackBar(
+          content: Text(AppLocalizations.of(context)!.couldNotLoadMoreHistory),
+        ),
       );
     }
   }
@@ -85,13 +90,10 @@ class _CoinHistoryScreenState extends ConsumerState<CoinHistoryScreen> {
       appBar: AppBar(
         backgroundColor: context.surfaceColor,
         elevation: 0,
-        title: const Text('Coin History'),
+        title: Text(AppLocalizations.of(context)!.coinHistory),
       ),
       body: SafeArea(
-        child: RefreshIndicator(
-          onRefresh: _load,
-          child: _buildBody(),
-        ),
+        child: RefreshIndicator(onRefresh: _load, child: _buildBody()),
       ),
     );
   }
@@ -116,7 +118,10 @@ class _CoinHistoryScreenState extends ConsumerState<CoinHistoryScreen> {
           ),
           const SizedBox(height: 16),
           Center(
-            child: OutlinedButton(onPressed: _load, child: const Text('Retry')),
+            child: OutlinedButton(
+              onPressed: _load,
+              child: Text(AppLocalizations.of(context)!.retry),
+            ),
           ),
         ],
       );
@@ -142,7 +147,8 @@ class _CoinHistoryScreenState extends ConsumerState<CoinHistoryScreen> {
       physics: const AlwaysScrollableScrollPhysics(),
       padding: const EdgeInsets.symmetric(vertical: 8),
       itemCount: _transactions.length + (_nextCursor != null ? 1 : 0),
-      separatorBuilder: (_, __) => Divider(height: 1, color: context.dividerColor),
+      separatorBuilder: (_, __) =>
+          Divider(height: 1, color: context.dividerColor),
       itemBuilder: (context, index) {
         if (index >= _transactions.length) {
           return Padding(
@@ -154,7 +160,10 @@ class _CoinHistoryScreenState extends ConsumerState<CoinHistoryScreen> {
                       height: 20,
                       child: CircularProgressIndicator(strokeWidth: 2),
                     )
-                  : TextButton(onPressed: _loadMore, child: const Text('Load more')),
+                  : TextButton(
+                      onPressed: _loadMore,
+                      child: Text(AppLocalizations.of(context)!.loadMore),
+                    ),
             ),
           );
         }
@@ -191,7 +200,10 @@ class _CoinHistoryScreenState extends ConsumerState<CoinHistoryScreen> {
         children: [
           Text(
             '$amountText 💎',
-            style: context.titleSmall.copyWith(color: color, fontWeight: FontWeight.w800),
+            style: context.titleSmall.copyWith(
+              color: color,
+              fontWeight: FontWeight.w800,
+            ),
           ),
           if (tx.createdAt != null)
             Text(

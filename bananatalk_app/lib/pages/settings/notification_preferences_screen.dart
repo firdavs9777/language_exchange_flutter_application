@@ -76,9 +76,9 @@ class _NotificationPreferencesScreenState
     final old = Map<String, bool>.from(_prefs!);
     setState(() => _prefs![key] = value);
     try {
-      await ref
-          .read(communityServiceProvider)
-          .updateNotificationPreferences({key: value});
+      await ref.read(communityServiceProvider).updateNotificationPreferences({
+        key: value,
+      });
     } catch (e) {
       if (!mounted) return;
       setState(() => _prefs = old);
@@ -141,60 +141,65 @@ class _NotificationPreferencesScreenState
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : _error != null
-              ? Center(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(_error!,
-                          style: context.bodyMedium
-                              .copyWith(color: AppColors.error)),
-                      const SizedBox(height: 16),
-                      ElevatedButton(
-                        onPressed: _load,
-                        child: const Text('Retry'),
-                      ),
-                    ],
+          ? Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    _error!,
+                    style: context.bodyMedium.copyWith(color: AppColors.error),
                   ),
-                )
-              : ListView(
-                  children: [
-                    // Renders nothing unless the OS is blocking us.
-                    const NotificationsOffCard(),
-                    Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: Text(
-                        l10n.notificationPreferencesSubtitle,
-                        style: context.bodyMedium
-                            .copyWith(color: context.textSecondary),
-                      ),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
+                    onPressed: _load,
+                    child: Text(AppLocalizations.of(context)!.retry),
+                  ),
+                ],
+              ),
+            )
+          : ListView(
+              children: [
+                // Renders nothing unless the OS is blocking us.
+                const NotificationsOffCard(),
+                Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Text(
+                    l10n.notificationPreferencesSubtitle,
+                    style: context.bodyMedium.copyWith(
+                      color: context.textSecondary,
                     ),
-                    // Toggles that cannot fire are worse than no toggles: they
-                    // tell the user notifications are configured while the OS
-                    // discards every one of them. Disabled, not hidden, so the
-                    // card above explains why.
-                    for (final key in _keys)
-                      SwitchListTile(
-                        title: Text(_labelFor(key, l10n),
-                            style: context.bodyMedium),
-                        value: _prefs![key]!,
-                        // A null onChanged is what actually disables a
-                        // SwitchListTile, and it greys the row out too.
-                        onChanged: NotificationService().pendingAction ==
-                                NotificationAction.recover
-                            ? null
-                            : (v) => _toggle(key, v),
-                        activeThumbColor: AppColors.primary,
-                      ),
-                    const SizedBox(height: 24),
-                    Center(
-                      child: TextButton(
-                        onPressed: _resetDefaults,
-                        child: Text(l10n.notifResetToDefaults),
-                      ),
-                    ),
-                    const SizedBox(height: 32),
-                  ],
+                  ),
                 ),
+                // Toggles that cannot fire are worse than no toggles: they
+                // tell the user notifications are configured while the OS
+                // discards every one of them. Disabled, not hidden, so the
+                // card above explains why.
+                for (final key in _keys)
+                  SwitchListTile(
+                    title: Text(
+                      _labelFor(key, l10n),
+                      style: context.bodyMedium,
+                    ),
+                    value: _prefs![key]!,
+                    // A null onChanged is what actually disables a
+                    // SwitchListTile, and it greys the row out too.
+                    onChanged:
+                        NotificationService().pendingAction ==
+                            NotificationAction.recover
+                        ? null
+                        : (v) => _toggle(key, v),
+                    activeThumbColor: AppColors.primary,
+                  ),
+                const SizedBox(height: 24),
+                Center(
+                  child: TextButton(
+                    onPressed: _resetDefaults,
+                    child: Text(l10n.notifResetToDefaults),
+                  ),
+                ),
+                const SizedBox(height: 32),
+              ],
+            ),
     );
   }
 }

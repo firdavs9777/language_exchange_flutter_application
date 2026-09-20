@@ -111,7 +111,10 @@ class _TranslationBottomSheetState extends State<TranslationBottomSheet> {
       if (altData is List) {
         alternatives = altData
             .where((e) => e is Map)
-            .map((e) => TranslationAlternative.fromJson(Map<String, dynamic>.from(e)))
+            .map(
+              (e) =>
+                  TranslationAlternative.fromJson(Map<String, dynamic>.from(e)),
+            )
             .toList();
       }
 
@@ -135,7 +138,10 @@ class _TranslationBottomSheetState extends State<TranslationBottomSheet> {
       }
 
       setState(() {
-        _translatedText = data['translatedText']?.toString() ?? data['translation']?.toString() ?? '';
+        _translatedText =
+            data['translatedText']?.toString() ??
+            data['translation']?.toString() ??
+            '';
         _transliteration = data['transliteration']?.toString();
         _breakdown = breakdown;
         _alternatives = alternatives;
@@ -150,7 +156,9 @@ class _TranslationBottomSheetState extends State<TranslationBottomSheet> {
         _isLimitReached = errorCode == 'TRANSLATION_LIMIT_REACHED';
         _error = _isLimitReached
             ? null
-            : (result['message']?.toString() ?? result['error']?.toString() ?? 'Translation failed');
+            : (result['message']?.toString() ??
+                  result['error']?.toString() ??
+                  'Translation failed');
         _isLoading = false;
       });
     }
@@ -186,7 +194,11 @@ class _TranslationBottomSheetState extends State<TranslationBottomSheet> {
           if (mounted) {
             try {
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Failed to play audio')),
+                SnackBar(
+                  content: Text(
+                    AppLocalizations.of(context)!.failedToPlayAudio,
+                  ),
+                ),
               );
             } catch (_) {}
           }
@@ -196,7 +208,9 @@ class _TranslationBottomSheetState extends State<TranslationBottomSheet> {
       if (mounted) {
         try {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(result['error']?.toString() ?? 'TTS unavailable')),
+            SnackBar(
+              content: Text(result['error']?.toString() ?? 'TTS unavailable'),
+            ),
           );
         } catch (_) {}
       }
@@ -222,8 +236,10 @@ class _TranslationBottomSheetState extends State<TranslationBottomSheet> {
     if (_phraseSaved) {
       try {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Phrase saved to study queue'),
+          SnackBar(
+            content: Text(
+              AppLocalizations.of(context)!.phraseSavedToStudyQueue,
+            ),
             duration: Duration(seconds: 1),
           ),
         );
@@ -231,8 +247,8 @@ class _TranslationBottomSheetState extends State<TranslationBottomSheet> {
     } else {
       try {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Failed to save phrase'),
+          SnackBar(
+            content: Text(AppLocalizations.of(context)!.failedToSavePhrase),
             duration: Duration(seconds: 2),
           ),
         );
@@ -292,7 +308,10 @@ class _TranslationBottomSheetState extends State<TranslationBottomSheet> {
                 Expanded(
                   child: Text(
                     '${TranslationService.getLanguageFlag(_targetLanguage)} ${TranslationService.getLanguageName(_targetLanguage)}',
-                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
                 IconButton(
@@ -323,7 +342,11 @@ class _TranslationBottomSheetState extends State<TranslationBottomSheet> {
                       color: Colors.amber.withValues(alpha: 0.15),
                       shape: BoxShape.circle,
                     ),
-                    child: const Icon(Icons.translate, size: 32, color: Colors.amber),
+                    child: const Icon(
+                      Icons.translate,
+                      size: 32,
+                      color: Colors.amber,
+                    ),
                   ),
                   const SizedBox(height: 16),
                   Text(
@@ -373,7 +396,10 @@ class _TranslationBottomSheetState extends State<TranslationBottomSheet> {
                           SizedBox(width: 8),
                           Text(
                             'Upgrade to VIP',
-                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                         ],
                       ),
@@ -446,16 +472,21 @@ class _TranslationBottomSheetState extends State<TranslationBottomSheet> {
                             style: TextStyle(
                               fontSize: 17,
                               fontWeight: FontWeight.w600,
-                              color: isDark ? AppColors.white : AppColors.gray900,
+                              color: isDark
+                                  ? AppColors.white
+                                  : AppColors.gray900,
                             ),
                           ),
-                          if (_transliteration != null && _transliteration!.isNotEmpty) ...[
+                          if (_transliteration != null &&
+                              _transliteration!.isNotEmpty) ...[
                             const SizedBox(height: 4),
                             Text(
                               _transliteration!,
                               style: TextStyle(
                                 fontSize: 14,
-                                color: isDark ? AppColors.gray400 : AppColors.gray600,
+                                color: isDark
+                                    ? AppColors.gray400
+                                    : AppColors.gray600,
                                 fontStyle: FontStyle.italic,
                               ),
                             ),
@@ -469,7 +500,9 @@ class _TranslationBottomSheetState extends State<TranslationBottomSheet> {
                     Row(
                       children: [
                         _buildIconButton(
-                          icon: _isTtsPlaying ? Icons.stop_rounded : Icons.volume_up_rounded,
+                          icon: _isTtsPlaying
+                              ? Icons.stop_rounded
+                              : Icons.volume_up_rounded,
                           label: _isTtsPlaying ? 'Stop' : 'Listen',
                           isLoading: _isTtsLoading,
                           onTap: _playTTS,
@@ -481,11 +514,17 @@ class _TranslationBottomSheetState extends State<TranslationBottomSheet> {
                           icon: Icons.copy_rounded,
                           label: 'Copy',
                           onTap: () {
-                            Clipboard.setData(ClipboardData(text: _translatedText));
+                            Clipboard.setData(
+                              ClipboardData(text: _translatedText),
+                            );
                             try {
                               ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text('Translation copied'),
+                                SnackBar(
+                                  content: Text(
+                                    AppLocalizations.of(
+                                      context,
+                                    )!.translationCopied,
+                                  ),
                                   duration: Duration(seconds: 1),
                                 ),
                               );
@@ -509,9 +548,19 @@ class _TranslationBottomSheetState extends State<TranslationBottomSheet> {
                         ),
                         if (_cached) ...[
                           const Spacer(),
-                          const Icon(Icons.cached, size: 14, color: AppColors.gray500),
+                          const Icon(
+                            Icons.cached,
+                            size: 14,
+                            color: AppColors.gray500,
+                          ),
                           const SizedBox(width: 4),
-                          const Text('Cached', style: TextStyle(fontSize: 12, color: AppColors.gray500)),
+                          const Text(
+                            'Cached',
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: AppColors.gray500,
+                            ),
+                          ),
                         ],
                       ],
                     ),
@@ -535,12 +584,19 @@ class _TranslationBottomSheetState extends State<TranslationBottomSheet> {
                           return GestureDetector(
                             onTap: () => _showWordDetail(word),
                             child: Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 12,
+                                vertical: 8,
+                              ),
                               decoration: BoxDecoration(
-                                color: isDark ? AppColors.gray800 : AppColors.gray100,
+                                color: isDark
+                                    ? AppColors.gray800
+                                    : AppColors.gray100,
                                 borderRadius: BorderRadius.circular(10),
                                 border: Border.all(
-                                  color: isDark ? AppColors.gray700 : AppColors.gray200,
+                                  color: isDark
+                                      ? AppColors.gray700
+                                      : AppColors.gray200,
                                 ),
                               ),
                               child: Column(
@@ -559,7 +615,9 @@ class _TranslationBottomSheetState extends State<TranslationBottomSheet> {
                                     word.translation,
                                     style: TextStyle(
                                       fontSize: 12,
-                                      color: isDark ? AppColors.gray400 : AppColors.gray600,
+                                      color: isDark
+                                          ? AppColors.gray400
+                                          : AppColors.gray600,
                                     ),
                                   ),
                                 ],
@@ -582,41 +640,50 @@ class _TranslationBottomSheetState extends State<TranslationBottomSheet> {
                         ),
                       ),
                       const SizedBox(height: 8),
-                      ...(_alternatives.map((alt) => Padding(
-                        padding: const EdgeInsets.only(bottom: 6),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(alt.formalityIcon, style: const TextStyle(fontSize: 16)),
-                            const SizedBox(width: 8),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    alt.text,
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      color: isDark ? AppColors.gray300 : AppColors.gray700,
-                                    ),
-                                  ),
-                                  if (alt.context.isNotEmpty)
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 2),
-                                      child: Text(
-                                        alt.context,
-                                        style: TextStyle(
-                                          fontSize: 11,
-                                          color: isDark ? AppColors.gray500 : AppColors.gray600,
-                                        ),
+                      ...(_alternatives.map(
+                        (alt) => Padding(
+                          padding: const EdgeInsets.only(bottom: 6),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                alt.formalityIcon,
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                              const SizedBox(width: 8),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      alt.text,
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        color: isDark
+                                            ? AppColors.gray300
+                                            : AppColors.gray700,
                                       ),
                                     ),
-                                ],
+                                    if (alt.context.isNotEmpty)
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 2),
+                                        child: Text(
+                                          alt.context,
+                                          style: TextStyle(
+                                            fontSize: 11,
+                                            color: isDark
+                                                ? AppColors.gray500
+                                                : AppColors.gray600,
+                                          ),
+                                        ),
+                                      ),
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ))),
+                      )),
                     ],
 
                     // Grammar notes
@@ -631,48 +698,58 @@ class _TranslationBottomSheetState extends State<TranslationBottomSheet> {
                         ),
                       ),
                       const SizedBox(height: 8),
-                      ...(_grammarNotes.map((note) => Container(
-                        margin: const EdgeInsets.only(bottom: 8),
-                        padding: const EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          color: isDark ? AppColors.gray800 : Colors.amber.shade50,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              note.topic,
-                              style: TextStyle(
-                                fontSize: 13,
-                                fontWeight: FontWeight.w600,
-                                color: isDark ? Colors.amber.shade300 : Colors.amber.shade800,
-                              ),
-                            ),
-                            if (note.explanation.isNotEmpty) ...[
-                              const SizedBox(height: 4),
+                      ...(_grammarNotes.map(
+                        (note) => Container(
+                          margin: const EdgeInsets.only(bottom: 8),
+                          padding: const EdgeInsets.all(12),
+                          decoration: BoxDecoration(
+                            color: isDark
+                                ? AppColors.gray800
+                                : Colors.amber.shade50,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
                               Text(
-                                note.explanation,
+                                note.topic,
                                 style: TextStyle(
                                   fontSize: 13,
-                                  color: isDark ? AppColors.gray300 : AppColors.gray700,
+                                  fontWeight: FontWeight.w600,
+                                  color: isDark
+                                      ? Colors.amber.shade300
+                                      : Colors.amber.shade800,
                                 ),
                               ),
-                            ],
-                            if (note.sourceExample.isNotEmpty) ...[
-                              const SizedBox(height: 4),
-                              Text(
-                                note.sourceExample,
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: isDark ? AppColors.gray400 : AppColors.gray600,
-                                  fontStyle: FontStyle.italic,
+                              if (note.explanation.isNotEmpty) ...[
+                                const SizedBox(height: 4),
+                                Text(
+                                  note.explanation,
+                                  style: TextStyle(
+                                    fontSize: 13,
+                                    color: isDark
+                                        ? AppColors.gray300
+                                        : AppColors.gray700,
+                                  ),
                                 ),
-                              ),
+                              ],
+                              if (note.sourceExample.isNotEmpty) ...[
+                                const SizedBox(height: 4),
+                                Text(
+                                  note.sourceExample,
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: isDark
+                                        ? AppColors.gray400
+                                        : AppColors.gray600,
+                                    fontStyle: FontStyle.italic,
+                                  ),
+                                ),
+                              ],
                             ],
-                          ],
+                          ),
                         ),
-                      ))),
+                      )),
                     ],
 
                     // Cultural note
@@ -682,7 +759,9 @@ class _TranslationBottomSheetState extends State<TranslationBottomSheet> {
                         width: double.infinity,
                         padding: const EdgeInsets.all(12),
                         decoration: BoxDecoration(
-                          color: isDark ? AppColors.gray800 : Colors.blue.shade50,
+                          color: isDark
+                              ? AppColors.gray800
+                              : Colors.blue.shade50,
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Row(
@@ -695,7 +774,9 @@ class _TranslationBottomSheetState extends State<TranslationBottomSheet> {
                                 _culturalNote!,
                                 style: TextStyle(
                                   fontSize: 13,
-                                  color: isDark ? AppColors.gray300 : AppColors.gray700,
+                                  color: isDark
+                                      ? AppColors.gray300
+                                      : AppColors.gray700,
                                 ),
                               ),
                             ),
@@ -787,7 +868,9 @@ class _WordDetailSheetState extends State<_WordDetailSheet> {
       translation: widget.word.translation,
       pronunciation: widget.word.pronunciation,
       language: widget.language,
-      partOfSpeech: widget.word.partOfSpeech.isNotEmpty ? widget.word.partOfSpeech : null,
+      partOfSpeech: widget.word.partOfSpeech.isNotEmpty
+          ? widget.word.partOfSpeech
+          : null,
     );
 
     if (!mounted) return;
@@ -798,15 +881,17 @@ class _WordDetailSheetState extends State<_WordDetailSheet> {
         _isSaving = false;
       });
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Saved to vocabulary!'),
+        SnackBar(
+          content: Text(AppLocalizations.of(context)!.savedToVocabulary),
           duration: Duration(seconds: 1),
         ),
       );
     } else {
       setState(() => _isSaving = false);
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(result['error']?.toString() ?? 'Failed to save')),
+        SnackBar(
+          content: Text(result['error']?.toString() ?? 'Failed to save'),
+        ),
       );
     }
   }
@@ -843,7 +928,8 @@ class _WordDetailSheetState extends State<_WordDetailSheet> {
           ),
 
           // Pronunciation
-          if (widget.word.pronunciation != null && widget.word.pronunciation!.isNotEmpty) ...[
+          if (widget.word.pronunciation != null &&
+              widget.word.pronunciation!.isNotEmpty) ...[
             const SizedBox(height: 4),
             Text(
               widget.word.pronunciation!,
@@ -914,10 +1000,17 @@ class _WordDetailSheetState extends State<_WordDetailSheet> {
                         height: 18,
                         child: CircularProgressIndicator(strokeWidth: 2),
                       )
-                    : Icon(_saved ? Icons.check_rounded : Icons.bookmark_add_rounded),
+                    : Icon(
+                        _saved
+                            ? Icons.check_rounded
+                            : Icons.bookmark_add_rounded,
+                      ),
                 label: Text(_saved ? 'Saved' : 'Save to Vocabulary'),
                 style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 12,
+                  ),
                 ),
               ),
             ],

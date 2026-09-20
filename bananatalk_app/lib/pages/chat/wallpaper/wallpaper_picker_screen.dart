@@ -638,18 +638,18 @@ class _WallpaperPickerScreenState extends ConsumerState<WallpaperPickerScreen> {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (dialogContext) => AlertDialog(
-        title: const Text('Unlock premium wallpapers'),
+        title: Text(AppLocalizations.of(context)!.unlockPremiumWallpapers),
         content: Text(
           'Unlock all Premium ✨ wallpapers for 💎$cost coins? This unlocks the whole pack for good.',
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(dialogContext).pop(false),
-            child: const Text('Cancel'),
+            child: Text(AppLocalizations.of(context)!.cancel),
           ),
           TextButton(
             onPressed: () => Navigator.of(dialogContext).pop(true),
-            child: const Text('Unlock'),
+            child: Text(AppLocalizations.of(context)!.unlock),
           ),
         ],
       ),

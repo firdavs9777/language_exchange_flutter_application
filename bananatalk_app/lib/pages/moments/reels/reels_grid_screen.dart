@@ -514,7 +514,7 @@ class _ReelsGridScreenState extends ConsumerState<ReelsGridScreen>
                   ElevatedButton.icon(
                     onPressed: () => _openCreateFlow().catchError((_) {}),
                     icon: const Icon(Icons.videocam),
-                    label: const Text('Record a reel'),
+                    label: Text(AppLocalizations.of(context)!.recordAReel),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF00BFA5),
                       foregroundColor: Colors.white,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/providers/provider_models/story_model.dart';
@@ -13,7 +14,10 @@ class _ShareSendResult {
   final int successCount;
   final List<String> failedNames;
 
-  const _ShareSendResult({required this.successCount, required this.failedNames});
+  const _ShareSendResult({
+    required this.successCount,
+    required this.failedNames,
+  });
 }
 
 /// Bottom sheet to share a story into a BananaTalk DM as a tappable story
@@ -43,7 +47,11 @@ Future<void> showStoryShareSheet(
   if (result == null || !context.mounted) return;
 
   if (result.failedNames.isEmpty) {
-    showChatSnackBar(context, message: 'Sent 💛', type: ChatSnackBarType.success);
+    showChatSnackBar(
+      context,
+      message: 'Sent 💛',
+      type: ChatSnackBarType.success,
+    );
   } else if (result.successCount == 0) {
     showChatSnackBar(
       context,
@@ -152,7 +160,9 @@ class _StoryShareSheetState extends State<_StoryShareSheet> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+      padding: EdgeInsets.only(
+        bottom: MediaQuery.of(context).viewInsets.bottom,
+      ),
       child: SafeArea(
         child: SizedBox(
           height: MediaQuery.of(context).size.height * 0.7,
@@ -174,15 +184,17 @@ class _StoryShareSheetState extends State<_StoryShareSheet> {
                   children: [
                     Text(
                       'Send to friends',
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleMedium
-                          ?.copyWith(fontWeight: FontWeight.w600),
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                     if (_selectedIds.isNotEmpty)
                       Text(
                         '${_selectedIds.length} selected',
-                        style: TextStyle(color: Theme.of(context).hintColor, fontSize: 12),
+                        style: TextStyle(
+                          color: Theme.of(context).hintColor,
+                          fontSize: 12,
+                        ),
                       ),
                   ],
                 ),
@@ -195,7 +207,9 @@ class _StoryShareSheetState extends State<_StoryShareSheet> {
                   decoration: InputDecoration(
                     hintText: 'Search recent chats…',
                     prefixIcon: const Icon(Icons.search_rounded),
-                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(14)),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(14),
+                    ),
                   ),
                 ),
               ),
@@ -244,11 +258,15 @@ class _StoryShareSheetState extends State<_StoryShareSheet> {
       return const Center(child: CircularProgressIndicator());
     }
     if (_failed) {
-      return const Center(child: Text('Could not load your chats'));
+      return Center(
+        child: Text(AppLocalizations.of(context)!.couldNotLoadChats),
+      );
     }
     final results = _filtered;
     if (results.isEmpty) {
-      return const Center(child: Text('No recent chats to send to'));
+      return Center(
+        child: Text(AppLocalizations.of(context)!.noRecentChatsToSendTo),
+      );
     }
     return ListView.builder(
       itemCount: results.length,
@@ -265,7 +283,9 @@ class _StoryShareSheetState extends State<_StoryShareSheet> {
           ),
           title: Text(partner.name),
           trailing: Icon(
-            isSelected ? Icons.check_circle_rounded : Icons.radio_button_unchecked,
+            isSelected
+                ? Icons.check_circle_rounded
+                : Icons.radio_button_unchecked,
             color: isSelected ? AppColors.primary : Theme.of(context).hintColor,
           ),
           onTap: () => _toggle(partner.id),

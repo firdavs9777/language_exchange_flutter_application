@@ -207,8 +207,8 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
     final currentUser = ref.watch(userProvider).valueOrNull;
     final String? profileAvatarUrl =
         (currentUser != null && currentUser.imageUrls.isNotEmpty)
-            ? currentUser.imageUrls.first
-            : null;
+        ? currentUser.imageUrls.first
+        : null;
 
     return PopScope(
       canPop: false,
@@ -245,74 +245,74 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
               bottom: bottomPadding > 0 ? bottomPadding - 4 : 8,
               child: Center(
                 child: ClipRRect(
-                borderRadius: BorderRadius.circular(30),
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
-                  child: Container(
-                    height: 60,
-                    padding: const EdgeInsets.symmetric(horizontal: 6),
-                    decoration: BoxDecoration(
-                      color: isDark
-                          ? const Color(0xFF1C1C2E).withValues(alpha: 0.92)
-                          : Colors.white.withValues(alpha: 0.92),
-                      borderRadius: BorderRadius.circular(30),
-                      border: Border.all(
+                  borderRadius: BorderRadius.circular(30),
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
+                    child: Container(
+                      height: 60,
+                      padding: const EdgeInsets.symmetric(horizontal: 6),
+                      decoration: BoxDecoration(
                         color: isDark
-                            ? Colors.white.withValues(alpha: 0.08)
-                            : Colors.black.withValues(alpha: 0.06),
-                      ),
-                      boxShadow: [
-                        BoxShadow(
+                            ? const Color(0xFF1C1C2E).withValues(alpha: 0.92)
+                            : Colors.white.withValues(alpha: 0.92),
+                        borderRadius: BorderRadius.circular(30),
+                        border: Border.all(
                           color: isDark
-                              ? Colors.black.withValues(alpha: 0.4)
-                              : Colors.black.withValues(alpha: 0.08),
-                          blurRadius: 24,
-                          offset: const Offset(0, 4),
-                          spreadRadius: -2,
+                              ? Colors.white.withValues(alpha: 0.08)
+                              : Colors.black.withValues(alpha: 0.06),
                         ),
-                      ],
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        _buildNavItem(
-                          index: 0,
-                          icon: Icons.menu_book_outlined,
-                          activeIcon: Icons.menu_book_rounded,
-                          isDark: isDark,
-                        ),
-                        _buildNavItem(
-                          index: 1,
-                          icon: Icons.explore_outlined,
-                          activeIcon: Icons.explore_rounded,
-                          isDark: isDark,
-                        ),
-                        _buildNavItem(
-                          index: 2,
-                          icon: Icons.chat_bubble_outline_rounded,
-                          activeIcon: Icons.chat_bubble_rounded,
-                          imageAsset: 'assets/images/logo_mark_ios.png',
-                          badgeCount: messageCount,
-                          isDark: isDark,
-                        ),
-                        _buildNavItem(
-                          index: 3,
-                          icon: Icons.auto_awesome_outlined,
-                          activeIcon: Icons.auto_awesome_rounded,
-                          isDark: isDark,
-                        ),
-                        _buildNavItem(
-                          index: 4,
-                          icon: Icons.person_outline_rounded,
-                          activeIcon: Icons.person_rounded,
-                          avatarUrl: profileAvatarUrl,
-                          badgeCount: badgeCount.notifications,
-                          isDark: isDark,
-                        ),
-                      ],
+                        boxShadow: [
+                          BoxShadow(
+                            color: isDark
+                                ? Colors.black.withValues(alpha: 0.4)
+                                : Colors.black.withValues(alpha: 0.08),
+                            blurRadius: 24,
+                            offset: const Offset(0, 4),
+                            spreadRadius: -2,
+                          ),
+                        ],
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          _buildNavItem(
+                            index: 0,
+                            icon: Icons.menu_book_outlined,
+                            activeIcon: Icons.menu_book_rounded,
+                            isDark: isDark,
+                          ),
+                          _buildNavItem(
+                            index: 1,
+                            icon: Icons.explore_outlined,
+                            activeIcon: Icons.explore_rounded,
+                            isDark: isDark,
+                          ),
+                          _buildNavItem(
+                            index: 2,
+                            icon: Icons.chat_bubble_outline_rounded,
+                            activeIcon: Icons.chat_bubble_rounded,
+                            imageAsset: 'assets/images/logo_mark_ios.png',
+                            badgeCount: messageCount,
+                            isDark: isDark,
+                          ),
+                          _buildNavItem(
+                            index: 3,
+                            icon: Icons.auto_awesome_outlined,
+                            activeIcon: Icons.auto_awesome_rounded,
+                            isDark: isDark,
+                          ),
+                          _buildNavItem(
+                            index: 4,
+                            icon: Icons.person_outline_rounded,
+                            activeIcon: Icons.person_rounded,
+                            avatarUrl: profileAvatarUrl,
+                            badgeCount: badgeCount.notifications,
+                            isDark: isDark,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
                 ),
               ),
             ),
@@ -340,11 +340,11 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
         : Colors.black.withValues(alpha: 0.35);
 
     return GestureDetector(
-        onTap: () => _selectPage(index),
-        behavior: HitTestBehavior.opaque,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 9),
-          child: Column(
+      onTap: () => _selectPage(index),
+      behavior: HitTestBehavior.opaque,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 9),
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             // Icon with badge — selected state = contrast circle bubble
@@ -361,8 +361,8 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
                     shape: BoxShape.circle,
                     color: isSelected
                         ? (isDark
-                            ? Colors.white.withValues(alpha: 0.12)
-                            : Colors.black.withValues(alpha: 0.07))
+                              ? Colors.white.withValues(alpha: 0.12)
+                              : Colors.black.withValues(alpha: 0.07))
                         : Colors.transparent,
                   ),
                   child: Center(
@@ -384,8 +384,9 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
                             child: CircleAvatar(
                               radius: 11.5,
                               backgroundColor: inactiveColor,
-                              backgroundImage:
-                                  CachedNetworkImageProvider(avatarUrl),
+                              backgroundImage: CachedNetworkImageProvider(
+                                avatarUrl,
+                              ),
                             ),
                           )
                         : imageAsset != null
@@ -417,7 +418,10 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
                     right: -7,
                     top: -4,
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 1.5),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 5,
+                        vertical: 1.5,
+                      ),
                       decoration: BoxDecoration(
                         color: AppColors.error,
                         borderRadius: BorderRadius.circular(10),
@@ -452,18 +456,24 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
             ),
           ],
         ),
-        ),
-      );
+      ),
+    );
   }
 
   Color _getTabColor(int index) {
     switch (index) {
-      case 0: return const Color(0xFF8B5CF6);
-      case 1: return const Color(0xFF00BFA5);
-      case 2: return const Color(0xFF667EEA);
-      case 3: return const Color(0xFFFF6B6B);
-      case 4: return const Color(0xFFF59E0B);
-      default: return AppColors.primary;
+      case 0:
+        return const Color(0xFF8B5CF6);
+      case 1:
+        return const Color(0xFF00BFA5);
+      case 2:
+        return const Color(0xFF667EEA);
+      case 3:
+        return const Color(0xFFFF6B6B);
+      case 4:
+        return const Color(0xFFF59E0B);
+      default:
+        return AppColors.primary;
     }
   }
 }
@@ -492,9 +502,10 @@ class _CoffeeButtonState extends State<_CoffeeButton>
       reverseDuration: const Duration(milliseconds: 200),
       value: 1.0,
     );
-    _scale = Tween<double>(begin: 0.93, end: 1.0).animate(
-      CurvedAnimation(parent: _ctrl, curve: Curves.easeOut),
-    );
+    _scale = Tween<double>(
+      begin: 0.93,
+      end: 1.0,
+    ).animate(CurvedAnimation(parent: _ctrl, curve: Curves.easeOut));
     // Auto-collapse label after 4 seconds to keep it unobtrusive
     Future.delayed(const Duration(seconds: 4), () {
       if (mounted) setState(() => _expanded = false);
@@ -522,7 +533,10 @@ class _CoffeeButtonState extends State<_CoffeeButton>
   Widget build(BuildContext context) {
     return GestureDetector(
       onTapDown: (_) => _ctrl.animateTo(0.0),
-      onTapUp: (_) async { _ctrl.animateTo(1.0); await _open(); },
+      onTapUp: (_) async {
+        _ctrl.animateTo(1.0);
+        await _open();
+      },
       onTapCancel: () => _ctrl.animateTo(1.0),
       onTap: () {
         // Expand label on tap if collapsed
@@ -530,14 +544,13 @@ class _CoffeeButtonState extends State<_CoffeeButton>
       },
       child: AnimatedBuilder(
         animation: _scale,
-        builder: (context, child) => Transform.scale(scale: _scale.value, child: child),
+        builder: (context, child) =>
+            Transform.scale(scale: _scale.value, child: child),
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 350),
           curve: Curves.easeInOutCubic,
           height: 38,
-          padding: EdgeInsets.symmetric(
-            horizontal: _expanded ? 14 : 10,
-          ),
+          padding: EdgeInsets.symmetric(horizontal: _expanded ? 14 : 10),
           decoration: BoxDecoration(
             gradient: const LinearGradient(
               colors: [Color(0xFFFFDD57), Color(0xFFFFBB00)],
@@ -632,16 +645,18 @@ class _SupportSheetState extends State<_SupportSheet> {
       if (!adService.isRewardedAdReady) {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Ad not ready yet — try again in a moment')),
+            SnackBar(content: Text(AppLocalizations.of(context)!.adNotReady)),
           );
         }
         return;
       }
     }
 
-    await adService.showRewarded(onRewarded: () {
-      if (mounted) setState(() => _adWatched = true);
-    });
+    await adService.showRewarded(
+      onRewarded: () {
+        if (mounted) setState(() => _adWatched = true);
+      },
+    );
   }
 
   @override
@@ -699,19 +714,19 @@ class _SupportSheetState extends State<_SupportSheet> {
           Container(
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
-              color: const Color(0xFF00BFA5).withValues(alpha: isDark ? 0.12 : 0.07),
+              color: const Color(
+                0xFF00BFA5,
+              ).withValues(alpha: isDark ? 0.12 : 0.07),
               borderRadius: BorderRadius.circular(20),
               border: Border.all(
-                color: const Color(0xFF00BFA5).withValues(alpha: isDark ? 0.22 : 0.18),
+                color: const Color(
+                  0xFF00BFA5,
+                ).withValues(alpha: isDark ? 0.22 : 0.18),
               ),
             ),
             child: Text(
               l10n.supportSheetStory,
-              style: TextStyle(
-                fontSize: 14,
-                color: textSecondary,
-                height: 1.6,
-              ),
+              style: TextStyle(fontSize: 14, color: textSecondary, height: 1.6),
             ),
           ),
           const SizedBox(height: 20),
@@ -733,9 +748,11 @@ class _SupportSheetState extends State<_SupportSheet> {
                 borderRadius: BorderRadius.circular(16),
                 boxShadow: [
                   BoxShadow(
-                    color: (_adWatched
-                        ? const Color(0xFF43A047)
-                        : const Color(0xFFFF6F00)).withValues(alpha: 0.35),
+                    color:
+                        (_adWatched
+                                ? const Color(0xFF43A047)
+                                : const Color(0xFFFF6F00))
+                            .withValues(alpha: 0.35),
                     blurRadius: 18,
                     offset: const Offset(0, 6),
                   ),
@@ -779,12 +796,19 @@ class _SupportSheetState extends State<_SupportSheet> {
           // Divider with "or"
           Row(
             children: [
-              Expanded(child: Divider(color: textSecondary.withValues(alpha: 0.3))),
+              Expanded(
+                child: Divider(color: textSecondary.withValues(alpha: 0.3)),
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 12),
-                child: Text('or', style: TextStyle(color: textSecondary, fontSize: 13)),
+                child: Text(
+                  'or',
+                  style: TextStyle(color: textSecondary, fontSize: 13),
+                ),
               ),
-              Expanded(child: Divider(color: textSecondary.withValues(alpha: 0.3))),
+              Expanded(
+                child: Divider(color: textSecondary.withValues(alpha: 0.3)),
+              ),
             ],
           ),
           const SizedBox(height: 12),

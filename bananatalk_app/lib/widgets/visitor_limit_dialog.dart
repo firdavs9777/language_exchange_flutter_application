@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/vip_subscription.dart';
 import 'package:bananatalk_app/pages/vip/visitor_upgrade_screen.dart';
 import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
@@ -51,15 +52,11 @@ class VisitorLimitDialog extends StatelessWidget {
     }
 
     return AlertDialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       contentPadding: EdgeInsets.zero,
       content: Container(
         width: double.infinity,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-        ),
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -76,11 +73,7 @@ class VisitorLimitDialog extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  Icon(
-                    icon,
-                    size: 48,
-                    color: Colors.white,
-                  ),
+                  Icon(icon, size: 48, color: Colors.white),
                   const SizedBox(height: 12),
                   Text(
                     title,
@@ -108,10 +101,7 @@ class VisitorLimitDialog extends StatelessWidget {
                   const SizedBox(height: 24),
                   const Text(
                     'Choose an option:',
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 16),
 
@@ -150,9 +140,7 @@ class VisitorLimitDialog extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => VipPlansScreen(
-                            userId: userId,
-                          ),
+                          builder: (context) => VipPlansScreen(userId: userId),
                         ),
                       );
                     },
@@ -164,7 +152,7 @@ class VisitorLimitDialog extends StatelessWidget {
             // Cancel Button
             TextButton(
               onPressed: () => Navigator.of(context).pop(false),
-              child: const Text('Maybe Later'),
+              child: Text(AppLocalizations.of(context)!.maybeLater),
             ),
             const SizedBox(height: 8),
           ],
@@ -200,11 +188,7 @@ class VisitorLimitDialog extends StatelessWidget {
                 color: color.withOpacity(0.2),
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: Icon(
-                icon,
-                color: color,
-                size: 24,
-              ),
+              child: Icon(icon, color: color, size: 24),
             ),
             const SizedBox(width: 16),
             Expanded(
@@ -221,19 +205,12 @@ class VisitorLimitDialog extends StatelessWidget {
                   const SizedBox(height: 4),
                   Text(
                     description,
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.grey[600],
-                    ),
+                    style: TextStyle(fontSize: 12, color: Colors.grey[600]),
                   ),
                 ],
               ),
             ),
-            Icon(
-              Icons.arrow_forward_ios,
-              size: 16,
-              color: color,
-            ),
+            Icon(Icons.arrow_forward_ios, size: 16, color: color),
           ],
         ),
       ),

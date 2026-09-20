@@ -316,8 +316,8 @@ class _ReelsFeedScreenState extends ConsumerState<ReelsFeedScreen>
 
   void _showSavedToast() {
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Saved. Find it in Profile → Saved.'),
+      SnackBar(
+        content: Text(AppLocalizations.of(context)!.savedFindInProfile),
         duration: Duration(seconds: 2),
         behavior: SnackBarBehavior.floating,
         backgroundColor: Color(0xFF00BFA5),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/user_limits.dart';
 import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
 import 'package:bananatalk_app/services/ad_service.dart';
@@ -114,9 +115,7 @@ class LimitExceededDialog extends StatelessWidget {
     final secondaryText = context.textSecondary;
 
     return AlertDialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       contentPadding: const EdgeInsets.fromLTRB(24, 20, 24, 0),
       title: Row(
         children: [
@@ -126,11 +125,7 @@ class LimitExceededDialog extends StatelessWidget {
               color: colorScheme.errorContainer,
               borderRadius: BorderRadius.circular(8),
             ),
-            child: Icon(
-              Icons.info_outline,
-              color: colorScheme.error,
-              size: 24,
-            ),
+            child: Icon(Icons.info_outline, color: colorScheme.error, size: 24),
           ),
           const SizedBox(width: 12),
           Expanded(
@@ -152,11 +147,7 @@ class LimitExceededDialog extends StatelessWidget {
           children: [
             Text(
               errorMessage ?? _getLimitTypeDescription(),
-              style: TextStyle(
-                fontSize: 14,
-                color: textPrimary,
-                height: 1.5,
-              ),
+              style: TextStyle(fontSize: 14, color: textPrimary, height: 1.5),
             ),
             if (limitInfo != null && !limitInfo!.isUnlimited) ...[
               const SizedBox(height: 16),
@@ -173,10 +164,7 @@ class LimitExceededDialog extends StatelessWidget {
                       children: [
                         Text(
                           '${_getLimitTypeLabel()} Used',
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: secondaryText,
-                          ),
+                          style: TextStyle(fontSize: 12, color: secondaryText),
                         ),
                         Text(
                           '${limitInfo!.currentInt} / ${limitInfo!.maxInt}',
@@ -194,7 +182,9 @@ class LimitExceededDialog extends StatelessWidget {
                       child: LinearProgressIndicator(
                         value: limitInfo!.usagePercentage,
                         backgroundColor: colorScheme.surface,
-                        valueColor: AlwaysStoppedAnimation<Color>(colorScheme.error),
+                        valueColor: AlwaysStoppedAnimation<Color>(
+                          colorScheme.error,
+                        ),
                         minHeight: 8,
                       ),
                     ),
@@ -312,10 +302,7 @@ class LimitExceededDialog extends StatelessWidget {
           onPressed: () => Navigator.pop(context),
           child: Text(
             'Maybe Later',
-            style: TextStyle(
-              color: secondaryText,
-              fontWeight: FontWeight.w500,
-            ),
+            style: TextStyle(color: secondaryText, fontWeight: FontWeight.w500),
           ),
         ),
         if (_featureKeyForUnlock() != null)
@@ -337,7 +324,7 @@ class LimitExceededDialog extends StatelessWidget {
               );
             },
             icon: const Icon(Icons.play_circle_outline, size: 18),
-            label: const Text('Watch Ad'),
+            label: Text(AppLocalizations.of(context)!.watchAd),
             style: OutlinedButton.styleFrom(
               foregroundColor: const Color(0xFF667EEA),
               side: const BorderSide(color: Color(0xFF667EEA)),
@@ -387,22 +374,14 @@ class LimitExceededDialog extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 3),
       child: Row(
         children: [
-          const Icon(
-            Icons.check_circle,
-            color: Color(0xFF4CAF50),
-            size: 16,
-          ),
+          const Icon(Icons.check_circle, color: Color(0xFF4CAF50), size: 16),
           const SizedBox(width: 8),
           Text(
             text,
-            style: const TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.w500,
-            ),
+            style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
           ),
         ],
       ),
     );
   }
 }
-

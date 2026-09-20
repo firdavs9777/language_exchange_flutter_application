@@ -15,7 +15,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get aiStudyPromoTitle => 'Luyện tập với kịch bản AI';
 
   @override
-  String get aiStudyPromoBody => 'Đóng vai các cuộc trò chuyện đời thực cùng gia sư AI và xây dựng sự tự tin khi nói.';
+  String get aiStudyPromoBody =>
+      'Đóng vai các cuộc trò chuyện đời thực cùng gia sư AI và xây dựng sự tự tin khi nói.';
 
   @override
   String get aiStudyPromoCTA => 'Thử một kịch bản';
@@ -24,22 +25,26 @@ class AppLocalizationsVi extends AppLocalizations {
   String get aiStudyPromoDismiss => 'Để sau';
 
   @override
-  String get promoSpotlightCoinsHeadline => 'Đừng bao giờ hết xu giữa cuộc trò chuyện';
+  String get promoSpotlightCoinsHeadline =>
+      'Đừng bao giờ hết xu giữa cuộc trò chuyện';
 
   @override
-  String get promoSpotlightCoinsSubtitle => 'Nhận xu để mở khóa thêm bản dịch, trò chuyện với gia sư và khoảnh khắc mỗi khi bạn đạt giới hạn hàng ngày.';
+  String get promoSpotlightCoinsSubtitle =>
+      'Nhận xu để mở khóa thêm bản dịch, trò chuyện với gia sư và khoảnh khắc mỗi khi bạn đạt giới hạn hàng ngày.';
 
   @override
   String get promoSpotlightRoomsHeadline => 'Tham gia một phòng chủ đề';
 
   @override
-  String get promoSpotlightRoomsSubtitle => 'Vào một phòng trò chuyện văn bản trực tiếp và luyện tập cùng những người học đang nói về chủ đề bạn quan tâm.';
+  String get promoSpotlightRoomsSubtitle =>
+      'Vào một phòng trò chuyện văn bản trực tiếp và luyện tập cùng những người học đang nói về chủ đề bạn quan tâm.';
 
   @override
   String get promoSpotlightVoiceHeadline => 'Tham gia một phòng thoại';
 
   @override
-  String get promoSpotlightVoiceSubtitle => 'Trò chuyện trực tiếp với những người học khác và xây dựng sự tự tin nói thật sự, từng cuộc trò chuyện một.';
+  String get promoSpotlightVoiceSubtitle =>
+      'Trò chuyện trực tiếp với những người học khác và xây dựng sự tự tin nói thật sự, từng cuộc trò chuyện một.';
 
   @override
   String get promoSpotlightTryIt => 'Thử ngay';
@@ -243,16 +248,19 @@ class AppLocalizationsVi extends AppLocalizations {
   String get autoTranslateSettings => 'Cài đặt tự động dịch';
 
   @override
-  String get automaticallyTranslateIncomingMessages => 'Tự động dịch tin nhắn đến';
+  String get automaticallyTranslateIncomingMessages =>
+      'Tự động dịch tin nhắn đến';
 
   @override
-  String get automaticallyTranslateMomentsInFeed => 'Tự động dịch khoảnh khắc trong bảng tin';
+  String get automaticallyTranslateMomentsInFeed =>
+      'Tự động dịch khoảnh khắc trong bảng tin';
 
   @override
   String get automaticallyTranslateComments => 'Tự động dịch bình luận';
 
   @override
-  String get translationServiceBeingConfigured => 'Dịch vụ dịch đang được cấu hình. Vui lòng thử lại sau.';
+  String get translationServiceBeingConfigured =>
+      'Dịch vụ dịch đang được cấu hình. Vui lòng thử lại sau.';
 
   @override
   String get translationUnavailable => 'Không thể dịch';
@@ -306,7 +314,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get userNotFound => 'Không tìm thấy người dùng';
 
   @override
-  String get cannotReportYourOwnComment => 'Không thể báo cáo bình luận của chính bạn';
+  String get cannotReportYourOwnComment =>
+      'Không thể báo cáo bình luận của chính bạn';
 
   @override
   String get profileSettings => 'Cài đặt hồ sơ';
@@ -345,16 +354,19 @@ class AppLocalizationsVi extends AppLocalizations {
   String get clearCacheSubtitle => 'Giải phóng dung lượng lưu trữ';
 
   @override
-  String get clearCacheDescription => 'Thao tác này sẽ xóa tất cả hình ảnh, video và file âm thanh đã lưu trong bộ nhớ đệm. Ứng dụng có thể tải nội dung chậm hơn tạm thời khi tải lại phương tiện.';
+  String get clearCacheDescription =>
+      'Thao tác này sẽ xóa tất cả hình ảnh, video và file âm thanh đã lưu trong bộ nhớ đệm. Ứng dụng có thể tải nội dung chậm hơn tạm thời khi tải lại phương tiện.';
 
   @override
-  String get clearCacheHint => 'Sử dụng tính năng này nếu hình ảnh hoặc âm thanh không tải đúng cách.';
+  String get clearCacheHint =>
+      'Sử dụng tính năng này nếu hình ảnh hoặc âm thanh không tải đúng cách.';
 
   @override
   String get clearingCache => 'Đang xóa bộ nhớ đệm...';
 
   @override
-  String get cacheCleared => 'Đã xóa bộ nhớ đệm thành công! Hình ảnh sẽ được tải lại.';
+  String get cacheCleared =>
+      'Đã xóa bộ nhớ đệm thành công! Hình ảnh sẽ được tải lại.';
 
   @override
   String get clearCacheFailed => 'Không thể xóa bộ nhớ đệm';
@@ -375,7 +387,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get legalPrivacy => 'Pháp lý & Quyền riêng tư';
 
   @override
-  String get termsPrivacySubscriptionInfo => 'Điều khoản, Quyền riêng tư & Thông tin đăng ký';
+  String get termsPrivacySubscriptionInfo =>
+      'Điều khoản, Quyền riêng tư & Thông tin đăng ký';
 
   @override
   String get helpCenter => 'Trung tâm trợ giúp';
@@ -387,7 +400,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get aiTutorChangePersona => 'Đổi gia sư AI';
 
   @override
-  String get aiTutorChangePersonaSubtitle => 'Chuyển sang Nana, Sensei hoặc Riko';
+  String get aiTutorChangePersonaSubtitle =>
+      'Chuyển sang Nana, Sensei hoặc Riko';
 
   @override
   String aiTutorHeroTitleSet(String name) {
@@ -398,7 +412,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get aiTutorHeroTitleNew => 'Gặp gia sư AI của bạn';
 
   @override
-  String get aiTutorHeroSubtitleSet => 'Chạm để trò chuyện hoặc xem kế hoạch hôm nay';
+  String get aiTutorHeroSubtitleSet =>
+      'Chạm để trò chuyện hoặc xem kế hoạch hôm nay';
 
   @override
   String aiTutorHeroSubtitleLast(String summary) {
@@ -406,7 +421,8 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
-  String get aiTutorHeroSubtitleNew => 'Chọn một nhân vật — Nana, Sensei hoặc Riko';
+  String get aiTutorHeroSubtitleNew =>
+      'Chọn một nhân vật — Nana, Sensei hoặc Riko';
 
   @override
   String get aiTutorChipChat => 'Trò chuyện';
@@ -436,7 +452,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get aiTutorPickerHeader => 'Bạn muốn học cùng ai?';
 
   @override
-  String get aiTutorPickerSubtitle => 'Bạn có thể thay đổi bất kỳ lúc nào trong cài đặt.';
+  String get aiTutorPickerSubtitle =>
+      'Bạn có thể thay đổi bất kỳ lúc nào trong cài đặt.';
 
   @override
   String get aiTutorPersonaNanaTagline => 'Ấm áp + khích lệ';
@@ -474,7 +491,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get aiTutorHomeTodaysPlan => 'Kế hoạch hôm nay';
 
   @override
-  String get aiTutorHomePlanEmpty => 'Hôm nay chưa có kế hoạch — bắt đầu trò chuyện để bắt đầu.';
+  String get aiTutorHomePlanEmpty =>
+      'Hôm nay chưa có kế hoạch — bắt đầu trò chuyện để bắt đầu.';
 
   @override
   String get aiTutorHomeStartChat => 'Bắt đầu trò chuyện';
@@ -486,19 +504,22 @@ class AppLocalizationsVi extends AppLocalizations {
   String get aiTutorHomePracticeScenarios => 'Kịch bản luyện tập';
 
   @override
-  String get aiTutorHomePracticeScenariosSubtitle => 'Đóng vai các cuộc trò chuyện thực tế — nhà hàng, phỏng vấn, khách sạn…';
+  String get aiTutorHomePracticeScenariosSubtitle =>
+      'Đóng vai các cuộc trò chuyện thực tế — nhà hàng, phỏng vấn, khách sạn…';
 
   @override
   String get aiTutorHomeReadStory => 'Đọc truyện';
 
   @override
-  String get aiTutorHomeReadStorySubtitle => 'AI viết truyện ngắn dùng từ vựng của bạn — kèm câu hỏi hiểu nhanh.';
+  String get aiTutorHomeReadStorySubtitle =>
+      'AI viết truyện ngắn dùng từ vựng của bạn — kèm câu hỏi hiểu nhanh.';
 
   @override
   String get aiTutorHomeDescribePhoto => 'Mô tả ảnh';
 
   @override
-  String get aiTutorHomeDescribePhotoSubtitle => 'Chụp ảnh và mô tả — AI chấm từ vựng + ngữ pháp.';
+  String get aiTutorHomeDescribePhotoSubtitle =>
+      'Chụp ảnh và mô tả — AI chấm từ vựng + ngữ pháp.';
 
   @override
   String get aiTutorChatTitle => 'Trò chuyện với gia sư';
@@ -528,7 +549,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get aiTutorChatTypeReplyHint => 'Nhập câu trả lời…';
 
   @override
-  String get aiTutorChatMicPermissionDenied => 'Cần quyền micro cho chế độ giọng nói.';
+  String get aiTutorChatMicPermissionDenied =>
+      'Cần quyền micro cho chế độ giọng nói.';
 
   @override
   String get aiTutorChatTranscribeFailed => 'Không nghe rõ — thử lại.';
@@ -632,7 +654,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get aiTutorImagePickHeader => 'Chọn ảnh để mô tả';
 
   @override
-  String get aiTutorImagePickSubtitle => 'AI sẽ đưa ra gợi ý bằng ngôn ngữ mục tiêu của bạn, rồi chấm điểm mô tả.';
+  String get aiTutorImagePickSubtitle =>
+      'AI sẽ đưa ra gợi ý bằng ngôn ngữ mục tiêu của bạn, rồi chấm điểm mô tả.';
 
   @override
   String get aiTutorImagePickCamera => 'Máy ảnh';
@@ -770,7 +793,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get searchConversations => 'Tìm kiếm cuộc trò chuyện...';
 
   @override
-  String get visitorTrackingNotAvailable => 'Tính năng theo dõi khách truy cập chưa khả dụng.';
+  String get visitorTrackingNotAvailable =>
+      'Tính năng theo dõi khách truy cập chưa khả dụng.';
 
   @override
   String get chatList => 'Danh sách chat';
@@ -848,13 +872,16 @@ class AppLocalizationsVi extends AppLocalizations {
   String get chatMessages => 'Tin nhắn chat';
 
   @override
-  String get getNotifiedWhenYouReceiveMessages => 'Nhận thông báo khi có tin nhắn mới';
+  String get getNotifiedWhenYouReceiveMessages =>
+      'Nhận thông báo khi có tin nhắn mới';
 
   @override
-  String get likesAndCommentsOnYourMoments => 'Lượt thích và bình luận trên khoảnh khắc của bạn';
+  String get likesAndCommentsOnYourMoments =>
+      'Lượt thích và bình luận trên khoảnh khắc của bạn';
 
   @override
-  String get whenPeopleYouFollowPostMoments => 'Khi người bạn theo dõi đăng khoảnh khắc';
+  String get whenPeopleYouFollowPostMoments =>
+      'Khi người bạn theo dõi đăng khoảnh khắc';
 
   @override
   String get friendRequests => 'Lời mời kết bạn';
@@ -866,7 +893,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get profileVisits => 'Lượt xem hồ sơ';
 
   @override
-  String get whenSomeoneViewsYourProfileVIP => 'Khi ai đó xem hồ sơ của bạn (VIP)';
+  String get whenSomeoneViewsYourProfileVIP =>
+      'Khi ai đó xem hồ sơ của bạn (VIP)';
 
   @override
   String get marketing => 'Tiếp thị';
@@ -893,7 +921,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get showPreview => 'Hiển thị xem trước';
 
   @override
-  String get showMessagePreviewInNotifications => 'Hiển thị xem trước tin nhắn trong thông báo';
+  String get showMessagePreviewInNotifications =>
+      'Hiển thị xem trước tin nhắn trong thông báo';
 
   @override
   String get mutedConversations => 'Cuộc trò chuyện đã tắt tiếng';
@@ -911,7 +940,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get systemNotificationSettings => 'Cài đặt thông báo hệ thống';
 
   @override
-  String get manageNotificationsInSystemSettings => 'Quản lý thông báo trong cài đặt hệ thống';
+  String get manageNotificationsInSystemSettings =>
+      'Quản lý thông báo trong cài đặt hệ thống';
 
   @override
   String get errorLoadingSettings => 'Lỗi khi tải cài đặt';
@@ -926,16 +956,19 @@ class AppLocalizationsVi extends AppLocalizations {
   String get goBack => 'Quay lại';
 
   @override
-  String get messageSendTimeout => 'Hết thời gian gửi tin nhắn. Vui lòng kiểm tra kết nối.';
+  String get messageSendTimeout =>
+      'Hết thời gian gửi tin nhắn. Vui lòng kiểm tra kết nối.';
 
   @override
   String get failedToSendMessage => 'Gửi tin nhắn thất bại';
 
   @override
-  String get dailyMessageLimitExceeded => 'Đã vượt quá giới hạn tin nhắn hàng ngày. Nâng cấp VIP để gửi không giới hạn.';
+  String get dailyMessageLimitExceeded =>
+      'Đã vượt quá giới hạn tin nhắn hàng ngày. Nâng cấp VIP để gửi không giới hạn.';
 
   @override
-  String get cannotSendMessageUserMayBeBlocked => 'Không thể gửi tin nhắn. Người dùng có thể đã bị chặn.';
+  String get cannotSendMessageUserMayBeBlocked =>
+      'Không thể gửi tin nhắn. Người dùng có thể đã bị chặn.';
 
   @override
   String get sessionExpired => 'Phiên đã hết hạn. Vui lòng đăng nhập lại.';
@@ -944,19 +977,22 @@ class AppLocalizationsVi extends AppLocalizations {
   String get sendThisSticker => 'Gửi sticker này?';
 
   @override
-  String get chooseHowYouWantToDeleteThisMessage => 'Chọn cách bạn muốn xóa tin nhắn này:';
+  String get chooseHowYouWantToDeleteThisMessage =>
+      'Chọn cách bạn muốn xóa tin nhắn này:';
 
   @override
   String get deleteForEveryone => 'Xóa cho tất cả';
 
   @override
-  String get removesTheMessageForBothYouAndTheRecipient => 'Xóa tin nhắn cho cả bạn và người nhận';
+  String get removesTheMessageForBothYouAndTheRecipient =>
+      'Xóa tin nhắn cho cả bạn và người nhận';
 
   @override
   String get deleteForMe => 'Xóa cho tôi';
 
   @override
-  String get removesTheMessageOnlyFromYourChat => 'Chỉ xóa tin nhắn khỏi chat của bạn';
+  String get removesTheMessageOnlyFromYourChat =>
+      'Chỉ xóa tin nhắn khỏi chat của bạn';
 
   @override
   String get copy => 'Sao chép';
@@ -971,7 +1007,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get moreOptions => 'Thêm tùy chọn';
 
   @override
-  String get noUsersAvailableToForwardTo => 'Không có người dùng để chuyển tiếp';
+  String get noUsersAvailableToForwardTo =>
+      'Không có người dùng để chuyển tiếp';
 
   @override
   String get searchMoments => 'Tìm kiếm khoảnh khắc...';
@@ -1024,7 +1061,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get provideMoreInformation => 'Cung cấp thêm thông tin...';
 
   @override
-  String get searchByNameLanguageOrInterests => 'Tìm theo tên, ngôn ngữ hoặc sở thích...';
+  String get searchByNameLanguageOrInterests =>
+      'Tìm theo tên, ngôn ngữ hoặc sở thích...';
 
   @override
   String get addTagAndPressEnter => 'Thêm thẻ và nhấn enter';
@@ -1057,10 +1095,12 @@ class AppLocalizationsVi extends AppLocalizations {
   String get additionalDetailsOptional => 'Chi tiết bổ sung (tùy chọn)';
 
   @override
-  String get warningThisActionIsPermanent => 'Cảnh báo: Hành động này là vĩnh viễn!';
+  String get warningThisActionIsPermanent =>
+      'Cảnh báo: Hành động này là vĩnh viễn!';
 
   @override
-  String get deletingYourAccountWillPermanentlyRemove => 'Xóa tài khoản của bạn sẽ vĩnh viễn xóa:\n\n• Hồ sơ và toàn bộ dữ liệu cá nhân của bạn\n• Tất cả tin nhắn và cuộc trò chuyện của bạn\n• Tất cả khoảnh khắc và story của bạn\n• Gói đăng ký VIP của bạn (không hoàn tiền)\n• Tất cả kết nối và người theo dõi của bạn\n\nHành động này không thể hoàn tác.';
+  String get deletingYourAccountWillPermanentlyRemove =>
+      'Xóa tài khoản của bạn sẽ vĩnh viễn xóa:\n\n• Hồ sơ và toàn bộ dữ liệu cá nhân của bạn\n• Tất cả tin nhắn và cuộc trò chuyện của bạn\n• Tất cả khoảnh khắc và story của bạn\n• Gói đăng ký VIP của bạn (không hoàn tiền)\n• Tất cả kết nối và người theo dõi của bạn\n\nHành động này không thể hoàn tác.';
 
   @override
   String get clearAllNotifications => 'Xóa tất cả thông báo?';
@@ -1132,7 +1172,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get emailNotifications => 'Thông báo email';
 
   @override
-  String get receiveEmailNotificationsFromBananatalk => 'Nhận thông báo email từ Bananatalk';
+  String get receiveEmailNotificationsFromBananatalk =>
+      'Nhận thông báo email từ Bananatalk';
 
   @override
   String get weeklySummary => 'Tóm tắt hàng tuần';
@@ -1197,7 +1238,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get deleteStory => 'Xóa story?';
 
   @override
-  String get thisStoryWillBeRemovedPermanently => 'Story này sẽ bị xóa vĩnh viễn.';
+  String get thisStoryWillBeRemovedPermanently =>
+      'Story này sẽ bị xóa vĩnh viễn.';
 
   @override
   String get noStories => 'Không có story';
@@ -1241,10 +1283,12 @@ class AppLocalizationsVi extends AppLocalizations {
   String get change => 'Thay đổi';
 
   @override
-  String get userIdNotFound => 'Không tìm thấy User ID. Vui lòng đăng nhập lại.';
+  String get userIdNotFound =>
+      'Không tìm thấy User ID. Vui lòng đăng nhập lại.';
 
   @override
-  String get pleaseSelectAPaymentMethod => 'Vui lòng chọn phương thức thanh toán';
+  String get pleaseSelectAPaymentMethod =>
+      'Vui lòng chọn phương thức thanh toán';
 
   @override
   String get startExploring => 'Bắt đầu khám phá';
@@ -1271,7 +1315,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get cancelSubscription => 'Hủy đăng ký';
 
   @override
-  String get vipSubscriptionCancelledSuccessfully => 'Đã hủy đăng ký VIP thành công';
+  String get vipSubscriptionCancelledSuccessfully =>
+      'Đã hủy đăng ký VIP thành công';
 
   @override
   String get vipStatus => 'Trạng thái VIP';
@@ -1283,7 +1328,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get subscriptionExpired => 'Đăng ký đã hết hạn';
 
   @override
-  String get vipExpiredMessage => 'Đăng ký VIP của bạn đã hết hạn. Gia hạn ngay để tiếp tục tận hưởng các tính năng không giới hạn!';
+  String get vipExpiredMessage =>
+      'Đăng ký VIP của bạn đã hết hạn. Gia hạn ngay để tiếp tục tận hưởng các tính năng không giới hạn!';
 
   @override
   String get expiredOn => 'Hết hạn vào';
@@ -1397,7 +1443,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get block => 'Chặn';
 
   @override
-  String get wouldYouAlsoLikeToBlockThisUser => 'Bạn cũng muốn chặn người dùng này không?';
+  String get wouldYouAlsoLikeToBlockThisUser =>
+      'Bạn cũng muốn chặn người dùng này không?';
 
   @override
   String get noThanks => 'Không, cảm ơn';
@@ -1412,7 +1459,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get submitReport => 'Gửi báo cáo';
 
   @override
-  String get addAQuestionAndAtLeast2Options => 'Thêm câu hỏi và ít nhất 2 lựa chọn';
+  String get addAQuestionAndAtLeast2Options =>
+      'Thêm câu hỏi và ít nhất 2 lựa chọn';
 
   @override
   String get addOption => 'Thêm tùy chọn';
@@ -1454,13 +1502,16 @@ class AppLocalizationsVi extends AppLocalizations {
   String get pleaseSelectAReason => 'Vui lòng chọn một lý do';
 
   @override
-  String get reportSubmitted => 'Đã gửi báo cáo. Cảm ơn bạn đã giúp giữ cộng đồng an toàn.';
+  String get reportSubmitted =>
+      'Đã gửi báo cáo. Cảm ơn bạn đã giúp giữ cộng đồng an toàn.';
 
   @override
-  String get youHaveAlreadyReportedThisMoment => 'Bạn đã báo cáo khoảnh khắc này rồi';
+  String get youHaveAlreadyReportedThisMoment =>
+      'Bạn đã báo cáo khoảnh khắc này rồi';
 
   @override
-  String get tellUsMoreAboutWhyYouAreReportingThis => 'Cho chúng tôi biết thêm lý do bạn báo cáo điều này';
+  String get tellUsMoreAboutWhyYouAreReportingThis =>
+      'Cho chúng tôi biết thêm lý do bạn báo cáo điều này';
 
   @override
   String get errorSharing => 'Lỗi khi chia sẻ';
@@ -1490,7 +1541,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get languagesStepTitle => 'Ngôn ngữ của bạn';
 
   @override
-  String get languagesStepSubtitle => 'Chúng tôi ghép bạn với người học chiều ngược lại';
+  String get languagesStepSubtitle =>
+      'Chúng tôi ghép bạn với người học chiều ngược lại';
 
   @override
   String get languagesISpeak => 'Tôi nói';
@@ -1520,10 +1572,12 @@ class AppLocalizationsVi extends AppLocalizations {
   String get manageSubscription => 'Quản lý đăng ký';
 
   @override
-  String get manageSubscriptionInSettings => 'Để hủy gói đăng ký, hãy vào Cài đặt > [Tên của bạn] > Đăng ký trên thiết bị của bạn.';
+  String get manageSubscriptionInSettings =>
+      'Để hủy gói đăng ký, hãy vào Cài đặt > [Tên của bạn] > Đăng ký trên thiết bị của bạn.';
 
   @override
-  String get contactSupportToCancel => 'Để hủy gói đăng ký, vui lòng liên hệ với đội ngũ hỗ trợ của chúng tôi.';
+  String get contactSupportToCancel =>
+      'Để hủy gói đăng ký, vui lòng liên hệ với đội ngũ hỗ trợ của chúng tôi.';
 
   @override
   String get status => 'Trạng thái';
@@ -1550,13 +1604,15 @@ class AppLocalizationsVi extends AppLocalizations {
   String get pleaseLogInToContinue => 'Vui lòng đăng nhập để tiếp tục';
 
   @override
-  String get purchaseCanceledOrFailed => 'Giao dịch bị hủy hoặc thất bại. Vui lòng thử lại.';
+  String get purchaseCanceledOrFailed =>
+      'Giao dịch bị hủy hoặc thất bại. Vui lòng thử lại.';
 
   @override
   String get maximumTagsAllowed => 'Tối đa 5 thẻ được phép';
 
   @override
-  String get pleaseRemoveImagesFirstToAddVideo => 'Vui lòng xóa ảnh trước khi thêm video';
+  String get pleaseRemoveImagesFirstToAddVideo =>
+      'Vui lòng xóa ảnh trước khi thêm video';
 
   @override
   String get unsupportedFormat => 'Định dạng không được hỗ trợ';
@@ -1565,7 +1621,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get errorProcessingVideo => 'Lỗi khi xử lý video';
 
   @override
-  String get pleaseRemoveImagesFirstToRecordVideo => 'Vui lòng xóa ảnh trước khi quay video';
+  String get pleaseRemoveImagesFirstToRecordVideo =>
+      'Vui lòng xóa ảnh trước khi quay video';
 
   @override
   String get locationAdded => 'Đã thêm vị trí';
@@ -1673,7 +1730,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get pleaseAddAtLeast2Options => 'Vui lòng thêm ít nhất 2 lựa chọn';
 
   @override
-  String get pleaseSelectCorrectAnswerForQuiz => 'Vui lòng chọn đáp án đúng cho bài trắc nghiệm';
+  String get pleaseSelectCorrectAnswerForQuiz =>
+      'Vui lòng chọn đáp án đúng cho bài trắc nghiệm';
 
   @override
   String get correctionSent => 'Đã gửi sửa lỗi!';
@@ -1794,13 +1852,15 @@ class AppLocalizationsVi extends AppLocalizations {
   String get noForYouMomentsTitle => 'Chưa có khoảnh khắc nào';
 
   @override
-  String get noForYouMomentsBody => 'Trả lời chủ đề hôm nay để bắt đầu cuộc trò chuyện.';
+  String get noForYouMomentsBody =>
+      'Trả lời chủ đề hôm nay để bắt đầu cuộc trò chuyện.';
 
   @override
   String get noFollowingMomentsTitle => 'Chưa có gì ở đây';
 
   @override
-  String get noFollowingMomentsBody => 'Theo dõi mọi người từ Cộng đồng để xem khoảnh khắc của họ tại đây.';
+  String get noFollowingMomentsBody =>
+      'Theo dõi mọi người từ Cộng đồng để xem khoảnh khắc của họ tại đây.';
 
   @override
   String get goToCommunity => 'Đến Cộng đồng';
@@ -1857,10 +1917,12 @@ class AppLocalizationsVi extends AppLocalizations {
   String get failedToUnfollowUser => 'Không thể bỏ theo dõi người dùng';
 
   @override
-  String get areYouSureUnfollow => 'Bạn có chắc muốn bỏ theo dõi người dùng này không?';
+  String get areYouSureUnfollow =>
+      'Bạn có chắc muốn bỏ theo dõi người dùng này không?';
 
   @override
-  String get areYouSureUnblock => 'Bạn có chắc muốn bỏ chặn người dùng này không?';
+  String get areYouSureUnblock =>
+      'Bạn có chắc muốn bỏ chặn người dùng này không?';
 
   @override
   String get youFollowed => 'Bạn đã theo dõi';
@@ -1944,7 +2006,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get pleaseRemoveImagesFirst => 'Vui lòng xóa ảnh trước khi thêm video';
 
   @override
-  String get exchange3MessagesBeforeCall => 'Hãy trao đổi ít nhất 5 tin nhắn trước khi gọi';
+  String get exchange3MessagesBeforeCall =>
+      'Hãy trao đổi ít nhất 5 tin nhắn trước khi gọi';
 
   @override
   String mediaWithUser(String name) {
@@ -1961,7 +2024,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get removeBookmark => 'Xóa dấu trang?';
 
   @override
-  String get thisWillRemoveBookmark => 'Thao tác này sẽ xóa tin nhắn khỏi danh sách dấu trang của bạn.';
+  String get thisWillRemoveBookmark =>
+      'Thao tác này sẽ xóa tin nhắn khỏi danh sách dấu trang của bạn.';
 
   @override
   String get remove => 'Xóa';
@@ -2024,7 +2088,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get leaveRoom => 'Rời phòng';
 
   @override
-  String get areYouSureLeaveRoom => 'Bạn có chắc muốn rời khỏi phòng thoại này không?';
+  String get areYouSureLeaveRoom =>
+      'Bạn có chắc muốn rời khỏi phòng thoại này không?';
 
   @override
   String get stay => 'Ở lại';
@@ -2100,10 +2165,12 @@ class AppLocalizationsVi extends AppLocalizations {
   String get failedToProcessVideo => 'Không thể xử lý video';
 
   @override
-  String get optimizingForBestExperience => 'Đang tối ưu hóa để có trải nghiệm story tốt nhất';
+  String get optimizingForBestExperience =>
+      'Đang tối ưu hóa để có trải nghiệm story tốt nhất';
 
   @override
-  String get pleaseSelectImageOrVideo => 'Vui lòng chọn ảnh hoặc video cho story của bạn';
+  String get pleaseSelectImageOrVideo =>
+      'Vui lòng chọn ảnh hoặc video cho story của bạn';
 
   @override
   String get storyCreatedSuccessfully => 'Đã tạo story thành công!';
@@ -2124,7 +2191,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get tryShorterVideo => 'Hãy thử dùng video ngắn hơn hoặc thử lại sau.';
 
   @override
-  String get shareMomentsThatDisappear => 'Chia sẻ khoảnh khắc biến mất sau 24 giờ';
+  String get shareMomentsThatDisappear =>
+      'Chia sẻ khoảnh khắc biến mất sau 24 giờ';
 
   @override
   String get photo => 'Ảnh';
@@ -2238,7 +2306,8 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
-  String get willReceiveNotifications => 'Bạn sẽ nhận được thông báo cho tin nhắn mới.';
+  String get willReceiveNotifications =>
+      'Bạn sẽ nhận được thông báo cho tin nhắn mới.';
 
   @override
   String muteNotificationsFor(String name) {
@@ -2256,7 +2325,8 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
-  String get failedToUpdateMuteSettings => 'Không thể cập nhật cài đặt tắt thông báo';
+  String get failedToUpdateMuteSettings =>
+      'Không thể cập nhật cài đặt tắt thông báo';
 
   @override
   String get oneHour => '1 giờ';
@@ -2280,7 +2350,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get longPressToBookmark => 'Nhấn giữ vào tin nhắn để đánh dấu';
 
   @override
-  String get thisWillRemoveFromBookmarks => 'Thao tác này sẽ xóa tin nhắn khỏi danh sách dấu trang của bạn.';
+  String get thisWillRemoveFromBookmarks =>
+      'Thao tác này sẽ xóa tin nhắn khỏi danh sách dấu trang của bạn.';
 
   @override
   String navigateToMessage(String name) {
@@ -2314,7 +2385,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get emailPreferences => 'Tùy chọn email';
 
   @override
-  String get receiveEmailNotifications => 'Nhận thông báo qua email từ Bananatalk';
+  String get receiveEmailNotifications =>
+      'Nhận thông báo qua email từ Bananatalk';
 
   @override
   String get whenAwayFor24Hours => 'Khi bạn vắng mặt hơn 24 giờ';
@@ -2329,7 +2401,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get failedToUpdateSetting => 'Không thể cập nhật cài đặt';
 
   @override
-  String get securityAlertsRecommended => 'Chúng tôi khuyên bạn nên bật Cảnh báo bảo mật để luôn cập nhật hoạt động quan trọng của tài khoản.';
+  String get securityAlertsRecommended =>
+      'Chúng tôi khuyên bạn nên bật Cảnh báo bảo mật để luôn cập nhật hoạt động quan trọng của tài khoản.';
 
   @override
   String chatWallpaperFor(String name) {
@@ -2402,10 +2475,12 @@ class AppLocalizationsVi extends AppLocalizations {
   String get errorSendingMedia => 'Lỗi khi gửi phương tiện';
 
   @override
-  String get cameraPermissionRequired => 'Cần có quyền truy cập camera và micro để quay video.';
+  String get cameraPermissionRequired =>
+      'Cần có quyền truy cập camera và micro để quay video.';
 
   @override
-  String get locationPermissionRequired => 'Cần có quyền truy cập vị trí để chia sẻ vị trí của bạn.';
+  String get locationPermissionRequired =>
+      'Cần có quyền truy cập vị trí để chia sẻ vị trí của bạn.';
 
   @override
   String get noInternetConnection => 'Không có kết nối internet';
@@ -2466,10 +2541,12 @@ class AppLocalizationsVi extends AppLocalizations {
   String get failedToLoadMoments => 'Không thể tải khoảnh khắc';
 
   @override
-  String get noMomentsMatchFilters => 'Không có khoảnh khắc nào phù hợp với bộ lọc';
+  String get noMomentsMatchFilters =>
+      'Không có khoảnh khắc nào phù hợp với bộ lọc';
 
   @override
-  String get beFirstToShareMoment => 'Hãy là người đầu tiên chia sẻ khoảnh khắc!';
+  String get beFirstToShareMoment =>
+      'Hãy là người đầu tiên chia sẻ khoảnh khắc!';
 
   @override
   String get tryDifferentSearch => 'Thử từ khóa tìm kiếm khác';
@@ -2481,7 +2558,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get noSavedMoments => 'Không có khoảnh khắc đã lưu';
 
   @override
-  String get tapBookmarkToSave => 'Nhấn vào biểu tượng đánh dấu để lưu khoảnh khắc';
+  String get tapBookmarkToSave =>
+      'Nhấn vào biểu tượng đánh dấu để lưu khoảnh khắc';
 
   @override
   String get failedToLoadVideo => 'Không thể tải video';
@@ -2646,7 +2724,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get enableLocationForDistance => 'Bật vị trí để tính khoảng cách';
 
   @override
-  String get enableLocationDescription => 'Bật dịch vụ vị trí để tìm đối tác ngôn ngữ gần bạn';
+  String get enableLocationDescription =>
+      'Bật dịch vụ vị trí để tìm đối tác ngôn ngữ gần bạn';
 
   @override
   String get enableGps => 'Bật GPS';
@@ -2713,19 +2792,22 @@ class AppLocalizationsVi extends AppLocalizations {
   String get warningPermanent => 'Cảnh báo: Hành động này là vĩnh viễn!';
 
   @override
-  String get deleteAccountWarning => 'Xóa tài khoản của bạn sẽ xóa vĩnh viễn:\n\n• Hồ sơ và tất cả dữ liệu cá nhân của bạn\n• Tất cả tin nhắn và cuộc trò chuyện của bạn\n• Tất cả khoảnh khắc và story của bạn\n• Đăng ký VIP của bạn (không hoàn tiền)\n• Tất cả kết nối và người theo dõi của bạn\n\nHành động này không thể hoàn tác.';
+  String get deleteAccountWarning =>
+      'Xóa tài khoản của bạn sẽ xóa vĩnh viễn:\n\n• Hồ sơ và tất cả dữ liệu cá nhân của bạn\n• Tất cả tin nhắn và cuộc trò chuyện của bạn\n• Tất cả khoảnh khắc và story của bạn\n• Đăng ký VIP của bạn (không hoàn tiền)\n• Tất cả kết nối và người theo dõi của bạn\n\nHành động này không thể hoàn tác.';
 
   @override
   String get deletionReasonTitle => 'Trước khi bạn đi — vì sao?';
 
   @override
-  String get deletionReasonOptional => 'Không bắt buộc. Điều này giúp chúng tôi khắc phục.';
+  String get deletionReasonOptional =>
+      'Không bắt buộc. Điều này giúp chúng tôi khắc phục.';
 
   @override
   String get deletionReasonNoPeople => 'Không tìm được người để trò chuyện';
 
   @override
-  String get deletionReasonNoContent => 'Không có nội dung bằng ngôn ngữ của tôi';
+  String get deletionReasonNoContent =>
+      'Không có nội dung bằng ngôn ngữ của tôi';
 
   @override
   String get deletionReasonNotUseful => 'Không như tôi mong đợi';
@@ -2845,7 +2927,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get almostDone => 'Sắp xong rồi!';
 
   @override
-  String get addPhotoLocationForMatches => 'Thêm ảnh và vị trí để ghép đôi tốt hơn';
+  String get addPhotoLocationForMatches =>
+      'Thêm ảnh và vị trí để ghép đôi tốt hơn';
 
   @override
   String get addProfilePhoto => 'Thêm ảnh hồ sơ';
@@ -2869,7 +2952,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get tapToDetectLocation => 'Nhấn để phát hiện vị trí';
 
   @override
-  String get optionalHelpsNearbyPartners => 'Bắt buộc — giúp kết nối với đối tác gần bạn';
+  String get optionalHelpsNearbyPartners =>
+      'Bắt buộc — giúp kết nối với đối tác gần bạn';
 
   @override
   String get startLearning => 'Bắt đầu học';
@@ -2898,10 +2982,12 @@ class AppLocalizationsVi extends AppLocalizations {
   String get yourCurrentLevel => 'Trình độ hiện tại của bạn';
 
   @override
-  String get nativeCannotBeSameAsLearning => 'Ngôn ngữ mẹ đẻ không thể giống ngôn ngữ đang học';
+  String get nativeCannotBeSameAsLearning =>
+      'Ngôn ngữ mẹ đẻ không thể giống ngôn ngữ đang học';
 
   @override
-  String get learningCannotBeSameAsNative => 'Ngôn ngữ đang học không thể giống ngôn ngữ mẹ đẻ';
+  String get learningCannotBeSameAsNative =>
+      'Ngôn ngữ đang học không thể giống ngôn ngữ mẹ đẻ';
 
   @override
   String stepOf(String current, String total) {
@@ -2915,7 +3001,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get registerLink => 'Đăng ký';
 
   @override
-  String get pleaseEnterBothEmailAndPassword => 'Vui lòng nhập email và mật khẩu';
+  String get pleaseEnterBothEmailAndPassword =>
+      'Vui lòng nhập email và mật khẩu';
 
   @override
   String get pleaseEnterValidEmail => 'Vui lòng nhập email hợp lệ';
@@ -2963,7 +3050,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get otherGender => 'Khác';
 
   @override
-  String get continueWithGoogleAccount => 'Tiếp tục với tài khoản Google\nđể có trải nghiệm mượt mà';
+  String get continueWithGoogleAccount =>
+      'Tiếp tục với tài khoản Google\nđể có trải nghiệm mượt mà';
 
   @override
   String get signingYouIn => 'Đang đăng nhập...';
@@ -2975,7 +3063,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get securedByGoogle => 'Được bảo mật bởi Google';
 
   @override
-  String get dataProtectedEncryption => 'Dữ liệu được bảo vệ bằng mã hóa tiêu chuẩn';
+  String get dataProtectedEncryption =>
+      'Dữ liệu được bảo vệ bằng mã hóa tiêu chuẩn';
 
   @override
   String get welcomeCompleteProfile => 'Chào mừng! Vui lòng hoàn thiện hồ sơ';
@@ -2987,25 +3076,29 @@ class AppLocalizationsVi extends AppLocalizations {
   String get authWelcomeCtaTitle => 'Kết bạn khắp thế giới trên Bananatalk';
 
   @override
-  String get authWelcomeCtaSubtitle => 'Tham gia cùng hàng triệu người học ngôn ngữ ngay hôm nay';
+  String get authWelcomeCtaSubtitle =>
+      'Tham gia cùng hàng triệu người học ngôn ngữ ngay hôm nay';
 
   @override
   String get authWelcomeFeatureConnectTitle => 'Kết nối';
 
   @override
-  String get authWelcomeFeatureConnectSubtitle => 'Gặp gỡ các đối tác học ngôn ngữ từ hơn 150 quốc gia trên toàn thế giới';
+  String get authWelcomeFeatureConnectSubtitle =>
+      'Gặp gỡ các đối tác học ngôn ngữ từ hơn 150 quốc gia trên toàn thế giới';
 
   @override
   String get authWelcomeFeatureLearnTitle => 'Học tập';
 
   @override
-  String get authWelcomeFeatureLearnSubtitle => 'Gia sư AI, câu đố và luyện phát âm — tất cả trong một ứng dụng';
+  String get authWelcomeFeatureLearnSubtitle =>
+      'Gia sư AI, câu đố và luyện phát âm — tất cả trong một ứng dụng';
 
   @override
   String get authWelcomeFeatureGrowTitle => 'Phát triển';
 
   @override
-  String get authWelcomeFeatureGrowSubtitle => 'Xây dựng khả năng nói trôi chảy thực sự qua các cuộc trò chuyện hằng ngày và cộng đồng';
+  String get authWelcomeFeatureGrowSubtitle =>
+      'Xây dựng khả năng nói trôi chảy thực sự qua các cuộc trò chuyện hằng ngày và cộng đồng';
 
   @override
   String welcomeBackName(String name) {
@@ -3013,7 +3106,8 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
-  String get continueWithAppleId => 'Tiếp tục với Apple ID\nđể có trải nghiệm an toàn';
+  String get continueWithAppleId =>
+      'Tiếp tục với Apple ID\nđể có trải nghiệm an toàn';
 
   @override
   String get continueWithApple => 'Tiếp tục với Apple';
@@ -3022,7 +3116,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get securedByApple => 'Được bảo mật bởi Apple';
 
   @override
-  String get privacyProtectedApple => 'Quyền riêng tư được bảo vệ với Apple Sign-In';
+  String get privacyProtectedApple =>
+      'Quyền riêng tư được bảo vệ với Apple Sign-In';
 
   @override
   String get createAccount => 'Tạo tài khoản';
@@ -3046,7 +3141,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get resetPasswordTitle => 'Đặt lại mật khẩu';
 
   @override
-  String get enterEmailForResetCode => 'Nhập email và chúng tôi sẽ gửi mã đặt lại';
+  String get enterEmailForResetCode =>
+      'Nhập email và chúng tôi sẽ gửi mã đặt lại';
 
   @override
   String get sendResetCode => 'Gửi mã đặt lại';
@@ -3070,7 +3166,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get pleaseEnterAll6Digits => 'Vui lòng nhập đủ 6 chữ số';
 
   @override
-  String get codeVerifiedCreatePassword => 'Xác minh thành công! Tạo mật khẩu mới';
+  String get codeVerifiedCreatePassword =>
+      'Xác minh thành công! Tạo mật khẩu mới';
 
   @override
   String get verify => 'Xác minh';
@@ -3117,7 +3214,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get pleaseFillAllFields => 'Vui lòng điền tất cả các trường';
 
   @override
-  String get passwordResetSuccessful => 'Đặt lại mật khẩu thành công! Đăng nhập bằng mật khẩu mới';
+  String get passwordResetSuccessful =>
+      'Đặt lại mật khẩu thành công! Đăng nhập bằng mật khẩu mới';
 
   @override
   String get privacyTitle => 'Quyền riêng tư';
@@ -3156,7 +3254,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get showOnlineStatus => 'Hiển thị trạng thái trực tuyến';
 
   @override
-  String get showOnlineStatusDesc => 'Cho phép người khác thấy khi bạn trực tuyến';
+  String get showOnlineStatusDesc =>
+      'Cho phép người khác thấy khi bạn trực tuyến';
 
   @override
   String get otherSettings => 'Cài đặt khác';
@@ -3204,7 +3303,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get locationUpdated => 'Cập nhật vị trí thành công';
 
   @override
-  String get locationPermissionDenied => 'Quyền vị trí bị từ chối. Vui lòng bật trong cài đặt.';
+  String get locationPermissionDenied =>
+      'Quyền vị trí bị từ chối. Vui lòng bật trong cài đặt.';
 
   @override
   String get locationServiceDisabled => 'Dịch vụ vị trí đã tắt. Vui lòng bật.';
@@ -3374,7 +3474,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get lowerHand => 'Hạ tay';
 
   @override
-  String get handRaisedNotification => 'Đã giơ tay! Chủ phòng sẽ thấy yêu cầu của bạn.';
+  String get handRaisedNotification =>
+      'Đã giơ tay! Chủ phòng sẽ thấy yêu cầu của bạn.';
 
   @override
   String get handLoweredNotification => 'Đã hạ tay';
@@ -3392,7 +3493,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get endRoomConfirm => 'Kết thúc phòng?';
 
   @override
-  String get endRoomMessage => 'Điều này sẽ kết thúc phòng cho tất cả người tham gia.';
+  String get endRoomMessage =>
+      'Điều này sẽ kết thúc phòng cho tất cả người tham gia.';
 
   @override
   String get roomEnded => 'Chủ phòng đã kết thúc phòng';
@@ -3413,7 +3515,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get typeMessage => 'Nhập tin nhắn...';
 
   @override
-  String get voiceRoomsDescription => 'Tham gia trò chuyện trực tiếp và luyện nói';
+  String get voiceRoomsDescription =>
+      'Tham gia trò chuyện trực tiếp và luyện nói';
 
   @override
   String liveRoomsCount(int count) {
@@ -3424,7 +3527,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get noActiveRooms => 'Không có phòng đang hoạt động';
 
   @override
-  String get noActiveRoomsDescription => 'Hãy là người đầu tiên tạo phòng thoại và luyện nói với người khác!';
+  String get noActiveRoomsDescription =>
+      'Hãy là người đầu tiên tạo phòng thoại và luyện nói với người khác!';
 
   @override
   String get startRoom => 'Bắt đầu phòng';
@@ -3555,7 +3659,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get noRankingsYet => 'Chưa có xếp hạng';
 
   @override
-  String get startLearningToAppear => 'Bắt đầu học để xuất hiện trên bảng xếp hạng!';
+  String get startLearningToAppear =>
+      'Bắt đầu học để xuất hiện trên bảng xếp hạng!';
 
   @override
   String get noFriendsYet => 'Chưa có bạn bè';
@@ -3665,7 +3770,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get allCache => 'Toàn bộ Cache';
 
   @override
-  String get clearAllCacheConfirmation => 'Thao tác này sẽ xóa tất cả hình ảnh, tin nhắn thoại, video và các tệp khác đã lưu trong bộ nhớ đệm. Ứng dụng có thể tải nội dung chậm hơn tạm thời.';
+  String get clearAllCacheConfirmation =>
+      'Thao tác này sẽ xóa tất cả hình ảnh, tin nhắn thoại, video và các tệp khác đã lưu trong bộ nhớ đệm. Ứng dụng có thể tải nội dung chậm hơn tạm thời.';
 
   @override
   String clearCacheConfirmationFor(String category) {
@@ -3727,19 +3833,22 @@ class AppLocalizationsVi extends AppLocalizations {
   String get followerMoments => 'Khoảnh khắc từ người theo dõi';
 
   @override
-  String get whenPeopleYouFollowPost => 'Khi những người bạn theo dõi đăng khoảnh khắc mới';
+  String get whenPeopleYouFollowPost =>
+      'Khi những người bạn theo dõi đăng khoảnh khắc mới';
 
   @override
   String get noNotificationsYet => 'Chưa có thông báo nào';
 
   @override
-  String get whenYouGetNotifications => 'Khi bạn nhận được thông báo, chúng sẽ hiển thị ở đây';
+  String get whenYouGetNotifications =>
+      'Khi bạn nhận được thông báo, chúng sẽ hiển thị ở đây';
 
   @override
   String get failedToLoadNotifications => 'Không thể tải thông báo';
 
   @override
-  String get clearAllNotificationsConfirm => 'Bạn có chắc muốn xóa tất cả thông báo? Hành động này không thể hoàn tác.';
+  String get clearAllNotificationsConfirm =>
+      'Bạn có chắc muốn xóa tất cả thông báo? Hành động này không thể hoàn tác.';
 
   @override
   String get tapToChange => 'Nhấn để thay đổi';
@@ -3880,10 +3989,12 @@ class AppLocalizationsVi extends AppLocalizations {
   String get languageToLearnRequired => 'Ngôn ngữ Học (Bắt buộc)';
 
   @override
-  String get nativeLanguageCannotBeSame => 'Ngôn ngữ mẹ đẻ không thể giống ngôn ngữ học';
+  String get nativeLanguageCannotBeSame =>
+      'Ngôn ngữ mẹ đẻ không thể giống ngôn ngữ học';
 
   @override
-  String get learningLanguageCannotBeSame => 'Ngôn ngữ học không thể giống ngôn ngữ mẹ đẻ';
+  String get learningLanguageCannotBeSame =>
+      'Ngôn ngữ học không thể giống ngôn ngữ mẹ đẻ';
 
   @override
   String get pleaseSelectALanguage => 'Vui lòng chọn ngôn ngữ';
@@ -4109,7 +4220,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get startYourJourney => 'Bắt đầu hành trình của bạn!';
 
   @override
-  String get startJourneyDescription => 'Hoàn thành bài học, xây dựng vốn từ\nvà theo dõi tiến trình của bạn';
+  String get startJourneyDescription =>
+      'Hoàn thành bài học, xây dựng vốn từ\nvà theo dõi tiến trình của bạn';
 
   @override
   String levelN(int level) {
@@ -4209,7 +4321,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get noLessonsFound => 'Không tìm thấy bài học';
 
   @override
-  String get createCustomLessonDescription => 'Tạo bài học tùy chỉnh của riêng bạn với AI';
+  String get createCustomLessonDescription =>
+      'Tạo bài học tùy chỉnh của riêng bạn với AI';
 
   @override
   String get createLessonWithAI => 'Tạo bài học với AI';
@@ -4319,7 +4432,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get documentMustBeUnder50MB => 'Tài liệu phải dưới 50MB.';
 
   @override
-  String get editWithin15Minutes => 'Tin nhắn chỉ có thể chỉnh sửa trong 15 phút';
+  String get editWithin15Minutes =>
+      'Tin nhắn chỉ có thể chỉnh sửa trong 15 phút';
 
   @override
   String messageForwardedTo(int count) {
@@ -4378,7 +4492,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get any => 'Bất kỳ';
 
   @override
-  String get showNewUsersSubtitle => 'Hiển thị người dùng đã tham gia trong 6 ngày qua';
+  String get showNewUsersSubtitle =>
+      'Hiển thị người dùng đã tham gia trong 6 ngày qua';
 
   @override
   String get autoDetectLocation => 'Tự động phát hiện vị trí của tôi';
@@ -4451,7 +4566,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get howAreYouFeeling => 'Bạn đang cảm thấy thế nào?';
 
   @override
-  String get pleaseWaitOptimizingVideo => 'Vui lòng đợi trong khi chúng tôi tối ưu hóa video của bạn';
+  String get pleaseWaitOptimizingVideo =>
+      'Vui lòng đợi trong khi chúng tôi tối ưu hóa video của bạn';
 
   @override
   String unsupportedVideoFormat(String formats) {
@@ -4564,7 +4680,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get noBlockedUsers => 'Không có người dùng bị chặn';
 
   @override
-  String get usersYouBlockWillAppearHere => 'Người dùng bạn chặn sẽ xuất hiện ở đây';
+  String get usersYouBlockWillAppearHere =>
+      'Người dùng bạn chặn sẽ xuất hiện ở đây';
 
   @override
   String unblockConfirm(String name) {
@@ -4587,7 +4704,8 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
-  String get logoutConfirmMessage => 'Bạn có chắc muốn đăng xuất khỏi Bananatalk không?';
+  String get logoutConfirmMessage =>
+      'Bạn có chắc muốn đăng xuất khỏi Bananatalk không?';
 
   @override
   String get loggingOut => 'Đang đăng xuất...';
@@ -4599,7 +4717,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get quietHoursEnable => 'Bật giờ yên tĩnh';
 
   @override
-  String get quietHoursSubtitle => 'Tạm dừng thông báo không khẩn cấp trong một khoảng thời gian';
+  String get quietHoursSubtitle =>
+      'Tạm dừng thông báo không khẩn cấp trong một khoảng thời gian';
 
   @override
   String get quietHoursStart => 'Giờ bắt đầu';
@@ -4611,7 +4730,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get quietHoursAllowUrgent => 'Cho phép thông báo khẩn cấp';
 
   @override
-  String get quietHoursAllowUrgentSubtitle => 'Cuộc gọi và tin nhắn từ đối tác VIP vẫn có thể được gửi đến';
+  String get quietHoursAllowUrgentSubtitle =>
+      'Cuộc gọi và tin nhắn từ đối tác VIP vẫn có thể được gửi đến';
 
   @override
   String get silencedByQuietHours => 'Đã tắt tiếng bởi giờ yên tĩnh';
@@ -4620,7 +4740,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get silencedByCap => 'Đã tắt tiếng do giới hạn hàng ngày';
 
   @override
-  String get momentUpdatedSuccessfully => 'Khoảnh khắc đã được cập nhật thành công';
+  String get momentUpdatedSuccessfully =>
+      'Khoảnh khắc đã được cập nhật thành công';
 
   @override
   String get failedToDeleteMoment => 'Xóa khoảnh khắc thất bại';
@@ -4638,7 +4759,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get languageUpdatedSuccessfully => 'Cập nhật ngôn ngữ thành công';
 
   @override
-  String get bioHintCard => 'Một tiểu sử hay giúp người khác kết nối với bạn hơn. Hãy chia sẻ sở thích, ngôn ngữ hoặc điều bạn đang tìm kiếm.';
+  String get bioHintCard =>
+      'Một tiểu sử hay giúp người khác kết nối với bạn hơn. Hãy chia sẻ sở thích, ngôn ngữ hoặc điều bạn đang tìm kiếm.';
 
   @override
   String get bioCounterStartWriting => 'Bắt đầu viết...';
@@ -4677,7 +4799,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get tapTypeBelow => 'Chọn nhóm máu bên dưới';
 
   @override
-  String get tapButtonToDetectLocation => 'Nhấn nút bên dưới để xác định vị trí hiện tại của bạn';
+  String get tapButtonToDetectLocation =>
+      'Nhấn nút bên dưới để xác định vị trí hiện tại của bạn';
 
   @override
   String currentAddressLabel(String address) {
@@ -4685,7 +4808,8 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
-  String get onlyCityCountryShown => 'Chỉ thành phố và quốc gia của bạn được hiển thị cho người khác. Tọa độ chính xác vẫn được giữ bí mật.';
+  String get onlyCityCountryShown =>
+      'Chỉ thành phố và quốc gia của bạn được hiển thị cho người khác. Tọa độ chính xác vẫn được giữ bí mật.';
 
   @override
   String get updateLocationCta => 'Cập nhật vị trí';
@@ -4732,7 +4856,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get drawerAccount => 'Tài khoản';
 
   @override
-  String get logoutConfirmBody => 'Bạn có chắc chắn muốn đăng xuất khỏi Bananatalk không?';
+  String get logoutConfirmBody =>
+      'Bạn có chắc chắn muốn đăng xuất khỏi Bananatalk không?';
 
   @override
   String get helpEmailSupport => 'Hỗ trợ qua email';
@@ -4756,10 +4881,12 @@ class AppLocalizationsVi extends AppLocalizations {
   String get aboutDialogClose => 'Đóng';
 
   @override
-  String get aboutBananatalkTagline => 'Kết nối với những người học ngôn ngữ trên toàn thế giới và nâng cao kỹ năng qua các cuộc hội thoại thực tế.';
+  String get aboutBananatalkTagline =>
+      'Kết nối với những người học ngôn ngữ trên toàn thế giới và nâng cao kỹ năng qua các cuộc hội thoại thực tế.';
 
   @override
-  String get aboutCopyright => '© 2024 Bananatalk. Tất cả các quyền được bảo lưu.';
+  String get aboutCopyright =>
+      '© 2024 Bananatalk. Tất cả các quyền được bảo lưu.';
 
   @override
   String get logoutFailedPrefix => 'Đăng xuất thất bại';
@@ -4786,7 +4913,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get noVisitorsYet => 'Chưa có người xem';
 
   @override
-  String get noVisitorsYetSubtitle => 'Khi có người xem hồ sơ của bạn,\nhọ sẽ xuất hiện ở đây';
+  String get noVisitorsYetSubtitle =>
+      'Khi có người xem hồ sơ của bạn,\nhọ sẽ xuất hiện ở đây';
 
   @override
   String get visitedViaSearch => 'qua Tìm kiếm';
@@ -4801,10 +4929,12 @@ class AppLocalizationsVi extends AppLocalizations {
   String get visitedDirect => 'Truy cập trực tiếp';
 
   @override
-  String get visitorTrackingUnavailable => 'Tính năng theo dõi người xem không khả dụng. Vui lòng cập nhật backend.';
+  String get visitorTrackingUnavailable =>
+      'Tính năng theo dõi người xem không khả dụng. Vui lòng cập nhật backend.';
 
   @override
-  String get visitorTrackingNotAvailableYet => 'Theo dõi người xem chưa khả dụng';
+  String get visitorTrackingNotAvailableYet =>
+      'Theo dõi người xem chưa khả dụng';
 
   @override
   String get noFollowersYetSubtitle => 'Hãy bắt đầu kết nối với người khác!';
@@ -4813,7 +4943,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get partnerButton => 'Đối tác';
 
   @override
-  String get notFollowingAnyoneYetSubtitle => 'Bắt đầu theo dõi mọi người để xem cập nhật của họ!';
+  String get notFollowingAnyoneYetSubtitle =>
+      'Bắt đầu theo dõi mọi người để xem cập nhật của họ!';
 
   @override
   String get unfollowButton => 'Bỏ theo dõi';
@@ -4825,7 +4956,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get themeAutoSwitch => 'Tự động chuyển (Giao diện hệ thống)';
 
   @override
-  String get themeSystemHint => 'Khi bật, ứng dụng sẽ theo cài đặt giao diện hệ thống của bạn';
+  String get themeSystemHint =>
+      'Khi bật, ứng dụng sẽ theo cài đặt giao diện hệ thống của bạn';
 
   @override
   String get themeLightMode => 'Chế độ sáng';
@@ -4843,7 +4975,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get momentGridView => 'Xem lưới';
 
   @override
-  String get shareLanguageLearningJourney => 'Chia sẻ hành trình học ngôn ngữ của bạn!';
+  String get shareLanguageLearningJourney =>
+      'Chia sẻ hành trình học ngôn ngữ của bạn!';
 
   @override
   String get deleteHighlightTitle => 'Xóa nổi bật';
@@ -4875,7 +5008,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get momentEnterDescription => 'Vui lòng nhập mô tả';
 
   @override
-  String get momentUpdatedImageFailed => 'Khoảnh khắc đã được cập nhật nhưng tải ảnh lên thất bại';
+  String get momentUpdatedImageFailed =>
+      'Khoảnh khắc đã được cập nhật nhưng tải ảnh lên thất bại';
 
   @override
   String get updateRequiredTitle => 'Cần cập nhật';
@@ -4884,10 +5018,12 @@ class AppLocalizationsVi extends AppLocalizations {
   String get updateAvailableTitle => 'Có bản cập nhật';
 
   @override
-  String get updateRequiredBody => 'Phiên bản Bananatalk này không còn được hỗ trợ. Vui lòng cập nhật để tiếp tục.';
+  String get updateRequiredBody =>
+      'Phiên bản Bananatalk này không còn được hỗ trợ. Vui lòng cập nhật để tiếp tục.';
 
   @override
-  String get updateAvailableBody => 'Có phiên bản Bananatalk mới với các cải tiến và sửa lỗi.';
+  String get updateAvailableBody =>
+      'Có phiên bản Bananatalk mới với các cải tiến và sửa lỗi.';
 
   @override
   String get updateNow => 'Cập nhật ngay';
@@ -4896,7 +5032,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get updateLater => 'Để sau';
 
   @override
-  String get updateOpenStoreFailed => 'Không thể mở cửa hàng. Vui lòng cập nhật từ App Store hoặc Play Store.';
+  String get updateOpenStoreFailed =>
+      'Không thể mở cửa hàng. Vui lòng cập nhật từ App Store hoặc Play Store.';
 
   @override
   String get rememberMe => 'Ghi nhớ tôi';
@@ -4946,7 +5083,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get enableBiometricTitle => 'Dùng Face ID để đăng nhập lần sau?';
 
   @override
-  String get enableBiometricBody => 'Đăng nhập bằng sinh trắc học mà không cần nhập mật khẩu.';
+  String get enableBiometricBody =>
+      'Đăng nhập bằng sinh trắc học mà không cần nhập mật khẩu.';
 
   @override
   String get enableBiometricCta => 'Bật';
@@ -5108,7 +5246,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get interestsInCommonAddCta => 'Thêm chủ đề';
 
   @override
-  String get interestsInCommonAddSubtitle => 'Thêm chủ đề vào hồ sơ để tìm điểm chung';
+  String get interestsInCommonAddSubtitle =>
+      'Thêm chủ đề vào hồ sơ để tìm điểm chung';
 
   @override
   String activeAgo(String time) {
@@ -5173,7 +5312,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get notificationPreferencesTitle => 'Thông báo';
 
   @override
-  String get notificationPreferencesSubtitle => 'Chọn những cảnh báo bạn muốn nhận';
+  String get notificationPreferencesSubtitle =>
+      'Chọn những cảnh báo bạn muốn nhận';
 
   @override
   String get notifPrefChat => 'Tin nhắn mới';
@@ -5574,7 +5714,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get learningStreakFreezeUse => 'Dùng đóng băng';
 
   @override
-  String get learningStreakFreezeDescription => 'Freeze bảo vệ chuỗi của bạn khi bỏ lỡ một ngày.';
+  String get learningStreakFreezeDescription =>
+      'Freeze bảo vệ chuỗi của bạn khi bỏ lỡ một ngày.';
 
   @override
   String get learningStreakFreezeProtected => 'Chuỗi được bảo vệ!';
@@ -5808,7 +5949,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get aiTutorPronounceCustomUse => 'Dùng';
 
   @override
-  String get aiTutorPronounceQuitConfirm => 'Thoát bài tập? Tiến trình sẽ không được lưu.';
+  String get aiTutorPronounceQuitConfirm =>
+      'Thoát bài tập? Tiến trình sẽ không được lưu.';
 
   @override
   String get aiTutorPronounceQuitYes => 'Có';
@@ -5860,13 +6002,15 @@ class AppLocalizationsVi extends AppLocalizations {
   String get aiTutorPronounceStartAITitle => 'AI tạo câu';
 
   @override
-  String get aiTutorPronounceStartAISubtitle => 'Theo cấp độ, tập trung vào các từ khó của bạn';
+  String get aiTutorPronounceStartAISubtitle =>
+      'Theo cấp độ, tập trung vào các từ khó của bạn';
 
   @override
   String get aiTutorPronounceStartCustomTitle => 'Dùng câu của riêng tôi';
 
   @override
-  String get aiTutorPronounceStartCustomSubtitle => 'Nhập hoặc dán câu bạn muốn thành thạo';
+  String get aiTutorPronounceStartCustomSubtitle =>
+      'Nhập hoặc dán câu bạn muốn thành thạo';
 
   @override
   String aiTutorQuotaRemaining(int count) {
@@ -5936,7 +6080,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get aiLessonBuilderLabelLevel => 'Cấp độ';
 
   @override
-  String get aiLessonBuilderTopicHint => 'Nhập chủ đề (ví dụ: \"Đồ ăn và nhà hàng\")';
+  String get aiLessonBuilderTopicHint =>
+      'Nhập chủ đề (ví dụ: \"Đồ ăn và nhà hàng\")';
 
   @override
   String aiLessonBuilderSaved(String title) {
@@ -6031,7 +6176,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get aiScenariosHarder => 'Khó hơn — thử thách';
 
   @override
-  String get aiRoleplayStillStarting => 'Kịch bản vẫn đang khởi động — thử lại trong giây lát.';
+  String get aiRoleplayStillStarting =>
+      'Kịch bản vẫn đang khởi động — thử lại trong giây lát.';
 
   @override
   String aiRoleplaySendFailed(String error) {
@@ -6039,7 +6185,8 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
-  String get aiRoleplayCouldNotGrade => 'Không chấm điểm được lần này — thử lại lần sau.';
+  String get aiRoleplayCouldNotGrade =>
+      'Không chấm điểm được lần này — thử lại lần sau.';
 
   @override
   String get aiConversationHistoryCompleted => 'Hoàn tất';
@@ -6070,7 +6217,8 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
-  String get aiScenariosBannerSubhead => 'Chọn kịch bản theo trình độ của bạn, hoặc thử cao hơn một mức.';
+  String get aiScenariosBannerSubhead =>
+      'Chọn kịch bản theo trình độ của bạn, hoặc thử cao hơn một mức.';
 
   @override
   String get chatListSearchHint => 'Tìm hoặc nhập @tên_dùng';
@@ -6243,13 +6391,15 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
-  String get communityConversationStartersDefault => 'Chào và giới thiệu bản thân!';
+  String get communityConversationStartersDefault =>
+      'Chào và giới thiệu bản thân!';
 
   @override
   String get communityConversationChatAction => 'Chat';
 
   @override
-  String get communityConversationMessageCopied => 'Đã sao chép tin nhắn! Dán để gửi.';
+  String get communityConversationMessageCopied =>
+      'Đã sao chép tin nhắn! Dán để gửi.';
 
   @override
   String get communityConversationCopiedToast => 'Đã sao chép!';
@@ -6306,7 +6456,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get supportSheetGreeting => 'Xin chào, tôi là Firdavs 👋';
 
   @override
-  String get supportSheetStory => 'Tôi đã xây dựng Bananatalk hoàn toàn một mình — từng màn hình, từng tính năng, từng lần sửa lỗi lúc nửa đêm. Mục tiêu của tôi là giúp người học ngôn ngữ trên toàn thế giới kết nối và phát triển, và tôi liên tục thêm các tính năng mới.\n\nNếu Bananatalk đã giúp bạn theo bất kỳ cách nào, dù chỉ một ly cà phê nhỏ cũng giúp tôi duy trì động lực để tiếp tục xây dựng. Mỗi đóng góp đều rất có ý nghĩa với một nhà phát triển đơn độc. 🙏';
+  String get supportSheetStory =>
+      'Tôi đã xây dựng Bananatalk hoàn toàn một mình — từng màn hình, từng tính năng, từng lần sửa lỗi lúc nửa đêm. Mục tiêu của tôi là giúp người học ngôn ngữ trên toàn thế giới kết nối và phát triển, và tôi liên tục thêm các tính năng mới.\n\nNếu Bananatalk đã giúp bạn theo bất kỳ cách nào, dù chỉ một ly cà phê nhỏ cũng giúp tôi duy trì động lực để tiếp tục xây dựng. Mỗi đóng góp đều rất có ý nghĩa với một nhà phát triển đơn độc. 🙏';
 
   @override
   String get supportSheetDonateButton => 'Quyên góp qua PayPal';
@@ -6428,7 +6579,8 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
-  String get birthdateRateLimited => 'Ngày sinh chỉ có thể thay đổi tối đa 3 lần trong 60 ngày.';
+  String get birthdateRateLimited =>
+      'Ngày sinh chỉ có thể thay đổi tối đa 3 lần trong 60 ngày.';
 
   @override
   String birthdateRateLimitedUntil(String date) {
@@ -6457,7 +6609,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get passwordsDontMatch => 'Mật khẩu không khớp.';
 
   @override
-  String get newPasswordSameAsCurrent => 'Mật khẩu mới phải khác mật khẩu hiện tại.';
+  String get newPasswordSameAsCurrent =>
+      'Mật khẩu mới phải khác mật khẩu hiện tại.';
 
   @override
   String get passwordChangedSuccess => 'Đã đổi mật khẩu thành công';
@@ -6484,10 +6637,12 @@ class AppLocalizationsVi extends AppLocalizations {
   String get occupationCustomTab => 'Tùy chỉnh';
 
   @override
-  String get occupationCustomTabHint => 'Không thấy nghề của bạn? Nhập vào đây.';
+  String get occupationCustomTabHint =>
+      'Không thấy nghề của bạn? Nhập vào đây.';
 
   @override
-  String get occupationCustomInputHint => 'ví dụ: Nhà sinh vật biển, Diễn viên lồng tiếng';
+  String get occupationCustomInputHint =>
+      'ví dụ: Nhà sinh vật biển, Diễn viên lồng tiếng';
 
   @override
   String get occupationCustomSaveCTA => 'Dùng làm nghề của tôi';
@@ -6541,10 +6696,12 @@ class AppLocalizationsVi extends AppLocalizations {
   String get vipBrandTitle => 'BananaTalk VIP';
 
   @override
-  String get vipTagline => 'Tấm hộ chiếu đến kết nối toàn cầu — những cuộc trò chuyện chân thật, tình bạn lâu dài.';
+  String get vipTagline =>
+      'Tấm hộ chiếu đến kết nối toàn cầu — những cuộc trò chuyện chân thật, tình bạn lâu dài.';
 
   @override
-  String get vipDisclosure => 'Tự động gia hạn trừ khi bạn huỷ trước 24 giờ kết thúc kỳ. Khoản thanh toán sẽ được tính vào tài khoản iTunes hoặc Google Play của bạn.';
+  String get vipDisclosure =>
+      'Tự động gia hạn trừ khi bạn huỷ trước 24 giờ kết thúc kỳ. Khoản thanh toán sẽ được tính vào tài khoản iTunes hoặc Google Play của bạn.';
 
   @override
   String get vipLoginRequired => 'Vui lòng đăng nhập để tiếp tục';
@@ -6556,7 +6713,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get chatListNewMessageAlertsTitle => 'New Message Alerts';
 
   @override
-  String get chatListNewMessageAlertsBody => 'Tap to turn on notifications and never miss a message';
+  String get chatListNewMessageAlertsBody =>
+      'Tap to turn on notifications and never miss a message';
 
   @override
   String get chatListFilterMyTurn => 'My turn';
@@ -6613,10 +6771,12 @@ class AppLocalizationsVi extends AppLocalizations {
   String get vipPaymentPurchaseGooglePlay => 'Mua qua Google Play';
 
   @override
-  String get vipPaymentSecureAppStore => 'Giao dịch của bạn sẽ được xử lý an toàn qua App Store.';
+  String get vipPaymentSecureAppStore =>
+      'Giao dịch của bạn sẽ được xử lý an toàn qua App Store.';
 
   @override
-  String get vipPaymentSecureGooglePlay => 'Giao dịch của bạn sẽ được xử lý an toàn qua Google Play.';
+  String get vipPaymentSecureGooglePlay =>
+      'Giao dịch của bạn sẽ được xử lý an toàn qua Google Play.';
 
   @override
   String get vipPaymentSubscriptionInfo => 'Thông tin đăng ký';
@@ -6631,19 +6791,22 @@ class AppLocalizationsVi extends AppLocalizations {
   String get vipPaymentInfoLabelPrice => 'Giá';
 
   @override
-  String get vipPaymentDisclosure => 'Bằng việc hoàn tất giao dịch, bạn đồng ý với Điều khoản sử dụng và Chính sách bảo mật của chúng tôi. Gói đăng ký sẽ tự động gia hạn trừ khi bạn huỷ ít nhất 24 giờ trước khi kỳ hiện tại kết thúc.';
+  String get vipPaymentDisclosure =>
+      'Bằng việc hoàn tất giao dịch, bạn đồng ý với Điều khoản sử dụng và Chính sách bảo mật của chúng tôi. Gói đăng ký sẽ tự động gia hạn trừ khi bạn huỷ ít nhất 24 giờ trước khi kỳ hiện tại kết thúc.';
 
   @override
   String get vipSuccessTitle => 'Chào mừng đến với VIP!';
 
   @override
-  String get vipSuccessBody => 'Gói VIP của bạn đã được kích hoạt. Tận hưởng mọi tính năng cao cấp!';
+  String get vipSuccessBody =>
+      'Gói VIP của bạn đã được kích hoạt. Tận hưởng mọi tính năng cao cấp!';
 
   @override
   String get vipPendingTitle => 'Sắp xong';
 
   @override
-  String get vipPendingBody => 'Đăng ký của bạn đang được xử lý — vui lòng làm mới lại sau một phút.';
+  String get vipPendingBody =>
+      'Đăng ký của bạn đang được xử lý — vui lòng làm mới lại sau một phút.';
 
   @override
   String get vipErrorPaymentTitle => 'Lỗi thanh toán';
@@ -6658,13 +6821,16 @@ class AppLocalizationsVi extends AppLocalizations {
   String get vipErrorPaymentFailed => 'Thanh toán thất bại';
 
   @override
-  String get vipErrorBodyPrefix => 'Đã xảy ra lỗi khi xử lý thanh toán của bạn:';
+  String get vipErrorBodyPrefix =>
+      'Đã xảy ra lỗi khi xử lý thanh toán của bạn:';
 
   @override
-  String get vipErrorPurchaseCanceled => 'Giao dịch đã bị huỷ hoặc thất bại. Vui lòng thử lại.';
+  String get vipErrorPurchaseCanceled =>
+      'Giao dịch đã bị huỷ hoặc thất bại. Vui lòng thử lại.';
 
   @override
-  String get vipErrorVerifyServer => 'Không thể xác minh giao dịch trên máy chủ. Vui lòng liên hệ hỗ trợ.';
+  String get vipErrorVerifyServer =>
+      'Không thể xác minh giao dịch trên máy chủ. Vui lòng liên hệ hỗ trợ.';
 
   @override
   String get vipPlanLengthOneMonth => '1 tháng';
@@ -6714,7 +6880,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get filterVipPromoTitle => 'Tìm người phù hợp nhanh hơn';
 
   @override
-  String get filterVipPromoSubtitle => 'Mở khoá khám phá ưu tiên, bộ lọc nâng cao và trò chuyện không quảng cáo cùng VIP.';
+  String get filterVipPromoSubtitle =>
+      'Mở khoá khám phá ưu tiên, bộ lọc nâng cao và trò chuyện không quảng cáo cùng VIP.';
 
   @override
   String get filterVipPromoCta => 'Lên VIP';
@@ -6726,7 +6893,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get examStudyChooseLanguage => 'Choose your study language';
 
   @override
-  String get examStudyChooseLanguageSubtitle => 'Pick the language you want to prepare an exam in.';
+  String get examStudyChooseLanguageSubtitle =>
+      'Pick the language you want to prepare an exam in.';
 
   @override
   String get examStudyLoading => 'Loading…';
@@ -6806,16 +6974,19 @@ class AppLocalizationsVi extends AppLocalizations {
   String get examQuestionNoQuestions => 'No questions in this section yet.';
 
   @override
-  String get examQuestionEssayComingSoon => 'Essay evaluation is coming soon. Try a reading section for now.';
+  String get examQuestionEssayComingSoon =>
+      'Essay evaluation is coming soon. Try a reading section for now.';
 
   @override
-  String get examQuestionUnsupported => 'This question type isn\'t supported yet.';
+  String get examQuestionUnsupported =>
+      'This question type isn\'t supported yet.';
 
   @override
   String get examPracticeFinishedTitle => 'Section complete';
 
   @override
-  String get examPracticeFinishedBody => 'Nice work — you\'ve completed every question in this section.';
+  String get examPracticeFinishedBody =>
+      'Nice work — you\'ve completed every question in this section.';
 
   @override
   String get examPracticeBackToDashboard => 'Back to dashboard';
@@ -6855,7 +7026,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get examEssayEvaluating => 'Evaluating your essay…';
 
   @override
-  String get examEssayEvaluatingHint => 'This usually takes 10–30 seconds. You can leave this screen — we\'ll keep evaluating in the background.';
+  String get examEssayEvaluatingHint =>
+      'This usually takes 10–30 seconds. You can leave this screen — we\'ll keep evaluating in the background.';
 
   @override
   String get examEssayResultTitle => 'Evaluation';
@@ -6879,7 +7051,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get examEssayResultDone => 'Done';
 
   @override
-  String get examEssayPollTimeout => 'Still evaluating — check back in a minute.';
+  String get examEssayPollTimeout =>
+      'Still evaluating — check back in a minute.';
 
   @override
   String get examEssayPollRefresh => 'Check again';
@@ -6890,7 +7063,8 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
-  String get examEssayQuotaExhausted => 'You\'ve used today\'s free essay evaluations. Upgrade to VIP for unlimited.';
+  String get examEssayQuotaExhausted =>
+      'You\'ve used today\'s free essay evaluations. Upgrade to VIP for unlimited.';
 
   @override
   String get examEssayQuotaUpgrade => 'Upgrade to VIP';
@@ -6908,7 +7082,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get examProgressNotStartedTitle => 'No practice yet';
 
   @override
-  String get examProgressNotStartedBody => 'Answer a few questions in any section to see your progress here.';
+  String get examProgressNotStartedBody =>
+      'Answer a few questions in any section to see your progress here.';
 
   @override
   String get examProgressFocusAreas => 'Focus areas';
@@ -6919,7 +7094,8 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
-  String get examProgressNoFocusAreas => 'You\'re doing well across every section — keep practicing!';
+  String get examProgressNoFocusAreas =>
+      'You\'re doing well across every section — keep practicing!';
 
   @override
   String get examPlanSetupTitle => 'Start study plan';
@@ -6952,7 +7128,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get examPlanEmptyTitle => 'No active plan';
 
   @override
-  String get examPlanEmptyBody => 'Generate a plan to get weekly milestones tailored to your weak areas.';
+  String get examPlanEmptyBody =>
+      'Generate a plan to get weekly milestones tailored to your weak areas.';
 
   @override
   String get examPlanRegenerate => 'Regenerate plan';
@@ -6984,7 +7161,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get examTopicPickerTitle => 'Pick a topic';
 
   @override
-  String get examTopicPickerSubtitle => 'Practice questions on a specific subject, or jump into all questions.';
+  String get examTopicPickerSubtitle =>
+      'Practice questions on a specific subject, or jump into all questions.';
 
   @override
   String get examTopicAllTopics => 'All topics';
@@ -6993,7 +7171,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get examTopicAllTopicsDescription => 'Mix from every available topic';
 
   @override
-  String get examTopicEmpty => 'No topical content yet. Tap All topics to start practicing.';
+  String get examTopicEmpty =>
+      'No topical content yet. Tap All topics to start practicing.';
 
   @override
   String examTopicQuestionCount(int count) {
@@ -7031,7 +7210,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get examSpeakingUploading => 'Uploading…';
 
   @override
-  String get examSpeakingTooShort => 'Recording is too short. Please speak for at least a few seconds.';
+  String get examSpeakingTooShort =>
+      'Recording is too short. Please speak for at least a few seconds.';
 
   @override
   String get examGroupWriting => 'Writing';
@@ -7065,7 +7245,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get examVocabLevelPickerTitle => 'Pick a level';
 
   @override
-  String get examVocabLevelPickerSubtitle => 'Browse words and practice quizzes by CEFR level.';
+  String get examVocabLevelPickerSubtitle =>
+      'Browse words and practice quizzes by CEFR level.';
 
   @override
   String get examVocabTopicPickerTitle => 'Pick a topic';
@@ -7112,22 +7293,26 @@ class AppLocalizationsVi extends AppLocalizations {
   String get examVocabQuizRestart => 'Restart';
 
   @override
-  String get examVocabQuizEmpty => 'No questions could be generated. Try another topic or level.';
+  String get examVocabQuizEmpty =>
+      'No questions could be generated. Try another topic or level.';
 
   @override
-  String get examVocabQuizNotEnough => 'Not enough words at this level and topic to build a quiz.';
+  String get examVocabQuizNotEnough =>
+      'Not enough words at this level and topic to build a quiz.';
 
   @override
   String get examVocabQuizExpiredTitle => 'Quiz expired';
 
   @override
-  String get examVocabQuizExpiredBody => 'This quiz has been idle too long. Restart to get a fresh one.';
+  String get examVocabQuizExpiredBody =>
+      'This quiz has been idle too long. Restart to get a fresh one.';
 
   @override
   String get examVocabTranslate => 'Translate';
 
   @override
-  String get examVocabTranslateFailed => 'Translation unavailable. Try again later.';
+  String get examVocabTranslateFailed =>
+      'Translation unavailable. Try again later.';
 
   @override
   String get examDashboardTips => 'Tips';
@@ -7180,13 +7365,15 @@ class AppLocalizationsVi extends AppLocalizations {
   String get roomsEmptyTitle => 'Chưa có phòng ngôn ngữ nào';
 
   @override
-  String get roomsEmptySubtitle => 'Hãy quay lại sau — các hub đang được thiết lập.';
+  String get roomsEmptySubtitle =>
+      'Hãy quay lại sau — các hub đang được thiết lập.';
 
   @override
   String get roomCreateTitle => 'Phòng Chủ đề Mới';
 
   @override
-  String get roomCreateSubtitle => 'Bắt đầu một cuộc trò chuyện tập trung theo một ngôn ngữ';
+  String get roomCreateSubtitle =>
+      'Bắt đầu một cuộc trò chuyện tập trung theo một ngôn ngữ';
 
   @override
   String get roomNameLabel => 'Tên phòng';
@@ -7257,7 +7444,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get roomLeaveHubFailed => 'Rời khỏi hub không thành công';
 
   @override
-  String get roomJoinRequestSent => 'Đã gửi yêu cầu — bạn sẽ được thông báo nếu được chấp thuận';
+  String get roomJoinRequestSent =>
+      'Đã gửi yêu cầu — bạn sẽ được thông báo nếu được chấp thuận';
 
   @override
   String get roomJoinRequestFailed => 'Gửi yêu cầu không thành công';
@@ -7279,10 +7467,12 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
-  String get roomBannedRequestMessage => 'Bạn đã bị xóa khỏi phòng này. Gửi yêu cầu để tham gia lại — chủ phòng cần phê duyệt.';
+  String get roomBannedRequestMessage =>
+      'Bạn đã bị xóa khỏi phòng này. Gửi yêu cầu để tham gia lại — chủ phòng cần phê duyệt.';
 
   @override
-  String get roomModeratedRequestMessage => 'Đây là phòng được kiểm duyệt. Gửi yêu cầu tham gia để bắt đầu trò chuyện.';
+  String get roomModeratedRequestMessage =>
+      'Đây là phòng được kiểm duyệt. Gửi yêu cầu tham gia để bắt đầu trò chuyện.';
 
   @override
   String get roomRequestPending => 'Yêu cầu đang chờ xử lý';
@@ -7366,7 +7556,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get roomMemberUnmuted => 'Đã bật tiếng thành viên';
 
   @override
-  String get roomMemberMuteFailed => 'Cập nhật trạng thái tắt tiếng không thành công';
+  String get roomMemberMuteFailed =>
+      'Cập nhật trạng thái tắt tiếng không thành công';
 
   @override
   String roomMembersAppBarTitle(String title) {
@@ -7456,7 +7647,8 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
-  String get todayEmpty => 'Nội dung hôm nay đang được chuẩn bị. Hãy quay lại sau.';
+  String get todayEmpty =>
+      'Nội dung hôm nay đang được chuẩn bị. Hãy quay lại sau.';
 
   @override
   String todayLanguageUnsupported(String language) {
@@ -7470,7 +7662,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get packGotIt => 'Đã hiểu';
 
   @override
-  String get packSubmitFailed => 'Không lưu được — hãy kiểm tra kết nối và thử lại.';
+  String get packSubmitFailed =>
+      'Không lưu được — hãy kiểm tra kết nối và thử lại.';
 
   @override
   String packWordProgress(int current, int total) {
@@ -7543,7 +7736,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get masteryTitle => 'Tiến độ của bạn';
 
   @override
-  String get masteryEmpty => 'Hoàn thành một ngày học và tiến độ của bạn sẽ hiện ở đây.';
+  String get masteryEmpty =>
+      'Hoàn thành một ngày học và tiến độ của bạn sẽ hiện ở đây.';
 
   @override
   String get masteryYourLevel => 'trình độ của bạn';
@@ -7601,7 +7795,8 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
-  String get placementResult => 'Chúng tôi sẽ bắt đầu từ đây. Bạn có thể thay đổi bất cứ lúc nào.';
+  String get placementResult =>
+      'Chúng tôi sẽ bắt đầu từ đây. Bạn có thể thay đổi bất cứ lúc nào.';
 
   @override
   String get placementStart => 'Bắt đầu học';
@@ -7643,7 +7838,8 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
-  String get weeklyReportEmpty => 'Tuần này bạn chưa học. Chỉ một ngày là đủ để bắt đầu.';
+  String get weeklyReportEmpty =>
+      'Tuần này bạn chưa học. Chỉ một ngày là đủ để bắt đầu.';
 
   @override
   String get weeklyReportStart => 'Bắt đầu gói hôm nay';
@@ -7670,7 +7866,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get gatheringEmptyTitle => 'Hãy tổ chức buổi đầu tiên';
 
   @override
-  String get gatheringEmptyBody => 'Chưa có gì được lên lịch. Chọn một giờ rồi đăng lên — mọi người tham gia những buổi đã có người đứng ra tổ chức.';
+  String get gatheringEmptyBody =>
+      'Chưa có gì được lên lịch. Chọn một giờ rồi đăng lên — mọi người tham gia những buổi đã có người đứng ra tổ chức.';
 
   @override
   String get gatheringStartAClub => 'Tạo câu lạc bộ thay vì vậy';
@@ -7703,7 +7900,6 @@ class AppLocalizationsVi extends AppLocalizations {
   String gatheringQuorumNeeded(num count) {
     final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String countString = countNumberFormat.format(count);
 
@@ -7737,13 +7933,15 @@ class AppLocalizationsVi extends AppLocalizations {
   String get gatheringAskToJoin => 'Xin tham gia';
 
   @override
-  String get gatheringRequested => 'Đã gửi yêu cầu — người tổ chức sẽ quyết định';
+  String get gatheringRequested =>
+      'Đã gửi yêu cầu — người tổ chức sẽ quyết định';
 
   @override
   String get gatheringCreateTitle => 'Buổi gặp mới';
 
   @override
-  String get gatheringCreateSubtitle => 'Một giờ hẹn, một ngôn ngữ và vài chỗ ngồi. Còn lại là tùy chọn.';
+  String get gatheringCreateSubtitle =>
+      'Một giờ hẹn, một ngôn ngữ và vài chỗ ngồi. Còn lại là tùy chọn.';
 
   @override
   String gatheringDefaultTitle(String language) {
@@ -7766,7 +7964,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get gatheringQuorumLabel => 'Xác nhận khi đủ';
 
   @override
-  String get gatheringQuorumExplainer => 'Bạn được tính là người tham gia đầu tiên. Buổi gặp được xác nhận ngay khi đủ số người này.';
+  String get gatheringQuorumExplainer =>
+      'Bạn được tính là người tham gia đầu tiên. Buổi gặp được xác nhận ngay khi đủ số người này.';
 
   @override
   String get gatheringPost => 'Đăng lên';
@@ -7812,7 +8011,6 @@ class AppLocalizationsVi extends AppLocalizations {
   String gatheringHostDecision(num count) {
     final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String countString = countNumberFormat.format(count);
 
@@ -7835,7 +8033,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get gatheringEnd => 'Kết thúc buổi gặp';
 
   @override
-  String get gatheringEndedThanks => 'Đã kết thúc — nhắn tin cho người bạn vừa gặp là miễn phí';
+  String get gatheringEndedThanks =>
+      'Đã kết thúc — nhắn tin cho người bạn vừa gặp là miễn phí';
 
   @override
   String get gatheringCancelIt => 'Hủy buổi gặp';
@@ -7847,7 +8046,6 @@ class AppLocalizationsVi extends AppLocalizations {
   String gatheringCancelConfirm(num count) {
     final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String countString = countNumberFormat.format(count);
 
@@ -7870,7 +8068,6 @@ class AppLocalizationsVi extends AppLocalizations {
   String clubMembers(num count) {
     final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String countString = countNumberFormat.format(count);
 
@@ -7901,7 +8098,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get clubCreateTitle => 'Câu lạc bộ mới';
 
   @override
-  String get clubCreateSubtitle => 'Câu lạc bộ giữ mọi người ở lại giữa các buổi gặp. Hãy đặt tên theo điều các bạn thực sự sẽ làm.';
+  String get clubCreateSubtitle =>
+      'Câu lạc bộ giữ mọi người ở lại giữa các buổi gặp. Hãy đặt tên theo điều các bạn thực sự sẽ làm.';
 
   @override
   String get clubNameLabel => 'Tên câu lạc bộ';
@@ -7936,7 +8134,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get gatheringsMine => 'Buổi gặp của tôi';
 
   @override
-  String get gatheringsMineEmpty => 'Chưa có gì. Các buổi gặp bạn tổ chức hoặc tham gia sẽ hiện ở đây.';
+  String get gatheringsMineEmpty =>
+      'Chưa có gì. Các buổi gặp bạn tổ chức hoặc tham gia sẽ hiện ở đây.';
 
   @override
   String get gatheringsMineSubtitle => 'Buổi gặp bạn tổ chức hoặc đã tham gia';
@@ -7963,10 +8162,12 @@ class AppLocalizationsVi extends AppLocalizations {
   String get intentDate => 'Sẵn sàng hẹn hò';
 
   @override
-  String get intentPrivacyNote => 'Người khác thấy lựa chọn của bạn, trừ hẹn hò — mục đó được giữ riêng tư.';
+  String get intentPrivacyNote =>
+      'Người khác thấy lựa chọn của bạn, trừ hẹn hò — mục đó được giữ riêng tư.';
 
   @override
-  String get gatheringNoClubsYet => 'Chưa có câu lạc bộ — tạo một cái để các buổi gặp có nơi thuộc về.';
+  String get gatheringNoClubsYet =>
+      'Chưa có câu lạc bộ — tạo một cái để các buổi gặp có nơi thuộc về.';
 
   @override
   String get topicConversation => 'Trò chuyện';
@@ -8028,7 +8229,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get notifyRepliesTitle => 'Nhận thông báo khi có người trả lời';
 
   @override
-  String get notifyRepliesBody => 'Chúng tôi sẽ báo về tin nhắn mới và lời nhắc học tập hằng ngày. Bạn có thể tắt bất kỳ lúc nào.';
+  String get notifyRepliesBody =>
+      'Chúng tôi sẽ báo về tin nhắn mới và lời nhắc học tập hằng ngày. Bạn có thể tắt bất kỳ lúc nào.';
 
   @override
   String get notifyRepliesEnable => 'Bật';
@@ -8040,7 +8242,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get notificationsOffTitle => 'Thông báo đang tắt';
 
   @override
-  String get notificationsOffBody => 'Thiết bị của bạn đang chặn thông báo từ BananaTalk nên lời nhắc và tin nhắn không thể đến với bạn. Các cài đặt bên dưới sẽ chưa có hiệu lực cho đến khi bạn bật lên.';
+  String get notificationsOffBody =>
+      'Thiết bị của bạn đang chặn thông báo từ BananaTalk nên lời nhắc và tin nhắn không thể đến với bạn. Các cài đặt bên dưới sẽ chưa có hiệu lực cho đến khi bạn bật lên.';
 
   @override
   String get notificationsOffOpen => 'Mở cài đặt';
@@ -8055,7 +8258,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get finishProfileTitle => 'Hoàn tất thiết lập hồ sơ';
 
   @override
-  String get finishProfileBody => 'Chúng tôi cần ngày sinh của bạn để giữ BananaTalk an toàn cho mọi người. Bạn có thể đăng xuất nếu không muốn tiếp tục.';
+  String get finishProfileBody =>
+      'Chúng tôi cần ngày sinh của bạn để giữ BananaTalk an toàn cho mọi người. Bạn có thể đăng xuất nếu không muốn tiếp tục.';
 
   @override
   String get finishProfileContinue => 'Tiếp tục';
@@ -8097,7 +8301,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get clubDeleteConfirmTitle => 'Xóa câu lạc bộ này?';
 
   @override
-  String get clubDeleteConfirmBody => 'Các buổi đã lên lịch vẫn giữ nguyên — đã có người nhận lời tham gia. Chỉ câu lạc bộ bị xóa.';
+  String get clubDeleteConfirmBody =>
+      'Các buổi đã lên lịch vẫn giữ nguyên — đã có người nhận lời tham gia. Chỉ câu lạc bộ bị xóa.';
 
   @override
   String get clubRemoveMember => 'Xóa khỏi câu lạc bộ';
@@ -8209,7 +8414,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get storyArchiveEmpty => 'Chưa có gì trong kho';
 
   @override
-  String get storyArchiveEmptyBody => 'Tin sẽ chuyển vào đây sau 24 giờ. Thêm vào tin nổi bật để giữ trên trang cá nhân.';
+  String get storyArchiveEmptyBody =>
+      'Tin sẽ chuyển vào đây sau 24 giờ. Thêm vào tin nổi bật để giữ trên trang cá nhân.';
 
   @override
   String get storyArchiveAddHighlight => 'Thêm vào tin nổi bật';
@@ -8304,13 +8510,15 @@ class AppLocalizationsVi extends AppLocalizations {
   String get introRequests => 'Yêu cầu làm quen';
 
   @override
-  String get icebreakerWhyLearn => 'Điều gì khiến bạn bắt đầu học ngôn ngữ mới?';
+  String get icebreakerWhyLearn =>
+      'Điều gì khiến bạn bắt đầu học ngôn ngữ mới?';
 
   @override
   String get icebreakerCanHelp => 'Chào bạn! Mình có thể giúp bạn luyện tập 😊';
 
   @override
-  String get icebreakerFavoriteWord => 'Từ yêu thích của bạn trong tiếng mẹ đẻ là gì?';
+  String get icebreakerFavoriteWord =>
+      'Từ yêu thích của bạn trong tiếng mẹ đẻ là gì?';
 
   @override
   String get icebreakerCoffeeChat => 'Trò chuyện lúc nghỉ cà phê nhé?';
@@ -8323,4 +8531,196 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get failedToLoadSavedMoments => 'Không thể tải mục đã lưu';
+
+  @override
+  String get adNotReady => 'Quảng cáo chưa sẵn sàng — thử lại sau giây lát';
+
+  @override
+  String get addQuickReply => 'Thêm trả lời nhanh';
+
+  @override
+  String get pollNeedQuestionAndOptions => 'Thêm câu hỏi và ít nhất 2 lựa chọn';
+
+  @override
+  String get addOne => 'Thêm một';
+
+  @override
+  String get addScreenshotsOrPhotos => 'Thêm ảnh chụp màn hình hoặc ảnh';
+
+  @override
+  String get allowMultipleVotes => 'Cho phép bình chọn nhiều';
+
+  @override
+  String get attachImageOrTxt => 'Đính kèm ảnh hoặc tệp .txt';
+
+  @override
+  String get audioUploadFailed => 'Tải âm thanh thất bại';
+
+  @override
+  String get browseFiles => 'Duyệt tệp';
+
+  @override
+  String get clearCompleted => 'Xóa mục đã xong';
+
+  @override
+  String get closePollTitle => 'Đóng bình chọn?';
+
+  @override
+  String get coinHistory => 'Lịch sử xu';
+
+  @override
+  String get coinShop => 'Cửa hàng xu';
+
+  @override
+  String get conversationSummary => 'Tóm tắt hội thoại';
+
+  @override
+  String get couldNotLoadFollowings => 'Không thể tải danh sách đang theo dõi';
+
+  @override
+  String get couldNotLoadMoreHistory => 'Không thể tải thêm lịch sử.';
+
+  @override
+  String get couldNotLoadChats => 'Không thể tải cuộc trò chuyện';
+
+  @override
+  String get decline => 'Từ chối';
+
+  @override
+  String get endConversationTitle => 'Kết thúc hội thoại?';
+
+  @override
+  String get explainAction => 'Giải thích';
+
+  @override
+  String get failedToPlayAudio => 'Không phát được âm thanh';
+
+  @override
+  String get failedToSavePhrase => 'Không lưu được cụm từ';
+
+  @override
+  String get freeRetryUnlocked => 'Đã mở lượt thử lại miễn phí! 🎉';
+
+  @override
+  String get getAnotherHint => 'Nhận gợi ý khác';
+
+  @override
+  String get hideWhoVoted => 'Ẩn người đã bình chọn từng lựa chọn';
+
+  @override
+  String get invalidQrCode => 'Mã QR không hợp lệ';
+
+  @override
+  String get linkCopiedToClipboard => 'Đã sao chép liên kết';
+
+  @override
+  String get loadMore => 'Tải thêm';
+
+  @override
+  String get manage => 'Quản lý';
+
+  @override
+  String get maxTenOptions => 'Tối đa 10 lựa chọn';
+
+  @override
+  String get maybeLater => 'Để sau';
+
+  @override
+  String get minTwoOptions => 'Cần ít nhất 2 lựa chọn';
+
+  @override
+  String get noMoreVotesAfterClosing =>
+      'Sau khi đóng sẽ không nhận thêm bình chọn.';
+
+  @override
+  String get noOneToMention => 'Chưa có ai để nhắc đến';
+
+  @override
+  String get noRecentChatsToSendTo => 'Không có cuộc trò chuyện gần đây để gửi';
+
+  @override
+  String get notEnoughCoins => 'Không đủ xu.';
+
+  @override
+  String get oneOptionIsCorrect => 'Một lựa chọn là đáp án đúng';
+
+  @override
+  String get photoLibrary => 'Thư viện ảnh';
+
+  @override
+  String get phraseSavedToStudyQueue => 'Đã lưu cụm từ vào hàng đợi học';
+
+  @override
+  String get pleaseAddTwoOptions => 'Vui lòng thêm ít nhất 2 lựa chọn';
+
+  @override
+  String get pleaseAttachEvidence =>
+      'Vui lòng đính kèm ít nhất một tệp làm bằng chứng';
+
+  @override
+  String get pleaseEnterQuestion => 'Vui lòng nhập câu hỏi';
+
+  @override
+  String get pleaseSelectReportReason => 'Vui lòng chọn lý do báo cáo';
+
+  @override
+  String get pleaseSelectCorrectAnswer =>
+      'Vui lòng chọn đáp án đúng cho bài kiểm tra';
+
+  @override
+  String get pollExpires => 'Bình chọn hết hạn';
+
+  @override
+  String get quizMode => 'Chế độ đố vui';
+
+  @override
+  String get recordAReel => 'Quay reel';
+
+  @override
+  String get reelsContentGuidelines => 'Nguyên tắc nội dung reels';
+
+  @override
+  String get reportTypeMissing => 'Thiếu loại báo cáo';
+
+  @override
+  String get reportedContentIdMissing => 'Thiếu ID nội dung bị báo cáo';
+
+  @override
+  String get reportedUserIdMissing => 'Thiếu ID người dùng bị báo cáo';
+
+  @override
+  String get retryAll => 'Thử lại tất cả';
+
+  @override
+  String get savedToVocabulary => 'Đã lưu vào từ vựng!';
+
+  @override
+  String get savedFindInProfile => 'Đã lưu. Xem trong Hồ sơ → Đã lưu.';
+
+  @override
+  String get shareVia => 'Chia sẻ qua...';
+
+  @override
+  String get shareYourLocation => 'Chia sẻ vị trí của bạn?';
+
+  @override
+  String get suggestACorrection => 'Đề xuất chỉnh sửa';
+
+  @override
+  String get translationCopied => 'Đã sao chép bản dịch';
+
+  @override
+  String get unlock => 'Mở khóa';
+
+  @override
+  String get unlockPremiumWallpapers => 'Mở khóa hình nền premium';
+
+  @override
+  String get uploadQueue => 'Hàng đợi tải lên';
+
+  @override
+  String get usersCanVoteMultiple => 'Người dùng có thể chọn nhiều lựa chọn';
+
+  @override
+  String get watchAd => 'Xem quảng cáo';
 }

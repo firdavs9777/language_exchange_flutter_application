@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/models/upload_task.dart';
 import 'package:bananatalk_app/providers/upload_manager_provider.dart';
@@ -43,8 +44,7 @@ class _UploadProgressIndicatorState
     final uploadState = ref.watch(uploadManagerProvider);
 
     // Only show if there are active or recent tasks
-    if (uploadState.activeTasks.isEmpty &&
-        uploadState.failedTasks.isEmpty) {
+    if (uploadState.activeTasks.isEmpty && uploadState.failedTasks.isEmpty) {
       if (_animationController.isCompleted) {
         _animationController.reverse();
       }
@@ -152,7 +152,9 @@ class _UploadProgressIndicatorState
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.primaryContainer,
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(16),
+              ),
             ),
             child: Row(
               children: [
@@ -161,10 +163,7 @@ class _UploadProgressIndicatorState
                 const Expanded(
                   child: Text(
                     'Uploads',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                   ),
                 ),
                 IconButton(
@@ -197,9 +196,7 @@ class _UploadProgressIndicatorState
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
                 border: Border(
-                  top: BorderSide(
-                    color: Theme.of(context).dividerColor,
-                  ),
+                  top: BorderSide(color: Theme.of(context).dividerColor),
                 ),
               ),
               child: Row(
@@ -208,19 +205,23 @@ class _UploadProgressIndicatorState
                   if (state.failedTasks.isNotEmpty)
                     TextButton(
                       onPressed: () {
-                        final notifier = ref.read(uploadManagerProvider.notifier);
+                        final notifier = ref.read(
+                          uploadManagerProvider.notifier,
+                        );
                         for (final task in state.failedTasks) {
                           notifier.retryUpload(task.id);
                         }
                       },
-                      child: const Text('Retry All'),
+                      child: Text(AppLocalizations.of(context)!.retryAll),
                     ),
                   if (state.completedTasks.isNotEmpty)
                     TextButton(
                       onPressed: () {
-                        ref.read(uploadManagerProvider.notifier).clearCompleted();
+                        ref
+                            .read(uploadManagerProvider.notifier)
+                            .clearCompleted();
                       },
-                      child: const Text('Clear Completed'),
+                      child: Text(AppLocalizations.of(context)!.clearCompleted),
                     ),
                 ],
               ),
@@ -386,7 +387,7 @@ class UploadQueueScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Upload Queue'),
+        title: Text(AppLocalizations.of(context)!.uploadQueue),
         actions: [
           if (state.completedTasks.isNotEmpty)
             IconButton(
@@ -507,7 +508,8 @@ class UploadQueueScreen extends ConsumerWidget {
 
     return CircleAvatar(
       backgroundColor: bgColor,
-      child: task.status == UploadStatus.uploading ||
+      child:
+          task.status == UploadStatus.uploading ||
               task.status == UploadStatus.processing
           ? SizedBox(
               width: 24,

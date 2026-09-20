@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/providers/provider_models/story_model.dart';
 
 /// Full-screen editor for attaching a poll sticker to a story.
@@ -26,7 +27,9 @@ class _PollStickerEditorState extends State<PollStickerEditor> {
   @override
   void initState() {
     super.initState();
-    _questionController = TextEditingController(text: widget.initial?.question ?? '');
+    _questionController = TextEditingController(
+      text: widget.initial?.question ?? '',
+    );
     final initialOptions = widget.initial?.options ?? const [];
     if (initialOptions.length >= _minOptions) {
       _optionControllers = initialOptions
@@ -79,7 +82,11 @@ class _PollStickerEditorState extends State<PollStickerEditor> {
 
     if (question.isEmpty || options.length < _minOptions) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Add a question and at least 2 options')),
+        SnackBar(
+          content: Text(
+            AppLocalizations.of(context)!.pollNeedQuestionAndOptions,
+          ),
+        ),
       );
       return;
     }
@@ -130,7 +137,11 @@ class _PollStickerEditorState extends State<PollStickerEditor> {
             children: [
               const Text(
                 'Question',
-                style: TextStyle(color: Colors.white70, fontSize: 13, fontWeight: FontWeight.w600),
+                style: TextStyle(
+                  color: Colors.white70,
+                  fontSize: 13,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
               const SizedBox(height: 8),
               TextField(
@@ -158,7 +169,11 @@ class _PollStickerEditorState extends State<PollStickerEditor> {
               const SizedBox(height: 20),
               const Text(
                 'Options',
-                style: TextStyle(color: Colors.white70, fontSize: 13, fontWeight: FontWeight.w600),
+                style: TextStyle(
+                  color: Colors.white70,
+                  fontSize: 13,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
               const SizedBox(height: 8),
               ..._optionControllers.asMap().entries.map((entry) {
@@ -184,14 +199,20 @@ class _PollStickerEditorState extends State<PollStickerEditor> {
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
-                              borderSide: const BorderSide(color: _teal, width: 1.5),
+                              borderSide: const BorderSide(
+                                color: _teal,
+                                width: 1.5,
+                              ),
                             ),
                           ),
                         ),
                       ),
                       if (_optionControllers.length > _minOptions)
                         IconButton(
-                          icon: const Icon(Icons.remove_circle_outline, color: Colors.redAccent),
+                          icon: const Icon(
+                            Icons.remove_circle_outline,
+                            color: Colors.redAccent,
+                          ),
                           onPressed: () => _removeOption(entry.key),
                         ),
                     ],
@@ -202,7 +223,10 @@ class _PollStickerEditorState extends State<PollStickerEditor> {
                 TextButton.icon(
                   onPressed: _addOption,
                   icon: const Icon(Icons.add, color: _teal),
-                  label: const Text('Add option', style: TextStyle(color: _teal)),
+                  label: const Text(
+                    'Add option',
+                    style: TextStyle(color: _teal),
+                  ),
                 ),
             ],
           ),

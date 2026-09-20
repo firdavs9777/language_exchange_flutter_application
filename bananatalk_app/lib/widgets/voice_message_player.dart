@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
@@ -67,7 +68,8 @@ class _VoiceMessagePlayerState extends State<VoiceMessagePlayer> {
       if (mounted) {
         setState(() {
           _isPlaying = state.playing;
-          _isLoading = state.processingState == ProcessingState.loading ||
+          _isLoading =
+              state.processingState == ProcessingState.loading ||
               state.processingState == ProcessingState.buffering;
         });
 
@@ -83,7 +85,6 @@ class _VoiceMessagePlayerState extends State<VoiceMessagePlayer> {
   String? _localFilePath;
 
   Future<void> _togglePlayback() async {
-
     try {
       if (_player.audioSource == null) {
         final session = await AudioSession.instance;
@@ -113,8 +114,8 @@ class _VoiceMessagePlayerState extends State<VoiceMessagePlayer> {
       setState(() => _isLoading = false);
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Failed to play audio'),
+          SnackBar(
+            content: Text(AppLocalizations.of(context)!.failedToPlayAudio),
             backgroundColor: Colors.red,
           ),
         );
@@ -178,10 +179,17 @@ class _VoiceMessagePlayerState extends State<VoiceMessagePlayer> {
                 color: Colors.grey.withOpacity(0.3),
                 shape: BoxShape.circle,
               ),
-              child: const Icon(Icons.error_outline, color: Colors.grey, size: 20),
+              child: const Icon(
+                Icons.error_outline,
+                color: Colors.grey,
+                size: 20,
+              ),
             ),
             const SizedBox(width: 8),
-            const Text('Audio unavailable', style: TextStyle(color: Colors.grey, fontSize: 12)),
+            const Text(
+              'Audio unavailable',
+              style: TextStyle(color: Colors.grey, fontSize: 12),
+            ),
           ],
         ),
       );
@@ -236,38 +244,41 @@ class _VoiceMessagePlayerState extends State<VoiceMessagePlayer> {
                       size: 22,
                     ),
             ),
-          const SizedBox(width: 8),
+            const SizedBox(width: 8),
 
-          // Waveform or progress bar
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                // Waveform visualization
-                SizedBox(
-                  height: 28,
-                  child: widget.waveform != null && widget.waveform!.isNotEmpty
-                      ? _buildWaveform(primaryColor, secondaryColor)
-                      : _buildProgressBar(primaryColor, secondaryColor),
-                ),
-                const SizedBox(height: 2),
-                // Duration
-                Text(
-                  _isPlaying || _position.inSeconds > 0
-                      ? '${VoiceMessageService.formatDuration(_position.inSeconds)} / ${VoiceMessageService.formatDuration(_duration.inSeconds)}'
-                      : VoiceMessageService.formatDuration(_duration.inSeconds),
-                  style: TextStyle(
-                    fontSize: 10,
-                    color: textColor,
-                    fontFeatures: const [FontFeature.tabularFigures()],
+            // Waveform or progress bar
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // Waveform visualization
+                  SizedBox(
+                    height: 28,
+                    child:
+                        widget.waveform != null && widget.waveform!.isNotEmpty
+                        ? _buildWaveform(primaryColor, secondaryColor)
+                        : _buildProgressBar(primaryColor, secondaryColor),
                   ),
-                ),
-              ],
+                  const SizedBox(height: 2),
+                  // Duration
+                  Text(
+                    _isPlaying || _position.inSeconds > 0
+                        ? '${VoiceMessageService.formatDuration(_position.inSeconds)} / ${VoiceMessageService.formatDuration(_duration.inSeconds)}'
+                        : VoiceMessageService.formatDuration(
+                            _duration.inSeconds,
+                          ),
+                    style: TextStyle(
+                      fontSize: 10,
+                      color: textColor,
+                      fontFeatures: const [FontFeature.tabularFigures()],
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
-      ),
+          ],
+        ),
       ),
     );
   }
@@ -279,7 +290,8 @@ class _VoiceMessagePlayerState extends State<VoiceMessagePlayer> {
       builder: (context, constraints) {
         final barWidth = 2.5;
         final spacing = 1.5;
-        final totalBars = ((constraints.maxWidth) / (barWidth + spacing)).floor();
+        final totalBars = ((constraints.maxWidth) / (barWidth + spacing))
+            .floor();
         final displayWaveform = VoiceMessageService.generateWaveformFromSamples(
           waveform,
           totalBars,

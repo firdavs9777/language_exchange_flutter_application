@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 /// Illustrated in-body error state for auth flows: account lockout, rate
 /// limiting, and network failures. Rendered instead of a raw snackbar so the
@@ -61,7 +62,10 @@ class AuthErrorState extends StatelessWidget {
         ),
         if (onRetry != null) ...[
           const SizedBox(height: 16),
-          OutlinedButton(onPressed: onRetry, child: const Text('Try again')),
+          OutlinedButton(
+            onPressed: onRetry,
+            child: Text(AppLocalizations.of(context)!.tryAgain),
+          ),
         ],
       ],
     );

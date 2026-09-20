@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/providers/provider_models/story_model.dart';
 
 /// Interactive poll widget for stories
@@ -25,7 +26,8 @@ class StoryPollWidget extends StatefulWidget {
   State<StoryPollWidget> createState() => _StoryPollWidgetState();
 }
 
-class _StoryPollWidgetState extends State<StoryPollWidget> with SingleTickerProviderStateMixin {
+class _StoryPollWidgetState extends State<StoryPollWidget>
+    with SingleTickerProviderStateMixin {
   int? _selectedIndex;
   late AnimationController _animationController;
   late Animation<double> _animation;
@@ -89,7 +91,7 @@ class _StoryPollWidgetState extends State<StoryPollWidget> with SingleTickerProv
           ...widget.poll.options.asMap().entries.map((entry) {
             final option = entry.value;
             final isSelected = _selectedIndex == entry.key || option.voted;
-            
+
             return _PollOptionItem(
               option: option,
               isSelected: isSelected,
@@ -139,7 +141,9 @@ class _PollOptionItem extends StatelessWidget {
           duration: const Duration(milliseconds: 300),
           height: 48,
           decoration: BoxDecoration(
-            color: isSelected ? Colors.white.withOpacity(0.25) : Colors.white.withOpacity(0.1),
+            color: isSelected
+                ? Colors.white.withOpacity(0.25)
+                : Colors.white.withOpacity(0.1),
             borderRadius: BorderRadius.circular(24),
             border: Border.all(
               color: isSelected ? Colors.white : Colors.white.withOpacity(0.3),
@@ -157,7 +161,7 @@ class _PollOptionItem extends StatelessWidget {
                       alignment: Alignment.centerLeft,
                       child: Container(
                         decoration: BoxDecoration(
-                          color: isSelected 
+                          color: isSelected
                               ? Colors.white.withOpacity(0.3)
                               : Colors.white.withOpacity(0.15),
                           borderRadius: BorderRadius.circular(24),
@@ -175,7 +179,9 @@ class _PollOptionItem extends StatelessWidget {
                         option.text,
                         style: TextStyle(
                           color: Colors.white,
-                          fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                          fontWeight: isSelected
+                              ? FontWeight.bold
+                              : FontWeight.normal,
                         ),
                       ),
                     ),
@@ -202,7 +208,8 @@ class _PollOptionItem extends StatelessWidget {
 class CreateStoryPollDialog extends StatefulWidget {
   final Function(StoryPoll) onPollCreated;
 
-  const CreateStoryPollDialog({Key? key, required this.onPollCreated}) : super(key: key);
+  const CreateStoryPollDialog({Key? key, required this.onPollCreated})
+    : super(key: key);
 
   @override
   State<CreateStoryPollDialog> createState() => _CreateStoryPollDialogState();
@@ -249,18 +256,26 @@ class _CreateStoryPollDialogState extends State<CreateStoryPollDialog> {
 
     if (question.isEmpty || options.length < 2) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Add a question and at least 2 options')),
+        SnackBar(
+          content: Text(
+            AppLocalizations.of(context)!.pollNeedQuestionAndOptions,
+          ),
+        ),
       );
       return;
     }
 
-    widget.onPollCreated(StoryPoll(
-      question: question,
-      options: options.asMap().entries.map((e) => 
-        StoryPollOption(index: e.key, text: e.value)
-      ).toList(),
-      isAnonymous: _isAnonymous,
-    ));
+    widget.onPollCreated(
+      StoryPoll(
+        question: question,
+        options: options
+            .asMap()
+            .entries
+            .map((e) => StoryPollOption(index: e.key, text: e.value))
+            .toList(),
+        isAnonymous: _isAnonymous,
+      ),
+    );
     Navigator.pop(context);
   }
 
@@ -322,7 +337,10 @@ class _CreateStoryPollDialogState extends State<CreateStoryPollDialog> {
                     ),
                     if (_optionControllers.length > 2)
                       IconButton(
-                        icon: const Icon(Icons.remove_circle, color: Colors.red),
+                        icon: const Icon(
+                          Icons.remove_circle,
+                          color: Colors.red,
+                        ),
                         onPressed: () => _removeOption(entry.key),
                       ),
                   ],
@@ -333,7 +351,10 @@ class _CreateStoryPollDialogState extends State<CreateStoryPollDialog> {
               TextButton.icon(
                 onPressed: _addOption,
                 icon: const Icon(Icons.add, color: Colors.blue),
-                label: const Text('Add option', style: TextStyle(color: Colors.blue)),
+                label: const Text(
+                  'Add option',
+                  style: TextStyle(color: Colors.blue),
+                ),
               ),
             const SizedBox(height: 8),
             Row(
@@ -343,12 +364,15 @@ class _CreateStoryPollDialogState extends State<CreateStoryPollDialog> {
                   onChanged: (v) => setState(() => _isAnonymous = v ?? false),
                   checkColor: Colors.black,
                   fillColor: WidgetStateProperty.resolveWith(
-                    (states) => states.contains(WidgetState.selected) 
-                        ? Colors.white 
+                    (states) => states.contains(WidgetState.selected)
+                        ? Colors.white
                         : Colors.grey[700],
                   ),
                 ),
-                const Text('Anonymous voting', style: TextStyle(color: Colors.white)),
+                const Text(
+                  'Anonymous voting',
+                  style: TextStyle(color: Colors.white),
+                ),
               ],
             ),
             const SizedBox(height: 16),
@@ -357,7 +381,10 @@ class _CreateStoryPollDialogState extends State<CreateStoryPollDialog> {
               children: [
                 TextButton(
                   onPressed: () => Navigator.pop(context),
-                  child: Text('Cancel', style: TextStyle(color: Colors.grey[400])),
+                  child: Text(
+                    'Cancel',
+                    style: TextStyle(color: Colors.grey[400]),
+                  ),
                 ),
                 const SizedBox(width: 8),
                 ElevatedButton(
@@ -365,9 +392,11 @@ class _CreateStoryPollDialogState extends State<CreateStoryPollDialog> {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue,
                     foregroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
                   ),
-                  child: const Text('Create'),
+                  child: Text(AppLocalizations.of(context)!.create),
                 ),
               ],
             ),
@@ -377,4 +406,3 @@ class _CreateStoryPollDialogState extends State<CreateStoryPollDialog> {
     );
   }
 }
-

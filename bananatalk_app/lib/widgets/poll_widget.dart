@@ -35,9 +35,10 @@ class _PollWidgetState extends State<PollWidget> {
     super.initState();
     _poll = widget.poll;
     _selectedOption = _poll.getUserVoteIndex(widget.currentUserId);
-    _showResults = _selectedOption != null || 
-                   _poll.status != 'active' ||
-                   _poll.settings.showResultsBeforeVote;
+    _showResults =
+        _selectedOption != null ||
+        _poll.status != 'active' ||
+        _poll.settings.showResultsBeforeVote;
   }
 
   @override
@@ -46,9 +47,10 @@ class _PollWidgetState extends State<PollWidget> {
     if (oldWidget.poll.id != widget.poll.id) {
       _poll = widget.poll;
       _selectedOption = _poll.getUserVoteIndex(widget.currentUserId);
-      _showResults = _selectedOption != null || 
-                     _poll.status != 'active' ||
-                     _poll.settings.showResultsBeforeVote;
+      _showResults =
+          _selectedOption != null ||
+          _poll.status != 'active' ||
+          _poll.settings.showResultsBeforeVote;
     }
   }
 
@@ -102,8 +104,8 @@ class _PollWidgetState extends State<PollWidget> {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Close Poll?'),
-        content: const Text('No more votes will be accepted after closing.'),
+        title: Text(AppLocalizations.of(context)!.closePollTitle),
+        content: Text(AppLocalizations.of(context)!.noMoreVotesAfterClosing),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
@@ -111,7 +113,7 @@ class _PollWidgetState extends State<PollWidget> {
           ),
           ElevatedButton(
             onPressed: () => Navigator.pop(context, true),
-            child: const Text('Close'),
+            child: Text(AppLocalizations.of(context)!.close),
           ),
         ],
       ),
@@ -138,11 +140,11 @@ class _PollWidgetState extends State<PollWidget> {
   @override
   Widget build(BuildContext context) {
     final textColor = widget.isFromMe ? Colors.white : Colors.black87;
-    final subtleColor = widget.isFromMe 
-        ? Colors.white.withOpacity(0.7) 
+    final subtleColor = widget.isFromMe
+        ? Colors.white.withOpacity(0.7)
         : Colors.grey[600];
-    final accentColor = widget.isFromMe 
-        ? Colors.white 
+    final accentColor = widget.isFromMe
+        ? Colors.white
         : Theme.of(context).primaryColor;
 
     return Container(
@@ -166,17 +168,17 @@ class _PollWidgetState extends State<PollWidget> {
               const Spacer(),
               if (_poll.status != 'active')
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 6,
+                    vertical: 2,
+                  ),
                   decoration: BoxDecoration(
                     color: Colors.grey.withOpacity(0.3),
                     borderRadius: BorderRadius.circular(4),
                   ),
                   child: Text(
                     _poll.status == 'closed' ? 'Closed' : 'Expired',
-                    style: TextStyle(
-                      fontSize: 10,
-                      color: subtleColor,
-                    ),
+                    style: TextStyle(fontSize: 10, color: subtleColor),
                   ),
                 ),
             ],
@@ -214,24 +216,18 @@ class _PollWidgetState extends State<PollWidget> {
             children: [
               Text(
                 '${_poll.uniqueVoters} vote${_poll.uniqueVoters != 1 ? 's' : ''}',
-                style: TextStyle(
-                  fontSize: 12,
-                  color: subtleColor,
-                ),
+                style: TextStyle(fontSize: 12, color: subtleColor),
               ),
               if (_poll.expiresAt != null) ...[
                 Text(' • ', style: TextStyle(color: subtleColor)),
                 Text(
                   _formatExpiry(_poll.expiresAt!),
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: subtleColor,
-                  ),
+                  style: TextStyle(fontSize: 12, color: subtleColor),
                 ),
               ],
               const Spacer(),
               // Close button for creator
-              if (_poll.status == 'active' && 
+              if (_poll.status == 'active' &&
                   _poll.creator.id == widget.currentUserId)
                 GestureDetector(
                   onTap: _closePoll,
@@ -263,11 +259,12 @@ class _PollWidgetState extends State<PollWidget> {
     required Color subtleColor,
   }) {
     final isSelected = _selectedOption == index;
-    final percentage = _showResults 
+    final percentage = _showResults
         ? option.getPercentage(_poll.totalVotes)
         : 0.0;
     final isActive = _poll.status == 'active';
-    final canVote = isActive && 
+    final canVote =
+        isActive &&
         (_selectedOption == null || _poll.settings.allowMultipleVotes);
 
     return GestureDetector(
@@ -290,13 +287,13 @@ class _PollWidgetState extends State<PollWidget> {
                       isSelected
                           ? accentColor.withOpacity(0.3)
                           : (widget.isFromMe
-                              ? Colors.white.withOpacity(0.1)
-                              : Colors.grey.withOpacity(0.2)),
+                                ? Colors.white.withOpacity(0.1)
+                                : Colors.grey.withOpacity(0.2)),
                     ),
                   ),
                 ),
               ),
-            
+
             // Option content
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
@@ -305,8 +302,8 @@ class _PollWidgetState extends State<PollWidget> {
                   color: isSelected
                       ? accentColor
                       : (widget.isFromMe
-                          ? Colors.white.withOpacity(0.3)
-                          : Colors.grey.withOpacity(0.3)),
+                            ? Colors.white.withOpacity(0.3)
+                            : Colors.grey.withOpacity(0.3)),
                   width: isSelected ? 2 : 1,
                 ),
                 borderRadius: BorderRadius.circular(8),
@@ -328,27 +325,25 @@ class _PollWidgetState extends State<PollWidget> {
                       ),
                     )
                   else if (isSelected)
-                    Icon(
-                      Icons.check_circle,
-                      size: 20,
-                      color: accentColor,
-                    )
+                    Icon(Icons.check_circle, size: 20, color: accentColor)
                   else
                     const SizedBox(width: 20),
-                    
+
                   const SizedBox(width: 8),
-                  
+
                   // Option text
                   Expanded(
                     child: Text(
                       option.text,
                       style: TextStyle(
                         color: textColor,
-                        fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+                        fontWeight: isSelected
+                            ? FontWeight.w600
+                            : FontWeight.normal,
                       ),
                     ),
                   ),
-                  
+
                   // Percentage
                   if (_showResults)
                     Text(
@@ -359,7 +354,7 @@ class _PollWidgetState extends State<PollWidget> {
                         fontSize: 13,
                       ),
                     ),
-                    
+
                   // Loading indicator
                   if (_isVoting && isSelected)
                     const SizedBox(
@@ -427,13 +422,13 @@ class _PollWidgetState extends State<PollWidget> {
     try {
       final expiry = DateTime.parse(expiresAt);
       final now = DateTime.now();
-      
+
       if (expiry.isBefore(now)) {
         return 'Expired';
       }
-      
+
       final difference = expiry.difference(now);
-      
+
       if (difference.inDays > 0) {
         return '${difference.inDays}d left';
       } else if (difference.inHours > 0) {
@@ -446,4 +441,3 @@ class _PollWidgetState extends State<PollWidget> {
     }
   }
 }
-

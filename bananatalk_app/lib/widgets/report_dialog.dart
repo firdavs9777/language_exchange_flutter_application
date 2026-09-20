@@ -83,14 +83,16 @@ class _ReportDialogState extends State<ReportDialog> {
           children: [
             ListTile(
               leading: const Icon(Icons.photo_library_outlined),
-              title: const Text('Photo Library'),
-              subtitle: const Text('Add screenshots or photos'),
+              title: Text(AppLocalizations.of(context)!.photoLibrary),
+              subtitle: Text(
+                AppLocalizations.of(context)!.addScreenshotsOrPhotos,
+              ),
               onTap: () => Navigator.pop(ctx, 'photos'),
             ),
             ListTile(
               leading: const Icon(Icons.insert_drive_file_outlined),
-              title: const Text('Browse Files'),
-              subtitle: const Text('Attach an image or .txt file'),
+              title: Text(AppLocalizations.of(context)!.browseFiles),
+              subtitle: Text(AppLocalizations.of(context)!.attachImageOrTxt),
               onTap: () => Navigator.pop(ctx, 'files'),
             ),
           ],
@@ -203,8 +205,8 @@ class _ReportDialogState extends State<ReportDialog> {
     // Validate evidence is attached
     if (_selectedFiles.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Please attach at least one file as evidence'),
+        SnackBar(
+          content: Text(AppLocalizations.of(context)!.pleaseAttachEvidence),
           backgroundColor: Colors.orange,
         ),
       );
@@ -214,8 +216,8 @@ class _ReportDialogState extends State<ReportDialog> {
     // Validate all required fields
     if (_selectedReason == null || _selectedReason!.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Please select a reason for reporting'),
+        SnackBar(
+          content: Text(AppLocalizations.of(context)!.pleaseSelectReportReason),
           backgroundColor: Colors.orange,
         ),
       );
@@ -224,8 +226,8 @@ class _ReportDialogState extends State<ReportDialog> {
 
     if (widget.type.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Report type is missing'),
+        SnackBar(
+          content: Text(AppLocalizations.of(context)!.reportTypeMissing),
           backgroundColor: Colors.red,
         ),
       );
@@ -234,8 +236,8 @@ class _ReportDialogState extends State<ReportDialog> {
 
     if (widget.reportedId.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Reported content ID is missing'),
+        SnackBar(
+          content: Text(AppLocalizations.of(context)!.reportedContentIdMissing),
           backgroundColor: Colors.red,
         ),
       );
@@ -244,8 +246,8 @@ class _ReportDialogState extends State<ReportDialog> {
 
     if (widget.reportedUserId.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Reported user ID is missing'),
+        SnackBar(
+          content: Text(AppLocalizations.of(context)!.reportedUserIdMissing),
           backgroundColor: Colors.red,
         ),
       );
@@ -347,7 +349,9 @@ class _ReportDialogState extends State<ReportDialog> {
         });
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(friendlyErrorMessage(AppLocalizations.of(context)!, e)),
+            content: Text(
+              friendlyErrorMessage(AppLocalizations.of(context)!, e),
+            ),
             backgroundColor: Colors.red,
           ),
         );

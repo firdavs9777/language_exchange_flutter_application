@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/services.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/services/correction_service.dart';
@@ -43,7 +44,8 @@ class _CorrectionBottomSheetState extends State<CorrectionBottomSheet> {
   }
 
   void _checkChanges() {
-    final changed = _correctedController.text.trim() != widget.originalText.trim();
+    final changed =
+        _correctedController.text.trim() != widget.originalText.trim();
     if (changed != _hasChanges) {
       setState(() => _hasChanges = changed);
     }
@@ -68,8 +70,8 @@ class _CorrectionBottomSheetState extends State<CorrectionBottomSheet> {
     if (result['success'] == true) {
       Navigator.pop(context, true);
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Correction sent'),
+        SnackBar(
+          content: Text(AppLocalizations.of(context)!.correctionSent),
           duration: Duration(seconds: 2),
         ),
       );
@@ -77,7 +79,9 @@ class _CorrectionBottomSheetState extends State<CorrectionBottomSheet> {
       setState(() => _isSending = false);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(result['error']?.toString() ?? 'Failed to send correction'),
+          content: Text(
+            result['error']?.toString() ?? 'Failed to send correction',
+          ),
         ),
       );
     }
@@ -91,14 +95,15 @@ class _CorrectionBottomSheetState extends State<CorrectionBottomSheet> {
     // Show diff preview
     final diffs = _hasChanges
         ? CorrectionService.getDifferences(
-            widget.originalText, _correctedController.text.trim())
+            widget.originalText,
+            _correctedController.text.trim(),
+          )
         : <TextDiff>[];
 
     final viewInsetsBottom = MediaQuery.of(context).viewInsets.bottom;
     return Container(
       constraints: BoxConstraints(
-        maxHeight:
-            MediaQuery.of(context).size.height * 0.85 - viewInsetsBottom,
+        maxHeight: MediaQuery.of(context).size.height * 0.85 - viewInsetsBottom,
       ),
       decoration: BoxDecoration(
         color: isDark ? AppColors.surfaceDark : AppColors.white,
@@ -129,7 +134,9 @@ class _CorrectionBottomSheetState extends State<CorrectionBottomSheet> {
                   child: Text(
                     'Correct ${widget.senderName}\'s message',
                     style: const TextStyle(
-                        fontSize: 17, fontWeight: FontWeight.w600),
+                      fontSize: 17,
+                      fontWeight: FontWeight.w600,
+                    ),
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
@@ -336,12 +343,15 @@ class _CorrectionBottomSheetState extends State<CorrectionBottomSheet> {
                 width: double.infinity,
                 height: 48,
                 child: ElevatedButton(
-                  onPressed: _hasChanges && !_isSending ? _sendCorrection : null,
+                  onPressed: _hasChanges && !_isSending
+                      ? _sendCorrection
+                      : null,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: theme.primaryColor,
                     foregroundColor: Colors.white,
-                    disabledBackgroundColor:
-                        isDark ? AppColors.gray800 : AppColors.gray200,
+                    disabledBackgroundColor: isDark
+                        ? AppColors.gray800
+                        : AppColors.gray200,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -358,7 +368,9 @@ class _CorrectionBottomSheetState extends State<CorrectionBottomSheet> {
                       : const Text(
                           'Send Correction',
                           style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w600),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                 ),
               ),

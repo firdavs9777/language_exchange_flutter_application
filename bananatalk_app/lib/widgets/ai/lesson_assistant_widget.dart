@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/services/ai_service.dart';
 import 'package:bananatalk_app/models/ai/lesson_assistant_model.dart';
 
@@ -134,10 +135,7 @@ class _LessonAssistantWidgetState extends State<LessonAssistantWidget>
                       ),
                       Text(
                         'Level ${hint.hintLevel}/3',
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.grey[600],
-                        ),
+                        style: TextStyle(fontSize: 12, color: Colors.grey[600]),
                       ),
                     ],
                   ),
@@ -149,10 +147,7 @@ class _LessonAssistantWidgetState extends State<LessonAssistantWidget>
               ],
             ),
             const SizedBox(height: 16),
-            Text(
-              hint.hint,
-              style: const TextStyle(fontSize: 16, height: 1.5),
-            ),
+            Text(hint.hint, style: const TextStyle(fontSize: 16, height: 1.5)),
             if (hint.encouragement != null) ...[
               const SizedBox(height: 12),
               Text(
@@ -173,7 +168,7 @@ class _LessonAssistantWidgetState extends State<LessonAssistantWidget>
                     Navigator.pop(context);
                     _getHint();
                   },
-                  child: const Text('Get Another Hint'),
+                  child: Text(AppLocalizations.of(context)!.getAnotherHint),
                 ),
               ),
             ],
@@ -218,10 +213,7 @@ class _LessonAssistantWidgetState extends State<LessonAssistantWidget>
                   const SizedBox(width: 12),
                   const Text(
                     'Ask a Question',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
@@ -281,7 +273,9 @@ class _LessonAssistantWidgetState extends State<LessonAssistantWidget>
       } else {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(result['message'] ?? 'Failed to get answer')),
+            SnackBar(
+              content: Text(result['message'] ?? 'Failed to get answer'),
+            ),
           );
         }
       }
@@ -367,38 +361,39 @@ class _LessonAssistantWidgetState extends State<LessonAssistantWidget>
                   const SizedBox(height: 20),
                   const Text(
                     'Examples',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 8),
-                  ...answer.examples.map((ex) => Container(
-                    margin: const EdgeInsets.only(bottom: 8),
-                    padding: const EdgeInsets.all(12),
-                    decoration: BoxDecoration(
-                      color: Colors.green.withOpacity(0.05),
-                      borderRadius: BorderRadius.circular(8),
-                      border: Border.all(color: Colors.green.withOpacity(0.2)),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          ex.sentence,
-                          style: const TextStyle(fontWeight: FontWeight.w500),
+                  ...answer.examples.map(
+                    (ex) => Container(
+                      margin: const EdgeInsets.only(bottom: 8),
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: Colors.green.withOpacity(0.05),
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(
+                          color: Colors.green.withOpacity(0.2),
                         ),
-                        const SizedBox(height: 4),
-                        Text(
-                          ex.translation,
-                          style: TextStyle(
-                            color: Colors.grey[600],
-                            fontSize: 13,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            ex.sentence,
+                            style: const TextStyle(fontWeight: FontWeight.w500),
                           ),
-                        ),
-                      ],
+                          const SizedBox(height: 4),
+                          Text(
+                            ex.translation,
+                            style: TextStyle(
+                              color: Colors.grey[600],
+                              fontSize: 13,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  )),
+                  ),
                 ],
                 if (answer.additionalInfo != null) ...[
                   const SizedBox(height: 16),
@@ -411,7 +406,11 @@ class _LessonAssistantWidgetState extends State<LessonAssistantWidget>
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Icon(Icons.info_outline, size: 18, color: Colors.blue[700]),
+                        Icon(
+                          Icons.info_outline,
+                          size: 18,
+                          color: Colors.blue[700],
+                        ),
                         const SizedBox(width: 8),
                         Expanded(
                           child: Text(
@@ -469,10 +468,7 @@ class _LessonAssistantWidgetState extends State<LessonAssistantWidget>
                   const SizedBox(width: 12),
                   const Text(
                     'Explain Concept',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
@@ -503,7 +499,7 @@ class _LessonAssistantWidgetState extends State<LessonAssistantWidget>
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
-                  child: const Text('Explain'),
+                  child: Text(AppLocalizations.of(context)!.explainAction),
                 ),
               ),
               const SizedBox(height: 8),
@@ -586,38 +582,39 @@ class _LessonAssistantWidgetState extends State<LessonAssistantWidget>
                   const SizedBox(height: 20),
                   const Text(
                     'Examples',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 8),
-                  ...explanation.examples.map((ex) => Container(
-                    margin: const EdgeInsets.only(bottom: 8),
-                    padding: const EdgeInsets.all(12),
-                    decoration: BoxDecoration(
-                      color: Colors.purple.withOpacity(0.05),
-                      borderRadius: BorderRadius.circular(8),
-                      border: Border.all(color: Colors.purple.withOpacity(0.2)),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          ex.sentence,
-                          style: const TextStyle(fontWeight: FontWeight.w500),
+                  ...explanation.examples.map(
+                    (ex) => Container(
+                      margin: const EdgeInsets.only(bottom: 8),
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: Colors.purple.withOpacity(0.05),
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(
+                          color: Colors.purple.withOpacity(0.2),
                         ),
-                        const SizedBox(height: 4),
-                        Text(
-                          ex.translation,
-                          style: TextStyle(
-                            color: Colors.grey[600],
-                            fontSize: 13,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            ex.sentence,
+                            style: const TextStyle(fontWeight: FontWeight.w500),
                           ),
-                        ),
-                      ],
+                          const SizedBox(height: 4),
+                          Text(
+                            ex.translation,
+                            style: TextStyle(
+                              color: Colors.grey[600],
+                              fontSize: 13,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  )),
+                  ),
                 ],
                 if (explanation.tip != null) ...[
                   const SizedBox(height: 16),
@@ -655,10 +652,17 @@ class _LessonAssistantWidgetState extends State<LessonAssistantWidget>
                   Wrap(
                     spacing: 8,
                     runSpacing: 8,
-                    children: explanation.relatedConcepts.map((c) => Chip(
-                      label: Text(c, style: const TextStyle(fontSize: 12)),
-                      backgroundColor: Colors.grey[100],
-                    )).toList(),
+                    children: explanation.relatedConcepts
+                        .map(
+                          (c) => Chip(
+                            label: Text(
+                              c,
+                              style: const TextStyle(fontSize: 12),
+                            ),
+                            backgroundColor: Colors.grey[100],
+                          ),
+                        )
+                        .toList(),
                   ),
                 ],
                 const SizedBox(height: 20),
@@ -764,10 +768,7 @@ class _LessonAssistantWidgetState extends State<LessonAssistantWidget>
               const SizedBox(width: 8),
               Text(
                 label,
-                style: TextStyle(
-                  color: color,
-                  fontWeight: FontWeight.w600,
-                ),
+                style: TextStyle(color: color, fontWeight: FontWeight.w600),
               ),
             ],
           ),

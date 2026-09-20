@@ -78,7 +78,8 @@ import 'app_localizations_zh.dart';
 /// be consistent with the languages listed in the AppLocalizations.supportedLocales
 /// property.
 abstract class AppLocalizations {
-  AppLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+  AppLocalizations(String locale)
+    : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -86,7 +87,8 @@ abstract class AppLocalizations {
     return Localizations.of<AppLocalizations>(context, AppLocalizations);
   }
 
-  static const LocalizationsDelegate<AppLocalizations> delegate = _AppLocalizationsDelegate();
+  static const LocalizationsDelegate<AppLocalizations> delegate =
+      _AppLocalizationsDelegate();
 
   /// A list of this localizations delegate along with the default localizations
   /// delegates.
@@ -98,12 +100,13 @@ abstract class AppLocalizations {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
-    delegate,
-    GlobalMaterialLocalizations.delegate,
-    GlobalCupertinoLocalizations.delegate,
-    GlobalWidgetsLocalizations.delegate,
-  ];
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
+      <LocalizationsDelegate<dynamic>>[
+        delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ];
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
@@ -125,7 +128,7 @@ abstract class AppLocalizations {
     Locale('tr'),
     Locale('vi'),
     Locale('zh'),
-    Locale('zh', 'TW')
+    Locale('zh', 'TW'),
   ];
 
   /// The application name
@@ -15397,9 +15400,388 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Could not load your saved items'**
   String get failedToLoadSavedMoments;
+
+  /// No description provided for @adNotReady.
+  ///
+  /// In en, this message translates to:
+  /// **'Ad not ready yet — try again in a moment'**
+  String get adNotReady;
+
+  /// No description provided for @addQuickReply.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Quick Reply'**
+  String get addQuickReply;
+
+  /// No description provided for @pollNeedQuestionAndOptions.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a question and at least 2 options'**
+  String get pollNeedQuestionAndOptions;
+
+  /// No description provided for @addOne.
+  ///
+  /// In en, this message translates to:
+  /// **'Add one'**
+  String get addOne;
+
+  /// No description provided for @addScreenshotsOrPhotos.
+  ///
+  /// In en, this message translates to:
+  /// **'Add screenshots or photos'**
+  String get addScreenshotsOrPhotos;
+
+  /// No description provided for @allowMultipleVotes.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow multiple votes'**
+  String get allowMultipleVotes;
+
+  /// No description provided for @attachImageOrTxt.
+  ///
+  /// In en, this message translates to:
+  /// **'Attach an image or .txt file'**
+  String get attachImageOrTxt;
+
+  /// No description provided for @audioUploadFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Audio upload failed'**
+  String get audioUploadFailed;
+
+  /// No description provided for @browseFiles.
+  ///
+  /// In en, this message translates to:
+  /// **'Browse Files'**
+  String get browseFiles;
+
+  /// No description provided for @clearCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear Completed'**
+  String get clearCompleted;
+
+  /// No description provided for @closePollTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Close Poll?'**
+  String get closePollTitle;
+
+  /// No description provided for @coinHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Coin History'**
+  String get coinHistory;
+
+  /// No description provided for @coinShop.
+  ///
+  /// In en, this message translates to:
+  /// **'Coin Shop'**
+  String get coinShop;
+
+  /// No description provided for @conversationSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'Conversation Summary'**
+  String get conversationSummary;
+
+  /// No description provided for @couldNotLoadFollowings.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load followings'**
+  String get couldNotLoadFollowings;
+
+  /// No description provided for @couldNotLoadMoreHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load more history.'**
+  String get couldNotLoadMoreHistory;
+
+  /// No description provided for @couldNotLoadChats.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load your chats'**
+  String get couldNotLoadChats;
+
+  /// No description provided for @decline.
+  ///
+  /// In en, this message translates to:
+  /// **'Decline'**
+  String get decline;
+
+  /// No description provided for @endConversationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'End Conversation?'**
+  String get endConversationTitle;
+
+  /// No description provided for @explainAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Explain'**
+  String get explainAction;
+
+  /// No description provided for @failedToPlayAudio.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to play audio'**
+  String get failedToPlayAudio;
+
+  /// No description provided for @failedToSavePhrase.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to save phrase'**
+  String get failedToSavePhrase;
+
+  /// No description provided for @freeRetryUnlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Free retry unlocked! 🎉'**
+  String get freeRetryUnlocked;
+
+  /// No description provided for @getAnotherHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Get Another Hint'**
+  String get getAnotherHint;
+
+  /// No description provided for @hideWhoVoted.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide who voted for each option'**
+  String get hideWhoVoted;
+
+  /// No description provided for @invalidQrCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid QR code'**
+  String get invalidQrCode;
+
+  /// No description provided for @linkCopiedToClipboard.
+  ///
+  /// In en, this message translates to:
+  /// **'Link copied to clipboard'**
+  String get linkCopiedToClipboard;
+
+  /// No description provided for @loadMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Load more'**
+  String get loadMore;
+
+  /// No description provided for @manage.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage'**
+  String get manage;
+
+  /// No description provided for @maxTenOptions.
+  ///
+  /// In en, this message translates to:
+  /// **'Maximum 10 options allowed'**
+  String get maxTenOptions;
+
+  /// No description provided for @maybeLater.
+  ///
+  /// In en, this message translates to:
+  /// **'Maybe Later'**
+  String get maybeLater;
+
+  /// No description provided for @minTwoOptions.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum 2 options required'**
+  String get minTwoOptions;
+
+  /// No description provided for @noMoreVotesAfterClosing.
+  ///
+  /// In en, this message translates to:
+  /// **'No more votes will be accepted after closing.'**
+  String get noMoreVotesAfterClosing;
+
+  /// No description provided for @noOneToMention.
+  ///
+  /// In en, this message translates to:
+  /// **'No one to mention yet'**
+  String get noOneToMention;
+
+  /// No description provided for @noRecentChatsToSendTo.
+  ///
+  /// In en, this message translates to:
+  /// **'No recent chats to send to'**
+  String get noRecentChatsToSendTo;
+
+  /// No description provided for @notEnoughCoins.
+  ///
+  /// In en, this message translates to:
+  /// **'Not enough coins for that.'**
+  String get notEnoughCoins;
+
+  /// No description provided for @oneOptionIsCorrect.
+  ///
+  /// In en, this message translates to:
+  /// **'One option is the correct answer'**
+  String get oneOptionIsCorrect;
+
+  /// No description provided for @photoLibrary.
+  ///
+  /// In en, this message translates to:
+  /// **'Photo Library'**
+  String get photoLibrary;
+
+  /// No description provided for @phraseSavedToStudyQueue.
+  ///
+  /// In en, this message translates to:
+  /// **'Phrase saved to study queue'**
+  String get phraseSavedToStudyQueue;
+
+  /// No description provided for @pleaseAddTwoOptions.
+  ///
+  /// In en, this message translates to:
+  /// **'Please add at least 2 options'**
+  String get pleaseAddTwoOptions;
+
+  /// No description provided for @pleaseAttachEvidence.
+  ///
+  /// In en, this message translates to:
+  /// **'Please attach at least one file as evidence'**
+  String get pleaseAttachEvidence;
+
+  /// No description provided for @pleaseEnterQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a question'**
+  String get pleaseEnterQuestion;
+
+  /// No description provided for @pleaseSelectReportReason.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select a reason for reporting'**
+  String get pleaseSelectReportReason;
+
+  /// No description provided for @pleaseSelectCorrectAnswer.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select the correct answer for quiz'**
+  String get pleaseSelectCorrectAnswer;
+
+  /// No description provided for @pollExpires.
+  ///
+  /// In en, this message translates to:
+  /// **'Poll expires'**
+  String get pollExpires;
+
+  /// No description provided for @quizMode.
+  ///
+  /// In en, this message translates to:
+  /// **'Quiz mode'**
+  String get quizMode;
+
+  /// No description provided for @recordAReel.
+  ///
+  /// In en, this message translates to:
+  /// **'Record a reel'**
+  String get recordAReel;
+
+  /// No description provided for @reelsContentGuidelines.
+  ///
+  /// In en, this message translates to:
+  /// **'Reels content guidelines'**
+  String get reelsContentGuidelines;
+
+  /// No description provided for @reportTypeMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'Report type is missing'**
+  String get reportTypeMissing;
+
+  /// No description provided for @reportedContentIdMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'Reported content ID is missing'**
+  String get reportedContentIdMissing;
+
+  /// No description provided for @reportedUserIdMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'Reported user ID is missing'**
+  String get reportedUserIdMissing;
+
+  /// No description provided for @retryAll.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry All'**
+  String get retryAll;
+
+  /// No description provided for @savedToVocabulary.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved to vocabulary!'**
+  String get savedToVocabulary;
+
+  /// No description provided for @savedFindInProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved. Find it in Profile → Saved.'**
+  String get savedFindInProfile;
+
+  /// No description provided for @shareVia.
+  ///
+  /// In en, this message translates to:
+  /// **'Share via...'**
+  String get shareVia;
+
+  /// No description provided for @shareYourLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Share your location?'**
+  String get shareYourLocation;
+
+  /// No description provided for @suggestACorrection.
+  ///
+  /// In en, this message translates to:
+  /// **'Suggest a correction'**
+  String get suggestACorrection;
+
+  /// No description provided for @translationCopied.
+  ///
+  /// In en, this message translates to:
+  /// **'Translation copied'**
+  String get translationCopied;
+
+  /// No description provided for @unlock.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock'**
+  String get unlock;
+
+  /// No description provided for @unlockPremiumWallpapers.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock premium wallpapers'**
+  String get unlockPremiumWallpapers;
+
+  /// No description provided for @uploadQueue.
+  ///
+  /// In en, this message translates to:
+  /// **'Upload Queue'**
+  String get uploadQueue;
+
+  /// No description provided for @usersCanVoteMultiple.
+  ///
+  /// In en, this message translates to:
+  /// **'Users can vote for multiple options'**
+  String get usersCanVoteMultiple;
+
+  /// No description provided for @watchAd.
+  ///
+  /// In en, this message translates to:
+  /// **'Watch Ad'**
+  String get watchAd;
 }
 
-class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
+class _AppLocalizationsDelegate
+    extends LocalizationsDelegate<AppLocalizations> {
   const _AppLocalizationsDelegate();
 
   @override
@@ -15408,50 +15790,88 @@ class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> 
   }
 
   @override
-  bool isSupported(Locale locale) => <String>['ar', 'de', 'en', 'es', 'fr', 'hi', 'id', 'it', 'ja', 'ko', 'pt', 'ru', 'tg', 'th', 'tl', 'tr', 'vi', 'zh'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>[
+    'ar',
+    'de',
+    'en',
+    'es',
+    'fr',
+    'hi',
+    'id',
+    'it',
+    'ja',
+    'ko',
+    'pt',
+    'ru',
+    'tg',
+    'th',
+    'tl',
+    'tr',
+    'vi',
+    'zh',
+  ].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
 }
 
 AppLocalizations lookupAppLocalizations(Locale locale) {
-
   // Lookup logic when language+country codes are specified.
   switch (locale.languageCode) {
-    case 'zh': {
-  switch (locale.countryCode) {
-    case 'TW': return AppLocalizationsZhTw();
-   }
-  break;
-   }
+    case 'zh':
+      {
+        switch (locale.countryCode) {
+          case 'TW':
+            return AppLocalizationsZhTw();
+        }
+        break;
+      }
   }
 
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'ar': return AppLocalizationsAr();
-    case 'de': return AppLocalizationsDe();
-    case 'en': return AppLocalizationsEn();
-    case 'es': return AppLocalizationsEs();
-    case 'fr': return AppLocalizationsFr();
-    case 'hi': return AppLocalizationsHi();
-    case 'id': return AppLocalizationsId();
-    case 'it': return AppLocalizationsIt();
-    case 'ja': return AppLocalizationsJa();
-    case 'ko': return AppLocalizationsKo();
-    case 'pt': return AppLocalizationsPt();
-    case 'ru': return AppLocalizationsRu();
-    case 'tg': return AppLocalizationsTg();
-    case 'th': return AppLocalizationsTh();
-    case 'tl': return AppLocalizationsTl();
-    case 'tr': return AppLocalizationsTr();
-    case 'vi': return AppLocalizationsVi();
-    case 'zh': return AppLocalizationsZh();
+    case 'ar':
+      return AppLocalizationsAr();
+    case 'de':
+      return AppLocalizationsDe();
+    case 'en':
+      return AppLocalizationsEn();
+    case 'es':
+      return AppLocalizationsEs();
+    case 'fr':
+      return AppLocalizationsFr();
+    case 'hi':
+      return AppLocalizationsHi();
+    case 'id':
+      return AppLocalizationsId();
+    case 'it':
+      return AppLocalizationsIt();
+    case 'ja':
+      return AppLocalizationsJa();
+    case 'ko':
+      return AppLocalizationsKo();
+    case 'pt':
+      return AppLocalizationsPt();
+    case 'ru':
+      return AppLocalizationsRu();
+    case 'tg':
+      return AppLocalizationsTg();
+    case 'th':
+      return AppLocalizationsTh();
+    case 'tl':
+      return AppLocalizationsTl();
+    case 'tr':
+      return AppLocalizationsTr();
+    case 'vi':
+      return AppLocalizationsVi();
+    case 'zh':
+      return AppLocalizationsZh();
   }
 
   throw FlutterError(
     'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
     'an issue with the localizations generation tool. Please file an issue '
     'on GitHub with a reproducible sample app and the gen-l10n configuration '
-    'that was used.'
+    'that was used.',
   );
 }

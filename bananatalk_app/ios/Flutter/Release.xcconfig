@@ -1,2 +1,11 @@
 #include? "Pods/Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig"
 #include "Generated.xcconfig"
+
+// Generated.xcconfig emits `EXCLUDED_ARCHS[sdk=iphonesimulator*]=i386 arm64`.
+// Excluding arm64 is an Intel-Mac workaround and is wrong on Apple Silicon,
+// where every iOS 17+ simulator runs arm64 — it made the build produce an
+// x86_64 binary that iOS 26 simulators refuse with "Needs to Be Updated".
+// Overridden here rather than in Generated.xcconfig, which is rewritten on
+// every build; in an xcconfig the later assignment wins, and this file
+// includes Generated.xcconfig above.
+EXCLUDED_ARCHS[sdk=iphonesimulator*] = i386

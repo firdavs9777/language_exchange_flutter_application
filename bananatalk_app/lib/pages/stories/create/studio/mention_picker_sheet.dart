@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/providers/provider_models/story_model.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
@@ -11,13 +12,17 @@ import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 /// a row pops a [StoryMention] positioned at the default sticker spot
 /// (x:50, y:80) — the create screen doesn't offer drag-to-place, matching
 /// the location sticker's fixed-chip UX.
-Future<StoryMention?> showMentionPickerSheet(BuildContext context, WidgetRef ref) {
+Future<StoryMention?> showMentionPickerSheet(
+  BuildContext context,
+  WidgetRef ref,
+) {
   return showModalBottomSheet<StoryMention>(
     context: context,
     isScrollControlled: true,
     backgroundColor: Theme.of(context).colorScheme.surface,
     shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+      borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+    ),
     builder: (context) => _MentionSheet(ref: ref),
   );
 }
@@ -45,10 +50,9 @@ class _MentionSheetState extends State<_MentionSheet> {
   Future<void> _load() async {
     try {
       final me = await widget.ref.read(userProvider.future);
-      final followings = await widget.ref.read(authServiceProvider).getFollowingsUser(
-            id: me.id,
-            followingIds: me.followings,
-          );
+      final followings = await widget.ref
+          .read(authServiceProvider)
+          .getFollowingsUser(id: me.id, followingIds: me.followings);
       if (mounted) setState(() => _followings = followings);
     } catch (_) {
       if (mounted) setState(() => _failed = true);
@@ -72,7 +76,9 @@ class _MentionSheetState extends State<_MentionSheet> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+      padding: EdgeInsets.only(
+        bottom: MediaQuery.of(context).viewInsets.bottom,
+      ),
       child: SafeArea(
         child: SizedBox(
           height: MediaQuery.of(context).size.height * 0.65,
@@ -86,8 +92,9 @@ class _MentionSheetState extends State<_MentionSheet> {
                   decoration: InputDecoration(
                     hintText: 'Search people you follow…',
                     prefixIcon: const Icon(Icons.search_rounded),
-                    border:
-                        OutlineInputBorder(borderRadius: BorderRadius.circular(14)),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(14),
+                    ),
                   ),
                 ),
               ),
@@ -104,11 +111,13 @@ class _MentionSheetState extends State<_MentionSheet> {
       return const Center(child: CircularProgressIndicator());
     }
     if (_failed) {
-      return const Center(child: Text('Could not load followings'));
+      return Center(
+        child: Text(AppLocalizations.of(context)!.couldNotLoadFollowings),
+      );
     }
     final results = _filtered;
     if (results.isEmpty) {
-      return const Center(child: Text('No one to mention yet'));
+      return Center(child: Text(AppLocalizations.of(context)!.noOneToMention));
     }
     return ListView.builder(
       itemCount: results.length,
@@ -118,7 +127,9 @@ class _MentionSheetState extends State<_MentionSheet> {
           leading: CachedCircleAvatar(
             radius: 20,
             imageUrl: u.imageUrls.isNotEmpty ? u.imageUrls.first : null,
-            errorWidget: Text(u.name.isNotEmpty ? u.name[0].toUpperCase() : '?'),
+            errorWidget: Text(
+              u.name.isNotEmpty ? u.name[0].toUpperCase() : '?',
+            ),
           ),
           title: Text(u.name),
           onTap: () => Navigator.pop(

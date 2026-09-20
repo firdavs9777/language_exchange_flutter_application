@@ -1417,7 +1417,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Share your location?'),
+        title: Text(AppLocalizations.of(context)!.shareYourLocation),
         content: Text(
           'Send your current location to ${widget.userName.isNotEmpty ? widget.userName : "this chat"}. '
           'Only do this with people you trust.',
@@ -1425,11 +1425,11 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx, false),
-            child: const Text('Cancel'),
+            child: Text(AppLocalizations.of(context)!.cancel),
           ),
           FilledButton(
             onPressed: () => Navigator.pop(ctx, true),
-            child: const Text('Share'),
+            child: Text(AppLocalizations.of(context)!.share),
           ),
         ],
       ),

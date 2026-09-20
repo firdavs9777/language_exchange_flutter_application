@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -151,7 +152,9 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
   }
 
   void _showSnack(String message) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(message)));
   }
 
   Future<void> _claimDailyReward() async {
@@ -162,8 +165,7 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
       if (!mounted) return;
       if (response.success) {
         final data = response.data;
-        final alreadyClaimed =
-            data is Map && data['alreadyClaimed'] == true;
+        final alreadyClaimed = data is Map && data['alreadyClaimed'] == true;
         setState(() => _dailyClaimedOverride = true);
         refreshCoinBalance(ref);
         // Reviewer finding: without this, `dailyRewardStatusProvider` (not
@@ -211,7 +213,9 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
         // moment" fallback. `claimAdReward` also sets
         // `suppressRateLimitToast: true`, so this is the ONLY snackbar shown
         // for the ad cap (no duplicate global rate-limit toast).
-        _showSnack("You've reached today's ad reward limit — come back tomorrow!");
+        _showSnack(
+          "You've reached today's ad reward limit — come back tomorrow!",
+        );
       } else {
         _showSnack(response.error ?? 'Could not credit the ad reward.');
       }
@@ -224,8 +228,8 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
     final productsAsync = _isIOS
         ? ref.watch(iosProductsProvider)
         : _isAndroid
-            ? ref.watch(androidProductsProvider)
-            : const AsyncValue<List<ProductDetails>>.data(<ProductDetails>[]);
+        ? ref.watch(androidProductsProvider)
+        : const AsyncValue<List<ProductDetails>>.data(<ProductDetails>[]);
     return productsAsync.maybeWhen(
       data: (products) {
         for (final p in products) {
@@ -244,7 +248,7 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
       appBar: AppBar(
         backgroundColor: context.surfaceColor,
         elevation: 0,
-        title: const Text('Coin Shop'),
+        title: Text(AppLocalizations.of(context)!.coinShop),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -349,7 +353,12 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
           ),
           child: Row(
             children: [
-              Text('Your balance', style: context.bodyMedium.copyWith(color: context.textSecondary)),
+              Text(
+                'Your balance',
+                style: context.bodyMedium.copyWith(
+                  color: context.textSecondary,
+                ),
+              ),
               const Spacer(),
               balanceAsync.when(
                 data: (balance) => Text(
@@ -429,12 +438,16 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
               children: [
                 Text(
                   'Daily reward',
-                  style: context.titleSmall.copyWith(fontWeight: FontWeight.w700),
+                  style: context.titleSmall.copyWith(
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
                 const SizedBox(height: 2),
                 Text(
                   isClaimed ? 'Come back tomorrow' : '+10 coins, once a day',
-                  style: context.captionSmall.copyWith(color: context.textMuted),
+                  style: context.captionSmall.copyWith(
+                    color: context.textMuted,
+                  ),
                 ),
               ],
             ),
@@ -443,24 +456,34 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
           SizedBox(
             height: 38,
             child: ElevatedButton(
-              onPressed: (isClaimed || _dailyClaiming) ? null : _claimDailyReward,
+              onPressed: (isClaimed || _dailyClaiming)
+                  ? null
+                  : _claimDailyReward,
               style: ElevatedButton.styleFrom(
                 backgroundColor: accent,
                 disabledBackgroundColor: context.dividerColor,
                 foregroundColor: Colors.white,
                 elevation: 0,
                 padding: const EdgeInsets.symmetric(horizontal: 16),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(19)),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(19),
+                ),
               ),
               child: _dailyClaiming
                   ? const SizedBox(
                       width: 16,
                       height: 16,
-                      child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        color: Colors.white,
+                      ),
                     )
                   : Text(
                       isClaimed ? 'Claimed' : 'Claim',
-                      style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 13),
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w800,
+                        fontSize: 13,
+                      ),
                     ),
             ),
           ),
@@ -503,14 +526,18 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
                   children: [
                     Text(
                       'Watch an ad',
-                      style: context.titleSmall.copyWith(fontWeight: FontWeight.w700),
+                      style: context.titleSmall.copyWith(
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                     const SizedBox(height: 2),
                     Text(
                       _adCapReached
                           ? 'Daily limit reached — come back tomorrow'
                           : '+5 coins per ad, up to 5 a day',
-                      style: context.captionSmall.copyWith(color: context.textMuted),
+                      style: context.captionSmall.copyWith(
+                        color: context.textMuted,
+                      ),
                     ),
                   ],
                 ),
@@ -526,11 +553,16 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
                 onPressed: null,
                 style: OutlinedButton.styleFrom(
                   side: BorderSide(color: context.dividerColor),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
                 ),
                 child: Text(
                   'Limit reached',
-                  style: TextStyle(color: context.textMuted, fontWeight: FontWeight.w700),
+                  style: TextStyle(
+                    color: context.textMuted,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
               ),
             )
@@ -596,14 +628,17 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
                     const SizedBox(width: 4),
                     Text(
                       'coins',
-                      style: context.bodyMedium
-                          .copyWith(color: context.textSecondary),
+                      style: context.bodyMedium.copyWith(
+                        color: context.textSecondary,
+                      ),
                     ),
                     if (isBestValue) ...[
                       const SizedBox(width: 8),
                       Container(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 7, vertical: 2),
+                          horizontal: 7,
+                          vertical: 2,
+                        ),
                         decoration: BoxDecoration(
                           color: accent.withValues(alpha: 0.14),
                           borderRadius: BorderRadius.circular(6),
@@ -654,7 +689,9 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
                       width: 16,
                       height: 16,
                       child: CircularProgressIndicator(
-                          strokeWidth: 2, color: Colors.white),
+                        strokeWidth: 2,
+                        color: Colors.white,
+                      ),
                     )
                   : Text(
                       priceText,
