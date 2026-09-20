@@ -291,15 +291,21 @@ class _ReportDialogState extends State<ReportDialog> {
             }
           }
 
-          // Close dialog after evidence is uploaded
-          if (mounted) {
-            setState(() {
-              _isSubmitting = false;
-            });
-            Navigator.of(context).pop(true);
-          }
+          // Close dialog after evidence is uploaded.
+          //
+          // The messenger is captured BEFORE the pop. It used to be read
+          // after, from the dialog's own context — which by then had been
+          // deactivated by that very pop, so the one confirmation telling a
+          // user their report went through was the part most likely not to
+          // appear.
+          if (!mounted) return;
+          final messenger = ScaffoldMessenger.of(context);
+          setState(() {
+            _isSubmitting = false;
+          });
+          Navigator.of(context).pop(true);
 
-          ScaffoldMessenger.of(context).showSnackBar(
+          messenger.showSnackBar(
             SnackBar(
               content: Text(
                 result['message'] ?? 'Report submitted successfully',

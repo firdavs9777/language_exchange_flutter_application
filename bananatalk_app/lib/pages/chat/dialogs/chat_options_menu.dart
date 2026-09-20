@@ -274,6 +274,7 @@ class _ChatOptionsMenuState extends ConsumerState<ChatOptionsMenu> {
         if (context.mounted) {
           final prefs = await SharedPreferences.getInstance();
           final currentUserId = prefs.getString('userId');
+          if (!context.mounted) return;
 
           Navigator.push(
             context,
@@ -423,6 +424,7 @@ class _ChatOptionsMenuState extends ConsumerState<ChatOptionsMenu> {
         if (widget.userId != null) {
           final prefs = await SharedPreferences.getInstance();
           final currentUserId = prefs.getString('userId');
+          if (!context.mounted) return;
           final l10n = AppLocalizations.of(context)!;
 
           if (currentUserId == null) {
@@ -530,6 +532,7 @@ class _ChatOptionsMenuState extends ConsumerState<ChatOptionsMenu> {
         if (context.mounted) {
           final prefs = await SharedPreferences.getInstance();
           final currentUserId = prefs.getString('userId');
+          if (!context.mounted) return;
 
           Navigator.push(
             context,

@@ -11,6 +11,7 @@ import 'package:bananatalk_app/utils/feature_gate.dart';
 import 'package:bananatalk_app/widgets/limit_exceeded_dialog.dart';
 import 'package:bananatalk_app/utils/api_error_handler.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -93,10 +94,7 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
 
   Future<void> _pickImage() async {
     final picker = ImagePicker();
-    final picked = await picker.pickImage(
-      source: ImageSource.gallery,
-      maxWidth: 1200,
-    );
+    final picked = await picker.pickImage(source: ImageSource.gallery, maxWidth: 1200);
     if (picked != null) {
       setState(() {
         _selectedImage = File(picked.path);
@@ -130,6 +128,7 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
         final limits = ref.read(currentUserLimitsProvider(userId));
 
         if (!FeatureGate.canCreateComment(user, limits)) {
+          if (!mounted) return;
           await LimitExceededDialog.show(
             context: context,
             limitType: 'comments',
@@ -166,14 +165,12 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
       widget.onCommentAdded();
 
       // Send to API in background
-      await ref
-          .read(commentsServiceProvider)
-          .createComment(
-            title: textToSend,
-            id: widget.id,
-            parentCommentId: widget.parentCommentId,
-            imageUrl: savedGifUrl,
-          );
+      await ref.read(commentsServiceProvider).createComment(
+        title: textToSend,
+        id: widget.id,
+        parentCommentId: widget.parentCommentId,
+        imageUrl: savedGifUrl,
+      );
 
       // Refresh comments list to show the confirmed comment
       ref.invalidate(commentsProvider(widget.id));
@@ -188,9 +185,8 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
       // `ref.exists` so call sites that never use the paginated provider
       // don't lazily spin one up here.
       if (ref.exists(paginatedCommentsProvider(widget.id))) {
-        final paginatedState = ref
-            .read(paginatedCommentsProvider(widget.id))
-            .valueOrNull;
+        final paginatedState =
+            ref.read(paginatedCommentsProvider(widget.id)).valueOrNull;
         if (paginatedState == null || paginatedState.page <= 1) {
           ref.read(paginatedCommentsProvider(widget.id).notifier).refresh();
         }
@@ -209,9 +205,12 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
         if (userId != null) {
           ref.refresh(userLimitsProvider(userId));
         }
-      } catch (e) {}
+      } catch (e) {
+      }
+
 
       // Show success message
+      if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(AppLocalizations.of(context)!.commentAddedSuccessfully),
@@ -226,18 +225,27 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
         try {
           final prefs = await SharedPreferences.getInstance();
           final userId = prefs.getString('userId');
+          if (!mounted) return;
           await ApiErrorHandler.handleLimitExceededError(
             context: context,
             error: e,
             userId: userId,
           );
-        } catch (err) {}
+        } catch (err) {
+        }
       } else {
         // Show error message
+        if (!mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
+            // Was the raw exception text. The server's own refusal is worth
+            // reading, so it is the fallback rather than the whole message.
             content: Text(
-              'Failed to add comment: ${e.toString().replaceFirst('Exception: ', '')}',
+              friendlyErrorMessage(
+                AppLocalizations.of(context)!,
+                e,
+                fallback: e.toString().replaceFirst('Exception: ', ''),
+              ),
             ),
             duration: const Duration(seconds: 3),
             backgroundColor: AppColors.error,
@@ -262,10 +270,7 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
         // Reply indicator
         if (widget.parentCommentId != null && widget.replyToUserName != null)
           Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: AppSpacing.lg,
-              vertical: 8,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg, vertical: 8),
             decoration: BoxDecoration(
               color: colorScheme.surfaceContainerHighest,
               border: Border(
@@ -278,9 +283,7 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(
-                    AppLocalizations.of(
-                      context,
-                    )!.replyingTo(widget.replyToUserName ?? ''),
+                    AppLocalizations.of(context)!.replyingTo(widget.replyToUserName ?? ''),
                     style: TextStyle(
                       fontSize: 13,
                       color: AppColors.primary,
@@ -291,11 +294,7 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
                 ),
                 GestureDetector(
                   onTap: widget.onCancelReply,
-                  child: Icon(
-                    Icons.close,
-                    size: 18,
-                    color: colorScheme.onSurfaceVariant,
-                  ),
+                  child: Icon(Icons.close, size: 18, color: colorScheme.onSurfaceVariant),
                 ),
               ],
             ),
@@ -311,12 +310,7 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8),
                   child: _selectedImage != null
-                      ? Image.file(
-                          _selectedImage!,
-                          height: 80,
-                          width: 80,
-                          fit: BoxFit.cover,
-                        )
+                      ? Image.file(_selectedImage!, height: 80, width: 80, fit: BoxFit.cover)
                       : CachedNetworkImage(
                           imageUrl: _selectedGifUrl!,
                           height: 80,
@@ -338,11 +332,7 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
                         shape: BoxShape.circle,
                       ),
                       padding: const EdgeInsets.all(4),
-                      child: const Icon(
-                        Icons.close,
-                        size: 14,
-                        color: Colors.white,
-                      ),
+                      child: const Icon(Icons.close, size: 14, color: Colors.white),
                     ),
                   ),
                 ),
@@ -352,10 +342,7 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
 
         // Input bar
         Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: AppSpacing.lg,
-            vertical: AppSpacing.lg,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg, vertical: AppSpacing.lg),
           decoration: BoxDecoration(
             color: colorScheme.surfaceContainerHighest,
             border: Border(
@@ -390,9 +377,7 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
                         hintText: widget.parentCommentId != null
                             ? '${AppLocalizations.of(context)!.reply}...'
                             : AppLocalizations.of(context)!.writeAComment,
-                        hintStyle: context.bodyMedium.copyWith(
-                          color: context.textHint,
-                        ),
+                        hintStyle: context.bodyMedium.copyWith(color: context.textHint),
                         border: InputBorder.none,
                         contentPadding: EdgeInsets.zero,
                       ),
@@ -403,11 +388,7 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
 
               // Camera button
               IconButton(
-                icon: Icon(
-                  Icons.camera_alt_outlined,
-                  size: 20,
-                  color: context.textMuted,
-                ),
+                icon: Icon(Icons.camera_alt_outlined, size: 20, color: context.textMuted),
                 onPressed: _pickImage,
                 constraints: const BoxConstraints(),
                 padding: const EdgeInsets.all(8),
@@ -415,11 +396,7 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
 
               // GIF button
               IconButton(
-                icon: Icon(
-                  Icons.gif_box_outlined,
-                  size: 20,
-                  color: context.textMuted,
-                ),
+                icon: Icon(Icons.gif_box_outlined, size: 20, color: context.textMuted),
                 onPressed: _openGifPicker,
                 constraints: const BoxConstraints(),
                 padding: const EdgeInsets.all(8),
@@ -429,8 +406,7 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
               // activate the button even when the text field is empty.
               Builder(
                 builder: (context) {
-                  final hasContent =
-                      commentController.text.trim().isNotEmpty ||
+                  final hasContent = commentController.text.trim().isNotEmpty ||
                       _selectedImage != null ||
                       _selectedGifUrl != null;
                   return Container(

@@ -65,9 +65,10 @@ class _QuickRepliesPanelState extends State<QuickRepliesPanel> {
       if (mounted) {
         if (result['success'] == true) {
           await _loadQuickReplies();
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(const SnackBar(content: Text('Quick reply added')));
+          if (!mounted) return;
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Quick reply added')),
+          );
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -80,7 +81,10 @@ class _QuickRepliesPanelState extends State<QuickRepliesPanel> {
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error: $e'), backgroundColor: Colors.red),
+          SnackBar(
+            content: Text('Error: $e'),
+            backgroundColor: Colors.red,
+          ),
         );
       }
     }
@@ -98,9 +102,9 @@ class _QuickRepliesPanelState extends State<QuickRepliesPanel> {
           setState(() {
             _quickReplies.removeWhere((r) => r.id == reply.id);
           });
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(const SnackBar(content: Text('Quick reply deleted')));
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Quick reply deleted')),
+          );
         }
       }
     } catch (e) {
@@ -165,7 +169,10 @@ class _QuickRepliesPanelState extends State<QuickRepliesPanel> {
                 children: [
                   const Text(
                     'Quick Replies',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   const Spacer(),
                   IconButton(
@@ -250,7 +257,9 @@ class _QuickRepliesPanelState extends State<QuickRepliesPanel> {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 200),
       height: widget.isExpanded ? 100 : 44,
-      child: widget.isExpanded ? _buildExpandedPanel() : _buildCollapsedPanel(),
+      child: widget.isExpanded
+          ? _buildExpandedPanel()
+          : _buildCollapsedPanel(),
     );
   }
 
@@ -295,7 +304,9 @@ class _QuickRepliesPanelState extends State<QuickRepliesPanel> {
     return Container(
       decoration: BoxDecoration(
         color: Colors.grey[100],
-        border: Border(top: BorderSide(color: Colors.grey[300]!)),
+        border: Border(
+          top: BorderSide(color: Colors.grey[300]!),
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -306,7 +317,10 @@ class _QuickRepliesPanelState extends State<QuickRepliesPanel> {
               children: [
                 const Text(
                   'Quick Replies',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12,
+                  ),
                 ),
                 const Spacer(),
                 TextButton(
@@ -327,8 +341,7 @@ class _QuickRepliesPanelState extends State<QuickRepliesPanel> {
                   padding: const EdgeInsets.only(right: 8),
                   child: ActionChip(
                     label: Text(reply.text),
-                    onPressed: () =>
-                        widget.onQuickReplySelected?.call(reply.text),
+                    onPressed: () => widget.onQuickReplySelected?.call(reply.text),
                   ),
                 );
               },
@@ -377,3 +390,4 @@ class QuickReplyButton extends StatelessWidget {
     );
   }
 }
+

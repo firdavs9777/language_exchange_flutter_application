@@ -135,6 +135,9 @@ class _LoginState extends ConsumerState<Login> {
 
     if (!authed) {
       await _biometric.disable();
+      // The disable() above re-opened an async gap after the mounted check
+      // on line 134, so this setState could land on a disposed screen.
+      if (!mounted) return;
       setState(() {
         _biometricAuthing = false;
         _biometricVisible = false;
@@ -264,6 +267,7 @@ class _LoginState extends ConsumerState<Login> {
         // Check if user has accepted terms of service
         try {
           final user = await ref.read(authServiceProvider).getLoggedInUser();
+          if (!mounted) return;
           if (!user.termsAccepted) {
             // Show terms screen before entering app
             await Navigator.of(context).push(
@@ -353,6 +357,7 @@ class _LoginState extends ConsumerState<Login> {
         final String errorMessage =
             response['message'] ?? 'Login failed. Please try again.';
 
+        if (!mounted) return;
         showAuthSnackBar(
           context,
           message: errorMessage,
@@ -360,6 +365,7 @@ class _LoginState extends ConsumerState<Login> {
         );
       }
     } catch (error) {
+      if (!mounted) return;
       setState(() {
         _isLoading = false;
       });

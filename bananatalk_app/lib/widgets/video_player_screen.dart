@@ -37,7 +37,9 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
     try {
       _videoController = VideoPlayerController.networkUrl(
         Uri.parse(widget.videoUrl),
-        httpHeaders: const {'Accept': '*/*'},
+        httpHeaders: const {
+          'Accept': '*/*',
+        },
         videoPlayerOptions: VideoPlayerOptions(
           mixWithOthers: false,
           allowBackgroundPlayback: false,
@@ -48,6 +50,9 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
       _videoController!.addListener(_onVideoUpdate);
 
       await _videoController!.initialize();
+      // initialize() decodes the file; leaving this screen during it left
+      // the Theme lookups below reading a dead context.
+      if (!mounted) return;
 
       _chewieController = ChewieController(
         videoPlayerController: _videoController!,
@@ -73,10 +78,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
               children: [
                 const Icon(Icons.error, color: Colors.white, size: 48),
                 const SizedBox(height: 16),
-                const Text(
-                  'Error loading video',
-                  style: TextStyle(color: Colors.white),
-                ),
+                const Text('Error loading video', style: TextStyle(color: Colors.white)),
                 const SizedBox(height: 8),
                 Text(
                   errorMessage,
@@ -133,7 +135,9 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
             errorBuilder: (_, __, ___) => Container(color: Colors.black),
           ),
           Container(color: Colors.black.withOpacity(0.3)),
-          const Center(child: CircularProgressIndicator(color: Colors.white)),
+          const Center(
+            child: CircularProgressIndicator(color: Colors.white),
+          ),
         ],
       );
     }
@@ -251,7 +255,9 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
           Center(child: Chewie(controller: _chewieController!)),
           // Buffering indicator overlay
           if (_isBuffering)
-            const Center(child: CircularProgressIndicator(color: Colors.white)),
+            const Center(
+              child: CircularProgressIndicator(color: Colors.white),
+            ),
         ],
       );
     }

@@ -54,13 +54,7 @@ class _RoleplayChatScreenState extends ConsumerState<RoleplayChatScreen> {
         if (!mounted) return;
         setState(() => _starting = false);
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-              AppLocalizations.of(
-                context,
-              )!.aiScenariosCouldNotStart(e.toString()),
-            ),
-          ),
+          SnackBar(content: Text(AppLocalizations.of(context)!.aiScenariosCouldNotStart(e.toString()))),
         );
       }
     });
@@ -86,9 +80,7 @@ class _RoleplayChatScreenState extends ConsumerState<RoleplayChatScreen> {
       // Start hasn't finished yet — block send rather than silently
       // swallowing the user's text.
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(AppLocalizations.of(context)!.aiRoleplayStillStarting),
-        ),
+        SnackBar(content: Text(AppLocalizations.of(context)!.aiRoleplayStillStarting)),
       );
       return;
     }
@@ -98,11 +90,7 @@ class _RoleplayChatScreenState extends ConsumerState<RoleplayChatScreen> {
     final err = ref.read(tutorChatControllerProvider).error;
     if (err != null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            AppLocalizations.of(context)!.aiRoleplaySendFailed(err.toString()),
-          ),
-        ),
+        SnackBar(content: Text(AppLocalizations.of(context)!.aiRoleplaySendFailed(err.toString()))),
       );
     }
     _scrollToBottom();
@@ -177,11 +165,11 @@ class _RoleplayChatScreenState extends ConsumerState<RoleplayChatScreen> {
       // /end response with the score returns successfully.
       final isVip = ref.read(userProvider).valueOrNull?.isVip == true;
       AnalyticsService.instance.tutorChipCompleted(
-        chipName: 'roleplay',
-        userTier: isVip ? 'vip' : 'free',
+        chipName: 'roleplay', userTier: isVip ? 'vip' : 'free',
       );
       if (!mounted) return;
       await _voice.stopPlayback();
+      if (!mounted) return;
       await showModalBottomSheet<void>(
         context: context,
         isScrollControlled: true,
@@ -226,9 +214,7 @@ class _RoleplayChatScreenState extends ConsumerState<RoleplayChatScreen> {
         title: Text('${widget.scenario.emoji}  ${widget.scenario.title}'),
         actions: [
           IconButton(
-            tooltip: _voiceMode
-                ? l10n.aiTutorChatVoiceOn
-                : l10n.aiTutorChatVoiceOff,
+            tooltip: _voiceMode ? l10n.aiTutorChatVoiceOn : l10n.aiTutorChatVoiceOff,
             icon: Icon(_voiceMode ? Icons.volume_up : Icons.volume_off),
             onPressed: () {
               setState(() => _voiceMode = !_voiceMode);
@@ -250,11 +236,7 @@ class _RoleplayChatScreenState extends ConsumerState<RoleplayChatScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
             child: Row(
               children: [
-                const Icon(
-                  Icons.flag_outlined,
-                  color: AppColors.primary,
-                  size: 18,
-                ),
+                const Icon(Icons.flag_outlined, color: AppColors.primary, size: 18),
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(
@@ -292,16 +274,13 @@ class _RoleplayChatScreenState extends ConsumerState<RoleplayChatScreen> {
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 4),
                   child: Align(
-                    alignment: isUser
-                        ? Alignment.centerRight
-                        : Alignment.centerLeft,
+                    alignment:
+                        isUser ? Alignment.centerRight : Alignment.centerLeft,
                     child: ConstrainedBox(
                       constraints: const BoxConstraints(maxWidth: 320),
                       child: Container(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 14,
-                          vertical: 10,
-                        ),
+                            horizontal: 14, vertical: 10),
                         decoration: BoxDecoration(
                           color: isUser
                               ? AppColors.primary
@@ -311,8 +290,9 @@ class _RoleplayChatScreenState extends ConsumerState<RoleplayChatScreen> {
                         child: Text(
                           m.content,
                           style: TextStyle(
-                            color: isUser ? Colors.white : context.textPrimary,
-                          ),
+                              color: isUser
+                                  ? Colors.white
+                                  : context.textPrimary),
                         ),
                       ),
                     ),
@@ -327,14 +307,11 @@ class _RoleplayChatScreenState extends ConsumerState<RoleplayChatScreen> {
               child: Row(
                 children: [
                   IconButton.filledTonal(
-                    onPressed: (state.sending || _transcribing)
-                        ? null
-                        : _toggleRecord,
-                    icon: Icon(
-                      _recording
-                          ? Icons.stop
-                          : (_transcribing ? Icons.hourglass_empty : Icons.mic),
-                    ),
+                    onPressed:
+                        (state.sending || _transcribing) ? null : _toggleRecord,
+                    icon: Icon(_recording
+                        ? Icons.stop
+                        : (_transcribing ? Icons.hourglass_empty : Icons.mic)),
                     tooltip: _recording
                         ? l10n.aiTutorChatStopRecording
                         : l10n.aiTutorChatHoldToTalk,
@@ -352,8 +329,8 @@ class _RoleplayChatScreenState extends ConsumerState<RoleplayChatScreen> {
                         hintText: _recording
                             ? l10n.aiTutorChatListening
                             : (_transcribing
-                                  ? l10n.aiTutorChatTranscribing
-                                  : l10n.aiTutorChatTypeReplyHint),
+                                ? l10n.aiTutorChatTranscribing
+                                : l10n.aiTutorChatTypeReplyHint),
                         hintStyle: TextStyle(color: context.textMuted),
                         filled: true,
                         fillColor: context.containerColor,
@@ -405,11 +382,9 @@ class _ScoreSheet extends StatelessWidget {
               ),
             ),
           ),
-          Text(
-            '${scenario.emoji}  ${scenario.title}',
-            style: context.titleMedium.copyWith(fontWeight: FontWeight.w700),
-            textAlign: TextAlign.center,
-          ),
+          Text('${scenario.emoji}  ${scenario.title}',
+              style: context.titleMedium.copyWith(fontWeight: FontWeight.w700),
+              textAlign: TextAlign.center),
           const SizedBox(height: 16),
           if (score != null) ...[
             Center(
@@ -425,10 +400,8 @@ class _ScoreSheet extends StatelessWidget {
             const SizedBox(height: 12),
             Text(score!.feedback, style: context.bodyMedium),
           ] else
-            Text(
-              AppLocalizations.of(context)!.aiRoleplayCouldNotGrade,
-              style: context.bodyMedium,
-            ),
+            Text(AppLocalizations.of(context)!.aiRoleplayCouldNotGrade,
+                style: context.bodyMedium),
           const SizedBox(height: 20),
           FilledButton(
             onPressed: () => Navigator.pop(context),

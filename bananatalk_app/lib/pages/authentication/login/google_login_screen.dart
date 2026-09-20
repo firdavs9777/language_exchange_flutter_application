@@ -197,6 +197,7 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
               final loggedInUser = await ref
                   .read(authServiceProvider)
                   .getLoggedInUser();
+              if (!mounted) return;
               if (!loggedInUser.termsAccepted) {
                 // Show terms screen before entering app
                 await Navigator.of(context).push(
@@ -235,6 +236,12 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
             try {
               await ChatSocketService().forceReconnect();
             } catch (e) {}
+
+            // The reconnect above is a real network round trip and can take
+            // seconds. Backgrounding the app during it disposed this screen,
+            // and everything below — the navigation home and the welcome
+            // snackbar — then ran against a dead context.
+            if (!mounted) return;
 
             // FCM token already registered right after auth succeeded
             // (Task 7 Step 4, above) — no need to repeat here.

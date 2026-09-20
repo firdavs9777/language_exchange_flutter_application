@@ -41,6 +41,7 @@ class _TermsOfServiceScreenState extends ConsumerState<TermsOfServiceScreen> {
     if (widget.isPreRegistration == true) {
       // Save local flag as fallback
       await _saveLocalTermsAccepted();
+      if (!mounted) return;
       Navigator.of(context).pop(true);
       return;
     }
@@ -59,6 +60,9 @@ class _TermsOfServiceScreenState extends ConsumerState<TermsOfServiceScreen> {
       if (result['success'] == true) {
         // Save local flag as fallback
         await _saveLocalTermsAccepted();
+        // Re-checked: the mounted guard above sits before this write, and
+        // popping a disposed route throws.
+        if (!mounted) return;
         // Terms accepted successfully - navigate back
         Navigator.of(context).pop(true);
       } else {

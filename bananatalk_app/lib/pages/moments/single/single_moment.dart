@@ -340,6 +340,7 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
     final prefs = await SharedPreferences.getInstance();
     final currentUserId = prefs.getString('userId');
     final isOwnMoment = currentUserId == widget.moment.user.id;
+    if (!mounted) return;
 
     showModalBottomSheet(
       context: context,
@@ -477,12 +478,17 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                         await ref
                             .read(momentsServiceProvider)
                             .deleteUserMoment(id: widget.moment.id);
+                        // The delete is a network round trip; the mounted
+                        // check above happened before it. Popping or showing
+                        // a snackbar on a disposed route throws.
+                        if (!mounted) return;
                         Navigator.pop(context);
                         showMomentsSnackBar(
                           context,
                           message: AppLocalizations.of(context)!.momentDeleted,
                         );
                       } catch (e) {
+                        if (!mounted) return;
                         showMomentsSnackBar(
                           context,
                           message: friendlyErrorMessage(

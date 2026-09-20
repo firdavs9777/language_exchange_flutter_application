@@ -67,9 +67,7 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
           }
           if (defaultIdx == -1) {
             defaultIdx = _languages.indexWhere(
-              (l) =>
-                  l.code.toLowerCase() == 'en' ||
-                  l.name.toLowerCase() == 'english',
+              (l) => l.code.toLowerCase() == 'en' || l.name.toLowerCase() == 'english',
             );
           }
           _selectedLanguage = defaultIdx != -1
@@ -152,24 +150,26 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
       language: _selectedLanguage?.code,
     );
 
-    final success = await ref
-        .read(aiQuizProvider.notifier)
-        .generateQuiz(request);
+    final success = await ref.read(aiQuizProvider.notifier).generateQuiz(request);
+    // Generation is a model call and can run for many seconds; the setState
+    // below was unguarded, and the failure branch read context with no check
+    // at all.
+    if (!mounted) return;
 
     setState(() {
       _isGenerating = false;
     });
 
-    if (success && mounted) {
+    if (success) {
       Navigator.push(
         context,
-        AppPageRoute(builder: (_) => const QuizPlayerScreen()),
+        AppPageRoute(
+          builder: (_) => const QuizPlayerScreen(),
+        ),
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(AppLocalizations.of(context)!.aiQuizFailedToGenerate),
-        ),
+        SnackBar(content: Text(AppLocalizations.of(context)!.aiQuizFailedToGenerate)),
       );
     }
   }
@@ -226,9 +226,7 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
                 // Generate New Quiz Section
                 Text(
                   'Generate New Quiz',
-                  style: context.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: context.titleMedium?.copyWith(fontWeight: FontWeight.bold),
                 ),
                 Spacing.gapMD,
                 _buildGenerateSection(),
@@ -237,9 +235,7 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
                 // Previous Quizzes
                 Text(
                   'Previous Quizzes',
-                  style: context.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: context.titleMedium?.copyWith(fontWeight: FontWeight.bold),
                 ),
                 Spacing.gapMD,
                 quizzesAsync.when(
@@ -375,10 +371,7 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               _buildStatColumn('${stats.completedQuizzes}', 'Completed'),
-              _buildStatColumn(
-                '${stats.averageScore.toStringAsFixed(0)}%',
-                'Avg Score',
-              ),
+              _buildStatColumn('${stats.averageScore.toStringAsFixed(0)}%', 'Avg Score'),
               _buildStatColumn('${stats.totalXpEarned}', 'XP Earned'),
             ],
           ),
@@ -494,9 +487,8 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
                         child: Text(
                           type['name'],
                           style: context.bodySmall?.copyWith(
-                            fontWeight: isSelected
-                                ? FontWeight.w600
-                                : FontWeight.w500,
+                            fontWeight:
+                                isSelected ? FontWeight.w600 : FontWeight.w500,
                             color: isSelected
                                 ? type['color'] as Color
                                 : context.textSecondary,
@@ -552,9 +544,7 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
                       textAlign: TextAlign.center,
                       style: context.caption?.copyWith(
                         fontWeight: FontWeight.w500,
-                        color: isSelected
-                            ? Colors.white
-                            : context.textSecondary,
+                        color: isSelected ? Colors.white : context.textSecondary,
                       ),
                     ),
                   ),
@@ -569,9 +559,7 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
             children: [
               Text(
                 'Questions:',
-                style: context.labelLarge?.copyWith(
-                  fontWeight: FontWeight.w600,
-                ),
+                style: context.labelLarge?.copyWith(fontWeight: FontWeight.w600),
               ),
               Spacing.hGapMD,
               Text(
@@ -608,7 +596,9 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
                 backgroundColor: AppColors.error,
                 disabledBackgroundColor: AppColors.gray300,
                 padding: const EdgeInsets.symmetric(vertical: 14),
-                shape: RoundedRectangleBorder(borderRadius: AppRadius.borderMD),
+                shape: RoundedRectangleBorder(
+                  borderRadius: AppRadius.borderMD,
+                ),
               ),
               child: _isGenerating
                   ? const SizedBox(
@@ -684,18 +674,13 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
                   children: [
                     Text(
                       _selectedLanguage!.name,
-                      style: context.titleSmall?.copyWith(
-                        fontWeight: FontWeight.w600,
-                      ),
+                      style: context.titleSmall?.copyWith(fontWeight: FontWeight.w600),
                     ),
                     if (_selectedLanguage!.nativeName.isNotEmpty &&
-                        _selectedLanguage!.nativeName !=
-                            _selectedLanguage!.name)
+                        _selectedLanguage!.nativeName != _selectedLanguage!.name)
                       Text(
                         _selectedLanguage!.nativeName,
-                        style: context.caption?.copyWith(
-                          color: context.textSecondary,
-                        ),
+                        style: context.caption?.copyWith(color: context.textSecondary),
                       ),
                   ],
                 ),
@@ -761,17 +746,13 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
                     children: [
                       Text(
                         quiz.title,
-                        style: context.titleSmall?.copyWith(
-                          fontWeight: FontWeight.w600,
-                        ),
+                        style: context.titleSmall?.copyWith(fontWeight: FontWeight.w600),
                       ),
                       Row(
                         children: [
                           Text(
                             '${quiz.questionCount} questions',
-                            style: context.caption?.copyWith(
-                              color: context.textSecondary,
-                            ),
+                            style: context.caption?.copyWith(color: context.textSecondary),
                           ),
                           Spacing.hGapSM,
                           Container(
@@ -785,9 +766,7 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
                           Spacing.hGapSM,
                           Text(
                             quiz.difficulty,
-                            style: context.caption?.copyWith(
-                              color: context.textSecondary,
-                            ),
+                            style: context.caption?.copyWith(color: context.textSecondary),
                           ),
                         ],
                       ),
@@ -801,9 +780,8 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
                       vertical: 4,
                     ),
                     decoration: BoxDecoration(
-                      color: _getScoreColor(
-                        quiz.result!.percentage.toInt(),
-                      ).withOpacity(0.1),
+                      color: _getScoreColor(quiz.result!.percentage.toInt())
+                          .withOpacity(0.1),
                       borderRadius: AppRadius.borderSM,
                     ),
                     child: Text(
@@ -816,22 +794,17 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
                   ),
                   const SizedBox(width: 4),
                   IconButton(
-                    icon: Icon(
-                      Icons.replay_rounded,
-                      color: AppColors.error,
-                      size: 20,
-                    ),
+                    icon: Icon(Icons.replay_rounded, color: AppColors.error, size: 20),
                     padding: EdgeInsets.zero,
                     constraints: const BoxConstraints(),
                     tooltip: 'Play Again',
-                    onPressed: () => _quickStart(
-                      quiz.type,
-                      quiz.difficulty,
-                      quiz.questionCount,
-                    ),
+                    onPressed: () => _quickStart(quiz.type, quiz.difficulty, quiz.questionCount),
                   ),
                 ] else
-                  Icon(Icons.play_arrow_rounded, color: context.textMuted),
+                  Icon(
+                    Icons.play_arrow_rounded,
+                    color: context.textMuted,
+                  ),
               ],
             ),
           ),
@@ -846,7 +819,9 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
       final state = ref.read(aiQuizProvider);
       Navigator.push(
         context,
-        AppPageRoute(builder: (_) => const QuizPlayerScreen()),
+        AppPageRoute(
+          builder: (_) => const QuizPlayerScreen(),
+        ),
       );
     }
   }
@@ -885,9 +860,8 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
                     width: 80,
                     height: 80,
                     decoration: BoxDecoration(
-                      color: _getScoreColor(
-                        result.percentage.toInt(),
-                      ).withOpacity(0.1),
+                      color: _getScoreColor(result.percentage.toInt())
+                          .withOpacity(0.1),
                       shape: BoxShape.circle,
                     ),
                     child: Center(
@@ -899,14 +873,16 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
                             style: TextStyle(
                               fontSize: 28,
                               fontWeight: FontWeight.bold,
-                              color: _getScoreColor(result.percentage.toInt()),
+                              color:
+                                  _getScoreColor(result.percentage.toInt()),
                             ),
                           ),
                           Text(
                             '${result.percentage.toInt()}%',
                             style: TextStyle(
                               fontSize: 14,
-                              color: _getScoreColor(result.percentage.toInt()),
+                              color:
+                                  _getScoreColor(result.percentage.toInt()),
                             ),
                           ),
                         ],
@@ -924,7 +900,10 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
                   const SizedBox(height: 8),
                   Text(
                     '${result.correctCount}/${result.totalQuestions} correct',
-                    style: TextStyle(fontSize: 14, color: Colors.grey[600]),
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.grey[600],
+                    ),
                   ),
                   const SizedBox(height: 20),
                   Row(
@@ -1016,9 +995,18 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
         const SizedBox(height: 4),
         Text(
           value,
-          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 16,
+          ),
         ),
-        Text(label, style: TextStyle(fontSize: 12, color: Colors.grey[600])),
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 12,
+            color: Colors.grey[600],
+          ),
+        ),
       ],
     );
   }
@@ -1028,7 +1016,11 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
       padding: Spacing.paddingXL,
       child: Column(
         children: [
-          Icon(Icons.quiz_rounded, size: 48, color: context.textMuted),
+          Icon(
+            Icons.quiz_rounded,
+            size: 48,
+            color: context.textMuted,
+          ),
           Spacing.gapMD,
           Text(
             'No quizzes yet',

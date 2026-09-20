@@ -442,6 +442,7 @@ class _MomentCardState extends ConsumerState<MomentCard> {
     final prefs = await SharedPreferences.getInstance();
     final currentUserId = prefs.getString('userId');
     final isOwnMoment = currentUserId == widget.moments.user.id;
+    if (!mounted) return;
 
     showModalBottomSheet(
       context: context,
@@ -624,6 +625,9 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                         await ref
                             .read(momentsServiceProvider)
                             .deleteUserMoment(id: widget.moments.id);
+                        // Network round trip; the mounted check above ran
+                        // before it.
+                        if (!mounted) return;
                         final l10n = AppLocalizations.of(context)!;
                         showMomentsSnackBar(
                           context,
@@ -631,6 +635,7 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                         );
                         widget.onRefresh?.call();
                       } catch (e) {
+                        if (!mounted) return;
                         showMomentsSnackBar(
                           context,
                           message: friendlyErrorMessage(

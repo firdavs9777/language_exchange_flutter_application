@@ -443,11 +443,15 @@ class _WallpaperPickerScreenState extends ConsumerState<WallpaperPickerScreen> {
       if (mounted) {
         // Save locally even if server fails
         await _saveThemeLocally(_selectedPreset!);
+        if (!mounted) return;
+        // Captured before the pop: reading the messenger from this screen's
+        // own context afterwards would be reading a deactivated one.
+        final messenger = ScaffoldMessenger.of(context);
         Navigator.of(context).pop(true);
-        showChatSnackBar(
-          context,
-          message: 'Wallpaper saved locally',
-          type: ChatSnackBarType.info,
+        messenger.showSnackBar(
+          SnackBar(
+            content: Text(AppLocalizations.of(context)!.wallpaperSavedLocally),
+          ),
         );
       }
     }
