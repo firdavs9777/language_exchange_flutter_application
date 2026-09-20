@@ -75,7 +75,6 @@ class MomentFilterUtility {
         final startOfMonth = DateTime(now.year, now.month, 1);
         return createdAt.isAfter(startOfMonth);
       case DateFilterType.allTime:
-      default:
         return true;
     }
   }

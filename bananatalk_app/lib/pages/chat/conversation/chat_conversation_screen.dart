@@ -1583,7 +1583,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         receiverId: widget.userId,
         messageText: caption,
         mediaFile: file,
-        mediaType: detectedType ?? 'image',
+        mediaType: detectedType,
         onProgress: (bytesSent, totalBytes) {
           if (mounted) {
             setState(() {

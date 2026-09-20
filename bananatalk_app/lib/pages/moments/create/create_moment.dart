@@ -196,7 +196,6 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     '😴': 'tired',
   };
 
-  @override
   bool get isEditMode => widget.momentToEdit != null;
 
   @override
@@ -208,10 +207,10 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     if (widget.momentToEdit != null) {
       final moment = widget.momentToEdit!;
       descriptionController.text = moment.description;
-      _tags = List<String>.from(moment.tags ?? []);
+      _tags = List<String>.from(moment.tags);
 
       // Map backend category to display category
-      final backendCategory = moment.category.toLowerCase() ?? '';
+      final backendCategory = moment.category.toLowerCase();
       _selectedCategory = _categoryToBackend.entries
           .firstWhere(
             (e) => e.value == backendCategory,

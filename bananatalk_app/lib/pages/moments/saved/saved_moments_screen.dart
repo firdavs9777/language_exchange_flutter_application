@@ -288,7 +288,7 @@ class MomentCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          moment.user.name ?? 'Unknown',
+                          moment.user.name,
                           style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
                         Text(

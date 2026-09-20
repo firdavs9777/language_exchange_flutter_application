@@ -269,7 +269,7 @@ class _ChatSearchScreenState extends State<ChatSearchScreen> {
 
   Widget _buildSearchResultItem(Message message) {
     final messageText = message.message ?? '[Media]';
-    final senderName = message.sender.name ?? 'Unknown';
+    final senderName = message.sender.name;
 
     return ListTile(
       leading: CircleAvatar(

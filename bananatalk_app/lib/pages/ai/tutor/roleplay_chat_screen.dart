@@ -76,7 +76,10 @@ class _RoleplayChatScreenState extends ConsumerState<RoleplayChatScreen> {
     final text = _controller.text.trim();
     if (text.isEmpty) return;
     final notifier = ref.read(tutorChatControllerProvider.notifier);
-    if (notifier.state.session == null) {
+    // Read the state through the provider, not the notifier: `state` is
+    // protected on StateNotifier, and this is an ordinary send path with a
+    // live ref — unlike the dispose-time read in tutor_chat_screen.
+    if (ref.read(tutorChatControllerProvider).session == null) {
       // Start hasn't finished yet — block send rather than silently
       // swallowing the user's text.
       ScaffoldMessenger.of(context).showSnackBar(

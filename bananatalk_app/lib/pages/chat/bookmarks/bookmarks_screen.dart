@@ -247,7 +247,7 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
 
   Widget _buildBookmarkItem(BookmarkedMessage bookmark) {
     final message = bookmark.message;
-    final senderName = message.sender.name ?? 'Unknown';
+    final senderName = message.sender.name;
     final messageText = message.message ?? '[Media]';
 
     return Dismissible(

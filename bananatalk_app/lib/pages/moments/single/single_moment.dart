@@ -135,7 +135,6 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
     }
   }
 
-  @override
   Timer? _pollTimer;
 
   @override
