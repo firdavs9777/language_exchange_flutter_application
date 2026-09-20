@@ -294,10 +294,7 @@ class Endpoints {
   static String vocabPackAddURL(String id) => 'learning/vocab-packs/$id/add';
 
   // Study Hub daily drop (grammar + vocabulary of the day)
-  static const String dailyDropURL = 'study/daily';
   static const String dailyArchiveURL = 'study/daily/archive';
-  static String dailyCompleteURL(String id) => 'study/daily/$id/complete';
-  static String dailyFeedbackURL(String id) => 'study/daily/$id/feedback';
 
   // Daily learning pack (four stations under a weekly theme)
   static const String dailyPackURL = 'study/pack';
