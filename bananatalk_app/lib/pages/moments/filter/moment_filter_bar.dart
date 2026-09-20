@@ -35,7 +35,6 @@ class MomentFilterBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    final textPrimary = context.textPrimary;
     final secondaryText = context.textSecondary;
 
     return Container(

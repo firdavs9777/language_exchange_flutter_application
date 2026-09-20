@@ -27,7 +27,6 @@ class StoryProgressBar extends StatelessWidget {
       children: List.generate(totalSegments, (index) {
         final isCompleted = index < currentSegment;
         final isCurrent = index == currentSegment;
-        final isUpcoming = index > currentSegment;
 
         return Expanded(
           child: Container(

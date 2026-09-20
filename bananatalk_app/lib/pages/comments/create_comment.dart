@@ -116,7 +116,6 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
     if (commentText.isEmpty && !hasMedia) return;
     _isSubmitting = true;
 
-    final colorScheme = Theme.of(context).colorScheme;
 
     // Check limits before submitting
     try {
@@ -150,7 +149,6 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
 
       // Clear input immediately (optimistic UI - feels instant)
       commentController.clear();
-      final savedImage = _selectedImage;
       final savedGifUrl = _selectedGifUrl;
       setState(() {
         _selectedImage = null;

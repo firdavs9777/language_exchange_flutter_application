@@ -815,7 +815,6 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
   void _startQuiz(AIQuiz quiz) async {
     final success = await ref.read(aiQuizProvider.notifier).startQuiz(quiz.id);
     if (success && mounted) {
-      final state = ref.read(aiQuizProvider);
       Navigator.push(
         context,
         AppPageRoute(

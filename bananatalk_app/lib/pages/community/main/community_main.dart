@@ -318,7 +318,6 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
     final filtersJson = _filters.toJson();
     final filtersKey = _filters.hashCode;
     final hasActiveFilters = CommunityFilterChips.hasActiveFilters(filtersJson);
-    final showVisitorCard = _tabController.index == _partnersTabIndex;
 
     return Scaffold(
       backgroundColor: colorScheme.surface,
