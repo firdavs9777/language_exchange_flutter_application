@@ -57,8 +57,9 @@ class MomentFilterBar extends StatelessWidget {
                         label: AppLocalizations.of(context)!.recent,
                         icon: Icons.access_time,
                         isActive: currentFilter.sortBy == 'recent',
-                        onTap: () =>
-                            onFilterChanged(currentFilter.copyWith(sortBy: 'recent')),
+                        onTap: () => onFilterChanged(
+                          currentFilter.copyWith(sortBy: 'recent'),
+                        ),
                       ),
                       const SizedBox(width: 8),
                       _buildQuickTab(
@@ -66,8 +67,9 @@ class MomentFilterBar extends StatelessWidget {
                         label: AppLocalizations.of(context)!.popular,
                         icon: Icons.trending_up,
                         isActive: currentFilter.sortBy == 'popular',
-                        onTap: () =>
-                            onFilterChanged(currentFilter.copyWith(sortBy: 'popular')),
+                        onTap: () => onFilterChanged(
+                          currentFilter.copyWith(sortBy: 'popular'),
+                        ),
                       ),
                       // "Trending" quick-sort chip removed: it duplicated the
                       // top feed-tab bar's "Trending" tab and the filter
@@ -82,7 +84,10 @@ class MomentFilterBar extends StatelessWidget {
                   onTap: () => _showFilterSheet(context),
                   borderRadius: BorderRadius.circular(20),
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 8,
+                    ),
                     decoration: BoxDecoration(
                       color: currentFilter.hasActiveFilters
                           ? colorScheme.primary.withValues(alpha: 0.15)
@@ -107,7 +112,10 @@ class MomentFilterBar extends StatelessWidget {
                         if (currentFilter.activeFilterCount > 0) ...[
                           const SizedBox(width: 4),
                           Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 6,
+                              vertical: 2,
+                            ),
                             decoration: BoxDecoration(
                               color: colorScheme.primary,
                               shape: BoxShape.circle,
@@ -139,7 +147,11 @@ class MomentFilterBar extends StatelessWidget {
                     ...currentFilter.languages.map((lang) {
                       final langData = FilterOptions.languages.firstWhere(
                         (item) => item['code'] == lang,
-                        orElse: () => {'code': lang, 'name': lang, 'flag': '🌍'},
+                        orElse: () => {
+                          'code': lang,
+                          'name': lang,
+                          'flag': '🌍',
+                        },
                       );
                       return Padding(
                         padding: const EdgeInsets.only(right: 6),
@@ -147,28 +159,33 @@ class MomentFilterBar extends StatelessWidget {
                           context: context,
                           label: '${langData['flag']} ${langData['name']}',
                           onRemove: () {
-                            final languages = List<String>.from(currentFilter.languages)
-                              ..remove(lang);
+                            final languages = List<String>.from(
+                              currentFilter.languages,
+                            )..remove(lang);
                             onFilterChanged(
-                                currentFilter.copyWith(languages: languages));
+                              currentFilter.copyWith(languages: languages),
+                            );
                           },
                         ),
                       );
                     }),
                     ...currentFilter.categories.map((category) {
-                      final icon = FilterOptions.categoryIcons[category] ?? '🌐';
-                      final label = FilterOptions.categoryLabels[category] ?? category;
+                      final icon =
+                          FilterOptions.categoryIcons[category] ?? '🌐';
+                      final label =
+                          FilterOptions.categoryLabels[category] ?? category;
                       return Padding(
                         padding: const EdgeInsets.only(right: 6),
                         child: _buildActiveFilterChip(
                           context: context,
                           label: '$icon $label',
                           onRemove: () {
-                            final categories =
-                                List<String>.from(currentFilter.categories)
-                                  ..remove(category);
+                            final categories = List<String>.from(
+                              currentFilter.categories,
+                            )..remove(category);
                             onFilterChanged(
-                                currentFilter.copyWith(categories: categories));
+                              currentFilter.copyWith(categories: categories),
+                            );
                           },
                         ),
                       );
@@ -183,13 +200,16 @@ class MomentFilterBar extends StatelessWidget {
                           onRemove: () {
                             final moods = List<String>.from(currentFilter.moods)
                               ..remove(mood);
-                            onFilterChanged(currentFilter.copyWith(moods: moods));
+                            onFilterChanged(
+                              currentFilter.copyWith(moods: moods),
+                            );
                           },
                         ),
                       );
                     }),
                     TextButton(
-                      onPressed: () => onFilterChanged(currentFilter.clearAll()),
+                      onPressed: () =>
+                          onFilterChanged(currentFilter.clearAll()),
                       style: TextButton.styleFrom(
                         padding: const EdgeInsets.symmetric(horizontal: 12),
                         minimumSize: Size.zero,
@@ -208,10 +228,7 @@ class MomentFilterBar extends StatelessWidget {
                 ),
               ),
             ),
-          Container(
-            height: 1,
-            color: context.dividerColor,
-          ),
+          Container(height: 1, color: context.dividerColor),
         ],
       ),
     );
@@ -231,7 +248,9 @@ class MomentFilterBar extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
         decoration: BoxDecoration(
-          color: isActive ? colorScheme.primary.withValues(alpha: 0.12) : Colors.transparent,
+          color: isActive
+              ? colorScheme.primary.withValues(alpha: 0.12)
+              : Colors.transparent,
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
             color: isActive ? colorScheme.primary : Colors.transparent,
@@ -243,7 +262,9 @@ class MomentFilterBar extends StatelessWidget {
             Icon(
               icon,
               size: 16,
-              color: isActive ? colorScheme.primary : colorScheme.onSurfaceVariant,
+              color: isActive
+                  ? colorScheme.primary
+                  : colorScheme.onSurfaceVariant,
             ),
             const SizedBox(width: 6),
             Text(
@@ -251,7 +272,9 @@ class MomentFilterBar extends StatelessWidget {
               style: TextStyle(
                 fontSize: 13,
                 fontWeight: isActive ? FontWeight.w600 : FontWeight.w500,
-                color: isActive ? colorScheme.primary : colorScheme.onSurfaceVariant,
+                color: isActive
+                    ? colorScheme.primary
+                    : colorScheme.onSurfaceVariant,
               ),
             ),
           ],
@@ -271,9 +294,7 @@ class MomentFilterBar extends StatelessWidget {
       decoration: BoxDecoration(
         color: colorScheme.primary.withValues(alpha: 0.15),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-          color: colorScheme.primary.withValues(alpha: 0.3),
-        ),
+        border: Border.all(color: colorScheme.primary.withValues(alpha: 0.3)),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -289,15 +310,10 @@ class MomentFilterBar extends StatelessWidget {
           const SizedBox(width: 6),
           InkWell(
             onTap: onRemove,
-            child: Icon(
-              Icons.close,
-              size: 14,
-              color: colorScheme.primary,
-            ),
+            child: Icon(Icons.close, size: 14, color: colorScheme.primary),
           ),
         ],
       ),
     );
   }
 }
-

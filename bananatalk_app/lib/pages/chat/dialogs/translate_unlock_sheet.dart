@@ -17,10 +17,7 @@ Future<bool> showTranslateUnlockSheet(BuildContext context) async {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Translation limit reached',
-            style: ctx.titleMedium,
-          ),
+          Text('Translation limit reached', style: ctx.titleMedium),
           const SizedBox(height: 8),
           Text(
             'You\'ve used up today\'s free translations in this chat. '

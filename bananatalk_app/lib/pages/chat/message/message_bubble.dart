@@ -43,7 +43,8 @@ class ChatMessageBubble extends ConsumerStatefulWidget {
   final Function(Message)? onDelete;
   final Function(Message)? onEdit;
   final Function(Message)? onReply;
-  final Function(String messageId)? onReplyTap; // Tap on reply preview to scroll
+  final Function(String messageId)?
+  onReplyTap; // Tap on reply preview to scroll
   final Message? replyToMessage;
   final bool isSelected;
   final bool isSelectionMode;
@@ -118,10 +119,12 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
 
   // ---------- Theme-aware colour helpers ----------
 
-  Color _myMessageColor(BuildContext context) =>
-      context.isDarkMode ? AppColors.chatBubbleMineDark : AppColors.chatBubbleMine;
-  Color _otherMessageColor(BuildContext context) =>
-      context.isDarkMode ? AppColors.chatBubbleOtherDark : AppColors.chatBubbleOther;
+  Color _myMessageColor(BuildContext context) => context.isDarkMode
+      ? AppColors.chatBubbleMineDark
+      : AppColors.chatBubbleMine;
+  Color _otherMessageColor(BuildContext context) => context.isDarkMode
+      ? AppColors.chatBubbleOtherDark
+      : AppColors.chatBubbleOther;
   Color _myTextColor(BuildContext context) => AppColors.chatTextMine;
   Color _otherTextColor(BuildContext context) =>
       context.isDarkMode ? AppColors.white : AppColors.chatTextOther;
@@ -247,8 +250,10 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
 
   void _onHorizontalDragUpdate(DragUpdateDetails details) {
     if (widget.isSelectionMode) return;
-    final newOffset =
-        (_swipeOffset + details.delta.dx).clamp(-_swipeThreshold * 1.5, 0.0);
+    final newOffset = (_swipeOffset + details.delta.dx).clamp(
+      -_swipeThreshold * 1.5,
+      0.0,
+    );
     setState(() {
       _swipeOffset = newOffset;
     });
@@ -260,8 +265,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
       HapticFeedback.mediumImpact();
       widget.onReply?.call(widget.message);
     }
-    _swipeAnimation =
-        Tween<double>(begin: _swipeOffset, end: 0).animate(
+    _swipeAnimation = Tween<double>(begin: _swipeOffset, end: 0).animate(
       CurvedAnimation(parent: _swipeAnimController, curve: Curves.easeOut),
     );
     _swipeAnimController.forward(from: 0);
@@ -287,8 +291,10 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
 
     double pickerX;
     if (widget.isMe) {
-      pickerX = (screenWidth - pickerWidth - 16)
-          .clamp(16.0, screenWidth - pickerWidth - 16);
+      pickerX = (screenWidth - pickerWidth - 16).clamp(
+        16.0,
+        screenWidth - pickerWidth - 16,
+      );
     } else {
       pickerX = 56.0;
     }
@@ -379,9 +385,11 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
       }
     } catch (e) {
       if (mounted) {
-        showChatSnackBar(context,
-            message: friendlyErrorMessage(AppLocalizations.of(context)!, e),
-            type: ChatSnackBarType.error);
+        showChatSnackBar(
+          context,
+          message: friendlyErrorMessage(AppLocalizations.of(context)!, e),
+          type: ChatSnackBarType.error,
+        );
       }
     }
   }
@@ -478,8 +486,10 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
                 },
               ),
               ListTile(
-                leading: const Icon(Icons.bookmark_add_outlined,
-                    color: Colors.purple),
+                leading: const Icon(
+                  Icons.bookmark_add_outlined,
+                  color: Colors.purple,
+                ),
                 title: Text(l10n.chatMessageSavePhrase),
                 onTap: () {
                   Navigator.pop(sheetCtx);
@@ -522,7 +532,9 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
       // if the user unlocks. Gated on coins being enabled server-side;
       // otherwise fall through to the existing silent-failure behavior.
       if (result['success'] != true && _isTranslationLimitError(result)) {
-        final coinsEnabled = ref.read(appConfigProvider).maybeWhen(
+        final coinsEnabled = ref
+            .read(appConfigProvider)
+            .maybeWhen(
               data: (config) => config?.coinsEnabled ?? false,
               orElse: () => false,
             );
@@ -545,8 +557,9 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
       // either source works.
       final translated = result['success'] == true
           ? ((result['data']?['translatedText'] ??
-                  result['data']?['translation']) as String?)
-              ?.trim()
+                        result['data']?['translation'])
+                    as String?)
+                ?.trim()
           : null;
       final hasTranslation = translated != null && translated.isNotEmpty;
       if (hasTranslation) {
@@ -628,9 +641,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
     if (!context.mounted) return;
     Navigator.push(
       context,
-      AppPageRoute(
-        builder: (_) => SingleCommunity(community: community),
-      ),
+      AppPageRoute(builder: (_) => SingleCommunity(community: community)),
     );
   }
 
@@ -652,8 +663,9 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
               height: 10,
               child: CircularProgressIndicator(
                 strokeWidth: 1.5,
-                valueColor:
-                    AlwaysStoppedAnimation<Color>(_sendingColor(context)),
+                valueColor: AlwaysStoppedAnimation<Color>(
+                  _sendingColor(context),
+                ),
               ),
             ),
             Spacing.hGapXS,
@@ -724,154 +736,178 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
     final screenSize = MediaQuery.of(context).size;
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
-    final hasText = widget.message.message != null &&
-        widget.message.message!.isNotEmpty;
+    final hasText =
+        widget.message.message != null && widget.message.message!.isNotEmpty;
 
     bool canEdit = false;
     if (widget.isMe &&
         !widget.message.isDeleted &&
         widget.message.type == 'text') {
       try {
-        final diff = DateTime.now()
-            .difference(DateTime.parse(widget.message.createdAt));
+        final diff = DateTime.now().difference(
+          DateTime.parse(widget.message.createdAt),
+        );
         canEdit = diff.inMinutes < 15;
       } catch (_) {}
     }
 
     final menuItems = <MessageContextMenuItem>[];
 
-    menuItems.add(MessageContextMenuItem(
-      icon: Icons.reply_rounded,
-      label: AppLocalizations.of(context)!.chatMessageReply,
-      onTap: () {
-        _hideReactionPicker();
-        widget.onReply?.call(widget.message);
-      },
-    ));
-
-    if (hasText) {
-      menuItems.add(MessageContextMenuItem(
-        icon: Icons.copy_rounded,
-        label: AppLocalizations.of(context)!.chatMessageCopy,
+    menuItems.add(
+      MessageContextMenuItem(
+        icon: Icons.reply_rounded,
+        label: AppLocalizations.of(context)!.chatMessageReply,
         onTap: () {
           _hideReactionPicker();
-          Clipboard.setData(ClipboardData(text: widget.message.message!));
-          showChatSnackBar(context,
-              message: 'Copied', type: ChatSnackBarType.success);
+          widget.onReply?.call(widget.message);
         },
-      ));
+      ),
+    );
+
+    if (hasText) {
+      menuItems.add(
+        MessageContextMenuItem(
+          icon: Icons.copy_rounded,
+          label: AppLocalizations.of(context)!.chatMessageCopy,
+          onTap: () {
+            _hideReactionPicker();
+            Clipboard.setData(ClipboardData(text: widget.message.message!));
+            showChatSnackBar(
+              context,
+              message: 'Copied',
+              type: ChatSnackBarType.success,
+            );
+          },
+        ),
+      );
     }
 
     if (hasText && !widget.isMe) {
-      menuItems.add(MessageContextMenuItem(
-        icon: Icons.spellcheck_rounded,
-        label: AppLocalizations.of(context)!.chatMessageCorrect,
-        // Orange — flags this as the "language-learning correction" action,
-        // matches the quick-actions sheet styling.
-        accentColor: const Color(0xFFFB923C),
-        onTap: () {
-          _hideReactionPicker();
-          showCorrectionBottomSheet(
-            context,
-            messageId: widget.message.id,
-            originalText: widget.message.message!,
-            senderName: widget.otherUserName,
-          );
-        },
-      ));
+      menuItems.add(
+        MessageContextMenuItem(
+          icon: Icons.spellcheck_rounded,
+          label: AppLocalizations.of(context)!.chatMessageCorrect,
+          // Orange — flags this as the "language-learning correction" action,
+          // matches the quick-actions sheet styling.
+          accentColor: const Color(0xFFFB923C),
+          onTap: () {
+            _hideReactionPicker();
+            showCorrectionBottomSheet(
+              context,
+              messageId: widget.message.id,
+              originalText: widget.message.message!,
+              senderName: widget.otherUserName,
+            );
+          },
+        ),
+      );
     }
 
     if (hasText) {
-      menuItems.add(MessageContextMenuItem(
-        icon: Icons.translate_rounded,
-        label: AppLocalizations.of(context)!.chatMessageTranslate,
-        // Primary purple — the brand's translate accent.
-        accentColor: AppColors.primary,
-        onTap: () {
-          _hideReactionPicker();
-          _showTranslation(context);
-        },
-      ));
+      menuItems.add(
+        MessageContextMenuItem(
+          icon: Icons.translate_rounded,
+          label: AppLocalizations.of(context)!.chatMessageTranslate,
+          // Primary purple — the brand's translate accent.
+          accentColor: AppColors.primary,
+          onTap: () {
+            _hideReactionPicker();
+            _showTranslation(context);
+          },
+        ),
+      );
     }
 
     if (hasText && widget.message.type == 'text') {
-      menuItems.add(MessageContextMenuItem(
-        // Filled star → unambiguous "save / favorite" affordance vs the
-        // outlined bookmark icon (which read more like "page marker").
-        icon: Icons.star_rounded,
-        label: AppLocalizations.of(context)!.chatMessageSavePhrase,
-        // Gold amber — matches the VIP / save-vocab visual identity.
-        accentColor: const Color(0xFFF59E0B),
-        onTap: () {
-          _hideReactionPicker();
-          _saveMessageToVocab(context);
-        },
-      ));
+      menuItems.add(
+        MessageContextMenuItem(
+          // Filled star → unambiguous "save / favorite" affordance vs the
+          // outlined bookmark icon (which read more like "page marker").
+          icon: Icons.star_rounded,
+          label: AppLocalizations.of(context)!.chatMessageSavePhrase,
+          // Gold amber — matches the VIP / save-vocab visual identity.
+          accentColor: const Color(0xFFF59E0B),
+          onTap: () {
+            _hideReactionPicker();
+            _saveMessageToVocab(context);
+          },
+        ),
+      );
     }
 
-    menuItems.add(MessageContextMenuItem(
-      icon: widget.message.isPinned
-          ? Icons.push_pin_outlined
-          : Icons.push_pin_rounded,
-      label: widget.message.isPinned ? 'Unpin' : 'Pin',
-      onTap: () {
-        _hideReactionPicker();
-        if (widget.message.isPinned) {
-          widget.onUnpin?.call(widget.message);
-        } else {
-          widget.onPin?.call(widget.message);
-        }
-      },
-    ));
-
-    if (canEdit) {
-      menuItems.add(MessageContextMenuItem(
-        icon: Icons.edit_rounded,
-        label: AppLocalizations.of(context)!.chatMessageEdit,
+    menuItems.add(
+      MessageContextMenuItem(
+        icon: widget.message.isPinned
+            ? Icons.push_pin_outlined
+            : Icons.push_pin_rounded,
+        label: widget.message.isPinned ? 'Unpin' : 'Pin',
         onTap: () {
           _hideReactionPicker();
-          widget.onEdit?.call(widget.message);
+          if (widget.message.isPinned) {
+            widget.onUnpin?.call(widget.message);
+          } else {
+            widget.onPin?.call(widget.message);
+          }
         },
-      ));
+      ),
+    );
+
+    if (canEdit) {
+      menuItems.add(
+        MessageContextMenuItem(
+          icon: Icons.edit_rounded,
+          label: AppLocalizations.of(context)!.chatMessageEdit,
+          onTap: () {
+            _hideReactionPicker();
+            widget.onEdit?.call(widget.message);
+          },
+        ),
+      );
     }
 
     // Forward — works for any non-deleted message regardless of sender.
     if (!widget.message.isDeleted) {
-      menuItems.add(MessageContextMenuItem(
-        icon: Icons.forward_rounded,
-        label: AppLocalizations.of(context)!.forward,
-        onTap: () {
-          _hideReactionPicker();
-          widget.onForward?.call(widget.message);
-        },
-      ));
+      menuItems.add(
+        MessageContextMenuItem(
+          icon: Icons.forward_rounded,
+          label: AppLocalizations.of(context)!.forward,
+          onTap: () {
+            _hideReactionPicker();
+            widget.onForward?.call(widget.message);
+          },
+        ),
+      );
     }
 
     if (widget.isMe && !widget.message.isDeleted) {
-      menuItems.add(MessageContextMenuItem(
-        icon: Icons.delete_rounded,
-        label: AppLocalizations.of(context)!.chatMessageDelete,
-        isDestructive: true,
-        onTap: () {
-          _hideReactionPicker();
-          widget.onDelete?.call(widget.message);
-        },
-      ));
+      menuItems.add(
+        MessageContextMenuItem(
+          icon: Icons.delete_rounded,
+          label: AppLocalizations.of(context)!.chatMessageDelete,
+          isDestructive: true,
+          onTap: () {
+            _hideReactionPicker();
+            widget.onDelete?.call(widget.message);
+          },
+        ),
+      );
     }
 
     // Report — Workstream D (Task 11): only offered for someone else's
     // message when the caller wires onReport (room/hub chat). Absent in
     // 1-on-1 chat, where onReport stays null.
     if (widget.onReport != null && !widget.isMe && !widget.message.isDeleted) {
-      menuItems.add(MessageContextMenuItem(
-        icon: Icons.flag_rounded,
-        label: 'Report',
-        isDestructive: true,
-        onTap: () {
-          _hideReactionPicker();
-          widget.onReport?.call(widget.message);
-        },
-      ));
+      menuItems.add(
+        MessageContextMenuItem(
+          icon: Icons.flag_rounded,
+          label: 'Report',
+          isDestructive: true,
+          onTap: () {
+            _hideReactionPicker();
+            widget.onReport?.call(widget.message);
+          },
+        ),
+      );
     }
 
     // KakaoTalk-style layout: dim the rest of the chat, float the reaction
@@ -886,8 +922,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
     const itemHeight = 48.0;
     const menuPaddingV = 8.0;
     const menuGap = 10.0;
-    final menuHeight =
-        (menuItems.length * itemHeight) + (menuPaddingV * 2);
+    final menuHeight = (menuItems.length * itemHeight) + (menuPaddingV * 2);
     const menuWidth = 220.0;
 
     // Fixed stack: action menu on top, reaction picker directly below it,
@@ -896,16 +931,22 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
     // the menu → reactions order never changes from the user's point of view.
     double reactionX;
     if (widget.isMe) {
-      reactionX = (position.dx + size.width - reactionPickerWidth)
-          .clamp(8.0, screenSize.width - reactionPickerWidth - 8);
+      reactionX = (position.dx + size.width - reactionPickerWidth).clamp(
+        8.0,
+        screenSize.width - reactionPickerWidth - 8,
+      );
     } else {
-      reactionX =
-          position.dx.clamp(8.0, screenSize.width - reactionPickerWidth - 8);
+      reactionX = position.dx.clamp(
+        8.0,
+        screenSize.width - reactionPickerWidth - 8,
+      );
     }
     double menuX;
     if (widget.isMe) {
-      menuX = (position.dx + size.width - menuWidth)
-          .clamp(8.0, screenSize.width - menuWidth - 8);
+      menuX = (position.dx + size.width - menuWidth).clamp(
+        8.0,
+        screenSize.width - menuWidth - 8,
+      );
     } else {
       menuX = position.dx.clamp(8.0, screenSize.width - menuWidth - 8);
     }
@@ -919,8 +960,10 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
       menuY = position.dy + size.height + menuGap;
     } else {
       // Not enough room below — flip the whole pair above the bubble.
-      menuY = (position.dy - pairHeight)
-          .clamp(40.0, screenSize.height - pairHeight - 40);
+      menuY = (position.dy - pairHeight).clamp(
+        40.0,
+        screenSize.height - pairHeight - 40,
+      );
     }
     final reactionY = menuY + menuHeight + reactionGap;
 
@@ -931,8 +974,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
           Positioned.fill(
             child: GestureDetector(
               onTap: _hideReactionPicker,
-              child:
-                  Container(color: AppColors.black.withValues(alpha: 0.35)),
+              child: Container(color: AppColors.black.withValues(alpha: 0.35)),
             ),
           ),
           // Reaction picker — quick taps for ❤️ / 👍 / 😂 / 😮 / 😢 / 🙏.
@@ -972,8 +1014,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
                     ),
                   ],
                 ),
-                padding:
-                    const EdgeInsets.symmetric(vertical: menuPaddingV),
+                padding: const EdgeInsets.symmetric(vertical: menuPaddingV),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: menuItems.map((item) {
@@ -982,9 +1023,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
                     // label readable so the row still scans like a list.
                     final labelColor = item.isDestructive
                         ? AppColors.error
-                        : (isDark
-                            ? AppColors.gray200
-                            : AppColors.gray900);
+                        : (isDark ? AppColors.gray200 : AppColors.gray900);
                     final iconColor = item.isDestructive
                         ? AppColors.error
                         : (item.accentColor ?? labelColor);
@@ -996,8 +1035,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
                       },
                       child: Container(
                         height: itemHeight,
-                        padding:
-                            const EdgeInsets.symmetric(horizontal: 16),
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: Row(
                           children: [
                             // Filled circular icon chip — makes the
@@ -1012,8 +1050,11 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
                                     : Colors.transparent,
                                 shape: BoxShape.circle,
                               ),
-                              child: Icon(item.icon,
-                                  size: 18, color: iconColor),
+                              child: Icon(
+                                item.icon,
+                                size: 18,
+                                color: iconColor,
+                              ),
                             ),
                             const SizedBox(width: 12),
                             Expanded(
@@ -1064,12 +1105,11 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
     // Resolve native language name → BCP-47 code.
     final prefs = await SharedPreferences.getInstance();
     final nativeLangName = prefs.getString('user_native_language') ?? 'English';
-    final targetCode = TranslationService.supportedLanguages
-            .firstWhere(
-              (l) =>
-                  l['name']!.toLowerCase() == nativeLangName.toLowerCase(),
-              orElse: () => {'code': 'en'},
-            )['code'] ??
+    final targetCode =
+        TranslationService.supportedLanguages.firstWhere(
+          (l) => l['name']!.toLowerCase() == nativeLangName.toLowerCase(),
+          orElse: () => {'code': 'en'},
+        )['code'] ??
         'en';
 
     // Fetch translation preview (best-effort).
@@ -1153,8 +1193,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
                   height: 14,
                   child: CircularProgressIndicator(
                     strokeWidth: 1.5,
-                    valueColor:
-                        AlwaysStoppedAnimation(AppColors.primary),
+                    valueColor: AlwaysStoppedAnimation(AppColors.primary),
                   ),
                 )
               : Stack(
@@ -1269,18 +1308,18 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
 
   Widget _buildBubbleContent(BuildContext context) {
     final swipeProgress = _swipeOffset.abs();
-    final replyIconOpacity =
-        (swipeProgress / _swipeThreshold).clamp(0.0, 1.0);
-    final replyIconScale =
-        (0.5 + (replyIconOpacity * 0.5)).clamp(0.5, 1.0);
+    final replyIconOpacity = (swipeProgress / _swipeThreshold).clamp(0.0, 1.0);
+    final replyIconScale = (0.5 + (replyIconOpacity * 0.5)).clamp(0.5, 1.0);
 
     return GestureDetector(
       onHorizontalDragUpdate: _onHorizontalDragUpdate,
       onHorizontalDragEnd: _onHorizontalDragEnd,
       onLongPress: widget.isSelectionMode
           ? () {
-              widget.onSelectionChanged
-                  ?.call(widget.message, !widget.isSelected);
+              widget.onSelectionChanged?.call(
+                widget.message,
+                !widget.isSelected,
+              );
             }
           : () => _showContextMenu(context),
       // Double tap → quick ❤️ reaction (Telegram / iMessage pattern).
@@ -1298,8 +1337,10 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
       // reactions move to double-tap, full menu to long-press.
       onTap: widget.isSelectionMode
           ? () {
-              widget.onSelectionChanged
-                  ?.call(widget.message, !widget.isSelected);
+              widget.onSelectionChanged?.call(
+                widget.message,
+                !widget.isSelected,
+              );
             }
           : _hideReactionPicker,
       child: Stack(
@@ -1375,7 +1416,9 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
                             value: widget.isSelected,
                             onChanged: (value) {
                               widget.onSelectionChanged?.call(
-                                  widget.message, value ?? false);
+                                widget.message,
+                                value ?? false,
+                              );
                             },
                           ),
                         ),
@@ -1403,8 +1446,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
                           !widget.isSelectionMode &&
                           widget.isLastInGroup)
                         Padding(
-                          padding:
-                              const EdgeInsets.only(right: 4, bottom: 2),
+                          padding: const EdgeInsets.only(right: 4, bottom: 2),
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             crossAxisAlignment: CrossAxisAlignment.end,
@@ -1414,8 +1456,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   Text(
-                                    formatMessageTime(
-                                        widget.message.createdAt),
+                                    formatMessageTime(widget.message.createdAt),
                                     style: context.captionSmall.copyWith(
                                       color: widget.message.isFailed
                                           ? _failedColor(context)
@@ -1425,20 +1466,23 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
                                   if (widget.message.sendingStatus ==
                                       MessageSendingStatus.none) ...[
                                     Spacing.hGapXXS,
-                                    Builder(builder: (_) {
-                                      final role =
-                                          tickRoleFor(widget.message);
-                                      final isRead = role == TickRole.read;
-                                      return Icon(
-                                        role == TickRole.sent
-                                            ? Icons.done
-                                            : Icons.done_all,
-                                        size: 14,
-                                        color: isRead
-                                            ? _myMessageColor(context)
-                                            : _timestampColor(context),
-                                      );
-                                    }),
+                                    Builder(
+                                      builder: (_) {
+                                        final role = tickRoleFor(
+                                          widget.message,
+                                        );
+                                        final isRead = role == TickRole.read;
+                                        return Icon(
+                                          role == TickRole.sent
+                                              ? Icons.done
+                                              : Icons.done_all,
+                                          size: 14,
+                                          color: isRead
+                                              ? _myMessageColor(context)
+                                              : _timestampColor(context),
+                                        );
+                                      },
+                                    ),
                                   ],
                                 ],
                               ),
@@ -1450,8 +1494,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
                       Flexible(
                         child: Container(
                           constraints: BoxConstraints(
-                            maxWidth:
-                                MediaQuery.of(context).size.width * 0.7,
+                            maxWidth: MediaQuery.of(context).size.width * 0.7,
                           ),
                           child: Column(
                             crossAxisAlignment: widget.isMe
@@ -1460,8 +1503,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
                             children: [
                               if (widget.message.isForwarded)
                                 ForwardedMessageIndicator(
-                                  forwardedFrom:
-                                      widget.message.forwardedFrom,
+                                  forwardedFrom: widget.message.forwardedFrom,
                                   isMe: widget.isMe,
                                 ),
                               Stack(
@@ -1477,8 +1519,9 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
                                       child: Icon(
                                         Icons.push_pin_rounded,
                                         size: 14,
-                                        color: AppColors.primary
-                                            .withValues(alpha: 0.7),
+                                        color: AppColors.primary.withValues(
+                                          alpha: 0.7,
+                                        ),
                                       ),
                                     ),
                                 ],
@@ -1508,8 +1551,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
                           !widget.isSelectionMode &&
                           widget.isLastInGroup)
                         Padding(
-                          padding:
-                              const EdgeInsets.only(left: 4, bottom: 2),
+                          padding: const EdgeInsets.only(left: 4, bottom: 2),
                           child: Text(
                             formatMessageTime(widget.message.createdAt),
                             style: context.captionSmall.copyWith(
@@ -1525,15 +1567,12 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
                     Padding(
                       padding: EdgeInsets.only(
                         top: 2,
-                        left: !widget.isMe && !widget.isSelectionMode
-                            ? 44
-                            : 0,
+                        left: !widget.isMe && !widget.isSelectionMode ? 44 : 0,
                       ),
                       child: MessageReactionWidget(
                         reactions: widget.message.reactions,
                         currentUserId: _currentUserId,
-                        onReactionTap: (emoji) =>
-                            _handleReactionTap(emoji),
+                        onReactionTap: (emoji) => _handleReactionTap(emoji),
                       ),
                     ),
 
@@ -1547,16 +1586,20 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
                     if (_inlineTranslation != null)
                       Padding(
                         padding: const EdgeInsets.only(
-                            top: 6, left: 52, right: 12),
+                          top: 6,
+                          left: 52,
+                          right: 12,
+                        ),
                         child: Container(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 8),
+                            horizontal: 10,
+                            vertical: 8,
+                          ),
                           decoration: BoxDecoration(
-                            color:
-                                AppColors.primary.withValues(alpha: 0.06),
+                            color: AppColors.primary.withValues(alpha: 0.06),
                             border: Border.all(
-                                color: AppColors.primary
-                                    .withValues(alpha: 0.18)),
+                              color: AppColors.primary.withValues(alpha: 0.18),
+                            ),
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: Text(
@@ -1602,4 +1645,3 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
     );
   }
 }
-

@@ -34,16 +34,15 @@ class RegistrationSteps {
   /// which made this the longest part of the wizard for exactly the signups
   /// that were already abandoning it.
   List<String> get labels => [
-        if (needsPersonalInfo) 'About you',
-        if (needsPhoto) 'Photo',
-        if (needsLanguages) 'Languages',
-        'Finish',
-      ];
+    if (needsPersonalInfo) 'About you',
+    if (needsPhoto) 'Photo',
+    if (needsLanguages) 'Languages',
+    'Finish',
+  ];
 
   int? get personalInfoStepIndex => needsPersonalInfo ? 0 : null;
 
-  int? get photoStepIndex =>
-      needsPhoto ? (needsPersonalInfo ? 1 : 0) : null;
+  int? get photoStepIndex => needsPhoto ? (needsPersonalInfo ? 1 : 0) : null;
 
   int? get languageStepIndex => needsLanguages
       ? (needsPersonalInfo ? 1 : 0) + (needsPhoto ? 1 : 0)
@@ -64,7 +63,8 @@ RegistrationSteps planRegistrationSteps({
 }) {
   // Mirrors the server's check: both set AND different. Asking again is
   // better than a completion the server will refuse with PROFILE_INCOMPLETE.
-  final languagesKnown = nativeLanguage.isNotEmpty &&
+  final languagesKnown =
+      nativeLanguage.isNotEmpty &&
       learningLanguage.isNotEmpty &&
       nativeLanguage != learningLanguage;
 

@@ -38,7 +38,9 @@ class _ChatScreenWrapperState extends ConsumerState<ChatScreenWrapper> {
   Future<void> _fetchUserData() async {
     try {
       final communityService = CommunityService();
-      final userData = await communityService.getSingleCommunity(id: widget.userId);
+      final userData = await communityService.getSingleCommunity(
+        id: widget.userId,
+      );
 
       if (mounted) {
         setState(() {
@@ -102,10 +104,7 @@ class _ChatScreenWrapperState extends ConsumerState<ChatScreenWrapper> {
                 const SizedBox(height: 24),
                 const Text(
                   'Daily Chat Limit Reached',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 12),
@@ -209,4 +208,3 @@ class _ChatScreenWrapperState extends ConsumerState<ChatScreenWrapper> {
     );
   }
 }
-

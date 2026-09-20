@@ -29,10 +29,7 @@ class PinnedMessagesBar extends StatelessWidget {
       decoration: BoxDecoration(
         color: context.surfaceColor,
         border: Border(
-          bottom: BorderSide(
-            color: context.dividerColor,
-            width: 1,
-          ),
+          bottom: BorderSide(color: context.dividerColor, width: 1),
         ),
       ),
       child: Material(
@@ -85,7 +82,9 @@ class PinnedMessagesBar extends StatelessWidget {
                                 vertical: 2,
                               ),
                               decoration: BoxDecoration(
-                                color: theme.primaryColor.withValues(alpha: 0.1),
+                                color: theme.primaryColor.withValues(
+                                  alpha: 0.1,
+                                ),
                                 borderRadius: BorderRadius.circular(4),
                               ),
                               child: Text(
@@ -105,10 +104,7 @@ class PinnedMessagesBar extends StatelessWidget {
                         _getMessagePreview(context, message),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: context.textHint,
-                        ),
+                        style: TextStyle(fontSize: 14, color: context.textHint),
                       ),
                     ],
                   ),

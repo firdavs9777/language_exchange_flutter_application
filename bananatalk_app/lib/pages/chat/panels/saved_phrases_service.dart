@@ -32,10 +32,10 @@ class SavedPhrasesService {
   }
 
   static Map<String, String> _headers(String? token) => {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        if (token != null) 'Authorization': 'Bearer $token',
-      };
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+    if (token != null) 'Authorization': 'Bearer $token',
+  };
 
   static Future<List<String>> _readCache(String userId) async {
     final prefs = await SharedPreferences.getInstance();

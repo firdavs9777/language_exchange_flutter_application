@@ -82,8 +82,8 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
     try {
       await NotificationService().initialize(context: context);
       await NotificationService().clearBadge();
-      final initialMessage =
-          await FirebaseMessaging.instance.getInitialMessage();
+      final initialMessage = await FirebaseMessaging.instance
+          .getInitialMessage();
       if (initialMessage != null) {
         _pendingNotification = initialMessage;
       }

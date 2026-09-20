@@ -7,6 +7,7 @@ class MessageContextMenuItem {
   final String label;
   final VoidCallback onTap;
   final bool isDestructive;
+
   /// Optional override for the row's accent color. Used to make the
   /// language-learning power actions (Correct / Translate / Save Phrase)
   /// pop visually instead of all blending into the same default grey.

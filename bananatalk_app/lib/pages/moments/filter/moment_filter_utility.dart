@@ -11,22 +11,23 @@ class MomentFilterUtility {
     final filtered = moments.where((moment) {
       if (filter.languages.isNotEmpty) {
         final language = moment.language.toLowerCase();
-        final matchesLanguage = filter.languages
-            .any((lang) => language == lang.toLowerCase());
+        final matchesLanguage = filter.languages.any(
+          (lang) => language == lang.toLowerCase(),
+        );
         if (!matchesLanguage) return false;
       }
 
       if (filter.categories.isNotEmpty) {
         final category = moment.category.toLowerCase();
-        final matchesCategory = filter.categories
-            .any((cat) => category == cat.toLowerCase());
+        final matchesCategory = filter.categories.any(
+          (cat) => category == cat.toLowerCase(),
+        );
         if (!matchesCategory) return false;
       }
 
       if (filter.moods.isNotEmpty) {
         final mood = moment.mood.toLowerCase();
-        final matchesMood =
-            filter.moods.any((m) => mood == m.toLowerCase());
+        final matchesMood = filter.moods.any((m) => mood == m.toLowerCase());
         if (!matchesMood) return false;
       }
 
@@ -39,9 +40,7 @@ class MomentFilterUtility {
 
     switch (filter.sortBy) {
       case 'popular':
-        filtered.sort(
-          (a, b) => b.likeCount.compareTo(a.likeCount),
-        );
+        filtered.sort((a, b) => b.likeCount.compareTo(a.likeCount));
         break;
       case 'trending':
         filtered.sort(
@@ -51,29 +50,26 @@ class MomentFilterUtility {
         break;
       case 'recent':
       default:
-        filtered.sort(
-          (a, b) => b.createdAt.compareTo(a.createdAt),
-        );
+        filtered.sort((a, b) => b.createdAt.compareTo(a.createdAt));
         break;
     }
 
     return filtered;
   }
 
-  static bool _matchesDateFilter(
-    DateTime createdAt,
-    DateFilterType type,
-  ) {
+  static bool _matchesDateFilter(DateTime createdAt, DateFilterType type) {
     final now = DateTime.now();
     switch (type) {
       case DateFilterType.today:
         final startOfDay = DateTime(now.year, now.month, now.day);
         return createdAt.isAfter(startOfDay);
       case DateFilterType.thisWeek:
-        final startOfWeek =
-            now.subtract(Duration(days: now.weekday - 1));
-        final normalized =
-            DateTime(startOfWeek.year, startOfWeek.month, startOfWeek.day);
+        final startOfWeek = now.subtract(Duration(days: now.weekday - 1));
+        final normalized = DateTime(
+          startOfWeek.year,
+          startOfWeek.month,
+          startOfWeek.day,
+        );
         return createdAt.isAfter(normalized);
       case DateFilterType.thisMonth:
         final startOfMonth = DateTime(now.year, now.month, 1);
@@ -85,12 +81,8 @@ class MomentFilterUtility {
   }
 
   static double _calculateTrendingScore(Moments moment) {
-    final engagementScore =
-        (moment.likeCount * 2) + (moment.commentCount * 3);
-    final hours = max(
-      1,
-      DateTime.now().difference(moment.createdAt).inHours,
-    );
+    final engagementScore = (moment.likeCount * 2) + (moment.commentCount * 3);
+    final hours = max(1, DateTime.now().difference(moment.createdAt).inHours);
 
     double recencyMultiplier;
     if (hours <= 24) {
@@ -104,21 +96,18 @@ class MomentFilterUtility {
     return engagementScore * recencyMultiplier;
   }
 
-  static List<Moments> searchMoments(
-    List<Moments> moments,
-    String query,
-  ) {
+  static List<Moments> searchMoments(List<Moments> moments, String query) {
     if (query.isEmpty) return moments;
     final lowerQuery = query.toLowerCase();
 
     return moments.where((moment) {
-      final userMatches =
-          moment.user.name.toLowerCase().contains(lowerQuery);
-      final descriptionMatches =
-          moment.description.toLowerCase().contains(lowerQuery);
-      final tagMatches = moment.tags
-          .whereType<String>()
-          .any((tag) => tag.toLowerCase().contains(lowerQuery));
+      final userMatches = moment.user.name.toLowerCase().contains(lowerQuery);
+      final descriptionMatches = moment.description.toLowerCase().contains(
+        lowerQuery,
+      );
+      final tagMatches = moment.tags.whereType<String>().any(
+        (tag) => tag.toLowerCase().contains(lowerQuery),
+      );
 
       return userMatches || descriptionMatches || tagMatches;
     }).toList();
@@ -156,4 +145,3 @@ class MomentFilterUtility {
     return suggestions.toList();
   }
 }
-

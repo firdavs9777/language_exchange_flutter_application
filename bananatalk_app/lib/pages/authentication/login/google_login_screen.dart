@@ -358,7 +358,9 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
                         borderRadius: BorderRadius.circular(30),
                         boxShadow: [
                           BoxShadow(
-                            color: const Color(0xFF4285F4).withValues(alpha: 0.3),
+                            color: const Color(
+                              0xFF4285F4,
+                            ).withValues(alpha: 0.3),
                             blurRadius: 20,
                             offset: const Offset(0, 10),
                           ),

@@ -161,7 +161,11 @@ class _MomentVideoPlayerState extends State<MomentVideoPlayer> {
                 Container(
                   color: context.textMuted,
                   child: const Center(
-                    child: Icon(Icons.videocam, color: Colors.white38, size: 48),
+                    child: Icon(
+                      Icons.videocam,
+                      color: Colors.white38,
+                      size: 48,
+                    ),
                   ),
                 ),
 
@@ -181,7 +185,9 @@ class _MomentVideoPlayerState extends State<MomentVideoPlayer> {
                       shape: BoxShape.circle,
                     ),
                     child: Icon(
-                      _isInitialized ? Icons.play_arrow : Icons.play_circle_outline,
+                      _isInitialized
+                          ? Icons.play_arrow
+                          : Icons.play_circle_outline,
                       color: Colors.white,
                       size: 40,
                     ),
@@ -194,7 +200,11 @@ class _MomentVideoPlayerState extends State<MomentVideoPlayer> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Icon(Icons.error_outline, color: Colors.white54, size: 40),
+                      const Icon(
+                        Icons.error_outline,
+                        color: Colors.white54,
+                        size: 40,
+                      ),
                       Spacing.gapSM,
                       const Text(
                         'Failed to load video',
@@ -221,7 +231,10 @@ class _MomentVideoPlayerState extends State<MomentVideoPlayer> {
                   bottom: 8,
                   right: 8,
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 6,
+                      vertical: 2,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.black54,
                       borderRadius: AppRadius.borderXS,
@@ -242,7 +255,10 @@ class _MomentVideoPlayerState extends State<MomentVideoPlayer> {
                 top: 8,
                 left: 8,
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 6,
+                    vertical: 2,
+                  ),
                   decoration: BoxDecoration(
                     color: Colors.black54,
                     borderRadius: BorderRadius.circular(4),
@@ -279,7 +295,10 @@ class _MomentVideoPlayerState extends State<MomentVideoPlayer> {
                       bufferedColor: Colors.white38,
                       backgroundColor: Colors.white24,
                     ),
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 4,
+                    ),
                   ),
                 ),
             ],
@@ -294,7 +313,8 @@ class _MomentVideoPlayerState extends State<MomentVideoPlayer> {
 class FullScreenVideoPlayer extends StatefulWidget {
   final MomentVideo video;
 
-  const FullScreenVideoPlayer({Key? key, required this.video}) : super(key: key);
+  const FullScreenVideoPlayer({Key? key, required this.video})
+    : super(key: key);
 
   @override
   State<FullScreenVideoPlayer> createState() => _FullScreenVideoPlayerState();
@@ -374,7 +394,11 @@ class _FullScreenVideoPlayerState extends State<FullScreenVideoPlayer> {
                     color: Colors.black45,
                     shape: BoxShape.circle,
                   ),
-                  child: const Icon(Icons.play_arrow, color: Colors.white, size: 48),
+                  child: const Icon(
+                    Icons.play_arrow,
+                    color: Colors.white,
+                    size: 48,
+                  ),
                 ),
               ),
 

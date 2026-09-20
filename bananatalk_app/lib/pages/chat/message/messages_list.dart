@@ -40,7 +40,8 @@ class ChatMessagesList extends StatelessWidget {
   final bool hasMoreMessages;
   final Widget? headerWidget; // User info card shown at top when scrolled up
   final VoidCallback? onSendWave; // Send wave emoji to start chatting
-  final Function(CallRecord)? onCallTap; // Initiate call from call history bubble
+  final Function(CallRecord)?
+  onCallTap; // Initiate call from call history bubble
 
   /// Workstream D — Language Rooms: multi-sender group mode. When true, each
   /// non-mine message renders with its own sender name + avatar (taken from
@@ -120,7 +121,10 @@ class ChatMessagesList extends StatelessWidget {
                     splashColor: AppColors.primary.withValues(alpha: 0.2),
                     highlightColor: AppColors.primary.withValues(alpha: 0.1),
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 32,
+                        vertical: 20,
+                      ),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(16),
                         border: Border.all(
@@ -131,10 +135,7 @@ class ChatMessagesList extends StatelessWidget {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          const Text(
-                            '👋',
-                            style: TextStyle(fontSize: 56),
-                          ),
+                          const Text('👋', style: TextStyle(fontSize: 56)),
                           const SizedBox(height: 12),
                           Text(
                             AppLocalizations.of(context)!.tapToSayHi,
@@ -162,7 +163,10 @@ class ChatMessagesList extends StatelessWidget {
           ],
         );
       }
-      return ConversationEmptyState(userName: otherUserName, onSendWave: onSendWave);
+      return ConversationEmptyState(
+        userName: otherUserName,
+        onSendWave: onSendWave,
+      );
     }
 
     // Build list with header at top, then messages chronologically (oldest to newest)
@@ -234,8 +238,7 @@ class ChatMessagesList extends StatelessWidget {
                       )
                     : message;
                 // isCorrector: true when current user sent the correction
-                final isCorrector =
-                    correction?.corrector.id == currentUserId;
+                final isCorrector = correction?.corrector.id == currentUserId;
                 return CorrectionMessageBubble(
                   key: ValueKey(message.id),
                   message: message,
@@ -269,8 +272,9 @@ class ChatMessagesList extends StatelessWidget {
               // otherUserName/otherUserPicture the 1-on-1 path relies on.
               // The 1-on-1 path (isGroup == false, the default) is entirely
               // unaffected — it keeps passing the widget-level values below.
-              final bubbleUserName =
-                  isGroup && !isMe ? message.sender.name : otherUserName;
+              final bubbleUserName = isGroup && !isMe
+                  ? message.sender.name
+                  : otherUserName;
               final senderImages = message.sender.effectiveImageUrls;
               final bubblePicture = isGroup && !isMe
                   ? (senderImages.isNotEmpty ? senderImages.first : null)

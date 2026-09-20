@@ -19,11 +19,11 @@ class BiometricAuthState {
   });
 
   Map<String, String> toJson() => {
-        'token': token,
-        'refreshToken': refreshToken,
-        'userId': userId,
-        'userName': userName,
-      };
+    'token': token,
+    'refreshToken': refreshToken,
+    'userId': userId,
+    'userName': userName,
+  };
 
   static BiometricAuthState? tryParse(String raw) {
     try {
@@ -51,8 +51,8 @@ class BiometricAuthState {
 ///   device is unlocked + biometric hasn't been re-enrolled.
 class BiometricService {
   BiometricService({LocalAuthentication? auth, BiometricTokenStorage? storage})
-      : _auth = auth ?? LocalAuthentication(),
-        _storage = storage ?? BiometricTokenStorage();
+    : _auth = auth ?? LocalAuthentication(),
+      _storage = storage ?? BiometricTokenStorage();
 
   static const _enabledFlagKey = 'biometric_enabled';
   static const _userNameDisplayKey = 'biometric_user_name_display';

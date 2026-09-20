@@ -3,7 +3,8 @@ import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
 import 'package:bananatalk_app/pages/moments/card/moment_card.dart';
 import 'package:bananatalk_app/pages/moments/feed/moments_main.dart'
     show momentFilterProvider, MomentsFeedTab;
-import 'package:bananatalk_app/pages/menu_tab/TabBarMenu.dart' show selectedTabProvider;
+import 'package:bananatalk_app/pages/menu_tab/TabBarMenu.dart'
+    show selectedTabProvider;
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -140,11 +141,7 @@ class MomentsFeedWidget extends ConsumerWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
-              Icons.error_outline,
-              size: 64,
-              color: context.textMuted,
-            ),
+            Icon(Icons.error_outline, size: 64, color: context.textMuted),
             Spacing.gapLG,
             Text(
               AppLocalizations.of(context)!.failedToLoadMoments,
@@ -168,7 +165,8 @@ class MomentsFeedWidget extends ConsumerWidget {
     final currentFilter = ref.watch(momentFilterProvider);
     final l10n = AppLocalizations.of(context)!;
     final noSearchOrFilter = !isSearching && !currentFilter.hasActiveFilters;
-    final isFollowingEmpty = noSearchOrFilter && activeTab == MomentsFeedTab.following;
+    final isFollowingEmpty =
+        noSearchOrFilter && activeTab == MomentsFeedTab.following;
 
     final IconData icon = isSearching
         ? Icons.search_off
@@ -201,16 +199,9 @@ class MomentsFeedWidget extends ConsumerWidget {
         Center(
           child: Column(
             children: [
-              Icon(
-                icon,
-                size: 80,
-                color: context.textHint,
-              ),
+              Icon(icon, size: 80, color: context.textHint),
               Spacing.gapLG,
-              Text(
-                title,
-                style: context.titleLarge,
-              ),
+              Text(title, style: context.titleLarge),
               Spacing.gapSM,
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 32),
@@ -243,7 +234,8 @@ class MomentsFeedWidget extends ConsumerWidget {
                 Spacing.gapLG,
                 ElevatedButton(
                   onPressed: () {
-                    ref.read(selectedTabProvider.notifier).state = _communityTabIndex;
+                    ref.read(selectedTabProvider.notifier).state =
+                        _communityTabIndex;
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: context.primaryColor,

@@ -62,7 +62,11 @@ Future<void> handleEditMessage({
     );
 
     // Optimistic update
-    chatNotifier.updateMessageLocally(message.id, newText: newText, isEdited: true);
+    chatNotifier.updateMessageLocally(
+      message.id,
+      newText: newText,
+      isEdited: true,
+    );
 
     // Call API
     final messageService = ref.read(messageServiceProvider);
@@ -94,6 +98,7 @@ Future<void> handleDeleteMessage({
   required String chatPartnerId,
   required String currentUserId,
   required String otherUserName,
+
   /// Called on API failure so the orchestrator can reload the message list.
   required Future<void> Function() onReloadMessages,
 }) async {
@@ -224,7 +229,8 @@ Future<void> handleForwardMessage({
       if (msg.sender.id != currentUserId && msg.sender.id != chatPartnerId) {
         uniqueUserIds.add(msg.sender.id);
       }
-      if (msg.receiver.id != currentUserId && msg.receiver.id != chatPartnerId) {
+      if (msg.receiver.id != currentUserId &&
+          msg.receiver.id != chatPartnerId) {
         uniqueUserIds.add(msg.receiver.id);
       }
     }
@@ -244,10 +250,8 @@ Future<void> handleForwardMessage({
 
   final result = await showDialog<List<String>>(
     context: context,
-    builder: (context) => ForwardMessageDialog(
-      userIds: userIds,
-      messageService: messageService,
-    ),
+    builder: (context) =>
+        ForwardMessageDialog(userIds: userIds, messageService: messageService),
   );
 
   if (result != null && result.isNotEmpty && context.mounted) {
@@ -259,7 +263,9 @@ Future<void> handleForwardMessage({
     if (forwardResult['success'] == true && context.mounted) {
       showChatSnackBar(
         context,
-        message: AppLocalizations.of(context)!.messageForwardedTo(result.length),
+        message: AppLocalizations.of(
+          context,
+        )!.messageForwardedTo(result.length),
         type: ChatSnackBarType.success,
       );
     } else if (context.mounted) {
@@ -282,8 +288,10 @@ Future<void> handleRetryMessage({
   required Message message,
   required String chatPartnerId,
   required String currentUserId,
+
   /// Orchestrator's _sendMessage — signature mirrors the State method.
-  required Future<void> Function({String? messageText, String? messageType}) onSendMessage,
+  required Future<void> Function({String? messageText, String? messageType})
+  onSendMessage,
 }) async {
   if (!context.mounted) return;
 
@@ -330,17 +338,18 @@ void handleDeleteFailedMessage({
 
   chatNotifier.removeMessageLocally(message.localId ?? message.id);
 
-  showChatSnackBar(context, message: 'Message deleted', type: ChatSnackBarType.success);
+  showChatSnackBar(
+    context,
+    message: 'Message deleted',
+    type: ChatSnackBarType.success,
+  );
 }
 
 // ---------------------------------------------------------------------------
 // handleCallError
 // ---------------------------------------------------------------------------
 
-void handleCallError({
-  required BuildContext context,
-  required String error,
-}) {
+void handleCallError({required BuildContext context, required String error}) {
   if (error.startsWith('PERMANENTLY_DENIED:')) {
     final message = error.substring('PERMANENTLY_DENIED:'.length);
     showDialog(

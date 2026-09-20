@@ -59,7 +59,8 @@ List<ChatRow> buildChatRows(List<Message> messages) {
     final msg = messages[i];
     final day = _localDay(msg.createdAt);
 
-    final dayChanged = day != null &&
+    final dayChanged =
+        day != null &&
         (currentDay == null || !day.isAtSameMomentAs(currentDay));
     if (dayChanged) {
       rows.add(DateSeparatorRow(day));
@@ -75,8 +76,13 @@ List<ChatRow> buildChatRows(List<Message> messages) {
     final nextSameDay = next != null && _localDay(next.createdAt) == day;
     final isLastInGroup = next == null || !nextSameDay || !_groups(msg, next);
 
-    rows.add(MessageRow(msg,
-        isFirstInGroup: isFirstInGroup, isLastInGroup: isLastInGroup));
+    rows.add(
+      MessageRow(
+        msg,
+        isFirstInGroup: isFirstInGroup,
+        isLastInGroup: isLastInGroup,
+      ),
+    );
   }
   return rows;
 }

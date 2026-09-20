@@ -139,10 +139,7 @@ class DeleteMessageDialog extends StatelessWidget {
           decoration: BoxDecoration(
             color: context.containerColor,
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-              color: context.dividerColor,
-              width: 1,
-            ),
+            border: Border.all(color: context.dividerColor, width: 1),
           ),
           child: Row(
             children: [
@@ -161,7 +158,9 @@ class DeleteMessageDialog extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
-                        color: enabled ? context.textPrimary : context.textSecondary,
+                        color: enabled
+                            ? context.textPrimary
+                            : context.textSecondary,
                       ),
                     ),
                     const SizedBox(height: 2),
@@ -192,7 +191,9 @@ class DeleteMessageDialog extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
-                      color: enabled ? theme.primaryColor : context.textSecondary,
+                      color: enabled
+                          ? theme.primaryColor
+                          : context.textSecondary,
                     ),
                   ),
                 ),

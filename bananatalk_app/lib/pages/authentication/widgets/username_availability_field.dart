@@ -85,8 +85,9 @@ class _UsernameAvailabilityFieldState extends State<UsernameAvailabilityField> {
   Future<void> _check(String value) async {
     try {
       final res = await http
-          .get(Uri.parse(
-              '${Endpoints.baseURL}users/check-username?value=$value'))
+          .get(
+            Uri.parse('${Endpoints.baseURL}users/check-username?value=$value'),
+          )
           .timeout(const Duration(seconds: 5));
 
       if (!mounted) return;
@@ -153,8 +154,10 @@ class _UsernameAvailabilityFieldState extends State<UsernameAvailabilityField> {
             suffixIcon: _suffixIcon(),
             filled: true,
             fillColor: context.surfaceColor,
-            contentPadding:
-                const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 16,
+            ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(14),
               borderSide: BorderSide(
@@ -171,8 +174,7 @@ class _UsernameAvailabilityFieldState extends State<UsernameAvailabilityField> {
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(14),
-              borderSide:
-                  const BorderSide(color: AppColors.primary, width: 2),
+              borderSide: const BorderSide(color: AppColors.primary, width: 2),
             ),
           ),
         ),
@@ -198,18 +200,22 @@ class _UsernameAvailabilityFieldState extends State<UsernameAvailabilityField> {
       _AvailabilityState.empty => null,
       _AvailabilityState.invalidFormat ||
       _AvailabilityState.taken ||
-      _AvailabilityState.reserved =>
-        Icon(Icons.close_rounded, color: AppColors.error),
+      _AvailabilityState.reserved => Icon(
+        Icons.close_rounded,
+        color: AppColors.error,
+      ),
       _AvailabilityState.checking => const Padding(
-          padding: EdgeInsets.all(14),
-          child: SizedBox(
-            width: 18,
-            height: 18,
-            child: CircularProgressIndicator(strokeWidth: 2),
-          ),
+        padding: EdgeInsets.all(14),
+        child: SizedBox(
+          width: 18,
+          height: 18,
+          child: CircularProgressIndicator(strokeWidth: 2),
         ),
-      _AvailabilityState.available =>
-        const Icon(Icons.check_rounded, color: AppColors.success),
+      ),
+      _AvailabilityState.available => const Icon(
+        Icons.check_rounded,
+        color: AppColors.success,
+      ),
       _AvailabilityState.networkError => null,
     };
   }
@@ -218,8 +224,7 @@ class _UsernameAvailabilityFieldState extends State<UsernameAvailabilityField> {
     return switch (_state) {
       _AvailabilityState.empty ||
       _AvailabilityState.checking ||
-      _AvailabilityState.networkError =>
-        null,
+      _AvailabilityState.networkError => null,
       _AvailabilityState.invalidFormat => l10n.usernameInvalidFormat,
       _AvailabilityState.available => l10n.usernameAvailable,
       _AvailabilityState.taken => l10n.usernameTaken,

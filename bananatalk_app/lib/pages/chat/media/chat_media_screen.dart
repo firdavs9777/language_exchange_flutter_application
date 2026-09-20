@@ -64,12 +64,16 @@ class _ChatMediaScreenState extends ConsumerState<ChatMediaScreen>
 
     try {
       final messageService = ref.read(messageServiceProvider);
-      final messages = await messageService.getUserMessages(id: widget.senderId);
-      
+      final messages = await messageService.getUserMessages(
+        id: widget.senderId,
+      );
+
       // Filter to only messages in this conversation
       final conversationMessages = messages.where((msg) {
-        return (msg.sender.id == widget.senderId && msg.receiver.id == widget.receiverId) ||
-               (msg.sender.id == widget.receiverId && msg.receiver.id == widget.senderId);
+        return (msg.sender.id == widget.senderId &&
+                msg.receiver.id == widget.receiverId) ||
+            (msg.sender.id == widget.receiverId &&
+                msg.receiver.id == widget.senderId);
       }).toList();
 
       if (mounted) {
@@ -115,7 +119,11 @@ class _ChatMediaScreenState extends ConsumerState<ChatMediaScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.chatListMediaTitle(widget.otherUserName)),
+        title: Text(
+          AppLocalizations.of(
+            context,
+          )!.chatListMediaTitle(widget.otherUserName),
+        ),
         bottom: TabBar(
           controller: _tabController,
           tabs: [
@@ -137,29 +145,28 @@ class _ChatMediaScreenState extends ConsumerState<ChatMediaScreen>
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : _error != null
-              ? Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.error_outline, color: context.iconColor, size: 48),
-                      const SizedBox(height: 16),
-                      Text(AppLocalizations.of(context)!.chatListMediaError, style: TextStyle(color: context.textSecondary)),
-                      const SizedBox(height: 8),
-                      TextButton(
-                        onPressed: _loadMessages,
-                        child: Text(AppLocalizations.of(context)!.momentsRetry),
-                      ),
-                    ],
+          ? Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.error_outline, color: context.iconColor, size: 48),
+                  const SizedBox(height: 16),
+                  Text(
+                    AppLocalizations.of(context)!.chatListMediaError,
+                    style: TextStyle(color: context.textSecondary),
                   ),
-                )
-              : TabBarView(
-                  controller: _tabController,
-                  children: [
-                    _buildMediaTab(),
-                    _buildLinksTab(),
-                    _buildDocsTab(),
-                  ],
-                ),
+                  const SizedBox(height: 8),
+                  TextButton(
+                    onPressed: _loadMessages,
+                    child: Text(AppLocalizations.of(context)!.momentsRetry),
+                  ),
+                ],
+              ),
+            )
+          : TabBarView(
+              controller: _tabController,
+              children: [_buildMediaTab(), _buildLinksTab(), _buildDocsTab()],
+            ),
     );
   }
 
@@ -232,7 +239,7 @@ class _ChatMediaScreenState extends ConsumerState<ChatMediaScreen>
       itemBuilder: (context, index) {
         final message = _linkMessages[index];
         final text = message.message ?? '';
-        
+
         // Extract URL from text
         final urlRegex = RegExp(r'https?://[^\s]+');
         final match = urlRegex.firstMatch(text);
@@ -295,10 +302,7 @@ class _ChatMediaScreenState extends ConsumerState<ChatMediaScreen>
                 color: Colors.orange.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Icon(
-                _getFileIcon(media.mimeType),
-                color: Colors.orange,
-              ),
+              child: Icon(_getFileIcon(media.mimeType), color: Colors.orange),
             ),
             title: Text(
               media.fileName ?? 'Document',
@@ -337,9 +341,7 @@ class _ChatMediaScreenState extends ConsumerState<ChatMediaScreen>
   void _openMedia(MessageMedia media) {
     Navigator.push(
       context,
-      AppPageRoute(
-        builder: (context) => _FullScreenMedia(media: media),
-      ),
+      AppPageRoute(builder: (context) => _FullScreenMedia(media: media)),
     );
   }
 
@@ -350,12 +352,20 @@ class _ChatMediaScreenState extends ConsumerState<ChatMediaScreen>
         await launchUrl(uri, mode: LaunchMode.externalApplication);
       } else {
         if (mounted) {
-          showChatSnackBar(context, message: 'Cannot open: $url', type: ChatSnackBarType.error);
+          showChatSnackBar(
+            context,
+            message: 'Cannot open: $url',
+            type: ChatSnackBarType.error,
+          );
         }
       }
     } catch (e) {
       if (mounted) {
-        showChatSnackBar(context, message: friendlyErrorMessage(AppLocalizations.of(context)!, e), type: ChatSnackBarType.error);
+        showChatSnackBar(
+          context,
+          message: friendlyErrorMessage(AppLocalizations.of(context)!, e),
+          type: ChatSnackBarType.error,
+        );
       }
     }
   }
@@ -364,10 +374,14 @@ class _ChatMediaScreenState extends ConsumerState<ChatMediaScreen>
     if (mimeType == null) return Icons.insert_drive_file;
     if (mimeType.contains('pdf')) return Icons.picture_as_pdf;
     if (mimeType.contains('audio')) return Icons.audio_file;
-    if (mimeType.contains('word') || mimeType.contains('document')) return Icons.description;
-    if (mimeType.contains('excel') || mimeType.contains('spreadsheet')) return Icons.table_chart;
-    if (mimeType.contains('powerpoint') || mimeType.contains('presentation')) return Icons.slideshow;
-    if (mimeType.contains('zip') || mimeType.contains('archive')) return Icons.folder_zip;
+    if (mimeType.contains('word') || mimeType.contains('document'))
+      return Icons.description;
+    if (mimeType.contains('excel') || mimeType.contains('spreadsheet'))
+      return Icons.table_chart;
+    if (mimeType.contains('powerpoint') || mimeType.contains('presentation'))
+      return Icons.slideshow;
+    if (mimeType.contains('zip') || mimeType.contains('archive'))
+      return Icons.folder_zip;
     return Icons.insert_drive_file;
   }
 
@@ -434,4 +448,3 @@ class _FullScreenMedia extends StatelessWidget {
     );
   }
 }
-

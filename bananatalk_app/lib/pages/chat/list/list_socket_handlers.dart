@@ -87,8 +87,7 @@ void handleNewMessage(ListSocketContext ctx, dynamic data) {
     final senderId =
         messageData['sender']?['_id']?.toString() ??
         messageData['sender']?.toString();
-    final senderName =
-        sanitize(messageData['sender']?['name'], 'Unknown');
+    final senderName = sanitize(messageData['sender']?['name'], 'Unknown');
     final senderUsername = messageData['sender']?['username']?.toString();
     final senderAvatar = messageData['sender']?['image']?.toString();
     final senderImageUrls =
@@ -110,8 +109,8 @@ void handleNewMessage(ListSocketContext ctx, dynamic data) {
 
     final currentProviderCount = ctx.readProviderUnreadCount(senderId);
 
-    final senderNativeLanguage =
-        messageData['sender']?['native_language']?.toString();
+    final senderNativeLanguage = messageData['sender']?['native_language']
+        ?.toString();
 
     ctx.doSetState(() {
       int partnerIndex = ctx.chatPartners.indexWhere((p) => p.id == senderId);
@@ -156,8 +155,7 @@ void handleMessageSent(ListSocketContext ctx, dynamic data) {
     final receiverId =
         messageData['receiver']?['_id']?.toString() ??
         messageData['receiver']?.toString();
-    final receiverName =
-        sanitize(messageData['receiver']?['name'], 'Unknown');
+    final receiverName = sanitize(messageData['receiver']?['name'], 'Unknown');
     final receiverUsername = messageData['receiver']?['username']?.toString();
     final receiverAvatar = messageData['receiver']?['image']?.toString();
     final receiverImageUrls =
@@ -176,12 +174,11 @@ void handleMessageSent(ListSocketContext ctx, dynamic data) {
 
     if (receiverId == null || receiverId.isEmpty) return;
 
-    final receiverNativeLanguage =
-        messageData['receiver']?['native_language']?.toString();
+    final receiverNativeLanguage = messageData['receiver']?['native_language']
+        ?.toString();
 
     ctx.doSetState(() {
-      int partnerIndex =
-          ctx.chatPartners.indexWhere((p) => p.id == receiverId);
+      int partnerIndex = ctx.chatPartners.indexWhere((p) => p.id == receiverId);
 
       if (partnerIndex != -1) {
         final existingPartner = ctx.chatPartners[partnerIndex];
@@ -328,9 +325,11 @@ String _extractMessagePreview(Map<dynamic, dynamic> messageData) {
   final rawText = messageData['message']?.toString() ?? '';
   final messageType = messageData['type']?.toString() ?? '';
   final mediaType = messageData['media']?['type']?.toString() ?? '';
-  final hasStoryRef = messageData['storyReference'] != null &&
+  final hasStoryRef =
+      messageData['storyReference'] != null &&
       messageData['storyReference']['storyId'] != null;
-  final isGifUrl = rawText.startsWith('http') &&
+  final isGifUrl =
+      rawText.startsWith('http') &&
       (rawText.contains('giphy.com') ||
           rawText.contains('.gif') ||
           rawText.contains('tenor.com') ||

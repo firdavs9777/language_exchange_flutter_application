@@ -70,8 +70,10 @@ class _StoryShareMessageViewState extends State<StoryShareMessageView> {
       if (!mounted) return;
 
       if (response.success && response.data != null) {
-        final userStories =
-            UserStories(user: response.data!.user, stories: [response.data!]);
+        final userStories = UserStories(
+          user: response.data!.user,
+          stories: [response.data!],
+        );
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -108,7 +110,9 @@ class _StoryShareMessageViewState extends State<StoryShareMessageView> {
     final thumbnail = widget.message.storyReference?.thumbnail;
     final isDisabled = _expired || !_hasStoryId;
     final senderName = widget.message.sender.name;
-    final caption = widget.isMe ? 'You shared a story' : '$senderName shared a story';
+    final caption = widget.isMe
+        ? 'You shared a story'
+        : '$senderName shared a story';
 
     return GestureDetector(
       onTap: _handleTap,
@@ -139,29 +143,32 @@ class _StoryShareMessageViewState extends State<StoryShareMessageView> {
                 child: isDisabled
                     ? _buildDisabledFace(isDark)
                     : (thumbnail != null && thumbnail.isNotEmpty)
-                        ? Stack(
-                            fit: StackFit.expand,
-                            children: [
-                              CachedImageWidget(
-                                imageUrl: thumbnail,
-                                fit: BoxFit.cover,
-                                errorWidget: _buildGradientFace(),
-                              ),
-                              _buildLabelOverlay(),
-                              if (_loading) _buildLoadingOverlay(),
-                            ],
-                          )
-                        : Stack(
-                            fit: StackFit.expand,
-                            children: [
-                              _buildGradientFace(),
-                              _buildLabelOverlay(),
-                              if (_loading) _buildLoadingOverlay(),
-                            ],
+                    ? Stack(
+                        fit: StackFit.expand,
+                        children: [
+                          CachedImageWidget(
+                            imageUrl: thumbnail,
+                            fit: BoxFit.cover,
+                            errorWidget: _buildGradientFace(),
                           ),
+                          _buildLabelOverlay(),
+                          if (_loading) _buildLoadingOverlay(),
+                        ],
+                      )
+                    : Stack(
+                        fit: StackFit.expand,
+                        children: [
+                          _buildGradientFace(),
+                          _buildLabelOverlay(),
+                          if (_loading) _buildLoadingOverlay(),
+                        ],
+                      ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 8,
+                ),
                 color: isDark ? const Color(0xFF262626) : Colors.white,
                 child: Text(
                   isDisabled ? 'Story expired' : caption,
@@ -189,11 +196,20 @@ class _StoryShareMessageViewState extends State<StoryShareMessageView> {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [Color(0xFFFEDA75), Color(0xFFD62976), Color(0xFF962FBF), Color(0xFF4F5BD5)],
+          colors: [
+            Color(0xFFFEDA75),
+            Color(0xFFD62976),
+            Color(0xFF962FBF),
+            Color(0xFF4F5BD5),
+          ],
         ),
       ),
       alignment: Alignment.center,
-      child: const Icon(Icons.auto_stories_rounded, color: Colors.white, size: 40),
+      child: const Icon(
+        Icons.auto_stories_rounded,
+        color: Colors.white,
+        size: 40,
+      ),
     );
   }
 
@@ -222,11 +238,19 @@ class _StoryShareMessageViewState extends State<StoryShareMessageView> {
         child: const Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.play_circle_outline_rounded, color: Colors.white, size: 12),
+            Icon(
+              Icons.play_circle_outline_rounded,
+              color: Colors.white,
+              size: 12,
+            ),
             SizedBox(width: 4),
             Text(
               'Story',
-              style: TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.w600),
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 11,
+                fontWeight: FontWeight.w600,
+              ),
             ),
           ],
         ),
@@ -241,7 +265,10 @@ class _StoryShareMessageViewState extends State<StoryShareMessageView> {
       child: const SizedBox(
         width: 22,
         height: 22,
-        child: CircularProgressIndicator(strokeWidth: 2, valueColor: AlwaysStoppedAnimation(Colors.white)),
+        child: CircularProgressIndicator(
+          strokeWidth: 2,
+          valueColor: AlwaysStoppedAnimation(Colors.white),
+        ),
       ),
     );
   }

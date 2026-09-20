@@ -21,8 +21,7 @@ class FilterLanguageSection extends ConsumerStatefulWidget {
       _FilterLanguageSectionState();
 }
 
-class _FilterLanguageSectionState
-    extends ConsumerState<FilterLanguageSection> {
+class _FilterLanguageSectionState extends ConsumerState<FilterLanguageSection> {
   final TextEditingController _searchController = TextEditingController();
   String _query = '';
 
@@ -35,9 +34,11 @@ class _FilterLanguageSectionState
   List<Map<String, String>> get _filteredLanguages {
     if (_query.isEmpty) return FilterOptions.languages;
     return FilterOptions.languages
-        .where((lang) =>
-            lang['name']!.toLowerCase().contains(_query.toLowerCase()) ||
-            lang['code']!.toLowerCase().contains(_query.toLowerCase()))
+        .where(
+          (lang) =>
+              lang['name']!.toLowerCase().contains(_query.toLowerCase()) ||
+              lang['code']!.toLowerCase().contains(_query.toLowerCase()),
+        )
         .toList();
   }
 
@@ -78,8 +79,10 @@ class _FilterLanguageSectionState
                 borderRadius: BorderRadius.circular(12),
                 borderSide: BorderSide.none,
               ),
-              contentPadding:
-                  const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 16,
+                vertical: 12,
+              ),
               suffixIcon: _query.isNotEmpty
                   ? IconButton(
                       icon: const Icon(Icons.clear),
@@ -112,7 +115,9 @@ class _FilterLanguageSectionState
                     const SizedBox(width: 8),
                     Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 6, vertical: 2),
+                        horizontal: 6,
+                        vertical: 2,
+                      ),
                       decoration: BoxDecoration(
                         color: colorScheme.primary,
                         borderRadius: BorderRadius.circular(8),
@@ -135,15 +140,19 @@ class _FilterLanguageSectionState
                   children: widget.tempFilter.languages.map((langCode) {
                     final langData = FilterOptions.languages.firstWhere(
                       (item) => item['code'] == langCode,
-                      orElse: () =>
-                          {'code': langCode, 'name': langCode, 'flag': '🌍'},
+                      orElse: () => {
+                        'code': langCode,
+                        'name': langCode,
+                        'flag': '🌍',
+                      },
                     );
                     return Chip(
                       label: Text('${langData['flag']} ${langData['name']}'),
                       deleteIcon: const Icon(Icons.close, size: 16),
                       onDeleted: () => _toggleLanguage(langCode),
-                      backgroundColor:
-                          colorScheme.primary.withValues(alpha: 0.1),
+                      backgroundColor: colorScheme.primary.withValues(
+                        alpha: 0.1,
+                      ),
                       side: BorderSide(color: colorScheme.primary),
                       labelStyle: TextStyle(
                         color: colorScheme.primary,
@@ -164,8 +173,9 @@ class _FilterLanguageSectionState
             itemCount: filteredLangs.length,
             itemBuilder: (context, index) {
               final lang = filteredLangs[index];
-              final isSelected =
-                  widget.tempFilter.languages.contains(lang['code']);
+              final isSelected = widget.tempFilter.languages.contains(
+                lang['code'],
+              );
 
               return ListTile(
                 onTap: () => _toggleLanguage(lang['code']!),
@@ -176,8 +186,7 @@ class _FilterLanguageSectionState
                 title: Text(
                   lang['name']!,
                   style: TextStyle(
-                    fontWeight:
-                        isSelected ? FontWeight.w600 : FontWeight.w500,
+                    fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
                     color: isSelected
                         ? colorScheme.primary
                         : context.textPrimary,
@@ -185,8 +194,10 @@ class _FilterLanguageSectionState
                 ),
                 trailing: isSelected
                     ? Icon(Icons.check_circle, color: colorScheme.primary)
-                    : Icon(Icons.circle_outlined,
-                        color: colorScheme.outlineVariant),
+                    : Icon(
+                        Icons.circle_outlined,
+                        color: colorScheme.outlineVariant,
+                      ),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),

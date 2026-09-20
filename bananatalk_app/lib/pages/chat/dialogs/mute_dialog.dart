@@ -102,7 +102,11 @@ class _MuteDialogState extends State<MuteDialog> {
       }
     } catch (e) {
       if (mounted) {
-        showChatSnackBar(context, message: friendlyErrorMessage(AppLocalizations.of(context)!, e), type: ChatSnackBarType.error);
+        showChatSnackBar(
+          context,
+          message: friendlyErrorMessage(AppLocalizations.of(context)!, e),
+          type: ChatSnackBarType.error,
+        );
         setState(() => _isLoading = false);
       }
     }
@@ -164,16 +168,18 @@ class _MuteDialogState extends State<MuteDialog> {
             style: context.bodyMedium.copyWith(color: context.textSecondary),
           ),
           Spacing.gapMD,
-          ..._durationOptions.keys.map((duration) => RadioListTile<String>(
-                title: Text(durationLabels[duration] ?? duration),
-                value: duration,
-                groupValue: _selectedDuration,
-                onChanged: (value) {
-                  setState(() => _selectedDuration = value);
-                },
-                contentPadding: EdgeInsets.zero,
-                visualDensity: VisualDensity.compact,
-              )),
+          ..._durationOptions.keys.map(
+            (duration) => RadioListTile<String>(
+              title: Text(durationLabels[duration] ?? duration),
+              value: duration,
+              groupValue: _selectedDuration,
+              onChanged: (value) {
+                setState(() => _selectedDuration = value);
+              },
+              contentPadding: EdgeInsets.zero,
+              visualDensity: VisualDensity.compact,
+            ),
+          ),
         ],
       ),
       actions: [
@@ -182,7 +188,9 @@ class _MuteDialogState extends State<MuteDialog> {
           child: Text(l10n.cancel),
         ),
         ElevatedButton(
-          onPressed: _isLoading || _selectedDuration == null ? null : _handleMute,
+          onPressed: _isLoading || _selectedDuration == null
+              ? null
+              : _handleMute,
           child: _isLoading
               ? const SizedBox(
                   width: 20,

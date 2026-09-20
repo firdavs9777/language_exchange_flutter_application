@@ -73,8 +73,8 @@ class MomentFilterNotifier extends StateNotifier<MomentFilter> {
 
 final momentFilterProvider =
     StateNotifierProvider<MomentFilterNotifier, MomentFilter>(
-  (ref) => MomentFilterNotifier(),
-);
+      (ref) => MomentFilterNotifier(),
+    );
 
 final filteredMomentsProvider = Provider<AsyncValue<List<Moments>>>((ref) {
   final momentsAsync = ref.watch(momentsFeedProvider);
@@ -89,7 +89,7 @@ final filteredMomentsProvider = Provider<AsyncValue<List<Moments>>>((ref) {
     // Filter out moments from blocked and muted users
     final filteredByBlockAndMute = moments.where((moment) {
       return !blockedUserIds.contains(moment.user.id) &&
-             !mutedUserIds.contains(moment.user.id);
+          !mutedUserIds.contains(moment.user.id);
     }).toList();
 
     // Apply other filters
@@ -148,8 +148,8 @@ class MomentsFeedTabNotifier extends StateNotifier<MomentsFeedTab> {
 
 final momentsFeedTabProvider =
     StateNotifierProvider<MomentsFeedTabNotifier, MomentsFeedTab>(
-  (ref) => MomentsFeedTabNotifier(),
-);
+      (ref) => MomentsFeedTabNotifier(),
+    );
 
 /// Base (unfiltered) moments provider for a given feed tab.
 ///
@@ -167,8 +167,7 @@ final momentsFeedTabProvider =
 /// so callers can both `ref.watch(...)` it (as before) and
 /// `ref.invalidate(...)` it — `invalidate` requires a `ProviderOrFamily`,
 /// which `ProviderListenable` alone doesn't satisfy.
-FutureProvider<List<Moments>> baseProviderFor(
-    MomentsFeedTab tab) {
+FutureProvider<List<Moments>> baseProviderFor(MomentsFeedTab tab) {
   switch (tab) {
     case MomentsFeedTab.forYou:
       return forYouMomentsProvider;
@@ -186,22 +185,25 @@ FutureProvider<List<Moments>> baseProviderFor(
 /// its own cached data and can be invalidated independently.
 final filteredMomentsForTabProvider =
     Provider.family<AsyncValue<List<Moments>>, MomentsFeedTab>((ref, tab) {
-  final momentsAsync = ref.watch(baseProviderFor(tab));
-  final filter = ref.watch(momentFilterProvider);
-  final blockedUserIdsAsync = ref.watch(blockedUserIdsProvider);
-  final mutedUserIds = ref.watch(mutedMomentsProvider);
+      final momentsAsync = ref.watch(baseProviderFor(tab));
+      final filter = ref.watch(momentFilterProvider);
+      final blockedUserIdsAsync = ref.watch(blockedUserIdsProvider);
+      final mutedUserIds = ref.watch(mutedMomentsProvider);
 
-  return momentsAsync.whenData((moments) {
-    final blockedUserIds = blockedUserIdsAsync.value ?? <String>{};
+      return momentsAsync.whenData((moments) {
+        final blockedUserIds = blockedUserIdsAsync.value ?? <String>{};
 
-    final filteredByBlockAndMute = moments.where((moment) {
-      return !blockedUserIds.contains(moment.user.id) &&
-          !mutedUserIds.contains(moment.user.id);
-    }).toList();
+        final filteredByBlockAndMute = moments.where((moment) {
+          return !blockedUserIds.contains(moment.user.id) &&
+              !mutedUserIds.contains(moment.user.id);
+        }).toList();
 
-    return MomentFilterUtility.filterMoments(filteredByBlockAndMute, filter);
-  });
-});
+        return MomentFilterUtility.filterMoments(
+          filteredByBlockAndMute,
+          filter,
+        );
+      });
+    });
 
 class MomentsMain extends ConsumerStatefulWidget {
   const MomentsMain({super.key});
@@ -271,7 +273,9 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
     final userState = ref.read(userProvider);
     if (userState.hasError) {
       ref.invalidate(userProvider);
-      try { await ref.read(userProvider.future); } catch (_) {}
+      try {
+        await ref.read(userProvider.future);
+      } catch (_) {}
     }
     setState(() {
       _searchResults = [];
@@ -311,17 +315,18 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
     });
     final currentFilter = ref.watch(momentFilterProvider);
     final activeTab = ref.watch(momentsFeedTabProvider);
-    final reelsEnabled = ref.watch(appConfigProvider).maybeWhen(
+    final reelsEnabled = ref
+        .watch(appConfigProvider)
+        .maybeWhen(
           data: (config) => config?.reelsEnabled ?? false,
           orElse: () => false,
         );
     // If the kill switch flips off mid-session while the user happens to be
     // on the Reels tab, fall back to For You for rendering purposes rather
     // than showing a grid the tab bar no longer exposes a segment for.
-    final effectiveTab =
-        activeTab == MomentsFeedTab.reels && !reelsEnabled
-            ? MomentsFeedTab.forYou
-            : activeTab;
+    final effectiveTab = activeTab == MomentsFeedTab.reels && !reelsEnabled
+        ? MomentsFeedTab.forYou
+        : activeTab;
     final isReelsTab = effectiveTab == MomentsFeedTab.reels;
 
     // Reels is backed by its own paginated provider (see
@@ -424,7 +429,11 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
                   bottom: BorderSide(color: context.dividerColor, width: 0.5),
                 ),
               ),
-              child: StoriesFeedWidget(height: 130, avatarSize: 64, refreshNotifier: _storiesRefreshNotifier),
+              child: StoriesFeedWidget(
+                height: 130,
+                avatarSize: 64,
+                refreshNotifier: _storiesRefreshNotifier,
+              ),
             ),
           if (!_showSearch)
             _MomentsFeedTabBar(
@@ -470,123 +479,134 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
       floatingActionButton: isReelsTab
           ? null
           : Padding(
-        padding: const EdgeInsets.only(bottom: 72),
-        child: FutureBuilder<String?>(
-          future: SharedPreferences.getInstance().then(
-            (prefs) => prefs.getString('userId'),
-          ),
-          builder: (context, snapshot) {
-            if (!snapshot.hasData || snapshot.data == null) {
-              return FloatingActionButton(
-                onPressed: () {
-                  Navigator.of(context)
-                      .push(
-                        AppPageRoute(builder: (_) => const CreateMoment()),
-                      )
-                      .then((_) => _refresh());
-                },
-                backgroundColor: colorScheme.primary,
-                child: Icon(Icons.add, color: colorScheme.onPrimary),
-              );
-            }
-
-            final userId = snapshot.data!;
-            final limitsAsync = ref.watch(userLimitsProvider(userId));
-            final userAsync = ref.watch(userProvider);
-
-            return limitsAsync.when(
-              data: (limits) {
-                return userAsync.when(
-                  data: (user) {
-                    final canCreate = FeatureGate.canCreateMoment(user, limits);
+              padding: const EdgeInsets.only(bottom: 72),
+              child: FutureBuilder<String?>(
+                future: SharedPreferences.getInstance().then(
+                  (prefs) => prefs.getString('userId'),
+                ),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData || snapshot.data == null) {
                     return FloatingActionButton(
-                      onPressed: canCreate
-                          ? () async {
-                              // Check again before navigating
-                              final currentLimits = ref.read(
-                                currentUserLimitsProvider(userId),
-                              );
-                              final currentUser = await ref.read(
-                                userProvider.future,
-                              );
-                              if (!FeatureGate.canCreateMoment(
-                                currentUser,
-                                currentLimits,
-                              )) {
-                                if (mounted) {
-                                  await LimitExceededDialog.show(
-                                    context: context,
-                                    limitType: 'moments',
-                                    limitInfo: currentLimits?.moments,
-                                    resetTime: currentLimits?.resetTime,
-                                    userId: userId,
-                                  );
-                                }
-                                return;
-                              }
-                              Navigator.of(context)
-                                  .push(
-                                    AppPageRoute(
-                                      builder: (_) => const CreateMoment(),
-                                    ),
-                                  )
-                                  .then((_) => _refresh());
-                            }
-                          : () async {
-                              await LimitExceededDialog.show(
-                                context: context,
-                                limitType: 'moments',
-                                limitInfo: limits.moments,
-                                resetTime: limits.resetTime,
-                                userId: userId,
-                              );
-                            },
-                      backgroundColor: canCreate
-                          ? context.primaryColor
-                          : context.textMuted,
+                      onPressed: () {
+                        Navigator.of(context)
+                            .push(
+                              AppPageRoute(
+                                builder: (_) => const CreateMoment(),
+                              ),
+                            )
+                            .then((_) => _refresh());
+                      },
+                      backgroundColor: colorScheme.primary,
                       child: Icon(Icons.add, color: colorScheme.onPrimary),
                     );
-                  },
-                  loading: () => FloatingActionButton(
-                    onPressed: null,
-                    backgroundColor: context.textMuted,
-                    child: Icon(Icons.add, color: context.textOnPrimary),
-                  ),
-                  error: (error, stack) => FloatingActionButton(
-                    onPressed: () {
-                      Navigator.of(context)
-                          .push(
-                            AppPageRoute(
-                              builder: (_) => const CreateMoment(),
+                  }
+
+                  final userId = snapshot.data!;
+                  final limitsAsync = ref.watch(userLimitsProvider(userId));
+                  final userAsync = ref.watch(userProvider);
+
+                  return limitsAsync.when(
+                    data: (limits) {
+                      return userAsync.when(
+                        data: (user) {
+                          final canCreate = FeatureGate.canCreateMoment(
+                            user,
+                            limits,
+                          );
+                          return FloatingActionButton(
+                            onPressed: canCreate
+                                ? () async {
+                                    // Check again before navigating
+                                    final currentLimits = ref.read(
+                                      currentUserLimitsProvider(userId),
+                                    );
+                                    final currentUser = await ref.read(
+                                      userProvider.future,
+                                    );
+                                    if (!FeatureGate.canCreateMoment(
+                                      currentUser,
+                                      currentLimits,
+                                    )) {
+                                      if (mounted) {
+                                        await LimitExceededDialog.show(
+                                          context: context,
+                                          limitType: 'moments',
+                                          limitInfo: currentLimits?.moments,
+                                          resetTime: currentLimits?.resetTime,
+                                          userId: userId,
+                                        );
+                                      }
+                                      return;
+                                    }
+                                    Navigator.of(context)
+                                        .push(
+                                          AppPageRoute(
+                                            builder: (_) =>
+                                                const CreateMoment(),
+                                          ),
+                                        )
+                                        .then((_) => _refresh());
+                                  }
+                                : () async {
+                                    await LimitExceededDialog.show(
+                                      context: context,
+                                      limitType: 'moments',
+                                      limitInfo: limits.moments,
+                                      resetTime: limits.resetTime,
+                                      userId: userId,
+                                    );
+                                  },
+                            backgroundColor: canCreate
+                                ? context.primaryColor
+                                : context.textMuted,
+                            child: Icon(
+                              Icons.add,
+                              color: colorScheme.onPrimary,
                             ),
-                          )
-                          .then((_) => _refresh());
+                          );
+                        },
+                        loading: () => FloatingActionButton(
+                          onPressed: null,
+                          backgroundColor: context.textMuted,
+                          child: Icon(Icons.add, color: context.textOnPrimary),
+                        ),
+                        error: (error, stack) => FloatingActionButton(
+                          onPressed: () {
+                            Navigator.of(context)
+                                .push(
+                                  AppPageRoute(
+                                    builder: (_) => const CreateMoment(),
+                                  ),
+                                )
+                                .then((_) => _refresh());
+                          },
+                          backgroundColor: colorScheme.primary,
+                          child: Icon(Icons.add, color: colorScheme.onPrimary),
+                        ),
+                      );
                     },
-                    backgroundColor: colorScheme.primary,
-                    child: Icon(Icons.add, color: colorScheme.onPrimary),
-                  ),
-                );
-              },
-              loading: () => FloatingActionButton(
-                onPressed: null,
-                backgroundColor: context.textMuted,
-                child: Icon(Icons.add, color: context.textOnPrimary),
-              ),
-              error: (error, stack) => FloatingActionButton(
-                onPressed: () {
-                  Navigator.of(context)
-                      .push(
-                        AppPageRoute(builder: (_) => const CreateMoment()),
-                      )
-                      .then((_) => _refresh());
+                    loading: () => FloatingActionButton(
+                      onPressed: null,
+                      backgroundColor: context.textMuted,
+                      child: Icon(Icons.add, color: context.textOnPrimary),
+                    ),
+                    error: (error, stack) => FloatingActionButton(
+                      onPressed: () {
+                        Navigator.of(context)
+                            .push(
+                              AppPageRoute(
+                                builder: (_) => const CreateMoment(),
+                              ),
+                            )
+                            .then((_) => _refresh());
+                      },
+                      backgroundColor: colorScheme.primary,
+                      child: Icon(Icons.add, color: colorScheme.onPrimary),
+                    ),
+                  );
                 },
-                backgroundColor: colorScheme.primary,
-                child: Icon(Icons.add, color: colorScheme.onPrimary),
               ),
-            );
-          },
-        ),
-      ),
+            ),
     );
   }
 
@@ -596,9 +616,9 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
     return Material(
       color: Colors.transparent,
       child: InkWell(
-        onTap: () => Navigator.of(context).push(
-          AppPageRoute(builder: (_) => const VipPlansScreen()),
-        ),
+        onTap: () => Navigator.of(
+          context,
+        ).push(AppPageRoute(builder: (_) => const VipPlansScreen())),
         borderRadius: BorderRadius.circular(10),
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
@@ -620,8 +640,11 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Icon(Icons.workspace_premium,
-                  size: 11, color: Colors.white),
+              const Icon(
+                Icons.workspace_premium,
+                size: 11,
+                color: Colors.white,
+              ),
               const SizedBox(width: 3),
               Text(
                 AppLocalizations.of(context)!.filterVipPromoCta,
@@ -633,8 +656,11 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
                 ),
               ),
               const SizedBox(width: 2),
-              const Icon(Icons.arrow_forward_rounded,
-                  size: 11, color: Colors.white),
+              const Icon(
+                Icons.arrow_forward_rounded,
+                size: 11,
+                color: Colors.white,
+              ),
             ],
           ),
         ),
@@ -694,7 +720,9 @@ class _MomentsFeedTabBar extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
-    final reelsEnabled = ref.watch(appConfigProvider).maybeWhen(
+    final reelsEnabled = ref
+        .watch(appConfigProvider)
+        .maybeWhen(
           data: (config) => config?.reelsEnabled ?? false,
           orElse: () => false,
         );

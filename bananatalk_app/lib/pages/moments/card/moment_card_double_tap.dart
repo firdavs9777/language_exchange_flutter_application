@@ -46,9 +46,7 @@ class _MomentCardDoubleTapState extends State<MomentCardDoubleTap> {
                       Icons.favorite,
                       color: Colors.white,
                       size: 80,
-                      shadows: [
-                        Shadow(blurRadius: 20, color: Colors.black38),
-                      ],
+                      shadows: [Shadow(blurRadius: 20, color: Colors.black38)],
                     ),
                   ),
                 );

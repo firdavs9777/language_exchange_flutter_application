@@ -2,17 +2,24 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class RegistrationProgress {
-  RegistrationProgress({required this.step, required this.fields, DateTime? savedAt})
-      : savedAt = savedAt ?? DateTime.now();
+  RegistrationProgress({
+    required this.step,
+    required this.fields,
+    DateTime? savedAt,
+  }) : savedAt = savedAt ?? DateTime.now();
 
   final int step;
   final Map<String, String> fields;
   final DateTime savedAt;
 
-  Map<String, dynamic> toJson() =>
-      {'step': step, 'fields': fields, 'savedAt': savedAt.toIso8601String()};
+  Map<String, dynamic> toJson() => {
+    'step': step,
+    'fields': fields,
+    'savedAt': savedAt.toIso8601String(),
+  };
 
-  factory RegistrationProgress.fromJson(Map<String, dynamic> json) => RegistrationProgress(
+  factory RegistrationProgress.fromJson(Map<String, dynamic> json) =>
+      RegistrationProgress(
         step: json['step'] as int,
         fields: Map<String, String>.from(json['fields'] as Map),
         savedAt: DateTime.parse(json['savedAt'] as String),
@@ -33,7 +40,9 @@ class RegistrationProgressService {
     final raw = prefs.getString(_key);
     if (raw == null) return null;
     try {
-      final progress = RegistrationProgress.fromJson(jsonDecode(raw) as Map<String, dynamic>);
+      final progress = RegistrationProgress.fromJson(
+        jsonDecode(raw) as Map<String, dynamic>,
+      );
       if (DateTime.now().difference(progress.savedAt) > _maxAge) {
         await clear();
         return null;

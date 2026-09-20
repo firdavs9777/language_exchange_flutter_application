@@ -45,9 +45,7 @@ class ConversationEmptyState extends StatelessWidget {
           Spacing.gapXXL,
           Text(
             'No messages yet',
-            style: context.displaySmall.copyWith(
-              color: context.textSecondary,
-            ),
+            style: context.displaySmall.copyWith(color: context.textSecondary),
           ),
           Spacing.gapMD,
           Padding(
@@ -70,8 +68,10 @@ class ConversationEmptyState extends StatelessWidget {
               splashColor: AppColors.primary.withValues(alpha: 0.2),
               highlightColor: AppColors.primary.withValues(alpha: 0.1),
               child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 24,
+                  vertical: 14,
+                ),
                 decoration: BoxDecoration(
                   color: AppColors.primaryLight.withValues(alpha: 0.2),
                   borderRadius: AppRadius.borderXL,
@@ -82,10 +82,7 @@ class ConversationEmptyState extends StatelessWidget {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Text(
-                      '👋',
-                      style: TextStyle(fontSize: 24),
-                    ),
+                    const Text('👋', style: TextStyle(fontSize: 24)),
                     const SizedBox(width: 10),
                     Text(
                       'Tap to say hi!',

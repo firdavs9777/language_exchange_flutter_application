@@ -82,10 +82,7 @@ class ChatUserInfoCard extends StatelessWidget {
             ),
             child: ClipOval(
               child: userPicture != null && userPicture!.isNotEmpty
-                  ? CachedImageWidget(
-                      imageUrl: userPicture!,
-                      fit: BoxFit.cover,
-                    )
+                  ? CachedImageWidget(imageUrl: userPicture!, fit: BoxFit.cover)
                   : Container(
                       color: AppColors.primary.withValues(alpha: 0.2),
                       child: Icon(
@@ -113,7 +110,10 @@ class ChatUserInfoCard extends StatelessWidget {
               if (age != null) ...[
                 const SizedBox(width: 8),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 2,
+                  ),
                   decoration: BoxDecoration(
                     color: AppColors.primary.withValues(alpha: 0.15),
                     borderRadius: BorderRadius.circular(12),
@@ -222,7 +222,10 @@ class ChatUserInfoCard extends StatelessWidget {
               runSpacing: 8,
               children: interests!.take(5).map((interest) {
                 return Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 6,
+                  ),
                   decoration: BoxDecoration(
                     color: AppColors.primary.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(16),
@@ -249,10 +252,15 @@ class ChatUserInfoCard extends StatelessWidget {
             TextButton.icon(
               onPressed: onViewProfile,
               icon: const Icon(Icons.person_outline, size: 18),
-              label: Text(AppLocalizations.of(context)!.chatDetailViewFullProfile),
+              label: Text(
+                AppLocalizations.of(context)!.chatDetailViewFullProfile,
+              ),
               style: TextButton.styleFrom(
                 foregroundColor: AppColors.primary,
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 8,
+                ),
               ),
             ),
 

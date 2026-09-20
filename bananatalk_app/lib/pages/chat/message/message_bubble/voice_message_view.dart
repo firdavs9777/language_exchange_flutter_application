@@ -43,9 +43,7 @@ class _VoiceMessageViewState extends State<VoiceMessageView> {
 
     setState(() => _isTranscribing = true);
 
-    final result = await VoiceMessageService.transcribeMessage(
-      audioUrl: url,
-    );
+    final result = await VoiceMessageService.transcribeMessage(audioUrl: url);
 
     if (!mounted) return;
     setState(() {
@@ -99,8 +97,9 @@ class _VoiceMessageViewState extends State<VoiceMessageView> {
     return GestureDetector(
       onLongPress: widget.onLongPress,
       child: Column(
-        crossAxisAlignment:
-            widget.isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+        crossAxisAlignment: widget.isMe
+            ? CrossAxisAlignment.end
+            : CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
           if (widget.message.replyTo != null)
@@ -157,8 +156,10 @@ class _VoiceMessageViewState extends State<VoiceMessageView> {
                   ),
                 ),
                 style: TextButton.styleFrom(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 0),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 0,
+                  ),
                   minimumSize: const Size(0, 28),
                 ),
               ),

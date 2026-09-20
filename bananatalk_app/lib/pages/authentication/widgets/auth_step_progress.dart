@@ -33,8 +33,8 @@ class AuthStepProgress extends StatelessWidget {
     this.labels,
     this.segmentLabels,
     this.animationDuration = const Duration(milliseconds: 300),
-  })  : assert(totalSteps > 0),
-        assert(currentStep >= 0);
+  }) : assert(totalSteps > 0),
+       assert(currentStep >= 0);
 
   @override
   Widget build(BuildContext context) {
@@ -115,7 +115,10 @@ class AuthStepProgress extends StatelessWidget {
     final segments = segmentLabels!;
     if (totalSteps <= 0) return segments.first;
     final ratio = currentStep / totalSteps;
-    final index = (ratio * segments.length).floor().clamp(0, segments.length - 1);
+    final index = (ratio * segments.length).floor().clamp(
+      0,
+      segments.length - 1,
+    );
     return segments[index];
   }
 

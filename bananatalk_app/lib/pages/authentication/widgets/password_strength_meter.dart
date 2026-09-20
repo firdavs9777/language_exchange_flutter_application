@@ -30,20 +30,30 @@ class PasswordStrengthMeter extends StatelessWidget {
     return AnimatedOpacity(
       duration: const Duration(milliseconds: 200),
       opacity: strength == PasswordStrength.empty ? 0 : 1,
-      child: Row(children: [
-        Expanded(
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(4),
-            child: LinearProgressIndicator(
-              value: fill, minHeight: 6,
-              backgroundColor: Theme.of(context).dividerColor.withValues(alpha: 0.2),
-              valueColor: AlwaysStoppedAnimation(color),
+      child: Row(
+        children: [
+          Expanded(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(4),
+              child: LinearProgressIndicator(
+                value: fill,
+                minHeight: 6,
+                backgroundColor: Theme.of(
+                  context,
+                ).dividerColor.withValues(alpha: 0.2),
+                valueColor: AlwaysStoppedAnimation(color),
+              ),
             ),
           ),
-        ),
-        const SizedBox(width: 8),
-        Text(label, style: Theme.of(context).textTheme.bodySmall?.copyWith(color: color)),
-      ]),
+          const SizedBox(width: 8),
+          Text(
+            label,
+            style: Theme.of(
+              context,
+            ).textTheme.bodySmall?.copyWith(color: color),
+          ),
+        ],
+      ),
     );
   }
 }

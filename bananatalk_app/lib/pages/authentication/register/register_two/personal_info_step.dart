@@ -96,8 +96,8 @@ class PersonalInfoStep extends StatelessWidget {
                 final label = g == 'male'
                     ? l10n.male
                     : g == 'female'
-                        ? l10n.female
-                        : l10n.other;
+                    ? l10n.female
+                    : l10n.other;
                 final icons = {
                   'male': Icons.male_rounded,
                   'female': Icons.female_rounded,
@@ -166,8 +166,9 @@ class PersonalInfoStep extends StatelessWidget {
             const SizedBox(height: 12),
             GestureDetector(
               onTap: () async {
-                final initialDate =
-                    DateTime.now().subtract(const Duration(days: 365 * 20));
+                final initialDate = DateTime.now().subtract(
+                  const Duration(days: 365 * 20),
+                );
                 final pickedDate = await showDatePicker(
                   context: context,
                   initialDate: initialDate,
@@ -176,8 +177,9 @@ class PersonalInfoStep extends StatelessWidget {
                   builder: (context, child) {
                     return Theme(
                       data: Theme.of(context).copyWith(
-                        colorScheme:
-                            ColorScheme.light(primary: AppColors.primary),
+                        colorScheme: ColorScheme.light(
+                          primary: AppColors.primary,
+                        ),
                       ),
                       child: child!,
                     );
@@ -200,8 +202,11 @@ class PersonalInfoStep extends StatelessWidget {
                 ),
                 child: Row(
                   children: [
-                    Icon(Icons.cake_outlined,
-                        color: AppColors.primary, size: 20),
+                    Icon(
+                      Icons.cake_outlined,
+                      color: AppColors.primary,
+                      size: 20,
+                    ),
                     const SizedBox(width: 12),
                     Expanded(
                       child: Text(
@@ -217,8 +222,11 @@ class PersonalInfoStep extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Icon(Icons.calendar_today_outlined,
-                        size: 18, color: context.iconColor),
+                    Icon(
+                      Icons.calendar_today_outlined,
+                      size: 18,
+                      color: context.iconColor,
+                    ),
                   ],
                 ),
               ),
@@ -235,10 +243,7 @@ class PersonalInfoStep extends StatelessWidget {
 
           const SizedBox(height: 32),
 
-          AuthGradientButton(
-            label: l10n.continueButton,
-            onPressed: onNext,
-          ),
+          AuthGradientButton(label: l10n.continueButton, onPressed: onNext),
 
           const SizedBox(height: 40),
         ],

@@ -627,7 +627,7 @@ class _ProfileSettingsState extends ConsumerState<ProfileSettings> {
               if (user == null) return const SizedBox.shrink();
               final hasOAuth =
                   (user.googleId != null && user.googleId!.isNotEmpty) ||
-                      (user.appleId != null && user.appleId!.isNotEmpty);
+                  (user.appleId != null && user.appleId!.isNotEmpty);
               if (hasOAuth) return const SizedBox.shrink();
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -643,8 +643,9 @@ class _ProfileSettingsState extends ConsumerState<ProfileSettings> {
                       icon: Icons.lock_outline_rounded,
                       iconColor: AppColors.error,
                       title: AppLocalizations.of(context)!.changePassword,
-                      subtitle: AppLocalizations.of(context)!
-                          .changePasswordTileSubtitle,
+                      subtitle: AppLocalizations.of(
+                        context,
+                      )!.changePasswordTileSubtitle,
                       onTap: () => Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -706,8 +707,9 @@ class _ProfileSettingsState extends ConsumerState<ProfileSettings> {
                   children: [
                     Text(
                       title,
-                      style: context.titleSmall
-                          .copyWith(fontWeight: FontWeight.w600),
+                      style: context.titleSmall.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                     const SizedBox(height: 2),
                     Text(

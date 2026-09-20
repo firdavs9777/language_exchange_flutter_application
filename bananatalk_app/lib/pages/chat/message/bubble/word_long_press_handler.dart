@@ -92,11 +92,11 @@ class _WordLongPressHandlerState extends State<WordLongPressHandler> {
     // Resolve native language: name stored at login → BCP-47 code.
     final prefs = await SharedPreferences.getInstance();
     final nativeLangName = prefs.getString('user_native_language') ?? '';
-    final nativeLangCode = TranslationService.supportedLanguages
-            .firstWhere(
-              (l) => l['name']!.toLowerCase() == nativeLangName.toLowerCase(),
-              orElse: () => {'code': 'en'},
-            )['code'] ??
+    final nativeLangCode =
+        TranslationService.supportedLanguages.firstWhere(
+          (l) => l['name']!.toLowerCase() == nativeLangName.toLowerCase(),
+          orElse: () => {'code': 'en'},
+        )['code'] ??
         'en';
 
     if (!mounted) return;

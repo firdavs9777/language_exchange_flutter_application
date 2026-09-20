@@ -90,7 +90,11 @@ class _ChatOptionsMenuState extends ConsumerState<ChatOptionsMenu> {
 
       if (community == null) {
         if (mounted) {
-          showChatSnackBar(context, message: AppLocalizations.of(context)!.userNotFound, type: ChatSnackBarType.error);
+          showChatSnackBar(
+            context,
+            message: AppLocalizations.of(context)!.userNotFound,
+            type: ChatSnackBarType.error,
+          );
         }
         return;
       }
@@ -126,7 +130,11 @@ class _ChatOptionsMenuState extends ConsumerState<ChatOptionsMenu> {
       }
     } catch (e) {
       if (mounted) {
-        showChatSnackBar(context, message: friendlyErrorMessage(AppLocalizations.of(context)!, e), type: ChatSnackBarType.error);
+        showChatSnackBar(
+          context,
+          message: friendlyErrorMessage(AppLocalizations.of(context)!, e),
+          type: ChatSnackBarType.error,
+        );
       }
     }
   }
@@ -172,7 +180,9 @@ class _ChatOptionsMenuState extends ConsumerState<ChatOptionsMenu> {
               widget.isMuted ? Icons.notifications : Icons.notifications_off,
             ),
             title: Text(
-              widget.isMuted ? l10n.unmuteNotifications : l10n.muteNotifications,
+              widget.isMuted
+                  ? l10n.unmuteNotifications
+                  : l10n.muteNotifications,
             ),
             contentPadding: EdgeInsets.zero,
           ),
@@ -233,7 +243,10 @@ class _ChatOptionsMenuState extends ConsumerState<ChatOptionsMenu> {
           value: 'report',
           child: ListTile(
             leading: Icon(Icons.flag, color: Colors.orange[700]),
-            title: Text(l10n.report, style: TextStyle(color: Colors.orange[700])),
+            title: Text(
+              l10n.report,
+              style: TextStyle(color: Colors.orange[700]),
+            ),
             contentPadding: EdgeInsets.zero,
           ),
         ),
@@ -248,7 +261,11 @@ class _ChatOptionsMenuState extends ConsumerState<ChatOptionsMenu> {
           await redirect(widget.userId!);
         } else {
           if (context.mounted) {
-            showChatSnackBar(context, message: AppLocalizations.of(context)!.userIdNotAvailable, type: ChatSnackBarType.error);
+            showChatSnackBar(
+              context,
+              message: AppLocalizations.of(context)!.userIdNotAvailable,
+              type: ChatSnackBarType.error,
+            );
           }
         }
         break;
@@ -351,7 +368,11 @@ class _ChatOptionsMenuState extends ConsumerState<ChatOptionsMenu> {
 
           if (currentUserId == null) {
             if (context.mounted) {
-              showChatSnackBar(context, message: AppLocalizations.of(context)!.userIdNotFound, type: ChatSnackBarType.error);
+              showChatSnackBar(
+                context,
+                message: AppLocalizations.of(context)!.userIdNotFound,
+                type: ChatSnackBarType.error,
+              );
             }
             return;
           }
@@ -359,7 +380,11 @@ class _ChatOptionsMenuState extends ConsumerState<ChatOptionsMenu> {
           // Check if trying to block yourself
           if (currentUserId == widget.userId) {
             if (context.mounted) {
-              showChatSnackBar(context, message: AppLocalizations.of(context)!.cannotBlockYourself, type: ChatSnackBarType.error);
+              showChatSnackBar(
+                context,
+                message: AppLocalizations.of(context)!.cannotBlockYourself,
+                type: ChatSnackBarType.error,
+              );
             }
             return;
           }
@@ -385,7 +410,11 @@ class _ChatOptionsMenuState extends ConsumerState<ChatOptionsMenu> {
           }
         } else {
           if (context.mounted) {
-            showChatSnackBar(context, message: AppLocalizations.of(context)!.userIdNotAvailable, type: ChatSnackBarType.error);
+            showChatSnackBar(
+              context,
+              message: AppLocalizations.of(context)!.userIdNotAvailable,
+              type: ChatSnackBarType.error,
+            );
           }
         }
         break;
@@ -398,7 +427,11 @@ class _ChatOptionsMenuState extends ConsumerState<ChatOptionsMenu> {
 
           if (currentUserId == null) {
             if (context.mounted) {
-              showChatSnackBar(context, message: l10n.userIdNotFound, type: ChatSnackBarType.error);
+              showChatSnackBar(
+                context,
+                message: l10n.userIdNotFound,
+                type: ChatSnackBarType.error,
+              );
             }
             return;
           }
@@ -407,9 +440,7 @@ class _ChatOptionsMenuState extends ConsumerState<ChatOptionsMenu> {
           final confirmed = await showDialog<bool>(
             context: context,
             builder: (context) => AlertDialog(
-              shape: RoundedRectangleBorder(
-                borderRadius: AppRadius.borderMD,
-              ),
+              shape: RoundedRectangleBorder(borderRadius: AppRadius.borderMD),
               title: Text(l10n.unblockUser),
               content: Text(l10n.areYouSureUnblock),
               actions: [
@@ -486,7 +517,11 @@ class _ChatOptionsMenuState extends ConsumerState<ChatOptionsMenu> {
           }
         } else {
           if (context.mounted) {
-            showChatSnackBar(context, message: AppLocalizations.of(context)!.userIdNotAvailable, type: ChatSnackBarType.error);
+            showChatSnackBar(
+              context,
+              message: AppLocalizations.of(context)!.userIdNotAvailable,
+              type: ChatSnackBarType.error,
+            );
           }
         }
         break;
@@ -512,7 +547,11 @@ class _ChatOptionsMenuState extends ConsumerState<ChatOptionsMenu> {
 
       default:
         if (context.mounted) {
-          showChatSnackBar(context, message: 'Unknown action: $value', type: ChatSnackBarType.info);
+          showChatSnackBar(
+            context,
+            message: 'Unknown action: $value',
+            type: ChatSnackBarType.info,
+          );
         }
     }
   }

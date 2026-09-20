@@ -61,10 +61,7 @@ Future<List<String>> showCreateTagDialog(
               return;
             }
             if (workingTags.length >= maxTags) {
-              showMomentsSnackBar(
-                dialogContext,
-                message: l10n.maxTagsAllowed,
-              );
+              showMomentsSnackBar(dialogContext, message: l10n.maxTagsAllowed);
               return;
             }
             setDialogState(() {
@@ -76,7 +73,9 @@ Future<List<String>> showCreateTagDialog(
 
           return AlertDialog(
             backgroundColor: theme.colorScheme.surface,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
             title: Text(
               l10n.addTags,
               style: TextStyle(color: theme.colorScheme.onSurface),
@@ -101,7 +100,10 @@ Future<List<String>> showCreateTagDialog(
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
-                      borderSide: BorderSide(color: AppColors.primary, width: 2),
+                      borderSide: BorderSide(
+                        color: AppColors.primary,
+                        width: 2,
+                      ),
                     ),
                   ),
                   onSubmitted: (_) => addTag(),
@@ -116,7 +118,9 @@ Future<List<String>> showCreateTagDialog(
                           '#$tag',
                           style: TextStyle(color: AppColors.primary),
                         ),
-                        backgroundColor: AppColors.primary.withValues(alpha: 0.1),
+                        backgroundColor: AppColors.primary.withValues(
+                          alpha: 0.1,
+                        ),
                         deleteIcon: Icon(
                           Icons.close,
                           size: 16,

@@ -312,7 +312,9 @@ class MomentCard extends StatelessWidget {
                         vertical: 4,
                       ),
                       decoration: BoxDecoration(
-                        color: Theme.of(context).primaryColor.withValues(alpha: 0.1),
+                        color: Theme.of(
+                          context,
+                        ).primaryColor.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Text(
@@ -418,14 +420,20 @@ class MomentCard extends StatelessWidget {
                   const SizedBox(width: 4),
                   Text(
                     '${moment.likeCount}',
-                    style: TextStyle(color: context.textSecondary, fontSize: 12),
+                    style: TextStyle(
+                      color: context.textSecondary,
+                      fontSize: 12,
+                    ),
                   ),
                   const SizedBox(width: 16),
                   Icon(Icons.comment, size: 16, color: context.dividerColor),
                   const SizedBox(width: 4),
                   Text(
                     '${moment.commentCount}',
-                    style: TextStyle(color: context.textSecondary, fontSize: 12),
+                    style: TextStyle(
+                      color: context.textSecondary,
+                      fontSize: 12,
+                    ),
                   ),
                   const SizedBox(width: 16),
                   Icon(
@@ -436,7 +444,10 @@ class MomentCard extends StatelessWidget {
                   const SizedBox(width: 4),
                   Text(
                     '${moment.saveCount}',
-                    style: TextStyle(color: context.textSecondary, fontSize: 12),
+                    style: TextStyle(
+                      color: context.textSecondary,
+                      fontSize: 12,
+                    ),
                   ),
                   const Spacer(),
                   if (moment.mood.isNotEmpty)

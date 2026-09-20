@@ -31,6 +31,7 @@ class TextMessageView extends StatefulWidget {
   final BorderRadius bubbleRadius;
   final Function(String messageId)? onReplyTap;
   final VoidCallback? onLongPress;
+
   /// Partner's user ID, used as the conversation ID for per-conversation
   /// auto-translate. Null disables auto-translate for this bubble.
   final String? conversationId;
@@ -119,7 +120,12 @@ class _TextMessageViewState extends State<TextMessageView> {
 
   static bool _isWaveSticker(String text) {
     final t = text.trim();
-    return t == '👋' || t == '👋🏻' || t == '👋🏼' || t == '👋🏽' || t == '👋🏾' || t == '👋🏿';
+    return t == '👋' ||
+        t == '👋🏻' ||
+        t == '👋🏼' ||
+        t == '👋🏽' ||
+        t == '👋🏾' ||
+        t == '👋🏿';
   }
 
   // ---------- sub-builders ----------
@@ -164,8 +170,11 @@ class _TextMessageViewState extends State<TextMessageView> {
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
-              color: (widget.isMe ? const Color(0xFFFFCA28) : const Color(0xFF90CAF9))
-                  .withValues(alpha: 0.25),
+              color:
+                  (widget.isMe
+                          ? const Color(0xFFFFCA28)
+                          : const Color(0xFF90CAF9))
+                      .withValues(alpha: 0.25),
               blurRadius: 8,
               offset: const Offset(0, 2),
             ),
@@ -181,7 +190,9 @@ class _TextMessageViewState extends State<TextMessageView> {
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
-                color: widget.isMe ? const Color(0xFF5D4037) : const Color(0xFF1565C0),
+                color: widget.isMe
+                    ? const Color(0xFF5D4037)
+                    : const Color(0xFF1565C0),
               ),
             ),
           ],
@@ -198,10 +209,9 @@ class _TextMessageViewState extends State<TextMessageView> {
         margin: const EdgeInsets.only(bottom: 4),
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: Theme.of(context)
-              .colorScheme
-              .surfaceContainerHighest
-              .withValues(alpha: 0.5),
+          color: Theme.of(
+            context,
+          ).colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
           borderRadius: BorderRadius.circular(12),
         ),
         child: Row(
@@ -217,9 +227,9 @@ class _TextMessageViewState extends State<TextMessageView> {
                     imageUrl: ref.thumbnail!,
                     fit: BoxFit.cover,
                     errorWidget: Container(
-                      color: Theme.of(context)
-                          .colorScheme
-                          .surfaceContainerHighest,
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.surfaceContainerHighest,
                       child: const Icon(Icons.auto_stories, size: 20),
                     ),
                   ),
@@ -230,8 +240,7 @@ class _TextMessageViewState extends State<TextMessageView> {
                 width: 44,
                 height: 44,
                 decoration: BoxDecoration(
-                  color:
-                      Theme.of(context).colorScheme.surfaceContainerHighest,
+                  color: Theme.of(context).colorScheme.surfaceContainerHighest,
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: const Icon(Icons.auto_stories, size: 20),
@@ -243,10 +252,9 @@ class _TextMessageViewState extends State<TextMessageView> {
                 style: TextStyle(
                   fontSize: 11,
                   color: widget.isMe
-                      ? Theme.of(context)
-                          .colorScheme
-                          .onPrimary
-                          .withValues(alpha: 0.7)
+                      ? Theme.of(
+                          context,
+                        ).colorScheme.onPrimary.withValues(alpha: 0.7)
                       : Theme.of(context).textTheme.bodySmall?.color,
                   fontStyle: FontStyle.italic,
                 ),
@@ -259,13 +267,17 @@ class _TextMessageViewState extends State<TextMessageView> {
   }
 
   Future<void> _openStoryFromReference(
-      BuildContext context, StoryReference ref) async {
+    BuildContext context,
+    StoryReference ref,
+  ) async {
     if (ref.storyId.isEmpty) return;
     try {
       final response = await StoriesService.getStory(storyId: ref.storyId);
       if (response.success && response.data != null && context.mounted) {
-        final userStories =
-            UserStories(user: response.data!.user, stories: [response.data!]);
+        final userStories = UserStories(
+          user: response.data!.user,
+          stories: [response.data!],
+        );
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -276,9 +288,11 @@ class _TextMessageViewState extends State<TextMessageView> {
           ),
         );
       } else if (context.mounted) {
-        showChatSnackBar(context,
-            message: 'Story is no longer available',
-            type: ChatSnackBarType.info);
+        showChatSnackBar(
+          context,
+          message: 'Story is no longer available',
+          type: ChatSnackBarType.info,
+        );
       }
     } catch (e) {
       debugPrint('Failed to open story: $e');
@@ -304,15 +318,15 @@ class _TextMessageViewState extends State<TextMessageView> {
     // Emoji-only sticker (no bubble background)
     if (_isSticker(text)) {
       return Column(
-        crossAxisAlignment:
-            widget.isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+        crossAxisAlignment: widget.isMe
+            ? CrossAxisAlignment.end
+            : CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
           if (widget.message.storyReference != null)
             _buildStoryReferencePreview(context),
           Container(
-            padding:
-                const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+            padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
             child: Text(text, style: const TextStyle(fontSize: 64)),
           ),
         ],
@@ -333,122 +347,138 @@ class _TextMessageViewState extends State<TextMessageView> {
     return GestureDetector(
       onLongPress: widget.onLongPress,
       child: Column(
-          crossAxisAlignment:
-              widget.isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
-          children: [
-            if (widget.message.storyReference != null)
-              _buildStoryReferencePreview(context),
-            if (widget.message.replyTo != null)
-              ReplyPreview(
-                message: widget.message,
-                isMe: widget.isMe,
-                onReplyTap: widget.onReplyTap,
-              ),
-            Builder(
-              builder: (context) {
-                final isDark = Theme.of(context).brightness == Brightness.dark;
-                return Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                  decoration: BoxDecoration(
-                    color: widget.isMe ? widget.myMessageColor : widget.otherMessageColor,
-                    borderRadius: widget.bubbleRadius,
-                    boxShadow: isDark
-                        ? null
-                        : [
-                            BoxShadow(
-                              color: Colors.black.withValues(alpha: 0.06),
-                              blurRadius: 6,
-                              offset: const Offset(0, 2),
-                            ),
-                          ],
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      if (text.isNotEmpty)
-                        LinkifiedText(
-                          textKey: _textKey,
-                          text: text,
-                          style: context.bodyMedium.copyWith(
-                            color: widget.isMe ? widget.myTextColor : widget.otherTextColor,
-                            fontWeight: FontWeight.w500,
-                            letterSpacing: 0.1,
-                          ),
-                          linkStyle: context.bodyMedium.copyWith(
-                            color: widget.isMe
-                                ? Colors.white.withValues(alpha: 0.9)
-                                : const Color(0xFF1E88E5),
-                            fontWeight: FontWeight.w500,
-                            decoration: TextDecoration.underline,
-                            decorationColor: widget.isMe
-                                ? Colors.white.withValues(alpha: 0.7)
-                                : const Color(0xFF1E88E5),
-                          ),
-                        ),
-                      if (widget.message.isEdited)
-                        Padding(
-                          padding: const EdgeInsets.only(top: 2),
-                          child: Text(
-                            'edited',
-                            style: context.captionSmall.copyWith(
-                              color: (widget.isMe ? widget.myTextColor : widget.otherTextColor)
-                                  .withValues(alpha: 0.6),
-                              fontStyle: FontStyle.italic,
-                            ),
-                          ),
-                        ),
-                      // Inline link preview card
-                      if (_extractFirstUrl(text) != null)
-                        Padding(
-                          padding: const EdgeInsets.only(top: 6),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(8),
-                            child: AnyLinkPreview(
-                              link: _extractFirstUrl(text)!,
-                              displayDirection: UIDirection.uiDirectionHorizontal,
-                              bodyMaxLines: 2,
-                              titleStyle: TextStyle(
-                                fontSize: 13,
-                                fontWeight: FontWeight.w600,
-                                color: widget.isMe ? widget.myTextColor : widget.otherTextColor,
-                              ),
-                              bodyStyle: TextStyle(
-                                fontSize: 12,
-                                color: (widget.isMe ? widget.myTextColor : widget.otherTextColor)
-                                    .withValues(alpha: 0.7),
-                              ),
-                              errorWidget: const SizedBox.shrink(),
-                              cache: const Duration(days: 7),
-                              backgroundColor: Colors.transparent,
-                              borderRadius: 0,
-                              removeElevation: true,
-                            ),
-                          ),
-                        ),
-                      // Auto-translated text (italic, smaller, shown only for
-                      // incoming messages when auto-translate is ON)
-                      if (_autoTranslation != null && _autoTranslation != text)
-                        Padding(
-                          padding: const EdgeInsets.only(top: 4),
-                          child: Text(
-                            _autoTranslation!,
-                            style: TextStyle(
-                              fontStyle: FontStyle.italic,
-                              fontSize: 13,
-                              color: widget.isMe
-                                  ? Colors.white70
-                                  : Theme.of(context).hintColor,
-                            ),
-                          ),
-                        ),
-                    ],
-                  ),
-                );
-              },
+        crossAxisAlignment: widget.isMe
+            ? CrossAxisAlignment.end
+            : CrossAxisAlignment.start,
+        children: [
+          if (widget.message.storyReference != null)
+            _buildStoryReferencePreview(context),
+          if (widget.message.replyTo != null)
+            ReplyPreview(
+              message: widget.message,
+              isMe: widget.isMe,
+              onReplyTap: widget.onReplyTap,
             ),
-          ],
-        ),
+          Builder(
+            builder: (context) {
+              final isDark = Theme.of(context).brightness == Brightness.dark;
+              return Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 8,
+                ),
+                decoration: BoxDecoration(
+                  color: widget.isMe
+                      ? widget.myMessageColor
+                      : widget.otherMessageColor,
+                  borderRadius: widget.bubbleRadius,
+                  boxShadow: isDark
+                      ? null
+                      : [
+                          BoxShadow(
+                            color: Colors.black.withValues(alpha: 0.06),
+                            blurRadius: 6,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    if (text.isNotEmpty)
+                      LinkifiedText(
+                        textKey: _textKey,
+                        text: text,
+                        style: context.bodyMedium.copyWith(
+                          color: widget.isMe
+                              ? widget.myTextColor
+                              : widget.otherTextColor,
+                          fontWeight: FontWeight.w500,
+                          letterSpacing: 0.1,
+                        ),
+                        linkStyle: context.bodyMedium.copyWith(
+                          color: widget.isMe
+                              ? Colors.white.withValues(alpha: 0.9)
+                              : const Color(0xFF1E88E5),
+                          fontWeight: FontWeight.w500,
+                          decoration: TextDecoration.underline,
+                          decorationColor: widget.isMe
+                              ? Colors.white.withValues(alpha: 0.7)
+                              : const Color(0xFF1E88E5),
+                        ),
+                      ),
+                    if (widget.message.isEdited)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 2),
+                        child: Text(
+                          'edited',
+                          style: context.captionSmall.copyWith(
+                            color:
+                                (widget.isMe
+                                        ? widget.myTextColor
+                                        : widget.otherTextColor)
+                                    .withValues(alpha: 0.6),
+                            fontStyle: FontStyle.italic,
+                          ),
+                        ),
+                      ),
+                    // Inline link preview card
+                    if (_extractFirstUrl(text) != null)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 6),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: AnyLinkPreview(
+                            link: _extractFirstUrl(text)!,
+                            displayDirection: UIDirection.uiDirectionHorizontal,
+                            bodyMaxLines: 2,
+                            titleStyle: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w600,
+                              color: widget.isMe
+                                  ? widget.myTextColor
+                                  : widget.otherTextColor,
+                            ),
+                            bodyStyle: TextStyle(
+                              fontSize: 12,
+                              color:
+                                  (widget.isMe
+                                          ? widget.myTextColor
+                                          : widget.otherTextColor)
+                                      .withValues(alpha: 0.7),
+                            ),
+                            errorWidget: const SizedBox.shrink(),
+                            cache: const Duration(days: 7),
+                            backgroundColor: Colors.transparent,
+                            borderRadius: 0,
+                            removeElevation: true,
+                          ),
+                        ),
+                      ),
+                    // Auto-translated text (italic, smaller, shown only for
+                    // incoming messages when auto-translate is ON)
+                    if (_autoTranslation != null && _autoTranslation != text)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 4),
+                        child: Text(
+                          _autoTranslation!,
+                          style: TextStyle(
+                            fontStyle: FontStyle.italic,
+                            fontSize: 13,
+                            color: widget.isMe
+                                ? Colors.white70
+                                : Theme.of(context).hintColor,
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
+              );
+            },
+          ),
+        ],
+      ),
     );
   }
 }

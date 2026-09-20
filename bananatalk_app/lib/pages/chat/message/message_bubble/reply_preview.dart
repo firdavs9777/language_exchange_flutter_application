@@ -55,7 +55,9 @@ class ReplyPreview extends StatelessWidget {
           ? AppColors.white.withValues(alpha: 0.08)
           : borderColor.withValues(alpha: 0.08);
       nameColor = borderColor;
-      textColor = isDark ? AppColors.white.withValues(alpha: 0.8) : AppColors.gray900;
+      textColor = isDark
+          ? AppColors.white.withValues(alpha: 0.8)
+          : AppColors.gray900;
     }
 
     return GestureDetector(
@@ -69,9 +71,7 @@ class ReplyPreview extends StatelessWidget {
         decoration: BoxDecoration(
           color: backgroundColor,
           borderRadius: BorderRadius.circular(8),
-          border: Border(
-            left: BorderSide(color: borderColor, width: 3),
-          ),
+          border: Border(left: BorderSide(color: borderColor, width: 3)),
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,

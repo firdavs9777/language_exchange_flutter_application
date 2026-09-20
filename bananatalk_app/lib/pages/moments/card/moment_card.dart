@@ -139,7 +139,8 @@ class _MomentCardState extends ConsumerState<MomentCard> {
         setState(() => isSaved = previousSaved);
         showMomentsSnackBar(
           context,
-          message: result['error'] ?? AppLocalizations.of(context)!.failedToSave,
+          message:
+              result['error'] ?? AppLocalizations.of(context)!.failedToSave,
           type: MomentsSnackBarType.error,
         );
       }
@@ -235,7 +236,10 @@ class _MomentCardState extends ConsumerState<MomentCard> {
               borderRadius: BorderRadius.circular(28),
               color: Theme.of(this.context).colorScheme.surface,
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 8,
+                ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: ['❤️', '🔥', '😂', '😢', '😮', '👏'].map((emoji) {
@@ -246,7 +250,10 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                       },
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 4),
-                        child: Text(emoji, style: const TextStyle(fontSize: 28)),
+                        child: Text(
+                          emoji,
+                          style: const TextStyle(fontSize: 28),
+                        ),
                       ),
                     );
                   }).toList(),
@@ -301,9 +308,11 @@ class _MomentCardState extends ConsumerState<MomentCard> {
     if (userId.isEmpty) return;
 
     final following =
-        ref.read(userProvider).valueOrNull?.followings.contains(
-              widget.moments.user.id,
-            ) ??
+        ref
+            .read(userProvider)
+            .valueOrNull
+            ?.followings
+            .contains(widget.moments.user.id) ??
         false;
 
     final service = ref.read(communityServiceProvider);
@@ -351,21 +360,18 @@ class _MomentCardState extends ConsumerState<MomentCard> {
     // Gated on `ref.exists` so a first-ever open doesn't lazily spin up a
     // provider we're about to immediately navigate away from watching.
     if (ref.exists(paginatedCommentsProvider(singleMoment.id))) {
-      final paginatedState =
-          ref.read(paginatedCommentsProvider(singleMoment.id)).valueOrNull;
+      final paginatedState = ref
+          .read(paginatedCommentsProvider(singleMoment.id))
+          .valueOrNull;
       if (paginatedState == null || paginatedState.page <= 1) {
-        ref
-            .read(paginatedCommentsProvider(singleMoment.id).notifier)
-            .refresh();
+        ref.read(paginatedCommentsProvider(singleMoment.id).notifier).refresh();
       }
     }
 
     if (!mounted) return;
     await Navigator.push(
       context,
-      AppPageRoute(
-        builder: (context) => SingleMoment(moment: singleMoment),
-      ),
+      AppPageRoute(builder: (context) => SingleMoment(moment: singleMoment)),
     );
 
     // Throttled interstitial when returning from a moment (every 3rd
@@ -387,7 +393,9 @@ class _MomentCardState extends ConsumerState<MomentCard> {
       context,
       momentText: widget.moments.description,
       onSubmit: (original, corrected, explanation) async {
-        await ref.read(commentsServiceProvider).createComment(
+        await ref
+            .read(commentsServiceProvider)
+            .createComment(
               title: ' ',
               id: widget.moments.id,
               correction: {
@@ -401,7 +409,9 @@ class _MomentCardState extends ConsumerState<MomentCard> {
         if (mounted) {
           showMomentsSnackBar(
             this.context,
-            message: AppLocalizations.of(this.context)!.commentAddedSuccessfully,
+            message: AppLocalizations.of(
+              this.context,
+            )!.commentAddedSuccessfully,
             type: MomentsSnackBarType.success,
           );
         }
@@ -416,10 +426,12 @@ class _MomentCardState extends ConsumerState<MomentCard> {
   Future<void> _handleTranslateChipTap() async {
     final picked = await showLanguagePickerSheet(context);
     if (picked == null || !mounted) return;
-    debugPrint('🌐 [moment-card] user picked '
-        'code=${picked.code} name=${picked.name} '
-        'momentId=${widget.moments.id} '
-        'momentLanguage=${widget.moments.language}');
+    debugPrint(
+      '🌐 [moment-card] user picked '
+      'code=${picked.code} name=${picked.name} '
+      'momentId=${widget.moments.id} '
+      'momentLanguage=${widget.moments.language}',
+    );
     setState(() {
       _translationTargetCode = picked.code;
       _showTranslation = true;
@@ -493,7 +505,10 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                 ),
               if (!isOwnMoment)
                 ListTile(
-                  leading: const Icon(Icons.spellcheck_rounded, color: Color(0xFF00BFA5)),
+                  leading: const Icon(
+                    Icons.spellcheck_rounded,
+                    color: Color(0xFF00BFA5),
+                  ),
                   title: const Text('Suggest a correction'),
                   onTap: () {
                     Navigator.pop(context);
@@ -562,9 +577,8 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                     final result = await Navigator.push(
                       context,
                       AppPageRoute(
-                        builder: (context) => CreateMoment(
-                          momentToEdit: widget.moments,
-                        ),
+                        builder: (context) =>
+                            CreateMoment(momentToEdit: widget.moments),
                       ),
                     );
                     if (result == true) {
@@ -619,7 +633,10 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                       } catch (e) {
                         showMomentsSnackBar(
                           context,
-                          message: friendlyErrorMessage(AppLocalizations.of(context)!, e),
+                          message: friendlyErrorMessage(
+                            AppLocalizations.of(context)!,
+                            e,
+                          ),
                           type: MomentsSnackBarType.error,
                         );
                       }
@@ -671,7 +688,8 @@ class _MomentCardState extends ConsumerState<MomentCard> {
               // Read from the provider, never from local state: one author can
               // appear in several posts in a single feed, and two of their
               // cards must not disagree after a tap.
-              isFollowing: ref
+              isFollowing:
+                  ref
                       .watch(userProvider)
                       .valueOrNull
                       ?.followings
@@ -679,7 +697,8 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                   false,
               // Null hides the pill -- that is how your own post, and a feed
               // with no signed-in viewer, render no Follow affordance.
-              onFollowToggle: (_getCurrentUserId().isEmpty ||
+              onFollowToggle:
+                  (_getCurrentUserId().isEmpty ||
                       _getCurrentUserId() == widget.moments.user.id)
                   ? null
                   : _toggleFollow,
@@ -701,8 +720,7 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                 Navigator.push(
                   context,
                   AppPageRoute(
-                    builder: (context) =>
-                        SingleCommunity(community: community),
+                    builder: (context) => SingleCommunity(community: community),
                   ),
                 );
               },
@@ -764,9 +782,12 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                                   child: Text(
                                     isExpanded
                                         ? AppLocalizations.of(context)!.showLess
-                                        : AppLocalizations.of(context)!.showMore,
+                                        : AppLocalizations.of(
+                                            context,
+                                          )!.showMore,
                                     style: context.labelMedium.copyWith(
-                                        color: context.textSecondary),
+                                      color: context.textSecondary,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -794,8 +815,8 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                           originalLanguage: widget.moments.language,
                           existingTranslations:
                               widget.moments.translations.isNotEmpty
-                                  ? widget.moments.translations
-                                  : null,
+                              ? widget.moments.translations
+                              : null,
                           initialTargetCode: _translationTargetCode,
                           onTranslationAdded: () {
                             widget.onRefresh?.call();
@@ -833,8 +854,8 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                               originalLanguage: widget.moments.language,
                               existingTranslations:
                                   widget.moments.translations.isNotEmpty
-                                      ? widget.moments.translations
-                                      : null,
+                                  ? widget.moments.translations
+                                  : null,
                               initialTargetCode: _translationTargetCode,
                               onTranslationAdded: () {
                                 widget.onRefresh?.call();
@@ -905,14 +926,17 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                     onLongPress: () => _showReactionPicker(context),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 8, vertical: 8),
+                        horizontal: 8,
+                        vertical: 8,
+                      ),
                       child: Row(
                         children: [
                           Icon(
                             isLiked ? Icons.favorite : Icons.favorite_border,
                             size: 22,
-                            color:
-                                isLiked ? AppColors.error : context.iconColor,
+                            color: isLiked
+                                ? AppColors.error
+                                : context.iconColor,
                           ),
                           if (likeCount > 0) ...[
                             const SizedBox(width: 4),
@@ -946,8 +970,7 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                     ),
                     padding: const EdgeInsets.all(8),
                     constraints: const BoxConstraints(),
-                    onPressed: () =>
-                        _shareMoment(context, widget.moments.id),
+                    onPressed: () => _shareMoment(context, widget.moments.id),
                   ),
                   IconButton(
                     icon: Icon(
@@ -983,41 +1006,43 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                 child: Wrap(
                   spacing: 4,
                   runSpacing: 4,
-                  children:
-                      _groupMomentReactions().entries.map((entry) {
+                  children: _groupMomentReactions().entries.map((entry) {
                     final currentUserId = _getCurrentUserId();
                     final isMyReaction = widget.moments.reactions.any(
-                      (r) =>
-                          r.emoji == entry.key &&
-                          r.userId == currentUserId,
+                      (r) => r.emoji == entry.key && r.userId == currentUserId,
                     );
                     return GestureDetector(
                       onTap: () => _reactToMoment(entry.key),
                       child: Container(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 8, vertical: 4),
+                          horizontal: 8,
+                          vertical: 4,
+                        ),
                         decoration: BoxDecoration(
                           color: isMyReaction
                               ? AppColors.primary.withValues(alpha: 0.15)
-                              : Theme.of(context)
-                                  .colorScheme
-                                  .surfaceContainerLow,
+                              : Theme.of(
+                                  context,
+                                ).colorScheme.surfaceContainerLow,
                           borderRadius: BorderRadius.circular(16),
                           border: isMyReaction
-                              ? Border.all(
-                                  color: AppColors.primary, width: 1)
+                              ? Border.all(color: AppColors.primary, width: 1)
                               : null,
                         ),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Text(entry.key,
-                                style: const TextStyle(fontSize: 16)),
+                            Text(
+                              entry.key,
+                              style: const TextStyle(fontSize: 16),
+                            ),
                             const SizedBox(width: 4),
                             Text(
                               '${entry.value}',
                               style: TextStyle(
-                                  fontSize: 12, color: context.textMuted),
+                                fontSize: 12,
+                                color: context.textMuted,
+                              ),
                             ),
                           ],
                         ),
@@ -1069,4 +1094,3 @@ class _MomentCardState extends ConsumerState<MomentCard> {
     );
   }
 }
-

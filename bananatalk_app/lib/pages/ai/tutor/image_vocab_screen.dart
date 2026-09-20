@@ -8,7 +8,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:mime/mime.dart' show lookupMimeType;
 
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
-import 'package:bananatalk_app/providers/tutor_provider.dart' show tutorMemoryAndQuotasProvider;
+import 'package:bananatalk_app/providers/tutor_provider.dart'
+    show tutorMemoryAndQuotasProvider;
 import 'package:bananatalk_app/services/analytics_service.dart';
 import 'package:bananatalk_app/widgets/tutor/tutor_quota_indicator.dart';
 import 'package:bananatalk_app/services/api_client.dart';
@@ -56,9 +57,12 @@ class _ImageVocabScreenState extends ConsumerState<ImageVocabScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _userTier = ref.read(userProvider).valueOrNull?.isVip == true ? 'vip' : 'free';
+      _userTier = ref.read(userProvider).valueOrNull?.isVip == true
+          ? 'vip'
+          : 'free';
       AnalyticsService.instance.tutorChipUsed(
-        chipName: 'photo', userTier: _userTier,
+        chipName: 'photo',
+        userTier: _userTier,
       );
     });
   }
@@ -66,7 +70,8 @@ class _ImageVocabScreenState extends ConsumerState<ImageVocabScreen> {
   @override
   void dispose() {
     AnalyticsService.instance.tutorChipCompleted(
-      chipName: 'photo', userTier: _userTier,
+      chipName: 'photo',
+      userTier: _userTier,
     );
     _descCtl.dispose();
     super.dispose();
@@ -106,10 +111,12 @@ class _ImageVocabScreenState extends ConsumerState<ImageVocabScreen> {
         _prompt = (body['prompt'] as String?) ?? 'Describe what you see.';
         _suggestedVocab = ((body['suggestedVocab'] as List?) ?? const [])
             .whereType<Map>()
-            .map((m) => {
-                  'word': (m['word'] ?? '').toString(),
-                  'definition': (m['definition'] ?? '').toString(),
-                })
+            .map(
+              (m) => {
+                'word': (m['word'] ?? '').toString(),
+                'definition': (m['definition'] ?? '').toString(),
+              },
+            )
             .toList();
         _stage = _Stage.describe;
         _loading = false;
@@ -141,11 +148,13 @@ class _ImageVocabScreenState extends ConsumerState<ImageVocabScreen> {
         _feedback = (body['feedback'] as String?) ?? '';
         _grammarNotes = ((body['grammarNotes'] as List?) ?? const [])
             .whereType<Map>()
-            .map((m) => {
-                  'wrong': (m['wrong'] ?? '').toString(),
-                  'correct': (m['correct'] ?? '').toString(),
-                  'note': (m['note'] ?? '').toString(),
-                })
+            .map(
+              (m) => {
+                'wrong': (m['wrong'] ?? '').toString(),
+                'correct': (m['correct'] ?? '').toString(),
+                'note': (m['note'] ?? '').toString(),
+              },
+            )
             .toList();
         _missingItems = ((body['missingItems'] as List?) ?? const [])
             .map((e) => e.toString())
@@ -230,30 +239,30 @@ class _ImageVocabScreenState extends ConsumerState<ImageVocabScreen> {
           padding: const EdgeInsets.all(16),
           child: switch (_stage) {
             _Stage.pick => _PickStage(
-                loading: _loading,
-                error: _error,
-                onCamera: () => _pick(ImageSource.camera),
-                onGallery: () => _pick(ImageSource.gallery),
-              ),
+              loading: _loading,
+              error: _error,
+              onCamera: () => _pick(ImageSource.camera),
+              onGallery: () => _pick(ImageSource.gallery),
+            ),
             _Stage.describe => _DescribeStage(
-                image: _image!,
-                prompt: _prompt ?? '',
-                suggestedVocab: _suggestedVocab,
-                controller: _descCtl,
-                onSubmit: _submitDescription,
-                onRetry: _retry,
-                error: _error,
-              ),
+              image: _image!,
+              prompt: _prompt ?? '',
+              suggestedVocab: _suggestedVocab,
+              controller: _descCtl,
+              onSubmit: _submitDescription,
+              onRetry: _retry,
+              error: _error,
+            ),
             _Stage.grading => const Center(child: CircularProgressIndicator()),
             _Stage.result => _ResultStage(
-                image: _image!,
-                description: _descCtl.text,
-                score: _score!,
-                feedback: _feedback ?? '',
-                grammarNotes: _grammarNotes,
-                missingItems: _missingItems,
-                onTryAnother: _retry,
-              ),
+              image: _image!,
+              description: _descCtl.text,
+              score: _score!,
+              feedback: _feedback ?? '',
+              grammarNotes: _grammarNotes,
+              missingItems: _missingItems,
+              onTryAnother: _retry,
+            ),
           },
         ),
       ),
@@ -282,8 +291,10 @@ class _PickStage extends StatelessWidget {
       children: [
         const Text('📷', style: TextStyle(fontSize: 64)),
         const SizedBox(height: 12),
-        Text(l10n.aiTutorImagePickHeader,
-            style: context.titleMedium.copyWith(fontWeight: FontWeight.w700)),
+        Text(
+          l10n.aiTutorImagePickHeader,
+          style: context.titleMedium.copyWith(fontWeight: FontWeight.w700),
+        ),
         const SizedBox(height: 8),
         Text(
           l10n.aiTutorImagePickSubtitle,
@@ -312,8 +323,11 @@ class _PickStage extends StatelessWidget {
         ),
         if (error != null) ...[
           const SizedBox(height: 16),
-          Text(error!,
-              style: const TextStyle(color: Colors.red), textAlign: TextAlign.center),
+          Text(
+            error!,
+            style: const TextStyle(color: Colors.red),
+            textAlign: TextAlign.center,
+          ),
         ],
       ],
     );
@@ -362,9 +376,13 @@ class _DescribeStage extends StatelessWidget {
                 color: AppColors.primary.withValues(alpha: 0.08),
                 borderRadius: AppRadius.borderMD,
               ),
-              child: Text(prompt,
-                  style: context.bodyLarge
-                      .copyWith(color: AppColors.primary, fontWeight: FontWeight.w600)),
+              child: Text(
+                prompt,
+                style: context.bodyLarge.copyWith(
+                  color: AppColors.primary,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
             ),
             if (suggestedVocab.isNotEmpty) ...[
               const SizedBox(height: 12),
@@ -374,7 +392,10 @@ class _DescribeStage extends StatelessWidget {
                 children: [
                   for (final v in suggestedVocab)
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 4,
+                      ),
                       decoration: BoxDecoration(
                         color: context.containerColor,
                         borderRadius: BorderRadius.circular(12),
@@ -489,8 +510,10 @@ class _ResultStage extends StatelessWidget {
           ],
           if (grammarNotes.isNotEmpty) ...[
             const SizedBox(height: 16),
-            Text(AppLocalizations.of(context)!.aiTutorImageGrammarNotes,
-                style: context.titleSmall.copyWith(fontWeight: FontWeight.w700)),
+            Text(
+              AppLocalizations.of(context)!.aiTutorImageGrammarNotes,
+              style: context.titleSmall.copyWith(fontWeight: FontWeight.w700),
+            ),
             const SizedBox(height: 4),
             for (final g in grammarNotes)
               Padding(
@@ -513,17 +536,23 @@ class _ResultStage extends StatelessWidget {
                       ),
                     ),
                     if ((g['note'] ?? '').isNotEmpty)
-                      Text(g['note'] ?? '',
-                          style: context.bodySmall
-                              .copyWith(color: context.textMuted, fontStyle: FontStyle.italic)),
+                      Text(
+                        g['note'] ?? '',
+                        style: context.bodySmall.copyWith(
+                          color: context.textMuted,
+                          fontStyle: FontStyle.italic,
+                        ),
+                      ),
                   ],
                 ),
               ),
           ],
           if (missingItems.isNotEmpty) ...[
             const SizedBox(height: 16),
-            Text(AppLocalizations.of(context)!.aiTutorImageThingsYouMissed,
-                style: context.titleSmall.copyWith(fontWeight: FontWeight.w700)),
+            Text(
+              AppLocalizations.of(context)!.aiTutorImageThingsYouMissed,
+              style: context.titleSmall.copyWith(fontWeight: FontWeight.w700),
+            ),
             const SizedBox(height: 4),
             Wrap(
               spacing: 6,
@@ -531,13 +560,20 @@ class _ResultStage extends StatelessWidget {
               children: [
                 for (final s in missingItems)
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 4,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.orange.withValues(alpha: 0.12),
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: Text(s,
-                        style: context.bodySmall.copyWith(color: Colors.orange.shade900)),
+                    child: Text(
+                      s,
+                      style: context.bodySmall.copyWith(
+                        color: Colors.orange.shade900,
+                      ),
+                    ),
                   ),
               ],
             ),

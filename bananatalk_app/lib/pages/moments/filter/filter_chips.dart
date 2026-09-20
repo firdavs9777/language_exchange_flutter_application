@@ -22,11 +22,7 @@ Widget filterBadge(BuildContext context, int count) {
   );
 }
 
-Widget filterSectionTitle(
-  BuildContext context,
-  String title,
-  IconData icon,
-) {
+Widget filterSectionTitle(BuildContext context, String title, IconData icon) {
   return Row(
     children: [
       Icon(icon, size: 18, color: Theme.of(context).colorScheme.primary),

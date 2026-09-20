@@ -112,7 +112,7 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
 
   Future<void> _removeBookmark(BookmarkedMessage bookmark) async {
     final index = _bookmarks.indexOf(bookmark);
-    
+
     // Optimistically remove
     setState(() {
       _bookmarks.removeAt(index);
@@ -129,9 +129,17 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
           setState(() {
             _bookmarks.insert(index, bookmark);
           });
-          showChatSnackBar(context, message: result['error'] ?? 'Failed to remove bookmark', type: ChatSnackBarType.error);
+          showChatSnackBar(
+            context,
+            message: result['error'] ?? 'Failed to remove bookmark',
+            type: ChatSnackBarType.error,
+          );
         } else {
-          showChatSnackBar(context, message: AppLocalizations.of(context)!.bookmarkRemoved, type: ChatSnackBarType.success);
+          showChatSnackBar(
+            context,
+            message: AppLocalizations.of(context)!.bookmarkRemoved,
+            type: ChatSnackBarType.success,
+          );
         }
       }
     } catch (e) {
@@ -185,9 +193,7 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
   Widget _buildBody() {
     final l10n = AppLocalizations.of(context)!;
     if (_isLoading) {
-      return const Center(
-        child: CircularProgressIndicator(),
-      );
+      return const Center(child: CircularProgressIndicator());
     }
 
     if (_error != null) {
@@ -203,10 +209,7 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
               textAlign: TextAlign.center,
             ),
             Spacing.gapMD,
-            ElevatedButton(
-              onPressed: _loadBookmarks,
-              child: Text(l10n.retry),
-            ),
+            ElevatedButton(onPressed: _loadBookmarks, child: Text(l10n.retry)),
           ],
         ),
       );
@@ -259,22 +262,23 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
       confirmDismiss: (direction) async {
         final l10n = AppLocalizations.of(context)!;
         return await showDialog<bool>(
-          context: context,
-          builder: (context) => AlertDialog(
-            title: Text(l10n.removeBookmark),
-            content: Text(l10n.thisWillRemoveFromBookmarks),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(context, false),
-                child: Text(l10n.cancel),
+              context: context,
+              builder: (context) => AlertDialog(
+                title: Text(l10n.removeBookmark),
+                content: Text(l10n.thisWillRemoveFromBookmarks),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(context, false),
+                    child: Text(l10n.cancel),
+                  ),
+                  TextButton(
+                    onPressed: () => Navigator.pop(context, true),
+                    child: Text(l10n.remove),
+                  ),
+                ],
               ),
-              TextButton(
-                onPressed: () => Navigator.pop(context, true),
-                child: Text(l10n.remove),
-              ),
-            ],
-          ),
-        ) ?? false;
+            ) ??
+            false;
       },
       onDismissed: (direction) {
         _removeBookmark(bookmark);
@@ -285,7 +289,11 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
           onTap: () {
             // Navigate to the message in its conversation
             // This would need to be implemented based on your navigation structure
-            showChatSnackBar(context, message: 'Navigate to message in chat with $senderName', type: ChatSnackBarType.info);
+            showChatSnackBar(
+              context,
+              message: 'Navigate to message in chat with $senderName',
+              type: ChatSnackBarType.info,
+            );
           },
           child: Padding(
             padding: const EdgeInsets.all(16),
@@ -297,7 +305,9 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
                   children: [
                     CircleAvatar(
                       radius: 20,
-                      backgroundColor: Theme.of(context).primaryColor.withValues(alpha: 0.1),
+                      backgroundColor: Theme.of(
+                        context,
+                      ).primaryColor.withValues(alpha: 0.1),
                       backgroundImage: message.sender.images?.isNotEmpty == true
                           ? NetworkImage(message.sender.images!.first)
                           : null,
@@ -320,9 +330,7 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
                         children: [
                           Text(
                             senderName,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
+                            style: const TextStyle(fontWeight: FontWeight.bold),
                           ),
                           Text(
                             _formatDate(message.createdAt),
@@ -342,7 +350,7 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
                   ],
                 ),
                 Spacing.gapMD,
-                
+
                 // Message content
                 Container(
                   padding: const EdgeInsets.all(12),
@@ -374,7 +382,7 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
                         ),
                         if (message.message != null) const SizedBox(height: 8),
                       ],
-                      
+
                       // Text content
                       if (message.message != null)
                         Text(
@@ -385,15 +393,12 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
                     ],
                   ),
                 ),
-                
+
                 // Bookmarked date
                 Spacing.gapSM,
                 Text(
                   'Bookmarked ${_formatDate(bookmark.bookmarkedAt)}',
-                  style: TextStyle(
-                    fontSize: 11,
-                    color: context.textMuted,
-                  ),
+                  style: TextStyle(fontSize: 11, color: context.textMuted),
                 ),
               ],
             ),
@@ -440,4 +445,3 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
     }
   }
 }
-

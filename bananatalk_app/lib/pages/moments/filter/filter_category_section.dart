@@ -43,8 +43,7 @@ class FilterCategorySection extends StatelessWidget {
             children: FilterOptions.categories.map((category) {
               final isSelected = tempFilter.categories.contains(category);
               final icon = FilterOptions.categoryIcons[category] ?? '🌐';
-              final label =
-                  FilterOptions.categoryLabels[category] ?? category;
+              final label = FilterOptions.categoryLabels[category] ?? category;
 
               return filterChip(
                 context: context,

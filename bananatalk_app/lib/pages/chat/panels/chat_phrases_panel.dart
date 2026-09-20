@@ -158,8 +158,10 @@ class _ChatPhrasesPanelState extends ConsumerState<ChatPhrasesPanel>
         labelColor: context.textPrimary,
         unselectedLabelColor: context.textSecondary,
         labelStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
-        unselectedLabelStyle:
-            const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+        unselectedLabelStyle: const TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.w500,
+        ),
         tabs: [
           Tab(text: l10n.chatPhrasesMostUsed),
           Tab(text: l10n.chatPhrasesTopics),
@@ -322,10 +324,7 @@ class _PhraseBubble extends StatelessWidget {
         ),
         child: Align(
           alignment: Alignment.centerLeft,
-          child: Text(
-            text,
-            style: context.bodyLarge.copyWith(fontSize: 14.5),
-          ),
+          child: Text(text, style: context.bodyLarge.copyWith(fontSize: 14.5)),
         ),
       ),
     );
@@ -347,8 +346,7 @@ class _AddPhraseSheetState extends State<_AddPhraseSheet> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance
-        .addPostFrameCallback((_) => _focus.requestFocus());
+    WidgetsBinding.instance.addPostFrameCallback((_) => _focus.requestFocus());
   }
 
   @override
@@ -386,10 +384,7 @@ class _AddPhraseSheetState extends State<_AddPhraseSheet> {
               ),
             ),
             const SizedBox(height: 16),
-            Text(
-              l10n.chatPhrasesAddTitle,
-              style: context.titleLarge,
-            ),
+            Text(l10n.chatPhrasesAddTitle, style: context.titleLarge),
             const SizedBox(height: 16),
             TextField(
               controller: _controller,
@@ -409,7 +404,9 @@ class _AddPhraseSheetState extends State<_AddPhraseSheet> {
                   borderSide: BorderSide.none,
                 ),
                 contentPadding: const EdgeInsets.symmetric(
-                    horizontal: 16, vertical: 14),
+                  horizontal: 16,
+                  vertical: 14,
+                ),
               ),
             ),
             const SizedBox(height: 16),

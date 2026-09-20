@@ -90,7 +90,8 @@ class CorrectionSheet extends StatefulWidget {
     String original,
     String corrected,
     String? explanation,
-  ) onSubmit;
+  )
+  onSubmit;
 
   const CorrectionSheet({
     super.key,
@@ -186,12 +187,19 @@ class _CorrectionSheetState extends State<CorrectionSheet> {
             padding: const EdgeInsets.fromLTRB(20, 16, 12, 8),
             child: Row(
               children: [
-                const Icon(Icons.spellcheck_rounded, size: 22, color: AppColors.primary),
+                const Icon(
+                  Icons.spellcheck_rounded,
+                  size: 22,
+                  color: AppColors.primary,
+                ),
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(
                     'Suggest a correction',
-                    style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
+                    style: const TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.w600,
+                    ),
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
@@ -277,7 +285,10 @@ class _CorrectionSheetState extends State<CorrectionSheet> {
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: theme.primaryColor, width: 1.5),
+                        borderSide: BorderSide(
+                          color: theme.primaryColor,
+                          width: 1.5,
+                        ),
                       ),
                       contentPadding: const EdgeInsets.all(12),
                     ),
@@ -349,12 +360,15 @@ class _CorrectionSheetState extends State<CorrectionSheet> {
                 width: double.infinity,
                 height: 48,
                 child: ElevatedButton(
-                  onPressed: _hasChanges && !_isSubmitting ? _handleSubmit : null,
+                  onPressed: _hasChanges && !_isSubmitting
+                      ? _handleSubmit
+                      : null,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primary,
                     foregroundColor: Colors.white,
-                    disabledBackgroundColor:
-                        isDark ? AppColors.gray800 : AppColors.gray200,
+                    disabledBackgroundColor: isDark
+                        ? AppColors.gray800
+                        : AppColors.gray200,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -370,7 +384,10 @@ class _CorrectionSheetState extends State<CorrectionSheet> {
                         )
                       : Text(
                           'Send Correction',
-                          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                 ),
               ),
@@ -387,34 +404,40 @@ class _CorrectionSheetState extends State<CorrectionSheet> {
       final d = diffs[i];
       switch (d.op) {
         case DiffOp.equal:
-          spans.add(TextSpan(
-            text: d.text,
-            style: TextStyle(
-              fontSize: 15,
-              color: isDark ? AppColors.gray300 : AppColors.gray700,
+          spans.add(
+            TextSpan(
+              text: d.text,
+              style: TextStyle(
+                fontSize: 15,
+                color: isDark ? AppColors.gray300 : AppColors.gray700,
+              ),
             ),
-          ));
+          );
           break;
         case DiffOp.removed:
-          spans.add(TextSpan(
-            text: d.text,
-            style: TextStyle(
-              fontSize: 15,
-              color: Colors.red[400],
-              decoration: TextDecoration.lineThrough,
-              decorationColor: Colors.red[400],
+          spans.add(
+            TextSpan(
+              text: d.text,
+              style: TextStyle(
+                fontSize: 15,
+                color: Colors.red[400],
+                decoration: TextDecoration.lineThrough,
+                decorationColor: Colors.red[400],
+              ),
             ),
-          ));
+          );
           break;
         case DiffOp.added:
-          spans.add(TextSpan(
-            text: d.text,
-            style: const TextStyle(
-              fontSize: 15,
-              color: AppColors.primary,
-              fontWeight: FontWeight.w600,
+          spans.add(
+            TextSpan(
+              text: d.text,
+              style: const TextStyle(
+                fontSize: 15,
+                color: AppColors.primary,
+                fontWeight: FontWeight.w600,
+              ),
             ),
-          ));
+          );
           break;
       }
       if (i != diffs.length - 1) {
@@ -433,7 +456,8 @@ Future<bool?> showCorrectionSheet(
     String original,
     String corrected,
     String? explanation,
-  ) onSubmit,
+  )
+  onSubmit,
 }) {
   HapticFeedback.mediumImpact();
   return showModalBottomSheet<bool>(
@@ -441,7 +465,9 @@ Future<bool?> showCorrectionSheet(
     backgroundColor: Colors.transparent,
     isScrollControlled: true,
     builder: (context) => Padding(
-      padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+      padding: EdgeInsets.only(
+        bottom: MediaQuery.of(context).viewInsets.bottom,
+      ),
       child: CorrectionSheet(momentText: momentText, onSubmit: onSubmit),
     ),
   );
@@ -473,7 +499,9 @@ class CorrectionPanel extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.fromLTRB(12, 10, 12, 10),
       decoration: BoxDecoration(
-        color: isDark ? accent.withValues(alpha: 0.10) : accent.withValues(alpha: 0.06),
+        color: isDark
+            ? accent.withValues(alpha: 0.10)
+            : accent.withValues(alpha: 0.06),
         borderRadius: BorderRadius.circular(12),
         border: const Border(left: BorderSide(color: accent, width: 3)),
       ),
