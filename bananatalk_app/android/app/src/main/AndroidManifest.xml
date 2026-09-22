@@ -26,6 +26,16 @@
     <uses-feature android:name="android.hardware.camera.autofocus" android:required="false" />
     <uses-feature android:name="android.hardware.microphone" android:required="false" />
 
+    <!-- We never place carrier calls: calls are in-app (LiveKit + CallKit/ConnectionService).
+         Without this, any telephony permission implies a REQUIRED telephony feature and
+         Google Play hides the app from Wi-Fi-only tablets (e.g. Galaxy Tab S7 FE SM-T733). -->
+    <uses-feature android:name="android.hardware.telephony" android:required="false" />
+
+    <!-- uCrop's activity is portrait-only, which otherwise implies a REQUIRED
+         android.hardware.screen.portrait and hides the app from landscape-only devices.
+         The app itself locks no orientation, so portrait is not a requirement. -->
+    <uses-feature android:name="android.hardware.screen.portrait" android:required="false" />
+
     <!-- ==================== BLUETOOTH PERMISSIONS ==================== -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
@@ -62,7 +72,6 @@
 
     <!-- ==================== PHONE/CALL PERMISSIONS ==================== -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.MANAGE_OWN_CALLS" />
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
 
