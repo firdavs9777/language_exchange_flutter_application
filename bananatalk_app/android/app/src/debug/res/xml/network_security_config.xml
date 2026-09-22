@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Debug-only override of the release config: permits plaintext HTTP so a
+  developer can point Endpoints.baseURL at a local or LAN backend
+  (http://localhost:5003, http://192.168.x.x:5003) without editing the
+  release network policy. Never shipped — this source set is debug-only.
+-->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="true">
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
+</network-security-config>

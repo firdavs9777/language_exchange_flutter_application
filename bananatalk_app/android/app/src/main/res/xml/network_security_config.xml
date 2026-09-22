@@ -1,9 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  Release posture: no plaintext HTTP at all.
+
+  Everything the app talks to is already TLS — the API is
+  https://api.banatalk.com, LiveKit is wss://, restcountries.com is https.
+  The only http:// literals left in the tree (localhost:3000, localhost:5001)
+  are unreachable dead code, and a LAN dev URL that lives commented out in
+  lib/service/endpoints.dart.
+
+  Debug builds override this file from src/debug/res/xml/ so that pointing
+  baseURL at a LAN backend still works while developing.
+-->
 <network-security-config>
-    <base-config cleartextTrafficPermitted="true">
+    <base-config cleartextTrafficPermitted="false">
         <trust-anchors>
             <certificates src="system" />
         </trust-anchors>
     </base-config>
 </network-security-config>
-
