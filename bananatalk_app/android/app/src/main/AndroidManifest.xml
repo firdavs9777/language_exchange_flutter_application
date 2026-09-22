@@ -172,6 +172,24 @@
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@mipmap/ic_launcher" />
 
+        <!-- geolocator ships its service with android:foregroundServiceType="location".
+             On Android 14+ that type obliges the app to hold FOREGROUND_SERVICE_LOCATION
+             at the moment startForeground() runs, and we do not declare it.
+
+             We never take location into the foreground: startForeground() is reachable
+             only through enableBackgroundMode(), which StreamHandlerImpl calls only when
+             Dart passes foregroundNotificationConfig to getPositionStream — and nothing
+             in lib/ does. The plugin still binds this service unconditionally
+             (GeolocatorPlugin.bindService), so the declaration has to stay; only the
+             unused type goes. That avoids declaring a foreground-service permission we
+             do not use, which Google Play would require us to justify at submission.
+
+             If foreground location is ever wanted, this removal must go, and
+             FOREGROUND_SERVICE_LOCATION must be declared and justified in Play Console. -->
+        <service
+            android:name="com.baseflow.geolocator.GeolocatorLocationService"
+            tools:remove="android:foregroundServiceType" />
+
         <!-- image_cropper (uCrop) — required on Android; plugin manifest no longer merges this automatically. -->
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
