@@ -211,7 +211,22 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
         : null;
 
     return PopScope(
-      canPop: false,
+      // Android back at the root used to be swallowed entirely: `canPop:
+      // false` with no handler meant the button did nothing at all, so the
+      // only way out of the app was to minimise it and swipe the task away.
+      //
+      // Now back behaves the way Android users expect. Away from the first
+      // tab it returns there, which is also how you get back to AI Study
+      // without reaching for the bar. On the first tab `canPop` is true, so
+      // the event falls through to the framework: there is nothing left to
+      // pop, so it reaches the platform and Android backgrounds the app —
+      // which is gentler than finishing the activity outright and keeps the
+      // task resumable from Recents.
+      canPop: selectedPageIndex == 0,
+      onPopInvokedWithResult: (didPop, _) {
+        if (didPop) return;
+        ref.read(selectedTabProvider.notifier).state = 0;
+      },
       child: Scaffold(
         body: Stack(
           children: [
