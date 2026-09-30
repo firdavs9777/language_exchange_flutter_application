@@ -1097,8 +1097,10 @@ class AuthService extends ChangeNotifier {
 
       return Community.fromJson(userData);
     } else {
-      final errorBody = response.body;
-      throw Exception('Failed to load user info: ${response.statusCode}');
+      // The server explains what went wrong in the body; throwing only the
+      // status code discarded it and left callers with "500" and nothing else.
+      throw Exception(
+          'Failed to load user info: ${response.statusCode} ${response.body}');
     }
   }
 
@@ -1141,7 +1143,8 @@ class AuthService extends ChangeNotifier {
         try {
           // Small delay to ensure backend has processed the update
           await Future.delayed(const Duration(milliseconds: 300));
-          final updatedUser = await getLoggedInUser();
+          // Called for its refresh side effect; the value is not needed here.
+          await getLoggedInUser();
         } catch (e) {
           // Don't fail the whole operation if we can't refresh user data
         }
@@ -2077,8 +2080,8 @@ class AuthService extends ChangeNotifier {
 
       if (response.statusCode == 200 || response.statusCode == 201) {
       } else {
-        final errorBody = response.body;
-        throw Exception('Failed to upload images: ${response.statusCode}');
+        throw Exception(
+            'Failed to upload images: ${response.statusCode} ${response.body}');
       }
     } catch (e) {
       rethrow; // Re-throw so calling code can handle it

@@ -168,11 +168,10 @@ class _TutorChatScreenState extends ConsumerState<TutorChatScreen> {
     // Fire-and-forget end via the cached notifier — ref.read here would
     // throw because the ConsumerStatefulElement is mid-unmount.
     final n = _chatNotifier;
-    // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
-    // Deliberate: ref.read would throw here because the element is
-    // mid-unmount (see the note above), so the cached notifier is the only
-    // way to ask whether a session needs ending.
-    if (n != null && n.mounted && n.state.session != null) {
+    // No need to inspect the notifier's state from out here: end() already
+    // starts with `final s = state.session; if (s == null) return;`, so asking
+    // first was both redundant and a reach into a protected member.
+    if (n != null && n.mounted) {
       n.end();
     }
     _voice.dispose();

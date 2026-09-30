@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'dart:async';
 import 'package:bananatalk_app/services/chat_socket_service.dart';
 import 'package:bananatalk_app/providers/unread_count_provider.dart';
@@ -102,12 +103,13 @@ class GlobalChatListener {
         // Increment unread count - this will automatically update badgeCountProvider
         _ref!.read(chatPartnersProvider.notifier).incrementUnread(senderId);
         
-        // Get updated count for logging
-        final chatState = _ref!.read(chatPartnersProvider);
-        final newCount = chatState.unreadCounts[senderId] ?? 0;
-      }).catchError((error) {
+      }).catchError((Object error) {
+        // Was an empty block: a failed unread increment vanished without trace
+        // on the realtime path, which is the worst place to lose an error.
+        debugPrint('[globalChatListener] unread increment failed: $error');
       });
     } catch (e) {
+      debugPrint('[globalChatListener] new-message handling failed: $e');
     }
   }
 
@@ -122,7 +124,6 @@ class GlobalChatListener {
     try {
 
       final readBy = data['readBy']?.toString();
-      final count = data['count'];
 
       if (readBy != null && readBy.isNotEmpty) {
         // readBy = the user who read our messages
