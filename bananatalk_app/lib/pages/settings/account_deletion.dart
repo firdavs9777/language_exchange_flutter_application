@@ -73,6 +73,8 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
     );
 
     if (confirmed != true) return;
+    // The confirm dialog is awaited, so this screen may be gone by now.
+    if (!mounted) return;
 
     setState(() => _isLoading = true);
 

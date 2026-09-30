@@ -51,6 +51,15 @@ class CreateComment extends ConsumerStatefulWidget {
 class _CreateCommentState extends ConsumerState<CreateComment> {
   TextEditingController commentController = TextEditingController();
 
+  @override
+  void dispose() {
+    // The only TextEditingController in the app that was never released. A
+    // controller outlives its State until disposed, and this screen is opened
+    // once per comment, so every comment left one behind.
+    commentController.dispose();
+    super.dispose();
+  }
+
   // Mention state
   List<CommentMention> _mentions = [];
   bool _showMentionOverlay = false;
@@ -95,6 +104,9 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
   Future<void> _pickImage() async {
     final picker = ImagePicker();
     final picked = await picker.pickImage(source: ImageSource.gallery, maxWidth: 1200);
+    // The picker suspends the app; the user can background it and never come
+    // back to this route, in which case setState throws after dispose.
+    if (!mounted) return;
     if (picked != null) {
       setState(() {
         _selectedImage = File(picked.path);
