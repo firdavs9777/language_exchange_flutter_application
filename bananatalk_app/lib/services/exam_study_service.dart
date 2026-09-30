@@ -22,6 +22,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// study-plan land in later chunks. Authentication header pattern mirrors
 /// [MessageService] so the same token plumbing applies.
 class ExamStudyService {
+  /// AI-backed exam endpoints (TTS for listening, AI grading) had no timeout,
+  /// so a stalled request left the station spinning indefinitely.
+  static const Duration _requestTimeout = Duration(seconds: 90);
+
   Future<String?> _getToken() async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getString('token');
@@ -39,7 +43,7 @@ class ExamStudyService {
     final resp = await http.get(
       Uri.parse('${Endpoints.baseURL}${Endpoints.examStudyLanguagesURL}'),
       headers: _headers(token),
-    );
+    ).timeout(_requestTimeout);
     return _decodeList(resp, ExamLanguage.fromJson);
   }
 
@@ -51,7 +55,7 @@ class ExamStudyService {
         '${Endpoints.baseURL}${Endpoints.examStudyExamsForLanguageURL(languageId)}',
       ),
       headers: _headers(token),
-    );
+    ).timeout(_requestTimeout);
     return _decodeList(resp, ExamType.fromJson);
   }
 
@@ -63,7 +67,7 @@ class ExamStudyService {
         '${Endpoints.baseURL}${Endpoints.examStudySectionsForExamURL(examId)}',
       ),
       headers: _headers(token),
-    );
+    ).timeout(_requestTimeout);
     return _decodeList(resp, ExamSection.fromJson);
   }
 
@@ -88,7 +92,7 @@ class ExamStudyService {
     final uri = Uri.parse(
       '${Endpoints.baseURL}${Endpoints.examStudyQuestionsForSectionURL(sectionId)}',
     ).replace(queryParameters: qp);
-    final resp = await http.get(uri, headers: _headers(token));
+    final resp = await http.get(uri, headers: _headers(token)).timeout(_requestTimeout);
     return _decodeList(resp, ExamQuestion.fromJson);
   }
 
@@ -102,7 +106,7 @@ class ExamStudyService {
         '${Endpoints.baseURL}exam-study/sections/$sectionId/topics',
       ),
       headers: _headers(token),
-    );
+    ).timeout(_requestTimeout);
     return _decodeList(resp, ExamTopic.fromJson);
   }
 
@@ -127,7 +131,7 @@ class ExamStudyService {
         'userAnswer': userAnswer,
         if (timeSpent != null) 'timeSpent': timeSpent,
       }),
-    );
+    ).timeout(_requestTimeout);
 
     if (resp.statusCode == 401) {
       throw Exception('Authentication required. Please log in again.');
@@ -188,7 +192,7 @@ class ExamStudyService {
       ),
     );
 
-    final streamed = await request.send();
+    final streamed = await request.send().timeout(_requestTimeout);
     final resp = await http.Response.fromStream(streamed);
     if (resp.statusCode == 401) {
       throw Exception('Authentication required. Please log in again.');
@@ -216,7 +220,7 @@ class ExamStudyService {
         '${Endpoints.baseURL}${Endpoints.examStudyEvaluationURL(evaluationId)}',
       ),
       headers: _headers(token),
-    );
+    ).timeout(_requestTimeout);
     if (resp.statusCode == 401) {
       throw Exception('Authentication required. Please log in again.');
     }
@@ -243,7 +247,7 @@ class ExamStudyService {
         '${Endpoints.baseURL}${Endpoints.examStudyProgressURL(userId, examId)}',
       ),
       headers: _headers(token),
-    );
+    ).timeout(_requestTimeout);
     if (resp.statusCode == 404) return null;
     if (resp.statusCode == 401) {
       throw Exception('Authentication required. Please log in again.');
@@ -274,7 +278,7 @@ class ExamStudyService {
         'targetScore': targetScore,
         'examDate': examDate.toIso8601String(),
       }),
-    );
+    ).timeout(_requestTimeout);
     if (resp.statusCode == 401) {
       throw Exception('Authentication required. Please log in again.');
     }
@@ -298,7 +302,7 @@ class ExamStudyService {
         '${Endpoints.baseURL}exam-study/users/$userId/exams/$examId/study-plan',
       ),
       headers: _headers(token),
-    );
+    ).timeout(_requestTimeout);
     if (resp.statusCode == 404) return null;
     if (resp.statusCode == 401) {
       throw Exception('Authentication required. Please log in again.');
@@ -329,7 +333,7 @@ class ExamStudyService {
     final uri = Uri.parse(
       '${Endpoints.baseURL}exam-study/exams/$examId/tips',
     ).replace(queryParameters: qp.isEmpty ? null : qp);
-    final resp = await http.get(uri, headers: _headers(token));
+    final resp = await http.get(uri, headers: _headers(token)).timeout(_requestTimeout);
     return _decodeList(resp, ExamStudyTip.fromJson);
   }
 
@@ -343,7 +347,7 @@ class ExamStudyService {
     final resp = await http.get(
       Uri.parse('${Endpoints.baseURL}exam-study/vocabulary/levels?examId=$examId'),
       headers: _headers(token),
-    );
+    ).timeout(_requestTimeout);
     if (resp.statusCode == 401) {
       throw Exception('Authentication required. Please log in again.');
     }
@@ -362,7 +366,7 @@ class ExamStudyService {
     if (level != null) qp['level'] = level;
     final uri = Uri.parse('${Endpoints.baseURL}exam-study/vocabulary/topics')
         .replace(queryParameters: qp);
-    final resp = await http.get(uri, headers: _headers(token));
+    final resp = await http.get(uri, headers: _headers(token)).timeout(_requestTimeout);
     if (resp.statusCode == 401) {
       throw Exception('Authentication required. Please log in again.');
     }
@@ -392,7 +396,7 @@ class ExamStudyService {
     };
     final uri = Uri.parse('${Endpoints.baseURL}exam-study/vocabulary')
         .replace(queryParameters: qp);
-    final resp = await http.get(uri, headers: _headers(token));
+    final resp = await http.get(uri, headers: _headers(token)).timeout(_requestTimeout);
     if (resp.statusCode == 401) {
       throw Exception('Authentication required. Please log in again.');
     }
@@ -413,7 +417,7 @@ class ExamStudyService {
     final resp = await http.get(
       Uri.parse('${Endpoints.baseURL}exam-study/vocabulary/$wordId/audio'),
       headers: _headers(token),
-    );
+    ).timeout(_requestTimeout);
     if (resp.statusCode < 200 || resp.statusCode >= 300) return null;
     final data = _decodeMap(resp);
     return data['audioUrl']?.toString();
@@ -436,7 +440,7 @@ class ExamStudyService {
         if (topic != null) 'topic': topic,
         'size': size,
       }),
-    );
+    ).timeout(_requestTimeout);
     if (resp.statusCode == 401) {
       throw Exception('Authentication required. Please log in again.');
     }
@@ -456,7 +460,7 @@ class ExamStudyService {
       Uri.parse('${Endpoints.baseURL}exam-study/vocabulary/quiz/$quizId/submit'),
       headers: _headers(token),
       body: json.encode({'answers': answers}),
-    );
+    ).timeout(_requestTimeout);
     if (resp.statusCode == 410) {
       throw const VocabularyQuizExpiredException();
     }

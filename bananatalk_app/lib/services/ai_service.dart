@@ -14,6 +14,18 @@ import 'package:bananatalk_app/models/ai/lesson_builder_model.dart';
 
 /// AI Service for all AI-powered features
 class AIService {
+  /// How long to wait for an AI endpoint before giving up.
+  ///
+  /// These calls had no timeout at all, so a request that never came back left
+  /// the UI on a spinner forever — which is what "the AI is stuck" looks like.
+  /// The backend bounds its own OpenAI calls (45s for a chat turn, 90s for
+  /// audio), so these sit just above it, letting the server's own error message win
+  /// the race and the user sees why it failed rather than a generic give-up.
+  static const Duration _aiTimeout = Duration(seconds: 60);
+
+  /// Speech is slower: synthesis of a long line, or transcribing a voice note.
+  static const Duration _audioTimeout = Duration(seconds: 120);
+
   static Future<String?> _getToken() async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getString('token');
@@ -63,7 +75,7 @@ class AIService {
         Uri.parse('${Endpoints.baseURL}ai-conversation/start'),
         headers: _getHeaders(token),
         body: jsonEncode(request.toJson()),
-      );
+      ).timeout(_aiTimeout);
 
 
       final data = _safeJsonDecode(response.body);
@@ -121,7 +133,7 @@ class AIService {
         Uri.parse('${Endpoints.baseURL}ai-conversation/$conversationId/message'),
         headers: _getHeaders(token),
         body: jsonEncode(request.toJson()),
-      );
+      ).timeout(_aiTimeout);
 
 
       final data = _safeJsonDecode(response.body);
@@ -191,7 +203,7 @@ class AIService {
       final response = await http.post(
         Uri.parse('${Endpoints.baseURL}ai-conversation/$conversationId/end'),
         headers: _getHeaders(token),
-      );
+      ).timeout(_aiTimeout);
 
       final data = _safeJsonDecode(response.body);
       if (data == null) {
@@ -225,7 +237,7 @@ class AIService {
       final response = await http.get(
         Uri.parse('${Endpoints.baseURL}ai-conversation?limit=$limit&offset=$offset&status=$status'),
         headers: _getHeaders(token),
-      );
+      ).timeout(_aiTimeout);
 
       final data = _safeJsonDecode(response.body);
       if (data == null) {
@@ -255,7 +267,7 @@ class AIService {
       final response = await http.get(
         Uri.parse('${Endpoints.baseURL}ai-conversation/$conversationId'),
         headers: _getHeaders(token),
-      );
+      ).timeout(_aiTimeout);
 
       final data = _safeJsonDecode(response.body);
       if (data == null) {
@@ -281,7 +293,7 @@ class AIService {
       final url = level != null
           ? '${Endpoints.baseURL}ai-conversation/topics?level=$level'
           : '${Endpoints.baseURL}ai-conversation/topics';
-      final response = await http.get(Uri.parse(url), headers: _getHeaders(token));
+      final response = await http.get(Uri.parse(url), headers: _getHeaders(token)).timeout(_aiTimeout);
 
       final data = _safeJsonDecode(response.body);
       if (data == null) {
@@ -311,7 +323,7 @@ class AIService {
       final url = level != null
           ? '${Endpoints.baseURL}ai-conversation/scenarios?level=$level'
           : '${Endpoints.baseURL}ai-conversation/scenarios';
-      final response = await http.get(Uri.parse(url), headers: _getHeaders(token));
+      final response = await http.get(Uri.parse(url), headers: _getHeaders(token)).timeout(_aiTimeout);
 
       final data = _safeJsonDecode(response.body);
       if (data == null) {
@@ -346,7 +358,7 @@ class AIService {
         Uri.parse('${Endpoints.baseURL}grammar-feedback'),
         headers: _getHeaders(token),
         body: jsonEncode(request.toJson()),
-      );
+      ).timeout(_aiTimeout);
 
       final data = _safeJsonDecode(response.body);
       if (data == null) {
@@ -386,7 +398,7 @@ class AIService {
       final response = await http.get(
         Uri.parse('${Endpoints.baseURL}grammar-feedback/$feedbackId'),
         headers: _getHeaders(token),
-      );
+      ).timeout(_aiTimeout);
 
       final data = _safeJsonDecode(response.body);
       if (data == null) {
@@ -415,7 +427,7 @@ class AIService {
       final response = await http.get(
         Uri.parse('${Endpoints.baseURL}grammar-feedback/history?limit=$limit&offset=$offset'),
         headers: _getHeaders(token),
-      );
+      ).timeout(_aiTimeout);
 
       final data = _safeJsonDecode(response.body);
       if (data == null) {
@@ -445,7 +457,7 @@ class AIService {
       final response = await http.put(
         Uri.parse('${Endpoints.baseURL}grammar-feedback/$feedbackId/viewed'),
         headers: _getHeaders(token),
-      );
+      ).timeout(_aiTimeout);
 
       return {'success': response.statusCode == 200};
     } catch (e) {
@@ -461,7 +473,7 @@ class AIService {
         Uri.parse('${Endpoints.baseURL}grammar-feedback/explain-rule'),
         headers: _getHeaders(token),
         body: jsonEncode(request.toJson()),
-      );
+      ).timeout(_aiTimeout);
 
       final data = _safeJsonDecode(response.body);
       if (data == null) {
@@ -492,7 +504,7 @@ class AIService {
         Uri.parse('${Endpoints.baseURL}speech/tts'),
         headers: _getHeaders(token),
         body: jsonEncode(request.toJson()),
-      );
+      ).timeout(_aiTimeout);
 
       final data = _safeJsonDecode(response.body);
       if (data == null) {
@@ -533,7 +545,7 @@ class AIService {
         request.fields['language'] = language;
       }
 
-      final streamedResponse = await request.send();
+      final streamedResponse = await request.send().timeout(_audioTimeout);
       final response = await http.Response.fromStream(streamedResponse);
       final data = _safeJsonDecode(response.body);
 
@@ -584,7 +596,7 @@ class AIService {
         request.fields['vocabularyId'] = vocabularyId;
       }
 
-      final streamedResponse = await request.send();
+      final streamedResponse = await request.send().timeout(_audioTimeout);
       final response = await http.Response.fromStream(streamedResponse);
       final data = _safeJsonDecode(response.body);
 
@@ -615,7 +627,7 @@ class AIService {
       String url = '${Endpoints.baseURL}speech/pronunciation/history?limit=$limit&offset=$offset';
       if (language != null) url += '&language=$language';
 
-      final response = await http.get(Uri.parse(url), headers: _getHeaders(token));
+      final response = await http.get(Uri.parse(url), headers: _getHeaders(token)).timeout(_aiTimeout);
       final data = _safeJsonDecode(response.body);
 
       if (data == null) {
@@ -645,7 +657,7 @@ class AIService {
       String url = '${Endpoints.baseURL}speech/pronunciation/stats';
       if (language != null) url += '?language=$language';
 
-      final response = await http.get(Uri.parse(url), headers: _getHeaders(token));
+      final response = await http.get(Uri.parse(url), headers: _getHeaders(token)).timeout(_aiTimeout);
       final data = _safeJsonDecode(response.body);
 
       if (data == null) {
@@ -671,7 +683,7 @@ class AIService {
       String url = '${Endpoints.baseURL}speech/voices';
       if (language != null) url += '?language=$language';
 
-      final response = await http.get(Uri.parse(url), headers: _getHeaders(token));
+      final response = await http.get(Uri.parse(url), headers: _getHeaders(token)).timeout(_aiTimeout);
       final data = _safeJsonDecode(response.body);
 
       if (data == null) {
@@ -707,7 +719,7 @@ class AIService {
         Uri.parse('${Endpoints.baseURL}translate/enhanced'),
         headers: _getHeaders(token),
         body: jsonEncode(request.toJson()),
-      );
+      ).timeout(_aiTimeout);
 
       final data = _safeJsonDecode(response.body);
       if (data == null) {
@@ -755,7 +767,7 @@ class AIService {
           'sourceLanguage': sourceLanguage,
           'targetLanguage': targetLanguage,
         }),
-      );
+      ).timeout(_aiTimeout);
 
       final data = _safeJsonDecode(response.body);
       if (data == null) {
@@ -787,7 +799,7 @@ class AIService {
         Uri.parse('${Endpoints.baseURL}translate/contextual'),
         headers: _getHeaders(token),
         body: jsonEncode(request.toJson()),
-      );
+      ).timeout(_aiTimeout);
 
       final data = _safeJsonDecode(response.body);
       if (data == null) {
@@ -816,7 +828,7 @@ class AIService {
       final response = await http.get(
         Uri.parse('${Endpoints.baseURL}translate/popular?language=$language&limit=$limit'),
         headers: _getHeaders(token),
-      );
+      ).timeout(_aiTimeout);
 
       final data = _safeJsonDecode(response.body);
       if (data == null) {
@@ -851,7 +863,7 @@ class AIService {
         Uri.parse('${Endpoints.baseURL}learning/quizzes/generate'),
         headers: _getHeaders(token),
         body: jsonEncode(request.toJson()),
-      );
+      ).timeout(_aiTimeout);
 
       final data = _safeJsonDecode(response.body);
       if (data == null) {
@@ -898,7 +910,7 @@ class AIService {
       final response = await http.get(
         Uri.parse(url),
         headers: _getHeaders(token),
-      );
+      ).timeout(_aiTimeout);
 
 
       final data = _safeJsonDecode(response.body);
@@ -937,7 +949,7 @@ class AIService {
       final response = await http.post(
         Uri.parse('${Endpoints.baseURL}learning/quizzes/ai/$quizId/start'),
         headers: _getHeaders(token),
-      );
+      ).timeout(_aiTimeout);
 
       final data = _safeJsonDecode(response.body);
       if (data == null) {
@@ -984,7 +996,7 @@ class AIService {
         Uri.parse('${Endpoints.baseURL}learning/quizzes/ai/$quizId/answer'),
         headers: _getHeaders(token),
         body: jsonEncode(request.toJson()),
-      );
+      ).timeout(_aiTimeout);
 
       final data = _safeJsonDecode(response.body);
       if (data == null) {
@@ -1015,7 +1027,7 @@ class AIService {
         Uri.parse('${Endpoints.baseURL}learning/quizzes/ai/$quizId/complete'),
         headers: _getHeaders(token),
         body: jsonEncode(request.toJson()),
-      );
+      ).timeout(_aiTimeout);
 
       final data = _safeJsonDecode(response.body);
       if (data == null) {
@@ -1046,7 +1058,7 @@ class AIService {
       final response = await http.get(
         Uri.parse('${Endpoints.baseURL}learning/quizzes/ai/stats'),
         headers: _getHeaders(token),
-      );
+      ).timeout(_aiTimeout);
 
       final data = _safeJsonDecode(response.body);
       if (data == null) {
@@ -1076,7 +1088,7 @@ class AIService {
       final response = await http.get(
         Uri.parse('${Endpoints.baseURL}learning/recommendations/adaptive'),
         headers: _getHeaders(token),
-      );
+      ).timeout(_aiTimeout);
 
       final data = _safeJsonDecode(response.body);
       if (data == null) {
@@ -1102,7 +1114,7 @@ class AIService {
       final response = await http.post(
         Uri.parse('${Endpoints.baseURL}learning/recommendations/refresh'),
         headers: _getHeaders(token),
-      );
+      ).timeout(_aiTimeout);
 
       final data = _safeJsonDecode(response.body);
       if (data == null) {
@@ -1128,7 +1140,7 @@ class AIService {
       final response = await http.get(
         Uri.parse('${Endpoints.baseURL}learning/progress/weak-areas'),
         headers: _getHeaders(token),
-      );
+      ).timeout(_aiTimeout);
 
       final data = _safeJsonDecode(response.body);
       if (data == null) {
@@ -1170,7 +1182,7 @@ class AIService {
           'exerciseIndex': exerciseIndex,
           'hintLevel': hintLevel,
         }),
-      );
+      ).timeout(_aiTimeout);
 
       final data = _safeJsonDecode(response.body);
       if (data == null) {
@@ -1204,7 +1216,7 @@ class AIService {
           'concept': concept,
           if (context != null) 'context': context,
         }),
-      );
+      ).timeout(_aiTimeout);
 
       final data = _safeJsonDecode(response.body);
       if (data == null) {
@@ -1238,7 +1250,7 @@ class AIService {
           'exerciseIndex': exerciseIndex,
           'userAnswer': userAnswer,
         }),
-      );
+      ).timeout(_aiTimeout);
 
       final data = _safeJsonDecode(response.body);
       if (data == null) {
@@ -1270,7 +1282,7 @@ class AIService {
         body: jsonEncode({
           'question': question,
         }),
-      );
+      ).timeout(_aiTimeout);
 
       final data = _safeJsonDecode(response.body);
       if (data == null) {
@@ -1304,7 +1316,7 @@ class AIService {
           'exerciseIndex': exerciseIndex,
           'count': count,
         }),
-      );
+      ).timeout(_aiTimeout);
 
       final data = _safeJsonDecode(response.body);
       if (data == null) {
@@ -1330,7 +1342,7 @@ class AIService {
       final response = await http.get(
         Uri.parse('${Endpoints.baseURL}learning/lessons/$lessonId/assistant/summary'),
         headers: _getHeaders(token),
-      );
+      ).timeout(_aiTimeout);
 
       final data = _safeJsonDecode(response.body);
       if (data == null) {
@@ -1367,7 +1379,7 @@ class AIService {
           'targetLanguage': targetLanguage,
           if (context != null) 'context': context,
         }),
-      );
+      ).timeout(_aiTimeout);
 
       final data = _safeJsonDecode(response.body);
       if (data == null) {
@@ -1398,7 +1410,7 @@ class AIService {
         Uri.parse('${Endpoints.baseURL}lessons/generate'),
         headers: _getHeaders(token),
         body: jsonEncode(request.toJson()),
-      );
+      ).timeout(_aiTimeout);
 
 
       final data = _safeJsonDecode(response.body);
@@ -1434,7 +1446,7 @@ class AIService {
         Uri.parse('${Endpoints.baseURL}lessons/generate/exercises'),
         headers: _getHeaders(token),
         body: jsonEncode(request.toJson()),
-      );
+      ).timeout(_aiTimeout);
 
 
       final data = _safeJsonDecode(response.body);
@@ -1470,7 +1482,7 @@ class AIService {
         Uri.parse('${Endpoints.baseURL}lessons/generate/vocabulary'),
         headers: _getHeaders(token),
         body: jsonEncode(request.toJson()),
-      );
+      ).timeout(_aiTimeout);
 
 
       final data = _safeJsonDecode(response.body);
@@ -1506,7 +1518,7 @@ class AIService {
         Uri.parse('${Endpoints.baseURL}lessons/generate/curriculum'),
         headers: _getHeaders(token),
         body: jsonEncode(request.toJson()),
-      );
+      ).timeout(_aiTimeout);
 
 
       final data = _safeJsonDecode(response.body);
@@ -1545,7 +1557,7 @@ class AIService {
         Uri.parse('${Endpoints.baseURL}lessons/$lessonId/enhance'),
         headers: _getHeaders(token),
         body: jsonEncode(request.toJson()),
-      );
+      ).timeout(_aiTimeout);
 
 
       final data = _safeJsonDecode(response.body);
@@ -1593,7 +1605,7 @@ class AIService {
       final uri = Uri.parse('${Endpoints.baseURL}lessons/ai-generated')
           .replace(queryParameters: params);
 
-      final response = await http.get(uri, headers: _getHeaders(token));
+      final response = await http.get(uri, headers: _getHeaders(token)).timeout(_aiTimeout);
 
 
       final data = _safeJsonDecode(response.body);
@@ -1628,7 +1640,7 @@ class AIService {
       final response = await http.get(
         Uri.parse('${Endpoints.baseURL}lessons/templates'),
         headers: _getHeaders(token),
-      );
+      ).timeout(_aiTimeout);
 
       final data = _safeJsonDecode(response.body);
       if (data == null) {
@@ -1654,7 +1666,7 @@ class AIService {
       final response = await http.get(
         Uri.parse('${Endpoints.baseURL}lessons/stats'),
         headers: _getHeaders(token),
-      );
+      ).timeout(_aiTimeout);
 
       final data = _safeJsonDecode(response.body);
       if (data == null) {
