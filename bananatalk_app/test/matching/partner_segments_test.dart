@@ -1,9 +1,11 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/community/widgets/partner_segment_chips.dart';
+import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 
 Widget _wrap(ProviderContainer container) => UncontrolledProviderScope(
@@ -20,6 +22,7 @@ Widget _wrap(ProviderContainer container) => UncontrolledProviderScope(
     );
 
 void main() {
+  notifierRaceTests();
   test('PartnerFilterParams equality/copyWith include segment fields', () {
     expect(const PartnerFilterParams(activeWithin: '7d'),
         isNot(const PartnerFilterParams()));
@@ -68,5 +71,105 @@ void main() {
     await tester.tap(find.text('All'));
     await tester.pump();
     expect(container.read(partnerSegmentProvider), PartnerSegment.all);
+  });
+}
+
+class _FakeService implements CommunityService {
+  final calls = <Completer<PaginatedCommunityResponse>>[];
+  final params = <String?>[];
+
+  @override
+  Future<PaginatedCommunityResponse> getCommunityPaginated({
+    int page = 1,
+    int limit = 20,
+    String? nativeLanguage,
+    String? learningLanguage,
+    bool matchLanguage = false,
+    String? gender,
+    int? minAge,
+    int? maxAge,
+    bool? onlineOnly,
+    String? country,
+    String? languageLevel,
+    String? search,
+    String? sort,
+    bool reciprocal = false,
+    String? activeWithin,
+    String? joinedWithin,
+  }) {
+    params.add(activeWithin ?? joinedWithin);
+    final c = Completer<PaginatedCommunityResponse>();
+    calls.add(c);
+    return c.future;
+  }
+
+  @override
+  dynamic noSuchMethod(Invocation i) => super.noSuchMethod(i);
+}
+
+PaginatedCommunityResponse _resp(String id) => PaginatedCommunityResponse(
+      users: [Community.fromJson({'_id': id, 'name': id})],
+      total: 1,
+      page: 1,
+      pages: 1,
+      hasMore: false,
+    );
+
+void notifierRaceTests() {
+  test('filters switched mid-load: stale response never lands', () async {
+    final svc = _FakeService();
+    final n = PartnerFilterNotifier(svc, () => false);
+    const a = PartnerFilterParams(activeWithin: '7d');
+    const b = PartnerFilterParams(joinedWithin: '7d');
+
+    final fa = n.loadWithFilters(a);
+    final fb = n.loadWithFilters(b); // must NOT be dropped
+    expect(svc.calls.length, 2);
+    expect(n.state.filters, b);
+    expect(n.state.isLoading, true);
+
+    svc.calls[0].complete(_resp('A'));
+    await fa;
+    expect(n.state.users, isEmpty); // A's rows discarded
+    expect(n.state.isLoading, true);
+
+    svc.calls[1].complete(_resp('B'));
+    await fb;
+    expect(n.state.users.map((u) => u.id), ['B']);
+    expect(n.state.isLoading, false);
+    expect(n.state.filters, b);
+  });
+
+  test('same filters while loading is still deduped', () async {
+    final svc = _FakeService();
+    final n = PartnerFilterNotifier(svc, () => false);
+    const a = PartnerFilterParams(activeWithin: '7d');
+    final f1 = n.loadWithFilters(a);
+    await n.loadWithFilters(a);
+    expect(svc.calls.length, 1);
+    svc.calls[0].complete(_resp('A'));
+    await f1;
+  });
+
+  test('segment switched mid-loadMore: stale page dropped', () async {
+    final svc = _FakeService();
+    final n = PartnerFilterNotifier(svc, () => false);
+    const a = PartnerFilterParams(activeWithin: '7d');
+    const b = PartnerFilterParams(joinedWithin: '7d');
+    final f1 = n.loadWithFilters(a);
+    svc.calls[0].complete(PaginatedCommunityResponse(
+      users: [Community.fromJson({'_id': 'A1', 'name': 'A1'})],
+      total: 2, page: 1, pages: 2, hasMore: true,
+    ));
+    await f1;
+    final fm = n.loadMore();
+    final fb = n.loadWithFilters(b);
+    svc.calls[1].complete(_resp('A2'));
+    await fm;
+    expect(n.state.users, isEmpty);
+    expect(n.state.filters, b);
+    svc.calls[2].complete(_resp('B'));
+    await fb;
+    expect(n.state.users.map((u) => u.id), ['B']);
   });
 }

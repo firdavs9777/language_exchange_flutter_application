@@ -1244,7 +1244,9 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
 
   /// Load partners with filters (server-side)
   Future<void> loadWithFilters(PartnerFilterParams filters) async {
-    if (state.isLoading) return;
+    // A CHANGED filters value must proceed even mid-load (a chip tap would
+    // otherwise be dropped forever); the stale response is discarded below.
+    if (state.isLoading && state.filters == filters) return;
 
     // Reset if different filters
     if (state.filters != filters) {
@@ -1273,6 +1275,9 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
         joinedWithin: filters.joinedWithin,
       );
 
+      // Filters changed while this request was in flight: drop the stale page.
+      if (state.filters != filters) return;
+
       // If 0 results returned, set hasMore to false to prevent infinite loading
       final hasMore = response.users.isNotEmpty && response.hasMore;
 
@@ -1284,6 +1289,7 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
         isLoading: false,
       );
     } catch (e) {
+      if (state.filters != filters) return;
       state = state.copyWith(isLoading: false, error: e.toString());
     }
   }
@@ -1292,6 +1298,7 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
   Future<void> loadMore() async {
     if (state.isLoadingMore || !state.hasMore || state.filters == null) return;
 
+    final filtersAtStart = state.filters;
     state = state.copyWith(isLoadingMore: true);
 
     try {
@@ -1319,6 +1326,9 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
         joinedWithin: state.filters!.joinedWithin,
       );
 
+      // Segment/filters switched mid-request: drop the stale page.
+      if (state.filters != filtersAtStart) return;
+
       // If 0 results returned on load more, stop trying to load more
       final hasMore = response.users.isNotEmpty && response.hasMore;
 
@@ -1330,6 +1340,7 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
         isLoadingMore: false,
       );
     } catch (e) {
+      if (state.filters != filtersAtStart) return;
       state = state.copyWith(isLoadingMore: false, error: e.toString());
     }
   }
