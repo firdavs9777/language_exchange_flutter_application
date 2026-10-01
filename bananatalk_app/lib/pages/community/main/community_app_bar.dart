@@ -21,7 +21,12 @@ class CommunityAppBar extends ConsumerWidget implements PreferredSizeWidget {
     required this.onSearchToggle,
     required this.onFilterTap,
     this.onLiveRoomsTap,
+    this.matchesLayout = false,
   });
+
+  /// Matches-first layout: the Matches tab replaces the "Find partners"
+  /// overflow entry, so it is hidden.
+  final bool matchesLayout;
 
   final bool isSearching;
   final VoidCallback onSearchToggle;
@@ -104,23 +109,30 @@ class CommunityAppBar extends ConsumerWidget implements PreferredSizeWidget {
             }
           },
           itemBuilder: (context) => [
-            PopupMenuItem(
-              value: 'smart_match',
-              child: Row(
-                children: [
-                  const Icon(Icons.auto_awesome_rounded,
-                      size: 20, color: AppColors.primary),
-                  const SizedBox(width: 12),
-                  Text(AppLocalizations.of(context)!.findPartners),
-                ],
+            if (!matchesLayout)
+              PopupMenuItem(
+                value: 'smart_match',
+                child: Row(
+                  children: [
+                    const Icon(
+                      Icons.auto_awesome_rounded,
+                      size: 20,
+                      color: AppColors.primary,
+                    ),
+                    const SizedBox(width: 12),
+                    Text(AppLocalizations.of(context)!.findPartners),
+                  ],
+                ),
               ),
-            ),
             PopupMenuItem(
               value: 'vip',
               child: Row(
                 children: [
-                  const Icon(Icons.workspace_premium_rounded,
-                      size: 20, color: Color(0xFFFFA000)),
+                  const Icon(
+                    Icons.workspace_premium_rounded,
+                    size: 20,
+                    color: Color(0xFFFFA000),
+                  ),
                   const SizedBox(width: 12),
                   Text(AppLocalizations.of(context)!.goVip),
                 ],

@@ -21,7 +21,14 @@ class CommunityTabBar extends ConsumerWidget {
     required this.tabController,
     this.showRoomsTab = true,
     this.gatheringsEnabled = true,
+    this.matchesLayout = false,
   });
+
+  /// Matches-first layout (`AppConfig.matchesLayoutEnabled`): Matches ·
+  /// Partners · Gatherings · [Rooms] · Nearby · Topics · Waves. Must mirror
+  /// the `TabBarView` children in `CommunityMain` — see
+  /// `communityTabLayout`. Off = the legacy list, untouched.
+  final bool matchesLayout;
 
   final TabController tabController;
 
@@ -52,12 +59,13 @@ class CommunityTabBar extends ConsumerWidget {
     // the conditional Rooms entry must stay at index 3 — see
     // remapTabIndexForRoomsFlag.
     final labels = <String>[
-      l10n.communityTabAll,
-      l10n.communityTabGender,
+      if (matchesLayout) l10n.communityTabMatches,
+      matchesLayout ? l10n.communityTabPartners : l10n.communityTabAll,
+      if (!matchesLayout) l10n.communityTabGender,
       gatheringsEnabled ? l10n.gatheringsTabLabel : l10n.voiceRooms,
       if (showRoomsTab) l10n.communityTabRooms,
       l10n.nearby,
-      l10n.communityTabCity,
+      if (!matchesLayout) l10n.communityTabCity,
       l10n.topics,
       l10n.wavesTab,
     ];

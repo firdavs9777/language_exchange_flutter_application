@@ -3563,5 +3563,7 @@
   "matchesEmptyTitle": "That's everyone for today",
   "matchesEmptyBody": "Fresh matches tomorrow. Meanwhile, browse all partners.",
   "matchesEmptyCta": "Browse partners",
-  "matchSayHi": "Say hi"
+  "matchSayHi": "Say hi",
+  "communityTabMatches": "Matches",
+  "communityTabPartners": "Partners"
 }

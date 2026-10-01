@@ -8554,6 +8554,12 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get matchSayHi => 'Say hi';
+
+  @override
+  String get communityTabMatches => 'Matches';
+
+  @override
+  String get communityTabPartners => 'Partners';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -17106,4 +17112,10 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get matchSayHi => 'Say hi';
+
+  @override
+  String get communityTabMatches => 'Matches';
+
+  @override
+  String get communityTabPartners => 'Partners';
 }

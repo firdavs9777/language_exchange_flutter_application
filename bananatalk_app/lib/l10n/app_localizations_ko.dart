@@ -8554,4 +8554,10 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get matchSayHi => 'Say hi';
+
+  @override
+  String get communityTabMatches => 'Matches';
+
+  @override
+  String get communityTabPartners => 'Partners';
 }

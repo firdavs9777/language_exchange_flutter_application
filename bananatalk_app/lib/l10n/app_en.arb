@@ -5853,5 +5853,13 @@
   "matchSayHi": "Say hi",
   "@matchSayHi": {
     "description": "Primary action on a daily match card: open a chat"
+  },
+  "communityTabMatches": "Matches",
+  "@communityTabMatches": {
+    "description": "Community tab: today's daily matches (new layout)"
+  },
+  "communityTabPartners": "Partners",
+  "@communityTabPartners": {
+    "description": "Community tab: browse all partners (replaces All in the new layout)"
   }
 }

@@ -15847,6 +15847,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Say hi'**
   String get matchSayHi;
+
+  /// Community tab: today's daily matches (new layout)
+  ///
+  /// In en, this message translates to:
+  /// **'Matches'**
+  String get communityTabMatches;
+
+  /// Community tab: browse all partners (replaces All in the new layout)
+  ///
+  /// In en, this message translates to:
+  /// **'Partners'**
+  String get communityTabPartners;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
