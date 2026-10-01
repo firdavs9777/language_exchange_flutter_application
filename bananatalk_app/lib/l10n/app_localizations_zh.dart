@@ -8593,6 +8593,14 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get openerChipsTitle => 'Conversation starters — tap to edit before sending';
+
+  @override
+  String stallRescueTitle(String name) {
+    return '$name asked you something 👀';
+  }
+
+  @override
+  String get stallRescueHint => 'Sorry for the slow reply! Still up for chatting? 😊';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -17184,4 +17192,12 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get openerChipsTitle => 'Conversation starters — tap to edit before sending';
+
+  @override
+  String stallRescueTitle(String name) {
+    return '$name asked you something 👀';
+  }
+
+  @override
+  String get stallRescueHint => 'Sorry for the slow reply! Still up for chatting? 😊';
 }

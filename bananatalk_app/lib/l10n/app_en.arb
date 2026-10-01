@@ -5906,5 +5906,14 @@
   "openerChipsTitle": "Conversation starters — tap to edit before sending",
   "@openerChipsTitle": {
     "description": "Caption above opener chips in an empty chat"
+  },
+  "stallRescueTitle": "{name} asked you something 👀",
+  "@stallRescueTitle": {
+    "description": "Stall-rescue banner title in a stalled chat",
+    "placeholders": { "name": { "type": "String" } }
+  },
+  "stallRescueHint": "Sorry for the slow reply! Still up for chatting? 😊",
+  "@stallRescueHint": {
+    "description": "Generic reply nudge prefilled into the composer by the stall-rescue banner"
   }
 }

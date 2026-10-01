@@ -8603,4 +8603,12 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get openerChipsTitle => 'Conversation starters — tap to edit before sending';
+
+  @override
+  String stallRescueTitle(String name) {
+    return '$name asked you something 👀';
+  }
+
+  @override
+  String get stallRescueHint => 'Sorry for the slow reply! Still up for chatting? 😊';
 }

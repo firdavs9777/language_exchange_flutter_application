@@ -13,6 +13,7 @@ import 'package:bananatalk_app/providers/provider_root/user_limits_provider.dart
 import 'package:bananatalk_app/providers/message_count_provider.dart';
 import 'package:bananatalk_app/utils/feature_gate.dart';
 import 'package:bananatalk_app/widgets/chat/opener_chips.dart';
+import 'package:bananatalk_app/widgets/chat/stall_rescue_banner.dart';
 import 'package:bananatalk_app/widgets/limit_exceeded_dialog.dart';
 import 'package:bananatalk_app/widgets/image_preview_dialog.dart';
 import 'package:bananatalk_app/utils/api_error_handler.dart';
@@ -75,6 +76,9 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
   final ScrollController _scrollController = ScrollController();
 
   bool _isSending = false;
+  // Stall-rescue banner: evaluated once per screen; persisted once-per-thread.
+  bool _stallRescueEvaluated = false;
+  bool _showStallRescue = false;
   String? _currentUserId;
   bool _isTyping = false;
   int _adBonusMessages = 0; // Extra sends granted after watching a rewarded ad
@@ -298,14 +302,12 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     );
 
     // Highlight the message briefly
-    setState(() {
-    });
+    setState(() {});
 
     // Remove highlight after animation
     Future.delayed(const Duration(milliseconds: 1500), () {
       if (mounted) {
-        setState(() {
-        });
+        setState(() {});
       }
     });
   }
@@ -1490,7 +1492,9 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       // Dismiss loading dialog safely using its own context — the dialog
       // context's OWN mounted flag, which is the guard the lint wants here.
       if (!mounted) return;
-      if (dialogContext != null && dialogContext!.mounted && Navigator.of(dialogContext!).canPop()) {
+      if (dialogContext != null &&
+          dialogContext!.mounted &&
+          Navigator.of(dialogContext!).canPop()) {
         Navigator.of(dialogContext!).pop();
       }
       dialogContext = null;
@@ -1522,7 +1526,9 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     } catch (e) {
       // Dismiss loading dialog if still open — same rule: its own context
       // vouches for itself.
-      if (dialogContext != null && dialogContext!.mounted && Navigator.of(dialogContext!).canPop()) {
+      if (dialogContext != null &&
+          dialogContext!.mounted &&
+          Navigator.of(dialogContext!).canPop()) {
         Navigator.of(dialogContext!).pop();
       }
       if (mounted) {
@@ -1842,7 +1848,9 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
   /// composer (editable); it never sends.
   Widget _buildOpenerChips() {
     final me = ref.watch(userProvider).valueOrNull;
-    final partner = ref.watch(singleCommunityProvider(widget.userId)).valueOrNull;
+    final partner = ref
+        .watch(singleCommunityProvider(widget.userId))
+        .valueOrNull;
     if (me == null || partner == null) return const SizedBox.shrink();
     return OpenerChips(
       me: me,
@@ -1853,6 +1861,55 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
           offset: text.length,
         );
       },
+    );
+  }
+
+  /// Stall rescue: shown at most once per conversation (SharedPreferences).
+  /// Evaluated once per screen visit, after the thread has loaded.
+  void _maybeEvaluateStallRescue(List<Message> messages) {
+    if (_stallRescueEvaluated || _currentUserId == null) return;
+    if (!StallRescueBanner.shouldShowStallRescue(
+      messages: messages,
+      myId: _currentUserId!,
+      now: DateTime.now(),
+    )) {
+      return;
+    }
+    _stallRescueEvaluated = true;
+    StallRescueBanner.claimShow(widget.userId).then((claimed) {
+      if (claimed && mounted) setState(() => _showStallRescue = true);
+    });
+  }
+
+  Widget _buildStallRescue() {
+    final me = ref.watch(userProvider).valueOrNull;
+    final partner = ref
+        .watch(singleCommunityProvider(widget.userId))
+        .valueOrNull;
+    final l10n = AppLocalizations.of(context)!;
+    String suggestion = l10n.stallRescueHint;
+    if (me != null && partner != null) {
+      final theirTopics = {
+        for (final t in partner.topics) t.trim().toLowerCase(),
+      };
+      for (final t in me.topics) {
+        if (t.trim().isNotEmpty &&
+            theirTopics.contains(t.trim().toLowerCase())) {
+          suggestion = l10n.openerSharedTopic(t.trim());
+          break;
+        }
+      }
+    }
+    return StallRescueBanner(
+      name: widget.userName,
+      suggestion: suggestion,
+      onPick: (text) {
+        _messageController.text = text;
+        _messageController.selection = TextSelection.collapsed(
+          offset: text.length,
+        );
+      },
+      onDismiss: () => setState(() => _showStallRescue = false),
     );
   }
 
@@ -1892,6 +1949,9 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     });
 
     final chatState = ref.watch(chatStateProvider(chatParams));
+    if (!chatState.isLoading && chatState.error.isEmpty && !_isBlockedChat) {
+      _maybeEvaluateStallRescue(chatState.messages);
+    }
 
     return Scaffold(
       appBar: ConversationHeader(
@@ -1983,6 +2043,10 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                     chatState.messages.isEmpty &&
                     !_isBlockedChat)
                   _buildOpenerChips(),
+                if (_showStallRescue &&
+                    chatState.messages.isNotEmpty &&
+                    !_isBlockedChat)
+                  _buildStallRescue(),
                 ConversationInputArea(
                   isBlockedChat: _isBlockedChat,
                   messageController: _messageController,

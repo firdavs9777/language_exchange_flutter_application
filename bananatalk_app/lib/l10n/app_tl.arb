@@ -3531,5 +3531,7 @@
   "openerReciprocal": "Want to do half-{theirLanguage} half-{myLanguage} messages? I'll correct yours if you correct mine 😄",
   "openerSharedTopic": "I saw you're into {topic} — what got you started?",
   "openerGeneric": "Hi {name}! I'm learning {language} — got any tips? 👋",
-  "openerChipsTitle": "Conversation starters — tap to edit before sending"
+  "openerChipsTitle": "Conversation starters — tap to edit before sending",
+  "stallRescueTitle": "{name} asked you something 👀",
+  "stallRescueHint": "Sorry for the slow reply! Still up for chatting? 😊"
 }

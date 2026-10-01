@@ -15913,6 +15913,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Conversation starters — tap to edit before sending'**
   String get openerChipsTitle;
+
+  /// Stall-rescue banner title in a stalled chat
+  ///
+  /// In en, this message translates to:
+  /// **'{name} asked you something 👀'**
+  String stallRescueTitle(String name);
+
+  /// Generic reply nudge prefilled into the composer by the stall-rescue banner
+  ///
+  /// In en, this message translates to:
+  /// **'Sorry for the slow reply! Still up for chatting? 😊'**
+  String get stallRescueHint;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
