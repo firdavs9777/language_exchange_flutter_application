@@ -7,18 +7,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CommentsService {
-  Future<List<Comments>> getComments() async {
-    final response = await http
-        .get(Uri.parse('${Endpoints.baseURL}${Endpoints.commentUrl}'));
-    if (response.statusCode == 200) {
-      final data = json.decode(response.body);
-      return (data['data'] as List)
-          .map((postJson) => Comments.fromJson(postJson))
-          .toList();
-    } else {
-      throw Exception('Failed to load posts');
-    }
-  }
+  // The old getComments() hit the bare /comments mount with no moment id —
+  // an endpoint that listed every comment in the system and that the server
+  // now refuses. It had no callers; comment reads go through
+  // getCommentsPage below.
 
   Future<Comments> createComment({
     required String title,
@@ -91,9 +83,21 @@ class CommentsService {
     int limit = 50,
   }) async {
     try {
-      final response = await http.get(Uri.parse(
-          '${Endpoints.baseURL}${Endpoints.momentsURL}/$id/${Endpoints.commentUrl}'
-          '?page=$page&limit=$limit'));
+      // Authenticated so the server can filter out blocked users' comments
+      // (its filter only runs when it knows the viewer).
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? token = prefs.getString('token');
+
+      final response = await http.get(
+        Uri.parse(
+            '${Endpoints.baseURL}${Endpoints.momentsURL}/$id/${Endpoints.commentUrl}'
+            '?page=$page&limit=$limit'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          if (token != null) 'Authorization': 'Bearer $token',
+        },
+      );
 
       // Handle 500 errors from backend (backend issue with user population)
       if (response.statusCode == 500) {

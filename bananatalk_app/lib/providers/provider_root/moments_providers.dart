@@ -114,8 +114,21 @@ class MomentsService {
       limit = 50;
     }
 
+    // Authenticated: without the token the server can't filter blocked
+    // users, include the caller's own non-public moments, or stamp
+    // isLiked/isSaved/likedUsers for the like and bookmark buttons.
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
+
     final url = '${Endpoints.baseURL}${Endpoints.momentsURL}/user/$id?page=$page&limit=$limit';
-    final response = await http.get(Uri.parse(url));
+    final response = await http.get(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        if (token != null) 'Authorization': 'Bearer $token',
+      },
+    );
 
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
@@ -221,8 +234,19 @@ class MomentsService {
   }
 
   Future<Moments> getSingleMoment({required String id}) async {
-    final response = await http
-        .get(Uri.parse('${Endpoints.baseURL}${Endpoints.momentsURL}/$id'));
+    // Authenticated for the same reason as getMoments: isLiked/isSaved and
+    // blocked-user handling only exist when the server knows the viewer.
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
+
+    final response = await http.get(
+      Uri.parse('${Endpoints.baseURL}${Endpoints.momentsURL}/$id'),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        if (token != null) 'Authorization': 'Bearer $token',
+      },
+    );
     
     if (response.statusCode == 200) {
       final data = json.decode(response.body);

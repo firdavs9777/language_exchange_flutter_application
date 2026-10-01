@@ -85,15 +85,18 @@ class ReportService {
         };
       }
 
+      // baseURL already ends in /api/v1/, so prefixing it again produced
+      // .../api/v1//api/v1/... — and the server reads `description`, not
+      // `details`.
       final url = Uri.parse(
-          '${Endpoints.baseURL}/api/v1/moments/$momentId/report');
+          '${Endpoints.baseURL}${Endpoints.momentsURL}/$momentId/report');
 
       final response = await http.post(
         url,
         headers: _getHeaders(token),
         body: jsonEncode({
           'reason': reason,
-          if (details != null && details.isNotEmpty) 'details': details,
+          if (details != null && details.isNotEmpty) 'description': details,
         }),
       );
 
@@ -118,53 +121,24 @@ class ReportService {
     }
   }
 
-  /// Report a message
-  /// POST /api/v1/messages/:messageId/report
+  /// Report a message.
+  ///
+  /// Goes through the generic POST /api/v1/reports record. The old path,
+  /// POST /messages/:id/report, has never existed on the server — every
+  /// room-message report 404'd.
   static Future<Map<String, dynamic>> reportMessage({
     required String messageId,
+    required String reportedUserId,
     required String reason,
     String? details,
-  }) async {
-    try {
-      final token = await _getToken();
-      if (token == null) {
-        return {
-          'success': false,
-          'message': 'Authentication token not found',
-        };
-      }
-
-      final url = Uri.parse(
-          '${Endpoints.baseURL}/api/v1/messages/$messageId/report');
-
-      final response = await http.post(
-        url,
-        headers: _getHeaders(token),
-        body: jsonEncode({
-          'reason': reason,
-          if (details != null && details.isNotEmpty) 'details': details,
-        }),
-      );
-
-      final data = jsonDecode(response.body);
-      
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        return {
-          'success': true,
-          'message': data['message'] ?? 'Report submitted successfully',
-        };
-      } else {
-        return {
-          'success': false,
-          'message': data['error'] ?? 'Failed to submit report',
-        };
-      }
-    } catch (e) {
-      return {
-        'success': false,
-        'message': 'Error: ${e.toString()}',
-      };
-    }
+  }) {
+    return createReportRecord(
+      type: 'message',
+      reportId: messageId,
+      reportedUser: reportedUserId,
+      reason: reason,
+      description: details,
+    );
   }
 
   /// Upload evidence file for a report
@@ -183,7 +157,7 @@ class ReportService {
       }
 
       final url = Uri.parse(
-          '${Endpoints.baseURL}/api/v1/reports/$reportId/evidence');
+          '${Endpoints.baseURL}reports/$reportId/evidence');
 
       final request = http.MultipartRequest('POST', url);
       request.headers['Authorization'] = 'Bearer $token';

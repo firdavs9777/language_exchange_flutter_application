@@ -245,10 +245,16 @@ class Moments {
       commentCount: json['commentCount'] is int ? json['commentCount'] : 0,
       likedUsers:
           json['likedUsers'] != null ? safeList(json['likedUsers']) : null,
-      comments: json['comments'] != null
+      // Tolerate every shape this field has ever had on the wire: the old
+      // backend embedded snapshots as a list of LISTS, the fixed backend
+      // sends [] (comments come from GET /moments/:id/comments), and plain
+      // id strings must not crash a whole feed page. Only maps become
+      // Comment objects; everything else is skipped.
+      comments: json['comments'] is List
           ? (json['comments'] as List<dynamic>)
-              .expand((innerList) => List.from(innerList))
-              .map((x) => Comment.fromJson(x as Map<String, dynamic>))
+              .expand((entry) => entry is List ? entry : [entry])
+              .whereType<Map<String, dynamic>>()
+              .map(Comment.fromJson)
               .toList()
           : null,
       createdAt: json['createdAt'] != null

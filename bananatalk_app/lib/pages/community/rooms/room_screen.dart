@@ -371,6 +371,7 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
 
     final result = await ReportService.reportMessage(
       messageId: message.id,
+      reportedUserId: message.sender.id,
       reason: reason,
     );
     if (!mounted) return;

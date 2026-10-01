@@ -274,6 +274,14 @@ class StoriesService {
             fieldName, file.path, contentType: MediaType.parse(fileMimeType),
           ));
         }
+        // These were only ever sent on the video branch, so a photo story
+        // silently lost its caption and colours, kept the link sticker
+        // client-side only, and — worst — ALWAYS posted with the server's
+        // default privacy: a story set to close friends went out to friends.
+        if (text != null && text.isNotEmpty) request.fields['text'] = text;
+        if (backgroundColor != null) request.fields['backgroundColor'] = backgroundColor;
+        if (textColor != null) request.fields['textColor'] = textColor;
+        request.fields['privacy'] = _mapPrivacyToBackend(privacy);
         if (overlays != null && overlays.isNotEmpty) {
           request.fields['overlays'] = jsonEncode(overlays);
         }
@@ -285,6 +293,9 @@ class StoriesService {
         }
         if (hashtags != null && hashtags.isNotEmpty) {
           request.fields['hashtags'] = jsonEncode(hashtags);
+        }
+        if (link != null) {
+          request.fields['link'] = jsonEncode(link.toJson());
         }
         if (location != null) {
           request.fields['location'] = jsonEncode(location.toJson());
