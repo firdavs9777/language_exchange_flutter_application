@@ -85,9 +85,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
   bool _isSelectionMode = false;
   Set<String> _selectedMessageIds = {};
   Message? _replyingToMessage;
-  bool _showPinnedBar = true; // Show pinned messages bar by default
   bool _showScrollButton = false; // Show scroll to bottom button
-  String? _highlightedMessageId; // For highlighting scrolled-to message
   bool _isBlockedChat = false; // True if either user has blocked the other
   bool _isSharingLocation = false;
 
@@ -300,14 +298,12 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
 
     // Highlight the message briefly
     setState(() {
-      _highlightedMessageId = messageId;
     });
 
     // Remove highlight after animation
     Future.delayed(const Duration(milliseconds: 1500), () {
       if (mounted) {
         setState(() {
-          _highlightedMessageId = null;
         });
       }
     });

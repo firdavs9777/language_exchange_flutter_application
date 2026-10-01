@@ -55,29 +55,6 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
   String? _replyToCommentId;
   String? _replyToUserName;
 
-  final Map<String, String> _languageFlags = {
-    'en': '🇺🇸',
-    'es': '🇪🇸',
-    'fr': '🇫🇷',
-    'de': '🇩🇪',
-    'it': '🇮🇹',
-    'pt': '🇵🇹',
-    'ru': '🇷🇺',
-    'ja': '🇯🇵',
-    'ko': '🇰🇷',
-    'zh': '🇨🇳',
-    'ar': '🇸🇦',
-    'hi': '🇮🇳',
-    'korean': '🇰🇷',
-    'english': '🇺🇸',
-    'spanish': '🇪🇸',
-    'japanese': '🇯🇵',
-    'da': '🇩🇰',
-    'nl': '🇳🇱',
-    'th': '🇹🇭',
-    'vi': '🇻🇳',
-    'tg': '🇹🇯',
-  };
 
   String _getLanguageCode(String language) {
     final langLower = language.toLowerCase();
@@ -100,23 +77,6 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
     );
   }
 
-  String _getFlagEmoji(String language) {
-    final langLower = language.toLowerCase();
-    if (langLower.contains('japan') || langLower == 'jp') return '🇯🇵';
-    if (langLower.contains('english') || langLower == 'en') return '🇺🇸';
-    if (langLower.contains('korean') || langLower == 'ko') return '🇰🇷';
-    if (langLower.contains('chinese') || langLower == 'zh') return '🇨🇳';
-    if (langLower.contains('spanish') || langLower == 'es') return '🇪🇸';
-    if (langLower.contains('french') || langLower == 'fr') return '🇫🇷';
-    if (langLower.contains('german') || langLower == 'de') return '🇩🇪';
-    if (langLower.contains('italian') || langLower == 'it') return '🇮🇹';
-    if (langLower.contains('portuguese') || langLower == 'pt') return '🇵🇹';
-    if (langLower.contains('russian') || langLower == 'ru') return '🇷🇺';
-    if (langLower.contains('arabic') || langLower == 'ar') return '🇸🇦';
-    if (langLower.contains('hindi') || langLower == 'hi') return '🇮🇳';
-    if (langLower.contains('tajik') || langLower == 'tg') return '🇹🇯';
-    return _languageFlags[langLower] ?? '🌍';
-  }
 
   String _getRelativeTime(BuildContext context, DateTime dateTime) {
     final l10n = AppLocalizations.of(context)!;
@@ -327,9 +287,6 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
 
   void _shareMoment() {
     final l10n = AppLocalizations.of(context)!;
-    final snippet = widget.moment.description.length > 100
-        ? '${widget.moment.description.substring(0, 100)}...'
-        : widget.moment.description;
     final momentText = l10n.checkOutMoment;
     final momentUrl = shareUrl('moment', widget.moment.id.toString());
     Share.share('$momentText\n\n$momentUrl');

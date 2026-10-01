@@ -100,9 +100,6 @@ class MessageService {
         final data = json.decode(response.body);
         if (data['success'] == true) {
           final List<dynamic> dataList = data['data'] ?? [];
-          // Debug: Log raw data for each partner
-          for (final item in dataList) {
-          }
           return dataList
               .map((item) => ChatPartnerData.fromJson(item))
               .toList();

@@ -117,8 +117,6 @@ class VideoCompressionService {
 
       if (result != null && result.path != null) {
         final compressedFile = File(result.path!);
-        final compressedSize = await compressedFile.length();
-        final originalSize = await videoFile.length();
 
 
         return compressedFile;

@@ -32,7 +32,6 @@ class _RoleplayChatScreenState extends ConsumerState<RoleplayChatScreen> {
   bool _recording = false;
   bool _transcribing = false;
   bool _ending = false;
-  bool _starting = true;
   int _lastSpokenIndex = -1;
 
   @override
@@ -48,11 +47,9 @@ class _RoleplayChatScreenState extends ConsumerState<RoleplayChatScreen> {
             .read(tutorChatControllerProvider.notifier)
             .startRoleplay(widget.scenario.id);
         if (!mounted) return;
-        setState(() => _starting = false);
         _scrollToBottom();
       } catch (e) {
         if (!mounted) return;
-        setState(() => _starting = false);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(AppLocalizations.of(context)!.aiScenariosCouldNotStart(e.toString()))),
         );

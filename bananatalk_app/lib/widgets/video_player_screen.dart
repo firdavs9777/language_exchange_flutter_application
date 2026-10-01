@@ -26,7 +26,6 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   bool _isLoading = true;
   bool _isBuffering = false;
   String? _error;
-  double _bufferProgress = 0;
 
   @override
   void initState() {
@@ -115,13 +114,6 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
 
     // Update buffer progress
     if (_videoController!.value.buffered.isNotEmpty) {
-      final buffered = _videoController!.value.buffered.last.end;
-      final total = _videoController!.value.duration;
-      if (total.inMilliseconds > 0) {
-        setState(() {
-          _bufferProgress = buffered.inMilliseconds / total.inMilliseconds;
-        });
-      }
     }
   }
 

@@ -62,9 +62,6 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
     // Log details of each exercise
     for (int i = 0; i < lesson.exercises.length; i++) {
       final ex = lesson.exercises[i];
-      final questionPreview = ex.question.length > 50
-          ? '${ex.question.substring(0, 50)}...'
-          : ex.question;
 
       if (ex.type.toLowerCase() == 'matching') {
         for (int j = 0; j < ex.matchingPairs.length; j++) {

@@ -31,9 +31,6 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
   static const String _webClientId =
       '28446912403-2ba6tssqm95r6iu6cov7c6riv00gposo.apps.googleusercontent.com';
 
-  // This is ONLY for backend validation (optional)
-  static const String _androidClientId =
-      '810869785173-7r5qlkcuje3fmcg0b92cnkmgglsulank.apps.googleusercontent.com';
 
   Future<void> _signInWithGoogle() async {
     setState(() {

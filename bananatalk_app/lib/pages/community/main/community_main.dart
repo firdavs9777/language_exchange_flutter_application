@@ -98,7 +98,6 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
   static const int _baseTabCount = 7;
 
   /// Tab index that should display the profile-visitor recall card.
-  static const int _partnersTabIndex = 0;
 
   /// Index the conditional "Rooms" tab is inserted at when `roomsEnabled` is
   /// true (All=0, Gender=1, Voice Rooms=2, Rooms=3, ...). Must match its

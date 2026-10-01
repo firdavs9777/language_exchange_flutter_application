@@ -54,7 +54,6 @@ class _ChatMainState extends ConsumerState<ChatMain>
   bool get wantKeepAlive => true;
   ColorScheme get colorScheme => Theme.of(context).colorScheme;
 
-  late Future<List<Message>> _messagesFuture;
   bool _isLoading = false;
   bool _isRefreshing = false;
   String _error = '';
@@ -63,7 +62,6 @@ class _ChatMainState extends ConsumerState<ChatMain>
   List<ChatPartner> _chatPartners = [];
   String? _currentUserId;
   String? _activeUserId;
-  DateTime _lastFetchTime = DateTime.now();
   final _chatSocketService = ChatSocketService();
   Map<String, Map<String, dynamic>> _userStatuses = {};
   Map<String, bool> _typingUsers = {};
@@ -85,7 +83,6 @@ class _ChatMainState extends ConsumerState<ChatMain>
   late AnimationController _fadeController;
   late AnimationController _slideController;
   late Animation<double> _fadeAnimation;
-  late Animation<Offset> _slideAnimation;
 
   // Track locally deleted conversations (workaround until backend filters)
   final Set<String> _deletedConversationIds = {};
@@ -191,11 +188,6 @@ class _ChatMainState extends ConsumerState<ChatMain>
     _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(parent: _fadeController, curve: Curves.easeInOut),
     );
-
-    _slideAnimation = Tween<Offset>(
-      begin: const Offset(0, 0.3),
-      end: Offset.zero,
-    ).animate(CurvedAnimation(parent: _slideController, curve: Curves.easeOut));
 
     _fadeController.forward();
     _slideController.forward();
@@ -331,19 +323,6 @@ class _ChatMainState extends ConsumerState<ChatMain>
     }
   }
 
-  void _forceRefreshUnreadCounts() {
-    if (!mounted) return;
-    final providerState = ref.read(chatPartnersProvider);
-
-    final List<ChatPartner> updatedPartners = _chatPartners.map((partner) {
-      final providerCount = providerState.unreadCounts[partner.id] ?? 0;
-      return partner.copyWith(unreadCount: providerCount);
-    }).toList();
-
-    setState(() {
-      _chatPartners = updatedPartners;
-    });
-  }
 
   /// Loads all per-conversation drafts so the list can show a "Draft"
   /// indicator. Cheap (single SharedPreferences read); refreshed whenever the
@@ -414,7 +393,6 @@ class _ChatMainState extends ConsumerState<ChatMain>
   Future<void> _fetchMessages({bool silent = false}) async {
     if (!mounted) return;
 
-    _lastFetchTime = DateTime.now();
 
     if (!silent) {
       setState(() {

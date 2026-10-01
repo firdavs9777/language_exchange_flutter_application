@@ -6,7 +6,6 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/utils/string_sanitizer.dart';
@@ -27,8 +26,6 @@ class _ProfileVisitorsScreenState extends State<ProfileVisitorsScreen> {
   Map<String, dynamic>? _stats;
   bool _isLoading = true;
   String? _error;
-  int _currentPage = 1;
-  String? _currentUserId;
 
   @override
   void initState() {
@@ -37,8 +34,6 @@ class _ProfileVisitorsScreenState extends State<ProfileVisitorsScreen> {
   }
 
   Future<void> _loadCurrentUserId() async {
-    final prefs = await SharedPreferences.getInstance();
-    _currentUserId = prefs.getString('userId');
     _fetchVisitors();
   }
 
@@ -60,7 +55,6 @@ class _ProfileVisitorsScreenState extends State<ProfileVisitorsScreen> {
           setState(() {
             _visitors = result['visitors'] ?? [];
             _stats = result['stats'];
-            _currentPage = page;
             _isLoading = false;
           });
         } else {

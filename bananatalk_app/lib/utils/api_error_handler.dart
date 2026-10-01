@@ -10,7 +10,6 @@ class ApiErrorHandler {
     String? userId,
   }) async {
     String errorMessage = 'Daily limit exceeded';
-    String? limitType;
     int? currentUsage;
     int? maxAllowed;
     String? resetTime;
@@ -24,12 +23,6 @@ class ApiErrorHandler {
 
     // Extract information from error message
     // Format: "Daily messages limit exceeded. You have used 50 of 50 messages today. Limit resets at 1/16/2025, 12:00:00 AM."
-    final limitTypeMatch = RegExp(r'Daily (\w+) limit exceeded', caseSensitive: false)
-        .firstMatch(errorMessage);
-    if (limitTypeMatch != null) {
-      limitType = limitTypeMatch.group(1)?.toLowerCase();
-    }
-
     final usageMatch = RegExp(r'used (\d+) of (\d+)').firstMatch(errorMessage);
     if (usageMatch != null) {
       currentUsage = int.tryParse(usageMatch.group(1) ?? '');

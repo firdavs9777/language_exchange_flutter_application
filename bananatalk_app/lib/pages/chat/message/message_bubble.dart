@@ -273,66 +273,6 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
 
   // ---------- Reaction picker ----------
 
-  void _showReactionPicker(BuildContext context) {
-    _hideReactionPicker();
-    HapticFeedback.lightImpact();
-
-    final RenderBox? renderBox =
-        _bubbleKey.currentContext?.findRenderObject() as RenderBox?;
-    if (renderBox == null) return;
-
-    final position = renderBox.localToGlobal(Offset.zero);
-    final size = renderBox.size;
-    final screenWidth = MediaQuery.of(context).size.width;
-
-    const pickerHeight = 56.0;
-    const pickerWidth = 260.0;
-    final pickerY = position.dy - pickerHeight - 10;
-
-    double pickerX;
-    if (widget.isMe) {
-      pickerX = (screenWidth - pickerWidth - 16).clamp(
-        16.0,
-        screenWidth - pickerWidth - 16,
-      );
-    } else {
-      pickerX = 56.0;
-    }
-
-    _reactionPickerOverlay = OverlayEntry(
-      builder: (context) => Stack(
-        children: [
-          Positioned.fill(
-            child: GestureDetector(
-              onTap: _hideReactionPicker,
-              behavior: HitTestBehavior.translucent,
-              child: const SizedBox.expand(),
-            ),
-          ),
-          Positioned(
-            left: pickerX,
-            top: pickerY > 0 ? pickerY : position.dy + size.height + 10,
-            child: Material(
-              color: Colors.transparent,
-              child: ReactionPicker(
-                onEmojiSelected: (emoji) {
-                  _handleReactionTap(emoji);
-                  _hideReactionPicker();
-                },
-                currentReactions: widget.message.reactions
-                    .where((r) => r.user.id == _currentUserId)
-                    .map((r) => r.emoji)
-                    .toList(),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-
-    Overlay.of(context).insert(_reactionPickerOverlay!);
-    Future.delayed(const Duration(seconds: 5), _hideReactionPicker);
-  }
 
   void _hideReactionPicker() {
     _reactionPickerOverlay?.remove();

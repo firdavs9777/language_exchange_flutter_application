@@ -2,8 +2,6 @@ import 'package:bananatalk_app/pages/moments/card/moment_media_carousel.dart';
 import 'package:bananatalk_app/pages/moments/viewer/image_viewer.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
-import 'package:bananatalk_app/utils/app_page_route.dart';
-import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:bananatalk_app/widgets/voice_message_player.dart';
 import 'package:flutter/material.dart';
 
@@ -65,54 +63,4 @@ class MomentCardMedia extends StatelessWidget {
     );
   }
 
-  Widget _buildImageItem(
-    BuildContext context,
-    String url,
-    int index, {
-    bool isLastItem = false,
-    int remainingCount = 0,
-  }) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          AppPageRoute(
-            builder: (context) =>
-                ImageGallery(imageUrls: imageUrls, initialIndex: index),
-          ),
-        );
-      },
-      child: Stack(
-        fit: StackFit.expand,
-        children: [
-          CachedImageWidget(
-            imageUrl: url,
-            fit: BoxFit.cover,
-            errorWidget: Container(
-              color: context.containerColor,
-              child: Icon(
-                Icons.broken_image,
-                size: 30,
-                color: context.textMuted,
-              ),
-            ),
-          ),
-          if (isLastItem)
-            Container(
-              color: Colors.black54,
-              child: Center(
-                child: Text(
-                  '+$remainingCount',
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ),
-        ],
-      ),
-    );
-  }
 }

@@ -68,30 +68,6 @@ CustomTransitionPage<void> _buildFadeTransition({
   );
 }
 
-/// Fade + slight scale-up from 0.95. Content-detail feel (moments).
-CustomTransitionPage<void> _buildScaleTransition({
-  required GoRouterState state,
-  required Widget child,
-  Duration duration = const Duration(milliseconds: 300),
-  Curve curve = Curves.easeOutCubic,
-}) {
-  return CustomTransitionPage<void>(
-    key: state.pageKey,
-    child: child,
-    transitionDuration: duration,
-    reverseTransitionDuration: duration,
-    transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      final curved = CurvedAnimation(parent: animation, curve: curve);
-      return FadeTransition(
-        opacity: curved,
-        child: ScaleTransition(
-          scale: Tween<double>(begin: 0.95, end: 1.0).animate(curved),
-          child: child,
-        ),
-      );
-    },
-  );
-}
 
 /// Slide up from the bottom + fade in. Modal-style feel (matching).
 CustomTransitionPage<void> _buildSlideUpTransition({

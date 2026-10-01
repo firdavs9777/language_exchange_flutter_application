@@ -92,11 +92,8 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
   Position? _currentPosition;
   String? _formattedAddress;
   bool _isLoading = false;
-  bool _isGettingLocation = false;
-  double _uploadProgress = 0;
 
   // Video processing state
-  bool _isProcessingVideo = false;
   double _videoCompressionProgress = 0;
   String _videoProcessingStatus = '';
   VideoProcessResult? _videoProcessResult;
@@ -540,7 +537,6 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     _showVideoProcessingDialog();
 
     setState(() {
-      _isProcessingVideo = true;
       _videoCompressionProgress = 0;
       _videoProcessingStatus = 'Preparing video...';
     });
@@ -575,7 +571,6 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
         setState(() {
           _selectedVideo = result.processedFile;
           _videoProcessResult = result;
-          _isProcessingVideo = false;
         });
 
         // Show success message with compression info
@@ -589,7 +584,6 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
         }
       } else {
         setState(() {
-          _isProcessingVideo = false;
         });
 
         if (mounted) {
@@ -607,7 +601,6 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
       }
 
       setState(() {
-        _isProcessingVideo = false;
       });
 
       if (mounted) {
@@ -924,13 +917,11 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
 
   Future<void> _requestLocationPermission() async {
     setState(() {
-      _isGettingLocation = true;
     });
 
     // First check if location services are enabled
     bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
-      setState(() => _isGettingLocation = false);
       _showLocationServiceDisabledDialog();
       return;
     }
@@ -941,14 +932,12 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
-        setState(() => _isGettingLocation = false);
         _showPermissionDeniedDialog();
         return;
       }
     }
 
     if (permission == LocationPermission.deniedForever) {
-      setState(() => _isGettingLocation = false);
       _showPermissionPermanentlyDeniedDialog();
       return;
     }
@@ -957,42 +946,9 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     await _getCurrentLocation();
 
     setState(() {
-      _isGettingLocation = false;
     });
   }
 
-  void _showPermissionRestrictedDialog() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
-          ),
-          title: const Text(
-            'Location Access Restricted',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-          ),
-          content: const Text(
-            'Location access is restricted on this device. This may be due to parental controls or device policy.',
-            style: TextStyle(fontSize: 15),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: const Text(
-                'OK',
-                style: TextStyle(
-                  color: Color(0xFF00BFA5),
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
-          ],
-        );
-      },
-    );
-  }
 
   Future<void> _getCurrentLocation() async {
     try {
@@ -1303,89 +1259,6 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     }
   }
 
-  /// Show error dialog for video upload failures with retry option
-  Future<bool> _showVideoUploadErrorDialog(
-    String momentId,
-    String message,
-  ) async {
-    final result = await showDialog<bool>(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) => AlertDialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        title: Row(
-          children: [
-            const Icon(
-              Icons.warning_amber_rounded,
-              color: Colors.orange,
-              size: 28,
-            ),
-            const SizedBox(width: 12),
-            Text(AppLocalizations.of(context)!.videoUploadFailed),
-          ],
-        ),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(message),
-            const SizedBox(height: 16),
-            Container(
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: Colors.blue.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: const Row(
-                children: [
-                  Icon(Icons.info_outline, color: Colors.blue, size: 20),
-                  SizedBox(width: 8),
-                  Expanded(
-                    child: Text(
-                      'Tip: Try compressing your video or using a smaller file.',
-                      style: TextStyle(fontSize: 13, color: Colors.blue),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(false),
-            child: Text(AppLocalizations.of(context)!.skipVideo),
-          ),
-          ElevatedButton(
-            onPressed: () => Navigator.of(context).pop(true),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF00BFA5),
-            ),
-            child: Text(AppLocalizations.of(context)!.retryUpload),
-          ),
-        ],
-      ),
-    );
-
-    if (result == true && _selectedVideo != null) {
-      // Retry the upload
-      try {
-        await ref
-            .read(momentsServiceProvider)
-            .uploadMomentVideo(momentId, _selectedVideo!);
-        return true;
-      } catch (e) {
-        // Show error again
-        if (mounted) {
-          return await _showVideoUploadErrorDialog(
-            momentId,
-            'Upload failed again: ${e.toString().replaceFirst('Exception: ', '')}',
-          );
-        }
-      }
-    }
-    return false;
-  }
 
   Future<void> _createMoment() async {
     if (_isLoading) return;

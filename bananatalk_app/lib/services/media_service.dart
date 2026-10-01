@@ -181,12 +181,10 @@ class MediaService {
       final streamedResponse = await request.send();
 
       // Track response bytes for progress
-      int bytesReceived = 0;
       final List<int> responseBytes = [];
 
       await for (final chunk in streamedResponse.stream) {
         responseBytes.addAll(chunk);
-        bytesReceived += chunk.length;
         // Report progress as complete since upload finished when we get response
         onProgress?.call(fileSize, fileSize);
       }

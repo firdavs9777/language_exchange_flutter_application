@@ -77,7 +77,6 @@ class NotificationService {
   String? _currentUserId;
 
   bool _isInitialized = false;
-  BuildContext? _context;
 
   /// Initialize Firebase Cloud Messaging and request permissions
   Future<void> initialize({BuildContext? context}) async {
@@ -85,7 +84,6 @@ class NotificationService {
       return;
     }
 
-    _context = context;
 
     // Task 7 Step 2 (Workstream E-core): seed _currentUserId from the stored
     // session up front, so onTokenRefresh can re-register even if a token
@@ -804,6 +802,5 @@ class NotificationService {
 
   /// Set context for navigation
   void setContext(BuildContext context) {
-    _context = context;
   }
 }

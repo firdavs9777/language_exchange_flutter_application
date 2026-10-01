@@ -61,10 +61,6 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
   }
 
   // Mention state
-  List<CommentMention> _mentions = [];
-  bool _showMentionOverlay = false;
-  String _mentionQuery = '';
-  List<dynamic> _mentionSuggestions = [];
 
   // Media state
   File? _selectedImage;
@@ -165,7 +161,6 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
       setState(() {
         _selectedImage = null;
         _selectedGifUrl = null;
-        _mentions = [];
       });
 
       // Clear reply state
