@@ -23,6 +23,28 @@ class MatchesTab extends ConsumerStatefulWidget {
 class _MatchesTabState extends ConsumerState<MatchesTab> {
   final Set<String> _skipped = {};
 
+  /// nextRefreshAt we already invalidated for — guards against refetch loops.
+  DateTime? _rolledOverFor;
+
+  Future<void> _refresh() async {
+    ref.invalidate(dailyMatchesProvider);
+    try {
+      await ref.read(dailyMatchesProvider.future);
+    } catch (_) {
+      // The error state renders its own retry affordance.
+    }
+  }
+
+  void _maybeRollOver(DailyMatchesResult result) {
+    final next = result.nextRefreshAt;
+    if (next == null || _rolledOverFor == next) return;
+    if (!DateTime.now().isAfter(next)) return;
+    _rolledOverFor = next;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) ref.invalidate(dailyMatchesProvider);
+    });
+  }
+
   void _sayHi(DailyMatch m) {
     final u = m.user;
     Navigator.push(
@@ -44,7 +66,9 @@ class _MatchesTabState extends ConsumerState<MatchesTab> {
       context,
       targetUserId: u.id,
       targetUserName: u.name,
-      targetUserCountry: u.location.country.isNotEmpty ? u.location.country : null,
+      targetUserCountry: u.location.country.isNotEmpty
+          ? u.location.country
+          : null,
     );
   }
 
@@ -59,49 +83,109 @@ class _MatchesTabState extends ConsumerState<MatchesTab> {
     final async = ref.watch(dailyMatchesProvider);
     return async.when(
       loading: () => const Center(child: CircularProgressIndicator()),
-      error: (_, __) => const SizedBox.shrink(),
+      error: (_, __) => RefreshIndicator(
+        onRefresh: _refresh,
+        child: CustomScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          slivers: [
+            SliverFillRemaining(
+              hasScrollBody: false,
+              child: _LoadError(onRetry: _refresh),
+            ),
+          ],
+        ),
+      ),
       data: (result) {
         if (result.unavailable) return const SizedBox.shrink();
+        _maybeRollOver(result);
         final matches = result.matches
             .where((m) => m.user.id.isNotEmpty && !_skipped.contains(m.user.id))
             .toList();
-        if (matches.isEmpty) return _Empty(onBrowse: widget.onBrowsePartners);
-        return ListView.builder(
-          padding: const EdgeInsets.only(bottom: 24),
-          itemCount: matches.length + 1,
-          itemBuilder: (context, i) {
-            if (i == 0) {
-              return Padding(
-                padding: const EdgeInsets.fromLTRB(20, 16, 20, 8),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      l10n.matchesTodayTitle(matches.length),
-                      style: const TextStyle(
-                          fontSize: 20, fontWeight: FontWeight.w700),
-                    ),
-                    const SizedBox(height: 2),
-                    Text(
-                      l10n.matchesRefreshHint,
-                      style: const TextStyle(
-                          fontSize: 13, color: AppColors.matchMutedText),
-                    ),
-                  ],
+        if (matches.isEmpty) {
+          return RefreshIndicator(
+            onRefresh: _refresh,
+            child: CustomScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              slivers: [
+                SliverFillRemaining(
+                  hasScrollBody: false,
+                  child: _Empty(onBrowse: widget.onBrowsePartners),
                 ),
+              ],
+            ),
+          );
+        }
+        return RefreshIndicator(
+          onRefresh: _refresh,
+          child: ListView.builder(
+            physics: const AlwaysScrollableScrollPhysics(),
+            padding: const EdgeInsets.only(bottom: 24),
+            itemCount: matches.length + 1,
+            itemBuilder: (context, i) {
+              if (i == 0) {
+                return Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 16, 20, 8),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        l10n.matchesTodayTitle(matches.length),
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      const SizedBox(height: 2),
+                      Text(
+                        l10n.matchesRefreshHint,
+                        style: const TextStyle(
+                          fontSize: 13,
+                          color: AppColors.matchMutedText,
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              }
+              final m = matches[i - 1];
+              return MatchCard(
+                key: ValueKey(m.user.id),
+                match: m,
+                onSayHi: () => _sayHi(m),
+                onWave: () => _wave(m),
+                onSkip: () => _skip(m),
               );
-            }
-            final m = matches[i - 1];
-            return MatchCard(
-              key: ValueKey(m.user.id),
-              match: m,
-              onSayHi: () => _sayHi(m),
-              onWave: () => _wave(m),
-              onSkip: () => _skip(m),
-            );
-          },
+            },
+          ),
         );
       },
+    );
+  }
+}
+
+class _LoadError extends StatelessWidget {
+  const _LoadError({required this.onRetry});
+  final Future<void> Function() onRetry;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(32),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              l10n.somethingWentWrong,
+              textAlign: TextAlign.center,
+              style: const TextStyle(color: AppColors.matchMutedText),
+            ),
+            const SizedBox(height: 16),
+            OutlinedButton(onPressed: onRetry, child: Text(l10n.retry)),
+          ],
+        ),
+      ),
     );
   }
 }

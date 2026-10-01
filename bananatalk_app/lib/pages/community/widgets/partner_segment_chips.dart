@@ -93,22 +93,30 @@ class _SegmentChip extends StatelessWidget {
       child: GestureDetector(
         onTap: onTap,
         behavior: HitTestBehavior.opaque,
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 150),
-          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-          decoration: BoxDecoration(
-            color: selected ? AppColors.matchInk : AppColors.matchChipSurface,
-            borderRadius: BorderRadius.circular(20),
-            border: Border.all(
-              color: selected ? AppColors.matchInk : AppColors.matchHairline,
-            ),
-          ),
-          child: Text(
-            label,
-            style: TextStyle(
-              fontSize: 13,
-              fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
-              color: selected ? AppColors.matchAccent : AppColors.matchInk,
+        // Outer box guarantees a >=44px hit target; the painted pill inside
+        // stays compact.
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(minHeight: 44),
+          child: Center(
+            widthFactor: 1,
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 150),
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+              decoration: BoxDecoration(
+                color: selected ? AppColors.matchInk : AppColors.matchChipSurface,
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(
+                  color: selected ? AppColors.matchInk : AppColors.matchHairline,
+                ),
+              ),
+              child: Text(
+                label,
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
+                  color: selected ? AppColors.matchAccent : AppColors.matchInk,
+                ),
+              ),
             ),
           ),
         ),

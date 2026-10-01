@@ -172,4 +172,15 @@ void notifierRaceTests() {
     await fb;
     expect(n.state.users.map((u) => u.id), ['B']);
   });
+
+  testWidgets('every segment chip has a >=44px touch target', (tester) async {
+    final container = ProviderContainer();
+    addTearDown(container.dispose);
+    await tester.pumpWidget(_wrap(container));
+    for (final label in ['All', '🔥 Serious learners', '🌱 New members']) {
+      final target = find.ancestor(
+          of: find.text(label), matching: find.byType(GestureDetector)).first;
+      expect(tester.getSize(target).height, greaterThanOrEqualTo(44), reason: label);
+    }
+  });
 }
