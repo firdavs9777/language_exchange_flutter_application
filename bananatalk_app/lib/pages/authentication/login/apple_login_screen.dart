@@ -61,7 +61,11 @@ class _AppleLoginState extends ConsumerState<AppleLogin> {
       // Send to backend for verification
       final result = await ref
           .read(authServiceProvider)
-          .signInWithAppleNative(identityToken, appleUser);
+          .signInWithAppleNative(
+            identityToken,
+            appleUser,
+            authorizationCode: credential.authorizationCode,
+          );
 
       if (result['success'] == true) {
         // Get user data from response

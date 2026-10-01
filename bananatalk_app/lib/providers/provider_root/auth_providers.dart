@@ -478,15 +478,23 @@ class AuthService extends ChangeNotifier {
   /// Sends identity token to backend for authentication
   Future<Map<String, dynamic>> signInWithAppleNative(
     String identityToken,
-    Map<String, dynamic> appleUser,
-  ) async {
+    Map<String, dynamic> appleUser, {
+    String? authorizationCode,
+  }) async {
     try {
       final url = Uri.parse('${Endpoints.baseURL}auth/apple/mobile');
 
       final response = await http.post(
         url,
         headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({'identityToken': identityToken, 'user': appleUser}),
+        body: jsonEncode({
+          'identityToken': identityToken,
+          'user': appleUser,
+          // The backend exchanges this for Apple's refresh token so account
+          // deletion can REVOKE the sign-in (Apple guideline 5.1.1(v)).
+          // Older servers ignore the extra key.
+          if (authorizationCode != null) 'authorizationCode': authorizationCode,
+        }),
       );
 
       if (response.statusCode == 200 || response.statusCode == 201) {
