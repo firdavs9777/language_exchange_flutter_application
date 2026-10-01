@@ -61,7 +61,7 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
               final shouldExit = await _showExitDialog();
               if (shouldExit && mounted) {
                 ref.read(quizPlayerProvider.notifier).reset();
-                Navigator.pop(context);
+                Navigator.pop(this.context);
               }
             },
           ),

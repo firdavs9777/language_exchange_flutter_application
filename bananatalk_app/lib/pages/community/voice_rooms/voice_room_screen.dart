@@ -269,12 +269,12 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
               // show the "connect with who you talked to" sheet ON TOP of
               // this still-mounted screen (see `_showingPostRoomSheet`
               // above for why), then pop this screen once it's dismissed.
-              if (context.mounted && otherParticipants.isNotEmpty) {
+              if (mounted && otherParticipants.isNotEmpty) {
                 _showingPostRoomSheet = true;
-                await showPostRoomConnectSheet(context, otherParticipants);
+                await showPostRoomConnectSheet(this.context, otherParticipants);
                 _showingPostRoomSheet = false;
               }
-              if (context.mounted) Navigator.pop(context);
+              if (mounted) Navigator.pop(this.context);
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.red,

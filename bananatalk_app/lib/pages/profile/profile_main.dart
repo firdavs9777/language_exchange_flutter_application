@@ -552,11 +552,11 @@ class _LogoutDialogState extends State<_LogoutDialog> {
         );
       }
     } catch (error) {
-      setState(() => _isLoggingOut = false);
-      if (dialogContext.mounted) {
+      if (mounted) setState(() => _isLoggingOut = false);
+      if (mounted && dialogContext.mounted) {
         ScaffoldMessenger.of(dialogContext).showSnackBar(
           SnackBar(
-            content: Text(friendlyErrorMessage(AppLocalizations.of(context)!, error, fallback: AppLocalizations.of(context)!.logoutFailed)),
+            content: Text(friendlyErrorMessage(AppLocalizations.of(this.context)!, error, fallback: AppLocalizations.of(this.context)!.logoutFailed)),
             backgroundColor: AppColors.error,
             behavior: SnackBarBehavior.floating,
             shape: RoundedRectangleBorder(

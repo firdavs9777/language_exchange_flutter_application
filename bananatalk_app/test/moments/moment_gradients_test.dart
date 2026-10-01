@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
+
+import '../helpers/backend_repo.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 
 /// Reads the server's list from source rather than a copy of it.
@@ -10,8 +12,10 @@ import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 /// know about failed Mongoose validation on save — so it did not lose the
 /// colour, it stopped the moment being posted at all. Two hand-maintained
 /// lists is what made that possible.
-List<String> _serverGradients() {
-  final src = File('../backend/lib/momentGradients.js').readAsStringSync();
+List<String>? _serverGradients() {
+  final path = backendFile('lib/momentGradients.js');
+  if (path == null) return null;
+  final src = File(path).readAsStringSync();
   final block = RegExp(r'MOMENT_GRADIENTS = Object\.freeze\(\[(.*?)\]\)', dotAll: true)
       .firstMatch(src)!
       .group(1)!;
@@ -23,7 +27,11 @@ List<String> _serverGradients() {
 
 void main() {
   test('every gradient the app offers, the server accepts', () {
-    final server = _serverGradients().toSet();
+    final server = _serverGradients()?.toSet();
+    if (server == null) {
+      markTestSkipped('backend repo not found — drift check needs it');
+      return;
+    }
     final missing = MomentGradients.keys.where((k) => !server.contains(k)).toList();
     expect(
       missing,
@@ -36,7 +44,12 @@ void main() {
     // The reverse direction matters too: a key stored by an older client must
     // still draw, rather than silently falling back to purple.
     final appKeys = MomentGradients.keys.toSet();
-    final orphans = _serverGradients().where((k) => !appKeys.contains(k)).toList();
+    final serverList = _serverGradients();
+    if (serverList == null) {
+      markTestSkipped('backend repo not found — drift check needs it');
+      return;
+    }
+    final orphans = serverList.where((k) => !appKeys.contains(k)).toList();
     expect(orphans, isEmpty, reason: 'these would render as the default gradient');
   });
 

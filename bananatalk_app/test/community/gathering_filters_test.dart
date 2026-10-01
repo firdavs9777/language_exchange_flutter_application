@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import '../helpers/backend_repo.dart';
+
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/community/gatherings/gathering_filter_bar.dart';
 
@@ -47,7 +49,12 @@ void main() {
     // An unknown topic is DROPPED by buildFilterQuery rather than rejected, so
     // drift here would show a chip that silently filters nothing. Read from
     // the real source rather than a copy of it.
-    final src = File('../backend/lib/gatheringFilters.js').readAsStringSync();
+    final path = backendFile('lib/gatheringFilters.js');
+    if (path == null) {
+      markTestSkipped('backend repo not found — drift check needs it');
+      return;
+    }
+    final src = File(path).readAsStringSync();
     final block = RegExp(r'GATHERING_TOPICS = Object\.freeze\(\[(.*?)\]\)', dotAll: true)
         .firstMatch(src)!
         .group(1)!;

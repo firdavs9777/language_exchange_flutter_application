@@ -432,7 +432,7 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                     );
                     // Pop back to list if edit was successful
                     if (result == true && mounted) {
-                      Navigator.pop(context);
+                      Navigator.pop(this.context);
                     }
                   },
                 ),
@@ -481,17 +481,17 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                         // check above happened before it. Popping or showing
                         // a snackbar on a disposed route throws.
                         if (!mounted) return;
-                        Navigator.pop(context);
+                        Navigator.pop(this.context);
                         showMomentsSnackBar(
-                          context,
-                          message: AppLocalizations.of(context)!.momentDeleted,
+                          this.context,
+                          message: AppLocalizations.of(this.context)!.momentDeleted,
                         );
                       } catch (e) {
                         if (!mounted) return;
                         showMomentsSnackBar(
-                          context,
+                          this.context,
                           message: friendlyErrorMessage(
-                            AppLocalizations.of(context)!,
+                            AppLocalizations.of(this.context)!,
                             e,
                           ),
                           type: MomentsSnackBarType.error,
@@ -545,15 +545,16 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                       if (community == null) {
                         if (mounted) {
                           showMomentsSnackBar(
-                            context,
-                            message: AppLocalizations.of(context)!.userNotFound,
+                            this.context,
+                            message: AppLocalizations.of(this.context)!.userNotFound,
                           );
                         }
                         return;
                       }
 
+                      if (!mounted) return;
                       Navigator.push(
-                        context,
+                        this.context,
                         AppPageRoute(
                           builder: (context) =>
                               SingleCommunity(community: community),

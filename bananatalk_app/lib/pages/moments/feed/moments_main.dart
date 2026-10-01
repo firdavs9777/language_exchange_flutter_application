@@ -529,7 +529,7 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
                                     )) {
                                       if (mounted) {
                                         await LimitExceededDialog.show(
-                                          context: context,
+                                          context: this.context,
                                           limitType: 'moments',
                                           limitInfo: currentLimits?.moments,
                                           resetTime: currentLimits?.resetTime,
@@ -538,7 +538,8 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
                                       }
                                       return;
                                     }
-                                    Navigator.of(context)
+                                    if (!mounted) return;
+                                    Navigator.of(this.context)
                                         .push(
                                           AppPageRoute(
                                             builder: (_) =>

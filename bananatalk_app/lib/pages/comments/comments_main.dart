@@ -936,8 +936,8 @@ class _CommentItemState extends State<_CommentItem> with SingleTickerProviderSta
 
     if (community == null) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(AppLocalizations.of(context)!.userNotFound)),
+        ScaffoldMessenger.of(this.context).showSnackBar(
+          SnackBar(content: Text(AppLocalizations.of(this.context)!.userNotFound)),
         );
       }
       return;
@@ -945,7 +945,7 @@ class _CommentItemState extends State<_CommentItem> with SingleTickerProviderSta
 
     if (!mounted) return;
     Navigator.push(
-      context,
+      this.context,
       AppPageRoute(
         builder: (context) => SingleCommunity(community: community),
       ),
@@ -1270,8 +1270,8 @@ class _ReplyItemState extends State<_ReplyItem> {
 
     if (community == null) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(AppLocalizations.of(context)!.userNotFound)),
+        ScaffoldMessenger.of(this.context).showSnackBar(
+          SnackBar(content: Text(AppLocalizations.of(this.context)!.userNotFound)),
         );
       }
       return;
@@ -1279,7 +1279,7 @@ class _ReplyItemState extends State<_ReplyItem> {
 
     if (!mounted) return;
     Navigator.push(
-      context,
+      this.context,
       AppPageRoute(
         builder: (context) => SingleCommunity(community: community),
       ),

@@ -335,8 +335,8 @@ class _ProfileHighlightsState extends State<ProfileHighlights> {
     } catch (e) {
       if (mounted) {
         HapticFeedback.mediumImpact();
-        ScaffoldMessenger.of(context).hideCurrentSnackBar();
-        ScaffoldMessenger.of(context).showSnackBar(
+        ScaffoldMessenger.of(this.context).hideCurrentSnackBar();
+        ScaffoldMessenger.of(this.context).showSnackBar(
           SnackBar(
             content: Row(
               children: [

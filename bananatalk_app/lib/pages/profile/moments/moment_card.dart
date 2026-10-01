@@ -185,7 +185,7 @@ class _ProfileSingleMomentState extends ConsumerState<ProfileSingleMoment> {
       if (!mounted) return;
 
       if (response['success'] == true) {
-        ScaffoldMessenger.of(context).showSnackBar(
+        ScaffoldMessenger.of(this.context).showSnackBar(
           SnackBar(
             content: Row(
               children: [
@@ -206,10 +206,10 @@ class _ProfileSingleMomentState extends ConsumerState<ProfileSingleMoment> {
       }
     } catch (e) {
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
+      ScaffoldMessenger.of(this.context).showSnackBar(
         SnackBar(
           content: Text(
-            '${AppLocalizations.of(context)!.failedToDeleteMoment}: '
+            '${AppLocalizations.of(this.context)!.failedToDeleteMoment}: '
             '${e.toString().replaceFirst('Exception: ', '')}',
           ),
           backgroundColor: AppColors.error,
@@ -312,7 +312,7 @@ class _ProfileSingleMomentState extends ConsumerState<ProfileSingleMoment> {
                     if (!mounted) return;
 
                     if (community == null) {
-                      ScaffoldMessenger.of(context).showSnackBar(
+                      ScaffoldMessenger.of(this.context).showSnackBar(
                         SnackBar(
                           content: Text(l10n.userNotFound),
                           behavior: SnackBarBehavior.floating,
@@ -326,7 +326,7 @@ class _ProfileSingleMomentState extends ConsumerState<ProfileSingleMoment> {
                     }
 
                     Navigator.push(
-                      context,
+                      this.context,
                       AppPageRoute(
                         builder: (context) =>
                             SingleCommunity(community: community),
@@ -334,7 +334,7 @@ class _ProfileSingleMomentState extends ConsumerState<ProfileSingleMoment> {
                     );
                   } catch (e) {
                     if (!mounted) return;
-                    ScaffoldMessenger.of(context).showSnackBar(
+                    ScaffoldMessenger.of(this.context).showSnackBar(
                       SnackBar(
                         content: Text(
                           '${l10n.error}: ${e.toString().replaceFirst('Exception: ', '')}',

@@ -388,7 +388,7 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
               );
               if (confirmed == true && mounted) {
                 ref.read(aiQuizProvider.notifier).reset();
-                Navigator.pop(context);
+                Navigator.pop(this.context);
               }
             },
           ),

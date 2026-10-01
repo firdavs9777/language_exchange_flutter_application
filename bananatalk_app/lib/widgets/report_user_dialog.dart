@@ -159,8 +159,8 @@ class _ReportUserDialogState extends State<ReportUserDialog> {
             blockedUserName: widget.targetUserName,
           );
 
-          if (context.mounted) {
-            ScaffoldMessenger.of(context).showSnackBar(
+          if (mounted) {
+            ScaffoldMessenger.of(this.context).showSnackBar(
               SnackBar(
                 content: Text(
                   blockResult['success'] == true

@@ -445,8 +445,8 @@ class _MomentCardState extends ConsumerState<MomentCard> {
     if (!mounted) return;
 
     showModalBottomSheet(
-      context: context,
-      backgroundColor: Theme.of(context).colorScheme.surface,
+      context: this.context,
+      backgroundColor: Theme.of(this.context).colorScheme.surface,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
@@ -498,8 +498,8 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                         .mute(widget.moments.user.id);
                     if (!mounted) return;
                     showMomentsSnackBar(
-                      context,
-                      message: AppLocalizations.of(context)!.momentsHidden,
+                      this.context,
+                      message: AppLocalizations.of(this.context)!.momentsHidden,
                       type: MomentsSnackBarType.success,
                     );
                   },
@@ -628,18 +628,18 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                         // Network round trip; the mounted check above ran
                         // before it.
                         if (!mounted) return;
-                        final l10n = AppLocalizations.of(context)!;
+                        final l10n = AppLocalizations.of(this.context)!;
                         showMomentsSnackBar(
-                          context,
+                          this.context,
                           message: l10n.momentDeleted,
                         );
                         widget.onRefresh?.call();
                       } catch (e) {
                         if (!mounted) return;
                         showMomentsSnackBar(
-                          context,
+                          this.context,
                           message: friendlyErrorMessage(
-                            AppLocalizations.of(context)!,
+                            AppLocalizations.of(this.context)!,
                             e,
                           ),
                           type: MomentsSnackBarType.error,
@@ -715,15 +715,16 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                 if (community == null) {
                   if (mounted) {
                     showMomentsSnackBar(
-                      context,
-                      message: AppLocalizations.of(context)!.userNotFound,
+                      this.context,
+                      message: AppLocalizations.of(this.context)!.userNotFound,
                     );
                   }
                   return;
                 }
 
+                if (!mounted) return;
                 Navigator.push(
-                  context,
+                  this.context,
                   AppPageRoute(
                     builder: (context) => SingleCommunity(community: community),
                   ),

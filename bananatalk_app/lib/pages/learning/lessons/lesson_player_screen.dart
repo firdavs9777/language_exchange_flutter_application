@@ -207,7 +207,7 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
               final shouldExit = await _showExitDialog();
               if (shouldExit && mounted) {
                 ref.read(lessonPlayerProvider.notifier).reset();
-                Navigator.pop(context);
+                Navigator.pop(this.context);
               }
             },
           ),

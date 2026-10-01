@@ -1490,9 +1490,10 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         // Geocoding failure is non-fatal
       }
 
-      // Dismiss loading dialog safely using its own context
+      // Dismiss loading dialog safely using its own context — the dialog
+      // context's OWN mounted flag, which is the guard the lint wants here.
       if (!mounted) return;
-      if (dialogContext != null && Navigator.of(dialogContext!).canPop()) {
+      if (dialogContext != null && dialogContext!.mounted && Navigator.of(dialogContext!).canPop()) {
         Navigator.of(dialogContext!).pop();
       }
       dialogContext = null;
@@ -1522,8 +1523,9 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         );
       }
     } catch (e) {
-      // Dismiss loading dialog if still open
-      if (dialogContext != null && Navigator.of(dialogContext!).canPop()) {
+      // Dismiss loading dialog if still open — same rule: its own context
+      // vouches for itself.
+      if (dialogContext != null && dialogContext!.mounted && Navigator.of(dialogContext!).canPop()) {
         Navigator.of(dialogContext!).pop();
       }
       if (mounted) {
