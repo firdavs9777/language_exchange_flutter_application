@@ -6,8 +6,8 @@ import 'package:latlong2/latlong.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
+import 'package:bananatalk_app/pages/community/widgets/wave_error_snackbar.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
-import 'package:bananatalk_app/providers/provider_root/message_provider.dart';
 import 'package:bananatalk_app/widgets/community/partner_list_item.dart';
 import 'package:bananatalk_app/pages/stories/viewer/story_viewer_launcher.dart';
 import 'package:bananatalk_app/widgets/community/user_skeleton.dart';
@@ -955,16 +955,13 @@ class _CityTabState extends ConsumerState<CityTab> {
       ),
     );
 
-    // Send wave API + wave sticker message in background
+    // Real wave path only: the backend mirrors a 👋 into the chat itself.
     try {
       final service = ref.read(communityServiceProvider);
       await service.sendWave(targetUserId: user.id);
-    } catch (_) {}
-
-    try {
-      final messageService = ref.read(messageServiceProvider);
-      await messageService.sendMessage(receiver: user.id, message: '\u{1F44B}');
-    } catch (_) {}
+    } catch (e) {
+      if (mounted) showWaveError(context, e);
+    }
   }
 }
 

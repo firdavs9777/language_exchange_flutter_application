@@ -364,6 +364,19 @@ class CommunityService {
     }
   }
 
+  /// Server-side unread wave count (the `unreadCount` field of the waves
+  /// response) -- not the size of the returned page.
+  Future<int> getWavesUnreadCount() async {
+    final response = await _apiClient.get(
+      Endpoints.wavesReceivedURL,
+      queryParams: {'page': '1', 'limit': '1', 'unreadOnly': 'true'},
+    );
+    if (response.success && response.data != null) {
+      return parseWavesUnreadCount(response.data);
+    }
+    throw Exception(response.error ?? 'Failed to get waves');
+  }
+
   /// Mark waves as read
   Future<void> markWavesAsRead({List<String>? waveIds}) async {
     try {
@@ -467,7 +480,8 @@ class CommunityService {
 
   /// Update push notification preferences for the current user (partial update OK).
   Future<Map<String, bool>> updateNotificationPreferences(
-      Map<String, bool> prefs) async {
+    Map<String, bool> prefs,
+  ) async {
     final response = await _apiClient.put(
       '${Endpoints.usersURL}/me/notification-preferences',
       body: {'prefs': prefs},
@@ -914,12 +928,27 @@ class NearbyUsersParams {
 final wavesUnreadProvider = FutureProvider<int>((ref) async {
   final service = ref.read(communityServiceProvider);
   try {
-    final waves = await service.getWavesReceived(unreadOnly: true, limit: 100);
-    return waves.length;
+    return await service.getWavesUnreadCount();
   } catch (e) {
+    // Errors read as 0 deliberately: a badge that can't be verified is
+    // hidden rather than showing a stale or guessed number.
     return 0;
   }
 });
+
+/// Pure mapping from the waves response body to the unread badge count.
+/// The body is `{ data: { waves: [...], unreadCount: N }, pagination }`.
+/// Anything missing or malformed reads as 0.
+int parseWavesUnreadCount(dynamic body) {
+  if (body is! Map) return 0;
+  final inner = body['data'];
+  if (inner is! Map) return 0;
+  final n = inner['unreadCount'];
+  if (n is int) return n < 0 ? 0 : n;
+  if (n is num) return n.toInt() < 0 ? 0 : n.toInt();
+  if (n is String) return int.tryParse(n) ?? 0;
+  return 0;
+}
 
 /// Pending (unread) intros/waves for the current user, consumed by the
 /// intros strip and the waves badge.
@@ -1166,8 +1195,9 @@ enum PartnerSegment {
 
 /// Currently selected partner segment. Shared so the filter sheet's live
 /// count can request the same segment as the list.
-final partnerSegmentProvider =
-    StateProvider<PartnerSegment>((ref) => PartnerSegment.all);
+final partnerSegmentProvider = StateProvider<PartnerSegment>(
+  (ref) => PartnerSegment.all,
+);
 
 /// State for server-side filtered partners
 class PartnerFilterState {
@@ -1227,7 +1257,7 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
   static const int _pageSize = 20;
 
   PartnerFilterNotifier(this._service, this._smartSortEnabled)
-      : super(const PartnerFilterState());
+    : super(const PartnerFilterState());
 
   /// The sort to ask the server for.
   ///
@@ -1365,7 +1395,8 @@ final partnerFilterProvider =
       final service = ref.read(communityServiceProvider);
       return PartnerFilterNotifier(
         service,
-        () => ref
+        () =>
+            ref
                 .read(appConfigProvider)
                 .maybeWhen(
                   data: (config) => config?.smartSortEnabled,

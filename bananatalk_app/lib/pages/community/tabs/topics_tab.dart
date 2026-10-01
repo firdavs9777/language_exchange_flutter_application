@@ -7,7 +7,7 @@ import 'package:bananatalk_app/models/community/topic_model.dart';
 import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
-import 'package:bananatalk_app/providers/provider_root/message_provider.dart';
+import 'package:bananatalk_app/pages/community/widgets/wave_error_snackbar.dart';
 import 'package:bananatalk_app/widgets/community/compact_user_tile.dart';
 import 'package:bananatalk_app/widgets/community/user_skeleton.dart';
 import 'package:bananatalk_app/pages/community/single/single_community_screen.dart';
@@ -60,12 +60,12 @@ class _TopicsTabState extends ConsumerState<TopicsTab> {
     );
   }
 
-  // Send Hi message in background (fire and forget)
-  Future<void> _sendHiMessage(String receiverId) async {
+  Future<void> _sendWave(String targetUserId) async {
     try {
-      final messageService = ref.read(messageServiceProvider);
-      await messageService.sendMessage(receiver: receiverId, message: 'Hi 👋');
-    } catch (e) {}
+      await ref.read(communityServiceProvider).sendWave(targetUserId: targetUserId);
+    } catch (e) {
+      if (mounted) showWaveError(context, e);
+    }
   }
 
   void _onWave(Community user) {
@@ -84,8 +84,8 @@ class _TopicsTabState extends ConsumerState<TopicsTab> {
       ),
     );
 
-    // Send "Hi 👋" message in background
-    _sendHiMessage(user.id);
+    // Real wave path only: the backend mirrors a 👋 into the chat itself.
+    _sendWave(user.id);
   }
 
   @override
