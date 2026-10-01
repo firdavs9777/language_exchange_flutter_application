@@ -43,4 +43,23 @@ void main() {
     expect(r.unavailable, false);
     expect(DailyMatchesResult.unavailableResult.unavailable, true);
   });
+
+  test('one junk row never takes down the list', () {
+    final r = DailyMatchesResult.fromJson({
+      'matches': [
+        {'user': {'_id': 'bad', 'location': 'x'}, 'responseRate': '0.8'},
+        {'user': {'_id': 'good', 'name': 'Ok'}},
+      ],
+      'nextRefreshAt': 'not-a-date',
+    });
+    expect(r.matches.length, greaterThanOrEqualTo(1));
+    expect(r.matches.last.user.name, 'Ok');
+    expect(r.nextRefreshAt, isNull);
+    expect(r.unavailable, false);
+  });
+
+  test('string responseRate parses to null', () {
+    final m = DailyMatch.fromJson({'user': 'u', 'responseRate': '0.8'});
+    expect(m.responseRate, isNull);
+  });
 }

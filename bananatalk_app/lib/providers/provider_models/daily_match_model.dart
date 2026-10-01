@@ -21,39 +21,52 @@ class DailyMatch {
     final rawReasons = json['matchReasons'];
     final rawBucket = json['lastActiveBucket'];
     return DailyMatch(
-      user: rawUser is Map<String, dynamic>
-          ? Community.fromJson(rawUser)
-          : Community(
-              id: rawUser?.toString() ?? '',
-              appleId: '',
-              googleId: '',
-              // Non-empty so a degenerate row never renders a blank name.
-              name: 'BananaTalk user',
-              email: '',
-              mbti: '',
-              bloodType: '',
-              bio: '',
-              images: [],
-              birth_day: '',
-              birth_month: '',
-              gender: '',
-              birth_year: '',
-              native_language: '',
-              language_to_learn: '',
-              imageUrls: [],
-              createdAt: '',
-              version: 0,
-              followers: [],
-              followings: [],
-              location: Location.defaultLocation(),
-            ),
+      user: _parseUser(rawUser),
       matchReasons:
           rawReasons is List ? rawReasons.whereType<String>().toList() : const [],
       reciprocal: json['reciprocal'] == true,
       lastActiveBucket: rawBucket is String ? rawBucket : null,
-      responseRate: (json['responseRate'] as num?)?.toDouble(),
+      responseRate: json['responseRate'] is num
+          ? (json['responseRate'] as num).toDouble()
+          : null,
     );
   }
+
+  static Community _parseUser(dynamic rawUser) {
+    if (rawUser is Map<String, dynamic>) {
+      try {
+        return Community.fromJson(rawUser);
+      } catch (_) {
+        return _stubUser(rawUser['_id']?.toString() ?? '');
+      }
+    }
+    return _stubUser(rawUser?.toString() ?? '');
+  }
+
+  static Community _stubUser(String id) => Community(
+        id: id,
+        appleId: '',
+        googleId: '',
+        // Non-empty so a degenerate row never renders a blank name.
+        name: 'BananaTalk user',
+        email: '',
+        mbti: '',
+        bloodType: '',
+        bio: '',
+        images: [],
+        birth_day: '',
+        birth_month: '',
+        gender: '',
+        birth_year: '',
+        native_language: '',
+        language_to_learn: '',
+        imageUrls: [],
+        createdAt: '',
+        version: 0,
+        followers: [],
+        followings: [],
+        location: Location.defaultLocation(),
+      );
 }
 
 class DailyMatchesResult {
@@ -76,14 +89,20 @@ class DailyMatchesResult {
   factory DailyMatchesResult.fromJson(Map<String, dynamic> json) {
     final raw = json['matches'];
     final next = json['nextRefreshAt'];
+    final rows = <DailyMatch>[];
+    if (raw is List) {
+      for (final row in raw) {
+        if (row is! Map<String, dynamic>) continue;
+        try {
+          rows.add(DailyMatch.fromJson(row));
+        } catch (_) {
+          // skip a bad row; keep the rest
+        }
+      }
+    }
     return DailyMatchesResult(
       nextRefreshAt: next == null ? null : DateTime.tryParse(next.toString()),
-      matches: raw is List
-          ? raw
-              .whereType<Map<String, dynamic>>()
-              .map(DailyMatch.fromJson)
-              .toList()
-          : const [],
+      matches: rows,
     );
   }
 }
