@@ -78,6 +78,10 @@ class AppConfig {
   /// predates the flag must keep asking for the sort it has always asked for.
   final bool smartSortEnabled;
 
+  /// Turns the redesigned Matches layout ON; off by default so an older
+  /// server (no flag) keeps the current layout.
+  final bool matchesLayoutEnabled;
+
   const AppConfig({
     required this.minVersion,
     required this.latestVersion,
@@ -91,6 +95,7 @@ class AppConfig {
     this.coinsEnabled = false,
     this.gatheringsEnabled = true,
     this.smartSortEnabled = false,
+    this.matchesLayoutEnabled = false,
   });
 
   factory AppConfig.fromJson(Map<String, dynamic> json) {
@@ -111,6 +116,7 @@ class AppConfig {
       coinsEnabled: (json['coinsEnabled'] as bool?) ?? false,
       gatheringsEnabled: (json['gatheringsEnabled'] as bool?) ?? true,
       smartSortEnabled: (json['smartSortEnabled'] as bool?) ?? false,
+      matchesLayoutEnabled: (json['matchesLayoutEnabled'] as bool?) ?? false,
     );
   }
 }

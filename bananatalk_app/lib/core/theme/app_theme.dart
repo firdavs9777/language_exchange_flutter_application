@@ -94,6 +94,17 @@ class AppColors {
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
   );
+
+  // Matching redesign tokens (spec 2026-10-01, "Visual reference")
+  static const Color matchAccent = Color(0xFFFFD23F);
+  static const Color matchInk = Color(0xFF1C1B17);
+  static const Color matchChipSurface = Color(0xFFF5F2E8);
+  static const Color matchReasonTint = Color(0xFFFDF4D7);
+  static const Color matchReasonText = Color(0xFF8A6D1A);
+  static const Color matchSuccess = Color(0xFF3F9C58);
+  static const Color matchSuccessTint = Color(0xFFEAF7EE);
+  static const Color matchMutedText = Color(0xFF8A8577);
+  static const Color matchHairline = Color(0xFFE9E4D6);
 }
 
 // ============================================================================
