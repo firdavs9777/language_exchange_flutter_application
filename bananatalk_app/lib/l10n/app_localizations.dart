@@ -15889,6 +15889,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Joined in the last 7 days'**
   String get segmentNewHint;
+
+  /// Chat opener for a reciprocal language pair
+  ///
+  /// In en, this message translates to:
+  /// **'Want to do half-{theirLanguage} half-{myLanguage} messages? I\'ll correct yours if you correct mine 😄'**
+  String openerReciprocal(String theirLanguage, String myLanguage);
+
+  /// Chat opener about a shared topic
+  ///
+  /// In en, this message translates to:
+  /// **'I saw you\'re into {topic} — what got you started?'**
+  String openerSharedTopic(String topic);
+
+  /// Generic chat opener
+  ///
+  /// In en, this message translates to:
+  /// **'Hi {name}! I\'m learning {language} — got any tips? 👋'**
+  String openerGeneric(String name, String language);
+
+  /// Caption above opener chips in an empty chat
+  ///
+  /// In en, this message translates to:
+  /// **'Conversation starters — tap to edit before sending'**
+  String get openerChipsTitle;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

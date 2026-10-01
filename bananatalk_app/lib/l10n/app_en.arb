@@ -5881,5 +5881,30 @@
   "segmentNewHint": "Joined in the last 7 days",
   "@segmentNewHint": {
     "description": "Explainer under the New members chip"
+  },
+  "openerReciprocal": "Want to do half-{theirLanguage} half-{myLanguage} messages? I'll correct yours if you correct mine 😄",
+  "@openerReciprocal": {
+    "description": "Chat opener for a reciprocal language pair",
+    "placeholders": {
+      "theirLanguage": { "type": "String" },
+      "myLanguage": { "type": "String" }
+    }
+  },
+  "openerSharedTopic": "I saw you're into {topic} — what got you started?",
+  "@openerSharedTopic": {
+    "description": "Chat opener about a shared topic",
+    "placeholders": { "topic": { "type": "String" } }
+  },
+  "openerGeneric": "Hi {name}! I'm learning {language} — got any tips? 👋",
+  "@openerGeneric": {
+    "description": "Generic chat opener",
+    "placeholders": {
+      "name": { "type": "String" },
+      "language": { "type": "String" }
+    }
+  },
+  "openerChipsTitle": "Conversation starters — tap to edit before sending",
+  "@openerChipsTitle": {
+    "description": "Caption above opener chips in an empty chat"
   }
 }

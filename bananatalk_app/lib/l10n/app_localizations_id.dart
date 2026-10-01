@@ -8582,4 +8582,22 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get segmentNewHint => 'Joined in the last 7 days';
+
+  @override
+  String openerReciprocal(String theirLanguage, String myLanguage) {
+    return 'Want to do half-$theirLanguage half-$myLanguage messages? I\'ll correct yours if you correct mine 😄';
+  }
+
+  @override
+  String openerSharedTopic(String topic) {
+    return 'I saw you\'re into $topic — what got you started?';
+  }
+
+  @override
+  String openerGeneric(String name, String language) {
+    return 'Hi $name! I\'m learning $language — got any tips? 👋';
+  }
+
+  @override
+  String get openerChipsTitle => 'Conversation starters — tap to edit before sending';
 }

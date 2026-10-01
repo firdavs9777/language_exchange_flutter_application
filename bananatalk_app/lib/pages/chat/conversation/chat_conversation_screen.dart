@@ -12,6 +12,7 @@ import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/user_limits_provider.dart';
 import 'package:bananatalk_app/providers/message_count_provider.dart';
 import 'package:bananatalk_app/utils/feature_gate.dart';
+import 'package:bananatalk_app/widgets/chat/opener_chips.dart';
 import 'package:bananatalk_app/widgets/limit_exceeded_dialog.dart';
 import 'package:bananatalk_app/widgets/image_preview_dialog.dart';
 import 'package:bananatalk_app/utils/api_error_handler.dart';
@@ -1837,6 +1838,24 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     super.dispose();
   }
 
+  /// Conversation starters for a brand-new thread. Picking one only fills the
+  /// composer (editable); it never sends.
+  Widget _buildOpenerChips() {
+    final me = ref.watch(userProvider).valueOrNull;
+    final partner = ref.watch(singleCommunityProvider(widget.userId)).valueOrNull;
+    if (me == null || partner == null) return const SizedBox.shrink();
+    return OpenerChips(
+      me: me,
+      partner: partner,
+      onPick: (text) {
+        _messageController.text = text;
+        _messageController.selection = TextSelection.collapsed(
+          offset: text.length,
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     if (_currentUserId == null) {
@@ -1959,6 +1978,11 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                     onScrollToBottom: _scrollToBottom,
                   ),
                 ),
+                if (!chatState.isLoading &&
+                    chatState.error.isEmpty &&
+                    chatState.messages.isEmpty &&
+                    !_isBlockedChat)
+                  _buildOpenerChips(),
                 ConversationInputArea(
                   isBlockedChat: _isBlockedChat,
                   messageController: _messageController,

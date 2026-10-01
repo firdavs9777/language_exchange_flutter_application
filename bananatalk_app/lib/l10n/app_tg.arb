@@ -3047,5 +3047,9 @@
   "segmentSerious": "Serious learners",
   "segmentNew": "New members",
   "segmentSeriousHint": "Complete profile · active this week · replies to messages",
-  "segmentNewHint": "Joined in the last 7 days"
+  "segmentNewHint": "Joined in the last 7 days",
+  "openerReciprocal": "Want to do half-{theirLanguage} half-{myLanguage} messages? I'll correct yours if you correct mine 😄",
+  "openerSharedTopic": "I saw you're into {topic} — what got you started?",
+  "openerGeneric": "Hi {name}! I'm learning {language} — got any tips? 👋",
+  "openerChipsTitle": "Conversation starters — tap to edit before sending"
 }
