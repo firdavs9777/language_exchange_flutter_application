@@ -520,7 +520,7 @@ class ReportService {
       }
 
       final url = Uri.parse(
-          '${Endpoints.baseURL}/api/v1/reports/$reportId/evidence');
+          '${Endpoints.baseURL}reports/$reportId/evidence');
 
       final request = http.MultipartRequest('POST', url);
       request.headers['Authorization'] = 'Bearer $token';
