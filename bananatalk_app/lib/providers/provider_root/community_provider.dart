@@ -45,6 +45,9 @@ class CommunityService {
     String? languageLevel,
     String? search, // Server-side search
     String? sort, // e.g. 'recently_active'
+    bool reciprocal = false,
+    String? activeWithin, // '7d' | '30d'
+    String? joinedWithin, // '7d' | '30d'
   }) async {
     try {
       final headers = await _getHeaders();
@@ -88,6 +91,14 @@ class CommunityService {
       // Sort order
       if (sort != null && sort.isNotEmpty) {
         queryParams['sort'] = sort;
+      }
+      // Segment params (additive; only '7d'/'30d' are honored server-side)
+      if (reciprocal) queryParams['reciprocal'] = 'true';
+      if (activeWithin != null && activeWithin.isNotEmpty) {
+        queryParams['activeWithin'] = activeWithin;
+      }
+      if (joinedWithin != null && joinedWithin.isNotEmpty) {
+        queryParams['joinedWithin'] = joinedWithin;
       }
 
       final url = Uri.parse(
@@ -1053,6 +1064,9 @@ class PartnerFilterParams {
   final String? languageLevel;
   final String? search; // Server-side search query
   final String? sort; // e.g. 'recently_active'
+  final bool reciprocal;
+  final String? activeWithin; // '7d' | '30d'
+  final String? joinedWithin; // '7d' | '30d'
 
   const PartnerFilterParams({
     this.nativeLanguage,
@@ -1065,7 +1079,42 @@ class PartnerFilterParams {
     this.languageLevel,
     this.search,
     this.sort,
+    this.reciprocal = false,
+    this.activeWithin,
+    this.joinedWithin,
   });
+
+  PartnerFilterParams copyWith({
+    String? nativeLanguage,
+    String? learningLanguage,
+    String? gender,
+    int? minAge,
+    int? maxAge,
+    bool? onlineOnly,
+    String? country,
+    String? languageLevel,
+    String? search,
+    String? sort,
+    bool? reciprocal,
+    String? activeWithin,
+    String? joinedWithin,
+  }) {
+    return PartnerFilterParams(
+      nativeLanguage: nativeLanguage ?? this.nativeLanguage,
+      learningLanguage: learningLanguage ?? this.learningLanguage,
+      gender: gender ?? this.gender,
+      minAge: minAge ?? this.minAge,
+      maxAge: maxAge ?? this.maxAge,
+      onlineOnly: onlineOnly ?? this.onlineOnly,
+      country: country ?? this.country,
+      languageLevel: languageLevel ?? this.languageLevel,
+      search: search ?? this.search,
+      sort: sort ?? this.sort,
+      reciprocal: reciprocal ?? this.reciprocal,
+      activeWithin: activeWithin ?? this.activeWithin,
+      joinedWithin: joinedWithin ?? this.joinedWithin,
+    );
+  }
 
   @override
   bool operator ==(Object other) =>
@@ -1080,7 +1129,10 @@ class PartnerFilterParams {
           country == other.country &&
           languageLevel == other.languageLevel &&
           search == other.search &&
-          sort == other.sort;
+          sort == other.sort &&
+          reciprocal == other.reciprocal &&
+          activeWithin == other.activeWithin &&
+          joinedWithin == other.joinedWithin;
 
   @override
   int get hashCode =>
@@ -1093,8 +1145,29 @@ class PartnerFilterParams {
       country.hashCode ^
       languageLevel.hashCode ^
       search.hashCode ^
-      sort.hashCode;
+      sort.hashCode ^
+      reciprocal.hashCode ^
+      activeWithin.hashCode ^
+      joinedWithin.hashCode;
 }
+
+/// Quick segment over the partner list (mutually exclusive).
+enum PartnerSegment {
+  all,
+  serious,
+  newMembers;
+
+  /// Recency window sent as `activeWithin` (null = not restricted).
+  String? get activeWithin => this == serious ? '7d' : null;
+
+  /// Join window sent as `joinedWithin` (null = not restricted).
+  String? get joinedWithin => this == newMembers ? '7d' : null;
+}
+
+/// Currently selected partner segment. Shared so the filter sheet's live
+/// count can request the same segment as the list.
+final partnerSegmentProvider =
+    StateProvider<PartnerSegment>((ref) => PartnerSegment.all);
 
 /// State for server-side filtered partners
 class PartnerFilterState {
@@ -1195,6 +1268,9 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
         languageLevel: filters.languageLevel,
         search: filters.search,
         sort: _sortFor(filters),
+        reciprocal: filters.reciprocal,
+        activeWithin: filters.activeWithin,
+        joinedWithin: filters.joinedWithin,
       );
 
       // If 0 results returned, set hasMore to false to prevent infinite loading
@@ -1238,6 +1314,9 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
         // every later page used the server's VIP/online order — duplicating
         // some people and dropping others across the page boundary.
         sort: _sortFor(state.filters!),
+        reciprocal: state.filters!.reciprocal,
+        activeWithin: state.filters!.activeWithin,
+        joinedWithin: state.filters!.joinedWithin,
       );
 
       // If 0 results returned on load more, stop trying to load more

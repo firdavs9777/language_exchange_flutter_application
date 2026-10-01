@@ -191,7 +191,12 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
 
   /// Serialises the current sheet state into a plain Map for the count endpoint.
   Map<String, dynamic> _buildDraftFiltersMap() {
+    // The partner segment lives outside the sheet; the count must honor it so
+    // it matches the list behind the sheet (it cannot change while open).
+    final segment = ref.read(partnerSegmentProvider);
     return {
+      if (segment.activeWithin != null) 'activeWithin': segment.activeWithin,
+      if (segment.joinedWithin != null) 'joinedWithin': segment.joinedWithin,
       'minAge': _minAge.toInt(),
       'maxAge': _maxAge.toInt(),
       if (_selectedGender != null) 'gender': _selectedGender!.toLowerCase(),

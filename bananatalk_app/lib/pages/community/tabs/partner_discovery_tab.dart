@@ -25,6 +25,7 @@ import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/pages/community/widgets/community_filter_chip.dart';
 import 'package:bananatalk_app/pages/community/widgets/visitor_recall_card.dart';
+import 'package:bananatalk_app/pages/community/widgets/partner_segment_chips.dart';
 
 /// View mode for partner discovery
 enum PartnerViewMode { list, swipe }
@@ -193,7 +194,11 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
   ///
   /// So when the user selects "Native Language: French" (wants to SEE French
   /// speakers), we pass it as learningLanguage to the API.
-  PartnerFilterParams _buildFilterParams(String? myNative, String? myLearning) {
+  PartnerFilterParams _buildFilterParams(
+    String? myNative,
+    String? myLearning,
+    PartnerSegment segment,
+  ) {
     final filterNative = widget.filters['nativeLanguage']?.toString();
     final filterLearning = widget.filters['learningLanguage']?.toString();
 
@@ -235,6 +240,8 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
       languageLevel: widget.filters['languageLevel']?.toString(),
       search: widget.searchQuery.isNotEmpty ? widget.searchQuery : null,
       sort: _sort,
+      activeWithin: segment.activeWithin,
+      joinedWithin: segment.joinedWithin,
     );
   }
 
@@ -316,12 +323,14 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
     final partnerState = ref.watch(partnerFilterProvider);
     final currentUserAsync = ref.watch(userProvider);
     final blockedUserIdsAsync = ref.watch(blockedUserIdsProvider);
+    final segment = ref.watch(partnerSegmentProvider);
 
     return currentUserAsync.when(
       data: (currentUser) {
         final filterParams = _buildFilterParams(
           currentUser.native_language,
           currentUser.language_to_learn,
+          segment,
         );
 
         // Reload when filters or search query change (or on first build).
@@ -375,7 +384,13 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
 
         if (filteredCommunities.isEmpty) {
           if (partnerState.isLoadingMore) return _buildLoading();
-          return _buildEmptyState();
+          // Keep the segment row visible so an empty segment is escapable.
+          return Column(
+            children: [
+              const PartnerSegmentChips(),
+              Expanded(child: _buildEmptyState()),
+            ],
+          );
         }
 
         final myCoords = currentUser.location.coordinates;
@@ -403,6 +418,7 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  const PartnerSegmentChips(),
                   _buildViewToggle(),
                   _buildQuickFilterChips(currentUser),
                 ],

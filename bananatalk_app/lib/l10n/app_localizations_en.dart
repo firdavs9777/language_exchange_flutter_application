@@ -8576,4 +8576,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get communityTabPartners => 'Partners';
+
+  @override
+  String get segmentAll => 'All';
+
+  @override
+  String get segmentSerious => 'Serious learners';
+
+  @override
+  String get segmentNew => 'New members';
+
+  @override
+  String get segmentSeriousHint => 'Complete profile · active this week · replies to messages';
+
+  @override
+  String get segmentNewHint => 'Joined in the last 7 days';
 }

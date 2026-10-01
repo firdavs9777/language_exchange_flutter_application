@@ -3789,5 +3789,10 @@
   "matchesEmptyCta": "Browse partners",
   "matchSayHi": "Say hi",
   "communityTabMatches": "Matches",
-  "communityTabPartners": "Partners"
+  "communityTabPartners": "Partners",
+  "segmentAll": "All",
+  "segmentSerious": "Serious learners",
+  "segmentNew": "New members",
+  "segmentSeriousHint": "Complete profile · active this week · replies to messages",
+  "segmentNewHint": "Joined in the last 7 days"
 }

@@ -5861,5 +5861,25 @@
   "communityTabPartners": "Partners",
   "@communityTabPartners": {
     "description": "Community tab: browse all partners (replaces All in the new layout)"
+  },
+  "segmentAll": "All",
+  "@segmentAll": {
+    "description": "Partners segment chip: no segment filter"
+  },
+  "segmentSerious": "Serious learners",
+  "@segmentSerious": {
+    "description": "Partners segment chip: active, complete-profile learners"
+  },
+  "segmentNew": "New members",
+  "@segmentNew": {
+    "description": "Partners segment chip: recently joined members"
+  },
+  "segmentSeriousHint": "Complete profile · active this week · replies to messages",
+  "@segmentSeriousHint": {
+    "description": "Explainer under the Serious learners chip"
+  },
+  "segmentNewHint": "Joined in the last 7 days",
+  "@segmentNewHint": {
+    "description": "Explainer under the New members chip"
   }
 }

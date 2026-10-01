@@ -15859,6 +15859,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Partners'**
   String get communityTabPartners;
+
+  /// Partners segment chip: no segment filter
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get segmentAll;
+
+  /// Partners segment chip: active, complete-profile learners
+  ///
+  /// In en, this message translates to:
+  /// **'Serious learners'**
+  String get segmentSerious;
+
+  /// Partners segment chip: recently joined members
+  ///
+  /// In en, this message translates to:
+  /// **'New members'**
+  String get segmentNew;
+
+  /// Explainer under the Serious learners chip
+  ///
+  /// In en, this message translates to:
+  /// **'Complete profile · active this week · replies to messages'**
+  String get segmentSeriousHint;
+
+  /// Explainer under the New members chip
+  ///
+  /// In en, this message translates to:
+  /// **'Joined in the last 7 days'**
+  String get segmentNewHint;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
