@@ -78,8 +78,7 @@ import 'app_localizations_zh.dart';
 /// be consistent with the languages listed in the AppLocalizations.supportedLocales
 /// property.
 abstract class AppLocalizations {
-  AppLocalizations(String locale)
-    : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+  AppLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -87,8 +86,7 @@ abstract class AppLocalizations {
     return Localizations.of<AppLocalizations>(context, AppLocalizations);
   }
 
-  static const LocalizationsDelegate<AppLocalizations> delegate =
-      _AppLocalizationsDelegate();
+  static const LocalizationsDelegate<AppLocalizations> delegate = _AppLocalizationsDelegate();
 
   /// A list of this localizations delegate along with the default localizations
   /// delegates.
@@ -100,13 +98,12 @@ abstract class AppLocalizations {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
-      <LocalizationsDelegate<dynamic>>[
-        delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ];
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
+    delegate,
+    GlobalMaterialLocalizations.delegate,
+    GlobalCupertinoLocalizations.delegate,
+    GlobalWidgetsLocalizations.delegate,
+  ];
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
@@ -128,7 +125,7 @@ abstract class AppLocalizations {
     Locale('tr'),
     Locale('vi'),
     Locale('zh'),
-    Locale('zh', 'TW'),
+    Locale('zh', 'TW')
   ];
 
   /// The application name
@@ -15778,10 +15775,81 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Watch Ad'**
   String get watchAd;
+
+  /// Reason chip on a daily match: both users learn each other's language
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re learning each other\'s language'**
+  String get matchReasonReciprocal;
+
+  /// Reason chip: candidate shares the user's target language
+  ///
+  /// In en, this message translates to:
+  /// **'Also learning {language}'**
+  String matchReasonSameTarget(String language);
+
+  /// Reason chip: a shared interest topic
+  ///
+  /// In en, this message translates to:
+  /// **'Shared interest: {topic}'**
+  String matchReasonSharedTopic(String topic);
+
+  /// Reason chip: candidate was active today
+  ///
+  /// In en, this message translates to:
+  /// **'Active today'**
+  String get matchReasonActiveToday;
+
+  /// Reason chip: same city
+  ///
+  /// In en, this message translates to:
+  /// **'Lives in your city'**
+  String get matchReasonSameCity;
+
+  /// Tag on a match card for users with a high response rate
+  ///
+  /// In en, this message translates to:
+  /// **'Replies fast'**
+  String get matchRepliesFast;
+
+  /// Header of the Matches tab
+  ///
+  /// In en, this message translates to:
+  /// **'Your {count} matches today'**
+  String matchesTodayTitle(int count);
+
+  /// Muted hint under the Matches tab header
+  ///
+  /// In en, this message translates to:
+  /// **'refreshes at midnight'**
+  String get matchesRefreshHint;
+
+  /// Matches tab empty state title
+  ///
+  /// In en, this message translates to:
+  /// **'That\'s everyone for today'**
+  String get matchesEmptyTitle;
+
+  /// Matches tab empty state body
+  ///
+  /// In en, this message translates to:
+  /// **'Fresh matches tomorrow. Meanwhile, browse all partners.'**
+  String get matchesEmptyBody;
+
+  /// Matches tab empty state button
+  ///
+  /// In en, this message translates to:
+  /// **'Browse partners'**
+  String get matchesEmptyCta;
+
+  /// Primary action on a daily match card: open a chat
+  ///
+  /// In en, this message translates to:
+  /// **'Say hi'**
+  String get matchSayHi;
 }
 
-class _AppLocalizationsDelegate
-    extends LocalizationsDelegate<AppLocalizations> {
+class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
   const _AppLocalizationsDelegate();
 
   @override
@@ -15790,88 +15858,50 @@ class _AppLocalizationsDelegate
   }
 
   @override
-  bool isSupported(Locale locale) => <String>[
-    'ar',
-    'de',
-    'en',
-    'es',
-    'fr',
-    'hi',
-    'id',
-    'it',
-    'ja',
-    'ko',
-    'pt',
-    'ru',
-    'tg',
-    'th',
-    'tl',
-    'tr',
-    'vi',
-    'zh',
-  ].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>['ar', 'de', 'en', 'es', 'fr', 'hi', 'id', 'it', 'ja', 'ko', 'pt', 'ru', 'tg', 'th', 'tl', 'tr', 'vi', 'zh'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
 }
 
 AppLocalizations lookupAppLocalizations(Locale locale) {
+
   // Lookup logic when language+country codes are specified.
   switch (locale.languageCode) {
-    case 'zh':
-      {
-        switch (locale.countryCode) {
-          case 'TW':
-            return AppLocalizationsZhTw();
-        }
-        break;
-      }
+    case 'zh': {
+  switch (locale.countryCode) {
+    case 'TW': return AppLocalizationsZhTw();
+   }
+  break;
+   }
   }
 
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'ar':
-      return AppLocalizationsAr();
-    case 'de':
-      return AppLocalizationsDe();
-    case 'en':
-      return AppLocalizationsEn();
-    case 'es':
-      return AppLocalizationsEs();
-    case 'fr':
-      return AppLocalizationsFr();
-    case 'hi':
-      return AppLocalizationsHi();
-    case 'id':
-      return AppLocalizationsId();
-    case 'it':
-      return AppLocalizationsIt();
-    case 'ja':
-      return AppLocalizationsJa();
-    case 'ko':
-      return AppLocalizationsKo();
-    case 'pt':
-      return AppLocalizationsPt();
-    case 'ru':
-      return AppLocalizationsRu();
-    case 'tg':
-      return AppLocalizationsTg();
-    case 'th':
-      return AppLocalizationsTh();
-    case 'tl':
-      return AppLocalizationsTl();
-    case 'tr':
-      return AppLocalizationsTr();
-    case 'vi':
-      return AppLocalizationsVi();
-    case 'zh':
-      return AppLocalizationsZh();
+    case 'ar': return AppLocalizationsAr();
+    case 'de': return AppLocalizationsDe();
+    case 'en': return AppLocalizationsEn();
+    case 'es': return AppLocalizationsEs();
+    case 'fr': return AppLocalizationsFr();
+    case 'hi': return AppLocalizationsHi();
+    case 'id': return AppLocalizationsId();
+    case 'it': return AppLocalizationsIt();
+    case 'ja': return AppLocalizationsJa();
+    case 'ko': return AppLocalizationsKo();
+    case 'pt': return AppLocalizationsPt();
+    case 'ru': return AppLocalizationsRu();
+    case 'tg': return AppLocalizationsTg();
+    case 'th': return AppLocalizationsTh();
+    case 'tl': return AppLocalizationsTl();
+    case 'tr': return AppLocalizationsTr();
+    case 'vi': return AppLocalizationsVi();
+    case 'zh': return AppLocalizationsZh();
   }
 
   throw FlutterError(
     'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
     'an issue with the localizations generation tool. Please file an issue '
     'on GitHub with a reproducible sample app and the gen-l10n configuration '
-    'that was used.',
+    'that was used.'
   );
 }

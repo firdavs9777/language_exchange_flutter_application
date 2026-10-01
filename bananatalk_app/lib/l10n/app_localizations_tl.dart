@@ -15,8 +15,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get aiStudyPromoTitle => 'Magsanay gamit ang AI scenarios';
 
   @override
-  String get aiStudyPromoBody =>
-      'Mag-roleplay ng totoong-buhay na usapan kasama ang iyong AI tutor at palakasin ang tiwala sa pagsasalita.';
+  String get aiStudyPromoBody => 'Mag-roleplay ng totoong-buhay na usapan kasama ang iyong AI tutor at palakasin ang tiwala sa pagsasalita.';
 
   @override
   String get aiStudyPromoCTA => 'Subukan ang isang scenario';
@@ -25,26 +24,22 @@ class AppLocalizationsTl extends AppLocalizations {
   String get aiStudyPromoDismiss => 'Sa susunod na lang';
 
   @override
-  String get promoSpotlightCoinsHeadline =>
-      'Huwag nang maubusan ng coins sa gitna ng usapan';
+  String get promoSpotlightCoinsHeadline => 'Huwag nang maubusan ng coins sa gitna ng usapan';
 
   @override
-  String get promoSpotlightCoinsSubtitle =>
-      'Kumuha ng coins para ma-unlock ang extra na pagsasalin, chat sa tutor, at moments sa tuwing maaabot mo ang iyong daily limit.';
+  String get promoSpotlightCoinsSubtitle => 'Kumuha ng coins para ma-unlock ang extra na pagsasalin, chat sa tutor, at moments sa tuwing maaabot mo ang iyong daily limit.';
 
   @override
   String get promoSpotlightRoomsHeadline => 'Sumali sa isang topic room';
 
   @override
-  String get promoSpotlightRoomsSubtitle =>
-      'Pumasok sa isang live na text room at mag-practice kasama ang mga learner na nag-uusap tungkol sa mga paksang mahalaga sa\'yo.';
+  String get promoSpotlightRoomsSubtitle => 'Pumasok sa isang live na text room at mag-practice kasama ang mga learner na nag-uusap tungkol sa mga paksang mahalaga sa\'yo.';
 
   @override
   String get promoSpotlightVoiceHeadline => 'Pumasok sa isang voice room';
 
   @override
-  String get promoSpotlightVoiceSubtitle =>
-      'Makipag-usap nang live sa ibang mga learner at magkaroon ng tunay na tiwala sa pagsasalita, isang usapan sa isang pagkakataon.';
+  String get promoSpotlightVoiceSubtitle => 'Makipag-usap nang live sa ibang mga learner at magkaroon ng tunay na tiwala sa pagsasalita, isang usapan sa isang pagkakataon.';
 
   @override
   String get promoSpotlightTryIt => 'Subukan';
@@ -234,8 +229,7 @@ class AppLocalizationsTl extends AppLocalizations {
   }
 
   @override
-  String get youCanOverride =>
-      'Maaari mong baguhin ang wika ng device sa ibaba.';
+  String get youCanOverride => 'Maaari mong baguhin ang wika ng device sa ibaba.';
 
   @override
   String languageChangedTo(String name) {
@@ -249,20 +243,16 @@ class AppLocalizationsTl extends AppLocalizations {
   String get autoTranslateSettings => 'Mga Setting ng Auto-Translate';
 
   @override
-  String get automaticallyTranslateIncomingMessages =>
-      'Awtomatikong i-translate ang mga papasok na mensahe';
+  String get automaticallyTranslateIncomingMessages => 'Awtomatikong i-translate ang mga papasok na mensahe';
 
   @override
-  String get automaticallyTranslateMomentsInFeed =>
-      'Awtomatikong i-translate ang mga sandali sa feed';
+  String get automaticallyTranslateMomentsInFeed => 'Awtomatikong i-translate ang mga sandali sa feed';
 
   @override
-  String get automaticallyTranslateComments =>
-      'Awtomatikong i-translate ang mga komento';
+  String get automaticallyTranslateComments => 'Awtomatikong i-translate ang mga komento';
 
   @override
-  String get translationServiceBeingConfigured =>
-      'Ini-configure ang translation service. Subukan muli mamaya.';
+  String get translationServiceBeingConfigured => 'Ini-configure ang translation service. Subukan muli mamaya.';
 
   @override
   String get translationUnavailable => 'Hindi available ang translation';
@@ -298,8 +288,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get deleteMoment => 'Burahin ang Sandali?';
 
   @override
-  String get thisActionCannotBeUndone =>
-      'Hindi na maaaring bawiin ang aksyong ito.';
+  String get thisActionCannotBeUndone => 'Hindi na maaaring bawiin ang aksyong ito.';
 
   @override
   String get momentDeleted => 'Nabura ang sandali';
@@ -317,15 +306,13 @@ class AppLocalizationsTl extends AppLocalizations {
   String get userNotFound => 'Hindi nahanap ang user';
 
   @override
-  String get cannotReportYourOwnComment =>
-      'Hindi mo maaaring i-report ang sarili mong komento';
+  String get cannotReportYourOwnComment => 'Hindi mo maaaring i-report ang sarili mong komento';
 
   @override
   String get profileSettings => 'Mga Setting ng Profile';
 
   @override
-  String get editYourProfileInformation =>
-      'I-edit ang impormasyon ng iyong profile';
+  String get editYourProfileInformation => 'I-edit ang impormasyon ng iyong profile';
 
   @override
   String get blockedUsers => 'Mga Na-block na User';
@@ -334,8 +321,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get manageBlockedUsers => 'Pamahalaan ang mga na-block na user';
 
   @override
-  String get manageNotificationSettings =>
-      'Pamahalaan ang mga setting ng notipikasyon';
+  String get manageNotificationSettings => 'Pamahalaan ang mga setting ng notipikasyon';
 
   @override
   String get privacySecurity => 'Privacy at Seguridad';
@@ -359,19 +345,16 @@ class AppLocalizationsTl extends AppLocalizations {
   String get clearCacheSubtitle => 'Magpalaya ng espasyo sa storage';
 
   @override
-  String get clearCacheDescription =>
-      'Iki-clear nito ang lahat ng cached na mga larawan, video, at audio file. Maaaring mas mabagal mag-load ng content ang app pansamantala habang dine-download muli ang media.';
+  String get clearCacheDescription => 'Iki-clear nito ang lahat ng cached na mga larawan, video, at audio file. Maaaring mas mabagal mag-load ng content ang app pansamantala habang dine-download muli ang media.';
 
   @override
-  String get clearCacheHint =>
-      'Gamitin ito kung hindi nag-loload nang maayos ang mga larawan o audio.';
+  String get clearCacheHint => 'Gamitin ito kung hindi nag-loload nang maayos ang mga larawan o audio.';
 
   @override
   String get clearingCache => 'Nag-clear ng cache...';
 
   @override
-  String get cacheCleared =>
-      'Matagumpay na na-clear ang cache! Mare-reload ang mga larawan.';
+  String get cacheCleared => 'Matagumpay na na-clear ang cache! Mare-reload ang mga larawan.';
 
   @override
   String get clearCacheFailed => 'Hindi ma-clear ang cache';
@@ -380,8 +363,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get myReports => 'Mga Report Ko';
 
   @override
-  String get viewYourSubmittedReports =>
-      'Tingnan ang iyong mga na-submit na report';
+  String get viewYourSubmittedReports => 'Tingnan ang iyong mga na-submit na report';
 
   @override
   String get reportsManagement => 'Pamamahala ng mga Report';
@@ -393,8 +375,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get legalPrivacy => 'Legal at Privacy';
 
   @override
-  String get termsPrivacySubscriptionInfo =>
-      'Terms, Privacy at impormasyon ng subscription';
+  String get termsPrivacySubscriptionInfo => 'Terms, Privacy at impormasyon ng subscription';
 
   @override
   String get helpCenter => 'Help Center';
@@ -417,8 +398,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get aiTutorHeroTitleNew => 'Kilalanin ang iyong AI Tutor';
 
   @override
-  String get aiTutorHeroSubtitleSet =>
-      'I-tap para mag-chat o tingnan ang plano ngayong araw';
+  String get aiTutorHeroSubtitleSet => 'I-tap para mag-chat o tingnan ang plano ngayong araw';
 
   @override
   String aiTutorHeroSubtitleLast(String summary) {
@@ -426,8 +406,7 @@ class AppLocalizationsTl extends AppLocalizations {
   }
 
   @override
-  String get aiTutorHeroSubtitleNew =>
-      'Pumili ng karakter — Nana, Sensei, o Riko';
+  String get aiTutorHeroSubtitleNew => 'Pumili ng karakter — Nana, Sensei, o Riko';
 
   @override
   String get aiTutorChipChat => 'Chat';
@@ -448,8 +427,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get aiConversationPartnerTile => 'AI na Pag-uusap';
 
   @override
-  String get aiConversationPartnerTileSubtitle =>
-      'Magsanay kasama ang AI partner';
+  String get aiConversationPartnerTileSubtitle => 'Magsanay kasama ang AI partner';
 
   @override
   String get aiTutorPickerTitle => 'Pumili ng AI tutor';
@@ -458,8 +436,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get aiTutorPickerHeader => 'Kanino mo gustong matuto?';
 
   @override
-  String get aiTutorPickerSubtitle =>
-      'Maaari mong baguhin ito anumang oras sa settings.';
+  String get aiTutorPickerSubtitle => 'Maaari mong baguhin ito anumang oras sa settings.';
 
   @override
   String get aiTutorPersonaNanaTagline => 'Mainit + nagpapalakas-loob';
@@ -471,8 +448,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get aiTutorPersonaSenseiTagline => 'Tumpak + para sa eksam';
 
   @override
-  String get aiTutorPersonaSenseiSample =>
-      'Pakakahusayin natin ang mga tuntunin.';
+  String get aiTutorPersonaSenseiSample => 'Pakakahusayin natin ang mga tuntunin.';
 
   @override
   String get aiTutorPersonaRikoTagline => 'Mapaglaro + slangy';
@@ -498,8 +474,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get aiTutorHomeTodaysPlan => 'Plano ngayong araw';
 
   @override
-  String get aiTutorHomePlanEmpty =>
-      'Walang plano ngayon — magsimula ng chat para magsimula.';
+  String get aiTutorHomePlanEmpty => 'Walang plano ngayon — magsimula ng chat para magsimula.';
 
   @override
   String get aiTutorHomeStartChat => 'Simulan ang chat';
@@ -511,22 +486,19 @@ class AppLocalizationsTl extends AppLocalizations {
   String get aiTutorHomePracticeScenarios => 'Mga scenario ng pagsasanay';
 
   @override
-  String get aiTutorHomePracticeScenariosSubtitle =>
-      'Mag-roleplay ng totoong usapan — restawran, interview, hotel…';
+  String get aiTutorHomePracticeScenariosSubtitle => 'Mag-roleplay ng totoong usapan — restawran, interview, hotel…';
 
   @override
   String get aiTutorHomeReadStory => 'Magbasa ng kuwento';
 
   @override
-  String get aiTutorHomeReadStorySubtitle =>
-      'Sumusulat ang AI ng maikling kuwento gamit ang iyong bokabularyo — may mabilis na pang-unawang tanong.';
+  String get aiTutorHomeReadStorySubtitle => 'Sumusulat ang AI ng maikling kuwento gamit ang iyong bokabularyo — may mabilis na pang-unawang tanong.';
 
   @override
   String get aiTutorHomeDescribePhoto => 'Ilarawan ang larawan';
 
   @override
-  String get aiTutorHomeDescribePhotoSubtitle =>
-      'Kumuha ng larawan at ilarawan — minamarkahan ng AI ang bokabularyo + gramatika.';
+  String get aiTutorHomeDescribePhotoSubtitle => 'Kumuha ng larawan at ilarawan — minamarkahan ng AI ang bokabularyo + gramatika.';
 
   @override
   String get aiTutorChatTitle => 'Chat kasama ang tutor';
@@ -556,8 +528,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get aiTutorChatTypeReplyHint => 'Mag-type ng sagot…';
 
   @override
-  String get aiTutorChatMicPermissionDenied =>
-      'Kailangan ng pahintulot ng mikropono para sa voice mode.';
+  String get aiTutorChatMicPermissionDenied => 'Kailangan ng pahintulot ng mikropono para sa voice mode.';
 
   @override
   String get aiTutorChatTranscribeFailed => 'Hindi narinig — subukan ulit.';
@@ -661,8 +632,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get aiTutorImagePickHeader => 'Pumili ng larawang ilalarawan';
 
   @override
-  String get aiTutorImagePickSubtitle =>
-      'Bibigyan ka ng AI ng prompt sa iyong target na wika, tapos imamarka ang iyong paglalarawan.';
+  String get aiTutorImagePickSubtitle => 'Bibigyan ka ng AI ng prompt sa iyong target na wika, tapos imamarka ang iyong paglalarawan.';
 
   @override
   String get aiTutorImagePickCamera => 'Kamera';
@@ -762,8 +732,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get deleteAccount => 'Burahin ang Account';
 
   @override
-  String get permanentlyDeleteYourAccount =>
-      'Permanenteng burahin ang iyong account';
+  String get permanentlyDeleteYourAccount => 'Permanenteng burahin ang iyong account';
 
   @override
   String get loggedOutSuccessfully => 'Matagumpay na nag-logout';
@@ -801,8 +770,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get searchConversations => 'Maghanap ng mga usapan...';
 
   @override
-  String get visitorTrackingNotAvailable =>
-      'Hindi pa available ang visitor tracking feature. Kailangan ng backend update.';
+  String get visitorTrackingNotAvailable => 'Hindi pa available ang visitor tracking feature. Kailangan ng backend update.';
 
   @override
   String get chatList => 'Listahan ng Chat';
@@ -871,8 +839,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get enableNotifications => 'I-enable ang mga Notipikasyon';
 
   @override
-  String get turnAllNotificationsOnOrOff =>
-      'I-on o i-off ang lahat ng notipikasyon';
+  String get turnAllNotificationsOnOrOff => 'I-on o i-off ang lahat ng notipikasyon';
 
   @override
   String get notificationTypes => 'Mga Uri ng Notipikasyon';
@@ -881,16 +848,13 @@ class AppLocalizationsTl extends AppLocalizations {
   String get chatMessages => 'Mga Mensahe sa Chat';
 
   @override
-  String get getNotifiedWhenYouReceiveMessages =>
-      'Maabisuhan kapag nakatanggap ka ng mga mensahe';
+  String get getNotifiedWhenYouReceiveMessages => 'Maabisuhan kapag nakatanggap ka ng mga mensahe';
 
   @override
-  String get likesAndCommentsOnYourMoments =>
-      'Mga like at komento sa iyong mga sandali';
+  String get likesAndCommentsOnYourMoments => 'Mga like at komento sa iyong mga sandali';
 
   @override
-  String get whenPeopleYouFollowPostMoments =>
-      'Kapag nag-post ng mga sandali ang mga taong sinusundan mo';
+  String get whenPeopleYouFollowPostMoments => 'Kapag nag-post ng mga sandali ang mga taong sinusundan mo';
 
   @override
   String get friendRequests => 'Mga Friend Request';
@@ -902,15 +866,13 @@ class AppLocalizationsTl extends AppLocalizations {
   String get profileVisits => 'Mga Bisita sa Profile';
 
   @override
-  String get whenSomeoneViewsYourProfileVIP =>
-      'Kapag may tumingin sa iyong profile (VIP)';
+  String get whenSomeoneViewsYourProfileVIP => 'Kapag may tumingin sa iyong profile (VIP)';
 
   @override
   String get marketing => 'Marketing';
 
   @override
-  String get updatesAndPromotionalMessages =>
-      'Mga update at promotional na mensahe';
+  String get updatesAndPromotionalMessages => 'Mga update at promotional na mensahe';
 
   @override
   String get notificationPreferences => 'Mga Kagustuhan sa Notipikasyon';
@@ -919,8 +881,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get sound => 'Tunog';
 
   @override
-  String get playNotificationSounds =>
-      'Magpatugtog ng mga tunog ng notipikasyon';
+  String get playNotificationSounds => 'Magpatugtog ng mga tunog ng notipikasyon';
 
   @override
   String get vibration => 'Vibration';
@@ -932,8 +893,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get showPreview => 'Ipakita ang Preview';
 
   @override
-  String get showMessagePreviewInNotifications =>
-      'Ipakita ang preview ng mensahe sa mga notipikasyon';
+  String get showMessagePreviewInNotifications => 'Ipakita ang preview ng mensahe sa mga notipikasyon';
 
   @override
   String get mutedConversations => 'Mga Naka-mute na Usapan';
@@ -951,8 +911,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get systemNotificationSettings => 'Mga Setting ng System Notification';
 
   @override
-  String get manageNotificationsInSystemSettings =>
-      'Pamahalaan ang mga notipikasyon sa system settings';
+  String get manageNotificationsInSystemSettings => 'Pamahalaan ang mga notipikasyon sa system settings';
 
   @override
   String get errorLoadingSettings => 'Error sa paglo-load ng mga setting';
@@ -967,19 +926,16 @@ class AppLocalizationsTl extends AppLocalizations {
   String get goBack => 'Bumalik';
 
   @override
-  String get messageSendTimeout =>
-      'Nag-timeout ang pagpapadala ng mensahe. Suriin ang iyong koneksyon.';
+  String get messageSendTimeout => 'Nag-timeout ang pagpapadala ng mensahe. Suriin ang iyong koneksyon.';
 
   @override
   String get failedToSendMessage => 'Nabigo ang pagpapadala ng mensahe';
 
   @override
-  String get dailyMessageLimitExceeded =>
-      'Nalampasan na ang daily message limit. Mag-upgrade sa VIP para sa unlimited na mga mensahe.';
+  String get dailyMessageLimitExceeded => 'Nalampasan na ang daily message limit. Mag-upgrade sa VIP para sa unlimited na mga mensahe.';
 
   @override
-  String get cannotSendMessageUserMayBeBlocked =>
-      'Hindi maipadala ang mensahe. Maaaring naka-block ang user.';
+  String get cannotSendMessageUserMayBeBlocked => 'Hindi maipadala ang mensahe. Maaaring naka-block ang user.';
 
   @override
   String get sessionExpired => 'Nag-expire na ang session. Mag-login muli.';
@@ -988,22 +944,19 @@ class AppLocalizationsTl extends AppLocalizations {
   String get sendThisSticker => 'Ipadala ang sticker na ito?';
 
   @override
-  String get chooseHowYouWantToDeleteThisMessage =>
-      'Piliin kung paano mo gustong burahin ang mensaheng ito:';
+  String get chooseHowYouWantToDeleteThisMessage => 'Piliin kung paano mo gustong burahin ang mensaheng ito:';
 
   @override
   String get deleteForEveryone => 'Burahin para sa lahat';
 
   @override
-  String get removesTheMessageForBothYouAndTheRecipient =>
-      'Tinatanggal ang mensahe para sa iyo at sa tatanggap';
+  String get removesTheMessageForBothYouAndTheRecipient => 'Tinatanggal ang mensahe para sa iyo at sa tatanggap';
 
   @override
   String get deleteForMe => 'Burahin para sa akin';
 
   @override
-  String get removesTheMessageOnlyFromYourChat =>
-      'Tinatanggal ang mensahe mula sa iyong chat lamang';
+  String get removesTheMessageOnlyFromYourChat => 'Tinatanggal ang mensahe mula sa iyong chat lamang';
 
   @override
   String get copy => 'Kopyahin';
@@ -1018,8 +971,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get moreOptions => 'Higit pang mga Opsyon';
 
   @override
-  String get noUsersAvailableToForwardTo =>
-      'Walang available na user para i-forward';
+  String get noUsersAvailableToForwardTo => 'Walang available na user para i-forward';
 
   @override
   String get searchMoments => 'Maghanap ng mga sandali...';
@@ -1042,15 +994,13 @@ class AppLocalizationsTl extends AppLocalizations {
   String get tapToUpdateLocation => 'I-tap para i-update ang lokasyon';
 
   @override
-  String get helpOthersFindYouNearby =>
-      'Tulungan ang iba na mahanap ka sa malapit';
+  String get helpOthersFindYouNearby => 'Tulungan ang iba na mahanap ka sa malapit';
 
   @override
   String get selectYourNativeLanguage => 'Piliin ang iyong katutubong wika';
 
   @override
-  String get whichLanguageDoYouWantToLearn =>
-      'Anong wika ang gusto mong matutunan?';
+  String get whichLanguageDoYouWantToLearn => 'Anong wika ang gusto mong matutunan?';
 
   @override
   String get selectYourGender => 'Piliin ang iyong kasarian';
@@ -1074,8 +1024,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get provideMoreInformation => 'Magbigay ng higit pang impormasyon...';
 
   @override
-  String get searchByNameLanguageOrInterests =>
-      'Maghanap sa pamamagitan ng pangalan, wika, o interes...';
+  String get searchByNameLanguageOrInterests => 'Maghanap sa pamamagitan ng pangalan, wika, o interes...';
 
   @override
   String get addTagAndPressEnter => 'Magdagdag ng tag at pindutin ang enter';
@@ -1108,12 +1057,10 @@ class AppLocalizationsTl extends AppLocalizations {
   String get additionalDetailsOptional => 'Karagdagang detalye (opsyonal)';
 
   @override
-  String get warningThisActionIsPermanent =>
-      'Babala: Permanente ang aksyong ito!';
+  String get warningThisActionIsPermanent => 'Babala: Permanente ang aksyong ito!';
 
   @override
-  String get deletingYourAccountWillPermanentlyRemove =>
-      'Ang pagtanggal ng iyong account ay permanenteng magtatanggal ng:\n\n• Iyong profile at lahat ng personal na data\n• Lahat ng iyong mensahe at mga usapan\n• Lahat ng iyong moments at stories\n• Iyong VIP subscription (walang refund)\n• Lahat ng iyong mga koneksyon at followers\n\nHindi na maibabalik ang aksyong ito.';
+  String get deletingYourAccountWillPermanentlyRemove => 'Ang pagtanggal ng iyong account ay permanenteng magtatanggal ng:\n\n• Iyong profile at lahat ng personal na data\n• Lahat ng iyong mensahe at mga usapan\n• Lahat ng iyong moments at stories\n• Iyong VIP subscription (walang refund)\n• Lahat ng iyong mga koneksyon at followers\n\nHindi na maibabalik ang aksyong ito.';
 
   @override
   String get clearAllNotifications => 'I-clear ang lahat ng notipikasyon?';
@@ -1146,8 +1093,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get selectYourNativeLanguage2 => 'Piliin ang iyong katutubong wika';
 
   @override
-  String get whichLanguageDoYouWantToLearn2 =>
-      'Anong wika ang gusto mong matutunan?';
+  String get whichLanguageDoYouWantToLearn2 => 'Anong wika ang gusto mong matutunan?';
 
   @override
   String get selectYourGender2 => 'Piliin ang iyong kasarian';
@@ -1162,8 +1108,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get tapToUpdateLocation2 => 'I-tap para i-update ang lokasyon';
 
   @override
-  String get helpOthersFindYouNearby2 =>
-      'Tulungan ang iba na mahanap ka sa malapit';
+  String get helpOthersFindYouNearby2 => 'Tulungan ang iba na mahanap ka sa malapit';
 
   @override
   String get couldNotOpenLink => 'Hindi mabuksan ang link';
@@ -1175,22 +1120,19 @@ class AppLocalizationsTl extends AppLocalizations {
   String get termsOfUseEULA => 'Mga Tuntunin ng Paggamit (EULA)';
 
   @override
-  String get viewOurTermsAndConditions =>
-      'Tingnan ang aming mga tuntunin at kundisyon';
+  String get viewOurTermsAndConditions => 'Tingnan ang aming mga tuntunin at kundisyon';
 
   @override
   String get privacyPolicy => 'Patakaran sa Privacy';
 
   @override
-  String get howWeHandleYourData =>
-      'Paano namin pinangangasiwaan ang iyong data';
+  String get howWeHandleYourData => 'Paano namin pinangangasiwaan ang iyong data';
 
   @override
   String get emailNotifications => 'Mga Email Notification';
 
   @override
-  String get receiveEmailNotificationsFromBananatalk =>
-      'Tumanggap ng mga email notification mula sa Bananatalk';
+  String get receiveEmailNotificationsFromBananatalk => 'Tumanggap ng mga email notification mula sa Bananatalk';
 
   @override
   String get weeklySummary => 'Lingguhang Buod';
@@ -1241,8 +1183,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get typeDELETEToConfirm => 'I-type ang DELETE para kumpirmahin';
 
   @override
-  String get typeDELETEInCapitalLetters =>
-      'I-type ang DELETE sa malalaking letra';
+  String get typeDELETEInCapitalLetters => 'I-type ang DELETE sa malalaking letra';
 
   @override
   String sent(String emoji) {
@@ -1256,8 +1197,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get deleteStory => 'Burahin ang Story?';
 
   @override
-  String get thisStoryWillBeRemovedPermanently =>
-      'Permanenteng tatanggalin ang story na ito.';
+  String get thisStoryWillBeRemovedPermanently => 'Permanenteng tatanggalin ang story na ito.';
 
   @override
   String get noStories => 'Walang mga story';
@@ -1292,8 +1232,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get storyPosted => 'Na-post ang story!';
 
   @override
-  String get textOnlyStoriesRequireAnImage =>
-      'Kailangan ng larawan ang text-only stories';
+  String get textOnlyStoriesRequireAnImage => 'Kailangan ng larawan ang text-only stories';
 
   @override
   String get createStory => 'Gumawa ng Story';
@@ -1305,8 +1244,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get userIdNotFound => 'Hindi nahanap ang User ID. Mag-login muli.';
 
   @override
-  String get pleaseSelectAPaymentMethod =>
-      'Mangyaring pumili ng paraan ng pagbabayad';
+  String get pleaseSelectAPaymentMethod => 'Mangyaring pumili ng paraan ng pagbabayad';
 
   @override
   String get startExploring => 'Magsimulang Mag-explore';
@@ -1333,8 +1271,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get cancelSubscription => 'Kanselahin ang Subscription';
 
   @override
-  String get vipSubscriptionCancelledSuccessfully =>
-      'Matagumpay na nakansela ang VIP subscription';
+  String get vipSubscriptionCancelledSuccessfully => 'Matagumpay na nakansela ang VIP subscription';
 
   @override
   String get vipStatus => 'Status ng VIP';
@@ -1346,8 +1283,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get subscriptionExpired => 'Nag-expire ang Subscription';
 
   @override
-  String get vipExpiredMessage =>
-      'Nag-expire na ang iyong VIP subscription. Mag-renew ngayon para patuloy na mag-enjoy ng unlimited features!';
+  String get vipExpiredMessage => 'Nag-expire na ang iyong VIP subscription. Mag-renew ngayon para patuloy na mag-enjoy ng unlimited features!';
 
   @override
   String get expiredOn => 'Nag-expire noong';
@@ -1461,8 +1397,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get block => 'I-block';
 
   @override
-  String get wouldYouAlsoLikeToBlockThisUser =>
-      'Gusto mo rin bang i-block ang user na ito?';
+  String get wouldYouAlsoLikeToBlockThisUser => 'Gusto mo rin bang i-block ang user na ito?';
 
   @override
   String get noThanks => 'Hindi, salamat';
@@ -1477,8 +1412,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get submitReport => 'Isumite ang Report';
 
   @override
-  String get addAQuestionAndAtLeast2Options =>
-      'Magdagdag ng tanong at hindi bababa sa 2 opsyon';
+  String get addAQuestionAndAtLeast2Options => 'Magdagdag ng tanong at hindi bababa sa 2 opsyon';
 
   @override
   String get addOption => 'Magdagdag ng opsyon';
@@ -1520,16 +1454,13 @@ class AppLocalizationsTl extends AppLocalizations {
   String get pleaseSelectAReason => 'Mangyaring pumili ng dahilan';
 
   @override
-  String get reportSubmitted =>
-      'Naisumite ang report. Salamat sa pagtulong na panatilihing ligtas ang aming komunidad.';
+  String get reportSubmitted => 'Naisumite ang report. Salamat sa pagtulong na panatilihing ligtas ang aming komunidad.';
 
   @override
-  String get youHaveAlreadyReportedThisMoment =>
-      'Nai-report mo na ang sandaling ito';
+  String get youHaveAlreadyReportedThisMoment => 'Nai-report mo na ang sandaling ito';
 
   @override
-  String get tellUsMoreAboutWhyYouAreReportingThis =>
-      'Sabihin sa amin kung bakit mo ito ini-report';
+  String get tellUsMoreAboutWhyYouAreReportingThis => 'Sabihin sa amin kung bakit mo ito ini-report';
 
   @override
   String get errorSharing => 'Error sa pagbabahagi';
@@ -1559,8 +1490,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get languagesStepTitle => 'Ang iyong mga wika';
 
   @override
-  String get languagesStepSubtitle =>
-      'Ipapares ka namin sa natututo ng kabaliktaran';
+  String get languagesStepSubtitle => 'Ipapares ka namin sa natututo ng kabaliktaran';
 
   @override
   String get languagesISpeak => 'Nagsasalita ako ng';
@@ -1590,12 +1520,10 @@ class AppLocalizationsTl extends AppLocalizations {
   String get manageSubscription => 'Pamahalaan ang Subscription';
 
   @override
-  String get manageSubscriptionInSettings =>
-      'Para kanselahin ang iyong subscription, pumunta sa Settings > [Iyong Pangalan] > Subscriptions sa iyong device.';
+  String get manageSubscriptionInSettings => 'Para kanselahin ang iyong subscription, pumunta sa Settings > [Iyong Pangalan] > Subscriptions sa iyong device.';
 
   @override
-  String get contactSupportToCancel =>
-      'Para kanselahin ang iyong subscription, mangyaring makipag-ugnayan sa aming support team.';
+  String get contactSupportToCancel => 'Para kanselahin ang iyong subscription, mangyaring makipag-ugnayan sa aming support team.';
 
   @override
   String get status => 'Status';
@@ -1622,15 +1550,13 @@ class AppLocalizationsTl extends AppLocalizations {
   String get pleaseLogInToContinue => 'Mangyaring mag-login para magpatuloy';
 
   @override
-  String get purchaseCanceledOrFailed =>
-      'Nakansela o nabigo ang pagbili. Subukan muli.';
+  String get purchaseCanceledOrFailed => 'Nakansela o nabigo ang pagbili. Subukan muli.';
 
   @override
   String get maximumTagsAllowed => 'Maximum na 5 tags ang pinapayagan';
 
   @override
-  String get pleaseRemoveImagesFirstToAddVideo =>
-      'Mangyaring tanggalin muna ang mga larawan para magdagdag ng video';
+  String get pleaseRemoveImagesFirstToAddVideo => 'Mangyaring tanggalin muna ang mga larawan para magdagdag ng video';
 
   @override
   String get unsupportedFormat => 'Hindi suportadong format';
@@ -1639,8 +1565,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get errorProcessingVideo => 'Error sa pagproseso ng video';
 
   @override
-  String get pleaseRemoveImagesFirstToRecordVideo =>
-      'Mangyaring tanggalin muna ang mga larawan para mag-record ng video';
+  String get pleaseRemoveImagesFirstToRecordVideo => 'Mangyaring tanggalin muna ang mga larawan para mag-record ng video';
 
   @override
   String get locationAdded => 'Naidagdag ang lokasyon';
@@ -1664,8 +1589,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get momentCreatedSuccessfully => 'Matagumpay na nagawa ang sandali';
 
   @override
-  String get uploadingMomentInBackground =>
-      'Ina-upload ang sandali sa background...';
+  String get uploadingMomentInBackground => 'Ina-upload ang sandali sa background...';
 
   @override
   String get failedToQueueUpload => 'Nabigo ang pag-queue ng upload';
@@ -1695,19 +1619,16 @@ class AppLocalizationsTl extends AppLocalizations {
   String get messageCopied => 'Nakopya ang mensahe';
 
   @override
-  String get forwardFeatureComingSoon =>
-      'Malapit nang dumating ang forward feature';
+  String get forwardFeatureComingSoon => 'Malapit nang dumating ang forward feature';
 
   @override
   String get momentUnsaved => 'Inalis sa naka-save';
 
   @override
-  String get documentPickerComingSoon =>
-      'Malapit nang dumating ang document picker';
+  String get documentPickerComingSoon => 'Malapit nang dumating ang document picker';
 
   @override
-  String get contactSharingComingSoon =>
-      'Malapit nang dumating ang contact sharing';
+  String get contactSharingComingSoon => 'Malapit nang dumating ang contact sharing';
 
   @override
   String get featureComingSoon => 'Malapit nang dumating ang feature';
@@ -1719,19 +1640,16 @@ class AppLocalizationsTl extends AppLocalizations {
   String get noImagesAvailable => 'Walang available na mga larawan';
 
   @override
-  String get mentionPickerComingSoon =>
-      'Malapit nang dumating ang mention picker';
+  String get mentionPickerComingSoon => 'Malapit nang dumating ang mention picker';
 
   @override
   String get musicPickerComingSoon => 'Malapit nang dumating ang music picker';
 
   @override
-  String get repostFeatureComingSoon =>
-      'Malapit nang dumating ang repost feature';
+  String get repostFeatureComingSoon => 'Malapit nang dumating ang repost feature';
 
   @override
-  String get addFriendsFromYourProfile =>
-      'Magdagdag ng mga kaibigan mula sa iyong profile';
+  String get addFriendsFromYourProfile => 'Magdagdag ng mga kaibigan mula sa iyong profile';
 
   @override
   String get quickReplyAdded => 'Naidagdag ang quick reply';
@@ -1752,12 +1670,10 @@ class AppLocalizationsTl extends AppLocalizations {
   String get pleaseEnterAQuestion => 'Mangyaring maglagay ng tanong';
 
   @override
-  String get pleaseAddAtLeast2Options =>
-      'Mangyaring magdagdag ng hindi bababa sa 2 opsyon';
+  String get pleaseAddAtLeast2Options => 'Mangyaring magdagdag ng hindi bababa sa 2 opsyon';
 
   @override
-  String get pleaseSelectCorrectAnswerForQuiz =>
-      'Mangyaring piliin ang tamang sagot para sa quiz';
+  String get pleaseSelectCorrectAnswerForQuiz => 'Mangyaring piliin ang tamang sagot para sa quiz';
 
   @override
   String get correctionSent => 'Naipadala ang pagwawasto!';
@@ -1854,8 +1770,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get filters => 'Mga Filter';
 
   @override
-  String get searchCommunity =>
-      'Maghanap sa pamamagitan ng pangalan, wika, o interes...';
+  String get searchCommunity => 'Maghanap sa pamamagitan ng pangalan, wika, o interes...';
 
   @override
   String get bio => 'Bio';
@@ -1879,15 +1794,13 @@ class AppLocalizationsTl extends AppLocalizations {
   String get noForYouMomentsTitle => 'Wala pang moments';
 
   @override
-  String get noForYouMomentsBody =>
-      'Sagutin ang prompt ngayong araw para simulan ang usapan.';
+  String get noForYouMomentsBody => 'Sagutin ang prompt ngayong araw para simulan ang usapan.';
 
   @override
   String get noFollowingMomentsTitle => 'Wala pang laman dito';
 
   @override
-  String get noFollowingMomentsBody =>
-      'Mag-follow ng mga tao mula sa Community para makita ang kanilang mga moments dito.';
+  String get noFollowingMomentsBody => 'Mag-follow ng mga tao mula sa Community para makita ang kanilang mga moments dito.';
 
   @override
   String get goToCommunity => 'Pumunta sa Community';
@@ -1929,8 +1842,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get message => 'Mensahe';
 
   @override
-  String get pleaseLoginToFollow =>
-      'Mangyaring mag-login para sundan ang mga user';
+  String get pleaseLoginToFollow => 'Mangyaring mag-login para sundan ang mga user';
 
   @override
   String get pleaseLoginToCall => 'Mangyaring mag-login para tumawag';
@@ -1945,12 +1857,10 @@ class AppLocalizationsTl extends AppLocalizations {
   String get failedToUnfollowUser => 'Nabigo ang pag-unfollow sa user';
 
   @override
-  String get areYouSureUnfollow =>
-      'Sigurado ka bang gusto mong i-unfollow ang user na ito?';
+  String get areYouSureUnfollow => 'Sigurado ka bang gusto mong i-unfollow ang user na ito?';
 
   @override
-  String get areYouSureUnblock =>
-      'Sigurado ka bang gusto mong i-unblock ang user na ito?';
+  String get areYouSureUnblock => 'Sigurado ka bang gusto mong i-unblock ang user na ito?';
 
   @override
   String get youFollowed => 'Sinundan mo';
@@ -2031,12 +1941,10 @@ class AppLocalizationsTl extends AppLocalizations {
   }
 
   @override
-  String get pleaseRemoveImagesFirst =>
-      'Pakitanggal muna ang mga larawan para makapagdagdag ng video';
+  String get pleaseRemoveImagesFirst => 'Pakitanggal muna ang mga larawan para makapagdagdag ng video';
 
   @override
-  String get exchange3MessagesBeforeCall =>
-      'Kailangan mong magpalitan ng hindi bababa sa 5 mensahe bago tumawag';
+  String get exchange3MessagesBeforeCall => 'Kailangan mong magpalitan ng hindi bababa sa 5 mensahe bago tumawag';
 
   @override
   String mediaWithUser(String name) {
@@ -2053,8 +1961,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get removeBookmark => 'Alisin ang bookmark?';
 
   @override
-  String get thisWillRemoveBookmark =>
-      'Aalisin nito ang mensahe mula sa iyong mga bookmark.';
+  String get thisWillRemoveBookmark => 'Aalisin nito ang mensahe mula sa iyong mga bookmark.';
 
   @override
   String get remove => 'Alisin';
@@ -2117,8 +2024,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get leaveRoom => 'Umalis sa Room';
 
   @override
-  String get areYouSureLeaveRoom =>
-      'Sigurado ka bang gusto mong umalis sa voice room na ito?';
+  String get areYouSureLeaveRoom => 'Sigurado ka bang gusto mong umalis sa voice room na ito?';
 
   @override
   String get stay => 'Manatili';
@@ -2162,8 +2068,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get shareStory => 'Ibahagi ang story';
 
   @override
-  String get thisWillDeleteStory =>
-      'Permanenteng buburahin nito ang story na ito.';
+  String get thisWillDeleteStory => 'Permanenteng buburahin nito ang story na ito.';
 
   @override
   String get storyDeleted => 'Nabura ang story';
@@ -2195,37 +2100,31 @@ class AppLocalizationsTl extends AppLocalizations {
   String get failedToProcessVideo => 'Nabigo ang pagproseso ng video';
 
   @override
-  String get optimizingForBestExperience =>
-      'Ino-optimize para sa pinakamahusay na karanasan sa story';
+  String get optimizingForBestExperience => 'Ino-optimize para sa pinakamahusay na karanasan sa story';
 
   @override
-  String get pleaseSelectImageOrVideo =>
-      'Mangyaring pumili ng larawan o video para sa iyong story';
+  String get pleaseSelectImageOrVideo => 'Mangyaring pumili ng larawan o video para sa iyong story';
 
   @override
   String get storyCreatedSuccessfully => 'Matagumpay na nagawa ang story!';
 
   @override
-  String get uploadingStoryInBackground =>
-      'Ina-upload ang story sa background...';
+  String get uploadingStoryInBackground => 'Ina-upload ang story sa background...';
 
   @override
   String get storyCreationFailed => 'Nabigo ang Paggawa ng Story';
 
   @override
-  String get pleaseCheckConnection =>
-      'Suriin ang iyong koneksyon at subukan muli.';
+  String get pleaseCheckConnection => 'Suriin ang iyong koneksyon at subukan muli.';
 
   @override
   String get uploadFailed => 'Nabigo ang Upload';
 
   @override
-  String get tryShorterVideo =>
-      'Subukang gumamit ng mas maikling video o subukan muli mamaya.';
+  String get tryShorterVideo => 'Subukang gumamit ng mas maikling video o subukan muli mamaya.';
 
   @override
-  String get shareMomentsThatDisappear =>
-      'Magbahagi ng mga sandaling mawawala sa loob ng 24 oras';
+  String get shareMomentsThatDisappear => 'Magbahagi ng mga sandaling mawawala sa loob ng 24 oras';
 
   @override
   String get photo => 'Larawan';
@@ -2264,12 +2163,10 @@ class AppLocalizationsTl extends AppLocalizations {
   String get friendsOnly => 'Mga Kaibigan Lamang';
 
   @override
-  String get onlyFollowersCanSee =>
-      'Ang iyong mga tagasunod lamang ang makakakita';
+  String get onlyFollowersCanSee => 'Ang iyong mga tagasunod lamang ang makakakita';
 
   @override
-  String get onlyCloseFriendsCanSee =>
-      'Ang iyong mga matalik na kaibigan lamang ang makakakita';
+  String get onlyCloseFriendsCanSee => 'Ang iyong mga matalik na kaibigan lamang ang makakakita';
 
   @override
   String get backgroundColor => 'Kulay ng Background';
@@ -2341,8 +2238,7 @@ class AppLocalizationsTl extends AppLocalizations {
   }
 
   @override
-  String get willReceiveNotifications =>
-      'Makakatanggap ka ng mga notipikasyon para sa mga bagong mensahe.';
+  String get willReceiveNotifications => 'Makakatanggap ka ng mga notipikasyon para sa mga bagong mensahe.';
 
   @override
   String muteNotificationsFor(String name) {
@@ -2360,8 +2256,7 @@ class AppLocalizationsTl extends AppLocalizations {
   }
 
   @override
-  String get failedToUpdateMuteSettings =>
-      'Nabigo ang pag-update ng mga setting ng mute';
+  String get failedToUpdateMuteSettings => 'Nabigo ang pag-update ng mga setting ng mute';
 
   @override
   String get oneHour => '1 oras';
@@ -2382,12 +2277,10 @@ class AppLocalizationsTl extends AppLocalizations {
   String get noBookmarkedMessages => 'Walang mga na-bookmark na mensahe';
 
   @override
-  String get longPressToBookmark =>
-      'Pindutin nang matagal ang mensahe para i-bookmark';
+  String get longPressToBookmark => 'Pindutin nang matagal ang mensahe para i-bookmark';
 
   @override
-  String get thisWillRemoveFromBookmarks =>
-      'Aalisin nito ang mensahe mula sa iyong mga bookmark.';
+  String get thisWillRemoveFromBookmarks => 'Aalisin nito ang mensahe mula sa iyong mga bookmark.';
 
   @override
   String navigateToMessage(String name) {
@@ -2421,8 +2314,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get emailPreferences => 'Mga Kagustuhan sa Email';
 
   @override
-  String get receiveEmailNotifications =>
-      'Tumanggap ng mga email notification mula sa Bananatalk';
+  String get receiveEmailNotifications => 'Tumanggap ng mga email notification mula sa Bananatalk';
 
   @override
   String get whenAwayFor24Hours => 'Kapag wala ka ng 24+ oras';
@@ -2431,15 +2323,13 @@ class AppLocalizationsTl extends AppLocalizations {
   String get passwordAndLoginAlerts => 'Mga alerto sa password at login';
 
   @override
-  String get failedToLoadPreferences =>
-      'Nabigo ang paglo-load ng mga kagustuhan';
+  String get failedToLoadPreferences => 'Nabigo ang paglo-load ng mga kagustuhan';
 
   @override
   String get failedToUpdateSetting => 'Nabigo ang pag-update ng setting';
 
   @override
-  String get securityAlertsRecommended =>
-      'Inirerekomenda naming panatilihing naka-enable ang Security Alerts para manatiling may kaalaman tungkol sa mahalagang aktibidad ng account.';
+  String get securityAlertsRecommended => 'Inirerekomenda naming panatilihing naka-enable ang Security Alerts para manatiling may kaalaman tungkol sa mahalagang aktibidad ng account.';
 
   @override
   String chatWallpaperFor(String name) {
@@ -2506,19 +2396,16 @@ class AppLocalizationsTl extends AppLocalizations {
   String get errorSendingVideo => 'Error sa pagpapadala ng video';
 
   @override
-  String get errorSendingVoiceMessage =>
-      'Error sa pagpapadala ng voice message';
+  String get errorSendingVoiceMessage => 'Error sa pagpapadala ng voice message';
 
   @override
   String get errorSendingMedia => 'Error sa pagpapadala ng media';
 
   @override
-  String get cameraPermissionRequired =>
-      'Kailangan ang mga permiso sa camera at mikropono para mag-record ng video.';
+  String get cameraPermissionRequired => 'Kailangan ang mga permiso sa camera at mikropono para mag-record ng video.';
 
   @override
-  String get locationPermissionRequired =>
-      'Kailangan ang permiso sa lokasyon para ibahagi ang iyong lokasyon.';
+  String get locationPermissionRequired => 'Kailangan ang permiso sa lokasyon para ibahagi ang iyong lokasyon.';
 
   @override
   String get noInternetConnection => 'Walang koneksyon sa internet';
@@ -2579,8 +2466,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get failedToLoadMoments => 'Hindi na-load ang mga moment';
 
   @override
-  String get noMomentsMatchFilters =>
-      'Walang moment na tumutugma sa iyong mga filter';
+  String get noMomentsMatchFilters => 'Walang moment na tumutugma sa iyong mga filter';
 
   @override
   String get beFirstToShareMoment => 'Maging una sa pagbahagi ng moment!';
@@ -2595,8 +2481,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get noSavedMoments => 'Walang naka-save na moment';
 
   @override
-  String get tapBookmarkToSave =>
-      'I-tap ang bookmark icon para i-save ang moment';
+  String get tapBookmarkToSave => 'I-tap ang bookmark icon para i-save ang moment';
 
   @override
   String get failedToLoadVideo => 'Hindi na-load ang video';
@@ -2618,8 +2503,7 @@ class AppLocalizationsTl extends AppLocalizations {
   }
 
   @override
-  String get scheduledDateMustBeFuture =>
-      'Ang naka-schedule na petsa ay dapat sa hinaharap';
+  String get scheduledDateMustBeFuture => 'Ang naka-schedule na petsa ay dapat sa hinaharap';
 
   @override
   String get recent => 'Kamakailan';
@@ -2708,12 +2592,10 @@ class AppLocalizationsTl extends AppLocalizations {
   String get findingPartners => 'Naghahanap ng mga partner...';
 
   @override
-  String get setLocationReminder =>
-      'I-set ang iyong lokasyon para mahanap ang mga partner na malapit';
+  String get setLocationReminder => 'I-set ang iyong lokasyon para mahanap ang mga partner na malapit';
 
   @override
-  String get updateLocationReminder =>
-      'I-update ang iyong lokasyon para sa mas magandang resulta';
+  String get updateLocationReminder => 'I-update ang iyong lokasyon para sa mas magandang resulta';
 
   @override
   String get male => 'Lalaki';
@@ -2761,12 +2643,10 @@ class AppLocalizationsTl extends AppLocalizations {
   String get findingYourLocation => 'Hinahanap ang iyong lokasyon...';
 
   @override
-  String get enableLocationForDistance =>
-      'I-enable ang lokasyon para sa distansya';
+  String get enableLocationForDistance => 'I-enable ang lokasyon para sa distansya';
 
   @override
-  String get enableLocationDescription =>
-      'I-enable ang mga serbisyo ng lokasyon para mahanap ang mga partner sa malapit';
+  String get enableLocationDescription => 'I-enable ang mga serbisyo ng lokasyon para mahanap ang mga partner sa malapit';
 
   @override
   String get enableGps => 'I-enable ang GPS';
@@ -2796,8 +2676,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get searchByCityName => 'Maghanap ayon sa pangalan ng lungsod';
 
   @override
-  String get seeUserCountsPerCountry =>
-      'Tingnan ang bilang ng mga user bawat bansa';
+  String get seeUserCountsPerCountry => 'Tingnan ang bilang ng mga user bawat bansa';
 
   @override
   String get upgradeToVip => 'Mag-upgrade sa VIP';
@@ -2834,15 +2713,13 @@ class AppLocalizationsTl extends AppLocalizations {
   String get warningPermanent => 'Babala: Permanente ang aksyong ito!';
 
   @override
-  String get deleteAccountWarning =>
-      'Ang pagbura ng iyong account ay permanenteng mag-aalis ng:\n\n• Iyong profile at lahat ng personal na data\n• Lahat ng iyong mensahe at usapan\n• Lahat ng iyong mga sandali at story\n• Iyong VIP subscription (walang refund)\n• Lahat ng iyong koneksyon at tagasunod\n\nHindi na maaaring bawiin ang aksyong ito.';
+  String get deleteAccountWarning => 'Ang pagbura ng iyong account ay permanenteng mag-aalis ng:\n\n• Iyong profile at lahat ng personal na data\n• Lahat ng iyong mensahe at usapan\n• Lahat ng iyong mga sandali at story\n• Iyong VIP subscription (walang refund)\n• Lahat ng iyong koneksyon at tagasunod\n\nHindi na maaaring bawiin ang aksyong ito.';
 
   @override
   String get deletionReasonTitle => 'Bago ka umalis — bakit?';
 
   @override
-  String get deletionReasonOptional =>
-      'Opsyonal. Nakakatulong itong maayos namin ang mali.';
+  String get deletionReasonOptional => 'Opsyonal. Nakakatulong itong maayos namin ang mali.';
 
   @override
   String get deletionReasonNoPeople => 'Walang nakitang makakausap';
@@ -2878,22 +2755,19 @@ class AppLocalizationsTl extends AppLocalizations {
   String get typeDELETE => 'I-type ang DELETE';
 
   @override
-  String get mustTypeDELETE =>
-      'Kailangan mong i-type ang DELETE para magpatuloy';
+  String get mustTypeDELETE => 'Kailangan mong i-type ang DELETE para magpatuloy';
 
   @override
   String get deletingAccount => 'Binubura ang account...';
 
   @override
-  String get deleteMyAccountPermanently =>
-      'Permanenteng burahin ang aking account';
+  String get deleteMyAccountPermanently => 'Permanenteng burahin ang aking account';
 
   @override
   String get whatsYourNativeLanguage => 'Ano ang iyong katutubong wika?';
 
   @override
-  String get helpsMatchWithLearners =>
-      'Tumutulong sa paghahanap ng mga nag-aaral';
+  String get helpsMatchWithLearners => 'Tumutulong sa paghahanap ng mga nag-aaral';
 
   @override
   String get whatAreYouLearning => 'Ano ang pinag-aaralan mo?';
@@ -2929,8 +2803,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get showingPartnersByDistance => 'Mga partner ayon sa distansya';
 
   @override
-  String get enableLocationForResults =>
-      'I-enable ang lokasyon para sa mas magandang resulta';
+  String get enableLocationForResults => 'I-enable ang lokasyon para sa mas magandang resulta';
 
   @override
   String get enable => 'I-enable';
@@ -2960,8 +2833,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get pleaseSelectGender => 'Mangyaring piliin ang iyong kasarian';
 
   @override
-  String get pleaseSelectBirthDate =>
-      'Mangyaring piliin ang iyong petsa ng kapanganakan';
+  String get pleaseSelectBirthDate => 'Mangyaring piliin ang iyong petsa ng kapanganakan';
 
   @override
   String get mustBe18 => 'Dapat ay 18 taong gulang ka o higit pa';
@@ -2973,8 +2845,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get almostDone => 'Halos tapos na!';
 
   @override
-  String get addPhotoLocationForMatches =>
-      'Magdagdag ng larawan at lokasyon para sa mas magandang match';
+  String get addPhotoLocationForMatches => 'Magdagdag ng larawan at lokasyon para sa mas magandang match';
 
   @override
   String get addProfilePhoto => 'Magdagdag ng profile photo';
@@ -2986,12 +2857,10 @@ class AppLocalizationsTl extends AppLocalizations {
   String get requiredUpTo6Photos => 'Kinakailangan — hanggang 6 na larawan';
 
   @override
-  String get profilePhotoRequired =>
-      'Mangyaring magdagdag ng kahit isang profile photo';
+  String get profilePhotoRequired => 'Mangyaring magdagdag ng kahit isang profile photo';
 
   @override
-  String get locationOptional =>
-      'Pakitakda ang iyong lokasyon upang magpatuloy';
+  String get locationOptional => 'Pakitakda ang iyong lokasyon upang magpatuloy';
 
   @override
   String get maximum6Photos => 'Maximum na 6 na larawan';
@@ -3000,8 +2869,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get tapToDetectLocation => 'I-tap para i-detect ang lokasyon';
 
   @override
-  String get optionalHelpsNearbyPartners =>
-      'Kinakailangan — nakatutulong sa paghahanap ng mga kasosyo sa malapit';
+  String get optionalHelpsNearbyPartners => 'Kinakailangan — nakatutulong sa paghahanap ng mga kasosyo sa malapit';
 
   @override
   String get startLearning => 'Magsimulang matuto';
@@ -3010,8 +2878,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get photoLocationOptional => 'Ang larawan at lokasyon ay opsyonal';
 
   @override
-  String get pleaseAcceptTerms =>
-      'Mangyaring tanggapin ang mga tuntunin ng serbisyo';
+  String get pleaseAcceptTerms => 'Mangyaring tanggapin ang mga tuntunin ng serbisyo';
 
   @override
   String get iAgreeToThe => 'Sumasang-ayon ako sa';
@@ -3031,12 +2898,10 @@ class AppLocalizationsTl extends AppLocalizations {
   String get yourCurrentLevel => 'Ang iyong kasalukuyang antas';
 
   @override
-  String get nativeCannotBeSameAsLearning =>
-      'Ang katutubong wika ay hindi maaaring pareho sa wikang pinag-aaralan';
+  String get nativeCannotBeSameAsLearning => 'Ang katutubong wika ay hindi maaaring pareho sa wikang pinag-aaralan';
 
   @override
-  String get learningCannotBeSameAsNative =>
-      'Ang wikang pinag-aaralan ay hindi maaaring pareho sa katutubong wika';
+  String get learningCannotBeSameAsNative => 'Ang wikang pinag-aaralan ay hindi maaaring pareho sa katutubong wika';
 
   @override
   String stepOf(String current, String total) {
@@ -3098,8 +2963,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get otherGender => 'Iba pa';
 
   @override
-  String get continueWithGoogleAccount =>
-      'Magpatuloy gamit ang Google account\npara sa magandang karanasan';
+  String get continueWithGoogleAccount => 'Magpatuloy gamit ang Google account\npara sa magandang karanasan';
 
   @override
   String get signingYouIn => 'Nag-si-sign in...';
@@ -3111,8 +2975,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get securedByGoogle => 'Pinoprotektahan ng Google';
 
   @override
-  String get dataProtectedEncryption =>
-      'Ang data mo ay protektado ng standard encryption';
+  String get dataProtectedEncryption => 'Ang data mo ay protektado ng standard encryption';
 
   @override
   String get welcomeCompleteProfile => 'Welcome! Kumpletuhin ang profile mo';
@@ -3121,33 +2984,28 @@ class AppLocalizationsTl extends AppLocalizations {
   String get authWelcomeTagline => 'MAKIPAGKITA · MAKIPAG-USAP · KUMONEKTA';
 
   @override
-  String get authWelcomeCtaTitle =>
-      'Gumawa ng mga kaibigan sa buong mundo sa Bananatalk';
+  String get authWelcomeCtaTitle => 'Gumawa ng mga kaibigan sa buong mundo sa Bananatalk';
 
   @override
-  String get authWelcomeCtaSubtitle =>
-      'Sumali ngayon sa milyun-milyong nag-aaral ng wika';
+  String get authWelcomeCtaSubtitle => 'Sumali ngayon sa milyun-milyong nag-aaral ng wika';
 
   @override
   String get authWelcomeFeatureConnectTitle => 'Kumonekta';
 
   @override
-  String get authWelcomeFeatureConnectSubtitle =>
-      'Makipagkita sa mga language partner mula sa mahigit 150 bansa sa buong mundo';
+  String get authWelcomeFeatureConnectSubtitle => 'Makipagkita sa mga language partner mula sa mahigit 150 bansa sa buong mundo';
 
   @override
   String get authWelcomeFeatureLearnTitle => 'Matuto';
 
   @override
-  String get authWelcomeFeatureLearnSubtitle =>
-      'AI tutor, mga quiz, at pagsasanay sa pagbigkas — lahat nasa isang app';
+  String get authWelcomeFeatureLearnSubtitle => 'AI tutor, mga quiz, at pagsasanay sa pagbigkas — lahat nasa isang app';
 
   @override
   String get authWelcomeFeatureGrowTitle => 'Lumago';
 
   @override
-  String get authWelcomeFeatureGrowSubtitle =>
-      'Bumuo ng tunay na katatasan sa pamamagitan ng araw-araw na usapan at komunidad';
+  String get authWelcomeFeatureGrowSubtitle => 'Bumuo ng tunay na katatasan sa pamamagitan ng araw-araw na usapan at komunidad';
 
   @override
   String welcomeBackName(String name) {
@@ -3155,8 +3013,7 @@ class AppLocalizationsTl extends AppLocalizations {
   }
 
   @override
-  String get continueWithAppleId =>
-      'Magpatuloy gamit ang Apple ID\npara sa ligtas na karanasan';
+  String get continueWithAppleId => 'Magpatuloy gamit ang Apple ID\npara sa ligtas na karanasan';
 
   @override
   String get continueWithApple => 'Magpatuloy gamit ang Apple';
@@ -3165,8 +3022,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get securedByApple => 'Pinoprotektahan ng Apple';
 
   @override
-  String get privacyProtectedApple =>
-      'Protektado ang privacy mo sa Apple Sign-In';
+  String get privacyProtectedApple => 'Protektado ang privacy mo sa Apple Sign-In';
 
   @override
   String get createAccount => 'Gumawa ng account';
@@ -3190,8 +3046,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get resetPasswordTitle => 'I-reset ang password';
 
   @override
-  String get enterEmailForResetCode =>
-      'Ilagay ang email mo at padadalhan ka namin ng reset code';
+  String get enterEmailForResetCode => 'Ilagay ang email mo at padadalhan ka namin ng reset code';
 
   @override
   String get sendResetCode => 'Ipadala ang reset code';
@@ -3215,8 +3070,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get pleaseEnterAll6Digits => 'Ilagay lahat ng 6 digits';
 
   @override
-  String get codeVerifiedCreatePassword =>
-      'Na-verify ang code! Gumawa ng bagong password';
+  String get codeVerifiedCreatePassword => 'Na-verify ang code! Gumawa ng bagong password';
 
   @override
   String get verify => 'I-verify';
@@ -3263,8 +3117,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get pleaseFillAllFields => 'Punan lahat ng fields';
 
   @override
-  String get passwordResetSuccessful =>
-      'Na-reset na ang password! Mag-login gamit ang bagong password';
+  String get passwordResetSuccessful => 'Na-reset na ang password! Mag-login gamit ang bagong password';
 
   @override
   String get privacyTitle => 'Privacy';
@@ -3303,8 +3156,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get showOnlineStatus => 'Ipakita ang Online Status';
 
   @override
-  String get showOnlineStatusDesc =>
-      'Hayaan ang iba na makita kapag ikaw ay online';
+  String get showOnlineStatusDesc => 'Hayaan ang iba na makita kapag ikaw ay online';
 
   @override
   String get otherSettings => 'Ibang Settings';
@@ -3319,8 +3171,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get birthdayNotifications => 'Birthday Notifications';
 
   @override
-  String get birthdayNotificationsDesc =>
-      'Tumanggap ng notifications sa iyong birthday';
+  String get birthdayNotificationsDesc => 'Tumanggap ng notifications sa iyong birthday';
 
   @override
   String get personalizedAds => 'Personalized Ads';
@@ -3353,12 +3204,10 @@ class AppLocalizationsTl extends AppLocalizations {
   String get locationUpdated => 'Matagumpay na na-update ang lokasyon';
 
   @override
-  String get locationPermissionDenied =>
-      'Tinanggihan ang lokasyon permission. I-enable sa settings.';
+  String get locationPermissionDenied => 'Tinanggihan ang lokasyon permission. I-enable sa settings.';
 
   @override
-  String get locationServiceDisabled =>
-      'Naka-disable ang location services. I-enable.';
+  String get locationServiceDisabled => 'Naka-disable ang location services. I-enable.';
 
   @override
   String get updatingLocation => 'Ina-update ang lokasyon...';
@@ -3435,12 +3284,10 @@ class AppLocalizationsTl extends AppLocalizations {
   String get switchCamera => 'Palitan ang Camera';
 
   @override
-  String get callPermissionDenied =>
-      'Kailangan ang microphone permission para sa mga tawag';
+  String get callPermissionDenied => 'Kailangan ang microphone permission para sa mga tawag';
 
   @override
-  String get cameraPermissionDenied =>
-      'Kailangan ang camera permission para sa video calls';
+  String get cameraPermissionDenied => 'Kailangan ang camera permission para sa video calls';
 
   @override
   String get callConnectionFailed => 'Hindi makakonekta. Subukan ulit.';
@@ -3490,8 +3337,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get leaveRoomConfirm => 'Umalis sa Room?';
 
   @override
-  String get leaveRoomMessage =>
-      'Sigurado ka bang gusto mong umalis sa room na ito?';
+  String get leaveRoomMessage => 'Sigurado ka bang gusto mong umalis sa room na ito?';
 
   @override
   String get roomTitle => 'Pamagat ng Room';
@@ -3528,8 +3374,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get lowerHand => 'Ibaba ang Kamay';
 
   @override
-  String get handRaisedNotification =>
-      'Nakataas ang kamay! Makikita ng host ang iyong request.';
+  String get handRaisedNotification => 'Nakataas ang kamay! Makikita ng host ang iyong request.';
 
   @override
   String get handLoweredNotification => 'Nakababa ang kamay';
@@ -3547,8 +3392,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get endRoomConfirm => 'Tapusin ang Room?';
 
   @override
-  String get endRoomMessage =>
-      'Ito ay magtatapus ng room para sa lahat ng kalahok.';
+  String get endRoomMessage => 'Ito ay magtatapus ng room para sa lahat ng kalahok.';
 
   @override
   String get roomEnded => 'Natapos ang room ng host';
@@ -3569,8 +3413,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get typeMessage => 'Mag-type ng mensahe...';
 
   @override
-  String get voiceRoomsDescription =>
-      'Sumali sa live na usapan at magsanay sa pagsasalita';
+  String get voiceRoomsDescription => 'Sumali sa live na usapan at magsanay sa pagsasalita';
 
   @override
   String liveRoomsCount(int count) {
@@ -3581,8 +3424,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get noActiveRooms => 'Walang aktibong rooms';
 
   @override
-  String get noActiveRoomsDescription =>
-      'Maging una sa pagsimula ng voice room at magsanay sa pagsasalita kasama ang iba!';
+  String get noActiveRoomsDescription => 'Maging una sa pagsimula ng voice room at magsanay sa pagsasalita kasama ang iba!';
 
   @override
   String get startRoom => 'Magsimula ng Room';
@@ -3643,8 +3485,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get leaderboard => 'Leaderboard';
 
   @override
-  String get competeWithLearners =>
-      'Makipagkumpitensya sa ibang mga nag-aaral!';
+  String get competeWithLearners => 'Makipagkumpitensya sa ibang mga nag-aaral!';
 
   @override
   String get xpRankings => 'XP Rankings';
@@ -3714,15 +3555,13 @@ class AppLocalizationsTl extends AppLocalizations {
   String get noRankingsYet => 'Wala pang ranggo';
 
   @override
-  String get startLearningToAppear =>
-      'Magsimulang mag-aral para lumabas sa leaderboard!';
+  String get startLearningToAppear => 'Magsimulang mag-aral para lumabas sa leaderboard!';
 
   @override
   String get noFriendsYet => 'Wala ka pang kaibigan';
 
   @override
-  String get addFriendsToCompete =>
-      'Magdagdag ng kaibigan para makipagkumpitensya sa kanila!';
+  String get addFriendsToCompete => 'Magdagdag ng kaibigan para makipagkumpitensya sa kanila!';
 
   @override
   String get failedToLoadLeaderboard => 'Nabigo ang pag-load ng leaderboard';
@@ -3758,8 +3597,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get selectLanguagePrompt => 'Pumili ng wika';
 
   @override
-  String get findPartnersByLanguage =>
-      'Maghanap ng mga partner na nagsasalita o nag-aaral ng wikang ito';
+  String get findPartnersByLanguage => 'Maghanap ng mga partner na nagsasalita o nag-aaral ng wikang ito';
 
   @override
   String noPartnersForLanguage(String language) {
@@ -3827,8 +3665,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get allCache => 'Lahat ng Cache';
 
   @override
-  String get clearAllCacheConfirmation =>
-      'Ito ay magbubura ng lahat ng mga cached na larawan, voice message, video, at iba pang mga file. Maaaring mas mabagal ang pag-load ng content ng app pansamantala.';
+  String get clearAllCacheConfirmation => 'Ito ay magbubura ng lahat ng mga cached na larawan, voice message, video, at iba pang mga file. Maaaring mas mabagal ang pag-load ng content ng app pansamantala.';
 
   @override
   String clearCacheConfirmationFor(String category) {
@@ -3890,23 +3727,19 @@ class AppLocalizationsTl extends AppLocalizations {
   String get followerMoments => 'Mga Sandali ng Sinusundan';
 
   @override
-  String get whenPeopleYouFollowPost =>
-      'Kapag ang mga taong sinusundan mo ay nag-post ng bagong sandali';
+  String get whenPeopleYouFollowPost => 'Kapag ang mga taong sinusundan mo ay nag-post ng bagong sandali';
 
   @override
   String get noNotificationsYet => 'Wala pang mga notification';
 
   @override
-  String get whenYouGetNotifications =>
-      'Kapag makatanggap ka ng mga notification, magpapakita sila dito';
+  String get whenYouGetNotifications => 'Kapag makatanggap ka ng mga notification, magpapakita sila dito';
 
   @override
-  String get failedToLoadNotifications =>
-      'Nabigong i-load ang mga notification';
+  String get failedToLoadNotifications => 'Nabigong i-load ang mga notification';
 
   @override
-  String get clearAllNotificationsConfirm =>
-      'Sigurado ka bang gusto mong burahin ang lahat ng notification? Hindi ito maaaring i-undo.';
+  String get clearAllNotificationsConfirm => 'Sigurado ka bang gusto mong burahin ang lahat ng notification? Hindi ito maaaring i-undo.';
 
   @override
   String get tapToChange => 'I-tap para palitan';
@@ -3967,8 +3800,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get failedToUpdate => 'Hindi na-update';
 
   @override
-  String get profileUpdatedSuccessfully =>
-      'Matagumpay na na-update ang profile';
+  String get profileUpdatedSuccessfully => 'Matagumpay na na-update ang profile';
 
   @override
   String get genderRequired => 'Kasarian (Kinakailangan)';
@@ -4007,8 +3839,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get locationServicesDisabled => 'Naka-disable ang location services';
 
   @override
-  String get locationPermissionPermanentlyDenied =>
-      'Permanenteng tinanggihan ang location permission';
+  String get locationPermissionPermanentlyDenied => 'Permanenteng tinanggihan ang location permission';
 
   @override
   String get unknown => 'Hindi alam';
@@ -4037,8 +3868,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get pleaseSelectABloodType => 'Pumili ng blood type';
 
   @override
-  String get bloodTypeSavedSuccessfully =>
-      'Matagumpay na na-save ang blood type';
+  String get bloodTypeSavedSuccessfully => 'Matagumpay na na-save ang blood type';
 
   @override
   String get hometownSavedSuccessfully => 'Matagumpay na na-save ang hometown';
@@ -4050,12 +3880,10 @@ class AppLocalizationsTl extends AppLocalizations {
   String get languageToLearnRequired => 'Kinakailangan ang wikang aaralin';
 
   @override
-  String get nativeLanguageCannotBeSame =>
-      'Hindi maaaring pareho ang native language sa inaaral';
+  String get nativeLanguageCannotBeSame => 'Hindi maaaring pareho ang native language sa inaaral';
 
   @override
-  String get learningLanguageCannotBeSame =>
-      'Hindi maaaring pareho ang inaaral na wika sa native language';
+  String get learningLanguageCannotBeSame => 'Hindi maaaring pareho ang inaaral na wika sa native language';
 
   @override
   String get pleaseSelectALanguage => 'Pumili ng wika';
@@ -4095,8 +3923,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get removeImage => 'Alisin ang Larawan';
 
   @override
-  String get removeImageConfirm =>
-      'Sigurado ka bang gusto mong alisin ang larawang ito?';
+  String get removeImageConfirm => 'Sigurado ka bang gusto mong alisin ang larawang ito?';
 
   @override
   String get removeAll => 'Alisin Lahat';
@@ -4105,19 +3932,16 @@ class AppLocalizationsTl extends AppLocalizations {
   String get removeAllSelectedImages => 'Alisin ang Lahat ng Napiling Larawan';
 
   @override
-  String get removeAllSelectedImagesConfirm =>
-      'Sigurado ka bang gusto mong alisin ang lahat ng napiling larawan?';
+  String get removeAllSelectedImagesConfirm => 'Sigurado ka bang gusto mong alisin ang lahat ng napiling larawan?';
 
   @override
-  String get yourProfilePictureWillBeKept =>
-      'Mananatili ang iyong kasalukuyang profile picture';
+  String get yourProfilePictureWillBeKept => 'Mananatili ang iyong kasalukuyang profile picture';
 
   @override
   String get removeAllImages => 'Alisin Lahat ng Larawan';
 
   @override
-  String get removeAllImagesConfirm =>
-      'Sigurado ka bang gusto mong alisin ang lahat ng profile picture?';
+  String get removeAllImagesConfirm => 'Sigurado ka bang gusto mong alisin ang lahat ng profile picture?';
 
   @override
   String get currentImages => 'Kasalukuyang mga Larawan';
@@ -4143,19 +3967,16 @@ class AppLocalizationsTl extends AppLocalizations {
   String get selectedImagesCleared => 'Na-clear ang mga napiling larawan';
 
   @override
-  String get extraImagesRemovedSuccessfully =>
-      'Matagumpay na natanggal ang mga extrang larawan';
+  String get extraImagesRemovedSuccessfully => 'Matagumpay na natanggal ang mga extrang larawan';
 
   @override
-  String get mustKeepAtLeastOneProfilePicture =>
-      'Kailangan mong panatilihin ang hindi bababa sa isang profile picture';
+  String get mustKeepAtLeastOneProfilePicture => 'Kailangan mong panatilihin ang hindi bababa sa isang profile picture';
 
   @override
   String get noProfilePicturesToRemove => 'Walang profile picture na aalisin';
 
   @override
-  String get authenticationTokenNotFound =>
-      'Hindi nahanap ang authentication token';
+  String get authenticationTokenNotFound => 'Hindi nahanap ang authentication token';
 
   @override
   String get saveChangesQuestion => 'I-save ang mga Pagbabago?';
@@ -4182,8 +4003,7 @@ class AppLocalizationsTl extends AppLocalizations {
   }
 
   @override
-  String get maxImagesPerUpload =>
-      'Maaari kang mag-upload ng maximum na 5 larawan nang sabay-sabay. Ang unang 5 lang ang idadagdag.';
+  String get maxImagesPerUpload => 'Maaari kang mag-upload ng maximum na 5 larawan nang sabay-sabay. Ang unang 5 lang ang idadagdag.';
 
   @override
   String canOnlyHaveMaxImages(int max) {
@@ -4191,15 +4011,13 @@ class AppLocalizationsTl extends AppLocalizations {
   }
 
   @override
-  String get imageSizeExceedsLimit =>
-      'Lumagpas sa 10MB na limitasyon ang laki ng larawan';
+  String get imageSizeExceedsLimit => 'Lumagpas sa 10MB na limitasyon ang laki ng larawan';
 
   @override
   String get unsupportedImageFormat => 'Hindi suportadong image format';
 
   @override
-  String get pleaseSelectAtLeastOneImage =>
-      'Pumili ng hindi bababa sa isang larawan para i-upload';
+  String get pleaseSelectAtLeastOneImage => 'Pumili ng hindi bababa sa isang larawan para i-upload';
 
   @override
   String get basicInformation => 'Pangunahing Impormasyon';
@@ -4220,8 +4038,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get studyHub => 'Sentro ng Pag-aaral';
 
   @override
-  String get dailyLearningJourney =>
-      'Ang iyong pang-araw-araw na paglalakbay sa pag-aaral';
+  String get dailyLearningJourney => 'Ang iyong pang-araw-araw na paglalakbay sa pag-aaral';
 
   @override
   String get learnTab => 'Matuto';
@@ -4292,8 +4109,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get startYourJourney => 'Simulan ang iyong paglalakbay!';
 
   @override
-  String get startJourneyDescription =>
-      'Kumpletuhin ang mga aralin, bumuo ng bokabularyo\nat subaybayan ang iyong pag-unlad';
+  String get startJourneyDescription => 'Kumpletuhin ang mga aralin, bumuo ng bokabularyo\nat subaybayan ang iyong pag-unlad';
 
   @override
   String levelN(int level) {
@@ -4319,8 +4135,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get aiConversationPartner => 'AI na Katuwang sa Pag-uusap';
 
   @override
-  String get practiceWithAITutor =>
-      'Mag-practice ng pagsasalita sa iyong AI na guro';
+  String get practiceWithAITutor => 'Mag-practice ng pagsasalita sa iyong AI na guro';
 
   @override
   String get startConversation => 'Simulan ang Pag-uusap';
@@ -4394,8 +4209,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get noLessonsFound => 'Walang nahanap na aralin';
 
   @override
-  String get createCustomLessonDescription =>
-      'Lumikha ng sariling pasadyang aralin gamit ang AI';
+  String get createCustomLessonDescription => 'Lumikha ng sariling pasadyang aralin gamit ang AI';
 
   @override
   String get createLessonWithAI => 'Lumikha ng Aralin gamit ang AI';
@@ -4502,12 +4316,10 @@ class AppLocalizationsTl extends AppLocalizations {
   String get sendWaveToStart => 'Mag-wave para magsimulang mag-chat';
 
   @override
-  String get documentMustBeUnder50MB =>
-      'Ang dokumento ay dapat mas mababa sa 50MB.';
+  String get documentMustBeUnder50MB => 'Ang dokumento ay dapat mas mababa sa 50MB.';
 
   @override
-  String get editWithin15Minutes =>
-      'Ang mga mensahe ay maaari lang i-edit sa loob ng 15 minuto';
+  String get editWithin15Minutes => 'Ang mga mensahe ay maaari lang i-edit sa loob ng 15 minuto';
 
   @override
   String messageForwardedTo(int count) {
@@ -4566,8 +4378,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get any => 'Kahit anong';
 
   @override
-  String get showNewUsersSubtitle =>
-      'Ipakita ang mga gumagamit na sumali sa nakaraang 6 na araw';
+  String get showNewUsersSubtitle => 'Ipakita ang mga gumagamit na sumali sa nakaraang 6 na araw';
 
   @override
   String get autoDetectLocation => 'Awtomatikong matukoy ang aking lokasyon';
@@ -4640,8 +4451,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get howAreYouFeeling => 'Kumusta ang pakiramdam mo?';
 
   @override
-  String get pleaseWaitOptimizingVideo =>
-      'Maghintay habang ino-optimize namin ang iyong video';
+  String get pleaseWaitOptimizingVideo => 'Maghintay habang ino-optimize namin ang iyong video';
 
   @override
   String unsupportedVideoFormat(String formats) {
@@ -4754,8 +4564,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get noBlockedUsers => 'Walang naka-block na user';
 
   @override
-  String get usersYouBlockWillAppearHere =>
-      'Ang mga user na iyong bina-block ay lalabas dito';
+  String get usersYouBlockWillAppearHere => 'Ang mga user na iyong bina-block ay lalabas dito';
 
   @override
   String unblockConfirm(String name) {
@@ -4778,8 +4587,7 @@ class AppLocalizationsTl extends AppLocalizations {
   }
 
   @override
-  String get logoutConfirmMessage =>
-      'Sigurado ka bang gusto mong mag-logout sa Bananatalk?';
+  String get logoutConfirmMessage => 'Sigurado ka bang gusto mong mag-logout sa Bananatalk?';
 
   @override
   String get loggingOut => 'Nagla-log out...';
@@ -4791,8 +4599,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get quietHoursEnable => 'I-enable ang Quiet Hours';
 
   @override
-  String get quietHoursSubtitle =>
-      'I-pause ang mga hindi mahalagang notification sa isang time window';
+  String get quietHoursSubtitle => 'I-pause ang mga hindi mahalagang notification sa isang time window';
 
   @override
   String get quietHoursStart => 'Oras ng Simula';
@@ -4804,8 +4611,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get quietHoursAllowUrgent => 'Payagan ang mahahalagang notification';
 
   @override
-  String get quietHoursAllowUrgentSubtitle =>
-      'Ang mga tawag at mensahe mula sa VIP partners ay makakarating pa rin';
+  String get quietHoursAllowUrgentSubtitle => 'Ang mga tawag at mensahe mula sa VIP partners ay makakarating pa rin';
 
   @override
   String get silencedByQuietHours => 'Naka-silent dahil sa Quiet Hours';
@@ -4832,8 +4638,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get languageUpdatedSuccessfully => 'Matagumpay na na-update ang wika';
 
   @override
-  String get bioHintCard =>
-      'Ang isang magandang bio ay tumutulong sa iba na makakonekta sa iyo. Ibahagi ang iyong mga interes, wika, o kung ano ang hinahanap mo.';
+  String get bioHintCard => 'Ang isang magandang bio ay tumutulong sa iba na makakonekta sa iyo. Ibahagi ang iyong mga interes, wika, o kung ano ang hinahanap mo.';
 
   @override
   String get bioCounterStartWriting => 'Magsimulang sumulat...';
@@ -4872,8 +4677,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get tapTypeBelow => 'I-tap ang isang uri sa ibaba';
 
   @override
-  String get tapButtonToDetectLocation =>
-      'I-tap ang button sa ibaba upang matukoy ang iyong kasalukuyang lokasyon';
+  String get tapButtonToDetectLocation => 'I-tap ang button sa ibaba upang matukoy ang iyong kasalukuyang lokasyon';
 
   @override
   String currentAddressLabel(String address) {
@@ -4881,8 +4685,7 @@ class AppLocalizationsTl extends AppLocalizations {
   }
 
   @override
-  String get onlyCityCountryShown =>
-      'Ang iyong lungsod at bansa lamang ang makikita ng iba. Ang eksaktong koordinasyon ay mananatiling pribado.';
+  String get onlyCityCountryShown => 'Ang iyong lungsod at bansa lamang ang makikita ng iba. Ang eksaktong koordinasyon ay mananatiling pribado.';
 
   @override
   String get updateLocationCta => 'I-update ang Lokasyon';
@@ -4891,8 +4694,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get enterYourName => 'Ilagay ang iyong pangalan';
 
   @override
-  String get unsavedChanges =>
-      'Mayroon kang mga hindi pa nai-save na pagbabago';
+  String get unsavedChanges => 'Mayroon kang mga hindi pa nai-save na pagbabago';
 
   @override
   String tapBelowToBrowseLanguages(int count) {
@@ -4906,8 +4708,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get browseLanguages => 'I-browse ang mga Wika';
 
   @override
-  String get yourLearningLanguageIsPrefix =>
-      'Ang iyong wikang pinag-aaralan ay ';
+  String get yourLearningLanguageIsPrefix => 'Ang iyong wikang pinag-aaralan ay ';
 
   @override
   String get yourNativeLanguageIsPrefix => 'Ang iyong katutubong wika ay ';
@@ -4931,8 +4732,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get drawerAccount => 'Account';
 
   @override
-  String get logoutConfirmBody =>
-      'Sigurado ka bang gusto mong mag-logout sa Bananatalk?';
+  String get logoutConfirmBody => 'Sigurado ka bang gusto mong mag-logout sa Bananatalk?';
 
   @override
   String get helpEmailSupport => 'Suporta sa Email';
@@ -4956,12 +4756,10 @@ class AppLocalizationsTl extends AppLocalizations {
   String get aboutDialogClose => 'Isara';
 
   @override
-  String get aboutBananatalkTagline =>
-      'Kumonekta sa mga nagaaral ng wika sa buong mundo at paunlarin ang iyong mga kasanayan sa pamamagitan ng tunay na pag-uusap.';
+  String get aboutBananatalkTagline => 'Kumonekta sa mga nagaaral ng wika sa buong mundo at paunlarin ang iyong mga kasanayan sa pamamagitan ng tunay na pag-uusap.';
 
   @override
-  String get aboutCopyright =>
-      '© 2024 Bananatalk. Lahat ng karapatan ay nakalaan.';
+  String get aboutCopyright => '© 2024 Bananatalk. Lahat ng karapatan ay nakalaan.';
 
   @override
   String get logoutFailedPrefix => 'Nabigo ang pag-logout';
@@ -4988,8 +4786,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get noVisitorsYet => 'Wala pang bisita';
 
   @override
-  String get noVisitorsYetSubtitle =>
-      'Kapag may bumisita sa iyong profile,\nlalabas sila dito';
+  String get noVisitorsYetSubtitle => 'Kapag may bumisita sa iyong profile,\nlalabas sila dito';
 
   @override
   String get visitedViaSearch => 'sa pamamagitan ng Paghahanap';
@@ -5004,12 +4801,10 @@ class AppLocalizationsTl extends AppLocalizations {
   String get visitedDirect => 'Direktang pagbisita';
 
   @override
-  String get visitorTrackingUnavailable =>
-      'Hindi available ang feature ng pagsubaybay sa bisita. Pakiupdate ang backend.';
+  String get visitorTrackingUnavailable => 'Hindi available ang feature ng pagsubaybay sa bisita. Pakiupdate ang backend.';
 
   @override
-  String get visitorTrackingNotAvailableYet =>
-      'Hindi pa available ang pagsubaybay sa bisita';
+  String get visitorTrackingNotAvailableYet => 'Hindi pa available ang pagsubaybay sa bisita';
 
   @override
   String get noFollowersYetSubtitle => 'Simulan ang pakikipag-ugnayan sa iba!';
@@ -5018,8 +4813,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get partnerButton => 'Kasosyo';
 
   @override
-  String get notFollowingAnyoneYetSubtitle =>
-      'Sundan ang mga tao upang makita ang kanilang mga update!';
+  String get notFollowingAnyoneYetSubtitle => 'Sundan ang mga tao upang makita ang kanilang mga update!';
 
   @override
   String get unfollowButton => 'I-unfollow';
@@ -5031,8 +4825,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get themeAutoSwitch => 'Awtomatikong Paglipat (Tema ng Sistema)';
 
   @override
-  String get themeSystemHint =>
-      'Kapag pinagana, susundin ng app ang mga setting ng tema ng iyong sistema';
+  String get themeSystemHint => 'Kapag pinagana, susundin ng app ang mga setting ng tema ng iyong sistema';
 
   @override
   String get themeLightMode => 'Light Mode';
@@ -5050,8 +4843,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get momentGridView => 'Grid View';
 
   @override
-  String get shareLanguageLearningJourney =>
-      'Ibahagi ang iyong paglalakbay sa pag-aaral ng wika!';
+  String get shareLanguageLearningJourney => 'Ibahagi ang iyong paglalakbay sa pag-aaral ng wika!';
 
   @override
   String get deleteHighlightTitle => 'Tanggalin ang Highlight';
@@ -5083,8 +4875,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get momentEnterDescription => 'Mangyaring maglagay ng paglalarawan';
 
   @override
-  String get momentUpdatedImageFailed =>
-      'Na-update ang moment ngunit nabigo ang pag-upload ng larawan';
+  String get momentUpdatedImageFailed => 'Na-update ang moment ngunit nabigo ang pag-upload ng larawan';
 
   @override
   String get updateRequiredTitle => 'Kailangan ang Update';
@@ -5093,12 +4884,10 @@ class AppLocalizationsTl extends AppLocalizations {
   String get updateAvailableTitle => 'Available ang Update';
 
   @override
-  String get updateRequiredBody =>
-      'Hindi na sinusuportahan ang bersyong ito ng Bananatalk. Mangyaring mag-update upang magpatuloy.';
+  String get updateRequiredBody => 'Hindi na sinusuportahan ang bersyong ito ng Bananatalk. Mangyaring mag-update upang magpatuloy.';
 
   @override
-  String get updateAvailableBody =>
-      'Available ang bagong bersyon ng Bananatalk na may mga pagpapabuti at pag-aayos ng bug.';
+  String get updateAvailableBody => 'Available ang bagong bersyon ng Bananatalk na may mga pagpapabuti at pag-aayos ng bug.';
 
   @override
   String get updateNow => 'I-update Ngayon';
@@ -5107,8 +4896,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get updateLater => 'Mamaya';
 
   @override
-  String get updateOpenStoreFailed =>
-      'Hindi mabuksan ang store. Mangyaring mag-update mula sa App Store o Play Store.';
+  String get updateOpenStoreFailed => 'Hindi mabuksan ang store. Mangyaring mag-update mula sa App Store o Play Store.';
 
   @override
   String get rememberMe => 'Tandaan ako';
@@ -5149,26 +4937,22 @@ class AppLocalizationsTl extends AppLocalizations {
   String get usernameNotAvailable => 'Hindi available';
 
   @override
-  String get usernameInvalidFormat =>
-      '3-20 karakter: titik, numero, o underscore';
+  String get usernameInvalidFormat => '3-20 karakter: titik, numero, o underscore';
 
   @override
   String get usernameHint => '@username';
 
   @override
-  String get enableBiometricTitle =>
-      'Gamitin ang Face ID sa susunod na pag-log in?';
+  String get enableBiometricTitle => 'Gamitin ang Face ID sa susunod na pag-log in?';
 
   @override
-  String get enableBiometricBody =>
-      'Mag-sign in gamit ang biometrics nang hindi nagta-type ng password.';
+  String get enableBiometricBody => 'Mag-sign in gamit ang biometrics nang hindi nagta-type ng password.';
 
   @override
   String get enableBiometricCta => 'I-enable';
 
   @override
-  String get biometricSignInPrompt =>
-      'Mag-authenticate upang mag-log in sa Bananatalk';
+  String get biometricSignInPrompt => 'Mag-authenticate upang mag-log in sa Bananatalk';
 
   @override
   String continueAs(String name) {
@@ -5324,8 +5108,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get interestsInCommonAddCta => 'Magdagdag ng paksa';
 
   @override
-  String get interestsInCommonAddSubtitle =>
-      'Magdagdag ng paksa sa iyong profile para mahanap ang pagkakatulad';
+  String get interestsInCommonAddSubtitle => 'Magdagdag ng paksa sa iyong profile para mahanap ang pagkakatulad';
 
   @override
   String activeAgo(String time) {
@@ -5390,8 +5173,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get notificationPreferencesTitle => 'Mga Abiso';
 
   @override
-  String get notificationPreferencesSubtitle =>
-      'Piliin ang mga alerto na matatanggap mo';
+  String get notificationPreferencesSubtitle => 'Piliin ang mga alerto na matatanggap mo';
 
   @override
   String get notifPrefChat => 'Mga bagong mensahe';
@@ -5403,12 +5185,10 @@ class AppLocalizationsTl extends AppLocalizations {
   String get notifPrefVoiceRoomStart => 'Mga imbitasyon sa voice room';
 
   @override
-  String get notifPrefScheduledRoomReminder =>
-      'Mga paalala sa naka-iskedyul na silid';
+  String get notifPrefScheduledRoomReminder => 'Mga paalala sa naka-iskedyul na silid';
 
   @override
-  String get notifPrefFollowerMoment =>
-      'Mga bagong sandali mula sa mga taong sinusundan mo';
+  String get notifPrefFollowerMoment => 'Mga bagong sandali mula sa mga taong sinusundan mo';
 
   @override
   String get notifPrefVisitorAlert => 'Mga bisita ng profile';
@@ -5653,8 +5433,7 @@ class AppLocalizationsTl extends AppLocalizations {
   }
 
   @override
-  String get starterAskMoment =>
-      'Tanungin sila tungkol sa kanilang huling sandali';
+  String get starterAskMoment => 'Tanungin sila tungkol sa kanilang huling sandali';
 
   @override
   String get starterSayHi => 'Magbati sa kanilang wika';
@@ -5741,8 +5520,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get tapWordToSave => 'Pindutin at hawakan ang salita para mai-save';
 
   @override
-  String get autoTranslateChatHint =>
-      'Ang mga papasok na mensahe ay automatikong isasalin';
+  String get autoTranslateChatHint => 'Ang mga papasok na mensahe ay automatikong isasalin';
 
   @override
   String get noConversationsYet => 'Wala pang mga usapan';
@@ -5799,8 +5577,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get learningStreakFreezeUse => 'Gamitin ang freeze';
 
   @override
-  String get learningStreakFreezeDescription =>
-      'Pinoprotektahan ng mga freeze ang iyong streak kapag napalampas mo ang isang araw.';
+  String get learningStreakFreezeDescription => 'Pinoprotektahan ng mga freeze ang iyong streak kapag napalampas mo ang isang araw.';
 
   @override
   String get learningStreakFreezeProtected => 'Streak protektado!';
@@ -5930,8 +5707,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get learningLeaderboardFriendBadge => 'Kaibigan';
 
   @override
-  String get learningEmptyVocab =>
-      'Magdagdag ng mga salitang gusto mong matandaan';
+  String get learningEmptyVocab => 'Magdagdag ng mga salitang gusto mong matandaan';
 
   @override
   String get learningEmptyLessons => 'Wala pang available na aralin';
@@ -6030,8 +5806,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get aiTutorPronounceUseYourOwn => 'Sariling pangungusap ✏️';
 
   @override
-  String get aiTutorPronounceCustomHint =>
-      'I-type ang pangungusap na gusto mong sanayin';
+  String get aiTutorPronounceCustomHint => 'I-type ang pangungusap na gusto mong sanayin';
 
   @override
   String get aiTutorPronounceCustomCancel => 'Kanselahin';
@@ -6040,8 +5815,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get aiTutorPronounceCustomUse => 'Gamitin';
 
   @override
-  String get aiTutorPronounceQuitConfirm =>
-      'Aalis sa drill? Hindi ma-save ang progreso mo.';
+  String get aiTutorPronounceQuitConfirm => 'Aalis sa drill? Hindi ma-save ang progreso mo.';
 
   @override
   String get aiTutorPronounceQuitYes => 'Oo';
@@ -6087,22 +5861,19 @@ class AppLocalizationsTl extends AppLocalizations {
   String get aiTutorPronounceStartHeadline => 'Paano mo gustong magsanay?';
 
   @override
-  String get aiTutorPronounceStartSubhead =>
-      'Pumili ng isa para simulan ang 5-na-pangungusap na drill.';
+  String get aiTutorPronounceStartSubhead => 'Pumili ng isa para simulan ang 5-na-pangungusap na drill.';
 
   @override
   String get aiTutorPronounceStartAITitle => 'AI ang gagawa ng pangungusap';
 
   @override
-  String get aiTutorPronounceStartAISubtitle =>
-      'Naka-tune sa antas mo, nakapokus sa mahihirap mong salita';
+  String get aiTutorPronounceStartAISubtitle => 'Naka-tune sa antas mo, nakapokus sa mahihirap mong salita';
 
   @override
   String get aiTutorPronounceStartCustomTitle => 'Sariling pangungusap';
 
   @override
-  String get aiTutorPronounceStartCustomSubtitle =>
-      'I-type o i-paste ang parirala na gusto mong masanay';
+  String get aiTutorPronounceStartCustomSubtitle => 'I-type o i-paste ang parirala na gusto mong masanay';
 
   @override
   String aiTutorQuotaRemaining(int count) {
@@ -6172,8 +5943,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get aiLessonBuilderLabelLevel => 'Antas';
 
   @override
-  String get aiLessonBuilderTopicHint =>
-      'Maglagay ng paksa (hal. \"Pagkain at restawran\")';
+  String get aiLessonBuilderTopicHint => 'Maglagay ng paksa (hal. \"Pagkain at restawran\")';
 
   @override
   String aiLessonBuilderSaved(String title) {
@@ -6187,8 +5957,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get aiTranslationHint => 'Maglagay ng teksto para isalin...';
 
   @override
-  String get aiTranslationSavedToVocab =>
-      'Nai-save sa iyong listahan ng bokabularyo';
+  String get aiTranslationSavedToVocab => 'Nai-save sa iyong listahan ng bokabularyo';
 
   @override
   String aiTranslationCouldNotSave(String error) {
@@ -6269,8 +6038,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get aiScenariosHarder => 'Mas mahirap — hamon';
 
   @override
-  String get aiRoleplayStillStarting =>
-      'Sinisimulan pa ang scenario — subukan ulit sa ilang sandali.';
+  String get aiRoleplayStillStarting => 'Sinisimulan pa ang scenario — subukan ulit sa ilang sandali.';
 
   @override
   String aiRoleplaySendFailed(String error) {
@@ -6278,8 +6046,7 @@ class AppLocalizationsTl extends AppLocalizations {
   }
 
   @override
-  String get aiRoleplayCouldNotGrade =>
-      'Hindi nagrate sa pagkakataong ito — subukan sa susunod.';
+  String get aiRoleplayCouldNotGrade => 'Hindi nagrate sa pagkakataong ito — subukan sa susunod.';
 
   @override
   String get aiConversationHistoryCompleted => 'Tapos na';
@@ -6310,8 +6077,7 @@ class AppLocalizationsTl extends AppLocalizations {
   }
 
   @override
-  String get aiScenariosBannerSubhead =>
-      'Pumili ng scenario sa antas mo, o subukan ang isang mas mataas.';
+  String get aiScenariosBannerSubhead => 'Pumili ng scenario sa antas mo, o subukan ang isang mas mataas.';
 
   @override
   String get chatListSearchHint => 'Maghanap o mag-type ng @username';
@@ -6329,8 +6095,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get chatListNewChat => 'Bagong chat';
 
   @override
-  String get chatListNewChatByUsernameTooltip =>
-      'Bagong chat sa pamamagitan ng username';
+  String get chatListNewChatByUsernameTooltip => 'Bagong chat sa pamamagitan ng username';
 
   @override
   String get chatListFindUser => 'Maghanap ng user';
@@ -6376,8 +6141,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get chatMessageDelete => 'Tanggalin';
 
   @override
-  String get chatMessageRetrySubtitle =>
-      'Subukan muling ipadala ang mensaheng ito';
+  String get chatMessageRetrySubtitle => 'Subukan muling ipadala ang mensaheng ito';
 
   @override
   String get chatMessageRemoveSubtitle => 'Alisin ang mensaheng ito';
@@ -6492,8 +6256,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get communityConversationChatAction => 'Chat';
 
   @override
-  String get communityConversationMessageCopied =>
-      'Nakopya ang mensahe! I-paste para ipadala.';
+  String get communityConversationMessageCopied => 'Nakopya ang mensahe! I-paste para ipadala.';
 
   @override
   String get communityConversationCopiedToast => 'Nakopya!';
@@ -6550,8 +6313,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get supportSheetGreeting => 'Kumusta, ako si Firdavs 👋';
 
   @override
-  String get supportSheetStory =>
-      'Itinayo ko ang Bananatalk nang mag-isa — bawat screen, bawat feature, bawat pag-aayos ng bug sa hatinggabi. Ang aking layunin ay tulungan ang mga nag-aaral ng wika sa buong mundo na kumonekta at lumago, at patuloy akong nagdadagdag ng mga bagong feature.\n\nKung nakatulong sa iyo ang Bananatalk sa anumang paraan, kahit isang maliit na kape ay nagbibigay sa akin ng motibasyon na magpatuloy. Ang bawat kontribusyon ay napakahalaga para sa isang solo developer. 🙏';
+  String get supportSheetStory => 'Itinayo ko ang Bananatalk nang mag-isa — bawat screen, bawat feature, bawat pag-aayos ng bug sa hatinggabi. Ang aking layunin ay tulungan ang mga nag-aaral ng wika sa buong mundo na kumonekta at lumago, at patuloy akong nagdadagdag ng mga bagong feature.\n\nKung nakatulong sa iyo ang Bananatalk sa anumang paraan, kahit isang maliit na kape ay nagbibigay sa akin ng motibasyon na magpatuloy. Ang bawat kontribusyon ay napakahalaga para sa isang solo developer. 🙏';
 
   @override
   String get supportSheetDonateButton => 'Mag-donate sa pamamagitan ng PayPal';
@@ -6673,8 +6435,7 @@ class AppLocalizationsTl extends AppLocalizations {
   }
 
   @override
-  String get birthdateRateLimited =>
-      'Maaari lang baguhin ang petsa ng kapanganakan ng 3 beses kada 60 araw.';
+  String get birthdateRateLimited => 'Maaari lang baguhin ang petsa ng kapanganakan ng 3 beses kada 60 araw.';
 
   @override
   String birthdateRateLimitedUntil(String date) {
@@ -6703,8 +6464,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get passwordsDontMatch => 'Hindi tugma ang mga password.';
 
   @override
-  String get newPasswordSameAsCurrent =>
-      'Dapat iba ang bagong password sa kasalukuyan.';
+  String get newPasswordSameAsCurrent => 'Dapat iba ang bagong password sa kasalukuyan.';
 
   @override
   String get passwordChangedSuccess => 'Matagumpay na nabago ang password';
@@ -6725,15 +6485,13 @@ class AppLocalizationsTl extends AppLocalizations {
   String get settingsAccountSection => 'Account';
 
   @override
-  String get changePasswordTileSubtitle =>
-      'I-update ang password ng iyong account';
+  String get changePasswordTileSubtitle => 'I-update ang password ng iyong account';
 
   @override
   String get occupationCustomTab => 'Custom';
 
   @override
-  String get occupationCustomTabHint =>
-      'Hindi nahanap ang iyong trabaho? I-type dito.';
+  String get occupationCustomTabHint => 'Hindi nahanap ang iyong trabaho? I-type dito.';
 
   @override
   String get occupationCustomInputHint => 'hal. Marine biologist, Voice actor';
@@ -6790,12 +6548,10 @@ class AppLocalizationsTl extends AppLocalizations {
   String get vipBrandTitle => 'BananaTalk VIP';
 
   @override
-  String get vipTagline =>
-      'Ang pasaporte mo sa pandaigdigang koneksyon — tunay na usapan, tagal na pagkakaibigan.';
+  String get vipTagline => 'Ang pasaporte mo sa pandaigdigang koneksyon — tunay na usapan, tagal na pagkakaibigan.';
 
   @override
-  String get vipDisclosure =>
-      'Awtomatikong nare-renew maliban kung kanselahin 24 oras bago matapos ang panahon. Sisingilin ang bayad sa iyong iTunes o Google Play account.';
+  String get vipDisclosure => 'Awtomatikong nare-renew maliban kung kanselahin 24 oras bago matapos ang panahon. Sisingilin ang bayad sa iyong iTunes o Google Play account.';
 
   @override
   String get vipLoginRequired => 'Mangyaring mag-log in para magpatuloy';
@@ -6807,8 +6563,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get chatListNewMessageAlertsTitle => 'New Message Alerts';
 
   @override
-  String get chatListNewMessageAlertsBody =>
-      'Tap to turn on notifications and never miss a message';
+  String get chatListNewMessageAlertsBody => 'Tap to turn on notifications and never miss a message';
 
   @override
   String get chatListFilterMyTurn => 'My turn';
@@ -6865,12 +6620,10 @@ class AppLocalizationsTl extends AppLocalizations {
   String get vipPaymentPurchaseGooglePlay => 'Bilhin sa Google Play';
 
   @override
-  String get vipPaymentSecureAppStore =>
-      'Ligtas na proseso ang pagbili sa pamamagitan ng App Store.';
+  String get vipPaymentSecureAppStore => 'Ligtas na proseso ang pagbili sa pamamagitan ng App Store.';
 
   @override
-  String get vipPaymentSecureGooglePlay =>
-      'Ligtas na proseso ang pagbili sa pamamagitan ng Google Play.';
+  String get vipPaymentSecureGooglePlay => 'Ligtas na proseso ang pagbili sa pamamagitan ng Google Play.';
 
   @override
   String get vipPaymentSubscriptionInfo => 'Impormasyon ng subscription';
@@ -6885,22 +6638,19 @@ class AppLocalizationsTl extends AppLocalizations {
   String get vipPaymentInfoLabelPrice => 'Halaga';
 
   @override
-  String get vipPaymentDisclosure =>
-      'Sa pagkumpleto ng pagbili na ito, sumasang-ayon ka sa aming Mga Tuntunin ng Paggamit at Patakaran sa Privacy. Awtomatikong magre-renew ang iyong subscription maliban kung kanselahin nang hindi bababa sa 24 oras bago matapos ang kasalukuyang panahon.';
+  String get vipPaymentDisclosure => 'Sa pagkumpleto ng pagbili na ito, sumasang-ayon ka sa aming Mga Tuntunin ng Paggamit at Patakaran sa Privacy. Awtomatikong magre-renew ang iyong subscription maliban kung kanselahin nang hindi bababa sa 24 oras bago matapos ang kasalukuyang panahon.';
 
   @override
   String get vipSuccessTitle => 'Welcome sa VIP!';
 
   @override
-  String get vipSuccessBody =>
-      'Aktibo na ang iyong VIP subscription. Tamasahin ang lahat ng premium feature!';
+  String get vipSuccessBody => 'Aktibo na ang iyong VIP subscription. Tamasahin ang lahat ng premium feature!';
 
   @override
   String get vipPendingTitle => 'Malapit na';
 
   @override
-  String get vipPendingBody =>
-      'Pinoproseso ang iyong subscription — subukang mag-refresh mamaya.';
+  String get vipPendingBody => 'Pinoproseso ang iyong subscription — subukang mag-refresh mamaya.';
 
   @override
   String get vipErrorPaymentTitle => 'Error sa pagbabayad';
@@ -6915,16 +6665,13 @@ class AppLocalizationsTl extends AppLocalizations {
   String get vipErrorPaymentFailed => 'Nabigo ang pagbabayad';
 
   @override
-  String get vipErrorBodyPrefix =>
-      'May naganap na error habang pinoproseso ang iyong bayad:';
+  String get vipErrorBodyPrefix => 'May naganap na error habang pinoproseso ang iyong bayad:';
 
   @override
-  String get vipErrorPurchaseCanceled =>
-      'Kinansela o nabigo ang pagbili. Pakisubukang muli.';
+  String get vipErrorPurchaseCanceled => 'Kinansela o nabigo ang pagbili. Pakisubukang muli.';
 
   @override
-  String get vipErrorVerifyServer =>
-      'Hindi ma-verify ang pagbili sa server. Mangyaring makipag-ugnayan sa suporta.';
+  String get vipErrorVerifyServer => 'Hindi ma-verify ang pagbili sa server. Mangyaring makipag-ugnayan sa suporta.';
 
   @override
   String get vipPlanLengthOneMonth => '1 buwan';
@@ -6962,23 +6709,19 @@ class AppLocalizationsTl extends AppLocalizations {
   String get chatPhrasesAddTitle => 'Magdagdag ng parirala';
 
   @override
-  String get chatPhrasesAddHint =>
-      'I-type ang parirala na madalas mong ginagamit';
+  String get chatPhrasesAddHint => 'I-type ang parirala na madalas mong ginagamit';
 
   @override
-  String get chatPhrasesEmptyMostUsed =>
-      'Wala pang nai-save na parirala. I-tap ang + para magdagdag.';
+  String get chatPhrasesEmptyMostUsed => 'Wala pang nai-save na parirala. I-tap ang + para magdagdag.';
 
   @override
   String get chatPhrasesDeleteTitle => 'I-delete ang pariralang ito?';
 
   @override
-  String get filterVipPromoTitle =>
-      'Mahanap nang mas mabilis ang perfect match mo';
+  String get filterVipPromoTitle => 'Mahanap nang mas mabilis ang perfect match mo';
 
   @override
-  String get filterVipPromoSubtitle =>
-      'I-unlock ang priority discovery, advanced filters, at walang ad na chats sa VIP.';
+  String get filterVipPromoSubtitle => 'I-unlock ang priority discovery, advanced filters, at walang ad na chats sa VIP.';
 
   @override
   String get filterVipPromoCta => 'Maging VIP';
@@ -6990,8 +6733,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get examStudyChooseLanguage => 'Choose your study language';
 
   @override
-  String get examStudyChooseLanguageSubtitle =>
-      'Pick the language you want to prepare an exam in.';
+  String get examStudyChooseLanguageSubtitle => 'Pick the language you want to prepare an exam in.';
 
   @override
   String get examStudyLoading => 'Loading…';
@@ -7071,19 +6813,16 @@ class AppLocalizationsTl extends AppLocalizations {
   String get examQuestionNoQuestions => 'No questions in this section yet.';
 
   @override
-  String get examQuestionEssayComingSoon =>
-      'Essay evaluation is coming soon. Try a reading section for now.';
+  String get examQuestionEssayComingSoon => 'Essay evaluation is coming soon. Try a reading section for now.';
 
   @override
-  String get examQuestionUnsupported =>
-      'This question type isn\'t supported yet.';
+  String get examQuestionUnsupported => 'This question type isn\'t supported yet.';
 
   @override
   String get examPracticeFinishedTitle => 'Section complete';
 
   @override
-  String get examPracticeFinishedBody =>
-      'Nice work — you\'ve completed every question in this section.';
+  String get examPracticeFinishedBody => 'Nice work — you\'ve completed every question in this section.';
 
   @override
   String get examPracticeBackToDashboard => 'Back to dashboard';
@@ -7123,8 +6862,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get examEssayEvaluating => 'Evaluating your essay…';
 
   @override
-  String get examEssayEvaluatingHint =>
-      'This usually takes 10–30 seconds. You can leave this screen — we\'ll keep evaluating in the background.';
+  String get examEssayEvaluatingHint => 'This usually takes 10–30 seconds. You can leave this screen — we\'ll keep evaluating in the background.';
 
   @override
   String get examEssayResultTitle => 'Evaluation';
@@ -7148,8 +6886,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get examEssayResultDone => 'Done';
 
   @override
-  String get examEssayPollTimeout =>
-      'Still evaluating — check back in a minute.';
+  String get examEssayPollTimeout => 'Still evaluating — check back in a minute.';
 
   @override
   String get examEssayPollRefresh => 'Check again';
@@ -7160,8 +6897,7 @@ class AppLocalizationsTl extends AppLocalizations {
   }
 
   @override
-  String get examEssayQuotaExhausted =>
-      'You\'ve used today\'s free essay evaluations. Upgrade to VIP for unlimited.';
+  String get examEssayQuotaExhausted => 'You\'ve used today\'s free essay evaluations. Upgrade to VIP for unlimited.';
 
   @override
   String get examEssayQuotaUpgrade => 'Upgrade to VIP';
@@ -7179,8 +6915,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get examProgressNotStartedTitle => 'No practice yet';
 
   @override
-  String get examProgressNotStartedBody =>
-      'Answer a few questions in any section to see your progress here.';
+  String get examProgressNotStartedBody => 'Answer a few questions in any section to see your progress here.';
 
   @override
   String get examProgressFocusAreas => 'Focus areas';
@@ -7191,8 +6926,7 @@ class AppLocalizationsTl extends AppLocalizations {
   }
 
   @override
-  String get examProgressNoFocusAreas =>
-      'You\'re doing well across every section — keep practicing!';
+  String get examProgressNoFocusAreas => 'You\'re doing well across every section — keep practicing!';
 
   @override
   String get examPlanSetupTitle => 'Start study plan';
@@ -7225,8 +6959,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get examPlanEmptyTitle => 'No active plan';
 
   @override
-  String get examPlanEmptyBody =>
-      'Generate a plan to get weekly milestones tailored to your weak areas.';
+  String get examPlanEmptyBody => 'Generate a plan to get weekly milestones tailored to your weak areas.';
 
   @override
   String get examPlanRegenerate => 'Regenerate plan';
@@ -7258,8 +6991,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get examTopicPickerTitle => 'Pick a topic';
 
   @override
-  String get examTopicPickerSubtitle =>
-      'Practice questions on a specific subject, or jump into all questions.';
+  String get examTopicPickerSubtitle => 'Practice questions on a specific subject, or jump into all questions.';
 
   @override
   String get examTopicAllTopics => 'All topics';
@@ -7268,8 +7000,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get examTopicAllTopicsDescription => 'Mix from every available topic';
 
   @override
-  String get examTopicEmpty =>
-      'No topical content yet. Tap All topics to start practicing.';
+  String get examTopicEmpty => 'No topical content yet. Tap All topics to start practicing.';
 
   @override
   String examTopicQuestionCount(int count) {
@@ -7307,8 +7038,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get examSpeakingUploading => 'Uploading…';
 
   @override
-  String get examSpeakingTooShort =>
-      'Recording is too short. Please speak for at least a few seconds.';
+  String get examSpeakingTooShort => 'Recording is too short. Please speak for at least a few seconds.';
 
   @override
   String get examGroupWriting => 'Writing';
@@ -7342,8 +7072,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get examVocabLevelPickerTitle => 'Pick a level';
 
   @override
-  String get examVocabLevelPickerSubtitle =>
-      'Browse words and practice quizzes by CEFR level.';
+  String get examVocabLevelPickerSubtitle => 'Browse words and practice quizzes by CEFR level.';
 
   @override
   String get examVocabTopicPickerTitle => 'Pick a topic';
@@ -7390,26 +7119,22 @@ class AppLocalizationsTl extends AppLocalizations {
   String get examVocabQuizRestart => 'Restart';
 
   @override
-  String get examVocabQuizEmpty =>
-      'No questions could be generated. Try another topic or level.';
+  String get examVocabQuizEmpty => 'No questions could be generated. Try another topic or level.';
 
   @override
-  String get examVocabQuizNotEnough =>
-      'Not enough words at this level and topic to build a quiz.';
+  String get examVocabQuizNotEnough => 'Not enough words at this level and topic to build a quiz.';
 
   @override
   String get examVocabQuizExpiredTitle => 'Quiz expired';
 
   @override
-  String get examVocabQuizExpiredBody =>
-      'This quiz has been idle too long. Restart to get a fresh one.';
+  String get examVocabQuizExpiredBody => 'This quiz has been idle too long. Restart to get a fresh one.';
 
   @override
   String get examVocabTranslate => 'Translate';
 
   @override
-  String get examVocabTranslateFailed =>
-      'Translation unavailable. Try again later.';
+  String get examVocabTranslateFailed => 'Translation unavailable. Try again later.';
 
   @override
   String get examDashboardTips => 'Tips';
@@ -7462,22 +7187,19 @@ class AppLocalizationsTl extends AppLocalizations {
   String get roomsEmptyTitle => 'Wala pang mga silid ng wika';
 
   @override
-  String get roomsEmptySubtitle =>
-      'Bumalik sa lalong madaling panahon — inihahanda pa ang mga hub.';
+  String get roomsEmptySubtitle => 'Bumalik sa lalong madaling panahon — inihahanda pa ang mga hub.';
 
   @override
   String get roomCreateTitle => 'Bagong Silid ng Paksa';
 
   @override
-  String get roomCreateSubtitle =>
-      'Magsimula ng nakatuong usapan sa ilalim ng isang wika';
+  String get roomCreateSubtitle => 'Magsimula ng nakatuong usapan sa ilalim ng isang wika';
 
   @override
   String get roomNameLabel => 'Pangalan ng silid';
 
   @override
-  String get roomNameHint =>
-      'hal. Pang-araw-araw na pagsasanay sa pakikipag-usap';
+  String get roomNameHint => 'hal. Pang-araw-araw na pagsasanay sa pakikipag-usap';
 
   @override
   String get roomDescriptionLabel => 'Paglalarawan (opsyonal)';
@@ -7542,8 +7264,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get roomLeaveHubFailed => 'Nabigong umalis sa hub';
 
   @override
-  String get roomJoinRequestSent =>
-      'Naipadala ang kahilingan — mapapabatid sa iyo kung aaprubahan';
+  String get roomJoinRequestSent => 'Naipadala ang kahilingan — mapapabatid sa iyo kung aaprubahan';
 
   @override
   String get roomJoinRequestFailed => 'Nabigong ipadala ang kahilingan';
@@ -7565,12 +7286,10 @@ class AppLocalizationsTl extends AppLocalizations {
   }
 
   @override
-  String get roomBannedRequestMessage =>
-      'Inalis ka sa silid na ito. Magpadala ng kahilingan para muling sumali — kailangang aprubahan ito ng may-ari.';
+  String get roomBannedRequestMessage => 'Inalis ka sa silid na ito. Magpadala ng kahilingan para muling sumali — kailangang aprubahan ito ng may-ari.';
 
   @override
-  String get roomModeratedRequestMessage =>
-      'Ito ay isang pinamamahalaang silid. Humiling na sumali para makapag-chat.';
+  String get roomModeratedRequestMessage => 'Ito ay isang pinamamahalaang silid. Humiling na sumali para makapag-chat.';
 
   @override
   String get roomRequestPending => 'Nakabinbin ang kahilingan';
@@ -7585,8 +7304,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get roomSomeoneFallback => 'Isang tao';
 
   @override
-  String get roomRequestsLoadError =>
-      'Hindi ma-load ang mga kahilingang sumali';
+  String get roomRequestsLoadError => 'Hindi ma-load ang mga kahilingang sumali';
 
   @override
   String get roomRequestApproved => 'Naaprubahan ang kahilingan';
@@ -7655,8 +7373,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get roomMemberUnmuted => 'Na-unmute ang miyembro';
 
   @override
-  String get roomMemberMuteFailed =>
-      'Nabigong i-update ang katayuan ng pag-mute';
+  String get roomMemberMuteFailed => 'Nabigong i-update ang katayuan ng pag-mute';
 
   @override
   String roomMembersAppBarTitle(String title) {
@@ -7747,8 +7464,7 @@ class AppLocalizationsTl extends AppLocalizations {
   }
 
   @override
-  String get todayEmpty =>
-      'Inihahanda pa ang mga aralin ngayong araw. Balikan mo mamaya.';
+  String get todayEmpty => 'Inihahanda pa ang mga aralin ngayong araw. Balikan mo mamaya.';
 
   @override
   String todayLanguageUnsupported(String language) {
@@ -7762,8 +7478,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get packGotIt => 'Nakuha ko';
 
   @override
-  String get packSubmitFailed =>
-      'Hindi nai-save — tingnan ang koneksyon at subukan muli.';
+  String get packSubmitFailed => 'Hindi nai-save — tingnan ang koneksyon at subukan muli.';
 
   @override
   String packWordProgress(int current, int total) {
@@ -7836,8 +7551,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get masteryTitle => 'Ang progreso mo';
 
   @override
-  String get masteryEmpty =>
-      'Tapusin ang isang araw ng pag-aaral at lilitaw dito ang progreso mo.';
+  String get masteryEmpty => 'Tapusin ang isang araw ng pag-aaral at lilitaw dito ang progreso mo.';
 
   @override
   String get masteryYourLevel => 'antas mo';
@@ -7895,8 +7609,7 @@ class AppLocalizationsTl extends AppLocalizations {
   }
 
   @override
-  String get placementResult =>
-      'Dito tayo magsisimula. Mababago mo ito anumang oras.';
+  String get placementResult => 'Dito tayo magsisimula. Mababago mo ito anumang oras.';
 
   @override
   String get placementStart => 'Simulan ang pag-aaral';
@@ -7938,8 +7651,7 @@ class AppLocalizationsTl extends AppLocalizations {
   }
 
   @override
-  String get weeklyReportEmpty =>
-      'Wala pang pag-aaral ngayong linggo. Isang araw lang ang kailangan para magsimula.';
+  String get weeklyReportEmpty => 'Wala pang pag-aaral ngayong linggo. Isang araw lang ang kailangan para magsimula.';
 
   @override
   String get weeklyReportStart => 'Simulan ang pack ngayong araw';
@@ -7966,8 +7678,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get gatheringEmptyTitle => 'Ikaw ang mag-una';
 
   @override
-  String get gatheringEmptyBody =>
-      'Wala pang nakatakda. Pumili ng oras at i-post — sumasali ang mga tao sa mga tagpong may host na.';
+  String get gatheringEmptyBody => 'Wala pang nakatakda. Pumili ng oras at i-post — sumasali ang mga tao sa mga tagpong may host na.';
 
   @override
   String get gatheringStartAClub => 'Gumawa na lang ng club';
@@ -8000,6 +7711,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String gatheringQuorumNeeded(num count) {
     final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
+      
     );
     final String countString = countNumberFormat.format(count);
 
@@ -8034,15 +7746,13 @@ class AppLocalizationsTl extends AppLocalizations {
   String get gatheringAskToJoin => 'Humiling na sumali';
 
   @override
-  String get gatheringRequested =>
-      'Naipadala ang hiling — ang host ang magpapasya';
+  String get gatheringRequested => 'Naipadala ang hiling — ang host ang magpapasya';
 
   @override
   String get gatheringCreateTitle => 'Bagong tagpo';
 
   @override
-  String get gatheringCreateSubtitle =>
-      'Isang oras, isang wika, at ilang upuan. Opsyonal na ang iba.';
+  String get gatheringCreateSubtitle => 'Isang oras, isang wika, at ilang upuan. Opsyonal na ang iba.';
 
   @override
   String gatheringDefaultTitle(String language) {
@@ -8065,8 +7775,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get gatheringQuorumLabel => 'Kumpirmahin sa';
 
   @override
-  String get gatheringQuorumExplainer =>
-      'Bilang host, ikaw ang unang kasali. Makukumpirma ang tagpo kapag umabot na sa bilang na ito.';
+  String get gatheringQuorumExplainer => 'Bilang host, ikaw ang unang kasali. Makukumpirma ang tagpo kapag umabot na sa bilang na ito.';
 
   @override
   String get gatheringPost => 'I-post';
@@ -8112,6 +7821,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String gatheringHostDecision(num count) {
     final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
+      
     );
     final String countString = countNumberFormat.format(count);
 
@@ -8134,8 +7844,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get gatheringEnd => 'Tapusin ang tagpo';
 
   @override
-  String get gatheringEndedThanks =>
-      'Tapos na — libre ang mag-message sa mga nakilala mo';
+  String get gatheringEndedThanks => 'Tapos na — libre ang mag-message sa mga nakilala mo';
 
   @override
   String get gatheringCancelIt => 'Kanselahin ang tagpo';
@@ -8147,14 +7856,14 @@ class AppLocalizationsTl extends AppLocalizations {
   String gatheringCancelConfirm(num count) {
     final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
+      
     );
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other:
-          'May $countString taong naghihintay nito. Sasabihan silang kansela na.',
+      other: 'May $countString taong naghihintay nito. Sasabihan silang kansela na.',
       one: 'May 1 taong naghihintay nito. Sasabihan silang kansela na.',
     );
     return '$_temp0';
@@ -8170,6 +7879,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String clubMembers(num count) {
     final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
+      
     );
     final String countString = countNumberFormat.format(count);
 
@@ -8201,8 +7911,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get clubCreateTitle => 'Bagong club';
 
   @override
-  String get clubCreateSubtitle =>
-      'Pinagsasama ng club ang mga tao kahit sa pagitan ng mga tagpo. Ipangalan mo sa talagang gagawin ninyo.';
+  String get clubCreateSubtitle => 'Pinagsasama ng club ang mga tao kahit sa pagitan ng mga tagpo. Ipangalan mo sa talagang gagawin ninyo.';
 
   @override
   String get clubNameLabel => 'Pangalan ng club';
@@ -8237,12 +7946,10 @@ class AppLocalizationsTl extends AppLocalizations {
   String get gatheringsMine => 'Aking mga pagtitipon';
 
   @override
-  String get gatheringsMineEmpty =>
-      'Wala pa. Lalabas dito ang mga pagtitipong iyong hino-host o sinalihan.';
+  String get gatheringsMineEmpty => 'Wala pa. Lalabas dito ang mga pagtitipong iyong hino-host o sinalihan.';
 
   @override
-  String get gatheringsMineSubtitle =>
-      'Mga pagtitipong hino-host o sinalihan mo';
+  String get gatheringsMineSubtitle => 'Mga pagtitipong hino-host o sinalihan mo';
 
   @override
   String get gatheringSave => 'I-save';
@@ -8266,12 +7973,10 @@ class AppLocalizationsTl extends AppLocalizations {
   String get intentDate => 'Bukas sa pakikipag-date';
 
   @override
-  String get intentPrivacyNote =>
-      'Nakikita ng iba ang pinili mo, maliban sa pakikipag-date na nananatiling pribado.';
+  String get intentPrivacyNote => 'Nakikita ng iba ang pinili mo, maliban sa pakikipag-date na nananatiling pribado.';
 
   @override
-  String get gatheringNoClubsYet =>
-      'Wala pang club — gumawa ka at magkakaroon ng tahanan ang mga pagtitipon mo.';
+  String get gatheringNoClubsYet => 'Wala pang club — gumawa ka at magkakaroon ng tahanan ang mga pagtitipon mo.';
 
   @override
   String get topicConversation => 'Usapan';
@@ -8333,8 +8038,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get notifyRepliesTitle => 'Ipaalam kapag may sumagot';
 
   @override
-  String get notifyRepliesBody =>
-      'Ipapaalam namin ang mga bagong mensahe at ang araw-araw mong paalala sa pag-aaral. Puwede mong i-off ang alinman anumang oras.';
+  String get notifyRepliesBody => 'Ipapaalam namin ang mga bagong mensahe at ang araw-araw mong paalala sa pag-aaral. Puwede mong i-off ang alinman anumang oras.';
 
   @override
   String get notifyRepliesEnable => 'I-on';
@@ -8346,8 +8050,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get notificationsOffTitle => 'Naka-off ang mga notification';
 
   @override
-  String get notificationsOffBody =>
-      'Hinaharangan ng device mo ang mga notification mula sa BananaTalk, kaya hindi ka maaabot ng mga paalala at mensahe. Hindi iiral ang mga setting sa ibaba hangga\'t hindi mo ito bino-on.';
+  String get notificationsOffBody => 'Hinaharangan ng device mo ang mga notification mula sa BananaTalk, kaya hindi ka maaabot ng mga paalala at mensahe. Hindi iiral ang mga setting sa ibaba hangga\'t hindi mo ito bino-on.';
 
   @override
   String get notificationsOffOpen => 'Buksan ang settings';
@@ -8362,8 +8065,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get finishProfileTitle => 'Tapusin ang pag-set up ng profile mo';
 
   @override
-  String get finishProfileBody =>
-      'Kailangan namin ang kaarawan mo para manatiling ligtas ang BananaTalk para sa lahat. Puwede kang mag-sign out kung ayaw mong magpatuloy.';
+  String get finishProfileBody => 'Kailangan namin ang kaarawan mo para manatiling ligtas ang BananaTalk para sa lahat. Puwede kang mag-sign out kung ayaw mong magpatuloy.';
 
   @override
   String get finishProfileContinue => 'Ituloy';
@@ -8405,8 +8107,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get clubDeleteConfirmTitle => 'Tanggalin ang club na ito?';
 
   @override
-  String get clubDeleteConfirmBody =>
-      'Mananatili ang mga nakaiskedyul na event — may sumagot nang sasama. Ang club lang ang matatanggal.';
+  String get clubDeleteConfirmBody => 'Mananatili ang mga nakaiskedyul na event — may sumagot nang sasama. Ang club lang ang matatanggal.';
 
   @override
   String get clubRemoveMember => 'Alisin sa club';
@@ -8512,15 +8213,13 @@ class AppLocalizationsTl extends AppLocalizations {
   String get storyArchiveTitle => 'Archive';
 
   @override
-  String get storyArchiveSubtitle =>
-      'Mga expired mong story, ikaw lang ang nakakakita';
+  String get storyArchiveSubtitle => 'Mga expired mong story, ikaw lang ang nakakakita';
 
   @override
   String get storyArchiveEmpty => 'Wala pang naka-archive';
 
   @override
-  String get storyArchiveEmptyBody =>
-      'Napupunta rito ang mga story pagkatapos ng 24 oras. Idagdag sa highlight para manatili sa profile mo.';
+  String get storyArchiveEmptyBody => 'Napupunta rito ang mga story pagkatapos ng 24 oras. Idagdag sa highlight para manatili sa profile mo.';
 
   @override
   String get storyArchiveAddHighlight => 'Idagdag sa highlight';
@@ -8615,15 +8314,13 @@ class AppLocalizationsTl extends AppLocalizations {
   String get introRequests => 'Mga intro request';
 
   @override
-  String get icebreakerWhyLearn =>
-      'Ano ang nag-udyok sa iyong mag-aral ng bagong wika?';
+  String get icebreakerWhyLearn => 'Ano ang nag-udyok sa iyong mag-aral ng bagong wika?';
 
   @override
   String get icebreakerCanHelp => 'Hi! Matutulungan kitang mag-practice 😊';
 
   @override
-  String get icebreakerFavoriteWord =>
-      'Ano ang paborito mong salita sa wika mo?';
+  String get icebreakerFavoriteWord => 'Ano ang paborito mong salita sa wika mo?';
 
   @override
   String get icebreakerCoffeeChat => 'Mag-chat tayo sa coffee break minsan?';
@@ -8644,8 +8341,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get addQuickReply => 'Magdagdag ng Quick Reply';
 
   @override
-  String get pollNeedQuestionAndOptions =>
-      'Magdagdag ng tanong at hindi bababa sa 2 opsyon';
+  String get pollNeedQuestionAndOptions => 'Magdagdag ng tanong at hindi bababa sa 2 opsyon';
 
   @override
   String get addOne => 'Magdagdag ng isa';
@@ -8684,8 +8380,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get couldNotLoadFollowings => 'Hindi ma-load ang mga sinusundan';
 
   @override
-  String get couldNotLoadMoreHistory =>
-      'Hindi ma-load ang karagdagang history.';
+  String get couldNotLoadMoreHistory => 'Hindi ma-load ang karagdagang history.';
 
   @override
   String get couldNotLoadChats => 'Hindi ma-load ang iyong mga chat';
@@ -8736,15 +8431,13 @@ class AppLocalizationsTl extends AppLocalizations {
   String get minTwoOptions => 'Kailangan ng hindi bababa sa 2 opsyon';
 
   @override
-  String get noMoreVotesAfterClosing =>
-      'Walang tatanggaping boto pagkatapos isara.';
+  String get noMoreVotesAfterClosing => 'Walang tatanggaping boto pagkatapos isara.';
 
   @override
   String get noOneToMention => 'Wala pang ma-mention';
 
   @override
-  String get noRecentChatsToSendTo =>
-      'Walang kamakailang chat na mapagpapadalhan';
+  String get noRecentChatsToSendTo => 'Walang kamakailang chat na mapagpapadalhan';
 
   @override
   String get notEnoughCoins => 'Kulang ang coins.';
@@ -8762,8 +8455,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get pleaseAddTwoOptions => 'Magdagdag ng hindi bababa sa 2 opsyon';
 
   @override
-  String get pleaseAttachEvidence =>
-      'Maglakip ng kahit isang file bilang ebidensya';
+  String get pleaseAttachEvidence => 'Maglakip ng kahit isang file bilang ebidensya';
 
   @override
   String get pleaseEnterQuestion => 'Maglagay ng tanong';
@@ -8772,8 +8464,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get pleaseSelectReportReason => 'Pumili ng dahilan ng pag-report';
 
   @override
-  String get pleaseSelectCorrectAnswer =>
-      'Piliin ang tamang sagot sa pagsusulit';
+  String get pleaseSelectCorrectAnswer => 'Piliin ang tamang sagot sa pagsusulit';
 
   @override
   String get pollExpires => 'Nag-e-expire ang poll';
@@ -8827,9 +8518,50 @@ class AppLocalizationsTl extends AppLocalizations {
   String get uploadQueue => 'Upload Queue';
 
   @override
-  String get usersCanVoteMultiple =>
-      'Maaaring bumoto ang mga user sa maraming opsyon';
+  String get usersCanVoteMultiple => 'Maaaring bumoto ang mga user sa maraming opsyon';
 
   @override
   String get watchAd => 'Manood ng Ad';
+
+  @override
+  String get matchReasonReciprocal => 'You\'re learning each other\'s language';
+
+  @override
+  String matchReasonSameTarget(String language) {
+    return 'Also learning $language';
+  }
+
+  @override
+  String matchReasonSharedTopic(String topic) {
+    return 'Shared interest: $topic';
+  }
+
+  @override
+  String get matchReasonActiveToday => 'Active today';
+
+  @override
+  String get matchReasonSameCity => 'Lives in your city';
+
+  @override
+  String get matchRepliesFast => 'Replies fast';
+
+  @override
+  String matchesTodayTitle(int count) {
+    return 'Your $count matches today';
+  }
+
+  @override
+  String get matchesRefreshHint => 'refreshes at midnight';
+
+  @override
+  String get matchesEmptyTitle => 'That\'s everyone for today';
+
+  @override
+  String get matchesEmptyBody => 'Fresh matches tomorrow. Meanwhile, browse all partners.';
+
+  @override
+  String get matchesEmptyCta => 'Browse partners';
+
+  @override
+  String get matchSayHi => 'Say hi';
 }

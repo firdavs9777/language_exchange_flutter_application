@@ -3535,5 +3535,17 @@
   "unlockPremiumWallpapers": "Mở khóa hình nền premium",
   "uploadQueue": "Hàng đợi tải lên",
   "usersCanVoteMultiple": "Người dùng có thể chọn nhiều lựa chọn",
-  "watchAd": "Xem quảng cáo"
+  "watchAd": "Xem quảng cáo",
+  "matchReasonReciprocal": "You're learning each other's language",
+  "matchReasonSameTarget": "Also learning {language}",
+  "matchReasonSharedTopic": "Shared interest: {topic}",
+  "matchReasonActiveToday": "Active today",
+  "matchReasonSameCity": "Lives in your city",
+  "matchRepliesFast": "Replies fast",
+  "matchesTodayTitle": "Your {count} matches today",
+  "matchesRefreshHint": "refreshes at midnight",
+  "matchesEmptyTitle": "That's everyone for today",
+  "matchesEmptyBody": "Fresh matches tomorrow. Meanwhile, browse all partners.",
+  "matchesEmptyCta": "Browse partners",
+  "matchSayHi": "Say hi"
 }

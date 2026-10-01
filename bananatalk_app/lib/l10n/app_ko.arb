@@ -3556,5 +3556,17 @@
   "unlockPremiumWallpapers": "프리미엄 배경화면 잠금 해제",
   "uploadQueue": "업로드 대기열",
   "usersCanVoteMultiple": "여러 선택지에 투표할 수 있어요",
-  "watchAd": "광고 보기"
+  "watchAd": "광고 보기",
+  "matchReasonReciprocal": "You're learning each other's language",
+  "matchReasonSameTarget": "Also learning {language}",
+  "matchReasonSharedTopic": "Shared interest: {topic}",
+  "matchReasonActiveToday": "Active today",
+  "matchReasonSameCity": "Lives in your city",
+  "matchRepliesFast": "Replies fast",
+  "matchesTodayTitle": "Your {count} matches today",
+  "matchesRefreshHint": "refreshes at midnight",
+  "matchesEmptyTitle": "That's everyone for today",
+  "matchesEmptyBody": "Fresh matches tomorrow. Meanwhile, browse all partners.",
+  "matchesEmptyCta": "Browse partners",
+  "matchSayHi": "Say hi"
 }

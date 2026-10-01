@@ -5790,5 +5790,68 @@
   "unlockPremiumWallpapers": "Unlock premium wallpapers",
   "uploadQueue": "Upload Queue",
   "usersCanVoteMultiple": "Users can vote for multiple options",
-  "watchAd": "Watch Ad"
+  "watchAd": "Watch Ad",
+  "matchReasonReciprocal": "You're learning each other's language",
+  "@matchReasonReciprocal": {
+    "description": "Reason chip on a daily match: both users learn each other's language"
+  },
+  "matchReasonSameTarget": "Also learning {language}",
+  "@matchReasonSameTarget": {
+    "description": "Reason chip: candidate shares the user's target language",
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "matchReasonSharedTopic": "Shared interest: {topic}",
+  "@matchReasonSharedTopic": {
+    "description": "Reason chip: a shared interest topic",
+    "placeholders": {
+      "topic": {
+        "type": "String"
+      }
+    }
+  },
+  "matchReasonActiveToday": "Active today",
+  "@matchReasonActiveToday": {
+    "description": "Reason chip: candidate was active today"
+  },
+  "matchReasonSameCity": "Lives in your city",
+  "@matchReasonSameCity": {
+    "description": "Reason chip: same city"
+  },
+  "matchRepliesFast": "Replies fast",
+  "@matchRepliesFast": {
+    "description": "Tag on a match card for users with a high response rate"
+  },
+  "matchesTodayTitle": "Your {count} matches today",
+  "@matchesTodayTitle": {
+    "description": "Header of the Matches tab",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "matchesRefreshHint": "refreshes at midnight",
+  "@matchesRefreshHint": {
+    "description": "Muted hint under the Matches tab header"
+  },
+  "matchesEmptyTitle": "That's everyone for today",
+  "@matchesEmptyTitle": {
+    "description": "Matches tab empty state title"
+  },
+  "matchesEmptyBody": "Fresh matches tomorrow. Meanwhile, browse all partners.",
+  "@matchesEmptyBody": {
+    "description": "Matches tab empty state body"
+  },
+  "matchesEmptyCta": "Browse partners",
+  "@matchesEmptyCta": {
+    "description": "Matches tab empty state button"
+  },
+  "matchSayHi": "Say hi",
+  "@matchSayHi": {
+    "description": "Primary action on a daily match card: open a chat"
+  }
 }

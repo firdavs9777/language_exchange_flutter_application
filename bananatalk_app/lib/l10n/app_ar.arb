@@ -3565,5 +3565,17 @@
   "unlockPremiumWallpapers": "افتح الخلفيات المميزة",
   "uploadQueue": "قائمة الرفع",
   "usersCanVoteMultiple": "يمكن للمستخدمين التصويت لعدة خيارات",
-  "watchAd": "مشاهدة إعلان"
+  "watchAd": "مشاهدة إعلان",
+  "matchReasonReciprocal": "You're learning each other's language",
+  "matchReasonSameTarget": "Also learning {language}",
+  "matchReasonSharedTopic": "Shared interest: {topic}",
+  "matchReasonActiveToday": "Active today",
+  "matchReasonSameCity": "Lives in your city",
+  "matchRepliesFast": "Replies fast",
+  "matchesTodayTitle": "Your {count} matches today",
+  "matchesRefreshHint": "refreshes at midnight",
+  "matchesEmptyTitle": "That's everyone for today",
+  "matchesEmptyBody": "Fresh matches tomorrow. Meanwhile, browse all partners.",
+  "matchesEmptyCta": "Browse partners",
+  "matchSayHi": "Say hi"
 }

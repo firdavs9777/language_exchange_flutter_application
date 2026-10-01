@@ -345,8 +345,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get clearCacheSubtitle => '释放存储空间';
 
   @override
-  String get clearCacheDescription =>
-      '这将清除所有缓存的图片、视频和音频文件。在重新下载媒体内容期间，应用可能会暂时加载较慢。';
+  String get clearCacheDescription => '这将清除所有缓存的图片、视频和音频文件。在重新下载媒体内容期间，应用可能会暂时加载较慢。';
 
   @override
   String get clearCacheHint => '如果图片或音频无法正常加载，请使用此功能。';
@@ -1061,8 +1060,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get warningThisActionIsPermanent => '警告：此操作是永久性的！';
 
   @override
-  String get deletingYourAccountWillPermanentlyRemove =>
-      '删除您的账户将永久删除：\n\n• 您的个人资料和所有个人数据\n• 您的所有消息和对话\n• 您的所有动态和故事\n• 您的VIP订阅（不退款）\n• 您的所有联系人和关注者\n\n此操作无法撤销。';
+  String get deletingYourAccountWillPermanentlyRemove => '删除您的账户将永久删除：\n\n• 您的个人资料和所有个人数据\n• 您的所有消息和对话\n• 您的所有动态和故事\n• 您的VIP订阅（不退款）\n• 您的所有联系人和关注者\n\n此操作无法撤销。';
 
   @override
   String get clearAllNotifications => '清除所有通知？';
@@ -1134,8 +1132,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get emailNotifications => '邮件通知';
 
   @override
-  String get receiveEmailNotificationsFromBananatalk =>
-      '接收来自 Bananatalk 的电子邮件通知';
+  String get receiveEmailNotificationsFromBananatalk => '接收来自 Bananatalk 的电子邮件通知';
 
   @override
   String get weeklySummary => '每周摘要';
@@ -2716,8 +2713,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get warningPermanent => '警告：此操作不可撤销！';
 
   @override
-  String get deleteAccountWarning =>
-      '删除账号将永久删除：\n\n• 你的个人资料和所有个人数据\n• 所有消息和对话\n• 所有动态和故事\n• VIP订阅（不退款）\n• 所有关注和粉丝\n\n此操作不可撤销。';
+  String get deleteAccountWarning => '删除账号将永久删除：\n\n• 你的个人资料和所有个人数据\n• 所有消息和对话\n• 所有动态和故事\n• VIP订阅（不退款）\n• 所有关注和粉丝\n\n此操作不可撤销。';
 
   @override
   String get deletionReasonTitle => '离开之前——能告诉我们原因吗？';
@@ -3669,8 +3665,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get allCache => '所有缓存';
 
   @override
-  String get clearAllCacheConfirmation =>
-      '这将清除所有缓存的图片、语音消息、视频和其他文件。应用可能会暂时加载内容较慢。';
+  String get clearAllCacheConfirmation => '这将清除所有缓存的图片、语音消息、视频和其他文件。应用可能会暂时加载内容较慢。';
 
   @override
   String clearCacheConfirmationFor(String category) {
@@ -6311,8 +6306,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get supportSheetGreeting => '你好，我是 Firdavs 👋';
 
   @override
-  String get supportSheetStory =>
-      'Bananatalk 完全由我一个人开发——每一个页面、每一个功能、每一个深夜的漏洞修复。我的目标是帮助全球语言学习者相互连接和成长，我也在不断添加新功能来实现这一目标。\n\n如果 Bananatalk 对你有所帮助，哪怕是一杯小小的咖啡，也能让我保持动力继续开发。对于一个独立开发者来说，每一份支持都意义重大。 🙏';
+  String get supportSheetStory => 'Bananatalk 完全由我一个人开发——每一个页面、每一个功能、每一个深夜的漏洞修复。我的目标是帮助全球语言学习者相互连接和成长，我也在不断添加新功能来实现这一目标。\n\n如果 Bananatalk 对你有所帮助，哪怕是一杯小小的咖啡，也能让我保持动力继续开发。对于一个独立开发者来说，每一份支持都意义重大。 🙏';
 
   @override
   String get supportSheetDonateButton => '通过 PayPal 捐款';
@@ -6550,8 +6544,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get vipTagline => '通往全球连接的护照 —— 真实的对话，长久的友谊。';
 
   @override
-  String get vipDisclosure =>
-      '如未在订阅期结束前24小时取消，订阅将自动续费。费用将记入您的 iTunes 或 Google Play 账户。';
+  String get vipDisclosure => '如未在订阅期结束前24小时取消，订阅将自动续费。费用将记入您的 iTunes 或 Google Play 账户。';
 
   @override
   String get vipLoginRequired => '请登录后继续';
@@ -6563,8 +6556,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get chatListNewMessageAlertsTitle => 'New Message Alerts';
 
   @override
-  String get chatListNewMessageAlertsBody =>
-      'Tap to turn on notifications and never miss a message';
+  String get chatListNewMessageAlertsBody => 'Tap to turn on notifications and never miss a message';
 
   @override
   String get chatListFilterMyTurn => 'My turn';
@@ -6639,8 +6631,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get vipPaymentInfoLabelPrice => '价格';
 
   @override
-  String get vipPaymentDisclosure =>
-      '完成购买即表示您同意我们的使用条款和隐私政策。如未在当前订阅期结束前至少24小时取消，订阅将自动续费。';
+  String get vipPaymentDisclosure => '完成购买即表示您同意我们的使用条款和隐私政策。如未在当前订阅期结束前至少24小时取消，订阅将自动续费。';
 
   @override
   String get vipSuccessTitle => '欢迎成为VIP！';
@@ -6735,8 +6726,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get examStudyChooseLanguage => 'Choose your study language';
 
   @override
-  String get examStudyChooseLanguageSubtitle =>
-      'Pick the language you want to prepare an exam in.';
+  String get examStudyChooseLanguageSubtitle => 'Pick the language you want to prepare an exam in.';
 
   @override
   String get examStudyLoading => 'Loading…';
@@ -6816,19 +6806,16 @@ class AppLocalizationsZh extends AppLocalizations {
   String get examQuestionNoQuestions => 'No questions in this section yet.';
 
   @override
-  String get examQuestionEssayComingSoon =>
-      'Essay evaluation is coming soon. Try a reading section for now.';
+  String get examQuestionEssayComingSoon => 'Essay evaluation is coming soon. Try a reading section for now.';
 
   @override
-  String get examQuestionUnsupported =>
-      'This question type isn\'t supported yet.';
+  String get examQuestionUnsupported => 'This question type isn\'t supported yet.';
 
   @override
   String get examPracticeFinishedTitle => 'Section complete';
 
   @override
-  String get examPracticeFinishedBody =>
-      'Nice work — you\'ve completed every question in this section.';
+  String get examPracticeFinishedBody => 'Nice work — you\'ve completed every question in this section.';
 
   @override
   String get examPracticeBackToDashboard => 'Back to dashboard';
@@ -6868,8 +6855,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get examEssayEvaluating => 'Evaluating your essay…';
 
   @override
-  String get examEssayEvaluatingHint =>
-      'This usually takes 10–30 seconds. You can leave this screen — we\'ll keep evaluating in the background.';
+  String get examEssayEvaluatingHint => 'This usually takes 10–30 seconds. You can leave this screen — we\'ll keep evaluating in the background.';
 
   @override
   String get examEssayResultTitle => 'Evaluation';
@@ -6893,8 +6879,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get examEssayResultDone => 'Done';
 
   @override
-  String get examEssayPollTimeout =>
-      'Still evaluating — check back in a minute.';
+  String get examEssayPollTimeout => 'Still evaluating — check back in a minute.';
 
   @override
   String get examEssayPollRefresh => 'Check again';
@@ -6905,8 +6890,7 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
-  String get examEssayQuotaExhausted =>
-      'You\'ve used today\'s free essay evaluations. Upgrade to VIP for unlimited.';
+  String get examEssayQuotaExhausted => 'You\'ve used today\'s free essay evaluations. Upgrade to VIP for unlimited.';
 
   @override
   String get examEssayQuotaUpgrade => 'Upgrade to VIP';
@@ -6924,8 +6908,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get examProgressNotStartedTitle => 'No practice yet';
 
   @override
-  String get examProgressNotStartedBody =>
-      'Answer a few questions in any section to see your progress here.';
+  String get examProgressNotStartedBody => 'Answer a few questions in any section to see your progress here.';
 
   @override
   String get examProgressFocusAreas => 'Focus areas';
@@ -6936,8 +6919,7 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
-  String get examProgressNoFocusAreas =>
-      'You\'re doing well across every section — keep practicing!';
+  String get examProgressNoFocusAreas => 'You\'re doing well across every section — keep practicing!';
 
   @override
   String get examPlanSetupTitle => 'Start study plan';
@@ -6970,8 +6952,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get examPlanEmptyTitle => 'No active plan';
 
   @override
-  String get examPlanEmptyBody =>
-      'Generate a plan to get weekly milestones tailored to your weak areas.';
+  String get examPlanEmptyBody => 'Generate a plan to get weekly milestones tailored to your weak areas.';
 
   @override
   String get examPlanRegenerate => 'Regenerate plan';
@@ -7003,8 +6984,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get examTopicPickerTitle => 'Pick a topic';
 
   @override
-  String get examTopicPickerSubtitle =>
-      'Practice questions on a specific subject, or jump into all questions.';
+  String get examTopicPickerSubtitle => 'Practice questions on a specific subject, or jump into all questions.';
 
   @override
   String get examTopicAllTopics => 'All topics';
@@ -7013,8 +6993,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get examTopicAllTopicsDescription => 'Mix from every available topic';
 
   @override
-  String get examTopicEmpty =>
-      'No topical content yet. Tap All topics to start practicing.';
+  String get examTopicEmpty => 'No topical content yet. Tap All topics to start practicing.';
 
   @override
   String examTopicQuestionCount(int count) {
@@ -7052,8 +7031,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get examSpeakingUploading => 'Uploading…';
 
   @override
-  String get examSpeakingTooShort =>
-      'Recording is too short. Please speak for at least a few seconds.';
+  String get examSpeakingTooShort => 'Recording is too short. Please speak for at least a few seconds.';
 
   @override
   String get examGroupWriting => 'Writing';
@@ -7087,8 +7065,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get examVocabLevelPickerTitle => 'Pick a level';
 
   @override
-  String get examVocabLevelPickerSubtitle =>
-      'Browse words and practice quizzes by CEFR level.';
+  String get examVocabLevelPickerSubtitle => 'Browse words and practice quizzes by CEFR level.';
 
   @override
   String get examVocabTopicPickerTitle => 'Pick a topic';
@@ -7135,26 +7112,22 @@ class AppLocalizationsZh extends AppLocalizations {
   String get examVocabQuizRestart => 'Restart';
 
   @override
-  String get examVocabQuizEmpty =>
-      'No questions could be generated. Try another topic or level.';
+  String get examVocabQuizEmpty => 'No questions could be generated. Try another topic or level.';
 
   @override
-  String get examVocabQuizNotEnough =>
-      'Not enough words at this level and topic to build a quiz.';
+  String get examVocabQuizNotEnough => 'Not enough words at this level and topic to build a quiz.';
 
   @override
   String get examVocabQuizExpiredTitle => 'Quiz expired';
 
   @override
-  String get examVocabQuizExpiredBody =>
-      'This quiz has been idle too long. Restart to get a fresh one.';
+  String get examVocabQuizExpiredBody => 'This quiz has been idle too long. Restart to get a fresh one.';
 
   @override
   String get examVocabTranslate => 'Translate';
 
   @override
-  String get examVocabTranslateFailed =>
-      'Translation unavailable. Try again later.';
+  String get examVocabTranslateFailed => 'Translation unavailable. Try again later.';
 
   @override
   String get examDashboardTips => 'Tips';
@@ -7730,6 +7703,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String gatheringQuorumNeeded(num count) {
     final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
+      
     );
     final String countString = countNumberFormat.format(count);
 
@@ -7838,6 +7812,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String gatheringHostDecision(num count) {
     final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
+      
     );
     final String countString = countNumberFormat.format(count);
 
@@ -7872,6 +7847,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String gatheringCancelConfirm(num count) {
     final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
+      
     );
     final String countString = countNumberFormat.format(count);
 
@@ -7894,6 +7870,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String clubMembers(num count) {
     final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
+      
     );
     final String countString = countNumberFormat.format(count);
 
@@ -8063,8 +8040,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get notificationsOffTitle => '通知已关闭';
 
   @override
-  String get notificationsOffBody =>
-      '你的设备正在屏蔽 BananaTalk 的通知，提醒和消息无法送达。开启前，下面的设置不会生效。';
+  String get notificationsOffBody => '你的设备正在屏蔽 BananaTalk 的通知，提醒和消息无法送达。开启前，下面的设置不会生效。';
 
   @override
   String get notificationsOffOpen => '打开设置';
@@ -8536,11 +8512,53 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get watchAd => '观看广告';
+
+  @override
+  String get matchReasonReciprocal => 'You\'re learning each other\'s language';
+
+  @override
+  String matchReasonSameTarget(String language) {
+    return 'Also learning $language';
+  }
+
+  @override
+  String matchReasonSharedTopic(String topic) {
+    return 'Shared interest: $topic';
+  }
+
+  @override
+  String get matchReasonActiveToday => 'Active today';
+
+  @override
+  String get matchReasonSameCity => 'Lives in your city';
+
+  @override
+  String get matchRepliesFast => 'Replies fast';
+
+  @override
+  String matchesTodayTitle(int count) {
+    return 'Your $count matches today';
+  }
+
+  @override
+  String get matchesRefreshHint => 'refreshes at midnight';
+
+  @override
+  String get matchesEmptyTitle => 'That\'s everyone for today';
+
+  @override
+  String get matchesEmptyBody => 'Fresh matches tomorrow. Meanwhile, browse all partners.';
+
+  @override
+  String get matchesEmptyCta => 'Browse partners';
+
+  @override
+  String get matchSayHi => 'Say hi';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
 class AppLocalizationsZhTw extends AppLocalizationsZh {
-  AppLocalizationsZhTw() : super('zh_TW');
+  AppLocalizationsZhTw(): super('zh_TW');
 
   @override
   String get appName => 'Bananatalk';
@@ -8879,8 +8897,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get clearCacheSubtitle => '釋放儲存空間';
 
   @override
-  String get clearCacheDescription =>
-      '這將清除所有快取的圖片、影片和音訊檔案。在重新下載媒體內容期間，應用程式可能會暫時載入較慢。';
+  String get clearCacheDescription => '這將清除所有快取的圖片、影片和音訊檔案。在重新下載媒體內容期間，應用程式可能會暫時載入較慢。';
 
   @override
   String get clearCacheHint => '如果圖片或音訊無法正常載入，請使用此功能。';
@@ -9595,8 +9612,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get warningThisActionIsPermanent => '警告：此操作為永久性！';
 
   @override
-  String get deletingYourAccountWillPermanentlyRemove =>
-      '刪除您的帳戶將永久移除：\n\n• 您的個人檔案和所有個人資料\n• 您的所有訊息和對話\n• 您的所有動態和限時動態\n• 您的 VIP 訂閱（不退款）\n• 您的所有連結和粉絲\n\n此操作無法復原。';
+  String get deletingYourAccountWillPermanentlyRemove => '刪除您的帳戶將永久移除：\n\n• 您的個人檔案和所有個人資料\n• 您的所有訊息和對話\n• 您的所有動態和限時動態\n• 您的 VIP 訂閱（不退款）\n• 您的所有連結和粉絲\n\n此操作無法復原。';
 
   @override
   String get clearAllNotifications => '清除所有通知？';
@@ -9668,8 +9684,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get emailNotifications => '電子郵件通知';
 
   @override
-  String get receiveEmailNotificationsFromBananatalk =>
-      '接收來自 Bananatalk 的電子郵件通知';
+  String get receiveEmailNotificationsFromBananatalk => '接收來自 Bananatalk 的電子郵件通知';
 
   @override
   String get weeklySummary => '每週摘要';
@@ -11250,8 +11265,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get warningPermanent => '警告：此操作不可撤銷！';
 
   @override
-  String get deleteAccountWarning =>
-      '刪除帳號將永久刪除：\n\n• 您的個人資料和所有個人數據\n• 所有訊息和對話\n• 所有動態和限時動態\n• VIP訂閱（不退款）\n• 所有關注和粉絲\n\n此操作不可撤銷。';
+  String get deleteAccountWarning => '刪除帳號將永久刪除：\n\n• 您的個人資料和所有個人數據\n• 所有訊息和對話\n• 所有動態和限時動態\n• VIP訂閱（不退款）\n• 所有關注和粉絲\n\n此操作不可撤銷。';
 
   @override
   String get deletionReasonTitle => '離開之前——能告訴我們原因嗎？';
@@ -12203,8 +12217,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get allCache => '所有快取';
 
   @override
-  String get clearAllCacheConfirmation =>
-      '這將清除所有快取的圖片、語音訊息、影片和其他檔案。應用程式可能會暫時載入內容較慢。';
+  String get clearAllCacheConfirmation => '這將清除所有快取的圖片、語音訊息、影片和其他檔案。應用程式可能會暫時載入內容較慢。';
 
   @override
   String clearCacheConfirmationFor(String category) {
@@ -14845,8 +14858,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get supportSheetGreeting => '你好，我是 Firdavs 👋';
 
   @override
-  String get supportSheetStory =>
-      'Bananatalk 完全由我一個人開發——每一個頁面、每一個功能、每一個深夜的漏洞修復。我的目標是幫助全球語言學習者相互連結和成長，我也不斷地新增功能來實現這個目標。\n\n如果 Bananatalk 對你有所幫助，哪怕是一杯小小的咖啡，也能讓我保持動力繼續開發。對於一個獨立開發者來說，每一份支持都意義重大。 🙏';
+  String get supportSheetStory => 'Bananatalk 完全由我一個人開發——每一個頁面、每一個功能、每一個深夜的漏洞修復。我的目標是幫助全球語言學習者相互連結和成長，我也不斷地新增功能來實現這個目標。\n\n如果 Bananatalk 對你有所幫助，哪怕是一杯小小的咖啡，也能讓我保持動力繼續開發。對於一個獨立開發者來說，每一份支持都意義重大。 🙏';
 
   @override
   String get supportSheetDonateButton => '透過 PayPal 捐款';
@@ -15084,8 +15096,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get vipTagline => '通往全球連結的護照 —— 真實的對話、長久的友誼。';
 
   @override
-  String get vipDisclosure =>
-      '若未在訂閱期結束前24小時取消，訂閱將自動續訂。費用將記入您的 iTunes 或 Google Play 帳戶。';
+  String get vipDisclosure => '若未在訂閱期結束前24小時取消，訂閱將自動續訂。費用將記入您的 iTunes 或 Google Play 帳戶。';
 
   @override
   String get vipLoginRequired => '請登入後繼續';
@@ -15097,8 +15108,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get chatListNewMessageAlertsTitle => 'New Message Alerts';
 
   @override
-  String get chatListNewMessageAlertsBody =>
-      'Tap to turn on notifications and never miss a message';
+  String get chatListNewMessageAlertsBody => 'Tap to turn on notifications and never miss a message';
 
   @override
   String get chatListFilterMyTurn => 'My turn';
@@ -15173,8 +15183,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get vipPaymentInfoLabelPrice => '價格';
 
   @override
-  String get vipPaymentDisclosure =>
-      '完成購買即表示您同意我們的使用條款與隱私政策。若未在目前訂閱期結束前至少24小時取消，訂閱將自動續訂。';
+  String get vipPaymentDisclosure => '完成購買即表示您同意我們的使用條款與隱私政策。若未在目前訂閱期結束前至少24小時取消，訂閱將自動續訂。';
 
   @override
   String get vipSuccessTitle => '歡迎成為VIP！';
@@ -15269,8 +15278,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get examStudyChooseLanguage => 'Choose your study language';
 
   @override
-  String get examStudyChooseLanguageSubtitle =>
-      'Pick the language you want to prepare an exam in.';
+  String get examStudyChooseLanguageSubtitle => 'Pick the language you want to prepare an exam in.';
 
   @override
   String get examStudyLoading => 'Loading…';
@@ -15350,19 +15358,16 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get examQuestionNoQuestions => 'No questions in this section yet.';
 
   @override
-  String get examQuestionEssayComingSoon =>
-      'Essay evaluation is coming soon. Try a reading section for now.';
+  String get examQuestionEssayComingSoon => 'Essay evaluation is coming soon. Try a reading section for now.';
 
   @override
-  String get examQuestionUnsupported =>
-      'This question type isn\'t supported yet.';
+  String get examQuestionUnsupported => 'This question type isn\'t supported yet.';
 
   @override
   String get examPracticeFinishedTitle => 'Section complete';
 
   @override
-  String get examPracticeFinishedBody =>
-      'Nice work — you\'ve completed every question in this section.';
+  String get examPracticeFinishedBody => 'Nice work — you\'ve completed every question in this section.';
 
   @override
   String get examPracticeBackToDashboard => 'Back to dashboard';
@@ -15402,8 +15407,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get examEssayEvaluating => 'Evaluating your essay…';
 
   @override
-  String get examEssayEvaluatingHint =>
-      'This usually takes 10–30 seconds. You can leave this screen — we\'ll keep evaluating in the background.';
+  String get examEssayEvaluatingHint => 'This usually takes 10–30 seconds. You can leave this screen — we\'ll keep evaluating in the background.';
 
   @override
   String get examEssayResultTitle => 'Evaluation';
@@ -15427,8 +15431,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get examEssayResultDone => 'Done';
 
   @override
-  String get examEssayPollTimeout =>
-      'Still evaluating — check back in a minute.';
+  String get examEssayPollTimeout => 'Still evaluating — check back in a minute.';
 
   @override
   String get examEssayPollRefresh => 'Check again';
@@ -15439,8 +15442,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   }
 
   @override
-  String get examEssayQuotaExhausted =>
-      'You\'ve used today\'s free essay evaluations. Upgrade to VIP for unlimited.';
+  String get examEssayQuotaExhausted => 'You\'ve used today\'s free essay evaluations. Upgrade to VIP for unlimited.';
 
   @override
   String get examEssayQuotaUpgrade => 'Upgrade to VIP';
@@ -15458,8 +15460,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get examProgressNotStartedTitle => 'No practice yet';
 
   @override
-  String get examProgressNotStartedBody =>
-      'Answer a few questions in any section to see your progress here.';
+  String get examProgressNotStartedBody => 'Answer a few questions in any section to see your progress here.';
 
   @override
   String get examProgressFocusAreas => 'Focus areas';
@@ -15470,8 +15471,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   }
 
   @override
-  String get examProgressNoFocusAreas =>
-      'You\'re doing well across every section — keep practicing!';
+  String get examProgressNoFocusAreas => 'You\'re doing well across every section — keep practicing!';
 
   @override
   String get examPlanSetupTitle => 'Start study plan';
@@ -15504,8 +15504,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get examPlanEmptyTitle => 'No active plan';
 
   @override
-  String get examPlanEmptyBody =>
-      'Generate a plan to get weekly milestones tailored to your weak areas.';
+  String get examPlanEmptyBody => 'Generate a plan to get weekly milestones tailored to your weak areas.';
 
   @override
   String get examPlanRegenerate => 'Regenerate plan';
@@ -15537,8 +15536,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get examTopicPickerTitle => 'Pick a topic';
 
   @override
-  String get examTopicPickerSubtitle =>
-      'Practice questions on a specific subject, or jump into all questions.';
+  String get examTopicPickerSubtitle => 'Practice questions on a specific subject, or jump into all questions.';
 
   @override
   String get examTopicAllTopics => 'All topics';
@@ -15547,8 +15545,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get examTopicAllTopicsDescription => 'Mix from every available topic';
 
   @override
-  String get examTopicEmpty =>
-      'No topical content yet. Tap All topics to start practicing.';
+  String get examTopicEmpty => 'No topical content yet. Tap All topics to start practicing.';
 
   @override
   String examTopicQuestionCount(int count) {
@@ -15586,8 +15583,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get examSpeakingUploading => 'Uploading…';
 
   @override
-  String get examSpeakingTooShort =>
-      'Recording is too short. Please speak for at least a few seconds.';
+  String get examSpeakingTooShort => 'Recording is too short. Please speak for at least a few seconds.';
 
   @override
   String get examGroupWriting => 'Writing';
@@ -15621,8 +15617,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get examVocabLevelPickerTitle => 'Pick a level';
 
   @override
-  String get examVocabLevelPickerSubtitle =>
-      'Browse words and practice quizzes by CEFR level.';
+  String get examVocabLevelPickerSubtitle => 'Browse words and practice quizzes by CEFR level.';
 
   @override
   String get examVocabTopicPickerTitle => 'Pick a topic';
@@ -15669,26 +15664,22 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get examVocabQuizRestart => 'Restart';
 
   @override
-  String get examVocabQuizEmpty =>
-      'No questions could be generated. Try another topic or level.';
+  String get examVocabQuizEmpty => 'No questions could be generated. Try another topic or level.';
 
   @override
-  String get examVocabQuizNotEnough =>
-      'Not enough words at this level and topic to build a quiz.';
+  String get examVocabQuizNotEnough => 'Not enough words at this level and topic to build a quiz.';
 
   @override
   String get examVocabQuizExpiredTitle => 'Quiz expired';
 
   @override
-  String get examVocabQuizExpiredBody =>
-      'This quiz has been idle too long. Restart to get a fresh one.';
+  String get examVocabQuizExpiredBody => 'This quiz has been idle too long. Restart to get a fresh one.';
 
   @override
   String get examVocabTranslate => 'Translate';
 
   @override
-  String get examVocabTranslateFailed =>
-      'Translation unavailable. Try again later.';
+  String get examVocabTranslateFailed => 'Translation unavailable. Try again later.';
 
   @override
   String get examDashboardTips => 'Tips';
@@ -16264,6 +16255,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String gatheringQuorumNeeded(num count) {
     final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
+      
     );
     final String countString = countNumberFormat.format(count);
 
@@ -16372,6 +16364,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String gatheringHostDecision(num count) {
     final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
+      
     );
     final String countString = countNumberFormat.format(count);
 
@@ -16406,6 +16399,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String gatheringCancelConfirm(num count) {
     final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
+      
     );
     final String countString = countNumberFormat.format(count);
 
@@ -16428,6 +16422,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String clubMembers(num count) {
     final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
+      
     );
     final String countString = countNumberFormat.format(count);
 
@@ -16597,8 +16592,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get notificationsOffTitle => '通知已關閉';
 
   @override
-  String get notificationsOffBody =>
-      '你的裝置正在封鎖 BananaTalk 的通知，提醒和訊息無法送達。開啟前，下面的設定不會生效。';
+  String get notificationsOffBody => '你的裝置正在封鎖 BananaTalk 的通知，提醒和訊息無法送達。開啟前，下面的設定不會生效。';
 
   @override
   String get notificationsOffOpen => '開啟設定';
@@ -17070,4 +17064,46 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get watchAd => '觀看廣告';
+
+  @override
+  String get matchReasonReciprocal => 'You\'re learning each other\'s language';
+
+  @override
+  String matchReasonSameTarget(String language) {
+    return 'Also learning $language';
+  }
+
+  @override
+  String matchReasonSharedTopic(String topic) {
+    return 'Shared interest: $topic';
+  }
+
+  @override
+  String get matchReasonActiveToday => 'Active today';
+
+  @override
+  String get matchReasonSameCity => 'Lives in your city';
+
+  @override
+  String get matchRepliesFast => 'Replies fast';
+
+  @override
+  String matchesTodayTitle(int count) {
+    return 'Your $count matches today';
+  }
+
+  @override
+  String get matchesRefreshHint => 'refreshes at midnight';
+
+  @override
+  String get matchesEmptyTitle => 'That\'s everyone for today';
+
+  @override
+  String get matchesEmptyBody => 'Fresh matches tomorrow. Meanwhile, browse all partners.';
+
+  @override
+  String get matchesEmptyCta => 'Browse partners';
+
+  @override
+  String get matchSayHi => 'Say hi';
 }
