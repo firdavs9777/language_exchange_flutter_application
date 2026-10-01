@@ -1233,7 +1233,11 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
         country: state.filters!.country,
         languageLevel: state.filters!.languageLevel,
         search: state.filters!.search,
-        sort: state.filters!.sort,
+        // Same resolution as page 1. Sending the raw user choice here meant
+        // that under the smart default (sort unset), page 1 was ranked and
+        // every later page used the server's VIP/online order — duplicating
+        // some people and dropping others across the page boundary.
+        sort: _sortFor(state.filters!),
       );
 
       // If 0 results returned on load more, stop trying to load more
