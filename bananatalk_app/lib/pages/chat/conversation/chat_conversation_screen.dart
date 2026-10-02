@@ -21,8 +21,7 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/services/media_service.dart';
 import 'package:bananatalk_app/services/conversation_service.dart';
-import 'package:bananatalk_app/services/notification_permission.dart';
-import 'package:bananatalk_app/services/notification_service.dart';
+import 'package:bananatalk_app/widgets/notifications/notification_priming_sheet.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
@@ -131,7 +130,9 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     // current numbers. It is one OS permission, so granting it here is what
     // makes the daily study reminder possible at all.
     WidgetsBinding.instance.addPostFrameCallback(
-      (_) => _maybePrimeNotifications(),
+      (_) {
+        if (mounted) maybePrimeNotifications(context);
+      },
     );
     // Restore any saved draft (and apply a prefill prompt if there is no
     // draft). Runs async because it reads from disk.
@@ -1748,71 +1749,6 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
 
   void _handleCallError(BuildContext context, String error) {
     handleCallError(context: context, error: error);
-  }
-
-  /// Offer notification permission at the first moment it is obviously useful.
-  ///
-  /// Shows at most once ever: dismissal marks the prompt spent, because asking
-  /// again on every conversation open is how an app teaches people to refuse
-  /// reflexively. A user who is already `authorized` never sees this.
-  Future<void> _maybePrimeNotifications() async {
-    final service = NotificationService();
-    final action = service.pendingAction;
-    if (action != NotificationAction.ask &&
-        action != NotificationAction.upgrade) {
-      return;
-    }
-    if (!mounted) return;
-
-    final l10n = AppLocalizations.of(context)!;
-    final accepted = await showModalBottomSheet<bool>(
-      context: context,
-      isScrollControlled: true,
-      builder: (sheetContext) => SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(24, 24, 24, 16),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(
-                Icons.notifications_active_outlined,
-                size: 40,
-                color: Theme.of(sheetContext).colorScheme.primary,
-              ),
-              const SizedBox(height: 12),
-              Text(
-                l10n.notifyRepliesTitle,
-                style: Theme.of(
-                  sheetContext,
-                ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 8),
-              Text(l10n.notifyRepliesBody, textAlign: TextAlign.center),
-              const SizedBox(height: 20),
-              SizedBox(
-                width: double.infinity,
-                child: FilledButton(
-                  onPressed: () => Navigator.pop(sheetContext, true),
-                  child: Text(l10n.notifyRepliesEnable),
-                ),
-              ),
-              TextButton(
-                onPressed: () => Navigator.pop(sheetContext, false),
-                child: Text(l10n.notifyRepliesLater),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-
-    if (accepted == true) {
-      await service.requestFullAuthorization();
-    } else {
-      // Covers an explicit decline AND a swipe-dismiss (null).
-      await service.markPromptDeclined();
-    }
   }
 
   @override

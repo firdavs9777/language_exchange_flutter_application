@@ -11,6 +11,7 @@ import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/pages/community/widgets/community_snackbar.dart';
 import 'package:bananatalk_app/pages/community/tabs/waves_archive_screen.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/widgets/notifications/notification_priming_sheet.dart';
 
 /// Waves Tab - Shows waves received from other users
 class WavesTab extends ConsumerStatefulWidget {
@@ -25,6 +26,7 @@ class _WavesTabState extends ConsumerState<WavesTab> {
   bool _isLoading = true;
   bool _hasError = false;
   int _unreadCount = 0;
+  bool _primeOffered = false;
 
   @override
   void initState() {
@@ -53,6 +55,14 @@ class _WavesTabState extends ConsumerState<WavesTab> {
         _unreadCount = waves.where((w) => !w.isRead).length;
         _isLoading = false;
       });
+
+      // First wave received: the moment notifications are obviously useful.
+      if (waves.isNotEmpty && !_primeOffered && mounted) {
+        _primeOffered = true;
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (mounted) maybePrimeNotifications(context);
+        });
+      }
 
       // Mark waves as read after loading
       if (_unreadCount > 0) {

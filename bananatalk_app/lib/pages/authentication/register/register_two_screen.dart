@@ -11,6 +11,8 @@ import 'package:bananatalk_app/pages/authentication/register/registration_progre
 import 'package:bananatalk_app/pages/authentication/widgets/auth_step_progress.dart';
 import 'package:bananatalk_app/pages/authentication/widgets/auth_snackbar.dart';
 import 'package:go_router/go_router.dart';
+import 'package:bananatalk_app/pages/community/main/community_main.dart';
+import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/pages/authentication/register/birth_date_parts.dart';
 import 'package:bananatalk_app/services/chat_socket_service.dart';
@@ -341,6 +343,25 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
   /// Leaving a mandatory gate signs the user out rather than dropping them
   /// into the app. Trapping someone with no exit would be its own bug — they
   /// may leave, just not leave INTO the app without a birthday.
+  /// Post-registration landing. With the Matches layout on, new users open on
+  /// Community -> Matches; otherwise exactly today's `/home`. Config failure
+  /// or a slow fetch falls back to `/home`.
+  Future<void> _goHomeAfterRegistration() async {
+    var matchesLayout = false;
+    try {
+      final config = await ref
+          .read(appConfigProvider.future)
+          .timeout(const Duration(seconds: 3));
+      matchesLayout = config?.matchesLayoutEnabled ?? false;
+    } catch (_) {}
+    if (!mounted) return;
+    if (matchesLayout) {
+      ref.read(communityPendingSubTabProvider.notifier).state =
+          communityMatchesSubTab;
+    }
+    context.go(homeRouteForNewUser(matchesLayoutEnabled: matchesLayout));
+  }
+
   Future<void> _confirmLeaveMandatory() async {
     final l10n = AppLocalizations.of(context)!;
     final signOut = await showDialog<bool>(
@@ -638,7 +659,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
 
             await _progressService.clear();
             ref.invalidate(userProvider);
-            if (mounted) context.go('/home');
+            if (mounted) await _goHomeAfterRegistration();
           }
         } else {
           setState(() => _isSubmitting = false);
@@ -737,7 +758,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
 
             await _progressService.clear();
             ref.invalidate(userProvider);
-            if (mounted) context.go('/home');
+            if (mounted) await _goHomeAfterRegistration();
           }
         } else {
           setState(() => _isSubmitting = false);

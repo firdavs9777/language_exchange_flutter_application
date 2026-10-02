@@ -145,6 +145,15 @@ const int communityVoiceRoomsSubTab = 2;
 const int communityGatheringsSubTab = 2;
 const int communityRoomsSubTab = 3;
 
+/// Matches is index 0 of the Matches-first layout (flag on).
+const int communityMatchesSubTab = 0;
+
+/// Where a freshly registered user lands. With the Matches layout on, the
+/// Community tab (top-level index 1) whose first sub-tab is Matches; otherwise
+/// exactly today's `/home`.
+String homeRouteForNewUser({required bool matchesLayoutEnabled}) =>
+    matchesLayoutEnabled ? '/tabs/1' : '/home';
+
 /// Set by a deep link to request that Community open on a specific sub-tab
 /// index once it builds. `CommunityMain` consumes it (animating its
 /// TabController) then resets it to null. null = no pending request.

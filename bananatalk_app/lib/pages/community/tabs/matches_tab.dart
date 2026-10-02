@@ -9,6 +9,7 @@ import 'package:bananatalk_app/pages/community/widgets/send_wave_sheet.dart';
 import 'package:bananatalk_app/providers/provider_models/daily_match_model.dart';
 import 'package:bananatalk_app/providers/provider_root/daily_matches_provider.dart';
 import 'package:bananatalk_app/services/interaction_service.dart';
+import 'package:bananatalk_app/widgets/notifications/notification_priming_sheet.dart';
 
 /// "Your N matches today" list. Self-contained; mounted by the community page.
 class MatchesTab extends ConsumerStatefulWidget {
@@ -26,6 +27,17 @@ class _MatchesTabState extends ConsumerState<MatchesTab> {
 
   /// nextRefreshAt we already invalidated for — guards against refetch loops.
   DateTime? _rolledOverFor;
+
+  /// The notification ask is offered after the first non-empty load only.
+  bool _primeOffered = false;
+
+  void _maybePrimeOnFirstMatches() {
+    if (_primeOffered) return;
+    _primeOffered = true;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) maybePrimeNotifications(context);
+    });
+  }
 
   Future<void> _refresh() async {
     ref.invalidate(dailyMatchesProvider);
@@ -116,6 +128,7 @@ class _MatchesTabState extends ConsumerState<MatchesTab> {
             ),
           );
         }
+        _maybePrimeOnFirstMatches();
         return RefreshIndicator(
           onRefresh: _refresh,
           child: ListView.builder(

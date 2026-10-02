@@ -93,3 +93,9 @@ bool shouldRequestProvisionalAtStartup({
   required bool isIOS,
 }) =>
     isIOS && permission == NotificationPermission.notDetermined;
+
+/// Whether a primed-moment sheet may be shown for [action]. Only the two
+/// "ask" actions qualify; `recover` has its own settings surface and `null`
+/// means the service has not initialised yet.
+bool shouldPrimeNotifications(NotificationAction? action) =>
+    action == NotificationAction.ask || action == NotificationAction.upgrade;
