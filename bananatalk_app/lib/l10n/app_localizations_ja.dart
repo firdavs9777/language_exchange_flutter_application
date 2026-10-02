@@ -8802,4 +8802,74 @@ class AppLocalizationsJa extends AppLocalizations {
   String unlockGrantForCoins(int count, int cost) {
     return '💎$costで$count件ロック解除';
   }
+
+  @override
+  String get waveLimitTitle => '今日のあいさつを使い切りました';
+
+  @override
+  String get waveLimitBody => '今すぐあいさつをもう1回手に入れるか、明日また来てください。';
+
+  @override
+  String get limitDailyReachedTitle => '1日の上限に達しました';
+
+  @override
+  String get limitLabelMessages => 'メッセージ';
+
+  @override
+  String get limitLabelMoments => 'モーメント';
+
+  @override
+  String get limitLabelStories => 'ストーリー';
+
+  @override
+  String get limitLabelComments => 'コメント';
+
+  @override
+  String get limitLabelProfileViews => 'プロフィール閲覧';
+
+  @override
+  String get limitLabelWaves => 'あいさつ';
+
+  @override
+  String limitUsedLabel(String label) {
+    return '$labelの使用量';
+  }
+
+  @override
+  String get limitDescMessages => '本日のメッセージ上限に達しました。VIPにアップグレードするとメッセージが無制限になります！';
+
+  @override
+  String get limitDescMoments => '本日のモーメント作成上限に達しました。VIPにアップグレードするとモーメントが無制限になります！';
+
+  @override
+  String get limitDescStories => '本日のストーリー作成上限に達しました。VIPにアップグレードするとストーリーが無制限になります！';
+
+  @override
+  String get limitDescComments => '本日のコメント上限に達しました。VIPにアップグレードするとコメントが無制限になります！';
+
+  @override
+  String get limitDescProfileViews => '本日のプロフィール閲覧上限に達しました。VIPにアップグレードするとプロフィール閲覧が無制限になります！';
+
+  @override
+  String get limitDescDefault => '本日の上限に達しました。VIPにアップグレードすると無制限で利用できます！';
+
+  @override
+  String get limitResetsAt => '上限リセット時刻';
+
+  @override
+  String get vipMembersGet => 'VIP会員の特典';
+
+  @override
+  String get vipBenefitUnlimitedMessages => 'メッセージ無制限';
+
+  @override
+  String get vipBenefitUnlimitedProfileViews => 'プロフィール閲覧無制限';
+
+  @override
+  String get vipBenefitAiStudyTools => 'AI学習ツール';
+
+  @override
+  String chatBonusMessagesUnlocked(int count) {
+    return 'ボーナスメッセージを$count件獲得しました！会話を続けましょう。';
+  }
 }

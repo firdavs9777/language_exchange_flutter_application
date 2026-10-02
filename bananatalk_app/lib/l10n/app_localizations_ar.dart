@@ -8824,4 +8824,74 @@ class AppLocalizationsAr extends AppLocalizations {
   String unlockGrantForCoins(int count, int cost) {
     return 'افتح $count مقابل 💎$cost';
   }
+
+  @override
+  String get waveLimitTitle => 'لقد استخدمت تحيات اليوم';
+
+  @override
+  String get waveLimitBody => 'احصل على تحية إضافية الآن، أو عد غدًا.';
+
+  @override
+  String get limitDailyReachedTitle => 'تم بلوغ الحد اليومي';
+
+  @override
+  String get limitLabelMessages => 'الرسائل';
+
+  @override
+  String get limitLabelMoments => 'اللحظات';
+
+  @override
+  String get limitLabelStories => 'القصص';
+
+  @override
+  String get limitLabelComments => 'التعليقات';
+
+  @override
+  String get limitLabelProfileViews => 'مشاهدات الملف الشخصي';
+
+  @override
+  String get limitLabelWaves => 'التحيات';
+
+  @override
+  String limitUsedLabel(String label) {
+    return 'المستخدم من $label';
+  }
+
+  @override
+  String get limitDescMessages => 'لقد بلغت الحد اليومي للرسائل. قم بالترقية إلى VIP لرسائل غير محدودة!';
+
+  @override
+  String get limitDescMoments => 'لقد بلغت الحد اليومي لنشر اللحظات. قم بالترقية إلى VIP للحظات غير محدودة!';
+
+  @override
+  String get limitDescStories => 'لقد بلغت الحد اليومي لنشر القصص. قم بالترقية إلى VIP لقصص غير محدودة!';
+
+  @override
+  String get limitDescComments => 'لقد بلغت الحد اليومي للتعليقات. قم بالترقية إلى VIP لتعليقات غير محدودة!';
+
+  @override
+  String get limitDescProfileViews => 'لقد بلغت الحد اليومي لمشاهدة الملفات الشخصية. قم بالترقية إلى VIP لمشاهدات غير محدودة!';
+
+  @override
+  String get limitDescDefault => 'لقد بلغت حدك اليومي. قم بالترقية إلى VIP لوصول غير محدود!';
+
+  @override
+  String get limitResetsAt => 'يُعاد تعيين الحد في';
+
+  @override
+  String get vipMembersGet => 'يحصل أعضاء VIP على';
+
+  @override
+  String get vipBenefitUnlimitedMessages => 'رسائل غير محدودة';
+
+  @override
+  String get vipBenefitUnlimitedProfileViews => 'مشاهدات غير محدودة للملفات الشخصية';
+
+  @override
+  String get vipBenefitAiStudyTools => 'أدوات الدراسة بالذكاء الاصطناعي';
+
+  @override
+  String chatBonusMessagesUnlocked(int count) {
+    return 'لقد فتحت $count رسائل إضافية! واصل الدردشة.';
+  }
 }

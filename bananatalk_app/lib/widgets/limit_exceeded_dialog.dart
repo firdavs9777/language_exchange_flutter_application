@@ -59,6 +59,12 @@ Future<String> runRewardedUnlock({
   return outcome.result;
 }
 
+/// True for the daily wave cap surface (`limitType: 'wave'`).
+bool isWaveLimitType(String limitType) {
+  final t = limitType.toLowerCase();
+  return t == 'wave' || t == 'waves';
+}
+
 class LimitExceededDialog extends ConsumerWidget {
   final String limitType;
   final LimitInfo? limitInfo;
@@ -96,58 +102,69 @@ class LimitExceededDialog extends ConsumerWidget {
     );
   }
 
-  String _getLimitTypeLabel() {
+  bool get _isWave => isWaveLimitType(limitType);
+
+  String _getLimitTypeLabel(AppLocalizations l10n) {
     switch (limitType.toLowerCase()) {
       case 'message':
       case 'messages':
-        return 'Messages';
+        return l10n.limitLabelMessages;
       case 'moment':
       case 'moments':
-        return 'Moments';
+        return l10n.limitLabelMoments;
       case 'story':
       case 'stories':
-        return 'Stories';
+        return l10n.limitLabelStories;
       case 'comment':
       case 'comments':
-        return 'Comments';
+        return l10n.limitLabelComments;
       case 'profile':
       case 'profileview':
       case 'profileviews':
-        return 'Profile Views';
+        return l10n.limitLabelProfileViews;
+      case 'wave':
+      case 'waves':
+        return l10n.limitLabelWaves;
       default:
         return limitType;
     }
   }
 
-  String _getLimitTypeDescription() {
+  String _getLimitTypeDescription(AppLocalizations l10n) {
     switch (limitType.toLowerCase()) {
       case 'message':
       case 'messages':
-        return 'You have reached your daily message limit. Upgrade to VIP for unlimited messaging!';
+        return l10n.limitDescMessages;
       case 'moment':
       case 'moments':
-        return 'You have reached your daily moment creation limit. Upgrade to VIP for unlimited moments!';
+        return l10n.limitDescMoments;
       case 'story':
       case 'stories':
-        return 'You have reached your daily story creation limit. Upgrade to VIP for unlimited stories!';
+        return l10n.limitDescStories;
       case 'comment':
       case 'comments':
-        return 'You have reached your daily comment limit. Upgrade to VIP for unlimited comments!';
+        return l10n.limitDescComments;
       case 'profile':
       case 'profileview':
       case 'profileviews':
-        return 'You have reached your daily profile view limit. Upgrade to VIP for unlimited profile views!';
+        return l10n.limitDescProfileViews;
+      case 'wave':
+      case 'waves':
+        return l10n.waveLimitBody;
       default:
-        return 'You have reached your daily limit. Upgrade to VIP for unlimited access!';
+        return l10n.limitDescDefault;
     }
   }
 
   /// Maps a daily-limit surface to its à-la-carte coin unlock key. The
   /// message cap maps to `dm` (extra direct messages today — backend
   /// coinCatalog `dm`, distinct from the AI-tutor `chat` quota). `moment`
-  /// maps to `moment`. Surfaces with no coin unlock return null (no CTA).
-  /// The CTA also self-hides if the returned key isn't in the live catalog.
-  String? _featureKeyForUnlock() {
+  /// maps to `moment`; the daily wave cap maps to `wave` (catalog
+  /// `wave: {cost:10, grant:1}`, also a rewarded feature). Surfaces with no
+  /// coin unlock return null (no CTA). The CTA also self-hides if the
+  /// returned key isn't in the live catalog.
+  @visibleForTesting
+  static String? featureKeyForUnlock(String limitType) {
     switch (limitType.toLowerCase()) {
       case 'moment':
       case 'moments':
@@ -155,16 +172,32 @@ class LimitExceededDialog extends ConsumerWidget {
       case 'message':
       case 'messages':
         return 'dm';
+      case 'wave':
+      case 'waves':
+        return 'wave';
       default:
         return null;
     }
   }
+
+  String? _featureKeyForUnlock() => featureKeyForUnlock(limitType);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final colorScheme = Theme.of(context).colorScheme;
     final textPrimary = context.textPrimary;
     final secondaryText = context.textSecondary;
+    final l10n = AppLocalizations.of(context)!;
+    final config = ref.watch(appConfigProvider).valueOrNull;
+    // The wave dialog only exists with waveCapEnabled on; its "Watch ad"
+    // button is offered only when the server would actually grant a wave
+    // (no legacy local-bonus fallback exists for waves). Every other limit
+    // type keeps today's condition.
+    final waveAdGrantable =
+        (config?.rewardedLimitsEnabled ?? false) &&
+        (config?.rewardedFeatures.contains('wave') ?? false);
+    final showWatchAd =
+        AdService().isRewardedAdReady && (!_isWave || waveAdGrantable);
 
     return AlertDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
@@ -182,7 +215,7 @@ class LimitExceededDialog extends ConsumerWidget {
           const SizedBox(width: 12),
           Expanded(
             child: Text(
-              'Daily Limit Reached',
+              _isWave ? l10n.waveLimitTitle : l10n.limitDailyReachedTitle,
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w700,
@@ -198,7 +231,7 @@ class LimitExceededDialog extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              errorMessage ?? _getLimitTypeDescription(),
+              errorMessage ?? _getLimitTypeDescription(l10n),
               style: TextStyle(fontSize: 14, color: textPrimary, height: 1.5),
             ),
             if (limitInfo != null && !limitInfo!.isUnlimited) ...[
@@ -215,7 +248,7 @@ class LimitExceededDialog extends ConsumerWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          '${_getLimitTypeLabel()} Used',
+                          l10n.limitUsedLabel(_getLimitTypeLabel(l10n)),
                           style: TextStyle(fontSize: 12, color: secondaryText),
                         ),
                         Text(
@@ -269,7 +302,7 @@ class LimitExceededDialog extends ConsumerWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Limit Resets At',
+                            l10n.limitResetsAt,
                             style: TextStyle(
                               fontSize: 12,
                               color: secondaryText,
@@ -329,8 +362,8 @@ class LimitExceededDialog extends ConsumerWidget {
                         ),
                       ),
                       const SizedBox(width: 10),
-                      const Text(
-                        'VIP Members Get',
+                      Text(
+                        l10n.vipMembersGet,
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
@@ -339,10 +372,10 @@ class LimitExceededDialog extends ConsumerWidget {
                     ],
                   ),
                   const SizedBox(height: 12),
-                  _buildVipBenefit('Unlimited messages'),
-                  _buildVipBenefit('Unlimited profile views'),
-                  _buildVipBenefit('Advanced filters'),
-                  _buildVipBenefit('AI Study tools'),
+                  _buildVipBenefit(l10n.vipBenefitUnlimitedMessages),
+                  _buildVipBenefit(l10n.vipBenefitUnlimitedProfileViews),
+                  _buildVipBenefit(l10n.vipBenefitAdvancedFilters),
+                  _buildVipBenefit(l10n.vipBenefitAiStudyTools),
                 ],
               ),
             ),
@@ -353,7 +386,7 @@ class LimitExceededDialog extends ConsumerWidget {
         TextButton(
           onPressed: () => Navigator.pop(context),
           child: Text(
-            'Maybe Later',
+            l10n.maybeLater,
             style: TextStyle(color: secondaryText, fontWeight: FontWeight.w500),
           ),
         ),
@@ -364,7 +397,7 @@ class LimitExceededDialog extends ConsumerWidget {
             // screen) resend; other callers ignore the result.
             onUnlocked: () => Navigator.pop(context, 'unlocked'),
           ),
-        if (AdService().isRewardedAdReady)
+        if (showWatchAd)
           OutlinedButton.icon(
             onPressed: () {
               final config = ref.read(appConfigProvider).valueOrNull;
@@ -422,14 +455,14 @@ class LimitExceededDialog extends ConsumerWidget {
             ),
             elevation: 2,
           ),
-          child: const Row(
+          child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(Icons.workspace_premium, size: 18),
-              SizedBox(width: 6),
+              const Icon(Icons.workspace_premium, size: 18),
+              const SizedBox(width: 6),
               Text(
-                'Upgrade to VIP',
-                style: TextStyle(fontWeight: FontWeight.bold),
+                l10n.upgradeToVip,
+                style: const TextStyle(fontWeight: FontWeight.bold),
               ),
             ],
           ),

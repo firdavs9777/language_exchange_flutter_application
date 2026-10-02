@@ -348,10 +348,11 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
   Future<void> _goHomeAfterRegistration() async {
     var matchesLayout = false;
     try {
-      final config = await ref
-          .read(appConfigProvider.future)
-          .timeout(const Duration(seconds: 3));
-      matchesLayout = config?.matchesLayoutEnabled ?? false;
+      matchesLayout = await resolveMatchesLayoutForNewUser(
+        hasError: () => ref.read(appConfigProvider).hasError,
+        invalidate: () => ref.invalidate(appConfigProvider),
+        read: () => ref.read(appConfigProvider.future),
+      );
     } catch (_) {}
     if (!mounted) return;
     // Fire-and-forget: claim a stored invite code; never blocks navigation.

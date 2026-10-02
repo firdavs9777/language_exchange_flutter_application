@@ -6238,5 +6238,105 @@
         "type": "int"
       }
     }
+  },
+  "waveLimitTitle": "You've used today's waves",
+  "@waveLimitTitle": {
+    "description": "Post-2.6 polish: limit dialog / wave cap"
+  },
+  "waveLimitBody": "Get one more wave now, or come back tomorrow.",
+  "@waveLimitBody": {
+    "description": "Post-2.6 polish: limit dialog / wave cap"
+  },
+  "limitDailyReachedTitle": "Daily Limit Reached",
+  "@limitDailyReachedTitle": {
+    "description": "Post-2.6 polish: limit dialog / wave cap"
+  },
+  "limitLabelMessages": "Messages",
+  "@limitLabelMessages": {
+    "description": "Post-2.6 polish: limit dialog / wave cap"
+  },
+  "limitLabelMoments": "Moments",
+  "@limitLabelMoments": {
+    "description": "Post-2.6 polish: limit dialog / wave cap"
+  },
+  "limitLabelStories": "Stories",
+  "@limitLabelStories": {
+    "description": "Post-2.6 polish: limit dialog / wave cap"
+  },
+  "limitLabelComments": "Comments",
+  "@limitLabelComments": {
+    "description": "Post-2.6 polish: limit dialog / wave cap"
+  },
+  "limitLabelProfileViews": "Profile Views",
+  "@limitLabelProfileViews": {
+    "description": "Post-2.6 polish: limit dialog / wave cap"
+  },
+  "limitLabelWaves": "Waves",
+  "@limitLabelWaves": {
+    "description": "Post-2.6 polish: limit dialog / wave cap"
+  },
+  "limitUsedLabel": "{label} Used",
+  "@limitUsedLabel": {
+    "description": "Post-2.6 polish: limit dialog / wave cap",
+    "placeholders": {
+      "label": {
+        "type": "String",
+        "example": "Messages"
+      }
+    }
+  },
+  "limitDescMessages": "You have reached your daily message limit. Upgrade to VIP for unlimited messaging!",
+  "@limitDescMessages": {
+    "description": "Post-2.6 polish: limit dialog / wave cap"
+  },
+  "limitDescMoments": "You have reached your daily moment creation limit. Upgrade to VIP for unlimited moments!",
+  "@limitDescMoments": {
+    "description": "Post-2.6 polish: limit dialog / wave cap"
+  },
+  "limitDescStories": "You have reached your daily story creation limit. Upgrade to VIP for unlimited stories!",
+  "@limitDescStories": {
+    "description": "Post-2.6 polish: limit dialog / wave cap"
+  },
+  "limitDescComments": "You have reached your daily comment limit. Upgrade to VIP for unlimited comments!",
+  "@limitDescComments": {
+    "description": "Post-2.6 polish: limit dialog / wave cap"
+  },
+  "limitDescProfileViews": "You have reached your daily profile view limit. Upgrade to VIP for unlimited profile views!",
+  "@limitDescProfileViews": {
+    "description": "Post-2.6 polish: limit dialog / wave cap"
+  },
+  "limitDescDefault": "You have reached your daily limit. Upgrade to VIP for unlimited access!",
+  "@limitDescDefault": {
+    "description": "Post-2.6 polish: limit dialog / wave cap"
+  },
+  "limitResetsAt": "Limit Resets At",
+  "@limitResetsAt": {
+    "description": "Post-2.6 polish: limit dialog / wave cap"
+  },
+  "vipMembersGet": "VIP Members Get",
+  "@vipMembersGet": {
+    "description": "Post-2.6 polish: limit dialog / wave cap"
+  },
+  "vipBenefitUnlimitedMessages": "Unlimited messages",
+  "@vipBenefitUnlimitedMessages": {
+    "description": "Post-2.6 polish: limit dialog / wave cap"
+  },
+  "vipBenefitUnlimitedProfileViews": "Unlimited profile views",
+  "@vipBenefitUnlimitedProfileViews": {
+    "description": "Post-2.6 polish: limit dialog / wave cap"
+  },
+  "vipBenefitAiStudyTools": "AI Study tools",
+  "@vipBenefitAiStudyTools": {
+    "description": "Post-2.6 polish: limit dialog / wave cap"
+  },
+  "chatBonusMessagesUnlocked": "You unlocked {count} bonus messages! Keep chatting.",
+  "@chatBonusMessagesUnlocked": {
+    "description": "Post-2.6 polish: limit dialog / wave cap",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
   }
 }

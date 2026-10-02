@@ -8810,4 +8810,74 @@ class AppLocalizationsTr extends AppLocalizations {
   String unlockGrantForCoins(int count, int cost) {
     return '💎$cost karşılığında $count aç';
   }
+
+  @override
+  String get waveLimitTitle => 'Bugünkü el sallama hakkını kullandın';
+
+  @override
+  String get waveLimitBody => 'Şimdi bir el sallama hakkı daha al ya da yarın tekrar gel.';
+
+  @override
+  String get limitDailyReachedTitle => 'Günlük Limite Ulaşıldı';
+
+  @override
+  String get limitLabelMessages => 'Mesajlar';
+
+  @override
+  String get limitLabelMoments => 'Anlar';
+
+  @override
+  String get limitLabelStories => 'Hikayeler';
+
+  @override
+  String get limitLabelComments => 'Yorumlar';
+
+  @override
+  String get limitLabelProfileViews => 'Profil Görüntülemeleri';
+
+  @override
+  String get limitLabelWaves => 'El sallamalar';
+
+  @override
+  String limitUsedLabel(String label) {
+    return 'Kullanılan $label';
+  }
+
+  @override
+  String get limitDescMessages => 'Günlük mesaj limitine ulaştın. Sınırsız mesaj için VIP\'e yükselt!';
+
+  @override
+  String get limitDescMoments => 'Günlük an paylaşma limitine ulaştın. Sınırsız an için VIP\'e yükselt!';
+
+  @override
+  String get limitDescStories => 'Günlük hikaye paylaşma limitine ulaştın. Sınırsız hikaye için VIP\'e yükselt!';
+
+  @override
+  String get limitDescComments => 'Günlük yorum limitine ulaştın. Sınırsız yorum için VIP\'e yükselt!';
+
+  @override
+  String get limitDescProfileViews => 'Günlük profil görüntüleme limitine ulaştın. Sınırsız profil görüntüleme için VIP\'e yükselt!';
+
+  @override
+  String get limitDescDefault => 'Günlük limitine ulaştın. Sınırsız erişim için VIP\'e yükselt!';
+
+  @override
+  String get limitResetsAt => 'Limit Sıfırlanma Zamanı';
+
+  @override
+  String get vipMembersGet => 'VIP Üyeler Şunları Alır';
+
+  @override
+  String get vipBenefitUnlimitedMessages => 'Sınırsız mesaj';
+
+  @override
+  String get vipBenefitUnlimitedProfileViews => 'Sınırsız profil görüntüleme';
+
+  @override
+  String get vipBenefitAiStudyTools => 'Yapay zeka çalışma araçları';
+
+  @override
+  String chatBonusMessagesUnlocked(int count) {
+    return '$count bonus mesajın kilidini açtın! Sohbete devam et.';
+  }
 }

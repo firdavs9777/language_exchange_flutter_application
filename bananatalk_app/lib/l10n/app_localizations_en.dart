@@ -8818,4 +8818,74 @@ class AppLocalizationsEn extends AppLocalizations {
   String unlockGrantForCoins(int count, int cost) {
     return 'Unlock $count for 💎$cost';
   }
+
+  @override
+  String get waveLimitTitle => 'You\'ve used today\'s waves';
+
+  @override
+  String get waveLimitBody => 'Get one more wave now, or come back tomorrow.';
+
+  @override
+  String get limitDailyReachedTitle => 'Daily Limit Reached';
+
+  @override
+  String get limitLabelMessages => 'Messages';
+
+  @override
+  String get limitLabelMoments => 'Moments';
+
+  @override
+  String get limitLabelStories => 'Stories';
+
+  @override
+  String get limitLabelComments => 'Comments';
+
+  @override
+  String get limitLabelProfileViews => 'Profile Views';
+
+  @override
+  String get limitLabelWaves => 'Waves';
+
+  @override
+  String limitUsedLabel(String label) {
+    return '$label Used';
+  }
+
+  @override
+  String get limitDescMessages => 'You have reached your daily message limit. Upgrade to VIP for unlimited messaging!';
+
+  @override
+  String get limitDescMoments => 'You have reached your daily moment creation limit. Upgrade to VIP for unlimited moments!';
+
+  @override
+  String get limitDescStories => 'You have reached your daily story creation limit. Upgrade to VIP for unlimited stories!';
+
+  @override
+  String get limitDescComments => 'You have reached your daily comment limit. Upgrade to VIP for unlimited comments!';
+
+  @override
+  String get limitDescProfileViews => 'You have reached your daily profile view limit. Upgrade to VIP for unlimited profile views!';
+
+  @override
+  String get limitDescDefault => 'You have reached your daily limit. Upgrade to VIP for unlimited access!';
+
+  @override
+  String get limitResetsAt => 'Limit Resets At';
+
+  @override
+  String get vipMembersGet => 'VIP Members Get';
+
+  @override
+  String get vipBenefitUnlimitedMessages => 'Unlimited messages';
+
+  @override
+  String get vipBenefitUnlimitedProfileViews => 'Unlimited profile views';
+
+  @override
+  String get vipBenefitAiStudyTools => 'AI Study tools';
+
+  @override
+  String chatBonusMessagesUnlocked(int count) {
+    return 'You unlocked $count bonus messages! Keep chatting.';
+  }
 }

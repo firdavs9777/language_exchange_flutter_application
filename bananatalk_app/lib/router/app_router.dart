@@ -21,7 +21,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/pages/community/main/community_main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/services/referral_service.dart'
-    show pendingReferralPrefsKey;
+    show pendingReferralPrefsKey, shouldStorePendingReferral;
 
 // ---------------------------------------------------------------------------
 // Transition helpers
@@ -170,7 +170,15 @@ final goRouter = GoRouter(
         if (code != null && code.isNotEmpty) {
           try {
             final prefs = await SharedPreferences.getInstance();
-            await prefs.setString(pendingReferralPrefsKey, code.toUpperCase());
+            if (shouldStorePendingReferral(
+              code: code,
+              sessionToken: prefs.getString('token'),
+            )) {
+              await prefs.setString(
+                pendingReferralPrefsKey,
+                code.toUpperCase(),
+              );
+            }
           } catch (_) {}
         }
         return '/splash';

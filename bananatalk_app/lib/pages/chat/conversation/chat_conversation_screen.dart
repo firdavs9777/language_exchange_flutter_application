@@ -836,6 +836,25 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     String localId,
     String? messageType,
   ) async {
+    try {
+      await _sendMessageInBackgroundBody(text, localId, messageType);
+    } finally {
+      // The server-unlock bypass is single-use and only meaningful to the
+      // retry send it was armed for. That retry runs synchronously up to its
+      // limit check inside `_sendMessage(...)` (no await before it on the
+      // optimistic path), so by the time any send finishes — success, error,
+      // limit dialog, or an early return — the flag has either been consumed
+      // or must not survive. Clearing here means it can never stay latched
+      // and silently skip a later real limit check.
+      _serverUnlockPending = false;
+    }
+  }
+
+  Future<void> _sendMessageInBackgroundBody(
+    String text,
+    String localId,
+    String? messageType,
+  ) async {
     if (!mounted) return;
 
     try {
@@ -877,11 +896,11 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                   // Legacy rewarded-ad path: local bonus messages.
                   setState(() => _adBonusMessages = 3);
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
+                    SnackBar(
                       content: Text(
-                        'You unlocked 3 bonus messages! Keep chatting.',
+                        AppLocalizations.of(context)!.chatBonusMessagesUnlocked(3),
                       ),
-                      backgroundColor: Color(0xFF00BFA5),
+                      backgroundColor: const Color(0xFF00BFA5),
                     ),
                   );
                 case ChatLimitOutcome.retry:

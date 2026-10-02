@@ -8802,4 +8802,74 @@ class AppLocalizationsTh extends AppLocalizations {
   String unlockGrantForCoins(int count, int cost) {
     return 'ปลดล็อก $count ด้วย 💎$cost';
   }
+
+  @override
+  String get waveLimitTitle => 'คุณใช้การทักทายของวันนี้หมดแล้ว';
+
+  @override
+  String get waveLimitBody => 'รับการทักทายเพิ่มอีกหนึ่งครั้งตอนนี้ หรือกลับมาใหม่พรุ่งนี้';
+
+  @override
+  String get limitDailyReachedTitle => 'ถึงขีดจำกัดรายวันแล้ว';
+
+  @override
+  String get limitLabelMessages => 'ข้อความ';
+
+  @override
+  String get limitLabelMoments => 'โมเมนต์';
+
+  @override
+  String get limitLabelStories => 'สตอรี่';
+
+  @override
+  String get limitLabelComments => 'ความคิดเห็น';
+
+  @override
+  String get limitLabelProfileViews => 'การดูโปรไฟล์';
+
+  @override
+  String get limitLabelWaves => 'การทักทาย';
+
+  @override
+  String limitUsedLabel(String label) {
+    return 'ใช้$labelแล้ว';
+  }
+
+  @override
+  String get limitDescMessages => 'คุณถึงขีดจำกัดข้อความรายวันแล้ว อัปเกรดเป็น VIP เพื่อส่งข้อความได้ไม่จำกัด!';
+
+  @override
+  String get limitDescMoments => 'คุณถึงขีดจำกัดการโพสต์โมเมนต์รายวันแล้ว อัปเกรดเป็น VIP เพื่อโพสต์ได้ไม่จำกัด!';
+
+  @override
+  String get limitDescStories => 'คุณถึงขีดจำกัดการโพสต์สตอรี่รายวันแล้ว อัปเกรดเป็น VIP เพื่อโพสต์สตอรี่ได้ไม่จำกัด!';
+
+  @override
+  String get limitDescComments => 'คุณถึงขีดจำกัดความคิดเห็นรายวันแล้ว อัปเกรดเป็น VIP เพื่อแสดงความคิดเห็นได้ไม่จำกัด!';
+
+  @override
+  String get limitDescProfileViews => 'คุณถึงขีดจำกัดการดูโปรไฟล์รายวันแล้ว อัปเกรดเป็น VIP เพื่อดูโปรไฟล์ได้ไม่จำกัด!';
+
+  @override
+  String get limitDescDefault => 'คุณถึงขีดจำกัดรายวันแล้ว อัปเกรดเป็น VIP เพื่อใช้งานได้ไม่จำกัด!';
+
+  @override
+  String get limitResetsAt => 'รีเซ็ตขีดจำกัดเมื่อ';
+
+  @override
+  String get vipMembersGet => 'สมาชิก VIP ได้รับ';
+
+  @override
+  String get vipBenefitUnlimitedMessages => 'ข้อความไม่จำกัด';
+
+  @override
+  String get vipBenefitUnlimitedProfileViews => 'ดูโปรไฟล์ไม่จำกัด';
+
+  @override
+  String get vipBenefitAiStudyTools => 'เครื่องมือเรียนด้วย AI';
+
+  @override
+  String chatBonusMessagesUnlocked(int count) {
+    return 'คุณปลดล็อกข้อความโบนัส $count ข้อความแล้ว! คุยต่อได้เลย';
+  }
 }

@@ -36,7 +36,8 @@ class ReferralClaimResult {
 /// Thrown for a 4xx claim response; the claim will never succeed on retry.
 class ReferralRejectedException implements Exception {
   final String message;
-  const ReferralRejectedException(this.message);
+  final int? statusCode;
+  const ReferralRejectedException(this.message, {this.statusCode});
   @override
   String toString() => message;
 }
@@ -80,7 +81,7 @@ class ReferralService {
       body: json.encode({'code': code}),
     );
     if (r.statusCode >= 400 && r.statusCode < 500) {
-      throw ReferralRejectedException(_errorOf(r));
+      throw ReferralRejectedException(_errorOf(r), statusCode: r.statusCode);
     }
     if (r.statusCode < 200 || r.statusCode >= 300) {
       throw Exception(_errorOf(r));
@@ -102,9 +103,35 @@ final referralServiceProvider = Provider<ReferralService>(
 
 const pendingReferralPrefsKey = 'pending_referral_code';
 
+/// The backend's 404 body for a code that matches no inviter. Every other
+/// 404 (REFERRALS_ENABLED off returns `Not found`; an older server without the
+/// route returns an HTML 404) means "feature unavailable", not "bad code".
+const unknownReferralCodeError = 'Unknown referral code';
+
+/// Whether a rejected claim should drop the stored code. A 4xx is final —
+/// except a 404 that isn't the unknown-code refusal: that is the feature being
+/// off, and the code must survive until it is turned on.
+bool shouldClearPendingReferralOnRejection(ReferralRejectedException e) {
+  if (e.statusCode == 404) return e.message == unknownReferralCodeError;
+  return true;
+}
+
+/// Whether the `/invite/:code` deep link should store [code] for a later
+/// claim. Not when a session token already exists: an already-registered
+/// user can't claim, and a stored code could later be claimed by whichever
+/// account registers next on this device.
+bool shouldStorePendingReferral({
+  required String? code,
+  required String? sessionToken,
+}) {
+  if (code == null || code.isEmpty) return false;
+  return sessionToken == null || sessionToken.isEmpty;
+}
+
 /// Claims a stored invite code after profile completion. Fire-and-forget:
-/// never throws. Clears the key on success or any 4xx; keeps it on network
-/// failure. Returns coins earned by the invitee (0 if none/failed).
+/// never throws. Clears the key on success or any final 4xx; keeps it on
+/// network/5xx failure and on a feature-off 404. Returns coins earned by the
+/// invitee (0 if none/failed).
 Future<int> claimPendingReferral(ReferralService service) async {
   try {
     final prefs = await SharedPreferences.getInstance();
@@ -114,8 +141,10 @@ Future<int> claimPendingReferral(ReferralService service) async {
       final res = await service.claim(code);
       await prefs.remove(pendingReferralPrefsKey);
       return res.invitee;
-    } on ReferralRejectedException {
-      await prefs.remove(pendingReferralPrefsKey);
+    } on ReferralRejectedException catch (e) {
+      if (shouldClearPendingReferralOnRejection(e)) {
+        await prefs.remove(pendingReferralPrefsKey);
+      }
     }
   } catch (_) {}
   return 0;

@@ -8802,4 +8802,74 @@ class AppLocalizationsKo extends AppLocalizations {
   String unlockGrantForCoins(int count, int cost) {
     return '💎$cost로 $count개 잠금 해제';
   }
+
+  @override
+  String get waveLimitTitle => '오늘의 웨이브를 모두 사용했어요';
+
+  @override
+  String get waveLimitBody => '지금 웨이브를 하나 더 받거나 내일 다시 오세요.';
+
+  @override
+  String get limitDailyReachedTitle => '일일 한도 도달';
+
+  @override
+  String get limitLabelMessages => '메시지';
+
+  @override
+  String get limitLabelMoments => '모먼트';
+
+  @override
+  String get limitLabelStories => '스토리';
+
+  @override
+  String get limitLabelComments => '댓글';
+
+  @override
+  String get limitLabelProfileViews => '프로필 조회';
+
+  @override
+  String get limitLabelWaves => '웨이브';
+
+  @override
+  String limitUsedLabel(String label) {
+    return '$label 사용량';
+  }
+
+  @override
+  String get limitDescMessages => '오늘의 메시지 한도에 도달했어요. VIP로 업그레이드하면 무제한으로 메시지를 보낼 수 있어요!';
+
+  @override
+  String get limitDescMoments => '오늘의 모먼트 작성 한도에 도달했어요. VIP로 업그레이드하면 모먼트를 무제한으로 올릴 수 있어요!';
+
+  @override
+  String get limitDescStories => '오늘의 스토리 작성 한도에 도달했어요. VIP로 업그레이드하면 스토리를 무제한으로 올릴 수 있어요!';
+
+  @override
+  String get limitDescComments => '오늘의 댓글 한도에 도달했어요. VIP로 업그레이드하면 댓글을 무제한으로 달 수 있어요!';
+
+  @override
+  String get limitDescProfileViews => '오늘의 프로필 조회 한도에 도달했어요. VIP로 업그레이드하면 프로필을 무제한으로 볼 수 있어요!';
+
+  @override
+  String get limitDescDefault => '오늘의 한도에 도달했어요. VIP로 업그레이드하면 무제한으로 이용할 수 있어요!';
+
+  @override
+  String get limitResetsAt => '한도 초기화 시각';
+
+  @override
+  String get vipMembersGet => 'VIP 회원 혜택';
+
+  @override
+  String get vipBenefitUnlimitedMessages => '무제한 메시지';
+
+  @override
+  String get vipBenefitUnlimitedProfileViews => '무제한 프로필 조회';
+
+  @override
+  String get vipBenefitAiStudyTools => 'AI 학습 도구';
+
+  @override
+  String chatBonusMessagesUnlocked(int count) {
+    return '보너스 메시지 $count개를 받았어요! 계속 대화하세요.';
+  }
 }

@@ -9,6 +9,20 @@ import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/utils/string_sanitizer.dart';
 
+/// A failed `POST community/wave`. Carries the HTTP status so callers can
+/// tell the daily cap (429) apart from other refusals. [toString] is exactly
+/// what the previous `Exception(message)` produced (`Exception: <message>`),
+/// so every existing string-matching caller behaves identically.
+class WaveSendException implements Exception {
+  const WaveSendException(this.message, {this.statusCode});
+
+  final String message;
+  final int? statusCode;
+
+  @override
+  String toString() => 'Exception: $message';
+}
+
 /// Community service with authentication support for all endpoints
 class CommunityService {
   final ApiClient _apiClient = ApiClient();
@@ -311,9 +325,15 @@ class CommunityService {
       if (response.success && response.data != null) {
         return WaveResponse.fromJson(response.data);
       } else if (response.isRateLimited) {
-        throw Exception('Too many waves. Please slow down!');
+        throw WaveSendException(
+          'Too many waves. Please slow down!',
+          statusCode: response.statusCode,
+        );
       } else {
-        throw Exception(response.error ?? 'Failed to send wave');
+        throw WaveSendException(
+          response.error ?? 'Failed to send wave',
+          statusCode: response.statusCode,
+        );
       }
     } catch (error) {
       rethrow;

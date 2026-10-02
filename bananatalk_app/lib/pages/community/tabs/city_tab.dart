@@ -960,7 +960,16 @@ class _CityTabState extends ConsumerState<CityTab> {
       final service = ref.read(communityServiceProvider);
       await service.sendWave(targetUserId: user.id);
     } catch (e) {
-      if (mounted) showWaveError(context, e);
+      if (mounted) {
+        await handleWaveError(
+          context,
+          ref,
+          e,
+          retry: () => ref
+              .read(communityServiceProvider)
+              .sendWave(targetUserId: user.id),
+        );
+      }
     }
   }
 }

@@ -8809,4 +8809,74 @@ class AppLocalizationsId extends AppLocalizations {
   String unlockGrantForCoins(int count, int cost) {
     return 'Buka $count seharga 💎$cost';
   }
+
+  @override
+  String get waveLimitTitle => 'Kamu sudah memakai lambaian hari ini';
+
+  @override
+  String get waveLimitBody => 'Dapatkan satu lambaian lagi sekarang, atau kembali besok.';
+
+  @override
+  String get limitDailyReachedTitle => 'Batas Harian Tercapai';
+
+  @override
+  String get limitLabelMessages => 'Pesan';
+
+  @override
+  String get limitLabelMoments => 'Momen';
+
+  @override
+  String get limitLabelStories => 'Story';
+
+  @override
+  String get limitLabelComments => 'Komentar';
+
+  @override
+  String get limitLabelProfileViews => 'Kunjungan Profil';
+
+  @override
+  String get limitLabelWaves => 'Lambaian';
+
+  @override
+  String limitUsedLabel(String label) {
+    return '$label Terpakai';
+  }
+
+  @override
+  String get limitDescMessages => 'Kamu telah mencapai batas pesan harian. Upgrade ke VIP untuk pesan tanpa batas!';
+
+  @override
+  String get limitDescMoments => 'Kamu telah mencapai batas momen harian. Upgrade ke VIP untuk momen tanpa batas!';
+
+  @override
+  String get limitDescStories => 'Kamu telah mencapai batas story harian. Upgrade ke VIP untuk story tanpa batas!';
+
+  @override
+  String get limitDescComments => 'Kamu telah mencapai batas komentar harian. Upgrade ke VIP untuk komentar tanpa batas!';
+
+  @override
+  String get limitDescProfileViews => 'Kamu telah mencapai batas kunjungan profil harian. Upgrade ke VIP untuk kunjungan profil tanpa batas!';
+
+  @override
+  String get limitDescDefault => 'Kamu telah mencapai batas harian. Upgrade ke VIP untuk akses tanpa batas!';
+
+  @override
+  String get limitResetsAt => 'Batas Direset Pada';
+
+  @override
+  String get vipMembersGet => 'Anggota VIP Mendapatkan';
+
+  @override
+  String get vipBenefitUnlimitedMessages => 'Pesan tanpa batas';
+
+  @override
+  String get vipBenefitUnlimitedProfileViews => 'Kunjungan profil tanpa batas';
+
+  @override
+  String get vipBenefitAiStudyTools => 'Alat belajar AI';
+
+  @override
+  String chatBonusMessagesUnlocked(int count) {
+    return 'Kamu membuka $count pesan bonus! Terus mengobrol.';
+  }
 }

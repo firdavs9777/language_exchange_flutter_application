@@ -8833,4 +8833,74 @@ class AppLocalizationsRu extends AppLocalizations {
   String unlockGrantForCoins(int count, int cost) {
     return 'Разблокировать $count за 💎$cost';
   }
+
+  @override
+  String get waveLimitTitle => 'Вы использовали все приветствия на сегодня';
+
+  @override
+  String get waveLimitBody => 'Получите ещё одно приветствие сейчас или возвращайтесь завтра.';
+
+  @override
+  String get limitDailyReachedTitle => 'Дневной лимит исчерпан';
+
+  @override
+  String get limitLabelMessages => 'Сообщения';
+
+  @override
+  String get limitLabelMoments => 'Моменты';
+
+  @override
+  String get limitLabelStories => 'Истории';
+
+  @override
+  String get limitLabelComments => 'Комментарии';
+
+  @override
+  String get limitLabelProfileViews => 'Просмотры профиля';
+
+  @override
+  String get limitLabelWaves => 'Приветствия';
+
+  @override
+  String limitUsedLabel(String label) {
+    return 'Использовано: $label';
+  }
+
+  @override
+  String get limitDescMessages => 'Вы достигли дневного лимита сообщений. Оформите VIP для безлимитных сообщений!';
+
+  @override
+  String get limitDescMoments => 'Вы достигли дневного лимита моментов. Оформите VIP для безлимитных моментов!';
+
+  @override
+  String get limitDescStories => 'Вы достигли дневного лимита историй. Оформите VIP для безлимитных историй!';
+
+  @override
+  String get limitDescComments => 'Вы достигли дневного лимита комментариев. Оформите VIP для безлимитных комментариев!';
+
+  @override
+  String get limitDescProfileViews => 'Вы достигли дневного лимита просмотров профиля. Оформите VIP для безлимитных просмотров!';
+
+  @override
+  String get limitDescDefault => 'Вы достигли дневного лимита. Оформите VIP для безлимитного доступа!';
+
+  @override
+  String get limitResetsAt => 'Лимит обновится';
+
+  @override
+  String get vipMembersGet => 'VIP-участники получают';
+
+  @override
+  String get vipBenefitUnlimitedMessages => 'Безлимитные сообщения';
+
+  @override
+  String get vipBenefitUnlimitedProfileViews => 'Безлимитные просмотры профилей';
+
+  @override
+  String get vipBenefitAiStudyTools => 'Инструменты ИИ для учёбы';
+
+  @override
+  String chatBonusMessagesUnlocked(int count) {
+    return 'Вы получили $count бонусных сообщения! Продолжайте общение.';
+  }
 }

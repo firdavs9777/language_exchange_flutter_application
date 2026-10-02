@@ -16231,6 +16231,138 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Unlock {count} for 💎{cost}'**
   String unlockGrantForCoins(int count, int cost);
+
+  /// Post-2.6 polish: limit dialog / wave cap
+  ///
+  /// In en, this message translates to:
+  /// **'You\'ve used today\'s waves'**
+  String get waveLimitTitle;
+
+  /// Post-2.6 polish: limit dialog / wave cap
+  ///
+  /// In en, this message translates to:
+  /// **'Get one more wave now, or come back tomorrow.'**
+  String get waveLimitBody;
+
+  /// Post-2.6 polish: limit dialog / wave cap
+  ///
+  /// In en, this message translates to:
+  /// **'Daily Limit Reached'**
+  String get limitDailyReachedTitle;
+
+  /// Post-2.6 polish: limit dialog / wave cap
+  ///
+  /// In en, this message translates to:
+  /// **'Messages'**
+  String get limitLabelMessages;
+
+  /// Post-2.6 polish: limit dialog / wave cap
+  ///
+  /// In en, this message translates to:
+  /// **'Moments'**
+  String get limitLabelMoments;
+
+  /// Post-2.6 polish: limit dialog / wave cap
+  ///
+  /// In en, this message translates to:
+  /// **'Stories'**
+  String get limitLabelStories;
+
+  /// Post-2.6 polish: limit dialog / wave cap
+  ///
+  /// In en, this message translates to:
+  /// **'Comments'**
+  String get limitLabelComments;
+
+  /// Post-2.6 polish: limit dialog / wave cap
+  ///
+  /// In en, this message translates to:
+  /// **'Profile Views'**
+  String get limitLabelProfileViews;
+
+  /// Post-2.6 polish: limit dialog / wave cap
+  ///
+  /// In en, this message translates to:
+  /// **'Waves'**
+  String get limitLabelWaves;
+
+  /// Post-2.6 polish: limit dialog / wave cap
+  ///
+  /// In en, this message translates to:
+  /// **'{label} Used'**
+  String limitUsedLabel(String label);
+
+  /// Post-2.6 polish: limit dialog / wave cap
+  ///
+  /// In en, this message translates to:
+  /// **'You have reached your daily message limit. Upgrade to VIP for unlimited messaging!'**
+  String get limitDescMessages;
+
+  /// Post-2.6 polish: limit dialog / wave cap
+  ///
+  /// In en, this message translates to:
+  /// **'You have reached your daily moment creation limit. Upgrade to VIP for unlimited moments!'**
+  String get limitDescMoments;
+
+  /// Post-2.6 polish: limit dialog / wave cap
+  ///
+  /// In en, this message translates to:
+  /// **'You have reached your daily story creation limit. Upgrade to VIP for unlimited stories!'**
+  String get limitDescStories;
+
+  /// Post-2.6 polish: limit dialog / wave cap
+  ///
+  /// In en, this message translates to:
+  /// **'You have reached your daily comment limit. Upgrade to VIP for unlimited comments!'**
+  String get limitDescComments;
+
+  /// Post-2.6 polish: limit dialog / wave cap
+  ///
+  /// In en, this message translates to:
+  /// **'You have reached your daily profile view limit. Upgrade to VIP for unlimited profile views!'**
+  String get limitDescProfileViews;
+
+  /// Post-2.6 polish: limit dialog / wave cap
+  ///
+  /// In en, this message translates to:
+  /// **'You have reached your daily limit. Upgrade to VIP for unlimited access!'**
+  String get limitDescDefault;
+
+  /// Post-2.6 polish: limit dialog / wave cap
+  ///
+  /// In en, this message translates to:
+  /// **'Limit Resets At'**
+  String get limitResetsAt;
+
+  /// Post-2.6 polish: limit dialog / wave cap
+  ///
+  /// In en, this message translates to:
+  /// **'VIP Members Get'**
+  String get vipMembersGet;
+
+  /// Post-2.6 polish: limit dialog / wave cap
+  ///
+  /// In en, this message translates to:
+  /// **'Unlimited messages'**
+  String get vipBenefitUnlimitedMessages;
+
+  /// Post-2.6 polish: limit dialog / wave cap
+  ///
+  /// In en, this message translates to:
+  /// **'Unlimited profile views'**
+  String get vipBenefitUnlimitedProfileViews;
+
+  /// Post-2.6 polish: limit dialog / wave cap
+  ///
+  /// In en, this message translates to:
+  /// **'AI Study tools'**
+  String get vipBenefitAiStudyTools;
+
+  /// Post-2.6 polish: limit dialog / wave cap
+  ///
+  /// In en, this message translates to:
+  /// **'You unlocked {count} bonus messages! Keep chatting.'**
+  String chatBonusMessagesUnlocked(int count);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

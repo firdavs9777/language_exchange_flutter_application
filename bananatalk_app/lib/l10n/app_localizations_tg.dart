@@ -8816,4 +8816,74 @@ class AppLocalizationsTg extends AppLocalizations {
   String unlockGrantForCoins(int count, int cost) {
     return '$count-ро бо 💎$cost кушоед';
   }
+
+  @override
+  String get waveLimitTitle => 'Шумо даст афшондани имрӯзаро истифода бурдед';
+
+  @override
+  String get waveLimitBody => 'Ҳозир як даст афшондани дигар гиред ё фардо баргардед.';
+
+  @override
+  String get limitDailyReachedTitle => 'Ҳадди рӯзона ба охир расид';
+
+  @override
+  String get limitLabelMessages => 'Паёмҳо';
+
+  @override
+  String get limitLabelMoments => 'Лаҳзаҳо';
+
+  @override
+  String get limitLabelStories => 'Ҳикояҳо';
+
+  @override
+  String get limitLabelComments => 'Шарҳҳо';
+
+  @override
+  String get limitLabelProfileViews => 'Тамошои профил';
+
+  @override
+  String get limitLabelWaves => 'Даст афшондан';
+
+  @override
+  String limitUsedLabel(String label) {
+    return '$label истифодашуда';
+  }
+
+  @override
+  String get limitDescMessages => 'Шумо ба ҳадди рӯзонаи паёмҳо расидед. Барои паёмҳои беҳад ба VIP гузаред!';
+
+  @override
+  String get limitDescMoments => 'Шумо ба ҳадди рӯзонаи лаҳзаҳо расидед. Барои лаҳзаҳои беҳад ба VIP гузаред!';
+
+  @override
+  String get limitDescStories => 'Шумо ба ҳадди рӯзонаи ҳикояҳо расидед. Барои ҳикояҳои беҳад ба VIP гузаред!';
+
+  @override
+  String get limitDescComments => 'Шумо ба ҳадди рӯзонаи шарҳҳо расидед. Барои шарҳҳои беҳад ба VIP гузаред!';
+
+  @override
+  String get limitDescProfileViews => 'Шумо ба ҳадди рӯзонаи тамошои профил расидед. Барои тамошои беҳад ба VIP гузаред!';
+
+  @override
+  String get limitDescDefault => 'Шумо ба ҳадди рӯзона расидед. Барои дастрасии беҳад ба VIP гузаред!';
+
+  @override
+  String get limitResetsAt => 'Ҳад аз нав оғоз мешавад';
+
+  @override
+  String get vipMembersGet => 'Аъзоёни VIP мегиранд';
+
+  @override
+  String get vipBenefitUnlimitedMessages => 'Паёмҳои беҳад';
+
+  @override
+  String get vipBenefitUnlimitedProfileViews => 'Тамошои беҳади профилҳо';
+
+  @override
+  String get vipBenefitAiStudyTools => 'Абзорҳои омӯзиши AI';
+
+  @override
+  String chatBonusMessagesUnlocked(int count) {
+    return 'Шумо $count паёми бонусӣ кушодед! Сӯҳбатро идома диҳед.';
+  }
 }

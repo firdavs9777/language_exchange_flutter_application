@@ -6,6 +6,7 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/community/widgets/community_dialog_scaffold.dart';
 import 'package:bananatalk_app/pages/community/widgets/community_snackbar.dart';
 import 'package:bananatalk_app/pages/community/widgets/mutual_wave_dialog.dart';
+import 'package:bananatalk_app/pages/community/widgets/wave_error_snackbar.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 
@@ -83,6 +84,10 @@ List<String> _icebreakerPrompts(AppLocalizations l10n) => [
 ];
 
 class _SendWaveSheetState extends ConsumerState<_SendWaveSheet> {
+  /// Set once the user unlocked a wave from the limit dialog and the send was
+  /// retried, so a second refusal never re-opens the dialog.
+  bool _retriedAfterUnlock = false;
+
   final TextEditingController _customController = TextEditingController();
   String? _selectedQuickReply;
   bool _isSending = false;
@@ -148,6 +153,37 @@ class _SendWaveSheetState extends ConsumerState<_SendWaveSheet> {
       }
     } catch (e) {
       if (!mounted) return;
+      // Cap on + 429 -> limit dialog over the still-open sheet; 'unlocked'
+      // resends once through this same method. Every other outcome (and any
+      // outcome with waveCapEnabled off) runs the pre-existing handling below
+      // unchanged, via onFallback.
+      final allowDialog = !_retriedAfterUnlock;
+      final showedDialog = await handleWaveError(
+        context,
+        ref,
+        e,
+        allowLimitDialog: allowDialog,
+        retry: () async {
+          if (!mounted) return;
+          _retriedAfterUnlock = true;
+          setState(() => _isSending = false);
+          await _send();
+        },
+        onFallback: () => _showLegacyError(e),
+      );
+      // Dialog dismissed without an unlock: the sheet is still open, so
+      // re-enable Send.
+      if (showedDialog && mounted && _isSending) {
+        setState(() => _isSending = false);
+      }
+    }
+  }
+
+  /// The pre-waveCapEnabled failure handling, unchanged.
+  Future<void> _showLegacyError(Object e) async {
+    {
+      if (!mounted) return;
+      final l10n = AppLocalizations.of(context)!;
       Navigator.pop(context);
       final raw = e.toString();
       final lower = raw.toLowerCase();

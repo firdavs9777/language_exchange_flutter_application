@@ -8812,4 +8812,74 @@ class AppLocalizationsHi extends AppLocalizations {
   String unlockGrantForCoins(int count, int cost) {
     return '💎$cost में $count अनलॉक करें';
   }
+
+  @override
+  String get waveLimitTitle => 'आपने आज की वेव्स इस्तेमाल कर ली हैं';
+
+  @override
+  String get waveLimitBody => 'अभी एक और वेव पाएं, या कल फिर आएं।';
+
+  @override
+  String get limitDailyReachedTitle => 'दैनिक सीमा पूरी हो गई';
+
+  @override
+  String get limitLabelMessages => 'संदेश';
+
+  @override
+  String get limitLabelMoments => 'मोमेंट्स';
+
+  @override
+  String get limitLabelStories => 'स्टोरीज़';
+
+  @override
+  String get limitLabelComments => 'टिप्पणियाँ';
+
+  @override
+  String get limitLabelProfileViews => 'प्रोफ़ाइल व्यूज़';
+
+  @override
+  String get limitLabelWaves => 'वेव्स';
+
+  @override
+  String limitUsedLabel(String label) {
+    return '$label उपयोग किए';
+  }
+
+  @override
+  String get limitDescMessages => 'आप अपनी दैनिक संदेश सीमा तक पहुँच गए हैं। असीमित संदेशों के लिए VIP में अपग्रेड करें!';
+
+  @override
+  String get limitDescMoments => 'आप अपनी दैनिक मोमेंट सीमा तक पहुँच गए हैं। असीमित मोमेंट्स के लिए VIP में अपग्रेड करें!';
+
+  @override
+  String get limitDescStories => 'आप अपनी दैनिक स्टोरी सीमा तक पहुँच गए हैं। असीमित स्टोरीज़ के लिए VIP में अपग्रेड करें!';
+
+  @override
+  String get limitDescComments => 'आप अपनी दैनिक टिप्पणी सीमा तक पहुँच गए हैं। असीमित टिप्पणियों के लिए VIP में अपग्रेड करें!';
+
+  @override
+  String get limitDescProfileViews => 'आप अपनी दैनिक प्रोफ़ाइल व्यू सीमा तक पहुँच गए हैं। असीमित प्रोफ़ाइल व्यूज़ के लिए VIP में अपग्रेड करें!';
+
+  @override
+  String get limitDescDefault => 'आप अपनी दैनिक सीमा तक पहुँच गए हैं। असीमित एक्सेस के लिए VIP में अपग्रेड करें!';
+
+  @override
+  String get limitResetsAt => 'सीमा रीसेट होगी';
+
+  @override
+  String get vipMembersGet => 'VIP सदस्यों को मिलता है';
+
+  @override
+  String get vipBenefitUnlimitedMessages => 'असीमित संदेश';
+
+  @override
+  String get vipBenefitUnlimitedProfileViews => 'असीमित प्रोफ़ाइल व्यूज़';
+
+  @override
+  String get vipBenefitAiStudyTools => 'AI अध्ययन टूल्स';
+
+  @override
+  String chatBonusMessagesUnlocked(int count) {
+    return 'आपने $count बोनस संदेश अनलॉक किए! बातचीत जारी रखें।';
+  }
 }

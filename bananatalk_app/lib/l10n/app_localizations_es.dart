@@ -8812,4 +8812,74 @@ class AppLocalizationsEs extends AppLocalizations {
   String unlockGrantForCoins(int count, int cost) {
     return 'Desbloquear $count por 💎$cost';
   }
+
+  @override
+  String get waveLimitTitle => 'Has usado tus saludos de hoy';
+
+  @override
+  String get waveLimitBody => 'Consigue un saludo más ahora o vuelve mañana.';
+
+  @override
+  String get limitDailyReachedTitle => 'Límite diario alcanzado';
+
+  @override
+  String get limitLabelMessages => 'Mensajes';
+
+  @override
+  String get limitLabelMoments => 'Momentos';
+
+  @override
+  String get limitLabelStories => 'Historias';
+
+  @override
+  String get limitLabelComments => 'Comentarios';
+
+  @override
+  String get limitLabelProfileViews => 'Visitas de perfil';
+
+  @override
+  String get limitLabelWaves => 'Saludos';
+
+  @override
+  String limitUsedLabel(String label) {
+    return '$label usados';
+  }
+
+  @override
+  String get limitDescMessages => 'Has alcanzado tu límite diario de mensajes. ¡Hazte VIP para enviar mensajes ilimitados!';
+
+  @override
+  String get limitDescMoments => 'Has alcanzado tu límite diario de momentos. ¡Hazte VIP para publicar momentos ilimitados!';
+
+  @override
+  String get limitDescStories => 'Has alcanzado tu límite diario de historias. ¡Hazte VIP para publicar historias ilimitadas!';
+
+  @override
+  String get limitDescComments => 'Has alcanzado tu límite diario de comentarios. ¡Hazte VIP para comentar sin límite!';
+
+  @override
+  String get limitDescProfileViews => 'Has alcanzado tu límite diario de visitas de perfil. ¡Hazte VIP para ver perfiles sin límite!';
+
+  @override
+  String get limitDescDefault => 'Has alcanzado tu límite diario. ¡Hazte VIP para tener acceso ilimitado!';
+
+  @override
+  String get limitResetsAt => 'El límite se reinicia el';
+
+  @override
+  String get vipMembersGet => 'Los miembros VIP obtienen';
+
+  @override
+  String get vipBenefitUnlimitedMessages => 'Mensajes ilimitados';
+
+  @override
+  String get vipBenefitUnlimitedProfileViews => 'Visitas de perfil ilimitadas';
+
+  @override
+  String get vipBenefitAiStudyTools => 'Herramientas de estudio con IA';
+
+  @override
+  String chatBonusMessagesUnlocked(int count) {
+    return '¡Desbloqueaste $count mensajes extra! Sigue chateando.';
+  }
 }

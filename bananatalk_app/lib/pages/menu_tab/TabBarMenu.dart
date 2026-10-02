@@ -48,6 +48,34 @@ const int kMomentsTabIndex = 3;
 /// rebuilding the widget) within the same process.
 bool _featureSpotlightAttemptedThisLaunch = false;
 
+/// Whether a [TabsScreen] has mounted before in this process (see
+/// [shouldSeedInitialTab]).
+bool _tabsScreenMountedBefore = false;
+
+/// Whether [TabsScreen]'s post-frame seed may write `initialIndex` into
+/// [selectedTabProvider].
+///
+/// * A non-zero [initialIndex] is an explicit destination (`/tabs/:index`,
+///   the Community landing) — always seed, as before.
+/// * `initialIndex == 0` is just the constructor default. On the FIRST mount
+///   in the process the provider's own default is also 0, so the seed could
+///   only ever be a no-op — or clobber an external write (a notification /
+///   router hop to tab 1 that landed before or in the same frame as the
+///   mount). So skip it.
+/// * On a later mount (e.g. log out -> log back in) keep today's reset to
+///   tab 0, unless the provider changed between initState and the first
+///   frame — that change is an external write and wins.
+bool shouldSeedInitialTab({
+  required int initialIndex,
+  required bool firstMount,
+  required int valueAtInit,
+  required int valueNow,
+}) {
+  if (initialIndex != 0) return true;
+  if (firstMount) return false;
+  return valueNow == valueAtInit;
+}
+
 class TabsScreen extends ConsumerStatefulWidget {
   /// Default to AI Study tab (index 0).
   /// Tab order: AI Study (0) / Community (1) / Chats (2) / Moments (3) / Profile (4).
@@ -68,9 +96,20 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
     // Seed the global provider so deep links into /tabs/:index still land
     // on the right tab. Defer to a post-frame callback because writing to
     // a StateProvider during build / initState would throw.
+    final firstMount = !_tabsScreenMountedBefore;
+    _tabsScreenMountedBefore = true;
+    final valueAtInit = ref.read(selectedTabProvider);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
-      ref.read(selectedTabProvider.notifier).state = widget.initialIndex;
+      final notifier = ref.read(selectedTabProvider.notifier);
+      if (shouldSeedInitialTab(
+        initialIndex: widget.initialIndex,
+        firstMount: firstMount,
+        valueAtInit: valueAtInit,
+        valueNow: notifier.state,
+      )) {
+        notifier.state = widget.initialIndex;
+      }
     });
     _pages = [
       const LearningMain(),

@@ -8812,4 +8812,74 @@ class AppLocalizationsDe extends AppLocalizations {
   String unlockGrantForCoins(int count, int cost) {
     return '$count für 💎$cost freischalten';
   }
+
+  @override
+  String get waveLimitTitle => 'Du hast dein Winken für heute aufgebraucht';
+
+  @override
+  String get waveLimitBody => 'Hol dir jetzt ein weiteres Winken oder komm morgen wieder.';
+
+  @override
+  String get limitDailyReachedTitle => 'Tageslimit erreicht';
+
+  @override
+  String get limitLabelMessages => 'Nachrichten';
+
+  @override
+  String get limitLabelMoments => 'Momente';
+
+  @override
+  String get limitLabelStories => 'Stories';
+
+  @override
+  String get limitLabelComments => 'Kommentare';
+
+  @override
+  String get limitLabelProfileViews => 'Profilaufrufe';
+
+  @override
+  String get limitLabelWaves => 'Winken';
+
+  @override
+  String limitUsedLabel(String label) {
+    return '$label genutzt';
+  }
+
+  @override
+  String get limitDescMessages => 'Du hast dein tägliches Nachrichtenlimit erreicht. Upgrade auf VIP für unbegrenzte Nachrichten!';
+
+  @override
+  String get limitDescMoments => 'Du hast dein tägliches Limit für Momente erreicht. Upgrade auf VIP für unbegrenzte Momente!';
+
+  @override
+  String get limitDescStories => 'Du hast dein tägliches Limit für Stories erreicht. Upgrade auf VIP für unbegrenzte Stories!';
+
+  @override
+  String get limitDescComments => 'Du hast dein tägliches Kommentarlimit erreicht. Upgrade auf VIP für unbegrenzte Kommentare!';
+
+  @override
+  String get limitDescProfileViews => 'Du hast dein tägliches Limit für Profilaufrufe erreicht. Upgrade auf VIP für unbegrenzte Profilaufrufe!';
+
+  @override
+  String get limitDescDefault => 'Du hast dein Tageslimit erreicht. Upgrade auf VIP für unbegrenzten Zugang!';
+
+  @override
+  String get limitResetsAt => 'Limit wird zurückgesetzt am';
+
+  @override
+  String get vipMembersGet => 'VIP-Mitglieder erhalten';
+
+  @override
+  String get vipBenefitUnlimitedMessages => 'Unbegrenzte Nachrichten';
+
+  @override
+  String get vipBenefitUnlimitedProfileViews => 'Unbegrenzte Profilaufrufe';
+
+  @override
+  String get vipBenefitAiStudyTools => 'KI-Lerntools';
+
+  @override
+  String chatBonusMessagesUnlocked(int count) {
+    return 'Du hast $count Bonusnachrichten freigeschaltet! Chatte weiter.';
+  }
 }

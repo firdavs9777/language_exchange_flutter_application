@@ -8802,4 +8802,74 @@ class AppLocalizationsVi extends AppLocalizations {
   String unlockGrantForCoins(int count, int cost) {
     return 'Mở khóa $count với 💎$cost';
   }
+
+  @override
+  String get waveLimitTitle => 'Bạn đã dùng hết lượt chào hôm nay';
+
+  @override
+  String get waveLimitBody => 'Nhận thêm một lượt chào ngay bây giờ, hoặc quay lại vào ngày mai.';
+
+  @override
+  String get limitDailyReachedTitle => 'Đã đạt giới hạn hằng ngày';
+
+  @override
+  String get limitLabelMessages => 'Tin nhắn';
+
+  @override
+  String get limitLabelMoments => 'Khoảnh khắc';
+
+  @override
+  String get limitLabelStories => 'Tin';
+
+  @override
+  String get limitLabelComments => 'Bình luận';
+
+  @override
+  String get limitLabelProfileViews => 'Lượt xem hồ sơ';
+
+  @override
+  String get limitLabelWaves => 'Lượt chào';
+
+  @override
+  String limitUsedLabel(String label) {
+    return 'Đã dùng $label';
+  }
+
+  @override
+  String get limitDescMessages => 'Bạn đã đạt giới hạn tin nhắn hằng ngày. Nâng cấp VIP để nhắn tin không giới hạn!';
+
+  @override
+  String get limitDescMoments => 'Bạn đã đạt giới hạn đăng khoảnh khắc hằng ngày. Nâng cấp VIP để đăng không giới hạn!';
+
+  @override
+  String get limitDescStories => 'Bạn đã đạt giới hạn đăng tin hằng ngày. Nâng cấp VIP để đăng tin không giới hạn!';
+
+  @override
+  String get limitDescComments => 'Bạn đã đạt giới hạn bình luận hằng ngày. Nâng cấp VIP để bình luận không giới hạn!';
+
+  @override
+  String get limitDescProfileViews => 'Bạn đã đạt giới hạn xem hồ sơ hằng ngày. Nâng cấp VIP để xem hồ sơ không giới hạn!';
+
+  @override
+  String get limitDescDefault => 'Bạn đã đạt giới hạn hằng ngày. Nâng cấp VIP để truy cập không giới hạn!';
+
+  @override
+  String get limitResetsAt => 'Giới hạn đặt lại lúc';
+
+  @override
+  String get vipMembersGet => 'Thành viên VIP nhận được';
+
+  @override
+  String get vipBenefitUnlimitedMessages => 'Tin nhắn không giới hạn';
+
+  @override
+  String get vipBenefitUnlimitedProfileViews => 'Xem hồ sơ không giới hạn';
+
+  @override
+  String get vipBenefitAiStudyTools => 'Công cụ học AI';
+
+  @override
+  String chatBonusMessagesUnlocked(int count) {
+    return 'Bạn đã mở khóa $count tin nhắn thưởng! Tiếp tục trò chuyện nhé.';
+  }
 }

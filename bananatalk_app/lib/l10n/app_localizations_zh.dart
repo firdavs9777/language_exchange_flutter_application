@@ -8802,6 +8802,76 @@ class AppLocalizationsZh extends AppLocalizations {
   String unlockGrantForCoins(int count, int cost) {
     return '用 💎$cost 解锁 $count 个';
   }
+
+  @override
+  String get waveLimitTitle => '你今天的招手次数已用完';
+
+  @override
+  String get waveLimitBody => '现在再获取一次招手，或明天再来。';
+
+  @override
+  String get limitDailyReachedTitle => '已达每日上限';
+
+  @override
+  String get limitLabelMessages => '消息';
+
+  @override
+  String get limitLabelMoments => '动态';
+
+  @override
+  String get limitLabelStories => '快拍';
+
+  @override
+  String get limitLabelComments => '评论';
+
+  @override
+  String get limitLabelProfileViews => '资料浏览';
+
+  @override
+  String get limitLabelWaves => '招手';
+
+  @override
+  String limitUsedLabel(String label) {
+    return '已用$label';
+  }
+
+  @override
+  String get limitDescMessages => '你已达到今日消息上限。升级 VIP 即可无限发消息！';
+
+  @override
+  String get limitDescMoments => '你已达到今日动态发布上限。升级 VIP 即可无限发布动态！';
+
+  @override
+  String get limitDescStories => '你已达到今日快拍发布上限。升级 VIP 即可无限发布快拍！';
+
+  @override
+  String get limitDescComments => '你已达到今日评论上限。升级 VIP 即可无限评论！';
+
+  @override
+  String get limitDescProfileViews => '你已达到今日资料浏览上限。升级 VIP 即可无限浏览资料！';
+
+  @override
+  String get limitDescDefault => '你已达到今日上限。升级 VIP 即可无限使用！';
+
+  @override
+  String get limitResetsAt => '上限重置时间';
+
+  @override
+  String get vipMembersGet => 'VIP 会员可享';
+
+  @override
+  String get vipBenefitUnlimitedMessages => '无限消息';
+
+  @override
+  String get vipBenefitUnlimitedProfileViews => '无限资料浏览';
+
+  @override
+  String get vipBenefitAiStudyTools => 'AI 学习工具';
+
+  @override
+  String chatBonusMessagesUnlocked(int count) {
+    return '你解锁了 $count 条额外消息！继续聊吧。';
+  }
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -17601,5 +17671,75 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   @override
   String unlockGrantForCoins(int count, int cost) {
     return '用 💎$cost 解鎖 $count 個';
+  }
+
+  @override
+  String get waveLimitTitle => '你今天的招手次數已用完';
+
+  @override
+  String get waveLimitBody => '現在再取得一次招手，或明天再來。';
+
+  @override
+  String get limitDailyReachedTitle => '已達每日上限';
+
+  @override
+  String get limitLabelMessages => '訊息';
+
+  @override
+  String get limitLabelMoments => '動態';
+
+  @override
+  String get limitLabelStories => '限時動態';
+
+  @override
+  String get limitLabelComments => '留言';
+
+  @override
+  String get limitLabelProfileViews => '個人檔案瀏覽';
+
+  @override
+  String get limitLabelWaves => '招手';
+
+  @override
+  String limitUsedLabel(String label) {
+    return '已用$label';
+  }
+
+  @override
+  String get limitDescMessages => '你已達到今日訊息上限。升級 VIP 即可無限傳訊息！';
+
+  @override
+  String get limitDescMoments => '你已達到今日動態發布上限。升級 VIP 即可無限發布動態！';
+
+  @override
+  String get limitDescStories => '你已達到今日限時動態發布上限。升級 VIP 即可無限發布限時動態！';
+
+  @override
+  String get limitDescComments => '你已達到今日留言上限。升級 VIP 即可無限留言！';
+
+  @override
+  String get limitDescProfileViews => '你已達到今日個人檔案瀏覽上限。升級 VIP 即可無限瀏覽個人檔案！';
+
+  @override
+  String get limitDescDefault => '你已達到今日上限。升級 VIP 即可無限使用！';
+
+  @override
+  String get limitResetsAt => '上限重設時間';
+
+  @override
+  String get vipMembersGet => 'VIP 會員可享';
+
+  @override
+  String get vipBenefitUnlimitedMessages => '無限訊息';
+
+  @override
+  String get vipBenefitUnlimitedProfileViews => '無限個人檔案瀏覽';
+
+  @override
+  String get vipBenefitAiStudyTools => 'AI 學習工具';
+
+  @override
+  String chatBonusMessagesUnlocked(int count) {
+    return '你解鎖了 $count 則額外訊息！繼續聊吧。';
   }
 }

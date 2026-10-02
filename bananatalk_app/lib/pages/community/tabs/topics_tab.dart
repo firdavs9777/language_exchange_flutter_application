@@ -64,7 +64,16 @@ class _TopicsTabState extends ConsumerState<TopicsTab> {
     try {
       await ref.read(communityServiceProvider).sendWave(targetUserId: targetUserId);
     } catch (e) {
-      if (mounted) showWaveError(context, e);
+      if (mounted) {
+        await handleWaveError(
+          context,
+          ref,
+          e,
+          retry: () => ref
+              .read(communityServiceProvider)
+              .sendWave(targetUserId: targetUserId),
+        );
+      }
     }
   }
 

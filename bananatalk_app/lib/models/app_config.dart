@@ -95,6 +95,12 @@ class AppConfig {
   /// Feature keys the server accepts for `/coins/rewarded-unlock`.
   final List<String> rewardedFeatures;
 
+  /// Server-side daily wave cap (WAVE_CAP_ENABLED). Off by default (server
+  /// ships it dark). Only when true is a 429 from the wave endpoint treated
+  /// as the daily cap (limit dialog with coin / rewarded unlock); otherwise
+  /// the legacy "too many waves" path runs exactly as before.
+  final bool waveCapEnabled;
+
   const AppConfig({
     required this.minVersion,
     required this.latestVersion,
@@ -113,6 +119,7 @@ class AppConfig {
     this.boostsEnabled = false,
     this.rewardedLimitsEnabled = false,
     this.rewardedFeatures = const [],
+    this.waveCapEnabled = false,
   });
 
   factory AppConfig.fromJson(Map<String, dynamic> json) {
@@ -141,6 +148,7 @@ class AppConfig {
       rewardedFeatures: json['rewardedFeatures'] is List
           ? (json['rewardedFeatures'] as List).whereType<String>().toList()
           : const <String>[],
+      waveCapEnabled: (json['waveCapEnabled'] as bool?) ?? false,
     );
   }
 }

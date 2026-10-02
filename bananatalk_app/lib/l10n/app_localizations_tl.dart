@@ -8812,4 +8812,74 @@ class AppLocalizationsTl extends AppLocalizations {
   String unlockGrantForCoins(int count, int cost) {
     return 'I-unlock ang $count sa 💎$cost';
   }
+
+  @override
+  String get waveLimitTitle => 'Nagamit mo na ang mga wave ngayong araw';
+
+  @override
+  String get waveLimitBody => 'Kumuha ng isa pang wave ngayon, o bumalik bukas.';
+
+  @override
+  String get limitDailyReachedTitle => 'Naabot ang Pang-araw-araw na Limitasyon';
+
+  @override
+  String get limitLabelMessages => 'Mga Mensahe';
+
+  @override
+  String get limitLabelMoments => 'Mga Moment';
+
+  @override
+  String get limitLabelStories => 'Mga Story';
+
+  @override
+  String get limitLabelComments => 'Mga Komento';
+
+  @override
+  String get limitLabelProfileViews => 'Mga Pagtingin sa Profile';
+
+  @override
+  String get limitLabelWaves => 'Mga Wave';
+
+  @override
+  String limitUsedLabel(String label) {
+    return 'Nagamit na $label';
+  }
+
+  @override
+  String get limitDescMessages => 'Naabot mo na ang pang-araw-araw na limitasyon ng mensahe. Mag-upgrade sa VIP para sa walang limitasyong pagmemensahe!';
+
+  @override
+  String get limitDescMoments => 'Naabot mo na ang pang-araw-araw na limitasyon ng moment. Mag-upgrade sa VIP para sa walang limitasyong moment!';
+
+  @override
+  String get limitDescStories => 'Naabot mo na ang pang-araw-araw na limitasyon ng story. Mag-upgrade sa VIP para sa walang limitasyong story!';
+
+  @override
+  String get limitDescComments => 'Naabot mo na ang pang-araw-araw na limitasyon ng komento. Mag-upgrade sa VIP para sa walang limitasyong komento!';
+
+  @override
+  String get limitDescProfileViews => 'Naabot mo na ang pang-araw-araw na limitasyon ng pagtingin sa profile. Mag-upgrade sa VIP para sa walang limitasyong pagtingin!';
+
+  @override
+  String get limitDescDefault => 'Naabot mo na ang iyong pang-araw-araw na limitasyon. Mag-upgrade sa VIP para sa walang limitasyong access!';
+
+  @override
+  String get limitResetsAt => 'Mare-reset ang Limitasyon sa';
+
+  @override
+  String get vipMembersGet => 'Makukuha ng mga VIP Member';
+
+  @override
+  String get vipBenefitUnlimitedMessages => 'Walang limitasyong mensahe';
+
+  @override
+  String get vipBenefitUnlimitedProfileViews => 'Walang limitasyong pagtingin sa profile';
+
+  @override
+  String get vipBenefitAiStudyTools => 'Mga AI Study tool';
+
+  @override
+  String chatBonusMessagesUnlocked(int count) {
+    return 'Nag-unlock ka ng $count bonus na mensahe! Magpatuloy sa pakikipag-chat.';
+  }
 }
