@@ -138,9 +138,9 @@ class AppConfig {
       boostsEnabled: (json['boostsEnabled'] as bool?) ?? false,
       rewardedLimitsEnabled:
           (json['rewardedLimitsEnabled'] as bool?) ?? false,
-      rewardedFeatures: ((json['rewardedFeatures'] as List?) ?? const [])
-          .whereType<String>()
-          .toList(),
+      rewardedFeatures: json['rewardedFeatures'] is List
+          ? (json['rewardedFeatures'] as List).whereType<String>().toList()
+          : const <String>[],
     );
   }
 }

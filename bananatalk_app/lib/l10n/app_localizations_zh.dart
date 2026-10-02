@@ -8729,6 +8729,79 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get vipRemoveAds => '移除广告';
+
+  @override
+  String get limitUnlockedRetry => '已解锁 — 正在重新发送';
+
+  @override
+  String get rewardedUnlockSuccess => '已解锁！现在可以重试。';
+
+  @override
+  String get extraMatchesMaxed => '你今天的额外配对已达上限';
+
+  @override
+  String wavesMaskedTitleCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count 人向你打招呼',
+      one: '有人向你打招呼',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String visitorsMaskedTitle(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count 人看过你的资料',
+      one: '有人看过你的资料',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String visitorsMaskedBody(int cost) {
+    return '花 $cost 金币查看是谁，或升级 VIP';
+  }
+
+  @override
+  String get visitorsMaskedBodyVip => '升级 VIP 查看谁看过你的资料';
+
+  @override
+  String boostDurationHm(int hours, int minutes) {
+    return '$hours小时$minutes分钟';
+  }
+
+  @override
+  String boostDurationM(int minutes) {
+    return '$minutes分钟';
+  }
+
+  @override
+  String get boostEndingSoon => '即将结束';
+
+  @override
+  String coinAmount(int cost) {
+    return '💎$cost';
+  }
+
+  @override
+  String unlockedMore(int count) {
+    return '又解锁了 $count 个！';
+  }
+
+  @override
+  String get getMoreCoins => '获取更多金币';
+
+  @override
+  String get unlockFailed => '暂时无法解锁。';
+
+  @override
+  String unlockGrantForCoins(int count, int cost) {
+    return '用 💎$cost 解锁 $count 个';
+  }
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -17456,4 +17529,77 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get vipRemoveAds => '移除廣告';
+
+  @override
+  String get limitUnlockedRetry => '已解鎖 — 正在重新傳送';
+
+  @override
+  String get rewardedUnlockSuccess => '已解鎖！現在可以重試。';
+
+  @override
+  String get extraMatchesMaxed => '你今天的額外配對已達上限';
+
+  @override
+  String wavesMaskedTitleCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count 人向你打招呼',
+      one: '有人向你打招呼',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String visitorsMaskedTitle(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count 人看過你的個人檔案',
+      one: '有人看過你的個人檔案',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String visitorsMaskedBody(int cost) {
+    return '花 $cost 金幣查看是誰，或升級 VIP';
+  }
+
+  @override
+  String get visitorsMaskedBodyVip => '升級 VIP 查看誰看過你的個人檔案';
+
+  @override
+  String boostDurationHm(int hours, int minutes) {
+    return '$hours小時$minutes分鐘';
+  }
+
+  @override
+  String boostDurationM(int minutes) {
+    return '$minutes分鐘';
+  }
+
+  @override
+  String get boostEndingSoon => '即將結束';
+
+  @override
+  String coinAmount(int cost) {
+    return '💎$cost';
+  }
+
+  @override
+  String unlockedMore(int count) {
+    return '又解鎖了 $count 個！';
+  }
+
+  @override
+  String get getMoreCoins => '取得更多金幣';
+
+  @override
+  String get unlockFailed => '暫時無法解鎖。';
+
+  @override
+  String unlockGrantForCoins(int count, int cost) {
+    return '用 💎$cost 解鎖 $count 個';
+  }
 }

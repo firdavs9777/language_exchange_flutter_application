@@ -3600,5 +3600,20 @@
   "perkUnlimitedWaves": "โบกมือได้ไม่จำกัด",
   "perkAdvancedFilters": "ตัวกรองคู่สนทนาขั้นสูง",
   "vipFromMatches": "VIP: แมตช์ไม่จำกัด",
-  "vipRemoveAds": "ลบโฆษณา"
+  "vipRemoveAds": "ลบโฆษณา",
+  "limitUnlockedRetry": "ปลดล็อกแล้ว — กำลังส่งอีกครั้ง",
+  "rewardedUnlockSuccess": "ปลดล็อกแล้ว! ลองอีกครั้งได้เลย",
+  "extraMatchesMaxed": "วันนี้คุณได้แมตช์เพิ่มเติมครบจำนวนสูงสุดแล้ว",
+  "wavesMaskedTitleCount": "{count, plural, =1{มีคนโบกมือให้คุณ} other{{count} คนโบกมือให้คุณ}}",
+  "visitorsMaskedTitle": "{count, plural, =1{มีคนดูโปรไฟล์ของคุณ} other{{count} คนดูโปรไฟล์ของคุณ}}",
+  "visitorsMaskedBody": "ดูว่าเป็นใครด้วย {cost} เหรียญ หรือสมัคร VIP",
+  "visitorsMaskedBodyVip": "สมัคร VIP เพื่อดูว่าใครดูโปรไฟล์ของคุณ",
+  "boostDurationHm": "{hours} ชม. {minutes} น.",
+  "boostDurationM": "{minutes} น.",
+  "boostEndingSoon": "ใกล้สิ้นสุดแล้ว",
+  "coinAmount": "💎{cost}",
+  "unlockedMore": "ปลดล็อกเพิ่มอีก {count}!",
+  "getMoreCoins": "รับเหรียญเพิ่ม",
+  "unlockFailed": "ไม่สามารถปลดล็อกได้ในขณะนี้",
+  "unlockGrantForCoins": "ปลดล็อก {count} ด้วย 💎{cost}"
 }

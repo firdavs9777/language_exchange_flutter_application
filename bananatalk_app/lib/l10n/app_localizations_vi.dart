@@ -8729,4 +8729,77 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get vipRemoveAds => 'Gỡ quảng cáo';
+
+  @override
+  String get limitUnlockedRetry => 'Đã mở khóa — đang gửi lại';
+
+  @override
+  String get rewardedUnlockSuccess => 'Đã mở khóa! Bạn có thể thử lại ngay.';
+
+  @override
+  String get extraMatchesMaxed => 'Bạn đã có số lượt ghép đôi thêm tối đa cho hôm nay';
+
+  @override
+  String wavesMaskedTitleCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count người vẫy tay chào bạn',
+      one: 'Có người vẫy tay chào bạn',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String visitorsMaskedTitle(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count người đã xem hồ sơ của bạn',
+      one: 'Có người đã xem hồ sơ của bạn',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String visitorsMaskedBody(int cost) {
+    return 'Xem là ai với $cost xu, hoặc nâng cấp VIP';
+  }
+
+  @override
+  String get visitorsMaskedBodyVip => 'Nâng cấp VIP để xem ai đã xem hồ sơ của bạn';
+
+  @override
+  String boostDurationHm(int hours, int minutes) {
+    return '$hours giờ $minutes phút';
+  }
+
+  @override
+  String boostDurationM(int minutes) {
+    return '$minutes phút';
+  }
+
+  @override
+  String get boostEndingSoon => 'Sắp kết thúc';
+
+  @override
+  String coinAmount(int cost) {
+    return '💎$cost';
+  }
+
+  @override
+  String unlockedMore(int count) {
+    return 'Đã mở khóa thêm $count!';
+  }
+
+  @override
+  String get getMoreCoins => 'Nhận thêm xu';
+
+  @override
+  String get unlockFailed => 'Không thể mở khóa lúc này.';
+
+  @override
+  String unlockGrantForCoins(int count, int cost) {
+    return 'Mở khóa $count với 💎$cost';
+  }
 }

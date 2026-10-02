@@ -10,6 +10,21 @@ enum BoostError { insufficientCoins, alreadyBoosted, capacityFull }
 
 /// Thrown by [BoostApiClient.purchaseProfileBoost] for the three typed
 /// refusals; any other failure throws a plain [Exception].
+/// Maps a refused purchase to its typed error. A 429 is `capacityFull` ONLY
+/// when the body says `capacity_full`; any other 429 is the route's rate
+/// limiter and returns null (the caller reports a generic failure).
+BoostError? boostErrorFor(int statusCode, String? error) {
+  switch (statusCode) {
+    case 402:
+      return BoostError.insufficientCoins;
+    case 409:
+      return BoostError.alreadyBoosted;
+    case 429:
+      return error == 'capacity_full' ? BoostError.capacityFull : null;
+  }
+  return null;
+}
+
 class BoostException implements Exception {
   const BoostException(this.error);
   final BoostError error;
@@ -49,14 +64,14 @@ class BoostApiClient {
       if (boost is Map<String, dynamic>) return Boost.fromJson(boost);
       throw Exception('Malformed boost response');
     }
-    switch (r.statusCode) {
-      case 402:
-        throw const BoostException(BoostError.insufficientCoins);
-      case 409:
-        throw const BoostException(BoostError.alreadyBoosted);
-      case 429:
-        throw const BoostException(BoostError.capacityFull);
+    String? code;
+    try {
+      code = _body(r)['error']?.toString();
+    } catch (_) {
+      code = null; // non-JSON body (e.g. a proxy page)
     }
+    final typed = boostErrorFor(r.statusCode, code);
+    if (typed != null) throw BoostException(typed);
     throw Exception('Boost failed (${r.statusCode})');
   }
 

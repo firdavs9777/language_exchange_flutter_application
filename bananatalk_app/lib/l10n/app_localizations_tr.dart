@@ -8737,4 +8737,77 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get vipRemoveAds => 'Reklamları kaldır';
+
+  @override
+  String get limitUnlockedRetry => 'Kilit açıldı — yeniden gönderiliyor';
+
+  @override
+  String get rewardedUnlockSuccess => 'Kilit açıldı! Şimdi tekrar deneyebilirsin.';
+
+  @override
+  String get extraMatchesMaxed => 'Bugün için zaten maksimum ekstra eşleşmeye sahipsin';
+
+  @override
+  String wavesMaskedTitleCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count kişi sana el salladı',
+      one: 'Biri sana el salladı',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String visitorsMaskedTitle(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count kişi profilini görüntüledi',
+      one: 'Biri profilini görüntüledi',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String visitorsMaskedBody(int cost) {
+    return '$cost jetonla kim olduğunu gör ya da VIP ol';
+  }
+
+  @override
+  String get visitorsMaskedBodyVip => 'Profilini kimin görüntülediğini görmek için VIP ol';
+
+  @override
+  String boostDurationHm(int hours, int minutes) {
+    return '$hours sa $minutes dk';
+  }
+
+  @override
+  String boostDurationM(int minutes) {
+    return '$minutes dk';
+  }
+
+  @override
+  String get boostEndingSoon => 'Yakında bitiyor';
+
+  @override
+  String coinAmount(int cost) {
+    return '💎$cost';
+  }
+
+  @override
+  String unlockedMore(int count) {
+    return '+$count daha açıldı!';
+  }
+
+  @override
+  String get getMoreCoins => 'Daha fazla jeton al';
+
+  @override
+  String get unlockFailed => 'Şu anda kilit açılamadı.';
+
+  @override
+  String unlockGrantForCoins(int count, int cost) {
+    return '💎$cost karşılığında $count aç';
+  }
 }

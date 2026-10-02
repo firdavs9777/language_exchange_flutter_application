@@ -3630,5 +3630,20 @@
   "perkUnlimitedWaves": "Saludos ilimitados",
   "perkAdvancedFilters": "Filtros avanzados de compañeros",
   "vipFromMatches": "VIP: coincidencias ilimitadas",
-  "vipRemoveAds": "Quitar anuncios"
+  "vipRemoveAds": "Quitar anuncios",
+  "limitUnlockedRetry": "Desbloqueado — enviando de nuevo",
+  "rewardedUnlockSuccess": "¡Desbloqueado! Ya puedes intentarlo de nuevo.",
+  "extraMatchesMaxed": "Ya tienes el máximo de coincidencias extra por hoy",
+  "wavesMaskedTitleCount": "{count, plural, =1{Alguien te saludó} other{{count} personas te saludaron}}",
+  "visitorsMaskedTitle": "{count, plural, =1{Alguien vio tu perfil} other{{count} personas vieron tu perfil}}",
+  "visitorsMaskedBody": "Descubre quién por {cost} monedas, o hazte VIP",
+  "visitorsMaskedBodyVip": "Hazte VIP para ver quién vio tu perfil",
+  "boostDurationHm": "{hours} h {minutes} min",
+  "boostDurationM": "{minutes} min",
+  "boostEndingSoon": "Termina pronto",
+  "coinAmount": "💎{cost}",
+  "unlockedMore": "¡Desbloqueadas +{count} más!",
+  "getMoreCoins": "Conseguir más monedas",
+  "unlockFailed": "No se pudo desbloquear ahora.",
+  "unlockGrantForCoins": "Desbloquear {count} por 💎{cost}"
 }

@@ -14,6 +14,15 @@ import 'package:bananatalk_app/utils/app_page_route.dart';
 /// amount (`BOOST_COST` backend-side); a mismatch surfaces as a 402.
 const int kProfileBoostCostCoins = 150;
 
+/// Localized remaining time ("3h 5m" / "5m"), or "Ending soon" under a
+/// minute.
+String formatBoostRemaining(AppLocalizations l10n, Duration d) {
+  if (d.inMinutes < 1) return l10n.boostEndingSoon;
+  final h = d.inHours;
+  final m = d.inMinutes % 60;
+  return h > 0 ? l10n.boostDurationHm(h, m) : l10n.boostDurationM(m);
+}
+
 /// Profile Boost: explain, confirm, then show the live boost with a countdown
 /// and impression count. Reached only behind `boostsEnabled`.
 class BoostScreen extends ConsumerStatefulWidget {
@@ -81,8 +90,9 @@ class _BoostScreenState extends ConsumerState<BoostScreen> {
     });
     try {
       final b = await ref.read(boostApiClientProvider).purchaseProfileBoost();
+      if (!mounted) return;
       refreshCoinBalance(ref);
-      if (mounted) _setActive(b);
+      _setActive(b);
     } on BoostException catch (e) {
       if (!mounted) return;
       switch (e.error) {
@@ -93,6 +103,11 @@ class _BoostScreenState extends ConsumerState<BoostScreen> {
           );
         case BoostError.alreadyBoosted:
           await _load();
+          // The server says a boost is live but we could not load it: say
+          // so rather than leaving the confirm card silently unchanged.
+          if (mounted && _active == null) {
+            setState(() => _message = l10n.boostFailed);
+          }
         case BoostError.capacityFull:
           setState(() => _message = l10n.boostCapacityFull);
       }
@@ -106,13 +121,6 @@ class _BoostScreenState extends ConsumerState<BoostScreen> {
   Future<void> _refresh() async {
     refreshCoinBalance(ref);
     await _load();
-  }
-
-  String _remaining(Duration d) {
-    if (d.isNegative) return '0m';
-    final h = d.inHours;
-    final m = d.inMinutes % 60;
-    return h > 0 ? '${h}h ${m}m' : '${m}m';
   }
 
   @override
@@ -225,7 +233,9 @@ class _BoostScreenState extends ConsumerState<BoostScreen> {
         ),
         const SizedBox(height: 12),
         Text(
-          l10n.boostTimeLeft(_remaining(left)),
+          left.inMinutes < 1
+              ? formatBoostRemaining(l10n, left)
+              : l10n.boostTimeLeft(formatBoostRemaining(l10n, left)),
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.headlineSmall,
         ),

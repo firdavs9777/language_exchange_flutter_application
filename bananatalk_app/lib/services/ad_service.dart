@@ -205,6 +205,13 @@ class AdService {
     Duration minGap = const Duration(minutes: 2),
   }) async {
     if (!canShowFullScreenAd || _interstitialAd == null) return false;
+    final sessionCapOn = rewardedLimitsFlag;
+    if (!everyNInterstitialAllowed(
+      sessionCapOn: sessionCapOn,
+      alreadyShownThisSession: _interstitialShownThisSession,
+    )) {
+      return false;
+    }
 
     _interstitialTriggerCount++;
     if (everyN > 1 && _interstitialTriggerCount % everyN != 0) return false;
@@ -216,11 +223,17 @@ class AdService {
     }
 
     _lastInterstitialAt = now;
+    if (sessionCapOn) _interstitialShownThisSession = true;
     await showInterstitial();
     return true;
   }
 
   bool _interstitialShownThisSession = false;
+
+  /// Cached server `rewardedLimitsEnabled`, set once app-config loads (see
+  /// `appConfigProvider`). When true the legacy every-N sites share the
+  /// once-per-session interstitial budget; false keeps the old behaviour.
+  static bool rewardedLimitsFlag = false;
 
   /// At most one interstitial per app session (Growth C6). Callers gate on the
   /// server's `rewardedLimitsEnabled` flag and pass it as [flagOn]. Returns

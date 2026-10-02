@@ -42,6 +42,9 @@ Future<void> main() async {
   // Load environment variables (fail fast if .env is missing).
   await dotenv.load(fileName: '.env');
 
+  // Cache the app version once for the X-App-Version request header.
+  await ApiClient.loadAppVersion();
+
   // Initialize Firebase + Ads
   try {
     await Firebase.initializeApp();

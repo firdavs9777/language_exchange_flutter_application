@@ -3840,5 +3840,20 @@
   "perkUnlimitedWaves": "Signes illimités",
   "perkAdvancedFilters": "Filtres avancés de partenaires",
   "vipFromMatches": "VIP : matchs illimités",
-  "vipRemoveAds": "Supprimer les pubs"
+  "vipRemoveAds": "Supprimer les pubs",
+  "limitUnlockedRetry": "Débloqué — nouvel envoi",
+  "rewardedUnlockSuccess": "Débloqué ! Vous pouvez réessayer maintenant.",
+  "extraMatchesMaxed": "Vous avez déjà le maximum de matchs supplémentaires pour aujourd'hui",
+  "wavesMaskedTitleCount": "{count, plural, =1{Quelqu'un vous a fait coucou} other{{count} personnes vous ont fait coucou}}",
+  "visitorsMaskedTitle": "{count, plural, =1{Quelqu'un a consulté votre profil} other{{count} personnes ont consulté votre profil}}",
+  "visitorsMaskedBody": "Découvrez qui pour {cost} pièces, ou passez VIP",
+  "visitorsMaskedBodyVip": "Passez VIP pour voir qui a consulté votre profil",
+  "boostDurationHm": "{hours} h {minutes} min",
+  "boostDurationM": "{minutes} min",
+  "boostEndingSoon": "Se termine bientôt",
+  "coinAmount": "💎{cost}",
+  "unlockedMore": "+{count} de plus débloqués !",
+  "getMoreCoins": "Obtenir plus de pièces",
+  "unlockFailed": "Impossible de débloquer pour le moment.",
+  "unlockGrantForCoins": "Débloquer {count} pour 💎{cost}"
 }

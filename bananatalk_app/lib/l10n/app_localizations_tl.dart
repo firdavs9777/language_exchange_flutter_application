@@ -8739,4 +8739,77 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get vipRemoveAds => 'Alisin ang ads';
+
+  @override
+  String get limitUnlockedRetry => 'Na-unlock — ipinapadala muli';
+
+  @override
+  String get rewardedUnlockSuccess => 'Na-unlock! Puwede mo nang subukan ulit.';
+
+  @override
+  String get extraMatchesMaxed => 'Nasa maximum ka na ng extra matches para ngayong araw';
+
+  @override
+  String wavesMaskedTitleCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count tao ang kumaway sa iyo',
+      one: 'May kumaway sa iyo',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String visitorsMaskedTitle(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count tao ang tumingin sa profile mo',
+      one: 'May tumingin sa profile mo',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String visitorsMaskedBody(int cost) {
+    return 'Alamin kung sino sa $cost coins, o mag-VIP';
+  }
+
+  @override
+  String get visitorsMaskedBodyVip => 'Mag-VIP para makita kung sino ang tumingin sa profile mo';
+
+  @override
+  String boostDurationHm(int hours, int minutes) {
+    return '${hours}h ${minutes}m';
+  }
+
+  @override
+  String boostDurationM(int minutes) {
+    return '${minutes}m';
+  }
+
+  @override
+  String get boostEndingSoon => 'Malapit nang matapos';
+
+  @override
+  String coinAmount(int cost) {
+    return '💎$cost';
+  }
+
+  @override
+  String unlockedMore(int count) {
+    return 'Na-unlock ang +$count pa!';
+  }
+
+  @override
+  String get getMoreCoins => 'Kumuha ng mas maraming coins';
+
+  @override
+  String get unlockFailed => 'Hindi ma-unlock ngayon.';
+
+  @override
+  String unlockGrantForCoins(int count, int cost) {
+    return 'I-unlock ang $count sa 💎$cost';
+  }
 }

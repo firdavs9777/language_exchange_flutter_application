@@ -3600,5 +3600,20 @@
   "perkUnlimitedWaves": "Vẫy tay không giới hạn",
   "perkAdvancedFilters": "Bộ lọc đối tác nâng cao",
   "vipFromMatches": "VIP: ghép đôi không giới hạn",
-  "vipRemoveAds": "Gỡ quảng cáo"
+  "vipRemoveAds": "Gỡ quảng cáo",
+  "limitUnlockedRetry": "Đã mở khóa — đang gửi lại",
+  "rewardedUnlockSuccess": "Đã mở khóa! Bạn có thể thử lại ngay.",
+  "extraMatchesMaxed": "Bạn đã có số lượt ghép đôi thêm tối đa cho hôm nay",
+  "wavesMaskedTitleCount": "{count, plural, =1{Có người vẫy tay chào bạn} other{{count} người vẫy tay chào bạn}}",
+  "visitorsMaskedTitle": "{count, plural, =1{Có người đã xem hồ sơ của bạn} other{{count} người đã xem hồ sơ của bạn}}",
+  "visitorsMaskedBody": "Xem là ai với {cost} xu, hoặc nâng cấp VIP",
+  "visitorsMaskedBodyVip": "Nâng cấp VIP để xem ai đã xem hồ sơ của bạn",
+  "boostDurationHm": "{hours} giờ {minutes} phút",
+  "boostDurationM": "{minutes} phút",
+  "boostEndingSoon": "Sắp kết thúc",
+  "coinAmount": "💎{cost}",
+  "unlockedMore": "Đã mở khóa thêm {count}!",
+  "getMoreCoins": "Nhận thêm xu",
+  "unlockFailed": "Không thể mở khóa lúc này.",
+  "unlockGrantForCoins": "Mở khóa {count} với 💎{cost}"
 }

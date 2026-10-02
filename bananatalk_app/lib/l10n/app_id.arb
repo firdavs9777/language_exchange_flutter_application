@@ -3600,5 +3600,20 @@
   "perkUnlimitedWaves": "Sapaan tanpa batas",
   "perkAdvancedFilters": "Filter partner lanjutan",
   "vipFromMatches": "VIP: pencocokan tanpa batas",
-  "vipRemoveAds": "Hapus iklan"
+  "vipRemoveAds": "Hapus iklan",
+  "limitUnlockedRetry": "Terbuka — mengirim ulang",
+  "rewardedUnlockSuccess": "Terbuka! Sekarang kamu bisa mencoba lagi.",
+  "extraMatchesMaxed": "Kamu sudah memiliki jumlah maksimum match tambahan hari ini",
+  "wavesMaskedTitleCount": "{count, plural, =1{Seseorang melambai padamu} other{{count} orang melambai padamu}}",
+  "visitorsMaskedTitle": "{count, plural, =1{Seseorang melihat profilmu} other{{count} orang melihat profilmu}}",
+  "visitorsMaskedBody": "Lihat siapa dengan {cost} koin, atau jadi VIP",
+  "visitorsMaskedBodyVip": "Jadi VIP untuk melihat siapa yang melihat profilmu",
+  "boostDurationHm": "{hours}j {minutes}m",
+  "boostDurationM": "{minutes}m",
+  "boostEndingSoon": "Segera berakhir",
+  "coinAmount": "💎{cost}",
+  "unlockedMore": "+{count} lagi terbuka!",
+  "getMoreCoins": "Dapatkan koin lagi",
+  "unlockFailed": "Tidak bisa membuka sekarang.",
+  "unlockGrantForCoins": "Buka {count} seharga 💎{cost}"
 }

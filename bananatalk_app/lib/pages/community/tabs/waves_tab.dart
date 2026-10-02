@@ -42,11 +42,15 @@ class _WavesTabState extends ConsumerState<WavesTab> {
     _loadWaves();
   }
 
-  Future<void> _loadWaves() async {
-    setState(() {
-      _isLoading = true;
-      _hasError = false;
-    });
+  /// [silent] keeps the current list on screen while reloading (used after
+  /// an unlock) instead of flashing the full-screen spinner.
+  Future<void> _loadWaves({bool silent = false}) async {
+    if (!silent) {
+      setState(() {
+        _isLoading = true;
+        _hasError = false;
+      });
+    }
 
     final userState = ref.read(userProvider);
     if (userState.hasError) {
@@ -87,6 +91,9 @@ class _WavesTabState extends ConsumerState<WavesTab> {
         ref.invalidate(pendingIntrosProvider);
       }
     } catch (e) {
+      if (!mounted) return;
+      // A failed silent reload keeps the list already on screen.
+      if (silent) return;
       setState(() {
         _isLoading = false;
         _hasError = true;
@@ -194,13 +201,28 @@ class _WavesTabState extends ConsumerState<WavesTab> {
       );
     }
 
+    // All masked rows collapse into ONE tile at the first masked position:
+    // a single unlock reveals everyone, so one button per row would invite a
+    // double debit. `null` marks that slot.
+    final maskedCount = _waves.where((w) => !w.revealed).length;
+    final rows = <Wave?>[];
+    var maskedPlaced = false;
+    for (final w in _waves) {
+      if (w.revealed) {
+        rows.add(w);
+      } else if (!maskedPlaced) {
+        rows.add(null);
+        maskedPlaced = true;
+      }
+    }
+
     return RefreshIndicator(
       onRefresh: _loadWaves,
       color: const Color(0xFF00BFA5),
       child: ListView.builder(
         padding: const EdgeInsets.symmetric(vertical: 8),
         // +1 for the archive header row
-        itemCount: _waves.length + 1,
+        itemCount: rows.length + 1,
         itemBuilder: (context, index) {
           if (index == 0) {
             return Padding(
@@ -222,9 +244,12 @@ class _WavesTabState extends ConsumerState<WavesTab> {
               ),
             );
           }
-          final wave = _waves[index - 1];
-          if (!wave.revealed) {
-            return MaskedPersonTile(onUnlocked: _loadWaves);
+          final wave = rows[index - 1];
+          if (wave == null) {
+            return MaskedPersonTile(
+              count: maskedCount,
+              onUnlocked: () => _loadWaves(silent: true),
+            );
           }
           return _WaveCard(wave: wave, onTap: () => _viewProfile(wave));
         },

@@ -3630,5 +3630,20 @@
   "perkUnlimitedWaves": "Безлимитные взмахи",
   "perkAdvancedFilters": "Расширенные фильтры партнёров",
   "vipFromMatches": "VIP: безлимитные совпадения",
-  "vipRemoveAds": "Убрать рекламу"
+  "vipRemoveAds": "Убрать рекламу",
+  "limitUnlockedRetry": "Разблокировано — отправляем снова",
+  "rewardedUnlockSuccess": "Разблокировано! Теперь можно попробовать снова.",
+  "extraMatchesMaxed": "У вас уже максимум дополнительных совпадений на сегодня",
+  "wavesMaskedTitleCount": "{count, plural, =1{Кто-то помахал вам} other{{count} чел. помахали вам}}",
+  "visitorsMaskedTitle": "{count, plural, =1{Кто-то посмотрел ваш профиль} other{{count} чел. посмотрели ваш профиль}}",
+  "visitorsMaskedBody": "Узнайте, кто это, за {cost} монет или станьте VIP",
+  "visitorsMaskedBodyVip": "Станьте VIP, чтобы увидеть, кто смотрел ваш профиль",
+  "boostDurationHm": "{hours} ч {minutes} мин",
+  "boostDurationM": "{minutes} мин",
+  "boostEndingSoon": "Скоро закончится",
+  "coinAmount": "💎{cost}",
+  "unlockedMore": "Разблокировано ещё {count}!",
+  "getMoreCoins": "Получить больше монет",
+  "unlockFailed": "Сейчас не удалось разблокировать.",
+  "unlockGrantForCoins": "Разблокировать {count} за 💎{cost}"
 }

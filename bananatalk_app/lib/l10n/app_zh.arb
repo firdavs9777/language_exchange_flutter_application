@@ -3614,5 +3614,20 @@
   "perkUnlimitedWaves": "无限打招呼",
   "perkAdvancedFilters": "高级伙伴筛选",
   "vipFromMatches": "VIP：无限匹配",
-  "vipRemoveAds": "移除广告"
+  "vipRemoveAds": "移除广告",
+  "limitUnlockedRetry": "已解锁 — 正在重新发送",
+  "rewardedUnlockSuccess": "已解锁！现在可以重试。",
+  "extraMatchesMaxed": "你今天的额外配对已达上限",
+  "wavesMaskedTitleCount": "{count, plural, =1{有人向你打招呼} other{{count} 人向你打招呼}}",
+  "visitorsMaskedTitle": "{count, plural, =1{有人看过你的资料} other{{count} 人看过你的资料}}",
+  "visitorsMaskedBody": "花 {cost} 金币查看是谁，或升级 VIP",
+  "visitorsMaskedBodyVip": "升级 VIP 查看谁看过你的资料",
+  "boostDurationHm": "{hours}小时{minutes}分钟",
+  "boostDurationM": "{minutes}分钟",
+  "boostEndingSoon": "即将结束",
+  "coinAmount": "💎{cost}",
+  "unlockedMore": "又解锁了 {count} 个！",
+  "getMoreCoins": "获取更多金币",
+  "unlockFailed": "暂时无法解锁。",
+  "unlockGrantForCoins": "用 💎{cost} 解锁 {count} 个"
 }

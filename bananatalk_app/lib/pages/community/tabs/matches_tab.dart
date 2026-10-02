@@ -18,6 +18,21 @@ import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/widgets/coins/unlock_cta.dart';
 import 'package:bananatalk_app/widgets/notifications/notification_priming_sheet.dart';
 
+/// Daily batch size + the most extra cards purchasable per day (3 buys of
+/// +3). Mirrors backend `BATCH_SIZE` (lib/dailyMatches.js) and
+/// `EXTRA_MATCHES_MAX` (config/coinCatalog.js).
+const int kDailyMatchesBatchSize = 6;
+const int kExtraMatchesMax = 9;
+
+/// Offer "+3 more matches" until the server's daily ceiling (6 + 9 = 15) is
+/// reached. Past it the server answers 409 `extra_matches_maxed`.
+@visibleForTesting
+bool shouldShowExtraMatchesCta({
+  required bool boostsEnabled,
+  required int count,
+}) =>
+    boostsEnabled && count < kDailyMatchesBatchSize + kExtraMatchesMax;
+
 /// "Your N matches today" list. Self-contained; mounted by the community page.
 class MatchesTab extends ConsumerStatefulWidget {
   const MatchesTab({
@@ -126,11 +141,12 @@ class _MatchesTabState extends ConsumerState<MatchesTab> {
   /// `rewardedLimitsEnabled`; VIP / ad-free never sees one.
   void _onBatchExhausted() {
     if (!_sawNonEmptyBatch || _exhaustedAdFired) return;
-    _exhaustedAdFired = true;
     final flagOn =
         ref.read(appConfigProvider).valueOrNull?.rewardedLimitsEnabled ??
         false;
+    // Checked before latching, so a flag that resolves later still fires.
     if (!flagOn) return;
+    _exhaustedAdFired = true;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
       AdService().maybeShowInterstitialOncePerSession(
@@ -194,8 +210,10 @@ class _MatchesTabState extends ConsumerState<MatchesTab> {
         _sawNonEmptyBatch = true;
         _exhaustedAdFired = false;
         _maybePrimeOnFirstMatches();
-        // Offer +3 matches while the batch is below the 9-card ceiling.
-        final showExtra = boostsEnabled && result.matches.length < 9;
+        final showExtra = shouldShowExtraMatchesCta(
+          boostsEnabled: boostsEnabled,
+          count: result.matches.length,
+        );
         return RefreshIndicator(
           onRefresh: _refresh,
           child: ListView.builder(

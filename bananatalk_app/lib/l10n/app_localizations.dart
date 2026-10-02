@@ -16141,6 +16141,96 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Remove ads'**
   String get vipRemoveAds;
+
+  /// Tranche C final fix pass
+  ///
+  /// In en, this message translates to:
+  /// **'Unlocked — sending again'**
+  String get limitUnlockedRetry;
+
+  /// Tranche C final fix pass
+  ///
+  /// In en, this message translates to:
+  /// **'Unlocked! You can try again now.'**
+  String get rewardedUnlockSuccess;
+
+  /// Tranche C final fix pass
+  ///
+  /// In en, this message translates to:
+  /// **'You already have the maximum extra matches for today'**
+  String get extraMatchesMaxed;
+
+  /// Tranche C final fix pass
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Someone waved at you} other{{count} people waved at you}}'**
+  String wavesMaskedTitleCount(int count);
+
+  /// Tranche C final fix pass
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Someone viewed your profile} other{{count} people viewed your profile}}'**
+  String visitorsMaskedTitle(int count);
+
+  /// Tranche C final fix pass
+  ///
+  /// In en, this message translates to:
+  /// **'See who for {cost} coins, or go VIP'**
+  String visitorsMaskedBody(int cost);
+
+  /// Tranche C final fix pass
+  ///
+  /// In en, this message translates to:
+  /// **'Go VIP to see who viewed your profile'**
+  String get visitorsMaskedBodyVip;
+
+  /// Tranche C final fix pass
+  ///
+  /// In en, this message translates to:
+  /// **'{hours}h {minutes}m'**
+  String boostDurationHm(int hours, int minutes);
+
+  /// Tranche C final fix pass
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes}m'**
+  String boostDurationM(int minutes);
+
+  /// Tranche C final fix pass
+  ///
+  /// In en, this message translates to:
+  /// **'Ending soon'**
+  String get boostEndingSoon;
+
+  /// Tranche C final fix pass
+  ///
+  /// In en, this message translates to:
+  /// **'💎{cost}'**
+  String coinAmount(int cost);
+
+  /// Tranche C final fix pass
+  ///
+  /// In en, this message translates to:
+  /// **'Unlocked +{count} more!'**
+  String unlockedMore(int count);
+
+  /// Tranche C final fix pass
+  ///
+  /// In en, this message translates to:
+  /// **'Get more coins'**
+  String get getMoreCoins;
+
+  /// Tranche C final fix pass
+  ///
+  /// In en, this message translates to:
+  /// **'Could not unlock right now.'**
+  String get unlockFailed;
+
+  /// Tranche C final fix pass
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock {count} for 💎{cost}'**
+  String unlockGrantForCoins(int count, int cost);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

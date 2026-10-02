@@ -3093,5 +3093,20 @@
   "perkUnlimitedWaves": "Дастҷунбонии номаҳдуд",
   "perkAdvancedFilters": "Филтрҳои пешрафтаи ҳамсӯҳбат",
   "vipFromMatches": "VIP: мувофиқатҳои номаҳдуд",
-  "vipRemoveAds": "Нест кардани реклама"
+  "vipRemoveAds": "Нест кардани реклама",
+  "limitUnlockedRetry": "Кушода шуд — дубора фиристода мешавад",
+  "rewardedUnlockSuccess": "Кушода шуд! Акнун метавонед дубора кӯшиш кунед.",
+  "extraMatchesMaxed": "Шумо имрӯз аллакай ҳадди аксари мувофиқатҳои иловагиро доред",
+  "wavesMaskedTitleCount": "{count, plural, =1{Касе ба шумо даст афшонд} other{{count} нафар ба шумо даст афшонданд}}",
+  "visitorsMaskedTitle": "{count, plural, =1{Касе профили шуморо дид} other{{count} нафар профили шуморо диданд}}",
+  "visitorsMaskedBody": "Бо {cost} танга бубинед кист, ё VIP шавед",
+  "visitorsMaskedBodyVip": "VIP шавед, то бинед кӣ профили шуморо дидааст",
+  "boostDurationHm": "{hours}с {minutes}д",
+  "boostDurationM": "{minutes}д",
+  "boostEndingSoon": "Ба зудӣ тамом мешавад",
+  "coinAmount": "💎{cost}",
+  "unlockedMore": "Боз {count} кушода шуд!",
+  "getMoreCoins": "Тангаҳои бештар гиред",
+  "unlockFailed": "Ҳоло кушода нашуд.",
+  "unlockGrantForCoins": "{count}-ро бо 💎{cost} кушоед"
 }

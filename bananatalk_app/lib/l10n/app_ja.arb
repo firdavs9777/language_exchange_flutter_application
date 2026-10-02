@@ -3600,5 +3600,20 @@
   "perkUnlimitedWaves": "手を振る回数が無制限",
   "perkAdvancedFilters": "詳細なパートナー絞り込み",
   "vipFromMatches": "VIP: マッチ無制限",
-  "vipRemoveAds": "広告を消す"
+  "vipRemoveAds": "広告を消す",
+  "limitUnlockedRetry": "ロック解除しました — 再送信中",
+  "rewardedUnlockSuccess": "ロック解除しました！もう一度お試しください。",
+  "extraMatchesMaxed": "今日の追加マッチはすでに上限に達しています",
+  "wavesMaskedTitleCount": "{count, plural, =1{誰かがあなたに手を振りました} other{{count}人があなたに手を振りました}}",
+  "visitorsMaskedTitle": "{count, plural, =1{誰かがあなたのプロフィールを見ました} other{{count}人があなたのプロフィールを見ました}}",
+  "visitorsMaskedBody": "{cost}コインで誰か確認、またはVIPに",
+  "visitorsMaskedBodyVip": "VIPになってプロフィールを見た人を確認",
+  "boostDurationHm": "{hours}時間{minutes}分",
+  "boostDurationM": "{minutes}分",
+  "boostEndingSoon": "まもなく終了",
+  "coinAmount": "💎{cost}",
+  "unlockedMore": "さらに{count}件ロック解除！",
+  "getMoreCoins": "コインをもっと入手",
+  "unlockFailed": "今はロック解除できませんでした。",
+  "unlockGrantForCoins": "💎{cost}で{count}件ロック解除"
 }

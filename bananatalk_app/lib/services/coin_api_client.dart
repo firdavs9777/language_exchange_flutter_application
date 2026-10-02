@@ -129,10 +129,14 @@ class CoinApiClient {
   /// Rewarded-ad unlock (Growth C6): grants the same units as [unlock] at net
   /// zero coin cost. 200 `{granted, newBalance, rewardedToday, alreadyCredited?}`,
   /// 429 daily cap, 400 not rewardable, 404 while the server flag is off.
+  ///
+  /// `suppressRateLimitToast: true`: the daily cap is an expected 429 and the
+  /// limit dialog shows its own message (see [claimAdReward]).
   Future<ApiResponse> rewardedUnlock(String feature) {
     return _client.post(
       Endpoints.coinsRewardedUnlockURL,
       body: {'feature': feature},
+      suppressRateLimitToast: true,
     );
   }
 

@@ -3840,5 +3840,20 @@
   "perkUnlimitedWaves": "Saluti illimitati",
   "perkAdvancedFilters": "Filtri avanzati per partner",
   "vipFromMatches": "VIP: match illimitati",
-  "vipRemoveAds": "Rimuovi la pubblicità"
+  "vipRemoveAds": "Rimuovi la pubblicità",
+  "limitUnlockedRetry": "Sbloccato — nuovo invio",
+  "rewardedUnlockSuccess": "Sbloccato! Ora puoi riprovare.",
+  "extraMatchesMaxed": "Hai già il numero massimo di match extra per oggi",
+  "wavesMaskedTitleCount": "{count, plural, =1{Qualcuno ti ha salutato} other{{count} persone ti hanno salutato}}",
+  "visitorsMaskedTitle": "{count, plural, =1{Qualcuno ha visto il tuo profilo} other{{count} persone hanno visto il tuo profilo}}",
+  "visitorsMaskedBody": "Scopri chi per {cost} monete, o diventa VIP",
+  "visitorsMaskedBodyVip": "Diventa VIP per vedere chi ha visto il tuo profilo",
+  "boostDurationHm": "{hours} h {minutes} min",
+  "boostDurationM": "{minutes} min",
+  "boostEndingSoon": "Sta per terminare",
+  "coinAmount": "💎{cost}",
+  "unlockedMore": "Sbloccati altri {count}!",
+  "getMoreCoins": "Ottieni più monete",
+  "unlockFailed": "Impossibile sbloccare ora.",
+  "unlockGrantForCoins": "Sblocca {count} per 💎{cost}"
 }

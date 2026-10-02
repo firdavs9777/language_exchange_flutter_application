@@ -3616,5 +3616,20 @@
   "perkUnlimitedWaves": "असीमित वेव",
   "perkAdvancedFilters": "उन्नत पार्टनर फ़िल्टर",
   "vipFromMatches": "VIP: असीमित मैच",
-  "vipRemoveAds": "विज्ञापन हटाएँ"
+  "vipRemoveAds": "विज्ञापन हटाएँ",
+  "limitUnlockedRetry": "अनलॉक हो गया — फिर से भेजा जा रहा है",
+  "rewardedUnlockSuccess": "अनलॉक हो गया! अब आप फिर से कोशिश कर सकते हैं।",
+  "extraMatchesMaxed": "आज के लिए आपके पास पहले से ही अधिकतम अतिरिक्त मैच हैं",
+  "wavesMaskedTitleCount": "{count, plural, =1{किसी ने आपको वेव किया} other{{count} लोगों ने आपको वेव किया}}",
+  "visitorsMaskedTitle": "{count, plural, =1{किसी ने आपकी प्रोफ़ाइल देखी} other{{count} लोगों ने आपकी प्रोफ़ाइल देखी}}",
+  "visitorsMaskedBody": "{cost} कॉइन में देखें कौन है, या VIP बनें",
+  "visitorsMaskedBodyVip": "VIP बनें और देखें किसने आपकी प्रोफ़ाइल देखी",
+  "boostDurationHm": "{hours}घं {minutes}मि",
+  "boostDurationM": "{minutes}मि",
+  "boostEndingSoon": "जल्द समाप्त हो रहा है",
+  "coinAmount": "💎{cost}",
+  "unlockedMore": "+{count} और अनलॉक हुए!",
+  "getMoreCoins": "और कॉइन पाएं",
+  "unlockFailed": "अभी अनलॉक नहीं हो सका।",
+  "unlockGrantForCoins": "💎{cost} में {count} अनलॉक करें"
 }

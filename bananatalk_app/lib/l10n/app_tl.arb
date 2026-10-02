@@ -3573,5 +3573,20 @@
   "perkUnlimitedWaves": "Walang limitasyong kaway",
   "perkAdvancedFilters": "Advanced na partner filters",
   "vipFromMatches": "VIP: walang limitasyong match",
-  "vipRemoveAds": "Alisin ang ads"
+  "vipRemoveAds": "Alisin ang ads",
+  "limitUnlockedRetry": "Na-unlock — ipinapadala muli",
+  "rewardedUnlockSuccess": "Na-unlock! Puwede mo nang subukan ulit.",
+  "extraMatchesMaxed": "Nasa maximum ka na ng extra matches para ngayong araw",
+  "wavesMaskedTitleCount": "{count, plural, =1{May kumaway sa iyo} other{{count} tao ang kumaway sa iyo}}",
+  "visitorsMaskedTitle": "{count, plural, =1{May tumingin sa profile mo} other{{count} tao ang tumingin sa profile mo}}",
+  "visitorsMaskedBody": "Alamin kung sino sa {cost} coins, o mag-VIP",
+  "visitorsMaskedBodyVip": "Mag-VIP para makita kung sino ang tumingin sa profile mo",
+  "boostDurationHm": "{hours}h {minutes}m",
+  "boostDurationM": "{minutes}m",
+  "boostEndingSoon": "Malapit nang matapos",
+  "coinAmount": "💎{cost}",
+  "unlockedMore": "Na-unlock ang +{count} pa!",
+  "getMoreCoins": "Kumuha ng mas maraming coins",
+  "unlockFailed": "Hindi ma-unlock ngayon.",
+  "unlockGrantForCoins": "I-unlock ang {count} sa 💎{cost}"
 }

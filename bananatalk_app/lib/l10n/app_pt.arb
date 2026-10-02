@@ -3616,5 +3616,20 @@
   "perkUnlimitedWaves": "Acenos ilimitados",
   "perkAdvancedFilters": "Filtros avançados de parceiros",
   "vipFromMatches": "VIP: combinações ilimitadas",
-  "vipRemoveAds": "Remover anúncios"
+  "vipRemoveAds": "Remover anúncios",
+  "limitUnlockedRetry": "Desbloqueado — enviando novamente",
+  "rewardedUnlockSuccess": "Desbloqueado! Você já pode tentar de novo.",
+  "extraMatchesMaxed": "Você já tem o máximo de matches extras por hoje",
+  "wavesMaskedTitleCount": "{count, plural, =1{Alguém acenou para você} other{{count} pessoas acenaram para você}}",
+  "visitorsMaskedTitle": "{count, plural, =1{Alguém viu seu perfil} other{{count} pessoas viram seu perfil}}",
+  "visitorsMaskedBody": "Veja quem por {cost} moedas, ou seja VIP",
+  "visitorsMaskedBodyVip": "Seja VIP para ver quem viu seu perfil",
+  "boostDurationHm": "{hours} h {minutes} min",
+  "boostDurationM": "{minutes} min",
+  "boostEndingSoon": "Termina em breve",
+  "coinAmount": "💎{cost}",
+  "unlockedMore": "+{count} desbloqueados!",
+  "getMoreCoins": "Obter mais moedas",
+  "unlockFailed": "Não foi possível desbloquear agora.",
+  "unlockGrantForCoins": "Desbloquear {count} por 💎{cost}"
 }

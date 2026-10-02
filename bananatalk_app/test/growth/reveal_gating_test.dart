@@ -6,6 +6,7 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/app_config.dart';
 import 'package:bananatalk_app/models/coin_transaction.dart';
 import 'package:bananatalk_app/pages/community/tabs/waves_tab.dart';
+import 'package:bananatalk_app/pages/profile/visitors_screen.dart';
 import 'package:bananatalk_app/providers/coins_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
@@ -143,5 +144,92 @@ void main() {
     ));
     await tester.pumpAndSettle();
     expect(fake.revealArgs, [false]);
+  });
+
+  Wave masked(String id) => Wave.fromJson({
+        'waveId': id,
+        'from': {'name': null, 'images': []},
+        'revealed': false,
+        'isRead': true,
+        'createdAt': '2026-10-01T00:00:00Z',
+      });
+
+  testWidgets('WavesTab collapses 3 masked rows into ONE tile', (tester) async {
+    final fake = _FakeCommunity([
+      masked('w1'),
+      Wave.fromJson({
+        'waveId': 'w2',
+        'from': {'_id': 'u2', 'name': 'Minji', 'images': []},
+        'revealed': true,
+        'isRead': true,
+        'createdAt': '2026-10-01T00:00:00Z',
+      }),
+      masked('w3'),
+      masked('w4'),
+    ]);
+    await tester.pumpWidget(_app(
+      WavesTab(primeNotifications: (_) async {}),
+      _ov(community: fake as CommunityService),
+    ));
+    await tester.pumpAndSettle();
+    expect(find.byType(MaskedPersonTile), findsOneWidget);
+    expect(find.byType(UnlockCta), findsOneWidget);
+    expect(find.text('Minji'), findsOneWidget);
+    expect(find.text('3 people waved at you'), findsOneWidget);
+  });
+
+  group('Visitors', () {
+    Map<String, dynamic> maskedVisitor() => {
+          'revealed': false,
+          'user': {'name': null, 'photo': null},
+        };
+
+    testWidgets('2 masked rows -> one tile with visitors copy',
+        (tester) async {
+      final calls = <bool>[];
+      Future<Map<String, dynamic>> fetch({
+        required String userId,
+        int limit = 20,
+        int page = 1,
+        bool reveal = false,
+      }) async {
+        calls.add(reveal);
+        return {
+          'success': true,
+          'visitors': [maskedVisitor(), maskedVisitor()],
+          'maskedCount': 2,
+        };
+      }
+
+      await tester.pumpWidget(_app(
+        ProfileVisitorsScreen(userId: 'me', fetchVisitors: fetch),
+        _ov(),
+      ));
+      await tester.pumpAndSettle();
+      expect(find.byType(MaskedPersonTile), findsOneWidget);
+      expect(find.text('2 people viewed your profile'), findsOneWidget);
+      expect(find.text('See who for 60 coins, or go VIP'), findsOneWidget);
+      expect(calls, [true]);
+    });
+
+    testWidgets('flag off -> reveal false', (tester) async {
+      final calls = <bool>[];
+      Future<Map<String, dynamic>> fetch({
+        required String userId,
+        int limit = 20,
+        int page = 1,
+        bool reveal = false,
+      }) async {
+        calls.add(reveal);
+        return {'success': true, 'visitors': []};
+      }
+
+      await tester.pumpWidget(_app(
+        ProfileVisitorsScreen(userId: 'me', fetchVisitors: fetch),
+        _ov(boosts: false),
+      ));
+      await tester.pumpAndSettle();
+      expect(calls, [false]);
+    });
   });
 }

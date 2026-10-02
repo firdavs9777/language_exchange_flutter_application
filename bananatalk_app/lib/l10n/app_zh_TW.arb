@@ -3291,5 +3291,20 @@
   "perkUnlimitedWaves": "無限打招呼",
   "perkAdvancedFilters": "進階夥伴篩選",
   "vipFromMatches": "VIP：無限配對",
-  "vipRemoveAds": "移除廣告"
+  "vipRemoveAds": "移除廣告",
+  "limitUnlockedRetry": "已解鎖 — 正在重新傳送",
+  "rewardedUnlockSuccess": "已解鎖！現在可以重試。",
+  "extraMatchesMaxed": "你今天的額外配對已達上限",
+  "wavesMaskedTitleCount": "{count, plural, =1{有人向你打招呼} other{{count} 人向你打招呼}}",
+  "visitorsMaskedTitle": "{count, plural, =1{有人看過你的個人檔案} other{{count} 人看過你的個人檔案}}",
+  "visitorsMaskedBody": "花 {cost} 金幣查看是誰，或升級 VIP",
+  "visitorsMaskedBodyVip": "升級 VIP 查看誰看過你的個人檔案",
+  "boostDurationHm": "{hours}小時{minutes}分鐘",
+  "boostDurationM": "{minutes}分鐘",
+  "boostEndingSoon": "即將結束",
+  "coinAmount": "💎{cost}",
+  "unlockedMore": "又解鎖了 {count} 個！",
+  "getMoreCoins": "取得更多金幣",
+  "unlockFailed": "暫時無法解鎖。",
+  "unlockGrantForCoins": "用 💎{cost} 解鎖 {count} 個"
 }

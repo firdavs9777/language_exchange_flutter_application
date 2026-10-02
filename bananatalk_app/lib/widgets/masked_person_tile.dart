@@ -14,11 +14,31 @@ import 'package:bananatalk_app/widgets/coins/unlock_cta.dart';
 /// There is deliberately no tap-to-open: a masked row has no id. The two
 /// actions are the coins unlock (`who_waved`, 24h; hidden by [UnlockCta]
 /// itself when coins are off) and "Go VIP".
+///
+/// Callers render ONE tile for all masked rows ([count]); one unlock reveals
+/// everyone, so a tile per row would offer N buttons for the same purchase.
 class MaskedPersonTile extends ConsumerWidget {
-  const MaskedPersonTile({super.key, required this.onUnlocked, this.trailing});
+  const MaskedPersonTile({
+    super.key,
+    required this.onUnlocked,
+    this.trailing,
+    this.count = 1,
+    this.title,
+    this.body,
+  });
 
   /// Called after a successful unlock so the caller can reload its list.
   final VoidCallback onUnlocked;
+
+  /// How many masked people this tile stands for.
+  final int count;
+
+  /// Overrides the waves title (e.g. the visitors copy).
+  final String? title;
+
+  /// Overrides the waves body; receives the live unlock cost, or null when
+  /// coins are off / the catalog has no `who_waved` entry.
+  final String Function(int? cost)? body;
 
   /// Optional line under the body (e.g. relative time).
   final Widget? trailing;
@@ -62,15 +82,16 @@ class MaskedPersonTile extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  l10n.wavesMaskedTitle,
+                  title ?? l10n.wavesMaskedTitleCount(count),
                   style: context.titleMedium
                       .copyWith(fontWeight: FontWeight.w600),
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  cost != null
-                      ? l10n.wavesMaskedBody(cost)
-                      : l10n.wavesMaskedBodyVip,
+                  body?.call(cost) ??
+                      (cost != null
+                          ? l10n.wavesMaskedBody(cost)
+                          : l10n.wavesMaskedBodyVip),
                   style:
                       context.bodyMedium.copyWith(color: context.textSecondary),
                 ),
@@ -84,7 +105,7 @@ class MaskedPersonTile extends ConsumerWidget {
                     UnlockCta(
                       featureKey: 'who_waved',
                       onUnlocked: onUnlocked,
-                      labelBuilder: (cost, _) => '💎$cost',
+                      labelBuilder: (cost, _) => l10n.coinAmount(cost),
                     ),
                     TextButton(
                       key: const ValueKey('masked-go-vip'),

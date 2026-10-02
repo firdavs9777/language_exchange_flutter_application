@@ -8729,4 +8729,77 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get vipRemoveAds => '광고 제거';
+
+  @override
+  String get limitUnlockedRetry => '잠금 해제됨 — 다시 보내는 중';
+
+  @override
+  String get rewardedUnlockSuccess => '잠금 해제됨! 이제 다시 시도할 수 있어요.';
+
+  @override
+  String get extraMatchesMaxed => '오늘 추가 매칭을 이미 최대로 받았어요';
+
+  @override
+  String wavesMaskedTitleCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count명이 당신에게 손을 흔들었어요',
+      one: '누군가 당신에게 손을 흔들었어요',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String visitorsMaskedTitle(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count명이 당신의 프로필을 봤어요',
+      one: '누군가 당신의 프로필을 봤어요',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String visitorsMaskedBody(int cost) {
+    return '$cost 코인으로 누구인지 확인하거나 VIP가 되세요';
+  }
+
+  @override
+  String get visitorsMaskedBodyVip => 'VIP가 되면 누가 프로필을 봤는지 볼 수 있어요';
+
+  @override
+  String boostDurationHm(int hours, int minutes) {
+    return '$hours시간 $minutes분';
+  }
+
+  @override
+  String boostDurationM(int minutes) {
+    return '$minutes분';
+  }
+
+  @override
+  String get boostEndingSoon => '곧 종료';
+
+  @override
+  String coinAmount(int cost) {
+    return '💎$cost';
+  }
+
+  @override
+  String unlockedMore(int count) {
+    return '$count개 더 잠금 해제!';
+  }
+
+  @override
+  String get getMoreCoins => '코인 더 받기';
+
+  @override
+  String get unlockFailed => '지금은 잠금 해제할 수 없어요.';
+
+  @override
+  String unlockGrantForCoins(int count, int cost) {
+    return '💎$cost로 $count개 잠금 해제';
+  }
 }

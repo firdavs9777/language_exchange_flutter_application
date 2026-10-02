@@ -8739,4 +8739,77 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get vipRemoveAds => 'Quitar anuncios';
+
+  @override
+  String get limitUnlockedRetry => 'Desbloqueado — enviando de nuevo';
+
+  @override
+  String get rewardedUnlockSuccess => '¡Desbloqueado! Ya puedes intentarlo de nuevo.';
+
+  @override
+  String get extraMatchesMaxed => 'Ya tienes el máximo de coincidencias extra por hoy';
+
+  @override
+  String wavesMaskedTitleCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count personas te saludaron',
+      one: 'Alguien te saludó',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String visitorsMaskedTitle(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count personas vieron tu perfil',
+      one: 'Alguien vio tu perfil',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String visitorsMaskedBody(int cost) {
+    return 'Descubre quién por $cost monedas, o hazte VIP';
+  }
+
+  @override
+  String get visitorsMaskedBodyVip => 'Hazte VIP para ver quién vio tu perfil';
+
+  @override
+  String boostDurationHm(int hours, int minutes) {
+    return '$hours h $minutes min';
+  }
+
+  @override
+  String boostDurationM(int minutes) {
+    return '$minutes min';
+  }
+
+  @override
+  String get boostEndingSoon => 'Termina pronto';
+
+  @override
+  String coinAmount(int cost) {
+    return '💎$cost';
+  }
+
+  @override
+  String unlockedMore(int count) {
+    return '¡Desbloqueadas +$count más!';
+  }
+
+  @override
+  String get getMoreCoins => 'Conseguir más monedas';
+
+  @override
+  String get unlockFailed => 'No se pudo desbloquear ahora.';
+
+  @override
+  String unlockGrantForCoins(int count, int cost) {
+    return 'Desbloquear $count por 💎$cost';
+  }
 }

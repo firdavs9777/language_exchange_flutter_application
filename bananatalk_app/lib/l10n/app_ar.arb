@@ -3630,5 +3630,20 @@
   "perkUnlimitedWaves": "تلويحات غير محدودة",
   "perkAdvancedFilters": "فلاتر متقدمة للشركاء",
   "vipFromMatches": "VIP: مطابقات غير محدودة",
-  "vipRemoveAds": "إزالة الإعلانات"
+  "vipRemoveAds": "إزالة الإعلانات",
+  "limitUnlockedRetry": "تم الفتح — جارٍ الإرسال مرة أخرى",
+  "rewardedUnlockSuccess": "تم الفتح! يمكنك المحاولة مرة أخرى الآن.",
+  "extraMatchesMaxed": "لديك بالفعل الحد الأقصى من التطابقات الإضافية لهذا اليوم",
+  "wavesMaskedTitleCount": "{count, plural, =1{شخص ما لوّح لك} other{{count} أشخاص لوّحوا لك}}",
+  "visitorsMaskedTitle": "{count, plural, =1{شخص ما شاهد ملفك الشخصي} other{{count} أشخاص شاهدوا ملفك الشخصي}}",
+  "visitorsMaskedBody": "اعرف من هم مقابل {cost} عملة، أو اشترك في VIP",
+  "visitorsMaskedBodyVip": "اشترك في VIP لترى من شاهد ملفك الشخصي",
+  "boostDurationHm": "{hours}س {minutes}د",
+  "boostDurationM": "{minutes}د",
+  "boostEndingSoon": "ينتهي قريبًا",
+  "coinAmount": "💎{cost}",
+  "unlockedMore": "تم فتح {count} إضافية!",
+  "getMoreCoins": "احصل على المزيد من العملات",
+  "unlockFailed": "تعذر الفتح الآن.",
+  "unlockGrantForCoins": "افتح {count} مقابل 💎{cost}"
 }

@@ -8729,4 +8729,77 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get vipRemoveAds => '広告を消す';
+
+  @override
+  String get limitUnlockedRetry => 'ロック解除しました — 再送信中';
+
+  @override
+  String get rewardedUnlockSuccess => 'ロック解除しました！もう一度お試しください。';
+
+  @override
+  String get extraMatchesMaxed => '今日の追加マッチはすでに上限に達しています';
+
+  @override
+  String wavesMaskedTitleCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count人があなたに手を振りました',
+      one: '誰かがあなたに手を振りました',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String visitorsMaskedTitle(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count人があなたのプロフィールを見ました',
+      one: '誰かがあなたのプロフィールを見ました',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String visitorsMaskedBody(int cost) {
+    return '$costコインで誰か確認、またはVIPに';
+  }
+
+  @override
+  String get visitorsMaskedBodyVip => 'VIPになってプロフィールを見た人を確認';
+
+  @override
+  String boostDurationHm(int hours, int minutes) {
+    return '$hours時間$minutes分';
+  }
+
+  @override
+  String boostDurationM(int minutes) {
+    return '$minutes分';
+  }
+
+  @override
+  String get boostEndingSoon => 'まもなく終了';
+
+  @override
+  String coinAmount(int cost) {
+    return '💎$cost';
+  }
+
+  @override
+  String unlockedMore(int count) {
+    return 'さらに$count件ロック解除！';
+  }
+
+  @override
+  String get getMoreCoins => 'コインをもっと入手';
+
+  @override
+  String get unlockFailed => '今はロック解除できませんでした。';
+
+  @override
+  String unlockGrantForCoins(int count, int cost) {
+    return '💎$costで$count件ロック解除';
+  }
 }

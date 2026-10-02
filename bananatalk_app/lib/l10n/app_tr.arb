@@ -3812,5 +3812,20 @@
   "perkUnlimitedWaves": "Sınırsız el sallama",
   "perkAdvancedFilters": "Gelişmiş partner filtreleri",
   "vipFromMatches": "VIP: sınırsız eşleşme",
-  "vipRemoveAds": "Reklamları kaldır"
+  "vipRemoveAds": "Reklamları kaldır",
+  "limitUnlockedRetry": "Kilit açıldı — yeniden gönderiliyor",
+  "rewardedUnlockSuccess": "Kilit açıldı! Şimdi tekrar deneyebilirsin.",
+  "extraMatchesMaxed": "Bugün için zaten maksimum ekstra eşleşmeye sahipsin",
+  "wavesMaskedTitleCount": "{count, plural, =1{Biri sana el salladı} other{{count} kişi sana el salladı}}",
+  "visitorsMaskedTitle": "{count, plural, =1{Biri profilini görüntüledi} other{{count} kişi profilini görüntüledi}}",
+  "visitorsMaskedBody": "{cost} jetonla kim olduğunu gör ya da VIP ol",
+  "visitorsMaskedBodyVip": "Profilini kimin görüntülediğini görmek için VIP ol",
+  "boostDurationHm": "{hours} sa {minutes} dk",
+  "boostDurationM": "{minutes} dk",
+  "boostEndingSoon": "Yakında bitiyor",
+  "coinAmount": "💎{cost}",
+  "unlockedMore": "+{count} daha açıldı!",
+  "getMoreCoins": "Daha fazla jeton al",
+  "unlockFailed": "Şu anda kilit açılamadı.",
+  "unlockGrantForCoins": "💎{cost} karşılığında {count} aç"
 }

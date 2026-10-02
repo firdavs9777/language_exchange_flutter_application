@@ -3,6 +3,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/service/endpoints.dart';
 
@@ -29,6 +30,28 @@ class ApiClient {
   // Request deduplication - prevents duplicate simultaneous requests
   final Map<String, Future<ApiResponse>> _pendingRequests = {};
   static const Duration _requestDedupeWindow = Duration(seconds: 1);
+
+  /// `X-App-Version` value ("2.6.0+10573"), cached once at startup by
+  /// [loadAppVersion]. Null (header omitted) until then or if unavailable.
+  static String? appVersionHeader;
+
+  /// Builds the `X-App-Version` value; null when the version is unknown.
+  static String? buildAppVersionHeader(String? version, String? buildNumber) {
+    final v = version?.trim() ?? '';
+    if (v.isEmpty) return null;
+    final b = buildNumber?.trim() ?? '';
+    return b.isEmpty ? v : '$v+$b';
+  }
+
+  /// Reads the running version once. Never throws; never called per request.
+  static Future<void> loadAppVersion() async {
+    try {
+      final info = await PackageInfo.fromPlatform();
+      appVersionHeader = buildAppVersionHeader(info.version, info.buildNumber);
+    } catch (_) {
+      appVersionHeader = null;
+    }
+  }
 
   // Callbacks for global error handling
   Function()? onAuthenticationError;
@@ -208,6 +231,7 @@ class ApiClient {
     final headers = <String, String>{
       'Content-Type': 'application/json',
       'Accept': 'application/json',
+      if (appVersionHeader != null) 'X-App-Version': appVersionHeader!,
     };
 
     if (includeAuth) {
@@ -704,6 +728,9 @@ class ApiClient {
 
       if (token != null && token.isNotEmpty) {
         request.headers['Authorization'] = 'Bearer $token';
+      }
+      if (appVersionHeader != null) {
+        request.headers['X-App-Version'] = appVersionHeader!;
       }
 
       request.fields.addAll(fields);

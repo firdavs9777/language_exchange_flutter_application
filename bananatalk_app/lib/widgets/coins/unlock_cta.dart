@@ -22,15 +22,24 @@ import 'package:bananatalk_app/utils/app_page_route.dart';
 ///
 /// Renders nothing when coins are disabled server-side, when the catalog
 /// hasn't loaded yet, or when [featureKey] isn't in the catalog.
+/// 409 `extra_matches_maxed`: the daily extra-matches ceiling is reached.
+bool isExtraMatchesMaxed(int statusCode, String? error) =>
+    statusCode == 409 && error == 'extra_matches_maxed';
+
 class UnlockCta extends ConsumerWidget {
   const UnlockCta({
     super.key,
     required this.featureKey,
     this.onUnlocked,
     this.labelBuilder,
+    this.onMaxed,
   });
 
   final String featureKey;
+
+  /// Called when the server refuses because the daily ceiling is reached
+  /// (409 `extra_matches_maxed`). The CTA hides itself either way.
+  final VoidCallback? onMaxed;
 
   /// Optional localized label (e.g. "+3 more matches — 40 coins") built from
   /// the live catalog cost/grant; defaults to "Unlock N for 💎X".
@@ -64,6 +73,7 @@ class UnlockCta extends ConsumerWidget {
           grant: entry.grant,
           onUnlocked: onUnlocked,
           labelBuilder: labelBuilder,
+          onMaxed: onMaxed,
         );
       },
       // Avoid popping the CTA in mid-interaction — safest to render
@@ -81,9 +91,11 @@ class _UnlockButton extends ConsumerStatefulWidget {
     required this.grant,
     this.onUnlocked,
     this.labelBuilder,
+    this.onMaxed,
   });
 
   final String featureKey;
+  final VoidCallback? onMaxed;
   final int cost;
   final int grant;
   final VoidCallback? onUnlocked;
@@ -96,6 +108,9 @@ class _UnlockButton extends ConsumerStatefulWidget {
 class _UnlockButtonState extends ConsumerState<_UnlockButton> {
   bool _busy = false;
 
+  /// Server said the daily ceiling is reached; render nothing from now on.
+  bool _maxed = false;
+
   Future<void> _handleTap() async {
     if (_busy) return;
     setState(() => _busy = true);
@@ -105,20 +120,25 @@ class _UnlockButtonState extends ConsumerState<_UnlockButton> {
       final response = await client.unlock(widget.featureKey);
 
       if (!mounted) return;
+      final l10n = AppLocalizations.of(context)!;
 
       if (response.success) {
         refreshCoinBalance(ref);
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Unlocked +${widget.grant} more! 💎')),
+          SnackBar(content: Text('${l10n.unlockedMore(widget.grant)} 💎')),
         );
         widget.onUnlocked?.call();
       } else if (response.statusCode == 402) {
         _showInsufficientCoinsDialog();
+      } else if (isExtraMatchesMaxed(response.statusCode, response.error)) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(l10n.extraMatchesMaxed)),
+        );
+        setState(() => _maxed = true);
+        widget.onMaxed?.call();
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(response.error ?? 'Could not unlock right now.'),
-          ),
+          SnackBar(content: Text(response.error ?? l10n.unlockFailed)),
         );
       }
     } finally {
@@ -131,7 +151,7 @@ class _UnlockButtonState extends ConsumerState<_UnlockButton> {
       SnackBar(
         content: Text(AppLocalizations.of(context)!.notEnoughCoins),
         action: SnackBarAction(
-          label: 'Get more coins',
+          label: AppLocalizations.of(context)!.getMoreCoins,
           onPressed: () {
             Navigator.push(
               context,
@@ -145,6 +165,7 @@ class _UnlockButtonState extends ConsumerState<_UnlockButton> {
 
   @override
   Widget build(BuildContext context) {
+    if (_maxed) return const SizedBox.shrink();
     return OutlinedButton(
       onPressed: _busy ? null : _handleTap,
       style: OutlinedButton.styleFrom(
@@ -161,7 +182,9 @@ class _UnlockButtonState extends ConsumerState<_UnlockButton> {
             )
           : Text(
               widget.labelBuilder?.call(widget.cost, widget.grant) ??
-                  'Unlock ${widget.grant} for 💎${widget.cost}',
+                  AppLocalizations.of(
+                    context,
+                  )!.unlockGrantForCoins(widget.grant, widget.cost),
               style: const TextStyle(fontWeight: FontWeight.w700),
             ),
     );

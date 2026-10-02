@@ -6132,5 +6132,111 @@
   "vipRemoveAds": "Remove ads",
   "@vipRemoveAds": {
     "description": "Reveal gating / VIP perks string"
+  },
+  "limitUnlockedRetry": "Unlocked — sending again",
+  "@limitUnlockedRetry": {
+    "description": "Tranche C final fix pass"
+  },
+  "rewardedUnlockSuccess": "Unlocked! You can try again now.",
+  "@rewardedUnlockSuccess": {
+    "description": "Tranche C final fix pass"
+  },
+  "extraMatchesMaxed": "You already have the maximum extra matches for today",
+  "@extraMatchesMaxed": {
+    "description": "Tranche C final fix pass"
+  },
+  "wavesMaskedTitleCount": "{count, plural, =1{Someone waved at you} other{{count} people waved at you}}",
+  "@wavesMaskedTitleCount": {
+    "description": "Tranche C final fix pass",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "visitorsMaskedTitle": "{count, plural, =1{Someone viewed your profile} other{{count} people viewed your profile}}",
+  "@visitorsMaskedTitle": {
+    "description": "Tranche C final fix pass",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "visitorsMaskedBody": "See who for {cost} coins, or go VIP",
+  "@visitorsMaskedBody": {
+    "description": "Tranche C final fix pass",
+    "placeholders": {
+      "cost": {
+        "type": "int"
+      }
+    }
+  },
+  "visitorsMaskedBodyVip": "Go VIP to see who viewed your profile",
+  "@visitorsMaskedBodyVip": {
+    "description": "Tranche C final fix pass"
+  },
+  "boostDurationHm": "{hours}h {minutes}m",
+  "@boostDurationHm": {
+    "description": "Tranche C final fix pass",
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "boostDurationM": "{minutes}m",
+  "@boostDurationM": {
+    "description": "Tranche C final fix pass",
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "boostEndingSoon": "Ending soon",
+  "@boostEndingSoon": {
+    "description": "Tranche C final fix pass"
+  },
+  "coinAmount": "💎{cost}",
+  "@coinAmount": {
+    "description": "Tranche C final fix pass",
+    "placeholders": {
+      "cost": {
+        "type": "int"
+      }
+    }
+  },
+  "unlockedMore": "Unlocked +{count} more!",
+  "@unlockedMore": {
+    "description": "Tranche C final fix pass",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "getMoreCoins": "Get more coins",
+  "@getMoreCoins": {
+    "description": "Tranche C final fix pass"
+  },
+  "unlockFailed": "Could not unlock right now.",
+  "@unlockFailed": {
+    "description": "Tranche C final fix pass"
+  },
+  "unlockGrantForCoins": "Unlock {count} for 💎{cost}",
+  "@unlockGrantForCoins": {
+    "description": "Tranche C final fix pass",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "cost": {
+        "type": "int"
+      }
+    }
   }
 }

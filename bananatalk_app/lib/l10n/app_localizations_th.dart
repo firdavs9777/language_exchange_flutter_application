@@ -8729,4 +8729,77 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get vipRemoveAds => 'ลบโฆษณา';
+
+  @override
+  String get limitUnlockedRetry => 'ปลดล็อกแล้ว — กำลังส่งอีกครั้ง';
+
+  @override
+  String get rewardedUnlockSuccess => 'ปลดล็อกแล้ว! ลองอีกครั้งได้เลย';
+
+  @override
+  String get extraMatchesMaxed => 'วันนี้คุณได้แมตช์เพิ่มเติมครบจำนวนสูงสุดแล้ว';
+
+  @override
+  String wavesMaskedTitleCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count คนโบกมือให้คุณ',
+      one: 'มีคนโบกมือให้คุณ',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String visitorsMaskedTitle(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count คนดูโปรไฟล์ของคุณ',
+      one: 'มีคนดูโปรไฟล์ของคุณ',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String visitorsMaskedBody(int cost) {
+    return 'ดูว่าเป็นใครด้วย $cost เหรียญ หรือสมัคร VIP';
+  }
+
+  @override
+  String get visitorsMaskedBodyVip => 'สมัคร VIP เพื่อดูว่าใครดูโปรไฟล์ของคุณ';
+
+  @override
+  String boostDurationHm(int hours, int minutes) {
+    return '$hours ชม. $minutes น.';
+  }
+
+  @override
+  String boostDurationM(int minutes) {
+    return '$minutes น.';
+  }
+
+  @override
+  String get boostEndingSoon => 'ใกล้สิ้นสุดแล้ว';
+
+  @override
+  String coinAmount(int cost) {
+    return '💎$cost';
+  }
+
+  @override
+  String unlockedMore(int count) {
+    return 'ปลดล็อกเพิ่มอีก $count!';
+  }
+
+  @override
+  String get getMoreCoins => 'รับเหรียญเพิ่ม';
+
+  @override
+  String get unlockFailed => 'ไม่สามารถปลดล็อกได้ในขณะนี้';
+
+  @override
+  String unlockGrantForCoins(int count, int cost) {
+    return 'ปลดล็อก $count ด้วย 💎$cost';
+  }
 }

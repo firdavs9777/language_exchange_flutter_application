@@ -16,6 +16,8 @@ import 'package:bananatalk_app/utils/feature_gate.dart';
 import 'package:bananatalk_app/widgets/chat/opener_chips.dart';
 import 'package:bananatalk_app/widgets/chat/stall_rescue_banner.dart';
 import 'package:bananatalk_app/widgets/limit_exceeded_dialog.dart';
+import 'package:bananatalk_app/pages/chat/conversation/chat_limit_outcome.dart';
+import 'package:bananatalk_app/providers/coins_provider.dart';
 import 'package:bananatalk_app/widgets/image_preview_dialog.dart';
 import 'package:bananatalk_app/utils/api_error_handler.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
@@ -84,6 +86,9 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
   String? _currentUserId;
   bool _isTyping = false;
   int _adBonusMessages = 0; // Extra sends granted after watching a rewarded ad
+  // One send that skips the client-side cap: set when the server just granted
+  // extra messages ('unlocked'), whose cached limits are still stale.
+  bool _serverUnlockPending = false;
   Timer? _typingTimer;
   bool _showMediaPanel = false;
   bool _showStickerPanel = false;
@@ -840,7 +845,10 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       if (user != null && _currentUserId != null) {
         final limits = ref.read(currentUserLimitsProvider(_currentUserId!));
         if (!FeatureGate.canSendMessage(user, limits)) {
-          if (_adBonusMessages > 0) {
+          if (_serverUnlockPending) {
+            // The server granted extra messages; the cached limits lag.
+            _serverUnlockPending = false;
+          } else if (_adBonusMessages > 0) {
             // User has bonus messages from watching an ad — consume one and proceed
             setState(() => _adBonusMessages--);
           } else {
@@ -863,17 +871,39 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                 resetTime: limits?.resetTime,
                 userId: _currentUserId!,
               );
-              // 'rewarded' is returned when user watches the ad in the dialog
-              if (result == 'rewarded' && mounted) {
-                setState(() => _adBonusMessages = 3);
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text(
-                      'You unlocked 3 bonus messages! Keep chatting.',
+              if (!mounted) return;
+              switch (handleLimitDialogResult(result as String?)) {
+                case ChatLimitOutcome.rewardedOnly:
+                  // Legacy rewarded-ad path: local bonus messages.
+                  setState(() => _adBonusMessages = 3);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text(
+                        'You unlocked 3 bonus messages! Keep chatting.',
+                      ),
+                      backgroundColor: Color(0xFF00BFA5),
                     ),
-                    backgroundColor: Color(0xFF00BFA5),
-                  ),
-                );
+                  );
+                case ChatLimitOutcome.retry:
+                  // Server granted extra messages (coins or rewarded unlock):
+                  // refresh limits + balance, then resend the failed message.
+                  ref.invalidate(userLimitsProvider(_currentUserId!));
+                  refreshCoinBalance(ref);
+                  final messenger = ScaffoldMessenger.of(context);
+                  messenger.hideCurrentSnackBar();
+                  messenger.showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        AppLocalizations.of(context)!.limitUnlockedRetry,
+                      ),
+                      backgroundColor: const Color(0xFF00BFA5),
+                    ),
+                  );
+                  chatNotifier.removeMessageLocally(localId);
+                  _serverUnlockPending = true;
+                  _sendMessage(messageText: text, messageType: messageType);
+                case ChatLimitOutcome.none:
+                  break;
               }
             }
             return;

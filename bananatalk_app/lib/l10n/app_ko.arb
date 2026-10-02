@@ -3621,5 +3621,20 @@
   "perkUnlimitedWaves": "손 흔들기 무제한",
   "perkAdvancedFilters": "고급 파트너 필터",
   "vipFromMatches": "VIP: 매칭 무제한",
-  "vipRemoveAds": "광고 제거"
+  "vipRemoveAds": "광고 제거",
+  "limitUnlockedRetry": "잠금 해제됨 — 다시 보내는 중",
+  "rewardedUnlockSuccess": "잠금 해제됨! 이제 다시 시도할 수 있어요.",
+  "extraMatchesMaxed": "오늘 추가 매칭을 이미 최대로 받았어요",
+  "wavesMaskedTitleCount": "{count, plural, =1{누군가 당신에게 손을 흔들었어요} other{{count}명이 당신에게 손을 흔들었어요}}",
+  "visitorsMaskedTitle": "{count, plural, =1{누군가 당신의 프로필을 봤어요} other{{count}명이 당신의 프로필을 봤어요}}",
+  "visitorsMaskedBody": "{cost} 코인으로 누구인지 확인하거나 VIP가 되세요",
+  "visitorsMaskedBodyVip": "VIP가 되면 누가 프로필을 봤는지 볼 수 있어요",
+  "boostDurationHm": "{hours}시간 {minutes}분",
+  "boostDurationM": "{minutes}분",
+  "boostEndingSoon": "곧 종료",
+  "coinAmount": "💎{cost}",
+  "unlockedMore": "{count}개 더 잠금 해제!",
+  "getMoreCoins": "코인 더 받기",
+  "unlockFailed": "지금은 잠금 해제할 수 없어요.",
+  "unlockGrantForCoins": "💎{cost}로 {count}개 잠금 해제"
 }

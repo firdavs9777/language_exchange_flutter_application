@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/user_limits.dart';
 import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
+import 'package:bananatalk_app/providers/coins_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
 import 'package:bananatalk_app/services/ad_service.dart';
 import 'package:bananatalk_app/services/coin_api_client.dart';
@@ -10,6 +11,53 @@ import 'package:bananatalk_app/services/rewarded_unlock_policy.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/widgets/coins/unlock_cta.dart';
 import 'package:intl/intl.dart';
+
+/// The "Watch ad" reward handler, extracted so it is testable without the ad
+/// SDK. Flag off / feature not rewardable -> `'rewarded'` with no call (the
+/// legacy behaviour). Otherwise calls `POST /coins/rewarded-unlock` and maps
+/// the status via [RewardedUnlockPolicy]; a server grant returns
+/// `'unlocked'` and shows [successMessage], the daily cap shows
+/// [limitMessage]. Returns the value the dialog pops.
+Future<String> runRewardedUnlock({
+  required CoinApiClient client,
+  required bool flagOn,
+  required String? featureKey,
+  required bool rewardable,
+  required ScaffoldMessengerState? messenger,
+  required String limitMessage,
+  required String successMessage,
+}) async {
+  if (!RewardedUnlockPolicy.shouldCall(
+    flagOn: flagOn,
+    featureKey: featureKey,
+    featureRewardable: rewardable,
+  )) {
+    return 'rewarded';
+  }
+  int? status;
+  var replay = false;
+  try {
+    final res = await client.rewardedUnlock(featureKey!);
+    status = res.statusCode;
+    final data = res.data;
+    replay = data is Map && data['alreadyCredited'] == true;
+  } catch (_) {
+    status = null; // fail open
+  }
+  final outcome = RewardedUnlockPolicy.resultFor(
+    flagOn: flagOn,
+    featureKey: featureKey,
+    featureRewardable: rewardable,
+    statusCode: status,
+    alreadyCredited: replay,
+  );
+  if (outcome.messageKey == RewardedUnlockPolicy.limitReachedMessage) {
+    messenger?.showSnackBar(SnackBar(content: Text(limitMessage)));
+  } else if (outcome.result == 'unlocked') {
+    messenger?.showSnackBar(SnackBar(content: Text(successMessage)));
+  }
+  return outcome.result;
+}
 
 class LimitExceededDialog extends ConsumerWidget {
   final String limitType;
@@ -312,10 +360,8 @@ class LimitExceededDialog extends ConsumerWidget {
         if (_featureKeyForUnlock() != null)
           UnlockCta(
             featureKey: _featureKeyForUnlock()!,
-            // The caller (e.g. create_moment.dart) awaits this dialog and
-            // discards the result today, so there's no inline retry
-            // handle yet — popping with a distinguishable result lets a
-            // future caller opt into auto-retry without another edit here.
+            // Pops 'unlocked' so callers that can retry inline (the chat
+            // screen) resend; other callers ignore the result.
             onUnlocked: () => Navigator.pop(context, 'unlocked'),
           ),
         if (AdService().isRewardedAdReady)
@@ -329,46 +375,20 @@ class LimitExceededDialog extends ConsumerWidget {
                   (config?.rewardedFeatures.contains(featureKey) ?? false);
               final navigator = Navigator.of(context);
               final messenger = ScaffoldMessenger.maybeOf(context);
-              final limitMessage = AppLocalizations.of(
-                context,
-              )!.rewardedLimitReached;
+              final l10n = AppLocalizations.of(context)!;
+              final client = ref.read(coinApiClientProvider);
               AdService().showRewarded(
                 onRewarded: () async {
-                  // Flag off / not rewardable: exactly the legacy behaviour.
-                  if (!RewardedUnlockPolicy.shouldCall(
+                  final result = await runRewardedUnlock(
+                    client: client,
                     flagOn: flagOn,
                     featureKey: featureKey,
-                    featureRewardable: rewardable,
-                  )) {
-                    navigator.pop('rewarded');
-                    return;
-                  }
-                  int? status;
-                  var replay = false;
-                  try {
-                    final res = await CoinApiClient().rewardedUnlock(
-                      featureKey!,
-                    );
-                    status = res.statusCode;
-                    final data = res.data;
-                    replay = data is Map && data['alreadyCredited'] == true;
-                  } catch (_) {
-                    status = null; // fail open
-                  }
-                  final outcome = RewardedUnlockPolicy.resultFor(
-                    flagOn: flagOn,
-                    featureKey: featureKey,
-                    featureRewardable: rewardable,
-                    statusCode: status,
-                    alreadyCredited: replay,
+                    rewardable: rewardable,
+                    messenger: messenger,
+                    limitMessage: l10n.rewardedLimitReached,
+                    successMessage: l10n.rewardedUnlockSuccess,
                   );
-                  if (outcome.messageKey ==
-                      RewardedUnlockPolicy.limitReachedMessage) {
-                    messenger?.showSnackBar(
-                      SnackBar(content: Text(limitMessage)),
-                    );
-                  }
-                  navigator.pop(outcome.result);
+                  navigator.pop(result);
                 },
               );
             },

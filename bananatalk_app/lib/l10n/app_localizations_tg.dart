@@ -8743,4 +8743,77 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get vipRemoveAds => 'Нест кардани реклама';
+
+  @override
+  String get limitUnlockedRetry => 'Кушода шуд — дубора фиристода мешавад';
+
+  @override
+  String get rewardedUnlockSuccess => 'Кушода шуд! Акнун метавонед дубора кӯшиш кунед.';
+
+  @override
+  String get extraMatchesMaxed => 'Шумо имрӯз аллакай ҳадди аксари мувофиқатҳои иловагиро доред';
+
+  @override
+  String wavesMaskedTitleCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count нафар ба шумо даст афшонданд',
+      one: 'Касе ба шумо даст афшонд',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String visitorsMaskedTitle(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count нафар профили шуморо диданд',
+      one: 'Касе профили шуморо дид',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String visitorsMaskedBody(int cost) {
+    return 'Бо $cost танга бубинед кист, ё VIP шавед';
+  }
+
+  @override
+  String get visitorsMaskedBodyVip => 'VIP шавед, то бинед кӣ профили шуморо дидааст';
+
+  @override
+  String boostDurationHm(int hours, int minutes) {
+    return '$hoursс $minutesд';
+  }
+
+  @override
+  String boostDurationM(int minutes) {
+    return '$minutesд';
+  }
+
+  @override
+  String get boostEndingSoon => 'Ба зудӣ тамом мешавад';
+
+  @override
+  String coinAmount(int cost) {
+    return '💎$cost';
+  }
+
+  @override
+  String unlockedMore(int count) {
+    return 'Боз $count кушода шуд!';
+  }
+
+  @override
+  String get getMoreCoins => 'Тангаҳои бештар гиред';
+
+  @override
+  String get unlockFailed => 'Ҳоло кушода нашуд.';
+
+  @override
+  String unlockGrantForCoins(int count, int cost) {
+    return '$count-ро бо 💎$cost кушоед';
+  }
 }

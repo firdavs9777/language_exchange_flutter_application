@@ -14,11 +14,24 @@ import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/utils/string_sanitizer.dart';
 import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
 
+typedef VisitorsFetcher = Future<Map<String, dynamic>> Function({
+  required String userId,
+  int limit,
+  int page,
+  bool reveal,
+});
+
 class ProfileVisitorsScreen extends ConsumerStatefulWidget {
   final String userId;
 
-  const ProfileVisitorsScreen({Key? key, required this.userId})
-    : super(key: key);
+  /// Injectable for tests; defaults to the live service.
+  final VisitorsFetcher fetchVisitors;
+
+  const ProfileVisitorsScreen({
+    Key? key,
+    required this.userId,
+    this.fetchVisitors = ProfileVisitorService.getProfileVisitors,
+  }) : super(key: key);
 
   @override
   ConsumerState<ProfileVisitorsScreen> createState() => _ProfileVisitorsScreenState();
@@ -28,6 +41,7 @@ class _ProfileVisitorsScreenState
     extends ConsumerState<ProfileVisitorsScreen> {
   List<dynamic> _visitors = [];
   Map<String, dynamic>? _stats;
+  int? _maskedCount;
   bool _isLoading = true;
   String? _error;
 
@@ -41,11 +55,15 @@ class _ProfileVisitorsScreenState
     _fetchVisitors();
   }
 
-  Future<void> _fetchVisitors({int page = 1}) async {
-    setState(() {
-      _isLoading = true;
-      _error = null;
-    });
+  /// [silent] keeps the current list visible while reloading (after an
+  /// unlock) instead of flashing the loading state.
+  Future<void> _fetchVisitors({int page = 1, bool silent = false}) async {
+    if (!silent) {
+      setState(() {
+        _isLoading = true;
+        _error = null;
+      });
+    }
 
     try {
       var reveal = false;
@@ -53,7 +71,7 @@ class _ProfileVisitorsScreenState
         final config = await ref.read(appConfigProvider.future);
         reveal = config?.boostsEnabled ?? false;
       } catch (_) {}
-      final result = await ProfileVisitorService.getProfileVisitors(
+      final result = await widget.fetchVisitors(
         userId: widget.userId,
         page: page,
         limit: 50,
@@ -65,9 +83,11 @@ class _ProfileVisitorsScreenState
           setState(() {
             _visitors = result['visitors'] ?? [];
             _stats = result['stats'];
+            final mc = result['maskedCount'];
+            _maskedCount = mc is num ? mc.toInt() : null;
             _isLoading = false;
           });
-        } else {
+        } else if (!silent) {
           setState(() {
             _error = result['error'];
             _isLoading = false;
@@ -75,7 +95,7 @@ class _ProfileVisitorsScreenState
         }
       }
     } catch (e) {
-      if (mounted) {
+      if (mounted && !silent) {
         setState(() {
           _error = AppLocalizations.of(context)!.visitorTrackingNotAvailableYet;
           _isLoading = false;
@@ -151,6 +171,20 @@ class _ProfileVisitorsScreenState
       return _buildEmptyState();
     }
 
+    // All masked rows collapse into ONE tile at the first masked position
+    // (one unlock reveals everyone). `null` marks that slot.
+    final maskedLocal = _visitors.where((v) => v['revealed'] == false).length;
+    final rows = <dynamic>[];
+    var maskedPlaced = false;
+    for (final v in _visitors) {
+      if (v['revealed'] != false) {
+        rows.add(v);
+      } else if (!maskedPlaced) {
+        rows.add(null);
+        maskedPlaced = true;
+      }
+    }
+
     return RefreshIndicator(
       onRefresh: _refreshVisitors,
       color: AppColors.primary,
@@ -173,16 +207,29 @@ class _ProfileVisitorsScreenState
             padding: const EdgeInsets.fromLTRB(20, 0, 20, 32),
             sliver: SliverList(
               delegate: SliverChildBuilderDelegate((context, index) {
-                final visitor = _visitors[index];
-                if (visitor['revealed'] == false) {
-                  return MaskedPersonTile(onUnlocked: _fetchVisitors);
-                }
+                final visitor = rows[index];
+                if (visitor == null) return _buildMaskedTile(maskedLocal);
                 return _buildVisitorCard(visitor);
-              }, childCount: _visitors.length),
+              }, childCount: rows.length),
             ),
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildMaskedTile(int maskedLocal) {
+    final l10n = AppLocalizations.of(context)!;
+    final count = (_maskedCount != null && _maskedCount! > 0)
+        ? _maskedCount!
+        : maskedLocal;
+    return MaskedPersonTile(
+      count: count,
+      title: l10n.visitorsMaskedTitle(count),
+      body: (cost) => cost != null
+          ? l10n.visitorsMaskedBody(cost)
+          : l10n.visitorsMaskedBodyVip,
+      onUnlocked: () => _fetchVisitors(silent: true),
     );
   }
 
