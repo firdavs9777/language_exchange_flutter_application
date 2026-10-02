@@ -15,7 +15,13 @@ import 'package:bananatalk_app/widgets/notifications/notification_priming_sheet.
 
 /// Waves Tab - Shows waves received from other users
 class WavesTab extends ConsumerStatefulWidget {
-  const WavesTab({super.key});
+  const WavesTab({
+    super.key,
+    this.primeNotifications = maybePrimeNotifications,
+  });
+
+  /// Offered once after the first received wave. Injectable for tests.
+  final Future<void> Function(BuildContext) primeNotifications;
 
   @override
   ConsumerState<WavesTab> createState() => _WavesTabState();
@@ -60,7 +66,7 @@ class _WavesTabState extends ConsumerState<WavesTab> {
       if (waves.isNotEmpty && !_primeOffered && mounted) {
         _primeOffered = true;
         WidgetsBinding.instance.addPostFrameCallback((_) {
-          if (mounted) maybePrimeNotifications(context);
+          if (mounted) widget.primeNotifications(context);
         });
       }
 

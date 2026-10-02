@@ -209,6 +209,29 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
     _tabController = TabController(length: _baseTabCount, vsync: this)
       ..addListener(_onTabChanged);
     _loadSavedFilters();
+    // `ref.listen` ignores a value that was set before this widget mounted
+    // (e.g. a fresh /tabs/1 landing), so consume it once here.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      final pending = ref.read(communityPendingSubTabProvider);
+      if (pending != null) _consumePendingSubTab(pending);
+    });
+  }
+
+  /// Animates to a requested sub-tab (clamped; Rooms falls back to Voice Rooms
+  /// when disabled) then clears the request. Shared by the mount-time and
+  /// listener paths.
+  void _consumePendingSubTab(int requested) {
+    final roomsEnabled = ref
+        .read(appConfigProvider)
+        .maybeWhen(data: (c) => c?.roomsEnabled ?? true, orElse: () => true);
+    var target = requested;
+    if (target == communityRoomsSubTab && !roomsEnabled) {
+      target = communityVoiceRoomsSubTab;
+    }
+    target = target.clamp(0, _tabController.length - 1);
+    _tabController.animateTo(target);
+    ref.read(communityPendingSubTabProvider.notifier).state = null;
   }
 
   /// Rebuilds `_tabController` with 8 tabs once `roomsEnabled` resolves to
@@ -416,14 +439,7 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
     ref.listen<int?>(communityPendingSubTabProvider, (_, next) {
       if (next == null) return;
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (!mounted) return;
-        var target = next;
-        if (target == communityRoomsSubTab && !roomsEnabled) {
-          target = communityVoiceRoomsSubTab;
-        }
-        target = target.clamp(0, _tabController.length - 1);
-        _tabController.animateTo(target);
-        ref.read(communityPendingSubTabProvider.notifier).state = null;
+        if (mounted) _consumePendingSubTab(next);
       });
     });
 

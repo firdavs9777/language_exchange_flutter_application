@@ -340,9 +340,6 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
   /// user here when the profile is already known to be incomplete.
   bool get _isMandatory => widget.mandatory || widget.completionMode;
 
-  /// Leaving a mandatory gate signs the user out rather than dropping them
-  /// into the app. Trapping someone with no exit would be its own bug — they
-  /// may leave, just not leave INTO the app without a birthday.
   /// Post-registration landing. With the Matches layout on, new users open on
   /// Community -> Matches; otherwise exactly today's `/home`. Config failure
   /// or a slow fetch falls back to `/home`.
@@ -362,6 +359,9 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
     context.go(homeRouteForNewUser(matchesLayoutEnabled: matchesLayout));
   }
 
+  /// Leaving a mandatory gate signs the user out rather than dropping them
+  /// into the app. Trapping someone with no exit would be its own bug — they
+  /// may leave, just not leave INTO the app without a birthday.
   Future<void> _confirmLeaveMandatory() async {
     final l10n = AppLocalizations.of(context)!;
     final signOut = await showDialog<bool>(

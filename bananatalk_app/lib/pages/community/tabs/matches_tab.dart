@@ -13,7 +13,14 @@ import 'package:bananatalk_app/widgets/notifications/notification_priming_sheet.
 
 /// "Your N matches today" list. Self-contained; mounted by the community page.
 class MatchesTab extends ConsumerStatefulWidget {
-  const MatchesTab({super.key, this.onBrowsePartners});
+  const MatchesTab({
+    super.key,
+    this.onBrowsePartners,
+    this.primeNotifications = maybePrimeNotifications,
+  });
+
+  /// Offered once after the first non-empty load. Injectable for tests.
+  final Future<void> Function(BuildContext) primeNotifications;
 
   /// Invoked by the empty-state button (switch to the Partners tab).
   final VoidCallback? onBrowsePartners;
@@ -35,7 +42,7 @@ class _MatchesTabState extends ConsumerState<MatchesTab> {
     if (_primeOffered) return;
     _primeOffered = true;
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (mounted) maybePrimeNotifications(context);
+      if (mounted) widget.primeNotifications(context);
     });
   }
 
