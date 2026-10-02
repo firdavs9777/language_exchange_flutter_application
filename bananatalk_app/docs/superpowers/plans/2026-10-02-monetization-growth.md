@@ -245,7 +245,7 @@ test('idempotent per key, skipped when active today', async () => {
 - Modify: `config/limitations.js` (+`REFERRALS_ENABLED`), `controllers/appConfig.js`
 - Test: `test/referrals.test.js`
 
-**Interfaces:** Produces `GET /referrals/me -> {code, link: 'https://bananatalk.com/i/<code>', invited: n}`; `POST /referrals/claim -> {success, credited: {inviter:100, invitee:50}}`; credits via `coinLedger.credit(userId, amount, {type:'reward', reason:'referral', metadata:{inviteeId}})`.
+**Interfaces:** Produces `GET /referrals/me -> {code, link: 'https://banatalk.com/i/<code>', invited: n}`; `POST /referrals/claim -> {success, credited: {inviter:100, invitee:50}}`; credits via `coinLedger.credit(userId, amount, {type:'reward', reason:'referral', metadata:{inviteeId}})`.
 
 - [ ] **Step 1: Failing tests**
 

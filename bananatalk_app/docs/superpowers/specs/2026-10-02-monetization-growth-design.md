@@ -132,7 +132,7 @@ wave** from an active, responsive, relevant user:
 ### 2d. Growth hygiene (app + backend)
 - **In-app review prompt** (`in_app_review`) after the first conversation
   with ≥3 messages each way; at most once per 60 days; never on an error path.
-- **Referral loop:** invite link (`bananatalk.com/i/<code>`) → friend
+- **Referral loop:** invite link (`banatalk.com/i/<code>`) → friend
   completes a profile → both get coins (inviter 100, invitee 50). Reuses the
   coin ledger (`credit` type `reward`, reason `referral`), one credit per
   invitee ever, idempotent on the invitee id. Entry point in profile menu.
