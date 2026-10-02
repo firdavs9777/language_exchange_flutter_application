@@ -7,6 +7,8 @@ import 'package:bananatalk_app/models/app_config.dart';
 import 'package:bananatalk_app/pages/community/main/community_main.dart';
 import 'package:bananatalk_app/pages/community/tabs/matches_tab.dart';
 import 'package:bananatalk_app/pages/community/tabs/partner_discovery_tab.dart';
+import 'package:bananatalk_app/pages/community/tabs/nearby_tab.dart';
+import 'package:bananatalk_app/pages/community/gatherings/gatherings_tab.dart';
 import 'package:bananatalk_app/pages/community/tabs/waves_tab.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/widgets/notifications/notification_priming_sheet.dart';
@@ -16,14 +18,21 @@ import 'package:bananatalk_app/providers/provider_root/daily_matches_provider.da
 import 'package:bananatalk_app/services/notification_permission.dart';
 
 Future<ProviderContainer> _pump(WidgetTester tester,
-    {required bool matchesLayout, int pending = communityMatchesSubTab}) async {
+    {required bool matchesLayout,
+    int pending = communityMatchesSubTab,
+    bool rooms = true,
+    Duration delay = Duration.zero}) async {
   await tester.pumpWidget(
     ProviderScope(
       overrides: [
         appConfigProvider.overrideWith(
-          (ref) async => AppConfig.fromJson({
-            'matchesLayoutEnabled': matchesLayout,
-          }),
+          (ref) async {
+            if (delay > Duration.zero) await Future<void>.delayed(delay);
+            return AppConfig.fromJson({
+              'matchesLayoutEnabled': matchesLayout,
+              'roomsEnabled': rooms,
+            });
+          },
         ),
         dailyMatchesProvider.overrideWith(
           (ref) async => DailyMatchesResult.fromJson({'matches': []}),
@@ -44,7 +53,7 @@ Future<ProviderContainer> _pump(WidgetTester tester,
   await tester.pump();
   await tester.pump(const Duration(milliseconds: 100));
   // Not pumpAndSettle: other tabs (spinners) never go idle.
-  for (var i = 0; i < 6; i++) {
+  for (var i = 0; i < 10; i++) {
     await tester.pump(const Duration(milliseconds: 150));
   }
   return ProviderScope.containerOf(tester.element(find.byType(CommunityMain)));
@@ -106,6 +115,39 @@ void main() {
     final c = await _pump(tester,
         matchesLayout: true, pending: communityGatheringsSubTab);
     expect(find.byType(MatchesTab), findsNothing);
+    expect(c.read(communityPendingSubTabProvider), isNull);
+  });
+
+  testWidgets('pending Waves survives a late-resolving config (flag on)',
+      (tester) async {
+    // Matches layout + rooms: Matches, Partners, Gatherings, Rooms, Nearby,
+    // Topics, Waves -> Waves is index 6.
+    final c = await _pump(tester,
+        matchesLayout: true,
+        pending: 6,
+        delay: const Duration(milliseconds: 300));
+    expect(find.byType(WavesTab), findsOneWidget);
+    expect(c.read(communityPendingSubTabProvider), isNull);
+  });
+
+  testWidgets('pending Waves with flag off (legacy index 7)', (tester) async {
+    final c = await _pump(tester,
+        matchesLayout: false,
+        pending: 7,
+        delay: const Duration(milliseconds: 300));
+    expect(find.byType(WavesTab), findsOneWidget);
+    expect(c.read(communityPendingSubTabProvider), isNull);
+  });
+
+  testWidgets('pending Rooms with rooms disabled lands on the slot-2 tab',
+      (tester) async {
+    final c = await _pump(tester,
+        matchesLayout: true,
+        rooms: false,
+        pending: communityRoomsSubTab,
+        delay: const Duration(milliseconds: 300));
+    expect(find.byType(NearbyTab), findsNothing);
+    expect(find.byType(GatheringsTab), findsOneWidget);
     expect(c.read(communityPendingSubTabProvider), isNull);
   });
 

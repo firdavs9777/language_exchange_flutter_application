@@ -92,18 +92,17 @@ enum CommunityTabId {
 List<CommunityTabId> communityTabLayout({
   required bool matchesLayout,
   required bool rooms,
-}) =>
-    [
-      if (matchesLayout) CommunityTabId.matches,
-      CommunityTabId.partners,
-      if (!matchesLayout) CommunityTabId.gender,
-      CommunityTabId.gatherings,
-      if (rooms) CommunityTabId.rooms,
-      CommunityTabId.nearby,
-      if (!matchesLayout) CommunityTabId.city,
-      CommunityTabId.topics,
-      CommunityTabId.waves,
-    ];
+}) => [
+  if (matchesLayout) CommunityTabId.matches,
+  CommunityTabId.partners,
+  if (!matchesLayout) CommunityTabId.gender,
+  CommunityTabId.gatherings,
+  if (rooms) CommunityTabId.rooms,
+  CommunityTabId.nearby,
+  if (!matchesLayout) CommunityTabId.city,
+  CommunityTabId.topics,
+  CommunityTabId.waves,
+];
 
 /// Remaps the selected tab by *identity* when the matches-layout flag flips
 /// (optionally together with the rooms flag). Tabs that no longer exist fall
@@ -117,8 +116,14 @@ int remapTabIndexForMatchesLayout({
   required bool newMatches,
   required bool newRooms,
 }) {
-  final oldTabs = communityTabLayout(matchesLayout: oldMatches, rooms: oldRooms);
-  final newTabs = communityTabLayout(matchesLayout: newMatches, rooms: newRooms);
+  final oldTabs = communityTabLayout(
+    matchesLayout: oldMatches,
+    rooms: oldRooms,
+  );
+  final newTabs = communityTabLayout(
+    matchesLayout: newMatches,
+    rooms: newRooms,
+  );
   if (newMatches && !oldMatches && previousIndex == 0) return 0;
   final prev = previousIndex.clamp(0, oldTabs.length - 1);
   final id = oldTabs[prev];
@@ -221,7 +226,26 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
   /// Animates to a requested sub-tab (clamped; Rooms falls back to Voice Rooms
   /// when disabled) then clears the request. Shared by the mount-time and
   /// listener paths.
+  ///
+  /// While `appConfigProvider` is still loading the controller is the legacy
+  /// one and will be rebuilt (identity-remapped) when config resolves, so the
+  /// request is left in place, we wait for config, and retry post-frame once
+  /// the controller is final.
   void _consumePendingSubTab(int requested) {
+    if (ref.read(appConfigProvider).isLoading) {
+      ref
+          .read(appConfigProvider.future)
+          .then<void>((_) {}, onError: (_) {})
+          .then((_) {
+            if (!mounted) return;
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              if (!mounted) return;
+              final pending = ref.read(communityPendingSubTabProvider);
+              if (pending != null) _consumePendingSubTab(pending);
+            });
+          });
+      return;
+    }
     final roomsEnabled = ref
         .read(appConfigProvider)
         .maybeWhen(data: (c) => c?.roomsEnabled ?? true, orElse: () => true);
@@ -245,8 +269,10 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
   /// flag changes the original `remapTabIndexForRoomsFlag` path runs unchanged
   /// (Rooms sits at index 3 in both layouts); when the layout flag flips the
   /// selection is remapped by tab identity instead.
-  void _syncTabCountWithRoomsFlag(bool roomsEnabled,
-      {bool matchesLayout = false}) {
+  void _syncTabCountWithRoomsFlag(
+    bool roomsEnabled, {
+    bool matchesLayout = false,
+  }) {
     if (_roomsTabBuilt == roomsEnabled &&
         _matchesLayoutBuilt == matchesLayout) {
       return;
@@ -412,10 +438,15 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
     // the controller's tab count once the real value resolves.
     final roomsEnabled = ref
         .watch(appConfigProvider)
-        .maybeWhen(data: (config) => config?.roomsEnabled ?? true, orElse: () => true);
+        .maybeWhen(
+          data: (config) => config?.roomsEnabled ?? true,
+          orElse: () => true,
+        );
     // Matches-first layout: swaps Gender/City out and Matches in at index 0.
     // Off by default (an older server has no flag) = exactly the legacy tabs.
-    final matchesLayout = ref.watch(appConfigProvider).maybeWhen(
+    final matchesLayout = ref
+        .watch(appConfigProvider)
+        .maybeWhen(
           data: (config) => config?.matchesLayoutEnabled ?? false,
           orElse: () => false,
         );
