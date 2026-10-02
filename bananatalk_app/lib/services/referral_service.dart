@@ -37,7 +37,10 @@ class ReferralClaimResult {
 class ReferralRejectedException implements Exception {
   final String message;
   final int? statusCode;
-  const ReferralRejectedException(this.message, {this.statusCode});
+
+  /// Machine-readable body code (`feature_disabled`, `unknown_code`), if any.
+  final String? code;
+  const ReferralRejectedException(this.message, {this.statusCode, this.code});
   @override
   String toString() => message;
 }
@@ -51,6 +54,14 @@ class ReferralService {
       'Accept': 'application/json',
       if (token != null) 'Authorization': 'Bearer $token',
     };
+  }
+
+  String? _codeOf(http.Response r) {
+    try {
+      final body = json.decode(r.body);
+      if (body is Map && body['code'] is String) return body['code'] as String;
+    } catch (_) {}
+    return null;
   }
 
   String _errorOf(http.Response r) {
@@ -81,7 +92,11 @@ class ReferralService {
       body: json.encode({'code': code}),
     );
     if (r.statusCode >= 400 && r.statusCode < 500) {
-      throw ReferralRejectedException(_errorOf(r), statusCode: r.statusCode);
+      throw ReferralRejectedException(
+        _errorOf(r),
+        statusCode: r.statusCode,
+        code: _codeOf(r),
+      );
     }
     if (r.statusCode < 200 || r.statusCode >= 300) {
       throw Exception(_errorOf(r));
@@ -103,16 +118,21 @@ final referralServiceProvider = Provider<ReferralService>(
 
 const pendingReferralPrefsKey = 'pending_referral_code';
 
-/// The backend's 404 body for a code that matches no inviter. Every other
-/// 404 (REFERRALS_ENABLED off returns `Not found`; an older server without the
-/// route returns an HTML 404) means "feature unavailable", not "bad code".
-const unknownReferralCodeError = 'Unknown referral code';
+/// Body code on the 404 the referrals guard returns while REFERRALS_ENABLED
+/// is off.
+const referralFeatureDisabledCode = 'feature_disabled';
+
+/// Body code on the 404 for a code that matches no inviter.
+const referralUnknownCode = 'unknown_code';
 
 /// Whether a rejected claim should drop the stored code. A 4xx is final —
-/// except a 404 that isn't the unknown-code refusal: that is the feature being
-/// off, and the code must survive until it is turned on.
+/// except a 404 meaning "feature unavailable": `code: 'feature_disabled'`, or
+/// no code at all (an older server, or one without the route). The code must
+/// survive until the feature is on. `unknown_code` and every other 4xx clear.
 bool shouldClearPendingReferralOnRejection(ReferralRejectedException e) {
-  if (e.statusCode == 404) return e.message == unknownReferralCodeError;
+  if (e.statusCode == 404) {
+    return e.code != null && e.code != referralFeatureDisabledCode;
+  }
   return true;
 }
 

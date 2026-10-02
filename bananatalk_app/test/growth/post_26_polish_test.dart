@@ -114,18 +114,37 @@ void main() {
       expect(left, isNull);
     });
 
-    test('404 unknown code -> clears the code (bad code)', () async {
-      final (_, left) = await _claimWith(() => _json(
-          404, {'success': false, 'error': unknownReferralCodeError}));
+    test('404 code unknown_code -> clears the code (bad code)', () async {
+      final (_, left) = await _claimWith(() => _json(404, {
+            'success': false,
+            'error': 'Unknown referral code',
+            'code': referralUnknownCode,
+          }));
       expect(left, isNull);
     });
 
-    test('404 feature off (REFERRALS_ENABLED=false) -> KEEPS the code',
+    test('404 code feature_disabled (REFERRALS_ENABLED=false) -> KEEPS',
         () async {
-      final (coins, left) = await _claimWith(
-          () => _json(404, {'success': false, 'error': 'Not found'}));
+      final (coins, left) = await _claimWith(() => _json(404, {
+            'success': false,
+            'error': 'Not found',
+            'code': referralFeatureDisabledCode,
+          }));
       expect(coins, 0);
       expect(left, 'ABC123');
+    });
+
+    test('404 with no code (older server) -> KEEPS, message ignored',
+        () async {
+      final (_, left) = await _claimWith(() => _json(
+          404, {'success': false, 'error': 'Unknown referral code'}));
+      expect(left, 'ABC123');
+    });
+
+    test('other 4xx with a code -> clears', () async {
+      final (_, left) = await _claimWith(() => _json(
+          409, {'success': false, 'error': 'x', 'code': 'already_claimed'}));
+      expect(left, isNull);
     });
 
     test('404 from a server without the route (HTML) -> KEEPS the code',

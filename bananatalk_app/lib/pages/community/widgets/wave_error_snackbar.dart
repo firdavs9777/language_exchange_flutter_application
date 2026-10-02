@@ -39,16 +39,21 @@ enum WaveErrorAction {
   genericError,
 }
 
-/// The backend's wave-cap 429 has no machine-readable code, so a 429 from the
-/// wave endpoint is read as the daily cap ONLY when the server says the cap
-/// is on (`appConfig.waveCapEnabled`). With the flag off every outcome is
-/// what it was before the cap existed.
+/// Body code the backend puts on the daily wave-cap 429.
+const waveCapErrorCode = 'wave_cap';
+
+/// A wave 429 is the daily cap only when the server says the cap is on
+/// (`appConfig.waveCapEnabled`) AND the body carries `code: 'wave_cap'`. Any
+/// other 429 (the route's rate limiter, an older server) keeps the legacy
+/// message, so the limiter can never open the dialog. With the flag off every
+/// outcome is what it was before the cap existed.
 WaveErrorAction waveErrorAction({
   required int? status,
   required bool waveCapEnabled,
+  String? code,
 }) {
   if (status == 429) {
-    return waveCapEnabled
+    return (waveCapEnabled && code == waveCapErrorCode)
         ? WaveErrorAction.limitDialog
         : WaveErrorAction.legacyMessage;
   }
@@ -58,6 +63,10 @@ WaveErrorAction waveErrorAction({
 /// HTTP status of a failed wave, when the error carries one.
 int? waveErrorStatus(Object error) =>
     error is WaveSendException ? error.statusCode : null;
+
+/// Machine-readable body code of a failed wave, when the error carries one.
+String? waveErrorCode(Object error) =>
+    error is WaveSendException ? error.code : null;
 
 /// The single place every wave surface routes its failure through.
 ///
@@ -81,6 +90,7 @@ Future<bool> handleWaveError(
   final action = waveErrorAction(
     status: waveErrorStatus(error),
     waveCapEnabled: capOn,
+    code: waveErrorCode(error),
   );
   if (action != WaveErrorAction.limitDialog || !allowLimitDialog) {
     if (onFallback != null) {

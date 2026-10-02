@@ -302,6 +302,9 @@ class ApiClient {
     final Map<String, dynamic>? bodyQuotas = body['quotas'] is Map
         ? Map<String, dynamic>.from(body['quotas'])
         : null;
+    // Machine-readable error code (e.g. `wave_cap`) when the backend sends
+    // one; additive — null for every body that has no string `code`.
+    final String? bodyCode = body['code'] is String ? body['code'] as String : null;
 
     ApiResponse build({
       required bool success,
@@ -319,6 +322,7 @@ class ApiClient {
           rateLimitInfo: rateLimitInfo,
           quotaError: quotaError,
           quotas: bodyQuotas,
+          errorCode: success ? null : bodyCode,
         );
 
     switch (response.statusCode) {
@@ -770,6 +774,9 @@ class ApiResponse {
   /// Populated on 429 quota_exceeded responses. Null otherwise. Step 13A.
   final QuotaError? quotaError;
 
+  /// The error body's machine-readable `code` (e.g. `wave_cap`), if any.
+  final String? errorCode;
+
   ApiResponse({
     required this.success,
     this.data,
@@ -778,6 +785,7 @@ class ApiResponse {
     this.rateLimitInfo,
     this.quotas,
     this.quotaError,
+    this.errorCode,
   });
 
   bool get isRateLimited => statusCode == 429;

@@ -14,10 +14,14 @@ import 'package:bananatalk_app/utils/string_sanitizer.dart';
 /// what the previous `Exception(message)` produced (`Exception: <message>`),
 /// so every existing string-matching caller behaves identically.
 class WaveSendException implements Exception {
-  const WaveSendException(this.message, {this.statusCode});
+  const WaveSendException(this.message, {this.statusCode, this.code});
 
   final String message;
   final int? statusCode;
+
+  /// Machine-readable error code from the body (`wave_cap` for the daily
+  /// cap; absent for the rate limiter and older servers).
+  final String? code;
 
   @override
   String toString() => 'Exception: $message';
@@ -328,11 +332,13 @@ class CommunityService {
         throw WaveSendException(
           'Too many waves. Please slow down!',
           statusCode: response.statusCode,
+          code: response.errorCode,
         );
       } else {
         throw WaveSendException(
           response.error ?? 'Failed to send wave',
           statusCode: response.statusCode,
+          code: response.errorCode,
         );
       }
     } catch (error) {

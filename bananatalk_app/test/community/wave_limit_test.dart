@@ -1,9 +1,13 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:http/http.dart' as http;
+import 'package:http/testing.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/app_config.dart';
 import 'package:bananatalk_app/models/coin_transaction.dart';
@@ -50,6 +54,7 @@ Widget _harness({
   required bool waveCap,
   required _FakeCoinClient coins,
   required Future<void> Function() retry,
+  String? code = 'wave_cap',
 }) {
   return ProviderScope(
     overrides: [
@@ -77,7 +82,7 @@ Widget _harness({
               onPressed: () => handleWaveError(
                 context,
                 ref,
-                const WaveSendException(_legacyText, statusCode: 429),
+                WaveSendException(_legacyText, statusCode: 429, code: code),
                 retry: retry,
               ),
               child: const Text('wave'),
@@ -93,21 +98,27 @@ void main() {
   final en = lookupAppLocalizations(const Locale('en'));
 
   group('waveErrorAction', () {
-    final table = <(int?, bool, WaveErrorAction)>[
-      (429, false, WaveErrorAction.legacyMessage),
-      (429, true, WaveErrorAction.limitDialog),
-      (400, false, WaveErrorAction.genericError),
-      (400, true, WaveErrorAction.genericError),
-      (403, true, WaveErrorAction.genericError),
-      (500, true, WaveErrorAction.genericError),
-      (null, false, WaveErrorAction.genericError),
-      (null, true, WaveErrorAction.genericError),
+    final table = <(int?, bool, String?, WaveErrorAction)>[
+      (429, true, 'wave_cap', WaveErrorAction.limitDialog),
+      // Flag off: even a real cap body keeps today's message.
+      (429, false, 'wave_cap', WaveErrorAction.legacyMessage),
+      // Rate limiter / older server: no code -> legacy, never the dialog.
+      (429, true, null, WaveErrorAction.legacyMessage),
+      (429, false, null, WaveErrorAction.legacyMessage),
+      (429, true, 'something_else', WaveErrorAction.legacyMessage),
+      (400, true, 'wave_cap', WaveErrorAction.genericError),
+      (400, false, null, WaveErrorAction.genericError),
+      (403, true, null, WaveErrorAction.genericError),
+      (500, true, null, WaveErrorAction.genericError),
+      (null, false, null, WaveErrorAction.genericError),
+      (null, true, 'wave_cap', WaveErrorAction.genericError),
     ];
     for (final row in table) {
-      test('status=${row.$1} cap=${row.$2} -> ${row.$3.name}', () {
+      test('status=${row.$1} cap=${row.$2} code=${row.$3} -> ${row.$4.name}',
+          () {
         expect(
-          waveErrorAction(status: row.$1, waveCapEnabled: row.$2),
-          row.$3,
+          waveErrorAction(status: row.$1, waveCapEnabled: row.$2, code: row.$3),
+          row.$4,
         );
       });
     }
@@ -143,6 +154,44 @@ void main() {
         429,
       );
       expect(waveErrorStatus(Exception('x')), isNull);
+    });
+  });
+
+  group('sendWave threads the body code into WaveSendException', () {
+    Future<WaveSendException> sendWith(http.Response r) async {
+      SharedPreferences.setMockInitialValues({});
+      try {
+        await http.runWithClient(
+          () => CommunityService().sendWave(targetUserId: 'u1'),
+          () => MockClient((_) async => r),
+        );
+      } on WaveSendException catch (e) {
+        return e;
+      }
+      fail('expected WaveSendException');
+    }
+
+    http.Response json429(Map<String, dynamic> body) => http.Response(
+        jsonEncode(body), 429,
+        headers: {'content-type': 'application/json'});
+
+    test('cap 429 -> status 429, code wave_cap, legacy text unchanged',
+        () async {
+      final e = await sendWith(json429({
+        'success': false,
+        'error': 'Daily wave limit reached (5).',
+        'code': 'wave_cap',
+      }));
+      expect(e.statusCode, 429);
+      expect(e.code, 'wave_cap');
+      expect(e.toString(), 'Exception: $_legacyText');
+    });
+
+    test('rate-limiter 429 (no code) -> code null', () async {
+      final e = await sendWith(
+          json429({'success': false, 'error': 'Too many requests'}));
+      expect(e.statusCode, 429);
+      expect(e.code, isNull);
     });
   });
 
@@ -208,6 +257,24 @@ void main() {
     expect(coins.unlocks, ['wave']);
     expect(find.byType(LimitExceededDialog), findsNothing);
     expect(retries, 1);
+  });
+
+  testWidgets('cap on: a limiter 429 (no wave_cap code) keeps the legacy text',
+      (tester) async {
+    var retries = 0;
+    await tester.pumpWidget(_harness(
+      waveCap: true,
+      coins: _FakeCoinClient(),
+      retry: () async => retries++,
+      code: null,
+    ));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('wave'));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 500));
+    expect(find.text(_legacyText), findsOneWidget);
+    expect(find.byType(LimitExceededDialog), findsNothing);
+    expect(retries, 0);
   });
 
   testWidgets('cap on: dismissing with Maybe Later does not retry',
