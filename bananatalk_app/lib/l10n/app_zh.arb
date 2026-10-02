@@ -3575,5 +3575,15 @@
   "openerGeneric": "Hi {name}! I'm learning {language} — got any tips? 👋",
   "openerChipsTitle": "Conversation starters — tap to edit before sending",
   "stallRescueTitle": "{name} asked you something 👀",
-  "stallRescueHint": "Sorry for the slow reply! Still up for chatting? 😊"
+  "stallRescueHint": "Sorry for the slow reply! Still up for chatting? 😊",
+  "referralTitle": "Invite friends",
+  "referralSubtitle": "Earn coins when a friend joins",
+  "referralYourCode": "Your invite code",
+  "referralInvitedCount": "Invited: {count}",
+  "referralShareText": "Join me on BananaTalk — practice languages with real people. Use my invite code {code}: {link}",
+  "referralCopy": "Copy",
+  "referralShare": "Share",
+  "referralCopied": "Copied",
+  "referralClaimed": "You earned {coins} coins!",
+  "referralHowItWorks": "When a friend signs up with your code and completes their profile, you both get coins."
 }

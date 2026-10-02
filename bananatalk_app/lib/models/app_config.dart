@@ -82,6 +82,9 @@ class AppConfig {
   /// server (no flag) keeps the current layout.
   final bool matchesLayoutEnabled;
 
+  /// Invite-friends screen entry; off by default (server ships it dark).
+  final bool referralsEnabled;
+
   const AppConfig({
     required this.minVersion,
     required this.latestVersion,
@@ -96,6 +99,7 @@ class AppConfig {
     this.gatheringsEnabled = true,
     this.smartSortEnabled = false,
     this.matchesLayoutEnabled = false,
+    this.referralsEnabled = false,
   });
 
   factory AppConfig.fromJson(Map<String, dynamic> json) {
@@ -117,6 +121,7 @@ class AppConfig {
       gatheringsEnabled: (json['gatheringsEnabled'] as bool?) ?? true,
       smartSortEnabled: (json['smartSortEnabled'] as bool?) ?? false,
       matchesLayoutEnabled: (json['matchesLayoutEnabled'] as bool?) ?? false,
+      referralsEnabled: (json['referralsEnabled'] as bool?) ?? false,
     );
   }
 }

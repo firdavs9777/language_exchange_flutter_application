@@ -15931,6 +15931,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Sorry for the slow reply! Still up for chatting? 😊'**
   String get stallRescueHint;
+
+  /// Referral screen string
+  ///
+  /// In en, this message translates to:
+  /// **'Invite friends'**
+  String get referralTitle;
+
+  /// Referral screen string
+  ///
+  /// In en, this message translates to:
+  /// **'Earn coins when a friend joins'**
+  String get referralSubtitle;
+
+  /// Referral screen string
+  ///
+  /// In en, this message translates to:
+  /// **'Your invite code'**
+  String get referralYourCode;
+
+  /// Referral screen string
+  ///
+  /// In en, this message translates to:
+  /// **'Invited: {count}'**
+  String referralInvitedCount(int count);
+
+  /// Referral screen string
+  ///
+  /// In en, this message translates to:
+  /// **'Join me on BananaTalk — practice languages with real people. Use my invite code {code}: {link}'**
+  String referralShareText(String code, String link);
+
+  /// Referral screen string
+  ///
+  /// In en, this message translates to:
+  /// **'Copy'**
+  String get referralCopy;
+
+  /// Referral screen string
+  ///
+  /// In en, this message translates to:
+  /// **'Share'**
+  String get referralShare;
+
+  /// Referral screen string
+  ///
+  /// In en, this message translates to:
+  /// **'Copied'**
+  String get referralCopied;
+
+  /// Referral screen string
+  ///
+  /// In en, this message translates to:
+  /// **'You earned {coins} coins!'**
+  String referralClaimed(int coins);
+
+  /// Referral screen string
+  ///
+  /// In en, this message translates to:
+  /// **'When a friend signs up with your code and completes their profile, you both get coins.'**
+  String get referralHowItWorks;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

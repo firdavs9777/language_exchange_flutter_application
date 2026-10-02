@@ -1,5 +1,6 @@
 // lib/pages/chat/conversation/chat_conversation_screen.dart
 import 'dart:async';
+import 'package:bananatalk_app/services/review_prompt_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
@@ -274,6 +275,27 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
   /// Delegates to [scrollToBottom] in conversation_scroll_helpers.dart.
   void _scrollToBottom({bool animated = true}) =>
       scrollToBottom(controller: _scrollController, animated: animated);
+
+  /// Fire-and-forget: asks for an app review after a real two-sided
+  /// conversation. Never throws into the chat screen.
+  void _maybePromptForReview() {
+    try {
+      final me = _currentUserId;
+      if (me == null) return;
+      final messages = ref
+          .read(chatStateProvider(
+            ChatProviderParams(chatPartnerId: widget.userId, currentUserId: me),
+          ))
+          .messages;
+      final mine = messages.where((m) => m.sender.id == me).length;
+      unawaited(
+        ReviewPromptService().maybePrompt(
+          myMessages: mine,
+          theirMessages: messages.length - mine,
+        ),
+      );
+    } catch (_) {}
+  }
 
   /// Scroll to a specific message by ID
   void _scrollToMessage(String messageId) {
@@ -875,6 +897,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
             .read(messageCountProvider.notifier)
             .refreshMessageCount(widget.userId);
         ref.invalidate(userLimitsProvider(_currentUserId!));
+        _maybePromptForReview();
       } else {
         // Show error to user
         _showSendError(result['error'] ?? 'Failed to send', text, messageType);

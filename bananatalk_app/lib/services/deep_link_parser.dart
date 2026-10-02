@@ -10,6 +10,8 @@
 /// doesn't match a supported deep link shape.
 const _allowed = {'moment', 'profile', 'community'};
 
+final _inviteCode = RegExp(r'^[A-Z2-7]{4,16}$');
+
 String? routePathFromUri(Uri uri) {
   final isHttps = uri.scheme == 'https' && uri.host == 'banatalk.com';
   final isScheme = uri.scheme == 'bananatalk';
@@ -29,6 +31,10 @@ String? routePathFromUri(Uri uri) {
     }
   }
   if (type == null || id == null || id.isEmpty) return null;
+  if (type == 'i') {
+    final code = id.toUpperCase();
+    return _inviteCode.hasMatch(code) ? '/invite/$code' : null;
+  }
   if (!_allowed.contains(type)) return null;
   return '/$type/$id';
 }

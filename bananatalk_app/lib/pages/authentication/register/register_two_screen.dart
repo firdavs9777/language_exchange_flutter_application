@@ -1,7 +1,9 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/services/referral_service.dart';
 
 import 'package:bananatalk_app/pages/authentication/register/register_two/finish_step.dart';
 import 'package:bananatalk_app/pages/authentication/register/register_two/languages_step.dart';
@@ -352,6 +354,18 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
       matchesLayout = config?.matchesLayoutEnabled ?? false;
     } catch (_) {}
     if (!mounted) return;
+    // Fire-and-forget: claim a stored invite code; never blocks navigation.
+    final messenger = ScaffoldMessenger.maybeOf(context);
+    final l10n = AppLocalizations.of(context);
+    final referralService = ref.read(referralServiceProvider);
+    unawaited(() async {
+      final coins = await claimPendingReferral(referralService);
+      if (coins > 0 && l10n != null) {
+        messenger?.showSnackBar(
+          SnackBar(content: Text(l10n.referralClaimed(coins))),
+        );
+      }
+    }());
     if (matchesLayout) {
       ref.read(communityPendingSubTabProvider.notifier).state =
           communityMatchesSubTab;

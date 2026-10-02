@@ -5924,5 +5924,63 @@
   "stallRescueHint": "Sorry for the slow reply! Still up for chatting? 😊",
   "@stallRescueHint": {
     "description": "Generic reply nudge prefilled into the composer by the stall-rescue banner"
+  },
+  "referralTitle": "Invite friends",
+  "@referralTitle": {
+    "description": "Referral screen string"
+  },
+  "referralSubtitle": "Earn coins when a friend joins",
+  "@referralSubtitle": {
+    "description": "Referral screen string"
+  },
+  "referralYourCode": "Your invite code",
+  "@referralYourCode": {
+    "description": "Referral screen string"
+  },
+  "referralInvitedCount": "Invited: {count}",
+  "@referralInvitedCount": {
+    "description": "Referral screen string",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "referralShareText": "Join me on BananaTalk — practice languages with real people. Use my invite code {code}: {link}",
+  "@referralShareText": {
+    "description": "Referral screen string",
+    "placeholders": {
+      "code": {
+        "type": "String"
+      },
+      "link": {
+        "type": "String"
+      }
+    }
+  },
+  "referralCopy": "Copy",
+  "@referralCopy": {
+    "description": "Referral screen string"
+  },
+  "referralShare": "Share",
+  "@referralShare": {
+    "description": "Referral screen string"
+  },
+  "referralCopied": "Copied",
+  "@referralCopied": {
+    "description": "Referral screen string"
+  },
+  "referralClaimed": "You earned {coins} coins!",
+  "@referralClaimed": {
+    "description": "Referral screen string",
+    "placeholders": {
+      "coins": {
+        "type": "int"
+      }
+    }
+  },
+  "referralHowItWorks": "When a friend signs up with your code and completes their profile, you both get coins.",
+  "@referralHowItWorks": {
+    "description": "Referral screen string"
   }
 }

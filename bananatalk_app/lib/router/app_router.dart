@@ -16,6 +16,9 @@ import 'package:bananatalk_app/providers/provider_models/exam/exam_type.dart';
 import 'package:bananatalk_app/pages/community/gatherings/gathering_detail_screen.dart';
 import 'package:bananatalk_app/screens/call_history_screen.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:bananatalk_app/services/referral_service.dart'
+    show pendingReferralPrefsKey;
 
 // ---------------------------------------------------------------------------
 // Transition helpers
@@ -125,6 +128,22 @@ final goRouter = GoRouter(
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeOut,
       ),
+    ),
+
+    // Invite deep link: remember the code, then let the splash screen make
+    // its usual auth decision (-> /home when logged in, /login otherwise).
+    GoRoute(
+      path: '/invite/:code',
+      redirect: (context, state) async {
+        final code = state.pathParameters['code'];
+        if (code != null && code.isNotEmpty) {
+          try {
+            final prefs = await SharedPreferences.getInstance();
+            await prefs.setString(pendingReferralPrefsKey, code.toUpperCase());
+          } catch (_) {}
+        }
+        return '/splash';
+      },
     ),
 
     // Fade in — replacing the whole app shell.
