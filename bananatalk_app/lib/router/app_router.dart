@@ -16,6 +16,8 @@ import 'package:bananatalk_app/providers/provider_models/exam/exam_type.dart';
 import 'package:bananatalk_app/pages/community/gatherings/gathering_detail_screen.dart';
 import 'package:bananatalk_app/screens/call_history_screen.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:bananatalk_app/pages/community/main/community_main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/services/referral_service.dart'
     show pendingReferralPrefsKey;
@@ -102,6 +104,34 @@ CustomTransitionPage<void> _buildSlideUpTransition({
 /// Global navigator key for overlay screens (incoming calls, etc.)
 /// This is NOT GoRouter's navigator — it sits above it in the widget tree.
 final callOverlayNavigatorKey = GlobalKey<NavigatorState>();
+
+/// Landing for `community/matches|waves` deep links: requests the Community
+/// sub-tab, then shows the tab shell on Community.
+class _CommunitySubTabLanding extends ConsumerStatefulWidget {
+  const _CommunitySubTabLanding({required this.subTab});
+  final int subTab;
+
+  @override
+  ConsumerState<_CommunitySubTabLanding> createState() =>
+      _CommunitySubTabLandingState();
+}
+
+class _CommunitySubTabLandingState
+    extends ConsumerState<_CommunitySubTabLanding> {
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(() {
+      if (mounted) {
+        ref.read(communityPendingSubTabProvider.notifier).state =
+            widget.subTab;
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) => const TabsScreen(initialIndex: 1);
+}
 
 final goRouter = GoRouter(
   initialLocation: '/splash',
@@ -247,6 +277,25 @@ final goRouter = GoRouter(
     // screen used for `/profile/:userId` — a community member IS a
     // `Community` record, loaded by id, so we reuse the existing
     // fetch-by-id wrapper rather than introducing a near-duplicate one.
+    // Must precede `/community/:communityId` so these literals win.
+    GoRoute(
+      path: '/community/matches',
+      pageBuilder: (context, state) => _buildFadeTransition(
+        state: state,
+        child: const _CommunitySubTabLanding(subTab: communityMatchesSubTab),
+        duration: const Duration(milliseconds: 250),
+        curve: Curves.easeOut,
+      ),
+    ),
+    GoRoute(
+      path: '/community/waves',
+      pageBuilder: (context, state) => _buildFadeTransition(
+        state: state,
+        child: const _CommunitySubTabLanding(subTab: communityWavesSubTab),
+        duration: const Duration(milliseconds: 250),
+        curve: Curves.easeOut,
+      ),
+    ),
     GoRoute(
       path: '/community/:communityId',
       pageBuilder: (context, state) {

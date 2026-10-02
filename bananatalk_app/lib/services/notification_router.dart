@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:bananatalk_app/pages/community/main/community_main.dart';
 import 'package:bananatalk_app/models/call_model.dart';
 import 'package:bananatalk_app/screens/incoming_call_screen.dart';
 import 'package:bananatalk_app/services/call_manager.dart';
@@ -73,6 +75,19 @@ class NotificationRouter {
 
       final targetPath = targetPathForType(type, data);
 
+      // Lifecycle pushes land on a specific Community sub-tab. There is no
+      // global ProviderContainer, so reach the app's one through the router's
+      // navigator context (ProviderScope sits above MaterialApp.router).
+      final subTab = communitySubTabForType(type);
+      if (subTab != null) {
+        final navContext = goRouter.routerDelegate.navigatorKey.currentContext;
+        if (navContext != null) {
+          ProviderScope.containerOf(navContext, listen: false)
+              .read(communityPendingSubTabProvider.notifier)
+              .state = subTab;
+        }
+      }
+
       // Navigate to home first, then push the target screen after
       // a frame delay to ensure the home route is fully settled.
       // This creates a proper back stack so the back button works.
@@ -87,6 +102,19 @@ class NotificationRouter {
         goRouter.go('/home');
       } catch (navError) {
       }
+    }
+  }
+
+  /// Community sub-tab a lifecycle push should open, or null for none. Kept
+  /// separate from [targetPathForType] so that stays a pure path resolver.
+  static int? communitySubTabForType(String type) {
+    switch (type) {
+      case 'daily_matches':
+        return communityMatchesSubTab;
+      case 'lifecycle_waves':
+        return communityWavesSubTab;
+      default:
+        return null;
     }
   }
 
@@ -207,6 +235,18 @@ class NotificationRouter {
       // path to grow into.
       case 'daily_drop':
         return '/learning/daily';
+
+      // Growth lifecycle pushes (flag-gated backend job). The sub-tab is set
+      // separately via [communitySubTabForType].
+      case 'daily_matches':
+      case 'lifecycle_waves':
+        return '/tabs/1';
+
+      case 'lifecycle_online':
+        final onlineId = data['userId']?.toString();
+        return (onlineId != null && onlineId.isNotEmpty)
+            ? '/chat/$onlineId'
+            : null;
 
       // Step 16 — forward-compat. No /story route in GoRouter today
       // (stories use Navigator.push). Fall back to the commenter's

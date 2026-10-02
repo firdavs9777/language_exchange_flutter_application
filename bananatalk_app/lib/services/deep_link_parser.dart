@@ -30,6 +30,9 @@ String? routePathFromUri(Uri uri) {
       id = uri.pathSegments[1];
     }
   }
+  if (type == 'community' && (id == 'matches' || id == 'waves')) {
+    return '/community/$id';
+  }
   if (type == null || id == null || id.isEmpty) return null;
   if (type == 'i') {
     final code = id.toUpperCase();

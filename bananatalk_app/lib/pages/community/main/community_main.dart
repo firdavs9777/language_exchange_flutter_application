@@ -153,6 +153,13 @@ const int communityRoomsSubTab = 3;
 /// Matches is index 0 of the Matches-first layout (flag on).
 const int communityMatchesSubTab = 0;
 
+/// Waves is the LAST sub-tab in every layout (legacy 7/8 tabs, Matches 6/7),
+/// so its absolute index depends on two flags. Rather than a layout-specific
+/// number, deep links request this sentinel: `_consumePendingSubTab` runs only
+/// after app-config resolves (controller already final) and clamps to
+/// `length - 1`, which is Waves in all four layouts.
+const int communityWavesSubTab = 99;
+
 /// Where a freshly registered user lands. With the Matches layout on, the
 /// Community tab (top-level index 1) whose first sub-tab is Matches; otherwise
 /// exactly today's `/home`.
