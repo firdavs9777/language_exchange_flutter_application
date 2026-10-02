@@ -193,6 +193,27 @@ void main() {
       expect(e.statusCode, 429);
       expect(e.code, isNull);
     });
+
+    test('cap 429 skips the global rate-limit toast; a plain 429 fires it',
+        () async {
+      final toasts = <String>[];
+      final client = ApiClient();
+      final previous = client.onRateLimitError;
+      client.onRateLimitError = toasts.add;
+      try {
+        await sendWith(json429({
+          'success': false,
+          'error': 'Daily wave limit reached (5).',
+          'code': 'wave_cap',
+        }));
+        expect(toasts, isEmpty);
+        await sendWith(
+            json429({'success': false, 'error': 'Too many requests'}));
+        expect(toasts, hasLength(1));
+      } finally {
+        client.onRateLimitError = previous;
+      }
+    });
   });
 
   group('AppConfig.waveCapEnabled', () {

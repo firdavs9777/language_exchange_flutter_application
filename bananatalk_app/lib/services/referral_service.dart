@@ -137,15 +137,11 @@ bool shouldClearPendingReferralOnRejection(ReferralRejectedException e) {
 }
 
 /// Whether the `/invite/:code` deep link should store [code] for a later
-/// claim. Not when a session token already exists: an already-registered
-/// user can't claim, and a stored code could later be claimed by whichever
-/// account registers next on this device.
-bool shouldStorePendingReferral({
-  required String? code,
-  required String? sessionToken,
-}) {
-  if (code == null || code.isEmpty) return false;
-  return sessionToken == null || sessionToken.isEmpty;
+/// claim. Stored even when a session token exists: a social sign-up holds a
+/// token before finishing its profile, and the claim only runs at the end of
+/// registration (the server also limits it to accounts under 14 days old).
+bool shouldStorePendingReferral({required String? code}) {
+  return code != null && code.isNotEmpty;
 }
 
 /// Claims a stored invite code after profile completion. Fire-and-forget:

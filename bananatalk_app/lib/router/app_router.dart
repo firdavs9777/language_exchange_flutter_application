@@ -170,10 +170,7 @@ final goRouter = GoRouter(
         if (code != null && code.isNotEmpty) {
           try {
             final prefs = await SharedPreferences.getInstance();
-            if (shouldStorePendingReferral(
-              code: code,
-              sessionToken: prefs.getString('token'),
-            )) {
+            if (shouldStorePendingReferral(code: code)) {
               await prefs.setString(
                 pendingReferralPrefsKey,
                 code.toUpperCase(),

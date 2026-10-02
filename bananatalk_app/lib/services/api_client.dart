@@ -381,7 +381,8 @@ class ApiClient {
           );
         }
         final errorMessage = body['error'] ?? 'Too many requests. Please slow down.';
-        if (!suppressRateLimitToast) {
+        // A wave-cap 429 is a product limit with its own dialog, not a rate limit.
+        if (!suppressRateLimitToast && bodyCode != 'wave_cap') {
           onRateLimitError?.call(_getReadableRateLimitError(errorMessage));
         }
         return build(

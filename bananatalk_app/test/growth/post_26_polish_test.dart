@@ -174,21 +174,12 @@ void main() {
   });
 
   group('shouldStorePendingReferral (/invite/:code)', () {
-    test('no session -> store', () {
-      expect(shouldStorePendingReferral(code: 'ABC', sessionToken: null),
-          isTrue);
-      expect(
-          shouldStorePendingReferral(code: 'ABC', sessionToken: ''), isTrue);
-    });
-    test('session token exists -> do not store', () {
-      expect(shouldStorePendingReferral(code: 'ABC', sessionToken: 'jwt'),
-          isFalse);
+    test('valid code -> store (session or not)', () {
+      expect(shouldStorePendingReferral(code: 'ABC'), isTrue);
     });
     test('empty code -> do not store', () {
-      expect(
-          shouldStorePendingReferral(code: '', sessionToken: null), isFalse);
-      expect(shouldStorePendingReferral(code: null, sessionToken: null),
-          isFalse);
+      expect(shouldStorePendingReferral(code: ''), isFalse);
+      expect(shouldStorePendingReferral(code: null), isFalse);
     });
   });
 
