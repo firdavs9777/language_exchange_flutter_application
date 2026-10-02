@@ -16,6 +16,7 @@
 
 ## Global Constraints
 
+- **LIVE-BUILD GUARANTEE (overrides everything below): users on the installed 2.2.4 / 2.2.5 builds must behave identically before and after every backend deploy in this plan.** No existing endpoint, parameter, or response field changes shape or semantics for a request that does not send a new parameter. `SMART_SORT_ENABLED` is the one flag that would change old-build behavior and is therefore NOT flipped at 2.4.0 release time (only after majority adoption of 2.4.0); `CONVERSATION_CAP_ENABLED` stays off throughout. Each task's reviewer must state in its spec-compliance verdict how a 2.2.4 client is unaffected.
 - **Additive on the wire; every new surface behind its own flag, default `false`:** `WELCOME_WAVE_ENABLED`, `LIFECYCLE_PUSH_ENABLED`, `REFERRALS_ENABLED`, `REWARDED_LIMITS_ENABLED`, `BOOSTS_ENABLED`. `CONVERSATION_CAP_ENABLED` stays `false`. Flags follow the exact `SMART_SORT_ENABLED` shape in `config/limitations.js` and are exposed in `controllers/appConfig.js` next to `smartSortEnabled`.
 - **Money is atomic and idempotent:** every coin movement is one `debit(userId, cost, {reason, relatedId})` or `credit(userId, amount, {type, reason, metadata})` from `lib/coinLedger.js`; never a `user.coinBalance = …; save()`.
 - **Prices (coins):** Profile Boost **150 / 24h**; extra daily matches **40 → +3**; see who waved/viewed **60 → 24h**; extra wave **10 → +1**; translation **50 → +10** (existing). Referral reward: inviter **100**, invitee **50**. Rewarded-ad unlock grants exactly one unit of the feature. Caps: boosts ≤ **10 per 1,000 MAU** active; rewarded unlocks ≤ **5 per feature per user per UTC day**.
@@ -73,7 +74,7 @@ In `matches_tab_test.dart`: pump the tab with a result whose `nextRefreshAt` is 
 
 - [ ] **Step 1: Sandbox money smoke on a device** (never run end to end). Sequence on a sandbox Apple ID: Coin Shop → buy `coins.100` → balance +100 → hit a translation limit → `UnlockCta` → debit 50 → proceed → force-quit → relaunch → balance unchanged (receipt replay credits nothing). Record result in the ledger. Any failure = stop and file a bounded fix before release.
 - [ ] **Step 2: Build** per the release how-to (JDK 17 toolchain flag; keystore manual), tag `v2.4.0`, submit iOS + Android.
-- [ ] **Step 3: On store approval, droplet flags:** `SMART_SORT_ENABLED=true`, `DAILY_MATCHES_ENABLED=true`, `MATCHES_LAYOUT_ENABLED=true`; `pm2 restart language-app --update-env`; verify `/app-config` + `/matching/daily`.
+- [ ] **Step 3: On store approval, droplet flags:** `DAILY_MATCHES_ENABLED=true`, `MATCHES_LAYOUT_ENABLED=true` (both invisible to 2.2.4); **leave `SMART_SORT_ENABLED=false`** until the dashboard shows 2.4.0 as the majority build (it changes the old build's list order); `pm2 restart language-app --update-env`; verify `/app-config` + `/matching/daily`.
 - [ ] **Step 4: Baseline the scoreboard** (Task C8's script; run its first version now if C8 is done, else record D1/D7/survival/MAU by hand from the queries in the spec).
 
 ---

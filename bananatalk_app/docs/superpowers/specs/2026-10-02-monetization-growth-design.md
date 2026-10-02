@@ -53,12 +53,29 @@ conversion. Baselines: D1 15%, D7 7%, survival 0.0%, MAU 765, $0.
 - Three releases, each backend-first and dark: **2.4.0** (ship what's built),
   **2.5.0** (retention wave), **2.6.0** (monetization layer).
 
-## Production-safety invariants (inherited)
+## Production-safety invariants (inherited) — and the live-build guarantee
 
 Additive on the wire; every new money/retention surface behind its own
 server flag with a default of off; old builds unaffected by backend deploys;
 rollback = flag flip. Money paths are atomic and idempotent (the existing
 coin ledger contract).
+
+**Hard rule for this whole program: the app users have installed today
+(2.2.4 iOS / 2.2.5 Android) must behave identically before and after every
+backend deploy in this plan.** Concretely:
+
+| Change | Effect on 2.2.4/2.2.5 users | Why none |
+|---|---|---|
+| Welcome wave | They may *receive* one as a normal 👋 (if they signed up on the old build) or *send* one as a normal mutual opportunity | It travels the existing wave path; old builds render it as any wave |
+| Lifecycle push/email | They may receive it; a tap opens the app home | Old builds ignore unknown deep links; content is a normal notification |
+| Referrals, boosts, new coin sinks, rewarded unlocks | Invisible | New endpoints only; nothing existing changes shape |
+| Who-waved/visited reveal gating | **None** — old builds keep today's unmasked lists | Masking applies only when the client sends `?reveal=1` (new builds) |
+| VIP reprice | They see the new store price on the VIP screen | Store-side price; purchase flow unchanged |
+| `SMART_SORT_ENABLED` | **The ONE flag that changes old-build behavior** (their "All" list default order, with the known page-2 duplicate quirk) | Therefore it stays **off until 2.4.0 has majority adoption** — it is NOT flipped at 2.4.0 release time |
+| `CONVERSATION_CAP_ENABLED` | Would block sends in old builds with no explanation | Stays off for the whole program |
+
+Any task whose change cannot be made invisible to the live build is out of
+scope for this program by definition; the reviewer rejects it.
 
 ## Release 1 — 2.4.0: ship what's built (no new product work)
 
