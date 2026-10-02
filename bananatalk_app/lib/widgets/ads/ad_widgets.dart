@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
 import 'package:bananatalk_app/providers/ad_providers.dart';
+import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
+import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/services/ad_service.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 
@@ -327,6 +331,40 @@ class RewardedAdButton extends ConsumerWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
         ),
+      ),
+    );
+  }
+}
+
+/// "Remove ads" text button that sits next to a banner and opens the VIP
+/// screen. Renders nothing for VIP (no ads) and while `boostsEnabled` is off,
+/// so the live build is unchanged.
+class RemoveAdsButton extends ConsumerWidget {
+  const RemoveAdsButton({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final enabled = ref.watch(appConfigProvider).maybeWhen(
+          data: (config) => config?.boostsEnabled ?? false,
+          orElse: () => false,
+        );
+    if (!enabled || !ref.watch(showAdsProvider)) {
+      return const SizedBox.shrink();
+    }
+    return Align(
+      alignment: Alignment.centerRight,
+      child: TextButton(
+        key: const ValueKey('remove-ads'),
+        style: TextButton.styleFrom(
+          minimumSize: const Size(0, 28),
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        ),
+        onPressed: () => Navigator.push(
+          context,
+          AppPageRoute<void>(builder: (_) => const VipPlansScreen()),
+        ),
+        child: Text(AppLocalizations.of(context)!.vipRemoveAds),
       ),
     );
   }

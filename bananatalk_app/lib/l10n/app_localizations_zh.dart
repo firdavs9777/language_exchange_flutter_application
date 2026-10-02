@@ -8697,6 +8697,38 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get rewardedLimitReached => '你今天的免费解锁次数已用完——请明天再试';
+
+  @override
+  String get wavesMaskedTitle => '有人向你打招呼';
+
+  @override
+  String wavesMaskedBody(int cost) {
+    return '花 $cost 金币查看是谁，或升级 VIP';
+  }
+
+  @override
+  String get wavesMaskedBodyVip => '升级 VIP 查看是谁向你打招呼';
+
+  @override
+  String get perkAdFree => '无广告';
+
+  @override
+  String get perkUnlimitedMatches => '每日匹配无限';
+
+  @override
+  String get perkRevealWaves => '查看谁向你打招呼、谁看过你的主页';
+
+  @override
+  String get perkUnlimitedWaves => '无限打招呼';
+
+  @override
+  String get perkAdvancedFilters => '高级伙伴筛选';
+
+  @override
+  String get vipFromMatches => 'VIP：无限匹配';
+
+  @override
+  String get vipRemoveAds => '移除广告';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -17392,4 +17424,36 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get rewardedLimitReached => '你今天的免費解鎖次數已用完——請明天再試';
+
+  @override
+  String get wavesMaskedTitle => '有人向你打招呼';
+
+  @override
+  String wavesMaskedBody(int cost) {
+    return '花 $cost 金幣查看是誰，或升級 VIP';
+  }
+
+  @override
+  String get wavesMaskedBodyVip => '升級 VIP 查看是誰向你打招呼';
+
+  @override
+  String get perkAdFree => '無廣告';
+
+  @override
+  String get perkUnlimitedMatches => '每日配對無限';
+
+  @override
+  String get perkRevealWaves => '查看誰向你打招呼、誰看過你的個人檔案';
+
+  @override
+  String get perkUnlimitedWaves => '無限打招呼';
+
+  @override
+  String get perkAdvancedFilters => '進階夥伴篩選';
+
+  @override
+  String get vipFromMatches => 'VIP：無限配對';
+
+  @override
+  String get vipRemoveAds => '移除廣告';
 }

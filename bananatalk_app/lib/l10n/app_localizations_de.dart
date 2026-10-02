@@ -8707,4 +8707,36 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get rewardedLimitReached => 'Du hast die heutigen kostenlosen Freischaltungen dafür aufgebraucht – versuche es morgen wieder';
+
+  @override
+  String get wavesMaskedTitle => 'Jemand hat dir gewinkt';
+
+  @override
+  String wavesMaskedBody(int cost) {
+    return 'Für $cost Münzen aufdecken, wer es war – oder VIP werden';
+  }
+
+  @override
+  String get wavesMaskedBodyVip => 'Werde VIP, um zu sehen, wer dir gewinkt hat';
+
+  @override
+  String get perkAdFree => 'Keine Werbung';
+
+  @override
+  String get perkUnlimitedMatches => 'Unbegrenzte tägliche Matches';
+
+  @override
+  String get perkRevealWaves => 'Sieh, wer dir gewinkt und dein Profil besucht hat';
+
+  @override
+  String get perkUnlimitedWaves => 'Unbegrenzt winken';
+
+  @override
+  String get perkAdvancedFilters => 'Erweiterte Partnerfilter';
+
+  @override
+  String get vipFromMatches => 'VIP: unbegrenzte Matches';
+
+  @override
+  String get vipRemoveAds => 'Werbung entfernen';
 }

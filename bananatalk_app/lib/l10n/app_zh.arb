@@ -3604,5 +3604,15 @@
   "boostTimeLeft": "剩余 {time}",
   "boostSeenBy": "目前已被 {count} 人看到",
   "boostFailed": "无法开始提升，请重试。",
-  "rewardedLimitReached": "你今天的免费解锁次数已用完——请明天再试"
+  "rewardedLimitReached": "你今天的免费解锁次数已用完——请明天再试",
+  "wavesMaskedTitle": "有人向你打招呼",
+  "wavesMaskedBody": "花 {cost} 金币查看是谁，或升级 VIP",
+  "wavesMaskedBodyVip": "升级 VIP 查看是谁向你打招呼",
+  "perkAdFree": "无广告",
+  "perkUnlimitedMatches": "每日匹配无限",
+  "perkRevealWaves": "查看谁向你打招呼、谁看过你的主页",
+  "perkUnlimitedWaves": "无限打招呼",
+  "perkAdvancedFilters": "高级伙伴筛选",
+  "vipFromMatches": "VIP：无限匹配",
+  "vipRemoveAds": "移除广告"
 }

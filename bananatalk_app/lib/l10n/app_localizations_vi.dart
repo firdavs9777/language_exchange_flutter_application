@@ -8697,4 +8697,36 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get rewardedLimitReached => 'Bạn đã dùng hết lượt mở khóa miễn phí hôm nay cho mục này — hãy thử lại vào ngày mai';
+
+  @override
+  String get wavesMaskedTitle => 'Ai đó đã vẫy tay chào bạn';
+
+  @override
+  String wavesMaskedBody(int cost) {
+    return 'Xem đó là ai với $cost xu, hoặc nâng cấp VIP';
+  }
+
+  @override
+  String get wavesMaskedBodyVip => 'Nâng cấp VIP để xem ai đã vẫy tay chào bạn';
+
+  @override
+  String get perkAdFree => 'Không quảng cáo';
+
+  @override
+  String get perkUnlimitedMatches => 'Ghép đôi hằng ngày không giới hạn';
+
+  @override
+  String get perkRevealWaves => 'Xem ai đã vẫy tay và xem hồ sơ của bạn';
+
+  @override
+  String get perkUnlimitedWaves => 'Vẫy tay không giới hạn';
+
+  @override
+  String get perkAdvancedFilters => 'Bộ lọc đối tác nâng cao';
+
+  @override
+  String get vipFromMatches => 'VIP: ghép đôi không giới hạn';
+
+  @override
+  String get vipRemoveAds => 'Gỡ quảng cáo';
 }

@@ -3590,5 +3590,15 @@
   "boostTimeLeft": "残り {time}",
   "boostSeenBy": "これまで{count}人に表示されました",
   "boostFailed": "ブーストを開始できませんでした。もう一度お試しください。",
-  "rewardedLimitReached": "今日の無料アンロックは使い切りました。明日もう一度お試しください"
+  "rewardedLimitReached": "今日の無料アンロックは使い切りました。明日もう一度お試しください",
+  "wavesMaskedTitle": "誰かがあなたに手を振りました",
+  "wavesMaskedBody": "{cost}コインで誰か確認、またはVIPに登録",
+  "wavesMaskedBodyVip": "VIPになると誰が手を振ったか分かります",
+  "perkAdFree": "広告なし",
+  "perkUnlimitedMatches": "1日のマッチ数が無制限",
+  "perkRevealWaves": "手を振った人・プロフィールを見た人が分かる",
+  "perkUnlimitedWaves": "手を振る回数が無制限",
+  "perkAdvancedFilters": "詳細なパートナー絞り込み",
+  "vipFromMatches": "VIP: マッチ無制限",
+  "vipRemoveAds": "広告を消す"
 }

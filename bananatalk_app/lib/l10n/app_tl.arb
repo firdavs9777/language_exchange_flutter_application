@@ -3563,5 +3563,15 @@
   "boostTimeLeft": "{time} na lang",
   "boostSeenBy": "Nakita na ng {count} tao",
   "boostFailed": "Hindi masimulan ang boost. Pakisubukan ulit.",
-  "rewardedLimitReached": "Naubos mo na ang libreng unlock ngayong araw para dito — subukan ulit bukas"
+  "rewardedLimitReached": "Naubos mo na ang libreng unlock ngayong araw para dito — subukan ulit bukas",
+  "wavesMaskedTitle": "May kumaway sa iyo",
+  "wavesMaskedBody": "Alamin kung sino sa halagang {cost} coins, o mag-VIP",
+  "wavesMaskedBodyVip": "Mag-VIP para makita kung sino ang kumaway sa iyo",
+  "perkAdFree": "Walang ads",
+  "perkUnlimitedMatches": "Walang limitasyong araw-araw na match",
+  "perkRevealWaves": "Tingnan kung sino ang kumaway at tumingin sa profile mo",
+  "perkUnlimitedWaves": "Walang limitasyong kaway",
+  "perkAdvancedFilters": "Advanced na partner filters",
+  "vipFromMatches": "VIP: walang limitasyong match",
+  "vipRemoveAds": "Alisin ang ads"
 }

@@ -8728,4 +8728,36 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get rewardedLimitReached => 'Вы использовали сегодняшние бесплатные разблокировки — попробуйте завтра';
+
+  @override
+  String get wavesMaskedTitle => 'Кто-то помахал вам';
+
+  @override
+  String wavesMaskedBody(int cost) {
+    return 'Узнайте, кто, за $cost монет — или станьте VIP';
+  }
+
+  @override
+  String get wavesMaskedBodyVip => 'Станьте VIP, чтобы увидеть, кто вам помахал';
+
+  @override
+  String get perkAdFree => 'Без рекламы';
+
+  @override
+  String get perkUnlimitedMatches => 'Безлимитные ежедневные совпадения';
+
+  @override
+  String get perkRevealWaves => 'Смотрите, кто махал вам и заходил в профиль';
+
+  @override
+  String get perkUnlimitedWaves => 'Безлимитные взмахи';
+
+  @override
+  String get perkAdvancedFilters => 'Расширенные фильтры партнёров';
+
+  @override
+  String get vipFromMatches => 'VIP: безлимитные совпадения';
+
+  @override
+  String get vipRemoveAds => 'Убрать рекламу';
 }

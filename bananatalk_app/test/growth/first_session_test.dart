@@ -69,6 +69,7 @@ class _FakeCommunity implements CommunityService {
     int limit = 20,
     bool unreadOnly = false,
     bool archive = false,
+    bool reveal = false,
   }) async =>
       waves;
   @override

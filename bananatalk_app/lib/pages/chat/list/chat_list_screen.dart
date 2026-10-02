@@ -1312,6 +1312,10 @@ class _ChatMainState extends ConsumerState<ChatMain>
             padding: EdgeInsets.symmetric(horizontal: 16, vertical: 2),
             child: SmallBannerAdWidget(key: ValueKey('chat-list-banner')),
           ),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            child: RemoveAdsButton(),
+          ),
           Expanded(
             child: _isLoading
                 ? ListView.builder(

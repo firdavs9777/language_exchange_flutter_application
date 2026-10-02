@@ -8707,4 +8707,36 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get rewardedLimitReached => 'Naubos mo na ang libreng unlock ngayong araw para dito — subukan ulit bukas';
+
+  @override
+  String get wavesMaskedTitle => 'May kumaway sa iyo';
+
+  @override
+  String wavesMaskedBody(int cost) {
+    return 'Alamin kung sino sa halagang $cost coins, o mag-VIP';
+  }
+
+  @override
+  String get wavesMaskedBodyVip => 'Mag-VIP para makita kung sino ang kumaway sa iyo';
+
+  @override
+  String get perkAdFree => 'Walang ads';
+
+  @override
+  String get perkUnlimitedMatches => 'Walang limitasyong araw-araw na match';
+
+  @override
+  String get perkRevealWaves => 'Tingnan kung sino ang kumaway at tumingin sa profile mo';
+
+  @override
+  String get perkUnlimitedWaves => 'Walang limitasyong kaway';
+
+  @override
+  String get perkAdvancedFilters => 'Advanced na partner filters';
+
+  @override
+  String get vipFromMatches => 'VIP: walang limitasyong match';
+
+  @override
+  String get vipRemoveAds => 'Alisin ang ads';
 }

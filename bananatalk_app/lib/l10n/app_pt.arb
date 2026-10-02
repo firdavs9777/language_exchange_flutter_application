@@ -3606,5 +3606,15 @@
   "boostTimeLeft": "Restam {time}",
   "boostSeenBy": "Visto por {count} pessoas até agora",
   "boostFailed": "Não foi possível iniciar seu impulso. Tente novamente.",
-  "rewardedLimitReached": "Você usou os desbloqueios gratuitos de hoje para isso — tente novamente amanhã"
+  "rewardedLimitReached": "Você usou os desbloqueios gratuitos de hoje para isso — tente novamente amanhã",
+  "wavesMaskedTitle": "Alguém acenou para você",
+  "wavesMaskedBody": "Descubra quem por {cost} moedas, ou seja VIP",
+  "wavesMaskedBodyVip": "Seja VIP para ver quem acenou para você",
+  "perkAdFree": "Sem anúncios",
+  "perkUnlimitedMatches": "Combinações diárias ilimitadas",
+  "perkRevealWaves": "Veja quem acenou e visitou seu perfil",
+  "perkUnlimitedWaves": "Acenos ilimitados",
+  "perkAdvancedFilters": "Filtros avançados de parceiros",
+  "vipFromMatches": "VIP: combinações ilimitadas",
+  "vipRemoveAds": "Remover anúncios"
 }

@@ -8719,4 +8719,36 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get rewardedLimitReached => 'لقد استخدمت عمليات الفتح المجانية لهذا اليوم — حاول مجددًا غدًا';
+
+  @override
+  String get wavesMaskedTitle => 'لوّح لك أحدهم';
+
+  @override
+  String wavesMaskedBody(int cost) {
+    return 'اكشف من هو مقابل $cost عملة، أو اشترك في VIP';
+  }
+
+  @override
+  String get wavesMaskedBodyVip => 'اشترك في VIP لتعرف من لوّح لك';
+
+  @override
+  String get perkAdFree => 'بدون إعلانات';
+
+  @override
+  String get perkUnlimitedMatches => 'مطابقات يومية غير محدودة';
+
+  @override
+  String get perkRevealWaves => 'اعرف من لوّح لك ومن زار ملفك';
+
+  @override
+  String get perkUnlimitedWaves => 'تلويحات غير محدودة';
+
+  @override
+  String get perkAdvancedFilters => 'فلاتر متقدمة للشركاء';
+
+  @override
+  String get vipFromMatches => 'VIP: مطابقات غير محدودة';
+
+  @override
+  String get vipRemoveAds => 'إزالة الإعلانات';
 }

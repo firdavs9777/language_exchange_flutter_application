@@ -8705,4 +8705,36 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get rewardedLimitReached => 'Bunun için bugünkü ücretsiz kilit açmaları kullandın — yarın tekrar dene';
+
+  @override
+  String get wavesMaskedTitle => 'Biri sana el salladı';
+
+  @override
+  String wavesMaskedBody(int cost) {
+    return '$cost jetona kimin olduğunu öğren veya VIP ol';
+  }
+
+  @override
+  String get wavesMaskedBodyVip => 'Kimin el salladığını görmek için VIP ol';
+
+  @override
+  String get perkAdFree => 'Reklamsız';
+
+  @override
+  String get perkUnlimitedMatches => 'Sınırsız günlük eşleşme';
+
+  @override
+  String get perkRevealWaves => 'Sana kimin el salladığını ve profilini kimin gördüğünü gör';
+
+  @override
+  String get perkUnlimitedWaves => 'Sınırsız el sallama';
+
+  @override
+  String get perkAdvancedFilters => 'Gelişmiş partner filtreleri';
+
+  @override
+  String get vipFromMatches => 'VIP: sınırsız eşleşme';
+
+  @override
+  String get vipRemoveAds => 'Reklamları kaldır';
 }

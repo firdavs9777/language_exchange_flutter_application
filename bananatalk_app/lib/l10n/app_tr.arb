@@ -3802,5 +3802,15 @@
   "boostTimeLeft": "{time} kaldı",
   "boostSeenBy": "Şimdiye kadar {count} kişi gördü",
   "boostFailed": "Boost başlatılamadı. Lütfen tekrar dene.",
-  "rewardedLimitReached": "Bunun için bugünkü ücretsiz kilit açmaları kullandın — yarın tekrar dene"
+  "rewardedLimitReached": "Bunun için bugünkü ücretsiz kilit açmaları kullandın — yarın tekrar dene",
+  "wavesMaskedTitle": "Biri sana el salladı",
+  "wavesMaskedBody": "{cost} jetona kimin olduğunu öğren veya VIP ol",
+  "wavesMaskedBodyVip": "Kimin el salladığını görmek için VIP ol",
+  "perkAdFree": "Reklamsız",
+  "perkUnlimitedMatches": "Sınırsız günlük eşleşme",
+  "perkRevealWaves": "Sana kimin el salladığını ve profilini kimin gördüğünü gör",
+  "perkUnlimitedWaves": "Sınırsız el sallama",
+  "perkAdvancedFilters": "Gelişmiş partner filtreleri",
+  "vipFromMatches": "VIP: sınırsız eşleşme",
+  "vipRemoveAds": "Reklamları kaldır"
 }

@@ -8707,4 +8707,36 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get rewardedLimitReached => 'Você usou os desbloqueios gratuitos de hoje para isso — tente novamente amanhã';
+
+  @override
+  String get wavesMaskedTitle => 'Alguém acenou para você';
+
+  @override
+  String wavesMaskedBody(int cost) {
+    return 'Descubra quem por $cost moedas, ou seja VIP';
+  }
+
+  @override
+  String get wavesMaskedBodyVip => 'Seja VIP para ver quem acenou para você';
+
+  @override
+  String get perkAdFree => 'Sem anúncios';
+
+  @override
+  String get perkUnlimitedMatches => 'Combinações diárias ilimitadas';
+
+  @override
+  String get perkRevealWaves => 'Veja quem acenou e visitou seu perfil';
+
+  @override
+  String get perkUnlimitedWaves => 'Acenos ilimitados';
+
+  @override
+  String get perkAdvancedFilters => 'Filtros avançados de parceiros';
+
+  @override
+  String get vipFromMatches => 'VIP: combinações ilimitadas';
+
+  @override
+  String get vipRemoveAds => 'Remover anúncios';
 }

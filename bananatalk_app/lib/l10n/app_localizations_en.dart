@@ -8713,4 +8713,36 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get rewardedLimitReached => 'You\'ve used today\'s free unlocks for this — try again tomorrow';
+
+  @override
+  String get wavesMaskedTitle => 'Someone waved at you';
+
+  @override
+  String wavesMaskedBody(int cost) {
+    return 'Reveal who for $cost coins, or go VIP';
+  }
+
+  @override
+  String get wavesMaskedBodyVip => 'Go VIP to see who waved at you';
+
+  @override
+  String get perkAdFree => 'No ads';
+
+  @override
+  String get perkUnlimitedMatches => 'Unlimited daily matches';
+
+  @override
+  String get perkRevealWaves => 'See who waved and viewed you';
+
+  @override
+  String get perkUnlimitedWaves => 'Unlimited waves';
+
+  @override
+  String get perkAdvancedFilters => 'Advanced partner filters';
+
+  @override
+  String get vipFromMatches => 'VIP: unlimited matches';
+
+  @override
+  String get vipRemoveAds => 'Remove ads';
 }

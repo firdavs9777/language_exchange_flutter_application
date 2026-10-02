@@ -5,23 +5,27 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
+import 'package:bananatalk_app/widgets/masked_person_tile.dart';
 import 'package:flutter/services.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/utils/string_sanitizer.dart';
 import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
 
-class ProfileVisitorsScreen extends StatefulWidget {
+class ProfileVisitorsScreen extends ConsumerStatefulWidget {
   final String userId;
 
   const ProfileVisitorsScreen({Key? key, required this.userId})
     : super(key: key);
 
   @override
-  State<ProfileVisitorsScreen> createState() => _ProfileVisitorsScreenState();
+  ConsumerState<ProfileVisitorsScreen> createState() => _ProfileVisitorsScreenState();
 }
 
-class _ProfileVisitorsScreenState extends State<ProfileVisitorsScreen> {
+class _ProfileVisitorsScreenState
+    extends ConsumerState<ProfileVisitorsScreen> {
   List<dynamic> _visitors = [];
   Map<String, dynamic>? _stats;
   bool _isLoading = true;
@@ -44,10 +48,16 @@ class _ProfileVisitorsScreenState extends State<ProfileVisitorsScreen> {
     });
 
     try {
+      var reveal = false;
+      try {
+        final config = await ref.read(appConfigProvider.future);
+        reveal = config?.boostsEnabled ?? false;
+      } catch (_) {}
       final result = await ProfileVisitorService.getProfileVisitors(
         userId: widget.userId,
         page: page,
         limit: 50,
+        reveal: reveal,
       );
 
       if (mounted) {
@@ -164,6 +174,9 @@ class _ProfileVisitorsScreenState extends State<ProfileVisitorsScreen> {
             sliver: SliverList(
               delegate: SliverChildBuilderDelegate((context, index) {
                 final visitor = _visitors[index];
+                if (visitor['revealed'] == false) {
+                  return MaskedPersonTile(onUnlocked: _fetchVisitors);
+                }
                 return _buildVisitorCard(visitor);
               }, childCount: _visitors.length),
             ),

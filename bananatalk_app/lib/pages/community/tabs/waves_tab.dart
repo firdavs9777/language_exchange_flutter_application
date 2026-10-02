@@ -11,7 +11,9 @@ import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/pages/community/widgets/community_snackbar.dart';
 import 'package:bananatalk_app/pages/community/tabs/waves_archive_screen.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/widgets/masked_person_tile.dart';
 import 'package:bananatalk_app/widgets/notifications/notification_priming_sheet.dart';
+import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
 
 /// Waves Tab - Shows waves received from other users
 class WavesTab extends ConsumerStatefulWidget {
@@ -54,7 +56,15 @@ class _WavesTabState extends ConsumerState<WavesTab> {
 
     try {
       final service = ref.read(communityServiceProvider);
-      final waves = await service.getWavesReceived();
+      // Reveal gating ships with the boostsEnabled layer; with it off we send
+      // today's request and get today's rows.
+      var reveal = false;
+      try {
+        final config = await ref.read(appConfigProvider.future);
+        reveal = config?.boostsEnabled ?? false;
+      } catch (_) {}
+      final waves = await service.getWavesReceived(reveal: reveal);
+      if (!mounted) return;
 
       setState(() {
         _waves = waves;
@@ -213,6 +223,9 @@ class _WavesTabState extends ConsumerState<WavesTab> {
             );
           }
           final wave = _waves[index - 1];
+          if (!wave.revealed) {
+            return MaskedPersonTile(onUnlocked: _loadWaves);
+          }
           return _WaveCard(wave: wave, onTap: () => _viewProfile(wave));
         },
       ),

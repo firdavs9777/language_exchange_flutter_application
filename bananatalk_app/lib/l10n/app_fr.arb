@@ -3830,5 +3830,15 @@
   "boostTimeLeft": "{time} restant",
   "boostSeenBy": "Vu par {count} personnes jusqu'ici",
   "boostFailed": "Impossible de lancer votre boost. Veuillez réessayer.",
-  "rewardedLimitReached": "Vous avez utilisé les déblocages gratuits du jour pour cela — réessayez demain"
+  "rewardedLimitReached": "Vous avez utilisé les déblocages gratuits du jour pour cela — réessayez demain",
+  "wavesMaskedTitle": "Quelqu'un vous a fait signe",
+  "wavesMaskedBody": "Découvrez qui pour {cost} pièces, ou passez VIP",
+  "wavesMaskedBodyVip": "Passez VIP pour voir qui vous a fait signe",
+  "perkAdFree": "Sans publicité",
+  "perkUnlimitedMatches": "Matchs quotidiens illimités",
+  "perkRevealWaves": "Voyez qui vous a fait signe et a vu votre profil",
+  "perkUnlimitedWaves": "Signes illimités",
+  "perkAdvancedFilters": "Filtres avancés de partenaires",
+  "vipFromMatches": "VIP : matchs illimités",
+  "vipRemoveAds": "Supprimer les pubs"
 }

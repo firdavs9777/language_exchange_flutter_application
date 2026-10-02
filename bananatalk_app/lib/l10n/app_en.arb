@@ -6087,5 +6087,50 @@
   "rewardedLimitReached": "You've used today's free unlocks for this — try again tomorrow",
   "@rewardedLimitReached": {
     "description": "Shown when the daily rewarded-ad unlock cap is reached"
+  },
+  "wavesMaskedTitle": "Someone waved at you",
+  "@wavesMaskedTitle": {
+    "description": "Reveal gating / VIP perks string"
+  },
+  "wavesMaskedBody": "Reveal who for {cost} coins, or go VIP",
+  "@wavesMaskedBody": {
+    "description": "Reveal gating / VIP perks string",
+    "placeholders": {
+      "cost": {
+        "type": "int"
+      }
+    }
+  },
+  "wavesMaskedBodyVip": "Go VIP to see who waved at you",
+  "@wavesMaskedBodyVip": {
+    "description": "Reveal gating / VIP perks string"
+  },
+  "perkAdFree": "No ads",
+  "@perkAdFree": {
+    "description": "Reveal gating / VIP perks string"
+  },
+  "perkUnlimitedMatches": "Unlimited daily matches",
+  "@perkUnlimitedMatches": {
+    "description": "Reveal gating / VIP perks string"
+  },
+  "perkRevealWaves": "See who waved and viewed you",
+  "@perkRevealWaves": {
+    "description": "Reveal gating / VIP perks string"
+  },
+  "perkUnlimitedWaves": "Unlimited waves",
+  "@perkUnlimitedWaves": {
+    "description": "Reveal gating / VIP perks string"
+  },
+  "perkAdvancedFilters": "Advanced partner filters",
+  "@perkAdvancedFilters": {
+    "description": "Reveal gating / VIP perks string"
+  },
+  "vipFromMatches": "VIP: unlimited matches",
+  "@vipFromMatches": {
+    "description": "Reveal gating / VIP perks string"
+  },
+  "vipRemoveAds": "Remove ads",
+  "@vipRemoveAds": {
+    "description": "Reveal gating / VIP perks string"
   }
 }

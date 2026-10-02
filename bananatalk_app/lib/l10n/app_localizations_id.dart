@@ -8704,4 +8704,36 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get rewardedLimitReached => 'Kamu sudah memakai pembukaan gratis hari ini untuk ini — coba lagi besok';
+
+  @override
+  String get wavesMaskedTitle => 'Seseorang menyapamu';
+
+  @override
+  String wavesMaskedBody(int cost) {
+    return 'Lihat siapa dengan $cost koin, atau jadi VIP';
+  }
+
+  @override
+  String get wavesMaskedBodyVip => 'Jadi VIP untuk melihat siapa yang menyapamu';
+
+  @override
+  String get perkAdFree => 'Tanpa iklan';
+
+  @override
+  String get perkUnlimitedMatches => 'Pencocokan harian tanpa batas';
+
+  @override
+  String get perkRevealWaves => 'Lihat siapa yang menyapa dan melihat profilmu';
+
+  @override
+  String get perkUnlimitedWaves => 'Sapaan tanpa batas';
+
+  @override
+  String get perkAdvancedFilters => 'Filter partner lanjutan';
+
+  @override
+  String get vipFromMatches => 'VIP: pencocokan tanpa batas';
+
+  @override
+  String get vipRemoveAds => 'Hapus iklan';
 }

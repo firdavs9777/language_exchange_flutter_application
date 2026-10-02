@@ -3620,5 +3620,15 @@
   "boostTimeLeft": "المتبقي {time}",
   "boostSeenBy": "شاهدك {count} أشخاص حتى الآن",
   "boostFailed": "تعذّر بدء التعزيز. يُرجى المحاولة مرة أخرى.",
-  "rewardedLimitReached": "لقد استخدمت عمليات الفتح المجانية لهذا اليوم — حاول مجددًا غدًا"
+  "rewardedLimitReached": "لقد استخدمت عمليات الفتح المجانية لهذا اليوم — حاول مجددًا غدًا",
+  "wavesMaskedTitle": "لوّح لك أحدهم",
+  "wavesMaskedBody": "اكشف من هو مقابل {cost} عملة، أو اشترك في VIP",
+  "wavesMaskedBodyVip": "اشترك في VIP لتعرف من لوّح لك",
+  "perkAdFree": "بدون إعلانات",
+  "perkUnlimitedMatches": "مطابقات يومية غير محدودة",
+  "perkRevealWaves": "اعرف من لوّح لك ومن زار ملفك",
+  "perkUnlimitedWaves": "تلويحات غير محدودة",
+  "perkAdvancedFilters": "فلاتر متقدمة للشركاء",
+  "vipFromMatches": "VIP: مطابقات غير محدودة",
+  "vipRemoveAds": "إزالة الإعلانات"
 }

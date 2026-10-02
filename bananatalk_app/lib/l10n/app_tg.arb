@@ -3083,5 +3083,15 @@
   "boostTimeLeft": "{time} монд",
   "boostSeenBy": "То ҳол {count} нафар дидаанд",
   "boostFailed": "Пурзӯркунӣ оғоз нашуд. Лутфан аз нав кӯшиш кунед.",
-  "rewardedLimitReached": "Шумо кушодани ройгони имрӯзаро истифода бурдед — фардо бори дигар кӯшиш кунед"
+  "rewardedLimitReached": "Шумо кушодани ройгони имрӯзаро истифода бурдед — фардо бори дигар кӯшиш кунед",
+  "wavesMaskedTitle": "Касе ба шумо даст ҷунбонд",
+  "wavesMaskedBody": "Бо {cost} танга бифаҳмед кӣ, ё VIP шавед",
+  "wavesMaskedBodyVip": "Барои дидани он ки кӣ даст ҷунбонд, VIP шавед",
+  "perkAdFree": "Бе реклама",
+  "perkUnlimitedMatches": "Мувофиқатҳои ҳаррӯзаи номаҳдуд",
+  "perkRevealWaves": "Бубинед, ки кӣ даст ҷунбонд ва профили шуморо дид",
+  "perkUnlimitedWaves": "Дастҷунбонии номаҳдуд",
+  "perkAdvancedFilters": "Филтрҳои пешрафтаи ҳамсӯҳбат",
+  "vipFromMatches": "VIP: мувофиқатҳои номаҳдуд",
+  "vipRemoveAds": "Нест кардани реклама"
 }

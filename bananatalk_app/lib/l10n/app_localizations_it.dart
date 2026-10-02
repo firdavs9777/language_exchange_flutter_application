@@ -8707,4 +8707,36 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get rewardedLimitReached => 'Hai usato gli sblocchi gratuiti di oggi per questo — riprova domani';
+
+  @override
+  String get wavesMaskedTitle => 'Qualcuno ti ha salutato';
+
+  @override
+  String wavesMaskedBody(int cost) {
+    return 'Scopri chi per $cost monete, oppure passa a VIP';
+  }
+
+  @override
+  String get wavesMaskedBodyVip => 'Passa a VIP per vedere chi ti ha salutato';
+
+  @override
+  String get perkAdFree => 'Nessuna pubblicità';
+
+  @override
+  String get perkUnlimitedMatches => 'Match giornalieri illimitati';
+
+  @override
+  String get perkRevealWaves => 'Vedi chi ti ha salutato e ha visitato il tuo profilo';
+
+  @override
+  String get perkUnlimitedWaves => 'Saluti illimitati';
+
+  @override
+  String get perkAdvancedFilters => 'Filtri avanzati per partner';
+
+  @override
+  String get vipFromMatches => 'VIP: match illimitati';
+
+  @override
+  String get vipRemoveAds => 'Rimuovi la pubblicità';
 }

@@ -8697,4 +8697,36 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get rewardedLimitReached => 'คุณใช้การปลดล็อกฟรีของวันนี้ครบแล้ว — ลองใหม่พรุ่งนี้';
+
+  @override
+  String get wavesMaskedTitle => 'มีคนโบกมือทักคุณ';
+
+  @override
+  String wavesMaskedBody(int cost) {
+    return 'ดูว่าใครด้วย $cost เหรียญ หรืออัปเกรดเป็น VIP';
+  }
+
+  @override
+  String get wavesMaskedBodyVip => 'อัปเกรดเป็น VIP เพื่อดูว่าใครโบกมือทัก';
+
+  @override
+  String get perkAdFree => 'ไม่มีโฆษณา';
+
+  @override
+  String get perkUnlimitedMatches => 'แมตช์รายวันไม่จำกัด';
+
+  @override
+  String get perkRevealWaves => 'ดูว่าใครโบกมือและเข้าชมโปรไฟล์คุณ';
+
+  @override
+  String get perkUnlimitedWaves => 'โบกมือได้ไม่จำกัด';
+
+  @override
+  String get perkAdvancedFilters => 'ตัวกรองคู่สนทนาขั้นสูง';
+
+  @override
+  String get vipFromMatches => 'VIP: แมตช์ไม่จำกัด';
+
+  @override
+  String get vipRemoveAds => 'ลบโฆษณา';
 }

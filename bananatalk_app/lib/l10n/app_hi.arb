@@ -3606,5 +3606,15 @@
   "boostTimeLeft": "{time} बाकी",
   "boostSeenBy": "अब तक {count} लोगों ने देखा",
   "boostFailed": "बूस्ट शुरू नहीं हो सका। कृपया फिर कोशिश करें।",
-  "rewardedLimitReached": "आपने इसके लिए आज के मुफ़्त अनलॉक इस्तेमाल कर लिए हैं — कल फिर कोशिश करें"
+  "rewardedLimitReached": "आपने इसके लिए आज के मुफ़्त अनलॉक इस्तेमाल कर लिए हैं — कल फिर कोशिश करें",
+  "wavesMaskedTitle": "किसी ने आपको वेव किया",
+  "wavesMaskedBody": "{cost} सिक्कों में जानें कौन, या VIP बनें",
+  "wavesMaskedBodyVip": "किसने वेव किया यह देखने के लिए VIP बनें",
+  "perkAdFree": "कोई विज्ञापन नहीं",
+  "perkUnlimitedMatches": "असीमित दैनिक मैच",
+  "perkRevealWaves": "देखें किसने वेव किया और आपकी प्रोफ़ाइल देखी",
+  "perkUnlimitedWaves": "असीमित वेव",
+  "perkAdvancedFilters": "उन्नत पार्टनर फ़िल्टर",
+  "vipFromMatches": "VIP: असीमित मैच",
+  "vipRemoveAds": "विज्ञापन हटाएँ"
 }

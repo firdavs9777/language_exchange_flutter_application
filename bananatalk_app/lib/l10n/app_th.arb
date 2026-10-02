@@ -3590,5 +3590,15 @@
   "boostTimeLeft": "เหลือ {time}",
   "boostSeenBy": "มีคนเห็นแล้ว {count} คน",
   "boostFailed": "เริ่มบูสต์ไม่ได้ กรุณาลองอีกครั้ง",
-  "rewardedLimitReached": "คุณใช้การปลดล็อกฟรีของวันนี้ครบแล้ว — ลองใหม่พรุ่งนี้"
+  "rewardedLimitReached": "คุณใช้การปลดล็อกฟรีของวันนี้ครบแล้ว — ลองใหม่พรุ่งนี้",
+  "wavesMaskedTitle": "มีคนโบกมือทักคุณ",
+  "wavesMaskedBody": "ดูว่าใครด้วย {cost} เหรียญ หรืออัปเกรดเป็น VIP",
+  "wavesMaskedBodyVip": "อัปเกรดเป็น VIP เพื่อดูว่าใครโบกมือทัก",
+  "perkAdFree": "ไม่มีโฆษณา",
+  "perkUnlimitedMatches": "แมตช์รายวันไม่จำกัด",
+  "perkRevealWaves": "ดูว่าใครโบกมือและเข้าชมโปรไฟล์คุณ",
+  "perkUnlimitedWaves": "โบกมือได้ไม่จำกัด",
+  "perkAdvancedFilters": "ตัวกรองคู่สนทนาขั้นสูง",
+  "vipFromMatches": "VIP: แมตช์ไม่จำกัด",
+  "vipRemoveAds": "ลบโฆษณา"
 }

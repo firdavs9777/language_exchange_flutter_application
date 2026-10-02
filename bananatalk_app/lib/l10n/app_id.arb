@@ -3590,5 +3590,15 @@
   "boostTimeLeft": "Sisa {time}",
   "boostSeenBy": "Sudah dilihat {count} orang",
   "boostFailed": "Tidak bisa memulai boost. Silakan coba lagi.",
-  "rewardedLimitReached": "Kamu sudah memakai pembukaan gratis hari ini untuk ini — coba lagi besok"
+  "rewardedLimitReached": "Kamu sudah memakai pembukaan gratis hari ini untuk ini — coba lagi besok",
+  "wavesMaskedTitle": "Seseorang menyapamu",
+  "wavesMaskedBody": "Lihat siapa dengan {cost} koin, atau jadi VIP",
+  "wavesMaskedBodyVip": "Jadi VIP untuk melihat siapa yang menyapamu",
+  "perkAdFree": "Tanpa iklan",
+  "perkUnlimitedMatches": "Pencocokan harian tanpa batas",
+  "perkRevealWaves": "Lihat siapa yang menyapa dan melihat profilmu",
+  "perkUnlimitedWaves": "Sapaan tanpa batas",
+  "perkAdvancedFilters": "Filter partner lanjutan",
+  "vipFromMatches": "VIP: pencocokan tanpa batas",
+  "vipRemoveAds": "Hapus iklan"
 }

@@ -16081,6 +16081,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You\'ve used today\'s free unlocks for this — try again tomorrow'**
   String get rewardedLimitReached;
+
+  /// Reveal gating / VIP perks string
+  ///
+  /// In en, this message translates to:
+  /// **'Someone waved at you'**
+  String get wavesMaskedTitle;
+
+  /// Reveal gating / VIP perks string
+  ///
+  /// In en, this message translates to:
+  /// **'Reveal who for {cost} coins, or go VIP'**
+  String wavesMaskedBody(int cost);
+
+  /// Reveal gating / VIP perks string
+  ///
+  /// In en, this message translates to:
+  /// **'Go VIP to see who waved at you'**
+  String get wavesMaskedBodyVip;
+
+  /// Reveal gating / VIP perks string
+  ///
+  /// In en, this message translates to:
+  /// **'No ads'**
+  String get perkAdFree;
+
+  /// Reveal gating / VIP perks string
+  ///
+  /// In en, this message translates to:
+  /// **'Unlimited daily matches'**
+  String get perkUnlimitedMatches;
+
+  /// Reveal gating / VIP perks string
+  ///
+  /// In en, this message translates to:
+  /// **'See who waved and viewed you'**
+  String get perkRevealWaves;
+
+  /// Reveal gating / VIP perks string
+  ///
+  /// In en, this message translates to:
+  /// **'Unlimited waves'**
+  String get perkUnlimitedWaves;
+
+  /// Reveal gating / VIP perks string
+  ///
+  /// In en, this message translates to:
+  /// **'Advanced partner filters'**
+  String get perkAdvancedFilters;
+
+  /// Reveal gating / VIP perks string
+  ///
+  /// In en, this message translates to:
+  /// **'VIP: unlimited matches'**
+  String get vipFromMatches;
+
+  /// Reveal gating / VIP perks string
+  ///
+  /// In en, this message translates to:
+  /// **'Remove ads'**
+  String get vipRemoveAds;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

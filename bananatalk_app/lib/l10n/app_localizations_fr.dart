@@ -8707,4 +8707,36 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get rewardedLimitReached => 'Vous avez utilisé les déblocages gratuits du jour pour cela — réessayez demain';
+
+  @override
+  String get wavesMaskedTitle => 'Quelqu\'un vous a fait signe';
+
+  @override
+  String wavesMaskedBody(int cost) {
+    return 'Découvrez qui pour $cost pièces, ou passez VIP';
+  }
+
+  @override
+  String get wavesMaskedBodyVip => 'Passez VIP pour voir qui vous a fait signe';
+
+  @override
+  String get perkAdFree => 'Sans publicité';
+
+  @override
+  String get perkUnlimitedMatches => 'Matchs quotidiens illimités';
+
+  @override
+  String get perkRevealWaves => 'Voyez qui vous a fait signe et a vu votre profil';
+
+  @override
+  String get perkUnlimitedWaves => 'Signes illimités';
+
+  @override
+  String get perkAdvancedFilters => 'Filtres avancés de partenaires';
+
+  @override
+  String get vipFromMatches => 'VIP : matchs illimités';
+
+  @override
+  String get vipRemoveAds => 'Supprimer les pubs';
 }

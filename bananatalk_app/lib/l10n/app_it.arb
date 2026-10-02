@@ -3830,5 +3830,15 @@
   "boostTimeLeft": "{time} rimanenti",
   "boostSeenBy": "Visto da {count} persone finora",
   "boostFailed": "Impossibile avviare il potenziamento. Riprova.",
-  "rewardedLimitReached": "Hai usato gli sblocchi gratuiti di oggi per questo — riprova domani"
+  "rewardedLimitReached": "Hai usato gli sblocchi gratuiti di oggi per questo — riprova domani",
+  "wavesMaskedTitle": "Qualcuno ti ha salutato",
+  "wavesMaskedBody": "Scopri chi per {cost} monete, oppure passa a VIP",
+  "wavesMaskedBodyVip": "Passa a VIP per vedere chi ti ha salutato",
+  "perkAdFree": "Nessuna pubblicità",
+  "perkUnlimitedMatches": "Match giornalieri illimitati",
+  "perkRevealWaves": "Vedi chi ti ha salutato e ha visitato il tuo profilo",
+  "perkUnlimitedWaves": "Saluti illimitati",
+  "perkAdvancedFilters": "Filtri avanzati per partner",
+  "vipFromMatches": "VIP: match illimitati",
+  "vipRemoveAds": "Rimuovi la pubblicità"
 }

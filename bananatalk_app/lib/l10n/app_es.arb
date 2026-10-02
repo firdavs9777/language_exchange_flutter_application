@@ -3620,5 +3620,15 @@
   "boostTimeLeft": "Quedan {time}",
   "boostSeenBy": "Visto por {count} personas hasta ahora",
   "boostFailed": "No se pudo iniciar tu impulso. Inténtalo de nuevo.",
-  "rewardedLimitReached": "Has usado los desbloqueos gratuitos de hoy para esto — inténtalo de nuevo mañana"
+  "rewardedLimitReached": "Has usado los desbloqueos gratuitos de hoy para esto — inténtalo de nuevo mañana",
+  "wavesMaskedTitle": "Alguien te saludó",
+  "wavesMaskedBody": "Descubre quién por {cost} monedas, o hazte VIP",
+  "wavesMaskedBodyVip": "Hazte VIP para ver quién te saludó",
+  "perkAdFree": "Sin anuncios",
+  "perkUnlimitedMatches": "Coincidencias diarias ilimitadas",
+  "perkRevealWaves": "Mira quién te saludó y vio tu perfil",
+  "perkUnlimitedWaves": "Saludos ilimitados",
+  "perkAdvancedFilters": "Filtros avanzados de compañeros",
+  "vipFromMatches": "VIP: coincidencias ilimitadas",
+  "vipRemoveAds": "Quitar anuncios"
 }

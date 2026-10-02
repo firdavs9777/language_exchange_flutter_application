@@ -5,6 +5,7 @@ import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:bananatalk_app/models/vip_subscription.dart';
 import 'package:bananatalk_app/pages/vip/vip_payment_screen.dart';
 import 'package:bananatalk_app/providers/provider_root/vip_provider.dart';
+import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
 import 'package:bananatalk_app/services/ios_purchase_service.dart';
 import 'package:bananatalk_app/services/android_purchase_service.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
@@ -254,11 +255,12 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Expanded(child: _buildPlanColumn(VipPlan.monthly)),
-            const SizedBox(width: 8),
-            Expanded(child: _buildPlanColumn(VipPlan.quarterly)),
-            const SizedBox(width: 8),
-            Expanded(child: _buildPlanColumn(VipPlan.yearly)),
+            // Quarterly stays in the enum (store product + old subscribers)
+            // but is no longer sold.
+            for (final plan in VipPlan.visible) ...[
+              if (plan != VipPlan.visible.first) const SizedBox(width: 8),
+              Expanded(child: _buildPlanColumn(plan)),
+            ],
           ],
         ),
       ),
@@ -330,6 +332,7 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
         : context.primaryColor;
 
     return GestureDetector(
+      key: ValueKey('vip-plan-${plan.name}'),
       onTap: () => setState(() => selectedPlan = plan),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
@@ -436,29 +439,30 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
   // is enforced; misleading claims are a worse problem than thin lists.
   Widget _buildComparisonTable() {
     final l10n = AppLocalizations.of(context)!;
+    // The three discovery perks are only promised once the server enforces
+    // them (boostsEnabled); the flag-off build keeps today's honest list.
+    final discoveryPerks = ref.watch(appConfigProvider).maybeWhen(
+          data: (config) => config?.boostsEnabled ?? false,
+          orElse: () => false,
+        );
+    _BenefitRow perk(String label) => _BenefitRow(
+          label: label,
+          nonVip: const _BenefitValue.locked(),
+          vip: const _BenefitValue.check(),
+        );
     final rows = <_BenefitRow>[
+      perk(l10n.perkAdFree),
+      if (discoveryPerks) perk(l10n.perkUnlimitedMatches),
+      if (discoveryPerks) perk(l10n.perkRevealWaves),
+      if (discoveryPerks) perk(l10n.perkUnlimitedWaves),
+      perk(l10n.perkAdvancedFilters),
       _BenefitRow(
         label: l10n.vipBenefitDailyTranslations,
         nonVip: _BenefitValue.text(l10n.vipBenefitTranslationsLimit),
         vip: _BenefitValue.text(l10n.vipBenefitUnlimited),
       ),
       _BenefitRow(
-        label: l10n.vipBenefitAdvancedFilters,
-        nonVip: const _BenefitValue.locked(),
-        vip: const _BenefitValue.check(),
-      ),
-      _BenefitRow(
-        label: l10n.vipBenefitAdFree,
-        nonVip: const _BenefitValue.locked(),
-        vip: const _BenefitValue.check(),
-      ),
-      _BenefitRow(
         label: l10n.vipBenefitVipBadge,
-        nonVip: const _BenefitValue.dash(),
-        vip: const _BenefitValue.check(),
-      ),
-      _BenefitRow(
-        label: l10n.vipBenefitPrioritySupport,
         nonVip: const _BenefitValue.dash(),
         vip: const _BenefitValue.check(),
       ),

@@ -3620,5 +3620,15 @@
   "boostTimeLeft": "Осталось {time}",
   "boostSeenBy": "Пока вас увидели {count} человек",
   "boostFailed": "Не удалось запустить продвижение. Попробуйте ещё раз.",
-  "rewardedLimitReached": "Вы использовали сегодняшние бесплатные разблокировки — попробуйте завтра"
+  "rewardedLimitReached": "Вы использовали сегодняшние бесплатные разблокировки — попробуйте завтра",
+  "wavesMaskedTitle": "Кто-то помахал вам",
+  "wavesMaskedBody": "Узнайте, кто, за {cost} монет — или станьте VIP",
+  "wavesMaskedBodyVip": "Станьте VIP, чтобы увидеть, кто вам помахал",
+  "perkAdFree": "Без рекламы",
+  "perkUnlimitedMatches": "Безлимитные ежедневные совпадения",
+  "perkRevealWaves": "Смотрите, кто махал вам и заходил в профиль",
+  "perkUnlimitedWaves": "Безлимитные взмахи",
+  "perkAdvancedFilters": "Расширенные фильтры партнёров",
+  "vipFromMatches": "VIP: безлимитные совпадения",
+  "vipRemoveAds": "Убрать рекламу"
 }

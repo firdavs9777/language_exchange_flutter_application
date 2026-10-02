@@ -8707,4 +8707,36 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get rewardedLimitReached => 'आपने इसके लिए आज के मुफ़्त अनलॉक इस्तेमाल कर लिए हैं — कल फिर कोशिश करें';
+
+  @override
+  String get wavesMaskedTitle => 'किसी ने आपको वेव किया';
+
+  @override
+  String wavesMaskedBody(int cost) {
+    return '$cost सिक्कों में जानें कौन, या VIP बनें';
+  }
+
+  @override
+  String get wavesMaskedBodyVip => 'किसने वेव किया यह देखने के लिए VIP बनें';
+
+  @override
+  String get perkAdFree => 'कोई विज्ञापन नहीं';
+
+  @override
+  String get perkUnlimitedMatches => 'असीमित दैनिक मैच';
+
+  @override
+  String get perkRevealWaves => 'देखें किसने वेव किया और आपकी प्रोफ़ाइल देखी';
+
+  @override
+  String get perkUnlimitedWaves => 'असीमित वेव';
+
+  @override
+  String get perkAdvancedFilters => 'उन्नत पार्टनर फ़िल्टर';
+
+  @override
+  String get vipFromMatches => 'VIP: असीमित मैच';
+
+  @override
+  String get vipRemoveAds => 'विज्ञापन हटाएँ';
 }

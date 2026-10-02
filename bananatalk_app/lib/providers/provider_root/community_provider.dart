@@ -326,6 +326,7 @@ class CommunityService {
     int limit = 20,
     bool unreadOnly = false,
     bool archive = false,
+    bool reveal = false,
   }) async {
     try {
       final queryParams = <String, String>{
@@ -334,6 +335,9 @@ class CommunityService {
         'unreadOnly': unreadOnly.toString(),
       };
       if (archive) queryParams['archive'] = 'true';
+      // Opt in to the gated shape (masked rows + `revealed`); only sent when
+      // the boostsEnabled flag is on, so live builds get today's payload.
+      if (reveal) queryParams['reveal'] = '1';
       final response = await _apiClient.get(
         Endpoints.wavesReceivedURL,
         queryParams: queryParams,
@@ -664,6 +668,11 @@ class Wave {
   final bool isRead;
   final DateTime createdAt;
 
+  /// False when the server masked the sender (`?reveal=1` and the viewer has
+  /// not unlocked it): `from` carries no id and no name. Defaults to true so
+  /// legacy payloads (no `revealed` key) render exactly as before.
+  final bool revealed;
+
   Wave({
     required this.id,
     required this.fromUserId,
@@ -672,6 +681,7 @@ class Wave {
     this.message,
     required this.isRead,
     required this.createdAt,
+    this.revealed = true,
   });
 
   factory Wave.fromJson(Map<String, dynamic> json) {
@@ -680,8 +690,8 @@ class Wave {
     final images = fromMap?['images'];
     return Wave(
       id: json['waveId'] ?? json['_id'] ?? json['id'] ?? '',
-      fromUserId: fromMap?['_id'] ?? json['fromUserId'] ?? '',
-      fromUserName: fromMap?['name'] ?? json['fromUserName'] ?? '',
+      fromUserId: (fromMap?['_id'] ?? json['fromUserId'] ?? '') as String,
+      fromUserName: (fromMap?['name'] ?? json['fromUserName'] ?? '') as String,
       fromUserImage: (images is List && images.isNotEmpty)
           ? images.first as String?
           : json['fromUserImage'] as String?,
@@ -690,6 +700,7 @@ class Wave {
       createdAt:
           DateTime.tryParse(json['createdAt'] as String? ?? '') ??
           DateTime.now(),
+      revealed: json['revealed'] as bool? ?? true,
     );
   }
 }

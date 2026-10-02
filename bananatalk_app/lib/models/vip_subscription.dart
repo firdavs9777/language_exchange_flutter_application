@@ -136,6 +136,35 @@ class VipFeatures {
   }
 }
 
+/// Discovery perks the server reports for the caller's tier in
+/// `GET /purchases/plans` (`perks`). All-false when absent (older server).
+class VipPerks {
+  final bool adFree;
+  final bool unlimitedMatches;
+  final bool revealWaves;
+  final bool unlimitedWaves;
+  final bool advancedFilters;
+
+  const VipPerks({
+    this.adFree = false,
+    this.unlimitedMatches = false,
+    this.revealWaves = false,
+    this.unlimitedWaves = false,
+    this.advancedFilters = false,
+  });
+
+  factory VipPerks.fromJson(Map<String, dynamic>? json) {
+    final j = json ?? const <String, dynamic>{};
+    return VipPerks(
+      adFree: j['adFree'] == true,
+      unlimitedMatches: j['unlimitedMatches'] == true,
+      revealWaves: j['revealWaves'] == true,
+      unlimitedWaves: j['unlimitedWaves'] == true,
+      advancedFilters: j['advancedFilters'] == true,
+    );
+  }
+}
+
 class VisitorLimitations {
   final int dailyMessageLimit;
   final int dailyProfileViewLimit;

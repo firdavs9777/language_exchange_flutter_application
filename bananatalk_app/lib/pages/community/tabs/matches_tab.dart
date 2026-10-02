@@ -7,6 +7,7 @@ import 'package:bananatalk_app/pages/chat/conversation/chat_conversation_screen.
 import 'package:bananatalk_app/pages/coins/boost_screen.dart';
 import 'package:bananatalk_app/pages/community/card/match_card.dart';
 import 'package:bananatalk_app/pages/community/widgets/send_wave_sheet.dart';
+import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
 import 'package:bananatalk_app/pages/menu_tab/TabBarMenu.dart';
 import 'package:bananatalk_app/providers/provider_models/daily_match_model.dart';
 import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
@@ -331,6 +332,15 @@ class _Empty extends StatelessWidget {
                 ),
                 icon: const Icon(Icons.rocket_launch_rounded, size: 18),
                 label: Text(l10n.boostFromMatches),
+              ),
+              TextButton.icon(
+                key: const Key('matches-empty-vip'),
+                onPressed: () => Navigator.push(
+                  context,
+                  AppPageRoute<void>(builder: (_) => const VipPlansScreen()),
+                ),
+                icon: const Icon(Icons.workspace_premium_rounded, size: 18),
+                label: Text(l10n.vipFromMatches),
               ),
             ],
           ],

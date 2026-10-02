@@ -3590,5 +3590,15 @@
   "boostTimeLeft": "Còn {time}",
   "boostSeenBy": "Đã có {count} người thấy",
   "boostFailed": "Không thể bắt đầu đẩy hồ sơ. Vui lòng thử lại.",
-  "rewardedLimitReached": "Bạn đã dùng hết lượt mở khóa miễn phí hôm nay cho mục này — hãy thử lại vào ngày mai"
+  "rewardedLimitReached": "Bạn đã dùng hết lượt mở khóa miễn phí hôm nay cho mục này — hãy thử lại vào ngày mai",
+  "wavesMaskedTitle": "Ai đó đã vẫy tay chào bạn",
+  "wavesMaskedBody": "Xem đó là ai với {cost} xu, hoặc nâng cấp VIP",
+  "wavesMaskedBodyVip": "Nâng cấp VIP để xem ai đã vẫy tay chào bạn",
+  "perkAdFree": "Không quảng cáo",
+  "perkUnlimitedMatches": "Ghép đôi hằng ngày không giới hạn",
+  "perkRevealWaves": "Xem ai đã vẫy tay và xem hồ sơ của bạn",
+  "perkUnlimitedWaves": "Vẫy tay không giới hạn",
+  "perkAdvancedFilters": "Bộ lọc đối tác nâng cao",
+  "vipFromMatches": "VIP: ghép đôi không giới hạn",
+  "vipRemoveAds": "Gỡ quảng cáo"
 }

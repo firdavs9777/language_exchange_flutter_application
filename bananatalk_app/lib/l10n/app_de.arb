@@ -3830,5 +3830,15 @@
   "boostTimeLeft": "Noch {time}",
   "boostSeenBy": "Bisher von {count} Personen gesehen",
   "boostFailed": "Dein Boost konnte nicht gestartet werden. Bitte versuche es erneut.",
-  "rewardedLimitReached": "Du hast die heutigen kostenlosen Freischaltungen dafür aufgebraucht – versuche es morgen wieder"
+  "rewardedLimitReached": "Du hast die heutigen kostenlosen Freischaltungen dafür aufgebraucht – versuche es morgen wieder",
+  "wavesMaskedTitle": "Jemand hat dir gewinkt",
+  "wavesMaskedBody": "Für {cost} Münzen aufdecken, wer es war – oder VIP werden",
+  "wavesMaskedBodyVip": "Werde VIP, um zu sehen, wer dir gewinkt hat",
+  "perkAdFree": "Keine Werbung",
+  "perkUnlimitedMatches": "Unbegrenzte tägliche Matches",
+  "perkRevealWaves": "Sieh, wer dir gewinkt und dein Profil besucht hat",
+  "perkUnlimitedWaves": "Unbegrenzt winken",
+  "perkAdvancedFilters": "Erweiterte Partnerfilter",
+  "vipFromMatches": "VIP: unbegrenzte Matches",
+  "vipRemoveAds": "Werbung entfernen"
 }

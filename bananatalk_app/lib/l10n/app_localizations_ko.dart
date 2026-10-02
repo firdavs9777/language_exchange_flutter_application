@@ -8697,4 +8697,36 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get rewardedLimitReached => '오늘의 무료 잠금 해제를 모두 사용했어요 — 내일 다시 시도해 주세요';
+
+  @override
+  String get wavesMaskedTitle => '누군가 당신에게 손을 흔들었어요';
+
+  @override
+  String wavesMaskedBody(int cost) {
+    return '$cost 코인으로 누구인지 확인하거나 VIP가 되세요';
+  }
+
+  @override
+  String get wavesMaskedBodyVip => 'VIP가 되면 누가 손을 흔들었는지 볼 수 있어요';
+
+  @override
+  String get perkAdFree => '광고 없음';
+
+  @override
+  String get perkUnlimitedMatches => '하루 매칭 무제한';
+
+  @override
+  String get perkRevealWaves => '나에게 손 흔든 사람과 프로필을 본 사람 보기';
+
+  @override
+  String get perkUnlimitedWaves => '손 흔들기 무제한';
+
+  @override
+  String get perkAdvancedFilters => '고급 파트너 필터';
+
+  @override
+  String get vipFromMatches => 'VIP: 매칭 무제한';
+
+  @override
+  String get vipRemoveAds => '광고 제거';
 }

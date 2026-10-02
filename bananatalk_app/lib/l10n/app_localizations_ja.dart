@@ -8697,4 +8697,36 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get rewardedLimitReached => '今日の無料アンロックは使い切りました。明日もう一度お試しください';
+
+  @override
+  String get wavesMaskedTitle => '誰かがあなたに手を振りました';
+
+  @override
+  String wavesMaskedBody(int cost) {
+    return '$costコインで誰か確認、またはVIPに登録';
+  }
+
+  @override
+  String get wavesMaskedBodyVip => 'VIPになると誰が手を振ったか分かります';
+
+  @override
+  String get perkAdFree => '広告なし';
+
+  @override
+  String get perkUnlimitedMatches => '1日のマッチ数が無制限';
+
+  @override
+  String get perkRevealWaves => '手を振った人・プロフィールを見た人が分かる';
+
+  @override
+  String get perkUnlimitedWaves => '手を振る回数が無制限';
+
+  @override
+  String get perkAdvancedFilters => '詳細なパートナー絞り込み';
+
+  @override
+  String get vipFromMatches => 'VIP: マッチ無制限';
+
+  @override
+  String get vipRemoveAds => '広告を消す';
 }

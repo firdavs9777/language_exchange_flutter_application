@@ -8711,4 +8711,36 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get rewardedLimitReached => 'Шумо кушодани ройгони имрӯзаро истифода бурдед — фардо бори дигар кӯшиш кунед';
+
+  @override
+  String get wavesMaskedTitle => 'Касе ба шумо даст ҷунбонд';
+
+  @override
+  String wavesMaskedBody(int cost) {
+    return 'Бо $cost танга бифаҳмед кӣ, ё VIP шавед';
+  }
+
+  @override
+  String get wavesMaskedBodyVip => 'Барои дидани он ки кӣ даст ҷунбонд, VIP шавед';
+
+  @override
+  String get perkAdFree => 'Бе реклама';
+
+  @override
+  String get perkUnlimitedMatches => 'Мувофиқатҳои ҳаррӯзаи номаҳдуд';
+
+  @override
+  String get perkRevealWaves => 'Бубинед, ки кӣ даст ҷунбонд ва профили шуморо дид';
+
+  @override
+  String get perkUnlimitedWaves => 'Дастҷунбонии номаҳдуд';
+
+  @override
+  String get perkAdvancedFilters => 'Филтрҳои пешрафтаи ҳамсӯҳбат';
+
+  @override
+  String get vipFromMatches => 'VIP: мувофиқатҳои номаҳдуд';
+
+  @override
+  String get vipRemoveAds => 'Нест кардани реклама';
 }

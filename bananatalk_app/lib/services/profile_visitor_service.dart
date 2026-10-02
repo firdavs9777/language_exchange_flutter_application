@@ -76,11 +76,14 @@ class ProfileVisitorService {
     required String userId,
     int limit = 20,
     int page = 1,
+    bool reveal = false,
   }) async {
     try {
       final token = await _getToken();
       final queryParams = <String, String>{};
 
+      // Gated shape (masked rows + `revealed`); only with boostsEnabled.
+      if (reveal) queryParams['reveal'] = '1';
       if (limit != 20) queryParams['limit'] = limit.toString();
       if (page != 1) queryParams['page'] = page.toString();
 
