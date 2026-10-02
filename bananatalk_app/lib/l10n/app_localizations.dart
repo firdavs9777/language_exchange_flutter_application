@@ -15818,11 +15818,17 @@ abstract class AppLocalizations {
   /// **'Your {count} matches today'**
   String matchesTodayTitle(int count);
 
-  /// Muted hint under the Matches tab header
+  /// Muted hint under the Matches tab header; time is the local refresh time
+  ///
+  /// In en, this message translates to:
+  /// **'refreshes at {time}'**
+  String matchesRefreshHint(String time);
+
+  /// Matches hint when the server gave no refresh time
   ///
   /// In en, this message translates to:
   /// **'refreshes at midnight'**
-  String get matchesRefreshHint;
+  String get matchesRefreshHintFallback;
 
   /// Matches tab empty state title
   ///
@@ -15881,7 +15887,7 @@ abstract class AppLocalizations {
   /// Explainer under the Serious learners chip
   ///
   /// In en, this message translates to:
-  /// **'Complete profile · active this week · replies to messages'**
+  /// **'Complete profile · active this week'**
   String get segmentSeriousHint;
 
   /// Explainer under the New members chip

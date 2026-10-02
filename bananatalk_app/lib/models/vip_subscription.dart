@@ -263,14 +263,19 @@ enum VipPlan {
   static Set<String> productIdsFor(bool isIOS) =>
       VipPlan.values.map((p) => p.productId(isIOS)).toSet();
 
+  /// Plans offered in the UI. Quarterly stays in the enum (store product and
+  /// server-side subscriptions exist) but is no longer sold.
+  static List<VipPlan> get visible =>
+      VipPlan.values.where((p) => p != VipPlan.quarterly).toList();
+
   double get price {
     switch (this) {
       case VipPlan.monthly:
-        return 14.99;
+        return 3.99;
       case VipPlan.quarterly:
         return 19.99;
       case VipPlan.yearly:
-        return 49.99;
+        return 24.99;
     }
   }
 
@@ -288,11 +293,11 @@ enum VipPlan {
   String get description {
     switch (this) {
       case VipPlan.monthly:
-        return '\$14.99/month';
+        return '\$3.99/month';
       case VipPlan.quarterly:
         return '\$19.99/3 months (Save 56%)';
       case VipPlan.yearly:
-        return '\$49.99/year (Save 72%)';
+        return '\$24.99/year (Save 48%)';
     }
   }
 }

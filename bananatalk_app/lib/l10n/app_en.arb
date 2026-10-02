@@ -5834,9 +5834,18 @@
       }
     }
   },
-  "matchesRefreshHint": "refreshes at midnight",
+  "matchesRefreshHint": "refreshes at {time}",
   "@matchesRefreshHint": {
-    "description": "Muted hint under the Matches tab header"
+    "description": "Muted hint under the Matches tab header; time is the local refresh time",
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "matchesRefreshHintFallback": "refreshes at midnight",
+  "@matchesRefreshHintFallback": {
+    "description": "Matches hint when the server gave no refresh time"
   },
   "matchesEmptyTitle": "That's everyone for today",
   "@matchesEmptyTitle": {
@@ -5874,7 +5883,7 @@
   "@segmentNew": {
     "description": "Partners segment chip: recently joined members"
   },
-  "segmentSeriousHint": "Complete profile · active this week · replies to messages",
+  "segmentSeriousHint": "Complete profile · active this week",
   "@segmentSeriousHint": {
     "description": "Explainer under the Serious learners chip"
   },

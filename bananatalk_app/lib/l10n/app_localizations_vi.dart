@@ -8541,7 +8541,12 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
-  String get matchesRefreshHint => 'refreshes at midnight';
+  String matchesRefreshHint(String time) {
+    return 'refreshes at $time';
+  }
+
+  @override
+  String get matchesRefreshHintFallback => 'refreshes at midnight';
 
   @override
   String get matchesEmptyTitle => 'That\'s everyone for today';
@@ -8571,7 +8576,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get segmentNew => 'New members';
 
   @override
-  String get segmentSeriousHint => 'Complete profile · active this week · replies to messages';
+  String get segmentSeriousHint => 'Complete profile · active this week';
 
   @override
   String get segmentNewHint => 'Joined in the last 7 days';

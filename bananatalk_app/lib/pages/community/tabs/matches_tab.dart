@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
@@ -137,7 +138,13 @@ class _MatchesTabState extends ConsumerState<MatchesTab> {
                       ),
                       const SizedBox(height: 2),
                       Text(
-                        l10n.matchesRefreshHint,
+                        result.nextRefreshAt == null
+                            ? l10n.matchesRefreshHintFallback
+                            : l10n.matchesRefreshHint(
+                                DateFormat.jm().format(
+                                  result.nextRefreshAt!.toLocal(),
+                                ),
+                              ),
                         style: const TextStyle(
                           fontSize: 13,
                           color: AppColors.matchMutedText,

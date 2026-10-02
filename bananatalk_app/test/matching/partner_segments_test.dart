@@ -54,13 +54,13 @@ void main() {
     await tester.pumpWidget(_wrap(container));
 
     expect(container.read(partnerSegmentProvider), PartnerSegment.all);
-    expect(find.text('Complete profile · active this week · replies to messages'),
+    expect(find.text('Complete profile · active this week'),
         findsNothing);
 
     await tester.tap(find.text('🔥 Serious learners'));
     await tester.pump();
     expect(container.read(partnerSegmentProvider), PartnerSegment.serious);
-    expect(find.text('Complete profile · active this week · replies to messages'),
+    expect(find.text('Complete profile · active this week'),
         findsOneWidget);
 
     await tester.tap(find.text('🌱 New members'));
