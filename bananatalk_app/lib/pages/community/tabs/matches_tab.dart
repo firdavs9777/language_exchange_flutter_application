@@ -10,6 +10,7 @@ import 'package:bananatalk_app/pages/community/widgets/send_wave_sheet.dart';
 import 'package:bananatalk_app/pages/menu_tab/TabBarMenu.dart';
 import 'package:bananatalk_app/providers/provider_models/daily_match_model.dart';
 import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
+import 'package:bananatalk_app/services/ad_service.dart';
 import 'package:bananatalk_app/providers/provider_root/daily_matches_provider.dart';
 import 'package:bananatalk_app/services/interaction_service.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
@@ -114,6 +115,30 @@ class _MatchesTabState extends ConsumerState<MatchesTab> {
     InteractionService.skipUser(m.user.id);
   }
 
+  /// A non-empty batch has been shown; only then can "exhausted" fire, so the
+  /// interstitial is never the first thing after launch.
+  bool _sawNonEmptyBatch = false;
+  bool _exhaustedAdFired = false;
+
+  /// Batch exhausted (user cleared the last card, or the list emptied after a
+  /// non-empty load). At most one interstitial per session, behind
+  /// `rewardedLimitsEnabled`; VIP / ad-free never sees one.
+  void _onBatchExhausted() {
+    if (!_sawNonEmptyBatch || _exhaustedAdFired) return;
+    _exhaustedAdFired = true;
+    final flagOn =
+        ref.read(appConfigProvider).valueOrNull?.rewardedLimitsEnabled ??
+        false;
+    if (!flagOn) return;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      AdService().maybeShowInterstitialOncePerSession(
+        'matches_exhausted',
+        flagOn: flagOn,
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
@@ -147,6 +172,7 @@ class _MatchesTabState extends ConsumerState<MatchesTab> {
             .toList();
         if (matches.isEmpty) {
           _hasMatches = false;
+          _onBatchExhausted();
           return RefreshIndicator(
             onRefresh: _refresh,
             child: CustomScrollView(
@@ -164,6 +190,8 @@ class _MatchesTabState extends ConsumerState<MatchesTab> {
           );
         }
         _hasMatches = true;
+        _sawNonEmptyBatch = true;
+        _exhaustedAdFired = false;
         _maybePrimeOnFirstMatches();
         // Offer +3 matches while the batch is below the 9-card ceiling.
         final showExtra = boostsEnabled && result.matches.length < 9;

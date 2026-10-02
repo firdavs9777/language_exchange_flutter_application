@@ -8694,4 +8694,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get boostFailed => 'ブーストを開始できませんでした。もう一度お試しください。';
+
+  @override
+  String get rewardedLimitReached => '今日の無料アンロックは使い切りました。明日もう一度お試しください';
 }

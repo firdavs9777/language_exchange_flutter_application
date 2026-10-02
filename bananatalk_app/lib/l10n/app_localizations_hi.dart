@@ -8704,4 +8704,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get boostFailed => 'बूस्ट शुरू नहीं हो सका। कृपया फिर कोशिश करें।';
+
+  @override
+  String get rewardedLimitReached => 'आपने इसके लिए आज के मुफ़्त अनलॉक इस्तेमाल कर लिए हैं — कल फिर कोशिश करें';
 }

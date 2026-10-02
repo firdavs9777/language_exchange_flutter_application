@@ -8716,4 +8716,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get boostFailed => 'تعذّر بدء التعزيز. يُرجى المحاولة مرة أخرى.';
+
+  @override
+  String get rewardedLimitReached => 'لقد استخدمت عمليات الفتح المجانية لهذا اليوم — حاول مجددًا غدًا';
 }

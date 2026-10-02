@@ -8694,6 +8694,9 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get boostFailed => '无法开始提升，请重试。';
+
+  @override
+  String get rewardedLimitReached => '你今天的免费解锁次数已用完——请明天再试';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -17386,4 +17389,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get boostFailed => '無法開始提升，請重試。';
+
+  @override
+  String get rewardedLimitReached => '你今天的免費解鎖次數已用完——請明天再試';
 }

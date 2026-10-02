@@ -3610,5 +3610,6 @@
   "boostActiveTitle": "부스트가 진행 중이에요",
   "boostTimeLeft": "{time} 남음",
   "boostSeenBy": "지금까지 {count}명이 봤어요",
-  "boostFailed": "부스트를 시작하지 못했어요. 다시 시도해 주세요."
+  "boostFailed": "부스트를 시작하지 못했어요. 다시 시도해 주세요.",
+  "rewardedLimitReached": "오늘의 무료 잠금 해제를 모두 사용했어요 — 내일 다시 시도해 주세요"
 }

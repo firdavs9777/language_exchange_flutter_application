@@ -8708,4 +8708,7 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get boostFailed => 'Пурзӯркунӣ оғоз нашуд. Лутфан аз нав кӯшиш кунед.';
+
+  @override
+  String get rewardedLimitReached => 'Шумо кушодани ройгони имрӯзаро истифода бурдед — фардо бори дигар кӯшиш кунед';
 }

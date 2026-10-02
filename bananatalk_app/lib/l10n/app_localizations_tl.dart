@@ -8704,4 +8704,7 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get boostFailed => 'Hindi masimulan ang boost. Pakisubukan ulit.';
+
+  @override
+  String get rewardedLimitReached => 'Naubos mo na ang libreng unlock ngayong araw para dito — subukan ulit bukas';
 }

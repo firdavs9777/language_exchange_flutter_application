@@ -8725,4 +8725,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get boostFailed => 'Не удалось запустить продвижение. Попробуйте ещё раз.';
+
+  @override
+  String get rewardedLimitReached => 'Вы использовали сегодняшние бесплатные разблокировки — попробуйте завтра';
 }

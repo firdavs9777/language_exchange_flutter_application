@@ -126,6 +126,16 @@ class CoinApiClient {
     );
   }
 
+  /// Rewarded-ad unlock (Growth C6): grants the same units as [unlock] at net
+  /// zero coin cost. 200 `{granted, newBalance, rewardedToday, alreadyCredited?}`,
+  /// 429 daily cap, 400 not rewardable, 404 while the server flag is off.
+  Future<ApiResponse> rewardedUnlock(String feature) {
+    return _client.post(
+      Endpoints.coinsRewardedUnlockURL,
+      body: {'feature': feature},
+    );
+  }
+
   /// Claims the once-per-UTC-day free coin reward (Coins v2 — Task 17).
   /// Returns the raw [ApiResponse] rather than throwing — the backend call
   /// is idempotent (a double-tap/retry is a no-op), so callers branch on

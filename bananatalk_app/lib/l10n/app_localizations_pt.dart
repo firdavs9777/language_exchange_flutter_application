@@ -8704,4 +8704,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get boostFailed => 'Não foi possível iniciar seu impulso. Tente novamente.';
+
+  @override
+  String get rewardedLimitReached => 'Você usou os desbloqueios gratuitos de hoje para isso — tente novamente amanhã';
 }

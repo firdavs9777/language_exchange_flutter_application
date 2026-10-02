@@ -8704,4 +8704,7 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get boostFailed => 'Impossibile avviare il potenziamento. Riprova.';
+
+  @override
+  String get rewardedLimitReached => 'Hai usato gli sblocchi gratuiti di oggi per questo — riprova domani';
 }

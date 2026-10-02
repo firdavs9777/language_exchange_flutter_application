@@ -3280,5 +3280,6 @@
   "boostActiveTitle": "你的提升正在進行",
   "boostTimeLeft": "剩餘 {time}",
   "boostSeenBy": "目前已被 {count} 人看到",
-  "boostFailed": "無法開始提升，請重試。"
+  "boostFailed": "無法開始提升，請重試。",
+  "rewardedLimitReached": "你今天的免費解鎖次數已用完——請明天再試"
 }

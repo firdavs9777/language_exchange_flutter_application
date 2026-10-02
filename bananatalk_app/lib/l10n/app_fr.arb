@@ -3829,5 +3829,6 @@
   "boostActiveTitle": "Votre boost est actif",
   "boostTimeLeft": "{time} restant",
   "boostSeenBy": "Vu par {count} personnes jusqu'ici",
-  "boostFailed": "Impossible de lancer votre boost. Veuillez réessayer."
+  "boostFailed": "Impossible de lancer votre boost. Veuillez réessayer.",
+  "rewardedLimitReached": "Vous avez utilisé les déblocages gratuits du jour pour cela — réessayez demain"
 }

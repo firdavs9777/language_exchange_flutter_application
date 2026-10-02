@@ -8694,4 +8694,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get boostFailed => 'Không thể bắt đầu đẩy hồ sơ. Vui lòng thử lại.';
+
+  @override
+  String get rewardedLimitReached => 'Bạn đã dùng hết lượt mở khóa miễn phí hôm nay cho mục này — hãy thử lại vào ngày mai';
 }

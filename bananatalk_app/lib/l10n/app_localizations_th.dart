@@ -8694,4 +8694,7 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get boostFailed => 'เริ่มบูสต์ไม่ได้ กรุณาลองอีกครั้ง';
+
+  @override
+  String get rewardedLimitReached => 'คุณใช้การปลดล็อกฟรีของวันนี้ครบแล้ว — ลองใหม่พรุ่งนี้';
 }

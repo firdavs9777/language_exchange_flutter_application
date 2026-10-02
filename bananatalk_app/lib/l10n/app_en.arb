@@ -6083,5 +6083,9 @@
   "boostFailed": "Couldn't start your boost. Please try again.",
   "@boostFailed": {
     "description": "Profile Boost string"
+  },
+  "rewardedLimitReached": "You've used today's free unlocks for this — try again tomorrow",
+  "@rewardedLimitReached": {
+    "description": "Shown when the daily rewarded-ad unlock cap is reached"
   }
 }

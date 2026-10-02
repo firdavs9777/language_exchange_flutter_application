@@ -3589,5 +3589,6 @@
   "boostActiveTitle": "Lượt đẩy của bạn đang chạy",
   "boostTimeLeft": "Còn {time}",
   "boostSeenBy": "Đã có {count} người thấy",
-  "boostFailed": "Không thể bắt đầu đẩy hồ sơ. Vui lòng thử lại."
+  "boostFailed": "Không thể bắt đầu đẩy hồ sơ. Vui lòng thử lại.",
+  "rewardedLimitReached": "Bạn đã dùng hết lượt mở khóa miễn phí hôm nay cho mục này — hãy thử lại vào ngày mai"
 }

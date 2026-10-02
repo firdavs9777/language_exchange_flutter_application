@@ -8702,4 +8702,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get boostFailed => 'Boost başlatılamadı. Lütfen tekrar dene.';
+
+  @override
+  String get rewardedLimitReached => 'Bunun için bugünkü ücretsiz kilit açmaları kullandın — yarın tekrar dene';
 }

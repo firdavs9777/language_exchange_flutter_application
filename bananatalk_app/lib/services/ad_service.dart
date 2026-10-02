@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:bananatalk_app/services/interstitial_policy.dart';
 
 /// Whether a full-screen ad (interstitial / rewarded) may be shown.
 ///
@@ -215,6 +216,31 @@ class AdService {
     }
 
     _lastInterstitialAt = now;
+    await showInterstitial();
+    return true;
+  }
+
+  bool _interstitialShownThisSession = false;
+
+  /// At most one interstitial per app session (Growth C6). Callers gate on the
+  /// server's `rewardedLimitsEnabled` flag and pass it as [flagOn]. Returns
+  /// false and does nothing for ad-free users, when nothing is loaded, or once
+  /// one has already been shown this session.
+  Future<bool> maybeShowInterstitialOncePerSession(
+    String trigger, {
+    bool flagOn = true,
+  }) async {
+    if (!shouldShowInterstitial(
+      flagOn: flagOn,
+      adFreeKnown: _adFreeKnown,
+      isAdFree: _isAdFree,
+      alreadyShownThisSession: _interstitialShownThisSession,
+      loaded: _interstitialAd != null,
+    )) {
+      return false;
+    }
+    _interstitialShownThisSession = true;
+    debugPrint('AdService: interstitial ($trigger)');
     await showInterstitial();
     return true;
   }

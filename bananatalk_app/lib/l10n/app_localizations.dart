@@ -16075,6 +16075,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Couldn\'t start your boost. Please try again.'**
   String get boostFailed;
+
+  /// Shown when the daily rewarded-ad unlock cap is reached
+  ///
+  /// In en, this message translates to:
+  /// **'You\'ve used today\'s free unlocks for this — try again tomorrow'**
+  String get rewardedLimitReached;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

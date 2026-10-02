@@ -3589,5 +3589,6 @@
   "boostActiveTitle": "ブースト実行中",
   "boostTimeLeft": "残り {time}",
   "boostSeenBy": "これまで{count}人に表示されました",
-  "boostFailed": "ブーストを開始できませんでした。もう一度お試しください。"
+  "boostFailed": "ブーストを開始できませんでした。もう一度お試しください。",
+  "rewardedLimitReached": "今日の無料アンロックは使い切りました。明日もう一度お試しください"
 }

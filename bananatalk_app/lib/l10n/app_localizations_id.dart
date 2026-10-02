@@ -8701,4 +8701,7 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get boostFailed => 'Tidak bisa memulai boost. Silakan coba lagi.';
+
+  @override
+  String get rewardedLimitReached => 'Kamu sudah memakai pembukaan gratis hari ini untuk ini — coba lagi besok';
 }

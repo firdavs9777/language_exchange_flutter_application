@@ -3562,5 +3562,6 @@
   "boostActiveTitle": "Aktibo ang boost mo",
   "boostTimeLeft": "{time} na lang",
   "boostSeenBy": "Nakita na ng {count} tao",
-  "boostFailed": "Hindi masimulan ang boost. Pakisubukan ulit."
+  "boostFailed": "Hindi masimulan ang boost. Pakisubukan ulit.",
+  "rewardedLimitReached": "Naubos mo na ang libreng unlock ngayong araw para dito — subukan ulit bukas"
 }

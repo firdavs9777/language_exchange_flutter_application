@@ -3619,5 +3619,6 @@
   "boostActiveTitle": "Tu impulso está activo",
   "boostTimeLeft": "Quedan {time}",
   "boostSeenBy": "Visto por {count} personas hasta ahora",
-  "boostFailed": "No se pudo iniciar tu impulso. Inténtalo de nuevo."
+  "boostFailed": "No se pudo iniciar tu impulso. Inténtalo de nuevo.",
+  "rewardedLimitReached": "Has usado los desbloqueos gratuitos de hoy para esto — inténtalo de nuevo mañana"
 }

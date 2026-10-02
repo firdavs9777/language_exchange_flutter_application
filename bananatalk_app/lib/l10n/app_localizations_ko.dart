@@ -8694,4 +8694,7 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get boostFailed => '부스트를 시작하지 못했어요. 다시 시도해 주세요.';
+
+  @override
+  String get rewardedLimitReached => '오늘의 무료 잠금 해제를 모두 사용했어요 — 내일 다시 시도해 주세요';
 }

@@ -41,6 +41,8 @@ import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/pages/chat/widgets/chat_snackbar.dart';
 import 'package:bananatalk_app/pages/chat/conversation/conversation_header.dart';
 import 'package:bananatalk_app/pages/chat/conversation/conversation_messages_view.dart';
+import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
+import 'package:bananatalk_app/services/ad_service.dart';
 import 'package:bananatalk_app/pages/chat/conversation/conversation_input_area.dart';
 import 'package:bananatalk_app/pages/chat/conversation/handlers/message_action_handlers.dart';
 import 'package:bananatalk_app/pages/chat/conversation/sections/conversation_scroll_helpers.dart';
@@ -111,6 +113,11 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
   // Store notifier references for safe access in dispose
   ChatPartnersNotifier? _chatPartnersNotifier;
   ChatStateNotifier? _chatStateNotifier;
+
+  // Cached each build so dispose() (where ref is unusable) can decide whether
+  // to offer the one-per-session interstitial on leaving a real conversation.
+  int _loadedMessageCount = 0;
+  bool _rewardedLimitsFlagOn = false;
 
   // Theme change listener for wallpaper sync
   StreamSubscription? _themeChangeSubscription;
@@ -1777,6 +1784,17 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
+    // Leaving a conversation with >=10 messages: one interstitial per session,
+    // behind rewardedLimitsEnabled; ad-free users never see one.
+    if (_rewardedLimitsFlagOn && _loadedMessageCount >= 10) {
+      final flagOn = _rewardedLimitsFlagOn;
+      Future.microtask(
+        () => AdService().maybeShowInterstitialOncePerSession(
+          'chat_leave',
+          flagOn: flagOn,
+        ),
+      );
+    }
     // Clear active chat so global listener can increment unread for new messages
     // Use Future.microtask to defer provider modification until after widget tree finalization
     final notifier = _chatPartnersNotifier;
@@ -1882,6 +1900,11 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       chatPartnerId: widget.userId,
       currentUserId: _currentUserId!,
     );
+
+    _rewardedLimitsFlagOn =
+        ref.watch(appConfigProvider).valueOrNull?.rewardedLimitsEnabled ??
+        false;
+    _loadedMessageCount = ref.read(chatStateProvider(chatParams)).messages.length;
 
     // Listen for new messages and auto-scroll to bottom
     ref.listen<ChatState>(chatStateProvider(chatParams), (previous, next) {

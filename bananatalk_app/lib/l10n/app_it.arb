@@ -3829,5 +3829,6 @@
   "boostActiveTitle": "Il tuo potenziamento è attivo",
   "boostTimeLeft": "{time} rimanenti",
   "boostSeenBy": "Visto da {count} persone finora",
-  "boostFailed": "Impossibile avviare il potenziamento. Riprova."
+  "boostFailed": "Impossibile avviare il potenziamento. Riprova.",
+  "rewardedLimitReached": "Hai usato gli sblocchi gratuiti di oggi per questo — riprova domani"
 }

@@ -88,6 +88,13 @@ class AppConfig {
   /// Profile Boost + extra-matches CTA; off by default (server ships it dark).
   final bool boostsEnabled;
 
+  /// Rewarded-ad unlocks at limits + one interstitial per session; off by
+  /// default (server ships it dark).
+  final bool rewardedLimitsEnabled;
+
+  /// Feature keys the server accepts for `/coins/rewarded-unlock`.
+  final List<String> rewardedFeatures;
+
   const AppConfig({
     required this.minVersion,
     required this.latestVersion,
@@ -104,6 +111,8 @@ class AppConfig {
     this.matchesLayoutEnabled = false,
     this.referralsEnabled = false,
     this.boostsEnabled = false,
+    this.rewardedLimitsEnabled = false,
+    this.rewardedFeatures = const [],
   });
 
   factory AppConfig.fromJson(Map<String, dynamic> json) {
@@ -127,6 +136,11 @@ class AppConfig {
       matchesLayoutEnabled: (json['matchesLayoutEnabled'] as bool?) ?? false,
       referralsEnabled: (json['referralsEnabled'] as bool?) ?? false,
       boostsEnabled: (json['boostsEnabled'] as bool?) ?? false,
+      rewardedLimitsEnabled:
+          (json['rewardedLimitsEnabled'] as bool?) ?? false,
+      rewardedFeatures: ((json['rewardedFeatures'] as List?) ?? const [])
+          .whereType<String>()
+          .toList(),
     );
   }
 }

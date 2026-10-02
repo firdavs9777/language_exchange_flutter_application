@@ -3801,5 +3801,6 @@
   "boostActiveTitle": "Boost'un aktif",
   "boostTimeLeft": "{time} kaldı",
   "boostSeenBy": "Şimdiye kadar {count} kişi gördü",
-  "boostFailed": "Boost başlatılamadı. Lütfen tekrar dene."
+  "boostFailed": "Boost başlatılamadı. Lütfen tekrar dene.",
+  "rewardedLimitReached": "Bunun için bugünkü ücretsiz kilit açmaları kullandın — yarın tekrar dene"
 }

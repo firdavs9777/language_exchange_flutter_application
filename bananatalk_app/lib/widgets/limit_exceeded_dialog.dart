@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/user_limits.dart';
 import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
+import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
 import 'package:bananatalk_app/services/ad_service.dart';
+import 'package:bananatalk_app/services/coin_api_client.dart';
+import 'package:bananatalk_app/services/rewarded_unlock_policy.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/widgets/coins/unlock_cta.dart';
 import 'package:intl/intl.dart';
 
-class LimitExceededDialog extends StatelessWidget {
+class LimitExceededDialog extends ConsumerWidget {
   final String limitType;
   final LimitInfo? limitInfo;
   final DateTime? resetTime;
@@ -109,7 +113,7 @@ class LimitExceededDialog extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final colorScheme = Theme.of(context).colorScheme;
     final textPrimary = context.textPrimary;
     final secondaryText = context.textSecondary;
@@ -317,9 +321,54 @@ class LimitExceededDialog extends StatelessWidget {
         if (AdService().isRewardedAdReady)
           OutlinedButton.icon(
             onPressed: () {
+              final config = ref.read(appConfigProvider).valueOrNull;
+              final flagOn = config?.rewardedLimitsEnabled ?? false;
+              final featureKey = _featureKeyForUnlock();
+              final rewardable =
+                  featureKey != null &&
+                  (config?.rewardedFeatures.contains(featureKey) ?? false);
+              final navigator = Navigator.of(context);
+              final messenger = ScaffoldMessenger.maybeOf(context);
+              final limitMessage = AppLocalizations.of(
+                context,
+              )!.rewardedLimitReached;
               AdService().showRewarded(
-                onRewarded: () {
-                  Navigator.pop(context, 'rewarded');
+                onRewarded: () async {
+                  // Flag off / not rewardable: exactly the legacy behaviour.
+                  if (!RewardedUnlockPolicy.shouldCall(
+                    flagOn: flagOn,
+                    featureKey: featureKey,
+                    featureRewardable: rewardable,
+                  )) {
+                    navigator.pop('rewarded');
+                    return;
+                  }
+                  int? status;
+                  var replay = false;
+                  try {
+                    final res = await CoinApiClient().rewardedUnlock(
+                      featureKey!,
+                    );
+                    status = res.statusCode;
+                    final data = res.data;
+                    replay = data is Map && data['alreadyCredited'] == true;
+                  } catch (_) {
+                    status = null; // fail open
+                  }
+                  final outcome = RewardedUnlockPolicy.resultFor(
+                    flagOn: flagOn,
+                    featureKey: featureKey,
+                    featureRewardable: rewardable,
+                    statusCode: status,
+                    alreadyCredited: replay,
+                  );
+                  if (outcome.messageKey ==
+                      RewardedUnlockPolicy.limitReachedMessage) {
+                    messenger?.showSnackBar(
+                      SnackBar(content: Text(limitMessage)),
+                    );
+                  }
+                  navigator.pop(outcome.result);
                 },
               );
             },

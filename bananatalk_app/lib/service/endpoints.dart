@@ -384,6 +384,7 @@ class Endpoints {
   static const String coinsUnlockCatalogURL = 'coins/unlock-catalog';
   static const String coinsVerifyPurchaseURL = 'coins/verify-purchase';
   static const String coinsUnlockURL = 'coins/unlock';
+  static const String coinsRewardedUnlockURL = 'coins/rewarded-unlock';
 
   // Coins v2 — earn loop (Task 17).
   static const String coinsDailyRewardURL = 'coins/daily-reward';

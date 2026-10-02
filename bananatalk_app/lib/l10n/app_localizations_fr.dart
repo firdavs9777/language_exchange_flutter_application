@@ -8704,4 +8704,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get boostFailed => 'Impossible de lancer votre boost. Veuillez réessayer.';
+
+  @override
+  String get rewardedLimitReached => 'Vous avez utilisé les déblocages gratuits du jour pour cela — réessayez demain';
 }

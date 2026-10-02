@@ -3589,5 +3589,6 @@
   "boostActiveTitle": "Boost-mu sedang aktif",
   "boostTimeLeft": "Sisa {time}",
   "boostSeenBy": "Sudah dilihat {count} orang",
-  "boostFailed": "Tidak bisa memulai boost. Silakan coba lagi."
+  "boostFailed": "Tidak bisa memulai boost. Silakan coba lagi.",
+  "rewardedLimitReached": "Kamu sudah memakai pembukaan gratis hari ini untuk ini — coba lagi besok"
 }
