@@ -8608,38 +8608,38 @@ class AppLocalizationsJa extends AppLocalizations {
   String get stallRescueHint => 'Sorry for the slow reply! Still up for chatting? 😊';
 
   @override
-  String get referralTitle => 'Invite friends';
+  String get referralTitle => '友だちを招待';
 
   @override
-  String get referralSubtitle => 'Earn coins when a friend joins';
+  String get referralSubtitle => '友だちが参加するとコインがもらえます';
 
   @override
-  String get referralYourCode => 'Your invite code';
+  String get referralYourCode => 'あなたの招待コード';
 
   @override
   String referralInvitedCount(int count) {
-    return 'Invited: $count';
+    return '招待した人数: $count';
   }
 
   @override
   String referralShareText(String code, String link) {
-    return 'Join me on BananaTalk — practice languages with real people. Use my invite code $code: $link';
+    return 'BananaTalkで一緒に話そう — 本物の人と語学を練習できます。招待コード $code を使ってね: $link';
   }
 
   @override
-  String get referralCopy => 'Copy';
+  String get referralCopy => 'コピー';
 
   @override
-  String get referralShare => 'Share';
+  String get referralShare => 'シェア';
 
   @override
-  String get referralCopied => 'Copied';
+  String get referralCopied => 'コピーしました';
 
   @override
   String referralClaimed(int coins) {
-    return 'You earned $coins coins!';
+    return '$coinsコインを獲得しました！';
   }
 
   @override
-  String get referralHowItWorks => 'When a friend signs up with your code and completes their profile, you both get coins.';
+  String get referralHowItWorks => '友だちがあなたのコードで登録してプロフィールを完成させると、2人ともコインがもらえます。';
 }

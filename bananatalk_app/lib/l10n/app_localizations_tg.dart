@@ -8622,38 +8622,38 @@ class AppLocalizationsTg extends AppLocalizations {
   String get stallRescueHint => 'Sorry for the slow reply! Still up for chatting? 😊';
 
   @override
-  String get referralTitle => 'Invite friends';
+  String get referralTitle => 'Дӯстонро даъват кунед';
 
   @override
-  String get referralSubtitle => 'Earn coins when a friend joins';
+  String get referralSubtitle => 'Вақте дӯст ҳамроҳ мешавад, танга гиред';
 
   @override
-  String get referralYourCode => 'Your invite code';
+  String get referralYourCode => 'Рамзи даъвати шумо';
 
   @override
   String referralInvitedCount(int count) {
-    return 'Invited: $count';
+    return 'Даъватшудагон: $count';
   }
 
   @override
   String referralShareText(String code, String link) {
-    return 'Join me on BananaTalk — practice languages with real people. Use my invite code $code: $link';
+    return 'Ба ман дар BananaTalk ҳамроҳ шав — забонҳоро бо одамони воқеӣ машқ кун. Рамзи даъвати маро истифода бар $code: $link';
   }
 
   @override
-  String get referralCopy => 'Copy';
+  String get referralCopy => 'Нусха гирифтан';
 
   @override
-  String get referralShare => 'Share';
+  String get referralShare => 'Мубодила';
 
   @override
-  String get referralCopied => 'Copied';
+  String get referralCopied => 'Нусха гирифта шуд';
 
   @override
   String referralClaimed(int coins) {
-    return 'You earned $coins coins!';
+    return 'Шумо $coins танга гирифтед!';
   }
 
   @override
-  String get referralHowItWorks => 'When a friend signs up with your code and completes their profile, you both get coins.';
+  String get referralHowItWorks => 'Вақте дӯст бо рамзи шумо сабти ном мекунад ва профилашро пур мекунад, ҳардуи шумо танга мегиред.';
 }

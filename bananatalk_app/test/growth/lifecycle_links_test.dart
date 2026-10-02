@@ -80,6 +80,104 @@ void main() {
     });
   });
 
+  // F1 — the deployed backend lifecycle job sends only `route` (no `type`).
+  group('live lifecycle payload (route only)', () {
+    String? pathFor(Map<String, dynamic> raw) {
+      final data = NotificationRouter.normalizeLifecycleData(raw);
+      return NotificationRouter.planFor(
+              NotificationRouter.resolveType(data), data)
+          .path;
+    }
+
+    test('chat/u1 -> /chat/u1', () {
+      expect(NotificationRouter.resolveType({'route': 'chat/u1'}),
+          'lifecycle_online');
+      expect(pathFor({'route': 'chat/u1'}), '/chat/u1');
+    });
+    test('community/waves -> /tabs/1 + Waves sub-tab', () {
+      final type = NotificationRouter.resolveType({'route': 'community/waves'});
+      expect(type, 'lifecycle_waves');
+      expect(pathFor({'route': 'community/waves'}), '/tabs/1');
+      expect(NotificationRouter.communitySubTabForType(type),
+          communityWavesSubTab);
+    });
+    test('community/matches -> /tabs/1 + Matches sub-tab', () {
+      final type =
+          NotificationRouter.resolveType({'route': 'community/matches'});
+      expect(type, 'daily_matches');
+      expect(pathFor({'route': 'community/matches'}), '/tabs/1');
+      expect(NotificationRouter.communitySubTabForType(type),
+          communityMatchesSubTab);
+    });
+    test('explicit type wins over route', () {
+      final raw = <String, dynamic>{
+        'type': 'chat_message',
+        'senderId': 's1',
+        'route': 'community/waves',
+      };
+      expect(NotificationRouter.resolveType(raw), 'chat_message');
+      expect(pathFor(raw), '/chat/s1');
+    });
+    test('chat/ with empty id -> no crash, home fallback', () {
+      final data = NotificationRouter.normalizeLifecycleData({'route': 'chat/'});
+      expect(NotificationRouter.resolveType(data), '');
+      expect(data.containsKey('userId'), isFalse);
+      final plan = NotificationRouter.planFor('', data);
+      expect(plan.path, '/home');
+      expect(plan.usePushAfterHome, isFalse);
+    });
+    test('normalize injects type and userId, keeps other fields', () {
+      final data = NotificationRouter.normalizeLifecycleData(
+          {'route': 'chat/u9', 'notificationId': 'n1'});
+      expect(data['type'], 'lifecycle_online');
+      expect(data['userId'], 'u9');
+      expect(data['notificationId'], 'n1');
+    });
+  });
+
+  // F2 — sub-tab pushes go straight to /tabs/1 (no hidden /home CommunityMain
+  // consuming the request first); detail pushes keep home + push.
+  group('planFor', () {
+    test('lifecycle_waves is a direct go(/tabs/1)', () {
+      final plan = NotificationRouter.planFor(
+          'lifecycle_waves', {'route': 'community/waves'});
+      expect(plan.path, '/tabs/1');
+      expect(plan.usePushAfterHome, isFalse);
+    });
+    test('daily_matches is a direct go(/tabs/1)', () {
+      final plan = NotificationRouter.planFor('daily_matches', {});
+      expect(plan.path, '/tabs/1');
+      expect(plan.usePushAfterHome, isFalse);
+    });
+    test('chat_message is home + push', () {
+      final plan =
+          NotificationRouter.planFor('chat_message', {'senderId': 's'});
+      expect(plan.path, '/chat/s');
+      expect(plan.usePushAfterHome, isTrue);
+    });
+    test('lifecycle_online is home + push', () {
+      final plan =
+          NotificationRouter.planFor('lifecycle_online', {'userId': 'u1'});
+      expect(plan.path, '/chat/u1');
+      expect(plan.usePushAfterHome, isTrue);
+    });
+  });
+
+  // Warm app: if the tab shell is already the base route, re-go to it (same
+  // page key -> same CommunityMain) instead of building a second shell whose
+  // sibling would consume the pending sub-tab first.
+  group('subTabGoLocation', () {
+    test('reuses an existing shell location', () {
+      expect(NotificationRouter.subTabGoLocation('/home'), '/home');
+      expect(NotificationRouter.subTabGoLocation('/tabs/3'), '/tabs/3');
+    });
+    test('otherwise opens /tabs/1', () {
+      expect(NotificationRouter.subTabGoLocation(null), '/tabs/1');
+      expect(NotificationRouter.subTabGoLocation('/splash'), '/tabs/1');
+      expect(NotificationRouter.subTabGoLocation('/login'), '/tabs/1');
+    });
+  });
+
   group('deep link parser', () {
     test('community/matches and waves (https + scheme)', () {
       expect(

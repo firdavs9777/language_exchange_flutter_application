@@ -10,6 +10,7 @@ import 'package:bananatalk_app/pages/community/tabs/partner_discovery_tab.dart';
 import 'package:bananatalk_app/pages/community/tabs/nearby_tab.dart';
 import 'package:bananatalk_app/pages/community/gatherings/gatherings_tab.dart';
 import 'package:bananatalk_app/pages/community/tabs/waves_tab.dart';
+import 'package:bananatalk_app/pages/menu_tab/TabBarMenu.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/widgets/notifications/notification_priming_sheet.dart';
 import 'package:bananatalk_app/providers/provider_models/daily_match_model.dart';
@@ -157,10 +158,37 @@ void main() {
     await tester.pumpWidget(_wrapTab(
       MatchesTab(primeNotifications: (_) async => calls++),
       [
+        selectedTabProvider.overrideWith((ref) => 1),
         dailyMatchesProvider.overrideWith(
             (ref) async => DailyMatchesResult.fromJson(_matchJson())),
       ],
     ));
+    await tester.pumpAndSettle();
+    expect(calls, 1);
+  });
+
+  testWidgets('MatchesTab does not prime while Community is hidden; primes '
+      'once when the user switches to it', (tester) async {
+    var calls = 0;
+    await tester.pumpWidget(_wrapTab(
+      MatchesTab(primeNotifications: (_) async => calls++),
+      [
+        selectedTabProvider.overrideWith((ref) => 0),
+        dailyMatchesProvider.overrideWith(
+            (ref) async => DailyMatchesResult.fromJson(_matchJson())),
+      ],
+    ));
+    await tester.pumpAndSettle();
+    expect(calls, 0);
+
+    final c = ProviderScope.containerOf(tester.element(find.byType(MatchesTab)));
+    c.read(selectedTabProvider.notifier).state = 1;
+    await tester.pumpAndSettle();
+    expect(calls, 1);
+
+    c.read(selectedTabProvider.notifier).state = 0;
+    await tester.pumpAndSettle();
+    c.read(selectedTabProvider.notifier).state = 1;
     await tester.pumpAndSettle();
     expect(calls, 1);
   });
@@ -170,6 +198,7 @@ void main() {
     await tester.pumpWidget(_wrapTab(
       MatchesTab(primeNotifications: (_) async => calls++),
       [
+        selectedTabProvider.overrideWith((ref) => 1),
         dailyMatchesProvider.overrideWith(
             (ref) async => DailyMatchesResult.fromJson({'matches': []})),
       ],

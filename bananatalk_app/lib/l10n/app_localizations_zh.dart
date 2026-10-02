@@ -8608,40 +8608,40 @@ class AppLocalizationsZh extends AppLocalizations {
   String get stallRescueHint => 'Sorry for the slow reply! Still up for chatting? 😊';
 
   @override
-  String get referralTitle => 'Invite friends';
+  String get referralTitle => '邀请好友';
 
   @override
-  String get referralSubtitle => 'Earn coins when a friend joins';
+  String get referralSubtitle => '好友加入即可获得金币';
 
   @override
-  String get referralYourCode => 'Your invite code';
+  String get referralYourCode => '你的邀请码';
 
   @override
   String referralInvitedCount(int count) {
-    return 'Invited: $count';
+    return '已邀请：$count';
   }
 
   @override
   String referralShareText(String code, String link) {
-    return 'Join me on BananaTalk — practice languages with real people. Use my invite code $code: $link';
+    return '来 BananaTalk 和我一起吧——和真人练习语言。使用我的邀请码 $code：$link';
   }
 
   @override
-  String get referralCopy => 'Copy';
+  String get referralCopy => '复制';
 
   @override
-  String get referralShare => 'Share';
+  String get referralShare => '分享';
 
   @override
-  String get referralCopied => 'Copied';
+  String get referralCopied => '已复制';
 
   @override
   String referralClaimed(int coins) {
-    return 'You earned $coins coins!';
+    return '你获得了 $coins 金币！';
   }
 
   @override
-  String get referralHowItWorks => 'When a friend signs up with your code and completes their profile, you both get coins.';
+  String get referralHowItWorks => '好友使用你的邀请码注册并完善个人资料后，你们双方都能获得金币。';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -17248,38 +17248,38 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get stallRescueHint => 'Sorry for the slow reply! Still up for chatting? 😊';
 
   @override
-  String get referralTitle => 'Invite friends';
+  String get referralTitle => '邀請好友';
 
   @override
-  String get referralSubtitle => 'Earn coins when a friend joins';
+  String get referralSubtitle => '好友加入即可獲得金幣';
 
   @override
-  String get referralYourCode => 'Your invite code';
+  String get referralYourCode => '你的邀請碼';
 
   @override
   String referralInvitedCount(int count) {
-    return 'Invited: $count';
+    return '已邀請：$count';
   }
 
   @override
   String referralShareText(String code, String link) {
-    return 'Join me on BananaTalk — practice languages with real people. Use my invite code $code: $link';
+    return '來 BananaTalk 和我一起吧——和真人練習語言。使用我的邀請碼 $code：$link';
   }
 
   @override
-  String get referralCopy => 'Copy';
+  String get referralCopy => '複製';
 
   @override
-  String get referralShare => 'Share';
+  String get referralShare => '分享';
 
   @override
-  String get referralCopied => 'Copied';
+  String get referralCopied => '已複製';
 
   @override
   String referralClaimed(int coins) {
-    return 'You earned $coins coins!';
+    return '你獲得了 $coins 金幣！';
   }
 
   @override
-  String get referralHowItWorks => 'When a friend signs up with your code and completes their profile, you both get coins.';
+  String get referralHowItWorks => '好友使用你的邀請碼註冊並完成個人檔案後，你們雙方都能獲得金幣。';
 }

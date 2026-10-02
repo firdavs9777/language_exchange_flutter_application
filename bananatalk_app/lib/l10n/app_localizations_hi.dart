@@ -8618,38 +8618,38 @@ class AppLocalizationsHi extends AppLocalizations {
   String get stallRescueHint => 'Sorry for the slow reply! Still up for chatting? 😊';
 
   @override
-  String get referralTitle => 'Invite friends';
+  String get referralTitle => 'दोस्तों को आमंत्रित करें';
 
   @override
-  String get referralSubtitle => 'Earn coins when a friend joins';
+  String get referralSubtitle => 'दोस्त के जुड़ने पर सिक्के कमाएँ';
 
   @override
-  String get referralYourCode => 'Your invite code';
+  String get referralYourCode => 'आपका आमंत्रण कोड';
 
   @override
   String referralInvitedCount(int count) {
-    return 'Invited: $count';
+    return 'आमंत्रित: $count';
   }
 
   @override
   String referralShareText(String code, String link) {
-    return 'Join me on BananaTalk — practice languages with real people. Use my invite code $code: $link';
+    return 'BananaTalk पर मेरे साथ जुड़ें — असली लोगों के साथ भाषाओं का अभ्यास करें। मेरा आमंत्रण कोड $code इस्तेमाल करें: $link';
   }
 
   @override
-  String get referralCopy => 'Copy';
+  String get referralCopy => 'कॉपी करें';
 
   @override
-  String get referralShare => 'Share';
+  String get referralShare => 'शेयर करें';
 
   @override
-  String get referralCopied => 'Copied';
+  String get referralCopied => 'कॉपी हो गया';
 
   @override
   String referralClaimed(int coins) {
-    return 'You earned $coins coins!';
+    return 'आपने $coins सिक्के कमाए!';
   }
 
   @override
-  String get referralHowItWorks => 'When a friend signs up with your code and completes their profile, you both get coins.';
+  String get referralHowItWorks => 'जब कोई दोस्त आपके कोड से साइन अप करके अपनी प्रोफ़ाइल पूरी करता है, तो आप दोनों को सिक्के मिलते हैं।';
 }

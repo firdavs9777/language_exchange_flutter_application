@@ -6,6 +6,7 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/chat/conversation/chat_conversation_screen.dart';
 import 'package:bananatalk_app/pages/community/card/match_card.dart';
 import 'package:bananatalk_app/pages/community/widgets/send_wave_sheet.dart';
+import 'package:bananatalk_app/pages/menu_tab/TabBarMenu.dart';
 import 'package:bananatalk_app/providers/provider_models/daily_match_model.dart';
 import 'package:bananatalk_app/providers/provider_root/daily_matches_provider.dart';
 import 'package:bananatalk_app/services/interaction_service.dart';
@@ -38,8 +39,20 @@ class _MatchesTabState extends ConsumerState<MatchesTab> {
   /// The notification ask is offered after the first non-empty load only.
   bool _primeOffered = false;
 
+  /// A non-empty batch is loaded, so the ask can be made once visible.
+  bool _hasMatches = false;
+
+  /// Top-level index of the Community tab in TabsScreen.
+  static const int _communityTab = 1;
+
+  /// TabsScreen builds every page eagerly, so this tab loads while the user
+  /// is on another top-level tab. Only offer when Community is selected and
+  /// our route is on top; otherwise leave [_primeOffered] unset so the
+  /// selectedTabProvider listener can offer when the user switches over.
   void _maybePrimeOnFirstMatches() {
     if (_primeOffered) return;
+    if (ref.read(selectedTabProvider) != _communityTab) return;
+    if (ModalRoute.of(context)?.isCurrent == false) return;
     _primeOffered = true;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) widget.primeNotifications(context);
@@ -100,6 +113,9 @@ class _MatchesTabState extends ConsumerState<MatchesTab> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    ref.listen<int>(selectedTabProvider, (_, next) {
+      if (next == _communityTab && _hasMatches) _maybePrimeOnFirstMatches();
+    });
     final async = ref.watch(dailyMatchesProvider);
     return async.when(
       loading: () => const Center(child: CircularProgressIndicator()),
@@ -122,6 +138,7 @@ class _MatchesTabState extends ConsumerState<MatchesTab> {
             .where((m) => m.user.id.isNotEmpty && !_skipped.contains(m.user.id))
             .toList();
         if (matches.isEmpty) {
+          _hasMatches = false;
           return RefreshIndicator(
             onRefresh: _refresh,
             child: CustomScrollView(
@@ -135,6 +152,7 @@ class _MatchesTabState extends ConsumerState<MatchesTab> {
             ),
           );
         }
+        _hasMatches = true;
         _maybePrimeOnFirstMatches();
         return RefreshIndicator(
           onRefresh: _refresh,

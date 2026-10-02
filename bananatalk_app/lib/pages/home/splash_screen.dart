@@ -10,9 +10,7 @@ import 'package:bananatalk_app/services/notification_service.dart';
 import 'package:bananatalk_app/services/version_check_coordinator.dart';
 import 'package:bananatalk_app/services/welcome_back_service.dart';
 import 'package:bananatalk_app/widgets/welcome_back_modal.dart';
-import 'package:bananatalk_app/router/app_router.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -28,7 +26,6 @@ class SplashScreen extends ConsumerStatefulWidget {
 
 class _SplashScreenState extends ConsumerState<SplashScreen>
     with TickerProviderStateMixin {
-  RemoteMessage? _pendingNotification;
   late final AnimationController _entranceController;
   late final AnimationController _dotsController;
   late final Animation<double> _logoFade;
@@ -75,18 +72,14 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
   ///
   /// Pulled into its own future so it can run ALONGSIDE the auth restore
   /// instead of in front of it. Nothing about deciding where to navigate
-  /// depends on the badge being cleared or the messaging SDK being ready —
-  /// only the pending-notification payload does, and that is awaited before
-  /// navigation.
+  /// depends on the badge being cleared or the messaging SDK being ready.
+  /// Notification taps are routed by NotificationService/NotificationRouter.
   Future<void> _prepareNotifications() async {
     try {
       await NotificationService().initialize(context: context);
       await NotificationService().clearBadge();
-      final initialMessage =
-          await FirebaseMessaging.instance.getInitialMessage();
-      if (initialMessage != null) {
-        _pendingNotification = initialMessage;
-      }
+      // No getInitialMessage() here: it is consume-once and
+      // NotificationService.initialize() already read and routed it.
     } catch (e) {
       // Never block start-up on notifications; the app is usable without them.
       debugPrint('[splash] notification set-up failed: $e');
@@ -102,7 +95,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
     final authService = ref.read(authServiceProvider);
     final isAuthenticated = await authService.initializeAuth();
 
-    // Awaited before navigating, because _pendingNotification decides where.
+    // Awaited before navigating so set-up has finished first.
     await notificationsReady;
 
     // Task 7 Step 1 (Workstream E-core): register the FCM token on every
@@ -199,45 +192,9 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
     if (!mounted) return;
     if (isAuthenticated) {
       context.go('/home');
-      if (_pendingNotification != null) {
-        await Future.delayed(const Duration(milliseconds: 500));
-        if (mounted) {
-          _handlePendingNotification(_pendingNotification!.data);
-        }
-      }
     } else {
       context.go('/login');
     }
-  }
-
-  void _handlePendingNotification(Map<String, dynamic> data) {
-    final type = data['type']?.toString() ?? '';
-    try {
-      switch (type) {
-        case 'chat_message':
-          final senderId = data['senderId']?.toString();
-          if (senderId != null) goRouter.push('/chat/$senderId');
-          break;
-        case 'moment_like':
-        case 'moment_comment':
-        case 'follower_moment':
-          final momentId = data['momentId']?.toString();
-          if (momentId != null) goRouter.push('/moment/$momentId');
-          break;
-        case 'friend_request':
-        case 'profile_visit':
-          final userId = data['userId']?.toString();
-          if (userId != null) goRouter.push('/profile/$userId');
-          break;
-        case 'incoming_call':
-          break;
-        case 'missed_call':
-          final callerId = data['callerId']?.toString();
-          if (callerId != null) goRouter.push('/chat/$callerId');
-          break;
-        default:
-      }
-    } catch (e) {}
   }
 
   @override

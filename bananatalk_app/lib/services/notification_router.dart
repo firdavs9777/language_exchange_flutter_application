@@ -3,20 +3,34 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/pages/community/main/community_main.dart';
+import 'package:bananatalk_app/pages/menu_tab/TabBarMenu.dart';
 import 'package:bananatalk_app/models/call_model.dart';
 import 'package:bananatalk_app/screens/incoming_call_screen.dart';
 import 'package:bananatalk_app/services/call_manager.dart';
 import 'package:bananatalk_app/services/notification_api_client.dart';
 import 'package:bananatalk_app/router/app_router.dart';
 
+/// Where a notification tap should navigate. [usePushAfterHome] true means
+/// `go('/home')` then push [path] (proper back stack for detail screens);
+/// false means a direct `go(path)`.
+class NavigationPlan {
+  const NavigationPlan({required this.path, required this.usePushAfterHome});
+
+  final String path;
+  final bool usePushAfterHome;
+}
+
 class NotificationRouter {
   /// Handle notification tap and navigate to appropriate screen
   /// Uses goRouter directly to avoid context mounting issues
   static Future<void> handleNotification(
     BuildContext? context,
-    Map<String, dynamic> data,
+    Map<String, dynamic> rawData,
   ) async {
-    final type = data['type']?.toString() ?? '';
+    // The lifecycle job may send only `route` (no `type`/`userId`); derive
+    // them so the type-based routing below works on the live payload.
+    final data = normalizeLifecycleData(rawData);
+    final type = resolveType(data);
 
     // ---- Action-button branching (iOS categories / Android actions) ----
     // `_actionId` and `_input` are injected by NotificationService when a
@@ -73,36 +87,139 @@ class NotificationRouter {
         return;
       }
 
-      final targetPath = targetPathForType(type, data);
+      final plan = planFor(type, data);
 
       // Lifecycle pushes land on a specific Community sub-tab. There is no
       // global ProviderContainer, so reach the app's one through the router's
       // navigator context (ProviderScope sits above MaterialApp.router).
       final subTab = communitySubTabForType(type);
       if (subTab != null) {
+        // Direct go, never a `/home` detour: TabsScreen builds every page
+        // eagerly, so a second shell's hidden CommunityMain would consume
+        // the pending sub-tab (and mount WavesTab -> mark waves read) before
+        // the visible one. When a shell is already the base route, re-go to
+        // that same location so the one existing CommunityMain takes it.
+        final location = subTabGoLocation(_currentBaseLocation());
         final navContext = goRouter.routerDelegate.navigatorKey.currentContext;
         if (navContext != null) {
-          ProviderScope.containerOf(navContext, listen: false)
-              .read(communityPendingSubTabProvider.notifier)
-              .state = subTab;
+          final container = ProviderScope.containerOf(
+            navContext,
+            listen: false,
+          );
+          container.read(communityPendingSubTabProvider.notifier).state =
+              subTab;
+          container.read(selectedTabProvider.notifier).state =
+              communityTopLevelTab;
         }
+        goRouter.go(location);
+        return;
+      }
+
+      if (!plan.usePushAfterHome) {
+        goRouter.go(plan.path);
+        return;
       }
 
       // Navigate to home first, then push the target screen after
       // a frame delay to ensure the home route is fully settled.
       // This creates a proper back stack so the back button works.
       goRouter.go('/home');
-      if (targetPath != null) {
-        Future.delayed(const Duration(milliseconds: 300), () {
-          goRouter.push(targetPath);
-        });
-      }
+      Future.delayed(const Duration(milliseconds: 300), () {
+        goRouter.push(plan.path);
+      });
     } catch (e) {
       try {
         goRouter.go('/home');
-      } catch (navError) {
+      } catch (navError) {}
+    }
+  }
+
+  /// The notification type: the explicit `type` when present, else one
+  /// derived from a lifecycle `route` (`community/matches`,
+  /// `community/waves`, `chat/<userId>`), else ''. Pure.
+  static String resolveType(Map<String, dynamic> data) {
+    final explicit = data['type']?.toString() ?? '';
+    if (explicit.isNotEmpty) return explicit;
+    return _deriveFromRoute(data['route'])?.type ?? '';
+  }
+
+  /// Copy of [data] with `type` (and `userId` for `chat/<id>`) injected when
+  /// the payload carries only a lifecycle `route`. An explicit `type` is
+  /// never overwritten. Pure.
+  static Map<String, dynamic> normalizeLifecycleData(Map data) {
+    final out = <String, dynamic>{
+      for (final e in data.entries) e.key.toString(): e.value,
+    };
+    final explicit = out['type']?.toString() ?? '';
+    if (explicit.isNotEmpty) return out;
+    final derived = _deriveFromRoute(out['route']);
+    if (derived == null) return out;
+    out['type'] = derived.type;
+    final userId = out['userId']?.toString() ?? '';
+    if (derived.userId != null && userId.isEmpty) {
+      out['userId'] = derived.userId;
+    }
+    return out;
+  }
+
+  static ({String type, String? userId})? _deriveFromRoute(dynamic raw) {
+    var route = raw?.toString() ?? '';
+    while (route.startsWith('/')) {
+      route = route.substring(1);
+    }
+    if (route == 'community/matches') {
+      return (type: 'daily_matches', userId: null);
+    }
+    if (route == 'community/waves') {
+      return (type: 'lifecycle_waves', userId: null);
+    }
+    if (route.startsWith('chat/')) {
+      final id = route.substring('chat/'.length);
+      if (id.isNotEmpty && !id.contains('/')) {
+        return (type: 'lifecycle_online', userId: id);
       }
     }
+    return null;
+  }
+
+  /// Top-level index of the Community tab in TabsScreen.
+  static const int communityTopLevelTab = 1;
+
+  /// Where to `go` for a Community sub-tab push given the current base
+  /// (non-pushed) location: an existing tab-shell location is reused (same
+  /// page key, same CommunityMain), anything else opens `/tabs/1`. Pure.
+  static String subTabGoLocation(String? currentBase) {
+    if (currentBase != null &&
+        (currentBase == '/home' || currentBase.startsWith('/tabs/'))) {
+      return currentBase;
+    }
+    return '/tabs/$communityTopLevelTab';
+  }
+
+  static String? _currentBaseLocation() {
+    try {
+      final matches = goRouter.routerDelegate.currentConfiguration.matches;
+      return matches.isEmpty ? null : matches.first.matchedLocation;
+    } catch (_) {
+      return null;
+    }
+  }
+
+  /// Pure navigation plan for a tap. Community sub-tab types go straight to
+  /// `/tabs/1`; everything with a target path goes home then pushes it; no
+  /// target means just `/home`.
+  static NavigationPlan planFor(String type, Map<String, dynamic> data) {
+    final targetPath = targetPathForType(type, data);
+    if (communitySubTabForType(type) != null) {
+      return NavigationPlan(
+        path: targetPath ?? '/tabs/1',
+        usePushAfterHome: false,
+      );
+    }
+    if (targetPath == null) {
+      return const NavigationPlan(path: '/home', usePushAfterHome: false);
+    }
+    return NavigationPlan(path: targetPath, usePushAfterHome: true);
   }
 
   /// Community sub-tab a lifecycle push should open, or null for none. Kept
@@ -292,8 +409,15 @@ class NotificationRouter {
     if (route.startsWith('/community')) return '/tabs/1';
     // Prefixes that exist in app_router.dart — safe to push as-is.
     const knownPrefixes = [
-      '/chat/', '/moment/', '/profile/', '/tabs/', '/matching',
-      '/leaderboard', '/call-history', '/exam-study', '/home',
+      '/chat/',
+      '/moment/',
+      '/profile/',
+      '/tabs/',
+      '/matching',
+      '/leaderboard',
+      '/call-history',
+      '/exam-study',
+      '/home',
     ];
     for (final prefix in knownPrefixes) {
       if (route == prefix || route.startsWith(prefix)) return route;
@@ -320,7 +444,9 @@ class NotificationRouter {
     final callId = data['callId']?.toString() ?? '';
     final callerId = data['callerId']?.toString() ?? '';
     final callerName = data['callerName']?.toString() ?? 'Unknown';
-    final callerProfilePicture = data['callerProfilePicture']?.toString() ?? data['callerAvatar']?.toString();
+    final callerProfilePicture =
+        data['callerProfilePicture']?.toString() ??
+        data['callerAvatar']?.toString();
     final callTypeStr = data['callType']?.toString() ?? 'audio';
     // Step 8 / B5: pre-minted LiveKit fields delivered on the FCM payload by
     // the B1 /calls/initiate endpoint. May be null on legacy payloads — in

@@ -8608,38 +8608,38 @@ class AppLocalizationsTh extends AppLocalizations {
   String get stallRescueHint => 'Sorry for the slow reply! Still up for chatting? 😊';
 
   @override
-  String get referralTitle => 'Invite friends';
+  String get referralTitle => 'ชวนเพื่อน';
 
   @override
-  String get referralSubtitle => 'Earn coins when a friend joins';
+  String get referralSubtitle => 'รับเหรียญเมื่อเพื่อนเข้าร่วม';
 
   @override
-  String get referralYourCode => 'Your invite code';
+  String get referralYourCode => 'รหัสเชิญของคุณ';
 
   @override
   String referralInvitedCount(int count) {
-    return 'Invited: $count';
+    return 'เชิญแล้ว: $count';
   }
 
   @override
   String referralShareText(String code, String link) {
-    return 'Join me on BananaTalk — practice languages with real people. Use my invite code $code: $link';
+    return 'มาร่วม BananaTalk กับฉันสิ — ฝึกภาษากับคนจริง ใช้รหัสเชิญของฉัน $code: $link';
   }
 
   @override
-  String get referralCopy => 'Copy';
+  String get referralCopy => 'คัดลอก';
 
   @override
-  String get referralShare => 'Share';
+  String get referralShare => 'แชร์';
 
   @override
-  String get referralCopied => 'Copied';
+  String get referralCopied => 'คัดลอกแล้ว';
 
   @override
   String referralClaimed(int coins) {
-    return 'You earned $coins coins!';
+    return 'คุณได้รับ $coins เหรียญ!';
   }
 
   @override
-  String get referralHowItWorks => 'When a friend signs up with your code and completes their profile, you both get coins.';
+  String get referralHowItWorks => 'เมื่อเพื่อนสมัครด้วยรหัสของคุณและกรอกโปรไฟล์ครบ คุณทั้งคู่จะได้รับเหรียญ';
 }
