@@ -3671,7 +3671,11 @@
   "thanksForParticipating": "Katıldığın için teşekkürler! +10 XP 🎉",
   "deleteWordConfirm": "“{word}” kelimeniz silinsin mi?",
   "@deleteWordConfirm": {
-    "placeholders": { "word": { "type": "String" } }
+    "placeholders": {
+      "word": {
+        "type": "String"
+      }
+    }
   },
   "wordDeleted": "Kelime silindi",
   "vocabularyLoadFailed": "Kelimeleriniz yüklenemedi",
@@ -3783,5 +3787,19 @@
   "referralShare": "Paylaş",
   "referralCopied": "Kopyalandı",
   "referralClaimed": "{coins} coin kazandın!",
-  "referralHowItWorks": "Bir arkadaşın kodunla kaydolup profilini tamamladığında ikiniz de coin kazanırsınız."
+  "referralHowItWorks": "Bir arkadaşın kodunla kaydolup profilini tamamladığında ikiniz de coin kazanırsınız.",
+  "boostTitle": "Profilimi öne çıkar",
+  "boostSubtitle": "24 saat boyunca daha fazla partner tarafından görül",
+  "boostFromMatches": "Daha fazla kişi tarafından görül",
+  "boostedChip": "Öne çıkarıldı",
+  "boostCapacityFull": "Şu anda tüm boost yerleri dolu — birkaç saat sonra tekrar dene",
+  "extraMatchesCta": "+3 eşleşme daha — {cost} jeton",
+  "boostExplain": "Dilleri sana uyan herkes için 24 saat boyunca 6. eşleşme ol.",
+  "boostCostLine": "Ücret: {cost} jeton",
+  "boostBalanceLine": "Bakiyen: {balance} jeton",
+  "boostConfirm": "Boost'u onayla",
+  "boostActiveTitle": "Boost'un aktif",
+  "boostTimeLeft": "{time} kaldı",
+  "boostSeenBy": "Şimdiye kadar {count} kişi gördü",
+  "boostFailed": "Boost başlatılamadı. Lütfen tekrar dene."
 }

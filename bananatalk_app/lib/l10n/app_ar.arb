@@ -3489,7 +3489,11 @@
   "thanksForParticipating": "شكرًا لمشاركتك! +10 XP 🎉",
   "deleteWordConfirm": "حذف «{word}» من مفرداتك؟",
   "@deleteWordConfirm": {
-    "placeholders": { "word": { "type": "String" } }
+    "placeholders": {
+      "word": {
+        "type": "String"
+      }
+    }
   },
   "wordDeleted": "تم حذف الكلمة",
   "vocabularyLoadFailed": "تعذر تحميل مفرداتك",
@@ -3601,5 +3605,19 @@
   "referralShare": "مشاركة",
   "referralCopied": "تم النسخ",
   "referralClaimed": "لقد ربحت {coins} عملة!",
-  "referralHowItWorks": "عندما يسجّل صديق برمزك ويُكمل ملفه الشخصي، يحصل كلاكما على عملات."
+  "referralHowItWorks": "عندما يسجّل صديق برمزك ويُكمل ملفه الشخصي، يحصل كلاكما على عملات.",
+  "boostTitle": "عزّز ملفي الشخصي",
+  "boostSubtitle": "يراك المزيد من الشركاء لمدة 24 ساعة",
+  "boostFromMatches": "ليراك المزيد من الأشخاص",
+  "boostedChip": "معزَّز",
+  "boostCapacityFull": "جميع أماكن التعزيز ممتلئة الآن — حاول مجددًا بعد ساعات قليلة",
+  "extraMatchesCta": "+3 تطابقات إضافية — {cost} عملة",
+  "boostExplain": "كن التطابق السادس لكل من تناسبه لغاتك، لمدة 24 ساعة.",
+  "boostCostLine": "التكلفة: {cost} عملة",
+  "boostBalanceLine": "رصيدك: {balance} عملة",
+  "boostConfirm": "تأكيد التعزيز",
+  "boostActiveTitle": "تعزيزك نشط",
+  "boostTimeLeft": "المتبقي {time}",
+  "boostSeenBy": "شاهدك {count} أشخاص حتى الآن",
+  "boostFailed": "تعذّر بدء التعزيز. يُرجى المحاولة مرة أخرى."
 }

@@ -3432,7 +3432,11 @@
   "thanksForParticipating": "Salamat sa paglahok! +10 XP 🎉",
   "deleteWordConfirm": "Burahin ang “{word}” sa iyong vocabulary?",
   "@deleteWordConfirm": {
-    "placeholders": { "word": { "type": "String" } }
+    "placeholders": {
+      "word": {
+        "type": "String"
+      }
+    }
   },
   "wordDeleted": "Nabura ang salita",
   "vocabularyLoadFailed": "Hindi ma-load ang iyong vocabulary",
@@ -3544,5 +3548,19 @@
   "referralShare": "Ibahagi",
   "referralCopied": "Nakopya",
   "referralClaimed": "Nakakuha ka ng {coins} coins!",
-  "referralHowItWorks": "Kapag nag-sign up ang kaibigan gamit ang code mo at kinumpleto ang profile niya, pareho kayong makakakuha ng coins."
+  "referralHowItWorks": "Kapag nag-sign up ang kaibigan gamit ang code mo at kinumpleto ang profile niya, pareho kayong makakakuha ng coins.",
+  "boostTitle": "I-boost ang profile ko",
+  "boostSubtitle": "Makita ng mas maraming partner sa loob ng 24 oras",
+  "boostFromMatches": "Makita ng mas maraming tao",
+  "boostedChip": "Naka-boost",
+  "boostCapacityFull": "Puno na ang lahat ng boost slot ngayon — subukan ulit sa loob ng ilang oras",
+  "extraMatchesCta": "+3 pang match — {cost} coins",
+  "boostExplain": "Maging ika-6 na match ng lahat ng may katugmang wika sa loob ng 24 oras.",
+  "boostCostLine": "Halaga: {cost} coins",
+  "boostBalanceLine": "Balanse mo: {balance} coins",
+  "boostConfirm": "Kumpirmahin ang boost",
+  "boostActiveTitle": "Aktibo ang boost mo",
+  "boostTimeLeft": "{time} na lang",
+  "boostSeenBy": "Nakita na ng {count} tao",
+  "boostFailed": "Hindi masimulan ang boost. Pakisubukan ulit."
 }

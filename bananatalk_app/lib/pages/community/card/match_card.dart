@@ -147,6 +147,25 @@ class MatchCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 12),
+          if (match.boosted) ...[
+            Container(
+              key: const Key('match-boosted-chip'),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+              decoration: BoxDecoration(
+                color: AppColors.matchAccent,
+                borderRadius: BorderRadius.circular(999),
+              ),
+              child: Text(
+                l10n.boostedChip,
+                style: const TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
+                  color: AppColors.matchInk,
+                ),
+              ),
+            ),
+            const SizedBox(height: 8),
+          ],
           MatchReasonChips(match: match),
           const SizedBox(height: 14),
           Row(

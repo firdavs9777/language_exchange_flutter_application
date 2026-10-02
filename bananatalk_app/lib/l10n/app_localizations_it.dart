@@ -8652,4 +8652,56 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get referralHowItWorks => 'Quando un amico si iscrive con il tuo codice e completa il profilo, ricevete entrambi delle monete.';
+
+  @override
+  String get boostTitle => 'Potenzia il mio profilo';
+
+  @override
+  String get boostSubtitle => 'Fatti vedere da più partner per 24 ore';
+
+  @override
+  String get boostFromMatches => 'Fatti vedere da più persone';
+
+  @override
+  String get boostedChip => 'Potenziato';
+
+  @override
+  String get boostCapacityFull => 'Tutti gli slot di potenziamento sono occupati ora — riprova tra qualche ora';
+
+  @override
+  String extraMatchesCta(int cost) {
+    return '+3 match in più — $cost monete';
+  }
+
+  @override
+  String get boostExplain => 'Sii il 6° match per tutti quelli con lingue compatibili con le tue, per 24 ore.';
+
+  @override
+  String boostCostLine(int cost) {
+    return 'Costo: $cost monete';
+  }
+
+  @override
+  String boostBalanceLine(int balance) {
+    return 'Il tuo saldo: $balance monete';
+  }
+
+  @override
+  String get boostConfirm => 'Conferma potenziamento';
+
+  @override
+  String get boostActiveTitle => 'Il tuo potenziamento è attivo';
+
+  @override
+  String boostTimeLeft(String time) {
+    return '$time rimanenti';
+  }
+
+  @override
+  String boostSeenBy(int count) {
+    return 'Visto da $count persone finora';
+  }
+
+  @override
+  String get boostFailed => 'Impossibile avviare il potenziamento. Riprova.';
 }

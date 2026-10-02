@@ -8664,4 +8664,56 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get referralHowItWorks => 'عندما يسجّل صديق برمزك ويُكمل ملفه الشخصي، يحصل كلاكما على عملات.';
+
+  @override
+  String get boostTitle => 'عزّز ملفي الشخصي';
+
+  @override
+  String get boostSubtitle => 'يراك المزيد من الشركاء لمدة 24 ساعة';
+
+  @override
+  String get boostFromMatches => 'ليراك المزيد من الأشخاص';
+
+  @override
+  String get boostedChip => 'معزَّز';
+
+  @override
+  String get boostCapacityFull => 'جميع أماكن التعزيز ممتلئة الآن — حاول مجددًا بعد ساعات قليلة';
+
+  @override
+  String extraMatchesCta(int cost) {
+    return '+3 تطابقات إضافية — $cost عملة';
+  }
+
+  @override
+  String get boostExplain => 'كن التطابق السادس لكل من تناسبه لغاتك، لمدة 24 ساعة.';
+
+  @override
+  String boostCostLine(int cost) {
+    return 'التكلفة: $cost عملة';
+  }
+
+  @override
+  String boostBalanceLine(int balance) {
+    return 'رصيدك: $balance عملة';
+  }
+
+  @override
+  String get boostConfirm => 'تأكيد التعزيز';
+
+  @override
+  String get boostActiveTitle => 'تعزيزك نشط';
+
+  @override
+  String boostTimeLeft(String time) {
+    return 'المتبقي $time';
+  }
+
+  @override
+  String boostSeenBy(int count) {
+    return 'شاهدك $count أشخاص حتى الآن';
+  }
+
+  @override
+  String get boostFailed => 'تعذّر بدء التعزيز. يُرجى المحاولة مرة أخرى.';
 }

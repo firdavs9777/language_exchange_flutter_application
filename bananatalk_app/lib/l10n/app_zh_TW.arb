@@ -3150,7 +3150,11 @@
   "thanksForParticipating": "感謝參與！+10 XP 🎉",
   "deleteWordConfirm": "要從你的單字表中刪除「{word}」嗎？",
   "@deleteWordConfirm": {
-    "placeholders": { "word": { "type": "String" } }
+    "placeholders": {
+      "word": {
+        "type": "String"
+      }
+    }
   },
   "wordDeleted": "已刪除單字",
   "vocabularyLoadFailed": "無法載入你的單字表",
@@ -3262,5 +3266,19 @@
   "referralShare": "分享",
   "referralCopied": "已複製",
   "referralClaimed": "你獲得了 {coins} 金幣！",
-  "referralHowItWorks": "好友使用你的邀請碼註冊並完成個人檔案後，你們雙方都能獲得金幣。"
+  "referralHowItWorks": "好友使用你的邀請碼註冊並完成個人檔案後，你們雙方都能獲得金幣。",
+  "boostTitle": "提升我的個人檔案",
+  "boostSubtitle": "24 小時內被更多夥伴看到",
+  "boostFromMatches": "讓更多人看到你",
+  "boostedChip": "已提升",
+  "boostCapacityFull": "目前所有提升名額已滿 — 請幾小時後再試",
+  "extraMatchesCta": "再多 3 個配對 — {cost} 金幣",
+  "boostExplain": "在 24 小時內，成為所有語言相符使用者的第 6 個配對。",
+  "boostCostLine": "費用：{cost} 金幣",
+  "boostBalanceLine": "你的餘額：{balance} 金幣",
+  "boostConfirm": "確認提升",
+  "boostActiveTitle": "你的提升正在進行",
+  "boostTimeLeft": "剩餘 {time}",
+  "boostSeenBy": "目前已被 {count} 人看到",
+  "boostFailed": "無法開始提升，請重試。"
 }

@@ -8642,6 +8642,58 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get referralHowItWorks => '好友使用你的邀请码注册并完善个人资料后，你们双方都能获得金币。';
+
+  @override
+  String get boostTitle => '提升我的资料';
+
+  @override
+  String get boostSubtitle => '24 小时内被更多伙伴看到';
+
+  @override
+  String get boostFromMatches => '让更多人看到你';
+
+  @override
+  String get boostedChip => '已提升';
+
+  @override
+  String get boostCapacityFull => '目前所有提升名额已满 — 请几小时后再试';
+
+  @override
+  String extraMatchesCta(int cost) {
+    return '再多 3 个匹配 — $cost 金币';
+  }
+
+  @override
+  String get boostExplain => '在 24 小时内，成为所有语言相符用户的第 6 个匹配。';
+
+  @override
+  String boostCostLine(int cost) {
+    return '费用：$cost 金币';
+  }
+
+  @override
+  String boostBalanceLine(int balance) {
+    return '你的余额：$balance 金币';
+  }
+
+  @override
+  String get boostConfirm => '确认提升';
+
+  @override
+  String get boostActiveTitle => '你的提升正在进行';
+
+  @override
+  String boostTimeLeft(String time) {
+    return '剩余 $time';
+  }
+
+  @override
+  String boostSeenBy(int count) {
+    return '目前已被 $count 人看到';
+  }
+
+  @override
+  String get boostFailed => '无法开始提升，请重试。';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -17282,4 +17334,56 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get referralHowItWorks => '好友使用你的邀請碼註冊並完成個人檔案後，你們雙方都能獲得金幣。';
+
+  @override
+  String get boostTitle => '提升我的個人檔案';
+
+  @override
+  String get boostSubtitle => '24 小時內被更多夥伴看到';
+
+  @override
+  String get boostFromMatches => '讓更多人看到你';
+
+  @override
+  String get boostedChip => '已提升';
+
+  @override
+  String get boostCapacityFull => '目前所有提升名額已滿 — 請幾小時後再試';
+
+  @override
+  String extraMatchesCta(int cost) {
+    return '再多 3 個配對 — $cost 金幣';
+  }
+
+  @override
+  String get boostExplain => '在 24 小時內，成為所有語言相符使用者的第 6 個配對。';
+
+  @override
+  String boostCostLine(int cost) {
+    return '費用：$cost 金幣';
+  }
+
+  @override
+  String boostBalanceLine(int balance) {
+    return '你的餘額：$balance 金幣';
+  }
+
+  @override
+  String get boostConfirm => '確認提升';
+
+  @override
+  String get boostActiveTitle => '你的提升正在進行';
+
+  @override
+  String boostTimeLeft(String time) {
+    return '剩餘 $time';
+  }
+
+  @override
+  String boostSeenBy(int count) {
+    return '目前已被 $count 人看到';
+  }
+
+  @override
+  String get boostFailed => '無法開始提升，請重試。';
 }

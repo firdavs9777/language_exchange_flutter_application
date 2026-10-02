@@ -8656,4 +8656,56 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get referralHowItWorks => 'Вақте дӯст бо рамзи шумо сабти ном мекунад ва профилашро пур мекунад, ҳардуи шумо танга мегиред.';
+
+  @override
+  String get boostTitle => 'Профили маро пурзӯр кун';
+
+  @override
+  String get boostSubtitle => 'Дар 24 соат шарикони бештар шуморо мебинанд';
+
+  @override
+  String get boostFromMatches => 'Одамони бештар шуморо бибинанд';
+
+  @override
+  String get boostedChip => 'Пурзӯр шуд';
+
+  @override
+  String get boostCapacityFull => 'Ҳоло ҳамаи ҷойҳои пурзӯркунӣ банданд — пас аз чанд соат аз нав кӯшиш кунед';
+
+  @override
+  String extraMatchesCta(int cost) {
+    return '+3 мувофиқати бештар — $cost танга';
+  }
+
+  @override
+  String get boostExplain => 'Дар 24 соат барои ҳама, ки забонҳояшон ба шумо мувофиқ аст, мувофиқати 6-ум шавед.';
+
+  @override
+  String boostCostLine(int cost) {
+    return 'Нарх: $cost танга';
+  }
+
+  @override
+  String boostBalanceLine(int balance) {
+    return 'Тавозуни шумо: $balance танга';
+  }
+
+  @override
+  String get boostConfirm => 'Тасдиқи пурзӯркунӣ';
+
+  @override
+  String get boostActiveTitle => 'Пурзӯркунии шумо фаъол аст';
+
+  @override
+  String boostTimeLeft(String time) {
+    return '$time монд';
+  }
+
+  @override
+  String boostSeenBy(int count) {
+    return 'То ҳол $count нафар дидаанд';
+  }
+
+  @override
+  String get boostFailed => 'Пурзӯркунӣ оғоз нашуд. Лутфан аз нав кӯшиш кунед.';
 }

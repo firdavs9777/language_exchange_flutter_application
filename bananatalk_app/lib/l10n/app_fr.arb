@@ -3699,7 +3699,11 @@
   "thanksForParticipating": "Merci d’avoir participé ! +10 XP 🎉",
   "deleteWordConfirm": "Supprimer « {word} » de votre vocabulaire ?",
   "@deleteWordConfirm": {
-    "placeholders": { "word": { "type": "String" } }
+    "placeholders": {
+      "word": {
+        "type": "String"
+      }
+    }
   },
   "wordDeleted": "Mot supprimé",
   "vocabularyLoadFailed": "Impossible de charger votre vocabulaire",
@@ -3811,5 +3815,19 @@
   "referralShare": "Partager",
   "referralCopied": "Copié",
   "referralClaimed": "Vous avez gagné {coins} pièces !",
-  "referralHowItWorks": "Quand un ami s'inscrit avec votre code et complète son profil, vous recevez tous les deux des pièces."
+  "referralHowItWorks": "Quand un ami s'inscrit avec votre code et complète son profil, vous recevez tous les deux des pièces.",
+  "boostTitle": "Booster mon profil",
+  "boostSubtitle": "Soyez vu par plus de partenaires pendant 24 h",
+  "boostFromMatches": "Être vu par plus de monde",
+  "boostedChip": "Boosté",
+  "boostCapacityFull": "Tous les créneaux de boost sont pris pour le moment — réessayez dans quelques heures",
+  "extraMatchesCta": "+3 correspondances — {cost} pièces",
+  "boostExplain": "Soyez la 6e correspondance de toutes les personnes dont les langues vous conviennent, pendant 24 heures.",
+  "boostCostLine": "Coût : {cost} pièces",
+  "boostBalanceLine": "Votre solde : {balance} pièces",
+  "boostConfirm": "Confirmer le boost",
+  "boostActiveTitle": "Votre boost est actif",
+  "boostTimeLeft": "{time} restant",
+  "boostSeenBy": "Vu par {count} personnes jusqu'ici",
+  "boostFailed": "Impossible de lancer votre boost. Veuillez réessayer."
 }

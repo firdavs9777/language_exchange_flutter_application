@@ -8652,4 +8652,56 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get referralHowItWorks => 'जब कोई दोस्त आपके कोड से साइन अप करके अपनी प्रोफ़ाइल पूरी करता है, तो आप दोनों को सिक्के मिलते हैं।';
+
+  @override
+  String get boostTitle => 'मेरी प्रोफ़ाइल बूस्ट करें';
+
+  @override
+  String get boostSubtitle => '24 घंटे तक ज़्यादा पार्टनर्स को दिखें';
+
+  @override
+  String get boostFromMatches => 'ज़्यादा लोगों को दिखें';
+
+  @override
+  String get boostedChip => 'बूस्टेड';
+
+  @override
+  String get boostCapacityFull => 'अभी सभी बूस्ट स्लॉट भरे हुए हैं — कुछ घंटों बाद फिर कोशिश करें';
+
+  @override
+  String extraMatchesCta(int cost) {
+    return '+3 और मैच — $cost सिक्के';
+  }
+
+  @override
+  String get boostExplain => '24 घंटे के लिए उन सभी के 6वें मैच बनें जिनकी भाषाएँ आपसे मेल खाती हैं।';
+
+  @override
+  String boostCostLine(int cost) {
+    return 'कीमत: $cost सिक्के';
+  }
+
+  @override
+  String boostBalanceLine(int balance) {
+    return 'आपका बैलेंस: $balance सिक्के';
+  }
+
+  @override
+  String get boostConfirm => 'बूस्ट की पुष्टि करें';
+
+  @override
+  String get boostActiveTitle => 'आपका बूस्ट चालू है';
+
+  @override
+  String boostTimeLeft(String time) {
+    return '$time बाकी';
+  }
+
+  @override
+  String boostSeenBy(int count) {
+    return 'अब तक $count लोगों ने देखा';
+  }
+
+  @override
+  String get boostFailed => 'बूस्ट शुरू नहीं हो सका। कृपया फिर कोशिश करें।';
 }

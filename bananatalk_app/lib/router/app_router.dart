@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/pages/chat/chat_screen_wrapper.dart';
+import 'package:bananatalk_app/pages/coins/boost_screen.dart';
 import 'package:bananatalk_app/pages/home/Home.dart';
 import 'package:bananatalk_app/pages/home/splash_screen.dart';
 import 'package:bananatalk_app/pages/menu_tab/TabBarMenu.dart';
@@ -326,6 +327,14 @@ final goRouter = GoRouter(
       path: '/learning/daily',
       pageBuilder: (context, state) =>
           _buildSlideTransition(state: state, child: const LearningMain()),
+    ),
+
+    // `boost_receipt` push notifications deep-link here (behind boostsEnabled
+    // server-side; the push is only sent when boosts are live).
+    GoRoute(
+      path: '/boost',
+      pageBuilder: (context, state) =>
+          _buildSlideTransition(state: state, child: const BoostScreen()),
     ),
 
     // Slide from right + fade — standard navigation push feel.

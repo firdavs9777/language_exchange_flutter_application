@@ -8652,4 +8652,56 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get referralHowItWorks => 'Kapag nag-sign up ang kaibigan gamit ang code mo at kinumpleto ang profile niya, pareho kayong makakakuha ng coins.';
+
+  @override
+  String get boostTitle => 'I-boost ang profile ko';
+
+  @override
+  String get boostSubtitle => 'Makita ng mas maraming partner sa loob ng 24 oras';
+
+  @override
+  String get boostFromMatches => 'Makita ng mas maraming tao';
+
+  @override
+  String get boostedChip => 'Naka-boost';
+
+  @override
+  String get boostCapacityFull => 'Puno na ang lahat ng boost slot ngayon — subukan ulit sa loob ng ilang oras';
+
+  @override
+  String extraMatchesCta(int cost) {
+    return '+3 pang match — $cost coins';
+  }
+
+  @override
+  String get boostExplain => 'Maging ika-6 na match ng lahat ng may katugmang wika sa loob ng 24 oras.';
+
+  @override
+  String boostCostLine(int cost) {
+    return 'Halaga: $cost coins';
+  }
+
+  @override
+  String boostBalanceLine(int balance) {
+    return 'Balanse mo: $balance coins';
+  }
+
+  @override
+  String get boostConfirm => 'Kumpirmahin ang boost';
+
+  @override
+  String get boostActiveTitle => 'Aktibo ang boost mo';
+
+  @override
+  String boostTimeLeft(String time) {
+    return '$time na lang';
+  }
+
+  @override
+  String boostSeenBy(int count) {
+    return 'Nakita na ng $count tao';
+  }
+
+  @override
+  String get boostFailed => 'Hindi masimulan ang boost. Pakisubukan ulit.';
 }

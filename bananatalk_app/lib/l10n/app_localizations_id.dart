@@ -8649,4 +8649,56 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get referralHowItWorks => 'Saat teman mendaftar dengan kodemu dan melengkapi profilnya, kalian berdua mendapatkan koin.';
+
+  @override
+  String get boostTitle => 'Boost profilku';
+
+  @override
+  String get boostSubtitle => 'Dilihat lebih banyak partner selama 24 jam';
+
+  @override
+  String get boostFromMatches => 'Dilihat lebih banyak orang';
+
+  @override
+  String get boostedChip => 'Di-boost';
+
+  @override
+  String get boostCapacityFull => 'Semua slot boost sedang penuh — coba lagi dalam beberapa jam';
+
+  @override
+  String extraMatchesCta(int cost) {
+    return '+3 kecocokan lagi — $cost koin';
+  }
+
+  @override
+  String get boostExplain => 'Jadilah kecocokan ke-6 bagi semua orang yang bahasanya cocok denganmu selama 24 jam.';
+
+  @override
+  String boostCostLine(int cost) {
+    return 'Biaya: $cost koin';
+  }
+
+  @override
+  String boostBalanceLine(int balance) {
+    return 'Saldomu: $balance koin';
+  }
+
+  @override
+  String get boostConfirm => 'Konfirmasi boost';
+
+  @override
+  String get boostActiveTitle => 'Boost-mu sedang aktif';
+
+  @override
+  String boostTimeLeft(String time) {
+    return 'Sisa $time';
+  }
+
+  @override
+  String boostSeenBy(int count) {
+    return 'Sudah dilihat $count orang';
+  }
+
+  @override
+  String get boostFailed => 'Tidak bisa memulai boost. Silakan coba lagi.';
 }

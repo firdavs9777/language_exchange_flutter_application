@@ -8642,4 +8642,56 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get referralHowItWorks => '친구가 내 코드로 가입하고 프로필을 완성하면 둘 다 코인을 받아요.';
+
+  @override
+  String get boostTitle => '내 프로필 부스트';
+
+  @override
+  String get boostSubtitle => '24시간 동안 더 많은 파트너에게 노출돼요';
+
+  @override
+  String get boostFromMatches => '더 많은 사람에게 노출되기';
+
+  @override
+  String get boostedChip => '부스트됨';
+
+  @override
+  String get boostCapacityFull => '지금은 부스트 슬롯이 모두 찼어요 — 몇 시간 뒤에 다시 시도해 주세요';
+
+  @override
+  String extraMatchesCta(int cost) {
+    return '+3명 더 매칭 — $cost 코인';
+  }
+
+  @override
+  String get boostExplain => '언어가 맞는 모든 사람에게 24시간 동안 여섯 번째 매치로 보여요.';
+
+  @override
+  String boostCostLine(int cost) {
+    return '비용: $cost 코인';
+  }
+
+  @override
+  String boostBalanceLine(int balance) {
+    return '내 잔액: $balance 코인';
+  }
+
+  @override
+  String get boostConfirm => '부스트 확인';
+
+  @override
+  String get boostActiveTitle => '부스트가 진행 중이에요';
+
+  @override
+  String boostTimeLeft(String time) {
+    return '$time 남음';
+  }
+
+  @override
+  String boostSeenBy(int count) {
+    return '지금까지 $count명이 봤어요';
+  }
+
+  @override
+  String get boostFailed => '부스트를 시작하지 못했어요. 다시 시도해 주세요.';
 }

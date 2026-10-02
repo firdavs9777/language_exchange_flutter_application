@@ -8,6 +8,7 @@ class DailyMatch {
     this.reciprocal = false,
     this.lastActiveBucket,
     this.responseRate,
+    this.boosted = false,
   });
 
   final Community user;
@@ -15,6 +16,9 @@ class DailyMatch {
   final bool reciprocal;
   final String? lastActiveBucket;
   final double? responseRate;
+
+  /// Paid Profile Boost slot (server sets it only when boosts are enabled).
+  final bool boosted;
 
   factory DailyMatch.fromJson(Map<String, dynamic> json) {
     final rawUser = json['user'];
@@ -29,6 +33,7 @@ class DailyMatch {
       responseRate: json['responseRate'] is num
           ? (json['responseRate'] as num).toDouble()
           : null,
+      boosted: json['boosted'] == true,
     );
   }
 

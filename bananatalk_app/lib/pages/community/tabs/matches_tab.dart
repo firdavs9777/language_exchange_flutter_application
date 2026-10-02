@@ -4,12 +4,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/chat/conversation/chat_conversation_screen.dart';
+import 'package:bananatalk_app/pages/coins/boost_screen.dart';
 import 'package:bananatalk_app/pages/community/card/match_card.dart';
 import 'package:bananatalk_app/pages/community/widgets/send_wave_sheet.dart';
 import 'package:bananatalk_app/pages/menu_tab/TabBarMenu.dart';
 import 'package:bananatalk_app/providers/provider_models/daily_match_model.dart';
+import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/daily_matches_provider.dart';
 import 'package:bananatalk_app/services/interaction_service.dart';
+import 'package:bananatalk_app/utils/app_page_route.dart';
+import 'package:bananatalk_app/widgets/coins/unlock_cta.dart';
 import 'package:bananatalk_app/widgets/notifications/notification_priming_sheet.dart';
 
 /// "Your N matches today" list. Self-contained; mounted by the community page.
@@ -116,6 +120,10 @@ class _MatchesTabState extends ConsumerState<MatchesTab> {
     ref.listen<int>(selectedTabProvider, (_, next) {
       if (next == _communityTab && _hasMatches) _maybePrimeOnFirstMatches();
     });
+    final boostsEnabled = ref.watch(appConfigProvider).maybeWhen(
+          data: (config) => config?.boostsEnabled ?? false,
+          orElse: () => false,
+        );
     final async = ref.watch(dailyMatchesProvider);
     return async.when(
       loading: () => const Center(child: CircularProgressIndicator()),
@@ -146,7 +154,10 @@ class _MatchesTabState extends ConsumerState<MatchesTab> {
               slivers: [
                 SliverFillRemaining(
                   hasScrollBody: false,
-                  child: _Empty(onBrowse: widget.onBrowsePartners),
+                  child: _Empty(
+                    onBrowse: widget.onBrowsePartners,
+                    showBoost: boostsEnabled,
+                  ),
                 ),
               ],
             ),
@@ -154,12 +165,14 @@ class _MatchesTabState extends ConsumerState<MatchesTab> {
         }
         _hasMatches = true;
         _maybePrimeOnFirstMatches();
+        // Offer +3 matches while the batch is below the 9-card ceiling.
+        final showExtra = boostsEnabled && result.matches.length < 9;
         return RefreshIndicator(
           onRefresh: _refresh,
           child: ListView.builder(
             physics: const AlwaysScrollableScrollPhysics(),
             padding: const EdgeInsets.only(bottom: 24),
-            itemCount: matches.length + 1,
+            itemCount: matches.length + 1 + (showExtra ? 1 : 0),
             itemBuilder: (context, i) {
               if (i == 0) {
                 return Padding(
@@ -189,6 +202,19 @@ class _MatchesTabState extends ConsumerState<MatchesTab> {
                         ),
                       ),
                     ],
+                  ),
+                );
+              }
+              if (i == matches.length + 1) {
+                return Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
+                  child: Align(
+                    child: UnlockCta(
+                      key: const Key('extra-matches-cta'),
+                      featureKey: 'extra_matches',
+                      labelBuilder: (cost, _) => l10n.extraMatchesCta(cost),
+                      onUnlocked: () => ref.invalidate(dailyMatchesProvider),
+                    ),
                   ),
                 );
               }
@@ -236,8 +262,9 @@ class _LoadError extends StatelessWidget {
 }
 
 class _Empty extends StatelessWidget {
-  const _Empty({this.onBrowse});
+  const _Empty({this.onBrowse, this.showBoost = false});
   final VoidCallback? onBrowse;
+  final bool showBoost;
 
   @override
   Widget build(BuildContext context) {
@@ -264,6 +291,18 @@ class _Empty extends StatelessWidget {
               OutlinedButton(
                 onPressed: onBrowse,
                 child: Text(l10n.matchesEmptyCta),
+              ),
+            ],
+            if (showBoost) ...[
+              const SizedBox(height: 8),
+              TextButton.icon(
+                key: const Key('matches-empty-boost'),
+                onPressed: () => Navigator.push(
+                  context,
+                  AppPageRoute<void>(builder: (_) => const BoostScreen()),
+                ),
+                icon: const Icon(Icons.rocket_launch_rounded, size: 18),
+                label: Text(l10n.boostFromMatches),
               ),
             ],
           ],

@@ -3459,7 +3459,11 @@
   "thanksForParticipating": "ขอบคุณที่เข้าร่วม! +10 XP 🎉",
   "deleteWordConfirm": "ลบ “{word}” ออกจากคำศัพท์ของคุณ?",
   "@deleteWordConfirm": {
-    "placeholders": { "word": { "type": "String" } }
+    "placeholders": {
+      "word": {
+        "type": "String"
+      }
+    }
   },
   "wordDeleted": "ลบคำศัพท์แล้ว",
   "vocabularyLoadFailed": "โหลดคำศัพท์ของคุณไม่สำเร็จ",
@@ -3571,5 +3575,19 @@
   "referralShare": "แชร์",
   "referralCopied": "คัดลอกแล้ว",
   "referralClaimed": "คุณได้รับ {coins} เหรียญ!",
-  "referralHowItWorks": "เมื่อเพื่อนสมัครด้วยรหัสของคุณและกรอกโปรไฟล์ครบ คุณทั้งคู่จะได้รับเหรียญ"
+  "referralHowItWorks": "เมื่อเพื่อนสมัครด้วยรหัสของคุณและกรอกโปรไฟล์ครบ คุณทั้งคู่จะได้รับเหรียญ",
+  "boostTitle": "บูสต์โปรไฟล์ของฉัน",
+  "boostSubtitle": "ให้คู่สนทนาเห็นคุณมากขึ้นนาน 24 ชม.",
+  "boostFromMatches": "ให้คนเห็นคุณมากขึ้น",
+  "boostedChip": "บูสต์แล้ว",
+  "boostCapacityFull": "ช่องบูสต์เต็มทั้งหมดในตอนนี้ — ลองใหม่ในอีกไม่กี่ชั่วโมง",
+  "extraMatchesCta": "+3 แมตช์เพิ่ม — {cost} เหรียญ",
+  "boostExplain": "เป็นแมตช์ที่ 6 ของทุกคนที่ภาษาตรงกับคุณ เป็นเวลา 24 ชั่วโมง",
+  "boostCostLine": "ค่าใช้จ่าย: {cost} เหรียญ",
+  "boostBalanceLine": "ยอดคงเหลือ: {balance} เหรียญ",
+  "boostConfirm": "ยืนยันการบูสต์",
+  "boostActiveTitle": "บูสต์ของคุณกำลังทำงาน",
+  "boostTimeLeft": "เหลือ {time}",
+  "boostSeenBy": "มีคนเห็นแล้ว {count} คน",
+  "boostFailed": "เริ่มบูสต์ไม่ได้ กรุณาลองอีกครั้ง"
 }

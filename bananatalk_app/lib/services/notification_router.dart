@@ -353,6 +353,10 @@ class NotificationRouter {
       case 'daily_drop':
         return '/learning/daily';
 
+      // Profile Boost purchase receipt (growth tranche C).
+      case 'boost_receipt':
+        return '/boost';
+
       // Growth lifecycle pushes (flag-gated backend job). The sub-tab is set
       // separately via [communitySubTabForType].
       case 'daily_matches':
@@ -417,6 +421,7 @@ class NotificationRouter {
       '/leaderboard',
       '/call-history',
       '/exam-study',
+      '/boost',
       '/home',
     ];
     for (final prefix in knownPrefixes) {

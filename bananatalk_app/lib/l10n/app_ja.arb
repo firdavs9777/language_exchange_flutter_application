@@ -3459,7 +3459,11 @@
   "thanksForParticipating": "ご参加ありがとうございます！+10 XP 🎉",
   "deleteWordConfirm": "単語帳から「{word}」を削除しますか？",
   "@deleteWordConfirm": {
-    "placeholders": { "word": { "type": "String" } }
+    "placeholders": {
+      "word": {
+        "type": "String"
+      }
+    }
   },
   "wordDeleted": "単語を削除しました",
   "vocabularyLoadFailed": "単語帳を読み込めませんでした",
@@ -3571,5 +3575,19 @@
   "referralShare": "シェア",
   "referralCopied": "コピーしました",
   "referralClaimed": "{coins}コインを獲得しました！",
-  "referralHowItWorks": "友だちがあなたのコードで登録してプロフィールを完成させると、2人ともコインがもらえます。"
+  "referralHowItWorks": "友だちがあなたのコードで登録してプロフィールを完成させると、2人ともコインがもらえます。",
+  "boostTitle": "プロフィールをブースト",
+  "boostSubtitle": "24時間、より多くのパートナーに表示されます",
+  "boostFromMatches": "もっと多くの人に見てもらう",
+  "boostedChip": "ブースト中",
+  "boostCapacityFull": "現在ブーストの枠がすべて埋まっています — 数時間後にもう一度お試しください",
+  "extraMatchesCta": "+3人のマッチ — {cost}コイン",
+  "boostExplain": "言語が合うすべての人に、24時間「6番目のマッチ」として表示されます。",
+  "boostCostLine": "料金: {cost}コイン",
+  "boostBalanceLine": "残高: {balance}コイン",
+  "boostConfirm": "ブーストを確定",
+  "boostActiveTitle": "ブースト実行中",
+  "boostTimeLeft": "残り {time}",
+  "boostSeenBy": "これまで{count}人に表示されました",
+  "boostFailed": "ブーストを開始できませんでした。もう一度お試しください。"
 }

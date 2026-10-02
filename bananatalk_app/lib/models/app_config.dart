@@ -85,6 +85,9 @@ class AppConfig {
   /// Invite-friends screen entry; off by default (server ships it dark).
   final bool referralsEnabled;
 
+  /// Profile Boost + extra-matches CTA; off by default (server ships it dark).
+  final bool boostsEnabled;
+
   const AppConfig({
     required this.minVersion,
     required this.latestVersion,
@@ -100,6 +103,7 @@ class AppConfig {
     this.smartSortEnabled = false,
     this.matchesLayoutEnabled = false,
     this.referralsEnabled = false,
+    this.boostsEnabled = false,
   });
 
   factory AppConfig.fromJson(Map<String, dynamic> json) {
@@ -122,6 +126,7 @@ class AppConfig {
       smartSortEnabled: (json['smartSortEnabled'] as bool?) ?? false,
       matchesLayoutEnabled: (json['matchesLayoutEnabled'] as bool?) ?? false,
       referralsEnabled: (json['referralsEnabled'] as bool?) ?? false,
+      boostsEnabled: (json['boostsEnabled'] as bool?) ?? false,
     );
   }
 }

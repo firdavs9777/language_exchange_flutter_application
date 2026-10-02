@@ -2952,7 +2952,11 @@
   "thanksForParticipating": "Ташаккур барои иштирок! +10 XP 🎉",
   "deleteWordConfirm": "“{word}”-ро аз луғати худ нест кунед?",
   "@deleteWordConfirm": {
-    "placeholders": { "word": { "type": "String" } }
+    "placeholders": {
+      "word": {
+        "type": "String"
+      }
+    }
   },
   "wordDeleted": "Калима нест карда шуд",
   "vocabularyLoadFailed": "Луғати шумо бор нашуд",
@@ -3064,5 +3068,19 @@
   "referralShare": "Мубодила",
   "referralCopied": "Нусха гирифта шуд",
   "referralClaimed": "Шумо {coins} танга гирифтед!",
-  "referralHowItWorks": "Вақте дӯст бо рамзи шумо сабти ном мекунад ва профилашро пур мекунад, ҳардуи шумо танга мегиред."
+  "referralHowItWorks": "Вақте дӯст бо рамзи шумо сабти ном мекунад ва профилашро пур мекунад, ҳардуи шумо танга мегиред.",
+  "boostTitle": "Профили маро пурзӯр кун",
+  "boostSubtitle": "Дар 24 соат шарикони бештар шуморо мебинанд",
+  "boostFromMatches": "Одамони бештар шуморо бибинанд",
+  "boostedChip": "Пурзӯр шуд",
+  "boostCapacityFull": "Ҳоло ҳамаи ҷойҳои пурзӯркунӣ банданд — пас аз чанд соат аз нав кӯшиш кунед",
+  "extraMatchesCta": "+3 мувофиқати бештар — {cost} танга",
+  "boostExplain": "Дар 24 соат барои ҳама, ки забонҳояшон ба шумо мувофиқ аст, мувофиқати 6-ум шавед.",
+  "boostCostLine": "Нарх: {cost} танга",
+  "boostBalanceLine": "Тавозуни шумо: {balance} танга",
+  "boostConfirm": "Тасдиқи пурзӯркунӣ",
+  "boostActiveTitle": "Пурзӯркунии шумо фаъол аст",
+  "boostTimeLeft": "{time} монд",
+  "boostSeenBy": "То ҳол {count} нафар дидаанд",
+  "boostFailed": "Пурзӯркунӣ оғоз нашуд. Лутфан аз нав кӯшиш кунед."
 }

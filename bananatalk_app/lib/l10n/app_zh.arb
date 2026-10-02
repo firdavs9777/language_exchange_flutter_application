@@ -3473,7 +3473,11 @@
   "thanksForParticipating": "感谢参与！+10 XP 🎉",
   "deleteWordConfirm": "要从你的词汇表中删除“{word}”吗？",
   "@deleteWordConfirm": {
-    "placeholders": { "word": { "type": "String" } }
+    "placeholders": {
+      "word": {
+        "type": "String"
+      }
+    }
   },
   "wordDeleted": "已删除单词",
   "vocabularyLoadFailed": "无法加载你的词汇表",
@@ -3585,5 +3589,19 @@
   "referralShare": "分享",
   "referralCopied": "已复制",
   "referralClaimed": "你获得了 {coins} 金币！",
-  "referralHowItWorks": "好友使用你的邀请码注册并完善个人资料后，你们双方都能获得金币。"
+  "referralHowItWorks": "好友使用你的邀请码注册并完善个人资料后，你们双方都能获得金币。",
+  "boostTitle": "提升我的资料",
+  "boostSubtitle": "24 小时内被更多伙伴看到",
+  "boostFromMatches": "让更多人看到你",
+  "boostedChip": "已提升",
+  "boostCapacityFull": "目前所有提升名额已满 — 请几小时后再试",
+  "extraMatchesCta": "再多 3 个匹配 — {cost} 金币",
+  "boostExplain": "在 24 小时内，成为所有语言相符用户的第 6 个匹配。",
+  "boostCostLine": "费用：{cost} 金币",
+  "boostBalanceLine": "你的余额：{balance} 金币",
+  "boostConfirm": "确认提升",
+  "boostActiveTitle": "你的提升正在进行",
+  "boostTimeLeft": "剩余 {time}",
+  "boostSeenBy": "目前已被 {count} 人看到",
+  "boostFailed": "无法开始提升，请重试。"
 }

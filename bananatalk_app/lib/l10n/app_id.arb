@@ -3459,7 +3459,11 @@
   "thanksForParticipating": "Terima kasih sudah ikut! +10 XP 🎉",
   "deleteWordConfirm": "Hapus “{word}” dari kosakata Anda?",
   "@deleteWordConfirm": {
-    "placeholders": { "word": { "type": "String" } }
+    "placeholders": {
+      "word": {
+        "type": "String"
+      }
+    }
   },
   "wordDeleted": "Kata dihapus",
   "vocabularyLoadFailed": "Tidak dapat memuat kosakata Anda",
@@ -3571,5 +3575,19 @@
   "referralShare": "Bagikan",
   "referralCopied": "Disalin",
   "referralClaimed": "Kamu mendapatkan {coins} koin!",
-  "referralHowItWorks": "Saat teman mendaftar dengan kodemu dan melengkapi profilnya, kalian berdua mendapatkan koin."
+  "referralHowItWorks": "Saat teman mendaftar dengan kodemu dan melengkapi profilnya, kalian berdua mendapatkan koin.",
+  "boostTitle": "Boost profilku",
+  "boostSubtitle": "Dilihat lebih banyak partner selama 24 jam",
+  "boostFromMatches": "Dilihat lebih banyak orang",
+  "boostedChip": "Di-boost",
+  "boostCapacityFull": "Semua slot boost sedang penuh — coba lagi dalam beberapa jam",
+  "extraMatchesCta": "+3 kecocokan lagi — {cost} koin",
+  "boostExplain": "Jadilah kecocokan ke-6 bagi semua orang yang bahasanya cocok denganmu selama 24 jam.",
+  "boostCostLine": "Biaya: {cost} koin",
+  "boostBalanceLine": "Saldomu: {balance} koin",
+  "boostConfirm": "Konfirmasi boost",
+  "boostActiveTitle": "Boost-mu sedang aktif",
+  "boostTimeLeft": "Sisa {time}",
+  "boostSeenBy": "Sudah dilihat {count} orang",
+  "boostFailed": "Tidak bisa memulai boost. Silakan coba lagi."
 }

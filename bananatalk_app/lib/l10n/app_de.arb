@@ -3699,7 +3699,11 @@
   "thanksForParticipating": "Danke fürs Mitmachen! +10 XP 🎉",
   "deleteWordConfirm": "„{word}“ aus deinem Wortschatz löschen?",
   "@deleteWordConfirm": {
-    "placeholders": { "word": { "type": "String" } }
+    "placeholders": {
+      "word": {
+        "type": "String"
+      }
+    }
   },
   "wordDeleted": "Wort gelöscht",
   "vocabularyLoadFailed": "Dein Wortschatz konnte nicht geladen werden",
@@ -3811,5 +3815,19 @@
   "referralShare": "Teilen",
   "referralCopied": "Kopiert",
   "referralClaimed": "Du hast {coins} Münzen verdient!",
-  "referralHowItWorks": "Wenn sich ein Freund mit deinem Code registriert und sein Profil vervollständigt, bekommt ihr beide Münzen."
+  "referralHowItWorks": "Wenn sich ein Freund mit deinem Code registriert und sein Profil vervollständigt, bekommt ihr beide Münzen.",
+  "boostTitle": "Mein Profil boosten",
+  "boostSubtitle": "24 Std. von mehr Partnern gesehen werden",
+  "boostFromMatches": "Von mehr Leuten gesehen werden",
+  "boostedChip": "Geboostet",
+  "boostCapacityFull": "Alle Boost-Plätze sind gerade belegt — versuche es in ein paar Stunden erneut",
+  "extraMatchesCta": "+3 weitere Matches — {cost} Münzen",
+  "boostExplain": "Sei 24 Stunden lang das 6. Match für alle, deren Sprachen zu dir passen.",
+  "boostCostLine": "Kosten: {cost} Münzen",
+  "boostBalanceLine": "Dein Guthaben: {balance} Münzen",
+  "boostConfirm": "Boost bestätigen",
+  "boostActiveTitle": "Dein Boost ist aktiv",
+  "boostTimeLeft": "Noch {time}",
+  "boostSeenBy": "Bisher von {count} Personen gesehen",
+  "boostFailed": "Dein Boost konnte nicht gestartet werden. Bitte versuche es erneut."
 }

@@ -3475,7 +3475,11 @@
   "thanksForParticipating": "भाग लेने के लिए धन्यवाद! +10 XP 🎉",
   "deleteWordConfirm": "अपनी शब्दावली से “{word}” हटाएं?",
   "@deleteWordConfirm": {
-    "placeholders": { "word": { "type": "String" } }
+    "placeholders": {
+      "word": {
+        "type": "String"
+      }
+    }
   },
   "wordDeleted": "शब्द हटा दिया गया",
   "vocabularyLoadFailed": "आपकी शब्दावली लोड नहीं हो सकी",
@@ -3587,5 +3591,19 @@
   "referralShare": "शेयर करें",
   "referralCopied": "कॉपी हो गया",
   "referralClaimed": "आपने {coins} सिक्के कमाए!",
-  "referralHowItWorks": "जब कोई दोस्त आपके कोड से साइन अप करके अपनी प्रोफ़ाइल पूरी करता है, तो आप दोनों को सिक्के मिलते हैं।"
+  "referralHowItWorks": "जब कोई दोस्त आपके कोड से साइन अप करके अपनी प्रोफ़ाइल पूरी करता है, तो आप दोनों को सिक्के मिलते हैं।",
+  "boostTitle": "मेरी प्रोफ़ाइल बूस्ट करें",
+  "boostSubtitle": "24 घंटे तक ज़्यादा पार्टनर्स को दिखें",
+  "boostFromMatches": "ज़्यादा लोगों को दिखें",
+  "boostedChip": "बूस्टेड",
+  "boostCapacityFull": "अभी सभी बूस्ट स्लॉट भरे हुए हैं — कुछ घंटों बाद फिर कोशिश करें",
+  "extraMatchesCta": "+3 और मैच — {cost} सिक्के",
+  "boostExplain": "24 घंटे के लिए उन सभी के 6वें मैच बनें जिनकी भाषाएँ आपसे मेल खाती हैं।",
+  "boostCostLine": "कीमत: {cost} सिक्के",
+  "boostBalanceLine": "आपका बैलेंस: {balance} सिक्के",
+  "boostConfirm": "बूस्ट की पुष्टि करें",
+  "boostActiveTitle": "आपका बूस्ट चालू है",
+  "boostTimeLeft": "{time} बाकी",
+  "boostSeenBy": "अब तक {count} लोगों ने देखा",
+  "boostFailed": "बूस्ट शुरू नहीं हो सका। कृपया फिर कोशिश करें।"
 }

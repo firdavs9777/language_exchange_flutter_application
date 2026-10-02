@@ -5714,7 +5714,11 @@
   "thanksForParticipating": "Thanks for participating! +10 XP 🎉",
   "deleteWordConfirm": "Delete “{word}” from your vocabulary?",
   "@deleteWordConfirm": {
-    "placeholders": { "word": { "type": "String" } }
+    "placeholders": {
+      "word": {
+        "type": "String"
+      }
+    }
   },
   "wordDeleted": "Word deleted",
   "vocabularyLoadFailed": "Could not load your vocabulary",
@@ -5895,21 +5899,33 @@
   "@openerReciprocal": {
     "description": "Chat opener for a reciprocal language pair",
     "placeholders": {
-      "theirLanguage": { "type": "String" },
-      "myLanguage": { "type": "String" }
+      "theirLanguage": {
+        "type": "String"
+      },
+      "myLanguage": {
+        "type": "String"
+      }
     }
   },
   "openerSharedTopic": "I saw you're into {topic} — what got you started?",
   "@openerSharedTopic": {
     "description": "Chat opener about a shared topic",
-    "placeholders": { "topic": { "type": "String" } }
+    "placeholders": {
+      "topic": {
+        "type": "String"
+      }
+    }
   },
   "openerGeneric": "Hi {name}! I'm learning {language} — got any tips? 👋",
   "@openerGeneric": {
     "description": "Generic chat opener",
     "placeholders": {
-      "name": { "type": "String" },
-      "language": { "type": "String" }
+      "name": {
+        "type": "String"
+      },
+      "language": {
+        "type": "String"
+      }
     }
   },
   "openerChipsTitle": "Conversation starters — tap to edit before sending",
@@ -5919,7 +5935,11 @@
   "stallRescueTitle": "{name} asked you something 👀",
   "@stallRescueTitle": {
     "description": "Stall-rescue banner title in a stalled chat",
-    "placeholders": { "name": { "type": "String" } }
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
   },
   "stallRescueHint": "Sorry for the slow reply! Still up for chatting? 😊",
   "@stallRescueHint": {
@@ -5982,5 +6002,86 @@
   "referralHowItWorks": "When a friend signs up with your code and completes their profile, you both get coins.",
   "@referralHowItWorks": {
     "description": "Referral screen string"
+  },
+  "boostTitle": "Boost my profile",
+  "@boostTitle": {
+    "description": "Profile Boost string"
+  },
+  "boostSubtitle": "Be seen by more partners for 24h",
+  "@boostSubtitle": {
+    "description": "Profile Boost string"
+  },
+  "boostFromMatches": "Get seen by more people",
+  "@boostFromMatches": {
+    "description": "Profile Boost string"
+  },
+  "boostedChip": "Boosted",
+  "@boostedChip": {
+    "description": "Profile Boost string"
+  },
+  "boostCapacityFull": "All boost slots are taken right now — try again in a few hours",
+  "@boostCapacityFull": {
+    "description": "Profile Boost string"
+  },
+  "extraMatchesCta": "+3 more matches — {cost} coins",
+  "@extraMatchesCta": {
+    "description": "Profile Boost string",
+    "placeholders": {
+      "cost": {
+        "type": "int"
+      }
+    }
+  },
+  "boostExplain": "Be the 6th match for everyone whose languages fit you, for 24 hours.",
+  "@boostExplain": {
+    "description": "Profile Boost string"
+  },
+  "boostCostLine": "Cost: {cost} coins",
+  "@boostCostLine": {
+    "description": "Profile Boost string",
+    "placeholders": {
+      "cost": {
+        "type": "int"
+      }
+    }
+  },
+  "boostBalanceLine": "Your balance: {balance} coins",
+  "@boostBalanceLine": {
+    "description": "Profile Boost string",
+    "placeholders": {
+      "balance": {
+        "type": "int"
+      }
+    }
+  },
+  "boostConfirm": "Confirm boost",
+  "@boostConfirm": {
+    "description": "Profile Boost string"
+  },
+  "boostActiveTitle": "Your boost is live",
+  "@boostActiveTitle": {
+    "description": "Profile Boost string"
+  },
+  "boostTimeLeft": "{time} left",
+  "@boostTimeLeft": {
+    "description": "Profile Boost string",
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "boostSeenBy": "Seen by {count} people so far",
+  "@boostSeenBy": {
+    "description": "Profile Boost string",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "boostFailed": "Couldn't start your boost. Please try again.",
+  "@boostFailed": {
+    "description": "Profile Boost string"
   }
 }

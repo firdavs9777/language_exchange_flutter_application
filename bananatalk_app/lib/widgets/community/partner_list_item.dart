@@ -244,6 +244,11 @@ class PartnerListItem extends StatelessWidget {
     final l10n = AppLocalizations.of(context)!;
     final chips = <Widget>[];
 
+    if (user.boosted) {
+      chips.add(_chip(context, l10n.boostedChip, AppColors.matchInk,
+          fill: AppColors.matchAccent));
+    }
+
     if (showOnline) {
       if (user.isOnline) {
         chips.add(_chip(context, l10n.partnerTagActiveNow, AppColors.success));
@@ -296,11 +301,11 @@ class PartnerListItem extends StatelessWidget {
     );
   }
 
-  Widget _chip(BuildContext context, String label, Color color) {
+  Widget _chip(BuildContext context, String label, Color color, {Color? fill}) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
       decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.12),
+        color: fill ?? color.withValues(alpha: 0.12),
         borderRadius: BorderRadius.circular(10),
       ),
       child: Text(

@@ -8652,4 +8652,56 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get referralHowItWorks => 'Quando um amigo se cadastra com seu código e completa o perfil, vocês dois ganham moedas.';
+
+  @override
+  String get boostTitle => 'Impulsionar meu perfil';
+
+  @override
+  String get boostSubtitle => 'Seja visto por mais parceiros por 24 h';
+
+  @override
+  String get boostFromMatches => 'Seja visto por mais pessoas';
+
+  @override
+  String get boostedChip => 'Impulsionado';
+
+  @override
+  String get boostCapacityFull => 'Todas as vagas de impulso estão ocupadas agora — tente de novo em algumas horas';
+
+  @override
+  String extraMatchesCta(int cost) {
+    return '+3 combinações — $cost moedas';
+  }
+
+  @override
+  String get boostExplain => 'Seja a 6ª combinação de todos cujos idiomas combinam com os seus, por 24 horas.';
+
+  @override
+  String boostCostLine(int cost) {
+    return 'Custo: $cost moedas';
+  }
+
+  @override
+  String boostBalanceLine(int balance) {
+    return 'Seu saldo: $balance moedas';
+  }
+
+  @override
+  String get boostConfirm => 'Confirmar impulso';
+
+  @override
+  String get boostActiveTitle => 'Seu impulso está ativo';
+
+  @override
+  String boostTimeLeft(String time) {
+    return 'Restam $time';
+  }
+
+  @override
+  String boostSeenBy(int count) {
+    return 'Visto por $count pessoas até agora';
+  }
+
+  @override
+  String get boostFailed => 'Não foi possível iniciar seu impulso. Tente novamente.';
 }

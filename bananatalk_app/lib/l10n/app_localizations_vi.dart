@@ -8642,4 +8642,56 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get referralHowItWorks => 'Khi bạn bè đăng ký bằng mã của bạn và hoàn tất hồ sơ, cả hai đều nhận được xu.';
+
+  @override
+  String get boostTitle => 'Đẩy hồ sơ của tôi';
+
+  @override
+  String get boostSubtitle => 'Được nhiều bạn học thấy hơn trong 24 giờ';
+
+  @override
+  String get boostFromMatches => 'Được nhiều người thấy hơn';
+
+  @override
+  String get boostedChip => 'Đã đẩy';
+
+  @override
+  String get boostCapacityFull => 'Hiện tại tất cả suất đẩy đã đầy — hãy thử lại sau vài giờ';
+
+  @override
+  String extraMatchesCta(int cost) {
+    return '+3 lượt ghép nữa — $cost xu';
+  }
+
+  @override
+  String get boostExplain => 'Trở thành lượt ghép thứ 6 của mọi người có ngôn ngữ phù hợp với bạn trong 24 giờ.';
+
+  @override
+  String boostCostLine(int cost) {
+    return 'Chi phí: $cost xu';
+  }
+
+  @override
+  String boostBalanceLine(int balance) {
+    return 'Số dư của bạn: $balance xu';
+  }
+
+  @override
+  String get boostConfirm => 'Xác nhận đẩy hồ sơ';
+
+  @override
+  String get boostActiveTitle => 'Lượt đẩy của bạn đang chạy';
+
+  @override
+  String boostTimeLeft(String time) {
+    return 'Còn $time';
+  }
+
+  @override
+  String boostSeenBy(int count) {
+    return 'Đã có $count người thấy';
+  }
+
+  @override
+  String get boostFailed => 'Không thể bắt đầu đẩy hồ sơ. Vui lòng thử lại.';
 }

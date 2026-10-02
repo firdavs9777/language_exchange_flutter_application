@@ -15991,6 +15991,90 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'When a friend signs up with your code and completes their profile, you both get coins.'**
   String get referralHowItWorks;
+
+  /// Profile Boost string
+  ///
+  /// In en, this message translates to:
+  /// **'Boost my profile'**
+  String get boostTitle;
+
+  /// Profile Boost string
+  ///
+  /// In en, this message translates to:
+  /// **'Be seen by more partners for 24h'**
+  String get boostSubtitle;
+
+  /// Profile Boost string
+  ///
+  /// In en, this message translates to:
+  /// **'Get seen by more people'**
+  String get boostFromMatches;
+
+  /// Profile Boost string
+  ///
+  /// In en, this message translates to:
+  /// **'Boosted'**
+  String get boostedChip;
+
+  /// Profile Boost string
+  ///
+  /// In en, this message translates to:
+  /// **'All boost slots are taken right now — try again in a few hours'**
+  String get boostCapacityFull;
+
+  /// Profile Boost string
+  ///
+  /// In en, this message translates to:
+  /// **'+3 more matches — {cost} coins'**
+  String extraMatchesCta(int cost);
+
+  /// Profile Boost string
+  ///
+  /// In en, this message translates to:
+  /// **'Be the 6th match for everyone whose languages fit you, for 24 hours.'**
+  String get boostExplain;
+
+  /// Profile Boost string
+  ///
+  /// In en, this message translates to:
+  /// **'Cost: {cost} coins'**
+  String boostCostLine(int cost);
+
+  /// Profile Boost string
+  ///
+  /// In en, this message translates to:
+  /// **'Your balance: {balance} coins'**
+  String boostBalanceLine(int balance);
+
+  /// Profile Boost string
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm boost'**
+  String get boostConfirm;
+
+  /// Profile Boost string
+  ///
+  /// In en, this message translates to:
+  /// **'Your boost is live'**
+  String get boostActiveTitle;
+
+  /// Profile Boost string
+  ///
+  /// In en, this message translates to:
+  /// **'{time} left'**
+  String boostTimeLeft(String time);
+
+  /// Profile Boost string
+  ///
+  /// In en, this message translates to:
+  /// **'Seen by {count} people so far'**
+  String boostSeenBy(int count);
+
+  /// Profile Boost string
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t start your boost. Please try again.'**
+  String get boostFailed;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

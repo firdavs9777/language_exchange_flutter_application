@@ -8673,4 +8673,56 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get referralHowItWorks => 'Когда друг зарегистрируется по вашему коду и заполнит профиль, вы оба получите монеты.';
+
+  @override
+  String get boostTitle => 'Продвинуть мой профиль';
+
+  @override
+  String get boostSubtitle => 'Вас увидит больше собеседников на 24 часа';
+
+  @override
+  String get boostFromMatches => 'Чтобы вас видело больше людей';
+
+  @override
+  String get boostedChip => 'Продвигается';
+
+  @override
+  String get boostCapacityFull => 'Все места для продвижения сейчас заняты — попробуйте через несколько часов';
+
+  @override
+  String extraMatchesCta(int cost) {
+    return '+3 совпадения — $cost монет';
+  }
+
+  @override
+  String get boostExplain => 'Станьте 6-м совпадением для всех, чьи языки вам подходят, на 24 часа.';
+
+  @override
+  String boostCostLine(int cost) {
+    return 'Стоимость: $cost монет';
+  }
+
+  @override
+  String boostBalanceLine(int balance) {
+    return 'Ваш баланс: $balance монет';
+  }
+
+  @override
+  String get boostConfirm => 'Подтвердить продвижение';
+
+  @override
+  String get boostActiveTitle => 'Продвижение активно';
+
+  @override
+  String boostTimeLeft(String time) {
+    return 'Осталось $time';
+  }
+
+  @override
+  String boostSeenBy(int count) {
+    return 'Пока вас увидели $count человек';
+  }
+
+  @override
+  String get boostFailed => 'Не удалось запустить продвижение. Попробуйте ещё раз.';
 }

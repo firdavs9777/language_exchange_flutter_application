@@ -3699,7 +3699,11 @@
   "thanksForParticipating": "Grazie per aver partecipato! +10 XP 🎉",
   "deleteWordConfirm": "Eliminare “{word}” dal tuo vocabolario?",
   "@deleteWordConfirm": {
-    "placeholders": { "word": { "type": "String" } }
+    "placeholders": {
+      "word": {
+        "type": "String"
+      }
+    }
   },
   "wordDeleted": "Parola eliminata",
   "vocabularyLoadFailed": "Impossibile caricare il tuo vocabolario",
@@ -3811,5 +3815,19 @@
   "referralShare": "Condividi",
   "referralCopied": "Copiato",
   "referralClaimed": "Hai guadagnato {coins} monete!",
-  "referralHowItWorks": "Quando un amico si iscrive con il tuo codice e completa il profilo, ricevete entrambi delle monete."
+  "referralHowItWorks": "Quando un amico si iscrive con il tuo codice e completa il profilo, ricevete entrambi delle monete.",
+  "boostTitle": "Potenzia il mio profilo",
+  "boostSubtitle": "Fatti vedere da più partner per 24 ore",
+  "boostFromMatches": "Fatti vedere da più persone",
+  "boostedChip": "Potenziato",
+  "boostCapacityFull": "Tutti gli slot di potenziamento sono occupati ora — riprova tra qualche ora",
+  "extraMatchesCta": "+3 match in più — {cost} monete",
+  "boostExplain": "Sii il 6° match per tutti quelli con lingue compatibili con le tue, per 24 ore.",
+  "boostCostLine": "Costo: {cost} monete",
+  "boostBalanceLine": "Il tuo saldo: {balance} monete",
+  "boostConfirm": "Conferma potenziamento",
+  "boostActiveTitle": "Il tuo potenziamento è attivo",
+  "boostTimeLeft": "{time} rimanenti",
+  "boostSeenBy": "Visto da {count} persone finora",
+  "boostFailed": "Impossibile avviare il potenziamento. Riprova."
 }

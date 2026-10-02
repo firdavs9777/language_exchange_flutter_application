@@ -23,9 +23,18 @@ import 'package:bananatalk_app/utils/app_page_route.dart';
 /// Renders nothing when coins are disabled server-side, when the catalog
 /// hasn't loaded yet, or when [featureKey] isn't in the catalog.
 class UnlockCta extends ConsumerWidget {
-  const UnlockCta({super.key, required this.featureKey, this.onUnlocked});
+  const UnlockCta({
+    super.key,
+    required this.featureKey,
+    this.onUnlocked,
+    this.labelBuilder,
+  });
 
   final String featureKey;
+
+  /// Optional localized label (e.g. "+3 more matches — 40 coins") built from
+  /// the live catalog cost/grant; defaults to "Unlock N for 💎X".
+  final String Function(int cost, int grant)? labelBuilder;
 
   /// Called after a successful unlock (balance already refreshed) so the
   /// caller can retry the gated action inline. Optional — surfaces that
@@ -54,6 +63,7 @@ class UnlockCta extends ConsumerWidget {
           cost: entry.cost,
           grant: entry.grant,
           onUnlocked: onUnlocked,
+          labelBuilder: labelBuilder,
         );
       },
       // Avoid popping the CTA in mid-interaction — safest to render
@@ -70,12 +80,14 @@ class _UnlockButton extends ConsumerStatefulWidget {
     required this.cost,
     required this.grant,
     this.onUnlocked,
+    this.labelBuilder,
   });
 
   final String featureKey;
   final int cost;
   final int grant;
   final VoidCallback? onUnlocked;
+  final String Function(int cost, int grant)? labelBuilder;
 
   @override
   ConsumerState<_UnlockButton> createState() => _UnlockButtonState();
@@ -148,7 +160,8 @@ class _UnlockButtonState extends ConsumerState<_UnlockButton> {
               child: CircularProgressIndicator(strokeWidth: 2),
             )
           : Text(
-              'Unlock ${widget.grant} for 💎${widget.cost}',
+              widget.labelBuilder?.call(widget.cost, widget.grant) ??
+                  'Unlock ${widget.grant} for 💎${widget.cost}',
               style: const TextStyle(fontWeight: FontWeight.w700),
             ),
     );

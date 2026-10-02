@@ -8650,4 +8650,56 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get referralHowItWorks => 'Bir arkadaşın kodunla kaydolup profilini tamamladığında ikiniz de coin kazanırsınız.';
+
+  @override
+  String get boostTitle => 'Profilimi öne çıkar';
+
+  @override
+  String get boostSubtitle => '24 saat boyunca daha fazla partner tarafından görül';
+
+  @override
+  String get boostFromMatches => 'Daha fazla kişi tarafından görül';
+
+  @override
+  String get boostedChip => 'Öne çıkarıldı';
+
+  @override
+  String get boostCapacityFull => 'Şu anda tüm boost yerleri dolu — birkaç saat sonra tekrar dene';
+
+  @override
+  String extraMatchesCta(int cost) {
+    return '+3 eşleşme daha — $cost jeton';
+  }
+
+  @override
+  String get boostExplain => 'Dilleri sana uyan herkes için 24 saat boyunca 6. eşleşme ol.';
+
+  @override
+  String boostCostLine(int cost) {
+    return 'Ücret: $cost jeton';
+  }
+
+  @override
+  String boostBalanceLine(int balance) {
+    return 'Bakiyen: $balance jeton';
+  }
+
+  @override
+  String get boostConfirm => 'Boost\'u onayla';
+
+  @override
+  String get boostActiveTitle => 'Boost\'un aktif';
+
+  @override
+  String boostTimeLeft(String time) {
+    return '$time kaldı';
+  }
+
+  @override
+  String boostSeenBy(int count) {
+    return 'Şimdiye kadar $count kişi gördü';
+  }
+
+  @override
+  String get boostFailed => 'Boost başlatılamadı. Lütfen tekrar dene.';
 }

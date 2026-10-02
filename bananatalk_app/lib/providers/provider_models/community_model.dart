@@ -63,6 +63,7 @@ class Community {
     this.intents = const [],
     this.languageLevel,
     this.responseRate,
+    this.boosted = false,
     this.lastActive,
     this.isOnline = false,
     // VIP fields
@@ -124,6 +125,8 @@ class Community {
   final List<String> intents;
   final String? languageLevel; // A1, A2, B1, B2, C1, C2
   final double? responseRate; // 0-100
+  /// Paid Profile Boost slot on smart-sorted page 1 (additive; false if absent).
+  final bool boosted;
   final DateTime? lastActive;
   final bool isOnline;
   // VIP fields
@@ -254,6 +257,7 @@ class Community {
           [],
       languageLevel: json['languageLevel'] != null ? _s(json['languageLevel']) : null,
       responseRate: (json['responseRate'] as num?)?.toDouble(),
+      boosted: json['boosted'] == true,
       lastActive: json['lastActive'] != null
           ? DateTime.tryParse(json['lastActive'].toString())
           : null,

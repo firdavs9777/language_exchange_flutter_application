@@ -8642,4 +8642,56 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get referralHowItWorks => 'เมื่อเพื่อนสมัครด้วยรหัสของคุณและกรอกโปรไฟล์ครบ คุณทั้งคู่จะได้รับเหรียญ';
+
+  @override
+  String get boostTitle => 'บูสต์โปรไฟล์ของฉัน';
+
+  @override
+  String get boostSubtitle => 'ให้คู่สนทนาเห็นคุณมากขึ้นนาน 24 ชม.';
+
+  @override
+  String get boostFromMatches => 'ให้คนเห็นคุณมากขึ้น';
+
+  @override
+  String get boostedChip => 'บูสต์แล้ว';
+
+  @override
+  String get boostCapacityFull => 'ช่องบูสต์เต็มทั้งหมดในตอนนี้ — ลองใหม่ในอีกไม่กี่ชั่วโมง';
+
+  @override
+  String extraMatchesCta(int cost) {
+    return '+3 แมตช์เพิ่ม — $cost เหรียญ';
+  }
+
+  @override
+  String get boostExplain => 'เป็นแมตช์ที่ 6 ของทุกคนที่ภาษาตรงกับคุณ เป็นเวลา 24 ชั่วโมง';
+
+  @override
+  String boostCostLine(int cost) {
+    return 'ค่าใช้จ่าย: $cost เหรียญ';
+  }
+
+  @override
+  String boostBalanceLine(int balance) {
+    return 'ยอดคงเหลือ: $balance เหรียญ';
+  }
+
+  @override
+  String get boostConfirm => 'ยืนยันการบูสต์';
+
+  @override
+  String get boostActiveTitle => 'บูสต์ของคุณกำลังทำงาน';
+
+  @override
+  String boostTimeLeft(String time) {
+    return 'เหลือ $time';
+  }
+
+  @override
+  String boostSeenBy(int count) {
+    return 'มีคนเห็นแล้ว $count คน';
+  }
+
+  @override
+  String get boostFailed => 'เริ่มบูสต์ไม่ได้ กรุณาลองอีกครั้ง';
 }

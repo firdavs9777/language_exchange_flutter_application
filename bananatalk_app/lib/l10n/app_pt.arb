@@ -3475,7 +3475,11 @@
   "thanksForParticipating": "Obrigado por participar! +10 XP 🎉",
   "deleteWordConfirm": "Excluir “{word}” do seu vocabulário?",
   "@deleteWordConfirm": {
-    "placeholders": { "word": { "type": "String" } }
+    "placeholders": {
+      "word": {
+        "type": "String"
+      }
+    }
   },
   "wordDeleted": "Palavra excluída",
   "vocabularyLoadFailed": "Não foi possível carregar seu vocabulário",
@@ -3587,5 +3591,19 @@
   "referralShare": "Compartilhar",
   "referralCopied": "Copiado",
   "referralClaimed": "Você ganhou {coins} moedas!",
-  "referralHowItWorks": "Quando um amigo se cadastra com seu código e completa o perfil, vocês dois ganham moedas."
+  "referralHowItWorks": "Quando um amigo se cadastra com seu código e completa o perfil, vocês dois ganham moedas.",
+  "boostTitle": "Impulsionar meu perfil",
+  "boostSubtitle": "Seja visto por mais parceiros por 24 h",
+  "boostFromMatches": "Seja visto por mais pessoas",
+  "boostedChip": "Impulsionado",
+  "boostCapacityFull": "Todas as vagas de impulso estão ocupadas agora — tente de novo em algumas horas",
+  "extraMatchesCta": "+3 combinações — {cost} moedas",
+  "boostExplain": "Seja a 6ª combinação de todos cujos idiomas combinam com os seus, por 24 horas.",
+  "boostCostLine": "Custo: {cost} moedas",
+  "boostBalanceLine": "Seu saldo: {balance} moedas",
+  "boostConfirm": "Confirmar impulso",
+  "boostActiveTitle": "Seu impulso está ativo",
+  "boostTimeLeft": "Restam {time}",
+  "boostSeenBy": "Visto por {count} pessoas até agora",
+  "boostFailed": "Não foi possível iniciar seu impulso. Tente novamente."
 }

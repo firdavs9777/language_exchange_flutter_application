@@ -8642,4 +8642,56 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get referralHowItWorks => '友だちがあなたのコードで登録してプロフィールを完成させると、2人ともコインがもらえます。';
+
+  @override
+  String get boostTitle => 'プロフィールをブースト';
+
+  @override
+  String get boostSubtitle => '24時間、より多くのパートナーに表示されます';
+
+  @override
+  String get boostFromMatches => 'もっと多くの人に見てもらう';
+
+  @override
+  String get boostedChip => 'ブースト中';
+
+  @override
+  String get boostCapacityFull => '現在ブーストの枠がすべて埋まっています — 数時間後にもう一度お試しください';
+
+  @override
+  String extraMatchesCta(int cost) {
+    return '+3人のマッチ — $costコイン';
+  }
+
+  @override
+  String get boostExplain => '言語が合うすべての人に、24時間「6番目のマッチ」として表示されます。';
+
+  @override
+  String boostCostLine(int cost) {
+    return '料金: $costコイン';
+  }
+
+  @override
+  String boostBalanceLine(int balance) {
+    return '残高: $balanceコイン';
+  }
+
+  @override
+  String get boostConfirm => 'ブーストを確定';
+
+  @override
+  String get boostActiveTitle => 'ブースト実行中';
+
+  @override
+  String boostTimeLeft(String time) {
+    return '残り $time';
+  }
+
+  @override
+  String boostSeenBy(int count) {
+    return 'これまで$count人に表示されました';
+  }
+
+  @override
+  String get boostFailed => 'ブーストを開始できませんでした。もう一度お試しください。';
 }

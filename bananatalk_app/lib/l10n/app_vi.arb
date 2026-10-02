@@ -3459,7 +3459,11 @@
   "thanksForParticipating": "Cảm ơn bạn đã tham gia! +10 XP 🎉",
   "deleteWordConfirm": "Xóa “{word}” khỏi từ vựng của bạn?",
   "@deleteWordConfirm": {
-    "placeholders": { "word": { "type": "String" } }
+    "placeholders": {
+      "word": {
+        "type": "String"
+      }
+    }
   },
   "wordDeleted": "Đã xóa từ",
   "vocabularyLoadFailed": "Không thể tải từ vựng của bạn",
@@ -3571,5 +3575,19 @@
   "referralShare": "Chia sẻ",
   "referralCopied": "Đã sao chép",
   "referralClaimed": "Bạn đã nhận được {coins} xu!",
-  "referralHowItWorks": "Khi bạn bè đăng ký bằng mã của bạn và hoàn tất hồ sơ, cả hai đều nhận được xu."
+  "referralHowItWorks": "Khi bạn bè đăng ký bằng mã của bạn và hoàn tất hồ sơ, cả hai đều nhận được xu.",
+  "boostTitle": "Đẩy hồ sơ của tôi",
+  "boostSubtitle": "Được nhiều bạn học thấy hơn trong 24 giờ",
+  "boostFromMatches": "Được nhiều người thấy hơn",
+  "boostedChip": "Đã đẩy",
+  "boostCapacityFull": "Hiện tại tất cả suất đẩy đã đầy — hãy thử lại sau vài giờ",
+  "extraMatchesCta": "+3 lượt ghép nữa — {cost} xu",
+  "boostExplain": "Trở thành lượt ghép thứ 6 của mọi người có ngôn ngữ phù hợp với bạn trong 24 giờ.",
+  "boostCostLine": "Chi phí: {cost} xu",
+  "boostBalanceLine": "Số dư của bạn: {balance} xu",
+  "boostConfirm": "Xác nhận đẩy hồ sơ",
+  "boostActiveTitle": "Lượt đẩy của bạn đang chạy",
+  "boostTimeLeft": "Còn {time}",
+  "boostSeenBy": "Đã có {count} người thấy",
+  "boostFailed": "Không thể bắt đầu đẩy hồ sơ. Vui lòng thử lại."
 }

@@ -8652,4 +8652,56 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get referralHowItWorks => 'Quand un ami s\'inscrit avec votre code et complète son profil, vous recevez tous les deux des pièces.';
+
+  @override
+  String get boostTitle => 'Booster mon profil';
+
+  @override
+  String get boostSubtitle => 'Soyez vu par plus de partenaires pendant 24 h';
+
+  @override
+  String get boostFromMatches => 'Être vu par plus de monde';
+
+  @override
+  String get boostedChip => 'Boosté';
+
+  @override
+  String get boostCapacityFull => 'Tous les créneaux de boost sont pris pour le moment — réessayez dans quelques heures';
+
+  @override
+  String extraMatchesCta(int cost) {
+    return '+3 correspondances — $cost pièces';
+  }
+
+  @override
+  String get boostExplain => 'Soyez la 6e correspondance de toutes les personnes dont les langues vous conviennent, pendant 24 heures.';
+
+  @override
+  String boostCostLine(int cost) {
+    return 'Coût : $cost pièces';
+  }
+
+  @override
+  String boostBalanceLine(int balance) {
+    return 'Votre solde : $balance pièces';
+  }
+
+  @override
+  String get boostConfirm => 'Confirmer le boost';
+
+  @override
+  String get boostActiveTitle => 'Votre boost est actif';
+
+  @override
+  String boostTimeLeft(String time) {
+    return '$time restant';
+  }
+
+  @override
+  String boostSeenBy(int count) {
+    return 'Vu par $count personnes jusqu\'ici';
+  }
+
+  @override
+  String get boostFailed => 'Impossible de lancer votre boost. Veuillez réessayer.';
 }

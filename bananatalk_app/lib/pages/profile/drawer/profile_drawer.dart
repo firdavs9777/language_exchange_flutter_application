@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:bananatalk_app/pages/moments/saved/saved_moments_screen.dart';
 import 'package:bananatalk_app/pages/notifications/notification_settings_screen.dart';
 import 'package:bananatalk_app/pages/settings/notification_preferences_screen.dart';
+import 'package:bananatalk_app/pages/coins/boost_screen.dart';
 import 'package:bananatalk_app/pages/profile/referral_screen.dart';
 import 'package:bananatalk_app/pages/profile/settings.dart';
 import 'package:bananatalk_app/pages/profile/theme.dart';
@@ -168,6 +169,27 @@ class LeftDrawer extends ConsumerWidget {
                               context,
                               AppPageRoute(
                                 builder: (context) => const ReferralScreen(),
+                              ),
+                            );
+                          },
+                        ),
+                      ],
+                      if (ref.watch(appConfigProvider).maybeWhen(
+                            data: (config) => config?.boostsEnabled ?? false,
+                            orElse: () => false,
+                          )) ...[
+                        const DrawerDivider(),
+                        DrawerMenuItem(
+                          icon: Icons.rocket_launch_rounded,
+                          iconColor: const Color(0xFFFFB300),
+                          title: l10n.boostTitle,
+                          subtitle: l10n.boostSubtitle,
+                          onTap: () {
+                            Navigator.pop(context);
+                            Navigator.push(
+                              context,
+                              AppPageRoute(
+                                builder: (context) => const BoostScreen(),
                               ),
                             );
                           },

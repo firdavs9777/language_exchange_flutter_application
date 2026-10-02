@@ -3489,7 +3489,11 @@
   "thanksForParticipating": "Спасибо за участие! +10 XP 🎉",
   "deleteWordConfirm": "Удалить «{word}» из вашего словаря?",
   "@deleteWordConfirm": {
-    "placeholders": { "word": { "type": "String" } }
+    "placeholders": {
+      "word": {
+        "type": "String"
+      }
+    }
   },
   "wordDeleted": "Слово удалено",
   "vocabularyLoadFailed": "Не удалось загрузить ваш словарь",
@@ -3601,5 +3605,19 @@
   "referralShare": "Поделиться",
   "referralCopied": "Скопировано",
   "referralClaimed": "Вы получили {coins} монет!",
-  "referralHowItWorks": "Когда друг зарегистрируется по вашему коду и заполнит профиль, вы оба получите монеты."
+  "referralHowItWorks": "Когда друг зарегистрируется по вашему коду и заполнит профиль, вы оба получите монеты.",
+  "boostTitle": "Продвинуть мой профиль",
+  "boostSubtitle": "Вас увидит больше собеседников на 24 часа",
+  "boostFromMatches": "Чтобы вас видело больше людей",
+  "boostedChip": "Продвигается",
+  "boostCapacityFull": "Все места для продвижения сейчас заняты — попробуйте через несколько часов",
+  "extraMatchesCta": "+3 совпадения — {cost} монет",
+  "boostExplain": "Станьте 6-м совпадением для всех, чьи языки вам подходят, на 24 часа.",
+  "boostCostLine": "Стоимость: {cost} монет",
+  "boostBalanceLine": "Ваш баланс: {balance} монет",
+  "boostConfirm": "Подтвердить продвижение",
+  "boostActiveTitle": "Продвижение активно",
+  "boostTimeLeft": "Осталось {time}",
+  "boostSeenBy": "Пока вас увидели {count} человек",
+  "boostFailed": "Не удалось запустить продвижение. Попробуйте ещё раз."
 }
