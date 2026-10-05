@@ -307,8 +307,8 @@ class VoiceRoomManager {
     // `voicerooms:lobby` (the directory), on one event name and one broadcast
     // stream on this side. Without scoping to our own room, any unrelated
     // host ending their room tore this user out of the room they were
-    // actually in — and `_cleanup()` does not disconnect LiveKit, so their
-    // mic kept publishing after the screen was gone.
+    // actually in. (`_cleanup()` now disconnects LiveKit, so a user removed
+    // by any path stops publishing; it used to leave the mic live.)
     _endedSub = _chatSocketService!.onVoiceRoomEnded.listen((data) {
       final m = data is Map ? Map<String, dynamic>.from(data) : null;
       final endedRoomId = m?['roomId']?.toString();
@@ -478,11 +478,20 @@ class VoiceRoomManager {
     _isMuted = true;
     _isHandRaised = false;
 
-    // 1) Persist join via REST, 2) connect transport — run in parallel.
-    final joinFuture = ApiClient().post('voicerooms/${room.id}/join');
-    final connectFuture = _liveKit.connect(roomId: room.id);
-    final joinRes = await joinFuture;
-    await connectFuture;
+    // Persist the join BEFORE connecting the transport. These used to run in
+    // parallel, but `_liveKit.connect()` immediately requests a token and the
+    // token endpoint (backend controllers/voiceRooms.js) now requires the
+    // participant record that POST /join creates. The token request usually
+    // won the race, so every non-host got 403 "Join the room before
+    // requesting a token" and was left in the room in Mongo with no audio.
+    // Hosts are seeded into `participants` at creation, which made the
+    // failure look intermittent rather than total.
+    final joinRes = await ApiClient().post('voicerooms/${room.id}/join');
+    if (!joinRes.success) {
+      _cleanup();
+      throw StateError(joinRes.error ?? 'Could not join this room');
+    }
+    await _liveKit.connect(roomId: room.id);
 
     if (joinRes.success && joinRes.data != null) {
       // The /join endpoint returns the updated room (with full participant
@@ -636,6 +645,14 @@ class VoiceRoomManager {
   }
 
   void _cleanup() {
+    // Silence the mic first. Every path that lands here -- kicked, room
+    // ended, a failed join -- means this user is no longer in the room, and
+    // without this the LiveKit session survived the screen and kept
+    // publishing audio for the life of the process. Idempotent: leaveRoom()
+    // disconnects before calling us, and disconnecting an already-dead room
+    // is a no-op. Fire-and-forget because _cleanup() is sync and callers
+    // (socket listeners) must not block on the transport.
+    unawaited(_liveKit.disconnect());
     _heartbeatTimer?.cancel();
     _heartbeatTimer = null;
     // Cancel any pending participant-left grace timers — the room (and its
