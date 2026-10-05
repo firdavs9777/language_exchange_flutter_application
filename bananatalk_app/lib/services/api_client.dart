@@ -204,6 +204,18 @@ class ApiClient {
       return null;
     } finally {
       _isRefreshing = false;
+      // Safety net for any exit path that returns without draining -- the
+      // "no refresh token stored" return did exactly that, and because the
+      // SharedPreferences await just above it yields, callers could queue in
+      // that gap and then wait forever on completers nobody completed. The
+      // success and failure paths clear the queue first, so this normally
+      // finds it empty.
+      if (_refreshQueue.isNotEmpty) {
+        for (final completer in _refreshQueue) {
+          if (!completer.isCompleted) completer.complete(null);
+        }
+        _refreshQueue.clear();
+      }
     }
   }
 

@@ -6,6 +6,7 @@ import 'package:bananatalk_app/services/socket_service.dart';
 import 'package:bananatalk_app/services/chat_socket_service.dart';
 import 'package:bananatalk_app/services/notification_service.dart';
 import 'package:bananatalk_app/services/notification_api_client.dart';
+import 'package:bananatalk_app/services/api_client.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -804,8 +805,14 @@ class AuthService extends ChangeNotifier {
       }
     }
 
-    // 4.5: Clear API client token cache
+    // 4.5: Clear API client token caches.
+    // BOTH clients cache independently. ApiClient is a singleton holding the
+    // bearer for up to a minute and the refresh token with no TTL at all, so
+    // clearing only the notification client left the previous user's token
+    // live after logout -- and the cached refresh token could mint a fresh
+    // one straight back into the prefs we just wiped.
     NotificationApiClient.clearTokenCache();
+    ApiClient().clearTokenCache();
 
     // 5. FIFTH: Clear image cache
     try {

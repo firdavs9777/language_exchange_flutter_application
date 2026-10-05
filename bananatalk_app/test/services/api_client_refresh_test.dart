@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/services/api_client.dart';
@@ -42,6 +44,31 @@ void main() {
       client.refreshAccessTokenForTest(),
       client.refreshAccessTokenForTest(),
     ]).timeout(const Duration(seconds: 40));
+
+    expect(results, [null, null, null]);
+  });
+
+  // Every exit path in _refreshAccessToken drains _refreshQueue except the
+  // "no refresh token stored" early return, and the finally only resets
+  // _isRefreshing. The SharedPreferences await just before that return yields,
+  // so concurrent callers queue in the gap and then wait on completers nobody
+  // ever completes -- a permanent hang, not a failed request.
+  test('concurrent refresh calls all resolve when no refresh token is stored', () async {
+    SharedPreferences.setMockInitialValues({});
+    final client = ApiClient();
+    client.clearTokenCache();
+    client.resetRefreshStateForTest();
+
+    final results = await Future.wait([
+      client.refreshAccessTokenForTest(),
+      client.refreshAccessTokenForTest(),
+      client.refreshAccessTokenForTest(),
+    ]).timeout(
+      const Duration(seconds: 10),
+      onTimeout: () => throw TimeoutException(
+        'queued callers never completed: the no-refresh-token path left them waiting',
+      ),
+    );
 
     expect(results, [null, null, null]);
   });
