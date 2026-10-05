@@ -185,7 +185,7 @@ class SingleCommunityTopics extends ConsumerWidget {
   ) {
     showDialog<void>(
       context: context,
-      builder: (_) => AlertDialog(
+      builder: (dialogContext) => AlertDialog(
         title: Text(l10n.mutualInterests),
         content: SingleChildScrollView(
           child: Wrap(
@@ -213,8 +213,8 @@ class SingleCommunityTopics extends ConsumerWidget {
         ),
         actions: [
           TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: Text(AppLocalizations.of(context)!.commonOK),
+            onPressed: () => Navigator.of(dialogContext).pop(),
+            child: Text(AppLocalizations.of(dialogContext)!.commonOK),
           ),
         ],
       ),

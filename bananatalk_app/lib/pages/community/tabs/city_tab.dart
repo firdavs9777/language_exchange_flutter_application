@@ -73,6 +73,9 @@ class _CityTabState extends ConsumerState<CityTab> {
   bool _hasMore = true;
   int _currentPage = 1;
 
+  /// Incremented per fetch; only the newest request may commit its result.
+  int _loadToken = 0;
+
   // Country pins with coordinates
   final List<_CountryPin> _countryPins = [
     _CountryPin(
@@ -389,8 +392,13 @@ class _CityTabState extends ConsumerState<CityTab> {
     await _loadUsers();
   }
 
-  Future<void> _loadUsers() async {
-    if (_isLoadingUsers) return;
+  /// Loads [page] (defaults to the current one). Superseded by any later
+  /// call: picking another country mid-flight used to be dropped by an
+  /// `if (_isLoadingUsers) return` guard, leaving the previous country's
+  /// users under the new heading. A sequence token lets the newer one win.
+  Future<void> _loadUsers({int? page}) async {
+    final requestPage = page ?? _currentPage;
+    final token = ++_loadToken;
     if (mounted) setState(() => _isLoadingUsers = true);
 
     try {
@@ -403,7 +411,7 @@ class _CityTabState extends ConsumerState<CityTab> {
       final lang = _resolveLangFilter();
 
       final result = await service.getCommunityPaginated(
-        page: _currentPage,
+        page: requestPage,
         limit: 20,
         country: _selectedCountry,
         search: _citySearch.trim().isNotEmpty ? _citySearch.trim() : null,
@@ -423,16 +431,17 @@ class _CityTabState extends ConsumerState<CityTab> {
 
       final filtered = result.users.where((u) => u.id != _userId).toList();
 
-      if (mounted) {
+      if (mounted && token == _loadToken) {
         setState(() {
           _users.addAll(filtered);
+          _currentPage = requestPage;
           _hasMore = result.hasMore;
           _isLoadingUsers = false;
           _loadError = null;
         });
       }
     } catch (e) {
-      if (mounted) {
+      if (mounted && token == _loadToken) {
         setState(() {
           _isLoadingUsers = false;
           _loadError = _users.isEmpty
@@ -445,8 +454,9 @@ class _CityTabState extends ConsumerState<CityTab> {
 
   Future<void> _loadMoreUsers() async {
     if (_isLoadingUsers || !_hasMore) return;
-    _currentPage++;
-    await _loadUsers();
+    // The page is only committed once the fetch succeeds (see _loadUsers),
+    // so a failed page is retried rather than skipped forever.
+    await _loadUsers(page: _currentPage + 1);
   }
 
   void _goBack() {

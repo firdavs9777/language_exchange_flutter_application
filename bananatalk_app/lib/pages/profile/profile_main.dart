@@ -39,6 +39,7 @@ import 'package:bananatalk_app/pages/profile/profile_main/sections/my_gatherings
 import 'package:bananatalk_app/pages/profile/profile_main/sections/profile_highlights_tab.dart';
 import 'package:bananatalk_app/pages/profile/profile_main/sections/profile_about_tab.dart';
 import 'package:bananatalk_app/pages/profile/profile_main/sections/profile_moments_tab.dart';
+import 'package:bananatalk_app/utils/user_age.dart';
 
 class ProfileMain extends ConsumerStatefulWidget {
   const ProfileMain({Key? key}) : super(key: key);
@@ -138,13 +139,6 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
     }
   }
 
-  int? _calculateAge(String birthYear) {
-    if (birthYear.isEmpty) return null;
-    final year = int.tryParse(birthYear);
-    if (year == null) return null;
-    return DateTime.now().year - year;
-  }
-
   void _shareProfile(Community user) {
     final l10n = AppLocalizations.of(context)!;
     final profileText = l10n.checkOutProfile;
@@ -200,7 +194,7 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
                     const SizedBox(height: 8),
                     ProfileTabBar(
                           user: user,
-                          calculatedAge: _calculateAge(user.birth_year),
+                          calculatedAge: ageFrom(user.birth_year, user.birth_month, user.birth_day),
                           hasActiveStory: _hasActiveStory,
                           onAvatarTap: () => _onAvatarTap(user),
                         )

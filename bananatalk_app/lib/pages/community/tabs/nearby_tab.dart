@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart' show mapEquals;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -8,6 +9,7 @@ import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/pages/community/widgets/wave_error_snackbar.dart';
+import 'package:bananatalk_app/pages/community/widgets/community_snackbar.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:bananatalk_app/pages/community/single/single_community_screen.dart';
@@ -52,6 +54,9 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
   /// nobody had been asked.
   String? _loadError;
   int _currentOffset = 0;
+
+  /// Incremented per fetch; only the newest request may commit its result.
+  int _fetchToken = 0;
   List<NearbyUser> _nearbyUsers = [];
   bool _hasMore = true;
   final ScrollController _scrollController = ScrollController();
@@ -132,6 +137,10 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
   Future<void> _fetchNearbyUsers() async {
     if (_userPosition == null) return;
 
+    // Only the newest fetch may commit. Changing the radius (or filters)
+    // while one is in flight used to append both responses into the same
+    // list and add both page sizes to `_currentOffset`.
+    final token = ++_fetchToken;
     if (mounted) setState(() => _isLoadingMore = true);
 
     try {
@@ -180,7 +189,7 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
           .where((user) => user.id != _userId)
           .toList();
 
-      if (mounted) {
+      if (mounted && token == _fetchToken) {
         setState(() {
           _nearbyUsers.addAll(filteredUsers);
           _currentOffset +=
@@ -191,7 +200,7 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
         });
       }
     } catch (e) {
-      if (mounted) {
+      if (mounted && token == _fetchToken) {
         setState(() {
           _isLoadingMore = false;
           // Only when there is nothing on screen: a failed page 3 must not
@@ -245,8 +254,13 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
   @override
   void didUpdateWidget(NearbyTab oldWidget) {
     super.didUpdateWidget(oldWidget);
-    // Reload when filters change
-    if (oldWidget.filters != widget.filters && _userPosition != null) {
+    // Reload when filters change — by VALUE. The parent rebuilds a fresh
+    // `filters` Map on every keystroke, so an identity `!=` fired a full
+    // refetch per character typed; with no in-flight guard those overlapping
+    // responses all appended into one list (duplicate cards) and each bumped
+    // `_currentOffset`, so real pagination then skipped users.
+    if (!mapEquals(oldWidget.filters, widget.filters) &&
+        _userPosition != null) {
       _loadNearbyUsers();
     }
   }
@@ -441,7 +455,17 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
           AppPageRoute(builder: (_) => SingleCommunity(community: fullProfile)),
         );
       }
-    } catch (e) {}
+    } catch (e) {
+      // Swallowing this left the tap doing nothing at all. Say so, as
+      // WavesTab._viewProfile already does.
+      if (mounted) {
+        showCommunitySnackBar(
+          context,
+          message: friendlyErrorMessage(AppLocalizations.of(context)!, e),
+          type: CommunitySnackBarType.error,
+        );
+      }
+    }
   }
 
   Widget _buildLocationPermissionRequest() {

@@ -47,6 +47,9 @@ class _GendersTabState extends ConsumerState<GendersTab> {
   String? _loadError;
   bool _hasMore = true;
   int _currentPage = 1;
+
+  /// Incremented per fetch; only the newest request may commit its result.
+  int _loadToken = 0;
   int _maleCount = 0;
   int _femaleCount = 0;
   bool _countsLoaded = false;
@@ -160,8 +163,13 @@ class _GendersTabState extends ConsumerState<GendersTab> {
     await _loadUsers();
   }
 
-  Future<void> _loadUsers() async {
-    if (_isLoading) return;
+  /// Loads [page] (defaults to the current one). Superseded by any later
+  /// call: switching gender or refreshing mid-flight used to be dropped by an
+  /// `if (_isLoading) return` guard, leaving the previous gender's users under
+  /// the new label. A sequence token lets the newer request win instead.
+  Future<void> _loadUsers({int? page}) async {
+    final requestPage = page ?? _currentPage;
+    final token = ++_loadToken;
     if (mounted) setState(() => _isLoading = true);
 
     try {
@@ -193,7 +201,7 @@ class _GendersTabState extends ConsumerState<GendersTab> {
       }
 
       final result = await service.getCommunityPaginated(
-        page: _currentPage,
+        page: requestPage,
         limit: 20,
         gender: _selectedGender,
         minAge: (minAge != null && minAge > 18) ? minAge : null,
@@ -216,16 +224,17 @@ class _GendersTabState extends ConsumerState<GendersTab> {
 
       final filtered = result.users.where((u) => u.id != _userId).toList();
 
-      if (mounted) {
+      if (mounted && token == _loadToken) {
         setState(() {
           _loadError = null;
           _users.addAll(filtered);
+          _currentPage = requestPage;
           _hasMore = result.hasMore;
           _isLoading = false;
         });
       }
     } catch (e) {
-      if (mounted) {
+      if (mounted && token == _loadToken) {
         setState(() {
           _isLoading = false;
           // A failed fetch is not "nobody here". Only surfaced when the grid
@@ -240,8 +249,9 @@ class _GendersTabState extends ConsumerState<GendersTab> {
 
   Future<void> _loadMoreUsers() async {
     if (_isLoading || !_hasMore) return;
-    _currentPage++;
-    await _loadUsers();
+    // The page is only committed once the fetch succeeds (see _loadUsers),
+    // so a failed page is retried rather than skipped forever.
+    await _loadUsers(page: _currentPage + 1);
   }
 
   Future<void> _refresh() async {

@@ -124,7 +124,7 @@ class Community {
   /// `learn` and `meet` for everyone except the signed-in user themselves.
   final List<String> intents;
   final String? languageLevel; // A1, A2, B1, B2, C1, C2
-  final double? responseRate; // 0-100
+  final double? responseRate; // 0-1 fraction (see backend responseRateService)
   /// Paid Profile Boost slot on smart-sorted page 1 (additive; false if absent).
   final bool boosted;
   final DateTime? lastActive;

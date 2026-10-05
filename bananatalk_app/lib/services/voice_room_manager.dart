@@ -301,8 +301,22 @@ class VoiceRoomManager {
       onStateChanged?.call();
     });
 
-    // Room ended
+    // Room ended.
+    //
+    // The server emits this to BOTH `voiceroom_<id>` (the participants) and
+    // `voicerooms:lobby` (the directory), on one event name and one broadcast
+    // stream on this side. Without scoping to our own room, any unrelated
+    // host ending their room tore this user out of the room they were
+    // actually in — and `_cleanup()` does not disconnect LiveKit, so their
+    // mic kept publishing after the screen was gone.
     _endedSub = _chatSocketService!.onVoiceRoomEnded.listen((data) {
+      final m = data is Map ? Map<String, dynamic>.from(data) : null;
+      final endedRoomId = m?['roomId']?.toString();
+      if (endedRoomId != null &&
+          _currentRoom != null &&
+          endedRoomId != _currentRoom!.id) {
+        return;
+      }
       onRoomEnded?.call();
       _cleanup();
     });

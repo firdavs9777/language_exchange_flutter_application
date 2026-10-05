@@ -385,16 +385,23 @@ class _CreateGatheringFormState extends State<CreateGatheringForm> {
                 ),
               ),
               Spacing.hGapMD,
-              Expanded(
-                child: _stepper(
-                  context,
-                  label: l10n.gatheringQuorumLabel,
-                  value: _quorum,
-                  min: 2,
-                  max: _capacity,
-                  onChanged: (v) => setState(() => _quorum = v),
-                ),
-              ),
+              // Quorum is create-only: PUT /gatherings/:id neither accepts nor
+              // applies it, and people have already RSVP'd against the number
+              // they were shown. Rendering an editable stepper here let the
+              // host raise it, see "Saved", and keep the old quorum.
+              if (!_isEdit)
+                Expanded(
+                  child: _stepper(
+                    context,
+                    label: l10n.gatheringQuorumLabel,
+                    value: _quorum,
+                    min: 2,
+                    max: _capacity,
+                    onChanged: (v) => setState(() => _quorum = v),
+                  ),
+                )
+              else
+                const Expanded(child: SizedBox.shrink()),
             ],
           ),
           Spacing.gapSM,

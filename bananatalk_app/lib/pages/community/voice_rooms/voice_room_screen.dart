@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -49,6 +50,9 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
   /// on this flag keeps the sheet up until it's explicitly dismissed.
   bool _showingPostRoomSheet = false;
 
+  /// Captured in initState so [dispose] can hang up without touching `ref`.
+  VoiceRoomNotifier? _voiceRoom;
+
   /// GlobalKeys for each participant tile so [_showReactionFor] can
   /// resolve a tile's screen position and anchor a floating emoji over
   /// its avatar. Keyed by [RoomParticipant.id]; we never recycle keys
@@ -79,6 +83,8 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
     // callback ever attached its listeners, silently dropping them. Wiring
     // everything first closes that window.
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      _voiceRoom = ref.read(voiceRoomProvider);
       final manager = ref.read(voiceRoomProvider).manager;
       manager.onHostChanged = (newHostId, _) {
         if (!mounted) return;
@@ -187,6 +193,19 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
 
   @override
   void dispose() {
+    // `leaveRoom()` was only ever reached through the Leave confirmation
+    // dialog, so an Android back gesture (or any other pop) tore this screen
+    // down while LiveKit stayed connected: the user remained audible and
+    // listed in the room, with the heartbeat timer still running, until the
+    // app was killed. The notifier is captured in initState because `ref` is
+    // not safe to read once the element is being unmounted.
+    //
+    // Guarded on `currentRoom` so the normal Leave path — which has already
+    // called `leaveRoom()` by the time we get here — does not call it twice.
+    final voiceRoom = _voiceRoom;
+    if (voiceRoom != null && voiceRoom.currentRoom != null) {
+      unawaited(voiceRoom.leaveRoom());
+    }
     _pulseController.dispose();
     super.dispose();
   }
@@ -316,7 +335,16 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
     final isReconnecting =
         ref.watch(voiceRoomProvider.select((n) => n.isReconnecting));
     final currentUserId = ref.read(authServiceProvider).userId;
-    final isHost = currentUserId == widget.room.hostId;
+    // `widget.room` is the immutable snapshot the directory handed us, so its
+    // hostId goes stale the moment the host transfers. Prefer the live room
+    // the manager keeps up to date via `voiceroom:host-changed`; without this
+    // a promoted user keeps "Leave" instead of "End room" and never gets the
+    // moderation controls until they rejoin.
+    final liveHostId = ref.watch(
+      voiceRoomProvider.select((n) => n.currentRoom?.hostId),
+    );
+    final hostId = liveHostId ?? widget.room.hostId;
+    final isHost = currentUserId.isNotEmpty && currentUserId == hostId;
 
     // Auto-pop when room ends (including during reconnect gap), OR when the
     // initial join itself fails/times out — `VoiceRoomNotifier.joinRoom`
@@ -407,7 +435,7 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
                           ? (participant) {
                               final participantIsHost =
                                   participant.isHost ||
-                                  participant.id == widget.room.hostId;
+                                  participant.id == hostId;
                               if (!participantIsHost) {
                                 showParticipantActions(
                                     context, ref, participant);

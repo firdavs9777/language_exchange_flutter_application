@@ -57,6 +57,10 @@ class GatheringRsvp {
 /// Every endpoint here sits behind the server's `GATHERINGS_ENABLED` switch
 /// and 404s as a block when it is off, so a flipped switch degrades to an
 /// empty list rather than an error state.
+/// Sentinel distinguishing "argument omitted" from an explicit `null`, so a
+/// nullable field can be cleared on the wire rather than simply left alone.
+const Object _unset = Object();
+
 class GatheringApiClient {
   final ApiClient _apiClient = ApiClient();
 
@@ -189,7 +193,7 @@ class GatheringApiClient {
     int? durationMinutes,
     int? capacity,
     String? joinMode,
-    String? topic,
+    Object? topic = _unset,
   }) async {
     try {
       final response = await _apiClient.put(
@@ -205,8 +209,10 @@ class GatheringApiClient {
           if (capacity != null) 'capacity': capacity,
           if (joinMode != null) 'joinMode': joinMode,
           // Sent whenever the caller passed the field at all, including null,
-          // because null is how a topic is CLEARED.
-          if (topic != null) 'topic': topic,
+          // because null is how a topic is CLEARED. The `_unset` sentinel is
+          // what "not passed" looks like — `topic != null` used to swallow
+          // the clear, so tapping the lit chip off never took effect.
+          if (!identical(topic, _unset)) 'topic': topic,
         },
       );
       if (!response.success) {

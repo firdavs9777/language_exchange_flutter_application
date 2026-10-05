@@ -85,11 +85,22 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
     super.dispose();
   }
 
+  /// 'male' -> 'Male'. The gender buttons compare against capitalised values.
+  static String? _capitalizeGender(dynamic raw) {
+    final value = raw?.toString();
+    if (value == null || value.isEmpty) return null;
+    return value[0].toUpperCase() + value.substring(1).toLowerCase();
+  }
+
   void _initializeValues() {
     _minAge = (widget.initialFilters['minAge'] ?? 18).toDouble();
     _maxAge = (widget.initialFilters['maxAge'] ?? 100).toDouble();
-    _selectedGender = widget.initialFilters['gender'];
+    // Applied filters store gender lowercased ('male'); the gender buttons
+    // carry capitalised values ('Male'). Normalise on the way back in or no
+    // button renders as selected when the sheet is reopened.
+    _selectedGender = _capitalizeGender(widget.initialFilters['gender']);
     _selectedCountry = widget.initialFilters['country'];
+    _selectedLanguageLevel = widget.initialFilters['languageLevel'] as String?;
     _onlineOnly = widget.initialFilters['onlineOnly'] ?? false;
     _newUsersOnly = widget.initialFilters['newUsersOnly'] ?? false;
     _prioritizeNearby = widget.initialFilters['prioritizeNearby'] ?? false;
@@ -137,10 +148,6 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
               .firstOrNull;
           if (match != null) _selectedLearningLanguage = match;
         }
-
-        // Resolve language level from initial filters.
-        _selectedLanguageLevel ??=
-            widget.initialFilters['languageLevel'] as String?;
 
         // Refresh the count now that language selections are known.
         _refreshDraftFilters();
@@ -237,8 +244,16 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
       'minAge': _minAge.toInt(),
       'maxAge': _maxAge.toInt(),
       'gender': _selectedGender?.toLowerCase(),
-      'nativeLanguage': _selectedLanguage?.name,
-      'learningLanguage': _selectedLearningLanguage?.name,
+      // While the language catalogue has not loaded the user cannot have
+      // touched either selector, so carry the saved values through instead
+      // of silently clearing them (a failed /languages request used to wipe
+      // both filters the moment Apply was tapped).
+      'nativeLanguage': _languages.isEmpty
+          ? widget.initialFilters['nativeLanguage']
+          : _selectedLanguage?.name,
+      'learningLanguage': _languages.isEmpty
+          ? widget.initialFilters['learningLanguage']
+          : _selectedLearningLanguage?.name,
       'languageLevel': _selectedLanguageLevel,
       'country': _selectedCountry,
       'onlineOnly': _onlineOnly,

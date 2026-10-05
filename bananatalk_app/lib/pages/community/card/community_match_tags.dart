@@ -49,7 +49,9 @@ List<MatchTag> communityMatchTags(Community candidate, Community? viewer) {
   }
 
   final rate = candidate.responseRate;
-  if (rate != null && rate >= 80) tags.add(const MatchTag(MatchTagKind.repliesFast));
+  // responseRate is a 0-1 fraction (backend: replied / samples), not a
+  // percentage — same threshold MatchCard uses.
+  if (rate != null && rate >= 0.7) tags.add(const MatchTag(MatchTagKind.repliesFast));
 
   return tags.take(2).toList();
 }

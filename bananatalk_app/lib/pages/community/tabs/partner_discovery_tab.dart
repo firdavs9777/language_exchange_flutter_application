@@ -469,17 +469,19 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
       if (!aHasCoords && !bHasCoords) return 0;
 
       if (myHasCoords) {
+        // `coordinates` is GeoJSON [longitude, latitude], so index 1 is the
+        // latitude the haversine signature wants first.
         final aDist = _haversineDistance(
-          myCoords[0],
           myCoords[1],
-          aCoords[0],
+          myCoords[0],
           aCoords[1],
+          aCoords[0],
         );
         final bDist = _haversineDistance(
-          myCoords[0],
           myCoords[1],
-          bCoords[0],
+          myCoords[0],
           bCoords[1],
+          bCoords[0],
         );
         return aDist.compareTo(bDist);
       }

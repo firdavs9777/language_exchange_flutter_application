@@ -33,6 +33,7 @@ import 'package:bananatalk_app/pages/community/single/single_community_about.dar
 import 'package:bananatalk_app/pages/community/single/single_community_moments.dart';
 import 'package:bananatalk_app/pages/stories/highlights/highlights_row.dart';
 import 'package:bananatalk_app/widgets/navigation/app_back_button.dart';
+import 'package:bananatalk_app/utils/user_age.dart';
 
 // ---------------------------------------------------------------------------
 // Public entry point – name preserved for existing navigation call sites.
@@ -87,19 +88,13 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
   List<String> _getImageUrls() => _community.effectiveImageUrls;
   String? _getProfileImageUrl() => _community.profileImageUrl;
 
-  int? _calculateAge(String birthYear) {
-    if (birthYear.isEmpty) return null;
-    final year = int.tryParse(birthYear);
-    if (year == null) return null;
-    return DateTime.now().year - year;
-  }
-
   // ---------------------------------------------------------------------------
   // Initialisation
   // ---------------------------------------------------------------------------
 
   Future<void> _initializeUserState() async {
     final prefs = await SharedPreferences.getInstance();
+    if (!mounted) return;
     userId = prefs.getString('userId') ?? '';
 
     try {
@@ -135,7 +130,7 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
         userId: userId,
         targetUserId: _community.id,
       );
-      if (result['success'] == true) {
+      if (result['success'] == true && mounted) {
         setState(() {
           isBlocked = result['isBlocked'] ?? false;
         });
@@ -214,6 +209,7 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
           .followUser(userId: userId, targetUserId: _community.id);
 
       if (result == 'success' || result == 'already_following') {
+        if (!mounted) return;
         setState(() => isFollower = true);
         ref.invalidate(userProvider);
         ref.invalidate(communityProvider);
@@ -286,6 +282,7 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
           .unfollowUser(userId: userId, targetUserId: _community.id);
 
       if (result == 'success' || result == 'not_following') {
+        if (!mounted) return;
         setState(() => isFollower = false);
         ref.invalidate(userProvider);
         ref.invalidate(communityProvider);
@@ -364,7 +361,10 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
       blockedUserId: _community.id,
     );
 
-    if (mounted) Navigator.of(context).pop();
+    // The spinner was pushed by showDialog, which defaults to
+    // useRootNavigator: true — popping the local navigator would dismiss this
+    // profile page and leave the barrier-less spinner stuck over the app.
+    if (mounted) Navigator.of(context, rootNavigator: true).pop();
 
     if (mounted) {
       showCommunitySnackBar(
@@ -490,7 +490,7 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
 
   @override
   Widget build(BuildContext context) {
-    final calculatedAge = _calculateAge(_community.birth_year);
+    final calculatedAge = ageFrom(_community.birth_year, _community.birth_month, _community.birth_day);
     final age = PrivacyUtils.getAge(_community, calculatedAge);
     final locationText = PrivacyUtils.getLocationText(_community);
     final l10n = AppLocalizations.of(context)!;

@@ -65,7 +65,29 @@ class _ClubDetailScreenState extends State<ClubDetailScreen> {
     final city = TextEditingController(text: club.city ?? '');
     final placeName = TextEditingController(text: club.place?.name ?? '');
     final l10n = AppLocalizations.of(context)!;
+    final controllers = [name, description, interest, city, placeName];
 
+    try {
+      await _editClubSheet(club, l10n, name, description, interest, city,
+          placeName);
+    } finally {
+      // Every exit path disposes: the sheet is rebuilt from scratch on each
+      // open, so leaving these alive leaked five ChangeNotifiers per edit.
+      for (final c in controllers) {
+        c.dispose();
+      }
+    }
+  }
+
+  Future<void> _editClubSheet(
+    Club club,
+    AppLocalizations l10n,
+    TextEditingController name,
+    TextEditingController description,
+    TextEditingController interest,
+    TextEditingController city,
+    TextEditingController placeName,
+  ) async {
     final saved = await showModalBottomSheet<bool>(
       context: context,
       isScrollControlled: true,
@@ -143,6 +165,11 @@ class _ClubDetailScreenState extends State<ClubDetailScreen> {
       interest: interest.text.trim(),
       city: city.text.trim(),
       placeName: placeName.text.trim().isEmpty ? null : placeName.text.trim(),
+      // The sheet has no address field, so carry the stored one through.
+      // Omitting it sent `place.address: null`, and the backend's
+      // `place.address ? ... : null` then erased the club's street address
+      // every time anyone saved an unrelated edit.
+      placeAddress: club.place?.address,
     );
     if (!mounted) return;
     setState(() {

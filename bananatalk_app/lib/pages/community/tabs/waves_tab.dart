@@ -83,13 +83,6 @@ class _WavesTabState extends ConsumerState<WavesTab> {
           if (mounted) widget.primeNotifications(context);
         });
       }
-
-      // Mark waves as read after loading
-      if (_unreadCount > 0) {
-        await service.markWavesAsRead();
-        ref.invalidate(wavesUnreadProvider);
-        ref.invalidate(pendingIntrosProvider);
-      }
     } catch (e) {
       if (!mounted) return;
       // A failed silent reload keeps the list already on screen.
@@ -98,6 +91,20 @@ class _WavesTabState extends ConsumerState<WavesTab> {
         _isLoading = false;
         _hasError = true;
       });
+      return;
+    }
+
+    // Read receipts are deliberately OUTSIDE the try above: the waves are
+    // already on screen by now, and a failing markWavesAsRead used to flip
+    // _hasError and replace a perfectly good list with "failed to load".
+    if (_unreadCount > 0) {
+      try {
+        await ref.read(communityServiceProvider).markWavesAsRead();
+        ref.invalidate(wavesUnreadProvider);
+        ref.invalidate(pendingIntrosProvider);
+      } catch (_) {
+        // Non-fatal: the badge just clears on the next successful load.
+      }
     }
   }
 

@@ -131,6 +131,12 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
 
     // Socket-side join — presence/broadcast is scoped to the live socket.
     // A banned user only views the request-to-join prompt; don't join live.
+    // Bail out if the user backed out while the REST calls above were in
+    // flight: dispose() has already run, so subscriptions registered now
+    // would never be cancelled and _loadMessages would setState on a dead
+    // State.
+    if (!mounted) return;
+
     if (_room.isMember) {
       _chatSocket.joinRoom(_room.id);
     }
@@ -142,6 +148,14 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
   void _listenToSocket() {
     _roomMessageSub = _chatSocket.onRoomMessage.listen((data) {
       if (!mounted || data is! Map) return;
+      // The socket service is a singleton with one broadcast stream for every
+      // room, so scope to ours exactly as the typing/presence listeners below
+      // do — otherwise another room's messages render in this history. The
+      // `room:message` payload is the Message document, which carries the
+      // room as `conversationId` (not `roomId` like the typing/presence
+      // events).
+      final messageRoomId = data['conversationId']?.toString();
+      if (messageRoomId != null && messageRoomId != _room.id) return;
       try {
         final message = Message.fromJson(Map<String, dynamic>.from(data));
         if (message.type == 'system') {
