@@ -4,7 +4,6 @@ description: Learn, Meet or Date, the best language exchange application.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 2.6.1+10574
 
-
 environment:
   sdk: '>=3.10.0 <4.0.0'  # ← UPDATE THIS LINE
   flutter: ">=3.24.0"
@@ -110,6 +109,8 @@ dependencies:
 
 
 
+  mime: any
+  in_app_purchase_android: any
 dev_dependencies:
   flutter_test:
     sdk: flutter

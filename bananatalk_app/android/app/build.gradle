@@ -76,7 +76,12 @@ android {
     buildTypes {
         release {
             signingConfig signingConfigs.release
-            minifyEnabled false
+            // R8 must stay on: Google Play flags releases whose DEX obfuscation
+            // falls under 25%. Keeps live in proguard-rules.pro; Flutter's Gradle
+            // plugin prepends proguard-android-optimize.txt and its own rules.
+            minifyEnabled true
+            // Resource shrinking is a separate risk surface and does not affect the
+            // DEX metric Play measures. Left off deliberately.
             shrinkResources false
         }
     }
