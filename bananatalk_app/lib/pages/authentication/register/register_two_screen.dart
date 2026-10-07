@@ -150,7 +150,6 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
 
   // ─── Languages ──────────────────────────────────────────────────────────
   Language? _nativeLanguage;
-  String? _nativeLevel;
   Language? _learningLanguage;
   String? _learningLevel;
   List<Language> _languages = [];
@@ -491,9 +490,10 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
       final lang = _nativeLanguage;
       _nativeLanguage = _learningLanguage;
       _learningLanguage = lang;
-      final level = _nativeLevel;
-      _nativeLevel = _learningLevel;
-      _learningLevel = level;
+      // The CEFR level described the language that WAS being learned. After a
+      // swap that is the one they speak natively, so carrying it over would
+      // publish a level for the wrong language.
+      _learningLevel = null;
     });
   }
 
@@ -638,8 +638,13 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
           'profileCompleted': true,
           'images': [],
           'clientInfo': await ClientInfo.collect(),
-          if (_nativeLevel != null)
-            'languageLevel': _learningLevel ?? _nativeLevel,
+          // `languageLevel` is CEFR for the language being LEARNED (it feeds the
+          // partner filter and matchScoring, where B1+ scores differently).
+          // This used to be gated on the now-removed native level, so a user
+          // who set their real learning level and skipped the meaningless
+          // native one sent nothing at all -- and the `?? _nativeLevel`
+          // fallback could publish a native proficiency as a learning one.
+          if (_learningLevel != null) 'languageLevel': _learningLevel,
           if (_city != null && _country != null)
             'location': {
               'type': 'Point',
@@ -786,10 +791,10 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
               }
             }
 
-            if (_learningLevel != null || _nativeLevel != null) {
+            if (_learningLevel != null) {
               try {
                 await authService.updateUserLanguageLevel(
-                  languageLevel: _learningLevel ?? _nativeLevel!,
+                  languageLevel: _learningLevel!,
                 );
               } catch (e) {
                 // Non-blocking
@@ -989,14 +994,11 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                         LanguagesStep(
                           nativeLanguage: _nativeLanguage,
                           learningLanguage: _learningLanguage,
-                          nativeLevel: _nativeLevel,
                           learningLevel: _learningLevel,
                           isLoadingLanguages: _isLoadingLanguages,
                           allLanguages: _languages,
                           onNativeSelected: _onNativeLanguageSelected,
                           onLearningSelected: _onLearningLanguageSelected,
-                          onNativeLevelChanged: (level) =>
-                              setState(() => _nativeLevel = level),
                           onLearningLevelChanged: (level) =>
                               setState(() => _learningLevel = level),
                           onSwap: _swapLanguages,

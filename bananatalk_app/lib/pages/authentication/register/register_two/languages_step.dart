@@ -346,13 +346,11 @@ class _LanguagePickerSheetState extends State<_LanguagePickerSheet> {
 class LanguagesStep extends StatelessWidget {
   final Language? nativeLanguage;
   final Language? learningLanguage;
-  final String? nativeLevel;
   final String? learningLevel;
   final bool isLoadingLanguages;
   final List<Language> allLanguages;
   final ValueChanged<Language> onNativeSelected;
   final ValueChanged<Language> onLearningSelected;
-  final ValueChanged<String> onNativeLevelChanged;
   final ValueChanged<String> onLearningLevelChanged;
   final VoidCallback onSwap;
   final VoidCallback onNext;
@@ -361,13 +359,11 @@ class LanguagesStep extends StatelessWidget {
     super.key,
     required this.nativeLanguage,
     required this.learningLanguage,
-    required this.nativeLevel,
     required this.learningLevel,
     required this.isLoadingLanguages,
     required this.allLanguages,
     required this.onNativeSelected,
     required this.onLearningSelected,
-    required this.onNativeLevelChanged,
     required this.onLearningLevelChanged,
     required this.onSwap,
     required this.onNext,
@@ -429,10 +425,6 @@ class LanguagesStep extends StatelessWidget {
             levelKeyPrefix: 'native',
             label: l10n.languagesISpeak,
             language: nativeLanguage,
-            level: nativeLevel,
-            levelLabel: nativeLanguage == null
-                ? null
-                : l10n.yourLevelIn(nativeLanguage!.name),
             isLoadingLanguages: isLoadingLanguages,
             onTap: () => _pick(
               context,
@@ -440,7 +432,6 @@ class LanguagesStep extends StatelessWidget {
               current: nativeLanguage,
               onSelected: onNativeSelected,
             ),
-            onLevelChanged: onNativeLevelChanged,
           ),
 
           // The connector doubles as the swap control once both sides are
@@ -492,22 +483,24 @@ class _LanguageSide extends StatelessWidget {
   final String levelKeyPrefix;
   final String label;
   final Language? language;
+  /// Null on the side the user already speaks: a CEFR level only means
+  /// something for a language being LEARNED.
   final String? level;
   final String? levelLabel;
   final bool isLoadingLanguages;
   final VoidCallback onTap;
-  final ValueChanged<String> onLevelChanged;
+  final ValueChanged<String>? onLevelChanged;
 
   const _LanguageSide({
     required this.cardKey,
     required this.levelKeyPrefix,
     required this.label,
     required this.language,
-    required this.level,
-    required this.levelLabel,
+    this.level,
+    this.levelLabel,
     required this.isLoadingLanguages,
     required this.onTap,
-    required this.onLevelChanged,
+    this.onLevelChanged,
   });
 
   @override
@@ -533,7 +526,7 @@ class _LanguageSide extends StatelessWidget {
             onTap: onTap,
           ),
         ),
-        if (language != null && levelLabel != null) ...[
+        if (language != null && levelLabel != null && onLevelChanged != null) ...[
           const SizedBox(height: 14),
           Text(
             levelLabel!,
@@ -555,7 +548,7 @@ class _LanguageSide extends StatelessWidget {
                     isSelected: level == l,
                     onTap: () {
                       HapticFeedback.selectionClick();
-                      onLevelChanged(l);
+                      onLevelChanged!(l);
                     },
                   ),
                 )

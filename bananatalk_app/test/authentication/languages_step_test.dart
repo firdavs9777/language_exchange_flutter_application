@@ -24,11 +24,9 @@ final _french = _lang('fr', 'French', 'Français');
 Widget _host({
   Language? native,
   Language? learning,
-  String? nativeLevel,
   String? learningLevel,
   ValueChanged<Language>? onNative,
   ValueChanged<Language>? onLearning,
-  ValueChanged<String>? onNativeLevel,
   ValueChanged<String>? onLearningLevel,
   VoidCallback? onSwap,
   VoidCallback? onNext,
@@ -40,13 +38,11 @@ Widget _host({
         body: LanguagesStep(
           nativeLanguage: native,
           learningLanguage: learning,
-          nativeLevel: nativeLevel,
           learningLevel: learningLevel,
           isLoadingLanguages: false,
           allLanguages: [_korean, _english, _french],
           onNativeSelected: onNative ?? (_) {},
           onLearningSelected: onLearning ?? (_) {},
-          onNativeLevelChanged: onNativeLevel ?? (_) {},
           onLearningLevelChanged: onLearningLevel ?? (_) {},
           onSwap: onSwap ?? () {},
           onNext: onNext ?? () {},
@@ -82,19 +78,36 @@ void main() {
     );
   });
 
-  testWidgets('levels appear only for a side that has a language',
+  // A CEFR level on the language you already SPEAK is meaningless -- natives
+  // are past C2 by definition. Worse, there is one server field,
+  // `languageLevel`, meaning your level in the language you are LEARNING, and
+  // it feeds the partner filter and matchScoring (B1+ is scored differently).
+  // Asking for a native level only created a value that could corrupt it.
+  testWidgets('no level is offered for the language you already speak',
       (tester) async {
     await tester.pumpWidget(_host(native: _korean));
-    expect(find.byKey(const Key('native-level-A2')), findsOneWidget);
+    for (final l in ['A1', 'A2', 'B1', 'B2', 'C1', 'C2']) {
+      expect(find.byKey(Key('native-level-$l')), findsNothing);
+    }
+  });
+
+  testWidgets('levels appear for the language being learned', (tester) async {
+    await tester.pumpWidget(_host(learning: _korean));
+    expect(find.byKey(const Key('learning-level-A2')), findsOneWidget);
+  });
+
+  testWidgets('a level is only offered once a learning language is chosen',
+      (tester) async {
+    await tester.pumpWidget(_host(native: _korean));
     expect(find.byKey(const Key('learning-level-A2')), findsNothing);
   });
 
-  testWidgets('picking a level reports it for the right side', (tester) async {
+  testWidgets('picking a level reports it', (tester) async {
     String? got;
     await tester.pumpWidget(
-      _host(native: _korean, onNativeLevel: (l) => got = l),
+      _host(learning: _korean, onLearningLevel: (l) => got = l),
     );
-    await tester.tap(find.byKey(const Key('native-level-B1')));
+    await tester.tap(find.byKey(const Key('learning-level-B1')));
     await tester.pump();
     expect(got, 'B1');
   });
