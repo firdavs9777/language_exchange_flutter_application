@@ -842,6 +842,34 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
     if (valid) _goToNext();
   }
 
+  /// The field is now typed as well as picked, so a keystroke must clear the
+  /// error the same way choosing a date does -- otherwise the message sits
+  /// there contradicting what the user just corrected.
+  /// A wrong or unwanted detection used to be permanent for the rest of the
+  /// wizard -- there was no way to undo it.
+  void _clearLocation() {
+    setState(() {
+      _city = null;
+      _country = null;
+      _showLocationError = false;
+    });
+  }
+
+  /// Typing a location by hand. Detection was the only way to fill a field
+  /// submit treats as required, so denying the OS permission dead-ended the
+  /// signup on a screen whose own error string calls location "optional".
+  void _setManualLocation(String city, String country) {
+    setState(() {
+      _city = city;
+      _country = country;
+      _showLocationError = false;
+    });
+  }
+
+  void _onBirthDateTyped(String _) {
+    if (_birthDateError != null) setState(() => _birthDateError = null);
+  }
+
   void _onBirthDateSelected(DateTime date) {
     setState(() {
       _birthDateController.text =
@@ -904,6 +932,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                             _genderError = null;
                           }),
                           onBirthDateSelected: _onBirthDateSelected,
+                          onBirthDateTyped: _onBirthDateTyped,
                           onNext: _onPersonalInfoNext,
                         ),
                       if (_plan.needsPhoto)
@@ -950,6 +979,8 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                         country: _country,
                         isFetchingLocation: _isFetchingLocation,
                         onDetectLocation: _getCurrentLocation,
+                        onClearLocation: _clearLocation,
+                        onManualLocation: _setManualLocation,
                         showLocationError: _showLocationError,
                         termsAccepted: _termsAccepted,
                         onTermsChanged: (v) =>

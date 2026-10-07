@@ -3,6 +3,7 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/authentication/widgets/auth_gradient_button.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/pages/authentication/register/birth_date_input_formatter.dart';
 import 'package:flutter/services.dart';
 
 /// Step that collects gender and/or birth date for OAuth users who did
@@ -24,6 +25,10 @@ class PersonalInfoStep extends StatelessWidget {
   final String? genderError;
   final String? birthDateError;
 
+  /// Fired as the user TYPES a birth date, so the parent can clear its
+  /// validation error the same way picking from the calendar does.
+  final ValueChanged<String> onBirthDateTyped;
+
   // Callbacks
   final void Function(String gender) onGenderSelected;
   final void Function(DateTime date) onBirthDateSelected;
@@ -37,6 +42,7 @@ class PersonalInfoStep extends StatelessWidget {
     required this.birthDateController,
     required this.genderError,
     required this.birthDateError,
+    required this.onBirthDateTyped,
     required this.onGenderSelected,
     required this.onBirthDateSelected,
     required this.onNext,
@@ -81,6 +87,13 @@ class PersonalInfoStep extends StatelessWidget {
                 color: context.textPrimary,
               ),
             ),
+            const SizedBox(height: 4),
+            // Says WHY it is asked. A bare demand for gender on a signup form
+            // reads as data collection; the reason makes it answerable.
+            Text(
+              l10n.helpsMatchWithLearners,
+              style: TextStyle(fontSize: 13, color: context.textMuted),
+            ),
             if (genderError != null)
               Padding(
                 padding: const EdgeInsets.only(top: 4),
@@ -89,7 +102,7 @@ class PersonalInfoStep extends StatelessWidget {
                   style: TextStyle(color: AppColors.error, fontSize: 12),
                 ),
               ),
-            const SizedBox(height: 12),
+            const SizedBox(height: 14),
             Row(
               children: ['male', 'female', 'other'].map((g) {
                 final isSelected = selectedGender == g;
@@ -109,38 +122,77 @@ class PersonalInfoStep extends StatelessWidget {
                       HapticFeedback.selectionClick();
                       onGenderSelected(g);
                     },
-                    child: Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 4),
-                      padding: const EdgeInsets.symmetric(vertical: 14),
+                    // Selection is a tinted card with a check, not a hard
+                    // solid fill: on a sensitive question a softer affirmative
+                    // reads as "noted", not "locked in".
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 180),
+                      curve: Curves.easeOut,
+                      margin: const EdgeInsets.symmetric(horizontal: 5),
+                      padding: const EdgeInsets.symmetric(vertical: 18),
                       decoration: BoxDecoration(
                         color: isSelected
-                            ? AppColors.primary
+                            ? AppColors.primary.withValues(alpha: 0.10)
                             : context.containerColor,
-                        borderRadius: AppRadius.borderMD,
+                        borderRadius: AppRadius.borderLG,
                         border: Border.all(
                           color: isSelected
                               ? AppColors.primary
                               : context.dividerColor,
+                          width: isSelected ? 1.8 : 1,
                         ),
                       ),
                       child: Column(
                         children: [
-                          Icon(
-                            icons[g] ?? Icons.person,
-                            color: isSelected
-                                ? Colors.white
-                                : context.textSecondary,
-                            size: 22,
+                          Stack(
+                            clipBehavior: Clip.none,
+                            children: [
+                              Container(
+                                width: 44,
+                                height: 44,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: isSelected
+                                      ? AppColors.primary
+                                      : context.cardBackground,
+                                ),
+                                child: Icon(
+                                  icons[g] ?? Icons.person,
+                                  color: isSelected
+                                      ? Colors.white
+                                      : context.textSecondary,
+                                  size: 24,
+                                ),
+                              ),
+                              if (isSelected)
+                                Positioned(
+                                  right: -2,
+                                  bottom: -2,
+                                  child: Container(
+                                    padding: const EdgeInsets.all(2),
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: context.cardBackground,
+                                    ),
+                                    child: Icon(
+                                      Icons.check_circle_rounded,
+                                      size: 16,
+                                      color: AppColors.primary,
+                                    ),
+                                  ),
+                                ),
+                            ],
                           ),
-                          const SizedBox(height: 4),
+                          const SizedBox(height: 8),
                           Text(
                             label,
                             style: TextStyle(
                               color: isSelected
-                                  ? Colors.white
+                                  ? AppColors.primary
                                   : context.textPrimary,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 13,
+                              fontWeight:
+                                  isSelected ? FontWeight.w700 : FontWeight.w600,
+                              fontSize: 14,
                             ),
                           ),
                         ],
@@ -164,13 +216,14 @@ class PersonalInfoStep extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 12),
-            GestureDetector(
-              onTap: () async {
+            Builder(
+              builder: (fieldContext) {
+              Future<void> openCalendar() async {
                 final initialDate = DateTime.now().subtract(
                   const Duration(days: 365 * 20),
                 );
                 final pickedDate = await showDatePicker(
-                  context: context,
+                  context: fieldContext,
                   initialDate: initialDate,
                   firstDate: DateTime(1900),
                   lastDate: DateTime.now(),
@@ -188,48 +241,69 @@ class PersonalInfoStep extends StatelessWidget {
                 if (pickedDate != null) {
                   onBirthDateSelected(pickedDate);
                 }
-              },
-              child: Container(
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: context.cardBackground,
-                  borderRadius: AppRadius.borderLG,
-                  border: Border.all(
-                    color: birthDateError != null
-                        ? AppColors.error
-                        : context.dividerColor,
-                  ),
+              }
+
+              // Typed OR picked. The calendar alone meant scrolling back
+              // decades for every signup; the hint shows the exact shape the
+              // parser expects so nobody has to guess the order.
+              return TextField(
+                controller: birthDateController,
+                keyboardType: TextInputType.number,
+                inputFormatters: [BirthDateInputFormatter()],
+                onChanged: onBirthDateTyped,
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w500,
+                  color: context.textPrimary,
                 ),
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.cake_outlined,
-                      color: AppColors.primary,
-                      size: 20,
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: Text(
-                        birthDateController.text.isNotEmpty
-                            ? birthDateController.text
-                            : l10n.selectYourBirthDate,
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w500,
-                          color: birthDateController.text.isNotEmpty
-                              ? context.textPrimary
-                              : context.textHint,
-                        ),
-                      ),
-                    ),
-                    Icon(
+                decoration: InputDecoration(
+                  hintText: 'YYYY.MM.DD',
+                  hintStyle: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
+                    color: context.textHint,
+                  ),
+                  helperText: l10n.selectYourBirthDate,
+                  helperStyle: TextStyle(fontSize: 12, color: context.textHint),
+                  filled: true,
+                  fillColor: context.cardBackground,
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 16,
+                  ),
+                  prefixIcon: Icon(
+                    Icons.cake_outlined,
+                    color: AppColors.primary,
+                    size: 20,
+                  ),
+                  suffixIcon: IconButton(
+                    tooltip: l10n.selectYourBirthDate,
+                    icon: Icon(
                       Icons.calendar_today_outlined,
                       size: 18,
                       color: context.iconColor,
                     ),
-                  ],
+                    onPressed: openCalendar,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: AppRadius.borderLG,
+                    borderSide: BorderSide(color: context.dividerColor),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: AppRadius.borderLG,
+                    borderSide: BorderSide(
+                      color: birthDateError != null
+                          ? AppColors.error
+                          : context.dividerColor,
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: AppRadius.borderLG,
+                    borderSide: BorderSide(color: AppColors.primary, width: 1.6),
+                  ),
                 ),
-              ),
+              );
+              },
             ),
             if (birthDateError != null)
               Padding(

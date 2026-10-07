@@ -18,6 +18,14 @@ class FinishStep extends StatefulWidget {
   final String? country;
   final bool isFetchingLocation;
   final VoidCallback onDetectLocation;
+
+  /// Clears a detected or typed location. Without this a wrong detection was
+  /// permanent for the rest of the wizard.
+  final VoidCallback onClearLocation;
+
+  /// Sets the location by hand. Detection was the ONLY way to satisfy a
+  /// required field, so denying the OS permission left the user stuck.
+  final void Function(String city, String country) onManualLocation;
   final bool showLocationError;
 
   // Terms
@@ -55,6 +63,8 @@ class FinishStep extends StatefulWidget {
     required this.country,
     required this.isFetchingLocation,
     required this.onDetectLocation,
+    required this.onClearLocation,
+    required this.onManualLocation,
     this.showLocationError = false,
     required this.termsAccepted,
     required this.onTermsChanged,
@@ -153,6 +163,8 @@ class _FinishStepState extends State<FinishStep> {
             country: widget.country,
             isFetchingLocation: widget.isFetchingLocation,
             onDetectLocation: widget.onDetectLocation,
+            onClearLocation: widget.onClearLocation,
+            onManualLocation: widget.onManualLocation,
             showError: widget.showLocationError,
           ),
 
@@ -373,6 +385,8 @@ class _LocationSection extends StatelessWidget {
   final String? country;
   final bool isFetchingLocation;
   final VoidCallback onDetectLocation;
+  final VoidCallback onClearLocation;
+  final void Function(String city, String country) onManualLocation;
   final bool showError;
 
   const _LocationSection({
@@ -380,8 +394,56 @@ class _LocationSection extends StatelessWidget {
     required this.country,
     required this.isFetchingLocation,
     required this.onDetectLocation,
+    required this.onClearLocation,
+    required this.onManualLocation,
     this.showError = false,
   });
+
+  Future<void> _enterManually(BuildContext context) async {
+    final l10n = AppLocalizations.of(context)!;
+    final cityCtrl = TextEditingController(text: city ?? '');
+    final countryCtrl = TextEditingController(text: country ?? '');
+    final saved = await showDialog<bool>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: Text(l10n.city),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(
+              controller: cityCtrl,
+              autofocus: true,
+              textCapitalization: TextCapitalization.words,
+              decoration: InputDecoration(labelText: l10n.city),
+            ),
+            const SizedBox(height: 12),
+            TextField(
+              controller: countryCtrl,
+              textCapitalization: TextCapitalization.words,
+              decoration: InputDecoration(labelText: l10n.country),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(dialogContext).pop(false),
+            child: Text(l10n.cancel),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(dialogContext).pop(true),
+            child: Text(l10n.save),
+          ),
+        ],
+      ),
+    );
+    if (saved == true) {
+      final c = cityCtrl.text.trim();
+      final n = countryCtrl.text.trim();
+      if (c.isNotEmpty && n.isNotEmpty) onManualLocation(c, n);
+    }
+    cityCtrl.dispose();
+    countryCtrl.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -453,7 +515,20 @@ class _LocationSection extends StatelessWidget {
                 ],
               ),
             ),
-            Icon(Icons.gps_fixed, size: 18, color: AppColors.primary),
+            IconButton(
+              tooltip: l10n.city,
+              icon: Icon(Icons.edit_location_alt_outlined,
+                  size: 20, color: AppColors.primary),
+              onPressed: isFetchingLocation ? null : () => _enterManually(context),
+            ),
+            if (city != null)
+              IconButton(
+                tooltip: l10n.cancel,
+                icon: Icon(Icons.close_rounded, size: 20, color: context.iconColor),
+                onPressed: isFetchingLocation ? null : onClearLocation,
+              )
+            else
+              Icon(Icons.gps_fixed, size: 18, color: AppColors.primary),
           ],
         ),
       ),
@@ -503,13 +578,18 @@ class _TermsCheckbox extends StatelessWidget {
             const SizedBox(width: 10),
             Expanded(
               child: GestureDetector(
-                onTap: () {
-                  Navigator.of(context).push(
+                onTap: () async {
+                  // The screen pops `true` once its own Accept button is used.
+                  // That result used to be discarded, so a user who read the
+                  // terms and accepted them there came back to an unticked
+                  // box and had to tick it again -- and nothing explained why.
+                  final accepted = await Navigator.of(context).push<bool>(
                     MaterialPageRoute(
                       builder: (_) =>
                           const TermsOfServiceScreen(isPreRegistration: true),
                     ),
                   );
+                  if (accepted == true) onChanged(true);
                 },
                 child: RichText(
                   text: TextSpan(
