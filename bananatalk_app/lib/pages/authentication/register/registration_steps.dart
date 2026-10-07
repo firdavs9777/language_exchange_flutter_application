@@ -74,3 +74,15 @@ RegistrationSteps planRegistrationSteps({
     needsLanguages: !languagesKnown,
   );
 }
+
+/// Whether submit should still demand a profile photo.
+///
+/// Derived from the SAME plan that decides whether to show the photo step, so
+/// the two can never disagree. They used to: the plan skipped the step for an
+/// account that arrived with a provider photo, while submit kept its own
+/// `_pickedPhoto == null` check -- so those users were shown no photo step and
+/// then refused at submit, with no way to finish registration.
+bool photoStillRequired({
+  required RegistrationSteps plan,
+  required bool pickedLocally,
+}) => plan.needsPhoto && !pickedLocally;

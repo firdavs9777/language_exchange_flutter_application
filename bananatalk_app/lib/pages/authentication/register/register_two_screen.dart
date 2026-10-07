@@ -56,6 +56,14 @@ class RegisterTwo extends ConsumerStatefulWidget {
   /// via `getLoggedInUser()` and prefills from that instead.
   final bool completionMode;
 
+  /// True when the account already carries a profile photo (Apple and Google
+  /// both attach one at sign-in, and the server stores it -- see
+  /// controllers/auth.js). Without this the OAuth path always recomputed
+  /// `hasPhoto: false`, so the provider photo was ignored and the photo step
+  /// shown anyway. Only `completionMode` ever learned about it, by refetching
+  /// the user.
+  final bool hasPhoto;
+
   /// True when this screen is a GATE the user must not walk around.
   ///
   /// Social sign-ups reach here already authenticated — the FCM token is
@@ -79,6 +87,7 @@ class RegisterTwo extends ConsumerStatefulWidget {
     this.nativeLanguage = '',
     this.learningLanguage = '',
     this.completionMode = false,
+    this.hasPhoto = false,
     this.mandatory = false,
   });
 
@@ -177,6 +186,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
       _effectiveBirthDate = widget.birthDate;
       _effectiveNativeLanguage = widget.nativeLanguage;
       _effectiveLearningLanguage = widget.learningLanguage;
+      _effectiveHasPhoto = widget.hasPhoto;
       _computeSteps();
     }
 
@@ -547,7 +557,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
   Future<void> _submit() async {
     if (_isSubmitting) return;
 
-    if (_pickedPhoto == null) {
+    if (photoStillRequired(plan: _plan, pickedLocally: _pickedPhoto != null)) {
       _showError(AppLocalizations.of(context)!.profilePhotoRequired);
       return;
     }

@@ -177,6 +177,7 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
                   nativeLanguage: user?['native_language']?.toString() ?? '',
                   learningLanguage:
                       user?['language_to_learn']?.toString() ?? '',
+                  hasPhoto: _accountHasPhoto(user),
                 ),
               ),
             );
@@ -588,4 +589,19 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
       ),
     );
   }
+}
+
+/// True when the account the server just returned already carries a photo.
+/// Apple and Google both attach one at sign-in and controllers/auth.js stores
+/// it, so the wizard must not ask for another -- this is the funnel where
+/// social signups are lost.
+bool _accountHasPhoto(Map<String, dynamic>? user) {
+  if (user == null) return false;
+  for (final key in const ['imageUrls', 'images']) {
+    final v = user[key];
+    if (v is List && v.any((e) => e != null && e.toString().trim().isNotEmpty)) {
+      return true;
+    }
+  }
+  return false;
 }

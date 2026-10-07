@@ -14,6 +14,39 @@ import 'package:bananatalk_app/pages/authentication/register/registration_steps.
 /// even though 163 of 165 incomplete Google accounts arrive with a provider
 /// photo already attached.
 void main() {
+  // The plan skipping the photo step is only half the funnel fix. Submit had
+  // its own, independent `_pickedPhoto == null` guard, so an account whose
+  // photo came from the provider was shown no photo step AND then refused at
+  // submit -- unable to finish registration at all. The gate must be derived
+  // from the plan, not from a second rule that can drift from it.
+  group('submit demands a photo only when the plan asked for one', () {
+    RegistrationSteps planWith({required bool hasPhoto}) => planRegistrationSteps(
+      gender: '', birthDate: '', nativeLanguage: '', learningLanguage: '',
+      hasPhoto: hasPhoto,
+    );
+
+    test('provider photo, none picked locally -> submit is NOT blocked', () {
+      final plan = planWith(hasPhoto: true);
+      expect(plan.needsPhoto, isFalse);
+      expect(photoStillRequired(plan: plan, pickedLocally: false), isFalse);
+    });
+
+    test('no photo anywhere -> submit IS blocked', () {
+      final plan = planWith(hasPhoto: false);
+      expect(photoStillRequired(plan: plan, pickedLocally: false), isTrue);
+    });
+
+    test('no provider photo but one picked locally -> submit is NOT blocked', () {
+      final plan = planWith(hasPhoto: false);
+      expect(photoStillRequired(plan: plan, pickedLocally: true), isFalse);
+    });
+
+    test('provider photo AND a local pick -> still not blocked', () {
+      final plan = planWith(hasPhoto: true);
+      expect(photoStillRequired(plan: plan, pickedLocally: true), isFalse);
+    });
+  });
+
   group('a social signup is not asked for what it already has', () {
     test('a provider photo removes the photo step', () {
       final plan = planRegistrationSteps(
