@@ -178,6 +178,7 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
                   learningLanguage:
                       user?['language_to_learn']?.toString() ?? '',
                   hasPhoto: _accountHasPhoto(user),
+                  entry: 'google',
                 ),
               ),
             );

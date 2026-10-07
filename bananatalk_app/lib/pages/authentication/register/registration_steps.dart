@@ -40,6 +40,24 @@ class RegistrationSteps {
     'Finish',
   ];
 
+  /// Stable, analytics-safe name for the step at [index].
+  ///
+  /// Derived from the same plan that builds the pages, so a funnel event can
+  /// never report a step the user was not actually on. Out-of-range returns
+  /// 'unknown' rather than throwing: a reporting bug must never take down a
+  /// registration.
+  String stepNameAt(int index) {
+    if (index < 0 || index >= totalSteps) return 'unknown';
+    const names = ['personal_info', 'photo', 'languages'];
+    final present = [
+      if (needsPersonalInfo) names[0],
+      if (needsPhoto) names[1],
+      if (needsLanguages) names[2],
+      'finish',
+    ];
+    return present[index];
+  }
+
   int? get personalInfoStepIndex => needsPersonalInfo ? 0 : null;
 
   int? get photoStepIndex => needsPhoto ? (needsPersonalInfo ? 1 : 0) : null;

@@ -26,7 +26,6 @@ class FinishStep extends StatefulWidget {
   /// Sets the location by hand. Detection was the ONLY way to satisfy a
   /// required field, so denying the OS permission left the user stuck.
   final void Function(String city, String country) onManualLocation;
-  final bool showLocationError;
 
   // Terms
   final bool termsAccepted;
@@ -65,7 +64,6 @@ class FinishStep extends StatefulWidget {
     required this.onDetectLocation,
     required this.onClearLocation,
     required this.onManualLocation,
-    this.showLocationError = false,
     required this.termsAccepted,
     required this.onTermsChanged,
     required this.isSubmitting,
@@ -165,17 +163,7 @@ class _FinishStepState extends State<FinishStep> {
             onDetectLocation: widget.onDetectLocation,
             onClearLocation: widget.onClearLocation,
             onManualLocation: widget.onManualLocation,
-            showError: widget.showLocationError,
           ),
-
-          if (widget.showLocationError)
-            Padding(
-              padding: const EdgeInsets.only(top: 6, left: 4),
-              child: Text(
-                l10n.locationOptional,
-                style: const TextStyle(fontSize: 12, color: Colors.red),
-              ),
-            ),
 
           const SizedBox(height: 24),
 
@@ -387,7 +375,6 @@ class _LocationSection extends StatelessWidget {
   final VoidCallback onDetectLocation;
   final VoidCallback onClearLocation;
   final void Function(String city, String country) onManualLocation;
-  final bool showError;
 
   const _LocationSection({
     required this.city,
@@ -396,7 +383,6 @@ class _LocationSection extends StatelessWidget {
     required this.onDetectLocation,
     required this.onClearLocation,
     required this.onManualLocation,
-    this.showError = false,
   });
 
   Future<void> _enterManually(BuildContext context) async {
@@ -457,8 +443,7 @@ class _LocationSection extends StatelessWidget {
           color: context.cardBackground,
           borderRadius: AppRadius.borderLG,
           border: Border.all(
-            color: showError ? Colors.red : context.dividerColor,
-            width: showError ? 1.5 : 1,
+            color: context.dividerColor,
           ),
         ),
         child: Row(

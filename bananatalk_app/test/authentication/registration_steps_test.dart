@@ -19,6 +19,68 @@ void main() {
   // photo came from the provider was shown no photo step AND then refused at
   // submit -- unable to finish registration at all. The gate must be derived
   // from the plan, not from a second rule that can drift from it.
+  // Funnel events are useless if the step NAME can drift from the step the
+  // user is actually looking at -- that is the same drift that let the photo
+  // step and the submit gate disagree. Both now come from the plan.
+  group('stepNameAt names the step actually shown', () {
+    test('a full wizard names all four in order', () {
+      final plan = planRegistrationSteps(
+        gender: '', birthDate: '', nativeLanguage: '', learningLanguage: '',
+        hasPhoto: false,
+      );
+      expect(plan.totalSteps, 4);
+      expect(
+        [for (var i = 0; i < plan.totalSteps; i++) plan.stepNameAt(i)],
+        ['personal_info', 'photo', 'languages', 'finish'],
+      );
+    });
+
+    test('a provider photo shifts the later names down', () {
+      final plan = planRegistrationSteps(
+        gender: '', birthDate: '', nativeLanguage: '', learningLanguage: '',
+        hasPhoto: true,
+      );
+      expect(plan.totalSteps, 3);
+      expect(
+        [for (var i = 0; i < plan.totalSteps; i++) plan.stepNameAt(i)],
+        ['personal_info', 'languages', 'finish'],
+      );
+    });
+
+    test('an account needing only languages is two steps', () {
+      final plan = planRegistrationSteps(
+        gender: 'female', birthDate: '1995.07.04',
+        nativeLanguage: '', learningLanguage: '', hasPhoto: true,
+      );
+      expect([for (var i = 0; i < plan.totalSteps; i++) plan.stepNameAt(i)],
+          ['languages', 'finish']);
+    });
+
+    test('every label has a matching name, so the funnel cannot drift', () {
+      for (final hasPhoto in [true, false]) {
+        for (final gender in ['', 'male']) {
+          final plan = planRegistrationSteps(
+            gender: gender, birthDate: gender.isEmpty ? '' : '1995.07.04',
+            nativeLanguage: '', learningLanguage: '', hasPhoto: hasPhoto,
+          );
+          expect(plan.labels.length, plan.totalSteps);
+          for (var i = 0; i < plan.totalSteps; i++) {
+            expect(plan.stepNameAt(i), isNotEmpty);
+          }
+        }
+      }
+    });
+
+    test('an out-of-range index is named rather than crashing analytics', () {
+      final plan = planRegistrationSteps(
+        gender: '', birthDate: '', nativeLanguage: '', learningLanguage: '',
+        hasPhoto: false,
+      );
+      expect(plan.stepNameAt(-1), 'unknown');
+      expect(plan.stepNameAt(99), 'unknown');
+    });
+  });
+
   group('submit demands a photo only when the plan asked for one', () {
     RegistrationSteps planWith({required bool hasPhoto}) => planRegistrationSteps(
       gender: '', birthDate: '', nativeLanguage: '', learningLanguage: '',

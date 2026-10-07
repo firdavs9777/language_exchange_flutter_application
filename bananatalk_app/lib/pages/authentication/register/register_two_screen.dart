@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/services/referral_service.dart';
+import 'package:bananatalk_app/services/analytics_service.dart';
 
 import 'package:bananatalk_app/pages/authentication/register/register_two/finish_step.dart';
 import 'package:bananatalk_app/pages/authentication/register/register_two/languages_step.dart';
@@ -64,6 +65,11 @@ class RegisterTwo extends ConsumerStatefulWidget {
   /// the user.
   final bool hasPhoto;
 
+  /// Which door the user came in by: email | google | apple. Reported with
+  /// every funnel event because the step COUNT differs per entry (a provider
+  /// photo removes a step), so raw step numbers are not comparable without it.
+  final String entry;
+
   /// True when this screen is a GATE the user must not walk around.
   ///
   /// Social sign-ups reach here already authenticated — the FCM token is
@@ -88,6 +94,7 @@ class RegisterTwo extends ConsumerStatefulWidget {
     this.learningLanguage = '',
     this.completionMode = false,
     this.hasPhoto = false,
+    this.entry = 'email',
     this.mandatory = false,
   });
 
@@ -158,7 +165,6 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
   double? _latitude;
   double? _longitude;
   bool _termsAccepted = false;
-  bool _showLocationError = false;
 
   // ─── Submission ──────────────────────────────────────────────────────────
   bool _isSubmitting = false;
@@ -188,6 +194,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
       _effectiveLearningLanguage = widget.learningLanguage;
       _effectiveHasPhoto = widget.hasPhoto;
       _computeSteps();
+      _reportRegistrationStart();
     }
 
     _fetchLanguages();
@@ -258,6 +265,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
       // Fall back to whatever constructor values were passed (likely empty);
       // the wizard will just ask for everything again.
     } finally {
+      _reportRegistrationStart();
       _computeSteps();
       if (mounted) setState(() => _isPrefilling = false);
     }
@@ -408,6 +416,12 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
     );
     if (signOut != true || !mounted) return;
 
+    AnalyticsService.instance.registrationAbandoned(
+      entry: _entry,
+      step: _currentStep,
+      stepName: _plan.stepNameAt(_currentStep),
+    );
+
     try {
       await ref.read(authServiceProvider).logout();
     } catch (e) {
@@ -540,7 +554,6 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
               place.subAdministrativeArea ??
               place.administrativeArea ??
               'Unknown';
-          _showLocationError = false;
         });
       }
     } catch (e) {
@@ -558,17 +571,23 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
     if (_isSubmitting) return;
 
     if (photoStillRequired(plan: _plan, pickedLocally: _pickedPhoto != null)) {
+      AnalyticsService.instance.registrationBlocked(
+        entry: _entry, reason: 'photo', stepName: _plan.stepNameAt(_currentStep));
       _showError(AppLocalizations.of(context)!.profilePhotoRequired);
       return;
     }
 
-    if (_city == null || _country == null) {
-      setState(() => _showLocationError = true);
-      _showError(AppLocalizations.of(context)!.locationOptional);
-      return;
-    }
+    // Location is NOT a gate. The server is explicit (controllers/auth.js:250:
+    // "Bio, images, location are optional -- don't block login for them"), and
+    // this check contradicted it on the LAST step -- the most expensive place
+    // to lose someone. It also dead-ended anyone who denied the OS permission,
+    // since detection was the only way to satisfy it and `mandatory` blocks
+    // both back gestures; force-quitting was the only exit. The field is still
+    // offered above, now with manual entry and a clear button.
 
     if (!_termsAccepted) {
+      AnalyticsService.instance.registrationBlocked(
+        entry: _entry, reason: 'terms', stepName: _plan.stepNameAt(_currentStep));
       _showError(AppLocalizations.of(context)!.pleaseAcceptTerms);
       return;
     }
@@ -684,6 +703,8 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
 
             await _progressService.clear();
             ref.invalidate(userProvider);
+            AnalyticsService.instance.registrationCompleted(
+              entry: _entry, totalSteps: _totalSteps);
             if (mounted) await _goHomeAfterRegistration();
           }
         } else {
@@ -783,6 +804,8 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
 
             await _progressService.clear();
             ref.invalidate(userProvider);
+            AnalyticsService.instance.registrationCompleted(
+              entry: _entry, totalSteps: _totalSteps);
             if (mounted) await _goHomeAfterRegistration();
           }
         } else {
@@ -851,7 +874,6 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
     setState(() {
       _city = null;
       _country = null;
-      _showLocationError = false;
     });
   }
 
@@ -862,8 +884,28 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
     setState(() {
       _city = city;
       _country = country;
-      _showLocationError = false;
     });
+  }
+
+  String get _entry => widget.completionMode ? 'completion' : widget.entry;
+
+  /// Fired once the plan is known -- the step count is part of the funnel, and
+  /// it is not known until then.
+  void _reportRegistrationStart() {
+    AnalyticsService.instance.registrationStarted(
+      entry: _entry,
+      totalSteps: _totalSteps,
+    );
+    _reportStepViewed(0);
+  }
+
+  void _reportStepViewed(int index) {
+    AnalyticsService.instance.registrationStepViewed(
+      entry: _entry,
+      step: index,
+      stepName: _plan.stepNameAt(index),
+      totalSteps: _totalSteps,
+    );
   }
 
   void _onBirthDateTyped(String _) {
@@ -917,6 +959,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                     controller: _pageController,
                     onPageChanged: (index) {
                       setState(() => _currentStep = index);
+                      _reportStepViewed(index);
                     },
                     children: [
                       if (_needsPersonalInfo)
@@ -981,7 +1024,6 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                         onDetectLocation: _getCurrentLocation,
                         onClearLocation: _clearLocation,
                         onManualLocation: _setManualLocation,
-                        showLocationError: _showLocationError,
                         termsAccepted: _termsAccepted,
                         onTermsChanged: (v) =>
                             setState(() => _termsAccepted = v),

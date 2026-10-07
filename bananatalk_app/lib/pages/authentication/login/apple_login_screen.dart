@@ -146,6 +146,7 @@ class _AppleLoginState extends ConsumerState<AppleLogin> {
                   learningLanguage:
                       user?['language_to_learn']?.toString() ?? '',
                   hasPhoto: _accountHasPhoto(user),
+                  entry: 'apple',
                 ),
               ),
             );

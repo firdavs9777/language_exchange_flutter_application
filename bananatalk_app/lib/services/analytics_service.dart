@@ -25,6 +25,67 @@ class AnalyticsService {
     }
   }
 
+  // ─── Registration funnel ──────────────────────────────────────
+  //
+  // The signup wizard had NO instrumentation at all, while 282 of 298 social
+  // accounts that reached it never came back. We knew the loss and not the
+  // cause. [step] is 0-indexed and [stepName] comes from
+  // RegistrationSteps.stepNameAt, so the funnel cannot report a step the user
+  // was not on. [entry] is email | google | apple | completion -- the step
+  // COUNT differs per entry (a provider photo removes a step), so comparing
+  // raw step numbers across entries would be meaningless without it.
+
+  Future<void> registrationStarted({
+    required String entry,
+    required int totalSteps,
+  }) => _log('registration_started', {
+    'entry': entry,
+    'total_steps': totalSteps,
+  });
+
+  Future<void> registrationStepViewed({
+    required String entry,
+    required int step,
+    required String stepName,
+    required int totalSteps,
+  }) => _log('registration_step_viewed', {
+    'entry': entry,
+    'step': step,
+    'step_name': stepName,
+    'total_steps': totalSteps,
+  });
+
+  /// A submit attempt refused by a client-side gate. This is the event that
+  /// turns "they vanished" into "they were blocked, on this field".
+  Future<void> registrationBlocked({
+    required String entry,
+    required String reason,
+    required String stepName,
+  }) => _log('registration_blocked', {
+    'entry': entry,
+    'reason': reason,
+    'step_name': stepName,
+  });
+
+  /// The user chose to leave the wizard rather than finish it.
+  Future<void> registrationAbandoned({
+    required String entry,
+    required int step,
+    required String stepName,
+  }) => _log('registration_abandoned', {
+    'entry': entry,
+    'step': step,
+    'step_name': stepName,
+  });
+
+  Future<void> registrationCompleted({
+    required String entry,
+    required int totalSteps,
+  }) => _log('registration_completed', {
+    'entry': entry,
+    'total_steps': totalSteps,
+  });
+
   // ─── Step 13A events ──────────────────────────────────────────
 
   Future<void> tutorChipUsed({required String chipName, required String userTier}) =>
