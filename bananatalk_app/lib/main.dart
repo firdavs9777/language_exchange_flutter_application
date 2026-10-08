@@ -20,6 +20,8 @@ import 'package:bananatalk_app/widgets/tutor/persona_upgrade_sheet.dart';
 import 'package:bananatalk_app/providers/call_provider.dart';
 import 'package:bananatalk_app/pages/authentication/account_suspended_screen.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/models/call_model.dart';
+import 'package:bananatalk_app/providers/missed_calls_provider.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -273,6 +275,13 @@ class _MyAppState extends ConsumerState<MyApp> {
       // is not shown again as an in-app ringing screen).
       final manager = callNotifier.callManager;
       unawaited(manager.reconcileCallKitOnColdStart().then((_) => manager.recoverCallState()));
+
+      // A finished incoming call may be a new missed call: refresh the badge.
+      manager.finishes.listen((finish) {
+        if (finish.call.direction == CallDirection.incoming) {
+          appProviderContainer.read(missedCallsProvider.notifier).refresh();
+        }
+      });
 
       callNotifier.setCallConnectedCallback((call) {
         debugPrint('📞 Call connected - UI notified');

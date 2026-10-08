@@ -1,101 +1,42 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:bananatalk_app/models/call_record_model.dart';
 import 'package:bananatalk_app/services/api_client.dart';
 
+class CallLogPage {
+  const CallLogPage(this.items, this.hasMore);
+  final List<CallLogEntry> items;
+  final bool hasMore;
+}
+
+/// GET /calls (30 per page), missed count and mark-seen (spec §4.7).
 class CallHistoryService {
-  final ApiClient _apiClient;
-  final String _currentUserId;
+  CallHistoryService([ApiClient? client]) : _client = client ?? ApiClient();
 
-  CallHistoryService(this._apiClient, this._currentUserId);
+  final ApiClient _client;
+  static const int pageSize = 30;
 
-  /// Get paginated call history
-  Future<List<CallRecord>> getCallHistory({
-    int page = 1,
-    int limit = 20,
-  }) async {
-    try {
-      final response = await _apiClient.get(
-        'calls',
-        queryParams: {'page': page.toString(), 'limit': limit.toString()},
-      );
-
-      if (response.statusCode == 200) {
-        final data = response.data['data'] as List? ?? [];
-        return data
-            .map((json) => CallRecord.fromJson(
-                Map<String, dynamic>.from(json), _currentUserId))
-            .toList();
-      }
-      return [];
-    } catch (e) {
-      return [];
-    }
+  Future<CallLogPage> fetchPage(int page) async {
+    final res = await _client.get('calls', queryParams: {'page': '$page', 'limit': '$pageSize'});
+    if (!res.success || res.data is! Map) return const CallLogPage([], false);
+    final body = Map<String, dynamic>.from(res.data as Map);
+    final items = (body['data'] as List? ?? const [])
+        .whereType<Map>()
+        .map((m) => CallLogEntry.fromJson(Map<String, dynamic>.from(m)))
+        .toList();
+    final hasMore = (body['pagination'] as Map?)?['hasMore'] == true;
+    return CallLogPage(items, hasMore);
   }
 
-  /// Get call history with specific user
-  Future<List<CallRecord>> getCallHistoryWithUser(String recipientId) async {
-    try {
-      final response = await _apiClient.get(
-        'calls',
-        queryParams: {'userId': recipientId},
-      );
-
-      if (response.statusCode == 200) {
-        final data = response.data['data'] as List? ?? [];
-        return data
-            .map((json) => CallRecord.fromJson(
-                Map<String, dynamic>.from(json), _currentUserId))
-            .toList();
-      }
-      return [];
-    } catch (e) {
-      return [];
-    }
+  Future<int> missedCount() async {
+    final res = await _client.get('calls/missed/count');
+    if (!res.success || res.data is! Map) return 0;
+    return ((res.data as Map)['count'] as num?)?.toInt() ?? 0;
   }
 
-  /// Get missed calls count
-  Future<int> getMissedCallsCount() async {
-    try {
-      final response = await _apiClient.get('calls/missed/count');
-
-      if (response.statusCode == 200) {
-        return response.data['count'] as int? ?? 0;
-      }
-      return 0;
-    } catch (e) {
-      return 0;
-    }
-  }
-
-  /// Fetch dynamic ICE/TURN servers from backend
-  static Future<List<Map<String, dynamic>>?> getIceServers() async {
-    try {
-      final response = await ApiClient().get('calls/ice-servers');
-      if (response.statusCode == 200) {
-        final servers = response.data['iceServers'] as List?;
-        if (servers != null) {
-          return servers
-              .map((s) => Map<String, dynamic>.from(s))
-              .toList();
-        }
-      }
-      return null;
-    } catch (e) {
-      return null;
-    }
-  }
-
-  /// Get single call details
-  Future<CallRecord?> getCallDetails(String callId) async {
-    try {
-      final response = await _apiClient.get('calls/$callId');
-
-      if (response.statusCode == 200) {
-        return CallRecord.fromJson(
-            Map<String, dynamic>.from(response.data['data']), _currentUserId);
-      }
-      return null;
-    } catch (e) {
-      return null;
-    }
+  Future<void> markMissedSeen() async {
+    await _client.post('calls/missed/seen');
   }
 }
+
+final callHistoryServiceProvider = Provider<CallHistoryService>((ref) => CallHistoryService());

@@ -10,6 +10,7 @@ import 'package:bananatalk_app/widgets/connection_status_indicator.dart';
 import 'package:bananatalk_app/widgets/shimmer_loading.dart';
 import 'package:bananatalk_app/widgets/qr_code_sheet.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/providers/missed_calls_provider.dart';
 import 'package:bananatalk_app/models/call_outcome.dart';
 import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:flutter/material.dart';
@@ -113,6 +114,10 @@ class _ChatMainState extends ConsumerState<ChatMain>
 
     // Listen for tab switches to silently refresh
     widget.tabRefreshNotifier?.addListener(_onTabRefresh);
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) ref.read(missedCallsProvider.notifier).refresh();
+    });
   }
 
   Future<void> _checkNotifPermission() async {
@@ -1266,6 +1271,18 @@ class _ChatMainState extends ConsumerState<ChatMain>
         ),
         actions: [
           const CoinBalancePill(),
+          Builder(builder: (context) {
+            final missed = ref.watch(missedCallsProvider);
+            return IconButton(
+              tooltip: AppLocalizations.of(context)!.callsTitle,
+              onPressed: () => context.push('/call-history'),
+              icon: Badge(
+                isLabelVisible: missed > 0,
+                label: Text(missed > 99 ? '99+' : '$missed'),
+                child: Icon(Icons.call_outlined, color: colors.onBackground),
+              ),
+            );
+          }),
           NotificationBell(color: colors.onBackground),
           // Secondary actions (QR, new chat) tucked into an overflow menu to
           // keep the app bar uncluttered.

@@ -49,7 +49,7 @@ Baseline: 1/30 calls answered in 30 days, 168 stuck ringing, 0 call messages eve
   - [x] A12 Android microphone/camera foreground service + full-screen-intent request (QA rows AND-1…AND-7; channel name/description strings are 18 more machine drafts; start/stop serialized, permission check inside the queue, a start superseded by a stop never runs)
   - [x] A13 CallLauncher, call bubble labels, chat-list preview (the Calls list start was folded into CallLauncher; the launcher restores the screen's own error callback after each start)
     - [x] fold `startCallFromCallsList` (Calls list busy / start-limit messages, A4 review) and the chat header's ignored `InitiateResult` into `CallLauncher`
-  - [ ] A14 Calls list + chat-tab icon + missed badge
+  - [x] A14 Calls list + chat-tab icon + missed badge
   - [ ] Phase 2: decline with message, missed-call push actions, calls on/off + quiet hours, camera mid voice call, draggable self-view
 - [ ] Native review of the 18 machine-drafted call strings (`lib/l10n/app_*.arb`)
 - [ ] Owner: LiveKit webhook URL in LiveKit Cloud; confirm `APNS_VOIP_*` on prod.

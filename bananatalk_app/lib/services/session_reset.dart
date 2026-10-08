@@ -9,6 +9,8 @@ import 'package:bananatalk_app/pages/learning/main/sections/daily_practice_card.
 import 'package:bananatalk_app/pages/menu_tab/TabBarMenu.dart';
 import 'package:bananatalk_app/pages/moments/feed/moments_main.dart';
 import 'package:bananatalk_app/pages/moments/feed/muted_users_provider.dart';
+import 'package:bananatalk_app/providers/missed_calls_provider.dart';
+import 'package:bananatalk_app/services/call_history_service.dart';
 import 'package:bananatalk_app/providers/active_voice_room_count_provider.dart';
 import 'package:bananatalk_app/providers/ad_providers.dart';
 import 'package:bananatalk_app/providers/app_provider_container.dart';
@@ -73,6 +75,9 @@ final Map<String, ProviderOrFamily> userScopedProviders = {
   // Auth + profile
   'authServiceProvider': authServiceProvider,
   'userProvider': userProvider,
+  // Calls list: the unseen-missed badge belongs to the account
+  'callHistoryServiceProvider': callHistoryServiceProvider,
+  'missedCallsProvider': missedCallsProvider,
   'userLimitsProvider': userLimitsProvider,
   'currentUserLimitsProvider': currentUserLimitsProvider,
   'vipStatusProvider': vipStatusProvider,
