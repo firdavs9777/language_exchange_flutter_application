@@ -85,6 +85,13 @@ const Duration kOutcomeBannerDuration = Duration(milliseconds: 1500);
 /// Ringing out with no call:state (socket down): ask the server after this.
 const Duration kRingSafetyTimeout = Duration(seconds: 50);
 
+/// Second (last) outgoing safety check, after the first found the call still
+/// ringing or the GET failed: 65 s total, past the server's 60 s stale mark.
+const Duration kRingSafetyRecheck = Duration(seconds: 15);
+
+/// Peer gone or our network down this long → the call is over (spec §5.5).
+const Duration kReconnectGrace = Duration(seconds: 20);
+
 /// The server treats a call still `ringing` after this long as stale
 /// (`timing.staleRingingMs`); GET /calls/:id may still report it ringing.
 const Duration kStaleRinging = Duration(seconds: 60);
@@ -119,6 +126,7 @@ class CallManager with WidgetsBindingObserver {
   final List<String> _recentlyFinished = [];
   Timer? _closeTimer;
   Timer? _ringSafetyTimer;
+  Timer? _reconnectTimer;
   bool _recovering = false;
 
   final StreamController<CallFinish> _finishController = StreamController<CallFinish>.broadcast();
@@ -142,6 +150,7 @@ class CallManager with WidgetsBindingObserver {
   Function(CallModel)? onCallConnected;
   Function(CallUiState)? onConnectionStateChanged;
   Function(CallQuality)? onCallQualityChanged;
+  void Function(lk.ConnectionQuality)? onRawQualityChanged;
 
   CallUiState _connectionState = CallUiState.ringing;
   CallQuality _callQuality = CallQuality.good;
@@ -339,6 +348,7 @@ class CallManager with WidgetsBindingObserver {
   Future<bool> expireIncoming(String callId) async {
     final cur = currentCall;
     if (cur == null || !_sameId(cur.callId, callId) || cur.status != CallStatus.ringing) return false;
+    if (_sameId(_acceptingCallId, callId)) return false; // accept in flight
     await _finish(CallExitReason.remoteState, outcome: CallOutcome.noAnswer);
     return true;
   }
@@ -537,6 +547,7 @@ class CallManager with WidgetsBindingObserver {
   void _onPeerConnected() {
     final c = currentCall;
     if (c == null) return;
+    _cancelReconnectGrace();
     if (c.status != CallStatus.connected) {
       currentCall = c.copyWith(status: CallStatus.connected);
       unawaited(_deps.platform.stopTones());
@@ -551,18 +562,21 @@ class CallManager with WidgetsBindingObserver {
 
   void _onPeerDisconnected() {
     if (currentCall == null) return;
+    _beginReconnectGrace();
     _updateConnectionState(CallUiState.reconnecting);
     onPeerReconnecting?.call();
   }
 
   void _onLocalReconnecting() {
     if (currentCall == null) return;
+    _beginReconnectGrace();
     _updateConnectionState(CallUiState.reconnecting);
     onReconnecting?.call();
   }
 
   void _onLocalReconnected() {
     if (currentCall == null) return;
+    _cancelReconnectGrace();
     _updateConnectionState(CallUiState.connected);
     onReconnected?.call();
   }
@@ -587,6 +601,7 @@ class CallManager with WidgetsBindingObserver {
   }
 
   void _onQuality(lk.ConnectionQuality quality) {
+    onRawQualityChanged?.call(quality);
     final mapped = switch (quality) {
       lk.ConnectionQuality.excellent || lk.ConnectionQuality.good => CallQuality.good,
       lk.ConnectionQuality.poor || lk.ConnectionQuality.lost => CallQuality.poor,
@@ -606,6 +621,22 @@ class CallManager with WidgetsBindingObserver {
     if (_connectionState == next) return;
     _connectionState = next;
     onConnectionStateChanged?.call(next);
+  }
+
+  void _beginReconnectGrace() {
+    if (_reconnectTimer?.isActive ?? false) return;
+    final callId = currentCall?.callId;
+    _reconnectTimer = Timer(kReconnectGrace, () {
+      final c = currentCall;
+      if (c == null || c.callId != callId) return;
+      if (c.callId.isNotEmpty) unawaited(_deps.api.end(c.callId)); // best effort; 409 ignored
+      unawaited(_finish(CallExitReason.connectionLost));
+    });
+  }
+
+  void _cancelReconnectGrace() {
+    _reconnectTimer?.cancel();
+    _reconnectTimer = null;
   }
 
   // -- CallKit ------------------------------------------------------------------
@@ -787,13 +818,24 @@ class CallManager with WidgetsBindingObserver {
     return const InitiateResult(InitiateStatus.started);
   }
 
-  Future<void> _checkStillRinging(String callId) async {
+  Future<void> _checkStillRinging(String callId, {bool last = false}) async {
     final cur = currentCall;
     if (cur == null || !_sameId(cur.callId, callId) || cur.status != CallStatus.ringing) return;
     final res = await _deps.api.get(callId);
-    if (!res.ok || !_sameId(currentCall?.callId, callId)) return;
-    final status = res.data['status']?.toString();
-    if (status == 'ringing' || status == 'active') return;
+    if (!_sameId(currentCall?.callId, callId)) return;
+    final status = res.ok ? res.data['status']?.toString() : null;
+    if (status == 'active') return;
+    if (status == 'ringing' || status == null) {
+      if (!last) {
+        // The server ends at 45 s and call:state should have arrived; look once
+        // more past its 60 s stale mark, then give up on a ring that never ends.
+        _ringSafetyTimer = Timer(kRingSafetyRecheck, () => unawaited(_checkStillRinging(callId, last: true)));
+        return;
+      }
+      if (status == null) return; // server unreachable: keep the call
+      await _finish(CallExitReason.remoteState, outcome: CallOutcome.noAnswer);
+      return;
+    }
     await _finish(CallExitReason.remoteState,
         outcome: callOutcomeFromWire(res.data['outcome']?.toString()));
   }
@@ -900,6 +942,7 @@ class CallManager with WidgetsBindingObserver {
     _acceptingCallId = null;
     _incomingShownFor = null;
     _ringSafetyTimer?.cancel();
+    _cancelReconnectGrace();
     _closeTimer?.cancel();
     final media = _liveKit;
     _detachLiveKit(media);

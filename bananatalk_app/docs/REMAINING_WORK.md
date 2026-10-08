@@ -44,7 +44,7 @@ Baseline: 1/30 calls answered in 30 days, 168 stuck ringing, 0 call messages eve
   - [x] A7 CallKit extra, cold-start activeCalls(), VoIP/FCM capabilities + real device id
   - [x] A8 AppDelegate VoIP cancel handling + `docs/qa/calls-matrix.md`
   - [x] A9 IncomingCallScreen closes on terminal state / after 50 s
-  - [ ] A10 20 s reconnect overlay + quality callback chain + outcome banner
+  - [x] A10 20 s reconnect overlay + quality callback chain + outcome banner (also: expireIncoming skips an in-flight accept; outgoing 50 s check re-arms once at 65 s; QA rows S-7, S-8; the app does not emit `call:reconnecting`/`reconnected` relays yet)
   - [ ] A11 video wakelock + camera paused in background
   - [ ] A12 Android microphone/camera foreground service + full-screen-intent request
   - [ ] A13 CallLauncher, call bubble labels, chat-list preview

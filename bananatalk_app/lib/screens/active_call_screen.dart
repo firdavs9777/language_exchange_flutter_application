@@ -6,14 +6,11 @@ import 'package:livekit_client/livekit_client.dart' as lk;
 
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/call_model.dart';
+import 'package:bananatalk_app/models/call_outcome.dart';
 import 'package:bananatalk_app/providers/call_provider.dart';
 import 'package:bananatalk_app/services/call_manager.dart'
-    show CallManager, CallUiState, CallQuality;
+    show CallManager, CallUiState, CallQuality, CallFinish, CallExitReason;
 import 'package:bananatalk_app/widgets/call/call_duration_timer.dart';
-
-/// Maximum time (s) we tolerate a transient reconnect before auto-ending the
-/// call with a "Connection lost" snackbar. Matches the iOS dial-tone limit.
-const int _reconnectGraceSeconds = 15;
 
 class ActiveCallScreen extends ConsumerStatefulWidget {
   final CallModel call;
@@ -42,10 +39,11 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
   lk.ConnectionQuality _lkQuality = lk.ConnectionQuality.unknown;
   bool _isReconnecting = false;
 
-  // Reconnect banner — slide-down animation + 15s grace timer.
+  // Reconnect banner — slide-down animation (CallManager owns the 20 s grace).
   late final AnimationController _reconnectAnimController;
   late final Animation<Offset> _reconnectSlide;
-  Timer? _reconnectGraceTimer;
+  StreamSubscription<CallFinish>? _finishSub;
+  String? _outcomeBanner;
 
   /// Cached CallManager so dispose() can null out callbacks without
   /// going through `ref` (ref is invalid once ConsumerStatefulElement
@@ -71,6 +69,29 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
       parent: _reconnectAnimController,
       curve: Curves.easeOut,
     ));
+
+    // Caller side: show the §3 outcome ("No answer", "Declined") for the
+    // 1.5 s CallManager keeps this screen up before closing it.
+    _finishSub = _cachedCallManager!.finishes.listen((finish) {
+      if (!mounted || finish.call.callId != widget.call.callId) return;
+      final outcome = finish.outcome;
+      if (finish.reason != CallExitReason.remoteState ||
+          finish.call.direction != CallDirection.outgoing ||
+          outcome == null ||
+          outcome == CallOutcome.completed) {
+        return;
+      }
+      setState(() {
+        _outcomeBanner = CallLabels.label(
+          AppLocalizations.of(context)!,
+          outcome: outcome,
+          viewerIsCaller: true,
+          isVideo: finish.call.callType == CallType.video,
+          duration: finish.call.duration ?? 0,
+          otherName: finish.call.userName,
+        );
+      });
+    });
 
     // Check if call is already connected
     if (widget.call.status == CallStatus.connected) {
@@ -113,7 +134,10 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
       // Listen for connection state changes (drives reconnect banner)
       callNotifier.setConnectionStateCallback((state) {
         if (!mounted) return;
-        setState(() => _connState = state);
+        setState(() {
+          _connState = state;
+          _isReconnecting = state == CallUiState.reconnecting;
+        });
         if (state == CallUiState.reconnecting) {
           _showReconnectBanner();
         } else {
@@ -133,7 +157,7 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
       // We hook the manager directly because the app-level CallQuality enum
       // collapses excellent+good and poor+lost into two buckets, and the badge
       // wants the finer-grained signal.
-      callManager.liveKit.onConnectionQualityChanged = (q) {
+      callManager.onRawQualityChanged = (q) {
         if (!mounted) return;
         setState(() => _lkQuality = q);
       };
@@ -181,7 +205,7 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
 
   @override
   void dispose() {
-    _reconnectGraceTimer?.cancel();
+    _finishSub?.cancel();
     // Null out the CallManager callbacks we wired directly so we don't leak
     // a closure that captures this disposed State. The provider-mediated
     // callbacks (setConnectionStateCallback, setCallQualityCallback, etc.)
@@ -192,35 +216,17 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
       callManager.onPeerReconnected = null;
       callManager.onPeerMuteChanged = null;
       callManager.onPeerVideoChanged = null;
-      callManager.liveKit.onConnectionQualityChanged = null;
+      callManager.onRawQualityChanged = null;
     }
     _reconnectAnimController.dispose();
     super.dispose();
   }
 
-  void _showReconnectBanner() {
-    _reconnectAnimController.forward();
-    _reconnectGraceTimer?.cancel();
-    _reconnectGraceTimer =
-        Timer(const Duration(seconds: _reconnectGraceSeconds), () {
-      if (!mounted) return;
-      // Still reconnecting after grace window — give up on this call.
-      final notifier = ref.read(callProvider.notifier);
-      notifier.endCall();
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Connection lost'),
-          duration: Duration(seconds: 3),
-        ),
-      );
-    });
-  }
+  /// The banner only reflects state; CallManager owns the 20 s grace and
+  /// ends the call (POST /end) if the connection does not come back.
+  void _showReconnectBanner() => _reconnectAnimController.forward();
 
-  void _hideReconnectBanner() {
-    _reconnectGraceTimer?.cancel();
-    _reconnectGraceTimer = null;
-    _reconnectAnimController.reverse();
-  }
+  void _hideReconnectBanner() => _reconnectAnimController.reverse();
 
   @override
   Widget build(BuildContext context) {
@@ -525,7 +531,7 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
                           ),
                           const SizedBox(width: 8),
                           Text(
-                            'Reconnecting…',
+                            AppLocalizations.of(context)!.callReconnecting,
                             style: TextStyle(
                               color: Theme.of(context)
                                   .colorScheme
@@ -576,6 +582,12 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
   }
 
   Widget _buildCallStatus(AppLocalizations l10n) {
+    if (_outcomeBanner != null) {
+      return Text(
+        _outcomeBanner!,
+        style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600),
+      );
+    }
     if (_callEnded) {
       return Text(
         l10n.endCall,
@@ -584,9 +596,9 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
     }
 
     if (_connState == CallUiState.reconnecting) {
-      return const Text(
-        'Reconnecting...',
-        style: TextStyle(color: Colors.orangeAccent, fontSize: 14),
+      return Text(
+        l10n.callReconnecting,
+        style: const TextStyle(color: Colors.orangeAccent, fontSize: 14),
       );
     }
 

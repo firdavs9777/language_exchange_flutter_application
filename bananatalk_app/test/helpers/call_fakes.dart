@@ -14,6 +14,7 @@ class FakeCallApi implements CallApi {
   final Map<String, String?> deviceIds = {};
   Completer<void>? initiateGate;
   Completer<void>? currentGate;
+  Completer<void>? acceptGate;
 
   CallApiResult initiateResult = const CallApiResult(ok: true, statusCode: 200, data: {
     'call': {'_id': 'call-1', 'callUuid': kCallUuid, 'type': 'audio'},
@@ -44,6 +45,7 @@ class FakeCallApi implements CallApi {
   Future<CallApiResult> accept(String callId, {String? deviceId}) async {
     calls.add('accept:$callId');
     deviceIds['accept'] = deviceId;
+    if (acceptGate != null) await acceptGate!.future;
     return acceptResult;
   }
 
