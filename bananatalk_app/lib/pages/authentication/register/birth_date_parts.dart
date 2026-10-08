@@ -47,5 +47,34 @@ library;
   if (m < 1 || m > 12) return null;
   if (d < 1 || d > 31) return null;
 
+  // Reject dates that do not exist (1995.02.30, 2001.04.31). DateTime rolls
+  // them forward silently -- DateTime(1995, 2, 30) is March 2 -- which is how
+  // step 1 of the wizard used to accept a typed date that submit rejected.
+  final date = DateTime(y, m, d);
+  if (date.year != y || date.month != m || date.day != d) return null;
+
   return (year: year, month: month, day: day);
+}
+
+/// The calendar date in [raw], or null when [parseBirthDateParts] rejects it.
+/// The one validator both the wizard's step 1 and its submit use.
+DateTime? parseBirthDate(String raw) {
+  final parts = parseBirthDateParts(raw);
+  if (parts == null) return null;
+  return DateTime(
+    int.parse(parts.year),
+    int.parse(parts.month),
+    int.parse(parts.day),
+  );
+}
+
+/// Whole years between [birthDate] and [today] (birthday not yet reached this
+/// year counts as one fewer).
+int ageInYears(DateTime birthDate, DateTime today) {
+  var age = today.year - birthDate.year;
+  if (today.month < birthDate.month ||
+      (today.month == birthDate.month && today.day < birthDate.day)) {
+    age--;
+  }
+  return age;
 }

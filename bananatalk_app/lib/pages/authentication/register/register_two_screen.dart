@@ -837,20 +837,15 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
       valid = false;
     }
     if (_birthDateController.text.isNotEmpty) {
-      try {
-        final parts = _birthDateController.text.split('.');
-        final bd = DateTime(
-          int.parse(parts[0]),
-          int.parse(parts[1]),
-          int.parse(parts[2]),
-        );
-        final age = DateTime.now().difference(bd).inDays ~/ 365;
-        if (age < 18) {
-          setState(() => _birthDateError = l10n.mustBe18);
-          valid = false;
-        }
-      } catch (e) {
+      // Same validator as submit (parseBirthDateParts). This used
+      // DateTime(y, m, d), which rolls 1995.13.40 forward into a real date,
+      // so step 1 passed and the user only hit the error at the very end.
+      final bd = parseBirthDate(_birthDateController.text);
+      if (bd == null) {
         setState(() => _birthDateError = l10n.invalidDate);
+        valid = false;
+      } else if (ageInYears(bd, DateTime.now()) < 18) {
+        setState(() => _birthDateError = l10n.mustBe18);
         valid = false;
       }
     }
