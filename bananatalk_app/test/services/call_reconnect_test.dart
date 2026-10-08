@@ -5,6 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:livekit_client/livekit_client.dart' as lk;
 
 import 'package:bananatalk_app/models/call_outcome.dart';
+import 'package:bananatalk_app/services/call/call_api.dart';
 import 'package:bananatalk_app/services/call_manager.dart';
 
 import '../helpers/call_fakes.dart';
@@ -101,6 +102,48 @@ void main() {
       expect(h.api.calls.where((c) => c == 'get:call-1'), hasLength(2));
       expect(h.finishes.single.reason, CallExitReason.remoteState);
       expect(h.finishes.single.outcome, CallOutcome.noAnswer);
+    });
+  });
+
+  test('GET failing at both checks keeps the call and asks exactly twice', () {
+    fakeAsync((async) {
+      final h = CallHarness();
+      h.api.getResult = const CallApiResult(ok: false, statusCode: 0);
+      h.startOutgoing();
+      async.flushMicrotasks();
+      async.elapse(const Duration(seconds: 66));
+      expect(h.finishes, isEmpty);
+      expect(h.api.calls.where((c) => c == 'get:call-1'), hasLength(2));
+    });
+  });
+
+  test('first GET ringing, second says missed/no_answer → finishes with it', () {
+    fakeAsync((async) {
+      final h = CallHarness();
+      h.startOutgoing();
+      async.flushMicrotasks();
+      async.elapse(const Duration(seconds: 51));
+      h.api.getResult = const CallApiResult(
+          ok: true, statusCode: 200, data: {'status': 'missed', 'outcome': 'no_answer'});
+      async.elapse(const Duration(seconds: 15));
+      expect(h.finishes.single.outcome, CallOutcome.noAnswer);
+    });
+  });
+
+  test('peer gone, local blips and recovers: grace keeps running, ends at 20 s', () {
+    fakeAsync((async) {
+      final h = _connected(async);
+      final errors = <String>[];
+      h.manager.onCallError = errors.add;
+      h.liveKit.onPeerDisconnected!();
+      async.elapse(const Duration(seconds: 5));
+      h.liveKit.onReconnecting!();
+      async.elapse(const Duration(seconds: 5));
+      h.liveKit.onReconnected!();
+      expect(h.manager.connectionState, CallUiState.reconnecting);
+      async.elapse(const Duration(seconds: 11));
+      expect(h.finishes.single.reason, CallExitReason.connectionLost);
+      expect(errors, ['Connection lost']);
     });
   });
 }

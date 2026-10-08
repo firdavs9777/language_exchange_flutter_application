@@ -127,6 +127,8 @@ class CallManager with WidgetsBindingObserver {
   Timer? _closeTimer;
   Timer? _ringSafetyTimer;
   Timer? _reconnectTimer;
+  bool _peerGone = false;
+  bool _localReconnecting = false;
   bool _recovering = false;
 
   final StreamController<CallFinish> _finishController = StreamController<CallFinish>.broadcast();
@@ -345,6 +347,9 @@ class CallManager with WidgetsBindingObserver {
 
   /// IncomingCallScreen's 50 s safety net: the server ends a ringing call at
   /// 45 s, so a call still ringing here at 50 s lost its call:state.
+  /// True while an accept for [callId] is in flight (the ring screen must stay).
+  bool isAccepting(String callId) => _sameId(_acceptingCallId, callId);
+
   Future<bool> expireIncoming(String callId) async {
     final cur = currentCall;
     if (cur == null || !_sameId(cur.callId, callId) || cur.status != CallStatus.ringing) return false;
@@ -547,7 +552,8 @@ class CallManager with WidgetsBindingObserver {
   void _onPeerConnected() {
     final c = currentCall;
     if (c == null) return;
-    _cancelReconnectGrace();
+    _peerGone = false;
+    if (!_localReconnecting) _cancelReconnectGrace();
     if (c.status != CallStatus.connected) {
       currentCall = c.copyWith(status: CallStatus.connected);
       unawaited(_deps.platform.stopTones());
@@ -562,6 +568,7 @@ class CallManager with WidgetsBindingObserver {
 
   void _onPeerDisconnected() {
     if (currentCall == null) return;
+    _peerGone = true;
     _beginReconnectGrace();
     _updateConnectionState(CallUiState.reconnecting);
     onPeerReconnecting?.call();
@@ -569,6 +576,7 @@ class CallManager with WidgetsBindingObserver {
 
   void _onLocalReconnecting() {
     if (currentCall == null) return;
+    _localReconnecting = true;
     _beginReconnectGrace();
     _updateConnectionState(CallUiState.reconnecting);
     onReconnecting?.call();
@@ -576,8 +584,11 @@ class CallManager with WidgetsBindingObserver {
 
   void _onLocalReconnected() {
     if (currentCall == null) return;
-    _cancelReconnectGrace();
-    _updateConnectionState(CallUiState.connected);
+    _localReconnecting = false;
+    if (!_peerGone) {
+      _cancelReconnectGrace();
+      _updateConnectionState(CallUiState.connected);
+    }
     onReconnected?.call();
   }
 
@@ -630,6 +641,7 @@ class CallManager with WidgetsBindingObserver {
       final c = currentCall;
       if (c == null || c.callId != callId) return;
       if (c.callId.isNotEmpty) unawaited(_deps.api.end(c.callId)); // best effort; 409 ignored
+      onCallError?.call('Connection lost');
       unawaited(_finish(CallExitReason.connectionLost));
     });
   }
@@ -833,6 +845,7 @@ class CallManager with WidgetsBindingObserver {
         return;
       }
       if (status == null) return; // server unreachable: keep the call
+      if (currentCall?.status != CallStatus.ringing) return;
       await _finish(CallExitReason.remoteState, outcome: CallOutcome.noAnswer);
       return;
     }
@@ -943,6 +956,8 @@ class CallManager with WidgetsBindingObserver {
     _incomingShownFor = null;
     _ringSafetyTimer?.cancel();
     _cancelReconnectGrace();
+    _peerGone = false;
+    _localReconnecting = false;
     _closeTimer?.cancel();
     final media = _liveKit;
     _detachLiveKit(media);

@@ -47,7 +47,7 @@ class _IncomingCallScreenState extends State<IncomingCallScreen> {
 
   Future<void> _expire() async {
     final ended = await CallManager().expireIncoming(widget.call.callId);
-    if (!ended) _closeSelf();
+    if (!ended && !CallManager().isAccepting(widget.call.callId)) _closeSelf();
   }
 
   void _closeSelf() {
@@ -59,6 +59,7 @@ class _IncomingCallScreenState extends State<IncomingCallScreen> {
   Future<void> _accept() async {
     if (_busy) return;
     setState(() => _busy = true);
+    _safetyNet?.cancel(); // an accept in flight must not be cut off at 50 s
     final manager = CallManager();
     await manager.acceptCall();
     if (!mounted) return;

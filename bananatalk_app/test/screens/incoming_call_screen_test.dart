@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -63,6 +65,22 @@ void main() {
     await tester.pump(const Duration(seconds: 51));
     await tester.pumpAndSettle();
     expect(find.byType(IncomingCallScreen), findsNothing);
+  });
+
+  testWidgets('an accept in flight past 50 s keeps the screen and the call', (tester) async {
+    await pumpApp(tester);
+    await h.ringIncoming();
+    await tester.pumpAndSettle();
+    h.api.acceptGate = Completer<void>();
+    await tester.tap(find.byIcon(Icons.call));
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 55));
+    expect(find.byType(IncomingCallScreen), findsOneWidget);
+    expect(h.finishes, isEmpty);
+    h.api.acceptGate!.complete();
+    await tester.pump();
+    expect(h.finishes, isEmpty);
+    expect(h.manager.currentCall, isNotNull);
   });
 
   testWidgets('Decline declines on the server and closes', (tester) async {
