@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/models/call_record_model.dart';
 import 'package:bananatalk_app/providers/provider_models/message_model.dart';
 import 'package:bananatalk_app/pages/chat/message/messages_list.dart';
 import 'package:bananatalk_app/pages/chat/message/pinned_messages_bar.dart';
@@ -49,6 +50,9 @@ class ConversationMessagesView extends StatelessWidget {
   final Function(Message) onDeleteFailedMessage;
   final VoidCallback onSendWave;
 
+  /// Call back from a call bubble (same type as that call).
+  final void Function(CallRecord record)? onCallTap;
+
   // Scroll-to-bottom FAB
   final bool showScrollToBottomFab;
   final VoidCallback onScrollToBottom;
@@ -84,6 +88,7 @@ class ConversationMessagesView extends StatelessWidget {
     required this.onRetryMessage,
     required this.onDeleteFailedMessage,
     required this.onSendWave,
+    this.onCallTap,
     required this.showScrollToBottomFab,
     required this.onScrollToBottom,
   });
@@ -133,6 +138,7 @@ class ConversationMessagesView extends StatelessWidget {
                   onRetryMessage: onRetryMessage,
                   onDeleteFailedMessage: onDeleteFailedMessage,
                   onSendWave: onSendWave,
+                  onCallTap: onCallTap,
                 ),
               ),
               if (showScrollToBottomFab)

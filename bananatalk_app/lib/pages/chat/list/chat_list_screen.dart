@@ -10,6 +10,7 @@ import 'package:bananatalk_app/widgets/connection_status_indicator.dart';
 import 'package:bananatalk_app/widgets/shimmer_loading.dart';
 import 'package:bananatalk_app/widgets/qr_code_sheet.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/models/call_outcome.dart';
 import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -92,6 +93,11 @@ class _ChatMainState extends ConsumerState<ChatMain>
   /// async check resolves.
   bool _notifPermGranted = true;
   bool _notifBannerDismissed = false;
+
+  /// Chat-list preview of a call message, from this viewer's side (§3).
+  String _callPreview(Map<String, dynamic> callData, String otherName) =>
+      callPreviewText(AppLocalizations.of(context)!, callData,
+          viewerId: _currentUserId, otherName: otherName);
 
   @override
   void initState() {
@@ -234,6 +240,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
       processChatPartnersWithStatus: _processChatPartnersWithStatus,
       getTypingTimer: () => _typingTimer,
       setTypingTimer: (t) => _typingTimer = t,
+      callPreview: _callPreview,
     );
 
     _newMessageSub = _chatSocketService.onNewMessage.listen(
@@ -479,7 +486,9 @@ class _ChatMainState extends ConsumerState<ChatMain>
         name: data.name,
         username: data.username,
         avatar: data.profileImageUrl,
-        lastMessage: data.lastMessage?.displayText,
+        lastMessage: data.lastMessage?.callData != null
+            ? _callPreview(data.lastMessage!.callData!, data.name)
+            : data.lastMessage?.displayText,
         lastMessageTime: data.lastMessage?.createdAt,
         unreadCount: data.unreadCount,
         imageUrls: data.images,
@@ -562,7 +571,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
             avatar: otherUser.imageUrls.isNotEmpty
                 ? otherUser.imageUrls[0]
                 : null,
-            lastMessage: getMessagePreview(message),
+            lastMessage: getMessagePreview(message, callPreview: (d) => _callPreview(d, otherUser.name)),
             unreadCount: isUnread ? 1 : 0,
             lastMessageTime: messageDate,
             imageUrls: otherUser.imageUrls,
@@ -586,7 +595,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
 
           partnersMap[otherUser.id] = existingPartner.copyWith(
             lastMessage: shouldUpdateMessage
-                ? getMessagePreview(message)
+                ? getMessagePreview(message, callPreview: (d) => _callPreview(d, otherUser.name))
                 : existingPartner.lastMessage,
             unreadCount: isUnread
                 ? existingPartner.unreadCount + 1

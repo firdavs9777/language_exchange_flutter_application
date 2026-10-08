@@ -107,7 +107,15 @@ class ChatPartner {
 
 /// Display-friendly preview of a message, used in the chat-list row to show
 /// "📷 Photo" / "🎤 Voice message" / etc. instead of the raw message body.
-String getMessagePreview(Message message) {
+String getMessagePreview(
+  Message message, {
+  String Function(Map<String, dynamic> callData)? callPreview,
+}) {
+  // Call messages: the viewer's own §3 label (the server text is caller-neutral).
+  if (callPreview != null && message.type == 'call' && message.media?.callData != null) {
+    return callPreview(message.media!.callData!);
+  }
+
   // Check for story reference first
   if (message.storyReference != null) {
     return '📖 Replied to story';

@@ -261,6 +261,7 @@ class ChatMessagesList extends StatelessWidget {
                   key: ValueKey(message.id),
                   call: callRecord,
                   isOutgoing: isMe,
+                  otherName: otherUserName,
                   onTap: onCallTap != null
                       ? () => onCallTap!(callRecord)
                       : null,
