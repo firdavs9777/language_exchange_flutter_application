@@ -12,6 +12,7 @@ import flutter_callkit_incoming
   /// Kept 60 s so a late invite is reported and ended at once, not rung.
   private var cancelledCallUuids: [String: Date] = [:]
   private let callController = CXCallController()
+  private static let appName = "Bananatalk"
 
   override func application(
     _ application: UIApplication,
@@ -77,11 +78,17 @@ import flutter_callkit_incoming
     let callUuid = AppDelegate.normalizedUuid(
       (dict["callUuid"] as? String) ?? (extraIn["callUuid"] as? String) ?? (dict["id"] as? String)
     )
-    let callId = (extraIn["callId"] as? String) ?? (dict["callId"] as? String) ?? callUuid
-    let callerName = (dict["nameCaller"] as? String)
-      ?? (dict["callerName"] as? String)
-      ?? (extraIn["callerName"] as? String)
-      ?? "Unknown"
+    // Legacy payloads put the server id (24-hex) in `id`; keep it as callId.
+    let legacyId = (dict["id"] as? String).flatMap { UUID(uuidString: $0) == nil ? $0 : nil }
+    let callId = (extraIn["callId"] as? String) ?? (dict["callId"] as? String) ?? legacyId ?? callUuid
+    let isCancel = pushType == "call_cancelled"
+    // A cancel carries no caller: a report-and-end shows the app name, never "Unknown".
+    let callerName = isCancel
+      ? AppDelegate.appName
+      : (dict["nameCaller"] as? String)
+        ?? (dict["callerName"] as? String)
+        ?? (extraIn["callerName"] as? String)
+        ?? "Unknown"
     let handle = (dict["handle"] as? String) ?? (dict["callerId"] as? String) ?? callerName
     let callType = (dict["callType"] as? String) ?? (extraIn["callType"] as? String) ?? "audio"
     let isVideo = (dict["isVideo"] as? Bool) ?? (callType == "video")
@@ -92,6 +99,12 @@ import flutter_callkit_incoming
       handle: handle,
       type: isVideo ? 1 : 0
     )
+    // Same CallKit look as CallKitService on the Dart side. The server owns
+    // the 45 s ring (it sends call_cancelled); the native 50 s ring is only a
+    // safety net, so iOS never times out first and re-reports an ended call.
+    data.appName = AppDelegate.appName
+    data.iconName = "AppIcon"
+    data.duration = 50000
     // Same contract as CallKitService.buildIncomingParams on the Dart side.
     var extra: [String: Any] = [
       "callId": callId,
@@ -107,14 +120,15 @@ import flutter_callkit_incoming
     }
     data.extra = extra as NSDictionary
 
-    if pushType == "call_cancelled" {
-      if isReported(callUuid) {
+    if isCancel {
+      // Remember it either way, so a duplicate or late invite never rings.
+      rememberCancelled(callUuid)
+      if isRinging(callUuid) {
         endReportedCall(callUuid)
         completion()
       } else {
-        // The cancel overtook the invite. PushKit still demands a report:
-        // report it, end it at once, and remember it for a late invite.
-        rememberCancelled(callUuid)
+        // The cancel overtook the invite (or the call already ended).
+        // PushKit still demands a report: report it and end it at once.
         reportAndEnd(data, callUuid: callUuid, completion: completion)
       }
       return
@@ -138,9 +152,12 @@ import flutter_callkit_incoming
     return UUID().uuidString.lowercased()
   }
 
-  private func isReported(_ callUuid: String) -> Bool {
-    let calls = SwiftFlutterCallkitIncomingPlugin.sharedInstance?.activeCalls() ?? []
-    return calls.contains { (($0["id"] as? String) ?? "").lowercased() == callUuid }
+  /// A live (not ended) CallKit call with this uuid. CallKit reports
+  /// uuids uppercase; callUuid is lowercase.
+  private func isRinging(_ callUuid: String) -> Bool {
+    return callController.callObserver.calls.contains {
+      $0.uuid.uuidString.lowercased() == callUuid && !$0.hasEnded
+    }
   }
 
   private func endReportedCall(_ callUuid: String) {
