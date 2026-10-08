@@ -62,13 +62,63 @@ void main() {
     test('a stop issued while the start is in flight runs after it: no orphan', () async {
       backend.startGate = Completer<void>();
       final start = startService(true);
-      final stop = CallForegroundService.stop();
       await pumpEventQueue();
       expect(backend.ops, ['start:video']);
+      final stop = CallForegroundService.stop();
       backend.startGate!.complete();
       await Future.wait([start, stop]);
       expect(backend.ops, ['start:video', 'stop']);
       expect(backend.running, isFalse);
+    });
+
+    test('a stop requested while the permission check is pending: never started', () async {
+      final check = Completer<CallServicePermissions>();
+      final start = CallForegroundService.start(
+        video: true,
+        title: 't',
+        text: 'x',
+        channelName: 'n',
+        channelDescription: 'd',
+        permissions: () => check.future,
+      );
+      final stop = CallForegroundService.stop();
+      check.complete((microphone: true, camera: true));
+      await Future.wait([start, stop]);
+      expect(backend.ops, isEmpty);
+      expect(backend.running, isFalse);
+    });
+
+    test('permissions decide inside the queue: no mic, no service; no camera, audio only', () async {
+      Future<void> withPerms(CallServicePermissions p) => CallForegroundService.start(
+            video: true,
+            title: 't',
+            text: 'x',
+            channelName: 'n',
+            channelDescription: 'd',
+            permissions: () async => p,
+          );
+      await withPerms((microphone: false, camera: true));
+      expect(backend.ops, isEmpty);
+      await withPerms((microphone: true, camera: false));
+      expect(backend.ops, ['start:audio']);
+    });
+
+    test('a start requested before a stop never starts', () async {
+      final start = startService(true);
+      final stop = CallForegroundService.stop();
+      await Future.wait([start, stop]);
+      expect(backend.ops, isEmpty);
+    });
+
+    test('a new start after a stop still runs', () async {
+      backend.startGate = Completer<void>();
+      final first = startService(false);
+      await pumpEventQueue();
+      final stop = CallForegroundService.stop();
+      final second = startService(true);
+      backend.startGate!.complete();
+      await Future.wait([first, stop, second]);
+      expect(backend.ops, ['start:audio', 'stop', 'start:video']);
     });
 
     test('the same types again only update the notification', () async {

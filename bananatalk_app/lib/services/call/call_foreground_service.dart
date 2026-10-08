@@ -3,6 +3,9 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 
+/// Runtime permissions the service types need, read when the start runs.
+typedef CallServicePermissions = ({bool microphone, bool camera});
+
 /// The plugin calls [CallForegroundService] makes, behind a seam for tests.
 abstract class ForegroundServiceBackend {
   Future<bool> isRunning();
@@ -83,13 +86,17 @@ class PluginForegroundServiceBackend implements ForegroundServiceBackend {
 /// capturing a few seconds after the app leaves the foreground.
 ///
 /// Starts and stops run one at a time, in call order: a stop issued while a
-/// start is in flight runs after it, so no service outlives its call.
+/// start is in flight runs after it, and a start whose turn comes after a
+/// later stop was requested does nothing, so no service outlives its call.
 class CallForegroundService {
   const CallForegroundService._();
 
   static ForegroundServiceBackend _backend = PluginForegroundServiceBackend();
   static bool Function() _isAndroid = _platformIsAndroid;
   static Future<void> _queue = Future<void>.value();
+
+  /// Bumped by every [stop] request: a start requested before it is stale.
+  static int _stops = 0;
 
   /// Whether the service this process started has the camera type; null when
   /// this process has not started one (a running service is then an orphan).
@@ -102,6 +109,7 @@ class CallForegroundService {
     _backend = backend;
     _isAndroid = isAndroid;
     _queue = Future<void>.value();
+    _stops = 0;
     _startedWithCamera = null;
   }
 
@@ -113,17 +121,33 @@ class CallForegroundService {
     return next;
   }
 
+  /// [permissions] runs inside the queue, right before the start: a typed
+  /// service started without its runtime permission throws inside the
+  /// plugin's onStartCommand, out of Dart's reach. No microphone → no
+  /// service; no camera → microphone type only.
   static Future<void> start({
     required bool video,
     required String title,
     required String text,
     required String channelName,
     required String channelDescription,
+    Future<CallServicePermissions> Function()? permissions,
   }) {
     if (!_isAndroid()) return Future<void>.value();
+    final stopsAtRequest = _stops;
+    bool stillWanted() => _stops == stopsAtRequest;
     return _serial('start', () async {
+      if (!stillWanted()) return;
+      final granted = await permissions?.call() ?? (microphone: true, camera: true);
+      if (!stillWanted()) return;
+      if (!granted.microphone) {
+        debugPrint('📞 call foreground service skipped: no microphone permission');
+        return;
+      }
+      final camera = video && granted.camera;
       final running = await _backend.isRunning();
-      if (running && _startedWithCamera == video) {
+      if (!stillWanted()) return;
+      if (running && _startedWithCamera == camera) {
         await _backend.update(title: title, text: text);
         return;
       }
@@ -132,18 +156,19 @@ class CallForegroundService {
         await _backend.stop();
       }
       await _backend.start(
-        camera: video,
+        camera: camera,
         title: title,
         text: text,
         channelName: channelName,
         channelDescription: channelDescription,
       );
-      _startedWithCamera = video;
+      _startedWithCamera = camera;
     });
   }
 
   static Future<void> stop() {
     if (!_isAndroid()) return Future<void>.value();
+    _stops++;
     return _serial('stop', () async {
       _startedWithCamera = null;
       if (await _backend.isRunning()) await _backend.stop();

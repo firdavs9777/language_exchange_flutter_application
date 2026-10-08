@@ -166,23 +166,21 @@ class DeviceCallPlatform implements CallPlatform {
   }
 
   @override
-  Future<void> startCallService({required bool video}) async {
+  Future<void> startCallService({required bool video}) {
     final ctx = callOverlayNavigatorKey.currentContext;
     final l10n = ctx != null ? AppLocalizations.of(ctx) : null;
-    // A typed foreground service started without its runtime permission
-    // throws inside the plugin's onStartCommand, out of Dart's reach.
-    if (!await Permission.microphone.isGranted) {
-      debugPrint('📞 call foreground service skipped: no microphone permission');
-      return;
-    }
-    final camera = video && await Permission.camera.isGranted;
-    await CallForegroundService.start(
-      video: camera,
+    return CallForegroundService.start(
+      video: video,
       title: l10n?.callForegroundTitle ?? 'Call in progress',
       text: l10n?.callForegroundBody ?? 'Tap to return to your call',
       channelName: l10n?.callServiceChannelName ?? 'Ongoing call',
       channelDescription: l10n?.callServiceChannelDescription ??
           'Keeps your call running while BananaTalk is in the background',
+      // Checked inside the service queue, so a stop requested meanwhile wins.
+      permissions: () async => (
+        microphone: await Permission.microphone.isGranted,
+        camera: video && await Permission.camera.isGranted,
+      ),
     );
   }
 
