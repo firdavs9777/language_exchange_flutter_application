@@ -6,10 +6,12 @@ import 'package:socket_io_client/socket_io_client.dart' as io;
 
 import 'package:bananatalk_app/models/call_model.dart';
 import 'package:bananatalk_app/models/call_outcome.dart';
+import 'package:bananatalk_app/router/app_router.dart';
 import 'package:bananatalk_app/services/call/call_api.dart';
 import 'package:bananatalk_app/services/call/call_platform.dart';
 import 'package:bananatalk_app/services/call/call_routes.dart';
 import 'package:bananatalk_app/services/call/callkit_ids.dart';
+import 'package:bananatalk_app/services/call/full_screen_intent_prompt.dart';
 import 'package:bananatalk_app/services/call_livekit_manager.dart';
 import 'package:bananatalk_app/services/callkit_service.dart';
 import 'package:bananatalk_app/services/chat_socket_service.dart';
@@ -60,6 +62,7 @@ class CallManagerDeps {
     required this.closeCallScreens,
     required this.openActiveCall,
     required this.openIncomingCall,
+    this.afterIncomingCall = CallManagerDeps._noop,
   });
 
   factory CallManagerDeps.production() => CallManagerDeps(
@@ -69,6 +72,10 @@ class CallManagerDeps {
         closeCallScreens: CallRoutes.closeAll,
         openActiveCall: CallRoutes.openActive,
         openIncomingCall: CallRoutes.openIncoming,
+        afterIncomingCall: () => Future<void>.delayed(const Duration(milliseconds: 600), () {
+          final ctx = callOverlayNavigatorKey.currentContext;
+          if (ctx != null && ctx.mounted) unawaited(FullScreenIntentPrompt.maybeAsk(ctx));
+        }),
       );
 
   final CallApi api;
@@ -77,6 +84,12 @@ class CallManagerDeps {
   final void Function() closeCallScreens;
   final void Function(CallModel call) openActiveCall;
   final void Function(CallModel call) openIncomingCall;
+
+  /// Runs once an incoming call has left this device. Production asks (once)
+  /// for the Android full-screen-intent permission, after the ring is over.
+  final void Function() afterIncomingCall;
+
+  static void _noop() {}
 }
 
 /// How long the caller sees "No answer" / "Declined" before the screen closes.
@@ -669,7 +682,9 @@ class CallManager with WidgetsBindingObserver {
 
   /// Media is up for [call] (outgoing connected, incoming accepted, rejoin).
   void _onMediaConnected(CallModel call) {
-    if (call.callType == CallType.video) unawaited(_deps.platform.setWakelock(true));
+    final video = call.callType == CallType.video;
+    if (video) unawaited(_deps.platform.setWakelock(true));
+    unawaited(_deps.platform.startCallService(video: video));
   }
 
   void _cancelReconnectGrace() {
@@ -1007,6 +1022,7 @@ class CallManager with WidgetsBindingObserver {
     } else {
       _deps.closeCallScreens();
     }
+    if (call.direction == CallDirection.incoming) _deps.afterIncomingCall();
 
     await Future.wait([
       _quietly(media.disconnect),
@@ -1014,6 +1030,7 @@ class CallManager with WidgetsBindingObserver {
       _quietly(() => _deps.platform.endCallUi(call)),
       _quietly(_deps.platform.cancelIncomingNotification),
       _quietly(() => _deps.platform.setWakelock(false)),
+      _quietly(_deps.platform.stopCallService),
     ]);
   }
 

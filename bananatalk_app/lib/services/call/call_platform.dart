@@ -3,7 +3,10 @@ import 'package:just_audio/just_audio.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/call_model.dart';
+import 'package:bananatalk_app/router/app_router.dart';
+import 'package:bananatalk_app/services/call/call_foreground_service.dart';
 import 'package:bananatalk_app/services/call/callkit_ids.dart';
 import 'package:bananatalk_app/services/callkit_service.dart';
 import 'package:bananatalk_app/services/notification_service.dart';
@@ -26,6 +29,10 @@ abstract class CallPlatform {
   Future<String> deviceId();
   Future<bool> ensurePermissions({required bool video});
   Future<String> permissionError({required bool video, required bool accepting});
+
+  /// Android ongoing-call foreground service (no-op elsewhere).
+  Future<void> startCallService({required bool video});
+  Future<void> stopCallService();
 }
 
 class DeviceCallPlatform implements CallPlatform {
@@ -155,4 +162,18 @@ class DeviceCallPlatform implements CallPlatform {
     }
     return 'DENIED:Microphone permission is required to $verb calls.';
   }
+
+  @override
+  Future<void> startCallService({required bool video}) {
+    final ctx = callOverlayNavigatorKey.currentContext;
+    final l10n = ctx != null ? AppLocalizations.of(ctx) : null;
+    return CallForegroundService.start(
+      video: video,
+      title: l10n?.callForegroundTitle ?? 'Call in progress',
+      text: l10n?.callForegroundBody ?? 'Tap to return to your call',
+    );
+  }
+
+  @override
+  Future<void> stopCallService() => CallForegroundService.stop();
 }

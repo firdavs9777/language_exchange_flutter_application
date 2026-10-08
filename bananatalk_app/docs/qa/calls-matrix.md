@@ -79,3 +79,12 @@ bubble with the right label on both sides (§3), (e) nothing keeps ringing anywh
 | IOS-5 | Answered on another device | iPhone + iPad on the same account (both new build); answer on iPad; repeat 5× | iPhone CallKit ends; no "Unknown" call appears; VoIP pushes keep arriving on the iPhone afterwards | |
 | IOS-6 | Foreground VoIP cancel | iPhone app open on the incoming screen; answer on the other device | In-app screen closes; any CallKit flash is ≤ 1 s | |
 | IOS-7 | Unanswered call, app killed | Kill app; A calls; nobody answers | Rings until ~45 s, no second ring, no "Unknown" entry in Recents | |
+
+## 4. Android-only
+
+| ID | Scenario | Steps | Expected | Result |
+|---|---|---|---|---|
+| AND-1 | Voice call in background (Android 14) | Connected voice call; press Home for 2 min; talk | Peer hears you throughout; "Call in progress" ongoing notification shown; it disappears when the call ends | |
+| AND-2 | Video call in background (Android 14) | Same with video | Audio continues; peer sees "Camera paused"; camera returns on resume; no crash (camera FGS type) | |
+| AND-3 | Full-screen intent prompt | Fresh install on Android 14; receive and finish one call | Explainer appears once after the call; "Open settings" lands on the full-screen-intent toggle; never shown again | |
+| AND-4 | Locked-phone ring after granting | AND-3 granted; lock phone; receive a call | Full-screen call UI, no duplicate notification (incoming push is data-only) | |

@@ -108,6 +108,11 @@ class FakeCallPlatform implements CallPlatform {
   @override
   Future<String> permissionError({required bool video, required bool accepting}) async =>
       'DENIED:test';
+  @override
+  Future<void> startCallService({required bool video}) async =>
+      log.add('service:start:${video ? 'video' : 'audio'}');
+  @override
+  Future<void> stopCallService() async => log.add('service:stop');
 }
 
 class FakeLiveKit extends CallLiveKitManager {
@@ -165,6 +170,7 @@ class CallHarness {
         opened.add('incoming:${c.callId}');
         openIncoming?.call(c);
       },
+      afterIncomingCall: () => afterIncomingCalls++,
     ));
     manager.onCallFinished = finishes.add;
   }
@@ -175,6 +181,7 @@ class CallHarness {
   final List<CallFinish> finishes = [];
   final List<String> opened = [];
   int closes = 0;
+  int afterIncomingCalls = 0;
   Object? nextConnectError;
   Completer<void>? nextConnectGate;
   late final CallManager manager;
