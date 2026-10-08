@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:bananatalk_app/pages/authentication/login/apple_login_screen.dart';
@@ -7,6 +8,8 @@ import 'package:bananatalk_app/pages/authentication/login/google_login_screen.da
 import 'package:bananatalk_app/pages/authentication/register/register_two_screen.dart';
 import 'package:bananatalk_app/pages/authentication/terms_of_service_screen.dart';
 import 'package:bananatalk_app/pages/authentication/biometric/biometric_service.dart';
+import 'package:bananatalk_app/pages/authentication/biometric/biometric_session.dart';
+import 'package:bananatalk_app/services/notification_service.dart';
 import 'package:bananatalk_app/pages/authentication/biometric/enable_biometric_prompt.dart';
 import 'package:bananatalk_app/pages/authentication/widgets/auth_gradient_button.dart';
 import 'package:bananatalk_app/pages/authentication/widgets/auth_screen_scaffold.dart';
@@ -125,35 +128,45 @@ class _LoginState extends ConsumerState<Login> {
       return;
     }
 
-    // Restore auth state into prefs and run the existing init/validate flow.
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('token', state.token);
-    await prefs.setString('refreshToken', state.refreshToken);
-    await prefs.setString('userId', state.userId);
-
-    final auth = ref.read(authServiceProvider);
-    final authed = await auth.initializeAuth();
+    // Spend the snapshot's refresh token for a fresh access token. This used
+    // to write the stored (possibly expired) access token into prefs and hope
+    // initializeAuth could refresh it -- with a refresh token that logout had
+    // just revoked on the server.
+    final outcome =
+        await ref.read(authServiceProvider).loginWithBiometric(state);
     if (!mounted) return;
 
-    if (!authed) {
-      await _biometric.disable();
-      // The disable() above re-opened an async gap after the mounted check
-      // on line 134, so this setState could land on a disposed screen.
-      if (!mounted) return;
-      setState(() {
-        _biometricAuthing = false;
-        _biometricVisible = false;
-      });
-      showAuthSnackBar(
-        context,
-        message: l10n.sessionExpired,
-        type: AuthSnackBarType.error,
-      );
-      return;
+    switch (outcome) {
+      case BiometricLoginOutcome.success:
+        // Logout removed this device's push token; register it again.
+        final userId = ref.read(authServiceProvider).userId;
+        if (userId.isNotEmpty) {
+          unawaited(NotificationService()
+              .registerToken(userId)
+              .catchError((e) => debugPrint('[biometric] FCM: $e')));
+        }
+        setState(() => _biometricAuthing = false);
+        context.go('/home');
+      case BiometricLoginOutcome.rejected:
+        // loginWithBiometric deleted the snapshot and turned the flag off.
+        setState(() {
+          _biometricAuthing = false;
+          _biometricVisible = false;
+        });
+        showAuthSnackBar(
+          context,
+          message: l10n.sessionExpired,
+          type: AuthSnackBarType.error,
+        );
+      case BiometricLoginOutcome.retryable:
+        // Snapshot kept: the button stays, the user can try again.
+        setState(() => _biometricAuthing = false);
+        showAuthSnackBar(
+          context,
+          message: l10n.noInternetConnection,
+          type: AuthSnackBarType.error,
+        );
     }
-
-    setState(() => _biometricAuthing = false);
-    context.go('/home');
   }
 
   /// Show the opt-in dialog after a fresh login if biometric is available

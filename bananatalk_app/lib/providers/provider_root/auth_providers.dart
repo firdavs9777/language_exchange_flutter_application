@@ -8,6 +8,9 @@ import 'package:bananatalk_app/services/notification_service.dart';
 import 'package:bananatalk_app/services/notification_api_client.dart';
 import 'package:bananatalk_app/services/api_client.dart';
 import 'package:bananatalk_app/services/session_prefs.dart';
+import 'package:bananatalk_app/pages/authentication/biometric/biometric_service.dart';
+import 'package:bananatalk_app/pages/authentication/biometric/biometric_session.dart';
+import 'package:bananatalk_app/pages/authentication/biometric/biometric_token_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -853,6 +856,85 @@ class AuthService extends ChangeNotifier {
   /// account, session expired).
   Future<void> clearLocalSession() => _clearAuthData();
 
+  /// Test seam for the biometric keychain (flutter_secure_storage has no
+  /// test implementation).
+  @visibleForTesting
+  BiometricTokenStorage? biometricStorageForTest;
+
+  /// Biometric sign-in: spends the snapshot's refresh token at the refresh
+  /// endpoint for a fresh access token, instead of trusting the stored access
+  /// token (which may have expired since). See biometric_session.dart.
+  ///
+  /// - 200: session restored (and the snapshot follows a rotated token).
+  /// - 400/401/403/404: the snapshot can never work again -- it is deleted
+  ///   and biometric login turned off.
+  /// - anything else (offline, 5xx): snapshot kept, caller offers a retry.
+  Future<BiometricLoginOutcome> loginWithBiometric(
+    BiometricAuthState state,
+  ) async {
+    final biometric = BiometricService(
+      storage: biometricStorageForTest ?? BiometricTokenStorage(),
+    );
+    if (state.refreshToken.isEmpty) {
+      await biometric.disable();
+      return BiometricLoginOutcome.rejected;
+    }
+
+    final http.Response response;
+    try {
+      response = await http
+          .post(
+            Uri.parse('${Endpoints.baseURL}${Endpoints.refreshTokenURL}'),
+            body: jsonEncode({'refreshToken': state.refreshToken}),
+            headers: {'Content-Type': 'application/json'},
+          )
+          .timeout(const Duration(seconds: 30));
+    } catch (e) {
+      debugPrint('[biometric-login] refresh unreachable: $e');
+      return BiometricLoginOutcome.retryable;
+    }
+
+    if (response.statusCode == 200) {
+      String newToken = '';
+      String rotated = '';
+      try {
+        final data = jsonDecode(response.body);
+        newToken = (data['token'] ?? data['data']?['token'] ?? '').toString();
+        rotated = (data['refreshToken'] ?? data['data']?['refreshToken'] ?? '')
+            .toString();
+      } catch (_) {}
+      if (newToken.isEmpty) return BiometricLoginOutcome.retryable;
+
+      token = newToken;
+      refreshToken = rotated.isNotEmpty ? rotated : state.refreshToken;
+      userId = state.userId;
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('token', token);
+      await prefs.setString('refreshToken', refreshToken);
+      await prefs.setString('userId', userId);
+      ApiClient().clearTokenCache();
+      isLoggedIn = true;
+      SocketService().enableReconnection();
+      notifyListeners();
+
+      if (rotated.isNotEmpty) {
+        await rotateBiometricSnapshot(
+          oldRefreshToken: state.refreshToken,
+          newRefreshToken: rotated,
+          newAccessToken: newToken,
+          storage: biometricStorageForTest,
+        );
+      }
+      return BiometricLoginOutcome.success;
+    }
+
+    if (ApiClient.isDefinitiveRefreshFailure(response.statusCode)) {
+      await biometric.disable();
+      return BiometricLoginOutcome.rejected;
+    }
+    return BiometricLoginOutcome.retryable;
+  }
+
   Future<Map<String, dynamic>> logout({bool logoutAll = false}) async {
     final url = Uri.parse(
       '${Endpoints.baseURL}${logoutAll ? Endpoints.logoutAllURL : Endpoints.logoutURL}',
@@ -864,6 +946,15 @@ class AuthService extends ChangeNotifier {
       chatSocketService.disableReconnection(); // Prevent reconnection
       await chatSocketService.disconnect();
 
+      // The server revokes whichever refresh token this body names. When the
+      // biometric snapshot holds it, revoking it would break "Continue with
+      // Face ID" -- so it is left alive and only this device's local session
+      // ends. Biometrics off (or a different account's snapshot): revoked.
+      final keepForBiometric = !logoutAll &&
+          await isRefreshTokenHeldForBiometric(
+            refreshToken,
+            storage: biometricStorageForTest,
+          );
       final response = await http.post(
         url,
         headers: {
@@ -871,7 +962,7 @@ class AuthService extends ChangeNotifier {
           'Authorization': 'Bearer $token',
         },
         body: jsonEncode({
-          if (!logoutAll && refreshToken.isNotEmpty)
+          if (!logoutAll && !keepForBiometric && refreshToken.isNotEmpty)
             'refreshToken': refreshToken,
         }),
       );
