@@ -6,6 +6,7 @@ import 'package:flutter_callkit_incoming/flutter_callkit_incoming.dart';
 import 'package:flutter_callkit_incoming/entities/entities.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
+import 'package:bananatalk_app/services/call/callkit_ids.dart';
 
 import 'package:bananatalk_app/services/notification_api_client.dart';
 
@@ -181,18 +182,22 @@ class CallKitService {
   /// without an extra round-trip on accept.
   Future<String> showIncomingCall({
     required String callId,
+    String? callUuid,
     required String callerName,
     String? callerAvatar,
+    String? callerId,
     bool isVideo = false,
     String? livekitToken,
     String? livekitUrl,
     String? roomName,
   }) async {
-    // Use callId as the UUID so we can reference it later
-    final uuid = callId.isNotEmpty ? callId : const Uuid().v4();
+    // CallKit ids MUST be UUIDs (the plugin force-unwraps UUID(uuidString:)
+    // on iOS); the 24-hex Mongo id crashed backgrounded iPhones.
+    final uuid = CallKitIds.uuidFor(callId: callId, callUuid: callUuid);
     _activeCallUuid = uuid;
 
-    final extra = <String, dynamic>{'callId': callId};
+    final extra = <String, dynamic>{'callId': callId, 'callUuid': uuid};
+    if (callerId != null) extra['callerId'] = callerId;
     if (livekitToken != null) extra['livekitToken'] = livekitToken;
     if (livekitUrl != null) extra['livekitUrl'] = livekitUrl;
     if (roomName != null) extra['roomName'] = roomName;

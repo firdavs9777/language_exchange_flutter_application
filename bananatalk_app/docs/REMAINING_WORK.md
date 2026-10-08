@@ -37,7 +37,7 @@ Baseline: 1/30 calls answered in 30 days, 168 stuck ringing, 0 call messages eve
 - [ ] App (plan `docs/superpowers/plans/2026-10-08-calls-reliability.md`):
   - [x] A1 call strings in 19 locales (18 machine drafts — native review open)
   - [x] A2 outcome model + §3 labels
-  - [ ] A3 call API / platform seams, CallKit id = callUuid
+  - [x] A3 call API / platform seams, CallKit id = callUuid
   - [ ] A4 CallManager follower + single exit path; 5-minute cap removed
   - [ ] A5 re-bind call listeners when the socket is replaced
   - [ ] A6 incoming dedupe, foreground FCM, call_cancelled, stale taps, resume/cold-start recovery

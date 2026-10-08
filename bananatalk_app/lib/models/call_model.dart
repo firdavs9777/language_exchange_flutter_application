@@ -40,6 +40,9 @@ class CallModel {
   /// Server-assigned room name. Used for debugging only on the client.
   final String? roomName;
 
+  /// CallKit-safe UUID from the server; CallKit / Android call UI are keyed by it.
+  final String? callUuid;
+
   CallModel({
     required this.callId,
     required this.userId,
@@ -57,6 +60,7 @@ class CallModel {
     this.livekitToken,
     this.livekitUrl,
     this.roomName,
+    this.callUuid,
   });
 
   factory CallModel.fromJson(
@@ -73,7 +77,8 @@ class CallModel {
       userName = caller?['name']?.toString() ?? json['callerName']?.toString() ?? 'Unknown';
       userProfilePicture = caller?['profilePicture']?.toString() ?? 
                           caller?['image']?.toString() ?? 
-                          json['callerProfilePicture']?.toString();
+                          json['callerProfilePicture']?.toString() ??
+                          json['callerAvatar']?.toString();
     } else {
       final recipient = json['recipient'] as Map<String, dynamic>?;
       userId = recipient?['_id']?.toString() ?? json['recipientId']?.toString() ?? '';
@@ -95,6 +100,7 @@ class CallModel {
       livekitToken: json['livekitToken']?.toString(),
       livekitUrl: json['livekitUrl']?.toString(),
       roomName: json['roomName']?.toString(),
+      callUuid: json['callUuid']?.toString(),
     );
   }
 
@@ -130,6 +136,7 @@ class CallModel {
     String? livekitToken,
     String? livekitUrl,
     String? roomName,
+    String? callUuid,
   }) {
     return CallModel(
       callId: callId ?? this.callId,
@@ -148,6 +155,7 @@ class CallModel {
       livekitToken: livekitToken ?? this.livekitToken,
       livekitUrl: livekitUrl ?? this.livekitUrl,
       roomName: roomName ?? this.roomName,
+      callUuid: callUuid ?? this.callUuid,
     );
   }
 }
