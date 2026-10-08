@@ -27,6 +27,8 @@ class _CallHistoryScreenState extends ConsumerState<CallHistoryScreen> {
   int _page = 0;
   bool _hasMore = true;
   bool _loading = false;
+  bool _failed = false;
+  Future<void>? _inFlight;
 
   @override
   void initState() {
@@ -45,52 +47,103 @@ class _CallHistoryScreenState extends ConsumerState<CallHistoryScreen> {
   }
 
   void _onScroll() {
-    if (_scroll.position.extentAfter < 400) _loadMore();
+    if (_scroll.hasClients && _scroll.position.extentAfter < 400) _loadMore();
   }
 
-  Future<void> _loadMore() async {
-    if (_loading || !_hasMore) return;
+  Future<void> _loadMore() {
+    if (_inFlight != null) return _inFlight!;
+    if (!_hasMore || _failed) return Future.value();
+    return _inFlight = _fetchNext().whenComplete(() => _inFlight = null);
+  }
+
+  Future<void> _fetchNext() async {
     setState(() => _loading = true);
-    final page = await ref.read(callHistoryServiceProvider).fetchPage(_page + 1);
-    if (!mounted) return;
-    setState(() {
-      _page++;
-      _items.addAll(page.items);
-      _hasMore = page.hasMore;
-      _loading = false;
-    });
+    try {
+      final page = await ref.read(callHistoryServiceProvider).fetchPage(_page + 1);
+      if (!mounted) return;
+      setState(() {
+        _page++;
+        final known = _items.map((e) => e.id).toSet();
+        _items.addAll(page.items.where((e) => known.add(e.id)));
+        _hasMore = page.hasMore;
+      });
+    } catch (_) {
+      if (mounted) setState(() => _failed = true);
+    } finally {
+      if (mounted) setState(() => _loading = false);
+    }
+  }
+
+  void _retry() {
+    setState(() => _failed = false);
+    _loadMore();
   }
 
   Future<void> _refresh() async {
+    await _inFlight;
+    if (!mounted) return;
     setState(() {
       _items.clear();
       _page = 0;
       _hasMore = true;
+      _failed = false;
     });
     await _loadMore();
+  }
+
+  Widget _footer(AppLocalizations l10n) {
+    if (_failed) {
+      return Padding(
+        padding: const EdgeInsets.all(8),
+        child: Center(child: TextButton(onPressed: _retry, child: Text(l10n.retry))),
+      );
+    }
+    return const Padding(
+      padding: EdgeInsets.all(16),
+      child: Center(child: CircularProgressIndicator()),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    return Scaffold(
-      appBar: AppBar(leading: const AppBackButton(), title: Text(l10n.callsTitle)),
-      body: _items.isEmpty && !_loading
-          ? Center(child: Text(l10n.callsEmpty))
-          : RefreshIndicator(
-              onRefresh: _refresh,
-              child: ListView.builder(
-                controller: _scroll,
-                physics: const AlwaysScrollableScrollPhysics(),
-                itemCount: _items.length + (_hasMore ? 1 : 0),
-                itemBuilder: (context, i) => i >= _items.length
-                    ? const Padding(
-                        padding: EdgeInsets.all(16),
-                        child: Center(child: CircularProgressIndicator()),
-                      )
-                    : _CallLogTile(entry: _items[i]),
+    final Widget body;
+    if (_items.isEmpty && _failed) {
+      body = ListView(
+        physics: const AlwaysScrollableScrollPhysics(),
+        children: [
+          SizedBox(
+            height: 300,
+            child: Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(l10n.somethingWentWrong),
+                  TextButton(onPressed: _retry, child: Text(l10n.retry)),
+                ],
               ),
             ),
+          ),
+        ],
+      );
+    } else if (_items.isEmpty && !_loading && !_hasMore) {
+      body = ListView(
+        physics: const AlwaysScrollableScrollPhysics(),
+        children: [SizedBox(height: 300, child: Center(child: Text(l10n.callsEmpty)))],
+      );
+    } else {
+      final showFooter = _hasMore || _failed;
+      body = ListView.builder(
+        controller: _scroll,
+        physics: const AlwaysScrollableScrollPhysics(),
+        itemCount: _items.length + (showFooter ? 1 : 0),
+        itemBuilder: (context, i) =>
+            i >= _items.length ? _footer(l10n) : _CallLogTile(entry: _items[i]),
+      );
+    }
+    return Scaffold(
+      appBar: AppBar(leading: const AppBackButton(), title: Text(l10n.callsTitle)),
+      body: RefreshIndicator(onRefresh: _refresh, child: body),
     );
   }
 }

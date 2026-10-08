@@ -146,6 +146,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
       _checkUserChange();
+      ref.read(missedCallsProvider.notifier).refresh();
       // Refresh chat list on resume to pick up new conversations
       _fetchMessages();
 

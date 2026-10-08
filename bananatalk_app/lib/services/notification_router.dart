@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:bananatalk_app/providers/app_provider_container.dart';
+import 'package:bananatalk_app/providers/missed_calls_provider.dart';
 import 'package:bananatalk_app/pages/community/main/community_main.dart';
 import 'package:bananatalk_app/pages/menu_tab/TabBarMenu.dart';
 import 'package:bananatalk_app/services/call_manager.dart';
@@ -381,6 +383,8 @@ class NotificationRouter {
         return null;
 
       case 'missed_call':
+        // The badge may predate this push.
+        appProviderContainer.read(missedCallsProvider.notifier).refresh();
         // Navigate to chat with the caller
         final callerId = data['callerId']?.toString();
         return callerId != null ? '/chat/$callerId' : null;

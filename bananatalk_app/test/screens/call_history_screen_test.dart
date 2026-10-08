@@ -13,10 +13,12 @@ class _FakeHistory implements CallHistoryService {
   final Map<int, CallLogPage> pages;
   int seen = 0;
   final requested = <int>[];
+  final failures = <int>{};
 
   @override
   Future<CallLogPage> fetchPage(int page) async {
     requested.add(page);
+    if (failures.remove(page)) throw const CallHistoryException();
     return pages[page] ?? const CallLogPage([], false);
   }
 
@@ -64,6 +66,46 @@ void main() {
   testWidgets('empty state', (tester) async {
     await _pump(tester, _FakeHistory({}));
     expect(find.text('No calls yet'), findsOneWidget);
+  });
+
+  testWidgets('page 1 failure shows retry, retry loads', (tester) async {
+    final fake = _FakeHistory({1: CallLogPage([_entry('1', 'in', 'completed')], false)})..failures.add(1);
+    await _pump(tester, fake);
+    expect(find.text('No calls yet'), findsNothing);
+    expect(find.text('Retry'), findsOneWidget);
+    await tester.tap(find.text('Retry'));
+    await tester.pumpAndSettle();
+    expect(find.text('Ada'), findsOneWidget);
+    expect(fake.requested, [1, 1]);
+  });
+
+  testWidgets('page 2 failure shows a retry row and does not skip the page', (tester) async {
+    final fake = _FakeHistory({
+      1: CallLogPage([for (var i = 0; i < 12; i++) _entry('a$i', 'in', 'completed')], true),
+      2: CallLogPage([_entry('b1', 'in', 'completed')], false),
+    })..failures.add(2);
+    await _pump(tester, fake);
+    await tester.drag(find.byType(ListView), const Offset(0, -2000));
+    await tester.pumpAndSettle();
+    expect(find.text('Retry'), findsOneWidget);
+    await tester.tap(find.text('Retry'));
+    await tester.pumpAndSettle();
+    expect(fake.requested, [1, 2, 2]);
+    await tester.drag(find.byType(ListView), const Offset(0, -2000));
+    await tester.pumpAndSettle();
+    expect(find.text('Retry'), findsNothing);
+  });
+
+  testWidgets('a row without otherParty renders and duplicate ids are dropped', (tester) async {
+    final bare = CallLogEntry.fromJson({
+      'id': 'x', 'type': 'audio', 'direction': 'in', 'outcome': 'completed', 'duration': 5,
+      'createdAt': '2026-10-08T12:00:00.000Z',
+    });
+    final fake = _FakeHistory({
+      1: CallLogPage([bare, bare], false),
+    });
+    await _pump(tester, fake);
+    expect(find.byType(ListTile), findsOneWidget);
   });
 
   test('missed badge: refresh reads the count, markSeen clears it', () async {

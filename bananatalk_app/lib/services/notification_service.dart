@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:bananatalk_app/providers/app_provider_container.dart';
+import 'package:bananatalk_app/providers/missed_calls_provider.dart';
 import 'package:bananatalk_app/models/notification_models.dart' as nm;
 import 'package:bananatalk_app/services/call/call_push_handler.dart';
 import 'package:bananatalk_app/services/call/callkit_ids.dart';
@@ -438,6 +440,10 @@ class NotificationService {
     // The socket already handles real-time message delivery
     if (notificationType == 'chat_message') {
       return;
+    }
+
+    if (notificationType == 'missed_call') {
+      appProviderContainer.read(missedCallsProvider.notifier).refresh();
     }
 
     // Quiet-hours guard for foreground locals.

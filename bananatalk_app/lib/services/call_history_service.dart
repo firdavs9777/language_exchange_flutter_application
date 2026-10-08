@@ -9,6 +9,13 @@ class CallLogPage {
   final bool hasMore;
 }
 
+/// A request failed; callers keep what they had and offer a retry.
+class CallHistoryException implements Exception {
+  const CallHistoryException();
+  @override
+  String toString() => 'CallHistoryException';
+}
+
 /// GET /calls (30 per page), missed count and mark-seen (spec §4.7).
 class CallHistoryService {
   CallHistoryService([ApiClient? client]) : _client = client ?? ApiClient();
@@ -18,7 +25,7 @@ class CallHistoryService {
 
   Future<CallLogPage> fetchPage(int page) async {
     final res = await _client.get('calls', queryParams: {'page': '$page', 'limit': '$pageSize'});
-    if (!res.success || res.data is! Map) return const CallLogPage([], false);
+    if (!res.success || res.data is! Map) throw const CallHistoryException();
     final body = Map<String, dynamic>.from(res.data as Map);
     final items = (body['data'] as List? ?? const [])
         .whereType<Map>()
@@ -30,7 +37,7 @@ class CallHistoryService {
 
   Future<int> missedCount() async {
     final res = await _client.get('calls/missed/count');
-    if (!res.success || res.data is! Map) return 0;
+    if (!res.success || res.data is! Map) throw const CallHistoryException();
     return ((res.data as Map)['count'] as num?)?.toInt() ?? 0;
   }
 
