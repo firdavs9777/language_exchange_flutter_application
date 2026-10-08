@@ -36,7 +36,7 @@ Baseline: 1/30 calls answered in 30 days, 168 stuck ringing, 0 call messages eve
 - [ ] Backend: server-authoritative call state, timeouts/sweeper, busy + calls-off, call messages, push TTL/missed push, history API, delete legacy callHandler.
 - [ ] App (plan `docs/superpowers/plans/2026-10-08-calls-reliability.md`):
   - [x] A1 call strings in 19 locales (18 machine drafts — native review open)
-  - [ ] A2 outcome model + §3 labels
+  - [x] A2 outcome model + §3 labels
   - [ ] A3 call API / platform seams, CallKit id = callUuid
   - [ ] A4 CallManager follower + single exit path; 5-minute cap removed
   - [ ] A5 re-bind call listeners when the socket is replaced
