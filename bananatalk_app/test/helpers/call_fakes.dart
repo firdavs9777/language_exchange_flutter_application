@@ -78,6 +78,8 @@ class FakeCallApi implements CallApi {
 
 class FakeCallPlatform implements CallPlatform {
   final List<String> log = [];
+  @override
+  Future<void> setWakelock(bool on) async => log.add('wakelock:${on ? 'on' : 'off'}');
   List<CallKitEntry> activeEntries = const [];
   bool permissionsGranted = true;
 

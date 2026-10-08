@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 
 import 'package:bananatalk_app/models/call_model.dart';
 import 'package:bananatalk_app/services/call/callkit_ids.dart';
@@ -10,6 +11,9 @@ import 'package:bananatalk_app/services/notification_service.dart';
 /// Everything a call needs from the device, behind one seam so
 /// CallManager can be tested without plugins.
 abstract class CallPlatform {
+  /// Keep the screen on (video calls only; voice uses the proximity default).
+  Future<void> setWakelock(bool on);
+
   Future<void> showIncomingCallUi(CallModel call);
   Future<void> endCallUi(CallModel call);
   Future<List<CallKitEntry>> activeCallUis();
@@ -25,6 +29,19 @@ abstract class CallPlatform {
 }
 
 class DeviceCallPlatform implements CallPlatform {
+  @override
+  Future<void> setWakelock(bool on) async {
+    try {
+      if (on) {
+        await WakelockPlus.enable();
+      } else {
+        await WakelockPlus.disable();
+      }
+    } catch (e) {
+      debugPrint('📞 wakelock failed: $e');
+    }
+  }
+
   AudioPlayer? _tone;
   AudioPlayer? _sound;
 

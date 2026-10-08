@@ -158,6 +158,7 @@ class CallManager with WidgetsBindingObserver {
   CallQuality _callQuality = CallQuality.good;
   bool _isMuted = false;
   bool _isVideoEnabled = true;
+  bool _cameraPausedByLifecycle = false;
   bool _isSpeakerOn = false;
   bool _isFrontCamera = true;
 
@@ -218,7 +219,26 @@ class CallManager with WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     _appInForeground = state == AppLifecycleState.resumed;
-    if (state == AppLifecycleState.resumed) unawaited(recoverCallState());
+    final c = currentCall;
+    final inVideoCall = c != null && c.callType == CallType.video && c.status != CallStatus.ringing;
+    if (state == AppLifecycleState.paused || state == AppLifecycleState.hidden) {
+      // Backgrounded mid-video: iOS stops the camera anyway; unpublish it so
+      // the peer sees a "Camera paused" tile instead of a frozen frame.
+      if (inVideoCall && _isVideoEnabled && !_cameraPausedByLifecycle) {
+        _cameraPausedByLifecycle = true;
+        unawaited(_liveKit.setCameraEnabled(false));
+        _emitToPeer('call:video-toggle', {'isVideoEnabled': false});
+      }
+    } else if (state == AppLifecycleState.resumed) {
+      if (_cameraPausedByLifecycle) {
+        _cameraPausedByLifecycle = false;
+        if (currentCall != null && _isVideoEnabled) {
+          unawaited(_liveKit.setCameraEnabled(true));
+          _emitToPeer('call:video-toggle', {'isVideoEnabled': true});
+        }
+      }
+      unawaited(recoverCallState());
+    }
   }
 
   // -- Socket ----------------------------------------------------------------
@@ -488,6 +508,7 @@ class CallManager with WidgetsBindingObserver {
     if (!_sameId(currentCall?.callId, callId)) return;
     _isMuted = false;
     _isVideoEnabled = type == CallType.video;
+    _onMediaConnected(currentCall!);
     _deps.openActiveCall(currentCall!);
   }
 
@@ -644,6 +665,11 @@ class CallManager with WidgetsBindingObserver {
       onCallError?.call('Connection lost');
       unawaited(_finish(CallExitReason.connectionLost));
     });
+  }
+
+  /// Media is up for [call] (outgoing connected, incoming accepted, rejoin).
+  void _onMediaConnected(CallModel call) {
+    if (call.callType == CallType.video) unawaited(_deps.platform.setWakelock(true));
   }
 
   void _cancelReconnectGrace() {
@@ -821,6 +847,7 @@ class CallManager with WidgetsBindingObserver {
 
     _isMuted = false;
     _isVideoEnabled = video;
+    _onMediaConnected(currentCall!);
     // Only while still ringing out: an accept that landed mid-connect must
     // not start the ringback or arm the safety net.
     if (currentCall?.status == CallStatus.ringing) {
@@ -910,6 +937,7 @@ class CallManager with WidgetsBindingObserver {
     if (!_sameId(currentCall?.callId, call.callId)) return;
     _isMuted = false;
     _isVideoEnabled = video;
+    _onMediaConnected(currentCall!);
     onCallAccepted?.call(currentCall!);
   }
 
@@ -985,6 +1013,7 @@ class CallManager with WidgetsBindingObserver {
       _quietly(_deps.platform.stopTones),
       _quietly(() => _deps.platform.endCallUi(call)),
       _quietly(_deps.platform.cancelIncomingNotification),
+      _quietly(() => _deps.platform.setWakelock(false)),
     ]);
   }
 
@@ -1008,6 +1037,7 @@ class CallManager with WidgetsBindingObserver {
     _callQuality = CallQuality.good;
     _isMuted = false;
     _isVideoEnabled = true;
+    _cameraPausedByLifecycle = false;
     _isSpeakerOn = false;
     _isFrontCamera = true;
   }

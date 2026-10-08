@@ -283,6 +283,18 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
                       ),
                       const SizedBox(height: 15),
                       _buildCallStatus(l10n),
+                      if (isVideoCall && !_isPeerVideoEnabled && _connectedTime != null) ...[
+                        const SizedBox(height: 8),
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Icon(Icons.videocam_off, color: Colors.white70, size: 16),
+                            const SizedBox(width: 6),
+                            Text(l10n.callCameraPaused,
+                                style: const TextStyle(color: Colors.white70, fontSize: 14)),
+                          ],
+                        ),
+                      ],
                     ],
                   ),
                 ),
