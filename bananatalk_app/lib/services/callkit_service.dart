@@ -219,7 +219,7 @@ class CallKitService {
         isShowCallback: true,
         subtitle: 'Missed call',
       ),
-      duration: 45000, // Ring for 45 seconds then timeout
+      duration: 50000, // Outlasts the server's 45 s ring; the server ends the call
       extra: extra,
       android: const AndroidParams(
         isCustomNotification: false,

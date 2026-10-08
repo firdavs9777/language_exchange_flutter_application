@@ -334,6 +334,15 @@ class CallManager with WidgetsBindingObserver {
     return _sameId(currentCall?.callId, callId) ? IncomingTapAction.showCall : IncomingTapAction.openChat;
   }
 
+  /// IncomingCallScreen's 50 s safety net: the server ends a ringing call at
+  /// 45 s, so a call still ringing here at 50 s lost its call:state.
+  Future<bool> expireIncoming(String callId) async {
+    final cur = currentCall;
+    if (cur == null || !_sameId(cur.callId, callId) || cur.status != CallStatus.ringing) return false;
+    await _finish(CallExitReason.remoteState, outcome: CallOutcome.noAnswer);
+    return true;
+  }
+
   /// The tapped notification's data, with gaps filled from GET /calls/:id
   /// (initiator is a bare id; participants carry `name` and `images`).
   static Map<String, dynamic> _tapPayload(Map<String, dynamic> data, Map<String, dynamic> server) {

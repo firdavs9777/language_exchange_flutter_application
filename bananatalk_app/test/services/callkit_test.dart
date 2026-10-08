@@ -28,6 +28,7 @@ void main() {
     );
     expect(p.id, kCallUuid);
     expect(p.type, 1);
+    expect(p.duration, 50000);
     expect(p.extra, {
       'callId': 'call-1',
       'callUuid': kCallUuid,

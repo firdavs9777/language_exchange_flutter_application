@@ -43,7 +43,7 @@ Baseline: 1/30 calls answered in 30 days, 168 stuck ringing, 0 call messages eve
   - [x] A6 incoming dedupe, foreground FCM, call_cancelled, stale taps, resume/cold-start recovery (also: stale socket after logout never emitted to; resume rejoins only calls accepted on this device)
   - [x] A7 CallKit extra, cold-start activeCalls(), VoIP/FCM capabilities + real device id
   - [x] A8 AppDelegate VoIP cancel handling + `docs/qa/calls-matrix.md`
-  - [ ] A9 IncomingCallScreen closes on terminal state / after 50 s
+  - [x] A9 IncomingCallScreen closes on terminal state / after 50 s
   - [ ] A10 20 s reconnect overlay + quality callback chain + outcome banner
   - [ ] A11 video wakelock + camera paused in background
   - [ ] A12 Android microphone/camera foreground service + full-screen-intent request

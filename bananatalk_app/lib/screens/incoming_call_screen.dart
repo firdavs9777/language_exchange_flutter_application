@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import 'package:bananatalk_app/l10n/app_localizations.dart';
@@ -10,6 +12,9 @@ import 'package:bananatalk_app/services/call_manager.dart';
 class IncomingCallScreen extends StatefulWidget {
   final CallModel call;
 
+  /// The server times a ring out at 45 s; this screen never outlives 50 s.
+  static const Duration safetyNet = Duration(seconds: 50);
+
   const IncomingCallScreen({super.key, required this.call});
 
   @override
@@ -18,6 +23,38 @@ class IncomingCallScreen extends StatefulWidget {
 
 class _IncomingCallScreenState extends State<IncomingCallScreen> {
   bool _busy = false;
+  Timer? _safetyNet;
+  StreamSubscription<CallFinish>? _finishSub;
+
+  @override
+  void initState() {
+    super.initState();
+    _safetyNet = Timer(IncomingCallScreen.safetyNet, _expire);
+    // CallManager closes call routes itself; this also covers a screen that
+    // was opened for a call CallManager is not tracking. removeRoute is
+    // guarded by isActive so it never double-pops after CallManager closed us.
+    _finishSub = CallManager().finishes.listen((finish) {
+      if (finish.call.callId.toLowerCase() == widget.call.callId.toLowerCase()) _closeSelf();
+    });
+  }
+
+  @override
+  void dispose() {
+    _safetyNet?.cancel();
+    _finishSub?.cancel();
+    super.dispose();
+  }
+
+  Future<void> _expire() async {
+    final ended = await CallManager().expireIncoming(widget.call.callId);
+    if (!ended) _closeSelf();
+  }
+
+  void _closeSelf() {
+    if (!mounted) return;
+    final route = ModalRoute.of(context);
+    if (route != null && route.isActive) Navigator.of(context).removeRoute(route);
+  }
 
   Future<void> _accept() async {
     if (_busy) return;
