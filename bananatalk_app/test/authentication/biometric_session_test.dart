@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:bananatalk_app/services/chat_socket_service.dart';
 import 'package:bananatalk_app/pages/authentication/biometric/biometric_service.dart';
 import 'package:bananatalk_app/pages/authentication/biometric/biometric_session.dart';
 import 'package:bananatalk_app/pages/authentication/biometric/biometric_token_storage.dart';
@@ -102,6 +103,17 @@ void main() {
           reason: 'not the possibly-expired snapshot access token');
       expect(prefs.getString('refreshToken'), 'rt-A');
       expect(prefs.getString('userId'), 'userA');
+    });
+
+    test('re-enables the chat socket that logout disabled', () async {
+      SharedPreferences.setMockInitialValues({'biometric_enabled': true});
+      ChatSocketService().disableReconnection(); // what logout does
+      await http.runWithClient(
+        () => auth.loginWithBiometric(_snapshot),
+        () => MockClient((_) async => _json(200, {'token': 'fresh'})),
+      );
+      expect(ChatSocketService().shouldAllowReconnection, isTrue,
+          reason: 'otherwise chat stays offline until an app restart');
     });
 
     test('a rotated refresh token is written back into the snapshot',

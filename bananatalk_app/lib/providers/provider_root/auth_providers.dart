@@ -961,6 +961,16 @@ class AuthService extends ChangeNotifier {
       ApiClient().clearTokenCache();
       isLoggedIn = true;
       SocketService().enableReconnection();
+      // Logout called disableReconnection(), and connect() returns early
+      // until it is re-enabled -- without this, chat stayed offline after a
+      // biometric sign-in until the app was restarted.
+      try {
+        final chatSocketService = ChatSocketService();
+        chatSocketService.enableReconnection();
+        await chatSocketService.connect();
+      } catch (e) {
+        debugPrint('[biometric-login] chat socket connect failed: $e');
+      }
       notifyListeners();
 
       if (rotated.isNotEmpty) {
