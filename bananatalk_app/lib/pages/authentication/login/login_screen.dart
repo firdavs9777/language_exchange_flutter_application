@@ -25,6 +25,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/friendly_error.dart';
+import 'package:bananatalk_app/pages/authentication/post_login_error.dart';
+import 'package:bananatalk_app/services/session_reset.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends ConsumerStatefulWidget {
@@ -324,9 +326,22 @@ class _LoginState extends ConsumerState<Login> {
             }
           }
         } catch (e) {
-          // If we can't fetch user data, log out and redirect to home
-          // This handles cases where token is invalid or network issues
+          debugPrint('[login] post-login user fetch failed: $e');
+          if (!mounted) return;
+          if (classifyPostLoginError(e) == PostLoginFailure.retryable) {
+            // The server accepted the password a moment ago; a dropped
+            // connection is not an expired session. Stay signed in and let
+            // the user tap Login again.
+            showAuthSnackBar(
+              context,
+              message: retryablePostLoginMessage(
+                  AppLocalizations.of(context)!, e),
+              type: AuthSnackBarType.error,
+            );
+            return;
+          }
           await ref.read(authServiceProvider).logout();
+          await resetUserSession(clearAuthData: false);
           if (!mounted) return;
           context.go('/login');
           showAuthSnackBar(
@@ -355,8 +370,13 @@ class _LoginState extends ConsumerState<Login> {
         // `accountLocked` / `rateLimited` keep their existing countdown
         // flows — auth_providers.dart already folds lockUntil/retryAfter
         // into `message`, so the snackbar path here just surfaces it as-is.
-        final String errorMessage =
-            response['message'] ?? 'Login failed. Please try again.';
+        // Server words win (423 lockout minutes, "this account uses
+        // Google/Apple sign-in"); offline maps to the localized string.
+        final String errorMessage = authResultMessage(
+          AppLocalizations.of(context)!,
+          response,
+          fallback: 'Login failed. Please try again.',
+        );
 
         if (!mounted) return;
         showAuthSnackBar(

@@ -132,6 +132,20 @@ class AuthService extends ChangeNotifier {
     }
   }
 
+  /// The result map for a request that threw (offline, timeout, TLS, bad
+  /// JSON). It used to carry `'Network error: ${e.toString()}'`, which put
+  /// `ClientException: Connection reset by peer, uri=...` in front of users.
+  /// The raw error is logged instead; screens holding l10n map
+  /// `isNetworkError` to `noInternetConnection`.
+  Map<String, dynamic> _networkFailure(Object e) {
+    debugPrint('[auth] request failed: $e');
+    return {
+      'success': false,
+      'message': 'Network error. Please check your connection.',
+      'isNetworkError': true,
+    };
+  }
+
   /// Parse error response from backend
   Map<String, dynamic> _parseErrorResponse(http.Response response) {
     try {
@@ -258,9 +272,17 @@ class AuthService extends ChangeNotifier {
         // Handle account lockout
         if (_isAccountLocked(errorData)) {
           final lockUntil = errorData['lockUntil'];
-          String message =
-              'Account is temporarily locked due to too many failed login attempts.';
-          if (lockUntil != null) {
+          // The server's 423 message already says how long ("Account is
+          // locked. Please try again in 14 minutes.") and it sends no
+          // lockUntil, so the generic sentence below used to replace the one
+          // thing the user needed to know. Prefer the server's words.
+          final serverMessage = errorData['message']?.toString() ?? '';
+          final useServerMessage =
+              serverMessage.isNotEmpty && serverMessage != 'An error occurred';
+          String message = useServerMessage
+              ? serverMessage
+              : 'Account is temporarily locked due to too many failed login attempts.';
+          if (lockUntil != null && !useServerMessage) {
             try {
               final lockTime = DateTime.parse(lockUntil);
               final now = DateTime.now();
@@ -305,7 +327,7 @@ class AuthService extends ChangeNotifier {
         };
       }
     } catch (e) {
-      return {'success': false, 'message': 'Network error: ${e.toString()}'};
+      return _networkFailure(e);
     }
   }
 
@@ -384,7 +406,7 @@ class AuthService extends ChangeNotifier {
         };
       }
     } catch (e) {
-      return {'success': false, 'message': 'Network error: ${e.toString()}'};
+      return _networkFailure(e);
     }
   }
 
@@ -568,7 +590,7 @@ class AuthService extends ChangeNotifier {
         };
       }
     } catch (e) {
-      return {'success': false, 'message': 'Network error: ${e.toString()}'};
+      return _networkFailure(e);
     }
   }
 
@@ -617,7 +639,7 @@ class AuthService extends ChangeNotifier {
         };
       }
     } catch (e) {
-      return {'success': false, 'message': 'Network error: ${e.toString()}'};
+      return _networkFailure(e);
     }
   }
 
@@ -699,7 +721,7 @@ class AuthService extends ChangeNotifier {
         };
       }
     } catch (e) {
-      return {'success': false, 'message': 'Network error: ${e.toString()}'};
+      return _networkFailure(e);
     }
   }
 
@@ -755,11 +777,7 @@ class AuthService extends ChangeNotifier {
         };
       }
     } catch (e) {
-      return {
-        'success': false,
-        'message': 'Network error: ${e.toString()}',
-        'requiresLogin': false,
-      };
+      return {..._networkFailure(e), 'requiresLogin': false};
     }
   }
 
@@ -924,7 +942,7 @@ class AuthService extends ChangeNotifier {
         };
       }
     } catch (e) {
-      return {'success': false, 'message': 'Network error: ${e.toString()}'};
+      return _networkFailure(e);
     }
   }
 
@@ -956,7 +974,7 @@ class AuthService extends ChangeNotifier {
         };
       }
     } catch (e) {
-      return {'success': false, 'message': 'Network error: ${e.toString()}'};
+      return _networkFailure(e);
     }
   }
 
@@ -1067,7 +1085,7 @@ class AuthService extends ChangeNotifier {
         };
       }
     } catch (e) {
-      return {'success': false, 'message': 'Network error: ${e.toString()}'};
+      return _networkFailure(e);
     }
   }
 
@@ -1187,7 +1205,7 @@ class AuthService extends ChangeNotifier {
         };
       }
     } catch (e) {
-      return {'success': false, 'message': 'Network error: ${e.toString()}'};
+      return _networkFailure(e);
     }
   }
 
@@ -1232,7 +1250,7 @@ class AuthService extends ChangeNotifier {
         };
       }
     } catch (e) {
-      return {'success': false, 'message': 'Network error: ${e.toString()}'};
+      return _networkFailure(e);
     }
   }
 
@@ -1268,7 +1286,7 @@ class AuthService extends ChangeNotifier {
         };
       }
     } catch (e) {
-      return {'success': false, 'message': 'Network error: ${e.toString()}'};
+      return _networkFailure(e);
     }
   }
 
@@ -1352,7 +1370,7 @@ class AuthService extends ChangeNotifier {
         };
       }
     } catch (e) {
-      return {'success': false, 'message': 'Network error: ${e.toString()}'};
+      return _networkFailure(e);
     }
   }
 

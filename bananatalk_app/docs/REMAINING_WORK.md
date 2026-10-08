@@ -18,7 +18,7 @@ App (backend items in the backend repo's `docs/REMAINING_WORK.md`):
 - [x] Typed birth date `1995.13.40` passes step 1, fails at submit (step 1 uses `DateTime(y,m,d)` rollover).
 - [x] Double-tap Login / Google / Apple re-runs login (loading flag cleared before navigation).
 - [x] Suspension handler clears only `token`/`userId` (refresh token, ApiClient cache, socket, push token remain).
-- [ ] Small: 423 lockout message replaced by generic text; raw exception text shown; a flaky `getLoggedInUser` after login logs the user out.
+- [x] Small: 423 lockout message replaced by generic text; raw exception text shown; a flaky `getLoggedInUser` after login logs the user out.
 
 ## 1. Owner (needs the keystore MacBook, store consoles or droplet)
 

@@ -11,6 +11,8 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/widgets/banana_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:bananatalk_app/pages/authentication/post_login_error.dart';
+import 'package:bananatalk_app/services/session_reset.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 class AppleLogin extends ConsumerStatefulWidget {
@@ -196,8 +198,19 @@ class _AppleLoginState extends ConsumerState<AppleLogin> {
                 }
               }
             } catch (e) {
-              // If we can't fetch user data, log out and redirect to home
+              debugPrint('[apple-login] post-login user fetch failed: $e');
+              if (!mounted) return;
+              if (classifyPostLoginError(e) == PostLoginFailure.retryable) {
+                // Signed in a moment ago; a dropped connection is not an
+                // expired session. Keep it and let the user retry.
+                setState(() {
+                  _errorMessage = retryablePostLoginMessage(
+                      AppLocalizations.of(context)!, e);
+                });
+                return;
+              }
               await ref.read(authServiceProvider).logout();
+              await resetUserSession(clearAuthData: false);
               if (!mounted) return;
               context.go('/login');
               showAuthSnackBar(
@@ -239,33 +252,23 @@ class _AppleLoginState extends ConsumerState<AppleLogin> {
           }
         }
       } else {
+        if (!mounted) return;
         setState(() {
-          _errorMessage =
-              result['message'] ?? 'Failed to authenticate with backend';
-          _isLoading = false;
+          _errorMessage = authResultMessage(
+            AppLocalizations.of(context)!,
+            result,
+            fallback: 'Failed to authenticate with backend',
+          );
         });
       }
     } catch (e) {
-      String userFriendlyMessage = 'Apple sign-in error';
-
-      // Parse common errors
-      final errorString = e.toString().toLowerCase();
-      if (errorString.contains('canceled') ||
-          errorString.contains('cancelled')) {
-        userFriendlyMessage = 'Sign-in was cancelled.';
-      } else if (errorString.contains('network')) {
-        userFriendlyMessage =
-            'Network error. Please check your internet connection.';
-      } else if (errorString.contains('credential')) {
-        userFriendlyMessage =
-            'Failed to get Apple credentials. Please try again.';
-      } else if (errorString.contains('authorization')) {
-        userFriendlyMessage = 'Authorization failed. Please try again.';
-      }
-
+      // Raw SDK/transport text (PlatformException, ApiException: 10,
+      // ClientException) goes to the log, never to the user.
+      debugPrint('[apple-login] sign-in failed: $e');
+      if (!mounted) return;
       setState(() {
-        _errorMessage = '$userFriendlyMessage\n\nDetails: ${e.toString()}';
-        _isLoading = false;
+        _errorMessage =
+            socialSignInErrorMessage(AppLocalizations.of(context)!, e);
       });
     }
   }

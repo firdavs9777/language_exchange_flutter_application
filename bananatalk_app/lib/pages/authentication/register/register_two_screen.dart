@@ -24,6 +24,7 @@ import 'package:bananatalk_app/providers/provider_models//users_model.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/models/language_model.dart';
 import 'package:bananatalk_app/utils/client_info.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -728,7 +729,8 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
         }
       } catch (e) {
         setState(() => _isSubmitting = false);
-        _showError('Network error: $e');
+        debugPrint('[register] profile update failed: $e');
+        _showError(friendlyErrorMessage(AppLocalizations.of(context)!, e));
       }
     } else {
       // Email/Password registration
