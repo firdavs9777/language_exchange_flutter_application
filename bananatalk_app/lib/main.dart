@@ -8,6 +8,8 @@ import 'package:bananatalk_app/services/analytics_service.dart';
 import 'package:bananatalk_app/services/api_client.dart';
 import 'package:bananatalk_app/services/session_reset.dart';
 import 'package:bananatalk_app/services/session_expiry_handler.dart';
+import 'package:bananatalk_app/services/session_activities.dart';
+import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/app_provider_container.dart';
 import 'package:bananatalk_app/services/ad_service.dart';
 import 'package:bananatalk_app/providers/ad_providers.dart';
@@ -85,6 +87,10 @@ Future<void> main() async {
       onExpired: _showSessionExpiredLogin,
     );
     apiClient.onAuthenticationError = sessionExpiry.handle;
+
+    // Every session teardown first ends the account's uploads, call and
+    // voice room (see session_activities.dart).
+    AuthService.onSessionEnding = endSessionActivities;
 
     // Step 13A: route 429 quota_exceeded responses to the persona paywall
     apiClient.onQuotaExceeded = (qe) {

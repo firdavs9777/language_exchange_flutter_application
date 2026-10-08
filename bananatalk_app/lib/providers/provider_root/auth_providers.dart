@@ -806,6 +806,17 @@ class AuthService extends ChangeNotifier {
   /// 4. Clear storage
   /// 5. Clear caches
   Future<void> _clearAuthData() async {
+    // 0. End what this account still has running (uploads, call, voice
+    // room) while its token is still valid. Wired in main(); null in tests.
+    final ending = onSessionEnding;
+    if (ending != null) {
+      try {
+        await ending();
+      } catch (e) {
+        debugPrint('[auth] onSessionEnding failed: $e');
+      }
+    }
+
     final prefs = await SharedPreferences.getInstance();
 
     // 1. FIRST: Disconnect all socket connections (WHILE STILL AUTHENTICATED!)
@@ -885,6 +896,11 @@ class AuthService extends ChangeNotifier {
       storage: biometricStorageForTest,
     );
   }
+
+  /// Runs at the start of every local session teardown, before tokens are
+  /// cleared. main() sets it to `endSessionActivities` (uploads, active call,
+  /// voice room); kept as a hook so this service does not depend on them.
+  static Future<void> Function()? onSessionEnding;
 
   /// Test seam for the biometric keychain (flutter_secure_storage has no
   /// test implementation).

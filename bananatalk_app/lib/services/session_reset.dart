@@ -230,7 +230,8 @@ const Set<String> kAppScopedProviderNames = {
   'languageProvider', // app UI language
   'apiClientProvider', // ApiClient() singleton; its token cache is cleared
   'globalErrorProvider', // the session-expiry plumbing itself
-  'callProvider', // CallManager is wired to the socket once in MyApp
+  'callProvider', // wired to the socket once in MyApp; an active call is
+  // ended by AuthService.onSessionEnding instead
   'adServiceProvider',
   'languagesProvider', // public language catalog
   'languageNamesProvider',
@@ -243,8 +244,9 @@ const Set<String> kAppScopedProviderNames = {
   'androidProductsProvider',
   'pronunciationVoiceServiceProvider', // TTS engine
   'giphyServiceProvider',
-  // The upload queue owns in-flight work; resetting it would orphan tasks.
-  // The persisted queue is dropped with the user's prefs on logout.
+  // The upload queue is a singleton the providers only observe; its tasks
+  // are dropped and in-flight uploads abandoned by
+  // UploadQueueService.endSession() (AuthService.onSessionEnding).
   'uploadQueueServiceProvider',
   'uploadManagerProvider',
   'uploadProgressStreamProvider',

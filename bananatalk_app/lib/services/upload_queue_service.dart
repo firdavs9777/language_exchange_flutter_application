@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/models/upload_task.dart';
 import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
@@ -30,6 +31,36 @@ class UploadQueueService {
 
   /// Whether the service is processing
   bool _isProcessing = false;
+
+  /// Bumped by [endSession]. Every upload captures it when it starts and
+  /// stops at its next step once it changes, so a logout cannot let the
+  /// previous account's upload carry on -- the second step (photos/video
+  /// after the moment is created) reads the token fresh from prefs, i.e.
+  /// it would have run as whoever signed in next -- or write its result
+  /// into the next account's queue.
+  int _sessionGeneration = 0;
+
+  @visibleForTesting
+  int get sessionGenerationForTest => _sessionGeneration;
+
+  /// Logout / account deletion / session expiry: drop every task of the
+  /// signed-out account and abandon in-flight ones at their next step. A
+  /// single HTTP request already on the wire finishes under the old
+  /// account's own token (it was signed when sent); nothing after it runs.
+  Future<void> endSession() async {
+    _sessionGeneration++;
+    _tasks.clear();
+    _isProcessing = false;
+    _notifyTasksChanged();
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.remove(_storageKey);
+    } catch (_) {}
+  }
+
+  void _checkSession(int generation) {
+    if (generation != _sessionGeneration) throw _SessionEnded();
+  }
 
   /// Get all tasks
   List<UploadTask> get tasks => List.unmodifiable(_tasks);
@@ -176,21 +207,28 @@ class UploadQueueService {
   Future<void> _processQueue() async {
     if (_isProcessing) return;
     _isProcessing = true;
+    final generation = _sessionGeneration;
 
-    while (true) {
+    while (generation == _sessionGeneration) {
       // Find next queued task
       final taskIndex = _tasks.indexWhere((t) => t.status == UploadStatus.queued);
       if (taskIndex == -1) break;
 
       final task = _tasks[taskIndex];
-      await _processTask(task, taskIndex);
+      await _processTask(task, taskIndex, generation);
     }
 
-    _isProcessing = false;
+    // A newer session owns the flag now (endSession reset it).
+    if (generation == _sessionGeneration) _isProcessing = false;
   }
 
   /// Process a single upload task
-  Future<void> _processTask(UploadTask task, int taskIndex) async {
+  Future<void> _processTask(
+    UploadTask task,
+    int taskIndex, [
+    int? generation,
+  ]) async {
+    final gen = generation ?? _sessionGeneration;
     try {
       // Update status to uploading
       _tasks[taskIndex] = task.copyWith(status: UploadStatus.uploading);
@@ -201,19 +239,20 @@ class UploadQueueService {
 
       switch (task.type) {
         case UploadType.moment:
-          resultId = await _uploadMoment(task, taskIndex);
+          resultId = await _uploadMoment(task, taskIndex, gen);
           break;
         case UploadType.momentVideo:
-          resultId = await _uploadMomentWithVideo(task, taskIndex);
+          resultId = await _uploadMomentWithVideo(task, taskIndex, gen);
           break;
         case UploadType.story:
-          resultId = await _uploadStory(task, taskIndex, isVideo: false);
+          resultId = await _uploadStory(task, taskIndex, gen, isVideo: false);
           break;
         case UploadType.storyVideo:
-          resultId = await _uploadStory(task, taskIndex, isVideo: true);
+          resultId = await _uploadStory(task, taskIndex, gen, isVideo: true);
           break;
       }
 
+      _checkSession(gen);
       // Mark as completed
       _tasks[taskIndex] = _tasks[taskIndex].copyWith(
         status: UploadStatus.completed,
@@ -226,6 +265,9 @@ class UploadQueueService {
       await _saveTasks();
 
     } catch (e) {
+      // Signed out mid-upload: the task is gone with its account. Writing
+      // its failure would index into the next account's queue.
+      if (e is _SessionEnded || gen != _sessionGeneration) return;
 
       // Increment retry count and check if should retry
       final newRetryCount = task.retryCount + 1;
@@ -253,7 +295,7 @@ class UploadQueueService {
   }
 
   /// Upload a moment (text + optional images, no video)
-  Future<String?> _uploadMoment(UploadTask task, int taskIndex) async {
+  Future<String?> _uploadMoment(UploadTask task, int taskIndex, int gen) async {
     final metadata = task.metadata;
 
     // Create the moment first
@@ -271,6 +313,7 @@ class UploadQueueService {
       promptId: metadata['promptId'],
       isReel: metadata['isReel'] == true,
     );
+    _checkSession(gen);
 
     // Update progress
     _tasks[taskIndex] = _tasks[taskIndex].copyWith(progress: 0.3);
@@ -288,7 +331,8 @@ class UploadQueueService {
   }
 
   /// Upload a moment with video
-  Future<String?> _uploadMomentWithVideo(UploadTask task, int taskIndex) async {
+  Future<String?> _uploadMomentWithVideo(
+      UploadTask task, int taskIndex, int gen) async {
     final metadata = task.metadata;
 
     // Create the moment first
@@ -306,6 +350,7 @@ class UploadQueueService {
       promptId: metadata['promptId'],
       isReel: metadata['isReel'] == true,
     );
+    _checkSession(gen);
 
     // Update progress
     _tasks[taskIndex] = _tasks[taskIndex].copyWith(progress: 0.2);
@@ -319,6 +364,7 @@ class UploadQueueService {
         moment.id,
         videoFile,
         onProgress: (progress) {
+          if (gen != _sessionGeneration) return;
           // Map progress (0-100) to our range (0.2-0.9)
           final mappedProgress = 0.2 + (progress / 100) * 0.7;
           _tasks[taskIndex] = _tasks[taskIndex].copyWith(progress: mappedProgress);
@@ -327,6 +373,8 @@ class UploadQueueService {
         },
       );
     }
+
+    _checkSession(gen);
 
     // Upload images if any
     final imagePaths = metadata['imagePaths'];
@@ -341,7 +389,8 @@ class UploadQueueService {
   }
 
   /// Upload a story (image or video)
-  Future<String?> _uploadStory(UploadTask task, int taskIndex, {required bool isVideo}) async {
+  Future<String?> _uploadStory(UploadTask task, int taskIndex, int gen,
+      {required bool isVideo}) async {
     final metadata = task.metadata;
 
     _notifyProgress(task.id, 0.1, UploadStatus.uploading, message: 'Creating story...');
@@ -366,6 +415,7 @@ class UploadQueueService {
       privacy: privacy,
     );
 
+    _checkSession(gen);
     if (!result.success) {
       throw Exception(result.error ?? 'Failed to create story');
     }
@@ -444,3 +494,6 @@ class UploadQueueService {
     _tasksController.close();
   }
 }
+
+/// Thrown inside an upload when [UploadQueueService.endSession] ran.
+class _SessionEnded implements Exception {}
