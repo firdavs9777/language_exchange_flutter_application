@@ -108,11 +108,13 @@ class FakeLiveKit extends CallLiveKitManager {
   int connects = 0;
   int disconnects = 0;
   Object? connectError;
+  Completer<void>? connectGate;
   final List<bool> cameraCalls = [];
 
   @override
   Future<void> connect({required String url, required String token, required CallType type}) async {
     connects++;
+    if (connectGate != null) await connectGate!.future;
     if (connectError != null) throw connectError!;
   }
 
@@ -137,8 +139,11 @@ class CallHarness {
       api: api,
       platform: platform,
       liveKitFactory: () {
-        final lk = FakeLiveKit()..connectError = nextConnectError;
+        final lk = FakeLiveKit()
+          ..connectError = nextConnectError
+          ..connectGate = nextConnectGate;
         nextConnectError = null;
+        nextConnectGate = null;
         liveKits.add(lk);
         return lk;
       },
@@ -165,6 +170,7 @@ class CallHarness {
   final List<String> opened = [];
   int closes = 0;
   Object? nextConnectError;
+  Completer<void>? nextConnectGate;
   late final CallManager manager;
 
   FakeLiveKit get liveKit => liveKits.last;

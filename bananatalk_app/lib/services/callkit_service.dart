@@ -47,6 +47,7 @@ class CallKitService {
   Function(String callKitId, Map<String, dynamic>? extra)? onAccepted;
   Function(String callKitId, Map<String, dynamic>? extra)? onDeclined;
   Function(String callKitId, Map<String, dynamic>? extra)? onEnded;
+  Function(String callKitId, Map<String, dynamic>? extra)? onTimedOut;
 
   bool _listenersRegistered = false;
 
@@ -96,8 +97,10 @@ class CallKitService {
           _activeCallUuid = null;
           break;
         case Event.actionCallTimeout:
+          // The native ring timed out: dismiss locally. The server's 45 s
+          // timer owns the outcome, so this is never a decline.
           final id = _extractId(event.body);
-          if (id != null) onDeclined?.call(id, _extraOf(event.body));
+          if (id != null) onTimedOut?.call(id, _extraOf(event.body));
           _activeCallUuid = null;
           break;
         case Event.actionDidUpdateDevicePushTokenVoip:
@@ -162,8 +165,10 @@ class CallKitService {
     await _uploadVoipToken(cached);
   }
 
+  /// The CallKit UUID only — never `extra['callId']` (the server id).
   String? _extractId(Map<String, dynamic>? body) {
-    return body?['id']?.toString() ?? body?['extra']?['callId']?.toString();
+    final id = body?['id']?.toString();
+    return (id == null || id.isEmpty) ? null : id;
   }
 
   Map<String, dynamic>? _extraOf(Map<String, dynamic>? body) {

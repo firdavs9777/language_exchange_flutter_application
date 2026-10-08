@@ -406,6 +406,7 @@ class CallManager with WidgetsBindingObserver {
     callKit.onAccepted = (id, extra) => unawaited(handleCallKitAccept(id, extra));
     callKit.onDeclined = (id, extra) => unawaited(handleCallKitDecline(id, extra));
     callKit.onEnded = (id, extra) => unawaited(handleCallKitEnded(id, extra));
+    callKit.onTimedOut = (id, extra) => unawaited(handleCallKitTimeout(id, extra));
   }
 
   /// CallKit callbacks carry the CallKit UUID (uppercase on iOS), never the
@@ -452,6 +453,15 @@ class CallManager with WidgetsBindingObserver {
   Future<void> handleCallKitEnded(String id, Map<String, dynamic>? extra) async {
     final cur = currentCall;
     if (cur != null && _matches(cur, id, extra)) await endCall();
+  }
+
+  /// The native ring UI timed out. The client never times a call out on its
+  /// own: dismiss locally, post nothing — the server's timer decides.
+  Future<void> handleCallKitTimeout(String id, Map<String, dynamic>? extra) async {
+    final cur = currentCall;
+    if (cur == null || !_matches(cur, id, extra) || cur.status != CallStatus.ringing) return;
+    if (cur.direction != CallDirection.incoming) return;
+    await _finish(CallExitReason.remoteState);
   }
 
   // -- Public API: lifecycle ---------------------------------------------------
@@ -527,6 +537,8 @@ class CallManager with WidgetsBindingObserver {
     try {
       await media.connect(url: url, token: token, type: callType);
     } catch (e) {
+      // Finished while connecting (call:state, hang-up): already torn down.
+      if (!_sameId(currentCall?.callId, serverId)) return const InitiateResult(InitiateStatus.failed);
       debugPrint('📞 LiveKit connect failed: $e');
       unawaited(_deps.api.end(serverId));
       onCallError?.call('Failed to connect to call');
@@ -537,8 +549,12 @@ class CallManager with WidgetsBindingObserver {
 
     _isMuted = false;
     _isVideoEnabled = video;
-    unawaited(_deps.platform.startRingback());
-    _ringSafetyTimer = Timer(kRingSafetyTimeout, () => unawaited(_checkStillRinging(serverId)));
+    // Only while still ringing out: an accept that landed mid-connect must
+    // not start the ringback or arm the safety net.
+    if (currentCall?.status == CallStatus.ringing) {
+      unawaited(_deps.platform.startRingback());
+      _ringSafetyTimer = Timer(kRingSafetyTimeout, () => unawaited(_checkStillRinging(serverId)));
+    }
     return const InitiateResult(InitiateStatus.started);
   }
 
@@ -599,6 +615,8 @@ class CallManager with WidgetsBindingObserver {
     try {
       await media.connect(url: url, token: token, type: call.callType);
     } catch (e) {
+      // Finished while connecting (call:state, hang-up): already torn down.
+      if (!_sameId(currentCall?.callId, call.callId)) return;
       debugPrint('📞 LiveKit connect failed: $e');
       unawaited(_deps.api.end(call.callId));
       onCallError?.call('Failed to connect to call');

@@ -194,13 +194,51 @@ class _CallHistoryScreenState extends ConsumerState<CallHistoryScreen>
   Future<void> _initiateCall(CallRecord record) async {
     final other = record.getOtherParticipant(_currentUserId);
     if (other == null) return;
-    final callNotifier = ref.read(callProvider.notifier);
-    final result = await callNotifier.initiateCall(
-        other.id, other.name, other.profilePicture, record.type);
-    final call = callNotifier.currentCall;
-    if (result.status == InitiateStatus.started && call != null) {
-      CallRoutes.openActive(call);
-    }
+    await startCallFromCallsList(
+      context,
+      ref.read(callProvider.notifier),
+      userId: other.id,
+      userName: other.name,
+      avatar: other.profilePicture,
+      type: record.type,
+    );
+  }
+}
+
+/// Start a call from the Calls list and tell the user why it did not start.
+/// Errors (permissions, the conversation-start cap, connect failures) arrive
+/// once through the call error callback; busy comes back as a status.
+@visibleForTesting
+Future<void> startCallFromCallsList(
+  BuildContext context,
+  CallNotifier notifier, {
+  required String userId,
+  required String userName,
+  String? avatar,
+  required CallType type,
+  void Function(CallModel call) openActive = CallRoutes.openActive,
+}) async {
+  void snack(String message) => ScaffoldMessenger.maybeOf(context)
+      ?.showSnackBar(SnackBar(content: Text(message), behavior: SnackBarBehavior.floating));
+
+  notifier.setCallErrorCallback((error) {
+    if (!context.mounted) return;
+    snack(error.replaceFirst(RegExp(r'^(PERMANENTLY_DENIED|DENIED):'), ''));
+  });
+  final result = await notifier.initiateCall(userId, userName, avatar, type);
+  if (!context.mounted) return;
+  final l10n = AppLocalizations.of(context)!;
+  switch (result.status) {
+    case InitiateStatus.started:
+      final call = notifier.currentCall;
+      if (call != null) openActive(call);
+    case InitiateStatus.calleeBusy:
+      snack(l10n.callLabelBusy(userName));
+    case InitiateStatus.callerBusy:
+      snack(l10n.callFailed);
+    case InitiateStatus.permissionDenied:
+    case InitiateStatus.failed:
+      break; // already shown once through the error callback
   }
 }
 

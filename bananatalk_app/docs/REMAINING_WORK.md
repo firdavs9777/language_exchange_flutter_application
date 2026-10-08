@@ -48,6 +48,7 @@ Baseline: 1/30 calls answered in 30 days, 168 stuck ringing, 0 call messages eve
   - [ ] A11 video wakelock + camera paused in background
   - [ ] A12 Android microphone/camera foreground service + full-screen-intent request
   - [ ] A13 CallLauncher, call bubble labels, chat-list preview
+    - [ ] fold `startCallFromCallsList` (Calls list busy / start-limit messages, A4 review) and the chat header's ignored `InitiateResult` into `CallLauncher`
   - [ ] A14 Calls list + chat-tab icon + missed badge
   - [ ] Phase 2: decline with message, missed-call push actions, calls on/off + quiet hours, camera mid voice call, draggable self-view
 - [ ] Native review of the 18 machine-drafted call strings (`lib/l10n/app_*.arb`)

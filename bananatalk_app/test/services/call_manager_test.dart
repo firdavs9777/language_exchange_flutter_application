@@ -92,6 +92,11 @@ void main() {
         await pumpEventQueue();
         expect(h.finishes, hasLength(1));
         expect(h.closes, closesAfterExit + 1, reason: 'End always closes the call screens');
+        // Teardown ran once for the call: CallKit UI by callUuid, tones, media.
+        expect(h.platform.log.where((l) => l == 'endUi:$kCallUuid'), hasLength(1));
+        expect(h.platform.log.where((l) => l.startsWith('endUi:')), hasLength(1));
+        expect(h.platform.log, contains('stopTones'));
+        expect(h.liveKits.fold<int>(0, (n, m) => n + m.disconnects), 1);
       });
     });
   });
@@ -294,5 +299,89 @@ void main() {
     expect(errors, ['You have started the most conversations you can today.']);
     expect(h.manager.currentCall, isNull);
     expect(h.liveKits, hasLength(1));
+  });
+
+  group('LiveKit connect fails after the call already finished', () {
+    test('outgoing: no error, no extra /end, one finish, the banner still closes once', () {
+      fakeAsync((async) {
+        final h = CallHarness();
+        final errors = <String>[];
+        h.manager.onCallError = errors.add;
+        final gate = Completer<void>();
+        h.nextConnectGate = gate;
+        h.nextConnectError = StateError('disconnected');
+        InitiateResult? result;
+        h.startOutgoing().then((r) => result = r);
+        async.flushMicrotasks();
+        h.state('missed', outcome: 'no_answer');
+        async.flushMicrotasks();
+        gate.complete();
+        async.flushMicrotasks();
+        expect(result?.status, InitiateStatus.failed);
+        expect(errors, isEmpty);
+        expect(h.finishes, hasLength(1));
+        expect(h.finishes.single.outcome, CallOutcome.noAnswer);
+        expect(h.api.calls.where((c) => c.startsWith('end:')), isEmpty);
+        expect(h.closes, 0, reason: 'the outcome banner is still up');
+        async.elapse(const Duration(seconds: 2));
+        expect(h.closes, 1);
+      });
+    });
+
+    test('accepting: no error, no extra /end, one finish', () async {
+      final h = CallHarness();
+      final errors = <String>[];
+      h.manager.onCallError = errors.add;
+      await h.ringIncoming();
+      final gate = Completer<void>();
+      h.nextConnectGate = gate;
+      h.nextConnectError = StateError('disconnected');
+      final accepting = h.manager.acceptCall();
+      await pumpEventQueue();
+      await h.state('ended', outcome: 'completed');
+      gate.complete();
+      await accepting;
+      await pumpEventQueue();
+      expect(errors, isEmpty);
+      expect(h.finishes, hasLength(1));
+      expect(h.closes, 1);
+      expect(h.api.calls.where((c) => c.startsWith('end:')), isEmpty);
+    });
+  });
+
+  test('accepted mid-connect: no ringback and no 50 s safety check', () {
+    fakeAsync((async) {
+      final h = CallHarness();
+      final gate = Completer<void>();
+      h.nextConnectGate = gate;
+      h.startOutgoing();
+      async.flushMicrotasks();
+      h.state('active');
+      async.flushMicrotasks();
+      gate.complete();
+      async.flushMicrotasks();
+      expect(h.platform.log, isNot(contains('ringback')));
+      async.elapse(const Duration(seconds: 60));
+      expect(h.api.calls.where((c) => c.startsWith('get:')), isEmpty);
+      expect(h.manager.currentCall?.status, CallStatus.connecting);
+    });
+  });
+
+  test('a native CallKit ring timeout dismisses locally and posts nothing', () async {
+    final h = CallHarness();
+    await h.ringIncoming();
+    await h.manager.handleCallKitTimeout(kCallUuid.toUpperCase(), null);
+    expect(h.finishes, hasLength(1));
+    expect(h.manager.currentCall, isNull);
+    expect(h.api.calls, isEmpty, reason: 'the server timer owns the outcome');
+    expect(h.closes, 1);
+  });
+
+  test('a CallKit timeout for another call is ignored', () async {
+    final h = CallHarness();
+    await h.ringIncoming();
+    await h.manager.handleCallKitTimeout('00000000-0000-4000-8000-000000000000', null);
+    expect(h.manager.currentCall?.callId, 'call-1');
+    expect(h.finishes, isEmpty);
   });
 }
