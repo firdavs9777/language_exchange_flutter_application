@@ -250,10 +250,11 @@ class _LoginState extends ConsumerState<Login> {
       final response = await ref
           .read(authServiceProvider)
           .login(email: email, password: password);
-
-      setState(() {
-        _isLoading = false;
-      });
+      // _isLoading stays true through the terms/profile/biometric gates and
+      // navigation below. It used to be cleared right here, so a second tap
+      // while those awaited ran login() again; `finally` now resets it once
+      // the flow ends without leaving this screen.
+      if (!mounted) return;
 
       if (response['success'] == true) {
         // Persist or clear remembered email
@@ -366,15 +367,16 @@ class _LoginState extends ConsumerState<Login> {
       }
     } catch (error) {
       if (!mounted) return;
-      setState(() {
-        _isLoading = false;
-      });
-
       showAuthSnackBar(
         context,
         message: friendlyErrorMessage(AppLocalizations.of(context)!, error),
         type: AuthSnackBarType.error,
       );
+    } finally {
+      // Error, declined terms, incomplete profile, or back from a pushed
+      // gate screen: the button works again. After go('/home') this screen
+      // is gone and there is nothing to reset.
+      if (mounted) setState(() => _isLoading = false);
     }
   }
 

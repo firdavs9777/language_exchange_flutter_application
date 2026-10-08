@@ -16,7 +16,7 @@ App (backend items in the backend repo's `docs/REMAINING_WORK.md`):
 - [x] **Session dying mid-use leaves empty screens** — `onAuthenticationError` never wired (no redirect to login on 401).
 - [x] Splash hangs if Back is pressed on the Terms screen (`splash_screen.dart:155`).
 - [x] Typed birth date `1995.13.40` passes step 1, fails at submit (step 1 uses `DateTime(y,m,d)` rollover).
-- [ ] Double-tap Login / Google / Apple re-runs login (loading flag cleared before navigation).
+- [x] Double-tap Login / Google / Apple re-runs login (loading flag cleared before navigation).
 - [x] Suspension handler clears only `token`/`userId` (refresh token, ApiClient cache, socket, push token remain).
 - [ ] Small: 423 lockout message replaced by generic text; raw exception text shown; a flaky `getLoggedInUser` after login logs the user out.
 

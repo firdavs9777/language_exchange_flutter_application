@@ -25,6 +25,17 @@ class _AppleLoginState extends ConsumerState<AppleLogin> {
   String? _errorMessage;
 
   Future<void> _signInWithApple() async {
+    if (_isLoading) return; // double tap / retry while a sign-in is running
+    try {
+      await _runAppleSignIn();
+    } finally {
+      // Error, declined terms, or back from a pushed screen: usable again.
+      // After navigation away this screen is gone and nothing is reset.
+      if (mounted) setState(() => _isLoading = false);
+    }
+  }
+
+  Future<void> _runAppleSignIn() async {
     setState(() {
       _isLoading = true;
       _errorMessage = null;
@@ -93,9 +104,10 @@ class _AppleLoginState extends ConsumerState<AppleLogin> {
         // User needs to complete profile if backend flag is false OR core fields missing
         final bool needsProfileCompletion = !profileCompleted || !hasCoreFields;
 
-        setState(() {
-          _isLoading = false;
-        });
+        // _isLoading stays true through registration, the terms gate and
+        // navigation. Clearing it here brought the sign-in button back while
+        // those awaited, and a second tap ran the whole sign-in again; the
+        // `finally` in the entry point resets it if this screen survives.
 
         // Task 7 Step 4 (Workstream E-core): register the FCM token right
         // after auth succeeds, before the profile-completion/terms gates,
