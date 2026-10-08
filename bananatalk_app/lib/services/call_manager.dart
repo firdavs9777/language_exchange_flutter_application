@@ -85,6 +85,10 @@ const Duration kOutcomeBannerDuration = Duration(milliseconds: 1500);
 /// Ringing out with no call:state (socket down): ask the server after this.
 const Duration kRingSafetyTimeout = Duration(seconds: 50);
 
+/// The server treats a call still `ringing` after this long as stale
+/// (`timing.staleRingingMs`); GET /calls/:id may still report it ringing.
+const Duration kStaleRinging = Duration(seconds: 60);
+
 /// 1:1 call controller — a FOLLOWER of the server's call state.
 ///
 /// The server decides every transition (spec §4.1); this class reacts to
@@ -322,6 +326,10 @@ class CallManager with WidgetsBindingObserver {
     }
     final res = await _deps.api.get(callId);
     if (!res.ok || res.data['status']?.toString() != 'ringing') return IncomingTapAction.openChat;
+    final started = DateTime.tryParse(res.data['startTime']?.toString() ?? '');
+    if (started != null && DateTime.now().difference(started) > kStaleRinging) {
+      return IncomingTapAction.openChat;
+    }
     await handleIncoming(_tapPayload(data, res.data), source: IncomingSource.notificationTap);
     return _sameId(currentCall?.callId, callId) ? IncomingTapAction.showCall : IncomingTapAction.openChat;
   }
@@ -348,16 +356,22 @@ class CallManager with WidgetsBindingObserver {
   }
 
   /// Resume and cold start: ask the server what is live for this user.
-  /// Ringing for me → incoming UI; active and not here → rejoin; nothing →
-  /// a call still ringing locally is stale and ends.
+  /// Ringing for me → incoming UI; active and accepted on this device but
+  /// not running here → rejoin; nothing → a call still ringing locally is
+  /// stale and ends.
   Future<void> recoverCallState() async {
     if (_recovering) return;
     _recovering = true;
     try {
+      // The answer describes the server before any call that starts while
+      // the request is in flight: only act on the call we had when asking.
+      final before = currentCall;
       final res = await _deps.api.current();
       if (!res.ok) return;
       final raw = res.data['call'];
       final cur = currentCall;
+      final unchanged = before == null ? cur == null : _sameId(cur?.callId, before.callId);
+      if (!unchanged) return;
       if (raw is! Map) {
         if (cur != null &&
             cur.direction == CallDirection.incoming &&
@@ -386,12 +400,27 @@ class CallManager with WidgetsBindingObserver {
         }, source: IncomingSource.recovery);
         return;
       }
-      if (status == 'active' && cur == null) await _rejoin(summary, other, res.data);
+      if (status == 'active' && cur == null && await _acceptedOnThisDevice(summary)) {
+        if (currentCall == null) await _rejoin(summary, other, res.data);
+      }
     } catch (e) {
       debugPrint('📞 call recovery failed: $e');
     } finally {
       _recovering = false;
     }
+  }
+
+  /// An active call is rejoined only when this device answered it: LiveKit
+  /// identity is per user, so joining a call answered on another device
+  /// would evict that device. With no call in memory, the native call UI is
+  /// the only record that this device accepted it.
+  Future<bool> _acceptedOnThisDevice(Map<String, dynamic> summary) async {
+    final callId = summary['id']?.toString() ?? '';
+    if (callId.isEmpty) return false;
+    final uuid = CallKitIds.uuidFor(callId: callId, callUuid: summary['callUuid']?.toString());
+    final entries = await _deps.platform.activeCallUis();
+    return entries.any((e) =>
+        e.accepted && (CallKitIds.same(e.uuid, uuid) || _sameId(e.callId, callId)));
   }
 
   Future<void> _rejoin(

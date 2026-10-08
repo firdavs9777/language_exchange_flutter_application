@@ -13,6 +13,7 @@ class FakeCallApi implements CallApi {
   final List<String> calls = [];
   final Map<String, String?> deviceIds = {};
   Completer<void>? initiateGate;
+  Completer<void>? currentGate;
 
   CallApiResult initiateResult = const CallApiResult(ok: true, statusCode: 200, data: {
     'call': {'_id': 'call-1', 'callUuid': kCallUuid, 'type': 'audio'},
@@ -62,6 +63,7 @@ class FakeCallApi implements CallApi {
   @override
   Future<CallApiResult> current() async {
     calls.add('current');
+    if (currentGate != null) await currentGate!.future;
     return currentResult;
   }
 

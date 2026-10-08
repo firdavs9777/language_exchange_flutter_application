@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:bananatalk_app/models/call_model.dart';
 import 'package:bananatalk_app/services/call/call_api.dart';
 import 'package:bananatalk_app/services/call/call_push_handler.dart';
+import 'package:bananatalk_app/services/call/callkit_ids.dart';
 import 'package:bananatalk_app/services/call_manager.dart';
 
 import '../helpers/call_fakes.dart';
@@ -90,8 +93,9 @@ void main() {
     expect(h.finishes.single.reason, CallExitReason.remoteState);
   });
 
-  test('cold start / resume: an active call is rejoined with the fresh token', () async {
+  test('cold start / resume: an active call accepted here (CallKit) is rejoined with the fresh token', () async {
     final h = CallHarness();
+    h.platform.activeEntries = const [CallKitEntry(uuid: '6F1C2B8E-3C1D-4A8E-9B7F-0A1B2C3D4E5F', accepted: true)];
     h.api.currentResult = const CallApiResult(ok: true, statusCode: 200, data: {
       'call': {
         'id': 'call-1', 'callUuid': kCallUuid, 'type': 'audio', 'status': 'active', 'direction': 'out',
@@ -136,4 +140,62 @@ void main() {
     expect(call.callType, CallType.video);
     expect(call.callUuid, kCallUuid);
   });
+
+  test('resume: an active call answered on another device is not rejoined', () async {
+    final h = CallHarness();
+    h.api.currentResult = _activeCurrent;
+    await h.manager.recoverCallState();
+    expect(h.liveKits.where((lk) => lk.connects > 0), isEmpty);
+    expect(h.opened, isEmpty);
+    expect(h.manager.currentCall, isNull);
+  });
+
+  test('resume: CallKit showing the call but not accepted does not rejoin', () async {
+    final h = CallHarness();
+    h.platform.activeEntries = const [CallKitEntry(uuid: kCallUuid, accepted: false)];
+    h.api.currentResult = _activeCurrent;
+    await h.manager.recoverCallState();
+    expect(h.manager.currentCall, isNull);
+    expect(h.opened, isEmpty);
+  });
+
+  test('resume: a call that starts ringing during the request survives a stale empty answer', () async {
+    final h = CallHarness();
+    h.api.currentGate = Completer<void>();
+    final recovering = h.manager.recoverCallState();
+    await pumpEventQueue();
+    await h.manager.handleSocketEvent('call:incoming', CallHarness.incomingPayload());
+    h.api.currentGate!.complete();
+    await recovering;
+    expect(h.finishes, isEmpty);
+    expect(h.manager.currentCall!.status, CallStatus.ringing);
+  });
+
+  test('tapping a notification for a call the server still stores as ringing but older than 60 s opens the chat', () async {
+    final h = CallHarness();
+    h.api.getResult = CallApiResult(ok: true, statusCode: 200, data: {
+      'status': 'ringing',
+      'startTime': DateTime.now().subtract(const Duration(seconds: 61)).toUtc().toIso8601String(),
+    });
+    expect(await h.manager.resolveIncomingTap(_pushData()), IncomingTapAction.openChat);
+    expect(h.manager.currentCall, isNull);
+    expect(h.opened, isEmpty);
+  });
+
+  test('tapping a notification for a call ringing for 10 s shows it', () async {
+    final h = CallHarness();
+    h.api.getResult = CallApiResult(ok: true, statusCode: 200, data: {
+      'status': 'ringing',
+      'startTime': DateTime.now().subtract(const Duration(seconds: 10)).toUtc().toIso8601String(),
+    });
+    expect(await h.manager.resolveIncomingTap(_pushData()), IncomingTapAction.showCall);
+  });
 }
+
+const _activeCurrent = CallApiResult(ok: true, statusCode: 200, data: {
+  'call': {
+    'id': 'call-1', 'callUuid': kCallUuid, 'type': 'audio', 'status': 'active', 'direction': 'in',
+    'otherParty': {'id': 'u-caller', 'name': 'Ada', 'avatar': null}, 'roomName': 'call:call-1',
+  },
+  'token': 'tok-rejoin', 'url': 'wss://lk.test',
+});

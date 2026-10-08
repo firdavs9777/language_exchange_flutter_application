@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:bananatalk_app/models/notification_models.dart' as nm;
 import 'package:bananatalk_app/services/call/call_push_handler.dart';
+import 'package:bananatalk_app/services/call/callkit_ids.dart';
 import 'package:bananatalk_app/services/callkit_service.dart';
 import 'package:bananatalk_app/services/notification_api_client.dart';
 import 'package:bananatalk_app/services/notification_router.dart';
@@ -26,9 +27,12 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // The call left ringing elsewhere: take down the native call UI. Data-only
   // and capability-gated server-side, so live builds never receive it.
   if (type == 'call_cancelled') {
+    final callId = message.data['callId']?.toString() ?? '';
     final callUuid = message.data['callUuid']?.toString();
-    if (callUuid != null && callUuid.isNotEmpty && CallKitService.isCallKitAllowed) {
-      await CallKitService().endCall(callUuid);
+    final hasId = callId.isNotEmpty || (callUuid != null && callUuid.isNotEmpty);
+    if (hasId && CallKitService.isCallKitAllowed) {
+      // Same id the invite was shown under (a legacy invite has no callUuid).
+      await CallKitService().endCall(CallKitIds.uuidFor(callId: callId, callUuid: callUuid));
     }
     return;
   }
