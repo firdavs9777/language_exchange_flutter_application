@@ -232,6 +232,7 @@ class AuthService extends ChangeNotifier {
         await prefs.setString('token', token);
         await prefs.setString('refreshToken', refreshToken);
         await prefs.setString('userId', userId);
+        await _afterSignIn();
 
         // Cache native language for auto-translation
         final nativeLang =
@@ -371,6 +372,7 @@ class AuthService extends ChangeNotifier {
               await prefs.setString('refreshToken', responseRefreshToken);
             }
             await prefs.setString('userId', responseUserId);
+            await _afterSignIn();
 
             // Re-enable socket reconnection for new login
             SocketService().enableReconnection();
@@ -456,6 +458,7 @@ class AuthService extends ChangeNotifier {
         await prefs.setString('token', token);
         await prefs.setString('refreshToken', refreshToken);
         await prefs.setString('userId', userId);
+        await _afterSignIn();
 
         // Connect chat socket service
         try {
@@ -553,6 +556,7 @@ class AuthService extends ChangeNotifier {
               await prefs.setString('refreshToken', responseRefreshToken);
             }
             await prefs.setString('userId', responseUserId);
+            await _afterSignIn();
 
             // Re-enable socket reconnection so a previous logout's
             // disabled flags don't block the next forceReconnect() call.
@@ -683,6 +687,7 @@ class AuthService extends ChangeNotifier {
               await prefs.setString('refreshToken', responseRefreshToken);
             }
             await prefs.setString('userId', responseUserId);
+            await _afterSignIn();
 
             // Re-enable socket reconnection so a previous logout's
             // disabled flags don't block the next forceReconnect() call.
@@ -733,6 +738,7 @@ class AuthService extends ChangeNotifier {
     if (refreshToken.isEmpty) {
       return {'success': false, 'message': 'No refresh token available'};
     }
+    final previousRefreshToken = refreshToken;
 
     final url = Uri.parse('${Endpoints.baseURL}${Endpoints.refreshTokenURL}');
 
@@ -759,6 +765,14 @@ class AuthService extends ChangeNotifier {
         await prefs.setString('token', token);
         if (newRefreshToken != null && newRefreshToken.isNotEmpty) {
           await prefs.setString('refreshToken', refreshToken);
+          // If the server rotates refresh tokens, the biometric snapshot
+          // must follow or it goes stale.
+          await rotateBiometricSnapshot(
+            oldRefreshToken: previousRefreshToken,
+            newRefreshToken: refreshToken,
+            newAccessToken: token,
+            storage: biometricStorageForTest,
+          );
         }
         notifyListeners();
 
@@ -855,6 +869,22 @@ class AuthService extends ChangeNotifier {
   /// `resetUserSession` for the paths that never call [logout] (suspended
   /// account, session expired).
   Future<void> clearLocalSession() => _clearAuthData();
+
+  /// Every path that starts a session (password, Google, Apple, Facebook,
+  /// register, password reset) calls this once the tokens are stored:
+  ///  - ApiClient drops any bearer it cached from a previous session;
+  ///  - the biometric snapshot follows the new tokens if it belongs to this
+  ///    account, and is WIPED if it belongs to another one -- user A's Face
+  ///    ID must never sign anyone in after user B logged in with a password.
+  Future<void> _afterSignIn() async {
+    ApiClient().clearTokenCache();
+    await syncBiometricSnapshotAfterSignIn(
+      userId: userId,
+      token: token,
+      refreshToken: refreshToken,
+      storage: biometricStorageForTest,
+    );
+  }
 
   /// Test seam for the biometric keychain (flutter_secure_storage has no
   /// test implementation).
@@ -1170,6 +1200,7 @@ class AuthService extends ChangeNotifier {
         await prefs.setString('token', token);
         await prefs.setString('refreshToken', refreshToken);
         await prefs.setString('userId', userId);
+        await _afterSignIn();
 
         // Cache the signup-time native language so the inline translate chip
         // can resolve the target without waiting for /auth/me to run. Login
@@ -1455,6 +1486,7 @@ class AuthService extends ChangeNotifier {
         await prefs.setString('token', token);
         await prefs.setString('refreshToken', refreshToken);
         await prefs.setString('userId', userId);
+        await _afterSignIn();
         isLoggedIn = true;
 
         // Re-enable socket reconnection for password reset login
@@ -1823,13 +1855,26 @@ class AuthService extends ChangeNotifier {
     if (response.statusCode == 200) {
       // Backend rotates the JWT on password change (sendTokenResponse). Pick
       // up the new token so subsequent requests don't 401.
+      //
+      // The server now also clears EVERY refresh token on a password change
+      // and returns a new one. Keeping the old refresh token meant the next
+      // access-token expiry hit a revoked refresh token -> definitive refresh
+      // failure -> logged out; and the biometric snapshot held it too.
       try {
         final data = json.decode(response.body);
         final newToken = (data['token'] ?? data['data']?['token'])?.toString();
+        final newRefresh =
+            (data['refreshToken'] ?? data['data']?['refreshToken'])?.toString();
         if (newToken != null && newToken.isNotEmpty) {
           this.token = newToken; // keeps the in-memory service field fresh
           await prefs.setString('token', newToken);
         }
+        if (newRefresh != null && newRefresh.isNotEmpty) {
+          refreshToken = newRefresh;
+          await prefs.setString('refreshToken', newRefresh);
+        }
+        if (userId.isEmpty) userId = prefs.getString('userId') ?? '';
+        await _afterSignIn();
       } catch (_) {
         // Token rotation is best-effort — the next 401 will trigger refresh.
       }

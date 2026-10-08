@@ -1,6 +1,7 @@
 // lib/services/api_client.dart
 import 'dart:async';
 import 'dart:convert';
+import 'package:bananatalk_app/pages/authentication/biometric/biometric_session.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:package_info_plus/package_info_plus.dart';
@@ -197,8 +198,15 @@ class ApiClient {
           _lastTokenCheck = DateTime.now();
 
           // Update refresh token if rotated
+          final previousRefreshToken = _cachedRefreshToken ?? '';
           if (newRefreshToken != null && newRefreshToken.isNotEmpty) {
             _cachedRefreshToken = newRefreshToken;
+            // The biometric snapshot holds the old one; keep it in step.
+            unawaited(rotateBiometricSnapshot(
+              oldRefreshToken: previousRefreshToken,
+              newRefreshToken: newRefreshToken,
+              newAccessToken: newToken,
+            ));
           }
 
           // Save to storage

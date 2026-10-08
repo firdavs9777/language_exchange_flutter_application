@@ -108,3 +108,42 @@ String? biometricResultMessage(
       return l10n.somethingWentWrong;
   }
 }
+
+/// Keeps the biometric snapshot consistent with a session that just started
+/// (see `AuthService._afterSignIn`).
+///
+/// - Biometrics off: nothing.
+/// - Snapshot belongs to [userId]: replace its tokens with the new session's
+///   (a password login, password reset or change would otherwise leave it
+///   holding a refresh token the server has since revoked or evicted).
+/// - Snapshot belongs to someone else, or is unreadable: WIPE it and turn
+///   biometrics off. Another account logging in with a password on this
+///   phone must never leave "Continue as <previous user>" behind.
+/// - [userId] unknown: nothing (cannot tell whose session this is).
+Future<void> syncBiometricSnapshotAfterSignIn({
+  required String userId,
+  required String token,
+  required String refreshToken,
+  BiometricTokenStorage? storage,
+}) async {
+  if (userId.isEmpty) return;
+  try {
+    final prefs = await SharedPreferences.getInstance();
+    if (prefs.getBool('biometric_enabled') != true) return;
+    final service = BiometricService(storage: storage ?? BiometricTokenStorage());
+    final state = await service.readState();
+    if (state == null || state.userId != userId) {
+      await service.disable();
+      return;
+    }
+    if (token.isEmpty || refreshToken.isEmpty) return;
+    await service.enable(BiometricAuthState(
+      token: token,
+      refreshToken: refreshToken,
+      userId: userId,
+      userName: state.userName,
+    ));
+  } catch (e) {
+    debugPrint('[biometric] snapshot sync failed: $e');
+  }
+}
