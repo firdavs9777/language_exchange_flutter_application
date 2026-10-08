@@ -426,7 +426,11 @@ class ApiClient {
         }
         // Authorization error - user doesn't have permission
         final errorMessage = body['error'] ?? 'You don\'t have permission to do this';
-        onAuthorizationError?.call(_getReadableAuthError(errorMessage));
+        // The conversation-start cap is a product limit the caller shows
+        // itself (chat send, call initiate), not a permission error.
+        if (bodyCode != 'CONVERSATION_START_LIMIT') {
+          onAuthorizationError?.call(_getReadableAuthError(errorMessage));
+        }
         return build(
           success: false,
           error: _getReadableAuthError(errorMessage),

@@ -8909,4 +8909,120 @@ class AppLocalizationsAr extends AppLocalizations {
   String chatBonusMessagesUnlocked(int count) {
     return 'لقد فتحت $count رسائل إضافية! واصل الدردشة.';
   }
+
+  @override
+  String callLabelOutgoing(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'مكالمة فيديو صادرة',
+        'other': 'مكالمة صوتية صادرة',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelIncoming(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'مكالمة فيديو واردة',
+        'other': 'مكالمة صوتية واردة',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelNoAnswer(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'مكالمة فيديو · لا رد',
+        'other': 'مكالمة صوتية · لا رد',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelMissed(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'مكالمة فيديو فائتة',
+        'other': 'مكالمة صوتية فائتة',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelCancelled(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'مكالمة فيديو ملغاة',
+        'other': 'مكالمة صوتية ملغاة',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelDeclinedOutgoing(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'تم رفض مكالمة الفيديو',
+        'other': 'تم رفض المكالمة الصوتية',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelDeclinedIncoming(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'مكالمة فيديو مرفوضة',
+        'other': 'مكالمة صوتية مرفوضة',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelBusy(String name) {
+    return 'كان $name في مكالمة أخرى';
+  }
+
+  @override
+  String get callsTitle => 'المكالمات';
+
+  @override
+  String get callsEmpty => 'لا توجد مكالمات بعد';
+
+  @override
+  String get callCameraPaused => 'الكاميرا متوقفة مؤقتًا';
+
+  @override
+  String get callFullScreenIntentTitle => 'عرض المكالمات على شاشة القفل';
+
+  @override
+  String get callFullScreenIntentBody => 'اسمح لـ BananaTalk بعرض المكالمات الواردة بملء الشاشة حتى لا تفوتك عندما يكون هاتفك مقفلاً.';
+
+  @override
+  String get callForegroundTitle => 'مكالمة جارية';
+
+  @override
+  String get callForegroundBody => 'انقر للعودة إلى المكالمة';
+
+  @override
+  String get callServiceChannelName => 'مكالمة جارية';
+
+  @override
+  String get callServiceChannelDescription => 'يُبقي مكالمتك مستمرة أثناء عمل BananaTalk في الخلفية';
 }

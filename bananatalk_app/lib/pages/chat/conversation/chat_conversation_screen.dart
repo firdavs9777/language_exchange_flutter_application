@@ -4,6 +4,7 @@ import 'package:bananatalk_app/services/review_prompt_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/services/call/call_launcher.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/providers/chat_state_provider.dart';
 import 'package:bananatalk_app/providers/unread_count_provider.dart';
@@ -2065,6 +2066,15 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                     onRetryMessage: _handleRetryMessage,
                     onDeleteFailedMessage: _handleDeleteFailedMessage,
                     onSendWave: _sendWaveSticker,
+                    // Call back with the same type from a call bubble.
+                    onCallTap: (record) => CallLauncher.start(
+                      context,
+                      ref,
+                      userId: widget.userId,
+                      userName: widget.userName,
+                      avatar: widget.profilePicture,
+                      type: record.type,
+                    ),
                     showScrollToBottomFab: _showScrollButton,
                     onScrollToBottom: _scrollToBottom,
                   ),

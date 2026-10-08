@@ -927,12 +927,17 @@ class LastMessageData {
   /// most recent message.
   final String? senderId;
 
+  /// `media.callData` of a call message, so the chat list can show the
+  /// viewer's own label instead of the caller-neutral server text.
+  final Map<String, dynamic>? callData;
+
   LastMessageData({
     this.message,
     this.createdAt,
     this.id,
     this.mediaType,
     this.senderId,
+    this.callData,
   });
 
   factory LastMessageData.fromJson(Map<String, dynamic> json) {
@@ -946,6 +951,9 @@ class LastMessageData {
       senderId: json['sender'] is Map
           ? (json['sender'] as Map)['_id']?.toString()
           : json['sender']?.toString() ?? json['senderId']?.toString(),
+      callData: json['media'] is Map && (json['media'] as Map)['callData'] is Map
+          ? Map<String, dynamic>.from((json['media'] as Map)['callData'] as Map)
+          : null,
     );
   }
 

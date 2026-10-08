@@ -1,7 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:bananatalk_app/providers/app_provider_container.dart';
+import 'package:bananatalk_app/providers/missed_calls_provider.dart';
 import 'package:bananatalk_app/models/notification_models.dart' as nm;
+import 'package:bananatalk_app/services/call/call_push_handler.dart';
+import 'package:bananatalk_app/services/call/callkit_ids.dart';
 import 'package:bananatalk_app/services/callkit_service.dart';
 import 'package:bananatalk_app/services/notification_api_client.dart';
 import 'package:bananatalk_app/services/notification_router.dart';
@@ -22,6 +26,19 @@ import 'package:path_provider/path_provider.dart';
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   final type = message.data['type']?.toString().toLowerCase();
 
+  // The call left ringing elsewhere: take down the native call UI. Data-only
+  // and capability-gated server-side, so live builds never receive it.
+  if (type == 'call_cancelled') {
+    final callId = message.data['callId']?.toString() ?? '';
+    final callUuid = message.data['callUuid']?.toString();
+    final hasId = callId.isNotEmpty || (callUuid != null && callUuid.isNotEmpty);
+    if (hasId && CallKitService.isCallKitAllowed) {
+      // Same id the invite was shown under (a legacy invite has no callUuid).
+      await CallKitService().endCall(CallKitIds.uuidFor(callId: callId, callUuid: callUuid));
+    }
+    return;
+  }
+
   if (type == 'incoming_call') {
     final callerName = message.data['callerName'] ?? 'Unknown';
     final callerAvatar = message.data['callerProfilePicture'] ?? message.data['callerAvatar'];
@@ -31,7 +48,6 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
     // receiver can connect immediately on accept without an extra round-trip.
     // Forwarded as `extra` to CallKit so the accept event resumes the app with
     // them in hand (NotificationRouter rehydrates the CallModel from `data`).
-    final livekitToken = message.data['livekitToken']?.toString();
     final livekitUrl = message.data['livekitUrl']?.toString();
     final roomName = message.data['roomName']?.toString();
 
@@ -43,10 +59,11 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
       final callKitService = CallKitService();
       await callKitService.showIncomingCall(
         callId: callId,
+        callUuid: message.data['callUuid']?.toString(),
         callerName: callerName,
         callerAvatar: callerAvatar,
+        callerId: message.data['callerId']?.toString(),
         isVideo: callType == 'video',
-        livekitToken: livekitToken,
         livekitUrl: livekitUrl,
         roomName: roomName,
       );
@@ -413,6 +430,10 @@ class NotificationService {
       _processedMessageIds.remove(_processedMessageIds.first);
     }
 
+    // Calls: incoming_call (deduped with the socket by callId) and
+    // call_cancelled belong to CallManager and never become a banner.
+    if (await handleCallPush(Map<String, dynamic>.from(message.data))) return;
+
     final notificationType = message.data['type']?.toString().toLowerCase();
 
     // Don't show local notification for chat messages when app is in foreground
@@ -421,10 +442,8 @@ class NotificationService {
       return;
     }
 
-    // Incoming calls in foreground are handled by the socket → IncomingCallScreen.
-    // Don't show a duplicate notification banner.
-    if (notificationType == 'incoming_call') {
-      return;
+    if (notificationType == 'missed_call') {
+      appProviderContainer.read(missedCallsProvider.notifier).refresh();
     }
 
     // Quiet-hours guard for foreground locals.

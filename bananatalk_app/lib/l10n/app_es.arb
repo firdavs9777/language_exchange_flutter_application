@@ -3672,5 +3672,22 @@
   "vipBenefitUnlimitedMessages": "Mensajes ilimitados",
   "vipBenefitUnlimitedProfileViews": "Visitas de perfil ilimitadas",
   "vipBenefitAiStudyTools": "Herramientas de estudio con IA",
-  "chatBonusMessagesUnlocked": "¡Desbloqueaste {count} mensajes extra! Sigue chateando."
+  "chatBonusMessagesUnlocked": "¡Desbloqueaste {count} mensajes extra! Sigue chateando.",
+  "callLabelOutgoing": "{type, select, video{Videollamada saliente} other{Llamada de voz saliente}}",
+  "callLabelIncoming": "{type, select, video{Videollamada entrante} other{Llamada de voz entrante}}",
+  "callLabelNoAnswer": "{type, select, video{Videollamada · Sin respuesta} other{Llamada de voz · Sin respuesta}}",
+  "callLabelMissed": "{type, select, video{Videollamada perdida} other{Llamada de voz perdida}}",
+  "callLabelCancelled": "{type, select, video{Videollamada cancelada} other{Llamada de voz cancelada}}",
+  "callLabelDeclinedOutgoing": "{type, select, video{Videollamada rechazada} other{Llamada de voz rechazada}}",
+  "callLabelDeclinedIncoming": "{type, select, video{Rechazaste una videollamada} other{Rechazaste una llamada de voz}}",
+  "callLabelBusy": "{name} estaba en otra llamada",
+  "callsTitle": "Llamadas",
+  "callsEmpty": "Aún no hay llamadas",
+  "callCameraPaused": "Cámara en pausa",
+  "callFullScreenIntentTitle": "Mostrar llamadas en la pantalla de bloqueo",
+  "callFullScreenIntentBody": "Permite que BananaTalk muestre las llamadas entrantes a pantalla completa para que no te las pierdas con el teléfono bloqueado.",
+  "callForegroundTitle": "Llamada en curso",
+  "callForegroundBody": "Toca para volver a la llamada",
+  "callServiceChannelName": "Llamada en curso",
+  "callServiceChannelDescription": "Mantiene tu llamada activa mientras BananaTalk está en segundo plano"
 }

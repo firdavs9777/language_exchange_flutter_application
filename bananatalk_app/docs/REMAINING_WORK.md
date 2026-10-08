@@ -34,12 +34,36 @@ App (backend items in the backend repo's `docs/REMAINING_WORK.md`):
 
 Baseline: 1/30 calls answered in 30 days, 168 stuck ringing, 0 call messages ever.
 - [ ] Backend: server-authoritative call state, timeouts/sweeper, busy + calls-off, call messages, push TTL/missed push, history API, delete legacy callHandler.
-- [ ] App: CallManager follower + single exit path, re-bind on socket replace, CallKit `callUuid`, killed-state accept, Android FGS + full-screen intent, reconnect grace, wakelock/proximity, camera mid-voice, self-view, cap removed, call bubble + Calls list + call settings.
+- [ ] App (plan `docs/superpowers/plans/2026-10-08-calls-reliability.md`):
+  - [x] A1 call strings in 19 locales (18 machine drafts — native review open)
+  - [x] A2 outcome model + §3 labels
+  - [x] A3 call API / platform seams, CallKit id = callUuid
+  - [x] A4 CallManager follower + single exit path; 5-minute cap removed
+  - [x] A5 re-bind call listeners when the socket is replaced
+  - [x] A6 incoming dedupe, foreground FCM, call_cancelled, stale taps, resume/cold-start recovery (also: stale socket after logout never emitted to; resume rejoins only calls accepted on this device)
+  - [x] A7 CallKit extra, cold-start activeCalls(), VoIP/FCM capabilities + real device id
+  - [x] A8 AppDelegate VoIP cancel handling + `docs/qa/calls-matrix.md`
+  - [x] A9 IncomingCallScreen closes on terminal state / after 50 s
+  - [x] A10 20 s reconnect overlay + quality callback chain + outcome banner (also: expireIncoming skips an in-flight accept; outgoing 50 s check re-arms once at 65 s; QA rows S-7, S-8; the app does not emit `call:reconnecting`/`reconnected` relays yet)
+  - [x] A11 video wakelock + camera paused in background
+  - [x] A12 Android microphone/camera foreground service + full-screen-intent request (QA rows AND-1…AND-7; channel name/description strings are 18 more machine drafts; start/stop serialized, permission check inside the queue, a start superseded by a stop never runs)
+  - [x] A13 CallLauncher, call bubble labels, chat-list preview (the Calls list start was folded into CallLauncher; the launcher restores the screen's own error callback after each start)
+    - [x] fold `startCallFromCallsList` (Calls list busy / start-limit messages, A4 review) and the chat header's ignored `InitiateResult` into `CallLauncher`
+  - [x] A14 Calls list + chat-tab icon + missed badge
+  - [x] Final whole-branch review fixes: one ring UI per call (native ring present → no in-app screen / Dart ringtone; native ring appearing later closes the in-app one; in-app accept dismisses the native ring and ignores its echo; a leftover native decline never ends a call answered here, a native End still hangs up a call answered there); cold start skips a stale accepted CallKit entry; a `failed` call:state shows "Call failed" to the caller; LiveKit connect superseded mid-connect never publishes mic/camera; th missed voice label (QA rows S-15 updated, IOS-8, IOS-9, AND-8); re-review: the native-ring-only rule is iOS-only (Android keeps the in-app screen, native ringtone only), and CallKit reporting a call after an in-app accept is ended at once
+  - [ ] Phase 2: decline with message, missed-call push actions, calls on/off + quiet hours, camera mid voice call, draggable self-view
+- [ ] Device QA IOS-8: with a Focus mode silencing calls, CallKit shows no banner and the in-app ring closes — decide whether that is acceptable.
+- [ ] Native review of the 18 machine-drafted call strings (`lib/l10n/app_*.arb`)
 - [ ] Owner: LiveKit webhook URL in LiveKit Cloud; confirm `APNS_VOIP_*` on prod.
-- [ ] Device QA `docs/qa/calls-matrix.md`; re-measure answered rate one week after release (target ≥ 40%).
+- [ ] Device QA: run every row of `docs/qa/calls-matrix.md` (IOS-3/IOS-5 repeat runs prove VoIP delivery survives repeated cancels); re-measure answered rate one week after release (target ≥ 40%).
+- [ ] Calls: Dart `CallKitService` still sets the native ring `duration: 45000`; iOS VoIP path now uses 50 s (server owns the 45 s ring) — align the Dart side so iOS/Android never time out before the server.
 
 ## 1. Owner (needs the keystore MacBook, store consoles or droplet)
 
+- [ ] **Calls release gate** — do not release the app build with calls reliability until backend `feat/calls-reliability` is deployed **and** `[voipPush] initialised` shows in prod logs. A new app on the old backend gets no `call:state` (calls never leave ringing on the caller) and the Calls list parses the old history shape.
+- [ ] Commit `ios/Podfile.lock` separately before the iOS build: `pod install` adds the missing `in_app_review` pod (keep it out of feature commits).
+
+- [ ] Play Console → App content → Foreground services: declare **microphone**, **camera** and **phone call** ("ongoing 1:1 voice/video call"; `FOREGROUND_SERVICE_PHONE_CALL` comes from flutter_callkit_incoming) before uploading the build with Task A12 — the upload is rejected without it.
 - [ ] **Store prices** — App Store Connect + Play Console: VIP monthly **$3.99**, yearly **$24.99** (quarterly untouched; hidden in the app).
 - [ ] **Build + submit 2.6.1** — follow `docs/releases/2.6.1-handoff.md` (TestFlight smoke: sandbox coin purchase, cold-start push tap, one Boost purchase while `BOOSTS_ENABLED` is flipped for 10 minutes).
 - [ ] **Android App Links** — `public/.well-known/assetlinks.json` in the web repo still has `TODO_SHA256_*`. Paste the upload-key and app-signing-key SHA-256 from Play Console → App integrity → App signing. Until then no `https://banatalk.com/...` link opens the Android app.

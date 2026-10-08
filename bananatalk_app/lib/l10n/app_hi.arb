@@ -3658,5 +3658,22 @@
   "vipBenefitUnlimitedMessages": "असीमित संदेश",
   "vipBenefitUnlimitedProfileViews": "असीमित प्रोफ़ाइल व्यूज़",
   "vipBenefitAiStudyTools": "AI अध्ययन टूल्स",
-  "chatBonusMessagesUnlocked": "आपने {count} बोनस संदेश अनलॉक किए! बातचीत जारी रखें।"
+  "chatBonusMessagesUnlocked": "आपने {count} बोनस संदेश अनलॉक किए! बातचीत जारी रखें।",
+  "callLabelOutgoing": "{type, select, video{आउटगोइंग वीडियो कॉल} other{आउटगोइंग वॉइस कॉल}}",
+  "callLabelIncoming": "{type, select, video{इनकमिंग वीडियो कॉल} other{इनकमिंग वॉइस कॉल}}",
+  "callLabelNoAnswer": "{type, select, video{वीडियो कॉल · कोई जवाब नहीं} other{वॉइस कॉल · कोई जवाब नहीं}}",
+  "callLabelMissed": "{type, select, video{मिस्ड वीडियो कॉल} other{मिस्ड वॉइस कॉल}}",
+  "callLabelCancelled": "{type, select, video{रद्द की गई वीडियो कॉल} other{रद्द की गई वॉइस कॉल}}",
+  "callLabelDeclinedOutgoing": "{type, select, video{वीडियो कॉल अस्वीकार की गई} other{वॉइस कॉल अस्वीकार की गई}}",
+  "callLabelDeclinedIncoming": "{type, select, video{अस्वीकार की गई वीडियो कॉल} other{अस्वीकार की गई वॉइस कॉल}}",
+  "callLabelBusy": "{name} दूसरी कॉल पर थे",
+  "callsTitle": "कॉल",
+  "callsEmpty": "अभी तक कोई कॉल नहीं",
+  "callCameraPaused": "कैमरा रुका हुआ है",
+  "callFullScreenIntentTitle": "लॉक स्क्रीन पर कॉल दिखाएँ",
+  "callFullScreenIntentBody": "BananaTalk को इनकमिंग कॉल फ़ुल स्क्रीन में दिखाने दें ताकि फ़ोन लॉक होने पर भी आप कॉल न चूकें।",
+  "callForegroundTitle": "कॉल जारी है",
+  "callForegroundBody": "कॉल पर लौटने के लिए टैप करें",
+  "callServiceChannelName": "चल रही कॉल",
+  "callServiceChannelDescription": "BananaTalk के बैकग्राउंड में होने पर भी आपकी कॉल चालू रखता है"
 }

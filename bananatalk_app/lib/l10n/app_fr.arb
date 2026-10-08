@@ -3882,5 +3882,22 @@
   "vipBenefitUnlimitedMessages": "Messages illimités",
   "vipBenefitUnlimitedProfileViews": "Vues de profil illimitées",
   "vipBenefitAiStudyTools": "Outils d'étude IA",
-  "chatBonusMessagesUnlocked": "Vous avez débloqué {count} messages bonus ! Continuez à discuter."
+  "chatBonusMessagesUnlocked": "Vous avez débloqué {count} messages bonus ! Continuez à discuter.",
+  "callLabelOutgoing": "{type, select, video{Appel vidéo sortant} other{Appel vocal sortant}}",
+  "callLabelIncoming": "{type, select, video{Appel vidéo entrant} other{Appel vocal entrant}}",
+  "callLabelNoAnswer": "{type, select, video{Appel vidéo · Pas de réponse} other{Appel vocal · Pas de réponse}}",
+  "callLabelMissed": "{type, select, video{Appel vidéo manqué} other{Appel vocal manqué}}",
+  "callLabelCancelled": "{type, select, video{Appel vidéo annulé} other{Appel vocal annulé}}",
+  "callLabelDeclinedOutgoing": "{type, select, video{Appel vidéo refusé} other{Appel vocal refusé}}",
+  "callLabelDeclinedIncoming": "{type, select, video{Appel vidéo refusé par vous} other{Appel vocal refusé par vous}}",
+  "callLabelBusy": "{name} était déjà en ligne",
+  "callsTitle": "Appels",
+  "callsEmpty": "Aucun appel pour l'instant",
+  "callCameraPaused": "Caméra en pause",
+  "callFullScreenIntentTitle": "Afficher les appels sur l'écran de verrouillage",
+  "callFullScreenIntentBody": "Autorisez BananaTalk à afficher les appels entrants en plein écran pour ne pas les manquer lorsque votre téléphone est verrouillé.",
+  "callForegroundTitle": "Appel en cours",
+  "callForegroundBody": "Touchez pour revenir à l'appel",
+  "callServiceChannelName": "Appel en cours",
+  "callServiceChannelDescription": "Maintient ton appel actif lorsque BananaTalk est en arrière-plan"
 }

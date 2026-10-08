@@ -3642,5 +3642,22 @@
   "vipBenefitUnlimitedMessages": "Pesan tanpa batas",
   "vipBenefitUnlimitedProfileViews": "Kunjungan profil tanpa batas",
   "vipBenefitAiStudyTools": "Alat belajar AI",
-  "chatBonusMessagesUnlocked": "Kamu membuka {count} pesan bonus! Terus mengobrol."
+  "chatBonusMessagesUnlocked": "Kamu membuka {count} pesan bonus! Terus mengobrol.",
+  "callLabelOutgoing": "{type, select, video{Panggilan video keluar} other{Panggilan suara keluar}}",
+  "callLabelIncoming": "{type, select, video{Panggilan video masuk} other{Panggilan suara masuk}}",
+  "callLabelNoAnswer": "{type, select, video{Panggilan video · Tidak dijawab} other{Panggilan suara · Tidak dijawab}}",
+  "callLabelMissed": "{type, select, video{Panggilan video tak terjawab} other{Panggilan suara tak terjawab}}",
+  "callLabelCancelled": "{type, select, video{Panggilan video dibatalkan} other{Panggilan suara dibatalkan}}",
+  "callLabelDeclinedOutgoing": "{type, select, video{Panggilan video ditolak} other{Panggilan suara ditolak}}",
+  "callLabelDeclinedIncoming": "{type, select, video{Panggilan video yang ditolak} other{Panggilan suara yang ditolak}}",
+  "callLabelBusy": "{name} sedang dalam panggilan lain",
+  "callsTitle": "Panggilan",
+  "callsEmpty": "Belum ada panggilan",
+  "callCameraPaused": "Kamera dijeda",
+  "callFullScreenIntentTitle": "Tampilkan panggilan di layar kunci",
+  "callFullScreenIntentBody": "Izinkan BananaTalk menampilkan panggilan masuk dalam layar penuh agar Anda tidak melewatkannya saat ponsel terkunci.",
+  "callForegroundTitle": "Panggilan berlangsung",
+  "callForegroundBody": "Ketuk untuk kembali ke panggilan",
+  "callServiceChannelName": "Panggilan berlangsung",
+  "callServiceChannelDescription": "Menjaga panggilan tetap berjalan saat BananaTalk di latar belakang"
 }

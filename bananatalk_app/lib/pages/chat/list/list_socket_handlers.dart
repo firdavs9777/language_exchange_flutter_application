@@ -39,6 +39,10 @@ class ListSocketContext {
   /// Replace the typing timer (null cancels it).
   final void Function(Timer?) setTypingTimer;
 
+  /// Viewer-perspective label for a call message (needs l10n, so the State
+  /// builds it). Null → the server's plain-text fallback is shown.
+  final String Function(Map<String, dynamic> callData, String otherName)? callPreview;
+
   const ListSocketContext({
     required this.typingUsers,
     required this.userStatuses,
@@ -50,6 +54,7 @@ class ListSocketContext {
     required this.processChatPartnersWithStatus,
     required this.getTypingTimer,
     required this.setTypingTimer,
+    this.callPreview,
   });
 }
 
@@ -102,7 +107,8 @@ void handleNewMessage(ListSocketContext ctx, dynamic data) {
     final createdAt = messageData['createdAt'] != null
         ? DateTime.parse(messageData['createdAt'].toString())
         : DateTime.now();
-    final messageText = _extractMessagePreview(messageData);
+    final messageText = extractMessagePreview(messageData,
+        callPreview: ctx.callPreview == null ? null : (d) => ctx.callPreview!(d, senderName));
 
     if (senderId == null || senderId.isEmpty) return;
     if (senderId == ctx.currentUserId) return;
@@ -170,7 +176,8 @@ void handleMessageSent(ListSocketContext ctx, dynamic data) {
     final createdAt = messageData['createdAt'] != null
         ? DateTime.parse(messageData['createdAt'].toString())
         : DateTime.now();
-    final messageText = _extractMessagePreview(messageData);
+    final messageText = extractMessagePreview(messageData,
+        callPreview: ctx.callPreview == null ? null : (d) => ctx.callPreview!(d, receiverName));
 
     if (receiverId == null || receiverId.isEmpty) return;
 
@@ -318,10 +325,17 @@ void handleMessageRead(ListSocketContext ctx, dynamic data) {
   } catch (_) {}
 }
 
-// ─── Private helpers (mirrored from chat_list_screen.dart) ────────────────────
+// ─── Helpers (mirrored from chat_list_screen.dart) ────────────────────────────
 
 /// Derive a short human-readable preview string from a raw socket message map.
-String _extractMessagePreview(Map<dynamic, dynamic> messageData) {
+String extractMessagePreview(
+  Map<dynamic, dynamic> messageData, {
+  String Function(Map<String, dynamic> callData)? callPreview,
+}) {
+  final callData = messageData['media'] is Map ? messageData['media']['callData'] : null;
+  if (callPreview != null && callData is Map) {
+    return callPreview(Map<String, dynamic>.from(callData));
+  }
   final rawText = messageData['message']?.toString() ?? '';
   final messageType = messageData['type']?.toString() ?? '';
   final mediaType = messageData['media']?['type']?.toString() ?? '';

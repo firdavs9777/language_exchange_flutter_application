@@ -1,790 +1,1252 @@
 import 'dart:async';
-import 'package:flutter/material.dart';
-import 'package:just_audio/just_audio.dart';
+import 'dart:io' show Platform;
+
+import 'package:flutter/widgets.dart';
 import 'package:livekit_client/livekit_client.dart' as lk;
-import 'package:permission_handler/permission_handler.dart';
 import 'package:socket_io_client/socket_io_client.dart' as io;
 
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/call_model.dart';
+import 'package:bananatalk_app/models/call_outcome.dart';
 import 'package:bananatalk_app/router/app_router.dart';
-import 'package:bananatalk_app/screens/active_call_screen.dart';
-import 'package:bananatalk_app/services/api_client.dart';
+import 'package:bananatalk_app/services/call/call_api.dart';
+import 'package:bananatalk_app/services/call/call_platform.dart';
+import 'package:bananatalk_app/services/call/call_routes.dart';
+import 'package:bananatalk_app/services/call/callkit_ids.dart';
+import 'package:bananatalk_app/services/call/full_screen_intent_prompt.dart';
 import 'package:bananatalk_app/services/call_livekit_manager.dart';
 import 'package:bananatalk_app/services/callkit_service.dart';
 import 'package:bananatalk_app/services/chat_socket_service.dart';
-import 'package:bananatalk_app/services/notification_service.dart';
 
-enum CallUiState {
-  ringing,
-  connecting,
-  connected,
-  reconnecting,
-  poorConnection,
-  ended,
-}
+enum CallUiState { ringing, connecting, connected, reconnecting, poorConnection, ended }
 
 enum CallQuality { good, fair, poor }
 
-/// Duration limit for non-VIP users (5 minutes)
-const int freeCallDurationSeconds = 5 * 60;
-/// Warning before call ends (1 minute remaining)
-const int freeCallWarningSeconds = 4 * 60;
+/// Why a call left this device.
+enum CallExitReason {
+  localHangUp,
+  declined,
+  remoteState,
+  answeredElsewhere,
+  acceptConflict,
+  connectionLost,
+  error,
+}
 
-/// Call lifecycle and signalling controller.
+/// Where an incoming call was first heard about (socket, FCM, a tapped
+/// notification, resume recovery, or CallKit). Used for dedupe decisions.
+enum IncomingSource { socket, push, notificationTap, recovery, callKit }
+
+enum InitiateStatus { started, calleeBusy, callerBusy, permissionDenied, failed }
+
+/// What a tapped incoming-call notification should open.
+enum IncomingTapAction { showCall, openChat }
+
+class InitiateResult {
+  const InitiateResult(this.status, [this.error]);
+  final InitiateStatus status;
+  final String? error;
+}
+
+/// Emitted exactly once per call when it leaves this device.
+class CallFinish {
+  const CallFinish({required this.call, required this.reason, this.outcome});
+  final CallModel call;
+  final CallExitReason reason;
+  final CallOutcome? outcome;
+}
+
+class CallManagerDeps {
+  const CallManagerDeps({
+    required this.api,
+    required this.platform,
+    required this.liveKitFactory,
+    required this.closeCallScreens,
+    required this.openActiveCall,
+    required this.openIncomingCall,
+    this.afterIncomingCall = CallManagerDeps._noop,
+    this.isAppResumed = CallManagerDeps._resumed,
+    this.callFailedMessage = CallManagerDeps._callFailed,
+    this.isIos = CallManagerDeps._notIos,
+  });
+
+  factory CallManagerDeps.production() => CallManagerDeps(
+        api: RestCallApi(),
+        platform: DeviceCallPlatform(),
+        liveKitFactory: CallLiveKitManager.new,
+        closeCallScreens: CallRoutes.closeAll,
+        openActiveCall: CallRoutes.openActive,
+        openIncomingCall: CallRoutes.openIncoming,
+        afterIncomingCall: () => Future<void>.delayed(const Duration(milliseconds: 600), () {
+          // Never over a call: another one may have started ringing meanwhile.
+          if (CallManager().currentCall != null) return;
+          final ctx = callOverlayNavigatorKey.currentContext;
+          if (ctx != null && ctx.mounted) unawaited(FullScreenIntentPrompt.maybeAsk(ctx));
+        }),
+        isAppResumed: () => WidgetsBinding.instance.lifecycleState == AppLifecycleState.resumed,
+        isIos: () => Platform.isIOS,
+        callFailedMessage: () {
+          final ctx = callOverlayNavigatorKey.currentContext;
+          final l10n = ctx != null ? AppLocalizations.of(ctx) : null;
+          return l10n?.callFailed ?? _callFailed();
+        },
+      );
+
+  final CallApi api;
+  final CallPlatform platform;
+  final CallLiveKitManager Function() liveKitFactory;
+  final void Function() closeCallScreens;
+  final void Function(CallModel call) openActiveCall;
+  final void Function(CallModel call) openIncomingCall;
+
+  /// Runs once an incoming call has left this device. Production asks (once)
+  /// for the Android full-screen-intent permission, after the ring is over.
+  final void Function() afterIncomingCall;
+
+  /// Whether the app is in the foreground (lifecycle resumed) right now.
+  final bool Function() isAppResumed;
+
+  /// The localized "Call failed" message shown when the server fails a call.
+  final String Function() callFailedMessage;
+
+  /// iOS: a reported CallKit call is always on screen (banner / full
+  /// screen), so it can be the only ring UI. Android's native entry can
+  /// outlive anything visible (collapsed heads-up, covered activity,
+  /// force-stop), so there the in-app screen still shows.
+  final bool Function() isIos;
+
+  static void _noop() {}
+  static bool _resumed() => true;
+  static String _callFailed() => 'Call Failed';
+  static bool _notIos() => false;
+}
+
+/// How long the caller sees "No answer" / "Declined" before the screen closes.
+const Duration kOutcomeBannerDuration = Duration(milliseconds: 1500);
+
+/// Ringing out with no call:state (socket down): ask the server after this.
+const Duration kRingSafetyTimeout = Duration(seconds: 50);
+
+/// Second (last) outgoing safety check, after the first found the call still
+/// ringing or the GET failed: 65 s total, past the server's 60 s stale mark.
+const Duration kRingSafetyRecheck = Duration(seconds: 15);
+
+/// Peer gone or our network down this long → the call is over (spec §5.5).
+const Duration kReconnectGrace = Duration(seconds: 20);
+
+/// The server treats a call still `ringing` after this long as stale
+/// (`timing.staleRingingMs`); GET /calls/:id may still report it ringing.
+const Duration kStaleRinging = Duration(seconds: 60);
+
+/// 1:1 call controller — a FOLLOWER of the server's call state.
 ///
-/// As of Step 8 this delegates media transport to [CallLiveKitManager]; the
-/// legacy mesh WebRTC service was removed in C3. The public API surface
-/// (singleton, callbacks, [initiateCall] / [acceptCall] / [rejectCall] /
-/// [endCall], etc.) is preserved for upstream callers.
+/// The server decides every transition (spec §4.1); this class reacts to
+/// `call:state` for its own `callId` only, and leaves a call through one
+/// path, [_finish], which runs at most once per call and always closes the
+/// call screens.
 class CallManager with WidgetsBindingObserver {
-  static final CallManager _instance = CallManager._internal();
+  static CallManager _instance = CallManager._internal(CallManagerDeps.production());
   factory CallManager() => _instance;
-  CallManager._internal();
+  CallManager._internal(this._deps) : _liveKit = _deps.liveKitFactory();
 
+  @visibleForTesting
+  factory CallManager.forTest(CallManagerDeps deps) => CallManager._internal(deps);
+
+  @visibleForTesting
+  static void debugSetInstance(CallManager manager) => _instance = manager;
+
+  final CallManagerDeps _deps;
+  CallLiveKitManager _liveKit;
+  io.Socket? _socket;
+  StreamSubscription<io.Socket>? _socketReplacedSub;
+  bool _isInitialized = false;
   bool _appInForeground = true;
 
-  // LiveKit transport (B2). Recreated on each call boundary via [_cleanup]
-  // so a fresh listener is bound per session.
-  CallLiveKitManager _liveKit = CallLiveKitManager();
-
-  ChatSocketService? _chatSocketService;
-  io.Socket? _socket;
-  bool _isInitialized = false;
-  AudioPlayer? _ringtonePlayer;
-  AudioPlayer? _soundPlayer;
-  Timer? _callTimeoutTimer;
-  final CallKitService _callKitService = CallKitService();
-
-  /// Set to true while [endCall] is in flight so we can distinguish a
-  /// user-initiated teardown from a remote/peer-side disconnect inside the
-  /// LiveKit `onLocalDisconnected` / `onPeerDisconnected` callbacks.
-  bool _localTeardownInFlight = false;
-
   CallModel? currentCall;
+  String? _acceptingCallId;
+  String? _incomingShownFor;
+
+  /// The native ring UI (CallKit / Android call screen) is this call's
+  /// incoming UI: no in-app ring screen, no Dart ringtone.
+  String? _nativeRingFor;
+
+  /// Answered from the in-app screen: the native entry was dismissed by us,
+  /// so a decline / ended event for it is that dismissal's echo.
+  String? _acceptedInAppFor;
+  final List<String> _recentlyFinished = [];
+  Timer? _closeTimer;
+  Timer? _ringSafetyTimer;
+  Timer? _reconnectTimer;
+  bool _peerGone = false;
+  bool _localReconnecting = false;
+  bool _recovering = false;
+
+  final StreamController<CallFinish> _finishController = StreamController<CallFinish>.broadcast();
+
+  /// Every call that leaves this device, once.
+  Stream<CallFinish> get finishes => _finishController.stream;
 
   // Callbacks ----------------------------------------------------------------
   Function(CallModel)? onIncomingCall;
   Function(CallModel)? onCallAccepted;
   Function(CallModel)? onCallRejected;
   Function(CallModel)? onCallEnded;
+  void Function(CallFinish)? onCallFinished;
   Function(String)? onCallError;
-
-  // Peer state callbacks
   Function(bool)? onPeerMuteChanged;
   Function(bool)? onPeerVideoChanged;
   Function()? onPeerReconnecting;
   Function()? onPeerReconnected;
-  Function()? onCallTimeout;
   Function()? onReconnecting;
   Function()? onReconnected;
   Function(CallModel)? onCallConnected;
-  Function(int remainingSeconds)? onCallDurationWarning;
-  Function()? onCallDurationLimitReached;
-
-  // Connection state & quality
-  CallUiState _connectionState = CallUiState.ringing;
-  CallQuality _callQuality = CallQuality.good;
-  Timer? _durationLimitTimer;
-  Timer? _durationWarningTimer;
-  bool _isVipCall = true; // default true (no limit), set to false for free users
   Function(CallUiState)? onConnectionStateChanged;
   Function(CallQuality)? onCallQualityChanged;
+  void Function(lk.ConnectionQuality)? onRawQualityChanged;
+
+  CallUiState _connectionState = CallUiState.ringing;
+  CallQuality _callQuality = CallQuality.good;
+  bool _isMuted = false;
+  bool _isVideoEnabled = true;
+  bool _cameraPausedByLifecycle = false;
+
+  /// Media came up while the app was not resumed; start the foreground
+  /// service on the next resume.
+  bool _callServicePending = false;
+  bool _isSpeakerOn = false;
+  bool _isFrontCamera = true;
 
   CallUiState get connectionState => _connectionState;
   CallQuality get callQuality => _callQuality;
-
-  /// LiveKit transport for the active call. UI reads this for
-  /// VideoTrackRenderer wiring (see ActiveCallScreen).
   CallLiveKitManager get liveKit => _liveKit;
-
   bool get isInitialized => _isInitialized;
+  bool get isMuted => _isMuted;
+  bool get isVideoEnabled => _isVideoEnabled;
+  bool get isSpeakerOn => _isSpeakerOn;
 
-  // Local mute/video/speaker bookkeeping. LiveKit doesn't surface these as
-  // sync getters on the local participant, so we cache the last value we
-  // asked it for and expose it via the public booleans the UI already reads.
-  bool _isMuted = false;
-  bool _isVideoEnabled = true;
-  bool _isSpeakerOn = false;
+  /// The only socket events a call listens to. Everything else (accepted,
+  /// declined, ended, missed, timeout) arrives as call:state.
+  static const List<String> socketEvents = [
+    'call:incoming',
+    'call:state',
+    'call:mute',
+    'call:peer-muted',
+    'call:video-toggle',
+    'call:peer-video-toggled',
+    'call:peer-reconnecting',
+    'call:peer-reconnected',
+  ];
+
+  Future<void> initialize(ChatSocketService chatSocketService) async {
+    WidgetsBinding.instance.removeObserver(this);
+    WidgetsBinding.instance.addObserver(this);
+    attachSocketService(chatSocketService);
+    if (!_isInitialized) _initCallKit();
+    _isInitialized = true;
+    stopOrphanCallService();
+  }
+
+  /// A call foreground service left running with no call (the process died
+  /// mid-call) is stopped; with a call it is that call's service.
+  void stopOrphanCallService() {
+    if (currentCall == null) unawaited(_deps.platform.stopCallService());
+  }
+
+  /// Follow the chat socket across replacements. ChatSocketService replaces
+  /// its socket on resume, token refresh and login; binding once (the old
+  /// behaviour) left the app deaf to call:incoming after the first resume.
+  void attachSocketService(ChatSocketService service) {
+    _socketReplacedSub?.cancel();
+    _socketReplacedSub = service.onSocketReplaced.listen(bindSocket);
+    bindSocket(service.socket);
+  }
+
+  /// Move the call listeners onto [socket] (and off the previous one).
+  void bindSocket(io.Socket? socket) {
+    if (identical(socket, _socket)) return;
+    final previous = _socket;
+    if (previous != null) {
+      for (final event in socketEvents) {
+        previous.off(event);
+      }
+    }
+    _socket = socket;
+    if (socket == null) return;
+    for (final event in socketEvents) {
+      socket.on(event, (data) => handleSocketEvent(event, data));
+    }
+  }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     _appInForeground = state == AppLifecycleState.resumed;
-    debugPrint('📞 App lifecycle: $state, foreground: $_appInForeground');
+    final c = currentCall;
+    final inVideoCall = c != null && c.callType == CallType.video && c.status != CallStatus.ringing;
+    if (state == AppLifecycleState.paused || state == AppLifecycleState.hidden) {
+      // Backgrounded mid-video: iOS stops the camera anyway; unpublish it so
+      // the peer sees a "Camera paused" tile instead of a frozen frame.
+      if (inVideoCall && _isVideoEnabled && !_cameraPausedByLifecycle) {
+        _cameraPausedByLifecycle = true;
+        unawaited(_liveKit.setCameraEnabled(false));
+        _emitToPeer('call:video-toggle', {'isVideoEnabled': false});
+      }
+    } else if (state == AppLifecycleState.resumed) {
+      if (_callServicePending) {
+        _callServicePending = false;
+        if (c != null) unawaited(_deps.platform.startCallService(video: c.callType == CallType.video));
+      }
+      if (_cameraPausedByLifecycle) {
+        _cameraPausedByLifecycle = false;
+        if (currentCall != null && _isVideoEnabled) {
+          unawaited(_liveKit.setCameraEnabled(true));
+          _emitToPeer('call:video-toggle', {'isVideoEnabled': true});
+        }
+      }
+      unawaited(recoverCallState());
+    }
   }
 
-  Future<void> initialize(ChatSocketService chatSocketService) async {
-    // Register lifecycle observer
-    WidgetsBinding.instance.removeObserver(this); // prevent duplicates
-    WidgetsBinding.instance.addObserver(this);
+  // -- Socket ----------------------------------------------------------------
 
-    if (_isInitialized &&
-        _chatSocketService == chatSocketService &&
-        _socket == chatSocketService.socket) {
-      debugPrint('📞 CallManager already initialized, skipping');
+  @visibleForTesting
+  Future<void> handleSocketEvent(String event, dynamic data) async {
+    if (data is! Map) return;
+    final m = Map<String, dynamic>.from(data);
+    switch (event) {
+      case 'call:incoming':
+        await handleIncoming(m, source: IncomingSource.socket);
+        return;
+      case 'call:state':
+        await _onCallState(m);
+        return;
+    }
+    final cur = currentCall;
+    if (cur == null || !_sameId(m['callId']?.toString(), cur.callId)) return;
+    switch (event) {
+      case 'call:mute':
+      case 'call:peer-muted':
+        final muted = m['isMuted'] == true;
+        currentCall = cur.copyWith(isPeerMuted: muted);
+        onPeerMuteChanged?.call(muted);
+      case 'call:video-toggle':
+      case 'call:peer-video-toggled':
+        final on = m['isVideoEnabled'] == true;
+        currentCall = cur.copyWith(isPeerVideoEnabled: on);
+        onPeerVideoChanged?.call(on);
+      case 'call:peer-reconnecting':
+        onPeerReconnecting?.call();
+      case 'call:peer-reconnected':
+        onPeerReconnected?.call();
+    }
+  }
+
+  /// An incoming call from any source. The same callId from a second source
+  /// only fills in missing fields — one incoming UI per call.
+  Future<void> handleIncoming(
+    Map<String, dynamic> payload, {
+    IncomingSource source = IncomingSource.socket,
+  }) async {
+    final call = CallModel.fromJson(payload, CallDirection.incoming);
+    if (call.callId.isEmpty) return;
+    final cur = currentCall;
+    if (cur != null) {
+      if (_sameId(cur.callId, call.callId)) {
+        currentCall = cur.copyWith(
+          callUuid: cur.callUuid ?? call.callUuid,
+          livekitUrl: cur.livekitUrl ?? call.livekitUrl,
+          roomName: cur.roomName ?? call.roomName,
+        );
+        if (source == IncomingSource.notificationTap && cur.status == CallStatus.ringing) {
+          _showIncoming(currentCall!);
+        }
+      }
       return;
     }
+    if (_recentlyFinished.any((id) => _sameId(id, call.callId))) return;
 
-    debugPrint(
-      '📞 CallManager initializing (wasInit: $_isInitialized, '
-      'socketMatch: ${_socket == chatSocketService.socket})',
-    );
-
-    _chatSocketService = chatSocketService;
-    _socket = chatSocketService.socket;
-
-    _removeSocketListeners();
-    _setupSocketListeners();
-    _initCallKit();
-    _isInitialized = true;
-    debugPrint(
-      '📞 CallManager initialized, socket connected: ${_socket?.connected}',
-    );
-  }
-
-  // -- Socket wiring --------------------------------------------------------
-
-  void _removeSocketListeners() {
-    _socket?.off('call:incoming');
-    _socket?.off('call:accepted');
-    _socket?.off('call:declined');
-    _socket?.off('call:rejected'); // legacy alias from mesh era
-    _socket?.off('call:ended');
-    _socket?.off('call:missed');
-    _socket?.off('call:timeout');
-    _socket?.off('call:mute');
-    _socket?.off('call:video-toggle');
-    _socket?.off('call:peer-muted');
-    _socket?.off('call:peer-video-toggled');
-    _socket?.off('call:peer-reconnecting');
-    _socket?.off('call:peer-reconnected');
-  }
-
-  void _setupSocketListeners() {
-    if (_socket == null) {
-      debugPrint('❌ Cannot setup call listeners — socket is null');
-      return;
-    }
-    debugPrint('📞 Setting up call socket listeners');
-
-    _socket!.on('call:incoming', _handleIncomingSocketEvent);
-
-    _socket!.on('call:accepted', (data) {
-      debugPrint('📞 call:accepted event received: $data');
-      // We don't need a fresh token here — the caller already has its own
-      // token from the /initiate response and is already connected to the
-      // LiveKit room. Simply transition state and fire the UI callback.
-      _callTimeoutTimer?.cancel();
-      stopRingtone();
-
-      if (currentCall == null) {
-        debugPrint('❌ call:accepted but currentCall is null');
+    _takeOverClosingScreens();
+    currentCall = call.copyWith(status: CallStatus.ringing);
+    onIncomingCall?.call(currentCall!);
+    if (_appInForeground || source == IncomingSource.notificationTap) {
+      // iOS reports every VoIP push to CallKit, even in the foreground, and
+      // a resume / cold start can find the native ring still up: then the
+      // native UI is the incoming UI. On Android the in-app screen still
+      // shows (the native entry may be invisible) but the native ringtone
+      // is the only one.
+      final native = await _nativeRingShows(call);
+      final ringing = currentCall;
+      if (ringing == null || !_sameId(ringing.callId, call.callId) || ringing.status != CallStatus.ringing) {
         return;
       }
-      currentCall = currentCall!.copyWith(status: CallStatus.connecting);
-      onCallAccepted?.call(currentCall!);
-    });
-
-    // call:declined is the new wire event (B1 spec); call:rejected is the
-    // legacy mesh-era event still emitted by the socket handler. Treat both
-    // the same way until the mesh socket handler is stubbed in B6.
-    void onDecline(dynamic data) {
-      debugPrint('📞 call:declined/rejected event received: $data');
-      if (currentCall == null) return;
-      currentCall = currentCall!.copyWith(status: CallStatus.rejected);
-      onCallRejected?.call(currentCall!);
-      _cleanup();
-    }
-    _socket!.on('call:declined', onDecline);
-    _socket!.on('call:rejected', onDecline);
-
-    _socket!.on('call:ended', (data) {
-      debugPrint('📞 call:ended event received: $data');
-      if (currentCall == null) return;
-      final duration = data is Map ? data['duration'] : null;
-      currentCall = currentCall!.copyWith(
-        status: CallStatus.ended,
-        endTime: DateTime.now(),
-        duration:
-            duration != null ? int.tryParse(duration.toString()) : null,
-      );
-      onCallEnded?.call(currentCall!);
-      _cleanup();
-    });
-
-    _socket!.on('call:missed', (data) {
-      if (currentCall == null) return;
-      currentCall = currentCall!.copyWith(
-        status: CallStatus.ended,
-        endTime: DateTime.now(),
-      );
-      onCallEnded?.call(currentCall!);
-      _cleanup();
-    });
-
-    _socket!.on('call:timeout', (data) {
-      if (currentCall == null) return;
-      currentCall = currentCall!.copyWith(status: CallStatus.missed);
-      onCallTimeout?.call();
-      _cleanup();
-    });
-
-    // Peer mute / video — preserved as the fast-path UI signal alongside
-    // the LiveKit TrackMuted/Subscribed events (which arrive ~100ms later).
-    // Backward compat: the legacy mesh handler used `call:mute` /
-    // `call:video-toggle`; the new wire spec is `call:peer-muted` /
-    // `call:peer-video-toggled`. Listen on both.
-    void onPeerMute(dynamic data) {
-      if (data is! Map) return;
-      if (data['callId'] != currentCall?.callId) return;
-      final isMuted = data['isMuted'] == true;
-      if (currentCall != null) {
-        currentCall = currentCall!.copyWith(isPeerMuted: isMuted);
-      }
-      onPeerMuteChanged?.call(isMuted);
-    }
-    _socket!.on('call:mute', onPeerMute);
-    _socket!.on('call:peer-muted', onPeerMute);
-
-    void onPeerVideo(dynamic data) {
-      if (data is! Map) return;
-      if (data['callId'] != currentCall?.callId) return;
-      final enabled = data['isVideoEnabled'] == true;
-      if (currentCall != null) {
-        currentCall = currentCall!.copyWith(isPeerVideoEnabled: enabled);
-      }
-      onPeerVideoChanged?.call(enabled);
-    }
-    _socket!.on('call:video-toggle', onPeerVideo);
-    _socket!.on('call:peer-video-toggled', onPeerVideo);
-
-    _socket!.on('call:peer-reconnecting', (data) {
-      if (data is Map && data['callId'] == currentCall?.callId) {
-        onPeerReconnecting?.call();
-      }
-    });
-
-    _socket!.on('call:peer-reconnected', (data) {
-      if (data is Map && data['callId'] == currentCall?.callId) {
-        onPeerReconnected?.call();
-      }
-    });
-  }
-
-  Future<void> _handleIncomingSocketEvent(dynamic data) async {
-    debugPrint('📞 call:incoming event received: $data');
-
-    if (currentCall != null) {
-      debugPrint('📞 Already in a call, ignoring incoming');
-      return;
-    }
-
-    try {
-      final call = CallModel.fromJson(
-        Map<String, dynamic>.from(data as Map),
-        CallDirection.incoming,
-      );
-      currentCall = call;
-      startRingtone();
-
-      debugPrint(
-        '📞 Parsed incoming call from ${call.userName}, '
-        'foreground: $_appInForeground, hasCallback: ${onIncomingCall != null}',
-      );
-
-      if (_appInForeground && onIncomingCall != null) {
-        // Foreground: Flutter overlay screen handles UI; avoid the duplicate
-        // native CallKit prompt.
-        onIncomingCall!(call);
-      } else {
-        _callKitService.showIncomingCall(
-          callId: call.callId,
-          callerName: call.userName,
-          callerAvatar: call.userProfilePicture,
-          isVideo: call.callType == CallType.video,
-        );
-        // Still fire the callback so if the user brings the app to
-        // foreground mid-ring they see the in-app screen too.
-        onIncomingCall?.call(call);
-      }
-    } catch (e) {
-      debugPrint('❌ Failed to parse incoming call: $e');
-      onCallError?.call('Failed to parse incoming call');
-    }
-  }
-
-  // -- LiveKit wiring -------------------------------------------------------
-
-  void _setupLiveKitCallbacks() {
-    _liveKit.onPeerConnected = () {
-      debugPrint('📞 LiveKit: peer connected');
-      // Transport-level confirmation only — UI already knows the call is
-      // accepted because /accept returned (or call:accepted arrived). No
-      // additional callback to fire.
-      if (currentCall != null && currentCall!.status != CallStatus.connected) {
-        currentCall = currentCall!.copyWith(status: CallStatus.connected);
-        _applySpeakerDefault(currentCall!.callType);
-        _playConnectSound();
-        _startDurationLimit();
-        _updateConnectionState(CallUiState.connected);
-        onCallConnected?.call(currentCall!);
-      }
-    };
-
-    _liveKit.onPeerDisconnected = () {
-      debugPrint('📞 LiveKit: peer disconnected');
-      // If we didn't initiate the teardown, treat it as the remote side
-      // hanging up (or crashing).
-      if (!_localTeardownInFlight && currentCall != null) {
-        currentCall = currentCall!.copyWith(
-          status: CallStatus.ended,
-          endTime: DateTime.now(),
-        );
-        onCallEnded?.call(currentCall!);
-        _cleanup();
-      }
-    };
-
-    _liveKit.onPeerMuteChanged = (muted) {
-      debugPrint('📞 LiveKit: peer mute → $muted');
-      if (currentCall != null) {
-        currentCall = currentCall!.copyWith(isPeerMuted: muted);
-      }
-      onPeerMuteChanged?.call(muted);
-    };
-
-    _liveKit.onPeerVideoChanged = (enabled) {
-      debugPrint('📞 LiveKit: peer video → $enabled');
-      if (currentCall != null) {
-        currentCall = currentCall!.copyWith(isPeerVideoEnabled: enabled);
-      }
-      onPeerVideoChanged?.call(enabled);
-    };
-
-    _liveKit.onConnectionQualityChanged = (quality) {
-      final mapped = _mapLiveKitQuality(quality);
-      if (mapped == _callQuality) return;
-      _callQuality = mapped;
-      debugPrint('📞 LiveKit: quality → $quality (mapped $mapped)');
-      onCallQualityChanged?.call(mapped);
-      if (mapped == CallQuality.poor &&
-          _connectionState == CallUiState.connected) {
-        _updateConnectionState(CallUiState.poorConnection);
-      } else if (mapped != CallQuality.poor &&
-          _connectionState == CallUiState.poorConnection) {
-        _updateConnectionState(CallUiState.connected);
-      }
-    };
-
-    _liveKit.onReconnecting = () {
-      debugPrint('📞 LiveKit: reconnecting');
-      _updateConnectionState(CallUiState.reconnecting);
-      onReconnecting?.call();
-      onPeerReconnecting?.call();
-    };
-
-    _liveKit.onReconnected = () {
-      debugPrint('📞 LiveKit: reconnected');
-      _updateConnectionState(CallUiState.connected);
-      onReconnected?.call();
-      onPeerReconnected?.call();
-    };
-
-    _liveKit.onLocalDisconnected = (reason) {
-      debugPrint('📞 LiveKit: local disconnected reason=$reason '
-          '(localTeardown=$_localTeardownInFlight)');
-      if (_localTeardownInFlight || currentCall == null) return;
-
-      // Classify the disconnect so the UI can distinguish a legitimate
-      // hang-up ("Call ended") from a network-class failure ("Connection
-      // lost"). Before this branch every non-local disconnect — including
-      // signalling drops — was reported as a remote hang-up, which
-      // confused users on flaky networks.
-      final isNetworkFailure = reason == lk.DisconnectReason.unknown ||
-          reason == lk.DisconnectReason.disconnected ||
-          reason == lk.DisconnectReason.signalingConnectionFailure ||
-          reason == lk.DisconnectReason.reconnectAttemptsExceeded ||
-          reason == lk.DisconnectReason.joinFailure ||
-          reason == lk.DisconnectReason.stateMismatch;
-
-      if (isNetworkFailure) {
-        onCallError?.call('Connection lost');
-        _cleanup();
-      } else {
-        // roomDeleted / participantRemoved / duplicateIdentity /
-        // serverShutdown / clientInitiated (the last shouldn't reach here
-        // because _localTeardownInFlight catches it) — all legitimate
-        // "the call ended" outcomes.
-        currentCall = currentCall!.copyWith(
-          status: CallStatus.ended,
-          endTime: DateTime.now(),
-        );
-        onCallEnded?.call(currentCall!);
-        _cleanup();
-      }
-    };
-  }
-
-  CallQuality _mapLiveKitQuality(lk.ConnectionQuality quality) {
-    switch (quality) {
-      case lk.ConnectionQuality.excellent:
-      case lk.ConnectionQuality.good:
-        return CallQuality.good;
-      case lk.ConnectionQuality.poor:
-      case lk.ConnectionQuality.lost:
-        return CallQuality.poor;
-      default:
-        return CallQuality.fair;
-    }
-  }
-
-  void _updateConnectionState(CallUiState newState) {
-    if (_connectionState == newState) return;
-    _connectionState = newState;
-    debugPrint('📞 Connection state: $newState');
-    onConnectionStateChanged?.call(newState);
-  }
-
-  // -- CallKit wiring --------------------------------------------------------
-
-  /// Builds a provisional [CallModel] from a CallKit `extra` payload —
-  /// used on the killed-state accept path where neither the socket nor the
-  /// notification-tap router has had a chance to populate `currentCall`.
-  /// Falls back to "Unknown" strings rather than null because the screen
-  /// header would otherwise read awkwardly.
-  CallModel _callFromExtra(String callId, Map<String, dynamic> extra) {
-    final typeStr = extra['callType']?.toString() ?? 'audio';
-    return CallModel(
-      callId: callId,
-      userId: extra['callerId']?.toString() ?? '',
-      userName: extra['callerName']?.toString() ?? 'Unknown',
-      userProfilePicture: extra['callerProfilePicture']?.toString() ??
-          extra['callerAvatar']?.toString(),
-      callType: typeStr == 'video' ? CallType.video : CallType.audio,
-      direction: CallDirection.incoming,
-      status: CallStatus.ringing,
-      startTime: DateTime.now(),
-      livekitToken: extra['livekitToken']?.toString(),
-      livekitUrl: extra['livekitUrl']?.toString(),
-      roomName: extra['roomName']?.toString(),
-    );
-  }
-
-  void _initCallKit() {
-    _callKitService.initialize();
-
-    _callKitService.onAccepted = (callId, extra) {
-      debugPrint('📱 CallKit accepted: $callId extra=$extra');
-      // Killed-state path: PushKit woke the app and CallKit fired Accept,
-      // but neither `_handleIncomingSocketEvent` (no socket yet) nor
-      // `NotificationRouter._handleIncomingCallNotification` (no tap)
-      // populated `currentCall`. Hydrate from CallKit's `extra` payload
-      // (set by AppDelegate.swift's PushKit handler) so acceptCall() has
-      // something to work with — otherwise it silently returns.
-      if (currentCall == null) {
-        if (extra == null) {
-          debugPrint('📱 onAccepted: currentCall null AND no extra payload — '
-              'cannot hydrate; aborting');
+      if (native) {
+        _nativeRingFor = call.callId;
+        if (_deps.isIos()) {
+          _incomingShownFor = call.callId;
           return;
         }
-        currentCall = _callFromExtra(callId, extra);
+      } else {
+        unawaited(_deps.platform.startRingtone());
       }
-      stopRingtone();
-      acceptCall().then((_) {
-        final navState = callOverlayNavigatorKey.currentState;
-        if (navState != null && currentCall != null) {
-          navState.push(
-            MaterialPageRoute(
-              builder: (_) => ActiveCallScreen(call: currentCall!),
-              fullscreenDialog: true,
-            ),
-          );
-        }
-      });
-    };
-
-    _callKitService.onDeclined = (callId) {
-      debugPrint('📱 CallKit declined: $callId');
-      if (currentCall == null) return;
-      stopRingtone();
-      rejectCall();
-    };
-
-    _callKitService.onEnded = (callId) {
-      debugPrint('📱 CallKit ended: $callId');
-      if (currentCall != null) endCall();
-    };
+      _showIncoming(ringing);
+    } else {
+      await _deps.platform.showIncomingCallUi(currentCall!);
+    }
   }
 
-  // -- Public API: lifecycle ------------------------------------------------
+  Future<bool> _nativeRingShows(CallModel call) async {
+    final uuid = CallKitIds.uuidFor(callId: call.callId, callUuid: call.callUuid);
+    try {
+      final entries = await _deps.platform.activeCallUis();
+      return entries.any((e) => CallKitIds.same(e.uuid, uuid) || _sameId(e.callId, call.callId));
+    } catch (e) {
+      debugPrint('📞 native call UI lookup failed: $e');
+      return false;
+    }
+  }
 
-  /// Start an outgoing call. Hits `POST /calls/initiate`, joins the returned
-  /// LiveKit room with the caller token, and pushes [ActiveCallScreen] for
-  /// the local user. The ringback tone runs until the receiver accepts.
-  Future<void> initiateCall(
+  Future<void> _dismissNativeRing(CallModel call) async {
+    if (await _nativeRingShows(call)) await _quietly(() => _deps.platform.endCallUi(call));
+  }
+
+  /// The native ring UI started showing [id]. When the in-app ring screen
+  /// got there first (iOS foreground: socket before the VoIP push), the
+  /// native UI takes over: one ring UI per call.
+  Future<void> handleCallKitIncomingShown(String id, Map<String, dynamic>? extra) async {
+    final cur = currentCall;
+    if (cur == null || !_matches(cur, id, extra)) return;
+    if (cur.direction != CallDirection.incoming) return;
+    if (_sameId(_acceptedInAppFor, cur.callId)) {
+      // Reported after the in-app accept (a late VoIP push): never let it
+      // ring over the live call. Its echoed ended/decline is ignored.
+      await _quietly(() => _deps.platform.endCallUi(cur));
+      return;
+    }
+    if (cur.status != CallStatus.ringing) return;
+    if (_sameId(_acceptingCallId, cur.callId) || _sameId(_nativeRingFor, cur.callId)) return;
+    final inAppShown = _sameId(_incomingShownFor, cur.callId);
+    _nativeRingFor = cur.callId;
+    if (!inAppShown) {
+      if (_deps.isIos()) _incomingShownFor = cur.callId;
+      return;
+    }
+    // One ringtone: the native one.
+    await _quietly(_deps.platform.stopTones);
+    // iOS: CallKit is on screen, so it is the one ring UI. Android: keep
+    // the in-app screen (the native entry may not be visible).
+    if (_deps.isIos()) _closeNow();
+  }
+
+  void _showIncoming(CallModel call) {
+    if (_sameId(_incomingShownFor, call.callId)) return;
+    _incomingShownFor = call.callId;
+    _deps.openIncomingCall(call);
+  }
+
+  /// call_cancelled (FCM data push, or relayed from a VoIP push): the call
+  /// left ringing elsewhere (accepted / declined on another device, the
+  /// caller cancelled, or it timed out).
+  Future<void> handleCallCancelled(Map<String, dynamic> data) async {
+    final callId = data['callId']?.toString() ?? '';
+    final callUuid = data['callUuid']?.toString();
+    final cur = currentCall;
+    if (cur != null && (_sameId(cur.callId, callId) || CallKitIds.same(cur.callUuid, callUuid))) {
+      // Answering on this device (accept in flight or connecting): the cancel
+      // is the server telling the other devices; ignore it here.
+      if (cur.status == CallStatus.ringing && !_sameId(_acceptingCallId, cur.callId)) {
+        await _finish(CallExitReason.remoteState);
+      }
+      return;
+    }
+    // Not our current call: it may still be ringing in CallKit, or its invite
+    // may arrive late — end the UI and ignore a later invite for it.
+    _remember(callId);
+    await _quietly(() => _deps.platform.endCallUi(CallModel(
+          callId: callId,
+          callUuid: callUuid,
+          userId: '',
+          userName: '',
+          callType: CallType.audio,
+          direction: CallDirection.incoming,
+          startTime: DateTime.now(),
+        )));
+  }
+
+  /// A tapped incoming-call notification may be minutes old: only show the
+  /// call if the server says it is still ringing; otherwise open the chat.
+  Future<IncomingTapAction> resolveIncomingTap(Map<String, dynamic> data) async {
+    final callId = data['callId']?.toString() ?? '';
+    if (callId.isEmpty) return IncomingTapAction.openChat;
+    final cur = currentCall;
+    if (cur != null && _sameId(cur.callId, callId)) {
+      if (cur.status == CallStatus.ringing) _showIncoming(cur);
+      return IncomingTapAction.showCall;
+    }
+    final res = await _deps.api.get(callId);
+    if (!res.ok || res.data['status']?.toString() != 'ringing') return IncomingTapAction.openChat;
+    final started = DateTime.tryParse(res.data['startTime']?.toString() ?? '');
+    if (started != null && DateTime.now().difference(started) > kStaleRinging) {
+      return IncomingTapAction.openChat;
+    }
+    await handleIncoming(_tapPayload(data, res.data), source: IncomingSource.notificationTap);
+    return _sameId(currentCall?.callId, callId) ? IncomingTapAction.showCall : IncomingTapAction.openChat;
+  }
+
+  /// IncomingCallScreen's 50 s safety net: the server ends a ringing call at
+  /// 45 s, so a call still ringing here at 50 s lost its call:state.
+  /// True while an accept for [callId] is in flight (the ring screen must stay).
+  bool isAccepting(String callId) => _sameId(_acceptingCallId, callId);
+
+  Future<bool> expireIncoming(String callId) async {
+    final cur = currentCall;
+    if (cur == null || !_sameId(cur.callId, callId) || cur.status != CallStatus.ringing) return false;
+    if (_sameId(_acceptingCallId, callId)) return false; // accept in flight
+    await _finish(CallExitReason.remoteState, outcome: CallOutcome.noAnswer);
+    return true;
+  }
+
+  /// The tapped notification's data, with gaps filled from GET /calls/:id
+  /// (initiator is a bare id; participants carry `name` and `images`).
+  static Map<String, dynamic> _tapPayload(Map<String, dynamic> data, Map<String, dynamic> server) {
+    final payload = Map<String, dynamic>.from(data);
+    payload['callUuid'] ??= server['callUuid'];
+    payload['callType'] ??= server['type'];
+    final initiator = server['initiator'];
+    final initiatorId = initiator is Map ? initiator['_id']?.toString() : initiator?.toString();
+    final participants = server['participants'];
+    if (payload['callerName'] == null && initiatorId != null && participants is List) {
+      for (final p in participants.whereType<Map>()) {
+        if (!_sameId(p['_id']?.toString(), initiatorId)) continue;
+        final images = p['images'];
+        payload['callerId'] ??= initiatorId;
+        payload['callerName'] = p['name'];
+        payload['callerAvatar'] ??= images is List && images.isNotEmpty ? images.first : null;
+      }
+    }
+    return payload;
+  }
+
+  /// Resume and cold start: ask the server what is live for this user.
+  /// Ringing for me → incoming UI; active and accepted on this device but
+  /// not running here → rejoin; nothing → a call still ringing locally is
+  /// stale and ends.
+  Future<void> recoverCallState() async {
+    if (_recovering) return;
+    _recovering = true;
+    try {
+      // The answer describes the server before any call that starts while
+      // the request is in flight: only act on the call we had when asking.
+      final before = currentCall;
+      final res = await _deps.api.current();
+      if (!res.ok) return;
+      final raw = res.data['call'];
+      final cur = currentCall;
+      final unchanged = before == null ? cur == null : _sameId(cur?.callId, before.callId);
+      if (!unchanged) return;
+      if (raw is! Map) {
+        if (cur != null &&
+            cur.direction == CallDirection.incoming &&
+            cur.status == CallStatus.ringing &&
+            !_sameId(_acceptingCallId, cur.callId)) {
+          await _finish(CallExitReason.remoteState);
+        }
+        return;
+      }
+      final summary = Map<String, dynamic>.from(raw);
+      final other = summary['otherParty'] is Map
+          ? Map<String, dynamic>.from(summary['otherParty'] as Map)
+          : const <String, dynamic>{};
+      final status = summary['status']?.toString();
+      if (status == 'ringing' && summary['direction'] == 'in') {
+        await handleIncoming({
+          'callId': summary['id'],
+          'callUuid': summary['callUuid'],
+          'caller': <String, dynamic>{
+            '_id': other['id'],
+            'name': other['name'],
+            'profilePicture': other['avatar'],
+          },
+          'callType': summary['type'],
+          'roomName': summary['roomName'],
+        }, source: IncomingSource.recovery);
+        return;
+      }
+      if (status == 'active' && cur == null && await _acceptedOnThisDevice(summary)) {
+        if (currentCall == null) await _rejoin(summary, other, res.data);
+      }
+    } catch (e) {
+      debugPrint('📞 call recovery failed: $e');
+    } finally {
+      _recovering = false;
+    }
+  }
+
+  /// An active call is rejoined only when this device answered it: LiveKit
+  /// identity is per user, so joining a call answered on another device
+  /// would evict that device. With no call in memory, the native call UI is
+  /// the only record that this device accepted it.
+  Future<bool> _acceptedOnThisDevice(Map<String, dynamic> summary) async {
+    final callId = summary['id']?.toString() ?? '';
+    if (callId.isEmpty) return false;
+    final uuid = CallKitIds.uuidFor(callId: callId, callUuid: summary['callUuid']?.toString());
+    final entries = await _deps.platform.activeCallUis();
+    return entries.any((e) =>
+        e.accepted && (CallKitIds.same(e.uuid, uuid) || _sameId(e.callId, callId)));
+  }
+
+  Future<void> _rejoin(
+    Map<String, dynamic> summary,
+    Map<String, dynamic> other,
+    Map<String, dynamic> data,
+  ) async {
+    final token = data['token']?.toString();
+    final url = data['url']?.toString();
+    final callId = summary['id']?.toString() ?? '';
+    if (token == null || url == null || callId.isEmpty) return;
+    if (_recentlyFinished.any((id) => _sameId(id, callId))) return;
+    final type = summary['type'] == 'video' ? CallType.video : CallType.audio;
+    _takeOverClosingScreens();
+    currentCall = CallModel(
+      callId: callId,
+      callUuid: summary['callUuid']?.toString(),
+      userId: other['id']?.toString() ?? '',
+      userName: other['name']?.toString() ?? '',
+      userProfilePicture: other['avatar']?.toString(),
+      callType: type,
+      direction: summary['direction'] == 'out' ? CallDirection.outgoing : CallDirection.incoming,
+      status: CallStatus.connecting,
+      startTime: DateTime.now(),
+      livekitToken: token,
+      livekitUrl: url,
+      roomName: summary['roomName']?.toString(),
+    );
+    _updateConnectionState(CallUiState.connecting);
+    final media = _deps.liveKitFactory();
+    _liveKit = media;
+    _wireLiveKit(media);
+    try {
+      await media.connect(url: url, token: token, type: type);
+    } catch (e) {
+      if (!_sameId(currentCall?.callId, callId)) return;
+      debugPrint('📞 rejoin failed: $e');
+      await _finish(CallExitReason.connectionLost);
+      return;
+    }
+    if (!_sameId(currentCall?.callId, callId)) return;
+    _isMuted = false;
+    _isVideoEnabled = type == CallType.video;
+    _onMediaConnected(currentCall!);
+    _deps.openActiveCall(currentCall!);
+  }
+
+  Future<void> _onCallState(Map<String, dynamic> m) async {
+    final cur = currentCall;
+    final callId = m['callId']?.toString();
+    if (cur == null || !_sameId(callId, cur.callId)) return;
+    final status = m['status']?.toString();
+    final outcome = callOutcomeFromWire(m['outcome']?.toString());
+
+    if (status == 'active') {
+      if (cur.direction == CallDirection.outgoing) {
+        _ringSafetyTimer?.cancel();
+        unawaited(_deps.platform.stopTones());
+        currentCall = cur.copyWith(status: CallStatus.connecting);
+        _updateConnectionState(CallUiState.connecting);
+        onCallAccepted?.call(currentCall!);
+      } else if (!_sameId(_acceptingCallId, callId)) {
+        await _finish(CallExitReason.answeredElsewhere);
+      }
+      return;
+    }
+    const terminal = {'ended', 'missed', 'rejected', 'busy', 'failed'};
+    if (terminal.contains(status)) {
+      currentCall = cur.copyWith(duration: (m['duration'] as num?)?.toInt());
+      // A failure carries no outcome (no banner): tell the caller instead of
+      // closing silently.
+      if (status == 'failed' && outcome == null && cur.direction == CallDirection.outgoing) {
+        onCallError?.call(_deps.callFailedMessage());
+      }
+      await _finish(CallExitReason.remoteState, outcome: outcome);
+    }
+  }
+
+  // -- LiveKit -----------------------------------------------------------------
+
+  void _wireLiveKit(CallLiveKitManager m) {
+    m.onPeerConnected = _onPeerConnected;
+    m.onPeerDisconnected = _onPeerDisconnected;
+    m.onPeerMuteChanged = (muted) {
+      final c = currentCall;
+      if (c != null) currentCall = c.copyWith(isPeerMuted: muted);
+      onPeerMuteChanged?.call(muted);
+    };
+    m.onPeerVideoChanged = (enabled) {
+      final c = currentCall;
+      if (c != null) currentCall = c.copyWith(isPeerVideoEnabled: enabled);
+      onPeerVideoChanged?.call(enabled);
+    };
+    m.onConnectionQualityChanged = _onQuality;
+    m.onReconnecting = _onLocalReconnecting;
+    m.onReconnected = _onLocalReconnected;
+    m.onLocalDisconnected = _onLocalDisconnected;
+  }
+
+  void _detachLiveKit(CallLiveKitManager m) {
+    m.onPeerConnected = null;
+    m.onPeerDisconnected = null;
+    m.onPeerMuteChanged = null;
+    m.onPeerVideoChanged = null;
+    m.onConnectionQualityChanged = null;
+    m.onReconnecting = null;
+    m.onReconnected = null;
+    m.onLocalDisconnected = null;
+  }
+
+  void _onPeerConnected() {
+    final c = currentCall;
+    if (c == null) return;
+    _peerGone = false;
+    if (!_localReconnecting) _cancelReconnectGrace();
+    if (c.status != CallStatus.connected) {
+      currentCall = c.copyWith(status: CallStatus.connected);
+      unawaited(_deps.platform.stopTones());
+      unawaited(_deps.platform.playConnectSound());
+      // CallLiveKitManager.connect already routed audio (speaker for video).
+      _isSpeakerOn = c.callType == CallType.video;
+      onCallConnected?.call(currentCall!);
+    }
+    _updateConnectionState(CallUiState.connected);
+    onPeerReconnected?.call();
+  }
+
+  void _onPeerDisconnected() {
+    if (currentCall == null) return;
+    _peerGone = true;
+    _beginReconnectGrace();
+    _updateConnectionState(CallUiState.reconnecting);
+    onPeerReconnecting?.call();
+  }
+
+  void _onLocalReconnecting() {
+    if (currentCall == null) return;
+    _localReconnecting = true;
+    _beginReconnectGrace();
+    _updateConnectionState(CallUiState.reconnecting);
+    onReconnecting?.call();
+  }
+
+  void _onLocalReconnected() {
+    if (currentCall == null) return;
+    _localReconnecting = false;
+    if (!_peerGone) {
+      _cancelReconnectGrace();
+      _updateConnectionState(CallUiState.connected);
+    }
+    onReconnected?.call();
+  }
+
+  void _onLocalDisconnected(lk.DisconnectReason? reason) {
+    final c = currentCall;
+    if (c == null) return;
+    const hangUps = {
+      lk.DisconnectReason.roomDeleted,
+      lk.DisconnectReason.participantRemoved,
+      lk.DisconnectReason.serverShutdown,
+      lk.DisconnectReason.duplicateIdentity,
+    };
+    if (hangUps.contains(reason)) {
+      unawaited(_finish(CallExitReason.remoteState,
+          outcome: c.status == CallStatus.connected ? CallOutcome.completed : null));
+      return;
+    }
+    if (c.callId.isNotEmpty) unawaited(_deps.api.end(c.callId));
+    onCallError?.call('Connection lost');
+    unawaited(_finish(CallExitReason.connectionLost));
+  }
+
+  void _onQuality(lk.ConnectionQuality quality) {
+    onRawQualityChanged?.call(quality);
+    final mapped = switch (quality) {
+      lk.ConnectionQuality.excellent || lk.ConnectionQuality.good => CallQuality.good,
+      lk.ConnectionQuality.poor || lk.ConnectionQuality.lost => CallQuality.poor,
+      _ => CallQuality.fair,
+    };
+    if (mapped == _callQuality) return;
+    _callQuality = mapped;
+    onCallQualityChanged?.call(mapped);
+    if (mapped == CallQuality.poor && _connectionState == CallUiState.connected) {
+      _updateConnectionState(CallUiState.poorConnection);
+    } else if (mapped != CallQuality.poor && _connectionState == CallUiState.poorConnection) {
+      _updateConnectionState(CallUiState.connected);
+    }
+  }
+
+  void _updateConnectionState(CallUiState next) {
+    if (_connectionState == next) return;
+    _connectionState = next;
+    onConnectionStateChanged?.call(next);
+  }
+
+  void _beginReconnectGrace() {
+    if (_reconnectTimer?.isActive ?? false) return;
+    final callId = currentCall?.callId;
+    _reconnectTimer = Timer(kReconnectGrace, () {
+      final c = currentCall;
+      if (c == null || c.callId != callId) return;
+      if (c.callId.isNotEmpty) unawaited(_deps.api.end(c.callId)); // best effort; 409 ignored
+      onCallError?.call('Connection lost');
+      unawaited(_finish(CallExitReason.connectionLost));
+    });
+  }
+
+  /// Media is up for [call] (outgoing connected, incoming accepted, rejoin).
+  void _onMediaConnected(CallModel call) {
+    final video = call.callType == CallType.video;
+    if (video) unawaited(_deps.platform.setWakelock(true));
+    if (_deps.isAppResumed()) {
+      unawaited(_deps.platform.startCallService(video: video));
+    } else {
+      _callServicePending = true;
+    }
+  }
+
+  void _cancelReconnectGrace() {
+    _reconnectTimer?.cancel();
+    _reconnectTimer = null;
+  }
+
+  // -- CallKit ------------------------------------------------------------------
+
+  void _initCallKit() {
+    final callKit = CallKitService();
+    callKit.initialize();
+    callKit.onAccepted = (id, extra) => unawaited(handleCallKitAccept(id, extra));
+    callKit.onDeclined = (id, extra) => unawaited(handleCallKitDecline(id, extra));
+    callKit.onEnded = (id, extra) => unawaited(handleCallKitEnded(id, extra));
+    callKit.onTimedOut = (id, extra) => unawaited(handleCallKitTimeout(id, extra));
+    callKit.onIncomingShown = (id, extra) => unawaited(handleCallKitIncomingShown(id, extra));
+  }
+
+  /// CallKit callbacks carry the CallKit UUID (uppercase on iOS), never the
+  /// server id; the server id only ever comes from `extra['callId']`.
+  bool _matches(CallModel c, String callKitId, Map<String, dynamic>? extra) =>
+      CallKitIds.same(callKitId, CallKitIds.uuidFor(callId: c.callId, callUuid: c.callUuid)) ||
+      _sameId(extra?['callId']?.toString(), c.callId);
+
+  /// Server call ids (24-hex) and callUuids compare case-insensitively.
+  static bool _sameId(String? a, String? b) => CallKitIds.same(a, b);
+
+  Future<void> handleCallKitAccept(String id, Map<String, dynamic>? extra) async {
+    final cur = currentCall;
+    if (cur == null) {
+      final callId = extra?['callId']?.toString();
+      if (callId == null || callId.isEmpty) return;
+      currentCall = CallModel.fromJson(
+        {...extra!, 'callId': callId, 'callUuid': extra['callUuid'] ?? id.toLowerCase()},
+        CallDirection.incoming,
+      );
+    } else if (!_matches(cur, id, extra) || cur.status != CallStatus.ringing) {
+      return;
+    }
+    _incomingShownFor = currentCall!.callId; // CallKit is the incoming UI
+    _nativeRingFor = currentCall!.callId;
+    await _accept(fromNativeUi: true);
+    final accepted = currentCall;
+    if (accepted != null && accepted.status == CallStatus.connecting) {
+      _deps.openActiveCall(accepted);
+    }
+  }
+
+  /// Killed-state accept: CallKit / the Android call screen was answered
+  /// before Flutter ran, so the accept event was never delivered. Join it.
+  /// (A decline in that state is not observable here; the server's 45 s
+  /// timeout closes it.)
+  Future<void> reconcileCallKitOnColdStart() async {
+    final entries = await _deps.platform.activeCallUis();
+    for (final entry in entries) {
+      if (!entry.accepted) continue;
+      final cur = currentCall;
+      if (cur != null &&
+          !CallKitIds.same(CallKitIds.uuidFor(callId: cur.callId, callUuid: cur.callUuid), entry.uuid) &&
+          !_sameId(cur.callId, entry.callId)) {
+        continue;
+      }
+      await handleCallKitAccept(entry.uuid, entry.extra);
+      // A stale entry (Android can keep isAccepted after the call is over)
+      // fails to accept and finishes; keep looking for the real one.
+      if (currentCall != null) return;
+    }
+  }
+
+  /// A native decline / ended event that must not touch [cur]: the echo of
+  /// the native entry we dismissed after an in-app accept, or a leftover
+  /// native ring for a call this device already answered.
+  bool _isNativeEcho(CallModel cur, {required bool decline}) {
+    if (cur.direction != CallDirection.incoming) return false;
+    if (_sameId(_acceptedInAppFor, cur.callId)) return true;
+    // Past ringing, an incoming call in memory was answered here; only a
+    // hang-up (ended) from the native UI that answered it may end it.
+    return decline && cur.status != CallStatus.ringing;
+  }
+
+  Future<void> handleCallKitDecline(String id, Map<String, dynamic>? extra) async {
+    final cur = currentCall;
+    if (cur != null && _matches(cur, id, extra)) {
+      if (_isNativeEcho(cur, decline: true)) return;
+      await rejectCall();
+      return;
+    }
+    final callId = extra?['callId']?.toString();
+    if (cur == null && callId != null && callId.isNotEmpty) {
+      unawaited(_deps.api.decline(callId, deviceId: await _deps.platform.deviceId()));
+    }
+  }
+
+  Future<void> handleCallKitEnded(String id, Map<String, dynamic>? extra) async {
+    final cur = currentCall;
+    if (cur == null || !_matches(cur, id, extra)) return;
+    if (_isNativeEcho(cur, decline: false)) return;
+    await endCall();
+  }
+
+  /// The native ring UI timed out. The client never times a call out on its
+  /// own: dismiss locally, post nothing — the server's timer decides.
+  Future<void> handleCallKitTimeout(String id, Map<String, dynamic>? extra) async {
+    final cur = currentCall;
+    if (cur == null || !_matches(cur, id, extra) || cur.status != CallStatus.ringing) return;
+    if (cur.direction != CallDirection.incoming) return;
+    await _finish(CallExitReason.remoteState);
+  }
+
+  // -- Public API: lifecycle ---------------------------------------------------
+
+  Future<InitiateResult> initiateCall(
     String targetUserId,
     String targetUserName,
     String? targetUserProfilePicture,
     CallType callType,
   ) async {
-    debugPrint('[Call] initiateCall target=$targetUserId type=$callType');
-    try {
-      // Permissions — same UX as before so existing error strings keep
-      // surfacing through the UI's permission-handling flow.
-      final ok = await _ensureCallPermissions(callType == CallType.video);
-      if (!ok) {
-        final err = await _buildPermissionError(callType, accepting: false);
-        onCallError?.call(err);
-        throw Exception(err);
-      }
-
-      // Provisional CallModel — we replace it with the server-authoritative
-      // one as soon as POST /initiate returns.
-      currentCall = CallModel(
-        callId: '',
-        userId: targetUserId,
-        userName: targetUserName,
-        userProfilePicture: targetUserProfilePicture,
-        callType: callType,
-        direction: CallDirection.outgoing,
-        status: CallStatus.ringing,
-        startTime: DateTime.now(),
-      );
-
-      final res = await ApiClient().post(
-        'calls/initiate',
-        body: {
-          'receiverId': targetUserId,
-          'type': callType.name, // 'audio' | 'video'
-        },
-      );
-
-      if (!res.success || res.data is! Map) {
-        final err = res.error ?? 'Failed to initiate call';
-        onCallError?.call(err);
-        _cleanup();
-        throw Exception(err);
-      }
-
-      final data = Map<String, dynamic>.from(res.data as Map);
-      final callJson = data['call'];
-      final token = data['token']?.toString();
-      final url = data['url']?.toString();
-      final roomName = data['roomName']?.toString();
-
-      if (token == null || url == null) {
-        const err = 'Server response missing LiveKit token/url';
-        onCallError?.call(err);
-        _cleanup();
-        throw Exception(err);
-      }
-
-      if (callJson is Map) {
-        final parsed = CallModel.fromJson(
-          Map<String, dynamic>.from(callJson),
-          CallDirection.outgoing,
-        );
-        currentCall = parsed.copyWith(
-          // Keep the UI's intent — server may not echo these the same way.
-          userName: targetUserName,
-          userProfilePicture: targetUserProfilePicture,
-          livekitToken: token,
-          livekitUrl: url,
-          roomName: roomName,
-          startTime: currentCall?.startTime ?? DateTime.now(),
-        );
-      } else {
-        currentCall = currentCall!.copyWith(
-          livekitToken: token,
-          livekitUrl: url,
-          roomName: roomName,
-        );
-      }
-
-      // Bring up the LiveKit room. We connect *before* the receiver answers
-      // so that the moment they accept, both peers are already in the room.
-      _liveKit = CallLiveKitManager();
-      _setupLiveKitCallbacks();
-      try {
-        await _liveKit.connect(url: url, token: token, type: callType);
-      } catch (e) {
-        debugPrint('❌ LiveKit connect failed: $e');
-        onCallError?.call('Failed to connect to call');
-        _cleanup();
-        rethrow;
-      }
-      // Cache initial local track state.
-      _isMuted = false;
-      _isVideoEnabled = callType == CallType.video;
-
-      // Outgoing ringback while we wait for acceptance.
-      startRingback();
-
-      // 45s no-answer timeout — preserved from mesh era.
-      _callTimeoutTimer?.cancel();
-      _callTimeoutTimer = Timer(const Duration(seconds: 45), () {
-        debugPrint('📞 Call timeout — no answer after 45s');
-        if (currentCall != null &&
-            currentCall!.status == CallStatus.ringing) {
-          onCallTimeout?.call();
-          endCall();
-        }
-      });
-    } catch (e) {
-      if (onCallError != null && e is! TimeoutException) {
-        final s = e.toString();
-        if (s.contains('PERMANENTLY_DENIED:') || s.contains('DENIED:')) {
-          onCallError!(s.replaceAll('Exception: ', ''));
-        } else {
-          onCallError!('Failed to start call: $s');
-        }
-      }
-      _cleanup();
-      rethrow;
-    }
-  }
-
-  /// Accept the currently ringing incoming call. Hits `POST /calls/:id/accept`
-  /// for the authoritative state transition and a fresh LiveKit token, then
-  /// joins the room.
-  Future<void> acceptCall() async {
-    debugPrint('📞 acceptCall, currentCall: ${currentCall?.callId}');
-    stopRingtone();
-    if (currentCall == null) return;
-
-    try {
-      final ok = await _ensureCallPermissions(
-        currentCall!.callType == CallType.video,
-      );
-      if (!ok) {
-        final err = await _buildPermissionError(
-          currentCall!.callType,
-          accepting: true,
-        );
-        rejectCall();
-        onCallError?.call(err);
-        return;
-      }
-
-      final res = await ApiClient().post('calls/${currentCall!.callId}/accept');
-      if (!res.success || res.data is! Map) {
-        final err = res.error ?? 'Failed to accept call';
-        onCallError?.call(err);
-        rejectCall();
-        return;
-      }
-
-      final data = Map<String, dynamic>.from(res.data as Map);
-      final token = data['token']?.toString();
-      final url = data['url']?.toString();
-      if (token == null || url == null) {
-        const err = 'Server accept response missing LiveKit token/url';
-        onCallError?.call(err);
-        rejectCall();
-        return;
-      }
-
-      currentCall = currentCall!.copyWith(
-        status: CallStatus.connecting,
-        livekitToken: token,
-        livekitUrl: url,
-      );
-
-      _liveKit = CallLiveKitManager();
-      _setupLiveKitCallbacks();
-      try {
-        await _liveKit.connect(
-          url: url,
-          token: token,
-          type: currentCall!.callType,
-        );
-      } catch (e) {
-        debugPrint('❌ LiveKit connect failed: $e');
-        onCallError?.call('Failed to connect to call');
-        _cleanup();
-        return;
-      }
-
-      _isMuted = false;
-      _isVideoEnabled = currentCall!.callType == CallType.video;
-
-      onCallAccepted?.call(currentCall!);
-    } catch (e) {
-      debugPrint('❌ acceptCall error: $e');
-      rejectCall();
-    }
-  }
-
-  /// Decline an incoming ringing call. Hits `POST /calls/:id/decline` and
-  /// tears down local state. No LiveKit connect happens.
-  void rejectCall() {
-    debugPrint('[Call] rejectCall callId=${currentCall?.callId}');
-    if (currentCall == null) return;
-    final callId = currentCall!.callId;
-
-    // Fire-and-forget — the receiver has already torn down locally and the
-    // caller is notified via the socket emit from the controller. If the
-    // request fails, the call will time out caller-side anyway.
-    if (callId.isNotEmpty) {
-      unawaited(ApiClient().post('calls/$callId/decline'));
+    if (currentCall != null) return const InitiateResult(InitiateStatus.callerBusy);
+    final video = callType == CallType.video;
+    if (!await _deps.platform.ensurePermissions(video: video)) {
+      final err = await _deps.platform.permissionError(video: video, accepting: false);
+      onCallError?.call(err);
+      return InitiateResult(InitiateStatus.permissionDenied, err);
     }
 
-    currentCall = currentCall!.copyWith(status: CallStatus.rejected);
-    onCallRejected?.call(currentCall!);
-    _cleanup();
-  }
+    _takeOverClosingScreens();
+    final draft = CallModel(
+      callId: '',
+      userId: targetUserId,
+      userName: targetUserName,
+      userProfilePicture: targetUserProfilePicture,
+      callType: callType,
+      direction: CallDirection.outgoing,
+      status: CallStatus.ringing,
+      startTime: DateTime.now(),
+    );
+    currentCall = draft;
 
-  /// End the active or ringing call from the local side. Hits
-  /// `POST /calls/:id/end` and disconnects the LiveKit room.
-  void endCall() {
-    debugPrint('[Call] endCall callId=${currentCall?.callId}');
-    if (currentCall == null) return;
+    final res = await _deps.api.initiate(receiverId: targetUserId, type: callType);
+    final callJson = res.data['call'];
+    final serverId = callJson is Map ? (callJson['_id'] ?? callJson['id'])?.toString() : null;
 
-    _playEndSound();
-    _localTeardownInFlight = true;
-
-    final callId = currentCall!.callId;
-    if (callId.isNotEmpty) {
-      unawaited(ApiClient().post('calls/$callId/end'));
+    if (!identical(currentCall, draft)) {
+      // Hung up while /initiate was in flight: cancel what the server created.
+      if (res.ok && serverId != null) unawaited(_deps.api.end(serverId));
+      return const InitiateResult(InitiateStatus.failed);
+    }
+    if (!res.ok) {
+      currentCall = null;
+      if (res.isCalleeBusy) return const InitiateResult(InitiateStatus.calleeBusy);
+      if (res.isCallerBusy) return const InitiateResult(InitiateStatus.callerBusy);
+      // 403 CONVERSATION_START_LIMIT: a call to a stranger counts as starting a
+      // conversation. Like the chat send path, show the server's own message
+      // (ApiClient skips its global 403 toast for this code).
+      final err = res.error ?? 'Failed to start call';
+      onCallError?.call(err);
+      return InitiateResult(InitiateStatus.failed, err);
     }
 
-    final duration =
-        DateTime.now().difference(currentCall!.startTime).inSeconds;
-    currentCall = currentCall!.copyWith(
-      status: CallStatus.ended,
-      endTime: DateTime.now(),
-      duration: duration,
+    final token = res.data['token']?.toString();
+    final url = res.data['url']?.toString();
+    if (serverId == null || token == null || url == null) {
+      currentCall = null;
+      if (serverId != null) unawaited(_deps.api.end(serverId));
+      onCallError?.call('Server response missing call data');
+      return const InitiateResult(InitiateStatus.failed);
+    }
+
+    currentCall = draft.copyWith(
+      callId: serverId,
+      callUuid: (callJson as Map)['callUuid']?.toString(),
+      livekitToken: token,
+      livekitUrl: url,
+      roomName: res.data['roomName']?.toString(),
     );
 
-    onCallEnded?.call(currentCall!);
-    _cleanup();
+    final media = _deps.liveKitFactory();
+    _liveKit = media;
+    _wireLiveKit(media);
+    try {
+      await media.connect(url: url, token: token, type: callType);
+    } catch (e) {
+      // Finished while connecting (call:state, hang-up): already torn down.
+      if (!_sameId(currentCall?.callId, serverId)) return const InitiateResult(InitiateStatus.failed);
+      debugPrint('📞 LiveKit connect failed: $e');
+      unawaited(_deps.api.end(serverId));
+      onCallError?.call('Failed to connect to call');
+      await _finish(CallExitReason.error);
+      return const InitiateResult(InitiateStatus.failed);
+    }
+    if (!_sameId(currentCall?.callId, serverId)) return const InitiateResult(InitiateStatus.started);
+
+    _isMuted = false;
+    _isVideoEnabled = video;
+    _onMediaConnected(currentCall!);
+    // Only while still ringing out: an accept that landed mid-connect must
+    // not start the ringback or arm the safety net.
+    if (currentCall?.status == CallStatus.ringing) {
+      unawaited(_deps.platform.startRingback());
+      _ringSafetyTimer = Timer(kRingSafetyTimeout, () => unawaited(_checkStillRinging(serverId)));
+    }
+    return const InitiateResult(InitiateStatus.started);
   }
 
-  // -- Public API: media controls -------------------------------------------
+  Future<void> _checkStillRinging(String callId, {bool last = false}) async {
+    final cur = currentCall;
+    if (cur == null || !_sameId(cur.callId, callId) || cur.status != CallStatus.ringing) return;
+    final res = await _deps.api.get(callId);
+    if (!_sameId(currentCall?.callId, callId)) return;
+    final status = res.ok ? res.data['status']?.toString() : null;
+    if (status == 'active') return;
+    if (status == 'ringing' || status == null) {
+      if (!last) {
+        // The server ends at 45 s and call:state should have arrived; look once
+        // more past its 60 s stale mark, then give up on a ring that never ends.
+        _ringSafetyTimer = Timer(kRingSafetyRecheck, () => unawaited(_checkStillRinging(callId, last: true)));
+        return;
+      }
+      if (status == null) return; // server unreachable: keep the call
+      if (currentCall?.status != CallStatus.ringing) return;
+      await _finish(CallExitReason.remoteState, outcome: CallOutcome.noAnswer);
+      return;
+    }
+    await _finish(CallExitReason.remoteState,
+        outcome: callOutcomeFromWire(res.data['outcome']?.toString()));
+  }
 
-  /// Set the local mic mute state and broadcast to the peer on the socket
-  /// for snappy cross-client UI (LiveKit's own TrackMuted reaches the peer
-  /// ~100ms later).
+  /// Answer from the in-app screen.
+  Future<void> acceptCall() => _accept(fromNativeUi: false);
+
+  Future<void> _accept({required bool fromNativeUi}) async {
+    final call = currentCall;
+    if (call == null || call.direction != CallDirection.incoming) return;
+    if (_sameId(_acceptingCallId, call.callId)) return; // double tap
+    _acceptingCallId = call.callId;
+    if (!fromNativeUi) {
+      // A native ring for this call (shown in the background, or by an iOS
+      // VoIP push) stops now; the decline / ended it echoes is ignored.
+      _acceptedInAppFor = call.callId;
+      _nativeRingFor = null;
+      unawaited(_dismissNativeRing(call));
+    }
+    await _deps.platform.stopTones();
+
+    final video = call.callType == CallType.video;
+    if (!await _deps.platform.ensurePermissions(video: video)) {
+      final err = await _deps.platform.permissionError(video: video, accepting: true);
+      onCallError?.call(err);
+      await rejectCall();
+      return;
+    }
+
+    final res = await _deps.api.accept(call.callId, deviceId: await _deps.platform.deviceId());
+    if (!_sameId(currentCall?.callId, call.callId)) return;
+    if (res.isCallStateConflict) {
+      // Another device answered, or it was cancelled / timed out: dismiss silently.
+      await _finish(CallExitReason.acceptConflict);
+      return;
+    }
+    final token = res.data['token']?.toString();
+    final url = res.data['url']?.toString();
+    if (!res.ok || token == null || url == null) {
+      onCallError?.call(res.error ?? 'Failed to accept call');
+      unawaited(_deps.api.end(call.callId));
+      await _finish(CallExitReason.error);
+      return;
+    }
+
+    currentCall = call.copyWith(
+      status: CallStatus.connecting,
+      livekitToken: token,
+      livekitUrl: url,
+      roomName: res.data['roomName']?.toString(),
+    );
+    _incomingShownFor = null;
+    _updateConnectionState(CallUiState.connecting);
+
+    final media = _deps.liveKitFactory();
+    _liveKit = media;
+    _wireLiveKit(media);
+    try {
+      await media.connect(url: url, token: token, type: call.callType);
+    } catch (e) {
+      // Finished while connecting (call:state, hang-up): already torn down.
+      if (!_sameId(currentCall?.callId, call.callId)) return;
+      debugPrint('📞 LiveKit connect failed: $e');
+      unawaited(_deps.api.end(call.callId));
+      onCallError?.call('Failed to connect to call');
+      await _finish(CallExitReason.error);
+      return;
+    }
+    if (!_sameId(currentCall?.callId, call.callId)) return;
+    _isMuted = false;
+    _isVideoEnabled = video;
+    _onMediaConnected(currentCall!);
+    onCallAccepted?.call(currentCall!);
+  }
+
+  Future<void> rejectCall() async {
+    final call = currentCall;
+    if (call == null) {
+      _closeNow();
+      return;
+    }
+    if (call.callId.isNotEmpty) {
+      final deviceId = await _deps.platform.deviceId();
+      unawaited(_deps.api.decline(call.callId, deviceId: deviceId));
+      if (!_sameId(currentCall?.callId, call.callId)) return;
+    }
+    onCallRejected?.call(call.copyWith(status: CallStatus.rejected));
+    await _finish(CallExitReason.declined);
+  }
+
+  /// Hang up. Always closes the call screen, even when there is no call.
+  Future<void> endCall() async {
+    final call = currentCall;
+    if (call == null) {
+      _closeNow();
+      return;
+    }
+    unawaited(_deps.platform.playEndSound());
+    if (call.callId.isNotEmpty) unawaited(_deps.api.end(call.callId));
+    await _finish(CallExitReason.localHangUp,
+        outcome: call.status == CallStatus.connected ? CallOutcome.completed : null);
+  }
+
+  // -- The single exit path ----------------------------------------------------
+
+  Future<void> _finish(CallExitReason reason, {CallOutcome? outcome}) async {
+    final call = currentCall;
+    if (call == null) {
+      _closeNow();
+      return;
+    }
+    // Synchronous part first: any second exit now sees no call.
+    currentCall = null;
+    _remember(call.callId);
+    _acceptingCallId = null;
+    _incomingShownFor = null;
+    _nativeRingFor = null;
+    _acceptedInAppFor = null;
+    _ringSafetyTimer?.cancel();
+    _cancelReconnectGrace();
+    _peerGone = false;
+    _localReconnecting = false;
+    _closeTimer?.cancel();
+    final media = _liveKit;
+    _detachLiveKit(media);
+    _liveKit = _deps.liveKitFactory();
+    _resetMediaState();
+
+    final ended = call.copyWith(status: CallStatus.ended, endTime: DateTime.now());
+    final finish = CallFinish(call: ended, reason: reason, outcome: outcome);
+    onCallEnded?.call(ended);
+    onCallFinished?.call(finish);
+    _finishController.add(finish);
+
+    final showBanner = reason == CallExitReason.remoteState &&
+        call.direction == CallDirection.outgoing &&
+        outcome != null &&
+        outcome != CallOutcome.completed;
+    if (showBanner) {
+      _closeTimer = Timer(kOutcomeBannerDuration, _deps.closeCallScreens);
+    } else {
+      _deps.closeCallScreens();
+    }
+    if (call.direction == CallDirection.incoming) _deps.afterIncomingCall();
+
+    await Future.wait([
+      _quietly(media.disconnect),
+      _quietly(_deps.platform.stopTones),
+      _quietly(() => _deps.platform.endCallUi(call)),
+      _quietly(_deps.platform.cancelIncomingNotification),
+      _quietly(() => _deps.platform.setWakelock(false)),
+      _quietly(_deps.platform.stopCallService),
+    ]);
+  }
+
+  Future<void> _quietly(Future<void> Function() action) async {
+    try {
+      await action();
+    } catch (e) {
+      debugPrint('📞 call cleanup: $e');
+    }
+  }
+
+  /// Close the call screens now; a pending banner close is superseded.
+  void _closeNow() {
+    _closeTimer?.cancel();
+    _closeTimer = null;
+    _deps.closeCallScreens();
+  }
+
+  void _resetMediaState() {
+    _connectionState = CallUiState.ringing;
+    _callQuality = CallQuality.good;
+    _isMuted = false;
+    _isVideoEnabled = true;
+    _cameraPausedByLifecycle = false;
+    _callServicePending = false;
+    _isSpeakerOn = false;
+    _isFrontCamera = true;
+  }
+
+  void _remember(String callId) {
+    if (callId.isEmpty) return;
+    _recentlyFinished.add(callId);
+    if (_recentlyFinished.length > 20) _recentlyFinished.removeAt(0);
+  }
+
+  /// A new call while the previous one's outcome banner is still up: close
+  /// the old screens now rather than letting the timer close the new ones.
+  void _takeOverClosingScreens() {
+    final pending = _closeTimer;
+    _closeTimer = null;
+    if (pending != null && pending.isActive) {
+      pending.cancel();
+      _deps.closeCallScreens();
+    }
+  }
+
+  // -- Media controls ----------------------------------------------------------
+
   void setMuted(bool muted) {
     _isMuted = muted;
-    _liveKit.setMuted(muted);
-    _emitPeerMute(muted);
+    unawaited(_liveKit.setMuted(muted));
+    _emitToPeer('call:mute', {'isMuted': muted});
   }
 
-  /// Toggle wrapper preserved for legacy UI bindings.
   void toggleMute() => setMuted(!_isMuted);
 
-  /// Enable / disable the local camera (publishes/unpublishes the video
-  /// track). Emits a socket hint for instant peer UI.
   void setVideoEnabled(bool enabled) {
     _isVideoEnabled = enabled;
-    _liveKit.setCameraEnabled(enabled);
-    _emitPeerVideo(enabled);
+    unawaited(_liveKit.setCameraEnabled(enabled));
+    _emitToPeer('call:video-toggle', {'isVideoEnabled': enabled});
   }
 
-  /// Toggle wrapper preserved for legacy UI bindings.
   void toggleVideo() => setVideoEnabled(!_isVideoEnabled);
 
-  /// Route audio to the loudspeaker (true) or earpiece (false).
   Future<void> setSpeakerOn(bool on) async {
     _isSpeakerOn = on;
     try {
@@ -794,17 +1256,8 @@ class CallManager with WidgetsBindingObserver {
     }
   }
 
-  /// Toggle wrapper preserved for legacy UI bindings.
   Future<void> toggleSpeaker() => setSpeakerOn(!_isSpeakerOn);
 
-  bool get isMuted => _isMuted;
-  bool get isVideoEnabled => _isVideoEnabled;
-  bool get isSpeakerOn => _isSpeakerOn;
-
-  /// Flip front/back camera. LiveKit exposes [setCameraPosition] as an
-  /// extension on [LocalVideoTrack], which restarts the track with the
-  /// new device. We toggle relative to [_isFrontCamera].
-  bool _isFrontCamera = true;
   Future<void> switchCamera() async {
     final local = _liveKit.room?.localParticipant;
     if (local == null) return;
@@ -812,10 +1265,8 @@ class CallManager with WidgetsBindingObserver {
       final track = pub.track;
       if (track is lk.LocalVideoTrack) {
         try {
-          final next = _isFrontCamera
-              ? lk.CameraPosition.back
-              : lk.CameraPosition.front;
-          await track.setCameraPosition(next);
+          await track.setCameraPosition(
+              _isFrontCamera ? lk.CameraPosition.back : lk.CameraPosition.front);
           _isFrontCamera = !_isFrontCamera;
         } catch (e) {
           debugPrint('📞 switchCamera failed: $e');
@@ -825,228 +1276,17 @@ class CallManager with WidgetsBindingObserver {
     }
   }
 
-  /// Set whether the current call is from a VIP user (no duration limit).
-  void setVipCall(bool isVip) {
-    _isVipCall = isVip;
-  }
-
-  // -- Internals: signalling helpers ----------------------------------------
-
-  void _emitPeerMute(bool muted) {
-    if (_socket == null || currentCall == null) return;
-    _socket!.emit('call:peer-muted', {
-      'callId': currentCall!.callId,
-      'isMuted': muted,
-    });
-    // Backward-compat: send the legacy event name too until B6 stubs out
-    // the old socket handler.
-    _socket!.emit('call:mute', {
-      'callId': currentCall!.callId,
-      'isMuted': muted,
-    });
-  }
-
-  void _emitPeerVideo(bool enabled) {
-    if (_socket == null || currentCall == null) return;
-    _socket!.emit('call:peer-video-toggled', {
-      'callId': currentCall!.callId,
-      'isVideoEnabled': enabled,
-    });
-    _socket!.emit('call:video-toggle', {
-      'callId': currentCall!.callId,
-      'isVideoEnabled': enabled,
-    });
-  }
-
-  // -- Internals: duration limits, sounds, permissions ----------------------
-
-  void _startDurationLimit() {
-    if (_isVipCall) return;
-    _durationWarningTimer?.cancel();
-    _durationLimitTimer?.cancel();
-
-    _durationWarningTimer = Timer(
-      const Duration(seconds: freeCallWarningSeconds),
-      () {
-        debugPrint('📞 Call duration warning — 1 minute remaining');
-        onCallDurationWarning
-            ?.call(freeCallDurationSeconds - freeCallWarningSeconds);
-      },
-    );
-    _durationLimitTimer = Timer(
-      const Duration(seconds: freeCallDurationSeconds),
-      () {
-        debugPrint('📞 Call duration limit reached — ending call');
-        onCallDurationLimitReached?.call();
-        endCall();
-      },
-    );
-  }
-
-  Future<void> _applySpeakerDefault(CallType callType) async {
-    final shouldEnable = callType == CallType.video;
-    await setSpeakerOn(shouldEnable);
-  }
-
-  /// Ensure microphone (and optionally camera) permissions are granted.
-  /// Returns true iff all required permissions are granted after the request.
-  /// Replaces the legacy mesh-WebRTC permissions helper that was retired in
-  /// C3 — same semantics, just inlined onto `permission_handler`.
-  Future<bool> _ensureCallPermissions(bool isVideo) async {
-    final micStatus = await Permission.microphone.status;
-    final cameraStatus = isVideo
-        ? await Permission.camera.status
-        : PermissionStatus.granted;
-
-    if (micStatus.isGranted && cameraStatus.isGranted) return true;
-
-    // Don't re-prompt if the user has permanently denied — UI surfaces a
-    // settings deep-link via _buildPermissionError instead.
-    if (micStatus.isPermanentlyDenied ||
-        (isVideo && cameraStatus.isPermanentlyDenied)) {
-      return false;
-    }
-
-    final statuses = await [
-      Permission.microphone,
-      if (isVideo) Permission.camera,
-    ].request();
-    return statuses.values.every((s) => s.isGranted);
-  }
-
-  Future<String> _buildPermissionError(
-    CallType callType, {
-    required bool accepting,
-  }) async {
-    final micStatus = await Permission.microphone.status;
-    final cameraStatus = callType == CallType.video
-        ? await Permission.camera.status
-        : PermissionStatus.granted;
-
-    final verb = accepting ? 'answer' : 'make';
-    final scope = callType == CallType.video ? 'video calls' : 'calls';
-
-    if (callType == CallType.video) {
-      if (micStatus.isPermanentlyDenied && cameraStatus.isPermanentlyDenied) {
-        return 'PERMANENTLY_DENIED:Please enable microphone and camera '
-            'access in Settings to $verb $scope.';
-      }
-      if (micStatus.isPermanentlyDenied) {
-        return 'PERMANENTLY_DENIED:Please enable microphone access in '
-            'Settings to $verb calls.';
-      }
-      if (cameraStatus.isPermanentlyDenied) {
-        return 'PERMANENTLY_DENIED:Please enable camera access in Settings '
-            'to $verb video calls.';
-      }
-      if (!micStatus.isGranted) {
-        return 'DENIED:Microphone permission is required to $verb calls.';
-      }
-      return 'DENIED:Camera permission is required to $verb video calls.';
-    }
-
-    if (micStatus.isPermanentlyDenied) {
-      return 'PERMANENTLY_DENIED:Please enable microphone access in Settings '
-          'to $verb calls.';
-    }
-    return 'DENIED:Microphone permission is required to $verb calls.';
-  }
-
-  // -- Ringtones ------------------------------------------------------------
-
-  Future<void> startRingtone() async {
-    try {
-      _ringtonePlayer?.dispose();
-      _ringtonePlayer = AudioPlayer();
-      await _ringtonePlayer!.setAsset('assets/sounds/ringtone.m4a');
-      await _ringtonePlayer!.setLoopMode(LoopMode.one);
-      await _ringtonePlayer!.play();
-      debugPrint('🔔 Ringtone started');
-    } catch (e) {
-      debugPrint('🔔 Failed to play ringtone: $e');
-    }
-  }
-
-  Future<void> startRingback() async {
-    try {
-      _ringtonePlayer?.dispose();
-      _ringtonePlayer = AudioPlayer();
-      await _ringtonePlayer!.setAsset('assets/sounds/ringback.m4a');
-      await _ringtonePlayer!.setLoopMode(LoopMode.one);
-      await _ringtonePlayer!.play();
-      debugPrint('🔔 Ringback started');
-    } catch (e) {
-      debugPrint('🔔 Failed to play ringback: $e');
-    }
-  }
-
-  Future<void> _playConnectSound() async {
-    try {
-      _soundPlayer?.dispose();
-      _soundPlayer = AudioPlayer();
-      await _soundPlayer!.setAsset('assets/sounds/call_connect.m4a');
-      await _soundPlayer!.play();
-    } catch (e) {
-      debugPrint('🔔 Failed to play connect sound: $e');
-    }
-  }
-
-  Future<void> _playEndSound() async {
-    try {
-      _soundPlayer?.dispose();
-      _soundPlayer = AudioPlayer();
-      await _soundPlayer!.setAsset('assets/sounds/call_end.m4a');
-      await _soundPlayer!.play();
-    } catch (e) {
-      debugPrint('🔔 Failed to play end sound: $e');
-    }
-  }
-
-  Future<void> stopRingtone() async {
-    try {
-      await _ringtonePlayer?.stop();
-      _ringtonePlayer?.dispose();
-      _ringtonePlayer = null;
-      debugPrint('🔔 Ringtone stopped');
-    } catch (e) {
-      debugPrint('🔔 Failed to stop ringtone: $e');
-    }
-  }
-
-  // -- Cleanup --------------------------------------------------------------
-
-  void _cleanup() {
-    _callTimeoutTimer?.cancel();
-    _callTimeoutTimer = null;
-    _durationWarningTimer?.cancel();
-    _durationWarningTimer = null;
-    _durationLimitTimer?.cancel();
-    _durationLimitTimer = null;
-    _isVipCall = true;
-    _connectionState = CallUiState.ringing;
-    _callQuality = CallQuality.good;
-    _isMuted = false;
-    _isVideoEnabled = true;
-    _isSpeakerOn = false;
-    stopRingtone();
-    _soundPlayer?.dispose();
-    _soundPlayer = null;
-    _callKitService.endAllCalls();
-    NotificationService().cancelCallNotification();
-    currentCall = null;
-
-    // Tear down LiveKit transport. Disconnect is async but we don't await
-    // (it can take a beat on flaky networks) — the next call will create a
-    // fresh CallLiveKitManager regardless.
-    final oldLiveKit = _liveKit;
-    _liveKit = CallLiveKitManager();
-    unawaited(oldLiveKit.disconnect());
-
-    _localTeardownInFlight = false;
+  void _emitToPeer(String event, Map<String, dynamic> body) {
+    final socket = _socket;
+    final call = currentCall;
+    // After logout ChatSocketService drops its socket without telling us:
+    // a socket that is not connected counts as absent.
+    if (socket == null || !socket.connected || call == null || call.callId.isEmpty) return;
+    socket.emit(event, {'callId': call.callId, ...body});
   }
 
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
-    _cleanup();
+    unawaited(_finish(CallExitReason.localHangUp));
   }
 }

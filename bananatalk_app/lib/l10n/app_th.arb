@@ -3642,5 +3642,22 @@
   "vipBenefitUnlimitedMessages": "ข้อความไม่จำกัด",
   "vipBenefitUnlimitedProfileViews": "ดูโปรไฟล์ไม่จำกัด",
   "vipBenefitAiStudyTools": "เครื่องมือเรียนด้วย AI",
-  "chatBonusMessagesUnlocked": "คุณปลดล็อกข้อความโบนัส {count} ข้อความแล้ว! คุยต่อได้เลย"
+  "chatBonusMessagesUnlocked": "คุณปลดล็อกข้อความโบนัส {count} ข้อความแล้ว! คุยต่อได้เลย",
+  "callLabelOutgoing": "{type, select, video{วิดีโอคอลโทรออก} other{การโทรด้วยเสียงโทรออก}}",
+  "callLabelIncoming": "{type, select, video{วิดีโอคอลสายเข้า} other{การโทรด้วยเสียงสายเข้า}}",
+  "callLabelNoAnswer": "{type, select, video{วิดีโอคอล · ไม่มีผู้รับสาย} other{การโทรด้วยเสียง · ไม่มีผู้รับสาย}}",
+  "callLabelMissed": "{type, select, video{วิดีโอคอลที่ไม่ได้รับ} other{การโทรด้วยเสียงที่ไม่ได้รับ}}",
+  "callLabelCancelled": "{type, select, video{วิดีโอคอลที่ยกเลิก} other{การโทรด้วยเสียงที่ยกเลิก}}",
+  "callLabelDeclinedOutgoing": "{type, select, video{วิดีโอคอลถูกปฏิเสธ} other{การโทรด้วยเสียงถูกปฏิเสธ}}",
+  "callLabelDeclinedIncoming": "{type, select, video{วิดีโอคอลที่ปฏิเสธ} other{การโทรด้วยเสียงที่ปฏิเสธ}}",
+  "callLabelBusy": "{name} กำลังอยู่ในสายอื่น",
+  "callsTitle": "การโทร",
+  "callsEmpty": "ยังไม่มีการโทร",
+  "callCameraPaused": "หยุดกล้องชั่วคราว",
+  "callFullScreenIntentTitle": "แสดงสายเรียกเข้าบนหน้าจอล็อก",
+  "callFullScreenIntentBody": "อนุญาตให้ BananaTalk แสดงสายเรียกเข้าแบบเต็มหน้าจอ เพื่อไม่ให้พลาดสายเมื่อโทรศัพท์ล็อกอยู่",
+  "callForegroundTitle": "กำลังโทร",
+  "callForegroundBody": "แตะเพื่อกลับไปยังการโทร",
+  "callServiceChannelName": "กำลังโทร",
+  "callServiceChannelDescription": "ให้สายของคุณดำเนินต่อขณะที่ BananaTalk ทำงานในพื้นหลัง"
 }

@@ -8887,6 +8887,122 @@ class AppLocalizationsZh extends AppLocalizations {
   String chatBonusMessagesUnlocked(int count) {
     return '你解锁了 $count 条额外消息！继续聊吧。';
   }
+
+  @override
+  String callLabelOutgoing(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': '视频去电',
+        'other': '语音去电',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelIncoming(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': '视频来电',
+        'other': '语音来电',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelNoAnswer(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': '视频通话 · 无人接听',
+        'other': '语音通话 · 无人接听',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelMissed(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': '未接视频通话',
+        'other': '未接语音通话',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelCancelled(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': '已取消的视频通话',
+        'other': '已取消的语音通话',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelDeclinedOutgoing(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': '视频通话被拒绝',
+        'other': '语音通话被拒绝',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelDeclinedIncoming(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': '已拒绝的视频通话',
+        'other': '已拒绝的语音通话',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelBusy(String name) {
+    return '$name正在通话中';
+  }
+
+  @override
+  String get callsTitle => '通话';
+
+  @override
+  String get callsEmpty => '暂无通话记录';
+
+  @override
+  String get callCameraPaused => '摄像头已暂停';
+
+  @override
+  String get callFullScreenIntentTitle => '在锁屏上显示来电';
+
+  @override
+  String get callFullScreenIntentBody => '允许 BananaTalk 全屏显示来电，这样手机锁定时也不会错过来电。';
+
+  @override
+  String get callForegroundTitle => '通话中';
+
+  @override
+  String get callForegroundBody => '点按返回通话';
+
+  @override
+  String get callServiceChannelName => '正在通话';
+
+  @override
+  String get callServiceChannelDescription => '在 BananaTalk 处于后台时保持通话';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -17772,4 +17888,120 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String chatBonusMessagesUnlocked(int count) {
     return '你解鎖了 $count 則額外訊息！繼續聊吧。';
   }
+
+  @override
+  String callLabelOutgoing(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': '視訊撥出通話',
+        'other': '語音撥出通話',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelIncoming(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': '視訊來電',
+        'other': '語音來電',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelNoAnswer(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': '視訊通話 · 無人接聽',
+        'other': '語音通話 · 無人接聽',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelMissed(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': '未接視訊來電',
+        'other': '未接語音來電',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelCancelled(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': '已取消的視訊通話',
+        'other': '已取消的語音通話',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelDeclinedOutgoing(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': '視訊通話遭拒',
+        'other': '語音通話遭拒',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelDeclinedIncoming(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': '已拒接的視訊通話',
+        'other': '已拒接的語音通話',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelBusy(String name) {
+    return '$name正在通話中';
+  }
+
+  @override
+  String get callsTitle => '通話';
+
+  @override
+  String get callsEmpty => '尚無通話紀錄';
+
+  @override
+  String get callCameraPaused => '相機已暫停';
+
+  @override
+  String get callFullScreenIntentTitle => '在鎖定畫面顯示來電';
+
+  @override
+  String get callFullScreenIntentBody => '允許 BananaTalk 以全螢幕顯示來電，即使手機鎖定也不會錯過。';
+
+  @override
+  String get callForegroundTitle => '通話中';
+
+  @override
+  String get callForegroundBody => '輕觸以返回通話';
+
+  @override
+  String get callServiceChannelName => '通話中';
+
+  @override
+  String get callServiceChannelDescription => '在 BananaTalk 處於背景時保持通話';
 }

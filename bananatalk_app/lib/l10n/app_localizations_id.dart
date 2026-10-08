@@ -8894,4 +8894,120 @@ class AppLocalizationsId extends AppLocalizations {
   String chatBonusMessagesUnlocked(int count) {
     return 'Kamu membuka $count pesan bonus! Terus mengobrol.';
   }
+
+  @override
+  String callLabelOutgoing(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'Panggilan video keluar',
+        'other': 'Panggilan suara keluar',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelIncoming(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'Panggilan video masuk',
+        'other': 'Panggilan suara masuk',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelNoAnswer(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'Panggilan video · Tidak dijawab',
+        'other': 'Panggilan suara · Tidak dijawab',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelMissed(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'Panggilan video tak terjawab',
+        'other': 'Panggilan suara tak terjawab',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelCancelled(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'Panggilan video dibatalkan',
+        'other': 'Panggilan suara dibatalkan',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelDeclinedOutgoing(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'Panggilan video ditolak',
+        'other': 'Panggilan suara ditolak',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelDeclinedIncoming(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'Panggilan video yang ditolak',
+        'other': 'Panggilan suara yang ditolak',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelBusy(String name) {
+    return '$name sedang dalam panggilan lain';
+  }
+
+  @override
+  String get callsTitle => 'Panggilan';
+
+  @override
+  String get callsEmpty => 'Belum ada panggilan';
+
+  @override
+  String get callCameraPaused => 'Kamera dijeda';
+
+  @override
+  String get callFullScreenIntentTitle => 'Tampilkan panggilan di layar kunci';
+
+  @override
+  String get callFullScreenIntentBody => 'Izinkan BananaTalk menampilkan panggilan masuk dalam layar penuh agar Anda tidak melewatkannya saat ponsel terkunci.';
+
+  @override
+  String get callForegroundTitle => 'Panggilan berlangsung';
+
+  @override
+  String get callForegroundBody => 'Ketuk untuk kembali ke panggilan';
+
+  @override
+  String get callServiceChannelName => 'Panggilan berlangsung';
+
+  @override
+  String get callServiceChannelDescription => 'Menjaga panggilan tetap berjalan saat BananaTalk di latar belakang';
 }

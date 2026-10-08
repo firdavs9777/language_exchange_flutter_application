@@ -1,22 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
-import 'package:bananatalk_app/providers/call_provider.dart';
 import 'package:bananatalk_app/providers/message_count_provider.dart';
 import 'package:bananatalk_app/providers/chat_state_provider.dart';
 import 'package:bananatalk_app/models/call_model.dart';
-import 'package:bananatalk_app/screens/active_call_screen.dart';
-import 'package:bananatalk_app/router/app_router.dart'
-    show callOverlayNavigatorKey;
+import 'package:bananatalk_app/services/call/call_launcher.dart';
 import 'package:bananatalk_app/pages/community/single/single_community_screen.dart';
 import 'package:bananatalk_app/utils/time_utils.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/friendly_error.dart';
-import 'package:app_settings/app_settings.dart';
 import 'package:bananatalk_app/pages/chat/dialogs/chat_options_menu.dart';
-import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/pages/chat/widgets/chat_snackbar.dart';
 import 'package:bananatalk_app/widgets/navigation/app_back_button.dart';
 import 'package:bananatalk_app/widgets/coins/coin_balance_pill.dart';
@@ -418,79 +413,14 @@ class ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
     CallType callType,
   ) async {
     if (userId == null) return;
-
-    try {
-      final callNotifier = ref.read(callProvider.notifier);
-
-      // VIP gating removed — all calls treated as unlimited.
-      callNotifier.setVipCall(true);
-
-      // Setup error callback to handle permission errors
-      callNotifier.setCallErrorCallback((error) {
-        if (context.mounted) {
-          _handleCallError(context, error);
-        }
-      });
-
-      await callNotifier.initiateCall(
-        userId!,
-        userName,
-        profilePicture,
-        callType,
-      );
-
-      // VIP gating removed — call recording for daily-limit tracking no longer needed.
-
-      // Navigate to active call screen via overlay navigator
-      if (context.mounted) {
-        final currentCall = callNotifier.currentCall;
-        if (currentCall != null) {
-          callOverlayNavigatorKey.currentState?.push(
-            AppPageRoute(
-              builder: (_) => ActiveCallScreen(call: currentCall),
-              fullscreenDialog: true,
-            ),
-          );
-        }
-      }
-    } catch (e) {
-      // Error is already handled via the callback, no need to handle again
-    }
-  }
-
-  void _handleCallError(BuildContext context, String error) {
-    final l10n = AppLocalizations.of(context)!;
-    if (error.startsWith('PERMANENTLY_DENIED:')) {
-      // Show dialog with option to open settings
-      final message = error.substring('PERMANENTLY_DENIED:'.length);
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: Text(l10n.permissionsRequired),
-          content: Text(message),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: Text(l10n.cancel),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-                AppSettings.openAppSettings();
-              },
-              child: Text(l10n.openSettings),
-            ),
-          ],
-        ),
-      );
-    } else if (error.startsWith('DENIED:')) {
-      // Show snackbar for temporary denial
-      final message = error.substring('DENIED:'.length);
-      showChatSnackBar(context, message: message, type: ChatSnackBarType.info);
-    } else {
-      // Generic error
-      showChatSnackBar(context, message: error, type: ChatSnackBarType.error);
-    }
+    await CallLauncher.start(
+      context,
+      ref,
+      userId: userId!,
+      userName: userName,
+      avatar: profilePicture,
+      type: callType,
+    );
   }
 
   @override

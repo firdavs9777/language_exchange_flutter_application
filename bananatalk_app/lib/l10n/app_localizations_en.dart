@@ -8903,4 +8903,120 @@ class AppLocalizationsEn extends AppLocalizations {
   String chatBonusMessagesUnlocked(int count) {
     return 'You unlocked $count bonus messages! Keep chatting.';
   }
+
+  @override
+  String callLabelOutgoing(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'Outgoing video call',
+        'other': 'Outgoing voice call',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelIncoming(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'Incoming video call',
+        'other': 'Incoming voice call',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelNoAnswer(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'Video call · No answer',
+        'other': 'Voice call · No answer',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelMissed(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'Missed video call',
+        'other': 'Missed voice call',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelCancelled(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'Cancelled video call',
+        'other': 'Cancelled voice call',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelDeclinedOutgoing(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'Video call declined',
+        'other': 'Voice call declined',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelDeclinedIncoming(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'Declined video call',
+        'other': 'Declined voice call',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelBusy(String name) {
+    return '$name was on another call';
+  }
+
+  @override
+  String get callsTitle => 'Calls';
+
+  @override
+  String get callsEmpty => 'No calls yet';
+
+  @override
+  String get callCameraPaused => 'Camera paused';
+
+  @override
+  String get callFullScreenIntentTitle => 'Show calls on the lock screen';
+
+  @override
+  String get callFullScreenIntentBody => 'Allow BananaTalk to show incoming calls full screen so you don\'t miss them while your phone is locked.';
+
+  @override
+  String get callForegroundTitle => 'Call in progress';
+
+  @override
+  String get callForegroundBody => 'Tap to return to your call';
+
+  @override
+  String get callServiceChannelName => 'Ongoing call';
+
+  @override
+  String get callServiceChannelDescription => 'Keeps your call running while BananaTalk is in the background';
 }

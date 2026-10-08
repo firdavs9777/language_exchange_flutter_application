@@ -3642,5 +3642,22 @@
   "vipBenefitUnlimitedMessages": "メッセージ無制限",
   "vipBenefitUnlimitedProfileViews": "プロフィール閲覧無制限",
   "vipBenefitAiStudyTools": "AI学習ツール",
-  "chatBonusMessagesUnlocked": "ボーナスメッセージを{count}件獲得しました！会話を続けましょう。"
+  "chatBonusMessagesUnlocked": "ボーナスメッセージを{count}件獲得しました！会話を続けましょう。",
+  "callLabelOutgoing": "{type, select, video{発信ビデオ通話} other{発信音声通話}}",
+  "callLabelIncoming": "{type, select, video{着信ビデオ通話} other{着信音声通話}}",
+  "callLabelNoAnswer": "{type, select, video{ビデオ通話・応答なし} other{音声通話・応答なし}}",
+  "callLabelMissed": "{type, select, video{不在着信（ビデオ）} other{不在着信（音声）}}",
+  "callLabelCancelled": "{type, select, video{キャンセルしたビデオ通話} other{キャンセルした音声通話}}",
+  "callLabelDeclinedOutgoing": "{type, select, video{ビデオ通話が拒否されました} other{音声通話が拒否されました}}",
+  "callLabelDeclinedIncoming": "{type, select, video{拒否したビデオ通話} other{拒否した音声通話}}",
+  "callLabelBusy": "{name}さんは別の通話中でした",
+  "callsTitle": "通話",
+  "callsEmpty": "まだ通話履歴はありません",
+  "callCameraPaused": "カメラ一時停止中",
+  "callFullScreenIntentTitle": "ロック画面に着信を表示",
+  "callFullScreenIntentBody": "スマートフォンがロックされていても着信を見逃さないよう、BananaTalkに全画面での着信表示を許可してください。",
+  "callForegroundTitle": "通話中",
+  "callForegroundBody": "タップして通話に戻る",
+  "callServiceChannelName": "通話中",
+  "callServiceChannelDescription": "BananaTalkがバックグラウンドにあるときも通話を継続します"
 }

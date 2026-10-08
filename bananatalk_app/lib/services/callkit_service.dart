@@ -6,8 +6,10 @@ import 'package:flutter_callkit_incoming/flutter_callkit_incoming.dart';
 import 'package:flutter_callkit_incoming/entities/entities.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
+import 'package:bananatalk_app/services/call/callkit_ids.dart';
 
 import 'package:bananatalk_app/services/notification_api_client.dart';
+import 'package:bananatalk_app/services/notification_service.dart';
 
 /// Wraps flutter_callkit_incoming to show native incoming call UI on both
 /// iOS (CallKit) and Android (full-screen activity). This replaces the
@@ -41,9 +43,16 @@ class CallKitService {
   /// foreground path, and via PushKit's payload for killed-state). The
   /// caller uses it to hydrate `CallManager.currentCall` when accept fires
   /// before the FCM/socket path has run.
-  Function(String callId, Map<String, dynamic>? extra)? onAccepted;
-  Function(String callId)? onDeclined;
-  Function(String callId)? onEnded;
+  /// Every callback receives the CallKit UUID (uppercase on iOS), never the
+  /// server id — that is `extra['callId']`.
+  Function(String callKitId, Map<String, dynamic>? extra)? onAccepted;
+  Function(String callKitId, Map<String, dynamic>? extra)? onDeclined;
+  Function(String callKitId, Map<String, dynamic>? extra)? onEnded;
+  Function(String callKitId, Map<String, dynamic>? extra)? onTimedOut;
+
+  /// The native ring UI started showing a call (also for one reported by
+  /// AppDelegate from a VoIP push).
+  Function(String callKitId, Map<String, dynamic>? extra)? onIncomingShown;
 
   bool _listenersRegistered = false;
 
@@ -79,31 +88,28 @@ class CallKitService {
       debugPrint('📱 CallKit event: ${event.event} body=${event.body}');
 
       switch (event.event) {
+        case Event.actionCallIncoming:
+          final id = _extractId(event.body);
+          if (id != null) onIncomingShown?.call(id, _extraOf(event.body));
+          break;
         case Event.actionCallAccept:
           final id = _extractId(event.body);
-          if (id != null) {
-            // The `extra` dict is where showIncomingCall and the PushKit
-            // payload stash pre-minted LiveKit fields. Forward it so
-            // CallManager can hydrate currentCall on killed-state accept.
-            final extra = event.body?['extra'];
-            onAccepted?.call(
-              id,
-              extra is Map ? Map<String, dynamic>.from(extra) : null,
-            );
-          }
+          if (id != null) onAccepted?.call(id, _extraOf(event.body));
           break;
         case Event.actionCallDecline:
           final id = _extractId(event.body);
-          if (id != null) onDeclined?.call(id);
+          if (id != null) onDeclined?.call(id, _extraOf(event.body));
           break;
         case Event.actionCallEnded:
           final id = _extractId(event.body);
-          if (id != null) onEnded?.call(id);
+          if (id != null) onEnded?.call(id, _extraOf(event.body));
           _activeCallUuid = null;
           break;
         case Event.actionCallTimeout:
+          // The native ring timed out: dismiss locally. The server's 45 s
+          // timer owns the outcome, so this is never a decline.
           final id = _extractId(event.body);
-          if (id != null) onDeclined?.call(id);
+          if (id != null) onTimedOut?.call(id, _extraOf(event.body));
           _activeCallUuid = null;
           break;
         case Event.actionDidUpdateDevicePushTokenVoip:
@@ -145,7 +151,10 @@ class CallKitService {
         await prefs.setString('pending_voip_token', token);
         return;
       }
-      await _api.registerVoipToken(token, userId);
+      // The real device id (same one the FCM token uses): call_cancelled
+      // skips the device that accepted/declined by this id.
+      final deviceId = await NotificationService().getDeviceId();
+      await _api.registerVoipToken(token, deviceId);
       await prefs.remove('pending_voip_token');
     } catch (e) {
       debugPrint('📞 VoIP token upload failed: $e');
@@ -168,36 +177,43 @@ class CallKitService {
     await _uploadVoipToken(cached);
   }
 
+  /// The CallKit UUID only — never `extra['callId']` (the server id).
   String? _extractId(Map<String, dynamic>? body) {
-    return body?['id']?.toString() ?? body?['extra']?['callId']?.toString();
+    final id = body?['id']?.toString();
+    return (id == null || id.isEmpty) ? null : id;
   }
 
-  /// Show the native incoming call screen.
-  /// Returns the UUID used for this call (needed to end it later).
-  ///
-  /// [livekitToken], [livekitUrl] and [roomName] are optional LiveKit
-  /// pre-mint fields (Step 8 / B5) — when present they ride along in the
-  /// `extra` payload so the resumed app context can hydrate the CallModel
-  /// without an extra round-trip on accept.
-  Future<String> showIncomingCall({
+  Map<String, dynamic>? _extraOf(Map<String, dynamic>? body) {
+    final extra = body?['extra'];
+    return extra is Map ? Map<String, dynamic>.from(extra) : null;
+  }
+
+  /// The native incoming-call params. Pure, so the id/extra contract with
+  /// AppDelegate.swift and CallManager is unit-tested.
+  static CallKitParams buildIncomingParams({
     required String callId,
+    String? callUuid,
     required String callerName,
     String? callerAvatar,
+    String? callerId,
     bool isVideo = false,
-    String? livekitToken,
     String? livekitUrl,
     String? roomName,
-  }) async {
-    // Use callId as the UUID so we can reference it later
-    final uuid = callId.isNotEmpty ? callId : const Uuid().v4();
-    _activeCallUuid = uuid;
-
-    final extra = <String, dynamic>{'callId': callId};
-    if (livekitToken != null) extra['livekitToken'] = livekitToken;
-    if (livekitUrl != null) extra['livekitUrl'] = livekitUrl;
-    if (roomName != null) extra['roomName'] = roomName;
-
-    final params = CallKitParams(
+  }) {
+    // CallKit ids MUST be UUIDs (the plugin force-unwraps UUID(uuidString:)
+    // on iOS); the 24-hex Mongo id crashed backgrounded iPhones.
+    final uuid = CallKitIds.uuidFor(callId: callId, callUuid: callUuid);
+    final extra = <String, dynamic>{
+      'callId': callId,
+      'callUuid': uuid,
+      'callType': isVideo ? 'video' : 'audio',
+      'callerName': callerName,
+      if (callerAvatar != null) 'callerAvatar': callerAvatar,
+      if (callerId != null) 'callerId': callerId,
+      if (livekitUrl != null) 'livekitUrl': livekitUrl,
+      if (roomName != null) 'roomName': roomName,
+    };
+    return CallKitParams(
       id: uuid,
       nameCaller: callerName,
       appName: 'Bananatalk',
@@ -211,7 +227,7 @@ class CallKitService {
         isShowCallback: true,
         subtitle: 'Missed call',
       ),
-      duration: 45000, // Ring for 45 seconds then timeout
+      duration: 50000, // Outlasts the server's 45 s ring; the server ends the call
       extra: extra,
       android: const AndroidParams(
         isCustomNotification: false,
@@ -239,6 +255,33 @@ class CallKitService {
         ringtonePath: null, // Uses default iOS ringtone
       ),
     );
+  }
+
+  /// Show the native incoming call screen. Returns the CallKit id (the
+  /// callUuid), needed to end it later. The LiveKit token is NOT carried:
+  /// it comes from POST /calls/:id/accept.
+  Future<String> showIncomingCall({
+    required String callId,
+    String? callUuid,
+    required String callerName,
+    String? callerAvatar,
+    String? callerId,
+    bool isVideo = false,
+    String? livekitUrl,
+    String? roomName,
+  }) async {
+    final params = buildIncomingParams(
+      callId: callId,
+      callUuid: callUuid,
+      callerName: callerName,
+      callerAvatar: callerAvatar,
+      callerId: callerId,
+      isVideo: isVideo,
+      livekitUrl: livekitUrl,
+      roomName: roomName,
+    );
+    final uuid = params.id!;
+    _activeCallUuid = uuid;
 
     if (!isCallKitAllowed) {
       debugPrint('📱 CallKit disabled (China/iOS) — skipping native call UI');
@@ -248,6 +291,13 @@ class CallKitService {
     await FlutterCallkitIncoming.showCallkitIncoming(params);
     debugPrint('📱 CallKit incoming call shown: $uuid ($callerName)');
     return uuid;
+  }
+
+  /// Calls the native UI currently shows (iOS reports ids uppercase).
+  Future<List<CallKitEntry>> activeCallEntries() async {
+    final raw = await FlutterCallkitIncoming.activeCalls();
+    if (raw is! List) return const [];
+    return raw.whereType<Map>().map(CallKitEntry.fromPlugin).toList();
   }
 
   /// Show an outgoing call screen (for the caller side).

@@ -8897,4 +8897,120 @@ class AppLocalizationsTl extends AppLocalizations {
   String chatBonusMessagesUnlocked(int count) {
     return 'Nag-unlock ka ng $count bonus na mensahe! Magpatuloy sa pakikipag-chat.';
   }
+
+  @override
+  String callLabelOutgoing(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'Papalabas na video call',
+        'other': 'Papalabas na voice call',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelIncoming(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'Papasok na video call',
+        'other': 'Papasok na voice call',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelNoAnswer(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'Video call · Walang sumagot',
+        'other': 'Voice call · Walang sumagot',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelMissed(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'Hindi nasagot na video call',
+        'other': 'Hindi nasagot na voice call',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelCancelled(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'Kinanselang video call',
+        'other': 'Kinanselang voice call',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelDeclinedOutgoing(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'Tinanggihan ang video call',
+        'other': 'Tinanggihan ang voice call',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelDeclinedIncoming(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'Tinanggihang video call',
+        'other': 'Tinanggihang voice call',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelBusy(String name) {
+    return 'Nasa ibang tawag si $name';
+  }
+
+  @override
+  String get callsTitle => 'Mga tawag';
+
+  @override
+  String get callsEmpty => 'Wala pang tawag';
+
+  @override
+  String get callCameraPaused => 'Naka-pause ang camera';
+
+  @override
+  String get callFullScreenIntentTitle => 'Ipakita ang mga tawag sa lock screen';
+
+  @override
+  String get callFullScreenIntentBody => 'Payagan ang BananaTalk na ipakita nang full screen ang mga papasok na tawag para hindi mo makaligtaan kahit naka-lock ang phone mo.';
+
+  @override
+  String get callForegroundTitle => 'May kasalukuyang tawag';
+
+  @override
+  String get callForegroundBody => 'I-tap para bumalik sa tawag';
+
+  @override
+  String get callServiceChannelName => 'Kasalukuyang tawag';
+
+  @override
+  String get callServiceChannelDescription => 'Pinapanatiling tuloy ang tawag mo habang nasa background ang BananaTalk';
 }

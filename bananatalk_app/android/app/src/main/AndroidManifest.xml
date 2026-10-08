@@ -46,6 +46,10 @@
 
     <!-- ==================== FOREGROUND SERVICE PERMISSIONS ==================== -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <!-- Android 14+: a call keeps the mic (and camera for video) alive in the
+         background only inside a typed foreground service. -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MICROPHONE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_CAMERA" />
 
     <!-- ==================== WAKE & VIBRATE ==================== -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -189,6 +193,22 @@
         <service
             android:name="com.baseflow.geolocator.GeolocatorLocationService"
             tools:remove="android:foregroundServiceType" />
+
+        <!-- flutter_foreground_task: ongoing-call service (lib/services/call/call_foreground_service.dart).
+             stopWithTask: swiping the app away ends the call's engine, so the service
+             must go too (otherwise onTaskRemoved schedules a restart and START_STICKY
+             keeps "Call in progress" up with no call). Do not use the plugin's Dart
+             stopWithTask option instead: that stops the service on Home. -->
+        <service
+            android:name="com.pravera.flutter_foreground_task.service.ForegroundService"
+            android:foregroundServiceType="microphone|camera"
+            android:stopWithTask="true"
+            android:exported="false" />
+        <!-- The plugin's boot receiver only serves autoRunOnBoot, which a call never
+             uses; drop the exported receiver. (RECEIVE_BOOT_COMPLETED stays: WorkManager.) -->
+        <receiver
+            android:name="com.pravera.flutter_foreground_task.service.RebootReceiver"
+            tools:node="remove" />
 
         <!-- image_cropper (uCrop) — required on Android; plugin manifest no longer merges this automatically. -->
         <activity

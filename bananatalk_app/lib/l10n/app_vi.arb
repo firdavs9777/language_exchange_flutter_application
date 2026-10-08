@@ -3642,5 +3642,22 @@
   "vipBenefitUnlimitedMessages": "Tin nhắn không giới hạn",
   "vipBenefitUnlimitedProfileViews": "Xem hồ sơ không giới hạn",
   "vipBenefitAiStudyTools": "Công cụ học AI",
-  "chatBonusMessagesUnlocked": "Bạn đã mở khóa {count} tin nhắn thưởng! Tiếp tục trò chuyện nhé."
+  "chatBonusMessagesUnlocked": "Bạn đã mở khóa {count} tin nhắn thưởng! Tiếp tục trò chuyện nhé.",
+  "callLabelOutgoing": "{type, select, video{Cuộc gọi video đi} other{Cuộc gọi thoại đi}}",
+  "callLabelIncoming": "{type, select, video{Cuộc gọi video đến} other{Cuộc gọi thoại đến}}",
+  "callLabelNoAnswer": "{type, select, video{Cuộc gọi video · Không trả lời} other{Cuộc gọi thoại · Không trả lời}}",
+  "callLabelMissed": "{type, select, video{Cuộc gọi video nhỡ} other{Cuộc gọi thoại nhỡ}}",
+  "callLabelCancelled": "{type, select, video{Cuộc gọi video đã hủy} other{Cuộc gọi thoại đã hủy}}",
+  "callLabelDeclinedOutgoing": "{type, select, video{Cuộc gọi video bị từ chối} other{Cuộc gọi thoại bị từ chối}}",
+  "callLabelDeclinedIncoming": "{type, select, video{Đã từ chối cuộc gọi video} other{Đã từ chối cuộc gọi thoại}}",
+  "callLabelBusy": "{name} đang có cuộc gọi khác",
+  "callsTitle": "Cuộc gọi",
+  "callsEmpty": "Chưa có cuộc gọi nào",
+  "callCameraPaused": "Đã tạm dừng camera",
+  "callFullScreenIntentTitle": "Hiển thị cuộc gọi trên màn hình khóa",
+  "callFullScreenIntentBody": "Cho phép BananaTalk hiển thị cuộc gọi đến toàn màn hình để bạn không bỏ lỡ khi điện thoại đang khóa.",
+  "callForegroundTitle": "Đang trong cuộc gọi",
+  "callForegroundBody": "Nhấn để quay lại cuộc gọi",
+  "callServiceChannelName": "Cuộc gọi đang diễn ra",
+  "callServiceChannelDescription": "Giữ cuộc gọi tiếp tục khi BananaTalk chạy nền"
 }

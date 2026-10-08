@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/models/call_model.dart';
-import 'package:bananatalk_app/providers/call_provider.dart';
+import 'package:bananatalk_app/services/call/call_launcher.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
-import 'package:bananatalk_app/utils/friendly_error.dart';
 
 class CallButtons extends ConsumerWidget {
   final String recipientId;
@@ -70,19 +69,13 @@ class CallButtons extends ConsumerWidget {
     WidgetRef ref,
     CallType callType,
   ) async {
-    try {
-      await ref.read(callProvider.notifier).initiateCall(
-            recipientId,
-            recipientName,
-            recipientProfilePicture,
-            callType,
-          );
-    } catch (e) {
-      if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(friendlyErrorMessage(AppLocalizations.of(context)!, e))),
-        );
-      }
-    }
+    await CallLauncher.start(
+      context,
+      ref,
+      userId: recipientId,
+      userName: recipientName,
+      avatar: recipientProfilePicture,
+      type: callType,
+    );
   }
 }

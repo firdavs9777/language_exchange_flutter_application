@@ -3658,5 +3658,22 @@
   "vipBenefitUnlimitedMessages": "Mensagens ilimitadas",
   "vipBenefitUnlimitedProfileViews": "Visualizações de perfil ilimitadas",
   "vipBenefitAiStudyTools": "Ferramentas de estudo com IA",
-  "chatBonusMessagesUnlocked": "Você desbloqueou {count} mensagens bônus! Continue conversando."
+  "chatBonusMessagesUnlocked": "Você desbloqueou {count} mensagens bônus! Continue conversando.",
+  "callLabelOutgoing": "{type, select, video{Videochamada efetuada} other{Chamada de voz efetuada}}",
+  "callLabelIncoming": "{type, select, video{Videochamada recebida} other{Chamada de voz recebida}}",
+  "callLabelNoAnswer": "{type, select, video{Videochamada · Sem resposta} other{Chamada de voz · Sem resposta}}",
+  "callLabelMissed": "{type, select, video{Videochamada perdida} other{Chamada de voz perdida}}",
+  "callLabelCancelled": "{type, select, video{Videochamada cancelada} other{Chamada de voz cancelada}}",
+  "callLabelDeclinedOutgoing": "{type, select, video{Videochamada recusada} other{Chamada de voz recusada}}",
+  "callLabelDeclinedIncoming": "{type, select, video{Você recusou uma videochamada} other{Você recusou uma chamada de voz}}",
+  "callLabelBusy": "{name} estava em outra chamada",
+  "callsTitle": "Chamadas",
+  "callsEmpty": "Nenhuma chamada ainda",
+  "callCameraPaused": "Câmera pausada",
+  "callFullScreenIntentTitle": "Mostrar chamadas na tela de bloqueio",
+  "callFullScreenIntentBody": "Permita que o BananaTalk mostre chamadas recebidas em tela cheia para você não perdê-las com o celular bloqueado.",
+  "callForegroundTitle": "Chamada em andamento",
+  "callForegroundBody": "Toque para voltar à chamada",
+  "callServiceChannelName": "Chamada em andamento",
+  "callServiceChannelDescription": "Mantém sua chamada ativa enquanto o BananaTalk está em segundo plano"
 }

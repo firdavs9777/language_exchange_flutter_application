@@ -8918,4 +8918,120 @@ class AppLocalizationsRu extends AppLocalizations {
   String chatBonusMessagesUnlocked(int count) {
     return 'Вы получили $count бонусных сообщения! Продолжайте общение.';
   }
+
+  @override
+  String callLabelOutgoing(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'Исходящий видеозвонок',
+        'other': 'Исходящий голосовой звонок',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelIncoming(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'Входящий видеозвонок',
+        'other': 'Входящий голосовой звонок',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelNoAnswer(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'Видеозвонок · Нет ответа',
+        'other': 'Голосовой звонок · Нет ответа',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelMissed(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'Пропущенный видеозвонок',
+        'other': 'Пропущенный голосовой звонок',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelCancelled(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'Отменённый видеозвонок',
+        'other': 'Отменённый голосовой звонок',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelDeclinedOutgoing(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'Видеозвонок отклонён',
+        'other': 'Голосовой звонок отклонён',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelDeclinedIncoming(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'Отклонённый видеозвонок',
+        'other': 'Отклонённый голосовой звонок',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelBusy(String name) {
+    return '$name разговаривал(а) по другой линии';
+  }
+
+  @override
+  String get callsTitle => 'Звонки';
+
+  @override
+  String get callsEmpty => 'Звонков пока нет';
+
+  @override
+  String get callCameraPaused => 'Камера приостановлена';
+
+  @override
+  String get callFullScreenIntentTitle => 'Показывать звонки на экране блокировки';
+
+  @override
+  String get callFullScreenIntentBody => 'Разрешите BananaTalk показывать входящие звонки на весь экран, чтобы не пропускать их, когда телефон заблокирован.';
+
+  @override
+  String get callForegroundTitle => 'Идёт звонок';
+
+  @override
+  String get callForegroundBody => 'Нажмите, чтобы вернуться к звонку';
+
+  @override
+  String get callServiceChannelName => 'Текущий звонок';
+
+  @override
+  String get callServiceChannelDescription => 'Не даёт звонку прерваться, пока BananaTalk работает в фоне';
 }

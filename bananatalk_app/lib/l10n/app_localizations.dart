@@ -16393,6 +16393,108 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You unlocked {count} bonus messages! Keep chatting.'**
   String chatBonusMessagesUnlocked(int count);
+
+  /// No description provided for @callLabelOutgoing.
+  ///
+  /// In en, this message translates to:
+  /// **'{type, select, video{Outgoing video call} other{Outgoing voice call}}'**
+  String callLabelOutgoing(String type);
+
+  /// No description provided for @callLabelIncoming.
+  ///
+  /// In en, this message translates to:
+  /// **'{type, select, video{Incoming video call} other{Incoming voice call}}'**
+  String callLabelIncoming(String type);
+
+  /// No description provided for @callLabelNoAnswer.
+  ///
+  /// In en, this message translates to:
+  /// **'{type, select, video{Video call · No answer} other{Voice call · No answer}}'**
+  String callLabelNoAnswer(String type);
+
+  /// No description provided for @callLabelMissed.
+  ///
+  /// In en, this message translates to:
+  /// **'{type, select, video{Missed video call} other{Missed voice call}}'**
+  String callLabelMissed(String type);
+
+  /// No description provided for @callLabelCancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'{type, select, video{Cancelled video call} other{Cancelled voice call}}'**
+  String callLabelCancelled(String type);
+
+  /// No description provided for @callLabelDeclinedOutgoing.
+  ///
+  /// In en, this message translates to:
+  /// **'{type, select, video{Video call declined} other{Voice call declined}}'**
+  String callLabelDeclinedOutgoing(String type);
+
+  /// No description provided for @callLabelDeclinedIncoming.
+  ///
+  /// In en, this message translates to:
+  /// **'{type, select, video{Declined video call} other{Declined voice call}}'**
+  String callLabelDeclinedIncoming(String type);
+
+  /// No description provided for @callLabelBusy.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} was on another call'**
+  String callLabelBusy(String name);
+
+  /// No description provided for @callsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Calls'**
+  String get callsTitle;
+
+  /// No description provided for @callsEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No calls yet'**
+  String get callsEmpty;
+
+  /// No description provided for @callCameraPaused.
+  ///
+  /// In en, this message translates to:
+  /// **'Camera paused'**
+  String get callCameraPaused;
+
+  /// No description provided for @callFullScreenIntentTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Show calls on the lock screen'**
+  String get callFullScreenIntentTitle;
+
+  /// No description provided for @callFullScreenIntentBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow BananaTalk to show incoming calls full screen so you don\'t miss them while your phone is locked.'**
+  String get callFullScreenIntentBody;
+
+  /// No description provided for @callForegroundTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Call in progress'**
+  String get callForegroundTitle;
+
+  /// No description provided for @callForegroundBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to return to your call'**
+  String get callForegroundBody;
+
+  /// No description provided for @callServiceChannelName.
+  ///
+  /// In en, this message translates to:
+  /// **'Ongoing call'**
+  String get callServiceChannelName;
+
+  /// No description provided for @callServiceChannelDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Keeps your call running while BananaTalk is in the background'**
+  String get callServiceChannelDescription;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
