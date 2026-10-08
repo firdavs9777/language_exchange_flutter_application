@@ -22,6 +22,7 @@ App (backend items in the backend repo's `docs/REMAINING_WORK.md`):
 - [x] Backend forward-compat: verify-code `registrationToken` kept in memory and sent with `/register` (bound to the verified email); register/reset `refreshToken` already stored; OAuth-only email-login 400 message shown; app never sends `email` to `updatedetails`. Backend can flip `REGISTRATION_TOKEN_REQUIRED=true` once a build with this is the majority.
 - [x] Biometric re-login after logout — logout no longer revokes the refresh token the biometric snapshot holds; biometric login refreshes with it; definitive rejection wipes the snapshot + flag, offline keeps it.
 - [x] Android biometric never worked: `MainActivity` was a `FlutterActivity` (local_auth needs a FragmentActivity) — now `FlutterFragmentActivity` + AppCompat launch/normal themes. Needs an on-device check on Android 7–8 and 13+.
+- [x] iOS biometric snapshot keychain: `unlocked_this_device`, not synchronizable (was readable while locked); clear() also removes items stored under the old accessibility.
 
 ## 1. Owner (needs the keystore MacBook, store consoles or droplet)
 
