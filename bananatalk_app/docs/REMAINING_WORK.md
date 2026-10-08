@@ -42,7 +42,7 @@ Baseline: 1/30 calls answered in 30 days, 168 stuck ringing, 0 call messages eve
   - [x] A5 re-bind call listeners when the socket is replaced
   - [x] A6 incoming dedupe, foreground FCM, call_cancelled, stale taps, resume/cold-start recovery (also: stale socket after logout never emitted to; resume rejoins only calls accepted on this device)
   - [x] A7 CallKit extra, cold-start activeCalls(), VoIP/FCM capabilities + real device id
-  - [ ] A8 AppDelegate VoIP cancel handling + `docs/qa/calls-matrix.md`
+  - [x] A8 AppDelegate VoIP cancel handling + `docs/qa/calls-matrix.md`
   - [ ] A9 IncomingCallScreen closes on terminal state / after 50 s
   - [ ] A10 20 s reconnect overlay + quality callback chain + outcome banner
   - [ ] A11 video wakelock + camera paused in background
@@ -53,7 +53,7 @@ Baseline: 1/30 calls answered in 30 days, 168 stuck ringing, 0 call messages eve
   - [ ] Phase 2: decline with message, missed-call push actions, calls on/off + quiet hours, camera mid voice call, draggable self-view
 - [ ] Native review of the 18 machine-drafted call strings (`lib/l10n/app_*.arb`)
 - [ ] Owner: LiveKit webhook URL in LiveKit Cloud; confirm `APNS_VOIP_*` on prod.
-- [ ] Device QA `docs/qa/calls-matrix.md`; re-measure answered rate one week after release (target ≥ 40%).
+- [ ] Device QA: run every row of `docs/qa/calls-matrix.md`; re-measure answered rate one week after release (target ≥ 40%).
 
 ## 1. Owner (needs the keystore MacBook, store consoles or droplet)
 
