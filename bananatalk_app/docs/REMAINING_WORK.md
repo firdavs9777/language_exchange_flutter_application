@@ -60,7 +60,7 @@ Baseline: 1/30 calls answered in 30 days, 168 stuck ringing, 0 call messages eve
 
 ## 1. Owner (needs the keystore MacBook, store consoles or droplet)
 
-- [ ] **Calls release gate** — do not release the app build with calls reliability until backend `feat/calls-reliability` is deployed **and** `[voipPush] initialised` shows in prod logs. A new app on the old backend gets no `call:state` (calls never leave ringing on the caller) and the Calls list parses the old history shape.
+- [ ] **Calls release gate** — backend calls work is DEPLOYED (main `31e6e18`, 2026-10-08; 172 legacy stuck calls backfilled, 0 stuck). Still confirm `[voipPush] initialised` shows in prod logs. A new app on the old backend gets no `call:state` (calls never leave ringing on the caller) and the Calls list parses the old history shape.
 - [ ] Commit `ios/Podfile.lock` separately before the iOS build: `pod install` adds the missing `in_app_review` pod (keep it out of feature commits).
 
 - [ ] Play Console → App content → Foreground services: declare **microphone**, **camera** and **phone call** ("ongoing 1:1 voice/video call"; `FOREGROUND_SERVICE_PHONE_CALL` comes from flutter_callkit_incoming) before uploading the build with Task A12 — the upload is rejected without it.
