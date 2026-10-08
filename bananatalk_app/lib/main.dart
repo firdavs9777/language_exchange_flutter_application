@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bananatalk_app/router/app_router.dart'
     show goRouter, callOverlayNavigatorKey;
 import 'package:bananatalk_app/services/notification_service.dart';
@@ -266,6 +268,8 @@ class _MyAppState extends ConsumerState<MyApp> {
       final chatSocketService = ChatSocketService();
       final callNotifier = ref.read(callProvider.notifier);
       callNotifier.callManager.initialize(chatSocketService);
+      // Cold start: a call may be ringing for us or still active.
+      unawaited(callNotifier.callManager.recoverCallState());
 
       callNotifier.setCallConnectedCallback((call) {
         debugPrint('📞 Call connected - UI notified');

@@ -35,6 +35,9 @@ enum IncomingSource { socket, push, notificationTap, recovery, callKit }
 
 enum InitiateStatus { started, calleeBusy, callerBusy, permissionDenied, failed }
 
+/// What a tapped incoming-call notification should open.
+enum IncomingTapAction { showCall, openChat }
+
 class InitiateResult {
   const InitiateResult(this.status, [this.error]);
   final InitiateStatus status;
@@ -112,6 +115,7 @@ class CallManager with WidgetsBindingObserver {
   final List<String> _recentlyFinished = [];
   Timer? _closeTimer;
   Timer? _ringSafetyTimer;
+  bool _recovering = false;
 
   final StreamController<CallFinish> _finishController = StreamController<CallFinish>.broadcast();
 
@@ -199,6 +203,7 @@ class CallManager with WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     _appInForeground = state == AppLifecycleState.resumed;
+    if (state == AppLifecycleState.resumed) unawaited(recoverCallState());
   }
 
   // -- Socket ----------------------------------------------------------------
@@ -274,6 +279,163 @@ class CallManager with WidgetsBindingObserver {
     if (_sameId(_incomingShownFor, call.callId)) return;
     _incomingShownFor = call.callId;
     _deps.openIncomingCall(call);
+  }
+
+  /// call_cancelled (FCM data push, or relayed from a VoIP push): the call
+  /// left ringing elsewhere (accepted / declined on another device, the
+  /// caller cancelled, or it timed out).
+  Future<void> handleCallCancelled(Map<String, dynamic> data) async {
+    final callId = data['callId']?.toString() ?? '';
+    final callUuid = data['callUuid']?.toString();
+    final cur = currentCall;
+    if (cur != null && (_sameId(cur.callId, callId) || CallKitIds.same(cur.callUuid, callUuid))) {
+      // Answering on this device (accept in flight or connecting): the cancel
+      // is the server telling the other devices; ignore it here.
+      if (cur.status == CallStatus.ringing && !_sameId(_acceptingCallId, cur.callId)) {
+        await _finish(CallExitReason.remoteState);
+      }
+      return;
+    }
+    // Not our current call: it may still be ringing in CallKit, or its invite
+    // may arrive late — end the UI and ignore a later invite for it.
+    _remember(callId);
+    await _quietly(() => _deps.platform.endCallUi(CallModel(
+          callId: callId,
+          callUuid: callUuid,
+          userId: '',
+          userName: '',
+          callType: CallType.audio,
+          direction: CallDirection.incoming,
+          startTime: DateTime.now(),
+        )));
+  }
+
+  /// A tapped incoming-call notification may be minutes old: only show the
+  /// call if the server says it is still ringing; otherwise open the chat.
+  Future<IncomingTapAction> resolveIncomingTap(Map<String, dynamic> data) async {
+    final callId = data['callId']?.toString() ?? '';
+    if (callId.isEmpty) return IncomingTapAction.openChat;
+    final cur = currentCall;
+    if (cur != null && _sameId(cur.callId, callId)) {
+      if (cur.status == CallStatus.ringing) _showIncoming(cur);
+      return IncomingTapAction.showCall;
+    }
+    final res = await _deps.api.get(callId);
+    if (!res.ok || res.data['status']?.toString() != 'ringing') return IncomingTapAction.openChat;
+    await handleIncoming(_tapPayload(data, res.data), source: IncomingSource.notificationTap);
+    return _sameId(currentCall?.callId, callId) ? IncomingTapAction.showCall : IncomingTapAction.openChat;
+  }
+
+  /// The tapped notification's data, with gaps filled from GET /calls/:id
+  /// (initiator is a bare id; participants carry `name` and `images`).
+  static Map<String, dynamic> _tapPayload(Map<String, dynamic> data, Map<String, dynamic> server) {
+    final payload = Map<String, dynamic>.from(data);
+    payload['callUuid'] ??= server['callUuid'];
+    payload['callType'] ??= server['type'];
+    final initiator = server['initiator'];
+    final initiatorId = initiator is Map ? initiator['_id']?.toString() : initiator?.toString();
+    final participants = server['participants'];
+    if (payload['callerName'] == null && initiatorId != null && participants is List) {
+      for (final p in participants.whereType<Map>()) {
+        if (!_sameId(p['_id']?.toString(), initiatorId)) continue;
+        final images = p['images'];
+        payload['callerId'] ??= initiatorId;
+        payload['callerName'] = p['name'];
+        payload['callerAvatar'] ??= images is List && images.isNotEmpty ? images.first : null;
+      }
+    }
+    return payload;
+  }
+
+  /// Resume and cold start: ask the server what is live for this user.
+  /// Ringing for me → incoming UI; active and not here → rejoin; nothing →
+  /// a call still ringing locally is stale and ends.
+  Future<void> recoverCallState() async {
+    if (_recovering) return;
+    _recovering = true;
+    try {
+      final res = await _deps.api.current();
+      if (!res.ok) return;
+      final raw = res.data['call'];
+      final cur = currentCall;
+      if (raw is! Map) {
+        if (cur != null &&
+            cur.direction == CallDirection.incoming &&
+            cur.status == CallStatus.ringing &&
+            !_sameId(_acceptingCallId, cur.callId)) {
+          await _finish(CallExitReason.remoteState);
+        }
+        return;
+      }
+      final summary = Map<String, dynamic>.from(raw);
+      final other = summary['otherParty'] is Map
+          ? Map<String, dynamic>.from(summary['otherParty'] as Map)
+          : const <String, dynamic>{};
+      final status = summary['status']?.toString();
+      if (status == 'ringing' && summary['direction'] == 'in') {
+        await handleIncoming({
+          'callId': summary['id'],
+          'callUuid': summary['callUuid'],
+          'caller': <String, dynamic>{
+            '_id': other['id'],
+            'name': other['name'],
+            'profilePicture': other['avatar'],
+          },
+          'callType': summary['type'],
+          'roomName': summary['roomName'],
+        }, source: IncomingSource.recovery);
+        return;
+      }
+      if (status == 'active' && cur == null) await _rejoin(summary, other, res.data);
+    } catch (e) {
+      debugPrint('📞 call recovery failed: $e');
+    } finally {
+      _recovering = false;
+    }
+  }
+
+  Future<void> _rejoin(
+    Map<String, dynamic> summary,
+    Map<String, dynamic> other,
+    Map<String, dynamic> data,
+  ) async {
+    final token = data['token']?.toString();
+    final url = data['url']?.toString();
+    final callId = summary['id']?.toString() ?? '';
+    if (token == null || url == null || callId.isEmpty) return;
+    if (_recentlyFinished.any((id) => _sameId(id, callId))) return;
+    final type = summary['type'] == 'video' ? CallType.video : CallType.audio;
+    _takeOverClosingScreens();
+    currentCall = CallModel(
+      callId: callId,
+      callUuid: summary['callUuid']?.toString(),
+      userId: other['id']?.toString() ?? '',
+      userName: other['name']?.toString() ?? '',
+      userProfilePicture: other['avatar']?.toString(),
+      callType: type,
+      direction: summary['direction'] == 'out' ? CallDirection.outgoing : CallDirection.incoming,
+      status: CallStatus.connecting,
+      startTime: DateTime.now(),
+      livekitToken: token,
+      livekitUrl: url,
+      roomName: summary['roomName']?.toString(),
+    );
+    _updateConnectionState(CallUiState.connecting);
+    final media = _deps.liveKitFactory();
+    _liveKit = media;
+    _wireLiveKit(media);
+    try {
+      await media.connect(url: url, token: token, type: type);
+    } catch (e) {
+      if (!_sameId(currentCall?.callId, callId)) return;
+      debugPrint('📞 rejoin failed: $e');
+      await _finish(CallExitReason.connectionLost);
+      return;
+    }
+    if (!_sameId(currentCall?.callId, callId)) return;
+    _isMuted = false;
+    _isVideoEnabled = type == CallType.video;
+    _deps.openActiveCall(currentCall!);
   }
 
   Future<void> _onCallState(Map<String, dynamic> m) async {
@@ -802,7 +964,9 @@ class CallManager with WidgetsBindingObserver {
   void _emitToPeer(String event, Map<String, dynamic> body) {
     final socket = _socket;
     final call = currentCall;
-    if (socket == null || call == null || call.callId.isEmpty) return;
+    // After logout ChatSocketService drops its socket without telling us:
+    // a socket that is not connected counts as absent.
+    if (socket == null || !socket.connected || call == null || call.callId.isEmpty) return;
     socket.emit(event, {'callId': call.callId, ...body});
   }
 

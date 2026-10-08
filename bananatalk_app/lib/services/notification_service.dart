@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:bananatalk_app/models/notification_models.dart' as nm;
+import 'package:bananatalk_app/services/call/call_push_handler.dart';
 import 'package:bananatalk_app/services/callkit_service.dart';
 import 'package:bananatalk_app/services/notification_api_client.dart';
 import 'package:bananatalk_app/services/notification_router.dart';
@@ -21,6 +22,16 @@ import 'package:path_provider/path_provider.dart';
 @pragma('vm:entry-point')
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   final type = message.data['type']?.toString().toLowerCase();
+
+  // The call left ringing elsewhere: take down the native call UI. Data-only
+  // and capability-gated server-side, so live builds never receive it.
+  if (type == 'call_cancelled') {
+    final callUuid = message.data['callUuid']?.toString();
+    if (callUuid != null && callUuid.isNotEmpty && CallKitService.isCallKitAllowed) {
+      await CallKitService().endCall(callUuid);
+    }
+    return;
+  }
 
   if (type == 'incoming_call') {
     final callerName = message.data['callerName'] ?? 'Unknown';
@@ -43,6 +54,7 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
       final callKitService = CallKitService();
       await callKitService.showIncomingCall(
         callId: callId,
+        callUuid: message.data['callUuid']?.toString(),
         callerName: callerName,
         callerAvatar: callerAvatar,
         isVideo: callType == 'video',
@@ -413,17 +425,15 @@ class NotificationService {
       _processedMessageIds.remove(_processedMessageIds.first);
     }
 
+    // Calls: incoming_call (deduped with the socket by callId) and
+    // call_cancelled belong to CallManager and never become a banner.
+    if (await handleCallPush(Map<String, dynamic>.from(message.data))) return;
+
     final notificationType = message.data['type']?.toString().toLowerCase();
 
     // Don't show local notification for chat messages when app is in foreground
     // The socket already handles real-time message delivery
     if (notificationType == 'chat_message') {
-      return;
-    }
-
-    // Incoming calls in foreground are handled by the socket → IncomingCallScreen.
-    // Don't show a duplicate notification banner.
-    if (notificationType == 'incoming_call') {
       return;
     }
 

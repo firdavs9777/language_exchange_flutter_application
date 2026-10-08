@@ -37,4 +37,15 @@ void main() {
     first.dispose();
     second.dispose();
   });
+
+  test('a socket that is not connected (e.g. after logout) is never emitted to', () async {
+    final h = CallHarness();
+    final stale = _offlineSocket();
+    h.manager.bindSocket(stale);
+    await h.ringIncoming();
+    await h.manager.acceptCall();
+    h.manager.setMuted(true);
+    expect(stale.sendBuffer, isEmpty);
+    stale.dispose();
+  });
 }

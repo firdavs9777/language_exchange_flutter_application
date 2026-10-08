@@ -429,14 +429,13 @@ class NotificationRouter {
     return null;
   }
 
-  /// A tapped incoming-call notification. CallManager dedupes by callId and
-  /// opens the incoming screen; Task A6 adds the stale-notification check.
+  /// A tapped incoming-call notification. It may be stale: the server is
+  /// asked first; a call that is no longer ringing opens the conversation.
   static Future<void> _handleIncomingCallNotification(Map<String, dynamic> data) async {
-    final callId = data['callId']?.toString() ?? '';
-    if (callId.isEmpty) {
-      goRouter.go('/home');
-      return;
+    final action = await CallManager().resolveIncomingTap(data);
+    if (action == IncomingTapAction.openChat) {
+      final callerId = data['callerId']?.toString();
+      goRouter.go(callerId != null && callerId.isNotEmpty ? '/chat/$callerId' : '/home');
     }
-    await CallManager().handleIncoming(data, source: IncomingSource.notificationTap);
   }
 }
