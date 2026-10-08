@@ -30,6 +30,14 @@ App (backend items in the backend repo's `docs/REMAINING_WORK.md`):
 - [x] Splash profile-incomplete loop — leaving the mandatory wizard unfinished now signs out fully (splash, login screen and the wizard's own exit share `signOutAndReset`).
 - [x] Previous account's uploads / call / voice room survived logout — every session teardown now ends them first (still authenticated); uploads are abandoned at their next step and never write into the next account's queue.
 
+## 0b. Calls reliability (2026-10-08) — spec `docs/superpowers/specs/2026-10-08-calls-reliability-design.md`
+
+Baseline: 1/30 calls answered in 30 days, 168 stuck ringing, 0 call messages ever.
+- [ ] Backend: server-authoritative call state, timeouts/sweeper, busy + calls-off, call messages, push TTL/missed push, history API, delete legacy callHandler.
+- [ ] App: CallManager follower + single exit path, re-bind on socket replace, CallKit `callUuid`, killed-state accept, Android FGS + full-screen intent, reconnect grace, wakelock/proximity, camera mid-voice, self-view, cap removed, call bubble + Calls list + call settings.
+- [ ] Owner: LiveKit webhook URL in LiveKit Cloud; confirm `APNS_VOIP_*` on prod.
+- [ ] Device QA `docs/qa/calls-matrix.md`; re-measure answered rate one week after release (target ≥ 40%).
+
 ## 1. Owner (needs the keystore MacBook, store consoles or droplet)
 
 - [ ] **Store prices** — App Store Connect + Play Console: VIP monthly **$3.99**, yearly **$24.99** (quarterly untouched; hidden in the app).
