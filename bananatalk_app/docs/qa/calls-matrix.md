@@ -74,8 +74,8 @@ bubble with the right label on both sides (§3), (e) nothing keeps ringing anywh
 |---|---|---|---|---|
 | IOS-1 | VoIP while app killed | Kill app; receive a call | CallKit rings (no crash — the 24-hex id crash is gone) | |
 | IOS-2 | VoIP while app backgrounded/inactive | App in background; receive a call | CallKit rings; accept joins the call | |
-| IOS-3 | Cancel while ringing (killed) | S-3 on iPhone | CallKit UI ends within 3 s | |
+| IOS-3 | Cancel while ringing (killed) | S-3 on iPhone; repeat 5× in a row | CallKit UI ends within 3 s; no second ring; VoIP pushes keep arriving after repeated caller cancels (6th call still rings) | |
 | IOS-4 | Cancel overtakes invite | Caller starts and cancels within ~1 s while iPhone is on poor network | No lingering ring; at most a sub-second CallKit flash; a late invite does not ring | |
-| IOS-5 | Answered on another device | iPhone + iPad on the same account (both new build); answer on iPad | iPhone CallKit ends; no "Unknown" call appears | |
+| IOS-5 | Answered on another device | iPhone + iPad on the same account (both new build); answer on iPad; repeat 5× | iPhone CallKit ends; no "Unknown" call appears; VoIP pushes keep arriving on the iPhone afterwards | |
 | IOS-6 | Foreground VoIP cancel | iPhone app open on the incoming screen; answer on the other device | In-app screen closes; any CallKit flash is ≤ 1 s | |
 | IOS-7 | Unanswered call, app killed | Kill app; A calls; nobody answers | Rings until ~45 s, no second ring, no "Unknown" entry in Recents | |

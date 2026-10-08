@@ -123,14 +123,12 @@ import flutter_callkit_incoming
     if isCancel {
       // Remember it either way, so a duplicate or late invite never rings.
       rememberCancelled(callUuid)
-      if isRinging(callUuid) {
-        endReportedCall(callUuid)
-        completion()
-      } else {
-        // The cancel overtook the invite (or the call already ended).
-        // PushKit still demands a report: report it and end it at once.
-        reportAndEnd(data, callUuid: callUuid, completion: completion)
-      }
+      // PushKit demands a report for EVERY VoIP push, this one included.
+      // If the call is still ringing, CallKit rejects the report with
+      // callUUIDAlreadyExists (no second ring; the plugin only calls
+      // completion) and the end action stops the ringing call. If the
+      // cancel overtook the invite, the report flashes and is ended at once.
+      reportAndEnd(data, callUuid: callUuid, completion: completion)
       return
     }
 
@@ -139,10 +137,13 @@ import flutter_callkit_incoming
       return
     }
 
-    SwiftFlutterCallkitIncomingPlugin.sharedInstance?
-      .showCallkitIncoming(data, fromPushKit: true) {
-        completion()
-      }
+    guard let plugin = SwiftFlutterCallkitIncomingPlugin.sharedInstance else {
+      completion()
+      return
+    }
+    plugin.showCallkitIncoming(data, fromPushKit: true) {
+      completion()
+    }
   }
 
   // MARK: - call_cancelled helpers
@@ -150,14 +151,6 @@ import flutter_callkit_incoming
   private static func normalizedUuid(_ raw: String?) -> String {
     if let raw = raw, UUID(uuidString: raw) != nil { return raw.lowercased() }
     return UUID().uuidString.lowercased()
-  }
-
-  /// A live (not ended) CallKit call with this uuid. CallKit reports
-  /// uuids uppercase; callUuid is lowercase.
-  private func isRinging(_ callUuid: String) -> Bool {
-    return callController.callObserver.calls.contains {
-      $0.uuid.uuidString.lowercased() == callUuid && !$0.hasEnded
-    }
   }
 
   private func endReportedCall(_ callUuid: String) {
@@ -173,11 +166,14 @@ import flutter_callkit_incoming
     callUuid: String,
     completion: @escaping () -> Void
   ) {
-    SwiftFlutterCallkitIncomingPlugin.sharedInstance?
-      .showCallkitIncoming(data, fromPushKit: true) { [weak self] in
-        self?.endReportedCall(callUuid)
-        completion()
-      }
+    guard let plugin = SwiftFlutterCallkitIncomingPlugin.sharedInstance else {
+      completion()
+      return
+    }
+    plugin.showCallkitIncoming(data, fromPushKit: true) { [weak self] in
+      self?.endReportedCall(callUuid)
+      completion()
+    }
   }
 
   private func rememberCancelled(_ callUuid: String) {
