@@ -3671,5 +3671,7 @@
   "callFullScreenIntentTitle": "在锁屏上显示来电",
   "callFullScreenIntentBody": "允许 BananaTalk 全屏显示来电，这样手机锁定时也不会错过来电。",
   "callForegroundTitle": "通话中",
-  "callForegroundBody": "点按返回通话"
+  "callForegroundBody": "点按返回通话",
+  "callServiceChannelName": "正在通话",
+  "callServiceChannelDescription": "在 BananaTalk 处于后台时保持通话"
 }

@@ -9019,4 +9019,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get callForegroundBody => 'انقر للعودة إلى المكالمة';
+
+  @override
+  String get callServiceChannelName => 'مكالمة جارية';
+
+  @override
+  String get callServiceChannelDescription => 'يُبقي مكالمتك مستمرة أثناء عمل BananaTalk في الخلفية';
 }

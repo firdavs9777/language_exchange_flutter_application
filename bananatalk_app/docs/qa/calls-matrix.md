@@ -88,3 +88,6 @@ bubble with the right label on both sides (§3), (e) nothing keeps ringing anywh
 | AND-2 | Video call in background (Android 14) | Same with video | Audio continues; peer sees "Camera paused"; camera returns on resume; no crash (camera FGS type) | |
 | AND-3 | Full-screen intent prompt | Fresh install on Android 14; receive and finish one call | Explainer appears once after the call; "Open settings" lands on the full-screen-intent toggle; never shown again | |
 | AND-4 | Locked-phone ring after granting | AND-3 granted; lock phone; receive a call | Full-screen call UI, no duplicate notification (incoming push is data-only) | |
+| AND-5 | Accept from the lock screen (Android 14) | Lock B; A calls (voice, then video); B accepts from the lock-screen call UI; then press Home | No crash; once the app is in front the "Call in progress" notification appears; audio keeps flowing after Home | |
+| AND-6 | Camera revoked mid-call | During a video call open Settings → BananaTalk → Permissions → Camera → Deny; reopen BananaTalk | No crash; if the app restarts, no "Call in progress" notification is left without a call; a new video call asks for the camera again | |
+| AND-7 | Swipe away mid-call | Connected call; swipe BananaTalk out of Recents | "Call in progress" notification disappears and does not come back; peer sees the call end within ~20 s | |

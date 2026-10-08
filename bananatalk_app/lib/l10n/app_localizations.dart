@@ -16483,6 +16483,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Tap to return to your call'**
   String get callForegroundBody;
+
+  /// No description provided for @callServiceChannelName.
+  ///
+  /// In en, this message translates to:
+  /// **'Ongoing call'**
+  String get callServiceChannelName;
+
+  /// No description provided for @callServiceChannelDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Keeps your call running while BananaTalk is in the background'**
+  String get callServiceChannelDescription;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -3657,5 +3657,7 @@
   "callFullScreenIntentTitle": "แสดงสายเรียกเข้าบนหน้าจอล็อก",
   "callFullScreenIntentBody": "อนุญาตให้ BananaTalk แสดงสายเรียกเข้าแบบเต็มหน้าจอ เพื่อไม่ให้พลาดสายเมื่อโทรศัพท์ล็อกอยู่",
   "callForegroundTitle": "กำลังโทร",
-  "callForegroundBody": "แตะเพื่อกลับไปยังการโทร"
+  "callForegroundBody": "แตะเพื่อกลับไปยังการโทร",
+  "callServiceChannelName": "กำลังโทร",
+  "callServiceChannelDescription": "ให้สายของคุณดำเนินต่อขณะที่ BananaTalk ทำงานในพื้นหลัง"
 }

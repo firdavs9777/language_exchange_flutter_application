@@ -46,7 +46,7 @@ Baseline: 1/30 calls answered in 30 days, 168 stuck ringing, 0 call messages eve
   - [x] A9 IncomingCallScreen closes on terminal state / after 50 s
   - [x] A10 20 s reconnect overlay + quality callback chain + outcome banner (also: expireIncoming skips an in-flight accept; outgoing 50 s check re-arms once at 65 s; QA rows S-7, S-8; the app does not emit `call:reconnecting`/`reconnected` relays yet)
   - [x] A11 video wakelock + camera paused in background
-  - [x] A12 Android microphone/camera foreground service + full-screen-intent request (QA rows AND-1…AND-4)
+  - [x] A12 Android microphone/camera foreground service + full-screen-intent request (QA rows AND-1…AND-7; channel name/description strings are 18 more machine drafts)
   - [ ] A13 CallLauncher, call bubble labels, chat-list preview
     - [ ] fold `startCallFromCallsList` (Calls list busy / start-limit messages, A4 review) and the chat header's ignored `InitiateResult` into `CallLauncher`
   - [ ] A14 Calls list + chat-tab icon + missed badge
@@ -59,7 +59,7 @@ Baseline: 1/30 calls answered in 30 days, 168 stuck ringing, 0 call messages eve
 
 ## 1. Owner (needs the keystore MacBook, store consoles or droplet)
 
-- [ ] Play Console → App content → Foreground services: declare **microphone** and **camera** ("ongoing 1:1 voice/video call") before uploading the build with Task A12 — the upload is rejected without it.
+- [ ] Play Console → App content → Foreground services: declare **microphone**, **camera** and **phone call** ("ongoing 1:1 voice/video call"; `FOREGROUND_SERVICE_PHONE_CALL` comes from flutter_callkit_incoming) before uploading the build with Task A12 — the upload is rejected without it.
 - [ ] **Store prices** — App Store Connect + Play Console: VIP monthly **$3.99**, yearly **$24.99** (quarterly untouched; hidden in the app).
 - [ ] **Build + submit 2.6.1** — follow `docs/releases/2.6.1-handoff.md` (TestFlight smoke: sandbox coin purchase, cold-start push tap, one Boost purchase while `BOOSTS_ENABLED` is flipped for 10 minutes).
 - [ ] **Android App Links** — `public/.well-known/assetlinks.json` in the web repo still has `TODO_SHA256_*`. Paste the upload-key and app-signing-key SHA-256 from Play Console → App integrity → App signing. Until then no `https://banatalk.com/...` link opens the Android app.

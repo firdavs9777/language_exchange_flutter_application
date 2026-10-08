@@ -9005,4 +9005,10 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get callForegroundBody => 'Aramaya dönmek için dokunun';
+
+  @override
+  String get callServiceChannelName => 'Devam eden arama';
+
+  @override
+  String get callServiceChannelDescription => 'BananaTalk arka plandayken aramanızın sürmesini sağlar';
 }

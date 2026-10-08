@@ -8997,4 +8997,10 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get callForegroundBody => 'แตะเพื่อกลับไปยังการโทร';
+
+  @override
+  String get callServiceChannelName => 'กำลังโทร';
+
+  @override
+  String get callServiceChannelDescription => 'ให้สายของคุณดำเนินต่อขณะที่ BananaTalk ทำงานในพื้นหลัง';
 }

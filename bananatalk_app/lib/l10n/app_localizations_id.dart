@@ -9004,4 +9004,10 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get callForegroundBody => 'Ketuk untuk kembali ke panggilan';
+
+  @override
+  String get callServiceChannelName => 'Panggilan berlangsung';
+
+  @override
+  String get callServiceChannelDescription => 'Menjaga panggilan tetap berjalan saat BananaTalk di latar belakang';
 }

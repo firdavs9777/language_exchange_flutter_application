@@ -3678,5 +3678,7 @@
   "callFullScreenIntentTitle": "잠금 화면에 전화 표시",
   "callFullScreenIntentBody": "휴대폰이 잠겨 있어도 전화를 놓치지 않도록 BananaTalk가 수신 전화를 전체 화면으로 표시하도록 허용하세요.",
   "callForegroundTitle": "통화 중",
-  "callForegroundBody": "탭하여 통화로 돌아가기"
+  "callForegroundBody": "탭하여 통화로 돌아가기",
+  "callServiceChannelName": "진행 중인 통화",
+  "callServiceChannelDescription": "BananaTalk이 백그라운드에 있어도 통화가 계속되도록 합니다"
 }

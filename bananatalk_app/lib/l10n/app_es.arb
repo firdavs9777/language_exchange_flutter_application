@@ -3687,5 +3687,7 @@
   "callFullScreenIntentTitle": "Mostrar llamadas en la pantalla de bloqueo",
   "callFullScreenIntentBody": "Permite que BananaTalk muestre las llamadas entrantes a pantalla completa para que no te las pierdas con el teléfono bloqueado.",
   "callForegroundTitle": "Llamada en curso",
-  "callForegroundBody": "Toca para volver a la llamada"
+  "callForegroundBody": "Toca para volver a la llamada",
+  "callServiceChannelName": "Llamada en curso",
+  "callServiceChannelDescription": "Mantiene tu llamada activa mientras BananaTalk está en segundo plano"
 }

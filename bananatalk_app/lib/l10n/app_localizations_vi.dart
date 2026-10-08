@@ -8997,4 +8997,10 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get callForegroundBody => 'Nhấn để quay lại cuộc gọi';
+
+  @override
+  String get callServiceChannelName => 'Cuộc gọi đang diễn ra';
+
+  @override
+  String get callServiceChannelDescription => 'Giữ cuộc gọi tiếp tục khi BananaTalk chạy nền';
 }

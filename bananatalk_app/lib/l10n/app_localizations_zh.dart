@@ -8997,6 +8997,12 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get callForegroundBody => '点按返回通话';
+
+  @override
+  String get callServiceChannelName => '正在通话';
+
+  @override
+  String get callServiceChannelDescription => '在 BananaTalk 处于后台时保持通话';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -17992,4 +17998,10 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get callForegroundBody => '輕觸以返回通話';
+
+  @override
+  String get callServiceChannelName => '通話中';
+
+  @override
+  String get callServiceChannelDescription => '在 BananaTalk 處於背景時保持通話';
 }

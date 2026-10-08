@@ -9028,4 +9028,10 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get callForegroundBody => 'Нажмите, чтобы вернуться к звонку';
+
+  @override
+  String get callServiceChannelName => 'Текущий звонок';
+
+  @override
+  String get callServiceChannelDescription => 'Не даёт звонку прерваться, пока BananaTalk работает в фоне';
 }

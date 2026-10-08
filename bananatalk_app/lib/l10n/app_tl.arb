@@ -3630,5 +3630,7 @@
   "callFullScreenIntentTitle": "Ipakita ang mga tawag sa lock screen",
   "callFullScreenIntentBody": "Payagan ang BananaTalk na ipakita nang full screen ang mga papasok na tawag para hindi mo makaligtaan kahit naka-lock ang phone mo.",
   "callForegroundTitle": "May kasalukuyang tawag",
-  "callForegroundBody": "I-tap para bumalik sa tawag"
+  "callForegroundBody": "I-tap para bumalik sa tawag",
+  "callServiceChannelName": "Kasalukuyang tawag",
+  "callServiceChannelDescription": "Pinapanatiling tuloy ang tawag mo habang nasa background ang BananaTalk"
 }

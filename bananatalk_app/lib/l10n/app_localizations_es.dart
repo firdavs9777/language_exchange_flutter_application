@@ -9007,4 +9007,10 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get callForegroundBody => 'Toca para volver a la llamada';
+
+  @override
+  String get callServiceChannelName => 'Llamada en curso';
+
+  @override
+  String get callServiceChannelDescription => 'Mantiene tu llamada activa mientras BananaTalk está en segundo plano';
 }

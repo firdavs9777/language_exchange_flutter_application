@@ -6366,5 +6366,7 @@
   "callFullScreenIntentTitle": "Show calls on the lock screen",
   "callFullScreenIntentBody": "Allow BananaTalk to show incoming calls full screen so you don't miss them while your phone is locked.",
   "callForegroundTitle": "Call in progress",
-  "callForegroundBody": "Tap to return to your call"
+  "callForegroundBody": "Tap to return to your call",
+  "callServiceChannelName": "Ongoing call",
+  "callServiceChannelDescription": "Keeps your call running while BananaTalk is in the background"
 }

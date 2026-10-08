@@ -30,7 +30,9 @@ abstract class CallPlatform {
   Future<bool> ensurePermissions({required bool video});
   Future<String> permissionError({required bool video, required bool accepting});
 
-  /// Android ongoing-call foreground service (no-op elsewhere).
+  /// Android ongoing-call foreground service (no-op elsewhere). Call only
+  /// while the app is resumed: Android 14 refuses to start a microphone or
+  /// camera service from the background.
   Future<void> startCallService({required bool video});
   Future<void> stopCallService();
 }
@@ -164,13 +166,23 @@ class DeviceCallPlatform implements CallPlatform {
   }
 
   @override
-  Future<void> startCallService({required bool video}) {
+  Future<void> startCallService({required bool video}) async {
     final ctx = callOverlayNavigatorKey.currentContext;
     final l10n = ctx != null ? AppLocalizations.of(ctx) : null;
-    return CallForegroundService.start(
-      video: video,
+    // A typed foreground service started without its runtime permission
+    // throws inside the plugin's onStartCommand, out of Dart's reach.
+    if (!await Permission.microphone.isGranted) {
+      debugPrint('📞 call foreground service skipped: no microphone permission');
+      return;
+    }
+    final camera = video && await Permission.camera.isGranted;
+    await CallForegroundService.start(
+      video: camera,
       title: l10n?.callForegroundTitle ?? 'Call in progress',
       text: l10n?.callForegroundBody ?? 'Tap to return to your call',
+      channelName: l10n?.callServiceChannelName ?? 'Ongoing call',
+      channelDescription: l10n?.callServiceChannelDescription ??
+          'Keeps your call running while BananaTalk is in the background',
     );
   }
 

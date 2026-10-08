@@ -3657,5 +3657,7 @@
   "callFullScreenIntentTitle": "Hiển thị cuộc gọi trên màn hình khóa",
   "callFullScreenIntentBody": "Cho phép BananaTalk hiển thị cuộc gọi đến toàn màn hình để bạn không bỏ lỡ khi điện thoại đang khóa.",
   "callForegroundTitle": "Đang trong cuộc gọi",
-  "callForegroundBody": "Nhấn để quay lại cuộc gọi"
+  "callForegroundBody": "Nhấn để quay lại cuộc gọi",
+  "callServiceChannelName": "Cuộc gọi đang diễn ra",
+  "callServiceChannelDescription": "Giữ cuộc gọi tiếp tục khi BananaTalk chạy nền"
 }

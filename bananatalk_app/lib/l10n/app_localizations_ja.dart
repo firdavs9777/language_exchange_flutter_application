@@ -8997,4 +8997,10 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get callForegroundBody => 'タップして通話に戻る';
+
+  @override
+  String get callServiceChannelName => '通話中';
+
+  @override
+  String get callServiceChannelDescription => 'BananaTalkがバックグラウンドにあるときも通話を継続します';
 }

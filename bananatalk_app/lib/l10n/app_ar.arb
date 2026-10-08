@@ -3687,5 +3687,7 @@
   "callFullScreenIntentTitle": "عرض المكالمات على شاشة القفل",
   "callFullScreenIntentBody": "اسمح لـ BananaTalk بعرض المكالمات الواردة بملء الشاشة حتى لا تفوتك عندما يكون هاتفك مقفلاً.",
   "callForegroundTitle": "مكالمة جارية",
-  "callForegroundBody": "انقر للعودة إلى المكالمة"
+  "callForegroundBody": "انقر للعودة إلى المكالمة",
+  "callServiceChannelName": "مكالمة جارية",
+  "callServiceChannelDescription": "يُبقي مكالمتك مستمرة أثناء عمل BananaTalk في الخلفية"
 }

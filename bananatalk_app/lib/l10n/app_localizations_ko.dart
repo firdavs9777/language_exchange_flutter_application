@@ -8997,4 +8997,10 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get callForegroundBody => '탭하여 통화로 돌아가기';
+
+  @override
+  String get callServiceChannelName => '진행 중인 통화';
+
+  @override
+  String get callServiceChannelDescription => 'BananaTalk이 백그라운드에 있어도 통화가 계속되도록 합니다';
 }

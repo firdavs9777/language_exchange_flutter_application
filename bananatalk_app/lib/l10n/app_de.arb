@@ -3897,5 +3897,7 @@
   "callFullScreenIntentTitle": "Anrufe auf dem Sperrbildschirm anzeigen",
   "callFullScreenIntentBody": "Erlaube BananaTalk, eingehende Anrufe im Vollbild anzuzeigen, damit du sie auch bei gesperrtem Telefon nicht verpasst.",
   "callForegroundTitle": "Anruf läuft",
-  "callForegroundBody": "Tippen, um zum Anruf zurückzukehren"
+  "callForegroundBody": "Tippen, um zum Anruf zurückzukehren",
+  "callServiceChannelName": "Laufender Anruf",
+  "callServiceChannelDescription": "Hält deinen Anruf aktiv, während BananaTalk im Hintergrund läuft"
 }

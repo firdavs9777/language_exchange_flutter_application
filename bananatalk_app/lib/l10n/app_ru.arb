@@ -3687,5 +3687,7 @@
   "callFullScreenIntentTitle": "Показывать звонки на экране блокировки",
   "callFullScreenIntentBody": "Разрешите BananaTalk показывать входящие звонки на весь экран, чтобы не пропускать их, когда телефон заблокирован.",
   "callForegroundTitle": "Идёт звонок",
-  "callForegroundBody": "Нажмите, чтобы вернуться к звонку"
+  "callForegroundBody": "Нажмите, чтобы вернуться к звонку",
+  "callServiceChannelName": "Текущий звонок",
+  "callServiceChannelDescription": "Не даёт звонку прерваться, пока BananaTalk работает в фоне"
 }

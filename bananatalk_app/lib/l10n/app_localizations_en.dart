@@ -9013,4 +9013,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get callForegroundBody => 'Tap to return to your call';
+
+  @override
+  String get callServiceChannelName => 'Ongoing call';
+
+  @override
+  String get callServiceChannelDescription => 'Keeps your call running while BananaTalk is in the background';
 }

@@ -3150,5 +3150,7 @@
   "callFullScreenIntentTitle": "Нишон додани зангҳо дар экрани қулф",
   "callFullScreenIntentBody": "Ба BananaTalk иҷозат диҳед, ки зангҳои воридотиро дар тамоми экран нишон диҳад, то ҳангоми қулф будани телефон онҳоро аз даст надиҳед.",
   "callForegroundTitle": "Занг идома дорад",
-  "callForegroundBody": "Барои бозгашт ба занг ламс кунед"
+  "callForegroundBody": "Барои бозгашт ба занг ламс кунед",
+  "callServiceChannelName": "Занги ҷорӣ",
+  "callServiceChannelDescription": "Зангро ҳангоми дар замина будани BananaTalk фаъол нигоҳ медорад"
 }

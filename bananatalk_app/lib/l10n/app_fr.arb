@@ -3897,5 +3897,7 @@
   "callFullScreenIntentTitle": "Afficher les appels sur l'écran de verrouillage",
   "callFullScreenIntentBody": "Autorisez BananaTalk à afficher les appels entrants en plein écran pour ne pas les manquer lorsque votre téléphone est verrouillé.",
   "callForegroundTitle": "Appel en cours",
-  "callForegroundBody": "Touchez pour revenir à l'appel"
+  "callForegroundBody": "Touchez pour revenir à l'appel",
+  "callServiceChannelName": "Appel en cours",
+  "callServiceChannelDescription": "Maintient ton appel actif lorsque BananaTalk est en arrière-plan"
 }

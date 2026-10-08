@@ -63,6 +63,7 @@ class CallManagerDeps {
     required this.openActiveCall,
     required this.openIncomingCall,
     this.afterIncomingCall = CallManagerDeps._noop,
+    this.isAppResumed = CallManagerDeps._resumed,
   });
 
   factory CallManagerDeps.production() => CallManagerDeps(
@@ -73,9 +74,12 @@ class CallManagerDeps {
         openActiveCall: CallRoutes.openActive,
         openIncomingCall: CallRoutes.openIncoming,
         afterIncomingCall: () => Future<void>.delayed(const Duration(milliseconds: 600), () {
+          // Never over a call: another one may have started ringing meanwhile.
+          if (CallManager().currentCall != null) return;
           final ctx = callOverlayNavigatorKey.currentContext;
           if (ctx != null && ctx.mounted) unawaited(FullScreenIntentPrompt.maybeAsk(ctx));
         }),
+        isAppResumed: () => WidgetsBinding.instance.lifecycleState == AppLifecycleState.resumed,
       );
 
   final CallApi api;
@@ -89,7 +93,11 @@ class CallManagerDeps {
   /// for the Android full-screen-intent permission, after the ring is over.
   final void Function() afterIncomingCall;
 
+  /// Whether the app is in the foreground (lifecycle resumed) right now.
+  final bool Function() isAppResumed;
+
   static void _noop() {}
+  static bool _resumed() => true;
 }
 
 /// How long the caller sees "No answer" / "Declined" before the screen closes.
@@ -172,6 +180,10 @@ class CallManager with WidgetsBindingObserver {
   bool _isMuted = false;
   bool _isVideoEnabled = true;
   bool _cameraPausedByLifecycle = false;
+
+  /// Media came up while the app was not resumed; start the foreground
+  /// service on the next resume.
+  bool _callServicePending = false;
   bool _isSpeakerOn = false;
   bool _isFrontCamera = true;
 
@@ -202,6 +214,13 @@ class CallManager with WidgetsBindingObserver {
     attachSocketService(chatSocketService);
     if (!_isInitialized) _initCallKit();
     _isInitialized = true;
+    stopOrphanCallService();
+  }
+
+  /// A call foreground service left running with no call (the process died
+  /// mid-call) is stopped; with a call it is that call's service.
+  void stopOrphanCallService() {
+    if (currentCall == null) unawaited(_deps.platform.stopCallService());
   }
 
   /// Follow the chat socket across replacements. ChatSocketService replaces
@@ -243,6 +262,10 @@ class CallManager with WidgetsBindingObserver {
         _emitToPeer('call:video-toggle', {'isVideoEnabled': false});
       }
     } else if (state == AppLifecycleState.resumed) {
+      if (_callServicePending) {
+        _callServicePending = false;
+        if (c != null) unawaited(_deps.platform.startCallService(video: c.callType == CallType.video));
+      }
       if (_cameraPausedByLifecycle) {
         _cameraPausedByLifecycle = false;
         if (currentCall != null && _isVideoEnabled) {
@@ -684,7 +707,11 @@ class CallManager with WidgetsBindingObserver {
   void _onMediaConnected(CallModel call) {
     final video = call.callType == CallType.video;
     if (video) unawaited(_deps.platform.setWakelock(true));
-    unawaited(_deps.platform.startCallService(video: video));
+    if (_deps.isAppResumed()) {
+      unawaited(_deps.platform.startCallService(video: video));
+    } else {
+      _callServicePending = true;
+    }
   }
 
   void _cancelReconnectGrace() {
@@ -1055,6 +1082,7 @@ class CallManager with WidgetsBindingObserver {
     _isMuted = false;
     _isVideoEnabled = true;
     _cameraPausedByLifecycle = false;
+    _callServicePending = false;
     _isSpeakerOn = false;
     _isFrontCamera = true;
   }

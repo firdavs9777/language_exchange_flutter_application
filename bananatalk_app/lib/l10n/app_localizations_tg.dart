@@ -9011,4 +9011,10 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get callForegroundBody => 'Барои бозгашт ба занг ламс кунед';
+
+  @override
+  String get callServiceChannelName => 'Занги ҷорӣ';
+
+  @override
+  String get callServiceChannelDescription => 'Зангро ҳангоми дар замина будани BananaTalk фаъол нигоҳ медорад';
 }

@@ -171,6 +171,7 @@ class CallHarness {
         openIncoming?.call(c);
       },
       afterIncomingCall: () => afterIncomingCalls++,
+      isAppResumed: () => appResumed,
     ));
     manager.onCallFinished = finishes.add;
   }
@@ -182,6 +183,7 @@ class CallHarness {
   final List<String> opened = [];
   int closes = 0;
   int afterIncomingCalls = 0;
+  bool appResumed = true;
   Object? nextConnectError;
   Completer<void>? nextConnectGate;
   late final CallManager manager;

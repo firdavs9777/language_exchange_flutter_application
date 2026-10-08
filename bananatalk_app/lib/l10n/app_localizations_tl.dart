@@ -9007,4 +9007,10 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get callForegroundBody => 'I-tap para bumalik sa tawag';
+
+  @override
+  String get callServiceChannelName => 'Kasalukuyang tawag';
+
+  @override
+  String get callServiceChannelDescription => 'Pinapanatiling tuloy ang tawag mo habang nasa background ang BananaTalk';
 }

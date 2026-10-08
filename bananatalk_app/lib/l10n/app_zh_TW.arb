@@ -3348,5 +3348,7 @@
   "callFullScreenIntentTitle": "在鎖定畫面顯示來電",
   "callFullScreenIntentBody": "允許 BananaTalk 以全螢幕顯示來電，即使手機鎖定也不會錯過。",
   "callForegroundTitle": "通話中",
-  "callForegroundBody": "輕觸以返回通話"
+  "callForegroundBody": "輕觸以返回通話",
+  "callServiceChannelName": "通話中",
+  "callServiceChannelDescription": "在 BananaTalk 處於背景時保持通話"
 }

@@ -3657,5 +3657,7 @@
   "callFullScreenIntentTitle": "ロック画面に着信を表示",
   "callFullScreenIntentBody": "スマートフォンがロックされていても着信を見逃さないよう、BananaTalkに全画面での着信表示を許可してください。",
   "callForegroundTitle": "通話中",
-  "callForegroundBody": "タップして通話に戻る"
+  "callForegroundBody": "タップして通話に戻る",
+  "callServiceChannelName": "通話中",
+  "callServiceChannelDescription": "BananaTalkがバックグラウンドにあるときも通話を継続します"
 }

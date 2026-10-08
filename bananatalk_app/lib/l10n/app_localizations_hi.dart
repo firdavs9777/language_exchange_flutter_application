@@ -9007,4 +9007,10 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get callForegroundBody => 'कॉल पर लौटने के लिए टैप करें';
+
+  @override
+  String get callServiceChannelName => 'चल रही कॉल';
+
+  @override
+  String get callServiceChannelDescription => 'BananaTalk के बैकग्राउंड में होने पर भी आपकी कॉल चालू रखता है';
 }

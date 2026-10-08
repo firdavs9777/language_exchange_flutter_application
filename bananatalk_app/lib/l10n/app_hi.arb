@@ -3673,5 +3673,7 @@
   "callFullScreenIntentTitle": "लॉक स्क्रीन पर कॉल दिखाएँ",
   "callFullScreenIntentBody": "BananaTalk को इनकमिंग कॉल फ़ुल स्क्रीन में दिखाने दें ताकि फ़ोन लॉक होने पर भी आप कॉल न चूकें।",
   "callForegroundTitle": "कॉल जारी है",
-  "callForegroundBody": "कॉल पर लौटने के लिए टैप करें"
+  "callForegroundBody": "कॉल पर लौटने के लिए टैप करें",
+  "callServiceChannelName": "चल रही कॉल",
+  "callServiceChannelDescription": "BananaTalk के बैकग्राउंड में होने पर भी आपकी कॉल चालू रखता है"
 }

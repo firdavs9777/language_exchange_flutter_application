@@ -3657,5 +3657,7 @@
   "callFullScreenIntentTitle": "Tampilkan panggilan di layar kunci",
   "callFullScreenIntentBody": "Izinkan BananaTalk menampilkan panggilan masuk dalam layar penuh agar Anda tidak melewatkannya saat ponsel terkunci.",
   "callForegroundTitle": "Panggilan berlangsung",
-  "callForegroundBody": "Ketuk untuk kembali ke panggilan"
+  "callForegroundBody": "Ketuk untuk kembali ke panggilan",
+  "callServiceChannelName": "Panggilan berlangsung",
+  "callServiceChannelDescription": "Menjaga panggilan tetap berjalan saat BananaTalk di latar belakang"
 }

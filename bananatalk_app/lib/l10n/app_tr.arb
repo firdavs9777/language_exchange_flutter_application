@@ -3869,5 +3869,7 @@
   "callFullScreenIntentTitle": "Aramaları kilit ekranında göster",
   "callFullScreenIntentBody": "Telefonunuz kilitliyken aramaları kaçırmamanız için BananaTalk'un gelen aramaları tam ekran göstermesine izin verin.",
   "callForegroundTitle": "Arama sürüyor",
-  "callForegroundBody": "Aramaya dönmek için dokunun"
+  "callForegroundBody": "Aramaya dönmek için dokunun",
+  "callServiceChannelName": "Devam eden arama",
+  "callServiceChannelDescription": "BananaTalk arka plandayken aramanızın sürmesini sağlar"
 }
