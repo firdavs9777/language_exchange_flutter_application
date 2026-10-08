@@ -1539,6 +1539,11 @@
   "enableBiometricBody": "Masuk dengan biometrik tanpa mengetik kata sandi.",
   "enableBiometricCta": "Aktifkan",
   "biometricSignInPrompt": "Autentikasi untuk masuk ke Bananatalk",
+  "biometricNotAvailable": "Masuk dengan biometrik tidak tersedia di perangkat ini. Silakan masuk dengan kata sandi.",
+  "biometricNotEnrolled": "Belum ada Face ID atau sidik jari di perangkat ini. Tambahkan di Pengaturan, atau masuk dengan kata sandi.",
+  "biometricLockedOut": "Terlalu banyak percobaan. Biometrik dikunci sementara. Coba lagi nanti atau masuk dengan kata sandi.",
+  "biometricPermanentlyLockedOut": "Biometrik terkunci. Buka kunci perangkat dengan kode sandi, lalu coba lagi.",
+  "biometricPasscodeNotSet": "Atur kode sandi perangkat untuk memakai masuk dengan biometrik.",
   "continueAs": "Lanjutkan sebagai {name}",
   "@continueAs": {
     "placeholders": {

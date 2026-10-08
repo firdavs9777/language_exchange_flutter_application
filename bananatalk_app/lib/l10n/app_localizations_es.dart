@@ -4955,6 +4955,21 @@ class AppLocalizationsEs extends AppLocalizations {
   String get biometricSignInPrompt => 'Autentícate para iniciar sesión en Bananatalk';
 
   @override
+  String get biometricNotAvailable => 'El inicio de sesión biométrico no está disponible en este dispositivo. Inicia sesión con tu contraseña.';
+
+  @override
+  String get biometricNotEnrolled => 'No hay Face ID ni huella configurados en este dispositivo. Añade uno en Ajustes o inicia sesión con tu contraseña.';
+
+  @override
+  String get biometricLockedOut => 'Demasiados intentos. La biometría está bloqueada temporalmente. Inténtalo más tarde o inicia sesión con tu contraseña.';
+
+  @override
+  String get biometricPermanentlyLockedOut => 'La biometría está bloqueada. Desbloquea el dispositivo con su código y vuelve a intentarlo.';
+
+  @override
+  String get biometricPasscodeNotSet => 'Configura un código en el dispositivo para usar el inicio de sesión biométrico.';
+
+  @override
   String continueAs(String name) {
     return 'Continuar como $name';
   }

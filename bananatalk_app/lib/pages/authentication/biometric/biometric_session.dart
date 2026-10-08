@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:bananatalk_app/l10n/app_localizations.dart';
+
 import 'package:bananatalk_app/pages/authentication/biometric/biometric_service.dart';
 import 'package:bananatalk_app/pages/authentication/biometric/biometric_token_storage.dart';
 
@@ -79,5 +81,30 @@ Future<void> rotateBiometricSnapshot({
     ));
   } catch (e) {
     debugPrint('[biometric] snapshot rotation failed: $e');
+  }
+}
+
+/// What to tell the user after a biometric prompt, or null for nothing
+/// (success, or they cancelled on purpose).
+String? biometricResultMessage(
+  AppLocalizations l10n,
+  BiometricAuthResult result,
+) {
+  switch (result) {
+    case BiometricAuthResult.success:
+    case BiometricAuthResult.cancelled:
+      return null;
+    case BiometricAuthResult.notAvailable:
+      return l10n.biometricNotAvailable;
+    case BiometricAuthResult.notEnrolled:
+      return l10n.biometricNotEnrolled;
+    case BiometricAuthResult.lockedOut:
+      return l10n.biometricLockedOut;
+    case BiometricAuthResult.permanentlyLockedOut:
+      return l10n.biometricPermanentlyLockedOut;
+    case BiometricAuthResult.passcodeNotSet:
+      return l10n.biometricPasscodeNotSet;
+    case BiometricAuthResult.error:
+      return l10n.somethingWentWrong;
   }
 }

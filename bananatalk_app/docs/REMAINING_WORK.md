@@ -23,6 +23,7 @@ App (backend items in the backend repo's `docs/REMAINING_WORK.md`):
 - [x] Biometric re-login after logout — logout no longer revokes the refresh token the biometric snapshot holds; biometric login refreshes with it; definitive rejection wipes the snapshot + flag, offline keeps it.
 - [x] Android biometric never worked: `MainActivity` was a `FlutterActivity` (local_auth needs a FragmentActivity) — now `FlutterFragmentActivity` + AppCompat launch/normal themes. Needs an on-device check on Android 7–8 and 13+.
 - [x] iOS biometric snapshot keychain: `unlocked_this_device`, not synchronizable (was readable while locked); clear() also removes items stored under the old accessibility.
+- [x] Biometric prompt errors surfaced (not available / not enrolled / locked out / permanently locked / no passcode) instead of a silent dead button; "Continue as" shown only when enabled + enrolled + snapshot readable. 5 new l10n keys are machine drafts in 18 locales — native review open.
 
 ## 1. Owner (needs the keystore MacBook, store consoles or droplet)
 

@@ -1966,6 +1966,11 @@
   "enableBiometricBody": "Melde dich biometrisch an, ohne dein Passwort einzugeben.",
   "enableBiometricCta": "Aktivieren",
   "biometricSignInPrompt": "Authentifiziere dich, um dich bei Bananatalk anzumelden",
+  "biometricNotAvailable": "Biometrische Anmeldung ist auf diesem Gerät nicht verfügbar. Bitte melde dich mit deinem Passwort an.",
+  "biometricNotEnrolled": "Auf diesem Gerät ist kein Face ID oder Fingerabdruck eingerichtet. Richte einen in den Einstellungen ein oder melde dich mit deinem Passwort an.",
+  "biometricLockedOut": "Zu viele Versuche. Biometrie ist vorübergehend gesperrt. Versuche es später erneut oder melde dich mit deinem Passwort an.",
+  "biometricPermanentlyLockedOut": "Biometrie ist gesperrt. Entsperre das Gerät mit dem Code und versuche es erneut.",
+  "biometricPasscodeNotSet": "Lege einen Gerätecode fest, um die biometrische Anmeldung zu nutzen.",
   "continueAs": "Als {name} fortfahren",
   "@continueAs": {
     "placeholders": {

@@ -4955,6 +4955,21 @@ class AppLocalizationsDe extends AppLocalizations {
   String get biometricSignInPrompt => 'Authentifiziere dich, um dich bei Bananatalk anzumelden';
 
   @override
+  String get biometricNotAvailable => 'Biometrische Anmeldung ist auf diesem Gerät nicht verfügbar. Bitte melde dich mit deinem Passwort an.';
+
+  @override
+  String get biometricNotEnrolled => 'Auf diesem Gerät ist kein Face ID oder Fingerabdruck eingerichtet. Richte einen in den Einstellungen ein oder melde dich mit deinem Passwort an.';
+
+  @override
+  String get biometricLockedOut => 'Zu viele Versuche. Biometrie ist vorübergehend gesperrt. Versuche es später erneut oder melde dich mit deinem Passwort an.';
+
+  @override
+  String get biometricPermanentlyLockedOut => 'Biometrie ist gesperrt. Entsperre das Gerät mit dem Code und versuche es erneut.';
+
+  @override
+  String get biometricPasscodeNotSet => 'Lege einen Gerätecode fest, um die biometrische Anmeldung zu nutzen.';
+
+  @override
   String continueAs(String name) {
     return 'Als $name fortfahren';
   }

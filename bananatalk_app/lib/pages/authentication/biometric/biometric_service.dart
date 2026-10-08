@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
+import 'package:local_auth/error_codes.dart' as auth_error;
 import 'package:local_auth/local_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/pages/authentication/biometric/biometric_token_storage.dart';
@@ -37,6 +39,39 @@ class BiometricAuthState {
     } catch (_) {
       return null;
     }
+  }
+}
+
+/// What a biometric prompt ended in. Everything except [success] and
+/// [cancelled] deserves a message: the user cannot fix what they are not told.
+enum BiometricAuthResult {
+  success,
+  cancelled,
+  notAvailable,
+  notEnrolled,
+  lockedOut,
+  permanentlyLockedOut,
+  passcodeNotSet,
+  error,
+}
+
+/// Maps local_auth's PlatformException codes (package:local_auth/error_codes).
+BiometricAuthResult biometricResultForErrorCode(String code) {
+  switch (code) {
+    case auth_error.notAvailable:
+    case auth_error.otherOperatingSystem:
+    case auth_error.biometricOnlyNotSupported:
+      return BiometricAuthResult.notAvailable;
+    case auth_error.notEnrolled:
+      return BiometricAuthResult.notEnrolled;
+    case auth_error.lockedOut:
+      return BiometricAuthResult.lockedOut;
+    case auth_error.permanentlyLockedOut:
+      return BiometricAuthResult.permanentlyLockedOut;
+    case auth_error.passcodeNotSet:
+      return BiometricAuthResult.passcodeNotSet;
+    default:
+      return BiometricAuthResult.error;
   }
 }
 
@@ -81,22 +116,54 @@ class BiometricService {
     return prefs.getBool(_enabledFlagKey) ?? false;
   }
 
-  /// Triggers the OS biometric prompt. Returns true on success.
-  /// [reason] is shown on Android; on iOS it's overridden by
-  /// NSFaceIDUsageDescription in Info.plist.
-  Future<bool> authenticate({required String reason}) async {
+  /// Triggers the OS biometric prompt. True only on success.
+  Future<bool> authenticate({required String reason}) async =>
+      await authenticateWithResult(reason: reason) ==
+      BiometricAuthResult.success;
+
+  /// Triggers the OS biometric prompt and says what happened.
+  ///
+  /// [authenticate] used to swallow every PlatformException as `false`, so
+  /// "no Face ID enrolled", "locked out after too many tries" and "this
+  /// Android activity can't host the prompt" all looked like the user
+  /// cancelling: the login button simply did nothing. [reason] is shown on
+  /// Android; on iOS NSFaceIDUsageDescription is used.
+  Future<BiometricAuthResult> authenticateWithResult({
+    required String reason,
+  }) async {
     try {
-      return await _auth.authenticate(
+      final ok = await _auth.authenticate(
         localizedReason: reason,
         options: const AuthenticationOptions(
           stickyAuth: true,
           biometricOnly: true,
         ),
       );
+      // local_auth reports a user/system cancel as `false`, not an error.
+      return ok ? BiometricAuthResult.success : BiometricAuthResult.cancelled;
+    } on PlatformException catch (e) {
+      if (kDebugMode) debugPrint('BiometricService.authenticate: ${e.code}');
+      return biometricResultForErrorCode(e.code);
     } catch (e) {
       if (kDebugMode) debugPrint('BiometricService.authenticate failed: $e');
+      return BiometricAuthResult.error;
+    }
+  }
+
+  /// True when the "Continue as <name>" button may be shown: the user opted
+  /// in, the device still has biometrics enrolled, AND a snapshot is
+  /// actually readable. An opted-in flag with no readable snapshot (keychain
+  /// wiped, restored onto a new phone) is turned off here rather than
+  /// offering a button that can only fail.
+  Future<bool> canOfferLogin() async {
+    if (!await isEnabled()) return false;
+    if (!await isAvailable()) return false;
+    final state = await readState();
+    if (state == null || state.refreshToken.isEmpty) {
+      await disable();
       return false;
     }
+    return true;
   }
 
   /// Enable biometric login: store the auth snapshot + flip the flag.

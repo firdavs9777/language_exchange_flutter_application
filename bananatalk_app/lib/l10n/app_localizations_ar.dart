@@ -4955,6 +4955,21 @@ class AppLocalizationsAr extends AppLocalizations {
   String get biometricSignInPrompt => 'قم بالمصادقة لتسجيل الدخول إلى Bananatalk';
 
   @override
+  String get biometricNotAvailable => 'تسجيل الدخول بالقياسات الحيوية غير متاح على هذا الجهاز. يرجى تسجيل الدخول بكلمة المرور.';
+
+  @override
+  String get biometricNotEnrolled => 'لم يتم إعداد Face ID أو بصمة على هذا الجهاز. أضف واحدة من الإعدادات أو سجّل الدخول بكلمة المرور.';
+
+  @override
+  String get biometricLockedOut => 'محاولات كثيرة جدًا. القياسات الحيوية مقفلة مؤقتًا. حاول لاحقًا أو سجّل الدخول بكلمة المرور.';
+
+  @override
+  String get biometricPermanentlyLockedOut => 'القياسات الحيوية مقفلة. افتح قفل الجهاز برمز المرور ثم حاول مرة أخرى.';
+
+  @override
+  String get biometricPasscodeNotSet => 'عيّن رمز مرور للجهاز لاستخدام تسجيل الدخول بالقياسات الحيوية.';
+
+  @override
   String continueAs(String name) {
     return 'المتابعة باسم $name';
   }

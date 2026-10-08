@@ -4955,6 +4955,21 @@ class AppLocalizationsJa extends AppLocalizations {
   String get biometricSignInPrompt => 'Bananatalkにログインするため認証してください';
 
   @override
+  String get biometricNotAvailable => 'このデバイスでは生体認証ログインを利用できません。パスワードでログインしてください。';
+
+  @override
+  String get biometricNotEnrolled => 'このデバイスにFace IDまたは指紋が登録されていません。設定で登録するか、パスワードでログインしてください。';
+
+  @override
+  String get biometricLockedOut => '試行回数が多すぎます。生体認証が一時的にロックされました。後でもう一度試すか、パスワードでログインしてください。';
+
+  @override
+  String get biometricPermanentlyLockedOut => '生体認証がロックされています。パスコードでデバイスのロックを解除してから、もう一度お試しください。';
+
+  @override
+  String get biometricPasscodeNotSet => '生体認証ログインを使うには、デバイスのパスコードを設定してください。';
+
+  @override
   String continueAs(String name) {
     return '$nameとしてログイン';
   }

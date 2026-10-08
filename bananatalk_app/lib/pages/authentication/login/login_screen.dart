@@ -83,10 +83,9 @@ class _LoginState extends ConsumerState<Login> {
   }
 
   Future<void> _checkBiometricButton() async {
-    final enabled = await _biometric.isEnabled();
-    if (!enabled) return;
-    final available = await _biometric.isAvailable();
-    if (!available) return;
+    // Enabled AND still enrolled AND a readable snapshot -- not just the
+    // flag, which outlives a wiped keychain or a removed fingerprint.
+    if (!await _biometric.canOfferLogin()) return;
     final name = await _biometric.readUserNameDisplay();
     if (!mounted) return;
     setState(() {
@@ -100,14 +99,20 @@ class _LoginState extends ConsumerState<Login> {
     final l10n = AppLocalizations.of(context)!;
     setState(() => _biometricAuthing = true);
 
-    final ok = await _biometric.authenticate(
+    final result = await _biometric.authenticateWithResult(
       reason: l10n.biometricSignInPrompt,
     );
     if (!mounted) {
       return;
     }
-    if (!ok) {
+    if (result != BiometricAuthResult.success) {
       setState(() => _biometricAuthing = false);
+      // Used to return silently for every failure, so "not enrolled" or
+      // "locked out" looked like a dead button.
+      final message = biometricResultMessage(l10n, result);
+      if (message != null) {
+        showAuthSnackBar(context, message: message, type: AuthSnackBarType.error);
+      }
       return;
     }
 

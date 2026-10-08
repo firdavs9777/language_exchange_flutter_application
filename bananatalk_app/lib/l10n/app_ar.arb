@@ -1711,6 +1711,11 @@
   "enableBiometricBody": "سجّل الدخول بالبصمة دون كتابة كلمة المرور.",
   "enableBiometricCta": "تفعيل",
   "biometricSignInPrompt": "قم بالمصادقة لتسجيل الدخول إلى Bananatalk",
+  "biometricNotAvailable": "تسجيل الدخول بالقياسات الحيوية غير متاح على هذا الجهاز. يرجى تسجيل الدخول بكلمة المرور.",
+  "biometricNotEnrolled": "لم يتم إعداد Face ID أو بصمة على هذا الجهاز. أضف واحدة من الإعدادات أو سجّل الدخول بكلمة المرور.",
+  "biometricLockedOut": "محاولات كثيرة جدًا. القياسات الحيوية مقفلة مؤقتًا. حاول لاحقًا أو سجّل الدخول بكلمة المرور.",
+  "biometricPermanentlyLockedOut": "القياسات الحيوية مقفلة. افتح قفل الجهاز برمز المرور ثم حاول مرة أخرى.",
+  "biometricPasscodeNotSet": "عيّن رمز مرور للجهاز لاستخدام تسجيل الدخول بالقياسات الحيوية.",
   "continueAs": "المتابعة باسم {name}",
   "@continueAs": {
     "placeholders": {

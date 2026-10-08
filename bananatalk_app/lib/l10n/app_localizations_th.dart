@@ -4955,6 +4955,21 @@ class AppLocalizationsTh extends AppLocalizations {
   String get biometricSignInPrompt => 'ยืนยันตัวตนเพื่อเข้าสู่ระบบ Bananatalk';
 
   @override
+  String get biometricNotAvailable => 'อุปกรณ์นี้ไม่รองรับการเข้าสู่ระบบด้วยไบโอเมตริก โปรดเข้าสู่ระบบด้วยรหัสผ่าน';
+
+  @override
+  String get biometricNotEnrolled => 'อุปกรณ์นี้ยังไม่ได้ตั้งค่า Face ID หรือลายนิ้วมือ เพิ่มได้ในการตั้งค่า หรือเข้าสู่ระบบด้วยรหัสผ่าน';
+
+  @override
+  String get biometricLockedOut => 'ลองหลายครั้งเกินไป ไบโอเมตริกถูกล็อกชั่วคราว ลองใหม่ภายหลังหรือเข้าสู่ระบบด้วยรหัสผ่าน';
+
+  @override
+  String get biometricPermanentlyLockedOut => 'ไบโอเมตริกถูกล็อก ปลดล็อกอุปกรณ์ด้วยรหัสผ่านแล้วลองใหม่';
+
+  @override
+  String get biometricPasscodeNotSet => 'ตั้งรหัสผ่านอุปกรณ์เพื่อใช้การเข้าสู่ระบบด้วยไบโอเมตริก';
+
+  @override
   String continueAs(String name) {
     return 'ดำเนินการต่อในชื่อ $name';
   }
