@@ -1,5 +1,5 @@
 import 'package:bananatalk_app/pages/authentication/auth_error_codes.dart';
-import 'package:bananatalk_app/providers/provider_models//users_model.dart';
+import 'package:bananatalk_app/providers/provider_models/users_model.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/user_limits_provider.dart';
 import 'package:bananatalk_app/services/socket_service.dart';
@@ -7,6 +7,10 @@ import 'package:bananatalk_app/services/chat_socket_service.dart';
 import 'package:bananatalk_app/services/notification_service.dart';
 import 'package:bananatalk_app/services/notification_api_client.dart';
 import 'package:bananatalk_app/services/api_client.dart';
+import 'package:bananatalk_app/services/session_prefs.dart';
+import 'package:bananatalk_app/pages/authentication/biometric/biometric_service.dart';
+import 'package:bananatalk_app/pages/authentication/biometric/biometric_session.dart';
+import 'package:bananatalk_app/pages/authentication/biometric/biometric_token_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -72,10 +76,16 @@ class AuthService extends ChangeNotifier {
 
             notifyListeners();
             return true;
-          } else {
-            // Refresh failed, clear auth data
-            await _clearAuthData();
+          } else if (refreshResult['requiresLogin'] == true) {
+            // refreshAccessToken() already cleared the session.
             return false;
+          } else {
+            // Offline / server error: keep the session, same policy as
+            // _validateToken (a network error never logs the user out).
+            // Requests will refresh again through ApiClient once reachable.
+            isLoggedIn = true;
+            notifyListeners();
+            return true;
           }
         } else {
           // No refresh token, clear auth data
@@ -123,6 +133,20 @@ class AuthService extends ChangeNotifier {
       // We'll handle actual errors in API calls
       return true; // Assume valid, will fail on actual API calls if not
     }
+  }
+
+  /// The result map for a request that threw (offline, timeout, TLS, bad
+  /// JSON). It used to carry `'Network error: ${e.toString()}'`, which put
+  /// `ClientException: Connection reset by peer, uri=...` in front of users.
+  /// The raw error is logged instead; screens holding l10n map
+  /// `isNetworkError` to `noInternetConnection`.
+  Map<String, dynamic> _networkFailure(Object e) {
+    debugPrint('[auth] request failed: $e');
+    return {
+      'success': false,
+      'message': 'Network error. Please check your connection.',
+      'isNetworkError': true,
+    };
   }
 
   /// Parse error response from backend
@@ -208,6 +232,7 @@ class AuthService extends ChangeNotifier {
         await prefs.setString('token', token);
         await prefs.setString('refreshToken', refreshToken);
         await prefs.setString('userId', userId);
+        await _afterSignIn();
 
         // Cache native language for auto-translation
         final nativeLang =
@@ -251,9 +276,17 @@ class AuthService extends ChangeNotifier {
         // Handle account lockout
         if (_isAccountLocked(errorData)) {
           final lockUntil = errorData['lockUntil'];
-          String message =
-              'Account is temporarily locked due to too many failed login attempts.';
-          if (lockUntil != null) {
+          // The server's 423 message already says how long ("Account is
+          // locked. Please try again in 14 minutes.") and it sends no
+          // lockUntil, so the generic sentence below used to replace the one
+          // thing the user needed to know. Prefer the server's words.
+          final serverMessage = errorData['message']?.toString() ?? '';
+          final useServerMessage =
+              serverMessage.isNotEmpty && serverMessage != 'An error occurred';
+          String message = useServerMessage
+              ? serverMessage
+              : 'Account is temporarily locked due to too many failed login attempts.';
+          if (lockUntil != null && !useServerMessage) {
             try {
               final lockTime = DateTime.parse(lockUntil);
               final now = DateTime.now();
@@ -298,7 +331,7 @@ class AuthService extends ChangeNotifier {
         };
       }
     } catch (e) {
-      return {'success': false, 'message': 'Network error: ${e.toString()}'};
+      return _networkFailure(e);
     }
   }
 
@@ -339,6 +372,7 @@ class AuthService extends ChangeNotifier {
               await prefs.setString('refreshToken', responseRefreshToken);
             }
             await prefs.setString('userId', responseUserId);
+            await _afterSignIn();
 
             // Re-enable socket reconnection for new login
             SocketService().enableReconnection();
@@ -377,7 +411,7 @@ class AuthService extends ChangeNotifier {
         };
       }
     } catch (e) {
-      return {'success': false, 'message': 'Network error: ${e.toString()}'};
+      return _networkFailure(e);
     }
   }
 
@@ -424,6 +458,7 @@ class AuthService extends ChangeNotifier {
         await prefs.setString('token', token);
         await prefs.setString('refreshToken', refreshToken);
         await prefs.setString('userId', userId);
+        await _afterSignIn();
 
         // Connect chat socket service
         try {
@@ -521,6 +556,7 @@ class AuthService extends ChangeNotifier {
               await prefs.setString('refreshToken', responseRefreshToken);
             }
             await prefs.setString('userId', responseUserId);
+            await _afterSignIn();
 
             // Re-enable socket reconnection so a previous logout's
             // disabled flags don't block the next forceReconnect() call.
@@ -561,7 +597,7 @@ class AuthService extends ChangeNotifier {
         };
       }
     } catch (e) {
-      return {'success': false, 'message': 'Network error: ${e.toString()}'};
+      return _networkFailure(e);
     }
   }
 
@@ -610,7 +646,7 @@ class AuthService extends ChangeNotifier {
         };
       }
     } catch (e) {
-      return {'success': false, 'message': 'Network error: ${e.toString()}'};
+      return _networkFailure(e);
     }
   }
 
@@ -651,6 +687,7 @@ class AuthService extends ChangeNotifier {
               await prefs.setString('refreshToken', responseRefreshToken);
             }
             await prefs.setString('userId', responseUserId);
+            await _afterSignIn();
 
             // Re-enable socket reconnection so a previous logout's
             // disabled flags don't block the next forceReconnect() call.
@@ -692,7 +729,7 @@ class AuthService extends ChangeNotifier {
         };
       }
     } catch (e) {
-      return {'success': false, 'message': 'Network error: ${e.toString()}'};
+      return _networkFailure(e);
     }
   }
 
@@ -701,6 +738,7 @@ class AuthService extends ChangeNotifier {
     if (refreshToken.isEmpty) {
       return {'success': false, 'message': 'No refresh token available'};
     }
+    final previousRefreshToken = refreshToken;
 
     final url = Uri.parse('${Endpoints.baseURL}${Endpoints.refreshTokenURL}');
 
@@ -727,21 +765,36 @@ class AuthService extends ChangeNotifier {
         await prefs.setString('token', token);
         if (newRefreshToken != null && newRefreshToken.isNotEmpty) {
           await prefs.setString('refreshToken', refreshToken);
+          // If the server rotates refresh tokens, the biometric snapshot
+          // must follow or it goes stale.
+          await rotateBiometricSnapshot(
+            oldRefreshToken: previousRefreshToken,
+            newRefreshToken: refreshToken,
+            newAccessToken: token,
+            storage: biometricStorageForTest,
+          );
         }
         notifyListeners();
 
         return {'success': true, 'token': token, 'refreshToken': refreshToken};
-      } else {
-        // Refresh token expired or invalid - logout user
+      } else if (ApiClient.isDefinitiveRefreshFailure(response.statusCode)) {
+        // Refresh token rejected, or the user no longer exists - logout user
         await _clearAuthData();
         return {
           'success': false,
           'message': 'Session expired. Please login again.',
           'requiresLogin': true,
         };
+      } else {
+        // 5xx / 429: the server is struggling, the session is not over.
+        return {
+          'success': false,
+          'message': 'Server error: ${response.statusCode}',
+          'requiresLogin': false,
+        };
       }
     } catch (e) {
-      return {'success': false, 'message': 'Network error: ${e.toString()}'};
+      return {..._networkFailure(e), 'requiresLogin': false};
     }
   }
 
@@ -753,6 +806,17 @@ class AuthService extends ChangeNotifier {
   /// 4. Clear storage
   /// 5. Clear caches
   Future<void> _clearAuthData() async {
+    // 0. End what this account still has running (uploads, call, voice
+    // room) while its token is still valid. Wired in main(); null in tests.
+    final ending = onSessionEnding;
+    if (ending != null) {
+      try {
+        await ending();
+      } catch (e) {
+        debugPrint('[auth] onSessionEnding failed: $e');
+      }
+    }
+
     final prefs = await SharedPreferences.getInstance();
 
     // 1. FIRST: Disconnect all socket connections (WHILE STILL AUTHENTICATED!)
@@ -785,25 +849,12 @@ class AuthService extends ChangeNotifier {
     refreshToken = '';
     isLoggedIn = false;
 
-    // 4. FOURTH: Clear ALL SharedPreferences (user data, tokens, caches, etc.)
-    try {
-      await prefs.clear();
-    } catch (e) {
-      // Fallback: remove specific keys
-      await prefs.remove('token');
-      await prefs.remove('refreshToken');
-      await prefs.remove('userId');
-      await prefs.remove('fcm_token');
-      await prefs.remove('savedMoments');
-      await prefs.remove('count');
-      // Remove any chat theme preferences
-      final keys = prefs.getKeys();
-      for (final key in keys) {
-        if (key.startsWith('chat_theme_')) {
-          await prefs.remove(key);
-        }
-      }
-    }
+    // 4. FOURTH: Clear the user's SharedPreferences -- NOT prefs.clear(),
+    // which also wiped theme, app language, remembered email and the
+    // biometric opt-in. Device-level keys are kept (see session_prefs.dart);
+    // the biometric secure-storage snapshot is dropped unless biometric
+    // login is enabled.
+    await clearUserSessionPrefs(prefs: prefs);
 
     // 4.5: Clear API client token caches.
     // BOTH clients cache independently. ApiClient is a singleton holding the
@@ -824,6 +875,122 @@ class AuthService extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Local session teardown without a server round-trip: socket logout
+  /// event, push-token removal, tokens, user prefs, API token caches. Used by
+  /// `resetUserSession` for the paths that never call [logout] (suspended
+  /// account, session expired).
+  Future<void> clearLocalSession() => _clearAuthData();
+
+  /// Every path that starts a session (password, Google, Apple, Facebook,
+  /// register, password reset) calls this once the tokens are stored:
+  ///  - ApiClient drops any bearer it cached from a previous session;
+  ///  - the biometric snapshot follows the new tokens if it belongs to this
+  ///    account, and is WIPED if it belongs to another one -- user A's Face
+  ///    ID must never sign anyone in after user B logged in with a password.
+  Future<void> _afterSignIn() async {
+    ApiClient().clearTokenCache();
+    await syncBiometricSnapshotAfterSignIn(
+      userId: userId,
+      token: token,
+      refreshToken: refreshToken,
+      storage: biometricStorageForTest,
+    );
+  }
+
+  /// Runs at the start of every local session teardown, before tokens are
+  /// cleared. main() sets it to `endSessionActivities` (uploads, active call,
+  /// voice room); kept as a hook so this service does not depend on them.
+  static Future<void> Function()? onSessionEnding;
+
+  /// Test seam for the biometric keychain (flutter_secure_storage has no
+  /// test implementation).
+  @visibleForTesting
+  BiometricTokenStorage? biometricStorageForTest;
+
+  /// Biometric sign-in: spends the snapshot's refresh token at the refresh
+  /// endpoint for a fresh access token, instead of trusting the stored access
+  /// token (which may have expired since). See biometric_session.dart.
+  ///
+  /// - 200: session restored (and the snapshot follows a rotated token).
+  /// - 400/401/403/404: the snapshot can never work again -- it is deleted
+  ///   and biometric login turned off.
+  /// - anything else (offline, 5xx): snapshot kept, caller offers a retry.
+  Future<BiometricLoginOutcome> loginWithBiometric(
+    BiometricAuthState state,
+  ) async {
+    final biometric = BiometricService(
+      storage: biometricStorageForTest ?? BiometricTokenStorage(),
+    );
+    if (state.refreshToken.isEmpty) {
+      await biometric.disable();
+      return BiometricLoginOutcome.rejected;
+    }
+
+    final http.Response response;
+    try {
+      response = await http
+          .post(
+            Uri.parse('${Endpoints.baseURL}${Endpoints.refreshTokenURL}'),
+            body: jsonEncode({'refreshToken': state.refreshToken}),
+            headers: {'Content-Type': 'application/json'},
+          )
+          .timeout(const Duration(seconds: 30));
+    } catch (e) {
+      debugPrint('[biometric-login] refresh unreachable: $e');
+      return BiometricLoginOutcome.retryable;
+    }
+
+    if (response.statusCode == 200) {
+      String newToken = '';
+      String rotated = '';
+      try {
+        final data = jsonDecode(response.body);
+        newToken = (data['token'] ?? data['data']?['token'] ?? '').toString();
+        rotated = (data['refreshToken'] ?? data['data']?['refreshToken'] ?? '')
+            .toString();
+      } catch (_) {}
+      if (newToken.isEmpty) return BiometricLoginOutcome.retryable;
+
+      token = newToken;
+      refreshToken = rotated.isNotEmpty ? rotated : state.refreshToken;
+      userId = state.userId;
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('token', token);
+      await prefs.setString('refreshToken', refreshToken);
+      await prefs.setString('userId', userId);
+      ApiClient().clearTokenCache();
+      isLoggedIn = true;
+      SocketService().enableReconnection();
+      // Logout called disableReconnection(), and connect() returns early
+      // until it is re-enabled -- without this, chat stayed offline after a
+      // biometric sign-in until the app was restarted.
+      try {
+        final chatSocketService = ChatSocketService();
+        chatSocketService.enableReconnection();
+        await chatSocketService.connect();
+      } catch (e) {
+        debugPrint('[biometric-login] chat socket connect failed: $e');
+      }
+      notifyListeners();
+
+      if (rotated.isNotEmpty) {
+        await rotateBiometricSnapshot(
+          oldRefreshToken: state.refreshToken,
+          newRefreshToken: rotated,
+          newAccessToken: newToken,
+          storage: biometricStorageForTest,
+        );
+      }
+      return BiometricLoginOutcome.success;
+    }
+
+    if (ApiClient.isDefinitiveRefreshFailure(response.statusCode)) {
+      await biometric.disable();
+      return BiometricLoginOutcome.rejected;
+    }
+    return BiometricLoginOutcome.retryable;
+  }
+
   Future<Map<String, dynamic>> logout({bool logoutAll = false}) async {
     final url = Uri.parse(
       '${Endpoints.baseURL}${logoutAll ? Endpoints.logoutAllURL : Endpoints.logoutURL}',
@@ -835,6 +1002,15 @@ class AuthService extends ChangeNotifier {
       chatSocketService.disableReconnection(); // Prevent reconnection
       await chatSocketService.disconnect();
 
+      // The server revokes whichever refresh token this body names. When the
+      // biometric snapshot holds it, revoking it would break "Continue with
+      // Face ID" -- so it is left alive and only this device's local session
+      // ends. Biometrics off (or a different account's snapshot): revoked.
+      final keepForBiometric = !logoutAll &&
+          await isRefreshTokenHeldForBiometric(
+            refreshToken,
+            storage: biometricStorageForTest,
+          );
       final response = await http.post(
         url,
         headers: {
@@ -842,7 +1018,7 @@ class AuthService extends ChangeNotifier {
           'Authorization': 'Bearer $token',
         },
         body: jsonEncode({
-          if (!logoutAll && refreshToken.isNotEmpty)
+          if (!logoutAll && !keepForBiometric && refreshToken.isNotEmpty)
             'refreshToken': refreshToken,
         }),
       );
@@ -913,8 +1089,35 @@ class AuthService extends ChangeNotifier {
         };
       }
     } catch (e) {
-      return {'success': false, 'message': 'Network error: ${e.toString()}'};
+      return _networkFailure(e);
     }
+  }
+
+  /// Proof from verify-code that this device verified the signup email
+  /// (backend: a 30-minute JWT bound to the email; /register checks it when
+  /// sent). Memory only -- it lives for one signup flow. Older servers do
+  /// not send it, and then nothing is sent back.
+  String? _registrationToken;
+  String? _registrationTokenEmail;
+
+  void _rememberRegistrationToken(String email, dynamic data) {
+    final raw = data is Map
+        ? (data['registrationToken'] ??
+            (data['data'] is Map ? data['data']['registrationToken'] : null))
+        : null;
+    if (raw is String && raw.isNotEmpty) {
+      _registrationToken = raw;
+      _registrationTokenEmail = email.trim().toLowerCase();
+    }
+  }
+
+  /// The registration token to send with /register for [email], or null.
+  /// Bound to the verified email: the server rejects a token for another
+  /// address, so a mismatch sends nothing rather than a certain 400.
+  String? registrationTokenFor(String email) {
+    if (_registrationToken == null) return null;
+    if (_registrationTokenEmail != email.trim().toLowerCase()) return null;
+    return _registrationToken;
   }
 
   Future<Map<String, dynamic>> verifyEmailCode({
@@ -932,6 +1135,7 @@ class AuthService extends ChangeNotifier {
       final data = jsonDecode(response.body);
 
       if (response.statusCode == 200) {
+        _rememberRegistrationToken(email, data);
         return {
           'success': true,
           'message': data['message'] ?? 'Email verified successfully',
@@ -945,7 +1149,7 @@ class AuthService extends ChangeNotifier {
         };
       }
     } catch (e) {
-      return {'success': false, 'message': 'Network error: ${e.toString()}'};
+      return _networkFailure(e);
     }
   }
 
@@ -999,6 +1203,8 @@ class AuthService extends ChangeNotifier {
 
     try {
       final body = user.toJson()..['clientInfo'] = await ClientInfo.collect();
+      final regToken = registrationTokenFor(user.email);
+      if (regToken != null) body['registrationToken'] = regToken;
       final response = await http.post(
         url,
         body: jsonEncode(body),
@@ -1013,11 +1219,14 @@ class AuthService extends ChangeNotifier {
         token = data['token'] ?? data['data']?['token'] ?? '';
         refreshToken =
             data['refreshToken'] ?? data['data']?['refreshToken'] ?? '';
+        _registrationToken = null; // single use
+        _registrationTokenEmail = null;
 
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString('token', token);
         await prefs.setString('refreshToken', refreshToken);
         await prefs.setString('userId', userId);
+        await _afterSignIn();
 
         // Cache the signup-time native language so the inline translate chip
         // can resolve the target without waiting for /auth/me to run. Login
@@ -1056,7 +1265,7 @@ class AuthService extends ChangeNotifier {
         };
       }
     } catch (e) {
-      return {'success': false, 'message': 'Network error: ${e.toString()}'};
+      return _networkFailure(e);
     }
   }
 
@@ -1176,7 +1385,7 @@ class AuthService extends ChangeNotifier {
         };
       }
     } catch (e) {
-      return {'success': false, 'message': 'Network error: ${e.toString()}'};
+      return _networkFailure(e);
     }
   }
 
@@ -1221,7 +1430,7 @@ class AuthService extends ChangeNotifier {
         };
       }
     } catch (e) {
-      return {'success': false, 'message': 'Network error: ${e.toString()}'};
+      return _networkFailure(e);
     }
   }
 
@@ -1257,7 +1466,7 @@ class AuthService extends ChangeNotifier {
         };
       }
     } catch (e) {
-      return {'success': false, 'message': 'Network error: ${e.toString()}'};
+      return _networkFailure(e);
     }
   }
 
@@ -1303,6 +1512,7 @@ class AuthService extends ChangeNotifier {
         await prefs.setString('token', token);
         await prefs.setString('refreshToken', refreshToken);
         await prefs.setString('userId', userId);
+        await _afterSignIn();
         isLoggedIn = true;
 
         // Re-enable socket reconnection for password reset login
@@ -1341,7 +1551,7 @@ class AuthService extends ChangeNotifier {
         };
       }
     } catch (e) {
-      return {'success': false, 'message': 'Network error: ${e.toString()}'};
+      return _networkFailure(e);
     }
   }
 
@@ -1671,13 +1881,26 @@ class AuthService extends ChangeNotifier {
     if (response.statusCode == 200) {
       // Backend rotates the JWT on password change (sendTokenResponse). Pick
       // up the new token so subsequent requests don't 401.
+      //
+      // The server now also clears EVERY refresh token on a password change
+      // and returns a new one. Keeping the old refresh token meant the next
+      // access-token expiry hit a revoked refresh token -> definitive refresh
+      // failure -> logged out; and the biometric snapshot held it too.
       try {
         final data = json.decode(response.body);
         final newToken = (data['token'] ?? data['data']?['token'])?.toString();
+        final newRefresh =
+            (data['refreshToken'] ?? data['data']?['refreshToken'])?.toString();
         if (newToken != null && newToken.isNotEmpty) {
           this.token = newToken; // keeps the in-memory service field fresh
           await prefs.setString('token', newToken);
         }
+        if (newRefresh != null && newRefresh.isNotEmpty) {
+          refreshToken = newRefresh;
+          await prefs.setString('refreshToken', newRefresh);
+        }
+        if (userId.isEmpty) userId = prefs.getString('userId') ?? '';
+        await _afterSignIn();
       } catch (_) {
         // Token rotation is best-effort — the next 401 will trigger refresh.
       }

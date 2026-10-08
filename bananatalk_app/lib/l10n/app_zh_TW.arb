@@ -1662,6 +1662,11 @@
   "enableBiometricBody": "使用生物辨識登入,無需輸入密碼。",
   "enableBiometricCta": "啟用",
   "biometricSignInPrompt": "請驗證身分以登入 Bananatalk",
+  "biometricNotAvailable": "此裝置不支援生物辨識登入。請使用密碼登入。",
+  "biometricNotEnrolled": "此裝置未設定 Face ID 或指紋。請在設定中新增，或使用密碼登入。",
+  "biometricLockedOut": "嘗試次數過多，生物辨識已暫時鎖定。請稍後再試或使用密碼登入。",
+  "biometricPermanentlyLockedOut": "生物辨識已鎖定。請用裝置密碼解鎖後再試。",
+  "biometricPasscodeNotSet": "請設定裝置密碼以使用生物辨識登入。",
   "continueAs": "以 {name} 繼續",
   "@continueAs": {
     "placeholders": {

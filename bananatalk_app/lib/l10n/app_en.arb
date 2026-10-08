@@ -2533,6 +2533,11 @@
   "enableBiometricBody": "Skip typing your password by signing in with biometrics.",
   "enableBiometricCta": "Enable",
   "biometricSignInPrompt": "Authenticate to log in to Bananatalk",
+  "biometricNotAvailable": "Biometric sign-in isn't available on this device. Please log in with your password.",
+  "biometricNotEnrolled": "No Face ID or fingerprint is set up on this device. Add one in Settings, or log in with your password.",
+  "biometricLockedOut": "Too many attempts. Biometrics are temporarily locked. Try again later or log in with your password.",
+  "biometricPermanentlyLockedOut": "Biometrics are locked. Unlock your device with its passcode, then try again.",
+  "biometricPasscodeNotSet": "Set a device passcode to use biometric sign-in.",
   "continueAs": "Continue as {name}",
   "@continueAs": {
     "placeholders": {

@@ -7,6 +7,7 @@ import 'package:bananatalk_app/pages/authentication/terms_of_service_screen.dart
 import 'package:bananatalk_app/pages/authentication/widgets/animated_banana_title.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/services/notification_service.dart';
+import 'package:bananatalk_app/services/session_reset.dart';
 import 'package:bananatalk_app/services/version_check_coordinator.dart';
 import 'package:bananatalk_app/services/welcome_back_service.dart';
 import 'package:bananatalk_app/widgets/welcome_back_modal.dart';
@@ -153,6 +154,12 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
             if (!updatedLocalFlag) {
               final updatedUser = await authService.getLoggedInUser();
               if (!updatedUser.termsAccepted) {
+                // Back on the Terms screen. This used to `return`, leaving
+                // the user on a splash that never routes anywhere. Without
+                // accepted terms there is no session to enter, so sign out
+                // and land on login, where signing in shows Terms again.
+                await signOutAndReset(authService);
+                if (mounted) context.go('/login');
                 return;
               }
             }
@@ -179,7 +186,14 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
           final updatedUser = await authService.getLoggedInUser();
           if (!mounted) return;
           if (!updatedUser.profileCompleted) {
-            context.go('/login');
+            // Same contract as the Google/Apple entry points: the wizard is
+            // a mandatory gate whose only exits are "finished" (it routes
+            // home itself) or "sign out". Reaching here means it was left
+            // some other way -- so sign out properly. This used to go to
+            // /login with the session alive, and the next launch restored it
+            // straight back into this gate: a loop on every launch.
+            await signOutAndReset(authService);
+            if (mounted) context.go('/login');
             return;
           }
         }

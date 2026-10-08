@@ -4955,6 +4955,21 @@ class AppLocalizationsTr extends AppLocalizations {
   String get biometricSignInPrompt => 'Bananatalk\'a giriş için kimliğinizi doğrulayın';
 
   @override
+  String get biometricNotAvailable => 'Bu cihazda biyometrik giriş kullanılamıyor. Lütfen şifrenle giriş yap.';
+
+  @override
+  String get biometricNotEnrolled => 'Bu cihazda Face ID veya parmak izi ayarlı değil. Ayarlar\'dan ekle ya da şifrenle giriş yap.';
+
+  @override
+  String get biometricLockedOut => 'Çok fazla deneme. Biyometri geçici olarak kilitlendi. Daha sonra tekrar dene ya da şifrenle giriş yap.';
+
+  @override
+  String get biometricPermanentlyLockedOut => 'Biyometri kilitli. Cihazın kilidini parolayla aç, sonra tekrar dene.';
+
+  @override
+  String get biometricPasscodeNotSet => 'Biyometrik giriş için bir cihaz parolası belirle.';
+
+  @override
   String continueAs(String name) {
     return '$name olarak devam et';
   }

@@ -1633,6 +1633,11 @@
   "enableBiometricBody": "Mag-sign in gamit ang biometrics nang hindi nagta-type ng password.",
   "enableBiometricCta": "I-enable",
   "biometricSignInPrompt": "Mag-authenticate upang mag-log in sa Bananatalk",
+  "biometricNotAvailable": "Hindi available ang biometric sign-in sa device na ito. Mag-log in gamit ang password.",
+  "biometricNotEnrolled": "Walang Face ID o fingerprint na naka-set up sa device na ito. Magdagdag sa Settings, o mag-log in gamit ang password.",
+  "biometricLockedOut": "Masyadong maraming pagsubok. Pansamantalang naka-lock ang biometrics. Subukan ulit mamaya o mag-log in gamit ang password.",
+  "biometricPermanentlyLockedOut": "Naka-lock ang biometrics. I-unlock ang device gamit ang passcode, saka subukan ulit.",
+  "biometricPasscodeNotSet": "Mag-set ng passcode sa device para magamit ang biometric sign-in.",
   "continueAs": "Magpatuloy bilang {name}",
   "@continueAs": {
     "placeholders": {

@@ -4955,6 +4955,21 @@ class AppLocalizationsVi extends AppLocalizations {
   String get biometricSignInPrompt => 'Xác thực để đăng nhập vào Bananatalk';
 
   @override
+  String get biometricNotAvailable => 'Thiết bị này không hỗ trợ đăng nhập sinh trắc học. Vui lòng đăng nhập bằng mật khẩu.';
+
+  @override
+  String get biometricNotEnrolled => 'Thiết bị này chưa thiết lập Face ID hoặc vân tay. Hãy thêm trong Cài đặt hoặc đăng nhập bằng mật khẩu.';
+
+  @override
+  String get biometricLockedOut => 'Quá nhiều lần thử. Sinh trắc học tạm thời bị khóa. Hãy thử lại sau hoặc đăng nhập bằng mật khẩu.';
+
+  @override
+  String get biometricPermanentlyLockedOut => 'Sinh trắc học đã bị khóa. Mở khóa thiết bị bằng mật mã rồi thử lại.';
+
+  @override
+  String get biometricPasscodeNotSet => 'Hãy đặt mật mã cho thiết bị để dùng đăng nhập sinh trắc học.';
+
+  @override
   String continueAs(String name) {
     return 'Tiếp tục với tên $name';
   }

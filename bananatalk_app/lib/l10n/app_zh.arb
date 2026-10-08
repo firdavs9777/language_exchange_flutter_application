@@ -1710,6 +1710,11 @@
   "enableBiometricBody": "使用生物识别登录,无需输入密码。",
   "enableBiometricCta": "启用",
   "biometricSignInPrompt": "请验证身份以登录 Bananatalk",
+  "biometricNotAvailable": "此设备不支持生物识别登录。请使用密码登录。",
+  "biometricNotEnrolled": "此设备未设置面容 ID 或指纹。请在设置中添加，或使用密码登录。",
+  "biometricLockedOut": "尝试次数过多，生物识别已暂时锁定。请稍后再试或使用密码登录。",
+  "biometricPermanentlyLockedOut": "生物识别已锁定。请用设备密码解锁后再试。",
+  "biometricPasscodeNotSet": "请设置设备密码以使用生物识别登录。",
   "continueAs": "以 {name} 继续",
   "@continueAs": {
     "placeholders": {

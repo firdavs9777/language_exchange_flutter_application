@@ -156,7 +156,7 @@ class CommunityService {
           hasMore: page < pages,
         );
       } else if (response.statusCode == 401) {
-        _apiClient.onAuthenticationError?.call();
+        await _apiClient.handleUnauthorized();
         throw Exception('Authentication required');
       } else {
         throw Exception('Failed to load community: ${response.statusCode}');
@@ -185,7 +185,7 @@ class CommunityService {
 
         return Community.fromJson(userData);
       } else if (response.statusCode == 401) {
-        _apiClient.onAuthenticationError?.call();
+        await _apiClient.handleUnauthorized();
         return null;
       } else {
         throw Exception('Failed to load user: ${response.statusCode}');
@@ -206,7 +206,7 @@ class CommunityService {
       final response = await http.put(url, headers: headers);
 
       if (response.statusCode == 401) {
-        _apiClient.onAuthenticationError?.call();
+        await _apiClient.handleUnauthorized();
         throw Exception('Authentication required');
       } else if (response.statusCode == 403) {
         _apiClient.onAuthorizationError?.call('You cannot follow this user');
@@ -246,7 +246,7 @@ class CommunityService {
       final response = await http.put(url, headers: headers);
 
       if (response.statusCode == 401) {
-        _apiClient.onAuthenticationError?.call();
+        await _apiClient.handleUnauthorized();
         throw Exception('Authentication required');
       } else if (response.statusCode >= 200 && response.statusCode < 300) {
         return 'success';

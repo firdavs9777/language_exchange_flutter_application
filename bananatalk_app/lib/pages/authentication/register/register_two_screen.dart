@@ -18,11 +18,14 @@ import 'package:bananatalk_app/pages/community/main/community_main.dart';
 import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/pages/authentication/register/birth_date_parts.dart';
+import 'package:bananatalk_app/pages/authentication/register/oauth_profile_update_body.dart';
 import 'package:bananatalk_app/services/chat_socket_service.dart';
-import 'package:bananatalk_app/providers/provider_models//users_model.dart';
+import 'package:bananatalk_app/services/session_reset.dart';
+import 'package:bananatalk_app/providers/provider_models/users_model.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/models/language_model.dart';
 import 'package:bananatalk_app/utils/client_info.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -421,13 +424,9 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
       stepName: _plan.stepNameAt(_currentStep),
     );
 
-    try {
-      await ref.read(authServiceProvider).logout();
-    } catch (e) {
-      // Sign-out failing must not strand the user on a screen they asked to
-      // leave; the router send below still gets them off it.
-      debugPrint('[RegisterTwo] logout failed: $e');
-    }
+    // Full sign-out (server + resetUserSession). Never throws: sign-out
+    // failing must not strand the user on a screen they asked to leave.
+    await signOutAndReset(ref.read(authServiceProvider));
     if (mounted) context.go('/login');
   }
 
@@ -626,37 +625,23 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
         );
         final token = authService.token;
 
-        final requestBody = {
-          'name': _effectiveName,
-          'gender': gender,
-          'birth_year': year,
-          'birth_month': month,
-          'birth_day': day,
-          'native_language': _nativeLanguage?.name ?? _effectiveNativeLanguage,
-          'language_to_learn':
+        // Never carries `images`: see buildOAuthProfileUpdateBody.
+        final requestBody = buildOAuthProfileUpdateBody(
+          name: _effectiveName,
+          gender: gender,
+          birthYear: year,
+          birthMonth: month,
+          birthDay: day,
+          nativeLanguage: _nativeLanguage?.name ?? _effectiveNativeLanguage,
+          learningLanguage:
               _learningLanguage?.name ?? _effectiveLearningLanguage,
-          'profileCompleted': true,
-          'images': [],
-          'clientInfo': await ClientInfo.collect(),
-          // `languageLevel` is CEFR for the language being LEARNED (it feeds the
-          // partner filter and matchScoring, where B1+ scores differently).
-          // This used to be gated on the now-removed native level, so a user
-          // who set their real learning level and skipped the meaningless
-          // native one sent nothing at all -- and the `?? _nativeLevel`
-          // fallback could publish a native proficiency as a learning one.
-          if (_learningLevel != null) 'languageLevel': _learningLevel,
-          if (_city != null && _country != null)
-            'location': {
-              'type': 'Point',
-              'coordinates': [
-                (_longitude ?? 0.0).toDouble(),
-                (_latitude ?? 0.0).toDouble(),
-              ],
-              'formattedAddress': '$_city, $_country',
-              'city': _city ?? '',
-              'country': _country ?? '',
-            },
-        };
+          clientInfo: await ClientInfo.collect(),
+          languageLevel: _learningLevel,
+          city: _city,
+          country: _country,
+          latitude: _latitude,
+          longitude: _longitude,
+        );
 
         final response = await http.put(
           url,
@@ -741,7 +726,8 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
         }
       } catch (e) {
         setState(() => _isSubmitting = false);
-        _showError('Network error: $e');
+        debugPrint('[register] profile update failed: $e');
+        _showError(friendlyErrorMessage(AppLocalizations.of(context)!, e));
       }
     } else {
       // Email/Password registration
@@ -850,20 +836,15 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
       valid = false;
     }
     if (_birthDateController.text.isNotEmpty) {
-      try {
-        final parts = _birthDateController.text.split('.');
-        final bd = DateTime(
-          int.parse(parts[0]),
-          int.parse(parts[1]),
-          int.parse(parts[2]),
-        );
-        final age = DateTime.now().difference(bd).inDays ~/ 365;
-        if (age < 18) {
-          setState(() => _birthDateError = l10n.mustBe18);
-          valid = false;
-        }
-      } catch (e) {
+      // Same validator as submit (parseBirthDateParts). This used
+      // DateTime(y, m, d), which rolls 1995.13.40 forward into a real date,
+      // so step 1 passed and the user only hit the error at the very end.
+      final bd = parseBirthDate(_birthDateController.text);
+      if (bd == null) {
         setState(() => _birthDateError = l10n.invalidDate);
+        valid = false;
+      } else if (ageInYears(bd, DateTime.now()) < 18) {
+        setState(() => _birthDateError = l10n.mustBe18);
         valid = false;
       }
     }

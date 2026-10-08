@@ -4955,6 +4955,21 @@ class AppLocalizationsZh extends AppLocalizations {
   String get biometricSignInPrompt => '请验证身份以登录 Bananatalk';
 
   @override
+  String get biometricNotAvailable => '此设备不支持生物识别登录。请使用密码登录。';
+
+  @override
+  String get biometricNotEnrolled => '此设备未设置面容 ID 或指纹。请在设置中添加，或使用密码登录。';
+
+  @override
+  String get biometricLockedOut => '尝试次数过多，生物识别已暂时锁定。请稍后再试或使用密码登录。';
+
+  @override
+  String get biometricPermanentlyLockedOut => '生物识别已锁定。请用设备密码解锁后再试。';
+
+  @override
+  String get biometricPasscodeNotSet => '请设置设备密码以使用生物识别登录。';
+
+  @override
   String continueAs(String name) {
     return '以 $name 继续';
   }
@@ -13823,6 +13838,21 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get biometricSignInPrompt => '請驗證身分以登入 Bananatalk';
+
+  @override
+  String get biometricNotAvailable => '此裝置不支援生物辨識登入。請使用密碼登入。';
+
+  @override
+  String get biometricNotEnrolled => '此裝置未設定 Face ID 或指紋。請在設定中新增，或使用密碼登入。';
+
+  @override
+  String get biometricLockedOut => '嘗試次數過多，生物辨識已暫時鎖定。請稍後再試或使用密碼登入。';
+
+  @override
+  String get biometricPermanentlyLockedOut => '生物辨識已鎖定。請用裝置密碼解鎖後再試。';
+
+  @override
+  String get biometricPasscodeNotSet => '請設定裝置密碼以使用生物辨識登入。';
 
   @override
   String continueAs(String name) {

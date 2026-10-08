@@ -1909,6 +1909,11 @@
   "enableBiometricBody": "Şifre yazmadan biyometrik ile giriş yapın.",
   "enableBiometricCta": "Etkinleştir",
   "biometricSignInPrompt": "Bananatalk'a giriş için kimliğinizi doğrulayın",
+  "biometricNotAvailable": "Bu cihazda biyometrik giriş kullanılamıyor. Lütfen şifrenle giriş yap.",
+  "biometricNotEnrolled": "Bu cihazda Face ID veya parmak izi ayarlı değil. Ayarlar'dan ekle ya da şifrenle giriş yap.",
+  "biometricLockedOut": "Çok fazla deneme. Biyometri geçici olarak kilitlendi. Daha sonra tekrar dene ya da şifrenle giriş yap.",
+  "biometricPermanentlyLockedOut": "Biyometri kilitli. Cihazın kilidini parolayla aç, sonra tekrar dene.",
+  "biometricPasscodeNotSet": "Biyometrik giriş için bir cihaz parolası belirle.",
   "continueAs": "{name} olarak devam et",
   "@continueAs": {
     "placeholders": {

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:bananatalk_app/pages/authentication/login/apple_login_screen.dart';
@@ -7,6 +8,8 @@ import 'package:bananatalk_app/pages/authentication/login/google_login_screen.da
 import 'package:bananatalk_app/pages/authentication/register/register_two_screen.dart';
 import 'package:bananatalk_app/pages/authentication/terms_of_service_screen.dart';
 import 'package:bananatalk_app/pages/authentication/biometric/biometric_service.dart';
+import 'package:bananatalk_app/pages/authentication/biometric/biometric_session.dart';
+import 'package:bananatalk_app/services/notification_service.dart';
 import 'package:bananatalk_app/pages/authentication/biometric/enable_biometric_prompt.dart';
 import 'package:bananatalk_app/pages/authentication/widgets/auth_gradient_button.dart';
 import 'package:bananatalk_app/pages/authentication/widgets/auth_screen_scaffold.dart';
@@ -25,6 +28,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/friendly_error.dart';
+import 'package:bananatalk_app/pages/authentication/post_login_error.dart';
+import 'package:bananatalk_app/services/session_reset.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends ConsumerStatefulWidget {
@@ -78,10 +83,9 @@ class _LoginState extends ConsumerState<Login> {
   }
 
   Future<void> _checkBiometricButton() async {
-    final enabled = await _biometric.isEnabled();
-    if (!enabled) return;
-    final available = await _biometric.isAvailable();
-    if (!available) return;
+    // Enabled AND still enrolled AND a readable snapshot -- not just the
+    // flag, which outlives a wiped keychain or a removed fingerprint.
+    if (!await _biometric.canOfferLogin()) return;
     final name = await _biometric.readUserNameDisplay();
     if (!mounted) return;
     setState(() {
@@ -95,14 +99,20 @@ class _LoginState extends ConsumerState<Login> {
     final l10n = AppLocalizations.of(context)!;
     setState(() => _biometricAuthing = true);
 
-    final ok = await _biometric.authenticate(
+    final result = await _biometric.authenticateWithResult(
       reason: l10n.biometricSignInPrompt,
     );
     if (!mounted) {
       return;
     }
-    if (!ok) {
+    if (result != BiometricAuthResult.success) {
       setState(() => _biometricAuthing = false);
+      // Used to return silently for every failure, so "not enrolled" or
+      // "locked out" looked like a dead button.
+      final message = biometricResultMessage(l10n, result);
+      if (message != null) {
+        showAuthSnackBar(context, message: message, type: AuthSnackBarType.error);
+      }
       return;
     }
 
@@ -123,35 +133,45 @@ class _LoginState extends ConsumerState<Login> {
       return;
     }
 
-    // Restore auth state into prefs and run the existing init/validate flow.
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('token', state.token);
-    await prefs.setString('refreshToken', state.refreshToken);
-    await prefs.setString('userId', state.userId);
-
-    final auth = ref.read(authServiceProvider);
-    final authed = await auth.initializeAuth();
+    // Spend the snapshot's refresh token for a fresh access token. This used
+    // to write the stored (possibly expired) access token into prefs and hope
+    // initializeAuth could refresh it -- with a refresh token that logout had
+    // just revoked on the server.
+    final outcome =
+        await ref.read(authServiceProvider).loginWithBiometric(state);
     if (!mounted) return;
 
-    if (!authed) {
-      await _biometric.disable();
-      // The disable() above re-opened an async gap after the mounted check
-      // on line 134, so this setState could land on a disposed screen.
-      if (!mounted) return;
-      setState(() {
-        _biometricAuthing = false;
-        _biometricVisible = false;
-      });
-      showAuthSnackBar(
-        context,
-        message: l10n.sessionExpired,
-        type: AuthSnackBarType.error,
-      );
-      return;
+    switch (outcome) {
+      case BiometricLoginOutcome.success:
+        // Logout removed this device's push token; register it again.
+        final userId = ref.read(authServiceProvider).userId;
+        if (userId.isNotEmpty) {
+          unawaited(NotificationService()
+              .registerToken(userId)
+              .catchError((e) => debugPrint('[biometric] FCM: $e')));
+        }
+        setState(() => _biometricAuthing = false);
+        context.go('/home');
+      case BiometricLoginOutcome.rejected:
+        // loginWithBiometric deleted the snapshot and turned the flag off.
+        setState(() {
+          _biometricAuthing = false;
+          _biometricVisible = false;
+        });
+        showAuthSnackBar(
+          context,
+          message: l10n.sessionExpired,
+          type: AuthSnackBarType.error,
+        );
+      case BiometricLoginOutcome.retryable:
+        // Snapshot kept: the button stays, the user can try again.
+        setState(() => _biometricAuthing = false);
+        showAuthSnackBar(
+          context,
+          message: l10n.noInternetConnection,
+          type: AuthSnackBarType.error,
+        );
     }
-
-    setState(() => _biometricAuthing = false);
-    context.go('/home');
   }
 
   /// Show the opt-in dialog after a fresh login if biometric is available
@@ -250,10 +270,11 @@ class _LoginState extends ConsumerState<Login> {
       final response = await ref
           .read(authServiceProvider)
           .login(email: email, password: password);
-
-      setState(() {
-        _isLoading = false;
-      });
+      // _isLoading stays true through the terms/profile/biometric gates and
+      // navigation below. It used to be cleared right here, so a second tap
+      // while those awaited ran login() again; `finally` now resets it once
+      // the flow ends without leaving this screen.
+      if (!mounted) return;
 
       if (response['success'] == true) {
         // Persist or clear remembered email
@@ -318,14 +339,30 @@ class _LoginState extends ConsumerState<Login> {
                 recheck.native_language.isNotEmpty &&
                 recheck.language_to_learn.isNotEmpty;
             if (!recheck.profileCompleted || !recheckHasCoreFields) {
-              // Still incomplete — stay on login screen.
+              // Still incomplete: stay on the login screen, but signed OUT --
+              // staying signed in meant the next launch's splash restored the
+              // session straight back into the wizard.
+              await signOutAndReset(ref.read(authServiceProvider));
               return;
             }
           }
         } catch (e) {
-          // If we can't fetch user data, log out and redirect to home
-          // This handles cases where token is invalid or network issues
+          debugPrint('[login] post-login user fetch failed: $e');
+          if (!mounted) return;
+          if (classifyPostLoginError(e) == PostLoginFailure.retryable) {
+            // The server accepted the password a moment ago; a dropped
+            // connection is not an expired session. Stay signed in and let
+            // the user tap Login again.
+            showAuthSnackBar(
+              context,
+              message: retryablePostLoginMessage(
+                  AppLocalizations.of(context)!, e),
+              type: AuthSnackBarType.error,
+            );
+            return;
+          }
           await ref.read(authServiceProvider).logout();
+          await resetUserSession(clearAuthData: false);
           if (!mounted) return;
           context.go('/login');
           showAuthSnackBar(
@@ -354,8 +391,13 @@ class _LoginState extends ConsumerState<Login> {
         // `accountLocked` / `rateLimited` keep their existing countdown
         // flows — auth_providers.dart already folds lockUntil/retryAfter
         // into `message`, so the snackbar path here just surfaces it as-is.
-        final String errorMessage =
-            response['message'] ?? 'Login failed. Please try again.';
+        // Server words win (423 lockout minutes, "this account uses
+        // Google/Apple sign-in"); offline maps to the localized string.
+        final String errorMessage = authResultMessage(
+          AppLocalizations.of(context)!,
+          response,
+          fallback: 'Login failed. Please try again.',
+        );
 
         if (!mounted) return;
         showAuthSnackBar(
@@ -366,15 +408,16 @@ class _LoginState extends ConsumerState<Login> {
       }
     } catch (error) {
       if (!mounted) return;
-      setState(() {
-        _isLoading = false;
-      });
-
       showAuthSnackBar(
         context,
         message: friendlyErrorMessage(AppLocalizations.of(context)!, error),
         type: AuthSnackBarType.error,
       );
+    } finally {
+      // Error, declined terms, incomplete profile, or back from a pushed
+      // gate screen: the button works again. After go('/home') this screen
+      // is gone and there is nothing to reset.
+      if (mounted) setState(() => _isLoading = false);
     }
   }
 

@@ -1697,6 +1697,11 @@
   "enableBiometricBody": "पासवर्ड टाइप किए बिना बायोमेट्रिक से साइन इन करें।",
   "enableBiometricCta": "चालू करें",
   "biometricSignInPrompt": "Bananatalk में लॉगिन करने के लिए प्रमाणित करें",
+  "biometricNotAvailable": "इस डिवाइस पर बायोमेट्रिक साइन-इन उपलब्ध नहीं है। कृपया अपने पासवर्ड से लॉग इन करें।",
+  "biometricNotEnrolled": "इस डिवाइस पर Face ID या फ़िंगरप्रिंट सेट नहीं है। सेटिंग्स में जोड़ें या पासवर्ड से लॉग इन करें।",
+  "biometricLockedOut": "बहुत अधिक प्रयास। बायोमेट्रिक अस्थायी रूप से लॉक है। बाद में पुनः प्रयास करें या पासवर्ड से लॉग इन करें।",
+  "biometricPermanentlyLockedOut": "बायोमेट्रिक लॉक है। डिवाइस को पासकोड से अनलॉक करें, फिर पुनः प्रयास करें।",
+  "biometricPasscodeNotSet": "बायोमेट्रिक साइन-इन के लिए डिवाइस पासकोड सेट करें।",
   "continueAs": "{name} के रूप में जारी रखें",
   "@continueAs": {
     "placeholders": {

@@ -4955,6 +4955,21 @@ class AppLocalizationsRu extends AppLocalizations {
   String get biometricSignInPrompt => 'Подтвердите личность для входа в Bananatalk';
 
   @override
+  String get biometricNotAvailable => 'Вход по биометрии недоступен на этом устройстве. Войдите с паролем.';
+
+  @override
+  String get biometricNotEnrolled => 'На этом устройстве не настроены Face ID или отпечаток пальца. Добавьте их в Настройках или войдите с паролем.';
+
+  @override
+  String get biometricLockedOut => 'Слишком много попыток. Биометрия временно заблокирована. Повторите позже или войдите с паролем.';
+
+  @override
+  String get biometricPermanentlyLockedOut => 'Биометрия заблокирована. Разблокируйте устройство код-паролем и повторите попытку.';
+
+  @override
+  String get biometricPasscodeNotSet => 'Установите код-пароль устройства, чтобы входить по биометрии.';
+
+  @override
   String continueAs(String name) {
     return 'Продолжить как $name';
   }

@@ -1712,6 +1712,11 @@
   "enableBiometricBody": "Inicia sesión con datos biométricos sin escribir tu contraseña.",
   "enableBiometricCta": "Activar",
   "biometricSignInPrompt": "Autentícate para iniciar sesión en Bananatalk",
+  "biometricNotAvailable": "El inicio de sesión biométrico no está disponible en este dispositivo. Inicia sesión con tu contraseña.",
+  "biometricNotEnrolled": "No hay Face ID ni huella configurados en este dispositivo. Añade uno en Ajustes o inicia sesión con tu contraseña.",
+  "biometricLockedOut": "Demasiados intentos. La biometría está bloqueada temporalmente. Inténtalo más tarde o inicia sesión con tu contraseña.",
+  "biometricPermanentlyLockedOut": "La biometría está bloqueada. Desbloquea el dispositivo con su código y vuelve a intentarlo.",
+  "biometricPasscodeNotSet": "Configura un código en el dispositivo para usar el inicio de sesión biométrico.",
   "continueAs": "Continuar como {name}",
   "@continueAs": {
     "placeholders": {

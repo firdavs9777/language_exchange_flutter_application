@@ -12,6 +12,8 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/widgets/banana_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:bananatalk_app/pages/authentication/post_login_error.dart';
+import 'package:bananatalk_app/services/session_reset.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class GoogleLogin extends ConsumerStatefulWidget {
@@ -33,6 +35,7 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
 
 
   Future<void> _signInWithGoogle() async {
+    if (_isLoading) return; // double tap / retry while a sign-in is running
     setState(() {
       _isLoading = true;
       _errorMessage = null;
@@ -47,10 +50,14 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
         await _signInWithGoogleWebView();
       }
     } catch (e) {
+      debugPrint('[google-login] sign-in failed: $e');
+      if (!mounted) return;
       setState(() {
-        _errorMessage = 'Google sign-in failed: ${e.toString()}';
-        _isLoading = false;
+        _errorMessage =
+            socialSignInErrorMessage(AppLocalizations.of(context)!, e);
       });
+    } finally {
+      if (mounted) setState(() => _isLoading = false);
     }
   }
 
@@ -124,9 +131,10 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
         // User needs to complete profile if backend flag is false OR core fields missing
         final bool needsProfileCompletion = !profileCompleted || !hasCoreFields;
 
-        setState(() {
-          _isLoading = false;
-        });
+        // _isLoading stays true through registration, the terms gate and
+        // navigation. Clearing it here brought the sign-in button back while
+        // those awaited, and a second tap ran the whole sign-in again; the
+        // `finally` in the entry point resets it if this screen survives.
 
         // Task 7 Step 4 (Workstream E-core): register the FCM token right
         // after auth succeeds, before the profile-completion/terms gates,
@@ -217,8 +225,19 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
                 }
               }
             } catch (e) {
-              // If we can't fetch user data, log out and redirect to home
+              debugPrint('[google-login] post-login user fetch failed: $e');
+              if (!mounted) return;
+              if (classifyPostLoginError(e) == PostLoginFailure.retryable) {
+                // Signed in a moment ago; a dropped connection is not an
+                // expired session. Keep it and let the user retry.
+                setState(() {
+                  _errorMessage = retryablePostLoginMessage(
+                      AppLocalizations.of(context)!, e);
+                });
+                return;
+              }
               await ref.read(authServiceProvider).logout();
+              await resetUserSession(clearAuthData: false);
               if (!mounted) return;
               context.go('/login');
               showAuthSnackBar(
@@ -260,42 +279,23 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
           }
         }
       } else {
+        if (!mounted) return;
         setState(() {
-          _errorMessage =
-              result['message'] ?? 'Failed to authenticate with backend';
-          _isLoading = false;
+          _errorMessage = authResultMessage(
+            AppLocalizations.of(context)!,
+            result,
+            fallback: 'Failed to authenticate with backend',
+          );
         });
       }
     } catch (e) {
-      String userFriendlyMessage = 'Google sign-in error';
-
-      // Parse common errors
-      final errorString = e.toString().toLowerCase();
-      if (errorString.contains('network')) {
-        userFriendlyMessage =
-            'Network error. Please check your internet connection.';
-      } else if (errorString.contains('canceled') ||
-          errorString.contains('cancelled')) {
-        userFriendlyMessage = 'Sign-in was cancelled.';
-      } else if (errorString.contains('configuration') ||
-          errorString.contains('client')) {
-        userFriendlyMessage = 'Configuration error. Please contact support.';
-      } else if (errorString.contains('10:')) {
-        userFriendlyMessage =
-            'Developer error (10). SHA-1 fingerprint may be incorrect.';
-      } else if (errorString.contains('12500')) {
-        userFriendlyMessage =
-            'Google Play services error. Please update Google Play services.';
-      } else if (errorString.contains('12501')) {
-        userFriendlyMessage = 'Sign-in was cancelled.';
-      } else if (errorString.contains('7:')) {
-        userFriendlyMessage =
-            'Network error (7). Please check your connection.';
-      }
-
+      // Raw SDK/transport text (PlatformException, ApiException: 10,
+      // ClientException) goes to the log, never to the user.
+      debugPrint('[google-login] sign-in failed: $e');
+      if (!mounted) return;
       setState(() {
-        _errorMessage = '$userFriendlyMessage\n\nDetails: ${e.toString()}';
-        _isLoading = false;
+        _errorMessage =
+            socialSignInErrorMessage(AppLocalizations.of(context)!, e);
       });
     }
   }

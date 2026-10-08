@@ -4955,6 +4955,21 @@ class AppLocalizationsHi extends AppLocalizations {
   String get biometricSignInPrompt => 'Bananatalk में लॉगिन करने के लिए प्रमाणित करें';
 
   @override
+  String get biometricNotAvailable => 'इस डिवाइस पर बायोमेट्रिक साइन-इन उपलब्ध नहीं है। कृपया अपने पासवर्ड से लॉग इन करें।';
+
+  @override
+  String get biometricNotEnrolled => 'इस डिवाइस पर Face ID या फ़िंगरप्रिंट सेट नहीं है। सेटिंग्स में जोड़ें या पासवर्ड से लॉग इन करें।';
+
+  @override
+  String get biometricLockedOut => 'बहुत अधिक प्रयास। बायोमेट्रिक अस्थायी रूप से लॉक है। बाद में पुनः प्रयास करें या पासवर्ड से लॉग इन करें।';
+
+  @override
+  String get biometricPermanentlyLockedOut => 'बायोमेट्रिक लॉक है। डिवाइस को पासकोड से अनलॉक करें, फिर पुनः प्रयास करें।';
+
+  @override
+  String get biometricPasscodeNotSet => 'बायोमेट्रिक साइन-इन के लिए डिवाइस पासकोड सेट करें।';
+
+  @override
   String continueAs(String name) {
     return '$name के रूप में जारी रखें';
   }

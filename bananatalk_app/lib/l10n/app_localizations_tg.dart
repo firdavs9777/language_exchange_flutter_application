@@ -4961,6 +4961,21 @@ class AppLocalizationsTg extends AppLocalizations {
   String get biometricSignInPrompt => 'Барои воридшавӣ ба Bananatalk тасдиқ кунед';
 
   @override
+  String get biometricNotAvailable => 'Воридшавӣ бо биометрия дар ин дастгоҳ дастрас нест. Лутфан бо рамз ворид шавед.';
+
+  @override
+  String get biometricNotEnrolled => 'Дар ин дастгоҳ Face ID ё изи ангушт танзим нашудааст. Дар Танзимот илова кунед ё бо рамз ворид шавед.';
+
+  @override
+  String get biometricLockedOut => 'Кӯшишҳо аз ҳад зиёд. Биометрия муваққатан қулф шуд. Баъдтар кӯшиш кунед ё бо рамз ворид шавед.';
+
+  @override
+  String get biometricPermanentlyLockedOut => 'Биометрия қулф аст. Дастгоҳро бо рамзи он кушоед ва боз кӯшиш кунед.';
+
+  @override
+  String get biometricPasscodeNotSet => 'Барои воридшавӣ бо биометрия рамзи дастгоҳро танзим кунед.';
+
+  @override
   String continueAs(String name) {
     return 'Ҳамчун $name идома диҳед';
   }

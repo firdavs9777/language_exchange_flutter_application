@@ -4955,6 +4955,21 @@ class AppLocalizationsId extends AppLocalizations {
   String get biometricSignInPrompt => 'Autentikasi untuk masuk ke Bananatalk';
 
   @override
+  String get biometricNotAvailable => 'Masuk dengan biometrik tidak tersedia di perangkat ini. Silakan masuk dengan kata sandi.';
+
+  @override
+  String get biometricNotEnrolled => 'Belum ada Face ID atau sidik jari di perangkat ini. Tambahkan di Pengaturan, atau masuk dengan kata sandi.';
+
+  @override
+  String get biometricLockedOut => 'Terlalu banyak percobaan. Biometrik dikunci sementara. Coba lagi nanti atau masuk dengan kata sandi.';
+
+  @override
+  String get biometricPermanentlyLockedOut => 'Biometrik terkunci. Buka kunci perangkat dengan kode sandi, lalu coba lagi.';
+
+  @override
+  String get biometricPasscodeNotSet => 'Atur kode sandi perangkat untuk memakai masuk dengan biometrik.';
+
+  @override
   String continueAs(String name) {
     return 'Lanjutkan sebagai $name';
   }

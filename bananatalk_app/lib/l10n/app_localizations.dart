@@ -9536,6 +9536,36 @@ abstract class AppLocalizations {
   /// **'Authenticate to log in to Bananatalk'**
   String get biometricSignInPrompt;
 
+  /// No description provided for @biometricNotAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Biometric sign-in isn\'t available on this device. Please log in with your password.'**
+  String get biometricNotAvailable;
+
+  /// No description provided for @biometricNotEnrolled.
+  ///
+  /// In en, this message translates to:
+  /// **'No Face ID or fingerprint is set up on this device. Add one in Settings, or log in with your password.'**
+  String get biometricNotEnrolled;
+
+  /// No description provided for @biometricLockedOut.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many attempts. Biometrics are temporarily locked. Try again later or log in with your password.'**
+  String get biometricLockedOut;
+
+  /// No description provided for @biometricPermanentlyLockedOut.
+  ///
+  /// In en, this message translates to:
+  /// **'Biometrics are locked. Unlock your device with its passcode, then try again.'**
+  String get biometricPermanentlyLockedOut;
+
+  /// No description provided for @biometricPasscodeNotSet.
+  ///
+  /// In en, this message translates to:
+  /// **'Set a device passcode to use biometric sign-in.'**
+  String get biometricPasscodeNotSet;
+
   /// No description provided for @continueAs.
   ///
   /// In en, this message translates to:

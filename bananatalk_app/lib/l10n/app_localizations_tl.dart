@@ -4955,6 +4955,21 @@ class AppLocalizationsTl extends AppLocalizations {
   String get biometricSignInPrompt => 'Mag-authenticate upang mag-log in sa Bananatalk';
 
   @override
+  String get biometricNotAvailable => 'Hindi available ang biometric sign-in sa device na ito. Mag-log in gamit ang password.';
+
+  @override
+  String get biometricNotEnrolled => 'Walang Face ID o fingerprint na naka-set up sa device na ito. Magdagdag sa Settings, o mag-log in gamit ang password.';
+
+  @override
+  String get biometricLockedOut => 'Masyadong maraming pagsubok. Pansamantalang naka-lock ang biometrics. Subukan ulit mamaya o mag-log in gamit ang password.';
+
+  @override
+  String get biometricPermanentlyLockedOut => 'Naka-lock ang biometrics. I-unlock ang device gamit ang passcode, saka subukan ulit.';
+
+  @override
+  String get biometricPasscodeNotSet => 'Mag-set ng passcode sa device para magamit ang biometric sign-in.';
+
+  @override
   String continueAs(String name) {
     return 'Magpatuloy bilang $name';
   }
