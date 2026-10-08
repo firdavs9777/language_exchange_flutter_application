@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io' show Platform;
 
 import 'package:flutter/widgets.dart';
 import 'package:livekit_client/livekit_client.dart' as lk;
@@ -66,6 +67,7 @@ class CallManagerDeps {
     this.afterIncomingCall = CallManagerDeps._noop,
     this.isAppResumed = CallManagerDeps._resumed,
     this.callFailedMessage = CallManagerDeps._callFailed,
+    this.isIos = CallManagerDeps._notIos,
   });
 
   factory CallManagerDeps.production() => CallManagerDeps(
@@ -82,6 +84,7 @@ class CallManagerDeps {
           if (ctx != null && ctx.mounted) unawaited(FullScreenIntentPrompt.maybeAsk(ctx));
         }),
         isAppResumed: () => WidgetsBinding.instance.lifecycleState == AppLifecycleState.resumed,
+        isIos: () => Platform.isIOS,
         callFailedMessage: () {
           final ctx = callOverlayNavigatorKey.currentContext;
           final l10n = ctx != null ? AppLocalizations.of(ctx) : null;
@@ -106,9 +109,16 @@ class CallManagerDeps {
   /// The localized "Call failed" message shown when the server fails a call.
   final String Function() callFailedMessage;
 
+  /// iOS: a reported CallKit call is always on screen (banner / full
+  /// screen), so it can be the only ring UI. Android's native entry can
+  /// outlive anything visible (collapsed heads-up, covered activity,
+  /// force-stop), so there the in-app screen still shows.
+  final bool Function() isIos;
+
   static void _noop() {}
   static bool _resumed() => true;
   static String _callFailed() => 'Call Failed';
+  static bool _notIos() => false;
 }
 
 /// How long the caller sees "No answer" / "Declined" before the screen closes.
@@ -360,7 +370,9 @@ class CallManager with WidgetsBindingObserver {
     if (_appInForeground || source == IncomingSource.notificationTap) {
       // iOS reports every VoIP push to CallKit, even in the foreground, and
       // a resume / cold start can find the native ring still up: then the
-      // native UI is the incoming UI.
+      // native UI is the incoming UI. On Android the in-app screen still
+      // shows (the native entry may be invisible) but the native ringtone
+      // is the only one.
       final native = await _nativeRingShows(call);
       final ringing = currentCall;
       if (ringing == null || !_sameId(ringing.callId, call.callId) || ringing.status != CallStatus.ringing) {
@@ -368,10 +380,13 @@ class CallManager with WidgetsBindingObserver {
       }
       if (native) {
         _nativeRingFor = call.callId;
-        _incomingShownFor = call.callId;
-        return;
+        if (_deps.isIos()) {
+          _incomingShownFor = call.callId;
+          return;
+        }
+      } else {
+        unawaited(_deps.platform.startRingtone());
       }
-      unawaited(_deps.platform.startRingtone());
       _showIncoming(ringing);
     } else {
       await _deps.platform.showIncomingCallUi(currentCall!);
@@ -399,15 +414,26 @@ class CallManager with WidgetsBindingObserver {
   Future<void> handleCallKitIncomingShown(String id, Map<String, dynamic>? extra) async {
     final cur = currentCall;
     if (cur == null || !_matches(cur, id, extra)) return;
-    if (cur.direction != CallDirection.incoming || cur.status != CallStatus.ringing) return;
+    if (cur.direction != CallDirection.incoming) return;
+    if (_sameId(_acceptedInAppFor, cur.callId)) {
+      // Reported after the in-app accept (a late VoIP push): never let it
+      // ring over the live call. Its echoed ended/decline is ignored.
+      await _quietly(() => _deps.platform.endCallUi(cur));
+      return;
+    }
+    if (cur.status != CallStatus.ringing) return;
     if (_sameId(_acceptingCallId, cur.callId) || _sameId(_nativeRingFor, cur.callId)) return;
     final inAppShown = _sameId(_incomingShownFor, cur.callId);
     _nativeRingFor = cur.callId;
-    _incomingShownFor = cur.callId;
-    if (inAppShown) {
-      await _quietly(_deps.platform.stopTones);
-      _closeNow();
+    if (!inAppShown) {
+      if (_deps.isIos()) _incomingShownFor = cur.callId;
+      return;
     }
+    // One ringtone: the native one.
+    await _quietly(_deps.platform.stopTones);
+    // iOS: CallKit is on screen, so it is the one ring UI. Android: keep
+    // the in-app screen (the native entry may not be visible).
+    if (_deps.isIos()) _closeNow();
   }
 
   void _showIncoming(CallModel call) {

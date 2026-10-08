@@ -92,8 +92,8 @@ void main() {
   });
 
   group('one ring UI per call', () {
-    test('the native ring UI already shows the call: no in-app screen, no Dart ringtone', () async {
-      final h = CallHarness();
+    test('iOS: CallKit already shows the call: no in-app screen, no Dart ringtone', () async {
+      final h = CallHarness()..ios = true;
       h.platform.activeEntries = [
         CallKitEntry(uuid: kCallUuid.toUpperCase(), accepted: false, extra: const {'callId': 'call-1'}),
       ];
@@ -106,8 +106,43 @@ void main() {
       expect(h.opened, isEmpty);
     });
 
-    test('the native ring UI appears after the in-app screen: the in-app ring closes', () async {
+    test('Android: a native entry exists: the in-app screen still shows, without a Dart ringtone', () async {
       final h = CallHarness();
+      h.platform.activeEntries = const [CallKitEntry(uuid: kCallUuid, accepted: false, extra: {'callId': 'call-1'})];
+      await h.ringIncoming();
+      expect(h.opened, ['incoming:call-1']);
+      expect(h.platform.log, isNot(contains('ringtone')));
+      // A tap or recovery for the same call does not open a second screen.
+      await h.manager.resolveIncomingTap({'callId': 'call-1'});
+      expect(h.opened, ['incoming:call-1']);
+    });
+
+    test('Android: the native ring appears after the in-app screen: Dart ringtone stops, screen stays', () async {
+      final h = CallHarness();
+      await h.ringIncoming();
+      final closesBefore = h.closes;
+      h.platform.log.clear();
+      await h.manager.handleCallKitIncomingShown(kCallUuid, const {'callId': 'call-1'});
+      expect(h.platform.log, contains('stopTones'));
+      expect(h.closes, closesBefore);
+      expect(h.manager.currentCall!.status, CallStatus.ringing);
+    });
+
+    test('iOS: CallKit reports the call after an in-app accept: the native UI is ended, the call stays', () async {
+      final h = CallHarness()..ios = true;
+      await h.ringIncoming();
+      await h.manager.acceptCall();
+      h.platform.log.clear();
+      await h.manager.handleCallKitIncomingShown(kCallUuid.toUpperCase(), const {'callId': 'call-1'});
+      expect(h.platform.log, ['endUi:$kCallUuid']);
+      // Its echo is ignored.
+      await h.manager.handleCallKitEnded(kCallUuid.toUpperCase(), const {'callId': 'call-1'});
+      expect(h.finishes, isEmpty);
+      expect(h.manager.currentCall!.status, CallStatus.connecting);
+    });
+
+    test('iOS: CallKit appears after the in-app screen: the in-app ring closes', () async {
+      final h = CallHarness()..ios = true;
       await h.ringIncoming();
       expect(h.opened, ['incoming:call-1']);
       final closesBefore = h.closes;
