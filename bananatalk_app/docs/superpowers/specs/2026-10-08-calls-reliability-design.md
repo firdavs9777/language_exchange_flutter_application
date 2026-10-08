@@ -1,6 +1,6 @@
 # 1:1 voice & video calls — reliability, history, video polish
 
-Date: 2026-10-08 · Repos: `bananatalk_app` (Flutter) + `language_exchange_backend_application` (Node) · Status: revised after spec review (rev 2)
+Date: 2026-10-08 · Repos: `bananatalk_app` (Flutter) + `language_exchange_backend_application` (Node) · Status: revised after spec review (rev 3)
 
 ## 1. Why
 
@@ -66,7 +66,8 @@ initiate when the caller has a live call   ─► 409 CALLER_BUSY, no Call recor
 
 - Every transition is one atomic `findOneAndUpdate({ _id, status: <expected> })`. A failed precondition returns `409 CALL_STATE { status }`. This settles every race: accept vs timeout, accept vs cancel, two devices accepting, end vs webhook — whoever writes first wins, the other gets 409 (the app treats a 409 on accept as "dismiss silently").
 - "Live call" = `ringing` younger than 60 s, or `active`, for that user as caller or receiver.
-- `Call` schema: add `callUuid` (UUID v4) with a **partial** unique index (`{ callUuid: { $exists: true } }`); `seenByReceiverAt`; `backfilled`; `endReason` gains `caller_cancelled`, `unavailable`.
+- **Busy is atomic:** each `User` gets `activeCallId`. Initiate claims both users with conditional updates (`findOneAndUpdate({ _id, $or: [{ activeCallId: null }, { activeCallId: <stale> }] }, { activeCallId: call._id })`, caller first, then receiver; if the receiver claim fails, release the caller and return busy). A claim is stale when its Call is terminal or ringing > 60 s. Every terminal transition clears `activeCallId` on both users (conditional on it still being this call). Two users calling each other at once: exactly one wins, the other gets busy.
+- `Call` schema: add `callUuid` (UUID v4) with a **partial** unique index (`{ callUuid: { $exists: true } }`); `seenByReceiverAt`; `backfilled`; `underfilledSince`; `endReason` gains `caller_cancelled`, `unavailable`.
 - The controller keeps HTTP concerns only; webhook and sweeper call the same service.
 - **`/calls/:id/*` accept either the Mongo `_id` or the `callUuid`** (live iOS builds will see `id = callUuid` in VoIP pushes, §4.6).
 
@@ -75,7 +76,7 @@ initiate when the caller has a live call   ─► 409 CALLER_BUSY, no Call recor
 - **Ring timeout:** in-process `setTimeout(45 s)` per call → `ringing → missed (timeout)`; cleared on any transition.
 - **Sweeper** (`jobs/callSweepJob.js`, every 60 s via `jobs/scheduler.js`):
   - `ringing` older than 60 s → `missed (timeout)`.
-  - `active` whose LiveKit room has fewer than 2 participants (`RoomService.listParticipants`) on two consecutive sweeps (≥ 60 s apart, so ≥ the 20 s grace) → `ended (completed)`; room missing → `ended`; older than 4 h → `ended`.
+  - `active` whose LiveKit room has fewer than 2 participants (`RoomService.listParticipants`): first sighting sets `underfilledSince` on the Call; a later sweep that still sees < 2 and `underfilledSince` older than 20 s → `ended (completed)`; back to 2 clears it. Room missing → `ended`; older than 4 h → `ended`.
   - First run backfills the existing 168 + 4 records with `backfilled: true` (no message, no push).
 - **LiveKit webhook** (`controllers/livekit.js`): `participant_left` (one party) starts a 20 s in-process grace; `participant_joined` for that identity cancels it; at expiry re-check with `listParticipants` before ending. `room_finished` → `ended`. Both set `endReason`, `duration` (`endTime - answeredAt`, 0 if never answered), emit events. If the webhook isn't configured (owner task) or the process restarts mid-grace, the sweeper covers it.
 
@@ -83,7 +84,8 @@ initiate when the caller has a live call   ─► 409 CALLER_BUSY, no Call recor
 
 Live builds listen to `call:incoming`, `call:accepted`, `call:declined`, `call:ended`, `call:missed`, `call:timeout`, `call:rejected` **without `callId` checks**. So:
 
-- **Unchanged audience** for the existing names: `call:accepted` / `call:declined` → caller only; `call:incoming` → receiver; `call:ended` → both, and **also sent to the caller on `missed`** so a live caller stops ringback.
+- **Unchanged audience** for the existing names: `call:accepted` / `call:declined` → caller only; `call:incoming` → receiver; `call:ended` → both. **On `missed` (timeout or cancel), `call:ended` is also sent to both rooms** so a live caller stops ringback and a live receiver's `IncomingCallScreen` closes. Safe for live builds that don't check `callId`: atomic busy (§4.1) guarantees neither user has another live call at that moment.
+- Accepted limitation for live builds: their *other* devices still ring after a decline/accept on one device (they only get caller-side events); the `call_cancelled` push (§4.4) dismisses them where supported.
 - **New** `call:state` → both users' rooms on every transition: `{ callId, callUuid, status, outcome, endReason, duration, by }`. The new app listens only to this (plus `call:incoming`) and filters by `callId`; this is what stops the receiver's other devices.
 - All payloads carry `callId` and `callUuid`.
 - **In-call relays stay:** `call:mute`, `call:video-toggle`, `call:reconnecting`, `call:reconnected`, `call:failed` (`callHandler.js:434,491` etc.) are moved into a slim `socket/callRelayHandler.js`, with a participant check against the Call record. Only the legacy initiate/answer/end/missed handlers and the in-memory `activeCalls` map are deleted.
@@ -91,11 +93,16 @@ Live builds listen to `call:incoming`, `call:accepted`, `call:declined`, `call:e
 
 ### 4.4 Dismissing devices that ring without a socket
 
-On every exit from `ringing` (accept, decline, cancel, timeout), send a **`call_cancelled` push** to all of the receiver's devices: Android data-only high priority; iOS VoIP push with `{ type: 'call_cancelled', callUuid }` (PushKit requires reporting a call, so the app reports and immediately ends it — handled in `AppDelegate.swift`). The app ends the CallKit UI for that `callUuid`.
+On every exit from `ringing` (accept, decline, cancel, timeout), send a **`call_cancelled` push** `{ type: 'call_cancelled', callId, callUuid }` to the receiver's devices, **except the device that acted** (accept/decline requests carry `deviceId`):
+
+- **Android:** data-only, high priority. Live builds ignore unknown data types (verify in the plan; if not, gate like iOS).
+- **iOS VoIP:** only to tokens registered with `capabilities: ['call_cancel']`. The new app sends this in `registerVoipToken`; live builds don't, so they never get it — a live `AppDelegate` treats every VoIP push as an incoming call and would ring "Unknown". New `AppDelegate`: if a call with that `callUuid` is already reported → end it; if none is (the cancel overtook the invite) → report and immediately end (PushKit requires a report).
+- On a caller cancel the receiver gets both this and the missed push; the cancel removes the ringing UI, the missed push is what stays visible.
 
 ### 4.5 Call messages
 
-- On every terminal transition marked "Call message? yes" in §3, write **one** `Message`: `messageType: 'call'`, sender = caller, receiver = callee, `message` = plain-text fallback from the caller's perspective (e.g. "📞 Missed voice call") so validation passes and live builds show text, `media.type: 'call'` (enum extended), `media.callData: { callId, callType, outcome, duration }` (the location the app's `CallHistoryBubble` already reads — verify in the plan; pick this one location).
+- On every terminal transition marked "Call message? yes" in §3, write **one** `Message`: `messageType: 'call'`, sender = caller, receiver = callee, `message` = plain-text fallback from the caller's perspective (e.g. "📞 Missed voice call") so validation passes and live builds show text, `media.type: 'call'` (enum extended), `media.callData` — the location live builds already read (`messages_list.dart:255` renders `CallHistoryBubble` whenever `media.callData != null`; `CallRecord.fromJson`, `call_record_model.dart:49-80`). It is a **superset** so live builds render correctly:
+  `{ _id: callId, callId, callUuid, initiator: callerId, participants: [], type: 'audio'|'video', startTime, duration, status: <legacy>, outcome: <§3> }`, where legacy `status` = `missed` for `no_answer|cancelled|busy`, `rejected` for `declined`, `ended` for `completed`. The new app reads `outcome`.
 - Idempotent: partial unique index on `media.callData.callId`.
 - Conversation: reuse the existing one; if none exists, create it **through the same path a first text message uses**, so message-request / conversation-cap rules apply (a call from a stranger lands as a request, exactly like a first message). If that path would refuse the message, the call itself was already refused at initiate by the same rule — the plan verifies initiate applies it.
 - Delivered through the normal new-message emit (chat-list preview + unread). **No chat push** for call messages.
