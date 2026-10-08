@@ -812,6 +812,12 @@ class AuthService extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Local session teardown without a server round-trip: socket logout
+  /// event, push-token removal, tokens, user prefs, API token caches. Used by
+  /// `resetUserSession` for the paths that never call [logout] (suspended
+  /// account, session expired).
+  Future<void> clearLocalSession() => _clearAuthData();
+
   Future<Map<String, dynamic>> logout({bool logoutAll = false}) async {
     final url = Uri.parse(
       '${Endpoints.baseURL}${logoutAll ? Endpoints.logoutAllURL : Endpoints.logoutURL}',

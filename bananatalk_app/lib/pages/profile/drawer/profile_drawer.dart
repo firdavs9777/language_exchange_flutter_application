@@ -22,10 +22,7 @@ import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
-import 'package:bananatalk_app/providers/badge_count_provider.dart';
-import 'package:bananatalk_app/providers/unread_count_provider.dart';
 import 'package:bananatalk_app/providers/theme_mode_provider.dart';
-import 'package:bananatalk_app/services/global_chat_listener.dart';
 import 'package:bananatalk_app/utils/image_utils.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
@@ -35,6 +32,7 @@ import 'package:bananatalk_app/pages/ai/tutor/persona_picker_screen.dart';
 import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:bananatalk_app/services/session_reset.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/pages/profile/widgets/profile_snackbar.dart';
 
@@ -843,12 +841,11 @@ class LeftDrawer extends ConsumerWidget {
     );
 
     try {
-      GlobalChatListener().stop();
       await ref.read(authServiceProvider).logout();
-      ref.read(badgeCountProvider.notifier).reset();
-      ref.read(chatPartnersProvider.notifier).reset();
-      ref.invalidate(userProvider);
-      ref.invalidate(authServiceProvider);
+      // Stops the chat listener + socket, and invalidates every user-scoped
+      // provider (coins, blocks, tutor, matches, badges, ...), not only
+      // userProvider/authServiceProvider.
+      await resetUserSession(invalidate: ref.invalidate, clearAuthData: false);
 
       if (context.mounted) {
         Navigator.of(context, rootNavigator: true).pop(); // close loading

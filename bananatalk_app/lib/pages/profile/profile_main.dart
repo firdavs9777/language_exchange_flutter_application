@@ -1,4 +1,3 @@
-import 'package:bananatalk_app/services/chat_socket_service.dart';
 import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
 import 'package:bananatalk_app/widgets/notifications/notification_bell.dart';
 import 'package:bananatalk_app/widgets/coins/coin_balance_pill.dart';
@@ -11,9 +10,6 @@ import 'package:bananatalk_app/pages/profile/edit/picture_edit.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_models/story_model.dart';
 import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
-import 'package:bananatalk_app/providers/badge_count_provider.dart';
-import 'package:bananatalk_app/providers/unread_count_provider.dart';
-import 'package:bananatalk_app/services/global_chat_listener.dart';
 import 'package:bananatalk_app/services/stories_service.dart';
 import 'package:bananatalk_app/pages/stories/viewer/story_viewer_screen.dart';
 import 'package:bananatalk_app/providers/provider_root/profile_visitor_provider.dart';
@@ -24,6 +20,7 @@ import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:bananatalk_app/services/session_reset.dart';
 import 'package:go_router/go_router.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
@@ -515,13 +512,11 @@ class _LogoutDialogState extends State<_LogoutDialog> {
     setState(() => _isLoggingOut = true);
     final l10n = AppLocalizations.of(widget.rootContext)!;
     try {
-      GlobalChatListener().stop();
       await widget.ref.read(authServiceProvider).logout();
-      await ChatSocketService().disconnect();
-      widget.ref.read(badgeCountProvider.notifier).reset();
-      widget.ref.read(chatPartnersProvider.notifier).reset();
-      widget.ref.invalidate(userProvider);
-      widget.ref.invalidate(authServiceProvider);
+      // Stops the chat listener + socket, and invalidates every user-scoped
+      // provider (coins, blocks, tutor, matches, badges, ...), not only
+      // userProvider/authServiceProvider.
+      await resetUserSession(invalidate: widget.ref.invalidate, clearAuthData: false);
 
       if (dialogContext.mounted) Navigator.pop(dialogContext);
 

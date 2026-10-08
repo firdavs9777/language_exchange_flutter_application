@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:bananatalk_app/services/session_reset.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/widgets/banana_text.dart';
@@ -97,6 +98,14 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
             reason: _deletionReason,
             reasonText: _deletionReasonText,
           );
+
+      if (result['success'] == true) {
+        // deleteAccount() cleared tokens + prefs; this drops the rest of the
+        // deleted account's state (providers, socket, listener, badge) and
+        // its biometric snapshot. Runs even if this screen was disposed
+        // meanwhile -- it uses the app container, not this widget's ref.
+        await resetUserSession(clearAuthData: false, forgetBiometric: true);
+      }
 
       if (mounted) {
         if (result['success'] == true) {

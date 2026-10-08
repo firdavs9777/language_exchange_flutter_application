@@ -6,6 +6,8 @@ import 'package:bananatalk_app/services/chat_socket_service.dart';
 import 'package:bananatalk_app/services/global_chat_listener.dart';
 import 'package:bananatalk_app/services/analytics_service.dart';
 import 'package:bananatalk_app/services/api_client.dart';
+import 'package:bananatalk_app/services/session_reset.dart';
+import 'package:bananatalk_app/providers/app_provider_container.dart';
 import 'package:bananatalk_app/services/ad_service.dart';
 import 'package:bananatalk_app/providers/ad_providers.dart';
 import 'package:bananatalk_app/services/deep_link_service.dart';
@@ -83,14 +85,11 @@ Future<void> main() async {
     };
 
     // Step 14 (safety wave): banned-account 403 → clear token + push the
+    // Full session teardown, not just `token`/`userId`: the refresh token,
+    // ApiClient's cached bearer, the socket, the push token and every
+    // user-scoped provider used to survive a suspension.
     apiClient.onAccountSuspended = (reason) async {
-      try {
-        final prefs = await SharedPreferences.getInstance();
-        await prefs.remove('token');
-        await prefs.remove('userId');
-      } catch (e) {
-        debugPrint('[suspended] token cleanup failed: $e');
-      }
+      await resetUserSession(forgetBiometric: true);
       final overlayNav = callOverlayNavigatorKey.currentState;
       if (overlayNav == null) return;
       overlayNav.pushAndRemoveUntil(
@@ -116,7 +115,12 @@ Future<void> main() async {
     if (kDebugMode) debugPrintStack(stackTrace: stack);
   }
 
-  runApp(const ProviderScope(child: MyApp()));
+  runApp(
+    UncontrolledProviderScope(
+      container: appProviderContainer,
+      child: const MyApp(),
+    ),
+  );
 
   // Capture incoming deep links (universal links + custom scheme) and
   // route them through the existing GoRouter. Fire-and-forget: runs after
