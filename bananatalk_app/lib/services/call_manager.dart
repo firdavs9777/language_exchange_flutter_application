@@ -102,6 +102,7 @@ class CallManager with WidgetsBindingObserver {
   final CallManagerDeps _deps;
   CallLiveKitManager _liveKit;
   io.Socket? _socket;
+  StreamSubscription<io.Socket>? _socketReplacedSub;
   bool _isInitialized = false;
   bool _appInForeground = true;
 
@@ -165,9 +166,18 @@ class CallManager with WidgetsBindingObserver {
   Future<void> initialize(ChatSocketService chatSocketService) async {
     WidgetsBinding.instance.removeObserver(this);
     WidgetsBinding.instance.addObserver(this);
-    bindSocket(chatSocketService.socket);
+    attachSocketService(chatSocketService);
     if (!_isInitialized) _initCallKit();
     _isInitialized = true;
+  }
+
+  /// Follow the chat socket across replacements. ChatSocketService replaces
+  /// its socket on resume, token refresh and login; binding once (the old
+  /// behaviour) left the app deaf to call:incoming after the first resume.
+  void attachSocketService(ChatSocketService service) {
+    _socketReplacedSub?.cancel();
+    _socketReplacedSub = service.onSocketReplaced.listen(bindSocket);
+    bindSocket(service.socket);
   }
 
   /// Move the call listeners onto [socket] (and off the previous one).

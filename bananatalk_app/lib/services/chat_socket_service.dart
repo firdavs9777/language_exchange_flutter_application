@@ -1,5 +1,6 @@
 // lib/services/chat_socket_service.dart
 import 'dart:async';
+import 'package:flutter/foundation.dart' show visibleForTesting;
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/service/endpoints.dart';
@@ -56,6 +57,22 @@ class ChatSocketService {
   final _presenceOfflineController =
       StreamController<Map<String, dynamic>>.broadcast();
   final _presenceBulkController = StreamController<List<String>>.broadcast();
+
+  /// Fires with every NEW socket instance (login, resume, token refresh,
+  /// forced reset). Anything that registers its own listeners on [socket]
+  /// (CallManager) must re-bind here — the old instance is cleared and
+  /// disposed, so its listeners die with it.
+  final _socketReplacedController = StreamController<IO.Socket>.broadcast();
+  Stream<IO.Socket> get onSocketReplaced => _socketReplacedController.stream;
+
+  void _installSocket(IO.Socket socket) {
+    _socket = socket;
+    _setupListeners();
+    _safeAdd(_socketReplacedController, socket);
+  }
+
+  @visibleForTesting
+  void debugInstallSocket(IO.Socket socket) => _installSocket(socket);
 
   // Room (Workstream D — Language Rooms) stream controllers
   final _roomMessageController = StreamController<dynamic>.broadcast();
@@ -270,7 +287,7 @@ class ChatSocketService {
         _socket = null;
       }
 
-      _socket = IO.io(
+      final socket = IO.io(
         _baseUrl,
         IO.OptionBuilder()
             .setTransports(['websocket'])
@@ -288,7 +305,7 @@ class ChatSocketService {
             .build(),
       );
 
-      _setupListeners();
+      _installSocket(socket);
       _socket?.connect();
     } catch (e) {
       _scheduleReconnect();
