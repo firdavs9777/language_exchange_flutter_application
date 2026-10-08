@@ -63,6 +63,35 @@ void main() {
     expect((ok.data['call'] as Map)['callUuid'], 'u-9');
   });
 
+  test('initiate: 403 CONVERSATION_START_LIMIT keeps the server message and skips the global 403 toast', () async {
+    const message =
+        'You have started the most conversations you can today. Watch an ad for one more, or go VIP to start as many as you want.';
+    final toasts = <String>[];
+    final client = ApiClient();
+    final previous = client.onAuthorizationError;
+    client.onAuthorizationError = toasts.add;
+    addTearDown(() => client.onAuthorizationError = previous);
+
+    final capped = await http.runWithClient(
+      () => RestCallApi().initiate(receiverId: 'u2', type: CallType.audio),
+      () => MockClient((req) async => http.Response(
+          jsonEncode({'success': false, 'error': message, 'code': 'CONVERSATION_START_LIMIT'}), 403)),
+    );
+    expect(capped.ok, isFalse);
+    expect(capped.statusCode, 403);
+    expect(capped.errorCode, 'CONVERSATION_START_LIMIT');
+    expect(capped.error, message);
+    expect(toasts, isEmpty, reason: 'the call UI shows this message once itself');
+
+    // Any other 403 still raises the global permission toast.
+    await http.runWithClient(
+      () => RestCallApi().accept('c1'),
+      () => MockClient((req) async =>
+          http.Response(jsonEncode({'success': false, 'error': 'Not a participant'}), 403)),
+    );
+    expect(toasts, hasLength(1));
+  });
+
   test('Review focus 1: CallKit ids compare case-insensitively; uuidFor prefers callUuid', () {
     expect(CallKitIds.same('6F1C2B8E-3C1D-4A8E-9B7F-0A1B2C3D4E5F', '6f1c2b8e-3c1d-4a8e-9b7f-0a1b2c3d4e5f'), isTrue);
     expect(CallKitIds.same(null, 'x'), isFalse);

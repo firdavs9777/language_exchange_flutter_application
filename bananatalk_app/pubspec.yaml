@@ -114,6 +114,8 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  # fakeAsync for timer-driven call tests (pinned by the Flutter SDK).
+  fake_async: any
 
 dependency_overrides:
   win32: ^5.5.0

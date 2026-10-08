@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:bananatalk_app/models/call_model.dart';
 import 'package:bananatalk_app/services/call_manager.dart'
-    show CallManager, CallUiState, CallQuality;
+    show CallManager, CallUiState, CallQuality, InitiateResult;
 
 class CallNotifier extends ChangeNotifier {
   final CallManager _callManager = CallManager();
@@ -70,32 +73,16 @@ class CallNotifier extends ChangeNotifier {
     };
   }
 
-  void setCallDurationWarningCallback(Function(int remainingSeconds) callback) {
-    _callManager.onCallDurationWarning = callback;
-  }
-
-  void setCallDurationLimitCallback(Function() callback) {
-    _callManager.onCallDurationLimitReached = callback;
-  }
-
-  /// Set whether the current caller is VIP (no duration limit)
-  void setVipCall(bool isVip) {
-    _callManager.setVipCall(isVip);
-  }
-
-  Future<void> initiateCall(
+  Future<InitiateResult> initiateCall(
     String targetUserId,
     String targetUserName,
     String? targetUserProfilePicture,
     CallType callType,
   ) async {
-    await _callManager.initiateCall(
-      targetUserId,
-      targetUserName,
-      targetUserProfilePicture,
-      callType,
-    );
+    final result = await _callManager.initiateCall(
+        targetUserId, targetUserName, targetUserProfilePicture, callType);
     notifyListeners();
+    return result;
   }
 
   Future<void> acceptCall() async {
@@ -104,13 +91,11 @@ class CallNotifier extends ChangeNotifier {
   }
 
   void rejectCall() {
-    _callManager.rejectCall();
-    notifyListeners();
+    unawaited(_callManager.rejectCall().then((_) => notifyListeners()));
   }
 
   void endCall() {
-    _callManager.endCall();
-    notifyListeners();
+    unawaited(_callManager.endCall().then((_) => notifyListeners()));
   }
 
   void toggleMute() {
@@ -128,9 +113,7 @@ class CallNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> switchCamera() async {
-    await _callManager.switchCamera();
-  }
+  Future<void> switchCamera() => _callManager.switchCamera();
 
   @override
   void dispose() {
@@ -142,4 +125,3 @@ class CallNotifier extends ChangeNotifier {
 final callProvider = ChangeNotifierProvider<CallNotifier>((ref) {
   return CallNotifier();
 });
-

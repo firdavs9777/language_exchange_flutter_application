@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/pages/community/main/community_main.dart';
 import 'package:bananatalk_app/pages/menu_tab/TabBarMenu.dart';
-import 'package:bananatalk_app/models/call_model.dart';
-import 'package:bananatalk_app/screens/incoming_call_screen.dart';
 import 'package:bananatalk_app/services/call_manager.dart';
 import 'package:bananatalk_app/services/notification_api_client.dart';
 import 'package:bananatalk_app/router/app_router.dart';
@@ -83,7 +81,7 @@ class NotificationRouter {
       // it shows an overlay rather than navigating via GoRouter.
       if (type == 'incoming_call') {
         debugPrint('📞 Incoming call notification tapped');
-        _handleIncomingCallNotification(data);
+        await _handleIncomingCallNotification(data);
         return;
       }
 
@@ -431,75 +429,14 @@ class NotificationRouter {
     return null;
   }
 
-  /// Handle incoming call notification tap.
-  /// If CallManager already has an active incoming call (socket reconnected),
-  /// show the IncomingCallScreen. Otherwise, build a CallModel from the
-  /// notification payload and display it.
-  static void _handleIncomingCallNotification(Map<String, dynamic> data) {
-    final callManager = CallManager();
-
-    // If CallManager already has an active call from the socket, use that
-    if (callManager.currentCall != null &&
-        callManager.currentCall!.status == CallStatus.ringing) {
-      _showIncomingCallScreen(callManager.currentCall!);
-      return;
-    }
-
-    // Build CallModel from notification payload for terminated-app case
+  /// A tapped incoming-call notification. CallManager dedupes by callId and
+  /// opens the incoming screen; Task A6 adds the stale-notification check.
+  static Future<void> _handleIncomingCallNotification(Map<String, dynamic> data) async {
     final callId = data['callId']?.toString() ?? '';
-    final callerId = data['callerId']?.toString() ?? '';
-    final callerName = data['callerName']?.toString() ?? 'Unknown';
-    final callerProfilePicture =
-        data['callerProfilePicture']?.toString() ??
-        data['callerAvatar']?.toString();
-    final callTypeStr = data['callType']?.toString() ?? 'audio';
-    // Step 8 / B5: pre-minted LiveKit fields delivered on the FCM payload by
-    // the B1 /calls/initiate endpoint. May be null on legacy payloads — in
-    // that case CallManager.acceptCall() falls back to /calls/:id/accept to
-    // mint a fresh token.
-    final livekitToken = data['livekitToken']?.toString();
-    final livekitUrl = data['livekitUrl']?.toString();
-    final roomName = data['roomName']?.toString();
-
     if (callId.isEmpty) {
-      // No valid call data — just go home
       goRouter.go('/home');
       return;
     }
-
-    final call = CallModel(
-      callId: callId,
-      userId: callerId,
-      userName: callerName,
-      userProfilePicture: callerProfilePicture,
-      callType: callTypeStr == 'video' ? CallType.video : CallType.audio,
-      direction: CallDirection.incoming,
-      status: CallStatus.ringing,
-      startTime: DateTime.now(),
-      livekitToken: livekitToken,
-      livekitUrl: livekitUrl,
-      roomName: roomName,
-    );
-
-    // Store in CallManager so accept/reject socket events work
-    callManager.currentCall = call;
-    callManager.startRingtone();
-
-    _showIncomingCallScreen(call);
-  }
-
-  static void _showIncomingCallScreen(CallModel call) {
-    final navState = callOverlayNavigatorKey.currentState;
-    if (navState != null) {
-      navState.push(
-        MaterialPageRoute(
-          builder: (_) => IncomingCallScreen(call: call),
-          fullscreenDialog: true,
-        ),
-      );
-    } else {
-      debugPrint('❌ Cannot show incoming call screen — no overlay navigator');
-      goRouter.go('/home');
-    }
+    await CallManager().handleIncoming(data, source: IncomingSource.notificationTap);
   }
 }

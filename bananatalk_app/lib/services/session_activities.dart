@@ -28,7 +28,7 @@ Future<void> endSessionActivities() async {
   }
   try {
     final calls = CallManager();
-    if (calls.currentCall != null) calls.endCall();
+    if (calls.currentCall != null) await calls.endCall();
   } catch (e) {
     debugPrint('[session-end] call: $e');
   }

@@ -40,7 +40,6 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
   // collapsed [_quality] which feeds the legacy 3-bar indicator and the
   // "Poor connection" status text.
   lk.ConnectionQuality _lkQuality = lk.ConnectionQuality.unknown;
-  int? _durationWarningRemaining; // seconds remaining when warning fires
   bool _isReconnecting = false;
 
   // Reconnect banner — slide-down animation + 15s grace timer.
@@ -83,6 +82,8 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
       final callNotifier = ref.read(callProvider.notifier);
       final callManager = callNotifier.callManager;
 
+      // CallManager closes the call screens itself (and keeps the caller's
+      // outcome on screen for 1.5 s); this only freezes the controls.
       callNotifier.setCallEndedCallback((call) {
         if (mounted) {
           setState(() {
@@ -90,12 +91,6 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
             _isEnding = true;
           });
         }
-        // Brief delay so user sees "Call ended" before screen closes
-        Future.delayed(const Duration(seconds: 1), () {
-          if (mounted) {
-            Navigator.of(context).pop();
-          }
-        });
       });
 
       // Setup callback to track when call connects
@@ -158,22 +153,6 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
         setState(() => _isReconnecting = false);
         _hideReconnectBanner();
       };
-
-      // Listen for call duration warning (1 min remaining)
-      callNotifier.setCallDurationWarningCallback((remaining) {
-        if (mounted) {
-          setState(() => _durationWarningRemaining = remaining);
-          // Auto-hide after 10 seconds
-          Future.delayed(const Duration(seconds: 10), () {
-            if (mounted) setState(() => _durationWarningRemaining = null);
-          });
-        }
-      });
-
-      // Listen for call duration limit reached
-      callNotifier.setCallDurationLimitCallback(() {
-        // Call will be ended by CallManager — onCallEnded handles navigation
-      });
 
       // Listen for peer mute state
       callManager.onPeerMuteChanged = (isMuted) {
@@ -446,7 +425,7 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
                           if (_isEnding) return; // Prevent double tap
                           setState(() => _isEnding = true);
                           callNotifier.endCall();
-                          // Don't pop here — onCallEnded callback handles it
+                          // CallManager.endCall always closes the screen, even with no call.
                         },
                         backgroundColor: Colors.red,
                         iconColor: Colors.white,
@@ -561,37 +540,6 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
                   ),
                 ),
               ),
-
-              // Duration limit warning banner (1 min remaining)
-              if (_durationWarningRemaining != null)
-                Positioned(
-                  top: _connState == CallUiState.reconnecting ? 80 : 80,
-                  left: 20,
-                  right: 20,
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 16, vertical: 10),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFFFD700).withOpacity(0.95),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(Icons.timer, color: Colors.white, size: 18),
-                        const SizedBox(width: 8),
-                        Text(
-                          '${_durationWarningRemaining! ~/ 60}:${(_durationWarningRemaining! % 60).toString().padLeft(2, '0')} remaining — Upgrade to VIP for unlimited calls',
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 12,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
 
               // Peer muted indicator
               if (_isPeerMuted && _connectedTime != null)

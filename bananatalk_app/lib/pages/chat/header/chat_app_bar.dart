@@ -5,9 +5,7 @@ import 'package:bananatalk_app/providers/call_provider.dart';
 import 'package:bananatalk_app/providers/message_count_provider.dart';
 import 'package:bananatalk_app/providers/chat_state_provider.dart';
 import 'package:bananatalk_app/models/call_model.dart';
-import 'package:bananatalk_app/screens/active_call_screen.dart';
-import 'package:bananatalk_app/router/app_router.dart'
-    show callOverlayNavigatorKey;
+import 'package:bananatalk_app/services/call/call_routes.dart';
 import 'package:bananatalk_app/pages/community/single/single_community_screen.dart';
 import 'package:bananatalk_app/utils/time_utils.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
@@ -16,7 +14,6 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:app_settings/app_settings.dart';
 import 'package:bananatalk_app/pages/chat/dialogs/chat_options_menu.dart';
-import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/pages/chat/widgets/chat_snackbar.dart';
 import 'package:bananatalk_app/widgets/navigation/app_back_button.dart';
 import 'package:bananatalk_app/widgets/coins/coin_balance_pill.dart';
@@ -422,9 +419,6 @@ class ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
     try {
       final callNotifier = ref.read(callProvider.notifier);
 
-      // VIP gating removed — all calls treated as unlimited.
-      callNotifier.setVipCall(true);
-
       // Setup error callback to handle permission errors
       callNotifier.setCallErrorCallback((error) {
         if (context.mounted) {
@@ -445,12 +439,7 @@ class ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
       if (context.mounted) {
         final currentCall = callNotifier.currentCall;
         if (currentCall != null) {
-          callOverlayNavigatorKey.currentState?.push(
-            AppPageRoute(
-              builder: (_) => ActiveCallScreen(call: currentCall),
-              fullscreenDialog: true,
-            ),
-          );
+          CallRoutes.openActive(currentCall);
         }
       }
     } catch (e) {

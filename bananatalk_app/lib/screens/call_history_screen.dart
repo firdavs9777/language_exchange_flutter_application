@@ -5,10 +5,9 @@ import 'package:bananatalk_app/models/call_record_model.dart';
 import 'package:bananatalk_app/services/call_history_service.dart';
 import 'package:bananatalk_app/services/api_client.dart';
 import 'package:bananatalk_app/providers/call_provider.dart';
+import 'package:bananatalk_app/services/call/call_routes.dart';
+import 'package:bananatalk_app/services/call_manager.dart' show InitiateStatus;
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
-import 'package:bananatalk_app/providers/provider_root/vip_provider.dart';
-import 'package:bananatalk_app/services/daily_call_limit_service.dart';
-import 'package:bananatalk_app/widgets/vip_locked_feature.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/widgets/navigation/app_back_button.dart';
 import 'package:intl/intl.dart';
@@ -195,42 +194,12 @@ class _CallHistoryScreenState extends ConsumerState<CallHistoryScreen>
   Future<void> _initiateCall(CallRecord record) async {
     final other = record.getOtherParticipant(_currentUserId);
     if (other == null) return;
-
-    // Check VIP status for call limits
-    final isVip = ref.read(isVipProvider(_currentUserId));
-    if (!isVip) {
-      final canMakeCall = await DailyCallLimitService.canCall();
-      if (!canMakeCall && mounted) {
-        showModalBottomSheet(
-          context: context,
-          backgroundColor: Colors.transparent,
-          isScrollControlled: true,
-          builder: (_) => VipUpgradeSheet(
-            featureName: 'Unlimited Calls',
-            description:
-                'Free users can make up to ${DailyCallLimitService.maxDailyCalls} calls per day. '
-                'Upgrade to VIP for unlimited calls!',
-          ),
-        );
-        return;
-      }
-    }
-
     final callNotifier = ref.read(callProvider.notifier);
-    callNotifier.setVipCall(isVip);
-    await callNotifier.initiateCall(
-      other.id,
-      other.name,
-      other.profilePicture,
-      record.type,
-    );
-
-    // Record call for daily limit
-    if (!isVip) {
-      final currentCall = callNotifier.currentCall;
-      if (currentCall != null && currentCall.callId.isNotEmpty) {
-        await DailyCallLimitService.recordCall(currentCall.callId);
-      }
+    final result = await callNotifier.initiateCall(
+        other.id, other.name, other.profilePicture, record.type);
+    final call = callNotifier.currentCall;
+    if (result.status == InitiateStatus.started && call != null) {
+      CallRoutes.openActive(call);
     }
   }
 }

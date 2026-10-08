@@ -38,7 +38,7 @@ Baseline: 1/30 calls answered in 30 days, 168 stuck ringing, 0 call messages eve
   - [x] A1 call strings in 19 locales (18 machine drafts — native review open)
   - [x] A2 outcome model + §3 labels
   - [x] A3 call API / platform seams, CallKit id = callUuid
-  - [ ] A4 CallManager follower + single exit path; 5-minute cap removed
+  - [x] A4 CallManager follower + single exit path; 5-minute cap removed
   - [ ] A5 re-bind call listeners when the socket is replaced
   - [ ] A6 incoming dedupe, foreground FCM, call_cancelled, stale taps, resume/cold-start recovery
   - [ ] A7 CallKit extra, cold-start activeCalls(), VoIP/FCM capabilities + real device id

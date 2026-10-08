@@ -42,9 +42,11 @@ class CallKitService {
   /// foreground path, and via PushKit's payload for killed-state). The
   /// caller uses it to hydrate `CallManager.currentCall` when accept fires
   /// before the FCM/socket path has run.
-  Function(String callId, Map<String, dynamic>? extra)? onAccepted;
-  Function(String callId)? onDeclined;
-  Function(String callId)? onEnded;
+  /// Every callback receives the CallKit UUID (uppercase on iOS), never the
+  /// server id — that is `extra['callId']`.
+  Function(String callKitId, Map<String, dynamic>? extra)? onAccepted;
+  Function(String callKitId, Map<String, dynamic>? extra)? onDeclined;
+  Function(String callKitId, Map<String, dynamic>? extra)? onEnded;
 
   bool _listenersRegistered = false;
 
@@ -82,29 +84,20 @@ class CallKitService {
       switch (event.event) {
         case Event.actionCallAccept:
           final id = _extractId(event.body);
-          if (id != null) {
-            // The `extra` dict is where showIncomingCall and the PushKit
-            // payload stash pre-minted LiveKit fields. Forward it so
-            // CallManager can hydrate currentCall on killed-state accept.
-            final extra = event.body?['extra'];
-            onAccepted?.call(
-              id,
-              extra is Map ? Map<String, dynamic>.from(extra) : null,
-            );
-          }
+          if (id != null) onAccepted?.call(id, _extraOf(event.body));
           break;
         case Event.actionCallDecline:
           final id = _extractId(event.body);
-          if (id != null) onDeclined?.call(id);
+          if (id != null) onDeclined?.call(id, _extraOf(event.body));
           break;
         case Event.actionCallEnded:
           final id = _extractId(event.body);
-          if (id != null) onEnded?.call(id);
+          if (id != null) onEnded?.call(id, _extraOf(event.body));
           _activeCallUuid = null;
           break;
         case Event.actionCallTimeout:
           final id = _extractId(event.body);
-          if (id != null) onDeclined?.call(id);
+          if (id != null) onDeclined?.call(id, _extraOf(event.body));
           _activeCallUuid = null;
           break;
         case Event.actionDidUpdateDevicePushTokenVoip:
@@ -171,6 +164,11 @@ class CallKitService {
 
   String? _extractId(Map<String, dynamic>? body) {
     return body?['id']?.toString() ?? body?['extra']?['callId']?.toString();
+  }
+
+  Map<String, dynamic>? _extraOf(Map<String, dynamic>? body) {
+    final extra = body?['extra'];
+    return extra is Map ? Map<String, dynamic>.from(extra) : null;
   }
 
   /// Show the native incoming call screen.
