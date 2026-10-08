@@ -24,6 +24,39 @@ class ApiClient {
   bool _isRefreshing = false;
   final List<Completer<String?>> _refreshQueue = [];
 
+  /// Set by [_refreshAccessToken] when its last failure proves the session is
+  /// over -- the server rejected the refresh token (400/401/403) or the user
+  /// no longer exists (404), or there is no refresh token to try -- as
+  /// opposed to a timeout, a dropped connection or a 5xx, which must never
+  /// log anyone out.
+  bool _lastRefreshFailureDefinitive = false;
+
+  /// Refresh-endpoint statuses that end the session. Everything else
+  /// (5xx, 429, network errors) is transient.
+  static bool isDefinitiveRefreshFailure(int statusCode) =>
+      statusCode == 400 ||
+      statusCode == 401 ||
+      statusCode == 403 ||
+      statusCode == 404;
+
+  /// Raises [onAuthenticationError] after a failed refresh, but only when
+  /// that failure was definitive. Waiters queued behind one refresh all see
+  /// the leader's verdict, so N concurrent 401s raise it N times -- the
+  /// handler debounces (see SessionExpiryHandler).
+  void _reportRefreshFailure() {
+    if (_lastRefreshFailureDefinitive) onAuthenticationError?.call();
+  }
+
+  /// For callers that make raw `http` requests and get a 401: tries the
+  /// refresh, and raises [onAuthenticationError] only if the session is
+  /// definitively over. Returns true when a new token was obtained (retry).
+  Future<bool> handleUnauthorized() async {
+    final newToken = await _refreshAccessToken();
+    if (newToken != null) return true;
+    _reportRefreshFailure();
+    return false;
+  }
+
   // Rate limit tracking
   final Map<String, RateLimitInfo> _rateLimits = {};
 
@@ -110,6 +143,7 @@ class ApiClient {
 
   /// Clear cached token (call on logout)
   void clearTokenCache() {
+    _lastRefreshFailureDefinitive = false;
     _cachedToken = null;
     _cachedRefreshToken = null;
     _lastTokenCheck = null;
@@ -126,6 +160,7 @@ class ApiClient {
     }
 
     _isRefreshing = true;
+    _lastRefreshFailureDefinitive = false;
 
     try {
       // Get refresh token from cache or storage
@@ -135,6 +170,8 @@ class ApiClient {
       }
 
       if (_cachedRefreshToken == null || _cachedRefreshToken!.isEmpty) {
+        // A 401 with nothing to refresh with: the session cannot recover.
+        _lastRefreshFailureDefinitive = true;
         return null;
       }
 
@@ -185,6 +222,8 @@ class ApiClient {
         }
       }
 
+      _lastRefreshFailureDefinitive =
+          isDefinitiveRefreshFailure(response.statusCode);
 
       // Complete all waiting requests with null
       for (final completer in _refreshQueue) {
@@ -224,6 +263,10 @@ class ApiClient {
   /// behavior directly. Step 5 (auth workstream).
   @visibleForTesting
   Future<String?> refreshAccessTokenForTest() => _refreshAccessToken();
+
+  /// Test-only view of the last refresh verdict.
+  @visibleForTesting
+  bool get lastRefreshFailureDefinitiveForTest => _lastRefreshFailureDefinitive;
 
   /// Test-only reset of refresh-in-progress state. `ApiClient` is a
   /// singleton, so stale `_isRefreshing`/`_refreshQueue` state from a
@@ -350,8 +393,10 @@ class ApiClient {
         );
 
       case 401:
-        // Authentication error - token expired or invalid
-        onAuthenticationError?.call();
+        // Token expired or invalid. Deliberately NO onAuthenticationError
+        // here: this fires on the first 401, before the caller has tried a
+        // refresh. The callback logs the user out, so it is only raised by
+        // [_reportRefreshFailure] once a refresh has definitively failed.
         return build(
           success: false,
           error: body['error'] ?? 'Authentication required. Please log in again.',
@@ -544,8 +589,8 @@ class ApiClient {
           final retryResponse = await http.get(uri, headers: retryHeaders);
           return _handleResponse(retryResponse, endpoint);
         } else {
-          // Token refresh failed - trigger auth error callback
-          onAuthenticationError?.call();
+          // Refresh failed: log out only if the failure was definitive.
+          _reportRefreshFailure();
         }
       }
 
@@ -603,8 +648,8 @@ class ApiClient {
           return _handleResponse(retryResponse, endpoint,
               suppressRateLimitToast: suppressRateLimitToast);
         } else {
-          // Token refresh failed - trigger auth error callback
-          onAuthenticationError?.call();
+          // Refresh failed: log out only if the failure was definitive.
+          _reportRefreshFailure();
         }
       }
 
@@ -654,8 +699,8 @@ class ApiClient {
           );
           return _handleResponse(retryResponse, endpoint);
         } else {
-          // Token refresh failed - trigger auth error callback
-          onAuthenticationError?.call();
+          // Refresh failed: log out only if the failure was definitive.
+          _reportRefreshFailure();
         }
       }
 
@@ -713,8 +758,8 @@ class ApiClient {
           final retryResponse = await http.Response.fromStream(retryStreamedResponse);
           return _handleResponse(retryResponse, endpoint);
         } else {
-          // Token refresh failed - trigger auth error callback
-          onAuthenticationError?.call();
+          // Refresh failed: log out only if the failure was definitive.
+          _reportRefreshFailure();
         }
       }
 

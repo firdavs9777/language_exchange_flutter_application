@@ -7,6 +7,7 @@ import 'package:bananatalk_app/services/global_chat_listener.dart';
 import 'package:bananatalk_app/services/analytics_service.dart';
 import 'package:bananatalk_app/services/api_client.dart';
 import 'package:bananatalk_app/services/session_reset.dart';
+import 'package:bananatalk_app/services/session_expiry_handler.dart';
 import 'package:bananatalk_app/providers/app_provider_container.dart';
 import 'package:bananatalk_app/services/ad_service.dart';
 import 'package:bananatalk_app/providers/ad_providers.dart';
@@ -71,6 +72,20 @@ Future<void> main() async {
       chatSocketService.refreshConnection();
     };
 
+    // Session definitively over (refresh token rejected, or the user no
+    // longer exists): clear everything once and land on login. Network
+    // errors never reach this -- ApiClient only raises it for a definitive
+    // refresh failure.
+    final sessionExpiry = SessionExpiryHandler(
+      hasSession: () async {
+        final p = await SharedPreferences.getInstance();
+        return (p.getString('token') ?? '').isNotEmpty;
+      },
+      resetSession: () => resetUserSession(),
+      onExpired: _showSessionExpiredLogin,
+    );
+    apiClient.onAuthenticationError = sessionExpiry.handle;
+
     // Step 13A: route 429 quota_exceeded responses to the persona paywall
     apiClient.onQuotaExceeded = (qe) {
       final overlayCtx = callOverlayNavigatorKey.currentContext;
@@ -126,6 +141,23 @@ Future<void> main() async {
   // route them through the existing GoRouter. Fire-and-forget: runs after
   // the router/app are initialized above.
   DeepLinkService(goRouter).start();
+}
+
+/// Routes to login after the session died, with the existing localized
+/// "Session expired. Please login again." notice.
+void _showSessionExpiredLogin() {
+  goRouter.go('/login');
+  WidgetsBinding.instance.addPostFrameCallback((_) {
+    final ctx = callOverlayNavigatorKey.currentContext;
+    if (ctx == null) return;
+    final l10n = AppLocalizations.of(ctx);
+    ScaffoldMessenger.maybeOf(ctx)?.showSnackBar(
+      SnackBar(
+        content: Text(l10n?.sessionExpired ?? 'Session expired.'),
+        behavior: SnackBarBehavior.floating,
+      ),
+    );
+  });
 }
 
 // Theme provider with persistence

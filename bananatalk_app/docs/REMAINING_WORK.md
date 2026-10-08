@@ -13,7 +13,7 @@ App (backend items in the backend repo's `docs/REMAINING_WORK.md`):
 - [x] **Signup wipes the Google photo** — wizard sends `'images': []` to `updatedetails`.
 - [x] **Logout `prefs.clear()`** — loses theme, language, remembered email, biometric flag; leaves the biometric secure-storage token.
 - [x] **Previous user's data survives logout / account deletion** — coins, blocked users, tutor, matches, visitors, notification settings, waves unread; deletion invalidates nothing. One shared session-reset helper.
-- [ ] **Session dying mid-use leaves empty screens** — `onAuthenticationError` never wired (no redirect to login on 401).
+- [x] **Session dying mid-use leaves empty screens** — `onAuthenticationError` never wired (no redirect to login on 401).
 - [ ] Splash hangs if Back is pressed on the Terms screen (`splash_screen.dart:155`).
 - [ ] Typed birth date `1995.13.40` passes step 1, fails at submit (step 1 uses `DateTime(y,m,d)` rollover).
 - [ ] Double-tap Login / Google / Apple re-runs login (loading flag cleared before navigation).

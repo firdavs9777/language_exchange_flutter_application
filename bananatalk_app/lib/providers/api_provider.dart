@@ -91,12 +91,9 @@ class _GlobalApiErrorHandlerState extends ConsumerState<GlobalApiErrorHandler> {
   void _setupApiClientCallbacks() {
     final apiClient = ApiClient();
 
-    apiClient.onAuthenticationError = () {
-      ref.read(globalErrorProvider.notifier).showError(
-            'Session expired. Please log in again.',
-            GlobalErrorType.authentication,
-          );
-    };
+    // onAuthenticationError is NOT assigned here: main() wires it to
+    // SessionExpiryHandler, which clears the session and routes to login.
+    // Assigning it from this widget would silently replace that handler.
 
     apiClient.onRateLimitError = (message) {
       ref.read(globalErrorProvider.notifier).showError(

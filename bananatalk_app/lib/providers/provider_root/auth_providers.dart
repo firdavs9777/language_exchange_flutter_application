@@ -73,10 +73,16 @@ class AuthService extends ChangeNotifier {
 
             notifyListeners();
             return true;
-          } else {
-            // Refresh failed, clear auth data
-            await _clearAuthData();
+          } else if (refreshResult['requiresLogin'] == true) {
+            // refreshAccessToken() already cleared the session.
             return false;
+          } else {
+            // Offline / server error: keep the session, same policy as
+            // _validateToken (a network error never logs the user out).
+            // Requests will refresh again through ApiClient once reachable.
+            isLoggedIn = true;
+            notifyListeners();
+            return true;
           }
         } else {
           // No refresh token, clear auth data
@@ -732,17 +738,28 @@ class AuthService extends ChangeNotifier {
         notifyListeners();
 
         return {'success': true, 'token': token, 'refreshToken': refreshToken};
-      } else {
-        // Refresh token expired or invalid - logout user
+      } else if (ApiClient.isDefinitiveRefreshFailure(response.statusCode)) {
+        // Refresh token rejected, or the user no longer exists - logout user
         await _clearAuthData();
         return {
           'success': false,
           'message': 'Session expired. Please login again.',
           'requiresLogin': true,
         };
+      } else {
+        // 5xx / 429: the server is struggling, the session is not over.
+        return {
+          'success': false,
+          'message': 'Server error: ${response.statusCode}',
+          'requiresLogin': false,
+        };
       }
     } catch (e) {
-      return {'success': false, 'message': 'Network error: ${e.toString()}'};
+      return {
+        'success': false,
+        'message': 'Network error: ${e.toString()}',
+        'requiresLogin': false,
+      };
     }
   }
 
