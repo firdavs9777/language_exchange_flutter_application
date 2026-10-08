@@ -1,11 +1,24 @@
 # Remaining work — monetization & growth
 
-Last updated: 2026-10-02. Keep this file current: tick items off in the same commit that finishes them.
+Last updated: 2026-10-08. Keep this file current: tick items off in the same commit that finishes them.
 
 Context: all three tranches of `docs/superpowers/plans/2026-10-02-monetization-growth.md` are built and
 deployed **dark** (every new server flag is off). Backend `main` c5ef2fe is live. App `v2.6.1` (10574) is
 tagged and supersedes the never-submitted 2.4.0 / 2.5.0 / 2.6.0. Nothing below affects users on the live
 store builds (2.2.4 / 2.2.5) until a flag is turned on.
+
+## 0. Auth audit (2026-10-08) — fix before the next release
+
+App (backend items in the backend repo's `docs/REMAINING_WORK.md`):
+- [ ] **Signup wipes the Google photo** — wizard sends `'images': []` to `updatedetails`.
+- [ ] **Logout `prefs.clear()`** — loses theme, language, remembered email, biometric flag; leaves the biometric secure-storage token.
+- [ ] **Previous user's data survives logout / account deletion** — coins, blocked users, tutor, matches, visitors, notification settings, waves unread; deletion invalidates nothing. One shared session-reset helper.
+- [ ] **Session dying mid-use leaves empty screens** — `onAuthenticationError` never wired (no redirect to login on 401).
+- [ ] Splash hangs if Back is pressed on the Terms screen (`splash_screen.dart:155`).
+- [ ] Typed birth date `1995.13.40` passes step 1, fails at submit (step 1 uses `DateTime(y,m,d)` rollover).
+- [ ] Double-tap Login / Google / Apple re-runs login (loading flag cleared before navigation).
+- [ ] Suspension handler clears only `token`/`userId` (refresh token, ApiClient cache, socket, push token remain).
+- [ ] Small: 423 lockout message replaced by generic text; raw exception text shown; a flaky `getLoggedInUser` after login logs the user out.
 
 ## 1. Owner (needs the keystore MacBook, store consoles or droplet)
 
@@ -45,8 +58,6 @@ App:
 
 Backend (details in `docs/REMAINING_WORK.md` there):
 - Rewarded ads have no server-side verification (SSV); the per-feature daily cap is the only guard.
-- Paid-unlock crash window (debit committed, grant not) is report-only in the reconciliation job — closing it needs a transaction like the rewarded path.
-- Boost capacity can overshoot by a few under concurrency; referral inviter cap likewise.
 - A booster only appears in daily batches generated after the purchase (batches are cached per day).
 - Non-VIP visitors page is server-limited to 1 row, so the masked tile says "Someone viewed your profile" even when several did.
 - Dashboard D1/D7 use latest activity (trend, not exact day-N return).
