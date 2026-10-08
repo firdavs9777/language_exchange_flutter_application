@@ -20,6 +20,7 @@ import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/pages/authentication/register/birth_date_parts.dart';
 import 'package:bananatalk_app/pages/authentication/register/oauth_profile_update_body.dart';
 import 'package:bananatalk_app/services/chat_socket_service.dart';
+import 'package:bananatalk_app/services/session_reset.dart';
 import 'package:bananatalk_app/providers/provider_models/users_model.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/models/language_model.dart';
@@ -423,13 +424,9 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
       stepName: _plan.stepNameAt(_currentStep),
     );
 
-    try {
-      await ref.read(authServiceProvider).logout();
-    } catch (e) {
-      // Sign-out failing must not strand the user on a screen they asked to
-      // leave; the router send below still gets them off it.
-      debugPrint('[RegisterTwo] logout failed: $e');
-    }
+    // Full sign-out (server + resetUserSession). Never throws: sign-out
+    // failing must not strand the user on a screen they asked to leave.
+    await signOutAndReset(ref.read(authServiceProvider));
     if (mounted) context.go('/login');
   }
 

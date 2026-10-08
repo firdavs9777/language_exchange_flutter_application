@@ -25,6 +25,7 @@ App (backend items in the backend repo's `docs/REMAINING_WORK.md`):
 - [x] iOS biometric snapshot keychain: `unlocked_this_device`, not synchronizable (was readable while locked); clear() also removes items stored under the old accessibility.
 - [x] Biometric prompt errors surfaced (not available / not enrolled / locked out / permanently locked / no passcode) instead of a silent dead button; "Continue as" shown only when enabled + enrolled + snapshot readable. 5 new l10n keys are machine drafts in 18 locales — native review open.
 - [x] Biometric snapshot freshness: follows every new session for the same account (password/Google/Apple/Facebook login, register, reset, password change) and any refresh-token rotation; a different account signing in wipes it. Password change now stores the server's new refresh token (it was dropped → logout at next expiry).
+- [x] Splash profile-incomplete loop — leaving the mandatory wizard unfinished now signs out fully (splash, login screen and the wizard's own exit share `signOutAndReset`).
 
 ## 1. Owner (needs the keystore MacBook, store consoles or droplet)
 

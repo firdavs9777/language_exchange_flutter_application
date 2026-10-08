@@ -158,8 +158,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                 // the user on a splash that never routes anywhere. Without
                 // accepted terms there is no session to enter, so sign out
                 // and land on login, where signing in shows Terms again.
-                await authService.logout();
-                await resetUserSession(clearAuthData: false);
+                await signOutAndReset(authService);
                 if (mounted) context.go('/login');
                 return;
               }
@@ -187,7 +186,14 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
           final updatedUser = await authService.getLoggedInUser();
           if (!mounted) return;
           if (!updatedUser.profileCompleted) {
-            context.go('/login');
+            // Same contract as the Google/Apple entry points: the wizard is
+            // a mandatory gate whose only exits are "finished" (it routes
+            // home itself) or "sign out". Reaching here means it was left
+            // some other way -- so sign out properly. This used to go to
+            // /login with the session alive, and the next launch restored it
+            // straight back into this gate: a loop on every launch.
+            await signOutAndReset(authService);
+            if (mounted) context.go('/login');
             return;
           }
         }

@@ -330,3 +330,16 @@ void invalidateUserScopedProviders(ProviderInvalidator invalidate) {
     }
   }
 }
+
+/// Server logout + full local reset, for the gates that end a session the
+/// user cannot enter (declined Terms, unfinished mandatory profile).
+/// Leaving one of those with the session alive sent the user to /login and
+/// straight back into the same gate on the next launch.
+Future<void> signOutAndReset(AuthService auth, {ProviderContainer? container}) async {
+  try {
+    await auth.logout();
+  } catch (e) {
+    debugPrint('[session-reset] logout failed: $e');
+  }
+  await resetUserSession(clearAuthData: false, container: container);
+}

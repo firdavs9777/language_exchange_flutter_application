@@ -339,7 +339,10 @@ class _LoginState extends ConsumerState<Login> {
                 recheck.native_language.isNotEmpty &&
                 recheck.language_to_learn.isNotEmpty;
             if (!recheck.profileCompleted || !recheckHasCoreFields) {
-              // Still incomplete — stay on login screen.
+              // Still incomplete: stay on the login screen, but signed OUT --
+              // staying signed in meant the next launch's splash restored the
+              // session straight back into the wizard.
+              await signOutAndReset(ref.read(authServiceProvider));
               return;
             }
           }
