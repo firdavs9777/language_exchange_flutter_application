@@ -18,6 +18,7 @@ import 'package:bananatalk_app/pages/community/main/community_main.dart';
 import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/pages/authentication/register/birth_date_parts.dart';
+import 'package:bananatalk_app/pages/authentication/register/oauth_profile_update_body.dart';
 import 'package:bananatalk_app/services/chat_socket_service.dart';
 import 'package:bananatalk_app/providers/provider_models//users_model.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
@@ -626,37 +627,23 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
         );
         final token = authService.token;
 
-        final requestBody = {
-          'name': _effectiveName,
-          'gender': gender,
-          'birth_year': year,
-          'birth_month': month,
-          'birth_day': day,
-          'native_language': _nativeLanguage?.name ?? _effectiveNativeLanguage,
-          'language_to_learn':
+        // Never carries `images`: see buildOAuthProfileUpdateBody.
+        final requestBody = buildOAuthProfileUpdateBody(
+          name: _effectiveName,
+          gender: gender,
+          birthYear: year,
+          birthMonth: month,
+          birthDay: day,
+          nativeLanguage: _nativeLanguage?.name ?? _effectiveNativeLanguage,
+          learningLanguage:
               _learningLanguage?.name ?? _effectiveLearningLanguage,
-          'profileCompleted': true,
-          'images': [],
-          'clientInfo': await ClientInfo.collect(),
-          // `languageLevel` is CEFR for the language being LEARNED (it feeds the
-          // partner filter and matchScoring, where B1+ scores differently).
-          // This used to be gated on the now-removed native level, so a user
-          // who set their real learning level and skipped the meaningless
-          // native one sent nothing at all -- and the `?? _nativeLevel`
-          // fallback could publish a native proficiency as a learning one.
-          if (_learningLevel != null) 'languageLevel': _learningLevel,
-          if (_city != null && _country != null)
-            'location': {
-              'type': 'Point',
-              'coordinates': [
-                (_longitude ?? 0.0).toDouble(),
-                (_latitude ?? 0.0).toDouble(),
-              ],
-              'formattedAddress': '$_city, $_country',
-              'city': _city ?? '',
-              'country': _country ?? '',
-            },
-        };
+          clientInfo: await ClientInfo.collect(),
+          languageLevel: _learningLevel,
+          city: _city,
+          country: _country,
+          latitude: _latitude,
+          longitude: _longitude,
+        );
 
         final response = await http.put(
           url,
