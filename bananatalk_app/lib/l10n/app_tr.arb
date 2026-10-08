@@ -3854,5 +3854,20 @@
   "vipBenefitUnlimitedMessages": "Sınırsız mesaj",
   "vipBenefitUnlimitedProfileViews": "Sınırsız profil görüntüleme",
   "vipBenefitAiStudyTools": "Yapay zeka çalışma araçları",
-  "chatBonusMessagesUnlocked": "{count} bonus mesajın kilidini açtın! Sohbete devam et."
+  "chatBonusMessagesUnlocked": "{count} bonus mesajın kilidini açtın! Sohbete devam et.",
+  "callLabelOutgoing": "{type, select, video{Giden görüntülü arama} other{Giden sesli arama}}",
+  "callLabelIncoming": "{type, select, video{Gelen görüntülü arama} other{Gelen sesli arama}}",
+  "callLabelNoAnswer": "{type, select, video{Görüntülü arama · Yanıt yok} other{Sesli arama · Yanıt yok}}",
+  "callLabelMissed": "{type, select, video{Cevapsız görüntülü arama} other{Cevapsız sesli arama}}",
+  "callLabelCancelled": "{type, select, video{İptal edilen görüntülü arama} other{İptal edilen sesli arama}}",
+  "callLabelDeclinedOutgoing": "{type, select, video{Görüntülü arama reddedildi} other{Sesli arama reddedildi}}",
+  "callLabelDeclinedIncoming": "{type, select, video{Reddedilen görüntülü arama} other{Reddedilen sesli arama}}",
+  "callLabelBusy": "{name} başka bir aramadaydı",
+  "callsTitle": "Aramalar",
+  "callsEmpty": "Henüz arama yok",
+  "callCameraPaused": "Kamera duraklatıldı",
+  "callFullScreenIntentTitle": "Aramaları kilit ekranında göster",
+  "callFullScreenIntentBody": "Telefonunuz kilitliyken aramaları kaçırmamanız için BananaTalk'un gelen aramaları tam ekran göstermesine izin verin.",
+  "callForegroundTitle": "Arama sürüyor",
+  "callForegroundBody": "Aramaya dönmek için dokunun"
 }

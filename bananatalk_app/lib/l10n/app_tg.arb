@@ -3135,5 +3135,20 @@
   "vipBenefitUnlimitedMessages": "Паёмҳои беҳад",
   "vipBenefitUnlimitedProfileViews": "Тамошои беҳади профилҳо",
   "vipBenefitAiStudyTools": "Абзорҳои омӯзиши AI",
-  "chatBonusMessagesUnlocked": "Шумо {count} паёми бонусӣ кушодед! Сӯҳбатро идома диҳед."
+  "chatBonusMessagesUnlocked": "Шумо {count} паёми бонусӣ кушодед! Сӯҳбатро идома диҳед.",
+  "callLabelOutgoing": "{type, select, video{Занги видеоии баромадӣ} other{Занги овозии баромадӣ}}",
+  "callLabelIncoming": "{type, select, video{Занги видеоии воридотӣ} other{Занги овозии воридотӣ}}",
+  "callLabelNoAnswer": "{type, select, video{Занги видеоӣ · Ҷавоб нест} other{Занги овозӣ · Ҷавоб нест}}",
+  "callLabelMissed": "{type, select, video{Занги видеоии беҷавоб} other{Занги овозии беҷавоб}}",
+  "callLabelCancelled": "{type, select, video{Занги видеоии бекоршуда} other{Занги овозии бекоршуда}}",
+  "callLabelDeclinedOutgoing": "{type, select, video{Занги видеоӣ рад шуд} other{Занги овозӣ рад шуд}}",
+  "callLabelDeclinedIncoming": "{type, select, video{Занги видеоии радшуда} other{Занги овозии радшуда}}",
+  "callLabelBusy": "{name} дар занги дигар буд",
+  "callsTitle": "Зангҳо",
+  "callsEmpty": "Ҳоло зангҳо нестанд",
+  "callCameraPaused": "Камера таваққуф шуд",
+  "callFullScreenIntentTitle": "Нишон додани зангҳо дар экрани қулф",
+  "callFullScreenIntentBody": "Ба BananaTalk иҷозат диҳед, ки зангҳои воридотиро дар тамоми экран нишон диҳад, то ҳангоми қулф будани телефон онҳоро аз даст надиҳед.",
+  "callForegroundTitle": "Занг идома дорад",
+  "callForegroundBody": "Барои бозгашт ба занг ламс кунед"
 }

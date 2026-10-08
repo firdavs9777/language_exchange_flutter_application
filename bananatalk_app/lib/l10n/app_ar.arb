@@ -3672,5 +3672,20 @@
   "vipBenefitUnlimitedMessages": "رسائل غير محدودة",
   "vipBenefitUnlimitedProfileViews": "مشاهدات غير محدودة للملفات الشخصية",
   "vipBenefitAiStudyTools": "أدوات الدراسة بالذكاء الاصطناعي",
-  "chatBonusMessagesUnlocked": "لقد فتحت {count} رسائل إضافية! واصل الدردشة."
+  "chatBonusMessagesUnlocked": "لقد فتحت {count} رسائل إضافية! واصل الدردشة.",
+  "callLabelOutgoing": "{type, select, video{مكالمة فيديو صادرة} other{مكالمة صوتية صادرة}}",
+  "callLabelIncoming": "{type, select, video{مكالمة فيديو واردة} other{مكالمة صوتية واردة}}",
+  "callLabelNoAnswer": "{type, select, video{مكالمة فيديو · لا رد} other{مكالمة صوتية · لا رد}}",
+  "callLabelMissed": "{type, select, video{مكالمة فيديو فائتة} other{مكالمة صوتية فائتة}}",
+  "callLabelCancelled": "{type, select, video{مكالمة فيديو ملغاة} other{مكالمة صوتية ملغاة}}",
+  "callLabelDeclinedOutgoing": "{type, select, video{تم رفض مكالمة الفيديو} other{تم رفض المكالمة الصوتية}}",
+  "callLabelDeclinedIncoming": "{type, select, video{مكالمة فيديو مرفوضة} other{مكالمة صوتية مرفوضة}}",
+  "callLabelBusy": "كان {name} في مكالمة أخرى",
+  "callsTitle": "المكالمات",
+  "callsEmpty": "لا توجد مكالمات بعد",
+  "callCameraPaused": "الكاميرا متوقفة مؤقتًا",
+  "callFullScreenIntentTitle": "عرض المكالمات على شاشة القفل",
+  "callFullScreenIntentBody": "اسمح لـ BananaTalk بعرض المكالمات الواردة بملء الشاشة حتى لا تفوتك عندما يكون هاتفك مقفلاً.",
+  "callForegroundTitle": "مكالمة جارية",
+  "callForegroundBody": "انقر للعودة إلى المكالمة"
 }

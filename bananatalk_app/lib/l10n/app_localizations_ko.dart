@@ -8887,4 +8887,114 @@ class AppLocalizationsKo extends AppLocalizations {
   String chatBonusMessagesUnlocked(int count) {
     return '보너스 메시지 $count개를 받았어요! 계속 대화하세요.';
   }
+
+  @override
+  String callLabelOutgoing(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': '영상 발신 통화',
+        'other': '음성 발신 통화',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelIncoming(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': '영상 수신 통화',
+        'other': '음성 수신 통화',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelNoAnswer(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': '영상 통화 · 응답 없음',
+        'other': '음성 통화 · 응답 없음',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelMissed(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': '부재중 영상 통화',
+        'other': '부재중 음성 통화',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelCancelled(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': '취소된 영상 통화',
+        'other': '취소된 음성 통화',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelDeclinedOutgoing(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': '영상 통화 거절됨',
+        'other': '음성 통화 거절됨',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelDeclinedIncoming(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': '거절한 영상 통화',
+        'other': '거절한 음성 통화',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelBusy(String name) {
+    return '$name님은 다른 통화 중이었습니다';
+  }
+
+  @override
+  String get callsTitle => '통화';
+
+  @override
+  String get callsEmpty => '아직 통화 기록이 없습니다';
+
+  @override
+  String get callCameraPaused => '카메라 일시 중지됨';
+
+  @override
+  String get callFullScreenIntentTitle => '잠금 화면에 전화 표시';
+
+  @override
+  String get callFullScreenIntentBody => '휴대폰이 잠겨 있어도 전화를 놓치지 않도록 BananaTalk가 수신 전화를 전체 화면으로 표시하도록 허용하세요.';
+
+  @override
+  String get callForegroundTitle => '통화 중';
+
+  @override
+  String get callForegroundBody => '탭하여 통화로 돌아가기';
 }

@@ -3882,5 +3882,20 @@
   "vipBenefitUnlimitedMessages": "Unbegrenzte Nachrichten",
   "vipBenefitUnlimitedProfileViews": "Unbegrenzte Profilaufrufe",
   "vipBenefitAiStudyTools": "KI-Lerntools",
-  "chatBonusMessagesUnlocked": "Du hast {count} Bonusnachrichten freigeschaltet! Chatte weiter."
+  "chatBonusMessagesUnlocked": "Du hast {count} Bonusnachrichten freigeschaltet! Chatte weiter.",
+  "callLabelOutgoing": "{type, select, video{Ausgehender Videoanruf} other{Ausgehender Sprachanruf}}",
+  "callLabelIncoming": "{type, select, video{Eingehender Videoanruf} other{Eingehender Sprachanruf}}",
+  "callLabelNoAnswer": "{type, select, video{Videoanruf · Keine Antwort} other{Sprachanruf · Keine Antwort}}",
+  "callLabelMissed": "{type, select, video{Verpasster Videoanruf} other{Verpasster Sprachanruf}}",
+  "callLabelCancelled": "{type, select, video{Abgebrochener Videoanruf} other{Abgebrochener Sprachanruf}}",
+  "callLabelDeclinedOutgoing": "{type, select, video{Videoanruf abgelehnt} other{Sprachanruf abgelehnt}}",
+  "callLabelDeclinedIncoming": "{type, select, video{Abgelehnter Videoanruf} other{Abgelehnter Sprachanruf}}",
+  "callLabelBusy": "{name} war in einem anderen Gespräch",
+  "callsTitle": "Anrufe",
+  "callsEmpty": "Noch keine Anrufe",
+  "callCameraPaused": "Kamera pausiert",
+  "callFullScreenIntentTitle": "Anrufe auf dem Sperrbildschirm anzeigen",
+  "callFullScreenIntentBody": "Erlaube BananaTalk, eingehende Anrufe im Vollbild anzuzeigen, damit du sie auch bei gesperrtem Telefon nicht verpasst.",
+  "callForegroundTitle": "Anruf läuft",
+  "callForegroundBody": "Tippen, um zum Anruf zurückzukehren"
 }

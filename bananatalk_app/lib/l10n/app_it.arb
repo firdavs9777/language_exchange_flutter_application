@@ -3882,5 +3882,20 @@
   "vipBenefitUnlimitedMessages": "Messaggi illimitati",
   "vipBenefitUnlimitedProfileViews": "Visite al profilo illimitate",
   "vipBenefitAiStudyTools": "Strumenti di studio IA",
-  "chatBonusMessagesUnlocked": "Hai sbloccato {count} messaggi bonus! Continua a chattare."
+  "chatBonusMessagesUnlocked": "Hai sbloccato {count} messaggi bonus! Continua a chattare.",
+  "callLabelOutgoing": "{type, select, video{Videochiamata in uscita} other{Chiamata vocale in uscita}}",
+  "callLabelIncoming": "{type, select, video{Videochiamata in arrivo} other{Chiamata vocale in arrivo}}",
+  "callLabelNoAnswer": "{type, select, video{Videochiamata · Nessuna risposta} other{Chiamata vocale · Nessuna risposta}}",
+  "callLabelMissed": "{type, select, video{Videochiamata persa} other{Chiamata vocale persa}}",
+  "callLabelCancelled": "{type, select, video{Videochiamata annullata} other{Chiamata vocale annullata}}",
+  "callLabelDeclinedOutgoing": "{type, select, video{Videochiamata rifiutata} other{Chiamata vocale rifiutata}}",
+  "callLabelDeclinedIncoming": "{type, select, video{Hai rifiutato una videochiamata} other{Hai rifiutato una chiamata vocale}}",
+  "callLabelBusy": "{name} era impegnato in un'altra chiamata",
+  "callsTitle": "Chiamate",
+  "callsEmpty": "Ancora nessuna chiamata",
+  "callCameraPaused": "Fotocamera in pausa",
+  "callFullScreenIntentTitle": "Mostra le chiamate nella schermata di blocco",
+  "callFullScreenIntentBody": "Consenti a BananaTalk di mostrare le chiamate in arrivo a schermo intero, così non le perdi quando il telefono è bloccato.",
+  "callForegroundTitle": "Chiamata in corso",
+  "callForegroundBody": "Tocca per tornare alla chiamata"
 }

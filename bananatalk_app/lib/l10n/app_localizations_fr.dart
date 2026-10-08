@@ -8897,4 +8897,114 @@ class AppLocalizationsFr extends AppLocalizations {
   String chatBonusMessagesUnlocked(int count) {
     return 'Vous avez débloqué $count messages bonus ! Continuez à discuter.';
   }
+
+  @override
+  String callLabelOutgoing(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'Appel vidéo sortant',
+        'other': 'Appel vocal sortant',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelIncoming(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'Appel vidéo entrant',
+        'other': 'Appel vocal entrant',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelNoAnswer(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'Appel vidéo · Pas de réponse',
+        'other': 'Appel vocal · Pas de réponse',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelMissed(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'Appel vidéo manqué',
+        'other': 'Appel vocal manqué',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelCancelled(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'Appel vidéo annulé',
+        'other': 'Appel vocal annulé',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelDeclinedOutgoing(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'Appel vidéo refusé',
+        'other': 'Appel vocal refusé',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelDeclinedIncoming(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'Appel vidéo refusé par vous',
+        'other': 'Appel vocal refusé par vous',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelBusy(String name) {
+    return '$name était déjà en ligne';
+  }
+
+  @override
+  String get callsTitle => 'Appels';
+
+  @override
+  String get callsEmpty => 'Aucun appel pour l\'instant';
+
+  @override
+  String get callCameraPaused => 'Caméra en pause';
+
+  @override
+  String get callFullScreenIntentTitle => 'Afficher les appels sur l\'écran de verrouillage';
+
+  @override
+  String get callFullScreenIntentBody => 'Autorisez BananaTalk à afficher les appels entrants en plein écran pour ne pas les manquer lorsque votre téléphone est verrouillé.';
+
+  @override
+  String get callForegroundTitle => 'Appel en cours';
+
+  @override
+  String get callForegroundBody => 'Touchez pour revenir à l\'appel';
 }

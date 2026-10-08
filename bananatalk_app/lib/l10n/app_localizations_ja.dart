@@ -8887,4 +8887,114 @@ class AppLocalizationsJa extends AppLocalizations {
   String chatBonusMessagesUnlocked(int count) {
     return 'ボーナスメッセージを$count件獲得しました！会話を続けましょう。';
   }
+
+  @override
+  String callLabelOutgoing(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': '発信ビデオ通話',
+        'other': '発信音声通話',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelIncoming(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': '着信ビデオ通話',
+        'other': '着信音声通話',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelNoAnswer(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'ビデオ通話・応答なし',
+        'other': '音声通話・応答なし',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelMissed(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': '不在着信（ビデオ）',
+        'other': '不在着信（音声）',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelCancelled(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'キャンセルしたビデオ通話',
+        'other': 'キャンセルした音声通話',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelDeclinedOutgoing(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'ビデオ通話が拒否されました',
+        'other': '音声通話が拒否されました',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelDeclinedIncoming(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': '拒否したビデオ通話',
+        'other': '拒否した音声通話',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelBusy(String name) {
+    return '$nameさんは別の通話中でした';
+  }
+
+  @override
+  String get callsTitle => '通話';
+
+  @override
+  String get callsEmpty => 'まだ通話履歴はありません';
+
+  @override
+  String get callCameraPaused => 'カメラ一時停止中';
+
+  @override
+  String get callFullScreenIntentTitle => 'ロック画面に着信を表示';
+
+  @override
+  String get callFullScreenIntentBody => 'スマートフォンがロックされていても着信を見逃さないよう、BananaTalkに全画面での着信表示を許可してください。';
+
+  @override
+  String get callForegroundTitle => '通話中';
+
+  @override
+  String get callForegroundBody => 'タップして通話に戻る';
 }

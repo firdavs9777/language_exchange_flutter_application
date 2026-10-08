@@ -8887,4 +8887,114 @@ class AppLocalizationsVi extends AppLocalizations {
   String chatBonusMessagesUnlocked(int count) {
     return 'Bạn đã mở khóa $count tin nhắn thưởng! Tiếp tục trò chuyện nhé.';
   }
+
+  @override
+  String callLabelOutgoing(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'Cuộc gọi video đi',
+        'other': 'Cuộc gọi thoại đi',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelIncoming(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'Cuộc gọi video đến',
+        'other': 'Cuộc gọi thoại đến',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelNoAnswer(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'Cuộc gọi video · Không trả lời',
+        'other': 'Cuộc gọi thoại · Không trả lời',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelMissed(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'Cuộc gọi video nhỡ',
+        'other': 'Cuộc gọi thoại nhỡ',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelCancelled(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'Cuộc gọi video đã hủy',
+        'other': 'Cuộc gọi thoại đã hủy',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelDeclinedOutgoing(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'Cuộc gọi video bị từ chối',
+        'other': 'Cuộc gọi thoại bị từ chối',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelDeclinedIncoming(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'Đã từ chối cuộc gọi video',
+        'other': 'Đã từ chối cuộc gọi thoại',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelBusy(String name) {
+    return '$name đang có cuộc gọi khác';
+  }
+
+  @override
+  String get callsTitle => 'Cuộc gọi';
+
+  @override
+  String get callsEmpty => 'Chưa có cuộc gọi nào';
+
+  @override
+  String get callCameraPaused => 'Đã tạm dừng camera';
+
+  @override
+  String get callFullScreenIntentTitle => 'Hiển thị cuộc gọi trên màn hình khóa';
+
+  @override
+  String get callFullScreenIntentBody => 'Cho phép BananaTalk hiển thị cuộc gọi đến toàn màn hình để bạn không bỏ lỡ khi điện thoại đang khóa.';
+
+  @override
+  String get callForegroundTitle => 'Đang trong cuộc gọi';
+
+  @override
+  String get callForegroundBody => 'Nhấn để quay lại cuộc gọi';
 }

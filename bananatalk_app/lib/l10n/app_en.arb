@@ -6343,5 +6343,28 @@
         "example": "3"
       }
     }
-  }
+  },
+  "callLabelOutgoing": "{type, select, video{Outgoing video call} other{Outgoing voice call}}",
+  "@callLabelOutgoing": {"placeholders": {"type": {"type": "String"}}},
+  "callLabelIncoming": "{type, select, video{Incoming video call} other{Incoming voice call}}",
+  "@callLabelIncoming": {"placeholders": {"type": {"type": "String"}}},
+  "callLabelNoAnswer": "{type, select, video{Video call · No answer} other{Voice call · No answer}}",
+  "@callLabelNoAnswer": {"placeholders": {"type": {"type": "String"}}},
+  "callLabelMissed": "{type, select, video{Missed video call} other{Missed voice call}}",
+  "@callLabelMissed": {"placeholders": {"type": {"type": "String"}}},
+  "callLabelCancelled": "{type, select, video{Cancelled video call} other{Cancelled voice call}}",
+  "@callLabelCancelled": {"placeholders": {"type": {"type": "String"}}},
+  "callLabelDeclinedOutgoing": "{type, select, video{Video call declined} other{Voice call declined}}",
+  "@callLabelDeclinedOutgoing": {"placeholders": {"type": {"type": "String"}}},
+  "callLabelDeclinedIncoming": "{type, select, video{Declined video call} other{Declined voice call}}",
+  "@callLabelDeclinedIncoming": {"placeholders": {"type": {"type": "String"}}},
+  "callLabelBusy": "{name} was on another call",
+  "@callLabelBusy": {"placeholders": {"name": {"type": "String"}}},
+  "callsTitle": "Calls",
+  "callsEmpty": "No calls yet",
+  "callCameraPaused": "Camera paused",
+  "callFullScreenIntentTitle": "Show calls on the lock screen",
+  "callFullScreenIntentBody": "Allow BananaTalk to show incoming calls full screen so you don't miss them while your phone is locked.",
+  "callForegroundTitle": "Call in progress",
+  "callForegroundBody": "Tap to return to your call"
 }

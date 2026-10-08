@@ -3615,5 +3615,20 @@
   "vipBenefitUnlimitedMessages": "Walang limitasyong mensahe",
   "vipBenefitUnlimitedProfileViews": "Walang limitasyong pagtingin sa profile",
   "vipBenefitAiStudyTools": "Mga AI Study tool",
-  "chatBonusMessagesUnlocked": "Nag-unlock ka ng {count} bonus na mensahe! Magpatuloy sa pakikipag-chat."
+  "chatBonusMessagesUnlocked": "Nag-unlock ka ng {count} bonus na mensahe! Magpatuloy sa pakikipag-chat.",
+  "callLabelOutgoing": "{type, select, video{Papalabas na video call} other{Papalabas na voice call}}",
+  "callLabelIncoming": "{type, select, video{Papasok na video call} other{Papasok na voice call}}",
+  "callLabelNoAnswer": "{type, select, video{Video call · Walang sumagot} other{Voice call · Walang sumagot}}",
+  "callLabelMissed": "{type, select, video{Hindi nasagot na video call} other{Hindi nasagot na voice call}}",
+  "callLabelCancelled": "{type, select, video{Kinanselang video call} other{Kinanselang voice call}}",
+  "callLabelDeclinedOutgoing": "{type, select, video{Tinanggihan ang video call} other{Tinanggihan ang voice call}}",
+  "callLabelDeclinedIncoming": "{type, select, video{Tinanggihang video call} other{Tinanggihang voice call}}",
+  "callLabelBusy": "Nasa ibang tawag si {name}",
+  "callsTitle": "Mga tawag",
+  "callsEmpty": "Wala pang tawag",
+  "callCameraPaused": "Naka-pause ang camera",
+  "callFullScreenIntentTitle": "Ipakita ang mga tawag sa lock screen",
+  "callFullScreenIntentBody": "Payagan ang BananaTalk na ipakita nang full screen ang mga papasok na tawag para hindi mo makaligtaan kahit naka-lock ang phone mo.",
+  "callForegroundTitle": "May kasalukuyang tawag",
+  "callForegroundBody": "I-tap para bumalik sa tawag"
 }

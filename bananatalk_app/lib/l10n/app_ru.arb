@@ -3672,5 +3672,20 @@
   "vipBenefitUnlimitedMessages": "Безлимитные сообщения",
   "vipBenefitUnlimitedProfileViews": "Безлимитные просмотры профилей",
   "vipBenefitAiStudyTools": "Инструменты ИИ для учёбы",
-  "chatBonusMessagesUnlocked": "Вы получили {count} бонусных сообщения! Продолжайте общение."
+  "chatBonusMessagesUnlocked": "Вы получили {count} бонусных сообщения! Продолжайте общение.",
+  "callLabelOutgoing": "{type, select, video{Исходящий видеозвонок} other{Исходящий голосовой звонок}}",
+  "callLabelIncoming": "{type, select, video{Входящий видеозвонок} other{Входящий голосовой звонок}}",
+  "callLabelNoAnswer": "{type, select, video{Видеозвонок · Нет ответа} other{Голосовой звонок · Нет ответа}}",
+  "callLabelMissed": "{type, select, video{Пропущенный видеозвонок} other{Пропущенный голосовой звонок}}",
+  "callLabelCancelled": "{type, select, video{Отменённый видеозвонок} other{Отменённый голосовой звонок}}",
+  "callLabelDeclinedOutgoing": "{type, select, video{Видеозвонок отклонён} other{Голосовой звонок отклонён}}",
+  "callLabelDeclinedIncoming": "{type, select, video{Отклонённый видеозвонок} other{Отклонённый голосовой звонок}}",
+  "callLabelBusy": "{name} разговаривал(а) по другой линии",
+  "callsTitle": "Звонки",
+  "callsEmpty": "Звонков пока нет",
+  "callCameraPaused": "Камера приостановлена",
+  "callFullScreenIntentTitle": "Показывать звонки на экране блокировки",
+  "callFullScreenIntentBody": "Разрешите BananaTalk показывать входящие звонки на весь экран, чтобы не пропускать их, когда телефон заблокирован.",
+  "callForegroundTitle": "Идёт звонок",
+  "callForegroundBody": "Нажмите, чтобы вернуться к звонку"
 }

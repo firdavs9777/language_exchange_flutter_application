@@ -3663,5 +3663,20 @@
   "vipBenefitUnlimitedMessages": "무제한 메시지",
   "vipBenefitUnlimitedProfileViews": "무제한 프로필 조회",
   "vipBenefitAiStudyTools": "AI 학습 도구",
-  "chatBonusMessagesUnlocked": "보너스 메시지 {count}개를 받았어요! 계속 대화하세요."
+  "chatBonusMessagesUnlocked": "보너스 메시지 {count}개를 받았어요! 계속 대화하세요.",
+  "callLabelOutgoing": "{type, select, video{영상 발신 통화} other{음성 발신 통화}}",
+  "callLabelIncoming": "{type, select, video{영상 수신 통화} other{음성 수신 통화}}",
+  "callLabelNoAnswer": "{type, select, video{영상 통화 · 응답 없음} other{음성 통화 · 응답 없음}}",
+  "callLabelMissed": "{type, select, video{부재중 영상 통화} other{부재중 음성 통화}}",
+  "callLabelCancelled": "{type, select, video{취소된 영상 통화} other{취소된 음성 통화}}",
+  "callLabelDeclinedOutgoing": "{type, select, video{영상 통화 거절됨} other{음성 통화 거절됨}}",
+  "callLabelDeclinedIncoming": "{type, select, video{거절한 영상 통화} other{거절한 음성 통화}}",
+  "callLabelBusy": "{name}님은 다른 통화 중이었습니다",
+  "callsTitle": "통화",
+  "callsEmpty": "아직 통화 기록이 없습니다",
+  "callCameraPaused": "카메라 일시 중지됨",
+  "callFullScreenIntentTitle": "잠금 화면에 전화 표시",
+  "callFullScreenIntentBody": "휴대폰이 잠겨 있어도 전화를 놓치지 않도록 BananaTalk가 수신 전화를 전체 화면으로 표시하도록 허용하세요.",
+  "callForegroundTitle": "통화 중",
+  "callForegroundBody": "탭하여 통화로 돌아가기"
 }

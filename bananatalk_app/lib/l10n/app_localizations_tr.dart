@@ -8895,4 +8895,114 @@ class AppLocalizationsTr extends AppLocalizations {
   String chatBonusMessagesUnlocked(int count) {
     return '$count bonus mesajın kilidini açtın! Sohbete devam et.';
   }
+
+  @override
+  String callLabelOutgoing(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'Giden görüntülü arama',
+        'other': 'Giden sesli arama',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelIncoming(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'Gelen görüntülü arama',
+        'other': 'Gelen sesli arama',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelNoAnswer(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'Görüntülü arama · Yanıt yok',
+        'other': 'Sesli arama · Yanıt yok',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelMissed(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'Cevapsız görüntülü arama',
+        'other': 'Cevapsız sesli arama',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelCancelled(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'İptal edilen görüntülü arama',
+        'other': 'İptal edilen sesli arama',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelDeclinedOutgoing(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'Görüntülü arama reddedildi',
+        'other': 'Sesli arama reddedildi',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelDeclinedIncoming(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'Reddedilen görüntülü arama',
+        'other': 'Reddedilen sesli arama',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelBusy(String name) {
+    return '$name başka bir aramadaydı';
+  }
+
+  @override
+  String get callsTitle => 'Aramalar';
+
+  @override
+  String get callsEmpty => 'Henüz arama yok';
+
+  @override
+  String get callCameraPaused => 'Kamera duraklatıldı';
+
+  @override
+  String get callFullScreenIntentTitle => 'Aramaları kilit ekranında göster';
+
+  @override
+  String get callFullScreenIntentBody => 'Telefonunuz kilitliyken aramaları kaçırmamanız için BananaTalk\'un gelen aramaları tam ekran göstermesine izin verin.';
+
+  @override
+  String get callForegroundTitle => 'Arama sürüyor';
+
+  @override
+  String get callForegroundBody => 'Aramaya dönmek için dokunun';
 }

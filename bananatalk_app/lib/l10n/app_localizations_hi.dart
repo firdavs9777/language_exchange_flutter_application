@@ -8897,4 +8897,114 @@ class AppLocalizationsHi extends AppLocalizations {
   String chatBonusMessagesUnlocked(int count) {
     return 'आपने $count बोनस संदेश अनलॉक किए! बातचीत जारी रखें।';
   }
+
+  @override
+  String callLabelOutgoing(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'आउटगोइंग वीडियो कॉल',
+        'other': 'आउटगोइंग वॉइस कॉल',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelIncoming(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'इनकमिंग वीडियो कॉल',
+        'other': 'इनकमिंग वॉइस कॉल',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelNoAnswer(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'वीडियो कॉल · कोई जवाब नहीं',
+        'other': 'वॉइस कॉल · कोई जवाब नहीं',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelMissed(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'मिस्ड वीडियो कॉल',
+        'other': 'मिस्ड वॉइस कॉल',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelCancelled(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'रद्द की गई वीडियो कॉल',
+        'other': 'रद्द की गई वॉइस कॉल',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelDeclinedOutgoing(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'वीडियो कॉल अस्वीकार की गई',
+        'other': 'वॉइस कॉल अस्वीकार की गई',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelDeclinedIncoming(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'अस्वीकार की गई वीडियो कॉल',
+        'other': 'अस्वीकार की गई वॉइस कॉल',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelBusy(String name) {
+    return '$name दूसरी कॉल पर थे';
+  }
+
+  @override
+  String get callsTitle => 'कॉल';
+
+  @override
+  String get callsEmpty => 'अभी तक कोई कॉल नहीं';
+
+  @override
+  String get callCameraPaused => 'कैमरा रुका हुआ है';
+
+  @override
+  String get callFullScreenIntentTitle => 'लॉक स्क्रीन पर कॉल दिखाएँ';
+
+  @override
+  String get callFullScreenIntentBody => 'BananaTalk को इनकमिंग कॉल फ़ुल स्क्रीन में दिखाने दें ताकि फ़ोन लॉक होने पर भी आप कॉल न चूकें।';
+
+  @override
+  String get callForegroundTitle => 'कॉल जारी है';
+
+  @override
+  String get callForegroundBody => 'कॉल पर लौटने के लिए टैप करें';
 }

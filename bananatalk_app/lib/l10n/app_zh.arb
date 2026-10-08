@@ -3656,5 +3656,20 @@
   "vipBenefitUnlimitedMessages": "无限消息",
   "vipBenefitUnlimitedProfileViews": "无限资料浏览",
   "vipBenefitAiStudyTools": "AI 学习工具",
-  "chatBonusMessagesUnlocked": "你解锁了 {count} 条额外消息！继续聊吧。"
+  "chatBonusMessagesUnlocked": "你解锁了 {count} 条额外消息！继续聊吧。",
+  "callLabelOutgoing": "{type, select, video{视频去电} other{语音去电}}",
+  "callLabelIncoming": "{type, select, video{视频来电} other{语音来电}}",
+  "callLabelNoAnswer": "{type, select, video{视频通话 · 无人接听} other{语音通话 · 无人接听}}",
+  "callLabelMissed": "{type, select, video{未接视频通话} other{未接语音通话}}",
+  "callLabelCancelled": "{type, select, video{已取消的视频通话} other{已取消的语音通话}}",
+  "callLabelDeclinedOutgoing": "{type, select, video{视频通话被拒绝} other{语音通话被拒绝}}",
+  "callLabelDeclinedIncoming": "{type, select, video{已拒绝的视频通话} other{已拒绝的语音通话}}",
+  "callLabelBusy": "{name}正在通话中",
+  "callsTitle": "通话",
+  "callsEmpty": "暂无通话记录",
+  "callCameraPaused": "摄像头已暂停",
+  "callFullScreenIntentTitle": "在锁屏上显示来电",
+  "callFullScreenIntentBody": "允许 BananaTalk 全屏显示来电，这样手机锁定时也不会错过来电。",
+  "callForegroundTitle": "通话中",
+  "callForegroundBody": "点按返回通话"
 }

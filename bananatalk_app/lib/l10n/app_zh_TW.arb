@@ -3333,5 +3333,20 @@
   "vipBenefitUnlimitedMessages": "無限訊息",
   "vipBenefitUnlimitedProfileViews": "無限個人檔案瀏覽",
   "vipBenefitAiStudyTools": "AI 學習工具",
-  "chatBonusMessagesUnlocked": "你解鎖了 {count} 則額外訊息！繼續聊吧。"
+  "chatBonusMessagesUnlocked": "你解鎖了 {count} 則額外訊息！繼續聊吧。",
+  "callLabelOutgoing": "{type, select, video{視訊撥出通話} other{語音撥出通話}}",
+  "callLabelIncoming": "{type, select, video{視訊來電} other{語音來電}}",
+  "callLabelNoAnswer": "{type, select, video{視訊通話 · 無人接聽} other{語音通話 · 無人接聽}}",
+  "callLabelMissed": "{type, select, video{未接視訊來電} other{未接語音來電}}",
+  "callLabelCancelled": "{type, select, video{已取消的視訊通話} other{已取消的語音通話}}",
+  "callLabelDeclinedOutgoing": "{type, select, video{視訊通話遭拒} other{語音通話遭拒}}",
+  "callLabelDeclinedIncoming": "{type, select, video{已拒接的視訊通話} other{已拒接的語音通話}}",
+  "callLabelBusy": "{name}正在通話中",
+  "callsTitle": "通話",
+  "callsEmpty": "尚無通話紀錄",
+  "callCameraPaused": "相機已暫停",
+  "callFullScreenIntentTitle": "在鎖定畫面顯示來電",
+  "callFullScreenIntentBody": "允許 BananaTalk 以全螢幕顯示來電，即使手機鎖定也不會錯過。",
+  "callForegroundTitle": "通話中",
+  "callForegroundBody": "輕觸以返回通話"
 }

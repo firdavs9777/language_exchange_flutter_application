@@ -34,7 +34,23 @@ App (backend items in the backend repo's `docs/REMAINING_WORK.md`):
 
 Baseline: 1/30 calls answered in 30 days, 168 stuck ringing, 0 call messages ever.
 - [ ] Backend: server-authoritative call state, timeouts/sweeper, busy + calls-off, call messages, push TTL/missed push, history API, delete legacy callHandler.
-- [ ] App: CallManager follower + single exit path, re-bind on socket replace, CallKit `callUuid`, killed-state accept, Android FGS + full-screen intent, reconnect grace, wakelock/proximity, camera mid-voice, self-view, cap removed, call bubble + Calls list + call settings.
+- [ ] App (plan `docs/superpowers/plans/2026-10-08-calls-reliability.md`):
+  - [x] A1 call strings in 19 locales (18 machine drafts — native review open)
+  - [ ] A2 outcome model + §3 labels
+  - [ ] A3 call API / platform seams, CallKit id = callUuid
+  - [ ] A4 CallManager follower + single exit path; 5-minute cap removed
+  - [ ] A5 re-bind call listeners when the socket is replaced
+  - [ ] A6 incoming dedupe, foreground FCM, call_cancelled, stale taps, resume/cold-start recovery
+  - [ ] A7 CallKit extra, cold-start activeCalls(), VoIP/FCM capabilities + real device id
+  - [ ] A8 AppDelegate VoIP cancel handling + `docs/qa/calls-matrix.md`
+  - [ ] A9 IncomingCallScreen closes on terminal state / after 50 s
+  - [ ] A10 20 s reconnect overlay + quality callback chain + outcome banner
+  - [ ] A11 video wakelock + camera paused in background
+  - [ ] A12 Android microphone/camera foreground service + full-screen-intent request
+  - [ ] A13 CallLauncher, call bubble labels, chat-list preview
+  - [ ] A14 Calls list + chat-tab icon + missed badge
+  - [ ] Phase 2: decline with message, missed-call push actions, calls on/off + quiet hours, camera mid voice call, draggable self-view
+- [ ] Native review of the 18 machine-drafted call strings (`lib/l10n/app_*.arb`)
 - [ ] Owner: LiveKit webhook URL in LiveKit Cloud; confirm `APNS_VOIP_*` on prod.
 - [ ] Device QA `docs/qa/calls-matrix.md`; re-measure answered rate one week after release (target ≥ 40%).
 

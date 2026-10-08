@@ -8901,4 +8901,114 @@ class AppLocalizationsTg extends AppLocalizations {
   String chatBonusMessagesUnlocked(int count) {
     return 'Шумо $count паёми бонусӣ кушодед! Сӯҳбатро идома диҳед.';
   }
+
+  @override
+  String callLabelOutgoing(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'Занги видеоии баромадӣ',
+        'other': 'Занги овозии баромадӣ',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelIncoming(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'Занги видеоии воридотӣ',
+        'other': 'Занги овозии воридотӣ',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelNoAnswer(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'Занги видеоӣ · Ҷавоб нест',
+        'other': 'Занги овозӣ · Ҷавоб нест',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelMissed(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'Занги видеоии беҷавоб',
+        'other': 'Занги овозии беҷавоб',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelCancelled(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'Занги видеоии бекоршуда',
+        'other': 'Занги овозии бекоршуда',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelDeclinedOutgoing(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'Занги видеоӣ рад шуд',
+        'other': 'Занги овозӣ рад шуд',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelDeclinedIncoming(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'Занги видеоии радшуда',
+        'other': 'Занги овозии радшуда',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelBusy(String name) {
+    return '$name дар занги дигар буд';
+  }
+
+  @override
+  String get callsTitle => 'Зангҳо';
+
+  @override
+  String get callsEmpty => 'Ҳоло зангҳо нестанд';
+
+  @override
+  String get callCameraPaused => 'Камера таваққуф шуд';
+
+  @override
+  String get callFullScreenIntentTitle => 'Нишон додани зангҳо дар экрани қулф';
+
+  @override
+  String get callFullScreenIntentBody => 'Ба BananaTalk иҷозат диҳед, ки зангҳои воридотиро дар тамоми экран нишон диҳад, то ҳангоми қулф будани телефон онҳоро аз даст надиҳед.';
+
+  @override
+  String get callForegroundTitle => 'Занг идома дорад';
+
+  @override
+  String get callForegroundBody => 'Барои бозгашт ба занг ламс кунед';
 }

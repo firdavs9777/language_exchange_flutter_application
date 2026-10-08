@@ -8897,4 +8897,114 @@ class AppLocalizationsIt extends AppLocalizations {
   String chatBonusMessagesUnlocked(int count) {
     return 'Hai sbloccato $count messaggi bonus! Continua a chattare.';
   }
+
+  @override
+  String callLabelOutgoing(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'Videochiamata in uscita',
+        'other': 'Chiamata vocale in uscita',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelIncoming(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'Videochiamata in arrivo',
+        'other': 'Chiamata vocale in arrivo',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelNoAnswer(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'Videochiamata · Nessuna risposta',
+        'other': 'Chiamata vocale · Nessuna risposta',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelMissed(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'Videochiamata persa',
+        'other': 'Chiamata vocale persa',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelCancelled(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'Videochiamata annullata',
+        'other': 'Chiamata vocale annullata',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelDeclinedOutgoing(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'Videochiamata rifiutata',
+        'other': 'Chiamata vocale rifiutata',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelDeclinedIncoming(String type) {
+    String _temp0 = intl.Intl.selectLogic(
+      type,
+      {
+        'video': 'Hai rifiutato una videochiamata',
+        'other': 'Hai rifiutato una chiamata vocale',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String callLabelBusy(String name) {
+    return '$name era impegnato in un\'altra chiamata';
+  }
+
+  @override
+  String get callsTitle => 'Chiamate';
+
+  @override
+  String get callsEmpty => 'Ancora nessuna chiamata';
+
+  @override
+  String get callCameraPaused => 'Fotocamera in pausa';
+
+  @override
+  String get callFullScreenIntentTitle => 'Mostra le chiamate nella schermata di blocco';
+
+  @override
+  String get callFullScreenIntentBody => 'Consenti a BananaTalk di mostrare le chiamate in arrivo a schermo intero, così non le perdi quando il telefono è bloccato.';
+
+  @override
+  String get callForegroundTitle => 'Chiamata in corso';
+
+  @override
+  String get callForegroundBody => 'Tocca per tornare alla chiamata';
 }
