@@ -20,7 +20,7 @@ import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/pages/authentication/register/birth_date_parts.dart';
 import 'package:bananatalk_app/pages/authentication/register/oauth_profile_update_body.dart';
 import 'package:bananatalk_app/services/chat_socket_service.dart';
-import 'package:bananatalk_app/providers/provider_models//users_model.dart';
+import 'package:bananatalk_app/providers/provider_models/users_model.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/models/language_model.dart';
 import 'package:bananatalk_app/utils/client_info.dart';

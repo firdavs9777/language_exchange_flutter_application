@@ -1,5 +1,5 @@
 import 'package:bananatalk_app/pages/authentication/auth_error_codes.dart';
-import 'package:bananatalk_app/providers/provider_models//users_model.dart';
+import 'package:bananatalk_app/providers/provider_models/users_model.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/user_limits_provider.dart';
 import 'package:bananatalk_app/services/socket_service.dart';
@@ -946,6 +946,33 @@ class AuthService extends ChangeNotifier {
     }
   }
 
+  /// Proof from verify-code that this device verified the signup email
+  /// (backend: a 30-minute JWT bound to the email; /register checks it when
+  /// sent). Memory only -- it lives for one signup flow. Older servers do
+  /// not send it, and then nothing is sent back.
+  String? _registrationToken;
+  String? _registrationTokenEmail;
+
+  void _rememberRegistrationToken(String email, dynamic data) {
+    final raw = data is Map
+        ? (data['registrationToken'] ??
+            (data['data'] is Map ? data['data']['registrationToken'] : null))
+        : null;
+    if (raw is String && raw.isNotEmpty) {
+      _registrationToken = raw;
+      _registrationTokenEmail = email.trim().toLowerCase();
+    }
+  }
+
+  /// The registration token to send with /register for [email], or null.
+  /// Bound to the verified email: the server rejects a token for another
+  /// address, so a mismatch sends nothing rather than a certain 400.
+  String? registrationTokenFor(String email) {
+    if (_registrationToken == null) return null;
+    if (_registrationTokenEmail != email.trim().toLowerCase()) return null;
+    return _registrationToken;
+  }
+
   Future<Map<String, dynamic>> verifyEmailCode({
     required String email,
     required String code,
@@ -961,6 +988,7 @@ class AuthService extends ChangeNotifier {
       final data = jsonDecode(response.body);
 
       if (response.statusCode == 200) {
+        _rememberRegistrationToken(email, data);
         return {
           'success': true,
           'message': data['message'] ?? 'Email verified successfully',
@@ -1028,6 +1056,8 @@ class AuthService extends ChangeNotifier {
 
     try {
       final body = user.toJson()..['clientInfo'] = await ClientInfo.collect();
+      final regToken = registrationTokenFor(user.email);
+      if (regToken != null) body['registrationToken'] = regToken;
       final response = await http.post(
         url,
         body: jsonEncode(body),
@@ -1042,6 +1072,8 @@ class AuthService extends ChangeNotifier {
         token = data['token'] ?? data['data']?['token'] ?? '';
         refreshToken =
             data['refreshToken'] ?? data['data']?['refreshToken'] ?? '';
+        _registrationToken = null; // single use
+        _registrationTokenEmail = null;
 
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString('token', token);
