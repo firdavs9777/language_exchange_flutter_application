@@ -268,8 +268,11 @@ class _MyAppState extends ConsumerState<MyApp> {
       final chatSocketService = ChatSocketService();
       final callNotifier = ref.read(callProvider.notifier);
       callNotifier.callManager.initialize(chatSocketService);
-      // Cold start: a call may be ringing for us or still active.
-      unawaited(callNotifier.callManager.recoverCallState());
+      // Cold start: join a call accepted from CallKit while we were killed,
+      // then ask the server what is live (so a call already being accepted
+      // is not shown again as an in-app ringing screen).
+      final manager = callNotifier.callManager;
+      unawaited(manager.reconcileCallKitOnColdStart().then((_) => manager.recoverCallState()));
 
       callNotifier.setCallConnectedCallback((call) {
         debugPrint('📞 Call connected - UI notified');

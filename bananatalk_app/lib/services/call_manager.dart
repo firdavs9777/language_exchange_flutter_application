@@ -639,6 +639,25 @@ class CallManager with WidgetsBindingObserver {
     }
   }
 
+  /// Killed-state accept: CallKit / the Android call screen was answered
+  /// before Flutter ran, so the accept event was never delivered. Join it.
+  /// (A decline in that state is not observable here; the server's 45 s
+  /// timeout closes it.)
+  Future<void> reconcileCallKitOnColdStart() async {
+    final entries = await _deps.platform.activeCallUis();
+    for (final entry in entries) {
+      if (!entry.accepted) continue;
+      final cur = currentCall;
+      if (cur != null &&
+          !CallKitIds.same(CallKitIds.uuidFor(callId: cur.callId, callUuid: cur.callUuid), entry.uuid) &&
+          !_sameId(cur.callId, entry.callId)) {
+        continue;
+      }
+      await handleCallKitAccept(entry.uuid, entry.extra);
+      return;
+    }
+  }
+
   Future<void> handleCallKitDecline(String id, Map<String, dynamic>? extra) async {
     final cur = currentCall;
     if (cur != null && _matches(cur, id, extra)) {

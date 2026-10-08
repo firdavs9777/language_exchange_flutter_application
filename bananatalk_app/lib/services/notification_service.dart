@@ -46,7 +46,6 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
     // receiver can connect immediately on accept without an extra round-trip.
     // Forwarded as `extra` to CallKit so the accept event resumes the app with
     // them in hand (NotificationRouter rehydrates the CallModel from `data`).
-    final livekitToken = message.data['livekitToken']?.toString();
     final livekitUrl = message.data['livekitUrl']?.toString();
     final roomName = message.data['roomName']?.toString();
 
@@ -61,8 +60,8 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
         callUuid: message.data['callUuid']?.toString(),
         callerName: callerName,
         callerAvatar: callerAvatar,
+        callerId: message.data['callerId']?.toString(),
         isVideo: callType == 'video',
-        livekitToken: livekitToken,
         livekitUrl: livekitUrl,
         roomName: roomName,
       );

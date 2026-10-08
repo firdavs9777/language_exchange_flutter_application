@@ -96,10 +96,7 @@ class DeviceCallPlatform implements CallPlatform {
       CallKitService().endCall(CallKitIds.uuidFor(callId: call.callId, callUuid: call.callUuid));
 
   @override
-  Future<List<CallKitEntry>> activeCallUis() async {
-    final raw = await CallKitService().getActiveCalls();
-    return raw.whereType<Map>().map(CallKitEntry.fromPlugin).toList();
-  }
+  Future<List<CallKitEntry>> activeCallUis() => CallKitService().activeCallEntries();
 
   @override
   Future<void> cancelIncomingNotification() => NotificationService().cancelCallNotification();

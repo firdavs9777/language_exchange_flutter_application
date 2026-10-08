@@ -6,6 +6,10 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/foundation.dart';
 
+/// Push capabilities this build understands (see backend lib/pushCapabilities.js).
+/// 'call_cancel': a data-only / VoIP call_cancelled push ends the ringing UI.
+const List<String> kCallPushCapabilities = ['call_cancel'];
+
 class NotificationApiClient {
   final String baseUrl = Endpoints.baseURL;
 
@@ -71,6 +75,7 @@ class NotificationApiClient {
           'token': token,
           'platform': platform,
           'deviceId': deviceId,
+          'capabilities': kCallPushCapabilities,
           // Raw device locale (e.g. "ko_KR", "zh-Hans-CN"); the backend
           // normalizes it to a supported template locale and stores it as
           // user.preferredLocale so pushes render in the user's language.
@@ -116,6 +121,7 @@ class NotificationApiClient {
         body: jsonEncode({
           'voipToken': voipToken,
           'deviceId': deviceId,
+          'capabilities': kCallPushCapabilities,
         }),
       );
 
