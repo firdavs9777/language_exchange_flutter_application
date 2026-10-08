@@ -60,5 +60,8 @@ void main() {
     expect(en.callLabelBusy('Ada'), 'Ada was on another call');
     final ko = lookupAppLocalizations(const Locale('ko'));
     expect(ko.callLabelMissed('audio'), '부재중 음성 통화');
+    // The voice branch says "voice" like every other Thai call label.
+    final th = lookupAppLocalizations(const Locale('th'));
+    expect(th.callLabelMissed('audio'), 'การโทรด้วยเสียงที่ไม่ได้รับ');
   });
 }

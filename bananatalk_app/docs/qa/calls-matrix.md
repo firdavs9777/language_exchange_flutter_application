@@ -65,7 +65,7 @@ bubble with the right label on both sides (§3), (e) nothing keeps ringing anywh
 | S-12 | Live 2.6.1 build vs new backend | B on 2.6.1 (store), A on new build; run S-2, S-3, S-4 and a completed call both directions | 2.6.1 rings, connects, ends; its other devices stop ringing where supported; bubbles render from callData on 2.6.1 | |
 | S-13 | Missed-call push | S-4 with B's app in background | One "📞 A / Missed voice call" push; tapping it opens the chat with A | |
 | S-14 | Cold-start accept | Kill B; A calls; B accepts from the lock screen | App opens straight into the active call with the right name and type (video stays video) | |
-| S-15 | Resume recovery | B backgrounded ≥ 5 min (socket dead); A calls; B opens the app from the icon while ringing | In-app incoming screen appears; accept works | |
+| S-15 | Resume recovery: one ring UI | B backgrounded ≥ 5 min (socket dead); A calls; the native ring (CallKit / Android call screen) shows; B opens the app from the icon while it rings | Exactly one ring UI: the native ring stays the only one (no in-app screen, no second ringtone) and accepting it joins the call; if no native ring was showing, the in-app incoming screen appears instead; accept works | |
 | S-16 | Calls list | Open chat tab → phone icon | Badge cleared after opening; rows show arrows (missed red), type, time, duration; tap row → chat; call-back button rings the same type | |
 
 ## 3. iOS-only (AppDelegate VoIP)
@@ -79,6 +79,8 @@ bubble with the right label on both sides (§3), (e) nothing keeps ringing anywh
 | IOS-5 | Answered on another device | iPhone + iPad on the same account (both new build); answer on iPad; repeat 5× | iPhone CallKit ends; no "Unknown" call appears; VoIP pushes keep arriving on the iPhone afterwards | |
 | IOS-6 | Foreground VoIP cancel | iPhone app open on the incoming screen; answer on the other device | In-app screen closes; any CallKit flash is ≤ 1 s | |
 | IOS-7 | Unanswered call, app killed | Kill app; A calls; nobody answers | Rings until ~45 s, no second ring, no "Unknown" entry in Recents | |
+| IOS-8 | Foreground VoIP: one ring UI | iPhone app open in a chat; A calls (repeat 5×) | Exactly one ring UI: CallKit's banner; an in-app screen that appeared first closes and its ringtone stops; accept from the banner joins the call; End on the CallKit UI ends it | |
+| IOS-9 | In-app accept with CallKit up | Get both UIs as in IOS-8 on an old build, or accept from the in-app screen right as CallKit appears | CallKit ring stops at once; the call stays up (no instant hang-up from CallKit's echo) | |
 
 ## 4. Android-only
 
@@ -91,3 +93,4 @@ bubble with the right label on both sides (§3), (e) nothing keeps ringing anywh
 | AND-5 | Accept from the lock screen (Android 14) | Lock B; A calls (voice, then video); B accepts from the lock-screen call UI; then press Home | No crash; once the app is in front the "Call in progress" notification appears; audio keeps flowing after Home | |
 | AND-6 | Camera revoked mid-call | During a video call open Settings → BananaTalk → Permissions → Camera → Deny; reopen BananaTalk | No crash; if the app restarts, no "Call in progress" notification is left without a call; a new video call asks for the camera again | |
 | AND-7 | Swipe away mid-call | Connected call; swipe BananaTalk out of Recents | "Call in progress" notification disappears and does not come back; peer sees the call end within ~20 s | |
+| AND-8 | Background, then open during the ring | B's app in background; A calls; the native call screen / heads-up rings; B opens BananaTalk from the icon or Recents while it rings | Exactly one ring UI and one ringtone (the native one); answering it joins; declining it declines; once answered, nothing from the native UI ends the call | |

@@ -50,14 +50,17 @@ Baseline: 1/30 calls answered in 30 days, 168 stuck ringing, 0 call messages eve
   - [x] A13 CallLauncher, call bubble labels, chat-list preview (the Calls list start was folded into CallLauncher; the launcher restores the screen's own error callback after each start)
     - [x] fold `startCallFromCallsList` (Calls list busy / start-limit messages, A4 review) and the chat header's ignored `InitiateResult` into `CallLauncher`
   - [x] A14 Calls list + chat-tab icon + missed badge
+  - [x] Final whole-branch review fixes: one ring UI per call (native ring present → no in-app screen / Dart ringtone; native ring appearing later closes the in-app one; in-app accept dismisses the native ring and ignores its echo; a leftover native decline never ends a call answered here, a native End still hangs up a call answered there); cold start skips a stale accepted CallKit entry; a `failed` call:state shows "Call failed" to the caller; LiveKit connect superseded mid-connect never publishes mic/camera; th missed voice label (QA rows S-15 updated, IOS-8, IOS-9, AND-8)
   - [ ] Phase 2: decline with message, missed-call push actions, calls on/off + quiet hours, camera mid voice call, draggable self-view
 - [ ] Native review of the 18 machine-drafted call strings (`lib/l10n/app_*.arb`)
 - [ ] Owner: LiveKit webhook URL in LiveKit Cloud; confirm `APNS_VOIP_*` on prod.
 - [ ] Device QA: run every row of `docs/qa/calls-matrix.md` (IOS-3/IOS-5 repeat runs prove VoIP delivery survives repeated cancels); re-measure answered rate one week after release (target ≥ 40%).
 - [ ] Calls: Dart `CallKitService` still sets the native ring `duration: 45000`; iOS VoIP path now uses 50 s (server owns the 45 s ring) — align the Dart side so iOS/Android never time out before the server.
-- [ ] Commit `ios/Podfile.lock`: `pod install` adds the missing `in_app_review` pod on every iOS build.
 
 ## 1. Owner (needs the keystore MacBook, store consoles or droplet)
+
+- [ ] **Calls release gate** — do not release the app build with calls reliability until backend `feat/calls-reliability` is deployed **and** `[voipPush] initialised` shows in prod logs. A new app on the old backend gets no `call:state` (calls never leave ringing on the caller) and the Calls list parses the old history shape.
+- [ ] Commit `ios/Podfile.lock` separately before the iOS build: `pod install` adds the missing `in_app_review` pod (keep it out of feature commits).
 
 - [ ] Play Console → App content → Foreground services: declare **microphone**, **camera** and **phone call** ("ongoing 1:1 voice/video call"; `FOREGROUND_SERVICE_PHONE_CALL` comes from flutter_callkit_incoming) before uploading the build with Task A12 — the upload is rejected without it.
 - [ ] **Store prices** — App Store Connect + Play Console: VIP monthly **$3.99**, yearly **$24.99** (quarterly untouched; hidden in the app).

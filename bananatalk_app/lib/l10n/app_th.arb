@@ -3646,7 +3646,7 @@
   "callLabelOutgoing": "{type, select, video{วิดีโอคอลโทรออก} other{การโทรด้วยเสียงโทรออก}}",
   "callLabelIncoming": "{type, select, video{วิดีโอคอลสายเข้า} other{การโทรด้วยเสียงสายเข้า}}",
   "callLabelNoAnswer": "{type, select, video{วิดีโอคอล · ไม่มีผู้รับสาย} other{การโทรด้วยเสียง · ไม่มีผู้รับสาย}}",
-  "callLabelMissed": "{type, select, video{วิดีโอคอลที่ไม่ได้รับ} other{สายที่ไม่ได้รับ}}",
+  "callLabelMissed": "{type, select, video{วิดีโอคอลที่ไม่ได้รับ} other{การโทรด้วยเสียงที่ไม่ได้รับ}}",
   "callLabelCancelled": "{type, select, video{วิดีโอคอลที่ยกเลิก} other{การโทรด้วยเสียงที่ยกเลิก}}",
   "callLabelDeclinedOutgoing": "{type, select, video{วิดีโอคอลถูกปฏิเสธ} other{การโทรด้วยเสียงถูกปฏิเสธ}}",
   "callLabelDeclinedIncoming": "{type, select, video{วิดีโอคอลที่ปฏิเสธ} other{การโทรด้วยเสียงที่ปฏิเสธ}}",

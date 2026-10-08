@@ -8930,7 +8930,7 @@ class AppLocalizationsTh extends AppLocalizations {
       type,
       {
         'video': 'วิดีโอคอลที่ไม่ได้รับ',
-        'other': 'สายที่ไม่ได้รับ',
+        'other': 'การโทรด้วยเสียงที่ไม่ได้รับ',
       },
     );
     return '$_temp0';

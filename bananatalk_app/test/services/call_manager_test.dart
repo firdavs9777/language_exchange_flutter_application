@@ -23,6 +23,27 @@ void main() {
     expect(h.finishes, isEmpty);
   });
 
+  test('outgoing: a terminal call:state failed with no outcome tells the caller the call failed', () async {
+    final h = CallHarness();
+    final errors = <String>[];
+    h.manager.onCallError = errors.add;
+    await h.startOutgoing();
+    await h.state('failed');
+    expect(errors, ['Call Failed']);
+    expect(h.finishes.single.reason, CallExitReason.remoteState);
+    expect(h.finishes.single.outcome, isNull);
+  });
+
+  test('incoming: a terminal failed call:state closes without a caller error', () async {
+    final h = CallHarness();
+    final errors = <String>[];
+    h.manager.onCallError = errors.add;
+    await h.ringIncoming();
+    await h.state('failed');
+    expect(errors, isEmpty);
+    expect(h.finishes, hasLength(1));
+  });
+
   test('outgoing: accepted then ended via call:state → one clean finish', () async {
     final h = CallHarness();
     final r = await h.startOutgoing();

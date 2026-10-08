@@ -27,6 +27,8 @@ class FakeCallApi implements CallApi {
     'url': 'wss://lk.test',
     'roomName': 'call:call-1',
   });
+  /// Per-call accept results; a call id missing here gets [acceptResult].
+  final Map<String, CallApiResult> acceptResultFor = {};
   CallApiResult declineResult = const CallApiResult(ok: true, statusCode: 200);
   CallApiResult endResult = const CallApiResult(ok: true, statusCode: 200);
   CallApiResult currentResult =
@@ -46,7 +48,7 @@ class FakeCallApi implements CallApi {
     calls.add('accept:$callId');
     deviceIds['accept'] = deviceId;
     if (acceptGate != null) await acceptGate!.future;
-    return acceptResult;
+    return acceptResultFor[callId] ?? acceptResult;
   }
 
   @override

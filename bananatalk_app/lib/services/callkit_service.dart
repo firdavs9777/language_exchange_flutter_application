@@ -50,6 +50,10 @@ class CallKitService {
   Function(String callKitId, Map<String, dynamic>? extra)? onEnded;
   Function(String callKitId, Map<String, dynamic>? extra)? onTimedOut;
 
+  /// The native ring UI started showing a call (also for one reported by
+  /// AppDelegate from a VoIP push).
+  Function(String callKitId, Map<String, dynamic>? extra)? onIncomingShown;
+
   bool _listenersRegistered = false;
 
   /// Current active callkit UUID (used for ending/updating the call)
@@ -84,6 +88,10 @@ class CallKitService {
       debugPrint('📱 CallKit event: ${event.event} body=${event.body}');
 
       switch (event.event) {
+        case Event.actionCallIncoming:
+          final id = _extractId(event.body);
+          if (id != null) onIncomingShown?.call(id, _extraOf(event.body));
+          break;
         case Event.actionCallAccept:
           final id = _extractId(event.body);
           if (id != null) onAccepted?.call(id, _extraOf(event.body));

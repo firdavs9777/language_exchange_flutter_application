@@ -17,6 +17,18 @@ import 'package:bananatalk_app/services/api_client.dart';
 /// (e.g. `/voice-rooms/:id/token`, `/calls/:roomName/token`); this service is
 /// intentionally minimal so the smoke test can prove the pipe end-to-end first.
 class LiveKitService {
+  LiveKitService({@visibleForTesting Room Function()? roomFactory})
+      : _roomFactory = roomFactory ?? _defaultRoom;
+
+  final Room Function() _roomFactory;
+
+  static Room _defaultRoom() => Room(
+        roomOptions: const RoomOptions(
+          adaptiveStream: true,
+          dynacast: true,
+        ),
+      );
+
   Room? _room;
   Room? get room => _room;
 
@@ -60,12 +72,7 @@ class LiveKitService {
       await disconnect();
     }
 
-    final room = Room(
-      roomOptions: const RoomOptions(
-        adaptiveStream: true,
-        dynacast: true,
-      ),
-    );
+    final room = _roomFactory();
     _room = room;
 
     try {
@@ -74,20 +81,31 @@ class LiveKitService {
         token,
         connectOptions: const ConnectOptions(autoSubscribe: true),
       );
-      debugPrint(
-        '[LK] connected: state=${room.connectionState} '
-        'localId=${room.localParticipant?.identity} '
-        'remotes=${room.remoteParticipants.length}',
-      );
     } catch (e, st) {
       debugPrint('[LK] connect FAILED: $e\n$st');
       try {
         await room.disconnect();
         await room.dispose();
       } catch (_) {}
-      _room = null;
+      if (identical(_room, room)) _room = null; // never clear a newer room
       rethrow;
     }
+
+    // Disconnected (call finished, hung up) or replaced while connecting:
+    // this room is stale. Never publish the mic / camera on it.
+    if (!identical(_room, room)) {
+      debugPrint('[LK] connect: room superseded while connecting, disposing');
+      try {
+        await room.disconnect();
+        await room.dispose();
+      } catch (_) {}
+      return;
+    }
+    debugPrint(
+      '[LK] connected: state=${room.connectionState} '
+      'localId=${room.localParticipant?.identity} '
+      'remotes=${room.remoteParticipants.length}',
+    );
 
     // Mic/cam publish errors (e.g. iOS simulator mic NotAllowedError) must
     // not tear down a healthy room — the connection itself is fine, the

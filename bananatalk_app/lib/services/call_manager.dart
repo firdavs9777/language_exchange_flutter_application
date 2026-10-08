@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:livekit_client/livekit_client.dart' as lk;
 import 'package:socket_io_client/socket_io_client.dart' as io;
 
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/call_model.dart';
 import 'package:bananatalk_app/models/call_outcome.dart';
 import 'package:bananatalk_app/router/app_router.dart';
@@ -64,6 +65,7 @@ class CallManagerDeps {
     required this.openIncomingCall,
     this.afterIncomingCall = CallManagerDeps._noop,
     this.isAppResumed = CallManagerDeps._resumed,
+    this.callFailedMessage = CallManagerDeps._callFailed,
   });
 
   factory CallManagerDeps.production() => CallManagerDeps(
@@ -80,6 +82,11 @@ class CallManagerDeps {
           if (ctx != null && ctx.mounted) unawaited(FullScreenIntentPrompt.maybeAsk(ctx));
         }),
         isAppResumed: () => WidgetsBinding.instance.lifecycleState == AppLifecycleState.resumed,
+        callFailedMessage: () {
+          final ctx = callOverlayNavigatorKey.currentContext;
+          final l10n = ctx != null ? AppLocalizations.of(ctx) : null;
+          return l10n?.callFailed ?? _callFailed();
+        },
       );
 
   final CallApi api;
@@ -96,8 +103,12 @@ class CallManagerDeps {
   /// Whether the app is in the foreground (lifecycle resumed) right now.
   final bool Function() isAppResumed;
 
+  /// The localized "Call failed" message shown when the server fails a call.
+  final String Function() callFailedMessage;
+
   static void _noop() {}
   static bool _resumed() => true;
+  static String _callFailed() => 'Call Failed';
 }
 
 /// How long the caller sees "No answer" / "Declined" before the screen closes.
@@ -144,6 +155,14 @@ class CallManager with WidgetsBindingObserver {
   CallModel? currentCall;
   String? _acceptingCallId;
   String? _incomingShownFor;
+
+  /// The native ring UI (CallKit / Android call screen) is this call's
+  /// incoming UI: no in-app ring screen, no Dart ringtone.
+  String? _nativeRingFor;
+
+  /// Answered from the in-app screen: the native entry was dismissed by us,
+  /// so a decline / ended event for it is that dismissal's echo.
+  String? _acceptedInAppFor;
   final List<String> _recentlyFinished = [];
   Timer? _closeTimer;
   Timer? _ringSafetyTimer;
@@ -339,10 +358,55 @@ class CallManager with WidgetsBindingObserver {
     currentCall = call.copyWith(status: CallStatus.ringing);
     onIncomingCall?.call(currentCall!);
     if (_appInForeground || source == IncomingSource.notificationTap) {
+      // iOS reports every VoIP push to CallKit, even in the foreground, and
+      // a resume / cold start can find the native ring still up: then the
+      // native UI is the incoming UI.
+      final native = await _nativeRingShows(call);
+      final ringing = currentCall;
+      if (ringing == null || !_sameId(ringing.callId, call.callId) || ringing.status != CallStatus.ringing) {
+        return;
+      }
+      if (native) {
+        _nativeRingFor = call.callId;
+        _incomingShownFor = call.callId;
+        return;
+      }
       unawaited(_deps.platform.startRingtone());
-      _showIncoming(currentCall!);
+      _showIncoming(ringing);
     } else {
       await _deps.platform.showIncomingCallUi(currentCall!);
+    }
+  }
+
+  Future<bool> _nativeRingShows(CallModel call) async {
+    final uuid = CallKitIds.uuidFor(callId: call.callId, callUuid: call.callUuid);
+    try {
+      final entries = await _deps.platform.activeCallUis();
+      return entries.any((e) => CallKitIds.same(e.uuid, uuid) || _sameId(e.callId, call.callId));
+    } catch (e) {
+      debugPrint('📞 native call UI lookup failed: $e');
+      return false;
+    }
+  }
+
+  Future<void> _dismissNativeRing(CallModel call) async {
+    if (await _nativeRingShows(call)) await _quietly(() => _deps.platform.endCallUi(call));
+  }
+
+  /// The native ring UI started showing [id]. When the in-app ring screen
+  /// got there first (iOS foreground: socket before the VoIP push), the
+  /// native UI takes over: one ring UI per call.
+  Future<void> handleCallKitIncomingShown(String id, Map<String, dynamic>? extra) async {
+    final cur = currentCall;
+    if (cur == null || !_matches(cur, id, extra)) return;
+    if (cur.direction != CallDirection.incoming || cur.status != CallStatus.ringing) return;
+    if (_sameId(_acceptingCallId, cur.callId) || _sameId(_nativeRingFor, cur.callId)) return;
+    final inAppShown = _sameId(_incomingShownFor, cur.callId);
+    _nativeRingFor = cur.callId;
+    _incomingShownFor = cur.callId;
+    if (inAppShown) {
+      await _quietly(_deps.platform.stopTones);
+      _closeNow();
     }
   }
 
@@ -570,6 +634,11 @@ class CallManager with WidgetsBindingObserver {
     const terminal = {'ended', 'missed', 'rejected', 'busy', 'failed'};
     if (terminal.contains(status)) {
       currentCall = cur.copyWith(duration: (m['duration'] as num?)?.toInt());
+      // A failure carries no outcome (no banner): tell the caller instead of
+      // closing silently.
+      if (status == 'failed' && outcome == null && cur.direction == CallDirection.outgoing) {
+        onCallError?.call(_deps.callFailedMessage());
+      }
       await _finish(CallExitReason.remoteState, outcome: outcome);
     }
   }
@@ -728,6 +797,7 @@ class CallManager with WidgetsBindingObserver {
     callKit.onDeclined = (id, extra) => unawaited(handleCallKitDecline(id, extra));
     callKit.onEnded = (id, extra) => unawaited(handleCallKitEnded(id, extra));
     callKit.onTimedOut = (id, extra) => unawaited(handleCallKitTimeout(id, extra));
+    callKit.onIncomingShown = (id, extra) => unawaited(handleCallKitIncomingShown(id, extra));
   }
 
   /// CallKit callbacks carry the CallKit UUID (uppercase on iOS), never the
@@ -752,7 +822,8 @@ class CallManager with WidgetsBindingObserver {
       return;
     }
     _incomingShownFor = currentCall!.callId; // CallKit is the incoming UI
-    await acceptCall();
+    _nativeRingFor = currentCall!.callId;
+    await _accept(fromNativeUi: true);
     final accepted = currentCall;
     if (accepted != null && accepted.status == CallStatus.connecting) {
       _deps.openActiveCall(accepted);
@@ -774,13 +845,27 @@ class CallManager with WidgetsBindingObserver {
         continue;
       }
       await handleCallKitAccept(entry.uuid, entry.extra);
-      return;
+      // A stale entry (Android can keep isAccepted after the call is over)
+      // fails to accept and finishes; keep looking for the real one.
+      if (currentCall != null) return;
     }
+  }
+
+  /// A native decline / ended event that must not touch [cur]: the echo of
+  /// the native entry we dismissed after an in-app accept, or a leftover
+  /// native ring for a call this device already answered.
+  bool _isNativeEcho(CallModel cur, {required bool decline}) {
+    if (cur.direction != CallDirection.incoming) return false;
+    if (_sameId(_acceptedInAppFor, cur.callId)) return true;
+    // Past ringing, an incoming call in memory was answered here; only a
+    // hang-up (ended) from the native UI that answered it may end it.
+    return decline && cur.status != CallStatus.ringing;
   }
 
   Future<void> handleCallKitDecline(String id, Map<String, dynamic>? extra) async {
     final cur = currentCall;
     if (cur != null && _matches(cur, id, extra)) {
+      if (_isNativeEcho(cur, decline: true)) return;
       await rejectCall();
       return;
     }
@@ -792,7 +877,9 @@ class CallManager with WidgetsBindingObserver {
 
   Future<void> handleCallKitEnded(String id, Map<String, dynamic>? extra) async {
     final cur = currentCall;
-    if (cur != null && _matches(cur, id, extra)) await endCall();
+    if (cur == null || !_matches(cur, id, extra)) return;
+    if (_isNativeEcho(cur, decline: false)) return;
+    await endCall();
   }
 
   /// The native ring UI timed out. The client never times a call out on its
@@ -922,11 +1009,21 @@ class CallManager with WidgetsBindingObserver {
         outcome: callOutcomeFromWire(res.data['outcome']?.toString()));
   }
 
-  Future<void> acceptCall() async {
+  /// Answer from the in-app screen.
+  Future<void> acceptCall() => _accept(fromNativeUi: false);
+
+  Future<void> _accept({required bool fromNativeUi}) async {
     final call = currentCall;
     if (call == null || call.direction != CallDirection.incoming) return;
     if (_sameId(_acceptingCallId, call.callId)) return; // double tap
     _acceptingCallId = call.callId;
+    if (!fromNativeUi) {
+      // A native ring for this call (shown in the background, or by an iOS
+      // VoIP push) stops now; the decline / ended it echoes is ignored.
+      _acceptedInAppFor = call.callId;
+      _nativeRingFor = null;
+      unawaited(_dismissNativeRing(call));
+    }
     await _deps.platform.stopTones();
 
     final video = call.callType == CallType.video;
@@ -1024,6 +1121,8 @@ class CallManager with WidgetsBindingObserver {
     _remember(call.callId);
     _acceptingCallId = null;
     _incomingShownFor = null;
+    _nativeRingFor = null;
+    _acceptedInAppFor = null;
     _ringSafetyTimer?.cancel();
     _cancelReconnectGrace();
     _peerGone = false;
