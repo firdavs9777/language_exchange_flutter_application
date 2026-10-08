@@ -11,7 +11,7 @@ store builds (2.2.4 / 2.2.5) until a flag is turned on.
 
 App (backend items in the backend repo's `docs/REMAINING_WORK.md`):
 - [x] **Signup wipes the Google photo** — wizard sends `'images': []` to `updatedetails`.
-- [ ] **Logout `prefs.clear()`** — loses theme, language, remembered email, biometric flag; leaves the biometric secure-storage token.
+- [x] **Logout `prefs.clear()`** — loses theme, language, remembered email, biometric flag; leaves the biometric secure-storage token.
 - [ ] **Previous user's data survives logout / account deletion** — coins, blocked users, tutor, matches, visitors, notification settings, waves unread; deletion invalidates nothing. One shared session-reset helper.
 - [ ] **Session dying mid-use leaves empty screens** — `onAuthenticationError` never wired (no redirect to login on 401).
 - [ ] Splash hangs if Back is pressed on the Terms screen (`splash_screen.dart:155`).

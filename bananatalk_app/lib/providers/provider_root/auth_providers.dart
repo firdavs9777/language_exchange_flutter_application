@@ -7,6 +7,7 @@ import 'package:bananatalk_app/services/chat_socket_service.dart';
 import 'package:bananatalk_app/services/notification_service.dart';
 import 'package:bananatalk_app/services/notification_api_client.dart';
 import 'package:bananatalk_app/services/api_client.dart';
+import 'package:bananatalk_app/services/session_prefs.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -785,25 +786,12 @@ class AuthService extends ChangeNotifier {
     refreshToken = '';
     isLoggedIn = false;
 
-    // 4. FOURTH: Clear ALL SharedPreferences (user data, tokens, caches, etc.)
-    try {
-      await prefs.clear();
-    } catch (e) {
-      // Fallback: remove specific keys
-      await prefs.remove('token');
-      await prefs.remove('refreshToken');
-      await prefs.remove('userId');
-      await prefs.remove('fcm_token');
-      await prefs.remove('savedMoments');
-      await prefs.remove('count');
-      // Remove any chat theme preferences
-      final keys = prefs.getKeys();
-      for (final key in keys) {
-        if (key.startsWith('chat_theme_')) {
-          await prefs.remove(key);
-        }
-      }
-    }
+    // 4. FOURTH: Clear the user's SharedPreferences -- NOT prefs.clear(),
+    // which also wiped theme, app language, remembered email and the
+    // biometric opt-in. Device-level keys are kept (see session_prefs.dart);
+    // the biometric secure-storage snapshot is dropped unless biometric
+    // login is enabled.
+    await clearUserSessionPrefs(prefs: prefs);
 
     // 4.5: Clear API client token caches.
     // BOTH clients cache independently. ApiClient is a singleton holding the
