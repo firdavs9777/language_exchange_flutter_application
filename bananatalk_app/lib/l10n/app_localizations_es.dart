@@ -9013,4 +9013,12 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get callServiceChannelDescription => 'Mantiene tu llamada activa mientras BananaTalk está en segundo plano';
+
+  @override
+  String firstSessionMatchesTitle(int count) {
+    return '$count people picked for you today';
+  }
+
+  @override
+  String get firstSessionMatchesBody => 'Say hi — a first message is all it takes.';
 }

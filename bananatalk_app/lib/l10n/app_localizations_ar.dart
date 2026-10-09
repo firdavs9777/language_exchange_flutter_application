@@ -9025,4 +9025,12 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get callServiceChannelDescription => 'يُبقي مكالمتك مستمرة أثناء عمل BananaTalk في الخلفية';
+
+  @override
+  String firstSessionMatchesTitle(int count) {
+    return '$count people picked for you today';
+  }
+
+  @override
+  String get firstSessionMatchesBody => 'Say hi — a first message is all it takes.';
 }

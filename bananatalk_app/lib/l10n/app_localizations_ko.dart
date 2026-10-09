@@ -9003,4 +9003,12 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get callServiceChannelDescription => 'BananaTalk이 백그라운드에 있어도 통화가 계속되도록 합니다';
+
+  @override
+  String firstSessionMatchesTitle(int count) {
+    return '$count people picked for you today';
+  }
+
+  @override
+  String get firstSessionMatchesBody => 'Say hi — a first message is all it takes.';
 }

@@ -16495,6 +16495,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Keeps your call running while BananaTalk is in the background'**
   String get callServiceChannelDescription;
+
+  /// First line of the first-session panel on the Matches tab
+  ///
+  /// In en, this message translates to:
+  /// **'{count} people picked for you today'**
+  String firstSessionMatchesTitle(int count);
+
+  /// No description provided for @firstSessionMatchesBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Say hi — a first message is all it takes.'**
+  String get firstSessionMatchesBody;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

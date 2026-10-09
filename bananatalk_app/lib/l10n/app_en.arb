@@ -6368,5 +6368,13 @@
   "callForegroundTitle": "Call in progress",
   "callForegroundBody": "Tap to return to your call",
   "callServiceChannelName": "Ongoing call",
-  "callServiceChannelDescription": "Keeps your call running while BananaTalk is in the background"
+  "callServiceChannelDescription": "Keeps your call running while BananaTalk is in the background",
+  "firstSessionMatchesTitle": "{count} people picked for you today",
+  "@firstSessionMatchesTitle": {
+    "description": "First line of the first-session panel on the Matches tab",
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "firstSessionMatchesBody": "Say hi — a first message is all it takes."
 }

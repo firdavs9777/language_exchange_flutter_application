@@ -9003,4 +9003,12 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get callServiceChannelDescription => 'Giữ cuộc gọi tiếp tục khi BananaTalk chạy nền';
+
+  @override
+  String firstSessionMatchesTitle(int count) {
+    return '$count people picked for you today';
+  }
+
+  @override
+  String get firstSessionMatchesBody => 'Say hi — a first message is all it takes.';
 }

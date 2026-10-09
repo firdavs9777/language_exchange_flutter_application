@@ -9017,4 +9017,12 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get callServiceChannelDescription => 'Зангро ҳангоми дар замина будани BananaTalk фаъол нигоҳ медорад';
+
+  @override
+  String firstSessionMatchesTitle(int count) {
+    return '$count people picked for you today';
+  }
+
+  @override
+  String get firstSessionMatchesBody => 'Say hi — a first message is all it takes.';
 }

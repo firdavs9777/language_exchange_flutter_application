@@ -9013,4 +9013,12 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get callServiceChannelDescription => 'BananaTalk के बैकग्राउंड में होने पर भी आपकी कॉल चालू रखता है';
+
+  @override
+  String firstSessionMatchesTitle(int count) {
+    return '$count people picked for you today';
+  }
+
+  @override
+  String get firstSessionMatchesBody => 'Say hi — a first message is all it takes.';
 }

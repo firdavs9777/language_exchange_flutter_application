@@ -9034,4 +9034,12 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get callServiceChannelDescription => 'Не даёт звонку прерваться, пока BananaTalk работает в фоне';
+
+  @override
+  String firstSessionMatchesTitle(int count) {
+    return '$count people picked for you today';
+  }
+
+  @override
+  String get firstSessionMatchesBody => 'Say hi — a first message is all it takes.';
 }

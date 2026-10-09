@@ -9003,6 +9003,14 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get callServiceChannelDescription => '在 BananaTalk 处于后台时保持通话';
+
+  @override
+  String firstSessionMatchesTitle(int count) {
+    return '$count people picked for you today';
+  }
+
+  @override
+  String get firstSessionMatchesBody => 'Say hi — a first message is all it takes.';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).

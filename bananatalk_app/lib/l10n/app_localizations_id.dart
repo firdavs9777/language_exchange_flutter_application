@@ -9010,4 +9010,12 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get callServiceChannelDescription => 'Menjaga panggilan tetap berjalan saat BananaTalk di latar belakang';
+
+  @override
+  String firstSessionMatchesTitle(int count) {
+    return '$count people picked for you today';
+  }
+
+  @override
+  String get firstSessionMatchesBody => 'Say hi — a first message is all it takes.';
 }
