@@ -1,6 +1,6 @@
 # Remaining work — monetization & growth
 
-Last updated: 2026-10-08. Keep this file current: tick items off in the same commit that finishes them.
+Last updated: 2026-10-09. Keep this file current: tick items off in the same commit that finishes them.
 
 Context: all three tranches of `docs/superpowers/plans/2026-10-02-monetization-growth.md` are built and
 deployed **dark** (every new server flag is off). Backend `main` c5ef2fe is live. App `v2.6.1` (10574) is
@@ -57,6 +57,33 @@ Baseline: 1/30 calls answered in 30 days, 168 stuck ringing, 0 call messages eve
 - [ ] Owner: LiveKit webhook URL in LiveKit Cloud; confirm `APNS_VOIP_*` on prod.
 - [ ] Device QA: run every row of `docs/qa/calls-matrix.md` (IOS-3/IOS-5 repeat runs prove VoIP delivery survives repeated cancels); re-measure answered rate one week after release (target ≥ 40%).
 - [ ] Calls: Dart `CallKitService` still sets the native ring `duration: 45000`; iOS VoIP path now uses 50 s (server owns the 45 s ring) — align the Dart side so iOS/Android never time out before the server.
+
+## 0c. First-session guidance (2026-10-09) — spec `docs/superpowers/specs/2026-10-09-first-session-guidance-design.md`
+
+Baseline: 85% of signups leave on day one; D1 15%, D7 7%. The first-conversation path is ~80% built
+(land on Matches, opener chips, stall banner — all live) but nothing points a first-timer at the one
+action, and nothing measures the first session: the 2026-10-07 funnel events stop at
+`registration_completed`.
+
+- [ ] Matches: `shouldShowFirstSessionGuidance` pure predicate (isNewUser / hasMessaged / timesShown, cap 3)
+- [ ] Matches: `MatchesFirstSessionPanel` in the existing index-0 header slot; no dismiss, no overlay
+- [ ] Prefs state `first_conversation_done` + `first_session_guidance_shown_count`
+- [ ] `message_provider.sendMessage`: set the flag and fire `first_message_sent` on a first successful send
+- [ ] Four events: `first_session_matches_shown` / `_guidance_shown` / `_say_hi_tapped` / `first_message_sent`
+- [ ] Two `app_en.arb` keys + `flutter gen-l10n` (18 locales fall back to English until native review)
+- [ ] Read `say_hi_tapped / guidance_shown` before deciding whether a header is salient enough
+
+Blocked on nobody, but the two flags that create social pull are still off — `WELCOME_WAVE_ENABLED`
+and `LIFECYCLE_PUSH_ENABLED`, both Day-0 in section 1 below. Guidance measured without them understates
+the path.
+
+Goal not yet defined, so deliberately out of the spec:
+- [ ] **AI Study guidance** (`lib/pages/learning/`, `lib/pages/ai/`) — no single activation event; "do a
+      lesson", "ask the tutor" and "review vocabulary" are different goals with different value. Decide
+      the goal before designing.
+- [ ] **Moments guidance** (`lib/pages/moments/feed/`) — `PromptOfDayCard` already occupies the same
+      structural slot the Matches panel uses, so the pattern transfers cheaply once the goal is known.
+      Posting and reading are different goals.
 
 ## 1. Owner (needs the keystore MacBook, store consoles or droplet)
 
