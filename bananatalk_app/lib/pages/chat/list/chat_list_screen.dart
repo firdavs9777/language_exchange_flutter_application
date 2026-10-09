@@ -31,7 +31,6 @@ import 'package:bananatalk_app/pages/chat/list/chat_list_empty_state.dart';
 import 'package:bananatalk_app/pages/chat/list/intro_requests_strip.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:bananatalk_app/pages/chat/list/list_socket_handlers.dart';
-import 'package:bananatalk_app/widgets/vip_up_pill.dart';
 import 'package:bananatalk_app/widgets/coins/coin_balance_pill.dart';
 import 'package:bananatalk_app/widgets/notifications/notification_bell.dart';
 import 'package:bananatalk_app/services/notification_service.dart';
@@ -1246,20 +1245,21 @@ class _ChatMainState extends ConsumerState<ChatMain>
       appBar: AppBar(
         backgroundColor: colors.background,
         elevation: 0,
-        // Custom leading: hamburger + VIP-Up pill side by side, mirroring
-        // the HelloTalk layout (menu icon + VIP pill, then title).
-        leadingWidth: 110,
+        // Hamburger only. The VIP-Up pill used to sit beside it behind a
+        // 110px leadingWidth, which squeezed the title while four action
+        // items (coins, calls, notifications, overflow) competed on the other
+        // side -- the calls entry point landed there later to fix call
+        // discoverability (baseline: 1 in 30 calls answered), so it stays.
+        //
+        // VIP loses nothing: "Upgrade to VIP" is in the drawer this very
+        // button opens (widgets/app_shell_drawer.dart), and every feature
+        // gate, quota banner and chat-input upsell still routes to
+        // VipPlansScreen. The pill also remains on the learning screen.
         leading: Builder(
-          builder: (ctx) => Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              IconButton(
-                icon: Icon(Icons.menu_rounded, color: colors.onBackground),
-                tooltip: AppLocalizations.of(context)!.chatListMenu,
-                onPressed: () => Scaffold.of(ctx).openDrawer(),
-              ),
-              const VipUpPill(),
-            ],
+          builder: (ctx) => IconButton(
+            icon: Icon(Icons.menu_rounded, color: colors.onBackground),
+            tooltip: AppLocalizations.of(context)!.chatListMenu,
+            onPressed: () => Scaffold.of(ctx).openDrawer(),
           ),
         ),
         title: Text(
