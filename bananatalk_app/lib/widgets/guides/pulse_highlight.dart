@@ -15,8 +15,8 @@ const int kPulseCycles = 3;
 /// the child's size, hit area or layout — wrapping a button in this cannot
 /// make the button stop working.
 ///
-/// When [enabled] is false this is a pass-through: no controller is created
-/// and nothing is painted, so the four pages that mount a guide conditionally
+/// When [enabled] is false this is a pass-through: nothing is painted and the
+/// controller never runs, so the four pages that mount a guide conditionally
 /// pay nothing when the guide is not showing.
 class PulseHighlight extends StatefulWidget {
   const PulseHighlight({
@@ -40,65 +40,84 @@ class PulseHighlight extends StatefulWidget {
 
 class _PulseHighlightState extends State<PulseHighlight>
     with SingleTickerProviderStateMixin {
-  AnimationController? _controller;
+  /// Built once in initState and kept for the life of the State, whether or
+  /// not it ever runs.
+  ///
+  /// An earlier version disposed it when the ring finished and recreated it
+  /// on demand, which crashed on device within seconds of this shipping:
+  /// `SingleTickerProviderStateMixin` hands out ONE ticker per State for its
+  /// whole lifetime, disposed or not, so the second controller threw
+  /// "multiple tickers were created" mid-build and took the page's layout
+  /// with it. Guides sit at the top of pages that rebuild constantly.
+  late final AnimationController _controller;
+
   int _completed = 0;
+
+  /// The ring is currently expanding. Drives the painting, so a finished or
+  /// never-started ring renders [PulseHighlight.child] untouched.
+  bool _running = false;
+
+  /// The ring has had its [PulseHighlight.cycles] passes on this State.
+  ///
+  /// Separate from `_running` because "not animating" and "already done" must
+  /// not look the same: the old code could not tell them apart, so every
+  /// rebuild of an enabled guide looked like a fresh start and the ring
+  /// pulsed forever — the exact thing the cycle cap exists to prevent.
+  bool _finished = false;
 
   @override
   void initState() {
     super.initState();
-    if (widget.enabled) _start();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1400),
+    )..addStatusListener(_onStatus);
+    if (widget.enabled) {
+      _running = true;
+      _controller.forward();
+    }
+  }
+
+  void _onStatus(AnimationStatus status) {
+    if (status != AnimationStatus.completed) return;
+    _completed++;
+    if (_completed < widget.cycles) {
+      _controller.forward(from: 0);
+      return;
+    }
+    _finished = true;
+    if (mounted) setState(() => _running = false);
   }
 
   @override
   void didUpdateWidget(PulseHighlight oldWidget) {
     super.didUpdateWidget(oldWidget);
-    // A guide can become eligible after its first frame (the state provider
-    // resolves asynchronously), so enabling has to start the ring rather
-    // than rely on initState having seen the final value.
-    if (widget.enabled && _controller == null) {
-      _start();
-    } else if (!widget.enabled && _controller != null) {
-      _stop();
+    // Only a CHANGE in `enabled` means anything. A guide can become eligible
+    // after its first frame -- the stored state resolves asynchronously, and
+    // MatchCard is built with highlightSayHi false until the panel above it
+    // decides to show -- so the ring has to be able to start late. Every
+    // other rebuild must leave it exactly as it is.
+    if (widget.enabled == oldWidget.enabled) return;
+
+    if (widget.enabled) {
+      if (_finished) return;
+      _running = true;
+      _controller.forward(from: 0);
+    } else {
+      _controller.stop();
+      _running = false;
     }
-  }
-
-  void _start() {
-    _completed = 0;
-    final controller = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 1400),
-    );
-    controller.addStatusListener((status) {
-      if (status != AnimationStatus.completed) return;
-      _completed++;
-      if (_completed >= widget.cycles) {
-        _stop();
-      } else {
-        controller.forward(from: 0);
-      }
-    });
-    _controller = controller;
-    controller.forward();
-  }
-
-  void _stop() {
-    final controller = _controller;
-    _controller = null;
-    controller?.dispose();
-    if (mounted) setState(() {});
   }
 
   @override
   void dispose() {
-    _controller?.dispose();
-    _controller = null;
+    _controller.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final controller = _controller;
-    if (controller == null) return widget.child;
+    if (!_running) return widget.child;
 
     final radius = widget.borderRadius ?? BorderRadius.circular(999);
     return Stack(
@@ -107,9 +126,9 @@ class _PulseHighlightState extends State<PulseHighlight>
         Positioned.fill(
           child: IgnorePointer(
             child: AnimatedBuilder(
-              animation: controller,
+              animation: _controller,
               builder: (context, _) {
-                final t = Curves.easeOut.transform(controller.value);
+                final t = Curves.easeOut.transform(_controller.value);
                 return Transform.scale(
                   scale: 1 + 0.22 * t,
                   child: DecoratedBox(

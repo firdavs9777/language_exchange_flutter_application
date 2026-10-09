@@ -99,6 +99,42 @@ void main() {
     expect(find.byIcon(Icons.close_rounded), findsNothing);
   });
 
+  testWidgets('a rebuild after the pulse has finished does not crash',
+      (tester) async {
+    // Device crash, 2026-10-10: _PulseHighlightState disposed its controller
+    // when the ring finished, then the next rebuild saw a null controller,
+    // decided the ring had never started, and asked a
+    // SingleTickerProviderStateMixin for a second ticker:
+    //
+    //   _PulseHighlightState is a SingleTickerProviderStateMixin but
+    //   multiple tickers were created.
+    //
+    // Guides sit at the top of pages that rebuild constantly (every provider
+    // on the Chats and Profile tabs), so this fired within seconds.
+    await tester.pumpWidget(_host(width: 390));
+    await tester.pumpAndSettle();
+
+    for (var i = 0; i < 5; i++) {
+      await tester.pumpWidget(_host(width: 390 - i.toDouble()));
+      await tester.pumpAndSettle();
+      expect(tester.takeException(), isNull,
+          reason: 'rebuild ${i + 1} after the ring finished');
+    }
+  });
+
+  testWidgets('the ring does not restart on every rebuild', (tester) async {
+    // The same null-controller check also meant the ring began again on each
+    // rebuild, so a card on a busy page pulsed forever -- the exact "reads as
+    // broken rather than inviting" the cycle cap exists to avoid.
+    await tester.pumpWidget(_host(width: 390));
+    await tester.pumpAndSettle();
+
+    await tester.pumpWidget(_host(width: 389));
+    await tester.pump();
+    expect(tester.binding.hasScheduledFrame, isFalse,
+        reason: 'a finished ring must stay finished');
+  });
+
   testWidgets('the pulse stops, so the page is not animating forever',
       (tester) async {
     // A ring that never stops holds a frame callback for as long as the tab
