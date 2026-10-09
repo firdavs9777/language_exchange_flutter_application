@@ -9019,48 +9019,48 @@ class AppLocalizationsTl extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count people picked for you today',
-      one: '1 person picked for you today',
+      other: '$count taong pinili para sa iyo ngayon',
+      one: '1 taong pinili para sa iyo ngayon',
     );
     return '$_temp0';
   }
 
   @override
-  String get firstSessionMatchesBody => 'Say hi — a first message is all it takes.';
+  String get firstSessionMatchesBody => 'Bumati ka — sapat na ang unang mensahe.';
 
   @override
-  String get guideAiStudyTitle => 'Practise before you have to';
+  String get guideAiStudyTitle => 'Magsanay bago mo kailanganin';
 
   @override
-  String get guideAiStudyBody => 'Practise with the AI tutor, or prepare for a real exam. Two minutes is a session.';
+  String get guideAiStudyBody => 'Magsanay kasama ang AI tutor, o maghanda para sa totoong pagsusulit. Dalawang minuto, isang sesyon.';
 
   @override
-  String get guideAiStudyCta => 'Open AI Tools';
+  String get guideAiStudyCta => 'Buksan ang AI Tools';
 
   @override
-  String get guideChatsTitle => 'Your conversations live here';
+  String get guideChatsTitle => 'Dito nakatira ang mga usapan mo';
 
   @override
-  String get guideChatsBody => 'Nothing yet. Say hi to one of today\'s matches and this list fills up.';
+  String get guideChatsBody => 'Wala pa. Bumati sa isa sa mga match ngayong araw at mapupuno ang listahang ito.';
 
   @override
-  String get guideChatsCta => 'Find someone';
+  String get guideChatsCta => 'Maghanap ng kausap';
 
   @override
-  String get guideMomentsTitle => 'Post something in the language you\'re learning';
+  String get guideMomentsTitle => 'Mag-post sa wikang pinag-aaralan mo';
 
   @override
-  String get guideMomentsBody => 'A photo or one line. Native speakers correct what you write here.';
+  String get guideMomentsBody => 'Isang litrato o isang linya. Itinatama ng mga native speaker ang isinusulat mo rito.';
 
   @override
-  String get guideMomentsCta => 'Post a moment';
+  String get guideMomentsCta => 'Mag-post ng moment';
 
   @override
-  String get guideProfileTitle => 'Finish your profile';
+  String get guideProfileTitle => 'Kumpletuhin ang profile mo';
 
   @override
-  String get guideProfileBody => 'A photo and a line about yourself. Half-empty profiles get skipped.';
+  String get guideProfileBody => 'Isang litrato at isang linya tungkol sa iyo. Nilalaktawan ang kalahating profile.';
 
   @override
-  String get guideProfileCta => 'Edit profile';
+  String get guideProfileCta => 'I-edit ang profile';
 }

@@ -9009,50 +9009,50 @@ class AppLocalizationsZh extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count people picked for you today',
-      one: '1 person picked for you today',
+      other: '今天为你挑选了 $count 位',
+      one: '今天为你挑选了 1 位',
     );
     return '$_temp0';
   }
 
   @override
-  String get firstSessionMatchesBody => 'Say hi — a first message is all it takes.';
+  String get firstSessionMatchesBody => '先打个招呼，一条消息就够了。';
 
   @override
-  String get guideAiStudyTitle => 'Practise before you have to';
+  String get guideAiStudyTitle => '在需要之前先练起来';
 
   @override
-  String get guideAiStudyBody => 'Practise with the AI tutor, or prepare for a real exam. Two minutes is a session.';
+  String get guideAiStudyBody => '和 AI 导师练习，或为真实考试做准备。两分钟就是一次练习。';
 
   @override
-  String get guideAiStudyCta => 'Open AI Tools';
+  String get guideAiStudyCta => '打开 AI 工具';
 
   @override
-  String get guideChatsTitle => 'Your conversations live here';
+  String get guideChatsTitle => '你的聊天都在这里';
 
   @override
-  String get guideChatsBody => 'Nothing yet. Say hi to one of today\'s matches and this list fills up.';
+  String get guideChatsBody => '还没有。向今天的匹配打个招呼，这里就会热闹起来。';
 
   @override
-  String get guideChatsCta => 'Find someone';
+  String get guideChatsCta => '找个人聊聊';
 
   @override
-  String get guideMomentsTitle => 'Post something in the language you\'re learning';
+  String get guideMomentsTitle => '用你正在学的语言发点什么';
 
   @override
-  String get guideMomentsBody => 'A photo or one line. Native speakers correct what you write here.';
+  String get guideMomentsBody => '一张照片或一句话。母语者会帮你改这里写的内容。';
 
   @override
-  String get guideMomentsCta => 'Post a moment';
+  String get guideMomentsCta => '发布动态';
 
   @override
-  String get guideProfileTitle => 'Finish your profile';
+  String get guideProfileTitle => '把资料填完整';
 
   @override
-  String get guideProfileBody => 'A photo and a line about yourself. Half-empty profiles get skipped.';
+  String get guideProfileBody => '一张照片，一句自我介绍。填一半的资料常被略过。';
 
   @override
-  String get guideProfileCta => 'Edit profile';
+  String get guideProfileCta => '编辑资料';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -18054,4 +18054,54 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get callServiceChannelDescription => '在 BananaTalk 處於背景時保持通話';
+
+  @override
+  String firstSessionMatchesTitle(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '今天為你挑選了 $count 位',
+      one: '今天為你挑選了 1 位',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get firstSessionMatchesBody => '先打聲招呼，一則訊息就夠了。';
+
+  @override
+  String get guideAiStudyTitle => '在需要之前先練起來';
+
+  @override
+  String get guideAiStudyBody => '和 AI 家教練習，或為真正的考試做準備。兩分鐘就是一次練習。';
+
+  @override
+  String get guideAiStudyCta => '開啟 AI 工具';
+
+  @override
+  String get guideChatsTitle => '你的聊天都在這裡';
+
+  @override
+  String get guideChatsBody => '還沒有。向今天的配對打聲招呼，這裡就會熱鬧起來。';
+
+  @override
+  String get guideChatsCta => '找個人聊聊';
+
+  @override
+  String get guideMomentsTitle => '用你正在學的語言發點什麼';
+
+  @override
+  String get guideMomentsBody => '一張照片或一句話。母語者會幫你修改這裡寫的內容。';
+
+  @override
+  String get guideMomentsCta => '發布動態';
+
+  @override
+  String get guideProfileTitle => '把個人資料填完整';
+
+  @override
+  String get guideProfileBody => '一張照片，一句自我介紹。只填一半的資料常被略過。';
+
+  @override
+  String get guideProfileCta => '編輯個人資料';
 }

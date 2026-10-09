@@ -3659,5 +3659,26 @@
   "callForegroundTitle": "Panggilan berlangsung",
   "callForegroundBody": "Ketuk untuk kembali ke panggilan",
   "callServiceChannelName": "Panggilan berlangsung",
-  "callServiceChannelDescription": "Menjaga panggilan tetap berjalan saat BananaTalk di latar belakang"
+  "callServiceChannelDescription": "Menjaga panggilan tetap berjalan saat BananaTalk di latar belakang",
+  "firstSessionMatchesTitle": "{count, plural, =1{1 orang dipilih untukmu hari ini} other{{count} orang dipilih untukmu hari ini}}",
+  "@firstSessionMatchesTitle": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "firstSessionMatchesBody": "Sapa dulu — satu pesan pertama sudah cukup.",
+  "guideAiStudyTitle": "Berlatih sebelum kamu harus",
+  "guideAiStudyBody": "Berlatih dengan tutor AI, atau siapkan diri untuk ujian sungguhan. Dua menit sudah satu sesi.",
+  "guideAiStudyCta": "Buka Alat AI",
+  "guideChatsTitle": "Percakapanmu ada di sini",
+  "guideChatsBody": "Belum ada. Sapa salah satu match hari ini dan daftar ini akan terisi.",
+  "guideChatsCta": "Cari seseorang",
+  "guideMomentsTitle": "Posting sesuatu dalam bahasa yang kamu pelajari",
+  "guideMomentsBody": "Sebuah foto atau satu baris. Penutur asli mengoreksi tulisanmu di sini.",
+  "guideMomentsCta": "Posting momen",
+  "guideProfileTitle": "Lengkapi profilmu",
+  "guideProfileBody": "Satu foto dan satu baris tentang dirimu. Profil setengah kosong sering dilewati.",
+  "guideProfileCta": "Edit profil"
 }

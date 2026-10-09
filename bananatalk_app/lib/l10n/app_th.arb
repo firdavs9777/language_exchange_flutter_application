@@ -3659,5 +3659,26 @@
   "callForegroundTitle": "กำลังโทร",
   "callForegroundBody": "แตะเพื่อกลับไปยังการโทร",
   "callServiceChannelName": "กำลังโทร",
-  "callServiceChannelDescription": "ให้สายของคุณดำเนินต่อขณะที่ BananaTalk ทำงานในพื้นหลัง"
+  "callServiceChannelDescription": "ให้สายของคุณดำเนินต่อขณะที่ BananaTalk ทำงานในพื้นหลัง",
+  "firstSessionMatchesTitle": "{count, plural, =1{วันนี้เลือกไว้ให้คุณ 1 คน} other{วันนี้เลือกไว้ให้คุณ {count} คน}}",
+  "@firstSessionMatchesTitle": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "firstSessionMatchesBody": "ทักทายก่อนเลย แค่ข้อความแรกก็พอ",
+  "guideAiStudyTitle": "ฝึกไว้ก่อนถึงเวลาจริง",
+  "guideAiStudyBody": "ฝึกกับติวเตอร์ AI หรือเตรียมสอบจริง สองนาทีก็นับเป็นหนึ่งรอบ",
+  "guideAiStudyCta": "เปิดเครื่องมือ AI",
+  "guideChatsTitle": "บทสนทนาของคุณอยู่ที่นี่",
+  "guideChatsBody": "ยังไม่มีเลย ทักคู่ที่จับคู่ไว้วันนี้ แล้วรายการนี้จะเต็มขึ้น",
+  "guideChatsCta": "หาคนคุย",
+  "guideMomentsTitle": "โพสต์อะไรสักอย่างในภาษาที่คุณกำลังเรียน",
+  "guideMomentsBody": "รูปหนึ่งใบหรือข้อความหนึ่งบรรทัด เจ้าของภาษาจะช่วยแก้ให้",
+  "guideMomentsCta": "โพสต์โมเมนต์",
+  "guideProfileTitle": "ทำโปรไฟล์ให้ครบ",
+  "guideProfileBody": "รูปหนึ่งใบกับข้อความแนะนำตัวหนึ่งบรรทัด โปรไฟล์ที่ว่างครึ่งเดียวมักถูกข้าม",
+  "guideProfileCta": "แก้ไขโปรไฟล์"
 }

@@ -3659,5 +3659,26 @@
   "callForegroundTitle": "Đang trong cuộc gọi",
   "callForegroundBody": "Nhấn để quay lại cuộc gọi",
   "callServiceChannelName": "Cuộc gọi đang diễn ra",
-  "callServiceChannelDescription": "Giữ cuộc gọi tiếp tục khi BananaTalk chạy nền"
+  "callServiceChannelDescription": "Giữ cuộc gọi tiếp tục khi BananaTalk chạy nền",
+  "firstSessionMatchesTitle": "{count, plural, =1{Hôm nay có 1 người được chọn cho bạn} other{Hôm nay có {count} người được chọn cho bạn}}",
+  "@firstSessionMatchesTitle": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "firstSessionMatchesBody": "Chào một câu — chỉ cần tin nhắn đầu tiên.",
+  "guideAiStudyTitle": "Luyện trước khi cần đến",
+  "guideAiStudyBody": "Luyện với gia sư AI, hoặc ôn cho một kỳ thi thật. Hai phút là một buổi.",
+  "guideAiStudyCta": "Mở công cụ AI",
+  "guideChatsTitle": "Các cuộc trò chuyện của bạn nằm ở đây",
+  "guideChatsBody": "Chưa có gì. Chào một người trong danh sách ghép hôm nay và danh sách này sẽ đầy lên.",
+  "guideChatsCta": "Tìm người trò chuyện",
+  "guideMomentsTitle": "Đăng gì đó bằng ngôn ngữ bạn đang học",
+  "guideMomentsBody": "Một tấm ảnh hoặc một dòng. Người bản ngữ sẽ sửa những gì bạn viết ở đây.",
+  "guideMomentsCta": "Đăng khoảnh khắc",
+  "guideProfileTitle": "Hoàn thiện hồ sơ của bạn",
+  "guideProfileBody": "Một tấm ảnh và một dòng về bản thân. Hồ sơ bỏ dở thường bị lướt qua.",
+  "guideProfileCta": "Chỉnh sửa hồ sơ"
 }

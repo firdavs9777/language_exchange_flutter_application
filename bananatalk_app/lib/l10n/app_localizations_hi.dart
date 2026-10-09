@@ -9019,48 +9019,48 @@ class AppLocalizationsHi extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count people picked for you today',
-      one: '1 person picked for you today',
+      other: 'आज आपके लिए $count लोग चुने गए',
+      one: 'आज आपके लिए 1 व्यक्ति चुना गया',
     );
     return '$_temp0';
   }
 
   @override
-  String get firstSessionMatchesBody => 'Say hi — a first message is all it takes.';
+  String get firstSessionMatchesBody => 'नमस्ते कहें — बस एक पहला संदेश काफी है।';
 
   @override
-  String get guideAiStudyTitle => 'Practise before you have to';
+  String get guideAiStudyTitle => 'ज़रूरत पड़ने से पहले अभ्यास करें';
 
   @override
-  String get guideAiStudyBody => 'Practise with the AI tutor, or prepare for a real exam. Two minutes is a session.';
+  String get guideAiStudyBody => 'AI ट्यूटर के साथ अभ्यास करें या किसी असली परीक्षा की तैयारी करें। दो मिनट का एक सत्र।';
 
   @override
-  String get guideAiStudyCta => 'Open AI Tools';
+  String get guideAiStudyCta => 'AI टूल्स खोलें';
 
   @override
-  String get guideChatsTitle => 'Your conversations live here';
+  String get guideChatsTitle => 'आपकी बातचीत यहाँ रहती है';
 
   @override
-  String get guideChatsBody => 'Nothing yet. Say hi to one of today\'s matches and this list fills up.';
+  String get guideChatsBody => 'अभी कुछ नहीं। आज के किसी मैच को नमस्ते कहें और यह सूची भर जाएगी।';
 
   @override
-  String get guideChatsCta => 'Find someone';
+  String get guideChatsCta => 'किसी को खोजें';
 
   @override
-  String get guideMomentsTitle => 'Post something in the language you\'re learning';
+  String get guideMomentsTitle => 'जो भाषा सीख रहे हैं उसमें कुछ पोस्ट करें';
 
   @override
-  String get guideMomentsBody => 'A photo or one line. Native speakers correct what you write here.';
+  String get guideMomentsBody => 'एक फ़ोटो या एक पंक्ति। यहाँ जो लिखते हैं उसे नेटिव स्पीकर सुधारते हैं।';
 
   @override
-  String get guideMomentsCta => 'Post a moment';
+  String get guideMomentsCta => 'मोमेंट पोस्ट करें';
 
   @override
-  String get guideProfileTitle => 'Finish your profile';
+  String get guideProfileTitle => 'अपनी प्रोफ़ाइल पूरी करें';
 
   @override
-  String get guideProfileBody => 'A photo and a line about yourself. Half-empty profiles get skipped.';
+  String get guideProfileBody => 'एक फ़ोटो और अपने बारे में एक पंक्ति। आधी-अधूरी प्रोफ़ाइल छोड़ दी जाती है।';
 
   @override
-  String get guideProfileCta => 'Edit profile';
+  String get guideProfileCta => 'प्रोफ़ाइल संपादित करें';
 }

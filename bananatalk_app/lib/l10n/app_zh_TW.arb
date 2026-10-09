@@ -3350,5 +3350,26 @@
   "callForegroundTitle": "通話中",
   "callForegroundBody": "輕觸以返回通話",
   "callServiceChannelName": "通話中",
-  "callServiceChannelDescription": "在 BananaTalk 處於背景時保持通話"
+  "callServiceChannelDescription": "在 BananaTalk 處於背景時保持通話",
+  "firstSessionMatchesTitle": "{count, plural, =1{今天為你挑選了 1 位} other{今天為你挑選了 {count} 位}}",
+  "@firstSessionMatchesTitle": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "firstSessionMatchesBody": "先打聲招呼，一則訊息就夠了。",
+  "guideAiStudyTitle": "在需要之前先練起來",
+  "guideAiStudyBody": "和 AI 家教練習，或為真正的考試做準備。兩分鐘就是一次練習。",
+  "guideAiStudyCta": "開啟 AI 工具",
+  "guideChatsTitle": "你的聊天都在這裡",
+  "guideChatsBody": "還沒有。向今天的配對打聲招呼，這裡就會熱鬧起來。",
+  "guideChatsCta": "找個人聊聊",
+  "guideMomentsTitle": "用你正在學的語言發點什麼",
+  "guideMomentsBody": "一張照片或一句話。母語者會幫你修改這裡寫的內容。",
+  "guideMomentsCta": "發布動態",
+  "guideProfileTitle": "把個人資料填完整",
+  "guideProfileBody": "一張照片，一句自我介紹。只填一半的資料常被略過。",
+  "guideProfileCta": "編輯個人資料"
 }

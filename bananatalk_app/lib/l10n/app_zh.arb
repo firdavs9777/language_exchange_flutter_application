@@ -3673,5 +3673,26 @@
   "callForegroundTitle": "通话中",
   "callForegroundBody": "点按返回通话",
   "callServiceChannelName": "正在通话",
-  "callServiceChannelDescription": "在 BananaTalk 处于后台时保持通话"
+  "callServiceChannelDescription": "在 BananaTalk 处于后台时保持通话",
+  "firstSessionMatchesTitle": "{count, plural, =1{今天为你挑选了 1 位} other{今天为你挑选了 {count} 位}}",
+  "@firstSessionMatchesTitle": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "firstSessionMatchesBody": "先打个招呼，一条消息就够了。",
+  "guideAiStudyTitle": "在需要之前先练起来",
+  "guideAiStudyBody": "和 AI 导师练习，或为真实考试做准备。两分钟就是一次练习。",
+  "guideAiStudyCta": "打开 AI 工具",
+  "guideChatsTitle": "你的聊天都在这里",
+  "guideChatsBody": "还没有。向今天的匹配打个招呼，这里就会热闹起来。",
+  "guideChatsCta": "找个人聊聊",
+  "guideMomentsTitle": "用你正在学的语言发点什么",
+  "guideMomentsBody": "一张照片或一句话。母语者会帮你改这里写的内容。",
+  "guideMomentsCta": "发布动态",
+  "guideProfileTitle": "把资料填完整",
+  "guideProfileBody": "一张照片，一句自我介绍。填一半的资料常被略过。",
+  "guideProfileCta": "编辑资料"
 }

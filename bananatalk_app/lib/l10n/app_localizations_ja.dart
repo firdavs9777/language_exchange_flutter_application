@@ -9009,48 +9009,48 @@ class AppLocalizationsJa extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count people picked for you today',
-      one: '1 person picked for you today',
+      other: '今日あなたのために$count人選びました',
+      one: '今日あなたのために1人選びました',
     );
     return '$_temp0';
   }
 
   @override
-  String get firstSessionMatchesBody => 'Say hi — a first message is all it takes.';
+  String get firstSessionMatchesBody => 'あいさつしてみましょう。最初の一通で十分です。';
 
   @override
-  String get guideAiStudyTitle => 'Practise before you have to';
+  String get guideAiStudyTitle => '必要になる前に練習';
 
   @override
-  String get guideAiStudyBody => 'Practise with the AI tutor, or prepare for a real exam. Two minutes is a session.';
+  String get guideAiStudyBody => 'AIチューターと練習、または本番の試験対策。2分で1セッションです。';
 
   @override
-  String get guideAiStudyCta => 'Open AI Tools';
+  String get guideAiStudyCta => 'AIツールを開く';
 
   @override
-  String get guideChatsTitle => 'Your conversations live here';
+  String get guideChatsTitle => '会話はここに表示されます';
 
   @override
-  String get guideChatsBody => 'Nothing yet. Say hi to one of today\'s matches and this list fills up.';
+  String get guideChatsBody => 'まだありません。今日のマッチにあいさつすると、このリストが埋まります。';
 
   @override
-  String get guideChatsCta => 'Find someone';
+  String get guideChatsCta => '相手を探す';
 
   @override
-  String get guideMomentsTitle => 'Post something in the language you\'re learning';
+  String get guideMomentsTitle => '学んでいる言語で投稿してみましょう';
 
   @override
-  String get guideMomentsBody => 'A photo or one line. Native speakers correct what you write here.';
+  String get guideMomentsBody => '写真か一言でも大丈夫。ネイティブがここでの書き込みを直してくれます。';
 
   @override
-  String get guideMomentsCta => 'Post a moment';
+  String get guideMomentsCta => 'モーメントを投稿';
 
   @override
-  String get guideProfileTitle => 'Finish your profile';
+  String get guideProfileTitle => 'プロフィールを仕上げましょう';
 
   @override
-  String get guideProfileBody => 'A photo and a line about yourself. Half-empty profiles get skipped.';
+  String get guideProfileBody => '写真と自己紹介を一言。半分空のプロフィールは飛ばされます。';
 
   @override
-  String get guideProfileCta => 'Edit profile';
+  String get guideProfileCta => 'プロフィールを編集';
 }

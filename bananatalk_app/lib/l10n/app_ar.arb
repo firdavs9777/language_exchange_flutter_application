@@ -3689,5 +3689,26 @@
   "callForegroundTitle": "مكالمة جارية",
   "callForegroundBody": "انقر للعودة إلى المكالمة",
   "callServiceChannelName": "مكالمة جارية",
-  "callServiceChannelDescription": "يُبقي مكالمتك مستمرة أثناء عمل BananaTalk في الخلفية"
+  "callServiceChannelDescription": "يُبقي مكالمتك مستمرة أثناء عمل BananaTalk في الخلفية",
+  "firstSessionMatchesTitle": "{count, plural, =1{شخص واحد تم اختياره لك اليوم} other{{count} أشخاص تم اختيارهم لك اليوم}}",
+  "@firstSessionMatchesTitle": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "firstSessionMatchesBody": "ألقِ التحية — رسالة أولى تكفي.",
+  "guideAiStudyTitle": "تدرّب قبل أن تحتاج",
+  "guideAiStudyBody": "تدرّب مع المعلّم الذكي أو استعد لامتحان حقيقي. دقيقتان تكفيان لجلسة.",
+  "guideAiStudyCta": "افتح أدوات الذكاء الاصطناعي",
+  "guideChatsTitle": "محادثاتك تظهر هنا",
+  "guideChatsBody": "لا شيء بعد. ألقِ التحية على أحد مطابقات اليوم وستمتلئ هذه القائمة.",
+  "guideChatsCta": "ابحث عن شخص",
+  "guideMomentsTitle": "انشر شيئًا باللغة التي تتعلمها",
+  "guideMomentsBody": "صورة أو سطر واحد. الناطقون الأصليون يصححون ما تكتبه هنا.",
+  "guideMomentsCta": "انشر لحظة",
+  "guideProfileTitle": "أكمل ملفك الشخصي",
+  "guideProfileBody": "صورة وسطر عن نفسك. الملفات نصف الفارغة يتم تجاوزها.",
+  "guideProfileCta": "تعديل الملف الشخصي"
 }

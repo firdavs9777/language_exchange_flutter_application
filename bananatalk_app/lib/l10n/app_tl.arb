@@ -3632,5 +3632,26 @@
   "callForegroundTitle": "May kasalukuyang tawag",
   "callForegroundBody": "I-tap para bumalik sa tawag",
   "callServiceChannelName": "Kasalukuyang tawag",
-  "callServiceChannelDescription": "Pinapanatiling tuloy ang tawag mo habang nasa background ang BananaTalk"
+  "callServiceChannelDescription": "Pinapanatiling tuloy ang tawag mo habang nasa background ang BananaTalk",
+  "firstSessionMatchesTitle": "{count, plural, =1{1 taong pinili para sa iyo ngayon} other{{count} taong pinili para sa iyo ngayon}}",
+  "@firstSessionMatchesTitle": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "firstSessionMatchesBody": "Bumati ka — sapat na ang unang mensahe.",
+  "guideAiStudyTitle": "Magsanay bago mo kailanganin",
+  "guideAiStudyBody": "Magsanay kasama ang AI tutor, o maghanda para sa totoong pagsusulit. Dalawang minuto, isang sesyon.",
+  "guideAiStudyCta": "Buksan ang AI Tools",
+  "guideChatsTitle": "Dito nakatira ang mga usapan mo",
+  "guideChatsBody": "Wala pa. Bumati sa isa sa mga match ngayong araw at mapupuno ang listahang ito.",
+  "guideChatsCta": "Maghanap ng kausap",
+  "guideMomentsTitle": "Mag-post sa wikang pinag-aaralan mo",
+  "guideMomentsBody": "Isang litrato o isang linya. Itinatama ng mga native speaker ang isinusulat mo rito.",
+  "guideMomentsCta": "Mag-post ng moment",
+  "guideProfileTitle": "Kumpletuhin ang profile mo",
+  "guideProfileBody": "Isang litrato at isang linya tungkol sa iyo. Nilalaktawan ang kalahating profile.",
+  "guideProfileCta": "I-edit ang profile"
 }

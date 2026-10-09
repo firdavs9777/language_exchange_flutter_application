@@ -3152,5 +3152,26 @@
   "callForegroundTitle": "Занг идома дорад",
   "callForegroundBody": "Барои бозгашт ба занг ламс кунед",
   "callServiceChannelName": "Занги ҷорӣ",
-  "callServiceChannelDescription": "Зангро ҳангоми дар замина будани BananaTalk фаъол нигоҳ медорад"
+  "callServiceChannelDescription": "Зангро ҳангоми дар замина будани BananaTalk фаъол нигоҳ медорад",
+  "firstSessionMatchesTitle": "{count, plural, =1{Имрӯз барои шумо 1 нафар интихоб шуд} other{Имрӯз барои шумо {count} нафар интихоб шуд}}",
+  "@firstSessionMatchesTitle": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "firstSessionMatchesBody": "Салом гӯед — як паёми аввал кифоя аст.",
+  "guideAiStudyTitle": "Пеш аз он ки лозим шавад, машқ кунед",
+  "guideAiStudyBody": "Бо муаллими ИИ машқ кунед ё ба имтиҳони воқеӣ омода шавед. Ду дақиқа як машғулият аст.",
+  "guideAiStudyCta": "Кушодани абзорҳои ИИ",
+  "guideChatsTitle": "Сӯҳбатҳои шумо дар ин ҷо мемонанд",
+  "guideChatsBody": "Ҳоло чизе нест. Ба яке аз мувофиқатҳои имрӯза салом гӯед ва ин рӯйхат пур мешавад.",
+  "guideChatsCta": "Касеро ёбед",
+  "guideMomentsTitle": "Бо забоне ки меомӯзед, чизе нашр кунед",
+  "guideMomentsBody": "Як акс ё як сатр. Забондонони модарӣ навиштаи шуморо ислоҳ мекунанд.",
+  "guideMomentsCta": "Нашри лаҳза",
+  "guideProfileTitle": "Профили худро пурра кунед",
+  "guideProfileBody": "Як акс ва як сатр дар бораи худ. Профилҳои нимкора нодида мемонанд.",
+  "guideProfileCta": "Таҳрири профил"
 }

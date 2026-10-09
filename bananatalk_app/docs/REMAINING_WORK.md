@@ -135,7 +135,9 @@ fails if a tab loses its guide or a sixth one arrives without one.
 - [x] `guide_shown` / `guide_cta_tapped`, both carrying `surface`, kept separate from the
       `first_session_*` events so neither funnel is polluted
 - [x] 12 `app_en.arb` keys + `flutter gen-l10n`
-- [ ] Native review of the 12 new guide strings (19 locales fall back to English)
+- [x] All 14 guide strings translated into the other 18 locales (`test/l10n/guide_strings_test.dart`
+      fails if a key goes missing, is left as the English text, or loses its ICU plural arms)
+- [ ] Native review of the 18 translated sets — these are my drafts, not a native pass
 - [x] Device pass 1 (2026-10-10): cards confirmed on AI Study, Chats, Moments, Profile; `guide_shown`
       fired once per surface. Found a crash — `PulseHighlight` recreated its controller on every
       rebuild, which `SingleTickerProviderStateMixin` forbids; the ErrorWidget that replaced the

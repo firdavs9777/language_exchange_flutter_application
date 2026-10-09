@@ -9023,48 +9023,48 @@ class AppLocalizationsTg extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count people picked for you today',
-      one: '1 person picked for you today',
+      other: 'Имрӯз барои шумо $count нафар интихоб шуд',
+      one: 'Имрӯз барои шумо 1 нафар интихоб шуд',
     );
     return '$_temp0';
   }
 
   @override
-  String get firstSessionMatchesBody => 'Say hi — a first message is all it takes.';
+  String get firstSessionMatchesBody => 'Салом гӯед — як паёми аввал кифоя аст.';
 
   @override
-  String get guideAiStudyTitle => 'Practise before you have to';
+  String get guideAiStudyTitle => 'Пеш аз он ки лозим шавад, машқ кунед';
 
   @override
-  String get guideAiStudyBody => 'Practise with the AI tutor, or prepare for a real exam. Two minutes is a session.';
+  String get guideAiStudyBody => 'Бо муаллими ИИ машқ кунед ё ба имтиҳони воқеӣ омода шавед. Ду дақиқа як машғулият аст.';
 
   @override
-  String get guideAiStudyCta => 'Open AI Tools';
+  String get guideAiStudyCta => 'Кушодани абзорҳои ИИ';
 
   @override
-  String get guideChatsTitle => 'Your conversations live here';
+  String get guideChatsTitle => 'Сӯҳбатҳои шумо дар ин ҷо мемонанд';
 
   @override
-  String get guideChatsBody => 'Nothing yet. Say hi to one of today\'s matches and this list fills up.';
+  String get guideChatsBody => 'Ҳоло чизе нест. Ба яке аз мувофиқатҳои имрӯза салом гӯед ва ин рӯйхат пур мешавад.';
 
   @override
-  String get guideChatsCta => 'Find someone';
+  String get guideChatsCta => 'Касеро ёбед';
 
   @override
-  String get guideMomentsTitle => 'Post something in the language you\'re learning';
+  String get guideMomentsTitle => 'Бо забоне ки меомӯзед, чизе нашр кунед';
 
   @override
-  String get guideMomentsBody => 'A photo or one line. Native speakers correct what you write here.';
+  String get guideMomentsBody => 'Як акс ё як сатр. Забондонони модарӣ навиштаи шуморо ислоҳ мекунанд.';
 
   @override
-  String get guideMomentsCta => 'Post a moment';
+  String get guideMomentsCta => 'Нашри лаҳза';
 
   @override
-  String get guideProfileTitle => 'Finish your profile';
+  String get guideProfileTitle => 'Профили худро пурра кунед';
 
   @override
-  String get guideProfileBody => 'A photo and a line about yourself. Half-empty profiles get skipped.';
+  String get guideProfileBody => 'Як акс ва як сатр дар бораи худ. Профилҳои нимкора нодида мемонанд.';
 
   @override
-  String get guideProfileCta => 'Edit profile';
+  String get guideProfileCta => 'Таҳрири профил';
 }

@@ -3899,5 +3899,26 @@
   "callForegroundTitle": "Chiamata in corso",
   "callForegroundBody": "Tocca per tornare alla chiamata",
   "callServiceChannelName": "Chiamata in corso",
-  "callServiceChannelDescription": "Mantiene attiva la chiamata mentre BananaTalk è in background"
+  "callServiceChannelDescription": "Mantiene attiva la chiamata mentre BananaTalk è in background",
+  "firstSessionMatchesTitle": "{count, plural, =1{1 persona scelta per te oggi} other{{count} persone scelte per te oggi}}",
+  "@firstSessionMatchesTitle": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "firstSessionMatchesBody": "Saluta — basta un primo messaggio.",
+  "guideAiStudyTitle": "Allenati prima di doverlo fare",
+  "guideAiStudyBody": "Allenati con il tutor IA o preparati a un esame vero. Due minuti sono una sessione.",
+  "guideAiStudyCta": "Apri gli strumenti IA",
+  "guideChatsTitle": "Le tue conversazioni stanno qui",
+  "guideChatsBody": "Ancora niente. Saluta uno dei match di oggi e questa lista si riempirà.",
+  "guideChatsCta": "Trova qualcuno",
+  "guideMomentsTitle": "Pubblica qualcosa nella lingua che stai imparando",
+  "guideMomentsBody": "Una foto o una riga. I madrelingua correggono quello che scrivi qui.",
+  "guideMomentsCta": "Pubblica un momento",
+  "guideProfileTitle": "Completa il tuo profilo",
+  "guideProfileBody": "Una foto e una riga su di te. I profili a metà vengono saltati.",
+  "guideProfileCta": "Modifica profilo"
 }

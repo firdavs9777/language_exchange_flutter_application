@@ -3871,5 +3871,26 @@
   "callForegroundTitle": "Arama sürüyor",
   "callForegroundBody": "Aramaya dönmek için dokunun",
   "callServiceChannelName": "Devam eden arama",
-  "callServiceChannelDescription": "BananaTalk arka plandayken aramanızın sürmesini sağlar"
+  "callServiceChannelDescription": "BananaTalk arka plandayken aramanızın sürmesini sağlar",
+  "firstSessionMatchesTitle": "{count, plural, =1{Bugün senin için 1 kişi seçildi} other{Bugün senin için {count} kişi seçildi}}",
+  "@firstSessionMatchesTitle": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "firstSessionMatchesBody": "Selam ver — ilk mesaj yeterli.",
+  "guideAiStudyTitle": "İhtiyacın olmadan önce pratik yap",
+  "guideAiStudyBody": "Yapay zekâ eğitmeniyle pratik yap ya da gerçek bir sınava hazırlan. İki dakika bir oturum.",
+  "guideAiStudyCta": "Yapay Zekâ Araçlarını Aç",
+  "guideChatsTitle": "Sohbetlerin burada durur",
+  "guideChatsBody": "Henüz yok. Bugünün eşleşmelerinden birine selam ver, bu liste dolsun.",
+  "guideChatsCta": "Birini bul",
+  "guideMomentsTitle": "Öğrendiğin dilde bir şey paylaş",
+  "guideMomentsBody": "Bir fotoğraf ya da tek satır. Buraya yazdıklarını ana dili konuşanlar düzeltir.",
+  "guideMomentsCta": "Moment paylaş",
+  "guideProfileTitle": "Profilini tamamla",
+  "guideProfileBody": "Bir fotoğraf ve kendinle ilgili bir satır. Yarım profiller atlanır.",
+  "guideProfileCta": "Profili düzenle"
 }

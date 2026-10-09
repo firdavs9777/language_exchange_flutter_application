@@ -3659,5 +3659,26 @@
   "callForegroundTitle": "通話中",
   "callForegroundBody": "タップして通話に戻る",
   "callServiceChannelName": "通話中",
-  "callServiceChannelDescription": "BananaTalkがバックグラウンドにあるときも通話を継続します"
+  "callServiceChannelDescription": "BananaTalkがバックグラウンドにあるときも通話を継続します",
+  "firstSessionMatchesTitle": "{count, plural, =1{今日あなたのために1人選びました} other{今日あなたのために{count}人選びました}}",
+  "@firstSessionMatchesTitle": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "firstSessionMatchesBody": "あいさつしてみましょう。最初の一通で十分です。",
+  "guideAiStudyTitle": "必要になる前に練習",
+  "guideAiStudyBody": "AIチューターと練習、または本番の試験対策。2分で1セッションです。",
+  "guideAiStudyCta": "AIツールを開く",
+  "guideChatsTitle": "会話はここに表示されます",
+  "guideChatsBody": "まだありません。今日のマッチにあいさつすると、このリストが埋まります。",
+  "guideChatsCta": "相手を探す",
+  "guideMomentsTitle": "学んでいる言語で投稿してみましょう",
+  "guideMomentsBody": "写真か一言でも大丈夫。ネイティブがここでの書き込みを直してくれます。",
+  "guideMomentsCta": "モーメントを投稿",
+  "guideProfileTitle": "プロフィールを仕上げましょう",
+  "guideProfileBody": "写真と自己紹介を一言。半分空のプロフィールは飛ばされます。",
+  "guideProfileCta": "プロフィールを編集"
 }

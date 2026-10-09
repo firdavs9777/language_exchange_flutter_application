@@ -9009,48 +9009,48 @@ class AppLocalizationsVi extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count people picked for you today',
-      one: '1 person picked for you today',
+      other: 'Hôm nay có $count người được chọn cho bạn',
+      one: 'Hôm nay có 1 người được chọn cho bạn',
     );
     return '$_temp0';
   }
 
   @override
-  String get firstSessionMatchesBody => 'Say hi — a first message is all it takes.';
+  String get firstSessionMatchesBody => 'Chào một câu — chỉ cần tin nhắn đầu tiên.';
 
   @override
-  String get guideAiStudyTitle => 'Practise before you have to';
+  String get guideAiStudyTitle => 'Luyện trước khi cần đến';
 
   @override
-  String get guideAiStudyBody => 'Practise with the AI tutor, or prepare for a real exam. Two minutes is a session.';
+  String get guideAiStudyBody => 'Luyện với gia sư AI, hoặc ôn cho một kỳ thi thật. Hai phút là một buổi.';
 
   @override
-  String get guideAiStudyCta => 'Open AI Tools';
+  String get guideAiStudyCta => 'Mở công cụ AI';
 
   @override
-  String get guideChatsTitle => 'Your conversations live here';
+  String get guideChatsTitle => 'Các cuộc trò chuyện của bạn nằm ở đây';
 
   @override
-  String get guideChatsBody => 'Nothing yet. Say hi to one of today\'s matches and this list fills up.';
+  String get guideChatsBody => 'Chưa có gì. Chào một người trong danh sách ghép hôm nay và danh sách này sẽ đầy lên.';
 
   @override
-  String get guideChatsCta => 'Find someone';
+  String get guideChatsCta => 'Tìm người trò chuyện';
 
   @override
-  String get guideMomentsTitle => 'Post something in the language you\'re learning';
+  String get guideMomentsTitle => 'Đăng gì đó bằng ngôn ngữ bạn đang học';
 
   @override
-  String get guideMomentsBody => 'A photo or one line. Native speakers correct what you write here.';
+  String get guideMomentsBody => 'Một tấm ảnh hoặc một dòng. Người bản ngữ sẽ sửa những gì bạn viết ở đây.';
 
   @override
-  String get guideMomentsCta => 'Post a moment';
+  String get guideMomentsCta => 'Đăng khoảnh khắc';
 
   @override
-  String get guideProfileTitle => 'Finish your profile';
+  String get guideProfileTitle => 'Hoàn thiện hồ sơ của bạn';
 
   @override
-  String get guideProfileBody => 'A photo and a line about yourself. Half-empty profiles get skipped.';
+  String get guideProfileBody => 'Một tấm ảnh và một dòng về bản thân. Hồ sơ bỏ dở thường bị lướt qua.';
 
   @override
-  String get guideProfileCta => 'Edit profile';
+  String get guideProfileCta => 'Chỉnh sửa hồ sơ';
 }

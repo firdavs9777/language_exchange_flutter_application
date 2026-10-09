@@ -3675,5 +3675,26 @@
   "callForegroundTitle": "कॉल जारी है",
   "callForegroundBody": "कॉल पर लौटने के लिए टैप करें",
   "callServiceChannelName": "चल रही कॉल",
-  "callServiceChannelDescription": "BananaTalk के बैकग्राउंड में होने पर भी आपकी कॉल चालू रखता है"
+  "callServiceChannelDescription": "BananaTalk के बैकग्राउंड में होने पर भी आपकी कॉल चालू रखता है",
+  "firstSessionMatchesTitle": "{count, plural, =1{आज आपके लिए 1 व्यक्ति चुना गया} other{आज आपके लिए {count} लोग चुने गए}}",
+  "@firstSessionMatchesTitle": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "firstSessionMatchesBody": "नमस्ते कहें — बस एक पहला संदेश काफी है।",
+  "guideAiStudyTitle": "ज़रूरत पड़ने से पहले अभ्यास करें",
+  "guideAiStudyBody": "AI ट्यूटर के साथ अभ्यास करें या किसी असली परीक्षा की तैयारी करें। दो मिनट का एक सत्र।",
+  "guideAiStudyCta": "AI टूल्स खोलें",
+  "guideChatsTitle": "आपकी बातचीत यहाँ रहती है",
+  "guideChatsBody": "अभी कुछ नहीं। आज के किसी मैच को नमस्ते कहें और यह सूची भर जाएगी।",
+  "guideChatsCta": "किसी को खोजें",
+  "guideMomentsTitle": "जो भाषा सीख रहे हैं उसमें कुछ पोस्ट करें",
+  "guideMomentsBody": "एक फ़ोटो या एक पंक्ति। यहाँ जो लिखते हैं उसे नेटिव स्पीकर सुधारते हैं।",
+  "guideMomentsCta": "मोमेंट पोस्ट करें",
+  "guideProfileTitle": "अपनी प्रोफ़ाइल पूरी करें",
+  "guideProfileBody": "एक फ़ोटो और अपने बारे में एक पंक्ति। आधी-अधूरी प्रोफ़ाइल छोड़ दी जाती है।",
+  "guideProfileCta": "प्रोफ़ाइल संपादित करें"
 }

@@ -3899,5 +3899,26 @@
   "callForegroundTitle": "Anruf läuft",
   "callForegroundBody": "Tippen, um zum Anruf zurückzukehren",
   "callServiceChannelName": "Laufender Anruf",
-  "callServiceChannelDescription": "Hält deinen Anruf aktiv, während BananaTalk im Hintergrund läuft"
+  "callServiceChannelDescription": "Hält deinen Anruf aktiv, während BananaTalk im Hintergrund läuft",
+  "firstSessionMatchesTitle": "{count, plural, =1{1 Person wurde heute für dich ausgewählt} other{{count} Personen wurden heute für dich ausgewählt}}",
+  "@firstSessionMatchesTitle": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "firstSessionMatchesBody": "Sag Hallo — eine erste Nachricht genügt.",
+  "guideAiStudyTitle": "Übe, bevor du musst",
+  "guideAiStudyBody": "Übe mit dem KI-Tutor oder bereite dich auf eine echte Prüfung vor. Zwei Minuten sind eine Sitzung.",
+  "guideAiStudyCta": "KI-Werkzeuge öffnen",
+  "guideChatsTitle": "Hier landen deine Unterhaltungen",
+  "guideChatsBody": "Noch nichts. Sag einem deiner heutigen Matches Hallo, und diese Liste füllt sich.",
+  "guideChatsCta": "Jemanden finden",
+  "guideMomentsTitle": "Poste etwas in der Sprache, die du lernst",
+  "guideMomentsBody": "Ein Foto oder eine Zeile. Muttersprachler korrigieren, was du hier schreibst.",
+  "guideMomentsCta": "Moment posten",
+  "guideProfileTitle": "Vervollständige dein Profil",
+  "guideProfileBody": "Ein Foto und eine Zeile über dich. Halbleere Profile werden übersprungen.",
+  "guideProfileCta": "Profil bearbeiten"
 }

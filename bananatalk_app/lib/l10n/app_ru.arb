@@ -3689,5 +3689,26 @@
   "callForegroundTitle": "Идёт звонок",
   "callForegroundBody": "Нажмите, чтобы вернуться к звонку",
   "callServiceChannelName": "Текущий звонок",
-  "callServiceChannelDescription": "Не даёт звонку прерваться, пока BananaTalk работает в фоне"
+  "callServiceChannelDescription": "Не даёт звонку прерваться, пока BananaTalk работает в фоне",
+  "firstSessionMatchesTitle": "{count, plural, =1{Сегодня для вас выбран 1 человек} other{Сегодня для вас выбрано {count} человек}}",
+  "@firstSessionMatchesTitle": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "firstSessionMatchesBody": "Поздоровайтесь — хватит одного первого сообщения.",
+  "guideAiStudyTitle": "Тренируйтесь заранее",
+  "guideAiStudyBody": "Занимайтесь с ИИ-репетитором или готовьтесь к настоящему экзамену. Две минуты — уже занятие.",
+  "guideAiStudyCta": "Открыть ИИ-инструменты",
+  "guideChatsTitle": "Здесь будут ваши переписки",
+  "guideChatsBody": "Пока пусто. Поздоровайтесь с кем-то из сегодняшних совпадений, и список заполнится.",
+  "guideChatsCta": "Найти собеседника",
+  "guideMomentsTitle": "Опубликуйте что-нибудь на изучаемом языке",
+  "guideMomentsBody": "Фото или одна строка. Носители языка поправят то, что вы здесь напишете.",
+  "guideMomentsCta": "Опубликовать момент",
+  "guideProfileTitle": "Заполните профиль",
+  "guideProfileBody": "Фото и строка о себе. Полупустые профили пролистывают.",
+  "guideProfileCta": "Редактировать профиль"
 }

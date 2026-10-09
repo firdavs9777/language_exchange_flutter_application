@@ -9009,48 +9009,48 @@ class AppLocalizationsKo extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count people picked for you today',
-      one: '1 person picked for you today',
+      other: '오늘 회원님을 위해 $count명을 골랐어요',
+      one: '오늘 회원님을 위해 1명을 골랐어요',
     );
     return '$_temp0';
   }
 
   @override
-  String get firstSessionMatchesBody => 'Say hi — a first message is all it takes.';
+  String get firstSessionMatchesBody => '인사해 보세요. 첫 메시지 하나면 충분해요.';
 
   @override
-  String get guideAiStudyTitle => 'Practise before you have to';
+  String get guideAiStudyTitle => '필요해지기 전에 연습하세요';
 
   @override
-  String get guideAiStudyBody => 'Practise with the AI tutor, or prepare for a real exam. Two minutes is a session.';
+  String get guideAiStudyBody => 'AI 튜터와 연습하거나 실제 시험을 준비하세요. 2분이면 한 세션이에요.';
 
   @override
-  String get guideAiStudyCta => 'Open AI Tools';
+  String get guideAiStudyCta => 'AI 도구 열기';
 
   @override
-  String get guideChatsTitle => 'Your conversations live here';
+  String get guideChatsTitle => '대화는 여기에 쌓여요';
 
   @override
-  String get guideChatsBody => 'Nothing yet. Say hi to one of today\'s matches and this list fills up.';
+  String get guideChatsBody => '아직 없어요. 오늘의 매치에게 인사하면 이 목록이 채워져요.';
 
   @override
-  String get guideChatsCta => 'Find someone';
+  String get guideChatsCta => '상대 찾기';
 
   @override
-  String get guideMomentsTitle => 'Post something in the language you\'re learning';
+  String get guideMomentsTitle => '배우는 언어로 올려 보세요';
 
   @override
-  String get guideMomentsBody => 'A photo or one line. Native speakers correct what you write here.';
+  String get guideMomentsBody => '사진 한 장이나 한 줄이면 충분해요. 원어민이 여기 쓴 글을 고쳐 줘요.';
 
   @override
-  String get guideMomentsCta => 'Post a moment';
+  String get guideMomentsCta => '모먼트 올리기';
 
   @override
-  String get guideProfileTitle => 'Finish your profile';
+  String get guideProfileTitle => '프로필을 완성하세요';
 
   @override
-  String get guideProfileBody => 'A photo and a line about yourself. Half-empty profiles get skipped.';
+  String get guideProfileBody => '사진 한 장과 자기소개 한 줄. 반쯤 빈 프로필은 그냥 지나쳐요.';
 
   @override
-  String get guideProfileCta => 'Edit profile';
+  String get guideProfileCta => '프로필 편집';
 }

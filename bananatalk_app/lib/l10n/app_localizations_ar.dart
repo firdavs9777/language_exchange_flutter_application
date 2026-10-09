@@ -9031,48 +9031,48 @@ class AppLocalizationsAr extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count people picked for you today',
-      one: '1 person picked for you today',
+      other: '$count أشخاص تم اختيارهم لك اليوم',
+      one: 'شخص واحد تم اختياره لك اليوم',
     );
     return '$_temp0';
   }
 
   @override
-  String get firstSessionMatchesBody => 'Say hi — a first message is all it takes.';
+  String get firstSessionMatchesBody => 'ألقِ التحية — رسالة أولى تكفي.';
 
   @override
-  String get guideAiStudyTitle => 'Practise before you have to';
+  String get guideAiStudyTitle => 'تدرّب قبل أن تحتاج';
 
   @override
-  String get guideAiStudyBody => 'Practise with the AI tutor, or prepare for a real exam. Two minutes is a session.';
+  String get guideAiStudyBody => 'تدرّب مع المعلّم الذكي أو استعد لامتحان حقيقي. دقيقتان تكفيان لجلسة.';
 
   @override
-  String get guideAiStudyCta => 'Open AI Tools';
+  String get guideAiStudyCta => 'افتح أدوات الذكاء الاصطناعي';
 
   @override
-  String get guideChatsTitle => 'Your conversations live here';
+  String get guideChatsTitle => 'محادثاتك تظهر هنا';
 
   @override
-  String get guideChatsBody => 'Nothing yet. Say hi to one of today\'s matches and this list fills up.';
+  String get guideChatsBody => 'لا شيء بعد. ألقِ التحية على أحد مطابقات اليوم وستمتلئ هذه القائمة.';
 
   @override
-  String get guideChatsCta => 'Find someone';
+  String get guideChatsCta => 'ابحث عن شخص';
 
   @override
-  String get guideMomentsTitle => 'Post something in the language you\'re learning';
+  String get guideMomentsTitle => 'انشر شيئًا باللغة التي تتعلمها';
 
   @override
-  String get guideMomentsBody => 'A photo or one line. Native speakers correct what you write here.';
+  String get guideMomentsBody => 'صورة أو سطر واحد. الناطقون الأصليون يصححون ما تكتبه هنا.';
 
   @override
-  String get guideMomentsCta => 'Post a moment';
+  String get guideMomentsCta => 'انشر لحظة';
 
   @override
-  String get guideProfileTitle => 'Finish your profile';
+  String get guideProfileTitle => 'أكمل ملفك الشخصي';
 
   @override
-  String get guideProfileBody => 'A photo and a line about yourself. Half-empty profiles get skipped.';
+  String get guideProfileBody => 'صورة وسطر عن نفسك. الملفات نصف الفارغة يتم تجاوزها.';
 
   @override
-  String get guideProfileCta => 'Edit profile';
+  String get guideProfileCta => 'تعديل الملف الشخصي';
 }
