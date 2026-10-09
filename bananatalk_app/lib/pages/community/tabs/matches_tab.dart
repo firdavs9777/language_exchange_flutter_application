@@ -59,24 +59,45 @@ class MatchesTab extends ConsumerStatefulWidget {
 class _MatchesTabState extends ConsumerState<MatchesTab> {
   final Set<String> _skipped = {};
 
-  /// One view per SESSION, not per rebuild. The ListView header rebuilds on
-  /// every scroll frame, so an unguarded increment would burn
-  /// kMaxGuidanceViews in seconds and the panel would never be seen again.
-  bool _guidanceRecordedThisSession = false;
-  bool _matchesShownReported = false;
-
-  void _recordGuidanceShown(int timesShown) {
-    if (_guidanceRecordedThisSession) return;
-    _guidanceRecordedThisSession = true;
-    AnalyticsService.instance.firstSessionGuidanceShown(timesShown: timesShown);
-    FirstSessionStore.recordShown().then((_) {
-      if (mounted) ref.invalidate(firstSessionStateProvider);
+  /// One view per app run, not per rebuild AND not per tab remount. The
+  /// ListView header rebuilds every scroll frame, and TabBarView rebuilds a
+  /// fresh State whenever the user returns from a non-adjacent tab -- three
+  /// tab switches used to burn the whole cap. Both latches therefore live
+  /// outside the widget; see first_session_store.dart.
+  /// Scheduled after the frame: both latches are providers, and Riverpod
+  /// refuses a write during build.
+  void _recordGuidanceShownAfterFrame(int timesShown) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) _recordGuidanceShown(timesShown);
     });
   }
 
+  void _reportMatchesShownAfterFrame(int count) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) _reportMatchesShown(count);
+    });
+  }
+
+  void _recordGuidanceShown(int timesShown) {
+    final latch = ref.read(firstSessionGuidanceRecordedProvider.notifier);
+    if (latch.state) return;
+    latch.state = true;
+    AnalyticsService.instance.firstSessionGuidanceShown(
+      timesShown: timesShown + 1,
+    );
+    // Deliberately NOT invalidating firstSessionStateProvider afterwards: the
+    // latch already stops a second record, and refetching mid-view removed
+    // the panel milliseconds after it appeared, jumping the list exactly as
+    // the user reached for the first card. The new count is read on the next
+    // mount.
+    FirstSessionStore.recordShown();
+  }
+
   void _reportMatchesShown(int count) {
-    if (_matchesShownReported || count == 0) return;
-    _matchesShownReported = true;
+    if (count == 0) return;
+    final latch = ref.read(firstSessionMatchesReportedProvider.notifier);
+    if (latch.state) return;
+    latch.state = true;
     AnalyticsService.instance.firstSessionMatchesShown(matchCount: count);
   }
 
@@ -258,7 +279,7 @@ class _MatchesTabState extends ConsumerState<MatchesTab> {
           hasMessaged: session.hasMessaged,
           timesShown: session.timesShown,
         );
-        if (isNew) _reportMatchesShown(matches.length);
+        if (isNew) _reportMatchesShownAfterFrame(matches.length);
         return RefreshIndicator(
           onRefresh: _refresh,
           child: ListView.builder(
@@ -274,7 +295,7 @@ class _MatchesTabState extends ConsumerState<MatchesTab> {
                     children: [
                       if (showGuidance) ...[
                         Builder(builder: (_) {
-                          _recordGuidanceShown(session.timesShown);
+                          _recordGuidanceShownAfterFrame(session.timesShown);
                           return MatchesFirstSessionPanel(
                             matchCount: matches.length,
                           );

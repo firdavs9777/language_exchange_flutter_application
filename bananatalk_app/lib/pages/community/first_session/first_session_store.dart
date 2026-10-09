@@ -67,7 +67,22 @@ class FirstSessionStore {
   }
 }
 
-/// Read once per Matches mount. `recordShown` invalidates it so the cap
-/// advances within a session.
+/// Read once per Matches mount. Deliberately NOT invalidated after
+/// `recordShown`: refetching mid-view removed the panel milliseconds after it
+/// appeared. The new count is picked up on the next mount.
 final firstSessionStateProvider =
     FutureProvider<FirstSessionState>((ref) => FirstSessionStore.read());
+
+/// One-shot latches for this app run, held outside the widget.
+///
+/// MatchesTab lives in a TabBarView and keeps no alive state, so Flutter
+/// unmounts it when the user moves to a non-adjacent tab and builds a fresh
+/// State on return. Latches held on that State reset every time: Matches ->
+/// Partners -> Matches three times inside a minute burned the whole
+/// kMaxGuidanceViews cap, and re-fired first_session_matches_shown on each
+/// remount, inflating the funnel denominator.
+///
+/// Registered user-scoped in session_reset.dart so a second account in the
+/// same app run starts fresh.
+final firstSessionGuidanceRecordedProvider = StateProvider<bool>((ref) => false);
+final firstSessionMatchesReportedProvider = StateProvider<bool>((ref) => false);

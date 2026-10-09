@@ -83,6 +83,8 @@ final Map<String, ProviderOrFamily> userScopedProviders = {
   // First-session guidance: "has THIS user ever sent a message" is per
   // account, so a second user on the same device must not inherit it.
   'firstSessionStateProvider': firstSessionStateProvider,
+  'firstSessionGuidanceRecordedProvider': firstSessionGuidanceRecordedProvider,
+  'firstSessionMatchesReportedProvider': firstSessionMatchesReportedProvider,
   'currentUserLimitsProvider': currentUserLimitsProvider,
   'vipStatusProvider': vipStatusProvider,
   'isVipProvider': isVipProvider,

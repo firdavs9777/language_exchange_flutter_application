@@ -11,7 +11,20 @@ import 'package:flutter/foundation.dart';
 class AnalyticsService {
   AnalyticsService._();
   static final AnalyticsService instance = AnalyticsService._();
-  final FirebaseAnalytics _fa = FirebaseAnalytics.instance;
+  /// Resolved lazily INSIDE the guarded call below, never as a field.
+  ///
+  /// `FirebaseAnalytics.instance` throws when Firebase has not initialised,
+  /// and a field initialiser throws while the singleton is being constructed
+  /// -- outside any try/catch, so it took the calling widget down with it. A
+  /// widget test mounting MatchesTab caught exactly that. Analytics must
+  /// never be able to break the screen that reports from it.
+  FirebaseAnalytics? _instanceOrNull() {
+    try {
+      return FirebaseAnalytics.instance;
+    } catch (_) {
+      return null;
+    }
+  }
 
   Future<void> _log(String name, Map<String, Object?> params) async {
     try {
@@ -19,7 +32,9 @@ class AnalyticsService {
       params.forEach((k, v) {
         if (v != null) clean[k] = v;
       });
-      await _fa.logEvent(name: name, parameters: clean);
+      final fa = _instanceOrNull();
+      if (fa == null) return;
+      await fa.logEvent(name: name, parameters: clean);
     } catch (e) {
       if (kDebugMode) debugPrint('[analytics] $name failed: $e');
     }
