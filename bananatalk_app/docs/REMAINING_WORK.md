@@ -58,6 +58,30 @@ Baseline: 1/30 calls answered in 30 days, 168 stuck ringing, 0 call messages eve
 - [ ] Device QA: run every row of `docs/qa/calls-matrix.md` (IOS-3/IOS-5 repeat runs prove VoIP delivery survives repeated cancels); re-measure answered rate one week after release (target ≥ 40%).
 - [ ] Calls: Dart `CallKitService` still sets the native ring `duration: 45000`; iOS VoIP path now uses 50 s (server owns the 45 s ring) — align the Dart side so iOS/Android never time out before the server.
 
+### Device-log audit, 2026-10-09 (iPhone 15 Pro, hot restart + one outbound audio call)
+
+- [ ] **`GET /voicerooms` fires in bursts instead of once per 30s.** The log shows ~14 back-to-back
+      requests ~570ms apart, continuing during an active call. `activeVoiceRoomCountProvider`
+      (`lib/providers/active_voice_room_count_provider.dart`) is a `StreamProvider.autoDispose` whose
+      body does `yield await fetchCount()` before the 30s periodic stream, and it is watched by
+      `community_app_bar.dart:158`. Every dispose → recreate re-runs that immediate fetch, so a
+      rebuilding app bar turns a 30s poll into a burst. `autoDispose` is deliberate (stop polling when
+      unwatched) — the fix is to stop paying a network round trip per re-subscribe, e.g. a short
+      `keepAlive` or caching the last count with a staleness check, not removing `autoDispose`.
+- [ ] **`RenderFlex overflowed by 1.1 pixels`, `chat_app_bar.dart:76`.** The online/last-seen Row is a
+      7px dot + gap + an unconstrained `Text` carrying `_formatLastSeen()`. With
+      `mainAxisSize: MainAxisSize.min` inside a ~99px-bounded parent, a long "last seen…" string has
+      nowhere to go. Wrap the `Text` in `Flexible` with `overflow: TextOverflow.ellipsis`. Reproduces on
+      a 99.2px constraint; wider headers hide it, so it is screen-size dependent.
+- [ ] **Two bare `flutter: null` lines** after the overflow, source unidentified. Not from
+      `matching_provider.dart` (those prints all carry an emoji prefix). Needs the action that produced
+      them to locate.
+
+Checked and NOT a bug, recorded so it is not re-reported: `GET /calls/current` returning `{call: null}`
+immediately after a successful `POST /calls/initiate`. `callService.getCurrentCall` deliberately matches
+a ringing call only when `initiator: { $ne: userId }` — `/current` answers "should I be shown an incoming
+call or rejoin", and the caller already has the call on screen.
+
 ## 0c. First-session guidance (2026-10-09) — spec `docs/superpowers/specs/2026-10-09-first-session-guidance-design.md`
 
 Baseline: 85% of signups leave on day one; D1 15%, D7 7%. The first-conversation path is ~80% built
