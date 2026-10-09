@@ -111,6 +111,23 @@ class AnalyticsService {
   // first_message_sent is deliberately NOT fired on a Say hi tap. A tap is not
   // a conversation, and a metric that counted it would flatter the panel.
 
+  /// Marks this install's cohort so the first-session events can be split by
+  /// it in the console.
+  ///
+  /// Without it the funnel is unreadable: first_message_sent carries no
+  /// parameters, and at rollout EVERY existing user fires it once (the pref
+  /// key is new, so hasMessaged is false for the whole install base) with
+  /// nothing distinguishing them from the cohort being measured.
+  Future<void> setIsNewUser(bool isNew) async {
+    try {
+      final fa = _instanceOrNull();
+      if (fa == null) return;
+      await fa.setUserProperty(name: 'is_new_user', value: isNew.toString());
+    } catch (e) {
+      if (kDebugMode) debugPrint('[analytics] setIsNewUser failed: $e');
+    }
+  }
+
   Future<void> firstSessionMatchesShown({required int matchCount}) =>
       _log('first_session_matches_shown', {'match_count': matchCount});
 

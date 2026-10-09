@@ -95,6 +95,7 @@ class _MatchesTabState extends ConsumerState<MatchesTab> {
 
   void _reportMatchesShown(int count) {
     if (count == 0) return;
+    AnalyticsService.instance.setIsNewUser(true);
     final latch = ref.read(firstSessionMatchesReportedProvider.notifier);
     if (latch.state) return;
     latch.state = true;
@@ -147,7 +148,16 @@ class _MatchesTabState extends ConsumerState<MatchesTab> {
   }
 
   void _sayHi(DailyMatch m, {int position = 0}) {
-    AnalyticsService.instance.firstSessionSayHiTapped(position: position);
+    // Gated on the SAME cohort as its denominator. Firing for everyone while
+    // first_session_guidance_shown fires only for new users made
+    // say_hi_tapped / guidance_shown exceed 1 and mean nothing -- and the
+    // spec's Risks section makes exactly that ratio the decision rule for
+    // whether a header is salient enough.
+    final isNew =
+        ref.read(userProvider).valueOrNull?.isNewUser ?? false;
+    if (isNew) {
+      AnalyticsService.instance.firstSessionSayHiTapped(position: position);
+    }
     final u = m.user;
     Navigator.push(
       context,
