@@ -37,6 +37,8 @@ import 'package:bananatalk_app/pages/profile/profile_main/sections/profile_highl
 import 'package:bananatalk_app/pages/profile/profile_main/sections/profile_about_tab.dart';
 import 'package:bananatalk_app/pages/profile/profile_main/sections/profile_moments_tab.dart';
 import 'package:bananatalk_app/utils/user_age.dart';
+import 'package:bananatalk_app/services/guide_store.dart';
+import 'package:bananatalk_app/widgets/guides/page_guide.dart';
 
 class ProfileMain extends ConsumerStatefulWidget {
   const ProfileMain({Key? key}) : super(key: key);
@@ -82,6 +84,36 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
   // and mark the story as "viewed" for its owner. Re-fetching fresh here
   // (rather than trusting the cached [_myStories]) covers the case where the
   // story expired between page load and the tap.
+  /// The one way into profile editing from this screen.
+  ///
+  /// Shared by the Edit button and the first-session guide's CTA: two copies
+  /// of this eleven-argument constructor is two places for a newly added
+  /// field to be forgotten in one of them.
+  Future<void> _openProfileEdit(Community user) async {
+    await Navigator.push(
+      context,
+      AppPageRoute(
+        builder: (context) => ProfileEdit(
+          nativeLanguage: user.native_language,
+          languageToLearn: user.language_to_learn,
+          userName: user.name,
+          mbti: user.mbti,
+          bloodType: user.bloodType,
+          location: user.location,
+          gender: user.gender,
+          bio: user.bio,
+          topics: user.topics,
+          intents: user.intents,
+          languageLevel: user.languageLevel,
+        ),
+      ),
+    );
+    if (mounted) {
+      ref.invalidate(userProvider);
+      await ref.read(userProvider.future);
+    }
+  }
+
   void _onAvatarTap(Community user) {
     if (_hasActiveStory) {
       _openOwnStoryViewer(fallback: () => _openPictureEdit(user));
@@ -186,6 +218,23 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
             slivers: [
               _buildSliverAppBar(context, user),
               SliverToBoxAdapter(
+                // `acted` is a photo AND a line of bio, not a photo alone:
+                // Google and Apple signups arrive with an avatar already, so
+                // a photo-only test would hide this from exactly the cohort
+                // whose profile is otherwise empty.
+                child: PageGuide(
+                  surface: GuideSurface.profile,
+                  icon: Icons.person_rounded,
+                  accent: AppColors.primary,
+                  title: AppLocalizations.of(context)!.guideProfileTitle,
+                  body: AppLocalizations.of(context)!.guideProfileBody,
+                  ctaLabel: AppLocalizations.of(context)!.guideProfileCta,
+                  acted: user.effectiveImageUrls.isNotEmpty &&
+                      user.bio.trim().isNotEmpty,
+                  onCta: () => _openProfileEdit(user),
+                ),
+              ),
+              SliverToBoxAdapter(
                 child: Column(
                   children: [
                     const SizedBox(height: 8),
@@ -206,30 +255,7 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
                     const SizedBox(height: 20),
                     ProfileActionButtons(
                       user: user,
-                      onEditTap: () async {
-                        await Navigator.push(
-                          context,
-                          AppPageRoute(
-                            builder: (context) => ProfileEdit(
-                              nativeLanguage: user.native_language,
-                              languageToLearn: user.language_to_learn,
-                              userName: user.name,
-                              mbti: user.mbti,
-                              bloodType: user.bloodType,
-                              location: user.location,
-                              gender: user.gender,
-                              bio: user.bio,
-                              topics: user.topics,
-                              intents: user.intents,
-                              languageLevel: user.languageLevel,
-                            ),
-                          ),
-                        );
-                        if (mounted) {
-                          ref.invalidate(userProvider);
-                          await ref.read(userProvider.future);
-                        }
-                      },
+                      onEditTap: () => _openProfileEdit(user),
                     ).animate().fadeIn(duration: 350.ms, delay: 100.ms),
                     const SizedBox(height: 20),
                     ProfileStatsRow(

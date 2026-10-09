@@ -9027,4 +9027,40 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get firstSessionMatchesBody => 'Say hi — a first message is all it takes.';
+
+  @override
+  String get guideAiStudyTitle => 'Practise before you have to';
+
+  @override
+  String get guideAiStudyBody => 'The AI tutor never gets bored and never judges. Two minutes is a session.';
+
+  @override
+  String get guideAiStudyCta => 'Open AI Tools';
+
+  @override
+  String get guideChatsTitle => 'Your conversations live here';
+
+  @override
+  String get guideChatsBody => 'Nothing yet. Say hi to one of today\'s matches and this list fills up.';
+
+  @override
+  String get guideChatsCta => 'Find someone';
+
+  @override
+  String get guideMomentsTitle => 'Post something in the language you\'re learning';
+
+  @override
+  String get guideMomentsBody => 'A photo or one line. Native speakers correct what you write here.';
+
+  @override
+  String get guideMomentsCta => 'Post a moment';
+
+  @override
+  String get guideProfileTitle => 'Add a photo to your profile';
+
+  @override
+  String get guideProfileBody => 'A profile with a photo gets replies. One without is usually skipped.';
+
+  @override
+  String get guideProfileCta => 'Edit profile';
 }

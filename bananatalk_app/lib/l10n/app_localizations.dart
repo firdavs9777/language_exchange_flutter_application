@@ -16507,6 +16507,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Say hi — a first message is all it takes.'**
   String get firstSessionMatchesBody;
+
+  /// No description provided for @guideAiStudyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Practise before you have to'**
+  String get guideAiStudyTitle;
+
+  /// No description provided for @guideAiStudyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'The AI tutor never gets bored and never judges. Two minutes is a session.'**
+  String get guideAiStudyBody;
+
+  /// No description provided for @guideAiStudyCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Open AI Tools'**
+  String get guideAiStudyCta;
+
+  /// No description provided for @guideChatsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your conversations live here'**
+  String get guideChatsTitle;
+
+  /// No description provided for @guideChatsBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing yet. Say hi to one of today\'s matches and this list fills up.'**
+  String get guideChatsBody;
+
+  /// No description provided for @guideChatsCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Find someone'**
+  String get guideChatsCta;
+
+  /// No description provided for @guideMomentsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Post something in the language you\'re learning'**
+  String get guideMomentsTitle;
+
+  /// No description provided for @guideMomentsBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A photo or one line. Native speakers correct what you write here.'**
+  String get guideMomentsBody;
+
+  /// No description provided for @guideMomentsCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Post a moment'**
+  String get guideMomentsCta;
+
+  /// No description provided for @guideProfileTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a photo to your profile'**
+  String get guideProfileTitle;
+
+  /// No description provided for @guideProfileBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A profile with a photo gets replies. One without is usually skipped.'**
+  String get guideProfileBody;
+
+  /// No description provided for @guideProfileCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit profile'**
+  String get guideProfileCta;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

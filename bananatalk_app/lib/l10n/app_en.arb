@@ -6376,5 +6376,17 @@
       "count": { "type": "int" }
     }
   },
-  "firstSessionMatchesBody": "Say hi — a first message is all it takes."
+  "firstSessionMatchesBody": "Say hi — a first message is all it takes.",
+  "guideAiStudyTitle": "Practise before you have to",
+  "guideAiStudyBody": "The AI tutor never gets bored and never judges. Two minutes is a session.",
+  "guideAiStudyCta": "Open AI Tools",
+  "guideChatsTitle": "Your conversations live here",
+  "guideChatsBody": "Nothing yet. Say hi to one of today's matches and this list fills up.",
+  "guideChatsCta": "Find someone",
+  "guideMomentsTitle": "Post something in the language you're learning",
+  "guideMomentsBody": "A photo or one line. Native speakers correct what you write here.",
+  "guideMomentsCta": "Post a moment",
+  "guideProfileTitle": "Finish your profile",
+  "guideProfileBody": "A photo and a line about yourself. Half-empty profiles get skipped.",
+  "guideProfileCta": "Edit profile"
 }

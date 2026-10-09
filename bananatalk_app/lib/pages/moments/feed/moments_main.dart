@@ -26,9 +26,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/widgets/app_shell_drawer.dart';
 import 'package:bananatalk_app/pages/stories/create/create_story_screen.dart';
 import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
+import 'package:bananatalk_app/services/guide_store.dart';
+import 'package:bananatalk_app/widgets/guides/page_guide.dart';
 
 const String _momentFilterKey = 'moment_filter';
 
@@ -419,6 +422,19 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
       ),
       body: Column(
         children: [
+          // Hidden on the Reels grid: that tab is a full-bleed thumbnail
+          // wall, and a tinted card at the top of it reads as a broken cell.
+          if (!isReelsTab)
+            PageGuide(
+              surface: GuideSurface.moments,
+              icon: Icons.add_a_photo_rounded,
+              accent: AppColors.accent,
+              title: AppLocalizations.of(context)!.guideMomentsTitle,
+              body: AppLocalizations.of(context)!.guideMomentsBody,
+              ctaLabel: AppLocalizations.of(context)!.guideMomentsCta,
+              onCta: () => Navigator.of(context)
+                  .push(AppPageRoute(builder: (_) => const CreateMoment())),
+            ),
           // Stories + Highlights combined section — not shown on the Reels
           // grid, which is a distinct full-bleed thumbnail landing.
           if (!_showSearch && !isReelsTab)

@@ -1,6 +1,6 @@
 # Remaining work — monetization & growth
 
-Last updated: 2026-10-09. Keep this file current: tick items off in the same commit that finishes them.
+Last updated: 2026-10-10. Keep this file current: tick items off in the same commit that finishes them.
 
 Context: all three tranches of `docs/superpowers/plans/2026-10-02-monetization-growth.md` are built and
 deployed **dark** (every new server flag is off). Backend `main` c5ef2fe is live. App `v2.6.1` (10574) is
@@ -105,13 +105,29 @@ Blocked on nobody, but the two flags that create social pull are still off — `
 and `LIFECYCLE_PUSH_ENABLED`, both Day-0 in section 1 below. Guidance measured without them understates
 the path.
 
-Goal not yet defined, so deliberately out of the spec:
-- [ ] **AI Study guidance** (`lib/pages/learning/`, `lib/pages/ai/`) — no single activation event; "do a
-      lesson", "ask the tutor" and "review vocabulary" are different goals with different value. Decide
-      the goal before designing.
-- [ ] **Moments guidance** (`lib/pages/moments/feed/`) — `PromptOfDayCard` already occupies the same
-      structural slot the Matches panel uses, so the pattern transfers cheaply once the goal is known.
-      Posting and reading are different goals.
+### Every tab (2026-10-10)
+
+Matches alone taught a new user one thing the app does; the other four tabs were rectangles they
+opened once. Generalised into `lib/services/guide_store.dart` + `lib/widgets/guides/`, one card per
+top-level tab, same rule and same cap-3 as Matches. `test/guides/every_tab_has_a_guide_test.dart`
+fails if a tab loses its guide or a sixth one arrives without one.
+
+- [x] `GuideSurface` / `GuideStore` / `shouldShowGuide` — per-surface prefs, Matches keeps its
+      original keys so the rollout does not reset anyone's counter
+- [x] `GuideCard` (gradient tint, icon chip, fade-in-up) + `PulseHighlight` (ring on the CTA, 3 passes
+      then quiet — finite so it never holds a frame callback)
+- [x] `PageGuide` — one widget owns eligibility, the cap, the per-run latch and both events
+- [x] AI Study → AI Tools; Chats → Community/Matches; Moments → composer; Profile → edit
+- [x] `guide_shown` / `guide_cta_tapped`, both carrying `surface`, kept separate from the
+      `first_session_*` events so neither funnel is polluted
+- [x] 12 `app_en.arb` keys + `flutter gen-l10n`
+- [ ] Native review of the 12 new guide strings (19 locales fall back to English)
+- [ ] Device pass: one new account, confirm a card on all five tabs and `[Guide:*] show=true` in the log
+- [ ] Decide from `guide_cta_tapped` whether any surface needs a second, deeper guide. Deliberately
+      one card per tab for now — AI Study in particular has three plausible activations ("do a lesson",
+      "ask the tutor", "review vocabulary") and this picks the tutor.
+- [ ] Guides are gated on `isNewUser` (≤6 days), so the existing install base never sees one. Revisit
+      if the goal becomes activating dormant accounts rather than day-one retention.
 
 ## 1. Owner (needs the keystore MacBook, store consoles or droplet)
 

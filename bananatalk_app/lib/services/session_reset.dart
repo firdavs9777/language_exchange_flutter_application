@@ -58,6 +58,7 @@ import 'package:bananatalk_app/services/global_chat_listener.dart';
 import 'package:bananatalk_app/services/notification_service.dart';
 import 'package:bananatalk_app/services/referral_service.dart';
 import 'package:bananatalk_app/pages/community/first_session/first_session_store.dart';
+import 'package:bananatalk_app/services/guide_store.dart';
 
 /// Every Riverpod provider whose state belongs to the signed-in user, keyed
 /// by its declared name (the key is what `session_reset_test.dart` checks
@@ -85,6 +86,10 @@ final Map<String, ProviderOrFamily> userScopedProviders = {
   'firstSessionStateProvider': firstSessionStateProvider,
   'firstSessionGuidanceRecordedProvider': firstSessionGuidanceRecordedProvider,
   'firstSessionMatchesReportedProvider': firstSessionMatchesReportedProvider,
+  // Page guides: "has THIS user already done it" and "did we count a view
+  // this run" are both per account, same reason as the three above.
+  'guideStateProvider': guideStateProvider,
+  'guideRecordedProvider': guideRecordedProvider,
   'currentUserLimitsProvider': currentUserLimitsProvider,
   'vipStatusProvider': vipStatusProvider,
   'isVipProvider': isVipProvider,

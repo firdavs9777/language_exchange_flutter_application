@@ -145,6 +145,22 @@ class AnalyticsService {
 
   Future<void> firstMessageSent() => _log('first_message_sent', {});
 
+  // ─── Page guides ──────────────────────────────────────────────
+  //
+  // The generic version of the Matches funnel, for the other four tabs. Kept
+  // as two events with a `surface` parameter rather than eight named ones so
+  // the console can compare tabs side by side -- which tab's guide nobody
+  // taps is the question worth asking.
+  //
+  // first_session_* stays separate: those are reported against the
+  // registration funnel and merging them would make both unreadable.
+
+  Future<void> guideShown({required String surface, required int timesShown}) =>
+      _log('guide_shown', {'surface': surface, 'times_shown': timesShown});
+
+  Future<void> guideCtaTapped({required String surface}) =>
+      _log('guide_cta_tapped', {'surface': surface});
+
   // ─── Step 13A events ──────────────────────────────────────────
 
   Future<void> tutorChipUsed({required String chipName, required String userTier}) =>

@@ -17,6 +17,8 @@ import 'package:bananatalk_app/widgets/vip_up_pill.dart';
 import 'package:bananatalk_app/widgets/coins/coin_balance_pill.dart';
 import 'package:bananatalk_app/widgets/notifications/notification_bell.dart';
 import 'package:bananatalk_app/pages/learning/exam_study/exam_study_tab.dart';
+import 'package:bananatalk_app/services/guide_store.dart';
+import 'package:bananatalk_app/widgets/guides/page_guide.dart';
 
 /// Unified Study Hub — composes the Learn tab and AI Tools tab.
 class LearningMain extends ConsumerStatefulWidget {
@@ -187,14 +189,34 @@ class _LearningMainState extends ConsumerState<LearningMain>
             ),
           ),
         ],
-        body: TabBarView(
-          controller: _tabController,
+        body: Column(
           children: [
-            LearnTab(
-              onSwitchToAI: () => _tabController.animateTo(indexOfTab(StudyHubTab.aiTools)),
+            // Above the TabBarView rather than inside the Today tab: a new
+            // user who lands on AI Tools or Exam Study first still needs
+            // telling what this screen is for, and the guide renders
+            // SizedBox.shrink() for everyone else.
+            PageGuide(
+              surface: GuideSurface.aiStudy,
+              icon: Icons.auto_awesome_rounded,
+              accent: const Color(0xFF667EEA),
+              title: AppLocalizations.of(context)!.guideAiStudyTitle,
+              body: AppLocalizations.of(context)!.guideAiStudyBody,
+              ctaLabel: AppLocalizations.of(context)!.guideAiStudyCta,
+              onCta: () =>
+                  _tabController.animateTo(indexOfTab(StudyHubTab.aiTools)),
             ),
-            const AIToolsTab(),
-            const ExamStudyTab(),
+            Expanded(
+              child: TabBarView(
+                controller: _tabController,
+                children: [
+                  LearnTab(
+                    onSwitchToAI: () => _tabController.animateTo(indexOfTab(StudyHubTab.aiTools)),
+                  ),
+                  const AIToolsTab(),
+                  const ExamStudyTab(),
+                ],
+              ),
+            ),
           ],
         ),
       ),

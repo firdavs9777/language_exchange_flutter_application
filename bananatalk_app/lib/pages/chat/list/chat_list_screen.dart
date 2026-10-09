@@ -7,6 +7,11 @@ import 'package:bananatalk_app/services/user_service.dart';
 import 'package:bananatalk_app/providers/unread_count_provider.dart';
 import 'package:bananatalk_app/utils/haptic_utils.dart';
 import 'package:bananatalk_app/widgets/connection_status_indicator.dart';
+import 'package:bananatalk_app/pages/community/main/community_main.dart';
+import 'package:bananatalk_app/pages/menu_tab/TabBarMenu.dart';
+import 'package:bananatalk_app/services/guide_store.dart';
+import 'package:bananatalk_app/widgets/guides/page_guide.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/widgets/shimmer_loading.dart';
 import 'package:bananatalk_app/widgets/qr_code_sheet.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
@@ -1335,6 +1340,24 @@ class _ChatMainState extends ConsumerState<ChatMain>
       body: Column(
         children: [
           ConnectionStatusIndicator(),
+          // `acted` is derived rather than stored: someone with chats on
+          // screen does not need telling where chats come from. While the
+          // list is still loading we also count as acted, so the card cannot
+          // flash up and then vanish when partners arrive.
+          PageGuide(
+            surface: GuideSurface.chats,
+            icon: Icons.forum_rounded,
+            accent: AppColors.primary,
+            title: AppLocalizations.of(context)!.guideChatsTitle,
+            body: AppLocalizations.of(context)!.guideChatsBody,
+            ctaLabel: AppLocalizations.of(context)!.guideChatsCta,
+            acted: _isLoading || _chatPartners.isNotEmpty,
+            onCta: () {
+              ref.read(communityPendingSubTabProvider.notifier).state =
+                  communityMatchesSubTab;
+              ref.read(selectedTabProvider.notifier).state = 1;
+            },
+          ),
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 16, vertical: 2),
             child: SmallBannerAdWidget(key: ValueKey('chat-list-banner')),
