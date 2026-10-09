@@ -57,6 +57,7 @@ import 'package:bananatalk_app/services/chat_socket_service.dart';
 import 'package:bananatalk_app/services/global_chat_listener.dart';
 import 'package:bananatalk_app/services/notification_service.dart';
 import 'package:bananatalk_app/services/referral_service.dart';
+import 'package:bananatalk_app/pages/community/first_session/first_session_store.dart';
 
 /// Every Riverpod provider whose state belongs to the signed-in user, keyed
 /// by its declared name (the key is what `session_reset_test.dart` checks
@@ -79,6 +80,9 @@ final Map<String, ProviderOrFamily> userScopedProviders = {
   'callHistoryServiceProvider': callHistoryServiceProvider,
   'missedCallsProvider': missedCallsProvider,
   'userLimitsProvider': userLimitsProvider,
+  // First-session guidance: "has THIS user ever sent a message" is per
+  // account, so a second user on the same device must not inherit it.
+  'firstSessionStateProvider': firstSessionStateProvider,
   'currentUserLimitsProvider': currentUserLimitsProvider,
   'vipStatusProvider': vipStatusProvider,
   'isVipProvider': isVipProvider,

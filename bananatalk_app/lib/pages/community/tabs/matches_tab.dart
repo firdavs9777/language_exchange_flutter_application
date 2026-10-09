@@ -9,6 +9,11 @@ import 'package:bananatalk_app/pages/community/card/match_card.dart';
 import 'package:bananatalk_app/pages/community/widgets/send_wave_sheet.dart';
 import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
 import 'package:bananatalk_app/pages/menu_tab/TabBarMenu.dart';
+import 'package:bananatalk_app/pages/community/first_session/first_session_guidance.dart';
+import 'package:bananatalk_app/pages/community/first_session/first_session_store.dart';
+import 'package:bananatalk_app/pages/community/first_session/matches_first_session_panel.dart';
+import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
+import 'package:bananatalk_app/services/analytics_service.dart';
 import 'package:bananatalk_app/providers/provider_models/daily_match_model.dart';
 import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
 import 'package:bananatalk_app/services/ad_service.dart';
@@ -53,6 +58,27 @@ class MatchesTab extends ConsumerStatefulWidget {
 
 class _MatchesTabState extends ConsumerState<MatchesTab> {
   final Set<String> _skipped = {};
+
+  /// One view per SESSION, not per rebuild. The ListView header rebuilds on
+  /// every scroll frame, so an unguarded increment would burn
+  /// kMaxGuidanceViews in seconds and the panel would never be seen again.
+  bool _guidanceRecordedThisSession = false;
+  bool _matchesShownReported = false;
+
+  void _recordGuidanceShown(int timesShown) {
+    if (_guidanceRecordedThisSession) return;
+    _guidanceRecordedThisSession = true;
+    AnalyticsService.instance.firstSessionGuidanceShown(timesShown: timesShown);
+    FirstSessionStore.recordShown().then((_) {
+      if (mounted) ref.invalidate(firstSessionStateProvider);
+    });
+  }
+
+  void _reportMatchesShown(int count) {
+    if (_matchesShownReported || count == 0) return;
+    _matchesShownReported = true;
+    AnalyticsService.instance.firstSessionMatchesShown(matchCount: count);
+  }
 
   /// nextRefreshAt we already invalidated for — guards against refetch loops.
   DateTime? _rolledOverFor;
@@ -99,7 +125,8 @@ class _MatchesTabState extends ConsumerState<MatchesTab> {
     });
   }
 
-  void _sayHi(DailyMatch m) {
+  void _sayHi(DailyMatch m, {int position = 0}) {
+    AnalyticsService.instance.firstSessionSayHiTapped(position: position);
     final u = m.user;
     Navigator.push(
       context,
@@ -214,6 +241,24 @@ class _MatchesTabState extends ConsumerState<MatchesTab> {
           boostsEnabled: boostsEnabled,
           count: result.matches.length,
         );
+
+        // An empty or errored batch never reaches here -- those take the
+        // _Empty / _LoadError branches above, which render no list header. A
+        // new user with no matches has a supply problem, not a guidance one.
+        final isNew = ref.watch(userProvider).maybeWhen(
+              data: (u) => u.isNewUser,
+              orElse: () => false,
+            );
+        final session = ref.watch(firstSessionStateProvider).maybeWhen(
+              data: (s) => s,
+              orElse: () => FirstSessionState.unknown,
+            );
+        final showGuidance = shouldShowFirstSessionGuidance(
+          isNewUser: isNew,
+          hasMessaged: session.hasMessaged,
+          timesShown: session.timesShown,
+        );
+        if (isNew) _reportMatchesShown(matches.length);
         return RefreshIndicator(
           onRefresh: _refresh,
           child: ListView.builder(
@@ -227,6 +272,15 @@ class _MatchesTabState extends ConsumerState<MatchesTab> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      if (showGuidance) ...[
+                        Builder(builder: (_) {
+                          _recordGuidanceShown(session.timesShown);
+                          return MatchesFirstSessionPanel(
+                            matchCount: matches.length,
+                          );
+                        }),
+                        const SizedBox(height: 12),
+                      ],
                       Text(
                         l10n.matchesTodayTitle(matches.length),
                         style: const TextStyle(
@@ -269,7 +323,7 @@ class _MatchesTabState extends ConsumerState<MatchesTab> {
               return MatchCard(
                 key: ValueKey(m.user.id),
                 match: m,
-                onSayHi: () => _sayHi(m),
+                onSayHi: () => _sayHi(m, position: i - 1),
                 onWave: () => _wave(m),
                 onSkip: () => _skip(m),
               );
