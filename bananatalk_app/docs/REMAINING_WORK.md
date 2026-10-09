@@ -122,6 +122,9 @@ fails if a tab loses its guide or a sixth one arrives without one.
 - [x] Matches renders through `GuideCard` too, so the five cards cannot drift apart visually, and
       `MatchCard.highlightSayHi` rings the TOP card's Say hi while the panel is up — the panel names
       the action, the ring says which button that is
+- [x] Matches panel also offers the live tab (Gatherings, or Voice Rooms with the switch off) as a
+      quiet secondary, labelled with that tab's own label and routed via `communityPendingSubTabProvider`
+      — a new user whose six matches are all asleep otherwise has nothing else on that screen to do
 - [x] AI Study → AI Tools **and Exam Study** (two destinations; `guide_cta_tapped` carries
       `target` so the console says which one people actually want); Chats → Community/Matches;
       Moments → composer; Profile → edit

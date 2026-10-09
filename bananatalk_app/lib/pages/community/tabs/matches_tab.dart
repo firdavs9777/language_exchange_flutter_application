@@ -17,6 +17,7 @@ import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/services/analytics_service.dart';
 import 'package:bananatalk_app/providers/provider_models/daily_match_model.dart';
 import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
+import 'package:bananatalk_app/pages/community/main/community_main.dart';
 import 'package:bananatalk_app/services/ad_service.dart';
 import 'package:bananatalk_app/providers/provider_root/daily_matches_provider.dart';
 import 'package:bananatalk_app/services/interaction_service.dart';
@@ -145,6 +146,23 @@ class _MatchesTabState extends ConsumerState<MatchesTab> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) ref.invalidate(dailyMatchesProvider);
     });
+  }
+
+  /// Jump to the live tab (Gatherings, or Voice Rooms with the switch off).
+  ///
+  /// Goes through `communityPendingSubTabProvider` rather than reaching for
+  /// CommunityMain's TabController: this tab is a child of that controller
+  /// and has no handle on it, and the provider is the route every other
+  /// cross-tab jump already takes (notification router, feature spotlight,
+  /// the post-registration landing).
+  ///
+  /// Slot 2 holds whichever of the two the flag selects, so one index is
+  /// correct either way.
+  void _openLiveTab() {
+    AnalyticsService.instance
+        .guideCtaTapped(surface: 'matches', target: 'secondary');
+    ref.read(communityPendingSubTabProvider.notifier).state =
+        communityVoiceRoomsSubTab;
   }
 
   void _sayHi(DailyMatch m, {int position = 0}) {
@@ -276,6 +294,12 @@ class _MatchesTabState extends ConsumerState<MatchesTab> {
         // An empty or errored batch never reaches here -- those take the
         // _Empty / _LoadError branches above, which render no list header. A
         // new user with no matches has a supply problem, not a guidance one.
+        final gatheringsEnabled = ref.watch(appConfigProvider).maybeWhen(
+              data: (config) => config?.gatheringsEnabled ?? true,
+              orElse: () => true,
+            );
+        final liveTabLabel =
+            gatheringsEnabled ? l10n.gatheringsTabLabel : l10n.voiceRooms;
         final isNew = ref
             .watch(userProvider)
             .maybeWhen(data: (u) => u.isNewUser, orElse: () => false);
@@ -322,6 +346,8 @@ class _MatchesTabState extends ConsumerState<MatchesTab> {
                             _recordGuidanceShownAfterFrame(session.timesShown);
                             return MatchesFirstSessionPanel(
                               matchCount: matches.length,
+                              liveLabel: liveTabLabel,
+                              onLive: _openLiveTab,
                             );
                           },
                         )

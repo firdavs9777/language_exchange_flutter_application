@@ -11,6 +11,7 @@ import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_models/daily_match_model.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/daily_matches_provider.dart';
+import 'package:bananatalk_app/pages/community/main/community_main.dart';
 import 'package:bananatalk_app/widgets/guides/pulse_highlight.dart';
 
 /// The spec requires widget coverage that the panel renders for an eligible
@@ -156,6 +157,67 @@ void main() {
 
     expect(find.byType(MatchesFirstSessionPanel), findsNothing);
     expect(find.textContaining('matches today'), findsOneWidget);
+  });
+
+  testWidgets('the panel offers the live tab as a quiet secondary',
+      (tester) async {
+    // A new user whose six matches are all asleep has nothing else to do on
+    // this screen. The live tab is the one other thing Community offers on
+    // arrival, so the panel names it -- quietly, beside the action it is
+    // actually pointing at.
+    await tester.pumpWidget(_wrap(isNew: true, session: _fresh));
+    await tester.pumpAndSettle();
+
+    expect(find.descendant(
+      of: find.byType(MatchesFirstSessionPanel),
+      matching: find.byType(InkWell),
+    ), findsOneWidget, reason: 'exactly one button on the panel itself');
+  });
+
+  testWidgets("the panel's one button is the live tab, not another Say hi",
+      (tester) async {
+    // The panel's primary action is Say hi on the card BELOW it. A Say hi
+    // pill up here would compete with the button it is ringing -- so the one
+    // button it does carry must be the other destination.
+    //
+    // Asserted on the label rather than on "no Say hi anywhere": the panel's
+    // own body copy reads "Say hi -- a first message is all it takes", so a
+    // textContaining check passes for the wrong reason and would keep passing
+    // if a real Say hi button were added.
+    await tester.pumpWidget(_wrap(isNew: true, session: _fresh));
+    await tester.pumpAndSettle();
+
+    final button = find.descendant(
+      of: find.byType(MatchesFirstSessionPanel),
+      matching: find.byType(InkWell),
+    );
+    expect(button, findsOneWidget);
+    // appConfig is not overridden here, so gatheringsEnabled falls back to
+    // its default of true -- the same default CommunityTabBar uses.
+    expect(find.descendant(of: button, matching: find.text('Gatherings')),
+        findsOneWidget);
+  });
+
+  testWidgets('tapping it requests the live sub-tab', (tester) async {
+    late ProviderContainer container;
+    await tester.pumpWidget(_wrap(isNew: true, session: _fresh));
+    await tester.pumpAndSettle();
+    container = ProviderScope.containerOf(
+      tester.element(find.byType(MatchesTab)),
+    );
+
+    expect(container.read(communityPendingSubTabProvider), isNull);
+
+    await tester.tap(find.descendant(
+      of: find.byType(MatchesFirstSessionPanel),
+      matching: find.byType(InkWell),
+    ));
+    await tester.pumpAndSettle();
+
+    // Slot 2 holds Gatherings or Voice Rooms depending on a server flag, so
+    // one index is right either way -- and CommunityMain is what listens.
+    expect(container.read(communityPendingSubTabProvider),
+        communityVoiceRoomsSubTab);
   });
 
   testWidgets('the guide rings exactly one Say hi button', (tester) async {

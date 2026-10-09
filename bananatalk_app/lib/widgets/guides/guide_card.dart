@@ -33,9 +33,9 @@ class GuideCard extends StatelessWidget {
   final String title;
   final String body;
 
-  /// Omitted when the page has nothing to send the user to — the Chats tab
-  /// guide explains where conversations come from, and the button that would
-  /// start one lives on another tab.
+  /// Omitted when the card's main action is a button elsewhere on the page —
+  /// the Matches panel points at Say hi on the card below it, which is ringed
+  /// in place rather than duplicated here.
   final String? ctaLabel;
   final VoidCallback? onCta;
 
@@ -114,7 +114,7 @@ class GuideCard extends StatelessWidget {
                 ),
               ],
             ),
-            if (hasCta) ...[
+            if (hasCta || hasSecondary) ...[
               const SizedBox(height: 12),
               // Wrap, not Row: with two buttons and a long translation the
               // pair drops to a second line instead of overflowing. Aligned
@@ -130,15 +130,20 @@ class GuideCard extends StatelessWidget {
                       accent: accent,
                       onTap: onSecondary!,
                     ),
-                  PulseHighlight(
-                    color: accent,
-                    borderRadius: AppRadius.borderRound,
-                    child: _CtaPill(
-                      label: ctaLabel!,
-                      accent: accent,
-                      onTap: onCta!,
+                  // The Matches panel is secondary-only: its primary action
+                  // is Say hi on the card below, which MatchCard rings. A
+                  // second Say hi up here would compete with the button this
+                  // card exists to point at.
+                  if (hasCta)
+                    PulseHighlight(
+                      color: accent,
+                      borderRadius: AppRadius.borderRound,
+                      child: _CtaPill(
+                        label: ctaLabel!,
+                        accent: accent,
+                        onTap: onCta!,
+                      ),
                     ),
-                  ),
                 ],
               ),
             ],
