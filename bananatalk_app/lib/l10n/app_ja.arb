@@ -3690,5 +3690,15 @@
       }
     }
   },
-  "conversationEmptySayHi": "タップしてあいさつ！"
+  "conversationEmptySayHi": "タップしてあいさつ！",
+  "momentVideoOptimizing": "動画を最適化しています。少しお待ちください",
+  "momentPostedWithoutVoiceNote": "ボイスメモなしでモーメントを投稿しました。",
+  "momentAnsweringPromptOfDay": "今日の質問への回答",
+  "momentVideoReady": "動画の準備ができました",
+  "momentReadyToUpload": "アップロードの準備完了",
+  "locationServicesDisabledTitle": "位置情報サービスがオフです",
+  "locationServicesDisabledBody": "この機能を使うには、端末の設定で位置情報サービスをオンにしてください。",
+  "locationPermissionNeededBody": "モーメントに現在地を付けるには、Bananatalk に位置情報の許可が必要です。",
+  "locationPermissionRequiredTitle": "位置情報の許可が必要です",
+  "locationPermissionPermanentlyDeniedBody": "位置情報の許可が完全に拒否されています。モーメントに位置情報を付けるには、アプリ設定でオンにしてください。"
 }

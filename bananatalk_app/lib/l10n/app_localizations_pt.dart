@@ -9074,4 +9074,34 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get conversationEmptySayHi => 'Toque para dizer oi!';
+
+  @override
+  String get momentVideoOptimizing => 'Aguarde enquanto otimizamos seu vídeo';
+
+  @override
+  String get momentPostedWithoutVoiceNote => 'Seu momento foi publicado sem a nota de voz.';
+
+  @override
+  String get momentAnsweringPromptOfDay => 'Respondendo à pergunta do dia';
+
+  @override
+  String get momentVideoReady => 'Vídeo pronto';
+
+  @override
+  String get momentReadyToUpload => 'Pronto para enviar';
+
+  @override
+  String get locationServicesDisabledTitle => 'Serviços de localização desativados';
+
+  @override
+  String get locationServicesDisabledBody => 'Ative os serviços de localização nas configurações do aparelho para usar este recurso.';
+
+  @override
+  String get locationPermissionNeededBody => 'O Bananatalk precisa da permissão de localização para marcar seus momentos com sua localização atual.';
+
+  @override
+  String get locationPermissionRequiredTitle => 'Permissão de localização necessária';
+
+  @override
+  String get locationPermissionPermanentlyDeniedBody => 'A permissão de localização foi negada permanentemente. Ative-a nas configurações do app para marcar sua localização nos momentos.';
 }

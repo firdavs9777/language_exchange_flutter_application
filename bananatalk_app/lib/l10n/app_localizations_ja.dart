@@ -9064,4 +9064,34 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get conversationEmptySayHi => 'タップしてあいさつ！';
+
+  @override
+  String get momentVideoOptimizing => '動画を最適化しています。少しお待ちください';
+
+  @override
+  String get momentPostedWithoutVoiceNote => 'ボイスメモなしでモーメントを投稿しました。';
+
+  @override
+  String get momentAnsweringPromptOfDay => '今日の質問への回答';
+
+  @override
+  String get momentVideoReady => '動画の準備ができました';
+
+  @override
+  String get momentReadyToUpload => 'アップロードの準備完了';
+
+  @override
+  String get locationServicesDisabledTitle => '位置情報サービスがオフです';
+
+  @override
+  String get locationServicesDisabledBody => 'この機能を使うには、端末の設定で位置情報サービスをオンにしてください。';
+
+  @override
+  String get locationPermissionNeededBody => 'モーメントに現在地を付けるには、Bananatalk に位置情報の許可が必要です。';
+
+  @override
+  String get locationPermissionRequiredTitle => '位置情報の許可が必要です';
+
+  @override
+  String get locationPermissionPermanentlyDeniedBody => '位置情報の許可が完全に拒否されています。モーメントに位置情報を付けるには、アプリ設定でオンにしてください。';
 }

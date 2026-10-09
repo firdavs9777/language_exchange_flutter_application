@@ -9072,4 +9072,34 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get conversationEmptySayHi => 'Selam vermek için dokun!';
+
+  @override
+  String get momentVideoOptimizing => 'Videonu iyileştiriyoruz, lütfen bekle';
+
+  @override
+  String get momentPostedWithoutVoiceNote => 'Momentin sesli not olmadan paylaşıldı.';
+
+  @override
+  String get momentAnsweringPromptOfDay => 'Günün sorusunu yanıtlıyor';
+
+  @override
+  String get momentVideoReady => 'Video hazır';
+
+  @override
+  String get momentReadyToUpload => 'Yüklemeye hazır';
+
+  @override
+  String get locationServicesDisabledTitle => 'Konum Servisleri Kapalı';
+
+  @override
+  String get locationServicesDisabledBody => 'Bu özelliği kullanmak için cihaz ayarlarından Konum Servisleri’ni aç.';
+
+  @override
+  String get locationPermissionNeededBody => 'Bananatalk, momentlerini mevcut konumunla etiketlemek için konum izni istiyor.';
+
+  @override
+  String get locationPermissionRequiredTitle => 'Konum İzni Gerekli';
+
+  @override
+  String get locationPermissionPermanentlyDeniedBody => 'Konum izni kalıcı olarak reddedildi. Momentlerde konum etiketlemek için uygulama ayarlarından aç.';
 }

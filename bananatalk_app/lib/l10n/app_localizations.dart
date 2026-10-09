@@ -16597,6 +16597,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Tap to say hi!'**
   String get conversationEmptySayHi;
+
+  /// No description provided for @momentVideoOptimizing.
+  ///
+  /// In en, this message translates to:
+  /// **'Please wait while we optimize your video'**
+  String get momentVideoOptimizing;
+
+  /// No description provided for @momentPostedWithoutVoiceNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Your moment was posted without the voice note.'**
+  String get momentPostedWithoutVoiceNote;
+
+  /// No description provided for @momentAnsweringPromptOfDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Answering the prompt of the day'**
+  String get momentAnsweringPromptOfDay;
+
+  /// No description provided for @momentVideoReady.
+  ///
+  /// In en, this message translates to:
+  /// **'Video Ready'**
+  String get momentVideoReady;
+
+  /// No description provided for @momentReadyToUpload.
+  ///
+  /// In en, this message translates to:
+  /// **'Ready to upload'**
+  String get momentReadyToUpload;
+
+  /// No description provided for @locationServicesDisabledTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Location Services Disabled'**
+  String get locationServicesDisabledTitle;
+
+  /// No description provided for @locationServicesDisabledBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enable Location Services in your device settings to use this feature.'**
+  String get locationServicesDisabledBody;
+
+  /// No description provided for @locationPermissionNeededBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Bananatalk needs location permission to tag your moments with your current location.'**
+  String get locationPermissionNeededBody;
+
+  /// No description provided for @locationPermissionRequiredTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Location Permission Required'**
+  String get locationPermissionRequiredTitle;
+
+  /// No description provided for @locationPermissionPermanentlyDeniedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Location permission has been permanently denied. Please enable it in app settings to tag your location in moments.'**
+  String get locationPermissionPermanentlyDeniedBody;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

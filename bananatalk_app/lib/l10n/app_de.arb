@@ -3930,5 +3930,15 @@
       }
     }
   },
-  "conversationEmptySayHi": "Tippen, um Hallo zu sagen!"
+  "conversationEmptySayHi": "Tippen, um Hallo zu sagen!",
+  "momentVideoOptimizing": "Bitte warte, während wir dein Video optimieren",
+  "momentPostedWithoutVoiceNote": "Dein Moment wurde ohne die Sprachnotiz veröffentlicht.",
+  "momentAnsweringPromptOfDay": "Antwort auf die Frage des Tages",
+  "momentVideoReady": "Video bereit",
+  "momentReadyToUpload": "Bereit zum Hochladen",
+  "locationServicesDisabledTitle": "Ortungsdienste deaktiviert",
+  "locationServicesDisabledBody": "Bitte aktiviere die Ortungsdienste in den Geräteeinstellungen, um diese Funktion zu nutzen.",
+  "locationPermissionNeededBody": "Bananatalk braucht die Standortberechtigung, um deine Momente mit deinem aktuellen Standort zu versehen.",
+  "locationPermissionRequiredTitle": "Standortberechtigung erforderlich",
+  "locationPermissionPermanentlyDeniedBody": "Die Standortberechtigung wurde dauerhaft verweigert. Bitte aktiviere sie in den App-Einstellungen, um Momente mit deinem Standort zu versehen."
 }

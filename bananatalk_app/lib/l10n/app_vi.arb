@@ -3690,5 +3690,15 @@
       }
     }
   },
-  "conversationEmptySayHi": "Chạm để chào!"
+  "conversationEmptySayHi": "Chạm để chào!",
+  "momentVideoOptimizing": "Vui lòng đợi trong khi chúng tôi tối ưu video của bạn",
+  "momentPostedWithoutVoiceNote": "Khoảnh khắc đã đăng nhưng không có ghi âm.",
+  "momentAnsweringPromptOfDay": "Trả lời câu hỏi trong ngày",
+  "momentVideoReady": "Video đã sẵn sàng",
+  "momentReadyToUpload": "Sẵn sàng tải lên",
+  "locationServicesDisabledTitle": "Dịch vụ vị trí đang tắt",
+  "locationServicesDisabledBody": "Hãy bật Dịch vụ vị trí trong cài đặt thiết bị để dùng tính năng này.",
+  "locationPermissionNeededBody": "Bananatalk cần quyền vị trí để gắn vị trí hiện tại vào khoảnh khắc của bạn.",
+  "locationPermissionRequiredTitle": "Cần quyền vị trí",
+  "locationPermissionPermanentlyDeniedBody": "Quyền vị trí đã bị từ chối vĩnh viễn. Hãy bật trong cài đặt ứng dụng để gắn vị trí vào khoảnh khắc."
 }

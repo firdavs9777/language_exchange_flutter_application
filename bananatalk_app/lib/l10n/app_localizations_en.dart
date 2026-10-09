@@ -9080,4 +9080,34 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get conversationEmptySayHi => 'Tap to say hi!';
+
+  @override
+  String get momentVideoOptimizing => 'Please wait while we optimize your video';
+
+  @override
+  String get momentPostedWithoutVoiceNote => 'Your moment was posted without the voice note.';
+
+  @override
+  String get momentAnsweringPromptOfDay => 'Answering the prompt of the day';
+
+  @override
+  String get momentVideoReady => 'Video Ready';
+
+  @override
+  String get momentReadyToUpload => 'Ready to upload';
+
+  @override
+  String get locationServicesDisabledTitle => 'Location Services Disabled';
+
+  @override
+  String get locationServicesDisabledBody => 'Please enable Location Services in your device settings to use this feature.';
+
+  @override
+  String get locationPermissionNeededBody => 'Bananatalk needs location permission to tag your moments with your current location.';
+
+  @override
+  String get locationPermissionRequiredTitle => 'Location Permission Required';
+
+  @override
+  String get locationPermissionPermanentlyDeniedBody => 'Location permission has been permanently denied. Please enable it in app settings to tag your location in moments.';
 }

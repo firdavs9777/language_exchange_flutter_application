@@ -9064,6 +9064,36 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get conversationEmptySayHi => '点一下打个招呼！';
+
+  @override
+  String get momentVideoOptimizing => '正在优化你的视频，请稍候';
+
+  @override
+  String get momentPostedWithoutVoiceNote => '动态已发布，但没有附上语音。';
+
+  @override
+  String get momentAnsweringPromptOfDay => '回答每日话题';
+
+  @override
+  String get momentVideoReady => '视频已就绪';
+
+  @override
+  String get momentReadyToUpload => '可以上传了';
+
+  @override
+  String get locationServicesDisabledTitle => '定位服务已关闭';
+
+  @override
+  String get locationServicesDisabledBody => '请在设备设置中打开定位服务以使用此功能。';
+
+  @override
+  String get locationPermissionNeededBody => 'Bananatalk 需要定位权限，才能为你的动态标记当前位置。';
+
+  @override
+  String get locationPermissionRequiredTitle => '需要定位权限';
+
+  @override
+  String get locationPermissionPermanentlyDeniedBody => '定位权限已被永久拒绝。请在应用设置中开启，才能为动态标记位置。';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -18126,4 +18156,34 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get conversationEmptySayHi => '點一下打聲招呼！';
+
+  @override
+  String get momentVideoOptimizing => '正在最佳化你的影片，請稍候';
+
+  @override
+  String get momentPostedWithoutVoiceNote => '動態已發布，但沒有附上語音。';
+
+  @override
+  String get momentAnsweringPromptOfDay => '回答每日話題';
+
+  @override
+  String get momentVideoReady => '影片已就緒';
+
+  @override
+  String get momentReadyToUpload => '可以上傳了';
+
+  @override
+  String get locationServicesDisabledTitle => '定位服務已關閉';
+
+  @override
+  String get locationServicesDisabledBody => '請在裝置設定中開啟定位服務以使用此功能。';
+
+  @override
+  String get locationPermissionNeededBody => 'Bananatalk 需要定位權限，才能為你的動態標記目前位置。';
+
+  @override
+  String get locationPermissionRequiredTitle => '需要定位權限';
+
+  @override
+  String get locationPermissionPermanentlyDeniedBody => '定位權限已被永久拒絕。請在應用程式設定中開啟，才能為動態標記位置。';
 }

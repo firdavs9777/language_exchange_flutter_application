@@ -9074,4 +9074,34 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get conversationEmptySayHi => 'नमस्ते कहने के लिए टैप करें!';
+
+  @override
+  String get momentVideoOptimizing => 'कृपया प्रतीक्षा करें, हम आपका वीडियो ऑप्टिमाइज़ कर रहे हैं';
+
+  @override
+  String get momentPostedWithoutVoiceNote => 'आपका मोमेंट वॉइस नोट के बिना पोस्ट हुआ।';
+
+  @override
+  String get momentAnsweringPromptOfDay => 'आज के सवाल का जवाब';
+
+  @override
+  String get momentVideoReady => 'वीडियो तैयार है';
+
+  @override
+  String get momentReadyToUpload => 'अपलोड के लिए तैयार';
+
+  @override
+  String get locationServicesDisabledTitle => 'लोकेशन सेवाएँ बंद हैं';
+
+  @override
+  String get locationServicesDisabledBody => 'इस सुविधा के लिए अपने डिवाइस की सेटिंग में लोकेशन सेवाएँ चालू करें।';
+
+  @override
+  String get locationPermissionNeededBody => 'आपके मोमेंट में मौजूदा लोकेशन जोड़ने के लिए Bananatalk को लोकेशन अनुमति चाहिए।';
+
+  @override
+  String get locationPermissionRequiredTitle => 'लोकेशन अनुमति आवश्यक';
+
+  @override
+  String get locationPermissionPermanentlyDeniedBody => 'लोकेशन अनुमति स्थायी रूप से अस्वीकृत है। मोमेंट में लोकेशन जोड़ने के लिए ऐप सेटिंग में इसे चालू करें।';
 }

@@ -675,7 +675,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  'Please wait while we optimize your video',
+                  AppLocalizations.of(context)!.momentVideoOptimizing,
                   style: TextStyle(fontSize: 13, color: context.textSecondary),
                   textAlign: TextAlign.center,
                 ),
@@ -824,7 +824,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
               Text(message),
               const SizedBox(height: 12),
               Text(
-                'Your moment was posted without the voice note.',
+                AppLocalizations.of(context)!.momentPostedWithoutVoiceNote,
                 style: TextStyle(fontSize: 13, color: context.textSecondary),
               ),
             ],
@@ -891,12 +891,12 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
       context: context,
       builder: (context) => AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        title: const Text(
-          'Maximum Images Reached',
+        title: Text(
+          AppLocalizations.of(context)!.maximumImagesReached,
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
         ),
         content: Text(
-          'You can only upload up to $maxImages images per moment.',
+          AppLocalizations.of(context)!.maximumImagesReachedDescription(maxImages),
           style: const TextStyle(fontSize: 15),
         ),
         actions: [
@@ -1029,12 +1029,12 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
           ),
-          title: const Text(
-            'Location Services Disabled',
+          title: Text(
+            AppLocalizations.of(context)!.locationServicesDisabledTitle,
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
           ),
-          content: const Text(
-            'Please enable Location Services in your device settings to use this feature.',
+          content: Text(
+            AppLocalizations.of(context)!.locationServicesDisabledBody,
             style: TextStyle(fontSize: 15),
           ),
           actions: [
@@ -1050,8 +1050,8 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                 Navigator.of(context).pop();
                 await Geolocator.openLocationSettings();
               },
-              child: const Text(
-                'Open Settings',
+              child: Text(
+                AppLocalizations.of(context)!.openSettings,
                 style: TextStyle(
                   color: Color(0xFF00BFA5),
                   fontWeight: FontWeight.w600,
@@ -1072,12 +1072,12 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
           ),
-          title: const Text(
-            'Location Permission Needed',
+          title: Text(
+            AppLocalizations.of(context)!.locationPermissionNeeded,
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
           ),
-          content: const Text(
-            'Bananatalk needs location permission to tag your moments with your current location.',
+          content: Text(
+            AppLocalizations.of(context)!.locationPermissionNeededBody,
             style: TextStyle(fontSize: 15),
           ),
           actions: [
@@ -1115,12 +1115,12 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
           ),
-          title: const Text(
-            'Location Permission Required',
+          title: Text(
+            AppLocalizations.of(context)!.locationPermissionRequiredTitle,
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
           ),
-          content: const Text(
-            'Location permission has been permanently denied. Please enable it in app settings to tag your location in moments.',
+          content: Text(
+            AppLocalizations.of(context)!.locationPermissionPermanentlyDeniedBody,
             style: TextStyle(fontSize: 15),
           ),
           actions: [
@@ -1136,8 +1136,8 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                 Navigator.of(context).pop();
                 await openAppSettings();
               },
-              child: const Text(
-                'Open Settings',
+              child: Text(
+                AppLocalizations.of(context)!.openSettings,
                 style: TextStyle(
                   color: Color(0xFF00BFA5),
                   fontWeight: FontWeight.w600,
@@ -1163,8 +1163,8 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'How are you feeling?',
+              Text(
+                AppLocalizations.of(context)!.howAreYouFeeling,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 16),
@@ -1786,9 +1786,9 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                   color: Color(0xFFC9A415),
                 ),
                 const SizedBox(width: 6),
-                const Flexible(
+                Flexible(
                   child: Text(
-                    'Answering the prompt of the day',
+                    AppLocalizations.of(context)!.momentAnsweringPromptOfDay,
                     style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w600,
@@ -2240,7 +2240,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                         Icon(Icons.add, size: 32, color: context.iconColor),
                         Spacing.gapXS,
                         Text(
-                          'Add More',
+                          AppLocalizations.of(context)!.addMore,
                           style: context.caption.copyWith(
                             color: context.textSecondary,
                           ),
@@ -2294,7 +2294,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Video Ready',
+                          AppLocalizations.of(context)!.momentVideoReady,
                           style: context.bodyMedium.copyWith(
                             fontWeight: FontWeight.w600,
                           ),
@@ -2342,7 +2342,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                               ],
                             ] else
                               Text(
-                                'Ready to upload',
+                                AppLocalizations.of(context)!.momentReadyToUpload,
                                 style: context.captionSmall.copyWith(
                                   color: context.textSecondary,
                                 ),

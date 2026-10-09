@@ -9086,4 +9086,34 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get conversationEmptySayHi => 'اضغط لإلقاء التحية!';
+
+  @override
+  String get momentVideoOptimizing => 'يرجى الانتظار بينما نحسّن الفيديو';
+
+  @override
+  String get momentPostedWithoutVoiceNote => 'تم نشر لحظتك بدون المقطع الصوتي.';
+
+  @override
+  String get momentAnsweringPromptOfDay => 'إجابة على سؤال اليوم';
+
+  @override
+  String get momentVideoReady => 'الفيديو جاهز';
+
+  @override
+  String get momentReadyToUpload => 'جاهز للرفع';
+
+  @override
+  String get locationServicesDisabledTitle => 'خدمات الموقع معطّلة';
+
+  @override
+  String get locationServicesDisabledBody => 'يرجى تفعيل خدمات الموقع في إعدادات جهازك لاستخدام هذه الميزة.';
+
+  @override
+  String get locationPermissionNeededBody => 'يحتاج Bananatalk إلى إذن الموقع لإضافة موقعك الحالي إلى لحظاتك.';
+
+  @override
+  String get locationPermissionRequiredTitle => 'إذن الموقع مطلوب';
+
+  @override
+  String get locationPermissionPermanentlyDeniedBody => 'تم رفض إذن الموقع نهائيًا. يرجى تفعيله في إعدادات التطبيق لإضافة موقعك إلى اللحظات.';
 }

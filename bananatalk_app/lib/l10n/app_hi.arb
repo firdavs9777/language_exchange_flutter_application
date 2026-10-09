@@ -3706,5 +3706,15 @@
       }
     }
   },
-  "conversationEmptySayHi": "नमस्ते कहने के लिए टैप करें!"
+  "conversationEmptySayHi": "नमस्ते कहने के लिए टैप करें!",
+  "momentVideoOptimizing": "कृपया प्रतीक्षा करें, हम आपका वीडियो ऑप्टिमाइज़ कर रहे हैं",
+  "momentPostedWithoutVoiceNote": "आपका मोमेंट वॉइस नोट के बिना पोस्ट हुआ।",
+  "momentAnsweringPromptOfDay": "आज के सवाल का जवाब",
+  "momentVideoReady": "वीडियो तैयार है",
+  "momentReadyToUpload": "अपलोड के लिए तैयार",
+  "locationServicesDisabledTitle": "लोकेशन सेवाएँ बंद हैं",
+  "locationServicesDisabledBody": "इस सुविधा के लिए अपने डिवाइस की सेटिंग में लोकेशन सेवाएँ चालू करें।",
+  "locationPermissionNeededBody": "आपके मोमेंट में मौजूदा लोकेशन जोड़ने के लिए Bananatalk को लोकेशन अनुमति चाहिए।",
+  "locationPermissionRequiredTitle": "लोकेशन अनुमति आवश्यक",
+  "locationPermissionPermanentlyDeniedBody": "लोकेशन अनुमति स्थायी रूप से अस्वीकृत है। मोमेंट में लोकेशन जोड़ने के लिए ऐप सेटिंग में इसे चालू करें।"
 }

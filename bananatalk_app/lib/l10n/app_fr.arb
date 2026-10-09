@@ -3930,5 +3930,15 @@
       }
     }
   },
-  "conversationEmptySayHi": "Touchez pour dire bonjour !"
+  "conversationEmptySayHi": "Touchez pour dire bonjour !",
+  "momentVideoOptimizing": "Veuillez patienter pendant l’optimisation de votre vidéo",
+  "momentPostedWithoutVoiceNote": "Votre moment a été publié sans la note vocale.",
+  "momentAnsweringPromptOfDay": "Réponse à la question du jour",
+  "momentVideoReady": "Vidéo prête",
+  "momentReadyToUpload": "Prêt à être envoyé",
+  "locationServicesDisabledTitle": "Services de localisation désactivés",
+  "locationServicesDisabledBody": "Activez les services de localisation dans les réglages de votre appareil pour utiliser cette fonction.",
+  "locationPermissionNeededBody": "Bananatalk a besoin de l’autorisation de localisation pour associer votre position actuelle à vos moments.",
+  "locationPermissionRequiredTitle": "Autorisation de localisation requise",
+  "locationPermissionPermanentlyDeniedBody": "L’autorisation de localisation a été refusée définitivement. Activez-la dans les réglages de l’app pour localiser vos moments."
 }

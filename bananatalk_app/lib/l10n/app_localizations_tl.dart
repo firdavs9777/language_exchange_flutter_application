@@ -9074,4 +9074,34 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get conversationEmptySayHi => 'I-tap para bumati!';
+
+  @override
+  String get momentVideoOptimizing => 'Maghintay habang ino-optimize namin ang video mo';
+
+  @override
+  String get momentPostedWithoutVoiceNote => 'Na-post ang moment mo nang walang voice note.';
+
+  @override
+  String get momentAnsweringPromptOfDay => 'Sumasagot sa tanong ng araw';
+
+  @override
+  String get momentVideoReady => 'Handa na ang video';
+
+  @override
+  String get momentReadyToUpload => 'Handa nang i-upload';
+
+  @override
+  String get locationServicesDisabledTitle => 'Naka-off ang Location Services';
+
+  @override
+  String get locationServicesDisabledBody => 'I-on ang Location Services sa settings ng device mo para magamit ito.';
+
+  @override
+  String get locationPermissionNeededBody => 'Kailangan ng Bananatalk ng location permission para matatakan ang mga moment mo ng kasalukuyang lokasyon.';
+
+  @override
+  String get locationPermissionRequiredTitle => 'Kailangan ng Location Permission';
+
+  @override
+  String get locationPermissionPermanentlyDeniedBody => 'Permanenteng tinanggihan ang location permission. I-on ito sa app settings para malagyan ng lokasyon ang mga moment.';
 }

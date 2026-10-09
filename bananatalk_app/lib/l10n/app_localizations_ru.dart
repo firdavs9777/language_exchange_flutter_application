@@ -9095,4 +9095,34 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get conversationEmptySayHi => 'Нажмите, чтобы поздороваться!';
+
+  @override
+  String get momentVideoOptimizing => 'Подождите, мы оптимизируем ваше видео';
+
+  @override
+  String get momentPostedWithoutVoiceNote => 'Момент опубликован без голосовой заметки.';
+
+  @override
+  String get momentAnsweringPromptOfDay => 'Ответ на вопрос дня';
+
+  @override
+  String get momentVideoReady => 'Видео готово';
+
+  @override
+  String get momentReadyToUpload => 'Готово к загрузке';
+
+  @override
+  String get locationServicesDisabledTitle => 'Службы геолокации отключены';
+
+  @override
+  String get locationServicesDisabledBody => 'Включите службы геолокации в настройках устройства, чтобы использовать эту функцию.';
+
+  @override
+  String get locationPermissionNeededBody => 'Bananatalk нужен доступ к геопозиции, чтобы отмечать моменты вашим текущим местоположением.';
+
+  @override
+  String get locationPermissionRequiredTitle => 'Нужен доступ к геопозиции';
+
+  @override
+  String get locationPermissionPermanentlyDeniedBody => 'Доступ к геопозиции отклонён навсегда. Включите его в настройках приложения, чтобы отмечать местоположение в моментах.';
 }

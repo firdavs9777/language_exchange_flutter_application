@@ -3690,5 +3690,15 @@
       }
     }
   },
-  "conversationEmptySayHi": "Ketuk untuk menyapa!"
+  "conversationEmptySayHi": "Ketuk untuk menyapa!",
+  "momentVideoOptimizing": "Mohon tunggu, kami sedang mengoptimalkan videomu",
+  "momentPostedWithoutVoiceNote": "Momenmu diposting tanpa catatan suara.",
+  "momentAnsweringPromptOfDay": "Menjawab pertanyaan hari ini",
+  "momentVideoReady": "Video siap",
+  "momentReadyToUpload": "Siap diunggah",
+  "locationServicesDisabledTitle": "Layanan Lokasi Nonaktif",
+  "locationServicesDisabledBody": "Aktifkan Layanan Lokasi di pengaturan perangkatmu untuk memakai fitur ini.",
+  "locationPermissionNeededBody": "Bananatalk perlu izin lokasi untuk menandai momenmu dengan lokasi saat ini.",
+  "locationPermissionRequiredTitle": "Izin Lokasi Diperlukan",
+  "locationPermissionPermanentlyDeniedBody": "Izin lokasi ditolak permanen. Aktifkan di pengaturan aplikasi untuk menandai lokasi pada momen."
 }

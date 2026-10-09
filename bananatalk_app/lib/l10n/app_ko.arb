@@ -3711,5 +3711,15 @@
       }
     }
   },
-  "conversationEmptySayHi": "눌러서 인사하기!"
+  "conversationEmptySayHi": "눌러서 인사하기!",
+  "momentVideoOptimizing": "동영상을 최적화하는 중이에요. 잠시만 기다려 주세요",
+  "momentPostedWithoutVoiceNote": "음성 메모 없이 모먼트가 올라갔어요.",
+  "momentAnsweringPromptOfDay": "오늘의 질문에 답하기",
+  "momentVideoReady": "동영상 준비 완료",
+  "momentReadyToUpload": "업로드 준비됨",
+  "locationServicesDisabledTitle": "위치 서비스가 꺼져 있어요",
+  "locationServicesDisabledBody": "이 기능을 쓰려면 기기 설정에서 위치 서비스를 켜 주세요.",
+  "locationPermissionNeededBody": "모먼트에 현재 위치를 넣으려면 Bananatalk에 위치 권한이 필요해요.",
+  "locationPermissionRequiredTitle": "위치 권한이 필요해요",
+  "locationPermissionPermanentlyDeniedBody": "위치 권한이 영구적으로 거부되었어요. 모먼트에 위치를 넣으려면 앱 설정에서 켜 주세요."
 }

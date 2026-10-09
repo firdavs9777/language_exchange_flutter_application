@@ -9074,4 +9074,34 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get conversationEmptySayHi => 'Tocca per salutare!';
+
+  @override
+  String get momentVideoOptimizing => 'Attendi mentre ottimizziamo il tuo video';
+
+  @override
+  String get momentPostedWithoutVoiceNote => 'Il tuo momento è stato pubblicato senza la nota vocale.';
+
+  @override
+  String get momentAnsweringPromptOfDay => 'Risposta alla domanda del giorno';
+
+  @override
+  String get momentVideoReady => 'Video pronto';
+
+  @override
+  String get momentReadyToUpload => 'Pronto per il caricamento';
+
+  @override
+  String get locationServicesDisabledTitle => 'Servizi di localizzazione disattivati';
+
+  @override
+  String get locationServicesDisabledBody => 'Attiva i servizi di localizzazione nelle impostazioni del dispositivo per usare questa funzione.';
+
+  @override
+  String get locationPermissionNeededBody => 'Bananatalk ha bisogno dell’autorizzazione alla posizione per aggiungere la tua posizione attuale ai momenti.';
+
+  @override
+  String get locationPermissionRequiredTitle => 'Autorizzazione alla posizione necessaria';
+
+  @override
+  String get locationPermissionPermanentlyDeniedBody => 'L’autorizzazione alla posizione è stata negata in modo permanente. Attivala nelle impostazioni dell’app per aggiungere la posizione ai momenti.';
 }

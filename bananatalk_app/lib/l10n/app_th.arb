@@ -3690,5 +3690,15 @@
       }
     }
   },
-  "conversationEmptySayHi": "แตะเพื่อทักทาย!"
+  "conversationEmptySayHi": "แตะเพื่อทักทาย!",
+  "momentVideoOptimizing": "โปรดรอสักครู่ กำลังปรับวิดีโอให้เหมาะสม",
+  "momentPostedWithoutVoiceNote": "โพสต์โมเมนต์แล้ว แต่ไม่มีข้อความเสียง",
+  "momentAnsweringPromptOfDay": "ตอบคำถามประจำวัน",
+  "momentVideoReady": "วิดีโอพร้อมแล้ว",
+  "momentReadyToUpload": "พร้อมอัปโหลด",
+  "locationServicesDisabledTitle": "บริการตำแหน่งปิดอยู่",
+  "locationServicesDisabledBody": "เปิดบริการตำแหน่งในการตั้งค่าเครื่องเพื่อใช้ฟีเจอร์นี้",
+  "locationPermissionNeededBody": "Bananatalk ต้องใช้สิทธิ์ตำแหน่งเพื่อระบุตำแหน่งปัจจุบันในโมเมนต์ของคุณ",
+  "locationPermissionRequiredTitle": "ต้องใช้สิทธิ์ตำแหน่ง",
+  "locationPermissionPermanentlyDeniedBody": "สิทธิ์ตำแหน่งถูกปฏิเสธถาวร โปรดเปิดในการตั้งค่าแอปเพื่อระบุตำแหน่งในโมเมนต์"
 }

@@ -3720,5 +3720,15 @@
       }
     }
   },
-  "conversationEmptySayHi": "اضغط لإلقاء التحية!"
+  "conversationEmptySayHi": "اضغط لإلقاء التحية!",
+  "momentVideoOptimizing": "يرجى الانتظار بينما نحسّن الفيديو",
+  "momentPostedWithoutVoiceNote": "تم نشر لحظتك بدون المقطع الصوتي.",
+  "momentAnsweringPromptOfDay": "إجابة على سؤال اليوم",
+  "momentVideoReady": "الفيديو جاهز",
+  "momentReadyToUpload": "جاهز للرفع",
+  "locationServicesDisabledTitle": "خدمات الموقع معطّلة",
+  "locationServicesDisabledBody": "يرجى تفعيل خدمات الموقع في إعدادات جهازك لاستخدام هذه الميزة.",
+  "locationPermissionNeededBody": "يحتاج Bananatalk إلى إذن الموقع لإضافة موقعك الحالي إلى لحظاتك.",
+  "locationPermissionRequiredTitle": "إذن الموقع مطلوب",
+  "locationPermissionPermanentlyDeniedBody": "تم رفض إذن الموقع نهائيًا. يرجى تفعيله في إعدادات التطبيق لإضافة موقعك إلى اللحظات."
 }

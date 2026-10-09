@@ -3720,5 +3720,15 @@
       }
     }
   },
-  "conversationEmptySayHi": "Нажмите, чтобы поздороваться!"
+  "conversationEmptySayHi": "Нажмите, чтобы поздороваться!",
+  "momentVideoOptimizing": "Подождите, мы оптимизируем ваше видео",
+  "momentPostedWithoutVoiceNote": "Момент опубликован без голосовой заметки.",
+  "momentAnsweringPromptOfDay": "Ответ на вопрос дня",
+  "momentVideoReady": "Видео готово",
+  "momentReadyToUpload": "Готово к загрузке",
+  "locationServicesDisabledTitle": "Службы геолокации отключены",
+  "locationServicesDisabledBody": "Включите службы геолокации в настройках устройства, чтобы использовать эту функцию.",
+  "locationPermissionNeededBody": "Bananatalk нужен доступ к геопозиции, чтобы отмечать моменты вашим текущим местоположением.",
+  "locationPermissionRequiredTitle": "Нужен доступ к геопозиции",
+  "locationPermissionPermanentlyDeniedBody": "Доступ к геопозиции отклонён навсегда. Включите его в настройках приложения, чтобы отмечать местоположение в моментах."
 }

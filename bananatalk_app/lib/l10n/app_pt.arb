@@ -3706,5 +3706,15 @@
       }
     }
   },
-  "conversationEmptySayHi": "Toque para dizer oi!"
+  "conversationEmptySayHi": "Toque para dizer oi!",
+  "momentVideoOptimizing": "Aguarde enquanto otimizamos seu vídeo",
+  "momentPostedWithoutVoiceNote": "Seu momento foi publicado sem a nota de voz.",
+  "momentAnsweringPromptOfDay": "Respondendo à pergunta do dia",
+  "momentVideoReady": "Vídeo pronto",
+  "momentReadyToUpload": "Pronto para enviar",
+  "locationServicesDisabledTitle": "Serviços de localização desativados",
+  "locationServicesDisabledBody": "Ative os serviços de localização nas configurações do aparelho para usar este recurso.",
+  "locationPermissionNeededBody": "O Bananatalk precisa da permissão de localização para marcar seus momentos com sua localização atual.",
+  "locationPermissionRequiredTitle": "Permissão de localização necessária",
+  "locationPermissionPermanentlyDeniedBody": "A permissão de localização foi negada permanentemente. Ative-a nas configurações do app para marcar sua localização nos momentos."
 }

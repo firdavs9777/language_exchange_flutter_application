@@ -3720,5 +3720,15 @@
       }
     }
   },
-  "conversationEmptySayHi": "¡Toca para saludar!"
+  "conversationEmptySayHi": "¡Toca para saludar!",
+  "momentVideoOptimizing": "Espera mientras optimizamos tu vídeo",
+  "momentPostedWithoutVoiceNote": "Tu momento se publicó sin la nota de voz.",
+  "momentAnsweringPromptOfDay": "Respondiendo a la pregunta del día",
+  "momentVideoReady": "Vídeo listo",
+  "momentReadyToUpload": "Listo para subir",
+  "locationServicesDisabledTitle": "Servicios de ubicación desactivados",
+  "locationServicesDisabledBody": "Activa los servicios de ubicación en los ajustes de tu dispositivo para usar esta función.",
+  "locationPermissionNeededBody": "Bananatalk necesita permiso de ubicación para etiquetar tus momentos con tu ubicación actual.",
+  "locationPermissionRequiredTitle": "Permiso de ubicación necesario",
+  "locationPermissionPermanentlyDeniedBody": "El permiso de ubicación se denegó de forma permanente. Actívalo en los ajustes de la app para etiquetar tu ubicación en los momentos."
 }

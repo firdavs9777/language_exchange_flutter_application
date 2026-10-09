@@ -9071,4 +9071,34 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get conversationEmptySayHi => 'Ketuk untuk menyapa!';
+
+  @override
+  String get momentVideoOptimizing => 'Mohon tunggu, kami sedang mengoptimalkan videomu';
+
+  @override
+  String get momentPostedWithoutVoiceNote => 'Momenmu diposting tanpa catatan suara.';
+
+  @override
+  String get momentAnsweringPromptOfDay => 'Menjawab pertanyaan hari ini';
+
+  @override
+  String get momentVideoReady => 'Video siap';
+
+  @override
+  String get momentReadyToUpload => 'Siap diunggah';
+
+  @override
+  String get locationServicesDisabledTitle => 'Layanan Lokasi Nonaktif';
+
+  @override
+  String get locationServicesDisabledBody => 'Aktifkan Layanan Lokasi di pengaturan perangkatmu untuk memakai fitur ini.';
+
+  @override
+  String get locationPermissionNeededBody => 'Bananatalk perlu izin lokasi untuk menandai momenmu dengan lokasi saat ini.';
+
+  @override
+  String get locationPermissionRequiredTitle => 'Izin Lokasi Diperlukan';
+
+  @override
+  String get locationPermissionPermanentlyDeniedBody => 'Izin lokasi ditolak permanen. Aktifkan di pengaturan aplikasi untuk menandai lokasi pada momen.';
 }

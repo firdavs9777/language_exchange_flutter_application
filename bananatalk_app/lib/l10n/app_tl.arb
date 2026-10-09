@@ -3663,5 +3663,15 @@
       }
     }
   },
-  "conversationEmptySayHi": "I-tap para bumati!"
+  "conversationEmptySayHi": "I-tap para bumati!",
+  "momentVideoOptimizing": "Maghintay habang ino-optimize namin ang video mo",
+  "momentPostedWithoutVoiceNote": "Na-post ang moment mo nang walang voice note.",
+  "momentAnsweringPromptOfDay": "Sumasagot sa tanong ng araw",
+  "momentVideoReady": "Handa na ang video",
+  "momentReadyToUpload": "Handa nang i-upload",
+  "locationServicesDisabledTitle": "Naka-off ang Location Services",
+  "locationServicesDisabledBody": "I-on ang Location Services sa settings ng device mo para magamit ito.",
+  "locationPermissionNeededBody": "Kailangan ng Bananatalk ng location permission para matatakan ang mga moment mo ng kasalukuyang lokasyon.",
+  "locationPermissionRequiredTitle": "Kailangan ng Location Permission",
+  "locationPermissionPermanentlyDeniedBody": "Permanenteng tinanggihan ang location permission. I-on ito sa app settings para malagyan ng lokasyon ang mga moment."
 }

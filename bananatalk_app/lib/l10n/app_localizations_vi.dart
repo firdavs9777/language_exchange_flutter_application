@@ -9064,4 +9064,34 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get conversationEmptySayHi => 'Chạm để chào!';
+
+  @override
+  String get momentVideoOptimizing => 'Vui lòng đợi trong khi chúng tôi tối ưu video của bạn';
+
+  @override
+  String get momentPostedWithoutVoiceNote => 'Khoảnh khắc đã đăng nhưng không có ghi âm.';
+
+  @override
+  String get momentAnsweringPromptOfDay => 'Trả lời câu hỏi trong ngày';
+
+  @override
+  String get momentVideoReady => 'Video đã sẵn sàng';
+
+  @override
+  String get momentReadyToUpload => 'Sẵn sàng tải lên';
+
+  @override
+  String get locationServicesDisabledTitle => 'Dịch vụ vị trí đang tắt';
+
+  @override
+  String get locationServicesDisabledBody => 'Hãy bật Dịch vụ vị trí trong cài đặt thiết bị để dùng tính năng này.';
+
+  @override
+  String get locationPermissionNeededBody => 'Bananatalk cần quyền vị trí để gắn vị trí hiện tại vào khoảnh khắc của bạn.';
+
+  @override
+  String get locationPermissionRequiredTitle => 'Cần quyền vị trí';
+
+  @override
+  String get locationPermissionPermanentlyDeniedBody => 'Quyền vị trí đã bị từ chối vĩnh viễn. Hãy bật trong cài đặt ứng dụng để gắn vị trí vào khoảnh khắc.';
 }

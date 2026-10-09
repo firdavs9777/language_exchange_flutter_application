@@ -39,10 +39,14 @@ The worst was `conversation_empty_state.dart`: **"No messages yet" / "Send a mes
 start the conversation with {name}" / "Tap to say hi!"** — the screen a user lands on
 immediately after tapping Say hi. A Korean user followed a Korean guide, tapped a Korean
 button, and arrived at an English screen, on the one step the whole first-session funnel
-is measured by. Fixed today; 110 remain.
+is measured by. Fixed today, along with `create_moment.dart`; **101 remain**.
+
+Six of `create_moment.dart`'s strings already had translated keys sitting unused, and the
+file was already localized in 26 other places — so these are leftovers inside otherwise
+localized screens, not whole screens anyone forgot. That is the shape to expect in the
+remaining 101.
 
 Next by exposure:
-- `create_moment.dart` — 9, on the Moments guide's own destination
 - `waves_tab.dart` — 3, including the entire empty state
 - `vip_upsell_banner.dart`, `chat_screen_wrapper.dart` — paywall copy, English-only
 - `lesson_player_screen.dart`, `quiz_player_screen.dart`, `vocabulary_review_screen.dart`

@@ -3902,5 +3902,15 @@
       }
     }
   },
-  "conversationEmptySayHi": "Selam vermek için dokun!"
+  "conversationEmptySayHi": "Selam vermek için dokun!",
+  "momentVideoOptimizing": "Videonu iyileştiriyoruz, lütfen bekle",
+  "momentPostedWithoutVoiceNote": "Momentin sesli not olmadan paylaşıldı.",
+  "momentAnsweringPromptOfDay": "Günün sorusunu yanıtlıyor",
+  "momentVideoReady": "Video hazır",
+  "momentReadyToUpload": "Yüklemeye hazır",
+  "locationServicesDisabledTitle": "Konum Servisleri Kapalı",
+  "locationServicesDisabledBody": "Bu özelliği kullanmak için cihaz ayarlarından Konum Servisleri’ni aç.",
+  "locationPermissionNeededBody": "Bananatalk, momentlerini mevcut konumunla etiketlemek için konum izni istiyor.",
+  "locationPermissionRequiredTitle": "Konum İzni Gerekli",
+  "locationPermissionPermanentlyDeniedBody": "Konum izni kalıcı olarak reddedildi. Momentlerde konum etiketlemek için uygulama ayarlarından aç."
 }

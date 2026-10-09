@@ -9078,4 +9078,34 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get conversationEmptySayHi => 'Барои салом гуфтан зер кунед!';
+
+  @override
+  String get momentVideoOptimizing => 'Лутфан интизор шавед, видеои шуморо беҳтар карда истодаем';
+
+  @override
+  String get momentPostedWithoutVoiceNote => 'Лаҳзаи шумо бе ёддошти овозӣ нашр шуд.';
+
+  @override
+  String get momentAnsweringPromptOfDay => 'Ҷавоб ба саволи рӯз';
+
+  @override
+  String get momentVideoReady => 'Видео тайёр аст';
+
+  @override
+  String get momentReadyToUpload => 'Барои боргузорӣ тайёр';
+
+  @override
+  String get locationServicesDisabledTitle => 'Хидматҳои ҷойгиршавӣ хомӯшанд';
+
+  @override
+  String get locationServicesDisabledBody => 'Барои истифодаи ин имкон, хидматҳои ҷойгиршавиро дар танзимоти дастгоҳ фаъол кунед.';
+
+  @override
+  String get locationPermissionNeededBody => 'Барои нишон додани ҷойгиршавии ҳозира дар лаҳзаҳо, Bananatalk ба иҷозати ҷойгиршавӣ ниёз дорад.';
+
+  @override
+  String get locationPermissionRequiredTitle => 'Иҷозати ҷойгиршавӣ лозим аст';
+
+  @override
+  String get locationPermissionPermanentlyDeniedBody => 'Иҷозати ҷойгиршавӣ ба таври доимӣ рад шудааст. Барои нишон додани ҷойгиршавӣ дар лаҳзаҳо, онро дар танзимоти барнома фаъол кунед.';
 }

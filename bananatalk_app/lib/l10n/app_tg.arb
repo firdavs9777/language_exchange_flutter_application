@@ -3183,5 +3183,15 @@
       }
     }
   },
-  "conversationEmptySayHi": "Барои салом гуфтан зер кунед!"
+  "conversationEmptySayHi": "Барои салом гуфтан зер кунед!",
+  "momentVideoOptimizing": "Лутфан интизор шавед, видеои шуморо беҳтар карда истодаем",
+  "momentPostedWithoutVoiceNote": "Лаҳзаи шумо бе ёддошти овозӣ нашр шуд.",
+  "momentAnsweringPromptOfDay": "Ҷавоб ба саволи рӯз",
+  "momentVideoReady": "Видео тайёр аст",
+  "momentReadyToUpload": "Барои боргузорӣ тайёр",
+  "locationServicesDisabledTitle": "Хидматҳои ҷойгиршавӣ хомӯшанд",
+  "locationServicesDisabledBody": "Барои истифодаи ин имкон, хидматҳои ҷойгиршавиро дар танзимоти дастгоҳ фаъол кунед.",
+  "locationPermissionNeededBody": "Барои нишон додани ҷойгиршавии ҳозира дар лаҳзаҳо, Bananatalk ба иҷозати ҷойгиршавӣ ниёз дорад.",
+  "locationPermissionRequiredTitle": "Иҷозати ҷойгиршавӣ лозим аст",
+  "locationPermissionPermanentlyDeniedBody": "Иҷозати ҷойгиршавӣ ба таври доимӣ рад шудааст. Барои нишон додани ҷойгиршавӣ дар лаҳзаҳо, онро дар танзимоти барнома фаъол кунед."
 }

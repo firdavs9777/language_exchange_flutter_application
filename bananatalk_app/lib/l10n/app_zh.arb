@@ -3704,5 +3704,15 @@
       }
     }
   },
-  "conversationEmptySayHi": "点一下打个招呼！"
+  "conversationEmptySayHi": "点一下打个招呼！",
+  "momentVideoOptimizing": "正在优化你的视频，请稍候",
+  "momentPostedWithoutVoiceNote": "动态已发布，但没有附上语音。",
+  "momentAnsweringPromptOfDay": "回答每日话题",
+  "momentVideoReady": "视频已就绪",
+  "momentReadyToUpload": "可以上传了",
+  "locationServicesDisabledTitle": "定位服务已关闭",
+  "locationServicesDisabledBody": "请在设备设置中打开定位服务以使用此功能。",
+  "locationPermissionNeededBody": "Bananatalk 需要定位权限，才能为你的动态标记当前位置。",
+  "locationPermissionRequiredTitle": "需要定位权限",
+  "locationPermissionPermanentlyDeniedBody": "定位权限已被永久拒绝。请在应用设置中开启，才能为动态标记位置。"
 }

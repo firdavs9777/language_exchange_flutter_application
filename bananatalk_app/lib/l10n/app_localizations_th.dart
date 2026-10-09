@@ -9064,4 +9064,34 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get conversationEmptySayHi => 'แตะเพื่อทักทาย!';
+
+  @override
+  String get momentVideoOptimizing => 'โปรดรอสักครู่ กำลังปรับวิดีโอให้เหมาะสม';
+
+  @override
+  String get momentPostedWithoutVoiceNote => 'โพสต์โมเมนต์แล้ว แต่ไม่มีข้อความเสียง';
+
+  @override
+  String get momentAnsweringPromptOfDay => 'ตอบคำถามประจำวัน';
+
+  @override
+  String get momentVideoReady => 'วิดีโอพร้อมแล้ว';
+
+  @override
+  String get momentReadyToUpload => 'พร้อมอัปโหลด';
+
+  @override
+  String get locationServicesDisabledTitle => 'บริการตำแหน่งปิดอยู่';
+
+  @override
+  String get locationServicesDisabledBody => 'เปิดบริการตำแหน่งในการตั้งค่าเครื่องเพื่อใช้ฟีเจอร์นี้';
+
+  @override
+  String get locationPermissionNeededBody => 'Bananatalk ต้องใช้สิทธิ์ตำแหน่งเพื่อระบุตำแหน่งปัจจุบันในโมเมนต์ของคุณ';
+
+  @override
+  String get locationPermissionRequiredTitle => 'ต้องใช้สิทธิ์ตำแหน่ง';
+
+  @override
+  String get locationPermissionPermanentlyDeniedBody => 'สิทธิ์ตำแหน่งถูกปฏิเสธถาวร โปรดเปิดในการตั้งค่าแอปเพื่อระบุตำแหน่งในโมเมนต์';
 }

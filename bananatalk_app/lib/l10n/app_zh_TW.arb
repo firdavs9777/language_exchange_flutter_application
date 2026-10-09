@@ -3381,5 +3381,15 @@
       }
     }
   },
-  "conversationEmptySayHi": "點一下打聲招呼！"
+  "conversationEmptySayHi": "點一下打聲招呼！",
+  "momentVideoOptimizing": "正在最佳化你的影片，請稍候",
+  "momentPostedWithoutVoiceNote": "動態已發布，但沒有附上語音。",
+  "momentAnsweringPromptOfDay": "回答每日話題",
+  "momentVideoReady": "影片已就緒",
+  "momentReadyToUpload": "可以上傳了",
+  "locationServicesDisabledTitle": "定位服務已關閉",
+  "locationServicesDisabledBody": "請在裝置設定中開啟定位服務以使用此功能。",
+  "locationPermissionNeededBody": "Bananatalk 需要定位權限，才能為你的動態標記目前位置。",
+  "locationPermissionRequiredTitle": "需要定位權限",
+  "locationPermissionPermanentlyDeniedBody": "定位權限已被永久拒絕。請在應用程式設定中開啟，才能為動態標記位置。"
 }
