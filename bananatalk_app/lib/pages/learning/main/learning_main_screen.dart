@@ -204,6 +204,14 @@ class _LearningMainState extends ConsumerState<LearningMain>
               ctaLabel: AppLocalizations.of(context)!.guideAiStudyCta,
               onCta: () =>
                   _tabController.animateTo(indexOfTab(StudyHubTab.aiTools)),
+              // Exam Study is the other half of what this tab is for, and it
+              // is invisible to a new user: it sits third behind Today and AI
+              // Tools, and nothing on arrival says the app prepares you for
+              // an actual exam. Reuses the tab's own label so the button and
+              // the place it lands you read the same.
+              secondaryLabel: AppLocalizations.of(context)!.examStudy,
+              onSecondary: () =>
+                  _tabController.animateTo(indexOfTab(StudyHubTab.examStudy)),
             ),
             Expanded(
               child: TabBarView(

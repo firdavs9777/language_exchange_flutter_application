@@ -27,6 +27,8 @@ class PageGuide extends ConsumerWidget {
     required this.body,
     this.ctaLabel,
     this.onCta,
+    this.secondaryLabel,
+    this.onSecondary,
     this.acted = false,
     this.padding = const EdgeInsets.fromLTRB(16, 12, 16, 4),
   });
@@ -38,6 +40,11 @@ class PageGuide extends ConsumerWidget {
   final String body;
   final String? ctaLabel;
   final VoidCallback? onCta;
+
+  /// A second destination for a surface with two real goals. See
+  /// [GuideCard.secondaryLabel].
+  final String? secondaryLabel;
+  final VoidCallback? onSecondary;
 
   /// A page-derived signal that the user has already done this, OR-ed with
   /// the stored flag. The Chats guide passes `conversations.isNotEmpty` and
@@ -85,17 +92,26 @@ class PageGuide extends ConsumerWidget {
         body: body,
         ctaLabel: ctaLabel,
         onCta: onCta == null ? null : () => _onCta(ref),
+        secondaryLabel: secondaryLabel,
+        onSecondary:
+            onSecondary == null ? null : () => _onCta(ref, secondary: true),
       ),
     );
   }
 
-  void _onCta(WidgetRef ref) {
-    AnalyticsService.instance.guideCtaTapped(surface: surface.slug);
+  void _onCta(WidgetRef ref, {bool secondary = false}) {
+    // `target` is what makes a two-destination card worth having: without it
+    // the console says AI Study's guide was tapped, but not whether anyone
+    // wanted the tutor or the exam prep.
+    AnalyticsService.instance.guideCtaTapped(
+      surface: surface.slug,
+      target: secondary ? 'secondary' : 'primary',
+    );
     // The tap is what the guide exists to produce, so it retires the guide
     // even if the user backs out of what it opened. The view cap would have
     // bounded it anyway; this stops the card nagging someone who complied.
     GuideStore.markActed(surface);
-    onCta!();
+    (secondary ? onSecondary! : onCta!)();
   }
 
   void _recordAfterFrame(WidgetRef ref, int timesShown) {

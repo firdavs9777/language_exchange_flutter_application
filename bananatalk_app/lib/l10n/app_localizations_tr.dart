@@ -9030,7 +9030,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get guideAiStudyTitle => 'Practise before you have to';
 
   @override
-  String get guideAiStudyBody => 'The AI tutor never gets bored and never judges. Two minutes is a session.';
+  String get guideAiStudyBody => 'Practise with the AI tutor, or prepare for a real exam. Two minutes is a session.';
 
   @override
   String get guideAiStudyCta => 'Open AI Tools';
@@ -9054,10 +9054,10 @@ class AppLocalizationsTr extends AppLocalizations {
   String get guideMomentsCta => 'Post a moment';
 
   @override
-  String get guideProfileTitle => 'Add a photo to your profile';
+  String get guideProfileTitle => 'Finish your profile';
 
   @override
-  String get guideProfileBody => 'A profile with a photo gets replies. One without is usually skipped.';
+  String get guideProfileBody => 'A photo and a line about yourself. Half-empty profiles get skipped.';
 
   @override
   String get guideProfileCta => 'Edit profile';

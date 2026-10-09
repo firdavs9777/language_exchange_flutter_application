@@ -16517,7 +16517,7 @@ abstract class AppLocalizations {
   /// No description provided for @guideAiStudyBody.
   ///
   /// In en, this message translates to:
-  /// **'The AI tutor never gets bored and never judges. Two minutes is a session.'**
+  /// **'Practise with the AI tutor, or prepare for a real exam. Two minutes is a session.'**
   String get guideAiStudyBody;
 
   /// No description provided for @guideAiStudyCta.
@@ -16565,13 +16565,13 @@ abstract class AppLocalizations {
   /// No description provided for @guideProfileTitle.
   ///
   /// In en, this message translates to:
-  /// **'Add a photo to your profile'**
+  /// **'Finish your profile'**
   String get guideProfileTitle;
 
   /// No description provided for @guideProfileBody.
   ///
   /// In en, this message translates to:
-  /// **'A profile with a photo gets replies. One without is usually skipped.'**
+  /// **'A photo and a line about yourself. Half-empty profiles get skipped.'**
   String get guideProfileBody;
 
   /// No description provided for @guideProfileCta.

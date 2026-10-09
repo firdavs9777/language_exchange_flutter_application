@@ -158,8 +158,14 @@ class AnalyticsService {
   Future<void> guideShown({required String surface, required int timesShown}) =>
       _log('guide_shown', {'surface': surface, 'times_shown': timesShown});
 
-  Future<void> guideCtaTapped({required String surface}) =>
-      _log('guide_cta_tapped', {'surface': surface});
+  /// `target` separates a card's two destinations. AI Study offers the tutor
+  /// and exam prep; which one people choose is the question the card was
+  /// added to answer, and one undifferentiated tap count cannot answer it.
+  Future<void> guideCtaTapped({
+    required String surface,
+    String target = 'primary',
+  }) =>
+      _log('guide_cta_tapped', {'surface': surface, 'target': target});
 
   // ─── Step 13A events ──────────────────────────────────────────
 

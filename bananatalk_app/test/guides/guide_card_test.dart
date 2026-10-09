@@ -81,6 +81,98 @@ void main() {
     expect(taps, 1);
   });
 
+  testWidgets('a second destination renders beside the first', (tester) async {
+    // AI Study has two real goals -- the tutor and exam prep -- and picking
+    // one for everybody sends half the users to the wrong place.
+    var primary = 0;
+    var secondary = 0;
+    await tester.pumpWidget(MaterialApp(
+      home: Scaffold(
+        body: Center(
+          child: SizedBox(
+            width: 390,
+            child: GuideCard(
+              icon: Icons.auto_awesome_rounded,
+              accent: const Color(0xFF667EEA),
+              title: 'Practise before you have to',
+              body: 'Tutor or exam prep.',
+              ctaLabel: 'Open AI Tools',
+              onCta: () => primary++,
+              secondaryLabel: 'Exam Study',
+              onSecondary: () => secondary++,
+            ),
+          ),
+        ),
+      ),
+    ));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Open AI Tools'), findsOneWidget);
+    expect(find.text('Exam Study'), findsOneWidget);
+
+    await tester.tap(find.text('Exam Study'));
+    await tester.pumpAndSettle();
+    expect(secondary, 1);
+    expect(primary, 0, reason: 'the two buttons must not share a callback');
+
+    await tester.tap(find.text('Open AI Tools'));
+    await tester.pumpAndSettle();
+    expect(primary, 1);
+  });
+
+  testWidgets('only the primary is ringed', (tester) async {
+    // The ring names ONE button. Two rings is a card flashing, not a card
+    // pointing -- the same rule as the top-card-only Say hi highlight.
+    await tester.pumpWidget(MaterialApp(
+      home: Scaffold(
+        body: Center(
+          child: SizedBox(
+            width: 390,
+            child: GuideCard(
+              icon: Icons.auto_awesome_rounded,
+              accent: const Color(0xFF667EEA),
+              title: 'Practise before you have to',
+              body: 'Tutor or exam prep.',
+              ctaLabel: 'Open AI Tools',
+              onCta: () {},
+              secondaryLabel: 'Exam Study',
+              onSecondary: () {},
+            ),
+          ),
+        ),
+      ),
+    ));
+    await tester.pump(const Duration(milliseconds: 300));
+
+    expect(find.byType(PulseHighlight), findsOneWidget);
+  });
+
+  testWidgets('two buttons plus long translations do not overflow',
+      (tester) async {
+    await tester.pumpWidget(MaterialApp(
+      home: Scaffold(
+        body: Center(
+          child: SizedBox(
+            width: 280,
+            child: GuideCard(
+              icon: Icons.auto_awesome_rounded,
+              accent: const Color(0xFF667EEA),
+              title: 'Übe, bevor du musst',
+              body: 'Übe mit dem KI-Tutor oder bereite dich auf eine echte '
+                  'Prüfung vor. Zwei Minuten sind eine Sitzung.',
+              ctaLabel: 'KI-Werkzeuge öffnen',
+              onCta: () {},
+              secondaryLabel: 'Prüfungsvorbereitung',
+              onSecondary: () {},
+            ),
+          ),
+        ),
+      ),
+    ));
+    await tester.pumpAndSettle();
+    expect(tester.takeException(), isNull);
+  });
+
   testWidgets('with no CTA there is no button and no pulse', (tester) async {
     await tester.pumpWidget(_host(width: 390, cta: null));
     await tester.pumpAndSettle();

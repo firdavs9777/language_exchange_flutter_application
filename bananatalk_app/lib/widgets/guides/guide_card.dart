@@ -24,6 +24,8 @@ class GuideCard extends StatelessWidget {
     required this.body,
     this.ctaLabel,
     this.onCta,
+    this.secondaryLabel,
+    this.onSecondary,
   });
 
   final IconData icon;
@@ -37,9 +39,21 @@ class GuideCard extends StatelessWidget {
   final String? ctaLabel;
   final VoidCallback? onCta;
 
+  /// A second destination, for a surface that genuinely has two.
+  ///
+  /// AI Study is the case it exists for: "practise with the tutor" and
+  /// "prepare for an exam" are different goals with different value, and
+  /// picking one for everybody sends half the users to the wrong place.
+  ///
+  /// Rendered quieter than the primary and never ringed -- the ring names ONE
+  /// button, which is the whole point of it.
+  final String? secondaryLabel;
+  final VoidCallback? onSecondary;
+
   @override
   Widget build(BuildContext context) {
     final hasCta = ctaLabel != null && onCta != null;
+    final hasSecondary = secondaryLabel != null && onSecondary != null;
     return _FadeInUp(
       child: Container(
         padding: const EdgeInsets.all(14),
@@ -102,17 +116,30 @@ class GuideCard extends StatelessWidget {
             ),
             if (hasCta) ...[
               const SizedBox(height: 12),
-              Align(
-                alignment: Alignment.centerRight,
-                child: PulseHighlight(
-                  color: accent,
-                  borderRadius: AppRadius.borderRound,
-                  child: _CtaPill(
-                    label: ctaLabel!,
-                    accent: accent,
-                    onTap: onCta!,
+              // Wrap, not Row: with two buttons and a long translation the
+              // pair drops to a second line instead of overflowing. Aligned
+              // right so a single button sits where it always has.
+              Wrap(
+                alignment: WrapAlignment.end,
+                spacing: 8,
+                runSpacing: 8,
+                children: [
+                  if (hasSecondary)
+                    _SecondaryPill(
+                      label: secondaryLabel!,
+                      accent: accent,
+                      onTap: onSecondary!,
+                    ),
+                  PulseHighlight(
+                    color: accent,
+                    borderRadius: AppRadius.borderRound,
+                    child: _CtaPill(
+                      label: ctaLabel!,
+                      accent: accent,
+                      onTap: onCta!,
+                    ),
                   ),
-                ),
+                ],
               ),
             ],
           ],
@@ -164,6 +191,47 @@ class _CtaPill extends StatelessWidget {
               const Icon(Icons.arrow_forward_rounded,
                   size: 16, color: Colors.white),
             ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _SecondaryPill extends StatelessWidget {
+  const _SecondaryPill({
+    required this.label,
+    required this.accent,
+    required this.onTap,
+  });
+
+  final String label;
+  final Color accent;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.transparent,
+      borderRadius: AppRadius.borderRound,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: AppRadius.borderRound,
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+          decoration: BoxDecoration(
+            borderRadius: AppRadius.borderRound,
+            border: Border.all(color: accent.withValues(alpha: 0.45)),
+          ),
+          child: Text(
+            label,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              fontSize: 13.5,
+              fontWeight: FontWeight.w600,
+              color: accent,
+            ),
           ),
         ),
       ),

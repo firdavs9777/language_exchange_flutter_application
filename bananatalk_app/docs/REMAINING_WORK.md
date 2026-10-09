@@ -122,7 +122,9 @@ fails if a tab loses its guide or a sixth one arrives without one.
 - [x] Matches renders through `GuideCard` too, so the five cards cannot drift apart visually, and
       `MatchCard.highlightSayHi` rings the TOP card's Say hi while the panel is up — the panel names
       the action, the ring says which button that is
-- [x] AI Study → AI Tools; Chats → Community/Matches; Moments → composer; Profile → edit
+- [x] AI Study → AI Tools **and Exam Study** (two destinations; `guide_cta_tapped` carries
+      `target` so the console says which one people actually want); Chats → Community/Matches;
+      Moments → composer; Profile → edit
 - [x] `guide_shown` / `guide_cta_tapped`, both carrying `surface`, kept separate from the
       `first_session_*` events so neither funnel is polluted
 - [x] 12 `app_en.arb` keys + `flutter gen-l10n`
@@ -132,9 +134,9 @@ fails if a tab loses its guide or a sixth one arrives without one.
       rebuild, which `SingleTickerProviderStateMixin` forbids; the ErrorWidget that replaced the
       subtree then "overflowed" the page Column by ~99,000px. Fixed, 5 lifecycle tests added.
 - [ ] Device pass 2: re-run after the ticker fix and confirm the log is clean
-- [ ] Decide from `guide_cta_tapped` whether any surface needs a second, deeper guide. Deliberately
-      one card per tab for now — AI Study in particular has three plausible activations ("do a lesson",
-      "ask the tutor", "review vocabulary") and this picks the tutor.
+- [ ] Decide from `guide_cta_tapped` whether any surface needs a second, deeper guide. One card per
+      tab, but AI Study's now carries two destinations: the tutor (primary, ringed) and Exam Study
+      (secondary, quieter). Read `target` before adding a third anywhere.
 - [ ] Guides are gated on `isNewUser` (≤6 days), so the existing install base never sees one. Revisit
       if the goal becomes activating dormant accounts rather than day-one retention.
 
