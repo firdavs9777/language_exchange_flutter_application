@@ -6369,7 +6369,7 @@
   "callForegroundBody": "Tap to return to your call",
   "callServiceChannelName": "Ongoing call",
   "callServiceChannelDescription": "Keeps your call running while BananaTalk is in the background",
-  "firstSessionMatchesTitle": "{count} people picked for you today",
+  "firstSessionMatchesTitle": "{count, plural, =1{1 person picked for you today} other{{count} people picked for you today}}",
   "@firstSessionMatchesTitle": {
     "description": "First line of the first-session panel on the Matches tab",
     "placeholders": {

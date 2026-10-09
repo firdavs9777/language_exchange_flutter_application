@@ -9028,7 +9028,13 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String firstSessionMatchesTitle(int count) {
-    return '$count people picked for you today';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count people picked for you today',
+      one: '1 person picked for you today',
+    );
+    return '$_temp0';
   }
 
   @override

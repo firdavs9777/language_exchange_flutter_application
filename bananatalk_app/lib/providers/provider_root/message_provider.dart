@@ -728,6 +728,9 @@ class MessageService {
       final response = await http.Response.fromStream(streamedResponse);
 
       if (response.statusCode == 201) {
+        // A voice note, a video or a pin can all be a first contact in a
+        // language-exchange app; omitting them under-reports the metric.
+        unawaited(reportFirstMessageIfFirst());
         final data = jsonDecode(response.body);
         return {
           'success': true,
@@ -790,6 +793,9 @@ class MessageService {
       final response = await http.Response.fromStream(streamedResponse);
 
       if (response.statusCode == 201) {
+        // A voice note, a video or a pin can all be a first contact in a
+        // language-exchange app; omitting them under-reports the metric.
+        unawaited(reportFirstMessageIfFirst());
         final data = jsonDecode(response.body);
         return {
           'success': true,
@@ -837,6 +843,9 @@ class MessageService {
       );
 
       if (response.statusCode == 201) {
+        // A voice note, a video or a pin can all be a first contact in a
+        // language-exchange app; omitting them under-reports the metric.
+        unawaited(reportFirstMessageIfFirst());
         final data = jsonDecode(response.body);
         return {
           'success': true,

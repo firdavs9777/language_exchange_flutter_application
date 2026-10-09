@@ -41,6 +41,22 @@ void main() {
     expect(tester.takeException(), isNull);
   });
 
+  testWidgets('a single match is not "1 people"', (tester) async {
+    // matchCount is the skip-filtered list, so a user who skips five of six
+    // reads this on the panel whose whole job is a good first impression.
+    await tester.pumpWidget(_host(width: 390, matchCount: 1));
+    await tester.pumpAndSettle();
+
+    expect(find.textContaining('1 people'), findsNothing);
+    expect(find.textContaining('1 person'), findsOneWidget);
+  });
+
+  testWidgets('plural still reads correctly', (tester) async {
+    await tester.pumpWidget(_host(width: 390, matchCount: 4));
+    await tester.pumpAndSettle();
+    expect(find.textContaining('4 people'), findsOneWidget);
+  });
+
   testWidgets('it has no dismiss control', (tester) async {
     await tester.pumpWidget(_host(width: 390));
     await tester.pumpAndSettle();

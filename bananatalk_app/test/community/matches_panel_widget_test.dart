@@ -129,6 +129,32 @@ void main() {
     expect(find.byType(MatchesFirstSessionPanel), findsNothing);
   });
 
+  testWidgets('the panel replaces the header rather than stacking on it',
+      (tester) async {
+    // The spec says the panel OCCUPIES the header slot. Stacked, a new user
+    // read "3 people picked for you today" then "Your 3 matches today" then
+    // the refresh hint -- the same number twice, three lines where two were
+    // specified.
+    await tester.pumpWidget(_wrap(isNew: true, session: _fresh));
+    await tester.pumpAndSettle();
+
+    expect(find.byType(MatchesFirstSessionPanel), findsOneWidget);
+    expect(find.textContaining('matches today'), findsNothing,
+        reason: 'the usual header must give way to the panel, not sit under it');
+  });
+
+  testWidgets('the usual header returns once the panel is gone',
+      (tester) async {
+    await tester.pumpWidget(_wrap(
+      isNew: true,
+      session: const FirstSessionState(hasMessaged: true, timesShown: 0),
+    ));
+    await tester.pumpAndSettle();
+
+    expect(find.byType(MatchesFirstSessionPanel), findsNothing);
+    expect(find.textContaining('matches today'), findsOneWidget);
+  });
+
   testWidgets('the panel does not vanish from under the user mid-view',
       (tester) async {
     // On the third eligible view the stored count reaches the cap. If the

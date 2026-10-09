@@ -16499,7 +16499,7 @@ abstract class AppLocalizations {
   /// First line of the first-session panel on the Matches tab
   ///
   /// In en, this message translates to:
-  /// **'{count} people picked for you today'**
+  /// **'{count, plural, =1{1 person picked for you today} other{{count} people picked for you today}}'**
   String firstSessionMatchesTitle(int count);
 
   /// No description provided for @firstSessionMatchesBody.

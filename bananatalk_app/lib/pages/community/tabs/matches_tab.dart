@@ -35,8 +35,7 @@ const int kExtraMatchesMax = 9;
 bool shouldShowExtraMatchesCta({
   required bool boostsEnabled,
   required int count,
-}) =>
-    boostsEnabled && count < kDailyMatchesBatchSize + kExtraMatchesMax;
+}) => boostsEnabled && count < kDailyMatchesBatchSize + kExtraMatchesMax;
 
 /// "Your N matches today" list. Self-contained; mounted by the community page.
 class MatchesTab extends ConsumerStatefulWidget {
@@ -153,8 +152,7 @@ class _MatchesTabState extends ConsumerState<MatchesTab> {
     // say_hi_tapped / guidance_shown exceed 1 and mean nothing -- and the
     // spec's Risks section makes exactly that ratio the decision rule for
     // whether a header is salient enough.
-    final isNew =
-        ref.read(userProvider).valueOrNull?.isNewUser ?? false;
+    final isNew = ref.read(userProvider).valueOrNull?.isNewUser ?? false;
     if (isNew) {
       AnalyticsService.instance.firstSessionSayHiTapped(position: position);
     }
@@ -200,8 +198,7 @@ class _MatchesTabState extends ConsumerState<MatchesTab> {
   void _onBatchExhausted() {
     if (!_sawNonEmptyBatch || _exhaustedAdFired) return;
     final flagOn =
-        ref.read(appConfigProvider).valueOrNull?.rewardedLimitsEnabled ??
-        false;
+        ref.read(appConfigProvider).valueOrNull?.rewardedLimitsEnabled ?? false;
     // Checked before latching, so a flag that resolves later still fires.
     if (!flagOn) return;
     _exhaustedAdFired = true;
@@ -220,7 +217,9 @@ class _MatchesTabState extends ConsumerState<MatchesTab> {
     ref.listen<int>(selectedTabProvider, (_, next) {
       if (next == _communityTab && _hasMatches) _maybePrimeOnFirstMatches();
     });
-    final boostsEnabled = ref.watch(appConfigProvider).maybeWhen(
+    final boostsEnabled = ref
+        .watch(appConfigProvider)
+        .maybeWhen(
           data: (config) => config?.boostsEnabled ?? false,
           orElse: () => false,
         );
@@ -276,14 +275,12 @@ class _MatchesTabState extends ConsumerState<MatchesTab> {
         // An empty or errored batch never reaches here -- those take the
         // _Empty / _LoadError branches above, which render no list header. A
         // new user with no matches has a supply problem, not a guidance one.
-        final isNew = ref.watch(userProvider).maybeWhen(
-              data: (u) => u.isNewUser,
-              orElse: () => false,
-            );
-        final session = ref.watch(firstSessionStateProvider).maybeWhen(
-              data: (s) => s,
-              orElse: () => FirstSessionState.unknown,
-            );
+        final isNew = ref
+            .watch(userProvider)
+            .maybeWhen(data: (u) => u.isNewUser, orElse: () => false);
+        final session = ref
+            .watch(firstSessionStateProvider)
+            .maybeWhen(data: (s) => s, orElse: () => FirstSessionState.unknown);
         final showGuidance = shouldShowFirstSessionGuidance(
           isNewUser: isNew,
           hasMessaged: session.hasMessaged,
@@ -303,22 +300,28 @@ class _MatchesTabState extends ConsumerState<MatchesTab> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      if (showGuidance) ...[
-                        Builder(builder: (_) {
-                          _recordGuidanceShownAfterFrame(session.timesShown);
-                          return MatchesFirstSessionPanel(
-                            matchCount: matches.length,
-                          );
-                        }),
-                        const SizedBox(height: 12),
-                      ],
-                      Text(
-                        l10n.matchesTodayTitle(matches.length),
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w700,
+                      // The panel REPLACES the usual header for a first-timer
+                      // rather than stacking on it. Stacked, they read the
+                      // same count twice -- "N people picked for you today"
+                      // then "Your N matches today" -- three lines where the
+                      // spec specified two.
+                      if (showGuidance)
+                        Builder(
+                          builder: (_) {
+                            _recordGuidanceShownAfterFrame(session.timesShown);
+                            return MatchesFirstSessionPanel(
+                              matchCount: matches.length,
+                            );
+                          },
+                        )
+                      else
+                        Text(
+                          l10n.matchesTodayTitle(matches.length),
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w700,
+                          ),
                         ),
-                      ),
                       const SizedBox(height: 2),
                       Text(
                         result.nextRefreshAt == null
