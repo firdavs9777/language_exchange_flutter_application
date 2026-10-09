@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:bananatalk_app/providers/provider_models/message_model.dart';
@@ -8,8 +9,27 @@ import 'package:bananatalk_app/service/endpoints.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/utils/string_sanitizer.dart';
+import 'package:bananatalk_app/pages/community/first_session/first_session_store.dart';
+import 'package:bananatalk_app/services/analytics_service.dart';
 
 class MessageService {
+  /// Report the first message this user ever sends, once.
+  ///
+  /// Fired here rather than from the Say hi button because a tap is not a
+  /// conversation -- counting taps would flatter the first-session panel.
+  /// The stored flag is the guard, so a chatty user reports once, not
+  /// forever. Best effort: analytics and prefs must never fail a send.
+  Future<void> _reportFirstMessageIfFirst() async {
+    try {
+      final state = await FirstSessionStore.read();
+      if (state.hasMessaged) return;
+      await FirstSessionStore.markMessaged();
+      AnalyticsService.instance.firstMessageSent();
+    } catch (_) {
+      // Never let reporting break sending.
+    }
+  }
+
   static Future<String?> _getToken() async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getString('token');
@@ -203,6 +223,7 @@ class MessageService {
 
         if (response.statusCode == 201) {
           final data = jsonDecode(response.body);
+          unawaited(_reportFirstMessageIfFirst());
           return {
             'success': true,
             'data': Message.fromJson(data['data']),
@@ -229,6 +250,7 @@ class MessageService {
 
         if (response.statusCode == 201) {
           final data = jsonDecode(response.body);
+          unawaited(_reportFirstMessageIfFirst());
           return {
             'success': true,
             'data': Message.fromJson(data['data']),
@@ -343,6 +365,10 @@ class MessageService {
 
       if (response.statusCode == 201) {
         final data = jsonDecode(response.body);
+        // A reply can be someone's first ever outgoing message -- to the
+        // welcome wave, or to an opener. Leaving it out would under-report
+        // the conversion the first-session panel exists to drive.
+        unawaited(_reportFirstMessageIfFirst());
         return {
           'success': true,
           'message': data['message'] ?? 'Reply sent successfully',

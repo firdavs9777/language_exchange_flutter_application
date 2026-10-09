@@ -92,13 +92,14 @@ Baseline: 85% of signups leave on day one; D1 15%, D7 7%. The first-conversation
 action, and nothing measures the first session: the 2026-10-07 funnel events stop at
 `registration_completed`.
 
-- [ ] Matches: `shouldShowFirstSessionGuidance` pure predicate (isNewUser / hasMessaged / timesShown, cap 3)
-- [ ] Matches: `MatchesFirstSessionPanel` in the existing index-0 header slot; no dismiss, no overlay
-- [ ] Prefs state `first_conversation_done` + `first_session_guidance_shown_count`
-- [ ] `message_provider.sendMessage`: set the flag and fire `first_message_sent` on a first successful send
-- [ ] Four events: `first_session_matches_shown` / `_guidance_shown` / `_say_hi_tapped` / `first_message_sent`
-- [ ] Two `app_en.arb` keys + `flutter gen-l10n` (18 locales fall back to English until native review)
+- [x] Matches: `shouldShowFirstSessionGuidance` pure predicate (isNewUser / hasMessaged / timesShown, cap 3)
+- [x] Matches: `MatchesFirstSessionPanel` in the existing index-0 header slot; no dismiss, no overlay
+- [x] Prefs state `first_conversation_done` + `first_session_guidance_shown_count`
+- [x] `message_provider.sendMessage`: set the flag and fire `first_message_sent` on a first successful send
+- [x] Four events: `first_session_matches_shown` / `_guidance_shown` / `_say_hi_tapped` / `first_message_sent`
+- [x] Two `app_en.arb` keys + `flutter gen-l10n` (18 locales fall back to English until native review)
 - [ ] Read `say_hi_tapped / guidance_shown` before deciding whether a header is salient enough
+      (implemented 2026-10-09 on branch feat/first-session-guidance; needs real first-session data)
 
 Blocked on nobody, but the two flags that create social pull are still off — `WELCOME_WAVE_ENABLED`
 and `LIFECYCLE_PUSH_ENABLED`, both Day-0 in section 1 below. Guidance measured without them understates
