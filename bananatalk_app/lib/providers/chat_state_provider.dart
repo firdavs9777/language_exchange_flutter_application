@@ -7,6 +7,7 @@ import 'package:bananatalk_app/services/chat_socket_state_manager.dart';
 import 'package:bananatalk_app/providers/provider_models/message_model.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/unread_count_provider.dart';
+import 'package:bananatalk_app/pages/community/first_session/first_message_reporter.dart';
 
 /// Connection status enum for clearer state management
 enum ConnectionStatus {
@@ -496,6 +497,10 @@ class ChatStateNotifier extends StateNotifier<ChatState> with WidgetsBindingObse
 
     // If message was sent successfully, update optimistic message or add new
     if (result['status'] == 'success') {
+      // This is where Say hi actually lands: the first-session panel sends
+      // people to the chat screen, which sends over the socket and never
+      // touches MessageService. Reporting only there measured nobody.
+      unawaited(reportFirstMessageIfFirst());
       try {
         final messageData = result['message'] ?? result['data'];
 
