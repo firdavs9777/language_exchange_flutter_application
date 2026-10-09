@@ -86,6 +86,27 @@ class AnalyticsService {
     'total_steps': totalSteps,
   });
 
+  // ─── First session ────────────────────────────────────────────
+  //
+  // Registration instrumentation (2026-10-07) stops at
+  // registration_completed; nothing measured what happened next, while 85% of
+  // signups left on day one. These four span the one journey that matters on
+  // day one: reach Matches, see the nudge, act, and complete.
+  //
+  // first_message_sent is deliberately NOT fired on a Say hi tap. A tap is not
+  // a conversation, and a metric that counted it would flatter the panel.
+
+  Future<void> firstSessionMatchesShown({required int matchCount}) =>
+      _log('first_session_matches_shown', {'match_count': matchCount});
+
+  Future<void> firstSessionGuidanceShown({required int timesShown}) =>
+      _log('first_session_guidance_shown', {'times_shown': timesShown});
+
+  Future<void> firstSessionSayHiTapped({required int position}) =>
+      _log('first_session_say_hi_tapped', {'position': position});
+
+  Future<void> firstMessageSent() => _log('first_message_sent', {});
+
   // ─── Step 13A events ──────────────────────────────────────────
 
   Future<void> tutorChipUsed({required String chipName, required String userTier}) =>
