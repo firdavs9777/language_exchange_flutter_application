@@ -60,7 +60,8 @@ Baseline: 1/30 calls answered in 30 days, 168 stuck ringing, 0 call messages eve
 
 ### Device-log audit, 2026-10-09 (iPhone 15 Pro, hot restart + one outbound audio call)
 
-- [ ] **`GET /voicerooms` fires in bursts instead of once per 30s.** The log shows ~14 back-to-back
+- [x] **`GET /voicerooms` fires in bursts instead of once per 30s.** Fixed 2026-10-09: the provider is
+      held open for one poll interval after the last listener leaves, so a rebuild reuses the count. The log shows ~14 back-to-back
       requests ~570ms apart, continuing during an active call. `activeVoiceRoomCountProvider`
       (`lib/providers/active_voice_room_count_provider.dart`) is a `StreamProvider.autoDispose` whose
       body does `yield await fetchCount()` before the 30s periodic stream, and it is watched by
@@ -68,7 +69,9 @@ Baseline: 1/30 calls answered in 30 days, 168 stuck ringing, 0 call messages eve
       rebuilding app bar turns a 30s poll into a burst. `autoDispose` is deliberate (stop polling when
       unwatched) — the fix is to stop paying a network round trip per re-subscribe, e.g. a short
       `keepAlive` or caching the last count with a staleness check, not removing `autoDispose`.
-- [ ] **`RenderFlex overflowed by 1.1 pixels`, `chat_app_bar.dart:76`.** The online/last-seen Row is a
+- [x] **`RenderFlex overflowed by 1.1 pixels`, `chat_app_bar.dart:76`.** Fixed 2026-10-09: the status
+      line is now `OnlineStatusLine`, a widget testable at the reported 99.2px constraint, with the
+      label in a `Flexible` + ellipsis. The online/last-seen Row is a
       7px dot + gap + an unconstrained `Text` carrying `_formatLastSeen()`. With
       `mainAxisSize: MainAxisSize.min` inside a ~99px-bounded parent, a long "last seen…" string has
       nowhere to go. Wrap the `Text` in `Flexible` with `overflow: TextOverflow.ellipsis`. Reproduces on

@@ -73,35 +73,9 @@ class ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
 
     // Show online/offline status
     if (isOnline != null) {
-      return Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            width: 7,
-            height: 7,
-            decoration: BoxDecoration(
-              color: isOnline! ? AppColors.online : AppColors.offline,
-              shape: BoxShape.circle,
-              boxShadow: isOnline!
-                  ? [
-                      BoxShadow(
-                        color: AppColors.online.withValues(alpha: 0.4),
-                        blurRadius: 4,
-                        spreadRadius: 1,
-                      ),
-                    ]
-                  : null,
-            ),
-          ),
-          Spacing.hGapXS,
-          Text(
-            isOnline! ? l10n.online : _formatLastSeen(context),
-            style: context.captionSmall.copyWith(
-              color: isOnline! ? AppColors.online : context.textSecondary,
-              fontWeight: isOnline! ? FontWeight.w500 : FontWeight.w400,
-            ),
-          ),
-        ],
+      return OnlineStatusLine(
+        isOnline: isOnline!,
+        label: isOnline! ? l10n.online : _formatLastSeen(context),
       );
     }
 
@@ -606,6 +580,63 @@ class _PulsingDotState extends State<_PulsingDot>
           ),
         );
       },
+    );
+  }
+}
+
+
+/// The dot-plus-label line under the chat title.
+///
+/// Extracted so it can be tested at the width that actually broke it: the row
+/// sits beside the title and the action icons, so its constraint is whatever
+/// is left over. A device log on 2026-10-09 caught it overflowing by 1.1px at
+/// a 99.2px constraint, because the label had no flex. Screen-size dependent,
+/// which is why it survived — a wider header hides it.
+class OnlineStatusLine extends StatelessWidget {
+  const OnlineStatusLine({
+    super.key,
+    required this.isOnline,
+    required this.label,
+  });
+
+  final bool isOnline;
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          width: 7,
+          height: 7,
+          decoration: BoxDecoration(
+            color: isOnline ? AppColors.online : AppColors.offline,
+            shape: BoxShape.circle,
+            boxShadow: isOnline
+                ? [
+                    BoxShadow(
+                      color: AppColors.online.withValues(alpha: 0.4),
+                      blurRadius: 4,
+                      spreadRadius: 1,
+                    ),
+                  ]
+                : null,
+          ),
+        ),
+        Spacing.hGapXS,
+        Flexible(
+          child: Text(
+            label,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: context.captionSmall.copyWith(
+              color: isOnline ? AppColors.online : context.textSecondary,
+              fontWeight: isOnline ? FontWeight.w500 : FontWeight.w400,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
