@@ -5,6 +5,7 @@ import 'package:bananatalk_app/pages/community/card/match_reason_chips.dart';
 import 'package:bananatalk_app/providers/provider_models/daily_match_model.dart';
 import 'package:bananatalk_app/utils/country_flags.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
+import 'package:bananatalk_app/widgets/guides/pulse_highlight.dart';
 
 /// One daily-match card: avatar, identity row, language pair, reasons, actions.
 class MatchCard extends StatelessWidget {
@@ -14,12 +15,18 @@ class MatchCard extends StatelessWidget {
     required this.onSayHi,
     required this.onWave,
     required this.onSkip,
+    this.highlightSayHi = false,
   });
 
   final DailyMatch match;
   final VoidCallback onSayHi;
   final VoidCallback onWave;
   final VoidCallback onSkip;
+
+  /// Rings Say hi for a first-timer. Set on the TOP card only: the guide
+  /// above names one action, and three cards all pulsing at once is a page
+  /// flashing rather than a page pointing.
+  final bool highlightSayHi;
 
   @override
   Widget build(BuildContext context) {
@@ -171,20 +178,25 @@ class MatchCard extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: SizedBox(
-                  height: 44,
-                  child: ElevatedButton(
-                    key: const Key('match-say-hi'),
-                    onPressed: onSayHi,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.matchAccent,
-                      foregroundColor: AppColors.matchInk,
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
+                child: PulseHighlight(
+                  enabled: highlightSayHi,
+                  color: AppColors.matchAccent,
+                  borderRadius: BorderRadius.circular(12),
+                  child: SizedBox(
+                    height: 44,
+                    child: ElevatedButton(
+                      key: const Key('match-say-hi'),
+                      onPressed: onSayHi,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.matchAccent,
+                        foregroundColor: AppColors.matchInk,
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
                       ),
+                      child: const _SayHiLabel(),
                     ),
-                    child: const _SayHiLabel(),
                   ),
                 ),
               ),

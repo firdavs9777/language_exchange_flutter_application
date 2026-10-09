@@ -10,6 +10,7 @@ import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_models/daily_match_model.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/daily_matches_provider.dart';
+import 'package:bananatalk_app/widgets/guides/pulse_highlight.dart';
 
 /// The spec requires widget coverage that the panel renders for an eligible
 /// user, is absent for each ineligible reason, and never shows on an empty or
@@ -153,6 +154,36 @@ void main() {
 
     expect(find.byType(MatchesFirstSessionPanel), findsNothing);
     expect(find.textContaining('matches today'), findsOneWidget);
+  });
+
+  testWidgets('the guide rings exactly one Say hi button', (tester) async {
+    // The panel says "say hi" but carries no button of its own, so something
+    // has to say WHICH button. Three cards ringing at once is a page
+    // flashing, not a page pointing.
+    await tester.pumpWidget(_wrap(isNew: true, session: _fresh));
+    await tester.pumpAndSettle();
+
+    final rings = tester
+        .widgetList<PulseHighlight>(find.byType(PulseHighlight))
+        .where((w) => w.enabled)
+        .length;
+    expect(rings, 1);
+  });
+
+  testWidgets('no Say hi is ringed once the guide is gone', (tester) async {
+    await tester.pumpWidget(_wrap(
+      isNew: true,
+      session: const FirstSessionState(hasMessaged: true, timesShown: 0),
+    ));
+    await tester.pumpAndSettle();
+
+    expect(find.byType(MatchesFirstSessionPanel), findsNothing);
+    final rings = tester
+        .widgetList<PulseHighlight>(find.byType(PulseHighlight))
+        .where((w) => w.enabled)
+        .length;
+    expect(rings, 0,
+        reason: 'an established user does not need their buttons ringed');
   });
 
   testWidgets('the panel does not vanish from under the user mid-view',

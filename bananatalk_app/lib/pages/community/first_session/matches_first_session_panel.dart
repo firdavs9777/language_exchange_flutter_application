@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
-import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/widgets/guides/guide_card.dart';
 
 /// The first-session nudge on the Matches tab.
 ///
@@ -12,6 +13,15 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 ///
 /// No dismiss control — a dismiss invites dismissal instead of acting, and
 /// `kMaxGuidanceViews` already bounds how often this appears.
+///
+/// Carries no CTA of its own: the button it is talking about is Say hi on the
+/// card directly below, which `MatchCard.highlightSayHi` rings while this is
+/// on screen. A second button here would compete with the one it points at.
+///
+/// Renders through [GuideCard] so it cannot drift from the four generic page
+/// guides visually, while keeping its own prefs keys and its own funnel
+/// events — those are reported against the registration funnel and must not
+/// be merged into `guide_shown`.
 class MatchesFirstSessionPanel extends StatelessWidget {
   const MatchesFirstSessionPanel({super.key, required this.matchCount});
 
@@ -20,42 +30,11 @@ class MatchesFirstSessionPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    return Container(
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: AppColors.primary.withValues(alpha: 0.08),
-        borderRadius: AppRadius.borderLG,
-        border: Border.all(color: AppColors.primary.withValues(alpha: 0.25)),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Icon(Icons.waving_hand_rounded, size: 20, color: AppColors.primary),
-          const SizedBox(width: 10),
-          // Flexible so a longer localized string wraps instead of overflowing
-          // — the same failure the chat app bar hit on 2026-10-09.
-          Flexible(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  l10n.firstSessionMatchesTitle(matchCount),
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w700,
-                    color: context.textPrimary,
-                  ),
-                ),
-                const SizedBox(height: 2),
-                Text(
-                  l10n.firstSessionMatchesBody,
-                  style: TextStyle(fontSize: 13, color: context.textSecondary),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
+    return GuideCard(
+      icon: Icons.waving_hand_rounded,
+      accent: AppColors.primary,
+      title: l10n.firstSessionMatchesTitle(matchCount),
+      body: l10n.firstSessionMatchesBody,
     );
   }
 }

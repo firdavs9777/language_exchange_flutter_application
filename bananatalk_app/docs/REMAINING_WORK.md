@@ -117,6 +117,9 @@ fails if a tab loses its guide or a sixth one arrives without one.
 - [x] `GuideCard` (gradient tint, icon chip, fade-in-up) + `PulseHighlight` (ring on the CTA, 3 passes
       then quiet — finite so it never holds a frame callback)
 - [x] `PageGuide` — one widget owns eligibility, the cap, the per-run latch and both events
+- [x] Matches renders through `GuideCard` too, so the five cards cannot drift apart visually, and
+      `MatchCard.highlightSayHi` rings the TOP card's Say hi while the panel is up — the panel names
+      the action, the ring says which button that is
 - [x] AI Study → AI Tools; Chats → Community/Matches; Moments → composer; Profile → edit
 - [x] `guide_shown` / `guide_cta_tapped`, both carrying `surface`, kept separate from the
       `first_session_*` events so neither funnel is polluted

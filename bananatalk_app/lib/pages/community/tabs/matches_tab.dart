@@ -368,6 +368,9 @@ class _MatchesTabState extends ConsumerState<MatchesTab> {
               return MatchCard(
                 key: ValueKey(m.user.id),
                 match: m,
+                // Top card only, and only while the guide is up: the panel
+                // says "say hi", the ring says which button that is.
+                highlightSayHi: showGuidance && i == 1,
                 onSayHi: () => _sayHi(m, position: i - 1),
                 onWave: () => _wave(m),
                 onSkip: () => _skip(m),
