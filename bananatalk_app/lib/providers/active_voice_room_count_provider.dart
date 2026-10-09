@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:bananatalk_app/providers/voice_room_provider.dart';
@@ -54,6 +56,10 @@ final activeVoiceRoomCountProvider = StreamProvider.autoDispose<int>((
   final notifier = ref.read(voiceRoomProvider.notifier);
 
   Future<int> fetchCount() async {
+    // Debug-only: a device log on 2026-10-10 still showed five back-to-back
+    // GET /voicerooms, and the count provider and voice_rooms_tab both call
+    // fetchRooms -- this says which one is responsible.
+    if (kDebugMode) debugPrint('[RoomCount] fetch (live-now pill)');
     final rooms = await notifier.fetchRooms();
     return rooms.length;
   }

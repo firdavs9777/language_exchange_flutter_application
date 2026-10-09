@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -72,6 +73,7 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab>
   }
 
   Future<List<VoiceRoom>> _fetchWithFilters() {
+    if (kDebugMode) debugPrint('[RoomCount] fetch (voice rooms tab)');
     return ref
         .read(voiceRoomProvider)
         .fetchRooms(language: _selectedLanguage, topic: _selectedTopic, category: _selectedCategory);
