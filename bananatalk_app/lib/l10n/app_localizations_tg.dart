@@ -9067,4 +9067,15 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get guideProfileCta => 'Таҳрири профил';
+
+  @override
+  String get conversationEmptyTitle => 'Ҳоло паём нест';
+
+  @override
+  String conversationEmptyBody(String name) {
+    return 'Барои оғози сӯҳбат бо $name паём фиристед';
+  }
+
+  @override
+  String get conversationEmptySayHi => 'Барои салом гуфтан зер кунед!';
 }

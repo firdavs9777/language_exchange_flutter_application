@@ -9060,4 +9060,15 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get guideProfileCta => 'Edit profil';
+
+  @override
+  String get conversationEmptyTitle => 'Belum ada pesan';
+
+  @override
+  String conversationEmptyBody(String name) {
+    return 'Kirim pesan untuk memulai percakapan dengan $name';
+  }
+
+  @override
+  String get conversationEmptySayHi => 'Ketuk untuk menyapa!';
 }

@@ -9061,4 +9061,15 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get guideProfileCta => 'Profili düzenle';
+
+  @override
+  String get conversationEmptyTitle => 'Henüz mesaj yok';
+
+  @override
+  String conversationEmptyBody(String name) {
+    return '$name ile sohbeti başlatmak için bir mesaj gönder';
+  }
+
+  @override
+  String get conversationEmptySayHi => 'Selam vermek için dokun!';
 }

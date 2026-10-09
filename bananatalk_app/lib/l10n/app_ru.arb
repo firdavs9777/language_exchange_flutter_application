@@ -3710,5 +3710,15 @@
   "guideMomentsCta": "Опубликовать момент",
   "guideProfileTitle": "Заполните профиль",
   "guideProfileBody": "Фото и строка о себе. Полупустые профили пролистывают.",
-  "guideProfileCta": "Редактировать профиль"
+  "guideProfileCta": "Редактировать профиль",
+  "conversationEmptyTitle": "Сообщений пока нет",
+  "conversationEmptyBody": "Отправьте сообщение, чтобы начать разговор с {name}",
+  "@conversationEmptyBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "conversationEmptySayHi": "Нажмите, чтобы поздороваться!"
 }

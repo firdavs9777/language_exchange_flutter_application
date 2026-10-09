@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 /// Empty state shown inside a 1:1 conversation when there are no messages
 /// yet — invites the user to send a wave to break the ice. Distinct from
@@ -18,6 +19,7 @@ class ConversationEmptyState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -44,14 +46,14 @@ class ConversationEmptyState extends StatelessWidget {
           ),
           Spacing.gapXXL,
           Text(
-            'No messages yet',
+            l10n.conversationEmptyTitle,
             style: context.displaySmall.copyWith(color: context.textSecondary),
           ),
           Spacing.gapMD,
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 48),
             child: Text(
-              'Send a message to start the conversation with $userName',
+              l10n.conversationEmptyBody(userName),
               style: context.bodyMedium.copyWith(
                 color: context.textMuted,
                 height: 1.4,
@@ -85,7 +87,7 @@ class ConversationEmptyState extends StatelessWidget {
                     const Text('👋', style: TextStyle(fontSize: 24)),
                     const SizedBox(width: 10),
                     Text(
-                      'Tap to say hi!',
+                      l10n.conversationEmptySayHi,
                       style: context.labelLarge.copyWith(
                         color: AppColors.primary,
                         fontWeight: FontWeight.w600,

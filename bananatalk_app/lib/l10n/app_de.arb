@@ -3920,5 +3920,15 @@
   "guideMomentsCta": "Moment posten",
   "guideProfileTitle": "Vervollständige dein Profil",
   "guideProfileBody": "Ein Foto und eine Zeile über dich. Halbleere Profile werden übersprungen.",
-  "guideProfileCta": "Profil bearbeiten"
+  "guideProfileCta": "Profil bearbeiten",
+  "conversationEmptyTitle": "Noch keine Nachrichten",
+  "conversationEmptyBody": "Schreib eine Nachricht, um das Gespräch mit {name} zu beginnen",
+  "@conversationEmptyBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "conversationEmptySayHi": "Tippen, um Hallo zu sagen!"
 }

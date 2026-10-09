@@ -9075,4 +9075,15 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get guideProfileCta => 'تعديل الملف الشخصي';
+
+  @override
+  String get conversationEmptyTitle => 'لا رسائل بعد';
+
+  @override
+  String conversationEmptyBody(String name) {
+    return 'أرسل رسالة لتبدأ المحادثة مع $name';
+  }
+
+  @override
+  String get conversationEmptySayHi => 'اضغط لإلقاء التحية!';
 }

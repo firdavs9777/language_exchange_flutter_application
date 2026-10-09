@@ -9053,6 +9053,17 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get guideProfileCta => '编辑资料';
+
+  @override
+  String get conversationEmptyTitle => '还没有消息';
+
+  @override
+  String conversationEmptyBody(String name) {
+    return '发条消息，开始和 $name 聊天';
+  }
+
+  @override
+  String get conversationEmptySayHi => '点一下打个招呼！';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -18104,4 +18115,15 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get guideProfileCta => '編輯個人資料';
+
+  @override
+  String get conversationEmptyTitle => '還沒有訊息';
+
+  @override
+  String conversationEmptyBody(String name) {
+    return '傳則訊息，開始和 $name 聊天';
+  }
+
+  @override
+  String get conversationEmptySayHi => '點一下打聲招呼！';
 }

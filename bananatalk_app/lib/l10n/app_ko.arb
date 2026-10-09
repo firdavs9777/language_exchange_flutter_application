@@ -3701,5 +3701,15 @@
   "guideMomentsCta": "모먼트 올리기",
   "guideProfileTitle": "프로필을 완성하세요",
   "guideProfileBody": "사진 한 장과 자기소개 한 줄. 반쯤 빈 프로필은 그냥 지나쳐요.",
-  "guideProfileCta": "프로필 편집"
+  "guideProfileCta": "프로필 편집",
+  "conversationEmptyTitle": "아직 메시지가 없어요",
+  "conversationEmptyBody": "{name}님과의 대화를 메시지로 시작해 보세요",
+  "@conversationEmptyBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "conversationEmptySayHi": "눌러서 인사하기!"
 }

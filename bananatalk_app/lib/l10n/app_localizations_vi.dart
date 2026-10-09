@@ -9053,4 +9053,15 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get guideProfileCta => 'Chỉnh sửa hồ sơ';
+
+  @override
+  String get conversationEmptyTitle => 'Chưa có tin nhắn';
+
+  @override
+  String conversationEmptyBody(String name) {
+    return 'Gửi một tin nhắn để bắt đầu trò chuyện với $name';
+  }
+
+  @override
+  String get conversationEmptySayHi => 'Chạm để chào!';
 }

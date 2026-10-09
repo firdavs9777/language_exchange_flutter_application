@@ -9063,4 +9063,15 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get guideProfileCta => 'I-edit ang profile';
+
+  @override
+  String get conversationEmptyTitle => 'Wala pang mensahe';
+
+  @override
+  String conversationEmptyBody(String name) {
+    return 'Magpadala ng mensahe para simulan ang usapan kay $name';
+  }
+
+  @override
+  String get conversationEmptySayHi => 'I-tap para bumati!';
 }

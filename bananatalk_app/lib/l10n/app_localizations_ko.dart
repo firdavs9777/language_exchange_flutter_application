@@ -9053,4 +9053,15 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get guideProfileCta => '프로필 편집';
+
+  @override
+  String get conversationEmptyTitle => '아직 메시지가 없어요';
+
+  @override
+  String conversationEmptyBody(String name) {
+    return '$name님과의 대화를 메시지로 시작해 보세요';
+  }
+
+  @override
+  String get conversationEmptySayHi => '눌러서 인사하기!';
 }

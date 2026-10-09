@@ -3710,5 +3710,15 @@
   "guideMomentsCta": "انشر لحظة",
   "guideProfileTitle": "أكمل ملفك الشخصي",
   "guideProfileBody": "صورة وسطر عن نفسك. الملفات نصف الفارغة يتم تجاوزها.",
-  "guideProfileCta": "تعديل الملف الشخصي"
+  "guideProfileCta": "تعديل الملف الشخصي",
+  "conversationEmptyTitle": "لا رسائل بعد",
+  "conversationEmptyBody": "أرسل رسالة لتبدأ المحادثة مع {name}",
+  "@conversationEmptyBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "conversationEmptySayHi": "اضغط لإلقاء التحية!"
 }

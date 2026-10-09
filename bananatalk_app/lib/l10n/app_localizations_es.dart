@@ -9063,4 +9063,15 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get guideProfileCta => 'Editar perfil';
+
+  @override
+  String get conversationEmptyTitle => 'Aún no hay mensajes';
+
+  @override
+  String conversationEmptyBody(String name) {
+    return 'Envía un mensaje para empezar la conversación con $name';
+  }
+
+  @override
+  String get conversationEmptySayHi => '¡Toca para saludar!';
 }

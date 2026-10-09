@@ -3694,5 +3694,15 @@
   "guideMomentsCta": "发布动态",
   "guideProfileTitle": "把资料填完整",
   "guideProfileBody": "一张照片，一句自我介绍。填一半的资料常被略过。",
-  "guideProfileCta": "编辑资料"
+  "guideProfileCta": "编辑资料",
+  "conversationEmptyTitle": "还没有消息",
+  "conversationEmptyBody": "发条消息，开始和 {name} 聊天",
+  "@conversationEmptyBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "conversationEmptySayHi": "点一下打个招呼！"
 }

@@ -9069,4 +9069,15 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get guideProfileCta => 'Edit profile';
+
+  @override
+  String get conversationEmptyTitle => 'No messages yet';
+
+  @override
+  String conversationEmptyBody(String name) {
+    return 'Send a message to start the conversation with $name';
+  }
+
+  @override
+  String get conversationEmptySayHi => 'Tap to say hi!';
 }

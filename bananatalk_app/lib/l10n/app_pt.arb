@@ -3696,5 +3696,15 @@
   "guideMomentsCta": "Publicar um momento",
   "guideProfileTitle": "Complete seu perfil",
   "guideProfileBody": "Uma foto e uma linha sobre você. Perfis pela metade são ignorados.",
-  "guideProfileCta": "Editar perfil"
+  "guideProfileCta": "Editar perfil",
+  "conversationEmptyTitle": "Ainda sem mensagens",
+  "conversationEmptyBody": "Envie uma mensagem para começar a conversa com {name}",
+  "@conversationEmptyBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "conversationEmptySayHi": "Toque para dizer oi!"
 }

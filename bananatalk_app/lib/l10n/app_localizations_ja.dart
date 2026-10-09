@@ -9053,4 +9053,15 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get guideProfileCta => 'プロフィールを編集';
+
+  @override
+  String get conversationEmptyTitle => 'まだメッセージはありません';
+
+  @override
+  String conversationEmptyBody(String name) {
+    return '$nameさんとの会話はメッセージを送ると始まります';
+  }
+
+  @override
+  String get conversationEmptySayHi => 'タップしてあいさつ！';
 }

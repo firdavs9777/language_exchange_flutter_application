@@ -3680,5 +3680,15 @@
   "guideMomentsCta": "โพสต์โมเมนต์",
   "guideProfileTitle": "ทำโปรไฟล์ให้ครบ",
   "guideProfileBody": "รูปหนึ่งใบกับข้อความแนะนำตัวหนึ่งบรรทัด โปรไฟล์ที่ว่างครึ่งเดียวมักถูกข้าม",
-  "guideProfileCta": "แก้ไขโปรไฟล์"
+  "guideProfileCta": "แก้ไขโปรไฟล์",
+  "conversationEmptyTitle": "ยังไม่มีข้อความ",
+  "conversationEmptyBody": "ส่งข้อความเพื่อเริ่มคุยกับ {name}",
+  "@conversationEmptyBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "conversationEmptySayHi": "แตะเพื่อทักทาย!"
 }

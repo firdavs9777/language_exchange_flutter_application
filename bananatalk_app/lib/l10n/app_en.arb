@@ -6388,5 +6388,15 @@
   "guideMomentsCta": "Post a moment",
   "guideProfileTitle": "Finish your profile",
   "guideProfileBody": "A photo and a line about yourself. Half-empty profiles get skipped.",
-  "guideProfileCta": "Edit profile"
+  "guideProfileCta": "Edit profile",
+  "conversationEmptyTitle": "No messages yet",
+  "conversationEmptyBody": "Send a message to start the conversation with {name}",
+  "@conversationEmptyBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "conversationEmptySayHi": "Tap to say hi!"
 }

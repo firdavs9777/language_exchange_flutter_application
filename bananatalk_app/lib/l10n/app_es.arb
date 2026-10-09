@@ -3710,5 +3710,15 @@
   "guideMomentsCta": "Publicar un momento",
   "guideProfileTitle": "Completa tu perfil",
   "guideProfileBody": "Una foto y una línea sobre ti. Los perfiles a medias se pasan por alto.",
-  "guideProfileCta": "Editar perfil"
+  "guideProfileCta": "Editar perfil",
+  "conversationEmptyTitle": "Aún no hay mensajes",
+  "conversationEmptyBody": "Envía un mensaje para empezar la conversación con {name}",
+  "@conversationEmptyBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "conversationEmptySayHi": "¡Toca para saludar!"
 }

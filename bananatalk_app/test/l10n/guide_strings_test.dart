@@ -30,7 +30,13 @@ void main() {
     guideKeys = template.keys
         .where((k) =>
             !k.startsWith('@') &&
-            (k.startsWith('guide') || k.startsWith('firstSession')))
+            (k.startsWith('guide') ||
+                k.startsWith('firstSession') ||
+                // The screen a first message actually starts on. It shipped
+                // hardcoded in English, which meant a Korean user who tapped
+                // Say hi landed on an English screen -- on the one step the
+                // whole first-session funnel is measured by.
+                k.startsWith('conversationEmpty')))
         .toList();
   });
 
@@ -38,7 +44,7 @@ void main() {
     // Guards the discovery above: a renamed prefix would leave guideKeys
     // empty and every assertion below would pass over nothing.
     expect(arbs.length, 19);
-    expect(guideKeys.length, greaterThanOrEqualTo(14));
+    expect(guideKeys.length, greaterThanOrEqualTo(17));
   });
 
   test('every locale defines every guide string', () {

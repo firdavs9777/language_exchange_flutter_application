@@ -9053,4 +9053,15 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get guideProfileCta => 'แก้ไขโปรไฟล์';
+
+  @override
+  String get conversationEmptyTitle => 'ยังไม่มีข้อความ';
+
+  @override
+  String conversationEmptyBody(String name) {
+    return 'ส่งข้อความเพื่อเริ่มคุยกับ $name';
+  }
+
+  @override
+  String get conversationEmptySayHi => 'แตะเพื่อทักทาย!';
 }

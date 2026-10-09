@@ -3653,5 +3653,15 @@
   "guideMomentsCta": "Mag-post ng moment",
   "guideProfileTitle": "Kumpletuhin ang profile mo",
   "guideProfileBody": "Isang litrato at isang linya tungkol sa iyo. Nilalaktawan ang kalahating profile.",
-  "guideProfileCta": "I-edit ang profile"
+  "guideProfileCta": "I-edit ang profile",
+  "conversationEmptyTitle": "Wala pang mensahe",
+  "conversationEmptyBody": "Magpadala ng mensahe para simulan ang usapan kay {name}",
+  "@conversationEmptyBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "conversationEmptySayHi": "I-tap para bumati!"
 }

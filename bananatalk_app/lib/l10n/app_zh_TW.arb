@@ -3371,5 +3371,15 @@
   "guideMomentsCta": "發布動態",
   "guideProfileTitle": "把個人資料填完整",
   "guideProfileBody": "一張照片，一句自我介紹。只填一半的資料常被略過。",
-  "guideProfileCta": "編輯個人資料"
+  "guideProfileCta": "編輯個人資料",
+  "conversationEmptyTitle": "還沒有訊息",
+  "conversationEmptyBody": "傳則訊息，開始和 {name} 聊天",
+  "@conversationEmptyBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "conversationEmptySayHi": "點一下打聲招呼！"
 }

@@ -3892,5 +3892,15 @@
   "guideMomentsCta": "Moment paylaş",
   "guideProfileTitle": "Profilini tamamla",
   "guideProfileBody": "Bir fotoğraf ve kendinle ilgili bir satır. Yarım profiller atlanır.",
-  "guideProfileCta": "Profili düzenle"
+  "guideProfileCta": "Profili düzenle",
+  "conversationEmptyTitle": "Henüz mesaj yok",
+  "conversationEmptyBody": "{name} ile sohbeti başlatmak için bir mesaj gönder",
+  "@conversationEmptyBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "conversationEmptySayHi": "Selam vermek için dokun!"
 }

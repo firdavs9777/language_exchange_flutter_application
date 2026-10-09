@@ -3920,5 +3920,15 @@
   "guideMomentsCta": "Pubblica un momento",
   "guideProfileTitle": "Completa il tuo profilo",
   "guideProfileBody": "Una foto e una riga su di te. I profili a metà vengono saltati.",
-  "guideProfileCta": "Modifica profilo"
+  "guideProfileCta": "Modifica profilo",
+  "conversationEmptyTitle": "Ancora nessun messaggio",
+  "conversationEmptyBody": "Invia un messaggio per iniziare la conversazione con {name}",
+  "@conversationEmptyBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "conversationEmptySayHi": "Tocca per salutare!"
 }

@@ -16579,6 +16579,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Edit profile'**
   String get guideProfileCta;
+
+  /// No description provided for @conversationEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No messages yet'**
+  String get conversationEmptyTitle;
+
+  /// No description provided for @conversationEmptyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Send a message to start the conversation with {name}'**
+  String conversationEmptyBody(String name);
+
+  /// No description provided for @conversationEmptySayHi.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to say hi!'**
+  String get conversationEmptySayHi;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -3680,5 +3680,15 @@
   "guideMomentsCta": "Đăng khoảnh khắc",
   "guideProfileTitle": "Hoàn thiện hồ sơ của bạn",
   "guideProfileBody": "Một tấm ảnh và một dòng về bản thân. Hồ sơ bỏ dở thường bị lướt qua.",
-  "guideProfileCta": "Chỉnh sửa hồ sơ"
+  "guideProfileCta": "Chỉnh sửa hồ sơ",
+  "conversationEmptyTitle": "Chưa có tin nhắn",
+  "conversationEmptyBody": "Gửi một tin nhắn để bắt đầu trò chuyện với {name}",
+  "@conversationEmptyBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "conversationEmptySayHi": "Chạm để chào!"
 }

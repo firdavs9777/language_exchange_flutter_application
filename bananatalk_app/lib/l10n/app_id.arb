@@ -3680,5 +3680,15 @@
   "guideMomentsCta": "Posting momen",
   "guideProfileTitle": "Lengkapi profilmu",
   "guideProfileBody": "Satu foto dan satu baris tentang dirimu. Profil setengah kosong sering dilewati.",
-  "guideProfileCta": "Edit profil"
+  "guideProfileCta": "Edit profil",
+  "conversationEmptyTitle": "Belum ada pesan",
+  "conversationEmptyBody": "Kirim pesan untuk memulai percakapan dengan {name}",
+  "@conversationEmptyBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "conversationEmptySayHi": "Ketuk untuk menyapa!"
 }

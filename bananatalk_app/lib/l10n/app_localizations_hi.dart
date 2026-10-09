@@ -9063,4 +9063,15 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get guideProfileCta => 'प्रोफ़ाइल संपादित करें';
+
+  @override
+  String get conversationEmptyTitle => 'अभी कोई संदेश नहीं';
+
+  @override
+  String conversationEmptyBody(String name) {
+    return '$name के साथ बातचीत शुरू करने के लिए एक संदेश भेजें';
+  }
+
+  @override
+  String get conversationEmptySayHi => 'नमस्ते कहने के लिए टैप करें!';
 }

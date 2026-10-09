@@ -138,6 +138,16 @@ fails if a tab loses its guide or a sixth one arrives without one.
 - [x] All 14 guide strings translated into the other 18 locales (`test/l10n/guide_strings_test.dart`
       fails if a key goes missing, is left as the English text, or loses its ICU plural arms)
 - [ ] Native review of the 18 translated sets — these are my drafts, not a native pass
+- [x] `conversation_empty_state.dart` localized — it was hardcoded English on the screen a
+      first message starts on, so a Korean user followed a Korean guide into an English screen
+- [ ] **110 hardcoded English strings in 66 files** (`docs/onboarding-audit-2026-10-10.md` §2a).
+      gen-l10n cannot see these — they never reach an .arb. Priority order: `create_moment.dart`
+      (9, the Moments guide's destination), the three learning players (AI Study's destination),
+      `waves_tab.dart`, then the VIP/paywall copy.
+- [ ] Audit follow-ups, ranked in `docs/onboarding-audit-2026-10-10.md` §3: long-press tooltip on
+      the first received message (translate/correct are invisible — cheapest large win, reuses
+      GuideStore with one new surface), activation milestones over a fixed window, collapsing the
+      four launch modals into the existing spotlight, notification permission priming.
 - [x] Device pass 1 (2026-10-10): cards confirmed on AI Study, Chats, Moments, Profile; `guide_shown`
       fired once per surface. Found a crash — `PulseHighlight` recreated its controller on every
       rebuild, which `SingleTickerProviderStateMixin` forbids; the ErrorWidget that replaced the

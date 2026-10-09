@@ -9084,4 +9084,15 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get guideProfileCta => 'Редактировать профиль';
+
+  @override
+  String get conversationEmptyTitle => 'Сообщений пока нет';
+
+  @override
+  String conversationEmptyBody(String name) {
+    return 'Отправьте сообщение, чтобы начать разговор с $name';
+  }
+
+  @override
+  String get conversationEmptySayHi => 'Нажмите, чтобы поздороваться!';
 }

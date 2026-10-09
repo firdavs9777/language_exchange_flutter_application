@@ -3696,5 +3696,15 @@
   "guideMomentsCta": "मोमेंट पोस्ट करें",
   "guideProfileTitle": "अपनी प्रोफ़ाइल पूरी करें",
   "guideProfileBody": "एक फ़ोटो और अपने बारे में एक पंक्ति। आधी-अधूरी प्रोफ़ाइल छोड़ दी जाती है।",
-  "guideProfileCta": "प्रोफ़ाइल संपादित करें"
+  "guideProfileCta": "प्रोफ़ाइल संपादित करें",
+  "conversationEmptyTitle": "अभी कोई संदेश नहीं",
+  "conversationEmptyBody": "{name} के साथ बातचीत शुरू करने के लिए एक संदेश भेजें",
+  "@conversationEmptyBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "conversationEmptySayHi": "नमस्ते कहने के लिए टैप करें!"
 }

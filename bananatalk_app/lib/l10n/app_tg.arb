@@ -3173,5 +3173,15 @@
   "guideMomentsCta": "Нашри лаҳза",
   "guideProfileTitle": "Профили худро пурра кунед",
   "guideProfileBody": "Як акс ва як сатр дар бораи худ. Профилҳои нимкора нодида мемонанд.",
-  "guideProfileCta": "Таҳрири профил"
+  "guideProfileCta": "Таҳрири профил",
+  "conversationEmptyTitle": "Ҳоло паём нест",
+  "conversationEmptyBody": "Барои оғози сӯҳбат бо {name} паём фиристед",
+  "@conversationEmptyBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "conversationEmptySayHi": "Барои салом гуфтан зер кунед!"
 }

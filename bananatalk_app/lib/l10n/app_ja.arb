@@ -3680,5 +3680,15 @@
   "guideMomentsCta": "モーメントを投稿",
   "guideProfileTitle": "プロフィールを仕上げましょう",
   "guideProfileBody": "写真と自己紹介を一言。半分空のプロフィールは飛ばされます。",
-  "guideProfileCta": "プロフィールを編集"
+  "guideProfileCta": "プロフィールを編集",
+  "conversationEmptyTitle": "まだメッセージはありません",
+  "conversationEmptyBody": "{name}さんとの会話はメッセージを送ると始まります",
+  "@conversationEmptyBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "conversationEmptySayHi": "タップしてあいさつ！"
 }
