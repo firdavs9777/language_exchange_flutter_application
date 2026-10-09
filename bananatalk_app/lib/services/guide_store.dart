@@ -2,12 +2,15 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// How many times any one page guide may be shown before it stops.
+/// How many app launches a page guide may appear on before it stops.
 ///
-/// Same cap as the Matches panel it generalises: without one, someone who
-/// never acts sees the same card every session for the six days
-/// `Community.isNewUser` covers, which is nagging rather than guidance.
-const int kMaxGuideViews = 3;
+/// Counted per launch, not per visit, so this is two launches rather than two
+/// glances. Started at three and came down: three launches can span most of
+/// the six days `Community.isNewUser` covers, which makes a first-session
+/// nudge into a fixture of the screen.
+///
+/// Same cap as the Matches panel this generalises -- the two move together.
+const int kMaxGuideViews = 2;
 
 /// A surface that can carry a first-session guide.
 ///

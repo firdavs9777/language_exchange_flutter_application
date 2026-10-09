@@ -1,9 +1,9 @@
-/// How many times the first-session panel may be shown before it stops.
+/// How many app launches the first-session panel may appear on.
 ///
-/// Without a cap, someone who never messages sees the same banner every
-/// session for the six days `Community.isNewUser` covers, which is nagging
-/// rather than guidance.
-const int kMaxGuidanceViews = 3;
+/// Kept in step with `kMaxGuideViews` on the four generic page guides: a user
+/// who sees Matches nag one launch longer than every other tab reads it as a
+/// bug in Matches.
+const int kMaxGuidanceViews = 2;
 
 /// Whether the Matches first-session panel should be shown.
 ///

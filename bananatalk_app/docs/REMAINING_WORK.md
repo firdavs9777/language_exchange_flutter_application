@@ -117,6 +117,8 @@ fails if a tab loses its guide or a sixth one arrives without one.
 - [x] `GuideCard` (gradient tint, icon chip, fade-in-up) + `PulseHighlight` (ring on the CTA, 3 passes
       then quiet — finite so it never holds a frame callback)
 - [x] `PageGuide` — one widget owns eligibility, the cap, the per-run latch and both events
+- [x] Cap cut 3 → 2 launches (both `kMaxGuideViews` and Matches' `kMaxGuidanceViews`): three
+      launches can span most of the six-day `isNewUser` window, which stops being a nudge
 - [x] Matches renders through `GuideCard` too, so the five cards cannot drift apart visually, and
       `MatchCard.highlightSayHi` rings the TOP card's Say hi while the panel is up — the panel names
       the action, the ring says which button that is

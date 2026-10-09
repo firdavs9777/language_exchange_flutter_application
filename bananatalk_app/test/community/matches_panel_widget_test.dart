@@ -3,6 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/pages/community/first_session/first_session_guidance.dart';
 import 'package:bananatalk_app/pages/community/first_session/first_session_store.dart';
 import 'package:bananatalk_app/pages/community/first_session/matches_first_session_panel.dart';
 import 'package:bananatalk_app/pages/community/tabs/matches_tab.dart';
@@ -111,7 +112,8 @@ void main() {
   testWidgets('a user past the view cap does not', (tester) async {
     await tester.pumpWidget(_wrap(
       isNew: true,
-      session: const FirstSessionState(hasMessaged: false, timesShown: 3),
+      session: const FirstSessionState(
+          hasMessaged: false, timesShown: kMaxGuidanceViews),
     ));
     await tester.pumpAndSettle();
     expect(find.byType(MatchesFirstSessionPanel), findsNothing);
@@ -194,7 +196,8 @@ void main() {
     // exactly as the user reaches for the first card.
     await tester.pumpWidget(_wrap(
       isNew: true,
-      session: const FirstSessionState(hasMessaged: false, timesShown: 2),
+      session: const FirstSessionState(
+          hasMessaged: false, timesShown: kMaxGuidanceViews - 1),
     ));
     await tester.pumpAndSettle();
     expect(find.byType(MatchesFirstSessionPanel), findsOneWidget,
