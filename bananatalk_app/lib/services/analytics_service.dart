@@ -32,8 +32,14 @@ class AnalyticsService {
       params.forEach((k, v) {
         if (v != null) clean[k] = v;
       });
+      // Debug-only echo. Firebase DebugView needs a launch flag and a console
+      // round trip; on a device you mostly just want to know the event fired.
+      if (kDebugMode) debugPrint('[analytics] $name $clean');
       final fa = _instanceOrNull();
-      if (fa == null) return;
+      if (fa == null) {
+        if (kDebugMode) debugPrint('[analytics] (firebase unavailable)');
+        return;
+      }
       await fa.logEvent(name: name, parameters: clean);
     } catch (e) {
       if (kDebugMode) debugPrint('[analytics] $name failed: $e');

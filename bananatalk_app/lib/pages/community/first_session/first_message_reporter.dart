@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+
 import 'package:bananatalk_app/pages/community/first_session/first_session_store.dart';
 import 'package:bananatalk_app/services/analytics_service.dart';
 
@@ -19,8 +21,14 @@ import 'package:bananatalk_app/services/analytics_service.dart';
 Future<void> reportFirstMessageIfFirst() async {
   try {
     final state = await FirstSessionStore.read();
-    if (state.hasMessaged) return;
+    if (state.hasMessaged) {
+      if (kDebugMode) debugPrint('[FirstSession] send: not the first, no event');
+      return;
+    }
     await FirstSessionStore.markMessaged();
+    if (kDebugMode) {
+      debugPrint('[FirstSession] FIRST MESSAGE SENT — panel retires');
+    }
     AnalyticsService.instance.firstMessageSent();
   } catch (_) {
     // Never let reporting break sending.

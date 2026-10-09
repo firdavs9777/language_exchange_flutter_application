@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -286,6 +287,16 @@ class _MatchesTabState extends ConsumerState<MatchesTab> {
           hasMessaged: session.hasMessaged,
           timesShown: session.timesShown,
         );
+        // Debug-only: the panel has four conditions and used to fail silently,
+        // which made it untestable on a device.
+        if (kDebugMode) {
+          debugPrint(
+            '[FirstSession] show=$showGuidance '
+            '(isNewUser=$isNew hasMessaged=${session.hasMessaged} '
+            'timesShown=${session.timesShown}/$kMaxGuidanceViews '
+            'matches=${matches.length})',
+          );
+        }
         if (isNew) _reportMatchesShownAfterFrame(matches.length);
         return RefreshIndicator(
           onRefresh: _refresh,
