@@ -152,11 +152,22 @@ class Community {
   bool get isVip => userMode == UserMode.vip || vipSubscriptionActive;
 
   /// Check if user joined within the last 6 days
-  bool get isNewUser {
+  bool get isNewUser => joinedWithinDays(7);
+
+  /// Whether this account was created less than [days] ago.
+  ///
+  /// A missing or malformed `createdAt` reads as NOT recent. Failing closed
+  /// matters: every caller uses this to decide whether to show a first-timer
+  /// something, and an unparseable date showing it to everybody forever is a
+  /// far worse failure than showing it to nobody.
+  ///
+  /// Exclusive, so `joinedWithinDays(3)` is the first three days — days 0, 1
+  /// and 2 — matching how the window reads out loud.
+  bool joinedWithinDays(int days) {
     if (createdAt.isEmpty) return false;
     final joined = DateTime.tryParse(createdAt);
     if (joined == null) return false;
-    return DateTime.now().difference(joined).inDays <= 6;
+    return DateTime.now().difference(joined).inDays < days;
   }
 
   /// Get display username with @ prefix (e.g., @davis7x4k)

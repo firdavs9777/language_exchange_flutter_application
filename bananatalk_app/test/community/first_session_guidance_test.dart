@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:bananatalk_app/pages/community/first_session/first_session_guidance.dart';
 import 'package:bananatalk_app/pages/community/first_session/first_session_store.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
+import 'package:bananatalk_app/services/guide_store.dart';
 
 /// The rule that decides whether a first-timer sees the panel. Pure, because
 /// a rule living inline in a widget drifts from the UI silently -- the
@@ -9,51 +10,39 @@ import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 /// locked OAuth users out of signup entirely.
 void main() {
   group('shouldShowFirstSessionGuidance', () {
-    test('a brand-new user who has not messaged sees it', () {
+    test('someone inside the window who has not messaged sees it', () {
       expect(
-        shouldShowFirstSessionGuidance(
-            isNewUser: true, hasMessaged: false, timesShown: 0),
+        shouldShowFirstSessionGuidance(withinWindow: true, hasMessaged: false),
         isTrue,
       );
     });
 
     test('a user who has already messaged never sees it', () {
       expect(
-        shouldShowFirstSessionGuidance(
-            isNewUser: true, hasMessaged: true, timesShown: 0),
+        shouldShowFirstSessionGuidance(withinWindow: true, hasMessaged: true),
         isFalse,
       );
     });
 
-    test('an established account never sees it', () {
+    test('an account past the window never sees it', () {
       expect(
-        shouldShowFirstSessionGuidance(
-            isNewUser: false, hasMessaged: false, timesShown: 0),
+        shouldShowFirstSessionGuidance(withinWindow: false, hasMessaged: false),
         isFalse,
       );
     });
 
-    test('it stops after the view cap, so it guides rather than nags', () {
-      expect(
-        shouldShowFirstSessionGuidance(
-            isNewUser: true,
-            hasMessaged: false,
-            timesShown: kMaxGuidanceViews - 1),
-        isTrue,
-      );
-      expect(
-        shouldShowFirstSessionGuidance(
-            isNewUser: true, hasMessaged: false, timesShown: kMaxGuidanceViews),
-        isFalse,
-      );
-    });
-
-    test('a corrupt negative counter does not resurrect it past the cap', () {
-      expect(
-        shouldShowFirstSessionGuidance(
-            isNewUser: true, hasMessaged: false, timesShown: -5),
-        isTrue,
-      );
+    test('it retires on the same day as the four generic guides', () {
+      // Matches nagging a day longer than every other tab would read as a
+      // bug in Matches, so the two share one rule rather than two numbers.
+      for (final within in [true, false]) {
+        for (final acted in [true, false]) {
+          expect(
+            shouldShowFirstSessionGuidance(
+                withinWindow: within, hasMessaged: acted),
+            shouldShowGuide(withinWindow: within, acted: acted),
+          );
+        }
+      }
     });
   });
 
@@ -65,9 +54,8 @@ void main() {
       const unknown = FirstSessionState.unknown;
       expect(
         shouldShowFirstSessionGuidance(
-          isNewUser: true,
+          withinWindow: true,
           hasMessaged: unknown.hasMessaged,
-          timesShown: unknown.timesShown,
         ),
         isFalse,
       );

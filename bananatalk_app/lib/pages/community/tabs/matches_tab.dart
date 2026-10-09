@@ -17,6 +17,7 @@ import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/services/analytics_service.dart';
 import 'package:bananatalk_app/providers/provider_models/daily_match_model.dart';
 import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
+import 'package:bananatalk_app/services/guide_store.dart';
 import 'package:bananatalk_app/pages/community/main/community_main.dart';
 import 'package:bananatalk_app/services/ad_service.dart';
 import 'package:bananatalk_app/providers/provider_root/daily_matches_provider.dart';
@@ -300,25 +301,32 @@ class _MatchesTabState extends ConsumerState<MatchesTab> {
             );
         final liveTabLabel =
             gatheringsEnabled ? l10n.gatheringsTabLabel : l10n.voiceRooms;
-        final isNew = ref
-            .watch(userProvider)
-            .maybeWhen(data: (u) => u.isNewUser, orElse: () => false);
+        // Two different windows on purpose. `isNew` is the seven-day cohort
+        // the funnel is split by and must keep matching the existing data;
+        // the panel itself uses the shorter guide window, so Matches retires
+        // on the same day as the other four tabs.
+        final user = ref.watch(userProvider);
+        final isNew =
+            user.maybeWhen(data: (u) => u.isNewUser, orElse: () => false);
+        final withinWindow = user.maybeWhen(
+          data: (u) => u.joinedWithinDays(kGuideWindowDays),
+          orElse: () => false,
+        );
         final session = ref
             .watch(firstSessionStateProvider)
             .maybeWhen(data: (s) => s, orElse: () => FirstSessionState.unknown);
         final showGuidance = shouldShowFirstSessionGuidance(
-          isNewUser: isNew,
+          withinWindow: withinWindow,
           hasMessaged: session.hasMessaged,
-          timesShown: session.timesShown,
         );
         // Debug-only: the panel has four conditions and used to fail silently,
         // which made it untestable on a device.
         if (kDebugMode) {
           debugPrint(
             '[FirstSession] show=$showGuidance '
-            '(isNewUser=$isNew hasMessaged=${session.hasMessaged} '
-            'timesShown=${session.timesShown}/$kMaxGuidanceViews '
-            'matches=${matches.length})',
+            '(within${kGuideWindowDays}d=$withinWindow isNewUser=$isNew '
+            'hasMessaged=${session.hasMessaged} '
+            'views=${session.timesShown} matches=${matches.length})',
           );
         }
         if (isNew) _reportMatchesShownAfterFrame(matches.length);

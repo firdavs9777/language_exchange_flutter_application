@@ -2,15 +2,17 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// How many app launches a page guide may appear on before it stops.
+/// How long after signup a page guide keeps appearing.
 ///
-/// Counted per launch, not per visit, so this is two launches rather than two
-/// glances. Started at three and came down: three launches can span most of
-/// the six days `Community.isNewUser` covers, which makes a first-session
-/// nudge into a fixture of the screen.
+/// A window rather than a count of launches, which is what this was before.
+/// A count could not say how long a guide would live: two launches is three
+/// minutes for one user and most of a week for another, so the same setting
+/// nagged the engaged and vanished before the hesitant ever came back.
 ///
-/// Same cap as the Matches panel this generalises -- the two move together.
-const int kMaxGuideViews = 2;
+/// Shorter than `Community.isNewUser`'s seven days on purpose, and separate
+/// from it: that getter also decides who counts as a new user for matching
+/// and analytics, where a wider window is correct.
+const int kGuideWindowDays = 3;
 
 /// A surface that can carry a first-session guide.
 ///
@@ -114,11 +116,10 @@ class GuideStore {
 /// Pure so it can be tested without driving the widget, and so the rule
 /// cannot drift from the five pages that read it.
 bool shouldShowGuide({
-  required bool isNewUser,
+  required bool withinWindow,
   required bool acted,
-  required int timesShown,
 }) =>
-    isNewUser && !acted && timesShown < kMaxGuideViews;
+    withinWindow && !acted;
 
 /// Read once per page mount. Deliberately NOT invalidated after
 /// `recordShown`: refetching mid-view removed the Matches panel milliseconds
@@ -132,9 +133,10 @@ final guideStateProvider =
 ///
 /// Pages in the tab shell are rebuilt — and in a `TabBarView` outright
 /// unmounted — far more often than a user would call "a visit". Latches held
-/// on State reset every time: Matches -> Partners -> Matches three times
-/// inside a minute burned the whole [kMaxGuideViews] cap and re-fired the
-/// shown event on each remount, inflating the funnel denominator.
+/// on State reset every time, so Matches -> Partners -> Matches three times
+/// inside a minute re-fired the shown event on each remount and inflated the
+/// funnel denominator. (It also used to burn the view cap; the cap is gone,
+/// the event-level reason is not.)
 ///
 /// Registered user-scoped in session_reset.dart so a second account in the
 /// same app run starts fresh.

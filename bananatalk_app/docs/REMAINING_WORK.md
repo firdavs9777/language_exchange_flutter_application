@@ -117,8 +117,12 @@ fails if a tab loses its guide or a sixth one arrives without one.
 - [x] `GuideCard` (gradient tint, icon chip, fade-in-up) + `PulseHighlight` (ring on the CTA, 3 passes
       then quiet — finite so it never holds a frame callback)
 - [x] `PageGuide` — one widget owns eligibility, the cap, the per-run latch and both events
-- [x] Cap cut 3 → 2 launches (both `kMaxGuideViews` and Matches' `kMaxGuidanceViews`): three
-      launches can span most of the six-day `isNewUser` window, which stops being a nudge
+- [x] Lifetime is a **3-day window from signup** (`kGuideWindowDays`), not a count of launches.
+      A count could not say how long a guide would live — two launches is three minutes for one
+      user and most of a week for another. Matches' predicate now delegates to the generic one, so
+      all five retire on the same day. `timesShown` is still recorded and reported; it no longer
+      gates. `Community.isNewUser` stays at 7 days: it also drives matching and the analytics
+      cohort, where a wider window is correct.
 - [x] Matches renders through `GuideCard` too, so the five cards cannot drift apart visually, and
       `MatchCard.highlightSayHi` rings the TOP card's Say hi while the panel is up — the panel names
       the action, the ring says which button that is

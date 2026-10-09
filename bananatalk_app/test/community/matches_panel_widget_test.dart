@@ -3,7 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
-import 'package:bananatalk_app/pages/community/first_session/first_session_guidance.dart';
+import 'package:bananatalk_app/services/guide_store.dart';
 import 'package:bananatalk_app/pages/community/first_session/first_session_store.dart';
 import 'package:bananatalk_app/pages/community/first_session/matches_first_session_panel.dart';
 import 'package:bananatalk_app/pages/community/tabs/matches_tab.dart';
@@ -34,7 +34,7 @@ DailyMatchesResult _result({int count = 3}) => DailyMatchesResult.fromJson({
       ],
     });
 
-Community _user({required bool isNew}) => Community(
+Community _user({required int daysOld}) => Community(
       id: 'me',
       appleId: '',
       googleId: '',
@@ -51,9 +51,8 @@ Community _user({required bool isNew}) => Community(
       native_language: 'English',
       language_to_learn: 'Korean',
       imageUrls: const [],
-      createdAt: DateTime.now()
-          .subtract(Duration(days: isNew ? 1 : 60))
-          .toIso8601String(),
+      createdAt:
+          DateTime.now().subtract(Duration(days: daysOld)).toIso8601String(),
       version: 0,
       followers: const [],
       followings: const [],
@@ -61,14 +60,14 @@ Community _user({required bool isNew}) => Community(
     );
 
 Widget _wrap({
-  required bool isNew,
+  required int daysOld,
   required FirstSessionState session,
   DailyMatchesResult? result,
   bool fail = false,
 }) =>
     ProviderScope(
       overrides: [
-        userProvider.overrideWith((ref) async => _user(isNew: isNew)),
+        userProvider.overrideWith((ref) async => _user(daysOld: daysOld)),
         firstSessionStateProvider.overrideWith((ref) async => session),
         dailyMatchesProvider.overrideWith((ref) async {
           if (fail) throw Exception('boom');
@@ -88,47 +87,66 @@ Widget _wrap({
 
 const _fresh = FirstSessionState(hasMessaged: false, timesShown: 0);
 
+/// Inside the three-day guide window vs. an account past it.
+const _insideWindow = 1;
+const _pastWindow = kGuideWindowDays + 1;
+
 void main() {
   testWidgets('an eligible new user sees the panel', (tester) async {
-    await tester.pumpWidget(_wrap(isNew: true, session: _fresh));
+    await tester.pumpWidget(_wrap(daysOld: _insideWindow, session: _fresh));
     await tester.pumpAndSettle();
     expect(find.byType(MatchesFirstSessionPanel), findsOneWidget);
   });
 
   testWidgets('an established account does not', (tester) async {
-    await tester.pumpWidget(_wrap(isNew: false, session: _fresh));
+    await tester.pumpWidget(_wrap(daysOld: _pastWindow, session: _fresh));
     await tester.pumpAndSettle();
     expect(find.byType(MatchesFirstSessionPanel), findsNothing);
   });
 
   testWidgets('a user who has already messaged does not', (tester) async {
     await tester.pumpWidget(_wrap(
-      isNew: true,
+      daysOld: _insideWindow,
       session: const FirstSessionState(hasMessaged: true, timesShown: 0),
     ));
     await tester.pumpAndSettle();
     expect(find.byType(MatchesFirstSessionPanel), findsNothing);
   });
 
-  testWidgets('a user past the view cap does not', (tester) async {
+  testWidgets('a high view count does not retire it inside the window',
+      (tester) async {
+    // The three-day window ends the panel now, not a count of views. Someone
+    // who opens the app ten times on day one still gets it on the eleventh.
     await tester.pumpWidget(_wrap(
-      isNew: true,
-      session: const FirstSessionState(
-          hasMessaged: false, timesShown: kMaxGuidanceViews),
+      daysOld: _insideWindow,
+      session: const FirstSessionState(hasMessaged: false, timesShown: 10),
     ));
+    await tester.pumpAndSettle();
+    expect(find.byType(MatchesFirstSessionPanel), findsOneWidget);
+  });
+
+  testWidgets('the last day of the window still shows it', (tester) async {
+    await tester.pumpWidget(
+        _wrap(daysOld: kGuideWindowDays - 1, session: _fresh));
+    await tester.pumpAndSettle();
+    expect(find.byType(MatchesFirstSessionPanel), findsOneWidget);
+  });
+
+  testWidgets('the day after the window does not', (tester) async {
+    await tester.pumpWidget(_wrap(daysOld: kGuideWindowDays, session: _fresh));
     await tester.pumpAndSettle();
     expect(find.byType(MatchesFirstSessionPanel), findsNothing);
   });
 
   testWidgets('an errored batch shows no panel', (tester) async {
-    await tester.pumpWidget(_wrap(isNew: true, session: _fresh, fail: true));
+    await tester.pumpWidget(_wrap(daysOld: _insideWindow, session: _fresh, fail: true));
     await tester.pumpAndSettle();
     expect(find.byType(MatchesFirstSessionPanel), findsNothing);
   });
 
   testWidgets('an empty batch shows no panel', (tester) async {
     await tester.pumpWidget(
-        _wrap(isNew: true, session: _fresh, result: _result(count: 0)));
+        _wrap(daysOld: _insideWindow, session: _fresh, result: _result(count: 0)));
     await tester.pumpAndSettle();
     expect(find.byType(MatchesFirstSessionPanel), findsNothing);
   });
@@ -139,7 +157,7 @@ void main() {
     // read "3 people picked for you today" then "Your 3 matches today" then
     // the refresh hint -- the same number twice, three lines where two were
     // specified.
-    await tester.pumpWidget(_wrap(isNew: true, session: _fresh));
+    await tester.pumpWidget(_wrap(daysOld: _insideWindow, session: _fresh));
     await tester.pumpAndSettle();
 
     expect(find.byType(MatchesFirstSessionPanel), findsOneWidget);
@@ -150,7 +168,7 @@ void main() {
   testWidgets('the usual header returns once the panel is gone',
       (tester) async {
     await tester.pumpWidget(_wrap(
-      isNew: true,
+      daysOld: _insideWindow,
       session: const FirstSessionState(hasMessaged: true, timesShown: 0),
     ));
     await tester.pumpAndSettle();
@@ -165,7 +183,7 @@ void main() {
     // this screen. The live tab is the one other thing Community offers on
     // arrival, so the panel names it -- quietly, beside the action it is
     // actually pointing at.
-    await tester.pumpWidget(_wrap(isNew: true, session: _fresh));
+    await tester.pumpWidget(_wrap(daysOld: _insideWindow, session: _fresh));
     await tester.pumpAndSettle();
 
     expect(find.descendant(
@@ -184,7 +202,7 @@ void main() {
     // own body copy reads "Say hi -- a first message is all it takes", so a
     // textContaining check passes for the wrong reason and would keep passing
     // if a real Say hi button were added.
-    await tester.pumpWidget(_wrap(isNew: true, session: _fresh));
+    await tester.pumpWidget(_wrap(daysOld: _insideWindow, session: _fresh));
     await tester.pumpAndSettle();
 
     final button = find.descendant(
@@ -200,7 +218,7 @@ void main() {
 
   testWidgets('tapping it requests the live sub-tab', (tester) async {
     late ProviderContainer container;
-    await tester.pumpWidget(_wrap(isNew: true, session: _fresh));
+    await tester.pumpWidget(_wrap(daysOld: _insideWindow, session: _fresh));
     await tester.pumpAndSettle();
     container = ProviderScope.containerOf(
       tester.element(find.byType(MatchesTab)),
@@ -224,7 +242,7 @@ void main() {
     // The panel says "say hi" but carries no button of its own, so something
     // has to say WHICH button. Three cards ringing at once is a page
     // flashing, not a page pointing.
-    await tester.pumpWidget(_wrap(isNew: true, session: _fresh));
+    await tester.pumpWidget(_wrap(daysOld: _insideWindow, session: _fresh));
     await tester.pumpAndSettle();
 
     final rings = tester
@@ -236,7 +254,7 @@ void main() {
 
   testWidgets('no Say hi is ringed once the guide is gone', (tester) async {
     await tester.pumpWidget(_wrap(
-      isNew: true,
+      daysOld: _insideWindow,
       session: const FirstSessionState(hasMessaged: true, timesShown: 0),
     ));
     await tester.pumpAndSettle();
@@ -252,17 +270,16 @@ void main() {
 
   testWidgets('the panel does not vanish from under the user mid-view',
       (tester) async {
-    // On the third eligible view the stored count reaches the cap. If the
-    // provider is invalidated while the panel is on screen, it is removed
-    // milliseconds after appearing and the list jumps by the panel height --
-    // exactly as the user reaches for the first card.
+    // If the provider is invalidated while the panel is on screen it is
+    // removed milliseconds after appearing and the list jumps by the panel
+    // height -- exactly as the user reaches for the first card. The view cap
+    // that made this acute is gone; the invalidation hazard is not.
     await tester.pumpWidget(_wrap(
-      isNew: true,
-      session: const FirstSessionState(
-          hasMessaged: false, timesShown: kMaxGuidanceViews - 1),
+      daysOld: _insideWindow,
+      session: const FirstSessionState(hasMessaged: false, timesShown: 1),
     ));
     await tester.pumpAndSettle();
     expect(find.byType(MatchesFirstSessionPanel), findsOneWidget,
-        reason: 'the third view must stay put for the whole visit');
+        reason: 'the panel must stay put for the whole visit');
   });
 }

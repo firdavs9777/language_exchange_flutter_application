@@ -56,26 +56,26 @@ class PageGuide extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isNew = ref
-        .watch(userProvider)
-        .maybeWhen(data: (u) => u.isNewUser, orElse: () => false);
+    final withinWindow = ref.watch(userProvider).maybeWhen(
+          data: (u) => u.joinedWithinDays(kGuideWindowDays),
+          orElse: () => false,
+        );
     final state = ref
         .watch(guideStateProvider(surface))
         .maybeWhen(data: (s) => s, orElse: () => GuideState.unknown);
 
     final show = shouldShowGuide(
-      isNewUser: isNew,
+      withinWindow: withinWindow,
       acted: acted || state.acted,
-      timesShown: state.timesShown,
     );
 
     // Debug-only: the Matches panel had four conditions and failed silently,
     // which made it untestable on a device until these lines existed.
     if (kDebugMode) {
       debugPrint(
-        '[Guide:${surface.slug}] show=$show (isNewUser=$isNew '
-        'acted=${acted || state.acted} '
-        'timesShown=${state.timesShown}/$kMaxGuideViews)',
+        '[Guide:${surface.slug}] show=$show '
+        '(within${kGuideWindowDays}d=$withinWindow '
+        'acted=${acted || state.acted} views=${state.timesShown})',
       );
     }
 
