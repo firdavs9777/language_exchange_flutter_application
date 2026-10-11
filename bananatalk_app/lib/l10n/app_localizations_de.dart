@@ -6944,44 +6944,44 @@ class AppLocalizationsDe extends AppLocalizations {
   String get examProgressNoFocusAreas => 'Du bist in allen Abschnitten gut unterwegs — weiter so!';
 
   @override
-  String get examPlanSetupTitle => 'Start study plan';
+  String get examPlanSetupTitle => 'Lernplan starten';
 
   @override
-  String get examPlanTargetScore => 'Target score';
+  String get examPlanTargetScore => 'Zielpunktzahl';
 
   @override
-  String get examPlanExamDate => 'Exam date';
+  String get examPlanExamDate => 'Prüfungsdatum';
 
   @override
-  String get examPlanPickDate => 'Pick a date';
+  String get examPlanPickDate => 'Datum wählen';
 
   @override
-  String get examPlanGenerate => 'Generate plan';
+  String get examPlanGenerate => 'Plan erstellen';
 
   @override
-  String get examPlanGenerating => 'Generating your plan…';
+  String get examPlanGenerating => 'Dein Plan wird erstellt…';
 
   @override
-  String get examPlanInvalidDate => 'Please pick a future exam date.';
+  String get examPlanInvalidDate => 'Bitte wähle ein Prüfungsdatum in der Zukunft.';
 
   @override
-  String get examPlanInvalidScore => 'Please enter a valid target score.';
+  String get examPlanInvalidScore => 'Bitte gib eine gültige Zielpunktzahl ein.';
 
   @override
-  String get examPlanTitle => 'Study plan';
+  String get examPlanTitle => 'Lernplan';
 
   @override
-  String get examPlanEmptyTitle => 'No active plan';
+  String get examPlanEmptyTitle => 'Kein aktiver Plan';
 
   @override
-  String get examPlanEmptyBody => 'Generate a plan to get weekly milestones tailored to your weak areas.';
+  String get examPlanEmptyBody => 'Erstelle einen Plan für wöchentliche Ziele, zugeschnitten auf deine Schwächen.';
 
   @override
-  String get examPlanRegenerate => 'Regenerate plan';
+  String get examPlanRegenerate => 'Plan neu erstellen';
 
   @override
   String examPlanWeek(int n) {
-    return 'Week $n';
+    return 'Woche $n';
   }
 
   @override
@@ -6991,15 +6991,15 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String examPlanTotalHours(int hours) {
-    return '$hours hours total';
+    return '$hours Stunden insgesamt';
   }
 
   @override
-  String get examPlanDailyHeading => 'Suggested daily lessons';
+  String get examPlanDailyHeading => 'Empfohlene Tageslektionen';
 
   @override
   String examPlanLessonMinutes(int minutes) {
-    return '$minutes min';
+    return '$minutes Min.';
   }
 
   @override
@@ -7026,16 +7026,16 @@ class AppLocalizationsDe extends AppLocalizations {
   String get examTopicOneQuestion => '1 Frage';
 
   @override
-  String get examSpeakingPrompt => 'Speak your answer';
+  String get examSpeakingPrompt => 'Sprich deine Antwort';
 
   @override
   String get examSpeakingListenToPrompt => 'Listen to prompt';
 
   @override
-  String get examSpeakingTapToRecord => 'Tap to record your answer';
+  String get examSpeakingTapToRecord => 'Zum Aufnehmen tippen';
 
   @override
-  String get examSpeakingTranscriptHeading => 'What we heard';
+  String get examSpeakingTranscriptHeading => 'Das haben wir gehört';
 
   @override
   String get examSpeakingPart1 => 'Speaking — Part 1';
@@ -7050,7 +7050,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get examSpeakingSubmit => 'Submit recording';
 
   @override
-  String get examSpeakingUploading => 'Uploading…';
+  String get examSpeakingUploading => 'Wird hochgeladen…';
 
   @override
   String get examSpeakingTooShort => 'Recording is too short. Please speak for at least a few seconds.';
@@ -7084,16 +7084,16 @@ class AppLocalizationsDe extends AppLocalizations {
   }
 
   @override
-  String get examVocabLevelPickerTitle => 'Pick a level';
+  String get examVocabLevelPickerTitle => 'Niveau wählen';
 
   @override
-  String get examVocabLevelPickerSubtitle => 'Browse words and practice quizzes by CEFR level.';
+  String get examVocabLevelPickerSubtitle => 'Wörter und Übungsquiz nach GER-Niveau durchsuchen.';
 
   @override
-  String get examVocabTopicPickerTitle => 'Pick a topic';
+  String get examVocabTopicPickerTitle => 'Thema wählen';
 
   @override
-  String get examVocabAllTopics => 'All topics';
+  String get examVocabAllTopics => 'Alle Themen';
 
   @override
   String get examVocabBrowse => 'Browse';
@@ -7102,27 +7102,27 @@ class AppLocalizationsDe extends AppLocalizations {
   String get examVocabPractice => 'Practice';
 
   @override
-  String get examVocabEmptyList => 'No words yet for this level and topic.';
+  String get examVocabEmptyList => 'Für dieses Niveau und Thema gibt es noch keine Wörter.';
 
   @override
-  String get examVocabQuizComplete => 'Quiz complete';
+  String get examVocabQuizComplete => 'Quiz abgeschlossen';
 
   @override
   String examVocabQuizScore(int correct, int total) {
-    return 'You answered $correct of $total correctly';
+    return 'Du hast $correct von $total richtig beantwortet';
   }
 
   @override
-  String get examVocabQuizYourAnswer => 'Your answer';
+  String get examVocabQuizYourAnswer => 'Deine Antwort';
 
   @override
-  String get examVocabQuizCorrectAnswer => 'Correct answer';
+  String get examVocabQuizCorrectAnswer => 'Richtige Antwort';
 
   @override
   String get examVocabQuizSubmit => 'Submit';
 
   @override
-  String get examVocabQuizSubmitting => 'Submitting…';
+  String get examVocabQuizSubmitting => 'Wird gesendet…';
 
   @override
   String get examVocabQuizNext => 'Next';
@@ -7134,36 +7134,36 @@ class AppLocalizationsDe extends AppLocalizations {
   String get examVocabQuizRestart => 'Restart';
 
   @override
-  String get examVocabQuizEmpty => 'No questions could be generated. Try another topic or level.';
+  String get examVocabQuizEmpty => 'Es konnten keine Fragen erzeugt werden. Probier ein anderes Thema oder Niveau.';
 
   @override
-  String get examVocabQuizNotEnough => 'Not enough words at this level and topic to build a quiz.';
+  String get examVocabQuizNotEnough => 'Für dieses Niveau und Thema gibt es nicht genug Wörter für ein Quiz.';
 
   @override
-  String get examVocabQuizExpiredTitle => 'Quiz expired';
+  String get examVocabQuizExpiredTitle => 'Quiz abgelaufen';
 
   @override
-  String get examVocabQuizExpiredBody => 'This quiz has been idle too long. Restart to get a fresh one.';
+  String get examVocabQuizExpiredBody => 'Dieses Quiz war zu lange inaktiv. Starte neu für ein frisches.';
 
   @override
-  String get examVocabTranslate => 'Translate';
+  String get examVocabTranslate => 'Übersetzen';
 
   @override
-  String get examVocabTranslateFailed => 'Translation unavailable. Try again later.';
+  String get examVocabTranslateFailed => 'Übersetzung nicht verfügbar. Versuch es später.';
 
   @override
   String get examDashboardTips => 'Tips';
 
   @override
-  String get examTipsTitle => 'Tips & Techniques';
+  String get examTipsTitle => 'Tipps & Techniken';
 
   @override
   String examTipsSubtitle(String examName) {
-    return 'Curated strategy notes for $examName.';
+    return 'Ausgewählte Strategiehinweise für $examName.';
   }
 
   @override
-  String get examTipsEmpty => 'No tips have been published for this exam yet.';
+  String get examTipsEmpty => 'Für diese Prüfung gibt es noch keine Tipps.';
 
   @override
   String get examTipsCategoryStrategy => 'Strategy';
@@ -7172,22 +7172,22 @@ class AppLocalizationsDe extends AppLocalizations {
   String get examTipsCategoryGrammar => 'Grammar';
 
   @override
-  String get examTipsCategoryVocabulary => 'Vocabulary';
+  String get examTipsCategoryVocabulary => 'Wortschatz';
 
   @override
-  String get examTipsCategoryTimeManagement => 'Time Management';
+  String get examTipsCategoryTimeManagement => 'Zeitmanagement';
 
   @override
-  String get examTipsCategoryCommonMistakes => 'Common Mistakes';
+  String get examTipsCategoryCommonMistakes => 'Häufige Fehler';
 
   @override
-  String get examTipsCategoryBandBooster => 'Band Boosters';
+  String get examTipsCategoryBandBooster => 'Punkte-Booster';
 
   @override
-  String get examTipsCategoryCulturalNotes => 'Cultural Notes';
+  String get examTipsCategoryCulturalNotes => 'Kulturelle Hinweise';
 
   @override
-  String get examTipsCategoryPronunciation => 'Pronunciation';
+  String get examTipsCategoryPronunciation => 'Aussprache';
 
   @override
   String get examTipsCategoryFluency => 'Fluency';

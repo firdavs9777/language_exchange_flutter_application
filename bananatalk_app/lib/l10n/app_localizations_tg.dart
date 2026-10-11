@@ -6950,44 +6950,44 @@ class AppLocalizationsTg extends AppLocalizations {
   String get examProgressNoFocusAreas => 'Шумо дар ҳама бахшҳо хуб кор мекунед — машқро идома диҳед!';
 
   @override
-  String get examPlanSetupTitle => 'Start study plan';
+  String get examPlanSetupTitle => 'Оғози нақшаи омӯзиш';
 
   @override
-  String get examPlanTargetScore => 'Target score';
+  String get examPlanTargetScore => 'Холи ҳадафӣ';
 
   @override
-  String get examPlanExamDate => 'Exam date';
+  String get examPlanExamDate => 'Санаи имтиҳон';
 
   @override
-  String get examPlanPickDate => 'Pick a date';
+  String get examPlanPickDate => 'Интихоби сана';
 
   @override
-  String get examPlanGenerate => 'Generate plan';
+  String get examPlanGenerate => 'Эҷоди нақша';
 
   @override
-  String get examPlanGenerating => 'Generating your plan…';
+  String get examPlanGenerating => 'Нақшаи шумо эҷод мешавад…';
 
   @override
-  String get examPlanInvalidDate => 'Please pick a future exam date.';
+  String get examPlanInvalidDate => 'Лутфан санаи ояндаи имтиҳонро интихоб кунед.';
 
   @override
-  String get examPlanInvalidScore => 'Please enter a valid target score.';
+  String get examPlanInvalidScore => 'Лутфан холи ҳадафии дурустро ворид кунед.';
 
   @override
-  String get examPlanTitle => 'Study plan';
+  String get examPlanTitle => 'Нақшаи омӯзиш';
 
   @override
-  String get examPlanEmptyTitle => 'No active plan';
+  String get examPlanEmptyTitle => 'Нақшаи фаъол нест';
 
   @override
-  String get examPlanEmptyBody => 'Generate a plan to get weekly milestones tailored to your weak areas.';
+  String get examPlanEmptyBody => 'Барои гирифтани ҳадафҳои ҳафтаина мувофиқи нуқтаҳои сусти шумо, нақша эҷод кунед.';
 
   @override
-  String get examPlanRegenerate => 'Regenerate plan';
+  String get examPlanRegenerate => 'Аз нав эҷод кардани нақша';
 
   @override
   String examPlanWeek(int n) {
-    return 'Week $n';
+    return 'Ҳафтаи $n';
   }
 
   @override
@@ -6997,15 +6997,15 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String examPlanTotalHours(int hours) {
-    return '$hours hours total';
+    return 'ҳамагӣ $hours соат';
   }
 
   @override
-  String get examPlanDailyHeading => 'Suggested daily lessons';
+  String get examPlanDailyHeading => 'Дарсҳои пешниҳодшудаи ҳаррӯза';
 
   @override
   String examPlanLessonMinutes(int minutes) {
-    return '$minutes min';
+    return '$minutes дақ';
   }
 
   @override
@@ -7032,16 +7032,16 @@ class AppLocalizationsTg extends AppLocalizations {
   String get examTopicOneQuestion => '1 савол';
 
   @override
-  String get examSpeakingPrompt => 'Speak your answer';
+  String get examSpeakingPrompt => 'Ҷавобатонро бигӯед';
 
   @override
   String get examSpeakingListenToPrompt => 'Listen to prompt';
 
   @override
-  String get examSpeakingTapToRecord => 'Tap to record your answer';
+  String get examSpeakingTapToRecord => 'Барои сабти ҷавоб зер кунед';
 
   @override
-  String get examSpeakingTranscriptHeading => 'What we heard';
+  String get examSpeakingTranscriptHeading => 'Он чи мо шунидем';
 
   @override
   String get examSpeakingPart1 => 'Speaking — Part 1';
@@ -7056,7 +7056,7 @@ class AppLocalizationsTg extends AppLocalizations {
   String get examSpeakingSubmit => 'Submit recording';
 
   @override
-  String get examSpeakingUploading => 'Uploading…';
+  String get examSpeakingUploading => 'Боргузорӣ…';
 
   @override
   String get examSpeakingTooShort => 'Recording is too short. Please speak for at least a few seconds.';
@@ -7090,16 +7090,16 @@ class AppLocalizationsTg extends AppLocalizations {
   }
 
   @override
-  String get examVocabLevelPickerTitle => 'Pick a level';
+  String get examVocabLevelPickerTitle => 'Сатҳро интихоб кунед';
 
   @override
-  String get examVocabLevelPickerSubtitle => 'Browse words and practice quizzes by CEFR level.';
+  String get examVocabLevelPickerSubtitle => 'Калимаҳо ва санҷишҳои машқиро аз рӯи сатҳи CEFR бинед.';
 
   @override
-  String get examVocabTopicPickerTitle => 'Pick a topic';
+  String get examVocabTopicPickerTitle => 'Мавзӯъро интихоб кунед';
 
   @override
-  String get examVocabAllTopics => 'All topics';
+  String get examVocabAllTopics => 'Ҳамаи мавзӯъҳо';
 
   @override
   String get examVocabBrowse => 'Browse';
@@ -7108,27 +7108,27 @@ class AppLocalizationsTg extends AppLocalizations {
   String get examVocabPractice => 'Practice';
 
   @override
-  String get examVocabEmptyList => 'No words yet for this level and topic.';
+  String get examVocabEmptyList => 'Барои ин сатҳ ва мавзӯъ ҳоло калима нест.';
 
   @override
-  String get examVocabQuizComplete => 'Quiz complete';
+  String get examVocabQuizComplete => 'Санҷиш анҷом ёфт';
 
   @override
   String examVocabQuizScore(int correct, int total) {
-    return 'You answered $correct of $total correctly';
+    return 'Шумо аз $total саволи $correct-ро дуруст ҷавоб додед';
   }
 
   @override
-  String get examVocabQuizYourAnswer => 'Your answer';
+  String get examVocabQuizYourAnswer => 'Ҷавоби шумо';
 
   @override
-  String get examVocabQuizCorrectAnswer => 'Correct answer';
+  String get examVocabQuizCorrectAnswer => 'Ҷавоби дуруст';
 
   @override
   String get examVocabQuizSubmit => 'Submit';
 
   @override
-  String get examVocabQuizSubmitting => 'Submitting…';
+  String get examVocabQuizSubmitting => 'Фиристода истодааст…';
 
   @override
   String get examVocabQuizNext => 'Next';
@@ -7140,36 +7140,36 @@ class AppLocalizationsTg extends AppLocalizations {
   String get examVocabQuizRestart => 'Restart';
 
   @override
-  String get examVocabQuizEmpty => 'No questions could be generated. Try another topic or level.';
+  String get examVocabQuizEmpty => 'Саволҳо сохта нашуданд. Мавзӯъ ё сатҳи дигарро санҷед.';
 
   @override
-  String get examVocabQuizNotEnough => 'Not enough words at this level and topic to build a quiz.';
+  String get examVocabQuizNotEnough => 'Дар ин сатҳ ва мавзӯъ барои сохтани санҷиш калима кофӣ нест.';
 
   @override
-  String get examVocabQuizExpiredTitle => 'Quiz expired';
+  String get examVocabQuizExpiredTitle => 'Мӯҳлати санҷиш гузашт';
 
   @override
-  String get examVocabQuizExpiredBody => 'This quiz has been idle too long. Restart to get a fresh one.';
+  String get examVocabQuizExpiredBody => 'Ин санҷиш муддати дароз бефаъолият монд. Барои гирифтани санҷиши нав аз нав оғоз кунед.';
 
   @override
-  String get examVocabTranslate => 'Translate';
+  String get examVocabTranslate => 'Тарҷума';
 
   @override
-  String get examVocabTranslateFailed => 'Translation unavailable. Try again later.';
+  String get examVocabTranslateFailed => 'Тарҷума дастрас нест. Баъдтар кӯшиш кунед.';
 
   @override
   String get examDashboardTips => 'Tips';
 
   @override
-  String get examTipsTitle => 'Tips & Techniques';
+  String get examTipsTitle => 'Маслиҳатҳо ва усулҳо';
 
   @override
   String examTipsSubtitle(String examName) {
-    return 'Curated strategy notes for $examName.';
+    return 'Ёддоштҳои стратегии интихобшуда барои $examName.';
   }
 
   @override
-  String get examTipsEmpty => 'No tips have been published for this exam yet.';
+  String get examTipsEmpty => 'Барои ин имтиҳон ҳоло маслиҳат нашр нашудааст.';
 
   @override
   String get examTipsCategoryStrategy => 'Strategy';
@@ -7178,22 +7178,22 @@ class AppLocalizationsTg extends AppLocalizations {
   String get examTipsCategoryGrammar => 'Grammar';
 
   @override
-  String get examTipsCategoryVocabulary => 'Vocabulary';
+  String get examTipsCategoryVocabulary => 'Луғат';
 
   @override
-  String get examTipsCategoryTimeManagement => 'Time Management';
+  String get examTipsCategoryTimeManagement => 'Идоракунии вақт';
 
   @override
-  String get examTipsCategoryCommonMistakes => 'Common Mistakes';
+  String get examTipsCategoryCommonMistakes => 'Хатоҳои маъмул';
 
   @override
-  String get examTipsCategoryBandBooster => 'Band Boosters';
+  String get examTipsCategoryBandBooster => 'Баландбардории хол';
 
   @override
-  String get examTipsCategoryCulturalNotes => 'Cultural Notes';
+  String get examTipsCategoryCulturalNotes => 'Ёддоштҳои фарҳангӣ';
 
   @override
-  String get examTipsCategoryPronunciation => 'Pronunciation';
+  String get examTipsCategoryPronunciation => 'Талаффуз';
 
   @override
   String get examTipsCategoryFluency => 'Fluency';

@@ -6937,44 +6937,44 @@ class AppLocalizationsVi extends AppLocalizations {
   String get examProgressNoFocusAreas => 'Bạn đang làm tốt ở mọi phần — cứ tiếp tục nhé!';
 
   @override
-  String get examPlanSetupTitle => 'Start study plan';
+  String get examPlanSetupTitle => 'Bắt đầu kế hoạch học';
 
   @override
-  String get examPlanTargetScore => 'Target score';
+  String get examPlanTargetScore => 'Điểm mục tiêu';
 
   @override
-  String get examPlanExamDate => 'Exam date';
+  String get examPlanExamDate => 'Ngày thi';
 
   @override
-  String get examPlanPickDate => 'Pick a date';
+  String get examPlanPickDate => 'Chọn ngày';
 
   @override
-  String get examPlanGenerate => 'Generate plan';
+  String get examPlanGenerate => 'Tạo kế hoạch';
 
   @override
-  String get examPlanGenerating => 'Generating your plan…';
+  String get examPlanGenerating => 'Đang tạo kế hoạch của bạn…';
 
   @override
-  String get examPlanInvalidDate => 'Please pick a future exam date.';
+  String get examPlanInvalidDate => 'Hãy chọn ngày thi trong tương lai.';
 
   @override
-  String get examPlanInvalidScore => 'Please enter a valid target score.';
+  String get examPlanInvalidScore => 'Hãy nhập điểm mục tiêu hợp lệ.';
 
   @override
-  String get examPlanTitle => 'Study plan';
+  String get examPlanTitle => 'Kế hoạch học';
 
   @override
-  String get examPlanEmptyTitle => 'No active plan';
+  String get examPlanEmptyTitle => 'Chưa có kế hoạch nào';
 
   @override
-  String get examPlanEmptyBody => 'Generate a plan to get weekly milestones tailored to your weak areas.';
+  String get examPlanEmptyBody => 'Tạo kế hoạch để nhận mục tiêu hằng tuần phù hợp với điểm yếu của bạn.';
 
   @override
-  String get examPlanRegenerate => 'Regenerate plan';
+  String get examPlanRegenerate => 'Tạo lại kế hoạch';
 
   @override
   String examPlanWeek(int n) {
-    return 'Week $n';
+    return 'Tuần $n';
   }
 
   @override
@@ -6984,15 +6984,15 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String examPlanTotalHours(int hours) {
-    return '$hours hours total';
+    return 'tổng $hours giờ';
   }
 
   @override
-  String get examPlanDailyHeading => 'Suggested daily lessons';
+  String get examPlanDailyHeading => 'Bài học hằng ngày được gợi ý';
 
   @override
   String examPlanLessonMinutes(int minutes) {
-    return '$minutes min';
+    return '$minutes phút';
   }
 
   @override
@@ -7019,16 +7019,16 @@ class AppLocalizationsVi extends AppLocalizations {
   String get examTopicOneQuestion => '1 câu hỏi';
 
   @override
-  String get examSpeakingPrompt => 'Speak your answer';
+  String get examSpeakingPrompt => 'Nói câu trả lời của bạn';
 
   @override
   String get examSpeakingListenToPrompt => 'Listen to prompt';
 
   @override
-  String get examSpeakingTapToRecord => 'Tap to record your answer';
+  String get examSpeakingTapToRecord => 'Chạm để ghi âm câu trả lời';
 
   @override
-  String get examSpeakingTranscriptHeading => 'What we heard';
+  String get examSpeakingTranscriptHeading => 'Chúng tôi nghe được';
 
   @override
   String get examSpeakingPart1 => 'Speaking — Part 1';
@@ -7043,7 +7043,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get examSpeakingSubmit => 'Submit recording';
 
   @override
-  String get examSpeakingUploading => 'Uploading…';
+  String get examSpeakingUploading => 'Đang tải lên…';
 
   @override
   String get examSpeakingTooShort => 'Recording is too short. Please speak for at least a few seconds.';
@@ -7077,16 +7077,16 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
-  String get examVocabLevelPickerTitle => 'Pick a level';
+  String get examVocabLevelPickerTitle => 'Chọn cấp độ';
 
   @override
-  String get examVocabLevelPickerSubtitle => 'Browse words and practice quizzes by CEFR level.';
+  String get examVocabLevelPickerSubtitle => 'Xem từ vựng và bài luyện theo cấp độ CEFR.';
 
   @override
-  String get examVocabTopicPickerTitle => 'Pick a topic';
+  String get examVocabTopicPickerTitle => 'Chọn chủ đề';
 
   @override
-  String get examVocabAllTopics => 'All topics';
+  String get examVocabAllTopics => 'Tất cả chủ đề';
 
   @override
   String get examVocabBrowse => 'Browse';
@@ -7095,27 +7095,27 @@ class AppLocalizationsVi extends AppLocalizations {
   String get examVocabPractice => 'Practice';
 
   @override
-  String get examVocabEmptyList => 'No words yet for this level and topic.';
+  String get examVocabEmptyList => 'Chưa có từ nào cho cấp độ và chủ đề này.';
 
   @override
-  String get examVocabQuizComplete => 'Quiz complete';
+  String get examVocabQuizComplete => 'Hoàn thành bài kiểm tra';
 
   @override
   String examVocabQuizScore(int correct, int total) {
-    return 'You answered $correct of $total correctly';
+    return 'Bạn trả lời đúng $correct trên $total';
   }
 
   @override
-  String get examVocabQuizYourAnswer => 'Your answer';
+  String get examVocabQuizYourAnswer => 'Câu trả lời của bạn';
 
   @override
-  String get examVocabQuizCorrectAnswer => 'Correct answer';
+  String get examVocabQuizCorrectAnswer => 'Đáp án đúng';
 
   @override
   String get examVocabQuizSubmit => 'Submit';
 
   @override
-  String get examVocabQuizSubmitting => 'Submitting…';
+  String get examVocabQuizSubmitting => 'Đang gửi…';
 
   @override
   String get examVocabQuizNext => 'Next';
@@ -7127,36 +7127,36 @@ class AppLocalizationsVi extends AppLocalizations {
   String get examVocabQuizRestart => 'Restart';
 
   @override
-  String get examVocabQuizEmpty => 'No questions could be generated. Try another topic or level.';
+  String get examVocabQuizEmpty => 'Không tạo được câu hỏi. Hãy thử chủ đề hoặc cấp độ khác.';
 
   @override
-  String get examVocabQuizNotEnough => 'Not enough words at this level and topic to build a quiz.';
+  String get examVocabQuizNotEnough => 'Không đủ từ ở cấp độ và chủ đề này để tạo bài kiểm tra.';
 
   @override
-  String get examVocabQuizExpiredTitle => 'Quiz expired';
+  String get examVocabQuizExpiredTitle => 'Bài kiểm tra đã hết hạn';
 
   @override
-  String get examVocabQuizExpiredBody => 'This quiz has been idle too long. Restart to get a fresh one.';
+  String get examVocabQuizExpiredBody => 'Bài này để không quá lâu. Hãy bắt đầu lại để có bài mới.';
 
   @override
-  String get examVocabTranslate => 'Translate';
+  String get examVocabTranslate => 'Dịch';
 
   @override
-  String get examVocabTranslateFailed => 'Translation unavailable. Try again later.';
+  String get examVocabTranslateFailed => 'Không dùng được bản dịch. Hãy thử lại sau.';
 
   @override
   String get examDashboardTips => 'Tips';
 
   @override
-  String get examTipsTitle => 'Tips & Techniques';
+  String get examTipsTitle => 'Mẹo và kỹ thuật';
 
   @override
   String examTipsSubtitle(String examName) {
-    return 'Curated strategy notes for $examName.';
+    return 'Ghi chú chiến lược chọn lọc cho $examName.';
   }
 
   @override
-  String get examTipsEmpty => 'No tips have been published for this exam yet.';
+  String get examTipsEmpty => 'Chưa có mẹo nào cho kỳ thi này.';
 
   @override
   String get examTipsCategoryStrategy => 'Strategy';
@@ -7165,22 +7165,22 @@ class AppLocalizationsVi extends AppLocalizations {
   String get examTipsCategoryGrammar => 'Grammar';
 
   @override
-  String get examTipsCategoryVocabulary => 'Vocabulary';
+  String get examTipsCategoryVocabulary => 'Từ vựng';
 
   @override
-  String get examTipsCategoryTimeManagement => 'Time Management';
+  String get examTipsCategoryTimeManagement => 'Quản lý thời gian';
 
   @override
-  String get examTipsCategoryCommonMistakes => 'Common Mistakes';
+  String get examTipsCategoryCommonMistakes => 'Lỗi thường gặp';
 
   @override
-  String get examTipsCategoryBandBooster => 'Band Boosters';
+  String get examTipsCategoryBandBooster => 'Tăng điểm';
 
   @override
-  String get examTipsCategoryCulturalNotes => 'Cultural Notes';
+  String get examTipsCategoryCulturalNotes => 'Ghi chú văn hoá';
 
   @override
-  String get examTipsCategoryPronunciation => 'Pronunciation';
+  String get examTipsCategoryPronunciation => 'Phát âm';
 
   @override
   String get examTipsCategoryFluency => 'Fluency';

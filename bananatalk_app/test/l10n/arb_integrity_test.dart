@@ -59,6 +59,23 @@ void main() {
             '${failures.join('\n')}');
   });
 
+  test('no CJK locale contains stray Hangul', () {
+    // My own slip, 2026-10-11: a Japanese string came out as
+    // "새しく始めてください" — Korean 새 in place of 新. Nothing else catches a
+    // wrong-script character; it is valid JSON, valid ICU, and renders.
+    final hangul = RegExp(r'[\uac00-\ud7af]');
+    for (final loc in const ['ja', 'zh', 'zh_TW', 'th', 'vi']) {
+      final file = File('lib/l10n/app_$loc.arb');
+      if (!file.existsSync()) continue;
+      final map = jsonDecode(file.readAsStringSync()) as Map<String, dynamic>;
+      map.forEach((key, value) {
+        if (key.startsWith('@') || value is! String) return;
+        expect(hangul.hasMatch(value), isFalse,
+            reason: 'app_$loc.arb $key contains Hangul: "$value"');
+      });
+    }
+  });
+
   test('every .arb is valid JSON and non-empty', () {
     final arbs = Directory('lib/l10n')
         .listSync()

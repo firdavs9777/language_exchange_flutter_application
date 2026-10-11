@@ -6937,44 +6937,44 @@ class AppLocalizationsTh extends AppLocalizations {
   String get examProgressNoFocusAreas => 'คุณทำได้ดีทุกส่วน — ฝึกต่อไปนะ!';
 
   @override
-  String get examPlanSetupTitle => 'Start study plan';
+  String get examPlanSetupTitle => 'เริ่มแผนการเรียน';
 
   @override
-  String get examPlanTargetScore => 'Target score';
+  String get examPlanTargetScore => 'คะแนนเป้าหมาย';
 
   @override
-  String get examPlanExamDate => 'Exam date';
+  String get examPlanExamDate => 'วันสอบ';
 
   @override
-  String get examPlanPickDate => 'Pick a date';
+  String get examPlanPickDate => 'เลือกวันที่';
 
   @override
-  String get examPlanGenerate => 'Generate plan';
+  String get examPlanGenerate => 'สร้างแผน';
 
   @override
-  String get examPlanGenerating => 'Generating your plan…';
+  String get examPlanGenerating => 'กำลังสร้างแผนของคุณ…';
 
   @override
-  String get examPlanInvalidDate => 'Please pick a future exam date.';
+  String get examPlanInvalidDate => 'โปรดเลือกวันสอบในอนาคต';
 
   @override
-  String get examPlanInvalidScore => 'Please enter a valid target score.';
+  String get examPlanInvalidScore => 'โปรดกรอกคะแนนเป้าหมายที่ถูกต้อง';
 
   @override
-  String get examPlanTitle => 'Study plan';
+  String get examPlanTitle => 'แผนการเรียน';
 
   @override
-  String get examPlanEmptyTitle => 'No active plan';
+  String get examPlanEmptyTitle => 'ยังไม่มีแผนที่ใช้งาน';
 
   @override
-  String get examPlanEmptyBody => 'Generate a plan to get weekly milestones tailored to your weak areas.';
+  String get examPlanEmptyBody => 'สร้างแผนเพื่อรับเป้าหมายรายสัปดาห์ที่ปรับตามจุดอ่อนของคุณ';
 
   @override
-  String get examPlanRegenerate => 'Regenerate plan';
+  String get examPlanRegenerate => 'สร้างแผนใหม่';
 
   @override
   String examPlanWeek(int n) {
-    return 'Week $n';
+    return 'สัปดาห์ที่ $n';
   }
 
   @override
@@ -6984,15 +6984,15 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String examPlanTotalHours(int hours) {
-    return '$hours hours total';
+    return 'รวม $hours ชั่วโมง';
   }
 
   @override
-  String get examPlanDailyHeading => 'Suggested daily lessons';
+  String get examPlanDailyHeading => 'บทเรียนรายวันที่แนะนำ';
 
   @override
   String examPlanLessonMinutes(int minutes) {
-    return '$minutes min';
+    return '$minutes นาที';
   }
 
   @override
@@ -7019,16 +7019,16 @@ class AppLocalizationsTh extends AppLocalizations {
   String get examTopicOneQuestion => '1 ข้อ';
 
   @override
-  String get examSpeakingPrompt => 'Speak your answer';
+  String get examSpeakingPrompt => 'พูดคำตอบของคุณ';
 
   @override
   String get examSpeakingListenToPrompt => 'Listen to prompt';
 
   @override
-  String get examSpeakingTapToRecord => 'Tap to record your answer';
+  String get examSpeakingTapToRecord => 'แตะเพื่อบันทึกคำตอบ';
 
   @override
-  String get examSpeakingTranscriptHeading => 'What we heard';
+  String get examSpeakingTranscriptHeading => 'สิ่งที่เราได้ยิน';
 
   @override
   String get examSpeakingPart1 => 'Speaking — Part 1';
@@ -7043,7 +7043,7 @@ class AppLocalizationsTh extends AppLocalizations {
   String get examSpeakingSubmit => 'Submit recording';
 
   @override
-  String get examSpeakingUploading => 'Uploading…';
+  String get examSpeakingUploading => 'กำลังอัปโหลด…';
 
   @override
   String get examSpeakingTooShort => 'Recording is too short. Please speak for at least a few seconds.';
@@ -7077,16 +7077,16 @@ class AppLocalizationsTh extends AppLocalizations {
   }
 
   @override
-  String get examVocabLevelPickerTitle => 'Pick a level';
+  String get examVocabLevelPickerTitle => 'เลือกระดับ';
 
   @override
-  String get examVocabLevelPickerSubtitle => 'Browse words and practice quizzes by CEFR level.';
+  String get examVocabLevelPickerSubtitle => 'ดูคำศัพท์และแบบฝึกตามระดับ CEFR';
 
   @override
-  String get examVocabTopicPickerTitle => 'Pick a topic';
+  String get examVocabTopicPickerTitle => 'เลือกหัวข้อ';
 
   @override
-  String get examVocabAllTopics => 'All topics';
+  String get examVocabAllTopics => 'ทุกหัวข้อ';
 
   @override
   String get examVocabBrowse => 'Browse';
@@ -7095,27 +7095,27 @@ class AppLocalizationsTh extends AppLocalizations {
   String get examVocabPractice => 'Practice';
 
   @override
-  String get examVocabEmptyList => 'No words yet for this level and topic.';
+  String get examVocabEmptyList => 'ยังไม่มีคำศัพท์สำหรับระดับและหัวข้อนี้';
 
   @override
-  String get examVocabQuizComplete => 'Quiz complete';
+  String get examVocabQuizComplete => 'ทำแบบทดสอบเสร็จแล้ว';
 
   @override
   String examVocabQuizScore(int correct, int total) {
-    return 'You answered $correct of $total correctly';
+    return 'คุณตอบถูก $correct จาก $total ข้อ';
   }
 
   @override
-  String get examVocabQuizYourAnswer => 'Your answer';
+  String get examVocabQuizYourAnswer => 'คำตอบของคุณ';
 
   @override
-  String get examVocabQuizCorrectAnswer => 'Correct answer';
+  String get examVocabQuizCorrectAnswer => 'คำตอบที่ถูก';
 
   @override
   String get examVocabQuizSubmit => 'Submit';
 
   @override
-  String get examVocabQuizSubmitting => 'Submitting…';
+  String get examVocabQuizSubmitting => 'กำลังส่ง…';
 
   @override
   String get examVocabQuizNext => 'Next';
@@ -7127,36 +7127,36 @@ class AppLocalizationsTh extends AppLocalizations {
   String get examVocabQuizRestart => 'Restart';
 
   @override
-  String get examVocabQuizEmpty => 'No questions could be generated. Try another topic or level.';
+  String get examVocabQuizEmpty => 'สร้างคำถามไม่ได้ ลองหัวข้อหรือระดับอื่น';
 
   @override
-  String get examVocabQuizNotEnough => 'Not enough words at this level and topic to build a quiz.';
+  String get examVocabQuizNotEnough => 'คำศัพท์ในระดับและหัวข้อนี้ไม่พอสำหรับสร้างแบบทดสอบ';
 
   @override
-  String get examVocabQuizExpiredTitle => 'Quiz expired';
+  String get examVocabQuizExpiredTitle => 'แบบทดสอบหมดอายุ';
 
   @override
-  String get examVocabQuizExpiredBody => 'This quiz has been idle too long. Restart to get a fresh one.';
+  String get examVocabQuizExpiredBody => 'แบบทดสอบนี้ถูกทิ้งไว้นานเกินไป เริ่มใหม่เพื่อรับชุดใหม่';
 
   @override
-  String get examVocabTranslate => 'Translate';
+  String get examVocabTranslate => 'แปล';
 
   @override
-  String get examVocabTranslateFailed => 'Translation unavailable. Try again later.';
+  String get examVocabTranslateFailed => 'ใช้การแปลไม่ได้ ลองใหม่ภายหลัง';
 
   @override
   String get examDashboardTips => 'Tips';
 
   @override
-  String get examTipsTitle => 'Tips & Techniques';
+  String get examTipsTitle => 'เคล็ดลับและเทคนิค';
 
   @override
   String examTipsSubtitle(String examName) {
-    return 'Curated strategy notes for $examName.';
+    return 'บันทึกกลยุทธ์คัดสรรสำหรับ $examName';
   }
 
   @override
-  String get examTipsEmpty => 'No tips have been published for this exam yet.';
+  String get examTipsEmpty => 'ยังไม่มีเคล็ดลับสำหรับข้อสอบนี้';
 
   @override
   String get examTipsCategoryStrategy => 'Strategy';
@@ -7165,22 +7165,22 @@ class AppLocalizationsTh extends AppLocalizations {
   String get examTipsCategoryGrammar => 'Grammar';
 
   @override
-  String get examTipsCategoryVocabulary => 'Vocabulary';
+  String get examTipsCategoryVocabulary => 'คำศัพท์';
 
   @override
-  String get examTipsCategoryTimeManagement => 'Time Management';
+  String get examTipsCategoryTimeManagement => 'การบริหารเวลา';
 
   @override
-  String get examTipsCategoryCommonMistakes => 'Common Mistakes';
+  String get examTipsCategoryCommonMistakes => 'ข้อผิดพลาดที่พบบ่อย';
 
   @override
-  String get examTipsCategoryBandBooster => 'Band Boosters';
+  String get examTipsCategoryBandBooster => 'ดันคะแนน';
 
   @override
-  String get examTipsCategoryCulturalNotes => 'Cultural Notes';
+  String get examTipsCategoryCulturalNotes => 'เกร็ดวัฒนธรรม';
 
   @override
-  String get examTipsCategoryPronunciation => 'Pronunciation';
+  String get examTipsCategoryPronunciation => 'การออกเสียง';
 
   @override
   String get examTipsCategoryFluency => 'Fluency';

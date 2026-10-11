@@ -144,8 +144,12 @@ fails if a tab loses its guide or a sixth one arrives without one.
 - [x] `selectUpToImages` rendered the literal word **"null"** to Tagalog and Turkish users
       ("Select up to null images") — a locale used `{count}`, which the template never declares.
       `test/l10n/arb_integrity_test.dart` now scans the GENERATED Dart for it.
-- [ ] **106 `exam*` keys still English in every locale** — the Exam Study screen the AI Study
-      guide's new secondary button opens. Largest remaining translation gap; next after this.
+- [x] **All 106 `exam*` keys translated** — the Exam Study screen the AI Study guide's secondary
+      button opens: entry path, essay evaluation (incl. the VIP upsell, which was asking people to
+      pay in English), progress, study plan, speaking, tips, vocabulary.
+- [x] 144 of 144 never-translated live keys done. The 5 left in English are deliberate:
+      `vipBrandTitle` (brand), `helpEmailSupportSubtitle` (an address), and the pure-placeholder
+      `dailyScore` / `weeklyReportRange` / `learningXpGained`.
 - [x] `conversation_empty_state.dart` localized — it was hardcoded English on the screen a
       first message starts on, so a Korean user followed a Korean guide into an English screen
 - [x] `create_moment.dart` — 18 strings localized (the Moments guide's destination). Six already
