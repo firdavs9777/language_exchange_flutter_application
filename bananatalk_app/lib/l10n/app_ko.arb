@@ -3816,5 +3816,41 @@
   "vocabSessionComplete": "세션 완료!",
   "vocabXpEarned": "획득 XP",
   "vocabWatchAdBonus": "광고 보고 +10 보너스 XP 받기",
-  "vocabBonusEarned": "+10 보너스 XP 획득! 🎉"
+  "vocabBonusEarned": "+10 보너스 XP 획득! 🎉",
+  "vipBannerIsMember": "{userName}님은 VIP 회원이에요",
+  "vipBannerGetBenefits": "회원님도 VIP 혜택을 받아보세요!",
+  "vipUpgrade": "업그레이드",
+  "vipUnlockAllFeatures": "모든 기능 잠금 해제",
+  "chatFailedToLoadUser": "사용자 정보를 불러오지 못했어요",
+  "chatDailyLimitTitle": "하루 채팅 한도에 도달했어요",
+  "chatUnlimitedTitle": "무제한 채팅",
+  "chatUnlimitedBody": "원하는 만큼 많은 사람과 대화하세요! VIP 회원은 하루 대화가 무제한이에요.",
+  "coinsStoreUnavailable": "코인 구매는 iOS와 Android에서만 가능해요.",
+  "coinsPurchaseCanceled": "구매가 취소되었거나 시작할 수 없었어요.",
+  "coinsReceiptUnreadable": "구매 영수증을 읽지 못했어요. 다시 시도해 주세요.",
+  "coinsAdded": "코인이 추가됐어요! 💎",
+  "coinsVerifyRetry": "구매를 확인하지 못했어요. 자동으로 다시 시도해요 — 코인이 보이지 않으면 구매 복원을 해보세요.",
+  "coinsAlreadyClaimed": "오늘은 이미 받았어요 — 내일 다시 오세요!",
+  "coinsDailyClaimed": "데일리 보상을 받았어요! +10 💎",
+  "coinsClaimFailed": "데일리 보상을 받지 못했어요.",
+  "coinsAdThanks": "시청해 주셔서 감사해요! +5 💎",
+  "coinsAdCreditFailed": "광고 보상을 지급하지 못했어요.",
+  "coinsGetCoins": "코인 받기",
+  "coinsGetCoinsSubtitle": "번역, 튜터 대화, 모먼트를 바로 추가로 쓸 수 있어요.",
+  "coinsYourBalance": "내 잔액",
+  "coinsEarnFree": "무료 코인 모으기",
+  "coinsDailyReward": "데일리 보상",
+  "coinsComeBackTomorrow": "내일 다시 오세요",
+  "coinsDailyRewardSubtitle": "하루 한 번, 코인 +10",
+  "coinsClaimed": "받음",
+  "coinsClaim": "받기",
+  "coinsWatchAd": "광고 보기",
+  "coinsAdLimitReached": "오늘 한도에 도달했어요 — 내일 다시 오세요",
+  "@vipBannerIsMember": {
+    "placeholders": {
+      "userName": {
+        "type": "String"
+      }
+    }
+  }
 }

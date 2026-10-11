@@ -9372,4 +9372,93 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get vocabBonusEarned => '+10 Bonus XP kazanıldı! 🎉';
+
+  @override
+  String vipBannerIsMember(String userName) {
+    return '$userName VIP üye';
+  }
+
+  @override
+  String get vipBannerGetBenefits => 'Sen de VIP ayrıcalıklarını al!';
+
+  @override
+  String get vipUpgrade => 'Yükselt';
+
+  @override
+  String get vipUnlockAllFeatures => 'Tüm özellikleri aç';
+
+  @override
+  String get chatFailedToLoadUser => 'Kullanıcı verileri yüklenemedi';
+
+  @override
+  String get chatDailyLimitTitle => 'Günlük sohbet sınırına ulaşıldı';
+
+  @override
+  String get chatUnlimitedTitle => 'Sınırsız sohbet';
+
+  @override
+  String get chatUnlimitedBody => 'İstediğin kadar kişiyle sohbet et! VIP üyelerin günlük konuşmaları sınırsız.';
+
+  @override
+  String get coinsStoreUnavailable => 'Jeton satın alma yalnızca iOS ve Android’de mümkün.';
+
+  @override
+  String get coinsPurchaseCanceled => 'Satın alma iptal edildi ya da başlatılamadı.';
+
+  @override
+  String get coinsReceiptUnreadable => 'Satın alma makbuzu okunamadı. Tekrar dene.';
+
+  @override
+  String get coinsAdded => 'Jetonlar eklendi! 💎';
+
+  @override
+  String get coinsVerifyRetry => 'Satın alma doğrulanamadı. Otomatik olarak yeniden denenecek — jetonlar görünmezse satın almaları geri yüklemeyi dene.';
+
+  @override
+  String get coinsAlreadyClaimed => 'Bugün zaten alındı — yarın tekrar gel!';
+
+  @override
+  String get coinsDailyClaimed => 'Günlük ödül alındı! +10 💎';
+
+  @override
+  String get coinsClaimFailed => 'Günlük ödül alınamadı.';
+
+  @override
+  String get coinsAdThanks => 'İzlediğin için teşekkürler! +5 💎';
+
+  @override
+  String get coinsAdCreditFailed => 'Reklam ödülü hesaba geçirilemedi.';
+
+  @override
+  String get coinsGetCoins => 'Jeton Al';
+
+  @override
+  String get coinsGetCoinsSubtitle => 'Ek çeviri, eğitmen sohbeti ve moment’lerin kilidini hemen aç.';
+
+  @override
+  String get coinsYourBalance => 'Bakiyen';
+
+  @override
+  String get coinsEarnFree => 'Ücretsiz jeton kazan';
+
+  @override
+  String get coinsDailyReward => 'Günlük ödül';
+
+  @override
+  String get coinsComeBackTomorrow => 'Yarın tekrar gel';
+
+  @override
+  String get coinsDailyRewardSubtitle => 'Günde bir kez +10 jeton';
+
+  @override
+  String get coinsClaimed => 'Alındı';
+
+  @override
+  String get coinsClaim => 'Al';
+
+  @override
+  String get coinsWatchAd => 'Reklam izle';
+
+  @override
+  String get coinsAdLimitReached => 'Günlük sınıra ulaşıldı — yarın tekrar gel';
 }

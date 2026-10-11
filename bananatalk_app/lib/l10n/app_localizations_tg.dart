@@ -9378,4 +9378,93 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get vocabBonusEarned => '+10 XP-и иловагӣ гирифта шуд! 🎉';
+
+  @override
+  String vipBannerIsMember(String userName) {
+    return '$userName аъзои VIP аст';
+  }
+
+  @override
+  String get vipBannerGetBenefits => 'Шумо ҳам имтиёзҳои VIP гиред!';
+
+  @override
+  String get vipUpgrade => 'Такмил';
+
+  @override
+  String get vipUnlockAllFeatures => 'Кушодани ҳамаи имкониятҳо';
+
+  @override
+  String get chatFailedToLoadUser => 'Маълумоти корбар бор карда нашуд';
+
+  @override
+  String get chatDailyLimitTitle => 'Ҳадди ҳаррӯзаи сӯҳбатҳо расид';
+
+  @override
+  String get chatUnlimitedTitle => 'Сӯҳбатҳои бемаҳдуд';
+
+  @override
+  String get chatUnlimitedBody => 'Бо ҳар қадар одам хоҳед сӯҳбат кунед! Аъзои VIP сӯҳбатҳои ҳаррӯзаи бемаҳдуд доранд.';
+
+  @override
+  String get coinsStoreUnavailable => 'Харидани тангаҳо танҳо дар iOS ва Android дастрас аст.';
+
+  @override
+  String get coinsPurchaseCanceled => 'Харид бекор шуд ё оғоз нашуд.';
+
+  @override
+  String get coinsReceiptUnreadable => 'Расиди харид хонда нашуд. Бори дигар кӯшиш кунед.';
+
+  @override
+  String get coinsAdded => 'Тангаҳо илова шуданд! 💎';
+
+  @override
+  String get coinsVerifyRetry => 'Харид тасдиқ нашуд. Кӯшиш худкор такрор мешавад — агар тангаҳо пайдо нашаванд, харидҳоро барқарор кунед.';
+
+  @override
+  String get coinsAlreadyClaimed => 'Имрӯз аллакай гирифта шуд — пагоҳ оед!';
+
+  @override
+  String get coinsDailyClaimed => 'Мукофоти ҳаррӯза гирифта шуд! +10 💎';
+
+  @override
+  String get coinsClaimFailed => 'Мукофоти ҳаррӯза гирифта нашуд.';
+
+  @override
+  String get coinsAdThanks => 'Ташаккур барои тамошо! +5 💎';
+
+  @override
+  String get coinsAdCreditFailed => 'Мукофоти реклама ҳисоб карда нашуд.';
+
+  @override
+  String get coinsGetCoins => 'Гирифтани тангаҳо';
+
+  @override
+  String get coinsGetCoinsSubtitle => 'Тарҷумаҳо, сӯҳбатҳои муаллим ва лаҳзаҳои иловагиро фавран кушоед.';
+
+  @override
+  String get coinsYourBalance => 'Тавозуни шумо';
+
+  @override
+  String get coinsEarnFree => 'Тангаҳои ройгон ба даст оред';
+
+  @override
+  String get coinsDailyReward => 'Мукофоти ҳаррӯза';
+
+  @override
+  String get coinsComeBackTomorrow => 'Пагоҳ оед';
+
+  @override
+  String get coinsDailyRewardSubtitle => '+10 танга, рӯзе як бор';
+
+  @override
+  String get coinsClaimed => 'Гирифта шуд';
+
+  @override
+  String get coinsClaim => 'Гирифтан';
+
+  @override
+  String get coinsWatchAd => 'Тамошои реклама';
+
+  @override
+  String get coinsAdLimitReached => 'Ҳадди ҳаррӯза расид — пагоҳ оед';
 }

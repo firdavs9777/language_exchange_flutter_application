@@ -3795,5 +3795,41 @@
   "vocabSessionComplete": "จบรอบแล้ว!",
   "vocabXpEarned": "XP ที่ได้รับ",
   "vocabWatchAdBonus": "ดูโฆษณารับ +10 XP โบนัส",
-  "vocabBonusEarned": "ได้รับ +10 XP โบนัส! 🎉"
+  "vocabBonusEarned": "ได้รับ +10 XP โบนัส! 🎉",
+  "vipBannerIsMember": "{userName} เป็นสมาชิก VIP",
+  "vipBannerGetBenefits": "รับสิทธิ์ VIP แบบเดียวกันสิ!",
+  "vipUpgrade": "อัปเกรด",
+  "vipUnlockAllFeatures": "ปลดล็อกทุกฟีเจอร์",
+  "chatFailedToLoadUser": "โหลดข้อมูลผู้ใช้ไม่สำเร็จ",
+  "chatDailyLimitTitle": "ถึงขีดจำกัดแชทรายวันแล้ว",
+  "chatUnlimitedTitle": "แชทไม่จำกัด",
+  "chatUnlimitedBody": "คุยกับใครกี่คนก็ได้! สมาชิก VIP สนทนาได้ไม่จำกัดต่อวัน",
+  "coinsStoreUnavailable": "ซื้อเหรียญได้เฉพาะบน iOS และ Android เท่านั้น",
+  "coinsPurchaseCanceled": "การซื้อถูกยกเลิกหรือเริ่มไม่ได้",
+  "coinsReceiptUnreadable": "อ่านใบเสร็จการซื้อไม่ได้ โปรดลองอีกครั้ง",
+  "coinsAdded": "เพิ่มเหรียญแล้ว! 💎",
+  "coinsVerifyRetry": "ยืนยันการซื้อไม่ได้ ระบบจะลองใหม่อัตโนมัติ — หากเหรียญไม่ขึ้น ลองกู้คืนการซื้อ",
+  "coinsAlreadyClaimed": "วันนี้รับไปแล้ว — พรุ่งนี้มาใหม่!",
+  "coinsDailyClaimed": "รับรางวัลประจำวันแล้ว! +10 💎",
+  "coinsClaimFailed": "รับรางวัลประจำวันไม่สำเร็จ",
+  "coinsAdThanks": "ขอบคุณที่รับชม! +5 💎",
+  "coinsAdCreditFailed": "ให้รางวัลจากโฆษณาไม่สำเร็จ",
+  "coinsGetCoins": "รับเหรียญ",
+  "coinsGetCoinsSubtitle": "ปลดล็อกการแปล แชทกับติวเตอร์ และโมเมนต์เพิ่มได้ทันที",
+  "coinsYourBalance": "ยอดคงเหลือของคุณ",
+  "coinsEarnFree": "รับเหรียญฟรี",
+  "coinsDailyReward": "รางวัลประจำวัน",
+  "coinsComeBackTomorrow": "พรุ่งนี้มาใหม่",
+  "coinsDailyRewardSubtitle": "+10 เหรียญ วันละครั้ง",
+  "coinsClaimed": "รับแล้ว",
+  "coinsClaim": "รับ",
+  "coinsWatchAd": "ดูโฆษณา",
+  "coinsAdLimitReached": "ถึงขีดจำกัดรายวันแล้ว — พรุ่งนี้มาใหม่",
+  "@vipBannerIsMember": {
+    "placeholders": {
+      "userName": {
+        "type": "String"
+      }
+    }
+  }
 }

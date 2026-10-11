@@ -4035,5 +4035,41 @@
   "vocabSessionComplete": "Session terminée !",
   "vocabXpEarned": "XP gagnés",
   "vocabWatchAdBonus": "Regarder une pub pour +10 XP bonus",
-  "vocabBonusEarned": "+10 XP bonus gagnés ! 🎉"
+  "vocabBonusEarned": "+10 XP bonus gagnés ! 🎉",
+  "vipBannerIsMember": "{userName} est membre VIP",
+  "vipBannerGetBenefits": "Obtenez les avantages VIP vous aussi !",
+  "vipUpgrade": "Passer à la version supérieure",
+  "vipUnlockAllFeatures": "Débloquez toutes les fonctionnalités",
+  "chatFailedToLoadUser": "Impossible de charger les données de l’utilisateur",
+  "chatDailyLimitTitle": "Limite de discussions quotidiennes atteinte",
+  "chatUnlimitedTitle": "Discussions illimitées",
+  "chatUnlimitedBody": "Discutez avec autant de personnes que vous voulez ! Les membres VIP ont des conversations quotidiennes illimitées.",
+  "coinsStoreUnavailable": "Les achats de pièces ne sont disponibles que sur iOS et Android.",
+  "coinsPurchaseCanceled": "L’achat a été annulé ou n’a pas pu démarrer.",
+  "coinsReceiptUnreadable": "Impossible de lire le reçu d’achat. Veuillez réessayer.",
+  "coinsAdded": "Pièces ajoutées ! 💎",
+  "coinsVerifyRetry": "L’achat n’a pas pu être vérifié. Une nouvelle tentative aura lieu automatiquement — essayez de restaurer vos achats si les pièces n’apparaissent pas.",
+  "coinsAlreadyClaimed": "Déjà récupéré aujourd’hui — revenez demain !",
+  "coinsDailyClaimed": "Récompense quotidienne récupérée ! +10 💎",
+  "coinsClaimFailed": "Impossible de récupérer la récompense quotidienne.",
+  "coinsAdThanks": "Merci d’avoir regardé ! +5 💎",
+  "coinsAdCreditFailed": "Impossible de créditer la récompense publicitaire.",
+  "coinsGetCoins": "Obtenir des pièces",
+  "coinsGetCoinsSubtitle": "Débloquez instantanément des traductions, discussions avec le tuteur et moments supplémentaires.",
+  "coinsYourBalance": "Votre solde",
+  "coinsEarnFree": "Gagner des pièces gratuites",
+  "coinsDailyReward": "Récompense quotidienne",
+  "coinsComeBackTomorrow": "Revenez demain",
+  "coinsDailyRewardSubtitle": "+10 pièces, une fois par jour",
+  "coinsClaimed": "Récupérée",
+  "coinsClaim": "Récupérer",
+  "coinsWatchAd": "Regarder une pub",
+  "coinsAdLimitReached": "Limite quotidienne atteinte — revenez demain",
+  "@vipBannerIsMember": {
+    "placeholders": {
+      "userName": {
+        "type": "String"
+      }
+    }
+  }
 }

@@ -3825,5 +3825,41 @@
   "vocabSessionComplete": "انتهت الجلسة!",
   "vocabXpEarned": "نقاط الخبرة المكتسبة",
   "vocabWatchAdBonus": "شاهد إعلانًا لربح +10 نقاط خبرة",
-  "vocabBonusEarned": "‏+10 نقاط خبرة إضافية! 🎉"
+  "vocabBonusEarned": "‏+10 نقاط خبرة إضافية! 🎉",
+  "vipBannerIsMember": "{userName} عضو VIP",
+  "vipBannerGetBenefits": "احصل على مزايا VIP مثله!",
+  "vipUpgrade": "ترقية",
+  "vipUnlockAllFeatures": "افتح جميع الميزات",
+  "chatFailedToLoadUser": "تعذّر تحميل بيانات المستخدم",
+  "chatDailyLimitTitle": "بلغت حد الدردشات اليومي",
+  "chatUnlimitedTitle": "دردشات بلا حدود",
+  "chatUnlimitedBody": "دردش مع أي عدد تريده! أعضاء VIP يتمتعون بمحادثات يومية غير محدودة.",
+  "coinsStoreUnavailable": "شراء العملات متاح على iOS وAndroid فقط.",
+  "coinsPurchaseCanceled": "تم إلغاء الشراء أو تعذّر بدؤه.",
+  "coinsReceiptUnreadable": "تعذّرت قراءة إيصال الشراء. حاول مرة أخرى.",
+  "coinsAdded": "تمت إضافة العملات! 💎",
+  "coinsVerifyRetry": "تعذّر التحقق من الشراء. ستتم إعادة المحاولة تلقائيًا — جرّب استعادة المشتريات إن لم تظهر العملات.",
+  "coinsAlreadyClaimed": "تم الاستلام اليوم — عد غدًا!",
+  "coinsDailyClaimed": "تم استلام مكافأة اليوم! ‏+10 💎",
+  "coinsClaimFailed": "تعذّر استلام المكافأة اليومية.",
+  "coinsAdThanks": "شكرًا للمشاهدة! ‏+5 💎",
+  "coinsAdCreditFailed": "تعذّر إضافة مكافأة الإعلان.",
+  "coinsGetCoins": "احصل على عملات",
+  "coinsGetCoinsSubtitle": "افتح ترجمات ودردشات ولحظات إضافية فورًا.",
+  "coinsYourBalance": "رصيدك",
+  "coinsEarnFree": "اربح عملات مجانية",
+  "coinsDailyReward": "المكافأة اليومية",
+  "coinsComeBackTomorrow": "عد غدًا",
+  "coinsDailyRewardSubtitle": "‏+10 عملات، مرة في اليوم",
+  "coinsClaimed": "تم الاستلام",
+  "coinsClaim": "استلام",
+  "coinsWatchAd": "شاهد إعلانًا",
+  "coinsAdLimitReached": "بلغت الحد اليومي — عد غدًا",
+  "@vipBannerIsMember": {
+    "placeholders": {
+      "userName": {
+        "type": "String"
+      }
+    }
+  }
 }

@@ -51,7 +51,7 @@ class _ChatScreenWrapperState extends ConsumerState<ChatScreenWrapper> {
     } catch (e) {
       if (mounted) {
         setState(() {
-          _error = 'Failed to load user data';
+          _error = AppLocalizations.of(context)!.chatFailedToLoadUser;
           _isLoading = false;
         });
       }
@@ -102,8 +102,8 @@ class _ChatScreenWrapperState extends ConsumerState<ChatScreenWrapper> {
                   ),
                 ),
                 const SizedBox(height: 24),
-                const Text(
-                  'Daily Chat Limit Reached',
+                Text(
+                  AppLocalizations.of(context)!.chatDailyLimitTitle,
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   textAlign: TextAlign.center,
                 ),
@@ -127,10 +127,10 @@ class _ChatScreenWrapperState extends ConsumerState<ChatScreenWrapper> {
                         context: context,
                         backgroundColor: Colors.transparent,
                         isScrollControlled: true,
-                        builder: (_) => const VipUpgradeSheet(
-                          featureName: 'Unlimited Chats',
+                        builder: (_) => VipUpgradeSheet(
+                          featureName: AppLocalizations.of(context)!.chatUnlimitedTitle,
                           description:
-                              'Chat with as many people as you want! VIP members enjoy unlimited daily conversations.',
+                              AppLocalizations.of(context)!.chatUnlimitedBody,
                         ),
                       );
                     },
@@ -141,13 +141,13 @@ class _ChatScreenWrapperState extends ConsumerState<ChatScreenWrapper> {
                         borderRadius: BorderRadius.circular(12),
                       ),
                     ),
-                    child: const Row(
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.workspace_premium, size: 20),
-                        SizedBox(width: 8),
+                        const Icon(Icons.workspace_premium, size: 20),
+                        const SizedBox(width: 8),
                         Text(
-                          'Upgrade to VIP',
+                          AppLocalizations.of(context)!.upgradeToVIP,
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
@@ -161,7 +161,7 @@ class _ChatScreenWrapperState extends ConsumerState<ChatScreenWrapper> {
                 TextButton(
                   onPressed: () => Navigator.of(context).pop(),
                   child: Text(
-                    'Maybe Later',
+                    AppLocalizations.of(context)!.maybeLater,
                     style: TextStyle(color: context.textSecondary),
                   ),
                 ),
@@ -185,7 +185,7 @@ class _ChatScreenWrapperState extends ConsumerState<ChatScreenWrapper> {
               const Icon(Icons.error_outline, size: 64, color: Colors.red),
               const SizedBox(height: 16),
               Text(
-                _error ?? 'User not found',
+                _error ?? AppLocalizations.of(context)!.userNotFound,
                 style: const TextStyle(fontSize: 16),
               ),
               const SizedBox(height: 16),

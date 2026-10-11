@@ -9374,4 +9374,93 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get vocabBonusEarned => '+10 Bonus XP ang nakuha! 🎉';
+
+  @override
+  String vipBannerIsMember(String userName) {
+    return 'Miyembrong VIP si $userName';
+  }
+
+  @override
+  String get vipBannerGetBenefits => 'Kunin mo rin ang mga benepisyong VIP!';
+
+  @override
+  String get vipUpgrade => 'Mag-upgrade';
+
+  @override
+  String get vipUnlockAllFeatures => 'I-unlock ang lahat ng feature';
+
+  @override
+  String get chatFailedToLoadUser => 'Hindi ma-load ang datos ng user';
+
+  @override
+  String get chatDailyLimitTitle => 'Naabot na ang pang-araw-araw na limitasyon sa chat';
+
+  @override
+  String get chatUnlimitedTitle => 'Walang limitasyong chat';
+
+  @override
+  String get chatUnlimitedBody => 'Makipag-chat sa kahit ilang tao! Walang limitasyon ang pang-araw-araw na usapan ng mga VIP.';
+
+  @override
+  String get coinsStoreUnavailable => 'Available lang ang pagbili ng barya sa iOS at Android.';
+
+  @override
+  String get coinsPurchaseCanceled => 'Nakansela ang pagbili o hindi ito nasimulan.';
+
+  @override
+  String get coinsReceiptUnreadable => 'Hindi mabasa ang resibo ng pagbili. Subukan ulit.';
+
+  @override
+  String get coinsAdded => 'Naidagdag ang mga barya! 💎';
+
+  @override
+  String get coinsVerifyRetry => 'Hindi ma-verify ang pagbili. Awtomatiko itong uulitin — subukang i-restore ang mga pagbili kung walang lumabas na barya.';
+
+  @override
+  String get coinsAlreadyClaimed => 'Nakuha mo na ngayong araw — bumalik ka bukas!';
+
+  @override
+  String get coinsDailyClaimed => 'Nakuha ang pang-araw-araw na gantimpala! +10 💎';
+
+  @override
+  String get coinsClaimFailed => 'Hindi makuha ang pang-araw-araw na gantimpala.';
+
+  @override
+  String get coinsAdThanks => 'Salamat sa panonood! +5 💎';
+
+  @override
+  String get coinsAdCreditFailed => 'Hindi ma-kredito ang gantimpala mula sa ad.';
+
+  @override
+  String get coinsGetCoins => 'Kumuha ng Barya';
+
+  @override
+  String get coinsGetCoinsSubtitle => 'I-unlock agad ang dagdag na pagsasalin, tutor chat at moments.';
+
+  @override
+  String get coinsYourBalance => 'Ang balanse mo';
+
+  @override
+  String get coinsEarnFree => 'Kumita ng libreng barya';
+
+  @override
+  String get coinsDailyReward => 'Pang-araw-araw na gantimpala';
+
+  @override
+  String get coinsComeBackTomorrow => 'Bumalik bukas';
+
+  @override
+  String get coinsDailyRewardSubtitle => '+10 barya, isang beses sa isang araw';
+
+  @override
+  String get coinsClaimed => 'Nakuha na';
+
+  @override
+  String get coinsClaim => 'Kunin';
+
+  @override
+  String get coinsWatchAd => 'Manood ng ad';
+
+  @override
+  String get coinsAdLimitReached => 'Naabot na ang limitasyon ngayong araw — bumalik bukas';
 }

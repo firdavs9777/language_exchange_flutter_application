@@ -9364,4 +9364,93 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get vocabBonusEarned => 'Đã nhận +10 XP thưởng! 🎉';
+
+  @override
+  String vipBannerIsMember(String userName) {
+    return '$userName là thành viên VIP';
+  }
+
+  @override
+  String get vipBannerGetBenefits => 'Nhận quyền lợi VIP như vậy nhé!';
+
+  @override
+  String get vipUpgrade => 'Nâng cấp';
+
+  @override
+  String get vipUnlockAllFeatures => 'Mở khoá mọi tính năng';
+
+  @override
+  String get chatFailedToLoadUser => 'Không tải được dữ liệu người dùng';
+
+  @override
+  String get chatDailyLimitTitle => 'Đã đạt giới hạn trò chuyện mỗi ngày';
+
+  @override
+  String get chatUnlimitedTitle => 'Trò chuyện không giới hạn';
+
+  @override
+  String get chatUnlimitedBody => 'Trò chuyện với bao nhiêu người tuỳ thích! Thành viên VIP có số cuộc trò chuyện mỗi ngày không giới hạn.';
+
+  @override
+  String get coinsStoreUnavailable => 'Mua xu chỉ khả dụng trên iOS và Android.';
+
+  @override
+  String get coinsPurchaseCanceled => 'Giao dịch đã bị huỷ hoặc không thể bắt đầu.';
+
+  @override
+  String get coinsReceiptUnreadable => 'Không đọc được biên nhận mua hàng. Vui lòng thử lại.';
+
+  @override
+  String get coinsAdded => 'Đã cộng xu! 💎';
+
+  @override
+  String get coinsVerifyRetry => 'Không xác minh được giao dịch. Hệ thống sẽ tự thử lại — hãy khôi phục giao dịch nếu xu chưa xuất hiện.';
+
+  @override
+  String get coinsAlreadyClaimed => 'Hôm nay đã nhận rồi — mai quay lại nhé!';
+
+  @override
+  String get coinsDailyClaimed => 'Đã nhận thưởng hằng ngày! +10 💎';
+
+  @override
+  String get coinsClaimFailed => 'Không nhận được thưởng hằng ngày.';
+
+  @override
+  String get coinsAdThanks => 'Cảm ơn bạn đã xem! +5 💎';
+
+  @override
+  String get coinsAdCreditFailed => 'Không cộng được phần thưởng quảng cáo.';
+
+  @override
+  String get coinsGetCoins => 'Nhận xu';
+
+  @override
+  String get coinsGetCoinsSubtitle => 'Mở khoá ngay thêm lượt dịch, trò chuyện với gia sư và khoảnh khắc.';
+
+  @override
+  String get coinsYourBalance => 'Số dư của bạn';
+
+  @override
+  String get coinsEarnFree => 'Kiếm xu miễn phí';
+
+  @override
+  String get coinsDailyReward => 'Thưởng hằng ngày';
+
+  @override
+  String get coinsComeBackTomorrow => 'Mai quay lại';
+
+  @override
+  String get coinsDailyRewardSubtitle => '+10 xu, mỗi ngày một lần';
+
+  @override
+  String get coinsClaimed => 'Đã nhận';
+
+  @override
+  String get coinsClaim => 'Nhận';
+
+  @override
+  String get coinsWatchAd => 'Xem quảng cáo';
+
+  @override
+  String get coinsAdLimitReached => 'Đã đạt giới hạn hôm nay — mai quay lại';
 }

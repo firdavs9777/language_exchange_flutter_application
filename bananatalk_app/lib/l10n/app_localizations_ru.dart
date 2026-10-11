@@ -9395,4 +9395,93 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get vocabBonusEarned => '+10 бонусных XP получено! 🎉';
+
+  @override
+  String vipBannerIsMember(String userName) {
+    return '$userName — VIP-участник';
+  }
+
+  @override
+  String get vipBannerGetBenefits => 'Получите преимущества VIP и вы!';
+
+  @override
+  String get vipUpgrade => 'Улучшить';
+
+  @override
+  String get vipUnlockAllFeatures => 'Открыть все возможности';
+
+  @override
+  String get chatFailedToLoadUser => 'Не удалось загрузить данные пользователя';
+
+  @override
+  String get chatDailyLimitTitle => 'Достигнут дневной лимит чатов';
+
+  @override
+  String get chatUnlimitedTitle => 'Безлимитные чаты';
+
+  @override
+  String get chatUnlimitedBody => 'Общайтесь с любым количеством людей! У VIP-участников дневные беседы без ограничений.';
+
+  @override
+  String get coinsStoreUnavailable => 'Покупка монет доступна только на iOS и Android.';
+
+  @override
+  String get coinsPurchaseCanceled => 'Покупка отменена или не началась.';
+
+  @override
+  String get coinsReceiptUnreadable => 'Не удалось прочитать чек о покупке. Попробуйте ещё раз.';
+
+  @override
+  String get coinsAdded => 'Монеты начислены! 💎';
+
+  @override
+  String get coinsVerifyRetry => 'Не удалось подтвердить покупку. Мы повторим попытку автоматически — если монеты не появятся, попробуйте восстановить покупки.';
+
+  @override
+  String get coinsAlreadyClaimed => 'Сегодня уже получено — возвращайтесь завтра!';
+
+  @override
+  String get coinsDailyClaimed => 'Ежедневная награда получена! +10 💎';
+
+  @override
+  String get coinsClaimFailed => 'Не удалось получить ежедневную награду.';
+
+  @override
+  String get coinsAdThanks => 'Спасибо за просмотр! +5 💎';
+
+  @override
+  String get coinsAdCreditFailed => 'Не удалось начислить награду за рекламу.';
+
+  @override
+  String get coinsGetCoins => 'Получить монеты';
+
+  @override
+  String get coinsGetCoinsSubtitle => 'Мгновенно откройте дополнительные переводы, беседы с репетитором и моменты.';
+
+  @override
+  String get coinsYourBalance => 'Ваш баланс';
+
+  @override
+  String get coinsEarnFree => 'Получить монеты бесплатно';
+
+  @override
+  String get coinsDailyReward => 'Ежедневная награда';
+
+  @override
+  String get coinsComeBackTomorrow => 'Возвращайтесь завтра';
+
+  @override
+  String get coinsDailyRewardSubtitle => '+10 монет, раз в день';
+
+  @override
+  String get coinsClaimed => 'Получено';
+
+  @override
+  String get coinsClaim => 'Получить';
+
+  @override
+  String get coinsWatchAd => 'Посмотреть рекламу';
+
+  @override
+  String get coinsAdLimitReached => 'Дневной лимит исчерпан — возвращайтесь завтра';
 }

@@ -4007,5 +4007,41 @@
   "vocabSessionComplete": "Oturum tamamlandı!",
   "vocabXpEarned": "Kazanılan XP",
   "vocabWatchAdBonus": "+10 Bonus XP için reklam izle",
-  "vocabBonusEarned": "+10 Bonus XP kazanıldı! 🎉"
+  "vocabBonusEarned": "+10 Bonus XP kazanıldı! 🎉",
+  "vipBannerIsMember": "{userName} VIP üye",
+  "vipBannerGetBenefits": "Sen de VIP ayrıcalıklarını al!",
+  "vipUpgrade": "Yükselt",
+  "vipUnlockAllFeatures": "Tüm özellikleri aç",
+  "chatFailedToLoadUser": "Kullanıcı verileri yüklenemedi",
+  "chatDailyLimitTitle": "Günlük sohbet sınırına ulaşıldı",
+  "chatUnlimitedTitle": "Sınırsız sohbet",
+  "chatUnlimitedBody": "İstediğin kadar kişiyle sohbet et! VIP üyelerin günlük konuşmaları sınırsız.",
+  "coinsStoreUnavailable": "Jeton satın alma yalnızca iOS ve Android’de mümkün.",
+  "coinsPurchaseCanceled": "Satın alma iptal edildi ya da başlatılamadı.",
+  "coinsReceiptUnreadable": "Satın alma makbuzu okunamadı. Tekrar dene.",
+  "coinsAdded": "Jetonlar eklendi! 💎",
+  "coinsVerifyRetry": "Satın alma doğrulanamadı. Otomatik olarak yeniden denenecek — jetonlar görünmezse satın almaları geri yüklemeyi dene.",
+  "coinsAlreadyClaimed": "Bugün zaten alındı — yarın tekrar gel!",
+  "coinsDailyClaimed": "Günlük ödül alındı! +10 💎",
+  "coinsClaimFailed": "Günlük ödül alınamadı.",
+  "coinsAdThanks": "İzlediğin için teşekkürler! +5 💎",
+  "coinsAdCreditFailed": "Reklam ödülü hesaba geçirilemedi.",
+  "coinsGetCoins": "Jeton Al",
+  "coinsGetCoinsSubtitle": "Ek çeviri, eğitmen sohbeti ve moment’lerin kilidini hemen aç.",
+  "coinsYourBalance": "Bakiyen",
+  "coinsEarnFree": "Ücretsiz jeton kazan",
+  "coinsDailyReward": "Günlük ödül",
+  "coinsComeBackTomorrow": "Yarın tekrar gel",
+  "coinsDailyRewardSubtitle": "Günde bir kez +10 jeton",
+  "coinsClaimed": "Alındı",
+  "coinsClaim": "Al",
+  "coinsWatchAd": "Reklam izle",
+  "coinsAdLimitReached": "Günlük sınıra ulaşıldı — yarın tekrar gel",
+  "@vipBannerIsMember": {
+    "placeholders": {
+      "userName": {
+        "type": "String"
+      }
+    }
+  }
 }

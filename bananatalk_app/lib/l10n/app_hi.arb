@@ -3811,5 +3811,41 @@
   "vocabSessionComplete": "सत्र पूरा हुआ!",
   "vocabXpEarned": "अर्जित XP",
   "vocabWatchAdBonus": "+10 बोनस XP के लिए विज्ञापन देखें",
-  "vocabBonusEarned": "+10 बोनस XP मिले! 🎉"
+  "vocabBonusEarned": "+10 बोनस XP मिले! 🎉",
+  "vipBannerIsMember": "{userName} VIP सदस्य हैं",
+  "vipBannerGetBenefits": "आप भी VIP लाभ पाएँ!",
+  "vipUpgrade": "अपग्रेड",
+  "vipUnlockAllFeatures": "सभी सुविधाएँ अनलॉक करें",
+  "chatFailedToLoadUser": "उपयोगकर्ता डेटा लोड नहीं हो सका",
+  "chatDailyLimitTitle": "दैनिक चैट सीमा पूरी हुई",
+  "chatUnlimitedTitle": "असीमित चैट",
+  "chatUnlimitedBody": "जितने चाहें उतने लोगों से बात करें! VIP सदस्यों को असीमित दैनिक बातचीत मिलती है।",
+  "coinsStoreUnavailable": "सिक्कों की खरीद केवल iOS और Android पर उपलब्ध है।",
+  "coinsPurchaseCanceled": "खरीद रद्द हो गई या शुरू नहीं हो सकी।",
+  "coinsReceiptUnreadable": "खरीद की रसीद नहीं पढ़ी जा सकी। फिर कोशिश करें।",
+  "coinsAdded": "सिक्के जुड़ गए! 💎",
+  "coinsVerifyRetry": "खरीद सत्यापित नहीं हो सकी। यह अपने आप फिर आज़माई जाएगी — सिक्के न दिखें तो खरीद पुनर्स्थापित करें।",
+  "coinsAlreadyClaimed": "आज पहले ही ले चुके हैं — कल आएँ!",
+  "coinsDailyClaimed": "दैनिक इनाम मिला! +10 💎",
+  "coinsClaimFailed": "दैनिक इनाम नहीं मिल सका।",
+  "coinsAdThanks": "देखने के लिए धन्यवाद! +5 💎",
+  "coinsAdCreditFailed": "विज्ञापन का इनाम नहीं जुड़ सका।",
+  "coinsGetCoins": "सिक्के पाएँ",
+  "coinsGetCoinsSubtitle": "अतिरिक्त अनुवाद, ट्यूटर चैट और मोमेंट तुरंत अनलॉक करें।",
+  "coinsYourBalance": "आपका बैलेंस",
+  "coinsEarnFree": "मुफ़्त सिक्के कमाएँ",
+  "coinsDailyReward": "दैनिक इनाम",
+  "coinsComeBackTomorrow": "कल आएँ",
+  "coinsDailyRewardSubtitle": "+10 सिक्के, दिन में एक बार",
+  "coinsClaimed": "मिल चुका",
+  "coinsClaim": "लें",
+  "coinsWatchAd": "विज्ञापन देखें",
+  "coinsAdLimitReached": "दैनिक सीमा पूरी — कल आएँ",
+  "@vipBannerIsMember": {
+    "placeholders": {
+      "userName": {
+        "type": "String"
+      }
+    }
+  }
 }

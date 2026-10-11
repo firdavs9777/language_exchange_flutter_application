@@ -3809,5 +3809,41 @@
   "vocabSessionComplete": "本次学习完成！",
   "vocabXpEarned": "获得的 XP",
   "vocabWatchAdBonus": "观看广告获得 +10 奖励 XP",
-  "vocabBonusEarned": "已获得 +10 奖励 XP！🎉"
+  "vocabBonusEarned": "已获得 +10 奖励 XP！🎉",
+  "vipBannerIsMember": "{userName} 是 VIP 会员",
+  "vipBannerGetBenefits": "你也来享受 VIP 权益吧！",
+  "vipUpgrade": "升级",
+  "vipUnlockAllFeatures": "解锁全部功能",
+  "chatFailedToLoadUser": "无法加载用户数据",
+  "chatDailyLimitTitle": "已达每日聊天上限",
+  "chatUnlimitedTitle": "无限聊天",
+  "chatUnlimitedBody": "想和多少人聊都行！VIP 会员每日对话不限量。",
+  "coinsStoreUnavailable": "金币购买仅在 iOS 和 Android 上可用。",
+  "coinsPurchaseCanceled": "购买已取消或无法开始。",
+  "coinsReceiptUnreadable": "无法读取购买凭证，请重试。",
+  "coinsAdded": "金币已到账！💎",
+  "coinsVerifyRetry": "购买无法验证，系统会自动重试 — 若金币未到账，请尝试恢复购买。",
+  "coinsAlreadyClaimed": "今天已领取 — 明天再来！",
+  "coinsDailyClaimed": "已领取每日奖励！+10 💎",
+  "coinsClaimFailed": "无法领取每日奖励。",
+  "coinsAdThanks": "感谢观看！+5 💎",
+  "coinsAdCreditFailed": "无法发放广告奖励。",
+  "coinsGetCoins": "获取金币",
+  "coinsGetCoinsSubtitle": "立即解锁额外的翻译、导师对话和动态。",
+  "coinsYourBalance": "你的余额",
+  "coinsEarnFree": "免费赚取金币",
+  "coinsDailyReward": "每日奖励",
+  "coinsComeBackTomorrow": "明天再来",
+  "coinsDailyRewardSubtitle": "每天一次，+10 金币",
+  "coinsClaimed": "已领取",
+  "coinsClaim": "领取",
+  "coinsWatchAd": "观看广告",
+  "coinsAdLimitReached": "已达每日上限 — 明天再来",
+  "@vipBannerIsMember": {
+    "placeholders": {
+      "userName": {
+        "type": "String"
+      }
+    }
+  }
 }

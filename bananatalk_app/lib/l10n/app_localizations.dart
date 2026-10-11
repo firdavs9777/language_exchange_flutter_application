@@ -17185,6 +17185,180 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'+10 Bonus XP earned! 🎉'**
   String get vocabBonusEarned;
+
+  /// No description provided for @vipBannerIsMember.
+  ///
+  /// In en, this message translates to:
+  /// **'{userName} is a VIP member'**
+  String vipBannerIsMember(String userName);
+
+  /// No description provided for @vipBannerGetBenefits.
+  ///
+  /// In en, this message translates to:
+  /// **'Get VIP benefits like them!'**
+  String get vipBannerGetBenefits;
+
+  /// No description provided for @vipUpgrade.
+  ///
+  /// In en, this message translates to:
+  /// **'Upgrade'**
+  String get vipUpgrade;
+
+  /// No description provided for @vipUnlockAllFeatures.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock all features'**
+  String get vipUnlockAllFeatures;
+
+  /// No description provided for @chatFailedToLoadUser.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load user data'**
+  String get chatFailedToLoadUser;
+
+  /// No description provided for @chatDailyLimitTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily Chat Limit Reached'**
+  String get chatDailyLimitTitle;
+
+  /// No description provided for @chatUnlimitedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlimited Chats'**
+  String get chatUnlimitedTitle;
+
+  /// No description provided for @chatUnlimitedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Chat with as many people as you want! VIP members enjoy unlimited daily conversations.'**
+  String get chatUnlimitedBody;
+
+  /// No description provided for @coinsStoreUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Coin purchases are only available on iOS and Android.'**
+  String get coinsStoreUnavailable;
+
+  /// No description provided for @coinsPurchaseCanceled.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase was canceled or could not be started.'**
+  String get coinsPurchaseCanceled;
+
+  /// No description provided for @coinsReceiptUnreadable.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not read purchase receipt. Please try again.'**
+  String get coinsReceiptUnreadable;
+
+  /// No description provided for @coinsAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'Coins added! 💎'**
+  String get coinsAdded;
+
+  /// No description provided for @coinsVerifyRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase could not be verified. It will be retried automatically — try restoring purchases if coins don\'t appear.'**
+  String get coinsVerifyRetry;
+
+  /// No description provided for @coinsAlreadyClaimed.
+  ///
+  /// In en, this message translates to:
+  /// **'Already claimed today — come back tomorrow!'**
+  String get coinsAlreadyClaimed;
+
+  /// No description provided for @coinsDailyClaimed.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily reward claimed! +10 💎'**
+  String get coinsDailyClaimed;
+
+  /// No description provided for @coinsClaimFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not claim the daily reward.'**
+  String get coinsClaimFailed;
+
+  /// No description provided for @coinsAdThanks.
+  ///
+  /// In en, this message translates to:
+  /// **'Thanks for watching! +5 💎'**
+  String get coinsAdThanks;
+
+  /// No description provided for @coinsAdCreditFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not credit the ad reward.'**
+  String get coinsAdCreditFailed;
+
+  /// No description provided for @coinsGetCoins.
+  ///
+  /// In en, this message translates to:
+  /// **'Get Coins'**
+  String get coinsGetCoins;
+
+  /// No description provided for @coinsGetCoinsSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock extra translations, tutor chats & moments instantly.'**
+  String get coinsGetCoinsSubtitle;
+
+  /// No description provided for @coinsYourBalance.
+  ///
+  /// In en, this message translates to:
+  /// **'Your balance'**
+  String get coinsYourBalance;
+
+  /// No description provided for @coinsEarnFree.
+  ///
+  /// In en, this message translates to:
+  /// **'Earn free coins'**
+  String get coinsEarnFree;
+
+  /// No description provided for @coinsDailyReward.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily reward'**
+  String get coinsDailyReward;
+
+  /// No description provided for @coinsComeBackTomorrow.
+  ///
+  /// In en, this message translates to:
+  /// **'Come back tomorrow'**
+  String get coinsComeBackTomorrow;
+
+  /// No description provided for @coinsDailyRewardSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'+10 coins, once a day'**
+  String get coinsDailyRewardSubtitle;
+
+  /// No description provided for @coinsClaimed.
+  ///
+  /// In en, this message translates to:
+  /// **'Claimed'**
+  String get coinsClaimed;
+
+  /// No description provided for @coinsClaim.
+  ///
+  /// In en, this message translates to:
+  /// **'Claim'**
+  String get coinsClaim;
+
+  /// No description provided for @coinsWatchAd.
+  ///
+  /// In en, this message translates to:
+  /// **'Watch an ad'**
+  String get coinsWatchAd;
+
+  /// No description provided for @coinsAdLimitReached.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily limit reached — come back tomorrow'**
+  String get coinsAdLimitReached;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

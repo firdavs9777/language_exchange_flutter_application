@@ -9380,4 +9380,93 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get vocabBonusEarned => '+10 Bonus XP earned! 🎉';
+
+  @override
+  String vipBannerIsMember(String userName) {
+    return '$userName is a VIP member';
+  }
+
+  @override
+  String get vipBannerGetBenefits => 'Get VIP benefits like them!';
+
+  @override
+  String get vipUpgrade => 'Upgrade';
+
+  @override
+  String get vipUnlockAllFeatures => 'Unlock all features';
+
+  @override
+  String get chatFailedToLoadUser => 'Failed to load user data';
+
+  @override
+  String get chatDailyLimitTitle => 'Daily Chat Limit Reached';
+
+  @override
+  String get chatUnlimitedTitle => 'Unlimited Chats';
+
+  @override
+  String get chatUnlimitedBody => 'Chat with as many people as you want! VIP members enjoy unlimited daily conversations.';
+
+  @override
+  String get coinsStoreUnavailable => 'Coin purchases are only available on iOS and Android.';
+
+  @override
+  String get coinsPurchaseCanceled => 'Purchase was canceled or could not be started.';
+
+  @override
+  String get coinsReceiptUnreadable => 'Could not read purchase receipt. Please try again.';
+
+  @override
+  String get coinsAdded => 'Coins added! 💎';
+
+  @override
+  String get coinsVerifyRetry => 'Purchase could not be verified. It will be retried automatically — try restoring purchases if coins don\'t appear.';
+
+  @override
+  String get coinsAlreadyClaimed => 'Already claimed today — come back tomorrow!';
+
+  @override
+  String get coinsDailyClaimed => 'Daily reward claimed! +10 💎';
+
+  @override
+  String get coinsClaimFailed => 'Could not claim the daily reward.';
+
+  @override
+  String get coinsAdThanks => 'Thanks for watching! +5 💎';
+
+  @override
+  String get coinsAdCreditFailed => 'Could not credit the ad reward.';
+
+  @override
+  String get coinsGetCoins => 'Get Coins';
+
+  @override
+  String get coinsGetCoinsSubtitle => 'Unlock extra translations, tutor chats & moments instantly.';
+
+  @override
+  String get coinsYourBalance => 'Your balance';
+
+  @override
+  String get coinsEarnFree => 'Earn free coins';
+
+  @override
+  String get coinsDailyReward => 'Daily reward';
+
+  @override
+  String get coinsComeBackTomorrow => 'Come back tomorrow';
+
+  @override
+  String get coinsDailyRewardSubtitle => '+10 coins, once a day';
+
+  @override
+  String get coinsClaimed => 'Claimed';
+
+  @override
+  String get coinsClaim => 'Claim';
+
+  @override
+  String get coinsWatchAd => 'Watch an ad';
+
+  @override
+  String get coinsAdLimitReached => 'Daily limit reached — come back tomorrow';
 }

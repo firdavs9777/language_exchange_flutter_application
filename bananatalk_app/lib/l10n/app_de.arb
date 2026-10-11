@@ -4035,5 +4035,41 @@
   "vocabSessionComplete": "Sitzung abgeschlossen!",
   "vocabXpEarned": "Verdientes XP",
   "vocabWatchAdBonus": "Werbung ansehen für +10 Bonus-XP",
-  "vocabBonusEarned": "+10 Bonus-XP verdient! 🎉"
+  "vocabBonusEarned": "+10 Bonus-XP verdient! 🎉",
+  "vipBannerIsMember": "{userName} ist VIP-Mitglied",
+  "vipBannerGetBenefits": "Hol dir auch VIP-Vorteile!",
+  "vipUpgrade": "Upgrade",
+  "vipUnlockAllFeatures": "Alle Funktionen freischalten",
+  "chatFailedToLoadUser": "Nutzerdaten konnten nicht geladen werden",
+  "chatDailyLimitTitle": "Tageslimit für Chats erreicht",
+  "chatUnlimitedTitle": "Unbegrenzte Chats",
+  "chatUnlimitedBody": "Chatte mit so vielen Leuten, wie du willst! VIP-Mitglieder haben unbegrenzte tägliche Gespräche.",
+  "coinsStoreUnavailable": "Münzkäufe sind nur unter iOS und Android möglich.",
+  "coinsPurchaseCanceled": "Der Kauf wurde abgebrochen oder konnte nicht gestartet werden.",
+  "coinsReceiptUnreadable": "Kaufbeleg konnte nicht gelesen werden. Bitte erneut versuchen.",
+  "coinsAdded": "Münzen hinzugefügt! 💎",
+  "coinsVerifyRetry": "Der Kauf konnte nicht bestätigt werden. Wir versuchen es automatisch erneut — stelle Käufe wieder her, falls keine Münzen erscheinen.",
+  "coinsAlreadyClaimed": "Heute schon abgeholt — komm morgen wieder!",
+  "coinsDailyClaimed": "Tagesbelohnung abgeholt! +10 💎",
+  "coinsClaimFailed": "Die Tagesbelohnung konnte nicht abgeholt werden.",
+  "coinsAdThanks": "Danke fürs Zuschauen! +5 💎",
+  "coinsAdCreditFailed": "Die Werbebelohnung konnte nicht gutgeschrieben werden.",
+  "coinsGetCoins": "Münzen holen",
+  "coinsGetCoinsSubtitle": "Schalte sofort zusätzliche Übersetzungen, Tutor-Chats und Momente frei.",
+  "coinsYourBalance": "Dein Guthaben",
+  "coinsEarnFree": "Kostenlose Münzen verdienen",
+  "coinsDailyReward": "Tagesbelohnung",
+  "coinsComeBackTomorrow": "Komm morgen wieder",
+  "coinsDailyRewardSubtitle": "+10 Münzen, einmal täglich",
+  "coinsClaimed": "Abgeholt",
+  "coinsClaim": "Abholen",
+  "coinsWatchAd": "Werbung ansehen",
+  "coinsAdLimitReached": "Tageslimit erreicht — komm morgen wieder",
+  "@vipBannerIsMember": {
+    "placeholders": {
+      "userName": {
+        "type": "String"
+      }
+    }
+  }
 }

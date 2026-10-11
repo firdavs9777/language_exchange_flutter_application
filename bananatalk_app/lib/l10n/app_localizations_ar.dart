@@ -9386,4 +9386,93 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get vocabBonusEarned => '‏+10 نقاط خبرة إضافية! 🎉';
+
+  @override
+  String vipBannerIsMember(String userName) {
+    return '$userName عضو VIP';
+  }
+
+  @override
+  String get vipBannerGetBenefits => 'احصل على مزايا VIP مثله!';
+
+  @override
+  String get vipUpgrade => 'ترقية';
+
+  @override
+  String get vipUnlockAllFeatures => 'افتح جميع الميزات';
+
+  @override
+  String get chatFailedToLoadUser => 'تعذّر تحميل بيانات المستخدم';
+
+  @override
+  String get chatDailyLimitTitle => 'بلغت حد الدردشات اليومي';
+
+  @override
+  String get chatUnlimitedTitle => 'دردشات بلا حدود';
+
+  @override
+  String get chatUnlimitedBody => 'دردش مع أي عدد تريده! أعضاء VIP يتمتعون بمحادثات يومية غير محدودة.';
+
+  @override
+  String get coinsStoreUnavailable => 'شراء العملات متاح على iOS وAndroid فقط.';
+
+  @override
+  String get coinsPurchaseCanceled => 'تم إلغاء الشراء أو تعذّر بدؤه.';
+
+  @override
+  String get coinsReceiptUnreadable => 'تعذّرت قراءة إيصال الشراء. حاول مرة أخرى.';
+
+  @override
+  String get coinsAdded => 'تمت إضافة العملات! 💎';
+
+  @override
+  String get coinsVerifyRetry => 'تعذّر التحقق من الشراء. ستتم إعادة المحاولة تلقائيًا — جرّب استعادة المشتريات إن لم تظهر العملات.';
+
+  @override
+  String get coinsAlreadyClaimed => 'تم الاستلام اليوم — عد غدًا!';
+
+  @override
+  String get coinsDailyClaimed => 'تم استلام مكافأة اليوم! ‏+10 💎';
+
+  @override
+  String get coinsClaimFailed => 'تعذّر استلام المكافأة اليومية.';
+
+  @override
+  String get coinsAdThanks => 'شكرًا للمشاهدة! ‏+5 💎';
+
+  @override
+  String get coinsAdCreditFailed => 'تعذّر إضافة مكافأة الإعلان.';
+
+  @override
+  String get coinsGetCoins => 'احصل على عملات';
+
+  @override
+  String get coinsGetCoinsSubtitle => 'افتح ترجمات ودردشات ولحظات إضافية فورًا.';
+
+  @override
+  String get coinsYourBalance => 'رصيدك';
+
+  @override
+  String get coinsEarnFree => 'اربح عملات مجانية';
+
+  @override
+  String get coinsDailyReward => 'المكافأة اليومية';
+
+  @override
+  String get coinsComeBackTomorrow => 'عد غدًا';
+
+  @override
+  String get coinsDailyRewardSubtitle => '‏+10 عملات، مرة في اليوم';
+
+  @override
+  String get coinsClaimed => 'تم الاستلام';
+
+  @override
+  String get coinsClaim => 'استلام';
+
+  @override
+  String get coinsWatchAd => 'شاهد إعلانًا';
+
+  @override
+  String get coinsAdLimitReached => 'بلغت الحد اليومي — عد غدًا';
 }

@@ -3825,5 +3825,41 @@
   "vocabSessionComplete": "Сессия завершена!",
   "vocabXpEarned": "Получено XP",
   "vocabWatchAdBonus": "Посмотреть рекламу за +10 бонусных XP",
-  "vocabBonusEarned": "+10 бонусных XP получено! 🎉"
+  "vocabBonusEarned": "+10 бонусных XP получено! 🎉",
+  "vipBannerIsMember": "{userName} — VIP-участник",
+  "vipBannerGetBenefits": "Получите преимущества VIP и вы!",
+  "vipUpgrade": "Улучшить",
+  "vipUnlockAllFeatures": "Открыть все возможности",
+  "chatFailedToLoadUser": "Не удалось загрузить данные пользователя",
+  "chatDailyLimitTitle": "Достигнут дневной лимит чатов",
+  "chatUnlimitedTitle": "Безлимитные чаты",
+  "chatUnlimitedBody": "Общайтесь с любым количеством людей! У VIP-участников дневные беседы без ограничений.",
+  "coinsStoreUnavailable": "Покупка монет доступна только на iOS и Android.",
+  "coinsPurchaseCanceled": "Покупка отменена или не началась.",
+  "coinsReceiptUnreadable": "Не удалось прочитать чек о покупке. Попробуйте ещё раз.",
+  "coinsAdded": "Монеты начислены! 💎",
+  "coinsVerifyRetry": "Не удалось подтвердить покупку. Мы повторим попытку автоматически — если монеты не появятся, попробуйте восстановить покупки.",
+  "coinsAlreadyClaimed": "Сегодня уже получено — возвращайтесь завтра!",
+  "coinsDailyClaimed": "Ежедневная награда получена! +10 💎",
+  "coinsClaimFailed": "Не удалось получить ежедневную награду.",
+  "coinsAdThanks": "Спасибо за просмотр! +5 💎",
+  "coinsAdCreditFailed": "Не удалось начислить награду за рекламу.",
+  "coinsGetCoins": "Получить монеты",
+  "coinsGetCoinsSubtitle": "Мгновенно откройте дополнительные переводы, беседы с репетитором и моменты.",
+  "coinsYourBalance": "Ваш баланс",
+  "coinsEarnFree": "Получить монеты бесплатно",
+  "coinsDailyReward": "Ежедневная награда",
+  "coinsComeBackTomorrow": "Возвращайтесь завтра",
+  "coinsDailyRewardSubtitle": "+10 монет, раз в день",
+  "coinsClaimed": "Получено",
+  "coinsClaim": "Получить",
+  "coinsWatchAd": "Посмотреть рекламу",
+  "coinsAdLimitReached": "Дневной лимит исчерпан — возвращайтесь завтра",
+  "@vipBannerIsMember": {
+    "placeholders": {
+      "userName": {
+        "type": "String"
+      }
+    }
+  }
 }

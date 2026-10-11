@@ -9364,4 +9364,93 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get vocabBonusEarned => 'ได้รับ +10 XP โบนัส! 🎉';
+
+  @override
+  String vipBannerIsMember(String userName) {
+    return '$userName เป็นสมาชิก VIP';
+  }
+
+  @override
+  String get vipBannerGetBenefits => 'รับสิทธิ์ VIP แบบเดียวกันสิ!';
+
+  @override
+  String get vipUpgrade => 'อัปเกรด';
+
+  @override
+  String get vipUnlockAllFeatures => 'ปลดล็อกทุกฟีเจอร์';
+
+  @override
+  String get chatFailedToLoadUser => 'โหลดข้อมูลผู้ใช้ไม่สำเร็จ';
+
+  @override
+  String get chatDailyLimitTitle => 'ถึงขีดจำกัดแชทรายวันแล้ว';
+
+  @override
+  String get chatUnlimitedTitle => 'แชทไม่จำกัด';
+
+  @override
+  String get chatUnlimitedBody => 'คุยกับใครกี่คนก็ได้! สมาชิก VIP สนทนาได้ไม่จำกัดต่อวัน';
+
+  @override
+  String get coinsStoreUnavailable => 'ซื้อเหรียญได้เฉพาะบน iOS และ Android เท่านั้น';
+
+  @override
+  String get coinsPurchaseCanceled => 'การซื้อถูกยกเลิกหรือเริ่มไม่ได้';
+
+  @override
+  String get coinsReceiptUnreadable => 'อ่านใบเสร็จการซื้อไม่ได้ โปรดลองอีกครั้ง';
+
+  @override
+  String get coinsAdded => 'เพิ่มเหรียญแล้ว! 💎';
+
+  @override
+  String get coinsVerifyRetry => 'ยืนยันการซื้อไม่ได้ ระบบจะลองใหม่อัตโนมัติ — หากเหรียญไม่ขึ้น ลองกู้คืนการซื้อ';
+
+  @override
+  String get coinsAlreadyClaimed => 'วันนี้รับไปแล้ว — พรุ่งนี้มาใหม่!';
+
+  @override
+  String get coinsDailyClaimed => 'รับรางวัลประจำวันแล้ว! +10 💎';
+
+  @override
+  String get coinsClaimFailed => 'รับรางวัลประจำวันไม่สำเร็จ';
+
+  @override
+  String get coinsAdThanks => 'ขอบคุณที่รับชม! +5 💎';
+
+  @override
+  String get coinsAdCreditFailed => 'ให้รางวัลจากโฆษณาไม่สำเร็จ';
+
+  @override
+  String get coinsGetCoins => 'รับเหรียญ';
+
+  @override
+  String get coinsGetCoinsSubtitle => 'ปลดล็อกการแปล แชทกับติวเตอร์ และโมเมนต์เพิ่มได้ทันที';
+
+  @override
+  String get coinsYourBalance => 'ยอดคงเหลือของคุณ';
+
+  @override
+  String get coinsEarnFree => 'รับเหรียญฟรี';
+
+  @override
+  String get coinsDailyReward => 'รางวัลประจำวัน';
+
+  @override
+  String get coinsComeBackTomorrow => 'พรุ่งนี้มาใหม่';
+
+  @override
+  String get coinsDailyRewardSubtitle => '+10 เหรียญ วันละครั้ง';
+
+  @override
+  String get coinsClaimed => 'รับแล้ว';
+
+  @override
+  String get coinsClaim => 'รับ';
+
+  @override
+  String get coinsWatchAd => 'ดูโฆษณา';
+
+  @override
+  String get coinsAdLimitReached => 'ถึงขีดจำกัดรายวันแล้ว — พรุ่งนี้มาใหม่';
 }

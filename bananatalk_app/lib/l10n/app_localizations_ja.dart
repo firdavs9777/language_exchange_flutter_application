@@ -9364,4 +9364,93 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get vocabBonusEarned => '+10ボーナスXP獲得！🎉';
+
+  @override
+  String vipBannerIsMember(String userName) {
+    return '$userNameさんはVIP会員です';
+  }
+
+  @override
+  String get vipBannerGetBenefits => 'あなたもVIP特典を手に入れよう！';
+
+  @override
+  String get vipUpgrade => 'アップグレード';
+
+  @override
+  String get vipUnlockAllFeatures => 'すべての機能を解放';
+
+  @override
+  String get chatFailedToLoadUser => 'ユーザー情報を読み込めませんでした';
+
+  @override
+  String get chatDailyLimitTitle => '1日のチャット上限に達しました';
+
+  @override
+  String get chatUnlimitedTitle => '無制限チャット';
+
+  @override
+  String get chatUnlimitedBody => '好きなだけたくさんの人とチャットできます！VIP会員は1日の会話が無制限です。';
+
+  @override
+  String get coinsStoreUnavailable => 'コインの購入はiOSとAndroidのみ対応しています。';
+
+  @override
+  String get coinsPurchaseCanceled => '購入がキャンセルされたか、開始できませんでした。';
+
+  @override
+  String get coinsReceiptUnreadable => '購入レシートを読み取れませんでした。もう一度お試しください。';
+
+  @override
+  String get coinsAdded => 'コインを追加しました！💎';
+
+  @override
+  String get coinsVerifyRetry => '購入を確認できませんでした。自動で再試行します。コインが反映されない場合は購入の復元をお試しください。';
+
+  @override
+  String get coinsAlreadyClaimed => '今日はもう受け取り済みです。また明日！';
+
+  @override
+  String get coinsDailyClaimed => 'デイリー報酬を受け取りました！+10 💎';
+
+  @override
+  String get coinsClaimFailed => 'デイリー報酬を受け取れませんでした。';
+
+  @override
+  String get coinsAdThanks => 'ご視聴ありがとうございます！+5 💎';
+
+  @override
+  String get coinsAdCreditFailed => '広告の報酬を付与できませんでした。';
+
+  @override
+  String get coinsGetCoins => 'コインを入手';
+
+  @override
+  String get coinsGetCoinsSubtitle => '翻訳・チューターとの会話・モーメントの追加利用をすぐに解放。';
+
+  @override
+  String get coinsYourBalance => '残高';
+
+  @override
+  String get coinsEarnFree => '無料でコインを獲得';
+
+  @override
+  String get coinsDailyReward => 'デイリー報酬';
+
+  @override
+  String get coinsComeBackTomorrow => 'また明日';
+
+  @override
+  String get coinsDailyRewardSubtitle => '1日1回、+10コイン';
+
+  @override
+  String get coinsClaimed => '受け取り済み';
+
+  @override
+  String get coinsClaim => '受け取る';
+
+  @override
+  String get coinsWatchAd => '広告を見る';
+
+  @override
+  String get coinsAdLimitReached => '本日の上限に達しました。また明日';
 }

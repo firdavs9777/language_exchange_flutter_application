@@ -3288,5 +3288,41 @@
   "vocabSessionComplete": "Ҷаласа анҷом ёфт!",
   "vocabXpEarned": "XP-и гирифташуда",
   "vocabWatchAdBonus": "Барои +10 XP-и иловагӣ реклама бинед",
-  "vocabBonusEarned": "+10 XP-и иловагӣ гирифта шуд! 🎉"
+  "vocabBonusEarned": "+10 XP-и иловагӣ гирифта шуд! 🎉",
+  "vipBannerIsMember": "{userName} аъзои VIP аст",
+  "vipBannerGetBenefits": "Шумо ҳам имтиёзҳои VIP гиред!",
+  "vipUpgrade": "Такмил",
+  "vipUnlockAllFeatures": "Кушодани ҳамаи имкониятҳо",
+  "chatFailedToLoadUser": "Маълумоти корбар бор карда нашуд",
+  "chatDailyLimitTitle": "Ҳадди ҳаррӯзаи сӯҳбатҳо расид",
+  "chatUnlimitedTitle": "Сӯҳбатҳои бемаҳдуд",
+  "chatUnlimitedBody": "Бо ҳар қадар одам хоҳед сӯҳбат кунед! Аъзои VIP сӯҳбатҳои ҳаррӯзаи бемаҳдуд доранд.",
+  "coinsStoreUnavailable": "Харидани тангаҳо танҳо дар iOS ва Android дастрас аст.",
+  "coinsPurchaseCanceled": "Харид бекор шуд ё оғоз нашуд.",
+  "coinsReceiptUnreadable": "Расиди харид хонда нашуд. Бори дигар кӯшиш кунед.",
+  "coinsAdded": "Тангаҳо илова шуданд! 💎",
+  "coinsVerifyRetry": "Харид тасдиқ нашуд. Кӯшиш худкор такрор мешавад — агар тангаҳо пайдо нашаванд, харидҳоро барқарор кунед.",
+  "coinsAlreadyClaimed": "Имрӯз аллакай гирифта шуд — пагоҳ оед!",
+  "coinsDailyClaimed": "Мукофоти ҳаррӯза гирифта шуд! +10 💎",
+  "coinsClaimFailed": "Мукофоти ҳаррӯза гирифта нашуд.",
+  "coinsAdThanks": "Ташаккур барои тамошо! +5 💎",
+  "coinsAdCreditFailed": "Мукофоти реклама ҳисоб карда нашуд.",
+  "coinsGetCoins": "Гирифтани тангаҳо",
+  "coinsGetCoinsSubtitle": "Тарҷумаҳо, сӯҳбатҳои муаллим ва лаҳзаҳои иловагиро фавран кушоед.",
+  "coinsYourBalance": "Тавозуни шумо",
+  "coinsEarnFree": "Тангаҳои ройгон ба даст оред",
+  "coinsDailyReward": "Мукофоти ҳаррӯза",
+  "coinsComeBackTomorrow": "Пагоҳ оед",
+  "coinsDailyRewardSubtitle": "+10 танга, рӯзе як бор",
+  "coinsClaimed": "Гирифта шуд",
+  "coinsClaim": "Гирифтан",
+  "coinsWatchAd": "Тамошои реклама",
+  "coinsAdLimitReached": "Ҳадди ҳаррӯза расид — пагоҳ оед",
+  "@vipBannerIsMember": {
+    "placeholders": {
+      "userName": {
+        "type": "String"
+      }
+    }
+  }
 }

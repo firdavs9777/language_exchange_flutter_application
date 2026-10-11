@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 /// Banner shown when viewing a VIP user's profile
 /// Encourages non-VIP users to upgrade
@@ -67,7 +68,7 @@ class VipUpsellBanner extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        '$userName is a VIP member',
+                        AppLocalizations.of(context)!.vipBannerIsMember(userName),
                         style: const TextStyle(
                           color: Colors.white,
                           fontSize: 14,
@@ -76,7 +77,7 @@ class VipUpsellBanner extends StatelessWidget {
                       ),
                       const SizedBox(height: 2),
                       Text(
-                        'Get VIP benefits like them!',
+                        AppLocalizations.of(context)!.vipBannerGetBenefits,
                         style: TextStyle(
                           color: Colors.white.withOpacity(0.9),
                           fontSize: 12,
@@ -94,8 +95,8 @@ class VipUpsellBanner extends StatelessWidget {
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  child: const Text(
-                    'Upgrade',
+                  child: Text(
+                    AppLocalizations.of(context)!.vipUpgrade,
                     style: TextStyle(
                       color: Color(0xFFFFA500),
                       fontSize: 12,
@@ -166,20 +167,20 @@ class VipPromoCard extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 12),
-                const Expanded(
+                Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        'Upgrade to VIP',
+                        AppLocalizations.of(context)!.upgradeToVIP,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 14,
                         ),
                       ),
                       Text(
-                        'Unlock all features',
+                        AppLocalizations.of(context)!.vipUnlockAllFeatures,
                         style: TextStyle(
                           fontSize: 12,
                           color: Colors.grey,

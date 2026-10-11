@@ -3795,5 +3795,41 @@
   "vocabSessionComplete": "Hoàn thành phiên học!",
   "vocabXpEarned": "XP nhận được",
   "vocabWatchAdBonus": "Xem quảng cáo nhận +10 XP thưởng",
-  "vocabBonusEarned": "Đã nhận +10 XP thưởng! 🎉"
+  "vocabBonusEarned": "Đã nhận +10 XP thưởng! 🎉",
+  "vipBannerIsMember": "{userName} là thành viên VIP",
+  "vipBannerGetBenefits": "Nhận quyền lợi VIP như vậy nhé!",
+  "vipUpgrade": "Nâng cấp",
+  "vipUnlockAllFeatures": "Mở khoá mọi tính năng",
+  "chatFailedToLoadUser": "Không tải được dữ liệu người dùng",
+  "chatDailyLimitTitle": "Đã đạt giới hạn trò chuyện mỗi ngày",
+  "chatUnlimitedTitle": "Trò chuyện không giới hạn",
+  "chatUnlimitedBody": "Trò chuyện với bao nhiêu người tuỳ thích! Thành viên VIP có số cuộc trò chuyện mỗi ngày không giới hạn.",
+  "coinsStoreUnavailable": "Mua xu chỉ khả dụng trên iOS và Android.",
+  "coinsPurchaseCanceled": "Giao dịch đã bị huỷ hoặc không thể bắt đầu.",
+  "coinsReceiptUnreadable": "Không đọc được biên nhận mua hàng. Vui lòng thử lại.",
+  "coinsAdded": "Đã cộng xu! 💎",
+  "coinsVerifyRetry": "Không xác minh được giao dịch. Hệ thống sẽ tự thử lại — hãy khôi phục giao dịch nếu xu chưa xuất hiện.",
+  "coinsAlreadyClaimed": "Hôm nay đã nhận rồi — mai quay lại nhé!",
+  "coinsDailyClaimed": "Đã nhận thưởng hằng ngày! +10 💎",
+  "coinsClaimFailed": "Không nhận được thưởng hằng ngày.",
+  "coinsAdThanks": "Cảm ơn bạn đã xem! +5 💎",
+  "coinsAdCreditFailed": "Không cộng được phần thưởng quảng cáo.",
+  "coinsGetCoins": "Nhận xu",
+  "coinsGetCoinsSubtitle": "Mở khoá ngay thêm lượt dịch, trò chuyện với gia sư và khoảnh khắc.",
+  "coinsYourBalance": "Số dư của bạn",
+  "coinsEarnFree": "Kiếm xu miễn phí",
+  "coinsDailyReward": "Thưởng hằng ngày",
+  "coinsComeBackTomorrow": "Mai quay lại",
+  "coinsDailyRewardSubtitle": "+10 xu, mỗi ngày một lần",
+  "coinsClaimed": "Đã nhận",
+  "coinsClaim": "Nhận",
+  "coinsWatchAd": "Xem quảng cáo",
+  "coinsAdLimitReached": "Đã đạt giới hạn hôm nay — mai quay lại",
+  "@vipBannerIsMember": {
+    "placeholders": {
+      "userName": {
+        "type": "String"
+      }
+    }
+  }
 }

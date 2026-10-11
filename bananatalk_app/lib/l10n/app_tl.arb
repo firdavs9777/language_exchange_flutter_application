@@ -3768,5 +3768,41 @@
   "vocabSessionComplete": "Tapos na ang session!",
   "vocabXpEarned": "XP na nakuha",
   "vocabWatchAdBonus": "Manood ng ad para sa +10 Bonus XP",
-  "vocabBonusEarned": "+10 Bonus XP ang nakuha! 🎉"
+  "vocabBonusEarned": "+10 Bonus XP ang nakuha! 🎉",
+  "vipBannerIsMember": "Miyembrong VIP si {userName}",
+  "vipBannerGetBenefits": "Kunin mo rin ang mga benepisyong VIP!",
+  "vipUpgrade": "Mag-upgrade",
+  "vipUnlockAllFeatures": "I-unlock ang lahat ng feature",
+  "chatFailedToLoadUser": "Hindi ma-load ang datos ng user",
+  "chatDailyLimitTitle": "Naabot na ang pang-araw-araw na limitasyon sa chat",
+  "chatUnlimitedTitle": "Walang limitasyong chat",
+  "chatUnlimitedBody": "Makipag-chat sa kahit ilang tao! Walang limitasyon ang pang-araw-araw na usapan ng mga VIP.",
+  "coinsStoreUnavailable": "Available lang ang pagbili ng barya sa iOS at Android.",
+  "coinsPurchaseCanceled": "Nakansela ang pagbili o hindi ito nasimulan.",
+  "coinsReceiptUnreadable": "Hindi mabasa ang resibo ng pagbili. Subukan ulit.",
+  "coinsAdded": "Naidagdag ang mga barya! 💎",
+  "coinsVerifyRetry": "Hindi ma-verify ang pagbili. Awtomatiko itong uulitin — subukang i-restore ang mga pagbili kung walang lumabas na barya.",
+  "coinsAlreadyClaimed": "Nakuha mo na ngayong araw — bumalik ka bukas!",
+  "coinsDailyClaimed": "Nakuha ang pang-araw-araw na gantimpala! +10 💎",
+  "coinsClaimFailed": "Hindi makuha ang pang-araw-araw na gantimpala.",
+  "coinsAdThanks": "Salamat sa panonood! +5 💎",
+  "coinsAdCreditFailed": "Hindi ma-kredito ang gantimpala mula sa ad.",
+  "coinsGetCoins": "Kumuha ng Barya",
+  "coinsGetCoinsSubtitle": "I-unlock agad ang dagdag na pagsasalin, tutor chat at moments.",
+  "coinsYourBalance": "Ang balanse mo",
+  "coinsEarnFree": "Kumita ng libreng barya",
+  "coinsDailyReward": "Pang-araw-araw na gantimpala",
+  "coinsComeBackTomorrow": "Bumalik bukas",
+  "coinsDailyRewardSubtitle": "+10 barya, isang beses sa isang araw",
+  "coinsClaimed": "Nakuha na",
+  "coinsClaim": "Kunin",
+  "coinsWatchAd": "Manood ng ad",
+  "coinsAdLimitReached": "Naabot na ang limitasyon ngayong araw — bumalik bukas",
+  "@vipBannerIsMember": {
+    "placeholders": {
+      "userName": {
+        "type": "String"
+      }
+    }
+  }
 }

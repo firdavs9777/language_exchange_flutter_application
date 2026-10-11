@@ -9374,4 +9374,93 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get vocabBonusEarned => '+10 XP bonus gagnés ! 🎉';
+
+  @override
+  String vipBannerIsMember(String userName) {
+    return '$userName est membre VIP';
+  }
+
+  @override
+  String get vipBannerGetBenefits => 'Obtenez les avantages VIP vous aussi !';
+
+  @override
+  String get vipUpgrade => 'Passer à la version supérieure';
+
+  @override
+  String get vipUnlockAllFeatures => 'Débloquez toutes les fonctionnalités';
+
+  @override
+  String get chatFailedToLoadUser => 'Impossible de charger les données de l’utilisateur';
+
+  @override
+  String get chatDailyLimitTitle => 'Limite de discussions quotidiennes atteinte';
+
+  @override
+  String get chatUnlimitedTitle => 'Discussions illimitées';
+
+  @override
+  String get chatUnlimitedBody => 'Discutez avec autant de personnes que vous voulez ! Les membres VIP ont des conversations quotidiennes illimitées.';
+
+  @override
+  String get coinsStoreUnavailable => 'Les achats de pièces ne sont disponibles que sur iOS et Android.';
+
+  @override
+  String get coinsPurchaseCanceled => 'L’achat a été annulé ou n’a pas pu démarrer.';
+
+  @override
+  String get coinsReceiptUnreadable => 'Impossible de lire le reçu d’achat. Veuillez réessayer.';
+
+  @override
+  String get coinsAdded => 'Pièces ajoutées ! 💎';
+
+  @override
+  String get coinsVerifyRetry => 'L’achat n’a pas pu être vérifié. Une nouvelle tentative aura lieu automatiquement — essayez de restaurer vos achats si les pièces n’apparaissent pas.';
+
+  @override
+  String get coinsAlreadyClaimed => 'Déjà récupéré aujourd’hui — revenez demain !';
+
+  @override
+  String get coinsDailyClaimed => 'Récompense quotidienne récupérée ! +10 💎';
+
+  @override
+  String get coinsClaimFailed => 'Impossible de récupérer la récompense quotidienne.';
+
+  @override
+  String get coinsAdThanks => 'Merci d’avoir regardé ! +5 💎';
+
+  @override
+  String get coinsAdCreditFailed => 'Impossible de créditer la récompense publicitaire.';
+
+  @override
+  String get coinsGetCoins => 'Obtenir des pièces';
+
+  @override
+  String get coinsGetCoinsSubtitle => 'Débloquez instantanément des traductions, discussions avec le tuteur et moments supplémentaires.';
+
+  @override
+  String get coinsYourBalance => 'Votre solde';
+
+  @override
+  String get coinsEarnFree => 'Gagner des pièces gratuites';
+
+  @override
+  String get coinsDailyReward => 'Récompense quotidienne';
+
+  @override
+  String get coinsComeBackTomorrow => 'Revenez demain';
+
+  @override
+  String get coinsDailyRewardSubtitle => '+10 pièces, une fois par jour';
+
+  @override
+  String get coinsClaimed => 'Récupérée';
+
+  @override
+  String get coinsClaim => 'Récupérer';
+
+  @override
+  String get coinsWatchAd => 'Regarder une pub';
+
+  @override
+  String get coinsAdLimitReached => 'Limite quotidienne atteinte — revenez demain';
 }

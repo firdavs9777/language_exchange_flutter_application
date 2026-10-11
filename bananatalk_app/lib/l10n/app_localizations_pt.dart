@@ -9374,4 +9374,93 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get vocabBonusEarned => '+10 XP bônus ganho! 🎉';
+
+  @override
+  String vipBannerIsMember(String userName) {
+    return '$userName é membro VIP';
+  }
+
+  @override
+  String get vipBannerGetBenefits => 'Tenha os benefícios VIP também!';
+
+  @override
+  String get vipUpgrade => 'Fazer upgrade';
+
+  @override
+  String get vipUnlockAllFeatures => 'Desbloquear todos os recursos';
+
+  @override
+  String get chatFailedToLoadUser => 'Não foi possível carregar os dados do usuário';
+
+  @override
+  String get chatDailyLimitTitle => 'Limite diário de conversas atingido';
+
+  @override
+  String get chatUnlimitedTitle => 'Conversas ilimitadas';
+
+  @override
+  String get chatUnlimitedBody => 'Converse com quantas pessoas quiser! Membros VIP têm conversas diárias ilimitadas.';
+
+  @override
+  String get coinsStoreUnavailable => 'A compra de moedas só está disponível no iOS e no Android.';
+
+  @override
+  String get coinsPurchaseCanceled => 'A compra foi cancelada ou não pôde ser iniciada.';
+
+  @override
+  String get coinsReceiptUnreadable => 'Não foi possível ler o recibo da compra. Tente novamente.';
+
+  @override
+  String get coinsAdded => 'Moedas adicionadas! 💎';
+
+  @override
+  String get coinsVerifyRetry => 'Não foi possível verificar a compra. Vamos tentar de novo automaticamente — restaure as compras se as moedas não aparecerem.';
+
+  @override
+  String get coinsAlreadyClaimed => 'Já resgatado hoje — volte amanhã!';
+
+  @override
+  String get coinsDailyClaimed => 'Recompensa diária resgatada! +10 💎';
+
+  @override
+  String get coinsClaimFailed => 'Não foi possível resgatar a recompensa diária.';
+
+  @override
+  String get coinsAdThanks => 'Obrigado por assistir! +5 💎';
+
+  @override
+  String get coinsAdCreditFailed => 'Não foi possível creditar a recompensa do anúncio.';
+
+  @override
+  String get coinsGetCoins => 'Obter moedas';
+
+  @override
+  String get coinsGetCoinsSubtitle => 'Desbloqueie já traduções, conversas com o tutor e momentos extras.';
+
+  @override
+  String get coinsYourBalance => 'Seu saldo';
+
+  @override
+  String get coinsEarnFree => 'Ganhe moedas grátis';
+
+  @override
+  String get coinsDailyReward => 'Recompensa diária';
+
+  @override
+  String get coinsComeBackTomorrow => 'Volte amanhã';
+
+  @override
+  String get coinsDailyRewardSubtitle => '+10 moedas, uma vez por dia';
+
+  @override
+  String get coinsClaimed => 'Resgatada';
+
+  @override
+  String get coinsClaim => 'Resgatar';
+
+  @override
+  String get coinsWatchAd => 'Assistir a um anúncio';
+
+  @override
+  String get coinsAdLimitReached => 'Limite diário atingido — volte amanhã';
 }

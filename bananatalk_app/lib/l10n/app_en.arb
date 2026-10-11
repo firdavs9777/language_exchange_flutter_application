@@ -6520,5 +6520,41 @@
   },
   "vocabXpEarned": "XP Earned",
   "vocabWatchAdBonus": "Watch Ad for +10 Bonus XP",
-  "vocabBonusEarned": "+10 Bonus XP earned! 🎉"
+  "vocabBonusEarned": "+10 Bonus XP earned! 🎉",
+  "vipBannerIsMember": "{userName} is a VIP member",
+  "@vipBannerIsMember": {
+    "placeholders": {
+      "userName": {
+        "type": "String"
+      }
+    }
+  },
+  "vipBannerGetBenefits": "Get VIP benefits like them!",
+  "vipUpgrade": "Upgrade",
+  "vipUnlockAllFeatures": "Unlock all features",
+  "chatFailedToLoadUser": "Failed to load user data",
+  "chatDailyLimitTitle": "Daily Chat Limit Reached",
+  "chatUnlimitedTitle": "Unlimited Chats",
+  "chatUnlimitedBody": "Chat with as many people as you want! VIP members enjoy unlimited daily conversations.",
+  "coinsStoreUnavailable": "Coin purchases are only available on iOS and Android.",
+  "coinsPurchaseCanceled": "Purchase was canceled or could not be started.",
+  "coinsReceiptUnreadable": "Could not read purchase receipt. Please try again.",
+  "coinsAdded": "Coins added! 💎",
+  "coinsVerifyRetry": "Purchase could not be verified. It will be retried automatically — try restoring purchases if coins don't appear.",
+  "coinsAlreadyClaimed": "Already claimed today — come back tomorrow!",
+  "coinsDailyClaimed": "Daily reward claimed! +10 💎",
+  "coinsClaimFailed": "Could not claim the daily reward.",
+  "coinsAdThanks": "Thanks for watching! +5 💎",
+  "coinsAdCreditFailed": "Could not credit the ad reward.",
+  "coinsGetCoins": "Get Coins",
+  "coinsGetCoinsSubtitle": "Unlock extra translations, tutor chats & moments instantly.",
+  "coinsYourBalance": "Your balance",
+  "coinsEarnFree": "Earn free coins",
+  "coinsDailyReward": "Daily reward",
+  "coinsComeBackTomorrow": "Come back tomorrow",
+  "coinsDailyRewardSubtitle": "+10 coins, once a day",
+  "coinsClaimed": "Claimed",
+  "coinsClaim": "Claim",
+  "coinsWatchAd": "Watch an ad",
+  "coinsAdLimitReached": "Daily limit reached — come back tomorrow"
 }

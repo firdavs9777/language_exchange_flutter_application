@@ -3795,5 +3795,41 @@
   "vocabSessionComplete": "Sesi selesai!",
   "vocabXpEarned": "XP didapat",
   "vocabWatchAdBonus": "Tonton iklan untuk +10 XP bonus",
-  "vocabBonusEarned": "+10 XP bonus didapat! 🎉"
+  "vocabBonusEarned": "+10 XP bonus didapat! 🎉",
+  "vipBannerIsMember": "{userName} adalah anggota VIP",
+  "vipBannerGetBenefits": "Dapatkan juga manfaat VIP!",
+  "vipUpgrade": "Upgrade",
+  "vipUnlockAllFeatures": "Buka semua fitur",
+  "chatFailedToLoadUser": "Gagal memuat data pengguna",
+  "chatDailyLimitTitle": "Batas obrolan harian tercapai",
+  "chatUnlimitedTitle": "Obrolan tanpa batas",
+  "chatUnlimitedBody": "Ngobrol dengan sebanyak mungkin orang! Anggota VIP dapat percakapan harian tanpa batas.",
+  "coinsStoreUnavailable": "Pembelian koin hanya tersedia di iOS dan Android.",
+  "coinsPurchaseCanceled": "Pembelian dibatalkan atau tidak bisa dimulai.",
+  "coinsReceiptUnreadable": "Tidak bisa membaca bukti pembelian. Coba lagi.",
+  "coinsAdded": "Koin ditambahkan! 💎",
+  "coinsVerifyRetry": "Pembelian tidak bisa diverifikasi. Akan dicoba lagi otomatis — coba pulihkan pembelian kalau koin belum muncul.",
+  "coinsAlreadyClaimed": "Sudah diambil hari ini — kembali besok!",
+  "coinsDailyClaimed": "Hadiah harian diambil! +10 💎",
+  "coinsClaimFailed": "Tidak bisa mengambil hadiah harian.",
+  "coinsAdThanks": "Terima kasih sudah menonton! +5 💎",
+  "coinsAdCreditFailed": "Tidak bisa memberikan hadiah iklan.",
+  "coinsGetCoins": "Dapatkan Koin",
+  "coinsGetCoinsSubtitle": "Buka tambahan terjemahan, obrolan tutor & momen seketika.",
+  "coinsYourBalance": "Saldomu",
+  "coinsEarnFree": "Dapatkan koin gratis",
+  "coinsDailyReward": "Hadiah harian",
+  "coinsComeBackTomorrow": "Kembali besok",
+  "coinsDailyRewardSubtitle": "+10 koin, sekali sehari",
+  "coinsClaimed": "Sudah diambil",
+  "coinsClaim": "Ambil",
+  "coinsWatchAd": "Tonton iklan",
+  "coinsAdLimitReached": "Batas harian tercapai — kembali besok",
+  "@vipBannerIsMember": {
+    "placeholders": {
+      "userName": {
+        "type": "String"
+      }
+    }
+  }
 }

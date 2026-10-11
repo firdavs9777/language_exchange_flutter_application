@@ -4035,5 +4035,41 @@
   "vocabSessionComplete": "Sessione completata!",
   "vocabXpEarned": "XP guadagnati",
   "vocabWatchAdBonus": "Guarda un annuncio per +10 XP bonus",
-  "vocabBonusEarned": "+10 XP bonus guadagnati! 🎉"
+  "vocabBonusEarned": "+10 XP bonus guadagnati! 🎉",
+  "vipBannerIsMember": "{userName} è un membro VIP",
+  "vipBannerGetBenefits": "Ottieni anche tu i vantaggi VIP!",
+  "vipUpgrade": "Passa a VIP",
+  "vipUnlockAllFeatures": "Sblocca tutte le funzioni",
+  "chatFailedToLoadUser": "Impossibile caricare i dati dell’utente",
+  "chatDailyLimitTitle": "Limite giornaliero di chat raggiunto",
+  "chatUnlimitedTitle": "Chat illimitate",
+  "chatUnlimitedBody": "Chatta con quante persone vuoi! I membri VIP hanno conversazioni giornaliere illimitate.",
+  "coinsStoreUnavailable": "Gli acquisti di monete sono disponibili solo su iOS e Android.",
+  "coinsPurchaseCanceled": "L’acquisto è stato annullato o non è potuto partire.",
+  "coinsReceiptUnreadable": "Impossibile leggere la ricevuta d’acquisto. Riprova.",
+  "coinsAdded": "Monete aggiunte! 💎",
+  "coinsVerifyRetry": "Non è stato possibile verificare l’acquisto. Riproveremo automaticamente — prova a ripristinare gli acquisti se le monete non compaiono.",
+  "coinsAlreadyClaimed": "Già riscattato oggi — torna domani!",
+  "coinsDailyClaimed": "Ricompensa giornaliera riscattata! +10 💎",
+  "coinsClaimFailed": "Non è stato possibile riscattare la ricompensa giornaliera.",
+  "coinsAdThanks": "Grazie per aver guardato! +5 💎",
+  "coinsAdCreditFailed": "Non è stato possibile accreditare la ricompensa dell’annuncio.",
+  "coinsGetCoins": "Ottieni monete",
+  "coinsGetCoinsSubtitle": "Sblocca subito traduzioni, chat con il tutor e momenti extra.",
+  "coinsYourBalance": "Il tuo saldo",
+  "coinsEarnFree": "Guadagna monete gratis",
+  "coinsDailyReward": "Ricompensa giornaliera",
+  "coinsComeBackTomorrow": "Torna domani",
+  "coinsDailyRewardSubtitle": "+10 monete, una volta al giorno",
+  "coinsClaimed": "Riscattata",
+  "coinsClaim": "Riscatta",
+  "coinsWatchAd": "Guarda un annuncio",
+  "coinsAdLimitReached": "Limite giornaliero raggiunto — torna domani",
+  "@vipBannerIsMember": {
+    "placeholders": {
+      "userName": {
+        "type": "String"
+      }
+    }
+  }
 }

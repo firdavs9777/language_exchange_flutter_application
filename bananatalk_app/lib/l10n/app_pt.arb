@@ -3811,5 +3811,41 @@
   "vocabSessionComplete": "Sessão concluída!",
   "vocabXpEarned": "XP ganho",
   "vocabWatchAdBonus": "Assistir anúncio por +10 XP bônus",
-  "vocabBonusEarned": "+10 XP bônus ganho! 🎉"
+  "vocabBonusEarned": "+10 XP bônus ganho! 🎉",
+  "vipBannerIsMember": "{userName} é membro VIP",
+  "vipBannerGetBenefits": "Tenha os benefícios VIP também!",
+  "vipUpgrade": "Fazer upgrade",
+  "vipUnlockAllFeatures": "Desbloquear todos os recursos",
+  "chatFailedToLoadUser": "Não foi possível carregar os dados do usuário",
+  "chatDailyLimitTitle": "Limite diário de conversas atingido",
+  "chatUnlimitedTitle": "Conversas ilimitadas",
+  "chatUnlimitedBody": "Converse com quantas pessoas quiser! Membros VIP têm conversas diárias ilimitadas.",
+  "coinsStoreUnavailable": "A compra de moedas só está disponível no iOS e no Android.",
+  "coinsPurchaseCanceled": "A compra foi cancelada ou não pôde ser iniciada.",
+  "coinsReceiptUnreadable": "Não foi possível ler o recibo da compra. Tente novamente.",
+  "coinsAdded": "Moedas adicionadas! 💎",
+  "coinsVerifyRetry": "Não foi possível verificar a compra. Vamos tentar de novo automaticamente — restaure as compras se as moedas não aparecerem.",
+  "coinsAlreadyClaimed": "Já resgatado hoje — volte amanhã!",
+  "coinsDailyClaimed": "Recompensa diária resgatada! +10 💎",
+  "coinsClaimFailed": "Não foi possível resgatar a recompensa diária.",
+  "coinsAdThanks": "Obrigado por assistir! +5 💎",
+  "coinsAdCreditFailed": "Não foi possível creditar a recompensa do anúncio.",
+  "coinsGetCoins": "Obter moedas",
+  "coinsGetCoinsSubtitle": "Desbloqueie já traduções, conversas com o tutor e momentos extras.",
+  "coinsYourBalance": "Seu saldo",
+  "coinsEarnFree": "Ganhe moedas grátis",
+  "coinsDailyReward": "Recompensa diária",
+  "coinsComeBackTomorrow": "Volte amanhã",
+  "coinsDailyRewardSubtitle": "+10 moedas, uma vez por dia",
+  "coinsClaimed": "Resgatada",
+  "coinsClaim": "Resgatar",
+  "coinsWatchAd": "Assistir a um anúncio",
+  "coinsAdLimitReached": "Limite diário atingido — volte amanhã",
+  "@vipBannerIsMember": {
+    "placeholders": {
+      "userName": {
+        "type": "String"
+      }
+    }
+  }
 }

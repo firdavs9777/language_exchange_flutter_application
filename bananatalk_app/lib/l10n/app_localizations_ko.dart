@@ -9364,4 +9364,93 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get vocabBonusEarned => '+10 보너스 XP 획득! 🎉';
+
+  @override
+  String vipBannerIsMember(String userName) {
+    return '$userName님은 VIP 회원이에요';
+  }
+
+  @override
+  String get vipBannerGetBenefits => '회원님도 VIP 혜택을 받아보세요!';
+
+  @override
+  String get vipUpgrade => '업그레이드';
+
+  @override
+  String get vipUnlockAllFeatures => '모든 기능 잠금 해제';
+
+  @override
+  String get chatFailedToLoadUser => '사용자 정보를 불러오지 못했어요';
+
+  @override
+  String get chatDailyLimitTitle => '하루 채팅 한도에 도달했어요';
+
+  @override
+  String get chatUnlimitedTitle => '무제한 채팅';
+
+  @override
+  String get chatUnlimitedBody => '원하는 만큼 많은 사람과 대화하세요! VIP 회원은 하루 대화가 무제한이에요.';
+
+  @override
+  String get coinsStoreUnavailable => '코인 구매는 iOS와 Android에서만 가능해요.';
+
+  @override
+  String get coinsPurchaseCanceled => '구매가 취소되었거나 시작할 수 없었어요.';
+
+  @override
+  String get coinsReceiptUnreadable => '구매 영수증을 읽지 못했어요. 다시 시도해 주세요.';
+
+  @override
+  String get coinsAdded => '코인이 추가됐어요! 💎';
+
+  @override
+  String get coinsVerifyRetry => '구매를 확인하지 못했어요. 자동으로 다시 시도해요 — 코인이 보이지 않으면 구매 복원을 해보세요.';
+
+  @override
+  String get coinsAlreadyClaimed => '오늘은 이미 받았어요 — 내일 다시 오세요!';
+
+  @override
+  String get coinsDailyClaimed => '데일리 보상을 받았어요! +10 💎';
+
+  @override
+  String get coinsClaimFailed => '데일리 보상을 받지 못했어요.';
+
+  @override
+  String get coinsAdThanks => '시청해 주셔서 감사해요! +5 💎';
+
+  @override
+  String get coinsAdCreditFailed => '광고 보상을 지급하지 못했어요.';
+
+  @override
+  String get coinsGetCoins => '코인 받기';
+
+  @override
+  String get coinsGetCoinsSubtitle => '번역, 튜터 대화, 모먼트를 바로 추가로 쓸 수 있어요.';
+
+  @override
+  String get coinsYourBalance => '내 잔액';
+
+  @override
+  String get coinsEarnFree => '무료 코인 모으기';
+
+  @override
+  String get coinsDailyReward => '데일리 보상';
+
+  @override
+  String get coinsComeBackTomorrow => '내일 다시 오세요';
+
+  @override
+  String get coinsDailyRewardSubtitle => '하루 한 번, 코인 +10';
+
+  @override
+  String get coinsClaimed => '받음';
+
+  @override
+  String get coinsClaim => '받기';
+
+  @override
+  String get coinsWatchAd => '광고 보기';
+
+  @override
+  String get coinsAdLimitReached => '오늘 한도에 도달했어요 — 내일 다시 오세요';
 }

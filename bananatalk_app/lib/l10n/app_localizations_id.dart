@@ -9371,4 +9371,93 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get vocabBonusEarned => '+10 XP bonus didapat! 🎉';
+
+  @override
+  String vipBannerIsMember(String userName) {
+    return '$userName adalah anggota VIP';
+  }
+
+  @override
+  String get vipBannerGetBenefits => 'Dapatkan juga manfaat VIP!';
+
+  @override
+  String get vipUpgrade => 'Upgrade';
+
+  @override
+  String get vipUnlockAllFeatures => 'Buka semua fitur';
+
+  @override
+  String get chatFailedToLoadUser => 'Gagal memuat data pengguna';
+
+  @override
+  String get chatDailyLimitTitle => 'Batas obrolan harian tercapai';
+
+  @override
+  String get chatUnlimitedTitle => 'Obrolan tanpa batas';
+
+  @override
+  String get chatUnlimitedBody => 'Ngobrol dengan sebanyak mungkin orang! Anggota VIP dapat percakapan harian tanpa batas.';
+
+  @override
+  String get coinsStoreUnavailable => 'Pembelian koin hanya tersedia di iOS dan Android.';
+
+  @override
+  String get coinsPurchaseCanceled => 'Pembelian dibatalkan atau tidak bisa dimulai.';
+
+  @override
+  String get coinsReceiptUnreadable => 'Tidak bisa membaca bukti pembelian. Coba lagi.';
+
+  @override
+  String get coinsAdded => 'Koin ditambahkan! 💎';
+
+  @override
+  String get coinsVerifyRetry => 'Pembelian tidak bisa diverifikasi. Akan dicoba lagi otomatis — coba pulihkan pembelian kalau koin belum muncul.';
+
+  @override
+  String get coinsAlreadyClaimed => 'Sudah diambil hari ini — kembali besok!';
+
+  @override
+  String get coinsDailyClaimed => 'Hadiah harian diambil! +10 💎';
+
+  @override
+  String get coinsClaimFailed => 'Tidak bisa mengambil hadiah harian.';
+
+  @override
+  String get coinsAdThanks => 'Terima kasih sudah menonton! +5 💎';
+
+  @override
+  String get coinsAdCreditFailed => 'Tidak bisa memberikan hadiah iklan.';
+
+  @override
+  String get coinsGetCoins => 'Dapatkan Koin';
+
+  @override
+  String get coinsGetCoinsSubtitle => 'Buka tambahan terjemahan, obrolan tutor & momen seketika.';
+
+  @override
+  String get coinsYourBalance => 'Saldomu';
+
+  @override
+  String get coinsEarnFree => 'Dapatkan koin gratis';
+
+  @override
+  String get coinsDailyReward => 'Hadiah harian';
+
+  @override
+  String get coinsComeBackTomorrow => 'Kembali besok';
+
+  @override
+  String get coinsDailyRewardSubtitle => '+10 koin, sekali sehari';
+
+  @override
+  String get coinsClaimed => 'Sudah diambil';
+
+  @override
+  String get coinsClaim => 'Ambil';
+
+  @override
+  String get coinsWatchAd => 'Tonton iklan';
+
+  @override
+  String get coinsAdLimitReached => 'Batas harian tercapai — kembali besok';
 }

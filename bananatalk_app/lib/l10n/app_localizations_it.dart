@@ -9374,4 +9374,93 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get vocabBonusEarned => '+10 XP bonus guadagnati! 🎉';
+
+  @override
+  String vipBannerIsMember(String userName) {
+    return '$userName è un membro VIP';
+  }
+
+  @override
+  String get vipBannerGetBenefits => 'Ottieni anche tu i vantaggi VIP!';
+
+  @override
+  String get vipUpgrade => 'Passa a VIP';
+
+  @override
+  String get vipUnlockAllFeatures => 'Sblocca tutte le funzioni';
+
+  @override
+  String get chatFailedToLoadUser => 'Impossibile caricare i dati dell’utente';
+
+  @override
+  String get chatDailyLimitTitle => 'Limite giornaliero di chat raggiunto';
+
+  @override
+  String get chatUnlimitedTitle => 'Chat illimitate';
+
+  @override
+  String get chatUnlimitedBody => 'Chatta con quante persone vuoi! I membri VIP hanno conversazioni giornaliere illimitate.';
+
+  @override
+  String get coinsStoreUnavailable => 'Gli acquisti di monete sono disponibili solo su iOS e Android.';
+
+  @override
+  String get coinsPurchaseCanceled => 'L’acquisto è stato annullato o non è potuto partire.';
+
+  @override
+  String get coinsReceiptUnreadable => 'Impossibile leggere la ricevuta d’acquisto. Riprova.';
+
+  @override
+  String get coinsAdded => 'Monete aggiunte! 💎';
+
+  @override
+  String get coinsVerifyRetry => 'Non è stato possibile verificare l’acquisto. Riproveremo automaticamente — prova a ripristinare gli acquisti se le monete non compaiono.';
+
+  @override
+  String get coinsAlreadyClaimed => 'Già riscattato oggi — torna domani!';
+
+  @override
+  String get coinsDailyClaimed => 'Ricompensa giornaliera riscattata! +10 💎';
+
+  @override
+  String get coinsClaimFailed => 'Non è stato possibile riscattare la ricompensa giornaliera.';
+
+  @override
+  String get coinsAdThanks => 'Grazie per aver guardato! +5 💎';
+
+  @override
+  String get coinsAdCreditFailed => 'Non è stato possibile accreditare la ricompensa dell’annuncio.';
+
+  @override
+  String get coinsGetCoins => 'Ottieni monete';
+
+  @override
+  String get coinsGetCoinsSubtitle => 'Sblocca subito traduzioni, chat con il tutor e momenti extra.';
+
+  @override
+  String get coinsYourBalance => 'Il tuo saldo';
+
+  @override
+  String get coinsEarnFree => 'Guadagna monete gratis';
+
+  @override
+  String get coinsDailyReward => 'Ricompensa giornaliera';
+
+  @override
+  String get coinsComeBackTomorrow => 'Torna domani';
+
+  @override
+  String get coinsDailyRewardSubtitle => '+10 monete, una volta al giorno';
+
+  @override
+  String get coinsClaimed => 'Riscattata';
+
+  @override
+  String get coinsClaim => 'Riscatta';
+
+  @override
+  String get coinsWatchAd => 'Guarda un annuncio';
+
+  @override
+  String get coinsAdLimitReached => 'Limite giornaliero raggiunto — torna domani';
 }

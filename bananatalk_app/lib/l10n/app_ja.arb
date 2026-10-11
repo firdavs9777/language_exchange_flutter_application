@@ -3795,5 +3795,41 @@
   "vocabSessionComplete": "セッション完了！",
   "vocabXpEarned": "獲得XP",
   "vocabWatchAdBonus": "広告を見て+10ボーナスXP",
-  "vocabBonusEarned": "+10ボーナスXP獲得！🎉"
+  "vocabBonusEarned": "+10ボーナスXP獲得！🎉",
+  "vipBannerIsMember": "{userName}さんはVIP会員です",
+  "vipBannerGetBenefits": "あなたもVIP特典を手に入れよう！",
+  "vipUpgrade": "アップグレード",
+  "vipUnlockAllFeatures": "すべての機能を解放",
+  "chatFailedToLoadUser": "ユーザー情報を読み込めませんでした",
+  "chatDailyLimitTitle": "1日のチャット上限に達しました",
+  "chatUnlimitedTitle": "無制限チャット",
+  "chatUnlimitedBody": "好きなだけたくさんの人とチャットできます！VIP会員は1日の会話が無制限です。",
+  "coinsStoreUnavailable": "コインの購入はiOSとAndroidのみ対応しています。",
+  "coinsPurchaseCanceled": "購入がキャンセルされたか、開始できませんでした。",
+  "coinsReceiptUnreadable": "購入レシートを読み取れませんでした。もう一度お試しください。",
+  "coinsAdded": "コインを追加しました！💎",
+  "coinsVerifyRetry": "購入を確認できませんでした。自動で再試行します。コインが反映されない場合は購入の復元をお試しください。",
+  "coinsAlreadyClaimed": "今日はもう受け取り済みです。また明日！",
+  "coinsDailyClaimed": "デイリー報酬を受け取りました！+10 💎",
+  "coinsClaimFailed": "デイリー報酬を受け取れませんでした。",
+  "coinsAdThanks": "ご視聴ありがとうございます！+5 💎",
+  "coinsAdCreditFailed": "広告の報酬を付与できませんでした。",
+  "coinsGetCoins": "コインを入手",
+  "coinsGetCoinsSubtitle": "翻訳・チューターとの会話・モーメントの追加利用をすぐに解放。",
+  "coinsYourBalance": "残高",
+  "coinsEarnFree": "無料でコインを獲得",
+  "coinsDailyReward": "デイリー報酬",
+  "coinsComeBackTomorrow": "また明日",
+  "coinsDailyRewardSubtitle": "1日1回、+10コイン",
+  "coinsClaimed": "受け取り済み",
+  "coinsClaim": "受け取る",
+  "coinsWatchAd": "広告を見る",
+  "coinsAdLimitReached": "本日の上限に達しました。また明日",
+  "@vipBannerIsMember": {
+    "placeholders": {
+      "userName": {
+        "type": "String"
+      }
+    }
+  }
 }

@@ -9374,4 +9374,93 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get vocabBonusEarned => '+10 बोनस XP मिले! 🎉';
+
+  @override
+  String vipBannerIsMember(String userName) {
+    return '$userName VIP सदस्य हैं';
+  }
+
+  @override
+  String get vipBannerGetBenefits => 'आप भी VIP लाभ पाएँ!';
+
+  @override
+  String get vipUpgrade => 'अपग्रेड';
+
+  @override
+  String get vipUnlockAllFeatures => 'सभी सुविधाएँ अनलॉक करें';
+
+  @override
+  String get chatFailedToLoadUser => 'उपयोगकर्ता डेटा लोड नहीं हो सका';
+
+  @override
+  String get chatDailyLimitTitle => 'दैनिक चैट सीमा पूरी हुई';
+
+  @override
+  String get chatUnlimitedTitle => 'असीमित चैट';
+
+  @override
+  String get chatUnlimitedBody => 'जितने चाहें उतने लोगों से बात करें! VIP सदस्यों को असीमित दैनिक बातचीत मिलती है।';
+
+  @override
+  String get coinsStoreUnavailable => 'सिक्कों की खरीद केवल iOS और Android पर उपलब्ध है।';
+
+  @override
+  String get coinsPurchaseCanceled => 'खरीद रद्द हो गई या शुरू नहीं हो सकी।';
+
+  @override
+  String get coinsReceiptUnreadable => 'खरीद की रसीद नहीं पढ़ी जा सकी। फिर कोशिश करें।';
+
+  @override
+  String get coinsAdded => 'सिक्के जुड़ गए! 💎';
+
+  @override
+  String get coinsVerifyRetry => 'खरीद सत्यापित नहीं हो सकी। यह अपने आप फिर आज़माई जाएगी — सिक्के न दिखें तो खरीद पुनर्स्थापित करें।';
+
+  @override
+  String get coinsAlreadyClaimed => 'आज पहले ही ले चुके हैं — कल आएँ!';
+
+  @override
+  String get coinsDailyClaimed => 'दैनिक इनाम मिला! +10 💎';
+
+  @override
+  String get coinsClaimFailed => 'दैनिक इनाम नहीं मिल सका।';
+
+  @override
+  String get coinsAdThanks => 'देखने के लिए धन्यवाद! +5 💎';
+
+  @override
+  String get coinsAdCreditFailed => 'विज्ञापन का इनाम नहीं जुड़ सका।';
+
+  @override
+  String get coinsGetCoins => 'सिक्के पाएँ';
+
+  @override
+  String get coinsGetCoinsSubtitle => 'अतिरिक्त अनुवाद, ट्यूटर चैट और मोमेंट तुरंत अनलॉक करें।';
+
+  @override
+  String get coinsYourBalance => 'आपका बैलेंस';
+
+  @override
+  String get coinsEarnFree => 'मुफ़्त सिक्के कमाएँ';
+
+  @override
+  String get coinsDailyReward => 'दैनिक इनाम';
+
+  @override
+  String get coinsComeBackTomorrow => 'कल आएँ';
+
+  @override
+  String get coinsDailyRewardSubtitle => '+10 सिक्के, दिन में एक बार';
+
+  @override
+  String get coinsClaimed => 'मिल चुका';
+
+  @override
+  String get coinsClaim => 'लें';
+
+  @override
+  String get coinsWatchAd => 'विज्ञापन देखें';
+
+  @override
+  String get coinsAdLimitReached => 'दैनिक सीमा पूरी — कल आएँ';
 }

@@ -9364,6 +9364,95 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get vocabBonusEarned => '已获得 +10 奖励 XP！🎉';
+
+  @override
+  String vipBannerIsMember(String userName) {
+    return '$userName 是 VIP 会员';
+  }
+
+  @override
+  String get vipBannerGetBenefits => '你也来享受 VIP 权益吧！';
+
+  @override
+  String get vipUpgrade => '升级';
+
+  @override
+  String get vipUnlockAllFeatures => '解锁全部功能';
+
+  @override
+  String get chatFailedToLoadUser => '无法加载用户数据';
+
+  @override
+  String get chatDailyLimitTitle => '已达每日聊天上限';
+
+  @override
+  String get chatUnlimitedTitle => '无限聊天';
+
+  @override
+  String get chatUnlimitedBody => '想和多少人聊都行！VIP 会员每日对话不限量。';
+
+  @override
+  String get coinsStoreUnavailable => '金币购买仅在 iOS 和 Android 上可用。';
+
+  @override
+  String get coinsPurchaseCanceled => '购买已取消或无法开始。';
+
+  @override
+  String get coinsReceiptUnreadable => '无法读取购买凭证，请重试。';
+
+  @override
+  String get coinsAdded => '金币已到账！💎';
+
+  @override
+  String get coinsVerifyRetry => '购买无法验证，系统会自动重试 — 若金币未到账，请尝试恢复购买。';
+
+  @override
+  String get coinsAlreadyClaimed => '今天已领取 — 明天再来！';
+
+  @override
+  String get coinsDailyClaimed => '已领取每日奖励！+10 💎';
+
+  @override
+  String get coinsClaimFailed => '无法领取每日奖励。';
+
+  @override
+  String get coinsAdThanks => '感谢观看！+5 💎';
+
+  @override
+  String get coinsAdCreditFailed => '无法发放广告奖励。';
+
+  @override
+  String get coinsGetCoins => '获取金币';
+
+  @override
+  String get coinsGetCoinsSubtitle => '立即解锁额外的翻译、导师对话和动态。';
+
+  @override
+  String get coinsYourBalance => '你的余额';
+
+  @override
+  String get coinsEarnFree => '免费赚取金币';
+
+  @override
+  String get coinsDailyReward => '每日奖励';
+
+  @override
+  String get coinsComeBackTomorrow => '明天再来';
+
+  @override
+  String get coinsDailyRewardSubtitle => '每天一次，+10 金币';
+
+  @override
+  String get coinsClaimed => '已领取';
+
+  @override
+  String get coinsClaim => '领取';
+
+  @override
+  String get coinsWatchAd => '观看广告';
+
+  @override
+  String get coinsAdLimitReached => '已达每日上限 — 明天再来';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -18726,4 +18815,93 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get vocabBonusEarned => '已獲得 +10 獎勵 XP！🎉';
+
+  @override
+  String vipBannerIsMember(String userName) {
+    return '$userName 是 VIP 會員';
+  }
+
+  @override
+  String get vipBannerGetBenefits => '你也來享受 VIP 權益吧！';
+
+  @override
+  String get vipUpgrade => '升級';
+
+  @override
+  String get vipUnlockAllFeatures => '解鎖全部功能';
+
+  @override
+  String get chatFailedToLoadUser => '無法載入使用者資料';
+
+  @override
+  String get chatDailyLimitTitle => '已達每日聊天上限';
+
+  @override
+  String get chatUnlimitedTitle => '無限聊天';
+
+  @override
+  String get chatUnlimitedBody => '想和多少人聊都行！VIP 會員每日對話不限量。';
+
+  @override
+  String get coinsStoreUnavailable => '金幣購買僅在 iOS 和 Android 上可用。';
+
+  @override
+  String get coinsPurchaseCanceled => '購買已取消或無法開始。';
+
+  @override
+  String get coinsReceiptUnreadable => '無法讀取購買憑證，請重試。';
+
+  @override
+  String get coinsAdded => '金幣已入帳！💎';
+
+  @override
+  String get coinsVerifyRetry => '購買無法驗證，系統會自動重試 — 若金幣未入帳，請嘗試回復購買。';
+
+  @override
+  String get coinsAlreadyClaimed => '今天已領取 — 明天再來！';
+
+  @override
+  String get coinsDailyClaimed => '已領取每日獎勵！+10 💎';
+
+  @override
+  String get coinsClaimFailed => '無法領取每日獎勵。';
+
+  @override
+  String get coinsAdThanks => '感謝觀看！+5 💎';
+
+  @override
+  String get coinsAdCreditFailed => '無法發放廣告獎勵。';
+
+  @override
+  String get coinsGetCoins => '取得金幣';
+
+  @override
+  String get coinsGetCoinsSubtitle => '立即解鎖額外的翻譯、家教對話和動態。';
+
+  @override
+  String get coinsYourBalance => '你的餘額';
+
+  @override
+  String get coinsEarnFree => '免費賺取金幣';
+
+  @override
+  String get coinsDailyReward => '每日獎勵';
+
+  @override
+  String get coinsComeBackTomorrow => '明天再來';
+
+  @override
+  String get coinsDailyRewardSubtitle => '每天一次，+10 金幣';
+
+  @override
+  String get coinsClaimed => '已領取';
+
+  @override
+  String get coinsClaim => '領取';
+
+  @override
+  String get coinsWatchAd => '觀看廣告';
+
+  @override
+  String get coinsAdLimitReached => '已達每日上限 — 明天再來';
 }

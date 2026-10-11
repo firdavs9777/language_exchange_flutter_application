@@ -46,7 +46,7 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
   /// double-taps launching two store sheets at once.
   String? _purchasingPackId;
 
-  // Coins v2 (Task 17) — "Earn free coins" section state.
+  // Coins v2 (Task 17) — AppLocalizations.of(context)!.coinsEarnFree section state.
   bool _dailyClaiming = false;
   // Overrides the initial GET status once the user claims in this session,
   // so the card flips to "Claimed today" without an extra status re-fetch.
@@ -72,7 +72,7 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
   Future<void> _purchase(CoinPack pack) async {
     if (_purchasingPackId != null) return;
     if (!_isIOS && !_isAndroid) {
-      _showSnack('Coin purchases are only available on iOS and Android.');
+      _showSnack(AppLocalizations.of(context)!.coinsStoreUnavailable);
       return;
     }
 
@@ -86,7 +86,7 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
 
       if (purchase == null) {
         if (mounted) {
-          _showSnack('Purchase was canceled or could not be started.');
+          _showSnack(AppLocalizations.of(context)!.coinsPurchaseCanceled);
         }
         return;
       }
@@ -110,7 +110,7 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
 
       if (receipt.isEmpty || transactionId.isEmpty) {
         if (mounted) {
-          _showSnack('Could not read purchase receipt. Please try again.');
+          _showSnack(AppLocalizations.of(context)!.coinsReceiptUnreadable);
         }
         return;
       }
@@ -133,7 +133,7 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
         }
         refreshCoinBalance(ref);
         if (mounted) {
-          _showSnack('Coins added! 💎');
+          _showSnack(AppLocalizations.of(context)!.coinsAdded);
         }
       } else {
         // Verify failed after the store charged the user — leave the
@@ -142,7 +142,7 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
         if (mounted) {
           _showSnack(
             response.error ??
-                'Purchase could not be verified. It will be retried automatically — try restoring purchases if coins don\'t appear.',
+                AppLocalizations.of(context)!.coinsVerifyRetry,
           );
         }
       }
@@ -177,11 +177,11 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
         refreshDailyRewardStatus(ref);
         _showSnack(
           alreadyClaimed
-              ? 'Already claimed today — come back tomorrow!'
-              : 'Daily reward claimed! +10 💎',
+              ? AppLocalizations.of(context)!.coinsAlreadyClaimed
+              : AppLocalizations.of(context)!.coinsDailyClaimed,
         );
       } else {
-        _showSnack(response.error ?? 'Could not claim the daily reward.');
+        _showSnack(response.error ?? AppLocalizations.of(context)!.coinsClaimFailed);
       }
     } finally {
       if (mounted) setState(() => _dailyClaiming = false);
@@ -203,7 +203,7 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
       if (!mounted) return;
       if (response.success) {
         refreshCoinBalance(ref);
-        _showSnack('Thanks for watching! +5 💎');
+        _showSnack(AppLocalizations.of(context)!.coinsAdThanks);
       } else if (response.statusCode == 429) {
         setState(() => _adCapReached = true);
         // Explicit friendly literal, not `response.error` — the backend's
@@ -217,7 +217,7 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
           "You've reached today's ad reward limit — come back tomorrow!",
         );
       } else {
-        _showSnack(response.error ?? 'Could not credit the ad reward.');
+        _showSnack(response.error ?? AppLocalizations.of(context)!.coinsAdCreditFailed);
       }
     } finally {
       if (mounted) setState(() => _adClaiming = false);
@@ -316,12 +316,12 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Get Coins',
+                AppLocalizations.of(context)!.coinsGetCoins,
                 style: context.titleLarge.copyWith(fontWeight: FontWeight.w800),
               ),
               const SizedBox(height: 4),
               Text(
-                'Unlock extra translations, tutor chats & moments instantly.',
+                AppLocalizations.of(context)!.coinsGetCoinsSubtitle,
                 style: context.bodyMedium.copyWith(
                   color: context.textSecondary,
                   fontSize: 13,
@@ -354,7 +354,7 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
           child: Row(
             children: [
               Text(
-                'Your balance',
+                AppLocalizations.of(context)!.coinsYourBalance,
                 style: context.bodyMedium.copyWith(
                   color: context.textSecondary,
                 ),
@@ -384,14 +384,14 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
     );
   }
 
-  /// "Earn free coins" — daily reward + watch-ad cards, above the packs so
+  /// AppLocalizations.of(context)!.coinsEarnFree — daily reward + watch-ad cards, above the packs so
   /// the free earn loop is discovered before the paid one.
   Widget _buildEarnSection() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Earn free coins',
+          AppLocalizations.of(context)!.coinsEarnFree,
           style: context.titleMedium.copyWith(fontWeight: FontWeight.w800),
         ),
         const SizedBox(height: 10),
@@ -437,14 +437,14 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Daily reward',
+                  AppLocalizations.of(context)!.coinsDailyReward,
                   style: context.titleSmall.copyWith(
                     fontWeight: FontWeight.w700,
                   ),
                 ),
                 const SizedBox(height: 2),
                 Text(
-                  isClaimed ? 'Come back tomorrow' : '+10 coins, once a day',
+                  isClaimed ? AppLocalizations.of(context)!.coinsComeBackTomorrow : AppLocalizations.of(context)!.coinsDailyRewardSubtitle,
                   style: context.captionSmall.copyWith(
                     color: context.textMuted,
                   ),
@@ -479,7 +479,7 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
                       ),
                     )
                   : Text(
-                      isClaimed ? 'Claimed' : 'Claim',
+                      isClaimed ? AppLocalizations.of(context)!.coinsClaimed : AppLocalizations.of(context)!.coinsClaim,
                       style: const TextStyle(
                         fontWeight: FontWeight.w800,
                         fontSize: 13,
@@ -525,7 +525,7 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Watch an ad',
+                      AppLocalizations.of(context)!.coinsWatchAd,
                       style: context.titleSmall.copyWith(
                         fontWeight: FontWeight.w700,
                       ),
@@ -533,7 +533,7 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
                     const SizedBox(height: 2),
                     Text(
                       _adCapReached
-                          ? 'Daily limit reached — come back tomorrow'
+                          ? AppLocalizations.of(context)!.coinsAdLimitReached
                           : '+5 coins per ad, up to 5 a day',
                       style: context.captionSmall.copyWith(
                         color: context.textMuted,
