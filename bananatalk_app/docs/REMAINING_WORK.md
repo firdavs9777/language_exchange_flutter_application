@@ -1,6 +1,42 @@
-# Remaining work — monetization & growth
+# Remaining work — BananaTalk app
 
-Last updated: 2026-10-10. Keep this file current: tick items off in the same commit that finishes them.
+Last updated: 2026-10-12. Keep this current: tick items off in the same commit that finishes them.
+
+---
+
+## Open work, by who can act
+
+**You — consoles, keys, money, store** (§1)
+- Build + submit 2.6.1 · store prices (VIP $3.99 / $24.99) · Play Console foreground-service
+  declarations (upload is REJECTED without them) · Android App Links SHA-256 · droplet
+  `config.env` duplicate keys then Day-0 flags · LiveKit webhook + `APNS_VOIP_*` on prod ·
+  AdMob earnings · native review of the machine-drafted strings
+
+**You — a device in your hand** (§0, §0b, §0c)
+- Re-run after the PulseHighlight ticker fix and confirm a clean log
+- Send one message on a new account so `first_message_sent` is finally observed
+- Biometric smoke: Android 7–8, Android 13+, iPhone Face ID
+- `docs/qa/calls-matrix.md`, every row; decide on IOS-8 (Focus mode silences CallKit)
+
+**Me — code, ready to start** (§0c, §5)
+- 74 hardcoded English strings in 56 files (`docs/onboarding-audit-2026-10-10.md` §2a).
+  These never reach an `.arb`, so no translation check can see them. Next by exposure:
+  `report_dialog.dart`, `lesson_summary_sheet.dart`, the remaining learning screens, stories.
+- Long-press tooltip on the first received message — translate/correct are invisible today
+  (audit §3 P2, cheapest large win, reuses `GuideStore` with one new surface)
+- Calls Phase 2: decline with message, missed-call push actions, quiet hours, camera mid
+  voice call, draggable self-view
+
+**Me — waiting on data, not on work** (§0c)
+- Read `guide_cta_tapped` by `target` before adding a third destination anywhere
+- Decide whether guides should reach the existing install base (they are gated on
+  `isNewUser`, so today only accounts ≤3 days old see one)
+
+**Unexplained — no owner yet** (§0b)
+- Two bare `flutter: null` log lines after the chat app-bar overflow
+- 7,533 PM2 restarts on the droplet
+
+---
 
 Context: all three tranches of `docs/superpowers/plans/2026-10-02-monetization-growth.md` are built and
 deployed **dark** (every new server flag is off). Backend `main` c5ef2fe is live. App `v2.6.1` (10574) is
@@ -56,7 +92,8 @@ Baseline: 1/30 calls answered in 30 days, 168 stuck ringing, 0 call messages eve
 - [ ] Native review of the 18 machine-drafted call strings (`lib/l10n/app_*.arb`)
 - [ ] Owner: LiveKit webhook URL in LiveKit Cloud; confirm `APNS_VOIP_*` on prod.
 - [ ] Device QA: run every row of `docs/qa/calls-matrix.md` (IOS-3/IOS-5 repeat runs prove VoIP delivery survives repeated cancels); re-measure answered rate one week after release (target ≥ 40%).
-- [ ] Calls: Dart `CallKitService` still sets the native ring `duration: 45000`; iOS VoIP path now uses 50 s (server owns the 45 s ring) — align the Dart side so iOS/Android never time out before the server.
+- [x] Calls: Dart `CallKitService` ring duration aligned with the server (verified 2026-10-12:
+      `callkit_service.dart:230` is `duration: 50000`, outlasting the server's 45 s ring).
 
 ### Device-log audit, 2026-10-09 (iPhone 15 Pro, hot restart + one outbound audio call)
 
@@ -178,6 +215,36 @@ fails if a tab loses its guide or a sixth one arrives without one.
       (secondary, quieter). Read `target` before adding a third anywhere.
 - [ ] Guides are gated on `isNewUser` (≤6 days), so the existing install base never sees one. Revisit
       if the goal becomes activating dormant accounts rather than day-one retention.
+
+## 5. Localization debt (2026-10-11 → ongoing)
+
+Two distinct failures, counted separately because the tooling sees one and not the other.
+
+- [x] **Present-but-untranslated keys: 144 of 144 done.** Keys existed in every locale holding the
+      English text. `flutter gen-l10n` counts MISSING keys and says nothing about these, so they
+      were invisible. Covered the Matches surface, all 106 `exam*` keys, and the rest. The 5 left
+      in English are deliberate: `vipBrandTitle` (brand), `helpEmailSupportSubtitle` (an address),
+      and the pure-placeholder `dailyScore` / `weeklyReportRange` / `learningXpGained`.
+- [ ] **Hardcoded strings: 74 left in 56 files** (was 113 in 67). These never reach an `.arb`.
+      Done so far: the EULA screen (43), the four learning players + waves (45 keys), the coin
+      shop / VIP banner / chat paywall (29), Explore + Facebook login + suspension notice (26),
+      both correction sheets + the translation sheet (16), the Moments composer (18), the chat
+      empty state (3).
+- [ ] **Native review** of everything above — all of it is my drafting, not a native pass.
+      `docs/l10n/native-qa-strings-2026-10.csv`. **The EULA body needs counsel or native review
+      per market before release**, which is a different bar from UI copy.
+- [ ] `account_suspended_screen._displayReason` slices the server message by searching for the
+      literal `"Reason:"`. That comparison is now against the LOCALISED string while the server
+      sends English, so outside English the match fails and the raw server text is shown — the
+      same thing it did before for any non-matching message, but wrong either way. The fix
+      belongs in the server contract (send the reason as its own field), not in the copy.
+
+Guards added, each for a failure that survives to release on its own:
+`test/l10n/guide_strings_test.dart` (missing key, key left as English, plural losing its ICU arms)
+and `test/l10n/arb_integrity_test.dart` (a placeholder gen-l10n never generated, which renders as
+the literal word "null" — two locales were asking people to "Select up to null images"; and any
+character from a script a locale should not contain, which caught Korean 새 inside a Japanese
+string and a stray 材 in a Russian one).
 
 ## 1. Owner (needs the keystore MacBook, store consoles or droplet)
 
