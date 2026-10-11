@@ -6568,22 +6568,22 @@ class AppLocalizationsJa extends AppLocalizations {
   String get chatListMenu => 'Menu';
 
   @override
-  String get chatListNewMessageAlertsTitle => 'New Message Alerts';
+  String get chatListNewMessageAlertsTitle => '新着メッセージの通知';
 
   @override
-  String get chatListNewMessageAlertsBody => 'Tap to turn on notifications and never miss a message';
+  String get chatListNewMessageAlertsBody => 'タップして通知をオンにすると、メッセージを見逃しません';
 
   @override
-  String get chatListFilterMyTurn => 'My turn';
+  String get chatListFilterMyTurn => '自分の番';
 
   @override
-  String get partnerTagActiveNow => 'Active now';
+  String get partnerTagActiveNow => '現在アクティブ';
 
   @override
-  String get partnerTagVeryResponsive => 'Very Responsive';
+  String get partnerTagVeryResponsive => 'とても返信が丁寧';
 
   @override
-  String get partnerTagQuickToReply => 'Quick to Reply';
+  String get partnerTagQuickToReply => '返信が早い';
 
   @override
   String vipSavePercent(int pct) {
@@ -6597,22 +6597,22 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String partnerTagBothLike(String topic) {
-    return 'Both like $topic';
+    return '二人とも$topicが好き';
   }
 
   @override
   String partnerTagSpeaks(String language) {
-    return 'Speaks $language';
+    return '$languageを話します';
   }
 
   @override
   String partnerTagLearning(String language) {
-    return 'Learning $language';
+    return '$languageを学習中';
   }
 
   @override
   String partnerTagJoinedDaysAgo(int days) {
-    return 'Joined ${days}d ago';
+    return '$days日前に参加';
   }
 
   @override
@@ -8529,51 +8529,51 @@ class AppLocalizationsJa extends AppLocalizations {
   String get watchAd => '広告を見る';
 
   @override
-  String get matchReasonReciprocal => 'You\'re learning each other\'s language';
+  String get matchReasonReciprocal => 'お互いの言語を学んでいます';
 
   @override
   String matchReasonSameTarget(String language) {
-    return 'Also learning $language';
+    return '$languageも学習中';
   }
 
   @override
   String matchReasonSharedTopic(String topic) {
-    return 'Shared interest: $topic';
+    return '共通の関心：$topic';
   }
 
   @override
-  String get matchReasonActiveToday => 'Active today';
+  String get matchReasonActiveToday => '今日アクティブ';
 
   @override
-  String get matchReasonSameCity => 'Lives in your city';
+  String get matchReasonSameCity => '同じ街に住んでいます';
 
   @override
-  String get matchRepliesFast => 'Replies fast';
+  String get matchRepliesFast => '返信が早い';
 
   @override
   String matchesTodayTitle(int count) {
-    return 'Your $count matches today';
+    return '今日のマッチ$count人';
   }
 
   @override
   String matchesRefreshHint(String time) {
-    return 'refreshes at $time';
+    return '$timeに更新';
   }
 
   @override
-  String get matchesRefreshHintFallback => 'refreshes at midnight';
+  String get matchesRefreshHintFallback => '深夜0時に更新';
 
   @override
-  String get matchesEmptyTitle => 'That\'s everyone for today';
+  String get matchesEmptyTitle => '今日はここまで';
 
   @override
-  String get matchesEmptyBody => 'Fresh matches tomorrow. Meanwhile, browse all partners.';
+  String get matchesEmptyBody => '新しいマッチは明日。それまでは全パートナーを見てみましょう。';
 
   @override
-  String get matchesEmptyCta => 'Browse partners';
+  String get matchesEmptyCta => 'パートナーを見る';
 
   @override
-  String get matchSayHi => 'Say hi';
+  String get matchSayHi => 'あいさつする';
 
   @override
   String get communityTabMatches => 'Matches';
@@ -8585,42 +8585,42 @@ class AppLocalizationsJa extends AppLocalizations {
   String get segmentAll => 'All';
 
   @override
-  String get segmentSerious => 'Serious learners';
+  String get segmentSerious => '熱心な学習者';
 
   @override
-  String get segmentNew => 'New members';
+  String get segmentNew => '新メンバー';
 
   @override
-  String get segmentSeriousHint => 'Complete profile · active this week';
+  String get segmentSeriousHint => 'プロフィール完成 · 今週アクティブ';
 
   @override
-  String get segmentNewHint => 'Joined in the last 7 days';
+  String get segmentNewHint => '過去7日以内に参加';
 
   @override
   String openerReciprocal(String theirLanguage, String myLanguage) {
-    return 'Want to do half-$theirLanguage half-$myLanguage messages? I\'ll correct yours if you correct mine 😄';
+    return 'メッセージを半分$theirLanguage、半分$myLanguageにしませんか？お互いに直し合いましょう 😄';
   }
 
   @override
   String openerSharedTopic(String topic) {
-    return 'I saw you\'re into $topic — what got you started?';
+    return '$topicがお好きなんですね。きっかけは何でしたか？';
   }
 
   @override
   String openerGeneric(String name, String language) {
-    return 'Hi $name! I\'m learning $language — got any tips? 👋';
+    return 'こんにちは、$nameさん！$languageを勉強中です。コツはありますか？ 👋';
   }
 
   @override
-  String get openerChipsTitle => 'Conversation starters — tap to edit before sending';
+  String get openerChipsTitle => '会話のきっかけ — タップして編集できます';
 
   @override
   String stallRescueTitle(String name) {
-    return '$name asked you something 👀';
+    return '$nameさんから質問が届いています 👀';
   }
 
   @override
-  String get stallRescueHint => 'Sorry for the slow reply! Still up for chatting? 😊';
+  String get stallRescueHint => '返信が遅くなってごめんなさい！まだお話しできますか？ 😊';
 
   @override
   String get referralTitle => '友だちを招待';

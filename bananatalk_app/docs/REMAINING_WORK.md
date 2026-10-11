@@ -137,7 +137,15 @@ fails if a tab loses its guide or a sixth one arrives without one.
 - [x] 12 `app_en.arb` keys + `flutter gen-l10n`
 - [x] All 14 guide strings translated into the other 18 locales (`test/l10n/guide_strings_test.dart`
       fails if a key goes missing, is left as the English text, or loses its ICU plural arms)
-- [ ] Native review of the 18 translated sets — these are my drafts, not a native pass
+- [ ] Native review of the translated sets — these are my drafts, not a native pass
+- [x] **33 Matches/Partners keys that existed in all 19 locales but held the ENGLISH text** —
+      `matchSayHi`, `matchesTodayTitle`, every `matchReason*`, `partnerTag*`, `segment*`,
+      `opener*`, `stallRescue*`. The whole first-session surface was English for 18 locales.
+- [x] `selectUpToImages` rendered the literal word **"null"** to Tagalog and Turkish users
+      ("Select up to null images") — a locale used `{count}`, which the template never declares.
+      `test/l10n/arb_integrity_test.dart` now scans the GENERATED Dart for it.
+- [ ] **106 `exam*` keys still English in every locale** — the Exam Study screen the AI Study
+      guide's new secondary button opens. Largest remaining translation gap; next after this.
 - [x] `conversation_empty_state.dart` localized — it was hardcoded English on the screen a
       first message starts on, so a Korean user followed a Korean guide into an English screen
 - [x] `create_moment.dart` — 18 strings localized (the Moments guide's destination). Six already

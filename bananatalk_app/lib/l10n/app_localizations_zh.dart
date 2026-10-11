@@ -6568,22 +6568,22 @@ class AppLocalizationsZh extends AppLocalizations {
   String get chatListMenu => 'Menu';
 
   @override
-  String get chatListNewMessageAlertsTitle => 'New Message Alerts';
+  String get chatListNewMessageAlertsTitle => '新消息提醒';
 
   @override
-  String get chatListNewMessageAlertsBody => 'Tap to turn on notifications and never miss a message';
+  String get chatListNewMessageAlertsBody => '点一下开启通知，不错过任何消息';
 
   @override
-  String get chatListFilterMyTurn => 'My turn';
+  String get chatListFilterMyTurn => '轮到我';
 
   @override
-  String get partnerTagActiveNow => 'Active now';
+  String get partnerTagActiveNow => '当前在线';
 
   @override
-  String get partnerTagVeryResponsive => 'Very Responsive';
+  String get partnerTagVeryResponsive => '回复很积极';
 
   @override
-  String get partnerTagQuickToReply => 'Quick to Reply';
+  String get partnerTagQuickToReply => '回复很快';
 
   @override
   String vipSavePercent(int pct) {
@@ -6597,22 +6597,22 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String partnerTagBothLike(String topic) {
-    return 'Both like $topic';
+    return '你们都喜欢 $topic';
   }
 
   @override
   String partnerTagSpeaks(String language) {
-    return 'Speaks $language';
+    return '会说 $language';
   }
 
   @override
   String partnerTagLearning(String language) {
-    return 'Learning $language';
+    return '正在学 $language';
   }
 
   @override
   String partnerTagJoinedDaysAgo(int days) {
-    return 'Joined ${days}d ago';
+    return '$days 天前加入';
   }
 
   @override
@@ -8529,51 +8529,51 @@ class AppLocalizationsZh extends AppLocalizations {
   String get watchAd => '观看广告';
 
   @override
-  String get matchReasonReciprocal => 'You\'re learning each other\'s language';
+  String get matchReasonReciprocal => '你们在互相学习对方的语言';
 
   @override
   String matchReasonSameTarget(String language) {
-    return 'Also learning $language';
+    return '也在学 $language';
   }
 
   @override
   String matchReasonSharedTopic(String topic) {
-    return 'Shared interest: $topic';
+    return '共同兴趣：$topic';
   }
 
   @override
-  String get matchReasonActiveToday => 'Active today';
+  String get matchReasonActiveToday => '今天活跃';
 
   @override
-  String get matchReasonSameCity => 'Lives in your city';
+  String get matchReasonSameCity => '住在你所在的城市';
 
   @override
-  String get matchRepliesFast => 'Replies fast';
+  String get matchRepliesFast => '回复很快';
 
   @override
   String matchesTodayTitle(int count) {
-    return 'Your $count matches today';
+    return '今天为你匹配了 $count 位';
   }
 
   @override
   String matchesRefreshHint(String time) {
-    return 'refreshes at $time';
+    return '$time 更新';
   }
 
   @override
-  String get matchesRefreshHintFallback => 'refreshes at midnight';
+  String get matchesRefreshHintFallback => '午夜更新';
 
   @override
-  String get matchesEmptyTitle => 'That\'s everyone for today';
+  String get matchesEmptyTitle => '今天就这些了';
 
   @override
-  String get matchesEmptyBody => 'Fresh matches tomorrow. Meanwhile, browse all partners.';
+  String get matchesEmptyBody => '明天有新的匹配。先看看全部语伴吧。';
 
   @override
-  String get matchesEmptyCta => 'Browse partners';
+  String get matchesEmptyCta => '浏览语伴';
 
   @override
-  String get matchSayHi => 'Say hi';
+  String get matchSayHi => '打招呼';
 
   @override
   String get communityTabMatches => 'Matches';
@@ -8585,42 +8585,42 @@ class AppLocalizationsZh extends AppLocalizations {
   String get segmentAll => 'All';
 
   @override
-  String get segmentSerious => 'Serious learners';
+  String get segmentSerious => '认真的学习者';
 
   @override
-  String get segmentNew => 'New members';
+  String get segmentNew => '新成员';
 
   @override
-  String get segmentSeriousHint => 'Complete profile · active this week';
+  String get segmentSeriousHint => '资料完整 · 本周活跃';
 
   @override
-  String get segmentNewHint => 'Joined in the last 7 days';
+  String get segmentNewHint => '最近 7 天加入';
 
   @override
   String openerReciprocal(String theirLanguage, String myLanguage) {
-    return 'Want to do half-$theirLanguage half-$myLanguage messages? I\'ll correct yours if you correct mine 😄';
+    return '我们一半用 $theirLanguage、一半用 $myLanguage 聊怎么样？互相帮忙改 😄';
   }
 
   @override
   String openerSharedTopic(String topic) {
-    return 'I saw you\'re into $topic — what got you started?';
+    return '看到你喜欢 $topic — 是怎么开始的？';
   }
 
   @override
   String openerGeneric(String name, String language) {
-    return 'Hi $name! I\'m learning $language — got any tips? 👋';
+    return '你好 $name！我在学 $language，有什么建议吗？👋';
   }
 
   @override
-  String get openerChipsTitle => 'Conversation starters — tap to edit before sending';
+  String get openerChipsTitle => '开场白 — 点一下可以先改再发';
 
   @override
   String stallRescueTitle(String name) {
-    return '$name asked you something 👀';
+    return '$name 问了你一个问题 👀';
   }
 
   @override
-  String get stallRescueHint => 'Sorry for the slow reply! Still up for chatting? 😊';
+  String get stallRescueHint => '抱歉回复慢了！还想聊吗？😊';
 
   @override
   String get referralTitle => '邀请好友';
@@ -13006,7 +13006,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get addImages => '新增照片';
 
   @override
-  String get selectUpToImages => '選擇最多null張照片';
+  String get selectUpToImages => '最多選擇 5 張圖片';
 
   @override
   String get takeAPhoto => '拍照';
@@ -15660,22 +15660,22 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get chatListMenu => 'Menu';
 
   @override
-  String get chatListNewMessageAlertsTitle => 'New Message Alerts';
+  String get chatListNewMessageAlertsTitle => '新訊息提醒';
 
   @override
-  String get chatListNewMessageAlertsBody => 'Tap to turn on notifications and never miss a message';
+  String get chatListNewMessageAlertsBody => '點一下開啟通知，不錯過任何訊息';
 
   @override
-  String get chatListFilterMyTurn => 'My turn';
+  String get chatListFilterMyTurn => '輪到我';
 
   @override
-  String get partnerTagActiveNow => 'Active now';
+  String get partnerTagActiveNow => '目前在線';
 
   @override
-  String get partnerTagVeryResponsive => 'Very Responsive';
+  String get partnerTagVeryResponsive => '回覆很積極';
 
   @override
-  String get partnerTagQuickToReply => 'Quick to Reply';
+  String get partnerTagQuickToReply => '回覆很快';
 
   @override
   String vipSavePercent(int pct) {
@@ -15689,22 +15689,22 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String partnerTagBothLike(String topic) {
-    return 'Both like $topic';
+    return '你們都喜歡 $topic';
   }
 
   @override
   String partnerTagSpeaks(String language) {
-    return 'Speaks $language';
+    return '會說 $language';
   }
 
   @override
   String partnerTagLearning(String language) {
-    return 'Learning $language';
+    return '正在學 $language';
   }
 
   @override
   String partnerTagJoinedDaysAgo(int days) {
-    return 'Joined ${days}d ago';
+    return '$days 天前加入';
   }
 
   @override
@@ -17621,51 +17621,51 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get watchAd => '觀看廣告';
 
   @override
-  String get matchReasonReciprocal => 'You\'re learning each other\'s language';
+  String get matchReasonReciprocal => '你們在互相學習對方的語言';
 
   @override
   String matchReasonSameTarget(String language) {
-    return 'Also learning $language';
+    return '也在學 $language';
   }
 
   @override
   String matchReasonSharedTopic(String topic) {
-    return 'Shared interest: $topic';
+    return '共同興趣：$topic';
   }
 
   @override
-  String get matchReasonActiveToday => 'Active today';
+  String get matchReasonActiveToday => '今天活躍';
 
   @override
-  String get matchReasonSameCity => 'Lives in your city';
+  String get matchReasonSameCity => '住在你所在的城市';
 
   @override
-  String get matchRepliesFast => 'Replies fast';
+  String get matchRepliesFast => '回覆很快';
 
   @override
   String matchesTodayTitle(int count) {
-    return 'Your $count matches today';
+    return '今天為你配對了 $count 位';
   }
 
   @override
   String matchesRefreshHint(String time) {
-    return 'refreshes at $time';
+    return '$time 更新';
   }
 
   @override
-  String get matchesRefreshHintFallback => 'refreshes at midnight';
+  String get matchesRefreshHintFallback => '午夜更新';
 
   @override
-  String get matchesEmptyTitle => 'That\'s everyone for today';
+  String get matchesEmptyTitle => '今天就這些了';
 
   @override
-  String get matchesEmptyBody => 'Fresh matches tomorrow. Meanwhile, browse all partners.';
+  String get matchesEmptyBody => '明天有新的配對。先看看全部語伴吧。';
 
   @override
-  String get matchesEmptyCta => 'Browse partners';
+  String get matchesEmptyCta => '瀏覽語伴';
 
   @override
-  String get matchSayHi => 'Say hi';
+  String get matchSayHi => '打招呼';
 
   @override
   String get communityTabMatches => 'Matches';
@@ -17677,42 +17677,42 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get segmentAll => 'All';
 
   @override
-  String get segmentSerious => 'Serious learners';
+  String get segmentSerious => '認真的學習者';
 
   @override
-  String get segmentNew => 'New members';
+  String get segmentNew => '新成員';
 
   @override
-  String get segmentSeriousHint => 'Complete profile · active this week';
+  String get segmentSeriousHint => '資料完整 · 本週活躍';
 
   @override
-  String get segmentNewHint => 'Joined in the last 7 days';
+  String get segmentNewHint => '最近 7 天加入';
 
   @override
   String openerReciprocal(String theirLanguage, String myLanguage) {
-    return 'Want to do half-$theirLanguage half-$myLanguage messages? I\'ll correct yours if you correct mine 😄';
+    return '我們一半用 $theirLanguage、一半用 $myLanguage 聊如何？互相幫忙改 😄';
   }
 
   @override
   String openerSharedTopic(String topic) {
-    return 'I saw you\'re into $topic — what got you started?';
+    return '看到你喜歡 $topic — 是怎麼開始的？';
   }
 
   @override
   String openerGeneric(String name, String language) {
-    return 'Hi $name! I\'m learning $language — got any tips? 👋';
+    return '你好 $name！我在學 $language，有什麼建議嗎？👋';
   }
 
   @override
-  String get openerChipsTitle => 'Conversation starters — tap to edit before sending';
+  String get openerChipsTitle => '開場白 — 點一下可以先改再傳';
 
   @override
   String stallRescueTitle(String name) {
-    return '$name asked you something 👀';
+    return '$name 問了你一個問題 👀';
   }
 
   @override
-  String get stallRescueHint => 'Sorry for the slow reply! Still up for chatting? 😊';
+  String get stallRescueHint => '抱歉回覆慢了！還想聊嗎？😊';
 
   @override
   String get referralTitle => '邀請好友';

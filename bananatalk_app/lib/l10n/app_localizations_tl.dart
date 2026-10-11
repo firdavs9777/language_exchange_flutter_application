@@ -3914,7 +3914,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get addImages => 'Magdagdag ng Larawan';
 
   @override
-  String get selectUpToImages => 'Pumili ng hanggang null larawan';
+  String get selectUpToImages => 'Pumili ng hanggang 5 larawan';
 
   @override
   String get takeAPhoto => 'Kumuha ng Larawan';
@@ -6575,22 +6575,22 @@ class AppLocalizationsTl extends AppLocalizations {
   String get chatListMenu => 'Menu';
 
   @override
-  String get chatListNewMessageAlertsTitle => 'New Message Alerts';
+  String get chatListNewMessageAlertsTitle => 'Alerto sa bagong mensahe';
 
   @override
-  String get chatListNewMessageAlertsBody => 'Tap to turn on notifications and never miss a message';
+  String get chatListNewMessageAlertsBody => 'I-tap para i-on ang notification at hindi ka makaligtaan ng mensahe';
 
   @override
-  String get chatListFilterMyTurn => 'My turn';
+  String get chatListFilterMyTurn => 'Turn ko';
 
   @override
-  String get partnerTagActiveNow => 'Active now';
+  String get partnerTagActiveNow => 'Aktibo ngayon';
 
   @override
-  String get partnerTagVeryResponsive => 'Very Responsive';
+  String get partnerTagVeryResponsive => 'Napakabilis tumugon';
 
   @override
-  String get partnerTagQuickToReply => 'Quick to Reply';
+  String get partnerTagQuickToReply => 'Mabilis sumagot';
 
   @override
   String vipSavePercent(int pct) {
@@ -6604,22 +6604,22 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String partnerTagBothLike(String topic) {
-    return 'Both like $topic';
+    return 'Pareho kayong mahilig sa $topic';
   }
 
   @override
   String partnerTagSpeaks(String language) {
-    return 'Speaks $language';
+    return 'Nagsasalita ng $language';
   }
 
   @override
   String partnerTagLearning(String language) {
-    return 'Learning $language';
+    return 'Nag-aaral ng $language';
   }
 
   @override
   String partnerTagJoinedDaysAgo(int days) {
-    return 'Joined ${days}d ago';
+    return 'Sumali ${days}d na ang nakaraan';
   }
 
   @override
@@ -8539,51 +8539,51 @@ class AppLocalizationsTl extends AppLocalizations {
   String get watchAd => 'Manood ng Ad';
 
   @override
-  String get matchReasonReciprocal => 'You\'re learning each other\'s language';
+  String get matchReasonReciprocal => 'Pinag-aaralan ninyo ang wika ng isa’t isa';
 
   @override
   String matchReasonSameTarget(String language) {
-    return 'Also learning $language';
+    return 'Nag-aaral din ng $language';
   }
 
   @override
   String matchReasonSharedTopic(String topic) {
-    return 'Shared interest: $topic';
+    return 'Parehong interes: $topic';
   }
 
   @override
-  String get matchReasonActiveToday => 'Active today';
+  String get matchReasonActiveToday => 'Aktibo ngayon';
 
   @override
-  String get matchReasonSameCity => 'Lives in your city';
+  String get matchReasonSameCity => 'Nakatira sa lungsod mo';
 
   @override
-  String get matchRepliesFast => 'Replies fast';
+  String get matchRepliesFast => 'Mabilis sumagot';
 
   @override
   String matchesTodayTitle(int count) {
-    return 'Your $count matches today';
+    return '$count match mo ngayong araw';
   }
 
   @override
   String matchesRefreshHint(String time) {
-    return 'refreshes at $time';
+    return 'mago-oumpisa ulit nang $time';
   }
 
   @override
-  String get matchesRefreshHintFallback => 'refreshes at midnight';
+  String get matchesRefreshHintFallback => 'mago-oumpisa ulit sa hatinggabi';
 
   @override
-  String get matchesEmptyTitle => 'That\'s everyone for today';
+  String get matchesEmptyTitle => 'Iyan na ang lahat ngayong araw';
 
   @override
-  String get matchesEmptyBody => 'Fresh matches tomorrow. Meanwhile, browse all partners.';
+  String get matchesEmptyBody => 'Bagong match bukas. Samantala, tingnan ang lahat ng partner.';
 
   @override
-  String get matchesEmptyCta => 'Browse partners';
+  String get matchesEmptyCta => 'Tingnan ang mga partner';
 
   @override
-  String get matchSayHi => 'Say hi';
+  String get matchSayHi => 'Bumati';
 
   @override
   String get communityTabMatches => 'Matches';
@@ -8595,42 +8595,42 @@ class AppLocalizationsTl extends AppLocalizations {
   String get segmentAll => 'All';
 
   @override
-  String get segmentSerious => 'Serious learners';
+  String get segmentSerious => 'Seryosong mag-aaral';
 
   @override
-  String get segmentNew => 'New members';
+  String get segmentNew => 'Mga bagong miyembro';
 
   @override
-  String get segmentSeriousHint => 'Complete profile · active this week';
+  String get segmentSeriousHint => 'Kumpletong profile · aktibo ngayong linggo';
 
   @override
-  String get segmentNewHint => 'Joined in the last 7 days';
+  String get segmentNewHint => 'Sumali sa nakaraang 7 araw';
 
   @override
   String openerReciprocal(String theirLanguage, String myLanguage) {
-    return 'Want to do half-$theirLanguage half-$myLanguage messages? I\'ll correct yours if you correct mine 😄';
+    return 'Gusto mo bang kalahating $theirLanguage, kalahating $myLanguage ang mga mensahe? Itatama ko ang sa iyo kung itatama mo ang sa akin 😄';
   }
 
   @override
   String openerSharedTopic(String topic) {
-    return 'I saw you\'re into $topic — what got you started?';
+    return 'Nakita kong mahilig ka sa $topic — paano ka nagsimula?';
   }
 
   @override
   String openerGeneric(String name, String language) {
-    return 'Hi $name! I\'m learning $language — got any tips? 👋';
+    return 'Kumusta $name! Nag-aaral ako ng $language — may tips ka ba? 👋';
   }
 
   @override
-  String get openerChipsTitle => 'Conversation starters — tap to edit before sending';
+  String get openerChipsTitle => 'Pampasimula ng usapan — i-tap para baguhin bago ipadala';
 
   @override
   String stallRescueTitle(String name) {
-    return '$name asked you something 👀';
+    return 'May tinanong sa iyo si $name 👀';
   }
 
   @override
-  String get stallRescueHint => 'Sorry for the slow reply! Still up for chatting? 😊';
+  String get stallRescueHint => 'Pasensya sa bagal ng sagot! Gusto mo pa bang mag-usap? 😊';
 
   @override
   String get referralTitle => 'Mag-imbita ng kaibigan';

@@ -6568,22 +6568,22 @@ class AppLocalizationsVi extends AppLocalizations {
   String get chatListMenu => 'Menu';
 
   @override
-  String get chatListNewMessageAlertsTitle => 'New Message Alerts';
+  String get chatListNewMessageAlertsTitle => 'Thông báo tin nhắn mới';
 
   @override
-  String get chatListNewMessageAlertsBody => 'Tap to turn on notifications and never miss a message';
+  String get chatListNewMessageAlertsBody => 'Chạm để bật thông báo, đừng bỏ lỡ tin nhắn nào';
 
   @override
-  String get chatListFilterMyTurn => 'My turn';
+  String get chatListFilterMyTurn => 'Lượt mình';
 
   @override
-  String get partnerTagActiveNow => 'Active now';
+  String get partnerTagActiveNow => 'Đang hoạt động';
 
   @override
-  String get partnerTagVeryResponsive => 'Very Responsive';
+  String get partnerTagVeryResponsive => 'Phản hồi rất tốt';
 
   @override
-  String get partnerTagQuickToReply => 'Quick to Reply';
+  String get partnerTagQuickToReply => 'Trả lời nhanh';
 
   @override
   String vipSavePercent(int pct) {
@@ -6597,22 +6597,22 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String partnerTagBothLike(String topic) {
-    return 'Both like $topic';
+    return 'Cả hai cùng thích $topic';
   }
 
   @override
   String partnerTagSpeaks(String language) {
-    return 'Speaks $language';
+    return 'Nói $language';
   }
 
   @override
   String partnerTagLearning(String language) {
-    return 'Learning $language';
+    return 'Đang học $language';
   }
 
   @override
   String partnerTagJoinedDaysAgo(int days) {
-    return 'Joined ${days}d ago';
+    return 'Tham gia $days ngày trước';
   }
 
   @override
@@ -8529,51 +8529,51 @@ class AppLocalizationsVi extends AppLocalizations {
   String get watchAd => 'Xem quảng cáo';
 
   @override
-  String get matchReasonReciprocal => 'You\'re learning each other\'s language';
+  String get matchReasonReciprocal => 'Hai bạn học ngôn ngữ của nhau';
 
   @override
   String matchReasonSameTarget(String language) {
-    return 'Also learning $language';
+    return 'Cũng đang học $language';
   }
 
   @override
   String matchReasonSharedTopic(String topic) {
-    return 'Shared interest: $topic';
+    return 'Sở thích chung: $topic';
   }
 
   @override
-  String get matchReasonActiveToday => 'Active today';
+  String get matchReasonActiveToday => 'Hoạt động hôm nay';
 
   @override
-  String get matchReasonSameCity => 'Lives in your city';
+  String get matchReasonSameCity => 'Sống cùng thành phố với bạn';
 
   @override
-  String get matchRepliesFast => 'Replies fast';
+  String get matchRepliesFast => 'Trả lời nhanh';
 
   @override
   String matchesTodayTitle(int count) {
-    return 'Your $count matches today';
+    return '$count người ghép hôm nay';
   }
 
   @override
   String matchesRefreshHint(String time) {
-    return 'refreshes at $time';
+    return 'làm mới lúc $time';
   }
 
   @override
-  String get matchesRefreshHintFallback => 'refreshes at midnight';
+  String get matchesRefreshHintFallback => 'làm mới lúc nửa đêm';
 
   @override
-  String get matchesEmptyTitle => 'That\'s everyone for today';
+  String get matchesEmptyTitle => 'Hôm nay hết rồi';
 
   @override
-  String get matchesEmptyBody => 'Fresh matches tomorrow. Meanwhile, browse all partners.';
+  String get matchesEmptyBody => 'Ngày mai có người mới. Trong lúc đó, xem tất cả đối tác.';
 
   @override
-  String get matchesEmptyCta => 'Browse partners';
+  String get matchesEmptyCta => 'Xem đối tác';
 
   @override
-  String get matchSayHi => 'Say hi';
+  String get matchSayHi => 'Chào';
 
   @override
   String get communityTabMatches => 'Matches';
@@ -8585,42 +8585,42 @@ class AppLocalizationsVi extends AppLocalizations {
   String get segmentAll => 'All';
 
   @override
-  String get segmentSerious => 'Serious learners';
+  String get segmentSerious => 'Người học nghiêm túc';
 
   @override
-  String get segmentNew => 'New members';
+  String get segmentNew => 'Thành viên mới';
 
   @override
-  String get segmentSeriousHint => 'Complete profile · active this week';
+  String get segmentSeriousHint => 'Hồ sơ đầy đủ · hoạt động tuần này';
 
   @override
-  String get segmentNewHint => 'Joined in the last 7 days';
+  String get segmentNewHint => 'Tham gia trong 7 ngày qua';
 
   @override
   String openerReciprocal(String theirLanguage, String myLanguage) {
-    return 'Want to do half-$theirLanguage half-$myLanguage messages? I\'ll correct yours if you correct mine 😄';
+    return 'Hay là một nửa tin nhắn bằng $theirLanguage, một nửa bằng $myLanguage? Mình sửa cho bạn, bạn sửa cho mình 😄';
   }
 
   @override
   String openerSharedTopic(String topic) {
-    return 'I saw you\'re into $topic — what got you started?';
+    return 'Mình thấy bạn thích $topic — bạn bắt đầu từ đâu vậy?';
   }
 
   @override
   String openerGeneric(String name, String language) {
-    return 'Hi $name! I\'m learning $language — got any tips? 👋';
+    return 'Chào $name! Mình đang học $language — bạn có mẹo nào không? 👋';
   }
 
   @override
-  String get openerChipsTitle => 'Conversation starters — tap to edit before sending';
+  String get openerChipsTitle => 'Câu mở đầu — chạm để sửa trước khi gửi';
 
   @override
   String stallRescueTitle(String name) {
-    return '$name asked you something 👀';
+    return '$name vừa hỏi bạn một câu 👀';
   }
 
   @override
-  String get stallRescueHint => 'Sorry for the slow reply! Still up for chatting? 😊';
+  String get stallRescueHint => 'Xin lỗi vì trả lời chậm! Bạn còn muốn trò chuyện không? 😊';
 
   @override
   String get referralTitle => 'Mời bạn bè';

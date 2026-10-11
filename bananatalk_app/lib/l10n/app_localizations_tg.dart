@@ -6581,22 +6581,22 @@ class AppLocalizationsTg extends AppLocalizations {
   String get chatListMenu => 'Menu';
 
   @override
-  String get chatListNewMessageAlertsTitle => 'New Message Alerts';
+  String get chatListNewMessageAlertsTitle => 'Огоҳиҳои паёми нав';
 
   @override
-  String get chatListNewMessageAlertsBody => 'Tap to turn on notifications and never miss a message';
+  String get chatListNewMessageAlertsBody => 'Барои фаъол кардани огоҳиҳо зер кунед, то паёме аз даст наравад';
 
   @override
-  String get chatListFilterMyTurn => 'My turn';
+  String get chatListFilterMyTurn => 'Навбати ман';
 
   @override
-  String get partnerTagActiveNow => 'Active now';
+  String get partnerTagActiveNow => 'Ҳоло фаъол';
 
   @override
-  String get partnerTagVeryResponsive => 'Very Responsive';
+  String get partnerTagVeryResponsive => 'Хеле ҷавобгӯ';
 
   @override
-  String get partnerTagQuickToReply => 'Quick to Reply';
+  String get partnerTagQuickToReply => 'Зуд ҷавоб медиҳад';
 
   @override
   String vipSavePercent(int pct) {
@@ -6610,22 +6610,22 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String partnerTagBothLike(String topic) {
-    return 'Both like $topic';
+    return 'Ҳардуятон $topic-ро дӯст медоред';
   }
 
   @override
   String partnerTagSpeaks(String language) {
-    return 'Speaks $language';
+    return 'Бо $language гап мезанад';
   }
 
   @override
   String partnerTagLearning(String language) {
-    return 'Learning $language';
+    return '$language-ро меомӯзад';
   }
 
   @override
   String partnerTagJoinedDaysAgo(int days) {
-    return 'Joined ${days}d ago';
+    return '$days рӯз пеш ҳамроҳ шуд';
   }
 
   @override
@@ -8543,51 +8543,51 @@ class AppLocalizationsTg extends AppLocalizations {
   String get watchAd => 'Тамошои реклама';
 
   @override
-  String get matchReasonReciprocal => 'You\'re learning each other\'s language';
+  String get matchReasonReciprocal => 'Шумо забони якдигарро меомӯзед';
 
   @override
   String matchReasonSameTarget(String language) {
-    return 'Also learning $language';
+    return 'Инчунин $language-ро меомӯзад';
   }
 
   @override
   String matchReasonSharedTopic(String topic) {
-    return 'Shared interest: $topic';
+    return 'Таваҷҷуҳи муштарак: $topic';
   }
 
   @override
-  String get matchReasonActiveToday => 'Active today';
+  String get matchReasonActiveToday => 'Имрӯз фаъол';
 
   @override
-  String get matchReasonSameCity => 'Lives in your city';
+  String get matchReasonSameCity => 'Дар шаҳри шумо зиндагӣ мекунад';
 
   @override
-  String get matchRepliesFast => 'Replies fast';
+  String get matchRepliesFast => 'Зуд ҷавоб медиҳад';
 
   @override
   String matchesTodayTitle(int count) {
-    return 'Your $count matches today';
+    return 'Мувофиқатҳои имрӯзаи шумо: $count';
   }
 
   @override
   String matchesRefreshHint(String time) {
-    return 'refreshes at $time';
+    return 'дар $time нав мешавад';
   }
 
   @override
-  String get matchesRefreshHintFallback => 'refreshes at midnight';
+  String get matchesRefreshHintFallback => 'дар нисфи шаб нав мешавад';
 
   @override
-  String get matchesEmptyTitle => 'That\'s everyone for today';
+  String get matchesEmptyTitle => 'Барои имрӯз ҳамин бас';
 
   @override
-  String get matchesEmptyBody => 'Fresh matches tomorrow. Meanwhile, browse all partners.';
+  String get matchesEmptyBody => 'Мувофиқатҳои нав пагоҳ. То он вақт ҳамаи шарикҳоро бинед.';
 
   @override
-  String get matchesEmptyCta => 'Browse partners';
+  String get matchesEmptyCta => 'Дидани шарикҳо';
 
   @override
-  String get matchSayHi => 'Say hi';
+  String get matchSayHi => 'Салом гуфтан';
 
   @override
   String get communityTabMatches => 'Matches';
@@ -8599,42 +8599,42 @@ class AppLocalizationsTg extends AppLocalizations {
   String get segmentAll => 'All';
 
   @override
-  String get segmentSerious => 'Serious learners';
+  String get segmentSerious => 'Омӯзандагони ҷиддӣ';
 
   @override
-  String get segmentNew => 'New members';
+  String get segmentNew => 'Аъзои нав';
 
   @override
-  String get segmentSeriousHint => 'Complete profile · active this week';
+  String get segmentSeriousHint => 'Профили пурра · ин ҳафта фаъол';
 
   @override
-  String get segmentNewHint => 'Joined in the last 7 days';
+  String get segmentNewHint => 'Дар 7 рӯзи охир ҳамроҳ шуданд';
 
   @override
   String openerReciprocal(String theirLanguage, String myLanguage) {
-    return 'Want to do half-$theirLanguage half-$myLanguage messages? I\'ll correct yours if you correct mine 😄';
+    return 'Биёед нисфи паёмҳоро бо $theirLanguage ва нисфашро бо $myLanguage нависем? Ман аз они шуморо ислоҳ мекунам, шумо аз они маро 😄';
   }
 
   @override
   String openerSharedTopic(String topic) {
-    return 'I saw you\'re into $topic — what got you started?';
+    return 'Дидам, ки шумо ба $topic таваҷҷуҳ доред — чӣ тавр оғоз кардед?';
   }
 
   @override
   String openerGeneric(String name, String language) {
-    return 'Hi $name! I\'m learning $language — got any tips? 👋';
+    return 'Салом $name! Ман $language-ро меомӯзам — маслиҳате доред? 👋';
   }
 
   @override
-  String get openerChipsTitle => 'Conversation starters — tap to edit before sending';
+  String get openerChipsTitle => 'Оғози сӯҳбат — барои таҳрир зер кунед';
 
   @override
   String stallRescueTitle(String name) {
-    return '$name asked you something 👀';
+    return '$name аз шумо чизе пурсид 👀';
   }
 
   @override
-  String get stallRescueHint => 'Sorry for the slow reply! Still up for chatting? 😊';
+  String get stallRescueHint => 'Барои ҷавоби дер бубахшед! Ҳоло ҳам мехоҳед сӯҳбат кунем? 😊';
 
   @override
   String get referralTitle => 'Дӯстонро даъват кунед';
