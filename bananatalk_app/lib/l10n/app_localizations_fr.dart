@@ -6848,42 +6848,42 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
-  String get examEssayPrompt => 'Write your essay';
+  String get examEssayPrompt => 'Rédigez votre texte';
 
   @override
   String examEssayMinChars(int min) {
-    return 'Essay must be at least $min characters';
+    return 'Le texte doit faire au moins $min caractères';
   }
 
   @override
   String examEssayMaxChars(int max) {
-    return 'Essay must not exceed $max characters';
+    return 'Le texte ne doit pas dépasser $max caractères';
   }
 
   @override
   String examEssayWordCount(int count) {
-    return '$count words';
+    return '$count mots';
   }
 
   @override
   String examEssayCharCount(int count) {
-    return '$count characters';
+    return '$count caractères';
   }
 
   @override
-  String get examEssaySubmit => 'Submit essay';
+  String get examEssaySubmit => 'Envoyer le texte';
 
   @override
-  String get examEssayEvaluating => 'Evaluating your essay…';
+  String get examEssayEvaluating => 'Évaluation de votre texte…';
 
   @override
-  String get examEssayEvaluatingHint => 'This usually takes 10–30 seconds. You can leave this screen — we\'ll keep evaluating in the background.';
+  String get examEssayEvaluatingHint => 'Cela prend en général 10 à 30 secondes. Vous pouvez quitter cet écran — l’évaluation continue en arrière-plan.';
 
   @override
-  String get examEssayResultTitle => 'Evaluation';
+  String get examEssayResultTitle => 'Évaluation';
 
   @override
-  String get examEssayResultStrengths => 'Strengths';
+  String get examEssayResultStrengths => 'Points forts';
 
   @override
   String get examEssayResultImprovements => 'Suggestions';
@@ -6892,56 +6892,56 @@ class AppLocalizationsFr extends AppLocalizations {
   String get examEssayResultScore => 'Score';
 
   @override
-  String get examEssayResultFailed => 'Couldn\'t evaluate this essay.';
+  String get examEssayResultFailed => 'Impossible d’évaluer ce texte.';
 
   @override
-  String get examEssayResultRetry => 'Try again';
+  String get examEssayResultRetry => 'Réessayer';
 
   @override
   String get examEssayResultDone => 'Done';
 
   @override
-  String get examEssayPollTimeout => 'Still evaluating — check back in a minute.';
+  String get examEssayPollTimeout => 'Évaluation en cours — revenez dans une minute.';
 
   @override
-  String get examEssayPollRefresh => 'Check again';
+  String get examEssayPollRefresh => 'Vérifier à nouveau';
 
   @override
   String examEssayQuotaUsed(int used, int limit) {
-    return 'Daily essay evaluations: $used/$limit';
+    return 'Évaluations du jour : $used/$limit';
   }
 
   @override
-  String get examEssayQuotaExhausted => 'You\'ve used today\'s free essay evaluations. Upgrade to VIP for unlimited.';
+  String get examEssayQuotaExhausted => 'Vous avez utilisé vos évaluations gratuites du jour. Passez à VIP pour un accès illimité.';
 
   @override
-  String get examEssayQuotaUpgrade => 'Upgrade to VIP';
+  String get examEssayQuotaUpgrade => 'Passer à VIP';
 
   @override
-  String get examEssayDraftRestored => 'Draft restored';
+  String get examEssayDraftRestored => 'Brouillon restauré';
 
   @override
   String get examProgressTitle => 'Progress';
 
   @override
-  String get examProgressOverall => 'Overall score';
+  String get examProgressOverall => 'Score global';
 
   @override
-  String get examProgressNotStartedTitle => 'No practice yet';
+  String get examProgressNotStartedTitle => 'Pas encore d’entraînement';
 
   @override
-  String get examProgressNotStartedBody => 'Answer a few questions in any section to see your progress here.';
+  String get examProgressNotStartedBody => 'Répondez à quelques questions dans n’importe quelle section pour voir votre progression ici.';
 
   @override
-  String get examProgressFocusAreas => 'Focus areas';
+  String get examProgressFocusAreas => 'Points à travailler';
 
   @override
   String examProgressSectionAttempts(int done, int total) {
-    return '$done of $total attempted';
+    return '$done sur $total tentées';
   }
 
   @override
-  String get examProgressNoFocusAreas => 'You\'re doing well across every section — keep practicing!';
+  String get examProgressNoFocusAreas => 'Vous vous en sortez bien partout — continuez !';
 
   @override
   String get examPlanSetupTitle => 'Start study plan';

@@ -6841,100 +6841,100 @@ class AppLocalizationsKo extends AppLocalizations {
   }
 
   @override
-  String get examEssayPrompt => 'Write your essay';
+  String get examEssayPrompt => '작문을 써 보세요';
 
   @override
   String examEssayMinChars(int min) {
-    return 'Essay must be at least $min characters';
+    return '작문은 최소 $min자 이상이어야 해요';
   }
 
   @override
   String examEssayMaxChars(int max) {
-    return 'Essay must not exceed $max characters';
+    return '작문은 $max자를 넘을 수 없어요';
   }
 
   @override
   String examEssayWordCount(int count) {
-    return '$count words';
+    return '$count단어';
   }
 
   @override
   String examEssayCharCount(int count) {
-    return '$count characters';
+    return '$count자';
   }
 
   @override
-  String get examEssaySubmit => 'Submit essay';
+  String get examEssaySubmit => '작문 제출';
 
   @override
-  String get examEssayEvaluating => 'Evaluating your essay…';
+  String get examEssayEvaluating => '작문을 채점하는 중…';
 
   @override
-  String get examEssayEvaluatingHint => 'This usually takes 10–30 seconds. You can leave this screen — we\'ll keep evaluating in the background.';
+  String get examEssayEvaluatingHint => '보통 10~30초 걸려요. 이 화면을 나가도 백그라운드에서 계속 채점해요.';
 
   @override
-  String get examEssayResultTitle => 'Evaluation';
+  String get examEssayResultTitle => '평가';
 
   @override
-  String get examEssayResultStrengths => 'Strengths';
+  String get examEssayResultStrengths => '잘한 점';
 
   @override
-  String get examEssayResultImprovements => 'Suggestions';
+  String get examEssayResultImprovements => '개선 제안';
 
   @override
   String get examEssayResultScore => 'Score';
 
   @override
-  String get examEssayResultFailed => 'Couldn\'t evaluate this essay.';
+  String get examEssayResultFailed => '이 작문을 채점하지 못했어요.';
 
   @override
-  String get examEssayResultRetry => 'Try again';
+  String get examEssayResultRetry => '다시 시도';
 
   @override
   String get examEssayResultDone => 'Done';
 
   @override
-  String get examEssayPollTimeout => 'Still evaluating — check back in a minute.';
+  String get examEssayPollTimeout => '아직 채점 중이에요 — 1분 뒤에 다시 확인해 주세요.';
 
   @override
-  String get examEssayPollRefresh => 'Check again';
+  String get examEssayPollRefresh => '다시 확인';
 
   @override
   String examEssayQuotaUsed(int used, int limit) {
-    return 'Daily essay evaluations: $used/$limit';
+    return '오늘의 작문 채점: $used/$limit';
   }
 
   @override
-  String get examEssayQuotaExhausted => 'You\'ve used today\'s free essay evaluations. Upgrade to VIP for unlimited.';
+  String get examEssayQuotaExhausted => '오늘의 무료 작문 채점을 다 썼어요. VIP면 무제한이에요.';
 
   @override
-  String get examEssayQuotaUpgrade => 'Upgrade to VIP';
+  String get examEssayQuotaUpgrade => 'VIP로 업그레이드';
 
   @override
-  String get examEssayDraftRestored => 'Draft restored';
+  String get examEssayDraftRestored => '임시저장본을 불러왔어요';
 
   @override
   String get examProgressTitle => 'Progress';
 
   @override
-  String get examProgressOverall => 'Overall score';
+  String get examProgressOverall => '종합 점수';
 
   @override
-  String get examProgressNotStartedTitle => 'No practice yet';
+  String get examProgressNotStartedTitle => '아직 연습 기록이 없어요';
 
   @override
-  String get examProgressNotStartedBody => 'Answer a few questions in any section to see your progress here.';
+  String get examProgressNotStartedBody => '아무 섹션에서나 몇 문제 풀면 여기에 진행 상황이 보여요.';
 
   @override
-  String get examProgressFocusAreas => 'Focus areas';
+  String get examProgressFocusAreas => '집중할 영역';
 
   @override
   String examProgressSectionAttempts(int done, int total) {
-    return '$done of $total attempted';
+    return '$total개 중 $done개 시도';
   }
 
   @override
-  String get examProgressNoFocusAreas => 'You\'re doing well across every section — keep practicing!';
+  String get examProgressNoFocusAreas => '모든 섹션에서 잘하고 있어요 — 계속 연습해요!';
 
   @override
   String get examPlanSetupTitle => 'Start study plan';
