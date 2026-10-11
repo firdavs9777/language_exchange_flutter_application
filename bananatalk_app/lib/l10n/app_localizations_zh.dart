@@ -6735,109 +6735,109 @@ class AppLocalizationsZh extends AppLocalizations {
   String get filterVipPromoCta => '开通 VIP';
 
   @override
-  String get examStudy => 'Exam Study';
+  String get examStudy => '备考';
 
   @override
-  String get examStudyChooseLanguage => 'Choose your study language';
+  String get examStudyChooseLanguage => '选择学习语言';
 
   @override
-  String get examStudyChooseLanguageSubtitle => 'Pick the language you want to prepare an exam in.';
+  String get examStudyChooseLanguageSubtitle => '选择你想备考的语言。';
 
   @override
   String get examStudyLoading => 'Loading…';
 
   @override
-  String get examStudyEmptyLanguages => 'No study languages available yet.';
+  String get examStudyEmptyLanguages => '暂无可用的学习语言。';
 
   @override
-  String get examStudyError => 'Couldn\'t load — please try again.';
+  String get examStudyError => '加载失败 — 请重试。';
 
   @override
   String get examStudyRetry => 'Retry';
 
   @override
-  String get examPickExam => 'Choose an exam';
+  String get examPickExam => '选择考试';
 
   @override
-  String get examPickExamSubtitle => 'Pick the exam you want to prepare for.';
+  String get examPickExamSubtitle => '选择你想准备的考试。';
 
   @override
-  String get examPickEmpty => 'No exams available for this language yet.';
+  String get examPickEmpty => '该语言暂无考试。';
 
   @override
   String get examDashboardSections => 'Sections';
 
   @override
-  String get examDashboardEmptySections => 'No sections to practice yet.';
+  String get examDashboardEmptySections => '暂无可练习的部分。';
 
   @override
-  String get examDashboardContinue => 'Continue practice';
+  String get examDashboardContinue => '继续练习';
 
   @override
-  String get examDashboardStartStudyPlan => 'Start study plan';
+  String get examDashboardStartStudyPlan => '开始学习计划';
 
   @override
-  String get examDashboardViewProgress => 'View progress';
+  String get examDashboardViewProgress => '查看进度';
 
   @override
   String examMetaDuration(int minutes) {
-    return '$minutes min';
+    return '$minutes 分钟';
   }
 
   @override
   String examMetaMaxScore(String score) {
-    return 'Max $score';
+    return '满分 $score';
   }
 
   @override
   String examMetaSections(int count) {
-    return '$count sections';
+    return '$count 个部分';
   }
 
   @override
-  String get examSectionNotStarted => 'Not started';
+  String get examSectionNotStarted => '未开始';
 
   @override
   String examSectionProgress(int done, int total) {
-    return '$done/$total done';
+    return '已完成 $done/$total';
   }
 
   @override
-  String get examQuestionSubmit => 'Submit answer';
+  String get examQuestionSubmit => '提交答案';
 
   @override
-  String get examQuestionNext => 'Next question';
+  String get examQuestionNext => '下一题';
 
   @override
   String get examQuestionCorrect => 'Correct!';
 
   @override
-  String get examQuestionIncorrect => 'Incorrect';
+  String get examQuestionIncorrect => '错误';
 
   @override
-  String get examQuestionExplanation => 'Explanation';
+  String get examQuestionExplanation => '解析';
 
   @override
-  String get examQuestionNoQuestions => 'No questions in this section yet.';
+  String get examQuestionNoQuestions => '此部分暂无题目。';
 
   @override
-  String get examQuestionEssayComingSoon => 'Essay evaluation is coming soon. Try a reading section for now.';
+  String get examQuestionEssayComingSoon => '作文评分即将上线。先试试阅读部分吧。';
 
   @override
-  String get examQuestionUnsupported => 'This question type isn\'t supported yet.';
+  String get examQuestionUnsupported => '暂不支持这种题型。';
 
   @override
-  String get examPracticeFinishedTitle => 'Section complete';
+  String get examPracticeFinishedTitle => '本部分已完成';
 
   @override
-  String get examPracticeFinishedBody => 'Nice work — you\'ve completed every question in this section.';
+  String get examPracticeFinishedBody => '做得好 — 这一部分的题目你都做完了。';
 
   @override
-  String get examPracticeBackToDashboard => 'Back to dashboard';
+  String get examPracticeBackToDashboard => '返回主页';
 
   @override
   String examPracticeProgress(int current, int total) {
-    return '$current of $total';
+    return '第 $current / $total 题';
   }
 
   @override
@@ -6996,27 +6996,27 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
-  String get examTopicPickerTitle => 'Pick a topic';
+  String get examTopicPickerTitle => '选择话题';
 
   @override
-  String get examTopicPickerSubtitle => 'Practice questions on a specific subject, or jump into all questions.';
+  String get examTopicPickerSubtitle => '按话题练习，或直接做全部题目。';
 
   @override
-  String get examTopicAllTopics => 'All topics';
+  String get examTopicAllTopics => '全部话题';
 
   @override
-  String get examTopicAllTopicsDescription => 'Mix from every available topic';
+  String get examTopicAllTopicsDescription => '从所有可用话题中混合出题';
 
   @override
   String get examTopicEmpty => 'No topical content yet. Tap All topics to start practicing.';
 
   @override
   String examTopicQuestionCount(int count) {
-    return '$count questions';
+    return '$count 道题';
   }
 
   @override
-  String get examTopicOneQuestion => '1 question';
+  String get examTopicOneQuestion => '1 道题';
 
   @override
   String get examSpeakingPrompt => 'Speak your answer';
@@ -7059,8 +7059,8 @@ class AppLocalizationsZh extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count tasks',
-      one: '1 task',
+      other: '$count 项任务',
+      one: '1 项任务',
     );
     return '$_temp0';
   }
@@ -7070,8 +7070,8 @@ class AppLocalizationsZh extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count parts',
-      one: '1 part',
+      other: '$count 部分',
+      one: '1 部分',
     );
     return '$_temp0';
   }
@@ -15827,109 +15827,109 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get filterVipPromoCta => '升級 VIP';
 
   @override
-  String get examStudy => 'Exam Study';
+  String get examStudy => '備考';
 
   @override
-  String get examStudyChooseLanguage => 'Choose your study language';
+  String get examStudyChooseLanguage => '選擇學習語言';
 
   @override
-  String get examStudyChooseLanguageSubtitle => 'Pick the language you want to prepare an exam in.';
+  String get examStudyChooseLanguageSubtitle => '選擇你想備考的語言。';
 
   @override
   String get examStudyLoading => 'Loading…';
 
   @override
-  String get examStudyEmptyLanguages => 'No study languages available yet.';
+  String get examStudyEmptyLanguages => '暫無可用的學習語言。';
 
   @override
-  String get examStudyError => 'Couldn\'t load — please try again.';
+  String get examStudyError => '載入失敗 — 請重試。';
 
   @override
   String get examStudyRetry => 'Retry';
 
   @override
-  String get examPickExam => 'Choose an exam';
+  String get examPickExam => '選擇考試';
 
   @override
-  String get examPickExamSubtitle => 'Pick the exam you want to prepare for.';
+  String get examPickExamSubtitle => '選擇你想準備的考試。';
 
   @override
-  String get examPickEmpty => 'No exams available for this language yet.';
+  String get examPickEmpty => '此語言暫無考試。';
 
   @override
   String get examDashboardSections => 'Sections';
 
   @override
-  String get examDashboardEmptySections => 'No sections to practice yet.';
+  String get examDashboardEmptySections => '暫無可練習的部分。';
 
   @override
-  String get examDashboardContinue => 'Continue practice';
+  String get examDashboardContinue => '繼續練習';
 
   @override
-  String get examDashboardStartStudyPlan => 'Start study plan';
+  String get examDashboardStartStudyPlan => '開始學習計畫';
 
   @override
-  String get examDashboardViewProgress => 'View progress';
+  String get examDashboardViewProgress => '查看進度';
 
   @override
   String examMetaDuration(int minutes) {
-    return '$minutes min';
+    return '$minutes 分鐘';
   }
 
   @override
   String examMetaMaxScore(String score) {
-    return 'Max $score';
+    return '滿分 $score';
   }
 
   @override
   String examMetaSections(int count) {
-    return '$count sections';
+    return '$count 個部分';
   }
 
   @override
-  String get examSectionNotStarted => 'Not started';
+  String get examSectionNotStarted => '未開始';
 
   @override
   String examSectionProgress(int done, int total) {
-    return '$done/$total done';
+    return '已完成 $done/$total';
   }
 
   @override
-  String get examQuestionSubmit => 'Submit answer';
+  String get examQuestionSubmit => '送出答案';
 
   @override
-  String get examQuestionNext => 'Next question';
+  String get examQuestionNext => '下一題';
 
   @override
   String get examQuestionCorrect => 'Correct!';
 
   @override
-  String get examQuestionIncorrect => 'Incorrect';
+  String get examQuestionIncorrect => '錯誤';
 
   @override
-  String get examQuestionExplanation => 'Explanation';
+  String get examQuestionExplanation => '解析';
 
   @override
-  String get examQuestionNoQuestions => 'No questions in this section yet.';
+  String get examQuestionNoQuestions => '此部分暫無題目。';
 
   @override
-  String get examQuestionEssayComingSoon => 'Essay evaluation is coming soon. Try a reading section for now.';
+  String get examQuestionEssayComingSoon => '作文評分即將上線。先試試閱讀部分吧。';
 
   @override
-  String get examQuestionUnsupported => 'This question type isn\'t supported yet.';
+  String get examQuestionUnsupported => '暫不支援這種題型。';
 
   @override
-  String get examPracticeFinishedTitle => 'Section complete';
+  String get examPracticeFinishedTitle => '本部分已完成';
 
   @override
-  String get examPracticeFinishedBody => 'Nice work — you\'ve completed every question in this section.';
+  String get examPracticeFinishedBody => '做得好 — 這一部分的題目你都做完了。';
 
   @override
-  String get examPracticeBackToDashboard => 'Back to dashboard';
+  String get examPracticeBackToDashboard => '返回主頁';
 
   @override
   String examPracticeProgress(int current, int total) {
-    return '$current of $total';
+    return '第 $current / $total 題';
   }
 
   @override
@@ -16088,27 +16088,27 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   }
 
   @override
-  String get examTopicPickerTitle => 'Pick a topic';
+  String get examTopicPickerTitle => '選擇主題';
 
   @override
-  String get examTopicPickerSubtitle => 'Practice questions on a specific subject, or jump into all questions.';
+  String get examTopicPickerSubtitle => '按主題練習，或直接做全部題目。';
 
   @override
-  String get examTopicAllTopics => 'All topics';
+  String get examTopicAllTopics => '全部主題';
 
   @override
-  String get examTopicAllTopicsDescription => 'Mix from every available topic';
+  String get examTopicAllTopicsDescription => '從所有可用主題中混合出題';
 
   @override
   String get examTopicEmpty => 'No topical content yet. Tap All topics to start practicing.';
 
   @override
   String examTopicQuestionCount(int count) {
-    return '$count questions';
+    return '$count 道題';
   }
 
   @override
-  String get examTopicOneQuestion => '1 question';
+  String get examTopicOneQuestion => '1 道題';
 
   @override
   String get examSpeakingPrompt => 'Speak your answer';
@@ -16151,8 +16151,8 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count tasks',
-      one: '1 task',
+      other: '$count 項任務',
+      one: '1 項任務',
     );
     return '$_temp0';
   }
@@ -16162,8 +16162,8 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count parts',
-      one: '1 part',
+      other: '$count 部分',
+      one: '1 部分',
     );
     return '$_temp0';
   }

@@ -6742,109 +6742,109 @@ class AppLocalizationsHi extends AppLocalizations {
   String get filterVipPromoCta => 'VIP बनें';
 
   @override
-  String get examStudy => 'Exam Study';
+  String get examStudy => 'परीक्षा अध्ययन';
 
   @override
-  String get examStudyChooseLanguage => 'Choose your study language';
+  String get examStudyChooseLanguage => 'अपनी अध्ययन भाषा चुनें';
 
   @override
-  String get examStudyChooseLanguageSubtitle => 'Pick the language you want to prepare an exam in.';
+  String get examStudyChooseLanguageSubtitle => 'वह भाषा चुनें जिसमें आप परीक्षा की तैयारी करना चाहते हैं।';
 
   @override
   String get examStudyLoading => 'Loading…';
 
   @override
-  String get examStudyEmptyLanguages => 'No study languages available yet.';
+  String get examStudyEmptyLanguages => 'अभी कोई अध्ययन भाषा उपलब्ध नहीं है।';
 
   @override
-  String get examStudyError => 'Couldn\'t load — please try again.';
+  String get examStudyError => 'लोड नहीं हो सका — फिर कोशिश करें।';
 
   @override
   String get examStudyRetry => 'Retry';
 
   @override
-  String get examPickExam => 'Choose an exam';
+  String get examPickExam => 'परीक्षा चुनें';
 
   @override
-  String get examPickExamSubtitle => 'Pick the exam you want to prepare for.';
+  String get examPickExamSubtitle => 'जिस परीक्षा की तैयारी करनी है उसे चुनें।';
 
   @override
-  String get examPickEmpty => 'No exams available for this language yet.';
+  String get examPickEmpty => 'इस भाषा के लिए अभी कोई परीक्षा उपलब्ध नहीं है।';
 
   @override
   String get examDashboardSections => 'Sections';
 
   @override
-  String get examDashboardEmptySections => 'No sections to practice yet.';
+  String get examDashboardEmptySections => 'अभ्यास के लिए अभी कोई खंड नहीं है।';
 
   @override
-  String get examDashboardContinue => 'Continue practice';
+  String get examDashboardContinue => 'अभ्यास जारी रखें';
 
   @override
-  String get examDashboardStartStudyPlan => 'Start study plan';
+  String get examDashboardStartStudyPlan => 'अध्ययन योजना शुरू करें';
 
   @override
-  String get examDashboardViewProgress => 'View progress';
+  String get examDashboardViewProgress => 'प्रगति देखें';
 
   @override
   String examMetaDuration(int minutes) {
-    return '$minutes min';
+    return '$minutes मिनट';
   }
 
   @override
   String examMetaMaxScore(String score) {
-    return 'Max $score';
+    return 'अधिकतम $score';
   }
 
   @override
   String examMetaSections(int count) {
-    return '$count sections';
+    return '$count खंड';
   }
 
   @override
-  String get examSectionNotStarted => 'Not started';
+  String get examSectionNotStarted => 'शुरू नहीं हुआ';
 
   @override
   String examSectionProgress(int done, int total) {
-    return '$done/$total done';
+    return '$done/$total पूरे';
   }
 
   @override
-  String get examQuestionSubmit => 'Submit answer';
+  String get examQuestionSubmit => 'उत्तर भेजें';
 
   @override
-  String get examQuestionNext => 'Next question';
+  String get examQuestionNext => 'अगला प्रश्न';
 
   @override
   String get examQuestionCorrect => 'Correct!';
 
   @override
-  String get examQuestionIncorrect => 'Incorrect';
+  String get examQuestionIncorrect => 'गलत';
 
   @override
-  String get examQuestionExplanation => 'Explanation';
+  String get examQuestionExplanation => 'व्याख्या';
 
   @override
-  String get examQuestionNoQuestions => 'No questions in this section yet.';
+  String get examQuestionNoQuestions => 'इस खंड में अभी कोई प्रश्न नहीं है।';
 
   @override
-  String get examQuestionEssayComingSoon => 'Essay evaluation is coming soon. Try a reading section for now.';
+  String get examQuestionEssayComingSoon => 'निबंध मूल्यांकन जल्द आ रहा है। फ़िलहाल पठन खंड आज़माएँ।';
 
   @override
-  String get examQuestionUnsupported => 'This question type isn\'t supported yet.';
+  String get examQuestionUnsupported => 'इस प्रकार का प्रश्न अभी समर्थित नहीं है।';
 
   @override
-  String get examPracticeFinishedTitle => 'Section complete';
+  String get examPracticeFinishedTitle => 'खंड पूरा हुआ';
 
   @override
-  String get examPracticeFinishedBody => 'Nice work — you\'ve completed every question in this section.';
+  String get examPracticeFinishedBody => 'शाबाश — आपने इस खंड के सभी प्रश्न पूरे कर लिए।';
 
   @override
-  String get examPracticeBackToDashboard => 'Back to dashboard';
+  String get examPracticeBackToDashboard => 'डैशबोर्ड पर वापस';
 
   @override
   String examPracticeProgress(int current, int total) {
-    return '$current of $total';
+    return '$total में से $current';
   }
 
   @override
@@ -7003,27 +7003,27 @@ class AppLocalizationsHi extends AppLocalizations {
   }
 
   @override
-  String get examTopicPickerTitle => 'Pick a topic';
+  String get examTopicPickerTitle => 'विषय चुनें';
 
   @override
-  String get examTopicPickerSubtitle => 'Practice questions on a specific subject, or jump into all questions.';
+  String get examTopicPickerSubtitle => 'किसी एक विषय पर अभ्यास करें, या सभी प्रश्नों पर जाएँ।';
 
   @override
-  String get examTopicAllTopics => 'All topics';
+  String get examTopicAllTopics => 'सभी विषय';
 
   @override
-  String get examTopicAllTopicsDescription => 'Mix from every available topic';
+  String get examTopicAllTopicsDescription => 'सभी उपलब्ध विषयों का मिश्रण';
 
   @override
   String get examTopicEmpty => 'No topical content yet. Tap All topics to start practicing.';
 
   @override
   String examTopicQuestionCount(int count) {
-    return '$count questions';
+    return '$count प्रश्न';
   }
 
   @override
-  String get examTopicOneQuestion => '1 question';
+  String get examTopicOneQuestion => '1 प्रश्न';
 
   @override
   String get examSpeakingPrompt => 'Speak your answer';
@@ -7066,8 +7066,8 @@ class AppLocalizationsHi extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count tasks',
-      one: '1 task',
+      other: '$count कार्य',
+      one: '1 कार्य',
     );
     return '$_temp0';
   }
@@ -7077,8 +7077,8 @@ class AppLocalizationsHi extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count parts',
-      one: '1 part',
+      other: '$count भाग',
+      one: '1 भाग',
     );
     return '$_temp0';
   }

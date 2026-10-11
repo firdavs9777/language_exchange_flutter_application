@@ -6742,109 +6742,109 @@ class AppLocalizationsTr extends AppLocalizations {
   String get filterVipPromoCta => 'VIP ol';
 
   @override
-  String get examStudy => 'Exam Study';
+  String get examStudy => 'Sınav Çalışması';
 
   @override
-  String get examStudyChooseLanguage => 'Choose your study language';
+  String get examStudyChooseLanguage => 'Çalışma dilini seç';
 
   @override
-  String get examStudyChooseLanguageSubtitle => 'Pick the language you want to prepare an exam in.';
+  String get examStudyChooseLanguageSubtitle => 'Sınava hazırlanmak istediğin dili seç.';
 
   @override
   String get examStudyLoading => 'Loading…';
 
   @override
-  String get examStudyEmptyLanguages => 'No study languages available yet.';
+  String get examStudyEmptyLanguages => 'Henüz çalışma dili yok.';
 
   @override
-  String get examStudyError => 'Couldn\'t load — please try again.';
+  String get examStudyError => 'Yüklenemedi — tekrar dene.';
 
   @override
   String get examStudyRetry => 'Retry';
 
   @override
-  String get examPickExam => 'Choose an exam';
+  String get examPickExam => 'Sınav seç';
 
   @override
-  String get examPickExamSubtitle => 'Pick the exam you want to prepare for.';
+  String get examPickExamSubtitle => 'Hazırlanmak istediğin sınavı seç.';
 
   @override
-  String get examPickEmpty => 'No exams available for this language yet.';
+  String get examPickEmpty => 'Bu dil için henüz sınav yok.';
 
   @override
   String get examDashboardSections => 'Sections';
 
   @override
-  String get examDashboardEmptySections => 'No sections to practice yet.';
+  String get examDashboardEmptySections => 'Henüz çalışılacak bölüm yok.';
 
   @override
-  String get examDashboardContinue => 'Continue practice';
+  String get examDashboardContinue => 'Alıştırmaya devam et';
 
   @override
-  String get examDashboardStartStudyPlan => 'Start study plan';
+  String get examDashboardStartStudyPlan => 'Çalışma planı başlat';
 
   @override
-  String get examDashboardViewProgress => 'View progress';
+  String get examDashboardViewProgress => 'İlerlemeyi gör';
 
   @override
   String examMetaDuration(int minutes) {
-    return '$minutes min';
+    return '$minutes dk';
   }
 
   @override
   String examMetaMaxScore(String score) {
-    return 'Max $score';
+    return 'En fazla $score';
   }
 
   @override
   String examMetaSections(int count) {
-    return '$count sections';
+    return '$count bölüm';
   }
 
   @override
-  String get examSectionNotStarted => 'Not started';
+  String get examSectionNotStarted => 'Başlanmadı';
 
   @override
   String examSectionProgress(int done, int total) {
-    return '$done/$total done';
+    return '$done/$total tamam';
   }
 
   @override
-  String get examQuestionSubmit => 'Submit answer';
+  String get examQuestionSubmit => 'Cevabı gönder';
 
   @override
-  String get examQuestionNext => 'Next question';
+  String get examQuestionNext => 'Sonraki soru';
 
   @override
   String get examQuestionCorrect => 'Correct!';
 
   @override
-  String get examQuestionIncorrect => 'Incorrect';
+  String get examQuestionIncorrect => 'Yanlış';
 
   @override
-  String get examQuestionExplanation => 'Explanation';
+  String get examQuestionExplanation => 'Açıklama';
 
   @override
-  String get examQuestionNoQuestions => 'No questions in this section yet.';
+  String get examQuestionNoQuestions => 'Bu bölümde henüz soru yok.';
 
   @override
-  String get examQuestionEssayComingSoon => 'Essay evaluation is coming soon. Try a reading section for now.';
+  String get examQuestionEssayComingSoon => 'Kompozisyon değerlendirmesi yakında. Şimdilik bir okuma bölümü dene.';
 
   @override
-  String get examQuestionUnsupported => 'This question type isn\'t supported yet.';
+  String get examQuestionUnsupported => 'Bu soru türü henüz desteklenmiyor.';
 
   @override
-  String get examPracticeFinishedTitle => 'Section complete';
+  String get examPracticeFinishedTitle => 'Bölüm tamamlandı';
 
   @override
-  String get examPracticeFinishedBody => 'Nice work — you\'ve completed every question in this section.';
+  String get examPracticeFinishedBody => 'Güzel iş — bu bölümdeki tüm soruları bitirdin.';
 
   @override
-  String get examPracticeBackToDashboard => 'Back to dashboard';
+  String get examPracticeBackToDashboard => 'Panoya dön';
 
   @override
   String examPracticeProgress(int current, int total) {
-    return '$current of $total';
+    return '$total sorudan $current.';
   }
 
   @override
@@ -7003,27 +7003,27 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String get examTopicPickerTitle => 'Pick a topic';
+  String get examTopicPickerTitle => 'Konu seç';
 
   @override
-  String get examTopicPickerSubtitle => 'Practice questions on a specific subject, or jump into all questions.';
+  String get examTopicPickerSubtitle => 'Belirli bir konuda alıştırma yap ya da tüm sorulara geç.';
 
   @override
-  String get examTopicAllTopics => 'All topics';
+  String get examTopicAllTopics => 'Tüm konular';
 
   @override
-  String get examTopicAllTopicsDescription => 'Mix from every available topic';
+  String get examTopicAllTopicsDescription => 'Mevcut tüm konulardan karışık';
 
   @override
   String get examTopicEmpty => 'No topical content yet. Tap All topics to start practicing.';
 
   @override
   String examTopicQuestionCount(int count) {
-    return '$count questions';
+    return '$count soru';
   }
 
   @override
-  String get examTopicOneQuestion => '1 question';
+  String get examTopicOneQuestion => '1 soru';
 
   @override
   String get examSpeakingPrompt => 'Speak your answer';
@@ -7066,8 +7066,8 @@ class AppLocalizationsTr extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count tasks',
-      one: '1 task',
+      other: '$count görev',
+      one: '1 görev',
     );
     return '$_temp0';
   }
@@ -7077,8 +7077,8 @@ class AppLocalizationsTr extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count parts',
-      one: '1 part',
+      other: '$count bölüm',
+      one: '1 bölüm',
     );
     return '$_temp0';
   }

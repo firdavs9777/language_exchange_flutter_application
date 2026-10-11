@@ -6735,109 +6735,109 @@ class AppLocalizationsKo extends AppLocalizations {
   String get filterVipPromoCta => 'VIP 시작';
 
   @override
-  String get examStudy => 'Exam Study';
+  String get examStudy => '시험 공부';
 
   @override
-  String get examStudyChooseLanguage => 'Choose your study language';
+  String get examStudyChooseLanguage => '공부할 언어 선택';
 
   @override
-  String get examStudyChooseLanguageSubtitle => 'Pick the language you want to prepare an exam in.';
+  String get examStudyChooseLanguageSubtitle => '시험을 준비할 언어를 고르세요.';
 
   @override
   String get examStudyLoading => 'Loading…';
 
   @override
-  String get examStudyEmptyLanguages => 'No study languages available yet.';
+  String get examStudyEmptyLanguages => '아직 이용할 수 있는 학습 언어가 없어요.';
 
   @override
-  String get examStudyError => 'Couldn\'t load — please try again.';
+  String get examStudyError => '불러오지 못했어요. 다시 시도해 주세요.';
 
   @override
   String get examStudyRetry => 'Retry';
 
   @override
-  String get examPickExam => 'Choose an exam';
+  String get examPickExam => '시험 선택';
 
   @override
-  String get examPickExamSubtitle => 'Pick the exam you want to prepare for.';
+  String get examPickExamSubtitle => '준비하려는 시험을 고르세요.';
 
   @override
-  String get examPickEmpty => 'No exams available for this language yet.';
+  String get examPickEmpty => '이 언어로 된 시험이 아직 없어요.';
 
   @override
   String get examDashboardSections => 'Sections';
 
   @override
-  String get examDashboardEmptySections => 'No sections to practice yet.';
+  String get examDashboardEmptySections => '아직 연습할 섹션이 없어요.';
 
   @override
-  String get examDashboardContinue => 'Continue practice';
+  String get examDashboardContinue => '계속 연습하기';
 
   @override
-  String get examDashboardStartStudyPlan => 'Start study plan';
+  String get examDashboardStartStudyPlan => '학습 계획 시작';
 
   @override
-  String get examDashboardViewProgress => 'View progress';
+  String get examDashboardViewProgress => '진행 상황 보기';
 
   @override
   String examMetaDuration(int minutes) {
-    return '$minutes min';
+    return '$minutes분';
   }
 
   @override
   String examMetaMaxScore(String score) {
-    return 'Max $score';
+    return '최고 $score점';
   }
 
   @override
   String examMetaSections(int count) {
-    return '$count sections';
+    return '$count개 섹션';
   }
 
   @override
-  String get examSectionNotStarted => 'Not started';
+  String get examSectionNotStarted => '시작 전';
 
   @override
   String examSectionProgress(int done, int total) {
-    return '$done/$total done';
+    return '$done/$total 완료';
   }
 
   @override
-  String get examQuestionSubmit => 'Submit answer';
+  String get examQuestionSubmit => '답안 제출';
 
   @override
-  String get examQuestionNext => 'Next question';
+  String get examQuestionNext => '다음 문제';
 
   @override
   String get examQuestionCorrect => 'Correct!';
 
   @override
-  String get examQuestionIncorrect => 'Incorrect';
+  String get examQuestionIncorrect => '오답';
 
   @override
-  String get examQuestionExplanation => 'Explanation';
+  String get examQuestionExplanation => '해설';
 
   @override
-  String get examQuestionNoQuestions => 'No questions in this section yet.';
+  String get examQuestionNoQuestions => '이 섹션에는 아직 문제가 없어요.';
 
   @override
-  String get examQuestionEssayComingSoon => 'Essay evaluation is coming soon. Try a reading section for now.';
+  String get examQuestionEssayComingSoon => '작문 평가는 곧 추가돼요. 지금은 독해 섹션을 해보세요.';
 
   @override
-  String get examQuestionUnsupported => 'This question type isn\'t supported yet.';
+  String get examQuestionUnsupported => '아직 지원하지 않는 문제 유형이에요.';
 
   @override
-  String get examPracticeFinishedTitle => 'Section complete';
+  String get examPracticeFinishedTitle => '섹션 완료';
 
   @override
-  String get examPracticeFinishedBody => 'Nice work — you\'ve completed every question in this section.';
+  String get examPracticeFinishedBody => '잘했어요 — 이 섹션의 모든 문제를 끝냈어요.';
 
   @override
-  String get examPracticeBackToDashboard => 'Back to dashboard';
+  String get examPracticeBackToDashboard => '대시보드로 돌아가기';
 
   @override
   String examPracticeProgress(int current, int total) {
-    return '$current of $total';
+    return '$total문제 중 $current번째';
   }
 
   @override
@@ -6996,27 +6996,27 @@ class AppLocalizationsKo extends AppLocalizations {
   }
 
   @override
-  String get examTopicPickerTitle => 'Pick a topic';
+  String get examTopicPickerTitle => '주제 선택';
 
   @override
-  String get examTopicPickerSubtitle => 'Practice questions on a specific subject, or jump into all questions.';
+  String get examTopicPickerSubtitle => '특정 주제로 연습하거나 전체 문제로 바로 가세요.';
 
   @override
-  String get examTopicAllTopics => 'All topics';
+  String get examTopicAllTopics => '전체 주제';
 
   @override
-  String get examTopicAllTopicsDescription => 'Mix from every available topic';
+  String get examTopicAllTopicsDescription => '가능한 모든 주제에서 출제';
 
   @override
   String get examTopicEmpty => 'No topical content yet. Tap All topics to start practicing.';
 
   @override
   String examTopicQuestionCount(int count) {
-    return '$count questions';
+    return '$count문제';
   }
 
   @override
-  String get examTopicOneQuestion => '1 question';
+  String get examTopicOneQuestion => '1문제';
 
   @override
   String get examSpeakingPrompt => 'Speak your answer';
@@ -7059,8 +7059,8 @@ class AppLocalizationsKo extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count tasks',
-      one: '1 task',
+      other: '$count개 과제',
+      one: '1개 과제',
     );
     return '$_temp0';
   }
@@ -7070,8 +7070,8 @@ class AppLocalizationsKo extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count parts',
-      one: '1 part',
+      other: '$count개 파트',
+      one: '1개 파트',
     );
     return '$_temp0';
   }

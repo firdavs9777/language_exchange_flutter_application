@@ -6748,109 +6748,109 @@ class AppLocalizationsTg extends AppLocalizations {
   String get filterVipPromoCta => 'Ба VIP гузаред';
 
   @override
-  String get examStudy => 'Exam Study';
+  String get examStudy => 'Омодагӣ ба имтиҳон';
 
   @override
-  String get examStudyChooseLanguage => 'Choose your study language';
+  String get examStudyChooseLanguage => 'Забони омӯзишро интихоб кунед';
 
   @override
-  String get examStudyChooseLanguageSubtitle => 'Pick the language you want to prepare an exam in.';
+  String get examStudyChooseLanguageSubtitle => 'Забонеро интихоб кунед, ки мехоҳед дар он ба имтиҳон омода шавед.';
 
   @override
   String get examStudyLoading => 'Loading…';
 
   @override
-  String get examStudyEmptyLanguages => 'No study languages available yet.';
+  String get examStudyEmptyLanguages => 'Ҳоло забонҳои омӯзишӣ дастрас нестанд.';
 
   @override
-  String get examStudyError => 'Couldn\'t load — please try again.';
+  String get examStudyError => 'Бор карда нашуд — бори дигар кӯшиш кунед.';
 
   @override
   String get examStudyRetry => 'Retry';
 
   @override
-  String get examPickExam => 'Choose an exam';
+  String get examPickExam => 'Имтиҳонро интихоб кунед';
 
   @override
-  String get examPickExamSubtitle => 'Pick the exam you want to prepare for.';
+  String get examPickExamSubtitle => 'Имтиҳонеро интихоб кунед, ки барои он омода мешавед.';
 
   @override
-  String get examPickEmpty => 'No exams available for this language yet.';
+  String get examPickEmpty => 'Барои ин забон ҳоло имтиҳон нест.';
 
   @override
   String get examDashboardSections => 'Sections';
 
   @override
-  String get examDashboardEmptySections => 'No sections to practice yet.';
+  String get examDashboardEmptySections => 'Ҳоло бахше барои машқ нест.';
 
   @override
-  String get examDashboardContinue => 'Continue practice';
+  String get examDashboardContinue => 'Идомаи машқ';
 
   @override
-  String get examDashboardStartStudyPlan => 'Start study plan';
+  String get examDashboardStartStudyPlan => 'Оғози нақшаи омӯзиш';
 
   @override
-  String get examDashboardViewProgress => 'View progress';
+  String get examDashboardViewProgress => 'Дидани пешрафт';
 
   @override
   String examMetaDuration(int minutes) {
-    return '$minutes min';
+    return '$minutes дақ';
   }
 
   @override
   String examMetaMaxScore(String score) {
-    return 'Max $score';
+    return 'Ҳадди аксар $score';
   }
 
   @override
   String examMetaSections(int count) {
-    return '$count sections';
+    return '$count бахш';
   }
 
   @override
-  String get examSectionNotStarted => 'Not started';
+  String get examSectionNotStarted => 'Оғоз нашуд';
 
   @override
   String examSectionProgress(int done, int total) {
-    return '$done/$total done';
+    return '$done/$total иҷро шуд';
   }
 
   @override
-  String get examQuestionSubmit => 'Submit answer';
+  String get examQuestionSubmit => 'Фиристодани ҷавоб';
 
   @override
-  String get examQuestionNext => 'Next question';
+  String get examQuestionNext => 'Саволи навбатӣ';
 
   @override
   String get examQuestionCorrect => 'Correct!';
 
   @override
-  String get examQuestionIncorrect => 'Incorrect';
+  String get examQuestionIncorrect => 'Нодуруст';
 
   @override
-  String get examQuestionExplanation => 'Explanation';
+  String get examQuestionExplanation => 'Шарҳ';
 
   @override
-  String get examQuestionNoQuestions => 'No questions in this section yet.';
+  String get examQuestionNoQuestions => 'Дар ин бахш ҳоло савол нест.';
 
   @override
-  String get examQuestionEssayComingSoon => 'Essay evaluation is coming soon. Try a reading section for now.';
+  String get examQuestionEssayComingSoon => 'Арзёбии иншо ба зудӣ меояд. Ҳоло бахши хонданро санҷед.';
 
   @override
-  String get examQuestionUnsupported => 'This question type isn\'t supported yet.';
+  String get examQuestionUnsupported => 'Ин навъи савол ҳоло дастгирӣ намешавад.';
 
   @override
-  String get examPracticeFinishedTitle => 'Section complete';
+  String get examPracticeFinishedTitle => 'Бахш анҷом ёфт';
 
   @override
-  String get examPracticeFinishedBody => 'Nice work — you\'ve completed every question in this section.';
+  String get examPracticeFinishedBody => 'Офарин — шумо ҳамаи саволҳои ин бахшро анҷом додед.';
 
   @override
-  String get examPracticeBackToDashboard => 'Back to dashboard';
+  String get examPracticeBackToDashboard => 'Бозгашт ба лавҳа';
 
   @override
   String examPracticeProgress(int current, int total) {
-    return '$current of $total';
+    return '$current аз $total';
   }
 
   @override
@@ -7009,27 +7009,27 @@ class AppLocalizationsTg extends AppLocalizations {
   }
 
   @override
-  String get examTopicPickerTitle => 'Pick a topic';
+  String get examTopicPickerTitle => 'Мавзӯъро интихоб кунед';
 
   @override
-  String get examTopicPickerSubtitle => 'Practice questions on a specific subject, or jump into all questions.';
+  String get examTopicPickerSubtitle => 'Аз рӯи як мавзӯъ машқ кунед ё ба ҳамаи саволҳо гузаред.';
 
   @override
-  String get examTopicAllTopics => 'All topics';
+  String get examTopicAllTopics => 'Ҳамаи мавзӯъҳо';
 
   @override
-  String get examTopicAllTopicsDescription => 'Mix from every available topic';
+  String get examTopicAllTopicsDescription => 'Омехта аз ҳамаи мавзӯъҳои дастрас';
 
   @override
   String get examTopicEmpty => 'No topical content yet. Tap All topics to start practicing.';
 
   @override
   String examTopicQuestionCount(int count) {
-    return '$count questions';
+    return '$count савол';
   }
 
   @override
-  String get examTopicOneQuestion => '1 question';
+  String get examTopicOneQuestion => '1 савол';
 
   @override
   String get examSpeakingPrompt => 'Speak your answer';
@@ -7072,8 +7072,8 @@ class AppLocalizationsTg extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count tasks',
-      one: '1 task',
+      other: '$count вазифа',
+      one: '1 вазифа',
     );
     return '$_temp0';
   }
@@ -7083,8 +7083,8 @@ class AppLocalizationsTg extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count parts',
-      one: '1 part',
+      other: '$count қисм',
+      one: '1 қисм',
     );
     return '$_temp0';
   }

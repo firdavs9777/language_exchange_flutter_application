@@ -6735,109 +6735,109 @@ class AppLocalizationsVi extends AppLocalizations {
   String get filterVipPromoCta => 'Lên VIP';
 
   @override
-  String get examStudy => 'Exam Study';
+  String get examStudy => 'Luyện thi';
 
   @override
-  String get examStudyChooseLanguage => 'Choose your study language';
+  String get examStudyChooseLanguage => 'Chọn ngôn ngữ học';
 
   @override
-  String get examStudyChooseLanguageSubtitle => 'Pick the language you want to prepare an exam in.';
+  String get examStudyChooseLanguageSubtitle => 'Chọn ngôn ngữ bạn muốn luyện thi.';
 
   @override
   String get examStudyLoading => 'Loading…';
 
   @override
-  String get examStudyEmptyLanguages => 'No study languages available yet.';
+  String get examStudyEmptyLanguages => 'Chưa có ngôn ngữ học nào.';
 
   @override
-  String get examStudyError => 'Couldn\'t load — please try again.';
+  String get examStudyError => 'Không tải được — hãy thử lại.';
 
   @override
   String get examStudyRetry => 'Retry';
 
   @override
-  String get examPickExam => 'Choose an exam';
+  String get examPickExam => 'Chọn kỳ thi';
 
   @override
-  String get examPickExamSubtitle => 'Pick the exam you want to prepare for.';
+  String get examPickExamSubtitle => 'Chọn kỳ thi bạn muốn chuẩn bị.';
 
   @override
-  String get examPickEmpty => 'No exams available for this language yet.';
+  String get examPickEmpty => 'Chưa có kỳ thi nào cho ngôn ngữ này.';
 
   @override
   String get examDashboardSections => 'Sections';
 
   @override
-  String get examDashboardEmptySections => 'No sections to practice yet.';
+  String get examDashboardEmptySections => 'Chưa có phần nào để luyện.';
 
   @override
-  String get examDashboardContinue => 'Continue practice';
+  String get examDashboardContinue => 'Tiếp tục luyện tập';
 
   @override
-  String get examDashboardStartStudyPlan => 'Start study plan';
+  String get examDashboardStartStudyPlan => 'Bắt đầu kế hoạch học';
 
   @override
-  String get examDashboardViewProgress => 'View progress';
+  String get examDashboardViewProgress => 'Xem tiến độ';
 
   @override
   String examMetaDuration(int minutes) {
-    return '$minutes min';
+    return '$minutes phút';
   }
 
   @override
   String examMetaMaxScore(String score) {
-    return 'Max $score';
+    return 'Tối đa $score';
   }
 
   @override
   String examMetaSections(int count) {
-    return '$count sections';
+    return '$count phần';
   }
 
   @override
-  String get examSectionNotStarted => 'Not started';
+  String get examSectionNotStarted => 'Chưa bắt đầu';
 
   @override
   String examSectionProgress(int done, int total) {
-    return '$done/$total done';
+    return 'Đã làm $done/$total';
   }
 
   @override
-  String get examQuestionSubmit => 'Submit answer';
+  String get examQuestionSubmit => 'Nộp câu trả lời';
 
   @override
-  String get examQuestionNext => 'Next question';
+  String get examQuestionNext => 'Câu tiếp theo';
 
   @override
   String get examQuestionCorrect => 'Correct!';
 
   @override
-  String get examQuestionIncorrect => 'Incorrect';
+  String get examQuestionIncorrect => 'Sai';
 
   @override
-  String get examQuestionExplanation => 'Explanation';
+  String get examQuestionExplanation => 'Giải thích';
 
   @override
-  String get examQuestionNoQuestions => 'No questions in this section yet.';
+  String get examQuestionNoQuestions => 'Phần này chưa có câu hỏi.';
 
   @override
-  String get examQuestionEssayComingSoon => 'Essay evaluation is coming soon. Try a reading section for now.';
+  String get examQuestionEssayComingSoon => 'Chấm bài viết sắp ra mắt. Hãy thử phần đọc trước.';
 
   @override
-  String get examQuestionUnsupported => 'This question type isn\'t supported yet.';
+  String get examQuestionUnsupported => 'Loại câu hỏi này chưa được hỗ trợ.';
 
   @override
-  String get examPracticeFinishedTitle => 'Section complete';
+  String get examPracticeFinishedTitle => 'Hoàn thành phần này';
 
   @override
-  String get examPracticeFinishedBody => 'Nice work — you\'ve completed every question in this section.';
+  String get examPracticeFinishedBody => 'Làm tốt lắm — bạn đã xong mọi câu hỏi trong phần này.';
 
   @override
-  String get examPracticeBackToDashboard => 'Back to dashboard';
+  String get examPracticeBackToDashboard => 'Về bảng điều khiển';
 
   @override
   String examPracticeProgress(int current, int total) {
-    return '$current of $total';
+    return '$current trên $total';
   }
 
   @override
@@ -6996,27 +6996,27 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
-  String get examTopicPickerTitle => 'Pick a topic';
+  String get examTopicPickerTitle => 'Chọn chủ đề';
 
   @override
-  String get examTopicPickerSubtitle => 'Practice questions on a specific subject, or jump into all questions.';
+  String get examTopicPickerSubtitle => 'Luyện câu hỏi theo một chủ đề, hoặc vào tất cả câu hỏi.';
 
   @override
-  String get examTopicAllTopics => 'All topics';
+  String get examTopicAllTopics => 'Tất cả chủ đề';
 
   @override
-  String get examTopicAllTopicsDescription => 'Mix from every available topic';
+  String get examTopicAllTopicsDescription => 'Trộn từ mọi chủ đề hiện có';
 
   @override
   String get examTopicEmpty => 'No topical content yet. Tap All topics to start practicing.';
 
   @override
   String examTopicQuestionCount(int count) {
-    return '$count questions';
+    return '$count câu hỏi';
   }
 
   @override
-  String get examTopicOneQuestion => '1 question';
+  String get examTopicOneQuestion => '1 câu hỏi';
 
   @override
   String get examSpeakingPrompt => 'Speak your answer';
@@ -7059,8 +7059,8 @@ class AppLocalizationsVi extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count tasks',
-      one: '1 task',
+      other: '$count bài',
+      one: '1 bài',
     );
     return '$_temp0';
   }
@@ -7070,8 +7070,8 @@ class AppLocalizationsVi extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count parts',
-      one: '1 part',
+      other: '$count phần',
+      one: '1 phần',
     );
     return '$_temp0';
   }

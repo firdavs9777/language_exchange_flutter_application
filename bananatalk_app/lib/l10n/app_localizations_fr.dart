@@ -6742,49 +6742,49 @@ class AppLocalizationsFr extends AppLocalizations {
   String get filterVipPromoCta => 'Devenir VIP';
 
   @override
-  String get examStudy => 'Exam Study';
+  String get examStudy => 'Préparation d’examen';
 
   @override
-  String get examStudyChooseLanguage => 'Choose your study language';
+  String get examStudyChooseLanguage => 'Choisissez votre langue d’étude';
 
   @override
-  String get examStudyChooseLanguageSubtitle => 'Pick the language you want to prepare an exam in.';
+  String get examStudyChooseLanguageSubtitle => 'Choisissez la langue dans laquelle vous voulez préparer un examen.';
 
   @override
   String get examStudyLoading => 'Loading…';
 
   @override
-  String get examStudyEmptyLanguages => 'No study languages available yet.';
+  String get examStudyEmptyLanguages => 'Aucune langue d’étude disponible pour l’instant.';
 
   @override
-  String get examStudyError => 'Couldn\'t load — please try again.';
+  String get examStudyError => 'Chargement impossible — réessayez.';
 
   @override
   String get examStudyRetry => 'Retry';
 
   @override
-  String get examPickExam => 'Choose an exam';
+  String get examPickExam => 'Choisir un examen';
 
   @override
-  String get examPickExamSubtitle => 'Pick the exam you want to prepare for.';
+  String get examPickExamSubtitle => 'Choisissez l’examen que vous voulez préparer.';
 
   @override
-  String get examPickEmpty => 'No exams available for this language yet.';
+  String get examPickEmpty => 'Aucun examen disponible pour cette langue pour l’instant.';
 
   @override
   String get examDashboardSections => 'Sections';
 
   @override
-  String get examDashboardEmptySections => 'No sections to practice yet.';
+  String get examDashboardEmptySections => 'Aucune section à travailler pour l’instant.';
 
   @override
-  String get examDashboardContinue => 'Continue practice';
+  String get examDashboardContinue => 'Continuer l’entraînement';
 
   @override
-  String get examDashboardStartStudyPlan => 'Start study plan';
+  String get examDashboardStartStudyPlan => 'Démarrer le plan d’étude';
 
   @override
-  String get examDashboardViewProgress => 'View progress';
+  String get examDashboardViewProgress => 'Voir la progression';
 
   @override
   String examMetaDuration(int minutes) {
@@ -6802,18 +6802,18 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
-  String get examSectionNotStarted => 'Not started';
+  String get examSectionNotStarted => 'Pas commencé';
 
   @override
   String examSectionProgress(int done, int total) {
-    return '$done/$total done';
+    return '$done/$total faites';
   }
 
   @override
-  String get examQuestionSubmit => 'Submit answer';
+  String get examQuestionSubmit => 'Valider la réponse';
 
   @override
-  String get examQuestionNext => 'Next question';
+  String get examQuestionNext => 'Question suivante';
 
   @override
   String get examQuestionCorrect => 'Correct!';
@@ -6822,29 +6822,29 @@ class AppLocalizationsFr extends AppLocalizations {
   String get examQuestionIncorrect => 'Incorrect';
 
   @override
-  String get examQuestionExplanation => 'Explanation';
+  String get examQuestionExplanation => 'Explication';
 
   @override
-  String get examQuestionNoQuestions => 'No questions in this section yet.';
+  String get examQuestionNoQuestions => 'Aucune question dans cette section pour l’instant.';
 
   @override
-  String get examQuestionEssayComingSoon => 'Essay evaluation is coming soon. Try a reading section for now.';
+  String get examQuestionEssayComingSoon => 'L’évaluation des rédactions arrive bientôt. Essayez une section de lecture en attendant.';
 
   @override
-  String get examQuestionUnsupported => 'This question type isn\'t supported yet.';
+  String get examQuestionUnsupported => 'Ce type de question n’est pas encore pris en charge.';
 
   @override
-  String get examPracticeFinishedTitle => 'Section complete';
+  String get examPracticeFinishedTitle => 'Section terminée';
 
   @override
-  String get examPracticeFinishedBody => 'Nice work — you\'ve completed every question in this section.';
+  String get examPracticeFinishedBody => 'Beau travail — vous avez répondu à toutes les questions de cette section.';
 
   @override
-  String get examPracticeBackToDashboard => 'Back to dashboard';
+  String get examPracticeBackToDashboard => 'Retour au tableau de bord';
 
   @override
   String examPracticeProgress(int current, int total) {
-    return '$current of $total';
+    return '$current sur $total';
   }
 
   @override
@@ -7003,16 +7003,16 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
-  String get examTopicPickerTitle => 'Pick a topic';
+  String get examTopicPickerTitle => 'Choisir un thème';
 
   @override
-  String get examTopicPickerSubtitle => 'Practice questions on a specific subject, or jump into all questions.';
+  String get examTopicPickerSubtitle => 'Entraînez-vous sur un thème précis, ou passez à toutes les questions.';
 
   @override
-  String get examTopicAllTopics => 'All topics';
+  String get examTopicAllTopics => 'Tous les thèmes';
 
   @override
-  String get examTopicAllTopicsDescription => 'Mix from every available topic';
+  String get examTopicAllTopicsDescription => 'Un mélange de tous les thèmes disponibles';
 
   @override
   String get examTopicEmpty => 'No topical content yet. Tap All topics to start practicing.';
@@ -7066,8 +7066,8 @@ class AppLocalizationsFr extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count tasks',
-      one: '1 task',
+      other: '$count tâches',
+      one: '1 tâche',
     );
     return '$_temp0';
   }
@@ -7077,8 +7077,8 @@ class AppLocalizationsFr extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count parts',
-      one: '1 part',
+      other: '$count parties',
+      one: '1 partie',
     );
     return '$_temp0';
   }

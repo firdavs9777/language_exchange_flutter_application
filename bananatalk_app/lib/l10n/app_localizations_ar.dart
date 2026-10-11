@@ -6751,109 +6751,109 @@ class AppLocalizationsAr extends AppLocalizations {
   String get filterVipPromoCta => 'انضم إلى VIP';
 
   @override
-  String get examStudy => 'Exam Study';
+  String get examStudy => 'دراسة الامتحان';
 
   @override
-  String get examStudyChooseLanguage => 'Choose your study language';
+  String get examStudyChooseLanguage => 'اختر لغة الدراسة';
 
   @override
-  String get examStudyChooseLanguageSubtitle => 'Pick the language you want to prepare an exam in.';
+  String get examStudyChooseLanguageSubtitle => 'اختر اللغة التي تريد التحضير لامتحان فيها.';
 
   @override
   String get examStudyLoading => 'Loading…';
 
   @override
-  String get examStudyEmptyLanguages => 'No study languages available yet.';
+  String get examStudyEmptyLanguages => 'لا توجد لغات دراسة متاحة بعد.';
 
   @override
-  String get examStudyError => 'Couldn\'t load — please try again.';
+  String get examStudyError => 'تعذّر التحميل — حاول مرة أخرى.';
 
   @override
   String get examStudyRetry => 'Retry';
 
   @override
-  String get examPickExam => 'Choose an exam';
+  String get examPickExam => 'اختر امتحانًا';
 
   @override
-  String get examPickExamSubtitle => 'Pick the exam you want to prepare for.';
+  String get examPickExamSubtitle => 'اختر الامتحان الذي تريد التحضير له.';
 
   @override
-  String get examPickEmpty => 'No exams available for this language yet.';
+  String get examPickEmpty => 'لا توجد امتحانات متاحة لهذه اللغة بعد.';
 
   @override
   String get examDashboardSections => 'Sections';
 
   @override
-  String get examDashboardEmptySections => 'No sections to practice yet.';
+  String get examDashboardEmptySections => 'لا توجد أقسام للتدريب بعد.';
 
   @override
-  String get examDashboardContinue => 'Continue practice';
+  String get examDashboardContinue => 'متابعة التدريب';
 
   @override
-  String get examDashboardStartStudyPlan => 'Start study plan';
+  String get examDashboardStartStudyPlan => 'ابدأ خطة الدراسة';
 
   @override
-  String get examDashboardViewProgress => 'View progress';
+  String get examDashboardViewProgress => 'عرض التقدّم';
 
   @override
   String examMetaDuration(int minutes) {
-    return '$minutes min';
+    return '$minutes دقيقة';
   }
 
   @override
   String examMetaMaxScore(String score) {
-    return 'Max $score';
+    return 'الحد الأقصى $score';
   }
 
   @override
   String examMetaSections(int count) {
-    return '$count sections';
+    return '$count أقسام';
   }
 
   @override
-  String get examSectionNotStarted => 'Not started';
+  String get examSectionNotStarted => 'لم يبدأ';
 
   @override
   String examSectionProgress(int done, int total) {
-    return '$done/$total done';
+    return '$done/$total مكتمل';
   }
 
   @override
-  String get examQuestionSubmit => 'Submit answer';
+  String get examQuestionSubmit => 'إرسال الإجابة';
 
   @override
-  String get examQuestionNext => 'Next question';
+  String get examQuestionNext => 'السؤال التالي';
 
   @override
   String get examQuestionCorrect => 'Correct!';
 
   @override
-  String get examQuestionIncorrect => 'Incorrect';
+  String get examQuestionIncorrect => 'إجابة خاطئة';
 
   @override
-  String get examQuestionExplanation => 'Explanation';
+  String get examQuestionExplanation => 'الشرح';
 
   @override
-  String get examQuestionNoQuestions => 'No questions in this section yet.';
+  String get examQuestionNoQuestions => 'لا توجد أسئلة في هذا القسم بعد.';
 
   @override
-  String get examQuestionEssayComingSoon => 'Essay evaluation is coming soon. Try a reading section for now.';
+  String get examQuestionEssayComingSoon => 'تقييم المقالات قريبًا. جرّب قسم القراءة في الوقت الحالي.';
 
   @override
-  String get examQuestionUnsupported => 'This question type isn\'t supported yet.';
+  String get examQuestionUnsupported => 'هذا النوع من الأسئلة غير مدعوم بعد.';
 
   @override
-  String get examPracticeFinishedTitle => 'Section complete';
+  String get examPracticeFinishedTitle => 'اكتمل القسم';
 
   @override
-  String get examPracticeFinishedBody => 'Nice work — you\'ve completed every question in this section.';
+  String get examPracticeFinishedBody => 'عمل رائع — أكملت كل الأسئلة في هذا القسم.';
 
   @override
-  String get examPracticeBackToDashboard => 'Back to dashboard';
+  String get examPracticeBackToDashboard => 'العودة إلى لوحة التحكم';
 
   @override
   String examPracticeProgress(int current, int total) {
-    return '$current of $total';
+    return '$current من $total';
   }
 
   @override
@@ -7012,27 +7012,27 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
-  String get examTopicPickerTitle => 'Pick a topic';
+  String get examTopicPickerTitle => 'اختر موضوعًا';
 
   @override
-  String get examTopicPickerSubtitle => 'Practice questions on a specific subject, or jump into all questions.';
+  String get examTopicPickerSubtitle => 'تدرّب على أسئلة موضوع معيّن، أو ابدأ بكل الأسئلة.';
 
   @override
-  String get examTopicAllTopics => 'All topics';
+  String get examTopicAllTopics => 'كل المواضيع';
 
   @override
-  String get examTopicAllTopicsDescription => 'Mix from every available topic';
+  String get examTopicAllTopicsDescription => 'مزيج من كل المواضيع المتاحة';
 
   @override
   String get examTopicEmpty => 'No topical content yet. Tap All topics to start practicing.';
 
   @override
   String examTopicQuestionCount(int count) {
-    return '$count questions';
+    return '$count أسئلة';
   }
 
   @override
-  String get examTopicOneQuestion => '1 question';
+  String get examTopicOneQuestion => 'سؤال واحد';
 
   @override
   String get examSpeakingPrompt => 'Speak your answer';
@@ -7075,8 +7075,8 @@ class AppLocalizationsAr extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count tasks',
-      one: '1 task',
+      other: '$count مهام',
+      one: 'مهمة واحدة',
     );
     return '$_temp0';
   }
@@ -7086,8 +7086,8 @@ class AppLocalizationsAr extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count parts',
-      one: '1 part',
+      other: '$count أجزاء',
+      one: 'جزء واحد',
     );
     return '$_temp0';
   }
