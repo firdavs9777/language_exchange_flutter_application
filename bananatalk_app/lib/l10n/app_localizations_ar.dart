@@ -9116,4 +9116,135 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get locationPermissionPermanentlyDeniedBody => 'تم رفض إذن الموقع نهائيًا. يرجى تفعيله في إعدادات التطبيق لإضافة موقعك إلى اللحظات.';
+
+  @override
+  String get termsSnackAcceptFirst => 'يرجى قبول شروط الخدمة للمتابعة';
+
+  @override
+  String get termsErrorAccepting => 'حدث خطأ أثناء قبول الشروط. حاول مرة أخرى.';
+
+  @override
+  String get termsEulaTitle => 'اتفاقية ترخيص المستخدم النهائي (EULA)';
+
+  @override
+  String get termsWelcomeHeading => 'مرحبًا بك في Bananatalk';
+
+  @override
+  String get termsWelcomeBody => 'باستخدامك Bananatalk فإنك توافق على الالتزام بشروط الخدمة هذه. يرجى قراءتها بعناية قبل استخدام خدمتنا.';
+
+  @override
+  String get termsZeroToleranceHeading => 'سياسة عدم التسامح المطلق';
+
+  @override
+  String get termsZeroToleranceIntro => 'تطبّق Bananatalk سياسة عدم تسامح مطلق تجاه المحتوى المسيء والمستخدمين المؤذين. نحن لا نسمح بما يلي ولا نتغاضى عنه ولا نتسامح معه:';
+
+  @override
+  String get termsZeroToleranceItem1 => 'التحرّش أو التنمّر أو التهديد بأي شكل';
+
+  @override
+  String get termsZeroToleranceItem2 => 'خطاب الكراهية أو التمييز أو المحتوى الذي يروّج للعنف';
+
+  @override
+  String get termsZeroToleranceItem3 => 'المحتوى الجنسي الصريح أو الإباحي أو غير اللائق';
+
+  @override
+  String get termsZeroToleranceItem4 => 'الرسائل المزعجة أو الاحتيال أو الأنشطة المخادعة';
+
+  @override
+  String get termsZeroToleranceItem5 => 'انتحال الشخصية أو التمثيل الكاذب';
+
+  @override
+  String get termsZeroToleranceItem6 => 'أي محتوى يخالف القوانين أو اللوائح المعمول بها';
+
+  @override
+  String get termsZeroToleranceEnforcement => 'سيتم حظر المستخدمين الذين ينتهكون هذه السياسات من المنصة فورًا. ونحتفظ بالحق في إزالة أي محتوى وإنهاء أي حساب يخالف هذه الشروط دون إشعار مسبق.';
+
+  @override
+  String get termsUgcHeading => 'المحتوى الذي ينشئه المستخدمون';
+
+  @override
+  String get termsUgcBody => 'تتيح Bananatalk للمستخدمين إنشاء ومشاركة محتوى يشمل الرسائل والمنشورات والصور وغيرها من المواد. وأنت وحدك المسؤول عن كل المحتوى الذي تنشئه أو ترفعه أو تشاركه عبر الخدمة.';
+
+  @override
+  String get termsUgcAgreeIntro => 'باستخدامك Bananatalk فإنك توافق على ما يلي:';
+
+  @override
+  String get termsUgcItem1 => 'لن تنشر محتوى مسيئًا أو ضارًا أو غير قانوني';
+
+  @override
+  String get termsUgcItem2 => 'لن تتصرّف بأسلوب مسيء تجاه المستخدمين الآخرين';
+
+  @override
+  String get termsUgcItem3 => 'ستحترم حقوق وكرامة جميع المستخدمين';
+
+  @override
+  String get termsUgcItem4 => 'ستبلّغ عن أي محتوى مسيء أو مستخدم مؤذٍ تصادفه';
+
+  @override
+  String get termsModerationHeading => 'مراجعة المحتوى';
+
+  @override
+  String get termsModerationBody => 'تراجع Bananatalk المحتوى الذي ينشئه المستخدمون بشكل نشط للحفاظ على بيئة آمنة ومحترمة. ونستخدم أنظمة آلية ومشرفين بشريين لمراجعة وإزالة المحتوى المخالف لسياساتنا.';
+
+  @override
+  String get termsModerationReport => 'إذا صادفت محتوى مسيئًا أو سلوكًا مؤذيًا، يرجى الإبلاغ عنه فورًا باستخدام أدوات الإبلاغ داخل التطبيق. نحن نتعامل مع كل البلاغات بجدية وسنحقق فيها على الفور.';
+
+  @override
+  String get termsAccountHeading => 'مسؤولية الحساب';
+
+  @override
+  String get termsAccountBody => 'أنت مسؤول عن الحفاظ على أمان حسابك وعن جميع الأنشطة التي تتم من خلاله. وتوافق على إبلاغنا فورًا بأي استخدام غير مصرّح به لحسابك.';
+
+  @override
+  String get termsProhibitedHeading => 'الأنشطة المحظورة';
+
+  @override
+  String get termsProhibitedIntro => 'بالإضافة إلى سياسة عدم التسامح أعلاه، فإنك توافق على عدم:';
+
+  @override
+  String get termsProhibitedItem1 => 'مخالفة أي قانون محلي أو وطني أو دولي معمول به';
+
+  @override
+  String get termsProhibitedItem2 => 'انتهاك حقوق الآخرين، بما في ذلك حقوق الملكية الفكرية';
+
+  @override
+  String get termsProhibitedItem3 => 'نقل أي فيروسات أو برامج ضارة أو تعليمات برمجية مؤذية';
+
+  @override
+  String get termsProhibitedItem4 => 'محاولة الوصول غير المصرّح به إلى الخدمة أو إلى حسابات أخرى';
+
+  @override
+  String get termsProhibitedItem5 => 'استخدام الخدمة لأي غرض تجاري دون إذن';
+
+  @override
+  String get termsTerminationHeading => 'إنهاء الحساب';
+
+  @override
+  String get termsTerminationBody => 'نحتفظ بالحق في تعليق حسابك أو إنهائه في أي وقت، بإشعار أو بدونه، عند أي انتهاك لشروط الخدمة هذه، بما في ذلك على سبيل المثال لا الحصر نشر محتوى مسيء أو السلوك المؤذي.';
+
+  @override
+  String get termsChangesHeading => 'تغييرات على الشروط';
+
+  @override
+  String get termsChangesBody => 'قد نحدّث شروط الخدمة هذه من وقت لآخر. ويُعد استمرارك في استخدام الخدمة بعد التغييرات قبولًا للشروط المحدّثة.';
+
+  @override
+  String get termsContactHeading => 'تواصل معنا';
+
+  @override
+  String get termsContactBody => 'إذا كانت لديك أسئلة حول شروط الخدمة هذه أو أردت الإبلاغ عن مخالفة، يرجى التواصل معنا عبر أدوات الدعم في التطبيق.';
+
+  @override
+  String get termsAgreeCheckbox => 'أوافق على شروط الخدمة وسياسة عدم التسامح المطلق';
+
+  @override
+  String get termsProcessing => 'جارٍ المعالجة...';
+
+  @override
+  String get termsAcceptAndContinue => 'أوافق وأتابع';
+
+  @override
+  String termsLastUpdated(int year) {
+    return 'آخر تحديث: $year';
+  }
 }

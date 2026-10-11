@@ -9104,4 +9104,135 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get locationPermissionPermanentlyDeniedBody => 'Die Standortberechtigung wurde dauerhaft verweigert. Bitte aktiviere sie in den App-Einstellungen, um Momente mit deinem Standort zu versehen.';
+
+  @override
+  String get termsSnackAcceptFirst => 'Bitte akzeptiere die Nutzungsbedingungen, um fortzufahren';
+
+  @override
+  String get termsErrorAccepting => 'Fehler beim Akzeptieren der Bedingungen. Bitte erneut versuchen.';
+
+  @override
+  String get termsEulaTitle => 'Endbenutzer-Lizenzvertrag (EULA)';
+
+  @override
+  String get termsWelcomeHeading => 'Willkommen bei Bananatalk';
+
+  @override
+  String get termsWelcomeBody => 'Mit der Nutzung von Bananatalk erklärst du dich an diese Nutzungsbedingungen gebunden. Bitte lies sie sorgfältig, bevor du unseren Dienst nutzt.';
+
+  @override
+  String get termsZeroToleranceHeading => 'Null-Toleranz-Richtlinie';
+
+  @override
+  String get termsZeroToleranceIntro => 'Bananatalk verfolgt eine NULL-TOLERANZ-Richtlinie gegenüber anstößigen Inhalten und missbräuchlichen Nutzern. Wir erlauben, dulden und tolerieren Folgendes nicht:';
+
+  @override
+  String get termsZeroToleranceItem1 => 'Belästigung, Mobbing oder Drohungen jeder Art';
+
+  @override
+  String get termsZeroToleranceItem2 => 'Hassrede, Diskriminierung oder Inhalte, die Gewalt fördern';
+
+  @override
+  String get termsZeroToleranceItem3 => 'Sexuell explizite, pornografische oder unangemessene Inhalte';
+
+  @override
+  String get termsZeroToleranceItem4 => 'Spam, Betrug oder betrügerische Aktivitäten';
+
+  @override
+  String get termsZeroToleranceItem5 => 'Identitätsdiebstahl oder falsche Angaben';
+
+  @override
+  String get termsZeroToleranceItem6 => 'Jegliche Inhalte, die geltende Gesetze oder Vorschriften verletzen';
+
+  @override
+  String get termsZeroToleranceEnforcement => 'Nutzer, die gegen diese Richtlinien verstoßen, werden sofort von der Plattform ausgeschlossen. Wir behalten uns das Recht vor, Inhalte zu entfernen und Konten, die gegen diese Bedingungen verstoßen, ohne Vorankündigung zu sperren.';
+
+  @override
+  String get termsUgcHeading => 'Nutzergenerierte Inhalte';
+
+  @override
+  String get termsUgcBody => 'Bananatalk erlaubt Nutzern, Inhalte zu erstellen und zu teilen, darunter Nachrichten, Beiträge, Bilder und andere Materialien. Du bist allein verantwortlich für alle Inhalte, die du über den Dienst erstellst, hochlädst oder teilst.';
+
+  @override
+  String get termsUgcAgreeIntro => 'Mit der Nutzung von Bananatalk stimmst du zu, dass:';
+
+  @override
+  String get termsUgcItem1 => 'du keine anstößigen, schädlichen oder illegalen Inhalte postest';
+
+  @override
+  String get termsUgcItem2 => 'du dich anderen Nutzern gegenüber nicht missbräuchlich verhältst';
+
+  @override
+  String get termsUgcItem3 => 'du die Rechte und die Würde aller Nutzer respektierst';
+
+  @override
+  String get termsUgcItem4 => 'du anstößige Inhalte oder missbräuchliche Nutzer meldest, denen du begegnest';
+
+  @override
+  String get termsModerationHeading => 'Inhaltsmoderation';
+
+  @override
+  String get termsModerationBody => 'Bananatalk moderiert nutzergenerierte Inhalte aktiv, um eine sichere und respektvolle Umgebung zu erhalten. Wir setzen automatisierte Systeme und menschliche Moderatoren ein, um Inhalte zu prüfen und zu entfernen, die gegen unsere Richtlinien verstoßen.';
+
+  @override
+  String get termsModerationReport => 'Wenn dir anstößige Inhalte oder missbräuchliches Verhalten begegnen, melde sie bitte sofort über die Meldefunktionen in der App. Wir nehmen jede Meldung ernst und gehen ihr zügig nach.';
+
+  @override
+  String get termsAccountHeading => 'Verantwortung für dein Konto';
+
+  @override
+  String get termsAccountBody => 'Du bist dafür verantwortlich, die Sicherheit deines Kontos zu wahren, und für alle Aktivitäten, die unter deinem Konto stattfinden. Du verpflichtest dich, uns jede unbefugte Nutzung deines Kontos unverzüglich zu melden.';
+
+  @override
+  String get termsProhibitedHeading => 'Verbotene Aktivitäten';
+
+  @override
+  String get termsProhibitedIntro => 'Zusätzlich zur Null-Toleranz-Richtlinie oben stimmst du zu, Folgendes nicht zu tun:';
+
+  @override
+  String get termsProhibitedItem1 => 'Gegen geltendes lokales, nationales oder internationales Recht verstoßen';
+
+  @override
+  String get termsProhibitedItem2 => 'Rechte anderer verletzen, einschließlich geistiger Eigentumsrechte';
+
+  @override
+  String get termsProhibitedItem3 => 'Viren, Malware oder schädlichen Code übertragen';
+
+  @override
+  String get termsProhibitedItem4 => 'Unbefugten Zugriff auf den Dienst oder andere Konten versuchen';
+
+  @override
+  String get termsProhibitedItem5 => 'Den Dienst ohne Genehmigung zu kommerziellen Zwecken nutzen';
+
+  @override
+  String get termsTerminationHeading => 'Kündigung';
+
+  @override
+  String get termsTerminationBody => 'Wir behalten uns das Recht vor, dein Konto jederzeit mit oder ohne Vorankündigung zu sperren oder zu kündigen, bei jedem Verstoß gegen diese Nutzungsbedingungen, einschließlich, aber nicht beschränkt auf das Posten anstößiger Inhalte oder missbräuchliches Verhalten.';
+
+  @override
+  String get termsChangesHeading => 'Änderungen der Bedingungen';
+
+  @override
+  String get termsChangesBody => 'Wir können diese Nutzungsbedingungen von Zeit zu Zeit aktualisieren. Die weitere Nutzung des Dienstes nach Änderungen gilt als Annahme der aktualisierten Bedingungen.';
+
+  @override
+  String get termsContactHeading => 'Kontakt';
+
+  @override
+  String get termsContactBody => 'Wenn du Fragen zu diesen Nutzungsbedingungen hast oder einen Verstoß melden möchtest, kontaktiere uns bitte über die Support-Funktionen in der App.';
+
+  @override
+  String get termsAgreeCheckbox => 'Ich stimme den Nutzungsbedingungen und der Null-Toleranz-Richtlinie zu';
+
+  @override
+  String get termsProcessing => 'Wird verarbeitet...';
+
+  @override
+  String get termsAcceptAndContinue => 'Akzeptieren und fortfahren';
+
+  @override
+  String termsLastUpdated(int year) {
+    return 'Zuletzt aktualisiert: $year';
+  }
 }

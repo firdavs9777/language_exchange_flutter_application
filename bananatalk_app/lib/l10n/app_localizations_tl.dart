@@ -9104,4 +9104,135 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get locationPermissionPermanentlyDeniedBody => 'Permanenteng tinanggihan ang location permission. I-on ito sa app settings para malagyan ng lokasyon ang mga moment.';
+
+  @override
+  String get termsSnackAcceptFirst => 'Tanggapin ang Mga Tuntunin ng Serbisyo para magpatuloy';
+
+  @override
+  String get termsErrorAccepting => 'May error sa pagtanggap ng mga tuntunin. Subukan ulit.';
+
+  @override
+  String get termsEulaTitle => 'Kasunduan sa Lisensya ng Gumagamit (EULA)';
+
+  @override
+  String get termsWelcomeHeading => 'Maligayang pagdating sa Bananatalk';
+
+  @override
+  String get termsWelcomeBody => 'Sa paggamit ng Bananatalk, sumasang-ayon kang masaklaw ng Mga Tuntunin ng Serbisyong ito. Basahin itong mabuti bago gamitin ang serbisyo namin.';
+
+  @override
+  String get termsZeroToleranceHeading => 'Patakarang Walang Palusot';
+
+  @override
+  String get termsZeroToleranceIntro => 'May patakaran ang Bananatalk na WALANG PALUSOT laban sa nakakasakit na nilalaman at mapang-abusong gumagamit. Hindi namin pinapayagan, kinukunsinti, o pinagtitiisan ang:';
+
+  @override
+  String get termsZeroToleranceItem1 => 'Panliligalig, pambu-bully, o pagbabanta sa anumang paraan';
+
+  @override
+  String get termsZeroToleranceItem2 => 'Hate speech, diskriminasyon, o nilalamang nagtutulak ng karahasan';
+
+  @override
+  String get termsZeroToleranceItem3 => 'Tahasang sekswal, pornograpiko, o hindi angkop na nilalaman';
+
+  @override
+  String get termsZeroToleranceItem4 => 'Spam, scam, o mapanlinlang na gawain';
+
+  @override
+  String get termsZeroToleranceItem5 => 'Pagpapanggap o maling pagkakakilanlan';
+
+  @override
+  String get termsZeroToleranceItem6 => 'Anumang nilalamang lumalabag sa naaangkop na batas o regulasyon';
+
+  @override
+  String get termsZeroToleranceEnforcement => 'Ang mga lumalabag sa patakarang ito ay agad na ipagbabawal sa plataporma. May karapatan kaming alisin ang anumang nilalaman at isara ang anumang account na lumalabag sa mga tuntuning ito nang walang paunang abiso.';
+
+  @override
+  String get termsUgcHeading => 'Nilalamang Gawa ng Gumagamit';
+
+  @override
+  String get termsUgcBody => 'Pinapayagan ng Bananatalk ang mga gumagamit na lumikha at magbahagi ng nilalaman, kabilang ang mensahe, post, larawan, at iba pang materyales. Ikaw lamang ang may pananagutan sa lahat ng nilalaman na nililikha, ina-upload, o ibinabahagi mo sa serbisyo.';
+
+  @override
+  String get termsUgcAgreeIntro => 'Sa paggamit ng Bananatalk, sumasang-ayon kang:';
+
+  @override
+  String get termsUgcItem1 => 'Hindi ka magpo-post ng nakakasakit, nakakapinsala, o ilegal na nilalaman';
+
+  @override
+  String get termsUgcItem2 => 'Hindi ka mang-aabuso sa ibang gumagamit';
+
+  @override
+  String get termsUgcItem3 => 'Igagalang mo ang karapatan at dignidad ng lahat ng gumagamit';
+
+  @override
+  String get termsUgcItem4 => 'Irereport mo ang anumang nakakasakit na nilalaman o mapang-abusong gumagamit';
+
+  @override
+  String get termsModerationHeading => 'Pagmo-moderate ng Nilalaman';
+
+  @override
+  String get termsModerationBody => 'Aktibong minomoderate ng Bananatalk ang nilalaman ng mga gumagamit para panatilihing ligtas at magalang ang kapaligiran. Gumagamit kami ng automated na sistema at tao para suriin at alisin ang nilalamang lumalabag sa patakaran namin.';
+
+  @override
+  String get termsModerationReport => 'Kung may makita kang nakakasakit na nilalaman o mapang-abusong pag-uugali, agad itong ireport gamit ang in-app reporting. Sineseryoso namin ang lahat ng report at agad naming iimbestigahan.';
+
+  @override
+  String get termsAccountHeading => 'Pananagutan sa Account';
+
+  @override
+  String get termsAccountBody => 'Ikaw ang may pananagutan sa seguridad ng account mo at sa lahat ng gawaing nangyayari rito. Sumasang-ayon kang agad kaming abisuhan sa anumang hindi awtorisadong paggamit ng account mo.';
+
+  @override
+  String get termsProhibitedHeading => 'Mga Ipinagbabawal na Gawain';
+
+  @override
+  String get termsProhibitedIntro => 'Bukod sa patakaran sa itaas, sumasang-ayon kang hindi:';
+
+  @override
+  String get termsProhibitedItem1 => 'Lalabag sa anumang naaangkop na lokal, pambansa, o internasyonal na batas';
+
+  @override
+  String get termsProhibitedItem2 => 'Lalabag sa karapatan ng iba, kabilang ang intelektuwal na ari-arian';
+
+  @override
+  String get termsProhibitedItem3 => 'Magpapadala ng virus, malware, o nakakapinsalang code';
+
+  @override
+  String get termsProhibitedItem4 => 'Susubukang pumasok nang walang pahintulot sa serbisyo o ibang account';
+
+  @override
+  String get termsProhibitedItem5 => 'Gagamitin ang serbisyo para sa komersyo nang walang pahintulot';
+
+  @override
+  String get termsTerminationHeading => 'Pagwawakas';
+
+  @override
+  String get termsTerminationBody => 'May karapatan kaming suspindihin o isara ang account mo anumang oras, may abiso man o wala, sa anumang paglabag sa Mga Tuntuning ito, kabilang ngunit hindi limitado sa pag-post ng nakakasakit na nilalaman o mapang-abusong pag-uugali.';
+
+  @override
+  String get termsChangesHeading => 'Mga Pagbabago sa Tuntunin';
+
+  @override
+  String get termsChangesBody => 'Maaari naming i-update ang Mga Tuntunin ng Serbisyong ito paminsan-minsan. Ang patuloy na paggamit ng serbisyo pagkatapos ng pagbabago ay nangangahulugang tinatanggap mo ang na-update na tuntunin.';
+
+  @override
+  String get termsContactHeading => 'Makipag-ugnayan';
+
+  @override
+  String get termsContactBody => 'Kung may tanong ka tungkol sa Mga Tuntuning ito o kailangan mong magreport ng paglabag, makipag-ugnayan sa amin sa pamamagitan ng mga support feature ng app.';
+
+  @override
+  String get termsAgreeCheckbox => 'Sumasang-ayon ako sa Mga Tuntunin ng Serbisyo at sa Patakarang Walang Palusot';
+
+  @override
+  String get termsProcessing => 'Pinoproseso...';
+
+  @override
+  String get termsAcceptAndContinue => 'Tanggapin at Magpatuloy';
+
+  @override
+  String termsLastUpdated(int year) {
+    return 'Huling na-update: $year';
+  }
 }

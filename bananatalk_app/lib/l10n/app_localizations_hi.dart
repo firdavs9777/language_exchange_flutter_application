@@ -9104,4 +9104,135 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get locationPermissionPermanentlyDeniedBody => 'लोकेशन अनुमति स्थायी रूप से अस्वीकृत है। मोमेंट में लोकेशन जोड़ने के लिए ऐप सेटिंग में इसे चालू करें।';
+
+  @override
+  String get termsSnackAcceptFirst => 'जारी रखने के लिए सेवा की शर्तें स्वीकार करें';
+
+  @override
+  String get termsErrorAccepting => 'शर्तें स्वीकार करने में त्रुटि। फिर कोशिश करें।';
+
+  @override
+  String get termsEulaTitle => 'एंड यूज़र लाइसेंस अनुबंध (EULA)';
+
+  @override
+  String get termsWelcomeHeading => 'Bananatalk में आपका स्वागत है';
+
+  @override
+  String get termsWelcomeBody => 'Bananatalk का उपयोग करके आप इन सेवा शर्तों से बंधे होने पर सहमत होते हैं। हमारी सेवा का उपयोग करने से पहले इन्हें ध्यान से पढ़ें।';
+
+  @override
+  String get termsZeroToleranceHeading => 'ज़ीरो टॉलरेंस नीति';
+
+  @override
+  String get termsZeroToleranceIntro => 'Bananatalk आपत्तिजनक सामग्री और दुर्व्यवहार करने वाले उपयोगकर्ताओं के लिए ज़ीरो टॉलरेंस नीति रखता है। हम निम्नलिखित की अनुमति नहीं देते, न ही इसे सहन करते हैं:';
+
+  @override
+  String get termsZeroToleranceItem1 => 'किसी भी प्रकार का उत्पीड़न, धमकाना या धमकी';
+
+  @override
+  String get termsZeroToleranceItem2 => 'घृणा फैलाने वाली बातें, भेदभाव या हिंसा बढ़ाने वाली सामग्री';
+
+  @override
+  String get termsZeroToleranceItem3 => 'यौन रूप से स्पष्ट, अश्लील या अनुचित सामग्री';
+
+  @override
+  String get termsZeroToleranceItem4 => 'स्पैम, धोखाधड़ी या फ़्रॉड गतिविधियाँ';
+
+  @override
+  String get termsZeroToleranceItem5 => 'किसी और का रूप धरना या झूठी पहचान';
+
+  @override
+  String get termsZeroToleranceItem6 => 'लागू कानूनों या नियमों का उल्लंघन करने वाली कोई भी सामग्री';
+
+  @override
+  String get termsZeroToleranceEnforcement => 'इन नीतियों का उल्लंघन करने वाले उपयोगकर्ताओं को तुरंत प्लेटफ़ॉर्म से प्रतिबंधित कर दिया जाएगा। हम बिना पूर्व सूचना के कोई भी सामग्री हटाने और इन शर्तों का उल्लंघन करने वाला कोई भी खाता बंद करने का अधिकार रखते हैं।';
+
+  @override
+  String get termsUgcHeading => 'उपयोगकर्ता द्वारा बनाई गई सामग्री';
+
+  @override
+  String get termsUgcBody => 'Bananatalk उपयोगकर्ताओं को संदेश, पोस्ट, चित्र और अन्य सामग्री बनाने और साझा करने देता है। आप सेवा के माध्यम से बनाई, अपलोड की या साझा की गई सभी सामग्री के लिए पूरी तरह ज़िम्मेदार हैं।';
+
+  @override
+  String get termsUgcAgreeIntro => 'Bananatalk का उपयोग करके आप सहमत होते हैं कि:';
+
+  @override
+  String get termsUgcItem1 => 'आप आपत्तिजनक, हानिकारक या अवैध सामग्री पोस्ट नहीं करेंगे';
+
+  @override
+  String get termsUgcItem2 => 'आप अन्य उपयोगकर्ताओं के साथ दुर्व्यवहार नहीं करेंगे';
+
+  @override
+  String get termsUgcItem3 => 'आप सभी उपयोगकर्ताओं के अधिकारों और गरिमा का सम्मान करेंगे';
+
+  @override
+  String get termsUgcItem4 => 'आप जो भी आपत्तिजनक सामग्री या दुर्व्यवहार देखें, उसकी रिपोर्ट करेंगे';
+
+  @override
+  String get termsModerationHeading => 'सामग्री मॉडरेशन';
+
+  @override
+  String get termsModerationBody => 'सुरक्षित और सम्मानजनक माहौल बनाए रखने के लिए Bananatalk उपयोगकर्ता सामग्री की सक्रिय निगरानी करता है। हम स्वचालित सिस्टम और मानव मॉडरेटर का उपयोग करके नीतियों का उल्लंघन करने वाली सामग्री की समीक्षा करते और उसे हटाते हैं।';
+
+  @override
+  String get termsModerationReport => 'यदि आपको आपत्तिजनक सामग्री या दुर्व्यवहार दिखे, तो कृपया ऐप की रिपोर्टिंग सुविधाओं से तुरंत रिपोर्ट करें। हम हर रिपोर्ट को गंभीरता से लेते हैं और शीघ्र जाँच करते हैं।';
+
+  @override
+  String get termsAccountHeading => 'खाते की ज़िम्मेदारी';
+
+  @override
+  String get termsAccountBody => 'अपने खाते की सुरक्षा बनाए रखने और उसके अंतर्गत होने वाली सभी गतिविधियों के लिए आप ज़िम्मेदार हैं। खाते के किसी भी अनधिकृत उपयोग की सूचना हमें तुरंत देने पर आप सहमत हैं।';
+
+  @override
+  String get termsProhibitedHeading => 'निषिद्ध गतिविधियाँ';
+
+  @override
+  String get termsProhibitedIntro => 'ऊपर दी गई ज़ीरो टॉलरेंस नीति के अलावा, आप सहमत हैं कि आप:';
+
+  @override
+  String get termsProhibitedItem1 => 'किसी भी लागू स्थानीय, राष्ट्रीय या अंतरराष्ट्रीय कानून का उल्लंघन नहीं करेंगे';
+
+  @override
+  String get termsProhibitedItem2 => 'बौद्धिक संपदा सहित दूसरों के अधिकारों का उल्लंघन नहीं करेंगे';
+
+  @override
+  String get termsProhibitedItem3 => 'कोई वायरस, मैलवेयर या हानिकारक कोड नहीं भेजेंगे';
+
+  @override
+  String get termsProhibitedItem4 => 'सेवा या अन्य खातों तक अनधिकृत पहुँच का प्रयास नहीं करेंगे';
+
+  @override
+  String get termsProhibitedItem5 => 'बिना अनुमति किसी व्यावसायिक उद्देश्य से सेवा का उपयोग नहीं करेंगे';
+
+  @override
+  String get termsTerminationHeading => 'समाप्ति';
+
+  @override
+  String get termsTerminationBody => 'इन सेवा शर्तों के किसी भी उल्लंघन पर — जिसमें आपत्तिजनक सामग्री पोस्ट करना या दुर्व्यवहार शामिल है — हम सूचना के साथ या बिना, किसी भी समय आपका खाता निलंबित या बंद करने का अधिकार रखते हैं।';
+
+  @override
+  String get termsChangesHeading => 'शर्तों में बदलाव';
+
+  @override
+  String get termsChangesBody => 'हम समय-समय पर इन सेवा शर्तों को अपडेट कर सकते हैं। बदलावों के बाद सेवा का उपयोग जारी रखना अद्यतन शर्तों की स्वीकृति माना जाएगा।';
+
+  @override
+  String get termsContactHeading => 'संपर्क करें';
+
+  @override
+  String get termsContactBody => 'यदि इन सेवा शर्तों के बारे में आपके प्रश्न हैं या किसी उल्लंघन की रिपोर्ट करनी है, तो कृपया ऐप की सहायता सुविधाओं से हमसे संपर्क करें।';
+
+  @override
+  String get termsAgreeCheckbox => 'मैं सेवा की शर्तें और ज़ीरो टॉलरेंस नीति से सहमत हूँ';
+
+  @override
+  String get termsProcessing => 'प्रोसेस हो रहा है...';
+
+  @override
+  String get termsAcceptAndContinue => 'स्वीकार करें और जारी रखें';
+
+  @override
+  String termsLastUpdated(int year) {
+    return 'अंतिम अपडेट: $year';
+  }
 }

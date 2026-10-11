@@ -9102,4 +9102,135 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get locationPermissionPermanentlyDeniedBody => 'Konum izni kalıcı olarak reddedildi. Momentlerde konum etiketlemek için uygulama ayarlarından aç.';
+
+  @override
+  String get termsSnackAcceptFirst => 'Devam etmek için Hizmet Şartları’nı kabul et';
+
+  @override
+  String get termsErrorAccepting => 'Şartlar kabul edilirken hata oluştu. Tekrar dene.';
+
+  @override
+  String get termsEulaTitle => 'Son Kullanıcı Lisans Sözleşmesi (EULA)';
+
+  @override
+  String get termsWelcomeHeading => 'Bananatalk’a hoş geldin';
+
+  @override
+  String get termsWelcomeBody => 'Bananatalk’ı kullanarak bu Hizmet Şartları’na bağlı olmayı kabul edersin. Hizmetimizi kullanmadan önce lütfen dikkatle oku.';
+
+  @override
+  String get termsZeroToleranceHeading => 'Sıfır Tolerans Politikası';
+
+  @override
+  String get termsZeroToleranceIntro => 'Bananatalk, rahatsız edici içerik ve kötü niyetli kullanıcılara karşı SIFIR TOLERANS politikası uygular. Aşağıdakilere izin vermez, göz yummaz ve müsamaha göstermeyiz:';
+
+  @override
+  String get termsZeroToleranceItem1 => 'Her türlü taciz, zorbalık veya tehdit';
+
+  @override
+  String get termsZeroToleranceItem2 => 'Nefret söylemi, ayrımcılık veya şiddeti teşvik eden içerik';
+
+  @override
+  String get termsZeroToleranceItem3 => 'Cinsel içerikli, pornografik veya uygunsuz içerik';
+
+  @override
+  String get termsZeroToleranceItem4 => 'Spam, dolandırıcılık veya hileli faaliyetler';
+
+  @override
+  String get termsZeroToleranceItem5 => 'Başkasının kimliğine bürünme veya yanlış beyan';
+
+  @override
+  String get termsZeroToleranceItem6 => 'Yürürlükteki yasa ve yönetmelikleri ihlal eden her türlü içerik';
+
+  @override
+  String get termsZeroToleranceEnforcement => 'Bu kuralları ihlal eden kullanıcılar platformdan derhâl yasaklanır. Bu şartları ihlal eden her türlü içeriği kaldırma ve hesabı önceden bildirimde bulunmaksızın kapatma hakkımızı saklı tutarız.';
+
+  @override
+  String get termsUgcHeading => 'Kullanıcı Tarafından Oluşturulan İçerik';
+
+  @override
+  String get termsUgcBody => 'Bananatalk, kullanıcıların mesaj, gönderi, görsel ve diğer materyaller dâhil içerik oluşturup paylaşmasına olanak tanır. Hizmet üzerinden oluşturduğun, yüklediğin veya paylaştığın tüm içerikten yalnızca sen sorumlusun.';
+
+  @override
+  String get termsUgcAgreeIntro => 'Bananatalk’ı kullanarak şunları kabul edersin:';
+
+  @override
+  String get termsUgcItem1 => 'Rahatsız edici, zararlı veya yasa dışı içerik paylaşmayacaksın';
+
+  @override
+  String get termsUgcItem2 => 'Diğer kullanıcılara karşı kötü davranmayacaksın';
+
+  @override
+  String get termsUgcItem3 => 'Tüm kullanıcıların haklarına ve onuruna saygı göstereceksin';
+
+  @override
+  String get termsUgcItem4 => 'Karşılaştığın rahatsız edici içeriği veya kötü niyetli kullanıcıyı bildireceksin';
+
+  @override
+  String get termsModerationHeading => 'İçerik Denetimi';
+
+  @override
+  String get termsModerationBody => 'Bananatalk, güvenli ve saygılı bir ortamı korumak için kullanıcı içeriğini etkin biçimde denetler. Politikalarımızı ihlal eden içeriği incelemek ve kaldırmak için otomatik sistemler ve insan moderatörler kullanırız.';
+
+  @override
+  String get termsModerationReport => 'Rahatsız edici içerik veya kötü davranışla karşılaşırsan lütfen uygulama içi bildirim özellikleriyle hemen bildir. Tüm bildirimleri ciddiye alır ve hızla inceleriz.';
+
+  @override
+  String get termsAccountHeading => 'Hesap Sorumluluğu';
+
+  @override
+  String get termsAccountBody => 'Hesabının güvenliğini korumaktan ve hesabın altında gerçekleşen tüm işlemlerden sen sorumlusun. Hesabının izinsiz kullanıldığını fark edersen bizi derhâl bilgilendirmeyi kabul edersin.';
+
+  @override
+  String get termsProhibitedHeading => 'Yasak Faaliyetler';
+
+  @override
+  String get termsProhibitedIntro => 'Yukarıdaki sıfır tolerans politikasına ek olarak şunları yapmamayı kabul edersin:';
+
+  @override
+  String get termsProhibitedItem1 => 'Yürürlükteki yerel, ulusal veya uluslararası yasaları ihlal etmek';
+
+  @override
+  String get termsProhibitedItem2 => 'Fikri mülkiyet dâhil başkalarının haklarını ihlal etmek';
+
+  @override
+  String get termsProhibitedItem3 => 'Virüs, kötü amaçlı yazılım veya zararlı kod göndermek';
+
+  @override
+  String get termsProhibitedItem4 => 'Hizmete veya başka hesaplara izinsiz erişmeye çalışmak';
+
+  @override
+  String get termsProhibitedItem5 => 'Hizmeti izinsiz olarak ticari amaçla kullanmak';
+
+  @override
+  String get termsTerminationHeading => 'Fesih';
+
+  @override
+  String get termsTerminationBody => 'Rahatsız edici içerik paylaşmak veya kötü davranmak dâhil olmak üzere bu Hizmet Şartları’nın herhangi bir ihlali hâlinde, bildirimli ya da bildirimsiz olarak hesabını istediğimiz zaman askıya alma veya kapatma hakkımızı saklı tutarız.';
+
+  @override
+  String get termsChangesHeading => 'Şartlardaki Değişiklikler';
+
+  @override
+  String get termsChangesBody => 'Bu Hizmet Şartları’nı zaman zaman güncelleyebiliriz. Değişikliklerden sonra hizmeti kullanmaya devam etmen, güncellenmiş şartları kabul ettiğin anlamına gelir.';
+
+  @override
+  String get termsContactHeading => 'Bize Ulaş';
+
+  @override
+  String get termsContactBody => 'Bu Hizmet Şartları hakkında sorun varsa ya da bir ihlali bildirmen gerekiyorsa, lütfen uygulamanın destek özellikleri üzerinden bize ulaş.';
+
+  @override
+  String get termsAgreeCheckbox => 'Hizmet Şartları’nı ve Sıfır Tolerans Politikası’nı kabul ediyorum';
+
+  @override
+  String get termsProcessing => 'İşleniyor...';
+
+  @override
+  String get termsAcceptAndContinue => 'Kabul et ve devam et';
+
+  @override
+  String termsLastUpdated(int year) {
+    return 'Son güncelleme: $year';
+  }
 }

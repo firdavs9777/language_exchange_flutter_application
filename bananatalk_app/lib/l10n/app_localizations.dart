@@ -16657,6 +16657,264 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Location permission has been permanently denied. Please enable it in app settings to tag your location in moments.'**
   String get locationPermissionPermanentlyDeniedBody;
+
+  /// No description provided for @termsSnackAcceptFirst.
+  ///
+  /// In en, this message translates to:
+  /// **'Please accept the Terms of Service to continue'**
+  String get termsSnackAcceptFirst;
+
+  /// No description provided for @termsErrorAccepting.
+  ///
+  /// In en, this message translates to:
+  /// **'Error accepting terms. Please try again.'**
+  String get termsErrorAccepting;
+
+  /// No description provided for @termsEulaTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'End User License Agreement (EULA)'**
+  String get termsEulaTitle;
+
+  /// No description provided for @termsWelcomeHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome to Bananatalk'**
+  String get termsWelcomeHeading;
+
+  /// No description provided for @termsWelcomeBody.
+  ///
+  /// In en, this message translates to:
+  /// **'By using Bananatalk, you agree to be bound by these Terms of Service. Please read them carefully before using our service.'**
+  String get termsWelcomeBody;
+
+  /// No description provided for @termsZeroToleranceHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Zero Tolerance Policy'**
+  String get termsZeroToleranceHeading;
+
+  /// No description provided for @termsZeroToleranceIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'Bananatalk has a ZERO TOLERANCE policy for objectionable content and abusive users. We do not permit, condone, or tolerate:'**
+  String get termsZeroToleranceIntro;
+
+  /// No description provided for @termsZeroToleranceItem1.
+  ///
+  /// In en, this message translates to:
+  /// **'Harassment, bullying, or threats of any kind'**
+  String get termsZeroToleranceItem1;
+
+  /// No description provided for @termsZeroToleranceItem2.
+  ///
+  /// In en, this message translates to:
+  /// **'Hate speech, discrimination, or content that promotes violence'**
+  String get termsZeroToleranceItem2;
+
+  /// No description provided for @termsZeroToleranceItem3.
+  ///
+  /// In en, this message translates to:
+  /// **'Sexually explicit, pornographic, or inappropriate content'**
+  String get termsZeroToleranceItem3;
+
+  /// No description provided for @termsZeroToleranceItem4.
+  ///
+  /// In en, this message translates to:
+  /// **'Spam, scams, or fraudulent activities'**
+  String get termsZeroToleranceItem4;
+
+  /// No description provided for @termsZeroToleranceItem5.
+  ///
+  /// In en, this message translates to:
+  /// **'Impersonation or false representation'**
+  String get termsZeroToleranceItem5;
+
+  /// No description provided for @termsZeroToleranceItem6.
+  ///
+  /// In en, this message translates to:
+  /// **'Any content that violates applicable laws or regulations'**
+  String get termsZeroToleranceItem6;
+
+  /// No description provided for @termsZeroToleranceEnforcement.
+  ///
+  /// In en, this message translates to:
+  /// **'Users who violate these policies will be immediately banned from the platform. We reserve the right to remove any content and terminate any account that violates these terms without prior notice.'**
+  String get termsZeroToleranceEnforcement;
+
+  /// No description provided for @termsUgcHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'User-Generated Content'**
+  String get termsUgcHeading;
+
+  /// No description provided for @termsUgcBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Bananatalk allows users to create and share content including messages, posts, images, and other materials. You are solely responsible for all content you create, upload, or share through the service.'**
+  String get termsUgcBody;
+
+  /// No description provided for @termsUgcAgreeIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'By using Bananatalk, you agree that:'**
+  String get termsUgcAgreeIntro;
+
+  /// No description provided for @termsUgcItem1.
+  ///
+  /// In en, this message translates to:
+  /// **'You will not post objectionable, harmful, or illegal content'**
+  String get termsUgcItem1;
+
+  /// No description provided for @termsUgcItem2.
+  ///
+  /// In en, this message translates to:
+  /// **'You will not engage in abusive behavior toward other users'**
+  String get termsUgcItem2;
+
+  /// No description provided for @termsUgcItem3.
+  ///
+  /// In en, this message translates to:
+  /// **'You will respect the rights and dignity of all users'**
+  String get termsUgcItem3;
+
+  /// No description provided for @termsUgcItem4.
+  ///
+  /// In en, this message translates to:
+  /// **'You will report any objectionable content or abusive users you encounter'**
+  String get termsUgcItem4;
+
+  /// No description provided for @termsModerationHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Content Moderation'**
+  String get termsModerationHeading;
+
+  /// No description provided for @termsModerationBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Bananatalk actively moderates user-generated content to maintain a safe and respectful environment. We use automated systems and human moderators to review and remove content that violates our policies.'**
+  String get termsModerationBody;
+
+  /// No description provided for @termsModerationReport.
+  ///
+  /// In en, this message translates to:
+  /// **'If you encounter objectionable content or abusive behavior, please report it immediately using our in-app reporting features. We take all reports seriously and will investigate promptly.'**
+  String get termsModerationReport;
+
+  /// No description provided for @termsAccountHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Account Responsibility'**
+  String get termsAccountHeading;
+
+  /// No description provided for @termsAccountBody.
+  ///
+  /// In en, this message translates to:
+  /// **'You are responsible for maintaining the security of your account and for all activities that occur under your account. You agree to notify us immediately of any unauthorized use of your account.'**
+  String get termsAccountBody;
+
+  /// No description provided for @termsProhibitedHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Prohibited Activities'**
+  String get termsProhibitedHeading;
+
+  /// No description provided for @termsProhibitedIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'In addition to the zero tolerance policy above, you agree not to:'**
+  String get termsProhibitedIntro;
+
+  /// No description provided for @termsProhibitedItem1.
+  ///
+  /// In en, this message translates to:
+  /// **'Violate any applicable local, state, national, or international law'**
+  String get termsProhibitedItem1;
+
+  /// No description provided for @termsProhibitedItem2.
+  ///
+  /// In en, this message translates to:
+  /// **'Infringe upon the rights of others, including intellectual property rights'**
+  String get termsProhibitedItem2;
+
+  /// No description provided for @termsProhibitedItem3.
+  ///
+  /// In en, this message translates to:
+  /// **'Transmit any viruses, malware, or harmful code'**
+  String get termsProhibitedItem3;
+
+  /// No description provided for @termsProhibitedItem4.
+  ///
+  /// In en, this message translates to:
+  /// **'Attempt to gain unauthorized access to the service or other accounts'**
+  String get termsProhibitedItem4;
+
+  /// No description provided for @termsProhibitedItem5.
+  ///
+  /// In en, this message translates to:
+  /// **'Use the service for any commercial purpose without authorization'**
+  String get termsProhibitedItem5;
+
+  /// No description provided for @termsTerminationHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Termination'**
+  String get termsTerminationHeading;
+
+  /// No description provided for @termsTerminationBody.
+  ///
+  /// In en, this message translates to:
+  /// **'We reserve the right to suspend or terminate your account at any time, with or without notice, for any violation of these Terms of Service, including but not limited to posting objectionable content or engaging in abusive behavior.'**
+  String get termsTerminationBody;
+
+  /// No description provided for @termsChangesHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Changes to Terms'**
+  String get termsChangesHeading;
+
+  /// No description provided for @termsChangesBody.
+  ///
+  /// In en, this message translates to:
+  /// **'We may update these Terms of Service from time to time. Continued use of the service after changes constitutes acceptance of the updated terms.'**
+  String get termsChangesBody;
+
+  /// No description provided for @termsContactHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact Us'**
+  String get termsContactHeading;
+
+  /// No description provided for @termsContactBody.
+  ///
+  /// In en, this message translates to:
+  /// **'If you have questions about these Terms of Service or need to report a violation, please contact us through the app\'s support features.'**
+  String get termsContactBody;
+
+  /// No description provided for @termsAgreeCheckbox.
+  ///
+  /// In en, this message translates to:
+  /// **'I agree to the Terms of Service and Zero Tolerance Policy'**
+  String get termsAgreeCheckbox;
+
+  /// No description provided for @termsProcessing.
+  ///
+  /// In en, this message translates to:
+  /// **'Processing...'**
+  String get termsProcessing;
+
+  /// No description provided for @termsAcceptAndContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Accept and Continue'**
+  String get termsAcceptAndContinue;
+
+  /// No description provided for @termsLastUpdated.
+  ///
+  /// In en, this message translates to:
+  /// **'Last updated: {year}'**
+  String termsLastUpdated(int year);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

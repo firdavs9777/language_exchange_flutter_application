@@ -9125,4 +9125,135 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get locationPermissionPermanentlyDeniedBody => 'Доступ к геопозиции отклонён навсегда. Включите его в настройках приложения, чтобы отмечать местоположение в моментах.';
+
+  @override
+  String get termsSnackAcceptFirst => 'Чтобы продолжить, примите Условия обслуживания';
+
+  @override
+  String get termsErrorAccepting => 'Не удалось принять условия. Попробуйте ещё раз.';
+
+  @override
+  String get termsEulaTitle => 'Лицензионное соглашение с конечным пользователем (EULA)';
+
+  @override
+  String get termsWelcomeHeading => 'Добро пожаловать в Bananatalk';
+
+  @override
+  String get termsWelcomeBody => 'Используя Bananatalk, вы соглашаетесь соблюдать настоящие Условия обслуживания. Пожалуйста, внимательно прочитайте их перед использованием сервиса.';
+
+  @override
+  String get termsZeroToleranceHeading => 'Политика нулевой терпимости';
+
+  @override
+  String get termsZeroToleranceIntro => 'В Bananatalk действует политика НУЛЕВОЙ ТЕРПИМОСТИ к неприемлемому контенту и агрессивным пользователям. Мы не допускаем, не оправдываем и не терпим:';
+
+  @override
+  String get termsZeroToleranceItem1 => 'Преследование, травля или угрозы любого рода';
+
+  @override
+  String get termsZeroToleranceItem2 => 'Разжигание ненависти, дискриминация или призывы к насилию';
+
+  @override
+  String get termsZeroToleranceItem3 => 'Откровенно сексуальный, порнографический или неприемлемый контент';
+
+  @override
+  String get termsZeroToleranceItem4 => 'Спам, мошенничество или обман';
+
+  @override
+  String get termsZeroToleranceItem5 => 'Выдача себя за другого или ложные сведения';
+
+  @override
+  String get termsZeroToleranceItem6 => 'Любой контент, нарушающий действующие законы или правила';
+
+  @override
+  String get termsZeroToleranceEnforcement => 'Пользователи, нарушившие эти правила, немедленно блокируются на платформе. Мы оставляем за собой право удалить любой контент и закрыть любой аккаунт, нарушающий настоящие Условия, без предварительного уведомления.';
+
+  @override
+  String get termsUgcHeading => 'Пользовательский контент';
+
+  @override
+  String get termsUgcBody => 'Bananatalk позволяет пользователям создавать и публиковать контент, включая сообщения, записи, изображения и другие материалы. Вы несёте полную ответственность за весь контент, который создаёте, загружаете или публикуете в сервисе.';
+
+  @override
+  String get termsUgcAgreeIntro => 'Используя Bananatalk, вы соглашаетесь, что:';
+
+  @override
+  String get termsUgcItem1 => 'не будете публиковать оскорбительный, вредоносный или незаконный контент';
+
+  @override
+  String get termsUgcItem2 => 'не будете вести себя агрессивно по отношению к другим пользователям';
+
+  @override
+  String get termsUgcItem3 => 'будете уважать права и достоинство всех пользователей';
+
+  @override
+  String get termsUgcItem4 => 'будете сообщать о любом оскорбительном контенте или агрессивных пользователях';
+
+  @override
+  String get termsModerationHeading => 'Модерация контента';
+
+  @override
+  String get termsModerationBody => 'Bananatalk активно модерирует пользовательский контент, чтобы сохранять безопасную и уважительную среду. Мы используем автоматические системы и модераторов-людей для проверки и удаления контента, нарушающего наши правила.';
+
+  @override
+  String get termsModerationReport => 'Если вы столкнулись с неприемлемым контентом или агрессивным поведением, сразу сообщите об этом через функции жалоб в приложении. Мы относимся ко всем обращениям серьёзно и оперативно их рассматриваем.';
+
+  @override
+  String get termsAccountHeading => 'Ответственность за аккаунт';
+
+  @override
+  String get termsAccountBody => 'Вы отвечаете за безопасность своего аккаунта и за все действия, совершённые под ним. Вы обязуетесь немедленно сообщать нам о любом несанкционированном использовании вашего аккаунта.';
+
+  @override
+  String get termsProhibitedHeading => 'Запрещённые действия';
+
+  @override
+  String get termsProhibitedIntro => 'В дополнение к политике нулевой терпимости выше вы соглашаетесь не:';
+
+  @override
+  String get termsProhibitedItem1 => 'нарушать применимые местные, национальные или международные законы';
+
+  @override
+  String get termsProhibitedItem2 => 'нарушать права других, включая права интеллектуальной собственности';
+
+  @override
+  String get termsProhibitedItem3 => 'передавать вирусы, вредоносное ПО или вредоносный код';
+
+  @override
+  String get termsProhibitedItem4 => 'пытаться получить несанкционированный доступ к сервису или чужим аккаунтам';
+
+  @override
+  String get termsProhibitedItem5 => 'использовать сервис в коммерческих целях без разрешения';
+
+  @override
+  String get termsTerminationHeading => 'Прекращение доступа';
+
+  @override
+  String get termsTerminationBody => 'Мы оставляем за собой право в любое время приостановить или закрыть ваш аккаунт, с уведомлением или без него, при любом нарушении настоящих Условий обслуживания, включая, помимо прочего, публикацию неприемлемого контента или агрессивное поведение.';
+
+  @override
+  String get termsChangesHeading => 'Изменения условий';
+
+  @override
+  String get termsChangesBody => 'Мы можем время от времени обновлять настоящие Условия обслуживания. Продолжение использования сервиса после изменений означает принятие обновлённых условий.';
+
+  @override
+  String get termsContactHeading => 'Связаться с нами';
+
+  @override
+  String get termsContactBody => 'Если у вас есть вопросы по настоящим Условиям обслуживания или нужно сообщить о нарушении, свяжитесь с нами через функции поддержки в приложении.';
+
+  @override
+  String get termsAgreeCheckbox => 'Я принимаю Условия обслуживания и Политику нулевой терпимости';
+
+  @override
+  String get termsProcessing => 'Обработка...';
+
+  @override
+  String get termsAcceptAndContinue => 'Принять и продолжить';
+
+  @override
+  String termsLastUpdated(int year) {
+    return 'Последнее обновление: $year';
+  }
 }

@@ -59,21 +59,55 @@ void main() {
             '${failures.join('\n')}');
   });
 
-  test('no CJK locale contains stray Hangul', () {
-    // My own slip, 2026-10-11: a Japanese string came out as
-    // "새しく始めてください" — Korean 새 in place of 新. Nothing else catches a
-    // wrong-script character; it is valid JSON, valid ICU, and renders.
-    final hangul = RegExp(r'[\uac00-\ud7af]');
-    for (final loc in const ['ja', 'zh', 'zh_TW', 'th', 'vi']) {
-      final file = File('lib/l10n/app_$loc.arb');
-      if (!file.existsSync()) continue;
+  test('no locale contains characters from a script it does not use', () {
+    // Two slips of mine on 2026-10-11: a Japanese string came out as
+    // "새しく始めてください" (Korean 새 for 新), and a Russian one began with a
+    // stray "材". Nothing else catches a wrong-script character -- it is
+    // valid JSON, valid ICU, and it renders.
+    //
+    // Checks only for scripts a locale should never contain, so Latin inside
+    // any locale (brand names, "EULA", "VIP") is always fine.
+    const blocks = <String, String>{
+      'CJK': r'[぀-ヿ一-鿿]',
+      'Hangul': r'[가-힯]',
+      'Thai': r'[฀-๿]',
+      'Devanagari': r'[ऀ-ॿ]',
+      'Arabic': r'[؀-ۿ]',
+      'Cyrillic': r'[Ѐ-ӿ]',
+    };
+    const allowed = <String, List<String>>{
+      'ja': ['CJK'],
+      'zh': ['CJK'],
+      'zh_TW': ['CJK'],
+      'ko': ['Hangul', 'CJK'],
+      'th': ['Thai'],
+      'hi': ['Devanagari'],
+      'ar': ['Arabic'],
+      'ru': ['Cyrillic'],
+      'tg': ['Cyrillic'],
+    };
+
+    final failures = <String>[];
+    for (final file in Directory('lib/l10n')
+        .listSync()
+        .whereType<File>()
+        .where((f) => f.path.endsWith('.arb'))) {
+      final loc = RegExp(r'app_(.+)\.arb$').firstMatch(file.path)!.group(1)!;
+      final ok = allowed[loc] ?? const <String>[];
       final map = jsonDecode(file.readAsStringSync()) as Map<String, dynamic>;
       map.forEach((key, value) {
         if (key.startsWith('@') || value is! String) return;
-        expect(hangul.hasMatch(value), isFalse,
-            reason: 'app_$loc.arb $key contains Hangul: "$value"');
+        blocks.forEach((name, pattern) {
+          if (ok.contains(name)) return;
+          final hit = RegExp(pattern).firstMatch(value);
+          if (hit != null) {
+            failures.add('app_$loc.arb $key has $name "${hit.group(0)}" in '
+                '"${value.length > 48 ? '${value.substring(0, 48)}…' : value}"');
+          }
+        });
       });
     }
+    expect(failures, isEmpty, reason: failures.join('\n'));
   });
 
   test('every .arb is valid JSON and non-empty', () {

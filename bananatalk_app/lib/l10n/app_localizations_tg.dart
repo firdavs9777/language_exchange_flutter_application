@@ -9108,4 +9108,135 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get locationPermissionPermanentlyDeniedBody => 'Иҷозати ҷойгиршавӣ ба таври доимӣ рад шудааст. Барои нишон додани ҷойгиршавӣ дар лаҳзаҳо, онро дар танзимоти барнома фаъол кунед.';
+
+  @override
+  String get termsSnackAcceptFirst => 'Барои идома додан Шартҳои хидматро қабул кунед';
+
+  @override
+  String get termsErrorAccepting => 'Ҳангоми қабули шартҳо хато рух дод. Бори дигар кӯшиш кунед.';
+
+  @override
+  String get termsEulaTitle => 'Шартномаи иҷозатномаи корбари ниҳоӣ (EULA)';
+
+  @override
+  String get termsWelcomeHeading => 'Ба Bananatalk хуш омадед';
+
+  @override
+  String get termsWelcomeBody => 'Бо истифодаи Bananatalk шумо розӣ мешавед, ки ба ин Шартҳои хидмат пойбанд бошед. Лутфан пеш аз истифодаи хидмати мо онҳоро бодиққат хонед.';
+
+  @override
+  String get termsZeroToleranceHeading => 'Сиёсати таҳаммулнопазирии мутлақ';
+
+  @override
+  String get termsZeroToleranceIntro => 'Bananatalk нисбат ба мундариҷаи таҳқиромез ва корбарони бадрафтор сиёсати ТАҲАММУЛНОПАЗИРИИ МУТЛАҚ дорад. Мо инҳоро иҷозат намедиҳем ва таҳаммул намекунем:';
+
+  @override
+  String get termsZeroToleranceItem1 => 'Таъқиб, таҳқир ё таҳдиди ҳар гуна шакл';
+
+  @override
+  String get termsZeroToleranceItem2 => 'Суханони нафратангез, табъиз ё мундариҷаи ташвиқкунандаи зӯроварӣ';
+
+  @override
+  String get termsZeroToleranceItem3 => 'Мундариҷаи ошкорои ҷинсӣ, порнографӣ ё номуносиб';
+
+  @override
+  String get termsZeroToleranceItem4 => 'Спам, қаллобӣ ё фаъолияти фиребгарона';
+
+  @override
+  String get termsZeroToleranceItem5 => 'Худро ба ҷойи дигаре вонамуд кардан ё маълумоти бардурӯғ';
+
+  @override
+  String get termsZeroToleranceItem6 => 'Ҳар гуна мундариҷае, ки қонунҳо ё қоидаҳои амалкунандаро вайрон мекунад';
+
+  @override
+  String get termsZeroToleranceEnforcement => 'Корбароне, ки ин қоидаҳоро вайрон мекунанд, фавран аз платформа манъ карда мешаванд. Мо ҳуқуқи нигоҳ доштани ҳазфи ҳар мундариҷа ва бастани ҳар ҳисобро, ки ин шартҳоро вайрон мекунад, бидуни огоҳии пешакӣ дорем.';
+
+  @override
+  String get termsUgcHeading => 'Мундариҷаи сохтаи корбарон';
+
+  @override
+  String get termsUgcBody => 'Bananatalk ба корбарон имкон медиҳад, ки мундариҷа — паёмҳо, нашрҳо, тасвирҳо ва дигар маводро эҷод ва мубодила кунанд. Шумо барои тамоми мундариҷае, ки тавассути хидмат эҷод, боргузорӣ ё мубодила мекунед, пурра масъул ҳастед.';
+
+  @override
+  String get termsUgcAgreeIntro => 'Бо истифодаи Bananatalk шумо розӣ мешавед, ки:';
+
+  @override
+  String get termsUgcItem1 => 'Мундариҷаи таҳқиромез, зараровар ё ғайриқонунӣ нашр намекунед';
+
+  @override
+  String get termsUgcItem2 => 'Нисбат ба дигар корбарон рафтори таҳқиромез намекунед';
+
+  @override
+  String get termsUgcItem3 => 'Ҳуқуқ ва шаъну эътибори ҳамаи корбаронро эҳтиром мекунед';
+
+  @override
+  String get termsUgcItem4 => 'Дар бораи ҳар мундариҷаи таҳқиромез ё корбари бадрафтор хабар медиҳед';
+
+  @override
+  String get termsModerationHeading => 'Модератсияи мундариҷа';
+
+  @override
+  String get termsModerationBody => 'Bananatalk барои нигоҳ доштани муҳити бехатар ва боэҳтиром мундариҷаи корбаронро фаъолона модератсия мекунад. Мо системаҳои худкор ва модераторони инсониро барои баррасӣ ва ҳазфи мундариҷаи хилофи қоидаҳо истифода мебарем.';
+
+  @override
+  String get termsModerationReport => 'Агар бо мундариҷаи таҳқиромез ё рафтори бад дучор шавед, лутфан фавран тавассути имкониятҳои шикоят дар барнома хабар диҳед. Мо ба ҳамаи шикоятҳо ҷиддӣ муносибат мекунем ва зуд тафтиш мегузаронем.';
+
+  @override
+  String get termsAccountHeading => 'Масъулият барои ҳисоб';
+
+  @override
+  String get termsAccountBody => 'Шумо барои амнияти ҳисоби худ ва барои тамоми амалҳое, ки дар он сурат мегиранд, масъул ҳастед. Шумо розӣ мешавед, ки дар бораи ҳар гуна истифодаи беиҷозати ҳисобатон фавран ба мо хабар диҳед.';
+
+  @override
+  String get termsProhibitedHeading => 'Фаъолиятҳои манъшуда';
+
+  @override
+  String get termsProhibitedIntro => 'Илова бар сиёсати таҳаммулнопазирии боло, шумо розӣ мешавед, ки:';
+
+  @override
+  String get termsProhibitedItem1 => 'Ҳеҷ қонуни маҳаллӣ, миллӣ ё байналмилалиро вайрон накунед';
+
+  @override
+  String get termsProhibitedItem2 => 'Ҳуқуқи дигаронро, аз ҷумла моликияти зеҳниро, вайрон накунед';
+
+  @override
+  String get termsProhibitedItem3 => 'Вирус, барномаи зараровар ё коди зарарнок нафиристед';
+
+  @override
+  String get termsProhibitedItem4 => 'Ба хидмат ё ҳисобҳои дигар дастрасии беиҷозат наҷӯед';
+
+  @override
+  String get termsProhibitedItem5 => 'Хидматро бе иҷозат барои мақсадҳои тиҷоратӣ истифода набаред';
+
+  @override
+  String get termsTerminationHeading => 'Қатъ кардан';
+
+  @override
+  String get termsTerminationBody => 'Мо ҳуқуқ дорем ҳисоби шуморо дар ҳар вақт, бо огоҳӣ ё бидуни он, барои ҳар гуна вайронкунии ин Шартҳои хидмат, аз ҷумла нашри мундариҷаи таҳқиромез ё рафтори бад, боздорем ё бандем.';
+
+  @override
+  String get termsChangesHeading => 'Тағйирот дар шартҳо';
+
+  @override
+  String get termsChangesBody => 'Мо метавонем ин Шартҳои хидматро аз вақт ба вақт навсозӣ кунем. Идомаи истифодаи хидмат пас аз тағйирот маънои қабули шартҳои навшударо дорад.';
+
+  @override
+  String get termsContactHeading => 'Бо мо тамос гиред';
+
+  @override
+  String get termsContactBody => 'Агар дар бораи ин Шартҳои хидмат савол дошта бошед ё хоҳед дар бораи вайронкунӣ хабар диҳед, лутфан тавассути имкониятҳои дастгирии барнома бо мо тамос гиред.';
+
+  @override
+  String get termsAgreeCheckbox => 'Ман бо Шартҳои хидмат ва Сиёсати таҳаммулнопазирӣ розӣ ҳастам';
+
+  @override
+  String get termsProcessing => 'Коркард...';
+
+  @override
+  String get termsAcceptAndContinue => 'Қабул ва идома';
+
+  @override
+  String termsLastUpdated(int year) {
+    return 'Навсозии охирин: $year';
+  }
 }

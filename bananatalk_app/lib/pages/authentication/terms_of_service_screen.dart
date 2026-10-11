@@ -5,6 +5,7 @@ import 'package:bananatalk_app/widgets/banana_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 class TermsOfServiceScreen extends ConsumerStatefulWidget {
   /// If true, this is shown before registration (no token yet)
@@ -28,7 +29,7 @@ class _TermsOfServiceScreenState extends ConsumerState<TermsOfServiceScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: BananaText(
-            'Please accept the Terms of Service to continue',
+            AppLocalizations.of(context)!.termsSnackAcceptFirst,
             BanaStyles: BananaTextStyles.warning,
           ),
           duration: const Duration(seconds: 2),
@@ -72,7 +73,7 @@ class _TermsOfServiceScreenState extends ConsumerState<TermsOfServiceScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: BananaText(
-              result['message'] ?? 'Error accepting terms. Please try again.',
+              result['message'] ?? AppLocalizations.of(context)!.termsErrorAccepting,
               BanaStyles: BananaTextStyles.error,
             ),
             duration: const Duration(seconds: 3),
@@ -87,7 +88,7 @@ class _TermsOfServiceScreenState extends ConsumerState<TermsOfServiceScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: BananaText(
-            'Error accepting terms. Please try again.',
+            AppLocalizations.of(context)!.termsErrorAccepting,
             BanaStyles: BananaTextStyles.error,
           ),
           duration: const Duration(seconds: 2),
@@ -109,7 +110,7 @@ class _TermsOfServiceScreenState extends ConsumerState<TermsOfServiceScreen> {
     return Scaffold(
       appBar: AppBar(
         title: BananaText(
-          'Terms of Service',
+          AppLocalizations.of(context)!.termsOfService,
           BanaStyles: BananaTextStyles.appBarTitle,
         ),
         backgroundColor: Theme.of(context).colorScheme.onPrimary,
@@ -144,13 +145,13 @@ class _TermsOfServiceScreenState extends ConsumerState<TermsOfServiceScreen> {
 
                   // Title
                   BananaText(
-                    'End User License Agreement (EULA)',
+                    AppLocalizations.of(context)!.termsEulaTitle,
                     BanaStyles: BananaTextStyles.heading,
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 8),
                   BananaText(
-                    'Last Updated: ${DateTime.now().year}',
+                    AppLocalizations.of(context)!.termsLastUpdated(DateTime.now().year),
                     BanaStyles: BananaTextStyles.caption,
                     textAlign: TextAlign.center,
                   ),
@@ -158,12 +159,12 @@ class _TermsOfServiceScreenState extends ConsumerState<TermsOfServiceScreen> {
 
                   // Introduction
                   BananaText(
-                    'Welcome to Bananatalk',
+                    AppLocalizations.of(context)!.termsWelcomeHeading,
                     BanaStyles: BananaTextStyles.subheading,
                   ),
                   const SizedBox(height: 8),
                   BananaText(
-                    'By using Bananatalk, you agree to be bound by these Terms of Service. Please read them carefully before using our service.',
+                    AppLocalizations.of(context)!.termsWelcomeBody,
                     BanaStyles: BananaTextStyles.body,
                   ),
                   const SizedBox(height: 24),
@@ -188,7 +189,7 @@ class _TermsOfServiceScreenState extends ConsumerState<TermsOfServiceScreen> {
                             ),
                             const SizedBox(width: 8),
                             BananaText(
-                              'Zero Tolerance Policy',
+                              AppLocalizations.of(context)!.termsZeroToleranceHeading,
                               BanaStyles: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
@@ -199,7 +200,7 @@ class _TermsOfServiceScreenState extends ConsumerState<TermsOfServiceScreen> {
                         ),
                         const SizedBox(height: 12),
                         BananaText(
-                          'Bananatalk has a ZERO TOLERANCE policy for objectionable content and abusive users. We do not permit, condone, or tolerate:',
+                          AppLocalizations.of(context)!.termsZeroToleranceIntro,
                           BanaStyles: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w600,
@@ -208,26 +209,26 @@ class _TermsOfServiceScreenState extends ConsumerState<TermsOfServiceScreen> {
                         ),
                         const SizedBox(height: 12),
                         _buildBulletPoint(
-                          'Harassment, bullying, or threats of any kind',
+                          AppLocalizations.of(context)!.termsZeroToleranceItem1,
                         ),
                         _buildBulletPoint(
-                          'Hate speech, discrimination, or content that promotes violence',
+                          AppLocalizations.of(context)!.termsZeroToleranceItem2,
                         ),
                         _buildBulletPoint(
-                          'Sexually explicit, pornographic, or inappropriate content',
+                          AppLocalizations.of(context)!.termsZeroToleranceItem3,
                         ),
                         _buildBulletPoint(
-                          'Spam, scams, or fraudulent activities',
+                          AppLocalizations.of(context)!.termsZeroToleranceItem4,
                         ),
                         _buildBulletPoint(
-                          'Impersonation or false representation',
+                          AppLocalizations.of(context)!.termsZeroToleranceItem5,
                         ),
                         _buildBulletPoint(
-                          'Any content that violates applicable laws or regulations',
+                          AppLocalizations.of(context)!.termsZeroToleranceItem6,
                         ),
                         const SizedBox(height: 12),
                         BananaText(
-                          'Users who violate these policies will be immediately banned from the platform. We reserve the right to remove any content and terminate any account that violates these terms without prior notice.',
+                          AppLocalizations.of(context)!.termsZeroToleranceEnforcement,
                           BanaStyles: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w600,
@@ -241,123 +242,123 @@ class _TermsOfServiceScreenState extends ConsumerState<TermsOfServiceScreen> {
 
                   // User-Generated Content
                   BananaText(
-                    'User-Generated Content',
+                    AppLocalizations.of(context)!.termsUgcHeading,
                     BanaStyles: BananaTextStyles.subheading,
                   ),
                   const SizedBox(height: 8),
                   BananaText(
-                    'Bananatalk allows users to create and share content including messages, posts, images, and other materials. You are solely responsible for all content you create, upload, or share through the service.',
+                    AppLocalizations.of(context)!.termsUgcBody,
                     BanaStyles: BananaTextStyles.body,
                   ),
                   const SizedBox(height: 8),
                   BananaText(
-                    'By using Bananatalk, you agree that:',
+                    AppLocalizations.of(context)!.termsUgcAgreeIntro,
                     BanaStyles: BananaTextStyles.boldText,
                   ),
                   const SizedBox(height: 8),
                   _buildBulletPoint(
-                    'You will not post objectionable, harmful, or illegal content',
+                    AppLocalizations.of(context)!.termsUgcItem1,
                   ),
                   _buildBulletPoint(
-                    'You will not engage in abusive behavior toward other users',
+                    AppLocalizations.of(context)!.termsUgcItem2,
                   ),
                   _buildBulletPoint(
-                    'You will respect the rights and dignity of all users',
+                    AppLocalizations.of(context)!.termsUgcItem3,
                   ),
                   _buildBulletPoint(
-                    'You will report any objectionable content or abusive users you encounter',
+                    AppLocalizations.of(context)!.termsUgcItem4,
                   ),
                   const SizedBox(height: 24),
 
                   // Content Moderation
                   BananaText(
-                    'Content Moderation',
+                    AppLocalizations.of(context)!.termsModerationHeading,
                     BanaStyles: BananaTextStyles.subheading,
                   ),
                   const SizedBox(height: 8),
                   BananaText(
-                    'Bananatalk actively moderates user-generated content to maintain a safe and respectful environment. We use automated systems and human moderators to review and remove content that violates our policies.',
+                    AppLocalizations.of(context)!.termsModerationBody,
                     BanaStyles: BananaTextStyles.body,
                   ),
                   const SizedBox(height: 8),
                   BananaText(
-                    'If you encounter objectionable content or abusive behavior, please report it immediately using our in-app reporting features. We take all reports seriously and will investigate promptly.',
+                    AppLocalizations.of(context)!.termsModerationReport,
                     BanaStyles: BananaTextStyles.body,
                   ),
                   const SizedBox(height: 24),
 
                   // Account Responsibility
                   BananaText(
-                    'Account Responsibility',
+                    AppLocalizations.of(context)!.termsAccountHeading,
                     BanaStyles: BananaTextStyles.subheading,
                   ),
                   const SizedBox(height: 8),
                   BananaText(
-                    'You are responsible for maintaining the security of your account and for all activities that occur under your account. You agree to notify us immediately of any unauthorized use of your account.',
+                    AppLocalizations.of(context)!.termsAccountBody,
                     BanaStyles: BananaTextStyles.body,
                   ),
                   const SizedBox(height: 24),
 
                   // Prohibited Activities
                   BananaText(
-                    'Prohibited Activities',
+                    AppLocalizations.of(context)!.termsProhibitedHeading,
                     BanaStyles: BananaTextStyles.subheading,
                   ),
                   const SizedBox(height: 8),
                   BananaText(
-                    'In addition to the zero tolerance policy above, you agree not to:',
+                    AppLocalizations.of(context)!.termsProhibitedIntro,
                     BanaStyles: BananaTextStyles.body,
                   ),
                   const SizedBox(height: 8),
                   _buildBulletPoint(
-                    'Violate any applicable local, state, national, or international law',
+                    AppLocalizations.of(context)!.termsProhibitedItem1,
                   ),
                   _buildBulletPoint(
-                    'Infringe upon the rights of others, including intellectual property rights',
+                    AppLocalizations.of(context)!.termsProhibitedItem2,
                   ),
                   _buildBulletPoint(
-                    'Transmit any viruses, malware, or harmful code',
+                    AppLocalizations.of(context)!.termsProhibitedItem3,
                   ),
                   _buildBulletPoint(
-                    'Attempt to gain unauthorized access to the service or other accounts',
+                    AppLocalizations.of(context)!.termsProhibitedItem4,
                   ),
                   _buildBulletPoint(
-                    'Use the service for any commercial purpose without authorization',
+                    AppLocalizations.of(context)!.termsProhibitedItem5,
                   ),
                   const SizedBox(height: 24),
 
                   // Termination
                   BananaText(
-                    'Termination',
+                    AppLocalizations.of(context)!.termsTerminationHeading,
                     BanaStyles: BananaTextStyles.subheading,
                   ),
                   const SizedBox(height: 8),
                   BananaText(
-                    'We reserve the right to suspend or terminate your account at any time, with or without notice, for any violation of these Terms of Service, including but not limited to posting objectionable content or engaging in abusive behavior.',
+                    AppLocalizations.of(context)!.termsTerminationBody,
                     BanaStyles: BananaTextStyles.body,
                   ),
                   const SizedBox(height: 24),
 
                   // Changes to Terms
                   BananaText(
-                    'Changes to Terms',
+                    AppLocalizations.of(context)!.termsChangesHeading,
                     BanaStyles: BananaTextStyles.subheading,
                   ),
                   const SizedBox(height: 8),
                   BananaText(
-                    'We may update these Terms of Service from time to time. Continued use of the service after changes constitutes acceptance of the updated terms.',
+                    AppLocalizations.of(context)!.termsChangesBody,
                     BanaStyles: BananaTextStyles.body,
                   ),
                   const SizedBox(height: 24),
 
                   // Contact
                   BananaText(
-                    'Contact Us',
+                    AppLocalizations.of(context)!.termsContactHeading,
                     BanaStyles: BananaTextStyles.subheading,
                   ),
                   const SizedBox(height: 8),
                   BananaText(
-                    'If you have questions about these Terms of Service or need to report a violation, please contact us through the app\'s support features.',
+                    AppLocalizations.of(context)!.termsContactBody,
                     BanaStyles: BananaTextStyles.body,
                   ),
                   const SizedBox(height: 16),
@@ -420,7 +421,7 @@ class _TermsOfServiceScreenState extends ConsumerState<TermsOfServiceScreen> {
                           const SizedBox(width: 8),
                           Expanded(
                             child: Text(
-                              'I agree to the Terms of Service and Zero Tolerance Policy',
+                              AppLocalizations.of(context)!.termsAgreeCheckbox,
                               style: TextStyle(
                                 fontSize: 13,
                                 fontWeight: FontWeight.w500,
@@ -438,7 +439,7 @@ class _TermsOfServiceScreenState extends ConsumerState<TermsOfServiceScreen> {
                     width: double.infinity,
                     child: BananaButton(
                       BananaText: BananaText(
-                        _isLoading ? 'Processing...' : 'Accept and Continue',
+                        _isLoading ? AppLocalizations.of(context)!.termsProcessing : AppLocalizations.of(context)!.termsAcceptAndContinue,
                         BanaStyles: BananaTextStyles.buttonText,
                       ),
                       onPressed: _isLoading ? null : _acceptTerms,

@@ -9094,4 +9094,135 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get locationPermissionPermanentlyDeniedBody => 'สิทธิ์ตำแหน่งถูกปฏิเสธถาวร โปรดเปิดในการตั้งค่าแอปเพื่อระบุตำแหน่งในโมเมนต์';
+
+  @override
+  String get termsSnackAcceptFirst => 'โปรดยอมรับข้อกำหนดการให้บริการเพื่อดำเนินการต่อ';
+
+  @override
+  String get termsErrorAccepting => 'ยอมรับข้อกำหนดไม่สำเร็จ โปรดลองอีกครั้ง';
+
+  @override
+  String get termsEulaTitle => 'ข้อตกลงอนุญาตให้ใช้สิทธิสำหรับผู้ใช้ (EULA)';
+
+  @override
+  String get termsWelcomeHeading => 'ยินดีต้อนรับสู่ Bananatalk';
+
+  @override
+  String get termsWelcomeBody => 'การใช้ Bananatalk ถือว่าคุณตกลงผูกพันตามข้อกำหนดการให้บริการนี้ โปรดอ่านอย่างละเอียดก่อนใช้บริการของเรา';
+
+  @override
+  String get termsZeroToleranceHeading => 'นโยบายไม่ยอมรับโดยเด็ดขาด';
+
+  @override
+  String get termsZeroToleranceIntro => 'Bananatalk ใช้นโยบายไม่ยอมรับโดยเด็ดขาดต่อเนื้อหาที่ไม่เหมาะสมและผู้ใช้ที่คุกคาม เราไม่อนุญาตและไม่ยอมรับสิ่งต่อไปนี้:';
+
+  @override
+  String get termsZeroToleranceItem1 => 'การคุกคาม กลั่นแกล้ง หรือข่มขู่ทุกรูปแบบ';
+
+  @override
+  String get termsZeroToleranceItem2 => 'การสร้างความเกลียดชัง การเลือกปฏิบัติ หรือเนื้อหาที่ส่งเสริมความรุนแรง';
+
+  @override
+  String get termsZeroToleranceItem3 => 'เนื้อหาทางเพศอย่างโจ่งแจ้ง ลามก หรือไม่เหมาะสม';
+
+  @override
+  String get termsZeroToleranceItem4 => 'สแปม การหลอกลวง หรือการฉ้อโกง';
+
+  @override
+  String get termsZeroToleranceItem5 => 'การแอบอ้างเป็นผู้อื่นหรือให้ข้อมูลเท็จ';
+
+  @override
+  String get termsZeroToleranceItem6 => 'เนื้อหาใดก็ตามที่ละเมิดกฎหมายหรือระเบียบที่บังคับใช้';
+
+  @override
+  String get termsZeroToleranceEnforcement => 'ผู้ใช้ที่ละเมิดนโยบายเหล่านี้จะถูกแบนจากแพลตฟอร์มทันที เราขอสงวนสิทธิ์ในการลบเนื้อหาใดก็ตามและปิดบัญชีใดก็ตามที่ละเมิดข้อกำหนดนี้ โดยไม่ต้องแจ้งล่วงหน้า';
+
+  @override
+  String get termsUgcHeading => 'เนื้อหาที่ผู้ใช้สร้าง';
+
+  @override
+  String get termsUgcBody => 'Bananatalk ให้ผู้ใช้สร้างและแชร์เนื้อหาได้ ทั้งข้อความ โพสต์ รูปภาพ และสื่ออื่น ๆ คุณเป็นผู้รับผิดชอบแต่เพียงผู้เดียวต่อเนื้อหาทั้งหมดที่คุณสร้าง อัปโหลด หรือแชร์ผ่านบริการ';
+
+  @override
+  String get termsUgcAgreeIntro => 'การใช้ Bananatalk ถือว่าคุณยอมรับว่า:';
+
+  @override
+  String get termsUgcItem1 => 'คุณจะไม่โพสต์เนื้อหาที่ไม่เหมาะสม เป็นอันตราย หรือผิดกฎหมาย';
+
+  @override
+  String get termsUgcItem2 => 'คุณจะไม่ใช้พฤติกรรมคุกคามต่อผู้ใช้คนอื่น';
+
+  @override
+  String get termsUgcItem3 => 'คุณจะเคารพสิทธิและศักดิ์ศรีของผู้ใช้ทุกคน';
+
+  @override
+  String get termsUgcItem4 => 'คุณจะรายงานเนื้อหาไม่เหมาะสมหรือผู้ใช้ที่คุกคามเมื่อพบเจอ';
+
+  @override
+  String get termsModerationHeading => 'การกลั่นกรองเนื้อหา';
+
+  @override
+  String get termsModerationBody => 'Bananatalk ตรวจสอบเนื้อหาของผู้ใช้อย่างจริงจังเพื่อรักษาสภาพแวดล้อมที่ปลอดภัยและให้เกียรติกัน เราใช้ทั้งระบบอัตโนมัติและผู้ตรวจสอบที่เป็นมนุษย์ในการพิจารณาและลบเนื้อหาที่ละเมิดนโยบาย';
+
+  @override
+  String get termsModerationReport => 'หากพบเนื้อหาไม่เหมาะสมหรือพฤติกรรมคุกคาม โปรดรายงานทันทีผ่านฟีเจอร์รายงานในแอป เรารับเรื่องทุกรายงานอย่างจริงจังและจะตรวจสอบโดยเร็ว';
+
+  @override
+  String get termsAccountHeading => 'ความรับผิดชอบต่อบัญชี';
+
+  @override
+  String get termsAccountBody => 'คุณมีหน้าที่รักษาความปลอดภัยของบัญชี และรับผิดชอบต่อกิจกรรมทั้งหมดที่เกิดขึ้นในบัญชีของคุณ คุณตกลงจะแจ้งเราทันทีหากมีการใช้บัญชีโดยไม่ได้รับอนุญาต';
+
+  @override
+  String get termsProhibitedHeading => 'กิจกรรมที่ห้าม';
+
+  @override
+  String get termsProhibitedIntro => 'นอกเหนือจากนโยบายข้างต้น คุณตกลงว่าจะไม่:';
+
+  @override
+  String get termsProhibitedItem1 => 'ละเมิดกฎหมายท้องถิ่น ระดับชาติ หรือระหว่างประเทศที่บังคับใช้';
+
+  @override
+  String get termsProhibitedItem2 => 'ละเมิดสิทธิของผู้อื่น รวมถึงทรัพย์สินทางปัญญา';
+
+  @override
+  String get termsProhibitedItem3 => 'ส่งไวรัส มัลแวร์ หรือโค้ดที่เป็นอันตราย';
+
+  @override
+  String get termsProhibitedItem4 => 'พยายามเข้าถึงบริการหรือบัญชีอื่นโดยไม่ได้รับอนุญาต';
+
+  @override
+  String get termsProhibitedItem5 => 'ใช้บริการเพื่อการค้าโดยไม่ได้รับอนุญาต';
+
+  @override
+  String get termsTerminationHeading => 'การยุติการใช้งาน';
+
+  @override
+  String get termsTerminationBody => 'เราขอสงวนสิทธิ์ระงับหรือปิดบัญชีของคุณเมื่อใดก็ได้ ไม่ว่าจะแจ้งล่วงหน้าหรือไม่ หากมีการละเมิดข้อกำหนดนี้ รวมถึงแต่ไม่จำกัดเพียงการโพสต์เนื้อหาไม่เหมาะสมหรือพฤติกรรมคุกคาม';
+
+  @override
+  String get termsChangesHeading => 'การเปลี่ยนแปลงข้อกำหนด';
+
+  @override
+  String get termsChangesBody => 'เราอาจปรับปรุงข้อกำหนดการให้บริการนี้เป็นครั้งคราว การใช้บริการต่อหลังการเปลี่ยนแปลงถือว่าคุณยอมรับข้อกำหนดฉบับปรับปรุง';
+
+  @override
+  String get termsContactHeading => 'ติดต่อเรา';
+
+  @override
+  String get termsContactBody => 'หากมีคำถามเกี่ยวกับข้อกำหนดนี้ หรือต้องการรายงานการละเมิด โปรดติดต่อเราผ่านฟีเจอร์ช่วยเหลือในแอป';
+
+  @override
+  String get termsAgreeCheckbox => 'ฉันยอมรับข้อกำหนดการให้บริการและนโยบายไม่ยอมรับโดยเด็ดขาด';
+
+  @override
+  String get termsProcessing => 'กำลังดำเนินการ...';
+
+  @override
+  String get termsAcceptAndContinue => 'ยอมรับและดำเนินการต่อ';
+
+  @override
+  String termsLastUpdated(int year) {
+    return 'อัปเดตล่าสุด: $year';
+  }
 }

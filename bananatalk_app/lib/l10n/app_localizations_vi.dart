@@ -9094,4 +9094,135 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get locationPermissionPermanentlyDeniedBody => 'Quyền vị trí đã bị từ chối vĩnh viễn. Hãy bật trong cài đặt ứng dụng để gắn vị trí vào khoảnh khắc.';
+
+  @override
+  String get termsSnackAcceptFirst => 'Hãy chấp nhận Điều khoản dịch vụ để tiếp tục';
+
+  @override
+  String get termsErrorAccepting => 'Lỗi khi chấp nhận điều khoản. Vui lòng thử lại.';
+
+  @override
+  String get termsEulaTitle => 'Thỏa thuận cấp phép người dùng cuối (EULA)';
+
+  @override
+  String get termsWelcomeHeading => 'Chào mừng đến với Bananatalk';
+
+  @override
+  String get termsWelcomeBody => 'Khi dùng Bananatalk, bạn đồng ý chịu ràng buộc bởi Điều khoản dịch vụ này. Vui lòng đọc kỹ trước khi sử dụng dịch vụ của chúng tôi.';
+
+  @override
+  String get termsZeroToleranceHeading => 'Chính sách không khoan nhượng';
+
+  @override
+  String get termsZeroToleranceIntro => 'Bananatalk áp dụng chính sách KHÔNG KHOAN NHƯỢNG với nội dung phản cảm và người dùng lạm dụng. Chúng tôi không cho phép, không dung túng và không chấp nhận:';
+
+  @override
+  String get termsZeroToleranceItem1 => 'Quấy rối, bắt nạt hoặc đe dọa dưới mọi hình thức';
+
+  @override
+  String get termsZeroToleranceItem2 => 'Phát ngôn thù ghét, phân biệt đối xử hoặc nội dung cổ xúy bạo lực';
+
+  @override
+  String get termsZeroToleranceItem3 => 'Nội dung khiêu dâm, tình dục lộ liễu hoặc không phù hợp';
+
+  @override
+  String get termsZeroToleranceItem4 => 'Spam, lừa đảo hoặc hành vi gian lận';
+
+  @override
+  String get termsZeroToleranceItem5 => 'Mạo danh hoặc khai báo sai sự thật';
+
+  @override
+  String get termsZeroToleranceItem6 => 'Bất kỳ nội dung nào vi phạm pháp luật hoặc quy định hiện hành';
+
+  @override
+  String get termsZeroToleranceEnforcement => 'Người dùng vi phạm các chính sách này sẽ bị cấm khỏi nền tảng ngay lập tức. Chúng tôi có quyền gỡ bỏ bất kỳ nội dung nào và chấm dứt bất kỳ tài khoản nào vi phạm các điều khoản này mà không cần báo trước.';
+
+  @override
+  String get termsUgcHeading => 'Nội dung do người dùng tạo';
+
+  @override
+  String get termsUgcBody => 'Bananatalk cho phép người dùng tạo và chia sẻ nội dung gồm tin nhắn, bài đăng, hình ảnh và các tài liệu khác. Bạn hoàn toàn chịu trách nhiệm về mọi nội dung mình tạo, tải lên hoặc chia sẻ qua dịch vụ.';
+
+  @override
+  String get termsUgcAgreeIntro => 'Khi dùng Bananatalk, bạn đồng ý rằng:';
+
+  @override
+  String get termsUgcItem1 => 'Bạn sẽ không đăng nội dung phản cảm, có hại hoặc bất hợp pháp';
+
+  @override
+  String get termsUgcItem2 => 'Bạn sẽ không có hành vi lạm dụng với người dùng khác';
+
+  @override
+  String get termsUgcItem3 => 'Bạn sẽ tôn trọng quyền và phẩm giá của mọi người dùng';
+
+  @override
+  String get termsUgcItem4 => 'Bạn sẽ báo cáo nội dung phản cảm hoặc người dùng lạm dụng mà bạn gặp';
+
+  @override
+  String get termsModerationHeading => 'Kiểm duyệt nội dung';
+
+  @override
+  String get termsModerationBody => 'Bananatalk chủ động kiểm duyệt nội dung người dùng để duy trì môi trường an toàn và tôn trọng. Chúng tôi dùng hệ thống tự động và người kiểm duyệt để xem xét, gỡ bỏ nội dung vi phạm chính sách.';
+
+  @override
+  String get termsModerationReport => 'Nếu bạn gặp nội dung phản cảm hoặc hành vi lạm dụng, hãy báo cáo ngay bằng tính năng báo cáo trong ứng dụng. Chúng tôi xem trọng mọi báo cáo và sẽ xử lý nhanh chóng.';
+
+  @override
+  String get termsAccountHeading => 'Trách nhiệm với tài khoản';
+
+  @override
+  String get termsAccountBody => 'Bạn chịu trách nhiệm bảo mật tài khoản của mình và mọi hoạt động diễn ra trong tài khoản đó. Bạn đồng ý báo cho chúng tôi ngay khi phát hiện việc sử dụng tài khoản trái phép.';
+
+  @override
+  String get termsProhibitedHeading => 'Hành vi bị cấm';
+
+  @override
+  String get termsProhibitedIntro => 'Ngoài chính sách không khoan nhượng ở trên, bạn đồng ý không:';
+
+  @override
+  String get termsProhibitedItem1 => 'Vi phạm bất kỳ luật địa phương, quốc gia hoặc quốc tế hiện hành nào';
+
+  @override
+  String get termsProhibitedItem2 => 'Xâm phạm quyền của người khác, kể cả quyền sở hữu trí tuệ';
+
+  @override
+  String get termsProhibitedItem3 => 'Phát tán virus, phần mềm độc hại hoặc mã gây hại';
+
+  @override
+  String get termsProhibitedItem4 => 'Cố truy cập trái phép vào dịch vụ hoặc tài khoản khác';
+
+  @override
+  String get termsProhibitedItem5 => 'Dùng dịch vụ cho mục đích thương mại khi chưa được phép';
+
+  @override
+  String get termsTerminationHeading => 'Chấm dứt';
+
+  @override
+  String get termsTerminationBody => 'Chúng tôi có quyền tạm ngưng hoặc chấm dứt tài khoản của bạn bất cứ lúc nào, có hoặc không báo trước, với bất kỳ vi phạm nào đối với Điều khoản dịch vụ này, bao gồm nhưng không giới hạn ở việc đăng nội dung phản cảm hoặc có hành vi lạm dụng.';
+
+  @override
+  String get termsChangesHeading => 'Thay đổi điều khoản';
+
+  @override
+  String get termsChangesBody => 'Chúng tôi có thể cập nhật Điều khoản dịch vụ này theo thời gian. Việc tiếp tục sử dụng dịch vụ sau khi có thay đổi đồng nghĩa bạn chấp nhận các điều khoản đã cập nhật.';
+
+  @override
+  String get termsContactHeading => 'Liên hệ';
+
+  @override
+  String get termsContactBody => 'Nếu bạn có câu hỏi về Điều khoản dịch vụ này hoặc cần báo cáo vi phạm, vui lòng liên hệ chúng tôi qua các tính năng hỗ trợ trong ứng dụng.';
+
+  @override
+  String get termsAgreeCheckbox => 'Tôi đồng ý với Điều khoản dịch vụ và Chính sách không khoan nhượng';
+
+  @override
+  String get termsProcessing => 'Đang xử lý...';
+
+  @override
+  String get termsAcceptAndContinue => 'Chấp nhận và tiếp tục';
+
+  @override
+  String termsLastUpdated(int year) {
+    return 'Cập nhật lần cuối: $year';
+  }
 }

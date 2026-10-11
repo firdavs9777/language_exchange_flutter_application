@@ -9101,4 +9101,135 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get locationPermissionPermanentlyDeniedBody => 'Izin lokasi ditolak permanen. Aktifkan di pengaturan aplikasi untuk menandai lokasi pada momen.';
+
+  @override
+  String get termsSnackAcceptFirst => 'Terima Ketentuan Layanan untuk melanjutkan';
+
+  @override
+  String get termsErrorAccepting => 'Gagal menerima ketentuan. Coba lagi.';
+
+  @override
+  String get termsEulaTitle => 'Perjanjian Lisensi Pengguna Akhir (EULA)';
+
+  @override
+  String get termsWelcomeHeading => 'Selamat datang di Bananatalk';
+
+  @override
+  String get termsWelcomeBody => 'Dengan memakai Bananatalk, kamu setuju terikat pada Ketentuan Layanan ini. Mohon baca dengan saksama sebelum memakai layanan kami.';
+
+  @override
+  String get termsZeroToleranceHeading => 'Kebijakan Tanpa Toleransi';
+
+  @override
+  String get termsZeroToleranceIntro => 'Bananatalk menerapkan kebijakan TANPA TOLERANSI terhadap konten menyinggung dan pengguna yang kasar. Kami tidak mengizinkan, membenarkan, atau menoleransi:';
+
+  @override
+  String get termsZeroToleranceItem1 => 'Pelecehan, perundungan, atau ancaman dalam bentuk apa pun';
+
+  @override
+  String get termsZeroToleranceItem2 => 'Ujaran kebencian, diskriminasi, atau konten yang memicu kekerasan';
+
+  @override
+  String get termsZeroToleranceItem3 => 'Konten seksual eksplisit, pornografi, atau tidak pantas';
+
+  @override
+  String get termsZeroToleranceItem4 => 'Spam, penipuan, atau aktivitas curang';
+
+  @override
+  String get termsZeroToleranceItem5 => 'Peniruan identitas atau representasi palsu';
+
+  @override
+  String get termsZeroToleranceItem6 => 'Konten apa pun yang melanggar hukum atau peraturan yang berlaku';
+
+  @override
+  String get termsZeroToleranceEnforcement => 'Pengguna yang melanggar kebijakan ini akan langsung diblokir dari platform. Kami berhak menghapus konten apa pun dan menutup akun mana pun yang melanggar ketentuan ini tanpa pemberitahuan sebelumnya.';
+
+  @override
+  String get termsUgcHeading => 'Konten Buatan Pengguna';
+
+  @override
+  String get termsUgcBody => 'Bananatalk memungkinkan pengguna membuat dan membagikan konten berupa pesan, postingan, gambar, dan materi lain. Kamu sepenuhnya bertanggung jawab atas semua konten yang kamu buat, unggah, atau bagikan lewat layanan ini.';
+
+  @override
+  String get termsUgcAgreeIntro => 'Dengan memakai Bananatalk, kamu setuju bahwa:';
+
+  @override
+  String get termsUgcItem1 => 'Kamu tidak akan memposting konten yang menyinggung, berbahaya, atau ilegal';
+
+  @override
+  String get termsUgcItem2 => 'Kamu tidak akan bersikap kasar terhadap pengguna lain';
+
+  @override
+  String get termsUgcItem3 => 'Kamu akan menghormati hak dan martabat semua pengguna';
+
+  @override
+  String get termsUgcItem4 => 'Kamu akan melaporkan konten menyinggung atau pengguna kasar yang kamu temui';
+
+  @override
+  String get termsModerationHeading => 'Moderasi Konten';
+
+  @override
+  String get termsModerationBody => 'Bananatalk aktif memoderasi konten pengguna demi menjaga lingkungan yang aman dan saling menghormati. Kami memakai sistem otomatis dan moderator manusia untuk meninjau dan menghapus konten yang melanggar kebijakan kami.';
+
+  @override
+  String get termsModerationReport => 'Jika kamu menemukan konten menyinggung atau perilaku kasar, segera laporkan lewat fitur pelaporan di aplikasi. Kami menanggapi semua laporan dengan serius dan akan menyelidikinya segera.';
+
+  @override
+  String get termsAccountHeading => 'Tanggung Jawab Akun';
+
+  @override
+  String get termsAccountBody => 'Kamu bertanggung jawab menjaga keamanan akunmu dan atas semua aktivitas yang terjadi di akun itu. Kamu setuju memberi tahu kami segera jika ada penggunaan akun tanpa izin.';
+
+  @override
+  String get termsProhibitedHeading => 'Aktivitas yang Dilarang';
+
+  @override
+  String get termsProhibitedIntro => 'Selain kebijakan tanpa toleransi di atas, kamu setuju untuk tidak:';
+
+  @override
+  String get termsProhibitedItem1 => 'Melanggar hukum lokal, nasional, atau internasional yang berlaku';
+
+  @override
+  String get termsProhibitedItem2 => 'Melanggar hak orang lain, termasuk hak kekayaan intelektual';
+
+  @override
+  String get termsProhibitedItem3 => 'Mengirim virus, malware, atau kode berbahaya';
+
+  @override
+  String get termsProhibitedItem4 => 'Mencoba mengakses layanan atau akun lain tanpa izin';
+
+  @override
+  String get termsProhibitedItem5 => 'Memakai layanan untuk tujuan komersial tanpa izin';
+
+  @override
+  String get termsTerminationHeading => 'Penghentian';
+
+  @override
+  String get termsTerminationBody => 'Kami berhak menangguhkan atau menutup akunmu kapan saja, dengan atau tanpa pemberitahuan, atas pelanggaran apa pun terhadap Ketentuan Layanan ini, termasuk namun tidak terbatas pada memposting konten menyinggung atau berperilaku kasar.';
+
+  @override
+  String get termsChangesHeading => 'Perubahan Ketentuan';
+
+  @override
+  String get termsChangesBody => 'Kami dapat memperbarui Ketentuan Layanan ini dari waktu ke waktu. Melanjutkan pemakaian layanan setelah perubahan berarti kamu menerima ketentuan yang diperbarui.';
+
+  @override
+  String get termsContactHeading => 'Hubungi Kami';
+
+  @override
+  String get termsContactBody => 'Jika kamu punya pertanyaan tentang Ketentuan Layanan ini atau ingin melaporkan pelanggaran, hubungi kami lewat fitur dukungan di aplikasi.';
+
+  @override
+  String get termsAgreeCheckbox => 'Saya setuju dengan Ketentuan Layanan dan Kebijakan Tanpa Toleransi';
+
+  @override
+  String get termsProcessing => 'Memproses...';
+
+  @override
+  String get termsAcceptAndContinue => 'Terima dan Lanjutkan';
+
+  @override
+  String termsLastUpdated(int year) {
+    return 'Terakhir diperbarui: $year';
+  }
 }

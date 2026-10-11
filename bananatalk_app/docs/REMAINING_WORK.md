@@ -137,7 +137,10 @@ fails if a tab loses its guide or a sixth one arrives without one.
 - [x] 12 `app_en.arb` keys + `flutter gen-l10n`
 - [x] All 14 guide strings translated into the other 18 locales (`test/l10n/guide_strings_test.dart`
       fails if a key goes missing, is left as the English text, or loses its ICU plural arms)
-- [ ] Native review of the translated sets — these are my drafts, not a native pass
+- [ ] Native review of the translated sets — these are my drafts, not a native pass. Two of my own
+      slips were caught only by a script check: Korean 새 inside a Japanese string, and a stray 材
+      at the start of a Russian one. `arb_integrity_test.dart` now fails on any character from a
+      script a locale should not contain.
 - [x] **33 Matches/Partners keys that existed in all 19 locales but held the ENGLISH text** —
       `matchSayHi`, `matchesTodayTitle`, every `matchReason*`, `partnerTag*`, `segment*`,
       `opener*`, `stallRescue*`. The whole first-session surface was English for 18 locales.
@@ -155,7 +158,10 @@ fails if a tab loses its guide or a sixth one arrives without one.
 - [x] `create_moment.dart` — 18 strings localized (the Moments guide's destination). Six already
       had translated keys sitting unused; the file was already localized in 26 other places, so
       these were leftovers rather than an un-localized screen.
-- [ ] **101 hardcoded English strings in 65 files** (`docs/onboarding-audit-2026-10-10.md` §2a).
+- [x] `terms_of_service_screen.dart` — 43 strings, the worst single file and in the signup path.
+      **The EULA body is my draft translation and needs counsel or native review per market
+      before release.** The alternative was an English-only EULA in a 19-locale app.
+- [ ] **~145 hardcoded English strings left** (`docs/onboarding-audit-2026-10-10.md` §2a).
       gen-l10n cannot see these — they never reach an .arb. Next: the three learning players
       (AI Study's destination), `waves_tab.dart`, then the VIP/paywall copy.
 - [ ] Audit follow-ups, ranked in `docs/onboarding-audit-2026-10-10.md` §3: long-press tooltip on

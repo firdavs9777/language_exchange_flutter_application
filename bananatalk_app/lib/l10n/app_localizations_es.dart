@@ -9104,4 +9104,135 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get locationPermissionPermanentlyDeniedBody => 'El permiso de ubicación se denegó de forma permanente. Actívalo en los ajustes de la app para etiquetar tu ubicación en los momentos.';
+
+  @override
+  String get termsSnackAcceptFirst => 'Acepta los Términos del Servicio para continuar';
+
+  @override
+  String get termsErrorAccepting => 'Error al aceptar los términos. Inténtalo de nuevo.';
+
+  @override
+  String get termsEulaTitle => 'Acuerdo de licencia de usuario final (EULA)';
+
+  @override
+  String get termsWelcomeHeading => 'Te damos la bienvenida a Bananatalk';
+
+  @override
+  String get termsWelcomeBody => 'Al usar Bananatalk aceptas quedar sujeto a estos Términos del Servicio. Léelos con atención antes de usar nuestro servicio.';
+
+  @override
+  String get termsZeroToleranceHeading => 'Política de tolerancia cero';
+
+  @override
+  String get termsZeroToleranceIntro => 'Bananatalk aplica una política de TOLERANCIA CERO con el contenido ofensivo y los usuarios abusivos. No permitimos, aprobamos ni toleramos:';
+
+  @override
+  String get termsZeroToleranceItem1 => 'Acoso, intimidación o amenazas de cualquier tipo';
+
+  @override
+  String get termsZeroToleranceItem2 => 'Discurso de odio, discriminación o contenido que promueva la violencia';
+
+  @override
+  String get termsZeroToleranceItem3 => 'Contenido sexualmente explícito, pornográfico o inapropiado';
+
+  @override
+  String get termsZeroToleranceItem4 => 'Spam, estafas o actividades fraudulentas';
+
+  @override
+  String get termsZeroToleranceItem5 => 'Suplantación de identidad o representación falsa';
+
+  @override
+  String get termsZeroToleranceItem6 => 'Cualquier contenido que infrinja las leyes o normativas aplicables';
+
+  @override
+  String get termsZeroToleranceEnforcement => 'Los usuarios que infrinjan estas políticas serán expulsados de inmediato de la plataforma. Nos reservamos el derecho de eliminar cualquier contenido y cerrar cualquier cuenta que incumpla estos términos sin aviso previo.';
+
+  @override
+  String get termsUgcHeading => 'Contenido generado por el usuario';
+
+  @override
+  String get termsUgcBody => 'Bananatalk permite a los usuarios crear y compartir contenido, incluidos mensajes, publicaciones, imágenes y otros materiales. Eres el único responsable de todo el contenido que crees, subas o compartas a través del servicio.';
+
+  @override
+  String get termsUgcAgreeIntro => 'Al usar Bananatalk, aceptas que:';
+
+  @override
+  String get termsUgcItem1 => 'No publicarás contenido ofensivo, dañino o ilegal';
+
+  @override
+  String get termsUgcItem2 => 'No tendrás conductas abusivas hacia otros usuarios';
+
+  @override
+  String get termsUgcItem3 => 'Respetarás los derechos y la dignidad de todos los usuarios';
+
+  @override
+  String get termsUgcItem4 => 'Denunciarás cualquier contenido ofensivo o usuario abusivo que encuentres';
+
+  @override
+  String get termsModerationHeading => 'Moderación de contenido';
+
+  @override
+  String get termsModerationBody => 'Bananatalk modera activamente el contenido de los usuarios para mantener un entorno seguro y respetuoso. Usamos sistemas automatizados y moderadores humanos para revisar y retirar el contenido que infrinja nuestras políticas.';
+
+  @override
+  String get termsModerationReport => 'Si encuentras contenido ofensivo o comportamiento abusivo, denúncialo de inmediato con las herramientas de denuncia de la app. Tomamos todas las denuncias en serio y las investigaremos con prontitud.';
+
+  @override
+  String get termsAccountHeading => 'Responsabilidad de la cuenta';
+
+  @override
+  String get termsAccountBody => 'Eres responsable de mantener la seguridad de tu cuenta y de toda la actividad que ocurra en ella. Te comprometes a avisarnos de inmediato de cualquier uso no autorizado de tu cuenta.';
+
+  @override
+  String get termsProhibitedHeading => 'Actividades prohibidas';
+
+  @override
+  String get termsProhibitedIntro => 'Además de la política de tolerancia cero anterior, aceptas no:';
+
+  @override
+  String get termsProhibitedItem1 => 'Infringir ninguna ley local, estatal, nacional o internacional aplicable';
+
+  @override
+  String get termsProhibitedItem2 => 'Vulnerar los derechos de terceros, incluidos los de propiedad intelectual';
+
+  @override
+  String get termsProhibitedItem3 => 'Transmitir virus, malware o código dañino';
+
+  @override
+  String get termsProhibitedItem4 => 'Intentar acceder sin autorización al servicio o a otras cuentas';
+
+  @override
+  String get termsProhibitedItem5 => 'Usar el servicio con fines comerciales sin autorización';
+
+  @override
+  String get termsTerminationHeading => 'Cancelación';
+
+  @override
+  String get termsTerminationBody => 'Nos reservamos el derecho de suspender o cerrar tu cuenta en cualquier momento, con o sin aviso, por cualquier incumplimiento de estos Términos del Servicio, incluidos, entre otros, publicar contenido ofensivo o incurrir en conductas abusivas.';
+
+  @override
+  String get termsChangesHeading => 'Cambios en los términos';
+
+  @override
+  String get termsChangesBody => 'Podemos actualizar estos Términos del Servicio de vez en cuando. Seguir usando el servicio tras los cambios supone la aceptación de los términos actualizados.';
+
+  @override
+  String get termsContactHeading => 'Contacto';
+
+  @override
+  String get termsContactBody => 'Si tienes preguntas sobre estos Términos del Servicio o necesitas denunciar una infracción, contáctanos mediante las funciones de soporte de la app.';
+
+  @override
+  String get termsAgreeCheckbox => 'Acepto los Términos del Servicio y la Política de tolerancia cero';
+
+  @override
+  String get termsProcessing => 'Procesando...';
+
+  @override
+  String get termsAcceptAndContinue => 'Aceptar y continuar';
+
+  @override
+  String termsLastUpdated(int year) {
+    return 'Última actualización: $year';
+  }
 }

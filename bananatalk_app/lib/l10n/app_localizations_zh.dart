@@ -9094,6 +9094,137 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get locationPermissionPermanentlyDeniedBody => '定位权限已被永久拒绝。请在应用设置中开启，才能为动态标记位置。';
+
+  @override
+  String get termsSnackAcceptFirst => '请先接受服务条款才能继续';
+
+  @override
+  String get termsErrorAccepting => '接受条款时出错，请重试。';
+
+  @override
+  String get termsEulaTitle => '最终用户许可协议（EULA）';
+
+  @override
+  String get termsWelcomeHeading => '欢迎使用 Bananatalk';
+
+  @override
+  String get termsWelcomeBody => '使用 Bananatalk 即表示你同意受本服务条款约束。使用我们的服务前请仔细阅读。';
+
+  @override
+  String get termsZeroToleranceHeading => '零容忍政策';
+
+  @override
+  String get termsZeroToleranceIntro => 'Bananatalk 对令人反感的内容和滥用行为的用户采取零容忍政策。我们不允许、不纵容、也不容忍以下行为：';
+
+  @override
+  String get termsZeroToleranceItem1 => '任何形式的骚扰、欺凌或威胁';
+
+  @override
+  String get termsZeroToleranceItem2 => '仇恨言论、歧视或宣扬暴力的内容';
+
+  @override
+  String get termsZeroToleranceItem3 => '色情、露骨或不当内容';
+
+  @override
+  String get termsZeroToleranceItem4 => '垃圾信息、诈骗或欺诈行为';
+
+  @override
+  String get termsZeroToleranceItem5 => '冒充他人或虚假身份';
+
+  @override
+  String get termsZeroToleranceItem6 => '任何违反适用法律法规的内容';
+
+  @override
+  String get termsZeroToleranceEnforcement => '违反这些政策的用户将被立即封禁。我们保留在不事先通知的情况下删除任何内容并终止任何违规账号的权利。';
+
+  @override
+  String get termsUgcHeading => '用户生成内容';
+
+  @override
+  String get termsUgcBody => 'Bananatalk 允许用户创建并分享内容，包括消息、帖子、图片及其他素材。你对自己通过本服务创建、上传或分享的全部内容负全部责任。';
+
+  @override
+  String get termsUgcAgreeIntro => '使用 Bananatalk 即表示你同意：';
+
+  @override
+  String get termsUgcItem1 => '不发布令人反感、有害或违法的内容';
+
+  @override
+  String get termsUgcItem2 => '不对其他用户做出辱骂行为';
+
+  @override
+  String get termsUgcItem3 => '尊重所有用户的权利与尊严';
+
+  @override
+  String get termsUgcItem4 => '遇到不良内容或滥用用户时进行举报';
+
+  @override
+  String get termsModerationHeading => '内容审核';
+
+  @override
+  String get termsModerationBody => '为维持安全、互相尊重的环境，Bananatalk 会主动审核用户生成的内容。我们结合自动化系统与人工审核员，对违反政策的内容进行审查和移除。';
+
+  @override
+  String get termsModerationReport => '如果你遇到不良内容或滥用行为，请立即通过应用内举报功能举报。我们会认真对待每一条举报并迅速调查。';
+
+  @override
+  String get termsAccountHeading => '账号责任';
+
+  @override
+  String get termsAccountBody => '你有责任维护账号安全，并对账号下发生的全部活动负责。你同意在发现账号被未经授权使用时立即通知我们。';
+
+  @override
+  String get termsProhibitedHeading => '禁止的行为';
+
+  @override
+  String get termsProhibitedIntro => '除上述零容忍政策外，你同意不会：';
+
+  @override
+  String get termsProhibitedItem1 => '违反任何适用的地方、国家或国际法律';
+
+  @override
+  String get termsProhibitedItem2 => '侵犯他人权利，包括知识产权';
+
+  @override
+  String get termsProhibitedItem3 => '传播病毒、恶意软件或有害代码';
+
+  @override
+  String get termsProhibitedItem4 => '试图未经授权访问本服务或他人账号';
+
+  @override
+  String get termsProhibitedItem5 => '未经许可将本服务用于商业用途';
+
+  @override
+  String get termsTerminationHeading => '终止';
+
+  @override
+  String get termsTerminationBody => '对于任何违反本服务条款的行为，包括但不限于发布不良内容或实施滥用行为，我们保留随时在通知或不通知的情况下暂停或终止你账号的权利。';
+
+  @override
+  String get termsChangesHeading => '条款变更';
+
+  @override
+  String get termsChangesBody => '我们可能会不时更新本服务条款。变更后继续使用本服务即视为接受更新后的条款。';
+
+  @override
+  String get termsContactHeading => '联系我们';
+
+  @override
+  String get termsContactBody => '如果你对本服务条款有疑问，或需要举报违规行为，请通过应用内的支持功能联系我们。';
+
+  @override
+  String get termsAgreeCheckbox => '我同意服务条款和零容忍政策';
+
+  @override
+  String get termsProcessing => '处理中...';
+
+  @override
+  String get termsAcceptAndContinue => '接受并继续';
+
+  @override
+  String termsLastUpdated(int year) {
+    return '最后更新：$year 年';
+  }
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -18186,4 +18317,135 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get locationPermissionPermanentlyDeniedBody => '定位權限已被永久拒絕。請在應用程式設定中開啟，才能為動態標記位置。';
+
+  @override
+  String get termsSnackAcceptFirst => '請先接受服務條款才能繼續';
+
+  @override
+  String get termsErrorAccepting => '接受條款時發生錯誤，請重試。';
+
+  @override
+  String get termsEulaTitle => '最終使用者授權合約（EULA）';
+
+  @override
+  String get termsWelcomeHeading => '歡迎使用 Bananatalk';
+
+  @override
+  String get termsWelcomeBody => '使用 Bananatalk 即表示你同意受本服務條款約束。使用我們的服務前請仔細閱讀。';
+
+  @override
+  String get termsZeroToleranceHeading => '零容忍政策';
+
+  @override
+  String get termsZeroToleranceIntro => 'Bananatalk 對令人反感的內容和濫用行為的使用者採取零容忍政策。我們不允許、不縱容，也不容忍以下行為：';
+
+  @override
+  String get termsZeroToleranceItem1 => '任何形式的騷擾、霸凌或威脅';
+
+  @override
+  String get termsZeroToleranceItem2 => '仇恨言論、歧視或宣揚暴力的內容';
+
+  @override
+  String get termsZeroToleranceItem3 => '色情、露骨或不當內容';
+
+  @override
+  String get termsZeroToleranceItem4 => '垃圾訊息、詐騙或欺詐行為';
+
+  @override
+  String get termsZeroToleranceItem5 => '冒充他人或虛假身分';
+
+  @override
+  String get termsZeroToleranceItem6 => '任何違反適用法律法規的內容';
+
+  @override
+  String get termsZeroToleranceEnforcement => '違反這些政策的使用者將被立即封禁。我們保留在不事先通知的情況下刪除任何內容並終止任何違規帳號的權利。';
+
+  @override
+  String get termsUgcHeading => '使用者產生的內容';
+
+  @override
+  String get termsUgcBody => 'Bananatalk 允許使用者建立並分享內容，包括訊息、貼文、圖片及其他素材。你對自己透過本服務建立、上傳或分享的全部內容負全部責任。';
+
+  @override
+  String get termsUgcAgreeIntro => '使用 Bananatalk 即表示你同意：';
+
+  @override
+  String get termsUgcItem1 => '不發布令人反感、有害或違法的內容';
+
+  @override
+  String get termsUgcItem2 => '不對其他使用者做出辱罵行為';
+
+  @override
+  String get termsUgcItem3 => '尊重所有使用者的權利與尊嚴';
+
+  @override
+  String get termsUgcItem4 => '遇到不良內容或濫用使用者時進行檢舉';
+
+  @override
+  String get termsModerationHeading => '內容審核';
+
+  @override
+  String get termsModerationBody => '為維持安全、互相尊重的環境，Bananatalk 會主動審核使用者產生的內容。我們結合自動化系統與人工審核員，對違反政策的內容進行審查和移除。';
+
+  @override
+  String get termsModerationReport => '如果你遇到不良內容或濫用行為，請立即透過應用程式內的檢舉功能檢舉。我們會認真對待每一則檢舉並迅速調查。';
+
+  @override
+  String get termsAccountHeading => '帳號責任';
+
+  @override
+  String get termsAccountBody => '你有責任維護帳號安全，並對帳號下發生的全部活動負責。你同意在發現帳號遭未經授權使用時立即通知我們。';
+
+  @override
+  String get termsProhibitedHeading => '禁止的行為';
+
+  @override
+  String get termsProhibitedIntro => '除上述零容忍政策外，你同意不會：';
+
+  @override
+  String get termsProhibitedItem1 => '違反任何適用的地方、國家或國際法律';
+
+  @override
+  String get termsProhibitedItem2 => '侵犯他人權利，包括智慧財產權';
+
+  @override
+  String get termsProhibitedItem3 => '傳播病毒、惡意軟體或有害程式碼';
+
+  @override
+  String get termsProhibitedItem4 => '試圖未經授權存取本服務或他人帳號';
+
+  @override
+  String get termsProhibitedItem5 => '未經許可將本服務用於商業用途';
+
+  @override
+  String get termsTerminationHeading => '終止';
+
+  @override
+  String get termsTerminationBody => '對於任何違反本服務條款的行為，包括但不限於發布不良內容或實施濫用行為，我們保留隨時在通知或不通知的情況下暫停或終止你帳號的權利。';
+
+  @override
+  String get termsChangesHeading => '條款變更';
+
+  @override
+  String get termsChangesBody => '我們可能會不時更新本服務條款。變更後繼續使用本服務即視為接受更新後的條款。';
+
+  @override
+  String get termsContactHeading => '聯絡我們';
+
+  @override
+  String get termsContactBody => '如果你對本服務條款有疑問，或需要檢舉違規行為，請透過應用程式內的支援功能聯絡我們。';
+
+  @override
+  String get termsAgreeCheckbox => '我同意服務條款和零容忍政策';
+
+  @override
+  String get termsProcessing => '處理中...';
+
+  @override
+  String get termsAcceptAndContinue => '接受並繼續';
+
+  @override
+  String termsLastUpdated(int year) {
+    return '最後更新：$year 年';
+  }
 }
