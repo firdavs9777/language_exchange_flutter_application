@@ -9241,4 +9241,143 @@ class AppLocalizationsEn extends AppLocalizations {
   String termsLastUpdated(int year) {
     return 'Last updated: $year';
   }
+
+  @override
+  String get wavesFailedToLoad => 'Failed to load waves';
+
+  @override
+  String get wavesEmptyTitle => 'No waves yet';
+
+  @override
+  String get wavesEmptyBody => 'When someone waves at you,\nyou\'ll see them here';
+
+  @override
+  String get wavesWavedAtYou => 'Waved at you';
+
+  @override
+  String get lessonYourTranslation => 'Your translation:';
+
+  @override
+  String get lessonTapWordsToBuild => 'Tap words below to build your translation';
+
+  @override
+  String get lessonWordBank => 'Word Bank:';
+
+  @override
+  String get lessonTypeTranslationHint => 'Type your translation here...';
+
+  @override
+  String get lessonCorrect => 'Correct!';
+
+  @override
+  String get lessonIncorrect => 'Incorrect';
+
+  @override
+  String get lessonCheck => 'Check';
+
+  @override
+  String get lessonTitle => 'Lesson';
+
+  @override
+  String get lessonFailedToLoad => 'Failed to load lesson';
+
+  @override
+  String get lessonResultCorrect => 'Correct';
+
+  @override
+  String get lessonResultIncorrect => 'Incorrect';
+
+  @override
+  String get lessonDone => 'Done';
+
+  @override
+  String get lessonPraiseExcellent => 'Excellent!';
+
+  @override
+  String get lessonPraiseGreat => 'Great Job!';
+
+  @override
+  String get lessonPraiseGood => 'Good Effort!';
+
+  @override
+  String get lessonPraiseKeepPracticing => 'Keep Practicing!';
+
+  @override
+  String get lessonPraiseTryAgain => 'Try Again!';
+
+  @override
+  String get lessonExitWarning => 'Your progress will not be saved if you exit now.';
+
+  @override
+  String get lessonNotFound => 'Lesson not found';
+
+  @override
+  String get lessonMayHaveBeenRemoved => 'This lesson may have been removed';
+
+  @override
+  String get lessonNoExercises => 'This lesson has no exercises yet';
+
+  @override
+  String get quizTitle => 'Quiz';
+
+  @override
+  String get quizFailedToLoad => 'Failed to load quiz';
+
+  @override
+  String get quizSubmit => 'Submit';
+
+  @override
+  String get quizScore => 'Score';
+
+  @override
+  String get quizCorrect => 'Correct';
+
+  @override
+  String get quizWrong => 'Wrong';
+
+  @override
+  String get quizYourLevel => 'Your Level';
+
+  @override
+  String get quizPraiseKeepLearning => 'Keep Learning!';
+
+  @override
+  String get quizExitWarning => 'Your progress will be lost if you exit now.';
+
+  @override
+  String get vocabFailedToLoad => 'Failed to load reviews';
+
+  @override
+  String get vocabNoneDue => 'No words due for review right now';
+
+  @override
+  String get vocabGotIt => 'Got it!';
+
+  @override
+  String get vocabTapToReveal => 'Tap card to reveal answer';
+
+  @override
+  String get vocabSessionComplete => 'Session Complete!';
+
+  @override
+  String get wavesEmptyBody2 => 'When someone waves at you,\nyou\'ll see them here';
+
+  @override
+  String lessonCorrectAnswer(String answer) {
+    return 'Correct answer: $answer';
+  }
+
+  @override
+  String quizQuestionOfTotal(int current, int total) {
+    return 'Question $current of $total';
+  }
+
+  @override
+  String get vocabXpEarned => 'XP Earned';
+
+  @override
+  String get vocabWatchAdBonus => 'Watch Ad for +10 Bonus XP';
+
+  @override
+  String get vocabBonusEarned => '+10 Bonus XP earned! 🎉';
 }

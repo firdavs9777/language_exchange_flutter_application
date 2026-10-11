@@ -9239,4 +9239,143 @@ class AppLocalizationsTg extends AppLocalizations {
   String termsLastUpdated(int year) {
     return 'Навсозии охирин: $year';
   }
+
+  @override
+  String get wavesFailedToLoad => 'Саломҳо бор карда нашуданд';
+
+  @override
+  String get wavesEmptyTitle => 'Ҳоло салом нест';
+
+  @override
+  String get wavesEmptyBody => 'Вақте касе ба шумо салом мекунад,\nин ҷо нишон дода мешавад';
+
+  @override
+  String get wavesWavedAtYou => 'Ба шумо салом кард';
+
+  @override
+  String get lessonYourTranslation => 'Тарҷумаи шумо:';
+
+  @override
+  String get lessonTapWordsToBuild => 'Барои сохтани тарҷума ба калимаҳои поён зер кунед';
+
+  @override
+  String get lessonWordBank => 'Бонки калимаҳо:';
+
+  @override
+  String get lessonTypeTranslationHint => 'Тарҷумаи худро ин ҷо нависед...';
+
+  @override
+  String get lessonCorrect => 'Дуруст!';
+
+  @override
+  String get lessonIncorrect => 'Нодуруст';
+
+  @override
+  String get lessonCheck => 'Санҷидан';
+
+  @override
+  String get lessonTitle => 'Дарс';
+
+  @override
+  String get lessonFailedToLoad => 'Дарс бор карда нашуд';
+
+  @override
+  String get lessonResultCorrect => 'Дуруст';
+
+  @override
+  String get lessonResultIncorrect => 'Нодуруст';
+
+  @override
+  String get lessonDone => 'Тайёр';
+
+  @override
+  String get lessonPraiseExcellent => 'Аъло!';
+
+  @override
+  String get lessonPraiseGreat => 'Кори хуб!';
+
+  @override
+  String get lessonPraiseGood => 'Кӯшиши хуб!';
+
+  @override
+  String get lessonPraiseKeepPracticing => 'Машқро идома диҳед!';
+
+  @override
+  String get lessonPraiseTryAgain => 'Боз кӯшиш кунед!';
+
+  @override
+  String get lessonExitWarning => 'Агар ҳозир бароед, пешрафти шумо нигоҳ дошта намешавад.';
+
+  @override
+  String get lessonNotFound => 'Дарс ёфт нашуд';
+
+  @override
+  String get lessonMayHaveBeenRemoved => 'Шояд ин дарс нест карда шудааст';
+
+  @override
+  String get lessonNoExercises => 'Дар ин дарс ҳоло машқ нест';
+
+  @override
+  String get quizTitle => 'Санҷиш';
+
+  @override
+  String get quizFailedToLoad => 'Санҷиш бор карда нашуд';
+
+  @override
+  String get quizSubmit => 'Фиристодан';
+
+  @override
+  String get quizScore => 'Хол';
+
+  @override
+  String get quizCorrect => 'Дуруст';
+
+  @override
+  String get quizWrong => 'Нодуруст';
+
+  @override
+  String get quizYourLevel => 'Сатҳи шумо';
+
+  @override
+  String get quizPraiseKeepLearning => 'Омӯзишро идома диҳед!';
+
+  @override
+  String get quizExitWarning => 'Агар ҳозир бароед, пешрафти шумо гум мешавад.';
+
+  @override
+  String get vocabFailedToLoad => 'Такрорҳо бор карда нашуданд';
+
+  @override
+  String get vocabNoneDue => 'Ҳоло калимае барои такрор нест';
+
+  @override
+  String get vocabGotIt => 'Фаҳмидам!';
+
+  @override
+  String get vocabTapToReveal => 'Барои дидани ҷавоб ба корт зер кунед';
+
+  @override
+  String get vocabSessionComplete => 'Ҷаласа анҷом ёфт!';
+
+  @override
+  String get wavesEmptyBody2 => 'Вақте касе ба шумо салом мекунад,\nин ҷо нишон дода мешавад';
+
+  @override
+  String lessonCorrectAnswer(String answer) {
+    return 'Ҷавоби дуруст: $answer';
+  }
+
+  @override
+  String quizQuestionOfTotal(int current, int total) {
+    return 'Саволи $current аз $total';
+  }
+
+  @override
+  String get vocabXpEarned => 'XP-и гирифташуда';
+
+  @override
+  String get vocabWatchAdBonus => 'Барои +10 XP-и иловагӣ реклама бинед';
+
+  @override
+  String get vocabBonusEarned => '+10 XP-и иловагӣ гирифта шуд! 🎉';
 }

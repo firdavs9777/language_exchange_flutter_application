@@ -9225,4 +9225,143 @@ class AppLocalizationsVi extends AppLocalizations {
   String termsLastUpdated(int year) {
     return 'Cập nhật lần cuối: $year';
   }
+
+  @override
+  String get wavesFailedToLoad => 'Không tải được lời chào';
+
+  @override
+  String get wavesEmptyTitle => 'Chưa có lời chào nào';
+
+  @override
+  String get wavesEmptyBody => 'Khi ai đó chào bạn,\nsẽ hiện ở đây';
+
+  @override
+  String get wavesWavedAtYou => 'Đã chào bạn';
+
+  @override
+  String get lessonYourTranslation => 'Bản dịch của bạn:';
+
+  @override
+  String get lessonTapWordsToBuild => 'Chạm vào các từ bên dưới để ghép bản dịch';
+
+  @override
+  String get lessonWordBank => 'Kho từ:';
+
+  @override
+  String get lessonTypeTranslationHint => 'Nhập bản dịch của bạn ở đây...';
+
+  @override
+  String get lessonCorrect => 'Chính xác!';
+
+  @override
+  String get lessonIncorrect => 'Sai';
+
+  @override
+  String get lessonCheck => 'Kiểm tra';
+
+  @override
+  String get lessonTitle => 'Bài học';
+
+  @override
+  String get lessonFailedToLoad => 'Không tải được bài học';
+
+  @override
+  String get lessonResultCorrect => 'Đúng';
+
+  @override
+  String get lessonResultIncorrect => 'Sai';
+
+  @override
+  String get lessonDone => 'Xong';
+
+  @override
+  String get lessonPraiseExcellent => 'Tuyệt vời!';
+
+  @override
+  String get lessonPraiseGreat => 'Làm tốt lắm!';
+
+  @override
+  String get lessonPraiseGood => 'Cố gắng tốt!';
+
+  @override
+  String get lessonPraiseKeepPracticing => 'Tiếp tục luyện tập!';
+
+  @override
+  String get lessonPraiseTryAgain => 'Thử lại nào!';
+
+  @override
+  String get lessonExitWarning => 'Tiến độ sẽ không được lưu nếu bạn thoát bây giờ.';
+
+  @override
+  String get lessonNotFound => 'Không tìm thấy bài học';
+
+  @override
+  String get lessonMayHaveBeenRemoved => 'Bài học này có thể đã bị xoá';
+
+  @override
+  String get lessonNoExercises => 'Bài học này chưa có bài tập';
+
+  @override
+  String get quizTitle => 'Bài kiểm tra';
+
+  @override
+  String get quizFailedToLoad => 'Không tải được bài kiểm tra';
+
+  @override
+  String get quizSubmit => 'Nộp';
+
+  @override
+  String get quizScore => 'Điểm';
+
+  @override
+  String get quizCorrect => 'Đúng';
+
+  @override
+  String get quizWrong => 'Sai';
+
+  @override
+  String get quizYourLevel => 'Cấp độ của bạn';
+
+  @override
+  String get quizPraiseKeepLearning => 'Tiếp tục học nhé!';
+
+  @override
+  String get quizExitWarning => 'Bạn sẽ mất tiến độ nếu thoát bây giờ.';
+
+  @override
+  String get vocabFailedToLoad => 'Không tải được danh sách ôn tập';
+
+  @override
+  String get vocabNoneDue => 'Hiện chưa có từ nào cần ôn';
+
+  @override
+  String get vocabGotIt => 'Đã hiểu!';
+
+  @override
+  String get vocabTapToReveal => 'Chạm vào thẻ để xem đáp án';
+
+  @override
+  String get vocabSessionComplete => 'Hoàn thành phiên học!';
+
+  @override
+  String get wavesEmptyBody2 => 'Khi ai đó chào bạn,\nsẽ hiện ở đây';
+
+  @override
+  String lessonCorrectAnswer(String answer) {
+    return 'Đáp án đúng: $answer';
+  }
+
+  @override
+  String quizQuestionOfTotal(int current, int total) {
+    return 'Câu $current trên $total';
+  }
+
+  @override
+  String get vocabXpEarned => 'XP nhận được';
+
+  @override
+  String get vocabWatchAdBonus => 'Xem quảng cáo nhận +10 XP thưởng';
+
+  @override
+  String get vocabBonusEarned => 'Đã nhận +10 XP thưởng! 🎉';
 }

@@ -67,7 +67,7 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
           ),
           title: quizAsync.when(
             data: (quiz) => Text(
-              quiz?.title ?? 'Quiz',
+              quiz?.title ?? AppLocalizations.of(context)!.quizTitle,
               style: context.titleMedium,
             ),
             loading: () => Text(AppLocalizations.of(context)!.loading),
@@ -142,7 +142,7 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
               children: [
                 Icon(Icons.error_outline, size: 48, color: context.textMuted),
                 Spacing.gapLG,
-                Text('Failed to load quiz',
+                Text(AppLocalizations.of(context)!.quizFailedToLoad,
                     style: context.bodyMedium.copyWith(color: context.textSecondary)),
                 Spacing.gapLG,
                 ElevatedButton(
@@ -176,7 +176,7 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
           padding: const EdgeInsets.symmetric(vertical: 12),
           child: Center(
             child: Text(
-              'Question ${state.currentIndex + 1} of ${state.questions.length}',
+              AppLocalizations.of(context)!.quizQuestionOfTotal(state.currentIndex + 1, state.questions.length),
               style: TextStyle(
                 color: Theme.of(context).colorScheme.onSurfaceVariant,
                 fontWeight: FontWeight.w500,
@@ -320,7 +320,7 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
                       ),
                     ),
                     child: Text(
-                      'Previous',
+                      AppLocalizations.of(context)!.previous,
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.onSurfaceVariant,
                         fontWeight: FontWeight.w600,
@@ -351,8 +351,8 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
                   ),
                   child: Text(
                     state.currentIndex < state.questions.length - 1
-                        ? 'Next'
-                        : 'Submit',
+                        ? AppLocalizations.of(context)!.nextButton
+                        : AppLocalizations.of(context)!.quizSubmit,
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
@@ -411,7 +411,7 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
                         ),
                       ),
                       Text(
-                        'Score',
+                        AppLocalizations.of(context)!.quizScore,
                         style: TextStyle(
                           fontSize: 14,
                           color: Theme.of(context).colorScheme.onSurfaceVariant,
@@ -451,7 +451,7 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   _buildResultStat(
-                    'Correct',
+                    AppLocalizations.of(context)!.quizCorrect,
                     '$correct',
                     Colors.green,
                     Icons.check_circle,
@@ -462,7 +462,7 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
                     color: Theme.of(context).colorScheme.surfaceContainerHighest,
                   ),
                   _buildResultStat(
-                    'Wrong',
+                    AppLocalizations.of(context)!.quizWrong,
                     '${total - correct}',
                     Colors.red,
                     Icons.cancel,
@@ -513,8 +513,8 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
-                            'Your Level',
+                          Text(
+                            AppLocalizations.of(context)!.quizYourLevel,
                             style: TextStyle(
                               fontSize: 14,
                               color: Color(0xFF9C27B0),
@@ -550,8 +550,8 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
                     borderRadius: BorderRadius.circular(12),
                   ),
                 ),
-                child: const Text(
-                  'Done',
+                child: Text(
+                  AppLocalizations.of(context)!.lessonDone,
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
@@ -601,11 +601,11 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
   }
 
   String _getResultMessage(int accuracy) {
-    if (accuracy >= 90) return 'Excellent!';
-    if (accuracy >= 80) return 'Great Job!';
-    if (accuracy >= 60) return 'Good Effort!';
-    if (accuracy >= 40) return 'Keep Practicing!';
-    return 'Keep Learning!';
+    if (accuracy >= 90) return AppLocalizations.of(context)!.lessonPraiseExcellent;
+    if (accuracy >= 80) return AppLocalizations.of(context)!.lessonPraiseGreat;
+    if (accuracy >= 60) return AppLocalizations.of(context)!.lessonPraiseGood;
+    if (accuracy >= 40) return AppLocalizations.of(context)!.lessonPraiseKeepPracticing;
+    return AppLocalizations.of(context)!.quizPraiseKeepLearning;
   }
 
   Future<bool> _showExitDialog() async {
@@ -618,8 +618,8 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
           context: context,
           builder: (context) => AlertDialog(
             title: Text(AppLocalizations.of(context)!.exitQuizTitle),
-            content: const Text(
-              'Your progress will be lost if you exit now.',
+            content: Text(
+              AppLocalizations.of(context)!.quizExitWarning,
             ),
             actions: [
               TextButton(
@@ -628,8 +628,8 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
               ),
               TextButton(
                 onPressed: () => Navigator.pop(context, true),
-                child: const Text(
-                  'Exit',
+                child: Text(
+                  AppLocalizations.of(context)!.exit,
                   style: TextStyle(color: Colors.red),
                 ),
               ),

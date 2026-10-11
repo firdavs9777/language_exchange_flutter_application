@@ -210,7 +210,7 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
           ),
           title: lessonAsync.when(
             data: (lesson) => Text(
-              lesson?.title ?? 'Lesson',
+              lesson?.title ?? AppLocalizations.of(context)!.lessonTitle,
               style: context.titleMedium,
             ),
             loading: () => Text(AppLocalizations.of(context)!.loading),
@@ -282,7 +282,7 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
               children: [
                 Icon(Icons.error_outline, size: 48, color: context.textMuted),
                 Spacing.gapLG,
-                Text('Failed to load lesson',
+                Text(AppLocalizations.of(context)!.lessonFailedToLoad,
                     style: context.bodyMedium.copyWith(color: context.textSecondary)),
                 Spacing.gapSM,
                 Text('$error',
@@ -438,10 +438,10 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _buildResultStat('Correct', '$correct', AppColors.success),
+                  _buildResultStat(AppLocalizations.of(context)!.lessonResultCorrect, '$correct', AppColors.success),
                   Spacing.hGapLG,
                   _buildResultStat(
-                      'Incorrect', '${total - correct}', AppColors.error),
+                      AppLocalizations.of(context)!.lessonResultIncorrect, '${total - correct}', AppColors.error),
                   Spacing.hGapLG,
                   _buildResultStat(
                     'XP',
@@ -496,8 +496,8 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
                         borderRadius: AppRadius.borderLG,
                       ),
                     ),
-                    child: const Text(
-                      'Try Again',
+                    child: Text(
+                      AppLocalizations.of(context)!.tryAgain,
                       style: TextStyle(
                         color: AppColors.primary,
                         fontWeight: FontWeight.bold,
@@ -520,8 +520,8 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
                         borderRadius: AppRadius.borderLG,
                       ),
                     ),
-                    child: const Text(
-                      'Done',
+                    child: Text(
+                      AppLocalizations.of(context)!.lessonDone,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                       ),
@@ -565,11 +565,11 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
   }
 
   String _getResultMessage(int accuracy) {
-    if (accuracy >= 90) return 'Excellent!';
-    if (accuracy >= 80) return 'Great Job!';
-    if (accuracy >= 60) return 'Good Effort!';
-    if (accuracy >= 40) return 'Keep Practicing!';
-    return 'Try Again!';
+    if (accuracy >= 90) return AppLocalizations.of(context)!.lessonPraiseExcellent;
+    if (accuracy >= 80) return AppLocalizations.of(context)!.lessonPraiseGreat;
+    if (accuracy >= 60) return AppLocalizations.of(context)!.lessonPraiseGood;
+    if (accuracy >= 40) return AppLocalizations.of(context)!.lessonPraiseKeepPracticing;
+    return AppLocalizations.of(context)!.lessonPraiseTryAgain;
   }
 
   Future<bool> _showExitDialog() async {
@@ -582,8 +582,8 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
           context: context,
           builder: (context) => AlertDialog(
             title: Text(AppLocalizations.of(context)!.exitLessonTitle),
-            content: const Text(
-              'Your progress will not be saved if you exit now.',
+            content: Text(
+              AppLocalizations.of(context)!.lessonExitWarning,
             ),
             actions: [
               TextButton(
@@ -592,8 +592,8 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
               ),
               TextButton(
                 onPressed: () => Navigator.pop(context, true),
-                child: const Text(
-                  'Exit',
+                child: Text(
+                  AppLocalizations.of(context)!.exit,
                   style: TextStyle(color: Colors.red),
                 ),
               ),
@@ -612,12 +612,12 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
             Icon(Icons.search_off, size: 64, color: context.textMuted),
             Spacing.gapLG,
             Text(
-              'Lesson not found',
+              AppLocalizations.of(context)!.lessonNotFound,
               style: context.titleLarge,
             ),
             Spacing.gapSM,
             Text(
-              'This lesson may have been removed',
+              AppLocalizations.of(context)!.lessonMayHaveBeenRemoved,
               style: context.bodySmall,
             ),
             Spacing.gapXL,
@@ -661,7 +661,7 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
               ),
               Spacing.gapSM,
               Text(
-                'This lesson has no exercises yet',
+                AppLocalizations.of(context)!.lessonNoExercises,
                 style: context.bodyMedium.copyWith(color: context.textSecondary),
               ),
               if (lesson.introduction != null) ...[

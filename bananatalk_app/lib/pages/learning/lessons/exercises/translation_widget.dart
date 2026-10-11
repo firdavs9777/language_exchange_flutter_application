@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:bananatalk_app/models/learning/lesson_model.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 /// Translation exercise widget
 class TranslationWidget extends StatefulWidget {
@@ -121,7 +122,7 @@ class _TranslationWidgetState extends State<TranslationWidget> {
         if (hasWordBank) ...[
           // Word bank mode - tap to build translation
           Text(
-            'Your translation:',
+            AppLocalizations.of(context)!.lessonYourTranslation,
             style: context.labelLarge,
           ),
           Spacing.gapSM,
@@ -141,7 +142,7 @@ class _TranslationWidgetState extends State<TranslationWidget> {
             ),
             child: _selectedWords.isEmpty
                 ? Text(
-                    'Tap words below to build your translation',
+                    AppLocalizations.of(context)!.lessonTapWordsToBuild,
                     style: context.bodySmall.copyWith(fontStyle: FontStyle.italic),
                   )
                 : Wrap(
@@ -185,7 +186,7 @@ class _TranslationWidgetState extends State<TranslationWidget> {
           // Word bank
           if (!widget.showResult) ...[
             Text(
-              'Word Bank:',
+              AppLocalizations.of(context)!.lessonWordBank,
               style: context.labelLarge,
             ),
             Spacing.gapSM,
@@ -231,7 +232,7 @@ class _TranslationWidgetState extends State<TranslationWidget> {
         ] else ...[
           // Free text input mode
           Text(
-            'Your translation:',
+            AppLocalizations.of(context)!.lessonYourTranslation,
             style: context.labelLarge,
           ),
           Spacing.gapSM,
@@ -246,7 +247,7 @@ class _TranslationWidgetState extends State<TranslationWidget> {
                   : context.textPrimary,
             ),
             decoration: InputDecoration(
-              hintText: 'Type your translation here...',
+              hintText: AppLocalizations.of(context)!.lessonTypeTranslationHint,
               filled: true,
               fillColor: widget.showResult
                   ? (_isCorrect
@@ -308,7 +309,7 @@ class _TranslationWidgetState extends State<TranslationWidget> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        _isCorrect ? 'Correct!' : 'Incorrect',
+                        _isCorrect ? AppLocalizations.of(context)!.lessonCorrect : AppLocalizations.of(context)!.lessonIncorrect,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color:
@@ -317,7 +318,7 @@ class _TranslationWidgetState extends State<TranslationWidget> {
                       ),
                       if (!_isCorrect && widget.exercise.correctAnswer != null)
                         Text(
-                          'Correct answer: ${widget.exercise.correctAnswer}',
+                          AppLocalizations.of(context)!.lessonCorrectAnswer(widget.exercise.correctAnswer!),
                           style: context.bodySmall,
                         ),
                     ],
@@ -371,7 +372,7 @@ class _TranslationWidgetState extends State<TranslationWidget> {
               ),
             ),
             child: Text(
-              widget.showResult ? 'Continue' : 'Check',
+              widget.showResult ? AppLocalizations.of(context)!.continueButton : AppLocalizations.of(context)!.lessonCheck,
               style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,

@@ -124,7 +124,7 @@ class _WavesTabState extends ConsumerState<WavesTab> {
       if (mounted) {
         showCommunitySnackBar(
           context,
-          message: 'Failed to load profile',
+          message: AppLocalizations.of(context)!.failedToLoadProfile,
           type: CommunitySnackBarType.error,
         );
       }
@@ -148,7 +148,7 @@ class _WavesTabState extends ConsumerState<WavesTab> {
             Spacing.gapMD,
             Builder(
               builder: (context) => Text(
-                'Failed to load waves',
+                AppLocalizations.of(context)!.wavesFailedToLoad,
                 style: context.bodyMedium.copyWith(
                   color: context.textSecondary,
                 ),
@@ -189,14 +189,14 @@ class _WavesTabState extends ConsumerState<WavesTab> {
             Spacing.gapLG,
             Builder(
               builder: (context) => Text(
-                'No waves yet',
+                AppLocalizations.of(context)!.wavesEmptyTitle,
                 style: context.titleMedium.copyWith(color: context.textPrimary),
               ),
             ),
             Spacing.gapSM,
             Builder(
               builder: (context) => Text(
-                'When someone waves at you,\nyou\'ll see them here',
+                AppLocalizations.of(context)!.wavesEmptyBody2,
                 textAlign: TextAlign.center,
                 style: context.bodyMedium.copyWith(
                   color: context.textSecondary,
@@ -375,7 +375,7 @@ class _WaveCard extends StatelessWidget {
                       Text(
                         wave.message?.isNotEmpty == true
                             ? wave.message!
-                            : 'Waved at you',
+                            : AppLocalizations.of(context)!.wavesWavedAtYou,
                         style: context.bodyMedium.copyWith(
                           color: context.textSecondary,
                         ),

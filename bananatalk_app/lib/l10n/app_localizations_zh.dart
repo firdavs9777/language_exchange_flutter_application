@@ -9225,6 +9225,145 @@ class AppLocalizationsZh extends AppLocalizations {
   String termsLastUpdated(int year) {
     return '最后更新：$year 年';
   }
+
+  @override
+  String get wavesFailedToLoad => '无法加载招呼';
+
+  @override
+  String get wavesEmptyTitle => '还没有招呼';
+
+  @override
+  String get wavesEmptyBody => '当有人向你打招呼时，\n会显示在这里';
+
+  @override
+  String get wavesWavedAtYou => '向你打了招呼';
+
+  @override
+  String get lessonYourTranslation => '你的翻译：';
+
+  @override
+  String get lessonTapWordsToBuild => '点击下方词语来组成你的翻译';
+
+  @override
+  String get lessonWordBank => '词库：';
+
+  @override
+  String get lessonTypeTranslationHint => '在这里输入你的翻译...';
+
+  @override
+  String get lessonCorrect => '正确！';
+
+  @override
+  String get lessonIncorrect => '错误';
+
+  @override
+  String get lessonCheck => '检查';
+
+  @override
+  String get lessonTitle => '课程';
+
+  @override
+  String get lessonFailedToLoad => '无法加载课程';
+
+  @override
+  String get lessonResultCorrect => '正确';
+
+  @override
+  String get lessonResultIncorrect => '错误';
+
+  @override
+  String get lessonDone => '完成';
+
+  @override
+  String get lessonPraiseExcellent => '太棒了！';
+
+  @override
+  String get lessonPraiseGreat => '做得好！';
+
+  @override
+  String get lessonPraiseGood => '很不错的尝试！';
+
+  @override
+  String get lessonPraiseKeepPracticing => '继续练习！';
+
+  @override
+  String get lessonPraiseTryAgain => '再试一次！';
+
+  @override
+  String get lessonExitWarning => '现在退出将不会保存你的进度。';
+
+  @override
+  String get lessonNotFound => '未找到课程';
+
+  @override
+  String get lessonMayHaveBeenRemoved => '此课程可能已被移除';
+
+  @override
+  String get lessonNoExercises => '此课程暂无练习';
+
+  @override
+  String get quizTitle => '测验';
+
+  @override
+  String get quizFailedToLoad => '无法加载测验';
+
+  @override
+  String get quizSubmit => '提交';
+
+  @override
+  String get quizScore => '得分';
+
+  @override
+  String get quizCorrect => '正确';
+
+  @override
+  String get quizWrong => '错误';
+
+  @override
+  String get quizYourLevel => '你的等级';
+
+  @override
+  String get quizPraiseKeepLearning => '继续学习！';
+
+  @override
+  String get quizExitWarning => '现在退出会丢失进度。';
+
+  @override
+  String get vocabFailedToLoad => '无法加载复习内容';
+
+  @override
+  String get vocabNoneDue => '当前没有需要复习的词';
+
+  @override
+  String get vocabGotIt => '明白了！';
+
+  @override
+  String get vocabTapToReveal => '点击卡片查看答案';
+
+  @override
+  String get vocabSessionComplete => '本次学习完成！';
+
+  @override
+  String get wavesEmptyBody2 => '当有人向你打招呼时，\n会显示在这里';
+
+  @override
+  String lessonCorrectAnswer(String answer) {
+    return '正确答案：$answer';
+  }
+
+  @override
+  String quizQuestionOfTotal(int current, int total) {
+    return '第 $current 题 / 共 $total 题';
+  }
+
+  @override
+  String get vocabXpEarned => '获得的 XP';
+
+  @override
+  String get vocabWatchAdBonus => '观看广告获得 +10 奖励 XP';
+
+  @override
+  String get vocabBonusEarned => '已获得 +10 奖励 XP！🎉';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -18448,4 +18587,143 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String termsLastUpdated(int year) {
     return '最後更新：$year 年';
   }
+
+  @override
+  String get wavesFailedToLoad => '無法載入招呼';
+
+  @override
+  String get wavesEmptyTitle => '還沒有招呼';
+
+  @override
+  String get wavesEmptyBody => '當有人向你打招呼時，\n會顯示在這裡';
+
+  @override
+  String get wavesWavedAtYou => '向你打了招呼';
+
+  @override
+  String get lessonYourTranslation => '你的翻譯：';
+
+  @override
+  String get lessonTapWordsToBuild => '點擊下方詞語來組成你的翻譯';
+
+  @override
+  String get lessonWordBank => '詞庫：';
+
+  @override
+  String get lessonTypeTranslationHint => '在這裡輸入你的翻譯...';
+
+  @override
+  String get lessonCorrect => '正確！';
+
+  @override
+  String get lessonIncorrect => '錯誤';
+
+  @override
+  String get lessonCheck => '檢查';
+
+  @override
+  String get lessonTitle => '課程';
+
+  @override
+  String get lessonFailedToLoad => '無法載入課程';
+
+  @override
+  String get lessonResultCorrect => '正確';
+
+  @override
+  String get lessonResultIncorrect => '錯誤';
+
+  @override
+  String get lessonDone => '完成';
+
+  @override
+  String get lessonPraiseExcellent => '太棒了！';
+
+  @override
+  String get lessonPraiseGreat => '做得好！';
+
+  @override
+  String get lessonPraiseGood => '很不錯的嘗試！';
+
+  @override
+  String get lessonPraiseKeepPracticing => '繼續練習！';
+
+  @override
+  String get lessonPraiseTryAgain => '再試一次！';
+
+  @override
+  String get lessonExitWarning => '現在離開將不會儲存你的進度。';
+
+  @override
+  String get lessonNotFound => '找不到課程';
+
+  @override
+  String get lessonMayHaveBeenRemoved => '此課程可能已被移除';
+
+  @override
+  String get lessonNoExercises => '此課程暫無練習';
+
+  @override
+  String get quizTitle => '測驗';
+
+  @override
+  String get quizFailedToLoad => '無法載入測驗';
+
+  @override
+  String get quizSubmit => '送出';
+
+  @override
+  String get quizScore => '得分';
+
+  @override
+  String get quizCorrect => '正確';
+
+  @override
+  String get quizWrong => '錯誤';
+
+  @override
+  String get quizYourLevel => '你的等級';
+
+  @override
+  String get quizPraiseKeepLearning => '繼續學習！';
+
+  @override
+  String get quizExitWarning => '現在離開會失去進度。';
+
+  @override
+  String get vocabFailedToLoad => '無法載入複習內容';
+
+  @override
+  String get vocabNoneDue => '目前沒有需要複習的詞';
+
+  @override
+  String get vocabGotIt => '明白了！';
+
+  @override
+  String get vocabTapToReveal => '點擊卡片查看答案';
+
+  @override
+  String get vocabSessionComplete => '本次學習完成！';
+
+  @override
+  String get wavesEmptyBody2 => '當有人向你打招呼時，\n會顯示在這裡';
+
+  @override
+  String lessonCorrectAnswer(String answer) {
+    return '正確答案：$answer';
+  }
+
+  @override
+  String quizQuestionOfTotal(int current, int total) {
+    return '第 $current 題 / 共 $total 題';
+  }
+
+  @override
+  String get vocabXpEarned => '獲得的 XP';
+
+  @override
+  String get vocabWatchAdBonus => '觀看廣告獲得 +10 獎勵 XP';
+
+  @override
+  String get vocabBonusEarned => '已獲得 +10 獎勵 XP！🎉';
 }

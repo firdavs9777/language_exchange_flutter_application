@@ -9233,4 +9233,143 @@ class AppLocalizationsTr extends AppLocalizations {
   String termsLastUpdated(int year) {
     return 'Son güncelleme: $year';
   }
+
+  @override
+  String get wavesFailedToLoad => 'Selamlar yüklenemedi';
+
+  @override
+  String get wavesEmptyTitle => 'Henüz selam yok';
+
+  @override
+  String get wavesEmptyBody => 'Biri sana el salladığında\nburada görünecek';
+
+  @override
+  String get wavesWavedAtYou => 'Sana el salladı';
+
+  @override
+  String get lessonYourTranslation => 'Çevirin:';
+
+  @override
+  String get lessonTapWordsToBuild => 'Çevirini oluşturmak için aşağıdaki kelimelere dokun';
+
+  @override
+  String get lessonWordBank => 'Kelime bankası:';
+
+  @override
+  String get lessonTypeTranslationHint => 'Çevirini buraya yaz...';
+
+  @override
+  String get lessonCorrect => 'Doğru!';
+
+  @override
+  String get lessonIncorrect => 'Yanlış';
+
+  @override
+  String get lessonCheck => 'Kontrol et';
+
+  @override
+  String get lessonTitle => 'Ders';
+
+  @override
+  String get lessonFailedToLoad => 'Ders yüklenemedi';
+
+  @override
+  String get lessonResultCorrect => 'Doğru';
+
+  @override
+  String get lessonResultIncorrect => 'Yanlış';
+
+  @override
+  String get lessonDone => 'Bitti';
+
+  @override
+  String get lessonPraiseExcellent => 'Mükemmel!';
+
+  @override
+  String get lessonPraiseGreat => 'Harika iş!';
+
+  @override
+  String get lessonPraiseGood => 'İyi deneme!';
+
+  @override
+  String get lessonPraiseKeepPracticing => 'Pratiğe devam!';
+
+  @override
+  String get lessonPraiseTryAgain => 'Tekrar dene!';
+
+  @override
+  String get lessonExitWarning => 'Şimdi çıkarsan ilerlemen kaydedilmez.';
+
+  @override
+  String get lessonNotFound => 'Ders bulunamadı';
+
+  @override
+  String get lessonMayHaveBeenRemoved => 'Bu ders kaldırılmış olabilir';
+
+  @override
+  String get lessonNoExercises => 'Bu derste henüz alıştırma yok';
+
+  @override
+  String get quizTitle => 'Test';
+
+  @override
+  String get quizFailedToLoad => 'Test yüklenemedi';
+
+  @override
+  String get quizSubmit => 'Gönder';
+
+  @override
+  String get quizScore => 'Puan';
+
+  @override
+  String get quizCorrect => 'Doğru';
+
+  @override
+  String get quizWrong => 'Yanlış';
+
+  @override
+  String get quizYourLevel => 'Seviyen';
+
+  @override
+  String get quizPraiseKeepLearning => 'Öğrenmeye devam!';
+
+  @override
+  String get quizExitWarning => 'Şimdi çıkarsan ilerlemen kaybolur.';
+
+  @override
+  String get vocabFailedToLoad => 'Tekrarlar yüklenemedi';
+
+  @override
+  String get vocabNoneDue => 'Şu an tekrar edilecek kelime yok';
+
+  @override
+  String get vocabGotIt => 'Anladım!';
+
+  @override
+  String get vocabTapToReveal => 'Cevabı görmek için karta dokun';
+
+  @override
+  String get vocabSessionComplete => 'Oturum tamamlandı!';
+
+  @override
+  String get wavesEmptyBody2 => 'Biri sana el salladığında\nburada görünecek';
+
+  @override
+  String lessonCorrectAnswer(String answer) {
+    return 'Doğru cevap: $answer';
+  }
+
+  @override
+  String quizQuestionOfTotal(int current, int total) {
+    return '$total sorudan $current.';
+  }
+
+  @override
+  String get vocabXpEarned => 'Kazanılan XP';
+
+  @override
+  String get vocabWatchAdBonus => '+10 Bonus XP için reklam izle';
+
+  @override
+  String get vocabBonusEarned => '+10 Bonus XP kazanıldı! 🎉';
 }

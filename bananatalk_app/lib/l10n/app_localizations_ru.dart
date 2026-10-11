@@ -9256,4 +9256,143 @@ class AppLocalizationsRu extends AppLocalizations {
   String termsLastUpdated(int year) {
     return 'Последнее обновление: $year';
   }
+
+  @override
+  String get wavesFailedToLoad => 'Не удалось загрузить приветствия';
+
+  @override
+  String get wavesEmptyTitle => 'Приветствий пока нет';
+
+  @override
+  String get wavesEmptyBody => 'Когда кто-то вам помашет,\nвы увидите это здесь';
+
+  @override
+  String get wavesWavedAtYou => 'Помахал вам';
+
+  @override
+  String get lessonYourTranslation => 'Ваш перевод:';
+
+  @override
+  String get lessonTapWordsToBuild => 'Нажимайте на слова ниже, чтобы составить перевод';
+
+  @override
+  String get lessonWordBank => 'Банк слов:';
+
+  @override
+  String get lessonTypeTranslationHint => 'Введите перевод здесь...';
+
+  @override
+  String get lessonCorrect => 'Верно!';
+
+  @override
+  String get lessonIncorrect => 'Неверно';
+
+  @override
+  String get lessonCheck => 'Проверить';
+
+  @override
+  String get lessonTitle => 'Урок';
+
+  @override
+  String get lessonFailedToLoad => 'Не удалось загрузить урок';
+
+  @override
+  String get lessonResultCorrect => 'Верных';
+
+  @override
+  String get lessonResultIncorrect => 'Неверных';
+
+  @override
+  String get lessonDone => 'Готово';
+
+  @override
+  String get lessonPraiseExcellent => 'Отлично!';
+
+  @override
+  String get lessonPraiseGreat => 'Отличная работа!';
+
+  @override
+  String get lessonPraiseGood => 'Хорошая попытка!';
+
+  @override
+  String get lessonPraiseKeepPracticing => 'Продолжайте тренироваться!';
+
+  @override
+  String get lessonPraiseTryAgain => 'Попробуйте ещё раз!';
+
+  @override
+  String get lessonExitWarning => 'Если выйти сейчас, прогресс не сохранится.';
+
+  @override
+  String get lessonNotFound => 'Урок не найден';
+
+  @override
+  String get lessonMayHaveBeenRemoved => 'Возможно, этот урок был удалён';
+
+  @override
+  String get lessonNoExercises => 'В этом уроке пока нет упражнений';
+
+  @override
+  String get quizTitle => 'Тест';
+
+  @override
+  String get quizFailedToLoad => 'Не удалось загрузить тест';
+
+  @override
+  String get quizSubmit => 'Отправить';
+
+  @override
+  String get quizScore => 'Баллы';
+
+  @override
+  String get quizCorrect => 'Верных';
+
+  @override
+  String get quizWrong => 'Неверных';
+
+  @override
+  String get quizYourLevel => 'Ваш уровень';
+
+  @override
+  String get quizPraiseKeepLearning => 'Продолжайте учиться!';
+
+  @override
+  String get quizExitWarning => 'Если выйти сейчас, прогресс будет потерян.';
+
+  @override
+  String get vocabFailedToLoad => 'Не удалось загрузить повторения';
+
+  @override
+  String get vocabNoneDue => 'Сейчас нет слов для повторения';
+
+  @override
+  String get vocabGotIt => 'Понятно!';
+
+  @override
+  String get vocabTapToReveal => 'Нажмите на карточку, чтобы увидеть ответ';
+
+  @override
+  String get vocabSessionComplete => 'Сессия завершена!';
+
+  @override
+  String get wavesEmptyBody2 => 'Когда кто-то вам помашет,\nвы увидите это здесь';
+
+  @override
+  String lessonCorrectAnswer(String answer) {
+    return 'Правильный ответ: $answer';
+  }
+
+  @override
+  String quizQuestionOfTotal(int current, int total) {
+    return 'Вопрос $current из $total';
+  }
+
+  @override
+  String get vocabXpEarned => 'Получено XP';
+
+  @override
+  String get vocabWatchAdBonus => 'Посмотреть рекламу за +10 бонусных XP';
+
+  @override
+  String get vocabBonusEarned => '+10 бонусных XP получено! 🎉';
 }

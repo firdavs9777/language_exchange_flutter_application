@@ -9235,4 +9235,143 @@ class AppLocalizationsTl extends AppLocalizations {
   String termsLastUpdated(int year) {
     return 'Huling na-update: $year';
   }
+
+  @override
+  String get wavesFailedToLoad => 'Hindi ma-load ang mga pagbati';
+
+  @override
+  String get wavesEmptyTitle => 'Wala pang pagbati';
+
+  @override
+  String get wavesEmptyBody => 'Kapag may bumati sa iyo,\nmakikita mo rito';
+
+  @override
+  String get wavesWavedAtYou => 'Bumati sa iyo';
+
+  @override
+  String get lessonYourTranslation => 'Ang salin mo:';
+
+  @override
+  String get lessonTapWordsToBuild => 'I-tap ang mga salita sa ibaba para buuin ang salin';
+
+  @override
+  String get lessonWordBank => 'Word bank:';
+
+  @override
+  String get lessonTypeTranslationHint => 'Isulat ang salin mo rito...';
+
+  @override
+  String get lessonCorrect => 'Tama!';
+
+  @override
+  String get lessonIncorrect => 'Mali';
+
+  @override
+  String get lessonCheck => 'Suriin';
+
+  @override
+  String get lessonTitle => 'Aralin';
+
+  @override
+  String get lessonFailedToLoad => 'Hindi ma-load ang aralin';
+
+  @override
+  String get lessonResultCorrect => 'Tama';
+
+  @override
+  String get lessonResultIncorrect => 'Mali';
+
+  @override
+  String get lessonDone => 'Tapos';
+
+  @override
+  String get lessonPraiseExcellent => 'Mahusay!';
+
+  @override
+  String get lessonPraiseGreat => 'Magaling!';
+
+  @override
+  String get lessonPraiseGood => 'Magandang pagsubok!';
+
+  @override
+  String get lessonPraiseKeepPracticing => 'Magpatuloy sa pagsasanay!';
+
+  @override
+  String get lessonPraiseTryAgain => 'Subukan ulit!';
+
+  @override
+  String get lessonExitWarning => 'Hindi mase-save ang progreso mo kung aalis ka ngayon.';
+
+  @override
+  String get lessonNotFound => 'Hindi nahanap ang aralin';
+
+  @override
+  String get lessonMayHaveBeenRemoved => 'Maaaring natanggal na ang araling ito';
+
+  @override
+  String get lessonNoExercises => 'Wala pang ehersisyo ang araling ito';
+
+  @override
+  String get quizTitle => 'Pagsusulit';
+
+  @override
+  String get quizFailedToLoad => 'Hindi ma-load ang pagsusulit';
+
+  @override
+  String get quizSubmit => 'Ipasa';
+
+  @override
+  String get quizScore => 'Iskor';
+
+  @override
+  String get quizCorrect => 'Tama';
+
+  @override
+  String get quizWrong => 'Mali';
+
+  @override
+  String get quizYourLevel => 'Ang level mo';
+
+  @override
+  String get quizPraiseKeepLearning => 'Magpatuloy sa pag-aaral!';
+
+  @override
+  String get quizExitWarning => 'Mawawala ang progreso mo kung aalis ka ngayon.';
+
+  @override
+  String get vocabFailedToLoad => 'Hindi ma-load ang mga review';
+
+  @override
+  String get vocabNoneDue => 'Walang salitang dapat balikan ngayon';
+
+  @override
+  String get vocabGotIt => 'Nakuha ko!';
+
+  @override
+  String get vocabTapToReveal => 'I-tap ang card para makita ang sagot';
+
+  @override
+  String get vocabSessionComplete => 'Tapos na ang session!';
+
+  @override
+  String get wavesEmptyBody2 => 'Kapag may bumati sa iyo,\nmakikita mo rito';
+
+  @override
+  String lessonCorrectAnswer(String answer) {
+    return 'Tamang sagot: $answer';
+  }
+
+  @override
+  String quizQuestionOfTotal(int current, int total) {
+    return 'Tanong $current sa $total';
+  }
+
+  @override
+  String get vocabXpEarned => 'XP na nakuha';
+
+  @override
+  String get vocabWatchAdBonus => 'Manood ng ad para sa +10 Bonus XP';
+
+  @override
+  String get vocabBonusEarned => '+10 Bonus XP ang nakuha! 🎉';
 }

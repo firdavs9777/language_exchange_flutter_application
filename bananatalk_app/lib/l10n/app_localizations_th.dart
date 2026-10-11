@@ -9225,4 +9225,143 @@ class AppLocalizationsTh extends AppLocalizations {
   String termsLastUpdated(int year) {
     return 'อัปเดตล่าสุด: $year';
   }
+
+  @override
+  String get wavesFailedToLoad => 'โหลดการทักทายไม่สำเร็จ';
+
+  @override
+  String get wavesEmptyTitle => 'ยังไม่มีการทักทาย';
+
+  @override
+  String get wavesEmptyBody => 'เมื่อมีคนทักคุณ\nจะแสดงที่นี่';
+
+  @override
+  String get wavesWavedAtYou => 'ทักคุณ';
+
+  @override
+  String get lessonYourTranslation => 'คำแปลของคุณ:';
+
+  @override
+  String get lessonTapWordsToBuild => 'แตะคำด้านล่างเพื่อเรียงคำแปล';
+
+  @override
+  String get lessonWordBank => 'คลังคำ:';
+
+  @override
+  String get lessonTypeTranslationHint => 'พิมพ์คำแปลของคุณที่นี่...';
+
+  @override
+  String get lessonCorrect => 'ถูกต้อง!';
+
+  @override
+  String get lessonIncorrect => 'ผิด';
+
+  @override
+  String get lessonCheck => 'ตรวจ';
+
+  @override
+  String get lessonTitle => 'บทเรียน';
+
+  @override
+  String get lessonFailedToLoad => 'โหลดบทเรียนไม่สำเร็จ';
+
+  @override
+  String get lessonResultCorrect => 'ถูก';
+
+  @override
+  String get lessonResultIncorrect => 'ผิด';
+
+  @override
+  String get lessonDone => 'เสร็จ';
+
+  @override
+  String get lessonPraiseExcellent => 'ยอดเยี่ยม!';
+
+  @override
+  String get lessonPraiseGreat => 'ทำได้ดีมาก!';
+
+  @override
+  String get lessonPraiseGood => 'พยายามได้ดี!';
+
+  @override
+  String get lessonPraiseKeepPracticing => 'ฝึกต่อไปนะ!';
+
+  @override
+  String get lessonPraiseTryAgain => 'ลองใหม่อีกครั้ง!';
+
+  @override
+  String get lessonExitWarning => 'ถ้าออกตอนนี้ ความคืบหน้าจะไม่ถูกบันทึก';
+
+  @override
+  String get lessonNotFound => 'ไม่พบบทเรียน';
+
+  @override
+  String get lessonMayHaveBeenRemoved => 'บทเรียนนี้อาจถูกลบไปแล้ว';
+
+  @override
+  String get lessonNoExercises => 'บทเรียนนี้ยังไม่มีแบบฝึกหัด';
+
+  @override
+  String get quizTitle => 'แบบทดสอบ';
+
+  @override
+  String get quizFailedToLoad => 'โหลดแบบทดสอบไม่สำเร็จ';
+
+  @override
+  String get quizSubmit => 'ส่ง';
+
+  @override
+  String get quizScore => 'คะแนน';
+
+  @override
+  String get quizCorrect => 'ถูก';
+
+  @override
+  String get quizWrong => 'ผิด';
+
+  @override
+  String get quizYourLevel => 'ระดับของคุณ';
+
+  @override
+  String get quizPraiseKeepLearning => 'เรียนต่อไปนะ!';
+
+  @override
+  String get quizExitWarning => 'ถ้าออกตอนนี้ ความคืบหน้าจะหายไป';
+
+  @override
+  String get vocabFailedToLoad => 'โหลดรายการทบทวนไม่สำเร็จ';
+
+  @override
+  String get vocabNoneDue => 'ตอนนี้ยังไม่มีคำให้ทบทวน';
+
+  @override
+  String get vocabGotIt => 'เข้าใจแล้ว!';
+
+  @override
+  String get vocabTapToReveal => 'แตะการ์ดเพื่อดูคำตอบ';
+
+  @override
+  String get vocabSessionComplete => 'จบรอบแล้ว!';
+
+  @override
+  String get wavesEmptyBody2 => 'เมื่อมีคนทักคุณ\nจะแสดงที่นี่';
+
+  @override
+  String lessonCorrectAnswer(String answer) {
+    return 'คำตอบที่ถูก: $answer';
+  }
+
+  @override
+  String quizQuestionOfTotal(int current, int total) {
+    return 'ข้อ $current จาก $total';
+  }
+
+  @override
+  String get vocabXpEarned => 'XP ที่ได้รับ';
+
+  @override
+  String get vocabWatchAdBonus => 'ดูโฆษณารับ +10 XP โบนัส';
+
+  @override
+  String get vocabBonusEarned => 'ได้รับ +10 XP โบนัส! 🎉';
 }

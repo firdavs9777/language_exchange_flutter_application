@@ -9232,4 +9232,143 @@ class AppLocalizationsId extends AppLocalizations {
   String termsLastUpdated(int year) {
     return 'Terakhir diperbarui: $year';
   }
+
+  @override
+  String get wavesFailedToLoad => 'Gagal memuat sapaan';
+
+  @override
+  String get wavesEmptyTitle => 'Belum ada sapaan';
+
+  @override
+  String get wavesEmptyBody => 'Saat ada yang menyapamu,\nakan muncul di sini';
+
+  @override
+  String get wavesWavedAtYou => 'Menyapamu';
+
+  @override
+  String get lessonYourTranslation => 'Terjemahanmu:';
+
+  @override
+  String get lessonTapWordsToBuild => 'Ketuk kata di bawah untuk menyusun terjemahanmu';
+
+  @override
+  String get lessonWordBank => 'Bank kata:';
+
+  @override
+  String get lessonTypeTranslationHint => 'Tulis terjemahanmu di sini...';
+
+  @override
+  String get lessonCorrect => 'Benar!';
+
+  @override
+  String get lessonIncorrect => 'Salah';
+
+  @override
+  String get lessonCheck => 'Periksa';
+
+  @override
+  String get lessonTitle => 'Pelajaran';
+
+  @override
+  String get lessonFailedToLoad => 'Gagal memuat pelajaran';
+
+  @override
+  String get lessonResultCorrect => 'Benar';
+
+  @override
+  String get lessonResultIncorrect => 'Salah';
+
+  @override
+  String get lessonDone => 'Selesai';
+
+  @override
+  String get lessonPraiseExcellent => 'Luar biasa!';
+
+  @override
+  String get lessonPraiseGreat => 'Kerja bagus!';
+
+  @override
+  String get lessonPraiseGood => 'Usaha bagus!';
+
+  @override
+  String get lessonPraiseKeepPracticing => 'Terus berlatih!';
+
+  @override
+  String get lessonPraiseTryAgain => 'Coba lagi!';
+
+  @override
+  String get lessonExitWarning => 'Progresmu tidak akan tersimpan kalau keluar sekarang.';
+
+  @override
+  String get lessonNotFound => 'Pelajaran tidak ditemukan';
+
+  @override
+  String get lessonMayHaveBeenRemoved => 'Pelajaran ini mungkin sudah dihapus';
+
+  @override
+  String get lessonNoExercises => 'Pelajaran ini belum punya latihan';
+
+  @override
+  String get quizTitle => 'Kuis';
+
+  @override
+  String get quizFailedToLoad => 'Gagal memuat kuis';
+
+  @override
+  String get quizSubmit => 'Kirim';
+
+  @override
+  String get quizScore => 'Skor';
+
+  @override
+  String get quizCorrect => 'Benar';
+
+  @override
+  String get quizWrong => 'Salah';
+
+  @override
+  String get quizYourLevel => 'Levelmu';
+
+  @override
+  String get quizPraiseKeepLearning => 'Terus belajar!';
+
+  @override
+  String get quizExitWarning => 'Progresmu akan hilang kalau keluar sekarang.';
+
+  @override
+  String get vocabFailedToLoad => 'Gagal memuat ulasan';
+
+  @override
+  String get vocabNoneDue => 'Belum ada kata yang perlu diulang sekarang';
+
+  @override
+  String get vocabGotIt => 'Paham!';
+
+  @override
+  String get vocabTapToReveal => 'Ketuk kartu untuk melihat jawaban';
+
+  @override
+  String get vocabSessionComplete => 'Sesi selesai!';
+
+  @override
+  String get wavesEmptyBody2 => 'Saat ada yang menyapamu,\nakan muncul di sini';
+
+  @override
+  String lessonCorrectAnswer(String answer) {
+    return 'Jawaban benar: $answer';
+  }
+
+  @override
+  String quizQuestionOfTotal(int current, int total) {
+    return 'Soal $current dari $total';
+  }
+
+  @override
+  String get vocabXpEarned => 'XP didapat';
+
+  @override
+  String get vocabWatchAdBonus => 'Tonton iklan untuk +10 XP bonus';
+
+  @override
+  String get vocabBonusEarned => '+10 XP bonus didapat! 🎉';
 }

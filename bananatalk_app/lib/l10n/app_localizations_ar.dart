@@ -9247,4 +9247,143 @@ class AppLocalizationsAr extends AppLocalizations {
   String termsLastUpdated(int year) {
     return 'آخر تحديث: $year';
   }
+
+  @override
+  String get wavesFailedToLoad => 'تعذّر تحميل التلويحات';
+
+  @override
+  String get wavesEmptyTitle => 'لا توجد تلويحات بعد';
+
+  @override
+  String get wavesEmptyBody => 'عندما يلوّح لك أحد،\nسيظهر هنا';
+
+  @override
+  String get wavesWavedAtYou => 'لوّح لك';
+
+  @override
+  String get lessonYourTranslation => 'ترجمتك:';
+
+  @override
+  String get lessonTapWordsToBuild => 'اضغط على الكلمات أدناه لتكوين ترجمتك';
+
+  @override
+  String get lessonWordBank => 'بنك الكلمات:';
+
+  @override
+  String get lessonTypeTranslationHint => 'اكتب ترجمتك هنا...';
+
+  @override
+  String get lessonCorrect => 'إجابة صحيحة!';
+
+  @override
+  String get lessonIncorrect => 'إجابة خاطئة';
+
+  @override
+  String get lessonCheck => 'تحقّق';
+
+  @override
+  String get lessonTitle => 'الدرس';
+
+  @override
+  String get lessonFailedToLoad => 'تعذّر تحميل الدرس';
+
+  @override
+  String get lessonResultCorrect => 'صحيحة';
+
+  @override
+  String get lessonResultIncorrect => 'خاطئة';
+
+  @override
+  String get lessonDone => 'تم';
+
+  @override
+  String get lessonPraiseExcellent => 'ممتاز!';
+
+  @override
+  String get lessonPraiseGreat => 'عمل رائع!';
+
+  @override
+  String get lessonPraiseGood => 'محاولة جيدة!';
+
+  @override
+  String get lessonPraiseKeepPracticing => 'واصل التدريب!';
+
+  @override
+  String get lessonPraiseTryAgain => 'حاول مرة أخرى!';
+
+  @override
+  String get lessonExitWarning => 'لن يُحفظ تقدّمك إذا خرجت الآن.';
+
+  @override
+  String get lessonNotFound => 'الدرس غير موجود';
+
+  @override
+  String get lessonMayHaveBeenRemoved => 'ربما تمت إزالة هذا الدرس';
+
+  @override
+  String get lessonNoExercises => 'لا توجد تمارين في هذا الدرس بعد';
+
+  @override
+  String get quizTitle => 'الاختبار';
+
+  @override
+  String get quizFailedToLoad => 'تعذّر تحميل الاختبار';
+
+  @override
+  String get quizSubmit => 'إرسال';
+
+  @override
+  String get quizScore => 'النتيجة';
+
+  @override
+  String get quizCorrect => 'صحيحة';
+
+  @override
+  String get quizWrong => 'خاطئة';
+
+  @override
+  String get quizYourLevel => 'مستواك';
+
+  @override
+  String get quizPraiseKeepLearning => 'واصل التعلّم!';
+
+  @override
+  String get quizExitWarning => 'سيضيع تقدّمك إذا خرجت الآن.';
+
+  @override
+  String get vocabFailedToLoad => 'تعذّر تحميل المراجعات';
+
+  @override
+  String get vocabNoneDue => 'لا توجد كلمات للمراجعة الآن';
+
+  @override
+  String get vocabGotIt => 'فهمت!';
+
+  @override
+  String get vocabTapToReveal => 'اضغط على البطاقة لكشف الإجابة';
+
+  @override
+  String get vocabSessionComplete => 'انتهت الجلسة!';
+
+  @override
+  String get wavesEmptyBody2 => 'عندما يلوّح لك أحد،\nسيظهر هنا';
+
+  @override
+  String lessonCorrectAnswer(String answer) {
+    return 'الإجابة الصحيحة: $answer';
+  }
+
+  @override
+  String quizQuestionOfTotal(int current, int total) {
+    return 'السؤال $current من $total';
+  }
+
+  @override
+  String get vocabXpEarned => 'نقاط الخبرة المكتسبة';
+
+  @override
+  String get vocabWatchAdBonus => 'شاهد إعلانًا لربح +10 نقاط خبرة';
+
+  @override
+  String get vocabBonusEarned => '‏+10 نقاط خبرة إضافية! 🎉';
 }

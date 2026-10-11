@@ -16915,6 +16915,276 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Last updated: {year}'**
   String termsLastUpdated(int year);
+
+  /// No description provided for @wavesFailedToLoad.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load waves'**
+  String get wavesFailedToLoad;
+
+  /// No description provided for @wavesEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No waves yet'**
+  String get wavesEmptyTitle;
+
+  /// No description provided for @wavesEmptyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'When someone waves at you,\nyou\'ll see them here'**
+  String get wavesEmptyBody;
+
+  /// No description provided for @wavesWavedAtYou.
+  ///
+  /// In en, this message translates to:
+  /// **'Waved at you'**
+  String get wavesWavedAtYou;
+
+  /// No description provided for @lessonYourTranslation.
+  ///
+  /// In en, this message translates to:
+  /// **'Your translation:'**
+  String get lessonYourTranslation;
+
+  /// No description provided for @lessonTapWordsToBuild.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap words below to build your translation'**
+  String get lessonTapWordsToBuild;
+
+  /// No description provided for @lessonWordBank.
+  ///
+  /// In en, this message translates to:
+  /// **'Word Bank:'**
+  String get lessonWordBank;
+
+  /// No description provided for @lessonTypeTranslationHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Type your translation here...'**
+  String get lessonTypeTranslationHint;
+
+  /// No description provided for @lessonCorrect.
+  ///
+  /// In en, this message translates to:
+  /// **'Correct!'**
+  String get lessonCorrect;
+
+  /// No description provided for @lessonIncorrect.
+  ///
+  /// In en, this message translates to:
+  /// **'Incorrect'**
+  String get lessonIncorrect;
+
+  /// No description provided for @lessonCheck.
+  ///
+  /// In en, this message translates to:
+  /// **'Check'**
+  String get lessonCheck;
+
+  /// No description provided for @lessonTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Lesson'**
+  String get lessonTitle;
+
+  /// No description provided for @lessonFailedToLoad.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load lesson'**
+  String get lessonFailedToLoad;
+
+  /// No description provided for @lessonResultCorrect.
+  ///
+  /// In en, this message translates to:
+  /// **'Correct'**
+  String get lessonResultCorrect;
+
+  /// No description provided for @lessonResultIncorrect.
+  ///
+  /// In en, this message translates to:
+  /// **'Incorrect'**
+  String get lessonResultIncorrect;
+
+  /// No description provided for @lessonDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get lessonDone;
+
+  /// No description provided for @lessonPraiseExcellent.
+  ///
+  /// In en, this message translates to:
+  /// **'Excellent!'**
+  String get lessonPraiseExcellent;
+
+  /// No description provided for @lessonPraiseGreat.
+  ///
+  /// In en, this message translates to:
+  /// **'Great Job!'**
+  String get lessonPraiseGreat;
+
+  /// No description provided for @lessonPraiseGood.
+  ///
+  /// In en, this message translates to:
+  /// **'Good Effort!'**
+  String get lessonPraiseGood;
+
+  /// No description provided for @lessonPraiseKeepPracticing.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep Practicing!'**
+  String get lessonPraiseKeepPracticing;
+
+  /// No description provided for @lessonPraiseTryAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Try Again!'**
+  String get lessonPraiseTryAgain;
+
+  /// No description provided for @lessonExitWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Your progress will not be saved if you exit now.'**
+  String get lessonExitWarning;
+
+  /// No description provided for @lessonNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'Lesson not found'**
+  String get lessonNotFound;
+
+  /// No description provided for @lessonMayHaveBeenRemoved.
+  ///
+  /// In en, this message translates to:
+  /// **'This lesson may have been removed'**
+  String get lessonMayHaveBeenRemoved;
+
+  /// No description provided for @lessonNoExercises.
+  ///
+  /// In en, this message translates to:
+  /// **'This lesson has no exercises yet'**
+  String get lessonNoExercises;
+
+  /// No description provided for @quizTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Quiz'**
+  String get quizTitle;
+
+  /// No description provided for @quizFailedToLoad.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load quiz'**
+  String get quizFailedToLoad;
+
+  /// No description provided for @quizSubmit.
+  ///
+  /// In en, this message translates to:
+  /// **'Submit'**
+  String get quizSubmit;
+
+  /// No description provided for @quizScore.
+  ///
+  /// In en, this message translates to:
+  /// **'Score'**
+  String get quizScore;
+
+  /// No description provided for @quizCorrect.
+  ///
+  /// In en, this message translates to:
+  /// **'Correct'**
+  String get quizCorrect;
+
+  /// No description provided for @quizWrong.
+  ///
+  /// In en, this message translates to:
+  /// **'Wrong'**
+  String get quizWrong;
+
+  /// No description provided for @quizYourLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Level'**
+  String get quizYourLevel;
+
+  /// No description provided for @quizPraiseKeepLearning.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep Learning!'**
+  String get quizPraiseKeepLearning;
+
+  /// No description provided for @quizExitWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Your progress will be lost if you exit now.'**
+  String get quizExitWarning;
+
+  /// No description provided for @vocabFailedToLoad.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load reviews'**
+  String get vocabFailedToLoad;
+
+  /// No description provided for @vocabNoneDue.
+  ///
+  /// In en, this message translates to:
+  /// **'No words due for review right now'**
+  String get vocabNoneDue;
+
+  /// No description provided for @vocabGotIt.
+  ///
+  /// In en, this message translates to:
+  /// **'Got it!'**
+  String get vocabGotIt;
+
+  /// No description provided for @vocabTapToReveal.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap card to reveal answer'**
+  String get vocabTapToReveal;
+
+  /// No description provided for @vocabSessionComplete.
+  ///
+  /// In en, this message translates to:
+  /// **'Session Complete!'**
+  String get vocabSessionComplete;
+
+  /// No description provided for @wavesEmptyBody2.
+  ///
+  /// In en, this message translates to:
+  /// **'When someone waves at you,\nyou\'ll see them here'**
+  String get wavesEmptyBody2;
+
+  /// No description provided for @lessonCorrectAnswer.
+  ///
+  /// In en, this message translates to:
+  /// **'Correct answer: {answer}'**
+  String lessonCorrectAnswer(String answer);
+
+  /// No description provided for @quizQuestionOfTotal.
+  ///
+  /// In en, this message translates to:
+  /// **'Question {current} of {total}'**
+  String quizQuestionOfTotal(int current, int total);
+
+  /// No description provided for @vocabXpEarned.
+  ///
+  /// In en, this message translates to:
+  /// **'XP Earned'**
+  String get vocabXpEarned;
+
+  /// No description provided for @vocabWatchAdBonus.
+  ///
+  /// In en, this message translates to:
+  /// **'Watch Ad for +10 Bonus XP'**
+  String get vocabWatchAdBonus;
+
+  /// No description provided for @vocabBonusEarned.
+  ///
+  /// In en, this message translates to:
+  /// **'+10 Bonus XP earned! 🎉'**
+  String get vocabBonusEarned;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

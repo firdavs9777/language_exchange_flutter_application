@@ -6458,5 +6458,67 @@
         "type": "int"
       }
     }
-  }
+  },
+  "wavesFailedToLoad": "Failed to load waves",
+  "wavesEmptyTitle": "No waves yet",
+  "wavesEmptyBody": "When someone waves at you,\nyou'll see them here",
+  "wavesWavedAtYou": "Waved at you",
+  "lessonYourTranslation": "Your translation:",
+  "lessonTapWordsToBuild": "Tap words below to build your translation",
+  "lessonWordBank": "Word Bank:",
+  "lessonTypeTranslationHint": "Type your translation here...",
+  "lessonCorrect": "Correct!",
+  "lessonIncorrect": "Incorrect",
+  "lessonCheck": "Check",
+  "lessonTitle": "Lesson",
+  "lessonFailedToLoad": "Failed to load lesson",
+  "lessonResultCorrect": "Correct",
+  "lessonResultIncorrect": "Incorrect",
+  "lessonDone": "Done",
+  "lessonPraiseExcellent": "Excellent!",
+  "lessonPraiseGreat": "Great Job!",
+  "lessonPraiseGood": "Good Effort!",
+  "lessonPraiseKeepPracticing": "Keep Practicing!",
+  "lessonPraiseTryAgain": "Try Again!",
+  "lessonExitWarning": "Your progress will not be saved if you exit now.",
+  "lessonNotFound": "Lesson not found",
+  "lessonMayHaveBeenRemoved": "This lesson may have been removed",
+  "lessonNoExercises": "This lesson has no exercises yet",
+  "quizTitle": "Quiz",
+  "quizFailedToLoad": "Failed to load quiz",
+  "quizSubmit": "Submit",
+  "quizScore": "Score",
+  "quizCorrect": "Correct",
+  "quizWrong": "Wrong",
+  "quizYourLevel": "Your Level",
+  "quizPraiseKeepLearning": "Keep Learning!",
+  "quizExitWarning": "Your progress will be lost if you exit now.",
+  "vocabFailedToLoad": "Failed to load reviews",
+  "vocabNoneDue": "No words due for review right now",
+  "vocabGotIt": "Got it!",
+  "vocabTapToReveal": "Tap card to reveal answer",
+  "vocabSessionComplete": "Session Complete!",
+  "wavesEmptyBody2": "When someone waves at you,\nyou'll see them here",
+  "lessonCorrectAnswer": "Correct answer: {answer}",
+  "@lessonCorrectAnswer": {
+    "placeholders": {
+      "answer": {
+        "type": "String"
+      }
+    }
+  },
+  "quizQuestionOfTotal": "Question {current} of {total}",
+  "@quizQuestionOfTotal": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "vocabXpEarned": "XP Earned",
+  "vocabWatchAdBonus": "Watch Ad for +10 Bonus XP",
+  "vocabBonusEarned": "+10 Bonus XP earned! 🎉"
 }

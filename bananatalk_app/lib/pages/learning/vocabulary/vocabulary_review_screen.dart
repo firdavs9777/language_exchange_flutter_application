@@ -57,7 +57,7 @@ class _VocabularyReviewScreenState
                 style: context.titleLarge,
               )
             : Text(
-                'Review',
+                AppLocalizations.of(context)!.review,
                 style: context.titleLarge,
               ),
         actions: [
@@ -120,7 +120,7 @@ class _VocabularyReviewScreenState
             children: [
               Icon(Icons.error_outline, size: 48, color: context.textMuted),
               Spacing.gapLG,
-              Text('Failed to load reviews', style: context.bodyMedium.copyWith(color: context.textSecondary)),
+              Text(AppLocalizations.of(context)!.vocabFailedToLoad, style: context.bodyMedium.copyWith(color: context.textSecondary)),
               Spacing.gapLG,
               ElevatedButton(
                 onPressed: () => ref.invalidate(dueReviewsProvider(null)),
@@ -154,12 +154,12 @@ class _VocabularyReviewScreenState
             ),
             Spacing.gapXL,
             Text(
-              'All caught up!',
+              AppLocalizations.of(context)!.allCaughtUp,
               style: context.displaySmall,
             ),
             Spacing.gapSM,
             Text(
-              'No words due for review right now',
+              AppLocalizations.of(context)!.vocabNoneDue,
               style: context.bodyMedium.copyWith(color: context.textSecondary),
             ),
             Spacing.gapXXL,
@@ -223,7 +223,7 @@ class _VocabularyReviewScreenState
                   Spacing.hGapLG,
                   Expanded(
                     child: _buildAnswerButton(
-                      label: 'Got it!',
+                      label: AppLocalizations.of(context)!.vocabGotIt,
                       color: AppColors.primary,
                       icon: Icons.check_rounded,
                       onPressed: () {
@@ -240,7 +240,7 @@ class _VocabularyReviewScreenState
             Padding(
               padding: Spacing.paddingXL,
               child: Text(
-                'Tap card to reveal answer',
+                AppLocalizations.of(context)!.vocabTapToReveal,
                 style: context.bodySmall,
               ),
             ),
@@ -315,7 +315,7 @@ class _VocabularyReviewScreenState
               ),
               Spacing.gapXL,
               Text(
-                'Session Complete!',
+                AppLocalizations.of(context)!.vocabSessionComplete,
                 style: context.displaySmall,
               ),
               Spacing.gapLG,
@@ -323,19 +323,19 @@ class _VocabularyReviewScreenState
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   _buildResultStat(
-                    'Correct',
+                    AppLocalizations.of(context)!.lessonResultCorrect,
                     '$correct',
                     AppColors.success,
                   ),
                   Spacing.hGapLG,
                   _buildResultStat(
-                    'Incorrect',
+                    AppLocalizations.of(context)!.lessonResultIncorrect,
                     '${state.incorrectCount}',
                     AppColors.error,
                   ),
                   Spacing.hGapLG,
                   _buildResultStat(
-                    'XP Earned',
+                    AppLocalizations.of(context)!.vocabXpEarned,
                     '+${state.xpEarned ?? 0}',
                     AppColors.primary,
                   ),
@@ -344,10 +344,10 @@ class _VocabularyReviewScreenState
               Spacing.gapXXL,
               const SizedBox(height: 8),
               RewardedAdButton(
-                label: 'Watch Ad for +10 Bonus XP',
+                label: AppLocalizations.of(context)!.vocabWatchAdBonus,
                 onRewarded: () {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('+10 Bonus XP earned! 🎉')),
+                    SnackBar(content: Text(AppLocalizations.of(context)!.vocabBonusEarned)),
                   );
                 },
               ),
@@ -364,8 +364,8 @@ class _VocabularyReviewScreenState
                     borderRadius: AppRadius.borderLG,
                   ),
                 ),
-                child: const Text(
-                  'Done',
+                child: Text(
+                  AppLocalizations.of(context)!.lessonDone,
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
