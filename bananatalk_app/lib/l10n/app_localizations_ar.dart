@@ -9520,4 +9520,56 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get suspendedReason => 'السبب:';
+
+  @override
+  String get correctionSuggestTitle => 'اقترح تصحيحًا';
+
+  @override
+  String get correctionOriginal => 'النص الأصلي';
+
+  @override
+  String get correctionYours => 'تصحيحك';
+
+  @override
+  String get correctionTypeHint => 'اكتب النسخة المصحّحة...';
+
+  @override
+  String get correctionChanges => 'التغييرات';
+
+  @override
+  String get correctionExplanationOptional => 'شرح (اختياري)';
+
+  @override
+  String get correctionWhyHint => 'لماذا أجريت هذا التصحيح؟';
+
+  @override
+  String get correctionSend => 'إرسال التصحيح';
+
+  @override
+  String get correctionSuggested => 'تصحيح مقترح';
+
+  @override
+  String get correctionFailedToSend => 'تعذّر إرسال التصحيح';
+
+  @override
+  String get ttsUnavailable => 'تحويل النص إلى كلام غير متاح';
+
+  @override
+  String get translationDailyLimitTitle => 'بلغت حد الترجمة اليومي';
+
+  @override
+  String get translationDailyLimitBody => 'يحصل المستخدمون المجانيون على 5 ترجمات يوميًا.\nاشترك في VIP لترجمات بلا حدود!';
+
+  @override
+  String get ttsListen => 'استماع';
+
+  @override
+  String correctionOfMessage(String name) {
+    return 'صحّح رسالة $name';
+  }
+
+  @override
+  String translatedToLanguage(String language) {
+    return 'تُرجم إلى $language';
+  }
 }

@@ -338,7 +338,7 @@ class TranslateButton extends StatelessWidget {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text(
-                    'Translated to ${TranslationService.getLanguageName(preferredLang)}',
+                    AppLocalizations.of(context)!.translatedToLanguage(TranslationService.getLanguageName(preferredLang)),
                   ),
                 ),
               );
@@ -371,7 +371,7 @@ class TranslateButton extends StatelessWidget {
           }
         }
       },
-      tooltip: 'Translate',
+      tooltip: AppLocalizations.of(context)!.translate,
     );
   }
 }

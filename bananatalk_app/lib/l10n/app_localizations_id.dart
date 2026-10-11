@@ -9505,4 +9505,56 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get suspendedReason => 'Alasan:';
+
+  @override
+  String get correctionSuggestTitle => 'Sarankan koreksi';
+
+  @override
+  String get correctionOriginal => 'Asli';
+
+  @override
+  String get correctionYours => 'Koreksimu';
+
+  @override
+  String get correctionTypeHint => 'Tulis versi yang benar...';
+
+  @override
+  String get correctionChanges => 'Perubahan';
+
+  @override
+  String get correctionExplanationOptional => 'Penjelasan (opsional)';
+
+  @override
+  String get correctionWhyHint => 'Kenapa kamu mengoreksi ini?';
+
+  @override
+  String get correctionSend => 'Kirim koreksi';
+
+  @override
+  String get correctionSuggested => 'Koreksi yang disarankan';
+
+  @override
+  String get correctionFailedToSend => 'Gagal mengirim koreksi';
+
+  @override
+  String get ttsUnavailable => 'Text-to-speech tidak tersedia';
+
+  @override
+  String get translationDailyLimitTitle => 'Batas terjemahan harian tercapai';
+
+  @override
+  String get translationDailyLimitBody => 'Pengguna gratis dapat 5 terjemahan per hari.\nJadi VIP untuk tanpa batas!';
+
+  @override
+  String get ttsListen => 'Dengarkan';
+
+  @override
+  String correctionOfMessage(String name) {
+    return 'Koreksi pesan $name';
+  }
+
+  @override
+  String translatedToLanguage(String language) {
+    return 'Diterjemahkan ke $language';
+  }
 }

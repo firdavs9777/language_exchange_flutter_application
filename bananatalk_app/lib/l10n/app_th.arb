@@ -3846,5 +3846,35 @@
   "suspendedTitle": "บัญชีของคุณถูกระงับ",
   "suspendedContact": "หากคิดว่านี่เป็นความผิดพลาด โปรดติดต่อ appeal@banatalk.com พร้อมชื่อผู้ใช้ของคุณ",
   "suspendedNoAccess": "บัญชีของคุณใช้งานไม่ได้อีกต่อไป",
-  "suspendedReason": "เหตุผล:"
+  "suspendedReason": "เหตุผล:",
+  "correctionSuggestTitle": "เสนอการแก้ไข",
+  "correctionOriginal": "ต้นฉบับ",
+  "correctionYours": "คำแก้ของคุณ",
+  "correctionTypeHint": "พิมพ์ฉบับที่แก้แล้ว...",
+  "correctionChanges": "สิ่งที่เปลี่ยน",
+  "correctionExplanationOptional": "คำอธิบาย (ไม่บังคับ)",
+  "correctionWhyHint": "ทำไมคุณถึงแก้แบบนี้",
+  "correctionSend": "ส่งคำแก้",
+  "correctionSuggested": "คำแก้ที่เสนอ",
+  "correctionFailedToSend": "ส่งคำแก้ไม่สำเร็จ",
+  "correctionOfMessage": "แก้ข้อความของ {name}",
+  "ttsUnavailable": "ใช้การอ่านออกเสียงไม่ได้",
+  "translationDailyLimitTitle": "ถึงขีดจำกัดการแปลรายวันแล้ว",
+  "translationDailyLimitBody": "ผู้ใช้ฟรีแปลได้วันละ 5 ครั้ง\nสมัคร VIP เพื่อแปลได้ไม่จำกัด!",
+  "ttsListen": "ฟัง",
+  "translatedToLanguage": "แปลเป็น {language} แล้ว",
+  "@correctionOfMessage": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "@translatedToLanguage": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  }
 }

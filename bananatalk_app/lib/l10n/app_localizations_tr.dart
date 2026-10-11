@@ -9506,4 +9506,56 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get suspendedReason => 'Sebep:';
+
+  @override
+  String get correctionSuggestTitle => 'Düzeltme öner';
+
+  @override
+  String get correctionOriginal => 'Orijinal';
+
+  @override
+  String get correctionYours => 'Senin düzeltmen';
+
+  @override
+  String get correctionTypeHint => 'Düzeltilmiş hâlini yaz...';
+
+  @override
+  String get correctionChanges => 'Değişiklikler';
+
+  @override
+  String get correctionExplanationOptional => 'Açıklama (isteğe bağlı)';
+
+  @override
+  String get correctionWhyHint => 'Bu düzeltmeyi neden yaptın?';
+
+  @override
+  String get correctionSend => 'Düzeltmeyi gönder';
+
+  @override
+  String get correctionSuggested => 'Önerilen düzeltme';
+
+  @override
+  String get correctionFailedToSend => 'Düzeltme gönderilemedi';
+
+  @override
+  String get ttsUnavailable => 'Sesli okuma kullanılamıyor';
+
+  @override
+  String get translationDailyLimitTitle => 'Günlük çeviri sınırına ulaşıldı';
+
+  @override
+  String get translationDailyLimitBody => 'Ücretsiz kullanıcılar günde 5 çeviri yapabilir.\nSınırsız çeviri için VIP’e geç!';
+
+  @override
+  String get ttsListen => 'Dinle';
+
+  @override
+  String correctionOfMessage(String name) {
+    return '$name adlı kişinin mesajını düzelt';
+  }
+
+  @override
+  String translatedToLanguage(String language) {
+    return '$language diline çevrildi';
+  }
 }

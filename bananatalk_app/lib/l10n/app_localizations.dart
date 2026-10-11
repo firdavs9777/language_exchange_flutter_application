@@ -17449,6 +17449,102 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Reason:'**
   String get suspendedReason;
+
+  /// No description provided for @correctionSuggestTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Suggest a correction'**
+  String get correctionSuggestTitle;
+
+  /// No description provided for @correctionOriginal.
+  ///
+  /// In en, this message translates to:
+  /// **'Original'**
+  String get correctionOriginal;
+
+  /// No description provided for @correctionYours.
+  ///
+  /// In en, this message translates to:
+  /// **'Your correction'**
+  String get correctionYours;
+
+  /// No description provided for @correctionTypeHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Type the corrected version...'**
+  String get correctionTypeHint;
+
+  /// No description provided for @correctionChanges.
+  ///
+  /// In en, this message translates to:
+  /// **'Changes'**
+  String get correctionChanges;
+
+  /// No description provided for @correctionExplanationOptional.
+  ///
+  /// In en, this message translates to:
+  /// **'Explanation (optional)'**
+  String get correctionExplanationOptional;
+
+  /// No description provided for @correctionWhyHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Why did you make this correction?'**
+  String get correctionWhyHint;
+
+  /// No description provided for @correctionSend.
+  ///
+  /// In en, this message translates to:
+  /// **'Send Correction'**
+  String get correctionSend;
+
+  /// No description provided for @correctionSuggested.
+  ///
+  /// In en, this message translates to:
+  /// **'Suggested correction'**
+  String get correctionSuggested;
+
+  /// No description provided for @correctionFailedToSend.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to send correction'**
+  String get correctionFailedToSend;
+
+  /// No description provided for @ttsUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'TTS unavailable'**
+  String get ttsUnavailable;
+
+  /// No description provided for @translationDailyLimitTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily Translation Limit Reached'**
+  String get translationDailyLimitTitle;
+
+  /// No description provided for @translationDailyLimitBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Free users get 5 translations per day.\nUpgrade to VIP for unlimited translations!'**
+  String get translationDailyLimitBody;
+
+  /// No description provided for @ttsListen.
+  ///
+  /// In en, this message translates to:
+  /// **'Listen'**
+  String get ttsListen;
+
+  /// No description provided for @correctionOfMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Correct {name}\'s message'**
+  String correctionOfMessage(String name);
+
+  /// No description provided for @translatedToLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Translated to {language}'**
+  String translatedToLanguage(String language);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

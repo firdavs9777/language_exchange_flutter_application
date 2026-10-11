@@ -9508,4 +9508,56 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get suspendedReason => 'कारण:';
+
+  @override
+  String get correctionSuggestTitle => 'सुधार सुझाएँ';
+
+  @override
+  String get correctionOriginal => 'मूल';
+
+  @override
+  String get correctionYours => 'आपका सुधार';
+
+  @override
+  String get correctionTypeHint => 'सही किया हुआ रूप लिखें...';
+
+  @override
+  String get correctionChanges => 'बदलाव';
+
+  @override
+  String get correctionExplanationOptional => 'स्पष्टीकरण (वैकल्पिक)';
+
+  @override
+  String get correctionWhyHint => 'आपने यह सुधार क्यों किया?';
+
+  @override
+  String get correctionSend => 'सुधार भेजें';
+
+  @override
+  String get correctionSuggested => 'सुझाया गया सुधार';
+
+  @override
+  String get correctionFailedToSend => 'सुधार नहीं भेजा जा सका';
+
+  @override
+  String get ttsUnavailable => 'टेक्स्ट-टू-स्पीच उपलब्ध नहीं';
+
+  @override
+  String get translationDailyLimitTitle => 'दैनिक अनुवाद सीमा पूरी हुई';
+
+  @override
+  String get translationDailyLimitBody => 'मुफ़्त उपयोगकर्ताओं को रोज़ 5 अनुवाद मिलते हैं।\nअसीमित अनुवाद के लिए VIP लें!';
+
+  @override
+  String get ttsListen => 'सुनें';
+
+  @override
+  String correctionOfMessage(String name) {
+    return '$name का संदेश सुधारें';
+  }
+
+  @override
+  String translatedToLanguage(String language) {
+    return '$language में अनुवादित';
+  }
 }

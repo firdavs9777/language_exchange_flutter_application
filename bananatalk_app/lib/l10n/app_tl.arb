@@ -3819,5 +3819,35 @@
   "suspendedTitle": "Na-suspend ang account mo",
   "suspendedContact": "Kung sa tingin mo ay pagkakamali ito, mag-email sa appeal@banatalk.com kasama ang username mo.",
   "suspendedNoAccess": "Hindi na maa-access ang account mo.",
-  "suspendedReason": "Dahilan:"
+  "suspendedReason": "Dahilan:",
+  "correctionSuggestTitle": "Magmungkahi ng pagwawasto",
+  "correctionOriginal": "Orihinal",
+  "correctionYours": "Ang pagwawasto mo",
+  "correctionTypeHint": "I-type ang naitamang bersyon...",
+  "correctionChanges": "Mga pagbabago",
+  "correctionExplanationOptional": "Paliwanag (opsyonal)",
+  "correctionWhyHint": "Bakit mo ito itinama?",
+  "correctionSend": "Ipadala ang pagwawasto",
+  "correctionSuggested": "Mungkahing pagwawasto",
+  "correctionFailedToSend": "Hindi naipadala ang pagwawasto",
+  "correctionOfMessage": "Itama ang mensahe ni {name}",
+  "ttsUnavailable": "Hindi available ang text-to-speech",
+  "translationDailyLimitTitle": "Naabot na ang pang-araw-araw na limitasyon sa pagsasalin",
+  "translationDailyLimitBody": "Ang libreng user ay may 5 pagsasalin kada araw.\nMag-VIP para walang limitasyon!",
+  "ttsListen": "Pakinggan",
+  "translatedToLanguage": "Isinalin sa {language}",
+  "@correctionOfMessage": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "@translatedToLanguage": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  }
 }

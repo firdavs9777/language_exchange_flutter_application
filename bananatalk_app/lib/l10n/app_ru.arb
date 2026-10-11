@@ -3876,5 +3876,35 @@
   "suspendedTitle": "Ваш аккаунт заблокирован",
   "suspendedContact": "Если считаете это ошибкой, напишите на appeal@banatalk.com и укажите своё имя пользователя.",
   "suspendedNoAccess": "Доступ к аккаунту закрыт.",
-  "suspendedReason": "Причина:"
+  "suspendedReason": "Причина:",
+  "correctionSuggestTitle": "Предложить исправление",
+  "correctionOriginal": "Оригинал",
+  "correctionYours": "Ваше исправление",
+  "correctionTypeHint": "Введите исправленный вариант...",
+  "correctionChanges": "Изменения",
+  "correctionExplanationOptional": "Пояснение (необязательно)",
+  "correctionWhyHint": "Почему вы внесли это исправление?",
+  "correctionSend": "Отправить исправление",
+  "correctionSuggested": "Предложенное исправление",
+  "correctionFailedToSend": "Не удалось отправить исправление",
+  "correctionOfMessage": "Исправить сообщение {name}",
+  "ttsUnavailable": "Озвучивание недоступно",
+  "translationDailyLimitTitle": "Достигнут дневной лимит переводов",
+  "translationDailyLimitBody": "Бесплатным пользователям доступно 5 переводов в день.\nОформите VIP — переводы без ограничений!",
+  "ttsListen": "Послушать",
+  "translatedToLanguage": "Переведено на {language}",
+  "@correctionOfMessage": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "@translatedToLanguage": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  }
 }

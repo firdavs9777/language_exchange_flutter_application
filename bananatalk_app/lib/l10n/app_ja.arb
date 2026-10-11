@@ -3846,5 +3846,35 @@
   "suspendedTitle": "アカウントが停止されました",
   "suspendedContact": "誤りだと思われる場合は、ユーザー名を添えて appeal@banatalk.com までご連絡ください。",
   "suspendedNoAccess": "このアカウントはご利用いただけません。",
-  "suspendedReason": "理由："
+  "suspendedReason": "理由：",
+  "correctionSuggestTitle": "修正を提案",
+  "correctionOriginal": "原文",
+  "correctionYours": "あなたの修正",
+  "correctionTypeHint": "修正した文を入力...",
+  "correctionChanges": "変更点",
+  "correctionExplanationOptional": "説明（任意）",
+  "correctionWhyHint": "なぜこの修正をしましたか？",
+  "correctionSend": "修正を送信",
+  "correctionSuggested": "提案された修正",
+  "correctionFailedToSend": "修正を送信できませんでした",
+  "correctionOfMessage": "{name}さんのメッセージを修正",
+  "ttsUnavailable": "読み上げを利用できません",
+  "translationDailyLimitTitle": "1日の翻訳上限に達しました",
+  "translationDailyLimitBody": "無料ユーザーは1日5回まで翻訳できます。\nVIPなら無制限です！",
+  "ttsListen": "聞く",
+  "translatedToLanguage": "{language}に翻訳しました",
+  "@correctionOfMessage": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "@translatedToLanguage": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  }
 }

@@ -9498,4 +9498,56 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get suspendedReason => 'เหตุผล:';
+
+  @override
+  String get correctionSuggestTitle => 'เสนอการแก้ไข';
+
+  @override
+  String get correctionOriginal => 'ต้นฉบับ';
+
+  @override
+  String get correctionYours => 'คำแก้ของคุณ';
+
+  @override
+  String get correctionTypeHint => 'พิมพ์ฉบับที่แก้แล้ว...';
+
+  @override
+  String get correctionChanges => 'สิ่งที่เปลี่ยน';
+
+  @override
+  String get correctionExplanationOptional => 'คำอธิบาย (ไม่บังคับ)';
+
+  @override
+  String get correctionWhyHint => 'ทำไมคุณถึงแก้แบบนี้';
+
+  @override
+  String get correctionSend => 'ส่งคำแก้';
+
+  @override
+  String get correctionSuggested => 'คำแก้ที่เสนอ';
+
+  @override
+  String get correctionFailedToSend => 'ส่งคำแก้ไม่สำเร็จ';
+
+  @override
+  String get ttsUnavailable => 'ใช้การอ่านออกเสียงไม่ได้';
+
+  @override
+  String get translationDailyLimitTitle => 'ถึงขีดจำกัดการแปลรายวันแล้ว';
+
+  @override
+  String get translationDailyLimitBody => 'ผู้ใช้ฟรีแปลได้วันละ 5 ครั้ง\nสมัคร VIP เพื่อแปลได้ไม่จำกัด!';
+
+  @override
+  String get ttsListen => 'ฟัง';
+
+  @override
+  String correctionOfMessage(String name) {
+    return 'แก้ข้อความของ $name';
+  }
+
+  @override
+  String translatedToLanguage(String language) {
+    return 'แปลเป็น $language แล้ว';
+  }
 }

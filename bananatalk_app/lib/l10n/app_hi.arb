@@ -3862,5 +3862,35 @@
   "suspendedTitle": "आपका खाता निलंबित कर दिया गया है",
   "suspendedContact": "अगर आपको लगता है कि यह गलती से हुआ है, तो अपने उपयोगकर्ता नाम के साथ appeal@banatalk.com पर संपर्क करें।",
   "suspendedNoAccess": "आपका खाता अब उपलब्ध नहीं है।",
-  "suspendedReason": "कारण:"
+  "suspendedReason": "कारण:",
+  "correctionSuggestTitle": "सुधार सुझाएँ",
+  "correctionOriginal": "मूल",
+  "correctionYours": "आपका सुधार",
+  "correctionTypeHint": "सही किया हुआ रूप लिखें...",
+  "correctionChanges": "बदलाव",
+  "correctionExplanationOptional": "स्पष्टीकरण (वैकल्पिक)",
+  "correctionWhyHint": "आपने यह सुधार क्यों किया?",
+  "correctionSend": "सुधार भेजें",
+  "correctionSuggested": "सुझाया गया सुधार",
+  "correctionFailedToSend": "सुधार नहीं भेजा जा सका",
+  "correctionOfMessage": "{name} का संदेश सुधारें",
+  "ttsUnavailable": "टेक्स्ट-टू-स्पीच उपलब्ध नहीं",
+  "translationDailyLimitTitle": "दैनिक अनुवाद सीमा पूरी हुई",
+  "translationDailyLimitBody": "मुफ़्त उपयोगकर्ताओं को रोज़ 5 अनुवाद मिलते हैं।\nअसीमित अनुवाद के लिए VIP लें!",
+  "ttsListen": "सुनें",
+  "translatedToLanguage": "{language} में अनुवादित",
+  "@correctionOfMessage": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "@translatedToLanguage": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  }
 }

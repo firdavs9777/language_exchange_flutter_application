@@ -3867,5 +3867,35 @@
   "suspendedTitle": "계정이 정지되었어요",
   "suspendedContact": "착오라고 생각되면 사용자 이름과 함께 appeal@banatalk.com 으로 연락해 주세요.",
   "suspendedNoAccess": "이 계정은 더 이상 이용할 수 없어요.",
-  "suspendedReason": "사유:"
+  "suspendedReason": "사유:",
+  "correctionSuggestTitle": "수정 제안하기",
+  "correctionOriginal": "원문",
+  "correctionYours": "내 수정",
+  "correctionTypeHint": "고친 문장을 입력하세요...",
+  "correctionChanges": "변경 내용",
+  "correctionExplanationOptional": "설명 (선택)",
+  "correctionWhyHint": "왜 이렇게 고쳤나요?",
+  "correctionSend": "수정 보내기",
+  "correctionSuggested": "제안된 수정",
+  "correctionFailedToSend": "수정을 보내지 못했어요",
+  "correctionOfMessage": "{name}님의 메시지 고치기",
+  "ttsUnavailable": "음성 읽기를 사용할 수 없어요",
+  "translationDailyLimitTitle": "하루 번역 한도에 도달했어요",
+  "translationDailyLimitBody": "무료 이용자는 하루 5회 번역할 수 있어요.\nVIP면 무제한이에요!",
+  "ttsListen": "듣기",
+  "translatedToLanguage": "{language}(으)로 번역됨",
+  "@correctionOfMessage": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "@translatedToLanguage": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  }
 }

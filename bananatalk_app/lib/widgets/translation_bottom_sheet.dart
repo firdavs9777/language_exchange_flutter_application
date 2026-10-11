@@ -158,7 +158,7 @@ class _TranslationBottomSheetState extends State<TranslationBottomSheet> {
             ? null
             : (result['message']?.toString() ??
                   result['error']?.toString() ??
-                  'Translation failed');
+                  AppLocalizations.of(context)!.translationFailed);
         _isLoading = false;
       });
     }
@@ -209,7 +209,7 @@ class _TranslationBottomSheetState extends State<TranslationBottomSheet> {
         try {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(result['error']?.toString() ?? 'TTS unavailable'),
+              content: Text(result['error']?.toString() ?? AppLocalizations.of(context)!.ttsUnavailable),
             ),
           );
         } catch (_) {}
@@ -350,7 +350,7 @@ class _TranslationBottomSheetState extends State<TranslationBottomSheet> {
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    'Daily Translation Limit Reached',
+                    AppLocalizations.of(context)!.translationDailyLimitTitle,
                     style: TextStyle(
                       fontSize: 17,
                       fontWeight: FontWeight.w600,
@@ -360,7 +360,7 @@ class _TranslationBottomSheetState extends State<TranslationBottomSheet> {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'Free users get 5 translations per day.\nUpgrade to VIP for unlimited translations!',
+                    AppLocalizations.of(context)!.translationDailyLimitBody,
                     style: TextStyle(
                       fontSize: 14,
                       color: isDark ? AppColors.gray400 : AppColors.gray600,
@@ -389,13 +389,13 @@ class _TranslationBottomSheetState extends State<TranslationBottomSheet> {
                           borderRadius: BorderRadius.circular(12),
                         ),
                       ),
-                      child: const Row(
+                      child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(Icons.star_rounded, size: 20),
-                          SizedBox(width: 8),
+                          const Icon(Icons.star_rounded, size: 20),
+                          const SizedBox(width: 8),
                           Text(
-                            'Upgrade to VIP',
+                            AppLocalizations.of(context)!.upgradeToVIP,
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
@@ -503,7 +503,7 @@ class _TranslationBottomSheetState extends State<TranslationBottomSheet> {
                           icon: _isTtsPlaying
                               ? Icons.stop_rounded
                               : Icons.volume_up_rounded,
-                          label: _isTtsPlaying ? 'Stop' : 'Listen',
+                          label: _isTtsPlaying ? AppLocalizations.of(context)!.stopAction : AppLocalizations.of(context)!.ttsListen,
                           isLoading: _isTtsLoading,
                           onTap: _playTTS,
                           isDark: isDark,
@@ -512,7 +512,7 @@ class _TranslationBottomSheetState extends State<TranslationBottomSheet> {
                         const SizedBox(width: 8),
                         _buildIconButton(
                           icon: Icons.copy_rounded,
-                          label: 'Copy',
+                          label: AppLocalizations.of(context)!.copy,
                           onTap: () {
                             Clipboard.setData(
                               ClipboardData(text: _translatedText),

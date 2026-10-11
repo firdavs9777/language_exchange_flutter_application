@@ -4086,5 +4086,35 @@
   "suspendedTitle": "Votre compte a été suspendu",
   "suspendedContact": "Si vous pensez qu’il s’agit d’une erreur, écrivez à appeal@banatalk.com en indiquant votre nom d’utilisateur.",
   "suspendedNoAccess": "Votre compte n’est plus accessible.",
-  "suspendedReason": "Motif :"
+  "suspendedReason": "Motif :",
+  "correctionSuggestTitle": "Proposer une correction",
+  "correctionOriginal": "Original",
+  "correctionYours": "Votre correction",
+  "correctionTypeHint": "Saisissez la version corrigée...",
+  "correctionChanges": "Modifications",
+  "correctionExplanationOptional": "Explication (facultatif)",
+  "correctionWhyHint": "Pourquoi avez-vous fait cette correction ?",
+  "correctionSend": "Envoyer la correction",
+  "correctionSuggested": "Correction proposée",
+  "correctionFailedToSend": "Impossible d’envoyer la correction",
+  "correctionOfMessage": "Corriger le message de {name}",
+  "ttsUnavailable": "Synthèse vocale indisponible",
+  "translationDailyLimitTitle": "Limite quotidienne de traductions atteinte",
+  "translationDailyLimitBody": "Les utilisateurs gratuits ont 5 traductions par jour.\nPassez à VIP pour un nombre illimité !",
+  "ttsListen": "Écouter",
+  "translatedToLanguage": "Traduit en {language}",
+  "@correctionOfMessage": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "@translatedToLanguage": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  }
 }

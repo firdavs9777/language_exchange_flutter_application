@@ -3860,5 +3860,35 @@
   "suspendedTitle": "你的账号已被停用",
   "suspendedContact": "如果你认为这是误判，请用你的用户名发邮件至 appeal@banatalk.com。",
   "suspendedNoAccess": "你的账号已无法访问。",
-  "suspendedReason": "原因："
+  "suspendedReason": "原因：",
+  "correctionSuggestTitle": "建议修改",
+  "correctionOriginal": "原文",
+  "correctionYours": "你的修改",
+  "correctionTypeHint": "输入修改后的句子...",
+  "correctionChanges": "改动",
+  "correctionExplanationOptional": "说明（可选）",
+  "correctionWhyHint": "你为什么这样改？",
+  "correctionSend": "发送修改",
+  "correctionSuggested": "建议的修改",
+  "correctionFailedToSend": "无法发送修改",
+  "correctionOfMessage": "修改 {name} 的消息",
+  "ttsUnavailable": "朗读功能不可用",
+  "translationDailyLimitTitle": "已达每日翻译上限",
+  "translationDailyLimitBody": "免费用户每天可翻译 5 次。\n升级 VIP 可无限翻译！",
+  "ttsListen": "收听",
+  "translatedToLanguage": "已翻译成{language}",
+  "@correctionOfMessage": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "@translatedToLanguage": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  }
 }

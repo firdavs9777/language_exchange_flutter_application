@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/pages/moments/widgets/moments_snackbar.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 /// The operation a [DiffSpan] represents relative to the original text.
 enum DiffOp { equal, removed, added }
@@ -195,7 +196,7 @@ class _CorrectionSheetState extends State<CorrectionSheet> {
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(
-                    'Suggest a correction',
+                    AppLocalizations.of(context)!.correctionSuggestTitle,
                     style: const TextStyle(
                       fontSize: 17,
                       fontWeight: FontWeight.w600,
@@ -218,7 +219,7 @@ class _CorrectionSheetState extends State<CorrectionSheet> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Original',
+                    AppLocalizations.of(context)!.correctionOriginal,
                     style: TextStyle(
                       fontSize: 13,
                       fontWeight: FontWeight.w600,
@@ -244,7 +245,7 @@ class _CorrectionSheetState extends State<CorrectionSheet> {
                   ),
                   const SizedBox(height: 20),
                   Text(
-                    'Your correction',
+                    AppLocalizations.of(context)!.correctionYours,
                     style: TextStyle(
                       fontSize: 13,
                       fontWeight: FontWeight.w600,
@@ -261,7 +262,7 @@ class _CorrectionSheetState extends State<CorrectionSheet> {
                       color: isDark ? AppColors.white : AppColors.gray900,
                     ),
                     decoration: InputDecoration(
-                      hintText: 'Type the corrected version...',
+                      hintText: AppLocalizations.of(context)!.correctionTypeHint,
                       hintStyle: TextStyle(
                         color: isDark ? AppColors.gray600 : AppColors.gray400,
                       ),
@@ -296,7 +297,7 @@ class _CorrectionSheetState extends State<CorrectionSheet> {
                   if (diffs.isNotEmpty) ...[
                     const SizedBox(height: 16),
                     Text(
-                      'Changes',
+                      AppLocalizations.of(context)!.correctionChanges,
                       style: TextStyle(
                         fontSize: 13,
                         fontWeight: FontWeight.w600,
@@ -318,7 +319,7 @@ class _CorrectionSheetState extends State<CorrectionSheet> {
                   ],
                   const SizedBox(height: 16),
                   Text(
-                    'Explanation (optional)',
+                    AppLocalizations.of(context)!.correctionExplanationOptional,
                     style: TextStyle(
                       fontSize: 13,
                       fontWeight: FontWeight.w600,
@@ -334,7 +335,7 @@ class _CorrectionSheetState extends State<CorrectionSheet> {
                       color: isDark ? AppColors.white : AppColors.gray900,
                     ),
                     decoration: InputDecoration(
-                      hintText: 'Why did you make this correction?',
+                      hintText: AppLocalizations.of(context)!.correctionWhyHint,
                       hintStyle: TextStyle(
                         color: isDark ? AppColors.gray600 : AppColors.gray400,
                         fontSize: 14,
@@ -383,7 +384,7 @@ class _CorrectionSheetState extends State<CorrectionSheet> {
                           ),
                         )
                       : Text(
-                          'Send Correction',
+                          AppLocalizations.of(context)!.correctionSend,
                           style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
@@ -514,7 +515,7 @@ class CorrectionPanel extends StatelessWidget {
               const Icon(Icons.spellcheck_rounded, size: 14, color: accent),
               const SizedBox(width: 6),
               Text(
-                'Suggested correction',
+                AppLocalizations.of(context)!.correctionSuggested,
                 style: TextStyle(
                   fontSize: 11,
                   fontWeight: FontWeight.w700,

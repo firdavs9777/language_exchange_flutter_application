@@ -4058,5 +4058,35 @@
   "suspendedTitle": "Hesabın askıya alındı",
   "suspendedContact": "Bunun bir hata olduğunu düşünüyorsan, kullanıcı adınla birlikte appeal@banatalk.com adresine yaz.",
   "suspendedNoAccess": "Hesabına artık erişilemiyor.",
-  "suspendedReason": "Sebep:"
+  "suspendedReason": "Sebep:",
+  "correctionSuggestTitle": "Düzeltme öner",
+  "correctionOriginal": "Orijinal",
+  "correctionYours": "Senin düzeltmen",
+  "correctionTypeHint": "Düzeltilmiş hâlini yaz...",
+  "correctionChanges": "Değişiklikler",
+  "correctionExplanationOptional": "Açıklama (isteğe bağlı)",
+  "correctionWhyHint": "Bu düzeltmeyi neden yaptın?",
+  "correctionSend": "Düzeltmeyi gönder",
+  "correctionSuggested": "Önerilen düzeltme",
+  "correctionFailedToSend": "Düzeltme gönderilemedi",
+  "correctionOfMessage": "{name} adlı kişinin mesajını düzelt",
+  "ttsUnavailable": "Sesli okuma kullanılamıyor",
+  "translationDailyLimitTitle": "Günlük çeviri sınırına ulaşıldı",
+  "translationDailyLimitBody": "Ücretsiz kullanıcılar günde 5 çeviri yapabilir.\nSınırsız çeviri için VIP’e geç!",
+  "ttsListen": "Dinle",
+  "translatedToLanguage": "{language} diline çevrildi",
+  "@correctionOfMessage": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "@translatedToLanguage": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  }
 }

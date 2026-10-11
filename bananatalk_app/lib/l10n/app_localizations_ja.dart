@@ -9498,4 +9498,56 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get suspendedReason => '理由：';
+
+  @override
+  String get correctionSuggestTitle => '修正を提案';
+
+  @override
+  String get correctionOriginal => '原文';
+
+  @override
+  String get correctionYours => 'あなたの修正';
+
+  @override
+  String get correctionTypeHint => '修正した文を入力...';
+
+  @override
+  String get correctionChanges => '変更点';
+
+  @override
+  String get correctionExplanationOptional => '説明（任意）';
+
+  @override
+  String get correctionWhyHint => 'なぜこの修正をしましたか？';
+
+  @override
+  String get correctionSend => '修正を送信';
+
+  @override
+  String get correctionSuggested => '提案された修正';
+
+  @override
+  String get correctionFailedToSend => '修正を送信できませんでした';
+
+  @override
+  String get ttsUnavailable => '読み上げを利用できません';
+
+  @override
+  String get translationDailyLimitTitle => '1日の翻訳上限に達しました';
+
+  @override
+  String get translationDailyLimitBody => '無料ユーザーは1日5回まで翻訳できます。\nVIPなら無制限です！';
+
+  @override
+  String get ttsListen => '聞く';
+
+  @override
+  String correctionOfMessage(String name) {
+    return '$nameさんのメッセージを修正';
+  }
+
+  @override
+  String translatedToLanguage(String language) {
+    return '$languageに翻訳しました';
+  }
 }

@@ -9508,4 +9508,56 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get suspendedReason => 'Motivo:';
+
+  @override
+  String get correctionSuggestTitle => 'Sugerir una corrección';
+
+  @override
+  String get correctionOriginal => 'Original';
+
+  @override
+  String get correctionYours => 'Tu corrección';
+
+  @override
+  String get correctionTypeHint => 'Escribe la versión corregida...';
+
+  @override
+  String get correctionChanges => 'Cambios';
+
+  @override
+  String get correctionExplanationOptional => 'Explicación (opcional)';
+
+  @override
+  String get correctionWhyHint => '¿Por qué hiciste esta corrección?';
+
+  @override
+  String get correctionSend => 'Enviar corrección';
+
+  @override
+  String get correctionSuggested => 'Corrección sugerida';
+
+  @override
+  String get correctionFailedToSend => 'No se pudo enviar la corrección';
+
+  @override
+  String get ttsUnavailable => 'Lectura en voz alta no disponible';
+
+  @override
+  String get translationDailyLimitTitle => 'Has alcanzado el límite diario de traducciones';
+
+  @override
+  String get translationDailyLimitBody => 'Los usuarios gratuitos tienen 5 traducciones al día.\n¡Hazte VIP para tenerlas sin límite!';
+
+  @override
+  String get ttsListen => 'Escuchar';
+
+  @override
+  String correctionOfMessage(String name) {
+    return 'Corregir el mensaje de $name';
+  }
+
+  @override
+  String translatedToLanguage(String language) {
+    return 'Traducido a $language';
+  }
 }

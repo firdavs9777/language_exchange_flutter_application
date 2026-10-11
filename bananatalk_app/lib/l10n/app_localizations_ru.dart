@@ -9529,4 +9529,56 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get suspendedReason => 'Причина:';
+
+  @override
+  String get correctionSuggestTitle => 'Предложить исправление';
+
+  @override
+  String get correctionOriginal => 'Оригинал';
+
+  @override
+  String get correctionYours => 'Ваше исправление';
+
+  @override
+  String get correctionTypeHint => 'Введите исправленный вариант...';
+
+  @override
+  String get correctionChanges => 'Изменения';
+
+  @override
+  String get correctionExplanationOptional => 'Пояснение (необязательно)';
+
+  @override
+  String get correctionWhyHint => 'Почему вы внесли это исправление?';
+
+  @override
+  String get correctionSend => 'Отправить исправление';
+
+  @override
+  String get correctionSuggested => 'Предложенное исправление';
+
+  @override
+  String get correctionFailedToSend => 'Не удалось отправить исправление';
+
+  @override
+  String get ttsUnavailable => 'Озвучивание недоступно';
+
+  @override
+  String get translationDailyLimitTitle => 'Достигнут дневной лимит переводов';
+
+  @override
+  String get translationDailyLimitBody => 'Бесплатным пользователям доступно 5 переводов в день.\nОформите VIP — переводы без ограничений!';
+
+  @override
+  String get ttsListen => 'Послушать';
+
+  @override
+  String correctionOfMessage(String name) {
+    return 'Исправить сообщение $name';
+  }
+
+  @override
+  String translatedToLanguage(String language) {
+    return 'Переведено на $language';
+  }
 }

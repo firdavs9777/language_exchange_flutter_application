@@ -3876,5 +3876,35 @@
   "suspendedTitle": "تم تعليق حسابك",
   "suspendedContact": "إذا كنت تعتقد أن هذا حدث بالخطأ، راسل appeal@banatalk.com مع اسم المستخدم الخاص بك.",
   "suspendedNoAccess": "لم يعد حسابك متاحًا.",
-  "suspendedReason": "السبب:"
+  "suspendedReason": "السبب:",
+  "correctionSuggestTitle": "اقترح تصحيحًا",
+  "correctionOriginal": "النص الأصلي",
+  "correctionYours": "تصحيحك",
+  "correctionTypeHint": "اكتب النسخة المصحّحة...",
+  "correctionChanges": "التغييرات",
+  "correctionExplanationOptional": "شرح (اختياري)",
+  "correctionWhyHint": "لماذا أجريت هذا التصحيح؟",
+  "correctionSend": "إرسال التصحيح",
+  "correctionSuggested": "تصحيح مقترح",
+  "correctionFailedToSend": "تعذّر إرسال التصحيح",
+  "correctionOfMessage": "صحّح رسالة {name}",
+  "ttsUnavailable": "تحويل النص إلى كلام غير متاح",
+  "translationDailyLimitTitle": "بلغت حد الترجمة اليومي",
+  "translationDailyLimitBody": "يحصل المستخدمون المجانيون على 5 ترجمات يوميًا.\nاشترك في VIP لترجمات بلا حدود!",
+  "ttsListen": "استماع",
+  "translatedToLanguage": "تُرجم إلى {language}",
+  "@correctionOfMessage": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "@translatedToLanguage": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  }
 }

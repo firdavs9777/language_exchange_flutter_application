@@ -9498,4 +9498,56 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get suspendedReason => 'Lý do:';
+
+  @override
+  String get correctionSuggestTitle => 'Đề xuất sửa';
+
+  @override
+  String get correctionOriginal => 'Bản gốc';
+
+  @override
+  String get correctionYours => 'Bản sửa của bạn';
+
+  @override
+  String get correctionTypeHint => 'Nhập bản đã sửa...';
+
+  @override
+  String get correctionChanges => 'Thay đổi';
+
+  @override
+  String get correctionExplanationOptional => 'Giải thích (không bắt buộc)';
+
+  @override
+  String get correctionWhyHint => 'Vì sao bạn sửa như vậy?';
+
+  @override
+  String get correctionSend => 'Gửi bản sửa';
+
+  @override
+  String get correctionSuggested => 'Bản sửa được đề xuất';
+
+  @override
+  String get correctionFailedToSend => 'Không gửi được bản sửa';
+
+  @override
+  String get ttsUnavailable => 'Không dùng được đọc thành tiếng';
+
+  @override
+  String get translationDailyLimitTitle => 'Đã đạt giới hạn dịch mỗi ngày';
+
+  @override
+  String get translationDailyLimitBody => 'Người dùng miễn phí được 5 lượt dịch mỗi ngày.\nNâng cấp VIP để dịch không giới hạn!';
+
+  @override
+  String get ttsListen => 'Nghe';
+
+  @override
+  String correctionOfMessage(String name) {
+    return 'Sửa tin nhắn của $name';
+  }
+
+  @override
+  String translatedToLanguage(String language) {
+    return 'Đã dịch sang $language';
+  }
 }

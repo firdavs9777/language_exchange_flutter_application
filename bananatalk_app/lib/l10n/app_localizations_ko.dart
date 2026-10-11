@@ -9498,4 +9498,56 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get suspendedReason => '사유:';
+
+  @override
+  String get correctionSuggestTitle => '수정 제안하기';
+
+  @override
+  String get correctionOriginal => '원문';
+
+  @override
+  String get correctionYours => '내 수정';
+
+  @override
+  String get correctionTypeHint => '고친 문장을 입력하세요...';
+
+  @override
+  String get correctionChanges => '변경 내용';
+
+  @override
+  String get correctionExplanationOptional => '설명 (선택)';
+
+  @override
+  String get correctionWhyHint => '왜 이렇게 고쳤나요?';
+
+  @override
+  String get correctionSend => '수정 보내기';
+
+  @override
+  String get correctionSuggested => '제안된 수정';
+
+  @override
+  String get correctionFailedToSend => '수정을 보내지 못했어요';
+
+  @override
+  String get ttsUnavailable => '음성 읽기를 사용할 수 없어요';
+
+  @override
+  String get translationDailyLimitTitle => '하루 번역 한도에 도달했어요';
+
+  @override
+  String get translationDailyLimitBody => '무료 이용자는 하루 5회 번역할 수 있어요.\nVIP면 무제한이에요!';
+
+  @override
+  String get ttsListen => '듣기';
+
+  @override
+  String correctionOfMessage(String name) {
+    return '$name님의 메시지 고치기';
+  }
+
+  @override
+  String translatedToLanguage(String language) {
+    return '$language(으)로 번역됨';
+  }
 }

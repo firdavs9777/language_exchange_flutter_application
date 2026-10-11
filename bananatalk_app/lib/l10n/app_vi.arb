@@ -3846,5 +3846,35 @@
   "suspendedTitle": "Tài khoản của bạn đã bị đình chỉ",
   "suspendedContact": "Nếu bạn cho rằng đây là nhầm lẫn, hãy gửi email tới appeal@banatalk.com kèm tên người dùng.",
   "suspendedNoAccess": "Tài khoản của bạn không còn truy cập được.",
-  "suspendedReason": "Lý do:"
+  "suspendedReason": "Lý do:",
+  "correctionSuggestTitle": "Đề xuất sửa",
+  "correctionOriginal": "Bản gốc",
+  "correctionYours": "Bản sửa của bạn",
+  "correctionTypeHint": "Nhập bản đã sửa...",
+  "correctionChanges": "Thay đổi",
+  "correctionExplanationOptional": "Giải thích (không bắt buộc)",
+  "correctionWhyHint": "Vì sao bạn sửa như vậy?",
+  "correctionSend": "Gửi bản sửa",
+  "correctionSuggested": "Bản sửa được đề xuất",
+  "correctionFailedToSend": "Không gửi được bản sửa",
+  "correctionOfMessage": "Sửa tin nhắn của {name}",
+  "ttsUnavailable": "Không dùng được đọc thành tiếng",
+  "translationDailyLimitTitle": "Đã đạt giới hạn dịch mỗi ngày",
+  "translationDailyLimitBody": "Người dùng miễn phí được 5 lượt dịch mỗi ngày.\nNâng cấp VIP để dịch không giới hạn!",
+  "ttsListen": "Nghe",
+  "translatedToLanguage": "Đã dịch sang {language}",
+  "@correctionOfMessage": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "@translatedToLanguage": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  }
 }

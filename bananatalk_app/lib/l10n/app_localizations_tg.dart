@@ -9512,4 +9512,56 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get suspendedReason => 'Сабаб:';
+
+  @override
+  String get correctionSuggestTitle => 'Пешниҳоди ислоҳ';
+
+  @override
+  String get correctionOriginal => 'Матни аслӣ';
+
+  @override
+  String get correctionYours => 'Ислоҳи шумо';
+
+  @override
+  String get correctionTypeHint => 'Варианти ислоҳшударо нависед...';
+
+  @override
+  String get correctionChanges => 'Тағйирот';
+
+  @override
+  String get correctionExplanationOptional => 'Шарҳ (ихтиёрӣ)';
+
+  @override
+  String get correctionWhyHint => 'Чаро шумо ин ислоҳро кардед?';
+
+  @override
+  String get correctionSend => 'Фиристодани ислоҳ';
+
+  @override
+  String get correctionSuggested => 'Ислоҳи пешниҳодшуда';
+
+  @override
+  String get correctionFailedToSend => 'Ислоҳ фиристода нашуд';
+
+  @override
+  String get ttsUnavailable => 'Хондани матн дастрас нест';
+
+  @override
+  String get translationDailyLimitTitle => 'Ҳадди ҳаррӯзаи тарҷума расид';
+
+  @override
+  String get translationDailyLimitBody => 'Корбарони ройгон рӯзе 5 тарҷума мегиранд.\nБарои тарҷумаи бемаҳдуд VIP гиред!';
+
+  @override
+  String get ttsListen => 'Гӯш кардан';
+
+  @override
+  String correctionOfMessage(String name) {
+    return 'Ислоҳи паёми $name';
+  }
+
+  @override
+  String translatedToLanguage(String language) {
+    return 'Ба $language тарҷума шуд';
+  }
 }

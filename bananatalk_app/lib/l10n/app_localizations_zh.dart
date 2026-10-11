@@ -9498,6 +9498,58 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get suspendedReason => '原因：';
+
+  @override
+  String get correctionSuggestTitle => '建议修改';
+
+  @override
+  String get correctionOriginal => '原文';
+
+  @override
+  String get correctionYours => '你的修改';
+
+  @override
+  String get correctionTypeHint => '输入修改后的句子...';
+
+  @override
+  String get correctionChanges => '改动';
+
+  @override
+  String get correctionExplanationOptional => '说明（可选）';
+
+  @override
+  String get correctionWhyHint => '你为什么这样改？';
+
+  @override
+  String get correctionSend => '发送修改';
+
+  @override
+  String get correctionSuggested => '建议的修改';
+
+  @override
+  String get correctionFailedToSend => '无法发送修改';
+
+  @override
+  String get ttsUnavailable => '朗读功能不可用';
+
+  @override
+  String get translationDailyLimitTitle => '已达每日翻译上限';
+
+  @override
+  String get translationDailyLimitBody => '免费用户每天可翻译 5 次。\n升级 VIP 可无限翻译！';
+
+  @override
+  String get ttsListen => '收听';
+
+  @override
+  String correctionOfMessage(String name) {
+    return '修改 $name 的消息';
+  }
+
+  @override
+  String translatedToLanguage(String language) {
+    return '已翻译成$language';
+  }
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -18994,4 +19046,56 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get suspendedReason => '原因：';
+
+  @override
+  String get correctionSuggestTitle => '建議修改';
+
+  @override
+  String get correctionOriginal => '原文';
+
+  @override
+  String get correctionYours => '你的修改';
+
+  @override
+  String get correctionTypeHint => '輸入修改後的句子...';
+
+  @override
+  String get correctionChanges => '改動';
+
+  @override
+  String get correctionExplanationOptional => '說明（選填）';
+
+  @override
+  String get correctionWhyHint => '你為什麼這樣改？';
+
+  @override
+  String get correctionSend => '送出修改';
+
+  @override
+  String get correctionSuggested => '建議的修改';
+
+  @override
+  String get correctionFailedToSend => '無法送出修改';
+
+  @override
+  String get ttsUnavailable => '朗讀功能無法使用';
+
+  @override
+  String get translationDailyLimitTitle => '已達每日翻譯上限';
+
+  @override
+  String get translationDailyLimitBody => '免費使用者每天可翻譯 5 次。\n升級 VIP 可無限翻譯！';
+
+  @override
+  String get ttsListen => '收聽';
+
+  @override
+  String correctionOfMessage(String name) {
+    return '修改 $name 的訊息';
+  }
+
+  @override
+  String translatedToLanguage(String language) {
+    return '已翻譯成$language';
+  }
 }

@@ -3339,5 +3339,35 @@
   "suspendedTitle": "Ҳисоби шумо боздошта шуд",
   "suspendedContact": "Агар фикр кунед, ки ин хатост, бо номи корбарии худ ба appeal@banatalk.com нависед.",
   "suspendedNoAccess": "Ҳисоби шумо дигар дастрас нест.",
-  "suspendedReason": "Сабаб:"
+  "suspendedReason": "Сабаб:",
+  "correctionSuggestTitle": "Пешниҳоди ислоҳ",
+  "correctionOriginal": "Матни аслӣ",
+  "correctionYours": "Ислоҳи шумо",
+  "correctionTypeHint": "Варианти ислоҳшударо нависед...",
+  "correctionChanges": "Тағйирот",
+  "correctionExplanationOptional": "Шарҳ (ихтиёрӣ)",
+  "correctionWhyHint": "Чаро шумо ин ислоҳро кардед?",
+  "correctionSend": "Фиристодани ислоҳ",
+  "correctionSuggested": "Ислоҳи пешниҳодшуда",
+  "correctionFailedToSend": "Ислоҳ фиристода нашуд",
+  "correctionOfMessage": "Ислоҳи паёми {name}",
+  "ttsUnavailable": "Хондани матн дастрас нест",
+  "translationDailyLimitTitle": "Ҳадди ҳаррӯзаи тарҷума расид",
+  "translationDailyLimitBody": "Корбарони ройгон рӯзе 5 тарҷума мегиранд.\nБарои тарҷумаи бемаҳдуд VIP гиред!",
+  "ttsListen": "Гӯш кардан",
+  "translatedToLanguage": "Ба {language} тарҷума шуд",
+  "@correctionOfMessage": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "@translatedToLanguage": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  }
 }

@@ -80,7 +80,7 @@ class _CorrectionBottomSheetState extends State<CorrectionBottomSheet> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
-            result['error']?.toString() ?? 'Failed to send correction',
+            result['error']?.toString() ?? AppLocalizations.of(context)!.correctionFailedToSend,
           ),
         ),
       );
@@ -132,7 +132,7 @@ class _CorrectionBottomSheetState extends State<CorrectionBottomSheet> {
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(
-                    'Correct ${widget.senderName}\'s message',
+                    AppLocalizations.of(context)!.correctionOfMessage(widget.senderName),
                     style: const TextStyle(
                       fontSize: 17,
                       fontWeight: FontWeight.w600,
@@ -158,7 +158,7 @@ class _CorrectionBottomSheetState extends State<CorrectionBottomSheet> {
                 children: [
                   // Original text label
                   Text(
-                    'Original',
+                    AppLocalizations.of(context)!.correctionOriginal,
                     style: TextStyle(
                       fontSize: 13,
                       fontWeight: FontWeight.w600,
@@ -187,7 +187,7 @@ class _CorrectionBottomSheetState extends State<CorrectionBottomSheet> {
 
                   // Corrected text field
                   Text(
-                    'Your correction',
+                    AppLocalizations.of(context)!.correctionYours,
                     style: TextStyle(
                       fontSize: 13,
                       fontWeight: FontWeight.w600,
@@ -204,7 +204,7 @@ class _CorrectionBottomSheetState extends State<CorrectionBottomSheet> {
                       color: isDark ? AppColors.white : AppColors.gray900,
                     ),
                     decoration: InputDecoration(
-                      hintText: 'Type the corrected version...',
+                      hintText: AppLocalizations.of(context)!.correctionTypeHint,
                       hintStyle: TextStyle(
                         color: isDark ? AppColors.gray600 : AppColors.gray400,
                       ),
@@ -241,7 +241,7 @@ class _CorrectionBottomSheetState extends State<CorrectionBottomSheet> {
                   if (diffs.isNotEmpty) ...[
                     const SizedBox(height: 16),
                     Text(
-                      'Changes',
+                      AppLocalizations.of(context)!.correctionChanges,
                       style: TextStyle(
                         fontSize: 13,
                         fontWeight: FontWeight.w600,
@@ -300,7 +300,7 @@ class _CorrectionBottomSheetState extends State<CorrectionBottomSheet> {
 
                   // Explanation field (optional)
                   Text(
-                    'Explanation (optional)',
+                    AppLocalizations.of(context)!.correctionExplanationOptional,
                     style: TextStyle(
                       fontSize: 13,
                       fontWeight: FontWeight.w600,
@@ -316,7 +316,7 @@ class _CorrectionBottomSheetState extends State<CorrectionBottomSheet> {
                       color: isDark ? AppColors.white : AppColors.gray900,
                     ),
                     decoration: InputDecoration(
-                      hintText: 'Why did you make this correction?',
+                      hintText: AppLocalizations.of(context)!.correctionWhyHint,
                       hintStyle: TextStyle(
                         color: isDark ? AppColors.gray600 : AppColors.gray400,
                         fontSize: 14,
@@ -365,8 +365,8 @@ class _CorrectionBottomSheetState extends State<CorrectionBottomSheet> {
                             color: Colors.white,
                           ),
                         )
-                      : const Text(
-                          'Send Correction',
+                      : Text(
+                          AppLocalizations.of(context)!.correctionSend,
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,

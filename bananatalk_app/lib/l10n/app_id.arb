@@ -3846,5 +3846,35 @@
   "suspendedTitle": "Akunmu telah ditangguhkan",
   "suspendedContact": "Kalau menurutmu ini keliru, hubungi appeal@banatalk.com beserta username-mu.",
   "suspendedNoAccess": "Akunmu tidak bisa diakses lagi.",
-  "suspendedReason": "Alasan:"
+  "suspendedReason": "Alasan:",
+  "correctionSuggestTitle": "Sarankan koreksi",
+  "correctionOriginal": "Asli",
+  "correctionYours": "Koreksimu",
+  "correctionTypeHint": "Tulis versi yang benar...",
+  "correctionChanges": "Perubahan",
+  "correctionExplanationOptional": "Penjelasan (opsional)",
+  "correctionWhyHint": "Kenapa kamu mengoreksi ini?",
+  "correctionSend": "Kirim koreksi",
+  "correctionSuggested": "Koreksi yang disarankan",
+  "correctionFailedToSend": "Gagal mengirim koreksi",
+  "correctionOfMessage": "Koreksi pesan {name}",
+  "ttsUnavailable": "Text-to-speech tidak tersedia",
+  "translationDailyLimitTitle": "Batas terjemahan harian tercapai",
+  "translationDailyLimitBody": "Pengguna gratis dapat 5 terjemahan per hari.\nJadi VIP untuk tanpa batas!",
+  "ttsListen": "Dengarkan",
+  "translatedToLanguage": "Diterjemahkan ke {language}",
+  "@correctionOfMessage": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "@translatedToLanguage": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  }
 }

@@ -3537,5 +3537,35 @@
   "suspendedTitle": "你的帳號已被停用",
   "suspendedContact": "如果你認為這是誤判，請用你的使用者名稱寄信至 appeal@banatalk.com。",
   "suspendedNoAccess": "你的帳號已無法存取。",
-  "suspendedReason": "原因："
+  "suspendedReason": "原因：",
+  "correctionSuggestTitle": "建議修改",
+  "correctionOriginal": "原文",
+  "correctionYours": "你的修改",
+  "correctionTypeHint": "輸入修改後的句子...",
+  "correctionChanges": "改動",
+  "correctionExplanationOptional": "說明（選填）",
+  "correctionWhyHint": "你為什麼這樣改？",
+  "correctionSend": "送出修改",
+  "correctionSuggested": "建議的修改",
+  "correctionFailedToSend": "無法送出修改",
+  "correctionOfMessage": "修改 {name} 的訊息",
+  "ttsUnavailable": "朗讀功能無法使用",
+  "translationDailyLimitTitle": "已達每日翻譯上限",
+  "translationDailyLimitBody": "免費使用者每天可翻譯 5 次。\n升級 VIP 可無限翻譯！",
+  "ttsListen": "收聽",
+  "translatedToLanguage": "已翻譯成{language}",
+  "@correctionOfMessage": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "@translatedToLanguage": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  }
 }

@@ -9508,4 +9508,56 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get suspendedReason => 'Dahilan:';
+
+  @override
+  String get correctionSuggestTitle => 'Magmungkahi ng pagwawasto';
+
+  @override
+  String get correctionOriginal => 'Orihinal';
+
+  @override
+  String get correctionYours => 'Ang pagwawasto mo';
+
+  @override
+  String get correctionTypeHint => 'I-type ang naitamang bersyon...';
+
+  @override
+  String get correctionChanges => 'Mga pagbabago';
+
+  @override
+  String get correctionExplanationOptional => 'Paliwanag (opsyonal)';
+
+  @override
+  String get correctionWhyHint => 'Bakit mo ito itinama?';
+
+  @override
+  String get correctionSend => 'Ipadala ang pagwawasto';
+
+  @override
+  String get correctionSuggested => 'Mungkahing pagwawasto';
+
+  @override
+  String get correctionFailedToSend => 'Hindi naipadala ang pagwawasto';
+
+  @override
+  String get ttsUnavailable => 'Hindi available ang text-to-speech';
+
+  @override
+  String get translationDailyLimitTitle => 'Naabot na ang pang-araw-araw na limitasyon sa pagsasalin';
+
+  @override
+  String get translationDailyLimitBody => 'Ang libreng user ay may 5 pagsasalin kada araw.\nMag-VIP para walang limitasyon!';
+
+  @override
+  String get ttsListen => 'Pakinggan';
+
+  @override
+  String correctionOfMessage(String name) {
+    return 'Itama ang mensahe ni $name';
+  }
+
+  @override
+  String translatedToLanguage(String language) {
+    return 'Isinalin sa $language';
+  }
 }
