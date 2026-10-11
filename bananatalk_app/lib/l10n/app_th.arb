@@ -677,9 +677,9 @@
   "otherGender": "อื่นๆ",
   "continueWithGoogleAccount": "ดำเนินการต่อด้วยบัญชี Google\nเพื่อประสบการณ์ที่ราบรื่น",
   "signingYouIn": "กำลังเข้าสู่ระบบ...",
-  "backToSignInMethods": "กลับไปวิธีเข้าสู่ระบบ",
+  "backToSignInMethods": "กลับไปที่วิธีลงชื่อเข้าใช้",
   "securedByGoogle": "รักษาความปลอดภัยโดย Google",
-  "dataProtectedEncryption": "ข้อมูลของคุณได้รับการปกป้องด้วยการเข้ารหัสมาตรฐาน",
+  "dataProtectedEncryption": "ข้อมูลของคุณได้รับการปกป้องด้วยการเข้ารหัสมาตรฐานอุตสาหกรรม",
   "welcomeCompleteProfile": "ยินดีต้อนรับ! กรุณากรอกโปรไฟล์",
   "welcomeBackName": "ยินดีต้อนรับกลับ {name}!",
   "continueWithAppleId": "ดำเนินการต่อด้วย Apple ID\nเพื่อประสบการณ์ที่ปลอดภัย",
@@ -3831,5 +3831,20 @@
         "type": "String"
       }
     }
-  }
+  },
+  "exploreTitle": "สำรวจ",
+  "exploreNoMoments": "ยังไม่มีโมเมนต์ให้สำรวจ",
+  "exploreFailedToLoad": "โหลดไม่สำเร็จ",
+  "exploreNoTrending": "ยังไม่มีโมเมนต์ยอดนิยม",
+  "exploreNoVideos": "ยังไม่มีวิดีโอ",
+  "exploreBeFirstVideo": "มาเป็นคนแรกที่แชร์วิดีโอกันเถอะ!",
+  "exploreFailedVideos": "โหลดวิดีโอไม่สำเร็จ",
+  "facebookLoginSubtitle": "ดำเนินการต่อด้วยบัญชี Facebook ของคุณ\nเพื่อประสบการณ์ที่ราบรื่น",
+  "securedByFacebook": "ปลอดภัยด้วย Facebook",
+  "continueWithEmail": "ดำเนินการต่อด้วยอีเมล",
+  "continueWithFacebook": "ดำเนินการต่อด้วย Facebook",
+  "suspendedTitle": "บัญชีของคุณถูกระงับ",
+  "suspendedContact": "หากคิดว่านี่เป็นความผิดพลาด โปรดติดต่อ appeal@banatalk.com พร้อมชื่อผู้ใช้ของคุณ",
+  "suspendedNoAccess": "บัญชีของคุณใช้งานไม่ได้อีกต่อไป",
+  "suspendedReason": "เหตุผล:"
 }

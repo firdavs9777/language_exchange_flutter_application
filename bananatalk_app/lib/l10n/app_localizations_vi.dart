@@ -2969,13 +2969,13 @@ class AppLocalizationsVi extends AppLocalizations {
   String get signingYouIn => 'Đang đăng nhập...';
 
   @override
-  String get backToSignInMethods => 'Quay lại phương thức đăng nhập';
+  String get backToSignInMethods => 'Quay lại các cách đăng nhập';
 
   @override
   String get securedByGoogle => 'Được bảo mật bởi Google';
 
   @override
-  String get dataProtectedEncryption => 'Dữ liệu được bảo vệ bằng mã hóa tiêu chuẩn';
+  String get dataProtectedEncryption => 'Dữ liệu của bạn được bảo vệ bằng mã hoá theo chuẩn ngành';
 
   @override
   String get welcomeCompleteProfile => 'Chào mừng! Vui lòng hoàn thiện hồ sơ';
@@ -9453,4 +9453,49 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get coinsAdLimitReached => 'Đã đạt giới hạn hôm nay — mai quay lại';
+
+  @override
+  String get exploreTitle => 'Khám phá';
+
+  @override
+  String get exploreNoMoments => 'Chưa có khoảnh khắc nào để khám phá';
+
+  @override
+  String get exploreFailedToLoad => 'Không tải được';
+
+  @override
+  String get exploreNoTrending => 'Chưa có khoảnh khắc nổi bật';
+
+  @override
+  String get exploreNoVideos => 'Chưa có video';
+
+  @override
+  String get exploreBeFirstVideo => 'Hãy là người đầu tiên chia sẻ video!';
+
+  @override
+  String get exploreFailedVideos => 'Không tải được video';
+
+  @override
+  String get facebookLoginSubtitle => 'Tiếp tục bằng tài khoản Facebook của bạn\nđể trải nghiệm liền mạch';
+
+  @override
+  String get securedByFacebook => 'Được bảo vệ bởi Facebook';
+
+  @override
+  String get continueWithEmail => 'Tiếp tục bằng Email';
+
+  @override
+  String get continueWithFacebook => 'Tiếp tục bằng Facebook';
+
+  @override
+  String get suspendedTitle => 'Tài khoản của bạn đã bị đình chỉ';
+
+  @override
+  String get suspendedContact => 'Nếu bạn cho rằng đây là nhầm lẫn, hãy gửi email tới appeal@banatalk.com kèm tên người dùng.';
+
+  @override
+  String get suspendedNoAccess => 'Tài khoản của bạn không còn truy cập được.';
+
+  @override
+  String get suspendedReason => 'Lý do:';
 }

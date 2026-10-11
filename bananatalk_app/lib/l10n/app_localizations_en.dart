@@ -9469,4 +9469,49 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get coinsAdLimitReached => 'Daily limit reached — come back tomorrow';
+
+  @override
+  String get exploreTitle => 'Explore';
+
+  @override
+  String get exploreNoMoments => 'No moments to explore';
+
+  @override
+  String get exploreFailedToLoad => 'Failed to load';
+
+  @override
+  String get exploreNoTrending => 'No trending moments yet';
+
+  @override
+  String get exploreNoVideos => 'No videos yet';
+
+  @override
+  String get exploreBeFirstVideo => 'Be the first to share a video!';
+
+  @override
+  String get exploreFailedVideos => 'Failed to load videos';
+
+  @override
+  String get facebookLoginSubtitle => 'Continue with your Facebook account\nfor a seamless experience';
+
+  @override
+  String get securedByFacebook => 'Secured by Facebook';
+
+  @override
+  String get continueWithEmail => 'Continue with Email';
+
+  @override
+  String get continueWithFacebook => 'Continue with Facebook';
+
+  @override
+  String get suspendedTitle => 'Your account has been suspended';
+
+  @override
+  String get suspendedContact => 'If you believe this was made in error, contact appeal@banatalk.com with your username.';
+
+  @override
+  String get suspendedNoAccess => 'Your account is no longer accessible.';
+
+  @override
+  String get suspendedReason => 'Reason:';
 }

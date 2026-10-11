@@ -1115,7 +1115,7 @@
   "signingYouIn": "Accesso in corso...",
   "backToSignInMethods": "Torna ai metodi di accesso",
   "securedByGoogle": "Protetto da Google",
-  "dataProtectedEncryption": "I tuoi dati sono protetti con crittografia standard",
+  "dataProtectedEncryption": "I tuoi dati sono protetti con crittografia conforme agli standard del settore",
   "welcomeCompleteProfile": "Benvenuto! Completa il tuo profilo",
   "welcomeBackName": "Bentornato, {name}!",
   "continueWithAppleId": "Continua con il tuo Apple ID\nper un'esperienza sicura",
@@ -4071,5 +4071,20 @@
         "type": "String"
       }
     }
-  }
+  },
+  "exploreTitle": "Esplora",
+  "exploreNoMoments": "Nessun momento da esplorare",
+  "exploreFailedToLoad": "Caricamento non riuscito",
+  "exploreNoTrending": "Ancora nessun momento di tendenza",
+  "exploreNoVideos": "Ancora nessun video",
+  "exploreBeFirstVideo": "Sii il primo a condividere un video!",
+  "exploreFailedVideos": "Impossibile caricare i video",
+  "facebookLoginSubtitle": "Continua con il tuo account Facebook\nper un’esperienza senza interruzioni",
+  "securedByFacebook": "Protetto da Facebook",
+  "continueWithEmail": "Continua con l’email",
+  "continueWithFacebook": "Continua con Facebook",
+  "suspendedTitle": "Il tuo account è stato sospeso",
+  "suspendedContact": "Se pensi sia un errore, scrivi a appeal@banatalk.com indicando il tuo nome utente.",
+  "suspendedNoAccess": "Il tuo account non è più accessibile.",
+  "suspendedReason": "Motivo:"
 }

@@ -1115,7 +1115,7 @@
   "signingYouIn": "Giriş yapılıyor...",
   "backToSignInMethods": "Giriş yöntemlerine dön",
   "securedByGoogle": "Google tarafından korunuyor",
-  "dataProtectedEncryption": "Verilerin standart şifreleme ile korunuyor",
+  "dataProtectedEncryption": "Verilerin sektör standardı şifreleme ile korunuyor",
   "welcomeCompleteProfile": "Hoş geldin! Profilini tamamla",
   "welcomeBackName": "Tekrar hoş geldin, {name}!",
   "continueWithAppleId": "Apple ID ile devam et\ngüvenli bir deneyim için",
@@ -4043,5 +4043,20 @@
         "type": "String"
       }
     }
-  }
+  },
+  "exploreTitle": "Keşfet",
+  "exploreNoMoments": "Keşfedilecek moment yok",
+  "exploreFailedToLoad": "Yüklenemedi",
+  "exploreNoTrending": "Henüz öne çıkan moment yok",
+  "exploreNoVideos": "Henüz video yok",
+  "exploreBeFirstVideo": "İlk videoyu sen paylaş!",
+  "exploreFailedVideos": "Videolar yüklenemedi",
+  "facebookLoginSubtitle": "Sorunsuz bir deneyim için\nFacebook hesabınla devam et",
+  "securedByFacebook": "Facebook tarafından korunuyor",
+  "continueWithEmail": "E-posta ile devam et",
+  "continueWithFacebook": "Facebook ile devam et",
+  "suspendedTitle": "Hesabın askıya alındı",
+  "suspendedContact": "Bunun bir hata olduğunu düşünüyorsan, kullanıcı adınla birlikte appeal@banatalk.com adresine yaz.",
+  "suspendedNoAccess": "Hesabına artık erişilemiyor.",
+  "suspendedReason": "Sebep:"
 }

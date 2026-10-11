@@ -2975,7 +2975,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get securedByGoogle => 'Google tarafından korunuyor';
 
   @override
-  String get dataProtectedEncryption => 'Verilerin standart şifreleme ile korunuyor';
+  String get dataProtectedEncryption => 'Verilerin sektör standardı şifreleme ile korunuyor';
 
   @override
   String get welcomeCompleteProfile => 'Hoş geldin! Profilini tamamla';
@@ -9461,4 +9461,49 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get coinsAdLimitReached => 'Günlük sınıra ulaşıldı — yarın tekrar gel';
+
+  @override
+  String get exploreTitle => 'Keşfet';
+
+  @override
+  String get exploreNoMoments => 'Keşfedilecek moment yok';
+
+  @override
+  String get exploreFailedToLoad => 'Yüklenemedi';
+
+  @override
+  String get exploreNoTrending => 'Henüz öne çıkan moment yok';
+
+  @override
+  String get exploreNoVideos => 'Henüz video yok';
+
+  @override
+  String get exploreBeFirstVideo => 'İlk videoyu sen paylaş!';
+
+  @override
+  String get exploreFailedVideos => 'Videolar yüklenemedi';
+
+  @override
+  String get facebookLoginSubtitle => 'Sorunsuz bir deneyim için\nFacebook hesabınla devam et';
+
+  @override
+  String get securedByFacebook => 'Facebook tarafından korunuyor';
+
+  @override
+  String get continueWithEmail => 'E-posta ile devam et';
+
+  @override
+  String get continueWithFacebook => 'Facebook ile devam et';
+
+  @override
+  String get suspendedTitle => 'Hesabın askıya alındı';
+
+  @override
+  String get suspendedContact => 'Bunun bir hata olduğunu düşünüyorsan, kullanıcı adınla birlikte appeal@banatalk.com adresine yaz.';
+
+  @override
+  String get suspendedNoAccess => 'Hesabına artık erişilemiyor.';
+
+  @override
+  String get suspendedReason => 'Sebep:';
 }

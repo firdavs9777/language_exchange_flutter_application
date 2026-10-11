@@ -858,7 +858,7 @@
   "signingYouIn": "Выполняется вход...",
   "backToSignInMethods": "Назад к способам входа",
   "securedByGoogle": "Защищено Google",
-  "dataProtectedEncryption": "Ваши данные защищены стандартным шифрованием",
+  "dataProtectedEncryption": "Ваши данные защищены шифрованием отраслевого стандарта",
   "welcomeCompleteProfile": "Добро пожаловать! Заполните профиль",
   "welcomeBackName": "С возвращением, {name}!",
   "continueWithAppleId": "Продолжите через Apple ID\nдля безопасного входа",
@@ -3861,5 +3861,20 @@
         "type": "String"
       }
     }
-  }
+  },
+  "exploreTitle": "Обзор",
+  "exploreNoMoments": "Нет моментов для просмотра",
+  "exploreFailedToLoad": "Не удалось загрузить",
+  "exploreNoTrending": "Популярных моментов пока нет",
+  "exploreNoVideos": "Видео пока нет",
+  "exploreBeFirstVideo": "Поделитесь видео первым!",
+  "exploreFailedVideos": "Не удалось загрузить видео",
+  "facebookLoginSubtitle": "Продолжите с аккаунтом Facebook,\nчтобы всё работало без лишних шагов",
+  "securedByFacebook": "Защищено Facebook",
+  "continueWithEmail": "Продолжить с эл. почтой",
+  "continueWithFacebook": "Продолжить с Facebook",
+  "suspendedTitle": "Ваш аккаунт заблокирован",
+  "suspendedContact": "Если считаете это ошибкой, напишите на appeal@banatalk.com и укажите своё имя пользователя.",
+  "suspendedNoAccess": "Доступ к аккаунту закрыт.",
+  "suspendedReason": "Причина:"
 }

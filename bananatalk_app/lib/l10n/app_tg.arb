@@ -977,7 +977,7 @@
   "signingYouIn": "Шумо ворид мешавед...",
   "backToSignInMethods": "Бозгашт ба усулҳои воридшавӣ",
   "securedByGoogle": "Аз ҷониби Google ҳифз шудааст",
-  "dataProtectedEncryption": "Маълумоти шумо бо рамзгузории стандартии саноатӣ ҳифз шудааст",
+  "dataProtectedEncryption": "Маълумоти шумо бо рамзгузории стандарти соҳа ҳифз мешавад",
   "welcomeCompleteProfile": "Хуш омадед! Лутфан профили худро пурра кунед",
   "welcomeBackName": "Бозгашти шумо муборак, {name}!",
   "continueWithAppleId": "Барои таҷрибаи бехатар бо Apple ID-и худ\nидома диҳед",
@@ -3324,5 +3324,20 @@
         "type": "String"
       }
     }
-  }
+  },
+  "exploreTitle": "Кашф",
+  "exploreNoMoments": "Лаҳзае барои кашф нест",
+  "exploreFailedToLoad": "Бор карда нашуд",
+  "exploreNoTrending": "Ҳоло лаҳзаҳои маъруф нестанд",
+  "exploreNoVideos": "Ҳоло видео нест",
+  "exploreBeFirstVideo": "Аввалин шуда видео мубодила кунед!",
+  "exploreFailedVideos": "Видеоҳо бор карда нашуданд",
+  "facebookLoginSubtitle": "Бо ҳисоби Facebook-и худ идома диҳед\nбарои таҷрибаи бефосила",
+  "securedByFacebook": "Таҳти ҳимояи Facebook",
+  "continueWithEmail": "Идома бо почтаи электронӣ",
+  "continueWithFacebook": "Идома бо Facebook",
+  "suspendedTitle": "Ҳисоби шумо боздошта шуд",
+  "suspendedContact": "Агар фикр кунед, ки ин хатост, бо номи корбарии худ ба appeal@banatalk.com нависед.",
+  "suspendedNoAccess": "Ҳисоби шумо дигар дастрас нест.",
+  "suspendedReason": "Сабаб:"
 }

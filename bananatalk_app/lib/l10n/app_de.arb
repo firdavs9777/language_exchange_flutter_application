@@ -1113,9 +1113,9 @@
   "otherGender": "Andere",
   "continueWithGoogleAccount": "Weiter mit deinem Google-Konto\nfür ein nahtloses Erlebnis",
   "signingYouIn": "Anmeldung läuft...",
-  "backToSignInMethods": "Zurück zu Anmeldemethoden",
+  "backToSignInMethods": "Zurück zu den Anmeldeoptionen",
   "securedByGoogle": "Gesichert durch Google",
-  "dataProtectedEncryption": "Deine Daten sind mit Standardverschlüsselung geschützt",
+  "dataProtectedEncryption": "Deine Daten sind mit branchenüblicher Verschlüsselung geschützt",
   "welcomeCompleteProfile": "Willkommen! Bitte vervollständige dein Profil",
   "welcomeBackName": "Willkommen zurück, {name}!",
   "continueWithAppleId": "Weiter mit deiner Apple ID\nfür ein sicheres Erlebnis",
@@ -4071,5 +4071,20 @@
         "type": "String"
       }
     }
-  }
+  },
+  "exploreTitle": "Entdecken",
+  "exploreNoMoments": "Keine Momente zum Entdecken",
+  "exploreFailedToLoad": "Laden fehlgeschlagen",
+  "exploreNoTrending": "Noch keine angesagten Momente",
+  "exploreNoVideos": "Noch keine Videos",
+  "exploreBeFirstVideo": "Teile als Erste*r ein Video!",
+  "exploreFailedVideos": "Videos konnten nicht geladen werden",
+  "facebookLoginSubtitle": "Mit deinem Facebook-Konto fortfahren\nfür ein nahtloses Erlebnis",
+  "securedByFacebook": "Abgesichert durch Facebook",
+  "continueWithEmail": "Mit E-Mail fortfahren",
+  "continueWithFacebook": "Mit Facebook fortfahren",
+  "suspendedTitle": "Dein Konto wurde gesperrt",
+  "suspendedContact": "Wenn du glaubst, dass das ein Fehler ist, schreib an appeal@banatalk.com und nenne deinen Benutzernamen.",
+  "suspendedNoAccess": "Dein Konto ist nicht mehr zugänglich.",
+  "suspendedReason": "Grund:"
 }

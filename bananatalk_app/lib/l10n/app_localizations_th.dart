@@ -2969,13 +2969,13 @@ class AppLocalizationsTh extends AppLocalizations {
   String get signingYouIn => 'กำลังเข้าสู่ระบบ...';
 
   @override
-  String get backToSignInMethods => 'กลับไปวิธีเข้าสู่ระบบ';
+  String get backToSignInMethods => 'กลับไปที่วิธีลงชื่อเข้าใช้';
 
   @override
   String get securedByGoogle => 'รักษาความปลอดภัยโดย Google';
 
   @override
-  String get dataProtectedEncryption => 'ข้อมูลของคุณได้รับการปกป้องด้วยการเข้ารหัสมาตรฐาน';
+  String get dataProtectedEncryption => 'ข้อมูลของคุณได้รับการปกป้องด้วยการเข้ารหัสมาตรฐานอุตสาหกรรม';
 
   @override
   String get welcomeCompleteProfile => 'ยินดีต้อนรับ! กรุณากรอกโปรไฟล์';
@@ -9453,4 +9453,49 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get coinsAdLimitReached => 'ถึงขีดจำกัดรายวันแล้ว — พรุ่งนี้มาใหม่';
+
+  @override
+  String get exploreTitle => 'สำรวจ';
+
+  @override
+  String get exploreNoMoments => 'ยังไม่มีโมเมนต์ให้สำรวจ';
+
+  @override
+  String get exploreFailedToLoad => 'โหลดไม่สำเร็จ';
+
+  @override
+  String get exploreNoTrending => 'ยังไม่มีโมเมนต์ยอดนิยม';
+
+  @override
+  String get exploreNoVideos => 'ยังไม่มีวิดีโอ';
+
+  @override
+  String get exploreBeFirstVideo => 'มาเป็นคนแรกที่แชร์วิดีโอกันเถอะ!';
+
+  @override
+  String get exploreFailedVideos => 'โหลดวิดีโอไม่สำเร็จ';
+
+  @override
+  String get facebookLoginSubtitle => 'ดำเนินการต่อด้วยบัญชี Facebook ของคุณ\nเพื่อประสบการณ์ที่ราบรื่น';
+
+  @override
+  String get securedByFacebook => 'ปลอดภัยด้วย Facebook';
+
+  @override
+  String get continueWithEmail => 'ดำเนินการต่อด้วยอีเมล';
+
+  @override
+  String get continueWithFacebook => 'ดำเนินการต่อด้วย Facebook';
+
+  @override
+  String get suspendedTitle => 'บัญชีของคุณถูกระงับ';
+
+  @override
+  String get suspendedContact => 'หากคิดว่านี่เป็นความผิดพลาด โปรดติดต่อ appeal@banatalk.com พร้อมชื่อผู้ใช้ของคุณ';
+
+  @override
+  String get suspendedNoAccess => 'บัญชีของคุณใช้งานไม่ได้อีกต่อไป';
+
+  @override
+  String get suspendedReason => 'เหตุผล:';
 }

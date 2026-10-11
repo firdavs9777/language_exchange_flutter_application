@@ -677,9 +677,9 @@
   "otherGender": "Khác",
   "continueWithGoogleAccount": "Tiếp tục với tài khoản Google\nđể có trải nghiệm mượt mà",
   "signingYouIn": "Đang đăng nhập...",
-  "backToSignInMethods": "Quay lại phương thức đăng nhập",
+  "backToSignInMethods": "Quay lại các cách đăng nhập",
   "securedByGoogle": "Được bảo mật bởi Google",
-  "dataProtectedEncryption": "Dữ liệu được bảo vệ bằng mã hóa tiêu chuẩn",
+  "dataProtectedEncryption": "Dữ liệu của bạn được bảo vệ bằng mã hoá theo chuẩn ngành",
   "welcomeCompleteProfile": "Chào mừng! Vui lòng hoàn thiện hồ sơ",
   "welcomeBackName": "Chào mừng trở lại, {name}!",
   "continueWithAppleId": "Tiếp tục với Apple ID\nđể có trải nghiệm an toàn",
@@ -3831,5 +3831,20 @@
         "type": "String"
       }
     }
-  }
+  },
+  "exploreTitle": "Khám phá",
+  "exploreNoMoments": "Chưa có khoảnh khắc nào để khám phá",
+  "exploreFailedToLoad": "Không tải được",
+  "exploreNoTrending": "Chưa có khoảnh khắc nổi bật",
+  "exploreNoVideos": "Chưa có video",
+  "exploreBeFirstVideo": "Hãy là người đầu tiên chia sẻ video!",
+  "exploreFailedVideos": "Không tải được video",
+  "facebookLoginSubtitle": "Tiếp tục bằng tài khoản Facebook của bạn\nđể trải nghiệm liền mạch",
+  "securedByFacebook": "Được bảo vệ bởi Facebook",
+  "continueWithEmail": "Tiếp tục bằng Email",
+  "continueWithFacebook": "Tiếp tục bằng Facebook",
+  "suspendedTitle": "Tài khoản của bạn đã bị đình chỉ",
+  "suspendedContact": "Nếu bạn cho rằng đây là nhầm lẫn, hãy gửi email tới appeal@banatalk.com kèm tên người dùng.",
+  "suspendedNoAccess": "Tài khoản của bạn không còn truy cập được.",
+  "suspendedReason": "Lý do:"
 }

@@ -2981,7 +2981,7 @@ class AppLocalizationsTg extends AppLocalizations {
   String get securedByGoogle => 'Аз ҷониби Google ҳифз шудааст';
 
   @override
-  String get dataProtectedEncryption => 'Маълумоти шумо бо рамзгузории стандартии саноатӣ ҳифз шудааст';
+  String get dataProtectedEncryption => 'Маълумоти шумо бо рамзгузории стандарти соҳа ҳифз мешавад';
 
   @override
   String get welcomeCompleteProfile => 'Хуш омадед! Лутфан профили худро пурра кунед';
@@ -9467,4 +9467,49 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get coinsAdLimitReached => 'Ҳадди ҳаррӯза расид — пагоҳ оед';
+
+  @override
+  String get exploreTitle => 'Кашф';
+
+  @override
+  String get exploreNoMoments => 'Лаҳзае барои кашф нест';
+
+  @override
+  String get exploreFailedToLoad => 'Бор карда нашуд';
+
+  @override
+  String get exploreNoTrending => 'Ҳоло лаҳзаҳои маъруф нестанд';
+
+  @override
+  String get exploreNoVideos => 'Ҳоло видео нест';
+
+  @override
+  String get exploreBeFirstVideo => 'Аввалин шуда видео мубодила кунед!';
+
+  @override
+  String get exploreFailedVideos => 'Видеоҳо бор карда нашуданд';
+
+  @override
+  String get facebookLoginSubtitle => 'Бо ҳисоби Facebook-и худ идома диҳед\nбарои таҷрибаи бефосила';
+
+  @override
+  String get securedByFacebook => 'Таҳти ҳимояи Facebook';
+
+  @override
+  String get continueWithEmail => 'Идома бо почтаи электронӣ';
+
+  @override
+  String get continueWithFacebook => 'Идома бо Facebook';
+
+  @override
+  String get suspendedTitle => 'Ҳисоби шумо боздошта шуд';
+
+  @override
+  String get suspendedContact => 'Агар фикр кунед, ки ин хатост, бо номи корбарии худ ба appeal@banatalk.com нависед.';
+
+  @override
+  String get suspendedNoAccess => 'Ҳисоби шумо дигар дастрас нест.';
+
+  @override
+  String get suspendedReason => 'Сабаб:';
 }

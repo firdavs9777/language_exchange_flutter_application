@@ -842,9 +842,9 @@
   "otherGender": "その他",
   "continueWithGoogleAccount": "Googleアカウントで続けて\nスムーズな体験をお楽しみください",
   "signingYouIn": "サインイン中...",
-  "backToSignInMethods": "サインイン方法に戻る",
+  "backToSignInMethods": "ログイン方法に戻る",
   "securedByGoogle": "Googleのセキュリティ",
-  "dataProtectedEncryption": "業界標準の暗号化でデータが保護されています",
+  "dataProtectedEncryption": "お客様のデータは業界標準の暗号化で保護されています",
   "welcomeCompleteProfile": "ようこそ！プロフィールを完成させてください",
   "welcomeBackName": "おかえりなさい、{name}さん！",
   "continueWithAppleId": "Apple IDで続けて\n安全な体験をお楽しみください",
@@ -3831,5 +3831,20 @@
         "type": "String"
       }
     }
-  }
+  },
+  "exploreTitle": "みつける",
+  "exploreNoMoments": "表示できるモーメントがありません",
+  "exploreFailedToLoad": "読み込みに失敗しました",
+  "exploreNoTrending": "人気のモーメントはまだありません",
+  "exploreNoVideos": "動画はまだありません",
+  "exploreBeFirstVideo": "最初の動画を投稿してみましょう！",
+  "exploreFailedVideos": "動画を読み込めませんでした",
+  "facebookLoginSubtitle": "Facebookアカウントで続けて\nスムーズに利用しましょう",
+  "securedByFacebook": "Facebookによる保護",
+  "continueWithEmail": "メールで続ける",
+  "continueWithFacebook": "Facebookで続ける",
+  "suspendedTitle": "アカウントが停止されました",
+  "suspendedContact": "誤りだと思われる場合は、ユーザー名を添えて appeal@banatalk.com までご連絡ください。",
+  "suspendedNoAccess": "このアカウントはご利用いただけません。",
+  "suspendedReason": "理由："
 }

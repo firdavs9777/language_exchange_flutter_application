@@ -2975,7 +2975,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get securedByGoogle => '由Google保障安全';
 
   @override
-  String get dataProtectedEncryption => '你的数据受到行业标准加密保护';
+  String get dataProtectedEncryption => '你的数据受行业标准加密保护';
 
   @override
   String get welcomeCompleteProfile => '欢迎！请完善你的个人资料';
@@ -9453,6 +9453,51 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get coinsAdLimitReached => '已达每日上限 — 明天再来';
+
+  @override
+  String get exploreTitle => '发现';
+
+  @override
+  String get exploreNoMoments => '暂无可浏览的动态';
+
+  @override
+  String get exploreFailedToLoad => '加载失败';
+
+  @override
+  String get exploreNoTrending => '暂无热门动态';
+
+  @override
+  String get exploreNoVideos => '暂无视频';
+
+  @override
+  String get exploreBeFirstVideo => '来做第一个分享视频的人吧！';
+
+  @override
+  String get exploreFailedVideos => '无法加载视频';
+
+  @override
+  String get facebookLoginSubtitle => '用你的 Facebook 账号继续，\n体验更顺畅';
+
+  @override
+  String get securedByFacebook => '由 Facebook 提供保护';
+
+  @override
+  String get continueWithEmail => '使用邮箱继续';
+
+  @override
+  String get continueWithFacebook => '使用 Facebook 继续';
+
+  @override
+  String get suspendedTitle => '你的账号已被停用';
+
+  @override
+  String get suspendedContact => '如果你认为这是误判，请用你的用户名发邮件至 appeal@banatalk.com。';
+
+  @override
+  String get suspendedNoAccess => '你的账号已无法访问。';
+
+  @override
+  String get suspendedReason => '原因：';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -12426,7 +12471,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get securedByGoogle => '由Google保障安全';
 
   @override
-  String get dataProtectedEncryption => '您的資料受到業界標準加密保護';
+  String get dataProtectedEncryption => '你的資料受業界標準加密保護';
 
   @override
   String get welcomeCompleteProfile => '歡迎！請完善您的個人資料';
@@ -18904,4 +18949,49 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get coinsAdLimitReached => '已達每日上限 — 明天再來';
+
+  @override
+  String get exploreTitle => '探索';
+
+  @override
+  String get exploreNoMoments => '暫無可瀏覽的動態';
+
+  @override
+  String get exploreFailedToLoad => '載入失敗';
+
+  @override
+  String get exploreNoTrending => '暫無熱門動態';
+
+  @override
+  String get exploreNoVideos => '暫無影片';
+
+  @override
+  String get exploreBeFirstVideo => '來做第一個分享影片的人吧！';
+
+  @override
+  String get exploreFailedVideos => '無法載入影片';
+
+  @override
+  String get facebookLoginSubtitle => '用你的 Facebook 帳號繼續，\n體驗更順暢';
+
+  @override
+  String get securedByFacebook => '由 Facebook 提供保護';
+
+  @override
+  String get continueWithEmail => '使用電子郵件繼續';
+
+  @override
+  String get continueWithFacebook => '使用 Facebook 繼續';
+
+  @override
+  String get suspendedTitle => '你的帳號已被停用';
+
+  @override
+  String get suspendedContact => '如果你認為這是誤判，請用你的使用者名稱寄信至 appeal@banatalk.com。';
+
+  @override
+  String get suspendedNoAccess => '你的帳號已無法存取。';
+
+  @override
+  String get suspendedReason => '原因：';
 }

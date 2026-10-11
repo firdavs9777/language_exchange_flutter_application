@@ -868,7 +868,7 @@
   "signingYouIn": "正在登入...",
   "backToSignInMethods": "返回登入方式",
   "securedByGoogle": "由Google保障安全",
-  "dataProtectedEncryption": "您的資料受到業界標準加密保護",
+  "dataProtectedEncryption": "你的資料受業界標準加密保護",
   "welcomeCompleteProfile": "歡迎！請完善您的個人資料",
   "welcomeBackName": "歡迎回來，{name}！",
   "continueWithAppleId": "使用Apple ID繼續\n享受安全體驗",
@@ -3522,5 +3522,20 @@
         "type": "String"
       }
     }
-  }
+  },
+  "exploreTitle": "探索",
+  "exploreNoMoments": "暫無可瀏覽的動態",
+  "exploreFailedToLoad": "載入失敗",
+  "exploreNoTrending": "暫無熱門動態",
+  "exploreNoVideos": "暫無影片",
+  "exploreBeFirstVideo": "來做第一個分享影片的人吧！",
+  "exploreFailedVideos": "無法載入影片",
+  "facebookLoginSubtitle": "用你的 Facebook 帳號繼續，\n體驗更順暢",
+  "securedByFacebook": "由 Facebook 提供保護",
+  "continueWithEmail": "使用電子郵件繼續",
+  "continueWithFacebook": "使用 Facebook 繼續",
+  "suspendedTitle": "你的帳號已被停用",
+  "suspendedContact": "如果你認為這是誤判，請用你的使用者名稱寄信至 appeal@banatalk.com。",
+  "suspendedNoAccess": "你的帳號已無法存取。",
+  "suspendedReason": "原因："
 }

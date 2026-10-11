@@ -2969,13 +2969,13 @@ class AppLocalizationsAr extends AppLocalizations {
   String get signingYouIn => 'جاري تسجيل الدخول...';
 
   @override
-  String get backToSignInMethods => 'العودة لطرق تسجيل الدخول';
+  String get backToSignInMethods => 'العودة إلى طرق تسجيل الدخول';
 
   @override
   String get securedByGoogle => 'محمي بواسطة Google';
 
   @override
-  String get dataProtectedEncryption => 'بياناتك محمية بتشفير معياري';
+  String get dataProtectedEncryption => 'بياناتك محمية بتشفير وفق معايير الصناعة';
 
   @override
   String get welcomeCompleteProfile => 'مرحباً! يرجى إكمال ملفك الشخصي';
@@ -9475,4 +9475,49 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get coinsAdLimitReached => 'بلغت الحد اليومي — عد غدًا';
+
+  @override
+  String get exploreTitle => 'استكشاف';
+
+  @override
+  String get exploreNoMoments => 'لا توجد لحظات للاستكشاف';
+
+  @override
+  String get exploreFailedToLoad => 'تعذّر التحميل';
+
+  @override
+  String get exploreNoTrending => 'لا توجد لحظات رائجة بعد';
+
+  @override
+  String get exploreNoVideos => 'لا توجد مقاطع فيديو بعد';
+
+  @override
+  String get exploreBeFirstVideo => 'كن أول من يشارك مقطعًا!';
+
+  @override
+  String get exploreFailedVideos => 'تعذّر تحميل مقاطع الفيديو';
+
+  @override
+  String get facebookLoginSubtitle => 'تابع بحساب Facebook الخاص بك\nلتجربة سلسة';
+
+  @override
+  String get securedByFacebook => 'محمي بواسطة Facebook';
+
+  @override
+  String get continueWithEmail => 'المتابعة بالبريد الإلكتروني';
+
+  @override
+  String get continueWithFacebook => 'المتابعة عبر Facebook';
+
+  @override
+  String get suspendedTitle => 'تم تعليق حسابك';
+
+  @override
+  String get suspendedContact => 'إذا كنت تعتقد أن هذا حدث بالخطأ، راسل appeal@banatalk.com مع اسم المستخدم الخاص بك.';
+
+  @override
+  String get suspendedNoAccess => 'لم يعد حسابك متاحًا.';
+
+  @override
+  String get suspendedReason => 'السبب:';
 }

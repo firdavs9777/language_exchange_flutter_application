@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 /// Step 14 (safety wave) — terminal screen shown when the server returns
-/// 403 with body.error starting with "Your account has been suspended".
+/// 403 with body.error starting with AppLocalizations.of(context)!.suspendedTitle.
 /// Pushed via callOverlayNavigatorKey with pushAndRemoveUntil so the user
 /// can't navigate back into the authenticated app. No appeal flow is wired
 /// in v1 — user must email appeal@banatalk.com.
@@ -28,7 +29,7 @@ class AccountSuspendedScreen extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               Text(
-                'Your account has been suspended',
+                AppLocalizations.of(context)!.suspendedTitle,
                 style: theme.textTheme.titleLarge?.copyWith(
                   fontSize: 22,
                   fontWeight: FontWeight.w700,
@@ -38,7 +39,7 @@ class AccountSuspendedScreen extends StatelessWidget {
               ),
               const SizedBox(height: 12),
               Text(
-                _displayReason(reason),
+                _displayReason(context, reason),
                 textAlign: TextAlign.center,
                 style: theme.textTheme.bodyMedium?.copyWith(
                   fontSize: 15,
@@ -47,7 +48,7 @@ class AccountSuspendedScreen extends StatelessWidget {
               ),
               const SizedBox(height: 28),
               Text(
-                "If you believe this was made in error, contact appeal@banatalk.com with your username.",
+                AppLocalizations.of(context)!.suspendedContact,
                 textAlign: TextAlign.center,
                 style: theme.textTheme.bodySmall?.copyWith(
                   fontSize: 14,
@@ -61,12 +62,12 @@ class AccountSuspendedScreen extends StatelessWidget {
     );
   }
 
-  String _displayReason(String? raw) {
+  String _displayReason(BuildContext context, String? raw) {
     if (raw == null || raw.isEmpty) {
-      return 'Your account is no longer accessible.';
+      return AppLocalizations.of(context)!.suspendedNoAccess;
     }
     // Server message format: "Your account has been suspended. Reason: <text>"
-    final reasonStart = raw.indexOf('Reason:');
+    final reasonStart = raw.indexOf(AppLocalizations.of(context)!.suspendedReason);
     if (reasonStart >= 0) {
       return raw.substring(reasonStart).trim();
     }

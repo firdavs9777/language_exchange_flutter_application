@@ -2975,7 +2975,7 @@ class AppLocalizationsIt extends AppLocalizations {
   String get securedByGoogle => 'Protetto da Google';
 
   @override
-  String get dataProtectedEncryption => 'I tuoi dati sono protetti con crittografia standard';
+  String get dataProtectedEncryption => 'I tuoi dati sono protetti con crittografia conforme agli standard del settore';
 
   @override
   String get welcomeCompleteProfile => 'Benvenuto! Completa il tuo profilo';
@@ -9463,4 +9463,49 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get coinsAdLimitReached => 'Limite giornaliero raggiunto — torna domani';
+
+  @override
+  String get exploreTitle => 'Esplora';
+
+  @override
+  String get exploreNoMoments => 'Nessun momento da esplorare';
+
+  @override
+  String get exploreFailedToLoad => 'Caricamento non riuscito';
+
+  @override
+  String get exploreNoTrending => 'Ancora nessun momento di tendenza';
+
+  @override
+  String get exploreNoVideos => 'Ancora nessun video';
+
+  @override
+  String get exploreBeFirstVideo => 'Sii il primo a condividere un video!';
+
+  @override
+  String get exploreFailedVideos => 'Impossibile caricare i video';
+
+  @override
+  String get facebookLoginSubtitle => 'Continua con il tuo account Facebook\nper un’esperienza senza interruzioni';
+
+  @override
+  String get securedByFacebook => 'Protetto da Facebook';
+
+  @override
+  String get continueWithEmail => 'Continua con l’email';
+
+  @override
+  String get continueWithFacebook => 'Continua con Facebook';
+
+  @override
+  String get suspendedTitle => 'Il tuo account è stato sospeso';
+
+  @override
+  String get suspendedContact => 'Se pensi sia un errore, scrivi a appeal@banatalk.com indicando il tuo nome utente.';
+
+  @override
+  String get suspendedNoAccess => 'Il tuo account non è più accessibile.';
+
+  @override
+  String get suspendedReason => 'Motivo:';
 }

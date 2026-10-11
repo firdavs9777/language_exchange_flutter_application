@@ -6556,5 +6556,20 @@
   "coinsClaimed": "Claimed",
   "coinsClaim": "Claim",
   "coinsWatchAd": "Watch an ad",
-  "coinsAdLimitReached": "Daily limit reached — come back tomorrow"
+  "coinsAdLimitReached": "Daily limit reached — come back tomorrow",
+  "exploreTitle": "Explore",
+  "exploreNoMoments": "No moments to explore",
+  "exploreFailedToLoad": "Failed to load",
+  "exploreNoTrending": "No trending moments yet",
+  "exploreNoVideos": "No videos yet",
+  "exploreBeFirstVideo": "Be the first to share a video!",
+  "exploreFailedVideos": "Failed to load videos",
+  "facebookLoginSubtitle": "Continue with your Facebook account\nfor a seamless experience",
+  "securedByFacebook": "Secured by Facebook",
+  "continueWithEmail": "Continue with Email",
+  "continueWithFacebook": "Continue with Facebook",
+  "suspendedTitle": "Your account has been suspended",
+  "suspendedContact": "If you believe this was made in error, contact appeal@banatalk.com with your username.",
+  "suspendedNoAccess": "Your account is no longer accessible.",
+  "suspendedReason": "Reason:"
 }

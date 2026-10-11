@@ -2975,7 +2975,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get securedByGoogle => 'Pinoprotektahan ng Google';
 
   @override
-  String get dataProtectedEncryption => 'Ang data mo ay protektado ng standard encryption';
+  String get dataProtectedEncryption => 'Protektado ang datos mo ng industry-standard na encryption';
 
   @override
   String get welcomeCompleteProfile => 'Welcome! Kumpletuhin ang profile mo';
@@ -9463,4 +9463,49 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get coinsAdLimitReached => 'Naabot na ang limitasyon ngayong araw — bumalik bukas';
+
+  @override
+  String get exploreTitle => 'Mag-explore';
+
+  @override
+  String get exploreNoMoments => 'Walang moment na mae-explore';
+
+  @override
+  String get exploreFailedToLoad => 'Hindi ma-load';
+
+  @override
+  String get exploreNoTrending => 'Wala pang trending na moment';
+
+  @override
+  String get exploreNoVideos => 'Wala pang video';
+
+  @override
+  String get exploreBeFirstVideo => 'Ikaw na ang unang magbahagi ng video!';
+
+  @override
+  String get exploreFailedVideos => 'Hindi ma-load ang mga video';
+
+  @override
+  String get facebookLoginSubtitle => 'Magpatuloy gamit ang Facebook account mo\npara sa walang abalang karanasan';
+
+  @override
+  String get securedByFacebook => 'Secured ng Facebook';
+
+  @override
+  String get continueWithEmail => 'Magpatuloy gamit ang Email';
+
+  @override
+  String get continueWithFacebook => 'Magpatuloy gamit ang Facebook';
+
+  @override
+  String get suspendedTitle => 'Na-suspend ang account mo';
+
+  @override
+  String get suspendedContact => 'Kung sa tingin mo ay pagkakamali ito, mag-email sa appeal@banatalk.com kasama ang username mo.';
+
+  @override
+  String get suspendedNoAccess => 'Hindi na maa-access ang account mo.';
+
+  @override
+  String get suspendedReason => 'Dahilan:';
 }

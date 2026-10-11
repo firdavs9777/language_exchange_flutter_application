@@ -49,7 +49,7 @@ class _ExploreMainState extends ConsumerState<ExploreMain>
                 autofocus: true,
                 style: context.bodyLarge,
                 decoration: InputDecoration(
-                  hintText: AppLocalizations.of(context)?.search ?? 'Search',
+                  hintText: AppLocalizations.of(context)?.search ?? AppLocalizations.of(context)!.search,
                   border: InputBorder.none,
                   hintStyle: context.bodyMedium.copyWith(
                     color: context.textHint,
@@ -60,7 +60,7 @@ class _ExploreMainState extends ConsumerState<ExploreMain>
                 },
               )
             : Text(
-                'Explore',
+                AppLocalizations.of(context)!.exploreTitle,
                 style: context.displaySmall,
               ),
         actions: [
@@ -116,7 +116,7 @@ class _ExploreMainState extends ConsumerState<ExploreMain>
                 Icon(Icons.explore_outlined, size: 64, color: context.textHint),
                 Spacing.gapLG,
                 Text(
-                  'No moments to explore',
+                  AppLocalizations.of(context)!.exploreNoMoments,
                   style: context.bodyLarge.copyWith(
                     color: context.textSecondary,
                   ),
@@ -151,7 +151,7 @@ class _ExploreMainState extends ConsumerState<ExploreMain>
             Icon(Icons.error_outline, size: 48, color: context.textHint),
             Spacing.gapLG,
             Text(
-              'Failed to load',
+              AppLocalizations.of(context)!.exploreFailedToLoad,
               style: context.bodyMedium.copyWith(
                 color: context.textSecondary,
               ),
@@ -159,7 +159,7 @@ class _ExploreMainState extends ConsumerState<ExploreMain>
             TextButton(
               onPressed: () => ref.invalidate(exploreMomentsProvider),
               child: Text(
-                'Retry',
+                AppLocalizations.of(context)!.retry,
                 style: context.labelLarge.copyWith(color: AppColors.primary),
               ),
             ),
@@ -183,7 +183,7 @@ class _ExploreMainState extends ConsumerState<ExploreMain>
                 Icon(Icons.local_fire_department_outlined, size: 64, color: context.textHint),
                 Spacing.gapLG,
                 Text(
-                  'No trending moments yet',
+                  AppLocalizations.of(context)!.exploreNoTrending,
                   style: context.bodyLarge.copyWith(color: context.textSecondary),
                 ),
               ],
@@ -212,7 +212,7 @@ class _ExploreMainState extends ConsumerState<ExploreMain>
             Spacing.gapLG,
             TextButton(
               onPressed: () => ref.invalidate(trendingMomentsProvider),
-              child: Text('Retry', style: context.labelLarge.copyWith(color: AppColors.primary)),
+              child: Text(AppLocalizations.of(context)!.retry, style: context.labelLarge.copyWith(color: AppColors.primary)),
             ),
           ],
         ),
@@ -412,14 +412,14 @@ class _ExploreMainState extends ConsumerState<ExploreMain>
                 Icon(Icons.videocam_off_outlined, size: 64, color: context.textHint),
                 Spacing.gapLG,
                 Text(
-                  'No videos yet',
+                  AppLocalizations.of(context)!.exploreNoVideos,
                   style: context.bodyLarge.copyWith(
                     color: context.textSecondary,
                   ),
                 ),
                 Spacing.gapSM,
                 Text(
-                  'Be the first to share a video!',
+                  AppLocalizations.of(context)!.exploreBeFirstVideo,
                   style: context.bodySmall.copyWith(
                     color: context.textMuted,
                   ),
@@ -440,7 +440,7 @@ class _ExploreMainState extends ConsumerState<ExploreMain>
       loading: () => const Center(child: CircularProgressIndicator()),
       error: (error, stack) => Center(
         child: Text(
-          'Failed to load videos',
+          AppLocalizations.of(context)!.exploreFailedVideos,
           style: context.bodyMedium,
         ),
       ),
@@ -625,7 +625,7 @@ class _VideoFeedItemState extends State<VideoFeedItem> {
                 Spacing.gapLG,
                 _buildActionButton(
                   icon: Icons.share,
-                  label: 'Share',
+                  label: AppLocalizations.of(context)!.share,
                   onTap: () {},
                 ),
               ],

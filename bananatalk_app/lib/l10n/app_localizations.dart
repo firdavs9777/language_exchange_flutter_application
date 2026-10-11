@@ -17359,6 +17359,96 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Daily limit reached — come back tomorrow'**
   String get coinsAdLimitReached;
+
+  /// No description provided for @exploreTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Explore'**
+  String get exploreTitle;
+
+  /// No description provided for @exploreNoMoments.
+  ///
+  /// In en, this message translates to:
+  /// **'No moments to explore'**
+  String get exploreNoMoments;
+
+  /// No description provided for @exploreFailedToLoad.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load'**
+  String get exploreFailedToLoad;
+
+  /// No description provided for @exploreNoTrending.
+  ///
+  /// In en, this message translates to:
+  /// **'No trending moments yet'**
+  String get exploreNoTrending;
+
+  /// No description provided for @exploreNoVideos.
+  ///
+  /// In en, this message translates to:
+  /// **'No videos yet'**
+  String get exploreNoVideos;
+
+  /// No description provided for @exploreBeFirstVideo.
+  ///
+  /// In en, this message translates to:
+  /// **'Be the first to share a video!'**
+  String get exploreBeFirstVideo;
+
+  /// No description provided for @exploreFailedVideos.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load videos'**
+  String get exploreFailedVideos;
+
+  /// No description provided for @facebookLoginSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue with your Facebook account\nfor a seamless experience'**
+  String get facebookLoginSubtitle;
+
+  /// No description provided for @securedByFacebook.
+  ///
+  /// In en, this message translates to:
+  /// **'Secured by Facebook'**
+  String get securedByFacebook;
+
+  /// No description provided for @continueWithEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue with Email'**
+  String get continueWithEmail;
+
+  /// No description provided for @continueWithFacebook.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue with Facebook'**
+  String get continueWithFacebook;
+
+  /// No description provided for @suspendedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your account has been suspended'**
+  String get suspendedTitle;
+
+  /// No description provided for @suspendedContact.
+  ///
+  /// In en, this message translates to:
+  /// **'If you believe this was made in error, contact appeal@banatalk.com with your username.'**
+  String get suspendedContact;
+
+  /// No description provided for @suspendedNoAccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Your account is no longer accessible.'**
+  String get suspendedNoAccess;
+
+  /// No description provided for @suspendedReason.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason:'**
+  String get suspendedReason;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

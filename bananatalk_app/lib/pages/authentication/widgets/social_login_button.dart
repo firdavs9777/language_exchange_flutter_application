@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 enum SocialProvider { apple, google, email, facebook }
 
@@ -309,8 +310,8 @@ class _GoogleButton extends StatelessWidget {
               children: [
                 _GoogleGIcon(),
                 const SizedBox(width: 12),
-                const Text(
-                  'Continue with Google',
+                Text(
+                  AppLocalizations.of(context)!.continueWithGoogle,
                   style: TextStyle(
                     color: Color(0xFF1F1F1F),
                     fontWeight: FontWeight.w600,
@@ -446,13 +447,13 @@ class _AppleButton extends StatelessWidget {
                 ),
               ),
             )
-          : const Row(
+          : Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.apple, color: Colors.white, size: 26),
-                SizedBox(width: 10),
+                const Icon(Icons.apple, color: Colors.white, size: 26),
+                const SizedBox(width: 10),
                 Text(
-                  'Continue with Apple',
+                  AppLocalizations.of(context)!.continueWithApple,
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w600,
@@ -507,13 +508,13 @@ class _EmailButton extends StatelessWidget {
                 ),
               ),
             )
-          : const Row(
+          : Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.email_rounded, color: Colors.white, size: 22),
-                SizedBox(width: 10),
+                const Icon(Icons.email_rounded, color: Colors.white, size: 22),
+                const SizedBox(width: 10),
                 Text(
-                  'Continue with Email',
+                  AppLocalizations.of(context)!.continueWithEmail,
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w600,
@@ -563,13 +564,13 @@ class _FacebookButton extends StatelessWidget {
                 ),
               ),
             )
-          : const Row(
+          : Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.facebook_rounded, color: Colors.white, size: 24),
-                SizedBox(width: 10),
+                const Icon(Icons.facebook_rounded, color: Colors.white, size: 24),
+                const SizedBox(width: 10),
                 Text(
-                  'Continue with Facebook',
+                  AppLocalizations.of(context)!.continueWithFacebook,
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w600,

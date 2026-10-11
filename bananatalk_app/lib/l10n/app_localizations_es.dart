@@ -2969,13 +2969,13 @@ class AppLocalizationsEs extends AppLocalizations {
   String get signingYouIn => 'Iniciando sesión...';
 
   @override
-  String get backToSignInMethods => 'Volver a métodos de inicio de sesión';
+  String get backToSignInMethods => 'Volver a los métodos de inicio de sesión';
 
   @override
   String get securedByGoogle => 'Protegido por Google';
 
   @override
-  String get dataProtectedEncryption => 'Tus datos están protegidos con encriptación estándar';
+  String get dataProtectedEncryption => 'Tus datos están protegidos con cifrado estándar del sector';
 
   @override
   String get welcomeCompleteProfile => '¡Bienvenido! Por favor completa tu perfil';
@@ -9463,4 +9463,49 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get coinsAdLimitReached => 'Límite diario alcanzado: vuelve mañana';
+
+  @override
+  String get exploreTitle => 'Explorar';
+
+  @override
+  String get exploreNoMoments => 'No hay momentos que explorar';
+
+  @override
+  String get exploreFailedToLoad => 'No se pudo cargar';
+
+  @override
+  String get exploreNoTrending => 'Aún no hay momentos en tendencia';
+
+  @override
+  String get exploreNoVideos => 'Aún no hay vídeos';
+
+  @override
+  String get exploreBeFirstVideo => '¡Sé el primero en compartir un vídeo!';
+
+  @override
+  String get exploreFailedVideos => 'No se pudieron cargar los vídeos';
+
+  @override
+  String get facebookLoginSubtitle => 'Continúa con tu cuenta de Facebook\npara una experiencia fluida';
+
+  @override
+  String get securedByFacebook => 'Protegido por Facebook';
+
+  @override
+  String get continueWithEmail => 'Continuar con correo';
+
+  @override
+  String get continueWithFacebook => 'Continuar con Facebook';
+
+  @override
+  String get suspendedTitle => 'Tu cuenta ha sido suspendida';
+
+  @override
+  String get suspendedContact => 'Si crees que ha sido un error, escribe a appeal@banatalk.com indicando tu nombre de usuario.';
+
+  @override
+  String get suspendedNoAccess => 'Tu cuenta ya no está accesible.';
+
+  @override
+  String get suspendedReason => 'Motivo:';
 }

@@ -842,9 +842,9 @@
   "otherGender": "अन्य",
   "continueWithGoogleAccount": "अपने Google खाते से जारी रखें\nसुगम अनुभव के लिए",
   "signingYouIn": "साइन इन हो रहा है...",
-  "backToSignInMethods": "साइन इन विधियों पर वापस",
+  "backToSignInMethods": "साइन-इन विकल्पों पर वापस",
   "securedByGoogle": "Google द्वारा सुरक्षित",
-  "dataProtectedEncryption": "आपका डेटा मानक एन्क्रिप्शन से सुरक्षित है",
+  "dataProtectedEncryption": "आपका डेटा इंडस्ट्री-स्टैंडर्ड एन्क्रिप्शन से सुरक्षित है",
   "welcomeCompleteProfile": "स्वागत है! कृपया अपना प्रोफ़ाइल पूरा करें",
   "welcomeBackName": "वापसी पर स्वागत, {name}!",
   "continueWithAppleId": "अपने Apple ID से जारी रखें\nसुरक्षित अनुभव के लिए",
@@ -3847,5 +3847,20 @@
         "type": "String"
       }
     }
-  }
+  },
+  "exploreTitle": "एक्सप्लोर",
+  "exploreNoMoments": "एक्सप्लोर करने के लिए कोई मोमेंट नहीं",
+  "exploreFailedToLoad": "लोड नहीं हो सका",
+  "exploreNoTrending": "अभी कोई ट्रेंडिंग मोमेंट नहीं",
+  "exploreNoVideos": "अभी कोई वीडियो नहीं",
+  "exploreBeFirstVideo": "वीडियो साझा करने वाले पहले बनें!",
+  "exploreFailedVideos": "वीडियो लोड नहीं हो सके",
+  "facebookLoginSubtitle": "सहज अनुभव के लिए\nअपने Facebook खाते से जारी रखें",
+  "securedByFacebook": "Facebook द्वारा सुरक्षित",
+  "continueWithEmail": "ईमेल से जारी रखें",
+  "continueWithFacebook": "Facebook से जारी रखें",
+  "suspendedTitle": "आपका खाता निलंबित कर दिया गया है",
+  "suspendedContact": "अगर आपको लगता है कि यह गलती से हुआ है, तो अपने उपयोगकर्ता नाम के साथ appeal@banatalk.com पर संपर्क करें।",
+  "suspendedNoAccess": "आपका खाता अब उपलब्ध नहीं है।",
+  "suspendedReason": "कारण:"
 }

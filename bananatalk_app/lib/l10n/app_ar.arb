@@ -856,9 +856,9 @@
   "otherGender": "أخرى",
   "continueWithGoogleAccount": "تابع بحساب Google\nللحصول على تجربة سلسة",
   "signingYouIn": "جاري تسجيل الدخول...",
-  "backToSignInMethods": "العودة لطرق تسجيل الدخول",
+  "backToSignInMethods": "العودة إلى طرق تسجيل الدخول",
   "securedByGoogle": "محمي بواسطة Google",
-  "dataProtectedEncryption": "بياناتك محمية بتشفير معياري",
+  "dataProtectedEncryption": "بياناتك محمية بتشفير وفق معايير الصناعة",
   "welcomeCompleteProfile": "مرحباً! يرجى إكمال ملفك الشخصي",
   "welcomeBackName": "مرحباً بعودتك، {name}!",
   "continueWithAppleId": "تابع بحساب Apple ID\nللحصول على تجربة آمنة",
@@ -3861,5 +3861,20 @@
         "type": "String"
       }
     }
-  }
+  },
+  "exploreTitle": "استكشاف",
+  "exploreNoMoments": "لا توجد لحظات للاستكشاف",
+  "exploreFailedToLoad": "تعذّر التحميل",
+  "exploreNoTrending": "لا توجد لحظات رائجة بعد",
+  "exploreNoVideos": "لا توجد مقاطع فيديو بعد",
+  "exploreBeFirstVideo": "كن أول من يشارك مقطعًا!",
+  "exploreFailedVideos": "تعذّر تحميل مقاطع الفيديو",
+  "facebookLoginSubtitle": "تابع بحساب Facebook الخاص بك\nلتجربة سلسة",
+  "securedByFacebook": "محمي بواسطة Facebook",
+  "continueWithEmail": "المتابعة بالبريد الإلكتروني",
+  "continueWithFacebook": "المتابعة عبر Facebook",
+  "suspendedTitle": "تم تعليق حسابك",
+  "suspendedContact": "إذا كنت تعتقد أن هذا حدث بالخطأ، راسل appeal@banatalk.com مع اسم المستخدم الخاص بك.",
+  "suspendedNoAccess": "لم يعد حسابك متاحًا.",
+  "suspendedReason": "السبب:"
 }

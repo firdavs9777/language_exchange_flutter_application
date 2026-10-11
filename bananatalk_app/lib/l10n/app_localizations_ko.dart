@@ -2975,7 +2975,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get securedByGoogle => 'Google 보안';
 
   @override
-  String get dataProtectedEncryption => '업계 표준 암호화로 데이터가 보호됩니다';
+  String get dataProtectedEncryption => '데이터는 업계 표준 암호화로 보호됩니다';
 
   @override
   String get welcomeCompleteProfile => '환영합니다! 프로필을 완성해 주세요';
@@ -9453,4 +9453,49 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get coinsAdLimitReached => '오늘 한도에 도달했어요 — 내일 다시 오세요';
+
+  @override
+  String get exploreTitle => '탐색';
+
+  @override
+  String get exploreNoMoments => '둘러볼 모먼트가 없어요';
+
+  @override
+  String get exploreFailedToLoad => '불러오지 못했어요';
+
+  @override
+  String get exploreNoTrending => '아직 인기 모먼트가 없어요';
+
+  @override
+  String get exploreNoVideos => '아직 동영상이 없어요';
+
+  @override
+  String get exploreBeFirstVideo => '첫 동영상을 올려 보세요!';
+
+  @override
+  String get exploreFailedVideos => '동영상을 불러오지 못했어요';
+
+  @override
+  String get facebookLoginSubtitle => 'Facebook 계정으로 계속해서\n편리하게 이용하세요';
+
+  @override
+  String get securedByFacebook => 'Facebook이 보호합니다';
+
+  @override
+  String get continueWithEmail => '이메일로 계속하기';
+
+  @override
+  String get continueWithFacebook => 'Facebook으로 계속하기';
+
+  @override
+  String get suspendedTitle => '계정이 정지되었어요';
+
+  @override
+  String get suspendedContact => '착오라고 생각되면 사용자 이름과 함께 appeal@banatalk.com 으로 연락해 주세요.';
+
+  @override
+  String get suspendedNoAccess => '이 계정은 더 이상 이용할 수 없어요.';
+
+  @override
+  String get suspendedReason => '사유:';
 }

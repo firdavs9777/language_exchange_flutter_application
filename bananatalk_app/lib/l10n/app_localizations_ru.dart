@@ -2975,7 +2975,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get securedByGoogle => 'Защищено Google';
 
   @override
-  String get dataProtectedEncryption => 'Ваши данные защищены стандартным шифрованием';
+  String get dataProtectedEncryption => 'Ваши данные защищены шифрованием отраслевого стандарта';
 
   @override
   String get welcomeCompleteProfile => 'Добро пожаловать! Заполните профиль';
@@ -9484,4 +9484,49 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get coinsAdLimitReached => 'Дневной лимит исчерпан — возвращайтесь завтра';
+
+  @override
+  String get exploreTitle => 'Обзор';
+
+  @override
+  String get exploreNoMoments => 'Нет моментов для просмотра';
+
+  @override
+  String get exploreFailedToLoad => 'Не удалось загрузить';
+
+  @override
+  String get exploreNoTrending => 'Популярных моментов пока нет';
+
+  @override
+  String get exploreNoVideos => 'Видео пока нет';
+
+  @override
+  String get exploreBeFirstVideo => 'Поделитесь видео первым!';
+
+  @override
+  String get exploreFailedVideos => 'Не удалось загрузить видео';
+
+  @override
+  String get facebookLoginSubtitle => 'Продолжите с аккаунтом Facebook,\nчтобы всё работало без лишних шагов';
+
+  @override
+  String get securedByFacebook => 'Защищено Facebook';
+
+  @override
+  String get continueWithEmail => 'Продолжить с эл. почтой';
+
+  @override
+  String get continueWithFacebook => 'Продолжить с Facebook';
+
+  @override
+  String get suspendedTitle => 'Ваш аккаунт заблокирован';
+
+  @override
+  String get suspendedContact => 'Если считаете это ошибкой, напишите на appeal@banatalk.com и укажите своё имя пользователя.';
+
+  @override
+  String get suspendedNoAccess => 'Доступ к аккаунту закрыт.';
+
+  @override
+  String get suspendedReason => 'Причина:';
 }

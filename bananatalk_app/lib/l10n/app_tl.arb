@@ -839,7 +839,7 @@
   "signingYouIn": "Nag-si-sign in...",
   "backToSignInMethods": "Bumalik sa mga paraan ng pag-sign in",
   "securedByGoogle": "Pinoprotektahan ng Google",
-  "dataProtectedEncryption": "Ang data mo ay protektado ng standard encryption",
+  "dataProtectedEncryption": "Protektado ang datos mo ng industry-standard na encryption",
   "welcomeCompleteProfile": "Welcome! Kumpletuhin ang profile mo",
   "welcomeBackName": "Welcome back, {name}!",
   "continueWithAppleId": "Magpatuloy gamit ang Apple ID\npara sa ligtas na karanasan",
@@ -3804,5 +3804,20 @@
         "type": "String"
       }
     }
-  }
+  },
+  "exploreTitle": "Mag-explore",
+  "exploreNoMoments": "Walang moment na mae-explore",
+  "exploreFailedToLoad": "Hindi ma-load",
+  "exploreNoTrending": "Wala pang trending na moment",
+  "exploreNoVideos": "Wala pang video",
+  "exploreBeFirstVideo": "Ikaw na ang unang magbahagi ng video!",
+  "exploreFailedVideos": "Hindi ma-load ang mga video",
+  "facebookLoginSubtitle": "Magpatuloy gamit ang Facebook account mo\npara sa walang abalang karanasan",
+  "securedByFacebook": "Secured ng Facebook",
+  "continueWithEmail": "Magpatuloy gamit ang Email",
+  "continueWithFacebook": "Magpatuloy gamit ang Facebook",
+  "suspendedTitle": "Na-suspend ang account mo",
+  "suspendedContact": "Kung sa tingin mo ay pagkakamali ito, mag-email sa appeal@banatalk.com kasama ang username mo.",
+  "suspendedNoAccess": "Hindi na maa-access ang account mo.",
+  "suspendedReason": "Dahilan:"
 }

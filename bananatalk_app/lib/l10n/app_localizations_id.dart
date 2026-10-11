@@ -2975,7 +2975,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get securedByGoogle => 'Diamankan oleh Google';
 
   @override
-  String get dataProtectedEncryption => 'Data kamu dilindungi dengan enkripsi standar';
+  String get dataProtectedEncryption => 'Datamu dilindungi enkripsi standar industri';
 
   @override
   String get welcomeCompleteProfile => 'Selamat datang! Lengkapi profilmu';
@@ -9460,4 +9460,49 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get coinsAdLimitReached => 'Batas harian tercapai — kembali besok';
+
+  @override
+  String get exploreTitle => 'Jelajahi';
+
+  @override
+  String get exploreNoMoments => 'Tidak ada momen untuk dijelajahi';
+
+  @override
+  String get exploreFailedToLoad => 'Gagal memuat';
+
+  @override
+  String get exploreNoTrending => 'Belum ada momen yang sedang tren';
+
+  @override
+  String get exploreNoVideos => 'Belum ada video';
+
+  @override
+  String get exploreBeFirstVideo => 'Jadilah yang pertama membagikan video!';
+
+  @override
+  String get exploreFailedVideos => 'Gagal memuat video';
+
+  @override
+  String get facebookLoginSubtitle => 'Lanjutkan dengan akun Facebook-mu\nuntuk pengalaman yang mulus';
+
+  @override
+  String get securedByFacebook => 'Diamankan oleh Facebook';
+
+  @override
+  String get continueWithEmail => 'Lanjutkan dengan Email';
+
+  @override
+  String get continueWithFacebook => 'Lanjutkan dengan Facebook';
+
+  @override
+  String get suspendedTitle => 'Akunmu telah ditangguhkan';
+
+  @override
+  String get suspendedContact => 'Kalau menurutmu ini keliru, hubungi appeal@banatalk.com beserta username-mu.';
+
+  @override
+  String get suspendedNoAccess => 'Akunmu tidak bisa diakses lagi.';
+
+  @override
+  String get suspendedReason => 'Alasan:';
 }

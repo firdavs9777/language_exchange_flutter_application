@@ -2969,13 +2969,13 @@ class AppLocalizationsHi extends AppLocalizations {
   String get signingYouIn => 'साइन इन हो रहा है...';
 
   @override
-  String get backToSignInMethods => 'साइन इन विधियों पर वापस';
+  String get backToSignInMethods => 'साइन-इन विकल्पों पर वापस';
 
   @override
   String get securedByGoogle => 'Google द्वारा सुरक्षित';
 
   @override
-  String get dataProtectedEncryption => 'आपका डेटा मानक एन्क्रिप्शन से सुरक्षित है';
+  String get dataProtectedEncryption => 'आपका डेटा इंडस्ट्री-स्टैंडर्ड एन्क्रिप्शन से सुरक्षित है';
 
   @override
   String get welcomeCompleteProfile => 'स्वागत है! कृपया अपना प्रोफ़ाइल पूरा करें';
@@ -9463,4 +9463,49 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get coinsAdLimitReached => 'दैनिक सीमा पूरी — कल आएँ';
+
+  @override
+  String get exploreTitle => 'एक्सप्लोर';
+
+  @override
+  String get exploreNoMoments => 'एक्सप्लोर करने के लिए कोई मोमेंट नहीं';
+
+  @override
+  String get exploreFailedToLoad => 'लोड नहीं हो सका';
+
+  @override
+  String get exploreNoTrending => 'अभी कोई ट्रेंडिंग मोमेंट नहीं';
+
+  @override
+  String get exploreNoVideos => 'अभी कोई वीडियो नहीं';
+
+  @override
+  String get exploreBeFirstVideo => 'वीडियो साझा करने वाले पहले बनें!';
+
+  @override
+  String get exploreFailedVideos => 'वीडियो लोड नहीं हो सके';
+
+  @override
+  String get facebookLoginSubtitle => 'सहज अनुभव के लिए\nअपने Facebook खाते से जारी रखें';
+
+  @override
+  String get securedByFacebook => 'Facebook द्वारा सुरक्षित';
+
+  @override
+  String get continueWithEmail => 'ईमेल से जारी रखें';
+
+  @override
+  String get continueWithFacebook => 'Facebook से जारी रखें';
+
+  @override
+  String get suspendedTitle => 'आपका खाता निलंबित कर दिया गया है';
+
+  @override
+  String get suspendedContact => 'अगर आपको लगता है कि यह गलती से हुआ है, तो अपने उपयोगकर्ता नाम के साथ appeal@banatalk.com पर संपर्क करें।';
+
+  @override
+  String get suspendedNoAccess => 'आपका खाता अब उपलब्ध नहीं है।';
+
+  @override
+  String get suspendedReason => 'कारण:';
 }

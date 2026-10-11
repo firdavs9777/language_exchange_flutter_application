@@ -679,7 +679,7 @@
   "signingYouIn": "Sedang masuk...",
   "backToSignInMethods": "Kembali ke metode masuk",
   "securedByGoogle": "Diamankan oleh Google",
-  "dataProtectedEncryption": "Data kamu dilindungi dengan enkripsi standar",
+  "dataProtectedEncryption": "Datamu dilindungi enkripsi standar industri",
   "welcomeCompleteProfile": "Selamat datang! Lengkapi profilmu",
   "welcomeBackName": "Selamat datang kembali, {name}!",
   "continueWithAppleId": "Lanjutkan dengan Apple ID\nuntuk pengalaman aman",
@@ -3831,5 +3831,20 @@
         "type": "String"
       }
     }
-  }
+  },
+  "exploreTitle": "Jelajahi",
+  "exploreNoMoments": "Tidak ada momen untuk dijelajahi",
+  "exploreFailedToLoad": "Gagal memuat",
+  "exploreNoTrending": "Belum ada momen yang sedang tren",
+  "exploreNoVideos": "Belum ada video",
+  "exploreBeFirstVideo": "Jadilah yang pertama membagikan video!",
+  "exploreFailedVideos": "Gagal memuat video",
+  "facebookLoginSubtitle": "Lanjutkan dengan akun Facebook-mu\nuntuk pengalaman yang mulus",
+  "securedByFacebook": "Diamankan oleh Facebook",
+  "continueWithEmail": "Lanjutkan dengan Email",
+  "continueWithFacebook": "Lanjutkan dengan Facebook",
+  "suspendedTitle": "Akunmu telah ditangguhkan",
+  "suspendedContact": "Kalau menurutmu ini keliru, hubungi appeal@banatalk.com beserta username-mu.",
+  "suspendedNoAccess": "Akunmu tidak bisa diakses lagi.",
+  "suspendedReason": "Alasan:"
 }

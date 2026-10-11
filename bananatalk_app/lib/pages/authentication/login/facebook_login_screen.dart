@@ -3,6 +3,7 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/widgets/banana_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 // import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 class FacebookLogin extends ConsumerStatefulWidget {
@@ -223,7 +224,7 @@ class _FacebookLoginState extends ConsumerState<FacebookLogin> {
 
                     // Title
                     BananaText(
-                      'Sign in with Facebook',
+                      AppLocalizations.of(context)!.signInWithFacebook,
                       BanaStyles: BananaTextStyles.titleLarge,
                     ),
 
@@ -231,7 +232,7 @@ class _FacebookLoginState extends ConsumerState<FacebookLogin> {
 
                     // Description
                     BananaText(
-                      'Continue with your Facebook account\nfor a seamless experience',
+                      AppLocalizations.of(context)!.facebookLoginSubtitle,
                       textAlign: TextAlign.center,
                       BanaStyles: BananaTextStyles.body,
                     ),
@@ -267,7 +268,7 @@ class _FacebookLoginState extends ConsumerState<FacebookLogin> {
                             ),
                             const SizedBox(height: 16),
                             BananaText(
-                              'Signing you in...',
+                              AppLocalizations.of(context)!.signingYouIn,
                               BanaStyles: BananaTextStyles.body,
                             ),
                           ],
@@ -342,8 +343,8 @@ class _FacebookLoginState extends ConsumerState<FacebookLogin> {
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                 ),
-                                child: const Text(
-                                  'Try Again',
+                                child: Text(
+                                  AppLocalizations.of(context)!.tryAgain,
                                   style: TextStyle(fontWeight: FontWeight.w600),
                                 ),
                               ),
@@ -359,8 +360,8 @@ class _FacebookLoginState extends ConsumerState<FacebookLogin> {
                     TextButton.icon(
                       onPressed: () => Navigator.of(context).pop(),
                       icon: const Icon(Icons.arrow_back, size: 18),
-                      label: const Text(
-                        'Back to sign-in methods',
+                      label: Text(
+                        AppLocalizations.of(context)!.backToSignInMethods,
                         style: TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w500,
@@ -392,7 +393,7 @@ class _FacebookLoginState extends ConsumerState<FacebookLogin> {
                               ),
                               const SizedBox(width: 6),
                               Text(
-                                'Secured by Facebook',
+                                AppLocalizations.of(context)!.securedByFacebook,
                                 style: TextStyle(
                                   fontSize: 12,
                                   color: context.textSecondary,
@@ -403,7 +404,7 @@ class _FacebookLoginState extends ConsumerState<FacebookLogin> {
                           ),
                           const SizedBox(height: 8),
                           Text(
-                            'Your data is protected with industry-standard encryption',
+                            AppLocalizations.of(context)!.dataProtectedEncryption,
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontSize: 11,
