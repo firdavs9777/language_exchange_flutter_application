@@ -10695,4 +10695,97 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get storyAnonymous => 'Ẩn danh';
+
+  @override
+  String get vipNoCoinActivityYet => 'Chưa có hoạt động xu nào';
+
+  @override
+  String get vipCoinShopExplainer => 'Xu được dùng để mở khóa thêm lượt dùng bản dịch, trò chuyện với gia sư AI và khoảnh khắc khi bạn đạt giới hạn miễn phí hằng ngày. Các giao dịch mua không được hoàn lại sau khi xu đã được sử dụng.';
+
+  @override
+  String get vipLimitReached => 'Đã đạt giới hạn';
+
+  @override
+  String get vipCoins => 'xu';
+
+  @override
+  String vipBonusIncluded(Object bonusCoins) {
+    return 'Đã gồm +$bonusCoins xu thưởng';
+  }
+
+  @override
+  String get vipVisitorModeLimitReached => 'Đã đạt giới hạn của Chế độ khách';
+
+  @override
+  String get vipWhatGetFreeAccount => 'Bạn nhận được gì với tài khoản miễn phí';
+
+  @override
+  String get vipCreateFreeAccount => 'Tạo tài khoản miễn phí';
+
+  @override
+  String get vipGoUnlimitedAccess => 'Lên VIP để truy cập không giới hạn';
+
+  @override
+  String get vipContinueAsVisitor => 'Tiếp tục với tư cách khách';
+
+  @override
+  String vipResets(Object resetTime) {
+    return 'Đặt lại lúc: $resetTime';
+  }
+
+  @override
+  String vipUsedToday(Object currentUsage, Object maxAllowed) {
+    return 'Hôm nay đã dùng $currentUsage / $maxAllowed';
+  }
+
+  @override
+  String get vipTierVisitor => 'Khách';
+
+  @override
+  String get vipTierMember => 'Thành viên';
+
+  @override
+  String get vipAd => 'Quảng cáo';
+
+  @override
+  String get promoAdsNoticeTitle => 'Lời nhắn từ nhà phát triển';
+
+  @override
+  String get promoAdsNoticeBody => 'Xin chào! Mình là Firdavs, nhà phát triển duy nhất đứng sau Bananatalk. Mình đã thêm một vài quảng cáo nhỏ vào ứng dụng để giúp ứng dụng luôn miễn phí và có kinh phí phát triển lâu dài.\n\nMình biết quảng cáo có thể gây phiền — nên mình đã làm cho chúng tùy chọn và có thưởng. Xem một quảng cáo để mở khóa thêm tin nhắn, bộ lọc cộng đồng, XP thưởng sau bài kiểm tra và nhiều hơn nữa.\n\nCảm ơn bạn đã dùng Bananatalk. Sự ủng hộ của bạn có ý nghĩa rất lớn với mình. 🙏';
+
+  @override
+  String get promoAdsNoticeGotIt => 'Đã hiểu, cảm ơn! 👍';
+
+  @override
+  String get vipOnly => 'Chỉ dành cho VIP';
+
+  @override
+  String get vipTapUpgrade => 'Chạm để nâng cấp';
+
+  @override
+  String get vipUnlockFeatures => 'Mở khóa tính năng VIP';
+
+  @override
+  String get vipUpPillUp => 'Lên';
+
+  @override
+  String get vipChooseOption => 'Chọn một tùy chọn:';
+
+  @override
+  String get promoWelcomeBackTitle => 'Chào mừng bạn trở lại! 👋';
+
+  @override
+  String get promoWelcomeBackBody => 'Chúng mình nhớ bạn. Đây là những gì đang chờ bạn:';
+
+  @override
+  String get promoWelcomeBackCta => 'Bắt đầu thôi! 🚀';
+
+  @override
+  String get vipCoinsPerAdInfo => '+5 xu mỗi quảng cáo, tối đa 5 lần mỗi ngày';
+
+  @override
+  String get vipUpgradeUnlockMore => 'Nâng cấp để mở khóa thêm tính năng và truy cập không giới hạn';
+
+  @override
+  String get vipUpgradeNow => 'Nâng cấp ngay';
 }

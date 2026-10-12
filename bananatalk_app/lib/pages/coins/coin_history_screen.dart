@@ -135,7 +135,7 @@ class _CoinHistoryScreenState extends ConsumerState<CoinHistoryScreen> {
           const SizedBox(height: 12),
           Center(
             child: Text(
-              'No coin activity yet',
+              AppLocalizations.of(context)!.vipNoCoinActivityYet,
               style: context.bodyMedium.copyWith(color: context.textSecondary),
             ),
           ),

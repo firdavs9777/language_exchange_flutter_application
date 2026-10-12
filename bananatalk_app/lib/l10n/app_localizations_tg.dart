@@ -10715,4 +10715,97 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get storyAnonymous => 'Ношинос';
+
+  @override
+  String get vipNoCoinActivityYet => 'Ҳанӯз фаъолияти тангаҳо нест';
+
+  @override
+  String get vipCoinShopExplainer => 'Тангаҳо барои кушодани истифодаҳои иловагии тарҷумаҳо, чатҳо бо омӯзгори AI ва лаҳзаҳо пас аз расидан ба ҳадди рӯзонаи ройгон истифода мешаванд. Харидҳо пас аз сарф шудани тангаҳо баргардонида намешаванд.';
+
+  @override
+  String get vipLimitReached => 'Ҳад ба охир расид';
+
+  @override
+  String get vipCoins => 'танга';
+
+  @override
+  String vipBonusIncluded(Object bonusCoins) {
+    return '+$bonusCoins бонус дохил аст';
+  }
+
+  @override
+  String get vipVisitorModeLimitReached => 'Ҳадди реҷаи меҳмон ба охир расид';
+
+  @override
+  String get vipWhatGetFreeAccount => 'Бо ҳисоби ройгон чӣ ба даст меоред';
+
+  @override
+  String get vipCreateFreeAccount => 'Эҷоди ҳисоби ройгон';
+
+  @override
+  String get vipGoUnlimitedAccess => 'Барои дастрасии номаҳдуд VIP шавед';
+
+  @override
+  String get vipContinueAsVisitor => 'Идома ҳамчун меҳмон';
+
+  @override
+  String vipResets(Object resetTime) {
+    return 'Дубора танзим мешавад: $resetTime';
+  }
+
+  @override
+  String vipUsedToday(Object currentUsage, Object maxAllowed) {
+    return 'Имрӯз $currentUsage / $maxAllowed истифода шуд';
+  }
+
+  @override
+  String get vipTierVisitor => 'Меҳмон';
+
+  @override
+  String get vipTierMember => 'Узв';
+
+  @override
+  String get vipAd => 'Реклама';
+
+  @override
+  String get promoAdsNoticeTitle => 'Паёме аз барномасози';
+
+  @override
+  String get promoAdsNoticeBody => 'Салом! Ман Firdavs, барномасози ягонаи Bananatalk ҳастам. Ман чанд рекламаи хурд ба барнома илова кардам, то онро ройгон нигоҳ дорам ва таҳияи минбаъдаро маблағгузорӣ кунам.\n\nМедонам, ки реклама метавонад озор диҳад — барои ҳамин онро ихтиёрӣ ва судманд сохтам. Рекламаро бинед, то паёмҳои иловагӣ, филтрҳои ҷомеа, XP-и бонусӣ пас аз викторинаҳо ва ғайраро кушоед.\n\nБарои истифодаи Bananatalk ташаккур. Дастгирии шумо барои ман ҳама чиз аст. 🙏';
+
+  @override
+  String get promoAdsNoticeGotIt => 'Фаҳмидам, ташаккур! 👍';
+
+  @override
+  String get vipOnly => 'Танҳо барои VIP';
+
+  @override
+  String get vipTapUpgrade => 'Барои баланд бардоштан зер кунед';
+
+  @override
+  String get vipUnlockFeatures => 'Имкониятҳои VIP-ро кушоед';
+
+  @override
+  String get vipUpPillUp => 'Боло';
+
+  @override
+  String get vipChooseOption => 'Як вариантро интихоб кунед:';
+
+  @override
+  String get promoWelcomeBackTitle => 'Хуш омадед! 👋';
+
+  @override
+  String get promoWelcomeBackBody => 'Мо дилтанг шудем. Инҳо интизори шумоянд:';
+
+  @override
+  String get promoWelcomeBackCta => 'Биравем! 🚀';
+
+  @override
+  String get vipCoinsPerAdInfo => '+5 танга барои ҳар реклама, то 5 дар як рӯз';
+
+  @override
+  String get vipUpgradeUnlockMore => 'Барои кушодани имкониятҳои бештар ва дастрасии номаҳдуд такмил диҳед';
+
+  @override
+  String get vipUpgradeNow => 'Ҳозир такмил диҳед';
 }

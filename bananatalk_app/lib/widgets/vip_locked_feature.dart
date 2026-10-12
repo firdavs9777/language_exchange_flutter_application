@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
 
 /// A widget that overlays a lock on non-VIP features
@@ -35,13 +36,16 @@ class VipLockedFeature extends StatelessWidget {
       isScrollControlled: true,
       builder: (context) => VipUpgradeSheet(
         featureName: featureName,
-        description: description ?? 'Upgrade to VIP to unlock $featureName',
+        description: description ??
+            AppLocalizations.of(context)!
+                .aiToolsVipUpgradeDescription(featureName),
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     if (isVip) return child;
 
     return GestureDetector(
@@ -92,9 +96,9 @@ class VipLockedFeature extends StatelessWidget {
                         ),
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      child: const Text(
-                        'VIP Only',
-                        style: TextStyle(
+                      child: Text(
+                        l10n.vipOnly,
+                        style: const TextStyle(
                           color: Colors.white,
                           fontSize: 12,
                           fontWeight: FontWeight.bold,
@@ -103,7 +107,7 @@ class VipLockedFeature extends StatelessWidget {
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      'Tap to upgrade',
+                      l10n.vipTapUpgrade,
                       style: TextStyle(
                         color: Colors.white.withOpacity(0.8),
                         fontSize: 11,
@@ -170,6 +174,7 @@ class VipUpgradeSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Container(
       decoration: const BoxDecoration(
         color: Colors.white,
@@ -226,9 +231,9 @@ class VipUpgradeSheet extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        'Unlock VIP Features',
-                        style: TextStyle(
+                      Text(
+                        l10n.vipUnlockFeatures,
+                        style: const TextStyle(
                           color: Colors.white,
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -299,9 +304,9 @@ class VipUpgradeSheet extends StatelessWidget {
                   ),
                   elevation: 4,
                 ),
-                child: const Text(
-                  'Upgrade to VIP',
-                  style: TextStyle(
+                child: Text(
+                  l10n.upgradeToVip,
+                  style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
@@ -314,7 +319,7 @@ class VipUpgradeSheet extends StatelessWidget {
           TextButton(
             onPressed: () => Navigator.pop(context),
             child: Text(
-              'Maybe Later',
+              l10n.maybeLater,
               style: TextStyle(
                 color: Colors.grey[600],
                 fontSize: 14,

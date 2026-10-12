@@ -10720,4 +10720,97 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get storyAnonymous => 'Anonymous';
+
+  @override
+  String get vipNoCoinActivityYet => 'No coin activity yet';
+
+  @override
+  String get vipCoinShopExplainer => 'Coins are used to unlock extra uses of translations, AI tutor chats, and moments once you hit your free daily limit. Purchases are non-refundable once coins are spent.';
+
+  @override
+  String get vipLimitReached => 'Limit reached';
+
+  @override
+  String get vipCoins => 'coins';
+
+  @override
+  String vipBonusIncluded(Object bonusCoins) {
+    return '+$bonusCoins bonus included';
+  }
+
+  @override
+  String get vipVisitorModeLimitReached => 'Visitor Mode Limit Reached';
+
+  @override
+  String get vipWhatGetFreeAccount => 'What You Get with a Free Account';
+
+  @override
+  String get vipCreateFreeAccount => 'Create Free Account';
+
+  @override
+  String get vipGoUnlimitedAccess => 'Go VIP for Unlimited Access';
+
+  @override
+  String get vipContinueAsVisitor => 'Continue as Visitor';
+
+  @override
+  String vipResets(Object resetTime) {
+    return 'Resets at: $resetTime';
+  }
+
+  @override
+  String vipUsedToday(Object currentUsage, Object maxAllowed) {
+    return '$currentUsage / $maxAllowed used today';
+  }
+
+  @override
+  String get vipTierVisitor => 'Visitor';
+
+  @override
+  String get vipTierMember => 'Member';
+
+  @override
+  String get vipAd => 'Ad';
+
+  @override
+  String get promoAdsNoticeTitle => 'A note from the developer';
+
+  @override
+  String get promoAdsNoticeBody => 'Hey! I\'m Firdavs, the solo developer behind Bananatalk. I\'ve added a few small ads to the app to help keep it free and fund ongoing development.\n\nI know ads can be annoying — so I\'ve made them optional and rewarding. Watch an ad to unlock extra messages, community filters, bonus XP after quizzes, and more.\n\nThank you for using Bananatalk. Your support means everything. 🙏';
+
+  @override
+  String get promoAdsNoticeGotIt => 'Got it, thanks! 👍';
+
+  @override
+  String get vipOnly => 'VIP Only';
+
+  @override
+  String get vipTapUpgrade => 'Tap to upgrade';
+
+  @override
+  String get vipUnlockFeatures => 'Unlock VIP Features';
+
+  @override
+  String get vipUpPillUp => 'Up';
+
+  @override
+  String get vipChooseOption => 'Choose an option:';
+
+  @override
+  String get promoWelcomeBackTitle => 'Welcome back! 👋';
+
+  @override
+  String get promoWelcomeBackBody => 'We missed you. Here\'s what\'s waiting:';
+
+  @override
+  String get promoWelcomeBackCta => 'Let\'s go! 🚀';
+
+  @override
+  String get vipCoinsPerAdInfo => '+5 coins per ad, up to 5 a day';
+
+  @override
+  String get vipUpgradeUnlockMore => 'Upgrade to unlock more features and unlimited access';
+
+  @override
+  String get vipUpgradeNow => 'Upgrade Now';
 }

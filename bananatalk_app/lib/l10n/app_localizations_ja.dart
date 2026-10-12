@@ -10695,4 +10695,97 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get storyAnonymous => '匿名';
+
+  @override
+  String get vipNoCoinActivityYet => 'コインのアクティビティはまだありません';
+
+  @override
+  String get vipCoinShopExplainer => 'コインは、無料の1日の上限に達した後に、翻訳、AIチューター チャット、モーメントの追加利用を解放するために使います。コインを使用した後の購入は返金できません。';
+
+  @override
+  String get vipLimitReached => '上限に達しました';
+
+  @override
+  String get vipCoins => 'コイン';
+
+  @override
+  String vipBonusIncluded(Object bonusCoins) {
+    return 'ボーナス$bonusCoinsコイン付き';
+  }
+
+  @override
+  String get vipVisitorModeLimitReached => 'ビジターモードの上限に達しました';
+
+  @override
+  String get vipWhatGetFreeAccount => '無料アカウントで利用できること';
+
+  @override
+  String get vipCreateFreeAccount => '無料アカウントを作成';
+
+  @override
+  String get vipGoUnlimitedAccess => 'VIPで無制限にアクセス';
+
+  @override
+  String get vipContinueAsVisitor => 'ビジターとして続行';
+
+  @override
+  String vipResets(Object resetTime) {
+    return 'リセット時刻：$resetTime';
+  }
+
+  @override
+  String vipUsedToday(Object currentUsage, Object maxAllowed) {
+    return '本日$currentUsage / $maxAllowed使用済み';
+  }
+
+  @override
+  String get vipTierVisitor => 'ビジター';
+
+  @override
+  String get vipTierMember => 'メンバー';
+
+  @override
+  String get vipAd => '広告';
+
+  @override
+  String get promoAdsNoticeTitle => '開発者からのお知らせ';
+
+  @override
+  String get promoAdsNoticeBody => 'こんにちは！Bananatalkを一人で開発しているFirdavsです。アプリを無料で維持し、開発を続けるために、小さな広告をいくつか追加しました。\n\n広告が煩わしいことは承知しています。そのため、任意で見られて、見返りもあるようにしました。広告を見ると、追加メッセージ、コミュニティフィルター、クイズ後のボーナスXPなどが解放されます。\n\nBananatalkをご利用いただきありがとうございます。皆さまの応援が何よりの支えです。🙏';
+
+  @override
+  String get promoAdsNoticeGotIt => 'わかりました！👍';
+
+  @override
+  String get vipOnly => 'VIP限定';
+
+  @override
+  String get vipTapUpgrade => 'タップしてアップグレード';
+
+  @override
+  String get vipUnlockFeatures => 'VIP機能を解放';
+
+  @override
+  String get vipUpPillUp => 'UP';
+
+  @override
+  String get vipChooseOption => 'オプションを選択してください：';
+
+  @override
+  String get promoWelcomeBackTitle => 'おかえりなさい！👋';
+
+  @override
+  String get promoWelcomeBackBody => 'お待ちしていました。こちらが待っています：';
+
+  @override
+  String get promoWelcomeBackCta => 'さあ始めよう！🚀';
+
+  @override
+  String get vipCoinsPerAdInfo => '広告1回につき+5コイン（1日最大5回）';
+
+  @override
+  String get vipUpgradeUnlockMore => 'アップグレードして、さらに多くの機能と無制限アクセスを解放しましょう';
+
+  @override
+  String get vipUpgradeNow => '今すぐアップグレード';
 }

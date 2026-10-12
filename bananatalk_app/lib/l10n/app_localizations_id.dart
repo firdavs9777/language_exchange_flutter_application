@@ -10706,4 +10706,97 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get storyAnonymous => 'Anonim';
+
+  @override
+  String get vipNoCoinActivityYet => 'Belum ada aktivitas koin';
+
+  @override
+  String get vipCoinShopExplainer => 'Koin digunakan untuk membuka tambahan penggunaan terjemahan, obrolan tutor AI, dan momen setelah Anda mencapai batas harian gratis. Pembelian tidak dapat dikembalikan setelah koin digunakan.';
+
+  @override
+  String get vipLimitReached => 'Batas tercapai';
+
+  @override
+  String get vipCoins => 'koin';
+
+  @override
+  String vipBonusIncluded(Object bonusCoins) {
+    return '+$bonusCoins bonus termasuk';
+  }
+
+  @override
+  String get vipVisitorModeLimitReached => 'Batas Mode Pengunjung Tercapai';
+
+  @override
+  String get vipWhatGetFreeAccount => 'Yang Anda Dapatkan dengan Akun Gratis';
+
+  @override
+  String get vipCreateFreeAccount => 'Buat Akun Gratis';
+
+  @override
+  String get vipGoUnlimitedAccess => 'Jadi VIP untuk Akses Tanpa Batas';
+
+  @override
+  String get vipContinueAsVisitor => 'Lanjutkan sebagai Pengunjung';
+
+  @override
+  String vipResets(Object resetTime) {
+    return 'Diatur ulang pada: $resetTime';
+  }
+
+  @override
+  String vipUsedToday(Object currentUsage, Object maxAllowed) {
+    return '$currentUsage / $maxAllowed digunakan hari ini';
+  }
+
+  @override
+  String get vipTierVisitor => 'Pengunjung';
+
+  @override
+  String get vipTierMember => 'Anggota';
+
+  @override
+  String get vipAd => 'Iklan';
+
+  @override
+  String get promoAdsNoticeTitle => 'Catatan dari pengembang';
+
+  @override
+  String get promoAdsNoticeBody => 'Hai! Saya Firdavs, pengembang tunggal di balik Bananatalk. Saya menambahkan beberapa iklan kecil ke aplikasi untuk membantu menjaganya tetap gratis dan membiayai pengembangan berkelanjutan.\n\nSaya tahu iklan bisa mengganggu — jadi saya membuatnya opsional dan bermanfaat. Tonton iklan untuk membuka pesan tambahan, filter komunitas, XP bonus setelah kuis, dan lainnya.\n\nTerima kasih telah menggunakan Bananatalk. Dukungan Anda sangat berarti. 🙏';
+
+  @override
+  String get promoAdsNoticeGotIt => 'Mengerti, terima kasih! 👍';
+
+  @override
+  String get vipOnly => 'Khusus VIP';
+
+  @override
+  String get vipTapUpgrade => 'Ketuk untuk upgrade';
+
+  @override
+  String get vipUnlockFeatures => 'Buka Fitur VIP';
+
+  @override
+  String get vipUpPillUp => 'Naik';
+
+  @override
+  String get vipChooseOption => 'Pilih salah satu opsi:';
+
+  @override
+  String get promoWelcomeBackTitle => 'Selamat datang kembali! 👋';
+
+  @override
+  String get promoWelcomeBackBody => 'Kami merindukanmu. Ini yang menantimu:';
+
+  @override
+  String get promoWelcomeBackCta => 'Ayo mulai! 🚀';
+
+  @override
+  String get vipCoinsPerAdInfo => '+5 koin per iklan, hingga 5 per hari';
+
+  @override
+  String get vipUpgradeUnlockMore => 'Upgrade untuk membuka lebih banyak fitur dan akses tanpa batas';
+
+  @override
+  String get vipUpgradeNow => 'Upgrade Sekarang';
 }

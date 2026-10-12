@@ -337,6 +337,37 @@ const Map<String, List<String>> _keysByTask = {
     'storyFailedToDelete',
     'storyAnonymous',
   ],
+  'L11': [
+    'vipNoCoinActivityYet',
+    'vipCoinShopExplainer',
+    'vipLimitReached',
+    'vipCoins',
+    'vipBonusIncluded',
+    'vipVisitorModeLimitReached',
+    'vipWhatGetFreeAccount',
+    'vipCreateFreeAccount',
+    'vipGoUnlimitedAccess',
+    'vipContinueAsVisitor',
+    'vipResets',
+    'vipUsedToday',
+    'vipTierVisitor',
+    'vipTierMember',
+    'vipAd',
+    'promoAdsNoticeTitle',
+    'promoAdsNoticeBody',
+    'promoAdsNoticeGotIt',
+    'vipOnly',
+    'vipTapUpgrade',
+    'vipUnlockFeatures',
+    'vipUpPillUp',
+    'vipChooseOption',
+    'promoWelcomeBackTitle',
+    'promoWelcomeBackBody',
+    'promoWelcomeBackCta',
+    'vipCoinsPerAdInfo',
+    'vipUpgradeUnlockMore',
+    'vipUpgradeNow',
+  ],
 };
 
 /// Files (under lib/) each task must leave with no English Text literal.
@@ -466,11 +497,27 @@ const Map<String, List<String>> _filesByTask = {
     'widgets/story/story_poll_widget.dart',
     'widgets/story/story_question_box_widget.dart',
   ],
+  'L11': [
+    'pages/coins/coin_history_screen.dart',
+    'pages/coins/coin_shop_screen.dart',
+    'pages/vip/visitor_upgrade_screen.dart',
+    'utils/api_error_handler.dart',
+    'utils/feature_gate.dart',
+    'widgets/ads/ad_widgets.dart',
+    'widgets/promo/ads_notice_modal.dart',
+    'widgets/promo/announcement_modal.dart',
+    'widgets/tutor/persona_upgrade_sheet.dart',
+    'widgets/vip_locked_feature.dart',
+    'widgets/vip_up_pill.dart',
+    'widgets/visitor_limit_dialog.dart',
+    'widgets/welcome_back_modal.dart',
+  ],
 };
 
 /// Keys whose draft may legitimately equal the English in some locale
 /// (loanwords). Add with a one-line reason; empty by default.
 const Set<String> _mayMatchEnglish = {
+  'vipUpPillUp', // fr keeps the English "Up" badge word
   'profileReportTypeMoment', // de/fr/tl use the English loanword "Moment"
   'profileReportTypeMessage', // fr "Message" is the same word
   'profileReportTypeStory', // de/fr/pt/tl/vi use the English loanword "Story"

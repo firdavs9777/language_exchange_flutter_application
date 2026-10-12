@@ -255,7 +255,7 @@ class _NativeAdWidgetState extends ConsumerState<NativeAdWidget> {
             width: double.infinity,
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
             child: Text(
-              'Ad',
+              AppLocalizations.of(context)!.vipAd,
               style: TextStyle(
                 fontSize: 10,
                 color: context.textSecondary,

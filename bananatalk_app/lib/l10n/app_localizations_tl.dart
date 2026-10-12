@@ -10714,4 +10714,97 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get storyAnonymous => 'Anonymous';
+
+  @override
+  String get vipNoCoinActivityYet => 'Wala pang aktibidad ng barya';
+
+  @override
+  String get vipCoinShopExplainer => 'Ginagamit ang mga barya para mag-unlock ng dagdag na paggamit ng mga pagsasalin, AI tutor chat, at moments kapag naabot mo na ang libreng pang-araw-araw na limitasyon. Hindi na maibabalik ang bayad kapag nagastos na ang mga barya.';
+
+  @override
+  String get vipLimitReached => 'Naabot na ang limitasyon';
+
+  @override
+  String get vipCoins => 'barya';
+
+  @override
+  String vipBonusIncluded(Object bonusCoins) {
+    return 'Kasama ang +$bonusCoins bonus';
+  }
+
+  @override
+  String get vipVisitorModeLimitReached => 'Naabot na ang Limitasyon ng Visitor Mode';
+
+  @override
+  String get vipWhatGetFreeAccount => 'Ano ang Makukuha Mo sa Libreng Account';
+
+  @override
+  String get vipCreateFreeAccount => 'Gumawa ng Libreng Account';
+
+  @override
+  String get vipGoUnlimitedAccess => 'Mag-VIP para sa Walang Limitasyong Access';
+
+  @override
+  String get vipContinueAsVisitor => 'Magpatuloy bilang Bisita';
+
+  @override
+  String vipResets(Object resetTime) {
+    return 'Magre-reset sa: $resetTime';
+  }
+
+  @override
+  String vipUsedToday(Object currentUsage, Object maxAllowed) {
+    return '$currentUsage / $maxAllowed ang nagamit ngayon';
+  }
+
+  @override
+  String get vipTierVisitor => 'Bisita';
+
+  @override
+  String get vipTierMember => 'Miyembro';
+
+  @override
+  String get vipAd => 'Patalastas';
+
+  @override
+  String get promoAdsNoticeTitle => 'Isang paalala mula sa developer';
+
+  @override
+  String get promoAdsNoticeBody => 'Kumusta! Ako si Firdavs, ang nag-iisang developer ng Bananatalk. Nagdagdag ako ng ilang maliliit na patalastas sa app para mapanatili itong libre at mapondohan ang patuloy na pagpapaunlad.\n\nAlam kong nakakainis ang mga patalastas — kaya ginawa kong opsyonal at may gantimpala ang mga ito. Manood ng patalastas para mag-unlock ng dagdag na mensahe, community filter, bonus XP pagkatapos ng quiz, at marami pa.\n\nSalamat sa paggamit ng Bananatalk. Napakahalaga ng suporta mo. 🙏';
+
+  @override
+  String get promoAdsNoticeGotIt => 'Sige, salamat! 👍';
+
+  @override
+  String get vipOnly => 'Para sa VIP Lang';
+
+  @override
+  String get vipTapUpgrade => 'I-tap para mag-upgrade';
+
+  @override
+  String get vipUnlockFeatures => 'I-unlock ang mga VIP Feature';
+
+  @override
+  String get vipUpPillUp => 'Taas';
+
+  @override
+  String get vipChooseOption => 'Pumili ng opsyon:';
+
+  @override
+  String get promoWelcomeBackTitle => 'Maligayang pagbabalik! 👋';
+
+  @override
+  String get promoWelcomeBackBody => 'Na-miss ka namin. Narito ang naghihintay sa iyo:';
+
+  @override
+  String get promoWelcomeBackCta => 'Tara na! 🚀';
+
+  @override
+  String get vipCoinsPerAdInfo => '+5 barya bawat patalastas, hanggang 5 bawat araw';
+
+  @override
+  String get vipUpgradeUnlockMore => 'Mag-upgrade para ma-unlock ang higit pang feature at walang limitasyong access';
+
+  @override
+  String get vipUpgradeNow => 'Mag-upgrade Ngayon';
 }

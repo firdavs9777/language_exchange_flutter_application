@@ -89,9 +89,9 @@ class PersonaUpgradeSheet extends ConsumerWidget {
                   MaterialPageRoute(builder: (_) => const VipPlansScreen()),
                 );
               },
-              child: const Text(
-                'Upgrade to VIP',
-                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
+              child: Text(
+                AppLocalizations.of(context)!.upgradeToVip,
+                style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
               ),
             ),
           ),

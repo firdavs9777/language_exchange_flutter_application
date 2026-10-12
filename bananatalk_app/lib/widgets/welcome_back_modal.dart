@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/services.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/services/launch_modal_coordinator.dart';
@@ -32,6 +33,7 @@ class _WelcomeBackSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Container(
@@ -79,12 +81,12 @@ class _WelcomeBackSheet extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           Text(
-            'Welcome back! 👋',
+            l10n.promoWelcomeBackTitle,
             style: context.titleLarge.copyWith(fontWeight: FontWeight.w800, fontSize: 22),
           ),
           const SizedBox(height: 8),
           Text(
-            "We missed you. Here's what's waiting:",
+            l10n.promoWelcomeBackBody,
             style: context.bodyMedium.copyWith(color: context.textSecondary),
             textAlign: TextAlign.center,
           ),
@@ -124,9 +126,9 @@ class _WelcomeBackSheet extends StatelessWidget {
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                 elevation: 0,
               ),
-              child: const Text(
-                "Let's go! 🚀",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+              child: Text(
+                l10n.promoWelcomeBackCta,
+                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
               ),
             ),
           ),

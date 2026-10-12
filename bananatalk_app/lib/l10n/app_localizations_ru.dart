@@ -10757,4 +10757,97 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get storyAnonymous => 'Аноним';
+
+  @override
+  String get vipNoCoinActivityYet => 'Пока нет активности с монетами';
+
+  @override
+  String get vipCoinShopExplainer => 'Монеты используются для разблокировки дополнительных использований переводов, чатов с ИИ-репетитором и моментов после достижения бесплатного дневного лимита. Покупки не подлежат возврату после траты монет.';
+
+  @override
+  String get vipLimitReached => 'Лимит достигнут';
+
+  @override
+  String get vipCoins => 'монет';
+
+  @override
+  String vipBonusIncluded(Object bonusCoins) {
+    return '+$bonusCoins бонус включён';
+  }
+
+  @override
+  String get vipVisitorModeLimitReached => 'Достигнут лимит режима гостя';
+
+  @override
+  String get vipWhatGetFreeAccount => 'Что вы получаете с бесплатным аккаунтом';
+
+  @override
+  String get vipCreateFreeAccount => 'Создать бесплатный аккаунт';
+
+  @override
+  String get vipGoUnlimitedAccess => 'Станьте VIP для безлимитного доступа';
+
+  @override
+  String get vipContinueAsVisitor => 'Продолжить как гость';
+
+  @override
+  String vipResets(Object resetTime) {
+    return 'Сброс в: $resetTime';
+  }
+
+  @override
+  String vipUsedToday(Object currentUsage, Object maxAllowed) {
+    return 'Сегодня использовано $currentUsage / $maxAllowed';
+  }
+
+  @override
+  String get vipTierVisitor => 'Гость';
+
+  @override
+  String get vipTierMember => 'Участник';
+
+  @override
+  String get vipAd => 'Реклама';
+
+  @override
+  String get promoAdsNoticeTitle => 'Сообщение от разработчика';
+
+  @override
+  String get promoAdsNoticeBody => 'Привет! Я Firdavs, единственный разработчик Bananatalk. Я добавил в приложение несколько небольших рекламных блоков, чтобы оно оставалось бесплатным и чтобы финансировать дальнейшую разработку.\n\nЯ знаю, что реклама может раздражать, поэтому сделал её необязательной и полезной. Посмотрите рекламу, чтобы получить дополнительные сообщения, фильтры сообщества, бонусный XP после викторин и многое другое.\n\nСпасибо, что пользуетесь Bananatalk. Ваша поддержка очень много значит. 🙏';
+
+  @override
+  String get promoAdsNoticeGotIt => 'Понятно, спасибо! 👍';
+
+  @override
+  String get vipOnly => 'Только для VIP';
+
+  @override
+  String get vipTapUpgrade => 'Нажмите, чтобы улучшить';
+
+  @override
+  String get vipUnlockFeatures => 'Разблокируйте возможности VIP';
+
+  @override
+  String get vipUpPillUp => 'Выше';
+
+  @override
+  String get vipChooseOption => 'Выберите вариант:';
+
+  @override
+  String get promoWelcomeBackTitle => 'С возвращением! 👋';
+
+  @override
+  String get promoWelcomeBackBody => 'Мы скучали. Вот что вас ждёт:';
+
+  @override
+  String get promoWelcomeBackCta => 'Поехали! 🚀';
+
+  @override
+  String get vipCoinsPerAdInfo => '+5 монет за рекламу, до 5 в день';
+
+  @override
+  String get vipUpgradeUnlockMore => 'Улучшите план, чтобы открыть больше функций и безлимитный доступ';
+
+  @override
+  String get vipUpgradeNow => 'Улучшить сейчас';
 }

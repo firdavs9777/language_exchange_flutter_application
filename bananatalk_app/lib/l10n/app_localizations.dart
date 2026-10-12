@@ -19453,6 +19453,180 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Anonymous'**
   String get storyAnonymous;
+
+  /// No description provided for @vipNoCoinActivityYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No coin activity yet'**
+  String get vipNoCoinActivityYet;
+
+  /// No description provided for @vipCoinShopExplainer.
+  ///
+  /// In en, this message translates to:
+  /// **'Coins are used to unlock extra uses of translations, AI tutor chats, and moments once you hit your free daily limit. Purchases are non-refundable once coins are spent.'**
+  String get vipCoinShopExplainer;
+
+  /// No description provided for @vipLimitReached.
+  ///
+  /// In en, this message translates to:
+  /// **'Limit reached'**
+  String get vipLimitReached;
+
+  /// No description provided for @vipCoins.
+  ///
+  /// In en, this message translates to:
+  /// **'coins'**
+  String get vipCoins;
+
+  /// No description provided for @vipBonusIncluded.
+  ///
+  /// In en, this message translates to:
+  /// **'+{bonusCoins} bonus included'**
+  String vipBonusIncluded(Object bonusCoins);
+
+  /// No description provided for @vipVisitorModeLimitReached.
+  ///
+  /// In en, this message translates to:
+  /// **'Visitor Mode Limit Reached'**
+  String get vipVisitorModeLimitReached;
+
+  /// No description provided for @vipWhatGetFreeAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'What You Get with a Free Account'**
+  String get vipWhatGetFreeAccount;
+
+  /// No description provided for @vipCreateFreeAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Free Account'**
+  String get vipCreateFreeAccount;
+
+  /// No description provided for @vipGoUnlimitedAccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Go VIP for Unlimited Access'**
+  String get vipGoUnlimitedAccess;
+
+  /// No description provided for @vipContinueAsVisitor.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue as Visitor'**
+  String get vipContinueAsVisitor;
+
+  /// No description provided for @vipResets.
+  ///
+  /// In en, this message translates to:
+  /// **'Resets at: {resetTime}'**
+  String vipResets(Object resetTime);
+
+  /// No description provided for @vipUsedToday.
+  ///
+  /// In en, this message translates to:
+  /// **'{currentUsage} / {maxAllowed} used today'**
+  String vipUsedToday(Object currentUsage, Object maxAllowed);
+
+  /// No description provided for @vipTierVisitor.
+  ///
+  /// In en, this message translates to:
+  /// **'Visitor'**
+  String get vipTierVisitor;
+
+  /// No description provided for @vipTierMember.
+  ///
+  /// In en, this message translates to:
+  /// **'Member'**
+  String get vipTierMember;
+
+  /// No description provided for @vipAd.
+  ///
+  /// In en, this message translates to:
+  /// **'Ad'**
+  String get vipAd;
+
+  /// No description provided for @promoAdsNoticeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'A note from the developer'**
+  String get promoAdsNoticeTitle;
+
+  /// No description provided for @promoAdsNoticeBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Hey! I\'m Firdavs, the solo developer behind Bananatalk. I\'ve added a few small ads to the app to help keep it free and fund ongoing development.\n\nI know ads can be annoying — so I\'ve made them optional and rewarding. Watch an ad to unlock extra messages, community filters, bonus XP after quizzes, and more.\n\nThank you for using Bananatalk. Your support means everything. 🙏'**
+  String get promoAdsNoticeBody;
+
+  /// No description provided for @promoAdsNoticeGotIt.
+  ///
+  /// In en, this message translates to:
+  /// **'Got it, thanks! 👍'**
+  String get promoAdsNoticeGotIt;
+
+  /// No description provided for @vipOnly.
+  ///
+  /// In en, this message translates to:
+  /// **'VIP Only'**
+  String get vipOnly;
+
+  /// No description provided for @vipTapUpgrade.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to upgrade'**
+  String get vipTapUpgrade;
+
+  /// No description provided for @vipUnlockFeatures.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock VIP Features'**
+  String get vipUnlockFeatures;
+
+  /// No description provided for @vipUpPillUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Up'**
+  String get vipUpPillUp;
+
+  /// No description provided for @vipChooseOption.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose an option:'**
+  String get vipChooseOption;
+
+  /// No description provided for @promoWelcomeBackTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome back! 👋'**
+  String get promoWelcomeBackTitle;
+
+  /// No description provided for @promoWelcomeBackBody.
+  ///
+  /// In en, this message translates to:
+  /// **'We missed you. Here\'s what\'s waiting:'**
+  String get promoWelcomeBackBody;
+
+  /// No description provided for @promoWelcomeBackCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Let\'s go! 🚀'**
+  String get promoWelcomeBackCta;
+
+  /// No description provided for @vipCoinsPerAdInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'+5 coins per ad, up to 5 a day'**
+  String get vipCoinsPerAdInfo;
+
+  /// No description provided for @vipUpgradeUnlockMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Upgrade to unlock more features and unlimited access'**
+  String get vipUpgradeUnlockMore;
+
+  /// No description provided for @vipUpgradeNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Upgrade Now'**
+  String get vipUpgradeNow;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

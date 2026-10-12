@@ -34,7 +34,7 @@ class VisitorUpgradeScreen extends StatelessWidget {
             Container(
               width: double.infinity,
               padding: Spacing.paddingXXL,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 gradient: AppColors.primaryGradient,
               ),
               child: Column(
@@ -46,7 +46,7 @@ class VisitorUpgradeScreen extends StatelessWidget {
                   ),
                   Spacing.gapLG,
                   Text(
-                    'Visitor Mode Limit Reached',
+                    AppLocalizations.of(context)!.vipVisitorModeLimitReached,
                     style: context.displayMedium.copyWith(
                       color: AppColors.white,
                     ),
@@ -55,7 +55,7 @@ class VisitorUpgradeScreen extends StatelessWidget {
                   Spacing.gapSM,
                   Text(
                     limitMessage ??
-                        'Upgrade to unlock more features and unlimited access',
+                        AppLocalizations.of(context)!.vipUpgradeUnlockMore,
                     style: context.bodyLarge.copyWith(
                       color: AppColors.white.withOpacity(0.8),
                     ),
@@ -72,7 +72,7 @@ class VisitorUpgradeScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'What You Get with a Free Account',
+                    AppLocalizations.of(context)!.vipWhatGetFreeAccount,
                     style: context.titleLarge,
                   ),
                   Spacing.gapLG,
@@ -135,7 +135,7 @@ class VisitorUpgradeScreen extends StatelessWidget {
                     ),
                   ),
                   child: Text(
-                    'Create Free Account',
+                    AppLocalizations.of(context)!.vipCreateFreeAccount,
                     style: context.titleMedium.copyWith(
                       color: AppColors.white,
                     ),
@@ -155,7 +155,7 @@ class VisitorUpgradeScreen extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: Text(
-                      'OR',
+                      AppLocalizations.of(context)!.or,
                       style: context.labelMedium.copyWith(
                         color: context.textSecondary,
                       ),
@@ -175,7 +175,7 @@ class VisitorUpgradeScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Go VIP for Unlimited Access',
+                    AppLocalizations.of(context)!.vipGoUnlimitedAccess,
                     style: context.titleLarge,
                   ),
                   Spacing.gapLG,
@@ -231,7 +231,7 @@ class VisitorUpgradeScreen extends StatelessWidget {
                       const Icon(Icons.workspace_premium),
                       Spacing.hGapSM,
                       Text(
-                        'Continue as Visitor',
+                        AppLocalizations.of(context)!.vipContinueAsVisitor,
                         style: context.titleMedium.copyWith(
                           color: AppColors.primary,
                         ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/vip_subscription.dart';
 import 'package:bananatalk_app/models/user_limits.dart';
 import 'package:bananatalk_app/providers/provider_models/users_model.dart';
@@ -156,18 +157,16 @@ class FeatureGate {
     String limitType,
     String? errorMessage,
   ) async {
+    final l10n = AppLocalizations.of(context)!;
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Daily Limit Reached'),
-        content: Text(
-          errorMessage ??
-              'You have reached your daily $limitType limit. Upgrade to VIP for unlimited access!',
-        ),
+        title: Text(l10n.limitDailyReachedTitle),
+        content: Text(errorMessage ?? _limitDescription(l10n, limitType)),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('OK'),
+            child: Text(l10n.ok),
           ),
           ElevatedButton(
             onPressed: () {
@@ -175,15 +174,43 @@ class FeatureGate {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => VipPlansScreen(userId: ''),
+                  builder: (context) => const VipPlansScreen(userId: ''),
                 ),
               );
             },
-            child: const Text('Upgrade to VIP'),
+            child: Text(l10n.upgradeToVip),
           ),
         ],
       ),
     );
+  }
+
+  /// The app's own limit-reached sentence for [limitType]. Mirrors the switch
+  /// in LimitExceededDialog; unknown types get the generic sentence.
+  static String _limitDescription(AppLocalizations l10n, String limitType) {
+    switch (limitType.toLowerCase()) {
+      case 'message':
+      case 'messages':
+        return l10n.limitDescMessages;
+      case 'moment':
+      case 'moments':
+        return l10n.limitDescMoments;
+      case 'story':
+      case 'stories':
+        return l10n.limitDescStories;
+      case 'comment':
+      case 'comments':
+        return l10n.limitDescComments;
+      case 'profile':
+      case 'profileview':
+      case 'profileviews':
+        return l10n.limitDescProfileViews;
+      case 'wave':
+      case 'waves':
+        return l10n.waveLimitBody;
+      default:
+        return l10n.limitDescDefault;
+    }
   }
 
   /// Wrap a widget with feature gate logic
@@ -274,13 +301,17 @@ class FeatureGate {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => VipPlansScreen(
+                  builder: (context) => const VipPlansScreen(
                     userId: '', // You'll need to pass the actual userId
                   ),
                 ),
               );
             },
-            child: Text(user.isVisitor ? 'Upgrade Now' : 'Go VIP'),
+            child: Text(
+              user.isVisitor
+                  ? AppLocalizations.of(context)!.vipUpgradeNow
+                  : AppLocalizations.of(context)!.goVip,
+            ),
           ),
         ],
       ),
@@ -303,7 +334,8 @@ extension UserFeatureExtensions on User {
   }
 
   /// Get the badge widget for the user mode
-  Widget get modeBadge {
+  Widget modeBadge(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     switch (userMode) {
       case UserMode.visitor:
         return Container(
@@ -318,7 +350,7 @@ extension UserFeatureExtensions on User {
               Icon(Icons.person_outline, size: 12, color: Colors.grey[700]),
               const SizedBox(width: 4),
               Text(
-                'Visitor',
+                l10n.vipTierVisitor,
                 style: TextStyle(
                   fontSize: 10,
                   fontWeight: FontWeight.bold,
@@ -335,14 +367,14 @@ extension UserFeatureExtensions on User {
             color: Colors.blue[100],
             borderRadius: BorderRadius.circular(12),
           ),
-          child: const Row(
+          child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(Icons.person, size: 12, color: Colors.blue),
-              SizedBox(width: 4),
+              const Icon(Icons.person, size: 12, color: Colors.blue),
+              const SizedBox(width: 4),
               Text(
-                'Member',
-                style: TextStyle(
+                l10n.vipTierMember,
+                style: const TextStyle(
                   fontSize: 10,
                   fontWeight: FontWeight.bold,
                   color: Colors.blue,
@@ -360,14 +392,14 @@ extension UserFeatureExtensions on User {
             ),
             borderRadius: BorderRadius.circular(12),
           ),
-          child: const Row(
+          child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(Icons.workspace_premium, size: 12, color: Colors.white),
-              SizedBox(width: 4),
+              const Icon(Icons.workspace_premium, size: 12, color: Colors.white),
+              const SizedBox(width: 4),
               Text(
-                'VIP',
-                style: TextStyle(
+                l10n.vip,
+                style: const TextStyle(
                   fontSize: 10,
                   fontWeight: FontWeight.bold,
                   color: Colors.white,

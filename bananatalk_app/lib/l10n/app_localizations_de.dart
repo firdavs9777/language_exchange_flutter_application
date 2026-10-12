@@ -10714,4 +10714,97 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get storyAnonymous => 'Anonym';
+
+  @override
+  String get vipNoCoinActivityYet => 'Noch keine Münzaktivität';
+
+  @override
+  String get vipCoinShopExplainer => 'Münzen schalten zusätzliche Nutzungen für Übersetzungen, KI-Tutor-Chats und Momente frei, sobald du dein kostenloses Tageslimit erreicht hast. Käufe sind nicht erstattungsfähig, sobald Münzen ausgegeben wurden.';
+
+  @override
+  String get vipLimitReached => 'Limit erreicht';
+
+  @override
+  String get vipCoins => 'Münzen';
+
+  @override
+  String vipBonusIncluded(Object bonusCoins) {
+    return '+$bonusCoins Bonus inklusive';
+  }
+
+  @override
+  String get vipVisitorModeLimitReached => 'Limit des Besuchermodus erreicht';
+
+  @override
+  String get vipWhatGetFreeAccount => 'Das bekommst du mit einem kostenlosen Konto';
+
+  @override
+  String get vipCreateFreeAccount => 'Kostenloses Konto erstellen';
+
+  @override
+  String get vipGoUnlimitedAccess => 'VIP werden für unbegrenzten Zugriff';
+
+  @override
+  String get vipContinueAsVisitor => 'Als Besucher fortfahren';
+
+  @override
+  String vipResets(Object resetTime) {
+    return 'Wird zurückgesetzt um: $resetTime';
+  }
+
+  @override
+  String vipUsedToday(Object currentUsage, Object maxAllowed) {
+    return '$currentUsage / $maxAllowed heute verwendet';
+  }
+
+  @override
+  String get vipTierVisitor => 'Besucher';
+
+  @override
+  String get vipTierMember => 'Mitglied';
+
+  @override
+  String get vipAd => 'Anzeige';
+
+  @override
+  String get promoAdsNoticeTitle => 'Eine Nachricht vom Entwickler';
+
+  @override
+  String get promoAdsNoticeBody => 'Hallo! Ich bin Firdavs, der Einzelentwickler hinter Bananatalk. Ich habe ein paar kleine Anzeigen in die App eingebaut, damit sie kostenlos bleibt und die Weiterentwicklung finanziert wird.\n\nIch weiß, dass Werbung nerven kann — deshalb habe ich sie optional und lohnend gemacht. Sieh dir eine Anzeige an, um zusätzliche Nachrichten, Community-Filter, Bonus-XP nach Quizzen und mehr freizuschalten.\n\nDanke, dass du Bananatalk nutzt. Deine Unterstützung bedeutet mir alles. 🙏';
+
+  @override
+  String get promoAdsNoticeGotIt => 'Verstanden, danke! 👍';
+
+  @override
+  String get vipOnly => 'Nur für VIP';
+
+  @override
+  String get vipTapUpgrade => 'Zum Upgraden tippen';
+
+  @override
+  String get vipUnlockFeatures => 'VIP-Funktionen freischalten';
+
+  @override
+  String get vipUpPillUp => 'Hoch';
+
+  @override
+  String get vipChooseOption => 'Wähle eine Option:';
+
+  @override
+  String get promoWelcomeBackTitle => 'Willkommen zurück! 👋';
+
+  @override
+  String get promoWelcomeBackBody => 'Wir haben dich vermisst. Das erwartet dich:';
+
+  @override
+  String get promoWelcomeBackCta => 'Los geht\'s! 🚀';
+
+  @override
+  String get vipCoinsPerAdInfo => '+5 Münzen pro Anzeige, bis zu 5 pro Tag';
+
+  @override
+  String get vipUpgradeUnlockMore => 'Upgrade, um mehr Funktionen und unbegrenzten Zugriff freizuschalten';
+
+  @override
+  String get vipUpgradeNow => 'Jetzt upgraden';
 }

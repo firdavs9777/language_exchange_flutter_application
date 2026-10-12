@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 
@@ -34,6 +35,7 @@ class _AdsNoticeSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final bg = isDark ? const Color(0xFF1C1C2E) : Colors.white;
     final textPrimary = context.textPrimary;
@@ -91,7 +93,7 @@ class _AdsNoticeSheet extends StatelessWidget {
 
           // Headline
           Text(
-            'A note from the developer',
+            l10n.promoAdsNoticeTitle,
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.w800,
@@ -113,11 +115,7 @@ class _AdsNoticeSheet extends StatelessWidget {
               ),
             ),
             child: Text(
-              'Hey! I\'m Firdavs, the solo developer behind Bananatalk. '
-              'I\'ve added a few small ads to the app to help keep it free and fund ongoing development.\n\n'
-              'I know ads can be annoying — so I\'ve made them optional and rewarding. '
-              'Watch an ad to unlock extra messages, community filters, bonus XP after quizzes, and more.\n\n'
-              'Thank you for using Bananatalk. Your support means everything. 🙏',
+              l10n.promoAdsNoticeBody,
               style: TextStyle(
                 fontSize: 14,
                 color: textSecondary,
@@ -128,7 +126,7 @@ class _AdsNoticeSheet extends StatelessWidget {
           const SizedBox(height: 16),
 
           // Perks row
-          Row(
+          const Row(
             children: [
               _Perk(emoji: '💬', label: '+3 bonus\nmessages'),
               _Perk(emoji: '🔍', label: 'Unlock\nfilters'),
@@ -152,9 +150,9 @@ class _AdsNoticeSheet extends StatelessWidget {
                 ),
                 elevation: 0,
               ),
-              child: const Text(
-                'Got it, thanks! 👍',
-                style: TextStyle(
+              child: Text(
+                l10n.promoAdsNoticeGotIt,
+                style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w700,
                 ),

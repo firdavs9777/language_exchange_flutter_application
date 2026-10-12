@@ -10695,6 +10695,99 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get storyAnonymous => '匿名';
+
+  @override
+  String get vipNoCoinActivityYet => '暂无金币记录';
+
+  @override
+  String get vipCoinShopExplainer => '当您用完每日免费额度后，金币可用于解锁额外的翻译、AI 导师聊天和动态使用次数。金币一旦花费，购买内容不可退款。';
+
+  @override
+  String get vipLimitReached => '已达上限';
+
+  @override
+  String get vipCoins => '金币';
+
+  @override
+  String vipBonusIncluded(Object bonusCoins) {
+    return '含 +$bonusCoins 赠送金币';
+  }
+
+  @override
+  String get vipVisitorModeLimitReached => '已达访客模式上限';
+
+  @override
+  String get vipWhatGetFreeAccount => '免费账号可获得什么';
+
+  @override
+  String get vipCreateFreeAccount => '创建免费账号';
+
+  @override
+  String get vipGoUnlimitedAccess => '升级 VIP，无限畅享';
+
+  @override
+  String get vipContinueAsVisitor => '以访客身份继续';
+
+  @override
+  String vipResets(Object resetTime) {
+    return '重置时间：$resetTime';
+  }
+
+  @override
+  String vipUsedToday(Object currentUsage, Object maxAllowed) {
+    return '今日已使用 $currentUsage / $maxAllowed';
+  }
+
+  @override
+  String get vipTierVisitor => '访客';
+
+  @override
+  String get vipTierMember => '会员';
+
+  @override
+  String get vipAd => '广告';
+
+  @override
+  String get promoAdsNoticeTitle => '开发者的一段话';
+
+  @override
+  String get promoAdsNoticeBody => '你好！我是 Firdavs，Bananatalk 背后的独立开发者。我在应用中加入了少量小广告，以帮助保持应用免费并支持持续开发。\n\n我知道广告可能会让人烦——所以我把它们设为可选，并且有奖励。观看广告即可解锁额外消息、社区筛选、测验后的额外 XP 等更多内容。\n\n感谢你使用 Bananatalk。你的支持对我意义重大。🙏';
+
+  @override
+  String get promoAdsNoticeGotIt => '知道了，谢谢！👍';
+
+  @override
+  String get vipOnly => '仅限 VIP';
+
+  @override
+  String get vipTapUpgrade => '点击升级';
+
+  @override
+  String get vipUnlockFeatures => '解锁 VIP 功能';
+
+  @override
+  String get vipUpPillUp => '升级';
+
+  @override
+  String get vipChooseOption => '请选择一个选项：';
+
+  @override
+  String get promoWelcomeBackTitle => '欢迎回来！👋';
+
+  @override
+  String get promoWelcomeBackBody => '我们想你了。这里有等着你的内容：';
+
+  @override
+  String get promoWelcomeBackCta => '出发吧！🚀';
+
+  @override
+  String get vipCoinsPerAdInfo => '每次广告 +5 金币，每天最多 5 次';
+
+  @override
+  String get vipUpgradeUnlockMore => '升级以解锁更多功能和无限访问';
+
+  @override
+  String get vipUpgradeNow => '立即升级';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -21388,4 +21481,97 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get storyAnonymous => '匿名';
+
+  @override
+  String get vipNoCoinActivityYet => '尚無金幣紀錄';
+
+  @override
+  String get vipCoinShopExplainer => '當您用完每日免費額度後，金幣可用於解鎖額外的翻譯、AI 導師聊天和動態使用次數。金幣一旦花費，購買內容不可退款。';
+
+  @override
+  String get vipLimitReached => '已達上限';
+
+  @override
+  String get vipCoins => '金幣';
+
+  @override
+  String vipBonusIncluded(Object bonusCoins) {
+    return '含 +$bonusCoins 贈送金幣';
+  }
+
+  @override
+  String get vipVisitorModeLimitReached => '已達訪客模式上限';
+
+  @override
+  String get vipWhatGetFreeAccount => '免費帳號可獲得什麼';
+
+  @override
+  String get vipCreateFreeAccount => '建立免費帳號';
+
+  @override
+  String get vipGoUnlimitedAccess => '升級 VIP，無限暢享';
+
+  @override
+  String get vipContinueAsVisitor => '以訪客身分繼續';
+
+  @override
+  String vipResets(Object resetTime) {
+    return '重設時間：$resetTime';
+  }
+
+  @override
+  String vipUsedToday(Object currentUsage, Object maxAllowed) {
+    return '今日已使用 $currentUsage / $maxAllowed';
+  }
+
+  @override
+  String get vipTierVisitor => '訪客';
+
+  @override
+  String get vipTierMember => '會員';
+
+  @override
+  String get vipAd => '廣告';
+
+  @override
+  String get promoAdsNoticeTitle => '開發者的一段話';
+
+  @override
+  String get promoAdsNoticeBody => '你好！我是 Firdavs，Bananatalk 背後的獨立開發者。我在應用程式中加入了少量小廣告，以協助維持應用程式免費並支持持續開發。\n\n我知道廣告可能會讓人厭煩——所以我把它們設為可選，並且有獎勵。觀看廣告即可解鎖額外訊息、社群篩選、測驗後的額外 XP 等更多內容。\n\n感謝你使用 Bananatalk。你的支持對我意義重大。🙏';
+
+  @override
+  String get promoAdsNoticeGotIt => '知道了，謝謝！👍';
+
+  @override
+  String get vipOnly => '僅限 VIP';
+
+  @override
+  String get vipTapUpgrade => '點擊升級';
+
+  @override
+  String get vipUnlockFeatures => '解鎖 VIP 功能';
+
+  @override
+  String get vipUpPillUp => '升級';
+
+  @override
+  String get vipChooseOption => '請選擇一個選項：';
+
+  @override
+  String get promoWelcomeBackTitle => '歡迎回來！👋';
+
+  @override
+  String get promoWelcomeBackBody => '我們想你了。這裡有等著你的內容：';
+
+  @override
+  String get promoWelcomeBackCta => '出發吧！🚀';
+
+  @override
+  String get vipCoinsPerAdInfo => '每次廣告 +5 金幣，每天最多 5 次';
+
+  @override
+  String get vipUpgradeUnlockMore => '升級以解鎖更多功能和無限存取';
+
+  @override
+  String get vipUpgradeNow => '立即升級';
 }

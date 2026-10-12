@@ -10712,4 +10712,97 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get storyAnonymous => 'Anonim';
+
+  @override
+  String get vipNoCoinActivityYet => 'Henüz jeton etkinliği yok';
+
+  @override
+  String get vipCoinShopExplainer => 'Jetonlar, ücretsiz günlük sınırınıza ulaştığınızda çeviriler, yapay zekâ öğretmen sohbetleri ve anlar için ek kullanım hakkı açmak için kullanılır. Jetonlar harcandıktan sonra satın alımlar iade edilemez.';
+
+  @override
+  String get vipLimitReached => 'Sınıra ulaşıldı';
+
+  @override
+  String get vipCoins => 'jeton';
+
+  @override
+  String vipBonusIncluded(Object bonusCoins) {
+    return '+$bonusCoins bonus dahil';
+  }
+
+  @override
+  String get vipVisitorModeLimitReached => 'Ziyaretçi Modu Sınırına Ulaşıldı';
+
+  @override
+  String get vipWhatGetFreeAccount => 'Ücretsiz Hesapla Neler Elde Edersiniz';
+
+  @override
+  String get vipCreateFreeAccount => 'Ücretsiz Hesap Oluştur';
+
+  @override
+  String get vipGoUnlimitedAccess => 'Sınırsız Erişim için VIP Ol';
+
+  @override
+  String get vipContinueAsVisitor => 'Ziyaretçi Olarak Devam Et';
+
+  @override
+  String vipResets(Object resetTime) {
+    return 'Sıfırlanma zamanı: $resetTime';
+  }
+
+  @override
+  String vipUsedToday(Object currentUsage, Object maxAllowed) {
+    return 'Bugün $currentUsage / $maxAllowed kullanıldı';
+  }
+
+  @override
+  String get vipTierVisitor => 'Ziyaretçi';
+
+  @override
+  String get vipTierMember => 'Üye';
+
+  @override
+  String get vipAd => 'Reklam';
+
+  @override
+  String get promoAdsNoticeTitle => 'Geliştiriciden bir not';
+
+  @override
+  String get promoAdsNoticeBody => 'Merhaba! Ben Firdavs, Bananatalk\'ın arkasındaki tek geliştirici. Uygulamayı ücretsiz tutmaya ve geliştirmeyi sürdürmeye yardımcı olmak için uygulamaya birkaç küçük reklam ekledim.\n\nReklamların can sıkıcı olabileceğini biliyorum — bu yüzden onları isteğe bağlı ve ödüllü yaptım. Ek mesajların, topluluk filtrelerinin, sınavlardan sonra bonus XP\'nin ve daha fazlasının kilidini açmak için bir reklam izleyin.\n\nBananatalk\'ı kullandığınız için teşekkürler. Desteğiniz her şey demek. 🙏';
+
+  @override
+  String get promoAdsNoticeGotIt => 'Anladım, teşekkürler! 👍';
+
+  @override
+  String get vipOnly => 'Yalnızca VIP';
+
+  @override
+  String get vipTapUpgrade => 'Yükseltmek için dokunun';
+
+  @override
+  String get vipUnlockFeatures => 'VIP Özelliklerinin Kilidini Aç';
+
+  @override
+  String get vipUpPillUp => 'Yüksel';
+
+  @override
+  String get vipChooseOption => 'Bir seçenek belirleyin:';
+
+  @override
+  String get promoWelcomeBackTitle => 'Tekrar hoş geldin! 👋';
+
+  @override
+  String get promoWelcomeBackBody => 'Seni özledik. Seni bekleyenler şunlar:';
+
+  @override
+  String get promoWelcomeBackCta => 'Hadi başlayalım! 🚀';
+
+  @override
+  String get vipCoinsPerAdInfo => 'Reklam başına +5 jeton, günde en fazla 5';
+
+  @override
+  String get vipUpgradeUnlockMore => 'Daha fazla özelliğin ve sınırsız erişimin kilidini açmak için yükseltin';
+
+  @override
+  String get vipUpgradeNow => 'Şimdi Yükselt';
 }

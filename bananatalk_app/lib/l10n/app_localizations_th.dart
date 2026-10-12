@@ -10695,4 +10695,97 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get storyAnonymous => 'ไม่ระบุตัวตน';
+
+  @override
+  String get vipNoCoinActivityYet => 'ยังไม่มีกิจกรรมเหรียญ';
+
+  @override
+  String get vipCoinShopExplainer => 'เหรียญใช้ปลดล็อกการใช้งานเพิ่มเติมของการแปล แชทกับติวเตอร์ AI และโมเมนต์ เมื่อคุณใช้ครบโควตารายวันฟรีแล้ว การซื้อไม่สามารถขอคืนเงินได้เมื่อใช้เหรียญไปแล้ว';
+
+  @override
+  String get vipLimitReached => 'ถึงขีดจำกัดแล้ว';
+
+  @override
+  String get vipCoins => 'เหรียญ';
+
+  @override
+  String vipBonusIncluded(Object bonusCoins) {
+    return 'รวมโบนัส +$bonusCoins';
+  }
+
+  @override
+  String get vipVisitorModeLimitReached => 'ถึงขีดจำกัดของโหมดผู้เยี่ยมชมแล้ว';
+
+  @override
+  String get vipWhatGetFreeAccount => 'สิ่งที่คุณได้รับจากบัญชีฟรี';
+
+  @override
+  String get vipCreateFreeAccount => 'สร้างบัญชีฟรี';
+
+  @override
+  String get vipGoUnlimitedAccess => 'เป็น VIP เพื่อใช้งานได้ไม่จำกัด';
+
+  @override
+  String get vipContinueAsVisitor => 'ดำเนินการต่อในฐานะผู้เยี่ยมชม';
+
+  @override
+  String vipResets(Object resetTime) {
+    return 'รีเซ็ตเวลา: $resetTime';
+  }
+
+  @override
+  String vipUsedToday(Object currentUsage, Object maxAllowed) {
+    return 'วันนี้ใช้ไปแล้ว $currentUsage / $maxAllowed';
+  }
+
+  @override
+  String get vipTierVisitor => 'ผู้เยี่ยมชม';
+
+  @override
+  String get vipTierMember => 'สมาชิก';
+
+  @override
+  String get vipAd => 'โฆษณา';
+
+  @override
+  String get promoAdsNoticeTitle => 'ข้อความจากผู้พัฒนา';
+
+  @override
+  String get promoAdsNoticeBody => 'สวัสดี! ฉันชื่อ Firdavs นักพัฒนาเพียงคนเดียวเบื้องหลัง Bananatalk ฉันเพิ่มโฆษณาเล็กๆ ไว้ในแอปเพื่อช่วยให้แอปยังคงฟรีและเป็นทุนในการพัฒนาต่อไป\n\nฉันรู้ว่าโฆษณาอาจน่ารำคาญ — ฉันจึงทำให้เป็นตัวเลือกและมีรางวัลตอบแทน ดูโฆษณาเพื่อปลดล็อกข้อความเพิ่มเติม ตัวกรองคอมมูนิตี้ XP โบนัสหลังทำแบบทดสอบ และอื่นๆ\n\nขอบคุณที่ใช้ Bananatalk การสนับสนุนของคุณมีความหมายกับฉันมาก 🙏';
+
+  @override
+  String get promoAdsNoticeGotIt => 'เข้าใจแล้ว ขอบคุณ! 👍';
+
+  @override
+  String get vipOnly => 'เฉพาะ VIP';
+
+  @override
+  String get vipTapUpgrade => 'แตะเพื่ออัปเกรด';
+
+  @override
+  String get vipUnlockFeatures => 'ปลดล็อกฟีเจอร์ VIP';
+
+  @override
+  String get vipUpPillUp => 'อัป';
+
+  @override
+  String get vipChooseOption => 'เลือกตัวเลือก:';
+
+  @override
+  String get promoWelcomeBackTitle => 'ยินดีต้อนรับกลับ! 👋';
+
+  @override
+  String get promoWelcomeBackBody => 'เราคิดถึงคุณ นี่คือสิ่งที่รอคุณอยู่:';
+
+  @override
+  String get promoWelcomeBackCta => 'ไปกันเลย! 🚀';
+
+  @override
+  String get vipCoinsPerAdInfo => '+5 เหรียญต่อโฆษณา สูงสุด 5 ครั้งต่อวัน';
+
+  @override
+  String get vipUpgradeUnlockMore => 'อัปเกรดเพื่อปลดล็อกฟีเจอร์เพิ่มเติมและการใช้งานไม่จำกัด';
+
+  @override
+  String get vipUpgradeNow => 'อัปเกรดตอนนี้';
 }

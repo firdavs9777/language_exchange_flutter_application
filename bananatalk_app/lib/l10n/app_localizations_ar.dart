@@ -10769,4 +10769,97 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get storyAnonymous => 'مجهول';
+
+  @override
+  String get vipNoCoinActivityYet => 'لا يوجد نشاط للعملات بعد';
+
+  @override
+  String get vipCoinShopExplainer => 'تُستخدم العملات لفتح استخدامات إضافية للترجمات ومحادثات المعلم الذكي واللحظات بعد بلوغ حدك اليومي المجاني. المشتريات غير قابلة للاسترداد بعد إنفاق العملات.';
+
+  @override
+  String get vipLimitReached => 'تم بلوغ الحد';
+
+  @override
+  String get vipCoins => 'عملات';
+
+  @override
+  String vipBonusIncluded(Object bonusCoins) {
+    return '+$bonusCoins مكافأة مضمّنة';
+  }
+
+  @override
+  String get vipVisitorModeLimitReached => 'تم بلوغ حد وضع الزائر';
+
+  @override
+  String get vipWhatGetFreeAccount => 'ماذا تحصل عليه مع حساب مجاني';
+
+  @override
+  String get vipCreateFreeAccount => 'إنشاء حساب مجاني';
+
+  @override
+  String get vipGoUnlimitedAccess => 'اشترك في VIP للوصول غير المحدود';
+
+  @override
+  String get vipContinueAsVisitor => 'المتابعة كزائر';
+
+  @override
+  String vipResets(Object resetTime) {
+    return 'يُعاد التعيين في: $resetTime';
+  }
+
+  @override
+  String vipUsedToday(Object currentUsage, Object maxAllowed) {
+    return 'تم استخدام $currentUsage / $maxAllowed اليوم';
+  }
+
+  @override
+  String get vipTierVisitor => 'زائر';
+
+  @override
+  String get vipTierMember => 'عضو';
+
+  @override
+  String get vipAd => 'إعلان';
+
+  @override
+  String get promoAdsNoticeTitle => 'رسالة من المطوّر';
+
+  @override
+  String get promoAdsNoticeBody => 'مرحبًا! أنا فردوس، المطوّر الوحيد وراء Bananatalk. أضفت بعض الإعلانات الصغيرة إلى التطبيق للمساعدة في إبقائه مجانيًا وتمويل التطوير المستمر.\n\nأعلم أن الإعلانات قد تكون مزعجة — لذلك جعلتها اختيارية ومجزية. شاهد إعلانًا لفتح رسائل إضافية ومرشّحات المجتمع ونقاط XP إضافية بعد الاختبارات وأكثر.\n\nشكرًا لاستخدامك Bananatalk. دعمك يعني لي كل شيء. 🙏';
+
+  @override
+  String get promoAdsNoticeGotIt => 'فهمت، شكرًا! 👍';
+
+  @override
+  String get vipOnly => 'لـ VIP فقط';
+
+  @override
+  String get vipTapUpgrade => 'اضغط للترقية';
+
+  @override
+  String get vipUnlockFeatures => 'افتح ميزات VIP';
+
+  @override
+  String get vipUpPillUp => 'ترقية';
+
+  @override
+  String get vipChooseOption => 'اختر خيارًا:';
+
+  @override
+  String get promoWelcomeBackTitle => 'مرحبًا بعودتك! 👋';
+
+  @override
+  String get promoWelcomeBackBody => 'اشتقنا إليك. إليك ما ينتظرك:';
+
+  @override
+  String get promoWelcomeBackCta => 'هيا بنا! 🚀';
+
+  @override
+  String get vipCoinsPerAdInfo => '+5 عملات لكل إعلان، حتى 5 يوميًا';
+
+  @override
+  String get vipUpgradeUnlockMore => 'قم بالترقية لفتح المزيد من الميزات والوصول غير المحدود';
+
+  @override
+  String get vipUpgradeNow => 'الترقية الآن';
 }

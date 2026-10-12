@@ -270,9 +270,7 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
               ),
               const SizedBox(height: 8),
               Text(
-                'Coins are used to unlock extra uses of translations, AI tutor '
-                'chats, and moments once you hit your free daily limit. '
-                'Purchases are non-refundable once coins are spent.',
+                AppLocalizations.of(context)!.vipCoinShopExplainer,
                 style: context.captionSmall.copyWith(
                   color: context.textMuted,
                   height: 1.5,
@@ -534,7 +532,7 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
                     Text(
                       _adCapReached
                           ? AppLocalizations.of(context)!.coinsAdLimitReached
-                          : '+5 coins per ad, up to 5 a day',
+                          : AppLocalizations.of(context)!.vipCoinsPerAdInfo,
                       style: context.captionSmall.copyWith(
                         color: context.textMuted,
                       ),
@@ -558,7 +556,7 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
                   ),
                 ),
                 child: Text(
-                  'Limit reached',
+                  AppLocalizations.of(context)!.vipLimitReached,
                   style: TextStyle(
                     color: context.textMuted,
                     fontWeight: FontWeight.w700,
@@ -627,7 +625,7 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
                     ),
                     const SizedBox(width: 4),
                     Text(
-                      'coins',
+                      AppLocalizations.of(context)!.vipCoins,
                       style: context.bodyMedium.copyWith(
                         color: context.textSecondary,
                       ),
@@ -643,9 +641,9 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
                           color: accent.withValues(alpha: 0.14),
                           borderRadius: BorderRadius.circular(6),
                         ),
-                        child: const Text(
-                          'BEST VALUE',
-                          style: TextStyle(
+                        child: Text(
+                          AppLocalizations.of(context)!.vipBestValue,
+                          style: const TextStyle(
                             color: accent,
                             fontSize: 9,
                             fontWeight: FontWeight.w800,
@@ -659,7 +657,7 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
                 if (pack.bonusCoins > 0) ...[
                   const SizedBox(height: 2),
                   Text(
-                    '+${pack.bonusCoins} bonus included',
+                    AppLocalizations.of(context)!.vipBonusIncluded(pack.bonusCoins),
                     style: context.captionSmall.copyWith(
                       color: accent,
                       fontWeight: FontWeight.w700,

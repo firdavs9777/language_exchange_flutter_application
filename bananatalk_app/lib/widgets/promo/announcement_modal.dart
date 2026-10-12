@@ -206,7 +206,7 @@ class _AnnouncementSheet extends StatelessWidget {
               TextButton(
                 onPressed: () => Navigator.pop(context),
                 child: Text(
-                  l10n.dismiss,
+                  l10n.close,
                   style: TextStyle(
                     color: context.textSecondary,
                     fontSize: 14,
