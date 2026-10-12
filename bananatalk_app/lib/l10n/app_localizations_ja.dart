@@ -10575,4 +10575,124 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get profileReportReasonCopyright => '著作権';
+
+  @override
+  String get storyOptimizingBestExperience => '最高の体験のために最適化中';
+
+  @override
+  String get storyCreate => 'ストーリーを作成';
+
+  @override
+  String get storyAddTags => 'タグを追加';
+
+  @override
+  String get storyVideoSelected => '動画を選択済み';
+
+  @override
+  String get storyAddPoll => '投票を追加';
+
+  @override
+  String get storyOptions => '選択肢';
+
+  @override
+  String get storyAddQuestion => '質問を追加';
+
+  @override
+  String get storyPrompt => 'プロンプト';
+
+  @override
+  String get storyTapAnywhereAddText => 'どこでもタップしてテキストを追加';
+
+  @override
+  String storyHighlightStoryCount(int storyCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      storyCount,
+      locale: localeName,
+      other: '$storyCount件のストーリー',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storySendFriends => '友達に送信';
+
+  @override
+  String storySelected(Object count) {
+    return '$count件選択中';
+  }
+
+  @override
+  String get storyShareSave => '共有/保存';
+
+  @override
+  String storySeenBy(Object viewCount) {
+    return '$viewCount人が閲覧';
+  }
+
+  @override
+  String get storyNoViewsYet => 'まだ閲覧はありません';
+
+  @override
+  String get storyEditVideo => '動画を編集';
+
+  @override
+  String storyVotes(Object totalVotes) {
+    return '$totalVotes票';
+  }
+
+  @override
+  String get storyCreatePoll => '投票を作成';
+
+  @override
+  String get storySendAnonymously => '匿名で送信';
+
+  @override
+  String storyResponseCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count件の回答',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storyViewResponses => '回答を見る';
+
+  @override
+  String get storyResponsesTitle => '回答';
+
+  @override
+  String get storyNoResponsesYet => 'まだ回答はありません';
+
+  @override
+  String get storyQuestionBox => '質問ボックス';
+
+  @override
+  String get storySent => '送信しました！';
+
+  @override
+  String get storyProcessing => '処理中...';
+
+  @override
+  String get storyHd => 'HD';
+
+  @override
+  String storyVideoMeta(Object duration, Object size) {
+    return '$duration | ${size}MB';
+  }
+
+  @override
+  String get storyUserFallback => 'ユーザー';
+
+  @override
+  String storySendCount(int count) {
+    return '送信（$count）';
+  }
+
+  @override
+  String get storyFailedToDelete => 'ストーリーの削除に失敗しました';
+
+  @override
+  String get storyAnonymous => '匿名';
 }

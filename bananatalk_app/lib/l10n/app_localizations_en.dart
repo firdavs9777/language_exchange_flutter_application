@@ -10598,4 +10598,126 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get profileReportReasonCopyright => 'Copyright';
+
+  @override
+  String get storyOptimizingBestExperience => 'Optimizing for the best experience';
+
+  @override
+  String get storyCreate => 'Create a Story';
+
+  @override
+  String get storyAddTags => 'Add tags';
+
+  @override
+  String get storyVideoSelected => 'Video Selected';
+
+  @override
+  String get storyAddPoll => 'Add Poll';
+
+  @override
+  String get storyOptions => 'Options';
+
+  @override
+  String get storyAddQuestion => 'Add Question';
+
+  @override
+  String get storyPrompt => 'Prompt';
+
+  @override
+  String get storyTapAnywhereAddText => 'Tap anywhere to add text';
+
+  @override
+  String storyHighlightStoryCount(int storyCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      storyCount,
+      locale: localeName,
+      other: '$storyCount stories',
+      one: '1 story',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storySendFriends => 'Send to friends';
+
+  @override
+  String storySelected(Object count) {
+    return '$count selected';
+  }
+
+  @override
+  String get storyShareSave => 'Share/Save';
+
+  @override
+  String storySeenBy(Object viewCount) {
+    return 'Seen by $viewCount';
+  }
+
+  @override
+  String get storyNoViewsYet => 'No views yet';
+
+  @override
+  String get storyEditVideo => 'Edit Video';
+
+  @override
+  String storyVotes(Object totalVotes) {
+    return '$totalVotes votes';
+  }
+
+  @override
+  String get storyCreatePoll => 'Create Poll';
+
+  @override
+  String get storySendAnonymously => 'Send anonymously';
+
+  @override
+  String storyResponseCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count responses',
+      one: '1 response',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storyViewResponses => 'View responses';
+
+  @override
+  String get storyResponsesTitle => 'Responses';
+
+  @override
+  String get storyNoResponsesYet => 'No responses yet';
+
+  @override
+  String get storyQuestionBox => 'Question Box';
+
+  @override
+  String get storySent => 'Sent!';
+
+  @override
+  String get storyProcessing => 'Processing...';
+
+  @override
+  String get storyHd => 'HD';
+
+  @override
+  String storyVideoMeta(Object duration, Object size) {
+    return '$duration | ${size}MB';
+  }
+
+  @override
+  String get storyUserFallback => 'User';
+
+  @override
+  String storySendCount(int count) {
+    return 'Send ($count)';
+  }
+
+  @override
+  String get storyFailedToDelete => 'Failed to delete story';
+
+  @override
+  String get storyAnonymous => 'Anonymous';
 }

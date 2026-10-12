@@ -10592,4 +10592,126 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get profileReportReasonCopyright => 'Karapatang-ari';
+
+  @override
+  String get storyOptimizingBestExperience => 'Ino-optimize para sa pinakamagandang karanasan';
+
+  @override
+  String get storyCreate => 'Gumawa ng Story';
+
+  @override
+  String get storyAddTags => 'Magdagdag ng mga tag';
+
+  @override
+  String get storyVideoSelected => 'Napili ang Video';
+
+  @override
+  String get storyAddPoll => 'Magdagdag ng Poll';
+
+  @override
+  String get storyOptions => 'Mga Opsyon';
+
+  @override
+  String get storyAddQuestion => 'Magdagdag ng Tanong';
+
+  @override
+  String get storyPrompt => 'Prompt';
+
+  @override
+  String get storyTapAnywhereAddText => 'Mag-tap kahit saan para magdagdag ng teksto';
+
+  @override
+  String storyHighlightStoryCount(int storyCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      storyCount,
+      locale: localeName,
+      other: '$storyCount na story',
+      one: '1 story',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storySendFriends => 'Ipadala sa mga kaibigan';
+
+  @override
+  String storySelected(Object count) {
+    return '$count ang napili';
+  }
+
+  @override
+  String get storyShareSave => 'Ibahagi/I-save';
+
+  @override
+  String storySeenBy(Object viewCount) {
+    return 'Nakita ni $viewCount';
+  }
+
+  @override
+  String get storyNoViewsYet => 'Wala pang views';
+
+  @override
+  String get storyEditVideo => 'I-edit ang Video';
+
+  @override
+  String storyVotes(Object totalVotes) {
+    return '$totalVotes boto';
+  }
+
+  @override
+  String get storyCreatePoll => 'Gumawa ng Poll';
+
+  @override
+  String get storySendAnonymously => 'Ipadala nang anonymous';
+
+  @override
+  String storyResponseCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count na sagot',
+      one: '1 sagot',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storyViewResponses => 'Tingnan ang mga sagot';
+
+  @override
+  String get storyResponsesTitle => 'Mga Sagot';
+
+  @override
+  String get storyNoResponsesYet => 'Wala pang mga sagot';
+
+  @override
+  String get storyQuestionBox => 'Kahon ng Tanong';
+
+  @override
+  String get storySent => 'Naipadala!';
+
+  @override
+  String get storyProcessing => 'Pinoproseso...';
+
+  @override
+  String get storyHd => 'HD';
+
+  @override
+  String storyVideoMeta(Object duration, Object size) {
+    return '$duration | ${size}MB';
+  }
+
+  @override
+  String get storyUserFallback => 'User';
+
+  @override
+  String storySendCount(int count) {
+    return 'Ipadala ($count)';
+  }
+
+  @override
+  String get storyFailedToDelete => 'Hindi nabura ang story';
+
+  @override
+  String get storyAnonymous => 'Anonymous';
 }

@@ -10639,4 +10639,134 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get profileReportReasonCopyright => 'حقوق النشر';
+
+  @override
+  String get storyOptimizingBestExperience => 'التحسين لأفضل تجربة';
+
+  @override
+  String get storyCreate => 'إنشاء قصة';
+
+  @override
+  String get storyAddTags => 'إضافة وسوم';
+
+  @override
+  String get storyVideoSelected => 'تم اختيار الفيديو';
+
+  @override
+  String get storyAddPoll => 'إضافة استطلاع';
+
+  @override
+  String get storyOptions => 'الخيارات';
+
+  @override
+  String get storyAddQuestion => 'إضافة سؤال';
+
+  @override
+  String get storyPrompt => 'السؤال';
+
+  @override
+  String get storyTapAnywhereAddText => 'انقر في أي مكان لإضافة نص';
+
+  @override
+  String storyHighlightStoryCount(int storyCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      storyCount,
+      locale: localeName,
+      other: '$storyCount قصة',
+      many: '$storyCount قصة',
+      few: '$storyCount قصص',
+      two: 'قصتان',
+      one: 'قصة واحدة',
+      zero: 'لا قصص',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storySendFriends => 'إرسال إلى الأصدقاء';
+
+  @override
+  String storySelected(Object count) {
+    return 'تم تحديد $count';
+  }
+
+  @override
+  String get storyShareSave => 'مشاركة/حفظ';
+
+  @override
+  String storySeenBy(Object viewCount) {
+    return 'شاهده $viewCount';
+  }
+
+  @override
+  String get storyNoViewsYet => 'لا مشاهدات بعد';
+
+  @override
+  String get storyEditVideo => 'تعديل الفيديو';
+
+  @override
+  String storyVotes(Object totalVotes) {
+    return '$totalVotes أصوات';
+  }
+
+  @override
+  String get storyCreatePoll => 'إنشاء استطلاع';
+
+  @override
+  String get storySendAnonymously => 'إرسال بشكل مجهول';
+
+  @override
+  String storyResponseCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count رد',
+      many: '$count رداً',
+      few: '$count ردود',
+      two: 'ردان',
+      one: 'رد واحد',
+      zero: 'لا ردود',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storyViewResponses => 'عرض الردود';
+
+  @override
+  String get storyResponsesTitle => 'الردود';
+
+  @override
+  String get storyNoResponsesYet => 'لا ردود بعد';
+
+  @override
+  String get storyQuestionBox => 'صندوق الأسئلة';
+
+  @override
+  String get storySent => 'تم الإرسال!';
+
+  @override
+  String get storyProcessing => 'جارٍ المعالجة...';
+
+  @override
+  String get storyHd => 'HD';
+
+  @override
+  String storyVideoMeta(Object duration, Object size) {
+    return '$duration | $size ميغابايت';
+  }
+
+  @override
+  String get storyUserFallback => 'مستخدم';
+
+  @override
+  String storySendCount(int count) {
+    return 'إرسال ($count)';
+  }
+
+  @override
+  String get storyFailedToDelete => 'فشل حذف القصة';
+
+  @override
+  String get storyAnonymous => 'مجهول';
 }

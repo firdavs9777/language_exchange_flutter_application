@@ -671,7 +671,7 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(
-                result['error']?.toString() ?? 'Failed to delete story',
+                result['error']?.toString() ?? AppLocalizations.of(context)!.storyFailedToDelete,
               ),
               backgroundColor: Colors.red,
             ),
@@ -975,8 +975,8 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
     final story = _currentStory;
 
     if (story == null) {
-      return const Center(
-        child: Text('No stories', style: TextStyle(color: Colors.white)),
+      return Center(
+        child: Text(AppLocalizations.of(context)!.noStories, style: TextStyle(color: Colors.white)),
       );
     }
 
@@ -1192,8 +1192,8 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
                               color: const Color(0xFF00C853),
                               borderRadius: BorderRadius.circular(4),
                             ),
-                            child: const Text(
-                              'Close Friends',
+                            child: Text(
+                              AppLocalizations.of(context)!.closeFriends,
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 9,
@@ -1322,7 +1322,7 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
                                 color: Theme.of(context).iconTheme.color,
                               ),
                               title: Text(
-                                'Send to friends',
+                                AppLocalizations.of(context)!.storySendFriends,
                                 style: TextStyle(
                                   color: Theme.of(
                                     context,
@@ -1359,7 +1359,7 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
                                   color: Theme.of(context).iconTheme.color,
                                 ),
                                 title: Text(
-                                  'Share/Save',
+                                  AppLocalizations.of(context)!.storyShareSave,
                                   style: TextStyle(
                                     color: Theme.of(
                                       context,
@@ -1377,7 +1377,7 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
                                 color: Theme.of(context).iconTheme.color,
                               ),
                               title: Text(
-                                'Add more to story',
+                                AppLocalizations.of(context)!.addMoreToStory,
                                 style: TextStyle(
                                   color: Theme.of(
                                     context,
@@ -1761,7 +1761,7 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
-                        'Reply to story...',
+                        AppLocalizations.of(context)!.replyToStory,
                         style: const TextStyle(
                           color: Colors.white60,
                           fontSize: 14,
@@ -1811,7 +1811,7 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
           children: [
             Text(emoji, style: const TextStyle(fontSize: 24)),
             const SizedBox(width: 8),
-            const Text('Sent!', style: TextStyle(color: Colors.white)),
+            Text(AppLocalizations.of(context)!.storySent, style: TextStyle(color: Colors.white)),
           ],
         ),
         duration: const Duration(milliseconds: 800),

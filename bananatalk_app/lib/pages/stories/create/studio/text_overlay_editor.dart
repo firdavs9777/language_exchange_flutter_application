@@ -1,4 +1,5 @@
 // lib/pages/stories/create/studio/text_overlay_editor.dart
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/pages/stories/create/studio/overlay_draft.dart';
@@ -109,7 +110,7 @@ class _TextOverlayEditorSheetState extends State<_TextOverlayEditorSheet> {
                 _commit();
                 Navigator.pop(context);
               },
-              child: const Text('Done',
+              child: Text(AppLocalizations.of(context)!.done,
                   style: TextStyle(
                       color: Colors.white, fontWeight: FontWeight.w800)),
             ),

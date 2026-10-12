@@ -183,14 +183,14 @@ class _StoryShareSheetState extends State<_StoryShareSheet> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Send to friends',
+                      AppLocalizations.of(context)!.storySendFriends,
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.w600,
                       ),
                     ),
                     if (_selectedIds.isNotEmpty)
                       Text(
-                        '${_selectedIds.length} selected',
+                        AppLocalizations.of(context)!.storySelected(_selectedIds.length),
                         style: TextStyle(
                           color: Theme.of(context).hintColor,
                           fontSize: 12,
@@ -239,8 +239,8 @@ class _StoryShareSheetState extends State<_StoryShareSheet> {
                           )
                         : Text(
                             _selectedIds.isEmpty
-                                ? 'Send'
-                                : 'Send (${_selectedIds.length})',
+                                ? AppLocalizations.of(context)!.send
+                                : AppLocalizations.of(context)!.storySendCount(_selectedIds.length),
                             style: const TextStyle(fontWeight: FontWeight.w600),
                           ),
                   ),

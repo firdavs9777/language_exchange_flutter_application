@@ -10593,4 +10593,126 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get profileReportReasonCopyright => 'Ҳуқуқи муаллиф';
+
+  @override
+  String get storyOptimizingBestExperience => 'Барои беҳтарин таҷриба оптимизатсия мешавад';
+
+  @override
+  String get storyCreate => 'Сохтани ҳикоя';
+
+  @override
+  String get storyAddTags => 'Илова кардани тегҳо';
+
+  @override
+  String get storyVideoSelected => 'Видео интихоб шуд';
+
+  @override
+  String get storyAddPoll => 'Илова кардани назарсанҷӣ';
+
+  @override
+  String get storyOptions => 'Имконот';
+
+  @override
+  String get storyAddQuestion => 'Илова кардани савол';
+
+  @override
+  String get storyPrompt => 'Ишора';
+
+  @override
+  String get storyTapAnywhereAddText => 'Барои илова кардани матн дар ҳама ҷо клик кунед';
+
+  @override
+  String storyHighlightStoryCount(int storyCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      storyCount,
+      locale: localeName,
+      other: '$storyCount ҳикоя',
+      one: '1 ҳикоя',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storySendFriends => 'Ба дӯстон фиристодан';
+
+  @override
+  String storySelected(Object count) {
+    return '$count интихоб шуд';
+  }
+
+  @override
+  String get storyShareSave => 'Мубодила/Захира';
+
+  @override
+  String storySeenBy(Object viewCount) {
+    return 'Дидаанд: $viewCount';
+  }
+
+  @override
+  String get storyNoViewsYet => 'Ҳанӯз тамошо нашудааст';
+
+  @override
+  String get storyEditVideo => 'Таҳрири видео';
+
+  @override
+  String storyVotes(Object totalVotes) {
+    return '$totalVotes овоз';
+  }
+
+  @override
+  String get storyCreatePoll => 'Сохтани назарсанҷӣ';
+
+  @override
+  String get storySendAnonymously => 'Ба таври ношинос фиристодан';
+
+  @override
+  String storyResponseCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count ҷавоб',
+      one: '1 ҷавоб',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storyViewResponses => 'Дидани ҷавобҳо';
+
+  @override
+  String get storyResponsesTitle => 'Ҷавобҳо';
+
+  @override
+  String get storyNoResponsesYet => 'Ҳанӯз ҷавобе нест';
+
+  @override
+  String get storyQuestionBox => 'Қуттии саволҳо';
+
+  @override
+  String get storySent => 'Фиристода шуд!';
+
+  @override
+  String get storyProcessing => 'Коркард шуда истодааст...';
+
+  @override
+  String get storyHd => 'HD';
+
+  @override
+  String storyVideoMeta(Object duration, Object size) {
+    return '$duration | $size МБ';
+  }
+
+  @override
+  String get storyUserFallback => 'Корбар';
+
+  @override
+  String storySendCount(int count) {
+    return 'Фиристодан ($count)';
+  }
+
+  @override
+  String get storyFailedToDelete => 'Ҳикоя нест карда нашуд';
+
+  @override
+  String get storyAnonymous => 'Ношинос';
 }

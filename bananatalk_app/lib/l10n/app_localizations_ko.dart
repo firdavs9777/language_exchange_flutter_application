@@ -10575,4 +10575,124 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get profileReportReasonCopyright => '저작권';
+
+  @override
+  String get storyOptimizingBestExperience => '최상의 경험을 위해 최적화 중';
+
+  @override
+  String get storyCreate => '스토리 만들기';
+
+  @override
+  String get storyAddTags => '태그 추가';
+
+  @override
+  String get storyVideoSelected => '비디오 선택됨';
+
+  @override
+  String get storyAddPoll => '투표 추가';
+
+  @override
+  String get storyOptions => '옵션';
+
+  @override
+  String get storyAddQuestion => '질문 추가';
+
+  @override
+  String get storyPrompt => '프롬프트';
+
+  @override
+  String get storyTapAnywhereAddText => '아무 곳이나 탭하여 텍스트 추가';
+
+  @override
+  String storyHighlightStoryCount(int storyCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      storyCount,
+      locale: localeName,
+      other: '스토리 $storyCount개',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storySendFriends => '친구에게 보내기';
+
+  @override
+  String storySelected(Object count) {
+    return '$count개 선택됨';
+  }
+
+  @override
+  String get storyShareSave => '공유/저장';
+
+  @override
+  String storySeenBy(Object viewCount) {
+    return '$viewCount명이 봄';
+  }
+
+  @override
+  String get storyNoViewsYet => '아직 조회수가 없습니다';
+
+  @override
+  String get storyEditVideo => '비디오 편집';
+
+  @override
+  String storyVotes(Object totalVotes) {
+    return '$totalVotes표';
+  }
+
+  @override
+  String get storyCreatePoll => '투표 만들기';
+
+  @override
+  String get storySendAnonymously => '익명으로 보내기';
+
+  @override
+  String storyResponseCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '답변 $count개',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storyViewResponses => '답변 보기';
+
+  @override
+  String get storyResponsesTitle => '답변';
+
+  @override
+  String get storyNoResponsesYet => '아직 답변이 없습니다';
+
+  @override
+  String get storyQuestionBox => '질문 상자';
+
+  @override
+  String get storySent => '전송됨!';
+
+  @override
+  String get storyProcessing => '처리 중...';
+
+  @override
+  String get storyHd => 'HD';
+
+  @override
+  String storyVideoMeta(Object duration, Object size) {
+    return '$duration | ${size}MB';
+  }
+
+  @override
+  String get storyUserFallback => '사용자';
+
+  @override
+  String storySendCount(int count) {
+    return '보내기 ($count)';
+  }
+
+  @override
+  String get storyFailedToDelete => '스토리 삭제에 실패했습니다';
+
+  @override
+  String get storyAnonymous => '익명';
 }

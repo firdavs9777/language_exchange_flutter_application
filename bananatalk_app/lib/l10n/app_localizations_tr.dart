@@ -10590,4 +10590,126 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get profileReportReasonCopyright => 'Telif hakkı';
+
+  @override
+  String get storyOptimizingBestExperience => 'En iyi deneyim için optimize ediliyor';
+
+  @override
+  String get storyCreate => 'Hikaye Oluştur';
+
+  @override
+  String get storyAddTags => 'Etiket ekle';
+
+  @override
+  String get storyVideoSelected => 'Video Seçildi';
+
+  @override
+  String get storyAddPoll => 'Anket Ekle';
+
+  @override
+  String get storyOptions => 'Seçenekler';
+
+  @override
+  String get storyAddQuestion => 'Soru Ekle';
+
+  @override
+  String get storyPrompt => 'İstem';
+
+  @override
+  String get storyTapAnywhereAddText => 'Metin eklemek için herhangi bir yere dokun';
+
+  @override
+  String storyHighlightStoryCount(int storyCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      storyCount,
+      locale: localeName,
+      other: '$storyCount hikaye',
+      one: '1 hikaye',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storySendFriends => 'Arkadaşlara gönder';
+
+  @override
+  String storySelected(Object count) {
+    return '$count seçildi';
+  }
+
+  @override
+  String get storyShareSave => 'Paylaş/Kaydet';
+
+  @override
+  String storySeenBy(Object viewCount) {
+    return '$viewCount kişi gördü';
+  }
+
+  @override
+  String get storyNoViewsYet => 'Henüz görüntüleme yok';
+
+  @override
+  String get storyEditVideo => 'Videoyu Düzenle';
+
+  @override
+  String storyVotes(Object totalVotes) {
+    return '$totalVotes oy';
+  }
+
+  @override
+  String get storyCreatePoll => 'Anket Oluştur';
+
+  @override
+  String get storySendAnonymously => 'Anonim olarak gönder';
+
+  @override
+  String storyResponseCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count yanıt',
+      one: '1 yanıt',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storyViewResponses => 'Yanıtları gör';
+
+  @override
+  String get storyResponsesTitle => 'Yanıtlar';
+
+  @override
+  String get storyNoResponsesYet => 'Henüz yanıt yok';
+
+  @override
+  String get storyQuestionBox => 'Soru Kutusu';
+
+  @override
+  String get storySent => 'Gönderildi!';
+
+  @override
+  String get storyProcessing => 'İşleniyor...';
+
+  @override
+  String get storyHd => 'HD';
+
+  @override
+  String storyVideoMeta(Object duration, Object size) {
+    return '$duration | $size MB';
+  }
+
+  @override
+  String get storyUserFallback => 'Kullanıcı';
+
+  @override
+  String storySendCount(int count) {
+    return 'Gönder ($count)';
+  }
+
+  @override
+  String get storyFailedToDelete => 'Hikaye silinemedi';
+
+  @override
+  String get storyAnonymous => 'Anonim';
 }

@@ -303,6 +303,40 @@ const Map<String, List<String>> _keysByTask = {
     'profileReportTypeStory',
     'profileReportReasonCopyright',
   ],
+  'L10': [
+    'storyOptimizingBestExperience',
+    'storyCreate',
+    'storyAddTags',
+    'storyVideoSelected',
+    'storyAddPoll',
+    'storyOptions',
+    'storyAddQuestion',
+    'storyPrompt',
+    'storyTapAnywhereAddText',
+    'storyHighlightStoryCount',
+    'storySendFriends',
+    'storySelected',
+    'storyShareSave',
+    'storySeenBy',
+    'storyNoViewsYet',
+    'storyEditVideo',
+    'storyVotes',
+    'storyCreatePoll',
+    'storySendAnonymously',
+    'storyResponseCount',
+    'storyViewResponses',
+    'storyResponsesTitle',
+    'storyNoResponsesYet',
+    'storyQuestionBox',
+    'storySent',
+    'storyProcessing',
+    'storyHd',
+    'storyVideoMeta',
+    'storyUserFallback',
+    'storySendCount',
+    'storyFailedToDelete',
+    'storyAnonymous',
+  ],
 };
 
 /// Files (under lib/) each task must leave with no English Text literal.
@@ -417,6 +451,21 @@ const Map<String, List<String>> _filesByTask = {
     'pages/reports/my_reports_screen.dart',
     'pages/settings/account_deletion.dart',
   ],
+  'L10': [
+    'pages/stories/create/create_story_screen.dart',
+    'pages/stories/create/poll_sticker_editor.dart',
+    'pages/stories/create/question_sticker_editor.dart',
+    'pages/stories/create/studio/story_canvas.dart',
+    'pages/stories/create/studio/text_overlay_editor.dart',
+    'pages/stories/feed/stories_feed_widget.dart',
+    'pages/stories/highlights/highlight_editor_sheet.dart',
+    'pages/stories/viewer/story_share_sheet.dart',
+    'pages/stories/viewer/story_viewer_screen.dart',
+    'pages/stories/viewer/story_viewers_sheet.dart',
+    'pages/video_editor/video_editor_screen.dart',
+    'widgets/story/story_poll_widget.dart',
+    'widgets/story/story_question_box_widget.dart',
+  ],
 };
 
 /// Keys whose draft may legitimately equal the English in some locale
@@ -447,6 +496,15 @@ const Set<String> _mayMatchEnglish = {
   'chatMediaGeneric', // id/tl use the loanword "media"
   'chatReplyingToFallback', // tl uses the English loanword "user"
   'aiQuizQuestionCount', // fr "1 question" / "{n} questions" is spelled exactly like English
+  'storyHd', // "HD" is the international quality badge in every locale
+  'storyVideoMeta', // ja/ko/zh/zh_TW/tl keep the "MB" unit: "{duration} | {size}MB"
+  'storyUserFallback', // tl uses the loanword "User"
+  'storyAnonymous', // tl uses the loanword "Anonymous"
+  'storyOptions', // fr "Options" is the same word
+  'storyPrompt', // tl uses the loanword "Prompt"
+  'storyHighlightStoryCount', // fr/pt use the loanword "stories" (same plural form)
+  'storyEditVideo', // id "Edit Video" is the same phrase
+  'storyVotes', // fr "{totalVotes} votes" is the same word
 };
 
 final _placeholder = RegExp(r'\{(\w+)[,}]');

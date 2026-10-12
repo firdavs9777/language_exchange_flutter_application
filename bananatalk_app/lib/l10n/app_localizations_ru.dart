@@ -10631,4 +10631,130 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get profileReportReasonCopyright => 'Авторское право';
+
+  @override
+  String get storyOptimizingBestExperience => 'Оптимизация для лучшего качества';
+
+  @override
+  String get storyCreate => 'Создать историю';
+
+  @override
+  String get storyAddTags => 'Добавить теги';
+
+  @override
+  String get storyVideoSelected => 'Видео выбрано';
+
+  @override
+  String get storyAddPoll => 'Добавить опрос';
+
+  @override
+  String get storyOptions => 'Варианты';
+
+  @override
+  String get storyAddQuestion => 'Добавить вопрос';
+
+  @override
+  String get storyPrompt => 'Подсказка';
+
+  @override
+  String get storyTapAnywhereAddText => 'Нажмите в любом месте, чтобы добавить текст';
+
+  @override
+  String storyHighlightStoryCount(int storyCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      storyCount,
+      locale: localeName,
+      other: '$storyCount истории',
+      many: '$storyCount историй',
+      few: '$storyCount истории',
+      one: '$storyCount история',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storySendFriends => 'Отправить друзьям';
+
+  @override
+  String storySelected(Object count) {
+    return 'Выбрано: $count';
+  }
+
+  @override
+  String get storyShareSave => 'Поделиться/Сохранить';
+
+  @override
+  String storySeenBy(Object viewCount) {
+    return 'Просмотрели: $viewCount';
+  }
+
+  @override
+  String get storyNoViewsYet => 'Пока нет просмотров';
+
+  @override
+  String get storyEditVideo => 'Редактировать видео';
+
+  @override
+  String storyVotes(Object totalVotes) {
+    return 'Голосов: $totalVotes';
+  }
+
+  @override
+  String get storyCreatePoll => 'Создать опрос';
+
+  @override
+  String get storySendAnonymously => 'Отправить анонимно';
+
+  @override
+  String storyResponseCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count ответа',
+      many: '$count ответов',
+      few: '$count ответа',
+      one: '$count ответ',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storyViewResponses => 'Посмотреть ответы';
+
+  @override
+  String get storyResponsesTitle => 'Ответы';
+
+  @override
+  String get storyNoResponsesYet => 'Пока нет ответов';
+
+  @override
+  String get storyQuestionBox => 'Ящик вопросов';
+
+  @override
+  String get storySent => 'Отправлено!';
+
+  @override
+  String get storyProcessing => 'Обработка...';
+
+  @override
+  String get storyHd => 'HD';
+
+  @override
+  String storyVideoMeta(Object duration, Object size) {
+    return '$duration | $size МБ';
+  }
+
+  @override
+  String get storyUserFallback => 'Пользователь';
+
+  @override
+  String storySendCount(int count) {
+    return 'Отправить ($count)';
+  }
+
+  @override
+  String get storyFailedToDelete => 'Не удалось удалить историю';
+
+  @override
+  String get storyAnonymous => 'Аноним';
 }

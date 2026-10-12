@@ -10592,4 +10592,126 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get profileReportReasonCopyright => 'Urheberrecht';
+
+  @override
+  String get storyOptimizingBestExperience => 'Für das beste Erlebnis wird optimiert';
+
+  @override
+  String get storyCreate => 'Story erstellen';
+
+  @override
+  String get storyAddTags => 'Tags hinzufügen';
+
+  @override
+  String get storyVideoSelected => 'Video ausgewählt';
+
+  @override
+  String get storyAddPoll => 'Umfrage hinzufügen';
+
+  @override
+  String get storyOptions => 'Optionen';
+
+  @override
+  String get storyAddQuestion => 'Frage hinzufügen';
+
+  @override
+  String get storyPrompt => 'Aufforderung';
+
+  @override
+  String get storyTapAnywhereAddText => 'Tippe irgendwo, um Text hinzuzufügen';
+
+  @override
+  String storyHighlightStoryCount(int storyCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      storyCount,
+      locale: localeName,
+      other: '$storyCount Stories',
+      one: '1 Story',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storySendFriends => 'An Freunde senden';
+
+  @override
+  String storySelected(Object count) {
+    return '$count ausgewählt';
+  }
+
+  @override
+  String get storyShareSave => 'Teilen/Speichern';
+
+  @override
+  String storySeenBy(Object viewCount) {
+    return 'Gesehen von $viewCount';
+  }
+
+  @override
+  String get storyNoViewsYet => 'Noch keine Aufrufe';
+
+  @override
+  String get storyEditVideo => 'Video bearbeiten';
+
+  @override
+  String storyVotes(Object totalVotes) {
+    return '$totalVotes Stimmen';
+  }
+
+  @override
+  String get storyCreatePoll => 'Umfrage erstellen';
+
+  @override
+  String get storySendAnonymously => 'Anonym senden';
+
+  @override
+  String storyResponseCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count Antworten',
+      one: '1 Antwort',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storyViewResponses => 'Antworten ansehen';
+
+  @override
+  String get storyResponsesTitle => 'Antworten';
+
+  @override
+  String get storyNoResponsesYet => 'Noch keine Antworten';
+
+  @override
+  String get storyQuestionBox => 'Fragenbox';
+
+  @override
+  String get storySent => 'Gesendet!';
+
+  @override
+  String get storyProcessing => 'Wird verarbeitet...';
+
+  @override
+  String get storyHd => 'HD';
+
+  @override
+  String storyVideoMeta(Object duration, Object size) {
+    return '$duration | $size MB';
+  }
+
+  @override
+  String get storyUserFallback => 'Nutzer';
+
+  @override
+  String storySendCount(int count) {
+    return 'Senden ($count)';
+  }
+
+  @override
+  String get storyFailedToDelete => 'Story konnte nicht gelöscht werden';
+
+  @override
+  String get storyAnonymous => 'Anonym';
 }

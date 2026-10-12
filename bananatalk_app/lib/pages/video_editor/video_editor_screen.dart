@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:video_trimmer/video_trimmer.dart';
@@ -154,16 +155,16 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
           icon: const Icon(Icons.close, color: Colors.white),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: const Text(
-          'Edit Video',
+        title: Text(
+          AppLocalizations.of(context)!.storyEditVideo,
           style: TextStyle(color: Colors.white),
         ),
         actions: [
           if (!_isProcessing)
             TextButton(
               onPressed: _saveVideo,
-              child: const Text(
-                'Done',
+              child: Text(
+                AppLocalizations.of(context)!.done,
                 style: TextStyle(
                   color: Colors.blue,
                   fontWeight: FontWeight.bold,
@@ -318,10 +319,10 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Padding(
+                              Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 16),
                                 child: Text(
-                                  'Filters',
+                                  AppLocalizations.of(context)!.filters,
                                   style: TextStyle(
                                     color: Colors.white70,
                                     fontSize: 12,
@@ -414,14 +415,14 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
                     if (_isProcessing)
                       Container(
                         color: Colors.black.withOpacity(0.7),
-                        child: const Center(
+                        child: Center(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               CircularProgressIndicator(color: Colors.white),
                               Spacing.gapMD,
                               Text(
-                                'Processing video...',
+                                AppLocalizations.of(context)!.processingVideo,
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 16,

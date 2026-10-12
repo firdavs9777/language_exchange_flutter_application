@@ -10586,4 +10586,124 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get profileReportReasonCopyright => 'Hak cipta';
+
+  @override
+  String get storyOptimizingBestExperience => 'Mengoptimalkan untuk pengalaman terbaik';
+
+  @override
+  String get storyCreate => 'Buat Cerita';
+
+  @override
+  String get storyAddTags => 'Tambah tag';
+
+  @override
+  String get storyVideoSelected => 'Video Dipilih';
+
+  @override
+  String get storyAddPoll => 'Tambah Polling';
+
+  @override
+  String get storyOptions => 'Opsi';
+
+  @override
+  String get storyAddQuestion => 'Tambah Pertanyaan';
+
+  @override
+  String get storyPrompt => 'Pemicu';
+
+  @override
+  String get storyTapAnywhereAddText => 'Ketuk di mana saja untuk menambah teks';
+
+  @override
+  String storyHighlightStoryCount(int storyCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      storyCount,
+      locale: localeName,
+      other: '$storyCount cerita',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storySendFriends => 'Kirim ke teman';
+
+  @override
+  String storySelected(Object count) {
+    return '$count dipilih';
+  }
+
+  @override
+  String get storyShareSave => 'Bagikan/Simpan';
+
+  @override
+  String storySeenBy(Object viewCount) {
+    return 'Dilihat oleh $viewCount';
+  }
+
+  @override
+  String get storyNoViewsYet => 'Belum ada penayangan';
+
+  @override
+  String get storyEditVideo => 'Edit Video';
+
+  @override
+  String storyVotes(Object totalVotes) {
+    return '$totalVotes suara';
+  }
+
+  @override
+  String get storyCreatePoll => 'Buat Polling';
+
+  @override
+  String get storySendAnonymously => 'Kirim secara anonim';
+
+  @override
+  String storyResponseCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count tanggapan',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storyViewResponses => 'Lihat tanggapan';
+
+  @override
+  String get storyResponsesTitle => 'Tanggapan';
+
+  @override
+  String get storyNoResponsesYet => 'Belum ada tanggapan';
+
+  @override
+  String get storyQuestionBox => 'Kotak Pertanyaan';
+
+  @override
+  String get storySent => 'Terkirim!';
+
+  @override
+  String get storyProcessing => 'Memproses...';
+
+  @override
+  String get storyHd => 'HD';
+
+  @override
+  String storyVideoMeta(Object duration, Object size) {
+    return '$duration | $size MB';
+  }
+
+  @override
+  String get storyUserFallback => 'Pengguna';
+
+  @override
+  String storySendCount(int count) {
+    return 'Kirim ($count)';
+  }
+
+  @override
+  String get storyFailedToDelete => 'Gagal menghapus cerita';
+
+  @override
+  String get storyAnonymous => 'Anonim';
 }

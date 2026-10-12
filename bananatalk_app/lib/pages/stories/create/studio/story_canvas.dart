@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:bananatalk_app/pages/stories/create/studio/overlay_draft.dart';
@@ -88,11 +89,11 @@ class _StoryCanvasState extends State<StoryCanvas> {
             // tappable to add the first overlay. Non-interactive so taps
             // pass straight through to the GestureDetector above.
             if (widget.overlays.isEmpty)
-              const Positioned.fill(
+              Positioned.fill(
                 child: IgnorePointer(
                   child: Center(
                     child: Text(
-                      'Tap anywhere to add text',
+                      AppLocalizations.of(context)!.storyTapAnywhereAddText,
                       style: TextStyle(
                         color: Colors.white70,
                         fontSize: 16,

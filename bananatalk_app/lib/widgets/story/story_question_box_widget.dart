@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/providers/provider_models/story_model.dart';
 
@@ -138,8 +139,8 @@ class _StoryQuestionBoxWidgetState extends State<StoryQuestionBoxWidget> {
                   checkColor: Colors.purple,
                   fillColor: WidgetStateProperty.all(Colors.white),
                 ),
-                const Text(
-                  'Send anonymously',
+                Text(
+                  AppLocalizations.of(context)!.storySendAnonymously,
                   style: TextStyle(color: Colors.white, fontSize: 14),
                 ),
               ],
@@ -163,19 +164,19 @@ class _StoryQuestionBoxWidgetState extends State<StoryQuestionBoxWidget> {
                         height: 20,
                         child: CircularProgressIndicator(strokeWidth: 2),
                       )
-                    : const Text('Send', style: TextStyle(fontWeight: FontWeight.bold)),
+                    : Text(AppLocalizations.of(context)!.send, style: TextStyle(fontWeight: FontWeight.bold)),
               ),
             ),
           ] else if (_hasSubmitted) ...[
             const Icon(Icons.check_circle, color: Colors.white, size: 48),
             const SizedBox(height: 8),
-            const Text(
-              'Answer sent!',
+            Text(
+              AppLocalizations.of(context)!.answerSent,
               style: TextStyle(color: Colors.white, fontSize: 16),
             ),
           ] else if (widget.isOwner) ...[
             Text(
-              '${widget.questionBox.responses.length} responses',
+              AppLocalizations.of(context)!.storyResponseCount(widget.questionBox.responses.length),
               style: TextStyle(color: Colors.white.withOpacity(0.8), fontSize: 14),
             ),
             const SizedBox(height: 8),
@@ -191,8 +192,8 @@ class _StoryQuestionBoxWidgetState extends State<StoryQuestionBoxWidget> {
                       builder: (context) => StoryQuestionResponsesList(responses: widget.questionBox.responses),
                     );
                   },
-              child: const Text(
-                'View responses',
+              child: Text(
+                AppLocalizations.of(context)!.storyViewResponses,
                 style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
               ),
             ),
@@ -230,10 +231,10 @@ class StoryQuestionResponsesList extends StatelessWidget {
             borderRadius: BorderRadius.circular(2),
           ),
         ),
-        const Padding(
+        Padding(
           padding: EdgeInsets.all(16),
           child: Text(
-            'Responses',
+            AppLocalizations.of(context)!.storyResponsesTitle,
             style: TextStyle(
               color: Colors.white,
               fontSize: 18,
@@ -247,9 +248,9 @@ class StoryQuestionResponsesList extends StatelessWidget {
                   child: CircularProgressIndicator(color: Colors.white),
                 )
               : responses.isEmpty
-              ? const Center(
+              ? Center(
                   child: Text(
-                    'No responses yet',
+                    AppLocalizations.of(context)!.storyNoResponsesYet,
                     style: TextStyle(color: Colors.grey),
                   ),
                 )
@@ -289,8 +290,8 @@ class StoryQuestionResponsesList extends StatelessWidget {
                               const SizedBox(width: 8),
                               Text(
                                 response.isAnonymous 
-                                    ? 'Anonymous'
-                                    : response.user?.name ?? 'Unknown',
+                                    ? AppLocalizations.of(context)!.storyAnonymous
+                                    : response.user?.name ?? AppLocalizations.of(context)!.unknown,
                                 style: const TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
@@ -344,8 +345,8 @@ class _CreateQuestionBoxDialogState extends State<CreateQuestionBoxDialog> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Question Box',
+            Text(
+              AppLocalizations.of(context)!.storyQuestionBox,
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 20,
@@ -382,7 +383,7 @@ class _CreateQuestionBoxDialogState extends State<CreateQuestionBoxDialog> {
               children: [
                 TextButton(
                   onPressed: () => Navigator.pop(context),
-                  child: Text('Cancel', style: TextStyle(color: Colors.grey[400])),
+                  child: Text(AppLocalizations.of(context)!.cancel, style: TextStyle(color: Colors.grey[400])),
                 ),
                 const SizedBox(width: 8),
                 ElevatedButton(
@@ -396,7 +397,7 @@ class _CreateQuestionBoxDialogState extends State<CreateQuestionBoxDialog> {
                     foregroundColor: Colors.white,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                   ),
-                  child: const Text('Add'),
+                  child: Text(AppLocalizations.of(context)!.add),
                 ),
               ],
             ),

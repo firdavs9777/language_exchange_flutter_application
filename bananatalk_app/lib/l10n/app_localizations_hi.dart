@@ -10592,4 +10592,126 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get profileReportReasonCopyright => 'कॉपीराइट';
+
+  @override
+  String get storyOptimizingBestExperience => 'सर्वश्रेष्ठ अनुभव के लिए ऑप्टिमाइज़ किया जा रहा है';
+
+  @override
+  String get storyCreate => 'स्टोरी बनाएँ';
+
+  @override
+  String get storyAddTags => 'टैग जोड़ें';
+
+  @override
+  String get storyVideoSelected => 'वीडियो चुना गया';
+
+  @override
+  String get storyAddPoll => 'पोल जोड़ें';
+
+  @override
+  String get storyOptions => 'विकल्प';
+
+  @override
+  String get storyAddQuestion => 'प्रश्न जोड़ें';
+
+  @override
+  String get storyPrompt => 'संकेत';
+
+  @override
+  String get storyTapAnywhereAddText => 'टेक्स्ट जोड़ने के लिए कहीं भी टैप करें';
+
+  @override
+  String storyHighlightStoryCount(int storyCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      storyCount,
+      locale: localeName,
+      other: '$storyCount स्टोरी',
+      one: '1 स्टोरी',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storySendFriends => 'दोस्तों को भेजें';
+
+  @override
+  String storySelected(Object count) {
+    return '$count चुने गए';
+  }
+
+  @override
+  String get storyShareSave => 'शेयर/सेव करें';
+
+  @override
+  String storySeenBy(Object viewCount) {
+    return '$viewCount ने देखा';
+  }
+
+  @override
+  String get storyNoViewsYet => 'अभी तक कोई व्यू नहीं';
+
+  @override
+  String get storyEditVideo => 'वीडियो संपादित करें';
+
+  @override
+  String storyVotes(Object totalVotes) {
+    return '$totalVotes वोट';
+  }
+
+  @override
+  String get storyCreatePoll => 'पोल बनाएँ';
+
+  @override
+  String get storySendAnonymously => 'गुमनाम रूप से भेजें';
+
+  @override
+  String storyResponseCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count जवाब',
+      one: '1 जवाब',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storyViewResponses => 'जवाब देखें';
+
+  @override
+  String get storyResponsesTitle => 'जवाब';
+
+  @override
+  String get storyNoResponsesYet => 'अभी तक कोई जवाब नहीं';
+
+  @override
+  String get storyQuestionBox => 'प्रश्न बॉक्स';
+
+  @override
+  String get storySent => 'भेज दिया!';
+
+  @override
+  String get storyProcessing => 'प्रोसेस हो रहा है...';
+
+  @override
+  String get storyHd => 'HD';
+
+  @override
+  String storyVideoMeta(Object duration, Object size) {
+    return '$duration | $size एमबी';
+  }
+
+  @override
+  String get storyUserFallback => 'उपयोगकर्ता';
+
+  @override
+  String storySendCount(int count) {
+    return 'भेजें ($count)';
+  }
+
+  @override
+  String get storyFailedToDelete => 'स्टोरी हटाने में विफल';
+
+  @override
+  String get storyAnonymous => 'गुमनाम';
 }

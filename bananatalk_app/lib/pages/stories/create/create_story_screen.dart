@@ -440,7 +440,7 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
             Text(
               _videoProcessingStatus.isNotEmpty
                   ? _videoProcessingStatus
-                  : 'Processing...',
+                  : AppLocalizations.of(context)!.storyProcessing,
               style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
@@ -450,7 +450,7 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
             ),
             const SizedBox(height: 8),
             Text(
-              'Optimizing for the best experience',
+              AppLocalizations.of(context)!.storyOptimizingBestExperience,
               style: TextStyle(fontSize: 13, color: Colors.grey[400]),
               textAlign: TextAlign.center,
             ),
@@ -661,8 +661,8 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
                           valueColor: AlwaysStoppedAnimation(Colors.white),
                         ),
                       )
-                    : const Text(
-                        'Share',
+                    : Text(
+                        AppLocalizations.of(context)!.share,
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -691,8 +691,8 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
             color: Colors.white30,
           ),
           const SizedBox(height: 24),
-          const Text(
-            'Create a Story',
+          Text(
+            AppLocalizations.of(context)!.storyCreate,
             style: TextStyle(
               color: Colors.white,
               fontSize: 24,
@@ -701,7 +701,7 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
           ),
           const SizedBox(height: 8),
           Text(
-            'Share moments that disappear in 24 hours',
+            AppLocalizations.of(context)!.shareMomentsThatDisappear,
             style: TextStyle(color: Colors.grey[400]),
           ),
           const SizedBox(height: 32),
@@ -984,11 +984,11 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
                 color: Colors.black54,
                 borderRadius: BorderRadius.circular(20),
               ),
-              child: const Row(
+              child: Row(
                 children: [
                   Icon(Icons.refresh, color: Colors.white, size: 20),
                   SizedBox(width: 4),
-                  Text('Change', style: TextStyle(color: Colors.white)),
+                  Text(AppLocalizations.of(context)!.change, style: TextStyle(color: Colors.white)),
                 ],
               ),
             ),
@@ -1031,11 +1031,11 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
                     color: Colors.black54,
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  child: const Row(
+                  child: Row(
                     children: [
                       Icon(Icons.auto_awesome, color: Colors.white, size: 20),
                       SizedBox(width: 4),
-                      Text('Sticker', style: TextStyle(color: Colors.white)),
+                      Text(AppLocalizations.of(context)!.stickerMedia, style: TextStyle(color: Colors.white)),
                     ],
                   ),
                 ),
@@ -1214,13 +1214,13 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
             color: Colors.black54,
             borderRadius: BorderRadius.circular(16),
           ),
-          child: const Row(
+          child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               Icon(Icons.tag, color: Colors.white54, size: 16),
               SizedBox(width: 4),
               Text(
-                'Add tags',
+                AppLocalizations.of(context)!.storyAddTags,
                 style: TextStyle(color: Colors.white70, fontSize: 13),
               ),
             ],
@@ -1623,8 +1623,8 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
                 children: [
                   const Icon(Icons.videocam, color: Colors.white70, size: 80),
                   const SizedBox(height: 16),
-                  const Text(
-                    'Video Selected',
+                  Text(
+                    AppLocalizations.of(context)!.storyVideoSelected,
                     style: TextStyle(
                       color: Colors.white70,
                       fontSize: 20,
@@ -1691,7 +1691,10 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
                     const Icon(Icons.videocam, color: Colors.white, size: 16),
                     const SizedBox(width: 6),
                     Text(
-                      '${_videoProcessResult!.durationFormatted} | ${_videoProcessResult!.fileSizeMB}MB',
+                      AppLocalizations.of(context)!.storyVideoMeta(
+                        _videoProcessResult!.durationFormatted,
+                        _videoProcessResult!.fileSizeMB,
+                      ),
                       style: const TextStyle(color: Colors.white, fontSize: 12),
                     ),
                     if (_videoProcessResult!.wasCompressed) ...[
@@ -1705,8 +1708,8 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
                           color: const Color(0xFF00BFA5),
                           borderRadius: BorderRadius.circular(4),
                         ),
-                        child: const Text(
-                          'HD',
+                        child: Text(
+                          AppLocalizations.of(context)!.storyHd,
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 10,

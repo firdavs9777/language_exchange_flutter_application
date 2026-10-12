@@ -496,7 +496,7 @@ class _HighlightPickerSheetState extends State<_HighlightPickerSheet> {
                     return ListTile(
                       leading: _HighlightThumb(highlight: h),
                       title: Text(h.title),
-                      subtitle: Text('${h.storyCount} stories'),
+                      subtitle: Text(l10n.storyHighlightStoryCount(h.storyCount)),
                       trailing: alreadyIn
                           ? Icon(Icons.check_circle, color: AppColors.primary)
                           : null,

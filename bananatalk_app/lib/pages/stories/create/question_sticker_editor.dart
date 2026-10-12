@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/providers/provider_models/story_model.dart';
 
@@ -56,15 +57,15 @@ class _QuestionStickerEditorState extends State<QuestionStickerEditor> {
         elevation: 0,
         leading: TextButton(
           onPressed: () => Navigator.pop(context),
-          child: const Text('Cancel', style: TextStyle(color: Colors.white70)),
+          child: Text(AppLocalizations.of(context)!.cancel, style: TextStyle(color: Colors.white70)),
         ),
         leadingWidth: 80,
-        title: const Text('Add Question', style: TextStyle(color: Colors.white)),
+        title: Text(AppLocalizations.of(context)!.storyAddQuestion, style: TextStyle(color: Colors.white)),
         actions: [
           TextButton(
             onPressed: _isValid ? _done : null,
             child: Text(
-              'Done',
+              AppLocalizations.of(context)!.done,
               style: TextStyle(
                 color: _isValid ? _teal : Colors.white30,
                 fontWeight: FontWeight.bold,
@@ -80,8 +81,8 @@ class _QuestionStickerEditorState extends State<QuestionStickerEditor> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Prompt',
+              Text(
+                AppLocalizations.of(context)!.storyPrompt,
                 style: TextStyle(color: Colors.white70, fontSize: 13, fontWeight: FontWeight.w600),
               ),
               const SizedBox(height: 8),

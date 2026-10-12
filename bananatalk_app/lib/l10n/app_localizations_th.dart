@@ -10575,4 +10575,124 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get profileReportReasonCopyright => 'ลิขสิทธิ์';
+
+  @override
+  String get storyOptimizingBestExperience => 'กำลังปรับให้เหมาะสมเพื่อประสบการณ์ที่ดีที่สุด';
+
+  @override
+  String get storyCreate => 'สร้างสตอรี่';
+
+  @override
+  String get storyAddTags => 'เพิ่มแท็ก';
+
+  @override
+  String get storyVideoSelected => 'เลือกวิดีโอแล้ว';
+
+  @override
+  String get storyAddPoll => 'เพิ่มโพล';
+
+  @override
+  String get storyOptions => 'ตัวเลือก';
+
+  @override
+  String get storyAddQuestion => 'เพิ่มคำถาม';
+
+  @override
+  String get storyPrompt => 'หัวข้อนำ';
+
+  @override
+  String get storyTapAnywhereAddText => 'แตะที่ใดก็ได้เพื่อเพิ่มข้อความ';
+
+  @override
+  String storyHighlightStoryCount(int storyCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      storyCount,
+      locale: localeName,
+      other: '$storyCount สตอรี่',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storySendFriends => 'ส่งถึงเพื่อน';
+
+  @override
+  String storySelected(Object count) {
+    return 'เลือกแล้ว $count';
+  }
+
+  @override
+  String get storyShareSave => 'แชร์/บันทึก';
+
+  @override
+  String storySeenBy(Object viewCount) {
+    return 'ดูโดย $viewCount';
+  }
+
+  @override
+  String get storyNoViewsYet => 'ยังไม่มีผู้ชม';
+
+  @override
+  String get storyEditVideo => 'แก้ไขวิดีโอ';
+
+  @override
+  String storyVotes(Object totalVotes) {
+    return '$totalVotes โหวต';
+  }
+
+  @override
+  String get storyCreatePoll => 'สร้างโพล';
+
+  @override
+  String get storySendAnonymously => 'ส่งแบบไม่ระบุตัวตน';
+
+  @override
+  String storyResponseCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count คำตอบ',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storyViewResponses => 'ดูคำตอบ';
+
+  @override
+  String get storyResponsesTitle => 'คำตอบ';
+
+  @override
+  String get storyNoResponsesYet => 'ยังไม่มีคำตอบ';
+
+  @override
+  String get storyQuestionBox => 'กล่องคำถาม';
+
+  @override
+  String get storySent => 'ส่งแล้ว!';
+
+  @override
+  String get storyProcessing => 'กำลังประมวลผล...';
+
+  @override
+  String get storyHd => 'HD';
+
+  @override
+  String storyVideoMeta(Object duration, Object size) {
+    return '$duration | $size MB';
+  }
+
+  @override
+  String get storyUserFallback => 'ผู้ใช้';
+
+  @override
+  String storySendCount(int count) {
+    return 'ส่ง ($count)';
+  }
+
+  @override
+  String get storyFailedToDelete => 'ลบสตอรี่ไม่สำเร็จ';
+
+  @override
+  String get storyAnonymous => 'ไม่ระบุตัวตน';
 }

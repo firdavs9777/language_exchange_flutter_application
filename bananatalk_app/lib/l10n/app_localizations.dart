@@ -19261,6 +19261,198 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Copyright'**
   String get profileReportReasonCopyright;
+
+  /// No description provided for @storyOptimizingBestExperience.
+  ///
+  /// In en, this message translates to:
+  /// **'Optimizing for the best experience'**
+  String get storyOptimizingBestExperience;
+
+  /// No description provided for @storyCreate.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a Story'**
+  String get storyCreate;
+
+  /// No description provided for @storyAddTags.
+  ///
+  /// In en, this message translates to:
+  /// **'Add tags'**
+  String get storyAddTags;
+
+  /// No description provided for @storyVideoSelected.
+  ///
+  /// In en, this message translates to:
+  /// **'Video Selected'**
+  String get storyVideoSelected;
+
+  /// No description provided for @storyAddPoll.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Poll'**
+  String get storyAddPoll;
+
+  /// No description provided for @storyOptions.
+  ///
+  /// In en, this message translates to:
+  /// **'Options'**
+  String get storyOptions;
+
+  /// No description provided for @storyAddQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Question'**
+  String get storyAddQuestion;
+
+  /// No description provided for @storyPrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'Prompt'**
+  String get storyPrompt;
+
+  /// No description provided for @storyTapAnywhereAddText.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap anywhere to add text'**
+  String get storyTapAnywhereAddText;
+
+  /// No description provided for @storyHighlightStoryCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{storyCount, plural, =1{1 story} other{{storyCount} stories}}'**
+  String storyHighlightStoryCount(int storyCount);
+
+  /// No description provided for @storySendFriends.
+  ///
+  /// In en, this message translates to:
+  /// **'Send to friends'**
+  String get storySendFriends;
+
+  /// No description provided for @storySelected.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} selected'**
+  String storySelected(Object count);
+
+  /// No description provided for @storyShareSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Share/Save'**
+  String get storyShareSave;
+
+  /// No description provided for @storySeenBy.
+  ///
+  /// In en, this message translates to:
+  /// **'Seen by {viewCount}'**
+  String storySeenBy(Object viewCount);
+
+  /// No description provided for @storyNoViewsYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No views yet'**
+  String get storyNoViewsYet;
+
+  /// No description provided for @storyEditVideo.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Video'**
+  String get storyEditVideo;
+
+  /// No description provided for @storyVotes.
+  ///
+  /// In en, this message translates to:
+  /// **'{totalVotes} votes'**
+  String storyVotes(Object totalVotes);
+
+  /// No description provided for @storyCreatePoll.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Poll'**
+  String get storyCreatePoll;
+
+  /// No description provided for @storySendAnonymously.
+  ///
+  /// In en, this message translates to:
+  /// **'Send anonymously'**
+  String get storySendAnonymously;
+
+  /// No description provided for @storyResponseCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 response} other{{count} responses}}'**
+  String storyResponseCount(int count);
+
+  /// No description provided for @storyViewResponses.
+  ///
+  /// In en, this message translates to:
+  /// **'View responses'**
+  String get storyViewResponses;
+
+  /// No description provided for @storyResponsesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Responses'**
+  String get storyResponsesTitle;
+
+  /// No description provided for @storyNoResponsesYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No responses yet'**
+  String get storyNoResponsesYet;
+
+  /// No description provided for @storyQuestionBox.
+  ///
+  /// In en, this message translates to:
+  /// **'Question Box'**
+  String get storyQuestionBox;
+
+  /// No description provided for @storySent.
+  ///
+  /// In en, this message translates to:
+  /// **'Sent!'**
+  String get storySent;
+
+  /// No description provided for @storyProcessing.
+  ///
+  /// In en, this message translates to:
+  /// **'Processing...'**
+  String get storyProcessing;
+
+  /// No description provided for @storyHd.
+  ///
+  /// In en, this message translates to:
+  /// **'HD'**
+  String get storyHd;
+
+  /// No description provided for @storyVideoMeta.
+  ///
+  /// In en, this message translates to:
+  /// **'{duration} | {size}MB'**
+  String storyVideoMeta(Object duration, Object size);
+
+  /// No description provided for @storyUserFallback.
+  ///
+  /// In en, this message translates to:
+  /// **'User'**
+  String get storyUserFallback;
+
+  /// No description provided for @storySendCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Send ({count})'**
+  String storySendCount(int count);
+
+  /// No description provided for @storyFailedToDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to delete story'**
+  String get storyFailedToDelete;
+
+  /// No description provided for @storyAnonymous.
+  ///
+  /// In en, this message translates to:
+  /// **'Anonymous'**
+  String get storyAnonymous;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

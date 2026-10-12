@@ -10575,4 +10575,124 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get profileReportReasonCopyright => 'Bản quyền';
+
+  @override
+  String get storyOptimizingBestExperience => 'Đang tối ưu hóa để có trải nghiệm tốt nhất';
+
+  @override
+  String get storyCreate => 'Tạo tin';
+
+  @override
+  String get storyAddTags => 'Thêm thẻ';
+
+  @override
+  String get storyVideoSelected => 'Đã chọn video';
+
+  @override
+  String get storyAddPoll => 'Thêm bình chọn';
+
+  @override
+  String get storyOptions => 'Tùy chọn';
+
+  @override
+  String get storyAddQuestion => 'Thêm câu hỏi';
+
+  @override
+  String get storyPrompt => 'Gợi ý';
+
+  @override
+  String get storyTapAnywhereAddText => 'Chạm vào bất kỳ đâu để thêm văn bản';
+
+  @override
+  String storyHighlightStoryCount(int storyCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      storyCount,
+      locale: localeName,
+      other: '$storyCount tin',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storySendFriends => 'Gửi cho bạn bè';
+
+  @override
+  String storySelected(Object count) {
+    return 'Đã chọn $count';
+  }
+
+  @override
+  String get storyShareSave => 'Chia sẻ/Lưu';
+
+  @override
+  String storySeenBy(Object viewCount) {
+    return '$viewCount người đã xem';
+  }
+
+  @override
+  String get storyNoViewsYet => 'Chưa có lượt xem';
+
+  @override
+  String get storyEditVideo => 'Chỉnh sửa video';
+
+  @override
+  String storyVotes(Object totalVotes) {
+    return '$totalVotes phiếu';
+  }
+
+  @override
+  String get storyCreatePoll => 'Tạo bình chọn';
+
+  @override
+  String get storySendAnonymously => 'Gửi ẩn danh';
+
+  @override
+  String storyResponseCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count phản hồi',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storyViewResponses => 'Xem phản hồi';
+
+  @override
+  String get storyResponsesTitle => 'Phản hồi';
+
+  @override
+  String get storyNoResponsesYet => 'Chưa có phản hồi';
+
+  @override
+  String get storyQuestionBox => 'Hộp câu hỏi';
+
+  @override
+  String get storySent => 'Đã gửi!';
+
+  @override
+  String get storyProcessing => 'Đang xử lý...';
+
+  @override
+  String get storyHd => 'HD';
+
+  @override
+  String storyVideoMeta(Object duration, Object size) {
+    return '$duration | $size MB';
+  }
+
+  @override
+  String get storyUserFallback => 'Người dùng';
+
+  @override
+  String storySendCount(int count) {
+    return 'Gửi ($count)';
+  }
+
+  @override
+  String get storyFailedToDelete => 'Không thể xóa tin';
+
+  @override
+  String get storyAnonymous => 'Ẩn danh';
 }

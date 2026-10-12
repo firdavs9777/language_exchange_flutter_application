@@ -10575,6 +10575,126 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get profileReportReasonCopyright => '版权';
+
+  @override
+  String get storyOptimizingBestExperience => '正在优化以获得最佳体验';
+
+  @override
+  String get storyCreate => '创建故事';
+
+  @override
+  String get storyAddTags => '添加标签';
+
+  @override
+  String get storyVideoSelected => '已选择视频';
+
+  @override
+  String get storyAddPoll => '添加投票';
+
+  @override
+  String get storyOptions => '选项';
+
+  @override
+  String get storyAddQuestion => '添加问题';
+
+  @override
+  String get storyPrompt => '提示语';
+
+  @override
+  String get storyTapAnywhereAddText => '点按任意位置添加文字';
+
+  @override
+  String storyHighlightStoryCount(int storyCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      storyCount,
+      locale: localeName,
+      other: '$storyCount 个故事',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storySendFriends => '发送给好友';
+
+  @override
+  String storySelected(Object count) {
+    return '已选择 $count 项';
+  }
+
+  @override
+  String get storyShareSave => '分享/保存';
+
+  @override
+  String storySeenBy(Object viewCount) {
+    return '$viewCount 人看过';
+  }
+
+  @override
+  String get storyNoViewsYet => '暂无浏览';
+
+  @override
+  String get storyEditVideo => '编辑视频';
+
+  @override
+  String storyVotes(Object totalVotes) {
+    return '$totalVotes 票';
+  }
+
+  @override
+  String get storyCreatePoll => '创建投票';
+
+  @override
+  String get storySendAnonymously => '匿名发送';
+
+  @override
+  String storyResponseCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count 条回复',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storyViewResponses => '查看回复';
+
+  @override
+  String get storyResponsesTitle => '回复';
+
+  @override
+  String get storyNoResponsesYet => '暂无回复';
+
+  @override
+  String get storyQuestionBox => '提问箱';
+
+  @override
+  String get storySent => '已发送！';
+
+  @override
+  String get storyProcessing => '处理中...';
+
+  @override
+  String get storyHd => 'HD';
+
+  @override
+  String storyVideoMeta(Object duration, Object size) {
+    return '$duration | ${size}MB';
+  }
+
+  @override
+  String get storyUserFallback => '用户';
+
+  @override
+  String storySendCount(int count) {
+    return '发送（$count）';
+  }
+
+  @override
+  String get storyFailedToDelete => '删除故事失败';
+
+  @override
+  String get storyAnonymous => '匿名';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -21148,4 +21268,124 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get profileReportReasonCopyright => '版權';
+
+  @override
+  String get storyOptimizingBestExperience => '正在最佳化以獲得最佳體驗';
+
+  @override
+  String get storyCreate => '建立限時動態';
+
+  @override
+  String get storyAddTags => '新增標籤';
+
+  @override
+  String get storyVideoSelected => '已選擇影片';
+
+  @override
+  String get storyAddPoll => '新增投票';
+
+  @override
+  String get storyOptions => '選項';
+
+  @override
+  String get storyAddQuestion => '新增問題';
+
+  @override
+  String get storyPrompt => '提示語';
+
+  @override
+  String get storyTapAnywhereAddText => '點按任意位置新增文字';
+
+  @override
+  String storyHighlightStoryCount(int storyCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      storyCount,
+      locale: localeName,
+      other: '$storyCount 則限時動態',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storySendFriends => '傳送給好友';
+
+  @override
+  String storySelected(Object count) {
+    return '已選擇 $count 項';
+  }
+
+  @override
+  String get storyShareSave => '分享/儲存';
+
+  @override
+  String storySeenBy(Object viewCount) {
+    return '$viewCount 人看過';
+  }
+
+  @override
+  String get storyNoViewsYet => '尚無瀏覽';
+
+  @override
+  String get storyEditVideo => '編輯影片';
+
+  @override
+  String storyVotes(Object totalVotes) {
+    return '$totalVotes 票';
+  }
+
+  @override
+  String get storyCreatePoll => '建立投票';
+
+  @override
+  String get storySendAnonymously => '匿名傳送';
+
+  @override
+  String storyResponseCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count 則回覆',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storyViewResponses => '查看回覆';
+
+  @override
+  String get storyResponsesTitle => '回覆';
+
+  @override
+  String get storyNoResponsesYet => '尚無回覆';
+
+  @override
+  String get storyQuestionBox => '提問箱';
+
+  @override
+  String get storySent => '已傳送！';
+
+  @override
+  String get storyProcessing => '處理中...';
+
+  @override
+  String get storyHd => 'HD';
+
+  @override
+  String storyVideoMeta(Object duration, Object size) {
+    return '$duration | ${size}MB';
+  }
+
+  @override
+  String get storyUserFallback => '使用者';
+
+  @override
+  String storySendCount(int count) {
+    return '傳送（$count）';
+  }
+
+  @override
+  String get storyFailedToDelete => '刪除限時動態失敗';
+
+  @override
+  String get storyAnonymous => '匿名';
 }
