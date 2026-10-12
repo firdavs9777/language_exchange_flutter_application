@@ -97,10 +97,11 @@ class ApiClient {
   /// paywall, generic rate limit shows a toast. Step 13A.
   Function(QuotaError quotaError)? onQuotaExceeded;
 
-  /// Step 14: called when the server returns 403 with an error message
-  /// starting with "Your account has been suspended" — the banned-user
-  /// indicator from the protect middleware (Step 14 B1).
-  Function(String reason)? onAccountSuspended;
+  /// Called when the server returns 403 "Your account has been suspended".
+  /// Receives the server's `banReason` field (null when none); the English
+  /// message is never parsed for it (spec §5.1), except as a rollout fallback
+  /// for backends that predate the field.
+  Function(String? banReason)? onAccountSuspended;
 
   // Callback for when token refresh completes (notify socket service)
   Function()? onTokenRefreshed;
@@ -417,7 +418,16 @@ class ApiClient {
         // protect/optionalAuth middleware (Step 14 B1).
         final raw403 = body['error']?.toString() ?? '';
         if (raw403.startsWith('Your account has been suspended')) {
-          onAccountSuspended?.call(raw403);
+          // Older backends send no banReason key at all; only then fall back
+          // to the " Reason: ..." suffix of the message.
+          final banReason = body.containsKey('banReason')
+              ? body['banReason']
+              : RegExp(r'Reason:\s*(.+)$').firstMatch(raw403)?.group(1);
+          onAccountSuspended?.call(
+            banReason is String && banReason.trim().isNotEmpty
+                ? banReason.trim()
+                : null,
+          );
           return build(
             success: false,
             error: raw403,

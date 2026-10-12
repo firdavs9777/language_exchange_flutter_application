@@ -143,8 +143,7 @@ call or rejoin", and the caller already has the call on screen.
 - [x] A13 `AnnouncementScreen` at `/announcement/:id`
 - [x] A14 notifications list `announcement` type + push routing
 - [x] A15 Settings → Notifications "Announcements" toggle
-- [ ] A16 suspension screen reads `banReason`
-- [x] `test/growth/first_session_test.dart`: "WavesTab primes once with 1 waves" / "primes never with 0 waves" fail (already failing before A12, at ddc6fcae)
+- [x] A16 suspension screen reads `banReason` (REST 403 only; no app socket-suspended handler exists; falls back to the old "Reason:" suffix until the backend ships)
 - [x] A12 fix round 1: empty `bananatalk:///` links ignored (never handed to the OS), external launch failures caught, spotlight re-checks the route after picking
 - [ ] Device QA rows in `docs/qa/onboarding-matrix.md` (owner, after a release build) — matrix file created in A1; incl. 2 new launch rows (update vs welcome-back, notification tap within 1 s)
 

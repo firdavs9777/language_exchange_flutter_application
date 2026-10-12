@@ -62,15 +62,11 @@ class AccountSuspendedScreen extends StatelessWidget {
     );
   }
 
+  /// [raw] is the server's `banReason` (spec §5.1), already just the reason.
   String _displayReason(BuildContext context, String? raw) {
-    if (raw == null || raw.isEmpty) {
-      return AppLocalizations.of(context)!.suspendedNoAccess;
-    }
-    // Server message format: "Your account has been suspended. Reason: <text>"
-    final reasonStart = raw.indexOf(AppLocalizations.of(context)!.suspendedReason);
-    if (reasonStart >= 0) {
-      return raw.substring(reasonStart).trim();
-    }
-    return raw;
+    final l10n = AppLocalizations.of(context)!;
+    final reason = raw?.trim() ?? '';
+    if (reason.isEmpty) return l10n.suspendedNoAccess;
+    return '${l10n.suspendedReason} $reason';
   }
 }
