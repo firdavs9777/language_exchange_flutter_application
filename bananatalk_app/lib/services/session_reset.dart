@@ -58,6 +58,7 @@ import 'package:bananatalk_app/services/global_chat_listener.dart';
 import 'package:bananatalk_app/services/notification_service.dart';
 import 'package:bananatalk_app/services/referral_service.dart';
 import 'package:bananatalk_app/pages/community/first_session/first_session_store.dart';
+import 'package:bananatalk_app/services/activation_store.dart';
 import 'package:bananatalk_app/services/guide_store.dart';
 
 /// Every Riverpod provider whose state belongs to the signed-in user, keyed
@@ -90,6 +91,10 @@ final Map<String, ProviderOrFamily> userScopedProviders = {
   // this run" are both per account, same reason as the three above.
   'guideStateProvider': guideStateProvider,
   'guideRecordedProvider': guideRecordedProvider,
+  // Activation milestones (spec 2026-10-12 §3.1). The prefs are removed by
+  // clearUserSessionPrefs (not device-level); these drop the cached reads.
+  'activationStoreProvider': activationStoreProvider,
+  'activationDoneProvider': activationDoneProvider,
   'currentUserLimitsProvider': currentUserLimitsProvider,
   'vipStatusProvider': vipStatusProvider,
   'isVipProvider': isVipProvider,

@@ -129,7 +129,7 @@ call or rejoin", and the caller already has the call on screen.
 ## 0d. Activation, launch pop-ups, announcements — app (2026-10-12) — spec `docs/superpowers/specs/2026-10-12-onboarding-announcements-design.md` §3 §4 §5.2
 
 - [x] A1 analytics: `activation_milestone`, `guide_retired`, `notification_prime_shown`, `notification_prime_result`
-- [ ] A2 `ActivationStore` (4 actions, back-fill, fail closed, user-scoped)
+- [x] A2 `ActivationStore` (4 actions, back-fill, fail closed, user-scoped)
 - [ ] A3 hooks: message, moment (direct + upload queue), lesson / quiz / vocab review, profile complete
 - [ ] A4 guide rule: 7 days, stop at 3 of 4, `isGuidePeriod`, `GuideSurface.chatTip`, `guide_retired` latch
 - [ ] A5 strings: 6 keys × 19 locales + native-QA rows
