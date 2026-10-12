@@ -4,36 +4,52 @@ Last updated: 2026-10-12. Keep this current: tick items off in the same commit t
 
 ---
 
+## Release — onboarding, announcements, localization, Calls Phase 2 (branch `feat/onboarding-announcements`)
+
+The 2026-10-12 plan (`docs/superpowers/plans/2026-10-12-onboarding-announcements.md`, 61 tasks: O, B, W,
+A, L, C) is **DONE** and through its final review and fix wave. What is left is release work:
+
+- [ ] **Deploy in order: backend → web admin → app.** The new app on the old backend gets 404s on
+      `/announcements/:id` and `/calls/:id/upgrade` and silently drops decline messages.
+- [ ] **After the backend deploy:** the log shows `[index] announcement_once_per_user ensured` and
+      `db.notifications.getIndexes()` lists `announcement_once_per_user` (if not: run
+      `node migrations/addAnnouncementNotificationIndex.js` on the server).
+- [ ] **Release build** (manual signing — keystore MacBook; `reference_release_build`), then store submit.
+- [ ] **Device QA:** every row of `docs/qa/onboarding-matrix.md` and `docs/qa/calls-matrix.md` §5
+      (CALL2-1…CALL2-20), plus the camera-upgrade speaker route and an upgrade POST that times out.
+- [ ] **Native review** of the machine-drafted strings (`docs/l10n/native-qa-strings-2026-10.csv`).
+- Live 2.6.1 caveats after the backend deploy (accepted, tell admins):
+  - 2.6.1 sends no `lang`: it only ever gets announcements that target **all languages**; a
+    language-targeted announcement never pops up on 2.6.1 (push and list row still arrive).
+  - 2.6.1 shows the server's **English** text for the new 409 `CALLEE_UNAVAILABLE` ("X isn't taking
+    calls right now").
+
 ## Open work, by who can act
 
 **You — consoles, keys, money, store** (§1)
-- Build + submit 2.6.1 · store prices (VIP $3.99 / $24.99) · Play Console foreground-service
+- Build + submit (see Release above) · store prices (VIP $3.99 / $24.99) · Play Console foreground-service
   declarations (upload is REJECTED without them) · Android App Links SHA-256 · droplet
   `config.env` duplicate keys then Day-0 flags · LiveKit webhook + `APNS_VOIP_*` on prod ·
   AdMob earnings · native review of the machine-drafted strings
 
-**You — a device in your hand** (§0, §0b, §0c)
+**You — a device in your hand** (§0, §0b, §0c, §0d)
 - Re-run after the PulseHighlight ticker fix and confirm a clean log
 - Send one message on a new account so `first_message_sent` is finally observed
 - Biometric smoke: Android 7–8, Android 13+, iPhone Face ID
-- `docs/qa/calls-matrix.md`, every row; decide on IOS-8 (Focus mode silences CallKit)
+- `docs/qa/calls-matrix.md` every row (incl. §5 CALL2-1…20); `docs/qa/onboarding-matrix.md`; decide on
+  IOS-8 (Focus mode silences CallKit)
 
-**Me — code, ready to start** (§0c, §5)
-- **Onboarding + announcements + localization + Calls Phase 2 + ops, one plan** — spec
-  `docs/superpowers/specs/2026-10-12-onboarding-announcements-design.md`, plan
-  `docs/superpowers/plans/2026-10-12-onboarding-announcements.md` (60 tasks: O, B, W, A, L, C)
-- 74 hardcoded English strings in 56 files (`docs/onboarding-audit-2026-10-10.md` §2a).
-  These never reach an `.arb`, so no translation check can see them. Next by exposure:
-  `report_dialog.dart`, `lesson_summary_sheet.dart`, the remaining learning screens, stories.
-- Long-press tooltip on the first received message — translate/correct are invisible today
-  (audit §3 P2, cheapest large win, reuses `GuideStore` with one new surface)
-- Calls Phase 2: decline with message, missed-call push actions, quiet hours, camera mid
-  voice call
+**Me — code, ready to start** (§5)
+- Localization is done except the **103 allowlisted `Text` literals** and the follow-up sweep (`L14`:
+  property literals — `hintText:`/`labelText:`/`tooltip:`/`message:` — with a guard), see §5.
+- Built on this branch, no longer open: the long-press tooltip on the first received message (A7) and
+  Calls Phase 2 (decline with message, missed-call push actions, quiet hours, camera mid voice call,
+  draggable self-view — C1–C10).
 
 **Me — waiting on data, not on work** (§0c)
 - Read `guide_cta_tapped` by `target` before adding a third destination anywhere
 - Decide whether guides should reach the existing install base (they are gated on
-  `isNewUser`, so today only accounts ≤3 days old see one)
+  `isNewUser`, so today only accounts ≤7 days old see one)
 
 **Unexplained — no owner yet** (§0b)
 - [x] `flutter: null` lines — debug-only trap added (`lib/utils/null_log_trap.dart`); source not yet named, needs a device run (2026-10-12)
@@ -256,7 +272,7 @@ fails if a tab loses its guide or a sixth one arrives without one.
 - [ ] Decide from `guide_cta_tapped` whether any surface needs a second, deeper guide. One card per
       tab, but AI Study's now carries two destinations: the tutor (primary, ringed) and Exam Study
       (secondary, quieter). Read `target` before adding a third anywhere.
-- [ ] Guides are gated on `isNewUser` (≤6 days), so the existing install base never sees one. Revisit
+- [ ] Guides are gated on the 7-day guide period, so the existing install base never sees one. Revisit
       if the goal becomes activating dormant accounts rather than day-one retention.
 
 ## 5. Localization debt (2026-10-11 → ongoing)
