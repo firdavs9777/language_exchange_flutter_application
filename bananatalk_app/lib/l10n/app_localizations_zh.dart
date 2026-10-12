@@ -9633,6 +9633,41 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get chatReconnecting => '正在重新连接聊天...';
+
+  @override
+  String get chatDailyLimitReached => '已达到每日消息上限';
+
+  @override
+  String chatMessagesRemainingToday(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '今天还剩 $count 条消息',
+      one: '今天还剩 1 条消息',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get chatTranslatePreviewHint => '开始输入即可查看翻译';
+
+  @override
+  String get chatNoMessagesYet => '暂无消息';
+
+  @override
+  String get chatMediaPhoto => '照片';
+
+  @override
+  String get chatMediaVideo => '视频';
+
+  @override
+  String get chatMediaAudio => '音频';
+
+  @override
+  String get chatMediaFile => '文件';
+
+  @override
+  String get chatMediaGeneric => '媒体';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -19264,4 +19299,39 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get chatReconnecting => '正在重新連線聊天...';
+
+  @override
+  String get chatDailyLimitReached => '已達到每日訊息上限';
+
+  @override
+  String chatMessagesRemainingToday(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '今天還剩 $count 則訊息',
+      one: '今天還剩 1 則訊息',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get chatTranslatePreviewHint => '開始輸入即可查看翻譯';
+
+  @override
+  String get chatNoMessagesYet => '尚無訊息';
+
+  @override
+  String get chatMediaPhoto => '照片';
+
+  @override
+  String get chatMediaVideo => '影片';
+
+  @override
+  String get chatMediaAudio => '音訊';
+
+  @override
+  String get chatMediaFile => '檔案';
+
+  @override
+  String get chatMediaGeneric => '媒體';
 }

@@ -3872,5 +3872,14 @@
   "chatDraft": "Draft: ",
   "chatTyping": "nagta-type...",
   "chatPoweredBy": "Pinapagana ng ",
-  "chatReconnecting": "Muling kumokonekta sa chat..."
+  "chatReconnecting": "Muling kumokonekta sa chat...",
+  "chatDailyLimitReached": "Naabot na ang pang-araw-araw na limitasyon ng mensahe",
+  "chatMessagesRemainingToday": "{count, plural, =1{1 mensahe na lang ang natitira ngayon} other{{count} mensahe na lang ang natitira ngayon}}",
+  "chatTranslatePreviewHint": "Magsimulang mag-type para makita ang salin",
+  "chatNoMessagesYet": "Wala pang mensahe",
+  "chatMediaPhoto": "larawan",
+  "chatMediaVideo": "video",
+  "chatMediaAudio": "audio",
+  "chatMediaFile": "file",
+  "chatMediaGeneric": "media"
 }

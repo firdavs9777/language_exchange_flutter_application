@@ -454,7 +454,8 @@ class ChatListTile extends StatelessWidget {
                                     Expanded(
                                       child: Text(
                                         partner.lastMessage ??
-                                            'No messages yet',
+                                            AppLocalizations.of(context)!
+                                                .chatNoMessagesYet,
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
                                         style: textTheme.bodySmall?.copyWith(

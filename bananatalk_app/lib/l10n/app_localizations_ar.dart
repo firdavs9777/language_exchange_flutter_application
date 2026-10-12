@@ -9655,4 +9655,42 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get chatReconnecting => 'جارٍ إعادة الاتصال بالدردشة...';
+
+  @override
+  String get chatDailyLimitReached => 'تم بلوغ الحد اليومي للرسائل';
+
+  @override
+  String chatMessagesRemainingToday(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count رسالة متبقية اليوم',
+      many: '$count رسالة متبقية اليوم',
+      few: '$count رسائل متبقية اليوم',
+      two: 'رسالتان متبقيتان اليوم',
+      one: 'رسالة واحدة متبقية اليوم',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get chatTranslatePreviewHint => 'ابدأ الكتابة لعرض الترجمة';
+
+  @override
+  String get chatNoMessagesYet => 'لا توجد رسائل بعد';
+
+  @override
+  String get chatMediaPhoto => 'صورة';
+
+  @override
+  String get chatMediaVideo => 'فيديو';
+
+  @override
+  String get chatMediaAudio => 'ملف صوتي';
+
+  @override
+  String get chatMediaFile => 'ملف';
+
+  @override
+  String get chatMediaGeneric => 'وسائط';
 }

@@ -3916,7 +3916,7 @@
   "chatDailyLimitBody": "Бесплатные пользователи могут общаться не более чем с {count} людьми в день.\nПерейдите на VIP для безлимитного общения!",
   "chatCompressingVideo": "Сжатие видео...",
   "chatShareLocationBody": "Отправьте своё текущее местоположение пользователю {name}. Делайте это только с теми, кому доверяете.",
-  "chatShareLocationThisChat": "этим чатом",
+  "chatShareLocationThisChat": "этому чату",
   "chatTranslationLimitReached": "Достигнут лимит переводов",
   "chatTranslateLimitBody": "Вы израсходовали бесплатные переводы на сегодня в этом чате. Разблокируйте больше мгновенно за монеты.",
   "chatReplyingTo": "Ответ для {name}",
@@ -3929,5 +3929,14 @@
   "chatDraft": "Черновик: ",
   "chatTyping": "печатает...",
   "chatPoweredBy": "При поддержке ",
-  "chatReconnecting": "Повторное подключение к чату..."
+  "chatReconnecting": "Повторное подключение к чату...",
+  "chatDailyLimitReached": "Достигнут дневной лимит сообщений",
+  "chatMessagesRemainingToday": "{count, plural, one{Осталось {count} сообщение сегодня} few{Осталось {count} сообщения сегодня} many{Осталось {count} сообщений сегодня} other{Осталось {count} сообщения сегодня}}",
+  "chatTranslatePreviewHint": "Начните печатать, чтобы увидеть перевод",
+  "chatNoMessagesYet": "Сообщений пока нет",
+  "chatMediaPhoto": "фото",
+  "chatMediaVideo": "видео",
+  "chatMediaAudio": "аудио",
+  "chatMediaFile": "файл",
+  "chatMediaGeneric": "медиа"
 }

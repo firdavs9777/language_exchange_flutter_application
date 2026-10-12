@@ -3929,5 +3929,14 @@
   "chatDraft": "مسودة: ",
   "chatTyping": "يكتب...",
   "chatPoweredBy": "بدعم من ",
-  "chatReconnecting": "جارٍ إعادة الاتصال بالدردشة..."
+  "chatReconnecting": "جارٍ إعادة الاتصال بالدردشة...",
+  "chatDailyLimitReached": "تم بلوغ الحد اليومي للرسائل",
+  "chatMessagesRemainingToday": "{count, plural, =1{رسالة واحدة متبقية اليوم} =2{رسالتان متبقيتان اليوم} few{{count} رسائل متبقية اليوم} many{{count} رسالة متبقية اليوم} other{{count} رسالة متبقية اليوم}}",
+  "chatTranslatePreviewHint": "ابدأ الكتابة لعرض الترجمة",
+  "chatNoMessagesYet": "لا توجد رسائل بعد",
+  "chatMediaPhoto": "صورة",
+  "chatMediaVideo": "فيديو",
+  "chatMediaAudio": "ملف صوتي",
+  "chatMediaFile": "ملف",
+  "chatMediaGeneric": "وسائط"
 }

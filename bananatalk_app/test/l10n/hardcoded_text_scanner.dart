@@ -1,5 +1,10 @@
 import 'dart:io';
 
+/// Scope: English string literals anywhere in the FIRST argument of a
+/// `Text(` / `SelectableText(` call (plain, ternary, `??`, parenthesised).
+/// Out of scope: `TextSpan(text:)`, `hintText`, `labelText`, `tooltip`,
+/// `title:` and other named-parameter strings.
+///
 /// One English `Text('…')` / `SelectableText('…')` literal found in source.
 class HardcodedText {
   HardcodedText(this.path, this.line, this.text);
@@ -90,22 +95,63 @@ String _stripLineComments(String src) => src.split('\n').map((line) {
   return null;
 }
 
+/// Extent of the first argument starting at [i]: up to the first top-level
+/// `,` or the closing `)` of the call. Returns the end index (exclusive).
+int _firstArgEnd(String s, int i) {
+  var depth = 0;
+  while (i < s.length) {
+    final c = s[i];
+    if (c == "'" || c == '"') {
+      final lit = _literal(s, i);
+      if (lit == null) return s.length;
+      i = lit.$2;
+      continue;
+    }
+    if (c == 'r' && i + 1 < s.length && (s[i + 1] == "'" || s[i + 1] == '"') &&
+        (i == 0 || !RegExp(r'\w').hasMatch(s[i - 1]))) {
+      final lit = _literal(s, i);
+      if (lit != null) {
+        i = lit.$2;
+        continue;
+      }
+    }
+    if (c == '(' || c == '[' || c == '{') {
+      depth++;
+    } else if (c == ')' || c == ']' || c == '}') {
+      if (depth == 0) return i;
+      depth--;
+    } else if (c == ',' && depth == 0) {
+      return i;
+    }
+    i++;
+  }
+  return s.length;
+}
+
 /// English-bearing Text literals in [source]; adjacent literals are joined.
 List<HardcodedText> scanSource(String path, String source) {
   final src = _stripLineComments(source);
   final hits = <HardcodedText>[];
   for (final m in _call.allMatches(src)) {
-    var i = m.end;
+    final end = _firstArgEnd(src, m.end);
+    final arg = src.substring(m.end, end);
+    // Collect every string literal in the argument (nested calls included).
     final parts = <String>[];
-    while (true) {
-      while (i < src.length && ' \t\r\n'.contains(src[i])) {
+    var i = 0;
+    while (i < arg.length) {
+      final c = arg[i];
+      final rawStart = c == 'r' &&
+          i + 1 < arg.length &&
+          (arg[i + 1] == "'" || arg[i + 1] == '"') &&
+          (i == 0 || !RegExp(r'\w').hasMatch(arg[i - 1]));
+      if (c == "'" || c == '"' || rawStart) {
+        final lit = _literal(arg, i);
+        if (lit == null) break;
+        parts.add(lit.$1);
+        i = lit.$2;
+      } else {
         i++;
       }
-      if (i >= src.length) break;
-      final lit = _literal(src, i);
-      if (lit == null) break;
-      parts.add(lit.$1);
-      i = lit.$2;
     }
     if (parts.isEmpty) continue;
     final text = parts.join();

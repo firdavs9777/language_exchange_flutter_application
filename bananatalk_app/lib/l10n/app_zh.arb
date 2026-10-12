@@ -3913,5 +3913,14 @@
   "chatDraft": "草稿: ",
   "chatTyping": "正在输入...",
   "chatPoweredBy": "技术支持: ",
-  "chatReconnecting": "正在重新连接聊天..."
+  "chatReconnecting": "正在重新连接聊天...",
+  "chatDailyLimitReached": "已达到每日消息上限",
+  "chatMessagesRemainingToday": "{count, plural, =1{今天还剩 1 条消息} other{今天还剩 {count} 条消息}}",
+  "chatTranslatePreviewHint": "开始输入即可查看翻译",
+  "chatNoMessagesYet": "暂无消息",
+  "chatMediaPhoto": "照片",
+  "chatMediaVideo": "视频",
+  "chatMediaAudio": "音频",
+  "chatMediaFile": "文件",
+  "chatMediaGeneric": "媒体"
 }

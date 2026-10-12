@@ -3899,5 +3899,14 @@
   "chatDraft": "Draf: ",
   "chatTyping": "sedang mengetik...",
   "chatPoweredBy": "Didukung oleh ",
-  "chatReconnecting": "Menyambungkan kembali ke obrolan..."
+  "chatReconnecting": "Menyambungkan kembali ke obrolan...",
+  "chatDailyLimitReached": "Batas pesan harian tercapai",
+  "chatMessagesRemainingToday": "{count, plural, =1{Sisa 1 pesan hari ini} other{Sisa {count} pesan hari ini}}",
+  "chatTranslatePreviewHint": "Mulai mengetik untuk melihat terjemahan",
+  "chatNoMessagesYet": "Belum ada pesan",
+  "chatMediaPhoto": "foto",
+  "chatMediaVideo": "video",
+  "chatMediaAudio": "audio",
+  "chatMediaFile": "file",
+  "chatMediaGeneric": "media"
 }

@@ -4111,5 +4111,14 @@
   "chatDraft": "Taslak: ",
   "chatTyping": "yazıyor...",
   "chatPoweredBy": "Sağlayan: ",
-  "chatReconnecting": "Sohbete yeniden bağlanılıyor..."
+  "chatReconnecting": "Sohbete yeniden bağlanılıyor...",
+  "chatDailyLimitReached": "Günlük mesaj sınırına ulaşıldı",
+  "chatMessagesRemainingToday": "{count, plural, =1{Bugün 1 mesaj kaldı} other{Bugün {count} mesaj kaldı}}",
+  "chatTranslatePreviewHint": "Çeviriyi görmek için yazmaya başlayın",
+  "chatNoMessagesYet": "Henüz mesaj yok",
+  "chatMediaPhoto": "fotoğraf",
+  "chatMediaVideo": "video",
+  "chatMediaAudio": "ses",
+  "chatMediaFile": "dosya",
+  "chatMediaGeneric": "medya"
 }

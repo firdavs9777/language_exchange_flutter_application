@@ -25,6 +25,15 @@ const Map<String, List<String>> _keysByTask = {
     'chatReconnecting',
     'chatShareLocationThisChat',
     'chatReplyingToFallback',
+    'chatDailyLimitReached',
+    'chatMessagesRemainingToday',
+    'chatTranslatePreviewHint',
+    'chatNoMessagesYet',
+    'chatMediaPhoto',
+    'chatMediaVideo',
+    'chatMediaAudio',
+    'chatMediaFile',
+    'chatMediaGeneric',
   ],
 };
 
@@ -48,6 +57,11 @@ const Map<String, List<String>> _filesByTask = {
 const Set<String> _mayMatchEnglish = {
   'chatQrCode', // tl uses the English term
   'chatDraft', // tl uses the English loanword
+  'chatMediaPhoto', // fr "photo" is the same word
+  'chatMediaVideo', // tl/id/de/it/pt/vi use the loanword "video"
+  'chatMediaAudio', // many locales use the loanword "audio"
+  'chatMediaFile', // id/tl use the loanword "file"
+  'chatMediaGeneric', // id/tl use the loanword "media"
   'chatReplyingToFallback', // tl uses the English loanword "user"
 };
 

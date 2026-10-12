@@ -3915,5 +3915,14 @@
   "chatDraft": "ड्राफ़्ट: ",
   "chatTyping": "टाइप कर रहे हैं...",
   "chatPoweredBy": "संचालित: ",
-  "chatReconnecting": "चैट से दोबारा कनेक्ट हो रहा है..."
+  "chatReconnecting": "चैट से दोबारा कनेक्ट हो रहा है...",
+  "chatDailyLimitReached": "दैनिक संदेश सीमा पूरी हो गई",
+  "chatMessagesRemainingToday": "{count, plural, =1{आज 1 संदेश शेष} other{आज {count} संदेश शेष}}",
+  "chatTranslatePreviewHint": "अनुवाद देखने के लिए टाइप करना शुरू करें",
+  "chatNoMessagesYet": "अभी तक कोई संदेश नहीं",
+  "chatMediaPhoto": "फ़ोटो",
+  "chatMediaVideo": "वीडियो",
+  "chatMediaAudio": "ऑडियो",
+  "chatMediaFile": "फ़ाइल",
+  "chatMediaGeneric": "मीडिया"
 }

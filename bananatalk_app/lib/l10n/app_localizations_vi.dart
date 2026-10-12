@@ -9633,4 +9633,39 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get chatReconnecting => 'Đang kết nối lại với cuộc trò chuyện...';
+
+  @override
+  String get chatDailyLimitReached => 'Đã đạt giới hạn tin nhắn hằng ngày';
+
+  @override
+  String chatMessagesRemainingToday(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Hôm nay còn $count tin nhắn',
+      one: 'Hôm nay còn 1 tin nhắn',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get chatTranslatePreviewHint => 'Bắt đầu nhập để xem bản dịch';
+
+  @override
+  String get chatNoMessagesYet => 'Chưa có tin nhắn nào';
+
+  @override
+  String get chatMediaPhoto => 'ảnh';
+
+  @override
+  String get chatMediaVideo => 'video';
+
+  @override
+  String get chatMediaAudio => 'âm thanh';
+
+  @override
+  String get chatMediaFile => 'tệp';
+
+  @override
+  String get chatMediaGeneric => 'phương tiện';
 }

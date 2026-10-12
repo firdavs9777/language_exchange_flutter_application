@@ -9633,4 +9633,39 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get chatReconnecting => '채팅에 다시 연결하는 중...';
+
+  @override
+  String get chatDailyLimitReached => '일일 메시지 한도에 도달했습니다';
+
+  @override
+  String chatMessagesRemainingToday(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '오늘 $count개 남음',
+      one: '오늘 1개 남음',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get chatTranslatePreviewHint => '입력을 시작하면 번역이 표시됩니다';
+
+  @override
+  String get chatNoMessagesYet => '아직 메시지가 없습니다';
+
+  @override
+  String get chatMediaPhoto => '사진';
+
+  @override
+  String get chatMediaVideo => '동영상';
+
+  @override
+  String get chatMediaAudio => '오디오';
+
+  @override
+  String get chatMediaFile => '파일';
+
+  @override
+  String get chatMediaGeneric => '미디어';
 }

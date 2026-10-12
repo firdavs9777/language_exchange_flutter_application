@@ -3899,5 +3899,14 @@
   "chatDraft": "ฉบับร่าง: ",
   "chatTyping": "กำลังพิมพ์...",
   "chatPoweredBy": "ขับเคลื่อนโดย ",
-  "chatReconnecting": "กำลังเชื่อมต่อแชทอีกครั้ง..."
+  "chatReconnecting": "กำลังเชื่อมต่อแชทอีกครั้ง...",
+  "chatDailyLimitReached": "ถึงขีดจำกัดข้อความรายวันแล้ว",
+  "chatMessagesRemainingToday": "{count, plural, =1{วันนี้เหลืออีก 1 ข้อความ} other{วันนี้เหลืออีก {count} ข้อความ}}",
+  "chatTranslatePreviewHint": "เริ่มพิมพ์เพื่อดูคำแปล",
+  "chatNoMessagesYet": "ยังไม่มีข้อความ",
+  "chatMediaPhoto": "รูปภาพ",
+  "chatMediaVideo": "วิดีโอ",
+  "chatMediaAudio": "เสียง",
+  "chatMediaFile": "ไฟล์",
+  "chatMediaGeneric": "สื่อ"
 }

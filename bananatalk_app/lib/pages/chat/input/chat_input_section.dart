@@ -193,8 +193,9 @@ class _MessageLimitIndicator extends ConsumerWidget {
               Expanded(
                 child: Text(
                   isOut
-                      ? 'Daily message limit reached'
-                      : '$remaining message${remaining == 1 ? '' : 's'} remaining today',
+                      ? AppLocalizations.of(context)!.chatDailyLimitReached
+                      : AppLocalizations.of(context)!
+                            .chatMessagesRemainingToday(remaining),
                   style: TextStyle(
                     fontSize: 12,
                     color: statusColor,
@@ -273,21 +274,22 @@ class _UploadProgressBanner extends StatelessWidget {
     return '${(bytes / (1024 * 1024)).toStringAsFixed(1)} MB';
   }
 
-  String _getMediaType(String? name) {
-    if (name == null) return 'media';
+  String _getMediaType(BuildContext context, String? name) {
+    final l10n = AppLocalizations.of(context)!;
+    if (name == null) return l10n.chatMediaGeneric;
     final ext = name.split('.').last.toLowerCase();
     if (['jpg', 'jpeg', 'png', 'gif', 'webp', 'heic'].contains(ext))
-      return 'photo';
-    if (['mp4', 'mov', 'avi', 'mkv'].contains(ext)) return 'video';
-    if (['mp3', 'm4a', 'wav', 'aac'].contains(ext)) return 'audio';
-    return 'file';
+      return l10n.chatMediaPhoto;
+    if (['mp4', 'mov', 'avi', 'mkv'].contains(ext)) return l10n.chatMediaVideo;
+    if (['mp3', 'm4a', 'wav', 'aac'].contains(ext)) return l10n.chatMediaAudio;
+    return l10n.chatMediaFile;
   }
 
   @override
   Widget build(BuildContext context) {
     final progress = totalBytes > 0 ? bytesSent / totalBytes : 0.0;
     final percentage = (progress * 100).toInt();
-    final mediaType = _getMediaType(fileName);
+    final mediaType = _getMediaType(context, fileName);
     final isDark = context.isDarkMode;
 
     return Container(

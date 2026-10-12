@@ -3899,5 +3899,14 @@
   "chatDraft": "Bản nháp: ",
   "chatTyping": "đang nhập...",
   "chatPoweredBy": "Cung cấp bởi ",
-  "chatReconnecting": "Đang kết nối lại với cuộc trò chuyện..."
+  "chatReconnecting": "Đang kết nối lại với cuộc trò chuyện...",
+  "chatDailyLimitReached": "Đã đạt giới hạn tin nhắn hằng ngày",
+  "chatMessagesRemainingToday": "{count, plural, =1{Hôm nay còn 1 tin nhắn} other{Hôm nay còn {count} tin nhắn}}",
+  "chatTranslatePreviewHint": "Bắt đầu nhập để xem bản dịch",
+  "chatNoMessagesYet": "Chưa có tin nhắn nào",
+  "chatMediaPhoto": "ảnh",
+  "chatMediaVideo": "video",
+  "chatMediaAudio": "âm thanh",
+  "chatMediaFile": "tệp",
+  "chatMediaGeneric": "phương tiện"
 }

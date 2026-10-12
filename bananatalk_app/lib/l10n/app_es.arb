@@ -3929,5 +3929,14 @@
   "chatDraft": "Borrador: ",
   "chatTyping": "escribiendo...",
   "chatPoweredBy": "Con tecnología de ",
-  "chatReconnecting": "Reconectando al chat..."
+  "chatReconnecting": "Reconectando al chat...",
+  "chatDailyLimitReached": "Límite diario de mensajes alcanzado",
+  "chatMessagesRemainingToday": "{count, plural, =1{1 mensaje restante hoy} other{{count} mensajes restantes hoy}}",
+  "chatTranslatePreviewHint": "Empieza a escribir para ver la traducción",
+  "chatNoMessagesYet": "Aún no hay mensajes",
+  "chatMediaPhoto": "foto",
+  "chatMediaVideo": "video",
+  "chatMediaAudio": "audio",
+  "chatMediaFile": "archivo",
+  "chatMediaGeneric": "contenido"
 }

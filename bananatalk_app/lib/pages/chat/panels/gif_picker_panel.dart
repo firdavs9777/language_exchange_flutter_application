@@ -376,7 +376,8 @@ class _GifPickerPanelState extends ConsumerState<GifPickerPanel> {
             Icon(Icons.wifi_off_rounded, size: 44, color: context.textMuted),
             const SizedBox(height: 12),
             Text(
-              _model.errorMessage ?? 'Something went wrong.',
+              _model.errorMessage ??
+                  AppLocalizations.of(context)!.somethingWentWrong,
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 14, color: context.textSecondary),
             ),

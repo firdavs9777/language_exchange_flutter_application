@@ -9643,4 +9643,39 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get chatReconnecting => 'Reconectando ao chat...';
+
+  @override
+  String get chatDailyLimitReached => 'Limite diário de mensagens atingido';
+
+  @override
+  String chatMessagesRemainingToday(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count mensagens restantes hoje',
+      one: '1 mensagem restante hoje',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get chatTranslatePreviewHint => 'Comece a digitar para ver a tradução';
+
+  @override
+  String get chatNoMessagesYet => 'Ainda não há mensagens';
+
+  @override
+  String get chatMediaPhoto => 'foto';
+
+  @override
+  String get chatMediaVideo => 'vídeo';
+
+  @override
+  String get chatMediaAudio => 'áudio';
+
+  @override
+  String get chatMediaFile => 'arquivo';
+
+  @override
+  String get chatMediaGeneric => 'mídia';
 }

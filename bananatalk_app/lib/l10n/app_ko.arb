@@ -3920,5 +3920,14 @@
   "chatDraft": "임시 저장: ",
   "chatTyping": "입력 중...",
   "chatPoweredBy": "제공: ",
-  "chatReconnecting": "채팅에 다시 연결하는 중..."
+  "chatReconnecting": "채팅에 다시 연결하는 중...",
+  "chatDailyLimitReached": "일일 메시지 한도에 도달했습니다",
+  "chatMessagesRemainingToday": "{count, plural, =1{오늘 1개 남음} other{오늘 {count}개 남음}}",
+  "chatTranslatePreviewHint": "입력을 시작하면 번역이 표시됩니다",
+  "chatNoMessagesYet": "아직 메시지가 없습니다",
+  "chatMediaPhoto": "사진",
+  "chatMediaVideo": "동영상",
+  "chatMediaAudio": "오디오",
+  "chatMediaFile": "파일",
+  "chatMediaGeneric": "미디어"
 }

@@ -3392,5 +3392,14 @@
   "chatDraft": "Лоиҳа: ",
   "chatTyping": "менависад...",
   "chatPoweredBy": "Бо дастгирии ",
-  "chatReconnecting": "Дубора пайваст шудан ба чат..."
+  "chatReconnecting": "Дубора пайваст шудан ба чат...",
+  "chatDailyLimitReached": "Ҳадди ҳаррӯзаи паёмҳо расид",
+  "chatMessagesRemainingToday": "{count, plural, =1{Имрӯз 1 паём монд} other{Имрӯз {count} паём монд}}",
+  "chatTranslatePreviewHint": "Барои дидани тарҷума навиштанро оғоз кунед",
+  "chatNoMessagesYet": "Ҳоло паёме нест",
+  "chatMediaPhoto": "акс",
+  "chatMediaVideo": "видео",
+  "chatMediaAudio": "аудио",
+  "chatMediaFile": "файл",
+  "chatMediaGeneric": "медиа"
 }

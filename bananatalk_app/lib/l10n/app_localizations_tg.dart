@@ -9647,4 +9647,39 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get chatReconnecting => 'Дубора пайваст шудан ба чат...';
+
+  @override
+  String get chatDailyLimitReached => 'Ҳадди ҳаррӯзаи паёмҳо расид';
+
+  @override
+  String chatMessagesRemainingToday(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Имрӯз $count паём монд',
+      one: 'Имрӯз 1 паём монд',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get chatTranslatePreviewHint => 'Барои дидани тарҷума навиштанро оғоз кунед';
+
+  @override
+  String get chatNoMessagesYet => 'Ҳоло паёме нест';
+
+  @override
+  String get chatMediaPhoto => 'акс';
+
+  @override
+  String get chatMediaVideo => 'видео';
+
+  @override
+  String get chatMediaAudio => 'аудио';
+
+  @override
+  String get chatMediaFile => 'файл';
+
+  @override
+  String get chatMediaGeneric => 'медиа';
 }

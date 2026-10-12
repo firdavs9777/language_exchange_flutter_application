@@ -533,8 +533,9 @@ class _ChatInputBarState extends ConsumerState<ChatInputBar>
                 Text(
                   preview == null || preview.isEmpty
                       ? (_hasText
-                            ? 'Translating…'
-                            : 'Start typing to see the translation')
+                            ? AppLocalizations.of(context)!.translating
+                            : AppLocalizations.of(context)!
+                                  .chatTranslatePreviewHint)
                       : preview,
                   style: TextStyle(
                     fontSize: 14,

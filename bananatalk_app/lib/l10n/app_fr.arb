@@ -4139,5 +4139,14 @@
   "chatDraft": "Brouillon : ",
   "chatTyping": "écrit...",
   "chatPoweredBy": "Propulsé par ",
-  "chatReconnecting": "Reconnexion au chat..."
+  "chatReconnecting": "Reconnexion au chat...",
+  "chatDailyLimitReached": "Limite quotidienne de messages atteinte",
+  "chatMessagesRemainingToday": "{count, plural, =1{1 message restant aujourd'hui} other{{count} messages restants aujourd'hui}}",
+  "chatTranslatePreviewHint": "Commencez à écrire pour voir la traduction",
+  "chatNoMessagesYet": "Aucun message pour l'instant",
+  "chatMediaPhoto": "photo",
+  "chatMediaVideo": "vidéo",
+  "chatMediaAudio": "audio",
+  "chatMediaFile": "fichier",
+  "chatMediaGeneric": "média"
 }

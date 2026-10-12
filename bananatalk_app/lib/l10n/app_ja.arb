@@ -3899,5 +3899,14 @@
   "chatDraft": "下書き: ",
   "chatTyping": "入力中...",
   "chatPoweredBy": "提供: ",
-  "chatReconnecting": "チャットに再接続中..."
+  "chatReconnecting": "チャットに再接続中...",
+  "chatDailyLimitReached": "1日のメッセージ上限に達しました",
+  "chatMessagesRemainingToday": "{count, plural, =1{本日あと1件} other{本日あと{count}件}}",
+  "chatTranslatePreviewHint": "入力を始めると翻訳が表示されます",
+  "chatNoMessagesYet": "まだメッセージはありません",
+  "chatMediaPhoto": "写真",
+  "chatMediaVideo": "動画",
+  "chatMediaAudio": "音声",
+  "chatMediaFile": "ファイル",
+  "chatMediaGeneric": "メディア"
 }

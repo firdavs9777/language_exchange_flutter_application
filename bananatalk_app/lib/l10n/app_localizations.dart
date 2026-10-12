@@ -17683,6 +17683,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Reconnecting to chat...'**
   String get chatReconnecting;
+
+  /// No description provided for @chatDailyLimitReached.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily message limit reached'**
+  String get chatDailyLimitReached;
+
+  /// No description provided for @chatMessagesRemainingToday.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 message remaining today} other{{count} messages remaining today}}'**
+  String chatMessagesRemainingToday(int count);
+
+  /// No description provided for @chatTranslatePreviewHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Start typing to see the translation'**
+  String get chatTranslatePreviewHint;
+
+  /// No description provided for @chatNoMessagesYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No messages yet'**
+  String get chatNoMessagesYet;
+
+  /// No description provided for @chatMediaPhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'photo'**
+  String get chatMediaPhoto;
+
+  /// No description provided for @chatMediaVideo.
+  ///
+  /// In en, this message translates to:
+  /// **'video'**
+  String get chatMediaVideo;
+
+  /// No description provided for @chatMediaAudio.
+  ///
+  /// In en, this message translates to:
+  /// **'audio'**
+  String get chatMediaAudio;
+
+  /// No description provided for @chatMediaFile.
+  ///
+  /// In en, this message translates to:
+  /// **'file'**
+  String get chatMediaFile;
+
+  /// No description provided for @chatMediaGeneric.
+  ///
+  /// In en, this message translates to:
+  /// **'media'**
+  String get chatMediaGeneric;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

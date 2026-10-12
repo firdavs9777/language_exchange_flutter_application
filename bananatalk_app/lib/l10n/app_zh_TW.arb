@@ -3590,5 +3590,14 @@
   "chatDraft": "草稿: ",
   "chatTyping": "正在輸入...",
   "chatPoweredBy": "技術支援: ",
-  "chatReconnecting": "正在重新連線聊天..."
+  "chatReconnecting": "正在重新連線聊天...",
+  "chatDailyLimitReached": "已達到每日訊息上限",
+  "chatMessagesRemainingToday": "{count, plural, =1{今天還剩 1 則訊息} other{今天還剩 {count} 則訊息}}",
+  "chatTranslatePreviewHint": "開始輸入即可查看翻譯",
+  "chatNoMessagesYet": "尚無訊息",
+  "chatMediaPhoto": "照片",
+  "chatMediaVideo": "影片",
+  "chatMediaAudio": "音訊",
+  "chatMediaFile": "檔案",
+  "chatMediaGeneric": "媒體"
 }

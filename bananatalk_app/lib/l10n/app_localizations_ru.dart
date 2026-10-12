@@ -9616,7 +9616,7 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
-  String get chatShareLocationThisChat => 'этим чатом';
+  String get chatShareLocationThisChat => 'этому чату';
 
   @override
   String get chatTranslationLimitReached => 'Достигнут лимит переводов';
@@ -9664,4 +9664,41 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get chatReconnecting => 'Повторное подключение к чату...';
+
+  @override
+  String get chatDailyLimitReached => 'Достигнут дневной лимит сообщений';
+
+  @override
+  String chatMessagesRemainingToday(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Осталось $count сообщения сегодня',
+      many: 'Осталось $count сообщений сегодня',
+      few: 'Осталось $count сообщения сегодня',
+      one: 'Осталось $count сообщение сегодня',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get chatTranslatePreviewHint => 'Начните печатать, чтобы увидеть перевод';
+
+  @override
+  String get chatNoMessagesYet => 'Сообщений пока нет';
+
+  @override
+  String get chatMediaPhoto => 'фото';
+
+  @override
+  String get chatMediaVideo => 'видео';
+
+  @override
+  String get chatMediaAudio => 'аудио';
+
+  @override
+  String get chatMediaFile => 'файл';
+
+  @override
+  String get chatMediaGeneric => 'медиа';
 }

@@ -6660,5 +6660,19 @@
   "chatDraft": "Draft: ",
   "chatTyping": "typing...",
   "chatPoweredBy": "Powered by ",
-  "chatReconnecting": "Reconnecting to chat..."
+  "chatReconnecting": "Reconnecting to chat...",
+  "chatDailyLimitReached": "Daily message limit reached",
+  "chatMessagesRemainingToday": "{count, plural, =1{1 message remaining today} other{{count} messages remaining today}}",
+  "@chatMessagesRemainingToday": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "chatTranslatePreviewHint": "Start typing to see the translation",
+  "chatNoMessagesYet": "No messages yet",
+  "chatMediaPhoto": "photo",
+  "chatMediaVideo": "video",
+  "chatMediaAudio": "audio",
+  "chatMediaFile": "file",
+  "chatMediaGeneric": "media"
 }

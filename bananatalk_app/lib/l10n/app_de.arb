@@ -4139,5 +4139,14 @@
   "chatDraft": "Entwurf: ",
   "chatTyping": "schreibt...",
   "chatPoweredBy": "Bereitgestellt von ",
-  "chatReconnecting": "Verbindung zum Chat wird wiederhergestellt..."
+  "chatReconnecting": "Verbindung zum Chat wird wiederhergestellt...",
+  "chatDailyLimitReached": "Tägliches Nachrichtenlimit erreicht",
+  "chatMessagesRemainingToday": "{count, plural, =1{Noch 1 Nachricht heute} other{Noch {count} Nachrichten heute}}",
+  "chatTranslatePreviewHint": "Fang an zu tippen, um die Übersetzung zu sehen",
+  "chatNoMessagesYet": "Noch keine Nachrichten",
+  "chatMediaPhoto": "Foto",
+  "chatMediaVideo": "Video",
+  "chatMediaAudio": "Audio",
+  "chatMediaFile": "Datei",
+  "chatMediaGeneric": "Medien"
 }
