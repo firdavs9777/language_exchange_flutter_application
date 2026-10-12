@@ -1525,7 +1525,10 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
                       widget.message.message != null &&
                       widget.message.message!.isNotEmpty &&
                       !widget.isSelectionMode) ...[
-                    ChatTipRow(messageId: widget.message.id),
+                    ChatTipRow(
+                      messageId: widget.message.id,
+                      chatId: widget.message.sender.id,
+                    ),
                     if (_inlineTranslation != null)
                       Padding(
                         padding: const EdgeInsets.only(
