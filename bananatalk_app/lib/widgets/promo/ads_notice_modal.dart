@@ -2,15 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 
-/// One-time notice shown to users after ads were introduced.
-/// Stored in SharedPreferences — shows exactly once per device.
+/// One-time notice shown after ads were introduced. Now a launch candidate:
+/// [isDue] is the old once-only check, [show] records and shows.
 class AdsNoticeModal {
   static const _prefKey = 'ads_notice_shown_v1';
 
-  static Future<void> showIfNeeded(BuildContext context) async {
+  static Future<bool> isDue() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      return prefs.getBool(_prefKey) != true;
+    } catch (_) {
+      return false;
+    }
+  }
+
+  static Future<void> show(BuildContext context) async {
     final prefs = await SharedPreferences.getInstance();
-    if (prefs.getBool(_prefKey) == true) return;
-    if (!context.mounted) return;
     await prefs.setBool(_prefKey, true);
     if (!context.mounted) return;
     await showModalBottomSheet<void>(

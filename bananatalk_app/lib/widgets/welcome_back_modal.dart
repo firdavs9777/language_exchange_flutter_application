@@ -1,7 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/services/launch_modal_coordinator.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
+
+/// Splash's welcome-back sheet, when [due] and this launch's [PopupBudget] is
+/// still unspent (an update dialog shown first wins). Spends the budget, so
+/// nothing else pops on the same launch. True when it showed.
+Future<bool> maybeShowWelcomeBack(
+  BuildContext context, {
+  required bool due,
+}) async {
+  if (!due || !context.mounted) return false;
+  if (!PopupBudget.tryConsume()) return false;
+  await showWelcomeBackModal(context);
+  return true;
+}
 
 Future<void> showWelcomeBackModal(BuildContext context) {
   return showModalBottomSheet<void>(

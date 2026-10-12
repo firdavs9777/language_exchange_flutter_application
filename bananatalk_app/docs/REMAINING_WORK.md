@@ -139,11 +139,12 @@ call or rejoin", and the caller already has the call on screen.
 - [x] A9 priming: budget, triggers (first matches / first wave / first message sent / received), events; chat-open trigger removed
 - [x] A10 AI Study promo folded into the spotlight rotation; `AiStudyPromoModal` deleted
 - [x] A11 `Announcement` model, `appConfig.announcements`, `lang` on app-config, seen set
-- [ ] A12 launch wiring: announcement / ads notice / spotlight candidates; version check reports the update dialog
+- [x] A12 launch wiring: announcement / ads notice / spotlight candidates; version check reports the update dialog; splash welcome-back shares the budget
 - [ ] A13 `AnnouncementScreen` at `/announcement/:id`
 - [ ] A14 notifications list `announcement` type + push routing
 - [ ] A15 Settings → Notifications "Announcements" toggle
 - [ ] A16 suspension screen reads `banReason`
+- [ ] `test/growth/first_session_test.dart`: "WavesTab primes once with 1 waves" / "primes never with 0 waves" fail (already failing before A12, at ddc6fcae)
 - [ ] Device QA rows in `docs/qa/onboarding-matrix.md` (owner, after a release build) — matrix file created in A1
 
 ## 0c. First-session guidance (2026-10-09) — spec `docs/superpowers/specs/2026-10-09-first-session-guidance-design.md`

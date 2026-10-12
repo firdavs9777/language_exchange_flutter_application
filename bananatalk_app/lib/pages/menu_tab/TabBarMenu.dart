@@ -11,8 +11,12 @@ import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/providers/badge_count_provider.dart';
 import 'package:bananatalk_app/pages/ai/tutor/scenario_picker_screen.dart';
 import 'package:bananatalk_app/services/activation_store.dart';
-import 'package:bananatalk_app/widgets/promo/ads_notice_modal.dart';
-import 'package:bananatalk_app/widgets/promos/feature_spotlight_sheet.dart';
+import 'package:bananatalk_app/models/app_config.dart';
+import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
+import 'package:bananatalk_app/services/guide_store.dart';
+import 'package:bananatalk_app/services/launch_candidates.dart';
+import 'package:bananatalk_app/services/launch_modal_coordinator.dart';
+import 'package:bananatalk_app/services/version_check_coordinator.dart';
 import 'package:bananatalk_app/pages/coins/coin_shop_screen.dart';
 import 'package:bananatalk_app/services/promo_service.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
@@ -42,12 +46,9 @@ final selectedTabProvider = StateProvider<int>((ref) => 0);
 /// tab switch tore it down (see `ReelsGridScreen`).
 const int kMomentsTabIndex = 3;
 
-/// In-memory guard so the rotating feature-spotlight promo (coins/rooms/
-/// voice) is attempted at most once per app process launch, on top of its
-/// own once-per-day SharedPreferences cap. Module-level (not per-State) so
-/// it survives `TabsScreen` being recreated (e.g. deep links reusing vs.
-/// rebuilding the widget) within the same process.
-bool _featureSpotlightAttemptedThisLaunch = false;
+/// The launch pop-ups run once per process (spec §4.1), even if TabsScreen
+/// is rebuilt by a deep link.
+bool _launchModalsRanThisProcess = false;
 
 /// Whether a [TabsScreen] has mounted before in this process (see
 /// [shouldSeedInitialTab]).
@@ -122,47 +123,52 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref.read(badgeCountProvider.notifier).fetchBadgeCount();
-      // One-time ads transparency notice — shown once per device after ads were added.
-      if (mounted) {
-        Future.delayed(const Duration(seconds: 1), () {
-          if (mounted) AdsNoticeModal.showIfNeeded(context);
-        });
-      }
-      // Rotating "feature spotlight" promo (coins/rooms/voice/AI Study). Reaching
-      // this point already means the user is logged in and on the home
-      // shell — the /home route is only reachable post-login (see
-      // app_router.dart: splash -> login -> home) — so no separate
-      // onboarding/login check is needed here. `pickPromo` itself enforces
-      // the once-per-day cap, per-promo "don't show again" snooze, the
-      // global dismiss-count stop, and coins eligibility; this call site
-      // only adds the once-per-process-launch guard and confirms this tab
-      // shell is still the active route before popping a sheet over it.
-      _maybeShowFeatureSpotlight();
+      _runLaunchModals();
     });
   }
 
-  Future<void> _maybeShowFeatureSpotlight() async {
-    if (_featureSpotlightAttemptedThisLaunch) return;
-    _featureSpotlightAttemptedThisLaunch = true;
-    if (!mounted) return;
+  /// Whether this shell is the visible route, so a pop-up would land on it
+  /// and not over a pushed screen. Callers check [mounted] first.
+  bool get _isCurrentRoute {
     final route = ModalRoute.of(context);
-    if (route != null && !route.isCurrent) return;
+    return route == null || route.isCurrent;
+  }
 
-    final lessonDone =
-        await ref.read(activationStoreProvider).isDone(ActivationAction.lesson);
-    if (!mounted) return;
-    final promo = await pickPromo(ref, lessonDone: lessonDone);
-    if (promo == null) return;
-    if (!mounted) return;
-    final route2 = ModalRoute.of(context);
-    if (route2 != null && !route2.isCurrent) return;
+  /// At most one pop-up per launch, chosen by [LaunchModalCoordinator]. The
+  /// update dialog (and the welcome-back sheet) already ran in splash and
+  /// spent the shared PopupBudget if they showed; inside the guide period
+  /// only the ads notice can follow.
+  Future<void> _runLaunchModals() async {
+    if (_launchModalsRanThisProcess) return;
+    _launchModalsRanThisProcess = true;
+    // Let the shell paint first (the ads notice always waited a second).
+    await Future<void>.delayed(const Duration(seconds: 1));
+    if (!mounted || !_isCurrentRoute) return;
 
-    await showFeatureSpotlight(
+    final guidePeriod =
+        await launchGuidePeriod(() => ref.read(isGuidePeriodProvider.future));
+    AppConfig? config;
+    try {
+      config = await ref.read(appConfigProvider.future);
+    } catch (_) {
+      config = null;
+    }
+    if (!mounted || !_isCurrentRoute) return;
+
+    final store = ref.read(activationStoreProvider);
+    await LaunchModalCoordinator(standardLaunchCandidates(
+      config: config,
+      pickSpotlight: () async {
+        final lessonDone = await store.isDone(ActivationAction.lesson);
+        if (!mounted || !_isCurrentRoute) return null;
+        return pickPromo(ref, lessonDone: lessonDone);
+      },
+      onSpotlightTry: _openPromoDestination,
+    )).run(
       context,
-      promo,
-      onTry: () => _openPromoDestination(promo),
+      guidePeriod: guidePeriod,
+      updateShown: VersionCheckCoordinator.lastCheckShowedUpdate,
     );
-    await markShown(promo);
   }
 
   /// Deep-link for the feature spotlight's "Try it" CTA.
